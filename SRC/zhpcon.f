@@ -41,31 +41,31 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( ANORM.LT.ZERO ) THEN
+      } else if ( ANORM.LT.ZERO ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZHPCON', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       RCOND = ZERO
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          RCOND = ONE
          RETURN
-      ELSE IF( ANORM.LE.ZERO ) THEN
+      } else if ( ANORM.LE.ZERO ) {
          RETURN
-      END IF
+      }
 
       // Check that the diagonal matrix D is nonsingular.
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Upper triangular storage: examine D from bottom to top
 
@@ -83,20 +83,20 @@
             IF( IPIV( I ).GT.0 .AND. AP( IP ).EQ.ZERO ) RETURN
             IP = IP + N - I + 1
    20    CONTINUE
-      END IF
+      }
 
       // Estimate the 1-norm of the inverse.
 
       KASE = 0
    30 CONTINUE
       CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
-      IF( KASE.NE.0 ) THEN
+      if ( KASE.NE.0 ) {
 
          // Multiply by inv(L*D*L**H) or inv(U*D*U**H).
 
          CALL ZHPTRS( UPLO, N, 1, AP, IPIV, WORK, N, INFO )
          GO TO 30
-      END IF
+      }
 
       // Compute the estimate of the reciprocal condition number.
 

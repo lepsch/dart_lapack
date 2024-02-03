@@ -37,19 +37,19 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 .OR. N.LE.0 ) THEN
+      if ( M.LE.0 .OR. N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Compute A - Q * B * P**H one column at a time.
 
       RESID = ZERO
-      IF( KD.NE.0 ) THEN
+      if ( KD.NE.0 ) {
 
          // B is bidiagonal.
 
-         IF( KD.NE.0 .AND. M.GE.N ) THEN
+         if ( KD.NE.0 .AND. M.GE.N ) {
 
             // B is upper bidiagonal and M >= N.
 
@@ -62,7 +62,7 @@
                CALL CGEMV( 'No transpose', M, N, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
    20       CONTINUE
-         ELSE IF( KD.LT.0 ) THEN
+         } else if ( KD.LT.0 ) {
 
             // B is upper bidiagonal and M < N.
 
@@ -88,12 +88,12 @@
                CALL CGEMV( 'No transpose', M, M, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
    60       CONTINUE
-         END IF
+         }
       } else {
 
          // B is diagonal.
 
-         IF( M.GE.N ) THEN
+         if ( M.GE.N ) {
             DO 80 J = 1, N
                CALL CCOPY( M, A( 1, J ), 1, WORK, 1 )
                DO 70 I = 1, N
@@ -111,27 +111,27 @@
                CALL CGEMV( 'No transpose', M, M, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
   100       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       // Compute norm(A - Q * B * P**H) / ( n * norm(A) * EPS )
 
       ANORM = CLANGE( '1', M, N, A, LDA, RWORK )
       EPS = SLAMCH( 'Precision' )
 
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
-         IF( ANORM.GE.RESID ) THEN
+         if ( ANORM.GE.RESID ) {
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS )
          } else {
-            IF( ANORM.LT.ONE ) THEN
+            if ( ANORM.LT.ONE ) {
                RESID = ( MIN( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS )
             } else {
                RESID = MIN( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
       RETURN
 

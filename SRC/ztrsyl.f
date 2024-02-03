@@ -48,27 +48,27 @@
       NOTRNB = LSAME( TRANB, 'N' )
 
       INFO = 0
-      IF( .NOT.NOTRNA .AND. .NOT.LSAME( TRANA, 'C' ) ) THEN
+      if ( .NOT.NOTRNA .AND. .NOT.LSAME( TRANA, 'C' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOTRNB .AND. .NOT.LSAME( TRANB, 'C' ) ) THEN
+      } else if ( .NOT.NOTRNB .AND. .NOT.LSAME( TRANB, 'C' ) ) {
          INFO = -2
-      ELSE IF( ISGN.NE.1 .AND. ISGN.NE.-1 ) THEN
+      } else if ( ISGN.NE.1 .AND. ISGN.NE.-1 ) {
          INFO = -3
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+      } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -11
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTRSYL', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -85,7 +85,7 @@
       SMIN = MAX( SMLNUM, EPS*ZLANGE( 'M', M, M, A, LDA, DUM ), EPS*ZLANGE( 'M', N, N, B, LDB, DUM ) )
       SGN = ISGN
 
-      IF( NOTRNA .AND. NOTRNB ) THEN
+      if ( NOTRNA .AND. NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B = scale*C.
 
@@ -109,29 +109,29 @@
                SCALOC = ONE
                A11 = A( K, K ) + SGN*B( L, L )
                DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) )
-               IF( DA11.LE.SMIN ) THEN
+               if ( DA11.LE.SMIN ) {
                   A11 = SMIN
                   DA11 = SMIN
                   INFO = 1
-               END IF
+               }
                DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) )
-               IF( DA11.LT.ONE .AND. DB.GT.ONE ) THEN
+               if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
                   IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
-               END IF
+               }
                X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
 
-               IF( SCALOC.NE.ONE ) THEN
+               if ( SCALOC.NE.ONE ) {
                   DO 10 J = 1, N
                      CALL ZDSCAL( M, SCALOC, C( 1, J ), 1 )
    10             CONTINUE
                   SCALE = SCALE*SCALOC
-               END IF
+               }
                C( K, L ) = X11
 
    20       CONTINUE
    30    CONTINUE
 
-      ELSE IF( .NOT.NOTRNA .AND. NOTRNB ) THEN
+      } else if ( .NOT.NOTRNA .AND. NOTRNB ) {
 
          // Solve    A**H *X + ISGN*X*B = scale*C.
 
@@ -155,30 +155,30 @@
                SCALOC = ONE
                A11 = DCONJG( A( K, K ) ) + SGN*B( L, L )
                DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) )
-               IF( DA11.LE.SMIN ) THEN
+               if ( DA11.LE.SMIN ) {
                   A11 = SMIN
                   DA11 = SMIN
                   INFO = 1
-               END IF
+               }
                DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) )
-               IF( DA11.LT.ONE .AND. DB.GT.ONE ) THEN
+               if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
                   IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
-               END IF
+               }
 
                X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
 
-               IF( SCALOC.NE.ONE ) THEN
+               if ( SCALOC.NE.ONE ) {
                   DO 40 J = 1, N
                      CALL ZDSCAL( M, SCALOC, C( 1, J ), 1 )
    40             CONTINUE
                   SCALE = SCALE*SCALOC
-               END IF
+               }
                C( K, L ) = X11
 
    50       CONTINUE
    60    CONTINUE
 
-      ELSE IF( .NOT.NOTRNA .AND. .NOT.NOTRNB ) THEN
+      } else if ( .NOT.NOTRNA .AND. .NOT.NOTRNB ) {
 
          // Solve    A**H*X + ISGN*X*B**H = C.
 
@@ -205,30 +205,30 @@
                SCALOC = ONE
                A11 = DCONJG( A( K, K )+SGN*B( L, L ) )
                DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) )
-               IF( DA11.LE.SMIN ) THEN
+               if ( DA11.LE.SMIN ) {
                   A11 = SMIN
                   DA11 = SMIN
                   INFO = 1
-               END IF
+               }
                DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) )
-               IF( DA11.LT.ONE .AND. DB.GT.ONE ) THEN
+               if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
                   IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
-               END IF
+               }
 
                X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
 
-               IF( SCALOC.NE.ONE ) THEN
+               if ( SCALOC.NE.ONE ) {
                   DO 70 J = 1, N
                      CALL ZDSCAL( M, SCALOC, C( 1, J ), 1 )
    70             CONTINUE
                   SCALE = SCALE*SCALOC
-               END IF
+               }
                C( K, L ) = X11
 
    80       CONTINUE
    90    CONTINUE
 
-      ELSE IF( NOTRNA .AND. .NOT.NOTRNB ) THEN
+      } else if ( NOTRNA .AND. .NOT.NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B**H = C.
 
@@ -251,30 +251,30 @@
                SCALOC = ONE
                A11 = A( K, K ) + SGN*DCONJG( B( L, L ) )
                DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) )
-               IF( DA11.LE.SMIN ) THEN
+               if ( DA11.LE.SMIN ) {
                   A11 = SMIN
                   DA11 = SMIN
                   INFO = 1
-               END IF
+               }
                DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) )
-               IF( DA11.LT.ONE .AND. DB.GT.ONE ) THEN
+               if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
                   IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
-               END IF
+               }
 
                X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
 
-               IF( SCALOC.NE.ONE ) THEN
+               if ( SCALOC.NE.ONE ) {
                   DO 100 J = 1, N
                      CALL ZDSCAL( M, SCALOC, C( 1, J ), 1 )
   100             CONTINUE
                   SCALE = SCALE*SCALOC
-               END IF
+               }
                C( K, L ) = X11
 
   110       CONTINUE
   120    CONTINUE
 
-      END IF
+      }
 
       RETURN
 

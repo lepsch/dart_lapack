@@ -33,68 +33,68 @@
 
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          K = MIN( M, N )
-         IF( K.EQ.0 ) THEN
+         if ( K.EQ.0 ) {
             LWKOPT = 1
          } else {
             NB = ILAENV( 1, 'ZGEQLF', ' ', M, N, -1, -1 )
             LWKOPT = N*NB
-         END IF
+         }
          WORK( 1 ) = LWKOPT
 
-         IF( .NOT.LQUERY ) THEN
+         if ( .NOT.LQUERY ) {
             IF( LWORK.LE.0 .OR. ( M.GT.0 .AND. LWORK.LT.MAX( 1, N ) ) ) INFO = -7
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGEQLF', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( K.EQ.0 ) THEN
+      if ( K.EQ.0 ) {
          RETURN
-      END IF
+      }
 
       NBMIN = 2
       NX = 1
       IWS = N
-      IF( NB.GT.1 .AND. NB.LT.K ) THEN
+      if ( NB.GT.1 .AND. NB.LT.K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
          NX = MAX( 0, ILAENV( 3, 'ZGEQLF', ' ', M, N, -1, -1 ) )
-         IF( NX.LT.K ) THEN
+         if ( NX.LT.K ) {
 
             // Determine if workspace is large enough for blocked code.
 
             LDWORK = N
             IWS = LDWORK*NB
-            IF( LWORK.LT.IWS ) THEN
+            if ( LWORK.LT.IWS ) {
 
                // Not enough workspace to use optimal NB:  reduce NB and
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK
                NBMIN = MAX( 2, ILAENV( 2, 'ZGEQLF', ' ', M, N, -1, -1 ) )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
-      IF( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) THEN
+      if ( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) {
 
          // Use blocked code initially.
          // The last kk columns are handled by the block method.
@@ -109,7 +109,7 @@
             // A(1:m-k+i+ib-1,n-k+i:n-k+i+ib-1)
 
             CALL ZGEQL2( M-K+I+IB-1, IB, A( 1, N-K+I ), LDA, TAU( I ), WORK, IINFO )
-            IF( N-K+I.GT.1 ) THEN
+            if ( N-K+I.GT.1 ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i+ib-1) . . . H(i+1) H(i)
@@ -119,14 +119,14 @@
                // Apply H**H to A(1:m-k+i+ib-1,1:n-k+i-1) from the left
 
                CALL ZLARFB( 'Left', 'Conjugate transpose', 'Backward', 'Columnwise', M-K+I+IB-1, N-K+I-1, IB, A( 1, N-K+I ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK )
-            END IF
+            }
    10    CONTINUE
          MU = M - K + I + NB - 1
          NU = N - K + I + NB - 1
       } else {
          MU = M
          NU = N
-      END IF
+      }
 
       // Use unblocked code to factor the last or only block
 

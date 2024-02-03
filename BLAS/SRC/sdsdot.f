@@ -18,11 +18,11 @@
       // INTRINSIC DBLE
       // ..
       DSDOT = SB
-      IF (N.LE.0) THEN
+      if (N.LE.0) {
          SDSDOT = REAL(DSDOT)
          RETURN
-      END IF
-      IF (INCX.EQ.INCY .AND. INCX.GT.0) THEN
+      }
+      if (INCX.EQ.INCY .AND. INCX.GT.0) {
 
       // Code for equal and positive increments.
 
@@ -43,7 +43,7 @@
             KX = KX + INCX
             KY = KY + INCY
          END DO
-      END IF
+      }
       SDSDOT = REAL(DSDOT)
       RETURN
 

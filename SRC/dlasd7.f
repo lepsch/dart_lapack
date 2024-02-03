@@ -42,29 +42,29 @@
       N = NL + NR + 1
       M = N + SQRE
 
-      IF( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) THEN
+      if ( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) {
          INFO = -1
-      ELSE IF( NL.LT.1 ) THEN
+      } else if ( NL.LT.1 ) {
          INFO = -2
-      ELSE IF( NR.LT.1 ) THEN
+      } else if ( NR.LT.1 ) {
          INFO = -3
-      ELSE IF( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) THEN
+      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
          INFO = -4
-      ELSE IF( LDGCOL.LT.N ) THEN
+      } else if ( LDGCOL.LT.N ) {
          INFO = -22
-      ELSE IF( LDGNUM.LT.N ) THEN
+      } else if ( LDGNUM.LT.N ) {
          INFO = -24
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLASD7', -INFO )
          RETURN
-      END IF
+      }
 
       NLP1 = NL + 1
       NLP2 = NL + 2
-      IF( ICOMPQ.EQ.1 ) THEN
+      if ( ICOMPQ.EQ.1 ) {
          GIVPTR = 0
-      END IF
+      }
 
       // Generate the first part of the vector Z and move the singular
       // values in the first part of D one position backward.
@@ -141,7 +141,7 @@
       K = 1
       K2 = N + 1
       DO 60 J = 2, N
-         IF( ABS( Z( J ) ).LE.TOL ) THEN
+         if ( ABS( Z( J ) ).LE.TOL ) {
 
             // Deflate due to small z component.
 
@@ -151,14 +151,14 @@
          } else {
             JPREV = J
             GO TO 70
-         END IF
+         }
    60 CONTINUE
    70 CONTINUE
       J = JPREV
    80 CONTINUE
       J = J + 1
       IF( J.GT.N ) GO TO 90
-      IF( ABS( Z( J ) ).LE.TOL ) THEN
+      if ( ABS( Z( J ) ).LE.TOL ) {
 
          // Deflate due to small z component.
 
@@ -168,7 +168,7 @@
 
          // Check if singular values are close enough to allow deflation.
 
-         IF( ABS( D( J )-D( JPREV ) ).LE.TOL ) THEN
+         if ( ABS( D( J )-D( JPREV ) ).LE.TOL ) {
 
             // Deflation is possible.
 
@@ -186,21 +186,21 @@
 
             // Record the appropriate Givens rotation
 
-            IF( ICOMPQ.EQ.1 ) THEN
+            if ( ICOMPQ.EQ.1 ) {
                GIVPTR = GIVPTR + 1
                IDXJP = IDXQ( IDX( JPREV )+1 )
                IDXJ = IDXQ( IDX( J )+1 )
-               IF( IDXJP.LE.NLP1 ) THEN
+               if ( IDXJP.LE.NLP1 ) {
                   IDXJP = IDXJP - 1
-               END IF
-               IF( IDXJ.LE.NLP1 ) THEN
+               }
+               if ( IDXJ.LE.NLP1 ) {
                   IDXJ = IDXJ - 1
-               END IF
+               }
                GIVCOL( GIVPTR, 2 ) = IDXJP
                GIVCOL( GIVPTR, 1 ) = IDXJ
                GIVNUM( GIVPTR, 2 ) = C
                GIVNUM( GIVPTR, 1 ) = S
-            END IF
+            }
             CALL DROT( 1, VF( JPREV ), 1, VF( J ), 1, C, S )
             CALL DROT( 1, VL( JPREV ), 1, VL( J ), 1, C, S )
             K2 = K2 - 1
@@ -212,8 +212,8 @@
             DSIGMA( K ) = D( JPREV )
             IDXP( K ) = JPREV
             JPREV = J
-         END IF
-      END IF
+         }
+      }
       GO TO 80
    90 CONTINUE
 
@@ -236,15 +236,15 @@
          VFW( J ) = VF( JP )
          VLW( J ) = VL( JP )
   110 CONTINUE
-      IF( ICOMPQ.EQ.1 ) THEN
+      if ( ICOMPQ.EQ.1 ) {
          DO 120 J = 2, N
             JP = IDXP( J )
             PERM( J ) = IDXQ( IDX( JP )+1 )
-            IF( PERM( J ).LE.NLP1 ) THEN
+            if ( PERM( J ).LE.NLP1 ) {
                PERM( J ) = PERM( J ) - 1
-            END IF
+            }
   120    CONTINUE
-      END IF
+      }
 
       // The deflated singular values go back into the last N - K slots of
       // D.
@@ -257,25 +257,25 @@
       DSIGMA( 1 ) = ZERO
       HLFTOL = TOL / TWO
       IF( ABS( DSIGMA( 2 ) ).LE.HLFTOL ) DSIGMA( 2 ) = HLFTOL
-      IF( M.GT.N ) THEN
+      if ( M.GT.N ) {
          Z( 1 ) = DLAPY2( Z1, Z( M ) )
-         IF( Z( 1 ).LE.TOL ) THEN
+         if ( Z( 1 ).LE.TOL ) {
             C = ONE
             S = ZERO
             Z( 1 ) = TOL
          } else {
             C = Z1 / Z( 1 )
             S = -Z( M ) / Z( 1 )
-         END IF
+         }
          CALL DROT( 1, VF( M ), 1, VF( 1 ), 1, C, S )
          CALL DROT( 1, VL( M ), 1, VL( 1 ), 1, C, S )
       } else {
-         IF( ABS( Z1 ).LE.TOL ) THEN
+         if ( ABS( Z1 ).LE.TOL ) {
             Z( 1 ) = TOL
          } else {
             Z( 1 ) = Z1
-         END IF
-      END IF
+         }
+      }
 
       // Restore Z, VF, and VL.
 

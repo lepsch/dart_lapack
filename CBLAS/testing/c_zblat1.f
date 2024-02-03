@@ -32,11 +32,11 @@
          INCX = 9999
          INCY = 9999
          MODE = 9999
-         IF (ICASE.LE.5) THEN
+         if (ICASE.LE.5) {
             CALL CHECK2(SFAC)
-         ELSE IF (ICASE.GE.6) THEN
+         } else if (ICASE.GE.6) {
             CALL CHECK1(SFAC)
-         END IF
+         }
          // -- Print
          IF (PASS) WRITE (NOUT,99998)
    20 CONTINUE
@@ -117,33 +117,33 @@
             DO 20 I = 1, LEN
                CX(I) = CV(I,NP1,INCX)
    20       CONTINUE
-            IF (ICASE.EQ.6) THEN
+            if (ICASE.EQ.6) {
                // .. DZNRM2TEST ..
                CALL STEST1(DZNRM2TEST(N,CX,INCX),STRUE2(NP1), STRUE2(NP1),SFAC)
-            ELSE IF (ICASE.EQ.7) THEN
+            } else if (ICASE.EQ.7) {
                // .. DZASUMTEST ..
                CALL STEST1(DZASUMTEST(N,CX,INCX),STRUE4(NP1), STRUE4(NP1),SFAC)
-            ELSE IF (ICASE.EQ.8) THEN
+            } else if (ICASE.EQ.8) {
                // .. ZSCALTEST ..
                CALL ZSCALTEST(N,CA,CX,INCX)
                CALL CTEST(LEN,CX,CTRUE5(1,NP1,INCX),CTRUE5(1,NP1,INCX), SFAC)
-            ELSE IF (ICASE.EQ.9) THEN
+            } else if (ICASE.EQ.9) {
                // .. ZDSCALTEST ..
                CALL ZDSCALTEST(N,SA,CX,INCX)
                CALL CTEST(LEN,CX,CTRUE6(1,NP1,INCX),CTRUE6(1,NP1,INCX), SFAC)
-            ELSE IF (ICASE.EQ.10) THEN
+            } else if (ICASE.EQ.10) {
                // .. IZAMAXTEST ..
                CALL ITEST1(IZAMAXTEST(N,CX,INCX),ITRUE3(NP1))
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
-            END IF
+            }
 
    40    CONTINUE
    60 CONTINUE
 
       INCX = 1
-      IF (ICASE.EQ.8) THEN
+      if (ICASE.EQ.8) {
          // ZSCALTEST
          // Add a test for alpha equal to zero.
          CA = (0.0D0,0.0D0)
@@ -153,7 +153,7 @@
    80    CONTINUE
          CALL ZSCALTEST(5,CA,CX,INCX)
          CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
-      ELSE IF (ICASE.EQ.9) THEN
+      } else if (ICASE.EQ.9) {
          // ZDSCALTEST
          // Add a test for alpha equal to zero.
          SA = 0.0D0
@@ -179,7 +179,7 @@
   140    CONTINUE
          CALL ZDSCALTEST(5,SA,CX,INCX)
          CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
-      END IF
+      }
       RETURN
       }
       SUBROUTINE CHECK2(SFAC)
@@ -231,25 +231,25 @@
                CX(I) = CX1(I)
                CY(I) = CY1(I)
    20       CONTINUE
-            IF (ICASE.EQ.1) THEN
+            if (ICASE.EQ.1) {
                // .. ZDOTCTEST ..
                CALL ZDOTCTEST(N,CX,INCX,CY,INCY,ZTEMP)
                CDOT(1) = ZTEMP
                CALL CTEST(1,CDOT,CT6(KN,KI),CSIZE1(KN),SFAC)
-            ELSE IF (ICASE.EQ.2) THEN
+            } else if (ICASE.EQ.2) {
                // .. ZDOTUTEST ..
                CALL ZDOTUTEST(N,CX,INCX,CY,INCY,ZTEMP)
                CDOT(1) = ZTEMP
                CALL CTEST(1,CDOT,CT7(KN,KI),CSIZE1(KN),SFAC)
-            ELSE IF (ICASE.EQ.3) THEN
+            } else if (ICASE.EQ.3) {
                // .. ZAXPYTEST ..
                CALL ZAXPYTEST(N,CA,CX,INCX,CY,INCY)
                CALL CTEST(LENY,CY,CT8(1,KN,KI),CSIZE2(1,KSIZE),SFAC)
-            ELSE IF (ICASE.EQ.4) THEN
+            } else if (ICASE.EQ.4) {
                // .. ZCOPYTEST ..
                CALL ZCOPYTEST(N,CX,INCX,CY,INCY)
                CALL CTEST(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0D0)
-            ELSE IF (ICASE.EQ.5) THEN
+            } else if (ICASE.EQ.5) {
                // .. ZSWAPTEST ..
                CALL ZSWAPTEST(N,CX,INCX,CY,INCY)
                CALL CTEST(LENX,CX,CT10X(1,KN,KI),CSIZE3,1.0D0)
@@ -257,7 +257,7 @@
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
-            END IF
+            }
 
    40    CONTINUE
    60 CONTINUE

@@ -39,19 +39,19 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -3
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZPBTF2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -59,7 +59,7 @@
 
       KLD = MAX( 1, LDAB-1 )
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Compute the Cholesky factorization A = U**H * U.
 
@@ -68,10 +68,10 @@
             // Compute U(J,J) and test for non-positive-definiteness.
 
             AJJ = DBLE( AB( KD+1, J ) )
-            IF( AJJ.LE.ZERO ) THEN
+            if ( AJJ.LE.ZERO ) {
                AB( KD+1, J ) = AJJ
                GO TO 30
-            END IF
+            }
             AJJ = SQRT( AJJ )
             AB( KD+1, J ) = AJJ
 
@@ -79,12 +79,12 @@
            t // railing submatrix within the band.
 
             KN = MIN( KD, N-J )
-            IF( KN.GT.0 ) THEN
+            if ( KN.GT.0 ) {
                CALL ZDSCAL( KN, ONE / AJJ, AB( KD, J+1 ), KLD )
                CALL ZLACGV( KN, AB( KD, J+1 ), KLD )
                CALL ZHER( 'Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
                CALL ZLACGV( KN, AB( KD, J+1 ), KLD )
-            END IF
+            }
    10    CONTINUE
       } else {
 
@@ -95,10 +95,10 @@
             // Compute L(J,J) and test for non-positive-definiteness.
 
             AJJ = DBLE( AB( 1, J ) )
-            IF( AJJ.LE.ZERO ) THEN
+            if ( AJJ.LE.ZERO ) {
                AB( 1, J ) = AJJ
                GO TO 30
-            END IF
+            }
             AJJ = SQRT( AJJ )
             AB( 1, J ) = AJJ
 
@@ -106,12 +106,12 @@
            t // railing submatrix within the band.
 
             KN = MIN( KD, N-J )
-            IF( KN.GT.0 ) THEN
+            if ( KN.GT.0 ) {
                CALL ZDSCAL( KN, ONE / AJJ, AB( 2, J ), 1 )
                CALL ZHER( 'Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
       RETURN
 
    30 CONTINUE

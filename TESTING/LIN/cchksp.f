@@ -104,13 +104,13 @@
 
             DO 150 IUPLO = 1, 2
                UPLO = UPLOS( IUPLO )
-               IF( LSAME( UPLO, 'U' ) ) THEN
+               if ( LSAME( UPLO, 'U' ) ) {
                   PACKIT = 'C'
                } else {
                   PACKIT = 'R'
-               END IF
+               }
 
-               IF( IMAT.NE.NTYPES ) THEN
+               if ( IMAT.NE.NTYPES ) {
 
                   // Set up parameters with CLATB4 and generate a test
                   // matrix with CLATMS.
@@ -122,28 +122,28 @@
 
                   // Check error code from CLATMS.
 
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                      CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                      GO TO 150
-                  END IF
+                  }
 
                   // For types 3-6, zero one or more rows and columns of
                  t // he matrix to test that INFO is returned correctly.
 
-                  IF( ZEROT ) THEN
-                     IF( IMAT.EQ.3 ) THEN
+                  if ( ZEROT ) {
+                     if ( IMAT.EQ.3 ) {
                         IZERO = 1
-                     ELSE IF( IMAT.EQ.4 ) THEN
+                     } else if ( IMAT.EQ.4 ) {
                         IZERO = N
                      } else {
                         IZERO = N / 2 + 1
-                     END IF
+                     }
 
-                     IF( IMAT.LT.6 ) THEN
+                     if ( IMAT.LT.6 ) {
 
                         // Set row and column IZERO to zero.
 
-                        IF( IUPLO.EQ.1 ) THEN
+                        if ( IUPLO.EQ.1 ) {
                            IOFF = ( IZERO-1 )*IZERO / 2
                            DO 20 I = 1, IZERO - 1
                               A( IOFF+I ) = ZERO
@@ -163,9 +163,9 @@
                            DO 50 I = IZERO, N
                               A( IOFF+I ) = ZERO
    50                      CONTINUE
-                        END IF
+                        }
                      } else {
-                        IF( IUPLO.EQ.1 ) THEN
+                        if ( IUPLO.EQ.1 ) {
 
                            // Set the first IZERO rows and columns to zero.
 
@@ -189,18 +189,18 @@
    80                         CONTINUE
                               IOFF = IOFF + N - J
    90                      CONTINUE
-                        END IF
-                     END IF
+                        }
+                     }
                   } else {
                      IZERO = 0
-                  END IF
+                  }
                } else {
 
                   // Use a special block diagonal matrix to test alternate
                   // code for the 2 x 2 blocks.
 
                   CALL CLATSP( UPLO, N, A, ISEED )
-               END IF
+               }
 
                // Compute the L*D*L' or U*D*U' factorization of the matrix.
 
@@ -213,27 +213,27 @@
                // pivoting.
 
                K = IZERO
-               IF( K.GT.0 ) THEN
+               if ( K.GT.0 ) {
   100             CONTINUE
-                  IF( IWORK( K ).LT.0 ) THEN
-                     IF( IWORK( K ).NE.-K ) THEN
+                  if ( IWORK( K ).LT.0 ) {
+                     if ( IWORK( K ).NE.-K ) {
                         K = -IWORK( K )
                         GO TO 100
-                     END IF
-                  ELSE IF( IWORK( K ).NE.K ) THEN
+                     }
+                  } else if ( IWORK( K ).NE.K ) {
                      K = IWORK( K )
                      GO TO 100
-                  END IF
-               END IF
+                  }
+               }
 
                // Check error code from CSPTRF.
 
                IF( INFO.NE.K ) CALL ALAERH( PATH, 'CSPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   TRFCON = .TRUE.
                } else {
                   TRFCON = .FALSE.
-               END IF
+               }
 
 *+    TEST 1
                // Reconstruct matrix from factors and compute residual.
@@ -244,7 +244,7 @@
 *+    TEST 2
                // Form the inverse and compute the residual.
 
-               IF( .NOT.TRFCON ) THEN
+               if ( .NOT.TRFCON ) {
                   CALL CCOPY( NPP, AFAC, 1, AINV, 1 )
                   SRNAMT = 'CSPTRI'
                   CALL CSPTRI( UPLO, N, AINV, IWORK, WORK, INFO )
@@ -255,25 +255,25 @@
 
                   CALL CSPT03( UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
                   NT = 2
-               END IF
+               }
 
                // Print information about the tests that did not pass
               t // he threshold.
 
                DO 110 K = 1, NT
-                  IF( RESULT( K ).GE.THRESH ) THEN
+                  if ( RESULT( K ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
-                  END IF
+                  }
   110          CONTINUE
                NRUN = NRUN + NT
 
                // Do only the condition estimate if INFO is not 0.
 
-               IF( TRFCON ) THEN
+               if ( TRFCON ) {
                   RCONDC = ZERO
                   GO TO 140
-               END IF
+               }
 
                DO 130 IRHS = 1, NNS
                   NRHS = NSVAL( IRHS )
@@ -316,10 +316,10 @@
                  t // he threshold.
 
                   DO 120 K = 3, 7
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
   120             CONTINUE
                   NRUN = NRUN + 5
   130          CONTINUE
@@ -340,10 +340,10 @@
 
                // Print the test ratio if it is .GE. THRESH.
 
-               IF( RESULT( 8 ).GE.THRESH ) THEN
+               if ( RESULT( 8 ).GE.THRESH ) {
                   IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 )
                   NFAIL = NFAIL + 1
-               END IF
+               }
                NRUN = NRUN + 1
   150       CONTINUE
   160    CONTINUE

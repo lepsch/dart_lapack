@@ -47,31 +47,31 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -3
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -5
-      ELSE IF( ANORM.LT.ZERO ) THEN
+      } else if ( ANORM.LT.ZERO ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DPBCON', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       RCOND = ZERO
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          RCOND = ONE
          RETURN
-      ELSE IF( ANORM.EQ.ZERO ) THEN
+      } else if ( ANORM.EQ.ZERO ) {
          RETURN
-      END IF
+      }
 
       SMLNUM = DLAMCH( 'Safe minimum' )
 
@@ -81,8 +81,8 @@
       NORMIN = 'N'
    10 CONTINUE
       CALL DLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
-      IF( KASE.NE.0 ) THEN
-         IF( UPPER ) THEN
+      if ( KASE.NE.0 ) {
+         if ( UPPER ) {
 
             // Multiply by inv(U**T).
 
@@ -102,18 +102,18 @@
             // Multiply by inv(L**T).
 
             CALL DLATBS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, WORK( 2*N+1 ), INFO )
-         END IF
+         }
 
          // Multiply by 1/SCALE if doing so will not cause overflow.
 
          SCALE = SCALEL*SCALEU
-         IF( SCALE.NE.ONE ) THEN
+         if ( SCALE.NE.ONE ) {
             IX = IDAMAX( N, WORK, 1 )
             IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
             CALL DRSCL( N, SCALE, WORK, 1 )
-         END IF
+         }
          GO TO 10
-      END IF
+      }
 
       // Compute the estimate of the reciprocal condition number.
 

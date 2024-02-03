@@ -51,24 +51,24 @@
 
          PVT = ( I-1 ) + ISAMAX( N-I+1, VN1( I ), 1 )
 
-         IF( PVT.NE.I ) THEN
+         if ( PVT.NE.I ) {
             CALL CSWAP( M, A( 1, PVT ), 1, A( 1, I ), 1 )
             ITEMP = JPVT( PVT )
             JPVT( PVT ) = JPVT( I )
             JPVT( I ) = ITEMP
             VN1( PVT ) = VN1( I )
             VN2( PVT ) = VN2( I )
-         END IF
+         }
 
          // Generate elementary reflector H(i).
 
-         IF( OFFPI.LT.M ) THEN
+         if ( OFFPI.LT.M ) {
             CALL CLARFG( M-OFFPI+1, A( OFFPI, I ), A( OFFPI+1, I ), 1, TAU( I ) )
          } else {
             CALL CLARFG( 1, A( M, I ), A( M, I ), 1, TAU( I ) )
-         END IF
+         }
 
-         IF( I.LT.N ) THEN
+         if ( I.LT.N ) {
 
             // Apply H(i)**H to A(offset+i:m,i+1:n) from the left.
 
@@ -76,12 +76,12 @@
             A( OFFPI, I ) = CONE
             CALL CLARF( 'Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1, CONJG( TAU( I ) ), A( OFFPI, I+1 ), LDA, WORK( 1 ) )
             A( OFFPI, I ) = AII
-         END IF
+         }
 
          // Update partial column norms.
 
          DO 10 J = I + 1, N
-            IF( VN1( J ).NE.ZERO ) THEN
+            if ( VN1( J ).NE.ZERO ) {
 
                // NOTE: The following 4 lines follow from the analysis in
                // Lapack Working Note 176.
@@ -89,18 +89,18 @@
                TEMP = ONE - ( ABS( A( OFFPI, J ) ) / VN1( J ) )**2
                TEMP = MAX( TEMP, ZERO )
                TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2
-               IF( TEMP2 .LE. TOL3Z ) THEN
-                  IF( OFFPI.LT.M ) THEN
+               if ( TEMP2 .LE. TOL3Z ) {
+                  if ( OFFPI.LT.M ) {
                      VN1( J ) = SCNRM2( M-OFFPI, A( OFFPI+1, J ), 1 )
                      VN2( J ) = VN1( J )
                   } else {
                      VN1( J ) = ZERO
                      VN2( J ) = ZERO
-                  END IF
+                  }
                } else {
                   VN1( J ) = VN1( J )*SQRT( TEMP )
-               END IF
-            END IF
+               }
+            }
    10    CONTINUE
 
    20 CONTINUE

@@ -65,7 +65,7 @@
    20 CONTINUE
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'PO' ) ) THEN
+      if ( LSAMEN( 2, C2, 'PO' ) ) {
 
          // Test error exits of the routines that use the Cholesky
          // decomposition of a symmetric positive definite matrix.
@@ -176,7 +176,7 @@
          CALL SPOEQU( 2, A, 1, R1, RCOND, ANRM, INFO )
          CALL CHKXER( 'SPOEQU', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PP' ) ) {
 
          // Test error exits of the routines that use the Cholesky
          // decomposition of a symmetric positive definite packed matrix.
@@ -256,7 +256,7 @@
          CALL SPPEQU( 'U', -1, A, R1, RCOND, ANRM, INFO )
          CALL CHKXER( 'SPPEQU', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
 
          // Test error exits of the routines that use the Cholesky
          // decomposition of a symmetric positive definite band matrix.
@@ -374,7 +374,7 @@
          INFOT = 5
          CALL SPBEQU( 'U', 2, 1, A, 1, R1, RCOND, ANRM, INFO )
          CALL CHKXER( 'SPBEQU', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

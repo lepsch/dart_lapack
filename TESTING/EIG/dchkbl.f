@@ -65,15 +65,15 @@
 
       CALL DGEBAL( 'B', N, A, LDA, ILO, IHI, SCALE, INFO )
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 1 ) = KNT
-      END IF
+      }
 
-      IF( ILO.NE.ILOIN .OR. IHI.NE.IHIIN ) THEN
+      if ( ILO.NE.ILOIN .OR. IHI.NE.IHIIN ) {
          NINFO = NINFO + 1
          LMAX( 2 ) = KNT
-      END IF
+      }
 
       DO 50 I = 1, N
          DO 40 J = 1, N
@@ -90,10 +90,10 @@
    60 CONTINUE
 
 
-      IF( VMAX.GT.RMAX ) THEN
+      if ( VMAX.GT.RMAX ) {
          LMAX( 3 ) = KNT
          RMAX = VMAX
-      END IF
+      }
 
       GO TO 10
 

@@ -41,18 +41,18 @@
 
       // Quick exit if N = 0 or NRHS = 0.
 
-      IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
+      if ( N.LE.0 .OR. NRHS.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if RCOND is invalid.
 
       EPS = DLAMCH( 'Epsilon' )
-      IF( RCOND.LT.ZERO ) THEN
+      if ( RCOND.LT.ZERO ) {
          RESID = 1.0D0 / EPS
          RETURN
-      END IF
+      }
 
       // Compute the maximum of
          // norm(X - XACT) / ( norm(XACT) * EPS )
@@ -66,11 +66,11 @@
          DO 10 I = 1, N
             DIFFNM = MAX( DIFFNM, CABS1( X( I, J )-XACT( I, J ) ) )
    10    CONTINUE
-         IF( XNORM.LE.ZERO ) THEN
+         if ( XNORM.LE.ZERO ) {
             IF( DIFFNM.GT.ZERO ) RESID = 1.0D0 / EPS
          } else {
             RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND )
-         END IF
+         }
    20 CONTINUE
       IF( RESID*EPS.LT.1.0D0 ) RESID = RESID / EPS
 

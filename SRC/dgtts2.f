@@ -24,12 +24,12 @@
 
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 
-      IF( ITRANS.EQ.0 ) THEN
+      if ( ITRANS.EQ.0 ) {
 
          // Solve A*X = B using the LU factorization of A,
          // overwriting each right hand side vector with its solution.
 
-         IF( NRHS.LE.1 ) THEN
+         if ( NRHS.LE.1 ) {
             J = 1
    10       CONTINUE
 
@@ -49,23 +49,23 @@
             DO 30 I = N - 2, 1, -1
                B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I )
    30       CONTINUE
-            IF( J.LT.NRHS ) THEN
+            if ( J.LT.NRHS ) {
                J = J + 1
                GO TO 10
-            END IF
+            }
          } else {
             DO 60 J = 1, NRHS
 
                // Solve L*x = b.
 
                DO 40 I = 1, N - 1
-                  IF( IPIV( I ).EQ.I ) THEN
+                  if ( IPIV( I ).EQ.I ) {
                      B( I+1, J ) = B( I+1, J ) - DL( I )*B( I, J )
                   } else {
                      TEMP = B( I, J )
                      B( I, J ) = B( I+1, J )
                      B( I+1, J ) = TEMP - DL( I )*B( I, J )
-                  END IF
+                  }
    40          CONTINUE
 
                // Solve U*x = b.
@@ -76,12 +76,12 @@
                   B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I )
    50          CONTINUE
    60       CONTINUE
-         END IF
+         }
       } else {
 
          // Solve A**T * X = B.
 
-         IF( NRHS.LE.1 ) THEN
+         if ( NRHS.LE.1 ) {
 
             // Solve U**T*x = b.
 
@@ -101,10 +101,10 @@
                B( I, J ) = B( IP, J )
                B( IP, J ) = TEMP
    90       CONTINUE
-            IF( J.LT.NRHS ) THEN
+            if ( J.LT.NRHS ) {
                J = J + 1
                GO TO 70
-            END IF
+            }
 
          } else {
             DO 120 J = 1, NRHS
@@ -117,17 +117,17 @@
                   B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )- DU2( I-2 )*B( I-2, J ) ) / D( I )
   100          CONTINUE
                DO 110 I = N - 1, 1, -1
-                  IF( IPIV( I ).EQ.I ) THEN
+                  if ( IPIV( I ).EQ.I ) {
                      B( I, J ) = B( I, J ) - DL( I )*B( I+1, J )
                   } else {
                      TEMP = B( I+1, J )
                      B( I+1, J ) = B( I, J ) - DL( I )*TEMP
                      B( I, J ) = TEMP
-                  END IF
+                  }
   110          CONTINUE
   120       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       // End of DGTTS2
 

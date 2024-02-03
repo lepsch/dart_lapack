@@ -51,87 +51,87 @@
 
       // Decode JOB, COMPQ, COMPZ
 
-      IF( LSAME( JOB, 'E' ) ) THEN
+      if ( LSAME( JOB, 'E' ) ) {
          ILSCHR = .FALSE.
          ISCHUR = 1
-      ELSE IF( LSAME( JOB, 'S' ) ) THEN
+      } else if ( LSAME( JOB, 'S' ) ) {
          ILSCHR = .TRUE.
          ISCHUR = 2
       } else {
          ILSCHR = .TRUE.
          ISCHUR = 0
-      END IF
+      }
 
-      IF( LSAME( COMPQ, 'N' ) ) THEN
+      if ( LSAME( COMPQ, 'N' ) ) {
          ILQ = .FALSE.
          ICOMPQ = 1
-      ELSE IF( LSAME( COMPQ, 'V' ) ) THEN
+      } else if ( LSAME( COMPQ, 'V' ) ) {
          ILQ = .TRUE.
          ICOMPQ = 2
-      ELSE IF( LSAME( COMPQ, 'I' ) ) THEN
+      } else if ( LSAME( COMPQ, 'I' ) ) {
          ILQ = .TRUE.
          ICOMPQ = 3
       } else {
          ILQ = .TRUE.
          ICOMPQ = 0
-      END IF
+      }
 
-      IF( LSAME( COMPZ, 'N' ) ) THEN
+      if ( LSAME( COMPZ, 'N' ) ) {
          ILZ = .FALSE.
          ICOMPZ = 1
-      ELSE IF( LSAME( COMPZ, 'V' ) ) THEN
+      } else if ( LSAME( COMPZ, 'V' ) ) {
          ILZ = .TRUE.
          ICOMPZ = 2
-      ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
+      } else if ( LSAME( COMPZ, 'I' ) ) {
          ILZ = .TRUE.
          ICOMPZ = 3
       } else {
          ILZ = .TRUE.
          ICOMPZ = 0
-      END IF
+      }
 
       // Check Argument Values
 
       INFO = 0
       WORK( 1 ) = MAX( 1, N )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( ISCHUR.EQ.0 ) THEN
+      if ( ISCHUR.EQ.0 ) {
          INFO = -1
-      ELSE IF( ICOMPQ.EQ.0 ) THEN
+      } else if ( ICOMPQ.EQ.0 ) {
          INFO = -2
-      ELSE IF( ICOMPZ.EQ.0 ) THEN
+      } else if ( ICOMPZ.EQ.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( ILO.LT.1 ) THEN
+      } else if ( ILO.LT.1 ) {
          INFO = -5
-      ELSE IF( IHI.GT.N .OR. IHI.LT.ILO-1 ) THEN
+      } else if ( IHI.GT.N .OR. IHI.LT.ILO-1 ) {
          INFO = -6
-      ELSE IF( LDH.LT.N ) THEN
+      } else if ( LDH.LT.N ) {
          INFO = -8
-      ELSE IF( LDT.LT.N ) THEN
+      } else if ( LDT.LT.N ) {
          INFO = -10
-      ELSE IF( LDQ.LT.1 .OR. ( ILQ .AND. LDQ.LT.N ) ) THEN
+      } else if ( LDQ.LT.1 .OR. ( ILQ .AND. LDQ.LT.N ) ) {
          INFO = -14
-      ELSE IF( LDZ.LT.1 .OR. ( ILZ .AND. LDZ.LT.N ) ) THEN
+      } else if ( LDZ.LT.1 .OR. ( ILZ .AND. LDZ.LT.N ) ) {
          INFO = -16
-      ELSE IF( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
          INFO = -18
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZHGEQZ', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       // WORK( 1 ) = CMPLX( 1 )
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          WORK( 1 ) = DCMPLX( 1 )
          RETURN
-      END IF
+      }
 
       // Initialize Q and Z
 
@@ -154,19 +154,19 @@
 
       DO 10 J = IHI + 1, N
          ABSB = ABS( T( J, J ) )
-         IF( ABSB.GT.SAFMIN ) THEN
+         if ( ABSB.GT.SAFMIN ) {
             SIGNBC = DCONJG( T( J, J ) / ABSB )
             T( J, J ) = ABSB
-            IF( ILSCHR ) THEN
+            if ( ILSCHR ) {
                CALL ZSCAL( J-1, SIGNBC, T( 1, J ), 1 )
                CALL ZSCAL( J, SIGNBC, H( 1, J ), 1 )
             } else {
                CALL ZSCAL( 1, SIGNBC, H( J, J ), 1 )
-            END IF
+            }
             IF( ILZ ) CALL ZSCAL( N, SIGNBC, Z( 1, J ), 1 )
          } else {
             T( J, J ) = CZERO
-         END IF
+         }
          ALPHA( J ) = H( J, J )
          BETA( J ) = T( J, J )
    10 CONTINUE
@@ -191,13 +191,13 @@
       // MAXIT is the maximum number of QZ sweeps allowed.
 
       ILAST = IHI
-      IF( ILSCHR ) THEN
+      if ( ILSCHR ) {
          IFRSTM = 1
          ILASTM = N
       } else {
          IFRSTM = ILO
          ILASTM = IHI
-      END IF
+      }
       IITER = 0
       ESHIFT = CZERO
       MAXIT = 30*( IHI-ILO+1 )
@@ -216,19 +216,19 @@
 
          // Special case: j=ILAST
 
-         IF( ILAST.EQ.ILO ) THEN
+         if ( ILAST.EQ.ILO ) {
             GO TO 60
          } else {
-            IF( ABS1( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( ILAST, ILAST ) ) + ABS1( H( ILAST-1, ILAST-1 ) ) ) ) ) THEN
+            if ( ABS1( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( ILAST, ILAST ) ) + ABS1( H( ILAST-1, ILAST-1 ) ) ) ) ) {
                H( ILAST, ILAST-1 ) = CZERO
                GO TO 60
-            END IF
-         END IF
+            }
+         }
 
-         IF( ABS( T( ILAST, ILAST ) ).LE.BTOL ) THEN
+         if ( ABS( T( ILAST, ILAST ) ).LE.BTOL ) {
             T( ILAST, ILAST ) = CZERO
             GO TO 50
-         END IF
+         }
 
          // General case: j<ILAST
 
@@ -236,28 +236,28 @@
 
             // Test 1: for H(j,j-1)=0 or j=ILO
 
-            IF( J.EQ.ILO ) THEN
+            if ( J.EQ.ILO ) {
                ILAZRO = .TRUE.
             } else {
-               IF( ABS1( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) ) ) ) THEN
+               if ( ABS1( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) ) ) ) {
                   H( J, J-1 ) = CZERO
                   ILAZRO = .TRUE.
                } else {
                   ILAZRO = .FALSE.
-               END IF
-            END IF
+               }
+            }
 
             // Test 2: for T(j,j)=0
 
-            IF( ABS( T( J, J ) ).LT.BTOL ) THEN
+            if ( ABS( T( J, J ) ).LT.BTOL ) {
                T( J, J ) = CZERO
 
                // Test 1a: Check for 2 consecutive small subdiagonals in A
 
                ILAZR2 = .FALSE.
-               IF( .NOT.ILAZRO ) THEN
+               if ( .NOT.ILAZRO ) {
                   IF( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1, J ) ) ).LE.ABS1( H( J, J ) )*( ASCALE*ATOL ) ) ILAZR2 = .TRUE.
-               END IF
+               }
 
                // If both tests pass (1 & 2), i.e., the leading diagonal
                // element of B in the block is zero, split a 1x1 block off
@@ -265,7 +265,7 @@
                // diagonal element of the remainder can also be zero, so
               t // his may have to be done repeatedly.
 
-               IF( ILAZRO .OR. ILAZR2 ) THEN
+               if ( ILAZRO .OR. ILAZR2 ) {
                   DO 20 JCH = J, ILAST - 1
                      CTEMP = H( JCH, JCH )
                      CALL ZLARTG( CTEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) )
@@ -273,14 +273,14 @@
                      CALL ZROT( ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S )                      CALL ZROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL ZROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, DCONJG( S ) )
                      IF( ILAZR2 ) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C
                      ILAZR2 = .FALSE.
-                     IF( ABS1( T( JCH+1, JCH+1 ) ).GE.BTOL ) THEN
-                        IF( JCH+1.GE.ILAST ) THEN
+                     if ( ABS1( T( JCH+1, JCH+1 ) ).GE.BTOL ) {
+                        if ( JCH+1.GE.ILAST ) {
                            GO TO 60
                         } else {
                            IFIRST = JCH + 1
                            GO TO 70
-                        END IF
-                     END IF
+                        }
+                     }
                      T( JCH+1, JCH+1 ) = CZERO
    20             CONTINUE
                   GO TO 50
@@ -300,14 +300,14 @@
                      CALL ZROT( JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S )                      CALL ZROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL ZROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S )
    30             CONTINUE
                   GO TO 50
-               END IF
-            ELSE IF( ILAZRO ) THEN
+               }
+            } else if ( ILAZRO ) {
 
                // Only test 1 passed -- work on J:ILAST
 
                IFIRST = J
                GO TO 70
-            END IF
+            }
 
             // Neither test passed -- try next J
 
@@ -331,19 +331,19 @@
 
    60    CONTINUE
          ABSB = ABS( T( ILAST, ILAST ) )
-         IF( ABSB.GT.SAFMIN ) THEN
+         if ( ABSB.GT.SAFMIN ) {
             SIGNBC = DCONJG( T( ILAST, ILAST ) / ABSB )
             T( ILAST, ILAST ) = ABSB
-            IF( ILSCHR ) THEN
+            if ( ILSCHR ) {
                CALL ZSCAL( ILAST-IFRSTM, SIGNBC, T( IFRSTM, ILAST ), 1 )
                CALL ZSCAL( ILAST+1-IFRSTM, SIGNBC, H( IFRSTM, ILAST ), 1 )
             } else {
                CALL ZSCAL( 1, SIGNBC, H( ILAST, ILAST ), 1 )
-            END IF
+            }
             IF( ILZ ) CALL ZSCAL( N, SIGNBC, Z( 1, ILAST ), 1 )
          } else {
             T( ILAST, ILAST ) = CZERO
-         END IF
+         }
          ALPHA( ILAST ) = H( ILAST, ILAST )
          BETA( ILAST ) = T( ILAST, ILAST )
 
@@ -356,10 +356,10 @@
 
          IITER = 0
          ESHIFT = CZERO
-         IF( .NOT.ILSCHR ) THEN
+         if ( .NOT.ILSCHR ) {
             ILASTM = ILAST
             IF( IFRSTM.GT.ILAST ) IFRSTM = ILO
-         END IF
+         }
          GO TO 160
 
          // QZ step
@@ -369,9 +369,9 @@
 
    70    CONTINUE
          IITER = IITER + 1
-         IF( .NOT.ILSCHR ) THEN
+         if ( .NOT.ILSCHR ) {
             IFRSTM = IFIRST
-         END IF
+         }
 
          // Compute the Shift.
 
@@ -379,7 +379,7 @@
          // T(IFIRST:ILAST,IFIRST,ILAST) are larger than BTOL (in
          // magnitude)
 
-         IF( ( IITER / 10 )*10.NE.IITER ) THEN
+         if ( ( IITER / 10 )*10.NE.IITER ) {
 
             // The Wilkinson shift (AEP p.512), i.e., the eigenvalue of
            t // he bottom-right 2x2 block of A inv(B) which is nearest to
@@ -395,16 +395,16 @@
             SHIFT = ABI22
             CTEMP = SQRT( ABI12 )*SQRT( AD21 )
             TEMP = ABS1( CTEMP )
-            IF( CTEMP.NE.ZERO ) THEN
+            if ( CTEMP.NE.ZERO ) {
                X = HALF*( AD11-SHIFT )
                TEMP2 = ABS1( X )
                TEMP = MAX( TEMP, ABS1( X ) )
                Y = TEMP*SQRT( ( X / TEMP )**2+( CTEMP / TEMP )**2 )
-               IF( TEMP2.GT.ZERO ) THEN
+               if ( TEMP2.GT.ZERO ) {
                   IF( DBLE( X / TEMP2 )*DBLE( Y )+ DIMAG( X / TEMP2 )*DIMAG( Y ).LT.ZERO )Y = -Y
-               END IF
+               }
                SHIFT = SHIFT - CTEMP*ZLADIV( CTEMP, ( X+Y ) )
-            END IF
+            }
          } else {
 
             // Exceptional shift.  Chosen for no particularly good reason.
@@ -412,9 +412,9 @@
             IF( ( IITER / 20 )*20.EQ.IITER .AND.  BSCALE*ABS1(T( ILAST, ILAST )).GT.SAFMIN ) THEN                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) )
             } else {
                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST-1 ) )/( BSCALE*T( ILAST-1, ILAST-1 ) )
-            END IF
+            }
             SHIFT = ESHIFT
-         END IF
+         }
 
          // Now check for two consecutive small subdiagonals.
 
@@ -424,10 +424,10 @@
             TEMP = ABS1( CTEMP )
             TEMP2 = ASCALE*ABS1( H( J+1, J ) )
             TEMPR = MAX( TEMP, TEMP2 )
-            IF( TEMPR.LT.ONE .AND. TEMPR.NE.ZERO ) THEN
+            if ( TEMPR.LT.ONE .AND. TEMPR.NE.ZERO ) {
                TEMP = TEMP / TEMPR
                TEMP2 = TEMP2 / TEMPR
-            END IF
+            }
             IF( ABS1( H( J, J-1 ) )*TEMP2.LE.TEMP*ATOL ) GO TO 90
    80    CONTINUE
 
@@ -445,11 +445,11 @@
          // Sweep
 
          DO 150 J = ISTART, ILAST - 1
-            IF( J.GT.ISTART ) THEN
+            if ( J.GT.ISTART ) {
                CTEMP = H( J, J-1 )
                CALL ZLARTG( CTEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) )
                H( J+1, J-1 ) = CZERO
-            END IF
+            }
 
             DO 100 JC = J, ILASTM
                CTEMP = C*H( J, JC ) + S*H( J+1, JC )
@@ -459,13 +459,13 @@
                T( J+1, JC ) = -DCONJG( S )*T( J, JC ) + C*T( J+1, JC )
                T( J, JC ) = CTEMP2
   100       CONTINUE
-            IF( ILQ ) THEN
+            if ( ILQ ) {
                DO 110 JR = 1, N
                   CTEMP = C*Q( JR, J ) + DCONJG( S )*Q( JR, J+1 )
                   Q( JR, J+1 ) = -S*Q( JR, J ) + C*Q( JR, J+1 )
                   Q( JR, J ) = CTEMP
   110          CONTINUE
-            END IF
+            }
 
             CTEMP = T( J+1, J+1 )
             CALL ZLARTG( CTEMP, T( J+1, J ), C, S, T( J+1, J+1 ) )
@@ -481,13 +481,13 @@
                T( JR, J ) = -DCONJG( S )*T( JR, J+1 ) + C*T( JR, J )
                T( JR, J+1 ) = CTEMP
   130       CONTINUE
-            IF( ILZ ) THEN
+            if ( ILZ ) {
                DO 140 JR = 1, N
                   CTEMP = C*Z( JR, J+1 ) + S*Z( JR, J )
                   Z( JR, J ) = -DCONJG( S )*Z( JR, J+1 ) + C*Z( JR, J )
                   Z( JR, J+1 ) = CTEMP
   140          CONTINUE
-            END IF
+            }
   150    CONTINUE
 
   160    CONTINUE
@@ -508,19 +508,19 @@
 
       DO 200 J = 1, ILO - 1
          ABSB = ABS( T( J, J ) )
-         IF( ABSB.GT.SAFMIN ) THEN
+         if ( ABSB.GT.SAFMIN ) {
             SIGNBC = DCONJG( T( J, J ) / ABSB )
             T( J, J ) = ABSB
-            IF( ILSCHR ) THEN
+            if ( ILSCHR ) {
                CALL ZSCAL( J-1, SIGNBC, T( 1, J ), 1 )
                CALL ZSCAL( J, SIGNBC, H( 1, J ), 1 )
             } else {
                CALL ZSCAL( 1, SIGNBC, H( J, J ), 1 )
-            END IF
+            }
             IF( ILZ ) CALL ZSCAL( N, SIGNBC, Z( 1, J ), 1 )
          } else {
             T( J, J ) = CZERO
-         END IF
+         }
          ALPHA( J ) = H( J, J )
          BETA( J ) = T( J, J )
   200 CONTINUE

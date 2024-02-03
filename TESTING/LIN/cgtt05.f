@@ -44,11 +44,11 @@
 
       // Quick exit if N = 0 or NRHS = 0.
 
-      IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
+      if ( N.LE.0 .OR. NRHS.LE.0 ) {
          RESLTS( 1 ) = ZERO
          RESLTS( 2 ) = ZERO
          RETURN
-      END IF
+      }
 
       EPS = SLAMCH( 'Epsilon' )
       UNFL = SLAMCH( 'Safe minimum' )
@@ -69,21 +69,21 @@
             DIFF = MAX( DIFF, CABS1( X( I, J )-XACT( I, J ) ) )
    10    CONTINUE
 
-         IF( XNORM.GT.ONE ) THEN
+         if ( XNORM.GT.ONE ) {
             GO TO 20
-         ELSE IF( DIFF.LE.OVFL*XNORM ) THEN
+         } else if ( DIFF.LE.OVFL*XNORM ) {
             GO TO 20
          } else {
             ERRBND = ONE / EPS
             GO TO 30
-         END IF
+         }
 
    20    CONTINUE
-         IF( DIFF / XNORM.LE.FERR( J ) ) THEN
+         if ( DIFF / XNORM.LE.FERR( J ) ) {
             ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) )
          } else {
             ERRBND = ONE / EPS
-         END IF
+         }
    30 CONTINUE
       RESLTS( 1 ) = ERRBND
 
@@ -91,8 +91,8 @@
       // (*) = NZ*UNFL / (min_i (abs(op(A))*abs(X) +abs(b))_i )
 
       DO 60 K = 1, NRHS
-         IF( NOTRAN ) THEN
-            IF( N.EQ.1 ) THEN
+         if ( NOTRAN ) {
+            if ( N.EQ.1 ) {
                AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) )
             } else {
                AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) ) + CABS1( DU( 1 ) )*CABS1( X( 2, K ) )
@@ -102,9 +102,9 @@
    40          CONTINUE
                TMP = CABS1( B( N, K ) ) + CABS1( DL( N-1 ) )* CABS1( X( N-1, K ) ) + CABS1( D( N ) )* CABS1( X( N, K ) )
                AXBI = MIN( AXBI, TMP )
-            END IF
+            }
          } else {
-            IF( N.EQ.1 ) THEN
+            if ( N.EQ.1 ) {
                AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) )
             } else {
                AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) ) + CABS1( DL( 1 ) )*CABS1( X( 2, K ) )
@@ -114,14 +114,14 @@
    50          CONTINUE
                TMP = CABS1( B( N, K ) ) + CABS1( DU( N-1 ) )* CABS1( X( N-1, K ) ) + CABS1( D( N ) )* CABS1( X( N, K ) )
                AXBI = MIN( AXBI, TMP )
-            END IF
-         END IF
+            }
+         }
          TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) )
-         IF( K.EQ.1 ) THEN
+         if ( K.EQ.1 ) {
             RESLTS( 2 ) = TMP
          } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )
-         END IF
+         }
    60 CONTINUE
 
       RETURN

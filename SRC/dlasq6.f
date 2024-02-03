@@ -39,45 +39,45 @@
       D = Z( J4 )
       DMIN = D
 
-      IF( PP.EQ.0 ) THEN
+      if ( PP.EQ.0 ) {
          DO 10 J4 = 4*I0, 4*( N0-3 ), 4
             Z( J4-2 ) = D + Z( J4-1 )
-            IF( Z( J4-2 ).EQ.ZERO ) THEN
+            if ( Z( J4-2 ).EQ.ZERO ) {
                Z( J4 ) = ZERO
                D = Z( J4+1 )
                DMIN = D
                EMIN = ZERO
-            ELSE IF( SAFMIN*Z( J4+1 ).LT.Z( J4-2 ) .AND. SAFMIN*Z( J4-2 ).LT.Z( J4+1 ) ) THEN
+            } else if ( SAFMIN*Z( J4+1 ).LT.Z( J4-2 ) .AND. SAFMIN*Z( J4-2 ).LT.Z( J4+1 ) ) {
                TEMP = Z( J4+1 ) / Z( J4-2 )
                Z( J4 ) = Z( J4-1 )*TEMP
                D = D*TEMP
             } else {
                Z( J4 ) = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) )
                D = Z( J4+1 )*( D / Z( J4-2 ) )
-            END IF
+            }
             DMIN = MIN( DMIN, D )
             EMIN = MIN( EMIN, Z( J4 ) )
    10    CONTINUE
       } else {
          DO 20 J4 = 4*I0, 4*( N0-3 ), 4
             Z( J4-3 ) = D + Z( J4 )
-            IF( Z( J4-3 ).EQ.ZERO ) THEN
+            if ( Z( J4-3 ).EQ.ZERO ) {
                Z( J4-1 ) = ZERO
                D = Z( J4+2 )
                DMIN = D
                EMIN = ZERO
-            ELSE IF( SAFMIN*Z( J4+2 ).LT.Z( J4-3 ) .AND. SAFMIN*Z( J4-3 ).LT.Z( J4+2 ) ) THEN
+            } else if ( SAFMIN*Z( J4+2 ).LT.Z( J4-3 ) .AND. SAFMIN*Z( J4-3 ).LT.Z( J4+2 ) ) {
                TEMP = Z( J4+2 ) / Z( J4-3 )
                Z( J4-1 ) = Z( J4 )*TEMP
                D = D*TEMP
             } else {
                Z( J4-1 ) = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) )
                D = Z( J4+2 )*( D / Z( J4-3 ) )
-            END IF
+            }
             DMIN = MIN( DMIN, D )
             EMIN = MIN( EMIN, Z( J4-1 ) )
    20    CONTINUE
-      END IF
+      }
 
       // Unroll last two steps.
 
@@ -86,38 +86,38 @@
       J4 = 4*( N0-2 ) - PP
       J4P2 = J4 + 2*PP - 1
       Z( J4-2 ) = DNM2 + Z( J4P2 )
-      IF( Z( J4-2 ).EQ.ZERO ) THEN
+      if ( Z( J4-2 ).EQ.ZERO ) {
          Z( J4 ) = ZERO
          DNM1 = Z( J4P2+2 )
          DMIN = DNM1
          EMIN = ZERO
-      ELSE IF( SAFMIN*Z( J4P2+2 ).LT.Z( J4-2 ) .AND. SAFMIN*Z( J4-2 ).LT.Z( J4P2+2 ) ) THEN
+      } else if ( SAFMIN*Z( J4P2+2 ).LT.Z( J4-2 ) .AND. SAFMIN*Z( J4-2 ).LT.Z( J4P2+2 ) ) {
          TEMP = Z( J4P2+2 ) / Z( J4-2 )
          Z( J4 ) = Z( J4P2 )*TEMP
          DNM1 = DNM2*TEMP
       } else {
          Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) )
          DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) )
-      END IF
+      }
       DMIN = MIN( DMIN, DNM1 )
 
       DMIN1 = DMIN
       J4 = J4 + 4
       J4P2 = J4 + 2*PP - 1
       Z( J4-2 ) = DNM1 + Z( J4P2 )
-      IF( Z( J4-2 ).EQ.ZERO ) THEN
+      if ( Z( J4-2 ).EQ.ZERO ) {
          Z( J4 ) = ZERO
          DN = Z( J4P2+2 )
          DMIN = DN
          EMIN = ZERO
-      ELSE IF( SAFMIN*Z( J4P2+2 ).LT.Z( J4-2 ) .AND. SAFMIN*Z( J4-2 ).LT.Z( J4P2+2 ) ) THEN
+      } else if ( SAFMIN*Z( J4P2+2 ).LT.Z( J4-2 ) .AND. SAFMIN*Z( J4-2 ).LT.Z( J4P2+2 ) ) {
          TEMP = Z( J4P2+2 ) / Z( J4-2 )
          Z( J4 ) = Z( J4P2 )*TEMP
          DN = DNM1*TEMP
       } else {
          Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) )
          DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) )
-      END IF
+      }
       DMIN = MIN( DMIN, DN )
 
       Z( J4+2 ) = DN

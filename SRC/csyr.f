@@ -38,19 +38,19 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = 1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = 2
-      ELSE IF( INCX.EQ.0 ) THEN
+      } else if ( INCX.EQ.0 ) {
          INFO = 5
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = 7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CSYR  ', INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -58,71 +58,71 @@
 
       // Set the start point in X if the increment is not unity.
 
-      IF( INCX.LE.0 ) THEN
+      if ( INCX.LE.0 ) {
          KX = 1 - ( N-1 )*INCX
-      ELSE IF( INCX.NE.1 ) THEN
+      } else if ( INCX.NE.1 ) {
          KX = 1
-      END IF
+      }
 
       // Start the operations. In this version the elements of A are
       // accessed sequentially with one pass through the triangular part
       // of A.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
          // Form  A  when A is stored in upper triangle.
 
-         IF( INCX.EQ.1 ) THEN
+         if ( INCX.EQ.1 ) {
             DO 20 J = 1, N
-               IF( X( J ).NE.ZERO ) THEN
+               if ( X( J ).NE.ZERO ) {
                   TEMP = ALPHA*X( J )
                   DO 10 I = 1, J
                      A( I, J ) = A( I, J ) + X( I )*TEMP
    10             CONTINUE
-               END IF
+               }
    20       CONTINUE
          } else {
             JX = KX
             DO 40 J = 1, N
-               IF( X( JX ).NE.ZERO ) THEN
+               if ( X( JX ).NE.ZERO ) {
                   TEMP = ALPHA*X( JX )
                   IX = KX
                   DO 30 I = 1, J
                      A( I, J ) = A( I, J ) + X( IX )*TEMP
                      IX = IX + INCX
    30             CONTINUE
-               END IF
+               }
                JX = JX + INCX
    40       CONTINUE
-         END IF
+         }
       } else {
 
          // Form  A  when A is stored in lower triangle.
 
-         IF( INCX.EQ.1 ) THEN
+         if ( INCX.EQ.1 ) {
             DO 60 J = 1, N
-               IF( X( J ).NE.ZERO ) THEN
+               if ( X( J ).NE.ZERO ) {
                   TEMP = ALPHA*X( J )
                   DO 50 I = J, N
                      A( I, J ) = A( I, J ) + X( I )*TEMP
    50             CONTINUE
-               END IF
+               }
    60       CONTINUE
          } else {
             JX = KX
             DO 80 J = 1, N
-               IF( X( JX ).NE.ZERO ) THEN
+               if ( X( JX ).NE.ZERO ) {
                   TEMP = ALPHA*X( JX )
                   IX = JX
                   DO 70 I = J, N
                      A( I, J ) = A( I, J ) + X( IX )*TEMP
                      IX = IX + INCX
    70             CONTINUE
-               END IF
+               }
                JX = JX + INCX
    80       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

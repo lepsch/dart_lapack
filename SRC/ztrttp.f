@@ -33,19 +33,19 @@
 
       INFO = 0
       LOWER = LSAME( UPLO, 'L' )
-      IF( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) THEN
+      if ( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTRTTP', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( LOWER ) THEN
+      if ( LOWER ) {
          K = 0
          DO J = 1, N
             DO I = J, N
@@ -61,7 +61,7 @@
                AP( K ) = A( I, J )
             END DO
          END DO
-      END IF
+      }
 
 
       RETURN

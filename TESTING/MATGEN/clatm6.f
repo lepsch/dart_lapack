@@ -42,23 +42,23 @@
       DO 20 I = 1, N
          DO 10 J = 1, N
 
-            IF( I.EQ.J ) THEN
+            if ( I.EQ.J ) {
                A( I, I ) = CMPLX( I ) + ALPHA
                B( I, I ) = ONE
             } else {
                A( I, J ) = ZERO
                B( I, J ) = ZERO
-            END IF
+            }
 
    10    CONTINUE
    20 CONTINUE
-      IF( TYPE.EQ.2 ) THEN
+      if ( TYPE.EQ.2 ) {
          A( 1, 1 ) = CMPLX( RONE, RONE )
          A( 2, 2 ) = CONJG( A( 1, 1 ) )
          A( 3, 3 ) = ONE
          A( 4, 4 ) = CMPLX( REAL( ONE+ALPHA ), REAL( ONE+BETA ) )
          A( 5, 5 ) = CONJG( A( 4, 4 ) )
-      END IF
+      }
 
       // Form X and Y
 

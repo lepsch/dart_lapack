@@ -40,44 +40,44 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( MIN( N, NRHS ).EQ.0 ) THEN
+      if ( MIN( N, NRHS ).EQ.0 ) {
          LWKMIN = 1
       } else {
          LWKMIN = 3*N-2
-      END IF
+      }
 
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      ELSE IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
          INFO = -10
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHETRS_AA', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWKMIN )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( MIN( N, NRHS ).EQ.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Solve A*X = B, where A = U**H*T*U.
 
          // 1) Forward substitution with U**H
 
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
 
             // Pivot, P**T * B -> B
 
@@ -91,23 +91,23 @@
             // Compute U**H \ B -> B    [ (U**H \P**T * B) ]
 
             CALL CTRSM( 'L', 'U', 'C', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B( 2, 1 ), LDB)
-         END IF
+         }
 
          // 2) Solve with triangular matrix T
 
          // Compute T \ B -> B   [ T \ (U**H \P**T * B) ]
 
          CALL CLACPY( 'F', 1, N, A(1, 1), LDA+1, WORK(N), 1)
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
              CALL CLACPY( 'F', 1, N-1, A( 1, 2 ), LDA+1, WORK( 2*N ), 1)
              CALL CLACPY( 'F', 1, N-1, A( 1, 2 ), LDA+1, WORK( 1 ), 1)
              CALL CLACGV( N-1, WORK( 1 ), 1 )
-         END IF
+         }
          CALL CGTSV(N, NRHS, WORK(1), WORK(N), WORK(2*N), B, LDB, INFO)
 
          // 3) Backward substitution with U
 
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
 
             // Compute U \ B -> B   [ U \ (T \ (U**H \P**T * B) ) ]
 
@@ -121,7 +121,7 @@
                IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
                K = K - 1
             END DO
-         END IF
+         }
 
       } else {
 
@@ -129,7 +129,7 @@
 
          // 1) Forward substitution with L
 
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
 
             // Pivot, P**T * B -> B
 
@@ -143,23 +143,23 @@
             // Compute L \ B -> B    [ (L \P**T * B) ]
 
             CALL CTRSM( 'L', 'L', 'N', 'U', N-1, NRHS, ONE, A( 2, 1), LDA, B(2, 1), LDB )
-         END IF
+         }
 
          // 2) Solve with triangular matrix T
 
          // Compute T \ B -> B   [ T \ (L \P**T * B) ]
 
          CALL CLACPY( 'F', 1, N, A(1, 1), LDA+1, WORK(N), 1)
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
              CALL CLACPY( 'F', 1, N-1, A( 2, 1 ), LDA+1, WORK( 1 ), 1 )
              CALL CLACPY( 'F', 1, N-1, A( 2, 1 ), LDA+1, WORK( 2*N ), 1)
              CALL CLACGV( N-1, WORK( 2*N ), 1 )
-         END IF
+         }
          CALL CGTSV(N, NRHS, WORK(1), WORK(N), WORK(2*N), B, LDB, INFO)
 
          // 3) Backward substitution with L**H
 
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
 
             // Compute (L**H \ B) -> B   [ L**H \ (T \ (L \P**T * B) ) ]
 
@@ -173,9 +173,9 @@
                IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
                K = K - 1
             END DO
-         END IF
+         }
 
-      END IF
+      }
 
       RETURN
 

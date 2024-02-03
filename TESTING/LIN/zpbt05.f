@@ -44,11 +44,11 @@
 
       // Quick exit if N = 0 or NRHS = 0.
 
-      IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
+      if ( N.LE.0 .OR. NRHS.LE.0 ) {
          RESLTS( 1 ) = ZERO
          RESLTS( 2 ) = ZERO
          RETURN
-      END IF
+      }
 
       EPS = DLAMCH( 'Epsilon' )
       UNFL = DLAMCH( 'Safe minimum' )
@@ -69,21 +69,21 @@
             DIFF = MAX( DIFF, CABS1( X( I, J )-XACT( I, J ) ) )
    10    CONTINUE
 
-         IF( XNORM.GT.ONE ) THEN
+         if ( XNORM.GT.ONE ) {
             GO TO 20
-         ELSE IF( DIFF.LE.OVFL*XNORM ) THEN
+         } else if ( DIFF.LE.OVFL*XNORM ) {
             GO TO 20
          } else {
             ERRBND = ONE / EPS
             GO TO 30
-         END IF
+         }
 
    20    CONTINUE
-         IF( DIFF / XNORM.LE.FERR( J ) ) THEN
+         if ( DIFF / XNORM.LE.FERR( J ) ) {
             ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) )
          } else {
             ERRBND = ONE / EPS
-         END IF
+         }
    30 CONTINUE
       RESLTS( 1 ) = ERRBND
 
@@ -93,7 +93,7 @@
       DO 90 K = 1, NRHS
          DO 80 I = 1, N
             TMP = CABS1( B( I, K ) )
-            IF( UPPER ) THEN
+            if ( UPPER ) {
                DO 40 J = MAX( I-KD, 1 ), I - 1
                   TMP = TMP + CABS1( AB( KD+1-I+J, I ) )* CABS1( X( J, K ) )
    40          CONTINUE
@@ -109,19 +109,19 @@
                DO 70 J = I + 1, MIN( I+KD, N )
                   TMP = TMP + CABS1( AB( 1+J-I, I ) )*CABS1( X( J, K ) )
    70          CONTINUE
-            END IF
-            IF( I.EQ.1 ) THEN
+            }
+            if ( I.EQ.1 ) {
                AXBI = TMP
             } else {
                AXBI = MIN( AXBI, TMP )
-            END IF
+            }
    80    CONTINUE
          TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) )
-         IF( K.EQ.1 ) THEN
+         if ( K.EQ.1 ) {
             RESLTS( 2 ) = TMP
          } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )
-         END IF
+         }
    90 CONTINUE
 
       RETURN

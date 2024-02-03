@@ -25,25 +25,25 @@
       // Test the input arguments
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( L.LT.0 .OR. (L.GT.MIN(M,N) .AND. MIN(M,N).GE.0)) THEN
+      } else if ( L.LT.0 .OR. (L.GT.MIN(M,N) .AND. MIN(M,N).GE.0)) {
          INFO = -3
-      ELSE IF( NB.LT.1 .OR. (NB.GT.N .AND. N.GT.0)) THEN
+      } else if ( NB.LT.1 .OR. (NB.GT.N .AND. N.GT.0)) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDB.LT.MAX( 1, M ) ) THEN
+      } else if ( LDB.LT.MAX( 1, M ) ) {
          INFO = -8
-      ELSE IF( LDT.LT.NB ) THEN
+      } else if ( LDT.LT.NB ) {
          INFO = -10
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'STPQRT', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -55,19 +55,19 @@
 
          IB = MIN( N-I+1, NB )
          MB = MIN( M-L+I+IB-1, M )
-         IF( I.GE.L ) THEN
+         if ( I.GE.L ) {
             LB = 0
          } else {
             LB = MB-M+L-I+1
-         END IF
+         }
 
          CALL STPQRT2( MB, IB, LB, A(I,I), LDA, B( 1, I ), LDB, T(1, I ), LDT, IINFO )
 
       // Update by applying H^H to B(:,I+IB:N) from the left
 
-         IF( I+IB.LE.N ) THEN
+         if ( I+IB.LE.N ) {
             CALL STPRFB( 'L', 'T', 'F', 'C', MB, N-I-IB+1, IB, LB, B( 1, I ), LDB, T( 1, I ), LDT, A( I, I+IB ), LDA, B( 1, I+IB ), LDB, WORK, IB )
-         END IF
+         }
       END DO
       RETURN
 

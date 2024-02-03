@@ -25,29 +25,29 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGESV ', -INFO )
          RETURN
-      END IF
+      }
 
       // Compute the LU factorization of A.
 
       CALL CGETRF( N, N, A, LDA, IPIV, INFO )
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
          CALL CGETRS( 'No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO )
-      END IF
+      }
       RETURN
 
       // End of CGESV

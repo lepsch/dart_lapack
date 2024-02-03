@@ -41,14 +41,14 @@
       // .. Executable Statements ..
 
       SAFMIN = SLAMCH( 'Safe minimum' )
-      IF( KASE.EQ.0 ) THEN
+      if ( KASE.EQ.0 ) {
          DO 10 I = 1, N
             X( I ) = CMPLX( ONE / REAL( N ) )
    10    CONTINUE
          KASE = 1
          ISAVE( 1 ) = 1
          RETURN
-      END IF
+      }
 
       GO TO ( 20, 40, 70, 90, 120 )ISAVE( 1 )
 
@@ -56,21 +56,21 @@
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
 
    20 CONTINUE
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          V( 1 ) = X( 1 )
          EST = ABS( V( 1 ) )
          // ... QUIT
          GO TO 130
-      END IF
+      }
       EST = SCSUM1( N, X, 1 )
 
       DO 30 I = 1, N
          ABSXI = ABS( X( I ) )
-         IF( ABSXI.GT.SAFMIN ) THEN
+         if ( ABSXI.GT.SAFMIN ) {
             X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI )
          } else {
             X( I ) = CONE
-         END IF
+         }
    30 CONTINUE
       KASE = 2
       ISAVE( 1 ) = 2
@@ -107,11 +107,11 @@
 
       DO 80 I = 1, N
          ABSXI = ABS( X( I ) )
-         IF( ABSXI.GT.SAFMIN ) THEN
+         if ( ABSXI.GT.SAFMIN ) {
             X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI )
          } else {
             X( I ) = CONE
-         END IF
+         }
    80 CONTINUE
       KASE = 2
       ISAVE( 1 ) = 4
@@ -123,10 +123,10 @@
    90 CONTINUE
       JLAST = ISAVE( 2 )
       ISAVE( 2 ) = ICMAX1( N, X, 1 )
-      IF( ( ABS( X( JLAST ) ).NE.ABS( X( ISAVE( 2 ) ) ) ) .AND. ( ISAVE( 3 ).LT.ITMAX ) ) THEN
+      if ( ( ABS( X( JLAST ) ).NE.ABS( X( ISAVE( 2 ) ) ) ) .AND. ( ISAVE( 3 ).LT.ITMAX ) ) {
          ISAVE( 3 ) = ISAVE( 3 ) + 1
          GO TO 50
-      END IF
+      }
 
       // ITERATION COMPLETE.  FINAL STAGE.
 
@@ -145,10 +145,10 @@
 
   120 CONTINUE
       TEMP = TWO*( SCSUM1( N, X, 1 ) / REAL( 3*N ) )
-      IF( TEMP.GT.EST ) THEN
+      if ( TEMP.GT.EST ) {
          CALL CCOPY( N, X, 1, V, 1 )
          EST = TEMP
-      END IF
+      }
 
   130 CONTINUE
       KASE = 0

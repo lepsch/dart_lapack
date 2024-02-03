@@ -28,7 +28,7 @@
       // .. Executable Statements ..
 
       UPPER = LSAME( UPLO, 'U' )
-      IF (UPPER) THEN
+      if (UPPER) {
 
           // UPPER
           // first swap

@@ -43,36 +43,36 @@
 
       // NQ is the order of Q
 
-      IF( LEFT ) THEN
+      if ( LEFT ) {
          NQ = M
       } else {
          NQ = N
-      END IF
-      IF( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) THEN
+      }
+      if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) THEN
+      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( K.LT.0 .OR. K.GT.NQ ) THEN
+      } else if ( K.LT.0 .OR. K.GT.NQ ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, NQ ) ) THEN
+      } else if ( LDA.LT.MAX( 1, NQ ) ) {
          INFO = -7
-      ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+      } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -10
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZUNM2L', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
 
-      IF( ( LEFT .AND. NOTRAN .OR. .NOT.LEFT .AND. .NOT.NOTRAN ) ) THEN
+      if ( ( LEFT .AND. NOTRAN .OR. .NOT.LEFT .AND. .NOT.NOTRAN ) ) {
          I1 = 1
          I2 = K
          I3 = 1
@@ -80,16 +80,16 @@
          I1 = K
          I2 = 1
          I3 = -1
-      END IF
+      }
 
-      IF( LEFT ) THEN
+      if ( LEFT ) {
          NI = N
       } else {
          MI = M
-      END IF
+      }
 
       DO 10 I = I1, I2, I3
-         IF( LEFT ) THEN
+         if ( LEFT ) {
 
             // H(i) or H(i)**H is applied to C(1:m-k+i,1:n)
 
@@ -99,15 +99,15 @@
             // H(i) or H(i)**H is applied to C(1:m,1:n-k+i)
 
             NI = N - K + I
-         END IF
+         }
 
          // Apply H(i) or H(i)**H
 
-         IF( NOTRAN ) THEN
+         if ( NOTRAN ) {
             TAUI = TAU( I )
          } else {
             TAUI = DCONJG( TAU( I ) )
-         END IF
+         }
          AII = A( NQ-K+I, I )
          A( NQ-K+I, I ) = ONE
          CALL ZLARF( SIDE, MI, NI, A( 1, I ), 1, TAUI, C, LDC, WORK )

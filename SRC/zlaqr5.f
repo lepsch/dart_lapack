@@ -92,13 +92,13 @@
 
          // JTOP = Index from which updates from the right start.
 
-         IF( ACCUM ) THEN
+         if ( ACCUM ) {
             JTOP = MAX( KTOP, INCOL )
-         ELSE IF( WANTT ) THEN
+         } else if ( WANTT ) {
             JTOP = 1
          } else {
             JTOP = KTOP
-         END IF
+         }
 
          NDCOL = INCOL + KDU
          IF( ACCUM ) CALL ZLASET( 'ALL', KDU, KDU, ZERO, ONE, U, LDU )
@@ -132,13 +132,13 @@
             // ==== Generate reflections to chase the chain right
             // .    one column.  (The minimum value of K is KTOP-1.) ====
 
-            IF ( BMP22 ) THEN
+            if ( BMP22 ) {
 
                // ==== Special case: 2-by-2 reflection at bottom treated
                // .    separately ====
 
                K = KRCOL + 2*( M22-1 )
-               IF( K.EQ.KTOP-1 ) THEN
+               if ( K.EQ.KTOP-1 ) {
                   CALL ZLAQR1( 2, H( K+1, K+1 ), LDH, S( 2*M22-1 ), S( 2*M22 ), V( 1, M22 ) )
                   BETA = V( 1, M22 )
                   CALL ZLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
@@ -148,7 +148,7 @@
                   CALL ZLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
                   H( K+1, K ) = BETA
                   H( K+2, K ) = ZERO
-               END IF
+               }
 
 
                // ==== Perform update from right within
@@ -165,13 +165,13 @@
                // ==== Perform update from left within
                // .    computational window. ====
 
-               IF( ACCUM ) THEN
+               if ( ACCUM ) {
                   JBOT = MIN( NDCOL, KBOT )
-               ELSE IF( WANTT ) THEN
+               } else if ( WANTT ) {
                   JBOT = N
                } else {
                   JBOT = KBOT
-               END IF
+               }
                T1 = DCONJG( V( 1, M22 ) )
                T2 = T1*V( 2, M22 )
                DO 40 J = K+1, JBOT
@@ -189,44 +189,44 @@
                // .    is zero (as done here) is traditional but probably
                // .    unnecessary. ====
 
-               IF( K.GE.KTOP ) THEN
-                  IF( H( K+1, K ).NE.ZERO ) THEN
+               if ( K.GE.KTOP ) {
+                  if ( H( K+1, K ).NE.ZERO ) {
                      TST1 = CABS1( H( K, K ) ) + CABS1( H( K+1, K+1 ) )
-                     IF( TST1.EQ.RZERO ) THEN
+                     if ( TST1.EQ.RZERO ) {
                         IF( K.GE.KTOP+1 ) TST1 = TST1 + CABS1( H( K, K-1 ) )                         IF( K.GE.KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                         IF( K.GE.KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                         IF( K.LE.KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                         IF( K.LE.KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                         IF( K.LE.KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) )
-                     END IF
+                     }
                      IF( CABS1( H( K+1, K ) ) .LE.MAX( SMLNUM, ULP*TST1 ) ) THEN                         H12 = MAX( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                         H21 = MIN( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                         H11 = MAX( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )                         H22 = MIN( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )
                         SCL = H11 + H12
                         TST2 = H22*( H11 / SCL )
 
                         IF( TST2.EQ.RZERO .OR. H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) )H( K+1, K ) = ZERO
-                     END IF
-                  END IF
-               END IF
+                     }
+                  }
+               }
 
                // ==== Accumulate orthogonal transformations. ====
 
-               IF( ACCUM ) THEN
+               if ( ACCUM ) {
                   KMS = K - INCOL
                   DO 50 J = MAX( 1, KTOP-INCOL ), KDU
                      REFSUM = V( 1, M22 )*( U( J, KMS+1 )+ V( 2, M22 )*U( J, KMS+2 ) )
                      U( J, KMS+1 ) = U( J, KMS+1 ) - REFSUM
                      U( J, KMS+2 ) = U( J, KMS+2 ) - REFSUM*DCONJG( V( 2, M22 ) )
   50                 CONTINUE
-               ELSE IF( WANTZ ) THEN
+               } else if ( WANTZ ) {
                   DO 60 J = ILOZ, IHIZ
                      REFSUM = V( 1, M22 )*( Z( J, K+1 )+V( 2, M22 )* Z( J, K+2 ) )
                      Z( J, K+1 ) = Z( J, K+1 ) - REFSUM
                      Z( J, K+2 ) = Z( J, K+2 ) - REFSUM*DCONJG( V( 2, M22 ) )
   60              CONTINUE
-               END IF
-            END IF
+               }
+            }
 
             // ==== Normal case: Chain of 3-by-3 reflections ====
 
             DO 80 M = MBOT, MTOP, -1
                K = KRCOL + 2*( M-1 )
-               IF( K.EQ.KTOP-1 ) THEN
+               if ( K.EQ.KTOP-1 ) {
                   CALL ZLAQR1( 3, H( KTOP, KTOP ), LDH, S( 2*M-1 ), S( 2*M ), V( 1, M ) )
                   ALPHA = V( 1, M )
                   CALL ZLARFG( 3, ALPHA, V( 2, M ), 1, V( 1, M ) )
@@ -257,7 +257,7 @@
                   // .    underflow case, try the two-small-subdiagonals
                   // .    trick to try to reinflate the bulge.  ====
 
-                  IF( H( K+3, K ).NE.ZERO .OR. H( K+3, K+1 ).NE. ZERO .OR. H( K+3, K+2 ).EQ.ZERO ) THEN
+                  if ( H( K+3, K ).NE.ZERO .OR. H( K+3, K+1 ).NE. ZERO .OR. H( K+3, K+2 ).EQ.ZERO ) {
 
                      // ==== Typical case: not collapsed (yet). ====
 
@@ -280,7 +280,7 @@
                      T3 = T1*VT( 3 )
                      REFSUM = H( K+1, K )+DCONJG( VT( 2 ) )*H( K+2, K )
 
-                     IF( CABS1( H( K+2, K )-REFSUM*T2 )+ CABS1( REFSUM*T3 ).GT.ULP* ( CABS1( H( K, K ) )+CABS1( H( K+1, K+1 ) )+CABS1( H( K+2, K+2 ) ) ) ) THEN
+                     if ( CABS1( H( K+2, K )-REFSUM*T2 )+ CABS1( REFSUM*T3 ).GT.ULP* ( CABS1( H( K, K ) )+CABS1( H( K+1, K+1 ) )+CABS1( H( K+2, K+2 ) ) ) ) {
 
                         // ==== Starting a new bulge here would
                         // .    create non-negligible fill.  Use
@@ -302,9 +302,9 @@
                         V( 1, M ) = VT( 1 )
                         V( 2, M ) = VT( 2 )
                         V( 3, M ) = VT( 3 )
-                     END IF
-                  END IF
-               END IF
+                     }
+                  }
+               }
 
                // ====  Apply reflection from the right and
                // .     the first column of update from the left.
@@ -343,29 +343,29 @@
                // .    unnecessary. ====
 
                IF( K.LT.KTOP) CYCLE
-               IF( H( K+1, K ).NE.ZERO ) THEN
+               if ( H( K+1, K ).NE.ZERO ) {
                   TST1 = CABS1( H( K, K ) ) + CABS1( H( K+1, K+1 ) )
-                  IF( TST1.EQ.RZERO ) THEN
+                  if ( TST1.EQ.RZERO ) {
                      IF( K.GE.KTOP+1 ) TST1 = TST1 + CABS1( H( K, K-1 ) )                      IF( K.GE.KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                      IF( K.GE.KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                      IF( K.LE.KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                      IF( K.LE.KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                      IF( K.LE.KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) )
-                  END IF
+                  }
                   IF( CABS1( H( K+1, K ) ).LE.MAX( SMLNUM, ULP*TST1 ) ) THEN                      H12 = MAX( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                      H21 = MIN( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                      H11 = MAX( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )                      H22 = MIN( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )
                      SCL = H11 + H12
                      TST2 = H22*( H11 / SCL )
 
                      IF( TST2.EQ.RZERO .OR. H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) )H( K+1, K ) = ZERO
-                  END IF
-               END IF
+                  }
+               }
    80       CONTINUE
 
             // ==== Multiply H by reflections from the left ====
 
-            IF( ACCUM ) THEN
+            if ( ACCUM ) {
                JBOT = MIN( NDCOL, KBOT )
-            ELSE IF( WANTT ) THEN
+            } else if ( WANTT ) {
                JBOT = N
             } else {
                JBOT = KBOT
-            END IF
+            }
 
             DO 100 M = MBOT, MTOP, -1
                K = KRCOL + 2*( M-1 )
@@ -382,7 +382,7 @@
 
             // ==== Accumulate orthogonal transformations. ====
 
-            IF( ACCUM ) THEN
+            if ( ACCUM ) {
 
                // ==== Accumulate U. (If needed, update Z later
                // .    with an efficient matrix-matrix
@@ -404,7 +404,7 @@
                      U( J, KMS+3 ) = U( J, KMS+3 ) - REFSUM*T3
   110             CONTINUE
   120          CONTINUE
-            ELSE IF( WANTZ ) THEN
+            } else if ( WANTZ ) {
 
                // ==== U is not accumulated, so update Z
                // .    now by multiplying by reflections
@@ -422,7 +422,7 @@
                      Z( J, K+3 ) = Z( J, K+3 ) - REFSUM*T3
   130             CONTINUE
   140          CONTINUE
-            END IF
+            }
 
             // ==== End of near-the-diagonal bulge chase. ====
 
@@ -432,14 +432,14 @@
          // .    entries in H.  If required, use U to update Z as
          // .    well. ====
 
-         IF( ACCUM ) THEN
-            IF( WANTT ) THEN
+         if ( ACCUM ) {
+            if ( WANTT ) {
                JTOP = 1
                JBOT = N
             } else {
                JTOP = KTOP
                JBOT = KBOT
-            END IF
+            }
             K1 = MAX( 1, KTOP-INCOL )
             NU = ( KDU-MAX( 0, NDCOL-KBOT ) ) - K1 + 1
 
@@ -461,14 +461,14 @@
 
             // ==== Z multiply (also vertical) ====
 
-            IF( WANTZ ) THEN
+            if ( WANTZ ) {
                DO 170 JROW = ILOZ, IHIZ, NV
                   JLEN = MIN( NV, IHIZ-JROW+1 )
                   CALL ZGEMM( 'N', 'N', JLEN, NU, NU, ONE, Z( JROW, INCOL+K1 ), LDZ, U( K1, K1 ), LDU, ZERO, WV, LDWV )
                   CALL ZLACPY( 'ALL', JLEN, NU, WV, LDWV, Z( JROW, INCOL+K1 ), LDZ )
   170          CONTINUE
-            END IF
-         END IF
+            }
+         }
   180 CONTINUE
 
       // ==== End of ZLAQR5 ====

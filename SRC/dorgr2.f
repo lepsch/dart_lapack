@@ -31,25 +31,25 @@
       // Test the input arguments
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.M ) THEN
+      } else if ( N.LT.M ) {
          INFO = -2
-      ELSE IF( K.LT.0 .OR. K.GT.M ) THEN
+      } else if ( K.LT.0 .OR. K.GT.M ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DORGR2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( M.LE.0 ) RETURN
 
-      IF( K.LT.M ) THEN
+      if ( K.LT.M ) {
 
          // Initialise rows 1:m-k to rows of the unit matrix
 
@@ -59,7 +59,7 @@
    10       CONTINUE
             IF( J.GT.N-M .AND. J.LE.N-K ) A( M-N+J, J ) = ONE
    20    CONTINUE
-      END IF
+      }
 
       DO 40 I = 1, K
          II = M - K + I

@@ -61,24 +61,24 @@
       // Check for errors
 
       INFO = 0
-      IF( THRESH.LT.ZERO ) THEN
+      if ( THRESH.LT.ZERO ) {
          INFO = -3
-      ELSE IF( NOUNIT.LE.0 ) THEN
+      } else if ( NOUNIT.LE.0 ) {
          INFO = -5
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -6
-      ELSE IF( LDA.LT.1 .OR. LDA.LT.N ) THEN
+      } else if ( LDA.LT.1 .OR. LDA.LT.N ) {
          INFO = -8
-      ELSE IF( LDVS.LT.1 .OR. LDVS.LT.N ) THEN
+      } else if ( LDVS.LT.1 .OR. LDVS.LT.N ) {
          INFO = -15
-      ELSE IF( LWORK.LT.2*N ) THEN
+      } else if ( LWORK.LT.2*N ) {
          INFO = -24
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGET24', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if nothing to do
 
@@ -98,31 +98,31 @@
 
       SELOPT = 0
       DO 90 ISORT = 0, 1
-         IF( ISORT.EQ.0 ) THEN
+         if ( ISORT.EQ.0 ) {
             SORT = 'N'
             RSUB = 0
          } else {
             SORT = 'S'
             RSUB = 6
-         END IF
+         }
 
          // Compute Schur form and Schur vectors, and test them
 
          CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL ZGEESX( 'V', SORT, ZSLECT, 'N', N, H, LDA, SDIM, W, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 1+RSUB ) = ULPINV
-            IF( JTYPE.NE.22 ) THEN
+            if ( JTYPE.NE.22 ) {
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX1', IINFO, N, JTYPE, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX1', IINFO, N, ISEED( 1 )
-            END IF
+            }
             INFO = ABS( IINFO )
             RETURN
-         END IF
-         IF( ISORT.EQ.0 ) THEN
+         }
+         if ( ISORT.EQ.0 ) {
             CALL ZCOPY( N, W, 1, WTMP, 1 )
-         END IF
+         }
 
          // Do Test (1) or Test (7)
 
@@ -150,15 +150,15 @@
          ANORM = MAX( ZLANGE( '1', N, N, A, LDA, RWORK ), SMLNUM )
          WNORM = ZLANGE( '1', N, N, VS1, LDVS, RWORK )
 
-         IF( ANORM.GT.WNORM ) THEN
+         if ( ANORM.GT.WNORM ) {
             RESULT( 2+RSUB ) = ( WNORM / ANORM ) / ( N*ULP )
          } else {
-            IF( ANORM.LT.ONE ) THEN
+            if ( ANORM.LT.ONE ) {
                RESULT( 2+RSUB ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
             } else {
                RESULT( 2+RSUB ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP )
-            END IF
-         END IF
+            }
+         }
 
          // Test (3) or (9):  Compute norm( I - Q'*Q ) / ( N * ULP )
 
@@ -175,16 +175,16 @@
 
          CALL ZLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL ZGEESX( 'N', SORT, ZSLECT, 'N', N, HT, LDA, SDIM, WT, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 5+RSUB ) = ULPINV
-            IF( JTYPE.NE.22 ) THEN
+            if ( JTYPE.NE.22 ) {
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX2', IINFO, N, JTYPE, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX2', IINFO, N, ISEED( 1 )
-            END IF
+            }
             INFO = ABS( IINFO )
             GO TO 220
-         END IF
+         }
 
          RESULT( 5+RSUB ) = ZERO
          DO 60 J = 1, N
@@ -202,24 +202,24 @@
 
          // Do Test (13)
 
-         IF( ISORT.EQ.1 ) THEN
+         if ( ISORT.EQ.1 ) {
             RESULT( 13 ) = ZERO
             KNTEIG = 0
             DO 80 I = 1, N
                IF( ZSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1
-               IF( I.LT.N ) THEN
+               if ( I.LT.N ) {
                   IF( ZSLECT( W( I+1 ) ) .AND. ( .NOT.ZSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
-               END IF
+               }
    80       CONTINUE
             IF( SDIM.NE.KNTEIG ) RESULT( 13 ) = ULPINV
-         END IF
+         }
 
    90 CONTINUE
 
       // If there is enough workspace, perform tests (14) and (15)
       // as well as (10) through (13)
 
-      IF( LWORK.GE.( N*( N+1 ) ) / 2 ) THEN
+      if ( LWORK.GE.( N*( N+1 ) ) / 2 ) {
 
          // Compute both RCONDE and RCONDV with VS
 
@@ -228,17 +228,17 @@
          RESULT( 15 ) = ZERO
          CALL ZLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL ZGEESX( 'V', SORT, ZSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 14 ) = ULPINV
             RESULT( 15 ) = ULPINV
-            IF( JTYPE.NE.22 ) THEN
+            if ( JTYPE.NE.22 ) {
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX3', IINFO, N, JTYPE, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX3', IINFO, N, ISEED( 1 )
-            END IF
+            }
             INFO = ABS( IINFO )
             GO TO 220
-         END IF
+         }
 
          // Perform tests (10), (11), (12), and (13)
 
@@ -254,17 +254,17 @@
 
          CALL ZLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL ZGEESX( 'N', SORT, ZSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 14 ) = ULPINV
             RESULT( 15 ) = ULPINV
-            IF( JTYPE.NE.22 ) THEN
+            if ( JTYPE.NE.22 ) {
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX4', IINFO, N, JTYPE, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX4', IINFO, N, ISEED( 1 )
-            END IF
+            }
             INFO = ABS( IINFO )
             GO TO 220
-         END IF
+         }
 
          // Perform tests (14) and (15)
 
@@ -284,16 +284,16 @@
 
          CALL ZLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL ZGEESX( 'V', SORT, ZSLECT, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 14 ) = ULPINV
-            IF( JTYPE.NE.22 ) THEN
+            if ( JTYPE.NE.22 ) {
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX5', IINFO, N, JTYPE, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX5', IINFO, N, ISEED( 1 )
-            END IF
+            }
             INFO = ABS( IINFO )
             GO TO 220
-         END IF
+         }
 
          // Perform test (14)
 
@@ -313,16 +313,16 @@
 
          CALL ZLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL ZGEESX( 'N', SORT, ZSLECT, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 14 ) = ULPINV
-            IF( JTYPE.NE.22 ) THEN
+            if ( JTYPE.NE.22 ) {
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX6', IINFO, N, JTYPE, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX6', IINFO, N, ISEED( 1 )
-            END IF
+            }
             INFO = ABS( IINFO )
             GO TO 220
-         END IF
+         }
 
          // Perform test (14)
 
@@ -342,16 +342,16 @@
 
          CALL ZLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL ZGEESX( 'V', SORT, ZSLECT, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 15 ) = ULPINV
-            IF( JTYPE.NE.22 ) THEN
+            if ( JTYPE.NE.22 ) {
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX7', IINFO, N, JTYPE, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX7', IINFO, N, ISEED( 1 )
-            END IF
+            }
             INFO = ABS( IINFO )
             GO TO 220
-         END IF
+         }
 
          // Perform test (15)
 
@@ -371,16 +371,16 @@
 
          CALL ZLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL ZGEESX( 'N', SORT, ZSLECT, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 15 ) = ULPINV
-            IF( JTYPE.NE.22 ) THEN
+            if ( JTYPE.NE.22 ) {
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX8', IINFO, N, JTYPE, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX8', IINFO, N, ISEED( 1 )
-            END IF
+            }
             INFO = ABS( IINFO )
             GO TO 220
-         END IF
+         }
 
          // Perform test (15)
 
@@ -396,14 +396,14 @@
   210    CONTINUE
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
-      END IF
+      }
 
   220 CONTINUE
 
       // If there are precomputed reciprocal condition numbers, compare
       // computed values with them.
 
-      IF( COMP ) THEN
+      if ( COMP ) {
 
          // First set up SELOPT, SELDIM, SELVAL, SELWR and SELWI so that
         t // he logical function ZSLECT selects the eigenvalues specified
@@ -420,21 +420,21 @@
   230    CONTINUE
          DO 250 I = 1, N - 1
             KMIN = I
-            IF( ISRT.EQ.0 ) THEN
+            if ( ISRT.EQ.0 ) {
                VRIMIN = DBLE( WTMP( I ) )
             } else {
                VRIMIN = DIMAG( WTMP( I ) )
-            END IF
+            }
             DO 240 J = I + 1, N
-               IF( ISRT.EQ.0 ) THEN
+               if ( ISRT.EQ.0 ) {
                   VRICMP = DBLE( WTMP( J ) )
                } else {
                   VRICMP = DIMAG( WTMP( J ) )
-               END IF
-               IF( VRICMP.LT.VRIMIN ) THEN
+               }
+               if ( VRICMP.LT.VRIMIN ) {
                   KMIN = J
                   VRIMIN = VRICMP
-               END IF
+               }
   240       CONTINUE
             CTMP = WTMP( KMIN )
             WTMP( KMIN ) = WTMP( I )
@@ -451,13 +451,13 @@
 
          CALL ZLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL ZGEESX( 'N', 'S', ZSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 16 ) = ULPINV
             RESULT( 17 ) = ULPINV
             WRITE( NOUNIT, FMT = 9999 )'ZGEESX9', IINFO, N, ISEED( 1 )
             INFO = ABS( IINFO )
             GO TO 270
-         END IF
+         }
 
          // Compare condition number for average of selected eigenvalues
         t // aking its condition number into account
@@ -465,60 +465,60 @@
          ANORM = ZLANGE( '1', N, N, A, LDA, RWORK )
          V = MAX( DBLE( N )*EPS*ANORM, SMLNUM )
          IF( ANORM.EQ.ZERO ) V = ONE
-         IF( V.GT.RCONDV ) THEN
+         if ( V.GT.RCONDV ) {
             TOL = ONE
          } else {
             TOL = V / RCONDV
-         END IF
-         IF( V.GT.RCDVIN ) THEN
+         }
+         if ( V.GT.RCDVIN ) {
             TOLIN = ONE
          } else {
             TOLIN = V / RCDVIN
-         END IF
+         }
          TOL = MAX( TOL, SMLNUM / EPS )
          TOLIN = MAX( TOLIN, SMLNUM / EPS )
-         IF( EPS*( RCDEIN-TOLIN ).GT.RCONDE+TOL ) THEN
+         if ( EPS*( RCDEIN-TOLIN ).GT.RCONDE+TOL ) {
             RESULT( 16 ) = ULPINV
-         ELSE IF( RCDEIN-TOLIN.GT.RCONDE+TOL ) THEN
+         } else if ( RCDEIN-TOLIN.GT.RCONDE+TOL ) {
             RESULT( 16 ) = ( RCDEIN-TOLIN ) / ( RCONDE+TOL )
-         ELSE IF( RCDEIN+TOLIN.LT.EPS*( RCONDE-TOL ) ) THEN
+         } else if ( RCDEIN+TOLIN.LT.EPS*( RCONDE-TOL ) ) {
             RESULT( 16 ) = ULPINV
-         ELSE IF( RCDEIN+TOLIN.LT.RCONDE-TOL ) THEN
+         } else if ( RCDEIN+TOLIN.LT.RCONDE-TOL ) {
             RESULT( 16 ) = ( RCONDE-TOL ) / ( RCDEIN+TOLIN )
          } else {
             RESULT( 16 ) = ONE
-         END IF
+         }
 
          // Compare condition numbers for right invariant subspace
         t // aking its condition number into account
 
-         IF( V.GT.RCONDV*RCONDE ) THEN
+         if ( V.GT.RCONDV*RCONDE ) {
             TOL = RCONDV
          } else {
             TOL = V / RCONDE
-         END IF
-         IF( V.GT.RCDVIN*RCDEIN ) THEN
+         }
+         if ( V.GT.RCDVIN*RCDEIN ) {
             TOLIN = RCDVIN
          } else {
             TOLIN = V / RCDEIN
-         END IF
+         }
          TOL = MAX( TOL, SMLNUM / EPS )
          TOLIN = MAX( TOLIN, SMLNUM / EPS )
-         IF( EPS*( RCDVIN-TOLIN ).GT.RCONDV+TOL ) THEN
+         if ( EPS*( RCDVIN-TOLIN ).GT.RCONDV+TOL ) {
             RESULT( 17 ) = ULPINV
-         ELSE IF( RCDVIN-TOLIN.GT.RCONDV+TOL ) THEN
+         } else if ( RCDVIN-TOLIN.GT.RCONDV+TOL ) {
             RESULT( 17 ) = ( RCDVIN-TOLIN ) / ( RCONDV+TOL )
-         ELSE IF( RCDVIN+TOLIN.LT.EPS*( RCONDV-TOL ) ) THEN
+         } else if ( RCDVIN+TOLIN.LT.EPS*( RCONDV-TOL ) ) {
             RESULT( 17 ) = ULPINV
-         ELSE IF( RCDVIN+TOLIN.LT.RCONDV-TOL ) THEN
+         } else if ( RCDVIN+TOLIN.LT.RCONDV-TOL ) {
             RESULT( 17 ) = ( RCONDV-TOL ) / ( RCDVIN+TOLIN )
          } else {
             RESULT( 17 ) = ONE
-         END IF
+         }
 
   270    CONTINUE
 
-      END IF
+      }
 
  9999 FORMAT( ' ZGET24: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
      $      I6, ', INPUT EXAMPLE NUMBER = ', I4 )

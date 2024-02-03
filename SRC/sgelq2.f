@@ -32,17 +32,17 @@
       // Test the input arguments
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGELQ2', -INFO )
          RETURN
-      END IF
+      }
 
       K = MIN( M, N )
 
@@ -51,7 +51,7 @@
          // Generate elementary reflector H(i) to annihilate A(i,i+1:n)
 
          CALL SLARFG( N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA, TAU( I ) )
-         IF( I.LT.M ) THEN
+         if ( I.LT.M ) {
 
             // Apply H(i) to A(i+1:m,i:n) from the right
 
@@ -59,7 +59,7 @@
             A( I, I ) = ONE
             CALL SLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK )
             A( I, I ) = AII
-         END IF
+         }
    10 CONTINUE
       RETURN
 

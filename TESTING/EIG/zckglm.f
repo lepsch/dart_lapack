@@ -60,13 +60,13 @@
          M = MVAL( IK )
          P = PVAL( IK )
          N = NVAL( IK )
-         IF( M.GT.N .OR. N.GT.M+P ) THEN
-            IF( FIRSTT ) THEN
+         if ( M.GT.N .OR. N.GT.M+P ) {
+            if ( FIRSTT ) {
                WRITE( NOUT, FMT = * )
                FIRSTT = .FALSE.
-            END IF
+            }
             WRITE( NOUT, FMT = 9997 )M, P, N
-         END IF
+         }
    10 CONTINUE
       FIRSTT = .TRUE.
 
@@ -90,18 +90,18 @@
             CALL DLATB9( PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
 
             CALL ZLATMS( N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9999 )IINFO
                INFO = ABS( IINFO )
                GO TO 30
-            END IF
+            }
 
             CALL ZLATMS( N, P, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9999 )IINFO
                INFO = ABS( IINFO )
                GO TO 30
-            END IF
+            }
 
             // Generate random left hand side vector of GLM
 
@@ -114,14 +114,14 @@
             // Print information about the tests that did not
             // pass the threshold.
 
-            IF( RESID.GE.THRESH ) THEN
-               IF( NFAIL.EQ.0 .AND. FIRSTT ) THEN
+            if ( RESID.GE.THRESH ) {
+               if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                   FIRSTT = .FALSE.
                   CALL ALAHDG( NOUT, PATH )
-               END IF
+               }
                WRITE( NOUT, FMT = 9998 )N, M, P, IMAT, 1, RESID
                NFAIL = NFAIL + 1
-            END IF
+            }
             NRUN = NRUN + 1
 
    30    CONTINUE

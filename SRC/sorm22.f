@@ -47,70 +47,70 @@
       // NQ is the order of Q;
       // NW is the minimum dimension of WORK.
 
-      IF( LEFT ) THEN
+      if ( LEFT ) {
          NQ = M
       } else {
          NQ = N
-      END IF
+      }
       NW = NQ
       IF( N1.EQ.0 .OR. N2.EQ.0 ) NW = 1
-      IF( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) THEN
+      if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.LSAME( TRANS, 'T' ) ) THEN
+      } else if ( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -2
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( N1.LT.0 .OR. N1+N2.NE.NQ ) THEN
+      } else if ( N1.LT.0 .OR. N1+N2.NE.NQ ) {
          INFO = -5
-      ELSE IF( N2.LT.0 ) THEN
+      } else if ( N2.LT.0 ) {
          INFO = -6
-      ELSE IF( LDQ.LT.MAX( 1, NQ ) ) THEN
+      } else if ( LDQ.LT.MAX( 1, NQ ) ) {
          INFO = -8
-      ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+      } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -10
-      ELSE IF( LWORK.LT.NW .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.NW .AND. .NOT.LQUERY ) {
          INFO = -12
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          LWKOPT = M*N
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SORM22', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 ) {
          WORK( 1 ) = 1
          RETURN
-      END IF
+      }
 
       // Degenerate cases (N1 = 0 or N2 = 0) are handled using STRMM.
 
-      IF( N1.EQ.0 ) THEN
+      if ( N1.EQ.0 ) {
          CALL STRMM( SIDE, 'Upper', TRANS, 'Non-Unit', M, N, ONE, Q, LDQ, C, LDC )
          WORK( 1 ) = ONE
          RETURN
-      ELSE IF( N2.EQ.0 ) THEN
+      } else if ( N2.EQ.0 ) {
          CALL STRMM( SIDE, 'Lower', TRANS, 'Non-Unit', M, N, ONE, Q, LDQ, C, LDC )
          WORK( 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // Compute the largest chunk size available from the workspace.
 
       NB = MAX( 1, MIN( LWORK, LWKOPT ) / NQ )
 
-      IF( LEFT ) THEN
-         IF( NOTRAN ) THEN
+      if ( LEFT ) {
+         if ( NOTRAN ) {
             DO I = 1, N, NB
                LEN = MIN( NB, N-I+1 )
                LDWORK = M
@@ -160,9 +160,9 @@
 
                CALL SLACPY( 'All', M, LEN, WORK, LDWORK, C( 1, I ), LDC )
             END DO
-         END IF
+         }
       } else {
-         IF( NOTRAN ) THEN
+         if ( NOTRAN ) {
             DO I = 1, M, NB
                LEN = MIN( NB, M-I+1 )
                LDWORK = LEN
@@ -212,8 +212,8 @@
 
                CALL SLACPY( 'All', LEN, N, WORK, LDWORK, C( I, 1 ), LDC )
             END DO
-         END IF
-      END IF
+         }
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       RETURN

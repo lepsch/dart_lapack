@@ -39,10 +39,10 @@
 
       // Quick exit if N = 0
 
-      IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
+      if ( N.LE.0 .OR. NRHS.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
       EPS = SLAMCH( 'Epsilon' )
       SMLNUM = SLAMCH( 'Safe minimum' )
       BIGNUM = ONE / SMLNUM
@@ -51,7 +51,7 @@
       // norms already computed by SLATRS.
 
       TNORM = ZERO
-      IF( LSAME( DIAG, 'N' ) ) THEN
+      if ( LSAME( DIAG, 'N' ) ) {
          DO 10 J = 1, N
             TNORM = MAX( TNORM, TSCAL*ABS( A( J, J ) )+CNORM( J ) )
    10    CONTINUE
@@ -59,7 +59,7 @@
          DO 20 J = 1, N
             TNORM = MAX( TNORM, TSCAL+CNORM( J ) )
    20    CONTINUE
-      END IF
+      }
 
       // Compute the maximum over the number of right hand sides of
          // norm(op(A)*x - s*b) / ( norm(op(A)) * norm(x) * EPS ).
@@ -77,16 +77,16 @@
          ERR = TSCAL*ABS( WORK( IX ) )
          IX = ISAMAX( N, X( 1, J ), 1 )
          XNORM = ABS( X( IX, J ) )
-         IF( ERR*SMLNUM.LE.XNORM ) THEN
+         if ( ERR*SMLNUM.LE.XNORM ) {
             IF( XNORM.GT.ZERO ) ERR = ERR / XNORM
          } else {
             IF( ERR.GT.ZERO ) ERR = ONE / EPS
-         END IF
-         IF( ERR*SMLNUM.LE.TNORM ) THEN
+         }
+         if ( ERR*SMLNUM.LE.TNORM ) {
             IF( TNORM.GT.ZERO ) ERR = ERR / TNORM
          } else {
             IF( ERR.GT.ZERO ) ERR = ONE / EPS
-         END IF
+         }
          RESID = MAX( RESID, ERR )
    30 CONTINUE
 

@@ -55,23 +55,23 @@
       WNTSNE = LSAME( SENSE, 'E' )
       WNTSNV = LSAME( SENSE, 'V' )
       WNTSNB = LSAME( SENSE, 'B' )
-      IF( .NOT.( LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'B' ) ) ) THEN
+      if ( .NOT.( LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'B' ) ) ) {
          INFO = -1
-      ELSE IF( ( .NOT.WANTVL ) .AND. ( .NOT.LSAME( JOBVL, 'N' ) ) ) THEN
+      } else if ( ( .NOT.WANTVL ) .AND. ( .NOT.LSAME( JOBVL, 'N' ) ) ) {
          INFO = -2
-      ELSE IF( ( .NOT.WANTVR ) .AND. ( .NOT.LSAME( JOBVR, 'N' ) ) ) THEN
+      } else if ( ( .NOT.WANTVR ) .AND. ( .NOT.LSAME( JOBVR, 'N' ) ) ) {
          INFO = -3
-      ELSE IF( .NOT.( WNTSNN .OR. WNTSNE .OR. WNTSNB .OR. WNTSNV ) .OR. ( ( WNTSNE .OR. WNTSNB ) .AND. .NOT.( WANTVL .AND. WANTVR ) ) ) THEN
+      } else if ( .NOT.( WNTSNN .OR. WNTSNE .OR. WNTSNB .OR. WNTSNV ) .OR. ( ( WNTSNE .OR. WNTSNB ) .AND. .NOT.( WANTVL .AND. WANTVR ) ) ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDVL.LT.1 .OR. ( WANTVL .AND. LDVL.LT.N ) ) THEN
+      } else if ( LDVL.LT.1 .OR. ( WANTVL .AND. LDVL.LT.N ) ) {
          INFO = -11
-      ELSE IF( LDVR.LT.1 .OR. ( WANTVR .AND. LDVR.LT.N ) ) THEN
+      } else if ( LDVR.LT.1 .OR. ( WANTVR .AND. LDVR.LT.N ) ) {
          INFO = -13
-      END IF
+      }
 
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
@@ -83,33 +83,33 @@
         // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
        t // he worst case.)
 
-      IF( INFO.EQ.0 ) THEN
-         IF( N.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( N.EQ.0 ) {
             MINWRK = 1
             MAXWRK = 1
          } else {
             MAXWRK = N + N*ILAENV( 1, 'SGEHRD', ' ', N, 1, N, 0 )
 
-            IF( WANTVL ) THEN
+            if ( WANTVL ) {
                CALL STREVC3( 'L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR )
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
                CALL SHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL, WORK, -1, INFO )
-            ELSE IF( WANTVR ) THEN
+            } else if ( WANTVR ) {
                CALL STREVC3( 'R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR )
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
                CALL SHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
             } else {
-               IF( WNTSNN ) THEN
+               if ( WNTSNN ) {
                   CALL SHSEQR( 'E', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
                } else {
                   CALL SHSEQR( 'S', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
-               END IF
-            END IF
+               }
+            }
             HSWORK = INT( WORK(1) )
 
-            IF( ( .NOT.WANTVL ) .AND. ( .NOT.WANTVR ) ) THEN
+            if ( ( .NOT.WANTVL ) .AND. ( .NOT.WANTVR ) ) {
                MINWRK = 2*N
                IF( .NOT.WNTSNN ) MINWRK = MAX( MINWRK, N*N+6*N )
                MAXWRK = MAX( MAXWRK, HSWORK )
@@ -120,22 +120,22 @@
                MAXWRK = MAX( MAXWRK, HSWORK )
                MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) )                IF( ( .NOT.WNTSNN ) .AND. ( .NOT.WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 6*N )
                MAXWRK = MAX( MAXWRK, 3*N )
-            END IF
+            }
             MAXWRK = MAX( MAXWRK, MINWRK )
-         END IF
+         }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
             INFO = -21
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGEEVX', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -154,24 +154,24 @@
       ICOND = 0
       ANRM = SLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = .FALSE.
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          SCALEA = .TRUE.
          CSCALE = SMLNUM
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
          SCALEA = .TRUE.
          CSCALE = BIGNUM
-      END IF
+      }
       IF( SCALEA ) CALL SLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
 
       // Balance the matrix and compute ABNRM
 
       CALL SGEBAL( BALANC, N, A, LDA, ILO, IHI, SCALE, IERR )
       ABNRM = SLANGE( '1', N, N, A, LDA, DUM )
-      IF( SCALEA ) THEN
+      if ( SCALEA ) {
          DUM( 1 ) = ABNRM
          CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR )
          ABNRM = DUM( 1 )
-      END IF
+      }
 
       // Reduce to upper Hessenberg form
       // (Workspace: need 2*N, prefer N+N*NB)
@@ -180,7 +180,7 @@
       IWRK = ITAU + N
       CALL SGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 
-      IF( WANTVL ) THEN
+      if ( WANTVL ) {
 
          // Want left eigenvectors
          // Copy Householder vectors to VL
@@ -199,16 +199,16 @@
          IWRK = ITAU
          CALL SHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO )
 
-         IF( WANTVR ) THEN
+         if ( WANTVR ) {
 
             // Want left and right eigenvectors
             // Copy Schur vectors to VR
 
             SIDE = 'B'
             CALL SLACPY( 'F', N, N, VL, LDVL, VR, LDVR )
-         END IF
+         }
 
-      ELSE IF( WANTVR ) THEN
+      } else if ( WANTVR ) {
 
          // Want right eigenvectors
          // Copy Householder vectors to VR
@@ -232,38 +232,38 @@
          // Compute eigenvalues only
          // If condition numbers desired, compute Schur form
 
-         IF( WNTSNN ) THEN
+         if ( WNTSNN ) {
             JOB = 'E'
          } else {
             JOB = 'S'
-         END IF
+         }
 
          // (Workspace: need 1, prefer HSWORK (see comments) )
 
          IWRK = ITAU
          CALL SHSEQR( JOB, 'N', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
-      END IF
+      }
 
       // If INFO .NE. 0 from SHSEQR, then quit
 
       IF( INFO.NE.0 ) GO TO 50
 
-      IF( WANTVL .OR. WANTVR ) THEN
+      if ( WANTVL .OR. WANTVR ) {
 
          // Compute left and/or right eigenvectors
          // (Workspace: need 3*N, prefer N + 2*N*NB)
 
          CALL STREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, IERR )
-      END IF
+      }
 
       // Compute condition numbers if desired
       // (Workspace: need N*N+6*N unless SENSE = 'E')
 
-      IF( .NOT.WNTSNN ) THEN
+      if ( .NOT.WNTSNN ) {
          CALL STRSNA( SENSE, 'A', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, RCONDE, RCONDV, N, NOUT, WORK( IWRK ), N, IWORK, ICOND )
-      END IF
+      }
 
-      IF( WANTVL ) THEN
+      if ( WANTVL ) {
 
          // Undo balancing of left eigenvectors
 
@@ -272,10 +272,10 @@
          // Normalize left eigenvectors and make largest component real
 
          DO 20 I = 1, N
-            IF( WI( I ).EQ.ZERO ) THEN
+            if ( WI( I ).EQ.ZERO ) {
                SCL = ONE / SNRM2( N, VL( 1, I ), 1 )
                CALL SSCAL( N, SCL, VL( 1, I ), 1 )
-            ELSE IF( WI( I ).GT.ZERO ) THEN
+            } else if ( WI( I ).GT.ZERO ) {
                SCL = ONE / SLAPY2( SNRM2( N, VL( 1, I ), 1 ), SNRM2( N, VL( 1, I+1 ), 1 ) )
                CALL SSCAL( N, SCL, VL( 1, I ), 1 )
                CALL SSCAL( N, SCL, VL( 1, I+1 ), 1 )
@@ -286,11 +286,11 @@
                CALL SLARTG( VL( K, I ), VL( K, I+1 ), CS, SN, R )
                CALL SROT( N, VL( 1, I ), 1, VL( 1, I+1 ), 1, CS, SN )
                VL( K, I+1 ) = ZERO
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
 
-      IF( WANTVR ) THEN
+      if ( WANTVR ) {
 
          // Undo balancing of right eigenvectors
 
@@ -299,10 +299,10 @@
          // Normalize right eigenvectors and make largest component real
 
          DO 40 I = 1, N
-            IF( WI( I ).EQ.ZERO ) THEN
+            if ( WI( I ).EQ.ZERO ) {
                SCL = ONE / SNRM2( N, VR( 1, I ), 1 )
                CALL SSCAL( N, SCL, VR( 1, I ), 1 )
-            ELSE IF( WI( I ).GT.ZERO ) THEN
+            } else if ( WI( I ).GT.ZERO ) {
                SCL = ONE / SLAPY2( SNRM2( N, VR( 1, I ), 1 ), SNRM2( N, VR( 1, I+1 ), 1 ) )
                CALL SSCAL( N, SCL, VR( 1, I ), 1 )
                CALL SSCAL( N, SCL, VR( 1, I+1 ), 1 )
@@ -313,21 +313,21 @@
                CALL SLARTG( VR( K, I ), VR( K, I+1 ), CS, SN, R )
                CALL SROT( N, VR( 1, I ), 1, VR( 1, I+1 ), 1, CS, SN )
                VR( K, I+1 ) = ZERO
-            END IF
+            }
    40    CONTINUE
-      END IF
+      }
 
       // Undo scaling if necessary
 
    50 CONTINUE
-      IF( SCALEA ) THEN
+      if ( SCALEA ) {
          CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR )          CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR )
-         IF( INFO.EQ.0 ) THEN
+         if ( INFO.EQ.0 ) {
             IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND.EQ.0 ) CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
          } else {
             CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR )             CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR )
-         END IF
-      END IF
+         }
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
       RETURN

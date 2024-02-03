@@ -39,57 +39,57 @@
       TRAN   = LSAME( TRANS, 'T' )
       NOTRAN = LSAME( TRANS, 'N' )
 
-      IF( LEFT ) THEN
+      if ( LEFT ) {
          LDWORK = MAX( 1, N )
          Q = M
-      ELSE IF ( RIGHT ) THEN
+      } else if ( RIGHT ) {
          LDWORK = MAX( 1, M )
          Q = N
-      END IF
-      IF( .NOT.LEFT .AND. .NOT.RIGHT ) THEN
+      }
+      if ( .NOT.LEFT .AND. .NOT.RIGHT ) {
          INFO = -1
-      ELSE IF( .NOT.TRAN .AND. .NOT.NOTRAN ) THEN
+      } else if ( .NOT.TRAN .AND. .NOT.NOTRAN ) {
          INFO = -2
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( K.LT.0 .OR. K.GT.Q ) THEN
+      } else if ( K.LT.0 .OR. K.GT.Q ) {
          INFO = -5
-      ELSE IF( MB.LT.1 .OR. (MB.GT.K .AND. K.GT.0)) THEN
+      } else if ( MB.LT.1 .OR. (MB.GT.K .AND. K.GT.0)) {
          INFO = -6
-      ELSE IF( LDV.LT.MAX( 1, K ) ) THEN
+      } else if ( LDV.LT.MAX( 1, K ) ) {
           INFO = -8
-      ELSE IF( LDT.LT.MB ) THEN
+      } else if ( LDT.LT.MB ) {
          INFO = -10
-      ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+      } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -12
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGEMLQT', -INFO )
          RETURN
-      END IF
+      }
 
       // .. Quick return if possible ..
 
       IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
 
-      IF( LEFT .AND. NOTRAN ) THEN
+      if ( LEFT .AND. NOTRAN ) {
 
          DO I = 1, K, MB
             IB = MIN( MB, K-I+1 )
             CALL SLARFB( 'L', 'T', 'F', 'R', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK )
          END DO
 
-      ELSE IF( RIGHT .AND. TRAN ) THEN
+      } else if ( RIGHT .AND. TRAN ) {
 
          DO I = 1, K, MB
             IB = MIN( MB, K-I+1 )
             CALL SLARFB( 'R', 'N', 'F', 'R', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK )
          END DO
 
-      ELSE IF( LEFT .AND. TRAN ) THEN
+      } else if ( LEFT .AND. TRAN ) {
 
          KF = ((K-1)/MB)*MB+1
          DO I = KF, 1, -MB
@@ -97,7 +97,7 @@
             CALL SLARFB( 'L', 'N', 'F', 'R', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK )
          END DO
 
-      ELSE IF( RIGHT .AND. NOTRAN ) THEN
+      } else if ( RIGHT .AND. NOTRAN ) {
 
          KF = ((K-1)/MB)*MB+1
          DO I = KF, 1, -MB
@@ -105,7 +105,7 @@
             CALL SLARFB( 'R', 'T', 'F', 'R', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK )
          END DO
 
-      END IF
+      }
 
       RETURN
 

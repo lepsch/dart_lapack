@@ -19,15 +19,15 @@
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..
-      IF( LSAME( TRANS, 'N' ) ) THEN
+      if ( LSAME( TRANS, 'N' ) ) {
          ILATRANS = BLAS_NO_TRANS
-      ELSE IF( LSAME( TRANS, 'T' ) ) THEN
+      } else if ( LSAME( TRANS, 'T' ) ) {
          ILATRANS = BLAS_TRANS
-      ELSE IF( LSAME( TRANS, 'C' ) ) THEN
+      } else if ( LSAME( TRANS, 'C' ) ) {
          ILATRANS = BLAS_CONJ_TRANS
       } else {
          ILATRANS = -1
-      END IF
+      }
       RETURN
 
       // End of ILATRANS

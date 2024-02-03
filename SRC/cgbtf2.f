@@ -41,21 +41,21 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KL.LT.0 ) THEN
+      } else if ( KL.LT.0 ) {
          INFO = -3
-      ELSE IF( KU.LT.0 ) THEN
+      } else if ( KU.LT.0 ) {
          INFO = -4
-      ELSE IF( LDAB.LT.KL+KV+1 ) THEN
+      } else if ( LDAB.LT.KL+KV+1 ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGBTF2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -80,11 +80,11 @@
 
          // Set fill-in elements in column J+KV to zero.
 
-         IF( J+KV.LE.N ) THEN
+         if ( J+KV.LE.N ) {
             DO 30 I = 1, KL
                AB( I, J+KV ) = ZERO
    30       CONTINUE
-         END IF
+         }
 
          // Find pivot and test for singularity. KM is the number of
          // subdiagonal elements in the current column.
@@ -92,13 +92,13 @@
          KM = MIN( KL, M-J )
          JP = ICAMAX( KM+1, AB( KV+1, J ), 1 )
          IPIV( J ) = JP + J - 1
-         IF( AB( KV+JP, J ).NE.ZERO ) THEN
+         if ( AB( KV+JP, J ).NE.ZERO ) {
             JU = MAX( JU, MIN( J+KU+JP-1, N ) )
 
             // Apply interchange to columns J to JU.
 
             IF( JP.NE.1 ) CALL CSWAP( JU-J+1, AB( KV+JP, J ), LDAB-1, AB( KV+1, J ), LDAB-1 )
-            IF( KM.GT.0 ) THEN
+            if ( KM.GT.0 ) {
 
                // Compute multipliers.
 
@@ -107,14 +107,14 @@
                // Update trailing submatrix within the band.
 
                IF( JU.GT.J ) CALL CGERU( KM, JU-J, -ONE, AB( KV+2, J ), 1, AB( KV, J+1 ), LDAB-1, AB( KV+1, J+1 ), LDAB-1 )
-            END IF
+            }
          } else {
 
             // If pivot is zero, set INFO to the index of the pivot
             // unless a zero pivot has already been found.
 
             IF( INFO.EQ.0 ) INFO = J
-         END IF
+         }
    40 CONTINUE
       RETURN
 

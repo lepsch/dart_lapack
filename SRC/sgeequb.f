@@ -37,26 +37,26 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGEEQUB', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 ) {
          ROWCND = ONE
          COLCND = ONE
          AMAX = ZERO
          RETURN
-      END IF
+      }
 
       // Get machine constants.  Assume SMLNUM is a power of the radix.
 
@@ -79,9 +79,9 @@
    20    CONTINUE
    30 CONTINUE
       DO I = 1, M
-         IF( R( I ).GT.ZERO ) THEN
+         if ( R( I ).GT.ZERO ) {
             R( I ) = RADIX**INT( LOG( R( I ) ) / LOGRDX )
-         END IF
+         }
       END DO
 
       // Find the maximum and minimum scale factors.
@@ -94,15 +94,15 @@
    40 CONTINUE
       AMAX = RCMAX
 
-      IF( RCMIN.EQ.ZERO ) THEN
+      if ( RCMIN.EQ.ZERO ) {
 
          // Find the first zero scale factor and return an error code.
 
          DO 50 I = 1, M
-            IF( R( I ).EQ.ZERO ) THEN
+            if ( R( I ).EQ.ZERO ) {
                INFO = I
                RETURN
-            END IF
+            }
    50    CONTINUE
       } else {
 
@@ -115,7 +115,7 @@
          // Compute ROWCND = min(R(I)) / max(R(I)).
 
          ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
-      END IF
+      }
 
       // Compute column scale factors
 
@@ -130,9 +130,9 @@
          DO 80 I = 1, M
             C( J ) = MAX( C( J ), ABS( A( I, J ) )*R( I ) )
    80    CONTINUE
-         IF( C( J ).GT.ZERO ) THEN
+         if ( C( J ).GT.ZERO ) {
             C( J ) = RADIX**INT( LOG( C( J ) ) / LOGRDX )
-         END IF
+         }
    90 CONTINUE
 
       // Find the maximum and minimum scale factors.
@@ -144,15 +144,15 @@
          RCMAX = MAX( RCMAX, C( J ) )
   100 CONTINUE
 
-      IF( RCMIN.EQ.ZERO ) THEN
+      if ( RCMIN.EQ.ZERO ) {
 
          // Find the first zero scale factor and return an error code.
 
          DO 110 J = 1, N
-            IF( C( J ).EQ.ZERO ) THEN
+            if ( C( J ).EQ.ZERO ) {
                INFO = M + J
                RETURN
-            END IF
+            }
   110    CONTINUE
       } else {
 
@@ -165,7 +165,7 @@
          // Compute COLCND = min(C(J)) / max(C(J)).
 
          COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
-      END IF
+      }
 
       RETURN
 

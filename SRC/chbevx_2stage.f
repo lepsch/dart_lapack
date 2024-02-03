@@ -56,37 +56,37 @@
       LQUERY = ( LWORK.EQ.-1 )
 
       INFO = 0
-      IF( .NOT.( LSAME( JOBZ, 'N' ) ) ) THEN
+      if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) THEN
+      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
          INFO = -2
-      ELSE IF( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) THEN
+      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -5
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -7
-      ELSE IF( WANTZ .AND. LDQ.LT.MAX( 1, N ) ) THEN
+      } else if ( WANTZ .AND. LDQ.LT.MAX( 1, N ) ) {
          INFO = -9
       } else {
-         IF( VALEIG ) THEN
+         if ( VALEIG ) {
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -11
-         ELSE IF( INDEIG ) THEN
-            IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
+         } else if ( INDEIG ) {
+            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -12
-            ELSE IF( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) THEN
+            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
                INFO = -13
-            END IF
-         END IF
-      END IF
-      IF( INFO.EQ.0 ) THEN
+            }
+         }
+      }
+      if ( INFO.EQ.0 ) {
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -18
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
-         IF( N.LE.1 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( N.LE.1 ) {
             LWMIN = 1
             WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          } else {
@@ -96,37 +96,37 @@
          ENDIF
 
          IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -20
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHBEVX_2STAGE', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       M = 0
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          M = 1
-         IF( LOWER ) THEN
+         if ( LOWER ) {
             CTMP1 = AB( 1, 1 )
          } else {
             CTMP1 = AB( KD+1, 1 )
-         END IF
+         }
          TMP1 = REAL( CTMP1 )
-         IF( VALEIG ) THEN
+         if ( VALEIG ) {
             IF( .NOT.( VL.LT.TMP1 .AND. VU.GE.TMP1 ) ) M = 0
-         END IF
-         IF( M.EQ.1 ) THEN
+         }
+         if ( M.EQ.1 ) {
             W( 1 ) = REAL( CTMP1 )
             IF( WANTZ ) Z( 1, 1 ) = CONE
-         END IF
+         }
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -141,33 +141,33 @@
 
       ISCALE = 0
       ABSTLL = ABSTOL
-      IF( VALEIG ) THEN
+      if ( VALEIG ) {
          VLL = VL
          VUU = VU
       } else {
          VLL = ZERO
          VUU = ZERO
-      END IF
+      }
       ANRM = CLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK )
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
-      ELSE IF( ANRM.GT.RMAX ) THEN
+      } else if ( ANRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / ANRM
-      END IF
-      IF( ISCALE.EQ.1 ) THEN
-         IF( LOWER ) THEN
+      }
+      if ( ISCALE.EQ.1 ) {
+         if ( LOWER ) {
             CALL CLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
          } else {
             CALL CLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
-         END IF
+         }
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
-         IF( VALEIG ) THEN
+         if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA
-         END IF
-      END IF
+         }
+      }
 
       // Call CHBTRD_HB2ST to reduce Hermitian band matrix to tridiagonal form.
 
@@ -186,47 +186,47 @@
       // eigenvalue, then try SSTEBZ.
 
       TEST = .FALSE.
-      IF (INDEIG) THEN
-         IF (IL.EQ.1 .AND. IU.EQ.N) THEN
+      if (INDEIG) {
+         if (IL.EQ.1 .AND. IU.EQ.N) {
             TEST = .TRUE.
-         END IF
-      END IF
-      IF ((ALLEIG .OR. TEST) .AND. (ABSTOL.LE.ZERO)) THEN
+         }
+      }
+      if ((ALLEIG .OR. TEST) .AND. (ABSTOL.LE.ZERO)) {
          CALL SCOPY( N, RWORK( INDD ), 1, W, 1 )
          INDEE = INDRWK + 2*N
-         IF( .NOT.WANTZ ) THEN
+         if ( .NOT.WANTZ ) {
             CALL SCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL SSTERF( N, W, RWORK( INDEE ), INFO )
          } else {
             CALL CLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
             CALL SCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL CSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO )
-            IF( INFO.EQ.0 ) THEN
+            if ( INFO.EQ.0 ) {
                DO 10 I = 1, N
                   IFAIL( I ) = 0
    10          CONTINUE
-            END IF
-         END IF
-         IF( INFO.EQ.0 ) THEN
+            }
+         }
+         if ( INFO.EQ.0 ) {
             M = N
             GO TO 30
-         END IF
+         }
          INFO = 0
-      END IF
+      }
 
       // Otherwise, call SSTEBZ and, if eigenvectors are desired, CSTEIN.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          ORDER = 'B'
       } else {
          ORDER = 'E'
-      END IF
+      }
       INDIBL = 1
       INDISP = INDIBL + N
       INDIWK = INDISP + N
       CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO )
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          CALL CSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
 
          // Apply unitary matrix used in reduction to tridiagonal
@@ -236,49 +236,49 @@
             CALL CCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
             CALL CGEMV( 'N', N, N, CONE, Q, LDQ, WORK, 1, CZERO, Z( 1, J ), 1 )
    20    CONTINUE
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
    30 CONTINUE
-      IF( ISCALE.EQ.1 ) THEN
-         IF( INFO.EQ.0 ) THEN
+      if ( ISCALE.EQ.1 ) {
+         if ( INFO.EQ.0 ) {
             IMAX = M
          } else {
             IMAX = INFO - 1
-         END IF
+         }
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
-      END IF
+      }
 
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          DO 50 J = 1, M - 1
             I = 0
             TMP1 = W( J )
             DO 40 JJ = J + 1, M
-               IF( W( JJ ).LT.TMP1 ) THEN
+               if ( W( JJ ).LT.TMP1 ) {
                   I = JJ
                   TMP1 = W( JJ )
-               END IF
+               }
    40       CONTINUE
 
-            IF( I.NE.0 ) THEN
+            if ( I.NE.0 ) {
                ITMP1 = IWORK( INDIBL+I-1 )
                W( I ) = W( J )
                IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 )
                W( J ) = TMP1
                IWORK( INDIBL+J-1 ) = ITMP1
                CALL CSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )
                   IFAIL( J ) = ITMP1
-               END IF
-            END IF
+               }
+            }
    50    CONTINUE
-      END IF
+      }
 
       // Set WORK(1) to optimal workspace size.
 

@@ -40,13 +40,13 @@
 
       IF( N.LE.0 ) RETURN
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
          // Reduce last NB columns of upper triangle
 
          DO 10 I = N, N - NB + 1, -1
             IW = I - N + NB
-            IF( I.LT.N ) THEN
+            if ( I.LT.N ) {
 
                // Update A(1:i,i)
 
@@ -58,8 +58,8 @@
                CALL ZGEMV( 'No transpose', I, N-I, -ONE, W( 1, IW+1 ), LDW, A( I, I+1 ), LDA, ONE, A( 1, I ), 1 )
                CALL ZLACGV( N-I, A( I, I+1 ), LDA )
                A( I, I ) = DBLE( A( I, I ) )
-            END IF
-            IF( I.GT.1 ) THEN
+            }
+            if ( I.GT.1 ) {
 
                // Generate elementary reflector H(i) to annihilate
                // A(1:i-2,i)
@@ -72,13 +72,13 @@
                // Compute W(1:i-1,i)
 
                CALL ZHEMV( 'Upper', I-1, ONE, A, LDA, A( 1, I ), 1, ZERO, W( 1, IW ), 1 )
-               IF( I.LT.N ) THEN
+               if ( I.LT.N ) {
                   CALL ZGEMV( 'Conjugate transpose', I-1, N-I, ONE, W( 1, IW+1 ), LDW, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 )                   CALL ZGEMV( 'No transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, W( I+1, IW ), 1, ONE, W( 1, IW ), 1 )                   CALL ZGEMV( 'Conjugate transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 )                   CALL ZGEMV( 'No transpose', I-1, N-I, -ONE, W( 1, IW+1 ), LDW, W( I+1, IW ), 1, ONE, W( 1, IW ), 1 )
-               END IF
+               }
                CALL ZSCAL( I-1, TAU( I-1 ), W( 1, IW ), 1 )
                ALPHA = -HALF*TAU( I-1 )*ZDOTC( I-1, W( 1, IW ), 1, A( 1, I ), 1 )
                CALL ZAXPY( I-1, ALPHA, A( 1, I ), 1, W( 1, IW ), 1 )
-            END IF
+            }
 
    10    CONTINUE
       } else {
@@ -97,7 +97,7 @@
             CALL ZGEMV( 'No transpose', N-I+1, I-1, -ONE, W( I, 1 ), LDW, A( I, 1 ), LDA, ONE, A( I, I ), 1 )
             CALL ZLACGV( I-1, A( I, 1 ), LDA )
             A( I, I ) = DBLE( A( I, I ) )
-            IF( I.LT.N ) THEN
+            if ( I.LT.N ) {
 
                // Generate elementary reflector H(i) to annihilate
                // A(i+2:n,i)
@@ -114,10 +114,10 @@
                CALL ZSCAL( N-I, TAU( I ), W( I+1, I ), 1 )
                ALPHA = -HALF*TAU( I )*ZDOTC( N-I, W( I+1, I ), 1, A( I+1, I ), 1 )
                CALL ZAXPY( N-I, ALPHA, A( I+1, I ), 1, W( I+1, I ), 1 )
-            END IF
+            }
 
    20    CONTINUE
-      END IF
+      }
 
       RETURN
 

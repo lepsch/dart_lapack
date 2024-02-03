@@ -38,23 +38,23 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDQ.LT.MAX( 1, N ) ) THEN
+      } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DOPGTR', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Q was determined by a call to DSPTRD with UPLO = 'U'
 
@@ -101,13 +101,13 @@
    50       CONTINUE
             IJ = IJ + 2
    60    CONTINUE
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
 
             // Generate Q(2:n,2:n)
 
             CALL DORG2R( N-1, N-1, N-1, Q( 2, 2 ), LDQ, TAU, WORK, IINFO )
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of DOPGTR

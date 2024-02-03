@@ -96,7 +96,7 @@
             CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
 
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
-            IF( IMAT.LE.6 ) THEN
+            if ( IMAT.LE.6 ) {
 
                // Type 1-6:  generate a symmetric tridiagonal matrix of
                // known condition number in lower triangular band storage.
@@ -106,10 +106,10 @@
 
                // Check the error code from CLATMS.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 110
-               END IF
+               }
                IZERO = 0
 
                // Copy the matrix to D and E.
@@ -126,7 +126,7 @@
                // Type 7-12:  generate a diagonally dominant matrix with
                // unknown condition number in the vectors D and E.
 
-               IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) THEN
+               if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) {
 
                   // Let D and E have values from [-1,1].
 
@@ -135,7 +135,7 @@
 
                   // Make the tridiagonal matrix diagonally dominant.
 
-                  IF( N.EQ.1 ) THEN
+                  if ( N.EQ.1 ) {
                      D( 1 ) = ABS( D( 1 ) )
                   } else {
                      D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) )
@@ -143,7 +143,7 @@
                      DO 30 I = 2, N - 1
                         D( I ) = ABS( D( I ) ) + ABS( E( I ) ) + ABS( E( I-1 ) )
    30                CONTINUE
-                  END IF
+                  }
 
                   // Scale D and E so the maximum element is ANORM.
 
@@ -152,56 +152,56 @@
                   CALL SSCAL( N, ANORM / DMAX, D, 1 )
                   IF( N.GT.1 ) CALL CSSCAL( N-1, ANORM / DMAX, E, 1 )
 
-               ELSE IF( IZERO.GT.0 ) THEN
+               } else if ( IZERO.GT.0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
                   // elements.
 
-                  IF( IZERO.EQ.1 ) THEN
+                  if ( IZERO.EQ.1 ) {
                      D( 1 ) = Z( 2 )
                      IF( N.GT.1 ) E( 1 ) = Z( 3 )
-                  ELSE IF( IZERO.EQ.N ) THEN
+                  } else if ( IZERO.EQ.N ) {
                      E( N-1 ) = Z( 1 )
                      D( N ) = Z( 2 )
                   } else {
                      E( IZERO-1 ) = Z( 1 )
                      D( IZERO ) = Z( 2 )
                      E( IZERO ) = Z( 3 )
-                  END IF
-               END IF
+                  }
+               }
 
                // For types 8-10, set one row and column of the matrix to
                // zero.
 
                IZERO = 0
-               IF( IMAT.EQ.8 ) THEN
+               if ( IMAT.EQ.8 ) {
                   IZERO = 1
                   Z( 2 ) = D( 1 )
                   D( 1 ) = ZERO
-                  IF( N.GT.1 ) THEN
+                  if ( N.GT.1 ) {
                      Z( 3 ) = REAL( E( 1 ) )
                      E( 1 ) = ZERO
-                  END IF
-               ELSE IF( IMAT.EQ.9 ) THEN
+                  }
+               } else if ( IMAT.EQ.9 ) {
                   IZERO = N
-                  IF( N.GT.1 ) THEN
+                  if ( N.GT.1 ) {
                      Z( 1 ) = REAL( E( N-1 ) )
                      E( N-1 ) = ZERO
-                  END IF
+                  }
                   Z( 2 ) = D( N )
                   D( N ) = ZERO
-               ELSE IF( IMAT.EQ.10 ) THEN
+               } else if ( IMAT.EQ.10 ) {
                   IZERO = ( N+1 ) / 2
-                  IF( IZERO.GT.1 ) THEN
+                  if ( IZERO.GT.1 ) {
                      Z( 1 ) = REAL( E( IZERO-1 ) )
                      E( IZERO-1 ) = ZERO
                      Z( 3 ) = REAL( E( IZERO ) )
                      E( IZERO ) = ZERO
-                  END IF
+                  }
                   Z( 2 ) = D( IZERO )
                   D( IZERO ) = ZERO
-               END IF
-            END IF
+               }
+            }
 
             // Generate NRHS random solution vectors.
 
@@ -216,20 +216,20 @@
             CALL CLAPTM( 'Lower', N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA )
 
             DO 100 IFACT = 1, 2
-               IF( IFACT.EQ.1 ) THEN
+               if ( IFACT.EQ.1 ) {
                   FACT = 'F'
                } else {
                   FACT = 'N'
-               END IF
+               }
 
                // Compute the condition number for comparison with
               t // he value returned by CPTSVX.
 
-               IF( ZEROT ) THEN
+               if ( ZEROT ) {
                   IF( IFACT.EQ.1 ) GO TO 100
                   RCONDC = ZERO
 
-               ELSE IF( IFACT.EQ.1 ) THEN
+               } else if ( IFACT.EQ.1 ) {
 
                   // Compute the 1-norm of A.
 
@@ -257,14 +257,14 @@
 
                   // Compute the 1-norm condition number of A.
 
-                  IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                  if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                      RCONDC = ONE
                   } else {
                      RCONDC = ( ONE / ANORM ) / AINVNM
-                  END IF
-               END IF
+                  }
+               }
 
-               IF( IFACT.EQ.2 ) THEN
+               if ( IFACT.EQ.2 ) {
 
                   // --- Test CPTSV --
 
@@ -281,7 +281,7 @@
 
                   IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                   NT = 0
-                  IF( IZERO.EQ.0 ) THEN
+                  if ( IZERO.EQ.0 ) {
 
                      // Check the factorization by computing the ratio
                         // norm(L*D*L' - A) / (n * norm(A) * EPS )
@@ -297,23 +297,23 @@
 
                      CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                      NT = 3
-                  END IF
+                  }
 
                   // Print information about the tests that did not pass
                  t // he threshold.
 
                   DO 70 K = 1, NT
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'CPTSV ', N, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
    70             CONTINUE
                   NRUN = NRUN + NT
-               END IF
+               }
 
                // --- Test CPTSVX ---
 
-               IF( IFACT.GT.1 ) THEN
+               if ( IFACT.GT.1 ) {
 
                   // Initialize D( N+1:2*N ) and E( N+1:2*N ) to zero.
 
@@ -322,7 +322,7 @@
                      E( N+I ) = ZERO
    80             CONTINUE
                   IF( N.GT.0 ) D( N+N ) = ZERO
-               END IF
+               }
 
                CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA )
 
@@ -335,8 +335,8 @@
                // Check the error code from CPTSVX.
 
                IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
-               IF( IZERO.EQ.0 ) THEN
-                  IF( IFACT.EQ.2 ) THEN
+               if ( IZERO.EQ.0 ) {
+                  if ( IFACT.EQ.2 ) {
 
                      // Check the factorization by computing the ratio
                         // norm(L*D*L' - A) / (n * norm(A) * EPS )
@@ -345,7 +345,7 @@
                      CALL CPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
                   } else {
                      K1 = 2
-                  END IF
+                  }
 
                   // Compute the residual in the solution.
 
@@ -361,7 +361,7 @@
                   CALL CPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                } else {
                   K1 = 6
-               END IF
+               }
 
                // Check the reciprocal of the condition number.
 
@@ -371,10 +371,10 @@
               t // he threshold.
 
                DO 90 K = K1, 6
-                  IF( RESULT( K ).GE.THRESH ) THEN
+                  if ( RESULT( K ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'CPTSVX', FACT, N, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
-                  END IF
+                  }
    90          CONTINUE
                NRUN = NRUN + 7 - K1
   100       CONTINUE

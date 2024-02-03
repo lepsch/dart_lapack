@@ -53,21 +53,21 @@
       IF( M.LE.0 .OR. N.LE.0 ) RETURN
 
       EPS = DLAMCH( 'Precision' )
-      IF( M.LT.N .OR. ( M.EQ.N .AND. LSAME( ROWCOL, 'R' ) ) ) THEN
+      if ( M.LT.N .OR. ( M.EQ.N .AND. LSAME( ROWCOL, 'R' ) ) ) {
          TRANSU = 'N'
          K = N
       } else {
          TRANSU = 'C'
          K = M
-      END IF
+      }
       MNMIN = MIN( M, N )
 
-      IF( ( MNMIN+1 )*MNMIN.LE.LWORK ) THEN
+      if ( ( MNMIN+1 )*MNMIN.LE.LWORK ) {
          LDWORK = MNMIN
       } else {
          LDWORK = 0
-      END IF
-      IF( LDWORK.GT.0 ) THEN
+      }
+      if ( LDWORK.GT.0 ) {
 
          // Compute I - U*U' or I - U'*U.
 
@@ -77,17 +77,17 @@
 
          RESID = ZLANSY( '1', 'Upper', MNMIN, WORK, LDWORK, RWORK )
          RESID = ( RESID / DBLE( K ) ) / EPS
-      ELSE IF( TRANSU.EQ.'C' ) THEN
+      } else if ( TRANSU.EQ.'C' ) {
 
          // Find the maximum element in abs( I - U'*U ) / ( m * EPS )
 
          DO 20 J = 1, N
             DO 10 I = 1, J
-               IF( I.NE.J ) THEN
+               if ( I.NE.J ) {
                   TMP = ZERO
                } else {
                   TMP = ONE
-               END IF
+               }
                TMP = TMP - ZDOTC( M, U( 1, I ), 1, U( 1, J ), 1 )
                RESID = MAX( RESID, CABS1( TMP ) )
    10       CONTINUE
@@ -99,17 +99,17 @@
 
          DO 40 J = 1, M
             DO 30 I = 1, J
-               IF( I.NE.J ) THEN
+               if ( I.NE.J ) {
                   TMP = ZERO
                } else {
                   TMP = ONE
-               END IF
+               }
                TMP = TMP - ZDOTC( N, U( J, 1 ), LDU, U( I, 1 ), LDU )
                RESID = MAX( RESID, CABS1( TMP ) )
    30       CONTINUE
    40    CONTINUE
          RESID = ( RESID / DBLE( N ) ) / EPS
-      END IF
+      }
       RETURN
 
       // End of ZUNT01

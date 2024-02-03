@@ -68,7 +68,7 @@
       BINV22 = ONE / B22
       S1 = A11*BINV11
       S2 = A22*BINV22
-      IF( ABS( S1 ).LE.ABS( S2 ) ) THEN
+      if ( ABS( S1 ).LE.ABS( S2 ) ) {
          AS12 = A12 - S1*B12
          AS22 = A22 - S1*B22
          SS = A21*( BINV11*BINV22 )
@@ -82,20 +82,20 @@
          ABI22 = -SS*B12
          PP = HALF*( AS11*BINV11+ABI22 )
          SHIFT = S2
-      END IF
+      }
       QQ = SS*AS12
-      IF( ABS( PP*RTMIN ).GE.ONE ) THEN
+      if ( ABS( PP*RTMIN ).GE.ONE ) {
          DISCR = ( RTMIN*PP )**2 + QQ*SAFMIN
          R = SQRT( ABS( DISCR ) )*RTMAX
       } else {
-         IF( PP**2+ABS( QQ ).LE.SAFMIN ) THEN
+         if ( PP**2+ABS( QQ ).LE.SAFMIN ) {
             DISCR = ( RTMAX*PP )**2 + QQ*SAFMAX
             R = SQRT( ABS( DISCR ) )*RTMIN
          } else {
             DISCR = PP**2 + QQ
             R = SQRT( ABS( DISCR ) )
-         END IF
-      END IF
+         }
+      }
 
       // Note: the test of R in the following IF is to cover the case when
             // DISCR is small and negative and is flushed to zero during
@@ -103,7 +103,7 @@
             // flush-to-zero threshold and handle numbers above that
            t // hreshold correctly, it would not be necessary.
 
-      IF( DISCR.GE.ZERO .OR. R.EQ.ZERO ) THEN
+      if ( DISCR.GE.ZERO .OR. R.EQ.ZERO ) {
          SUM = PP + SIGN( R, PP )
          DIFF = PP - SIGN( R, PP )
          WBIG = SHIFT + SUM
@@ -111,21 +111,21 @@
          // Compute smaller eigenvalue
 
          WSMALL = SHIFT + DIFF
-         IF( HALF*ABS( WBIG ).GT.MAX( ABS( WSMALL ), SAFMIN ) ) THEN
+         if ( HALF*ABS( WBIG ).GT.MAX( ABS( WSMALL ), SAFMIN ) ) {
             WDET = ( A11*A22-A12*A21 )*( BINV11*BINV22 )
             WSMALL = WDET / WBIG
-         END IF
+         }
 
          // Choose (real) eigenvalue closest to 2,2 element of A*B**(-1)
          // for WR1.
 
-         IF( PP.GT.ABI22 ) THEN
+         if ( PP.GT.ABI22 ) {
             WR1 = MIN( WBIG, WSMALL )
             WR2 = MAX( WBIG, WSMALL )
          } else {
             WR1 = MAX( WBIG, WSMALL )
             WR2 = MIN( WBIG, WSMALL )
-         END IF
+         }
          WI = ZERO
       } else {
 
@@ -134,7 +134,7 @@
          WR1 = SHIFT + PP
          WR2 = WR1
          WI = R
-      END IF
+      }
 
       // Further scaling to avoid underflow and overflow in computing
       // SCALE1 and overflow in computing w*B.
@@ -151,55 +151,55 @@
       C1 = BSIZE*( SAFMIN*MAX( ONE, ASCALE ) )
       C2 = SAFMIN*MAX( ONE, BNORM )
       C3 = BSIZE*SAFMIN
-      IF( ASCALE.LE.ONE .AND. BSIZE.LE.ONE ) THEN
+      if ( ASCALE.LE.ONE .AND. BSIZE.LE.ONE ) {
          C4 = MIN( ONE, ( ASCALE / SAFMIN )*BSIZE )
       } else {
          C4 = ONE
-      END IF
-      IF( ASCALE.LE.ONE .OR. BSIZE.LE.ONE ) THEN
+      }
+      if ( ASCALE.LE.ONE .OR. BSIZE.LE.ONE ) {
          C5 = MIN( ONE, ASCALE*BSIZE )
       } else {
          C5 = ONE
-      END IF
+      }
 
       // Scale first eigenvalue
 
       WABS = ABS( WR1 ) + ABS( WI )
       WSIZE = MAX( SAFMIN, C1, FUZZY1*( WABS*C2+C3 ), MIN( C4, HALF*MAX( WABS, C5 ) ) )
-      IF( WSIZE.NE.ONE ) THEN
+      if ( WSIZE.NE.ONE ) {
          WSCALE = ONE / WSIZE
-         IF( WSIZE.GT.ONE ) THEN
+         if ( WSIZE.GT.ONE ) {
             SCALE1 = ( MAX( ASCALE, BSIZE )*WSCALE )* MIN( ASCALE, BSIZE )
          } else {
             SCALE1 = ( MIN( ASCALE, BSIZE )*WSCALE )* MAX( ASCALE, BSIZE )
-         END IF
+         }
          WR1 = WR1*WSCALE
-         IF( WI.NE.ZERO ) THEN
+         if ( WI.NE.ZERO ) {
             WI = WI*WSCALE
             WR2 = WR1
             SCALE2 = SCALE1
-         END IF
+         }
       } else {
          SCALE1 = ASCALE*BSIZE
          SCALE2 = SCALE1
-      END IF
+      }
 
       // Scale second eigenvalue (if real)
 
-      IF( WI.EQ.ZERO ) THEN
+      if ( WI.EQ.ZERO ) {
          WSIZE = MAX( SAFMIN, C1, FUZZY1*( ABS( WR2 )*C2+C3 ), MIN( C4, HALF*MAX( ABS( WR2 ), C5 ) ) )
-         IF( WSIZE.NE.ONE ) THEN
+         if ( WSIZE.NE.ONE ) {
             WSCALE = ONE / WSIZE
-            IF( WSIZE.GT.ONE ) THEN
+            if ( WSIZE.GT.ONE ) {
                SCALE2 = ( MAX( ASCALE, BSIZE )*WSCALE )* MIN( ASCALE, BSIZE )
             } else {
                SCALE2 = ( MIN( ASCALE, BSIZE )*WSCALE )* MAX( ASCALE, BSIZE )
-            END IF
+            }
             WR2 = WR2*WSCALE
          } else {
             SCALE2 = ASCALE*BSIZE
-         END IF
-      END IF
+         }
+      }
 
       // End of DLAG2
 

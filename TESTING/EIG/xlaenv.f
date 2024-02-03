@@ -21,9 +21,9 @@
       // ..
       // .. Executable Statements ..
 
-      IF( ISPEC.GE.1 .AND. ISPEC.LE.16 ) THEN
+      if ( ISPEC.GE.1 .AND. ISPEC.LE.16 ) {
          IPARMS( ISPEC ) = NVALUE
-      END IF
+      }
 
       RETURN
 

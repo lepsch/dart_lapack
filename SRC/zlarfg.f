@@ -35,16 +35,16 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          TAU = ZERO
          RETURN
-      END IF
+      }
 
       XNORM = DZNRM2( N-1, X, INCX )
       ALPHR = DBLE( ALPHA )
       ALPHI = DIMAG( ALPHA )
 
-      IF( XNORM.EQ.ZERO .AND. ALPHI.EQ.ZERO ) THEN
+      if ( XNORM.EQ.ZERO .AND. ALPHI.EQ.ZERO ) {
 
          // H  =  I
 
@@ -58,7 +58,7 @@
          RSAFMN = ONE / SAFMIN
 
          KNT = 0
-         IF( ABS( BETA ).LT.SAFMIN ) THEN
+         if ( ABS( BETA ).LT.SAFMIN ) {
 
             // XNORM, BETA may be inaccurate; scale X and recompute them
 
@@ -75,7 +75,7 @@
             XNORM = DZNRM2( N-1, X, INCX )
             ALPHA = DCMPLX( ALPHR, ALPHI )
             BETA = -SIGN( DLAPY3( ALPHR, ALPHI, XNORM ), ALPHR )
-         END IF
+         }
          TAU = DCMPLX( ( BETA-ALPHR ) / BETA, -ALPHI / BETA )
          ALPHA = ZLADIV( DCMPLX( ONE ), ALPHA-BETA )
          CALL ZSCAL( N-1, ALPHA, X, INCX )
@@ -86,7 +86,7 @@
             BETA = BETA*SAFMIN
  20      CONTINUE
          ALPHA = BETA
-      END IF
+      }
 
       RETURN
 

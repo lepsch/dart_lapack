@@ -69,34 +69,34 @@
          FS = F
          GS = G
          COUNT = 0
-         IF( SCALE.GE.SAFMX2 ) THEN
+         if ( SCALE.GE.SAFMX2 ) {
    10       CONTINUE
             COUNT = COUNT + 1
             FS = FS*SAFMN2
             GS = GS*SAFMN2
             SCALE = SCALE*SAFMN2
             IF( SCALE.GE.SAFMX2 .AND. COUNT .LT. 20 ) GO TO 10
-         ELSE IF( SCALE.LE.SAFMN2 ) THEN
-            IF( G.EQ.CZERO ) THEN
+         } else if ( SCALE.LE.SAFMN2 ) {
+            if ( G.EQ.CZERO ) {
                CS = ONE
                SN = CZERO
                R = F
                GO TO 50
-            END IF
+            }
    20       CONTINUE
             COUNT = COUNT - 1
             FS = FS*SAFMX2
             GS = GS*SAFMX2
             SCALE = SCALE*SAFMX2
             IF( SCALE.LE.SAFMN2 ) GO TO 20
-         END IF
+         }
          F2 = ABSSQ( FS )
          G2 = ABSSQ( GS )
-         IF( F2.LE.MAX( G2, ONE )*SAFMIN ) THEN
+         if ( F2.LE.MAX( G2, ONE )*SAFMIN ) {
 
             // This is a rare case: F is very small.
 
-            IF( F.EQ.CZERO ) THEN
+            if ( F.EQ.CZERO ) {
                CS = ZERO
                R = DLAPY2( DBLE( G ), DIMAG( G ) )
                // Do complex/real division explicitly with two real
@@ -104,7 +104,7 @@
                D = DLAPY2( DBLE( GS ), DIMAG( GS ) )
                SN = DCMPLX( DBLE( GS ) / D, -DIMAG( GS ) / D )
                GO TO 50
-            END IF
+            }
             F2S = DLAPY2( DBLE( FS ), DIMAG( FS ) )
             // G2 and G2S are accurate
             // G2 is at least SAFMIN, and G2S is at least SAFMN2
@@ -119,7 +119,7 @@
             CS = F2S / G2S
             // Make sure abs(FF) = 1
             // Do complex/real division explicitly with 2 real divisions
-            IF( ABS1( F ).GT.ONE ) THEN
+            if ( ABS1( F ).GT.ONE ) {
                D = DLAPY2( DBLE( F ), DIMAG( F ) )
                FF = DCMPLX( DBLE( F ) / D, DIMAG( F ) / D )
             } else {
@@ -127,7 +127,7 @@
                DI = SAFMX2*DIMAG( F )
                D = DLAPY2( DR, DI )
                FF = DCMPLX( DR / D, DI / D )
-            END IF
+            }
             SN = FF*DCMPLX( DBLE( GS ) / G2S, -DIMAG( GS ) / G2S )
             R = CS*F + SN*G
          } else {
@@ -145,8 +145,8 @@
             // Do complex/real division explicitly with two real divisions
             SN = DCMPLX( DBLE( R ) / D, DIMAG( R ) / D )
             SN = SN*DCONJG( GS )
-            IF( COUNT.NE.0 ) THEN
-               IF( COUNT.GT.0 ) THEN
+            if ( COUNT.NE.0 ) {
+               if ( COUNT.GT.0 ) {
                   DO 30 J = 1, COUNT
                      R = R*SAFMX2
    30             CONTINUE
@@ -154,9 +154,9 @@
                   DO 40 J = 1, -COUNT
                      R = R*SAFMN2
    40             CONTINUE
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
    50    CONTINUE
          C( IC ) = CS
          Y( IY ) = SN

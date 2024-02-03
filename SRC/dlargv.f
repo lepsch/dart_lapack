@@ -32,13 +32,13 @@
       DO 10 I = 1, N
          F = X( IX )
          G = Y( IY )
-         IF( G.EQ.ZERO ) THEN
+         if ( G.EQ.ZERO ) {
             C( IC ) = ONE
-         ELSE IF( F.EQ.ZERO ) THEN
+         } else if ( F.EQ.ZERO ) {
             C( IC ) = ZERO
             Y( IY ) = ONE
             X( IX ) = G
-         ELSE IF( ABS( F ).GT.ABS( G ) ) THEN
+         } else if ( ABS( F ).GT.ABS( G ) ) {
             T = G / F
             TT = SQRT( ONE+T*T )
             C( IC ) = ONE / TT
@@ -50,7 +50,7 @@
             Y( IY ) = ONE / TT
             C( IC ) = T*Y( IY )
             X( IX ) = G*TT
-         END IF
+         }
          IC = IC + INCC
          IY = IY + INCY
          IX = IX + INCX

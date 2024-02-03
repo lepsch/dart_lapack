@@ -62,7 +62,7 @@
 
       // Test error exits of the SVD routines.
 
-      IF( LSAMEN( 2, C2, 'BD' ) ) THEN
+      if ( LSAMEN( 2, C2, 'BD' ) ) {
 
          // DGEBRD
 
@@ -263,15 +263,15 @@
          CALL DBDSVDX( 'L', 'V', 'A', 4, D, E, ZERO, ZERO, 0, 0, NS, S, Q, 2, W, IW, INFO)
          CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
          NT = NT + 12
-      END IF
+      }
 
       // Print a summary line.
 
-      IF( OK ) THEN
+      if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH, NT
       } else {
          WRITE( NOUT, FMT = 9998 )PATH
-      END IF
+      }
 
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits',
      $      ' (', I3, ' tests done)' )

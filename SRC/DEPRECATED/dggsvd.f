@@ -40,33 +40,33 @@
       WANTQ = LSAME( JOBQ, 'Q' )
 
       INFO = 0
-      IF( .NOT.( WANTU .OR. LSAME( JOBU, 'N' ) ) ) THEN
+      if ( .NOT.( WANTU .OR. LSAME( JOBU, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( WANTV .OR. LSAME( JOBV, 'N' ) ) ) THEN
+      } else if ( .NOT.( WANTV .OR. LSAME( JOBV, 'N' ) ) ) {
          INFO = -2
-      ELSE IF( .NOT.( WANTQ .OR. LSAME( JOBQ, 'N' ) ) ) THEN
+      } else if ( .NOT.( WANTQ .OR. LSAME( JOBQ, 'N' ) ) ) {
          INFO = -3
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( P.LT.0 ) THEN
+      } else if ( P.LT.0 ) {
          INFO = -6
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -10
-      ELSE IF( LDB.LT.MAX( 1, P ) ) THEN
+      } else if ( LDB.LT.MAX( 1, P ) ) {
          INFO = -12
-      ELSE IF( LDU.LT.1 .OR. ( WANTU .AND. LDU.LT.M ) ) THEN
+      } else if ( LDU.LT.1 .OR. ( WANTU .AND. LDU.LT.M ) ) {
          INFO = -16
-      ELSE IF( LDV.LT.1 .OR. ( WANTV .AND. LDV.LT.P ) ) THEN
+      } else if ( LDV.LT.1 .OR. ( WANTV .AND. LDV.LT.P ) ) {
          INFO = -18
-      ELSE IF( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) THEN
+      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) {
          INFO = -20
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGGSVD', -INFO )
          RETURN
-      END IF
+      }
 
       // Compute the Frobenius norm of matrices A and B
 
@@ -102,18 +102,18 @@
          SMAX = WORK( K+I )
          DO 10 J = I + 1, IBND
             TEMP = WORK( K+J )
-            IF( TEMP.GT.SMAX ) THEN
+            if ( TEMP.GT.SMAX ) {
                ISUB = J
                SMAX = TEMP
-            END IF
+            }
    10    CONTINUE
-         IF( ISUB.NE.I ) THEN
+         if ( ISUB.NE.I ) {
             WORK( K+ISUB ) = WORK( K+I )
             WORK( K+I ) = SMAX
             IWORK( K+I ) = K + ISUB
          } else {
             IWORK( K+I ) = K + I
-         END IF
+         }
    20 CONTINUE
 
       RETURN

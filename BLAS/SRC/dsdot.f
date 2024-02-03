@@ -26,7 +26,7 @@
       // ..
       DSDOT = 0.0D0
       IF (N.LE.0) RETURN
-      IF (INCX.EQ.INCY .AND. INCX.GT.0) THEN
+      if (INCX.EQ.INCY .AND. INCX.GT.0) {
 
       // Code for equal, positive, non-unit increments.
 
@@ -47,7 +47,7 @@
             KX = KX + INCX
             KY = KY + INCY
          END DO
-      END IF
+      }
       RETURN
 
       // End of DSDOT

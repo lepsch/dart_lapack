@@ -48,52 +48,52 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( N.LE.1 ) THEN
+      if ( N.LE.1 ) {
          LWKMIN = 1
          LWKOPT = 1
       } else {
          LWKMIN = 2*N
          LWKOPT = (NB+1)*N
-      END IF
+      }
 
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
          INFO = -7
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          WORK( 1 ) = LWKOPT
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSYTRF_AA', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
           RETURN
       ENDIF
       IPIV( 1 ) = 1
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          RETURN
-      END IF
+      }
 
       // Adjust block size based on the workspace size
 
-      IF( LWORK.LT.((1+NB)*N) ) THEN
+      if ( LWORK.LT.((1+NB)*N) ) {
          NB = ( LWORK-N ) / N
-      END IF
+      }
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // .....................................................
          // Factorize A as U**T*D*U using the upper triangle of A
@@ -130,9 +130,9 @@
 
          DO J2 = J+2, MIN(N, J+JB+1)
             IPIV( J2 ) = IPIV( J2 ) + J
-            IF( (J2.NE.IPIV(J2)) .AND. ((J1-K1).GT.2) ) THEN
+            if ( (J2.NE.IPIV(J2)) .AND. ((J1-K1).GT.2) ) {
                CALL DSWAP( J1-K1-2, A( 1, J2 ), 1, A( 1, IPIV(J2) ), 1 )
-            END IF
+            }
          END DO
          J = J + JB
 
@@ -140,11 +140,11 @@
          t // he row A(J1-1, J2-1:N) stores U(J1, J2+1:N) and
           // WORK stores the current block of the auxiriarly matrix H
 
-         IF( J.LT.N ) THEN
+         if ( J.LT.N ) {
 
             // If first panel and JB=1 (NB=1), then nothing to do
 
-            IF( J1.GT.1 .OR. JB.GT.1 ) THEN
+            if ( J1.GT.1 .OR. JB.GT.1 ) {
 
                // Merge rank-1 update with BLAS-3 update
 
@@ -157,7 +157,7 @@
                 // explicitly stored, e.g., K1=1 and K2= 0 for the first panel,
                 // while K1=0 and K2=1 for the rest
 
-               IF( J1.GT.1 ) THEN
+               if ( J1.GT.1 ) {
 
                   // Not first panel
 
@@ -171,7 +171,7 @@
                   // First update skips the first column
 
                   JB = JB - 1
-               END IF
+               }
 
                DO J2 = J+1, N, NB
                   NJ = MIN( NB, N-J2+1 )
@@ -192,12 +192,12 @@
                // Recover T( J, J+1 )
 
                A( J, J+1 ) = ALPHA
-            END IF
+            }
 
             // WORK(J+1, 1) stores H(J+1, 1)
 
             CALL DCOPY( N-J, A( J+1, J+1 ), LDA, WORK( 1 ), 1 )
-         END IF
+         }
          GO TO 10
       } else {
 
@@ -237,9 +237,9 @@
 
          DO J2 = J+2, MIN(N, J+JB+1)
             IPIV( J2 ) = IPIV( J2 ) + J
-            IF( (J2.NE.IPIV(J2)) .AND. ((J1-K1).GT.2) ) THEN
+            if ( (J2.NE.IPIV(J2)) .AND. ((J1-K1).GT.2) ) {
                CALL DSWAP( J1-K1-2, A( J2, 1 ), LDA, A( IPIV(J2), 1 ), LDA )
-            END IF
+            }
          END DO
          J = J + JB
 
@@ -247,11 +247,11 @@
            // A(J2+1, J1-1) stores L(J2+1, J1) and
            // WORK(J2+1, 1) stores H(J2+1, 1)
 
-         IF( J.LT.N ) THEN
+         if ( J.LT.N ) {
 
             // if first panel and JB=1 (NB=1), then nothing to do
 
-            IF( J1.GT.1 .OR. JB.GT.1 ) THEN
+            if ( J1.GT.1 .OR. JB.GT.1 ) {
 
                // Merge rank-1 update with BLAS-3 update
 
@@ -264,7 +264,7 @@
                 // explicitly stored, e.g., K1=1 and K2= 0 for the first panel,
                 // while K1=0 and K2=1 for the rest
 
-               IF( J1.GT.1 ) THEN
+               if ( J1.GT.1 ) {
 
                   // Not first panel
 
@@ -278,7 +278,7 @@
                   // First update skips the first column
 
                   JB = JB - 1
-               END IF
+               }
 
                DO J2 = J+1, N, NB
                   NJ = MIN( NB, N-J2+1 )
@@ -299,14 +299,14 @@
                // Recover T( J+1, J )
 
                A( J+1, J ) = ALPHA
-            END IF
+            }
 
             // WORK(J+1, 1) stores H(J+1, 1)
 
             CALL DCOPY( N-J, A( J+1, J+1 ), 1, WORK( 1 ), 1 )
-         END IF
+         }
          GO TO 11
-      END IF
+      }
 
    20 CONTINUE
       WORK( 1 ) = LWKOPT

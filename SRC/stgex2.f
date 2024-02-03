@@ -53,11 +53,11 @@
 
       IF( N.LE.1 .OR. N1.LE.0 .OR. N2.LE.0 ) RETURN       IF( N1.GT.N .OR. ( J1+N1 ).GT.N ) RETURN
       M = N1 + N2
-      IF( LWORK.LT.MAX( N*M, M*M*2 ) ) THEN
+      if ( LWORK.LT.MAX( N*M, M*M*2 ) ) {
          INFO = -16
          WORK( 1 ) = MAX( N*M, M*M*2 )
          RETURN
-      END IF
+      }
 
       WEAK = .FALSE.
       STRONG = .FALSE.
@@ -95,7 +95,7 @@
       THRESHA = MAX( TWENTY*EPS*DNORMA, SMLNUM )
       THRESHB = MAX( TWENTY*EPS*DNORMB, SMLNUM )
 
-      IF( M.EQ.2 ) THEN
+      if ( M.EQ.2 ) {
 
          // CASE 1: Swap 1-by-1 and 1-by-1 blocks.
 
@@ -110,11 +110,11 @@
          IR( 2, 1 ) = -IR( 1, 2 )
          IR( 2, 2 ) = IR( 1, 1 )
          CALL SROT( 2, S( 1, 1 ), 1, S( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) )          CALL SROT( 2, T( 1, 1 ), 1, T( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) )
-         IF( SA.GE.SB ) THEN
+         if ( SA.GE.SB ) {
             CALL SLARTG( S( 1, 1 ), S( 2, 1 ), LI( 1, 1 ), LI( 2, 1 ), DDUM )
          } else {
             CALL SLARTG( T( 1, 1 ), T( 2, 1 ), LI( 1, 1 ), LI( 2, 1 ), DDUM )
-         END IF
+         }
          CALL SROT( 2, S( 1, 1 ), LDST, S( 2, 1 ), LDST, LI( 1, 1 ), LI( 2, 1 ) )          CALL SROT( 2, T( 1, 1 ), LDST, T( 2, 1 ), LDST, LI( 1, 1 ), LI( 2, 1 ) )
          LI( 2, 2 ) = LI( 1, 1 )
          LI( 1, 2 ) = -LI( 2, 1 )
@@ -124,7 +124,7 @@
 
          WEAK = ABS( S( 2, 1 ) ) .LE. THRESHA .AND. ABS( T( 2, 1 ) ) .LE. THRESHB          IF( .NOT.WEAK ) GO TO 70
 
-         IF( WANDS ) THEN
+         if ( WANDS ) {
 
             // Strong stability test:
                 // F-norm((A-QL**H*S*QR)) <= O(EPS*F-norm((A)))
@@ -144,7 +144,7 @@
             SB = DSCALE*SQRT( DSUM )
             STRONG = SA.LE.THRESHA .AND. SB.LE.THRESHB
             IF( .NOT.STRONG ) GO TO 70
-         END IF
+         }
 
          // Update (A(J1:J1+M-1, M+J1:N), B(J1:J1+M-1, M+J1:N)) and
                 // (A(1:J1-1, J1:J1+M), B(1:J1-1, J1:J1+M)).
@@ -251,20 +251,20 @@
            // Weak stability test:
               // F-norm(S21) <= O(EPS * F-norm((S)))
 
-         IF( BQRA21.LE.BRQA21 .AND. BQRA21.LE.THRESHA ) THEN
+         if ( BQRA21.LE.BRQA21 .AND. BQRA21.LE.THRESHA ) {
             CALL SLACPY( 'F', M, M, SCPY, LDST, S, LDST )
             CALL SLACPY( 'F', M, M, TCPY, LDST, T, LDST )
             CALL SLACPY( 'F', M, M, IRCOP, LDST, IR, LDST )
             CALL SLACPY( 'F', M, M, LICOP, LDST, LI, LDST )
-         ELSE IF( BRQA21.GE.THRESHA ) THEN
+         } else if ( BRQA21.GE.THRESHA ) {
             GO TO 70
-         END IF
+         }
 
          // Set lower triangle of B-part to zero
 
          CALL SLASET( 'Lower', M-1, M-1, ZERO, ZERO, T(2,1), LDST )
 
-         IF( WANDS ) THEN
+         if ( WANDS ) {
 
             // Strong stability test:
                 // F-norm((A-QL**H*S*QR)) <= O(EPS*F-norm((A)))
@@ -285,7 +285,7 @@
             STRONG = SA.LE.THRESHA .AND. SB.LE.THRESHB
             IF( .NOT.STRONG ) GO TO 70
 
-         END IF
+         }
 
          // If the swap is accepted ("weakly" and "strongly"), apply the
         t // ransformations and set N1-by-N2 (2,1)-block to zero.
@@ -304,23 +304,23 @@
          WORK( 1 ) = ONE
          T( 1, 1 ) = ONE
          IDUM = LWORK - M*M - 2
-         IF( N2.GT.1 ) THEN
+         if ( N2.GT.1 ) {
             CALL SLAGV2( A( J1, J1 ), LDA, B( J1, J1 ), LDB, AR, AI, BE, WORK( 1 ), WORK( 2 ), T( 1, 1 ), T( 2, 1 ) )
             WORK( M+1 ) = -WORK( 2 )
             WORK( M+2 ) = WORK( 1 )
             T( N2, N2 ) = T( 1, 1 )
             T( 1, 2 ) = -T( 2, 1 )
-         END IF
+         }
          WORK( M*M ) = ONE
          T( M, M ) = ONE
 
-         IF( N1.GT.1 ) THEN
+         if ( N1.GT.1 ) {
             CALL SLAGV2( A( J1+N2, J1+N2 ), LDA, B( J1+N2, J1+N2 ), LDB, TAUR, TAUL, WORK( M*M+1 ), WORK( N2*M+N2+1 ), WORK( N2*M+N2+2 ), T( N2+1, N2+1 ), T( M, M-1 ) )
             WORK( M*M ) = WORK( N2*M+N2+1 )
             WORK( M*M-1 ) = -WORK( N2*M+N2+2 )
             T( M, M ) = T( N2+1, N2+1 )
             T( M-1, M ) = -T( M, M-1 )
-         END IF
+         }
          CALL SGEMM( 'T', 'N', N2, N1, N2, ONE, WORK, M, A( J1, J1+N2 ), LDA, ZERO, WORK( M*M+1 ), N2 )          CALL SLACPY( 'Full', N2, N1, WORK( M*M+1 ), N2, A( J1, J1+N2 ), LDA )          CALL SGEMM( 'T', 'N', N2, N1, N2, ONE, WORK, M, B( J1, J1+N2 ), LDB, ZERO, WORK( M*M+1 ), N2 )          CALL SLACPY( 'Full', N2, N1, WORK( M*M+1 ), N2, B( J1, J1+N2 ), LDB )          CALL SGEMM( 'N', 'N', M, M, M, ONE, LI, LDST, WORK, M, ZERO, WORK( M*M+1 ), M )
          CALL SLACPY( 'Full', M, M, WORK( M*M+1 ), M, LI, LDST )
          CALL SGEMM( 'N', 'N', N2, N1, N1, ONE, A( J1, J1+N2 ), LDA, T( N2+1, N2+1 ), LDST, ZERO, WORK, N2 )
@@ -332,41 +332,41 @@
 
          // Accumulate transformations into Q and Z if requested.
 
-         IF( WANTQ ) THEN
+         if ( WANTQ ) {
             CALL SGEMM( 'N', 'N', N, M, M, ONE, Q( 1, J1 ), LDQ, LI, LDST, ZERO, WORK, N )
             CALL SLACPY( 'Full', N, M, WORK, N, Q( 1, J1 ), LDQ )
 
-         END IF
+         }
 
-         IF( WANTZ ) THEN
+         if ( WANTZ ) {
             CALL SGEMM( 'N', 'N', N, M, M, ONE, Z( 1, J1 ), LDZ, IR, LDST, ZERO, WORK, N )
             CALL SLACPY( 'Full', N, M, WORK, N, Z( 1, J1 ), LDZ )
 
-         END IF
+         }
 
          // Update (A(J1:J1+M-1, M+J1:N), B(J1:J1+M-1, M+J1:N)) and
                  // (A(1:J1-1, J1:J1+M), B(1:J1-1, J1:J1+M)).
 
          I = J1 + M
-         IF( I.LE.N ) THEN
+         if ( I.LE.N ) {
             CALL SGEMM( 'T', 'N', M, N-I+1, M, ONE, LI, LDST, A( J1, I ), LDA, ZERO, WORK, M )
             CALL SLACPY( 'Full', M, N-I+1, WORK, M, A( J1, I ), LDA )
             CALL SGEMM( 'T', 'N', M, N-I+1, M, ONE, LI, LDST, B( J1, I ), LDB, ZERO, WORK, M )
             CALL SLACPY( 'Full', M, N-I+1, WORK, M, B( J1, I ), LDB )
-         END IF
+         }
          I = J1 - 1
-         IF( I.GT.0 ) THEN
+         if ( I.GT.0 ) {
             CALL SGEMM( 'N', 'N', I, M, M, ONE, A( 1, J1 ), LDA, IR, LDST, ZERO, WORK, I )
             CALL SLACPY( 'Full', I, M, WORK, I, A( 1, J1 ), LDA )
             CALL SGEMM( 'N', 'N', I, M, M, ONE, B( 1, J1 ), LDB, IR, LDST, ZERO, WORK, I )
             CALL SLACPY( 'Full', I, M, WORK, I, B( 1, J1 ), LDB )
-         END IF
+         }
 
          // Exit with INFO = 0 if swap was successfully performed.
 
          RETURN
 
-      END IF
+      }
 
       // Exit with INFO = 1 if swap was rejected.
 

@@ -32,21 +32,21 @@
       // Test the input parameters.
 
       INFO = 0
-      IF (M.LT.0) THEN
+      if (M.LT.0) {
           INFO = 1
-      ELSE IF (N.LT.0) THEN
+      } else if (N.LT.0) {
           INFO = 2
-      ELSE IF (INCX.EQ.0) THEN
+      } else if (INCX.EQ.0) {
           INFO = 5
-      ELSE IF (INCY.EQ.0) THEN
+      } else if (INCY.EQ.0) {
           INFO = 7
-      ELSE IF (LDA.LT.MAX(1,M)) THEN
+      } else if (LDA.LT.MAX(1,M)) {
           INFO = 9
-      END IF
-      IF (INFO.NE.0) THEN
+      }
+      if (INFO.NE.0) {
           CALL XERBLA('CGERC ',INFO)
           RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -55,39 +55,39 @@
       // Start the operations. In this version the elements of A are
       // accessed sequentially with one pass through A.
 
-      IF (INCY.GT.0) THEN
+      if (INCY.GT.0) {
           JY = 1
       } else {
           JY = 1 - (N-1)*INCY
-      END IF
-      IF (INCX.EQ.1) THEN
+      }
+      if (INCX.EQ.1) {
           DO 20 J = 1,N
-              IF (Y(JY).NE.ZERO) THEN
+              if (Y(JY).NE.ZERO) {
                   TEMP = ALPHA*CONJG(Y(JY))
                   DO 10 I = 1,M
                       A(I,J) = A(I,J) + X(I)*TEMP
    10             CONTINUE
-              END IF
+              }
               JY = JY + INCY
    20     CONTINUE
       } else {
-          IF (INCX.GT.0) THEN
+          if (INCX.GT.0) {
               KX = 1
           } else {
               KX = 1 - (M-1)*INCX
-          END IF
+          }
           DO 40 J = 1,N
-              IF (Y(JY).NE.ZERO) THEN
+              if (Y(JY).NE.ZERO) {
                   TEMP = ALPHA*CONJG(Y(JY))
                   IX = KX
                   DO 30 I = 1,M
                       A(I,J) = A(I,J) + X(IX)*TEMP
                       IX = IX + INCX
    30             CONTINUE
-              END IF
+              }
               JY = JY + INCY
    40     CONTINUE
-      END IF
+      }
 
       RETURN
 

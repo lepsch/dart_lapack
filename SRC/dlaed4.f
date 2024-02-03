@@ -46,18 +46,18 @@
       // Quick return for N=1 and 2.
 
       INFO = 0
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
 
           // Presumably, I=1 upon entry
 
          DLAM = D( 1 ) + RHO*Z( 1 )*Z( 1 )
          DELTA( 1 ) = ONE
          RETURN
-      END IF
-      IF( N.EQ.2 ) THEN
+      }
+      if ( N.EQ.2 ) {
          CALL DLAED5( I, D, Z, DELTA, RHO, DLAM )
          RETURN
-      END IF
+      }
 
       // Compute machine epsilon
 
@@ -66,7 +66,7 @@
 
       // The case I = N
 
-      IF( I.EQ.N ) THEN
+      if ( I.EQ.N ) {
 
          // Initialize some basic variables
 
@@ -92,20 +92,20 @@
          C = RHOINV + PSI
          W = C + Z( II )*Z( II ) / DELTA( II ) + Z( N )*Z( N ) / DELTA( N )
 
-         IF( W.LE.ZERO ) THEN
+         if ( W.LE.ZERO ) {
             TEMP = Z( N-1 )*Z( N-1 ) / ( D( N )-D( N-1 )+RHO ) + Z( N )*Z( N ) / RHO
-            IF( C.LE.TEMP ) THEN
+            if ( C.LE.TEMP ) {
                TAU = RHO
             } else {
                DEL = D( N ) - D( N-1 )
                A = -C*DEL + Z( N-1 )*Z( N-1 ) + Z( N )*Z( N )
                B = Z( N )*Z( N )*DEL
-               IF( A.LT.ZERO ) THEN
+               if ( A.LT.ZERO ) {
                   TAU = TWO*B / ( SQRT( A*A+FOUR*B*C )-A )
                } else {
                   TAU = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C )
-               END IF
-            END IF
+               }
+            }
 
             // It can be proved that
                 // D(N)+RHO/2 <= LAMBDA(N) < D(N)+TAU <= D(N)+RHO
@@ -116,18 +116,18 @@
             DEL = D( N ) - D( N-1 )
             A = -C*DEL + Z( N-1 )*Z( N-1 ) + Z( N )*Z( N )
             B = Z( N )*Z( N )*DEL
-            IF( A.LT.ZERO ) THEN
+            if ( A.LT.ZERO ) {
                TAU = TWO*B / ( SQRT( A*A+FOUR*B*C )-A )
             } else {
                TAU = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C )
-            END IF
+            }
 
             // It can be proved that
                 // D(N) < D(N)+TAU < LAMBDA(N) < D(N)+RHO/2
 
             DLTLB = ZERO
             DLTUB = MIDPT
-         END IF
+         }
 
          DO 30 J = 1, N
             DELTA( J ) = ( D( J )-D( I ) ) - TAU
@@ -157,16 +157,16 @@
 
          // Test for convergence
 
-         IF( ABS( W ).LE.EPS*ERRETM ) THEN
+         if ( ABS( W ).LE.EPS*ERRETM ) {
             DLAM = D( I ) + TAU
             GO TO 250
-         END IF
+         }
 
-         IF( W.LE.ZERO ) THEN
+         if ( W.LE.ZERO ) {
             DLTLB = MAX( DLTLB, TAU )
          } else {
             DLTUB = MIN( DLTUB, TAU )
-         END IF
+         }
 
          // Calculate the new step
 
@@ -175,18 +175,18 @@
          A = ( DELTA( N-1 )+DELTA( N ) )*W - DELTA( N-1 )*DELTA( N )*( DPSI+DPHI )
          B = DELTA( N-1 )*DELTA( N )*W
          IF( C.LT.ZERO ) C = ABS( C )
-         IF( C.EQ.ZERO ) THEN
+         if ( C.EQ.ZERO ) {
             // ETA = B/A
             // ETA = RHO - TAU
             // ETA = DLTUB - TAU
 
             // Update proposed by Li, Ren-Cang:
             ETA = -W / ( DPSI+DPHI )
-         ELSE IF( A.GE.ZERO ) THEN
+         } else if ( A.GE.ZERO ) {
             ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
          } else {
             ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) )
-         END IF
+         }
 
          // Note, eta should be positive if w is negative, and
          // eta should be negative otherwise. However,
@@ -196,13 +196,13 @@
 
          IF( W*ETA.GT.ZERO ) ETA = -W / ( DPSI+DPHI )
          TEMP = TAU + ETA
-         IF( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) THEN
-            IF( W.LT.ZERO ) THEN
+         if ( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) {
+            if ( W.LT.ZERO ) {
                ETA = ( DLTUB-TAU ) / TWO
             } else {
                ETA = ( DLTLB-TAU ) / TWO
-            END IF
-         END IF
+            }
+         }
          DO 50 J = 1, N
             DELTA( J ) = DELTA( J ) - ETA
    50    CONTINUE
@@ -239,27 +239,27 @@
 
             // Test for convergence
 
-            IF( ABS( W ).LE.EPS*ERRETM ) THEN
+            if ( ABS( W ).LE.EPS*ERRETM ) {
                DLAM = D( I ) + TAU
                GO TO 250
-            END IF
+            }
 
-            IF( W.LE.ZERO ) THEN
+            if ( W.LE.ZERO ) {
                DLTLB = MAX( DLTLB, TAU )
             } else {
                DLTUB = MIN( DLTUB, TAU )
-            END IF
+            }
 
             // Calculate the new step
 
             C = W - DELTA( N-1 )*DPSI - DELTA( N )*DPHI
             A = ( DELTA( N-1 )+DELTA( N ) )*W - DELTA( N-1 )*DELTA( N )*( DPSI+DPHI )
             B = DELTA( N-1 )*DELTA( N )*W
-            IF( A.GE.ZERO ) THEN
+            if ( A.GE.ZERO ) {
                ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
             } else {
                ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) )
-            END IF
+            }
 
             // Note, eta should be positive if w is negative, and
             // eta should be negative otherwise. However,
@@ -269,13 +269,13 @@
 
             IF( W*ETA.GT.ZERO ) ETA = -W / ( DPSI+DPHI )
             TEMP = TAU + ETA
-            IF( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) THEN
-               IF( W.LT.ZERO ) THEN
+            if ( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) {
+               if ( W.LT.ZERO ) {
                   ETA = ( DLTUB-TAU ) / TWO
                } else {
                   ETA = ( DLTLB-TAU ) / TWO
-               END IF
-            END IF
+               }
+            }
             DO 70 J = 1, N
                DELTA( J ) = DELTA( J ) - ETA
    70       CONTINUE
@@ -340,7 +340,7 @@
          C = RHOINV + PSI + PHI
          W = C + Z( I )*Z( I ) / DELTA( I ) + Z( IP1 )*Z( IP1 ) / DELTA( IP1 )
 
-         IF( W.GT.ZERO ) THEN
+         if ( W.GT.ZERO ) {
 
             // d(i)< the ith eigenvalue < (d(i)+d(i+1))/2
 
@@ -349,11 +349,11 @@
             ORGATI = .TRUE.
             A = C*DEL + Z( I )*Z( I ) + Z( IP1 )*Z( IP1 )
             B = Z( I )*Z( I )*DEL
-            IF( A.GT.ZERO ) THEN
+            if ( A.GT.ZERO ) {
                TAU = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
             } else {
                TAU = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
-            END IF
+            }
             DLTLB = ZERO
             DLTUB = MIDPT
          } else {
@@ -365,16 +365,16 @@
             ORGATI = .FALSE.
             A = C*DEL - Z( I )*Z( I ) - Z( IP1 )*Z( IP1 )
             B = Z( IP1 )*Z( IP1 )*DEL
-            IF( A.LT.ZERO ) THEN
+            if ( A.LT.ZERO ) {
                TAU = TWO*B / ( A-SQRT( ABS( A*A+FOUR*B*C ) ) )
             } else {
                TAU = -( A+SQRT( ABS( A*A+FOUR*B*C ) ) ) / ( TWO*C )
-            END IF
+            }
             DLTLB = -MIDPT
             DLTUB = ZERO
-         END IF
+         }
 
-         IF( ORGATI ) THEN
+         if ( ORGATI ) {
             DO 130 J = 1, N
                DELTA( J ) = ( D( J )-D( I ) ) - TAU
   130       CONTINUE
@@ -382,12 +382,12 @@
             DO 140 J = 1, N
                DELTA( J ) = ( D( J )-D( IP1 ) ) - TAU
   140       CONTINUE
-         END IF
-         IF( ORGATI ) THEN
+         }
+         if ( ORGATI ) {
             II = I
          } else {
             II = I + 1
-         END IF
+         }
          IIM1 = II - 1
          IIP1 = II + 1
 
@@ -421,11 +421,11 @@
          // its ii-th element removed.
 
          SWTCH3 = .FALSE.
-         IF( ORGATI ) THEN
+         if ( ORGATI ) {
             IF( W.LT.ZERO ) SWTCH3 = .TRUE.
          } else {
             IF( W.GT.ZERO ) SWTCH3 = .TRUE.
-         END IF
+         }
          IF( II.EQ.1 .OR. II.EQ.N ) SWTCH3 = .FALSE.
 
          TEMP = Z( II ) / DELTA( II )
@@ -436,52 +436,52 @@
 
          // Test for convergence
 
-         IF( ABS( W ).LE.EPS*ERRETM ) THEN
-            IF( ORGATI ) THEN
+         if ( ABS( W ).LE.EPS*ERRETM ) {
+            if ( ORGATI ) {
                DLAM = D( I ) + TAU
             } else {
                DLAM = D( IP1 ) + TAU
-            END IF
+            }
             GO TO 250
-         END IF
+         }
 
-         IF( W.LE.ZERO ) THEN
+         if ( W.LE.ZERO ) {
             DLTLB = MAX( DLTLB, TAU )
          } else {
             DLTUB = MIN( DLTUB, TAU )
-         END IF
+         }
 
          // Calculate the new step
 
          NITER = NITER + 1
-         IF( .NOT.SWTCH3 ) THEN
-            IF( ORGATI ) THEN
+         if ( .NOT.SWTCH3 ) {
+            if ( ORGATI ) {
                C = W - DELTA( IP1 )*DW - ( D( I )-D( IP1 ) )* ( Z( I ) / DELTA( I ) )**2
             } else {
                C = W - DELTA( I )*DW - ( D( IP1 )-D( I ) )* ( Z( IP1 ) / DELTA( IP1 ) )**2
-            END IF
+            }
             A = ( DELTA( I )+DELTA( IP1 ) )*W - DELTA( I )*DELTA( IP1 )*DW
             B = DELTA( I )*DELTA( IP1 )*W
-            IF( C.EQ.ZERO ) THEN
-               IF( A.EQ.ZERO ) THEN
-                  IF( ORGATI ) THEN
+            if ( C.EQ.ZERO ) {
+               if ( A.EQ.ZERO ) {
+                  if ( ORGATI ) {
                      A = Z( I )*Z( I ) + DELTA( IP1 )*DELTA( IP1 )* ( DPSI+DPHI )
                   } else {
                      A = Z( IP1 )*Z( IP1 ) + DELTA( I )*DELTA( I )* ( DPSI+DPHI )
-                  END IF
-               END IF
+                  }
+               }
                ETA = B / A
-            ELSE IF( A.LE.ZERO ) THEN
+            } else if ( A.LE.ZERO ) {
                ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
             } else {
                ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
-            END IF
+            }
          } else {
 
             // Interpolation using THREE most relevant poles
 
             TEMP = RHOINV + PSI + PHI
-            IF( ORGATI ) THEN
+            if ( ORGATI ) {
                TEMP1 = Z( IIM1 ) / DELTA( IIM1 )
                TEMP1 = TEMP1*TEMP1
                C = TEMP - DELTA( IIP1 )*( DPSI+DPHI ) - ( D( IIM1 )-D( IIP1 ) )*TEMP1
@@ -492,10 +492,10 @@
                TEMP1 = TEMP1*TEMP1
                C = TEMP - DELTA( IIM1 )*( DPSI+DPHI ) - ( D( IIP1 )-D( IIM1 ) )*TEMP1                ZZ( 1 ) = DELTA( IIM1 )*DELTA( IIM1 )* ( DPSI+( DPHI-TEMP1 ) )
                ZZ( 3 ) = Z( IIP1 )*Z( IIP1 )
-            END IF
+            }
             ZZ( 2 ) = Z( II )*Z( II )
             CALL DLAED6( NITER, ORGATI, C, DELTA( IIM1 ), ZZ, W, ETA, INFO )             IF( INFO.NE.0 ) GO TO 250
-         END IF
+         }
 
          // Note, eta should be positive if w is negative, and
          // eta should be negative otherwise. However,
@@ -505,13 +505,13 @@
 
          IF( W*ETA.GE.ZERO ) ETA = -W / DW
          TEMP = TAU + ETA
-         IF( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) THEN
-            IF( W.LT.ZERO ) THEN
+         if ( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) {
+            if ( W.LT.ZERO ) {
                ETA = ( DLTUB-TAU ) / TWO
             } else {
                ETA = ( DLTLB-TAU ) / TWO
-            END IF
-         END IF
+            }
+         }
 
          PREW = W
 
@@ -550,11 +550,11 @@
          ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP ) + ABS( TAU+ETA )*DW
 
          SWTCH = .FALSE.
-         IF( ORGATI ) THEN
+         if ( ORGATI ) {
             IF( -W.GT.ABS( PREW ) / TEN ) SWTCH = .TRUE.
          } else {
             IF( W.GT.ABS( PREW ) / TEN ) SWTCH = .TRUE.
-         END IF
+         }
 
          TAU = TAU + ETA
 
@@ -566,70 +566,70 @@
 
             // Test for convergence
 
-            IF( ABS( W ).LE.EPS*ERRETM ) THEN
-               IF( ORGATI ) THEN
+            if ( ABS( W ).LE.EPS*ERRETM ) {
+               if ( ORGATI ) {
                   DLAM = D( I ) + TAU
                } else {
                   DLAM = D( IP1 ) + TAU
-               END IF
+               }
                GO TO 250
-            END IF
+            }
 
-            IF( W.LE.ZERO ) THEN
+            if ( W.LE.ZERO ) {
                DLTLB = MAX( DLTLB, TAU )
             } else {
                DLTUB = MIN( DLTUB, TAU )
-            END IF
+            }
 
             // Calculate the new step
 
-            IF( .NOT.SWTCH3 ) THEN
-               IF( .NOT.SWTCH ) THEN
-                  IF( ORGATI ) THEN
+            if ( .NOT.SWTCH3 ) {
+               if ( .NOT.SWTCH ) {
+                  if ( ORGATI ) {
                      C = W - DELTA( IP1 )*DW - ( D( I )-D( IP1 ) )*( Z( I ) / DELTA( I ) )**2
                   } else {
                      C = W - DELTA( I )*DW - ( D( IP1 )-D( I ) )* ( Z( IP1 ) / DELTA( IP1 ) )**2
-                  END IF
+                  }
                } else {
                   TEMP = Z( II ) / DELTA( II )
-                  IF( ORGATI ) THEN
+                  if ( ORGATI ) {
                      DPSI = DPSI + TEMP*TEMP
                   } else {
                      DPHI = DPHI + TEMP*TEMP
-                  END IF
+                  }
                   C = W - DELTA( I )*DPSI - DELTA( IP1 )*DPHI
-               END IF
+               }
                A = ( DELTA( I )+DELTA( IP1 ) )*W - DELTA( I )*DELTA( IP1 )*DW
                B = DELTA( I )*DELTA( IP1 )*W
-               IF( C.EQ.ZERO ) THEN
-                  IF( A.EQ.ZERO ) THEN
-                     IF( .NOT.SWTCH ) THEN
-                        IF( ORGATI ) THEN
+               if ( C.EQ.ZERO ) {
+                  if ( A.EQ.ZERO ) {
+                     if ( .NOT.SWTCH ) {
+                        if ( ORGATI ) {
                            A = Z( I )*Z( I ) + DELTA( IP1 )* DELTA( IP1 )*( DPSI+DPHI )
                         } else {
                            A = Z( IP1 )*Z( IP1 ) + DELTA( I )*DELTA( I )*( DPSI+DPHI )
-                        END IF
+                        }
                      } else {
                         A = DELTA( I )*DELTA( I )*DPSI + DELTA( IP1 )*DELTA( IP1 )*DPHI
-                     END IF
-                  END IF
+                     }
+                  }
                   ETA = B / A
-               ELSE IF( A.LE.ZERO ) THEN
+               } else if ( A.LE.ZERO ) {
                   ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
                } else {
                   ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
-               END IF
+               }
             } else {
 
                // Interpolation using THREE most relevant poles
 
                TEMP = RHOINV + PSI + PHI
-               IF( SWTCH ) THEN
+               if ( SWTCH ) {
                   C = TEMP - DELTA( IIM1 )*DPSI - DELTA( IIP1 )*DPHI
                   ZZ( 1 ) = DELTA( IIM1 )*DELTA( IIM1 )*DPSI
                   ZZ( 3 ) = DELTA( IIP1 )*DELTA( IIP1 )*DPHI
                } else {
-                  IF( ORGATI ) THEN
+                  if ( ORGATI ) {
                      TEMP1 = Z( IIM1 ) / DELTA( IIM1 )
                      TEMP1 = TEMP1*TEMP1
                      C = TEMP - DELTA( IIP1 )*( DPSI+DPHI ) - ( D( IIM1 )-D( IIP1 ) )*TEMP1
@@ -640,10 +640,10 @@
                      TEMP1 = TEMP1*TEMP1
                      C = TEMP - DELTA( IIM1 )*( DPSI+DPHI ) - ( D( IIP1 )-D( IIM1 ) )*TEMP1                      ZZ( 1 ) = DELTA( IIM1 )*DELTA( IIM1 )* ( DPSI+( DPHI-TEMP1 ) )
                      ZZ( 3 ) = Z( IIP1 )*Z( IIP1 )
-                  END IF
-               END IF
+                  }
+               }
                CALL DLAED6( NITER, ORGATI, C, DELTA( IIM1 ), ZZ, W, ETA, INFO )                IF( INFO.NE.0 ) GO TO 250
-            END IF
+            }
 
             // Note, eta should be positive if w is negative, and
             // eta should be negative otherwise. However,
@@ -653,13 +653,13 @@
 
             IF( W*ETA.GE.ZERO ) ETA = -W / DW
             TEMP = TAU + ETA
-            IF( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) THEN
-               IF( W.LT.ZERO ) THEN
+            if ( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) {
+               if ( W.LT.ZERO ) {
                   ETA = ( DLTUB-TAU ) / TWO
                } else {
                   ETA = ( DLTLB-TAU ) / TWO
-               END IF
-            END IF
+               }
+            }
 
             DO 210 J = 1, N
                DELTA( J ) = DELTA( J ) - ETA
@@ -703,13 +703,13 @@
          // Return with INFO = 1, NITER = MAXIT and not converged
 
          INFO = 1
-         IF( ORGATI ) THEN
+         if ( ORGATI ) {
             DLAM = D( I ) + TAU
          } else {
             DLAM = D( IP1 ) + TAU
-         END IF
+         }
 
-      END IF
+      }
 
   250 CONTINUE
 

@@ -217,11 +217,11 @@
 
       // Print a summary line.
 
-      IF( OK ) THEN
+      if ( OK ) {
          WRITE( NOUT, FMT = 9999 )
       } else {
          WRITE( NOUT, FMT = 9998 )
-      END IF
+      }
 
  9999 FORMAT( 1X, 'COMPLEX*16 RFP routines passed the tests of the ',
      $        'error exits' )

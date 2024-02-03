@@ -75,12 +75,12 @@
 
       // ==== Quick return for N = 0: nothing to do. ====
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          WORK( 1 ) = ONE
          RETURN
-      END IF
+      }
 
-      IF( N.LE.NTINY ) THEN
+      if ( N.LE.NTINY ) {
 
          // ==== Tiny matrices must use CLAHQR. ====
 
@@ -97,16 +97,16 @@
 
          // ==== Set up job flags for ILAENV. ====
 
-         IF( WANTT ) THEN
+         if ( WANTT ) {
             JBCMPZ( 1: 1 ) = 'S'
          } else {
             JBCMPZ( 1: 1 ) = 'E'
-         END IF
-         IF( WANTZ ) THEN
+         }
+         if ( WANTZ ) {
             JBCMPZ( 2: 2 ) = 'V'
          } else {
             JBCMPZ( 2: 2 ) = 'N'
-         END IF
+         }
 
          // ==== NWR = recommended deflation window size.  At this
          // .    point,  N .GT. NTINY = 15, so there is enough
@@ -139,10 +139,10 @@
 
          // ==== Quick return in case of workspace query. ====
 
-         IF( LWORK.EQ.-1 ) THEN
+         if ( LWORK.EQ.-1 ) {
             WORK( 1 ) = CMPLX( LWKOPT, 0 )
             RETURN
-         END IF
+         }
 
          // ==== CLAHQR/CLAQR0 crossover point ====
 
@@ -220,26 +220,26 @@
 
             NH = KBOT - KTOP + 1
             NWUPBD = MIN( NH, NWMAX )
-            IF( NDFL.LT.KEXNW ) THEN
+            if ( NDFL.LT.KEXNW ) {
                NW = MIN( NWUPBD, NWR )
             } else {
                NW = MIN( NWUPBD, 2*NW )
-            END IF
-            IF( NW.LT.NWMAX ) THEN
-               IF( NW.GE.NH-1 ) THEN
+            }
+            if ( NW.LT.NWMAX ) {
+               if ( NW.GE.NH-1 ) {
                   NW = NH
                } else {
                   KWTOP = KBOT - NW + 1
                   IF( CABS1( H( KWTOP, KWTOP-1 ) ).GT. CABS1( H( KWTOP-1, KWTOP-2 ) ) )NW = NW + 1
-               END IF
-            END IF
-            IF( NDFL.LT.KEXNW ) THEN
+               }
+            }
+            if ( NDFL.LT.KEXNW ) {
                NDEC = -1
-            ELSE IF( NDEC.GE.0 .OR. NW.GE.NWUPBD ) THEN
+            } else if ( NDEC.GE.0 .OR. NW.GE.NWUPBD ) {
                NDEC = NDEC + 1
                IF( NW-NDEC.LT.2 ) NDEC = 0
                NW = NW - NDEC
-            END IF
+            }
 
             // ==== Aggressive early deflation:
             // .    split workspace under the subdiagonal into
@@ -276,7 +276,7 @@
             // .    skipped if many eigenvalues have just been deflated
             // .    or if the remaining active block is small.
 
-            IF( ( LD.EQ.0 ) .OR. ( ( 100*LD.LE.NW*NIBBLE ) .AND. ( KBOT- KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) THEN
+            if ( ( LD.EQ.0 ) .OR. ( ( 100*LD.LE.NW*NIBBLE ) .AND. ( KBOT- KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) {
 
                // ==== NS = nominal number of simultaneous shifts.
                // .    This may be lowered (slightly) if CLAQR2
@@ -292,7 +292,7 @@
                // .    CLAQR2 above or from the eigenvalues
                // .    of a trailing principal submatrix. ====
 
-               IF( MOD( NDFL, KEXSH ).EQ.0 ) THEN
+               if ( MOD( NDFL, KEXSH ).EQ.0 ) {
                   KS = KBOT - NS + 1
                   DO 30 I = KBOT, KS + 1, -2
                      W( I ) = H( I, I ) + WILK1*CABS1( H( I, I-1 ) )
@@ -306,7 +306,7 @@
                   // .    there is enough space below the subdiagonal
                   // .    to fit an NS-by-NS scratch array.) ====
 
-                  IF( KBOT-KS+1.LE.NS / 2 ) THEN
+                  if ( KBOT-KS+1.LE.NS / 2 ) {
                      KS = KBOT - NS + 1
                      KT = N - NS + 1
                      CALL CLACPY( 'A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH )                      CALL CLAHQR( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, INF )
@@ -319,7 +319,7 @@
                      // .    (The scale factor S can not be zero,
                      // .    because H(KBOT,KBOT-1) is nonzero.) ====
 
-                     IF( KS.GE.KBOT ) THEN
+                     if ( KS.GE.KBOT ) {
                         S = CABS1( H( KBOT-1, KBOT-1 ) ) + CABS1( H( KBOT, KBOT-1 ) ) + CABS1( H( KBOT-1, KBOT ) ) + CABS1( H( KBOT, KBOT ) )
                         AA = H( KBOT-1, KBOT-1 ) / S
                         CC = H( KBOT, KBOT-1 ) / S
@@ -332,10 +332,10 @@
                         W( KBOT ) = ( TR2-RTDISC )*S
 
                         KS = KBOT - 1
-                     END IF
-                  END IF
+                     }
+                  }
 
-                  IF( KBOT-KS+1.GT.NS ) THEN
+                  if ( KBOT-KS+1.GT.NS ) {
 
                      // ==== Sort the shifts (Helps a little) ====
 
@@ -344,28 +344,28 @@
                         IF( SORTED ) GO TO 60
                         SORTED = .true.
                         DO 40 I = KS, K - 1
-                           IF( CABS1( W( I ) ).LT.CABS1( W( I+1 ) ) ) THEN
+                           if ( CABS1( W( I ) ).LT.CABS1( W( I+1 ) ) ) {
                               SORTED = .false.
                               SWAP = W( I )
                               W( I ) = W( I+1 )
                               W( I+1 ) = SWAP
-                           END IF
+                           }
    40                   CONTINUE
    50                CONTINUE
    60                CONTINUE
-                  END IF
-               END IF
+                  }
+               }
 
                // ==== If there are only two shifts, then use
                // .    only one.  ====
 
-               IF( KBOT-KS+1.EQ.2 ) THEN
-                  IF( CABS1( W( KBOT )-H( KBOT, KBOT ) ).LT. CABS1( W( KBOT-1 )-H( KBOT, KBOT ) ) ) THEN
+               if ( KBOT-KS+1.EQ.2 ) {
+                  if ( CABS1( W( KBOT )-H( KBOT, KBOT ) ).LT. CABS1( W( KBOT-1 )-H( KBOT, KBOT ) ) ) {
                      W( KBOT-1 ) = W( KBOT )
                   } else {
                      W( KBOT ) = W( KBOT-1 )
-                  END IF
-               END IF
+                  }
+               }
 
                // ==== Use up to NS of the the smallest magnitude
                // .    shifts.  If there aren't NS shifts available,
@@ -397,15 +397,15 @@
                // ==== Small-bulge multi-shift QR sweep ====
 
                CALL CLAQR5( WANTT, WANTZ, KACC22, N, KTOP, KBOT, NS, W( KS ), H, LDH, ILOZ, IHIZ, Z, LDZ, WORK, 3, H( KU, 1 ), LDH, NVE, H( KWV, 1 ), LDH, NHO, H( KU, KWH ), LDH )
-            END IF
+            }
 
             // ==== Note progress (or the lack of it). ====
 
-            IF( LD.GT.0 ) THEN
+            if ( LD.GT.0 ) {
                NDFL = 1
             } else {
                NDFL = NDFL + 1
-            END IF
+            }
 
             // ==== End of main loop ====
    70    CONTINUE
@@ -415,7 +415,7 @@
 
          INFO = KBOT
    80    CONTINUE
-      END IF
+      }
 
       // ==== Return the optimal value of LWORK. ====
 

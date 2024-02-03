@@ -34,27 +34,27 @@
 
       INFO = 0
 
-      IF( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) THEN
+      if ( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) {
          INFO = -1
-      ELSE IF( SMLSIZ.LT.3 ) THEN
+      } else if ( SMLSIZ.LT.3 ) {
          INFO = -2
-      ELSE IF( N.LT.SMLSIZ ) THEN
+      } else if ( N.LT.SMLSIZ ) {
          INFO = -3
-      ELSE IF( NRHS.LT.1 ) THEN
+      } else if ( NRHS.LT.1 ) {
          INFO = -4
-      ELSE IF( LDB.LT.N ) THEN
+      } else if ( LDB.LT.N ) {
          INFO = -6
-      ELSE IF( LDBX.LT.N ) THEN
+      } else if ( LDBX.LT.N ) {
          INFO = -8
-      ELSE IF( LDU.LT.N ) THEN
+      } else if ( LDU.LT.N ) {
          INFO = -10
-      ELSE IF( LDGCOL.LT.N ) THEN
+      } else if ( LDGCOL.LT.N ) {
          INFO = -19
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZLALSA', -INFO )
          RETURN
-      END IF
+      }
 
       // Book-keeping and  setting up the computation tree.
 
@@ -67,9 +67,9 @@
       // The following code applies back the left singular vector factors.
       // For applying back the right singular vector factors, go to 170.
 
-      IF( ICOMPQ.EQ.1 ) THEN
+      if ( ICOMPQ.EQ.1 ) {
          GO TO 170
-      END IF
+      }
 
       // The nodes on the bottom level of the tree were solved
       // by DLASDQ. The corresponding left and right singular vector
@@ -178,13 +178,13 @@
          // find the first node LF and last node LL on
         t // he current level LVL
 
-         IF( LVL.EQ.1 ) THEN
+         if ( LVL.EQ.1 ) {
             LF = 1
             LL = 1
          } else {
             LF = 2**( LVL-1 )
             LL = 2*LF - 1
-         END IF
+         }
          DO 150 I = LF, LL
             IM1 = I - 1
             IC = IWORK( INODE+IM1 )
@@ -212,13 +212,13 @@
          // Find the first node LF and last node LL on
         t // he current level LVL.
 
-         IF( LVL.EQ.1 ) THEN
+         if ( LVL.EQ.1 ) {
             LF = 1
             LL = 1
          } else {
             LF = 2**( LVL-1 )
             LL = 2*LF - 1
-         END IF
+         }
          DO 180 I = LL, LF, -1
             IM1 = I - 1
             IC = IWORK( INODE+IM1 )
@@ -226,11 +226,11 @@
             NR = IWORK( NDIMR+IM1 )
             NLF = IC - NL
             NRF = IC + 1
-            IF( I.EQ.LL ) THEN
+            if ( I.EQ.LL ) {
                SQRE = 0
             } else {
                SQRE = 1
-            END IF
+            }
             J = J + 1
             CALL ZLALS0( ICOMPQ, NL, NR, SQRE, NRHS, B( NLF, 1 ), LDB, BX( NLF, 1 ), LDBX, PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), RWORK, INFO )
   180    CONTINUE
@@ -247,11 +247,11 @@
          NL = IWORK( NDIML+I1 )
          NR = IWORK( NDIMR+I1 )
          NLP1 = NL + 1
-         IF( I.EQ.ND ) THEN
+         if ( I.EQ.ND ) {
             NRP1 = NR
          } else {
             NRP1 = NR + 1
-         END IF
+         }
          NLF = IC - NL
          NRF = IC + 1
 

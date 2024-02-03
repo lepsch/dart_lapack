@@ -37,23 +37,23 @@
       // Test the input parameters
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLAORHR_COL_GETRFNP2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( MIN( M, N ).EQ.0 ) RETURN
 
-      IF ( M.EQ.1 ) THEN
+      if ( M.EQ.1 ) {
 
          // One row case, (also recursion termination case),
          // use unblocked code
@@ -66,7 +66,7 @@
 
          A( 1, 1 ) = A( 1, 1 ) - D( 1 )
 
-      ELSE IF( N.EQ.1 ) THEN
+      } else if ( N.EQ.1 ) {
 
          // One column case, (also recursion termination case),
          // use unblocked code
@@ -87,13 +87,13 @@
 
          // Construct the subdiagonal elements of L
 
-         IF( ABS( A( 1, 1 ) ) .GE. SFMIN ) THEN
+         if ( ABS( A( 1, 1 ) ) .GE. SFMIN ) {
             CALL DSCAL( M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 )
          } else {
             DO I = 2, M
                A( I, 1 ) = A( I, 1 ) / A( 1, 1 )
             END DO
-         END IF
+         }
 
       } else {
 
@@ -124,7 +124,7 @@
 
          CALL DLAORHR_COL_GETRFNP2( M-N1, N2, A( N1+1, N1+1 ), LDA, D( N1+1 ), IINFO )
 
-      END IF
+      }
       RETURN
 
       // End of DLAORHR_COL_GETRFNP2

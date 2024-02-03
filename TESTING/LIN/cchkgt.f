@@ -98,7 +98,7 @@
             CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
 
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
-            IF( IMAT.LE.6 ) THEN
+            if ( IMAT.LE.6 ) {
 
                // Types 1-6:  generate matrices of known condition number.
 
@@ -108,60 +108,60 @@
 
                // Check the error code from CLATMS.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 100
-               END IF
+               }
                IZERO = 0
 
-               IF( N.GT.1 ) THEN
+               if ( N.GT.1 ) {
                   CALL CCOPY( N-1, AF( 4 ), 3, A, 1 )
                   CALL CCOPY( N-1, AF( 3 ), 3, A( N+M+1 ), 1 )
-               END IF
+               }
                CALL CCOPY( N, AF( 2 ), 3, A( M+1 ), 1 )
             } else {
 
                // Types 7-12:  generate tridiagonal matrices with
                // unknown condition numbers.
 
-               IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) THEN
+               if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) {
 
                   // Generate a matrix with elements whose real and
                   // imaginary parts are from [-1,1].
 
                   CALL CLARNV( 2, ISEED, N+2*M, A )
                   IF( ANORM.NE.ONE ) CALL CSSCAL( N+2*M, ANORM, A, 1 )
-               ELSE IF( IZERO.GT.0 ) THEN
+               } else if ( IZERO.GT.0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
                   // elements.
 
-                  IF( IZERO.EQ.1 ) THEN
+                  if ( IZERO.EQ.1 ) {
                      A( N ) = Z( 2 )
                      IF( N.GT.1 ) A( 1 ) = Z( 3 )
-                  ELSE IF( IZERO.EQ.N ) THEN
+                  } else if ( IZERO.EQ.N ) {
                      A( 3*N-2 ) = Z( 1 )
                      A( 2*N-1 ) = Z( 2 )
                   } else {
                      A( 2*N-2+IZERO ) = Z( 1 )
                      A( N-1+IZERO ) = Z( 2 )
                      A( IZERO ) = Z( 3 )
-                  END IF
-               END IF
+                  }
+               }
 
                // If IMAT > 7, set one column of the matrix to 0.
 
-               IF( .NOT.ZEROT ) THEN
+               if ( .NOT.ZEROT ) {
                   IZERO = 0
-               ELSE IF( IMAT.EQ.8 ) THEN
+               } else if ( IMAT.EQ.8 ) {
                   IZERO = 1
                   Z( 2 ) = A( N )
                   A( N ) = ZERO
-                  IF( N.GT.1 ) THEN
+                  if ( N.GT.1 ) {
                      Z( 3 ) = A( 1 )
                      A( 1 ) = ZERO
-                  END IF
-               ELSE IF( IMAT.EQ.9 ) THEN
+                  }
+               } else if ( IMAT.EQ.9 ) {
                   IZERO = N
                   Z( 1 ) = A( 3*N-2 )
                   Z( 2 ) = A( 2*N-1 )
@@ -176,8 +176,8 @@
    20             CONTINUE
                   A( 3*N-2 ) = ZERO
                   A( 2*N-1 ) = ZERO
-               END IF
-            END IF
+               }
+            }
 
 *+    TEST 1
             // Factor A as L*U and compute the ratio
@@ -196,23 +196,23 @@
 
             // Print the test ratio if it is .GE. THRESH.
 
-            IF( RESULT( 1 ).GE.THRESH ) THEN
+            if ( RESULT( 1 ).GE.THRESH ) {
                IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 )
                NFAIL = NFAIL + 1
-            END IF
+            }
             NRUN = NRUN + 1
 
             DO 50 ITRAN = 1, 2
                TRANS = TRANSS( ITRAN )
-               IF( ITRAN.EQ.1 ) THEN
+               if ( ITRAN.EQ.1 ) {
                   NORM = 'O'
                } else {
                   NORM = 'I'
-               END IF
+               }
                ANORM = CLANGT( NORM, N, A, A( M+1 ), A( N+M+1 ) )
 
-               IF( .NOT.TRFCON ) THEN
+               if ( .NOT.TRFCON ) {
 
                   // Use CGTTRS to solve for one column at a time of
                   // inv(A), computing the maximum column sum as we go.
@@ -229,19 +229,19 @@
 
                   // Compute RCONDC = 1 / (norm(A) * norm(inv(A))
 
-                  IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                  if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                      RCONDC = ONE
                   } else {
                      RCONDC = ( ONE / ANORM ) / AINVNM
-                  END IF
-                  IF( ITRAN.EQ.1 ) THEN
+                  }
+                  if ( ITRAN.EQ.1 ) {
                      RCONDO = RCONDC
                   } else {
                      RCONDI = RCONDC
-                  END IF
+                  }
                } else {
                   RCONDC = ZERO
-               END IF
+               }
 
 *+    TEST 7
                // Estimate the reciprocal of the condition number of the
@@ -258,10 +258,10 @@
 
                // Print the test ratio if it is .GE. THRESH.
 
-               IF( RESULT( 7 ).GE.THRESH ) THEN
+               if ( RESULT( 7 ).GE.THRESH ) {
                   IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 7, RESULT( 7 )
                   NFAIL = NFAIL + 1
-               END IF
+               }
                NRUN = NRUN + 1
    50       CONTINUE
 
@@ -282,11 +282,11 @@
 
                DO 80 ITRAN = 1, 3
                   TRANS = TRANSS( ITRAN )
-                  IF( ITRAN.EQ.1 ) THEN
+                  if ( ITRAN.EQ.1 ) {
                      RCONDC = RCONDO
                   } else {
                      RCONDC = RCONDI
-                  END IF
+                  }
 
                   // Set the right hand side.
 
@@ -327,10 +327,10 @@
               t // hreshold.
 
                   DO 70 K = 2, 6
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
    70             CONTINUE
                   NRUN = NRUN + 5
    80          CONTINUE

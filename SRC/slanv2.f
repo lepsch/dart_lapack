@@ -33,11 +33,11 @@
       EPS = SLAMCH( 'P' )
       SAFMN2 = SLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( SLAMCH( 'B' ) ) / TWO )
       SAFMX2 = ONE / SAFMN2
-      IF( C.EQ.ZERO ) THEN
+      if ( C.EQ.ZERO ) {
          CS = ONE
          SN = ZERO
 
-      ELSE IF( B.EQ.ZERO ) THEN
+      } else if ( B.EQ.ZERO ) {
 
          // Swap rows and columns
 
@@ -49,7 +49,7 @@
          B = -C
          C = ZERO
 
-      ELSE IF( (A-D).EQ.ZERO .AND. SIGN( ONE, B ).NE. SIGN( ONE, C ) ) THEN
+      } else if ( (A-D).EQ.ZERO .AND. SIGN( ONE, B ).NE. SIGN( ONE, C ) ) {
          CS = ONE
          SN = ZERO
 
@@ -65,7 +65,7 @@
          // If Z is of the order of the machine accuracy, postpone the
          // decision on the nature of eigenvalues
 
-         IF( Z.GE.MULTPL*EPS ) THEN
+         if ( Z.GE.MULTPL*EPS ) {
 
             // Real eigenvalues. Compute A and D.
 
@@ -91,16 +91,16 @@
    10       CONTINUE
             COUNT = COUNT + 1
             SCALE = MAX( ABS(TEMP), ABS(SIGMA) )
-            IF( SCALE.GE.SAFMX2 ) THEN
+            if ( SCALE.GE.SAFMX2 ) {
                SIGMA = SIGMA * SAFMN2
                TEMP = TEMP * SAFMN2
                IF (COUNT .LE. 20) GOTO 10
-            END IF
-            IF( SCALE.LE.SAFMN2 ) THEN
+            }
+            if ( SCALE.LE.SAFMN2 ) {
                SIGMA = SIGMA * SAFMX2
                TEMP = TEMP * SAFMX2
                IF (COUNT .LE. 20) GOTO 10
-            END IF
+            }
             P = HALF*TEMP
             TAU = SLAPY2( SIGMA, TEMP )
             CS = SQRT( HALF*( ONE+ABS( SIGMA ) / TAU ) )
@@ -126,9 +126,9 @@
             A = TEMP
             D = TEMP
 
-            IF( C.NE.ZERO ) THEN
-               IF( B.NE.ZERO ) THEN
-                  IF( SIGN( ONE, B ).EQ.SIGN( ONE, C ) ) THEN
+            if ( C.NE.ZERO ) {
+               if ( B.NE.ZERO ) {
+                  if ( SIGN( ONE, B ).EQ.SIGN( ONE, C ) ) {
 
                      // Real eigenvalues: reduce to upper triangular form
 
@@ -145,30 +145,30 @@
                      TEMP = CS*CS1 - SN*SN1
                      SN = CS*SN1 + SN*CS1
                      CS = TEMP
-                  END IF
+                  }
                } else {
                   B = -C
                   C = ZERO
                   TEMP = CS
                   CS = -SN
                   SN = TEMP
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
 
-      END IF
+      }
 
       // Store eigenvalues in (RT1R,RT1I) and (RT2R,RT2I).
 
       RT1R = A
       RT2R = D
-      IF( C.EQ.ZERO ) THEN
+      if ( C.EQ.ZERO ) {
          RT1I = ZERO
          RT2I = ZERO
       } else {
          RT1I = SQRT( ABS( B ) )*SQRT( ABS( C ) )
          RT2I = -RT1I
-      END IF
+      }
       RETURN
 
       // End of SLANV2

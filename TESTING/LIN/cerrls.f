@@ -54,7 +54,7 @@
 
       // Test error exits for the least squares driver routines.
 
-      IF( LSAMEN( 2, C2, 'LS' ) ) THEN
+      if ( LSAMEN( 2, C2, 'LS' ) ) {
 
          // CGELS
 
@@ -199,7 +199,7 @@
          INFOT = 12
          CALL CGELSD( 2, 2, 1, A, 2, B, 2, S, RCOND, IRNK, W, 1, RW, IP, INFO )
          CALL CHKXER( 'CGELSD', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

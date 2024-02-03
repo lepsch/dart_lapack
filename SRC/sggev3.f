@@ -42,27 +42,27 @@
 
       // Decode the input arguments
 
-      IF( LSAME( JOBVL, 'N' ) ) THEN
+      if ( LSAME( JOBVL, 'N' ) ) {
          IJOBVL = 1
          ILVL = .FALSE.
-      ELSE IF( LSAME( JOBVL, 'V' ) ) THEN
+      } else if ( LSAME( JOBVL, 'V' ) ) {
          IJOBVL = 2
          ILVL = .TRUE.
       } else {
          IJOBVL = -1
          ILVL = .FALSE.
-      END IF
+      }
 
-      IF( LSAME( JOBVR, 'N' ) ) THEN
+      if ( LSAME( JOBVR, 'N' ) ) {
          IJOBVR = 1
          ILVR = .FALSE.
-      ELSE IF( LSAME( JOBVR, 'V' ) ) THEN
+      } else if ( LSAME( JOBVR, 'V' ) ) {
          IJOBVR = 2
          ILVR = .TRUE.
       } else {
          IJOBVR = -1
          ILVR = .FALSE.
-      END IF
+      }
       ILV = ILVL .OR. ILVR
 
       // Test the input arguments
@@ -70,34 +70,34 @@
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
       LWKMIN = MAX( 1, 8*N )
-      IF( IJOBVL.LE.0 ) THEN
+      if ( IJOBVL.LE.0 ) {
          INFO = -1
-      ELSE IF( IJOBVR.LE.0 ) THEN
+      } else if ( IJOBVR.LE.0 ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDVL.LT.1 .OR. ( ILVL .AND. LDVL.LT.N ) ) THEN
+      } else if ( LDVL.LT.1 .OR. ( ILVL .AND. LDVL.LT.N ) ) {
          INFO = -12
-      ELSE IF( LDVR.LT.1 .OR. ( ILVR .AND. LDVR.LT.N ) ) THEN
+      } else if ( LDVR.LT.1 .OR. ( ILVR .AND. LDVR.LT.N ) ) {
          INFO = -14
-      ELSE IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
          INFO = -16
-      END IF
+      }
 
       // Compute workspace
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          CALL SGEQRF( N, N, B, LDB, WORK, WORK, -1, IERR )
          LWKOPT = MAX( LWKMIN, 3*N+INT( WORK( 1 ) ) )
          CALL SORMQR( 'L', 'T', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR )
          LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
          CALL SGGHD3( JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR )
          LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
-         IF( ILVL ) THEN
+         if ( ILVL ) {
             CALL SORGQR( N, N, N, VL, LDVL, WORK, WORK, -1, IERR )
             LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
             CALL SLAQZ0( 'S', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR )
@@ -105,20 +105,20 @@
          } else {
             CALL SLAQZ0( 'E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR )
             LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) )
-         END IF
-         IF( N.EQ.0 ) THEN
+         }
+         if ( N.EQ.0 ) {
             WORK( 1 ) = 1
          } else {
             WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGGEV3 ', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -136,26 +136,26 @@
 
       ANRM = SLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = .FALSE.
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = .TRUE.
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
-      END IF
+      }
       IF( ILASCL ) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
       BNRM = SLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = .FALSE.
-      IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
+      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = .TRUE.
-      ELSE IF( BNRM.GT.BIGNUM ) THEN
+      } else if ( BNRM.GT.BIGNUM ) {
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
-      END IF
+      }
       IF( ILBSCL ) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 
       // Permute the matrices A, B to isolate eigenvalues if possible
@@ -168,11 +168,11 @@
       // Reduce B to triangular form (QR decomposition of B)
 
       IROWS = IHI + 1 - ILO
-      IF( ILV ) THEN
+      if ( ILV ) {
          ICOLS = N + 1 - ILO
       } else {
          ICOLS = IROWS
-      END IF
+      }
       ITAU = IWRK
       IWRK = ITAU + IROWS
       CALL SGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
@@ -183,13 +183,13 @@
 
       // Initialize VL
 
-      IF( ILVL ) THEN
+      if ( ILVL ) {
          CALL SLASET( 'Full', N, N, ZERO, ONE, VL, LDVL )
-         IF( IROWS.GT.1 ) THEN
+         if ( IROWS.GT.1 ) {
             CALL SLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )
-         END IF
+         }
          CALL SORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
-      END IF
+      }
 
       // Initialize VR
 
@@ -197,62 +197,62 @@
 
       // Reduce to generalized Hessenberg form
 
-      IF( ILV ) THEN
+      if ( ILV ) {
 
          // Eigenvectors requested -- work on whole matrix.
 
          CALL SGGHD3( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       } else {
          CALL SGGHD3( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
-      END IF
+      }
 
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
       // Schur forms and Schur vectors)
 
       IWRK = ITAU
-      IF( ILV ) THEN
+      if ( ILV ) {
          CHTEMP = 'S'
       } else {
          CHTEMP = 'E'
-      END IF
+      }
       CALL SLAQZ0( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, 0, IERR )
-      IF( IERR.NE.0 ) THEN
-         IF( IERR.GT.0 .AND. IERR.LE.N ) THEN
+      if ( IERR.NE.0 ) {
+         if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
-         ELSE IF( IERR.GT.N .AND. IERR.LE.2*N ) THEN
+         } else if ( IERR.GT.N .AND. IERR.LE.2*N ) {
             INFO = IERR - N
          } else {
             INFO = N + 1
-         END IF
+         }
          GO TO 110
-      END IF
+      }
 
       // Compute Eigenvectors
 
-      IF( ILV ) THEN
-         IF( ILVL ) THEN
-            IF( ILVR ) THEN
+      if ( ILV ) {
+         if ( ILVL ) {
+            if ( ILVR ) {
                CHTEMP = 'B'
             } else {
                CHTEMP = 'L'
-            END IF
+            }
          } else {
             CHTEMP = 'R'
-         END IF
+         }
          CALL STGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), IERR )
-         IF( IERR.NE.0 ) THEN
+         if ( IERR.NE.0 ) {
             INFO = N + 2
             GO TO 110
-         END IF
+         }
 
          // Undo balancing on VL and VR and normalization
 
-         IF( ILVL ) THEN
+         if ( ILVL ) {
             CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IERR )
             DO 50 JC = 1, N
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 50
                TEMP = ZERO
-               IF( ALPHAI( JC ).EQ.ZERO ) THEN
+               if ( ALPHAI( JC ).EQ.ZERO ) {
                   DO 10 JR = 1, N
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
    10             CONTINUE
@@ -260,10 +260,10 @@
                   DO 20 JR = 1, N
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
    20             CONTINUE
-               END IF
+               }
                IF( TEMP.LT.SMLNUM ) GO TO 50
                TEMP = ONE / TEMP
-               IF( ALPHAI( JC ).EQ.ZERO ) THEN
+               if ( ALPHAI( JC ).EQ.ZERO ) {
                   DO 30 JR = 1, N
                      VL( JR, JC ) = VL( JR, JC )*TEMP
    30             CONTINUE
@@ -272,15 +272,15 @@
                      VL( JR, JC ) = VL( JR, JC )*TEMP
                      VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP
    40             CONTINUE
-               END IF
+               }
    50       CONTINUE
-         END IF
-         IF( ILVR ) THEN
+         }
+         if ( ILVR ) {
             CALL SGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IERR )
             DO 100 JC = 1, N
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 100
                TEMP = ZERO
-               IF( ALPHAI( JC ).EQ.ZERO ) THEN
+               if ( ALPHAI( JC ).EQ.ZERO ) {
                   DO 60 JR = 1, N
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
    60             CONTINUE
@@ -288,10 +288,10 @@
                   DO 70 JR = 1, N
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
    70             CONTINUE
-               END IF
+               }
                IF( TEMP.LT.SMLNUM ) GO TO 100
                TEMP = ONE / TEMP
-               IF( ALPHAI( JC ).EQ.ZERO ) THEN
+               if ( ALPHAI( JC ).EQ.ZERO ) {
                   DO 80 JR = 1, N
                      VR( JR, JC ) = VR( JR, JC )*TEMP
    80             CONTINUE
@@ -300,26 +300,26 @@
                      VR( JR, JC ) = VR( JR, JC )*TEMP
                      VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP
    90             CONTINUE
-               END IF
+               }
   100       CONTINUE
-         END IF
+         }
 
          // End of eigenvector calculation
 
-      END IF
+      }
 
       // Undo scaling if necessary
 
   110 CONTINUE
 
-      IF( ILASCL ) THEN
+      if ( ILASCL ) {
          CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )
          CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR )
-      END IF
+      }
 
-      IF( ILBSCL ) THEN
+      if ( ILBSCL ) {
          CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
-      END IF
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       RETURN

@@ -35,42 +35,42 @@
 
       IF( M.LE.0 .OR. N.LE.0 .OR. K.LE.0 .OR. L.LT.0 ) RETURN
 
-      IF( LSAME( STOREV, 'C' ) ) THEN
+      if ( LSAME( STOREV, 'C' ) ) {
          COLUMN = .TRUE.
          ROW = .FALSE.
-      ELSE IF ( LSAME( STOREV, 'R' ) ) THEN
+      } else if ( LSAME( STOREV, 'R' ) ) {
          COLUMN = .FALSE.
          ROW = .TRUE.
       } else {
          COLUMN = .FALSE.
          ROW = .FALSE.
-      END IF
+      }
 
-      IF( LSAME( SIDE, 'L' ) ) THEN
+      if ( LSAME( SIDE, 'L' ) ) {
          LEFT = .TRUE.
          RIGHT = .FALSE.
-      ELSE IF( LSAME( SIDE, 'R' ) ) THEN
+      } else if ( LSAME( SIDE, 'R' ) ) {
          LEFT = .FALSE.
          RIGHT = .TRUE.
       } else {
          LEFT = .FALSE.
          RIGHT = .FALSE.
-      END IF
+      }
 
-      IF( LSAME( DIRECT, 'F' ) ) THEN
+      if ( LSAME( DIRECT, 'F' ) ) {
          FORWARD = .TRUE.
          BACKWARD = .FALSE.
-      ELSE IF( LSAME( DIRECT, 'B' ) ) THEN
+      } else if ( LSAME( DIRECT, 'B' ) ) {
          FORWARD = .FALSE.
          BACKWARD = .TRUE.
       } else {
          FORWARD = .FALSE.
          BACKWARD = .FALSE.
-      END IF
+      }
 
 * ---------------------------------------------------------------------------
 
-      IF( COLUMN .AND. FORWARD .AND. LEFT  ) THEN
+      if ( COLUMN .AND. FORWARD .AND. LEFT  ) {
 
 * ---------------------------------------------------------------------------
 
@@ -120,7 +120,7 @@
 
 * ---------------------------------------------------------------------------
 
-      ELSE IF( COLUMN .AND. FORWARD .AND. RIGHT ) THEN
+      } else if ( COLUMN .AND. FORWARD .AND. RIGHT ) {
 
 * ---------------------------------------------------------------------------
 
@@ -169,7 +169,7 @@
 
 * ---------------------------------------------------------------------------
 
-      ELSE IF( COLUMN .AND. BACKWARD .AND. LEFT ) THEN
+      } else if ( COLUMN .AND. BACKWARD .AND. LEFT ) {
 
 * ---------------------------------------------------------------------------
 
@@ -220,7 +220,7 @@
 
 * ---------------------------------------------------------------------------
 
-      ELSE IF( COLUMN .AND. BACKWARD .AND. RIGHT ) THEN
+      } else if ( COLUMN .AND. BACKWARD .AND. RIGHT ) {
 
 * ---------------------------------------------------------------------------
 
@@ -269,7 +269,7 @@
 
 * ---------------------------------------------------------------------------
 
-      ELSE IF( ROW .AND. FORWARD .AND. LEFT ) THEN
+      } else if ( ROW .AND. FORWARD .AND. LEFT ) {
 
 * ---------------------------------------------------------------------------
 
@@ -318,7 +318,7 @@
 
 * ---------------------------------------------------------------------------
 
-      ELSE IF( ROW .AND. FORWARD .AND. RIGHT ) THEN
+      } else if ( ROW .AND. FORWARD .AND. RIGHT ) {
 
 * ---------------------------------------------------------------------------
 
@@ -366,7 +366,7 @@
 
 * ---------------------------------------------------------------------------
 
-      ELSE IF( ROW .AND. BACKWARD .AND. LEFT ) THEN
+      } else if ( ROW .AND. BACKWARD .AND. LEFT ) {
 
 * ---------------------------------------------------------------------------
 
@@ -415,7 +415,7 @@
 
 * ---------------------------------------------------------------------------
 
-      ELSE IF( ROW .AND. BACKWARD .AND. RIGHT ) THEN
+      } else if ( ROW .AND. BACKWARD .AND. RIGHT ) {
 
 * ---------------------------------------------------------------------------
 
@@ -461,7 +461,7 @@
             END DO
          END DO
 
-      END IF
+      }
 
       RETURN
 

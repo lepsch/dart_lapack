@@ -40,25 +40,25 @@
       LWKOPT = MAX( 1, MAX( N, M, P )*NB )
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( P.LT.0 ) THEN
+      } else if ( P.LT.0 ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, P ) ) THEN
+      } else if ( LDB.LT.MAX( 1, P ) ) {
          INFO = -8
-      ELSE IF( LWORK.LT.MAX( 1, M, P, N ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX( 1, M, P, N ) .AND. .NOT.LQUERY ) {
          INFO = -11
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGGRQF', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // RQ factorization of M-by-N matrix A: A = R*Q
 

@@ -13,14 +13,14 @@
 
       // .. Executable Statements ..
 
-      IF( NFAIL.GT.0 ) THEN
+      if ( NFAIL.GT.0 ) {
          WRITE( NOUT, FMT = 9999 )TYPE, NFAIL, NRUN
       } else {
          WRITE( NOUT, FMT = 9998 )TYPE, NRUN
-      END IF
-      IF( NERRS.GT.0 ) THEN
+      }
+      if ( NERRS.GT.0 ) {
          WRITE( NOUT, FMT = 9997 )NERRS
-      END IF
+      }
 
  9999 FORMAT( 1X, A3, ' drivers: ', I6, ' out of ', I6,
      $      ' tests failed to pass the threshold' )

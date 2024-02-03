@@ -96,7 +96,7 @@
             CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
 
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
-            IF( IMAT.LE.6 ) THEN
+            if ( IMAT.LE.6 ) {
 
                // Types 1-6:  generate matrices of known condition number.
 
@@ -106,59 +106,59 @@
 
                // Check the error code from DLATMS.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 130
-               END IF
+               }
                IZERO = 0
 
-               IF( N.GT.1 ) THEN
+               if ( N.GT.1 ) {
                   CALL DCOPY( N-1, AF( 4 ), 3, A, 1 )
                   CALL DCOPY( N-1, AF( 3 ), 3, A( N+M+1 ), 1 )
-               END IF
+               }
                CALL DCOPY( N, AF( 2 ), 3, A( M+1 ), 1 )
             } else {
 
                // Types 7-12:  generate tridiagonal matrices with
                // unknown condition numbers.
 
-               IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) THEN
+               if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) {
 
                   // Generate a matrix with elements from [-1,1].
 
                   CALL DLARNV( 2, ISEED, N+2*M, A )
                   IF( ANORM.NE.ONE ) CALL DSCAL( N+2*M, ANORM, A, 1 )
-               ELSE IF( IZERO.GT.0 ) THEN
+               } else if ( IZERO.GT.0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
                   // elements.
 
-                  IF( IZERO.EQ.1 ) THEN
+                  if ( IZERO.EQ.1 ) {
                      A( N ) = Z( 2 )
                      IF( N.GT.1 ) A( 1 ) = Z( 3 )
-                  ELSE IF( IZERO.EQ.N ) THEN
+                  } else if ( IZERO.EQ.N ) {
                      A( 3*N-2 ) = Z( 1 )
                      A( 2*N-1 ) = Z( 2 )
                   } else {
                      A( 2*N-2+IZERO ) = Z( 1 )
                      A( N-1+IZERO ) = Z( 2 )
                      A( IZERO ) = Z( 3 )
-                  END IF
-               END IF
+                  }
+               }
 
                // If IMAT > 7, set one column of the matrix to 0.
 
-               IF( .NOT.ZEROT ) THEN
+               if ( .NOT.ZEROT ) {
                   IZERO = 0
-               ELSE IF( IMAT.EQ.8 ) THEN
+               } else if ( IMAT.EQ.8 ) {
                   IZERO = 1
                   Z( 2 ) = A( N )
                   A( N ) = ZERO
-                  IF( N.GT.1 ) THEN
+                  if ( N.GT.1 ) {
                      Z( 3 ) = A( 1 )
                      A( 1 ) = ZERO
-                  END IF
-               ELSE IF( IMAT.EQ.9 ) THEN
+                  }
+               } else if ( IMAT.EQ.9 ) {
                   IZERO = N
                   Z( 1 ) = A( 3*N-2 )
                   Z( 2 ) = A( 2*N-1 )
@@ -173,25 +173,25 @@
    20             CONTINUE
                   A( 3*N-2 ) = ZERO
                   A( 2*N-1 ) = ZERO
-               END IF
-            END IF
+               }
+            }
 
             DO 120 IFACT = 1, 2
-               IF( IFACT.EQ.1 ) THEN
+               if ( IFACT.EQ.1 ) {
                   FACT = 'F'
                } else {
                   FACT = 'N'
-               END IF
+               }
 
                // Compute the condition number for comparison with
               t // he value returned by DGTSVX.
 
-               IF( ZEROT ) THEN
+               if ( ZEROT ) {
                   IF( IFACT.EQ.1 ) GO TO 120
                   RCONDO = ZERO
                   RCONDI = ZERO
 
-               ELSE IF( IFACT.EQ.1 ) THEN
+               } else if ( IFACT.EQ.1 ) {
                   CALL DCOPY( N+2*M, A, 1, AF, 1 )
 
                   // Compute the 1-norm and infinity-norm of A.
@@ -218,11 +218,11 @@
 
                   // Compute the 1-norm condition number of A.
 
-                  IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                  if ( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                      RCONDO = ONE
                   } else {
                      RCONDO = ( ONE / ANORMO ) / AINVNM
-                  END IF
+                  }
 
                   // Use DGTTRS to solve for one column at a time of
                   // inv(A'), computing the maximum column sum as we go.
@@ -239,20 +239,20 @@
 
                   // Compute the infinity-norm condition number of A.
 
-                  IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                  if ( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                      RCONDI = ONE
                   } else {
                      RCONDI = ( ONE / ANORMI ) / AINVNM
-                  END IF
-               END IF
+                  }
+               }
 
                DO 110 ITRAN = 1, 3
                   TRANS = TRANSS( ITRAN )
-                  IF( ITRAN.EQ.1 ) THEN
+                  if ( ITRAN.EQ.1 ) {
                      RCONDC = RCONDO
                   } else {
                      RCONDC = RCONDI
-                  END IF
+                  }
 
                   // Generate NRHS random solution vectors.
 
@@ -266,7 +266,7 @@
 
                   CALL DLAGTM( TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA )
 
-                  IF( IFACT.EQ.2 .AND. ITRAN.EQ.1 ) THEN
+                  if ( IFACT.EQ.2 .AND. ITRAN.EQ.1 ) {
 
                      // --- Test DGTSV  ---
 
@@ -283,7 +283,7 @@
 
                      IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'DGTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                      NT = 1
-                     IF( IZERO.EQ.0 ) THEN
+                     if ( IZERO.EQ.0 ) {
 
                         // Check residual of computed solution.
 
@@ -293,30 +293,30 @@
 
                         CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         NT = 3
-                     END IF
+                     }
 
                      // Print information about the tests that did not pass
                     t // he threshold.
 
                      DO 80 K = 2, NT
-                        IF( RESULT( K ).GE.THRESH ) THEN
+                        if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DGTSV ', N, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
    80                CONTINUE
                      NRUN = NRUN + NT - 1
-                  END IF
+                  }
 
                   // --- Test DGTSVX ---
 
-                  IF( IFACT.GT.1 ) THEN
+                  if ( IFACT.GT.1 ) {
 
                      // Initialize AF to zero.
 
                      DO 90 I = 1, 3*N - 2
                         AF( I ) = ZERO
    90                CONTINUE
-                  END IF
+                  }
                   CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
 
                   // Solve the system and compute the condition number and
@@ -329,7 +329,7 @@
 
                   IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'DGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  IF( IFACT.GE.2 ) THEN
+                  if ( IFACT.GE.2 ) {
 
                      // Reconstruct matrix from factors and compute
                      // residual.
@@ -338,9 +338,9 @@
                      K1 = 1
                   } else {
                      K1 = 2
-                  END IF
+                  }
 
-                  IF( INFO.EQ.0 ) THEN
+                  if ( INFO.EQ.0 ) {
                      TRFCON = .FALSE.
 
                      // Check residual of computed solution.
@@ -356,25 +356,25 @@
 
                      CALL DGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                      NT = 5
-                  END IF
+                  }
 
                   // Print information about the tests that did not pass
                  t // he threshold.
 
                   DO 100 K = K1, NT
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
   100             CONTINUE
 
                   // Check the reciprocal of the condition number.
 
                   RESULT( 6 ) = DGET06( RCOND, RCONDC )
-                  IF( RESULT( 6 ).GE.THRESH ) THEN
+                  if ( RESULT( 6 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
-                  END IF
+                  }
                   NRUN = NRUN + NT - K1 + 2
 
   110          CONTINUE

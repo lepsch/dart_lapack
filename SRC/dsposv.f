@@ -51,23 +51,23 @@
 
       // Test the input parameters.
 
-      IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSPOSV', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if (N.EQ.0).
 
@@ -76,10 +76,10 @@
       // Skip single precision iterative refinement if a priori slower
      t // han double precision factorization.
 
-      IF( .NOT.DOITREF ) THEN
+      if ( .NOT.DOITREF ) {
          ITER = -1
          GO TO 40
-      END IF
+      }
 
       // Compute some constants.
 
@@ -97,29 +97,29 @@
 
       CALL DLAG2S( N, NRHS, B, LDB, SWORK( PTSX ), N, INFO )
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          ITER = -2
          GO TO 40
-      END IF
+      }
 
       // Convert A from double precision to single precision and store the
       // result in SA.
 
       CALL DLAT2S( UPLO, N, A, LDA, SWORK( PTSA ), N, INFO )
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          ITER = -2
          GO TO 40
-      END IF
+      }
 
       // Compute the Cholesky factorization of SA.
 
       CALL SPOTRF( UPLO, N, SWORK( PTSA ), N, INFO )
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          ITER = -3
          GO TO 40
-      END IF
+      }
 
       // Solve the system SA*SX = SB.
 
@@ -159,10 +159,10 @@
 
          CALL DLAG2S( N, NRHS, WORK, N, SWORK( PTSX ), N, INFO )
 
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             ITER = -2
             GO TO 40
-         END IF
+         }
 
          // Solve the system SA*SX = SR.
 

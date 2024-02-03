@@ -58,19 +58,19 @@
       WANTSB = LSAME( SENSE, 'B' )
       LQUERY = ( LWORK.EQ.-1 )
 
-      IF( ( .NOT.WANTVS ) .AND. ( .NOT.LSAME( JOBVS, 'N' ) ) ) THEN
+      if ( ( .NOT.WANTVS ) .AND. ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( ( .NOT.WANTST ) .AND. ( .NOT.LSAME( SORT, 'N' ) ) ) THEN
+      } else if ( ( .NOT.WANTST ) .AND. ( .NOT.LSAME( SORT, 'N' ) ) ) {
          INFO = -2
-      ELSE IF( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST .AND. .NOT.WANTSN ) ) THEN
+      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST .AND. .NOT.WANTSN ) ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDVS.LT.1 .OR. ( WANTVS .AND. LDVS.LT.N ) ) THEN
+      } else if ( LDVS.LT.1 .OR. ( WANTVS .AND. LDVS.LT.N ) ) {
          INFO = -11
-      END IF
+      }
 
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
@@ -86,8 +86,8 @@
         // depends on SDIM, which is computed by the routine ZTRSEN later
         // in the code.)
 
-      IF( INFO.EQ.0 ) THEN
-         IF( N.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( N.EQ.0 ) {
             MINWRK = 1
             LWRK = 1
          } else {
@@ -97,35 +97,35 @@
             CALL ZHSEQR( 'S', JOBVS, N, 1, N, A, LDA, W, VS, LDVS, WORK, -1, IEVAL )
             HSWORK = INT( WORK( 1 ) )
 
-            IF( .NOT.WANTVS ) THEN
+            if ( .NOT.WANTVS ) {
                MAXWRK = MAX( MAXWRK, HSWORK )
             } else {
                MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) )
                MAXWRK = MAX( MAXWRK, HSWORK )
-            END IF
+            }
             LWRK = MAXWRK
             IF( .NOT.WANTSN ) LWRK = MAX( LWRK, ( N*N )/2 )
-         END IF
+         }
          WORK( 1 ) = LWRK
 
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
             INFO = -15
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGEESX', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          SDIM = 0
          RETURN
-      END IF
+      }
 
       // Get machine constants
 
@@ -139,13 +139,13 @@
 
       ANRM = ZLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = .FALSE.
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          SCALEA = .TRUE.
          CSCALE = SMLNUM
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
          SCALEA = .TRUE.
          CSCALE = BIGNUM
-      END IF
+      }
       IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
 
 
@@ -164,7 +164,7 @@
       IWRK = N + ITAU
       CALL ZGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 
-      IF( WANTVS ) THEN
+      if ( WANTVS ) {
 
          // Copy Householder vectors to VS
 
@@ -175,7 +175,7 @@
          // (RWorkspace: none)
 
          CALL ZUNGHR( N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
-      END IF
+      }
 
       SDIM = 0
 
@@ -188,7 +188,7 @@
 
       // Sort eigenvalues if desired
 
-      IF( WANTST .AND. INFO.EQ.0 ) THEN
+      if ( WANTST .AND. INFO.EQ.0 ) {
          IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR )
          DO 10 I = 1, N
             BWORK( I ) = SELECT( W( I ) )
@@ -202,35 +202,35 @@
 
          CALL ZTRSEN( SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, ICOND )
          IF( .NOT.WANTSN ) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) )
-         IF( ICOND.EQ.-14 ) THEN
+         if ( ICOND.EQ.-14 ) {
 
             // Not enough complex workspace
 
             INFO = -15
-         END IF
-      END IF
+         }
+      }
 
-      IF( WANTVS ) THEN
+      if ( WANTVS ) {
 
          // Undo balancing
          // (CWorkspace: none)
          // (RWorkspace: need N)
 
          CALL ZGEBAK( 'P', 'R', N, ILO, IHI, RWORK( IBAL ), N, VS, LDVS, IERR )
-      END IF
+      }
 
-      IF( SCALEA ) THEN
+      if ( SCALEA ) {
 
          // Undo scaling for the Schur form of A
 
          CALL ZLASCL( 'U', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR )
          CALL ZCOPY( N, A, LDA+1, W, 1 )
-         IF( ( WANTSV .OR. WANTSB ) .AND. INFO.EQ.0 ) THEN
+         if ( ( WANTSV .OR. WANTSB ) .AND. INFO.EQ.0 ) {
             DUM( 1 ) = RCONDV
             CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR )
             RCONDV = DUM( 1 )
-         END IF
-      END IF
+         }
+      }
 
       WORK( 1 ) = MAXWRK
       RETURN

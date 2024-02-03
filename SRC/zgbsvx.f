@@ -47,7 +47,7 @@
       NOFACT = LSAME( FACT, 'N' )
       EQUIL = LSAME( FACT, 'E' )
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( NOFACT .OR. EQUIL ) THEN
+      if ( NOFACT .OR. EQUIL ) {
          EQUED = 'N'
          ROWEQU = .FALSE.
          COLEQU = .FALSE.
@@ -56,107 +56,107 @@
          COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          SMLNUM = DLAMCH( 'Safe minimum' )
          BIGNUM = ONE / SMLNUM
-      END IF
+      }
 
       // Test the input parameters.
 
-      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
+      if ( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( KL.LT.0 ) THEN
+      } else if ( KL.LT.0 ) {
          INFO = -4
-      ELSE IF( KU.LT.0 ) THEN
+      } else if ( KU.LT.0 ) {
          INFO = -5
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -6
-      ELSE IF( LDAB.LT.KL+KU+1 ) THEN
+      } else if ( LDAB.LT.KL+KU+1 ) {
          INFO = -8
-      ELSE IF( LDAFB.LT.2*KL+KU+1 ) THEN
+      } else if ( LDAFB.LT.2*KL+KU+1 ) {
          INFO = -10
-      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
+      } else if ( LSAME( FACT, 'F' ) .AND. .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) {
          INFO = -12
       } else {
-         IF( ROWEQU ) THEN
+         if ( ROWEQU ) {
             RCMIN = BIGNUM
             RCMAX = ZERO
             DO 10 J = 1, N
                RCMIN = MIN( RCMIN, R( J ) )
                RCMAX = MAX( RCMAX, R( J ) )
    10       CONTINUE
-            IF( RCMIN.LE.ZERO ) THEN
+            if ( RCMIN.LE.ZERO ) {
                INFO = -13
-            ELSE IF( N.GT.0 ) THEN
+            } else if ( N.GT.0 ) {
                ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
             } else {
                ROWCND = ONE
-            END IF
-         END IF
-         IF( COLEQU .AND. INFO.EQ.0 ) THEN
+            }
+         }
+         if ( COLEQU .AND. INFO.EQ.0 ) {
             RCMIN = BIGNUM
             RCMAX = ZERO
             DO 20 J = 1, N
                RCMIN = MIN( RCMIN, C( J ) )
                RCMAX = MAX( RCMAX, C( J ) )
    20       CONTINUE
-            IF( RCMIN.LE.ZERO ) THEN
+            if ( RCMIN.LE.ZERO ) {
                INFO = -14
-            ELSE IF( N.GT.0 ) THEN
+            } else if ( N.GT.0 ) {
                COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
             } else {
                COLCND = ONE
-            END IF
-         END IF
-         IF( INFO.EQ.0 ) THEN
-            IF( LDB.LT.MAX( 1, N ) ) THEN
+            }
+         }
+         if ( INFO.EQ.0 ) {
+            if ( LDB.LT.MAX( 1, N ) ) {
                INFO = -16
-            ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+            } else if ( LDX.LT.MAX( 1, N ) ) {
                INFO = -18
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGBSVX', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( EQUIL ) THEN
+      if ( EQUIL ) {
 
          // Compute row and column scalings to equilibrate the matrix A.
 
          CALL ZGBEQU( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU )
-         IF( INFEQU.EQ.0 ) THEN
+         if ( INFEQU.EQ.0 ) {
 
             // Equilibrate the matrix.
 
             CALL ZLAQGB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
-         END IF
-      END IF
+         }
+      }
 
       // Scale the right hand side.
 
-      IF( NOTRAN ) THEN
-         IF( ROWEQU ) THEN
+      if ( NOTRAN ) {
+         if ( ROWEQU ) {
             DO 40 J = 1, NRHS
                DO 30 I = 1, N
                   B( I, J ) = R( I )*B( I, J )
    30          CONTINUE
    40       CONTINUE
-         END IF
-      ELSE IF( COLEQU ) THEN
+         }
+      } else if ( COLEQU ) {
          DO 60 J = 1, NRHS
             DO 50 I = 1, N
                B( I, J ) = C( I )*B( I, J )
    50       CONTINUE
    60    CONTINUE
-      END IF
+      }
 
-      IF( NOFACT .OR. EQUIL ) THEN
+      if ( NOFACT .OR. EQUIL ) {
 
          // Compute the LU factorization of the band matrix A.
 
@@ -170,7 +170,7 @@
 
          // Return if INFO is non-zero.
 
-         IF( INFO.GT.0 ) THEN
+         if ( INFO.GT.0 ) {
 
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
@@ -182,32 +182,32 @@
    80          CONTINUE
    90       CONTINUE
             RPVGRW = ZLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ), 1 ), LDAFB, RWORK )
-            IF( RPVGRW.EQ.ZERO ) THEN
+            if ( RPVGRW.EQ.ZERO ) {
                RPVGRW = ONE
             } else {
                RPVGRW = ANORM / RPVGRW
-            END IF
+            }
             RWORK( 1 ) = RPVGRW
             RCOND = ZERO
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Compute the norm of the matrix A and the
       // reciprocal pivot growth factor RPVGRW.
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
          NORM = '1'
       } else {
          NORM = 'I'
-      END IF
+      }
       ANORM = ZLANGB( NORM, N, KL, KU, AB, LDAB, RWORK )
       RPVGRW = ZLANTB( 'M', 'U', 'N', N, KL+KU, AFB, LDAFB, RWORK )
-      IF( RPVGRW.EQ.ZERO ) THEN
+      if ( RPVGRW.EQ.ZERO ) {
          RPVGRW = ONE
       } else {
          RPVGRW = ZLANGB( 'M', N, KL, KU, AB, LDAB, RWORK ) / RPVGRW
-      END IF
+      }
 
       // Compute the reciprocal of the condition number of A.
 
@@ -226,8 +226,8 @@
       // Transform the solution matrix X to a solution of the original
       // system.
 
-      IF( NOTRAN ) THEN
-         IF( COLEQU ) THEN
+      if ( NOTRAN ) {
+         if ( COLEQU ) {
             DO 110 J = 1, NRHS
                DO 100 I = 1, N
                   X( I, J ) = C( I )*X( I, J )
@@ -236,8 +236,8 @@
             DO 120 J = 1, NRHS
                FERR( J ) = FERR( J ) / COLCND
   120       CONTINUE
-         END IF
-      ELSE IF( ROWEQU ) THEN
+         }
+      } else if ( ROWEQU ) {
          DO 140 J = 1, NRHS
             DO 130 I = 1, N
                X( I, J ) = R( I )*X( I, J )
@@ -246,7 +246,7 @@
          DO 150 J = 1, NRHS
             FERR( J ) = FERR( J ) / ROWCND
   150    CONTINUE
-      END IF
+      }
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

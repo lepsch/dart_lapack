@@ -45,29 +45,29 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -2
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -10
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SPTRFS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
+      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
          DO 10 J = 1, NRHS
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
          RETURN
-      END IF
+      }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
@@ -90,7 +90,7 @@
          // Compute residual R = B - A * X.  Also compute
          // abs(A)*abs(x) + abs(b) for use in the backward error bound.
 
-         IF( N.EQ.1 ) THEN
+         if ( N.EQ.1 ) {
             BI = B( 1, J )
             DX = D( 1 )*X( 1, J )
             WORK( N+1 ) = BI - DX
@@ -114,7 +114,7 @@
             DX = D( N )*X( N, J )
             WORK( N+N ) = BI - CX - DX
             WORK( N ) = ABS( BI ) + ABS( CX ) + ABS( DX )
-         END IF
+         }
 
          // Compute componentwise relative backward error from formula
 
@@ -127,11 +127,11 @@
 
          S = ZERO
          DO 40 I = 1, N
-            IF( WORK( I ).GT.SAFE2 ) THEN
+            if ( WORK( I ).GT.SAFE2 ) {
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
-            END IF
+            }
    40    CONTINUE
          BERR( J ) = S
 
@@ -141,7 +141,7 @@
                // last iteration, and
             // 3) At most ITMAX iterations tried.
 
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
+         if ( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) {
 
             // Update solution and try again.
 
@@ -150,7 +150,7 @@
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
-         END IF
+         }
 
          // Bound error from formula
 
@@ -171,11 +171,11 @@
          // abs(A)*abs(X) + abs(B) is less than SAFE2.
 
          DO 50 I = 1, N
-            IF( WORK( I ).GT.SAFE2 ) THEN
+            if ( WORK( I ).GT.SAFE2 ) {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
             } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
-            END IF
+            }
    50    CONTINUE
          IX = ISAMAX( N, WORK, 1 )
          FERR( J ) = WORK( IX )

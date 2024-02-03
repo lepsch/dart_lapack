@@ -89,19 +89,19 @@
 
                      DO 100 IALPHA = 1, 4
 
-                        IF ( IALPHA.EQ. 1) THEN
+                        if ( IALPHA.EQ. 1) {
                            ALPHA = ZERO
                            BETA = ZERO
-                        ELSE IF ( IALPHA.EQ. 2) THEN
+                        } else if ( IALPHA.EQ. 2) {
                            ALPHA = ONE
                            BETA = ZERO
-                        ELSE IF ( IALPHA.EQ. 3) THEN
+                        } else if ( IALPHA.EQ. 3) {
                            ALPHA = ZERO
                            BETA = ONE
                         } else {
                            ALPHA = SLARND( 2, ISEED )
                            BETA = SLARND( 2, ISEED )
-                        END IF
+                        }
 
                         // All the parameters are set:
                            // CFORM, UPLO, TRANS, M, N,
@@ -110,7 +110,7 @@
 
                         NRUN = NRUN + 1
 
-                        IF ( ITRANS.EQ.1 ) THEN
+                        if ( ITRANS.EQ.1 ) {
 
                            // In this case we are NOTRANS, so A is N-by-K
 
@@ -134,7 +134,7 @@
 
                            NORMA = CLANGE( 'I', K, N, A, LDA, S_WORK_CLANGE )
 
-                        END IF
+                        }
 
 
                         // Generate C1 our N--by--N Hermitian matrix.
@@ -187,14 +187,14 @@
 
                         RESULT(1) = CLANGE( 'I', N, N, C1, LDC, S_WORK_CLANGE )                         RESULT(1) = RESULT(1) / MAX( ABS( ALPHA ) * NORMA * NORMA + ABS( BETA ) * NORMC, ONE ) / MAX( N , 1 ) / EPS
 
-                        IF( RESULT(1).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 ) THEN
+                        if ( RESULT(1).GE.THRESH ) {
+                           if ( NFAIL.EQ.0 ) {
                               WRITE( NOUT, * )
                               WRITE( NOUT, FMT = 9999 )
-                           END IF
+                           }
                            WRITE( NOUT, FMT = 9997 ) 'CHFRK', CFORM, UPLO, TRANS, N, K, RESULT(1)
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
 
   100                CONTINUE
   110             CONTINUE
@@ -205,11 +205,11 @@
 
       // Print a summary of the results.
 
-      IF ( NFAIL.EQ.0 ) THEN
+      if ( NFAIL.EQ.0 ) {
          WRITE( NOUT, FMT = 9996 ) 'CHFRK', NRUN
       } else {
          WRITE( NOUT, FMT = 9995 ) 'CHFRK', NFAIL, NRUN
-      END IF
+      }
 
  9999 FORMAT( 1X, ' *** Error(s) or Failure(s) while testing CHFRK
      +         ***')

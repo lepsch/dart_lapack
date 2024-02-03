@@ -23,9 +23,9 @@
       // .. Executable Statements ..
 
       // Quick test for the common case where one corner is non-zero.
-      IF( M.EQ.0 ) THEN
+      if ( M.EQ.0 ) {
          ILADLR = M
-      ELSE IF( A(M, 1).NE.ZERO .OR. A(M, N).NE.ZERO ) THEN
+      } else if ( A(M, 1).NE.ZERO .OR. A(M, N).NE.ZERO ) {
          ILADLR = M
       } else {
       // Scan up each column tracking the last zero row seen.
@@ -37,6 +37,6 @@
             ENDDO
             ILADLR = MAX( ILADLR, I )
          END DO
-      END IF
+      }
       RETURN
       }

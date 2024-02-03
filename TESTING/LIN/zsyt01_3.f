@@ -42,10 +42,10 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // a) Revert to multipliers of L
 
@@ -70,7 +70,7 @@
 
       // 5) Compute the difference  C - A .
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO J = 1, N
             DO I = 1, J
                C( I, J ) = C( I, J ) - A( I, J )
@@ -82,17 +82,17 @@
                C( I, J ) = C( I, J ) - A( I, J )
             END DO
          END DO
-      END IF
+      }
 
       // 6) Compute norm( C - A ) / ( N * norm(A) * EPS )
 
       RESID = ZLANSY( '1', UPLO, N, C, LDC, RWORK )
 
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
-      END IF
+      }
 
 
       // b) Convert to factor of L (or U)

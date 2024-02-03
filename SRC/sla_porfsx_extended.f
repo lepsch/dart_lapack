@@ -60,7 +60,7 @@
       // Using HUGEVAL may lead to spurious underflows.
       INCR_THRESH = REAL( N ) * EPS
 
-      IF ( LSAME ( UPLO, 'L' ) ) THEN
+      if ( LSAME ( UPLO, 'L' ) ) {
          UPLO2 = ILAUPLO( 'L' )
       } else {
          UPLO2 = ILAUPLO( 'U' )
@@ -68,11 +68,11 @@
 
       DO J = 1, NRHS
          Y_PREC_STATE = EXTRA_RESIDUAL
-         IF ( Y_PREC_STATE .EQ. EXTRA_Y ) THEN
+         if ( Y_PREC_STATE .EQ. EXTRA_Y ) {
             DO I = 1, N
                Y_TAIL( I ) = 0.0
             END DO
-         END IF
+         }
 
          DXRAT = 0.0
          DXRATMAX = 0.0
@@ -95,13 +95,13 @@
               // op(A) = A, A**T, or A**H depending on TRANS (and type).
 
             CALL SCOPY( N, B( 1, J ), 1, RES, 1 )
-            IF ( Y_PREC_STATE .EQ. BASE_RESIDUAL ) THEN
+            if ( Y_PREC_STATE .EQ. BASE_RESIDUAL ) {
                CALL SSYMV( UPLO, N, -1.0, A, LDA, Y(1,J), 1, 1.0, RES, 1 )
-            ELSE IF ( Y_PREC_STATE .EQ. EXTRA_RESIDUAL ) THEN
+            } else if ( Y_PREC_STATE .EQ. EXTRA_RESIDUAL ) {
                CALL BLAS_SSYMV_X( UPLO2, N, -1.0, A, LDA, Y( 1, J ), 1, 1.0, RES, 1, PREC_TYPE )
             } else {
                CALL BLAS_SSYMV2_X(UPLO2, N, -1.0, A, LDA, Y(1, J), Y_TAIL, 1, 1.0, RES, 1, PREC_TYPE)
-            END IF
+            }
 
           // XXX: RES is no longer needed.
             CALL SCOPY( N, RES, 1, DY, 1 )
@@ -119,32 +119,32 @@
                YK = ABS( Y( I, J ) )
                DYK = ABS( DY( I ) )
 
-               IF ( YK .NE. 0.0 ) THEN
+               if ( YK .NE. 0.0 ) {
                   DZ_Z = MAX( DZ_Z, DYK / YK )
-               ELSE IF ( DYK .NE. 0.0 ) THEN
+               } else if ( DYK .NE. 0.0 ) {
                   DZ_Z = HUGEVAL
-               END IF
+               }
 
                YMIN = MIN( YMIN, YK )
 
                NORMY = MAX( NORMY, YK )
 
-               IF ( COLEQU ) THEN
+               if ( COLEQU ) {
                   NORMX = MAX( NORMX, YK * C( I ) )
                   NORMDX = MAX( NORMDX, DYK * C( I ) )
                } else {
                   NORMX = NORMY
                   NORMDX = MAX( NORMDX, DYK )
-               END IF
+               }
             END DO
 
-            IF ( NORMX .NE. 0.0 ) THEN
+            if ( NORMX .NE. 0.0 ) {
                DX_X = NORMDX / NORMX
-            ELSE IF ( NORMDX .EQ. 0.0 ) THEN
+            } else if ( NORMDX .EQ. 0.0 ) {
                DX_X = 0.0
             } else {
                DX_X = HUGEVAL
-            END IF
+            }
 
             DXRAT = NORMDX / PREVNORMDX
             DZRAT = DZ_Z / PREV_DZ_Z
@@ -153,59 +153,59 @@
 
             IF ( YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y ) INCR_PREC = .TRUE.
              IF ( X_STATE .EQ. NOPROG_STATE .AND. DXRAT .LE. RTHRESH ) X_STATE = WORKING_STATE
-            IF ( X_STATE .EQ. WORKING_STATE ) THEN
-               IF ( DX_X .LE. EPS ) THEN
+            if ( X_STATE .EQ. WORKING_STATE ) {
+               if ( DX_X .LE. EPS ) {
                   X_STATE = CONV_STATE
-               ELSE IF ( DXRAT .GT. RTHRESH ) THEN
-                  IF ( Y_PREC_STATE .NE. EXTRA_Y ) THEN
+               } else if ( DXRAT .GT. RTHRESH ) {
+                  if ( Y_PREC_STATE .NE. EXTRA_Y ) {
                      INCR_PREC = .TRUE.
                   } else {
                      X_STATE = NOPROG_STATE
-                  END IF
+                  }
                } else {
                   IF ( DXRAT .GT. DXRATMAX ) DXRATMAX = DXRAT
-               END IF
+               }
                IF ( X_STATE .GT. WORKING_STATE ) FINAL_DX_X = DX_X
-            END IF
+            }
              IF ( Z_STATE .EQ. UNSTABLE_STATE .AND. DZ_Z .LE. DZ_UB ) Z_STATE = WORKING_STATE             IF ( Z_STATE .EQ. NOPROG_STATE .AND. DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE
-            IF ( Z_STATE .EQ. WORKING_STATE ) THEN
-               IF ( DZ_Z .LE. EPS ) THEN
+            if ( Z_STATE .EQ. WORKING_STATE ) {
+               if ( DZ_Z .LE. EPS ) {
                   Z_STATE = CONV_STATE
-               ELSE IF ( DZ_Z .GT. DZ_UB ) THEN
+               } else if ( DZ_Z .GT. DZ_UB ) {
                   Z_STATE = UNSTABLE_STATE
                   DZRATMAX = 0.0
                   FINAL_DZ_Z = HUGEVAL
-               ELSE IF ( DZRAT .GT. RTHRESH ) THEN
-                  IF ( Y_PREC_STATE .NE. EXTRA_Y ) THEN
+               } else if ( DZRAT .GT. RTHRESH ) {
+                  if ( Y_PREC_STATE .NE. EXTRA_Y ) {
                      INCR_PREC = .TRUE.
                   } else {
                      Z_STATE = NOPROG_STATE
-                  END IF
+                  }
                } else {
                   IF ( DZRAT .GT. DZRATMAX ) DZRATMAX = DZRAT
-               END IF
+               }
                IF ( Z_STATE .GT. WORKING_STATE ) FINAL_DZ_Z = DZ_Z
-            END IF
+            }
              IF ( X_STATE.NE.WORKING_STATE.AND. ( IGNORE_CWISE.OR.Z_STATE.NE.WORKING_STATE ) ) GOTO 666
 
-            IF ( INCR_PREC ) THEN
+            if ( INCR_PREC ) {
                INCR_PREC = .FALSE.
                Y_PREC_STATE = Y_PREC_STATE + 1
                DO I = 1, N
                   Y_TAIL( I ) = 0.0
                END DO
-            END IF
+            }
 
             PREVNORMDX = NORMDX
             PREV_DZ_Z = DZ_Z
 
             // Update solution.
 
-            IF (Y_PREC_STATE .LT. EXTRA_Y) THEN
+            if (Y_PREC_STATE .LT. EXTRA_Y) {
                CALL SAXPY( N, 1.0, DY, 1, Y(1,J), 1 )
             } else {
                CALL SLA_WWADDW( N, Y( 1, J ), Y_TAIL, DY )
-            END IF
+            }
 
          END DO
          // Target of "IF (Z_STOP .AND. X_STOP)".  Sun's f77 won't EXIT.
@@ -218,12 +218,12 @@
 
       // Compute error bounds.
 
-         IF ( N_NORMS .GE. 1 ) THEN
+         if ( N_NORMS .GE. 1 ) {
             ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = FINAL_DX_X / (1 - DXRATMAX)
-         END IF
-         IF ( N_NORMS .GE. 2 ) THEN
+         }
+         if ( N_NORMS .GE. 2 ) {
             ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = FINAL_DZ_Z / (1 - DZRATMAX)
-         END IF
+         }
 
       // Compute componentwise relative backward error from formula
           // max(i) ( abs(R(i)) / ( abs(op(A_s))*abs(Y) + abs(B_s) )(i) )

@@ -57,21 +57,21 @@
       WNTVN = LSAME( JOBVT, 'N' )
       LQUERY = ( LWORK.EQ.-1 )
 
-      IF( .NOT.( WNTUA .OR. WNTUS .OR. WNTUO .OR. WNTUN ) ) THEN
+      if ( .NOT.( WNTUA .OR. WNTUS .OR. WNTUO .OR. WNTUN ) ) {
          INFO = -1
-      ELSE IF( .NOT.( WNTVA .OR. WNTVS .OR. WNTVO .OR. WNTVN ) .OR. ( WNTVO .AND. WNTUO ) ) THEN
+      } else if ( .NOT.( WNTVA .OR. WNTVS .OR. WNTVO .OR. WNTVN ) .OR. ( WNTVO .AND. WNTUO ) ) {
          INFO = -2
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -6
-      ELSE IF( LDU.LT.1 .OR. ( WNTUAS .AND. LDU.LT.M ) ) THEN
+      } else if ( LDU.LT.1 .OR. ( WNTUAS .AND. LDU.LT.M ) ) {
          INFO = -9
-      ELSE IF( LDVT.LT.1 .OR. ( WNTVA .AND. LDVT.LT.N ) .OR. ( WNTVS .AND. LDVT.LT.MINMN ) ) THEN
+      } else if ( LDVT.LT.1 .OR. ( WNTVA .AND. LDVT.LT.N ) .OR. ( WNTVS .AND. LDVT.LT.MINMN ) ) {
          INFO = -11
-      END IF
+      }
 
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
@@ -80,10 +80,10 @@
         // NB refers to the optimal block size for the immediately
         // following subroutine, as returned by ILAENV.)
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          MINWRK = 1
          MAXWRK = 1
-         IF( M.GE.N .AND. MINMN.GT.0 ) THEN
+         if ( M.GE.N .AND. MINMN.GT.0 ) {
 
             // Compute space needed for SBDSQR
 
@@ -107,8 +107,8 @@
             CALL SORGBR( 'Q', N, N, N, A, LDA, DUM(1), DUM(1), -1, IERR )
             LWORK_SORGBR_Q = INT( DUM(1) )
 
-            IF( M.GE.MNTHR ) THEN
-               IF( WNTUN ) THEN
+            if ( M.GE.MNTHR ) {
+               if ( WNTUN ) {
 
                   // Path 1 (M much larger than N, JOBU='N')
 
@@ -117,7 +117,7 @@
                   IF( WNTVO .OR. WNTVAS ) MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_P )
                   MAXWRK = MAX( MAXWRK, BDSPAC )
                   MINWRK = MAX( 4*N, BDSPAC )
-               ELSE IF( WNTUO .AND. WNTVN ) THEN
+               } else if ( WNTUO .AND. WNTVN ) {
 
                   // Path 2 (M much larger than N, JOBU='O', JOBVT='N')
 
@@ -128,7 +128,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = MAX( N*N+WRKBL, N*N+M*N+N )
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               ELSE IF( WNTUO .AND. WNTVAS ) THEN
+               } else if ( WNTUO .AND. WNTVAS ) {
 
                   // Path 3 (M much larger than N, JOBU='O', JOBVT='S' or
                   // 'A')
@@ -141,7 +141,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = MAX( N*N+WRKBL, N*N+M*N+N )
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               ELSE IF( WNTUS .AND. WNTVN ) THEN
+               } else if ( WNTUS .AND. WNTVN ) {
 
                   // Path 4 (M much larger than N, JOBU='S', JOBVT='N')
 
@@ -152,7 +152,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = N*N + WRKBL
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               ELSE IF( WNTUS .AND. WNTVO ) THEN
+               } else if ( WNTUS .AND. WNTVO ) {
 
                   // Path 5 (M much larger than N, JOBU='S', JOBVT='O')
 
@@ -164,7 +164,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = 2*N*N + WRKBL
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               ELSE IF( WNTUS .AND. WNTVAS ) THEN
+               } else if ( WNTUS .AND. WNTVAS ) {
 
                   // Path 6 (M much larger than N, JOBU='S', JOBVT='S' or
                   // 'A')
@@ -177,7 +177,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = N*N + WRKBL
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               ELSE IF( WNTUA .AND. WNTVN ) THEN
+               } else if ( WNTUA .AND. WNTVN ) {
 
                   // Path 7 (M much larger than N, JOBU='A', JOBVT='N')
 
@@ -188,7 +188,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = N*N + WRKBL
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               ELSE IF( WNTUA .AND. WNTVO ) THEN
+               } else if ( WNTUA .AND. WNTVO ) {
 
                   // Path 8 (M much larger than N, JOBU='A', JOBVT='O')
 
@@ -200,7 +200,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = 2*N*N + WRKBL
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               ELSE IF( WNTUA .AND. WNTVAS ) THEN
+               } else if ( WNTUA .AND. WNTVAS ) {
 
                   // Path 9 (M much larger than N, JOBU='A', JOBVT='S' or
                   // 'A')
@@ -213,7 +213,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = N*N + WRKBL
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               END IF
+               }
             } else {
 
                // Path 10 (M at least N, but not much larger)
@@ -221,23 +221,23 @@
                CALL SGEBRD( M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR )
                LWORK_SGEBRD = INT( DUM(1) )
                MAXWRK = 3*N + LWORK_SGEBRD
-               IF( WNTUS .OR. WNTUO ) THEN
+               if ( WNTUS .OR. WNTUO ) {
                   CALL SORGBR( 'Q', M, N, N, A, LDA, DUM(1), DUM(1), -1, IERR )
                   LWORK_SORGBR_Q = INT( DUM(1) )
                   MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_Q )
-               END IF
-               IF( WNTUA ) THEN
+               }
+               if ( WNTUA ) {
                   CALL SORGBR( 'Q', M, M, N, A, LDA, DUM(1), DUM(1), -1, IERR )
                   LWORK_SORGBR_Q = INT( DUM(1) )
                   MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_Q )
-               END IF
-               IF( .NOT.WNTVN ) THEN
+               }
+               if ( .NOT.WNTVN ) {
                  MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_P )
-               END IF
+               }
                MAXWRK = MAX( MAXWRK, BDSPAC )
                MINWRK = MAX( 3*N+M, BDSPAC )
-            END IF
-         ELSE IF( MINMN.GT.0 ) THEN
+            }
+         } else if ( MINMN.GT.0 ) {
 
             // Compute space needed for SBDSQR
 
@@ -260,8 +260,8 @@
             // Compute space needed for SORGBR Q
             CALL SORGBR( 'Q', M, M, M, A, N, DUM(1), DUM(1), -1, IERR )
             LWORK_SORGBR_Q = INT( DUM(1) )
-            IF( N.GE.MNTHR ) THEN
-               IF( WNTVN ) THEN
+            if ( N.GE.MNTHR ) {
+               if ( WNTVN ) {
 
                   // Path 1t(N much larger than M, JOBVT='N')
 
@@ -270,7 +270,7 @@
                   IF( WNTUO .OR. WNTUAS ) MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_Q )
                   MAXWRK = MAX( MAXWRK, BDSPAC )
                   MINWRK = MAX( 4*M, BDSPAC )
-               ELSE IF( WNTVO .AND. WNTUN ) THEN
+               } else if ( WNTVO .AND. WNTUN ) {
 
                   // Path 2t(N much larger than M, JOBU='N', JOBVT='O')
 
@@ -281,7 +281,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = MAX( M*M+WRKBL, M*M+M*N+M )
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               ELSE IF( WNTVO .AND. WNTUAS ) THEN
+               } else if ( WNTVO .AND. WNTUAS ) {
 
                   // Path 3t(N much larger than M, JOBU='S' or 'A',
                   // JOBVT='O')
@@ -294,7 +294,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = MAX( M*M+WRKBL, M*M+M*N+M )
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               ELSE IF( WNTVS .AND. WNTUN ) THEN
+               } else if ( WNTVS .AND. WNTUN ) {
 
                   // Path 4t(N much larger than M, JOBU='N', JOBVT='S')
 
@@ -305,7 +305,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = M*M + WRKBL
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               ELSE IF( WNTVS .AND. WNTUO ) THEN
+               } else if ( WNTVS .AND. WNTUO ) {
 
                   // Path 5t(N much larger than M, JOBU='O', JOBVT='S')
 
@@ -318,7 +318,7 @@
                   MAXWRK = 2*M*M + WRKBL
                   MINWRK = MAX( 3*M+N, BDSPAC )
                   MAXWRK = MAX( MAXWRK, MINWRK )
-               ELSE IF( WNTVS .AND. WNTUAS ) THEN
+               } else if ( WNTVS .AND. WNTUAS ) {
 
                   // Path 6t(N much larger than M, JOBU='S' or 'A',
                   // JOBVT='S')
@@ -331,7 +331,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = M*M + WRKBL
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               ELSE IF( WNTVA .AND. WNTUN ) THEN
+               } else if ( WNTVA .AND. WNTUN ) {
 
                   // Path 7t(N much larger than M, JOBU='N', JOBVT='A')
 
@@ -342,7 +342,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = M*M + WRKBL
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               ELSE IF( WNTVA .AND. WNTUO ) THEN
+               } else if ( WNTVA .AND. WNTUO ) {
 
                   // Path 8t(N much larger than M, JOBU='O', JOBVT='A')
 
@@ -354,7 +354,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = 2*M*M + WRKBL
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               ELSE IF( WNTVA .AND. WNTUAS ) THEN
+               } else if ( WNTVA .AND. WNTUAS ) {
 
                   // Path 9t(N much larger than M, JOBU='S' or 'A',
                   // JOBVT='A')
@@ -367,7 +367,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = M*M + WRKBL
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               END IF
+               }
             } else {
 
                // Path 10t(N greater than M, but not much larger)
@@ -375,44 +375,44 @@
                CALL SGEBRD( M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR )
                LWORK_SGEBRD = INT( DUM(1) )
                MAXWRK = 3*M + LWORK_SGEBRD
-               IF( WNTVS .OR. WNTVO ) THEN
+               if ( WNTVS .OR. WNTVO ) {
                  // Compute space needed for SORGBR P
                  CALL SORGBR( 'P', M, N, M, A, N, DUM(1), DUM(1), -1, IERR )
                  LWORK_SORGBR_P = INT( DUM(1) )
                  MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_P )
-               END IF
-               IF( WNTVA ) THEN
+               }
+               if ( WNTVA ) {
                  CALL SORGBR( 'P', N, N, M, A, N, DUM(1), DUM(1), -1, IERR )
                  LWORK_SORGBR_P = INT( DUM(1) )
                  MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_P )
-               END IF
-               IF( .NOT.WNTUN ) THEN
+               }
+               if ( .NOT.WNTUN ) {
                   MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_Q )
-               END IF
+               }
                MAXWRK = MAX( MAXWRK, BDSPAC )
                MINWRK = MAX( 3*M+N, BDSPAC )
-            END IF
-         END IF
+            }
+         }
          MAXWRK = MAX( MAXWRK, MINWRK )
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
             INFO = -13
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGESVD', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 ) {
          RETURN
-      END IF
+      }
 
       // Get machine constants
 
@@ -424,23 +424,23 @@
 
       ANRM = SLANGE( 'M', M, N, A, LDA, DUM )
       ISCL = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ISCL = 1
          CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR )
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
          ISCL = 1
          CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR )
-      END IF
+      }
 
-      IF( M.GE.N ) THEN
+      if ( M.GE.N ) {
 
          // A has at least as many rows as columns. If A has sufficiently
          // more rows than columns, first reduce using the QR
          // decomposition (if sufficient workspace available)
 
-         IF( M.GE.MNTHR ) THEN
+         if ( M.GE.MNTHR ) {
 
-            IF( WNTUN ) THEN
+            if ( WNTUN ) {
 
                // Path 1 (M much larger than N, JOBU='N')
                // No left singular vectors to be computed
@@ -455,9 +455,9 @@
 
                // Zero out below R
 
-               IF( N .GT. 1 ) THEN
+               if ( N .GT. 1 ) {
                   CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
-               END IF
+               }
                IE = 1
                ITAUQ = IE + N
                ITAUP = ITAUQ + N
@@ -468,14 +468,14 @@
 
                CALL SGEBRD( N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                NCVT = 0
-               IF( WNTVO .OR. WNTVAS ) THEN
+               if ( WNTVO .OR. WNTVAS ) {
 
                   // If right singular vectors desired, generate P'.
                   // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
                   CALL SORGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   NCVT = N
-               END IF
+               }
                IWORK = IE + N
 
                // Perform bidiagonal QR iteration, computing right
@@ -488,24 +488,24 @@
 
                IF( WNTVAS ) CALL SLACPY( 'F', N, N, A, LDA, VT, LDVT )
 
-            ELSE IF( WNTUO .AND. WNTVN ) THEN
+            } else if ( WNTUO .AND. WNTVN ) {
 
                // Path 2 (M much larger than N, JOBU='O', JOBVT='N')
                // N left singular vectors to be overwritten on A and
                // no right singular vectors to be computed
 
-               IF( LWORK.GE.N*N+MAX( 4*N, BDSPAC ) ) THEN
+               if ( LWORK.GE.N*N+MAX( 4*N, BDSPAC ) ) {
 
                   // Sufficient workspace for a fast algorithm
 
                   IR = 1
-                  IF( LWORK.GE.MAX( WRKBL, LDA*N+N )+LDA*N ) THEN
+                  if ( LWORK.GE.MAX( WRKBL, LDA*N+N )+LDA*N ) {
 
                      // WORK(IU) is LDA by N, WORK(IR) is LDA by N
 
                      LDWRKU = LDA
                      LDWRKR = LDA
-                  ELSE IF( LWORK.GE.MAX( WRKBL, LDA*N+N )+N*N ) THEN
+                  } else if ( LWORK.GE.MAX( WRKBL, LDA*N+N )+N*N ) {
 
                      // WORK(IU) is LDA by N, WORK(IR) is N by N
 
@@ -517,7 +517,7 @@
 
                      LDWRKU = ( LWORK-N*N-N ) / N
                      LDWRKR = N
-                  END IF
+                  }
                   ITAU = IR + LDWRKR*N
                   IWORK = ITAU + N
 
@@ -594,26 +594,26 @@
 
                   CALL SBDSQR( 'U', N, 0, M, 0, S, WORK( IE ), DUM, 1, A, LDA, DUM, 1, WORK( IWORK ), INFO )
 
-               END IF
+               }
 
-            ELSE IF( WNTUO .AND. WNTVAS ) THEN
+            } else if ( WNTUO .AND. WNTVAS ) {
 
                // Path 3 (M much larger than N, JOBU='O', JOBVT='S' or 'A')
                // N left singular vectors to be overwritten on A and
                // N right singular vectors to be computed in VT
 
-               IF( LWORK.GE.N*N+MAX( 4*N, BDSPAC ) ) THEN
+               if ( LWORK.GE.N*N+MAX( 4*N, BDSPAC ) ) {
 
                   // Sufficient workspace for a fast algorithm
 
                   IR = 1
-                  IF( LWORK.GE.MAX( WRKBL, LDA*N+N )+LDA*N ) THEN
+                  if ( LWORK.GE.MAX( WRKBL, LDA*N+N )+LDA*N ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is LDA by N
 
                      LDWRKU = LDA
                      LDWRKR = LDA
-                  ELSE IF( LWORK.GE.MAX( WRKBL, LDA*N+N )+N*N ) THEN
+                  } else if ( LWORK.GE.MAX( WRKBL, LDA*N+N )+N*N ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is N by N
 
@@ -625,7 +625,7 @@
 
                      LDWRKU = ( LWORK-N*N-N ) / N
                      LDWRKR = N
-                  END IF
+                  }
                   ITAU = IR + LDWRKR*N
                   IWORK = ITAU + N
 
@@ -732,22 +732,22 @@
 
                   CALL SBDSQR( 'U', N, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO )
 
-               END IF
+               }
 
-            ELSE IF( WNTUS ) THEN
+            } else if ( WNTUS ) {
 
-               IF( WNTVN ) THEN
+               if ( WNTVN ) {
 
                   // Path 4 (M much larger than N, JOBU='S', JOBVT='N')
                   // N left singular vectors to be computed in U and
                   // no right singular vectors to be computed
 
-                  IF( LWORK.GE.N*N+MAX( 4*N, BDSPAC ) ) THEN
+                  if ( LWORK.GE.N*N+MAX( 4*N, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IR = 1
-                     IF( LWORK.GE.WRKBL+LDA*N ) THEN
+                     if ( LWORK.GE.WRKBL+LDA*N ) {
 
                         // WORK(IR) is LDA by N
 
@@ -757,7 +757,7 @@
                         // WORK(IR) is N by N
 
                         LDWRKR = N
-                     END IF
+                     }
                      ITAU = IR + LDWRKR*N
                      IWORK = ITAU + N
 
@@ -826,9 +826,9 @@
 
                      // Zero out below R in A
 
-                     IF( N .GT. 1 ) THEN
+                     if ( N .GT. 1 ) {
                         CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
-                     END IF
+                     }
 
                      // Bidiagonalize R in A
                      // (Workspace: need 4*N, prefer 3*N+2*N*NB)
@@ -847,27 +847,27 @@
 
                      CALL SBDSQR( 'U', N, 0, M, 0, S, WORK( IE ), DUM, 1, U, LDU, DUM, 1, WORK( IWORK ), INFO )
 
-                  END IF
+                  }
 
-               ELSE IF( WNTVO ) THEN
+               } else if ( WNTVO ) {
 
                   // Path 5 (M much larger than N, JOBU='S', JOBVT='O')
                   // N left singular vectors to be computed in U and
                   // N right singular vectors to be overwritten on A
 
-                  IF( LWORK.GE.2*N*N+MAX( 4*N, BDSPAC ) ) THEN
+                  if ( LWORK.GE.2*N*N+MAX( 4*N, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     IF( LWORK.GE.WRKBL+2*LDA*N ) THEN
+                     if ( LWORK.GE.WRKBL+2*LDA*N ) {
 
                         // WORK(IU) is LDA by N and WORK(IR) is LDA by N
 
                         LDWRKU = LDA
                         IR = IU + LDWRKU*N
                         LDWRKR = LDA
-                     ELSE IF( LWORK.GE.WRKBL+( LDA+N )*N ) THEN
+                     } else if ( LWORK.GE.WRKBL+( LDA+N )*N ) {
 
                         // WORK(IU) is LDA by N and WORK(IR) is N by N
 
@@ -881,7 +881,7 @@
                         LDWRKU = N
                         IR = IU + LDWRKU*N
                         LDWRKR = N
-                     END IF
+                     }
                      ITAU = IR + LDWRKR*N
                      IWORK = ITAU + N
 
@@ -965,9 +965,9 @@
 
                      // Zero out below R in A
 
-                     IF( N .GT. 1 ) THEN
+                     if ( N .GT. 1 ) {
                         CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
-                     END IF
+                     }
 
                      // Bidiagonalize R in A
                      // (Workspace: need 4*N, prefer 3*N+2*N*NB)
@@ -992,21 +992,21 @@
 
                      CALL SBDSQR( 'U', N, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO )
 
-                  END IF
+                  }
 
-               ELSE IF( WNTVAS ) THEN
+               } else if ( WNTVAS ) {
 
                   // Path 6 (M much larger than N, JOBU='S', JOBVT='S'
                           // or 'A')
                   // N left singular vectors to be computed in U and
                   // N right singular vectors to be computed in VT
 
-                  IF( LWORK.GE.N*N+MAX( 4*N, BDSPAC ) ) THEN
+                  if ( LWORK.GE.N*N+MAX( 4*N, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     IF( LWORK.GE.WRKBL+LDA*N ) THEN
+                     if ( LWORK.GE.WRKBL+LDA*N ) {
 
                         // WORK(IU) is LDA by N
 
@@ -1016,7 +1016,7 @@
                         // WORK(IU) is N by N
 
                         LDWRKU = N
-                     END IF
+                     }
                      ITAU = IU + LDWRKU*N
                      IWORK = ITAU + N
 
@@ -1120,24 +1120,24 @@
 
                      CALL SBDSQR( 'U', N, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO )
 
-                  END IF
+                  }
 
-               END IF
+               }
 
-            ELSE IF( WNTUA ) THEN
+            } else if ( WNTUA ) {
 
-               IF( WNTVN ) THEN
+               if ( WNTVN ) {
 
                   // Path 7 (M much larger than N, JOBU='A', JOBVT='N')
                   // M left singular vectors to be computed in U and
                   // no right singular vectors to be computed
 
-                  IF( LWORK.GE.N*N+MAX( N+M, 4*N, BDSPAC ) ) THEN
+                  if ( LWORK.GE.N*N+MAX( N+M, 4*N, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IR = 1
-                     IF( LWORK.GE.WRKBL+LDA*N ) THEN
+                     if ( LWORK.GE.WRKBL+LDA*N ) {
 
                         // WORK(IR) is LDA by N
 
@@ -1147,7 +1147,7 @@
                         // WORK(IR) is N by N
 
                         LDWRKR = N
-                     END IF
+                     }
                      ITAU = IR + LDWRKR*N
                      IWORK = ITAU + N
 
@@ -1221,9 +1221,9 @@
 
                      // Zero out below R in A
 
-                     IF( N .GT. 1 ) THEN
+                     if ( N .GT. 1 ) {
                         CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
-                     END IF
+                     }
 
                      // Bidiagonalize R in A
                      // (Workspace: need 4*N, prefer 3*N+2*N*NB)
@@ -1243,27 +1243,27 @@
 
                      CALL SBDSQR( 'U', N, 0, M, 0, S, WORK( IE ), DUM, 1, U, LDU, DUM, 1, WORK( IWORK ), INFO )
 
-                  END IF
+                  }
 
-               ELSE IF( WNTVO ) THEN
+               } else if ( WNTVO ) {
 
                   // Path 8 (M much larger than N, JOBU='A', JOBVT='O')
                   // M left singular vectors to be computed in U and
                   // N right singular vectors to be overwritten on A
 
-                  IF( LWORK.GE.2*N*N+MAX( N+M, 4*N, BDSPAC ) ) THEN
+                  if ( LWORK.GE.2*N*N+MAX( N+M, 4*N, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     IF( LWORK.GE.WRKBL+2*LDA*N ) THEN
+                     if ( LWORK.GE.WRKBL+2*LDA*N ) {
 
                         // WORK(IU) is LDA by N and WORK(IR) is LDA by N
 
                         LDWRKU = LDA
                         IR = IU + LDWRKU*N
                         LDWRKR = LDA
-                     ELSE IF( LWORK.GE.WRKBL+( LDA+N )*N ) THEN
+                     } else if ( LWORK.GE.WRKBL+( LDA+N )*N ) {
 
                         // WORK(IU) is LDA by N and WORK(IR) is N by N
 
@@ -1277,7 +1277,7 @@
                         LDWRKU = N
                         IR = IU + LDWRKU*N
                         LDWRKR = N
-                     END IF
+                     }
                      ITAU = IR + LDWRKR*N
                      IWORK = ITAU + N
 
@@ -1365,9 +1365,9 @@
 
                      // Zero out below R in A
 
-                     IF( N .GT. 1 ) THEN
+                     if ( N .GT. 1 ) {
                         CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
-                     END IF
+                     }
 
                      // Bidiagonalize R in A
                      // (Workspace: need 4*N, prefer 3*N+2*N*NB)
@@ -1393,21 +1393,21 @@
 
                      CALL SBDSQR( 'U', N, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO )
 
-                  END IF
+                  }
 
-               ELSE IF( WNTVAS ) THEN
+               } else if ( WNTVAS ) {
 
                   // Path 9 (M much larger than N, JOBU='A', JOBVT='S'
                           // or 'A')
                   // M left singular vectors to be computed in U and
                   // N right singular vectors to be computed in VT
 
-                  IF( LWORK.GE.N*N+MAX( N+M, 4*N, BDSPAC ) ) THEN
+                  if ( LWORK.GE.N*N+MAX( N+M, 4*N, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     IF( LWORK.GE.WRKBL+LDA*N ) THEN
+                     if ( LWORK.GE.WRKBL+LDA*N ) {
 
                         // WORK(IU) is LDA by N
 
@@ -1417,7 +1417,7 @@
                         // WORK(IU) is N by N
 
                         LDWRKU = N
-                     END IF
+                     }
                      ITAU = IU + LDWRKU*N
                      IWORK = ITAU + N
 
@@ -1526,11 +1526,11 @@
 
                      CALL SBDSQR( 'U', N, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO )
 
-                  END IF
+                  }
 
-               END IF
+               }
 
-            END IF
+            }
 
          } else {
 
@@ -1548,7 +1548,7 @@
             // (Workspace: need 3*N+M, prefer 3*N+(M+N)*NB)
 
             CALL SGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-            IF( WNTUAS ) THEN
+            if ( WNTUAS ) {
 
                // If left singular vectors desired in U, copy result to U
                // and generate left bidiagonalizing vectors in U
@@ -1556,8 +1556,8 @@
 
                CALL SLACPY( 'L', M, N, A, LDA, U, LDU )
                IF( WNTUS ) NCU = N                IF( WNTUA ) NCU = M                CALL SORGBR( 'Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-            END IF
-            IF( WNTVAS ) THEN
+            }
+            if ( WNTVAS ) {
 
                // If right singular vectors desired in VT, copy result to
                // VT and generate right bidiagonalizing vectors in VT
@@ -1565,26 +1565,26 @@
 
                CALL SLACPY( 'U', N, N, A, LDA, VT, LDVT )
                CALL SORGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-            END IF
-            IF( WNTUO ) THEN
+            }
+            if ( WNTUO ) {
 
                // If left singular vectors desired in A, generate left
                // bidiagonalizing vectors in A
                // (Workspace: need 4*N, prefer 3*N+N*NB)
 
                CALL SORGBR( 'Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-            END IF
-            IF( WNTVO ) THEN
+            }
+            if ( WNTVO ) {
 
                // If right singular vectors desired in A, generate right
                // bidiagonalizing vectors in A
                // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
                CALL SORGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-            END IF
+            }
             IWORK = IE + N
             IF( WNTUAS .OR. WNTUO ) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0
-            IF( ( .NOT.WNTUO ) .AND. ( .NOT.WNTVO ) ) THEN
+            if ( ( .NOT.WNTUO ) .AND. ( .NOT.WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in U and computing right singular
@@ -1592,7 +1592,7 @@
                // (Workspace: need BDSPAC)
 
                CALL SBDSQR( 'U', N, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO )
-            ELSE IF( ( .NOT.WNTUO ) .AND. WNTVO ) THEN
+            } else if ( ( .NOT.WNTUO ) .AND. WNTVO ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in U and computing right singular
@@ -1608,9 +1608,9 @@
                // (Workspace: need BDSPAC)
 
                CALL SBDSQR( 'U', N, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO )
-            END IF
+            }
 
-         END IF
+         }
 
       } else {
 
@@ -1618,9 +1618,9 @@
          // columns than rows, first reduce using the LQ decomposition (if
          // sufficient workspace available)
 
-         IF( N.GE.MNTHR ) THEN
+         if ( N.GE.MNTHR ) {
 
-            IF( WNTVN ) THEN
+            if ( WNTVN ) {
 
                // Path 1t(N much larger than M, JOBVT='N')
                // No right singular vectors to be computed
@@ -1645,13 +1645,13 @@
                // (Workspace: need 4*M, prefer 3*M+2*M*NB)
 
                CALL SGEBRD( M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-               IF( WNTUO .OR. WNTUAS ) THEN
+               if ( WNTUO .OR. WNTUAS ) {
 
                   // If left singular vectors desired, generate Q
                   // (Workspace: need 4*M, prefer 3*M+M*NB)
 
                   CALL SORGBR( 'Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-               END IF
+               }
                IWORK = IE + M
                NRU = 0
                IF( WNTUO .OR. WNTUAS ) NRU = M
@@ -1666,25 +1666,25 @@
 
                IF( WNTUAS ) CALL SLACPY( 'F', M, M, A, LDA, U, LDU )
 
-            ELSE IF( WNTVO .AND. WNTUN ) THEN
+            } else if ( WNTVO .AND. WNTUN ) {
 
                // Path 2t(N much larger than M, JOBU='N', JOBVT='O')
                // M right singular vectors to be overwritten on A and
                // no left singular vectors to be computed
 
-               IF( LWORK.GE.M*M+MAX( 4*M, BDSPAC ) ) THEN
+               if ( LWORK.GE.M*M+MAX( 4*M, BDSPAC ) ) {
 
                   // Sufficient workspace for a fast algorithm
 
                   IR = 1
-                  IF( LWORK.GE.MAX( WRKBL, LDA*N+M )+LDA*M ) THEN
+                  if ( LWORK.GE.MAX( WRKBL, LDA*N+M )+LDA*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is LDA by M
 
                      LDWRKU = LDA
                      CHUNK = N
                      LDWRKR = LDA
-                  ELSE IF( LWORK.GE.MAX( WRKBL, LDA*N+M )+M*M ) THEN
+                  } else if ( LWORK.GE.MAX( WRKBL, LDA*N+M )+M*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is M by M
 
@@ -1698,7 +1698,7 @@
                      LDWRKU = M
                      CHUNK = ( LWORK-M*M-M ) / M
                      LDWRKR = M
-                  END IF
+                  }
                   ITAU = IR + LDWRKR*M
                   IWORK = ITAU + M
 
@@ -1775,27 +1775,27 @@
 
                   CALL SBDSQR( 'L', M, N, 0, 0, S, WORK( IE ), A, LDA, DUM, 1, DUM, 1, WORK( IWORK ), INFO )
 
-               END IF
+               }
 
-            ELSE IF( WNTVO .AND. WNTUAS ) THEN
+            } else if ( WNTVO .AND. WNTUAS ) {
 
                // Path 3t(N much larger than M, JOBU='S' or 'A', JOBVT='O')
                // M right singular vectors to be overwritten on A and
                // M left singular vectors to be computed in U
 
-               IF( LWORK.GE.M*M+MAX( 4*M, BDSPAC ) ) THEN
+               if ( LWORK.GE.M*M+MAX( 4*M, BDSPAC ) ) {
 
                   // Sufficient workspace for a fast algorithm
 
                   IR = 1
-                  IF( LWORK.GE.MAX( WRKBL, LDA*N+M )+LDA*M ) THEN
+                  if ( LWORK.GE.MAX( WRKBL, LDA*N+M )+LDA*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is LDA by M
 
                      LDWRKU = LDA
                      CHUNK = N
                      LDWRKR = LDA
-                  ELSE IF( LWORK.GE.MAX( WRKBL, LDA*N+M )+M*M ) THEN
+                  } else if ( LWORK.GE.MAX( WRKBL, LDA*N+M )+M*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is M by M
 
@@ -1809,7 +1809,7 @@
                      LDWRKU = M
                      CHUNK = ( LWORK-M*M-M ) / M
                      LDWRKR = M
-                  END IF
+                  }
                   ITAU = IR + LDWRKR*M
                   IWORK = ITAU + M
 
@@ -1916,22 +1916,22 @@
 
                   CALL SBDSQR( 'U', M, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO )
 
-               END IF
+               }
 
-            ELSE IF( WNTVS ) THEN
+            } else if ( WNTVS ) {
 
-               IF( WNTUN ) THEN
+               if ( WNTUN ) {
 
                   // Path 4t(N much larger than M, JOBU='N', JOBVT='S')
                   // M right singular vectors to be computed in VT and
                   // no left singular vectors to be computed
 
-                  IF( LWORK.GE.M*M+MAX( 4*M, BDSPAC ) ) THEN
+                  if ( LWORK.GE.M*M+MAX( 4*M, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IR = 1
-                     IF( LWORK.GE.WRKBL+LDA*M ) THEN
+                     if ( LWORK.GE.WRKBL+LDA*M ) {
 
                         // WORK(IR) is LDA by M
 
@@ -1941,7 +1941,7 @@
                         // WORK(IR) is M by M
 
                         LDWRKR = M
-                     END IF
+                     }
                      ITAU = IR + LDWRKR*M
                      IWORK = ITAU + M
 
@@ -2033,27 +2033,27 @@
 
                      CALL SBDSQR( 'U', M, N, 0, 0, S, WORK( IE ), VT, LDVT, DUM, 1, DUM, 1, WORK( IWORK ), INFO )
 
-                  END IF
+                  }
 
-               ELSE IF( WNTUO ) THEN
+               } else if ( WNTUO ) {
 
                   // Path 5t(N much larger than M, JOBU='O', JOBVT='S')
                   // M right singular vectors to be computed in VT and
                   // M left singular vectors to be overwritten on A
 
-                  IF( LWORK.GE.2*M*M+MAX( 4*M, BDSPAC ) ) THEN
+                  if ( LWORK.GE.2*M*M+MAX( 4*M, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     IF( LWORK.GE.WRKBL+2*LDA*M ) THEN
+                     if ( LWORK.GE.WRKBL+2*LDA*M ) {
 
                         // WORK(IU) is LDA by M and WORK(IR) is LDA by M
 
                         LDWRKU = LDA
                         IR = IU + LDWRKU*M
                         LDWRKR = LDA
-                     ELSE IF( LWORK.GE.WRKBL+( LDA+M )*M ) THEN
+                     } else if ( LWORK.GE.WRKBL+( LDA+M )*M ) {
 
                         // WORK(IU) is LDA by M and WORK(IR) is M by M
 
@@ -2067,7 +2067,7 @@
                         LDWRKU = M
                         IR = IU + LDWRKU*M
                         LDWRKR = M
-                     END IF
+                     }
                      ITAU = IR + LDWRKR*M
                      IWORK = ITAU + M
 
@@ -2176,21 +2176,21 @@
 
                      CALL SBDSQR( 'U', M, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO )
 
-                  END IF
+                  }
 
-               ELSE IF( WNTUAS ) THEN
+               } else if ( WNTUAS ) {
 
                   // Path 6t(N much larger than M, JOBU='S' or 'A',
                           // JOBVT='S')
                   // M right singular vectors to be computed in VT and
                   // M left singular vectors to be computed in U
 
-                  IF( LWORK.GE.M*M+MAX( 4*M, BDSPAC ) ) THEN
+                  if ( LWORK.GE.M*M+MAX( 4*M, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     IF( LWORK.GE.WRKBL+LDA*M ) THEN
+                     if ( LWORK.GE.WRKBL+LDA*M ) {
 
                         // WORK(IU) is LDA by N
 
@@ -2200,7 +2200,7 @@
                         // WORK(IU) is LDA by M
 
                         LDWRKU = M
-                     END IF
+                     }
                      ITAU = IU + LDWRKU*M
                      IWORK = ITAU + M
 
@@ -2304,24 +2304,24 @@
 
                      CALL SBDSQR( 'U', M, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO )
 
-                  END IF
+                  }
 
-               END IF
+               }
 
-            ELSE IF( WNTVA ) THEN
+            } else if ( WNTVA ) {
 
-               IF( WNTUN ) THEN
+               if ( WNTUN ) {
 
                   // Path 7t(N much larger than M, JOBU='N', JOBVT='A')
                   // N right singular vectors to be computed in VT and
                   // no left singular vectors to be computed
 
-                  IF( LWORK.GE.M*M+MAX( N+M, 4*M, BDSPAC ) ) THEN
+                  if ( LWORK.GE.M*M+MAX( N+M, 4*M, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IR = 1
-                     IF( LWORK.GE.WRKBL+LDA*M ) THEN
+                     if ( LWORK.GE.WRKBL+LDA*M ) {
 
                         // WORK(IR) is LDA by M
 
@@ -2331,7 +2331,7 @@
                         // WORK(IR) is M by M
 
                         LDWRKR = M
-                     END IF
+                     }
                      ITAU = IR + LDWRKR*M
                      IWORK = ITAU + M
 
@@ -2426,27 +2426,27 @@
 
                      CALL SBDSQR( 'U', M, N, 0, 0, S, WORK( IE ), VT, LDVT, DUM, 1, DUM, 1, WORK( IWORK ), INFO )
 
-                  END IF
+                  }
 
-               ELSE IF( WNTUO ) THEN
+               } else if ( WNTUO ) {
 
                   // Path 8t(N much larger than M, JOBU='O', JOBVT='A')
                   // N right singular vectors to be computed in VT and
                   // M left singular vectors to be overwritten on A
 
-                  IF( LWORK.GE.2*M*M+MAX( N+M, 4*M, BDSPAC ) ) THEN
+                  if ( LWORK.GE.2*M*M+MAX( N+M, 4*M, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     IF( LWORK.GE.WRKBL+2*LDA*M ) THEN
+                     if ( LWORK.GE.WRKBL+2*LDA*M ) {
 
                         // WORK(IU) is LDA by M and WORK(IR) is LDA by M
 
                         LDWRKU = LDA
                         IR = IU + LDWRKU*M
                         LDWRKR = LDA
-                     ELSE IF( LWORK.GE.WRKBL+( LDA+M )*M ) THEN
+                     } else if ( LWORK.GE.WRKBL+( LDA+M )*M ) {
 
                         // WORK(IU) is LDA by M and WORK(IR) is M by M
 
@@ -2460,7 +2460,7 @@
                         LDWRKU = M
                         IR = IU + LDWRKU*M
                         LDWRKR = M
-                     END IF
+                     }
                      ITAU = IR + LDWRKR*M
                      IWORK = ITAU + M
 
@@ -2574,21 +2574,21 @@
 
                      CALL SBDSQR( 'U', M, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO )
 
-                  END IF
+                  }
 
-               ELSE IF( WNTUAS ) THEN
+               } else if ( WNTUAS ) {
 
                   // Path 9t(N much larger than M, JOBU='S' or 'A',
                           // JOBVT='A')
                   // N right singular vectors to be computed in VT and
                   // M left singular vectors to be computed in U
 
-                  IF( LWORK.GE.M*M+MAX( N+M, 4*M, BDSPAC ) ) THEN
+                  if ( LWORK.GE.M*M+MAX( N+M, 4*M, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     IF( LWORK.GE.WRKBL+LDA*M ) THEN
+                     if ( LWORK.GE.WRKBL+LDA*M ) {
 
                         // WORK(IU) is LDA by M
 
@@ -2598,7 +2598,7 @@
                         // WORK(IU) is M by M
 
                         LDWRKU = M
-                     END IF
+                     }
                      ITAU = IU + LDWRKU*M
                      IWORK = ITAU + M
 
@@ -2706,11 +2706,11 @@
 
                      CALL SBDSQR( 'U', M, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO )
 
-                  END IF
+                  }
 
-               END IF
+               }
 
-            END IF
+            }
 
          } else {
 
@@ -2728,7 +2728,7 @@
             // (Workspace: need 3*M+N, prefer 3*M+(M+N)*NB)
 
             CALL SGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-            IF( WNTUAS ) THEN
+            if ( WNTUAS ) {
 
                // If left singular vectors desired in U, copy result to U
                // and generate left bidiagonalizing vectors in U
@@ -2736,8 +2736,8 @@
 
                CALL SLACPY( 'L', M, M, A, LDA, U, LDU )
                CALL SORGBR( 'Q', M, M, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-            END IF
-            IF( WNTVAS ) THEN
+            }
+            if ( WNTVAS ) {
 
                // If right singular vectors desired in VT, copy result to
                // VT and generate right bidiagonalizing vectors in VT
@@ -2745,26 +2745,26 @@
 
                CALL SLACPY( 'U', M, N, A, LDA, VT, LDVT )
                IF( WNTVA ) NRVT = N                IF( WNTVS ) NRVT = M                CALL SORGBR( 'P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-            END IF
-            IF( WNTUO ) THEN
+            }
+            if ( WNTUO ) {
 
                // If left singular vectors desired in A, generate left
                // bidiagonalizing vectors in A
                // (Workspace: need 4*M-1, prefer 3*M+(M-1)*NB)
 
                CALL SORGBR( 'Q', M, M, N, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-            END IF
-            IF( WNTVO ) THEN
+            }
+            if ( WNTVO ) {
 
                // If right singular vectors desired in A, generate right
                // bidiagonalizing vectors in A
                // (Workspace: need 4*M, prefer 3*M+M*NB)
 
                CALL SORGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-            END IF
+            }
             IWORK = IE + M
             IF( WNTUAS .OR. WNTUO ) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0
-            IF( ( .NOT.WNTUO ) .AND. ( .NOT.WNTVO ) ) THEN
+            if ( ( .NOT.WNTUO ) .AND. ( .NOT.WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in U and computing right singular
@@ -2772,7 +2772,7 @@
                // (Workspace: need BDSPAC)
 
                CALL SBDSQR( 'L', M, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO )
-            ELSE IF( ( .NOT.WNTUO ) .AND. WNTVO ) THEN
+            } else if ( ( .NOT.WNTUO ) .AND. WNTVO ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in U and computing right singular
@@ -2788,33 +2788,33 @@
                // (Workspace: need BDSPAC)
 
                CALL SBDSQR( 'L', M, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO )
-            END IF
+            }
 
-         END IF
+         }
 
-      END IF
+      }
 
       // If SBDSQR failed to converge, copy unconverged superdiagonals
      t // o WORK( 2:MINMN )
 
-      IF( INFO.NE.0 ) THEN
-         IF( IE.GT.2 ) THEN
+      if ( INFO.NE.0 ) {
+         if ( IE.GT.2 ) {
             DO 50 I = 1, MINMN - 1
                WORK( I+1 ) = WORK( I+IE-1 )
    50       CONTINUE
-         END IF
-         IF( IE.LT.2 ) THEN
+         }
+         if ( IE.LT.2 ) {
             DO 60 I = MINMN - 1, 1, -1
                WORK( I+1 ) = WORK( I+IE-1 )
    60       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       // Undo scaling if necessary
 
-      IF( ISCL.EQ.1 ) THEN
+      if ( ISCL.EQ.1 ) {
          IF( ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )
-      END IF
+      }
 
       // Return optimal workspace in WORK(1)
 

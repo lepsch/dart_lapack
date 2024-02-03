@@ -57,43 +57,43 @@
       NOTRAN = LSAME( TRANS, 'N' )
       NOUNIT = LSAME( DIAG, 'N' )
 
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
+      } else if ( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -10
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTPRFS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
+      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
          DO 10 J = 1, NRHS
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
          RETURN
-      END IF
+      }
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
          TRANSN = 'N'
          TRANST = 'C'
       } else {
          TRANSN = 'C'
          TRANST = 'N'
-      END IF
+      }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
@@ -127,13 +127,13 @@
             RWORK( I ) = CABS1( B( I, J ) )
    20    CONTINUE
 
-         IF( NOTRAN ) THEN
+         if ( NOTRAN ) {
 
             // Compute abs(A)*abs(X) + abs(B).
 
-            IF( UPPER ) THEN
+            if ( UPPER ) {
                KC = 1
-               IF( NOUNIT ) THEN
+               if ( NOUNIT ) {
                   DO 40 K = 1, N
                      XK = CABS1( X( K, J ) )
                      DO 30 I = 1, K
@@ -150,10 +150,10 @@
                      RWORK( K ) = RWORK( K ) + XK
                      KC = KC + K
    60             CONTINUE
-               END IF
+               }
             } else {
                KC = 1
-               IF( NOUNIT ) THEN
+               if ( NOUNIT ) {
                   DO 80 K = 1, N
                      XK = CABS1( X( K, J ) )
                      DO 70 I = K, N
@@ -170,15 +170,15 @@
                      RWORK( K ) = RWORK( K ) + XK
                      KC = KC + N - K + 1
   100             CONTINUE
-               END IF
-            END IF
+               }
+            }
          } else {
 
             // Compute abs(A**H)*abs(X) + abs(B).
 
-            IF( UPPER ) THEN
+            if ( UPPER ) {
                KC = 1
-               IF( NOUNIT ) THEN
+               if ( NOUNIT ) {
                   DO 120 K = 1, N
                      S = ZERO
                      DO 110 I = 1, K
@@ -196,10 +196,10 @@
                      RWORK( K ) = RWORK( K ) + S
                      KC = KC + K
   140             CONTINUE
-               END IF
+               }
             } else {
                KC = 1
-               IF( NOUNIT ) THEN
+               if ( NOUNIT ) {
                   DO 160 K = 1, N
                      S = ZERO
                      DO 150 I = K, N
@@ -217,16 +217,16 @@
                      RWORK( K ) = RWORK( K ) + S
                      KC = KC + N - K + 1
   180             CONTINUE
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
          S = ZERO
          DO 190 I = 1, N
-            IF( RWORK( I ).GT.SAFE2 ) THEN
+            if ( RWORK( I ).GT.SAFE2 ) {
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
-            END IF
+            }
   190    CONTINUE
          BERR( J ) = S
 
@@ -253,18 +253,18 @@
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
          DO 200 I = 1, N
-            IF( RWORK( I ).GT.SAFE2 ) THEN
+            if ( RWORK( I ).GT.SAFE2 ) {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
-            END IF
+            }
   200    CONTINUE
 
          KASE = 0
   210    CONTINUE
          CALL ZLACN2( N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE )
-         IF( KASE.NE.0 ) THEN
-            IF( KASE.EQ.1 ) THEN
+         if ( KASE.NE.0 ) {
+            if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**H).
 
@@ -280,9 +280,9 @@
                   WORK( I ) = RWORK( I )*WORK( I )
   230          CONTINUE
                CALL ZTPSV( UPLO, TRANSN, DIAG, N, AP, WORK, 1 )
-            END IF
+            }
             GO TO 210
-         END IF
+         }
 
          // Normalize error.
 

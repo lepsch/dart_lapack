@@ -40,35 +40,35 @@
 
       INFO = 0
 
-      IF( LSAME( COMPZ, 'N' ) ) THEN
+      if ( LSAME( COMPZ, 'N' ) ) {
          ICOMPZ = 0
-      ELSE IF( LSAME( COMPZ, 'V' ) ) THEN
+      } else if ( LSAME( COMPZ, 'V' ) ) {
          ICOMPZ = 1
-      ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
+      } else if ( LSAME( COMPZ, 'I' ) ) {
          ICOMPZ = 2
       } else {
          ICOMPZ = -1
-      END IF
-      IF( ICOMPZ.LT.0 ) THEN
+      }
+      if ( ICOMPZ.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) THEN
+      } else if ( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DPTEQR', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          IF( ICOMPZ.GT.0 ) Z( 1, 1 ) = ONE
          RETURN
-      END IF
+      }
       IF( ICOMPZ.EQ.2 ) CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
 
       // Call DPTTRF to factor the matrix.
@@ -85,22 +85,22 @@
       // Call DBDSQR to compute the singular values/vectors of the
       // bidiagonal factor.
 
-      IF( ICOMPZ.GT.0 ) THEN
+      if ( ICOMPZ.GT.0 ) {
          NRU = N
       } else {
          NRU = 0
-      END IF
+      }
       CALL DBDSQR( 'Lower', N, 0, NRU, 0, D, E, VT, 1, Z, LDZ, C, 1, WORK, INFO )
 
       // Square the singular values.
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          DO 30 I = 1, N
             D( I ) = D( I )*D( I )
    30    CONTINUE
       } else {
          INFO = N + INFO
-      END IF
+      }
 
       RETURN
 

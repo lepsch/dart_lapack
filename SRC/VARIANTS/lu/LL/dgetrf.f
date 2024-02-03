@@ -36,17 +36,17 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGETRF', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -55,7 +55,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'DGETRF', ' ', M, N, -1, -1 )
-      IF( NB.LE.1 .OR. NB.GE.MIN( M, N ) ) THEN
+      if ( NB.LE.1 .OR. NB.GE.MIN( M, N ) ) {
 
          // Use unblocked code.
 
@@ -108,7 +108,7 @@
 
          // Apply update to the M+1:N columns when N > M
 
-         IF ( N.GT.M ) THEN
+         if ( N.GT.M ) {
 
             CALL DLASWP( N-M, A(1, M+1), LDA, 1, M, IPIV, 1 )
 
@@ -119,13 +119,13 @@
                CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, N-M, ONE, A( K, K ), LDA, A( K, M+1 ), LDA )
 
 
-               IF ( K+NB.LE.M ) THEN
+               if ( K+NB.LE.M ) {
                     CALL DGEMM( 'No transpose', 'No transpose', M-K-NB+1, N-M, NB, -ONE, A( K+NB, K ), LDA, A( K, M+1 ), LDA, ONE, A( K+NB, M+1 ), LDA )
-               END IF
+               }
    50       CONTINUE
-         END IF
+         }
 
-      END IF
+      }
       RETURN
 
       // End of DGETRF

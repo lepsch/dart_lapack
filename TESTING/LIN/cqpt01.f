@@ -41,10 +41,10 @@
 
       // Test if there is enough workspace
 
-      IF( LWORK.LT.M*N+N ) THEN
+      if ( LWORK.LT.M*N+N ) {
          CALL XERBLA( 'CQPT01', 10 )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 

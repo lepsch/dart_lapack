@@ -56,56 +56,56 @@
 
       WANTU = LSAME( JOBU, 'V' )
       WANTVT = LSAME( JOBVT, 'V' )
-      IF( WANTU .OR. WANTVT ) THEN
+      if ( WANTU .OR. WANTVT ) {
          JOBZ = 'V'
       } else {
          JOBZ = 'N'
-      END IF
+      }
       ALLS = LSAME( RANGE, 'A' )
       VALS = LSAME( RANGE, 'V' )
       INDS = LSAME( RANGE, 'I' )
 
       INFO = 0
-      IF( .NOT.LSAME( JOBU, 'V' ) .AND. .NOT.LSAME( JOBU, 'N' ) ) THEN
+      if ( .NOT.LSAME( JOBU, 'V' ) .AND. .NOT.LSAME( JOBU, 'N' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( JOBVT, 'V' ) .AND. .NOT.LSAME( JOBVT, 'N' ) ) THEN
+      } else if ( .NOT.LSAME( JOBVT, 'V' ) .AND. .NOT.LSAME( JOBVT, 'N' ) ) {
          INFO = -2
-      ELSE IF( .NOT.( ALLS .OR. VALS .OR. INDS ) ) THEN
+      } else if ( .NOT.( ALLS .OR. VALS .OR. INDS ) ) {
          INFO = -3
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( M.GT.LDA ) THEN
+      } else if ( M.GT.LDA ) {
          INFO = -7
-      ELSE IF( MINMN.GT.0 ) THEN
-         IF( VALS ) THEN
-            IF( VL.LT.ZERO ) THEN
+      } else if ( MINMN.GT.0 ) {
+         if ( VALS ) {
+            if ( VL.LT.ZERO ) {
                INFO = -8
-            ELSE IF( VU.LE.VL ) THEN
+            } else if ( VU.LE.VL ) {
                INFO = -9
-            END IF
-         ELSE IF( INDS ) THEN
-            IF( IL.LT.1 .OR. IL.GT.MAX( 1, MINMN ) ) THEN
+            }
+         } else if ( INDS ) {
+            if ( IL.LT.1 .OR. IL.GT.MAX( 1, MINMN ) ) {
                INFO = -10
-            ELSE IF( IU.LT.MIN( MINMN, IL ) .OR. IU.GT.MINMN ) THEN
+            } else if ( IU.LT.MIN( MINMN, IL ) .OR. IU.GT.MINMN ) {
                INFO = -11
-            END IF
-         END IF
-         IF( INFO.EQ.0 ) THEN
-            IF( WANTU .AND. LDU.LT.M ) THEN
+            }
+         }
+         if ( INFO.EQ.0 ) {
+            if ( WANTU .AND. LDU.LT.M ) {
                INFO = -15
-            ELSE IF( WANTVT ) THEN
-               IF( INDS ) THEN
-                   IF( LDVT.LT.IU-IL+1 ) THEN
+            } else if ( WANTVT ) {
+               if ( INDS ) {
+                   if ( LDVT.LT.IU-IL+1 ) {
                        INFO = -17
-                   END IF
-               ELSE IF( LDVT.LT.MINMN ) THEN
+                   }
+               } else if ( LDVT.LT.MINMN ) {
                    INFO = -17
-               END IF
-            END IF
-         END IF
-      END IF
+               }
+            }
+         }
+      }
 
       // Compute workspace
       // (Note: Comments in the code beginning "Workspace:" describe the
@@ -114,44 +114,44 @@
       // NB refers to the optimal block size for the immediately
       // following subroutine, as returned by ILAENV.)
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          MINWRK = 1
          MAXWRK = 1
-         IF( MINMN.GT.0 ) THEN
-            IF( M.GE.N ) THEN
+         if ( MINMN.GT.0 ) {
+            if ( M.GE.N ) {
                MNTHR = ILAENV( 6, 'ZGESVD', JOBU // JOBVT, M, N, 0, 0 )
-               IF( M.GE.MNTHR ) THEN
+               if ( M.GE.MNTHR ) {
 
                   // Path 1 (M much larger than N)
 
                   MINWRK = N*(N+5)
                   MAXWRK = N + N*ILAENV(1,'ZGEQRF',' ',M,N,-1,-1)
                   MAXWRK = MAX(MAXWRK, N*N+2*N+2*N*ILAENV(1,'ZGEBRD',' ',N,N,-1,-1))
-                  IF (WANTU .OR. WANTVT) THEN
+                  if (WANTU .OR. WANTVT) {
                      MAXWRK = MAX(MAXWRK, N*N+2*N+N*ILAENV(1,'ZUNMQR','LN',N,N,N,-1))
-                  END IF
+                  }
                } else {
 
                   // Path 2 (M at least N, but not much larger)
 
                   MINWRK = 3*N + M
                   MAXWRK = 2*N + (M+N)*ILAENV(1,'ZGEBRD',' ',M,N,-1,-1)
-                  IF (WANTU .OR. WANTVT) THEN
+                  if (WANTU .OR. WANTVT) {
                      MAXWRK = MAX(MAXWRK, 2*N+N*ILAENV(1,'ZUNMQR','LN',N,N,N,-1))
-                  END IF
-               END IF
+                  }
+               }
             } else {
                MNTHR = ILAENV( 6, 'ZGESVD', JOBU // JOBVT, M, N, 0, 0 )
-               IF( N.GE.MNTHR ) THEN
+               if ( N.GE.MNTHR ) {
 
                   // Path 1t (N much larger than M)
 
                   MINWRK = M*(M+5)
                   MAXWRK = M + M*ILAENV(1,'ZGELQF',' ',M,N,-1,-1)
                   MAXWRK = MAX(MAXWRK, M*M+2*M+2*M*ILAENV(1,'ZGEBRD',' ',M,M,-1,-1))
-                  IF (WANTU .OR. WANTVT) THEN
+                  if (WANTU .OR. WANTVT) {
                      MAXWRK = MAX(MAXWRK, M*M+2*M+M*ILAENV(1,'ZUNMQR','LN',M,M,M,-1))
-                  END IF
+                  }
                } else {
 
                   // Path 2t (N greater than M, but not much larger)
@@ -159,40 +159,40 @@
 
                   MINWRK = 3*M + N
                   MAXWRK = 2*M + (M+N)*ILAENV(1,'ZGEBRD',' ',M,N,-1,-1)
-                  IF (WANTU .OR. WANTVT) THEN
+                  if (WANTU .OR. WANTVT) {
                      MAXWRK = MAX(MAXWRK, 2*M+M*ILAENV(1,'ZUNMQR','LN',M,M,M,-1))
-                  END IF
-               END IF
-            END IF
-         END IF
+                  }
+               }
+            }
+         }
          MAXWRK = MAX( MAXWRK, MINWRK )
          WORK( 1 ) = DCMPLX( DBLE( MAXWRK ), ZERO )
 
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
             INFO = -19
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGESVDX', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 ) {
          RETURN
-      END IF
+      }
 
       // Set singular values indices accord to RANGE='A'.
 
-      IF( ALLS ) THEN
+      if ( ALLS ) {
          RNGTGK = 'I'
          ILTGK = 1
          IUTGK = MIN( M, N )
-      ELSE IF( INDS ) THEN
+      } else if ( INDS ) {
          RNGTGK = 'I'
          ILTGK = IL
          IUTGK = IU
@@ -200,7 +200,7 @@
          RNGTGK = 'V'
          ILTGK = 0
          IUTGK = 0
-      END IF
+      }
 
       // Get machine constants
 
@@ -212,21 +212,21 @@
 
       ANRM = ZLANGE( 'M', M, N, A, LDA, DUM )
       ISCL = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ISCL = 1
          CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
          ISCL = 1
          CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
-      END IF
+      }
 
-      IF( M.GE.N ) THEN
+      if ( M.GE.N ) {
 
          // A has at least as many rows as columns. If A has sufficiently
          // more rows than columns, first reduce A using the QR
          // decomposition.
 
-         IF( M.GE.MNTHR ) THEN
+         if ( M.GE.MNTHR ) {
 
             // Path 1 (M much larger than N):
             // A = Q * R = Q * ( QB * B * PB**T )
@@ -261,7 +261,7 @@
 
             // If needed, compute left singular vectors.
 
-            IF( WANTU ) THEN
+            if ( WANTU ) {
                K = ITGKZ
                DO I = 1, NS
                   DO J = 1, N
@@ -281,11 +281,11 @@
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
                CALL ZUNMQR( 'L', 'N', M, NS, N, A, LDA, WORK( ITAU ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
-            END IF
+            }
 
             // If needed, compute right singular vectors.
 
-            IF( WANTVT) THEN
+            if ( WANTVT) {
                K = ITGKZ + N
                DO I = 1, NS
                   DO J = 1, N
@@ -299,7 +299,7 @@
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
                CALL ZUNMBR( 'P', 'R', 'C', NS, N, N, WORK( IQRF ), N, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
-            END IF
+            }
          } else {
 
             // Path 2 (M at least N, but not much larger)
@@ -326,7 +326,7 @@
 
             // If needed, compute left singular vectors.
 
-            IF( WANTU ) THEN
+            if ( WANTU ) {
                K = ITGKZ
                DO I = 1, NS
                   DO J = 1, N
@@ -341,11 +341,11 @@
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
                CALL ZUNMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
-            END IF
+            }
 
             // If needed, compute right singular vectors.
 
-            IF( WANTVT) THEN
+            if ( WANTVT) {
                K = ITGKZ + N
                DO I = 1, NS
                   DO J = 1, N
@@ -359,14 +359,14 @@
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
                CALL ZUNMBR( 'P', 'R', 'C', NS, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
-            END IF
-         END IF
+            }
+         }
       } else {
 
          // A has more columns than rows. If A has sufficiently more
          // columns than rows, first reduce A using the LQ decomposition.
 
-         IF( N.GE.MNTHR ) THEN
+         if ( N.GE.MNTHR ) {
 
             // Path 1t (N much larger than M):
             // A = L * Q = ( QB * B * PB**T ) * Q
@@ -401,7 +401,7 @@
 
             // If needed, compute left singular vectors.
 
-            IF( WANTU ) THEN
+            if ( WANTU ) {
                K = ITGKZ
                DO I = 1, NS
                   DO J = 1, M
@@ -415,11 +415,11 @@
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
                CALL ZUNMBR( 'Q', 'L', 'N', M, NS, M, WORK( ILQF ), M, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
-            END IF
+            }
 
             // If needed, compute right singular vectors.
 
-            IF( WANTVT) THEN
+            if ( WANTVT) {
                K = ITGKZ + M
                DO I = 1, NS
                   DO J = 1, M
@@ -439,7 +439,7 @@
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
                CALL ZUNMLQ( 'R', 'N', NS, N, M, A, LDA, WORK( ITAU ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
-            END IF
+            }
          } else {
 
             // Path 2t (N greater than M, but not much larger)
@@ -466,7 +466,7 @@
 
             // If needed, compute left singular vectors.
 
-            IF( WANTU ) THEN
+            if ( WANTU ) {
                K = ITGKZ
                DO I = 1, NS
                   DO J = 1, M
@@ -480,11 +480,11 @@
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
                CALL ZUNMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
-            END IF
+            }
 
             // If needed, compute right singular vectors.
 
-            IF( WANTVT) THEN
+            if ( WANTVT) {
                K = ITGKZ + M
                DO I = 1, NS
                   DO J = 1, M
@@ -499,15 +499,15 @@
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
                CALL ZUNMBR( 'P', 'R', 'C', NS, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
       // Undo scaling if necessary
 
-      IF( ISCL.EQ.1 ) THEN
+      if ( ISCL.EQ.1 ) {
          IF( ANRM.GT.BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )          IF( ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO )
-      END IF
+      }
 
       // Return optimal workspace in WORK(1)
 

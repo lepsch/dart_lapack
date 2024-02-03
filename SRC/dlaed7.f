@@ -34,21 +34,21 @@
 
       INFO = 0
 
-      IF( ICOMPQ.LT.0 .OR. ICOMPQ.GT.1 ) THEN
+      if ( ICOMPQ.LT.0 .OR. ICOMPQ.GT.1 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( ICOMPQ.EQ.1 .AND. QSIZ.LT.N ) THEN
+      } else if ( ICOMPQ.EQ.1 .AND. QSIZ.LT.N ) {
          INFO = -3
-      ELSE IF( LDQ.LT.MAX( 1, N ) ) THEN
+      } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -9
-      ELSE IF( MIN( 1, N ).GT.CUTPNT .OR. N.LT.CUTPNT ) THEN
+      } else if ( MIN( 1, N ).GT.CUTPNT .OR. N.LT.CUTPNT ) {
          INFO = -12
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLAED7', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -58,11 +58,11 @@
       // integer pointers which indicate the portion of the workspace
       // used by a particular array in DLAED8 and DLAED9.
 
-      IF( ICOMPQ.EQ.1 ) THEN
+      if ( ICOMPQ.EQ.1 ) {
          LDQ2 = QSIZ
       } else {
          LDQ2 = N
-      END IF
+      }
 
       IZ = 1
       IDLMDA = IZ + N
@@ -89,11 +89,11 @@
       // so we will overwrite the data from this level onto the previously
       // used storage space.
 
-      IF( CURLVL.EQ.TLVLS ) THEN
+      if ( CURLVL.EQ.TLVLS ) {
          QPTR( CURR ) = 1
          PRMPTR( CURR ) = 1
          GIVPTR( CURR ) = 1
-      END IF
+      }
 
       // Sort and Deflate eigenvalues.
 
@@ -103,11 +103,11 @@
 
       // Solve Secular Equation.
 
-      IF( K.NE.0 ) THEN
+      if ( K.NE.0 ) {
          CALL DLAED9( K, 1, K, N, D, WORK( IS ), K, RHO, WORK( IDLMDA ), WORK( IW ), QSTORE( QPTR( CURR ) ), K, INFO )          IF( INFO.NE.0 ) GO TO 30
-         IF( ICOMPQ.EQ.1 ) THEN
+         if ( ICOMPQ.EQ.1 ) {
             CALL DGEMM( 'N', 'N', QSIZ, K, K, ONE, WORK( IQ2 ), LDQ2, QSTORE( QPTR( CURR ) ), K, ZERO, Q, LDQ )
-         END IF
+         }
          QPTR( CURR+1 ) = QPTR( CURR ) + K**2
 
       // Prepare the INDXQ sorting permutation.
@@ -120,7 +120,7 @@
          DO 20 I = 1, N
             INDXQ( I ) = I
    20    CONTINUE
-      END IF
+      }
 
    30 CONTINUE
       RETURN

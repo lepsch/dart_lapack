@@ -35,51 +35,51 @@
       LQUERY = ( LWORK.EQ.-1 )
 
       MINMN = MIN( M, N )
-      IF( MINMN.EQ.0 ) THEN
+      if ( MINMN.EQ.0 ) {
         LWMIN = 1
       } else {
         LWMIN = N*NB
-      END IF
+      }
 
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
         INFO = -1
-      ELSE IF( N.LT.0 .OR. M.LT.N ) THEN
+      } else if ( N.LT.0 .OR. M.LT.N ) {
         INFO = -2
-      ELSE IF( MB.LT.1 ) THEN
+      } else if ( MB.LT.1 ) {
         INFO = -3
-      ELSE IF( NB.LT.1 .OR. ( NB.GT.N .AND. N.GT.0 ) ) THEN
+      } else if ( NB.LT.1 .OR. ( NB.GT.N .AND. N.GT.0 ) ) {
         INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
         INFO = -6
-      ELSE IF( LDT.LT.NB ) THEN
+      } else if ( LDT.LT.NB ) {
         INFO = -8
-      ELSE IF( LWORK.LT.LWMIN .AND. (.NOT.LQUERY) ) THEN
+      } else if ( LWORK.LT.LWMIN .AND. (.NOT.LQUERY) ) {
         INFO = -10
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
         WORK( 1 ) = LWMIN
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
         CALL XERBLA( 'DLATSQR', -INFO )
         RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
         RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( MINMN.EQ.0 ) THEN
+      if ( MINMN.EQ.0 ) {
         RETURN
-      END IF
+      }
 
       // The QR Decomposition
 
-      IF( (MB.LE.N) .OR. (MB.GE.M) ) THEN
+      if ( (MB.LE.N) .OR. (MB.GE.M) ) {
         CALL DGEQRT( M, N, NB, A, LDA, T, LDT, WORK, INFO )
         RETURN
-      END IF
+      }
 
       KK = MOD((M-N),(MB-N))
       II = M-KK+1
@@ -99,9 +99,9 @@
 
       // Compute the QR factorization of the last block A(II:M,1:N)
 
-      IF( II.LE.M ) THEN
+      if ( II.LE.M ) {
         CALL DTPQRT( KK, N, 0, NB, A(1,1), LDA, A( II, 1 ), LDA, T(1, CTR * N + 1), LDT, WORK, INFO )
-      END IF
+      }
 
       WORK( 1 ) = LWMIN
       RETURN

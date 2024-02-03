@@ -68,7 +68,7 @@
 
       // Test error exits for the ST path.
 
-      IF( LSAMEN( 2, C2, 'ST' ) ) THEN
+      if ( LSAMEN( 2, C2, 'ST' ) ) {
 
          // ZHETRD
 
@@ -747,7 +747,7 @@
 
       // Test error exits for the HB path.
 
-      ELSE IF( LSAMEN( 2, C2, 'HB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HB' ) ) {
 
          // ZHBTRD
 
@@ -1042,15 +1042,15 @@
          CALL ZHBEVX_2STAGE( 'N', 'A', 'U', 2, 0, A, 1, Q, 2, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, 0, RW, IW, I3, INFO )
          CALL CHKXER( 'ZHBEVX_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 12
-      END IF
+      }
 
       // Print a summary line.
 
-      IF( OK ) THEN
+      if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH, NT
       } else {
          WRITE( NOUT, FMT = 9998 )PATH
-      END IF
+      }
 
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits',
      $      ' (', I3, ' tests done)' )

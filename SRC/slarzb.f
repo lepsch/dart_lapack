@@ -38,23 +38,23 @@
       // Check for currently supported options
 
       INFO = 0
-      IF( .NOT.LSAME( DIRECT, 'B' ) ) THEN
+      if ( .NOT.LSAME( DIRECT, 'B' ) ) {
          INFO = -3
-      ELSE IF( .NOT.LSAME( STOREV, 'R' ) ) THEN
+      } else if ( .NOT.LSAME( STOREV, 'R' ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLARZB', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( LSAME( TRANS, 'N' ) ) THEN
+      if ( LSAME( TRANS, 'N' ) ) {
          TRANST = 'T'
       } else {
          TRANST = 'N'
-      END IF
+      }
 
-      IF( LSAME( SIDE, 'L' ) ) THEN
+      if ( LSAME( SIDE, 'L' ) ) {
 
          // Form  H * C  or  H**T * C
 
@@ -86,7 +86,7 @@
 
          IF( L.GT.0 ) CALL SGEMM( 'Transpose', 'Transpose', L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, C( M-L+1, 1 ), LDC )
 
-      ELSE IF( LSAME( SIDE, 'R' ) ) THEN
+      } else if ( LSAME( SIDE, 'R' ) ) {
 
          // Form  C * H  or  C * H**T
 
@@ -118,7 +118,7 @@
 
          IF( L.GT.0 ) CALL SGEMM( 'No transpose', 'No transpose', M, L, K, -ONE, WORK, LDWORK, V, LDV, ONE, C( 1, N-L+1 ), LDC )
 
-      END IF
+      }
 
       RETURN
 

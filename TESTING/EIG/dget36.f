@@ -92,11 +92,11 @@
 
       // Test for successful reordering of T2
 
-      IF( INFO2.NE.0 ) THEN
+      if ( INFO2.NE.0 ) {
          NINFO( INFO2 ) = NINFO( INFO2 ) + 1
       } else {
          IF( ABS( IFST2-IFSTSV ).GT.1 ) RES = RES + ONE / EPS          IF( ABS( ILST2-ILSTSV ).GT.1 ) RES = RES + ONE / EPS
-      END IF
+      }
 
       // Test for small residual, and orthogonality of Q
 
@@ -107,7 +107,7 @@
 
       LOC = 1
    70 CONTINUE
-      IF( T2( LOC+1, LOC ).NE.ZERO ) THEN
+      if ( T2( LOC+1, LOC ).NE.ZERO ) {
 
          // 2 by 2 block
 
@@ -124,12 +124,12 @@
             IF( T2( I, LOC ).NE.ZERO ) RES = RES + ONE / RES
    90    CONTINUE
          LOC = LOC + 1
-      END IF
+      }
       IF( LOC.LT.N ) GO TO 70
-      IF( RES.GT.RMAX ) THEN
+      if ( RES.GT.RMAX ) {
          RMAX = RES
          LMAX = KNT
-      END IF
+      }
       GO TO 10
 
       // End of DGET36

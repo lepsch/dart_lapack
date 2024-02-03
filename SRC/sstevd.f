@@ -45,45 +45,45 @@
       INFO = 0
       LIWMIN = 1
       LWMIN = 1
-      IF( N.GT.1 .AND. WANTZ ) THEN
+      if ( N.GT.1 .AND. WANTZ ) {
          LWMIN = 1 + 4*N + N**2
          LIWMIN = 3 + 5*N
-      END IF
+      }
 
-      IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) THEN
+      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
          INFO = -6
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          IWORK( 1 ) = LIWMIN
 
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
             INFO = -8
-         ELSE IF( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) THEN
+         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
             INFO = -10
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SSTEVD', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -98,26 +98,26 @@
 
       ISCALE = 0
       TNRM = SLANST( 'M', N, D, E )
-      IF( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) THEN
+      if ( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / TNRM
-      ELSE IF( TNRM.GT.RMAX ) THEN
+      } else if ( TNRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / TNRM
-      END IF
-      IF( ISCALE.EQ.1 ) THEN
+      }
+      if ( ISCALE.EQ.1 ) {
          CALL SSCAL( N, SIGMA, D, 1 )
          CALL SSCAL( N-1, SIGMA, E( 1 ), 1 )
-      END IF
+      }
 
       // For eigenvalues only, call SSTERF.  For eigenvalues and
       // eigenvectors, call SSTEDC.
 
-      IF( .NOT.WANTZ ) THEN
+      if ( .NOT.WANTZ ) {
          CALL SSTERF( N, D, E, INFO )
       } else {
          CALL SSTEDC( 'I', N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO )
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 

@@ -47,30 +47,30 @@
 
       INFO = 0
       NOTRANS = LSAME( TRANS, 'N' )
-      IF ( .NOT. NOTRANS .AND. .NOT. LSAME(TRANS, 'T') .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      if ( .NOT. NOTRANS .AND. .NOT. LSAME(TRANS, 'T') .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KL.LT.0 .OR. KL.GT.N-1 ) THEN
+      } else if ( KL.LT.0 .OR. KL.GT.N-1 ) {
          INFO = -3
-      ELSE IF( KU.LT.0 .OR. KU.GT.N-1 ) THEN
+      } else if ( KU.LT.0 .OR. KU.GT.N-1 ) {
          INFO = -4
-      ELSE IF( LDAB.LT.KL+KU+1 ) THEN
+      } else if ( LDAB.LT.KL+KU+1 ) {
          INFO = -6
-      ELSE IF( LDAFB.LT.2*KL+KU+1 ) THEN
+      } else if ( LDAFB.LT.2*KL+KU+1 ) {
          INFO = -8
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CLA_GBRCOND_X', -INFO )
          RETURN
-      END IF
+      }
 
       // Compute norm of op(A)*op2(C).
 
       KD = KU + 1
       KE = KL + 1
       ANORM = 0.0
-      IF ( NOTRANS ) THEN
+      if ( NOTRANS ) {
          DO I = 1, N
             TMP = 0.0E+0
             DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
@@ -88,16 +88,16 @@
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
          END DO
-      END IF
+      }
 
       // Quick return if possible.
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          CLA_GBRCOND_X = 1.0E+0
          RETURN
-      ELSE IF( ANORM .EQ. 0.0E+0 ) THEN
+      } else if ( ANORM .EQ. 0.0E+0 ) {
          RETURN
-      END IF
+      }
 
       // Estimate the norm of inv(op(A)).
 
@@ -106,8 +106,8 @@
       KASE = 0
    10 CONTINUE
       CALL CLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
-      IF( KASE.NE.0 ) THEN
-         IF( KASE.EQ.2 ) THEN
+      if ( KASE.NE.0 ) {
+         if ( KASE.EQ.2 ) {
 
             // Multiply by R.
 
@@ -115,7 +115,7 @@
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
 
-            IF ( NOTRANS ) THEN
+            if ( NOTRANS ) {
                CALL CGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             } else {
                CALL CGBTRS( 'Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
@@ -134,20 +134,20 @@
                WORK( I ) = WORK( I ) / X( I )
             END DO
 
-            IF ( NOTRANS ) THEN
+            if ( NOTRANS ) {
                CALL CGBTRS( 'Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             } else {
                CALL CGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
-            END IF
+            }
 
             // Multiply by R.
 
             DO I = 1, N
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
-         END IF
+         }
          GO TO 10
-      END IF
+      }
 
       // Compute the estimate of the reciprocal condition number.
 

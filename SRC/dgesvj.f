@@ -65,45 +65,45 @@
       LOWER = LSAME( JOBA, 'L' )
 
       MINMN = MIN( M, N )
-      IF( MINMN.EQ.0 ) THEN
+      if ( MINMN.EQ.0 ) {
          LWMIN = 1
       } else {
          LWMIN = MAX( 6, M+N )
-      END IF
+      }
 
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.( UPPER .OR. LOWER .OR. LSAME( JOBA, 'G' ) ) ) THEN
+      if ( .NOT.( UPPER .OR. LOWER .OR. LSAME( JOBA, 'G' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( LSVEC .OR. UCTOL .OR. LSAME( JOBU, 'N' ) ) ) THEN
+      } else if ( .NOT.( LSVEC .OR. UCTOL .OR. LSAME( JOBU, 'N' ) ) ) {
          INFO = -2
-      ELSE IF( .NOT.( RSVEC .OR. APPLV .OR. LSAME( JOBV, 'N' ) ) ) THEN
+      } else if ( .NOT.( RSVEC .OR. APPLV .OR. LSAME( JOBV, 'N' ) ) ) {
          INFO = -3
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -4
-      ELSE IF( ( N.LT.0 ) .OR. ( N.GT.M ) ) THEN
+      } else if ( ( N.LT.0 ) .OR. ( N.GT.M ) ) {
          INFO = -5
-      ELSE IF( LDA.LT.M ) THEN
+      } else if ( LDA.LT.M ) {
          INFO = -7
-      ELSE IF( MV.LT.0 ) THEN
+      } else if ( MV.LT.0 ) {
          INFO = -9
-      ELSE IF( ( RSVEC .AND. ( LDV.LT.N ) ) .OR. ( APPLV .AND. ( LDV.LT.MV ) ) ) THEN
+      } else if ( ( RSVEC .AND. ( LDV.LT.N ) ) .OR. ( APPLV .AND. ( LDV.LT.MV ) ) ) {
          INFO = -11
-      ELSE IF( UCTOL .AND. ( WORK( 1 ).LE.ONE ) ) THEN
+      } else if ( UCTOL .AND. ( WORK( 1 ).LE.ONE ) ) {
          INFO = -12
-      ELSE IF( LWORK.LT.LWMIN .AND. ( .NOT.LQUERY ) ) THEN
+      } else if ( LWORK.LT.LWMIN .AND. ( .NOT.LQUERY ) ) {
          INFO = -13
       } else {
          INFO = 0
-      END IF
+      }
 
       // #:(
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGESVJ', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          WORK( 1 ) = LWMIN
          RETURN
-      END IF
+      }
 
 * #:) Quick return for void matrix
 
@@ -116,17 +116,17 @@
 
       // where EPS is the round-off and CTOL is defined as follows:
 
-      IF( UCTOL ) THEN
+      if ( UCTOL ) {
          // ... user controlled
          CTOL = WORK( 1 )
       } else {
          // ... default
-         IF( LSVEC .OR. RSVEC .OR. APPLV ) THEN
+         if ( LSVEC .OR. RSVEC .OR. APPLV ) {
             CTOL = DSQRT( DBLE( M ) )
          } else {
             CTOL = DBLE( M )
-         END IF
-      END IF
+         }
+      }
       // ... and the machine dependent parameters are
 *[!]  (Make sure that DLAMCH() works properly on the target machine.)
 
@@ -144,20 +144,20 @@
       TOL = CTOL*EPSLN
       ROOTTOL = DSQRT( TOL )
 
-      IF( DBLE( M )*EPSLN.GE.ONE ) THEN
+      if ( DBLE( M )*EPSLN.GE.ONE ) {
          INFO = -4
          CALL XERBLA( 'DGESVJ', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize the right singular vector matrix.
 
-      IF( RSVEC ) THEN
+      if ( RSVEC ) {
          MVL = N
          CALL DLASET( 'A', MVL, N, ZERO, ONE, V, LDV )
-      ELSE IF( APPLV ) THEN
+      } else if ( APPLV ) {
          MVL = MV
-      END IF
+      }
       RSVEC = RSVEC .OR. APPLV
 
       // Initialize SVA( 1:N ) = ( ||A e_i||_2, i = 1:N )
@@ -173,55 +173,55 @@
       NOSCALE = .TRUE.
       GOSCALE = .TRUE.
 
-      IF( LOWER ) THEN
+      if ( LOWER ) {
         t // he input matrix is M-by-N lower triangular (trapezoidal)
          DO 1874 p = 1, N
             AAPP = ZERO
             AAQQ = ONE
             CALL DLASSQ( M-p+1, A( p, p ), 1, AAPP, AAQQ )
-            IF( AAPP.GT.BIG ) THEN
+            if ( AAPP.GT.BIG ) {
                INFO = -6
                CALL XERBLA( 'DGESVJ', -INFO )
                RETURN
-            END IF
+            }
             AAQQ = DSQRT( AAQQ )
-            IF( ( AAPP.LT.( BIG / AAQQ ) ) .AND. NOSCALE ) THEN
+            if ( ( AAPP.LT.( BIG / AAQQ ) ) .AND. NOSCALE ) {
                SVA( p ) = AAPP*AAQQ
             } else {
                NOSCALE = .FALSE.
                SVA( p ) = AAPP*( AAQQ*SKL)
-               IF( GOSCALE ) THEN
+               if ( GOSCALE ) {
                   GOSCALE = .FALSE.
                   DO 1873 q = 1, p - 1
                      SVA( q ) = SVA( q )*SKL
  1873             CONTINUE
-               END IF
-            END IF
+               }
+            }
  1874    CONTINUE
-      ELSE IF( UPPER ) THEN
+      } else if ( UPPER ) {
         t // he input matrix is M-by-N upper triangular (trapezoidal)
          DO 2874 p = 1, N
             AAPP = ZERO
             AAQQ = ONE
             CALL DLASSQ( p, A( 1, p ), 1, AAPP, AAQQ )
-            IF( AAPP.GT.BIG ) THEN
+            if ( AAPP.GT.BIG ) {
                INFO = -6
                CALL XERBLA( 'DGESVJ', -INFO )
                RETURN
-            END IF
+            }
             AAQQ = DSQRT( AAQQ )
-            IF( ( AAPP.LT.( BIG / AAQQ ) ) .AND. NOSCALE ) THEN
+            if ( ( AAPP.LT.( BIG / AAQQ ) ) .AND. NOSCALE ) {
                SVA( p ) = AAPP*AAQQ
             } else {
                NOSCALE = .FALSE.
                SVA( p ) = AAPP*( AAQQ*SKL)
-               IF( GOSCALE ) THEN
+               if ( GOSCALE ) {
                   GOSCALE = .FALSE.
                   DO 2873 q = 1, p - 1
                      SVA( q ) = SVA( q )*SKL
  2873             CONTINUE
-               END IF
-            END IF
+               }
+            }
  2874    CONTINUE
       } else {
         t // he input matrix is M-by-N general dense
@@ -229,26 +229,26 @@
             AAPP = ZERO
             AAQQ = ONE
             CALL DLASSQ( M, A( 1, p ), 1, AAPP, AAQQ )
-            IF( AAPP.GT.BIG ) THEN
+            if ( AAPP.GT.BIG ) {
                INFO = -6
                CALL XERBLA( 'DGESVJ', -INFO )
                RETURN
-            END IF
+            }
             AAQQ = DSQRT( AAQQ )
-            IF( ( AAPP.LT.( BIG / AAQQ ) ) .AND. NOSCALE ) THEN
+            if ( ( AAPP.LT.( BIG / AAQQ ) ) .AND. NOSCALE ) {
                SVA( p ) = AAPP*AAQQ
             } else {
                NOSCALE = .FALSE.
                SVA( p ) = AAPP*( AAQQ*SKL)
-               IF( GOSCALE ) THEN
+               if ( GOSCALE ) {
                   GOSCALE = .FALSE.
                   DO 3873 q = 1, p - 1
                      SVA( q ) = SVA( q )*SKL
  3873             CONTINUE
-               END IF
-            END IF
+               }
+            }
  3874    CONTINUE
-      END IF
+      }
 
       IF( NOSCALE )SKL= ONE
 
@@ -265,7 +265,7 @@
 
 * #:) Quick return for zero matrix
 
-      IF( AAPP.EQ.ZERO ) THEN
+      if ( AAPP.EQ.ZERO ) {
          IF( LSVEC )CALL DLASET( 'G', M, N, ZERO, ONE, A, LDA )
          WORK( 1 ) = ONE
          WORK( 2 ) = ZERO
@@ -274,60 +274,60 @@
          WORK( 5 ) = ZERO
          WORK( 6 ) = ZERO
          RETURN
-      END IF
+      }
 
 * #:) Quick return for one-column matrix
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          IF( LSVEC )CALL DLASCL( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR )
          WORK( 1 ) = ONE / SKL
-         IF( SVA( 1 ).GE.SFMIN ) THEN
+         if ( SVA( 1 ).GE.SFMIN ) {
             WORK( 2 ) = ONE
          } else {
             WORK( 2 ) = ZERO
-         END IF
+         }
          WORK( 3 ) = ZERO
          WORK( 4 ) = ZERO
          WORK( 5 ) = ZERO
          WORK( 6 ) = ZERO
          RETURN
-      END IF
+      }
 
       // Protect small singular values from underflow, and try to
       // avoid underflows/overflows in computing Jacobi rotations.
 
       SN = DSQRT( SFMIN / EPSLN )
       TEMP1 = DSQRT( BIG / DBLE( N ) )
-      IF( ( AAPP.LE.SN ) .OR. ( AAQQ.GE.TEMP1 ) .OR. ( ( SN.LE.AAQQ ) .AND. ( AAPP.LE.TEMP1 ) ) ) THEN
+      if ( ( AAPP.LE.SN ) .OR. ( AAQQ.GE.TEMP1 ) .OR. ( ( SN.LE.AAQQ ) .AND. ( AAPP.LE.TEMP1 ) ) ) {
          TEMP1 = MIN( BIG, TEMP1 / AAPP )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
-      ELSE IF( ( AAQQ.LE.SN ) .AND. ( AAPP.LE.TEMP1 ) ) THEN
+      } else if ( ( AAQQ.LE.SN ) .AND. ( AAPP.LE.TEMP1 ) ) {
          TEMP1 = MIN( SN / AAQQ, BIG / ( AAPP*DSQRT( DBLE( N ) ) ) )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
-      ELSE IF( ( AAQQ.GE.SN ) .AND. ( AAPP.GE.TEMP1 ) ) THEN
+      } else if ( ( AAQQ.GE.SN ) .AND. ( AAPP.GE.TEMP1 ) ) {
          TEMP1 = MAX( SN / AAQQ, TEMP1 / AAPP )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
-      ELSE IF( ( AAQQ.LE.SN ) .AND. ( AAPP.GE.TEMP1 ) ) THEN
+      } else if ( ( AAQQ.LE.SN ) .AND. ( AAPP.GE.TEMP1 ) ) {
          TEMP1 = MIN( SN / AAQQ, BIG / ( DSQRT( DBLE( N ) )*AAPP ) )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else {
          TEMP1 = ONE
-      END IF
+      }
 
       // Scale, if necessary
 
-      IF( TEMP1.NE.ONE ) THEN
+      if ( TEMP1.NE.ONE ) {
          CALL DLASCL( 'G', 0, 0, ONE, TEMP1, N, 1, SVA, N, IERR )
-      END IF
+      }
       SKL= TEMP1*SKL
-      IF( SKL.NE.ONE ) THEN
+      if ( SKL.NE.ONE ) {
          CALL DLASCL( JOBA, 0, 0, ONE, SKL, M, N, A, LDA, IERR )
          SKL= ONE / SKL
-      END IF
+      }
 
       // Row-cyclic Jacobi SVD algorithm with column pivoting
 
@@ -375,19 +375,19 @@
       // invokes cubic convergence. Big part of this cycle is done inside
       // canonical subspaces of dimensions less than M.
 
-      IF( ( LOWER .OR. UPPER ) .AND. ( N.GT.MAX( 64, 4*KBL ) ) ) THEN
+      if ( ( LOWER .OR. UPPER ) .AND. ( N.GT.MAX( 64, 4*KBL ) ) ) {
 *[TP] The number of partition levels and the actual partition are
      t // uning parameters.
          N4 = N / 4
          N2 = N / 2
          N34 = 3*N4
-         IF( APPLV ) THEN
+         if ( APPLV ) {
             q = 0
          } else {
             q = 1
-         END IF
+         }
 
-         IF( LOWER ) THEN
+         if ( LOWER ) {
 
       // This works very well on lower triangular matrices, in particular
       // in the framework of the preconditioned Jacobi SVD (xGEJSV).
@@ -410,7 +410,7 @@
             CALL DGSVJ1( JOBV, M, N2, N4, A, LDA, WORK, SVA, MVL, V, LDV, EPSLN, SFMIN, TOL, 1, WORK( N+1 ), LWORK-N, IERR )
 
 
-         ELSE IF( UPPER ) THEN
+         } else if ( UPPER ) {
 
 
             CALL DGSVJ0( JOBV, N4, N4, A, LDA, WORK, SVA, MVL, V, LDV, EPSLN, SFMIN, TOL, 2, WORK( N+1 ), LWORK-N, IERR )
@@ -421,9 +421,9 @@
 
             CALL DGSVJ0( JOBV, N2+N4, N4, A( 1, N2+1 ), LDA, WORK( N2+1 ), SVA( N2+1 ), MVL, V( N2*q+1, N2+1 ), LDV, EPSLN, SFMIN, TOL, 1, WORK( N+1 ), LWORK-N, IERR )
 
-         END IF
+         }
 
-      END IF
+      }
 
       // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
 
@@ -456,7 +456,7 @@
       // .. de Rijk's pivoting
 
                   q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1
-                  IF( p.NE.q ) THEN
+                  if ( p.NE.q ) {
                      CALL DSWAP( M, A( 1, p ), 1, A( 1, q ), 1 )
                      IF( RSVEC )CALL DSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 )
                      TEMP1 = SVA( p )
@@ -465,9 +465,9 @@
                      TEMP1 = WORK( p )
                      WORK( p ) = WORK( q )
                      WORK( q ) = TEMP1
-                  END IF
+                  }
 
-                  IF( ir1.EQ.0 ) THEN
+                  if ( ir1.EQ.0 ) {
 
          // Column norms are periodically updated by explicit
          // norm computation.
@@ -481,20 +481,20 @@
          // If properly implemented DNRM2 is available, the IF-THEN-ELSE
          // below should read "AAPP = DNRM2( M, A(1,p), 1 ) * WORK(p)".
 
-                     IF( ( SVA( p ).LT.ROOTBIG ) .AND. ( SVA( p ).GT.ROOTSFMIN ) ) THEN
+                     if ( ( SVA( p ).LT.ROOTBIG ) .AND. ( SVA( p ).GT.ROOTSFMIN ) ) {
                         SVA( p ) = DNRM2( M, A( 1, p ), 1 )*WORK( p )
                      } else {
                         TEMP1 = ZERO
                         AAPP = ONE
                         CALL DLASSQ( M, A( 1, p ), 1, TEMP1, AAPP )
                         SVA( p ) = TEMP1*DSQRT( AAPP )*WORK( p )
-                     END IF
+                     }
                      AAPP = SVA( p )
                   } else {
                      AAPP = SVA( p )
-                  END IF
+                  }
 
-                  IF( AAPP.GT.ZERO ) THEN
+                  if ( AAPP.GT.ZERO ) {
 
                      PSKIPPED = 0
 
@@ -502,49 +502,49 @@
 
                         AAQQ = SVA( q )
 
-                        IF( AAQQ.GT.ZERO ) THEN
+                        if ( AAQQ.GT.ZERO ) {
 
                            AAPP0 = AAPP
-                           IF( AAQQ.GE.ONE ) THEN
+                           if ( AAQQ.GE.ONE ) {
                               ROTOK = ( SMALL*AAPP ).LE.AAQQ
-                              IF( AAPP.LT.( BIG / AAQQ ) ) THEN
+                              if ( AAPP.LT.( BIG / AAQQ ) ) {
                                  AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
                               } else {
                                  CALL DCOPY( M, A( 1, p ), 1, WORK( N+1 ), 1 )                                  CALL DLASCL( 'G', 0, 0, AAPP, WORK( p ), M, 1, WORK( N+1 ), LDA, IERR )
                                  AAPQ = DDOT( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ
-                              END IF
+                              }
                            } else {
                               ROTOK = AAPP.LE.( AAQQ / SMALL )
-                              IF( AAPP.GT.( SMALL / AAQQ ) ) THEN
+                              if ( AAPP.GT.( SMALL / AAQQ ) ) {
                                  AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
                               } else {
                                  CALL DCOPY( M, A( 1, q ), 1, WORK( N+1 ), 1 )                                  CALL DLASCL( 'G', 0, 0, AAQQ, WORK( q ), M, 1, WORK( N+1 ), LDA, IERR )
                                  AAPQ = DDOT( M, WORK( N+1 ), 1, A( 1, p ), 1 )*WORK( p ) / AAPP
-                              END IF
-                           END IF
+                              }
+                           }
 
                            MXAAPQ = MAX( MXAAPQ, DABS( AAPQ ) )
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
-                           IF( DABS( AAPQ ).GT.TOL ) THEN
+                           if ( DABS( AAPQ ).GT.TOL ) {
 
             // .. rotate
 *[RTD]      ROTATED = ROTATED + ONE
 
-                              IF( ir1.EQ.0 ) THEN
+                              if ( ir1.EQ.0 ) {
                                  NOTROT = 0
                                  PSKIPPED = 0
                                  ISWROT = ISWROT + 1
-                              END IF
+                              }
 
-                              IF( ROTOK ) THEN
+                              if ( ROTOK ) {
 
                                  AQOAP = AAQQ / AAPP
                                  APOAQ = AAPP / AAQQ
                                  THETA = -HALF*DABS(AQOAP-APOAQ)/AAPQ
 
-                                 IF( DABS( THETA ).GT.BIGTHETA ) THEN
+                                 if ( DABS( THETA ).GT.BIGTHETA ) {
 
                                     T = HALF / THETA
                                     FASTR( 3 ) = T*WORK( p ) / WORK( q )
@@ -566,8 +566,8 @@
 
                                     APOAQ = WORK( p ) / WORK( q )
                                     AQOAP = WORK( q ) / WORK( p )
-                                    IF( WORK( p ).GE.ONE ) THEN
-                                       IF( WORK( q ).GE.ONE ) THEN
+                                    if ( WORK( p ).GE.ONE ) {
+                                       if ( WORK( q ).GE.ONE ) {
                                           FASTR( 3 ) = T*APOAQ
                                           FASTR( 4 ) = -T*AQOAP
                                           WORK( p ) = WORK( p )*CS
@@ -577,36 +577,36 @@
                                           CALL DAXPY( M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 )                                           CALL DAXPY( M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )
                                           WORK( p ) = WORK( p )*CS
                                           WORK( q ) = WORK( q ) / CS
-                                          IF( RSVEC ) THEN
+                                          if ( RSVEC ) {
                                              CALL DAXPY( MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 )                                              CALL DAXPY( MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 )
-                                          END IF
-                                       END IF
+                                          }
+                                       }
                                     } else {
-                                       IF( WORK( q ).GE.ONE ) THEN
+                                       if ( WORK( q ).GE.ONE ) {
                                           CALL DAXPY( M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )                                           CALL DAXPY( M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 )
                                           WORK( p ) = WORK( p ) / CS
                                           WORK( q ) = WORK( q )*CS
-                                          IF( RSVEC ) THEN
+                                          if ( RSVEC ) {
                                              CALL DAXPY( MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 )                                              CALL DAXPY( MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 )
-                                          END IF
+                                          }
                                        } else {
                                           IF( WORK( p ).GE.WORK( q ) ) THEN                                              CALL DAXPY( M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 )                                              CALL DAXPY( M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )
                                              WORK( p ) = WORK( p )*CS
                                              WORK( q ) = WORK( q ) / CS
-                                             IF( RSVEC ) THEN
+                                             if ( RSVEC ) {
                                                 CALL DAXPY( MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 )                                                 CALL DAXPY( MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 )
-                                             END IF
+                                             }
                                           } else {
                                              CALL DAXPY( M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )                                              CALL DAXPY( M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 )
                                              WORK( p ) = WORK( p ) / CS
                                              WORK( q ) = WORK( q )*CS
-                                             IF( RSVEC ) THEN
+                                             if ( RSVEC ) {
                                                 CALL DAXPY( MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 )                                                 CALL DAXPY( MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 )
-                                             END IF
-                                          END IF
-                                       END IF
-                                    END IF
-                                 END IF
+                                             }
+                                          }
+                                       }
+                                    }
+                                 }
 
                               } else {
                // .. have to use modified Gram-Schmidt like transformation
@@ -615,7 +615,7 @@
                                  TEMP1 = -AAPQ*WORK( p ) / WORK( q )
                                  CALL DAXPY( M, TEMP1, WORK( N+1 ), 1, A( 1, q ), 1 )                                  CALL DLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) )
                                  MXSINJ = MAX( MXSINJ, SFMIN )
-                              END IF
+                              }
             // END IF ROTOK THEN ... ELSE
 
             // In the case of cancellation in updating SVA(q), SVA(p)
@@ -627,36 +627,36 @@
                                     AAQQ = ONE
                                     CALL DLASSQ( M, A( 1, q ), 1, T, AAQQ )
                                     SVA( q ) = T*DSQRT( AAQQ )*WORK( q )
-                                 END IF
-                              END IF
-                              IF( ( AAPP / AAPP0 ).LE.ROOTEPS ) THEN
+                                 }
+                              }
+                              if ( ( AAPP / AAPP0 ).LE.ROOTEPS ) {
                                  IF( ( AAPP.LT.ROOTBIG ) .AND. ( AAPP.GT.ROOTSFMIN ) ) THEN                                     AAPP = DNRM2( M, A( 1, p ), 1 )* WORK( p )
                                  } else {
                                     T = ZERO
                                     AAPP = ONE
                                     CALL DLASSQ( M, A( 1, p ), 1, T, AAPP )
                                     AAPP = T*DSQRT( AAPP )*WORK( p )
-                                 END IF
+                                 }
                                  SVA( p ) = AAPP
-                              END IF
+                              }
 
                            } else {
          // A(:,p) and A(:,q) already numerically orthogonal
                               IF( ir1.EQ.0 )NOTROT = NOTROT + 1
 *[RTD]      SKIPPED  = SKIPPED  + 1
                               PSKIPPED = PSKIPPED + 1
-                           END IF
+                           }
                         } else {
          // A(:,q) is zero column
                            IF( ir1.EQ.0 )NOTROT = NOTROT + 1
                            PSKIPPED = PSKIPPED + 1
-                        END IF
+                        }
 
-                        IF( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) THEN
+                        if ( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) {
                            IF( ir1.EQ.0 )AAPP = -AAPP
                            NOTROT = 0
                            GO TO 2103
-                        END IF
+                        }
 
  2002                CONTINUE
       // END q-LOOP
@@ -669,7 +669,7 @@
                   } else {
                      SVA( p ) = AAPP
                      IF( ( ir1.EQ.0 ) .AND. ( AAPP.EQ.ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p
-                  END IF
+                  }
 
  2001          CONTINUE
       // end of the p-loop
@@ -691,64 +691,64 @@
                DO 2100 p = igl, MIN( igl+KBL-1, N )
 
                   AAPP = SVA( p )
-                  IF( AAPP.GT.ZERO ) THEN
+                  if ( AAPP.GT.ZERO ) {
 
                      PSKIPPED = 0
 
                      DO 2200 q = jgl, MIN( jgl+KBL-1, N )
 
                         AAQQ = SVA( q )
-                        IF( AAQQ.GT.ZERO ) THEN
+                        if ( AAQQ.GT.ZERO ) {
                            AAPP0 = AAPP
 
       // .. M x 2 Jacobi SVD ..
 
          // Safe Gram matrix computation
 
-                           IF( AAQQ.GE.ONE ) THEN
-                              IF( AAPP.GE.AAQQ ) THEN
+                           if ( AAQQ.GE.ONE ) {
+                              if ( AAPP.GE.AAQQ ) {
                                  ROTOK = ( SMALL*AAPP ).LE.AAQQ
                               } else {
                                  ROTOK = ( SMALL*AAQQ ).LE.AAPP
-                              END IF
-                              IF( AAPP.LT.( BIG / AAQQ ) ) THEN
+                              }
+                              if ( AAPP.LT.( BIG / AAQQ ) ) {
                                  AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
                               } else {
                                  CALL DCOPY( M, A( 1, p ), 1, WORK( N+1 ), 1 )                                  CALL DLASCL( 'G', 0, 0, AAPP, WORK( p ), M, 1, WORK( N+1 ), LDA, IERR )
                                  AAPQ = DDOT( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ
-                              END IF
+                              }
                            } else {
-                              IF( AAPP.GE.AAQQ ) THEN
+                              if ( AAPP.GE.AAQQ ) {
                                  ROTOK = AAPP.LE.( AAQQ / SMALL )
                               } else {
                                  ROTOK = AAQQ.LE.( AAPP / SMALL )
-                              END IF
-                              IF( AAPP.GT.( SMALL / AAQQ ) ) THEN
+                              }
+                              if ( AAPP.GT.( SMALL / AAQQ ) ) {
                                  AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
                               } else {
                                  CALL DCOPY( M, A( 1, q ), 1, WORK( N+1 ), 1 )                                  CALL DLASCL( 'G', 0, 0, AAQQ, WORK( q ), M, 1, WORK( N+1 ), LDA, IERR )
                                  AAPQ = DDOT( M, WORK( N+1 ), 1, A( 1, p ), 1 )*WORK( p ) / AAPP
-                              END IF
-                           END IF
+                              }
+                           }
 
                            MXAAPQ = MAX( MXAAPQ, DABS( AAPQ ) )
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
-                           IF( DABS( AAPQ ).GT.TOL ) THEN
+                           if ( DABS( AAPQ ).GT.TOL ) {
                               NOTROT = 0
 *[RTD]      ROTATED  = ROTATED + 1
                               PSKIPPED = 0
                               ISWROT = ISWROT + 1
 
-                              IF( ROTOK ) THEN
+                              if ( ROTOK ) {
 
                                  AQOAP = AAQQ / AAPP
                                  APOAQ = AAPP / AAQQ
                                  THETA = -HALF*DABS(AQOAP-APOAQ)/AAPQ
                                  IF( AAQQ.GT.AAPP0 )THETA = -THETA
 
-                                 IF( DABS( THETA ).GT.BIGTHETA ) THEN
+                                 if ( DABS( THETA ).GT.BIGTHETA ) {
                                     T = HALF / THETA
                                     FASTR( 3 ) = T*WORK( p ) / WORK( q )
                                     FASTR( 4 ) = -T*WORK( q ) / WORK( p )                                     CALL DROTM( M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR )
@@ -768,9 +768,9 @@
 
                                     APOAQ = WORK( p ) / WORK( q )
                                     AQOAP = WORK( q ) / WORK( p )
-                                    IF( WORK( p ).GE.ONE ) THEN
+                                    if ( WORK( p ).GE.ONE ) {
 
-                                       IF( WORK( q ).GE.ONE ) THEN
+                                       if ( WORK( q ).GE.ONE ) {
                                           FASTR( 3 ) = T*APOAQ
                                           FASTR( 4 ) = -T*AQOAP
                                           WORK( p ) = WORK( p )*CS
@@ -778,41 +778,41 @@
                                           CALL DROTM( M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                           IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR )
                                        } else {
                                           CALL DAXPY( M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 )                                           CALL DAXPY( M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )
-                                          IF( RSVEC ) THEN
+                                          if ( RSVEC ) {
                                              CALL DAXPY( MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 )                                              CALL DAXPY( MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 )
-                                          END IF
+                                          }
                                           WORK( p ) = WORK( p )*CS
                                           WORK( q ) = WORK( q ) / CS
-                                       END IF
+                                       }
                                     } else {
-                                       IF( WORK( q ).GE.ONE ) THEN
+                                       if ( WORK( q ).GE.ONE ) {
                                           CALL DAXPY( M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )                                           CALL DAXPY( M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 )
-                                          IF( RSVEC ) THEN
+                                          if ( RSVEC ) {
                                              CALL DAXPY( MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 )                                              CALL DAXPY( MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 )
-                                          END IF
+                                          }
                                           WORK( p ) = WORK( p ) / CS
                                           WORK( q ) = WORK( q )*CS
                                        } else {
                                           IF( WORK( p ).GE.WORK( q ) ) THEN                                              CALL DAXPY( M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 )                                              CALL DAXPY( M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )
                                              WORK( p ) = WORK( p )*CS
                                              WORK( q ) = WORK( q ) / CS
-                                             IF( RSVEC ) THEN
+                                             if ( RSVEC ) {
                                                 CALL DAXPY( MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 )                                                 CALL DAXPY( MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 )
-                                             END IF
+                                             }
                                           } else {
                                              CALL DAXPY( M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )                                              CALL DAXPY( M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 )
                                              WORK( p ) = WORK( p ) / CS
                                              WORK( q ) = WORK( q )*CS
-                                             IF( RSVEC ) THEN
+                                             if ( RSVEC ) {
                                                 CALL DAXPY( MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 )                                                 CALL DAXPY( MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 )
-                                             END IF
-                                          END IF
-                                       END IF
-                                    END IF
-                                 END IF
+                                             }
+                                          }
+                                       }
+                                    }
+                                 }
 
                               } else {
-                                 IF( AAPP.GT.AAQQ ) THEN
+                                 if ( AAPP.GT.AAQQ ) {
                                     CALL DCOPY( M, A( 1, p ), 1, WORK( N+1 ), 1 )                                     CALL DLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK( N+1 ), LDA, IERR )                                     CALL DLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR )
                                     TEMP1 = -AAPQ*WORK( p ) / WORK( q )
                                     CALL DAXPY( M, TEMP1, WORK( N+1 ), 1, A( 1, q ), 1 )                                     CALL DLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )
@@ -824,8 +824,8 @@
                                     CALL DAXPY( M, TEMP1, WORK( N+1 ), 1, A( 1, p ), 1 )                                     CALL DLASCL( 'G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR )
                                     SVA( p ) = AAPP*DSQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
-                                 END IF
-                              END IF
+                                 }
+                              }
             // END IF ROTOK THEN ... ELSE
 
             // In the case of cancellation in updating SVA(q)
@@ -836,41 +836,41 @@
                                     AAQQ = ONE
                                     CALL DLASSQ( M, A( 1, q ), 1, T, AAQQ )
                                     SVA( q ) = T*DSQRT( AAQQ )*WORK( q )
-                                 END IF
-                              END IF
-                              IF( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) THEN
+                                 }
+                              }
+                              if ( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) {
                                  IF( ( AAPP.LT.ROOTBIG ) .AND. ( AAPP.GT.ROOTSFMIN ) ) THEN                                     AAPP = DNRM2( M, A( 1, p ), 1 )* WORK( p )
                                  } else {
                                     T = ZERO
                                     AAPP = ONE
                                     CALL DLASSQ( M, A( 1, p ), 1, T, AAPP )
                                     AAPP = T*DSQRT( AAPP )*WORK( p )
-                                 END IF
+                                 }
                                  SVA( p ) = AAPP
-                              END IF
+                              }
                // end of OK rotation
                            } else {
                               NOTROT = NOTROT + 1
 *[RTD]      SKIPPED  = SKIPPED  + 1
                               PSKIPPED = PSKIPPED + 1
                               IJBLSK = IJBLSK + 1
-                           END IF
+                           }
                         } else {
                            NOTROT = NOTROT + 1
                            PSKIPPED = PSKIPPED + 1
                            IJBLSK = IJBLSK + 1
-                        END IF
+                        }
 
-                        IF( ( i.LE.SWBAND ) .AND. ( IJBLSK.GE.BLSKIP ) ) THEN
+                        if ( ( i.LE.SWBAND ) .AND. ( IJBLSK.GE.BLSKIP ) ) {
                            SVA( p ) = AAPP
                            NOTROT = 0
                            GO TO 2011
-                        END IF
-                        IF( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) THEN
+                        }
+                        if ( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) {
                            AAPP = -AAPP
                            NOTROT = 0
                            GO TO 2203
-                        END IF
+                        }
 
  2200                CONTINUE
          // end of the q-loop
@@ -883,7 +883,7 @@
                      IF( AAPP.EQ.ZERO )NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1
                      IF( AAPP.LT.ZERO )NOTROT = 0
 
-                  END IF
+                  }
 
  2100          CONTINUE
       // end of the p-loop
@@ -899,22 +899,22 @@
 *2000 :: end of the ibr-loop
 
       // .. update SVA(N)
-         IF( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) ) THEN
+         if ( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) ) {
             SVA( N ) = DNRM2( M, A( 1, N ), 1 )*WORK( N )
          } else {
             T = ZERO
             AAPP = ONE
             CALL DLASSQ( M, A( 1, N ), 1, T, AAPP )
             SVA( N ) = T*DSQRT( AAPP )*WORK( N )
-         END IF
+         }
 
       // Additional steering devices
 
          IF( ( i.LT.SWBAND ) .AND. ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
 
-         IF( ( i.GT.SWBAND+1 ) .AND. ( MXAAPQ.LT.DSQRT( DBLE( N ) )* TOL ) .AND. ( DBLE( N )*MXAAPQ*MXSINJ.LT.TOL ) ) THEN
+         if ( ( i.GT.SWBAND+1 ) .AND. ( MXAAPQ.LT.DSQRT( DBLE( N ) )* TOL ) .AND. ( DBLE( N )*MXAAPQ*MXSINJ.LT.TOL ) ) {
             GO TO 1994
-         END IF
+         }
 
          IF( NOTROT.GE.EMPTSW )GO TO 1994
 
@@ -940,7 +940,7 @@
       N4 = 0
       DO 5991 p = 1, N - 1
          q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1
-         IF( p.NE.q ) THEN
+         if ( p.NE.q ) {
             TEMP1 = SVA( p )
             SVA( p ) = SVA( q )
             SVA( q ) = TEMP1
@@ -949,29 +949,29 @@
             WORK( q ) = TEMP1
             CALL DSWAP( M, A( 1, p ), 1, A( 1, q ), 1 )
             IF( RSVEC )CALL DSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 )
-         END IF
-         IF( SVA( p ).NE.ZERO ) THEN
+         }
+         if ( SVA( p ).NE.ZERO ) {
             N4 = N4 + 1
             IF( SVA( p )*SKL.GT.SFMIN )N2 = N2 + 1
-         END IF
+         }
  5991 CONTINUE
-      IF( SVA( N ).NE.ZERO ) THEN
+      if ( SVA( N ).NE.ZERO ) {
          N4 = N4 + 1
          IF( SVA( N )*SKL.GT.SFMIN )N2 = N2 + 1
-      END IF
+      }
 
       // Normalize the left singular vectors.
 
-      IF( LSVEC .OR. UCTOL ) THEN
+      if ( LSVEC .OR. UCTOL ) {
          DO 1998 p = 1, N2
             CALL DSCAL( M, WORK( p ) / SVA( p ), A( 1, p ), 1 )
  1998    CONTINUE
-      END IF
+      }
 
       // Scale the product of Jacobi rotations (assemble the fast rotations).
 
-      IF( RSVEC ) THEN
-         IF( APPLV ) THEN
+      if ( RSVEC ) {
+         if ( APPLV ) {
             DO 2398 p = 1, N
                CALL DSCAL( MVL, WORK( p ), V( 1, p ), 1 )
  2398       CONTINUE
@@ -980,16 +980,16 @@
                TEMP1 = ONE / DNRM2( MVL, V( 1, p ), 1 )
                CALL DSCAL( MVL, TEMP1, V( 1, p ), 1 )
  2399       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       // Undo scaling, if necessary (and possible).
-      IF( ( ( SKL.GT.ONE ) .AND. ( SVA( 1 ).LT.( BIG / SKL) ) ) .OR. ( ( SKL.LT.ONE ) .AND. ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL) ) ) ) THEN
+      if ( ( ( SKL.GT.ONE ) .AND. ( SVA( 1 ).LT.( BIG / SKL) ) ) .OR. ( ( SKL.LT.ONE ) .AND. ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL) ) ) ) {
          DO 2400 p = 1, N
             SVA( P ) = SKL*SVA( P )
  2400    CONTINUE
          SKL= ONE
-      END IF
+      }
 
       WORK( 1 ) = SKL
       // The singular values of A are SKL*SVA(1:N). If SKL.NE.ONE

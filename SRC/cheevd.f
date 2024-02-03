@@ -48,18 +48,18 @@
       LQUERY = ( LWORK.EQ.-1 .OR. LRWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
 
       INFO = 0
-      IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) THEN
+      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
-         IF( N.LE.1 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( N.LE.1 ) {
             LWMIN = 1
             LRWMIN = 1
             LIWMIN = 1
@@ -67,7 +67,7 @@
             LROPT = LRWMIN
             LIOPT = LIWMIN
          } else {
-            IF( WANTZ ) THEN
+            if ( WANTZ ) {
                LWMIN = 2*N + N*N
                LRWMIN = 1 + 5*N + 2*N**2
                LIWMIN = 3 + 5*N
@@ -75,40 +75,40 @@
                LWMIN = N + 1
                LRWMIN = N
                LIWMIN = 1
-            END IF
+            }
             LOPT = MAX( LWMIN, N + N*ILAENV( 1, 'CHETRD', UPLO, N, -1, -1, -1 ) )
             LROPT = LRWMIN
             LIOPT = LIWMIN
-         END IF
+         }
          WORK( 1 ) = SROUNDUP_LWORK( LOPT )
          RWORK( 1 ) = SROUNDUP_LWORK( LROPT )
          IWORK( 1 ) = LIOPT
 
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
             INFO = -8
-         ELSE IF( LRWORK.LT.LRWMIN .AND. .NOT.LQUERY ) THEN
+         } else if ( LRWORK.LT.LRWMIN .AND. .NOT.LQUERY ) {
             INFO = -10
-         ELSE IF( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) THEN
+         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
             INFO = -12
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHEEVD', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          W( 1 ) = REAL( A( 1, 1 ) )
          IF( WANTZ ) A( 1, 1 ) = CONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -123,13 +123,13 @@
 
       ANRM = CLANHE( 'M', UPLO, N, A, LDA, RWORK )
       ISCALE = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
-      ELSE IF( ANRM.GT.RMAX ) THEN
+      } else if ( ANRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / ANRM
-      END IF
+      }
       IF( ISCALE.EQ.1 ) CALL CLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 
       // Call CHETRD to reduce Hermitian matrix to tridiagonal form.
@@ -150,24 +150,24 @@
       // Householder transformations represented as Householder vectors in
       // A.
 
-      IF( .NOT.WANTZ ) THEN
+      if ( .NOT.WANTZ ) {
          CALL SSTERF( N, W, RWORK( INDE ), INFO )
       } else {
          CALL CSTEDC( 'I', N, W, RWORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO )
          CALL CUNMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
          CALL CLACPY( 'A', N, N, WORK( INDWRK ), N, A, LDA )
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      IF( ISCALE.EQ.1 ) THEN
-         IF( INFO.EQ.0 ) THEN
+      if ( ISCALE.EQ.1 ) {
+         if ( INFO.EQ.0 ) {
             IMAX = N
          } else {
             IMAX = INFO - 1
-         END IF
+         }
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
-      END IF
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK( LOPT )
       RWORK( 1 ) = SROUNDUP_LWORK( LROPT )

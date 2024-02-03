@@ -24,7 +24,7 @@
       // INTRINSIC DBLE, DCMPLX, DIMAG
       // ..
       IF (N.LE.0 .OR. INCX.LE.0 .OR. DA.EQ.ONE) RETURN
-      IF (INCX.EQ.1) THEN
+      if (INCX.EQ.1) {
 
          // code for increment equal to 1
 
@@ -39,7 +39,7 @@
          DO I = 1,NINCX,INCX
             ZX(I) = DCMPLX(DA*DBLE(ZX(I)),DA*DIMAG(ZX(I)))
          END DO
-      END IF
+      }
       RETURN
 
       // End of ZDSCAL

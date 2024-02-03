@@ -40,19 +40,19 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       NOUNIT = LSAME( DIAG, 'N' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
+      } else if ( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'STRTRI', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -60,17 +60,17 @@
 
       // Check for singularity if non-unit.
 
-      IF( NOUNIT ) THEN
+      if ( NOUNIT ) {
          DO 10 INFO = 1, N
             IF( A( INFO, INFO ).EQ.ZERO ) RETURN
    10    CONTINUE
          INFO = 0
-      END IF
+      }
 
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'STRTRI', UPLO // DIAG, N, -1, -1, -1 )
-      IF( NB.LE.1 .OR. NB.GE.N ) THEN
+      if ( NB.LE.1 .OR. NB.GE.N ) {
 
          // Use unblocked code
 
@@ -79,7 +79,7 @@
 
          // Use blocked code
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
 
             // Compute inverse of upper triangular matrix
 
@@ -101,19 +101,19 @@
             NN = ( ( N-1 ) / NB )*NB + 1
             DO 30 J = NN, 1, -NB
                JB = MIN( NB, N-J+1 )
-               IF( J+JB.LE.N ) THEN
+               if ( J+JB.LE.N ) {
 
                   // Compute rows j+jb:n of current block column
 
                   CALL STRMM( 'Left', 'Lower', 'No transpose', DIAG, N-J-JB+1, JB, ONE, A( J+JB, J+JB ), LDA, A( J+JB, J ), LDA )                   CALL STRSM( 'Right', 'Lower', 'No transpose', DIAG, N-J-JB+1, JB, -ONE, A( J, J ), LDA, A( J+JB, J ), LDA )
-               END IF
+               }
 
                // Compute inverse of current diagonal block
 
                CALL STRTI2( 'Lower', DIAG, JB, A( J, J ), LDA, INFO )
    30       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

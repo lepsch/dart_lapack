@@ -97,93 +97,93 @@
       // Read the values of M
 
       READ( NIN, FMT = * )NM
-      IF( NM.LT.1 ) THEN
+      if ( NM.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NM ', NM, 1
          NM = 0
          FATAL = .TRUE.
-      ELSE IF( NM.GT.MAXIN ) THEN
+      } else if ( NM.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NM ', NM, MAXIN
          NM = 0
          FATAL = .TRUE.
-      END IF
+      }
       READ( NIN, FMT = * )( MVAL( I ), I = 1, NM )
       DO 10 I = 1, NM
-         IF( MVAL( I ).LT.0 ) THEN
+         if ( MVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', MVAL( I ), 0
             FATAL = .TRUE.
-         ELSE IF( MVAL( I ).GT.NMAX ) THEN
+         } else if ( MVAL( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9995 )' M  ', MVAL( I ), NMAX
             FATAL = .TRUE.
-         END IF
+         }
    10 CONTINUE
       IF( NM.GT.0 ) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM )
 
       // Read the values of N
 
       READ( NIN, FMT = * )NN
-      IF( NN.LT.1 ) THEN
+      if ( NN.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NN ', NN, 1
          NN = 0
          FATAL = .TRUE.
-      ELSE IF( NN.GT.MAXIN ) THEN
+      } else if ( NN.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NN ', NN, MAXIN
          NN = 0
          FATAL = .TRUE.
-      END IF
+      }
       READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
       DO 20 I = 1, NN
-         IF( NVAL( I ).LT.0 ) THEN
+         if ( NVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' N  ', NVAL( I ), 0
             FATAL = .TRUE.
-         ELSE IF( NVAL( I ).GT.NMAX ) THEN
+         } else if ( NVAL( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9995 )' N  ', NVAL( I ), NMAX
             FATAL = .TRUE.
-         END IF
+         }
    20 CONTINUE
       IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
 
       // Read the values of NRHS
 
       READ( NIN, FMT = * )NNS
-      IF( NNS.LT.1 ) THEN
+      if ( NNS.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
          NNS = 0
          FATAL = .TRUE.
-      ELSE IF( NNS.GT.MAXIN ) THEN
+      } else if ( NNS.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN
          NNS = 0
          FATAL = .TRUE.
-      END IF
+      }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS )
       DO 30 I = 1, NNS
-         IF( NSVAL( I ).LT.0 ) THEN
+         if ( NSVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
             FATAL = .TRUE.
-         ELSE IF( NSVAL( I ).GT.MAXRHS ) THEN
+         } else if ( NSVAL( I ).GT.MAXRHS ) {
             WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
             FATAL = .TRUE.
-         END IF
+         }
    30 CONTINUE
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 
       // Read the values of NB
 
       READ( NIN, FMT = * )NNB
-      IF( NNB.LT.1 ) THEN
+      if ( NNB.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )'NNB ', NNB, 1
          NNB = 0
          FATAL = .TRUE.
-      ELSE IF( NNB.GT.MAXIN ) THEN
+      } else if ( NNB.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )'NNB ', NNB, MAXIN
          NNB = 0
          FATAL = .TRUE.
-      END IF
+      }
       READ( NIN, FMT = * )( NBVAL( I ), I = 1, NNB )
       DO 40 I = 1, NNB
-         IF( NBVAL( I ).LT.0 ) THEN
+         if ( NBVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' NB ', NBVAL( I ), 0
             FATAL = .TRUE.
-         END IF
+         }
    40 CONTINUE
       IF( NNB.GT.0 ) WRITE( NOUT, FMT = 9993 )'NB  ', ( NBVAL( I ), I = 1, NNB )
 
@@ -203,34 +203,34 @@
 
       READ( NIN, FMT = * )( NXVAL( I ), I = 1, NNB )
       DO 70 I = 1, NNB
-         IF( NXVAL( I ).LT.0 ) THEN
+         if ( NXVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' NX ', NXVAL( I ), 0
             FATAL = .TRUE.
-         END IF
+         }
    70 CONTINUE
       IF( NNB.GT.0 ) WRITE( NOUT, FMT = 9993 )'NX  ', ( NXVAL( I ), I = 1, NNB )
 
       // Read the values of RANKVAL
 
       READ( NIN, FMT = * )NRANK
-      IF( NN.LT.1 ) THEN
+      if ( NN.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NRANK ', NRANK, 1
          NRANK = 0
          FATAL = .TRUE.
-      ELSE IF( NN.GT.MAXIN ) THEN
+      } else if ( NN.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NRANK ', NRANK, MAXIN
          NRANK = 0
          FATAL = .TRUE.
-      END IF
+      }
       READ( NIN, FMT = * )( RANKVAL( I ), I = 1, NRANK )
       DO I = 1, NRANK
-         IF( RANKVAL( I ).LT.0 ) THEN
+         if ( RANKVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' RANK  ', RANKVAL( I ), 0
             FATAL = .TRUE.
-         ELSE IF( RANKVAL( I ).GT.100 ) THEN
+         } else if ( RANKVAL( I ).GT.100 ) {
             WRITE( NOUT, FMT = 9995 )' RANK  ', RANKVAL( I ), 100
             FATAL = .TRUE.
-         END IF
+         }
       END DO
       IF( NRANK.GT.0 ) WRITE( NOUT, FMT = 9993 )'RANK % OF N', ( RANKVAL( I ), I = 1, NRANK )
 
@@ -251,10 +251,10 @@
 
       READ( NIN, FMT = * )TSTERR
 
-      IF( FATAL ) THEN
+      if ( FATAL ) {
          WRITE( NOUT, FMT = 9999 )
          STOP
-      END IF
+      }
 
       // Calculate and print the machine dependent constants.
 
@@ -276,19 +276,19 @@
       I = 3
    90 CONTINUE
       I = I + 1
-      IF( I.GT.72 ) THEN
+      if ( I.GT.72 ) {
          NMATS = MATMAX
          GO TO 130
-      END IF
+      }
       IF( ALINE( I: I ).EQ.' ' ) GO TO 90
       NMATS = 0
   100 CONTINUE
       C1 = ALINE( I: I )
       DO 110 K = 1, 10
-         IF( C1.EQ.INTSTR( K: K ) ) THEN
+         if ( C1.EQ.INTSTR( K: K ) ) {
             IC = K - 1
             GO TO 120
-         END IF
+         }
   110 CONTINUE
       GO TO 130
   120 CONTINUE
@@ -303,35 +303,35 @@
 
       // Check first character for correct precision.
 
-      IF( .NOT.LSAME( C1, 'Single precision' ) ) THEN
+      if ( .NOT.LSAME( C1, 'Single precision' ) ) {
          WRITE( NOUT, FMT = 9990 )PATH
 
-      ELSE IF( NMATS.LE.0 ) THEN
+      } else if ( NMATS.LE.0 ) {
 
          // Check for a positive number of tests requested.
 
          WRITE( NOUT, FMT = 9989 )PATH
 
-      ELSE IF( LSAMEN( 2, C2, 'GE' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GE' ) ) {
 
          // GE:  general matrices
 
          NTYPES = 11
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKGE( DOTYPE, NM, MVAL, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // GB:  general banded matrices
 
@@ -340,57 +340,57 @@
          NTYPES = 8
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKGB( DOTYPE, NM, MVAL, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), LA, A( 1, 3 ), LAFAC, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVGB( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), LA, A( 1, 3 ), LAFAC, A( 1, 6 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GT' ) ) {
 
          // GT:  general tridiagonal matrices
 
          NTYPES = 12
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKGT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVGT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PO' ) ) {
 
          // PO:  positive definite matrices
 
          NTYPES = 9
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKPO( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVPO( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'PS' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PS' ) ) {
 
          // PS:  positive semi-definite matrices
 
@@ -398,70 +398,70 @@
 
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKPS( DOTYPE, NN, NVAL, NNB2, NBVAL2, NRANK, RANKVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), PIV, WORK, RWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PP' ) ) {
 
          // PP:  positive definite packed matrices
 
          NTYPES = 9
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKPP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVPP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
 
          // PB:  positive definite banded matrices
 
          NTYPES = 8
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKPB( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVPB( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
          // PT:  positive definite tridiagonal matrices
 
          NTYPES = 12
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKPT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVPT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SY' ) ) {
 
          // SY:  symmetric indefinite matrices,
               // with partial (Bunch-Kaufman) pivoting algorithm
@@ -469,19 +469,19 @@
          NTYPES = 10
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKSY( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVSY( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
 
          // SR:  symmetric indefinite matrices,
               // with bounded Bunch-Kaufman (rook) pivoting algorithm
@@ -489,19 +489,19 @@
          NTYPES = 10
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKSY_ROOK(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVSY_ROOK( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
 
          // SK:  symmetric indefinite matrices,
               // with bounded Bunch-Kaufman (rook) pivoting algorithm,
@@ -510,19 +510,19 @@
          NTYPES = 10
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKSY_RK( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), E, A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVSY_RK( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), E, A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SA' ) ) {
 
          // SA:  symmetric indefinite matrices,
               // with partial (Aasen's) pivoting algorithm
@@ -530,19 +530,19 @@
          NTYPES = 10
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKSY_AA( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVSY_AA( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
         } else {
            WRITE( NOUT, FMT = 9988 )PATH
-        END IF
+        }
 
-      ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'S2' ) ) {
 
          // SA:  symmetric indefinite matrices,
               // with partial (Aasen's) pivoting algorithm
@@ -550,19 +550,19 @@
          NTYPES = 10
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKSY_AA_2STAGE( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVSY_AA_2STAGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
         } else {
            WRITE( NOUT, FMT = 9988 )PATH
-        END IF
+        }
 
-      ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
          // SP:  symmetric indefinite packed matrices,
               // with partial (Bunch-Kaufman) pivoting algorithm
@@ -570,236 +570,236 @@
          NTYPES = 10
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKSP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVSP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'TR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TR' ) ) {
 
          // TR:  triangular matrices
 
          NTYPES = 18
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKTR( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'TP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TP' ) ) {
 
          // TP:  triangular packed matrices
 
          NTYPES = 18
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKTP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'TB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TB' ) ) {
 
          // TB:  triangular banded matrices
 
          NTYPES = 17
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKTB( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'QR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'QR' ) ) {
 
          // QR:  QR factorization
 
          NTYPES = 8
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKQR( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'LQ' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'LQ' ) ) {
 
          // LQ:  LQ factorization
 
          NTYPES = 8
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKLQ( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'QL' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'QL' ) ) {
 
          // QL:  QL factorization
 
          NTYPES = 8
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKQL( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'RQ' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'RQ' ) ) {
 
          // RQ:  RQ factorization
 
          NTYPES = 8
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKRQ( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'QP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'QP' ) ) {
 
          // QP:  QR factorization with pivoting
 
          NTYPES = 6
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKQ3( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, THRESH, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 3 ), WORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'QK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'QK' ) ) {
 
          // QK: truncated QR factorization with pivoting
 
          NTYPES = 19
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKQP3RK( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'TZ' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TZ' ) ) {
 
          // TZ:  Trapezoidal matrix
 
          NTYPES = 3
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKTZ( DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 3 ), WORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'LS' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'LS' ) ) {
 
          // LS:  Least squares drivers
 
          NTYPES = 6
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL SDRVLS( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), RWORK, RWORK( NMAX+1 ), NOUT )
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'EQ' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'EQ' ) ) {
 
          // EQ:  Equilibration routines for general and positive definite
               // matrices (THREQ should be between 2 and 10)
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKEQ( THREQ, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'QT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'QT' ) ) {
 
          // QT:  QRT routines for general matrices
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKQRT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'QX' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'QX' ) ) {
 
          // QX:  QRT routines for triangular-pentagonal matrices
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKQRTP( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'TQ' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TQ' ) ) {
 
          // TQ:  LQT routines for general matrices
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKLQT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'XQ' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'XQ' ) ) {
 
          // XQ:  LQT routines for triangular-pentagonal matrices
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKLQTP( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'TS' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TS' ) ) {
 
          // TS:  QR routines for tall-skinny matrices
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKTSQR( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'HH' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HH' ) ) {
 
          // HH:  Householder reconstruction for tall-skinny matrices
 
-         IF( TSTCHK ) THEN
+         if ( TSTCHK ) {
             CALL SCHKORHR_COL( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 ) PATH
-         END IF
+         }
 
       } else {
 
          WRITE( NOUT, FMT = 9990 )PATH
-      END IF
+      }
 
       // Go back to get another input line.
 

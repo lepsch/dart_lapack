@@ -110,13 +110,13 @@
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             DO 160 IUPLO = 1, 2
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   UPLO = 'U'
                   PACKIT = 'C'
                } else {
                   UPLO = 'L'
                   PACKIT = 'R'
-               END IF
+               }
 
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
@@ -128,28 +128,28 @@
 
                // Check error code from ZLATMS.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 160
-               END IF
+               }
 
                // For types 3-6, zero one or more rows and columns of the
                // matrix to test that INFO is returned correctly.
 
-               IF( ZEROT ) THEN
-                  IF( IMAT.EQ.3 ) THEN
+               if ( ZEROT ) {
+                  if ( IMAT.EQ.3 ) {
                      IZERO = 1
-                  ELSE IF( IMAT.EQ.4 ) THEN
+                  } else if ( IMAT.EQ.4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
-                  END IF
+                  }
 
-                  IF( IMAT.LT.6 ) THEN
+                  if ( IMAT.LT.6 ) {
 
                      // Set row and column IZERO to zero.
 
-                     IF( IUPLO.EQ.1 ) THEN
+                     if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*IZERO / 2
                         DO 20 I = 1, IZERO - 1
                            A( IOFF+I ) = ZERO
@@ -169,10 +169,10 @@
                         DO 50 I = IZERO, N
                            A( IOFF+I ) = ZERO
    50                   CONTINUE
-                     END IF
+                     }
                   } else {
                      IOFF = 0
-                     IF( IUPLO.EQ.1 ) THEN
+                     if ( IUPLO.EQ.1 ) {
 
                         // Set the first IZERO rows and columns to zero.
 
@@ -194,19 +194,19 @@
    80                      CONTINUE
                            IOFF = IOFF + N - J
    90                   CONTINUE
-                     END IF
-                  END IF
+                     }
+                  }
                } else {
                   IZERO = 0
-               END IF
+               }
 
                // Set the imaginary part of the diagonals.
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   CALL ZLAIPD( N, A, 2, 1 )
                } else {
                   CALL ZLAIPD( N, A, N, -1 )
-               END IF
+               }
 
                DO 150 IFACT = 1, NFACT
 
@@ -217,11 +217,11 @@
                   // Compute the condition number for comparison with
                  t // he value returned by ZHPSVX.
 
-                  IF( ZEROT ) THEN
+                  if ( ZEROT ) {
                      IF( IFACT.EQ.1 ) GO TO 150
                      RCONDC = ZERO
 
-                  ELSE IF( IFACT.EQ.1 ) THEN
+                  } else if ( IFACT.EQ.1 ) {
 
                      // Compute the 1-norm of A.
 
@@ -240,12 +240,12 @@
 
                      // Compute the 1-norm condition number of A.
 
-                     IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                     if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                         RCONDC = ONE
                      } else {
                         RCONDC = ( ONE / ANORM ) / AINVNM
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Form an exact solution and set the right hand side.
 
@@ -255,7 +255,7 @@
 
                   // --- Test ZHPSV  ---
 
-                  IF( IFACT.EQ.2 ) THEN
+                  if ( IFACT.EQ.2 ) {
                      CALL ZCOPY( NPP, A, 1, AFAC, 1 )
                      CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 
@@ -268,27 +268,27 @@
                      // pivoting.
 
                      K = IZERO
-                     IF( K.GT.0 ) THEN
+                     if ( K.GT.0 ) {
   100                   CONTINUE
-                        IF( IWORK( K ).LT.0 ) THEN
-                           IF( IWORK( K ).NE.-K ) THEN
+                        if ( IWORK( K ).LT.0 ) {
+                           if ( IWORK( K ).NE.-K ) {
                               K = -IWORK( K )
                               GO TO 100
-                           END IF
-                        ELSE IF( IWORK( K ).NE.K ) THEN
+                           }
+                        } else if ( IWORK( K ).NE.K ) {
                            K = IWORK( K )
                            GO TO 100
-                        END IF
-                     END IF
+                        }
+                     }
 
                      // Check error code from ZHPSV .
 
-                     IF( INFO.NE.K ) THEN
+                     if ( INFO.NE.K ) {
                         CALL ALAERH( PATH, 'ZHPSV ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 120
-                     ELSE IF( INFO.NE.0 ) THEN
+                     } else if ( INFO.NE.0 ) {
                         GO TO 120
-                     END IF
+                     }
 
                      // Reconstruct matrix from factors and compute
                      // residual.
@@ -309,14 +309,14 @@
                     t // he threshold.
 
                      DO 110 K = 1, NT
-                        IF( RESULT( K ).GE.THRESH ) THEN
+                        if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'ZHPSV ', UPLO, N, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
   110                CONTINUE
                      NRUN = NRUN + NT
   120                CONTINUE
-                  END IF
+                  }
 
                   // --- Test ZHPSVX ---
 
@@ -333,28 +333,28 @@
                   // pivoting.
 
                   K = IZERO
-                  IF( K.GT.0 ) THEN
+                  if ( K.GT.0 ) {
   130                CONTINUE
-                     IF( IWORK( K ).LT.0 ) THEN
-                        IF( IWORK( K ).NE.-K ) THEN
+                     if ( IWORK( K ).LT.0 ) {
+                        if ( IWORK( K ).NE.-K ) {
                            K = -IWORK( K )
                            GO TO 130
-                        END IF
-                     ELSE IF( IWORK( K ).NE.K ) THEN
+                        }
+                     } else if ( IWORK( K ).NE.K ) {
                         K = IWORK( K )
                         GO TO 130
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Check the error code from ZHPSVX.
 
-                  IF( INFO.NE.K ) THEN
+                  if ( INFO.NE.K ) {
                      CALL ALAERH( PATH, 'ZHPSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                      GO TO 150
-                  END IF
+                  }
 
-                  IF( INFO.EQ.0 ) THEN
-                     IF( IFACT.GE.2 ) THEN
+                  if ( INFO.EQ.0 ) {
+                     if ( IFACT.GE.2 ) {
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -363,7 +363,7 @@
                         K1 = 1
                      } else {
                         K1 = 2
-                     END IF
+                     }
 
                      // Compute residual of the computed solution.
 
@@ -379,7 +379,7 @@
                      CALL ZPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                   } else {
                      K1 = 6
-                  END IF
+                  }
 
                   // Compare RCOND from ZHPSVX with the computed value
                   // in RCONDC.
@@ -390,10 +390,10 @@
                  t // he threshold.
 
                   DO 140 K = K1, 6
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'ZHPSVX', FACT, UPLO, N, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
   140             CONTINUE
                   NRUN = NRUN + 7 - K1
 

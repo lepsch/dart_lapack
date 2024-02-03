@@ -38,23 +38,23 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LTB.LT.( 4*N ) ) THEN
+      } else if ( LTB.LT.( 4*N ) ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -11
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SSYTRS_AA_2STAGE', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -65,11 +65,11 @@
       NB = INT( TB( 1 ) )
       LDTB = LTB/N
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Solve A*X = B, where A = U**T*T*U.
 
-         IF( N.GT.NB ) THEN
+         if ( N.GT.NB ) {
 
             // Pivot, P**T * B -> B
 
@@ -79,12 +79,12 @@
 
             CALL STRSM( 'L', 'U', 'T', 'U', N-NB, NRHS, ONE, A(1, NB+1), LDA, B(NB+1, 1), LDB)
 
-         END IF
+         }
 
          // Compute T \ B -> B   [ T \ (U**T \P**T * B) ]
 
          CALL SGBTRS( 'N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO)
-         IF( N.GT.NB ) THEN
+         if ( N.GT.NB ) {
 
             // Compute (U \ B) -> B   [ U \ (T \ (U**T \P**T * B) ) ]
 
@@ -94,13 +94,13 @@
 
             CALL SLASWP( NRHS, B, LDB, NB+1, N, IPIV, -1 )
 
-         END IF
+         }
 
       } else {
 
          // Solve A*X = B, where A = L*T*L**T.
 
-         IF( N.GT.NB ) THEN
+         if ( N.GT.NB ) {
 
             // Pivot, P**T * B -> B
 
@@ -110,12 +110,12 @@
 
             CALL STRSM( 'L', 'L', 'N', 'U', N-NB, NRHS, ONE, A(NB+1, 1), LDA, B(NB+1, 1), LDB)
 
-         END IF
+         }
 
          // Compute T \ B -> B   [ T \ (L \P**T * B) ]
 
          CALL SGBTRS( 'N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO)
-         IF( N.GT.NB ) THEN
+         if ( N.GT.NB ) {
 
             // Compute (L**T \ B) -> B   [ L**T \ (T \ (L \P**T * B) ) ]
 
@@ -125,8 +125,8 @@
 
             CALL SLASWP( NRHS, B, LDB, NB+1, N, IPIV, -1 )
 
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

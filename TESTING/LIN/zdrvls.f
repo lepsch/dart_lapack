@@ -100,19 +100,19 @@
       MMAX = 0
       NSMAX = 0
       DO I = 1, NM
-         IF ( MVAL( I ).GT.MMAX ) THEN
+         if ( MVAL( I ).GT.MMAX ) {
             MMAX = MVAL( I )
-         END IF
+         }
       ENDDO
       DO I = 1, NN
-         IF ( NVAL( I ).GT.NMAX ) THEN
+         if ( NVAL( I ).GT.NMAX ) {
             NMAX = NVAL( I )
-         END IF
+         }
       ENDDO
       DO I = 1, NNS
-         IF ( NSVAL( I ).GT.NSMAX ) THEN
+         if ( NSVAL( I ).GT.NSMAX ) {
             NSMAX = NSVAL( I )
-         END IF
+         }
       ENDDO
       M = MMAX
       N = NMAX
@@ -142,14 +142,14 @@
                DO IRANK = 1, 2
                   DO ISCALE = 1, 3
                      ITYPE = ( IRANK-1 )*3 + ISCALE
-                     IF( DOTYPE( ITYPE ) ) THEN
-                        IF( IRANK.EQ.1 ) THEN
+                     if ( DOTYPE( ITYPE ) ) {
+                        if ( IRANK.EQ.1 ) {
                            DO ITRAN = 1, 2
-                              IF( ITRAN.EQ.1 ) THEN
+                              if ( ITRAN.EQ.1 ) {
                                  TRANS = 'N'
                               } else {
                                  TRANS = 'C'
-                              END IF
+                              }
 
                               // Compute workspace needed for ZGELS
                               CALL ZGELS( TRANS, M, N, NRHS, A, LDA, B, LDB, WQ, -1, INFO )
@@ -161,7 +161,7 @@
                               CALL ZGETSLS( TRANS, M, N, NRHS, A, LDA, B, LDB, WQ, -1, INFO )
                               LWORK_ZGETSLS = INT( WQ( 1 ) )
                            ENDDO
-                        END IF
+                        }
                         // Compute workspace needed for ZGELSY
                         CALL ZGELSY( M, N, NRHS, A, LDA, B, LDB, IWQ, RCOND, CRANK, WQ, -1, RWQ, INFO )
                         LWORK_ZGELSY = INT( WQ( 1 ) )
@@ -180,7 +180,7 @@
                         LRWORK = MAX( LRWORK, LRWORK_ZGELSY, LRWORK_ZGELSS, LRWORK_ZGELSD )
                         // Compute LWORK workspace needed for all functions
                         LWORK = MAX( LWORK, LWORK_ZGELS, LWORK_ZGELST, LWORK_ZGETSLS, LWORK_ZGELSY, LWORK_ZGELSS, LWORK_ZGELSD )
-                     END IF
+                     }
                   ENDDO
                ENDDO
             ENDDO
@@ -214,7 +214,7 @@
                   // =====================================================
                         // Begin test ZGELS
                   // =====================================================
-                     IF( IRANK.EQ.1 ) THEN
+                     if ( IRANK.EQ.1 ) {
 
                         // Generate a matrix of scaling type ISCALE
 
@@ -230,7 +230,7 @@
                            // Loop for testing non-transposed and transposed.
 
                            DO ITRAN = 1, 2
-                              IF( ITRAN.EQ.1 ) THEN
+                              if ( ITRAN.EQ.1 ) {
                                  TRANS = 'N'
                                  NROWS = M
                                  NCOLS = N
@@ -238,22 +238,22 @@
                                  TRANS = 'C'
                                  NROWS = N
                                  NCOLS = M
-                              END IF
+                              }
                               LDWORK = MAX( 1, NCOLS )
 
                               // Set up a consistent rhs
 
-                              IF( NCOLS.GT.0 ) THEN
+                              if ( NCOLS.GT.0 ) {
                                  CALL ZLARNV( 2, ISEED, NCOLS*NRHS, WORK )                                  CALL ZDSCAL( NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 )
-                              END IF
+                              }
                               CALL ZGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB )
                               CALL ZLACPY( 'Full', NROWS, NRHS, B, LDB, COPYB, LDB )
 
                               // Solve LS or overdetermined system
 
-                              IF( M.GT.0 .AND. N.GT.0 ) THEN
+                              if ( M.GT.0 .AND. N.GT.0 ) {
                                  CALL ZLACPY( 'Full', M, N, COPYA, LDA, A, LDA )                                  CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB )
-                              END IF
+                              }
                               SRNAMT = 'ZGELS '
                               CALL ZGELS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )
 
@@ -269,7 +269,7 @@
                               // Test 2: Check correctness of results
                               // for ZGELS.
 
-                              IF( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) THEN
+                              if ( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) {
 
                                  // Solving LS system
 
@@ -279,28 +279,28 @@
                                  // Solving overdetermined system
 
                                  RESULT( 2 ) = ZQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
-                              END IF
+                              }
 
                               // Print information about the tests that
                               // did not pass the threshold.
 
                               DO K = 1, 2
-                                 IF( RESULT( K ).GE.THRESH ) THEN
+                                 if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
                                     NFAIL = NFAIL + 1
-                                 END IF
+                                 }
                               END DO
                               NRUN = NRUN + 2
                            END DO
                         END DO
-                     END IF
+                     }
                   // =====================================================
                         // End test ZGELS
                   // =====================================================
                   // =====================================================
                         // Begin test ZGELST
                   // =====================================================
-                     IF( IRANK.EQ.1 ) THEN
+                     if ( IRANK.EQ.1 ) {
 
                         // Generate a matrix of scaling type ISCALE
 
@@ -316,7 +316,7 @@
                            // Loop for testing non-transposed and transposed.
 
                            DO ITRAN = 1, 2
-                              IF( ITRAN.EQ.1 ) THEN
+                              if ( ITRAN.EQ.1 ) {
                                  TRANS = 'N'
                                  NROWS = M
                                  NCOLS = N
@@ -324,22 +324,22 @@
                                  TRANS = 'C'
                                  NROWS = N
                                  NCOLS = M
-                              END IF
+                              }
                               LDWORK = MAX( 1, NCOLS )
 
                               // Set up a consistent rhs
 
-                              IF( NCOLS.GT.0 ) THEN
+                              if ( NCOLS.GT.0 ) {
                                  CALL ZLARNV( 2, ISEED, NCOLS*NRHS, WORK )                                  CALL ZDSCAL( NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 )
-                              END IF
+                              }
                               CALL ZGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB )
                               CALL ZLACPY( 'Full', NROWS, NRHS, B, LDB, COPYB, LDB )
 
                               // Solve LS or overdetermined system
 
-                              IF( M.GT.0 .AND. N.GT.0 ) THEN
+                              if ( M.GT.0 .AND. N.GT.0 ) {
                                  CALL ZLACPY( 'Full', M, N, COPYA, LDA, A, LDA )                                  CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB )
-                              END IF
+                              }
                               SRNAMT = 'ZGELST'
                               CALL ZGELST( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )
 
@@ -355,7 +355,7 @@
                               // Test 4: Check correctness of results
                               // for ZGELST.
 
-                              IF( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) THEN
+                              if ( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) {
 
                                  // Solving LS system
 
@@ -365,28 +365,28 @@
                                  // Solving overdetermined system
 
                                  RESULT( 4 ) = ZQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
-                              END IF
+                              }
 
                               // Print information about the tests that
                               // did not pass the threshold.
 
                               DO K = 3, 4
-                                 IF( RESULT( K ).GE.THRESH ) THEN
+                                 if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
                                     NFAIL = NFAIL + 1
-                                 END IF
+                                 }
                               END DO
                               NRUN = NRUN + 2
                            END DO
                         END DO
-                     END IF
+                     }
                   // =====================================================
                         // End test ZGELST
                   // =====================================================
                   // =====================================================
                         // Begin test ZGELSTSLS
                   // =====================================================
-                     IF( IRANK.EQ.1 ) THEN
+                     if ( IRANK.EQ.1 ) {
 
                         // Generate a matrix of scaling type ISCALE
 
@@ -408,7 +408,7 @@
                               // and transposed.
 
                               DO ITRAN = 1, 2
-                                 IF( ITRAN.EQ.1 ) THEN
+                                 if ( ITRAN.EQ.1 ) {
                                     TRANS = 'N'
                                     NROWS = M
                                     NCOLS = N
@@ -416,22 +416,22 @@
                                     TRANS = 'C'
                                     NROWS = N
                                     NCOLS = M
-                                 END IF
+                                 }
                                  LDWORK = MAX( 1, NCOLS )
 
                                  // Set up a consistent rhs
 
-                                 IF( NCOLS.GT.0 ) THEN
+                                 if ( NCOLS.GT.0 ) {
                                     CALL ZLARNV( 2, ISEED, NCOLS*NRHS, WORK )                                     CALL ZSCAL( NCOLS*NRHS, CONE / DBLE( NCOLS ), WORK, 1 )
-                                 END IF
+                                 }
                                  CALL ZGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB )
                                  CALL ZLACPY( 'Full', NROWS, NRHS, B, LDB, COPYB, LDB )
 
                                  // Solve LS or overdetermined system
 
-                                 IF( M.GT.0 .AND. N.GT.0 ) THEN
+                                 if ( M.GT.0 .AND. N.GT.0 ) {
                                     CALL ZLACPY( 'Full', M, N, COPYA, LDA, A, LDA )                                     CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB )
-                                 END IF
+                                 }
                                  SRNAMT = 'ZGETSLS '
                                  CALL ZGETSLS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGETSLS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
 
@@ -445,7 +445,7 @@
                               // Test 6: Check correctness of results
                               // for ZGETSLS.
 
-                                 IF( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) THEN
+                                 if ( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) {
 
                                     // Solving LS system, compute:
                                     // r = norm((B- A*X)**T * A) /
@@ -457,22 +457,22 @@
                                     // Solving overdetermined system
 
                                     RESULT( 6 ) = ZQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
-                                 END IF
+                                 }
 
                                  // Print information about the tests that
                                  // did not pass the threshold.
 
                                  DO K = 5, 6
-                                    IF( RESULT( K ).GE.THRESH ) THEN
+                                    if ( RESULT( K ).GE.THRESH ) {
                                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K )
                                           NFAIL = NFAIL + 1
-                                    END IF
+                                    }
                                  END DO
                                  NRUN = NRUN + 2
                               END DO
                            END DO
                         END DO
-                     END IF
+                     }
                   // =====================================================
                         // End test ZGELSTSLS
                   // =====================================================
@@ -555,12 +555,12 @@
 
                         // Test 11:  Compute relative error in svd
 
-                        IF( RANK.GT.0 ) THEN
+                        if ( RANK.GT.0 ) {
                            CALL DAXPY( MNMIN, -ONE, COPYS, 1, S, 1 )
                            RESULT( 11 ) = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) )
                         } else {
                            RESULT( 11 ) = ZERO
-                        END IF
+                        }
 
                         // Test 12:  Compute error in solution
 
@@ -592,12 +592,12 @@
 
                         // Test 15:  Compute relative error in svd
 
-                        IF( RANK.GT.0 ) THEN
+                        if ( RANK.GT.0 ) {
                            CALL DAXPY( MNMIN, -ONE, COPYS, 1, S, 1 )
                            RESULT( 15 ) = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) )
                         } else {
                            RESULT( 15 ) = ZERO
-                        END IF
+                        }
 
                         // Test 16:  Compute error in solution
 
@@ -617,10 +617,10 @@
                         // pass the threshold.
 
                         DO 80 K = 7, 18
-                           IF( RESULT( K ).GE.THRESH ) THEN
+                           if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K )
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
    80                   CONTINUE
                         NRUN = NRUN + 12
 

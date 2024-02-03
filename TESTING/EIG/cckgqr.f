@@ -82,18 +82,18 @@
                   CALL SLATB9( 'GRQ', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
 
                   CALL CLATMS( M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
                      GO TO 30
-                  END IF
+                  }
 
                   CALL CLATMS( P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
                      GO TO 30
-                  END IF
+                  }
 
                   NT = 4
 
@@ -103,14 +103,14 @@
                   // pass the threshold.
 
                   DO 10 I = 1, NT
-                     IF( RESULT( I ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. FIRSTT ) THEN
+                     if ( RESULT( I ).GE.THRESH ) {
+                        if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                            FIRSTT = .FALSE.
                            CALL ALAHDG( NOUT, 'GRQ' )
-                        END IF
+                        }
                         WRITE( NOUT, FMT = 9998 )M, P, N, IMAT, I, RESULT( I )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
    10             CONTINUE
                   NRUN = NRUN + NT
 
@@ -122,18 +122,18 @@
                   CALL SLATB9( 'GQR', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
 
                   CALL CLATMS( N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
                      GO TO 30
-                  END IF
+                  }
 
                   CALL CLATMS( N, P, DISTB, ISEED, TYPE, RWORK, MODEA, CNDNMA, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
                      GO TO 30
-                  END IF
+                  }
 
                   NT = 4
 
@@ -143,14 +143,14 @@
                   // pass the threshold.
 
                   DO 20 I = 1, NT
-                     IF( RESULT( I ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. FIRSTT ) THEN
+                     if ( RESULT( I ).GE.THRESH ) {
+                        if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                            FIRSTT = .FALSE.
                            CALL ALAHDG( NOUT, PATH )
-                        END IF
+                        }
                         WRITE( NOUT, FMT = 9997 )N, M, P, IMAT, I, RESULT( I )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
    20             CONTINUE
                   NRUN = NRUN + NT
 

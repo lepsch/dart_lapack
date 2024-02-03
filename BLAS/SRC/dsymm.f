@@ -37,35 +37,35 @@
 
       // Set NROWA as the number of rows of A.
 
-      IF (LSAME(SIDE,'L')) THEN
+      if (LSAME(SIDE,'L')) {
           NROWA = M
       } else {
           NROWA = N
-      END IF
+      }
       UPPER = LSAME(UPLO,'U')
 
       // Test the input parameters.
 
       INFO = 0
-      IF ((.NOT.LSAME(SIDE,'L')) .AND. (.NOT.LSAME(SIDE,'R'))) THEN
+      if ((.NOT.LSAME(SIDE,'L')) .AND. (.NOT.LSAME(SIDE,'R'))) {
           INFO = 1
-      ELSE IF ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) THEN
+      } else if ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) {
           INFO = 2
-      ELSE IF (M.LT.0) THEN
+      } else if (M.LT.0) {
           INFO = 3
-      ELSE IF (N.LT.0) THEN
+      } else if (N.LT.0) {
           INFO = 4
-      ELSE IF (LDA.LT.MAX(1,NROWA)) THEN
+      } else if (LDA.LT.MAX(1,NROWA)) {
           INFO = 7
-      ELSE IF (LDB.LT.MAX(1,M)) THEN
+      } else if (LDB.LT.MAX(1,M)) {
           INFO = 9
-      ELSE IF (LDC.LT.MAX(1,M)) THEN
+      } else if (LDC.LT.MAX(1,M)) {
           INFO = 12
-      END IF
-      IF (INFO.NE.0) THEN
+      }
+      if (INFO.NE.0) {
           CALL XERBLA('DSYMM ',INFO)
           RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -73,8 +73,8 @@
 
       // And when  alpha.eq.zero.
 
-      IF (ALPHA.EQ.ZERO) THEN
-          IF (BETA.EQ.ZERO) THEN
+      if (ALPHA.EQ.ZERO) {
+          if (BETA.EQ.ZERO) {
               DO 20 J = 1,N
                   DO 10 I = 1,M
                       C(I,J) = ZERO
@@ -86,17 +86,17 @@
                       C(I,J) = BETA*C(I,J)
    30             CONTINUE
    40         CONTINUE
-          END IF
+          }
           RETURN
-      END IF
+      }
 
       // Start the operations.
 
-      IF (LSAME(SIDE,'L')) THEN
+      if (LSAME(SIDE,'L')) {
 
          // Form  C := alpha*A*B + beta*C.
 
-          IF (UPPER) THEN
+          if (UPPER) {
               DO 70 J = 1,N
                   DO 60 I = 1,M
                       TEMP1 = ALPHA*B(I,J)
@@ -105,11 +105,11 @@
                           C(K,J) = C(K,J) + TEMP1*A(K,I)
                           TEMP2 = TEMP2 + B(K,J)*A(K,I)
    50                 CONTINUE
-                      IF (BETA.EQ.ZERO) THEN
+                      if (BETA.EQ.ZERO) {
                           C(I,J) = TEMP1*A(I,I) + ALPHA*TEMP2
                       } else {
                           C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) + ALPHA*TEMP2
-                      END IF
+                      }
    60             CONTINUE
    70         CONTINUE
           } else {
@@ -121,21 +121,21 @@
                           C(K,J) = C(K,J) + TEMP1*A(K,I)
                           TEMP2 = TEMP2 + B(K,J)*A(K,I)
    80                 CONTINUE
-                      IF (BETA.EQ.ZERO) THEN
+                      if (BETA.EQ.ZERO) {
                           C(I,J) = TEMP1*A(I,I) + ALPHA*TEMP2
                       } else {
                           C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) + ALPHA*TEMP2
-                      END IF
+                      }
    90             CONTINUE
   100         CONTINUE
-          END IF
+          }
       } else {
 
          // Form  C := alpha*B*A + beta*C.
 
           DO 170 J = 1,N
               TEMP1 = ALPHA*A(J,J)
-              IF (BETA.EQ.ZERO) THEN
+              if (BETA.EQ.ZERO) {
                   DO 110 I = 1,M
                       C(I,J) = TEMP1*B(I,J)
   110             CONTINUE
@@ -143,29 +143,29 @@
                   DO 120 I = 1,M
                       C(I,J) = BETA*C(I,J) + TEMP1*B(I,J)
   120             CONTINUE
-              END IF
+              }
               DO 140 K = 1,J - 1
-                  IF (UPPER) THEN
+                  if (UPPER) {
                       TEMP1 = ALPHA*A(K,J)
                   } else {
                       TEMP1 = ALPHA*A(J,K)
-                  END IF
+                  }
                   DO 130 I = 1,M
                       C(I,J) = C(I,J) + TEMP1*B(I,K)
   130             CONTINUE
   140         CONTINUE
               DO 160 K = J + 1,N
-                  IF (UPPER) THEN
+                  if (UPPER) {
                       TEMP1 = ALPHA*A(J,K)
                   } else {
                       TEMP1 = ALPHA*A(K,J)
-                  END IF
+                  }
                   DO 150 I = 1,M
                       C(I,J) = C(I,J) + TEMP1*B(I,K)
   150             CONTINUE
   160         CONTINUE
   170     CONTINUE
-      END IF
+      }
 
       RETURN
 

@@ -51,65 +51,65 @@
 
       // Decode and Test the input parameters
 
-      IF( LSAME( HOWMNY, 'A' ) ) THEN
+      if ( LSAME( HOWMNY, 'A' ) ) {
          IHWMNY = 1
          ILALL = .TRUE.
          ILBACK = .FALSE.
-      ELSE IF( LSAME( HOWMNY, 'S' ) ) THEN
+      } else if ( LSAME( HOWMNY, 'S' ) ) {
          IHWMNY = 2
          ILALL = .FALSE.
          ILBACK = .FALSE.
-      ELSE IF( LSAME( HOWMNY, 'B' ) ) THEN
+      } else if ( LSAME( HOWMNY, 'B' ) ) {
          IHWMNY = 3
          ILALL = .TRUE.
          ILBACK = .TRUE.
       } else {
          IHWMNY = -1
-      END IF
+      }
 
-      IF( LSAME( SIDE, 'R' ) ) THEN
+      if ( LSAME( SIDE, 'R' ) ) {
          ISIDE = 1
          COMPL = .FALSE.
          COMPR = .TRUE.
-      ELSE IF( LSAME( SIDE, 'L' ) ) THEN
+      } else if ( LSAME( SIDE, 'L' ) ) {
          ISIDE = 2
          COMPL = .TRUE.
          COMPR = .FALSE.
-      ELSE IF( LSAME( SIDE, 'B' ) ) THEN
+      } else if ( LSAME( SIDE, 'B' ) ) {
          ISIDE = 3
          COMPL = .TRUE.
          COMPR = .TRUE.
       } else {
          ISIDE = -1
-      END IF
+      }
 
       INFO = 0
-      IF( ISIDE.LT.0 ) THEN
+      if ( ISIDE.LT.0 ) {
          INFO = -1
-      ELSE IF( IHWMNY.LT.0 ) THEN
+      } else if ( IHWMNY.LT.0 ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( LDS.LT.MAX( 1, N ) ) THEN
+      } else if ( LDS.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDP.LT.MAX( 1, N ) ) THEN
+      } else if ( LDP.LT.MAX( 1, N ) ) {
          INFO = -8
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTGEVC', -INFO )
          RETURN
-      END IF
+      }
 
       // Count the number of eigenvectors
 
-      IF( .NOT.ILALL ) THEN
+      if ( .NOT.ILALL ) {
          IM = 0
          DO 10 J = 1, N
             IF( SELECT( J ) ) IM = IM + 1
    10    CONTINUE
       } else {
          IM = N
-      END IF
+      }
 
       // Check diagonal of B
 
@@ -118,19 +118,19 @@
          IF( DIMAG( P( J, J ) ).NE.ZERO ) ILBBAD = .TRUE.
    20 CONTINUE
 
-      IF( ILBBAD ) THEN
+      if ( ILBBAD ) {
          INFO = -7
-      ELSE IF( COMPL .AND. LDVL.LT.N .OR. LDVL.LT.1 ) THEN
+      } else if ( COMPL .AND. LDVL.LT.N .OR. LDVL.LT.1 ) {
          INFO = -10
-      ELSE IF( COMPR .AND. LDVR.LT.N .OR. LDVR.LT.1 ) THEN
+      } else if ( COMPR .AND. LDVR.LT.N .OR. LDVR.LT.1 ) {
          INFO = -12
-      ELSE IF( MM.LT.IM ) THEN
+      } else if ( MM.LT.IM ) {
          INFO = -13
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTGEVC', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -170,21 +170,21 @@
 
       // Left eigenvectors
 
-      IF( COMPL ) THEN
+      if ( COMPL ) {
          IEIG = 0
 
          // Main loop over eigenvalues
 
          DO 140 JE = 1, N
-            IF( ILALL ) THEN
+            if ( ILALL ) {
                ILCOMP = .TRUE.
             } else {
                ILCOMP = SELECT( JE )
-            END IF
-            IF( ILCOMP ) THEN
+            }
+            if ( ILCOMP ) {
                IEIG = IEIG + 1
 
-               IF( ABS1( S( JE, JE ) ).LE.SAFMIN .AND. ABS( DBLE( P( JE, JE ) ) ).LE.SAFMIN ) THEN
+               if ( ABS1( S( JE, JE ) ).LE.SAFMIN .AND. ABS( DBLE( P( JE, JE ) ) ).LE.SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -193,7 +193,7 @@
    50             CONTINUE
                   VL( IEIG, IEIG ) = CONE
                   GO TO 140
-               END IF
+               }
 
                // Non-singular eigenvalue:
                // Compute coefficients  a  and  b  in
@@ -213,19 +213,19 @@
 
                SCALE = ONE
                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) )
-               IF( LSA .OR. LSB ) THEN
+               if ( LSA .OR. LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) )
-                  IF( LSA ) THEN
+                  if ( LSA ) {
                      ACOEFF = ASCALE*( SCALE*SBETA )
                   } else {
                      ACOEFF = SCALE*ACOEFF
-                  END IF
-                  IF( LSB ) THEN
+                  }
+                  if ( LSB ) {
                      BCOEFF = BSCALE*( SCALE*SALPHA )
                   } else {
                      BCOEFF = SCALE*BCOEFF
-                  END IF
-               END IF
+                  }
+               }
 
                ACOEFA = ABS( ACOEFF )
                BCOEFA = ABS1( BCOEFF )
@@ -251,12 +251,12 @@
                   // (Scale if necessary)
 
                   TEMP = ONE / XMAX
-                  IF( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GT.BIGNUM* TEMP ) THEN
+                  if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GT.BIGNUM* TEMP ) {
                      DO 70 JR = JE, J - 1
                         WORK( JR ) = TEMP*WORK( JR )
    70                CONTINUE
                      XMAX = ONE
-                  END IF
+                  }
                   SUMA = CZERO
                   SUMB = CZERO
 
@@ -273,30 +273,30 @@
                   D = DCONJG( ACOEFF*S( J, J )-BCOEFF*P( J, J ) )
                   IF( ABS1( D ).LE.DMIN ) D = DCMPLX( DMIN )
 
-                  IF( ABS1( D ).LT.ONE ) THEN
-                     IF( ABS1( SUM ).GE.BIGNUM*ABS1( D ) ) THEN
+                  if ( ABS1( D ).LT.ONE ) {
+                     if ( ABS1( SUM ).GE.BIGNUM*ABS1( D ) ) {
                         TEMP = ONE / ABS1( SUM )
                         DO 90 JR = JE, J - 1
                            WORK( JR ) = TEMP*WORK( JR )
    90                   CONTINUE
                         XMAX = TEMP*XMAX
                         SUM = TEMP*SUM
-                     END IF
-                  END IF
+                     }
+                  }
                   WORK( J ) = ZLADIV( -SUM, D )
                   XMAX = MAX( XMAX, ABS1( WORK( J ) ) )
   100          CONTINUE
 
                // Back transform eigenvector if HOWMNY='B'.
 
-               IF( ILBACK ) THEN
+               if ( ILBACK ) {
                   CALL ZGEMV( 'N', N, N+1-JE, CONE, VL( 1, JE ), LDVL, WORK( JE ), 1, CZERO, WORK( N+1 ), 1 )
                   ISRC = 2
                   IBEG = 1
                } else {
                   ISRC = 1
                   IBEG = JE
-               END IF
+               }
 
                // Copy and scale eigenvector into column of VL
 
@@ -305,40 +305,40 @@
                   XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) )
   110          CONTINUE
 
-               IF( XMAX.GT.SAFMIN ) THEN
+               if ( XMAX.GT.SAFMIN ) {
                   TEMP = ONE / XMAX
                   DO 120 JR = IBEG, N
                      VL( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR )
   120             CONTINUE
                } else {
                   IBEG = N + 1
-               END IF
+               }
 
                DO 130 JR = 1, IBEG - 1
                   VL( JR, IEIG ) = CZERO
   130          CONTINUE
 
-            END IF
+            }
   140    CONTINUE
-      END IF
+      }
 
       // Right eigenvectors
 
-      IF( COMPR ) THEN
+      if ( COMPR ) {
          IEIG = IM + 1
 
          // Main loop over eigenvalues
 
          DO 250 JE = N, 1, -1
-            IF( ILALL ) THEN
+            if ( ILALL ) {
                ILCOMP = .TRUE.
             } else {
                ILCOMP = SELECT( JE )
-            END IF
-            IF( ILCOMP ) THEN
+            }
+            if ( ILCOMP ) {
                IEIG = IEIG - 1
 
-               IF( ABS1( S( JE, JE ) ).LE.SAFMIN .AND. ABS( DBLE( P( JE, JE ) ) ).LE.SAFMIN ) THEN
+               if ( ABS1( S( JE, JE ) ).LE.SAFMIN .AND. ABS( DBLE( P( JE, JE ) ) ).LE.SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -347,7 +347,7 @@
   150             CONTINUE
                   VR( IEIG, IEIG ) = CONE
                   GO TO 250
-               END IF
+               }
 
                // Non-singular eigenvalue:
                // Compute coefficients  a  and  b  in
@@ -367,19 +367,19 @@
 
                SCALE = ONE
                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) )
-               IF( LSA .OR. LSB ) THEN
+               if ( LSA .OR. LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) )
-                  IF( LSA ) THEN
+                  if ( LSA ) {
                      ACOEFF = ASCALE*( SCALE*SBETA )
                   } else {
                      ACOEFF = SCALE*ACOEFF
-                  END IF
-                  IF( LSB ) THEN
+                  }
+                  if ( LSB ) {
                      BCOEFF = BSCALE*( SCALE*SALPHA )
                   } else {
                      BCOEFF = SCALE*BCOEFF
-                  END IF
-               END IF
+                  }
+               }
 
                ACOEFA = ABS( ACOEFF )
                BCOEFA = ABS1( BCOEFF )
@@ -408,48 +408,48 @@
                   D = ACOEFF*S( J, J ) - BCOEFF*P( J, J )
                   IF( ABS1( D ).LE.DMIN ) D = DCMPLX( DMIN )
 
-                  IF( ABS1( D ).LT.ONE ) THEN
-                     IF( ABS1( WORK( J ) ).GE.BIGNUM*ABS1( D ) ) THEN
+                  if ( ABS1( D ).LT.ONE ) {
+                     if ( ABS1( WORK( J ) ).GE.BIGNUM*ABS1( D ) ) {
                         TEMP = ONE / ABS1( WORK( J ) )
                         DO 180 JR = 1, JE
                            WORK( JR ) = TEMP*WORK( JR )
   180                   CONTINUE
-                     END IF
-                  END IF
+                     }
+                  }
 
                   WORK( J ) = ZLADIV( -WORK( J ), D )
 
-                  IF( J.GT.1 ) THEN
+                  if ( J.GT.1 ) {
 
                      // w = w + x(j)*(a S(*,j) - b P(*,j) ) with scaling
 
-                     IF( ABS1( WORK( J ) ).GT.ONE ) THEN
+                     if ( ABS1( WORK( J ) ).GT.ONE ) {
                         TEMP = ONE / ABS1( WORK( J ) )
-                        IF( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GE. BIGNUM*TEMP ) THEN
+                        if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GE. BIGNUM*TEMP ) {
                            DO 190 JR = 1, JE
                               WORK( JR ) = TEMP*WORK( JR )
   190                      CONTINUE
-                        END IF
-                     END IF
+                        }
+                     }
 
                      CA = ACOEFF*WORK( J )
                      CB = BCOEFF*WORK( J )
                      DO 200 JR = 1, J - 1
                         WORK( JR ) = WORK( JR ) + CA*S( JR, J ) - CB*P( JR, J )
   200                CONTINUE
-                  END IF
+                  }
   210          CONTINUE
 
                // Back transform eigenvector if HOWMNY='B'.
 
-               IF( ILBACK ) THEN
+               if ( ILBACK ) {
                   CALL ZGEMV( 'N', N, JE, CONE, VR, LDVR, WORK, 1, CZERO, WORK( N+1 ), 1 )
                   ISRC = 2
                   IEND = N
                } else {
                   ISRC = 1
                   IEND = JE
-               END IF
+               }
 
                // Copy and scale eigenvector into column of VR
 
@@ -458,22 +458,22 @@
                   XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) )
   220          CONTINUE
 
-               IF( XMAX.GT.SAFMIN ) THEN
+               if ( XMAX.GT.SAFMIN ) {
                   TEMP = ONE / XMAX
                   DO 230 JR = 1, IEND
                      VR( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR )
   230             CONTINUE
                } else {
                   IEND = 0
-               END IF
+               }
 
                DO 240 JR = IEND + 1, N
                   VR( JR, IEIG ) = CZERO
   240          CONTINUE
 
-            END IF
+            }
   250    CONTINUE
-      END IF
+      }
 
       RETURN
 

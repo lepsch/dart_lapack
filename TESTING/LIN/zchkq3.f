@@ -107,33 +107,33 @@
                DO 20 I = 1, N
                   IWORK( I ) = 0
    20          CONTINUE
-               IF( IMODE.EQ.1 ) THEN
+               if ( IMODE.EQ.1 ) {
                   CALL ZLASET( 'Full', M, N, CZERO, CZERO, COPYA, LDA )
                   DO 30 I = 1, MNMIN
                      S( I ) = ZERO
    30             CONTINUE
                } else {
                   CALL ZLATMS( M, N, 'Uniform', ISEED, 'Nonsymm', S, MODE, ONE / EPS, ONE, M, N, 'No packing', COPYA, LDA, WORK, INFO )
-                  IF( IMODE.GE.4 ) THEN
-                     IF( IMODE.EQ.4 ) THEN
+                  if ( IMODE.GE.4 ) {
+                     if ( IMODE.EQ.4 ) {
                         ILOW = 1
                         ISTEP = 1
                         IHIGH = MAX( 1, N / 2 )
-                     ELSE IF( IMODE.EQ.5 ) THEN
+                     } else if ( IMODE.EQ.5 ) {
                         ILOW = MAX( 1, N / 2 )
                         ISTEP = 1
                         IHIGH = N
-                     ELSE IF( IMODE.EQ.6 ) THEN
+                     } else if ( IMODE.EQ.6 ) {
                         ILOW = 1
                         ISTEP = 2
                         IHIGH = N
-                     END IF
+                     }
                      DO 40 I = ILOW, IHIGH, ISTEP
                         IWORK( I ) = 1
    40                CONTINUE
-                  END IF
+                  }
                   CALL DLAORD( 'Decreasing', MNMIN, S, 1 )
-               END IF
+               }
 
                DO 60 INB = 1, NNB
 
@@ -173,10 +173,10 @@
                  t // he threshold.
 
                   DO 50 K = 1, NTESTS
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'ZGEQP3', M, N, NB, IMODE, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
    50             CONTINUE
                   NRUN = NRUN + NTESTS
 

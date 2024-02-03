@@ -63,7 +63,7 @@
       CALL ZUNGLQ( N, N, K, Q, LDA, TAU, WORK, LWORK, INFO )
 
       DO 30 ISIDE = 1, 2
-         IF( ISIDE.EQ.1 ) THEN
+         if ( ISIDE.EQ.1 ) {
             SIDE = 'L'
             MC = N
             NC = M
@@ -71,7 +71,7 @@
             SIDE = 'R'
             MC = M
             NC = N
-         END IF
+         }
 
          // Generate MC by NC matrix C
 
@@ -82,11 +82,11 @@
          IF( CNORM.EQ.ZERO ) CNORM = ONE
 
          DO 20 ITRANS = 1, 2
-            IF( ITRANS.EQ.1 ) THEN
+            if ( ITRANS.EQ.1 ) {
                TRANS = 'N'
             } else {
                TRANS = 'C'
-            END IF
+            }
 
             // Copy C
 
@@ -99,11 +99,11 @@
 
             // Form explicit product and subtract
 
-            IF( LSAME( SIDE, 'L' ) ) THEN
+            if ( LSAME( SIDE, 'L' ) ) {
                CALL ZGEMM( TRANS, 'No transpose', MC, NC, MC, DCMPLX( -ONE ), Q, LDA, C, LDA, DCMPLX( ONE ), CC, LDA )
             } else {
                CALL ZGEMM( 'No transpose', TRANS, MC, NC, NC, DCMPLX( -ONE ), C, LDA, Q, LDA, DCMPLX( ONE ), CC, LDA )
-            END IF
+            }
 
             // Compute error in the difference
 

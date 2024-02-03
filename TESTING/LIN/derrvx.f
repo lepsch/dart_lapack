@@ -70,7 +70,7 @@
       EQ = ' '
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'GE' ) ) THEN
+      if ( LSAMEN( 2, C2, 'GE' ) ) {
 
          // DGESV
 
@@ -128,7 +128,7 @@
          CALL DGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // DGBSV
 
@@ -198,7 +198,7 @@
          CALL DGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GT' ) ) {
 
          // DGTSV
 
@@ -235,7 +235,7 @@
          CALL DGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGTSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PO' ) ) {
 
          // DPOSV
 
@@ -292,7 +292,7 @@
          CALL DPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PP' ) ) {
 
          // DPPSV
 
@@ -340,7 +340,7 @@
          CALL DPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DPPSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
 
          // DPBSV
 
@@ -403,7 +403,7 @@
          CALL DPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
          // DPTSV
 
@@ -437,7 +437,7 @@
          CALL DPTSVX( 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 2, X, 1, RCOND, R1, R2, W, INFO )
          CALL CHKXER( 'DPTSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SY' ) ) {
 
          // DSYSV
 
@@ -495,7 +495,7 @@
          CALL DSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, IW, INFO )
          CALL CHKXER( 'DSYSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
 
          // DSYSV_ROOK
 
@@ -522,7 +522,7 @@
          CALL DSYSV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'DSYSV_ROOK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
 
          // DSYSV_RK
 
@@ -557,7 +557,7 @@
          CALL DSYSV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'DSYSV_RK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SA' ) ) {
 
          // DSYSV_AASEN
 
@@ -581,7 +581,7 @@
          CALL DSYSV_AA( 'U', 3, 1, A, 3, IP, B, 3, W, 6, INFO )
          CALL CHKXER( 'DSYSV_AA', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'S2' ) ) {
 
          // DSYSV_AASEN_2STAGE
 
@@ -608,7 +608,7 @@
          CALL DSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO )
          CALL CHKXER( 'DSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
          // DSPSV
 
@@ -647,15 +647,15 @@
          INFOT = 11
          CALL DSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPSVX', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 
-      IF( OK ) THEN
+      if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH
       } else {
          WRITE( NOUT, FMT = 9998 )PATH
-      END IF
+      }
 
  9999 FORMAT( 1X, A3, ' drivers passed the tests of the error exits' )
  9998 FORMAT( ' *** ', A3, ' drivers failed the tests of the error ',

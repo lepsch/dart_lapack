@@ -51,7 +51,7 @@
       A( 2, 1 ) = 4.0D+0
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'QP' ) ) THEN
+      if ( LSAMEN( 2, C2, 'QP' ) ) {
 
          // Test error exits for QR factorization with pivoting
 
@@ -70,7 +70,7 @@
          INFOT = 8
          CALL DGEQP3( 2, 2, A, 2, IP, TAU, W, LW-10, INFO )
          CALL CHKXER( 'DGEQP3', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

@@ -70,15 +70,15 @@
 
       WNORM = CLANGE( '1', N, 2*N, WORK, N, DUM )
 
-      IF( ABNORM.GT.WNORM ) THEN
+      if ( ABNORM.GT.WNORM ) {
          RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP )
       } else {
-         IF( ABNORM.LT.ONE ) THEN
+         if ( ABNORM.LT.ONE ) {
             RESULT = ( MIN( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP )
          } else {
             RESULT = MIN( WNORM / ABNORM, REAL( 2*N ) ) / ( 2*N*ULP )
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

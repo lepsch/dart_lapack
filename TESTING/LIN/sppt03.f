@@ -38,22 +38,22 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RCOND = ONE
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = SLANSP( '1', UPLO, N, A, RWORK )
       AINVNM = SLANSP( '1', UPLO, N, AINV, RWORK )
-      IF( ANORM.LE.ZERO .OR. AINVNM.EQ.ZERO ) THEN
+      if ( ANORM.LE.ZERO .OR. AINVNM.EQ.ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
       RCOND = ( ONE / ANORM ) / AINVNM
 
       // UPLO = 'U':
@@ -61,7 +61,7 @@
       // expand it to a full matrix, then multiply by A one column at a
      t // ime, moving the result one column to the left.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
          // Copy AINV
 
@@ -104,7 +104,7 @@
    40    CONTINUE
          CALL SSPMV( 'Lower', N, -ONE, A, AINV( 1 ), 1, ZERO, WORK( 1, 1 ), 1 )
 
-      END IF
+      }
 
       // Add the identity matrix to WORK .
 

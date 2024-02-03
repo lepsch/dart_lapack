@@ -34,9 +34,9 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          ANORM = ZERO
-      ELSE IF( LSAME( NORM, 'M' ) ) THEN
+      } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
@@ -44,11 +44,11 @@
          DO 10 I = 1, N - 1
             IF( ANORM.LT.ABS( DL( I ) ) .OR. DISNAN( ABS( DL( I ) ) ) ) ANORM = ABS(DL(I))             IF( ANORM.LT.ABS( D( I ) ) .OR. DISNAN( ABS( D( I ) ) ) ) ANORM = ABS(D(I))             IF( ANORM.LT.ABS( DU( I ) ) .OR. DISNAN (ABS( DU( I ) ) ) ) ANORM = ABS(DU(I))
    10    CONTINUE
-      ELSE IF( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' ) THEN
+      } else if ( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' ) {
 
          // Find norm1(A).
 
-         IF( N.EQ.1 ) THEN
+         if ( N.EQ.1 ) {
             ANORM = ABS( D( 1 ) )
          } else {
             ANORM = ABS( D( 1 ) )+ABS( DL( 1 ) )
@@ -58,12 +58,12 @@
                TEMP = ABS( D( I ) )+ABS( DL( I ) )+ABS( DU( I-1 ) )
                IF( ANORM .LT. TEMP .OR. DISNAN( TEMP ) ) ANORM = TEMP
    20       CONTINUE
-         END IF
-      ELSE IF( LSAME( NORM, 'I' ) ) THEN
+         }
+      } else if ( LSAME( NORM, 'I' ) ) {
 
          // Find normI(A).
 
-         IF( N.EQ.1 ) THEN
+         if ( N.EQ.1 ) {
             ANORM = ABS( D( 1 ) )
          } else {
             ANORM = ABS( D( 1 ) )+ABS( DU( 1 ) )
@@ -73,20 +73,20 @@
                TEMP = ABS( D( I ) )+ABS( DU( I ) )+ABS( DL( I-1 ) )
                IF( ANORM .LT. TEMP .OR. DISNAN( TEMP ) ) ANORM = TEMP
    30       CONTINUE
-         END IF
-      ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
+         }
+      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
          SCALE = ZERO
          SUM = ONE
          CALL DLASSQ( N, D, 1, SCALE, SUM )
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
             CALL DLASSQ( N-1, DL, 1, SCALE, SUM )
             CALL DLASSQ( N-1, DU, 1, SCALE, SUM )
-         END IF
+         }
          ANORM = SCALE*SQRT( SUM )
-      END IF
+      }
 
       DLANGT = ANORM
       RETURN

@@ -36,11 +36,11 @@
          INCX = 9999
          INCY = 9999
          MODE = 9999
-         IF (ICASE.LE.5) THEN
+         if (ICASE.LE.5) {
             CALL CHECK2(SFAC)
-         ELSE IF (ICASE.GE.6) THEN
+         } else if (ICASE.GE.6) {
             CALL CHECK1(SFAC)
-         END IF
+         }
          // -- Print
          IF (PASS) WRITE (NOUT,99998)
    20 CONTINUE
@@ -133,25 +133,25 @@
             DO 20 I = 1, LEN
                CX(I) = CV(I,NP1,INCX)
    20       CONTINUE
-            IF (ICASE.EQ.6) THEN
+            if (ICASE.EQ.6) {
                // .. SCNRM2 ..
                // Test scaling when some entries are tiny or huge
                CALL CB1NRM2(N,(INCX-2)*2,THRESH)
                CALL CB1NRM2(N,INCX,THRESH)
                // Test with hardcoded mid range entries
                CALL STEST1(SCNRM2(N,CX,INCX),STRUE2(NP1),STRUE2(NP1), SFAC)
-            ELSE IF (ICASE.EQ.7) THEN
+            } else if (ICASE.EQ.7) {
                // .. SCASUM ..
                CALL STEST1(SCASUM(N,CX,INCX),STRUE4(NP1),STRUE4(NP1), SFAC)
-            ELSE IF (ICASE.EQ.8) THEN
+            } else if (ICASE.EQ.8) {
                // .. CSCAL ..
                CALL CSCAL(N,CA,CX,INCX)
                CALL CTEST(LEN,CX,CTRUE5(1,NP1,INCX),CTRUE5(1,NP1,INCX), SFAC)
-            ELSE IF (ICASE.EQ.9) THEN
+            } else if (ICASE.EQ.9) {
                // .. CSSCAL ..
                CALL CSSCAL(N,SA,CX,INCX)
                CALL CTEST(LEN,CX,CTRUE6(1,NP1,INCX),CTRUE6(1,NP1,INCX), SFAC)
-            ELSE IF (ICASE.EQ.10) THEN
+            } else if (ICASE.EQ.10) {
                // .. ICAMAX ..
                CALL ITEST1(ICAMAX(N,CX,INCX),ITRUE3(NP1))
                DO 160 I = 1, LEN
@@ -161,10 +161,10 @@
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
-            END IF
+            }
 
    40    CONTINUE
-         IF (ICASE.EQ.10) THEN
+         if (ICASE.EQ.10) {
             N = 8
             IX = 1
             DO 180 I = 1, N
@@ -172,11 +172,11 @@
                IX = IX + INCX
   180       CONTINUE
             CALL ITEST1(ICAMAX(N,CXR,INCX),3)
-         END IF
+         }
    60 CONTINUE
 
       INCX = 1
-      IF (ICASE.EQ.8) THEN
+      if (ICASE.EQ.8) {
          // CSCAL
          // Add a test for alpha equal to zero.
          CA = (0.0E0,0.0E0)
@@ -186,7 +186,7 @@
    80    CONTINUE
          CALL CSCAL(5,CA,CX,INCX)
          CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
-      ELSE IF (ICASE.EQ.9) THEN
+      } else if (ICASE.EQ.9) {
          // CSSCAL
          // Add a test for alpha equal to zero.
          SA = 0.0E0
@@ -212,7 +212,7 @@
   140    CONTINUE
          CALL CSSCAL(5,SA,CX,INCX)
          CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
-      END IF
+      }
       RETURN
 
       // End of CHECK1
@@ -279,30 +279,30 @@
                CX(I) = CX1(I)
                CY(I) = CY1(I)
    20       CONTINUE
-            IF (ICASE.EQ.1) THEN
+            if (ICASE.EQ.1) {
                // .. CDOTC ..
                CDOT(1) = CDOTC(N,CX,INCX,CY,INCY)
                CALL CTEST(1,CDOT,CT6(KN,KI),CSIZE1(KN),SFAC)
-            ELSE IF (ICASE.EQ.2) THEN
+            } else if (ICASE.EQ.2) {
                // .. CDOTU ..
                CDOT(1) = CDOTU(N,CX,INCX,CY,INCY)
                CALL CTEST(1,CDOT,CT7(KN,KI),CSIZE1(KN),SFAC)
-            ELSE IF (ICASE.EQ.3) THEN
+            } else if (ICASE.EQ.3) {
                // .. CAXPY ..
                CALL CAXPY(N,CA,CX,INCX,CY,INCY)
                CALL CTEST(LENY,CY,CT8(1,KN,KI),CSIZE2(1,KSIZE),SFAC)
-            ELSE IF (ICASE.EQ.4) THEN
+            } else if (ICASE.EQ.4) {
                // .. CCOPY ..
                CALL CCOPY(N,CX,INCX,CY,INCY)
                CALL CTEST(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0E0)
-               IF (KI.EQ.1) THEN
+               if (KI.EQ.1) {
                   CX0(1) = (42.0E0,43.0E0)
                   CY0(1) = (44.0E0,45.0E0)
-                  IF (N.EQ.0) THEN
+                  if (N.EQ.0) {
                      CTY0(1) = CY0(1)
                   } else {
                      CTY0(1) = CX0(1)
-                  END IF
+                  }
                   LINCX = INCX
                   INCX = 0
                   LINCY = INCY
@@ -311,8 +311,8 @@
                   CALL CTEST(1,CY0,CTY0,CSIZE3,1.0E0)
                   INCX = LINCX
                   INCY = LINCY
-               END IF
-            ELSE IF (ICASE.EQ.5) THEN
+               }
+            } else if (ICASE.EQ.5) {
                // .. CSWAP ..
                CALL CSWAP(N,CX,INCX,CY,INCY)
                CALL CTEST(LENX,CX,CT10X(1,KN,KI),CSIZE3,1.0E0)
@@ -320,7 +320,7 @@
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
-            END IF
+            }
 
    40    CONTINUE
    60 CONTINUE
@@ -563,15 +563,15 @@
 
       // Check that the arrays are large enough
 
-      IF (N*ABS(INCX).GT.NMAX) THEN
+      if (N*ABS(INCX).GT.NMAX) {
          WRITE (NOUT,99) "SCNRM2", NMAX, INCX, N, N*ABS(INCX)
          RETURN
-      END IF
+      }
 
       // Zero-sized inputs are tested in STEST1.
-      IF (N.LE.0) THEN
+      if (N.LE.0) {
          RETURN
-      END IF
+      }
 
       // Generate 2*(N-1) values in (-1,1).
 
@@ -595,15 +595,15 @@
 
       DO IV = 1, NV
          V0 = VALUES(IV)
-         IF (ABS(V0).GT.ONE) THEN
+         if (ABS(V0).GT.ONE) {
             V0 = V0*HALF*HALF
-         END IF
+         }
          Z(1) = CMPLX(V0,-THREE*V0)
          DO IW = 1, NV
             V1 = VALUES(IW)
-            IF (ABS(V1).GT.ONE) THEN
+            if (ABS(V1).GT.ONE) {
                V1 = (V1*HALF) / SQRT(REAL(KS+1))
-            END IF
+            }
             DO I = 1, N-1
                Z(I+1) = CMPLX(V1*WORK(2*I-1),V1*WORK(2*I))
             END DO
@@ -611,11 +611,11 @@
             // Compute the expected value of the 2-norm
 
             Y1 = ABS(V0) * SQRT(10.0E0)
-            IF (N.GT.1) THEN
+            if (N.GT.1) {
                Y2 = ABS(V1)*SQRT(WORKSSQ)
             } else {
                Y2 = ZERO
-            END IF
+            }
             YMIN = MIN(Y1, Y2)
             YMAX = MAX(Y1, Y2)
 
@@ -623,16 +623,16 @@
             // for YMIN == YMAX avoids further computation if both
             // are infinity.
 
-            IF ((Y1.NE.Y1).OR.(Y2.NE.Y2)) THEN
+            if ((Y1.NE.Y1).OR.(Y2.NE.Y2)) {
                // add to propagate NaN
                YNRM = Y1 + Y2
-            ELSE IF (YMIN == YMAX) THEN
+            } else if (YMIN == YMAX) {
                YNRM = SQRT(TWO)*YMAX
-            ELSE IF (YMAX == ZERO) THEN
+            } else if (YMAX == ZERO) {
                YNRM = ZERO
             } else {
                YNRM = YMAX*SQRT(ONE + (YMIN / YMAX)**2)
-            END IF
+            }
 
             // Fill the input array to SCNRM2 with steps of incx
 
@@ -653,46 +653,46 @@
             // Compare SNRM and ZNRM.  Roundoff error grows like O(n)
             // in this implementation so we scale the test ratio accordingly.
 
-            IF (INCX.EQ.0) THEN
+            if (INCX.EQ.0) {
                Y1 = ABS(REAL(X(1)))
                Y2 = ABS(AIMAG(X(1)))
                YMIN = MIN(Y1, Y2)
                YMAX = MAX(Y1, Y2)
-               IF ((Y1.NE.Y1).OR.(Y2.NE.Y2)) THEN
+               if ((Y1.NE.Y1).OR.(Y2.NE.Y2)) {
                   // add to propagate NaN
                   ZNRM = Y1 + Y2
-               ELSE IF (YMIN == YMAX) THEN
+               } else if (YMIN == YMAX) {
                   ZNRM = SQRT(TWO)*YMAX
-               ELSE IF (YMAX == ZERO) THEN
+               } else if (YMAX == ZERO) {
                   ZNRM = ZERO
                } else {
                   ZNRM = YMAX * SQRT(ONE + (YMIN / YMAX)**2)
-               END IF
+               }
                ZNRM = SQRT(REAL(n)) * ZNRM
             } else {
                ZNRM = YNRM
-            END IF
+            }
 
             // The tests for NaN rely on the compiler not being overly
             // aggressive and removing the statements altogether.
-            IF ((SNRM.NE.SNRM).OR.(ZNRM.NE.ZNRM)) THEN
-               IF ((SNRM.NE.SNRM).NEQV.(ZNRM.NE.ZNRM)) THEN
+            if ((SNRM.NE.SNRM).OR.(ZNRM.NE.ZNRM)) {
+               if ((SNRM.NE.SNRM).NEQV.(ZNRM.NE.ZNRM)) {
                   TRAT = ONE / ULP
                } else {
                   TRAT = ZERO
-               END IF
-            ELSE IF (ZNRM == ZERO) THEN
+               }
+            } else if (ZNRM == ZERO) {
                TRAT = SNRM / ULP
             } else {
                TRAT = (ABS(SNRM-ZNRM) / ZNRM) / (TWO*REAL(N)*ULP)
-            END IF
-            IF ((TRAT.NE.TRAT).OR.(TRAT.GE.THRESH)) THEN
-               IF (FIRST) THEN
+            }
+            if ((TRAT.NE.TRAT).OR.(TRAT.GE.THRESH)) {
+               if (FIRST) {
                   FIRST = .FALSE.
                   WRITE(NOUT,99999)
-               END IF
+               }
                WRITE (NOUT,98) "SCNRM2", N, INCX, IV, IW, TRAT
-            END IF
+            }
          END DO
       END DO
 99999 FORMAT ('                                       FAIL')
@@ -713,13 +713,13 @@
       // .. Executable Statements ..
       Y = HUGE(XX)
       Z = YY
-      IF (K.EQ.1) THEN
+      if (K.EQ.1) {
          X = -Z
-      ELSE IF (K.EQ.2) THEN
+      } else if (K.EQ.2) {
          X = Z
-      ELSE IF (K.EQ.3) THEN
+      } else if (K.EQ.3) {
          X = Z / Z
-      END IF
+      }
       SXVALS = X
       RETURN
       }

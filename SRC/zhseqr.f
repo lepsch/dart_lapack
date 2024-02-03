@@ -64,38 +64,38 @@
       LQUERY = LWORK.EQ.-1
 
       INFO = 0
-      IF( .NOT.LSAME( JOB, 'E' ) .AND. .NOT.WANTT ) THEN
+      if ( .NOT.LSAME( JOB, 'E' ) .AND. .NOT.WANTT ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( COMPZ, 'N' ) .AND. .NOT.WANTZ ) THEN
+      } else if ( .NOT.LSAME( COMPZ, 'N' ) .AND. .NOT.WANTZ ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) THEN
+      } else if ( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) THEN
+      } else if ( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) {
          INFO = -5
-      ELSE IF( LDH.LT.MAX( 1, N ) ) THEN
+      } else if ( LDH.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.MAX( 1, N ) ) ) THEN
+      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -10
-      ELSE IF( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
          INFO = -12
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
 
          // ==== Quick return in case of invalid argument. ====
 
          CALL XERBLA( 'ZHSEQR', -INFO )
          RETURN
 
-      ELSE IF( N.EQ.0 ) THEN
+      } else if ( N.EQ.0 ) {
 
          // ==== Quick return in case N = 0; nothing to do. ====
 
          RETURN
 
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
 
          // ==== Quick return in case of a workspace query ====
 
@@ -117,10 +117,10 @@
 
          // ==== Quick return if possible ====
 
-         IF( ILO.EQ.IHI ) THEN
+         if ( ILO.EQ.IHI ) {
             W( ILO ) = H( ILO, ILO )
             RETURN
-         END IF
+         }
 
          // ==== ZLAHQR/ZLAQR0 crossover point ====
 
@@ -129,7 +129,7 @@
 
          // ==== ZLAQR0 for big matrices; ZLAHQR for small ones ====
 
-         IF( N.GT.NMIN ) THEN
+         if ( N.GT.NMIN ) {
             CALL ZLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
          } else {
 
@@ -137,14 +137,14 @@
 
             CALL ZLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, INFO )
 
-            IF( INFO.GT.0 ) THEN
+            if ( INFO.GT.0 ) {
 
                // ==== A rare ZLAHQR failure!  ZLAQR0 sometimes succeeds
                // .    when ZLAHQR fails. ====
 
                KBOT = INFO
 
-               IF( N.GE.NL ) THEN
+               if ( N.GE.NL ) {
 
                   // ==== Larger matrices have enough subdiagonal scratch
                   // .    space to call ZLAQR0 directly. ====
@@ -161,9 +161,9 @@
                   CALL ZLACPY( 'A', N, N, H, LDH, HL, NL )
                   HL( N+1, N ) = ZERO
                   CALL ZLASET( 'A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL )                   CALL ZLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL ZLACPY( 'A', N, N, HL, NL, H, LDH )
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
 
          // ==== Clear out the trash, if necessary. ====
 
@@ -173,7 +173,7 @@
          // .    previous LAPACK versions. ====
 
          WORK( 1 ) = DCMPLX( MAX( DBLE( MAX( 1, N ) ), DBLE( WORK( 1 ) ) ), RZERO )
-      END IF
+      }
 
       // ==== End of ZHSEQR ====
 

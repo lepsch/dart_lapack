@@ -51,37 +51,37 @@
 
       LAP = ( N*( N+1 ) ) / 2
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          LOWER = .FALSE.
          CUPLO = 'U'
       } else {
          LOWER = .TRUE.
          CUPLO = 'L'
-      END IF
+      }
 
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
 
       // Some Error Checks
 
-      IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
+      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
          RESULT( 1 ) = TEN / ULP
          RETURN
-      END IF
+      }
 
       // Do Test 1
 
       // Norm of A:
 
-      IF( ITYPE.EQ.3 ) THEN
+      if ( ITYPE.EQ.3 ) {
          ANORM = ONE
       } else {
          ANORM = MAX( ZLANHP( '1', CUPLO, N, AP, RWORK ), UNFL )
-      END IF
+      }
 
       // Compute error matrix:
 
-      IF( ITYPE.EQ.1 ) THEN
+      if ( ITYPE.EQ.1 ) {
 
          // ITYPE=1: error = A - U S U**H
 
@@ -92,38 +92,38 @@
             CALL ZHPR( CUPLO, N, -D( J ), U( 1, J ), 1, WORK )
    10    CONTINUE
 
-         IF( N.GT.1 .AND. KBAND.EQ.1 ) THEN
+         if ( N.GT.1 .AND. KBAND.EQ.1 ) {
             DO 20 J = 2, N - 1
                CALL ZHPR2( CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J-1 ), 1, WORK )
    20       CONTINUE
-         END IF
+         }
          WNORM = ZLANHP( '1', CUPLO, N, WORK, RWORK )
 
-      ELSE IF( ITYPE.EQ.2 ) THEN
+      } else if ( ITYPE.EQ.2 ) {
 
          // ITYPE=2: error = V S V**H - A
 
          CALL ZLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
 
-         IF( LOWER ) THEN
+         if ( LOWER ) {
             WORK( LAP ) = D( N )
             DO 40 J = N - 1, 1, -1
                JP = ( ( 2*N-J )*( J-1 ) ) / 2
                JP1 = JP + N - J
-               IF( KBAND.EQ.1 ) THEN
+               if ( KBAND.EQ.1 ) {
                   WORK( JP+J+1 ) = ( CONE-TAU( J ) )*E( J )
                   DO 30 JR = J + 2, N
                      WORK( JP+JR ) = -TAU( J )*E( J )*VP( JP+JR )
    30             CONTINUE
-               END IF
+               }
 
-               IF( TAU( J ).NE.CZERO ) THEN
+               if ( TAU( J ).NE.CZERO ) {
                   VSAVE = VP( JP+J+1 )
                   VP( JP+J+1 ) = CONE
                   CALL ZHPMV( 'L', N-J, CONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ZDOTC( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 )                   CALL ZAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 )                   CALL ZHPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) )
 
                   VP( JP+J+1 ) = VSAVE
-               END IF
+               }
                WORK( JP+J ) = D( J )
    40       CONTINUE
          } else {
@@ -131,62 +131,62 @@
             DO 60 J = 1, N - 1
                JP = ( J*( J-1 ) ) / 2
                JP1 = JP + J
-               IF( KBAND.EQ.1 ) THEN
+               if ( KBAND.EQ.1 ) {
                   WORK( JP1+J ) = ( CONE-TAU( J ) )*E( J )
                   DO 50 JR = 1, J - 1
                      WORK( JP1+JR ) = -TAU( J )*E( J )*VP( JP1+JR )
    50             CONTINUE
-               END IF
+               }
 
-               IF( TAU( J ).NE.CZERO ) THEN
+               if ( TAU( J ).NE.CZERO ) {
                   VSAVE = VP( JP1+J )
                   VP( JP1+J ) = CONE
                   CALL ZHPMV( 'U', J, CONE, WORK, VP( JP1+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ZDOTC( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 )                   CALL ZAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 )                   CALL ZHPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK )
                   VP( JP1+J ) = VSAVE
-               END IF
+               }
                WORK( JP1+J+1 ) = D( J+1 )
    60       CONTINUE
-         END IF
+         }
 
          DO 70 J = 1, LAP
             WORK( J ) = WORK( J ) - AP( J )
    70    CONTINUE
          WNORM = ZLANHP( '1', CUPLO, N, WORK, RWORK )
 
-      ELSE IF( ITYPE.EQ.3 ) THEN
+      } else if ( ITYPE.EQ.3 ) {
 
          // ITYPE=3: error = U V**H - I
 
          IF( N.LT.2 ) RETURN
          CALL ZLACPY( ' ', N, N, U, LDU, WORK, N )
          CALL ZUPMTR( 'R', CUPLO, 'C', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 1 ) = TEN / ULP
             RETURN
-         END IF
+         }
 
          DO 80 J = 1, N
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
    80    CONTINUE
 
          WNORM = ZLANGE( '1', N, N, WORK, N, RWORK )
-      END IF
+      }
 
-      IF( ANORM.GT.WNORM ) THEN
+      if ( ANORM.GT.WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
       } else {
-         IF( ANORM.LT.ONE ) THEN
+         if ( ANORM.LT.ONE ) {
             RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
          } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP )
-         END IF
-      END IF
+         }
+      }
 
       // Do Test 2
 
       // Compute  U U**H - I
 
-      IF( ITYPE.EQ.1 ) THEN
+      if ( ITYPE.EQ.1 ) {
          CALL ZGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
 
          DO 90 J = 1, N
@@ -194,7 +194,7 @@
    90    CONTINUE
 
          RESULT( 2 ) = MIN( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP )
-      END IF
+      }
 
       RETURN
 

@@ -35,16 +35,16 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          VALUE = ZERO
-      ELSE IF( LSAME( NORM, 'M' ) ) THEN
+      } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
          K = 1
-         IF( LSAME( DIAG, 'U' ) ) THEN
+         if ( LSAME( DIAG, 'U' ) ) {
             VALUE = ONE
-            IF( LSAME( UPLO, 'U' ) ) THEN
+            if ( LSAME( UPLO, 'U' ) ) {
                DO 20 J = 1, N
                   DO 10 I = K, K + J - 2
                      SUM = ABS( AP( I ) )
@@ -60,10 +60,10 @@
    30             CONTINUE
                   K = K + N - J + 1
    40          CONTINUE
-            END IF
+            }
          } else {
             VALUE = ZERO
-            IF( LSAME( UPLO, 'U' ) ) THEN
+            if ( LSAME( UPLO, 'U' ) ) {
                DO 60 J = 1, N
                   DO 50 I = K, K + J - 1
                      SUM = ABS( AP( I ) )
@@ -79,18 +79,18 @@
    70             CONTINUE
                   K = K + N - J + 1
    80          CONTINUE
-            END IF
-         END IF
-      ELSE IF( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
+            }
+         }
+      } else if ( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
 
          // Find norm1(A).
 
          VALUE = ZERO
          K = 1
          UDIAG = LSAME( DIAG, 'U' )
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
             DO 110 J = 1, N
-               IF( UDIAG ) THEN
+               if ( UDIAG ) {
                   SUM = ONE
                   DO 90 I = K, K + J - 2
                      SUM = SUM + ABS( AP( I ) )
@@ -100,13 +100,13 @@
                   DO 100 I = K, K + J - 1
                      SUM = SUM + ABS( AP( I ) )
   100             CONTINUE
-               END IF
+               }
                K = K + J
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
   110       CONTINUE
          } else {
             DO 140 J = 1, N
-               IF( UDIAG ) THEN
+               if ( UDIAG ) {
                   SUM = ONE
                   DO 120 I = K + 1, K + N - J
                      SUM = SUM + ABS( AP( I ) )
@@ -116,18 +116,18 @@
                   DO 130 I = K, K + N - J
                      SUM = SUM + ABS( AP( I ) )
   130             CONTINUE
-               END IF
+               }
                K = K + N - J + 1
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
   140       CONTINUE
-         END IF
-      ELSE IF( LSAME( NORM, 'I' ) ) THEN
+         }
+      } else if ( LSAME( NORM, 'I' ) ) {
 
          // Find normI(A).
 
          K = 1
-         IF( LSAME( UPLO, 'U' ) ) THEN
-            IF( LSAME( DIAG, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
+            if ( LSAME( DIAG, 'U' ) ) {
                DO 150 I = 1, N
                   WORK( I ) = ONE
   150          CONTINUE
@@ -148,9 +148,9 @@
                      K = K + 1
   190             CONTINUE
   200          CONTINUE
-            END IF
+            }
          } else {
-            IF( LSAME( DIAG, 'U' ) ) THEN
+            if ( LSAME( DIAG, 'U' ) ) {
                DO 210 I = 1, N
                   WORK( I ) = ONE
   210          CONTINUE
@@ -171,19 +171,19 @@
                      K = K + 1
   250             CONTINUE
   260          CONTINUE
-            END IF
-         END IF
+            }
+         }
          VALUE = ZERO
          DO 270 I = 1, N
             SUM = WORK( I )
             IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
   270    CONTINUE
-      ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
+      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
-         IF( LSAME( UPLO, 'U' ) ) THEN
-            IF( LSAME( DIAG, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
+            if ( LSAME( DIAG, 'U' ) ) {
                SCALE = ONE
                SUM = N
                K = 2
@@ -199,9 +199,9 @@
                   CALL SLASSQ( J, AP( K ), 1, SCALE, SUM )
                   K = K + J
   290          CONTINUE
-            END IF
+            }
          } else {
-            IF( LSAME( DIAG, 'U' ) ) THEN
+            if ( LSAME( DIAG, 'U' ) ) {
                SCALE = ONE
                SUM = N
                K = 2
@@ -217,10 +217,10 @@
                   CALL SLASSQ( N-J+1, AP( K ), 1, SCALE, SUM )
                   K = K + N - J + 1
   310          CONTINUE
-            END IF
-         END IF
+            }
+         }
          VALUE = SCALE*SQRT( SUM )
-      END IF
+      }
 
       SLANTP = VALUE
       RETURN

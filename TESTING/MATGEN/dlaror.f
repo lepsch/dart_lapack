@@ -40,35 +40,35 @@
       IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
 
       ITYPE = 0
-      IF( LSAME( SIDE, 'L' ) ) THEN
+      if ( LSAME( SIDE, 'L' ) ) {
          ITYPE = 1
-      ELSE IF( LSAME( SIDE, 'R' ) ) THEN
+      } else if ( LSAME( SIDE, 'R' ) ) {
          ITYPE = 2
-      ELSE IF( LSAME( SIDE, 'C' ) .OR. LSAME( SIDE, 'T' ) ) THEN
+      } else if ( LSAME( SIDE, 'C' ) .OR. LSAME( SIDE, 'T' ) ) {
          ITYPE = 3
-      END IF
+      }
 
       // Check for argument errors.
 
-      IF( ITYPE.EQ.0 ) THEN
+      if ( ITYPE.EQ.0 ) {
          INFO = -1
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 .OR. ( ITYPE.EQ.3 .AND. N.NE.M ) ) THEN
+      } else if ( N.LT.0 .OR. ( ITYPE.EQ.3 .AND. N.NE.M ) ) {
          INFO = -4
-      ELSE IF( LDA.LT.M ) THEN
+      } else if ( LDA.LT.M ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLAROR', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( ITYPE.EQ.1 ) THEN
+      if ( ITYPE.EQ.1 ) {
          NXFRM = M
       } else {
          NXFRM = N
-      END IF
+      }
 
       // Initialize A to the identity matrix if desired
 
@@ -98,49 +98,49 @@
          XNORMS = SIGN( XNORM, X( KBEG ) )
          X( KBEG+NXFRM ) = SIGN( ONE, -X( KBEG ) )
          FACTOR = XNORMS*( XNORMS+X( KBEG ) )
-         IF( ABS( FACTOR ).LT.TOOSML ) THEN
+         if ( ABS( FACTOR ).LT.TOOSML ) {
             INFO = 1
             CALL XERBLA( 'DLAROR', INFO )
             RETURN
          } else {
             FACTOR = ONE / FACTOR
-         END IF
+         }
          X( KBEG ) = X( KBEG ) + XNORMS
 
          // Apply Householder transformation to A
 
-         IF( ITYPE.EQ.1 .OR. ITYPE.EQ.3 ) THEN
+         if ( ITYPE.EQ.1 .OR. ITYPE.EQ.3 ) {
 
             // Apply H(k) from the left.
 
             CALL DGEMV( 'T', IXFRM, N, ONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )             CALL DGER( IXFRM, N, -FACTOR, X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA )
 
-         END IF
+         }
 
-         IF( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) THEN
+         if ( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) {
 
             // Apply H(k) from the right.
 
             CALL DGEMV( 'N', M, IXFRM, ONE, A( 1, KBEG ), LDA, X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )             CALL DGER( M, IXFRM, -FACTOR, X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA )
 
-         END IF
+         }
    30 CONTINUE
 
       X( 2*NXFRM ) = SIGN( ONE, DLARND( 3, ISEED ) )
 
       // Scale the matrix A by D.
 
-      IF( ITYPE.EQ.1 .OR. ITYPE.EQ.3 ) THEN
+      if ( ITYPE.EQ.1 .OR. ITYPE.EQ.3 ) {
          DO 40 IROW = 1, M
             CALL DSCAL( N, X( NXFRM+IROW ), A( IROW, 1 ), LDA )
    40    CONTINUE
-      END IF
+      }
 
-      IF( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) THEN
+      if ( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) {
          DO 50 JCOL = 1, N
             CALL DSCAL( M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 )
    50    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of DLAROR

@@ -41,50 +41,50 @@
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
+      if ( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -4
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -14
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -16
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGTSVX', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( NOFACT ) THEN
+      if ( NOFACT ) {
 
          // Compute the LU factorization of A.
 
          CALL SCOPY( N, D, 1, DF, 1 )
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
             CALL SCOPY( N-1, DL, 1, DLF, 1 )
             CALL SCOPY( N-1, DU, 1, DUF, 1 )
-         END IF
+         }
          CALL SGTTRF( N, DLF, DF, DUF, DU2, IPIV, INFO )
 
          // Return if INFO is non-zero.
 
-         IF( INFO.GT.0 )THEN
+         if ( INFO.GT.0 ) {
             RCOND = ZERO
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Compute the norm of the matrix A.
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
          NORM = '1'
       } else {
          NORM = 'I'
-      END IF
+      }
       ANORM = SLANGT( NORM, N, DL, D, DU )
 
       // Compute the reciprocal of the condition number of A.

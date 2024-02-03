@@ -30,15 +30,15 @@
       // .. Executable Statements ..
 
       UPPER = LSAME( 'Upper', UPLO )
-      IF ( INFO.EQ.0 ) THEN
-         IF ( UPPER ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( UPPER ) {
             NCOLS = 1
          } else {
             NCOLS = N
-         END IF
+         }
       } else {
          NCOLS = INFO
-      END IF
+      }
 
       RPVGRW = 1.0
       DO I = 1, 2*N
@@ -49,7 +49,7 @@
       // for all N columns so we can apply the pivot permutation while
       // looping below.  Assume a full factorization is the common case.
 
-      IF ( UPPER ) THEN
+      if ( UPPER ) {
          DO J = 1, N
             DO I = 1, J
                WORK( N+I ) = MAX( ABS( A( I, J ) ), WORK( N+I ) )
@@ -63,7 +63,7 @@
                WORK( N+J ) = MAX( ABS( A( I, J ) ), WORK( N+J ) )
             END DO
          END DO
-      END IF
+      }
 
       // Now find the max magnitude entry of each column of U or L.  Also
       // permute the magnitudes of A above so they're in the same order as
@@ -72,17 +72,17 @@
       // The iteration orders and permutations were copied from ssytrs.
       // Calls to SSWAP would be severe overkill.
 
-      IF ( UPPER ) THEN
+      if ( UPPER ) {
          K = N
          DO WHILE ( K .LT. NCOLS .AND. K.GT.0 )
-            IF ( IPIV( K ).GT.0 ) THEN
+            if ( IPIV( K ).GT.0 ) {
                // 1x1 pivot
                KP = IPIV( K )
-               IF ( KP .NE. K ) THEN
+               if ( KP .NE. K ) {
                   TMP = WORK( N+K )
                   WORK( N+K ) = WORK( N+KP )
                   WORK( N+KP ) = TMP
-               END IF
+               }
                DO I = 1, K
                   WORK( K ) = MAX( ABS( AF( I, K ) ), WORK( K ) )
                END DO
@@ -99,17 +99,17 @@
                END DO
                WORK( K ) = MAX( ABS( AF( K, K ) ), WORK( K ) )
                K = K - 2
-            END IF
+            }
          END DO
          K = NCOLS
          DO WHILE ( K .LE. N )
-            IF ( IPIV( K ).GT.0 ) THEN
+            if ( IPIV( K ).GT.0 ) {
                KP = IPIV( K )
-               IF ( KP .NE. K ) THEN
+               if ( KP .NE. K ) {
                   TMP = WORK( N+K )
                   WORK( N+K ) = WORK( N+KP )
                   WORK( N+KP ) = TMP
-               END IF
+               }
                K = K + 1
             } else {
                KP = -IPIV( K )
@@ -117,19 +117,19 @@
                WORK( N+K ) = WORK( N+KP )
                WORK( N+KP ) = TMP
                K = K + 2
-            END IF
+            }
          END DO
       } else {
          K = 1
          DO WHILE ( K .LE. NCOLS )
-            IF ( IPIV( K ).GT.0 ) THEN
+            if ( IPIV( K ).GT.0 ) {
                // 1x1 pivot
                KP = IPIV( K )
-               IF ( KP .NE. K ) THEN
+               if ( KP .NE. K ) {
                   TMP = WORK( N+K )
                   WORK( N+K ) = WORK( N+KP )
                   WORK( N+KP ) = TMP
-               END IF
+               }
                DO I = K, N
                   WORK( K ) = MAX( ABS( AF( I, K ) ), WORK( K ) )
                END DO
@@ -146,17 +146,17 @@
                END DO
                WORK( K ) = MAX( ABS( AF( K, K ) ), WORK( K ) )
                K = K + 2
-            END IF
+            }
          END DO
          K = NCOLS
          DO WHILE ( K .GE. 1 )
-            IF ( IPIV( K ).GT.0 ) THEN
+            if ( IPIV( K ).GT.0 ) {
                KP = IPIV( K )
-               IF ( KP .NE. K ) THEN
+               if ( KP .NE. K ) {
                   TMP = WORK( N+K )
                   WORK( N+K ) = WORK( N+KP )
                   WORK( N+KP ) = TMP
-               END IF
+               }
                K = K - 1
             } else {
                KP = -IPIV( K )
@@ -166,7 +166,7 @@
                K = K - 2
             ENDIF
          END DO
-      END IF
+      }
 
       // Compute the *inverse* of the max element growth factor.  Dividing
       // by zero would imply the largest entry of the factor's column is
@@ -175,23 +175,23 @@
       // as growth in itself, so simply ignore terms with zero
       // denominators.
 
-      IF ( UPPER ) THEN
+      if ( UPPER ) {
          DO I = NCOLS, N
             UMAX = WORK( I )
             AMAX = WORK( N+I )
-            IF ( UMAX /= 0.0 ) THEN
+            if ( UMAX /= 0.0 ) {
                RPVGRW = MIN( AMAX / UMAX, RPVGRW )
-            END IF
+            }
          END DO
       } else {
          DO I = 1, NCOLS
             UMAX = WORK( I )
             AMAX = WORK( N+I )
-            IF ( UMAX /= 0.0 ) THEN
+            if ( UMAX /= 0.0 ) {
                RPVGRW = MIN( AMAX / UMAX, RPVGRW )
-            END IF
+            }
          END DO
-      END IF
+      }
 
       SLA_SYRPVGRW = RPVGRW
 

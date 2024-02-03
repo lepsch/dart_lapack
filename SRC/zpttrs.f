@@ -35,19 +35,19 @@
 
       INFO = 0
       UPPER = ( UPLO.EQ.'U' .OR. UPLO.EQ.'u' )
-      IF( .NOT.UPPER .AND. .NOT.( UPLO.EQ.'L' .OR. UPLO.EQ.'l' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.( UPLO.EQ.'L' .OR. UPLO.EQ.'l' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZPTTRS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -55,28 +55,28 @@
 
       // Determine the number of right-hand sides to solve at a time.
 
-      IF( NRHS.EQ.1 ) THEN
+      if ( NRHS.EQ.1 ) {
          NB = 1
       } else {
          NB = MAX( 1, ILAENV( 1, 'ZPTTRS', UPLO, N, NRHS, -1, -1 ) )
-      END IF
+      }
 
       // Decode UPLO
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
          IUPLO = 1
       } else {
          IUPLO = 0
-      END IF
+      }
 
-      IF( NB.GE.NRHS ) THEN
+      if ( NB.GE.NRHS ) {
          CALL ZPTTS2( IUPLO, N, NRHS, D, E, B, LDB )
       } else {
          DO 10 J = 1, NRHS, NB
             JB = MIN( NRHS-J+1, NB )
             CALL ZPTTS2( IUPLO, N, JB, D, E, B( 1, J ), LDB )
    10    CONTINUE
-      END IF
+      }
 
       RETURN
 

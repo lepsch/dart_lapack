@@ -40,7 +40,7 @@
 
       ANORM = SLANSY( '1', UPLO, N, A, LDA, WORK )* SLANGE( '1', N, M, Z, LDZ, WORK )       IF( ANORM.EQ.ZERO ) ANORM = ONE
 
-      IF( ITYPE.EQ.1 ) THEN
+      if ( ITYPE.EQ.1 ) {
 
          // Norm of AZ - BZD
 
@@ -52,7 +52,7 @@
 
          RESULT( 1 ) = ( SLANGE( '1', N, M, WORK, N, WORK ) / ANORM ) / ( N*ULP )
 
-      ELSE IF( ITYPE.EQ.2 ) THEN
+      } else if ( ITYPE.EQ.2 ) {
 
          // Norm of ABZ - ZD
 
@@ -64,7 +64,7 @@
 
          RESULT( 1 ) = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP )
 
-      ELSE IF( ITYPE.EQ.3 ) THEN
+      } else if ( ITYPE.EQ.3 ) {
 
          // Norm of BAZ - ZD
 
@@ -75,7 +75,7 @@
          CALL SSYMM( 'Left', UPLO, N, M, ONE, B, LDB, WORK, N, -ONE, Z, LDZ )
 
          RESULT( 1 ) = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP )
-      END IF
+      }
 
       RETURN
 

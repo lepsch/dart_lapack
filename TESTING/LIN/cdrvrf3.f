@@ -102,13 +102,13 @@
 
                            DO 100 IALPHA = 1, 3
 
-                              IF ( IALPHA.EQ.1 ) THEN
+                              if ( IALPHA.EQ.1 ) {
                                  ALPHA = ZERO
-                              ELSE IF ( IALPHA.EQ.2 ) THEN
+                              } else if ( IALPHA.EQ.2 ) {
                                  ALPHA = ONE
                               } else {
                                  ALPHA = CLARND( 4, ISEED )
-                              END IF
+                              }
 
                               // All the parameters are set:
                                  // CFORM, SIDE, UPLO, TRANS, DIAG, M, N,
@@ -117,7 +117,7 @@
 
                               NRUN = NRUN + 1
 
-                              IF ( ISIDE.EQ.1 ) THEN
+                              if ( ISIDE.EQ.1 ) {
 
                                  // The case ISIDE.EQ.1 is when SIDE.EQ.'L'
                                  // -> A is M-by-M ( B is M-by-N )
@@ -131,7 +131,7 @@
 
                                  NA = N
 
-                              END IF
+                              }
 
                               // Generate A our NA--by--NA triangular
                               // matrix.
@@ -147,7 +147,7 @@
                                  END DO
                               END DO
 
-                              IF ( IUPLO.EQ.1 ) THEN
+                              if ( IUPLO.EQ.1 ) {
 
                                  // The case IUPLO.EQ.1 is when SIDE.EQ.'U'
                                  // -> QR factorization.
@@ -159,13 +159,13 @@
                                  // be unit makes it ill-conditioned for
                                  // some test cases
 
-                                 IF ( LSAME( DIAG, 'U' ) ) THEN
+                                 if ( LSAME( DIAG, 'U' ) ) {
                                     DO J = 1, NA
                                        DO I = 1, J
                                           A( I, J ) = A( I, J ) / ( 2.0 * A( J, J ) )
                                        END DO
                                     END DO
-                                 END IF
+                                 }
 
                               } else {
 
@@ -179,15 +179,15 @@
                                  // be unit makes it ill-conditioned for
                                  // some test cases
 
-                                 IF ( LSAME( DIAG, 'U' ) ) THEN
+                                 if ( LSAME( DIAG, 'U' ) ) {
                                     DO I = 1, NA
                                        DO J = 1, I
                                           A( I, J ) = A( I, J ) / ( 2.0 * A( I, I ) )
                                        END DO
                                     END DO
-                                 END IF
+                                 }
 
-                              END IF
+                              }
 
                               // After the QR factorization, the diagonal
                               // of A is made of real numbers, we multiply
@@ -237,14 +237,14 @@
 
                               RESULT( 1 ) = RESULT( 1 ) / SQRT( EPS ) / MAX ( MAX( M, N ), 1 )
 
-                              IF( RESULT( 1 ).GE.THRESH ) THEN
-                                 IF( NFAIL.EQ.0 ) THEN
+                              if ( RESULT( 1 ).GE.THRESH ) {
+                                 if ( NFAIL.EQ.0 ) {
                                     WRITE( NOUT, * )
                                     WRITE( NOUT, FMT = 9999 )
-                                 END IF
+                                 }
                                  WRITE( NOUT, FMT = 9997 ) 'CTFSM', CFORM, SIDE, UPLO, TRANS, DIAG, M, N, RESULT( 1 )
                                  NFAIL = NFAIL + 1
-                              END IF
+                              }
 
   100                      CONTINUE
   110                   CONTINUE
@@ -257,11 +257,11 @@
 
       // Print a summary of the results.
 
-      IF ( NFAIL.EQ.0 ) THEN
+      if ( NFAIL.EQ.0 ) {
          WRITE( NOUT, FMT = 9996 ) 'CTFSM', NRUN
       } else {
          WRITE( NOUT, FMT = 9995 ) 'CTFSM', NFAIL, NRUN
-      END IF
+      }
 
  9999 FORMAT( 1X, ' *** Error(s) or Failure(s) while testing CTFSM
      +         ***')

@@ -67,7 +67,7 @@
       ANRM = 1.0D0
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'SY' ) ) THEN
+      if ( LSAMEN( 2, C2, 'SY' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with partial
@@ -204,7 +204,7 @@
          CALL ZSYCON( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'ZSYCON', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with rook
@@ -290,7 +290,7 @@
          CALL ZSYCON_ROOK( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'ZSYCON_ROOK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with rook
@@ -399,7 +399,7 @@
          CALL ZSYCON_3( 'U', 1, A, 1, E, IP, -1.0D0, RCOND, W, INFO)
          CALL CHKXER( 'ZSYCON_3', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite packed matrix with partial
@@ -473,7 +473,7 @@
          CALL ZSPCON( 'U', 1, A, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'ZSPCON', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SA' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with Aasen's algorithm.
@@ -516,7 +516,7 @@
          CALL ZSYTRS_AA( 'U', 2, 1, A, 2, IP, B, 1, W, 1, INFO )
          CALL CHKXER( 'ZSYTRS_AA', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'S2' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with Aasen's algorithm.
@@ -562,7 +562,7 @@
          CALL ZSYTRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZSYTRS_AA_STAGE', INFOT, NOUT, LERR, OK )
 
-      END IF
+      }
 
       // Print a summary line.
 

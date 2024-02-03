@@ -54,19 +54,19 @@
 
       BNORM = CLANGE( '1', M, N, B, LDB, RWORK )
 
-      IF( BNORM.LE.ZERO ) THEN
+      if ( BNORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
-         IF( BNORM.GE.RESID ) THEN
+         if ( BNORM.GE.RESID ) {
             RESID = ( RESID / BNORM ) / ( REALMN*EPS )
          } else {
-            IF( BNORM.LT.ONE ) THEN
+            if ( BNORM.LT.ONE ) {
                RESID = ( MIN( RESID, REALMN*BNORM ) / BNORM ) / ( REALMN*EPS )
             } else {
                RESID = MIN( RESID / BNORM, REALMN ) / ( REALMN*EPS )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
       RETURN
 
       // End of CBDT02

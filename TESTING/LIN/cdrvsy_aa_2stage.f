@@ -133,28 +133,28 @@
 
                   // Check error code from CLATMS and handle error.
 
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                      CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                      GO TO 160
-                  END IF
+                  }
 
                   // For types 3-6, zero one or more rows and columns of
                  t // he matrix to test that INFO is returned correctly.
 
-                  IF( ZEROT ) THEN
-                     IF( IMAT.EQ.3 ) THEN
+                  if ( ZEROT ) {
+                     if ( IMAT.EQ.3 ) {
                         IZERO = 1
-                     ELSE IF( IMAT.EQ.4 ) THEN
+                     } else if ( IMAT.EQ.4 ) {
                         IZERO = N
                      } else {
                         IZERO = N / 2 + 1
-                     END IF
+                     }
 
-                     IF( IMAT.LT.6 ) THEN
+                     if ( IMAT.LT.6 ) {
 
                         // Set row and column IZERO to zero.
 
-                        IF( IUPLO.EQ.1 ) THEN
+                        if ( IUPLO.EQ.1 ) {
                            IOFF = ( IZERO-1 )*LDA
                            DO 20 I = 1, IZERO - 1
                               A( IOFF+I ) = CZERO
@@ -174,10 +174,10 @@
                            DO 50 I = IZERO, N
                               A( IOFF+I ) = CZERO
    50                      CONTINUE
-                        END IF
+                        }
                      } else {
                         IOFF = 0
-                        IF( IUPLO.EQ.1 ) THEN
+                        if ( IUPLO.EQ.1 ) {
 
                         // Set the first IZERO rows and columns to zero.
 
@@ -201,11 +201,11 @@
    80                         CONTINUE
                               IOFF = IOFF + LDA
    90                      CONTINUE
-                        END IF
-                     END IF
+                        }
+                     }
                   } else {
                      IZERO = 0
-                  END IF
+                  }
 
                   // End generate the test matrix A.
 
@@ -224,7 +224,7 @@
 
                   // --- Test CSYSV_AA_2STAGE  ---
 
-                  IF( IFACT.EQ.2 ) THEN
+                  if ( IFACT.EQ.2 ) {
                      CALL CLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
                      CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 
@@ -237,31 +237,31 @@
                      // Adjust the expected value of INFO to account for
                      // pivoting.
 
-                     IF( IZERO.GT.0 ) THEN
+                     if ( IZERO.GT.0 ) {
                         J = 1
                         K = IZERO
   100                   CONTINUE
-                        IF( J.EQ.K ) THEN
+                        if ( J.EQ.K ) {
                            K = IWORK( J )
-                        ELSE IF( IWORK( J ).EQ.K ) THEN
+                        } else if ( IWORK( J ).EQ.K ) {
                            K = J
-                        END IF
-                        IF( J.LT.K ) THEN
+                        }
+                        if ( J.LT.K ) {
                            J = J + 1
                            GO TO 100
-                        END IF
+                        }
                      } else {
                         K = 0
-                     END IF
+                     }
 
                      // Check error code from CSYSV_AA .
 
-                     IF( INFO.NE.K ) THEN
+                     if ( INFO.NE.K ) {
                         CALL ALAERH( PATH, 'CSYSV_AA', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 120
-                     ELSE IF( INFO.NE.0 ) THEN
+                     } else if ( INFO.NE.0 ) {
                         GO TO 120
-                     END IF
+                     }
 
                      // Compute residual of the computed solution.
 
@@ -281,14 +281,14 @@
                     t // he threshold.
 
                      DO 110 K = 1, NT
-                        IF( RESULT( K ).GE.THRESH ) THEN
+                        if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CSYSV_AA_2STAGE ', UPLO, N, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
   110                CONTINUE
                      NRUN = NRUN + NT
   120                CONTINUE
-                  END IF
+                  }
 
   150          CONTINUE
 

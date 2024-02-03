@@ -53,13 +53,13 @@
       SAFMAX = ONE / SAFMIN
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
 
-      IF( LEFT ) THEN
+      if ( LEFT ) {
          TRANS = 'C'
          NORMAB = 'I'
       } else {
          TRANS = 'N'
          NORMAB = 'O'
-      END IF
+      }
 
       // Norm of A, B, and E:
 
@@ -76,18 +76,18 @@
          ALPHAI = ALPHA( JVEC )
          BETAI = BETA( JVEC )
          ABMAX = MAX( ABS1( ALPHAI ), ABS1( BETAI ) )
-         IF( ABS1( ALPHAI ).GT.ALFMAX .OR. ABS1( BETAI ).GT.BETMAX .OR. ABMAX.LT.ONE ) THEN
+         if ( ABS1( ALPHAI ).GT.ALFMAX .OR. ABS1( BETAI ).GT.BETMAX .OR. ABMAX.LT.ONE ) {
             SCALE = ONE / MAX( ABMAX, SAFMIN )
             ALPHAI = SCALE*ALPHAI
             BETAI = SCALE*BETAI
-         END IF
+         }
          SCALE = ONE / MAX( ABS1( ALPHAI )*BNORM, ABS1( BETAI )*ANORM, SAFMIN )
          ACOEFF = SCALE*BETAI
          BCOEFF = SCALE*ALPHAI
-         IF( LEFT ) THEN
+         if ( LEFT ) {
             ACOEFF = DCONJG( ACOEFF )
             BCOEFF = DCONJG( BCOEFF )
-         END IF
+         }
          CALL ZGEMV( TRANS, N, N, ACOEFF, A, LDA, E( 1, JVEC ), 1, CZERO, WORK( N*( JVEC-1 )+1 ), 1 )          CALL ZGEMV( TRANS, N, N, -BCOEFF, B, LDA, E( 1, JVEC ), 1, CONE, WORK( N*( JVEC-1 )+1 ), 1 )
    10 CONTINUE
 

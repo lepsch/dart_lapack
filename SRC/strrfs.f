@@ -50,43 +50,43 @@
       NOTRAN = LSAME( TRANS, 'N' )
       NOUNIT = LSAME( DIAG, 'N' )
 
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
+      } else if ( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -11
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'STRRFS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
+      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
          DO 10 J = 1, NRHS
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
          RETURN
-      END IF
+      }
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
          TRANST = 'T'
       } else {
          TRANST = 'N'
-      END IF
+      }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
@@ -120,12 +120,12 @@
             WORK( I ) = ABS( B( I, J ) )
    20    CONTINUE
 
-         IF( NOTRAN ) THEN
+         if ( NOTRAN ) {
 
             // Compute abs(A)*abs(X) + abs(B).
 
-            IF( UPPER ) THEN
-               IF( NOUNIT ) THEN
+            if ( UPPER ) {
+               if ( NOUNIT ) {
                   DO 40 K = 1, N
                      XK = ABS( X( K, J ) )
                      DO 30 I = 1, K
@@ -140,9 +140,9 @@
    50                CONTINUE
                      WORK( K ) = WORK( K ) + XK
    60             CONTINUE
-               END IF
+               }
             } else {
-               IF( NOUNIT ) THEN
+               if ( NOUNIT ) {
                   DO 80 K = 1, N
                      XK = ABS( X( K, J ) )
                      DO 70 I = K, N
@@ -157,14 +157,14 @@
    90                CONTINUE
                      WORK( K ) = WORK( K ) + XK
   100             CONTINUE
-               END IF
-            END IF
+               }
+            }
          } else {
 
             // Compute abs(A**T)*abs(X) + abs(B).
 
-            IF( UPPER ) THEN
-               IF( NOUNIT ) THEN
+            if ( UPPER ) {
+               if ( NOUNIT ) {
                   DO 120 K = 1, N
                      S = ZERO
                      DO 110 I = 1, K
@@ -180,9 +180,9 @@
   130                CONTINUE
                      WORK( K ) = WORK( K ) + S
   140             CONTINUE
-               END IF
+               }
             } else {
-               IF( NOUNIT ) THEN
+               if ( NOUNIT ) {
                   DO 160 K = 1, N
                      S = ZERO
                      DO 150 I = K, N
@@ -198,16 +198,16 @@
   170                CONTINUE
                      WORK( K ) = WORK( K ) + S
   180             CONTINUE
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
          S = ZERO
          DO 190 I = 1, N
-            IF( WORK( I ).GT.SAFE2 ) THEN
+            if ( WORK( I ).GT.SAFE2 ) {
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
-            END IF
+            }
   190    CONTINUE
          BERR( J ) = S
 
@@ -234,18 +234,18 @@
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
          DO 200 I = 1, N
-            IF( WORK( I ).GT.SAFE2 ) THEN
+            if ( WORK( I ).GT.SAFE2 ) {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
             } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
-            END IF
+            }
   200    CONTINUE
 
          KASE = 0
   210    CONTINUE
          CALL SLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE )
-         IF( KASE.NE.0 ) THEN
-            IF( KASE.EQ.1 ) THEN
+         if ( KASE.NE.0 ) {
+            if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**T).
 
@@ -261,9 +261,9 @@
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   230          CONTINUE
                CALL STRSV( UPLO, TRANS, DIAG, N, A, LDA, WORK( N+1 ), 1 )
-            END IF
+            }
             GO TO 210
-         END IF
+         }
 
          // Normalize error.
 

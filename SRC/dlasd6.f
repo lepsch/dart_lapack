@@ -37,23 +37,23 @@
       N = NL + NR + 1
       M = N + SQRE
 
-      IF( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) THEN
+      if ( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) {
          INFO = -1
-      ELSE IF( NL.LT.1 ) THEN
+      } else if ( NL.LT.1 ) {
          INFO = -2
-      ELSE IF( NR.LT.1 ) THEN
+      } else if ( NR.LT.1 ) {
          INFO = -3
-      ELSE IF( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) THEN
+      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
          INFO = -4
-      ELSE IF( LDGCOL.LT.N ) THEN
+      } else if ( LDGCOL.LT.N ) {
          INFO = -14
-      ELSE IF( LDGNUM.LT.N ) THEN
+      } else if ( LDGNUM.LT.N ) {
          INFO = -16
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLASD6', -INFO )
          RETURN
-      END IF
+      }
 
       // The following values are for bookkeeping purposes only.  They are
       // integer pointers which indicate the portion of the workspace
@@ -73,9 +73,9 @@
       ORGNRM = MAX( ABS( ALPHA ), ABS( BETA ) )
       D( NL+1 ) = ZERO
       DO 10 I = 1, N
-         IF( ABS( D( I ) ).GT.ORGNRM ) THEN
+         if ( ABS( D( I ) ).GT.ORGNRM ) {
             ORGNRM = ABS( D( I ) )
-         END IF
+         }
    10 CONTINUE
       CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO )
       ALPHA = ALPHA / ORGNRM
@@ -91,16 +91,16 @@
 
       // Report the possible convergence failure.
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          RETURN
-      END IF
+      }
 
       // Save the poles if ICOMPQ = 1.
 
-      IF( ICOMPQ.EQ.1 ) THEN
+      if ( ICOMPQ.EQ.1 ) {
          CALL DCOPY( K, D, 1, POLES( 1, 1 ), 1 )
          CALL DCOPY( K, WORK( ISIGMA ), 1, POLES( 1, 2 ), 1 )
-      END IF
+      }
 
       // Unscale.
 

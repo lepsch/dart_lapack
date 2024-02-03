@@ -35,14 +35,14 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          VALUE = ZERO
-      ELSE IF( LSAME( NORM, 'M' ) ) THEN
+      } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
          VALUE = ZERO
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
             DO 20 J = 1, N
                DO 10 I = MAX( K+2-J, 1 ), K + 1
                   SUM = ABS( AB( I, J ) )
@@ -56,13 +56,13 @@
                   IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    30          CONTINUE
    40       CONTINUE
-         END IF
-      ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
+         }
+      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
 
          // Find normI(A) ( = norm1(A), since A is symmetric).
 
          VALUE = ZERO
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
             DO 60 J = 1, N
                SUM = ZERO
                L = K + 1 - J
@@ -91,15 +91,15 @@
    90          CONTINUE
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
   100       CONTINUE
-         END IF
-      ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
+         }
+      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
          SCALE = ZERO
          SUM = ONE
-         IF( K.GT.0 ) THEN
-            IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( K.GT.0 ) {
+            if ( LSAME( UPLO, 'U' ) ) {
                DO 110 J = 2, N
                   CALL CLASSQ( MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM )
   110          CONTINUE
@@ -109,14 +109,14 @@
                   CALL CLASSQ( MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM )
   120          CONTINUE
                L = 1
-            END IF
+            }
             SUM = 2*SUM
          } else {
             L = 1
-         END IF
+         }
          CALL CLASSQ( N, AB( L, 1 ), LDAB, SCALE, SUM )
          VALUE = SCALE*SQRT( SUM )
-      END IF
+      }
 
       CLANSB = VALUE
       RETURN

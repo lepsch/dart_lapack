@@ -40,34 +40,34 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLAUU2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Compute the product U * U**T.
 
          DO 10 I = 1, N
             AII = A( I, I )
-            IF( I.LT.N ) THEN
+            if ( I.LT.N ) {
                A( I, I ) = SDOT( N-I+1, A( I, I ), LDA, A( I, I ), LDA )
                CALL SGEMV( 'No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, AII, A( 1, I ), 1 )
             } else {
                CALL SSCAL( I, AII, A( 1, I ), 1 )
-            END IF
+            }
    10    CONTINUE
 
       } else {
@@ -76,14 +76,14 @@
 
          DO 20 I = 1, N
             AII = A( I, I )
-            IF( I.LT.N ) THEN
+            if ( I.LT.N ) {
                A( I, I ) = SDOT( N-I+1, A( I, I ), 1, A( I, I ), 1 )
                CALL SGEMV( 'Transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, AII, A( I, 1 ), LDA )
             } else {
                CALL SSCAL( I, AII, A( I, 1 ), LDA )
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
 
       RETURN
 

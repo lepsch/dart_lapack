@@ -31,7 +31,7 @@
 
       // Invalid value for ISPEC
 
-      IF( (ISPEC.LT.17).OR.(ISPEC.GT.21) ) THEN
+      if ( (ISPEC.LT.17).OR.(ISPEC.GT.21) ) {
           IPARAM2STAGE = -1
           RETURN
       ENDIF
@@ -46,7 +46,7 @@
 #endif
        // WRITE(*,*) 'IPARAM VOICI NTHREADS ISPEC ',NTHREADS, ISPEC
 
-      IF( ISPEC .NE. 19 ) THEN
+      if ( ISPEC .NE. 19 ) {
 
          // Convert NAME to upper case if the first character is lower case.
 
@@ -54,42 +54,42 @@
          SUBNAM = NAME
          IC = ICHAR( SUBNAM( 1: 1 ) )
          IZ = ICHAR( 'Z' )
-         IF( IZ.EQ.90 .OR. IZ.EQ.122 ) THEN
+         if ( IZ.EQ.90 .OR. IZ.EQ.122 ) {
 
             // ASCII character set
 
-            IF( IC.GE.97 .AND. IC.LE.122 ) THEN
+            if ( IC.GE.97 .AND. IC.LE.122 ) {
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                DO 100 I = 2, 12
                   IC = ICHAR( SUBNAM( I: I ) )
                   IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
   100          CONTINUE
-            END IF
+            }
 
-         ELSE IF( IZ.EQ.233 .OR. IZ.EQ.169 ) THEN
+         } else if ( IZ.EQ.233 .OR. IZ.EQ.169 ) {
 
             // EBCDIC character set
 
-            IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) THEN
+            if ( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) {
                SUBNAM( 1: 1 ) = CHAR( IC+64 )
                DO 110 I = 2, 12
                   IC = ICHAR( SUBNAM( I: I ) )
                   IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
   110          CONTINUE
-            END IF
+            }
 
-         ELSE IF( IZ.EQ.218 .OR. IZ.EQ.250 ) THEN
+         } else if ( IZ.EQ.218 .OR. IZ.EQ.250 ) {
 
             // Prime machines:  ASCII+128
 
-            IF( IC.GE.225 .AND. IC.LE.250 ) THEN
+            if ( IC.GE.225 .AND. IC.LE.250 ) {
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                DO 120 I = 2, 12
                  IC = ICHAR( SUBNAM( I: I ) )
                  IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
   120          CONTINUE
-            END IF
-         END IF
+            }
+         }
 
          PREC  = SUBNAM( 1: 1 )
          ALGO  = SUBNAM( 4: 6 )
@@ -99,7 +99,7 @@
 
          // Invalid value for PRECISION
 
-         IF( .NOT.( RPREC .OR. CPREC ) ) THEN
+         if ( .NOT.( RPREC .OR. CPREC ) ) {
              IPARAM2STAGE = -1
              RETURN
          ENDIF
@@ -108,22 +108,22 @@
       // $           '   ALGO ',ALGO,'    STAGE ',STAG
 
 
-      IF (( ISPEC .EQ. 17 ) .OR. ( ISPEC .EQ. 18 )) THEN
+      if (( ISPEC .EQ. 17 ) .OR. ( ISPEC .EQ. 18 )) {
 
       // ISPEC = 17, 18:  block size KD, IB
       // Could be also dependent from N but for now it
       // depend only on sequential or parallel
 
-         IF( NTHREADS.GT.4 ) THEN
-            IF( CPREC ) THEN
+         if ( NTHREADS.GT.4 ) {
+            if ( CPREC ) {
                KD = 128
                IB = 32
             } else {
                KD = 160
                IB = 40
             ENDIF
-         ELSE IF( NTHREADS.GT.1 ) THEN
-            IF( CPREC ) THEN
+         } else if ( NTHREADS.GT.1 ) {
+            if ( CPREC ) {
                KD = 64
                IB = 32
             } else {
@@ -131,7 +131,7 @@
                IB = 32
             ENDIF
          } else {
-            IF( CPREC ) THEN
+            if ( CPREC ) {
                KD = 16
                IB = 16
             } else {
@@ -142,7 +142,7 @@
          IF( ISPEC.EQ.17 ) IPARAM2STAGE = KD
          IF( ISPEC.EQ.18 ) IPARAM2STAGE = IB
 
-      ELSE IF ( ISPEC .EQ. 19 ) THEN
+      } else if ( ISPEC .EQ. 19 ) {
 
       // ISPEC = 19:
       // LHOUS length of the Houselholder representation
@@ -150,19 +150,19 @@
 
       // Will add the VECT OPTION HERE next release
          VECT  = OPTS(1:1)
-         IF( LSAME( VECT, 'N' ) ) THEN
+         if ( LSAME( VECT, 'N' ) ) {
             LHOUS = MAX( 1, 4*NI )
          } else {
             // This is not correct, it need to call the ALGO and the stage2
             LHOUS = MAX( 1, 4*NI ) + IBI
          ENDIF
-         IF( LHOUS.GE.0 ) THEN
+         if ( LHOUS.GE.0 ) {
             IPARAM2STAGE = LHOUS
          } else {
             IPARAM2STAGE = -1
          ENDIF
 
-      ELSE IF ( ISPEC .EQ. 20 ) THEN
+      } else if ( ISPEC .EQ. 20 ) {
 
       // ISPEC = 20: (21 for future use)
       // LWORK length of the workspace for
@@ -185,32 +185,32 @@
          LQOPTNB      = ILAENV( 1, SUBNAM, ' ', NBI, NI, -1, -1 )
          // Could be QR or LQ for TRD and the max for BRD
          FACTOPTNB    = MAX(QROPTNB, LQOPTNB)
-         IF( ALGO.EQ.'TRD' ) THEN
-            IF( STAG.EQ.'2STAG' ) THEN
+         if ( ALGO.EQ.'TRD' ) {
+            if ( STAG.EQ.'2STAG' ) {
                LWORK = NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI
-            ELSE IF( (STAG.EQ.'HE2HB').OR.(STAG.EQ.'SY2SB') ) THEN
+            } else if ( (STAG.EQ.'HE2HB').OR.(STAG.EQ.'SY2SB') ) {
                LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI
-            ELSE IF( (STAG.EQ.'HB2ST').OR.(STAG.EQ.'SB2ST') ) THEN
+            } else if ( (STAG.EQ.'HB2ST').OR.(STAG.EQ.'SB2ST') ) {
                LWORK = (2*NBI+1)*NI + NBI*NTHREADS
             ENDIF
-         ELSE IF( ALGO.EQ.'BRD' ) THEN
-            IF( STAG.EQ.'2STAG' ) THEN
+         } else if ( ALGO.EQ.'BRD' ) {
+            if ( STAG.EQ.'2STAG' ) {
                LWORK = 2*NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI
-            ELSE IF( STAG.EQ.'GE2GB' ) THEN
+            } else if ( STAG.EQ.'GE2GB' ) {
                LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI
-            ELSE IF( STAG.EQ.'GB2BD' ) THEN
+            } else if ( STAG.EQ.'GB2BD' ) {
                LWORK = (3*NBI+1)*NI + NBI*NTHREADS
             ENDIF
          ENDIF
          LWORK = MAX ( 1, LWORK )
 
-         IF( LWORK.GT.0 ) THEN
+         if ( LWORK.GT.0 ) {
             IPARAM2STAGE = LWORK
          } else {
             IPARAM2STAGE = -1
          ENDIF
 
-      ELSE IF ( ISPEC .EQ. 21 ) THEN
+      } else if ( ISPEC .EQ. 21 ) {
 
       // ISPEC = 21 for future use
          IPARAM2STAGE = NXI

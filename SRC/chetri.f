@@ -43,17 +43,17 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHETRI', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -61,7 +61,7 @@
 
       // Check that the diagonal matrix D is nonsingular.
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Upper triangular storage: examine D from bottom to top
 
@@ -75,10 +75,10 @@
          DO 20 INFO = 1, N
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
    20    CONTINUE
-      END IF
+      }
       INFO = 0
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Compute inv(A) from the factorization A = U*D*U**H.
 
@@ -92,7 +92,7 @@
 
          IF( K.GT.N ) GO TO 50
 
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
 
             // 1 x 1 diagonal block
 
@@ -102,10 +102,10 @@
 
             // Compute column K of the inverse.
 
-            IF( K.GT.1 ) THEN
+            if ( K.GT.1 ) {
                CALL CCOPY( K-1, A( 1, K ), 1, WORK, 1 )
                CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )
-            END IF
+            }
             KSTEP = 1
          } else {
 
@@ -124,17 +124,17 @@
 
             // Compute columns K and K+1 of the inverse.
 
-            IF( K.GT.1 ) THEN
+            if ( K.GT.1 ) {
                CALL CCOPY( K-1, A( 1, K ), 1, WORK, 1 )
                CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - CDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
                CALL CCOPY( K-1, A( 1, K+1 ), 1, WORK, 1 )
                CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, ZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K+1 ), 1 ) )
-            END IF
+            }
             KSTEP = 2
-         END IF
+         }
 
          KP = ABS( IPIV( K ) )
-         IF( KP.NE.K ) THEN
+         if ( KP.NE.K ) {
 
             // Interchange rows and columns K and KP in the leading
             // submatrix A(1:k+1,1:k+1)
@@ -149,12 +149,12 @@
             TEMP = A( K, K )
             A( K, K ) = A( KP, KP )
             A( KP, KP ) = TEMP
-            IF( KSTEP.EQ.2 ) THEN
+            if ( KSTEP.EQ.2 ) {
                TEMP = A( K, K+1 )
                A( K, K+1 ) = A( KP, K+1 )
                A( KP, K+1 ) = TEMP
-            END IF
-         END IF
+            }
+         }
 
          K = K + KSTEP
          GO TO 30
@@ -174,7 +174,7 @@
 
          IF( K.LT.1 ) GO TO 80
 
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
 
             // 1 x 1 diagonal block
 
@@ -184,10 +184,10 @@
 
             // Compute column K of the inverse.
 
-            IF( K.LT.N ) THEN
+            if ( K.LT.N ) {
                CALL CCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
                CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )
-            END IF
+            }
             KSTEP = 1
          } else {
 
@@ -206,17 +206,17 @@
 
             // Compute columns K-1 and K of the inverse.
 
-            IF( K.LT.N ) THEN
+            if ( K.LT.N ) {
                CALL CCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
                CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - CDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 )
                CALL CCOPY( N-K, A( K+1, K-1 ), 1, WORK, 1 )
                CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K-1 ), 1 ) )
-            END IF
+            }
             KSTEP = 2
-         END IF
+         }
 
          KP = ABS( IPIV( K ) )
-         IF( KP.NE.K ) THEN
+         if ( KP.NE.K ) {
 
             // Interchange rows and columns K and KP in the trailing
             // submatrix A(k-1:n,k-1:n)
@@ -231,17 +231,17 @@
             TEMP = A( K, K )
             A( K, K ) = A( KP, KP )
             A( KP, KP ) = TEMP
-            IF( KSTEP.EQ.2 ) THEN
+            if ( KSTEP.EQ.2 ) {
                TEMP = A( K, K-1 )
                A( K, K-1 ) = A( KP, K-1 )
                A( KP, K-1 ) = TEMP
-            END IF
-         END IF
+            }
+         }
 
          K = K - KSTEP
          GO TO 60
    80    CONTINUE
-      END IF
+      }
 
       RETURN
 

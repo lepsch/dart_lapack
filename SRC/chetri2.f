@@ -39,41 +39,41 @@
       // Get blocksize
 
       NBMAX = ILAENV( 1, 'CHETRF', UPLO, N, -1, -1, -1 )
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          MINSIZE = 1
-      ELSE IF( NBMAX.GE.N ) THEN
+      } else if ( NBMAX.GE.N ) {
          MINSIZE = N
       } else {
          MINSIZE = (N+NBMAX+1)*(NBMAX+3)
-      END IF
+      }
 
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( LWORK.LT.MINSIZE .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MINSIZE .AND. .NOT.LQUERY ) {
          INFO = -7
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHETRI2', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( MINSIZE )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( NBMAX.GE.N ) THEN
+      if ( NBMAX.GE.N ) {
          CALL CHETRI( UPLO, N, A, LDA, IPIV, WORK, INFO )
       } else {
          CALL CHETRI2X( UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO )
-      END IF
+      }
 
       RETURN
 

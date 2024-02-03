@@ -54,39 +54,39 @@
 
       APPLV = LSAME( JOBV, 'A' )
       RSVEC = LSAME( JOBV, 'V' )
-      IF( .NOT.( RSVEC .OR. APPLV .OR. LSAME( JOBV, 'N' ) ) ) THEN
+      if ( .NOT.( RSVEC .OR. APPLV .OR. LSAME( JOBV, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -2
-      ELSE IF( ( N.LT.0 ) .OR. ( N.GT.M ) ) THEN
+      } else if ( ( N.LT.0 ) .OR. ( N.GT.M ) ) {
          INFO = -3
-      ELSE IF( LDA.LT.M ) THEN
+      } else if ( LDA.LT.M ) {
          INFO = -5
-      ELSE IF( ( RSVEC.OR.APPLV ) .AND. ( MV.LT.0 ) ) THEN
+      } else if ( ( RSVEC.OR.APPLV ) .AND. ( MV.LT.0 ) ) {
          INFO = -8
-      ELSE IF( ( RSVEC.AND.( LDV.LT.N ) ).OR. ( APPLV.AND.( LDV.LT.MV ) ) ) THEN
+      } else if ( ( RSVEC.AND.( LDV.LT.N ) ).OR. ( APPLV.AND.( LDV.LT.MV ) ) ) {
          INFO = -10
-      ELSE IF( TOL.LE.EPS ) THEN
+      } else if ( TOL.LE.EPS ) {
          INFO = -13
-      ELSE IF( NSWEEP.LT.0 ) THEN
+      } else if ( NSWEEP.LT.0 ) {
          INFO = -14
-      ELSE IF( LWORK.LT.M ) THEN
+      } else if ( LWORK.LT.M ) {
          INFO = -16
       } else {
          INFO = 0
-      END IF
+      }
 
       // #:(
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGSVJ0', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( RSVEC ) THEN
+      if ( RSVEC ) {
          MVL = N
-      ELSE IF( APPLV ) THEN
+      } else if ( APPLV ) {
          MVL = MV
-      END IF
+      }
       RSVEC = RSVEC .OR. APPLV
 
       ROOTEPS = SQRT( EPS )
@@ -168,7 +168,7 @@
       // .. de Rijk's pivoting
 
                   q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1
-                  IF( p.NE.q ) THEN
+                  if ( p.NE.q ) {
                      CALL CSWAP( M, A( 1, p ), 1, A( 1, q ), 1 )
                      IF( RSVEC )CALL CSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 )
                      TEMP1 = SVA( p )
@@ -177,9 +177,9 @@
                      AAPQ = D(p)
                      D(p) = D(q)
                      D(q) = AAPQ
-                  END IF
+                  }
 
-                  IF( ir1.EQ.0 ) THEN
+                  if ( ir1.EQ.0 ) {
 
          // Column norms are periodically updated by explicit
          // norm computation.
@@ -193,20 +193,20 @@
          // If properly implemented SCNRM2 is available, the IF-THEN-ELSE-END IF
          // below should be replaced with "AAPP = SCNRM2( M, A(1,p), 1 )".
 
-                     IF( ( SVA( p ).LT.ROOTBIG ) .AND. ( SVA( p ).GT.ROOTSFMIN ) ) THEN
+                     if ( ( SVA( p ).LT.ROOTBIG ) .AND. ( SVA( p ).GT.ROOTSFMIN ) ) {
                         SVA( p ) = SCNRM2( M, A( 1, p ), 1 )
                      } else {
                         TEMP1 = ZERO
                         AAPP = ONE
                         CALL CLASSQ( M, A( 1, p ), 1, TEMP1, AAPP )
                         SVA( p ) = TEMP1*SQRT( AAPP )
-                     END IF
+                     }
                      AAPP = SVA( p )
                   } else {
                      AAPP = SVA( p )
-                  END IF
+                  }
 
-                  IF( AAPP.GT.ZERO ) THEN
+                  if ( AAPP.GT.ZERO ) {
 
                      PSKIPPED = 0
 
@@ -214,25 +214,25 @@
 
                         AAQQ = SVA( q )
 
-                        IF( AAQQ.GT.ZERO ) THEN
+                        if ( AAQQ.GT.ZERO ) {
 
                            AAPP0 = AAPP
-                           IF( AAQQ.GE.ONE ) THEN
+                           if ( AAQQ.GE.ONE ) {
                               ROTOK = ( SMALL*AAPP ).LE.AAQQ
-                              IF( AAPP.LT.( BIG / AAQQ ) ) THEN
+                              if ( AAPP.LT.( BIG / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
                               } else {
                                  CALL CCOPY( M, A( 1, p ), 1, WORK, 1 )                                  CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR )                                  AAPQ = CDOTC( M, WORK, 1, A( 1, q ), 1 ) / AAQQ
-                              END IF
+                              }
                            } else {
                               ROTOK = AAPP.LE.( AAQQ / SMALL )
-                              IF( AAPP.GT.( SMALL / AAQQ ) ) THEN
+                              if ( AAPP.GT.( SMALL / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAPP ) / AAQQ
                               } else {
                                  CALL CCOPY( M, A( 1, q ), 1, WORK, 1 )                                  CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, WORK, LDA, IERR )
                                  AAPQ = CDOTC( M, A( 1, p ), 1, WORK, 1 ) / AAPP
-                              END IF
-                           END IF
+                              }
+                           }
 
                             // AAPQ = AAPQ * CONJG( CWORK(p) ) * CWORK(q)
                            AAPQ1  = -ABS(AAPQ)
@@ -240,32 +240,32 @@
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
-                           IF( ABS( AAPQ1 ).GT.TOL ) THEN
+                           if ( ABS( AAPQ1 ).GT.TOL ) {
                               OMPQ = AAPQ / ABS(AAPQ)
 
             // .. rotate
 *[RTD]      ROTATED = ROTATED + ONE
 
-                              IF( ir1.EQ.0 ) THEN
+                              if ( ir1.EQ.0 ) {
                                  NOTROT = 0
                                  PSKIPPED = 0
                                  ISWROT = ISWROT + 1
-                              END IF
+                              }
 
-                              IF( ROTOK ) THEN
+                              if ( ROTOK ) {
 
                                  AQOAP = AAQQ / AAPP
                                  APOAQ = AAPP / AAQQ
                                  THETA = -HALF*ABS( AQOAP-APOAQ )/AAPQ1
 
-                                 IF( ABS( THETA ).GT.BIGTHETA ) THEN
+                                 if ( ABS( THETA ).GT.BIGTHETA ) {
 
                                     T  = HALF / THETA
                                     CS = ONE
                                      CALL CROT( M, A(1,p), 1, A(1,q), 1, CS, CONJG(OMPQ)*T )
-                                    IF ( RSVEC ) THEN
+                                    if ( RSVEC ) {
                                         CALL CROT( MVL, V(1,p), 1, V(1,q), 1, CS, CONJG(OMPQ)*T )
-                                    END IF
+                                    }
                                      SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, ABS( T ) )
 
@@ -282,10 +282,10 @@
                                     SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ1 ) )
 
                                     CALL CROT( M, A(1,p), 1, A(1,q), 1, CS, CONJG(OMPQ)*SN )
-                                    IF ( RSVEC ) THEN
+                                    if ( RSVEC ) {
                                         CALL CROT( MVL, V(1,p), 1, V(1,q), 1, CS, CONJG(OMPQ)*SN )
-                                    END IF
-                                 END IF
+                                    }
+                                 }
                                  D(p) = -D(q) * OMPQ
 
                                  } else {
@@ -293,50 +293,50 @@
                                  CALL CCOPY( M, A( 1, p ), 1, WORK, 1 )                                  CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR )
                                  CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR )                                  CALL CAXPY( M, -AAPQ, WORK, 1, A( 1, q ), 1 )                                  CALL CLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
                                  MXSINJ = MAX( MXSINJ, SFMIN )
-                              END IF
+                              }
             // END IF ROTOK THEN ... ELSE
 
             // In the case of cancellation in updating SVA(q), SVA(p)
             // recompute SVA(q), SVA(p).
 
-                              IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) THEN
+                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) {
                                     SVA( q ) = SCNRM2( M, A( 1, q ), 1 )
                                  } else {
                                     T = ZERO
                                     AAQQ = ONE
                                     CALL CLASSQ( M, A( 1, q ), 1, T, AAQQ )
                                     SVA( q ) = T*SQRT( AAQQ )
-                                 END IF
-                              END IF
-                              IF( ( AAPP / AAPP0 ).LE.ROOTEPS ) THEN
-                                 IF( ( AAPP.LT.ROOTBIG ) .AND. ( AAPP.GT.ROOTSFMIN ) ) THEN
+                                 }
+                              }
+                              if ( ( AAPP / AAPP0 ).LE.ROOTEPS ) {
+                                 if ( ( AAPP.LT.ROOTBIG ) .AND. ( AAPP.GT.ROOTSFMIN ) ) {
                                     AAPP = SCNRM2( M, A( 1, p ), 1 )
                                  } else {
                                     T = ZERO
                                     AAPP = ONE
                                     CALL CLASSQ( M, A( 1, p ), 1, T, AAPP )
                                     AAPP = T*SQRT( AAPP )
-                                 END IF
+                                 }
                                  SVA( p ) = AAPP
-                              END IF
+                              }
 
                            } else {
          // A(:,p) and A(:,q) already numerically orthogonal
                               IF( ir1.EQ.0 )NOTROT = NOTROT + 1
 *[RTD]      SKIPPED  = SKIPPED  + 1
                               PSKIPPED = PSKIPPED + 1
-                           END IF
+                           }
                         } else {
          // A(:,q) is zero column
                            IF( ir1.EQ.0 )NOTROT = NOTROT + 1
                            PSKIPPED = PSKIPPED + 1
-                        END IF
+                        }
 
-                        IF( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) THEN
+                        if ( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) {
                            IF( ir1.EQ.0 )AAPP = -AAPP
                            NOTROT = 0
                            GO TO 2103
-                        END IF
+                        }
 
  2002                CONTINUE
       // END q-LOOP
@@ -349,7 +349,7 @@
                   } else {
                      SVA( p ) = AAPP
                      IF( ( ir1.EQ.0 ) .AND. ( AAPP.EQ.ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p
-                  END IF
+                  }
 
  2001          CONTINUE
       // end of the p-loop
@@ -371,45 +371,45 @@
                DO 2100 p = igl, MIN( igl+KBL-1, N )
 
                   AAPP = SVA( p )
-                  IF( AAPP.GT.ZERO ) THEN
+                  if ( AAPP.GT.ZERO ) {
 
                      PSKIPPED = 0
 
                      DO 2200 q = jgl, MIN( jgl+KBL-1, N )
 
                         AAQQ = SVA( q )
-                        IF( AAQQ.GT.ZERO ) THEN
+                        if ( AAQQ.GT.ZERO ) {
                            AAPP0 = AAPP
 
       // .. M x 2 Jacobi SVD ..
 
          // Safe Gram matrix computation
 
-                           IF( AAQQ.GE.ONE ) THEN
-                              IF( AAPP.GE.AAQQ ) THEN
+                           if ( AAQQ.GE.ONE ) {
+                              if ( AAPP.GE.AAQQ ) {
                                  ROTOK = ( SMALL*AAPP ).LE.AAQQ
                               } else {
                                  ROTOK = ( SMALL*AAQQ ).LE.AAPP
-                              END IF
-                              IF( AAPP.LT.( BIG / AAQQ ) ) THEN
+                              }
+                              if ( AAPP.LT.( BIG / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
                               } else {
                                  CALL CCOPY( M, A( 1, p ), 1, WORK, 1 )                                  CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR )
                                  AAPQ = CDOTC( M, WORK, 1, A( 1, q ), 1 ) / AAQQ
-                              END IF
+                              }
                            } else {
-                              IF( AAPP.GE.AAQQ ) THEN
+                              if ( AAPP.GE.AAQQ ) {
                                  ROTOK = AAPP.LE.( AAQQ / SMALL )
                               } else {
                                  ROTOK = AAQQ.LE.( AAPP / SMALL )
-                              END IF
-                              IF( AAPP.GT.( SMALL / AAQQ ) ) THEN
+                              }
+                              if ( AAPP.GT.( SMALL / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / MAX(AAQQ,AAPP) ) / MIN(AAQQ,AAPP)
                               } else {
                                  CALL CCOPY( M, A( 1, q ), 1, WORK, 1 )                                  CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, WORK, LDA, IERR )
                                  AAPQ = CDOTC( M, A( 1, p ), 1, WORK, 1 ) / AAPP
-                              END IF
-                           END IF
+                              }
+                           }
 
                             // AAPQ = AAPQ * CONJG(CWORK(p))*CWORK(q)
                            AAPQ1  = -ABS(AAPQ)
@@ -417,27 +417,27 @@
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
-                           IF( ABS( AAPQ1 ).GT.TOL ) THEN
+                           if ( ABS( AAPQ1 ).GT.TOL ) {
                               OMPQ = AAPQ / ABS(AAPQ)
                               NOTROT = 0
 *[RTD]      ROTATED  = ROTATED + 1
                               PSKIPPED = 0
                               ISWROT = ISWROT + 1
 
-                              IF( ROTOK ) THEN
+                              if ( ROTOK ) {
 
                                  AQOAP = AAQQ / AAPP
                                  APOAQ = AAPP / AAQQ
                                  THETA = -HALF*ABS( AQOAP-APOAQ )/ AAPQ1
                                  IF( AAQQ.GT.AAPP0 )THETA = -THETA
 
-                                 IF( ABS( THETA ).GT.BIGTHETA ) THEN
+                                 if ( ABS( THETA ).GT.BIGTHETA ) {
                                     T  = HALF / THETA
                                     CS = ONE
                                     CALL CROT( M, A(1,p), 1, A(1,q), 1, CS, CONJG(OMPQ)*T )
-                                    IF( RSVEC ) THEN
+                                    if ( RSVEC ) {
                                         CALL CROT( MVL, V(1,p), 1, V(1,q), 1, CS, CONJG(OMPQ)*T )
-                                    END IF
+                                    }
                                     SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, ABS( T ) )
                                  } else {
@@ -453,15 +453,15 @@
                                     SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ1 ) )
 
                                     CALL CROT( M, A(1,p), 1, A(1,q), 1, CS, CONJG(OMPQ)*SN )
-                                    IF( RSVEC ) THEN
+                                    if ( RSVEC ) {
                                         CALL CROT( MVL, V(1,p), 1, V(1,q), 1, CS, CONJG(OMPQ)*SN )
-                                    END IF
-                                 END IF
+                                    }
+                                 }
                                  D(p) = -D(q) * OMPQ
 
                               } else {
                // .. have to use modified Gram-Schmidt like transformation
-                               IF( AAPP.GT.AAQQ ) THEN
+                               if ( AAPP.GT.AAQQ ) {
                                     CALL CCOPY( M, A( 1, p ), 1, WORK, 1 )                                     CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK,LDA, IERR )                                     CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR )                                     CALL CAXPY( M, -AAPQ, WORK, 1, A( 1, q ), 1 )                                     CALL CLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )
                                     SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
@@ -469,55 +469,55 @@
                                    CALL CCOPY( M, A( 1, q ), 1, WORK, 1 )                                     CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, WORK,LDA, IERR )                                     CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, A( 1, p ), LDA, IERR )                                     CALL CAXPY( M, -CONJG(AAPQ), WORK, 1, A( 1, p ), 1 )                                     CALL CLASCL( 'G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR )
                                     SVA( p ) = AAPP*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
-                               END IF
-                              END IF
+                               }
+                              }
             // END IF ROTOK THEN ... ELSE
 
             // In the case of cancellation in updating SVA(q), SVA(p)
             // .. recompute SVA(q), SVA(p)
-                              IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) THEN
+                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) {
                                     SVA( q ) = SCNRM2( M, A( 1, q ), 1)
                                   } else {
                                     T = ZERO
                                     AAQQ = ONE
                                     CALL CLASSQ( M, A( 1, q ), 1, T, AAQQ )
                                     SVA( q ) = T*SQRT( AAQQ )
-                                 END IF
-                              END IF
-                              IF( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) THEN
-                                 IF( ( AAPP.LT.ROOTBIG ) .AND. ( AAPP.GT.ROOTSFMIN ) ) THEN
+                                 }
+                              }
+                              if ( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) {
+                                 if ( ( AAPP.LT.ROOTBIG ) .AND. ( AAPP.GT.ROOTSFMIN ) ) {
                                     AAPP = SCNRM2( M, A( 1, p ), 1 )
                                  } else {
                                     T = ZERO
                                     AAPP = ONE
                                     CALL CLASSQ( M, A( 1, p ), 1, T, AAPP )
                                     AAPP = T*SQRT( AAPP )
-                                 END IF
+                                 }
                                  SVA( p ) = AAPP
-                              END IF
+                              }
                // end of OK rotation
                            } else {
                               NOTROT = NOTROT + 1
 *[RTD]      SKIPPED  = SKIPPED  + 1
                               PSKIPPED = PSKIPPED + 1
                               IJBLSK = IJBLSK + 1
-                           END IF
+                           }
                         } else {
                            NOTROT = NOTROT + 1
                            PSKIPPED = PSKIPPED + 1
                            IJBLSK = IJBLSK + 1
-                        END IF
+                        }
 
-                        IF( ( i.LE.SWBAND ) .AND. ( IJBLSK.GE.BLSKIP ) ) THEN
+                        if ( ( i.LE.SWBAND ) .AND. ( IJBLSK.GE.BLSKIP ) ) {
                            SVA( p ) = AAPP
                            NOTROT = 0
                            GO TO 2011
-                        END IF
-                        IF( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) THEN
+                        }
+                        if ( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) {
                            AAPP = -AAPP
                            NOTROT = 0
                            GO TO 2203
-                        END IF
+                        }
 
  2200                CONTINUE
          // end of the q-loop
@@ -530,7 +530,7 @@
                      IF( AAPP.EQ.ZERO )NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1
                      IF( AAPP.LT.ZERO )NOTROT = 0
 
-                  END IF
+                  }
 
  2100          CONTINUE
       // end of the p-loop
@@ -546,22 +546,22 @@
 *2000 :: end of the ibr-loop
 
       // .. update SVA(N)
-         IF( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) ) THEN
+         if ( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) ) {
             SVA( N ) = SCNRM2( M, A( 1, N ), 1 )
          } else {
             T = ZERO
             AAPP = ONE
             CALL CLASSQ( M, A( 1, N ), 1, T, AAPP )
             SVA( N ) = T*SQRT( AAPP )
-         END IF
+         }
 
       // Additional steering devices
 
          IF( ( i.LT.SWBAND ) .AND. ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
 
-         IF( ( i.GT.SWBAND+1 ) .AND. ( MXAAPQ.LT.SQRT( REAL( N ) )* TOL ) .AND. ( REAL( N )*MXAAPQ*MXSINJ.LT.TOL ) ) THEN
+         if ( ( i.GT.SWBAND+1 ) .AND. ( MXAAPQ.LT.SQRT( REAL( N ) )* TOL ) .AND. ( REAL( N )*MXAAPQ*MXSINJ.LT.TOL ) ) {
             GO TO 1994
-         END IF
+         }
 
          IF( NOTROT.GE.EMPTSW )GO TO 1994
 
@@ -583,7 +583,7 @@
       // Sort the vector SVA() of column norms.
       DO 5991 p = 1, N - 1
          q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1
-         IF( p.NE.q ) THEN
+         if ( p.NE.q ) {
             TEMP1 = SVA( p )
             SVA( p ) = SVA( q )
             SVA( q ) = TEMP1
@@ -592,7 +592,7 @@
             D( q ) = AAPQ
             CALL CSWAP( M, A( 1, p ), 1, A( 1, q ), 1 )
             IF( RSVEC )CALL CSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 )
-         END IF
+         }
  5991 CONTINUE
 
       RETURN

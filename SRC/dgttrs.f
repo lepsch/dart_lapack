@@ -33,19 +33,19 @@
 
       INFO = 0
       NOTRAN = ( TRANS.EQ.'N' .OR. TRANS.EQ.'n' )
-      IF( .NOT.NOTRAN .AND. .NOT.( TRANS.EQ.'T' .OR. TRANS.EQ. 't' ) .AND. .NOT.( TRANS.EQ.'C' .OR. TRANS.EQ.'c' ) ) THEN
+      if ( .NOT.NOTRAN .AND. .NOT.( TRANS.EQ.'T' .OR. TRANS.EQ. 't' ) .AND. .NOT.( TRANS.EQ.'C' .OR. TRANS.EQ.'c' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDB.LT.MAX( N, 1 ) ) THEN
+      } else if ( LDB.LT.MAX( N, 1 ) ) {
          INFO = -10
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGTTRS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -53,28 +53,28 @@
 
       // Decode TRANS
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
          ITRANS = 0
       } else {
          ITRANS = 1
-      END IF
+      }
 
       // Determine the number of right-hand sides to solve at a time.
 
-      IF( NRHS.EQ.1 ) THEN
+      if ( NRHS.EQ.1 ) {
          NB = 1
       } else {
          NB = MAX( 1, ILAENV( 1, 'DGTTRS', TRANS, N, NRHS, -1, -1 ) )
-      END IF
+      }
 
-      IF( NB.GE.NRHS ) THEN
+      if ( NB.GE.NRHS ) {
          CALL DGTTS2( ITRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB )
       } else {
          DO 10 J = 1, NRHS, NB
             JB = MIN( NRHS-J+1, NB )
             CALL DGTTS2( ITRANS, N, JB, DL, D, DU, DU2, IPIV, B( 1, J ), LDB )
    10    CONTINUE
-      END IF
+      }
 
       // End of DGTTRS
 

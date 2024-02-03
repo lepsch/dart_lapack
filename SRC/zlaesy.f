@@ -35,10 +35,10 @@
       // Special case:  The matrix is actually diagonal.
       // To avoid divide by zero later, we treat this case separately.
 
-      IF( ABS( B ).EQ.ZERO ) THEN
+      if ( ABS( B ).EQ.ZERO ) {
          RT1 = A
          RT2 = C
-         IF( ABS( RT1 ).LT.ABS( RT2 ) ) THEN
+         if ( ABS( RT1 ).LT.ABS( RT2 ) ) {
             TMP = RT1
             RT1 = RT2
             RT2 = TMP
@@ -47,7 +47,7 @@
          } else {
             CS1 = ONE
             SN1 = ZERO
-         END IF
+         }
       } else {
 
          // Compute the eigenvalues and eigenvectors.
@@ -70,11 +70,11 @@
 
          RT1 = S + T
          RT2 = S - T
-         IF( ABS( RT1 ).LT.ABS( RT2 ) ) THEN
+         if ( ABS( RT1 ).LT.ABS( RT2 ) ) {
             TMP = RT1
             RT1 = RT2
             RT2 = TMP
-         END IF
+         }
 
          // Choose CS1 = 1 and SN1 to satisfy the first equation, then
          // scale the components of this eigenvector so that the matrix
@@ -83,20 +83,20 @@
 
          SN1 = ( RT1-A ) / B
          TABS = ABS( SN1 )
-         IF( TABS.GT.ONE ) THEN
+         if ( TABS.GT.ONE ) {
             T = TABS*SQRT( ( ONE / TABS )**2+( SN1 / TABS )**2 )
          } else {
             T = SQRT( CONE+SN1*SN1 )
-         END IF
+         }
          EVNORM = ABS( T )
-         IF( EVNORM.GE.THRESH ) THEN
+         if ( EVNORM.GE.THRESH ) {
             EVSCAL = CONE / T
             CS1 = EVSCAL
             SN1 = SN1*EVSCAL
          } else {
             EVSCAL = ZERO
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of ZLAESY

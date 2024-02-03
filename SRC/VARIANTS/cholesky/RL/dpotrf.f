@@ -39,17 +39,17 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DPOTRF', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -58,7 +58,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'DPOTRF', UPLO, N, -1, -1, -1 )
-      IF( NB.LE.1 .OR. NB.GE.N ) THEN
+      if ( NB.LE.1 .OR. NB.GE.N ) {
 
          // Use unblocked code.
 
@@ -67,7 +67,7 @@
 
          // Use blocked code.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
 
             // Compute the Cholesky factorization A = U'*U.
 
@@ -81,12 +81,12 @@
                CALL DPOTRF2( 'Upper', JB, A( J, J ), LDA, INFO )
                 IF( INFO.NE.0 ) GO TO 30
 
-               IF( J+JB.LE.N ) THEN
+               if ( J+JB.LE.N ) {
 
                   // Updating the trailing submatrix.
 
                   CALL DTRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA )                   CALL DSYRK( 'Upper', 'Transpose', N-J-JB+1, JB, -ONE, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA )
-               END IF
+               }
    10       CONTINUE
 
          } else {
@@ -103,15 +103,15 @@
                CALL DPOTRF2( 'Lower', JB, A( J, J ), LDA, INFO )
                 IF( INFO.NE.0 ) GO TO 30
 
-               IF( J+JB.LE.N ) THEN
+               if ( J+JB.LE.N ) {
 
                  // Updating the trailing submatrix.
 
                  CALL DTRSM( 'Right', 'Lower', 'Transpose', 'Non-unit', N-J-JB+1, JB, ONE, A( J, J ), LDA, A( J+JB, J ), LDA )                   CALL DSYRK( 'Lower', 'No Transpose', N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, ONE, A( J+JB, J+JB ), LDA )
-               END IF
+               }
    20       CONTINUE
-         END IF
-      END IF
+         }
+      }
       GO TO 40
 
    30 CONTINUE

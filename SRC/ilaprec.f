@@ -19,17 +19,17 @@
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..
-      IF( LSAME( PREC, 'S' ) ) THEN
+      if ( LSAME( PREC, 'S' ) ) {
          ILAPREC = BLAS_PREC_SINGLE
-      ELSE IF( LSAME( PREC, 'D' ) ) THEN
+      } else if ( LSAME( PREC, 'D' ) ) {
          ILAPREC = BLAS_PREC_DOUBLE
-      ELSE IF( LSAME( PREC, 'I' ) ) THEN
+      } else if ( LSAME( PREC, 'I' ) ) {
          ILAPREC = BLAS_PREC_INDIGENOUS
-      ELSE IF( LSAME( PREC, 'X' ) .OR. LSAME( PREC, 'E' ) ) THEN
+      } else if ( LSAME( PREC, 'X' ) .OR. LSAME( PREC, 'E' ) ) {
          ILAPREC = BLAS_PREC_EXTRA
       } else {
          ILAPREC = -1
-      END IF
+      }
       RETURN
 
       // End of ILAPREC

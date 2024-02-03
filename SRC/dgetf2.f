@@ -38,17 +38,17 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGETF2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -64,7 +64,7 @@
 
          JP = J - 1 + IDAMAX( M-J+1, A( J, J ), 1 )
          IPIV( J ) = JP
-         IF( A( JP, J ).NE.ZERO ) THEN
+         if ( A( JP, J ).NE.ZERO ) {
 
             // Apply the interchange to columns 1:N.
 
@@ -72,27 +72,27 @@
 
             // Compute elements J+1:M of J-th column.
 
-            IF( J.LT.M ) THEN
-               IF( ABS(A( J, J )) .GE. SFMIN ) THEN
+            if ( J.LT.M ) {
+               if ( ABS(A( J, J )) .GE. SFMIN ) {
                   CALL DSCAL( M-J, ONE / A( J, J ), A( J+1, J ), 1 )
                } else {
                  DO 20 I = 1, M-J
                     A( J+I, J ) = A( J+I, J ) / A( J, J )
    20            CONTINUE
-               END IF
-            END IF
+               }
+            }
 
-         ELSE IF( INFO.EQ.0 ) THEN
+         } else if ( INFO.EQ.0 ) {
 
             INFO = J
-         END IF
+         }
 
-         IF( J.LT.MIN( M, N ) ) THEN
+         if ( J.LT.MIN( M, N ) ) {
 
             // Update trailing submatrix.
 
             CALL DGER( M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA )
-         END IF
+         }
    10 CONTINUE
       RETURN
 

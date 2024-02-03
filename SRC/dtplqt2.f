@@ -32,23 +32,23 @@
       // Test the input arguments
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( L.LT.0 .OR. L.GT.MIN(M,N) ) THEN
+      } else if ( L.LT.0 .OR. L.GT.MIN(M,N) ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, M ) ) THEN
+      } else if ( LDB.LT.MAX( 1, M ) ) {
          INFO = -7
-      ELSE IF( LDT.LT.MAX( 1, M ) ) THEN
+      } else if ( LDT.LT.MAX( 1, M ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DTPLQT2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -60,7 +60,7 @@
 
          P = N-L+MIN( L, I )
          CALL DLARFG( P+1, A( I, I ), B( I, 1 ), LDB, T( 1, I ) )
-         IF( I.LT.M ) THEN
+         if ( I.LT.M ) {
 
             // W(M-I:1) := C(I+1:M,I:N) * C(I,I:N) [use W = T(M,:)]
 
@@ -76,7 +76,7 @@
                A( I+J, I ) = A( I+J, I ) + ALPHA*(T( M, J ))
             END DO
             CALL DGER( M-I, P, ALPHA,  T( M, 1 ), LDT, B( I, 1 ), LDB, B( I+1, 1 ), LDB )
-         END IF
+         }
       END DO
 
       DO I = 2, M

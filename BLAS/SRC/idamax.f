@@ -24,16 +24,16 @@
       IF (N.LT.1 .OR. INCX.LE.0) RETURN
       IDAMAX = 1
       IF (N.EQ.1) RETURN
-      IF (INCX.EQ.1) THEN
+      if (INCX.EQ.1) {
 
          // code for increment equal to 1
 
          DMAX = DABS(DX(1))
          DO I = 2,N
-            IF (DABS(DX(I)).GT.DMAX) THEN
+            if (DABS(DX(I)).GT.DMAX) {
                IDAMAX = I
                DMAX = DABS(DX(I))
-            END IF
+            }
          END DO
       } else {
 
@@ -43,13 +43,13 @@
          DMAX = DABS(DX(1))
          IX = IX + INCX
          DO I = 2,N
-            IF (DABS(DX(IX)).GT.DMAX) THEN
+            if (DABS(DX(IX)).GT.DMAX) {
                IDAMAX = I
                DMAX = DABS(DX(IX))
-            END IF
+            }
             IX = IX + INCX
          END DO
-      END IF
+      }
       RETURN
 
       // End of IDAMAX

@@ -96,11 +96,11 @@
          // Compute Schur form
 
          CALL CGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
             GO TO 200
-         END IF
+         }
 
          // Generate unitary matrix
 
@@ -115,11 +115,11 @@
    40       CONTINUE
    50    CONTINUE
          CALL CHSEQR( 'S', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
             GO TO 200
-         END IF
+         }
 
          // Sort, select eigenvalues
 
@@ -127,7 +127,7 @@
             IPNT( I ) = I
             SELECT( I ) = .FALSE.
    60    CONTINUE
-         IF( ISRT.EQ.0 ) THEN
+         if ( ISRT.EQ.0 ) {
             DO 70 I = 1, N
                WSRT( I ) = REAL( W( I ) )
    70       CONTINUE
@@ -135,15 +135,15 @@
             DO 80 I = 1, N
                WSRT( I ) = AIMAG( W( I ) )
    80       CONTINUE
-         END IF
+         }
          DO 100 I = 1, N - 1
             KMIN = I
             VMIN = WSRT( I )
             DO 90 J = I + 1, N
-               IF( WSRT( J ).LT.VMIN ) THEN
+               if ( WSRT( J ).LT.VMIN ) {
                   KMIN = J
                   VMIN = WSRT( J )
-               END IF
+               }
    90       CONTINUE
             WSRT( KMIN ) = WSRT( I )
             WSRT( I ) = VMIN
@@ -160,11 +160,11 @@
          CALL CLACPY( 'F', N, N, Q, LDT, QSAV, LDT )
          CALL CLACPY( 'F', N, N, T, LDT, TSAV1, LDT )
          CALL CTRSEN( 'B', 'V', SELECT, N, T, LDT, Q, LDT, WTMP, M, S, SEP, WORK, LWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 200
-         END IF
+         }
          SEPTMP = SEP / VMUL
          STMP = S
 
@@ -172,116 +172,116 @@
 
          CALL CHST01( N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT )
          VMAX = MAX( RESULT( 1 ), RESULT( 2 ) )
-         IF( VMAX.GT.RMAX( 1 ) ) THEN
+         if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
-         END IF
+         }
 
          // Compare condition number for eigenvalue cluster
         t // aking its condition number into account
 
          V = MAX( TWO*REAL( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
-         IF( V.GT.SEPTMP ) THEN
+         if ( V.GT.SEPTMP ) {
             TOL = ONE
          } else {
             TOL = V / SEPTMP
-         END IF
-         IF( V.GT.SEPIN ) THEN
+         }
+         if ( V.GT.SEPIN ) {
             TOLIN = ONE
          } else {
             TOLIN = V / SEPIN
-         END IF
+         }
          TOL = MAX( TOL, SMLNUM / EPS )
          TOLIN = MAX( TOLIN, SMLNUM / EPS )
-         IF( EPS*( SIN-TOLIN ).GT.STMP+TOL ) THEN
+         if ( EPS*( SIN-TOLIN ).GT.STMP+TOL ) {
             VMAX = ONE / EPS
-         ELSE IF( SIN-TOLIN.GT.STMP+TOL ) THEN
+         } else if ( SIN-TOLIN.GT.STMP+TOL ) {
             VMAX = ( SIN-TOLIN ) / ( STMP+TOL )
-         ELSE IF( SIN+TOLIN.LT.EPS*( STMP-TOL ) ) THEN
+         } else if ( SIN+TOLIN.LT.EPS*( STMP-TOL ) ) {
             VMAX = ONE / EPS
-         ELSE IF( SIN+TOLIN.LT.STMP-TOL ) THEN
+         } else if ( SIN+TOLIN.LT.STMP-TOL ) {
             VMAX = ( STMP-TOL ) / ( SIN+TOLIN )
          } else {
             VMAX = ONE
-         END IF
-         IF( VMAX.GT.RMAX( 2 ) ) THEN
+         }
+         if ( VMAX.GT.RMAX( 2 ) ) {
             RMAX( 2 ) = VMAX
             IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
-         END IF
+         }
 
          // Compare condition numbers for invariant subspace
         t // aking its condition number into account
 
-         IF( V.GT.SEPTMP*STMP ) THEN
+         if ( V.GT.SEPTMP*STMP ) {
             TOL = SEPTMP
          } else {
             TOL = V / STMP
-         END IF
-         IF( V.GT.SEPIN*SIN ) THEN
+         }
+         if ( V.GT.SEPIN*SIN ) {
             TOLIN = SEPIN
          } else {
             TOLIN = V / SIN
-         END IF
+         }
          TOL = MAX( TOL, SMLNUM / EPS )
          TOLIN = MAX( TOLIN, SMLNUM / EPS )
-         IF( EPS*( SEPIN-TOLIN ).GT.SEPTMP+TOL ) THEN
+         if ( EPS*( SEPIN-TOLIN ).GT.SEPTMP+TOL ) {
             VMAX = ONE / EPS
-         ELSE IF( SEPIN-TOLIN.GT.SEPTMP+TOL ) THEN
+         } else if ( SEPIN-TOLIN.GT.SEPTMP+TOL ) {
             VMAX = ( SEPIN-TOLIN ) / ( SEPTMP+TOL )
-         ELSE IF( SEPIN+TOLIN.LT.EPS*( SEPTMP-TOL ) ) THEN
+         } else if ( SEPIN+TOLIN.LT.EPS*( SEPTMP-TOL ) ) {
             VMAX = ONE / EPS
-         ELSE IF( SEPIN+TOLIN.LT.SEPTMP-TOL ) THEN
+         } else if ( SEPIN+TOLIN.LT.SEPTMP-TOL ) {
             VMAX = ( SEPTMP-TOL ) / ( SEPIN+TOLIN )
          } else {
             VMAX = ONE
-         END IF
-         IF( VMAX.GT.RMAX( 2 ) ) THEN
+         }
+         if ( VMAX.GT.RMAX( 2 ) ) {
             RMAX( 2 ) = VMAX
             IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
-         END IF
+         }
 
          // Compare condition number for eigenvalue cluster
          // without taking its condition number into account
 
-         IF( SIN.LE.REAL( 2*N )*EPS .AND. STMP.LE.REAL( 2*N )*EPS ) THEN
+         if ( SIN.LE.REAL( 2*N )*EPS .AND. STMP.LE.REAL( 2*N )*EPS ) {
             VMAX = ONE
-         ELSE IF( EPS*SIN.GT.STMP ) THEN
+         } else if ( EPS*SIN.GT.STMP ) {
             VMAX = ONE / EPS
-         ELSE IF( SIN.GT.STMP ) THEN
+         } else if ( SIN.GT.STMP ) {
             VMAX = SIN / STMP
-         ELSE IF( SIN.LT.EPS*STMP ) THEN
+         } else if ( SIN.LT.EPS*STMP ) {
             VMAX = ONE / EPS
-         ELSE IF( SIN.LT.STMP ) THEN
+         } else if ( SIN.LT.STMP ) {
             VMAX = STMP / SIN
          } else {
             VMAX = ONE
-         END IF
-         IF( VMAX.GT.RMAX( 3 ) ) THEN
+         }
+         if ( VMAX.GT.RMAX( 3 ) ) {
             RMAX( 3 ) = VMAX
             IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
-         END IF
+         }
 
          // Compare condition numbers for invariant subspace
          // without taking its condition number into account
 
-         IF( SEPIN.LE.V .AND. SEPTMP.LE.V ) THEN
+         if ( SEPIN.LE.V .AND. SEPTMP.LE.V ) {
             VMAX = ONE
-         ELSE IF( EPS*SEPIN.GT.SEPTMP ) THEN
+         } else if ( EPS*SEPIN.GT.SEPTMP ) {
             VMAX = ONE / EPS
-         ELSE IF( SEPIN.GT.SEPTMP ) THEN
+         } else if ( SEPIN.GT.SEPTMP ) {
             VMAX = SEPIN / SEPTMP
-         ELSE IF( SEPIN.LT.EPS*SEPTMP ) THEN
+         } else if ( SEPIN.LT.EPS*SEPTMP ) {
             VMAX = ONE / EPS
-         ELSE IF( SEPIN.LT.SEPTMP ) THEN
+         } else if ( SEPIN.LT.SEPTMP ) {
             VMAX = SEPTMP / SEPIN
          } else {
             VMAX = ONE
-         END IF
-         IF( VMAX.GT.RMAX( 3 ) ) THEN
+         }
+         if ( VMAX.GT.RMAX( 3 ) ) {
             RMAX( 3 ) = VMAX
             IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
-         END IF
+         }
 
          // Compute eigenvalue condition number only and compare
          // Update Q
@@ -292,11 +292,11 @@
          SEPTMP = -ONE
          STMP = -ONE
          CALL CTRSEN( 'E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 200
-         END IF
+         }
          IF( S.NE.STMP ) VMAX = ONE / EPS          IF( -ONE.NE.SEPTMP ) VMAX = ONE / EPS
          DO 130 I = 1, N
             DO 120 J = 1, N
@@ -312,11 +312,11 @@
          SEPTMP = -ONE
          STMP = -ONE
          CALL CTRSEN( 'V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 200
-         END IF
+         }
          IF( -ONE.NE.STMP ) VMAX = ONE / EPS          IF( SEP.NE.SEPTMP ) VMAX = ONE / EPS
          DO 150 I = 1, N
             DO 140 J = 1, N
@@ -332,11 +332,11 @@
          SEPTMP = -ONE
          STMP = -ONE
          CALL CTRSEN( 'E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 200
-         END IF
+         }
          IF( S.NE.STMP ) VMAX = ONE / EPS          IF( -ONE.NE.SEPTMP ) VMAX = ONE / EPS
          DO 170 I = 1, N
             DO 160 J = 1, N
@@ -352,21 +352,21 @@
          SEPTMP = -ONE
          STMP = -ONE
          CALL CTRSEN( 'V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 200
-         END IF
+         }
          IF( -ONE.NE.STMP ) VMAX = ONE / EPS          IF( SEP.NE.SEPTMP ) VMAX = ONE / EPS
          DO 190 I = 1, N
             DO 180 J = 1, N
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.QSAV( I, J ) ) VMAX = ONE / EPS
   180       CONTINUE
   190    CONTINUE
-         IF( VMAX.GT.RMAX( 1 ) ) THEN
+         if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
-         END IF
+         }
   200 CONTINUE
       GO TO 10
 

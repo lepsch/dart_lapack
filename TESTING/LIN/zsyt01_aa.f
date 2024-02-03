@@ -42,10 +42,10 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Determine EPS and the norm of A.
 
@@ -56,8 +56,8 @@
 
       CALL ZLASET( 'Full', N, N, CZERO, CZERO, C, LDC )
       CALL ZLACPY( 'F', 1, N, AFAC( 1, 1 ), LDAFAC+1, C( 1, 1 ), LDC+1 )
-      IF( N.GT.1 ) THEN
-         IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( N.GT.1 ) {
+         if ( LSAME( UPLO, 'U' ) ) {
             CALL ZLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL ZLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ), LDC+1 )
          } else {
             CALL ZLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL ZLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 2, 1 ), LDC+1 )
@@ -65,19 +65,19 @@
 
          // Call ZTRMM to form the product U' * D (or L * D ).
 
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
             CALL ZTRMM( 'Left', UPLO, 'Transpose', 'Unit', N-1, N, CONE, AFAC( 1, 2 ), LDAFAC, C( 2, 1 ), LDC )
          } else {
             CALL ZTRMM( 'Left', UPLO, 'No transpose', 'Unit', N-1, N, CONE, AFAC( 2, 1 ), LDAFAC, C( 2, 1 ), LDC )
-         END IF
+         }
 
          // Call ZTRMM again to multiply by U (or L ).
 
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
             CALL ZTRMM( 'Right', UPLO, 'No transpose', 'Unit', N, N-1, CONE, AFAC( 1, 2 ), LDAFAC, C( 1, 2 ), LDC )
          } else {
             CALL ZTRMM( 'Right', UPLO, 'Transpose', 'Unit', N, N-1, CONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ), LDC )
-         END IF
+         }
       ENDIF
 
       // Apply symmetric pivots
@@ -94,7 +94,7 @@
 
       // Compute the difference  C - A .
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO J = 1, N
             DO I = 1, J
                C( I, J ) = C( I, J ) - A( I, J )
@@ -106,17 +106,17 @@
                C( I, J ) = C( I, J ) - A( I, J )
             END DO
          END DO
-      END IF
+      }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )
 
       RESID = ZLANSY( '1', UPLO, N, C, LDC, RWORK )
 
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
-      END IF
+      }
 
       RETURN
 

@@ -39,19 +39,19 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -3
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CPBSTF', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -63,7 +63,7 @@
 
       M = ( N+KD ) / 2
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Factorize A(m+1:n,m+1:n) as L**H*L, and update A(1:m,1:m).
 
@@ -72,10 +72,10 @@
             // Compute s(j,j) and test for non-positive-definiteness.
 
             AJJ = REAL( AB( KD+1, J ) )
-            IF( AJJ.LE.ZERO ) THEN
+            if ( AJJ.LE.ZERO ) {
                AB( KD+1, J ) = AJJ
                GO TO 50
-            END IF
+            }
             AJJ = SQRT( AJJ )
             AB( KD+1, J ) = AJJ
             KM = MIN( J-1, KD )
@@ -94,10 +94,10 @@
             // Compute s(j,j) and test for non-positive-definiteness.
 
             AJJ = REAL( AB( KD+1, J ) )
-            IF( AJJ.LE.ZERO ) THEN
+            if ( AJJ.LE.ZERO ) {
                AB( KD+1, J ) = AJJ
                GO TO 50
-            END IF
+            }
             AJJ = SQRT( AJJ )
             AB( KD+1, J ) = AJJ
             KM = MIN( KD, M-J )
@@ -105,12 +105,12 @@
             // Compute elements j+1:j+km of the j-th row and update the
            t // railing submatrix within the band.
 
-            IF( KM.GT.0 ) THEN
+            if ( KM.GT.0 ) {
                CALL CSSCAL( KM, ONE / AJJ, AB( KD, J+1 ), KLD )
                CALL CLACGV( KM, AB( KD, J+1 ), KLD )
                CALL CHER( 'Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
                CALL CLACGV( KM, AB( KD, J+1 ), KLD )
-            END IF
+            }
    20    CONTINUE
       } else {
 
@@ -121,10 +121,10 @@
             // Compute s(j,j) and test for non-positive-definiteness.
 
             AJJ = REAL( AB( 1, J ) )
-            IF( AJJ.LE.ZERO ) THEN
+            if ( AJJ.LE.ZERO ) {
                AB( 1, J ) = AJJ
                GO TO 50
-            END IF
+            }
             AJJ = SQRT( AJJ )
             AB( 1, J ) = AJJ
             KM = MIN( J-1, KD )
@@ -145,10 +145,10 @@
             // Compute s(j,j) and test for non-positive-definiteness.
 
             AJJ = REAL( AB( 1, J ) )
-            IF( AJJ.LE.ZERO ) THEN
+            if ( AJJ.LE.ZERO ) {
                AB( 1, J ) = AJJ
                GO TO 50
-            END IF
+            }
             AJJ = SQRT( AJJ )
             AB( 1, J ) = AJJ
             KM = MIN( KD, M-J )
@@ -156,12 +156,12 @@
             // Compute elements j+1:j+km of the j-th column and update the
            t // railing submatrix within the band.
 
-            IF( KM.GT.0 ) THEN
+            if ( KM.GT.0 ) {
                CALL CSSCAL( KM, ONE / AJJ, AB( 2, J ), 1 )
                CALL CHER( 'Lower', KM, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
-            END IF
+            }
    40    CONTINUE
-      END IF
+      }
       RETURN
 
    50 CONTINUE

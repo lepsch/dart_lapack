@@ -68,7 +68,7 @@
 
          DO J = 1, NN
             N = NVAL( J )
-              IF (MIN(M,N).NE.0) THEN
+              if (MIN(M,N).NE.0) {
               DO INB = 1, NNB
                 MB = NBVAL( INB )
                   CALL XLAENV( 1, MB )
@@ -84,15 +84,15 @@
                   // pass the threshold.
 
                     DO T = 1, NTESTS
-                      IF( RESULT( T ).GE.THRESH ) THEN
+                      if ( RESULT( T ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, MB, NB, T, RESULT( T )
                         NFAIL = NFAIL + 1
-                      END IF
+                      }
                     END DO
                     NRUN = NRUN + NTESTS
                   END DO
               END DO
-              END IF
+              }
          END DO
       END DO
 
@@ -105,7 +105,7 @@
 
          DO J = 1, NN
             N = NVAL( J )
-            IF (MIN(M,N).NE.0) THEN
+            if (MIN(M,N).NE.0) {
               DO INB = 1, NNB
                 MB = NBVAL( INB )
                   CALL XLAENV( 1, MB )
@@ -121,15 +121,15 @@
                   // pass the threshold.
 
                     DO T = 1, NTESTS
-                      IF( RESULT( T ).GE.THRESH ) THEN
+                      if ( RESULT( T ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )M, N, MB, NB, T, RESULT( T )
                         NFAIL = NFAIL + 1
-                      END IF
+                      }
                     END DO
                     NRUN = NRUN + NTESTS
                   END DO
               END DO
-           END IF
+           }
          END DO
       END DO
 

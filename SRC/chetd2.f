@@ -41,23 +41,23 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHETD2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.LE.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Reduce the upper triangle of A
 
@@ -71,7 +71,7 @@
             CALL CLARFG( I, ALPHA, A( 1, I+1 ), 1, TAUI )
             E( I ) = REAL( ALPHA )
 
-            IF( TAUI.NE.ZERO ) THEN
+            if ( TAUI.NE.ZERO ) {
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
@@ -93,7 +93,7 @@
 
             } else {
                A( I, I ) = REAL( A( I, I ) )
-            END IF
+            }
             A( I, I+1 ) = E( I )
             D( I+1 ) = REAL( A( I+1, I+1 ) )
             TAU( I ) = TAUI
@@ -113,7 +113,7 @@
             CALL CLARFG( N-I, ALPHA, A( MIN( I+2, N ), I ), 1, TAUI )
             E( I ) = REAL( ALPHA )
 
-            IF( TAUI.NE.ZERO ) THEN
+            if ( TAUI.NE.ZERO ) {
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 
@@ -135,13 +135,13 @@
 
             } else {
                A( I+1, I+1 ) = REAL( A( I+1, I+1 ) )
-            END IF
+            }
             A( I+1, I ) = E( I )
             D( I ) = REAL( A( I, I ) )
             TAU( I ) = TAUI
    20    CONTINUE
          D( N ) = REAL( A( N, N ) )
-      END IF
+      }
 
       RETURN
 

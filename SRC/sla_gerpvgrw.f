@@ -33,9 +33,9 @@
          DO I = 1, J
             UMAX = MAX( ABS( AF( I, J ) ), UMAX )
          END DO
-         IF ( UMAX /= 0.0 ) THEN
+         if ( UMAX /= 0.0 ) {
             RPVGRW = MIN( AMAX / UMAX, RPVGRW )
-         END IF
+         }
       END DO
       SLA_GERPVGRW = RPVGRW
 

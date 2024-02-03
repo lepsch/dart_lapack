@@ -41,21 +41,21 @@
 
       INFO = 0
 
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( QSIZ.LT.N ) THEN
+      } else if ( QSIZ.LT.N ) {
          INFO = -3
-      ELSE IF( LDQ.LT.MAX( 1, N ) ) THEN
+      } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( CUTPNT.LT.MIN( 1, N ) .OR. CUTPNT.GT.N ) THEN
+      } else if ( CUTPNT.LT.MIN( 1, N ) .OR. CUTPNT.GT.N ) {
          INFO = -8
-      ELSE IF( LDQ2.LT.MAX( 1, N ) ) THEN
+      } else if ( LDQ2.LT.MAX( 1, N ) ) {
          INFO = -12
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZLAED8', -INFO )
          RETURN
-      END IF
+      }
 
       // Need to initialize GIVPTR to O here in case of quick exit
      t // o prevent an unspecified code behavior (usually sigfault)
@@ -72,9 +72,9 @@
       N2 = N - N1
       N1P1 = N1 + 1
 
-      IF( RHO.LT.ZERO ) THEN
+      if ( RHO.LT.ZERO ) {
          CALL DSCAL( N2, MONE, Z( N1P1 ), 1 )
-      END IF
+      }
 
       // Normalize z so that norm(z) = 1
 
@@ -113,7 +113,7 @@
       // -- except to reorganize Q so that its columns correspond with the
       // elements in D.
 
-      IF( RHO*ABS( Z( IMAX ) ).LE.TOL ) THEN
+      if ( RHO*ABS( Z( IMAX ) ).LE.TOL ) {
          K = 0
          DO 50 J = 1, N
             PERM( J ) = INDXQ( INDX( J ) )
@@ -121,7 +121,7 @@
    50    CONTINUE
          CALL ZLACPY( 'A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ), LDQ )
          RETURN
-      END IF
+      }
 
       // If there are multiple eigenvalues then the problem deflates.  Here
      t // he number of equal eigenvalues are found.  As each equal
@@ -132,7 +132,7 @@
       K = 0
       K2 = N + 1
       DO 60 J = 1, N
-         IF( RHO*ABS( Z( J ) ).LE.TOL ) THEN
+         if ( RHO*ABS( Z( J ) ).LE.TOL ) {
 
             // Deflate due to small z component.
 
@@ -142,12 +142,12 @@
          } else {
             JLAM = J
             GO TO 70
-         END IF
+         }
    60 CONTINUE
    70 CONTINUE
       J = J + 1
       IF( J.GT.N ) GO TO 90
-      IF( RHO*ABS( Z( J ) ).LE.TOL ) THEN
+      if ( RHO*ABS( Z( J ) ).LE.TOL ) {
 
          // Deflate due to small z component.
 
@@ -167,7 +167,7 @@
          T = D( J ) - D( JLAM )
          C = C / TAU
          S = -S / TAU
-         IF( ABS( T*C*S ).LE.TOL ) THEN
+         if ( ABS( T*C*S ).LE.TOL ) {
 
             // Deflation is possible.
 
@@ -188,18 +188,18 @@
             K2 = K2 - 1
             I = 1
    80       CONTINUE
-            IF( K2+I.LE.N ) THEN
-               IF( D( JLAM ).LT.D( INDXP( K2+I ) ) ) THEN
+            if ( K2+I.LE.N ) {
+               if ( D( JLAM ).LT.D( INDXP( K2+I ) ) ) {
                   INDXP( K2+I-1 ) = INDXP( K2+I )
                   INDXP( K2+I ) = JLAM
                   I = I + 1
                   GO TO 80
                } else {
                   INDXP( K2+I-1 ) = JLAM
-               END IF
+               }
             } else {
                INDXP( K2+I-1 ) = JLAM
-            END IF
+            }
             JLAM = J
          } else {
             K = K + 1
@@ -207,8 +207,8 @@
             DLAMBDA( K ) = D( JLAM )
             INDXP( K ) = JLAM
             JLAM = J
-         END IF
-      END IF
+         }
+      }
       GO TO 70
    90 CONTINUE
 
@@ -236,10 +236,10 @@
       // The deflated eigenvalues and their corresponding vectors go back
       // into the last N - K slots of D and Q respectively.
 
-      IF( K.LT.N ) THEN
+      if ( K.LT.N ) {
          CALL DCOPY( N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 )
          CALL ZLACPY( 'A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ), LDQ )
-      END IF
+      }
 
       RETURN
 

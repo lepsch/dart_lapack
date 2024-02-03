@@ -50,36 +50,36 @@
       INFO = 0
       IERR = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) ) THEN
+      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -1
-      ELSE IF( NOTRAN ) THEN
-         IF( ( IJOB.LT.0 ) .OR. ( IJOB.GT.2 ) ) THEN
+      } else if ( NOTRAN ) {
+         if ( ( IJOB.LT.0 ) .OR. ( IJOB.GT.2 ) ) {
             INFO = -2
-         END IF
-      END IF
-      IF( INFO.EQ.0 ) THEN
-         IF( M.LE.0 ) THEN
+         }
+      }
+      if ( INFO.EQ.0 ) {
+         if ( M.LE.0 ) {
             INFO = -3
-         ELSE IF( N.LE.0 ) THEN
+         } else if ( N.LE.0 ) {
             INFO = -4
-         ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+         } else if ( LDA.LT.MAX( 1, M ) ) {
             INFO = -6
-         ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+         } else if ( LDB.LT.MAX( 1, N ) ) {
             INFO = -8
-         ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+         } else if ( LDC.LT.MAX( 1, M ) ) {
             INFO = -10
-         ELSE IF( LDD.LT.MAX( 1, M ) ) THEN
+         } else if ( LDD.LT.MAX( 1, M ) ) {
             INFO = -12
-         ELSE IF( LDE.LT.MAX( 1, N ) ) THEN
+         } else if ( LDE.LT.MAX( 1, N ) ) {
             INFO = -14
-         ELSE IF( LDF.LT.MAX( 1, M ) ) THEN
+         } else if ( LDF.LT.MAX( 1, M ) ) {
             INFO = -16
-         END IF
-      END IF
-      IF( INFO.NE.0 ) THEN
+         }
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'STGSY2', -INFO )
          RETURN
-      END IF
+      }
 
       // Determine block structure of A
 
@@ -91,11 +91,11 @@
       P = P + 1
       IWORK( P ) = I
       IF( I.EQ.M ) GO TO 20
-      IF( A( I+1, I ).NE.ZERO ) THEN
+      if ( A( I+1, I ).NE.ZERO ) {
          I = I + 2
       } else {
          I = I + 1
-      END IF
+      }
       GO TO 10
    20 CONTINUE
       IWORK( P+1 ) = M + 1
@@ -109,17 +109,17 @@
       Q = Q + 1
       IWORK( Q ) = J
       IF( J.EQ.N ) GO TO 40
-      IF( B( J+1, J ).NE.ZERO ) THEN
+      if ( B( J+1, J ).NE.ZERO ) {
          J = J + 2
       } else {
          J = J + 1
-      END IF
+      }
       GO TO 30
    40 CONTINUE
       IWORK( Q+1 ) = N + 1
       PQ = P*( Q-P-1 )
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
 
          // Solve (I, J) - subsystem
             // A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
@@ -141,7 +141,7 @@
                MB = IE - IS + 1
                ZDIM = MB*NB*2
 
-               IF( ( MB.EQ.1 ) .AND. ( NB.EQ.1 ) ) THEN
+               if ( ( MB.EQ.1 ) .AND. ( NB.EQ.1 ) ) {
 
                   // Build a 2-by-2 system Z * x = RHS
 
@@ -160,18 +160,18 @@
                   CALL SGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
 
-                  IF( IJOB.EQ.0 ) THEN
+                  if ( IJOB.EQ.0 ) {
                      CALL SGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
-                     IF( SCALOC.NE.ONE ) THEN
+                     if ( SCALOC.NE.ONE ) {
                         DO 50 K = 1, N
                            CALL SSCAL( M, SCALOC, C( 1, K ), 1 )
                            CALL SSCAL( M, SCALOC, F( 1, K ), 1 )
    50                   CONTINUE
                         SCALE = SCALE*SCALOC
-                     END IF
+                     }
                   } else {
                      CALL SLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
-                  END IF
+                  }
 
                   // Unpack solution vector(s)
 
@@ -181,15 +181,15 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  IF( I.GT.1 ) THEN
+                  if ( I.GT.1 ) {
                      ALPHA = -RHS( 1 )
                      CALL SAXPY( IS-1, ALPHA, A( 1, IS ), 1, C( 1, JS ), 1 )                      CALL SAXPY( IS-1, ALPHA, D( 1, IS ), 1, F( 1, JS ), 1 )
-                  END IF
-                  IF( J.LT.Q ) THEN
+                  }
+                  if ( J.LT.Q ) {
                      CALL SAXPY( N-JE, RHS( 2 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL SAXPY( N-JE, RHS( 2 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF )
-                  END IF
+                  }
 
-               ELSE IF( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) THEN
+               } else if ( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) {
 
                   // Build a 4-by-4 system Z * x = RHS
 
@@ -225,18 +225,18 @@
                   CALL SGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
 
-                  IF( IJOB.EQ.0 ) THEN
+                  if ( IJOB.EQ.0 ) {
                      CALL SGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
-                     IF( SCALOC.NE.ONE ) THEN
+                     if ( SCALOC.NE.ONE ) {
                         DO 60 K = 1, N
                            CALL SSCAL( M, SCALOC, C( 1, K ), 1 )
                            CALL SSCAL( M, SCALOC, F( 1, K ), 1 )
    60                   CONTINUE
                         SCALE = SCALE*SCALOC
-                     END IF
+                     }
                   } else {
                      CALL SLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
-                  END IF
+                  }
 
                   // Unpack solution vector(s)
 
@@ -248,14 +248,14 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  IF( I.GT.1 ) THEN
+                  if ( I.GT.1 ) {
                      CALL SGER( IS-1, NB, -ONE, A( 1, IS ), 1, RHS( 1 ), 1, C( 1, JS ), LDC )                      CALL SGER( IS-1, NB, -ONE, D( 1, IS ), 1, RHS( 1 ), 1, F( 1, JS ), LDF )
-                  END IF
-                  IF( J.LT.Q ) THEN
+                  }
+                  if ( J.LT.Q ) {
                      CALL SAXPY( N-JE, RHS( 3 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL SAXPY( N-JE, RHS( 3 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF )                      CALL SAXPY( N-JE, RHS( 4 ), B( JSP1, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL SAXPY( N-JE, RHS( 4 ), E( JSP1, JE+1 ), LDE, F( IS, JE+1 ), LDF )
-                  END IF
+                  }
 
-               ELSE IF( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) THEN
+               } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) {
 
                   // Build a 4-by-4 system Z * x = RHS
 
@@ -290,18 +290,18 @@
 
                   CALL SGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
-                  IF( IJOB.EQ.0 ) THEN
+                  if ( IJOB.EQ.0 ) {
                      CALL SGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
-                     IF( SCALOC.NE.ONE ) THEN
+                     if ( SCALOC.NE.ONE ) {
                         DO 70 K = 1, N
                            CALL SSCAL( M, SCALOC, C( 1, K ), 1 )
                            CALL SSCAL( M, SCALOC, F( 1, K ), 1 )
    70                   CONTINUE
                         SCALE = SCALE*SCALOC
-                     END IF
+                     }
                   } else {
                      CALL SLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
-                  END IF
+                  }
 
                   // Unpack solution vector(s)
 
@@ -313,14 +313,14 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  IF( I.GT.1 ) THEN
+                  if ( I.GT.1 ) {
                      CALL SGEMV( 'N', IS-1, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), 1, ONE, C( 1, JS ), 1 )                      CALL SGEMV( 'N', IS-1, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), 1, ONE, F( 1, JS ), 1 )
-                  END IF
-                  IF( J.LT.Q ) THEN
+                  }
+                  if ( J.LT.Q ) {
                      CALL SGER( MB, N-JE, ONE, RHS( 3 ), 1, B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL SGER( MB, N-JE, ONE, RHS( 3 ), 1, E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF )
-                  END IF
+                  }
 
-               ELSE IF( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) THEN
+               } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) {
 
                   // Build an 8-by-8 system Z * x = RHS
 
@@ -377,18 +377,18 @@
 
                   CALL SGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
-                  IF( IJOB.EQ.0 ) THEN
+                  if ( IJOB.EQ.0 ) {
                      CALL SGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
-                     IF( SCALOC.NE.ONE ) THEN
+                     if ( SCALOC.NE.ONE ) {
                         DO 90 K = 1, N
                            CALL SSCAL( M, SCALOC, C( 1, K ), 1 )
                            CALL SSCAL( M, SCALOC, F( 1, K ), 1 )
    90                   CONTINUE
                         SCALE = SCALE*SCALOC
-                     END IF
+                     }
                   } else {
                      CALL SLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
-                  END IF
+                  }
 
                   // Unpack solution vector(s)
 
@@ -404,15 +404,15 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  IF( I.GT.1 ) THEN
+                  if ( I.GT.1 ) {
                      CALL SGEMM( 'N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), MB, ONE, C( 1, JS ), LDC )                      CALL SGEMM( 'N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), MB, ONE, F( 1, JS ), LDF )
-                  END IF
-                  IF( J.LT.Q ) THEN
+                  }
+                  if ( J.LT.Q ) {
                      K = MB*NB + 1
                      CALL SGEMM( 'N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, B( JS, JE+1 ), LDB, ONE, C( IS, JE+1 ), LDC )                      CALL SGEMM( 'N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, E( JS, JE+1 ), LDE, ONE, F( IS, JE+1 ), LDF )
-                  END IF
+                  }
 
-               END IF
+               }
 
   110       CONTINUE
   120    CONTINUE
@@ -438,7 +438,7 @@
                JE = IWORK( J+1 ) - 1
                NB = JE - JS + 1
                ZDIM = MB*NB*2
-               IF( ( MB.EQ.1 ) .AND. ( NB.EQ.1 ) ) THEN
+               if ( ( MB.EQ.1 ) .AND. ( NB.EQ.1 ) ) {
 
                   // Build a 2-by-2 system Z**T * x = RHS
 
@@ -458,13 +458,13 @@
                   IF( IERR.GT.0 ) INFO = IERR
 
                   CALL SGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
-                  IF( SCALOC.NE.ONE ) THEN
+                  if ( SCALOC.NE.ONE ) {
                      DO 130 K = 1, N
                         CALL SSCAL( M, SCALOC, C( 1, K ), 1 )
                         CALL SSCAL( M, SCALOC, F( 1, K ), 1 )
   130                CONTINUE
                      SCALE = SCALE*SCALOC
-                  END IF
+                  }
 
                   // Unpack solution vector(s)
 
@@ -474,20 +474,20 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  IF( J.GT.P+2 ) THEN
+                  if ( J.GT.P+2 ) {
                      ALPHA = RHS( 1 )
                      CALL SAXPY( JS-1, ALPHA, B( 1, JS ), 1, F( IS, 1 ), LDF )
                      ALPHA = RHS( 2 )
                      CALL SAXPY( JS-1, ALPHA, E( 1, JS ), 1, F( IS, 1 ), LDF )
-                  END IF
-                  IF( I.LT.P ) THEN
+                  }
+                  if ( I.LT.P ) {
                      ALPHA = -RHS( 1 )
                      CALL SAXPY( M-IE, ALPHA, A( IS, IE+1 ), LDA, C( IE+1, JS ), 1 )
                      ALPHA = -RHS( 2 )
                      CALL SAXPY( M-IE, ALPHA, D( IS, IE+1 ), LDD, C( IE+1, JS ), 1 )
-                  END IF
+                  }
 
-               ELSE IF( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) THEN
+               } else if ( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) {
 
                   // Build a 4-by-4 system Z**T * x = RHS
 
@@ -523,13 +523,13 @@
                   CALL SGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
                   CALL SGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
-                  IF( SCALOC.NE.ONE ) THEN
+                  if ( SCALOC.NE.ONE ) {
                      DO 140 K = 1, N
                         CALL SSCAL( M, SCALOC, C( 1, K ), 1 )
                         CALL SSCAL( M, SCALOC, F( 1, K ), 1 )
   140                CONTINUE
                      SCALE = SCALE*SCALOC
-                  END IF
+                  }
 
                   // Unpack solution vector(s)
 
@@ -541,14 +541,14 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  IF( J.GT.P+2 ) THEN
+                  if ( J.GT.P+2 ) {
                      CALL SAXPY( JS-1, RHS( 1 ), B( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL SAXPY( JS-1, RHS( 2 ), B( 1, JSP1 ), 1, F( IS, 1 ), LDF )                      CALL SAXPY( JS-1, RHS( 3 ), E( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL SAXPY( JS-1, RHS( 4 ), E( 1, JSP1 ), 1, F( IS, 1 ), LDF )
-                  END IF
-                  IF( I.LT.P ) THEN
+                  }
+                  if ( I.LT.P ) {
                      CALL SGER( M-IE, NB, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, C( IE+1, JS ), LDC )                      CALL SGER( M-IE, NB, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, C( IE+1, JS ), LDC )
-                  END IF
+                  }
 
-               ELSE IF( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) THEN
+               } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) {
 
                   // Build a 4-by-4 system Z**T * x = RHS
 
@@ -585,13 +585,13 @@
                   IF( IERR.GT.0 ) INFO = IERR
 
                   CALL SGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
-                  IF( SCALOC.NE.ONE ) THEN
+                  if ( SCALOC.NE.ONE ) {
                      DO 150 K = 1, N
                         CALL SSCAL( M, SCALOC, C( 1, K ), 1 )
                         CALL SSCAL( M, SCALOC, F( 1, K ), 1 )
   150                CONTINUE
                      SCALE = SCALE*SCALOC
-                  END IF
+                  }
 
                   // Unpack solution vector(s)
 
@@ -603,14 +603,14 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  IF( J.GT.P+2 ) THEN
+                  if ( J.GT.P+2 ) {
                      CALL SGER( MB, JS-1, ONE, RHS( 1 ), 1, B( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL SGER( MB, JS-1, ONE, RHS( 3 ), 1, E( 1, JS ), 1, F( IS, 1 ), LDF )
-                  END IF
-                  IF( I.LT.P ) THEN
+                  }
+                  if ( I.LT.P ) {
                      CALL SGEMV( 'T', MB, M-IE, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, ONE, C( IE+1, JS ), 1 )                      CALL SGEMV( 'T', MB, M-IE, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, ONE, C( IE+1, JS ), 1 )
-                  END IF
+                  }
 
-               ELSE IF( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) THEN
+               } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) {
 
                   // Build an 8-by-8 system Z**T * x = RHS
 
@@ -670,13 +670,13 @@
                   IF( IERR.GT.0 ) INFO = IERR
 
                   CALL SGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
-                  IF( SCALOC.NE.ONE ) THEN
+                  if ( SCALOC.NE.ONE ) {
                      DO 170 K = 1, N
                         CALL SSCAL( M, SCALOC, C( 1, K ), 1 )
                         CALL SSCAL( M, SCALOC, F( 1, K ), 1 )
   170                CONTINUE
                      SCALE = SCALE*SCALOC
-                  END IF
+                  }
 
                   // Unpack solution vector(s)
 
@@ -692,19 +692,19 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  IF( J.GT.P+2 ) THEN
+                  if ( J.GT.P+2 ) {
                      CALL SGEMM( 'N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF )                      CALL SGEMM( 'N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF )
-                  END IF
-                  IF( I.LT.P ) THEN
+                  }
+                  if ( I.LT.P ) {
                      CALL SGEMM( 'T', 'N', M-IE, NB, MB, -ONE, A( IS, IE+1 ), LDA, C( IS, JS ), LDC, ONE, C( IE+1, JS ), LDC )                      CALL SGEMM( 'T', 'N', M-IE, NB, MB, -ONE, D( IS, IE+1 ), LDD, F( IS, JS ), LDF, ONE, C( IE+1, JS ), LDC )
-                  END IF
+                  }
 
-               END IF
+               }
 
   190       CONTINUE
   200    CONTINUE
 
-      END IF
+      }
       RETURN
 
       // End of STGSY2

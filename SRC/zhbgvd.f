@@ -41,11 +41,11 @@
       LQUERY = ( LWORK.EQ.-1 .OR. LRWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
 
       INFO = 0
-      IF( N.LE.1 ) THEN
+      if ( N.LE.1 ) {
          LWMIN = 1+N
          LRWMIN = 1+N
          LIWMIN = 1
-      ELSE IF( WANTZ ) THEN
+      } else if ( WANTZ ) {
          LWMIN = 2*N**2
          LRWMIN = 1 + 5*N + 2*N**2
          LIWMIN = 3 + 5*N
@@ -53,45 +53,45 @@
          LWMIN = N
          LRWMIN = N
          LIWMIN = 1
-      END IF
-      IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      }
+      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) THEN
+      } else if ( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( KA.LT.0 ) THEN
+      } else if ( KA.LT.0 ) {
          INFO = -4
-      ELSE IF( KB.LT.0 .OR. KB.GT.KA ) THEN
+      } else if ( KB.LT.0 .OR. KB.GT.KA ) {
          INFO = -5
-      ELSE IF( LDAB.LT.KA+1 ) THEN
+      } else if ( LDAB.LT.KA+1 ) {
          INFO = -7
-      ELSE IF( LDBB.LT.KB+1 ) THEN
+      } else if ( LDBB.LT.KB+1 ) {
          INFO = -9
-      ELSE IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) THEN
+      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
          INFO = -12
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          WORK( 1 ) = LWMIN
          RWORK( 1 ) = LRWMIN
          IWORK( 1 ) = LIWMIN
 
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
             INFO = -14
-         ELSE IF( LRWORK.LT.LRWMIN .AND. .NOT.LQUERY ) THEN
+         } else if ( LRWORK.LT.LRWMIN .AND. .NOT.LQUERY ) {
             INFO = -16
-         ELSE IF( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) THEN
+         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
             INFO = -18
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZHBGVD', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -100,10 +100,10 @@
       // Form a split Cholesky factorization of B.
 
       CALL ZPBSTF( UPLO, N, KB, BB, LDBB, INFO )
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
-      END IF
+      }
 
       // Transform problem to standard eigenvalue problem.
 
@@ -116,22 +116,22 @@
 
       // Reduce Hermitian band matrix to tridiagonal form.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          VECT = 'U'
       } else {
          VECT = 'N'
-      END IF
+      }
       CALL ZHBTRD( VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEDC.
 
-      IF( .NOT.WANTZ ) THEN
+      if ( .NOT.WANTZ ) {
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
       } else {
          CALL ZSTEDC( 'I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ), LLWK2, RWORK( INDWRK ), LLRWK, IWORK, LIWORK, INFO )
          CALL ZGEMM( 'N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO, WORK( INDWK2 ), N )
          CALL ZLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
-      END IF
+      }
 
       WORK( 1 ) = LWMIN
       RWORK( 1 ) = LRWMIN

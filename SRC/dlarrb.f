@@ -38,9 +38,9 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RETURN
-      END IF
+      }
 
       MAXITR = INT( ( LOG( SPDIAM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
       MNWDTH = TWO * PIVMIN
@@ -79,11 +79,11 @@
          BACK = WERR( II )
  20      CONTINUE
          NEGCNT = DLANEG( N, D, LLD, LEFT, PIVMIN, R )
-         IF( NEGCNT.GT.I-1 ) THEN
+         if ( NEGCNT.GT.I-1 ) {
             LEFT = LEFT - BACK
             BACK = TWO*BACK
             GO TO 20
-         END IF
+         }
 
          // Do while( NEGCNT(RIGHT).LT.I )
          // Compute negcount from dstqds facto L+D+L+^T = L D L^T - RIGHT
@@ -92,15 +92,15 @@
  50      CONTINUE
 
          NEGCNT = DLANEG( N, D, LLD, RIGHT, PIVMIN, R )
-          IF( NEGCNT.LT.I ) THEN
+          if ( NEGCNT.LT.I ) {
              RIGHT = RIGHT + BACK
              BACK = TWO*BACK
              GO TO 50
-          END IF
+          }
          WIDTH = HALF*ABS( LEFT - RIGHT )
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
          CVRGD = MAX(RTOL1*GAP,RTOL2*TMP)
-         IF( WIDTH.LE.CVRGD .OR. WIDTH.LE.MNWDTH ) THEN
+         if ( WIDTH.LE.CVRGD .OR. WIDTH.LE.MNWDTH ) {
             // This interval has already converged and does not need refinement.
             // (Note that the gaps might change through refining the
              // eigenvalues, however, they can only get bigger.)
@@ -115,7 +115,7 @@
             NINT = NINT + 1
             IWORK( K-1 ) = I + 1
             IWORK( K ) = NEGCNT
-         END IF
+         }
          WORK( K-1 ) = LEFT
          WORK( K ) = RIGHT
  75   CONTINUE
@@ -146,30 +146,30 @@
          WIDTH = RIGHT - MID
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
          CVRGD = MAX(RTOL1*GAP,RTOL2*TMP)
-         IF( ( WIDTH.LE.CVRGD ) .OR. ( WIDTH.LE.MNWDTH ).OR. ( ITER.EQ.MAXITR ) )THEN
+         if ( ( WIDTH.LE.CVRGD ) .OR. ( WIDTH.LE.MNWDTH ).OR. ( ITER.EQ.MAXITR ) ) {
             // reduce number of unconverged intervals
             NINT = NINT - 1
             // Mark interval as converged.
             IWORK( K-1 ) = 0
-            IF( I1.EQ.I ) THEN
+            if ( I1.EQ.I ) {
                I1 = NEXT
             } else {
                // Prev holds the last unconverged interval previously examined
                IF(PREV.GE.I1) IWORK( 2*PREV-1 ) = NEXT
-            END IF
+            }
             I = NEXT
             GO TO 100
-         END IF
+         }
          PREV = I
 
          // Perform one bisection step
 
          NEGCNT = DLANEG( N, D, LLD, MID, PIVMIN, R )
-         IF( NEGCNT.LE.I-1 ) THEN
+         if ( NEGCNT.LE.I-1 ) {
             WORK( K-1 ) = MID
          } else {
             WORK( K ) = MID
-         END IF
+         }
          I = NEXT
  100  CONTINUE
       ITER = ITER + 1
@@ -184,10 +184,10 @@
          K = 2*I
          II = I - OFFSET
          // All intervals marked by '0' have been refined.
-         IF( IWORK( K-1 ).EQ.0 ) THEN
+         if ( IWORK( K-1 ).EQ.0 ) {
             W( II ) = HALF*( WORK( K-1 )+WORK( K ) )
             WERR( II ) = WORK( K ) - W( II )
-         END IF
+         }
  110  CONTINUE
 
       DO 111 I = IFIRST+1, ILAST

@@ -41,23 +41,23 @@
 
       INFO = 0
 
-      IF( ICOMPQ.LT.0 .OR. ICOMPQ.GT.1 ) THEN
+      if ( ICOMPQ.LT.0 .OR. ICOMPQ.GT.1 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( ICOMPQ.EQ.1 .AND. QSIZ.LT.N ) THEN
+      } else if ( ICOMPQ.EQ.1 .AND. QSIZ.LT.N ) {
          INFO = -4
-      ELSE IF( LDQ.LT.MAX( 1, N ) ) THEN
+      } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( CUTPNT.LT.MIN( 1, N ) .OR. CUTPNT.GT.N ) THEN
+      } else if ( CUTPNT.LT.MIN( 1, N ) .OR. CUTPNT.GT.N ) {
          INFO = -10
-      ELSE IF( LDQ2.LT.MAX( 1, N ) ) THEN
+      } else if ( LDQ2.LT.MAX( 1, N ) ) {
          INFO = -14
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLAED8', -INFO )
          RETURN
-      END IF
+      }
 
       // Need to initialize GIVPTR to O here in case of quick exit
      t // o prevent an unspecified code behavior (usually sigfault)
@@ -74,9 +74,9 @@
       N2 = N - N1
       N1P1 = N1 + 1
 
-      IF( RHO.LT.ZERO ) THEN
+      if ( RHO.LT.ZERO ) {
          CALL SSCAL( N2, MONE, Z( N1P1 ), 1 )
-      END IF
+      }
 
       // Normalize z so that norm(z) = 1
 
@@ -115,9 +115,9 @@
       // except to reorganize Q so that its columns correspond with the
       // elements in D.
 
-      IF( RHO*ABS( Z( IMAX ) ).LE.TOL ) THEN
+      if ( RHO*ABS( Z( IMAX ) ).LE.TOL ) {
          K = 0
-         IF( ICOMPQ.EQ.0 ) THEN
+         if ( ICOMPQ.EQ.0 ) {
             DO 50 J = 1, N
                PERM( J ) = INDXQ( INDX( J ) )
    50       CONTINUE
@@ -127,9 +127,9 @@
                CALL SCOPY( QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 )
    60       CONTINUE
             CALL SLACPY( 'A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ), LDQ )
-         END IF
+         }
          RETURN
-      END IF
+      }
 
       // If there are multiple eigenvalues then the problem deflates.  Here
      t // he number of equal eigenvalues are found.  As each equal
@@ -140,7 +140,7 @@
       K = 0
       K2 = N + 1
       DO 70 J = 1, N
-         IF( RHO*ABS( Z( J ) ).LE.TOL ) THEN
+         if ( RHO*ABS( Z( J ) ).LE.TOL ) {
 
             // Deflate due to small z component.
 
@@ -150,12 +150,12 @@
          } else {
             JLAM = J
             GO TO 80
-         END IF
+         }
    70 CONTINUE
    80 CONTINUE
       J = J + 1
       IF( J.GT.N ) GO TO 100
-      IF( RHO*ABS( Z( J ) ).LE.TOL ) THEN
+      if ( RHO*ABS( Z( J ) ).LE.TOL ) {
 
          // Deflate due to small z component.
 
@@ -175,7 +175,7 @@
          T = D( J ) - D( JLAM )
          C = C / TAU
          S = -S / TAU
-         IF( ABS( T*C*S ).LE.TOL ) THEN
+         if ( ABS( T*C*S ).LE.TOL ) {
 
             // Deflation is possible.
 
@@ -189,27 +189,27 @@
             GIVCOL( 2, GIVPTR ) = INDXQ( INDX( J ) )
             GIVNUM( 1, GIVPTR ) = C
             GIVNUM( 2, GIVPTR ) = S
-            IF( ICOMPQ.EQ.1 ) THEN
+            if ( ICOMPQ.EQ.1 ) {
                CALL SROT( QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1, Q( 1, INDXQ( INDX( J ) ) ), 1, C, S )
-            END IF
+            }
             T = D( JLAM )*C*C + D( J )*S*S
             D( J ) = D( JLAM )*S*S + D( J )*C*C
             D( JLAM ) = T
             K2 = K2 - 1
             I = 1
    90       CONTINUE
-            IF( K2+I.LE.N ) THEN
-               IF( D( JLAM ).LT.D( INDXP( K2+I ) ) ) THEN
+            if ( K2+I.LE.N ) {
+               if ( D( JLAM ).LT.D( INDXP( K2+I ) ) ) {
                   INDXP( K2+I-1 ) = INDXP( K2+I )
                   INDXP( K2+I ) = JLAM
                   I = I + 1
                   GO TO 90
                } else {
                   INDXP( K2+I-1 ) = JLAM
-               END IF
+               }
             } else {
                INDXP( K2+I-1 ) = JLAM
-            END IF
+            }
             JLAM = J
          } else {
             K = K + 1
@@ -217,8 +217,8 @@
             DLAMBDA( K ) = D( JLAM )
             INDXP( K ) = JLAM
             JLAM = J
-         END IF
-      END IF
+         }
+      }
       GO TO 80
   100 CONTINUE
 
@@ -236,7 +236,7 @@
       // deflated go into the first K slots of DLAMBDA and Q2 respectively,
       // while those which were deflated go into the last N - K slots.
 
-      IF( ICOMPQ.EQ.0 ) THEN
+      if ( ICOMPQ.EQ.0 ) {
          DO 120 J = 1, N
             JP = INDXP( J )
             DLAMBDA( J ) = D( JP )
@@ -249,19 +249,19 @@
             PERM( J ) = INDXQ( INDX( JP ) )
             CALL SCOPY( QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 )
   130    CONTINUE
-      END IF
+      }
 
       // The deflated eigenvalues and their corresponding vectors go back
       // into the last N - K slots of D and Q respectively.
 
-      IF( K.LT.N ) THEN
-         IF( ICOMPQ.EQ.0 ) THEN
+      if ( K.LT.N ) {
+         if ( ICOMPQ.EQ.0 ) {
             CALL SCOPY( N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 )
          } else {
             CALL SCOPY( N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 )
             CALL SLACPY( 'A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ), LDQ )
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

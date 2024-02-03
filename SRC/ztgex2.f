@@ -97,11 +97,11 @@
       SZ = -SZ
       CALL ZROT( 2, S( 1, 1 ), 1, S( 1, 2 ), 1, CZ, DCONJG( SZ ) )
       CALL ZROT( 2, T( 1, 1 ), 1, T( 1, 2 ), 1, CZ, DCONJG( SZ ) )
-      IF( SA.GE.SB ) THEN
+      if ( SA.GE.SB ) {
          CALL ZLARTG( S( 1, 1 ), S( 2, 1 ), CQ, SQ, CDUM )
       } else {
          CALL ZLARTG( T( 1, 1 ), T( 2, 1 ), CQ, SQ, CDUM )
-      END IF
+      }
       CALL ZROT( 2, S( 1, 1 ), LDST, S( 2, 1 ), LDST, CQ, SQ )
       CALL ZROT( 2, T( 1, 1 ), LDST, T( 2, 1 ), LDST, CQ, SQ )
 
@@ -110,7 +110,7 @@
 
       WEAK = ABS( S( 2, 1 ) ).LE.THRESHA .AND.  ABS( T( 2, 1 ) ).LE.THRESHB       IF( .NOT.WEAK ) GO TO 20
 
-      IF( WANDS ) THEN
+      if ( WANDS ) {
 
          // Strong stability test:
             // F-norm((A-QL**H*S*QR)) <= O(EPS*F-norm((A)))
@@ -139,7 +139,7 @@
          SB = SCALE*SQRT( SUM )
          STRONG = SA.LE.THRESHA .AND. SB.LE.THRESHB
          IF( .NOT.STRONG ) GO TO 20
-      END IF
+      }
 
       // If the swap is accepted ("weakly" and "strongly"), apply the
       // equivalence transformations to the original matrix pair (A,B)

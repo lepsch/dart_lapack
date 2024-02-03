@@ -36,7 +36,7 @@
       // .. Executable Statements ..
 
       IF( TAU.EQ.ZERO ) RETURN
-      IF( LSAME( SIDE, 'L' ) ) THEN
+      if ( LSAME( SIDE, 'L' ) ) {
 
          // Form  H * C, where H has order m.
 
@@ -542,7 +542,7 @@
             C( J, 10 ) = C( J, 10 ) - SUM*T10
   400    CONTINUE
          GO TO 410
-      END IF
+      }
   410 CONTINUE
       RETURN
 

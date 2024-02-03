@@ -70,7 +70,7 @@
       // Test error exits of the routines that use the Cholesky
       // decomposition of a Hermitian positive definite matrix.
 
-      IF( LSAMEN( 2, C2, 'PO' ) ) THEN
+      if ( LSAMEN( 2, C2, 'PO' ) ) {
 
          // CPOTRF
 
@@ -225,7 +225,7 @@
       // Test error exits of the routines that use the Cholesky
       // decomposition of a Hermitian positive definite packed matrix.
 
-      ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PP' ) ) {
 
          // CPPTRF
 
@@ -308,7 +308,7 @@
       // Test error exits of the routines that use the Cholesky
       // decomposition of a Hermitian positive definite band matrix.
 
-      ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
 
          // CPBTRF
 
@@ -426,7 +426,7 @@
          INFOT = 5
          CALL CPBEQU( 'U', 2, 1, A, 1, R1, RCOND, ANRM, INFO )
          CALL CHKXER( 'CPBEQU', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

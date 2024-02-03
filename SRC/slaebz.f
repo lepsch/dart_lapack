@@ -31,14 +31,14 @@
       // Check for Errors
 
       INFO = 0
-      IF( IJOB.LT.1 .OR. IJOB.GT.3 ) THEN
+      if ( IJOB.LT.1 .OR. IJOB.GT.3 ) {
          INFO = -1
          RETURN
-      END IF
+      }
 
       // Initialize NAB
 
-      IF( IJOB.EQ.1 ) THEN
+      if ( IJOB.EQ.1 ) {
 
          // Compute the number of eigenvalues in the initial intervals.
 
@@ -58,7 +58,7 @@
             MOUT = MOUT + NAB( JI, 2 ) - NAB( JI, 1 )
    30    CONTINUE
          RETURN
-      END IF
+      }
 
       // Initialize for loop
 
@@ -72,11 +72,11 @@
       // If IJOB=2, initialize C.
       // If IJOB=3, use the user-supplied starting point.
 
-      IF( IJOB.EQ.2 ) THEN
+      if ( IJOB.EQ.2 ) {
          DO 40 JI = 1, MINP
             C( JI ) = HALF*( AB( JI, 1 )+AB( JI, 2 ) )
    40    CONTINUE
-      END IF
+      }
 
       // Iteration loop
 
@@ -84,7 +84,7 @@
 
          // Loop over intervals
 
-         IF( KL-KF+1.GE.NBMIN .AND. NBMIN.GT.0 ) THEN
+         if ( KL-KF+1.GE.NBMIN .AND. NBMIN.GT.0 ) {
 
             // Begin of Parallel Version of the loop
 
@@ -94,21 +94,21 @@
 
                WORK( JI ) = D( 1 ) - C( JI )
                IWORK( JI ) = 0
-               IF( WORK( JI ).LE.PIVMIN ) THEN
+               if ( WORK( JI ).LE.PIVMIN ) {
                   IWORK( JI ) = 1
                   WORK( JI ) = MIN( WORK( JI ), -PIVMIN )
-               END IF
+               }
 
                DO 50 J = 2, N
                   WORK( JI ) = D( J ) - E2( J-1 ) / WORK( JI ) - C( JI )
-                  IF( WORK( JI ).LE.PIVMIN ) THEN
+                  if ( WORK( JI ).LE.PIVMIN ) {
                      IWORK( JI ) = IWORK( JI ) + 1
                      WORK( JI ) = MIN( WORK( JI ), -PIVMIN )
-                  END IF
+                  }
    50          CONTINUE
    60       CONTINUE
 
-            IF( IJOB.LE.2 ) THEN
+            if ( IJOB.LE.2 ) {
 
                // IJOB=2: Choose all intervals containing eigenvalues.
 
@@ -122,14 +122,14 @@
                   // Update the Queue -- add intervals if both halves
                   // contain eigenvalues.
 
-                  IF( IWORK( JI ).EQ.NAB( JI, 2 ) ) THEN
+                  if ( IWORK( JI ).EQ.NAB( JI, 2 ) ) {
 
                      // No eigenvalue in the upper interval:
                      // just use the lower interval.
 
                      AB( JI, 2 ) = C( JI )
 
-                  ELSE IF( IWORK( JI ).EQ.NAB( JI, 1 ) ) THEN
+                  } else if ( IWORK( JI ).EQ.NAB( JI, 1 ) ) {
 
                      // No eigenvalue in the lower interval:
                      // just use the upper interval.
@@ -137,7 +137,7 @@
                      AB( JI, 1 ) = C( JI )
                   } else {
                      KLNEW = KLNEW + 1
-                     IF( KLNEW.LE.MMAX ) THEN
+                     if ( KLNEW.LE.MMAX ) {
 
                         // Eigenvalue in both intervals -- add upper to
                         // queue.
@@ -150,8 +150,8 @@
                         NAB( JI, 2 ) = IWORK( JI )
                      } else {
                         INFO = MMAX + 1
-                     END IF
-                  END IF
+                     }
+                  }
    70          CONTINUE
                IF( INFO.NE.0 ) RETURN
                KL = KLNEW
@@ -161,16 +161,16 @@
                        // w   s.t. N(w) = NVAL
 
                DO 80 JI = KF, KL
-                  IF( IWORK( JI ).LE.NVAL( JI ) ) THEN
+                  if ( IWORK( JI ).LE.NVAL( JI ) ) {
                      AB( JI, 1 ) = C( JI )
                      NAB( JI, 1 ) = IWORK( JI )
-                  END IF
-                  IF( IWORK( JI ).GE.NVAL( JI ) ) THEN
+                  }
+                  if ( IWORK( JI ).GE.NVAL( JI ) ) {
                      AB( JI, 2 ) = C( JI )
                      NAB( JI, 2 ) = IWORK( JI )
-                  END IF
+                  }
    80          CONTINUE
-            END IF
+            }
 
          } else {
 
@@ -186,20 +186,20 @@
                TMP1 = C( JI )
                TMP2 = D( 1 ) - TMP1
                ITMP1 = 0
-               IF( TMP2.LE.PIVMIN ) THEN
+               if ( TMP2.LE.PIVMIN ) {
                   ITMP1 = 1
                   TMP2 = MIN( TMP2, -PIVMIN )
-               END IF
+               }
 
                DO 90 J = 2, N
                   TMP2 = D( J ) - E2( J-1 ) / TMP2 - TMP1
-                  IF( TMP2.LE.PIVMIN ) THEN
+                  if ( TMP2.LE.PIVMIN ) {
                      ITMP1 = ITMP1 + 1
                      TMP2 = MIN( TMP2, -PIVMIN )
-                  END IF
+                  }
    90          CONTINUE
 
-               IF( IJOB.LE.2 ) THEN
+               if ( IJOB.LE.2 ) {
 
                   // IJOB=2: Choose all intervals containing eigenvalues.
 
@@ -210,20 +210,20 @@
                   // Update the Queue -- add intervals if both halves
                   // contain eigenvalues.
 
-                  IF( ITMP1.EQ.NAB( JI, 2 ) ) THEN
+                  if ( ITMP1.EQ.NAB( JI, 2 ) ) {
 
                      // No eigenvalue in the upper interval:
                      // just use the lower interval.
 
                      AB( JI, 2 ) = TMP1
 
-                  ELSE IF( ITMP1.EQ.NAB( JI, 1 ) ) THEN
+                  } else if ( ITMP1.EQ.NAB( JI, 1 ) ) {
 
                      // No eigenvalue in the lower interval:
                      // just use the upper interval.
 
                      AB( JI, 1 ) = TMP1
-                  ELSE IF( KLNEW.LT.MMAX ) THEN
+                  } else if ( KLNEW.LT.MMAX ) {
 
                      // Eigenvalue in both intervals -- add upper to queue.
 
@@ -237,25 +237,25 @@
                   } else {
                      INFO = MMAX + 1
                      RETURN
-                  END IF
+                  }
                } else {
 
                   // IJOB=3: Binary search.  Keep only the interval
                           // containing  w  s.t. N(w) = NVAL
 
-                  IF( ITMP1.LE.NVAL( JI ) ) THEN
+                  if ( ITMP1.LE.NVAL( JI ) ) {
                      AB( JI, 1 ) = TMP1
                      NAB( JI, 1 ) = ITMP1
-                  END IF
-                  IF( ITMP1.GE.NVAL( JI ) ) THEN
+                  }
+                  if ( ITMP1.GE.NVAL( JI ) ) {
                      AB( JI, 2 ) = TMP1
                      NAB( JI, 2 ) = ITMP1
-                  END IF
-               END IF
+                  }
+               }
   100       CONTINUE
             KL = KLNEW
 
-         END IF
+         }
 
          // Check for convergence
 
@@ -263,12 +263,12 @@
          DO 110 JI = KF, KL
             TMP1 = ABS( AB( JI, 2 )-AB( JI, 1 ) )
             TMP2 = MAX( ABS( AB( JI, 2 ) ), ABS( AB( JI, 1 ) ) )
-            IF( TMP1.LT.MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) .OR. NAB( JI, 1 ).GE.NAB( JI, 2 ) ) THEN
+            if ( TMP1.LT.MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) .OR. NAB( JI, 1 ).GE.NAB( JI, 2 ) ) {
 
                // Converged -- Swap with position KFNEW,
                            t // hen increment KFNEW
 
-               IF( JI.GT.KFNEW ) THEN
+               if ( JI.GT.KFNEW ) {
                   TMP1 = AB( JI, 1 )
                   TMP2 = AB( JI, 2 )
                   ITMP1 = NAB( JI, 1 )
@@ -281,14 +281,14 @@
                   AB( KFNEW, 2 ) = TMP2
                   NAB( KFNEW, 1 ) = ITMP1
                   NAB( KFNEW, 2 ) = ITMP2
-                  IF( IJOB.EQ.3 ) THEN
+                  if ( IJOB.EQ.3 ) {
                      ITMP1 = NVAL( JI )
                      NVAL( JI ) = NVAL( KFNEW )
                      NVAL( KFNEW ) = ITMP1
-                  END IF
-               END IF
+                  }
+               }
                KFNEW = KFNEW + 1
-            END IF
+            }
   110    CONTINUE
          KF = KFNEW
 

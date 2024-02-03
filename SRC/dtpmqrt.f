@@ -39,101 +39,101 @@
       TRAN   = LSAME( TRANS, 'T' )
       NOTRAN = LSAME( TRANS, 'N' )
 
-      IF ( LEFT ) THEN
+      if ( LEFT ) {
          LDVQ = MAX( 1, M )
          LDAQ = MAX( 1, K )
-      ELSE IF ( RIGHT ) THEN
+      } else if ( RIGHT ) {
          LDVQ = MAX( 1, N )
          LDAQ = MAX( 1, M )
-      END IF
-      IF( .NOT.LEFT .AND. .NOT.RIGHT ) THEN
+      }
+      if ( .NOT.LEFT .AND. .NOT.RIGHT ) {
          INFO = -1
-      ELSE IF( .NOT.TRAN .AND. .NOT.NOTRAN ) THEN
+      } else if ( .NOT.TRAN .AND. .NOT.NOTRAN ) {
          INFO = -2
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( K.LT.0 ) THEN
+      } else if ( K.LT.0 ) {
          INFO = -5
-      ELSE IF( L.LT.0 .OR. L.GT.K ) THEN
+      } else if ( L.LT.0 .OR. L.GT.K ) {
          INFO = -6
-      ELSE IF( NB.LT.1 .OR. (NB.GT.K .AND. K.GT.0) ) THEN
+      } else if ( NB.LT.1 .OR. (NB.GT.K .AND. K.GT.0) ) {
          INFO = -7
-      ELSE IF( LDV.LT.LDVQ ) THEN
+      } else if ( LDV.LT.LDVQ ) {
          INFO = -9
-      ELSE IF( LDT.LT.NB ) THEN
+      } else if ( LDT.LT.NB ) {
          INFO = -11
-      ELSE IF( LDA.LT.LDAQ ) THEN
+      } else if ( LDA.LT.LDAQ ) {
          INFO = -13
-      ELSE IF( LDB.LT.MAX( 1, M ) ) THEN
+      } else if ( LDB.LT.MAX( 1, M ) ) {
          INFO = -15
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DTPMQRT', -INFO )
          RETURN
-      END IF
+      }
 
       // .. Quick return if possible ..
 
       IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
 
-      IF( LEFT .AND. TRAN ) THEN
+      if ( LEFT .AND. TRAN ) {
 
          DO I = 1, K, NB
             IB = MIN( NB, K-I+1 )
             MB = MIN( M-L+I+IB-1, M )
-            IF( I.GE.L ) THEN
+            if ( I.GE.L ) {
                LB = 0
             } else {
                LB = MB-M+L-I+1
-            END IF
+            }
             CALL DTPRFB( 'L', 'T', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
          END DO
 
-      ELSE IF( RIGHT .AND. NOTRAN ) THEN
+      } else if ( RIGHT .AND. NOTRAN ) {
 
          DO I = 1, K, NB
             IB = MIN( NB, K-I+1 )
             MB = MIN( N-L+I+IB-1, N )
-            IF( I.GE.L ) THEN
+            if ( I.GE.L ) {
                LB = 0
             } else {
                LB = MB-N+L-I+1
-            END IF
+            }
             CALL DTPRFB( 'R', 'N', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
          END DO
 
-      ELSE IF( LEFT .AND. NOTRAN ) THEN
+      } else if ( LEFT .AND. NOTRAN ) {
 
          KF = ((K-1)/NB)*NB+1
          DO I = KF, 1, -NB
             IB = MIN( NB, K-I+1 )
             MB = MIN( M-L+I+IB-1, M )
-            IF( I.GE.L ) THEN
+            if ( I.GE.L ) {
                LB = 0
             } else {
                LB = MB-M+L-I+1
-            END IF
+            }
             CALL DTPRFB( 'L', 'N', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
          END DO
 
-      ELSE IF( RIGHT .AND. TRAN ) THEN
+      } else if ( RIGHT .AND. TRAN ) {
 
          KF = ((K-1)/NB)*NB+1
          DO I = KF, 1, -NB
             IB = MIN( NB, K-I+1 )
             MB = MIN( N-L+I+IB-1, N )
-            IF( I.GE.L ) THEN
+            if ( I.GE.L ) {
                LB = 0
             } else {
                LB = MB-N+L-I+1
-            END IF
+            }
             CALL DTPRFB( 'R', 'T', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
          END DO
 
-      END IF
+      }
 
       RETURN
 

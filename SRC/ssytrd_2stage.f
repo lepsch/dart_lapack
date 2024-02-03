@@ -42,46 +42,46 @@
 
       KD     = ILAENV2STAGE( 1, 'SSYTRD_2STAGE', VECT, N, -1, -1, -1 )
       IB     = ILAENV2STAGE( 2, 'SSYTRD_2STAGE', VECT, N, KD, -1, -1 )
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          LHMIN = 1
          LWMIN = 1
       } else {
          LHMIN = ILAENV2STAGE( 3, 'SSYTRD_2STAGE', VECT, N, KD, IB, -1 )
          LWMIN = ILAENV2STAGE( 4, 'SSYTRD_2STAGE', VECT, N, KD, IB, -1 )
-      END IF
+      }
 
-      IF( .NOT.LSAME( VECT, 'N' ) ) THEN
+      if ( .NOT.LSAME( VECT, 'N' ) ) {
          INFO = -1
-      ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LHOUS2.LT.LHMIN .AND. .NOT.LQUERY ) THEN
+      } else if ( LHOUS2.LT.LHMIN .AND. .NOT.LQUERY ) {
          INFO = -10
-      ELSE IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
          INFO = -12
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          HOUS2( 1 ) = LHMIN
          WORK( 1 )  = LWMIN
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SSYTRD_2STAGE', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          WORK( 1 ) = 1
          RETURN
-      END IF
+      }
 
       // Determine pointer position
 
@@ -90,15 +90,15 @@
       ABPOS = 1
       WPOS  = ABPOS + LDAB*N
       CALL SSYTRD_SY2SB( UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO )
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SSYTRD_SY2SB', -INFO )
          RETURN
-      END IF
+      }
       CALL SSYTRD_SB2ST( 'Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO )
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SSYTRD_SB2ST', -INFO )
          RETURN
-      END IF
+      }
 
 
       WORK( 1 ) = LWMIN

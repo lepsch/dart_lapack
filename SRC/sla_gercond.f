@@ -39,35 +39,35 @@
 
       INFO = 0
       NOTRANS = LSAME( TRANS, 'N' )
-      IF ( .NOT. NOTRANS .AND. .NOT. LSAME(TRANS, 'T') .AND. .NOT. LSAME(TRANS, 'C') ) THEN
+      if ( .NOT. NOTRANS .AND. .NOT. LSAME(TRANS, 'T') .AND. .NOT. LSAME(TRANS, 'C') ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( LDAF.LT.MAX( 1, N ) ) THEN
+      } else if ( LDAF.LT.MAX( 1, N ) ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLA_GERCOND', -INFO )
          RETURN
-      END IF
-      IF( N.EQ.0 ) THEN
+      }
+      if ( N.EQ.0 ) {
          SLA_GERCOND = 1.0
          RETURN
-      END IF
+      }
 
       // Compute the equilibration matrix R such that
       // inv(R)*A*C has unit 1-norm.
 
-      IF (NOTRANS) THEN
+      if (NOTRANS) {
          DO I = 1, N
             TMP = 0.0
-            IF ( CMODE .EQ. 1 ) THEN
+            if ( CMODE .EQ. 1 ) {
                DO J = 1, N
                   TMP = TMP + ABS( A( I, J ) * C( J ) )
                END DO
-            ELSE IF ( CMODE .EQ. 0 ) THEN
+            } else if ( CMODE .EQ. 0 ) {
                DO J = 1, N
                   TMP = TMP + ABS( A( I, J ) )
                END DO
@@ -75,17 +75,17 @@
                DO J = 1, N
                   TMP = TMP + ABS( A( I, J ) / C( J ) )
                END DO
-            END IF
+            }
             WORK( 2*N+I ) = TMP
          END DO
       } else {
          DO I = 1, N
             TMP = 0.0
-            IF ( CMODE .EQ. 1 ) THEN
+            if ( CMODE .EQ. 1 ) {
                DO J = 1, N
                   TMP = TMP + ABS( A( J, I ) * C( J ) )
                END DO
-            ELSE IF ( CMODE .EQ. 0 ) THEN
+            } else if ( CMODE .EQ. 0 ) {
                DO J = 1, N
                   TMP = TMP + ABS( A( J, I ) )
                END DO
@@ -93,10 +93,10 @@
                DO J = 1, N
                   TMP = TMP + ABS( A( J, I ) / C( J ) )
                END DO
-            END IF
+            }
             WORK( 2*N+I ) = TMP
          END DO
-      END IF
+      }
 
       // Estimate the norm of inv(op(A)).
 
@@ -105,8 +105,8 @@
       KASE = 0
    10 CONTINUE
       CALL SLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
-      IF( KASE.NE.0 ) THEN
-         IF( KASE.EQ.2 ) THEN
+      if ( KASE.NE.0 ) {
+         if ( KASE.EQ.2 ) {
 
             // Multiply by R.
 
@@ -114,51 +114,51 @@
                WORK(I) = WORK(I) * WORK(2*N+I)
             END DO
 
-            IF (NOTRANS) THEN
+            if (NOTRANS) {
                CALL SGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             } else {
                CALL SGETRS( 'Transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
-            END IF
+            }
 
             // Multiply by inv(C).
 
-            IF ( CMODE .EQ. 1 ) THEN
+            if ( CMODE .EQ. 1 ) {
                DO I = 1, N
                   WORK( I ) = WORK( I ) / C( I )
                END DO
-            ELSE IF ( CMODE .EQ. -1 ) THEN
+            } else if ( CMODE .EQ. -1 ) {
                DO I = 1, N
                   WORK( I ) = WORK( I ) * C( I )
                END DO
-            END IF
+            }
          } else {
 
             // Multiply by inv(C**T).
 
-            IF ( CMODE .EQ. 1 ) THEN
+            if ( CMODE .EQ. 1 ) {
                DO I = 1, N
                   WORK( I ) = WORK( I ) / C( I )
                END DO
-            ELSE IF ( CMODE .EQ. -1 ) THEN
+            } else if ( CMODE .EQ. -1 ) {
                DO I = 1, N
                   WORK( I ) = WORK( I ) * C( I )
                END DO
-            END IF
+            }
 
-            IF (NOTRANS) THEN
+            if (NOTRANS) {
                CALL SGETRS( 'Transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             } else {
                CALL SGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
-            END IF
+            }
 
             // Multiply by R.
 
             DO I = 1, N
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
             END DO
-         END IF
+         }
          GO TO 10
-      END IF
+      }
 
       // Compute the estimate of the reciprocal condition number.
 

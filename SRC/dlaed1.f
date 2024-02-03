@@ -30,17 +30,17 @@
 
       INFO = 0
 
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( LDQ.LT.MAX( 1, N ) ) THEN
+      } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( MIN( 1, N / 2 ).GT.CUTPNT .OR. ( N / 2 ).LT.CUTPNT ) THEN
+      } else if ( MIN( 1, N / 2 ).GT.CUTPNT .OR. ( N / 2 ).LT.CUTPNT ) {
          INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLAED1', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -76,7 +76,7 @@
 
       // Solve Secular Equation.
 
-      IF( K.NE.0 ) THEN
+      if ( K.NE.0 ) {
          IS = ( IWORK( COLTYP )+IWORK( COLTYP+1 ) )*CUTPNT + ( IWORK( COLTYP+1 )+IWORK( COLTYP+2 ) )*( N-CUTPNT ) + IQ2          CALL DLAED3( K, N, CUTPNT, D, Q, LDQ, RHO, WORK( IDLMDA ), WORK( IQ2 ), IWORK( INDXC ), IWORK( COLTYP ), WORK( IW ), WORK( IS ), INFO )
          IF( INFO.NE.0 ) GO TO 20
 
@@ -89,7 +89,7 @@
          DO 10 I = 1, N
             INDXQ( I ) = I
    10    CONTINUE
-      END IF
+      }
 
    20 CONTINUE
       RETURN

@@ -35,14 +35,14 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          VALUE = ZERO
-      ELSE IF( LSAME( NORM, 'M' ) ) THEN
+      } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
          VALUE = ZERO
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
             DO 20 J = 1, N
                DO 10 I = 1, J
                   SUM = ABS( A( I, J ) )
@@ -56,13 +56,13 @@
                   IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
    30          CONTINUE
    40       CONTINUE
-         END IF
-      ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
+         }
+      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
 
          // Find normI(A) ( = norm1(A), since A is symmetric).
 
          VALUE = ZERO
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
             DO 60 J = 1, N
                SUM = ZERO
                DO 50 I = 1, J - 1
@@ -89,14 +89,14 @@
    90          CONTINUE
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
   100       CONTINUE
-         END IF
-      ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
+         }
+      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
          SCALE = ZERO
          SUM = ONE
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
             DO 110 J = 2, N
                CALL ZLASSQ( J-1, A( 1, J ), 1, SCALE, SUM )
   110       CONTINUE
@@ -104,11 +104,11 @@
             DO 120 J = 1, N - 1
                CALL ZLASSQ( N-J, A( J+1, J ), 1, SCALE, SUM )
   120       CONTINUE
-         END IF
+         }
          SUM = 2*SUM
          CALL ZLASSQ( N, A, LDA+1, SCALE, SUM )
          VALUE = SCALE*SQRT( SUM )
-      END IF
+      }
 
       ZLANSY = VALUE
       RETURN

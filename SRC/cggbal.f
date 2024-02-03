@@ -51,37 +51,37 @@
       // Test the input parameters
 
       INFO = 0
-      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
+      if ( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGGBAL', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          ILO = 1
          IHI = N
          RETURN
-      END IF
+      }
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          ILO = 1
          IHI = N
          LSCALE( 1 ) = ONE
          RSCALE( 1 ) = ONE
          RETURN
-      END IF
+      }
 
-      IF( LSAME( JOB, 'N' ) ) THEN
+      if ( LSAME( JOB, 'N' ) ) {
          ILO = 1
          IHI = N
          DO 10 I = 1, N
@@ -89,7 +89,7 @@
             RSCALE( I ) = ONE
    10    CONTINUE
          RETURN
-      END IF
+      }
 
       K = 1
       L = N
@@ -180,13 +180,13 @@
       ILO = K
       IHI = L
 
-      IF( LSAME( JOB, 'P' ) ) THEN
+      if ( LSAME( JOB, 'P' ) ) {
          DO 195 I = ILO, IHI
             LSCALE( I ) = ONE
             RSCALE( I ) = ONE
   195    CONTINUE
          RETURN
-      END IF
+      }
 
       IF( ILO.EQ.IHI ) RETURN
 
@@ -210,17 +210,17 @@
       BASL = LOG10( SCLFAC )
       DO 240 I = ILO, IHI
          DO 230 J = ILO, IHI
-            IF( A( I, J ).EQ.CZERO ) THEN
+            if ( A( I, J ).EQ.CZERO ) {
                TA = ZERO
                GO TO 210
-            END IF
+            }
             TA = LOG10( CABS1( A( I, J ) ) ) / BASL
 
   210       CONTINUE
-            IF( B( I, J ).EQ.CZERO ) THEN
+            if ( B( I, J ).EQ.CZERO ) {
                TB = ZERO
                GO TO 220
-            END IF
+            }
             TB = LOG10( CABS1( B( I, J ) ) ) / BASL
 
   220       CONTINUE

@@ -36,9 +36,9 @@
       // .. Executable Statements ..
 
       // Quick return for N < 1
-      IF ( N < 1 ) THEN
+      if ( N < 1 ) {
          RETURN
-      END IF
+      }
 
       I1 = ISEED( 1 )
       I2 = ISEED( 2 )
@@ -67,7 +67,7 @@
 
          X( I ) = R*( DBLE( IT1 )+R*( DBLE( IT2 )+R*( DBLE( IT3 )+R* DBLE( IT4 ) ) ) )
 
-         IF (X( I ).EQ.1.0D0) THEN
+         if (X( I ).EQ.1.0D0) {
             // If a real number has n bits of precision, and the first
             // n bits of the 48-bit integer above happen to be all 1 (which
             // will occur about once every 2**n calls), then X( I ) will
@@ -81,7 +81,7 @@
             I3 = I3 + 2
             I4 = I4 + 2
             GOTO 20
-         END IF
+         }
 
    10 CONTINUE
 

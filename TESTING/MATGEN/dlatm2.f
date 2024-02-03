@@ -43,61 +43,61 @@
 
       // Check for I and J in range
 
-      IF( I.LT.1 .OR. I.GT.M .OR. J.LT.1 .OR. J.GT.N ) THEN
+      if ( I.LT.1 .OR. I.GT.M .OR. J.LT.1 .OR. J.GT.N ) {
          DLATM2 = ZERO
          RETURN
-      END IF
+      }
 
       // Check for banding
 
-      IF( J.GT.I+KU .OR. J.LT.I-KL ) THEN
+      if ( J.GT.I+KU .OR. J.LT.I-KL ) {
          DLATM2 = ZERO
          RETURN
-      END IF
+      }
 
       // Check for sparsity
 
-      IF( SPARSE.GT.ZERO ) THEN
-         IF( DLARAN( ISEED ).LT.SPARSE ) THEN
+      if ( SPARSE.GT.ZERO ) {
+         if ( DLARAN( ISEED ).LT.SPARSE ) {
             DLATM2 = ZERO
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Compute subscripts depending on IPVTNG
 
-      IF( IPVTNG.EQ.0 ) THEN
+      if ( IPVTNG.EQ.0 ) {
          ISUB = I
          JSUB = J
-      ELSE IF( IPVTNG.EQ.1 ) THEN
+      } else if ( IPVTNG.EQ.1 ) {
          ISUB = IWORK( I )
          JSUB = J
-      ELSE IF( IPVTNG.EQ.2 ) THEN
+      } else if ( IPVTNG.EQ.2 ) {
          ISUB = I
          JSUB = IWORK( J )
-      ELSE IF( IPVTNG.EQ.3 ) THEN
+      } else if ( IPVTNG.EQ.3 ) {
          ISUB = IWORK( I )
          JSUB = IWORK( J )
-      END IF
+      }
 
       // Compute entry and grade it according to IGRADE
 
-      IF( ISUB.EQ.JSUB ) THEN
+      if ( ISUB.EQ.JSUB ) {
          TEMP = D( ISUB )
       } else {
          TEMP = DLARND( IDIST, ISEED )
-      END IF
-      IF( IGRADE.EQ.1 ) THEN
+      }
+      if ( IGRADE.EQ.1 ) {
          TEMP = TEMP*DL( ISUB )
-      ELSE IF( IGRADE.EQ.2 ) THEN
+      } else if ( IGRADE.EQ.2 ) {
          TEMP = TEMP*DR( JSUB )
-      ELSE IF( IGRADE.EQ.3 ) THEN
+      } else if ( IGRADE.EQ.3 ) {
          TEMP = TEMP*DL( ISUB )*DR( JSUB )
-      ELSE IF( IGRADE.EQ.4 .AND. ISUB.NE.JSUB ) THEN
+      } else if ( IGRADE.EQ.4 .AND. ISUB.NE.JSUB ) {
          TEMP = TEMP*DL( ISUB ) / DL( JSUB )
-      ELSE IF( IGRADE.EQ.5 ) THEN
+      } else if ( IGRADE.EQ.5 ) {
          TEMP = TEMP*DL( ISUB )*DL( JSUB )
-      END IF
+      }
       DLATM2 = TEMP
       RETURN
 

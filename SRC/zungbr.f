@@ -40,64 +40,64 @@
       WANTQ = LSAME( VECT, 'Q' )
       MN = MIN( M, N )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.WANTQ .AND. .NOT.LSAME( VECT, 'P' ) ) THEN
+      if ( .NOT.WANTQ .AND. .NOT.LSAME( VECT, 'P' ) ) {
          INFO = -1
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -2
-      ELSE IF( N.LT.0 .OR. ( WANTQ .AND. ( N.GT.M .OR. N.LT.MIN( M, K ) ) ) .OR. ( .NOT.WANTQ .AND. ( M.GT.N .OR. M.LT. MIN( N, K ) ) ) ) THEN
+      } else if ( N.LT.0 .OR. ( WANTQ .AND. ( N.GT.M .OR. N.LT.MIN( M, K ) ) ) .OR. ( .NOT.WANTQ .AND. ( M.GT.N .OR. M.LT. MIN( N, K ) ) ) ) {
          INFO = -3
-      ELSE IF( K.LT.0 ) THEN
+      } else if ( K.LT.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -6
-      ELSE IF( LWORK.LT.MAX( 1, MN ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX( 1, MN ) .AND. .NOT.LQUERY ) {
          INFO = -9
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          WORK( 1 ) = 1
-         IF( WANTQ ) THEN
-            IF( M.GE.K ) THEN
+         if ( WANTQ ) {
+            if ( M.GE.K ) {
                CALL ZUNGQR( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
             } else {
-               IF( M.GT.1 ) THEN
+               if ( M.GT.1 ) {
                   CALL ZUNGQR( M-1, M-1, M-1, A, LDA, TAU, WORK, -1, IINFO )
-               END IF
-            END IF
+               }
+            }
          } else {
-            IF( K.LT.N ) THEN
+            if ( K.LT.N ) {
                CALL ZUNGLQ( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
             } else {
-               IF( N.GT.1 ) THEN
+               if ( N.GT.1 ) {
                   CALL ZUNGLQ( N-1, N-1, N-1, A, LDA, TAU, WORK, -1, IINFO )
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
          LWKOPT = INT( DBLE( WORK( 1 ) ) )
          LWKOPT = MAX (LWKOPT, MN)
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZUNGBR', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          WORK( 1 ) = LWKOPT
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 ) {
          WORK( 1 ) = 1
          RETURN
-      END IF
+      }
 
-      IF( WANTQ ) THEN
+      if ( WANTQ ) {
 
          // Form Q, determined by a call to ZGEBRD to reduce an m-by-k
          // matrix
 
-         IF( M.GE.K ) THEN
+         if ( M.GE.K ) {
 
             // If m >= k, assume m >= n >= k
 
@@ -121,19 +121,19 @@
             DO 30 I = 2, M
                A( I, 1 ) = ZERO
    30       CONTINUE
-            IF( M.GT.1 ) THEN
+            if ( M.GT.1 ) {
 
                // Form Q(2:m,2:m)
 
                CALL ZUNGQR( M-1, M-1, M-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
-            END IF
-         END IF
+            }
+         }
       } else {
 
          // Form P**H, determined by a call to ZGEBRD to reduce a k-by-n
          // matrix
 
-         IF( K.LT.N ) THEN
+         if ( K.LT.N ) {
 
             // If k < n, assume k <= m <= n
 
@@ -157,14 +157,14 @@
    50          CONTINUE
                A( 1, J ) = ZERO
    60       CONTINUE
-            IF( N.GT.1 ) THEN
+            if ( N.GT.1 ) {
 
                // Form P**H(2:n,2:n)
 
                CALL ZUNGLQ( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
       WORK( 1 ) = LWKOPT
       RETURN
 

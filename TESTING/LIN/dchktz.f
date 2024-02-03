@@ -90,7 +90,7 @@
             MNMIN = MIN( M, N )
             LWORK = MAX( 1, N*N+4*M+N, M*N+2*MNMIN+4*N )
 
-            IF( M.LE.N ) THEN
+            if ( M.LE.N ) {
                DO 50 IMODE = 1, NTYPES
                   IF( .NOT.DOTYPE( IMODE ) ) GO TO 50
 
@@ -106,7 +106,7 @@
                   // Generate test matrix of size m by n using
                   // singular value distribution indicated by `mode'.
 
-                  IF( MODE.EQ.0 ) THEN
+                  if ( MODE.EQ.0 ) {
                      CALL DLASET( 'Full', M, N, ZERO, ZERO, A, LDA )
                      DO 30 I = 1, MNMIN
                         S( I ) = ZERO
@@ -115,7 +115,7 @@
                      CALL DLATMS( M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO )
                      CALL DGEQR2( M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL DLASET( 'Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA )
                      CALL DLAORD( 'Decreasing', MNMIN, S, 1 )
-                  END IF
+                  }
 
                   // Save A and its singular values
 
@@ -143,14 +143,14 @@
                  t // he threshold.
 
                   DO 40 K = 1, NTESTS
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
    40             CONTINUE
                   NRUN = NRUN + 3
    50          CONTINUE
-            END IF
+            }
    60    CONTINUE
    70 CONTINUE
 

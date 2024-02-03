@@ -41,33 +41,33 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK )
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
       // Check the imaginary parts of the diagonal elements and return with
       // an error code if any are nonzero.
 
       DO 10 J = 1, N
-         IF( AIMAG( AFAC( J, J ) ).NE.ZERO ) THEN
+         if ( AIMAG( AFAC( J, J ) ).NE.ZERO ) {
             RESID = ONE / EPS
             RETURN
-         END IF
+         }
    10 CONTINUE
 
       // Compute the product U**H * U, overwriting U.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 20 K = N, 1, -1
 
             // Compute the (K,K) element of the result.
@@ -97,11 +97,11 @@
             CALL CSCAL( N-K+1, TC, AFAC( K, K ), 1 )
 
    30    CONTINUE
-      END IF
+      }
 
       // Compute the difference L * L**H - A (or U**H * U - A).
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 50 J = 1, N
             DO 40 I = 1, J - 1
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
@@ -115,7 +115,7 @@
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    60       CONTINUE
    70    CONTINUE
-      END IF
+      }
 
       // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 

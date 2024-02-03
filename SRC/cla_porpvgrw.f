@@ -48,7 +48,7 @@
 
       // Find the max magnitude entry of each column.
 
-      IF ( UPPER ) THEN
+      if ( UPPER ) {
          DO J = 1, NCOLS
             DO I = 1, J
                WORK( NCOLS+J ) = MAX( CABS1( A( I, J ) ), WORK( NCOLS+J ) )
@@ -60,12 +60,12 @@
                WORK( NCOLS+J ) = MAX( CABS1( A( I, J ) ), WORK( NCOLS+J ) )
             END DO
          END DO
-      END IF
+      }
 
       // Now find the max magnitude entry of each column of the factor in
       // AF.  No pivoting, so no permutations.
 
-      IF ( LSAME( 'Upper', UPLO ) ) THEN
+      if ( LSAME( 'Upper', UPLO ) ) {
          DO J = 1, NCOLS
             DO I = 1, J
                WORK( J ) = MAX( CABS1( AF( I, J ) ), WORK( J ) )
@@ -77,7 +77,7 @@
                WORK( J ) = MAX( CABS1( AF( I, J ) ), WORK( J ) )
             END DO
          END DO
-      END IF
+      }
 
       // Compute the *inverse* of the max element growth factor.  Dividing
       // by zero would imply the largest entry of the factor's column is
@@ -86,23 +86,23 @@
       // as growth in itself, so simply ignore terms with zero
       // denominators.
 
-      IF ( LSAME( 'Upper', UPLO ) ) THEN
+      if ( LSAME( 'Upper', UPLO ) ) {
          DO I = 1, NCOLS
             UMAX = WORK( I )
             AMAX = WORK( NCOLS+I )
-            IF ( UMAX /= 0.0 ) THEN
+            if ( UMAX /= 0.0 ) {
                RPVGRW = MIN( AMAX / UMAX, RPVGRW )
-            END IF
+            }
          END DO
       } else {
          DO I = 1, NCOLS
             UMAX = WORK( I )
             AMAX = WORK( NCOLS+I )
-            IF ( UMAX /= 0.0 ) THEN
+            if ( UMAX /= 0.0 ) {
                RPVGRW = MIN( AMAX / UMAX, RPVGRW )
-            END IF
+            }
          END DO
-      END IF
+      }
 
       CLA_PORPVGRW = RPVGRW
 

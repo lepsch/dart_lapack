@@ -43,17 +43,17 @@
 
       INFO = 0
 
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDQ.LT.MAX( 1, N ) ) THEN
+      } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( MIN( 1, ( N / 2 ) ).GT.N1 .OR. ( N / 2 ).LT.N1 ) THEN
+      } else if ( MIN( 1, ( N / 2 ) ).GT.N1 .OR. ( N / 2 ).LT.N1 ) {
          INFO = -3
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLAED2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -62,9 +62,9 @@
       N2 = N - N1
       N1P1 = N1 + 1
 
-      IF( RHO.LT.ZERO ) THEN
+      if ( RHO.LT.ZERO ) {
          CALL SSCAL( N2, MONE, Z( N1P1 ), 1 )
-      END IF
+      }
 
       // Normalize z so that norm(z) = 1.  Since z is the concatenation of
      t // wo normalized vectors, norm2(z) = sqrt(2).
@@ -103,7 +103,7 @@
       // except to reorganize Q so that its columns correspond with the
       // elements in D.
 
-      IF( RHO*ABS( Z( IMAX ) ).LE.TOL ) THEN
+      if ( RHO*ABS( Z( IMAX ) ).LE.TOL ) {
          K = 0
          IQ2 = 1
          DO 40 J = 1, N
@@ -115,7 +115,7 @@
          CALL SLACPY( 'A', N, N, Q2, N, Q, LDQ )
          CALL SCOPY( N, DLAMBDA, 1, D, 1 )
          GO TO 190
-      END IF
+      }
 
       // If there are multiple eigenvalues then the problem deflates.  Here
      t // he number of equal eigenvalues are found.  As each equal
@@ -135,7 +135,7 @@
       K2 = N + 1
       DO 70 J = 1, N
          NJ = INDX( J )
-         IF( RHO*ABS( Z( NJ ) ).LE.TOL ) THEN
+         if ( RHO*ABS( Z( NJ ) ).LE.TOL ) {
 
             // Deflate due to small z component.
 
@@ -146,13 +146,13 @@
          } else {
             PJ = NJ
             GO TO 80
-         END IF
+         }
    70 CONTINUE
    80 CONTINUE
       J = J + 1
       NJ = INDX( J )
       IF( J.GT.N ) GO TO 100
-      IF( RHO*ABS( Z( NJ ) ).LE.TOL ) THEN
+      if ( RHO*ABS( Z( NJ ) ).LE.TOL ) {
 
          // Deflate due to small z component.
 
@@ -173,7 +173,7 @@
          T = D( NJ ) - D( PJ )
          C = C / TAU
          S = -S / TAU
-         IF( ABS( T*C*S ).LE.TOL ) THEN
+         if ( ABS( T*C*S ).LE.TOL ) {
 
             // Deflation is possible.
 
@@ -188,18 +188,18 @@
             K2 = K2 - 1
             I = 1
    90       CONTINUE
-            IF( K2+I.LE.N ) THEN
-               IF( D( PJ ).LT.D( INDXP( K2+I ) ) ) THEN
+            if ( K2+I.LE.N ) {
+               if ( D( PJ ).LT.D( INDXP( K2+I ) ) ) {
                   INDXP( K2+I-1 ) = INDXP( K2+I )
                   INDXP( K2+I ) = PJ
                   I = I + 1
                   GO TO 90
                } else {
                   INDXP( K2+I-1 ) = PJ
-               END IF
+               }
             } else {
                INDXP( K2+I-1 ) = PJ
-            END IF
+            }
             PJ = NJ
          } else {
             K = K + 1
@@ -207,8 +207,8 @@
             W( K ) = Z( PJ )
             INDXP( K ) = PJ
             PJ = NJ
-         END IF
-      END IF
+         }
+      }
       GO TO 80
   100 CONTINUE
 
@@ -298,10 +298,10 @@
       // The deflated eigenvalues and their corresponding vectors go back
       // into the last N - K slots of D and Q respectively.
 
-      IF( K.LT.N ) THEN
+      if ( K.LT.N ) {
          CALL SLACPY( 'A', N, CTOT( 4 ), Q2( IQ1 ), N, Q( 1, K+1 ), LDQ )
          CALL SCOPY( N-K, Z( K+1 ), 1, D( K+1 ), 1 )
-      END IF
+      }
 
       // Copy CTOT into COLTYP for referencing in SLAED3.
 

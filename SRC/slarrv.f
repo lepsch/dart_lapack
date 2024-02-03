@@ -44,9 +44,9 @@
 
       // Quick return if possible
 
-      IF( (N.LE.0).OR.(M.LE.0) ) THEN
+      if ( (N.LE.0).OR.(M.LE.0) ) {
          RETURN
-      END IF
+      }
 
       // The first N entries of WORK are reserved for the eigenvalues
       INDLD = N+1
@@ -73,12 +73,12 @@
  10   CONTINUE
 
       ZUSEDL = 1
-      IF(DOL.GT.1) THEN
+      if (DOL.GT.1) {
          // Set lower bound for use of Z
          ZUSEDL = DOL-1
       ENDIF
       ZUSEDU = M
-      IF(DOU.LT.M) THEN
+      if (DOU.LT.M) {
          // Set lower bound for use of Z
          ZUSEDU = DOU+1
       ENDIF
@@ -93,7 +93,7 @@
       // Set expert flags for standard code.
       TRYRQC = .TRUE.
 
-      IF((DOL.EQ.1).AND.(DOU.EQ.M)) THEN
+      if ((DOL.EQ.1).AND.(DOU.EQ.M)) {
       } else {
          // Only selected eigenpairs are computed. Since the other evalues
          // are not refined by RQ iteration, bisection has to compute to full
@@ -119,20 +119,20 @@
         t // hrough IEND.
          WEND = WBEGIN - 1
  15      CONTINUE
-         IF( WEND.LT.M ) THEN
-            IF( IBLOCK( WEND+1 ).EQ.JBLK ) THEN
+         if ( WEND.LT.M ) {
+            if ( IBLOCK( WEND+1 ).EQ.JBLK ) {
                WEND = WEND + 1
                GO TO 15
-            END IF
-         END IF
-         IF( WEND.LT.WBEGIN ) THEN
+            }
+         }
+         if ( WEND.LT.WBEGIN ) {
             IBEGIN = IEND + 1
             GO TO 170
          ELSEIF( (WEND.LT.DOL).OR.(WBEGIN.GT.DOU) ) THEN
             IBEGIN = IEND + 1
             WBEGIN = WEND + 1
             GO TO 170
-         END IF
+         }
 
          // Find local spectral diameter of the block
          GL = GERS( 2*IBEGIN-1 )
@@ -151,7 +151,7 @@
          IM = WEND - WBEGIN + 1
 
          // This is for a 1x1 block
-         IF( IBEGIN.EQ.IEND ) THEN
+         if ( IBEGIN.EQ.IEND ) {
             DONE = DONE+1
             Z( IBEGIN, WBEGIN ) = ONE
             ISUPPZ( 2*WBEGIN-1 ) = IBEGIN
@@ -161,7 +161,7 @@
             IBEGIN = IEND + 1
             WBEGIN = WBEGIN + 1
             GO TO 170
-         END IF
+         }
 
          // The desired (shifted) eigenvalues are stored in W(WBEGIN:WEND)
          // Note that these can be approximations, in this case, the corresp.
@@ -195,9 +195,9 @@
          // generate the representation tree for the current block and
          // compute the eigenvectors
    40    CONTINUE
-         IF( IDONE.LT.IM ) THEN
+         if ( IDONE.LT.IM ) {
             // This is a crude protection against infinitely deep trees
-            IF( NDEPTH.GT.M ) THEN
+            if ( NDEPTH.GT.M ) {
                INFO = -2
                RETURN
             ENDIF
@@ -208,13 +208,13 @@
             NCLUS = 0
 
             PARITY = 1 - PARITY
-            IF( PARITY.EQ.0 ) THEN
+            if ( PARITY.EQ.0 ) {
                OLDCLS = IINDC1
                NEWCLS = IINDC2
             } else {
                OLDCLS = IINDC2
                NEWCLS = IINDC1
-            END IF
+            }
             // Process the clusters on the current level
             DO 150 I = 1, OLDNCL
                J = OLDCLS + 2*I
@@ -223,18 +223,18 @@
                                t // o WBEGIN when accessing W, WGAP, WERR, Z
                OLDFST = IWORK( J-1 )
                OLDLST = IWORK( J )
-               IF( NDEPTH.GT.0 ) THEN
+               if ( NDEPTH.GT.0 ) {
                   // Retrieve relatively robust representation (RRR) of cluster
                  t // hat has been computed at the previous level
                   // The RRR is stored in Z and overwritten once the eigenvectors
                   // have been computed or when the cluster is refined
 
-                  IF((DOL.EQ.1).AND.(DOU.EQ.M)) THEN
+                  if ((DOL.EQ.1).AND.(DOU.EQ.M)) {
                      // Get representation from location of the leftmost evalue
                      // of the cluster
                      J = WBEGIN + OLDFST - 1
                   } else {
-                     IF(WBEGIN+OLDFST-1.LT.DOL) THEN
+                     if (WBEGIN+OLDFST-1.LT.DOL) {
                         // Get representation from the left end of Z array
                         J = DOL - 1
                      ELSEIF(WBEGIN+OLDFST-1.GT.DOU) THEN
@@ -250,7 +250,7 @@
 
                   // Set the corresponding entries in Z to zero
                   CALL SLASET( 'Full', IN, 2, ZERO, ZERO, Z( IBEGIN, J), LDZ )
-               END IF
+               }
 
                // Compute DL and DLL of current RRR
                DO 50 J = IBEGIN, IEND-1
@@ -259,7 +259,7 @@
                   WORK( INDLLD-1+J ) = TMP*L( J )
    50          CONTINUE
 
-               IF( NDEPTH.GT.0 ) THEN
+               if ( NDEPTH.GT.0 ) {
                   // P and Q are index of the first and last eigenvalue to compute
                   // within the current block
                   P = INDEXW( WBEGIN-1+OLDFST )
@@ -271,7 +271,7 @@
                   // perform limited bisection (if necessary) to get approximate
                   // eigenvalues to the precision needed.
                   CALL SLARRB( IN, D( IBEGIN ), WORK(INDLLD+IBEGIN-1), P, Q, RTOL1, RTOL2, OFFSET, WORK(WBEGIN),WGAP(WBEGIN),WERR(WBEGIN), WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      INFO = -1
                      RETURN
                   ENDIF
@@ -282,10 +282,10 @@
                   // WBEGIN-1+OLDLST are correctly computed in SLARRB.
                   // However, we only allow the gaps to become greater since
                  t // his is what should happen when we decrease WERR
-                  IF( OLDFST.GT.1) THEN
+                  if ( OLDFST.GT.1) {
                      WGAP( WBEGIN+OLDFST-2 ) = MAX(WGAP(WBEGIN+OLDFST-2), W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1) - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) )
                   ENDIF
-                  IF( WBEGIN + OLDLST -1 .LT. WEND ) THEN
+                  if ( WBEGIN + OLDLST -1 .LT. WEND ) {
                      WGAP( WBEGIN+OLDLST-1 ) = MAX(WGAP(WBEGIN+OLDLST-1), W(WBEGIN+OLDLST)-WERR(WBEGIN+OLDLST) - W(WBEGIN+OLDLST-1)-WERR(WBEGIN+OLDLST-1) )
                   ENDIF
                   // Each time the eigenvalues in WORK get refined, we store
@@ -293,16 +293,16 @@
                   DO 53 J=OLDFST,OLDLST
                      W(WBEGIN+J-1) = WORK(WBEGIN+J-1)+SIGMA
  53               CONTINUE
-               END IF
+               }
 
                // Process the current node.
                NEWFST = OLDFST
                DO 140 J = OLDFST, OLDLST
-                  IF( J.EQ.OLDLST ) THEN
+                  if ( J.EQ.OLDLST ) {
                      // we are at the right end of the cluster, this is also the
                      // boundary of the child cluster
                      NEWLST = J
-                  ELSE IF ( WGAP( WBEGIN + J -1).GE. MINRGP* ABS( WORK(WBEGIN + J -1) ) ) THEN
+                  } else if ( WGAP( WBEGIN + J -1).GE. MINRGP* ABS( WORK(WBEGIN + J -1) ) ) {
                     t // he right relative gap is big enough, the child cluster
                      // (NEWFST,..,NEWLST) is well separated from the following
                      NEWLST = J
@@ -310,19 +310,19 @@
                      // inside a child cluster, the relative gap is not
                      // big enough.
                      GOTO 140
-                  END IF
+                  }
 
                   // Compute size of child cluster found
                   NEWSIZ = NEWLST - NEWFST + 1
 
                   // NEWFTT is the place in Z where the new RRR or the computed
                   // eigenvector is to be stored
-                  IF((DOL.EQ.1).AND.(DOU.EQ.M)) THEN
+                  if ((DOL.EQ.1).AND.(DOU.EQ.M)) {
                      // Store representation at location of the leftmost evalue
                      // of the cluster
                      NEWFTT = WBEGIN + NEWFST - 1
                   } else {
-                     IF(WBEGIN+NEWFST-1.LT.DOL) THEN
+                     if (WBEGIN+NEWFST-1.LT.DOL) {
                         // Store representation at the left end of Z array
                         NEWFTT = DOL - 1
                      ELSEIF(WBEGIN+NEWFST-1.GT.DOU) THEN
@@ -333,7 +333,7 @@
                      ENDIF
                   ENDIF
 
-                  IF( NEWSIZ.GT.1) THEN
+                  if ( NEWSIZ.GT.1) {
 
                      // Current child is not a singleton but a cluster.
                      // Compute and store new representation of child.
@@ -348,7 +348,7 @@
                      // have to be computed from WORK since the entries
                      // in W might be of the same order so that gaps are not
                      // exhibited correctly for very close eigenvalues.
-                     IF( NEWFST.EQ.1 ) THEN
+                     if ( NEWFST.EQ.1 ) {
                         LGAP = MAX( ZERO, W(WBEGIN)-WERR(WBEGIN) - VL )
                     } else {
                         LGAP = WGAP( WBEGIN+NEWFST-2 )
@@ -361,7 +361,7 @@
                      // as possible
 
                      DO 55 K =1,2
-                        IF(K.EQ.1) THEN
+                        if (K.EQ.1) {
                            P = INDEXW( WBEGIN-1+NEWFST )
                         } else {
                            P = INDEXW( WBEGIN-1+NEWLST )
@@ -370,7 +370,7 @@
                         CALL SLARRB( IN, D(IBEGIN), WORK( INDLLD+IBEGIN-1 ),P,P, RQTOL, RQTOL, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO )
  55                  CONTINUE
 
-                     IF((WBEGIN+NEWLST-1.LT.DOL).OR. (WBEGIN+NEWFST-1.GT.DOU)) THEN
+                     if ((WBEGIN+NEWLST-1.LT.DOL).OR. (WBEGIN+NEWFST-1.GT.DOU)) {
                         // if the cluster contains no desired eigenvalues
                         // skip the computation of that branch of the rep. tree
 
@@ -387,7 +387,7 @@
 
                      // SLARRF needs LWORK = 2*N
                      CALL SLARRF( IN, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), NEWFST, NEWLST, WORK(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), SPDIAM, LGAP, RGAP, PIVMIN, TAU, Z(IBEGIN, NEWFTT),Z(IBEGIN, NEWFTT+1), WORK( INDWRK ), IINFO )
-                     IF( IINFO.EQ.0 ) THEN
+                     if ( IINFO.EQ.0 ) {
                         // a new RRR for the cluster was found by SLARRF
                         // update shift and store it
                         SSIGMA = SIGMA + TAU
@@ -430,7 +430,7 @@
                      LAMBDA = WORK( WINDEX )
                      DONE = DONE + 1
                      // Check if eigenvector computation is to be skipped
-                     IF((WINDEX.LT.DOL).OR. (WINDEX.GT.DOU)) THEN
+                     if ((WINDEX.LT.DOL).OR. (WINDEX.GT.DOU)) {
                         ESKIP = .TRUE.
                         GOTO 125
                      } else {
@@ -446,7 +446,7 @@
                      // differences in the eigenvalues, as opposed to the
                      // entries in W which might "look" the same.
 
-                     IF( K .EQ. 1) THEN
+                     if ( K .EQ. 1) {
                         // In the case RANGE='I' and with not much initial
                         // accuracy in LAMBDA and VL, the formula
                         // LGAP = MAX( ZERO, (SIGMA - VL) + LAMBDA )
@@ -457,7 +457,7 @@
                      } else {
                         LGAP = WGAP(WINDMN)
                      ENDIF
-                     IF( K .EQ. IM) THEN
+                     if ( K .EQ. IM) {
                         // In the case RANGE='I' and with not much initial
                         // accuracy in LAMBDA and VU, the formula
                         // can lead to an overestimation of the right gap and
@@ -468,7 +468,7 @@
                         RGAP = WGAP(WINDEX)
                      ENDIF
                      GAP = MIN( LGAP, RGAP )
-                     IF(( K .EQ. 1).OR.(K .EQ. IM)) THEN
+                     if (( K .EQ. 1).OR.(K .EQ. IM)) {
                         // The eigenvector support can become wrong
                         // because significant entries could be cut off due to a
                         // large GAPTOL parameter in LAR1V. Prevent this.
@@ -497,13 +497,13 @@
                      NEEDBS =  .NOT.TRYRQC
  120                 CONTINUE
                      // Check if bisection should be used to refine eigenvalue
-                     IF(NEEDBS) THEN
+                     if (NEEDBS) {
                         // Take the bisection as new iterate
                         USEDBS = .TRUE.
                         ITMP1 = IWORK( IINDR+WINDEX )
                         OFFSET = INDEXW( WBEGIN ) - 1
                         CALL SLARRB( IN, D(IBEGIN), WORK(INDLLD+IBEGIN-1),INDEIG,INDEIG, ZERO, TWO*EPS, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, ITMP1, IINFO )
-                        IF( IINFO.NE.0 ) THEN
+                        if ( IINFO.NE.0 ) {
                            INFO = -3
                            RETURN
                         ENDIF
@@ -514,7 +514,7 @@
                      ENDIF
                      // Given LAMBDA, compute the eigenvector.
                      CALL SLAR1V( IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) )
-                     IF(ITER .EQ. 0) THEN
+                     if (ITER .EQ. 0) {
                         BSTRES = RESID
                         BSTW = LAMBDA
                      ELSEIF(RESID.LT.BSTRES) THEN
@@ -534,11 +534,11 @@
                      // Convergence test for Rayleigh-Quotient iteration
                      // (omitted when Bisection has been used)
 
-                     IF( RESID.GT.TOL*GAP .AND. ABS( RQCORR ).GT. RQTOL*ABS( LAMBDA ) .AND. .NOT. USEDBS) THEN
+                     if ( RESID.GT.TOL*GAP .AND. ABS( RQCORR ).GT. RQTOL*ABS( LAMBDA ) .AND. .NOT. USEDBS) {
                         // We need to check that the RQCORR update doesn't
                         // move the eigenvalue away from the desired one and
                        t // owards a neighbor. -> protection with bisection
-                        IF(INDEIG.LE.NEGCNT) THEN
+                        if (INDEIG.LE.NEGCNT) {
                            // The wanted eigenvalue lies to the left
                            SGNDEF = -ONE
                         } else {
@@ -547,10 +547,10 @@
                         ENDIF
                         // We only use the RQCORR if it improves the
                        t // he iterate reasonably.
-                        IF( ( RQCORR*SGNDEF.GE.ZERO ) .AND.( LAMBDA + RQCORR.LE. RIGHT) .AND.( LAMBDA + RQCORR.GE. LEFT) ) THEN
+                        if ( ( RQCORR*SGNDEF.GE.ZERO ) .AND.( LAMBDA + RQCORR.LE. RIGHT) .AND.( LAMBDA + RQCORR.GE. LEFT) ) {
                            USEDRQ = .TRUE.
                            // Store new midpoint of bisection interval in WORK
-                           IF(SGNDEF.EQ.ONE) THEN
+                           if (SGNDEF.EQ.ONE) {
                               // The current LAMBDA is on the left of the true
                               // eigenvalue
                               LEFT = LAMBDA
@@ -577,7 +577,7 @@
                         } else {
                            NEEDBS = .TRUE.
                         ENDIF
-                        IF(RIGHT-LEFT.LT.RQTOL*ABS(LAMBDA)) THEN
+                        if (RIGHT-LEFT.LT.RQTOL*ABS(LAMBDA)) {
                               // The eigenvalue is computed to bisection accuracy
                               // compute eigenvector and stop
                            USEDBS = .TRUE.
@@ -590,19 +590,19 @@
                         } else {
                            INFO = 5
                            RETURN
-                        END IF
+                        }
                      } else {
                         STP2II = .FALSE.
-        IF(USEDRQ .AND. USEDBS .AND. BSTRES.LE.RESID) THEN
+        if (USEDRQ .AND. USEDBS .AND. BSTRES.LE.RESID) {
                            LAMBDA = BSTW
                            STP2II = .TRUE.
                         ENDIF
-                        IF (STP2II) THEN
+                        if (STP2II) {
                            // improve error angle by second step
                            CALL SLAR1V( IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) )
                         ENDIF
                         WORK( WINDEX ) = LAMBDA
-                     END IF
+                     }
 
                      // Compute FP-vector support w.r.t. whole matrix
 
@@ -613,12 +613,12 @@
                      ISUPMN = ISUPMN + OLDIEN
                      ISUPMX = ISUPMX + OLDIEN
                      // Ensure vector is ok if support in the RQI has changed
-                     IF(ISUPMN.LT.ZFROM) THEN
+                     if (ISUPMN.LT.ZFROM) {
                         DO 122 II = ISUPMN,ZFROM-1
                            Z( II, WINDEX ) = ZERO
  122                    CONTINUE
                      ENDIF
-                     IF(ISUPMX.GT.ZTO) THEN
+                     if (ISUPMX.GT.ZTO) {
                         DO 123 II = ZTO+1,ISUPMX
                            Z( II, WINDEX ) = ZERO
  123                    CONTINUE
@@ -633,11 +633,11 @@
                      // cancellation and doesn't reflect the theory
                      // where the initial gaps are underestimated due
                     t // o WERR being too crude.)
-                     IF(.NOT.ESKIP) THEN
-                        IF( K.GT.1) THEN
+                     if (.NOT.ESKIP) {
+                        if ( K.GT.1) {
                            WGAP( WINDMN ) = MAX( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) )
                         ENDIF
-                        IF( WINDEX.LT.WEND ) THEN
+                        if ( WINDEX.LT.WEND ) {
                            WGAP( WINDEX ) = MAX( SAVGAP, W( WINDPL )-WERR( WINDPL ) - W( WINDEX )-WERR( WINDEX) )
                         ENDIF
                      ENDIF
@@ -652,7 +652,7 @@
  150        CONTINUE
             NDEPTH = NDEPTH + 1
             GO TO 40
-         END IF
+         }
          IBEGIN = IEND + 1
          WBEGIN = WEND + 1
  170  CONTINUE

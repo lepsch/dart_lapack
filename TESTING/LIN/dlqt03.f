@@ -62,7 +62,7 @@
       CALL DORGLQ( N, N, K, Q, LDA, TAU, WORK, LWORK, INFO )
 
       DO 30 ISIDE = 1, 2
-         IF( ISIDE.EQ.1 ) THEN
+         if ( ISIDE.EQ.1 ) {
             SIDE = 'L'
             MC = N
             NC = M
@@ -70,7 +70,7 @@
             SIDE = 'R'
             MC = M
             NC = N
-         END IF
+         }
 
          // Generate MC by NC matrix C
 
@@ -81,11 +81,11 @@
          IF( CNORM.EQ.0.0D0 ) CNORM = ONE
 
          DO 20 ITRANS = 1, 2
-            IF( ITRANS.EQ.1 ) THEN
+            if ( ITRANS.EQ.1 ) {
                TRANS = 'N'
             } else {
                TRANS = 'T'
-            END IF
+            }
 
             // Copy C
 
@@ -98,11 +98,11 @@
 
             // Form explicit product and subtract
 
-            IF( LSAME( SIDE, 'L' ) ) THEN
+            if ( LSAME( SIDE, 'L' ) ) {
                CALL DGEMM( TRANS, 'No transpose', MC, NC, MC, -ONE, Q, LDA, C, LDA, ONE, CC, LDA )
             } else {
                CALL DGEMM( 'No transpose', TRANS, MC, NC, NC, -ONE, C, LDA, Q, LDA, ONE, CC, LDA )
-            END IF
+            }
 
             // Compute error in the difference
 

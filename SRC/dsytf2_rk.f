@@ -44,17 +44,17 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSYTF2_RK', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize ALPHA for use in choosing pivot block size.
 
@@ -64,7 +64,7 @@
 
       SFMIN = DLAMCH( 'S' )
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Factorize A as U*D*U**T using the upper triangle of A
 
@@ -94,14 +94,14 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         IF( K.GT.1 ) THEN
+         if ( K.GT.1 ) {
             IMAX = IDAMAX( K-1, A( 1, K ), 1 )
             COLMAX = ABS( A( IMAX, K ) )
          } else {
             COLMAX = ZERO
-         END IF
+         }
 
-         IF( (MAX( ABSAKK, COLMAX ).EQ.ZERO) ) THEN
+         if ( (MAX( ABSAKK, COLMAX ).EQ.ZERO) ) {
 
             // Column K is zero or underflow: set INFO and continue
 
@@ -119,7 +119,7 @@
             // Equivalent to testing for (used to handle NaN and Inf)
             // ABSAKK.GE.ALPHA*COLMAX
 
-            IF( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) THEN
+            if ( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) {
 
                // no interchange,
                // use 1-by-1 pivot block
@@ -139,26 +139,26 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  IF( IMAX.NE.K ) THEN
+                  if ( IMAX.NE.K ) {
                      JMAX = IMAX + IDAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA )
                      ROWMAX = ABS( A( IMAX, JMAX ) )
                   } else {
                      ROWMAX = ZERO
-                  END IF
+                  }
 
-                  IF( IMAX.GT.1 ) THEN
+                  if ( IMAX.GT.1 ) {
                      ITEMP = IDAMAX( IMAX-1, A( 1, IMAX ), 1 )
                      DTEMP = ABS( A( ITEMP, IMAX ) )
-                     IF( DTEMP.GT.ROWMAX ) THEN
+                     if ( DTEMP.GT.ROWMAX ) {
                         ROWMAX = DTEMP
                         JMAX = ITEMP
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Equivalent to testing for (used to handle NaN and Inf)
                   // ABS( A( IMAX, IMAX ) ).GE.ALPHA*ROWMAX
 
-                  IF( .NOT.( ABS( A( IMAX, IMAX ) ).LT.ALPHA*ROWMAX ) ) THEN
+                  if ( .NOT.( ABS( A( IMAX, IMAX ) ).LT.ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -169,7 +169,7 @@
                   // Equivalent to testing for ROWMAX .EQ. COLMAX,
                   // used to handle NaN and Inf
 
-                  ELSE IF( ( P.EQ.JMAX ).OR.( ROWMAX.LE.COLMAX ) ) THEN
+                  } else if ( ( P.EQ.JMAX ).OR.( ROWMAX.LE.COLMAX ) ) {
 
                      // interchange rows and columns K+1 and IMAX,
                      // use 2-by-2 pivot block
@@ -184,19 +184,19 @@
                      P = IMAX
                      COLMAX = ROWMAX
                      IMAX = JMAX
-                  END IF
+                  }
 
                   // End pivot search loop body
 
                IF( .NOT. DONE ) GOTO 12
 
-            END IF
+            }
 
             // Swap TWO rows and TWO columns
 
             // First swap
 
-            IF( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) THEN
+            if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
 
                // Interchange rows and column K and P in the leading
                // submatrix A(1:k,1:k) if we have a 2-by-2 pivot
@@ -211,12 +211,12 @@
 
                IF( K.LT.N ) CALL DSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA )
 
-            END IF
+            }
 
             // Second swap
 
             KK = K - KSTEP + 1
-            IF( KP.NE.KK ) THEN
+            if ( KP.NE.KK ) {
 
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
@@ -225,22 +225,22 @@
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
-               IF( KSTEP.EQ.2 ) THEN
+               if ( KSTEP.EQ.2 ) {
                   T = A( K-1, K )
                   A( K-1, K ) = A( KP, K )
                   A( KP, K ) = T
-               END IF
+               }
 
                // Convert upper triangle of A into U form by applying
               t // he interchanges in columns k+1:N.
 
                IF( K.LT.N ) CALL DSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA )
 
-            END IF
+            }
 
             // Update the leading submatrix
 
-            IF( KSTEP.EQ.1 ) THEN
+            if ( KSTEP.EQ.1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -248,12 +248,12 @@
 
                // where U(k) is the k-th column of U
 
-               IF( K.GT.1 ) THEN
+               if ( K.GT.1 ) {
 
                   // Perform a rank-1 update of A(1:k-1,1:k-1) and
                   // store U(k) in column k
 
-                  IF( ABS( A( K, K ) ).GE.SFMIN ) THEN
+                  if ( ABS( A( K, K ) ).GE.SFMIN ) {
 
                      // Perform a rank-1 update of A(1:k-1,1:k-1) as
                      // A := A - U(k)*D(k)*U(k)**T
@@ -280,13 +280,13 @@
                         // = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
 
                      CALL DSYR( UPLO, K-1, -D11, A( 1, K ), 1, A, LDA )
-                  END IF
+                  }
 
                   // Store the superdiagonal element of D in array E
 
                   E( K ) = ZERO
 
-               END IF
+               }
 
             } else {
 
@@ -304,7 +304,7 @@
 
                // and store L(k) and L(k+1) in columns k and k+1
 
-               IF( K.GT.2 ) THEN
+               if ( K.GT.2 ) {
 
                   D12 = A( K-1, K )
                   D22 = A( K-1, K-1 ) / D12
@@ -327,7 +327,7 @@
 
    30             CONTINUE
 
-               END IF
+               }
 
                // Copy superdiagonal elements of D(K) to E(K) and
                // ZERO out superdiagonal entry of A
@@ -336,20 +336,20 @@
                E( K-1 ) = ZERO
                A( K-1, K ) = ZERO
 
-            END IF
+            }
 
             // End column K is nonsingular
 
-         END IF
+         }
 
          // Store details of the interchanges in IPIV
 
-         IF( KSTEP.EQ.1 ) THEN
+         if ( KSTEP.EQ.1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -P
             IPIV( K-1 ) = -KP
-         END IF
+         }
 
          // Decrease K and return to the start of the main loop
 
@@ -387,14 +387,14 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         IF( K.LT.N ) THEN
+         if ( K.LT.N ) {
             IMAX = K + IDAMAX( N-K, A( K+1, K ), 1 )
             COLMAX = ABS( A( IMAX, K ) )
          } else {
             COLMAX = ZERO
-         END IF
+         }
 
-         IF( ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) ) THEN
+         if ( ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) ) {
 
             // Column K is zero or underflow: set INFO and continue
 
@@ -412,7 +412,7 @@
             // Equivalent to testing for (used to handle NaN and Inf)
             // ABSAKK.GE.ALPHA*COLMAX
 
-            IF( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) THEN
+            if ( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -432,26 +432,26 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  IF( IMAX.NE.K ) THEN
+                  if ( IMAX.NE.K ) {
                      JMAX = K - 1 + IDAMAX( IMAX-K, A( IMAX, K ), LDA )
                      ROWMAX = ABS( A( IMAX, JMAX ) )
                   } else {
                      ROWMAX = ZERO
-                  END IF
+                  }
 
-                  IF( IMAX.LT.N ) THEN
+                  if ( IMAX.LT.N ) {
                      ITEMP = IMAX + IDAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 )
                      DTEMP = ABS( A( ITEMP, IMAX ) )
-                     IF( DTEMP.GT.ROWMAX ) THEN
+                     if ( DTEMP.GT.ROWMAX ) {
                         ROWMAX = DTEMP
                         JMAX = ITEMP
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Equivalent to testing for (used to handle NaN and Inf)
                   // ABS( A( IMAX, IMAX ) ).GE.ALPHA*ROWMAX
 
-                  IF( .NOT.( ABS( A( IMAX, IMAX ) ).LT.ALPHA*ROWMAX ) ) THEN
+                  if ( .NOT.( ABS( A( IMAX, IMAX ) ).LT.ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -462,7 +462,7 @@
                   // Equivalent to testing for ROWMAX .EQ. COLMAX,
                   // used to handle NaN and Inf
 
-                  ELSE IF( ( P.EQ.JMAX ).OR.( ROWMAX.LE.COLMAX ) ) THEN
+                  } else if ( ( P.EQ.JMAX ).OR.( ROWMAX.LE.COLMAX ) ) {
 
                      // interchange rows and columns K+1 and IMAX,
                      // use 2-by-2 pivot block
@@ -477,19 +477,19 @@
                      P = IMAX
                      COLMAX = ROWMAX
                      IMAX = JMAX
-                  END IF
+                  }
 
                   // End pivot search loop body
 
                IF( .NOT. DONE ) GOTO 42
 
-            END IF
+            }
 
             // Swap TWO rows and TWO columns
 
             // First swap
 
-            IF( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) THEN
+            if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
 
                // Interchange rows and column K and P in the trailing
                // submatrix A(k:n,k:n) if we have a 2-by-2 pivot
@@ -504,12 +504,12 @@
 
                IF ( K.GT.1 ) CALL DSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA )
 
-            END IF
+            }
 
             // Second swap
 
             KK = K + KSTEP - 1
-            IF( KP.NE.KK ) THEN
+            if ( KP.NE.KK ) {
 
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
@@ -518,22 +518,22 @@
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
-               IF( KSTEP.EQ.2 ) THEN
+               if ( KSTEP.EQ.2 ) {
                   T = A( K+1, K )
                   A( K+1, K ) = A( KP, K )
                   A( KP, K ) = T
-               END IF
+               }
 
                // Convert lower triangle of A into L form by applying
               t // he interchanges in columns 1:k-1.
 
                IF ( K.GT.1 ) CALL DSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
 
-            END IF
+            }
 
             // Update the trailing submatrix
 
-            IF( KSTEP.EQ.1 ) THEN
+            if ( KSTEP.EQ.1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -541,12 +541,12 @@
 
                // where L(k) is the k-th column of L
 
-               IF( K.LT.N ) THEN
+               if ( K.LT.N ) {
 
                // Perform a rank-1 update of A(k+1:n,k+1:n) and
                // store L(k) in column k
 
-                  IF( ABS( A( K, K ) ).GE.SFMIN ) THEN
+                  if ( ABS( A( K, K ) ).GE.SFMIN ) {
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
                      // A := A - L(k)*D(k)*L(k)**T
@@ -573,13 +573,13 @@
                         // = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
 
                      CALL DSYR( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
-                  END IF
+                  }
 
                   // Store the subdiagonal element of D in array E
 
                   E( K ) = ZERO
 
-               END IF
+               }
 
             } else {
 
@@ -598,7 +598,7 @@
 
                // and store L(k) and L(k+1) in columns k and k+1
 
-               IF( K.LT.N-1 ) THEN
+               if ( K.LT.N-1 ) {
 
                   D21 = A( K+1, K )
                   D11 = A( K+1, K+1 ) / D21
@@ -625,7 +625,7 @@
 
    60             CONTINUE
 
-               END IF
+               }
 
                // Copy subdiagonal elements of D(K) to E(K) and
                // ZERO out subdiagonal entry of A
@@ -634,20 +634,20 @@
                E( K+1 ) = ZERO
                A( K+1, K ) = ZERO
 
-            END IF
+            }
 
             // End column K is nonsingular
 
-         END IF
+         }
 
          // Store details of the interchanges in IPIV
 
-         IF( KSTEP.EQ.1 ) THEN
+         if ( KSTEP.EQ.1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -P
             IPIV( K+1 ) = -KP
-         END IF
+         }
 
          // Increase K and return to the start of the main loop
 
@@ -656,7 +656,7 @@
 
    64    CONTINUE
 
-      END IF
+      }
 
       RETURN
 

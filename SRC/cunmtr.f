@@ -41,72 +41,72 @@
 
       // NQ is the order of Q and NW is the minimum dimension of WORK
 
-      IF( LEFT ) THEN
+      if ( LEFT ) {
          NQ = M
          NW = MAX( 1, N )
       } else {
          NQ = N
          NW = MAX( 1, M )
-      END IF
-      IF( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) THEN
+      }
+      if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      ELSE IF( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.LSAME( TRANS, 'C' ) ) THEN
+      } else if ( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -3
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, NQ ) ) THEN
+      } else if ( LDA.LT.MAX( 1, NQ ) ) {
          INFO = -7
-      ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+      } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -10
-      ELSE IF( LWORK.LT.NW .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.NW .AND. .NOT.LQUERY ) {
          INFO = -12
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
-         IF( UPPER ) THEN
-            IF( LEFT ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( UPPER ) {
+            if ( LEFT ) {
                NB = ILAENV( 1, 'CUNMQL', SIDE // TRANS, M-1, N, M-1, -1 )
             } else {
                NB = ILAENV( 1, 'CUNMQL', SIDE // TRANS, M, N-1, N-1, -1 )
-            END IF
+            }
          } else {
-            IF( LEFT ) THEN
+            if ( LEFT ) {
                NB = ILAENV( 1, 'CUNMQR', SIDE // TRANS, M-1, N, M-1, -1 )
             } else {
                NB = ILAENV( 1, 'CUNMQR', SIDE // TRANS, M, N-1, N-1, -1 )
-            END IF
-         END IF
+            }
+         }
          LWKOPT = NW*NB
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CUNMTR', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 .OR. NQ.EQ.1 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 .OR. NQ.EQ.1 ) {
          WORK( 1 ) = 1
          RETURN
-      END IF
+      }
 
-      IF( LEFT ) THEN
+      if ( LEFT ) {
          MI = M - 1
          NI = N
       } else {
          MI = M
          NI = N - 1
-      END IF
+      }
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Q was determined by a call to CHETRD with UPLO = 'U'
 
@@ -115,15 +115,15 @@
 
          // Q was determined by a call to CHETRD with UPLO = 'L'
 
-         IF( LEFT ) THEN
+         if ( LEFT ) {
             I1 = 2
             I2 = 1
          } else {
             I1 = 1
             I2 = 2
-         END IF
+         }
          CALL CUNMQR( SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO )
-      END IF
+      }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       RETURN
 

@@ -38,20 +38,20 @@
 
       INFO = 0
       DIR = -1
-      IF( LSAME( ID, 'D' ) ) THEN
+      if ( LSAME( ID, 'D' ) ) {
          DIR = 0
-      ELSE IF( LSAME( ID, 'I' ) ) THEN
+      } else if ( LSAME( ID, 'I' ) ) {
          DIR = 1
-      END IF
-      IF( DIR.EQ.-1 ) THEN
+      }
+      if ( DIR.EQ.-1 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLASRT', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -64,23 +64,23 @@
       START = STACK( 1, STKPNT )
       ENDD = STACK( 2, STKPNT )
       STKPNT = STKPNT - 1
-      IF( ENDD-START.LE.SELECT .AND. ENDD-START.GT.0 ) THEN
+      if ( ENDD-START.LE.SELECT .AND. ENDD-START.GT.0 ) {
 
          // Do Insertion sort on D( START:ENDD )
 
-         IF( DIR.EQ.0 ) THEN
+         if ( DIR.EQ.0 ) {
 
             // Sort into decreasing order
 
             DO 30 I = START + 1, ENDD
                DO 20 J = I, START + 1, -1
-                  IF( D( J ).GT.D( J-1 ) ) THEN
+                  if ( D( J ).GT.D( J-1 ) ) {
                      DMNMX = D( J )
                      D( J ) = D( J-1 )
                      D( J-1 ) = DMNMX
                   } else {
                      GO TO 30
-                  END IF
+                  }
    20          CONTINUE
    30       CONTINUE
 
@@ -90,19 +90,19 @@
 
             DO 50 I = START + 1, ENDD
                DO 40 J = I, START + 1, -1
-                  IF( D( J ).LT.D( J-1 ) ) THEN
+                  if ( D( J ).LT.D( J-1 ) ) {
                      DMNMX = D( J )
                      D( J ) = D( J-1 )
                      D( J-1 ) = DMNMX
                   } else {
                      GO TO 50
-                  END IF
+                  }
    40          CONTINUE
    50       CONTINUE
 
-         END IF
+         }
 
-      ELSE IF( ENDD-START.GT.SELECT ) THEN
+      } else if ( ENDD-START.GT.SELECT ) {
 
          // Partition D( START:ENDD ) and stack parts, largest one first
 
@@ -112,25 +112,25 @@
          D2 = D( ENDD )
          I = ( START+ENDD ) / 2
          D3 = D( I )
-         IF( D1.LT.D2 ) THEN
-            IF( D3.LT.D1 ) THEN
+         if ( D1.LT.D2 ) {
+            if ( D3.LT.D1 ) {
                DMNMX = D1
-            ELSE IF( D3.LT.D2 ) THEN
+            } else if ( D3.LT.D2 ) {
                DMNMX = D3
             } else {
                DMNMX = D2
-            END IF
+            }
          } else {
-            IF( D3.LT.D2 ) THEN
+            if ( D3.LT.D2 ) {
                DMNMX = D2
-            ELSE IF( D3.LT.D1 ) THEN
+            } else if ( D3.LT.D1 ) {
                DMNMX = D3
             } else {
                DMNMX = D1
-            END IF
-         END IF
+            }
+         }
 
-         IF( DIR.EQ.0 ) THEN
+         if ( DIR.EQ.0 ) {
 
             // Sort into decreasing order
 
@@ -143,13 +143,13 @@
    80       CONTINUE
             I = I + 1
             IF( D( I ).GT.DMNMX ) GO TO 80
-            IF( I.LT.J ) THEN
+            if ( I.LT.J ) {
                TMP = D( I )
                D( I ) = D( J )
                D( J ) = TMP
                GO TO 60
-            END IF
-            IF( J-START.GT.ENDD-J-1 ) THEN
+            }
+            if ( J-START.GT.ENDD-J-1 ) {
                STKPNT = STKPNT + 1
                STACK( 1, STKPNT ) = START
                STACK( 2, STKPNT ) = J
@@ -163,7 +163,7 @@
                STKPNT = STKPNT + 1
                STACK( 1, STKPNT ) = START
                STACK( 2, STKPNT ) = J
-            END IF
+            }
          } else {
 
             // Sort into increasing order
@@ -177,13 +177,13 @@
   110       CONTINUE
             I = I + 1
             IF( D( I ).LT.DMNMX ) GO TO 110
-            IF( I.LT.J ) THEN
+            if ( I.LT.J ) {
                TMP = D( I )
                D( I ) = D( J )
                D( J ) = TMP
                GO TO 90
-            END IF
-            IF( J-START.GT.ENDD-J-1 ) THEN
+            }
+            if ( J-START.GT.ENDD-J-1 ) {
                STKPNT = STKPNT + 1
                STACK( 1, STKPNT ) = START
                STACK( 2, STKPNT ) = J
@@ -197,9 +197,9 @@
                STKPNT = STKPNT + 1
                STACK( 1, STKPNT ) = START
                STACK( 2, STKPNT ) = J
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
       IF( STKPNT.GT.0 ) GO TO 10
       RETURN
 

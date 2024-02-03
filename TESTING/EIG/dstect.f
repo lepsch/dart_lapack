@@ -45,14 +45,14 @@
 
       // Handle easy cases, including zero matrix
 
-      IF( SHIFT.GE.THREE*MX ) THEN
+      if ( SHIFT.GE.THREE*MX ) {
          NUM = N
          RETURN
-      END IF
-      IF( SHIFT.LT.-THREE*MX ) THEN
+      }
+      if ( SHIFT.LT.-THREE*MX ) {
          NUM = 0
          RETURN
-      END IF
+      }
 
       // Compute scale factors as in Kahan's report
       // At this point, MX .NE. 0 so we can divide by it
@@ -61,38 +61,38 @@
       SSUN = SQRT( SUN )
       SOV = SQRT( OVFL )
       TOM = SSUN*SOV
-      IF( MX.LE.ONE ) THEN
+      if ( MX.LE.ONE ) {
          M1 = ONE / MX
          M2 = TOM
       } else {
          M1 = ONE
          M2 = TOM / MX
-      END IF
+      }
 
       // Begin counting
 
       NUM = 0
       SSHIFT = ( SHIFT*M1 )*M2
       U = ( A( 1 )*M1 )*M2 - SSHIFT
-      IF( U.LE.SUN ) THEN
-         IF( U.LE.ZERO ) THEN
+      if ( U.LE.SUN ) {
+         if ( U.LE.ZERO ) {
             NUM = NUM + 1
             IF( U.GT.-SUN ) U = -SUN
          } else {
             U = SUN
-         END IF
-      END IF
+         }
+      }
       DO 20 I = 2, N
          TMP = ( B( I-1 )*M1 )*M2
          U = ( ( A( I )*M1 )*M2-TMP*( TMP / U ) ) - SSHIFT
-         IF( U.LE.SUN ) THEN
-            IF( U.LE.ZERO ) THEN
+         if ( U.LE.SUN ) {
+            if ( U.LE.ZERO ) {
                NUM = NUM + 1
                IF( U.GT.-SUN ) U = -SUN
             } else {
                U = SUN
-            END IF
-         END IF
+            }
+         }
    20 CONTINUE
       RETURN
 

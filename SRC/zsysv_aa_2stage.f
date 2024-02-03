@@ -39,45 +39,45 @@
       UPPER = LSAME( UPLO, 'U' )
       WQUERY = ( LWORK.EQ.-1 )
       TQUERY = ( LTB.EQ.-1 )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LTB.LT.( 4*N ) .AND. .NOT.TQUERY ) THEN
+      } else if ( LTB.LT.( 4*N ) .AND. .NOT.TQUERY ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -11
-      ELSE IF( LWORK.LT.N .AND. .NOT.WQUERY ) THEN
+      } else if ( LWORK.LT.N .AND. .NOT.WQUERY ) {
          INFO = -13
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          CALL ZSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO )
          LWKOPT = INT( WORK(1) )
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZSYSV_AA_2STAGE', -INFO )
          RETURN
-      ELSE IF( WQUERY .OR. TQUERY ) THEN
+      } else if ( WQUERY .OR. TQUERY ) {
          RETURN
-      END IF
+      }
 
 
       // Compute the factorization A = U**T*T*U or A = L*T*L**T.
 
       CALL ZSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO )
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
          CALL ZSYTRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO )
 
-      END IF
+      }
 
       WORK( 1 ) = LWKOPT
 

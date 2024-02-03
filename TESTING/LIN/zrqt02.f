@@ -44,11 +44,11 @@
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) {
          RESULT( 1 ) = ZERO
          RESULT( 2 ) = ZERO
          RETURN
-      END IF
+      }
 
       EPS = DLAMCH( 'Epsilon' )
 
@@ -74,11 +74,11 @@
 
       ANORM = ZLANGE( '1', K, N, A( M-K+1, 1 ), LDA, RWORK )
       RESID = ZLANGE( '1', K, M, R( M-K+1, N-M+1 ), LDA, RWORK )
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS
       } else {
          RESULT( 1 ) = ZERO
-      END IF
+      }
 
       // Compute I - Q*Q'
 

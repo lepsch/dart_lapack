@@ -37,11 +37,11 @@
 
       // Quick exit if N = 0 or NRHS = 0.
 
-      IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
+      if ( N.LE.0 .OR. NRHS.LE.0 ) {
          RESLTS( 1 ) = ZERO
          RESLTS( 2 ) = ZERO
          RETURN
-      END IF
+      }
 
       EPS = DLAMCH( 'Epsilon' )
       UNFL = DLAMCH( 'Safe minimum' )
@@ -53,7 +53,7 @@
       // over all the vectors X and XACT using the infinity-norm.
 
       ERRBND = ZERO
-      IF( CHKFERR ) THEN
+      if ( CHKFERR ) {
          DO 30 J = 1, NRHS
             IMAX = IDAMAX( N, X( 1, J ), 1 )
             XNORM = MAX( ABS( X( IMAX, J ) ), UNFL )
@@ -62,23 +62,23 @@
                DIFF = MAX( DIFF, ABS( X( I, J )-XACT( I, J ) ) )
  10         CONTINUE
 
-            IF( XNORM.GT.ONE ) THEN
+            if ( XNORM.GT.ONE ) {
                GO TO 20
-            ELSE IF( DIFF.LE.OVFL*XNORM ) THEN
+            } else if ( DIFF.LE.OVFL*XNORM ) {
                GO TO 20
             } else {
                ERRBND = ONE / EPS
                GO TO 30
-            END IF
+            }
 
  20         CONTINUE
-            IF( DIFF / XNORM.LE.FERR( J ) ) THEN
+            if ( DIFF / XNORM.LE.FERR( J ) ) {
                ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) )
             } else {
                ERRBND = ONE / EPS
-            END IF
+            }
  30      CONTINUE
-      END IF
+      }
       RESLTS( 1 ) = ERRBND
 
       // Test 2:  Compute the maximum of BERR / ( (n+1)*EPS + (*) ), where
@@ -87,7 +87,7 @@
       DO 70 K = 1, NRHS
          DO 60 I = 1, N
             TMP = ABS( B( I, K ) )
-            IF( NOTRAN ) THEN
+            if ( NOTRAN ) {
                DO 40 J = 1, N
                   TMP = TMP + ABS( A( I, J ) )*ABS( X( J, K ) )
    40          CONTINUE
@@ -95,19 +95,19 @@
                DO 50 J = 1, N
                   TMP = TMP + ABS( A( J, I ) )*ABS( X( J, K ) )
    50          CONTINUE
-            END IF
-            IF( I.EQ.1 ) THEN
+            }
+            if ( I.EQ.1 ) {
                AXBI = TMP
             } else {
                AXBI = MIN( AXBI, TMP )
-            END IF
+            }
    60    CONTINUE
          TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL / MAX( AXBI, ( N+1 )*UNFL ) )
-         IF( K.EQ.1 ) THEN
+         if ( K.EQ.1 ) {
             RESLTS( 2 ) = TMP
          } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )
-         END IF
+         }
    70 CONTINUE
 
       RETURN

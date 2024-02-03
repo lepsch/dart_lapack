@@ -42,96 +42,96 @@
 
       MINT = .FALSE.
       MINW = .FALSE.
-      IF( TSIZE.EQ.-2 .OR. LWORK.EQ.-2 ) THEN
+      if ( TSIZE.EQ.-2 .OR. LWORK.EQ.-2 ) {
         IF( TSIZE.NE.-1 ) MINT = .TRUE.
         IF( LWORK.NE.-1 ) MINW = .TRUE.
-      END IF
+      }
 
       // Determine the block size
 
-      IF( MIN ( M, N ).GT.0 ) THEN
+      if ( MIN ( M, N ).GT.0 ) {
         MB = ILAENV( 1, 'ZGEQR ', ' ', M, N, 1, -1 )
         NB = ILAENV( 1, 'ZGEQR ', ' ', M, N, 2, -1 )
       } else {
         MB = M
         NB = 1
-      END IF
+      }
       IF( MB.GT.M .OR. MB.LE.N ) MB = M
       IF( NB.GT.MIN( M, N ) .OR. NB.LT.1 ) NB = 1
       MINTSZ = N + 5
-      IF( MB.GT.N .AND. M.GT.N ) THEN
-        IF( MOD( M - N, MB - N ).EQ.0 ) THEN
+      if ( MB.GT.N .AND. M.GT.N ) {
+        if ( MOD( M - N, MB - N ).EQ.0 ) {
           NBLCKS = ( M - N ) / ( MB - N )
         } else {
           NBLCKS = ( M - N ) / ( MB - N ) + 1
-        END IF
+        }
       } else {
         NBLCKS = 1
-      END IF
+      }
 
       // Determine if the workspace size satisfies minimal size
 
       LWMIN = MAX( 1, N )
       LWREQ = MAX( 1, N*NB )
       LMINWS = .FALSE.
-      IF( ( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) .OR. LWORK.LT.LWREQ ) .AND. ( LWORK.GE.N ) .AND. ( TSIZE.GE.MINTSZ ) .AND. ( .NOT.LQUERY ) ) THEN
-        IF( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) ) THEN
+      if ( ( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) .OR. LWORK.LT.LWREQ ) .AND. ( LWORK.GE.N ) .AND. ( TSIZE.GE.MINTSZ ) .AND. ( .NOT.LQUERY ) ) {
+        if ( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) ) {
           LMINWS = .TRUE.
           NB = 1
           MB = M
-        END IF
-        IF( LWORK.LT.LWREQ ) THEN
+        }
+        if ( LWORK.LT.LWREQ ) {
           LMINWS = .TRUE.
           NB = 1
-        END IF
-      END IF
+        }
+      }
 
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
         INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
         INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
         INFO = -4
-      ELSE IF( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) .AND. ( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) THEN
+      } else if ( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) .AND. ( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) {
         INFO = -6
-      ELSE IF( ( LWORK.LT.LWREQ ) .AND. ( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) THEN
+      } else if ( ( LWORK.LT.LWREQ ) .AND. ( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) {
         INFO = -8
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
-        IF( MINT ) THEN
+      if ( INFO.EQ.0 ) {
+        if ( MINT ) {
           T( 1 ) = MINTSZ
         } else {
           T( 1 ) = NB*N*NBLCKS + 5
-        END IF
+        }
         T( 2 ) = MB
         T( 3 ) = NB
-        IF( MINW ) THEN
+        if ( MINW ) {
           WORK( 1 ) = LWMIN
         } else {
           WORK( 1 ) = LWREQ
-        END IF
-      END IF
-      IF( INFO.NE.0 ) THEN
+        }
+      }
+      if ( INFO.NE.0 ) {
         CALL XERBLA( 'ZGEQR', -INFO )
         RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
         RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( MIN( M, N ).EQ.0 ) THEN
+      if ( MIN( M, N ).EQ.0 ) {
         RETURN
-      END IF
+      }
 
       // The QR Decomposition
 
-      IF( ( M.LE.N ) .OR. ( MB.LE.N ) .OR. ( MB.GE.M ) ) THEN
+      if ( ( M.LE.N ) .OR. ( MB.LE.N ) .OR. ( MB.GE.M ) ) {
         CALL ZGEQRT( M, N, NB, A, LDA, T( 6 ), NB, WORK, INFO )
       } else {
         CALL ZLATSQR( M, N, MB, NB, A, LDA, T( 6 ), NB, WORK, LWORK, INFO )
-      END IF
+      }
 
       WORK( 1 ) = LWREQ
 

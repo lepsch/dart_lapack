@@ -51,14 +51,14 @@
    10 CONTINUE
       CDEN1 = CDEN*SMLNUM
       CNUM1 = CNUM / BIGNUM
-      IF( ABS( CDEN1 ).GT.ABS( CNUM ) .AND. CNUM.NE.ZERO ) THEN
+      if ( ABS( CDEN1 ).GT.ABS( CNUM ) .AND. CNUM.NE.ZERO ) {
 
          // Pre-multiply X by SMLNUM if CDEN is large compared to CNUM.
 
          MUL = SMLNUM
          DONE = .FALSE.
          CDEN = CDEN1
-      ELSE IF( ABS( CNUM1 ).GT.ABS( CDEN ) ) THEN
+      } else if ( ABS( CNUM1 ).GT.ABS( CDEN ) ) {
 
          // Pre-multiply X by BIGNUM if CDEN is small compared to CNUM.
 
@@ -71,7 +71,7 @@
 
          MUL = CNUM / CDEN
          DONE = .TRUE.
-      END IF
+      }
 
       // Scale the vector X by MUL
 

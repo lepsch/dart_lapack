@@ -50,73 +50,73 @@
       SYM = LSAME( PATH( 2: 2 ), 'P' ) .OR. LSAME( PATH( 2: 2 ), 'S' ) .OR. LSAME( PATH( 2: 2 ), 'H' )
       TRI = LSAME( PATH( 2: 2 ), 'T' )
       BAND = LSAME( PATH( 3: 3 ), 'B' )
-      IF( .NOT.LSAME( C1, 'Complex precision' ) ) THEN
+      if ( .NOT.LSAME( C1, 'Complex precision' ) ) {
          INFO = -1
-      ELSE IF( .NOT.( LSAME( XTYPE, 'N' ) .OR. LSAME( XTYPE, 'C' ) ) ) THEN
+      } else if ( .NOT.( LSAME( XTYPE, 'N' ) .OR. LSAME( XTYPE, 'C' ) ) ) {
          INFO = -2
-      ELSE IF( ( SYM .OR. TRI ) .AND. .NOT. ( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) THEN
+      } else if ( ( SYM .OR. TRI ) .AND. .NOT. ( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) {
          INFO = -3
-      ELSE IF( ( GEN.OR.QRS ) .AND. .NOT.( TRAN .OR. LSAME( TRANS, 'N' ) ) ) THEN
+      } else if ( ( GEN.OR.QRS ) .AND. .NOT.( TRAN .OR. LSAME( TRANS, 'N' ) ) ) {
          INFO = -4
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -5
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -6
-      ELSE IF( BAND .AND. KL.LT.0 ) THEN
+      } else if ( BAND .AND. KL.LT.0 ) {
          INFO = -7
-      ELSE IF( BAND .AND. KU.LT.0 ) THEN
+      } else if ( BAND .AND. KU.LT.0 ) {
          INFO = -8
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -9
-      ELSE IF( ( .NOT.BAND .AND. LDA.LT.MAX( 1, M ) ) .OR. ( BAND .AND. ( SYM .OR. TRI ) .AND. LDA.LT.KL+1 ) .OR. ( BAND .AND. GEN .AND. LDA.LT.KL+KU+1 ) ) THEN
+      } else if ( ( .NOT.BAND .AND. LDA.LT.MAX( 1, M ) ) .OR. ( BAND .AND. ( SYM .OR. TRI ) .AND. LDA.LT.KL+1 ) .OR. ( BAND .AND. GEN .AND. LDA.LT.KL+KU+1 ) ) {
          INFO = -11
-      ELSE IF( ( NOTRAN .AND. LDX.LT.MAX( 1, N ) ) .OR. ( TRAN .AND. LDX.LT.MAX( 1, M ) ) ) THEN
+      } else if ( ( NOTRAN .AND. LDX.LT.MAX( 1, N ) ) .OR. ( TRAN .AND. LDX.LT.MAX( 1, M ) ) ) {
          INFO = -13
-      ELSE IF( ( NOTRAN .AND. LDB.LT.MAX( 1, M ) ) .OR. ( TRAN .AND. LDB.LT.MAX( 1, N ) ) ) THEN
+      } else if ( ( NOTRAN .AND. LDB.LT.MAX( 1, M ) ) .OR. ( TRAN .AND. LDB.LT.MAX( 1, N ) ) ) {
          INFO = -15
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CLARHS', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize X to NRHS random vectors unless XTYPE = 'C'.
 
-      IF( TRAN ) THEN
+      if ( TRAN ) {
          NX = M
          MB = N
       } else {
          NX = N
          MB = M
-      END IF
-      IF( .NOT.LSAME( XTYPE, 'C' ) ) THEN
+      }
+      if ( .NOT.LSAME( XTYPE, 'C' ) ) {
          DO 10 J = 1, NRHS
             CALL CLARNV( 2, ISEED, N, X( 1, J ) )
    10    CONTINUE
-      END IF
+      }
 
       // Multiply X by op(A) using an appropriate
       // matrix multiply routine.
 
-      IF( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR. LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) THEN
+      if ( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR. LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) {
 
          // General matrix
 
          CALL CGEMM( TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX, ZERO, B, LDB )
 
-      ELSE IF( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'HE' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'HE' ) ) {
 
          // Hermitian matrix, 2-D storage
 
          CALL CHEMM( 'Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB )
 
-      ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SY' ) ) {
 
          // Symmetric matrix, 2-D storage
 
          CALL CSYMM( 'Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB )
 
-      ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // General matrix, band storage
 
@@ -124,7 +124,7 @@
             CALL CGBMV( TRANS, M, N, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
    20    CONTINUE
 
-      ELSE IF( LSAMEN( 2, C2, 'PB' ) .OR. LSAMEN( 2, C2, 'HB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PB' ) .OR. LSAMEN( 2, C2, 'HB' ) ) {
 
          // Hermitian matrix, band storage
 
@@ -132,7 +132,7 @@
             CALL CHBMV( UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
    30    CONTINUE
 
-      ELSE IF( LSAMEN( 2, C2, 'SB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SB' ) ) {
 
          // Symmetric matrix, band storage
 
@@ -140,7 +140,7 @@
             CALL CSBMV( UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
    40    CONTINUE
 
-      ELSE IF( LSAMEN( 2, C2, 'PP' ) .OR. LSAMEN( 2, C2, 'HP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PP' ) .OR. LSAMEN( 2, C2, 'HP' ) ) {
 
          // Hermitian matrix, packed storage
 
@@ -148,7 +148,7 @@
             CALL CHPMV( UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
    50    CONTINUE
 
-      ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
          // Symmetric matrix, packed storage
 
@@ -156,44 +156,44 @@
             CALL CSPMV( UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
    60    CONTINUE
 
-      ELSE IF( LSAMEN( 2, C2, 'TR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TR' ) ) {
 
          // Triangular matrix.  Note that for triangular matrices,
             // KU = 1 => non-unit triangular
             // KU = 2 => unit triangular
 
          CALL CLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
-         IF( KU.EQ.2 ) THEN
+         if ( KU.EQ.2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
-         END IF
+         }
          CALL CTRMM( 'Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB )
 
-      ELSE IF( LSAMEN( 2, C2, 'TP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TP' ) ) {
 
          // Triangular matrix, packed storage
 
          CALL CLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
-         IF( KU.EQ.2 ) THEN
+         if ( KU.EQ.2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
-         END IF
+         }
          DO 70 J = 1, NRHS
             CALL CTPMV( UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 )
    70    CONTINUE
 
-      ELSE IF( LSAMEN( 2, C2, 'TB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TB' ) ) {
 
          // Triangular matrix, banded storage
 
          CALL CLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
-         IF( KU.EQ.2 ) THEN
+         if ( KU.EQ.2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
-         END IF
+         }
          DO 80 J = 1, NRHS
             CALL CTBMV( UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 )
    80    CONTINUE
@@ -204,7 +204,7 @@
 
          INFO = -1
          CALL XERBLA( 'CLARHS', -INFO )
-      END IF
+      }
 
       RETURN
 

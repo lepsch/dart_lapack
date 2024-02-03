@@ -27,19 +27,19 @@
       // .. Executable Statements ..
 
       EPS = SLAMCH( 'Epsilon' )
-      IF( RCOND.GT.ZERO ) THEN
-         IF( RCONDC.GT.ZERO ) THEN
+      if ( RCOND.GT.ZERO ) {
+         if ( RCONDC.GT.ZERO ) {
             RAT = MAX( RCOND, RCONDC ) / MIN( RCOND, RCONDC ) - ( ONE-EPS )
          } else {
             RAT = RCOND / EPS
-         END IF
+         }
       } else {
-         IF( RCONDC.GT.ZERO ) THEN
+         if ( RCONDC.GT.ZERO ) {
             RAT = RCONDC / EPS
          } else {
             RAT = ZERO
-         END IF
-      END IF
+         }
+      }
       SGET06 = RAT
       RETURN
 

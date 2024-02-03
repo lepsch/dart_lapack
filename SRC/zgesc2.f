@@ -62,11 +62,11 @@
       // Check for scaling
 
       I = IZAMAX( N, RHS, 1 )
-      IF( TWO*SMLNUM*ABS( RHS( I ) ).GT.ABS( A( N, N ) ) ) THEN
+      if ( TWO*SMLNUM*ABS( RHS( I ) ).GT.ABS( A( N, N ) ) ) {
          TEMP = DCMPLX( ONE / TWO, ZERO ) / ABS( RHS( I ) )
          CALL ZSCAL( N, TEMP, RHS( 1 ), 1 )
          SCALE = SCALE*DBLE( TEMP )
-      END IF
+      }
       DO 40 I = N, 1, -1
          TEMP = DCMPLX( ONE, ZERO ) / A( I, I )
          RHS( I ) = RHS( I )*TEMP

@@ -35,49 +35,49 @@
 
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      ELSE IF( LWORK.LT.1 .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.1 .AND. .NOT.LQUERY ) {
          INFO = -11
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
-         IF( N.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( N.EQ.0 ) {
             LWKOPT = 1
          } else {
             CALL DSYTRF_RK( UPLO, N, A, LDA, E, IPIV, WORK, -1, INFO )
             LWKOPT = INT( WORK( 1 ) )
-         END IF
+         }
          WORK( 1 ) = LWKOPT
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSYSV_RK ', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Compute the factorization A = P*U*D*(U**T)*(P**T) or
       // A = P*U*D*(U**T)*(P**T).
 
       CALL DSYTRF_RK( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO )
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B with BLAS3 solver, overwriting B with X.
 
          CALL DSYTRS_3( UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, INFO )
 
-      END IF
+      }
 
       WORK( 1 ) = LWKOPT
 

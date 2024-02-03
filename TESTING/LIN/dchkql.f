@@ -101,10 +101,10 @@
 
                // Check error code from DLATMS.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 50
-               END IF
+               }
 
                // Set some values for K: the first value must be MINMN,
                // corresponding to the call of DQLT01; other values are
@@ -114,15 +114,15 @@
                KVAL( 2 ) = 0
                KVAL( 3 ) = 1
                KVAL( 4 ) = MINMN / 2
-               IF( MINMN.EQ.0 ) THEN
+               if ( MINMN.EQ.0 ) {
                   NK = 1
-               ELSE IF( MINMN.EQ.1 ) THEN
+               } else if ( MINMN.EQ.1 ) {
                   NK = 2
-               ELSE IF( MINMN.LE.3 ) THEN
+               } else if ( MINMN.LE.3 ) {
                   NK = 3
                } else {
                   NK = 4
-               END IF
+               }
 
                // Do for each value of K in KVAL
 
@@ -140,19 +140,19 @@
                         RESULT( I ) = ZERO
                      END DO
                      NT = 2
-                     IF( IK.EQ.1 ) THEN
+                     if ( IK.EQ.1 ) {
 
                         // Test DGEQLF
 
                         CALL DQLT01( M, N, A, AF, AQ, AL, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
-                     ELSE IF( M.GE.N ) THEN
+                     } else if ( M.GE.N ) {
 
                         // Test DORGQL, using factorization
                         // returned by DQLT01
 
                         CALL DQLT02( M, N, K, A, AF, AQ, AL, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
-                     END IF
-                     IF( M.GE.K ) THEN
+                     }
+                     if ( M.GE.K ) {
 
                         // Test DORMQL, using factorization returned
                         // by DQLT01
@@ -164,7 +164,7 @@
                         // with NRHS right hand sides and compute the
                         // residual.
 
-                        IF( K.EQ.N .AND. INB.EQ.1 ) THEN
+                        if ( K.EQ.N .AND. INB.EQ.1 ) {
 
                            // Generate a solution and set the right
                            // hand side.
@@ -182,17 +182,17 @@
 
                            CALL DGET02( 'No transpose', M, N, NRHS, A, LDA, X( M-N+1 ), LDA, B, LDA, RWORK, RESULT( 7 ) )
                            NT = NT + 1
-                        END IF
-                     END IF
+                        }
+                     }
 
                      // Print information about the tests that did not
                      // pass the threshold.
 
                      DO 20 I = 1, NT
-                        IF( RESULT( I ).GE.THRESH ) THEN
+                        if ( RESULT( I ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
    20                CONTINUE
                      NRUN = NRUN + NT
    30             CONTINUE

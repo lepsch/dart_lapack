@@ -32,30 +32,30 @@
       // Test the input parameters
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 .OR. N.GT.M ) THEN
+      } else if ( N.LT.0 .OR. N.GT.M ) {
          INFO = -2
-      ELSE IF( NB.LT.1 ) THEN
+      } else if ( NB.LT.1 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      ELSE IF( LDT.LT.MAX( 1, MIN( NB, N ) ) ) THEN
+      } else if ( LDT.LT.MAX( 1, MIN( NB, N ) ) ) {
          INFO = -7
-      END IF
+      }
 
       // Handle error in the input parameters.
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DORHR_COL', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( MIN( M, N ).EQ.0 ) THEN
+      if ( MIN( M, N ).EQ.0 ) {
          RETURN
-      END IF
+      }
 
       // On input, the M-by-N matrix A contains the orthogonal
       // M-by-N matrix Q_in.
@@ -74,9 +74,9 @@
 
       // (1-2) Solve for V2.
 
-      IF( M.GT.N ) THEN
+      if ( M.GT.N ) {
          CALL DTRSM( 'R', 'U', 'N', 'N', M-N, N, ONE, A, LDA, A( N+1, 1 ), LDA )
-      END IF
+      }
 
       // (2) Reconstruct the block reflector T stored in T(1:NB, 1:N)
       // as a sequence of upper-triangular blocks with NB-size column
@@ -116,9 +116,9 @@
          // S(JB), i.e. S(J,J) that is stored in the array element D(J).
 
          DO J = JB, JB+JNB-1
-            IF( D( J ).EQ.ONE ) THEN
+            if ( D( J ).EQ.ONE ) {
                CALL DSCAL( J-JBTEMP1, -ONE, T( 1, J ), 1 )
-            END IF
+            }
          END DO
 
          // (2-3) Perform the triangular solve for the current block

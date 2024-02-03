@@ -133,11 +133,11 @@
                         IF( IINFO.NE.0 ) NINFO( 1 ) = NINFO( 1 ) + 1
                         XNRM = ZLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = CONE
-                        IF( XNRM.GT.ONE .AND. TNRM.GT.ONE ) THEN
-                           IF( XNRM.GT.BIGNUM / TNRM ) THEN
+                        if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {
+                           if ( XNRM.GT.BIGNUM / TNRM ) {
                               RMUL = CONE / MAX( XNRM, TNRM )
-                           END IF
-                        END IF
+                           }
+                        }
                         CALL ZGEMM( TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE*RMUL, CC, MAXM )                         CALL ZGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, CONE, CC, MAXM )
                         RES1 = ZLANGE( 'M', M, N, CC, MAXM, DUM )
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )                         IF( RES.GT.THRESH ) NFAIL( 1 ) = NFAIL( 1 ) + 1                         IF( RES.GT.RMAX( 1 ) ) RMAX( 1 ) = RES
@@ -148,19 +148,19 @@
                         IF( INFO.NE.0 ) NINFO( 2 ) = NINFO( 2 ) + 1
                         XNRM = ZLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = CONE
-                        IF( XNRM.GT.ONE .AND. TNRM.GT.ONE ) THEN
-                           IF( XNRM.GT.BIGNUM / TNRM ) THEN
+                        if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {
+                           if ( XNRM.GT.BIGNUM / TNRM ) {
                               RMUL = CONE / MAX( XNRM, TNRM )
-                           END IF
-                        END IF
+                           }
+                        }
                         CALL ZGEMM( TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3*RMUL, CC, MAXM )                         CALL ZGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, CONE, CC, MAXM )
                         RES1 = ZLANGE( 'M', M, N, CC, MAXM, DUM )
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )
                         // Verify that TRSYL3 only flushes if TRSYL flushes (but
                        t // here may be cases where TRSYL3 avoid flushing).
-                        IF( SCALE3.EQ.ZERO .AND. SCALE.GT.ZERO .OR. IINFO.NE.INFO ) THEN
+                        if ( SCALE3.EQ.ZERO .AND. SCALE.GT.ZERO .OR. IINFO.NE.INFO ) {
                            NFAIL( 3 ) = NFAIL( 3 ) + 1
-                        END IF
+                        }
                         IF( RES.GT.THRESH .OR. DISNAN( RES ) ) NFAIL( 2 ) = NFAIL( 2 ) + 1                         IF( RES.GT.RMAX( 2 ) ) RMAX( 2 ) = RES
                      END DO
                   END DO

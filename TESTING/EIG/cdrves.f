@@ -87,28 +87,28 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -2
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -3
-      ELSE IF( THRESH.LT.ZERO ) THEN
+      } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      ELSE IF( NOUNIT.LE.0 ) THEN
+      } else if ( NOUNIT.LE.0 ) {
          INFO = -7
-      ELSE IF( LDA.LT.1 .OR. LDA.LT.NMAX ) THEN
+      } else if ( LDA.LT.1 .OR. LDA.LT.NMAX ) {
          INFO = -9
-      ELSE IF( LDVS.LT.1 .OR. LDVS.LT.NMAX ) THEN
+      } else if ( LDVS.LT.1 .OR. LDVS.LT.NMAX ) {
          INFO = -15
-      ELSE IF( 5*NMAX+2*NMAX**2.GT.NWORK ) THEN
+      } else if ( 5*NMAX+2*NMAX**2.GT.NWORK ) {
          INFO = -18
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CDRVES', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if nothing to do
 
@@ -129,11 +129,11 @@
 
       DO 240 JSIZE = 1, NSIZES
          N = NN( JSIZE )
-         IF( NSIZES.NE.1 ) THEN
+         if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
-         END IF
+         }
 
          DO 230 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 230
@@ -189,13 +189,13 @@
 
             // Special Matrices -- Identity & Jordan block
 
-            IF( ITYPE.EQ.1 ) THEN
+            if ( ITYPE.EQ.1 ) {
 
                // Zero
 
                IINFO = 0
 
-            ELSE IF( ITYPE.EQ.2 ) THEN
+            } else if ( ITYPE.EQ.2 ) {
 
                // Identity
 
@@ -203,7 +203,7 @@
                   A( JCOL, JCOL ) = CMPLX( ANORM )
    70          CONTINUE
 
-            ELSE IF( ITYPE.EQ.3 ) THEN
+            } else if ( ITYPE.EQ.3 ) {
 
                // Jordan Block
 
@@ -212,55 +212,55 @@
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = CONE
    80          CONTINUE
 
-            ELSE IF( ITYPE.EQ.4 ) THEN
+            } else if ( ITYPE.EQ.4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.5 ) THEN
+            } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.6 ) THEN
+            } else if ( ITYPE.EQ.6 ) {
 
                // General, eigenvalues specified
 
-               IF( KCONDS( JTYPE ).EQ.1 ) THEN
+               if ( KCONDS( JTYPE ).EQ.1 ) {
                   CONDS = ONE
-               ELSE IF( KCONDS( JTYPE ).EQ.2 ) THEN
+               } else if ( KCONDS( JTYPE ).EQ.2 ) {
                   CONDS = RTULPI
                } else {
                   CONDS = ZERO
-               END IF
+               }
 
                CALL CLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.7 ) THEN
+            } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
                CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.8 ) THEN
+            } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
                CALL CLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.9 ) THEN
+            } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
                CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-               IF( N.GE.4 ) THEN
+               if ( N.GE.4 ) {
                   CALL CLASET( 'Full', 2, N, CZERO, CZERO, A, LDA )
                   CALL CLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL CLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL CLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA )
-               END IF
+               }
 
-            ELSE IF( ITYPE.EQ.10 ) THEN
+            } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
@@ -269,24 +269,24 @@
             } else {
 
                IINFO = 1
-            END IF
+            }
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
-            END IF
+            }
 
    90       CONTINUE
 
             // Test for minimal and generous workspace
 
             DO 220 IWK = 1, 2
-               IF( IWK.EQ.1 ) THEN
+               if ( IWK.EQ.1 ) {
                   NNWORK = 3*N
                } else {
                   NNWORK = 5*N + 2*N**2
-               END IF
+               }
                NNWORK = MAX( NNWORK, 1 )
 
                // Initialize RESULT
@@ -298,24 +298,24 @@
                // Test with and without sorting of eigenvalues
 
                DO 180 ISORT = 0, 1
-                  IF( ISORT.EQ.0 ) THEN
+                  if ( ISORT.EQ.0 ) {
                      SORT = 'N'
                      RSUB = 0
                   } else {
                      SORT = 'S'
                      RSUB = 6
-                  END IF
+                  }
 
                   // Compute Schur form and Schur vectors, and test them
 
                   CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
                   CALL CGEES( 'V', SORT, CSLECT, N, H, LDA, SDIM, W, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      RESULT( 1+RSUB ) = ULPINV
                      WRITE( NOUNIT, FMT = 9992 )'CGEES1', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      GO TO 190
-                  END IF
+                  }
 
                   // Do Test (1) or Test (7)
 
@@ -344,12 +344,12 @@
 
                   CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
                   CALL CGEES( 'N', SORT, CSLECT, N, HT, LDA, SDIM, WT, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      RESULT( 5+RSUB ) = ULPINV
                      WRITE( NOUNIT, FMT = 9992 )'CGEES2', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      GO TO 190
-                  END IF
+                  }
 
                   RESULT( 5+RSUB ) = ZERO
                   DO 150 J = 1, N
@@ -367,17 +367,17 @@
 
                   // Do Test (13)
 
-                  IF( ISORT.EQ.1 ) THEN
+                  if ( ISORT.EQ.1 ) {
                      RESULT( 13 ) = ZERO
                      KNTEIG = 0
                      DO 170 I = 1, N
                         IF( CSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1
-                        IF( I.LT.N ) THEN
+                        if ( I.LT.N ) {
                            IF( CSLECT( W( I+1 ) ) .AND. ( .NOT.CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
-                        END IF
+                        }
   170                CONTINUE
                      IF( SDIM.NE.KNTEIG ) RESULT( 13 ) = ULPINV
-                  END IF
+                  }
 
   180          CONTINUE
 
@@ -392,7 +392,7 @@
   200          CONTINUE
 
                IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
-               IF( NTESTF.EQ.1 ) THEN
+               if ( NTESTF.EQ.1 ) {
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )
                   WRITE( NOUNIT, FMT = 9997 )
@@ -400,12 +400,12 @@
                   WRITE( NOUNIT, FMT = 9995 )THRESH
                   WRITE( NOUNIT, FMT = 9994 )
                   NTESTF = 2
-               END IF
+               }
 
                DO 210 J = 1, 13
-                  IF( RESULT( J ).GE.THRESH ) THEN
+                  if ( RESULT( J ).GE.THRESH ) {
                      WRITE( NOUNIT, FMT = 9993 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
-                  END IF
+                  }
   210          CONTINUE
 
                NERRS = NERRS + NFAIL

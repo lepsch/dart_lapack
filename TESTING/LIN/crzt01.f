@@ -38,10 +38,10 @@
 
       CRZT01 = ZERO
 
-      IF( LWORK.LT.M*N+M ) THEN
+      if ( LWORK.LT.M*N+M ) {
          CALL XERBLA( 'CRZT01', 8 )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 

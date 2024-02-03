@@ -32,7 +32,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( NMATS.GE.NTYPES ) THEN
+      if ( NMATS.GE.NTYPES ) {
 
          // Test everything if NMATS >= NTYPES.
 
@@ -47,7 +47,7 @@
 
          // Read a line of matrix types if 0 < NMATS < NTYPES.
 
-         IF( NMATS.GT.0 ) THEN
+         if ( NMATS.GT.0 ) {
             READ( NIN, FMT = '(A80)', END = 90 )LINE
             LENP = LEN( LINE )
             I = 0
@@ -56,26 +56,26 @@
                I1 = 0
    30          CONTINUE
                I = I + 1
-               IF( I.GT.LENP ) THEN
-                  IF( J.EQ.NMATS .AND. I1.GT.0 ) THEN
+               if ( I.GT.LENP ) {
+                  if ( J.EQ.NMATS .AND. I1.GT.0 ) {
                      GO TO 60
                   } else {
                      WRITE( NOUT, FMT = 9995 )LINE
                      WRITE( NOUT, FMT = 9994 )NMATS
                      GO TO 80
-                  END IF
-               END IF
-               IF( LINE( I: I ).NE.' ' .AND. LINE( I: I ).NE.',' ) THEN
+                  }
+               }
+               if ( LINE( I: I ).NE.' ' .AND. LINE( I: I ).NE.',' ) {
                   I1 = I
                   C1 = LINE( I1: I1 )
 
                // Check that a valid integer was read
 
                   DO 40 K = 1, 10
-                     IF( C1.EQ.INTSTR( K: K ) ) THEN
+                     if ( C1.EQ.INTSTR( K: K ) ) {
                         IC = K - 1
                         GO TO 50
-                     END IF
+                     }
    40             CONTINUE
                   WRITE( NOUT, FMT = 9996 )I, LINE
                   WRITE( NOUT, FMT = 9994 )NMATS
@@ -83,30 +83,30 @@
    50             CONTINUE
                   NREQ( J ) = 10*NREQ( J ) + IC
                   GO TO 30
-               ELSE IF( I1.GT.0 ) THEN
+               } else if ( I1.GT.0 ) {
                   GO TO 60
                } else {
                   GO TO 30
-               END IF
+               }
    60       CONTINUE
-         END IF
+         }
          DO 70 I = 1, NMATS
             NT = NREQ( I )
-            IF( NT.GT.0 .AND. NT.LE.NTYPES ) THEN
-               IF( DOTYPE( NT ) ) THEN
+            if ( NT.GT.0 .AND. NT.LE.NTYPES ) {
+               if ( DOTYPE( NT ) ) {
                   IF( FIRSTT ) WRITE( NOUT, FMT = * )
                   FIRSTT = .FALSE.
                   WRITE( NOUT, FMT = 9997 )NT, PATH
-               END IF
+               }
                DOTYPE( NT ) = .TRUE.
             } else {
                WRITE( NOUT, FMT = 9999 )PATH, NT, NTYPES
  9999          FORMAT( ' *** Invalid type request for ', A3, ', type  ',
      $               I4, ': must satisfy  1 <= type <= ', I2 )
-            END IF
+            }
    70    CONTINUE
    80    CONTINUE
-      END IF
+      }
       RETURN
 
    90 CONTINUE

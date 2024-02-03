@@ -28,15 +28,15 @@
 
       // Set up indices, arrays for ends
 
-      IF( LROWS ) THEN
+      if ( LROWS ) {
          IINC = LDA
          INEXT = 1
       } else {
          IINC = 1
          INEXT = LDA
-      END IF
+      }
 
-      IF( LLEFT ) THEN
+      if ( LLEFT ) {
          NT = 1
          IX = 1 + IINC
          IY = 2 + LDA
@@ -46,25 +46,25 @@
          NT = 0
          IX = 1
          IY = 1 + INEXT
-      END IF
+      }
 
-      IF( LRIGHT ) THEN
+      if ( LRIGHT ) {
          IYT = 1 + INEXT + ( NL-1 )*IINC
          NT = NT + 1
          XT( NT ) = XRIGHT
          YT( NT ) = A( IYT )
-      END IF
+      }
 
       // Check for errors
 
-      IF( NL.LT.NT ) THEN
+      if ( NL.LT.NT ) {
          CALL XERBLA( 'SLAROT', 4 )
          RETURN
-      END IF
-      IF( LDA.LE.0 .OR. ( .NOT.LROWS .AND. LDA.LT.NL-NT ) ) THEN
+      }
+      if ( LDA.LE.0 .OR. ( .NOT.LROWS .AND. LDA.LT.NL-NT ) ) {
          CALL XERBLA( 'SLAROT', 8 )
          RETURN
-      END IF
+      }
 
       // Rotate
 
@@ -73,15 +73,15 @@
 
       // Stuff values back into XLEFT, XRIGHT, etc.
 
-      IF( LLEFT ) THEN
+      if ( LLEFT ) {
          A( 1 ) = XT( 1 )
          XLEFT = YT( 1 )
-      END IF
+      }
 
-      IF( LRIGHT ) THEN
+      if ( LRIGHT ) {
          XRIGHT = XT( NT )
          A( IYT ) = YT( NT )
-      END IF
+      }
 
       RETURN
 

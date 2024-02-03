@@ -25,33 +25,33 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( KL.LT.0 ) THEN
+      } else if ( KL.LT.0 ) {
          INFO = -2
-      ELSE IF( KU.LT.0 ) THEN
+      } else if ( KU.LT.0 ) {
          INFO = -3
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -4
-      ELSE IF( LDAB.LT.2*KL+KU+1 ) THEN
+      } else if ( LDAB.LT.2*KL+KU+1 ) {
          INFO = -6
-      ELSE IF( LDB.LT.MAX( N, 1 ) ) THEN
+      } else if ( LDB.LT.MAX( N, 1 ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGBSV ', -INFO )
          RETURN
-      END IF
+      }
 
       // Compute the LU factorization of the band matrix A.
 
       CALL CGBTRF( N, N, KL, KU, AB, LDAB, IPIV, INFO )
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
          CALL CGBTRS( 'No transpose', N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO )
-      END IF
+      }
       RETURN
 
       // End of CGBSV

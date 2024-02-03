@@ -38,16 +38,16 @@
 
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.M ) THEN
+      } else if ( N.LT.M ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
-         IF( M.EQ.0 .OR. M.EQ.N ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( M.EQ.0 .OR. M.EQ.N ) {
             LWKOPT = 1
             LWKMIN = 1
          } else {
@@ -57,58 +57,58 @@
             NB = ILAENV( 1, 'CGERQF', ' ', M, N, -1, -1 )
             LWKOPT = M*NB
             LWKMIN = MAX( 1, M )
-         END IF
+         }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 
-         IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
             INFO = -7
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CTZRZF', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.0 ) THEN
+      if ( M.EQ.0 ) {
          RETURN
-      ELSE IF( M.EQ.N ) THEN
+      } else if ( M.EQ.N ) {
          DO 10 I = 1, N
             TAU( I ) = ZERO
    10    CONTINUE
          RETURN
-      END IF
+      }
 
       NBMIN = 2
       NX = 1
       IWS = M
-      IF( NB.GT.1 .AND. NB.LT.M ) THEN
+      if ( NB.GT.1 .AND. NB.LT.M ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
          NX = MAX( 0, ILAENV( 3, 'CGERQF', ' ', M, N, -1, -1 ) )
-         IF( NX.LT.M ) THEN
+         if ( NX.LT.M ) {
 
             // Determine if workspace is large enough for blocked code.
 
             LDWORK = M
             IWS = LDWORK*NB
-            IF( LWORK.LT.IWS ) THEN
+            if ( LWORK.LT.IWS ) {
 
                // Not enough workspace to use optimal NB:  reduce NB and
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK
                NBMIN = MAX( 2, ILAENV( 2, 'CGERQF', ' ', M, N, -1, -1 ) )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
-      IF( NB.GE.NBMIN .AND. NB.LT.M .AND. NX.LT.M ) THEN
+      if ( NB.GE.NBMIN .AND. NB.LT.M .AND. NX.LT.M ) {
 
          // Use blocked code initially.
          // The last kk rows are handled by the block method.
@@ -124,7 +124,7 @@
             // A(i:i+ib-1,i:n)
 
             CALL CLATRZ( IB, N-I+1, N-M, A( I, I ), LDA, TAU( I ), WORK )
-            IF( I.GT.1 ) THEN
+            if ( I.GT.1 ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i+ib-1) . . . H(i+1) H(i)
@@ -134,12 +134,12 @@
                // Apply H to A(1:i-1,i:n) from the right
 
                CALL CLARZB( 'Right', 'No transpose', 'Backward', 'Rowwise', I-1, N-I+1, IB, N-M, A( I, M1 ), LDA, WORK, LDWORK, A( 1, I ), LDA, WORK( IB+1 ), LDWORK )
-            END IF
+            }
    20    CONTINUE
          MU = I + NB - 1
       } else {
          MU = M
-      END IF
+      }
 
       // Use unblocked code to factor the last or only block
 

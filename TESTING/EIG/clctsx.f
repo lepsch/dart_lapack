@@ -28,29 +28,29 @@
       // ..
       // .. Executable Statements ..
 
-      IF( FS ) THEN
+      if ( FS ) {
          I = I + 1
-         IF( I.LE.M ) THEN
+         if ( I.LE.M ) {
             CLCTSX = .FALSE.
          } else {
             CLCTSX = .TRUE.
-         END IF
-         IF( I.EQ.MPLUSN ) THEN
+         }
+         if ( I.EQ.MPLUSN ) {
             FS = .FALSE.
             I = 0
-         END IF
+         }
       } else {
          I = I + 1
-         IF( I.LE.N ) THEN
+         if ( I.LE.N ) {
             CLCTSX = .TRUE.
          } else {
             CLCTSX = .FALSE.
-         END IF
-         IF( I.EQ.MPLUSN ) THEN
+         }
+         if ( I.EQ.MPLUSN ) {
             FS = .TRUE.
             I = 0
-         END IF
-      END IF
+         }
+      }
 
        // IF( BETA.EQ.CZERO ) THEN
           // CLCTSX = ( REAL( ALPHA ).GT.ZERO )

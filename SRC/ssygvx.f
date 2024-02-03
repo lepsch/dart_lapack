@@ -49,107 +49,107 @@
       LQUERY = ( LWORK.EQ.-1 )
 
       INFO = 0
-      IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
+      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
          INFO = -1
-      ELSE IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      } else if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
-      ELSE IF( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) THEN
+      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
          INFO = -3
-      ELSE IF( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) THEN
+      } else if ( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
       } else {
-         IF( VALEIG ) THEN
+         if ( VALEIG ) {
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -11
-         ELSE IF( INDEIG ) THEN
-            IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
+         } else if ( INDEIG ) {
+            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -12
-            ELSE IF( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) THEN
+            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
                INFO = -13
-            END IF
-         END IF
-      END IF
-      IF (INFO.EQ.0) THEN
-         IF (LDZ.LT.1 .OR. (WANTZ .AND. LDZ.LT.N)) THEN
+            }
+         }
+      }
+      if (INFO.EQ.0) {
+         if (LDZ.LT.1 .OR. (WANTZ .AND. LDZ.LT.N)) {
             INFO = -18
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          LWKMIN = MAX( 1, 8*N )
          NB = ILAENV( 1, 'SSYTRD', UPLO, N, -1, -1, -1 )
          LWKOPT = MAX( LWKMIN, ( NB + 3 )*N )
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 
-         IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
             INFO = -20
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SSYGVX', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       M = 0
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          RETURN
-      END IF
+      }
 
       // Form a Cholesky factorization of B.
 
       CALL SPOTRF( UPLO, N, B, LDB, INFO )
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
-      END IF
+      }
 
       // Transform problem to standard eigenvalue problem and solve.
 
       CALL SSYGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
       CALL SSYEVX( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, IWORK, IFAIL, INFO )
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
 
          // Backtransform eigenvectors to the original problem.
 
          IF( INFO.GT.0 ) M = INFO - 1
-         IF( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) THEN
+         if ( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
             // backtransform eigenvectors: x = inv(L)**T*y or inv(U)*y
 
-            IF( UPPER ) THEN
+            if ( UPPER ) {
                TRANS = 'N'
             } else {
                TRANS = 'T'
-            END IF
+            }
 
             CALL STRSM( 'Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B, LDB, Z, LDZ )
 
-         ELSE IF( ITYPE.EQ.3 ) THEN
+         } else if ( ITYPE.EQ.3 ) {
 
             // For B*A*x=(lambda)*x;
             // backtransform eigenvectors: x = L*y or U**T*y
 
-            IF( UPPER ) THEN
+            if ( UPPER ) {
                TRANS = 'T'
             } else {
                TRANS = 'N'
-            END IF
+            }
 
             CALL STRMM( 'Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B, LDB, Z, LDZ )
-         END IF
-      END IF
+         }
+      }
 
       // Set WORK(1) to optimal workspace size.
 

@@ -29,11 +29,11 @@
       // ..
       // .. Executable Statements ..
 
-      IF( ABS( B ).EQ.ZERO ) THEN
+      if ( ABS( B ).EQ.ZERO ) {
          W = ONE
       } else {
          W = DCONJG( B ) / ABS( B )
-      END IF
+      }
       CALL DLAEV2( DBLE( A ), ABS( B ), DBLE( C ), RT1, RT2, CS1, T )
       SN1 = W*T
       RETURN

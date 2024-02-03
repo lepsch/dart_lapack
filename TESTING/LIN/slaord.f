@@ -28,7 +28,7 @@
       // .. Executable Statements ..
 
       INC = ABS( INCX )
-      IF( LSAME( JOB, 'I' ) ) THEN
+      if ( LSAME( JOB, 'I' ) ) {
 
          // Sort in increasing order
 
@@ -37,18 +37,18 @@
    10       CONTINUE
             IF( IX.EQ.1 ) GO TO 20
             IXNEXT = IX - INC
-            IF( X( IX ).GT.X( IXNEXT ) ) THEN
+            if ( X( IX ).GT.X( IXNEXT ) ) {
                GO TO 20
             } else {
                TEMP = X( IX )
                X( IX ) = X( IXNEXT )
                X( IXNEXT ) = TEMP
-            END IF
+            }
             IX = IXNEXT
             GO TO 10
    20    CONTINUE
 
-      ELSE IF( LSAME( JOB, 'D' ) ) THEN
+      } else if ( LSAME( JOB, 'D' ) ) {
 
          // Sort in decreasing order
 
@@ -57,17 +57,17 @@
    30       CONTINUE
             IF( IX.EQ.1 ) GO TO 40
             IXNEXT = IX - INC
-            IF( X( IX ).LT.X( IXNEXT ) ) THEN
+            if ( X( IX ).LT.X( IXNEXT ) ) {
                GO TO 40
             } else {
                TEMP = X( IX )
                X( IX ) = X( IXNEXT )
                X( IXNEXT ) = TEMP
-            END IF
+            }
             IX = IXNEXT
             GO TO 30
    40    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of SLAORD

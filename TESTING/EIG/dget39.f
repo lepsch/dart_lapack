@@ -128,10 +128,10 @@
                         RESID = DASUM( N, Y, 1 )
                         DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM )
                         RESID = RESID / DOMIN
-                        IF( RESID.GT.RMAX ) THEN
+                        if ( RESID.GT.RMAX ) {
                            RMAX = RESID
                            LMAX = KNT
-                        END IF
+                        }
 
                         CALL DCOPY( N, D, 1, X, 1 )
                         KNT = KNT + 1
@@ -146,10 +146,10 @@
                         RESID = DASUM( N, Y, 1 )
                         DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM )
                         RESID = RESID / DOMIN
-                        IF( RESID.GT.RMAX ) THEN
+                        if ( RESID.GT.RMAX ) {
                            RMAX = RESID
                            LMAX = KNT
-                        END IF
+                        }
 
                         CALL DCOPY( 2*N, D, 1, X, 1 )
                         KNT = KNT + 1
@@ -176,10 +176,10 @@
                         RESID = DASUM( 2*N, Y, 1 )
                         DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*DASUM( 2*N, X, 1 ) ) )
                         RESID = RESID / DOMIN
-                        IF( RESID.GT.RMAX ) THEN
+                        if ( RESID.GT.RMAX ) {
                            RMAX = RESID
                            LMAX = KNT
-                        END IF
+                        }
 
                         CALL DCOPY( 2*N, D, 1, X, 1 )
                         KNT = KNT + 1
@@ -205,10 +205,10 @@
                         RESID = DASUM( 2*N, Y, 1 )
                         DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*DASUM( 2*N, X, 1 ) ) )
                         RESID = RESID / DOMIN
-                        IF( RESID.GT.RMAX ) THEN
+                        if ( RESID.GT.RMAX ) {
                            RMAX = RESID
                            LMAX = KNT
-                        END IF
+                        }
 
    90                CONTINUE
   100             CONTINUE

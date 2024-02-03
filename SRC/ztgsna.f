@@ -56,56 +56,56 @@
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
 
-      IF( .NOT.WANTS .AND. .NOT.WANTDF ) THEN
+      if ( .NOT.WANTS .AND. .NOT.WANTDF ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( HOWMNY, 'A' ) .AND. .NOT.SOMCON ) THEN
+      } else if ( .NOT.LSAME( HOWMNY, 'A' ) .AND. .NOT.SOMCON ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      ELSE IF( WANTS .AND. LDVL.LT.N ) THEN
+      } else if ( WANTS .AND. LDVL.LT.N ) {
          INFO = -10
-      ELSE IF( WANTS .AND. LDVR.LT.N ) THEN
+      } else if ( WANTS .AND. LDVR.LT.N ) {
          INFO = -12
       } else {
 
          // Set M to the number of eigenpairs for which condition numbers
          // are required, and test MM.
 
-         IF( SOMCON ) THEN
+         if ( SOMCON ) {
             M = 0
             DO 10 K = 1, N
                IF( SELECT( K ) ) M = M + 1
    10       CONTINUE
          } else {
             M = N
-         END IF
+         }
 
-         IF( N.EQ.0 ) THEN
+         if ( N.EQ.0 ) {
             LWMIN = 1
-         ELSE IF( LSAME( JOB, 'V' ) .OR. LSAME( JOB, 'B' ) ) THEN
+         } else if ( LSAME( JOB, 'V' ) .OR. LSAME( JOB, 'B' ) ) {
             LWMIN = 2*N*N
          } else {
             LWMIN = N
-         END IF
+         }
          WORK( 1 ) = LWMIN
 
-         IF( MM.LT.M ) THEN
+         if ( MM.LT.M ) {
             INFO = -15
-         ELSE IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+         } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
             INFO = -18
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTGSNA', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -122,13 +122,13 @@
          // Determine whether condition numbers are required for the k-th
          // eigenpair.
 
-         IF( SOMCON ) THEN
+         if ( SOMCON ) {
             IF( .NOT.SELECT( K ) ) GO TO 20
-         END IF
+         }
 
          KS = KS + 1
 
-         IF( WANTS ) THEN
+         if ( WANTS ) {
 
             // Compute the reciprocal condition number of the k-th
             // eigenvalue.
@@ -140,15 +140,15 @@
             CALL ZGEMV( 'N', N, N, DCMPLX( ONE, ZERO ), B, LDB, VR( 1, KS ), 1, DCMPLX( ZERO, ZERO ), WORK, 1 )
             YHBX = ZDOTC( N, WORK, 1, VL( 1, KS ), 1 )
             COND = DLAPY2( ABS( YHAX ), ABS( YHBX ) )
-            IF( COND.EQ.ZERO ) THEN
+            if ( COND.EQ.ZERO ) {
                S( KS ) = -ONE
             } else {
                S( KS ) = COND / ( RNRM*LNRM )
-            END IF
-         END IF
+            }
+         }
 
-         IF( WANTDF ) THEN
-            IF( N.EQ.1 ) THEN
+         if ( WANTDF ) {
+            if ( N.EQ.1 ) {
                DIF( KS ) = DLAPY2( ABS( A( 1, 1 ) ), ABS( B( 1, 1 ) ) )
             } else {
 
@@ -165,7 +165,7 @@
 
                CALL ZTGEXC( .FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, IERR )
 
-               IF( IERR.GT.0 ) THEN
+               if ( IERR.GT.0 ) {
 
                   // Ill-conditioned problem - swap rejected.
 
@@ -182,9 +182,9 @@
                   N2 = N - N1
                   I = N*N + 1
                   CALL ZTGSYL( 'N', IDIFJB, N2, N1, WORK( N*N1+N1+1 ), N, WORK, N, WORK( N1+1 ), N, WORK( N*N1+N1+I ), N, WORK( I ), N, WORK( N1+I ), N, SCALE, DIF( KS ), DUMMY, 1, IWORK, IERR )
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
 
    20 CONTINUE
       WORK( 1 ) = LWMIN

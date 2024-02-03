@@ -45,11 +45,11 @@
       INFO = 0
       NB = ILAENV( 1, 'ZGGHD3', ' ', N, ILO, IHI, -1 )
       NH = IHI - ILO + 1
-      IF( NH.LE.1 ) THEN
+      if ( NH.LE.1 ) {
          LWKOPT = 1
       } else {
          LWKOPT = 6*N*NB
-      END IF
+      }
       WORK( 1 ) = DCMPLX( LWKOPT )
       INITQ = LSAME( COMPQ, 'I' )
       WANTQ = INITQ .OR. LSAME( COMPQ, 'V' )
@@ -57,33 +57,33 @@
       WANTZ = INITZ .OR. LSAME( COMPZ, 'V' )
       LQUERY = ( LWORK.EQ.-1 )
 
-      IF( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) THEN
+      if ( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( COMPZ, 'N' ) .AND. .NOT.WANTZ ) THEN
+      } else if ( .NOT.LSAME( COMPZ, 'N' ) .AND. .NOT.WANTZ ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( ILO.LT.1 ) THEN
+      } else if ( ILO.LT.1 ) {
          INFO = -4
-      ELSE IF( IHI.GT.N .OR. IHI.LT.ILO-1 ) THEN
+      } else if ( IHI.GT.N .OR. IHI.LT.ILO-1 ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      ELSE IF( ( WANTQ .AND. LDQ.LT.N ) .OR. LDQ.LT.1 ) THEN
+      } else if ( ( WANTQ .AND. LDQ.LT.N ) .OR. LDQ.LT.1 ) {
          INFO = -11
-      ELSE IF( ( WANTZ .AND. LDZ.LT.N ) .OR. LDZ.LT.1 ) THEN
+      } else if ( ( WANTZ .AND. LDZ.LT.N ) .OR. LDZ.LT.1 ) {
          INFO = -13
-      ELSE IF( LWORK.LT.1 .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.1 .AND. .NOT.LQUERY ) {
          INFO = -15
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGGHD3', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Initialize Q and Z if desired.
 
@@ -95,40 +95,40 @@
 
       // Quick return if possible
 
-      IF( NH.LE.1 ) THEN
+      if ( NH.LE.1 ) {
          WORK( 1 ) = CONE
          RETURN
-      END IF
+      }
 
       // Determine the blocksize.
 
       NBMIN = ILAENV( 2, 'ZGGHD3', ' ', N, ILO, IHI, -1 )
-      IF( NB.GT.1 .AND. NB.LT.NH ) THEN
+      if ( NB.GT.1 .AND. NB.LT.NH ) {
 
          // Determine when to use unblocked instead of blocked code.
 
          NX = MAX( NB, ILAENV( 3, 'ZGGHD3', ' ', N, ILO, IHI, -1 ) )
-         IF( NX.LT.NH ) THEN
+         if ( NX.LT.NH ) {
 
             // Determine if workspace is large enough for blocked code.
 
-            IF( LWORK.LT.LWKOPT ) THEN
+            if ( LWORK.LT.LWKOPT ) {
 
                // Not enough workspace to use optimal NB:  determine the
                // minimum value of NB, and reduce NB or force use of
                // unblocked code.
 
                NBMIN = MAX( 2, ILAENV( 2, 'ZGGHD3', ' ', N, ILO, IHI, -1 ) )
-               IF( LWORK.GE.6*N*NBMIN ) THEN
+               if ( LWORK.GE.6*N*NBMIN ) {
                   NB = LWORK / ( 6*N )
                } else {
                   NB = 1
-               END IF
-            END IF
-         END IF
-      END IF
+               }
+            }
+         }
+      }
 
-      IF( NB.LT.NBMIN .OR. NB.GE.NH ) THEN
+      if ( NB.LT.NBMIN .OR. NB.GE.NH ) {
 
          // Use unblocked code below
 
@@ -211,11 +211,11 @@
                // TOP denotes the number of top rows in A and B that will
                // not be updated during the next steps.
 
-               IF( JCOL.LE.2 ) THEN
+               if ( JCOL.LE.2 ) {
                   TOP = 0
                } else {
                   TOP = JCOL
-               END IF
+               }
 
                // Propagate transformations through B and replace stored
                // left sines/cosines by right sines/cosines.
@@ -234,14 +234,14 @@
 
                   // Annihilate B( JJ+1, JJ ).
 
-                  IF( JJ.LT.IHI ) THEN
+                  if ( JJ.LT.IHI ) {
                      TEMP = B( JJ+1, JJ+1 )
                      CALL ZLARTG( TEMP, B( JJ+1, JJ ), C, S, B( JJ+1, JJ+1 ) )
                      B( JJ+1, JJ ) = CZERO
                      CALL ZROT( JJ-TOP, B( TOP+1, JJ+1 ), 1, B( TOP+1, JJ ), 1, C, S )
                      A( JJ+1, J ) = DCMPLX( C )
                      B( JJ+1, J ) = -DCONJG( S )
-                  END IF
+                  }
                END DO
 
                // Update A by transformations from right.
@@ -269,16 +269,16 @@
                   END DO
                END DO
 
-               IF( JJ.GT.0 ) THEN
+               if ( JJ.GT.0 ) {
                   DO I = JJ, 1, -1
                      C = DBLE( A( J+1+I, J ) )
                      CALL ZROT( IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, C, -DCONJG( B( J+1+I, J ) ) )
                   END DO
-               END IF
+               }
 
                // Update (J+1)th column of A by transformations from left.
 
-               IF ( J .LT. JCOL + NNB - 1 ) THEN
+               if ( J .LT. JCOL + NNB - 1 ) {
                   LEN  = 1 + J - JCOL
 
                   // Multiply with the trailing accumulated unitary
@@ -339,7 +339,7 @@
                      END DO
                      PPWO = PPWO + 4*NNB*NNB
                   END DO
-               END IF
+               }
             END DO
 
             // Apply accumulated unitary matrices to A.
@@ -351,7 +351,7 @@
             PPWO = NBLST*NBLST + 1
             J0 = J - NNB
             DO J = J0, JCOL+1, -NNB
-               IF ( BLK22 ) THEN
+               if ( BLK22 ) {
 
                   // Exploit the structure of
 
@@ -369,31 +369,31 @@
 
                   CALL ZGEMM( 'Conjugate', 'No Transpose', 2*NNB, COLA, 2*NNB, CONE, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, CZERO, WORK( PW ), 2*NNB )
                   CALL ZLACPY( 'All', 2*NNB, COLA, WORK( PW ), 2*NNB, A( J, JCOL+NNB ), LDA )
-               END IF
+               }
                PPWO = PPWO + 4*NNB*NNB
             END DO
 
             // Apply accumulated unitary matrices to Q.
 
-            IF( WANTQ ) THEN
+            if ( WANTQ ) {
                J = IHI - NBLST + 1
-               IF ( INITQ ) THEN
+               if ( INITQ ) {
                   TOPQ = MAX( 2, J - JCOL + 1 )
                   NH  = IHI - TOPQ + 1
                } else {
                   TOPQ = 1
                   NH = N
-               END IF
+               }
                CALL ZGEMM( 'No Transpose', 'No Transpose', NH, NBLST, NBLST, CONE, Q( TOPQ, J ), LDQ, WORK, NBLST, CZERO, WORK( PW ), NH )
                CALL ZLACPY( 'All', NH, NBLST, WORK( PW ), NH, Q( TOPQ, J ), LDQ )
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
-                  IF ( INITQ ) THEN
+                  if ( INITQ ) {
                      TOPQ = MAX( 2, J - JCOL + 1 )
                      NH  = IHI - TOPQ + 1
-                  END IF
-                  IF ( BLK22 ) THEN
+                  }
+                  if ( BLK22 ) {
 
                      // Exploit the structure of U.
 
@@ -404,14 +404,14 @@
 
                      CALL ZGEMM( 'No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, CONE, Q( TOPQ, J ), LDQ, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), NH )
                      CALL ZLACPY( 'All', NH, 2*NNB, WORK( PW ), NH, Q( TOPQ, J ), LDQ )
-                  END IF
+                  }
                   PPWO = PPWO + 4*NNB*NNB
                END DO
-            END IF
+            }
 
             // Accumulate right Givens rotations if required.
 
-            IF ( WANTZ .OR. TOP.GT.0 ) THEN
+            if ( WANTZ .OR. TOP.GT.0 ) {
 
                // Initialize small unitary factors that will hold the
                // accumulated Givens rotations in workspace.
@@ -467,18 +467,18 @@
             } else {
 
                CALL ZLASET( 'Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, A( JCOL + 2, JCOL ), LDA )                CALL ZLASET( 'Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, B( JCOL + 2, JCOL ), LDB )
-            END IF
+            }
 
             // Apply accumulated unitary matrices to A and B.
 
-            IF ( TOP.GT.0 ) THEN
+            if ( TOP.GT.0 ) {
                J = IHI - NBLST + 1
                CALL ZGEMM( 'No Transpose', 'No Transpose', TOP, NBLST, NBLST, CONE, A( 1, J ), LDA, WORK, NBLST, CZERO, WORK( PW ), TOP )
                CALL ZLACPY( 'All', TOP, NBLST, WORK( PW ), TOP, A( 1, J ), LDA )
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
-                  IF ( BLK22 ) THEN
+                  if ( BLK22 ) {
 
                      // Exploit the structure of U.
 
@@ -489,7 +489,7 @@
 
                      CALL ZGEMM( 'No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, CONE, A( 1, J ), LDA, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), TOP )
                      CALL ZLACPY( 'All', TOP, 2*NNB, WORK( PW ), TOP, A( 1, J ), LDA )
-                  END IF
+                  }
                   PPWO = PPWO + 4*NNB*NNB
                END DO
 
@@ -499,7 +499,7 @@
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
-                  IF ( BLK22 ) THEN
+                  if ( BLK22 ) {
 
                      // Exploit the structure of U.
 
@@ -510,32 +510,32 @@
 
                      CALL ZGEMM( 'No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, CONE, B( 1, J ), LDB, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), TOP )
                      CALL ZLACPY( 'All', TOP, 2*NNB, WORK( PW ), TOP, B( 1, J ), LDB )
-                  END IF
+                  }
                   PPWO = PPWO + 4*NNB*NNB
                END DO
-            END IF
+            }
 
             // Apply accumulated unitary matrices to Z.
 
-            IF( WANTZ ) THEN
+            if ( WANTZ ) {
                J = IHI - NBLST + 1
-               IF ( INITQ ) THEN
+               if ( INITQ ) {
                   TOPQ = MAX( 2, J - JCOL + 1 )
                   NH  = IHI - TOPQ + 1
                } else {
                   TOPQ = 1
                   NH = N
-               END IF
+               }
                CALL ZGEMM( 'No Transpose', 'No Transpose', NH, NBLST, NBLST, CONE, Z( TOPQ, J ), LDZ, WORK, NBLST, CZERO, WORK( PW ), NH )
                CALL ZLACPY( 'All', NH, NBLST, WORK( PW ), NH, Z( TOPQ, J ), LDZ )
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
-                     IF ( INITQ ) THEN
+                     if ( INITQ ) {
                      TOPQ = MAX( 2, J - JCOL + 1 )
                      NH  = IHI - TOPQ + 1
-                  END IF
-                  IF ( BLK22 ) THEN
+                  }
+                  if ( BLK22 ) {
 
                      // Exploit the structure of U.
 
@@ -546,21 +546,21 @@
 
                      CALL ZGEMM( 'No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, CONE, Z( TOPQ, J ), LDZ, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), NH )
                      CALL ZLACPY( 'All', NH, 2*NNB, WORK( PW ), NH, Z( TOPQ, J ), LDZ )
-                  END IF
+                  }
                   PPWO = PPWO + 4*NNB*NNB
                END DO
-            END IF
+            }
          END DO
-      END IF
+      }
 
       // Use unblocked code to reduce the rest of the matrix
       // Avoid re-initialization of modified Q and Z.
 
       COMPQ2 = COMPQ
       COMPZ2 = COMPZ
-      IF ( JCOL.NE.ILO ) THEN
+      if ( JCOL.NE.ILO ) {
          IF ( WANTQ ) COMPQ2 = 'V'          IF ( WANTZ ) COMPZ2 = 'V'
-      END IF
+      }
 
       IF ( JCOL.LT.IHI ) CALL ZGGHRD( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR )
 

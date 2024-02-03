@@ -30,34 +30,34 @@
       // .. Executable Statements ..
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -2
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGTSV ', -INFO )
          RETURN
-      END IF
+      }
 
       IF( N.EQ.0 ) RETURN
 
-      IF( NRHS.EQ.1 ) THEN
+      if ( NRHS.EQ.1 ) {
          DO 10 I = 1, N - 2
-            IF( ABS( D( I ) ).GE.ABS( DL( I ) ) ) THEN
+            if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
 
                // No row interchange required
 
-               IF( D( I ).NE.ZERO ) THEN
+               if ( D( I ).NE.ZERO ) {
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
                   B( I+1, 1 ) = B( I+1, 1 ) - FACT*B( I, 1 )
                } else {
                   INFO = I
                   RETURN
-               END IF
+               }
                DL( I ) = ZERO
             } else {
 
@@ -73,19 +73,19 @@
                TEMP = B( I, 1 )
                B( I, 1 ) = B( I+1, 1 )
                B( I+1, 1 ) = TEMP - FACT*B( I+1, 1 )
-            END IF
+            }
    10    CONTINUE
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
             I = N - 1
-            IF( ABS( D( I ) ).GE.ABS( DL( I ) ) ) THEN
-               IF( D( I ).NE.ZERO ) THEN
+            if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
+               if ( D( I ).NE.ZERO ) {
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
                   B( I+1, 1 ) = B( I+1, 1 ) - FACT*B( I, 1 )
                } else {
                   INFO = I
                   RETURN
-               END IF
+               }
             } else {
                FACT = D( I ) / DL( I )
                D( I ) = DL( I )
@@ -95,19 +95,19 @@
                TEMP = B( I, 1 )
                B( I, 1 ) = B( I+1, 1 )
                B( I+1, 1 ) = TEMP - FACT*B( I+1, 1 )
-            END IF
-         END IF
-         IF( D( N ).EQ.ZERO ) THEN
+            }
+         }
+         if ( D( N ).EQ.ZERO ) {
             INFO = N
             RETURN
-         END IF
+         }
       } else {
          DO 40 I = 1, N - 2
-            IF( ABS( D( I ) ).GE.ABS( DL( I ) ) ) THEN
+            if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
 
                // No row interchange required
 
-               IF( D( I ).NE.ZERO ) THEN
+               if ( D( I ).NE.ZERO ) {
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
                   DO 20 J = 1, NRHS
@@ -116,7 +116,7 @@
                } else {
                   INFO = I
                   RETURN
-               END IF
+               }
                DL( I ) = ZERO
             } else {
 
@@ -134,12 +134,12 @@
                   B( I, J ) = B( I+1, J )
                   B( I+1, J ) = TEMP - FACT*B( I+1, J )
    30          CONTINUE
-            END IF
+            }
    40    CONTINUE
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
             I = N - 1
-            IF( ABS( D( I ) ).GE.ABS( DL( I ) ) ) THEN
-               IF( D( I ).NE.ZERO ) THEN
+            if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
+               if ( D( I ).NE.ZERO ) {
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
                   DO 50 J = 1, NRHS
@@ -148,7 +148,7 @@
                } else {
                   INFO = I
                   RETURN
-               END IF
+               }
             } else {
                FACT = D( I ) / DL( I )
                D( I ) = DL( I )
@@ -160,17 +160,17 @@
                   B( I, J ) = B( I+1, J )
                   B( I+1, J ) = TEMP - FACT*B( I+1, J )
    60          CONTINUE
-            END IF
-         END IF
-         IF( D( N ).EQ.ZERO ) THEN
+            }
+         }
+         if ( D( N ).EQ.ZERO ) {
             INFO = N
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Back solve with the matrix U from the factorization.
 
-      IF( NRHS.LE.2 ) THEN
+      if ( NRHS.LE.2 ) {
          J = 1
    70    CONTINUE
          B( N, J ) = B( N, J ) / D( N )
@@ -178,10 +178,10 @@
          DO 80 I = N - 2, 1, -1
             B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I )
    80    CONTINUE
-         IF( J.LT.NRHS ) THEN
+         if ( J.LT.NRHS ) {
             J = J + 1
             GO TO 70
-         END IF
+         }
       } else {
          DO 100 J = 1, NRHS
             B( N, J ) = B( N, J ) / D( N )
@@ -190,7 +190,7 @@
                B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I )
    90       CONTINUE
   100    CONTINUE
-      END IF
+      }
 
       RETURN
 

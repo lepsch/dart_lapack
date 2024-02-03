@@ -48,15 +48,15 @@
 
       // Handle the case N=1 by itself
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          IPIV( 1 ) = 1
          JPIV( 1 ) = 1
-         IF( ABS( A( 1, 1 ) ).LT.SMLNUM ) THEN
+         if ( ABS( A( 1, 1 ) ).LT.SMLNUM ) {
             INFO = 1
             A( 1, 1 ) = SMLNUM
-         END IF
+         }
          RETURN
-      END IF
+      }
 
       // Factorize A using complete pivoting.
       // Set pivots less than SMIN to SMIN.
@@ -68,11 +68,11 @@
          XMAX = ZERO
          DO 20 IP = I, N
             DO 10 JP = I, N
-               IF( ABS( A( IP, JP ) ).GE.XMAX ) THEN
+               if ( ABS( A( IP, JP ) ).GE.XMAX ) {
                   XMAX = ABS( A( IP, JP ) )
                   IPV = IP
                   JPV = JP
-               END IF
+               }
    10       CONTINUE
    20    CONTINUE
          IF( I.EQ.1 ) SMIN = MAX( EPS*XMAX, SMLNUM )
@@ -89,20 +89,20 @@
 
          // Check for singularity
 
-         IF( ABS( A( I, I ) ).LT.SMIN ) THEN
+         if ( ABS( A( I, I ) ).LT.SMIN ) {
             INFO = I
             A( I, I ) = SMIN
-         END IF
+         }
          DO 30 J = I + 1, N
             A( J, I ) = A( J, I ) / A( I, I )
    30    CONTINUE
          CALL DGER( N-I, N-I, -ONE, A( I+1, I ), 1, A( I, I+1 ), LDA, A( I+1, I+1 ), LDA )
    40 CONTINUE
 
-      IF( ABS( A( N, N ) ).LT.SMIN ) THEN
+      if ( ABS( A( N, N ) ).LT.SMIN ) {
          INFO = N
          A( N, N ) = SMIN
-      END IF
+      }
 
       // Set last pivots to N
 

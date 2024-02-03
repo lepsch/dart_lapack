@@ -43,11 +43,11 @@
       T2 = DSECND( )
       TNOSEC = T2 - T1
       WRITE( 6, 9999 )TOTAL, TNOSEC
-      IF( TNOSEC.GT.0.0 ) THEN
+      if ( TNOSEC.GT.0.0 ) {
          WRITE( 6, 9998 )(TOTAL/1.0D6)/TNOSEC
       } else {
          WRITE( 6, 9994 )
-      END IF
+      }
 
       // Time TOTAL DAXPY operations with DSECND in the outer loop
 

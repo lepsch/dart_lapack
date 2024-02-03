@@ -70,7 +70,7 @@
       EQ = ' '
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'GE' ) ) THEN
+      if ( LSAMEN( 2, C2, 'GE' ) ) {
 
          // CGESV
 
@@ -128,7 +128,7 @@
          CALL CGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CGESVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // CGBSV
 
@@ -198,7 +198,7 @@
          CALL CGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CGBSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GT' ) ) {
 
          // CGTSV
 
@@ -235,7 +235,7 @@
          CALL CGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CGTSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PO' ) ) {
 
          // CPOSV
 
@@ -292,7 +292,7 @@
          CALL CPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CPOSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PP' ) ) {
 
          // CPPSV
 
@@ -340,7 +340,7 @@
          CALL CPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CPPSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
 
          // CPBSV
 
@@ -403,7 +403,7 @@
          CALL CPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CPBSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
          // CPTSV
 
@@ -437,7 +437,7 @@
          CALL CPTSVX( 'N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CPTSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HE' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HE' ) ) {
 
          // CHESV
 
@@ -495,7 +495,7 @@
          CALL CHESVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO )
          CALL CHKXER( 'CHESVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
 
          // CHESV_ROOK
 
@@ -522,7 +522,7 @@
          CALL CHESV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'CHESV_ROOK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HK' ) ) {
 
          // CHESV_RK
 
@@ -557,7 +557,7 @@
          CALL CHESV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'CHESV_RK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HA' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HA' ) ) {
 
          // CHESV_AASEN
 
@@ -581,7 +581,7 @@
          CALL CHESV_AA( 'U', 3, 1, A, 3, IP, B, 3, W, 6, INFO )
          CALL CHKXER( 'CHESV_AA', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'H2' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'H2' ) ) {
 
          // CHESV_AASEN_2STAGE
 
@@ -608,7 +608,7 @@
          CALL CHESV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO )
          CALL CHKXER( 'CHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SA' ) ) {
 
          // CSYSV_AASEN
 
@@ -632,7 +632,7 @@
          CALL CSYSV_AA( 'U', 3, 1, A, 3, IP, B, 3, W, 6, INFO )
          CALL CHKXER( 'CSYSV_AA', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'S2' ) ) {
 
          // CSYSV_AASEN_2STAGE
 
@@ -659,7 +659,7 @@
          CALL CSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO )
          CALL CHKXER( 'CSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HP' ) ) {
 
          // CHPSV
 
@@ -699,7 +699,7 @@
          CALL CHPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CHPSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SY' ) ) {
 
          // CSYSV
 
@@ -757,7 +757,7 @@
          CALL CSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO )
          CALL CHKXER( 'CSYSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
 
          // CSYSV_ROOK
 
@@ -784,7 +784,7 @@
          CALL CSYSV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'CSYSV_ROOK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
 
          // CSYSV_RK
 
@@ -819,7 +819,7 @@
          CALL CSYSV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'CSYSV_RK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
          // CSPSV
 
@@ -858,15 +858,15 @@
          INFOT = 11
          CALL CSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CSPSVX', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 
-      IF( OK ) THEN
+      if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH
       } else {
          WRITE( NOUT, FMT = 9998 )PATH
-      END IF
+      }
 
  9999 FORMAT( 1X, A3, ' drivers passed the tests of the error exits' )
  9998 FORMAT( ' *** ', A3, ' drivers failed the tests of the error ',

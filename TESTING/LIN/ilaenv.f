@@ -29,64 +29,64 @@
       // ..
       // .. Executable Statements ..
 
-      IF( ISPEC.GE.1 .AND. ISPEC.LE.5 ) THEN
+      if ( ISPEC.GE.1 .AND. ISPEC.LE.5 ) {
 
          // Return a value from the common block.
 
-         IF ( NAME(2:6).EQ.'GEQR ' ) THEN
-            IF (N3.EQ.2) THEN
+         if ( NAME(2:6).EQ.'GEQR ' ) {
+            if (N3.EQ.2) {
                ILAENV = IPARMS ( 2 )
             } else {
                ILAENV = IPARMS ( 1 )
-            END IF
-         ELSE IF ( NAME(2:6).EQ.'GELQ ' ) THEN
-            IF (N3.EQ.2) THEN
+            }
+         } else if ( NAME(2:6).EQ.'GELQ ' ) {
+            if (N3.EQ.2) {
                ILAENV = IPARMS ( 2 )
             } else {
                ILAENV = IPARMS ( 1 )
-            END IF
+            }
          } else {
             ILAENV = IPARMS( ISPEC )
-         END IF
+         }
 
-      ELSE IF( ISPEC.EQ.6 ) THEN
+      } else if ( ISPEC.EQ.6 ) {
 
          // Compute SVD crossover point.
 
          ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6E0 )
 
-      ELSE IF( ISPEC.GE.7 .AND. ISPEC.LE.9 ) THEN
+      } else if ( ISPEC.GE.7 .AND. ISPEC.LE.9 ) {
 
          // Return a value from the common block.
 
          ILAENV = IPARMS( ISPEC )
 
-      ELSE IF( ISPEC.EQ.10 ) THEN
+      } else if ( ISPEC.EQ.10 ) {
 
          // IEEE NaN arithmetic can be trusted not to trap
 
          // ILAENV = 0
          ILAENV = 1
-         IF( ILAENV.EQ.1 ) THEN
+         if ( ILAENV.EQ.1 ) {
             ILAENV = IEEECK( 1, 0.0, 1.0 )
-         END IF
+         }
 
-      ELSE IF( ISPEC.EQ.11 ) THEN
+      } else if ( ISPEC.EQ.11 ) {
 
          // Infinity arithmetic can be trusted not to trap
 
          // ILAENV = 0
          ILAENV = 1
-         IF( ILAENV.EQ.1 ) THEN
+         if ( ILAENV.EQ.1 ) {
             ILAENV = IEEECK( 0, 0.0, 1.0 )
-         END IF
+         }
 
       } else {
 
          // Invalid value for ISPEC
 
          ILAENV = -1
-      END IF
+      }
 
       RETURN
 
@@ -118,11 +118,11 @@
       // ..
       // .. Executable Statements ..
 
-      IF(( ISPEC.GE.1 ) .AND. (ISPEC.LE.5)) THEN
+      if (( ISPEC.GE.1 ) .AND. (ISPEC.LE.5)) {
 
       // 1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 
-         IF( ISPEC.EQ.1 ) THEN
+         if ( ISPEC.EQ.1 ) {
              ILAENV2STAGE = IPARMS( 1 )
          } else {
              IISPEC = 16 + ISPEC
@@ -134,7 +134,7 @@
          // Invalid value for ISPEC
 
          ILAENV2STAGE = -1
-      END IF
+      }
 
       RETURN
       }

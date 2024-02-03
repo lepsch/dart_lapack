@@ -51,23 +51,23 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHETF2', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize ALPHA for use in choosing pivot block size.
 
       ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Factorize A as U*D*U**H using the upper triangle of A
 
@@ -91,14 +91,14 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         IF( K.GT.1 ) THEN
+         if ( K.GT.1 ) {
             IMAX = ICAMAX( K-1, A( 1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
          } else {
             COLMAX = ZERO
-         END IF
+         }
 
-         IF( (MAX( ABSAKK, COLMAX ).EQ.ZERO) .OR. SISNAN(ABSAKK) ) THEN
+         if ( (MAX( ABSAKK, COLMAX ).EQ.ZERO) .OR. SISNAN(ABSAKK) ) {
 
             // Column K is or underflow, or contains a NaN:
             // set INFO and continue
@@ -107,7 +107,7 @@
             KP = K
             A( K, K ) = REAL( A( K, K ) )
          } else {
-            IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
+            if ( ABSAKK.GE.ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -119,17 +119,17 @@
 
                JMAX = IMAX + ICAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA )
                ROWMAX = CABS1( A( IMAX, JMAX ) )
-               IF( IMAX.GT.1 ) THEN
+               if ( IMAX.GT.1 ) {
                   JMAX = ICAMAX( IMAX-1, A( 1, IMAX ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( A( JMAX, IMAX ) ) )
-               END IF
+               }
 
-               IF( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) THEN
+               if ( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K
-               ELSE IF( ABS( REAL( A( IMAX, IMAX ) ) ).GE.ALPHA*ROWMAX ) THEN
+               } else if ( ABS( REAL( A( IMAX, IMAX ) ) ).GE.ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -142,11 +142,11 @@
 
                   KP = IMAX
                   KSTEP = 2
-               END IF
-            END IF
+               }
+            }
 
             KK = K - KSTEP + 1
-            IF( KP.NE.KK ) THEN
+            if ( KP.NE.KK ) {
 
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
@@ -161,20 +161,20 @@
                R1 = REAL( A( KK, KK ) )
                A( KK, KK ) = REAL( A( KP, KP ) )
                A( KP, KP ) = R1
-               IF( KSTEP.EQ.2 ) THEN
+               if ( KSTEP.EQ.2 ) {
                   A( K, K ) = REAL( A( K, K ) )
                   T = A( K-1, K )
                   A( K-1, K ) = A( KP, K )
                   A( KP, K ) = T
-               END IF
+               }
             } else {
                A( K, K ) = REAL( A( K, K ) )
                IF( KSTEP.EQ.2 ) A( K-1, K-1 ) = REAL( A( K-1, K-1 ) )
-            END IF
+            }
 
             // Update the leading submatrix
 
-            IF( KSTEP.EQ.1 ) THEN
+            if ( KSTEP.EQ.1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -206,7 +206,7 @@
                // A := A - ( U(k-1) U(k) )*D(k)*( U(k-1) U(k) )**H
                   // = A - ( W(k-1) W(k) )*inv(D(k))*( W(k-1) W(k) )**H
 
-               IF( K.GT.2 ) THEN
+               if ( K.GT.2 ) {
 
                   D = SLAPY2( REAL( A( K-1, K ) ), AIMAG( A( K-1, K ) ) )
                   D22 = REAL( A( K-1, K-1 ) ) / D
@@ -226,19 +226,19 @@
                      A( J, J ) = CMPLX( REAL( A( J, J ) ), 0.0E+0 )
    40             CONTINUE
 
-               END IF
+               }
 
-            END IF
-         END IF
+            }
+         }
 
          // Store details of the interchanges in IPIV
 
-         IF( KSTEP.EQ.1 ) THEN
+         if ( KSTEP.EQ.1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP
             IPIV( K-1 ) = -KP
-         END IF
+         }
 
          // Decrease K and return to the start of the main loop
 
@@ -269,14 +269,14 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         IF( K.LT.N ) THEN
+         if ( K.LT.N ) {
             IMAX = K + ICAMAX( N-K, A( K+1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
          } else {
             COLMAX = ZERO
-         END IF
+         }
 
-         IF( (MAX( ABSAKK, COLMAX ).EQ.ZERO) .OR. SISNAN(ABSAKK) ) THEN
+         if ( (MAX( ABSAKK, COLMAX ).EQ.ZERO) .OR. SISNAN(ABSAKK) ) {
 
             // Column K is zero or underflow, contains a NaN:
             // set INFO and continue
@@ -285,7 +285,7 @@
             KP = K
             A( K, K ) = REAL( A( K, K ) )
          } else {
-            IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
+            if ( ABSAKK.GE.ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -297,17 +297,17 @@
 
                JMAX = K - 1 + ICAMAX( IMAX-K, A( IMAX, K ), LDA )
                ROWMAX = CABS1( A( IMAX, JMAX ) )
-               IF( IMAX.LT.N ) THEN
+               if ( IMAX.LT.N ) {
                   JMAX = IMAX + ICAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( A( JMAX, IMAX ) ) )
-               END IF
+               }
 
-               IF( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) THEN
+               if ( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K
-               ELSE IF( ABS( REAL( A( IMAX, IMAX ) ) ).GE.ALPHA*ROWMAX ) THEN
+               } else if ( ABS( REAL( A( IMAX, IMAX ) ) ).GE.ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -320,11 +320,11 @@
 
                   KP = IMAX
                   KSTEP = 2
-               END IF
-            END IF
+               }
+            }
 
             KK = K + KSTEP - 1
-            IF( KP.NE.KK ) THEN
+            if ( KP.NE.KK ) {
 
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
@@ -339,20 +339,20 @@
                R1 = REAL( A( KK, KK ) )
                A( KK, KK ) = REAL( A( KP, KP ) )
                A( KP, KP ) = R1
-               IF( KSTEP.EQ.2 ) THEN
+               if ( KSTEP.EQ.2 ) {
                   A( K, K ) = REAL( A( K, K ) )
                   T = A( K+1, K )
                   A( K+1, K ) = A( KP, K )
                   A( KP, K ) = T
-               END IF
+               }
             } else {
                A( K, K ) = REAL( A( K, K ) )
                IF( KSTEP.EQ.2 ) A( K+1, K+1 ) = REAL( A( K+1, K+1 ) )
-            END IF
+            }
 
             // Update the trailing submatrix
 
-            IF( KSTEP.EQ.1 ) THEN
+            if ( KSTEP.EQ.1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -360,7 +360,7 @@
 
                // where L(k) is the k-th column of L
 
-               IF( K.LT.N ) THEN
+               if ( K.LT.N ) {
 
                   // Perform a rank-1 update of A(k+1:n,k+1:n) as
 
@@ -372,12 +372,12 @@
                   // Store L(k) in column K
 
                   CALL CSSCAL( N-K, R1, A( K+1, K ), 1 )
-               END IF
+               }
             } else {
 
                // 2-by-2 pivot block D(k)
 
-               IF( K.LT.N-1 ) THEN
+               if ( K.LT.N-1 ) {
 
                   // Perform a rank-2 update of A(k+2:n,k+2:n) as
 
@@ -404,25 +404,25 @@
                      A( J, K+1 ) = WKP1
                      A( J, J ) = CMPLX( REAL( A( J, J ) ), 0.0E+0 )
    80             CONTINUE
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
 
          // Store details of the interchanges in IPIV
 
-         IF( KSTEP.EQ.1 ) THEN
+         if ( KSTEP.EQ.1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP
             IPIV( K+1 ) = -KP
-         END IF
+         }
 
          // Increase K and return to the start of the main loop
 
          K = K + KSTEP
          GO TO 50
 
-      END IF
+      }
 
    90 CONTINUE
       RETURN

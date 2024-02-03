@@ -141,18 +141,18 @@
 
                   LDA = KL + KU + 1
                   LDAFAC = 2*KL + KU + 1
-                  IF( ( LDA*N ).GT.LA .OR. ( LDAFAC*N ).GT.LAFAC ) THEN
+                  if ( ( LDA*N ).GT.LA .OR. ( LDAFAC*N ).GT.LAFAC ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
-                     IF( N*( KL+KU+1 ).GT.LA ) THEN
+                     if ( N*( KL+KU+1 ).GT.LA ) {
                         WRITE( NOUT, FMT = 9999 )LA, M, N, KL, KU, N*( KL+KU+1 )
                         NERRS = NERRS + 1
-                     END IF
-                     IF( N*( 2*KL+KU+1 ).GT.LAFAC ) THEN
+                     }
+                     if ( N*( 2*KL+KU+1 ).GT.LAFAC ) {
                         WRITE( NOUT, FMT = 9998 )LAFAC, M, N, KL, KU, N*( 2*KL+KU+1 )
                         NERRS = NERRS + 1
-                     END IF
+                     }
                      GO TO 130
-                  END IF
+                  }
 
                   DO 120 IMAT = 1, NIMAT
 
@@ -166,7 +166,7 @@
                      ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
                      IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 120
 
-                     IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) THEN
+                     if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) {
 
                         // Set up parameters with ZLATB4 and generate a
                        t // est matrix with ZLATMS.
@@ -182,32 +182,32 @@
 
                         // Check the error code from ZLATMS.
 
-                        IF( INFO.NE.0 ) THEN
+                        if ( INFO.NE.0 ) {
                            CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', M, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                            GO TO 120
-                        END IF
-                     ELSE IF( IZERO.GT.0 ) THEN
+                        }
+                     } else if ( IZERO.GT.0 ) {
 
                         // Use the same matrix for types 3 and 4 as for
                        t // ype 2 by copying back the zeroed out column.
 
                         CALL ZCOPY( I2-I1+1, B, 1, A( IOFF+I1 ), 1 )
-                     END IF
+                     }
 
                      // For types 2, 3, and 4, zero one or more columns of
                     t // he matrix to test that INFO is returned correctly.
 
                      IZERO = 0
-                     IF( ZEROT ) THEN
-                        IF( IMAT.EQ.2 ) THEN
+                     if ( ZEROT ) {
+                        if ( IMAT.EQ.2 ) {
                            IZERO = 1
-                        ELSE IF( IMAT.EQ.3 ) THEN
+                        } else if ( IMAT.EQ.3 ) {
                            IZERO = MIN( M, N )
                         } else {
                            IZERO = MIN( M, N ) / 2 + 1
-                        END IF
+                        }
                         IOFF = ( IZERO-1 )*LDA
-                        IF( IMAT.LT.4 ) THEN
+                        if ( IMAT.LT.4 ) {
 
                            // Store the column to be zeroed out in B.
 
@@ -225,8 +225,8 @@
    40                         CONTINUE
                               IOFF = IOFF + LDA
    50                      CONTINUE
-                        END IF
-                     END IF
+                        }
+                     }
 
                      // These lines, if used in place of the calls in the
                      // loop over INB, cause the code to bomb on a Sun
@@ -261,10 +261,10 @@
                         // Print information about the tests so far that
                         // did not pass the threshold.
 
-                        IF( RESULT( 1 ).GE.THRESH ) THEN
+                        if ( RESULT( 1 ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9997 )M, N, KL, KU, NB, IMAT, 1, RESULT( 1 )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
                         NRUN = NRUN + 1
 
                         // Skip the remaining tests if this is not the
@@ -275,7 +275,7 @@
                         ANORMO = ZLANGB( 'O', N, KL, KU, A, LDA, RWORK )
                         ANORMI = ZLANGB( 'I', N, KL, KU, A, LDA, RWORK )
 
-                        IF( INFO.EQ.0 ) THEN
+                        if ( INFO.EQ.0 ) {
 
                            // Form the inverse of A so we can get a good
                            // estimate of CNDNUM = norm(A) * norm(inv(A)).
@@ -288,21 +288,21 @@
                            // Compute the 1-norm condition number of A.
 
                            AINVNM = ZLANGE( 'O', N, N, WORK, LDB, RWORK )
-                           IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                           if ( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                               RCONDO = ONE
                            } else {
                               RCONDO = ( ONE / ANORMO ) / AINVNM
-                           END IF
+                           }
 
                            // Compute the infinity-norm condition number of
                            // A.
 
                            AINVNM = ZLANGE( 'I', N, N, WORK, LDB, RWORK )
-                           IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                           if ( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                               RCONDI = ONE
                            } else {
                               RCONDI = ( ONE / ANORMI ) / AINVNM
-                           END IF
+                           }
                         } else {
 
                            // Do only the condition estimate if INFO.NE.0.
@@ -310,7 +310,7 @@
                            TRFCON = .TRUE.
                            RCONDO = ZERO
                            RCONDI = ZERO
-                        END IF
+                        }
 
                         // Skip the solve tests if the matrix is singular.
 
@@ -322,13 +322,13 @@
 
                            DO 70 ITRAN = 1, NTRAN
                               TRANS = TRANSS( ITRAN )
-                              IF( ITRAN.EQ.1 ) THEN
+                              if ( ITRAN.EQ.1 ) {
                                  RCONDC = RCONDO
                                  NORM = 'O'
                               } else {
                                  RCONDC = RCONDI
                                  NORM = 'I'
-                              END IF
+                              }
 
 *+    TEST 2:
                               // Solve and compute residual for op(A) * X = B.
@@ -370,10 +370,10 @@
                               // not pass the threshold.
 
                               DO 60 K = 2, 6
-                                 IF( RESULT( K ).GE.THRESH ) THEN
+                                 if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K )
                                     NFAIL = NFAIL + 1
-                                 END IF
+                                 }
    60                         CONTINUE
                               NRUN = NRUN + 5
    70                      CONTINUE
@@ -384,7 +384,7 @@
 
    90                   CONTINUE
                         DO 100 ITRAN = 1, 2
-                           IF( ITRAN.EQ.1 ) THEN
+                           if ( ITRAN.EQ.1 ) {
                               ANORM = ANORMO
                               RCONDC = RCONDO
                               NORM = 'O'
@@ -392,7 +392,7 @@
                               ANORM = ANORMI
                               RCONDC = RCONDI
                               NORM = 'I'
-                           END IF
+                           }
                            SRNAMT = 'ZGBCON'
                            CALL ZGBCON( NORM, N, KL, KU, AFAC, LDAFAC, IWORK, ANORM, RCOND, WORK, RWORK, INFO )
 
@@ -405,10 +405,10 @@
                            // Print information about the tests that did
                            // not pass the threshold.
 
-                           IF( RESULT( 7 ).GE.THRESH ) THEN
+                           if ( RESULT( 7 ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9995 )NORM, N, KL, KU, IMAT, 7, RESULT( 7 )
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
                            NRUN = NRUN + 1
   100                   CONTINUE
   110                CONTINUE

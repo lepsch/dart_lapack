@@ -122,28 +122,28 @@
 
                      // Check error code from CLATMS.
 
-                     IF( INFO.NE.0 ) THEN
+                     if ( INFO.NE.0 ) {
                         CALL ALAERH( 'CPF', 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT )
                         GO TO 100
-                     END IF
+                     }
 
                      // For types 3-5, zero one row and column of the matrix to
                     t // est that INFO is returned correctly.
 
                      ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
-                     IF( ZEROT ) THEN
-                        IF( IIT.EQ.3 ) THEN
+                     if ( ZEROT ) {
+                        if ( IIT.EQ.3 ) {
                            IZERO = 1
-                        ELSE IF( IIT.EQ.4 ) THEN
+                        } else if ( IIT.EQ.4 ) {
                            IZERO = N
                         } else {
                            IZERO = N / 2 + 1
-                        END IF
+                        }
                         IOFF = ( IZERO-1 )*LDA
 
                         // Set row and column IZERO of A to 0.
 
-                        IF( IUPLO.EQ.1 ) THEN
+                        if ( IUPLO.EQ.1 ) {
                            DO 20 I = 1, IZERO - 1
                               A( IOFF+I ) = ZERO
    20                      CONTINUE
@@ -162,10 +162,10 @@
                            DO 50 I = IZERO, N
                               A( IOFF+I ) = ZERO
    50                      CONTINUE
-                        END IF
+                        }
                      } else {
                         IZERO = 0
-                     END IF
+                     }
 
                      // Set the imaginary part of the diagonals.
 
@@ -177,7 +177,7 @@
 
                      // Compute the condition number of A (RCONDC).
 
-                     IF( ZEROT ) THEN
+                     if ( ZEROT ) {
                         RCONDC = ZERO
                      } else {
 
@@ -193,7 +193,7 @@
 
                         CALL CPOTRI( UPLO, N, A, LDA, INFO )
 
-                        IF ( N .NE. 0 ) THEN
+                        if ( N .NE. 0 ) {
 
                            // Compute the 1-norm condition number of A.
 
@@ -203,9 +203,9 @@
                            // Restore the matrix A.
 
                            CALL CLACPY( UPLO, N, N, ASAV, LDA, A, LDA )
-                        END IF
+                        }
 
-                     END IF
+                     }
 
                      // Form an exact solution and set the right hand side.
 
@@ -226,7 +226,7 @@
 
                      // Check error code from CPFTRF.
 
-                     IF( INFO.NE.IZERO ) THEN
+                     if ( INFO.NE.IZERO ) {
 
                         // LANGOU: there is a small hick here: IZERO should
                         // always be INFO however if INFO is ZERO, ALAERH does not
@@ -234,13 +234,13 @@
 
                          CALL ALAERH( 'CPF', 'CPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT )
                          GO TO 100
-                      END IF
+                      }
 
                       // Skip the tests if INFO is not 0.
 
-                     IF( INFO.NE.0 ) THEN
+                     if ( INFO.NE.0 ) {
                         GO TO 100
-                     END IF
+                     }
 
                      SRNAMT = 'CPFTRS'
                      CALL CPFTRS( CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO )
@@ -257,11 +257,11 @@
 
                      // Form the inverse and compute the residual.
 
-                    IF(MOD(N,2).EQ.0)THEN
+                    if (MOD(N,2).EQ.0) {
                        CALL CLACPY( 'A', N+1, N/2, ARF, N+1, ARFINV, N+1 )
                     } else {
                        CALL CLACPY( 'A', N, (N+1)/2, ARF, N, ARFINV, N )
-                    END IF
+                    }
 
                      SRNAMT = 'CPFTRI'
                      CALL CPFTRI( CFORM, UPLO, N, ARFINV , INFO )
@@ -288,10 +288,10 @@
                      // pass the threshold.
 
                      DO 60 K = 1, NT
-                        IF( RESULT( K ).GE.THRESH ) THEN
+                        if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, 'CPF' )                            WRITE( NOUT, FMT = 9999 )'CPFSV ', UPLO, N, IIT, K, RESULT( K )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
    60                CONTINUE
                      NRUN = NRUN + NT
   100             CONTINUE

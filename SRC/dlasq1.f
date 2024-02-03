@@ -34,21 +34,21 @@
       // .. Executable Statements ..
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
          CALL XERBLA( 'DLASQ1', -INFO )
          RETURN
-      ELSE IF( N.EQ.0 ) THEN
+      } else if ( N.EQ.0 ) {
          RETURN
-      ELSE IF( N.EQ.1 ) THEN
+      } else if ( N.EQ.1 ) {
          D( 1 ) = ABS( D( 1 ) )
          RETURN
-      ELSE IF( N.EQ.2 ) THEN
+      } else if ( N.EQ.2 ) {
          CALL DLAS2( D( 1 ), E( 1 ), D( 2 ), SIGMN, SIGMX )
          D( 1 ) = SIGMX
          D( 2 ) = SIGMN
          RETURN
-      END IF
+      }
 
       // Estimate the largest singular value.
 
@@ -61,10 +61,10 @@
 
       // Early return if SIGMX is zero (matrix is already diagonal).
 
-      IF( SIGMX.EQ.ZERO ) THEN
+      if ( SIGMX.EQ.ZERO ) {
          CALL DLASRT( 'D', N, D, IINFO )
          RETURN
-      END IF
+      }
 
       DO 20 I = 1, N
          SIGMX = MAX( SIGMX, D( I ) )
@@ -89,12 +89,12 @@
 
       CALL DLASQ2( N, WORK, INFO )
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          DO 40 I = 1, N
             D( I ) = SQRT( WORK( I ) )
    40    CONTINUE
          CALL DLASCL( 'G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO )
-      ELSE IF( INFO.EQ.2 ) THEN
+      } else if ( INFO.EQ.2 ) {
 
       // Maximum number of iterations exceeded.  Move data from WORK
       // into D and E so the calling subroutine can try to finish
@@ -105,7 +105,7 @@
          END DO
          CALL DLASCL( 'G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO )
          CALL DLASCL( 'G', 0, 0, SCALE, SIGMX, N, 1, E, N, IINFO )
-      END IF
+      }
 
       RETURN
 

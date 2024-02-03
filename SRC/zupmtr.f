@@ -44,40 +44,40 @@
 
       // NQ is the order of Q
 
-      IF( LEFT ) THEN
+      if ( LEFT ) {
          NQ = M
       } else {
          NQ = N
-      END IF
-      IF( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) THEN
+      }
+      if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) THEN
+      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -3
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+      } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZUPMTR', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Q was determined by a call to ZHPTRD with UPLO = 'U'
 
          FORWRD = ( LEFT .AND. NOTRAN ) .OR. ( .NOT.LEFT .AND. .NOT.NOTRAN )
 
-         IF( FORWRD ) THEN
+         if ( FORWRD ) {
             I1 = 1
             I2 = NQ - 1
             I3 = 1
@@ -87,16 +87,16 @@
             I2 = 1
             I3 = -1
             II = NQ*( NQ+1 ) / 2 - 1
-         END IF
+         }
 
-         IF( LEFT ) THEN
+         if ( LEFT ) {
             NI = N
          } else {
             MI = M
-         END IF
+         }
 
          DO 10 I = I1, I2, I3
-            IF( LEFT ) THEN
+            if ( LEFT ) {
 
                // H(i) or H(i)**H is applied to C(1:i,1:n)
 
@@ -106,25 +106,25 @@
                // H(i) or H(i)**H is applied to C(1:m,1:i)
 
                NI = I
-            END IF
+            }
 
             // Apply H(i) or H(i)**H
 
-            IF( NOTRAN ) THEN
+            if ( NOTRAN ) {
                TAUI = TAU( I )
             } else {
                TAUI = DCONJG( TAU( I ) )
-            END IF
+            }
             AII = AP( II )
             AP( II ) = ONE
             CALL ZLARF( SIDE, MI, NI, AP( II-I+1 ), 1, TAUI, C, LDC, WORK )
             AP( II ) = AII
 
-            IF( FORWRD ) THEN
+            if ( FORWRD ) {
                II = II + I + 2
             } else {
                II = II - I - 1
-            END IF
+            }
    10    CONTINUE
       } else {
 
@@ -132,7 +132,7 @@
 
          FORWRD = ( LEFT .AND. .NOT.NOTRAN ) .OR. ( .NOT.LEFT .AND. NOTRAN )
 
-         IF( FORWRD ) THEN
+         if ( FORWRD ) {
             I1 = 1
             I2 = NQ - 1
             I3 = 1
@@ -142,20 +142,20 @@
             I2 = 1
             I3 = -1
             II = NQ*( NQ+1 ) / 2 - 1
-         END IF
+         }
 
-         IF( LEFT ) THEN
+         if ( LEFT ) {
             NI = N
             JC = 1
          } else {
             MI = M
             IC = 1
-         END IF
+         }
 
          DO 20 I = I1, I2, I3
             AII = AP( II )
             AP( II ) = ONE
-            IF( LEFT ) THEN
+            if ( LEFT ) {
 
                // H(i) or H(i)**H is applied to C(i+1:m,1:n)
 
@@ -167,25 +167,25 @@
 
                NI = N - I
                JC = I + 1
-            END IF
+            }
 
             // Apply H(i) or H(i)**H
 
-            IF( NOTRAN ) THEN
+            if ( NOTRAN ) {
                TAUI = TAU( I )
             } else {
                TAUI = DCONJG( TAU( I ) )
-            END IF
+            }
             CALL ZLARF( SIDE, MI, NI, AP( II ), 1, TAUI, C( IC, JC ), LDC, WORK )
             AP( II ) = AII
 
-            IF( FORWRD ) THEN
+            if ( FORWRD ) {
                II = II + NQ - I + 1
             } else {
                II = II - NQ + I - 2
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of ZUPMTR

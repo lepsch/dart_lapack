@@ -43,69 +43,69 @@
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
 
-      IF( LSAME( COMPZ, 'N' ) ) THEN
+      if ( LSAME( COMPZ, 'N' ) ) {
          ICOMPZ = 0
-      ELSE IF( LSAME( COMPZ, 'V' ) ) THEN
+      } else if ( LSAME( COMPZ, 'V' ) ) {
          ICOMPZ = 1
-      ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
+      } else if ( LSAME( COMPZ, 'I' ) ) {
          ICOMPZ = 2
       } else {
          ICOMPZ = -1
-      END IF
-      IF( ICOMPZ.LT.0 ) THEN
+      }
+      if ( ICOMPZ.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) THEN
+      } else if ( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -6
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
          // Compute the workspace requirements
 
          SMLSIZ = ILAENV( 9, 'DSTEDC', ' ', 0, 0, 0, 0 )
-         IF( N.LE.1 .OR. ICOMPZ.EQ.0 ) THEN
+         if ( N.LE.1 .OR. ICOMPZ.EQ.0 ) {
             LIWMIN = 1
             LWMIN = 1
-         ELSE IF( N.LE.SMLSIZ ) THEN
+         } else if ( N.LE.SMLSIZ ) {
             LIWMIN = 1
             LWMIN = 2*( N - 1 )
          } else {
             LGN = INT( LOG( DBLE( N ) )/LOG( TWO ) )
             IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
-            IF( ICOMPZ.EQ.1 ) THEN
+            if ( ICOMPZ.EQ.1 ) {
                LWMIN = 1 + 3*N + 2*N*LGN + 4*N**2
                LIWMIN = 6 + 6*N + 5*N*LGN
-            ELSE IF( ICOMPZ.EQ.2 ) THEN
+            } else if ( ICOMPZ.EQ.2 ) {
                LWMIN = 1 + 4*N + N**2
                LIWMIN = 3 + 5*N
-            END IF
-         END IF
+            }
+         }
          WORK( 1 ) = LWMIN
          IWORK( 1 ) = LIWMIN
 
-         IF( LWORK.LT.LWMIN .AND. .NOT. LQUERY ) THEN
+         if ( LWORK.LT.LWMIN .AND. .NOT. LQUERY ) {
             INFO = -8
-         ELSE IF( LIWORK.LT.LIWMIN .AND. .NOT. LQUERY ) THEN
+         } else if ( LIWORK.LT.LIWMIN .AND. .NOT. LQUERY ) {
             INFO = -10
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSTEDC', -INFO )
          RETURN
-      ELSE IF (LQUERY) THEN
+      } else if (LQUERY) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          IF( ICOMPZ.NE.0 ) Z( 1, 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // If the following conditional clause is removed, then the routine
       // will use the Divide and Conquer routine to compute only the
@@ -118,15 +118,15 @@
 
       // If COMPZ = 'N', use DSTERF to compute the eigenvalues.
 
-      IF( ICOMPZ.EQ.0 ) THEN
+      if ( ICOMPZ.EQ.0 ) {
          CALL DSTERF( N, D, E, INFO )
          GO TO 50
-      END IF
+      }
 
       // If N is smaller than the minimum divide size (SMLSIZ+1), then
       // solve the problem with another solver.
 
-      IF( N.LE.SMLSIZ ) THEN
+      if ( N.LE.SMLSIZ ) {
 
          CALL DSTEQR( COMPZ, N, D, E, Z, LDZ, WORK, INFO )
 
@@ -135,15 +135,15 @@
          // If COMPZ = 'V', the Z matrix must be stored elsewhere for later
          // use.
 
-         IF( ICOMPZ.EQ.1 ) THEN
+         if ( ICOMPZ.EQ.1 ) {
             STOREZ = 1 + N*N
          } else {
             STOREZ = 1
-         END IF
+         }
 
-         IF( ICOMPZ.EQ.2 ) THEN
+         if ( ICOMPZ.EQ.2 ) {
             CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
-         END IF
+         }
 
          // Scale.
 
@@ -157,7 +157,7 @@
          // while ( START <= N )
 
    10    CONTINUE
-         IF( START.LE.N ) THEN
+         if ( START.LE.N ) {
 
             // Let FINISH be the position of the next subdiagonal entry
             // such that E( FINISH ) <= TINY or FINISH = N if no such
@@ -167,69 +167,69 @@
 
             FINISH = START
    20       CONTINUE
-            IF( FINISH.LT.N ) THEN
+            if ( FINISH.LT.N ) {
                TINY = EPS*SQRT( ABS( D( FINISH ) ) )* SQRT( ABS( D( FINISH+1 ) ) )
-               IF( ABS( E( FINISH ) ).GT.TINY ) THEN
+               if ( ABS( E( FINISH ) ).GT.TINY ) {
                   FINISH = FINISH + 1
                   GO TO 20
-               END IF
-            END IF
+               }
+            }
 
             // (Sub) Problem determined.  Compute its size and solve it.
 
             M = FINISH - START + 1
-            IF( M.EQ.1 ) THEN
+            if ( M.EQ.1 ) {
                START = FINISH + 1
                GO TO 10
-            END IF
-            IF( M.GT.SMLSIZ ) THEN
+            }
+            if ( M.GT.SMLSIZ ) {
 
                // Scale.
 
                ORGNRM = DLANST( 'M', M, D( START ), E( START ) )
                CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO )                CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO )
 
-               IF( ICOMPZ.EQ.1 ) THEN
+               if ( ICOMPZ.EQ.1 ) {
                   STRTRW = 1
                } else {
                   STRTRW = START
-               END IF
+               }
                CALL DLAED0( ICOMPZ, N, M, D( START ), E( START ), Z( STRTRW, START ), LDZ, WORK( 1 ), N, WORK( STOREZ ), IWORK, INFO )
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + MOD( INFO, ( M+1 ) ) + START - 1
                   GO TO 50
-               END IF
+               }
 
                // Scale back.
 
                CALL DLASCL( 'G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO )
 
             } else {
-               IF( ICOMPZ.EQ.1 ) THEN
+               if ( ICOMPZ.EQ.1 ) {
 
                   // Since QR won't update a Z matrix which is larger than
                  t // he length of D, we must solve the sub-problem in a
                   // workspace and then multiply back into Z.
 
                   CALL DSTEQR( 'I', M, D( START ), E( START ), WORK, M, WORK( M*M+1 ), INFO )                   CALL DLACPY( 'A', N, M, Z( 1, START ), LDZ, WORK( STOREZ ), N )                   CALL DGEMM( 'N', 'N', N, M, M, ONE, WORK( STOREZ ), N, WORK, M, ZERO, Z( 1, START ), LDZ )
-               ELSE IF( ICOMPZ.EQ.2 ) THEN
+               } else if ( ICOMPZ.EQ.2 ) {
                   CALL DSTEQR( 'I', M, D( START ), E( START ), Z( START, START ), LDZ, WORK, INFO )
                } else {
                   CALL DSTERF( M, D( START ), E( START ), INFO )
-               END IF
-               IF( INFO.NE.0 ) THEN
+               }
+               if ( INFO.NE.0 ) {
                   INFO = START*( N+1 ) + FINISH
                   GO TO 50
-               END IF
-            END IF
+               }
+            }
 
             START = FINISH + 1
             GO TO 10
-         END IF
+         }
 
          // endwhile
 
-         IF( ICOMPZ.EQ.0 ) THEN
+         if ( ICOMPZ.EQ.0 ) {
 
            // Use Quick Sort
 
@@ -244,19 +244,19 @@
               K = I
               P = D( I )
               DO 30 J = II, N
-                 IF( D( J ).LT.P ) THEN
+                 if ( D( J ).LT.P ) {
                     K = J
                     P = D( J )
-                 END IF
+                 }
    30         CONTINUE
-              IF( K.NE.I ) THEN
+              if ( K.NE.I ) {
                  D( K ) = D( I )
                  D( I ) = P
                  CALL DSWAP( N, Z( 1, I ), 1, Z( 1, K ), 1 )
-              END IF
+              }
    40      CONTINUE
-         END IF
-      END IF
+         }
+      }
 
    50 CONTINUE
       WORK( 1 ) = LWMIN

@@ -35,24 +35,24 @@
       ADF = ABS( DF )
       TB = B + B
       AB = ABS( TB )
-      IF( ABS( A ).GT.ABS( C ) ) THEN
+      if ( ABS( A ).GT.ABS( C ) ) {
          ACMX = A
          ACMN = C
       } else {
          ACMX = C
          ACMN = A
-      END IF
-      IF( ADF.GT.AB ) THEN
+      }
+      if ( ADF.GT.AB ) {
          RT = ADF*SQRT( ONE+( AB / ADF )**2 )
-      ELSE IF( ADF.LT.AB ) THEN
+      } else if ( ADF.LT.AB ) {
          RT = AB*SQRT( ONE+( ADF / AB )**2 )
       } else {
 
          // Includes case AB=ADF=0
 
          RT = AB*SQRT( TWO )
-      END IF
-      IF( SM.LT.ZERO ) THEN
+      }
+      if ( SM.LT.ZERO ) {
          RT1 = HALF*( SM-RT )
 
          // Order of execution important.
@@ -60,7 +60,7 @@
          // next line needs to be executed in higher precision.
 
          RT2 = ( ACMX / RT1 )*ACMN - ( B / RT1 )*B
-      ELSE IF( SM.GT.ZERO ) THEN
+      } else if ( SM.GT.ZERO ) {
          RT1 = HALF*( SM+RT )
 
          // Order of execution important.
@@ -74,7 +74,7 @@
 
          RT1 = HALF*RT
          RT2 = -HALF*RT
-      END IF
+      }
       RETURN
 
       // End of SLAE2

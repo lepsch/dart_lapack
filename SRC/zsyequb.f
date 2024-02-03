@@ -50,34 +50,34 @@
       // Test the input parameters.
 
       INFO = 0
-      IF ( .NOT. ( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) THEN
+      if ( .NOT. ( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) {
          INFO = -1
-      ELSE IF ( N .LT. 0 ) THEN
+      } else if ( N .LT. 0 ) {
          INFO = -2
-      ELSE IF ( LDA .LT. MAX( 1, N ) ) THEN
+      } else if ( LDA .LT. MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF ( INFO .NE. 0 ) THEN
+      }
+      if ( INFO .NE. 0 ) {
          CALL XERBLA( 'ZSYEQUB', -INFO )
          RETURN
-      END IF
+      }
 
       UP = LSAME( UPLO, 'U' )
       AMAX = ZERO
 
       // Quick return if possible.
 
-      IF ( N .EQ. 0 ) THEN
+      if ( N .EQ. 0 ) {
          SCOND = ONE
          RETURN
-      END IF
+      }
 
       DO I = 1, N
          S( I ) = ZERO
       END DO
 
       AMAX = ZERO
-      IF ( UP ) THEN
+      if ( UP ) {
          DO J = 1, N
             DO I = 1, J-1
                S( I ) = MAX( S( I ), CABS1( A( I, J ) ) )
@@ -97,7 +97,7 @@
                AMAX = MAX( AMAX, CABS1( A( I, J ) ) )
             END DO
          END DO
-      END IF
+      }
       DO J = 1, N
          S( J ) = 1.0D0 / S( J )
       END DO
@@ -111,7 +111,7 @@
          DO I = 1, N
             WORK( I ) = ZERO
          END DO
-         IF ( UP ) THEN
+         if ( UP ) {
             DO J = 1, N
                DO I = 1, J-1
                   WORK( I ) = WORK( I ) + CABS1( A( I, J ) ) * S( J )
@@ -127,7 +127,7 @@
                   WORK( J ) = WORK( J ) + CABS1( A( I, J ) ) * S( I )
                END DO
             END DO
-         END IF
+         }
 
          // avg = s^T beta / n
          AVG = 0.0D0
@@ -153,15 +153,15 @@
             C0 = -(T*SI)*SI + 2 * DBLE( WORK( I ) ) * SI - N*AVG
             D = C1*C1 - 4*C0*C2
 
-            IF ( D .LE. 0 ) THEN
+            if ( D .LE. 0 ) {
                INFO = -1
                RETURN
-            END IF
+            }
             SI = -2*C0 / ( C1 + SQRT( D ) )
 
             D = SI - S( I )
             U = ZERO
-            IF ( UP ) THEN
+            if ( UP ) {
                DO J = 1, I
                   T = CABS1( A( J, I ) )
                   U = U + S( J )*T
@@ -183,7 +183,7 @@
                   U = U + S( J )*T
                   WORK( J ) = WORK( J ) + D*T
                END DO
-            END IF
+            }
 
             AVG = AVG + ( U + DBLE( WORK( I ) ) ) * D / N
             S( I ) = SI

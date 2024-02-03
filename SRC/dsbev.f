@@ -42,38 +42,38 @@
       LOWER = LSAME( UPLO, 'L' )
 
       INFO = 0
-      IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) THEN
+      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -4
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -6
-      ELSE IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) THEN
+      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
          INFO = -9
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSBEV ', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
-         IF( LOWER ) THEN
+      if ( N.EQ.1 ) {
+         if ( LOWER ) {
             W( 1 ) = AB( 1, 1 )
          } else {
             W( 1 ) = AB( KD+1, 1 )
-         END IF
+         }
          IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -88,20 +88,20 @@
 
       ANRM = DLANSB( 'M', UPLO, N, KD, AB, LDAB, WORK )
       ISCALE = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
-      ELSE IF( ANRM.GT.RMAX ) THEN
+      } else if ( ANRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / ANRM
-      END IF
-      IF( ISCALE.EQ.1 ) THEN
-         IF( LOWER ) THEN
+      }
+      if ( ISCALE.EQ.1 ) {
+         if ( LOWER ) {
             CALL DLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
          } else {
             CALL DLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
-         END IF
-      END IF
+         }
+      }
 
       // Call DSBTRD to reduce symmetric band matrix to tridiagonal form.
 
@@ -111,22 +111,22 @@
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, call SSTEQR.
 
-      IF( .NOT.WANTZ ) THEN
+      if ( .NOT.WANTZ ) {
          CALL DSTERF( N, W, WORK( INDE ), INFO )
       } else {
          CALL DSTEQR( JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO )
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      IF( ISCALE.EQ.1 ) THEN
-         IF( INFO.EQ.0 ) THEN
+      if ( ISCALE.EQ.1 ) {
+         if ( INFO.EQ.0 ) {
             IMAX = N
          } else {
             IMAX = INFO - 1
-         END IF
+         }
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
-      END IF
+      }
 
       RETURN
 

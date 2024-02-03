@@ -39,27 +39,27 @@
       INFO = 0
       NOUNIT = LSAME( DIAG, 'N' )
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT. LSAME( TRANS, 'T' ) .AND. .NOT.LSAME( TRANS, 'C' ) ) THEN
+      } else if ( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT. LSAME( TRANS, 'T' ) .AND. .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
+      } else if ( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -5
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -6
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -8
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -10
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTBTRS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -67,8 +67,8 @@
 
       // Check for singularity.
 
-      IF( NOUNIT ) THEN
-         IF( UPPER ) THEN
+      if ( NOUNIT ) {
+         if ( UPPER ) {
             DO 10 INFO = 1, N
                IF( AB( KD+1, INFO ).EQ.ZERO ) RETURN
    10       CONTINUE
@@ -76,8 +76,8 @@
             DO 20 INFO = 1, N
                IF( AB( 1, INFO ).EQ.ZERO ) RETURN
    20       CONTINUE
-         END IF
-      END IF
+         }
+      }
       INFO = 0
 
       // Solve A * X = B,  A**T * X = B,  or  A**H * X = B.

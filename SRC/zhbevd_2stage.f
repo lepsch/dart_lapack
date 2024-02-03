@@ -50,7 +50,7 @@
       LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 .OR. LRWORK.EQ.-1 )
 
       INFO = 0
-      IF( N.LE.1 ) THEN
+      if ( N.LE.1 ) {
          LWMIN = 1
          LRWMIN = 1
          LIWMIN = 1
@@ -58,7 +58,7 @@
          IB    = ILAENV2STAGE( 2, 'ZHETRD_HB2ST', JOBZ, N, KD, -1, -1 )
          LHTRD = ILAENV2STAGE( 3, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )
          LWTRD = ILAENV2STAGE( 4, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )
-         IF( WANTZ ) THEN
+         if ( WANTZ ) {
             LWMIN = 2*N**2
             LRWMIN = 1 + 5*N + 2*N**2
             LIWMIN = 3 + 5*N
@@ -66,52 +66,52 @@
             LWMIN  = MAX( N, LHTRD + LWTRD )
             LRWMIN = N
             LIWMIN = 1
-         END IF
-      END IF
-      IF( .NOT.( LSAME( JOBZ, 'N' ) ) ) THEN
+         }
+      }
+      if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) THEN
+      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -4
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -6
-      ELSE IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) THEN
+      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
          INFO = -9
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          WORK( 1 )  = LWMIN
          RWORK( 1 ) = LRWMIN
          IWORK( 1 ) = LIWMIN
 
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
             INFO = -11
-         ELSE IF( LRWORK.LT.LRWMIN .AND. .NOT.LQUERY ) THEN
+         } else if ( LRWORK.LT.LRWMIN .AND. .NOT.LQUERY ) {
             INFO = -13
-         ELSE IF( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) THEN
+         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
             INFO = -15
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZHBEVD_2STAGE', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          W( 1 ) = DBLE( AB( 1, 1 ) )
          IF( WANTZ ) Z( 1, 1 ) = CONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -126,20 +126,20 @@
 
       ANRM = ZLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK )
       ISCALE = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
-      ELSE IF( ANRM.GT.RMAX ) THEN
+      } else if ( ANRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / ANRM
-      END IF
-      IF( ISCALE.EQ.1 ) THEN
-         IF( LOWER ) THEN
+      }
+      if ( ISCALE.EQ.1 ) {
+         if ( LOWER ) {
             CALL ZLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
          } else {
             CALL ZLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
-         END IF
-      END IF
+         }
+      }
 
       // Call ZHBTRD_HB2ST to reduce Hermitian band matrix to tridiagonal form.
 
@@ -156,24 +156,24 @@
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEDC.
 
-      IF( .NOT.WANTZ ) THEN
+      if ( .NOT.WANTZ ) {
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
       } else {
          CALL ZSTEDC( 'I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ), LLWK2, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO )
          CALL ZGEMM( 'N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO, WORK( INDWK2 ), N )
          CALL ZLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      IF( ISCALE.EQ.1 ) THEN
-         IF( INFO.EQ.0 ) THEN
+      if ( ISCALE.EQ.1 ) {
+         if ( INFO.EQ.0 ) {
             IMAX = N
          } else {
             IMAX = INFO - 1
-         END IF
+         }
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
-      END IF
+      }
 
       WORK( 1 )  = LWMIN
       RWORK( 1 ) = LRWMIN

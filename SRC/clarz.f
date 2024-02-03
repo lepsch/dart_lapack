@@ -28,11 +28,11 @@
       // ..
       // .. Executable Statements ..
 
-      IF( LSAME( SIDE, 'L' ) ) THEN
+      if ( LSAME( SIDE, 'L' ) ) {
 
          // Form  H * C
 
-         IF( TAU.NE.ZERO ) THEN
+         if ( TAU.NE.ZERO ) {
 
             // w( 1:n ) = conjg( C( 1, 1:n ) )
 
@@ -52,13 +52,13 @@
                                t // au * v( 1:l ) * w( 1:n )**H
 
             CALL CGERU( L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ), LDC )
-         END IF
+         }
 
       } else {
 
          // Form  C * H
 
-         IF( TAU.NE.ZERO ) THEN
+         if ( TAU.NE.ZERO ) {
 
             // w( 1:m ) = C( 1:m, 1 )
 
@@ -77,9 +77,9 @@
 
             CALL CGERC( M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ), LDC )
 
-         END IF
+         }
 
-      END IF
+      }
 
       RETURN
 

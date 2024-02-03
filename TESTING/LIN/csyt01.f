@@ -42,10 +42,10 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Determine EPS and the norm of A.
 
@@ -66,7 +66,7 @@
 
       // Compute the difference  C - A .
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 20 J = 1, N
             DO 10 I = 1, J
                C( I, J ) = C( I, J ) - A( I, J )
@@ -78,17 +78,17 @@
                C( I, J ) = C( I, J ) - A( I, J )
    30       CONTINUE
    40    CONTINUE
-      END IF
+      }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )
 
       RESID = CLANSY( '1', UPLO, N, C, LDC, RWORK )
 
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
          RESID = ( ( RESID/REAL( N ) )/ANORM ) / EPS
-      END IF
+      }
 
       RETURN
 

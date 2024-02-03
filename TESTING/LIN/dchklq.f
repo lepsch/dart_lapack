@@ -101,10 +101,10 @@
 
                // Check error code from DLATMS.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 50
-               END IF
+               }
 
                // Set some values for K: the first value must be MINMN,
                // corresponding to the call of DLQT01; other values are
@@ -114,15 +114,15 @@
                KVAL( 2 ) = 0
                KVAL( 3 ) = 1
                KVAL( 4 ) = MINMN / 2
-               IF( MINMN.EQ.0 ) THEN
+               if ( MINMN.EQ.0 ) {
                   NK = 1
-               ELSE IF( MINMN.EQ.1 ) THEN
+               } else if ( MINMN.EQ.1 ) {
                   NK = 2
-               ELSE IF( MINMN.LE.3 ) THEN
+               } else if ( MINMN.LE.3 ) {
                   NK = 3
                } else {
                   NK = 4
-               END IF
+               }
 
                // Do for each value of K in KVAL
 
@@ -140,12 +140,12 @@
                         RESULT( I ) = ZERO
                      END DO
                      NT = 2
-                     IF( IK.EQ.1 ) THEN
+                     if ( IK.EQ.1 ) {
 
                         // Test DGELQF
 
                         CALL DLQT01( M, N, A, AF, AQ, AL, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
-                     ELSE IF( M.LE.N ) THEN
+                     } else if ( M.LE.N ) {
 
                         // Test DORGLQ, using factorization
                         // returned by DLQT01
@@ -154,8 +154,8 @@
                      } else {
                         RESULT( 1 ) = ZERO
                         RESULT( 2 ) = ZERO
-                     END IF
-                     IF( M.GE.K ) THEN
+                     }
+                     if ( M.GE.K ) {
 
                         // Test DORMLQ, using factorization returned
                         // by DLQT01
@@ -167,7 +167,7 @@
                         // with NRHS right hand sides and compute the
                         // residual.
 
-                        IF( K.EQ.M .AND. INB.EQ.1 ) THEN
+                        if ( K.EQ.M .AND. INB.EQ.1 ) {
 
                            // Generate a solution and set the right
                            // hand side.
@@ -193,22 +193,22 @@
                            NT = NT + 1
                         } else {
                            RESULT( 7 ) = ZERO
-                        END IF
+                        }
                      } else {
                         RESULT( 3 ) = ZERO
                         RESULT( 4 ) = ZERO
                         RESULT( 5 ) = ZERO
                         RESULT( 6 ) = ZERO
-                     END IF
+                     }
 
                      // Print information about the tests that did not
                      // pass the threshold.
 
                      DO 20 I = 1, NT
-                        IF( RESULT( I ).GE.THRESH ) THEN
+                        if ( RESULT( I ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
    20                CONTINUE
                      NRUN = NRUN + NT
    30             CONTINUE

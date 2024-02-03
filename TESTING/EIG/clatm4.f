@@ -50,8 +50,8 @@
       // Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
       // and RCOND
 
-      IF( ITYPE.NE.0 ) THEN
-         IF( ABS( ITYPE ).GE.4 ) THEN
+      if ( ITYPE.NE.0 ) {
+         if ( ABS( ITYPE ).GE.4 ) {
             KBEG = MAX( 1, MIN( N, NZ1+1 ) )
             KEND = MAX( KBEG, MIN( N, N-NZ2 ) )
             KLEN = KEND + 1 - KBEG
@@ -59,7 +59,7 @@
             KBEG = 1
             KEND = N
             KLEN = N
-         END IF
+         }
          ISDB = 1
          ISDE = 0
          GO TO ( 10, 30, 50, 80, 100, 120, 140, 160, 180, 200 )ABS( ITYPE )
@@ -127,24 +127,24 @@
 
   140    CONTINUE
          A( KBEG, KBEG ) = CONE
-         IF( KLEN.GT.1 ) THEN
+         if ( KLEN.GT.1 ) {
             ALPHA = RCOND**( ONE / REAL( KLEN-1 ) )
             DO 150 I = 2, KLEN
                A( NZ1+I, NZ1+I ) = CMPLX( ALPHA**REAL( I-1 ) )
   150       CONTINUE
-         END IF
+         }
          GO TO 220
 
          // abs(ITYPE) = 8: Arithmetically distributed D values:
 
   160    CONTINUE
          A( KBEG, KBEG ) = CONE
-         IF( KLEN.GT.1 ) THEN
+         if ( KLEN.GT.1 ) {
             ALPHA = ( ONE-RCOND ) / REAL( KLEN-1 )
             DO 170 I = 2, KLEN
                A( NZ1+I, NZ1+I ) = CMPLX( REAL( KLEN-I )*ALPHA+RCOND )
   170       CONTINUE
-         END IF
+         }
          GO TO 220
 
          // abs(ITYPE) = 9: Randomly distributed D values on ( RCOND, 1):
@@ -177,26 +177,26 @@
          // If RSIGN = .TRUE., assign random signs to diagonal and
          // subdiagonal
 
-         IF( RSIGN ) THEN
+         if ( RSIGN ) {
             DO 250 JD = KBEG, KEND
-               IF( REAL( A( JD, JD ) ).NE.ZERO ) THEN
+               if ( REAL( A( JD, JD ) ).NE.ZERO ) {
                   CTEMP = CLARND( 3, ISEED )
                   CTEMP = CTEMP / ABS( CTEMP )
                   A( JD, JD ) = CTEMP*REAL( A( JD, JD ) )
-               END IF
+               }
   250       CONTINUE
             DO 260 JD = ISDB, ISDE
-               IF( REAL( A( JD+1, JD ) ).NE.ZERO ) THEN
+               if ( REAL( A( JD+1, JD ) ).NE.ZERO ) {
                   CTEMP = CLARND( 3, ISEED )
                   CTEMP = CTEMP / ABS( CTEMP )
                   A( JD+1, JD ) = CTEMP*REAL( A( JD+1, JD ) )
-               END IF
+               }
   260       CONTINUE
-         END IF
+         }
 
          // Reverse if ITYPE < 0
 
-         IF( ITYPE.LT.0 ) THEN
+         if ( ITYPE.LT.0 ) {
             DO 270 JD = KBEG, ( KBEG+KEND-1 ) / 2
                CTEMP = A( JD, JD )
                A( JD, JD ) = A( KBEG+KEND-JD, KBEG+KEND-JD )
@@ -207,19 +207,19 @@
                A( JD+1, JD ) = A( N+1-JD, N-JD )
                A( N+1-JD, N-JD ) = CTEMP
   280       CONTINUE
-         END IF
+         }
 
-      END IF
+      }
 
       // Fill in upper triangle
 
-      IF( TRIANG.NE.ZERO ) THEN
+      if ( TRIANG.NE.ZERO ) {
          DO 300 JC = 2, N
             DO 290 JR = 1, JC - 1
                A( JR, JC ) = TRIANG*CLARND( IDIST, ISEED )
   290       CONTINUE
   300    CONTINUE
-      END IF
+      }
 
       RETURN
 

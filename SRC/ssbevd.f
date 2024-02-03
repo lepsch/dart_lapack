@@ -44,59 +44,59 @@
       LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
 
       INFO = 0
-      IF( N.LE.1 ) THEN
+      if ( N.LE.1 ) {
          LIWMIN = 1
          LWMIN = 1
       } else {
-         IF( WANTZ ) THEN
+         if ( WANTZ ) {
             LIWMIN = 3 + 5*N
             LWMIN = 1 + 5*N + 2*N**2
          } else {
             LIWMIN = 1
             LWMIN = 2*N
-         END IF
-      END IF
-      IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+         }
+      }
+      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) THEN
+      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -4
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -6
-      ELSE IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) THEN
+      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
          INFO = -9
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          IWORK( 1 ) = LIWMIN
 
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
             INFO = -11
-         ELSE IF( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) THEN
+         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
             INFO = -13
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SSBEVD', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          W( 1 ) = AB( 1, 1 )
          IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -111,20 +111,20 @@
 
       ANRM = SLANSB( 'M', UPLO, N, KD, AB, LDAB, WORK )
       ISCALE = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
-      ELSE IF( ANRM.GT.RMAX ) THEN
+      } else if ( ANRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / ANRM
-      END IF
-      IF( ISCALE.EQ.1 ) THEN
-         IF( LOWER ) THEN
+      }
+      if ( ISCALE.EQ.1 ) {
+         if ( LOWER ) {
             CALL SLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
          } else {
             CALL SLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
-         END IF
-      END IF
+         }
+      }
 
       // Call SSBTRD to reduce symmetric band matrix to tridiagonal form.
 
@@ -136,12 +136,12 @@
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, call SSTEDC.
 
-      IF( .NOT.WANTZ ) THEN
+      if ( .NOT.WANTZ ) {
          CALL SSTERF( N, W, WORK( INDE ), INFO )
       } else {
          CALL SSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL SGEMM( 'N', 'N', N, N, N, ONE, Z, LDZ, WORK( INDWRK ), N, ZERO, WORK( INDWK2 ), N )
          CALL SLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 

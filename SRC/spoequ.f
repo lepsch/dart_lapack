@@ -33,23 +33,23 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -3
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SPOEQU', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          SCOND = ONE
          AMAX = ZERO
          RETURN
-      END IF
+      }
 
       // Find the minimum and maximum diagonal elements.
 
@@ -62,15 +62,15 @@
          AMAX = MAX( AMAX, S( I ) )
    10 CONTINUE
 
-      IF( SMIN.LE.ZERO ) THEN
+      if ( SMIN.LE.ZERO ) {
 
          // Find the first non-positive diagonal element and return.
 
          DO 20 I = 1, N
-            IF( S( I ).LE.ZERO ) THEN
+            if ( S( I ).LE.ZERO ) {
                INFO = I
                RETURN
-            END IF
+            }
    20    CONTINUE
       } else {
 
@@ -84,7 +84,7 @@
          // Compute SCOND = min(S(I)) / max(S(I))
 
          SCOND = SQRT( SMIN ) / SQRT( AMAX )
-      END IF
+      }
       RETURN
 
       // End of SPOEQU

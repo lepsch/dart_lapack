@@ -33,19 +33,19 @@
       // ..
       // .. Executable Statements ..
 
-      IF( SELOPT.EQ.0 ) THEN
+      if ( SELOPT.EQ.0 ) {
          ZSLECT = ( DBLE( Z ).LT.ZERO )
       } else {
          RMIN = ABS( Z-DCMPLX( SELWR( 1 ), SELWI( 1 ) ) )
          ZSLECT = SELVAL( 1 )
          DO 10 I = 2, SELDIM
             X = ABS( Z-DCMPLX( SELWR( I ), SELWI( I ) ) )
-            IF( X.LE.RMIN ) THEN
+            if ( X.LE.RMIN ) {
                RMIN = X
                ZSLECT = SELVAL( I )
-            END IF
+            }
    10    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of ZSLECT

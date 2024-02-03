@@ -30,29 +30,29 @@
       // Compute the first column of B**T*B - SIGMA^2*I, up to a scale
       // factor.
 
-      IF( (SIGMA .EQ. ZERO .AND. ABS(X) .LT. THRESH) .OR. (ABS(X) .EQ. SIGMA .AND. Y .EQ. ZERO) ) THEN
+      if ( (SIGMA .EQ. ZERO .AND. ABS(X) .LT. THRESH) .OR. (ABS(X) .EQ. SIGMA .AND. Y .EQ. ZERO) ) {
          Z = ZERO
          W = ZERO
-      ELSE IF( SIGMA .EQ. ZERO ) THEN
-         IF( X .GE. ZERO ) THEN
+      } else if ( SIGMA .EQ. ZERO ) {
+         if ( X .GE. ZERO ) {
             Z = X
             W = Y
          } else {
             Z = -X
             W = -Y
-         END IF
-      ELSE IF( ABS(X) .LT. THRESH ) THEN
+         }
+      } else if ( ABS(X) .LT. THRESH ) {
          Z = -SIGMA*SIGMA
          W = ZERO
       } else {
-         IF( X .GE. ZERO ) THEN
+         if ( X .GE. ZERO ) {
             S = ONE
          } else {
             S = NEGONE
-         END IF
+         }
          Z = S * (ABS(X)-SIGMA) * (S+SIGMA/X)
          W = S * Y
-      END IF
+      }
 
       // Generate the rotation.
       // CALL DLARTGP( Z, W, CS, SN, R ) might seem more natural;

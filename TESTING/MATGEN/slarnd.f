@@ -35,23 +35,23 @@
 
       T1 = SLARAN( ISEED )
 
-      IF( IDIST.EQ.1 ) THEN
+      if ( IDIST.EQ.1 ) {
 
          // uniform (0,1)
 
          SLARND = T1
-      ELSE IF( IDIST.EQ.2 ) THEN
+      } else if ( IDIST.EQ.2 ) {
 
          // uniform (-1,1)
 
          SLARND = TWO*T1 - ONE
-      ELSE IF( IDIST.EQ.3 ) THEN
+      } else if ( IDIST.EQ.3 ) {
 
          // normal (0,1)
 
          T2 = SLARAN( ISEED )
          SLARND = SQRT( -TWO*LOG( T1 ) )*COS( TWOPI*T2 )
-      END IF
+      }
       RETURN
 
       // End of SLARND

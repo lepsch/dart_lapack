@@ -34,19 +34,19 @@
       // Test the input parameters.
 
       INFO = 0
-      IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
+      if (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) {
           INFO = 1
-      ELSE IF (N.LT.0) THEN
+      } else if (N.LT.0) {
           INFO = 2
-      ELSE IF (INCX.EQ.0) THEN
+      } else if (INCX.EQ.0) {
           INFO = 5
-      ELSE IF (INCY.EQ.0) THEN
+      } else if (INCY.EQ.0) {
           INFO = 7
-      END IF
-      IF (INFO.NE.0) THEN
+      }
+      if (INFO.NE.0) {
           CALL XERBLA('SSPR2 ',INFO)
           RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -55,32 +55,32 @@
       // Set up the start points in X and Y if the increments are not both
       // unity.
 
-      IF ((INCX.NE.1) .OR. (INCY.NE.1)) THEN
-          IF (INCX.GT.0) THEN
+      if ((INCX.NE.1) .OR. (INCY.NE.1)) {
+          if (INCX.GT.0) {
               KX = 1
           } else {
               KX = 1 - (N-1)*INCX
-          END IF
-          IF (INCY.GT.0) THEN
+          }
+          if (INCY.GT.0) {
               KY = 1
           } else {
               KY = 1 - (N-1)*INCY
-          END IF
+          }
           JX = KX
           JY = KY
-      END IF
+      }
 
       // Start the operations. In this version the elements of the array AP
       // are accessed sequentially with one pass through AP.
 
       KK = 1
-      IF (LSAME(UPLO,'U')) THEN
+      if (LSAME(UPLO,'U')) {
 
          // Form  A  when upper triangle is stored in AP.
 
-          IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
+          if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
               DO 20 J = 1,N
-                  IF ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) THEN
+                  if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*Y(J)
                       TEMP2 = ALPHA*X(J)
                       K = KK
@@ -88,12 +88,12 @@
                           AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2
                           K = K + 1
    10                 CONTINUE
-                  END IF
+                  }
                   KK = KK + J
    20         CONTINUE
           } else {
               DO 40 J = 1,N
-                  IF ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) THEN
+                  if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
                       TEMP1 = ALPHA*Y(JY)
                       TEMP2 = ALPHA*X(JX)
                       IX = KX
@@ -103,19 +103,19 @@
                           IX = IX + INCX
                           IY = IY + INCY
    30                 CONTINUE
-                  END IF
+                  }
                   JX = JX + INCX
                   JY = JY + INCY
                   KK = KK + J
    40         CONTINUE
-          END IF
+          }
       } else {
 
          // Form  A  when lower triangle is stored in AP.
 
-          IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
+          if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
               DO 60 J = 1,N
-                  IF ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) THEN
+                  if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*Y(J)
                       TEMP2 = ALPHA*X(J)
                       K = KK
@@ -123,12 +123,12 @@
                           AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2
                           K = K + 1
    50                 CONTINUE
-                  END IF
+                  }
                   KK = KK + N - J + 1
    60         CONTINUE
           } else {
               DO 80 J = 1,N
-                  IF ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) THEN
+                  if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
                       TEMP1 = ALPHA*Y(JY)
                       TEMP2 = ALPHA*X(JX)
                       IX = JX
@@ -138,13 +138,13 @@
                           IX = IX + INCX
                           IY = IY + INCY
    70                 CONTINUE
-                  END IF
+                  }
                   JX = JX + INCX
                   JY = JY + INCY
                   KK = KK + N - J + 1
    80         CONTINUE
-          END IF
-      END IF
+          }
+      }
 
       RETURN
 

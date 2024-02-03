@@ -51,7 +51,7 @@
       W( 2 ) = 0.0D+0
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'TZ' ) ) THEN
+      if ( LSAMEN( 2, C2, 'TZ' ) ) {
 
          // Test error exits for the trapezoidal routines.
 
@@ -73,7 +73,7 @@
          INFOT = 7
          CALL DTZRZF( 2, 3, A, 2, TAU, W, 1, INFO )
          CALL CHKXER( 'DTZRZF', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

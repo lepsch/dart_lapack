@@ -35,14 +35,14 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          VALUE = ZERO
-      ELSE IF( LSAME( NORM, 'M' ) ) THEN
+      } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
          VALUE = ZERO
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
             DO 20 J = 1, N
                DO 10 I = 1, J - 1
                   SUM = ABS( A( I, J ) )
@@ -60,13 +60,13 @@
                   IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    30          CONTINUE
    40       CONTINUE
-         END IF
-      ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
+         }
+      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
 
          // Find normI(A) ( = norm1(A), since A is hermitian).
 
          VALUE = ZERO
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
             DO 60 J = 1, N
                SUM = ZERO
                DO 50 I = 1, J - 1
@@ -93,14 +93,14 @@
    90          CONTINUE
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
   100       CONTINUE
-         END IF
-      ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
+         }
+      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
          SCALE = ZERO
          SUM = ONE
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
             DO 110 J = 2, N
                CALL CLASSQ( J-1, A( 1, J ), 1, SCALE, SUM )
   110       CONTINUE
@@ -108,21 +108,21 @@
             DO 120 J = 1, N - 1
                CALL CLASSQ( N-J, A( J+1, J ), 1, SCALE, SUM )
   120       CONTINUE
-         END IF
+         }
          SUM = 2*SUM
          DO 130 I = 1, N
-            IF( REAL( A( I, I ) ).NE.ZERO ) THEN
+            if ( REAL( A( I, I ) ).NE.ZERO ) {
                ABSA = ABS( REAL( A( I, I ) ) )
-               IF( SCALE.LT.ABSA ) THEN
+               if ( SCALE.LT.ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2
                   SCALE = ABSA
                } else {
                   SUM = SUM + ( ABSA / SCALE )**2
-               END IF
-            END IF
+               }
+            }
   130    CONTINUE
          VALUE = SCALE*SQRT( SUM )
-      END IF
+      }
 
       CLANHE = VALUE
       RETURN

@@ -37,10 +37,10 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       EPS = DLAMCH( 'Epsilon' )
 
@@ -52,16 +52,16 @@
    10    CONTINUE
    20 CONTINUE
       DO 30 I = 1, N
-         IF( I.EQ.1 ) THEN
+         if ( I.EQ.1 ) {
             WORK( I, I ) = DF( I )
             IF( N.GE.2 ) WORK( I, I+1 ) = DUF( I )             IF( N.GE.3 ) WORK( I, I+2 ) = DU2( I )
-         ELSE IF( I.EQ.N ) THEN
+         } else if ( I.EQ.N ) {
             WORK( I, I ) = DF( I )
          } else {
             WORK( I, I ) = DF( I )
             WORK( I, I+1 ) = DUF( I )
             IF( I.LT.N-1 ) WORK( I, I+2 ) = DU2( I )
-         END IF
+         }
    30 CONTINUE
 
       // Multiply on the left by L.
@@ -71,17 +71,17 @@
          LI = DLF( I )
          CALL DAXPY( LASTJ-I+1, LI, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK )
          IP = IPIV( I )
-         IF( IP.EQ.I ) THEN
+         if ( IP.EQ.I ) {
             LASTJ = MIN( I+2, N )
          } else {
             CALL DSWAP( LASTJ-I+1, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK )
-         END IF
+         }
    40 CONTINUE
 
       // Subtract the matrix A.
 
       WORK( 1, 1 ) = WORK( 1, 1 ) - D( 1 )
-      IF( N.GT.1 ) THEN
+      if ( N.GT.1 ) {
          WORK( 1, 2 ) = WORK( 1, 2 ) - DU( 1 )
          WORK( N, N-1 ) = WORK( N, N-1 ) - DL( N-1 )
          WORK( N, N ) = WORK( N, N ) - D( N )
@@ -90,7 +90,7 @@
             WORK( I, I ) = WORK( I, I ) - D( I )
             WORK( I, I+1 ) = WORK( I, I+1 ) - DU( I )
    50    CONTINUE
-      END IF
+      }
 
       // Compute the 1-norm of the tridiagonal matrix A.
 
@@ -103,11 +103,11 @@
 
       // Compute norm(L*U - A) / (norm(A) * EPS)
 
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
          RESID = ( RESID / ANORM ) / EPS
-      END IF
+      }
 
       RETURN
 

@@ -89,50 +89,50 @@
       LQUERY = ( LWORK.EQ.-1 )
 
       MINMN = MIN( M, N )
-      IF( MINMN.EQ.0 ) THEN
+      if ( MINMN.EQ.0 ) {
         LWMIN = 1
       } else {
         LWMIN = M*MB
-      END IF
+      }
 
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
         INFO = -1
-      ELSE IF( N.LT.0 .OR. N.LT.M ) THEN
+      } else if ( N.LT.0 .OR. N.LT.M ) {
         INFO = -2
-      ELSE IF( MB.LT.1 .OR. ( MB.GT.M .AND. M.GT.0 ) ) THEN
+      } else if ( MB.LT.1 .OR. ( MB.GT.M .AND. M.GT.0 ) ) {
         INFO = -3
-      ELSE IF( NB.LE.0 ) THEN
+      } else if ( NB.LE.0 ) {
         INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
         INFO = -6
-      ELSE IF( LDT.LT.MB ) THEN
+      } else if ( LDT.LT.MB ) {
         INFO = -8
-      ELSE IF( LWORK.LT.LWMIN .AND. (.NOT.LQUERY) ) THEN
+      } else if ( LWORK.LT.LWMIN .AND. (.NOT.LQUERY) ) {
         INFO = -10
-      END IF
-      IF( INFO.EQ.0 ) THEN
+      }
+      if ( INFO.EQ.0 ) {
         WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
         CALL XERBLA( 'SLASWLQ', -INFO )
         RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
         RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( MINMN.EQ.0 ) THEN
+      if ( MINMN.EQ.0 ) {
         RETURN
-      END IF
+      }
 
       // The LQ Decomposition
 
-      IF( (M.GE.N) .OR. (NB.LE.M) .OR. (NB.GE.N) ) THEN
+      if ( (M.GE.N) .OR. (NB.LE.M) .OR. (NB.GE.N) ) {
         CALL SGELQT( M, N, MB, A, LDA, T, LDT, WORK, INFO )
         RETURN
-      END IF
+      }
 
       KK = MOD((N-M),(NB-M))
       II = N-KK+1
@@ -152,9 +152,9 @@
 
       // Compute the QR factorization of the last block A(1:M,II:N)
 
-      IF( II.LE.N ) THEN
+      if ( II.LE.N ) {
         CALL STPLQT( M, KK, 0, MB, A(1,1), LDA, A( 1, II ), LDA, T(1, CTR * M + 1), LDT, WORK, INFO )
-      END IF
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
       RETURN

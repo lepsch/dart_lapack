@@ -37,10 +37,10 @@
 
       SRZT02 = ZERO
 
-      IF( LWORK.LT.N*N+N ) THEN
+      if ( LWORK.LT.N*N+N ) {
          CALL XERBLA( 'SRZT02', 7 )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 

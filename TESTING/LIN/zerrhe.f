@@ -68,7 +68,7 @@
       ANRM = 1.0D0
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'HE' ) ) THEN
+      if ( LSAMEN( 2, C2, 'HE' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with partial
@@ -205,7 +205,7 @@
          CALL ZHECON( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'ZHECON', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with rook
@@ -291,7 +291,7 @@
          CALL ZHECON_ROOK( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'ZHECON_ROOK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HK' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with rook
@@ -403,7 +403,7 @@
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with Aasen's algorithm.
 
-      ELSE IF( LSAMEN( 2, C2, 'HA' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HA' ) ) {
 
          // ZHETRF_AA
 
@@ -449,7 +449,7 @@
          CALL ZHETRS_AA( 'U', 0, 1, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'ZHETRS_AA', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'S2' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with Aasen's algorithm.
@@ -495,7 +495,7 @@
          CALL ZHETRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZHETRS_AA_STAGE', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HP' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite packed matrix with partial
@@ -568,7 +568,7 @@
          INFOT = 5
          CALL ZHPCON( 'U', 1, A, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'ZHPCON', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

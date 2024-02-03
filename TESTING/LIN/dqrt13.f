@@ -44,32 +44,32 @@
 
       DO 10 J = 1, N
          CALL DLARNV( 2, ISEED, M, A( 1, J ) )
-         IF( J.LE.M ) THEN
+         if ( J.LE.M ) {
             A( J, J ) = A( J, J ) + SIGN( DASUM( M, A( 1, J ), 1 ), A( J, J ) )
-         END IF
+         }
    10 CONTINUE
 
       // scaled versions
 
-      IF( SCALE.NE.1 ) THEN
+      if ( SCALE.NE.1 ) {
          NORMA = DLANGE( 'Max', M, N, A, LDA, DUMMY )
          SMLNUM = DLAMCH( 'Safe minimum' )
          BIGNUM = ONE / SMLNUM
          SMLNUM = SMLNUM / DLAMCH( 'Epsilon' )
          BIGNUM = ONE / SMLNUM
 
-         IF( SCALE.EQ.2 ) THEN
+         if ( SCALE.EQ.2 ) {
 
             // matrix scaled up
 
             CALL DLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )
-         ELSE IF( SCALE.EQ.3 ) THEN
+         } else if ( SCALE.EQ.3 ) {
 
             // matrix scaled down
 
             CALL DLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )
-         END IF
-      END IF
+         }
+      }
 
       NORMA = DLANGE( 'One-norm', M, N, A, LDA, DUMMY )
       RETURN

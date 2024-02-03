@@ -37,46 +37,46 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( LWORK.LT.1 .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.1 .AND. .NOT.LQUERY ) {
          INFO = -8
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
          // Determine the block size
 
          NB = ILAENV( 1, 'ZHETRF_RK', UPLO, N, -1, -1, -1 )
          LWKOPT = MAX( 1, N*NB )
          WORK( 1 ) = LWKOPT
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZHETRF_RK', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       NBMIN = 2
       LDWORK = N
-      IF( NB.GT.1 .AND. NB.LT.N ) THEN
+      if ( NB.GT.1 .AND. NB.LT.N ) {
          IWS = LDWORK*NB
-         IF( LWORK.LT.IWS ) THEN
+         if ( LWORK.LT.IWS ) {
             NB = MAX( LWORK / LDWORK, 1 )
             NBMIN = MAX( 2, ILAENV( 2, 'ZHETRF_RK', UPLO, N, -1, -1, -1 ) )
-         END IF
+         }
       } else {
          IWS = 1
-      END IF
+      }
       IF( NB.LT.NBMIN ) NB = N
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Factorize A as U*D*U**T using the upper triangle of A
 
@@ -91,7 +91,7 @@
 
          IF( K.LT.1 ) GO TO 15
 
-         IF( K.GT.NB ) THEN
+         if ( K.GT.NB ) {
 
             // Factorize columns k-kb+1:k of A and use blocked code to
             // update columns 1:k-kb
@@ -103,7 +103,7 @@
 
             CALL ZHETF2_RK( UPLO, K, A, LDA, E, IPIV, IINFO )
             KB = K
-         END IF
+         }
 
          // Set INFO on the first occurrence of a zero pivot
 
@@ -121,14 +121,14 @@
          // since the ABS value of IPIV( I ) represents the row index
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
-         IF( K.LT.N ) THEN
+         if ( K.LT.N ) {
             DO I = K, ( K - KB + 1 ), -1
                IP = ABS( IPIV( I ) )
-               IF( IP.NE.I ) THEN
+               if ( IP.NE.I ) {
                   CALL ZSWAP( N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA )
-               END IF
+               }
             END DO
-         END IF
+         }
 
          // Decrease K and return to the start of the main loop
 
@@ -155,7 +155,7 @@
 
          IF( K.GT.N ) GO TO 35
 
-         IF( K.LE.N-NB ) THEN
+         if ( K.LE.N-NB ) {
 
             // Factorize columns k:k+kb-1 of A and use blocked code to
             // update columns k+kb:n
@@ -170,7 +170,7 @@
             CALL ZHETF2_RK( UPLO, N-K+1, A( K, K ), LDA, E( K ), IPIV( K ), IINFO )
             KB = N - K + 1
 
-         END IF
+         }
 
          // Set INFO on the first occurrence of a zero pivot
 
@@ -179,11 +179,11 @@
          // Adjust IPIV
 
          DO I = K, K + KB - 1
-            IF( IPIV( I ).GT.0 ) THEN
+            if ( IPIV( I ).GT.0 ) {
                IPIV( I ) = IPIV( I ) + K - 1
             } else {
                IPIV( I ) = IPIV( I ) - K + 1
-            END IF
+            }
          END DO
 
          // Apply permutations to the leading panel 1:k-1
@@ -195,14 +195,14 @@
          // since the ABS value of IPIV( I ) represents the row index
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
-         IF( K.GT.1 ) THEN
+         if ( K.GT.1 ) {
             DO I = K, ( K + KB - 1 ), 1
                IP = ABS( IPIV( I ) )
-               IF( IP.NE.I ) THEN
+               if ( IP.NE.I ) {
                   CALL ZSWAP( K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA )
-               END IF
+               }
             END DO
-         END IF
+         }
 
          // Increase K and return to the start of the main loop
 
@@ -216,7 +216,7 @@
 
       // End Lower
 
-      END IF
+      }
 
       WORK( 1 ) = LWKOPT
       RETURN

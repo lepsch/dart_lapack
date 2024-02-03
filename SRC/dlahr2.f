@@ -34,7 +34,7 @@
       IF( N.LE.1 ) RETURN
 
       DO 10 I = 1, NB
-         IF( I.GT.1 ) THEN
+         if ( I.GT.1 ) {
 
             // Update A(K+1:N,I)
 
@@ -73,7 +73,7 @@
             CALL DAXPY( I-1, -ONE, T( 1, NB ), 1, A( K+1, I ), 1 )
 
             A( K+I-1, I-1 ) = EI
-         END IF
+         }
 
          // Generate the elementary reflector H(I) to annihilate
          // A(K+I+1:N,I)

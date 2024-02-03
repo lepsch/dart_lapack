@@ -22,7 +22,7 @@
       const     ONE= (1.0E+0,0.0E+0);
       // ..
       IF (N.LE.0 .OR. INCX.LE.0 .OR. CA.EQ.ONE) RETURN
-      IF (INCX.EQ.1) THEN
+      if (INCX.EQ.1) {
 
          // code for increment equal to 1
 
@@ -37,7 +37,7 @@
          DO I = 1,NINCX,INCX
             CX(I) = CA*CX(I)
          END DO
-      END IF
+      }
       RETURN
 
       // End of CSCAL

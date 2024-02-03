@@ -69,7 +69,7 @@
       OK = .TRUE.
       NT = 0
 
-      IF( LSAMEN( 2, C2, 'EV' ) ) THEN
+      if ( LSAMEN( 2, C2, 'EV' ) ) {
 
          // Test DGEEV
 
@@ -97,7 +97,7 @@
          CALL CHKXER( 'DGEEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 7
 
-      ELSE IF( LSAMEN( 2, C2, 'ES' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'ES' ) ) {
 
          // Test DGEES
 
@@ -122,7 +122,7 @@
          CALL CHKXER( 'DGEES ', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 
-      ELSE IF( LSAMEN( 2, C2, 'VX' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'VX' ) ) {
 
          // Test DGEEVX
 
@@ -162,7 +162,7 @@
          CALL CHKXER( 'DGEEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 
-      ELSE IF( LSAMEN( 2, C2, 'SX' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SX' ) ) {
 
          // Test DGEESX
 
@@ -190,7 +190,7 @@
          CALL CHKXER( 'DGEESX', INFOT, NOUT, LERR, OK )
          NT = NT + 7
 
-      ELSE IF( LSAMEN( 2, C2, 'BD' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'BD' ) ) {
 
          // Test DGESVD
 
@@ -220,11 +220,11 @@
          CALL DGESVD( 'N', 'A', 1, 2, A, 1, S, U, 1, VT, 1, W, 5, INFO )
          CALL CHKXER( 'DGESVD', INFOT, NOUT, LERR, OK )
          NT = 8
-         IF( OK ) THEN
+         if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
          } else {
             WRITE( NOUT, FMT = 9998 )
-         END IF
+         }
 
          // Test DGESDD
 
@@ -248,11 +248,11 @@
          CALL DGESDD( 'A', 1, 2, A, 1, S, U, 1, VT, 1, W, 5, IW, INFO )
          CALL CHKXER( 'DGESDD', INFOT, NOUT, LERR, OK )
          NT = 6
-         IF( OK ) THEN
+         if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
          } else {
             WRITE( NOUT, FMT = 9998 )
-         END IF
+         }
 
          // Test DGEJSV
 
@@ -291,11 +291,11 @@
          CALL DGEJSV( 'G', 'U', 'V', 'R', 'N', 'N', 2, 2, A, 2, S, U, 2, VT, 1, W, 1, IW, INFO)
          CALL CHKXER( 'DGEJSV', INFOT, NOUT, LERR, OK )
          NT = 11
-         IF( OK ) THEN
+         if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
          } else {
             WRITE( NOUT, FMT = 9998 )
-         END IF
+         }
 
          // Test DGESVDX
 
@@ -337,11 +337,11 @@
          CALL DGESVDX( 'N', 'V', 'A', 2, 2, A, 2, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, IW, INFO )
          CALL CHKXER( 'DGESVDX', INFOT, NOUT, LERR, OK )
          NT = 12
-         IF( OK ) THEN
+         if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
          } else {
             WRITE( NOUT, FMT = 9998 )
-         END IF
+         }
 
          // Test DGESVDQ
 
@@ -380,22 +380,22 @@
          CALL DGESVDQ( 'A', 'P', 'T', 'A', 'A', 1, 1, A, 1, S, U, 1, VT, 1, NS, IW, -5, W, 1, W, 1, INFO )
          CALL CHKXER( 'DGESVDQ', INFOT, NOUT, LERR, OK )
          NT = 11
-         IF( OK ) THEN
+         if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
          } else {
             WRITE( NOUT, FMT = 9998 )
-         END IF
-      END IF
+         }
+      }
 
       // Print a summary line.
 
-      IF( .NOT.LSAMEN( 2, C2, 'BD' ) ) THEN
-         IF( OK ) THEN
+      if ( .NOT.LSAMEN( 2, C2, 'BD' ) ) {
+         if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
          } else {
             WRITE( NOUT, FMT = 9998 )
-         END IF
-      END IF
+         }
+      }
 
  9999 FORMAT( 1X, A, ' passed the tests of the error exits (', I3,
      $      ' tests done)' )

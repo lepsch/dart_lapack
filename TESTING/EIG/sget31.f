@@ -106,27 +106,27 @@
                         DO 20 IB = 1, 3
                            B( 1, 1 ) = VAB( IB )
                            DO 10 IWR = 1, 4
-                              IF( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) THEN
+                              if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
-                              END IF
+                              }
                               WI = ZERO
                               CALL SLALN2( LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO )
                               IF( INFO.LT.0 ) NINFO( 1 ) = NINFO( 1 ) + 1                               IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1                               RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )-SCALE*B( 1, 1 ) )
-                              IF( INFO.EQ.0 ) THEN
+                              if ( INFO.EQ.0 ) {
                                  DEN = MAX( EPS*( ABS( ( CA*A( 1, 1 )-WR*D1 )*X( 1, 1 ) ) ), SMLNUM )
                               } else {
                                  DEN = MAX( SMIN*ABS( X( 1, 1 ) ), SMLNUM )
-                              END IF
+                              }
                               RES = RES / DEN
                               IF( ABS( X( 1, 1 ) ).LT.UNFL .AND. ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) )RES = ZERO
                               IF( SCALE.GT.ONE ) RES = RES + ONE / EPS                               RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / MAX( SMLNUM, XNORM ) / EPS                               IF( INFO.NE.0 .AND. INFO.NE.1 ) RES = RES + ONE / EPS
                               KNT = KNT + 1
-                              IF( RES.GT.RMAX ) THEN
+                              if ( RES.GT.RMAX ) {
                                  LMAX = KNT
                                  RMAX = RES
-                              END IF
+                              }
    10                      CONTINUE
    20                   CONTINUE
    30                CONTINUE
@@ -139,33 +139,33 @@
                            B( 1, 1 ) = VAB( IB )
                            B( 1, 2 ) = -HALF*VAB( IB )
                            DO 50 IWR = 1, 4
-                              IF( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) THEN
+                              if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
-                              END IF
+                              }
                               DO 40 IWI = 1, 4
-                                 IF( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ.ONE ) THEN
+                                 if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ.ONE ) {
                                     WI = VWI( IWI )*A( 1, 1 )
                                  } else {
                                     WI = VWI( IWI )
-                                 END IF
+                                 }
                                  CALL SLALN2( LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO )
                                  IF( INFO.LT.0 ) NINFO( 1 ) = NINFO( 1 ) + 1                                  IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1                                  RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( WI*D1 )*X( 1, 2 )- SCALE*B( 1, 1 ) )                                  RES = RES + ABS( ( -WI*D1 )*X( 1, 1 )+ ( CA*A( 1, 1 )-WR*D1 )*X( 1, 2 )- SCALE*B( 1, 2 ) )
-                                 IF( INFO.EQ.0 ) THEN
+                                 if ( INFO.EQ.0 ) {
                                     DEN = MAX( EPS*( MAX( ABS( CA*A( 1, 1 )-WR*D1 ), ABS( D1*WI ) )* ( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ) ) ), SMLNUM )
                                  } else {
                                     DEN = MAX( SMIN*( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ) ), SMLNUM )
-                                 END IF
+                                 }
                                  RES = RES / DEN
                                  IF( ABS( X( 1, 1 ) ).LT.UNFL .AND. ABS( X( 1, 2 ) ).LT.UNFL .AND. ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) ) RES = ZERO
                                  IF( SCALE.GT.ONE ) RES = RES + ONE / EPS                                  RES = RES + ABS( XNORM- ABS( X( 1, 1 ) )- ABS( X( 1, 2 ) ) ) / MAX( SMLNUM, XNORM ) / EPS
                                  IF( INFO.NE.0 .AND. INFO.NE.1 ) RES = RES + ONE / EPS
                                  KNT = KNT + 1
-                                 IF( RES.GT.RMAX ) THEN
+                                 if ( RES.GT.RMAX ) {
                                     LMAX = KNT
                                     RMAX = RES
-                                 END IF
+                                 }
    40                         CONTINUE
    50                      CONTINUE
    60                   CONTINUE
@@ -182,34 +182,34 @@
                            B( 1, 1 ) = VAB( IB )
                            B( 2, 1 ) = -TWO*VAB( IB )
                            DO 80 IWR = 1, 4
-                              IF( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) THEN
+                              if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
-                              END IF
+                              }
                               WI = ZERO
                               CALL SLALN2( LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO )
                               IF( INFO.LT.0 ) NINFO( 1 ) = NINFO( 1 ) + 1                               IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1
-                              IF( ITRANS.EQ.1 ) THEN
+                              if ( ITRANS.EQ.1 ) {
                                  TMP = A( 1, 2 )
                                  A( 1, 2 ) = A( 2, 1 )
                                  A( 2, 1 ) = TMP
-                              END IF
+                              }
                               RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( CA*A( 1, 2 ) )* X( 2, 1 )-SCALE*B( 1, 1 ) )                               RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 1 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 1 )-SCALE*B( 2, 1 ) )
-                              IF( INFO.EQ.0 ) THEN
+                              if ( INFO.EQ.0 ) {
                                  DEN = MAX( EPS*( MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) )*MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ), SMLNUM )
                               } else {
                                  DEN = MAX( EPS*( MAX( SMIN / EPS, MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) )*MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ), SMLNUM )
-                              END IF
+                              }
                               RES = RES / DEN
                               IF( ABS( X( 1, 1 ) ).LT.UNFL .AND. ABS( X( 2, 1 ) ).LT.UNFL .AND. ABS( B( 1, 1 ) )+ABS( B( 2, 1 ) ).LE. SMLNUM*( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) ) RES = ZERO
                               IF( SCALE.GT.ONE ) RES = RES + ONE / EPS                               RES = RES + ABS( XNORM- MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ) / MAX( SMLNUM, XNORM ) / EPS
                               IF( INFO.NE.0 .AND. INFO.NE.1 ) RES = RES + ONE / EPS
                               KNT = KNT + 1
-                              IF( RES.GT.RMAX ) THEN
+                              if ( RES.GT.RMAX ) {
                                  LMAX = KNT
                                  RMAX = RES
-                              END IF
+                              }
    80                      CONTINUE
    90                   CONTINUE
   100                CONTINUE
@@ -227,40 +227,40 @@
                            B( 1, 2 ) = FOUR*VAB( IB )
                            B( 2, 2 ) = -SEVEN*VAB( IB )
                            DO 120 IWR = 1, 4
-                              IF( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) THEN
+                              if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
-                              END IF
+                              }
                               DO 110 IWI = 1, 4
-                                 IF( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ.ONE ) THEN
+                                 if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ.ONE ) {
                                     WI = VWI( IWI )*A( 1, 1 )
                                  } else {
                                     WI = VWI( IWI )
-                                 END IF
+                                 }
                                  CALL SLALN2( LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO )
                                  IF( INFO.LT.0 ) NINFO( 1 ) = NINFO( 1 ) + 1                                  IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1
-                                 IF( ITRANS.EQ.1 ) THEN
+                                 if ( ITRANS.EQ.1 ) {
                                     TMP = A( 1, 2 )
                                     A( 1, 2 ) = A( 2, 1 )
                                     A( 2, 1 ) = TMP
-                                 END IF
+                                 }
                                  RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( CA*A( 1, 2 ) )* X( 2, 1 )+( WI*D1 )*X( 1, 2 )- SCALE*B( 1, 1 ) )                                  RES = RES + ABS( ( CA*A( 1, 1 )-WR*D1 )*X( 1, 2 )+ ( CA*A( 1, 2 ) )*X( 2, 2 )- ( WI*D1 )*X( 1, 1 )-SCALE* B( 1, 2 ) )
                                  RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 1 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 1 )+( WI*D2 )*X( 2, 2 )- SCALE*B( 2, 1 ) )                                  RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 2 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 2 )-( WI*D2 )*X( 2, 1 )- SCALE*B( 2, 2 ) )
-                                 IF( INFO.EQ.0 ) THEN
+                                 if ( INFO.EQ.0 ) {
                                     DEN = MAX( EPS*( MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( WI*D1 ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 ) )* MAX( ABS( X( 1, 1 ) )+ABS( X( 2, 1 ) ), ABS( X( 1, 2 ) )+ABS( X( 2, 2 ) ) ) ), SMLNUM )
                                  } else {
                                     DEN = MAX( EPS*( MAX( SMIN / EPS, MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( WI*D1 ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 ) ) )* MAX( ABS( X( 1, 1 ) )+ABS( X( 2, 1 ) ), ABS( X( 1, 2 ) )+ABS( X( 2, 2 ) ) ) ), SMLNUM )
-                                 END IF
+                                 }
                                  RES = RES / DEN
                                  IF( ABS( X( 1, 1 ) ).LT.UNFL .AND. ABS( X( 2, 1 ) ).LT.UNFL .AND. ABS( X( 1, 2 ) ).LT.UNFL .AND. ABS( X( 2, 2 ) ).LT.UNFL .AND. ABS( B( 1, 1 ) )+ ABS( B( 2, 1 ) ).LE.SMLNUM* ( ABS( CA*A( 1, 1 )-WR*D1 )+ ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 )+ABS( WI* D1 ) ) )RES = ZERO
                                  IF( SCALE.GT.ONE ) RES = RES + ONE / EPS                                  RES = RES + ABS( XNORM- MAX( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ), ABS( X( 2, 1 ) )+ABS( X( 2, 2 ) ) ) ) / MAX( SMLNUM, XNORM ) / EPS
                                  IF( INFO.NE.0 .AND. INFO.NE.1 ) RES = RES + ONE / EPS
                                  KNT = KNT + 1
-                                 IF( RES.GT.RMAX ) THEN
+                                 if ( RES.GT.RMAX ) {
                                     LMAX = KNT
                                     RMAX = RES
-                                 END IF
+                                 }
   110                         CONTINUE
   120                      CONTINUE
   130                   CONTINUE

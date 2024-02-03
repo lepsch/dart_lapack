@@ -39,17 +39,17 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLAUUM', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -59,7 +59,7 @@
 
       NB = ILAENV( 1, 'SLAUUM', UPLO, N, -1, -1, -1 )
 
-      IF( NB.LE.1 .OR. NB.GE.N ) THEN
+      if ( NB.LE.1 .OR. NB.GE.N ) {
 
          // Use unblocked code
 
@@ -68,7 +68,7 @@
 
          // Use blocked code
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
 
             // Compute the product U * U**T.
 
@@ -76,9 +76,9 @@
                IB = MIN( NB, N-I+1 )
                CALL STRMM( 'Right', 'Upper', 'Transpose', 'Non-unit', I-1, IB, ONE, A( I, I ), LDA, A( 1, I ), LDA )
                CALL SLAUU2( 'Upper', IB, A( I, I ), LDA, INFO )
-               IF( I+IB.LE.N ) THEN
+               if ( I+IB.LE.N ) {
                   CALL SGEMM( 'No transpose', 'Transpose', I-1, IB, N-I-IB+1, ONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, ONE, A( 1, I ), LDA )                   CALL SSYRK( 'Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA )
-               END IF
+               }
    10       CONTINUE
          } else {
 
@@ -88,13 +88,13 @@
                IB = MIN( NB, N-I+1 )
                CALL STRMM( 'Left', 'Lower', 'Transpose', 'Non-unit', IB, I-1, ONE, A( I, I ), LDA, A( I, 1 ), LDA )
                CALL SLAUU2( 'Lower', IB, A( I, I ), LDA, INFO )
-               IF( I+IB.LE.N ) THEN
+               if ( I+IB.LE.N ) {
                   CALL SGEMM( 'Transpose', 'No transpose', IB, I-1, N-I-IB+1, ONE, A( I+IB, I ), LDA, A( I+IB, 1 ), LDA, ONE, A( I, 1 ), LDA )
                   CALL SSYRK( 'Lower', 'Transpose', IB, N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE, A( I, I ), LDA )
-               END IF
+               }
    20       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

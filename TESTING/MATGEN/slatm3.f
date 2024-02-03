@@ -42,63 +42,63 @@
 
       // Check for I and J in range
 
-      IF( I.LT.1 .OR. I.GT.M .OR. J.LT.1 .OR. J.GT.N ) THEN
+      if ( I.LT.1 .OR. I.GT.M .OR. J.LT.1 .OR. J.GT.N ) {
          ISUB = I
          JSUB = J
          SLATM3 = ZERO
          RETURN
-      END IF
+      }
 
       // Compute subscripts depending on IPVTNG
 
-      IF( IPVTNG.EQ.0 ) THEN
+      if ( IPVTNG.EQ.0 ) {
          ISUB = I
          JSUB = J
-      ELSE IF( IPVTNG.EQ.1 ) THEN
+      } else if ( IPVTNG.EQ.1 ) {
          ISUB = IWORK( I )
          JSUB = J
-      ELSE IF( IPVTNG.EQ.2 ) THEN
+      } else if ( IPVTNG.EQ.2 ) {
          ISUB = I
          JSUB = IWORK( J )
-      ELSE IF( IPVTNG.EQ.3 ) THEN
+      } else if ( IPVTNG.EQ.3 ) {
          ISUB = IWORK( I )
          JSUB = IWORK( J )
-      END IF
+      }
 
       // Check for banding
 
-      IF( JSUB.GT.ISUB+KU .OR. JSUB.LT.ISUB-KL ) THEN
+      if ( JSUB.GT.ISUB+KU .OR. JSUB.LT.ISUB-KL ) {
          SLATM3 = ZERO
          RETURN
-      END IF
+      }
 
       // Check for sparsity
 
-      IF( SPARSE.GT.ZERO ) THEN
-         IF( SLARAN( ISEED ).LT.SPARSE ) THEN
+      if ( SPARSE.GT.ZERO ) {
+         if ( SLARAN( ISEED ).LT.SPARSE ) {
             SLATM3 = ZERO
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Compute entry and grade it according to IGRADE
 
-      IF( I.EQ.J ) THEN
+      if ( I.EQ.J ) {
          TEMP = D( I )
       } else {
          TEMP = SLARND( IDIST, ISEED )
-      END IF
-      IF( IGRADE.EQ.1 ) THEN
+      }
+      if ( IGRADE.EQ.1 ) {
          TEMP = TEMP*DL( I )
-      ELSE IF( IGRADE.EQ.2 ) THEN
+      } else if ( IGRADE.EQ.2 ) {
          TEMP = TEMP*DR( J )
-      ELSE IF( IGRADE.EQ.3 ) THEN
+      } else if ( IGRADE.EQ.3 ) {
          TEMP = TEMP*DL( I )*DR( J )
-      ELSE IF( IGRADE.EQ.4 .AND. I.NE.J ) THEN
+      } else if ( IGRADE.EQ.4 .AND. I.NE.J ) {
          TEMP = TEMP*DL( I ) / DL( J )
-      ELSE IF( IGRADE.EQ.5 ) THEN
+      } else if ( IGRADE.EQ.5 ) {
          TEMP = TEMP*DL( I )*DL( J )
-      END IF
+      }
       SLATM3 = TEMP
       RETURN
 

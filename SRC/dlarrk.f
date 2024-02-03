@@ -33,10 +33,10 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          INFO = 0
          RETURN
-      END IF
+      }
 
       // Get machine constants
       EPS = DLAMCH( 'P' )
@@ -58,7 +58,7 @@
 
       TMP1 = ABS( RIGHT - LEFT )
       TMP2 = MAX( ABS(RIGHT), ABS(LEFT) )
-      IF( TMP1.LT.MAX( ATOLI, PIVMIN, RTOLI*TMP2 ) ) THEN
+      if ( TMP1.LT.MAX( ATOLI, PIVMIN, RTOLI*TMP2 ) ) {
          INFO = 0
          GOTO 30
       ENDIF
@@ -78,7 +78,7 @@
          IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN          IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
  20   CONTINUE
 
-      IF(NEGCNT.GE.IW) THEN
+      if (NEGCNT.GE.IW) {
          RIGHT = MID
       } else {
          LEFT = MID

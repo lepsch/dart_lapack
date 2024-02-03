@@ -80,22 +80,22 @@
                                  DO 20 I = 1, M
                                     DO 10 J = 1, M
                                        A( I, J ) = IVAL( I, J, IMA )
-                                       IF( ABS( I-J ).LE.1 ) THEN
+                                       if ( ABS( I-J ).LE.1 ) {
                                           A( I, J ) = A( I, J )* VM1( IMLDA1 )                                           A( I, J ) = A( I, J )* VM2( IMLDA2 )
                                        } else {
                                           A( I, J ) = A( I, J )* VM1( IMLOFF )
-                                       END IF
+                                       }
                                        TNRM = MAX( TNRM, ABS( A( I, J ) ) )
    10                               CONTINUE
    20                            CONTINUE
                                  DO 40 I = 1, N
                                     DO 30 J = 1, N
                                        B( I, J ) = IVAL( I, J, IMB )
-                                       IF( ABS( I-J ).LE.1 ) THEN
+                                       if ( ABS( I-J ).LE.1 ) {
                                           B( I, J ) = B( I, J )* VM1( IMLDB1 )
                                        } else {
                                           B( I, J ) = B( I, J )* VM1( IMLOFF )
-                                       END IF
+                                       }
                                        TNRM = MAX( TNRM, ABS( B( I, J ) ) )
    30                               CONTINUE
    40                            CONTINUE
@@ -112,18 +112,18 @@
                                  IF( INFO.NE.0 ) NINFO = NINFO + 1
                                  XNRM = DLANGE( 'M', M, N, C, 6, DUM )
                                  RMUL = ONE
-                                 IF( XNRM.GT.ONE .AND. TNRM.GT.ONE ) THEN
-                                    IF( XNRM.GT.BIGNUM / TNRM ) THEN
+                                 if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {
+                                    if ( XNRM.GT.BIGNUM / TNRM ) {
                                        RMUL = ONE / MAX( XNRM, TNRM )
-                                    END IF
-                                 END IF
+                                    }
+                                 }
                                  CALL DGEMM( TRANA, 'N', M, N, M, RMUL, A, 6, C, 6, -SCALE*RMUL, CC, 6 )                                  CALL DGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, 6, B, 6, ONE, CC, 6 )
                                  RES1 = DLANGE( 'M', M, N, CC, 6, DUM )
                                  RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )
-                                 IF( RES.GT.RMAX ) THEN
+                                 if ( RES.GT.RMAX ) {
                                     LMAX = KNT
                                     RMAX = RES
-                                 END IF
+                                 }
    70                         CONTINUE
    80                      CONTINUE
    90                   CONTINUE

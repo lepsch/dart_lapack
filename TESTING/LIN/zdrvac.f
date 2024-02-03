@@ -110,27 +110,27 @@
 
                // Check error code from ZLATMS.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 100
-               END IF
+               }
 
                // For types 3-5, zero one row and column of the matrix to
               t // est that INFO is returned correctly.
 
-               IF( ZEROT ) THEN
-                  IF( IMAT.EQ.3 ) THEN
+               if ( ZEROT ) {
+                  if ( IMAT.EQ.3 ) {
                      IZERO = 1
-                  ELSE IF( IMAT.EQ.4 ) THEN
+                  } else if ( IMAT.EQ.4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
-                  END IF
+                  }
                   IOFF = ( IZERO-1 )*LDA
 
                   // Set row and column IZERO of A to 0.
 
-                  IF( IUPLO.EQ.1 ) THEN
+                  if ( IUPLO.EQ.1 ) {
                      DO 20 I = 1, IZERO - 1
                         A( IOFF+I ) = ZERO
    20                CONTINUE
@@ -149,10 +149,10 @@
                      DO 50 I = IZERO, N
                         A( IOFF+I ) = ZERO
    50                CONTINUE
-                  END IF
+                  }
                } else {
                   IZERO = 0
-               END IF
+               }
 
                // Set the imaginary part of the diagonals.
 
@@ -177,23 +177,23 @@
 
                   CALL ZCPOSV( UPLO, N, NRHS, AFAC, LDA, B, LDA, X, LDA, WORK, SWORK, RWORK, ITER, INFO )
 
-                  IF (ITER.LT.0) THEN
+                  if (ITER.LT.0) {
                      CALL ZLACPY( 'All', N, N, A, LDA, AFAC, LDA )
                   ENDIF
 
                   // Check error code from ZCPOSV .
 
-                  IF( INFO.NE.IZERO ) THEN
+                  if ( INFO.NE.IZERO ) {
 
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
                      NERRS = NERRS + 1
 
-                     IF( INFO.NE.IZERO .AND. IZERO.NE.0 ) THEN
+                     if ( INFO.NE.IZERO .AND. IZERO.NE.0 ) {
                         WRITE( NOUT, FMT = 9988 )'ZCPOSV',INFO,IZERO,N, IMAT
                      } else {
                         WRITE( NOUT, FMT = 9975 )'ZCPOSV',INFO,N,IMAT
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Skip the remaining test if the matrix is singular.
 
@@ -217,22 +217,22 @@
                   // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS) < THRES
                   // (Cf. the linear solver testing routines)
 
-                  IF ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) THEN
+                  if ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) {
 
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) THEN
+                     if ( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) {
                         WRITE( NOUT, FMT = 8999 )'ZPO'
                         WRITE( NOUT, FMT = '( '' Matrix types:'' )' )
                         WRITE( NOUT, FMT = 8979 )
                         WRITE( NOUT, FMT = '( '' Test ratios:'' )' )
                         WRITE( NOUT, FMT = 8960 )1
                         WRITE( NOUT, FMT = '( '' Messages:'' )' )
-                     END IF
+                     }
 
                      WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, 1, RESULT( 1 )
 
                      NFAIL = NFAIL + 1
 
-                  END IF
+                  }
 
                   NRUN = NRUN + 1
 
@@ -243,14 +243,14 @@
 
       // Print a summary of the results.
 
-      IF( NFAIL.GT.0 ) THEN
+      if ( NFAIL.GT.0 ) {
          WRITE( NOUT, FMT = 9996 )'ZCPOSV', NFAIL, NRUN
       } else {
          WRITE( NOUT, FMT = 9995 )'ZCPOSV', NRUN
-      END IF
-      IF( NERRS.GT.0 ) THEN
+      }
+      if ( NERRS.GT.0 ) {
          WRITE( NOUT, FMT = 9994 )NERRS
-      END IF
+      }
 
  9998 FORMAT( ' UPLO=''', A1, ''', N =', I5, ', NRHS=', I3, ', type ',
      $      I2, ', test(', I2, ') =', G12.5 )

@@ -80,7 +80,7 @@
 
       // Test error exits for the GG path.
 
-      IF( LSAMEN( 2, C2, 'GG' ) ) THEN
+      if ( LSAMEN( 2, C2, 'GG' ) ) {
 
          // DGGHRD
 
@@ -212,7 +212,7 @@
 
       // Test error exits for the GSV path.
 
-      ELSE IF( LSAMEN( 3, PATH, 'GSV' ) ) THEN
+      } else if ( LSAMEN( 3, PATH, 'GSV' ) ) {
 
          // DGGSVD3
 
@@ -330,7 +330,7 @@
 
       // Test error exits for the GLM path.
 
-      ELSE IF( LSAMEN( 3, PATH, 'GLM' ) ) THEN
+      } else if ( LSAMEN( 3, PATH, 'GLM' ) ) {
 
          // DGGGLM
 
@@ -363,7 +363,7 @@
 
       // Test error exits for the LSE path.
 
-      ELSE IF( LSAMEN( 3, PATH, 'LSE' ) ) THEN
+      } else if ( LSAMEN( 3, PATH, 'LSE' ) ) {
 
          // DGGLSE
 
@@ -396,7 +396,7 @@
 
       // Test error exits for the CSD path.
 
-      ELSE IF( LSAMEN( 3, PATH, 'CSD' ) ) THEN
+      } else if ( LSAMEN( 3, PATH, 'CSD' ) ) {
 
          // DORCSD
 
@@ -429,7 +429,7 @@
 
       // Test error exits for the GQR path.
 
-      ELSE IF( LSAMEN( 3, PATH, 'GQR' ) ) THEN
+      } else if ( LSAMEN( 3, PATH, 'GQR' ) ) {
 
          // DGGQRF
 
@@ -479,7 +479,7 @@
 
       // Test error exits for the DGS, DGV, DGX, and DXV paths.
 
-      ELSE IF( LSAMEN( 3, PATH, 'DGS' ) .OR. LSAMEN( 3, PATH, 'DGV' ) .OR. LSAMEN( 3, PATH, 'DGX' ) .OR. LSAMEN( 3, PATH, 'DXV' ) ) THEN
+      } else if ( LSAMEN( 3, PATH, 'DGS' ) .OR. LSAMEN( 3, PATH, 'DGV' ) .OR. LSAMEN( 3, PATH, 'DGX' ) .OR. LSAMEN( 3, PATH, 'DXV' ) ) {
 
          // DGGES
 
@@ -859,15 +859,15 @@
          CALL DTGSYL( 'N', 2, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          NT = NT + 12
-      END IF
+      }
 
       // Print a summary line.
 
-      IF( OK ) THEN
+      if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH, NT
       } else {
          WRITE( NOUT, FMT = 9998 )PATH
-      END IF
+      }
 
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits (',
      $      I3, ' tests done)' )

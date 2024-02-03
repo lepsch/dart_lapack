@@ -65,13 +65,13 @@
       DO J = 1, N
          CALL DLARNV( 2, ISEED, M, A( 1, J ) )
       END DO
-      IF( TESTZEROS ) THEN
-         IF( M.GE.4 ) THEN
+      if ( TESTZEROS ) {
+         if ( M.GE.4 ) {
             DO J = 1, N
                CALL DLARNV( 2, ISEED, M/2, A( M/4, J ) )
             END DO
-         END IF
-      END IF
+         }
+      }
       CALL DLACPY( 'Full', M, N, A, M, AF, M )
 
       // Number of row blocks in DLATSQR
@@ -142,9 +142,9 @@
       CALL DLACPY( 'U', N, N, R, M, AF, M )
 
       DO I = 1, N
-         IF( DIAG( I ).EQ.-ONE ) THEN
+         if ( DIAG( I ).EQ.-ONE ) {
             CALL DSCAL( N+1-I, -ONE, AF( I, I ), M )
-         END IF
+         }
       END DO
 
       // End Householder reconstruction routines.
@@ -170,11 +170,11 @@
 
       ANORM = DLANGE( '1', M, N, A, M, RWORK )
       RESID = DLANGE( '1', M, N, R, M, RWORK )
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
          RESULT( 1 ) = RESID / ( EPS * MAX( 1, M ) * ANORM )
       } else {
          RESULT( 1 ) = ZERO
-      END IF
+      }
 
       // TEST 2
       // Compute |I - (Q**T)*Q| / ( eps * m ) and store in RESULT(2)
@@ -202,11 +202,11 @@
 
       CALL DGEMM( 'N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
       RESID = DLANGE( '1', M, N, CF, M, RWORK )
-      IF( CNORM.GT.ZERO ) THEN
+      if ( CNORM.GT.ZERO ) {
          RESULT( 3 ) = RESID / ( EPS * MAX( 1, M ) * CNORM )
       } else {
          RESULT( 3 ) = ZERO
-      END IF
+      }
 
       // Copy C into CF again
 
@@ -222,11 +222,11 @@
 
       CALL DGEMM( 'T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
       RESID = DLANGE( '1', M, N, CF, M, RWORK )
-      IF( CNORM.GT.ZERO ) THEN
+      if ( CNORM.GT.ZERO ) {
          RESULT( 4 ) = RESID / ( EPS * MAX( 1, M ) * CNORM )
       } else {
          RESULT( 4 ) = ZERO
-      END IF
+      }
 
       // Generate random n-by-m matrix D and a copy DF
 
@@ -246,11 +246,11 @@
 
       CALL DGEMM( 'N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
       RESID = DLANGE( '1', N, M, DF, N, RWORK )
-      IF( DNORM.GT.ZERO ) THEN
+      if ( DNORM.GT.ZERO ) {
          RESULT( 5 ) = RESID / ( EPS * MAX( 1, M ) * DNORM )
       } else {
          RESULT( 5 ) = ZERO
-      END IF
+      }
 
       // Copy D into DF again
 
@@ -266,11 +266,11 @@
 
       CALL DGEMM( 'N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
       RESID = DLANGE( '1', N, M, DF, N, RWORK )
-      IF( DNORM.GT.ZERO ) THEN
+      if ( DNORM.GT.ZERO ) {
          RESULT( 6 ) = RESID / ( EPS * MAX( 1, M ) * DNORM )
       } else {
          RESULT( 6 ) = ZERO
-      END IF
+      }
 
       // Deallocate all arrays
 

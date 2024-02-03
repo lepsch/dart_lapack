@@ -40,15 +40,15 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CPPTRI', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -58,7 +58,7 @@
 
       CALL CTPTRI( UPLO, 'Non-unit', N, AP, INFO )
       IF( INFO.GT.0 ) RETURN
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Compute the product inv(U) * inv(U)**H.
 
@@ -82,7 +82,7 @@
             IF( J.LT.N ) CALL CTPMV( 'Lower', 'Conjugate transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 )
             JJ = JJN
    20    CONTINUE
-      END IF
+      }
 
       RETURN
 

@@ -56,11 +56,11 @@
       // Copy details of Q
 
       CALL SLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
-      IF( M.LE.N ) THEN
+      if ( M.LE.N ) {
          IF( M.GT.0 .AND. M.LT.N ) CALL SLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M.GT.1 ) CALL SLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA )
       } else {
          IF( N.GT.1 ) CALL SLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA )
-      END IF
+      }
 
       // Generate the n-by-n matrix Q
 
@@ -70,11 +70,11 @@
       // Copy R
 
       CALL SLASET( 'Full', M, N, ZERO, ZERO, R, LDA )
-      IF( M.LE.N ) THEN
+      if ( M.LE.N ) {
          IF( M.GT.0 ) CALL SLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA )
       } else {
          IF( M.GT.N .AND. N.GT.0 ) CALL SLACPY( 'Full', M-N, N, AF, LDA, R, LDA )          IF( N.GT.0 ) CALL SLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA )
-      END IF
+      }
 
       // Compute R - A*Q'
 
@@ -84,11 +84,11 @@
 
       ANORM = SLANGE( '1', M, N, A, LDA, RWORK )
       RESID = SLANGE( '1', M, N, R, LDA, RWORK )
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
          RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, N ) ) ) / ANORM ) / EPS
       } else {
          RESULT( 1 ) = ZERO
-      END IF
+      }
 
       // Compute I - Q*Q'
 

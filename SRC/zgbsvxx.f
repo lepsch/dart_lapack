@@ -51,14 +51,14 @@
       NOTRAN = LSAME( TRANS, 'N' )
       SMLNUM = DLAMCH( 'Safe minimum' )
       BIGNUM = ONE / SMLNUM
-      IF( NOFACT .OR. EQUIL ) THEN
+      if ( NOFACT .OR. EQUIL ) {
          EQUED = 'N'
          ROWEQU = .FALSE.
          COLEQU = .FALSE.
       } else {
          ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
          COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
-      END IF
+      }
 
       // Default is failure.  If an input parameter is wrong or
       // factorization fails, make everything look horrible.  Only the
@@ -68,106 +68,106 @@
 
       // Test the input parameters.  PARAMS is not tested until ZGERFSX.
 
-      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) THEN
+      if ( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( KL.LT.0 ) THEN
+      } else if ( KL.LT.0 ) {
          INFO = -4
-      ELSE IF( KU.LT.0 ) THEN
+      } else if ( KU.LT.0 ) {
          INFO = -5
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -6
-      ELSE IF( LDAB.LT.KL+KU+1 ) THEN
+      } else if ( LDAB.LT.KL+KU+1 ) {
          INFO = -8
-      ELSE IF( LDAFB.LT.2*KL+KU+1 ) THEN
+      } else if ( LDAFB.LT.2*KL+KU+1 ) {
          INFO = -10
-      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
+      } else if ( LSAME( FACT, 'F' ) .AND. .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) {
          INFO = -12
       } else {
-         IF( ROWEQU ) THEN
+         if ( ROWEQU ) {
             RCMIN = BIGNUM
             RCMAX = ZERO
             DO 10 J = 1, N
                RCMIN = MIN( RCMIN, R( J ) )
                RCMAX = MAX( RCMAX, R( J ) )
  10         CONTINUE
-            IF( RCMIN.LE.ZERO ) THEN
+            if ( RCMIN.LE.ZERO ) {
                INFO = -13
-            ELSE IF( N.GT.0 ) THEN
+            } else if ( N.GT.0 ) {
                ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
             } else {
                ROWCND = ONE
-            END IF
-         END IF
-         IF( COLEQU .AND. INFO.EQ.0 ) THEN
+            }
+         }
+         if ( COLEQU .AND. INFO.EQ.0 ) {
             RCMIN = BIGNUM
             RCMAX = ZERO
             DO 20 J = 1, N
                RCMIN = MIN( RCMIN, C( J ) )
                RCMAX = MAX( RCMAX, C( J ) )
  20         CONTINUE
-            IF( RCMIN.LE.ZERO ) THEN
+            if ( RCMIN.LE.ZERO ) {
                INFO = -14
-            ELSE IF( N.GT.0 ) THEN
+            } else if ( N.GT.0 ) {
                COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
             } else {
                COLCND = ONE
-            END IF
-         END IF
-         IF( INFO.EQ.0 ) THEN
-            IF( LDB.LT.MAX( 1, N ) ) THEN
+            }
+         }
+         if ( INFO.EQ.0 ) {
+            if ( LDB.LT.MAX( 1, N ) ) {
                INFO = -15
-            ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+            } else if ( LDX.LT.MAX( 1, N ) ) {
                INFO = -16
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGBSVXX', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( EQUIL ) THEN
+      if ( EQUIL ) {
 
       // Compute row and column scalings to equilibrate the matrix A.
 
          CALL ZGBEQUB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU )
-         IF( INFEQU.EQ.0 ) THEN
+         if ( INFEQU.EQ.0 ) {
 
       // Equilibrate the matrix.
 
             CALL ZLAQGB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
-         END IF
+         }
 
       // If the scaling factors are not applied, set them to 1.0.
 
-         IF ( .NOT.ROWEQU ) THEN
+         if ( .NOT.ROWEQU ) {
             DO J = 1, N
                R( J ) = 1.0D+0
             END DO
-         END IF
-         IF ( .NOT.COLEQU ) THEN
+         }
+         if ( .NOT.COLEQU ) {
             DO J = 1, N
                C( J ) = 1.0D+0
             END DO
-         END IF
-      END IF
+         }
+      }
 
       // Scale the right-hand side.
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
          IF( ROWEQU ) CALL ZLASCL2( N, NRHS, R, B, LDB )
       } else {
          IF( COLEQU ) CALL ZLASCL2( N, NRHS, C, B, LDB )
-      END IF
+      }
 
-      IF( NOFACT .OR. EQUIL ) THEN
+      if ( NOFACT .OR. EQUIL ) {
 
          // Compute the LU factorization of A.
 
@@ -180,7 +180,7 @@
 
          // Return if INFO is non-zero.
 
-         IF( INFO.GT.0 ) THEN
+         if ( INFO.GT.0 ) {
 
             // Pivot in column INFO is exactly 0
             // Compute the reciprocal pivot growth factor of the
@@ -188,8 +188,8 @@
 
             RPVGRW = ZLA_GBRPVGRW( N, KL, KU, INFO, AB, LDAB, AFB, LDAFB )
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Compute the reciprocal pivot growth factor RPVGRW.
 
@@ -208,11 +208,11 @@
 
       // Scale solutions.
 
-      IF ( COLEQU .AND. NOTRAN ) THEN
+      if ( COLEQU .AND. NOTRAN ) {
          CALL ZLASCL2( N, NRHS, C, X, LDX )
-      ELSE IF ( ROWEQU .AND. .NOT.NOTRAN ) THEN
+      } else if ( ROWEQU .AND. .NOT.NOTRAN ) {
          CALL ZLASCL2( N, NRHS, R, X, LDX )
-      END IF
+      }
 
       RETURN
 

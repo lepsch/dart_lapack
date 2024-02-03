@@ -42,10 +42,10 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Determine EPS and the norm of A.
 
@@ -56,23 +56,23 @@
       // an error code if any are nonzero.
 
       JC = 1
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 10 J = 1, N
-            IF( DIMAG( AFAC( JC ) ).NE.ZERO ) THEN
+            if ( DIMAG( AFAC( JC ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
-            END IF
+            }
             JC = JC + J + 1
    10    CONTINUE
       } else {
          DO 20 J = 1, N
-            IF( DIMAG( AFAC( JC ) ).NE.ZERO ) THEN
+            if ( DIMAG( AFAC( JC ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
-            END IF
+            }
             JC = JC + N - J + 1
    20    CONTINUE
-      END IF
+      }
 
       // Initialize C to the identity matrix.
 
@@ -88,7 +88,7 @@
 
       // Compute the difference  C - A .
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          JC = 0
          DO 40 J = 1, N
             DO 30 I = 1, J - 1
@@ -106,17 +106,17 @@
    50       CONTINUE
             JC = JC + N - J + 1
    60    CONTINUE
-      END IF
+      }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )
 
       RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK )
 
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
-      END IF
+      }
 
       RETURN
 

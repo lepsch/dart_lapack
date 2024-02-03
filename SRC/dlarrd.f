@@ -50,40 +50,40 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RETURN
-      END IF
+      }
 
       // Decode RANGE
 
-      IF( LSAME( RANGE, 'A' ) ) THEN
+      if ( LSAME( RANGE, 'A' ) ) {
          IRANGE = ALLRNG
-      ELSE IF( LSAME( RANGE, 'V' ) ) THEN
+      } else if ( LSAME( RANGE, 'V' ) ) {
          IRANGE = VALRNG
-      ELSE IF( LSAME( RANGE, 'I' ) ) THEN
+      } else if ( LSAME( RANGE, 'I' ) ) {
          IRANGE = INDRNG
       } else {
          IRANGE = 0
-      END IF
+      }
 
       // Check for Errors
 
-      IF( IRANGE.LE.0 ) THEN
+      if ( IRANGE.LE.0 ) {
          INFO = -1
-      ELSE IF( .NOT.(LSAME(ORDER,'B').OR.LSAME(ORDER,'E')) ) THEN
+      } else if ( .NOT.(LSAME(ORDER,'B').OR.LSAME(ORDER,'E')) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( IRANGE.EQ.VALRNG ) THEN
-         IF( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE.EQ.INDRNG .AND. ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) THEN
+      } else if ( IRANGE.EQ.VALRNG ) {
+         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE.EQ.INDRNG .AND. ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) {
          INFO = -6
-      ELSE IF( IRANGE.EQ.INDRNG .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) THEN
+      } else if ( IRANGE.EQ.INDRNG .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) {
          INFO = -7
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          RETURN
-      END IF
+      }
 
       // Initialize error flags
       NCNVRG = .FALSE.
@@ -99,8 +99,8 @@
 
       // Special Case when N=1
       // Treat case of 1x1 matrix for quick return
-      IF( N.EQ.1 ) THEN
-         IF( (IRANGE.EQ.ALLRNG).OR. ((IRANGE.EQ.VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE.EQ.INDRNG).AND.(IL.EQ.1).AND.(IU.EQ.1)) ) THEN
+      if ( N.EQ.1 ) {
+         if ( (IRANGE.EQ.ALLRNG).OR. ((IRANGE.EQ.VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE.EQ.INDRNG).AND.(IL.EQ.1).AND.(IU.EQ.1)) ) {
             M = 1
             W(1) = D(1)
             // The computation error of the eigenvalue is zero
@@ -109,7 +109,7 @@
             INDEXW( 1 ) = 1
          ENDIF
          RETURN
-      END IF
+      }
 
       // NB is the minimum vector length for vector bisection, or 0
       // if only scalar is to be done.
@@ -141,7 +141,7 @@
       // eigenvalues.
       ATOLI = FUDGE*TWO*UFLOW + FUDGE*TWO*PIVMIN
 
-      IF( IRANGE.EQ.INDRNG ) THEN
+      if ( IRANGE.EQ.INDRNG ) {
 
          // RANGE='I': Compute an interval containing eigenvalues
          // IL through IU. The initial interval [GL,GU] from the global
@@ -161,12 +161,12 @@
          IWORK( 6 ) = IU
 
          CALL DLAEBZ( 3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, E2, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO )
-         IF( IINFO .NE. 0 ) THEN
+         if ( IINFO .NE. 0 ) {
             INFO = IINFO
             RETURN
-         END IF
+         }
          // On exit, output intervals may not be ordered by ascending negcount
-         IF( IWORK( 6 ).EQ.IU ) THEN
+         if ( IWORK( 6 ).EQ.IU ) {
             WL = WORK( N+1 )
             WLU = WORK( N+3 )
             NWL = IWORK( 1 )
@@ -180,13 +180,13 @@
             WU = WORK( N+3 )
             WUL = WORK( N+1 )
             NWU = IWORK( 3 )
-         END IF
+         }
          // On exit, the interval [WL, WLU] contains a value with negcount NWL,
          // and [WUL, WU] contains a value with negcount NWU.
-         IF( NWL.LT.0 .OR. NWL.GE.N .OR. NWU.LT.1 .OR. NWU.GT.N ) THEN
+         if ( NWL.LT.0 .OR. NWL.GE.N .OR. NWU.LT.1 .OR. NWU.GT.N ) {
             INFO = 4
             RETURN
-         END IF
+         }
 
       ELSEIF( IRANGE.EQ.VALRNG ) THEN
          WL = VL
@@ -214,9 +214,9 @@
          IEND = ISPLIT( JBLK )
          IN = IEND - IOFF
 
-         IF( IN.EQ.1 ) THEN
+         if ( IN.EQ.1 ) {
             // 1x1 block
-            IF( WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE.EQ.ALLRNG .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) THEN
+            if ( WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE.EQ.ALLRNG .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
@@ -224,7 +224,7 @@
                // algorithm and is assigned an arbitrary large value
                IBLOCK( M ) = JBLK
                INDEXW( M ) = 1
-            END IF
+            }
 
          // Disabled 2x2 case because of a failure on the following matrix
          // RANGE = 'I', IL = IU = 4
@@ -293,27 +293,27 @@
             GL = GL - FUDGE*TNORM*EPS*IN - FUDGE*PIVMIN
             GU = GU + FUDGE*TNORM*EPS*IN + FUDGE*PIVMIN
 
-            IF( IRANGE.GT.1 ) THEN
-               IF( GU.LT.WL ) THEN
+            if ( IRANGE.GT.1 ) {
+               if ( GU.LT.WL ) {
                  t // he local block contains none of the wanted eigenvalues
                   NWL = NWL + IN
                   NWU = NWU + IN
                   GO TO 70
-               END IF
+               }
                // refine search interval if possible, only range (WL,WU] matters
                GL = MAX( GL, WL )
                GU = MIN( GU, WU )
                IF( GL.GE.GU ) GO TO 70
-            END IF
+            }
 
             // Find negcount of initial interval boundaries GL and GU
             WORK( N+1 ) = GL
             WORK( N+IN+1 ) = GU
             CALL DLAEBZ( 1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
-            IF( IINFO .NE. 0 ) THEN
+            if ( IINFO .NE. 0 ) {
                INFO = IINFO
                RETURN
-            END IF
+            }
 
             NWL = NWL + IWORK( 1 )
             NWU = NWU + IWORK( IN+1 )
@@ -321,10 +321,10 @@
 
             // Compute Eigenvalues
             ITMAX = INT( ( LOG( GU-GL+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2             CALL DLAEBZ( 2, ITMAX, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IOUT, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
-            IF( IINFO .NE. 0 ) THEN
+            if ( IINFO .NE. 0 ) {
                INFO = IINFO
                RETURN
-            END IF
+            }
 
             // Copy eigenvalues into W and IBLOCK
             // Use -JBLK for block number for unconverged eigenvalues.
@@ -334,13 +334,13 @@
                TMP1 = HALF*( WORK( J+N )+WORK( J+IN+N ) )
                // semi length of error interval
                TMP2 = HALF*ABS( WORK( J+N )-WORK( J+IN+N ) )
-               IF( J.GT.IOUT-IINFO ) THEN
+               if ( J.GT.IOUT-IINFO ) {
                   // Flag non-convergence.
                   NCNVRG = .TRUE.
                   IB = -JBLK
                } else {
                   IB = JBLK
-               END IF
+               }
                DO 50 JE = IWORK( J ) + 1 + IWOFF, IWORK( J+IN ) + IWOFF
                   W( JE ) = TMP1
                   WERR( JE ) = TMP2
@@ -350,21 +350,21 @@
    60       CONTINUE
 
             M = M + IM
-         END IF
+         }
    70 CONTINUE
 
       // If RANGE='I', then (WL,WU) contains eigenvalues NWL+1,...,NWU
       // If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
-      IF( IRANGE.EQ.INDRNG ) THEN
+      if ( IRANGE.EQ.INDRNG ) {
          IDISCL = IL - 1 - NWL
          IDISCU = NWU - IU
 
-         IF( IDISCL.GT.0 ) THEN
+         if ( IDISCL.GT.0 ) {
             IM = 0
             DO 80 JE = 1, M
                // Remove some of the smallest eigenvalues from the left so that
                // at the end IDISCL =0. Move all eigenvalues up to the left.
-               IF( W( JE ).LE.WLU .AND. IDISCL.GT.0 ) THEN
+               if ( W( JE ).LE.WLU .AND. IDISCL.GT.0 ) {
                   IDISCL = IDISCL - 1
                } else {
                   IM = IM + 1
@@ -372,16 +372,16 @@
                   WERR( IM ) = WERR( JE )
                   INDEXW( IM ) = INDEXW( JE )
                   IBLOCK( IM ) = IBLOCK( JE )
-               END IF
+               }
  80         CONTINUE
             M = IM
-         END IF
-         IF( IDISCU.GT.0 ) THEN
+         }
+         if ( IDISCU.GT.0 ) {
             // Remove some of the largest eigenvalues from the right so that
             // at the end IDISCU =0. Move all eigenvalues up to the left.
             IM=M+1
             DO 81 JE = M, 1, -1
-               IF( W( JE ).GE.WUL .AND. IDISCU.GT.0 ) THEN
+               if ( W( JE ).GE.WUL .AND. IDISCU.GT.0 ) {
                   IDISCU = IDISCU - 1
                } else {
                   IM = IM - 1
@@ -389,7 +389,7 @@
                   WERR( IM ) = WERR( JE )
                   INDEXW( IM ) = INDEXW( JE )
                   IBLOCK( IM ) = IBLOCK( JE )
-               END IF
+               }
  81         CONTINUE
             JEE = 0
             DO 82 JE = IM, M
@@ -400,78 +400,78 @@
                IBLOCK( JEE ) = IBLOCK( JE )
  82         CONTINUE
             M = M-IM+1
-         END IF
+         }
 
-         IF( IDISCL.GT.0 .OR. IDISCU.GT.0 ) THEN
+         if ( IDISCL.GT.0 .OR. IDISCU.GT.0 ) {
             // Code to deal with effects of bad arithmetic. (If N(w) is
             // monotone non-decreasing, this should never happen.)
             // Some low eigenvalues to be discarded are not in (WL,WLU],
             // or high eigenvalues to be discarded are not in (WUL,WU]
             // so just kill off the smallest IDISCL/largest IDISCU
             // eigenvalues, by marking the corresponding IBLOCK = 0
-            IF( IDISCL.GT.0 ) THEN
+            if ( IDISCL.GT.0 ) {
                WKILL = WU
                DO 100 JDISC = 1, IDISCL
                   IW = 0
                   DO 90 JE = 1, M
-                     IF( IBLOCK( JE ).NE.0 .AND. ( W( JE ).LT.WKILL .OR. IW.EQ.0 ) ) THEN
+                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).LT.WKILL .OR. IW.EQ.0 ) ) {
                         IW = JE
                         WKILL = W( JE )
-                     END IF
+                     }
  90               CONTINUE
                   IBLOCK( IW ) = 0
  100           CONTINUE
-            END IF
-            IF( IDISCU.GT.0 ) THEN
+            }
+            if ( IDISCU.GT.0 ) {
                WKILL = WL
                DO 120 JDISC = 1, IDISCU
                   IW = 0
                   DO 110 JE = 1, M
-                     IF( IBLOCK( JE ).NE.0 .AND. ( W( JE ).GE.WKILL .OR. IW.EQ.0 ) ) THEN
+                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).GE.WKILL .OR. IW.EQ.0 ) ) {
                         IW = JE
                         WKILL = W( JE )
-                     END IF
+                     }
  110              CONTINUE
                   IBLOCK( IW ) = 0
  120           CONTINUE
-            END IF
+            }
             // Now erase all eigenvalues with IBLOCK set to zero
             IM = 0
             DO 130 JE = 1, M
-               IF( IBLOCK( JE ).NE.0 ) THEN
+               if ( IBLOCK( JE ).NE.0 ) {
                   IM = IM + 1
                   W( IM ) = W( JE )
                   WERR( IM ) = WERR( JE )
                   INDEXW( IM ) = INDEXW( JE )
                   IBLOCK( IM ) = IBLOCK( JE )
-               END IF
+               }
  130        CONTINUE
             M = IM
-         END IF
-         IF( IDISCL.LT.0 .OR. IDISCU.LT.0 ) THEN
+         }
+         if ( IDISCL.LT.0 .OR. IDISCU.LT.0 ) {
             TOOFEW = .TRUE.
-         END IF
-      END IF
+         }
+      }
 
-      IF(( IRANGE.EQ.ALLRNG .AND. M.NE.N ).OR. ( IRANGE.EQ.INDRNG .AND. M.NE.IU-IL+1 ) ) THEN
+      if (( IRANGE.EQ.ALLRNG .AND. M.NE.N ).OR. ( IRANGE.EQ.INDRNG .AND. M.NE.IU-IL+1 ) ) {
          TOOFEW = .TRUE.
-      END IF
+      }
 
       // If ORDER='B', do nothing the eigenvalues are already sorted by
          // block.
       // If ORDER='E', sort the eigenvalues from smallest to largest
 
-      IF( LSAME(ORDER,'E') .AND. NSPLIT.GT.1 ) THEN
+      if ( LSAME(ORDER,'E') .AND. NSPLIT.GT.1 ) {
          DO 150 JE = 1, M - 1
             IE = 0
             TMP1 = W( JE )
             DO 140 J = JE + 1, M
-               IF( W( J ).LT.TMP1 ) THEN
+               if ( W( J ).LT.TMP1 ) {
                   IE = J
                   TMP1 = W( J )
-               END IF
+               }
   140       CONTINUE
-            IF( IE.NE.0 ) THEN
+            if ( IE.NE.0 ) {
                TMP2 = WERR( IE )
                ITMP1 = IBLOCK( IE )
                ITMP2 = INDEXW( IE )
@@ -483,9 +483,9 @@
                WERR( JE ) = TMP2
                IBLOCK( JE ) = ITMP1
                INDEXW( JE ) = ITMP2
-            END IF
+            }
   150    CONTINUE
-      END IF
+      }
 
       INFO = 0
       IF( NCNVRG ) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2

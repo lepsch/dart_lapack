@@ -36,39 +36,39 @@
       LQUERY = ( LWORK.EQ.-1 )
       // Get blocksize
       NBMAX = ILAENV( 1, 'CSYTRI2', UPLO, N, -1, -1, -1 )
-      IF ( NBMAX .GE. N ) THEN
+      if ( NBMAX .GE. N ) {
          MINSIZE = N
       } else {
          MINSIZE = (N+NBMAX+1)*(NBMAX+3)
-      END IF
+      }
 
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF (LWORK .LT. MINSIZE .AND. .NOT.LQUERY ) THEN
+      } else if (LWORK .LT. MINSIZE .AND. .NOT.LQUERY ) {
          INFO = -7
-      END IF
+      }
 
       // Quick return if possible
 
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CSYTRI2', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          WORK(1)=MINSIZE
          RETURN
-      END IF
+      }
       IF( N.EQ.0 ) RETURN
 
-      IF( NBMAX .GE. N ) THEN
+      if ( NBMAX .GE. N ) {
          CALL CSYTRI( UPLO, N, A, LDA, IPIV, WORK, INFO )
       } else {
          CALL CSYTRI2X( UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO )
-      END IF
+      }
       RETURN
 
       // End of CSYTRI2

@@ -44,19 +44,19 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( ( .NOT.LSAME( UPLO, 'U' ) ) .AND. ( .NOT.LSAME( UPLO, 'L' ) ) ) THEN
+      if ( ( .NOT.LSAME( UPLO, 'U' ) ) .AND. ( .NOT.LSAME( UPLO, 'L' ) ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -3
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CPBTRF', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -71,7 +71,7 @@
 
       NB = MIN( NB, NBMAX )
 
-      IF( NB.LE.1 .OR. NB.GT.KD ) THEN
+      if ( NB.LE.1 .OR. NB.GT.KD ) {
 
          // Use unblocked code
 
@@ -80,7 +80,7 @@
 
          // Use blocked code
 
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
 
             // Compute the Cholesky factorization of a Hermitian band
             // matrix, given the upper triangle of the matrix in band
@@ -102,11 +102,11 @@
                // Factorize the diagonal block
 
                CALL CPOTF2( UPLO, IB, AB( KD+1, I ), LDAB-1, II )
-               IF( II.NE.0 ) THEN
+               if ( II.NE.0 ) {
                   INFO = I + II - 1
                   GO TO 150
-               END IF
-               IF( I+IB.LE.N ) THEN
+               }
+               if ( I+IB.LE.N ) {
 
                   // Update the relevant part of the trailing submatrix.
                   // If A11 denotes the diagonal block which has just been
@@ -125,7 +125,7 @@
                   I2 = MIN( KD-IB, N-I-IB+1 )
                   I3 = MIN( IB, N-I-KD+1 )
 
-                  IF( I2.GT.0 ) THEN
+                  if ( I2.GT.0 ) {
 
                      // Update A12
 
@@ -134,9 +134,9 @@
                      // Update A22
 
                      CALL CHERK( 'Upper', 'Conjugate transpose', I2, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, ONE, AB( KD+1, I+IB ), LDAB-1 )
-                  END IF
+                  }
 
-                  IF( I3.GT.0 ) THEN
+                  if ( I3.GT.0 ) {
 
                      // Copy the lower triangle of A13 into the work array.
 
@@ -165,8 +165,8 @@
                            AB( II-JJ+1, JJ+I+KD-1 ) = WORK( II, JJ )
    50                   CONTINUE
    60                CONTINUE
-                  END IF
-               END IF
+                  }
+               }
    70       CONTINUE
          } else {
 
@@ -190,11 +190,11 @@
                // Factorize the diagonal block
 
                CALL CPOTF2( UPLO, IB, AB( 1, I ), LDAB-1, II )
-               IF( II.NE.0 ) THEN
+               if ( II.NE.0 ) {
                   INFO = I + II - 1
                   GO TO 150
-               END IF
-               IF( I+IB.LE.N ) THEN
+               }
+               if ( I+IB.LE.N ) {
 
                   // Update the relevant part of the trailing submatrix.
                   // If A11 denotes the diagonal block which has just been
@@ -213,7 +213,7 @@
                   I2 = MIN( KD-IB, N-I-IB+1 )
                   I3 = MIN( IB, N-I-KD+1 )
 
-                  IF( I2.GT.0 ) THEN
+                  if ( I2.GT.0 ) {
 
                      // Update A21
 
@@ -222,9 +222,9 @@
                      // Update A22
 
                      CALL CHERK( 'Lower', 'No transpose', I2, IB, -ONE, AB( 1+IB, I ), LDAB-1, ONE, AB( 1, I+IB ), LDAB-1 )
-                  END IF
+                  }
 
-                  IF( I3.GT.0 ) THEN
+                  if ( I3.GT.0 ) {
 
                      // Copy the upper triangle of A31 into the work array.
 
@@ -253,11 +253,11 @@
                            AB( KD+1-JJ+II, JJ+I-1 ) = WORK( II, JJ )
   120                   CONTINUE
   130                CONTINUE
-                  END IF
-               END IF
+                  }
+               }
   140       CONTINUE
-         END IF
-      END IF
+         }
+      }
       RETURN
 
   150 CONTINUE

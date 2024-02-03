@@ -40,32 +40,32 @@
       // Check inputs
 
       INFO = 0
-      IF( LSAME( RC, 'R' ) ) THEN
+      if ( LSAME( RC, 'R' ) ) {
          IRC = 0
-      ELSE IF( LSAME( RC, 'C' ) ) THEN
+      } else if ( LSAME( RC, 'C' ) ) {
          IRC = 1
       } else {
          IRC = -1
-      END IF
-      IF( IRC.EQ.-1 ) THEN
+      }
+      if ( IRC.EQ.-1 ) {
          INFO = -1
-      ELSE IF( MU.LT.0 ) THEN
+      } else if ( MU.LT.0 ) {
          INFO = -2
-      ELSE IF( MV.LT.0 ) THEN
+      } else if ( MV.LT.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( K.LT.0 .OR. K.GT.MAX( MU, MV ) ) THEN
+      } else if ( K.LT.0 .OR. K.GT.MAX( MU, MV ) ) {
          INFO = -5
-      ELSE IF( ( IRC.EQ.0 .AND. LDU.LT.MAX( 1, MU ) ) .OR. ( IRC.EQ.1 .AND. LDU.LT.MAX( 1, N ) ) ) THEN
+      } else if ( ( IRC.EQ.0 .AND. LDU.LT.MAX( 1, MU ) ) .OR. ( IRC.EQ.1 .AND. LDU.LT.MAX( 1, N ) ) ) {
          INFO = -7
-      ELSE IF( ( IRC.EQ.0 .AND. LDV.LT.MAX( 1, MV ) ) .OR. ( IRC.EQ.1 .AND. LDV.LT.MAX( 1, N ) ) ) THEN
+      } else if ( ( IRC.EQ.0 .AND. LDV.LT.MAX( 1, MV ) ) .OR. ( IRC.EQ.1 .AND. LDV.LT.MAX( 1, N ) ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DORT03', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize result
 
@@ -76,7 +76,7 @@
 
       ULP = DLAMCH( 'Precision' )
 
-      IF( IRC.EQ.0 ) THEN
+      if ( IRC.EQ.0 ) {
 
          // Compare rows
 
@@ -111,7 +111,7 @@
          // Compute orthogonality of columns of V.
 
          CALL DORT01( 'Columns', N, MV, V, LDV, WORK, LWORK, RES2 )
-      END IF
+      }
 
       RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP )
       RETURN

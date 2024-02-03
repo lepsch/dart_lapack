@@ -26,7 +26,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Input matrices A and B are upper triangular matrices
 
@@ -44,7 +44,7 @@
 
          CALL SLASV2( A, B, D, S1, S2, SNR, CSR, SNL, CSL )
 
-         IF( ABS( CSL ).GE.ABS( SNL ) .OR. ABS( CSR ).GE.ABS( SNR ) ) THEN
+         if ( ABS( CSL ).GE.ABS( SNL ) .OR. ABS( CSR ).GE.ABS( SNR ) ) {
 
             // Compute the (1,1) and (1,2) elements of U**T *A and V**T *B,
             // and (1,2) element of |U|**T *|A| and |V|**T *|B|.
@@ -60,15 +60,15 @@
 
             // zero (1,2) elements of U**T *A and V**T *B
 
-            IF( ( ABS( UA11R )+ABS( UA12 ) ).NE.ZERO ) THEN
-               IF( AUA12 / ( ABS( UA11R )+ABS( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS( VB12 ) ) ) THEN
+            if ( ( ABS( UA11R )+ABS( UA12 ) ).NE.ZERO ) {
+               if ( AUA12 / ( ABS( UA11R )+ABS( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS( VB12 ) ) ) {
                   CALL SLARTG( -UA11R, UA12, CSQ, SNQ, R )
                } else {
                   CALL SLARTG( -VB11R, VB12, CSQ, SNQ, R )
-               END IF
+               }
             } else {
                CALL SLARTG( -VB11R, VB12, CSQ, SNQ, R )
-            END IF
+            }
 
             CSU = CSL
             SNU = -SNL
@@ -91,22 +91,22 @@
 
             // zero (2,2) elements of U**T*A and V**T*B, and then swap.
 
-            IF( ( ABS( UA21 )+ABS( UA22 ) ).NE.ZERO ) THEN
-               IF( AUA22 / ( ABS( UA21 )+ABS( UA22 ) ).LE.AVB22 / ( ABS( VB21 )+ABS( VB22 ) ) ) THEN
+            if ( ( ABS( UA21 )+ABS( UA22 ) ).NE.ZERO ) {
+               if ( AUA22 / ( ABS( UA21 )+ABS( UA22 ) ).LE.AVB22 / ( ABS( VB21 )+ABS( VB22 ) ) ) {
                   CALL SLARTG( -UA21, UA22, CSQ, SNQ, R )
                } else {
                   CALL SLARTG( -VB21, VB22, CSQ, SNQ, R )
-               END IF
+               }
             } else {
                CALL SLARTG( -VB21, VB22, CSQ, SNQ, R )
-            END IF
+            }
 
             CSU = SNL
             SNU = CSL
             CSV = SNR
             SNV = CSR
 
-         END IF
+         }
 
       } else {
 
@@ -126,7 +126,7 @@
 
          CALL SLASV2( A, C, D, S1, S2, SNR, CSR, SNL, CSL )
 
-         IF( ABS( CSR ).GE.ABS( SNR ) .OR. ABS( CSL ).GE.ABS( SNL ) ) THEN
+         if ( ABS( CSR ).GE.ABS( SNR ) .OR. ABS( CSL ).GE.ABS( SNL ) ) {
 
             // Compute the (2,1) and (2,2) elements of U**T *A and V**T *B,
             // and (2,1) element of |U|**T *|A| and |V|**T *|B|.
@@ -142,15 +142,15 @@
 
             // zero (2,1) elements of U**T *A and V**T *B.
 
-            IF( ( ABS( UA21 )+ABS( UA22R ) ).NE.ZERO ) THEN
-               IF( AUA21 / ( ABS( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS( VB21 )+ABS( VB22R ) ) ) THEN
+            if ( ( ABS( UA21 )+ABS( UA22R ) ).NE.ZERO ) {
+               if ( AUA21 / ( ABS( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS( VB21 )+ABS( VB22R ) ) ) {
                   CALL SLARTG( UA22R, UA21, CSQ, SNQ, R )
                } else {
                   CALL SLARTG( VB22R, VB21, CSQ, SNQ, R )
-               END IF
+               }
             } else {
                CALL SLARTG( VB22R, VB21, CSQ, SNQ, R )
-            END IF
+            }
 
             CSU = CSR
             SNU = -SNR
@@ -173,24 +173,24 @@
 
             // zero (1,1) elements of U**T*A and V**T*B, and then swap.
 
-            IF( ( ABS( UA11 )+ABS( UA12 ) ).NE.ZERO ) THEN
-               IF( AUA11 / ( ABS( UA11 )+ABS( UA12 ) ).LE.AVB11 / ( ABS( VB11 )+ABS( VB12 ) ) ) THEN
+            if ( ( ABS( UA11 )+ABS( UA12 ) ).NE.ZERO ) {
+               if ( AUA11 / ( ABS( UA11 )+ABS( UA12 ) ).LE.AVB11 / ( ABS( VB11 )+ABS( VB12 ) ) ) {
                   CALL SLARTG( UA12, UA11, CSQ, SNQ, R )
                } else {
                   CALL SLARTG( VB12, VB11, CSQ, SNQ, R )
-               END IF
+               }
             } else {
                CALL SLARTG( VB12, VB11, CSQ, SNQ, R )
-            END IF
+            }
 
             CSU = SNR
             SNU = CSR
             CSV = SNL
             SNV = CSL
 
-         END IF
+         }
 
-      END IF
+      }
 
       RETURN
 

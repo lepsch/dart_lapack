@@ -34,13 +34,13 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          DLANSF = ZERO
          RETURN
-      ELSE IF( N.EQ.1 ) THEN
+      } else if ( N.EQ.1 ) {
          DLANSF = ABS( A(0) )
          RETURN
-      END IF
+      }
 
       // set noe = 1 if n is odd. if n is even set noe=0
 
@@ -61,27 +61,27 @@
       // set lda = n when ifm = 1 and noe = 1
       // set lda = n+1 when ifm = 1 and noe = 0
 
-      IF( IFM.EQ.1 ) THEN
-         IF( NOE.EQ.1 ) THEN
+      if ( IFM.EQ.1 ) {
+         if ( NOE.EQ.1 ) {
             LDA = N
          } else {
             // noe=0
             LDA = N + 1
-         END IF
+         }
       } else {
          // ifm=0
          LDA = ( N+1 ) / 2
-      END IF
+      }
 
-      IF( LSAME( NORM, 'M' ) ) THEN
+      if ( LSAME( NORM, 'M' ) ) {
 
         // Find max(abs(A(i,j))).
 
          K = ( N+1 ) / 2
          VALUE = ZERO
-         IF( NOE.EQ.1 ) THEN
+         if ( NOE.EQ.1 ) {
             // n is odd
-            IF( IFM.EQ.1 ) THEN
+            if ( IFM.EQ.1 ) {
             // A is n by k
                DO J = 0, K - 1
                   DO I = 0, N - 1
@@ -97,10 +97,10 @@
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END DO
-            END IF
+            }
          } else {
             // n is even
-            IF( IFM.EQ.1 ) THEN
+            if ( IFM.EQ.1 ) {
                // A is n+1 by k
                DO J = 0, K - 1
                   DO I = 0, N
@@ -116,17 +116,17 @@
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END DO
-            END IF
-         END IF
-      ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
+            }
+         }
+      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
 
          // Find normI(A) ( = norm1(A), since A is symmetric).
 
-         IF( IFM.EQ.1 ) THEN
+         if ( IFM.EQ.1 ) {
             K = N / 2
-            IF( NOE.EQ.1 ) THEN
+            if ( NOE.EQ.1 ) {
                // n is odd
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   DO I = 0, K - 1
                      WORK( I ) = ZERO
                   END DO
@@ -177,14 +177,14 @@
                         S = S + AA
                         WORK( I+K ) = WORK( I+K ) + AA
                      END DO
-                     IF( J.GT.0 ) THEN
+                     if ( J.GT.0 ) {
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(j+k,j+k)
                         S = S + AA
                         WORK( I+K ) = WORK( I+K ) + S
                         // i=j
                         I = I + 1
-                     END IF
+                     }
                      AA = ABS( A( I+J*LDA ) )
                      // -> A(j,j)
                      WORK( J ) = AA
@@ -203,10 +203,10 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               END IF
+               }
             } else {
                // n is even
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   DO I = 0, K - 1
                      WORK( I ) = ZERO
                   END DO
@@ -277,14 +277,14 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               END IF
-            END IF
+               }
+            }
          } else {
             // ifm=0
             K = N / 2
-            IF( NOE.EQ.1 ) THEN
+            if ( NOE.EQ.1 ) {
                // n is odd
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   N1 = K
                   // n/2
                   K = K + 1
@@ -406,10 +406,10 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               END IF
+               }
             } else {
                // n is even
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   DO I = K, N - 1
                      WORK( I ) = ZERO
                   END DO
@@ -550,21 +550,21 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               END IF
-            END IF
-         END IF
-      ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
+               }
+            }
+         }
+      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
         // Find normF(A).
 
          K = ( N+1 ) / 2
          SCALE = ZERO
          S = ONE
-         IF( NOE.EQ.1 ) THEN
+         if ( NOE.EQ.1 ) {
             // n is odd
-            IF( IFM.EQ.1 ) THEN
+            if ( IFM.EQ.1 ) {
                // A is normal
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   // A is upper
                   DO J = 0, K - 3
                      CALL DLASSQ( K-J-2, A( K+J+1+J*LDA ), 1, SCALE, S )
@@ -596,10 +596,10 @@
                  t // ri L at A(0,0)
                   CALL DLASSQ( K-1, A( 0+LDA ), LDA+1, SCALE, S )
                  t // ri U at A(0,1)
-               END IF
+               }
             } else {
                // A is xpose
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   // A**T is upper
                   DO J = 1, K - 2
                      CALL DLASSQ( J, A( 0+( K+J )*LDA ), 1, SCALE, S )
@@ -639,13 +639,13 @@
                  t // ri U at A(0,0)
                   CALL DLASSQ( K-1, A( 1 ), LDA+1, SCALE, S )
                  t // ri L at A(1,0)
-               END IF
-            END IF
+               }
+            }
          } else {
             // n is even
-            IF( IFM.EQ.1 ) THEN
+            if ( IFM.EQ.1 ) {
                // A is normal
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   // A is upper
                   DO J = 0, K - 2
                      CALL DLASSQ( K-J-1, A( K+J+2+J*LDA ), 1, SCALE, S )
@@ -677,10 +677,10 @@
                  t // ri L at A(1,0)
                   CALL DLASSQ( K, A( 0 ), LDA+1, SCALE, S )
                  t // ri U at A(0,0)
-               END IF
+               }
             } else {
                // A is xpose
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   // A**T is upper
                   DO J = 1, K - 1
                      CALL DLASSQ( J, A( 0+( K+1+J )*LDA ), 1, SCALE, S )
@@ -720,11 +720,11 @@
                  t // ri L at A(0,1)
                   CALL DLASSQ( K, A( 0 ), LDA+1, SCALE, S )
                  t // ri U at A(0,0)
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
          VALUE = SCALE*SQRT( S )
-      END IF
+      }
 
       DLANSF = VALUE
       RETURN

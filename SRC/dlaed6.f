@@ -40,23 +40,23 @@
 
       INFO = 0
 
-      IF( ORGATI ) THEN
+      if ( ORGATI ) {
          LBD = D(2)
          UBD = D(3)
       } else {
          LBD = D(1)
          UBD = D(2)
-      END IF
-      IF( FINIT .LT. ZERO )THEN
+      }
+      if ( FINIT .LT. ZERO ) {
          LBD = ZERO
       } else {
          UBD = ZERO
-      END IF
+      }
 
       NITER = 1
       TAU = ZERO
-      IF( KNITER.EQ.2 ) THEN
-         IF( ORGATI ) THEN
+      if ( KNITER.EQ.2 ) {
+         if ( ORGATI ) {
             TEMP = ( D( 3 )-D( 2 ) ) / TWO
             C = RHO + Z( 1 ) / ( ( D( 1 )-D( 2 ) )-TEMP )
             A = C*( D( 2 )+D( 3 ) ) + Z( 2 ) + Z( 3 )
@@ -66,31 +66,31 @@
             C = RHO + Z( 3 ) / ( ( D( 3 )-D( 2 ) )-TEMP )
             A = C*( D( 1 )+D( 2 ) ) + Z( 1 ) + Z( 2 )
             B = C*D( 1 )*D( 2 ) + Z( 1 )*D( 2 ) + Z( 2 )*D( 1 )
-         END IF
+         }
          TEMP = MAX( ABS( A ), ABS( B ), ABS( C ) )
          A = A / TEMP
          B = B / TEMP
          C = C / TEMP
-         IF( C.EQ.ZERO ) THEN
+         if ( C.EQ.ZERO ) {
             TAU = B / A
-         ELSE IF( A.LE.ZERO ) THEN
+         } else if ( A.LE.ZERO ) {
             TAU = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
          } else {
             TAU = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
-         END IF
+         }
          IF( TAU .LT. LBD .OR. TAU .GT. UBD ) TAU = ( LBD+UBD )/TWO
-         IF( D(1).EQ.TAU .OR. D(2).EQ.TAU .OR. D(3).EQ.TAU ) THEN
+         if ( D(1).EQ.TAU .OR. D(2).EQ.TAU .OR. D(3).EQ.TAU ) {
             TAU = ZERO
          } else {
             TEMP = FINIT + TAU*Z(1)/( D(1)*( D( 1 )-TAU ) ) + TAU*Z(2)/( D(2)*( D( 2 )-TAU ) ) + TAU*Z(3)/( D(3)*( D( 3 )-TAU ) )
-            IF( TEMP .LE. ZERO )THEN
+            if ( TEMP .LE. ZERO ) {
                LBD = TAU
             } else {
                UBD = TAU
-            END IF
+            }
             IF( ABS( FINIT ).LE.ABS( TEMP ) ) TAU = ZERO
-         END IF
-      END IF
+         }
+      }
 
       // get machine parameters for possible scaling to avoid overflow
 
@@ -108,15 +108,15 @@
       // Determine if scaling of inputs necessary to avoid overflow
       // when computing 1/TEMP**3
 
-      IF( ORGATI ) THEN
+      if ( ORGATI ) {
          TEMP = MIN( ABS( D( 2 )-TAU ), ABS( D( 3 )-TAU ) )
       } else {
          TEMP = MIN( ABS( D( 1 )-TAU ), ABS( D( 2 )-TAU ) )
-      END IF
+      }
       SCALE = .FALSE.
-      IF( TEMP.LE.SMALL1 ) THEN
+      if ( TEMP.LE.SMALL1 ) {
          SCALE = .TRUE.
-         IF( TEMP.LE.SMALL2 ) THEN
+         if ( TEMP.LE.SMALL2 ) {
 
          // Scale up by power of radix nearest 1/SAFMIN**(2/3)
 
@@ -128,7 +128,7 @@
 
             SCLFAC = SMINV1
             SCLINV = SMALL1
-         END IF
+         }
 
          // Scaling up safe because D, Z, TAU scaled elsewhere to be O(1)
 
@@ -147,7 +147,7 @@
             DSCALE( I ) = D( I )
             ZSCALE( I ) = Z( I )
    20    CONTINUE
-      END IF
+      }
 
       FC = ZERO
       DF = ZERO
@@ -164,11 +164,11 @@
       F = FINIT + TAU*FC
 
       IF( ABS( F ).LE.ZERO ) GO TO 60
-      IF( F .LE. ZERO )THEN
+      if ( F .LE. ZERO ) {
          LBD = TAU
       } else {
          UBD = TAU
-      END IF
+      }
 
          // Iteration begins -- Use Gragg-Thornton-Warner cubic convergent
                              // scheme
@@ -185,13 +185,13 @@
 
       DO 50 NITER = ITER, MAXIT
 
-         IF( ORGATI ) THEN
+         if ( ORGATI ) {
             TEMP1 = DSCALE( 2 ) - TAU
             TEMP2 = DSCALE( 3 ) - TAU
          } else {
             TEMP1 = DSCALE( 1 ) - TAU
             TEMP2 = DSCALE( 2 ) - TAU
-         END IF
+         }
          A = ( TEMP1+TEMP2 )*F - TEMP1*TEMP2*DF
          B = TEMP1*TEMP2*F
          C = F - ( TEMP1+TEMP2 )*DF + TEMP1*TEMP2*DDF
@@ -199,16 +199,16 @@
          A = A / TEMP
          B = B / TEMP
          C = C / TEMP
-         IF( C.EQ.ZERO ) THEN
+         if ( C.EQ.ZERO ) {
             ETA = B / A
-         ELSE IF( A.LE.ZERO ) THEN
+         } else if ( A.LE.ZERO ) {
             ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
          } else {
             ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
-         END IF
-         IF( F*ETA.GE.ZERO ) THEN
+         }
+         if ( F*ETA.GE.ZERO ) {
             ETA = -F / DF
-         END IF
+         }
 
          TAU = TAU + ETA
          IF( TAU .LT. LBD .OR. TAU .GT. UBD ) TAU = ( LBD + UBD )/TWO
@@ -218,7 +218,7 @@
          DF = ZERO
          DDF = ZERO
          DO 40 I = 1, 3
-            IF ( ( DSCALE( I )-TAU ).NE.ZERO ) THEN
+            if ( ( DSCALE( I )-TAU ).NE.ZERO ) {
                TEMP = ONE / ( DSCALE( I )-TAU )
                TEMP1 = ZSCALE( I )*TEMP
                TEMP2 = TEMP1*TEMP
@@ -230,15 +230,15 @@
                DDF = DDF + TEMP3
             } else {
                GO TO 60
-            END IF
+            }
    40    CONTINUE
          F = FINIT + TAU*FC
          ERRETM = EIGHT*( ABS( FINIT )+ABS( TAU )*ERRETM ) + ABS( TAU )*DF          IF( ( ABS( F ).LE.FOUR*EPS*ERRETM ) .OR. ( (UBD-LBD).LE.FOUR*EPS*ABS(TAU) )  ) GO TO 60
-         IF( F .LE. ZERO )THEN
+         if ( F .LE. ZERO ) {
             LBD = TAU
          } else {
             UBD = TAU
-         END IF
+         }
    50 CONTINUE
       INFO = 1
    60 CONTINUE

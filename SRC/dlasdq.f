@@ -40,29 +40,29 @@
       INFO = 0
       IUPLO = 0
       IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2
-      IF( IUPLO.EQ.0 ) THEN
+      if ( IUPLO.EQ.0 ) {
          INFO = -1
-      ELSE IF( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) THEN
+      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( NCVT.LT.0 ) THEN
+      } else if ( NCVT.LT.0 ) {
          INFO = -4
-      ELSE IF( NRU.LT.0 ) THEN
+      } else if ( NRU.LT.0 ) {
          INFO = -5
-      ELSE IF( NCC.LT.0 ) THEN
+      } else if ( NCC.LT.0 ) {
          INFO = -6
-      ELSE IF( ( NCVT.EQ.0 .AND. LDVT.LT.1 ) .OR. ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) THEN
+      } else if ( ( NCVT.EQ.0 .AND. LDVT.LT.1 ) .OR. ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) {
          INFO = -10
-      ELSE IF( LDU.LT.MAX( 1, NRU ) ) THEN
+      } else if ( LDU.LT.MAX( 1, NRU ) ) {
          INFO = -12
-      ELSE IF( ( NCC.EQ.0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) THEN
+      } else if ( ( NCC.EQ.0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) {
          INFO = -14
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLASDQ', -INFO )
          RETURN
-      END IF
+      }
       IF( N.EQ.0 ) RETURN
 
       // ROTATE is true if any singular vectors desired, false otherwise
@@ -74,76 +74,76 @@
       // If matrix non-square upper bidiagonal, rotate to be lower
       // bidiagonal.  The rotations are on the right.
 
-      IF( ( IUPLO.EQ.1 ) .AND. ( SQRE1.EQ.1 ) ) THEN
+      if ( ( IUPLO.EQ.1 ) .AND. ( SQRE1.EQ.1 ) ) {
          DO 10 I = 1, N - 1
             CALL DLARTG( D( I ), E( I ), CS, SN, R )
             D( I ) = R
             E( I ) = SN*D( I+1 )
             D( I+1 ) = CS*D( I+1 )
-            IF( ROTATE ) THEN
+            if ( ROTATE ) {
                WORK( I ) = CS
                WORK( N+I ) = SN
-            END IF
+            }
    10    CONTINUE
          CALL DLARTG( D( N ), E( N ), CS, SN, R )
          D( N ) = R
          E( N ) = ZERO
-         IF( ROTATE ) THEN
+         if ( ROTATE ) {
             WORK( N ) = CS
             WORK( N+N ) = SN
-         END IF
+         }
          IUPLO = 2
          SQRE1 = 0
 
          // Update singular vectors if desired.
 
          IF( NCVT.GT.0 ) CALL DLASR( 'L', 'V', 'F', NP1, NCVT, WORK( 1 ), WORK( NP1 ), VT, LDVT )
-      END IF
+      }
 
       // If matrix lower bidiagonal, rotate to be upper bidiagonal
       // by applying Givens rotations on the left.
 
-      IF( IUPLO.EQ.2 ) THEN
+      if ( IUPLO.EQ.2 ) {
          DO 20 I = 1, N - 1
             CALL DLARTG( D( I ), E( I ), CS, SN, R )
             D( I ) = R
             E( I ) = SN*D( I+1 )
             D( I+1 ) = CS*D( I+1 )
-            IF( ROTATE ) THEN
+            if ( ROTATE ) {
                WORK( I ) = CS
                WORK( N+I ) = SN
-            END IF
+            }
    20    CONTINUE
 
          // If matrix (N+1)-by-N lower bidiagonal, one additional
          // rotation is needed.
 
-         IF( SQRE1.EQ.1 ) THEN
+         if ( SQRE1.EQ.1 ) {
             CALL DLARTG( D( N ), E( N ), CS, SN, R )
             D( N ) = R
-            IF( ROTATE ) THEN
+            if ( ROTATE ) {
                WORK( N ) = CS
                WORK( N+N ) = SN
-            END IF
-         END IF
+            }
+         }
 
          // Update singular vectors if desired.
 
-         IF( NRU.GT.0 ) THEN
-            IF( SQRE1.EQ.0 ) THEN
+         if ( NRU.GT.0 ) {
+            if ( SQRE1.EQ.0 ) {
                CALL DLASR( 'R', 'V', 'F', NRU, N, WORK( 1 ), WORK( NP1 ), U, LDU )
             } else {
                CALL DLASR( 'R', 'V', 'F', NRU, NP1, WORK( 1 ), WORK( NP1 ), U, LDU )
-            END IF
-         END IF
-         IF( NCC.GT.0 ) THEN
-            IF( SQRE1.EQ.0 ) THEN
+            }
+         }
+         if ( NCC.GT.0 ) {
+            if ( SQRE1.EQ.0 ) {
                CALL DLASR( 'L', 'V', 'F', N, NCC, WORK( 1 ), WORK( NP1 ), C, LDC )
             } else {
                CALL DLASR( 'L', 'V', 'F', NP1, NCC, WORK( 1 ), WORK( NP1 ), C, LDC )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
       // Call DBDSQR to compute the SVD of the reduced real
       // N-by-N upper bidiagonal matrix.
@@ -160,19 +160,19 @@
          ISUB = I
          SMIN = D( I )
          DO 30 J = I + 1, N
-            IF( D( J ).LT.SMIN ) THEN
+            if ( D( J ).LT.SMIN ) {
                ISUB = J
                SMIN = D( J )
-            END IF
+            }
    30    CONTINUE
-         IF( ISUB.NE.I ) THEN
+         if ( ISUB.NE.I ) {
 
             // Swap singular values and vectors.
 
             D( ISUB ) = D( I )
             D( I ) = SMIN
             IF( NCVT.GT.0 ) CALL DSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DSWAP( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 )             IF( NCC.GT.0 ) CALL DSWAP( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC )
-         END IF
+         }
    40 CONTINUE
 
       RETURN

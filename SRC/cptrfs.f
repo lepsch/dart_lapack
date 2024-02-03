@@ -56,31 +56,31 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -11
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CPTRFS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
+      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
          DO 10 J = 1, NRHS
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
          RETURN
-      END IF
+      }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
@@ -103,8 +103,8 @@
          // Compute residual R = B - A * X.  Also compute
          // abs(A)*abs(x) + abs(b) for use in the backward error bound.
 
-         IF( UPPER ) THEN
-            IF( N.EQ.1 ) THEN
+         if ( UPPER ) {
+            if ( N.EQ.1 ) {
                BI = B( 1, J )
                DX = D( 1 )*X( 1, J )
                WORK( 1 ) = BI - DX
@@ -128,9 +128,9 @@
                DX = D( N )*X( N, J )
                WORK( N ) = BI - CX - DX
                RWORK( N ) = CABS1( BI ) + CABS1( E( N-1 ) )* CABS1( X( N-1, J ) ) + CABS1( DX )
-            END IF
+            }
          } else {
-            IF( N.EQ.1 ) THEN
+            if ( N.EQ.1 ) {
                BI = B( 1, J )
                DX = D( 1 )*X( 1, J )
                WORK( 1 ) = BI - DX
@@ -154,8 +154,8 @@
                DX = D( N )*X( N, J )
                WORK( N ) = BI - CX - DX
                RWORK( N ) = CABS1( BI ) + CABS1( E( N-1 ) )* CABS1( X( N-1, J ) ) + CABS1( DX )
-            END IF
-         END IF
+            }
+         }
 
          // Compute componentwise relative backward error from formula
 
@@ -168,11 +168,11 @@
 
          S = ZERO
          DO 50 I = 1, N
-            IF( RWORK( I ).GT.SAFE2 ) THEN
+            if ( RWORK( I ).GT.SAFE2 ) {
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
-            END IF
+            }
    50    CONTINUE
          BERR( J ) = S
 
@@ -182,7 +182,7 @@
                // last iteration, and
             // 3) At most ITMAX iterations tried.
 
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
+         if ( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) {
 
             // Update solution and try again.
 
@@ -191,7 +191,7 @@
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
-         END IF
+         }
 
          // Bound error from formula
 
@@ -212,11 +212,11 @@
          // abs(A)*abs(X) + abs(B) is less than SAFE2.
 
          DO 60 I = 1, N
-            IF( RWORK( I ).GT.SAFE2 ) THEN
+            if ( RWORK( I ).GT.SAFE2 ) {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
-            END IF
+            }
    60    CONTINUE
          IX = ISAMAX( N, RWORK, 1 )
          FERR( J ) = RWORK( IX )

@@ -29,45 +29,45 @@
       // ..
       // .. Executable Statements ..
 
-      IF( ISPEC.GE.1 .AND. ISPEC.LE.5 ) THEN
+      if ( ISPEC.GE.1 .AND. ISPEC.LE.5 ) {
 
          // Return a value from the common block.
 
          ILAENV = IPARMS( ISPEC )
 
-      ELSE IF( ISPEC.EQ.6 ) THEN
+      } else if ( ISPEC.EQ.6 ) {
 
          // Compute SVD crossover point.
 
          ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6E0 )
 
-      ELSE IF( ISPEC.GE.7 .AND. ISPEC.LE.9 ) THEN
+      } else if ( ISPEC.GE.7 .AND. ISPEC.LE.9 ) {
 
          // Return a value from the common block.
 
          ILAENV = IPARMS( ISPEC )
 
-      ELSE IF( ISPEC.EQ.10 ) THEN
+      } else if ( ISPEC.EQ.10 ) {
 
          // IEEE NaN arithmetic can be trusted not to trap
 
          // ILAENV = 0
          ILAENV = 1
-         IF( ILAENV.EQ.1 ) THEN
+         if ( ILAENV.EQ.1 ) {
             ILAENV = IEEECK( 1, 0.0, 1.0 )
-         END IF
+         }
 
-      ELSE IF( ISPEC.EQ.11 ) THEN
+      } else if ( ISPEC.EQ.11 ) {
 
          // Infinity arithmetic can be trusted not to trap
 
          // ILAENV = 0
          ILAENV = 1
-         IF( ILAENV.EQ.1 ) THEN
+         if ( ILAENV.EQ.1 ) {
             ILAENV = IEEECK( 0, 0.0, 1.0 )
-         END IF
+         }
 
-      ELSE IF(( ISPEC.GE.12 ) .AND. (ISPEC.LE.16)) THEN
+      } else if (( ISPEC.GE.12 ) .AND. (ISPEC.LE.16)) {
 
       // 12 <= ISPEC <= 16: xHSEQR or one of its subroutines.
 
@@ -75,11 +75,11 @@
           // WRITE(*,*) 'ISPEC = ',ISPEC,' ILAENV =',ILAENV
           // ILAENV = IPARMQ( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
 
-      ELSE IF(( ISPEC.GE.17 ) .AND. (ISPEC.LE.21)) THEN
+      } else if (( ISPEC.GE.17 ) .AND. (ISPEC.LE.21)) {
 
       // 17 <= ISPEC <= 21: 2stage eigenvalues SVD routines.
 
-         IF( ISPEC.EQ.17 ) THEN
+         if ( ISPEC.EQ.17 ) {
              ILAENV = IPARMS( 1 )
          } else {
              ILAENV = IPARAM2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
@@ -90,7 +90,7 @@
          // Invalid value for ISPEC
 
          ILAENV = -1
-      END IF
+      }
 
       RETURN
 
@@ -122,11 +122,11 @@
       // ..
       // .. Executable Statements ..
 
-      IF(( ISPEC.GE.1 ) .AND. (ISPEC.LE.5)) THEN
+      if (( ISPEC.GE.1 ) .AND. (ISPEC.LE.5)) {
 
       // 1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 
-         IF( ISPEC.EQ.1 ) THEN
+         if ( ISPEC.EQ.1 ) {
              ILAENV2STAGE = IPARMS( 1 )
          } else {
              IISPEC = 16 + ISPEC
@@ -138,7 +138,7 @@
          // Invalid value for ISPEC
 
          ILAENV2STAGE = -1
-      END IF
+      }
 
       RETURN
 
@@ -165,7 +165,7 @@
       // INTRINSIC LOG, MAX, MOD, NINT, REAL
       // ..
       // .. Executable Statements ..
-      IF( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR. ( ISPEC.EQ.IACC22 ) ) THEN
+      if ( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR. ( ISPEC.EQ.IACC22 ) ) {
 
          // ==== Set the number simultaneous shifts ====
 
@@ -173,9 +173,9 @@
          NS = 2
          IF( NH.GE.30 ) NS = 4          IF( NH.GE.60 ) NS = 10          IF( NH.GE.150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )          IF( NH.GE.590 ) NS = 64          IF( NH.GE.3000 ) NS = 128          IF( NH.GE.6000 ) NS = 256
          NS = MAX( 2, NS-MOD( NS, 2 ) )
-      END IF
+      }
 
-      IF( ISPEC.EQ.INMIN ) THEN
+      if ( ISPEC.EQ.INMIN ) {
 
 
          // ===== Matrices of order smaller than NMIN get sent
@@ -184,7 +184,7 @@
 
          IPARMQ = NMIN
 
-      ELSE IF( ISPEC.EQ.INIBL ) THEN
+      } else if ( ISPEC.EQ.INIBL ) {
 
          // ==== INIBL: skip a multi-shift qr iteration and
          // .    whenever aggressive early deflation finds
@@ -192,23 +192,23 @@
 
          IPARMQ = NIBBLE
 
-      ELSE IF( ISPEC.EQ.ISHFTS ) THEN
+      } else if ( ISPEC.EQ.ISHFTS ) {
 
          // ==== NSHFTS: The number of simultaneous shifts =====
 
          IPARMQ = NS
 
-      ELSE IF( ISPEC.EQ.INWIN ) THEN
+      } else if ( ISPEC.EQ.INWIN ) {
 
          // ==== NW: deflation window size.  ====
 
-         IF( NH.LE.KNWSWP ) THEN
+         if ( NH.LE.KNWSWP ) {
             IPARMQ = NS
          } else {
             IPARMQ = 3*NS / 2
-         END IF
+         }
 
-      ELSE IF( ISPEC.EQ.IACC22 ) THEN
+      } else if ( ISPEC.EQ.IACC22 ) {
 
          // ==== IACC22: Whether to accumulate reflections
          // .     before updating the far-from-diagonal elements
@@ -224,7 +224,7 @@
          // ===== invalid value of ispec =====
          IPARMQ = -1
 
-      END IF
+      }
 
       // ==== End of IPARMQ ====
 

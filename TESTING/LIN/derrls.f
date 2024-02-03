@@ -51,7 +51,7 @@
       A( 2, 1 ) = 4.0D+0
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'LS' ) ) THEN
+      if ( LSAMEN( 2, C2, 'LS' ) ) {
 
          // Test error exits for the least squares driver routines.
 
@@ -198,7 +198,7 @@
          INFOT = 12
          CALL DGELSD( 2, 2, 1, A, 2, B, 2, S, RCOND, IRNK, W, 1, IP, INFO )
          CALL CHKXER( 'DGELSD', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

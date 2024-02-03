@@ -39,23 +39,23 @@
       // Test the input parameters
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGETRF2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 
-      IF ( M.EQ.1 ) THEN
+      if ( M.EQ.1 ) {
 
          // Use unblocked code for one row case
          // Just need to handle IPIV and INFO
@@ -63,7 +63,7 @@
          IPIV( 1 ) = 1
          IF ( A(1,1).EQ.ZERO ) INFO = 1
 
-      ELSE IF( N.EQ.1 ) THEN
+      } else if ( N.EQ.1 ) {
 
          // Use unblocked code for one column case
 
@@ -76,29 +76,29 @@
 
          I = IZAMAX( M, A( 1, 1 ), 1 )
          IPIV( 1 ) = I
-         IF( A( I, 1 ).NE.ZERO ) THEN
+         if ( A( I, 1 ).NE.ZERO ) {
 
             // Apply the interchange
 
-            IF( I.NE.1 ) THEN
+            if ( I.NE.1 ) {
                TEMP = A( 1, 1 )
                A( 1, 1 ) = A( I, 1 )
                A( I, 1 ) = TEMP
-            END IF
+            }
 
             // Compute elements 2:M of the column
 
-            IF( ABS(A( 1, 1 )) .GE. SFMIN ) THEN
+            if ( ABS(A( 1, 1 )) .GE. SFMIN ) {
                CALL ZSCAL( M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 )
             } else {
                DO 10 I = 1, M-1
                   A( 1+I, 1 ) = A( 1+I, 1 ) / A( 1, 1 )
    10          CONTINUE
-            END IF
+            }
 
          } else {
             INFO = 1
-         END IF
+         }
 
       } else {
 
@@ -143,7 +143,7 @@
 
          CALL ZLASWP( N1, A( 1, 1 ), LDA, N1+1, MIN( M, N), IPIV, 1 )
 
-      END IF
+      }
       RETURN
 
       // End of ZGETRF2

@@ -16,7 +16,7 @@
       // External functions
       // EXTERNAL :: SLARTG, SROT
 
-      IF( K+2 .EQ. IHI ) THEN
+      if ( K+2 .EQ. IHI ) {
          // Shift is located on the edge of the matrix, remove it
          H = B( IHI-1:IHI, IHI-2:IHI )
          // Make H upper triangular
@@ -33,25 +33,25 @@
          B( IHI-1, IHI-2 ) = ZERO
          B( IHI, IHI-2 ) = ZERO
          CALL SROT( IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C1, S1 )          CALL SROT( IHI-ISTARTM+1, A( ISTARTM, IHI-1 ), 1, A( ISTARTM, IHI-2 ), 1, C2, S2 )
-         IF ( ILZ ) THEN
+         if ( ILZ ) {
             CALL SROT( NZ, Z( 1, IHI-ZSTART+1 ), 1, Z( 1, IHI-1-ZSTART+ 1 ), 1, C1, S1 )             CALL SROT( NZ, Z( 1, IHI-1-ZSTART+1 ), 1, Z( 1, IHI-2-ZSTART+1 ), 1, C2, S2 )
-         END IF
+         }
 
          CALL SLARTG( A( IHI-1, IHI-2 ), A( IHI, IHI-2 ), C1, S1, TEMP )
          A( IHI-1, IHI-2 ) = TEMP
          A( IHI, IHI-2 ) = ZERO
          CALL SROT( ISTOPM-IHI+2, A( IHI-1, IHI-1 ), LDA, A( IHI, IHI-1 ), LDA, C1, S1 )          CALL SROT( ISTOPM-IHI+2, B( IHI-1, IHI-1 ), LDB, B( IHI, IHI-1 ), LDB, C1, S1 )
-         IF ( ILQ ) THEN
+         if ( ILQ ) {
             CALL SROT( NQ, Q( 1, IHI-1-QSTART+1 ), 1, Q( 1, IHI-QSTART+ 1 ), 1, C1, S1 )
-         END IF
+         }
 
          CALL SLARTG( B( IHI, IHI ), B( IHI, IHI-1 ), C1, S1, TEMP )
          B( IHI, IHI ) = TEMP
          B( IHI, IHI-1 ) = ZERO
          CALL SROT( IHI-ISTARTM, B( ISTARTM, IHI ), 1, B( ISTARTM, IHI-1 ), 1, C1, S1 )          CALL SROT( IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C1, S1 )
-         IF ( ILZ ) THEN
+         if ( ILZ ) {
             CALL SROT( NZ, Z( 1, IHI-ZSTART+1 ), 1, Z( 1, IHI-1-ZSTART+ 1 ), 1, C1, S1 )
-         END IF
+         }
 
       } else {
 
@@ -75,9 +75,9 @@
          // Apply transformations from the right
 
          CALL SROT( K+3-ISTARTM+1, A( ISTARTM, K+2 ), 1, A( ISTARTM, K+1 ), 1, C1, S1 )          CALL SROT( K+3-ISTARTM+1, A( ISTARTM, K+1 ), 1, A( ISTARTM, K ), 1, C2, S2 )          CALL SROT( K+2-ISTARTM+1, B( ISTARTM, K+2 ), 1, B( ISTARTM, K+1 ), 1, C1, S1 )          CALL SROT( K+2-ISTARTM+1, B( ISTARTM, K+1 ), 1, B( ISTARTM, K ), 1, C2, S2 )
-         IF ( ILZ ) THEN
+         if ( ILZ ) {
             CALL SROT( NZ, Z( 1, K+2-ZSTART+1 ), 1, Z( 1, K+1-ZSTART+ 1 ), 1, C1, S1 )             CALL SROT( NZ, Z( 1, K+1-ZSTART+1 ), 1, Z( 1, K-ZSTART+1 ), 1, C2, S2 )
-         END IF
+         }
          B( K+1, K ) = ZERO
          B( K+2, K ) = ZERO
 
@@ -95,11 +95,11 @@
          CALL SROT( ISTOPM-K, A( K+2, K+1 ), LDA, A( K+3, K+1 ), LDA, C1, S1 )          CALL SROT( ISTOPM-K, A( K+1, K+1 ), LDA, A( K+2, K+1 ), LDA, C2, S2 )
 
          CALL SROT( ISTOPM-K, B( K+2, K+1 ), LDB, B( K+3, K+1 ), LDB, C1, S1 )          CALL SROT( ISTOPM-K, B( K+1, K+1 ), LDB, B( K+2, K+1 ), LDB, C2, S2 )
-         IF ( ILQ ) THEN
+         if ( ILQ ) {
             CALL SROT( NQ, Q( 1, K+2-QSTART+1 ), 1, Q( 1, K+3-QSTART+ 1 ), 1, C1, S1 )             CALL SROT( NQ, Q( 1, K+1-QSTART+1 ), 1, Q( 1, K+2-QSTART+ 1 ), 1, C2, S2 )
-         END IF
+         }
 
-      END IF
+      }
 
       // End of SLAQZ2
 

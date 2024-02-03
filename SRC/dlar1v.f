@@ -40,13 +40,13 @@
       EPS = DLAMCH( 'Precision' )
 
 
-      IF( R.EQ.0 ) THEN
+      if ( R.EQ.0 ) {
          R1 = B1
          R2 = BN
       } else {
          R1 = R
          R2 = R
-      END IF
+      }
 
       // Storage for LPLUS
       INDLPL = 0
@@ -55,11 +55,11 @@
       INDS = 2*N + 1
       INDP = 3*N + 1
 
-      IF( B1.EQ.1 ) THEN
+      if ( B1.EQ.1 ) {
          WORK( INDS ) = ZERO
       } else {
          WORK( INDS+B1-1 ) = LLD( B1-1 )
-      END IF
+      }
 
 
       // Compute the stationary transform (using the differential form)
@@ -86,7 +86,7 @@
       SAWNAN1 = DISNAN( S )
 
  60   CONTINUE
-      IF( SAWNAN1 ) THEN
+      if ( SAWNAN1 ) {
          // Runs a slower version of the above loop if a NaN is detected
          NEG1 = 0
          S = WORK( INDS+B1-1 ) - LAMBDA
@@ -107,7 +107,7 @@
             IF( WORK( INDLPL+I ).EQ.ZERO ) WORK( INDS+I ) = LLD( I )
             S = WORK( INDS+I ) - LAMBDA
  71      CONTINUE
-      END IF
+      }
 
       // Compute the progressive transform (using the differential form)
       // until the index R1
@@ -125,7 +125,7 @@
       TMP = WORK( INDP+R1-1 )
       SAWNAN2 = DISNAN( TMP )
 
-      IF( SAWNAN2 ) THEN
+      if ( SAWNAN2 ) {
          // Runs a slower version of the above loop if a NaN is detected
          NEG2 = 0
          DO 100 I = BN-1, R1, -1
@@ -137,14 +137,14 @@
             WORK( INDP+I-1 ) = WORK( INDP+I )*TMP - LAMBDA
             IF( TMP.EQ.ZERO ) WORK( INDP+I-1 ) = D( I ) - LAMBDA
  100     CONTINUE
-      END IF
+      }
 
       // Find the index (from R1 to R2) of the largest (in magnitude)
       // diagonal element of the inverse
 
       MINGMA = WORK( INDS+R1-1 ) + WORK( INDP+R1-1 )
       IF( MINGMA.LT.ZERO ) NEG1 = NEG1 + 1
-      IF( WANTNC ) THEN
+      if ( WANTNC ) {
          NEGCNT = NEG1 + NEG2
       } else {
          NEGCNT = -1
@@ -154,10 +154,10 @@
       DO 110 I = R1, R2 - 1
          TMP = WORK( INDS+I ) + WORK( INDP+I )
          IF( TMP.EQ.ZERO ) TMP = EPS*WORK( INDS+I )
-         IF( ABS( TMP ).LE.ABS( MINGMA ) ) THEN
+         if ( ABS( TMP ).LE.ABS( MINGMA ) ) {
             MINGMA = TMP
             R = I + 1
-         END IF
+         }
  110  CONTINUE
 
       // Compute the FP vector: solve N^T v = e_r
@@ -169,10 +169,10 @@
 
       // Compute the FP vector upwards from R
 
-      IF( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) THEN
+      if ( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) {
          DO 210 I = R-1, B1, -1
             Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) )
-            IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) THEN
+            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) {
                Z( I ) = ZERO
                ISUPPZ( 1 ) = I + 1
                GOTO 220
@@ -183,50 +183,50 @@
       } else {
          // Run slower loop if NaN occurred.
          DO 230 I = R - 1, B1, -1
-            IF( Z( I+1 ).EQ.ZERO ) THEN
+            if ( Z( I+1 ).EQ.ZERO ) {
                Z( I ) = -( LD( I+1 ) / LD( I ) )*Z( I+2 )
             } else {
                Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) )
-            END IF
-            IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) THEN
+            }
+            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) {
                Z( I ) = ZERO
                ISUPPZ( 1 ) = I + 1
                GO TO 240
-            END IF
+            }
             ZTZ = ZTZ + Z( I )*Z( I )
  230     CONTINUE
  240     CONTINUE
       ENDIF
 
       // Compute the FP vector downwards from R in blocks of size BLKSIZ
-      IF( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) THEN
+      if ( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) {
          DO 250 I = R, BN-1
             Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) )
-            IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) THEN
+            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) {
                Z( I+1 ) = ZERO
                ISUPPZ( 2 ) = I
                GO TO 260
-            END IF
+            }
             ZTZ = ZTZ + Z( I+1 )*Z( I+1 )
  250     CONTINUE
  260     CONTINUE
       } else {
          // Run slower loop if NaN occurred.
          DO 270 I = R, BN - 1
-            IF( Z( I ).EQ.ZERO ) THEN
+            if ( Z( I ).EQ.ZERO ) {
                Z( I+1 ) = -( LD( I-1 ) / LD( I ) )*Z( I-1 )
             } else {
                Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) )
-            END IF
-            IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) THEN
+            }
+            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) {
                Z( I+1 ) = ZERO
                ISUPPZ( 2 ) = I
                GO TO 280
-            END IF
+            }
             ZTZ = ZTZ + Z( I+1 )*Z( I+1 )
  270     CONTINUE
  280     CONTINUE
-      END IF
+      }
 
       // Compute quantities for convergence test
 

@@ -41,9 +41,9 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RETURN
-      END IF
+      }
 
       FACT = DBLE(2**KTRYMAX)
       EPS = DLAMCH( 'Precision' )
@@ -111,7 +111,7 @@
       // Left end
       S = -LSIGMA
       DPLUS( 1 ) = D( 1 ) + S
-      IF(ABS(DPLUS(1)).LT.PIVMIN) THEN
+      if (ABS(DPLUS(1)).LT.PIVMIN) {
          DPLUS(1) = -PIVMIN
          // Need to set SAWNAN1 because refined RRR test should not be used
          // in this case
@@ -122,7 +122,7 @@
          LPLUS( I ) = LD( I ) / DPLUS( I )
          S = S*LPLUS( I )*L( I ) - LSIGMA
          DPLUS( I+1 ) = D( I+1 ) + S
-         IF(ABS(DPLUS(I+1)).LT.PIVMIN) THEN
+         if (ABS(DPLUS(I+1)).LT.PIVMIN) {
             DPLUS(I+1) = -PIVMIN
             // Need to set SAWNAN1 because refined RRR test should not be used
             // in this case
@@ -131,7 +131,7 @@
          MAX1 = MAX( MAX1,ABS(DPLUS(I+1)) )
  6    CONTINUE
       SAWNAN1 = SAWNAN1 .OR.  DISNAN( MAX1 )
-       IF( FORCER .OR. (MAX1.LE.GROWTHBOUND .AND. .NOT.SAWNAN1 ) ) THEN
+       if ( FORCER .OR. (MAX1.LE.GROWTHBOUND .AND. .NOT.SAWNAN1 ) ) {
          SIGMA = LSIGMA
          SHIFT = SLEFT
          GOTO 100
@@ -140,7 +140,7 @@
       // Right end
       S = -RSIGMA
       WORK( 1 ) = D( 1 ) + S
-      IF(ABS(WORK(1)).LT.PIVMIN) THEN
+      if (ABS(WORK(1)).LT.PIVMIN) {
          WORK(1) = -PIVMIN
          // Need to set SAWNAN2 because refined RRR test should not be used
          // in this case
@@ -151,7 +151,7 @@
          WORK( N+I ) = LD( I ) / WORK( I )
          S = S*WORK( N+I )*L( I ) - RSIGMA
          WORK( I+1 ) = D( I+1 ) + S
-         IF(ABS(WORK(I+1)).LT.PIVMIN) THEN
+         if (ABS(WORK(I+1)).LT.PIVMIN) {
             WORK(I+1) = -PIVMIN
             // Need to set SAWNAN2 because refined RRR test should not be used
             // in this case
@@ -160,7 +160,7 @@
          MAX2 = MAX( MAX2,ABS(WORK(I+1)) )
  7    CONTINUE
       SAWNAN2 = SAWNAN2 .OR.  DISNAN( MAX2 )
-       IF( FORCER .OR. (MAX2.LE.GROWTHBOUND .AND. .NOT.SAWNAN2 ) ) THEN
+       if ( FORCER .OR. (MAX2.LE.GROWTHBOUND .AND. .NOT.SAWNAN2 ) ) {
          SIGMA = RSIGMA
          SHIFT = SRIGHT
          GOTO 100
@@ -168,20 +168,20 @@
       // If we are at this point, both shifts led to too much element growth
 
       // Record the better of the two shifts (provided it didn't lead to NaN)
-      IF(SAWNAN1.AND.SAWNAN2) THEN
+      if (SAWNAN1.AND.SAWNAN2) {
          // both MAX1 and MAX2 are NaN
          GOTO 50
       } else {
-         IF( .NOT.SAWNAN1 ) THEN
+         if ( .NOT.SAWNAN1 ) {
             INDX = 1
-            IF(MAX1.LE.SMLGROWTH) THEN
+            if (MAX1.LE.SMLGROWTH) {
                SMLGROWTH = MAX1
                BESTSHIFT = LSIGMA
             ENDIF
          ENDIF
-         IF( .NOT.SAWNAN2 ) THEN
+         if ( .NOT.SAWNAN2 ) {
             IF(SAWNAN1 .OR. MAX2.LE.MAX1) INDX = 2
-            IF(MAX2.LE.SMLGROWTH) THEN
+            if (MAX2.LE.SMLGROWTH) {
                SMLGROWTH = MAX2
                BESTSHIFT = RSIGMA
             ENDIF
@@ -193,61 +193,61 @@
       // we may still accept the representation, if it passes a
       // refined test for RRR. This test supposes that no NaN occurred.
       // Moreover, we use the refined RRR test only for isolated clusters.
-      IF((CLWDTH.LT.MINGAP/DBLE(128)) .AND. (MIN(MAX1,MAX2).LT.FAIL2) .AND.(.NOT.SAWNAN1).AND.(.NOT.SAWNAN2)) THEN
+      if ((CLWDTH.LT.MINGAP/DBLE(128)) .AND. (MIN(MAX1,MAX2).LT.FAIL2) .AND.(.NOT.SAWNAN1).AND.(.NOT.SAWNAN2)) {
          DORRR1 = .TRUE.
       } else {
          DORRR1 = .FALSE.
       ENDIF
       TRYRRR1 = .TRUE.
-      IF( TRYRRR1 .AND. DORRR1 ) THEN
-      IF(INDX.EQ.1) THEN
+      if ( TRYRRR1 .AND. DORRR1 ) {
+      if (INDX.EQ.1) {
          TMP = ABS( DPLUS( N ) )
          ZNM2 = ONE
          PROD = ONE
          OLDP = ONE
          DO 15 I = N-1, 1, -1
-            IF( PROD .LE. EPS ) THEN
+            if ( PROD .LE. EPS ) {
                PROD = ((DPLUS(I+1)*WORK(N+I+1))/(DPLUS(I)*WORK(N+I)))*OLDP
             } else {
                PROD = PROD*ABS(WORK(N+I))
-            END IF
+            }
             OLDP = PROD
             ZNM2 = ZNM2 + PROD**2
             TMP = MAX( TMP, ABS( DPLUS( I ) * PROD ))
  15      CONTINUE
          RRR1 = TMP/( SPDIAM * SQRT( ZNM2 ) )
-         IF (RRR1.LE.MAXGROWTH2) THEN
+         if (RRR1.LE.MAXGROWTH2) {
             SIGMA = LSIGMA
             SHIFT = SLEFT
             GOTO 100
          ENDIF
-      ELSE IF(INDX.EQ.2) THEN
+      } else if (INDX.EQ.2) {
          TMP = ABS( WORK( N ) )
          ZNM2 = ONE
          PROD = ONE
          OLDP = ONE
          DO 16 I = N-1, 1, -1
-            IF( PROD .LE. EPS ) THEN
+            if ( PROD .LE. EPS ) {
                PROD = ((WORK(I+1)*LPLUS(I+1))/(WORK(I)*LPLUS(I)))*OLDP
             } else {
                PROD = PROD*ABS(LPLUS(I))
-            END IF
+            }
             OLDP = PROD
             ZNM2 = ZNM2 + PROD**2
             TMP = MAX( TMP, ABS( WORK( I ) * PROD ))
  16      CONTINUE
          RRR2 = TMP/( SPDIAM * SQRT( ZNM2 ) )
-         IF (RRR2.LE.MAXGROWTH2) THEN
+         if (RRR2.LE.MAXGROWTH2) {
             SIGMA = RSIGMA
             SHIFT = SRIGHT
             GOTO 100
          ENDIF
-      END IF
+      }
       ENDIF
 
  50   CONTINUE
 
-      IF (KTRY.LT.KTRYMAX) THEN
+      if (KTRY.LT.KTRYMAX) {
          // If we are here, both shifts failed also the RRR test.
          // Back off to the outside
          LSIGMA = MAX( LSIGMA - LDELTA, LSIGMA - LDMAX)          RSIGMA = MIN( RSIGMA + RDELTA, RSIGMA + RDMAX )
@@ -258,7 +258,7 @@
       } else {
          // None of the representations investigated satisfied our
          // criteria. Take the best one we found.
-         IF((SMLGROWTH.LT.FAIL).OR.NOFAIL) THEN
+         if ((SMLGROWTH.LT.FAIL).OR.NOFAIL) {
             LSIGMA = BESTSHIFT
             RSIGMA = BESTSHIFT
             FORCER = .TRUE.
@@ -267,10 +267,10 @@
             INFO = 1
             RETURN
          ENDIF
-      END IF
+      }
 
  100  CONTINUE
-      IF (SHIFT.EQ.SLEFT) THEN
+      if (SHIFT.EQ.SLEFT) {
       ELSEIF (SHIFT.EQ.SRIGHT) THEN
          // store new L and D back into DPLUS, LPLUS
          CALL DCOPY( N, WORK, 1, DPLUS, 1 )

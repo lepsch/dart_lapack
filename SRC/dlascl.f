@@ -41,50 +41,50 @@
 
       INFO = 0
 
-      IF( LSAME( TYPE, 'G' ) ) THEN
+      if ( LSAME( TYPE, 'G' ) ) {
          ITYPE = 0
-      ELSE IF( LSAME( TYPE, 'L' ) ) THEN
+      } else if ( LSAME( TYPE, 'L' ) ) {
          ITYPE = 1
-      ELSE IF( LSAME( TYPE, 'U' ) ) THEN
+      } else if ( LSAME( TYPE, 'U' ) ) {
          ITYPE = 2
-      ELSE IF( LSAME( TYPE, 'H' ) ) THEN
+      } else if ( LSAME( TYPE, 'H' ) ) {
          ITYPE = 3
-      ELSE IF( LSAME( TYPE, 'B' ) ) THEN
+      } else if ( LSAME( TYPE, 'B' ) ) {
          ITYPE = 4
-      ELSE IF( LSAME( TYPE, 'Q' ) ) THEN
+      } else if ( LSAME( TYPE, 'Q' ) ) {
          ITYPE = 5
-      ELSE IF( LSAME( TYPE, 'Z' ) ) THEN
+      } else if ( LSAME( TYPE, 'Z' ) ) {
          ITYPE = 6
       } else {
          ITYPE = -1
-      END IF
+      }
 
-      IF( ITYPE.EQ.-1 ) THEN
+      if ( ITYPE.EQ.-1 ) {
          INFO = -1
-      ELSE IF( CFROM.EQ.ZERO .OR. DISNAN(CFROM) ) THEN
+      } else if ( CFROM.EQ.ZERO .OR. DISNAN(CFROM) ) {
          INFO = -4
-      ELSE IF( DISNAN(CTO) ) THEN
+      } else if ( DISNAN(CTO) ) {
          INFO = -5
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -6
-      ELSE IF( N.LT.0 .OR. ( ITYPE.EQ.4 .AND. N.NE.M ) .OR. ( ITYPE.EQ.5 .AND. N.NE.M ) ) THEN
+      } else if ( N.LT.0 .OR. ( ITYPE.EQ.4 .AND. N.NE.M ) .OR. ( ITYPE.EQ.5 .AND. N.NE.M ) ) {
          INFO = -7
-      ELSE IF( ITYPE.LE.3 .AND. LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( ITYPE.LE.3 .AND. LDA.LT.MAX( 1, M ) ) {
          INFO = -9
-      ELSE IF( ITYPE.GE.4 ) THEN
-         IF( KL.LT.0 .OR. KL.GT.MAX( M-1, 0 ) ) THEN
+      } else if ( ITYPE.GE.4 ) {
+         if ( KL.LT.0 .OR. KL.GT.MAX( M-1, 0 ) ) {
             INFO = -2
-         ELSE IF( KU.LT.0 .OR. KU.GT.MAX( N-1, 0 ) .OR. ( ( ITYPE.EQ.4 .OR. ITYPE.EQ.5 ) .AND. KL.NE.KU ) ) THEN
+         } else if ( KU.LT.0 .OR. KU.GT.MAX( N-1, 0 ) .OR. ( ( ITYPE.EQ.4 .OR. ITYPE.EQ.5 ) .AND. KL.NE.KU ) ) {
             INFO = -3
-         ELSE IF( ( ITYPE.EQ.4 .AND. LDA.LT.KL+1 ) .OR. ( ITYPE.EQ.5 .AND. LDA.LT.KU+1 ) .OR. ( ITYPE.EQ.6 .AND. LDA.LT.2*KL+KU+1 ) ) THEN
+         } else if ( ( ITYPE.EQ.4 .AND. LDA.LT.KL+1 ) .OR. ( ITYPE.EQ.5 .AND. LDA.LT.KU+1 ) .OR. ( ITYPE.EQ.6 .AND. LDA.LT.2*KL+KU+1 ) ) {
             INFO = -9
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLASCL', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -100,7 +100,7 @@
 
    10 CONTINUE
       CFROM1 = CFROMC*SMLNUM
-      IF( CFROM1.EQ.CFROMC ) THEN
+      if ( CFROM1.EQ.CFROMC ) {
          // CFROMC is an inf.  Multiply by a correctly signed zero for
          // finite CTOC, or a NaN if CTOC is infinite.
          MUL = CTOC / CFROMC
@@ -108,17 +108,17 @@
          CTO1 = CTOC
       } else {
          CTO1 = CTOC / BIGNUM
-         IF( CTO1.EQ.CTOC ) THEN
+         if ( CTO1.EQ.CTOC ) {
             // CTOC is either 0 or an inf.  In both cases, CTOC itself
             // serves as the correct multiplication factor.
             MUL = CTOC
             DONE = .TRUE.
             CFROMC = ONE
-         ELSE IF( ABS( CFROM1 ).GT.ABS( CTOC ) .AND. CTOC.NE.ZERO ) THEN
+         } else if ( ABS( CFROM1 ).GT.ABS( CTOC ) .AND. CTOC.NE.ZERO ) {
             MUL = SMLNUM
             DONE = .FALSE.
             CFROMC = CFROM1
-         ELSE IF( ABS( CTO1 ).GT.ABS( CFROMC ) ) THEN
+         } else if ( ABS( CTO1 ).GT.ABS( CFROMC ) ) {
             MUL = BIGNUM
             DONE = .FALSE.
             CTOC = CTO1
@@ -126,10 +126,10 @@
             MUL = CTOC / CFROMC
             DONE = .TRUE.
             IF (MUL .EQ. ONE) RETURN
-         END IF
-      END IF
+         }
+      }
 
-      IF( ITYPE.EQ.0 ) THEN
+      if ( ITYPE.EQ.0 ) {
 
          // Full matrix
 
@@ -139,7 +139,7 @@
    20       CONTINUE
    30    CONTINUE
 
-      ELSE IF( ITYPE.EQ.1 ) THEN
+      } else if ( ITYPE.EQ.1 ) {
 
          // Lower triangular matrix
 
@@ -149,7 +149,7 @@
    40       CONTINUE
    50    CONTINUE
 
-      ELSE IF( ITYPE.EQ.2 ) THEN
+      } else if ( ITYPE.EQ.2 ) {
 
          // Upper triangular matrix
 
@@ -159,7 +159,7 @@
    60       CONTINUE
    70    CONTINUE
 
-      ELSE IF( ITYPE.EQ.3 ) THEN
+      } else if ( ITYPE.EQ.3 ) {
 
          // Upper Hessenberg matrix
 
@@ -169,7 +169,7 @@
    80       CONTINUE
    90    CONTINUE
 
-      ELSE IF( ITYPE.EQ.4 ) THEN
+      } else if ( ITYPE.EQ.4 ) {
 
          // Lower half of a symmetric band matrix
 
@@ -181,7 +181,7 @@
   100       CONTINUE
   110    CONTINUE
 
-      ELSE IF( ITYPE.EQ.5 ) THEN
+      } else if ( ITYPE.EQ.5 ) {
 
          // Upper half of a symmetric band matrix
 
@@ -193,7 +193,7 @@
   120       CONTINUE
   130    CONTINUE
 
-      ELSE IF( ITYPE.EQ.6 ) THEN
+      } else if ( ITYPE.EQ.6 ) {
 
          // Band matrix
 
@@ -207,7 +207,7 @@
   140       CONTINUE
   150    CONTINUE
 
-      END IF
+      }
 
       IF( .NOT.DONE ) GO TO 10
 

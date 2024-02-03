@@ -46,59 +46,59 @@
       TOL = EPS*HUNDRD
       TOL2 = TOL**2
 
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
          CALL XERBLA( 'DLASQ2', 1 )
          RETURN
-      ELSE IF( N.EQ.0 ) THEN
+      } else if ( N.EQ.0 ) {
          RETURN
-      ELSE IF( N.EQ.1 ) THEN
+      } else if ( N.EQ.1 ) {
 
          // 1-by-1 case.
 
-         IF( Z( 1 ).LT.ZERO ) THEN
+         if ( Z( 1 ).LT.ZERO ) {
             INFO = -201
             CALL XERBLA( 'DLASQ2', 2 )
-         END IF
+         }
          RETURN
-      ELSE IF( N.EQ.2 ) THEN
+      } else if ( N.EQ.2 ) {
 
          // 2-by-2 case.
 
-         IF( Z( 1 ).LT.ZERO ) THEN
+         if ( Z( 1 ).LT.ZERO ) {
             INFO = -201
             CALL XERBLA( 'DLASQ2', 2 )
             RETURN
-         ELSE IF( Z( 2 ).LT.ZERO ) THEN
+         } else if ( Z( 2 ).LT.ZERO ) {
             INFO = -202
             CALL XERBLA( 'DLASQ2', 2 )
             RETURN
-         ELSE IF( Z( 3 ).LT.ZERO ) THEN
+         } else if ( Z( 3 ).LT.ZERO ) {
            INFO = -203
            CALL XERBLA( 'DLASQ2', 2 )
            RETURN
-         ELSE IF( Z( 3 ).GT.Z( 1 ) ) THEN
+         } else if ( Z( 3 ).GT.Z( 1 ) ) {
             D = Z( 3 )
             Z( 3 ) = Z( 1 )
             Z( 1 ) = D
-         END IF
+         }
          Z( 5 ) = Z( 1 ) + Z( 2 ) + Z( 3 )
-         IF( Z( 2 ).GT.Z( 3 )*TOL2 ) THEN
+         if ( Z( 2 ).GT.Z( 3 )*TOL2 ) {
             T = HALF*( ( Z( 1 )-Z( 3 ) )+Z( 2 ) )
             S = Z( 3 )*( Z( 2 ) / T )
-            IF( S.LE.T ) THEN
+            if ( S.LE.T ) {
                S = Z( 3 )*( Z( 2 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) )
             } else {
                S = Z( 3 )*( Z( 2 ) / ( T+SQRT( T )*SQRT( T+S ) ) )
-            END IF
+            }
             T = Z( 1 ) + ( S+Z( 2 ) )
             Z( 3 ) = Z( 3 )*( Z( 1 ) / T )
             Z( 1 ) = T
-         END IF
+         }
          Z( 2 ) = Z( 3 )
          Z( 6 ) = Z( 2 ) + Z( 1 )
          RETURN
-      END IF
+      }
 
       // Check for negative data and compute sums of q's and e's.
 
@@ -110,49 +110,49 @@
       E = ZERO
 
       DO 10 K = 1, 2*( N-1 ), 2
-         IF( Z( K ).LT.ZERO ) THEN
+         if ( Z( K ).LT.ZERO ) {
             INFO = -( 200+K )
             CALL XERBLA( 'DLASQ2', 2 )
             RETURN
-         ELSE IF( Z( K+1 ).LT.ZERO ) THEN
+         } else if ( Z( K+1 ).LT.ZERO ) {
             INFO = -( 200+K+1 )
             CALL XERBLA( 'DLASQ2', 2 )
             RETURN
-         END IF
+         }
          D = D + Z( K )
          E = E + Z( K+1 )
          QMAX = MAX( QMAX, Z( K ) )
          EMIN = MIN( EMIN, Z( K+1 ) )
          ZMAX = MAX( QMAX, ZMAX, Z( K+1 ) )
    10 CONTINUE
-      IF( Z( 2*N-1 ).LT.ZERO ) THEN
+      if ( Z( 2*N-1 ).LT.ZERO ) {
          INFO = -( 200+2*N-1 )
          CALL XERBLA( 'DLASQ2', 2 )
          RETURN
-      END IF
+      }
       D = D + Z( 2*N-1 )
       QMAX = MAX( QMAX, Z( 2*N-1 ) )
       ZMAX = MAX( QMAX, ZMAX )
 
       // Check for diagonality.
 
-      IF( E.EQ.ZERO ) THEN
+      if ( E.EQ.ZERO ) {
          DO 20 K = 2, N
             Z( K ) = Z( 2*K-1 )
    20    CONTINUE
          CALL DLASRT( 'D', N, Z, IINFO )
          Z( 2*N-1 ) = D
          RETURN
-      END IF
+      }
 
       TRACE = D + E
 
       // Check for zero data.
 
-      IF( TRACE.EQ.ZERO ) THEN
+      if ( TRACE.EQ.ZERO ) {
          Z( 2*N-1 ) = ZERO
          RETURN
-      END IF
+      }
 
       // Check whether the machine is IEEE conformable.
 
@@ -172,7 +172,7 @@
 
       // Reverse the qd-array, if warranted.
 
-      IF( CBIAS*Z( 4*I0-3 ).LT.Z( 4*N0-3 ) ) THEN
+      if ( CBIAS*Z( 4*I0-3 ).LT.Z( 4*N0-3 ) ) {
          IPN4 = 4*( I0+N0 )
          DO 40 I4 = 4*I0, 2*( I0+N0-1 ), 4
             TEMP = Z( I4-3 )
@@ -182,7 +182,7 @@
             Z( I4-1 ) = Z( IPN4-I4-5 )
             Z( IPN4-I4-5 ) = TEMP
    40    CONTINUE
-      END IF
+      }
 
       // Initial split checking via dqd and Li's test.
 
@@ -192,12 +192,12 @@
 
          D = Z( 4*N0+PP-3 )
          DO 50 I4 = 4*( N0-1 ) + PP, 4*I0 + PP, -4
-            IF( Z( I4-1 ).LE.TOL2*D ) THEN
+            if ( Z( I4-1 ).LE.TOL2*D ) {
                Z( I4-1 ) = -ZERO
                D = Z( I4-3 )
             } else {
                D = Z( I4-3 )*( D / ( D+Z( I4-1 ) ) )
-            END IF
+            }
    50    CONTINUE
 
          // dqd maps Z to ZZ plus Li's test.
@@ -206,19 +206,19 @@
          D = Z( 4*I0+PP-3 )
          DO 60 I4 = 4*I0 + PP, 4*( N0-1 ) + PP, 4
             Z( I4-2*PP-2 ) = D + Z( I4-1 )
-            IF( Z( I4-1 ).LE.TOL2*D ) THEN
+            if ( Z( I4-1 ).LE.TOL2*D ) {
                Z( I4-1 ) = -ZERO
                Z( I4-2*PP-2 ) = D
                Z( I4-2*PP ) = ZERO
                D = Z( I4+1 )
-            ELSE IF( SAFMIN*Z( I4+1 ).LT.Z( I4-2*PP-2 ) .AND. SAFMIN*Z( I4-2*PP-2 ).LT.Z( I4+1 ) ) THEN
+            } else if ( SAFMIN*Z( I4+1 ).LT.Z( I4-2*PP-2 ) .AND. SAFMIN*Z( I4-2*PP-2 ).LT.Z( I4+1 ) ) {
                TEMP = Z( I4+1 ) / Z( I4-2*PP-2 )
                Z( I4-2*PP ) = Z( I4-1 )*TEMP
                D = D*TEMP
             } else {
                Z( I4-2*PP ) = Z( I4+1 )*( Z( I4-1 ) / Z( I4-2*PP-2 ) )
                D = Z( I4+1 )*( D / Z( I4-2*PP-2 ) )
-            END IF
+            }
             EMIN = MIN( EMIN, Z( I4-2*PP ) )
    60    CONTINUE
          Z( 4*N0-PP-2 ) = D
@@ -259,33 +259,33 @@
          // splits from the rest of the array, but is negated.
 
          DESIG = ZERO
-         IF( N0.EQ.N ) THEN
+         if ( N0.EQ.N ) {
             SIGMA = ZERO
          } else {
             SIGMA = -Z( 4*N0-1 )
-         END IF
-         IF( SIGMA.LT.ZERO ) THEN
+         }
+         if ( SIGMA.LT.ZERO ) {
             INFO = 1
             RETURN
-         END IF
+         }
 
          // Find last unreduced submatrix's top index I0, find QMAX and
          // EMIN. Find Gershgorin-type bound if Q's much greater than E's.
 
          EMAX = ZERO
-         IF( N0.GT.I0 ) THEN
+         if ( N0.GT.I0 ) {
             EMIN = ABS( Z( 4*N0-5 ) )
          } else {
             EMIN = ZERO
-         END IF
+         }
          QMIN = Z( 4*N0-3 )
          QMAX = QMIN
          DO 90 I4 = 4*N0, 8, -4
             IF( Z( I4-5 ).LE.ZERO ) GO TO 100
-            IF( QMIN.GE.FOUR*EMAX ) THEN
+            if ( QMIN.GE.FOUR*EMAX ) {
                QMIN = MIN( QMIN, Z( I4-3 ) )
                EMAX = MAX( EMAX, Z( I4-5 ) )
-            END IF
+            }
             QMAX = MAX( QMAX, Z( I4-7 )+Z( I4-5 ) )
             EMIN = MIN( EMIN, Z( I4-5 ) )
    90    CONTINUE
@@ -295,18 +295,18 @@
          I0 = I4 / 4
          PP = 0
 
-         IF( N0-I0.GT.1 ) THEN
+         if ( N0-I0.GT.1 ) {
             DEE = Z( 4*I0-3 )
             DEEMIN = DEE
             KMIN = I0
             DO 110 I4 = 4*I0+1, 4*N0-3, 4
                DEE = Z( I4 )*( DEE /( DEE+Z( I4-2 ) ) )
-               IF( DEE.LE.DEEMIN ) THEN
+               if ( DEE.LE.DEEMIN ) {
                   DEEMIN = DEE
                   KMIN = ( I4+3 )/4
-               END IF
+               }
   110       CONTINUE
-            IF( (KMIN-I0)*2.LT.N0-KMIN .AND. DEEMIN.LE.HALF*Z(4*N0-3) ) THEN
+            if ( (KMIN-I0)*2.LT.N0-KMIN .AND. DEEMIN.LE.HALF*Z(4*N0-3) ) {
                IPN4 = 4*( I0+N0 )
                PP = 2
                DO 120 I4 = 4*I0, 2*( I0+N0-1 ), 4
@@ -323,8 +323,8 @@
                   Z( I4 ) = Z( IPN4-I4-4 )
                   Z( IPN4-I4-4 ) = TEMP
   120          CONTINUE
-            END IF
-         END IF
+            }
+         }
 
          // Put -(initial shift) into DMIN.
 
@@ -348,14 +348,14 @@
 
             // When EMIN is very small check for splits.
 
-            IF( PP.EQ.0 .AND. N0-I0.GE.3 ) THEN
-               IF( Z( 4*N0 ).LE.TOL2*QMAX .OR. Z( 4*N0-1 ).LE.TOL2*SIGMA ) THEN
+            if ( PP.EQ.0 .AND. N0-I0.GE.3 ) {
+               if ( Z( 4*N0 ).LE.TOL2*QMAX .OR. Z( 4*N0-1 ).LE.TOL2*SIGMA ) {
                   SPLT = I0 - 1
                   QMAX = Z( 4*I0-3 )
                   EMIN = Z( 4*I0-1 )
                   OLDEMN = Z( 4*I0 )
                   DO 130 I4 = 4*I0, 4*( N0-3 ), 4
-                     IF( Z( I4 ).LE.TOL2*Z( I4-3 ) .OR. Z( I4-1 ).LE.TOL2*SIGMA ) THEN
+                     if ( Z( I4 ).LE.TOL2*Z( I4-3 ) .OR. Z( I4-1 ).LE.TOL2*SIGMA ) {
                         Z( I4-1 ) = -SIGMA
                         SPLT = I4 / 4
                         QMAX = ZERO
@@ -365,13 +365,13 @@
                         QMAX = MAX( QMAX, Z( I4+1 ) )
                         EMIN = MIN( EMIN, Z( I4-1 ) )
                         OLDEMN = MIN( OLDEMN, Z( I4 ) )
-                     END IF
+                     }
   130             CONTINUE
                   Z( 4*N0-1 ) = EMIN
                   Z( 4*N0 ) = OLDEMN
                   I0 = SPLT + 1
-               END IF
-            END IF
+               }
+            }
 
   140    CONTINUE
 
@@ -395,14 +395,14 @@
 
          // Prepare to do this on the previous block if there is one
 
-         IF( I1.GT.1 ) THEN
+         if ( I1.GT.1 ) {
             N1 = I1-1
             DO WHILE( ( I1.GE.2 ) .AND. ( Z(4*I1-5).GE.ZERO ) )
                I1 = I1 - 1
             END DO
             SIGMA = -Z(4*N1-1)
             GO TO 145
-         END IF
+         }
 
          DO K = 1, N
             Z( 2*K-1 ) = Z( 4*K-3 )
@@ -411,11 +411,11 @@
          // must be essentially zero, although sometimes other data
          // has been stored in them.
 
-            IF( K.LT.N0 ) THEN
+            if ( K.LT.N0 ) {
                Z( 2*K ) = Z( 4*K-1 )
             } else {
                Z( 2*K ) = 0
-            END IF
+            }
          END DO
          RETURN
 

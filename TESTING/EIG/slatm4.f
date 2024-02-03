@@ -47,8 +47,8 @@
       // Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
       // and RCOND
 
-      IF( ITYPE.NE.0 ) THEN
-         IF( ABS( ITYPE ).GE.4 ) THEN
+      if ( ITYPE.NE.0 ) {
+         if ( ABS( ITYPE ).GE.4 ) {
             KBEG = MAX( 1, MIN( N, NZ1+1 ) )
             KEND = MAX( KBEG, MIN( N, N-NZ2 ) )
             KLEN = KEND + 1 - KBEG
@@ -56,7 +56,7 @@
             KBEG = 1
             KEND = N
             KLEN = N
-         END IF
+         }
          ISDB = 1
          ISDE = 0
          GO TO ( 10, 30, 50, 80, 100, 120, 140, 160, 180, 200 )ABS( ITYPE )
@@ -124,24 +124,24 @@
 
   140    CONTINUE
          A( KBEG, KBEG ) = ONE
-         IF( KLEN.GT.1 ) THEN
+         if ( KLEN.GT.1 ) {
             ALPHA = RCOND**( ONE / REAL( KLEN-1 ) )
             DO 150 I = 2, KLEN
                A( NZ1+I, NZ1+I ) = ALPHA**REAL( I-1 )
   150       CONTINUE
-         END IF
+         }
          GO TO 220
 
          // abs(ITYPE) = 8: Arithmetically distributed D values:
 
   160    CONTINUE
          A( KBEG, KBEG ) = ONE
-         IF( KLEN.GT.1 ) THEN
+         if ( KLEN.GT.1 ) {
             ALPHA = ( ONE-RCOND ) / REAL( KLEN-1 )
             DO 170 I = 2, KLEN
                A( NZ1+I, NZ1+I ) = REAL( KLEN-I )*ALPHA + RCOND
   170       CONTINUE
-         END IF
+         }
          GO TO 220
 
          // abs(ITYPE) = 9: Randomly distributed D values on ( RCOND, 1):
@@ -174,22 +174,22 @@
          // If ISIGN = 1 or 2, assign random signs to diagonal and
          // subdiagonal
 
-         IF( ISIGN.GT.0 ) THEN
+         if ( ISIGN.GT.0 ) {
             DO 250 JD = KBEG, KEND
-               IF( REAL( A( JD, JD ) ).NE.ZERO ) THEN
+               if ( REAL( A( JD, JD ) ).NE.ZERO ) {
                   IF( SLARAN( ISEED ).GT.HALF ) A( JD, JD ) = -A( JD, JD )
-               END IF
+               }
   250       CONTINUE
             DO 260 JD = ISDB, ISDE
-               IF( REAL( A( JD+1, JD ) ).NE.ZERO ) THEN
+               if ( REAL( A( JD+1, JD ) ).NE.ZERO ) {
                   IF( SLARAN( ISEED ).GT.HALF ) A( JD+1, JD ) = -A( JD+1, JD )
-               END IF
+               }
   260       CONTINUE
-         END IF
+         }
 
          // Reverse if ITYPE < 0
 
-         IF( ITYPE.LT.0 ) THEN
+         if ( ITYPE.LT.0 ) {
             DO 270 JD = KBEG, ( KBEG+KEND-1 ) / 2
                TEMP = A( JD, JD )
                A( JD, JD ) = A( KBEG+KEND-JD, KBEG+KEND-JD )
@@ -200,15 +200,15 @@
                A( JD+1, JD ) = A( N+1-JD, N-JD )
                A( N+1-JD, N-JD ) = TEMP
   280       CONTINUE
-         END IF
+         }
 
          // If ISIGN = 2, and no subdiagonals already, then apply
          // random rotations to make 2x2 blocks.
 
-         IF( ISIGN.EQ.2 .AND. ITYPE.NE.2 .AND. ITYPE.NE.3 ) THEN
+         if ( ISIGN.EQ.2 .AND. ITYPE.NE.2 .AND. ITYPE.NE.3 ) {
             SAFMIN = SLAMCH( 'S' )
             DO 290 JD = KBEG, KEND - 1, 2
-               IF( SLARAN( ISEED ).GT.HALF ) THEN
+               if ( SLARAN( ISEED ).GT.HALF ) {
 
                   // Rotation on left.
 
@@ -234,30 +234,30 @@
                   A( JD+1, JD ) = -SL*CR*SV1 + CL*SR*SV2
                   A( JD, JD+1 ) = -CL*SR*SV1 + SL*CR*SV2
                   A( JD+1, JD+1 ) = SL*SR*SV1 + CL*CR*SV2
-               END IF
+               }
   290       CONTINUE
-         END IF
+         }
 
-      END IF
+      }
 
       // Fill in upper triangle (except for 2x2 blocks)
 
-      IF( TRIANG.NE.ZERO ) THEN
-         IF( ISIGN.NE.2 .OR. ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) THEN
+      if ( TRIANG.NE.ZERO ) {
+         if ( ISIGN.NE.2 .OR. ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) {
             IOFF = 1
          } else {
             IOFF = 2
             DO 300 JR = 1, N - 1
                IF( A( JR+1, JR ).EQ.ZERO ) A( JR, JR+1 ) = TRIANG*SLARND( IDIST, ISEED )
   300       CONTINUE
-         END IF
+         }
 
          DO 320 JC = 2, N
             DO 310 JR = 1, JC - IOFF
                A( JR, JC ) = TRIANG*SLARND( IDIST, ISEED )
   310       CONTINUE
   320    CONTINUE
-      END IF
+      }
 
       RETURN
 

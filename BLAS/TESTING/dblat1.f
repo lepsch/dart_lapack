@@ -35,15 +35,15 @@
          PASS = .TRUE.
          INCX = 9999
          INCY = 9999
-         IF (ICASE.EQ.3 .OR. ICASE.EQ.11) THEN
+         if (ICASE.EQ.3 .OR. ICASE.EQ.11) {
             CALL CHECK0(SFAC)
-         ELSE IF (ICASE.EQ.7 .OR. ICASE.EQ.8 .OR. ICASE.EQ.9 .OR. ICASE.EQ.10) THEN
+         } else if (ICASE.EQ.7 .OR. ICASE.EQ.8 .OR. ICASE.EQ.9 .OR. ICASE.EQ.10) {
             CALL CHECK1(SFAC)
-         ELSE IF (ICASE.EQ.1 .OR. ICASE.EQ.2 .OR. ICASE.EQ.5 .OR. ICASE.EQ.6 .OR. ICASE.EQ.12 .OR. ICASE.EQ.13) THEN
+         } else if (ICASE.EQ.1 .OR. ICASE.EQ.2 .OR. ICASE.EQ.5 .OR. ICASE.EQ.6 .OR. ICASE.EQ.12 .OR. ICASE.EQ.13) {
             CALL CHECK2(SFAC)
-         ELSE IF (ICASE.EQ.4) THEN
+         } else if (ICASE.EQ.4) {
             CALL CHECK3(SFAC)
-         END IF
+         }
          // -- Print
          IF (PASS) WRITE (NOUT,99998)
    20 CONTINUE
@@ -148,7 +148,7 @@
       DO 20 K = 1, 8
          // .. Set N=K for identification in output if any ..
          N = K
-         IF (ICASE.EQ.3) THEN
+         if (ICASE.EQ.3) {
             // .. DROTG ..
             IF (K.GT.8) GO TO 40
             SA = DA1(K)
@@ -170,7 +170,7 @@
          } else {
             WRITE (NOUT,*) ' Shouldn''t be here in CHECK0'
             STOP
-         END IF
+         }
    20 CONTINUE
    40 RETURN
 
@@ -220,7 +220,7 @@
                SX(I) = DV(I,NP1,INCX)
    20       CONTINUE
 
-            IF (ICASE.EQ.7) THEN
+            if (ICASE.EQ.7) {
                // .. DNRM2 ..
                // Test scaling when some entries are tiny or huge
                CALL DB1NRM2(N,(INCX-2)*2,THRESH)
@@ -228,18 +228,18 @@
                // Test with hardcoded mid range entries
                STEMP(1) = DTRUE1(NP1)
                CALL STEST1(DNRM2(N,SX,INCX),STEMP(1),STEMP,SFAC)
-            ELSE IF (ICASE.EQ.8) THEN
+            } else if (ICASE.EQ.8) {
                // .. DASUM ..
                STEMP(1) = DTRUE3(NP1)
                CALL STEST1(DASUM(N,SX,INCX),STEMP(1),STEMP,SFAC)
-            ELSE IF (ICASE.EQ.9) THEN
+            } else if (ICASE.EQ.9) {
                // .. DSCAL ..
                CALL DSCAL(N,SA((INCX-1)*5+NP1),SX,INCX)
                DO 40 I = 1, LEN
                   STRUE(I) = DTRUE5(I,NP1,INCX)
    40          CONTINUE
                CALL STEST(LEN,SX,STRUE,STRUE,SFAC)
-            ELSE IF (ICASE.EQ.10) THEN
+            } else if (ICASE.EQ.10) {
                // .. IDAMAX ..
                CALL ITEST1(IDAMAX(N,SX,INCX),ITRUE2(NP1))
                DO 100 I = 1, LEN
@@ -249,9 +249,9 @@
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
-            END IF
+            }
    60    CONTINUE
-         IF (ICASE.EQ.10) THEN
+         if (ICASE.EQ.10) {
             N = 8
             IX = 1
             DO 120 I = 1, N
@@ -259,7 +259,7 @@
                IX = IX + INCX
   120       CONTINUE
             CALL ITEST1(IDAMAX(N,SXR,INCX),3)
-         END IF
+         }
    80 CONTINUE
       RETURN
 
@@ -342,31 +342,31 @@
                SY(I) = DY1(I)
    20       CONTINUE
 
-            IF (ICASE.EQ.1) THEN
+            if (ICASE.EQ.1) {
                // .. DDOT ..
                CALL STEST1(DDOT(N,SX,INCX,SY,INCY),DT7(KN,KI),SSIZE1(KN) ,SFAC)
-            ELSE IF (ICASE.EQ.2) THEN
+            } else if (ICASE.EQ.2) {
                // .. DAXPY ..
                CALL DAXPY(N,SA,SX,INCX,SY,INCY)
                DO 40 J = 1, LENY
                   STY(J) = DT8(J,KN,KI)
    40          CONTINUE
                CALL STEST(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC)
-            ELSE IF (ICASE.EQ.5) THEN
+            } else if (ICASE.EQ.5) {
                // .. DCOPY ..
                DO 60 I = 1, 7
                   STY(I) = DT10Y(I,KN,KI)
    60          CONTINUE
                CALL DCOPY(N,SX,INCX,SY,INCY)
                CALL STEST(LENY,SY,STY,SSIZE2(1,1),1.0D0)
-               IF (KI.EQ.1) THEN
+               if (KI.EQ.1) {
                   SX0(1) = 42.0D0
                   SY0(1) = 43.0D0
-                  IF (N.EQ.0) THEN
+                  if (N.EQ.0) {
                      STY0(1) = SY0(1)
                   } else {
                      STY0(1) = SX0(1)
-                  END IF
+                  }
                   LINCX = INCX
                   INCX = 0
                   LINCY = INCY
@@ -375,8 +375,8 @@
                   CALL STEST(1,SY0,STY0,SSIZE2(1,1),1.0D0)
                   INCX = LINCX
                   INCY = LINCY
-               END IF
-            ELSE IF (ICASE.EQ.6) THEN
+               }
+            } else if (ICASE.EQ.6) {
                // .. DSWAP ..
                CALL DSWAP(N,SX,INCX,SY,INCY)
                DO 80 I = 1, 7
@@ -385,7 +385,7 @@
    80          CONTINUE
                CALL STEST(LENX,SX,STX,SSIZE2(1,1),1.0D0)
                CALL STEST(LENY,SY,STY,SSIZE2(1,1),1.0D0)
-            ELSE IF (ICASE.EQ.12) THEN
+            } else if (ICASE.EQ.12) {
                // .. DROTM ..
                KNI=KN+4*(KI-1)
                DO KPAR=1,4
@@ -411,13 +411,13 @@
                   CALL   STEST(LENX,SX,STX,SSIZE,SFAC)
                   CALL   STEST(LENY,SY,STY,STY,SFAC)
                END DO
-            ELSE IF (ICASE.EQ.13) THEN
+            } else if (ICASE.EQ.13) {
                // .. DSDOT ..
             CALL TESTDSDOT(REAL(DSDOT(N,REAL(SX),INCX,REAL(SY),INCY)), REAL(DT7(KN,KI)),REAL(SSIZE1(KN)), .3125E-1)
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
-            END IF
+            }
   100    CONTINUE
   120 CONTINUE
       RETURN
@@ -469,7 +469,7 @@
             LENX = LENS(KN,MX)
             LENY = LENS(KN,MY)
 
-            IF (ICASE.EQ.4) THEN
+            if (ICASE.EQ.4) {
                // .. DROT ..
                DO 20 I = 1, 7
                   SX(I) = DX1(I)
@@ -483,7 +483,7 @@
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK3'
                STOP
-            END IF
+            }
    40    CONTINUE
    60 CONTINUE
 
@@ -834,15 +834,15 @@
 
       // Check that the arrays are large enough
 
-      IF (N*ABS(INCX).GT.NMAX) THEN
+      if (N*ABS(INCX).GT.NMAX) {
          WRITE (NOUT,99) "DNRM2", NMAX, INCX, N, N*ABS(INCX)
          RETURN
-      END IF
+      }
 
       // Zero-sized inputs are tested in STEST1.
-      IF (N.LE.0) THEN
+      if (N.LE.0) {
          RETURN
-      END IF
+      }
 
       // Generate (N-1) values in (-1,1).
 
@@ -865,15 +865,15 @@
 
       DO IV = 1, NV
          V0 = VALUES(IV)
-         IF (ABS(V0).GT.ONE) THEN
+         if (ABS(V0).GT.ONE) {
             V0 = V0*HALF
-         END IF
+         }
          Z(1) = V0
          DO IW = 1, NV
             V1 = VALUES(IW)
-            IF (ABS(V1).GT.ONE) THEN
+            if (ABS(V1).GT.ONE) {
                V1 = (V1*HALF) / SQRT(DBLE(N))
-            END IF
+            }
             DO I = 2, N
                Z(I) = V1*WORK(I)
             END DO
@@ -881,11 +881,11 @@
             // Compute the expected value of the 2-norm
 
             Y1 = ABS(V0)
-            IF (N.GT.1) THEN
+            if (N.GT.1) {
                Y2 = ABS(V1)*SQRT(WORKSSQ)
             } else {
                Y2 = ZERO
-            END IF
+            }
             YMIN = MIN(Y1, Y2)
             YMAX = MAX(Y1, Y2)
 
@@ -893,16 +893,16 @@
             // for YMIN == YMAX avoids further computation if both
             // are infinity.
 
-            IF ((Y1.NE.Y1).OR.(Y2.NE.Y2)) THEN
+            if ((Y1.NE.Y1).OR.(Y2.NE.Y2)) {
                // Add to propagate NaN
                YNRM = Y1 + Y2
-            ELSE IF (YMAX == ZERO) THEN
+            } else if (YMAX == ZERO) {
                YNRM = ZERO
-            ELSE IF (YMIN == YMAX) THEN
+            } else if (YMIN == YMAX) {
                YNRM = SQRT(TWO)*YMAX
             } else {
                YNRM = YMAX*SQRT(ONE + (YMIN / YMAX)**2)
-            END IF
+            }
 
             // Fill the input array to DNRM2 with steps of incx
 
@@ -923,34 +923,34 @@
             // Compare SNRM and ZNRM.  Roundoff error grows like O(n)
             // in this implementation so we scale the test ratio accordingly.
 
-            IF (INCX.EQ.0) THEN
+            if (INCX.EQ.0) {
                ZNRM = SQRT(DBLE(N))*ABS(X(1))
             } else {
                ZNRM = YNRM
-            END IF
+            }
 
             // The tests for NaN rely on the compiler not being overly
             // aggressive and removing the statements altogether.
-            IF ((SNRM.NE.SNRM).OR.(ZNRM.NE.ZNRM)) THEN
-               IF ((SNRM.NE.SNRM).NEQV.(ZNRM.NE.ZNRM)) THEN
+            if ((SNRM.NE.SNRM).OR.(ZNRM.NE.ZNRM)) {
+               if ((SNRM.NE.SNRM).NEQV.(ZNRM.NE.ZNRM)) {
                   TRAT = ONE / ULP
                } else {
                   TRAT = ZERO
-               END IF
-            ELSE IF (SNRM == ZNRM) THEN
+               }
+            } else if (SNRM == ZNRM) {
                TRAT = ZERO
-            ELSE IF (ZNRM == ZERO) THEN
+            } else if (ZNRM == ZERO) {
                TRAT = SNRM / ULP
             } else {
                TRAT = (ABS(SNRM-ZNRM) / ZNRM) / (DBLE(N)*ULP)
-            END IF
-            IF ((TRAT.NE.TRAT).OR.(TRAT.GE.THRESH)) THEN
-               IF (FIRST) THEN
+            }
+            if ((TRAT.NE.TRAT).OR.(TRAT.GE.THRESH)) {
+               if (FIRST) {
                   FIRST = .FALSE.
                   WRITE(NOUT,99999)
-               END IF
+               }
                WRITE (NOUT,98) "DNRM2", N, INCX, IV, IW, TRAT
-            END IF
+            }
          END DO
       END DO
 99999 FORMAT ('                                       FAIL')
@@ -971,13 +971,13 @@
       // .. Executable Statements ..
       Y = HUGE(XX)
       Z = YY
-      IF (K.EQ.1) THEN
+      if (K.EQ.1) {
          X = -Z
-      ELSE IF (K.EQ.2) THEN
+      } else if (K.EQ.2) {
          X = Z
-      ELSE IF (K.EQ.3) THEN
+      } else if (K.EQ.3) {
          X = Z / Z
-      END IF
+      }
       DXVALS = X
       RETURN
       }

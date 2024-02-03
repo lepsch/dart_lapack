@@ -42,28 +42,28 @@
 
       // Quick exit if N = 0
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RCOND = ONE
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANSY( '1', UPLO, N, A, LDA, RWORK )
       AINVNM = CLANSY( '1', UPLO, N, AINV, LDAINV, RWORK )
-      IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
       RCOND = ( ONE/ANORM ) / AINVNM
 
       // Expand AINV into a full matrix and call CSYMM to multiply
       // AINV on the left by A (store the result in WORK).
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 20 J = 1, N
             DO 10 I = 1, J - 1
                AINV( J, I ) = AINV( I, J )
@@ -75,7 +75,7 @@
                AINV( J, I ) = AINV( I, J )
    30       CONTINUE
    40    CONTINUE
-      END IF
+      }
       CALL CSYMM( 'Left', UPLO, N, N, -CONE, A, LDA, AINV, LDAINV, CZERO, WORK, LDWORK )
 
       // Add the identity matrix to WORK .

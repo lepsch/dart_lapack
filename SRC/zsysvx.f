@@ -45,43 +45,43 @@
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
+      if ( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDAF.LT.MAX( 1, N ) ) THEN
+      } else if ( LDAF.LT.MAX( 1, N ) ) {
          INFO = -8
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -11
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -13
-      ELSE IF( LWORK.LT.MAX( 1, 2*N ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX( 1, 2*N ) .AND. .NOT.LQUERY ) {
          INFO = -18
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          LWKOPT = MAX( 1, 2*N )
-         IF( NOFACT ) THEN
+         if ( NOFACT ) {
             NB = ILAENV( 1, 'ZSYTRF', UPLO, N, -1, -1, -1 )
             LWKOPT = MAX( LWKOPT, N*NB )
-         END IF
+         }
          WORK( 1 ) = LWKOPT
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZSYSVX', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
-      IF( NOFACT ) THEN
+      if ( NOFACT ) {
 
          // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 
@@ -90,11 +90,11 @@
 
          // Return if INFO is non-zero.
 
-         IF( INFO.GT.0 )THEN
+         if ( INFO.GT.0 ) {
             RCOND = ZERO
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Compute the norm of the matrix A.
 

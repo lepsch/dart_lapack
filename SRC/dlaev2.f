@@ -36,24 +36,24 @@
       ADF = ABS( DF )
       TB = B + B
       AB = ABS( TB )
-      IF( ABS( A ).GT.ABS( C ) ) THEN
+      if ( ABS( A ).GT.ABS( C ) ) {
          ACMX = A
          ACMN = C
       } else {
          ACMX = C
          ACMN = A
-      END IF
-      IF( ADF.GT.AB ) THEN
+      }
+      if ( ADF.GT.AB ) {
          RT = ADF*SQRT( ONE+( AB / ADF )**2 )
-      ELSE IF( ADF.LT.AB ) THEN
+      } else if ( ADF.LT.AB ) {
          RT = AB*SQRT( ONE+( ADF / AB )**2 )
       } else {
 
          // Includes case AB=ADF=0
 
          RT = AB*SQRT( TWO )
-      END IF
-      IF( SM.LT.ZERO ) THEN
+      }
+      if ( SM.LT.ZERO ) {
          RT1 = HALF*( SM-RT )
          SGN1 = -1
 
@@ -62,7 +62,7 @@
          // next line needs to be executed in higher precision.
 
          RT2 = ( ACMX / RT1 )*ACMN - ( B / RT1 )*B
-      ELSE IF( SM.GT.ZERO ) THEN
+      } else if ( SM.GT.ZERO ) {
          RT1 = HALF*( SM+RT )
          SGN1 = 1
 
@@ -78,37 +78,37 @@
          RT1 = HALF*RT
          RT2 = -HALF*RT
          SGN1 = 1
-      END IF
+      }
 
       // Compute the eigenvector
 
-      IF( DF.GE.ZERO ) THEN
+      if ( DF.GE.ZERO ) {
          CS = DF + RT
          SGN2 = 1
       } else {
          CS = DF - RT
          SGN2 = -1
-      END IF
+      }
       ACS = ABS( CS )
-      IF( ACS.GT.AB ) THEN
+      if ( ACS.GT.AB ) {
          CT = -TB / CS
          SN1 = ONE / SQRT( ONE+CT*CT )
          CS1 = CT*SN1
       } else {
-         IF( AB.EQ.ZERO ) THEN
+         if ( AB.EQ.ZERO ) {
             CS1 = ONE
             SN1 = ZERO
          } else {
             TN = -CS / TB
             CS1 = ONE / SQRT( ONE+TN*TN )
             SN1 = TN*CS1
-         END IF
-      END IF
-      IF( SGN1.EQ.SGN2 ) THEN
+         }
+      }
+      if ( SGN1.EQ.SGN2 ) {
          TN = CS1
          CS1 = -SN1
          SN1 = TN
-      END IF
+      }
       RETURN
 
       // End of DLAEV2

@@ -46,41 +46,41 @@
       NOTB = LSAME(TRANSB,'N')
       CONJA = LSAME(TRANSA,'C')
       CONJB = LSAME(TRANSB,'C')
-      IF (NOTA) THEN
+      if (NOTA) {
           NROWA = M
       } else {
           NROWA = K
-      END IF
-      IF (NOTB) THEN
+      }
+      if (NOTB) {
           NROWB = K
       } else {
           NROWB = N
-      END IF
+      }
 
       // Test the input parameters.
 
       INFO = 0
-      IF ((.NOT.NOTA) .AND. (.NOT.CONJA) .AND. (.NOT.LSAME(TRANSA,'T'))) THEN
+      if ((.NOT.NOTA) .AND. (.NOT.CONJA) .AND. (.NOT.LSAME(TRANSA,'T'))) {
           INFO = 1
-      ELSE IF ((.NOT.NOTB) .AND. (.NOT.CONJB) .AND. (.NOT.LSAME(TRANSB,'T'))) THEN
+      } else if ((.NOT.NOTB) .AND. (.NOT.CONJB) .AND. (.NOT.LSAME(TRANSB,'T'))) {
           INFO = 2
-      ELSE IF (M.LT.0) THEN
+      } else if (M.LT.0) {
           INFO = 3
-      ELSE IF (N.LT.0) THEN
+      } else if (N.LT.0) {
           INFO = 4
-      ELSE IF (K.LT.0) THEN
+      } else if (K.LT.0) {
           INFO = 5
-      ELSE IF (LDA.LT.MAX(1,NROWA)) THEN
+      } else if (LDA.LT.MAX(1,NROWA)) {
           INFO = 8
-      ELSE IF (LDB.LT.MAX(1,NROWB)) THEN
+      } else if (LDB.LT.MAX(1,NROWB)) {
           INFO = 10
-      ELSE IF (LDC.LT.MAX(1,M)) THEN
+      } else if (LDC.LT.MAX(1,M)) {
           INFO = 13
-      END IF
-      IF (INFO.NE.0) THEN
+      }
+      if (INFO.NE.0) {
           CALL XERBLA('ZGEMM ',INFO)
           RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -88,8 +88,8 @@
 
       // And when  alpha.eq.zero.
 
-      IF (ALPHA.EQ.ZERO) THEN
-          IF (BETA.EQ.ZERO) THEN
+      if (ALPHA.EQ.ZERO) {
+          if (BETA.EQ.ZERO) {
               DO 20 J = 1,N
                   DO 10 I = 1,M
                       C(I,J) = ZERO
@@ -101,27 +101,27 @@
                       C(I,J) = BETA*C(I,J)
    30             CONTINUE
    40         CONTINUE
-          END IF
+          }
           RETURN
-      END IF
+      }
 
       // Start the operations.
 
-      IF (NOTB) THEN
-          IF (NOTA) THEN
+      if (NOTB) {
+          if (NOTA) {
 
             // Form  C := alpha*A*B + beta*C.
 
               DO 90 J = 1,N
-                  IF (BETA.EQ.ZERO) THEN
+                  if (BETA.EQ.ZERO) {
                       DO 50 I = 1,M
                           C(I,J) = ZERO
    50                 CONTINUE
-                  ELSE IF (BETA.NE.ONE) THEN
+                  } else if (BETA.NE.ONE) {
                       DO 60 I = 1,M
                           C(I,J) = BETA*C(I,J)
    60                 CONTINUE
-                  END IF
+                  }
                   DO 80 L = 1,K
                       TEMP = ALPHA*B(L,J)
                       DO 70 I = 1,M
@@ -129,7 +129,7 @@
    70                 CONTINUE
    80             CONTINUE
    90         CONTINUE
-          ELSE IF (CONJA) THEN
+          } else if (CONJA) {
 
             // Form  C := alpha*A**H*B + beta*C.
 
@@ -139,11 +139,11 @@
                       DO 100 L = 1,K
                           TEMP = TEMP + DCONJG(A(L,I))*B(L,J)
   100                 CONTINUE
-                      IF (BETA.EQ.ZERO) THEN
+                      if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
-                      END IF
+                      }
   110             CONTINUE
   120         CONTINUE
           } else {
@@ -156,29 +156,29 @@
                       DO 130 L = 1,K
                           TEMP = TEMP + A(L,I)*B(L,J)
   130                 CONTINUE
-                      IF (BETA.EQ.ZERO) THEN
+                      if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
-                      END IF
+                      }
   140             CONTINUE
   150         CONTINUE
-          END IF
-      ELSE IF (NOTA) THEN
-          IF (CONJB) THEN
+          }
+      } else if (NOTA) {
+          if (CONJB) {
 
             // Form  C := alpha*A*B**H + beta*C.
 
               DO 200 J = 1,N
-                  IF (BETA.EQ.ZERO) THEN
+                  if (BETA.EQ.ZERO) {
                       DO 160 I = 1,M
                           C(I,J) = ZERO
   160                 CONTINUE
-                  ELSE IF (BETA.NE.ONE) THEN
+                  } else if (BETA.NE.ONE) {
                       DO 170 I = 1,M
                           C(I,J) = BETA*C(I,J)
   170                 CONTINUE
-                  END IF
+                  }
                   DO 190 L = 1,K
                       TEMP = ALPHA*DCONJG(B(J,L))
                       DO 180 I = 1,M
@@ -191,15 +191,15 @@
             // Form  C := alpha*A*B**T + beta*C
 
               DO 250 J = 1,N
-                  IF (BETA.EQ.ZERO) THEN
+                  if (BETA.EQ.ZERO) {
                       DO 210 I = 1,M
                           C(I,J) = ZERO
   210                 CONTINUE
-                  ELSE IF (BETA.NE.ONE) THEN
+                  } else if (BETA.NE.ONE) {
                       DO 220 I = 1,M
                           C(I,J) = BETA*C(I,J)
   220                 CONTINUE
-                  END IF
+                  }
                   DO 240 L = 1,K
                       TEMP = ALPHA*B(J,L)
                       DO 230 I = 1,M
@@ -207,9 +207,9 @@
   230                 CONTINUE
   240             CONTINUE
   250         CONTINUE
-          END IF
-      ELSE IF (CONJA) THEN
-          IF (CONJB) THEN
+          }
+      } else if (CONJA) {
+          if (CONJB) {
 
             // Form  C := alpha*A**H*B**H + beta*C.
 
@@ -219,11 +219,11 @@
                       DO 260 L = 1,K
                           TEMP = TEMP + DCONJG(A(L,I))*DCONJG(B(J,L))
   260                 CONTINUE
-                      IF (BETA.EQ.ZERO) THEN
+                      if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
-                      END IF
+                      }
   270             CONTINUE
   280         CONTINUE
           } else {
@@ -236,16 +236,16 @@
                       DO 290 L = 1,K
                           TEMP = TEMP + DCONJG(A(L,I))*B(J,L)
   290                 CONTINUE
-                      IF (BETA.EQ.ZERO) THEN
+                      if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
-                      END IF
+                      }
   300             CONTINUE
   310         CONTINUE
-          END IF
+          }
       } else {
-          IF (CONJB) THEN
+          if (CONJB) {
 
             // Form  C := alpha*A**T*B**H + beta*C
 
@@ -255,11 +255,11 @@
                       DO 320 L = 1,K
                           TEMP = TEMP + A(L,I)*DCONJG(B(J,L))
   320                 CONTINUE
-                      IF (BETA.EQ.ZERO) THEN
+                      if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
-                      END IF
+                      }
   330             CONTINUE
   340         CONTINUE
           } else {
@@ -272,15 +272,15 @@
                       DO 350 L = 1,K
                           TEMP = TEMP + A(L,I)*B(J,L)
   350                 CONTINUE
-                      IF (BETA.EQ.ZERO) THEN
+                      if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
-                      END IF
+                      }
   360             CONTINUE
   370         CONTINUE
-          END IF
-      END IF
+          }
+      }
 
       RETURN
 

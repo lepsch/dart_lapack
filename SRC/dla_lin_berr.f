@@ -38,10 +38,10 @@
       DO J = 1, NRHS
          BERR(J) = 0.0D+0
          DO I = 1, N
-            IF (AYB(I,J) .NE. 0.0D+0) THEN
+            if (AYB(I,J) .NE. 0.0D+0) {
                TMP = (SAFE1+ABS(RES(I,J)))/AYB(I,J)
                BERR(J) = MAX( BERR(J), TMP )
-            END IF
+            }
 
       // If AYB is exactly 0.0 (and if computed by SLA_yyAMV), then we know
      t // he true residual also must be exactly 0.0.

@@ -32,23 +32,23 @@
       // Test the input arguments
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( L.LT.0 .OR. L.GT.MIN(M,N) ) THEN
+      } else if ( L.LT.0 .OR. L.GT.MIN(M,N) ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, M ) ) THEN
+      } else if ( LDB.LT.MAX( 1, M ) ) {
          INFO = -7
-      ELSE IF( LDT.LT.MAX( 1, M ) ) THEN
+      } else if ( LDT.LT.MAX( 1, M ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTPLQT2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -61,7 +61,7 @@
          P = N-L+MIN( L, I )
          CALL ZLARFG( P+1, A( I, I ), B( I, 1 ), LDB, T( 1, I ) )
          T(1,I)=CONJG(T(1,I))
-         IF( I.LT.M ) THEN
+         if ( I.LT.M ) {
             DO J = 1, P
                B( I, J ) = CONJG(B(I,J))
             END DO
@@ -83,7 +83,7 @@
             DO J = 1, P
                B( I, J ) = CONJG(B(I,J))
             END DO
-         END IF
+         }
       END DO
 
       DO I = 2, M

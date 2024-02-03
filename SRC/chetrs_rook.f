@@ -39,27 +39,27 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHETRS_ROOK', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Solve A*X = B, where A = U*D*U**H.
 
@@ -75,7 +75,7 @@
 
          IF( K.LT.1 ) GO TO 30
 
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
 
             // 1 x 1 diagonal block
 
@@ -124,7 +124,7 @@
                B( K, J ) = ( AKM1*BK-BKM1 ) / DENOM
    20       CONTINUE
             K = K - 2
-         END IF
+         }
 
          GO TO 10
    30    CONTINUE
@@ -141,18 +141,18 @@
 
          IF( K.GT.N ) GO TO 50
 
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
 
             // 1 x 1 diagonal block
 
             // Multiply by inv(U**H(K)), where U(K) is the transformation
             // stored in column K of A.
 
-            IF( K.GT.1 ) THEN
+            if ( K.GT.1 ) {
                CALL CLACGV( NRHS, B( K, 1 ), LDB )
                CALL CGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
                CALL CLACGV( NRHS, B( K, 1 ), LDB )
-            END IF
+            }
 
             // Interchange rows K and IPIV(K).
 
@@ -166,7 +166,7 @@
             // Multiply by inv(U**H(K+1)), where U(K+1) is the transformation
             // stored in columns K and K+1 of A.
 
-            IF( K.GT.1 ) THEN
+            if ( K.GT.1 ) {
                CALL CLACGV( NRHS, B( K, 1 ), LDB )
                CALL CGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
                CALL CLACGV( NRHS, B( K, 1 ), LDB )
@@ -174,7 +174,7 @@
                CALL CLACGV( NRHS, B( K+1, 1 ), LDB )
                CALL CGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K+1 ), 1, ONE, B( K+1, 1 ), LDB )
                CALL CLACGV( NRHS, B( K+1, 1 ), LDB )
-            END IF
+            }
 
             // Interchange rows K and -IPIV(K), then K+1 and -IPIV(K+1)
 
@@ -185,7 +185,7 @@
             IF( KP.NE.K+1 ) CALL CSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
 
             K = K + 2
-         END IF
+         }
 
          GO TO 40
    50    CONTINUE
@@ -206,7 +206,7 @@
 
          IF( K.GT.N ) GO TO 80
 
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
 
             // 1 x 1 diagonal block
 
@@ -240,9 +240,9 @@
             // Multiply by inv(L(K)), where L(K) is the transformation
             // stored in columns K and K+1 of A.
 
-            IF( K.LT.N-1 ) THEN
+            if ( K.LT.N-1 ) {
                CALL CGERU( N-K-1, NRHS, -ONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB )                CALL CGERU( N-K-1, NRHS, -ONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB )
-            END IF
+            }
 
             // Multiply by the inverse of the diagonal block.
 
@@ -257,7 +257,7 @@
                B( K+1, J ) = ( AKM1*BK-BKM1 ) / DENOM
    70       CONTINUE
             K = K + 2
-         END IF
+         }
 
          GO TO 60
    80    CONTINUE
@@ -274,18 +274,18 @@
 
          IF( K.LT.1 ) GO TO 100
 
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
 
             // 1 x 1 diagonal block
 
             // Multiply by inv(L**H(K)), where L(K) is the transformation
             // stored in column K of A.
 
-            IF( K.LT.N ) THEN
+            if ( K.LT.N ) {
                CALL CLACGV( NRHS, B( K, 1 ), LDB )
                CALL CGEMV( 'Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )
                CALL CLACGV( NRHS, B( K, 1 ), LDB )
-            END IF
+            }
 
             // Interchange rows K and IPIV(K).
 
@@ -299,7 +299,7 @@
             // Multiply by inv(L**H(K-1)), where L(K-1) is the transformation
             // stored in columns K-1 and K of A.
 
-            IF( K.LT.N ) THEN
+            if ( K.LT.N ) {
                CALL CLACGV( NRHS, B( K, 1 ), LDB )
                CALL CGEMV( 'Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )
                CALL CLACGV( NRHS, B( K, 1 ), LDB )
@@ -307,7 +307,7 @@
                CALL CLACGV( NRHS, B( K-1, 1 ), LDB )
                CALL CGEMV( 'Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, ONE, B( K-1, 1 ), LDB )
                CALL CLACGV( NRHS, B( K-1, 1 ), LDB )
-            END IF
+            }
 
             // Interchange rows K and -IPIV(K), then K-1 and -IPIV(K-1)
 
@@ -318,11 +318,11 @@
             IF( KP.NE.K-1 ) CALL CSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
 
             K = K - 2
-         END IF
+         }
 
          GO TO 90
   100    CONTINUE
-      END IF
+      }
 
       RETURN
 

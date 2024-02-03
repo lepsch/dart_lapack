@@ -37,17 +37,17 @@
       // Test the input arguments
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( K.LT.0 .OR. K.GT.N-1 ) THEN
+      } else if ( K.LT.0 .OR. K.GT.N-1 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      END IF
-      IF( INFO.LT.0 ) THEN
+      }
+      if ( INFO.LT.0 ) {
          CALL XERBLA( 'DLAGSY', -INFO )
          RETURN
-      END IF
+      }
 
       // initialize lower triangle of A to diagonal matrix
 
@@ -69,14 +69,14 @@
          CALL DLARNV( 3, ISEED, N-I+1, WORK )
          WN = DNRM2( N-I+1, WORK, 1 )
          WA = SIGN( WN, WORK( 1 ) )
-         IF( WN.EQ.ZERO ) THEN
+         if ( WN.EQ.ZERO ) {
             TAU = ZERO
          } else {
             WB = WORK( 1 ) + WA
             CALL DSCAL( N-I, ONE / WB, WORK( 2 ), 1 )
             WORK( 1 ) = ONE
             TAU = WB / WA
-         END IF
+         }
 
          // apply random reflection to A(i:n,i:n) from the left
          // and the right
@@ -103,14 +103,14 @@
 
          WN = DNRM2( N-K-I+1, A( K+I, I ), 1 )
          WA = SIGN( WN, A( K+I, I ) )
-         IF( WN.EQ.ZERO ) THEN
+         if ( WN.EQ.ZERO ) {
             TAU = ZERO
          } else {
             WB = A( K+I, I ) + WA
             CALL DSCAL( N-K-I, ONE / WB, A( K+I+1, I ), 1 )
             A( K+I, I ) = ONE
             TAU = WB / WA
-         END IF
+         }
 
          // apply reflection to A(k+i:n,i+1:k+i-1) from the left
 

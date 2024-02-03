@@ -52,17 +52,17 @@
       LQUERY = ( LWORK.EQ.-1 )
       WANTVS = LSAME( JOBVS, 'V' )
       WANTST = LSAME( SORT, 'S' )
-      IF( ( .NOT.WANTVS ) .AND. ( .NOT.LSAME( JOBVS, 'N' ) ) ) THEN
+      if ( ( .NOT.WANTVS ) .AND. ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( ( .NOT.WANTST ) .AND. ( .NOT.LSAME( SORT, 'N' ) ) ) THEN
+      } else if ( ( .NOT.WANTST ) .AND. ( .NOT.LSAME( SORT, 'N' ) ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDVS.LT.1 .OR. ( WANTVS .AND. LDVS.LT.N ) ) THEN
+      } else if ( LDVS.LT.1 .OR. ( WANTVS .AND. LDVS.LT.N ) ) {
          INFO = -10
-      END IF
+      }
 
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
@@ -75,8 +75,8 @@
         // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
        t // he worst case.)
 
-      IF( INFO.EQ.0 ) THEN
-         IF( N.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( N.EQ.0 ) {
             MINWRK = 1
             MAXWRK = 1
          } else {
@@ -86,33 +86,33 @@
             CALL ZHSEQR( 'S', JOBVS, N, 1, N, A, LDA, W, VS, LDVS, WORK, -1, IEVAL )
             HSWORK = INT( WORK( 1 ) )
 
-            IF( .NOT.WANTVS ) THEN
+            if ( .NOT.WANTVS ) {
                MAXWRK = MAX( MAXWRK, HSWORK )
             } else {
                MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) )
                MAXWRK = MAX( MAXWRK, HSWORK )
-            END IF
-         END IF
+            }
+         }
          WORK( 1 ) = MAXWRK
 
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
             INFO = -12
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGEES ', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          SDIM = 0
          RETURN
-      END IF
+      }
 
       // Get machine constants
 
@@ -126,13 +126,13 @@
 
       ANRM = ZLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = .FALSE.
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          SCALEA = .TRUE.
          CSCALE = SMLNUM
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
          SCALEA = .TRUE.
          CSCALE = BIGNUM
-      END IF
+      }
       IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
 
       // Permute the matrix to make it more nearly triangular
@@ -150,7 +150,7 @@
       IWRK = N + ITAU
       CALL ZGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 
-      IF( WANTVS ) THEN
+      if ( WANTVS ) {
 
          // Copy Householder vectors to VS
 
@@ -161,7 +161,7 @@
          // (RWorkspace: none)
 
          CALL ZUNGHR( N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
-      END IF
+      }
 
       SDIM = 0
 
@@ -174,7 +174,7 @@
 
       // Sort eigenvalues if desired
 
-      IF( WANTST .AND. INFO.EQ.0 ) THEN
+      if ( WANTST .AND. INFO.EQ.0 ) {
          IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR )
          DO 10 I = 1, N
             BWORK( I ) = SELECT( W( I ) )
@@ -185,24 +185,24 @@
          // (RWorkspace: none)
 
          CALL ZTRSEN( 'N', JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, S, SEP, WORK( IWRK ), LWORK-IWRK+1, ICOND )
-      END IF
+      }
 
-      IF( WANTVS ) THEN
+      if ( WANTVS ) {
 
          // Undo balancing
          // (CWorkspace: none)
          // (RWorkspace: need N)
 
          CALL ZGEBAK( 'P', 'R', N, ILO, IHI, RWORK( IBAL ), N, VS, LDVS, IERR )
-      END IF
+      }
 
-      IF( SCALEA ) THEN
+      if ( SCALEA ) {
 
          // Undo scaling for the Schur form of A
 
          CALL ZLASCL( 'U', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR )
          CALL ZCOPY( N, A, LDA+1, W, 1 )
-      END IF
+      }
 
       WORK( 1 ) = MAXWRK
       RETURN

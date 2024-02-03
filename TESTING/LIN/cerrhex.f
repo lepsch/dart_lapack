@@ -70,7 +70,7 @@
       ANRM = 1.0
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'HE' ) ) THEN
+      if ( LSAMEN( 2, C2, 'HE' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with partial
@@ -238,7 +238,7 @@
          CALL CHERFSX( 'U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CHERFSX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with rook
@@ -324,7 +324,7 @@
          CALL CHECON_ROOK( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'CHECON_ROOK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HK' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with rook
@@ -433,7 +433,7 @@
          CALL CHECON_3( 'U', 1, A, 1, E, IP, -1.0E0, RCOND, W, INFO)
          CALL CHKXER( 'CHECON_3', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HP' ) ) {
 
       // Test error exits of the routines that use factorization
       // of a Hermitian indefinite packed matrix with partial
@@ -506,7 +506,7 @@
          INFOT = 5
          CALL CHPCON( 'U', 1, A, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'CHPCON', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

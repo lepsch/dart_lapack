@@ -42,41 +42,41 @@
       // Test the input parameters
 
       INFO = 0
-      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
+      if ( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGEBAL', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick returns.
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          ILO = 1
          IHI = 0
          RETURN
-      END IF
+      }
 
-      IF( LSAME( JOB, 'N' ) ) THEN
+      if ( LSAME( JOB, 'N' ) ) {
          DO I = 1, N
             SCALE( I ) = ONE
          END DO
          ILO = 1
          IHI = N
          RETURN
-      END IF
+      }
 
       // Permutation to isolate eigenvalues if possible.
 
       K = 1
       L = N
 
-      IF( .NOT.LSAME( JOB, 'S' ) ) THEN
+      if ( .NOT.LSAME( JOB, 'S' ) ) {
 
          // Row and column exchange.
 
@@ -89,28 +89,28 @@
             DO I = L, 1, -1
                CANSWAP = .TRUE.
                DO J = 1, L
-                  IF( I.NE.J .AND. A( I, J ).NE.ZERO ) THEN
+                  if ( I.NE.J .AND. A( I, J ).NE.ZERO ) {
                      CANSWAP = .FALSE.
                      EXIT
-                  END IF
+                  }
                END DO
 
-               IF( CANSWAP ) THEN
+               if ( CANSWAP ) {
                   SCALE( L ) = I
-                  IF( I.NE.L ) THEN
+                  if ( I.NE.L ) {
                      CALL SSWAP( L, A( 1, I ), 1, A( 1, L ), 1 )
                      CALL SSWAP( N-K+1, A( I, K ), LDA, A( L, K ), LDA )
-                  END IF
+                  }
                   NOCONV = .TRUE.
 
-                  IF( L.EQ.1 ) THEN
+                  if ( L.EQ.1 ) {
                      ILO = 1
                      IHI = 1
                      RETURN
-                  END IF
+                  }
 
                   L = L - 1
-               END IF
+               }
             END DO
 
          END DO
@@ -124,27 +124,27 @@
             DO J = K, L
                CANSWAP = .TRUE.
                DO I = K, L
-                  IF( I.NE.J .AND. A( I, J ).NE.ZERO ) THEN
+                  if ( I.NE.J .AND. A( I, J ).NE.ZERO ) {
                      CANSWAP = .FALSE.
                      EXIT
-                  END IF
+                  }
                END DO
 
-               IF( CANSWAP ) THEN
+               if ( CANSWAP ) {
                   SCALE( K ) = J
-                  IF( J.NE.K ) THEN
+                  if ( J.NE.K ) {
                      CALL SSWAP( L, A( 1, J ), 1, A( 1, K ), 1 )
                      CALL SSWAP( N-K+1, A( J, K ), LDA, A( K, K ), LDA )
-                  END IF
+                  }
                   NOCONV = .TRUE.
 
                   K = K + 1
-               END IF
+               }
             END DO
 
          END DO
 
-      END IF
+      }
 
       // Initialize SCALE for non-permuted submatrix.
 
@@ -154,11 +154,11 @@
 
       // If we only had to permute, we are done.
 
-      IF( LSAME( JOB, 'P' ) ) THEN
+      if ( LSAME( JOB, 'P' ) ) {
          ILO = K
          IHI = L
          RETURN
-      END IF
+      }
 
       // Balance the submatrix in rows K to L.
 
@@ -188,11 +188,11 @@
 
             // Exit if NaN to avoid infinite loop
 
-            IF( SISNAN( C+CA+R+RA ) ) THEN
+            if ( SISNAN( C+CA+R+RA ) ) {
                INFO = -3
                CALL XERBLA( 'SGEBAL', -INFO )
                RETURN
-            END IF
+            }
 
             G = R / SCLFAC
             F = ONE
@@ -221,12 +221,12 @@
             // Now balance.
 
             IF( ( C+R ).GE.FACTOR*S ) CYCLE
-            IF( F.LT.ONE .AND. SCALE( I ).LT.ONE ) THEN
+            if ( F.LT.ONE .AND. SCALE( I ).LT.ONE ) {
                IF( F*SCALE( I ).LE.SFMIN1 ) CYCLE
-            END IF
-            IF( F.GT.ONE .AND. SCALE( I ).GT.ONE ) THEN
+            }
+            if ( F.GT.ONE .AND. SCALE( I ).GT.ONE ) {
                IF( SCALE( I ).GE.SFMAX1 / F ) CYCLE
-            END IF
+            }
             G = ONE / F
             SCALE( I ) = SCALE( I )*F
             NOCONV = .TRUE.

@@ -21,7 +21,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( INCX.EQ.1 ) THEN
+      if ( INCX.EQ.1 ) {
          DO 10 I = 1, N
             X( I ) = DCONJG( X( I ) )
    10    CONTINUE
@@ -32,7 +32,7 @@
             X( IOFF ) = DCONJG( X( IOFF ) )
             IOFF = IOFF + INCX
    20    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of ZLACGV

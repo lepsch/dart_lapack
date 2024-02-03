@@ -51,63 +51,63 @@
 
       // Check for I and J in range
 
-      IF( I.LT.1 .OR. I.GT.M .OR. J.LT.1 .OR. J.GT.N ) THEN
+      if ( I.LT.1 .OR. I.GT.M .OR. J.LT.1 .OR. J.GT.N ) {
          CLATM2 = CZERO
          RETURN
-      END IF
+      }
 
       // Check for banding
 
-      IF( J.GT.I+KU .OR. J.LT.I-KL ) THEN
+      if ( J.GT.I+KU .OR. J.LT.I-KL ) {
          CLATM2 = CZERO
          RETURN
-      END IF
+      }
 
       // Check for sparsity
 
-      IF( SPARSE.GT.ZERO ) THEN
-         IF( SLARAN( ISEED ).LT.SPARSE ) THEN
+      if ( SPARSE.GT.ZERO ) {
+         if ( SLARAN( ISEED ).LT.SPARSE ) {
             CLATM2 = CZERO
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Compute subscripts depending on IPVTNG
 
-      IF( IPVTNG.EQ.0 ) THEN
+      if ( IPVTNG.EQ.0 ) {
          ISUB = I
          JSUB = J
-      ELSE IF( IPVTNG.EQ.1 ) THEN
+      } else if ( IPVTNG.EQ.1 ) {
          ISUB = IWORK( I )
          JSUB = J
-      ELSE IF( IPVTNG.EQ.2 ) THEN
+      } else if ( IPVTNG.EQ.2 ) {
          ISUB = I
          JSUB = IWORK( J )
-      ELSE IF( IPVTNG.EQ.3 ) THEN
+      } else if ( IPVTNG.EQ.3 ) {
          ISUB = IWORK( I )
          JSUB = IWORK( J )
-      END IF
+      }
 
       // Compute entry and grade it according to IGRADE
 
-      IF( ISUB.EQ.JSUB ) THEN
+      if ( ISUB.EQ.JSUB ) {
          CTEMP = D( ISUB )
       } else {
          CTEMP = CLARND( IDIST, ISEED )
-      END IF
-      IF( IGRADE.EQ.1 ) THEN
+      }
+      if ( IGRADE.EQ.1 ) {
          CTEMP = CTEMP*DL( ISUB )
-      ELSE IF( IGRADE.EQ.2 ) THEN
+      } else if ( IGRADE.EQ.2 ) {
          CTEMP = CTEMP*DR( JSUB )
-      ELSE IF( IGRADE.EQ.3 ) THEN
+      } else if ( IGRADE.EQ.3 ) {
          CTEMP = CTEMP*DL( ISUB )*DR( JSUB )
-      ELSE IF( IGRADE.EQ.4 .AND. ISUB.NE.JSUB ) THEN
+      } else if ( IGRADE.EQ.4 .AND. ISUB.NE.JSUB ) {
          CTEMP = CTEMP*DL( ISUB ) / DL( JSUB )
-      ELSE IF( IGRADE.EQ.5 ) THEN
+      } else if ( IGRADE.EQ.5 ) {
          CTEMP = CTEMP*DL( ISUB )*CONJG( DL( JSUB ) )
-      ELSE IF( IGRADE.EQ.6 ) THEN
+      } else if ( IGRADE.EQ.6 ) {
          CTEMP = CTEMP*DL( ISUB )*DL( JSUB )
-      END IF
+      }
       CLATM2 = CTEMP
       RETURN
 

@@ -68,13 +68,13 @@
       DO J = 1, N
          CALL CLARNV( 2, ISEED, M, A( 1, J ) )
       END DO
-      IF( TESTZEROS ) THEN
-         IF( M.GE.4 ) THEN
+      if ( TESTZEROS ) {
+         if ( M.GE.4 ) {
             DO J = 1, N
                CALL CLARNV( 2, ISEED, M/2, A( M/4, J ) )
             END DO
-         END IF
-      END IF
+         }
+      }
       CALL CLACPY( 'Full', M, N, A, M, AF, M )
 
       // Number of row blocks in CLATSQR
@@ -145,9 +145,9 @@
       CALL CLACPY( 'U', N, N, R, M, AF, M )
 
       DO I = 1, N
-         IF( DIAG( I ).EQ.-CONE ) THEN
+         if ( DIAG( I ).EQ.-CONE ) {
             CALL CSCAL( N+1-I, -CONE, AF( I, I ), M )
-         END IF
+         }
       END DO
 
       // End Householder reconstruction routines.
@@ -173,11 +173,11 @@
 
       ANORM = CLANGE( '1', M, N, A, M, RWORK )
       RESID = CLANGE( '1', M, N, R, M, RWORK )
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
          RESULT( 1 ) = RESID / ( EPS * MAX( 1, M ) * ANORM )
       } else {
          RESULT( 1 ) = ZERO
-      END IF
+      }
 
       // TEST 2
       // Compute |I - (Q**H)*Q| / ( eps * m ) and store in RESULT(2)
@@ -205,11 +205,11 @@
 
       CALL CGEMM( 'N', 'N', M, N, M, -CONE, Q, M, C, M, CONE, CF, M )
       RESID = CLANGE( '1', M, N, CF, M, RWORK )
-      IF( CNORM.GT.ZERO ) THEN
+      if ( CNORM.GT.ZERO ) {
          RESULT( 3 ) = RESID / ( EPS * MAX( 1, M ) * CNORM )
       } else {
          RESULT( 3 ) = ZERO
-      END IF
+      }
 
       // Copy C into CF again
 
@@ -225,11 +225,11 @@
 
       CALL CGEMM( 'C', 'N', M, N, M, -CONE, Q, M, C, M, CONE, CF, M )
       RESID = CLANGE( '1', M, N, CF, M, RWORK )
-      IF( CNORM.GT.ZERO ) THEN
+      if ( CNORM.GT.ZERO ) {
          RESULT( 4 ) = RESID / ( EPS * MAX( 1, M ) * CNORM )
       } else {
          RESULT( 4 ) = ZERO
-      END IF
+      }
 
       // Generate random n-by-m matrix D and a copy DF
 
@@ -249,11 +249,11 @@
 
       CALL CGEMM( 'N', 'N', N, M, M, -CONE, D, N, Q, M, CONE, DF, N )
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
-      IF( DNORM.GT.ZERO ) THEN
+      if ( DNORM.GT.ZERO ) {
          RESULT( 5 ) = RESID / ( EPS * MAX( 1, M ) * DNORM )
       } else {
          RESULT( 5 ) = ZERO
-      END IF
+      }
 
       // Copy D into DF again
 
@@ -269,11 +269,11 @@
 
       CALL CGEMM( 'N', 'C', N, M, M, -CONE, D, N, Q, M, CONE, DF, N )
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
-      IF( DNORM.GT.ZERO ) THEN
+      if ( DNORM.GT.ZERO ) {
          RESULT( 6 ) = RESID / ( EPS * MAX( 1, M ) * DNORM )
       } else {
          RESULT( 6 ) = ZERO
-      END IF
+      }
 
       // Deallocate all arrays
 

@@ -77,11 +77,11 @@
       CALL CGEMM( 'C', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M )
       ANORM = CLANGE( '1', M, N, A, M, RWORK )
       RESID = CLANGE( '1', M, N, R, M, RWORK )
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
          RESULT( 1 ) = RESID / (EPS*MAX(1,M)*ANORM)
       } else {
          RESULT( 1 ) = ZERO
-      END IF
+      }
 
       // Compute |I - Q'*Q| and store in RESULT(2)
 
@@ -106,11 +106,11 @@
 
       CALL CGEMM( 'N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
       RESID = CLANGE( '1', M, N, CF, M, RWORK )
-      IF( CNORM.GT.ZERO ) THEN
+      if ( CNORM.GT.ZERO ) {
          RESULT( 3 ) = RESID / (EPS*MAX(1,M)*CNORM)
       } else {
          RESULT( 3 ) = ZERO
-      END IF
+      }
 
       // Copy C into CF again
 
@@ -124,11 +124,11 @@
 
       CALL CGEMM( 'C', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
       RESID = CLANGE( '1', M, N, CF, M, RWORK )
-      IF( CNORM.GT.ZERO ) THEN
+      if ( CNORM.GT.ZERO ) {
          RESULT( 4 ) = RESID / (EPS*MAX(1,M)*CNORM)
       } else {
          RESULT( 4 ) = ZERO
-      END IF
+      }
 
       // Generate random n-by-m matrix D and a copy DF
 
@@ -146,11 +146,11 @@
 
       CALL CGEMM( 'N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
-      IF( CNORM.GT.ZERO ) THEN
+      if ( CNORM.GT.ZERO ) {
          RESULT( 5 ) = RESID / (EPS*MAX(1,M)*DNORM)
       } else {
          RESULT( 5 ) = ZERO
-      END IF
+      }
 
       // Copy D into DF again
 
@@ -164,11 +164,11 @@
 
       CALL CGEMM( 'N', 'C', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
-      IF( CNORM.GT.ZERO ) THEN
+      if ( CNORM.GT.ZERO ) {
          RESULT( 6 ) = RESID / (EPS*MAX(1,M)*DNORM)
       } else {
          RESULT( 6 ) = ZERO
-      END IF
+      }
 
       // Deallocate all arrays
 

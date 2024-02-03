@@ -37,12 +37,12 @@
       K = MIN( M, N )
       NB = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 )
 
-      IF( NB.GT.1 .AND. NB.LT.K ) THEN
+      if ( NB.GT.1 .AND. NB.LT.K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
          NX = MAX( 0, ILAENV( 3, 'SGEQRF', ' ', M, N, -1, -1 ) )
-      END IF
+      }
 
       // Get NT, the size of the very last T, which is the left-over from in-between K-NX and K to K, eg.:
 
@@ -62,13 +62,13 @@
       LLWORK = MAX (MAX((N-M)*K, (N-M)*NB), MAX(K*NB, NB*NB))
       LLWORK = CEILING(REAL(LLWORK)/REAL(NB))
 
-      IF( K.EQ.0 ) THEN
+      if ( K.EQ.0 ) {
 
          LBWORK = 0
          LWKOPT = 1
          WORK( 1 ) = LWKOPT
 
-      ELSE IF ( NT.GT.NB ) THEN
+      } else if ( NT.GT.NB ) {
 
           LBWORK = K-NT
 
@@ -83,62 +83,62 @@
           LWKOPT = (LBWORK+LLWORK-NB)*NB
           WORK( 1 ) = DROUNDUP_LWORK(LWKOPT)
 
-      END IF
+      }
 
 
       // Test the input arguments
 
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      ELSE IF ( .NOT.LQUERY ) THEN
+      } else if ( .NOT.LQUERY ) {
          IF( LWORK.LE.0 .OR. ( M.GT.0 .AND. LWORK.LT.MAX( 1, N ) ) ) INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGEQRF', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( K.EQ.0 ) THEN
+      if ( K.EQ.0 ) {
          RETURN
-      END IF
+      }
 
-      IF( NB.GT.1 .AND. NB.LT.K ) THEN
+      if ( NB.GT.1 .AND. NB.LT.K ) {
 
-         IF( NX.LT.K ) THEN
+         if ( NX.LT.K ) {
 
             // Determine if workspace is large enough for blocked code.
 
-            IF ( NT.LE.NB ) THEN
+            if ( NT.LE.NB ) {
                 IWS = (LBWORK+LLWORK-NB)*NB
             } else {
                 IWS = (LBWORK+LLWORK)*NB+NT*NT
-            END IF
+            }
 
-            IF( LWORK.LT.IWS ) THEN
+            if ( LWORK.LT.IWS ) {
 
                // Not enough workspace to use optimal NB:  reduce NB and
                // determine the minimum value of NB.
 
-               IF ( NT.LE.NB ) THEN
+               if ( NT.LE.NB ) {
                     NB = LWORK / (LLWORK+(LBWORK-NB))
                } else {
                     NB = (LWORK-NT*NT)/(LBWORK+LLWORK)
-               END IF
+               }
                 NBMIN = MAX( 2, ILAENV( 2, 'SGEQRF', ' ', M, N, -1, -1 ) )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
-      IF( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) THEN
+      if ( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) {
 
          // Use blocked code initially
 
@@ -160,24 +160,24 @@
 
             CALL SGEQR2( M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+NT*NT+1), IINFO )
 
-            IF( I+IB.LE.N ) THEN
+            if ( I+IB.LE.N ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i) H(i+1) . . . H(i+ib-1)
 
                CALL SLARFT( 'Forward', 'Columnwise', M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK(I), LBWORK )
 
-            END IF
+            }
    10    CONTINUE
       } else {
          I = 1
-      END IF
+      }
 
       // Use unblocked code to factor the last or only block.
 
-      IF( I.LE.K ) THEN
+      if ( I.LE.K ) {
 
-         IF ( I .NE. 1 )   THEN
+         if ( I .NE. 1 ) {
 
              DO 30 J = 1, I - NB, NB
 
@@ -193,23 +193,23 @@
 
          CALL SGEQR2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK,IINFO )
 
-         END IF
-      END IF
+         }
+      }
 
 
 
       // Apply update to the column M+1:N when N > M
 
-      IF ( M.LT.N .AND. I.NE.1) THEN
+      if ( M.LT.N .AND. I.NE.1) {
 
           // Form the last triangular factor of the block reflector
           // H = H(i) H(i+1) . . . H(i+ib-1)
 
-          IF ( NT .LE. NB ) THEN
+          if ( NT .LE. NB ) {
                CALL SLARFT( 'Forward', 'Columnwise', M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(I), LBWORK )
           } else {
                CALL SLARFT( 'Forward', 'Columnwise', M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+1), NT )
-          END IF
+          }
 
 
           // Apply H' to A(1:M,M+1:N) from the left
@@ -221,13 +221,13 @@
 
 40       CONTINUE
 
-         IF ( NT.LE.NB ) THEN
+         if ( NT.LE.NB ) {
              CALL SLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, K-J+1, A( J, J ), LDA, WORK(J), LBWORK, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M)
          } else {
              CALL SLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, K-J+1, A( J, J ), LDA, WORK(LBWORK*NB+1), NT, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M)
-         END IF
+         }
 
-      END IF
+      }
 
       WORK( 1 ) = DROUNDUP_LWORK(IWS)
       RETURN

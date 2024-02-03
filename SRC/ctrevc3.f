@@ -64,14 +64,14 @@
       // Set M to the number of columns required to store the selected
       // eigenvectors.
 
-      IF( SOMEV ) THEN
+      if ( SOMEV ) {
          M = 0
          DO 10 J = 1, N
             IF( SELECT( J ) ) M = M + 1
    10    CONTINUE
       } else {
          M = N
-      END IF
+      }
 
       INFO = 0
       NB = ILAENV( 1, 'CTREVC', SIDE // HOWMNY, N, -1, -1, -1 )
@@ -79,31 +79,31 @@
       WORK(1) = SROUNDUP_LWORK(MAXWRK)
       RWORK(1) = MAX( 1, N )
       LQUERY = ( LWORK.EQ.-1 .OR. LRWORK.EQ.-1 )
-      IF( .NOT.RIGHTV .AND. .NOT.LEFTV ) THEN
+      if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
          INFO = -1
-      ELSE IF( .NOT.ALLV .AND. .NOT.OVER .AND. .NOT.SOMEV ) THEN
+      } else if ( .NOT.ALLV .AND. .NOT.OVER .AND. .NOT.SOMEV ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( LDT.LT.MAX( 1, N ) ) THEN
+      } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDVL.LT.1 .OR. ( LEFTV .AND. LDVL.LT.N ) ) THEN
+      } else if ( LDVL.LT.1 .OR. ( LEFTV .AND. LDVL.LT.N ) ) {
          INFO = -8
-      ELSE IF( LDVR.LT.1 .OR. ( RIGHTV .AND. LDVR.LT.N ) ) THEN
+      } else if ( LDVR.LT.1 .OR. ( RIGHTV .AND. LDVR.LT.N ) ) {
          INFO = -10
-      ELSE IF( MM.LT.M ) THEN
+      } else if ( MM.LT.M ) {
          INFO = -11
-      ELSE IF( LWORK.LT.MAX( 1, 2*N ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX( 1, 2*N ) .AND. .NOT.LQUERY ) {
          INFO = -14
-      ELSE IF ( LRWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LRWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
          INFO = -16
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CTREVC3', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -112,13 +112,13 @@
       // Use blocked version of back-transformation if sufficient workspace.
       // Zero-out the workspace to avoid potential NaN propagation.
 
-      IF( OVER .AND. LWORK .GE. N + 2*N*NBMIN ) THEN
+      if ( OVER .AND. LWORK .GE. N + 2*N*NBMIN ) {
          NB = (LWORK - N) / (2*N)
          NB = MIN( NB, NBMAX )
          CALL CLASET( 'F', N, 1+2*NB, CZERO, CZERO, WORK, N )
       } else {
          NB = 1
-      END IF
+      }
 
       // Set the constants to control overflow.
 
@@ -141,7 +141,7 @@
          RWORK( J ) = SCASUM( J-1, T( 1, J ), 1 )
    30 CONTINUE
 
-      IF( RIGHTV ) THEN
+      if ( RIGHTV ) {
 
          // ============================================================
          // Compute right eigenvectors.
@@ -153,9 +153,9 @@
          IV = NB
          IS = M
          DO 80 KI = N, 1, -1
-            IF( SOMEV ) THEN
+            if ( SOMEV ) {
                IF( .NOT.SELECT( KI ) ) GO TO 80
-            END IF
+            }
             SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM )
 
             // --------------------------------------------------------
@@ -177,14 +177,14 @@
                IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
    50       CONTINUE
 
-            IF( KI.GT.1 ) THEN
+            if ( KI.GT.1 ) {
                CALL CLATRS( 'Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 + IV*N ), SCALE, RWORK, INFO )
                WORK( KI + IV*N ) = SCALE
-            END IF
+            }
 
             // Copy the vector x or Q*x to VR and normalize.
 
-            IF( .NOT.OVER ) THEN
+            if ( .NOT.OVER ) {
                // ------------------------------
                // no back-transform: copy x to VR and normalize.
                CALL CCOPY( KI, WORK( 1 + IV*N ), 1, VR( 1, IS ), 1 )
@@ -197,7 +197,7 @@
                   VR( K, IS ) = CZERO
    60          CONTINUE
 
-            ELSE IF( NB.EQ.1 ) THEN
+            } else if ( NB.EQ.1 ) {
                // ------------------------------
                // version 1: back-transform each vector with GEMV, Q*x.
                IF( KI.GT.1 ) CALL CGEMV( 'N', N, KI-1, CONE, VR, LDVR, WORK( 1 + IV*N ), 1, CMPLX( SCALE ), VR( 1, KI ), 1 )
@@ -217,7 +217,7 @@
                // Columns IV:NB of work are valid vectors.
                // When the number of vectors stored reaches NB,
                // or if this was last vector, do the GEMM
-               IF( (IV.EQ.1) .OR. (KI.EQ.1) ) THEN
+               if ( (IV.EQ.1) .OR. (KI.EQ.1) ) {
                   CALL CGEMM( 'N', 'N', N, NB-IV+1, KI+NB-IV, CONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, CZERO, WORK( 1 + (NB+IV)*N ), N )
                   // normalize vectors
                   DO K = IV, NB
@@ -229,8 +229,8 @@
                   IV = NB
                } else {
                   IV = IV - 1
-               END IF
-            END IF
+               }
+            }
 
             // Restore the original diagonal elements of T.
 
@@ -240,9 +240,9 @@
 
             IS = IS - 1
    80    CONTINUE
-      END IF
+      }
 
-      IF( LEFTV ) THEN
+      if ( LEFTV ) {
 
          // ============================================================
          // Compute left eigenvectors.
@@ -255,9 +255,9 @@
          IS = 1
          DO 130 KI = 1, N
 
-            IF( SOMEV ) THEN
+            if ( SOMEV ) {
                IF( .NOT.SELECT( KI ) ) GO TO 130
-            END IF
+            }
             SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM )
 
             // --------------------------------------------------------
@@ -279,14 +279,14 @@
                IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
   100       CONTINUE
 
-            IF( KI.LT.N ) THEN
+            if ( KI.LT.N ) {
                CALL CLATRS( 'Upper', 'Conjugate transpose', 'Non-unit', 'Y', N-KI, T( KI+1, KI+1 ), LDT, WORK( KI+1 + IV*N ), SCALE, RWORK, INFO )
                WORK( KI + IV*N ) = SCALE
-            END IF
+            }
 
             // Copy the vector x or Q*x to VL and normalize.
 
-            IF( .NOT.OVER ) THEN
+            if ( .NOT.OVER ) {
                // ------------------------------
                // no back-transform: copy x to VL and normalize.
                CALL CCOPY( N-KI+1, WORK( KI + IV*N ), 1, VL(KI,IS), 1 )
@@ -299,7 +299,7 @@
                   VL( K, IS ) = CZERO
   110          CONTINUE
 
-            ELSE IF( NB.EQ.1 ) THEN
+            } else if ( NB.EQ.1 ) {
                // ------------------------------
                // version 1: back-transform each vector with GEMV, Q*x.
                IF( KI.LT.N ) CALL CGEMV( 'N', N, N-KI, CONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, CMPLX( SCALE ), VL( 1, KI ), 1 )
@@ -320,7 +320,7 @@
                // Columns 1:IV of work are valid vectors.
                // When the number of vectors stored reaches NB,
                // or if this was last vector, do the GEMM
-               IF( (IV.EQ.NB) .OR. (KI.EQ.N) ) THEN
+               if ( (IV.EQ.NB) .OR. (KI.EQ.N) ) {
                   CALL CGEMM( 'N', 'N', N, IV, N-KI+IV, CONE, VL( 1, KI-IV+1 ), LDVL, WORK( KI-IV+1 + (1)*N ), N, CZERO, WORK( 1 + (NB+1)*N ), N )
                   // normalize vectors
                   DO K = 1, IV
@@ -332,8 +332,8 @@
                   IV = 1
                } else {
                   IV = IV + 1
-               END IF
-            END IF
+               }
+            }
 
             // Restore the original diagonal elements of T.
 
@@ -343,7 +343,7 @@
 
             IS = IS + 1
   130    CONTINUE
-      END IF
+      }
 
       RETURN
 

@@ -42,92 +42,92 @@
       NOFACT = LSAME( FACT, 'N' )
       EQUIL = LSAME( FACT, 'E' )
       UPPER = LSAME( UPLO, 'U' )
-      IF( NOFACT .OR. EQUIL ) THEN
+      if ( NOFACT .OR. EQUIL ) {
          EQUED = 'N'
          RCEQU = .FALSE.
       } else {
          RCEQU = LSAME( EQUED, 'Y' )
          SMLNUM = SLAMCH( 'Safe minimum' )
          BIGNUM = ONE / SMLNUM
-      END IF
+      }
 
       // Test the input parameters.
 
-      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
+      if ( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) {
          INFO = -1
-      ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -4
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -5
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -7
-      ELSE IF( LDAFB.LT.KD+1 ) THEN
+      } else if ( LDAFB.LT.KD+1 ) {
          INFO = -9
-      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
+      } else if ( LSAME( FACT, 'F' ) .AND. .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) {
          INFO = -10
       } else {
-         IF( RCEQU ) THEN
+         if ( RCEQU ) {
             SMIN = BIGNUM
             SMAX = ZERO
             DO 10 J = 1, N
                SMIN = MIN( SMIN, S( J ) )
                SMAX = MAX( SMAX, S( J ) )
    10       CONTINUE
-            IF( SMIN.LE.ZERO ) THEN
+            if ( SMIN.LE.ZERO ) {
                INFO = -11
-            ELSE IF( N.GT.0 ) THEN
+            } else if ( N.GT.0 ) {
                SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )
             } else {
                SCOND = ONE
-            END IF
-         END IF
-         IF( INFO.EQ.0 ) THEN
-            IF( LDB.LT.MAX( 1, N ) ) THEN
+            }
+         }
+         if ( INFO.EQ.0 ) {
+            if ( LDB.LT.MAX( 1, N ) ) {
                INFO = -13
-            ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+            } else if ( LDX.LT.MAX( 1, N ) ) {
                INFO = -15
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CPBSVX', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( EQUIL ) THEN
+      if ( EQUIL ) {
 
          // Compute row and column scalings to equilibrate the matrix A.
 
          CALL CPBEQU( UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, INFEQU )
-         IF( INFEQU.EQ.0 ) THEN
+         if ( INFEQU.EQ.0 ) {
 
             // Equilibrate the matrix.
 
             CALL CLAQHB( UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, EQUED )
             RCEQU = LSAME( EQUED, 'Y' )
-         END IF
-      END IF
+         }
+      }
 
       // Scale the right-hand side.
 
-      IF( RCEQU ) THEN
+      if ( RCEQU ) {
          DO 30 J = 1, NRHS
             DO 20 I = 1, N
                B( I, J ) = S( I )*B( I, J )
    20       CONTINUE
    30    CONTINUE
-      END IF
+      }
 
-      IF( NOFACT .OR. EQUIL ) THEN
+      if ( NOFACT .OR. EQUIL ) {
 
          // Compute the Cholesky factorization A = U**H *U or A = L*L**H.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             DO 40 J = 1, N
                J1 = MAX( J-KD, 1 )
                CALL CCOPY( J-J1+1, AB( KD+1-J+J1, J ), 1, AFB( KD+1-J+J1, J ), 1 )
@@ -137,17 +137,17 @@
                J2 = MIN( J+KD, N )
                CALL CCOPY( J2-J+1, AB( 1, J ), 1, AFB( 1, J ), 1 )
    50       CONTINUE
-         END IF
+         }
 
          CALL CPBTRF( UPLO, N, KD, AFB, LDAFB, INFO )
 
          // Return if INFO is non-zero.
 
-         IF( INFO.GT.0 )THEN
+         if ( INFO.GT.0 ) {
             RCOND = ZERO
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Compute the norm of the matrix A.
 
@@ -170,7 +170,7 @@
       // Transform the solution matrix X to a solution of the original
       // system.
 
-      IF( RCEQU ) THEN
+      if ( RCEQU ) {
          DO 70 J = 1, NRHS
             DO 60 I = 1, N
                X( I, J ) = S( I )*X( I, J )
@@ -179,7 +179,7 @@
          DO 80 J = 1, NRHS
             FERR( J ) = FERR( J ) / SCOND
    80    CONTINUE
-      END IF
+      }
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

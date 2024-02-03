@@ -44,17 +44,17 @@
       MAXMN = MAX( M, N )
       MNTHR = ILAENV( 6, 'DGELSD', ' ', M, N, NRHS, -1 )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, MAXMN ) ) THEN
+      } else if ( LDB.LT.MAX( 1, MAXMN ) ) {
          INFO = -7
-      END IF
+      }
 
       SMLSIZ = ILAENV( 9, 'DGELSD', ' ', 0, 0, 0, 0 )
 
@@ -70,18 +70,18 @@
       MINMN = MAX( 1, MINMN )
       NLVL = MAX( INT( LOG( DBLE( MINMN ) / DBLE( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1, 0 )
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          MAXWRK = 1
          LIWORK = 3*MINMN*NLVL + 11*MINMN
          MM = M
-         IF( M.GE.N .AND. M.GE.MNTHR ) THEN
+         if ( M.GE.N .AND. M.GE.MNTHR ) {
 
             // Path 1a - overdetermined, with many more rows than columns.
 
             MM = N
             MAXWRK = MAX( MAXWRK, N+N*ILAENV( 1, 'DGEQRF', ' ', M, N, -1, -1 ) )             MAXWRK = MAX( MAXWRK, N+NRHS* ILAENV( 1, 'DORMQR', 'LT', M, NRHS, N, -1 ) )
-         END IF
-         IF( M.GE.N ) THEN
+         }
+         if ( M.GE.N ) {
 
             // Path 1 - overdetermined or exactly determined.
 
@@ -89,21 +89,21 @@
             WLALSD = 9*N+2*N*SMLSIZ+8*N*NLVL+N*NRHS+(SMLSIZ+1)**2
             MAXWRK = MAX( MAXWRK, 3*N+WLALSD )
             MINWRK = MAX( 3*N+MM, 3*N+NRHS, 3*N+WLALSD )
-         END IF
-         IF( N.GT.M ) THEN
+         }
+         if ( N.GT.M ) {
             WLALSD = 9*M+2*M*SMLSIZ+8*M*NLVL+M*NRHS+(SMLSIZ+1)**2
-            IF( N.GE.MNTHR ) THEN
+            if ( N.GE.MNTHR ) {
 
                // Path 2a - underdetermined, with many more columns
               t // han rows.
 
                MAXWRK = M + M*ILAENV( 1, 'DGELQF', ' ', M, N, -1, -1 )
                MAXWRK = MAX( MAXWRK, M*M+4*M+2*M* ILAENV( 1, 'DGEBRD', ' ', M, M, -1, -1 ) )                MAXWRK = MAX( MAXWRK, M*M+4*M+NRHS* ILAENV( 1, 'DORMBR', 'QLT', M, NRHS, M, -1 ) )                MAXWRK = MAX( MAXWRK, M*M+4*M+( M-1 )* ILAENV( 1, 'DORMBR', 'PLN', M, NRHS, M, -1 ) )
-               IF( NRHS.GT.1 ) THEN
+               if ( NRHS.GT.1 ) {
                   MAXWRK = MAX( MAXWRK, M*M+M+M*NRHS )
                } else {
                   MAXWRK = MAX( MAXWRK, M*M+2*M )
-               END IF
+               }
                MAXWRK = MAX( MAXWRK, M+NRHS* ILAENV( 1, 'DORMLQ', 'LT', N, NRHS, M, -1 ) )
                MAXWRK = MAX( MAXWRK, M*M+4*M+WLALSD )
       // XXX: Ensure the Path 2a case below is triggered.  The workspace
@@ -115,31 +115,31 @@
 
                MAXWRK = 3*M + ( N+M )*ILAENV( 1, 'DGEBRD', ' ', M, N, -1, -1 )                MAXWRK = MAX( MAXWRK, 3*M+NRHS* ILAENV( 1, 'DORMBR', 'QLT', M, NRHS, N, -1 ) )                MAXWRK = MAX( MAXWRK, 3*M+M* ILAENV( 1, 'DORMBR', 'PLN', N, NRHS, M, -1 ) )
                MAXWRK = MAX( MAXWRK, 3*M+WLALSD )
-            END IF
+            }
             MINWRK = MAX( 3*M+NRHS, 3*M+M, 3*M+WLALSD )
-         END IF
+         }
          MINWRK = MIN( MINWRK, MAXWRK )
          WORK( 1 ) = MAXWRK
          IWORK( 1 ) = LIWORK
 
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
             INFO = -12
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGELSD', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          GO TO 10
-      END IF
+      }
 
       // Quick return if possible.
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 ) {
          RANK = 0
          RETURN
-      END IF
+      }
 
       // Get machine parameters.
 
@@ -152,19 +152,19 @@
 
       ANRM = DLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM.
 
          CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
          IASCL = 1
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM.
 
          CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
          IASCL = 2
-      ELSE IF( ANRM.EQ.ZERO ) THEN
+      } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
@@ -172,25 +172,25 @@
          CALL DLASET( 'F', MINMN, 1, ZERO, ZERO, S, 1 )
          RANK = 0
          GO TO 10
-      END IF
+      }
 
       // Scale B if max entry outside range [SMLNUM,BIGNUM].
 
       BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK )
       IBSCL = 0
-      IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
+      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM.
 
          CALL DLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 1
-      ELSE IF( BNRM.GT.BIGNUM ) THEN
+      } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM.
 
          CALL DLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 2
-      END IF
+      }
 
       // If M < N make sure certain entries of B are zero.
 
@@ -198,12 +198,12 @@
 
       // Overdetermined case.
 
-      IF( M.GE.N ) THEN
+      if ( M.GE.N ) {
 
          // Path 1 - overdetermined or exactly determined.
 
          MM = M
-         IF( M.GE.MNTHR ) THEN
+         if ( M.GE.MNTHR ) {
 
             // Path 1a - overdetermined, with many more rows than columns.
 
@@ -223,10 +223,10 @@
 
             // Zero out below R.
 
-            IF( N.GT.1 ) THEN
+            if ( N.GT.1 ) {
                CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
-            END IF
-         END IF
+            }
+         }
 
          IE = 1
          ITAUQ = IE + N
@@ -246,15 +246,15 @@
          // Solve the bidiagonal least squares problem.
 
          CALL DLALSD( 'U', SMLSIZ, N, NRHS, S, WORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), IWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             GO TO 10
-         END IF
+         }
 
          // Multiply B by right bidiagonalizing vectors of R.
 
          CALL DORMBR( 'P', 'L', 'N', N, NRHS, N, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
 
-      ELSE IF( N.GE.MNTHR .AND. LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M, WLALSD ) ) THEN
+      } else if ( N.GE.MNTHR .AND. LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M, WLALSD ) ) {
 
          // Path 2a - underdetermined, with many more columns than rows
          // and sufficient workspace for an efficient algorithm.
@@ -292,9 +292,9 @@
          // Solve the bidiagonal least squares problem.
 
          CALL DLALSD( 'U', SMLSIZ, M, NRHS, S, WORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), IWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             GO TO 10
-         END IF
+         }
 
          // Multiply B by right bidiagonalizing vectors of L.
 
@@ -332,30 +332,30 @@
          // Solve the bidiagonal least squares problem.
 
          CALL DLALSD( 'L', SMLSIZ, M, NRHS, S, WORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), IWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             GO TO 10
-         END IF
+         }
 
          // Multiply B by right bidiagonalizing vectors of A.
 
          CALL DORMBR( 'P', 'L', 'N', N, NRHS, M, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
 
-      END IF
+      }
 
       // Undo scaling.
 
-      IF( IASCL.EQ.1 ) THEN
+      if ( IASCL.EQ.1 ) {
          CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
          CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO )
-      ELSE IF( IASCL.EQ.2 ) THEN
+      } else if ( IASCL.EQ.2 ) {
          CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
          CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )
-      END IF
-      IF( IBSCL.EQ.1 ) THEN
+      }
+      if ( IBSCL.EQ.1 ) {
          CALL DLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )
-      ELSE IF( IBSCL.EQ.2 ) THEN
+      } else if ( IBSCL.EQ.2 ) {
          CALL DLASCL( 'G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO )
-      END IF
+      }
 
    10 CONTINUE
       WORK( 1 ) = MAXWRK

@@ -39,21 +39,21 @@
       // Test the input arguments
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KL.LT.0 .OR. KL.GT.M-1 ) THEN
+      } else if ( KL.LT.0 .OR. KL.GT.M-1 ) {
          INFO = -3
-      ELSE IF( KU.LT.0 .OR. KU.GT.N-1 ) THEN
+      } else if ( KU.LT.0 .OR. KU.GT.N-1 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -7
-      END IF
-      IF( INFO.LT.0 ) THEN
+      }
+      if ( INFO.LT.0 ) {
          CALL XERBLA( 'ZLAGGE', -INFO )
          RETURN
-      END IF
+      }
 
       // initialize A to diagonal matrix
 
@@ -73,92 +73,92 @@
       // pre- and post-multiply A by random unitary matrices
 
       DO 40 I = MIN( M, N ), 1, -1
-         IF( I.LT.M ) THEN
+         if ( I.LT.M ) {
 
             // generate random reflection
 
             CALL ZLARNV( 3, ISEED, M-I+1, WORK )
             WN = DZNRM2( M-I+1, WORK, 1 )
             WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 )
-            IF( WN.EQ.ZERO ) THEN
+            if ( WN.EQ.ZERO ) {
                TAU = ZERO
             } else {
                WB = WORK( 1 ) + WA
                CALL ZSCAL( M-I, ONE / WB, WORK( 2 ), 1 )
                WORK( 1 ) = ONE
                TAU = DBLE( WB / WA )
-            END IF
+            }
 
             // multiply A(i:m,i:n) by random reflection from the left
 
             CALL ZGEMV( 'Conjugate transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( M+1 ), 1 )             CALL ZGERC( M-I+1, N-I+1, -TAU, WORK, 1, WORK( M+1 ), 1, A( I, I ), LDA )
-         END IF
-         IF( I.LT.N ) THEN
+         }
+         if ( I.LT.N ) {
 
             // generate random reflection
 
             CALL ZLARNV( 3, ISEED, N-I+1, WORK )
             WN = DZNRM2( N-I+1, WORK, 1 )
             WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 )
-            IF( WN.EQ.ZERO ) THEN
+            if ( WN.EQ.ZERO ) {
                TAU = ZERO
             } else {
                WB = WORK( 1 ) + WA
                CALL ZSCAL( N-I, ONE / WB, WORK( 2 ), 1 )
                WORK( 1 ) = ONE
                TAU = DBLE( WB / WA )
-            END IF
+            }
 
             // multiply A(i:m,i:n) by random reflection from the right
 
             CALL ZGEMV( 'No transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )             CALL ZGERC( M-I+1, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( I, I ), LDA )
-         END IF
+         }
    40 CONTINUE
 
       // Reduce number of subdiagonals to KL and number of superdiagonals
      t // o KU
 
       DO 70 I = 1, MAX( M-1-KL, N-1-KU )
-         IF( KL.LE.KU ) THEN
+         if ( KL.LE.KU ) {
 
             // annihilate subdiagonal elements first (necessary if KL = 0)
 
-            IF( I.LE.MIN( M-1-KL, N ) ) THEN
+            if ( I.LE.MIN( M-1-KL, N ) ) {
 
                // generate reflection to annihilate A(kl+i+1:m,i)
 
                WN = DZNRM2( M-KL-I+1, A( KL+I, I ), 1 )
                WA = ( WN / ABS( A( KL+I, I ) ) )*A( KL+I, I )
-               IF( WN.EQ.ZERO ) THEN
+               if ( WN.EQ.ZERO ) {
                   TAU = ZERO
                } else {
                   WB = A( KL+I, I ) + WA
                   CALL ZSCAL( M-KL-I, ONE / WB, A( KL+I+1, I ), 1 )
                   A( KL+I, I ) = ONE
                   TAU = DBLE( WB / WA )
-               END IF
+               }
 
                // apply reflection to A(kl+i:m,i+1:n) from the left
 
                CALL ZGEMV( 'Conjugate transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 )
                CALL ZGERC( M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA )
                A( KL+I, I ) = -WA
-            END IF
+            }
 
-            IF( I.LE.MIN( N-1-KU, M ) ) THEN
+            if ( I.LE.MIN( N-1-KU, M ) ) {
 
                // generate reflection to annihilate A(i,ku+i+1:n)
 
                WN = DZNRM2( N-KU-I+1, A( I, KU+I ), LDA )
                WA = ( WN / ABS( A( I, KU+I ) ) )*A( I, KU+I )
-               IF( WN.EQ.ZERO ) THEN
+               if ( WN.EQ.ZERO ) {
                   TAU = ZERO
                } else {
                   WB = A( I, KU+I ) + WA
                   CALL ZSCAL( N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA )
                   A( I, KU+I ) = ONE
                   TAU = DBLE( WB / WA )
-               END IF
+               }
 
                // apply reflection to A(i+1:m,ku+i:n) from the right
 
@@ -166,26 +166,26 @@
                CALL ZGEMV( 'No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 )
                CALL ZGERC( M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA )
                A( I, KU+I ) = -WA
-            END IF
+            }
          } else {
 
             // annihilate superdiagonal elements first (necessary if
             // KU = 0)
 
-            IF( I.LE.MIN( N-1-KU, M ) ) THEN
+            if ( I.LE.MIN( N-1-KU, M ) ) {
 
                // generate reflection to annihilate A(i,ku+i+1:n)
 
                WN = DZNRM2( N-KU-I+1, A( I, KU+I ), LDA )
                WA = ( WN / ABS( A( I, KU+I ) ) )*A( I, KU+I )
-               IF( WN.EQ.ZERO ) THEN
+               if ( WN.EQ.ZERO ) {
                   TAU = ZERO
                } else {
                   WB = A( I, KU+I ) + WA
                   CALL ZSCAL( N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA )
                   A( I, KU+I ) = ONE
                   TAU = DBLE( WB / WA )
-               END IF
+               }
 
                // apply reflection to A(i+1:m,ku+i:n) from the right
 
@@ -193,42 +193,42 @@
                CALL ZGEMV( 'No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 )
                CALL ZGERC( M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA )
                A( I, KU+I ) = -WA
-            END IF
+            }
 
-            IF( I.LE.MIN( M-1-KL, N ) ) THEN
+            if ( I.LE.MIN( M-1-KL, N ) ) {
 
                // generate reflection to annihilate A(kl+i+1:m,i)
 
                WN = DZNRM2( M-KL-I+1, A( KL+I, I ), 1 )
                WA = ( WN / ABS( A( KL+I, I ) ) )*A( KL+I, I )
-               IF( WN.EQ.ZERO ) THEN
+               if ( WN.EQ.ZERO ) {
                   TAU = ZERO
                } else {
                   WB = A( KL+I, I ) + WA
                   CALL ZSCAL( M-KL-I, ONE / WB, A( KL+I+1, I ), 1 )
                   A( KL+I, I ) = ONE
                   TAU = DBLE( WB / WA )
-               END IF
+               }
 
                // apply reflection to A(kl+i:m,i+1:n) from the left
 
                CALL ZGEMV( 'Conjugate transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 )
                CALL ZGERC( M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA )
                A( KL+I, I ) = -WA
-            END IF
-         END IF
+            }
+         }
 
-         IF (I .LE. N) THEN
+         if (I .LE. N) {
             DO 50 J = KL + I + 1, M
                A( J, I ) = ZERO
    50       CONTINUE
-         END IF
+         }
 
-         IF (I .LE. M) THEN
+         if (I .LE. M) {
             DO 60 J = KU + I + 1, N
                A( I, J ) = ZERO
    60       CONTINUE
-         END IF
+         }
    70 CONTINUE
       RETURN
 

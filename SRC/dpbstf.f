@@ -39,19 +39,19 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -3
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DPBSTF', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -63,7 +63,7 @@
 
       M = ( N+KD ) / 2
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Factorize A(m+1:n,m+1:n) as L**T*L, and update A(1:m,1:m).
 
@@ -99,10 +99,10 @@
             // Compute elements j+1:j+km of the j-th row and update the
            t // railing submatrix within the band.
 
-            IF( KM.GT.0 ) THEN
+            if ( KM.GT.0 ) {
                CALL DSCAL( KM, ONE / AJJ, AB( KD, J+1 ), KLD )
                CALL DSYR( 'Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
-            END IF
+            }
    20    CONTINUE
       } else {
 
@@ -140,12 +140,12 @@
             // Compute elements j+1:j+km of the j-th column and update the
            t // railing submatrix within the band.
 
-            IF( KM.GT.0 ) THEN
+            if ( KM.GT.0 ) {
                CALL DSCAL( KM, ONE / AJJ, AB( 2, J ), 1 )
                CALL DSYR( 'Lower', KM, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
-            END IF
+            }
    40    CONTINUE
-      END IF
+      }
       RETURN
 
    50 CONTINUE

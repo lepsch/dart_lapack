@@ -44,64 +44,64 @@
 
       // NQ is the order of Q and NW is the minimum dimension of WORK
 
-      IF( LEFT ) THEN
+      if ( LEFT ) {
          NQ = M
          NW = MAX( 1, N )
       } else {
          NQ = N
          NW = MAX( 1, M )
-      END IF
-      IF( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) THEN
+      }
+      if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) ) THEN
+      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -2
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( K.LT.0 .OR. K.GT.NQ ) THEN
+      } else if ( K.LT.0 .OR. K.GT.NQ ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, NQ ) ) THEN
+      } else if ( LDA.LT.MAX( 1, NQ ) ) {
          INFO = -7
-      ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+      } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -10
-      ELSE IF( LWORK.LT.NW .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.NW .AND. .NOT.LQUERY ) {
          INFO = -12
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
          // Compute the workspace requirements
 
          NB = MIN( NBMAX, ILAENV( 1, 'DORMQR', SIDE // TRANS, M, N, K, -1 ) )
          LWKOPT = NW*NB + TSIZE
          WORK( 1 ) = LWKOPT
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DORMQR', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) {
          WORK( 1 ) = 1
          RETURN
-      END IF
+      }
 
       NBMIN = 2
       LDWORK = NW
-      IF( NB.GT.1 .AND. NB.LT.K ) THEN
-         IF( LWORK.LT.LWKOPT ) THEN
+      if ( NB.GT.1 .AND. NB.LT.K ) {
+         if ( LWORK.LT.LWKOPT ) {
             NB = (LWORK-TSIZE) / LDWORK
             NBMIN = MAX( 2, ILAENV( 2, 'DORMQR', SIDE // TRANS, M, N, K, -1 ) )
-         END IF
-      END IF
+         }
+      }
 
-      IF( NB.LT.NBMIN .OR. NB.GE.K ) THEN
+      if ( NB.LT.NBMIN .OR. NB.GE.K ) {
 
          // Use unblocked code
 
@@ -111,7 +111,7 @@
          // Use blocked code
 
          IWT = 1 + NW*NB
-         IF( ( LEFT .AND. .NOT.NOTRAN ) .OR. ( .NOT.LEFT .AND. NOTRAN ) ) THEN
+         if ( ( LEFT .AND. .NOT.NOTRAN ) .OR. ( .NOT.LEFT .AND. NOTRAN ) ) {
             I1 = 1
             I2 = K
             I3 = NB
@@ -119,15 +119,15 @@
             I1 = ( ( K-1 ) / NB )*NB + 1
             I2 = 1
             I3 = -NB
-         END IF
+         }
 
-         IF( LEFT ) THEN
+         if ( LEFT ) {
             NI = N
             JC = 1
          } else {
             MI = M
             IC = 1
-         END IF
+         }
 
          DO 10 I = I1, I2, I3
             IB = MIN( NB, K-I+1 )
@@ -136,7 +136,7 @@
             // H = H(i) H(i+1) . . . H(i+ib-1)
 
             CALL DLARFT( 'Forward', 'Columnwise', NQ-I+1, IB, A( I, I ), LDA, TAU( I ), WORK( IWT ), LDT )
-            IF( LEFT ) THEN
+            if ( LEFT ) {
 
                // H or H**T is applied to C(i:m,1:n)
 
@@ -148,13 +148,13 @@
 
                NI = N - I + 1
                JC = I
-            END IF
+            }
 
             // Apply H or H**T
 
             CALL DLARFB( SIDE, TRANS, 'Forward', 'Columnwise', MI, NI, IB, A( I, I ), LDA, WORK( IWT ), LDT, C( IC, JC ), LDC, WORK, LDWORK )
    10    CONTINUE
-      END IF
+      }
       WORK( 1 ) = LWKOPT
       RETURN
 

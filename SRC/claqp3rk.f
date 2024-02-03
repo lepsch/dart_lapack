@@ -67,7 +67,7 @@
          K = K + 1
          I = IOFFSET + K
 
-         IF( I.EQ.1 ) THEN
+         if ( I.EQ.1 ) {
 
             // We are at the first column of the original whole matrix A_orig,
            t // herefore we use the computed KP1 and MAXC2NRM from the
@@ -98,7 +98,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            IF( SISNAN( MAXC2NRMK ) ) THEN
+            if ( SISNAN( MAXC2NRMK ) ) {
 
                DONE = .TRUE.
 
@@ -129,9 +129,9 @@
                // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
-               IF( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) THEN
+               if ( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) {
                   CALL CGEMM( 'No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA )
-               END IF
+               }
 
                // There is no need to recompute the 2-norm of the
                // difficult columns, since we stop the factorization.
@@ -142,7 +142,7 @@
                // Return from the routine.
 
                RETURN
-            END IF
+            }
 
             // Quick return, if the submatrix A(I:M,K:N) is
             // a zero matrix. We need to check it only if the column index
@@ -150,7 +150,7 @@
             // for the whole original matrix A_orig is checked in the main
             // routine.
 
-            IF( MAXC2NRMK.EQ.ZERO ) THEN
+            if ( MAXC2NRMK.EQ.ZERO ) {
 
                DONE = .TRUE.
 
@@ -176,9 +176,9 @@
                // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
-               IF( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) THEN
+               if ( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) {
                   CALL CGEMM( 'No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA )
-               END IF
+               }
 
                // There is no need to recompute the 2-norm of the
                // difficult columns, since we stop the factorization.
@@ -195,7 +195,7 @@
 
                RETURN
 
-            END IF
+            }
 
             // ============================================================
 
@@ -208,9 +208,9 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            IF( INFO.EQ.0 .AND. MAXC2NRMK.GT.HUGEVAL ) THEN
+            if ( INFO.EQ.0 .AND. MAXC2NRMK.GT.HUGEVAL ) {
                INFO = N + K - 1 + KP
-            END IF
+            }
 
             // ============================================================
 
@@ -226,7 +226,7 @@
 
             RELMAXC2NRMK =  MAXC2NRMK / MAXC2NRM
 
-            IF( MAXC2NRMK.LE.ABSTOL .OR. RELMAXC2NRMK.LE.RELTOL ) THEN
+            if ( MAXC2NRMK.LE.ABSTOL .OR. RELMAXC2NRMK.LE.RELTOL ) {
 
                DONE = .TRUE.
 
@@ -250,9 +250,9 @@
                // A(IF+1:M,K+1:N+NRHS) := A(IF+1:M,KB+1:N+NRHS) -
                               // A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**H.
 
-               IF( KB.LT.MINMNUPDT ) THEN
+               if ( KB.LT.MINMNUPDT ) {
                   CALL CGEMM( 'No transpose', 'Conjugate transpose', M-IF, N+NRHS-KB, KB,-CONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( IF+1, KB+1 ), LDA )
-               END IF
+               }
 
                // There is no need to recompute the 2-norm of the
                // difficult columns, since we stop the factorization.
@@ -269,13 +269,13 @@
 
                RETURN
 
-            END IF
+            }
 
             // ============================================================
 
             // End ELSE of IF(I.EQ.1)
 
-         END IF
+         }
 
          // ===============================================================
 
@@ -291,7 +291,7 @@
          // 4) Save the pivot interchange with the indices relative to the
            t // he original matrix A_orig, not the block A(1:M,1:N).
 
-         IF( KP.NE.K ) THEN
+         if ( KP.NE.K ) {
             CALL CSWAP( M, A( 1, KP ), 1, A( 1, K ), 1 )
             CALL CSWAP( K-1, F( KP, 1 ), LDF, F( K, 1 ), LDF )
             VN1( KP ) = VN1( K )
@@ -299,12 +299,12 @@
             ITEMP = JPIV( KP )
             JPIV( KP ) = JPIV( K )
             JPIV( K ) = ITEMP
-         END IF
+         }
 
          // Apply previous Householder reflectors to column K:
          // A(I:M,K) := A(I:M,K) - A(I:M,1:K-1)*F(K,1:K-1)**H.
 
-         IF( K.GT.1 ) THEN
+         if ( K.GT.1 ) {
             DO J = 1, K - 1
                F( K, J ) = CONJG( F( K, J ) )
             END DO
@@ -312,15 +312,15 @@
             DO J = 1, K - 1
                F( K, J ) = CONJG( F( K, J ) )
             END DO
-         END IF
+         }
 
          // Generate elementary reflector H(k) using the column A(I:M,K).
 
-         IF( I.LT.M ) THEN
+         if ( I.LT.M ) {
             CALL CLARFG( M-I+1, A( I, K ), A( I+1, K ), 1, TAU( K ) )
          } else {
             TAU( K ) = CZERO
-         END IF
+         }
 
          // Check if TAU(K) contains NaN, set INFO parameter
         t // o the column number where NaN is found and return from
@@ -332,15 +332,15 @@
          // TAU(K) to contain NaN. Therefore, this case of generating Inf
          // by CLARFG is covered by checking TAU(K) for NaN.
 
-         IF( SISNAN( REAL( TAU(K) ) ) ) THEN
+         if ( SISNAN( REAL( TAU(K) ) ) ) {
             TAUNAN = REAL( TAU(K) )
-         ELSE IF( SISNAN( AIMAG( TAU(K) ) ) ) THEN
+         } else if ( SISNAN( AIMAG( TAU(K) ) ) ) {
             TAUNAN = AIMAG( TAU(K) )
          } else {
             TAUNAN = ZERO
-         END IF
+         }
 
-         IF( SISNAN( TAUNAN ) ) THEN
+         if ( SISNAN( TAUNAN ) ) {
 
             DONE = .TRUE.
 
@@ -372,9 +372,9 @@
             // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                              // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
-            IF( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) THEN
+            if ( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) {
                CALL CGEMM( 'No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA )
-            END IF
+            }
 
             // There is no need to recompute the 2-norm of the
             // difficult columns, since we stop the factorization.
@@ -385,7 +385,7 @@
             // Return from the routine.
 
             RETURN
-         END IF
+         }
 
          // ===============================================================
 
@@ -397,9 +397,9 @@
          // Compute the current K-th column of F:
            // 1) F(K+1:N,K) := tau(K) * A(I:M,K+1:N)**H * A(I:M,K).
 
-         IF( K.LT.N+NRHS ) THEN
+         if ( K.LT.N+NRHS ) {
             CALL CGEMV( 'Conjugate transpose', M-I+1, N+NRHS-K, TAU( K ), A( I, K+1 ), LDA, A( I, K ), 1, CZERO, F( K+1, K ), 1 )
-         END IF
+         }
 
             // 2) Zero out elements above and on the diagonal of the
                // column K in matrix F, i.e elements F(1:K,K).
@@ -412,11 +412,11 @@
          // F(1:N,K) := F(1:N,K) - tau(K) * F(1:N,1:K-1) * A(I:M,1:K-1)**H
                      // * A(I:M,K).
 
-         IF( K.GT.1 ) THEN
+         if ( K.GT.1 ) {
             CALL CGEMV( 'Conjugate Transpose', M-I+1, K-1, -TAU( K ), A( I, 1 ), LDA, A( I, K ), 1, CZERO, AUXV( 1 ), 1 )
 
             CALL CGEMV( 'No transpose', N+NRHS, K-1, CONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, CONE, F( 1, K ), 1 )
-         END IF
+         }
 
          // ===============================================================
 
@@ -424,9 +424,9 @@
          // A(I,K+1:N+NRHS) := A(I,K+1:N+NRHS)
                           // - A(I,1:K)*F(K+1:N+NRHS,1:K)**H.
 
-         IF( K.LT.N+NRHS ) THEN
+         if ( K.LT.N+NRHS ) {
             CALL CGEMM( 'No transpose', 'Conjugate transpose', 1, N+NRHS-K, K, -CONE, A( I, 1 ), LDA, F( K+1, 1 ), LDF, CONE, A( I, K+1 ), LDA )
-         END IF
+         }
 
          A( I, K ) = AIK
 
@@ -434,10 +434,10 @@
          // only if the residual matrix A(I+1:M,K+1:N) exists, i.e.
          // when K < MINMNFACT = min( M-IOFFSET, N ).
 
-         IF( K.LT.MINMNFACT ) THEN
+         if ( K.LT.MINMNFACT ) {
 
             DO J = K + 1, N
-               IF( VN1( J ).NE.ZERO ) THEN
+               if ( VN1( J ).NE.ZERO ) {
 
                   // NOTE: The following lines follow from the analysis in
                   // Lapack Working Note 176.
@@ -445,7 +445,7 @@
                   TEMP = ABS( A( I, J ) ) / VN1( J )
                   TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) )
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2
-                  IF( TEMP2.LE.TOL3Z ) THEN
+                  if ( TEMP2.LE.TOL3Z ) {
 
                      // At J-index, we have a difficult column for the
                      // update of the 2-norm. Save the index of the previous
@@ -462,11 +462,11 @@
 
                   } else {
                      VN1( J ) = VN1( J )*SQRT( TEMP )
-                  END IF
-               END IF
+                  }
+               }
             END DO
 
-         END IF
+         }
 
          // End of while loop.
 
@@ -490,9 +490,9 @@
       // A(IF+1:M,K+1:N+NRHS) := A(IF+1:M,KB+1:N+NRHS) -
                           // A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**H.
 
-      IF( KB.LT.MINMNUPDT ) THEN
+      if ( KB.LT.MINMNUPDT ) {
          CALL CGEMM( 'No transpose', 'Conjugate transpose', M-IF, N+NRHS-KB, KB, -CONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( IF+1, KB+1 ), LDA )
-      END IF
+      }
 
       // Recompute the 2-norm of the difficult columns.
       // Loop over the index of the difficult columns from the largest

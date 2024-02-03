@@ -62,7 +62,7 @@
 
          I = IOFFSET + KK
 
-         IF( I.EQ.1 ) THEN
+         if ( I.EQ.1 ) {
 
             // ============================================================
 
@@ -102,7 +102,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            IF( DISNAN( MAXC2NRMK ) ) THEN
+            if ( DISNAN( MAXC2NRMK ) ) {
 
                // Set K, the number of factorized columns.
               t // hat are not zero.
@@ -118,7 +118,7 @@
                 // undefined elements.
 
                RETURN
-            END IF
+            }
 
             // ============================================================
 
@@ -129,7 +129,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            IF( MAXC2NRMK.EQ.ZERO ) THEN
+            if ( MAXC2NRMK.EQ.ZERO ) {
 
                // Set K, the number of factorized columns.
               t // hat are not zero.
@@ -148,7 +148,7 @@
 
                RETURN
 
-            END IF
+            }
 
             // ============================================================
 
@@ -161,9 +161,9 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            IF( INFO.EQ.0 .AND. MAXC2NRMK.GT.HUGEVAL ) THEN
+            if ( INFO.EQ.0 .AND. MAXC2NRMK.GT.HUGEVAL ) {
                INFO = N + KK - 1 + KP
-            END IF
+            }
 
             // ============================================================
 
@@ -179,7 +179,7 @@
 
             RELMAXC2NRMK =  MAXC2NRMK / MAXC2NRM
 
-            IF( MAXC2NRMK.LE.ABSTOL .OR. RELMAXC2NRMK.LE.RELTOL ) THEN
+            if ( MAXC2NRMK.LE.ABSTOL .OR. RELMAXC2NRMK.LE.RELTOL ) {
 
                // Set K, the number of factorized columns.
 
@@ -196,13 +196,13 @@
 
                RETURN
 
-            END IF
+            }
 
             // ============================================================
 
             // End ELSE of IF(I.EQ.1)
 
-         END IF
+         }
 
          // ===============================================================
 
@@ -217,25 +217,25 @@
          // 3) Save the pivot interchange with the indices relative to the
            t // he original matrix A, not the block A(1:M,1:N).
 
-         IF( KP.NE.KK ) THEN
+         if ( KP.NE.KK ) {
             CALL DSWAP( M, A( 1, KP ), 1, A( 1, KK ), 1 )
             VN1( KP ) = VN1( KK )
             VN2( KP ) = VN2( KK )
             ITEMP = JPIV( KP )
             JPIV( KP ) = JPIV( KK )
             JPIV( KK ) = ITEMP
-         END IF
+         }
 
          // Generate elementary reflector H(KK) using the column A(I:M,KK),
          // if the column has more than one element, otherwise
         t // he elementary reflector would be an identity matrix,
          // and TAU(KK) = ZERO.
 
-         IF( I.LT.M ) THEN
+         if ( I.LT.M ) {
             CALL DLARFG( M-I+1, A( I, KK ), A( I+1, KK ), 1, TAU( KK ) )
          } else {
             TAU( KK ) = ZERO
-         END IF
+         }
 
          // Check if TAU(KK) contains NaN, set INFO parameter
         t // o the column number where NaN is found and return from
@@ -247,7 +247,7 @@
          // TAU(KK) to contain NaN. Therefore, this case of generating Inf
          // by DLARFG is covered by checking TAU(KK) for NaN.
 
-         IF( DISNAN( TAU(KK) ) ) THEN
+         if ( DISNAN( TAU(KK) ) ) {
             K = KK - 1
             INFO = KK
 
@@ -260,7 +260,7 @@
             // undefined elements, except the first element TAU(KK) = NaN.
 
             RETURN
-         END IF
+         }
 
          // Apply H(KK)**T to A(I:M,KK+1:N+NRHS) from the left.
          // ( If M >= N, then at KK = N there is no residual matrix,
@@ -274,21 +274,21 @@
           // KK < MINMNUPDT = min(M-IOFFSET, N+NRHS)
           // condition is satisfied, not only KK < N+NRHS )
 
-         IF( KK.LT.MINMNUPDT ) THEN
+         if ( KK.LT.MINMNUPDT ) {
             AIKK = A( I, KK )
             A( I, KK ) = ONE
             CALL DLARF( 'Left', M-I+1, N+NRHS-KK, A( I, KK ), 1, TAU( KK ), A( I, KK+1 ), LDA, WORK( 1 ) )
             A( I, KK ) = AIKK
-         END IF
+         }
 
-         IF( KK.LT.MINMNFACT ) THEN
+         if ( KK.LT.MINMNFACT ) {
 
             // Update the partial column 2-norms for the residual matrix,
             // only if the residual matrix A(I+1:M,KK+1:N) exists, i.e.
             // when KK < min(M-IOFFSET, N).
 
             DO J = KK + 1, N
-               IF( VN1( J ).NE.ZERO ) THEN
+               if ( VN1( J ).NE.ZERO ) {
 
                   // NOTE: The following lines follow from the analysis in
                   // Lapack Working Note 176.
@@ -296,7 +296,7 @@
                   TEMP = ONE - ( ABS( A( I, J ) ) / VN1( J ) )**2
                   TEMP = MAX( TEMP, ZERO )
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2
-                  IF( TEMP2 .LE. TOL3Z ) THEN
+                  if ( TEMP2 .LE. TOL3Z ) {
 
                      // Compute the column 2-norm for the partial
                      // column A(I+1:M,J) by explicitly computing it,
@@ -315,11 +315,11 @@
 
                      VN1( J ) = VN1( J )*SQRT( TEMP )
 
-                  END IF
-               END IF
+                  }
+               }
             END DO
 
-         END IF
+         }
 
       // End factorization loop
 
@@ -335,21 +335,21 @@
       // factorized, we need to set MAXC2NRMK and RELMAXC2NRMK before
       // we return.
 
-      IF( K.LT.MINMNFACT ) THEN
+      if ( K.LT.MINMNFACT ) {
 
          JMAXC2NRM = K + IDAMAX( N-K, VN1( K+1 ), 1 )
          MAXC2NRMK = VN1( JMAXC2NRM )
 
-         IF( K.EQ.0 ) THEN
+         if ( K.EQ.0 ) {
             RELMAXC2NRMK = ONE
          } else {
             RELMAXC2NRMK = MAXC2NRMK / MAXC2NRM
-         END IF
+         }
 
       } else {
          MAXC2NRMK = ZERO
          RELMAXC2NRMK = ZERO
-      END IF
+      }
 
       // We reached the end of the loop, i.e. all KMAX columns were
       // factorized, set TAUs corresponding to the columns that were

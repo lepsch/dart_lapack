@@ -37,25 +37,25 @@
       // Test the input parameters.
 
       INFO = 0
-      IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
+      if (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) {
           INFO = 1
-      ELSE IF (.NOT.LSAME(TRANS,'N') .AND. .NOT.LSAME(TRANS,'T') .AND. .NOT.LSAME(TRANS,'C')) THEN
+      } else if (.NOT.LSAME(TRANS,'N') .AND. .NOT.LSAME(TRANS,'T') .AND. .NOT.LSAME(TRANS,'C')) {
           INFO = 2
-      ELSE IF (.NOT.LSAME(DIAG,'U') .AND. .NOT.LSAME(DIAG,'N')) THEN
+      } else if (.NOT.LSAME(DIAG,'U') .AND. .NOT.LSAME(DIAG,'N')) {
           INFO = 3
-      ELSE IF (N.LT.0) THEN
+      } else if (N.LT.0) {
           INFO = 4
-      ELSE IF (K.LT.0) THEN
+      } else if (K.LT.0) {
           INFO = 5
-      ELSE IF (LDA.LT. (K+1)) THEN
+      } else if (LDA.LT. (K+1)) {
           INFO = 7
-      ELSE IF (INCX.EQ.0) THEN
+      } else if (INCX.EQ.0) {
           INFO = 9
-      END IF
-      IF (INFO.NE.0) THEN
+      }
+      if (INFO.NE.0) {
           CALL XERBLA('ZTBMV ',INFO)
           RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -67,36 +67,36 @@
       // Set up the start point in X if the increment is not unity. This
       // will be  ( N - 1 )*INCX   too small for descending loops.
 
-      IF (INCX.LE.0) THEN
+      if (INCX.LE.0) {
           KX = 1 - (N-1)*INCX
-      ELSE IF (INCX.NE.1) THEN
+      } else if (INCX.NE.1) {
           KX = 1
-      END IF
+      }
 
       // Start the operations. In this version the elements of A are
       // accessed sequentially with one pass through A.
 
-      IF (LSAME(TRANS,'N')) THEN
+      if (LSAME(TRANS,'N')) {
 
           // Form  x := A*x.
 
-          IF (LSAME(UPLO,'U')) THEN
+          if (LSAME(UPLO,'U')) {
               KPLUS1 = K + 1
-              IF (INCX.EQ.1) THEN
+              if (INCX.EQ.1) {
                   DO 20 J = 1,N
-                      IF (X(J).NE.ZERO) THEN
+                      if (X(J).NE.ZERO) {
                           TEMP = X(J)
                           L = KPLUS1 - J
                           DO 10 I = MAX(1,J-K),J - 1
                               X(I) = X(I) + TEMP*A(L+I,J)
    10                     CONTINUE
                           IF (NOUNIT) X(J) = X(J)*A(KPLUS1,J)
-                      END IF
+                      }
    20             CONTINUE
               } else {
                   JX = KX
                   DO 40 J = 1,N
-                      IF (X(JX).NE.ZERO) THEN
+                      if (X(JX).NE.ZERO) {
                           TEMP = X(JX)
                           IX = KX
                           L = KPLUS1 - J
@@ -105,28 +105,28 @@
                               IX = IX + INCX
    30                     CONTINUE
                           IF (NOUNIT) X(JX) = X(JX)*A(KPLUS1,J)
-                      END IF
+                      }
                       JX = JX + INCX
                       IF (J.GT.K) KX = KX + INCX
    40             CONTINUE
-              END IF
+              }
           } else {
-              IF (INCX.EQ.1) THEN
+              if (INCX.EQ.1) {
                   DO 60 J = N,1,-1
-                      IF (X(J).NE.ZERO) THEN
+                      if (X(J).NE.ZERO) {
                           TEMP = X(J)
                           L = 1 - J
                           DO 50 I = MIN(N,J+K),J + 1,-1
                               X(I) = X(I) + TEMP*A(L+I,J)
    50                     CONTINUE
                           IF (NOUNIT) X(J) = X(J)*A(1,J)
-                      END IF
+                      }
    60             CONTINUE
               } else {
                   KX = KX + (N-1)*INCX
                   JX = KX
                   DO 80 J = N,1,-1
-                      IF (X(JX).NE.ZERO) THEN
+                      if (X(JX).NE.ZERO) {
                           TEMP = X(JX)
                           IX = KX
                           L = 1 - J
@@ -135,23 +135,23 @@
                               IX = IX - INCX
    70                     CONTINUE
                           IF (NOUNIT) X(JX) = X(JX)*A(1,J)
-                      END IF
+                      }
                       JX = JX - INCX
                       IF ((N-J).GE.K) KX = KX - INCX
    80             CONTINUE
-              END IF
-          END IF
+              }
+          }
       } else {
 
          // Form  x := A**T*x  or  x := A**H*x.
 
-          IF (LSAME(UPLO,'U')) THEN
+          if (LSAME(UPLO,'U')) {
               KPLUS1 = K + 1
-              IF (INCX.EQ.1) THEN
+              if (INCX.EQ.1) {
                   DO 110 J = N,1,-1
                       TEMP = X(J)
                       L = KPLUS1 - J
-                      IF (NOCONJ) THEN
+                      if (NOCONJ) {
                           IF (NOUNIT) TEMP = TEMP*A(KPLUS1,J)
                           DO 90 I = J - 1,MAX(1,J-K),-1
                               TEMP = TEMP + A(L+I,J)*X(I)
@@ -161,7 +161,7 @@
                           DO 100 I = J - 1,MAX(1,J-K),-1
                               TEMP = TEMP + DCONJG(A(L+I,J))*X(I)
   100                     CONTINUE
-                      END IF
+                      }
                       X(J) = TEMP
   110             CONTINUE
               } else {
@@ -172,7 +172,7 @@
                       KX = KX - INCX
                       IX = KX
                       L = KPLUS1 - J
-                      IF (NOCONJ) THEN
+                      if (NOCONJ) {
                           IF (NOUNIT) TEMP = TEMP*A(KPLUS1,J)
                           DO 120 I = J - 1,MAX(1,J-K),-1
                               TEMP = TEMP + A(L+I,J)*X(IX)
@@ -184,17 +184,17 @@
                               TEMP = TEMP + DCONJG(A(L+I,J))*X(IX)
                               IX = IX - INCX
   130                     CONTINUE
-                      END IF
+                      }
                       X(JX) = TEMP
                       JX = JX - INCX
   140             CONTINUE
-              END IF
+              }
           } else {
-              IF (INCX.EQ.1) THEN
+              if (INCX.EQ.1) {
                   DO 170 J = 1,N
                       TEMP = X(J)
                       L = 1 - J
-                      IF (NOCONJ) THEN
+                      if (NOCONJ) {
                           IF (NOUNIT) TEMP = TEMP*A(1,J)
                           DO 150 I = J + 1,MIN(N,J+K)
                               TEMP = TEMP + A(L+I,J)*X(I)
@@ -204,7 +204,7 @@
                           DO 160 I = J + 1,MIN(N,J+K)
                               TEMP = TEMP + DCONJG(A(L+I,J))*X(I)
   160                     CONTINUE
-                      END IF
+                      }
                       X(J) = TEMP
   170             CONTINUE
               } else {
@@ -214,7 +214,7 @@
                       KX = KX + INCX
                       IX = KX
                       L = 1 - J
-                      IF (NOCONJ) THEN
+                      if (NOCONJ) {
                           IF (NOUNIT) TEMP = TEMP*A(1,J)
                           DO 180 I = J + 1,MIN(N,J+K)
                               TEMP = TEMP + A(L+I,J)*X(IX)
@@ -226,13 +226,13 @@
                               TEMP = TEMP + DCONJG(A(L+I,J))*X(IX)
                               IX = IX + INCX
   190                     CONTINUE
-                      END IF
+                      }
                       X(JX) = TEMP
                       JX = JX + INCX
   200             CONTINUE
-              END IF
-          END IF
-      END IF
+              }
+          }
+      }
 
       RETURN
 

@@ -48,7 +48,7 @@
 
       BNORM = ZERO
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
          // B is upper bidiagonal.
 
@@ -82,7 +82,7 @@
          DO 60 I = 1, N-1
             BNORM = MAX( BNORM, ABS( D( I ) )+ABS( E( I ) ) )
    60    CONTINUE
-      END IF
+      }
 
       CALL DGEMM( 'T', 'N', NS, NS, N, -ONE, U, LDU, WORK( 1 ), N, ZERO, WORK( 1+N*NS ), NS )
 
@@ -95,19 +95,19 @@
          K = K + NS
    70 CONTINUE
 
-      IF( BNORM.LE.ZERO ) THEN
+      if ( BNORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
-         IF( BNORM.GE.RESID ) THEN
+         if ( BNORM.GE.RESID ) {
             RESID = ( RESID / BNORM ) / ( DBLE( N )*EPS )
          } else {
-            IF( BNORM.LT.ONE ) THEN
+            if ( BNORM.LT.ONE ) {
                RESID = ( MIN( RESID, DBLE( N )*BNORM ) / BNORM ) / ( DBLE( N )*EPS )
             } else {
                RESID = MIN( RESID / BNORM, DBLE( N ) ) / ( DBLE( N )*EPS )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
       RETURN
 

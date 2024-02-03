@@ -118,14 +118,14 @@
 
             DO 90 IUPLO = 1, 2
                KOFF = 1
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   UPLO = 'U'
                   PACKIT = 'Q'
                   KOFF = MAX( 1, KD+2-N )
                } else {
                   UPLO = 'L'
                   PACKIT = 'B'
-               END IF
+               }
 
                DO 80 IMAT = 1, NIMAT
 
@@ -138,7 +138,7 @@
                   ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
                   IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 80
 
-                  IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) THEN
+                  if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) {
 
                      // Set up parameters with CLATB4 and generate a test
                      // matrix with CLATMS.
@@ -150,17 +150,17 @@
 
                      // Check error code from CLATMS.
 
-                     IF( INFO.NE.0 ) THEN
+                     if ( INFO.NE.0 ) {
                         CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 80
-                     END IF
-                  ELSE IF( IZERO.GT.0 ) THEN
+                     }
+                  } else if ( IZERO.GT.0 ) {
 
                      // Use the same matrix for types 3 and 4 as for type
                      // 2 by copying back the zeroed out column,
 
                      IW = 2*LDA + 1
-                     IF( IUPLO.EQ.1 ) THEN
+                     if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
                         CALL CCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 )
                         IW = IW + IZERO - I1
@@ -171,21 +171,21 @@
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
                         CALL CCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 )
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // For types 2-4, zero one row and column of the matrix
                  t // o test that INFO is returned correctly.
 
                   IZERO = 0
-                  IF( ZEROT ) THEN
-                     IF( IMAT.EQ.2 ) THEN
+                  if ( ZEROT ) {
+                     if ( IMAT.EQ.2 ) {
                         IZERO = 1
-                     ELSE IF( IMAT.EQ.3 ) THEN
+                     } else if ( IMAT.EQ.3 ) {
                         IZERO = N
                      } else {
                         IZERO = N / 2 + 1
-                     END IF
+                     }
 
                      // Save the zeroed out row and column in WORK(*,3)
 
@@ -197,7 +197,7 @@
                      I1 = MAX( IZERO-KD, 1 )
                      I2 = MIN( IZERO+KD, N )
 
-                     IF( IUPLO.EQ.1 ) THEN
+                     if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
                         CALL CSWAP( IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 )
                         IW = IW + IZERO - I1
@@ -208,16 +208,16 @@
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
                         CALL CSWAP( I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 )
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Set the imaginary part of the diagonals.
 
-                  IF( IUPLO.EQ.1 ) THEN
+                  if ( IUPLO.EQ.1 ) {
                      CALL CLAIPD( N, A( KD+1 ), LDAB, 0 )
                   } else {
                      CALL CLAIPD( N, A( 1 ), LDAB, 0 )
-                  END IF
+                  }
 
                   // Save a copy of the matrix A in ASAV.
 
@@ -225,11 +225,11 @@
 
                   DO 70 IEQUED = 1, 2
                      EQUED = EQUEDS( IEQUED )
-                     IF( IEQUED.EQ.1 ) THEN
+                     if ( IEQUED.EQ.1 ) {
                         NFACT = 3
                      } else {
                         NFACT = 1
-                     END IF
+                     }
 
                      DO 60 IFACT = 1, NFACT
                         FACT = FACTS( IFACT )
@@ -237,11 +237,11 @@
                         NOFACT = LSAME( FACT, 'N' )
                         EQUIL = LSAME( FACT, 'E' )
 
-                        IF( ZEROT ) THEN
+                        if ( ZEROT ) {
                            IF( PREFAC ) GO TO 60
                            RCONDC = ZERO
 
-                        ELSE IF( .NOT.LSAME( FACT, 'N' ) ) THEN
+                        } else if ( .NOT.LSAME( FACT, 'N' ) ) {
 
                            // Compute the condition number for comparison
                            // with the value returned by CPBSVX (FACT =
@@ -249,20 +249,20 @@
                            // previous iteration with FACT = 'F').
 
                            CALL CLACPY( 'Full', KD+1, N, ASAV, LDAB, AFAC, LDAB )
-                           IF( EQUIL .OR. IEQUED.GT.1 ) THEN
+                           if ( EQUIL .OR. IEQUED.GT.1 ) {
 
                               // Compute row and column scale factors to
                               // equilibrate the matrix A.
 
                               CALL CPBEQU( UPLO, N, KD, AFAC, LDAB, S, SCOND, AMAX, INFO )
-                              IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
+                              if ( INFO.EQ.0 .AND. N.GT.0 ) {
                                  IF( IEQUED.GT.1 ) SCOND = ZERO
 
                                  // Equilibrate the matrix.
 
                                  CALL CLAQHB( UPLO, N, KD, AFAC, LDAB, S, SCOND, AMAX, EQUED )
-                              END IF
-                           END IF
+                              }
+                           }
 
                            // Save the condition number of the
                            // non-equilibrated system for use in CGET04.
@@ -286,12 +286,12 @@
                            // Compute the 1-norm condition number of A.
 
                            AINVNM = CLANGE( '1', N, N, A, LDA, RWORK )
-                           IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                           if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                               RCONDC = ONE
                            } else {
                               RCONDC = ( ONE / ANORM ) / AINVNM
-                           END IF
-                        END IF
+                           }
+                        }
 
                         // Restore the matrix A.
 
@@ -305,7 +305,7 @@
                         XTYPE = 'C'
                         CALL CLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
 
-                        IF( NOFACT ) THEN
+                        if ( NOFACT ) {
 
                            // --- Test CPBSV  ---
 
@@ -319,12 +319,12 @@
 
                            // Check error code from CPBSV .
 
-                           IF( INFO.NE.IZERO ) THEN
+                           if ( INFO.NE.IZERO ) {
                               CALL ALAERH( PATH, 'CPBSV ', INFO, IZERO, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
                               GO TO 40
-                           ELSE IF( INFO.NE.0 ) THEN
+                           } else if ( INFO.NE.0 ) {
                               GO TO 40
-                           END IF
+                           }
 
                            // Reconstruct matrix from factors and compute
                            // residual.
@@ -344,26 +344,26 @@
                            // not pass the threshold.
 
                            DO 30 K = 1, NT
-                              IF( RESULT( K ).GE.THRESH ) THEN
+                              if ( RESULT( K ).GE.THRESH ) {
                                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                                  WRITE( NOUT, FMT = 9999 )'CPBSV ', UPLO, N, KD, IMAT, K, RESULT( K )
                                  NFAIL = NFAIL + 1
-                              END IF
+                              }
    30                      CONTINUE
                            NRUN = NRUN + NT
    40                      CONTINUE
-                        END IF
+                        }
 
                         // --- Test CPBSVX ---
 
                         IF( .NOT.PREFAC ) CALL CLASET( 'Full', KD+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDAB )
                         CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA )
-                        IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
+                        if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
                            // Equilibrate the matrix if FACT='F' and
                            // EQUED='Y'
 
                            CALL CLAQHB( UPLO, N, KD, A, LDAB, S, SCOND, AMAX, EQUED )
-                        END IF
+                        }
 
                         // Solve the system and compute the condition
                         // number and error bounds using CPBSVX.
@@ -373,13 +373,13 @@
 
                         // Check the error code from CPBSVX.
 
-                        IF( INFO.NE.IZERO ) THEN
+                        if ( INFO.NE.IZERO ) {
                            CALL ALAERH( PATH, 'CPBSVX', INFO, IZERO, FACT // UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
                            GO TO 60
-                        END IF
+                        }
 
-                        IF( INFO.EQ.0 ) THEN
-                           IF( .NOT.PREFAC ) THEN
+                        if ( INFO.EQ.0 ) {
+                           if ( .NOT.PREFAC ) {
 
                               // Reconstruct matrix from factors and
                               // compute residual.
@@ -388,7 +388,7 @@
                               K1 = 1
                            } else {
                               K1 = 2
-                           END IF
+                           }
 
                            // Compute residual of the computed solution.
 
@@ -399,7 +399,7 @@
                            IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                               CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                            } else {
                               CALL CGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
-                           END IF
+                           }
 
                            // Check the error bounds from iterative
                            // refinement.
@@ -407,7 +407,7 @@
                            CALL CPBT05( UPLO, N, KD, NRHS, ASAV, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                         } else {
                            K1 = 6
-                        END IF
+                        }
 
                         // Compare RCOND from CPBSVX with the computed
                         // value in RCONDC.
@@ -418,15 +418,15 @@
                         // pass the threshold.
 
                         DO 50 K = K1, 6
-                           IF( RESULT( K ).GE.THRESH ) THEN
+                           if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                              IF( PREFAC ) THEN
+                              if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'CPBSVX', FACT, UPLO, N, KD, EQUED, IMAT, K, RESULT( K )
                               } else {
                                  WRITE( NOUT, FMT = 9998 )'CPBSVX', FACT, UPLO, N, KD, IMAT, K, RESULT( K )
-                              END IF
+                              }
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
    50                   CONTINUE
                         NRUN = NRUN + 7 - K1
    60                CONTINUE

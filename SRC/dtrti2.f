@@ -40,31 +40,31 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       NOUNIT = LSAME( DIAG, 'N' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
+      } else if ( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DTRTI2', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Compute inverse of upper triangular matrix.
 
          DO 10 J = 1, N
-            IF( NOUNIT ) THEN
+            if ( NOUNIT ) {
                A( J, J ) = ONE / A( J, J )
                AJJ = -A( J, J )
             } else {
                AJJ = -ONE
-            END IF
+            }
 
             // Compute elements 1:j-1 of j-th column.
 
@@ -76,21 +76,21 @@
          // Compute inverse of lower triangular matrix.
 
          DO 20 J = N, 1, -1
-            IF( NOUNIT ) THEN
+            if ( NOUNIT ) {
                A( J, J ) = ONE / A( J, J )
                AJJ = -A( J, J )
             } else {
                AJJ = -ONE
-            END IF
-            IF( J.LT.N ) THEN
+            }
+            if ( J.LT.N ) {
 
                // Compute elements j+1:n of j-th column.
 
                CALL DTRMV( 'Lower', 'No transpose', DIAG, N-J, A( J+1, J+1 ), LDA, A( J+1, J ), 1 )
                CALL DSCAL( N-J, AJJ, A( J+1, J ), 1 )
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
 
       RETURN
 

@@ -38,22 +38,22 @@
       INFO = 0
       MN = MIN( M, N )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( P.LT.0 .OR. P.GT.N .OR. P.LT.N-M ) THEN
+      } else if ( P.LT.0 .OR. P.GT.N .OR. P.LT.N-M ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, P ) ) THEN
+      } else if ( LDB.LT.MAX( 1, P ) ) {
          INFO = -7
-      END IF
+      }
 
       // Calculate workspace
 
-      IF( INFO.EQ.0) THEN
-         IF( N.EQ.0 ) THEN
+      if ( INFO.EQ.0) {
+         if ( N.EQ.0 ) {
             LWKMIN = 1
             LWKOPT = 1
          } else {
@@ -64,20 +64,20 @@
             NB = MAX( NB1, NB2, NB3, NB4 )
             LWKMIN = M + N + P
             LWKOPT = P + MN + MAX( M, N )*NB
-         END IF
+         }
          WORK( 1 ) = LWKOPT
 
-         IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
             INFO = -12
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGGLSE', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -103,13 +103,13 @@
 
       // Solve T12*x2 = d for x2
 
-      IF( P.GT.0 ) THEN
+      if ( P.GT.0 ) {
          CALL ZTRTRS( 'Upper', 'No transpose', 'Non-unit', P, 1, B( 1, N-P+1 ), LDB, D, P, INFO )
 
-         IF( INFO.GT.0 ) THEN
+         if ( INFO.GT.0 ) {
             INFO = 1
             RETURN
-         END IF
+         }
 
          // Put the solution in X
 
@@ -118,35 +118,35 @@
          // Update c1
 
          CALL ZGEMV( 'No transpose', N-P, P, -CONE, A( 1, N-P+1 ), LDA, D, 1, CONE, C, 1 )
-      END IF
+      }
 
       // Solve R11*x1 = c1 for x1
 
-      IF( N.GT.P ) THEN
+      if ( N.GT.P ) {
          CALL ZTRTRS( 'Upper', 'No transpose', 'Non-unit', N-P, 1, A, LDA, C, N-P, INFO )
 
-         IF( INFO.GT.0 ) THEN
+         if ( INFO.GT.0 ) {
             INFO = 2
             RETURN
-         END IF
+         }
 
          // Put the solutions in X
 
          CALL ZCOPY( N-P, C, 1, X, 1 )
-      END IF
+      }
 
       // Compute the residual vector:
 
-      IF( M.LT.N ) THEN
+      if ( M.LT.N ) {
          NR = M + P - N
          IF( NR.GT.0 ) CALL ZGEMV( 'No transpose', NR, N-M, -CONE, A( N-P+1, M+1 ), LDA, D( NR+1 ), 1, CONE, C( N-P+1 ), 1 )
       } else {
          NR = P
-      END IF
-      IF( NR.GT.0 ) THEN
+      }
+      if ( NR.GT.0 ) {
          CALL ZTRMV( 'Upper', 'No transpose', 'Non unit', NR, A( N-P+1, N-P+1 ), LDA, D, 1 )
          CALL ZAXPY( NR, -CONE, D, 1, C( N-P+1 ), 1 )
-      END IF
+      }
 
       // Backward transformation x = Q**H*x
 

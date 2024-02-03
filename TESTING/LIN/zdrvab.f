@@ -105,33 +105,33 @@
 
             // Check error code from ZLATMS.
 
-            IF( INFO.NE.0 ) THEN
+            if ( INFO.NE.0 ) {
                CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                GO TO 100
-            END IF
+            }
 
             // For types 5-7, zero one or more columns of the matrix to
            t // est that INFO is returned correctly.
 
-            IF( ZEROT ) THEN
-               IF( IMAT.EQ.5 ) THEN
+            if ( ZEROT ) {
+               if ( IMAT.EQ.5 ) {
                   IZERO = 1
-               ELSE IF( IMAT.EQ.6 ) THEN
+               } else if ( IMAT.EQ.6 ) {
                   IZERO = MIN( M, N )
                } else {
                   IZERO = MIN( M, N ) / 2 + 1
-               END IF
+               }
                IOFF = ( IZERO-1 )*LDA
-               IF( IMAT.LT.7 ) THEN
+               if ( IMAT.LT.7 ) {
                   DO 20 I = 1, M
                      A( IOFF+I ) = ZERO
    20             CONTINUE
                } else {
                   CALL ZLASET( 'Full', M, N-IZERO+1, DCMPLX(ZERO), DCMPLX(ZERO), A( IOFF+1 ), LDA )
-               END IF
+               }
             } else {
                IZERO = 0
-            END IF
+            }
 
             DO 60 IRHS = 1, NNS
                NRHS = NSVAL( IRHS )
@@ -149,24 +149,24 @@
 
                CALL ZCGESV( N, NRHS, A, LDA, IWORK, B, LDA, X, LDA, WORK, SWORK, RWORK, ITER, INFO)
 
-               IF (ITER.LT.0) THEN
+               if (ITER.LT.0) {
                    CALL ZLACPY( 'Full', M, N, AFAC, LDA, A, LDA )
                ENDIF
 
                // Check error code from ZCGESV. This should be the same as
               t // he one of DGETRF.
 
-               IF( INFO.NE.IZERO ) THEN
+               if ( INFO.NE.IZERO ) {
 
                   IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
                   NERRS = NERRS + 1
 
-                  IF( INFO.NE.IZERO .AND. IZERO.NE.0 ) THEN
+                  if ( INFO.NE.IZERO .AND. IZERO.NE.0 ) {
                      WRITE( NOUT, FMT = 9988 )'ZCGESV',INFO, IZERO,M,IMAT
                   } else {
                      WRITE( NOUT, FMT = 9975 )'ZCGESV',INFO, M, IMAT
-                  END IF
-               END IF
+                  }
+               }
 
                // Skip the remaining test if the matrix is singular.
 
@@ -190,20 +190,20 @@
                  // NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS) < THRES
                // (Cf. the linear solver testing routines)
 
-               IF ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) THEN
+               if ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) {
 
-                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) THEN
+                  if ( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) {
                      WRITE( NOUT, FMT = 8999 )'DGE'
                      WRITE( NOUT, FMT = '( '' Matrix types:'' )' )
                      WRITE( NOUT, FMT = 8979 )
                      WRITE( NOUT, FMT = '( '' Test ratios:'' )' )
                      WRITE( NOUT, FMT = 8960 )1
                      WRITE( NOUT, FMT = '( '' Messages:'' )' )
-                  END IF
+                  }
 
                   WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, 1, RESULT( 1 )
                   NFAIL = NFAIL + 1
-               END IF
+               }
                NRUN = NRUN + 1
    60       CONTINUE
   100    CONTINUE
@@ -211,14 +211,14 @@
 
       // Print a summary of the results.
 
-      IF( NFAIL.GT.0 ) THEN
+      if ( NFAIL.GT.0 ) {
          WRITE( NOUT, FMT = 9996 )'ZCGESV', NFAIL, NRUN
       } else {
          WRITE( NOUT, FMT = 9995 )'ZCGESV', NRUN
-      END IF
-      IF( NERRS.GT.0 ) THEN
+      }
+      if ( NERRS.GT.0 ) {
          WRITE( NOUT, FMT = 9994 )NERRS
-      END IF
+      }
 
  9998 FORMAT( ' TRANS=''', A1, ''', N =', I5, ', NRHS=', I3, ', type ',
      $      I2, ', test(', I2, ') =', G12.5 )

@@ -36,20 +36,20 @@
       // .. Executable Statements ..
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
          CALL XERBLA( 'DLAGTF', -INFO )
          RETURN
-      END IF
+      }
 
       IF( N.EQ.0 ) RETURN
 
       A( 1 ) = A( 1 ) - LAMBDA
       IN( N ) = 0
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          IF( A( 1 ).EQ.ZERO ) IN( 1 ) = 1
          RETURN
-      END IF
+      }
 
       EPS = DLAMCH( 'Epsilon' )
 
@@ -59,19 +59,19 @@
          A( K+1 ) = A( K+1 ) - LAMBDA
          SCALE2 = ABS( C( K ) ) + ABS( A( K+1 ) )
          IF( K.LT.( N-1 ) ) SCALE2 = SCALE2 + ABS( B( K+1 ) )
-         IF( A( K ).EQ.ZERO ) THEN
+         if ( A( K ).EQ.ZERO ) {
             PIV1 = ZERO
          } else {
             PIV1 = ABS( A( K ) ) / SCALE1
-         END IF
-         IF( C( K ).EQ.ZERO ) THEN
+         }
+         if ( C( K ).EQ.ZERO ) {
             IN( K ) = 0
             PIV2 = ZERO
             SCALE1 = SCALE2
             IF( K.LT.( N-1 ) ) D( K ) = ZERO
          } else {
             PIV2 = ABS( C( K ) ) / SCALE2
-            IF( PIV2.LE.PIV1 ) THEN
+            if ( PIV2.LE.PIV1 ) {
                IN( K ) = 0
                SCALE1 = SCALE2
                C( K ) = C( K ) / A( K )
@@ -83,14 +83,14 @@
                A( K ) = C( K )
                TEMP = A( K+1 )
                A( K+1 ) = B( K ) - MULT*TEMP
-               IF( K.LT.( N-1 ) ) THEN
+               if ( K.LT.( N-1 ) ) {
                   D( K ) = B( K+1 )
                   B( K+1 ) = -MULT*D( K )
-               END IF
+               }
                B( K ) = TEMP
                C( K ) = MULT
-            END IF
-         END IF
+            }
+         }
          IF( ( MAX( PIV1, PIV2 ).LE.TL ) .AND. ( IN( N ).EQ.0 ) ) IN( N ) = K
    10 CONTINUE
       IF( ( ABS( A( N ) ).LE.SCALE1*TL ) .AND. ( IN( N ).EQ.0 ) ) IN( N ) = N

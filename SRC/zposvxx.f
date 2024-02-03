@@ -49,7 +49,7 @@
       EQUIL = LSAME( FACT, 'E' )
       SMLNUM = DLAMCH( 'Safe minimum' )
       BIGNUM = ONE / SMLNUM
-      IF( NOFACT .OR. EQUIL ) THEN
+      if ( NOFACT .OR. EQUIL ) {
          EQUED = 'N'
          RCEQU = .FALSE.
       } else {
@@ -64,69 +64,69 @@
 
       // Test the input parameters.  PARAMS is not tested until ZPORFSX.
 
-      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) THEN
+      if ( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDAF.LT.MAX( 1, N ) ) THEN
+      } else if ( LDAF.LT.MAX( 1, N ) ) {
          INFO = -8
-      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
+      } else if ( LSAME( FACT, 'F' ) .AND. .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) {
          INFO = -9
       } else {
-         IF ( RCEQU ) THEN
+         if ( RCEQU ) {
             SMIN = BIGNUM
             SMAX = ZERO
             DO 10 J = 1, N
                SMIN = MIN( SMIN, S( J ) )
                SMAX = MAX( SMAX, S( J ) )
  10         CONTINUE
-            IF( SMIN.LE.ZERO ) THEN
+            if ( SMIN.LE.ZERO ) {
                INFO = -10
-            ELSE IF( N.GT.0 ) THEN
+            } else if ( N.GT.0 ) {
                SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )
             } else {
                SCOND = ONE
-            END IF
-         END IF
-         IF( INFO.EQ.0 ) THEN
-            IF( LDB.LT.MAX( 1, N ) ) THEN
+            }
+         }
+         if ( INFO.EQ.0 ) {
+            if ( LDB.LT.MAX( 1, N ) ) {
                INFO = -12
-            ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+            } else if ( LDX.LT.MAX( 1, N ) ) {
                INFO = -14
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZPOSVXX', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( EQUIL ) THEN
+      if ( EQUIL ) {
 
       // Compute row and column scalings to equilibrate the matrix A.
 
          CALL ZPOEQUB( N, A, LDA, S, SCOND, AMAX, INFEQU )
-         IF( INFEQU.EQ.0 ) THEN
+         if ( INFEQU.EQ.0 ) {
 
       // Equilibrate the matrix.
 
             CALL ZLAQHE( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
             RCEQU = LSAME( EQUED, 'Y' )
-         END IF
-      END IF
+         }
+      }
 
       // Scale the right-hand side.
 
       IF( RCEQU ) CALL ZLASCL2( N, NRHS, S, B, LDB )
 
-      IF( NOFACT .OR. EQUIL ) THEN
+      if ( NOFACT .OR. EQUIL ) {
 
          // Compute the Cholesky factorization of A.
 
@@ -135,7 +135,7 @@
 
          // Return if INFO is non-zero.
 
-         IF( INFO.GT.0 ) THEN
+         if ( INFO.GT.0 ) {
 
             // Pivot in column INFO is exactly 0
             // Compute the reciprocal pivot growth factor of the
@@ -143,8 +143,8 @@
 
             RPVGRW = ZLA_PORPVGRW( UPLO, N, A, LDA, AF, LDAF, RWORK )
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Compute the reciprocal pivot growth factor RPVGRW.
 
@@ -163,9 +163,9 @@
 
       // Scale solutions.
 
-      IF ( RCEQU ) THEN
+      if ( RCEQU ) {
          CALL ZLASCL2( N, NRHS, S, X, LDX )
-      END IF
+      }
 
       RETURN
 

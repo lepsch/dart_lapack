@@ -54,19 +54,19 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RETURN
-      END IF
+      }
 
       // Decode RANGE
 
-      IF( LSAME( RANGE, 'A' ) ) THEN
+      if ( LSAME( RANGE, 'A' ) ) {
          IRANGE = ALLRNG
-      ELSE IF( LSAME( RANGE, 'V' ) ) THEN
+      } else if ( LSAME( RANGE, 'V' ) ) {
          IRANGE = VALRNG
-      ELSE IF( LSAME( RANGE, 'I' ) ) THEN
+      } else if ( LSAME( RANGE, 'I' ) ) {
          IRANGE = INDRNG
-      END IF
+      }
 
       // Get machine constants
       SAFMIN = DLAMCH( 'S' )
@@ -77,8 +77,8 @@
       BSRTOL = SQRT(EPS)
 
       // Treat case of 1x1 matrix for quick return
-      IF( N.EQ.1 ) THEN
-         IF( (IRANGE.EQ.ALLRNG).OR. ((IRANGE.EQ.VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE.EQ.INDRNG).AND.(IL.EQ.1).AND.(IU.EQ.1)) ) THEN
+      if ( N.EQ.1 ) {
+         if ( (IRANGE.EQ.ALLRNG).OR. ((IRANGE.EQ.VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE.EQ.INDRNG).AND.(IL.EQ.1).AND.(IU.EQ.1)) ) {
             M = 1
             W(1) = D(1)
             // The computation error of the eigenvalue is zero
@@ -92,7 +92,7 @@
          // store the shift for the initial RRR, which is zero in this case
          E(1) = ZERO
          RETURN
-      END IF
+      }
 
       // General case: tridiagonal matrix of order > 1
 
@@ -107,9 +107,9 @@
          WERR(I) = ZERO
          WGAP(I) = ZERO
          EABS = ABS( E(I) )
-         IF( EABS .GE. EMAX ) THEN
+         if ( EABS .GE. EMAX ) {
             EMAX = EABS
-         END IF
+         }
          TMP1 = EABS + EOLD
          GERS( 2*I-1) = D(I) - TMP1
          GL =  MIN( GL, GERS( 2*I - 1))
@@ -134,7 +134,7 @@
       // explicitly wants bisection.
       USEDQD = (( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB))
 
-      IF( (IRANGE.EQ.ALLRNG) .AND. (.NOT. FORCEB) ) THEN
+      if ( (IRANGE.EQ.ALLRNG) .AND. (.NOT. FORCEB) ) {
          // Set interval [VL,VU] that contains all eigenvalues
          VL = GL
          VU = GU
@@ -146,7 +146,7 @@
          // RIGHT-LEFT.LT.RTOL*MAX(ABS(LEFT),ABS(RIGHT))
          // DLARRD needs a WORK of size 4*N, IWORK of size 3*N
          CALL DLARRD( RANGE, 'B', N, VL, VU, IL, IU, GERS, BSRTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT, MM, W, WERR, VL, VU, IBLOCK, INDEXW, WORK, IWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             INFO = -1
             RETURN
          ENDIF
@@ -157,7 +157,7 @@
             IBLOCK( I ) = 0
             INDEXW( I ) = 0
  14      CONTINUE
-      END IF
+      }
 
 
 ***
@@ -169,8 +169,8 @@
          IN = IEND - IBEGIN + 1
 
          // 1 X 1 block
-         IF( IN.EQ.1 ) THEN
-            IF( (IRANGE.EQ.ALLRNG).OR.( (IRANGE.EQ.VALRNG).AND. ( D( IBEGIN ).GT.VL ).AND.( D( IBEGIN ).LE.VU ) ) .OR. ( (IRANGE.EQ.INDRNG).AND.(IBLOCK(WBEGIN).EQ.JBLK)) ) THEN
+         if ( IN.EQ.1 ) {
+            if ( (IRANGE.EQ.ALLRNG).OR.( (IRANGE.EQ.VALRNG).AND. ( D( IBEGIN ).GT.VL ).AND.( D( IBEGIN ).LE.VU ) ) .OR. ( (IRANGE.EQ.INDRNG).AND.(IBLOCK(WBEGIN).EQ.JBLK)) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
@@ -185,7 +185,7 @@
             E( IEND ) = ZERO
             IBEGIN = IEND + 1
             GO TO 170
-         END IF
+         }
 
          // Blocks of size larger than 1x1
 
@@ -201,11 +201,11 @@
  15      CONTINUE
          SPDIAM = GU - GL
 
-         IF(.NOT. ((IRANGE.EQ.ALLRNG).AND.(.NOT.FORCEB)) ) THEN
+         if (.NOT. ((IRANGE.EQ.ALLRNG).AND.(.NOT.FORCEB)) ) {
             // Count the number of eigenvalues in the current block.
             MB = 0
             DO 20 I = WBEGIN,MM
-               IF( IBLOCK(I).EQ.JBLK ) THEN
+               if ( IBLOCK(I).EQ.JBLK ) {
                   MB = MB+1
                } else {
                   GOTO 21
@@ -213,7 +213,7 @@
  20         CONTINUE
  21         CONTINUE
 
-            IF( MB.EQ.0) THEN
+            if ( MB.EQ.0) {
                // No eigenvalue in the current block lies in the desired range
                // E( IEND ) holds the shift for the initial RRR
                E( IEND ) = ZERO
@@ -237,17 +237,17 @@
                INDU = INDEXW( WEND )
             ENDIF
          ENDIF
-         IF(( (IRANGE.EQ.ALLRNG) .AND. (.NOT. FORCEB) ).OR.USEDQD) THEN
+         if (( (IRANGE.EQ.ALLRNG) .AND. (.NOT. FORCEB) ).OR.USEDQD) {
             // Case of DQDS
             // Find approximations to the extremal eigenvalues of the block
             CALL DLARRK( IN, 1, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                INFO = -1
                RETURN
             ENDIF
             ISLEFT = MAX(GL, TMP - TMP1 - HNDRD * EPS* ABS(TMP - TMP1))
              CALL DLARRK( IN, IN, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                INFO = -1
                RETURN
             ENDIF
@@ -269,7 +269,7 @@
         t // he eigenvalue approximations at the end of DLARRE or bisection.
          // dqds is chosen if all eigenvalues are desired or the number of
          // eigenvalues to be computed is large compared to the blocksize.
-         IF( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) THEN
+         if ( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) {
             // If all the eigenvalues have to be computed, we use dqd
             USEDQD = .TRUE.
             // INDL is the local index of the first eigenvalue to compute
@@ -285,7 +285,7 @@
             // DLARRD has computed IBLOCK and INDEXW for each eigenvalue
             // approximation.
             // choose sigma
-            IF( USEDQD ) THEN
+            if ( USEDQD ) {
                S1 = ISLEFT + FOURTH * SPDIAM
                S2 = ISRGHT - FOURTH * SPDIAM
             } else {
@@ -296,15 +296,15 @@
          ENDIF
 
          // Compute the negcount at the 1/4 and 3/4 points
-         IF(MB.GT.1) THEN
+         if (MB.GT.1) {
             CALL DLARRC( 'T', IN, S1, S2, D(IBEGIN), E(IBEGIN), PIVMIN, CNT, CNT1, CNT2, IINFO)
          ENDIF
 
-         IF(MB.EQ.1) THEN
+         if (MB.EQ.1) {
             SIGMA = GL
             SGNDEF = ONE
          ELSEIF( CNT1 - INDL .GE. INDU - CNT2 ) THEN
-            IF( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) THEN
+            if ( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) {
                SIGMA = MAX(ISLEFT,GL)
             ELSEIF( USEDQD ) THEN
                // use Gerschgorin bound as shift to get pos def matrix
@@ -317,7 +317,7 @@
             ENDIF
             SGNDEF = ONE
          } else {
-            IF( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) THEN
+            if ( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) {
                SIGMA = MIN(ISRGHT,GU)
             ELSEIF( USEDQD ) THEN
                // use Gerschgorin bound as shift to get neg def matrix
@@ -337,16 +337,16 @@
          // Define the increment TAU of the shift in case the initial shift
          // needs to be refined to obtain a factorization with not too much
          // element growth.
-         IF( USEDQD ) THEN
+         if ( USEDQD ) {
             // The initial SIGMA was to the outer end of the spectrum
            t // he matrix is definite and we need not retreat.
             TAU = SPDIAM*EPS*N + TWO*PIVMIN
             TAU = MAX( TAU,TWO*EPS*ABS(SIGMA) )
          } else {
-            IF(MB.GT.1) THEN
+            if (MB.GT.1) {
                CLWDTH = W(WEND) + WERR(WEND) - W(WBEGIN) - WERR(WBEGIN)
                AVGAP = ABS(CLWDTH / DBLE(WEND-WBEGIN))
-               IF( SGNDEF.EQ.ONE ) THEN
+               if ( SGNDEF.EQ.ONE ) {
                   TAU = HALF*MAX(WGAP(WBEGIN),AVGAP)
                   TAU = MAX(TAU,WERR(WBEGIN))
                } else {
@@ -376,12 +376,12 @@
                J = J + 1
  70         CONTINUE
             // check for element growth
-            IF( DMAX .GT. MAXGROWTH*SPDIAM ) THEN
+            if ( DMAX .GT. MAXGROWTH*SPDIAM ) {
                NOREP = .TRUE.
             } else {
                NOREP = .FALSE.
             ENDIF
-            IF( USEDQD .AND. .NOT.NOREP ) THEN
+            if ( USEDQD .AND. .NOT.NOREP ) {
                // Ensure the definiteness of the representation
                // All entries of D (of L D L^T) must have the same sign
                DO 71 I = 1, IN
@@ -389,25 +389,25 @@
                   IF( TMP.LT.ZERO ) NOREP = .TRUE.
  71            CONTINUE
             ENDIF
-            IF(NOREP) THEN
+            if (NOREP) {
                // Note that in the case of IRANGE=ALLRNG, we use the Gerschgorin
                // shift which makes the matrix definite. So we should end up
                // here really only in the case of IRANGE = VALRNG or INDRNG.
-               IF( IDUM.EQ.MAXTRY-1 ) THEN
-                  IF( SGNDEF.EQ.ONE ) THEN
+               if ( IDUM.EQ.MAXTRY-1 ) {
+                  if ( SGNDEF.EQ.ONE ) {
                      // The fudged Gerschgorin shift should succeed
                      SIGMA = GL - FUDGE*SPDIAM*EPS*N - FUDGE*TWO*PIVMIN
                   } else {
                      SIGMA = GU + FUDGE*SPDIAM*EPS*N + FUDGE*TWO*PIVMIN
-                  END IF
+                  }
                } else {
                   SIGMA = SIGMA - SGNDEF * TAU
                   TAU = TWO * TAU
-               END IF
+               }
             } else {
                // an initial RRR is found
                GO TO 83
-            END IF
+            }
  80      CONTINUE
          // if the program reaches this point, no base representation could be
          // found in MAXTRY iterations.
@@ -424,7 +424,7 @@
          CALL DCOPY( IN-1, WORK( IN+1 ), 1, E( IBEGIN ), 1 )
 
 
-         IF(MB.GT.1 ) THEN
+         if (MB.GT.1 ) {
 
             // Perturb each entry of the base representation by a small
             // (but random) relative amount to overcome difficulties with
@@ -449,7 +449,7 @@
          // intervals.
 
          // Compute the required eigenvalues of L D L' by bisection or dqds
-         IF ( .NOT.USEDQD ) THEN
+         if ( .NOT.USEDQD ) {
             // If DLARRD has been used, shift the eigenvalue approximations
             // according to their representation. This is necessary for
             // a uniform DLARRV since dqds computes eigenvalues of the
@@ -466,10 +466,10 @@
  135        CONTINUE
             // use bisection to find EV from INDL to INDU
             CALL DLARRB(IN, D(IBEGIN), WORK(IBEGIN), INDL, INDU, RTOL1, RTOL2, INDL-1, W(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), WORK( 2*N+1 ), IWORK, PIVMIN, SPDIAM, IN, IINFO )
-            IF( IINFO .NE. 0 ) THEN
+            if ( IINFO .NE. 0 ) {
                INFO = -4
                RETURN
-            END IF
+            }
             // DLARRB computes all gaps correctly except for the last one
             // Record distance to VU/GU
             WGAP( WEND ) = MAX( ZERO, ( VU-SIGMA ) - ( W( WEND ) + WERR( WEND ) ) )
@@ -500,7 +500,7 @@
             WORK( 2*IN-1 ) = ABS( D( IEND ) )
             WORK( 2*IN ) = ZERO
             CALL DLASQ2( IN, WORK, IINFO )
-            IF( IINFO .NE. 0 ) THEN
+            if ( IINFO .NE. 0 ) {
                // If IINFO = -5 then an index is part of a tight cluster
                // and should be changed. The index is in IWORK(1) and the
                // gap is in WORK(N+1)
@@ -509,13 +509,13 @@
             } else {
                // Test that all eigenvalues are positive as expected
                DO 149 I = 1, IN
-                  IF( WORK( I ).LT.ZERO ) THEN
+                  if ( WORK( I ).LT.ZERO ) {
                      INFO = -6
                      RETURN
                   ENDIF
  149           CONTINUE
-            END IF
-            IF( SGNDEF.GT.ZERO ) THEN
+            }
+            if ( SGNDEF.GT.ZERO ) {
                DO 150 I = INDL, INDU
                   M = M + 1
                   W( M ) = WORK( IN-I+1 )
@@ -529,7 +529,7 @@
                   IBLOCK( M ) = JBLK
                   INDEXW( M ) = I
  160           CONTINUE
-            END IF
+            }
 
             DO 165 I = M - MB + 1, M
               t // he value of RTOL below should be the tolerance in DLASQ2
@@ -540,7 +540,7 @@
                WGAP( I ) = MAX( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) )
  166        CONTINUE
             WGAP( M ) = MAX( ZERO, ( VU-SIGMA ) - ( W( M ) + WERR( M ) ) )
-         END IF
+         }
          // proceed with next block
          IBEGIN = IEND + 1
          WBEGIN = WEND + 1

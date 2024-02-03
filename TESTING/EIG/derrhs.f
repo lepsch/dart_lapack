@@ -63,7 +63,7 @@
 
       // Test error exits of the nonsymmetric eigenvalue routines.
 
-      IF( LSAMEN( 2, C2, 'HS' ) ) THEN
+      if ( LSAMEN( 2, C2, 'HS' ) ) {
 
          // DGEBAL
 
@@ -357,15 +357,15 @@
          CALL DTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 2, M, W, 2, INFO )
          CALL CHKXER( 'DTREVC3', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-      END IF
+      }
 
       // Print a summary line.
 
-      IF( OK ) THEN
+      if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH, NT
       } else {
          WRITE( NOUT, FMT = 9998 )PATH
-      END IF
+      }
 
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits',
      $      ' (', I3, ' tests done)' )

@@ -34,9 +34,9 @@
       // ..
       // .. Executable Statements ..
 
-      IF( MIN( M, N ).EQ.0 ) THEN
+      if ( MIN( M, N ).EQ.0 ) {
          VALUE = ZERO
-      ELSE IF( LSAME( NORM, 'M' ) ) THEN
+      } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
@@ -47,7 +47,7 @@
                IF( VALUE.LT.TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
    10       CONTINUE
    20    CONTINUE
-      ELSE IF( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
+      } else if ( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
 
          // Find norm1(A).
 
@@ -59,7 +59,7 @@
    30       CONTINUE
             IF( VALUE.LT.SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    40    CONTINUE
-      ELSE IF( LSAME( NORM, 'I' ) ) THEN
+      } else if ( LSAME( NORM, 'I' ) ) {
 
          // Find normI(A).
 
@@ -76,7 +76,7 @@
             TEMP = WORK( I )
             IF( VALUE.LT.TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
    80    CONTINUE
-      ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
+      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
@@ -86,7 +86,7 @@
             CALL SLASSQ( M, A( 1, J ), 1, SCALE, SUM )
    90    CONTINUE
          VALUE = SCALE*SQRT( SUM )
-      END IF
+      }
 
       SLANGE = VALUE
       RETURN

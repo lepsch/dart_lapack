@@ -65,28 +65,28 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -2
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LE.1 .OR. LDA.LT.NMAX ) THEN
+      } else if ( LDA.LE.1 .OR. LDA.LT.NMAX ) {
          INFO = -9
-      ELSE IF( LDZ.LE.1 .OR. LDZ.LT.NMAX ) THEN
+      } else if ( LDZ.LE.1 .OR. LDZ.LT.NMAX ) {
          INFO = -16
-      ELSE IF( 2*MAX( NMAX, 2 )**2.GT.NWORK ) THEN
+      } else if ( 2*MAX( NMAX, 2 )**2.GT.NWORK ) {
          INFO = -21
-      ELSE IF( 2*MAX( NMAX, 2 )**2.GT.LRWORK ) THEN
+      } else if ( 2*MAX( NMAX, 2 )**2.GT.LRWORK ) {
          INFO = -23
-      ELSE IF( 2*MAX( NMAX, 2 )**2.GT.LIWORK ) THEN
+      } else if ( 2*MAX( NMAX, 2 )**2.GT.LIWORK ) {
          INFO = -25
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CDRVSG', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -114,11 +114,11 @@
          N = NN( JSIZE )
          ANINV = ONE / REAL( MAX( 1, N ) )
 
-         IF( NSIZES.NE.1 ) THEN
+         if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
-         END IF
+         }
 
          KA9 = 0
          KB9 = 0
@@ -174,7 +174,7 @@
 
             // Special Matrices -- Identity & Jordan block
 
-            IF( ITYPE.EQ.1 ) THEN
+            if ( ITYPE.EQ.1 ) {
 
                // Zero
 
@@ -182,7 +182,7 @@
                KB = 0
                CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
 
-            ELSE IF( ITYPE.EQ.2 ) THEN
+            } else if ( ITYPE.EQ.2 ) {
 
                // Identity
 
@@ -193,7 +193,7 @@
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
 
-            ELSE IF( ITYPE.EQ.4 ) THEN
+            } else if ( ITYPE.EQ.4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
@@ -201,7 +201,7 @@
                KB = 0
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.5 ) THEN
+            } else if ( ITYPE.EQ.5 ) {
 
                // Hermitian, eigenvalues specified
 
@@ -209,7 +209,7 @@
                KB = KA
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.7 ) THEN
+            } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
@@ -217,7 +217,7 @@
                KB = 0
                CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.8 ) THEN
+            } else if ( ITYPE.EQ.8 ) {
 
                // Hermitian, random eigenvalues
 
@@ -225,7 +225,7 @@
                KB = KA
                CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.9 ) THEN
+            } else if ( ITYPE.EQ.9 ) {
 
                // Hermitian banded, eigenvalues specified
 
@@ -239,10 +239,10 @@
                  // ka = 3   kb = 3
 
                KB9 = KB9 + 1
-               IF( KB9.GT.KA9 ) THEN
+               if ( KB9.GT.KA9 ) {
                   KA9 = KA9 + 1
                   KB9 = 1
-               END IF
+               }
                KA = MAX( 0, MIN( N-1, KA9 ) )
                KB = MAX( 0, MIN( N-1, KB9 ) )
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK, IINFO )
@@ -250,29 +250,29 @@
             } else {
 
                IINFO = 1
-            END IF
+            }
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
-            END IF
+            }
 
    90       CONTINUE
 
             ABSTOL = UNFL + UNFL
-            IF( N.LE.1 ) THEN
+            if ( N.LE.1 ) {
                IL = 1
                IU = N
             } else {
                IL = 1 + INT( ( N-1 )*SLARND( 1, ISEED2 ) )
                IU = 1 + INT( ( N-1 )*SLARND( 1, ISEED2 ) )
-               IF( IL.GT.IU ) THEN
+               if ( IL.GT.IU ) {
                   ITEMP = IL
                   IL = IU
                   IU = ITEMP
-               END IF
-            END IF
+               }
+            }
 
             // 3) Call CHEGV, CHPGV, CHBGV, CHEGVD, CHPGVD, CHBGVD,
                // CHEGVX, CHPGVX and CHBGVX, do tests.
@@ -302,16 +302,16 @@
                   CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
 
                   CALL CHEGV( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 100
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Do Test
 
@@ -325,16 +325,16 @@
                   CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
 
                   CALL CHEGVD( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 100
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Do Test
 
@@ -348,16 +348,16 @@
                   CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
 
                   CALL CHEGVX( IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 100
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Do Test
 
@@ -376,16 +376,16 @@
                   VL = ZERO
                   VU = ANORM
                   CALL CHEGVX( IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 100
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Do Test
 
@@ -397,16 +397,16 @@
                   CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
 
                   CALL CHEGVX( IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 100
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Do Test
 
@@ -420,7 +420,7 @@
 
                   // Copy the matrices into packed storage.
 
-                  IF( LSAME( UPLO, 'U' ) ) THEN
+                  if ( LSAME( UPLO, 'U' ) ) {
                      IJ = 1
                      DO 120 J = 1, N
                         DO 110 I = 1, J
@@ -438,19 +438,19 @@
                            IJ = IJ + 1
   130                   CONTINUE
   140                CONTINUE
-                  END IF
+                  }
 
                   CALL CHPGV( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, RWORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 310
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Do Test
 
@@ -462,7 +462,7 @@
 
                   // Copy the matrices into packed storage.
 
-                  IF( LSAME( UPLO, 'U' ) ) THEN
+                  if ( LSAME( UPLO, 'U' ) ) {
                      IJ = 1
                      DO 160 J = 1, N
                         DO 150 I = 1, J
@@ -480,19 +480,19 @@
                            IJ = IJ + 1
   170                   CONTINUE
   180                CONTINUE
-                  END IF
+                  }
 
                   CALL CHPGVD( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 310
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Do Test
 
@@ -504,7 +504,7 @@
 
                   // Copy the matrices into packed storage.
 
-                  IF( LSAME( UPLO, 'U' ) ) THEN
+                  if ( LSAME( UPLO, 'U' ) ) {
                      IJ = 1
                      DO 200 J = 1, N
                         DO 190 I = 1, J
@@ -522,19 +522,19 @@
                            IJ = IJ + 1
   210                   CONTINUE
   220                CONTINUE
-                  END IF
+                  }
 
                   CALL CHPGVX( IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 310
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Do Test
 
@@ -544,7 +544,7 @@
 
                   // Copy the matrices into packed storage.
 
-                  IF( LSAME( UPLO, 'U' ) ) THEN
+                  if ( LSAME( UPLO, 'U' ) ) {
                      IJ = 1
                      DO 240 J = 1, N
                         DO 230 I = 1, J
@@ -562,21 +562,21 @@
                            IJ = IJ + 1
   250                   CONTINUE
   260                CONTINUE
-                  END IF
+                  }
 
                   VL = ZERO
                   VU = ANORM
                   CALL CHPGVX( IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 310
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Do Test
 
@@ -586,7 +586,7 @@
 
                   // Copy the matrices into packed storage.
 
-                  IF( LSAME( UPLO, 'U' ) ) THEN
+                  if ( LSAME( UPLO, 'U' ) ) {
                      IJ = 1
                      DO 280 J = 1, N
                         DO 270 I = 1, J
@@ -604,19 +604,19 @@
                            IJ = IJ + 1
   290                   CONTINUE
   300                CONTINUE
-                  END IF
+                  }
 
                   CALL CHPGVX( IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 310
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Do Test
 
@@ -624,7 +624,7 @@
 
   310             CONTINUE
 
-                  IF( IBTYPE.EQ.1 ) THEN
+                  if ( IBTYPE.EQ.1 ) {
 
                      // TEST CHBGV
 
@@ -632,7 +632,7 @@
 
                      // Copy the matrices into band storage.
 
-                     IF( LSAME( UPLO, 'U' ) ) THEN
+                     if ( LSAME( UPLO, 'U' ) ) {
                         DO 340 J = 1, N
                            DO 320 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
@@ -650,19 +650,19 @@
                               BB( 1+I-J, J ) = B( I, J )
   360                      CONTINUE
   370                   CONTINUE
-                     END IF
+                     }
 
                      CALL CHBGV( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, RWORK, IINFO )
-                     IF( IINFO.NE.0 ) THEN
+                     if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
-                        IF( IINFO.LT.0 ) THEN
+                        if ( IINFO.LT.0 ) {
                            RETURN
                         } else {
                            RESULT( NTEST ) = ULPINV
                            GO TO 620
-                        END IF
-                     END IF
+                        }
+                     }
 
                      // Do Test
 
@@ -674,7 +674,7 @@
 
                      // Copy the matrices into band storage.
 
-                     IF( LSAME( UPLO, 'U' ) ) THEN
+                     if ( LSAME( UPLO, 'U' ) ) {
                         DO 400 J = 1, N
                            DO 380 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
@@ -692,19 +692,19 @@
                               BB( 1+I-J, J ) = B( I, J )
   420                      CONTINUE
   430                   CONTINUE
-                     END IF
+                     }
 
                      CALL CHBGVD( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO )
-                     IF( IINFO.NE.0 ) THEN
+                     if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
-                        IF( IINFO.LT.0 ) THEN
+                        if ( IINFO.LT.0 ) {
                            RETURN
                         } else {
                            RESULT( NTEST ) = ULPINV
                            GO TO 620
-                        END IF
-                     END IF
+                        }
+                     }
 
                      // Do Test
 
@@ -716,7 +716,7 @@
 
                      // Copy the matrices into band storage.
 
-                     IF( LSAME( UPLO, 'U' ) ) THEN
+                     if ( LSAME( UPLO, 'U' ) ) {
                         DO 460 J = 1, N
                            DO 440 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
@@ -734,19 +734,19 @@
                               BB( 1+I-J, J ) = B( I, J )
   480                      CONTINUE
   490                   CONTINUE
-                     END IF
+                     }
 
                      CALL CHBGVX( 'V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
-                     IF( IINFO.NE.0 ) THEN
+                     if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
-                        IF( IINFO.LT.0 ) THEN
+                        if ( IINFO.LT.0 ) {
                            RETURN
                         } else {
                            RESULT( NTEST ) = ULPINV
                            GO TO 620
-                        END IF
-                     END IF
+                        }
+                     }
 
                      // Do Test
 
@@ -756,7 +756,7 @@
 
                      // Copy the matrices into band storage.
 
-                     IF( LSAME( UPLO, 'U' ) ) THEN
+                     if ( LSAME( UPLO, 'U' ) ) {
                         DO 520 J = 1, N
                            DO 500 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
@@ -774,21 +774,21 @@
                               BB( 1+I-J, J ) = B( I, J )
   540                      CONTINUE
   550                   CONTINUE
-                     END IF
+                     }
 
                      VL = ZERO
                      VU = ANORM
                      CALL CHBGVX( 'V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
-                     IF( IINFO.NE.0 ) THEN
+                     if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
-                        IF( IINFO.LT.0 ) THEN
+                        if ( IINFO.LT.0 ) {
                            RETURN
                         } else {
                            RESULT( NTEST ) = ULPINV
                            GO TO 620
-                        END IF
-                     END IF
+                        }
+                     }
 
                      // Do Test
 
@@ -798,7 +798,7 @@
 
                      // Copy the matrices into band storage.
 
-                     IF( LSAME( UPLO, 'U' ) ) THEN
+                     if ( LSAME( UPLO, 'U' ) ) {
                         DO 580 J = 1, N
                            DO 560 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
@@ -816,25 +816,25 @@
                               BB( 1+I-J, J ) = B( I, J )
   600                      CONTINUE
   610                   CONTINUE
-                     END IF
+                     }
 
                      CALL CHBGVX( 'V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
-                     IF( IINFO.NE.0 ) THEN
+                     if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
-                        IF( IINFO.LT.0 ) THEN
+                        if ( IINFO.LT.0 ) {
                            RETURN
                         } else {
                            RESULT( NTEST ) = ULPINV
                            GO TO 620
-                        END IF
-                     END IF
+                        }
+                     }
 
                      // Do Test
 
                      CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 
-                  END IF
+                  }
 
   620          CONTINUE
   630       CONTINUE

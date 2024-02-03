@@ -38,27 +38,27 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SSYTRS_3', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Begin Upper
 
@@ -75,9 +75,9 @@
 
          DO K = N, 1, -1
             KP = ABS( IPIV( K ) )
-            IF( KP.NE.K ) THEN
+            if ( KP.NE.K ) {
                CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-            END IF
+            }
          END DO
 
          // Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
@@ -88,9 +88,9 @@
 
          I = N
          DO WHILE ( I.GE.1 )
-            IF( IPIV( I ).GT.0 ) THEN
+            if ( IPIV( I ).GT.0 ) {
                CALL SSCAL( NRHS, ONE / A( I, I ), B( I, 1 ), LDB )
-            ELSE IF ( I.GT.1 ) THEN
+            } else if ( I.GT.1 ) {
                AKM1K = E( I )
                AKM1 = A( I-1, I-1 ) / AKM1K
                AK = A( I, I ) / AKM1K
@@ -102,7 +102,7 @@
                   B( I, J ) = ( AKM1*BK-BKM1 ) / DENOM
                END DO
                I = I - 1
-            END IF
+            }
             I = I - 1
          END DO
 
@@ -121,9 +121,9 @@
 
          DO K = 1, N, 1
             KP = ABS( IPIV( K ) )
-            IF( KP.NE.K ) THEN
+            if ( KP.NE.K ) {
                CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-            END IF
+            }
          END DO
 
       } else {
@@ -142,9 +142,9 @@
 
          DO K = 1, N, 1
             KP = ABS( IPIV( K ) )
-            IF( KP.NE.K ) THEN
+            if ( KP.NE.K ) {
                CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-            END IF
+            }
          END DO
 
          // Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
@@ -155,9 +155,9 @@
 
          I = 1
          DO WHILE ( I.LE.N )
-            IF( IPIV( I ).GT.0 ) THEN
+            if ( IPIV( I ).GT.0 ) {
                CALL SSCAL( NRHS, ONE / A( I, I ), B( I, 1 ), LDB )
-            ELSE IF( I.LT.N ) THEN
+            } else if ( I.LT.N ) {
                AKM1K = E( I )
                AKM1 = A( I, I ) / AKM1K
                AK = A( I+1, I+1 ) / AKM1K
@@ -169,7 +169,7 @@
                   B( I+1, J ) = ( AKM1*BK-BKM1 ) / DENOM
                END DO
                I = I + 1
-            END IF
+            }
             I = I + 1
          END DO
 
@@ -188,14 +188,14 @@
 
          DO K = N, 1, -1
             KP = ABS( IPIV( K ) )
-            IF( KP.NE.K ) THEN
+            if ( KP.NE.K ) {
                CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-            END IF
+            }
          END DO
 
          // END Lower
 
-      END IF
+      }
 
       RETURN
 

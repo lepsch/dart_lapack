@@ -71,72 +71,72 @@
       // Read the values of N
 
       READ( NIN, FMT = * )NN
-      IF( NN.LT.1 ) THEN
+      if ( NN.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NN ', NN, 1
          NN = 0
          FATAL = .TRUE.
-      ELSE IF( NN.GT.MAXIN ) THEN
+      } else if ( NN.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NN ', NN, MAXIN
          NN = 0
          FATAL = .TRUE.
-      END IF
+      }
       READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
       DO 10 I = 1, NN
-         IF( NVAL( I ).LT.0 ) THEN
+         if ( NVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', NVAL( I ), 0
             FATAL = .TRUE.
-         ELSE IF( NVAL( I ).GT.NMAX ) THEN
+         } else if ( NVAL( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9995 )' M  ', NVAL( I ), NMAX
             FATAL = .TRUE.
-         END IF
+         }
    10 CONTINUE
       IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
 
       // Read the values of NRHS
 
       READ( NIN, FMT = * )NNS
-      IF( NNS.LT.1 ) THEN
+      if ( NNS.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
          NNS = 0
          FATAL = .TRUE.
-      ELSE IF( NNS.GT.MAXIN ) THEN
+      } else if ( NNS.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN
          NNS = 0
          FATAL = .TRUE.
-      END IF
+      }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS )
       DO 30 I = 1, NNS
-         IF( NSVAL( I ).LT.0 ) THEN
+         if ( NSVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
             FATAL = .TRUE.
-         ELSE IF( NSVAL( I ).GT.MAXRHS ) THEN
+         } else if ( NSVAL( I ).GT.MAXRHS ) {
             WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
             FATAL = .TRUE.
-         END IF
+         }
    30 CONTINUE
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 
       // Read the matrix types
 
       READ( NIN, FMT = * )NNT
-      IF( NNT.LT.1 ) THEN
+      if ( NNT.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NMA', NNT, 1
          NNT = 0
          FATAL = .TRUE.
-      ELSE IF( NNT.GT.NTYPES ) THEN
+      } else if ( NNT.GT.NTYPES ) {
          WRITE( NOUT, FMT = 9995 )' NMA', NNT, NTYPES
          NNT = 0
          FATAL = .TRUE.
-      END IF
+      }
       READ( NIN, FMT = * )( NTVAL( I ), I = 1, NNT )
       DO 320 I = 1, NNT
-         IF( NTVAL( I ).LT.0 ) THEN
+         if ( NTVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )'TYPE', NTVAL( I ), 0
             FATAL = .TRUE.
-         ELSE IF( NTVAL( I ).GT.NTYPES ) THEN
+         } else if ( NTVAL( I ).GT.NTYPES ) {
             WRITE( NOUT, FMT = 9995 )'TYPE', NTVAL( I ), NTYPES
             FATAL = .TRUE.
-         END IF
+         }
   320 CONTINUE
       IF( NNT.GT.0 ) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
 
@@ -149,10 +149,10 @@
 
       READ( NIN, FMT = * )TSTERR
 
-      IF( FATAL ) THEN
+      if ( FATAL ) {
          WRITE( NOUT, FMT = 9999 )
          STOP
-      END IF
+      }
 
       // Calculate and print the machine dependent constants.
 

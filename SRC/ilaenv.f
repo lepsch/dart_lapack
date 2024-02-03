@@ -40,42 +40,42 @@
       SUBNAM = NAME
       IC = ICHAR( SUBNAM( 1: 1 ) )
       IZ = ICHAR( 'Z' )
-      IF( IZ.EQ.90 .OR. IZ.EQ.122 ) THEN
+      if ( IZ.EQ.90 .OR. IZ.EQ.122 ) {
 
          // ASCII character set
 
-         IF( IC.GE.97 .AND. IC.LE.122 ) THEN
+         if ( IC.GE.97 .AND. IC.LE.122 ) {
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
             DO 20 I = 2, 6
                IC = ICHAR( SUBNAM( I: I ) )
                IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
    20       CONTINUE
-         END IF
+         }
 
-      ELSE IF( IZ.EQ.233 .OR. IZ.EQ.169 ) THEN
+      } else if ( IZ.EQ.233 .OR. IZ.EQ.169 ) {
 
          // EBCDIC character set
 
-         IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) THEN
+         if ( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) {
             SUBNAM( 1: 1 ) = CHAR( IC+64 )
             DO 30 I = 2, 6
                IC = ICHAR( SUBNAM( I: I ) )
                IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
    30       CONTINUE
-         END IF
+         }
 
-      ELSE IF( IZ.EQ.218 .OR. IZ.EQ.250 ) THEN
+      } else if ( IZ.EQ.218 .OR. IZ.EQ.250 ) {
 
          // Prime machines:  ASCII+128
 
-         IF( IC.GE.225 .AND. IC.LE.250 ) THEN
+         if ( IC.GE.225 .AND. IC.LE.250 ) {
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
             DO 40 I = 2, 6
                IC = ICHAR( SUBNAM( I: I ) )
                IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
    40       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       C1 = SUBNAM( 1: 1 )
       SNAME = C1.EQ.'S' .OR. C1.EQ.'D'
@@ -98,240 +98,240 @@
 
       NB = 1
 
-      IF( SUBNAM(2:6).EQ.'LAORH' ) THEN
+      if ( SUBNAM(2:6).EQ.'LAORH' ) {
 
          // This is for *LAORHR_GETRFNP routine
 
-         IF( SNAME ) THEN
+         if ( SNAME ) {
              NB = 32
          } else {
              NB = 32
-         END IF
-      ELSE IF( C2.EQ.'GE' ) THEN
-         IF( C3.EQ.'TRF' ) THEN
-            IF( SNAME ) THEN
+         }
+      } else if ( C2.EQ.'GE' ) {
+         if ( C3.EQ.'TRF' ) {
+            if ( SNAME ) {
                NB = 64
             } else {
                NB = 64
-            END IF
-         ELSE IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ.'QLF' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ.'QLF' ) {
+            if ( SNAME ) {
                NB = 32
             } else {
                NB = 32
-            END IF
-         ELSE IF( C3.EQ.'QR ') THEN
-            IF( N3 .EQ. 1) THEN
-               IF( SNAME ) THEN
+            }
+         } else if ( C3.EQ.'QR ') {
+            if ( N3 .EQ. 1) {
+               if ( SNAME ) {
       // M*N
-                  IF ((N1*N2.LE.131072).OR.(N1.LE.8192)) THEN
+                  if ((N1*N2.LE.131072).OR.(N1.LE.8192)) {
                      NB = N1
                   } else {
                      NB = 32768/N2
-                  END IF
+                  }
                } else {
-                  IF ((N1*N2.LE.131072).OR.(N1.LE.8192)) THEN
+                  if ((N1*N2.LE.131072).OR.(N1.LE.8192)) {
                      NB = N1
                   } else {
                      NB = 32768/N2
-                  END IF
-               END IF
+                  }
+               }
             } else {
-               IF( SNAME ) THEN
+               if ( SNAME ) {
                   NB = 1
                } else {
                   NB = 1
-               END IF
-            END IF
-         ELSE IF( C3.EQ.'LQ ') THEN
-            IF( N3 .EQ. 2) THEN
-               IF( SNAME ) THEN
+               }
+            }
+         } else if ( C3.EQ.'LQ ') {
+            if ( N3 .EQ. 2) {
+               if ( SNAME ) {
       // M*N
-                  IF ((N1*N2.LE.131072).OR.(N1.LE.8192)) THEN
+                  if ((N1*N2.LE.131072).OR.(N1.LE.8192)) {
                      NB = N1
                   } else {
                      NB = 32768/N2
-                  END IF
+                  }
                } else {
-                  IF ((N1*N2.LE.131072).OR.(N1.LE.8192)) THEN
+                  if ((N1*N2.LE.131072).OR.(N1.LE.8192)) {
                      NB = N1
                   } else {
                      NB = 32768/N2
-                  END IF
-               END IF
+                  }
+               }
             } else {
-               IF( SNAME ) THEN
+               if ( SNAME ) {
                   NB = 1
                } else {
                   NB = 1
-               END IF
-            END IF
-         ELSE IF( C3.EQ.'HRD' ) THEN
-            IF( SNAME ) THEN
+               }
+            }
+         } else if ( C3.EQ.'HRD' ) {
+            if ( SNAME ) {
                NB = 32
             } else {
                NB = 32
-            END IF
-         ELSE IF( C3.EQ.'BRD' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( C3.EQ.'BRD' ) {
+            if ( SNAME ) {
                NB = 32
             } else {
                NB = 32
-            END IF
-         ELSE IF( C3.EQ.'TRI' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( C3.EQ.'TRI' ) {
+            if ( SNAME ) {
                NB = 64
             } else {
                NB = 64
-            END IF
-         ELSE IF( SUBNAM( 4: 7 ).EQ.'QP3RK' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( SUBNAM( 4: 7 ).EQ.'QP3RK' ) {
+            if ( SNAME ) {
                NB = 32
             } else {
                NB = 32
-            END IF
-         END IF
-      ELSE IF( C2.EQ.'PO' ) THEN
-         IF( C3.EQ.'TRF' ) THEN
-            IF( SNAME ) THEN
+            }
+         }
+      } else if ( C2.EQ.'PO' ) {
+         if ( C3.EQ.'TRF' ) {
+            if ( SNAME ) {
                NB = 64
             } else {
                NB = 64
-            END IF
-         END IF
-      ELSE IF( C2.EQ.'SY' ) THEN
-         IF( C3.EQ.'TRF' ) THEN
-            IF( SNAME ) THEN
-               IF( TWOSTAGE ) THEN
+            }
+         }
+      } else if ( C2.EQ.'SY' ) {
+         if ( C3.EQ.'TRF' ) {
+            if ( SNAME ) {
+               if ( TWOSTAGE ) {
                   NB = 192
                } else {
                   NB = 64
-               END IF
+               }
             } else {
-               IF( TWOSTAGE ) THEN
+               if ( TWOSTAGE ) {
                   NB = 192
                } else {
                   NB = 64
-               END IF
-            END IF
-         ELSE IF( SNAME .AND. C3.EQ.'TRD' ) THEN
+               }
+            }
+         } else if ( SNAME .AND. C3.EQ.'TRD' ) {
             NB = 32
-         ELSE IF( SNAME .AND. C3.EQ.'GST' ) THEN
+         } else if ( SNAME .AND. C3.EQ.'GST' ) {
             NB = 64
-         END IF
-      ELSE IF( CNAME .AND. C2.EQ.'HE' ) THEN
-         IF( C3.EQ.'TRF' ) THEN
-            IF( TWOSTAGE ) THEN
+         }
+      } else if ( CNAME .AND. C2.EQ.'HE' ) {
+         if ( C3.EQ.'TRF' ) {
+            if ( TWOSTAGE ) {
                NB = 192
             } else {
                NB = 64
-            END IF
-         ELSE IF( C3.EQ.'TRD' ) THEN
+            }
+         } else if ( C3.EQ.'TRD' ) {
             NB = 32
-         ELSE IF( C3.EQ.'GST' ) THEN
+         } else if ( C3.EQ.'GST' ) {
             NB = 64
-         END IF
-      ELSE IF( SNAME .AND. C2.EQ.'OR' ) THEN
-         IF( C3( 1: 1 ).EQ.'G' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
+         }
+      } else if ( SNAME .AND. C2.EQ.'OR' ) {
+         if ( C3( 1: 1 ).EQ.'G' ) {
+            if ( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) {
                NB = 32
-            END IF
-         ELSE IF( C3( 1: 1 ).EQ.'M' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
+            }
+         } else if ( C3( 1: 1 ).EQ.'M' ) {
+            if ( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) {
                NB = 32
-            END IF
-         END IF
-      ELSE IF( CNAME .AND. C2.EQ.'UN' ) THEN
-         IF( C3( 1: 1 ).EQ.'G' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
+            }
+         }
+      } else if ( CNAME .AND. C2.EQ.'UN' ) {
+         if ( C3( 1: 1 ).EQ.'G' ) {
+            if ( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) {
                NB = 32
-            END IF
-         ELSE IF( C3( 1: 1 ).EQ.'M' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
+            }
+         } else if ( C3( 1: 1 ).EQ.'M' ) {
+            if ( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) {
                NB = 32
-            END IF
-         END IF
-      ELSE IF( C2.EQ.'GB' ) THEN
-         IF( C3.EQ.'TRF' ) THEN
-            IF( SNAME ) THEN
-               IF( N4.LE.64 ) THEN
+            }
+         }
+      } else if ( C2.EQ.'GB' ) {
+         if ( C3.EQ.'TRF' ) {
+            if ( SNAME ) {
+               if ( N4.LE.64 ) {
                   NB = 1
                } else {
                   NB = 32
-               END IF
+               }
             } else {
-               IF( N4.LE.64 ) THEN
+               if ( N4.LE.64 ) {
                   NB = 1
                } else {
                   NB = 32
-               END IF
-            END IF
-         END IF
-      ELSE IF( C2.EQ.'PB' ) THEN
-         IF( C3.EQ.'TRF' ) THEN
-            IF( SNAME ) THEN
-               IF( N2.LE.64 ) THEN
+               }
+            }
+         }
+      } else if ( C2.EQ.'PB' ) {
+         if ( C3.EQ.'TRF' ) {
+            if ( SNAME ) {
+               if ( N2.LE.64 ) {
                   NB = 1
                } else {
                   NB = 32
-               END IF
+               }
             } else {
-               IF( N2.LE.64 ) THEN
+               if ( N2.LE.64 ) {
                   NB = 1
                } else {
                   NB = 32
-               END IF
-            END IF
-         END IF
-      ELSE IF( C2.EQ.'TR' ) THEN
-         IF( C3.EQ.'TRI' ) THEN
-            IF( SNAME ) THEN
+               }
+            }
+         }
+      } else if ( C2.EQ.'TR' ) {
+         if ( C3.EQ.'TRI' ) {
+            if ( SNAME ) {
                NB = 64
             } else {
                NB = 64
-            END IF
-         ELSE IF ( C3.EQ.'EVC' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( C3.EQ.'EVC' ) {
+            if ( SNAME ) {
                NB = 64
             } else {
                NB = 64
-            END IF
-         ELSE IF( C3.EQ.'SYL' ) THEN
+            }
+         } else if ( C3.EQ.'SYL' ) {
             // The upper bound is to prevent overly aggressive scaling.
-            IF( SNAME ) THEN
+            if ( SNAME ) {
                NB = MIN( MAX( 48, INT( ( MIN( N1, N2 ) * 16 ) / 100) ), 240 )
             } else {
                NB = MIN( MAX( 24, INT( ( MIN( N1, N2 ) * 8 ) / 100) ), 80 )
-            END IF
-         END IF
-      ELSE IF( C2.EQ.'LA' ) THEN
-         IF( C3.EQ.'UUM' ) THEN
-            IF( SNAME ) THEN
+            }
+         }
+      } else if ( C2.EQ.'LA' ) {
+         if ( C3.EQ.'UUM' ) {
+            if ( SNAME ) {
                NB = 64
             } else {
                NB = 64
-            END IF
-         ELSE IF( C3.EQ.'TRS' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( C3.EQ.'TRS' ) {
+            if ( SNAME ) {
                NB = 32
             } else {
                NB = 32
-            END IF
-         END IF
-      ELSE IF( SNAME .AND. C2.EQ.'ST' ) THEN
-         IF( C3.EQ.'EBZ' ) THEN
+            }
+         }
+      } else if ( SNAME .AND. C2.EQ.'ST' ) {
+         if ( C3.EQ.'EBZ' ) {
             NB = 1
-         END IF
-      ELSE IF( C2.EQ.'GG' ) THEN
+         }
+      } else if ( C2.EQ.'GG' ) {
          NB = 32
-         IF( C3.EQ.'HD3' ) THEN
-            IF( SNAME ) THEN
+         if ( C3.EQ.'HD3' ) {
+            if ( SNAME ) {
                NB = 32
             } else {
                NB = 32
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
       ILAENV = NB
       RETURN
 
@@ -340,79 +340,79 @@
       // ISPEC = 2:  minimum block size
 
       NBMIN = 2
-      IF( C2.EQ.'GE' ) THEN
-         IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ. 'QLF' ) THEN
-            IF( SNAME ) THEN
+      if ( C2.EQ.'GE' ) {
+         if ( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ. 'QLF' ) {
+            if ( SNAME ) {
                NBMIN = 2
             } else {
                NBMIN = 2
-            END IF
-         ELSE IF( C3.EQ.'HRD' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( C3.EQ.'HRD' ) {
+            if ( SNAME ) {
                NBMIN = 2
             } else {
                NBMIN = 2
-            END IF
-         ELSE IF( C3.EQ.'BRD' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( C3.EQ.'BRD' ) {
+            if ( SNAME ) {
                NBMIN = 2
             } else {
                NBMIN = 2
-            END IF
-         ELSE IF( C3.EQ.'TRI' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( C3.EQ.'TRI' ) {
+            if ( SNAME ) {
                NBMIN = 2
             } else {
                NBMIN = 2
-            END IF
-         ELSE IF( SUBNAM( 4: 7 ).EQ.'QP3RK' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( SUBNAM( 4: 7 ).EQ.'QP3RK' ) {
+            if ( SNAME ) {
                NBMIN = 2
             } else {
                NBMIN = 2
-            END IF
-         END IF
+            }
+         }
 
-      ELSE IF( C2.EQ.'SY' ) THEN
-         IF( C3.EQ.'TRF' ) THEN
-            IF( SNAME ) THEN
+      } else if ( C2.EQ.'SY' ) {
+         if ( C3.EQ.'TRF' ) {
+            if ( SNAME ) {
                NBMIN = 8
             } else {
                NBMIN = 8
-            END IF
-         ELSE IF( SNAME .AND. C3.EQ.'TRD' ) THEN
+            }
+         } else if ( SNAME .AND. C3.EQ.'TRD' ) {
             NBMIN = 2
-         END IF
-      ELSE IF( CNAME .AND. C2.EQ.'HE' ) THEN
-         IF( C3.EQ.'TRD' ) THEN
+         }
+      } else if ( CNAME .AND. C2.EQ.'HE' ) {
+         if ( C3.EQ.'TRD' ) {
             NBMIN = 2
-         END IF
-      ELSE IF( SNAME .AND. C2.EQ.'OR' ) THEN
-         IF( C3( 1: 1 ).EQ.'G' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
+         }
+      } else if ( SNAME .AND. C2.EQ.'OR' ) {
+         if ( C3( 1: 1 ).EQ.'G' ) {
+            if ( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) {
                NBMIN = 2
-            END IF
-         ELSE IF( C3( 1: 1 ).EQ.'M' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
+            }
+         } else if ( C3( 1: 1 ).EQ.'M' ) {
+            if ( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) {
                NBMIN = 2
-            END IF
-         END IF
-      ELSE IF( CNAME .AND. C2.EQ.'UN' ) THEN
-         IF( C3( 1: 1 ).EQ.'G' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
+            }
+         }
+      } else if ( CNAME .AND. C2.EQ.'UN' ) {
+         if ( C3( 1: 1 ).EQ.'G' ) {
+            if ( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) {
                NBMIN = 2
-            END IF
-         ELSE IF( C3( 1: 1 ).EQ.'M' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
+            }
+         } else if ( C3( 1: 1 ).EQ.'M' ) {
+            if ( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) {
                NBMIN = 2
-            END IF
-         END IF
-      ELSE IF( C2.EQ.'GG' ) THEN
+            }
+         }
+      } else if ( C2.EQ.'GG' ) {
          NBMIN = 2
-         IF( C3.EQ.'HD3' ) THEN
+         if ( C3.EQ.'HD3' ) {
             NBMIN = 2
-         END IF
-      END IF
+         }
+      }
       ILAENV = NBMIN
       RETURN
 
@@ -421,58 +421,58 @@
       // ISPEC = 3:  crossover point
 
       NX = 0
-      IF( C2.EQ.'GE' ) THEN
-         IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ. 'QLF' ) THEN
-            IF( SNAME ) THEN
+      if ( C2.EQ.'GE' ) {
+         if ( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ. 'QLF' ) {
+            if ( SNAME ) {
                NX = 128
             } else {
                NX = 128
-            END IF
-         ELSE IF( C3.EQ.'HRD' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( C3.EQ.'HRD' ) {
+            if ( SNAME ) {
                NX = 128
             } else {
                NX = 128
-            END IF
-         ELSE IF( C3.EQ.'BRD' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( C3.EQ.'BRD' ) {
+            if ( SNAME ) {
                NX = 128
             } else {
                NX = 128
-            END IF
-         ELSE IF( SUBNAM( 4: 7 ).EQ.'QP3RK' ) THEN
-            IF( SNAME ) THEN
+            }
+         } else if ( SUBNAM( 4: 7 ).EQ.'QP3RK' ) {
+            if ( SNAME ) {
                NX = 128
             } else {
                NX = 128
-            END IF
-         END IF
-      ELSE IF( C2.EQ.'SY' ) THEN
-         IF( SNAME .AND. C3.EQ.'TRD' ) THEN
+            }
+         }
+      } else if ( C2.EQ.'SY' ) {
+         if ( SNAME .AND. C3.EQ.'TRD' ) {
             NX = 32
-         END IF
-      ELSE IF( CNAME .AND. C2.EQ.'HE' ) THEN
-         IF( C3.EQ.'TRD' ) THEN
+         }
+      } else if ( CNAME .AND. C2.EQ.'HE' ) {
+         if ( C3.EQ.'TRD' ) {
             NX = 32
-         END IF
-      ELSE IF( SNAME .AND. C2.EQ.'OR' ) THEN
-         IF( C3( 1: 1 ).EQ.'G' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
+         }
+      } else if ( SNAME .AND. C2.EQ.'OR' ) {
+         if ( C3( 1: 1 ).EQ.'G' ) {
+            if ( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) {
                NX = 128
-            END IF
-         END IF
-      ELSE IF( CNAME .AND. C2.EQ.'UN' ) THEN
-         IF( C3( 1: 1 ).EQ.'G' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
+            }
+         }
+      } else if ( CNAME .AND. C2.EQ.'UN' ) {
+         if ( C3( 1: 1 ).EQ.'G' ) {
+            if ( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) {
                NX = 128
-            END IF
-         END IF
-      ELSE IF( C2.EQ.'GG' ) THEN
+            }
+         }
+      } else if ( C2.EQ.'GG' ) {
          NX = 128
-         IF( C3.EQ.'HD3' ) THEN
+         if ( C3.EQ.'HD3' ) {
             NX = 128
-         END IF
-      END IF
+         }
+      }
       ILAENV = NX
       RETURN
 
@@ -526,9 +526,9 @@
 
       // ILAENV = 0
       ILAENV = 1
-      IF( ILAENV.EQ.1 ) THEN
+      if ( ILAENV.EQ.1 ) {
          ILAENV = IEEECK( 1, 0.0, 1.0 )
-      END IF
+      }
       RETURN
 
   150 CONTINUE
@@ -537,9 +537,9 @@
 
       // ILAENV = 0
       ILAENV = 1
-      IF( ILAENV.EQ.1 ) THEN
+      if ( ILAENV.EQ.1 ) {
          ILAENV = IEEECK( 0, 0.0, 1.0 )
-      END IF
+      }
       RETURN
 
   160 CONTINUE

@@ -39,21 +39,21 @@
       // Test the input parameters.
 
       INFO = 0
-      IF     ( UPLO.NE.ILAUPLO( 'U' ) .AND. UPLO.NE.ILAUPLO( 'L' ) ) THEN
+      if ( UPLO.NE.ILAUPLO( 'U' ) .AND. UPLO.NE.ILAUPLO( 'L' ) ) {
          INFO = 1
-      ELSE IF( N.LT.0 )THEN
+      } else if ( N.LT.0 ) {
          INFO = 2
-      ELSE IF( LDA.LT.MAX( 1, N ) )THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = 5
-      ELSE IF( INCX.EQ.0 )THEN
+      } else if ( INCX.EQ.0 ) {
          INFO = 7
-      ELSE IF( INCY.EQ.0 )THEN
+      } else if ( INCY.EQ.0 ) {
          INFO = 10
-      END IF
-      IF( INFO.NE.0 )THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLA_SYAMV', INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -61,16 +61,16 @@
 
       // Set up the start points in  X  and  Y.
 
-      IF( INCX.GT.0 )THEN
+      if ( INCX.GT.0 ) {
          KX = 1
       } else {
          KX = 1 - ( N - 1 )*INCX
-      END IF
-      IF( INCY.GT.0 )THEN
+      }
+      if ( INCY.GT.0 ) {
          KY = 1
       } else {
          KY = 1 - ( N - 1 )*INCY
-      END IF
+      }
 
       // Set SAFE1 essentially to be the underflow threshold times the
       // number of additions in each row.
@@ -85,19 +85,19 @@
      t // o per-column.
 
       IY = KY
-      IF ( INCX.EQ.1 ) THEN
-         IF ( UPLO .EQ. ILAUPLO( 'U' ) ) THEN
+      if ( INCX.EQ.1 ) {
+         if ( UPLO .EQ. ILAUPLO( 'U' ) ) {
             DO I = 1, N
-               IF ( BETA .EQ. ZERO ) THEN
+               if ( BETA .EQ. ZERO ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0
-               ELSE IF ( Y( IY ) .EQ. ZERO ) THEN
+               } else if ( Y( IY ) .EQ. ZERO ) {
                   SYMB_ZERO = .TRUE.
                } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
-               END IF
-               IF ( ALPHA .NE. ZERO ) THEN
+               }
+               if ( ALPHA .NE. ZERO ) {
                   DO J = 1, I
                      TEMP = ABS( A( J, I ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
@@ -110,23 +110,23 @@
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   END DO
-               END IF
+               }
                 IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
          } else {
             DO I = 1, N
-               IF ( BETA .EQ. ZERO ) THEN
+               if ( BETA .EQ. ZERO ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0
-               ELSE IF ( Y( IY ) .EQ. ZERO ) THEN
+               } else if ( Y( IY ) .EQ. ZERO ) {
                   SYMB_ZERO = .TRUE.
                } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
-               END IF
-               IF ( ALPHA .NE. ZERO ) THEN
+               }
+               if ( ALPHA .NE. ZERO ) {
                   DO J = 1, I
                      TEMP = ABS( A( I, J ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
@@ -139,26 +139,26 @@
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   END DO
-               END IF
+               }
                 IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
-         END IF
+         }
       } else {
-         IF ( UPLO .EQ. ILAUPLO( 'U' ) ) THEN
+         if ( UPLO .EQ. ILAUPLO( 'U' ) ) {
             DO I = 1, N
-               IF ( BETA .EQ. ZERO ) THEN
+               if ( BETA .EQ. ZERO ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0
-               ELSE IF ( Y( IY ) .EQ. ZERO ) THEN
+               } else if ( Y( IY ) .EQ. ZERO ) {
                   SYMB_ZERO = .TRUE.
                } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
-               END IF
+               }
                JX = KX
-               IF ( ALPHA .NE. ZERO ) THEN
+               if ( ALPHA .NE. ZERO ) {
                   DO J = 1, I
                      TEMP = ABS( A( J, I ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
@@ -173,24 +173,24 @@
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
                      JX = JX + INCX
                   END DO
-               END IF
+               }
                 IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
          } else {
             DO I = 1, N
-               IF ( BETA .EQ. ZERO ) THEN
+               if ( BETA .EQ. ZERO ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0
-               ELSE IF ( Y( IY ) .EQ. ZERO ) THEN
+               } else if ( Y( IY ) .EQ. ZERO ) {
                   SYMB_ZERO = .TRUE.
                } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
-               END IF
+               }
                JX = KX
-               IF ( ALPHA .NE. ZERO ) THEN
+               if ( ALPHA .NE. ZERO ) {
                   DO J = 1, I
                      TEMP = ABS( A( I, J ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
@@ -205,14 +205,14 @@
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
                      JX = JX + INCX
                   END DO
-               END IF
+               }
                 IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
-         END IF
+         }
 
-      END IF
+      }
 
       RETURN
 

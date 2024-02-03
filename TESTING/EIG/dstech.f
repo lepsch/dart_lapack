@@ -38,14 +38,14 @@
 
       INFO = 0
       IF( N.EQ.0 ) RETURN
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
          RETURN
-      END IF
-      IF( TOL.LT.ZERO ) THEN
+      }
+      if ( TOL.LT.ZERO ) {
          INFO = -5
          RETURN
-      END IF
+      }
 
       // Get machine constants
 
@@ -70,15 +70,15 @@
          ISUB = 1
          EMIN = WORK( 1 )
          DO 30 J = 2, N + 1 - I
-            IF( WORK( J ).LT.EMIN ) THEN
+            if ( WORK( J ).LT.EMIN ) {
                ISUB = J
                EMIN = WORK( J )
-            END IF
+            }
    30    CONTINUE
-         IF( ISUB.NE.N+1-I ) THEN
+         if ( ISUB.NE.N+1-I ) {
             WORK( ISUB ) = WORK( N+1-I )
             WORK( N+1-I ) = EMIN
-         END IF
+         }
    40 CONTINUE
 
       // TPNT points to singular value at right endpoint of interval
@@ -112,13 +112,13 @@
       CALL DSTECT( N, A, B, LOWER, NUML )
       CALL DSTECT( N, A, B, UPPER, NUMU )
       COUNT = NUMU - NUML
-      IF( COUNT.NE.BPNT-TPNT+1 ) THEN
+      if ( COUNT.NE.BPNT-TPNT+1 ) {
 
          // Wrong number of singular values in interval
 
          INFO = TPNT
          GO TO 80
-      END IF
+      }
       TPNT = BPNT + 1
       BPNT = TPNT
       IF( TPNT.LE.N ) GO TO 50

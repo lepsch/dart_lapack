@@ -76,48 +76,48 @@
       // Read the values of M
 
       READ( NIN, FMT = * )NM
-      IF( NM.LT.1 ) THEN
+      if ( NM.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NM ', NM, 1
          NM = 0
          FATAL = .TRUE.
-      ELSE IF( NM.GT.MAXIN ) THEN
+      } else if ( NM.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NM ', NM, MAXIN
          NM = 0
          FATAL = .TRUE.
-      END IF
+      }
       READ( NIN, FMT = * )( MVAL( I ), I = 1, NM )
       DO 10 I = 1, NM
-         IF( MVAL( I ).LT.0 ) THEN
+         if ( MVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', MVAL( I ), 0
             FATAL = .TRUE.
-         ELSE IF( MVAL( I ).GT.NMAX ) THEN
+         } else if ( MVAL( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9995 )' M  ', MVAL( I ), NMAX
             FATAL = .TRUE.
-         END IF
+         }
    10 CONTINUE
       IF( NM.GT.0 ) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM )
 
       // Read the values of NRHS
 
       READ( NIN, FMT = * )NNS
-      IF( NNS.LT.1 ) THEN
+      if ( NNS.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
          NNS = 0
          FATAL = .TRUE.
-      ELSE IF( NNS.GT.MAXIN ) THEN
+      } else if ( NNS.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN
          NNS = 0
          FATAL = .TRUE.
-      END IF
+      }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS )
       DO 30 I = 1, NNS
-         IF( NSVAL( I ).LT.0 ) THEN
+         if ( NSVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
             FATAL = .TRUE.
-         ELSE IF( NSVAL( I ).GT.MAXRHS ) THEN
+         } else if ( NSVAL( I ).GT.MAXRHS ) {
             WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
             FATAL = .TRUE.
-         END IF
+         }
    30 CONTINUE
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 
@@ -134,10 +134,10 @@
 
       READ( NIN, FMT = * )TSTERR
 
-      IF( FATAL ) THEN
+      if ( FATAL ) {
          WRITE( NOUT, FMT = 9999 )
          STOP
-      END IF
+      }
 
       // Calculate and print the machine dependent constants.
 
@@ -167,19 +167,19 @@
       I = 3
    90 CONTINUE
       I = I + 1
-      IF( I.GT.72 ) THEN
+      if ( I.GT.72 ) {
          NMATS = MATMAX
          GO TO 130
-      END IF
+      }
       IF( ALINE( I: I ).EQ.' ' ) GO TO 90
       NMATS = 0
   100 CONTINUE
       C1 = ALINE( I: I )
       DO 110 K = 1, 10
-         IF( C1.EQ.INTSTR( K: K ) ) THEN
+         if ( C1.EQ.INTSTR( K: K ) ) {
             IC = K - 1
             GO TO 120
-         END IF
+         }
   110 CONTINUE
       GO TO 130
   120 CONTINUE
@@ -198,14 +198,14 @@
          WRITE( NOUT, FMT = 9990 )PATH
 
 
-      ELSE IF( NMATS.LE.0 ) THEN
+      } else if ( NMATS.LE.0 ) {
 
          // Check for a positive number of tests requested.
 
          WRITE( NOUT, FMT = 9989 )PATH
          GO TO 140
 
-      ELSE IF( LSAMEN( 2, C2, 'GE' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GE' ) ) {
 
          // GE:  general matrices
 
@@ -216,13 +216,13 @@
 
          IF( TSTERR ) CALL DERRAB( NOUT )
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL DDRVAB( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, IWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )'DSGESV'
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PO' ) ) {
 
          // PO:  positive definite matrices
 
@@ -233,14 +233,14 @@
          IF( TSTERR ) CALL DERRAC( NOUT )
 
 
-         IF( TSTDRV ) THEN
+         if ( TSTDRV ) {
             CALL DDRVAC( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, NOUT )
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
-         END IF
+         }
       } else {
 
-      END IF
+      }
 
       // Go back to get another input line.
 

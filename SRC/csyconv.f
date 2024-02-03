@@ -35,26 +35,26 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       CONVERT = LSAME( WAY, 'C' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( .NOT.CONVERT .AND. .NOT.LSAME( WAY, 'R' ) ) THEN
+      } else if ( .NOT.CONVERT .AND. .NOT.LSAME( WAY, 'R' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
 
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CSYCONV', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
        // A is UPPER
 
@@ -62,11 +62,11 @@
 
          // Convert VALUE
 
-         IF ( CONVERT ) THEN
+         if ( CONVERT ) {
             I=N
             E(1)=ZERO
             DO WHILE ( I .GT. 1 )
-               IF( IPIV(I) .LT. 0 ) THEN
+               if ( IPIV(I) .LT. 0 ) {
                   E(I)=A(I-1,I)
                   E(I-1)=ZERO
                   A(I-1,I)=ZERO
@@ -81,9 +81,9 @@
 
          I=N
          DO WHILE ( I .GE. 1 )
-            IF( IPIV(I) .GT. 0) THEN
+            if ( IPIV(I) .GT. 0) {
                IP=IPIV(I)
-               IF( I .LT. N) THEN
+               if ( I .LT. N) {
                   DO 12 J= I+1,N
                     TEMP=A(IP,J)
                     A(IP,J)=A(I,J)
@@ -92,7 +92,7 @@
                ENDIF
             } else {
               IP=-IPIV(I)
-               IF( I .LT. N) THEN
+               if ( I .LT. N) {
              DO 13 J= I+1,N
                  TEMP=A(IP,J)
                  A(IP,J)=A(I-1,J)
@@ -113,9 +113,9 @@
 
             I=1
             DO WHILE ( I .LE. N )
-               IF( IPIV(I) .GT. 0 ) THEN
+               if ( IPIV(I) .GT. 0 ) {
                   IP=IPIV(I)
-                  IF( I .LT. N) THEN
+                  if ( I .LT. N) {
                   DO J= I+1,N
                     TEMP=A(IP,J)
                     A(IP,J)=A(I,J)
@@ -125,7 +125,7 @@
                } else {
                  IP=-IPIV(I)
                  I=I+1
-                 IF( I .LT. N) THEN
+                 if ( I .LT. N) {
                     DO J= I+1,N
                        TEMP=A(IP,J)
                        A(IP,J)=A(I-1,J)
@@ -140,18 +140,18 @@
 
             I=N
             DO WHILE ( I .GT. 1 )
-               IF( IPIV(I) .LT. 0 ) THEN
+               if ( IPIV(I) .LT. 0 ) {
                   A(I-1,I)=E(I)
                   I=I-1
                ENDIF
                I=I-1
             END DO
-         END IF
+         }
       } else {
 
        // A is LOWER
 
-         IF ( CONVERT ) THEN
+         if ( CONVERT ) {
 
        // Convert A (A is lower)
 
@@ -161,7 +161,7 @@
             I=1
             E(N)=ZERO
             DO WHILE ( I .LE. N )
-               IF( I.LT.N .AND. IPIV(I) .LT. 0 ) THEN
+               if ( I.LT.N .AND. IPIV(I) .LT. 0 ) {
                   E(I)=A(I+1,I)
                   E(I+1)=ZERO
                   A(I+1,I)=ZERO
@@ -176,9 +176,9 @@
 
          I=1
          DO WHILE ( I .LE. N )
-            IF( IPIV(I) .GT. 0 ) THEN
+            if ( IPIV(I) .GT. 0 ) {
                IP=IPIV(I)
-               IF (I .GT. 1) THEN
+               if (I .GT. 1) {
                DO 22 J= 1,I-1
                  TEMP=A(IP,J)
                  A(IP,J)=A(I,J)
@@ -187,7 +187,7 @@
                ENDIF
             } else {
               IP=-IPIV(I)
-              IF (I .GT. 1) THEN
+              if (I .GT. 1) {
               DO 23 J= 1,I-1
                  TEMP=A(IP,J)
                  A(IP,J)=A(I+1,J)
@@ -207,9 +207,9 @@
 
             I=N
             DO WHILE ( I .GE. 1 )
-               IF( IPIV(I) .GT. 0 ) THEN
+               if ( IPIV(I) .GT. 0 ) {
                   IP=IPIV(I)
-                  IF (I .GT. 1) THEN
+                  if (I .GT. 1) {
                      DO J= 1,I-1
                         TEMP=A(I,J)
                         A(I,J)=A(IP,J)
@@ -219,7 +219,7 @@
                } else {
                   IP=-IPIV(I)
                   I=I-1
-                  IF (I .GT. 1) THEN
+                  if (I .GT. 1) {
                      DO J= 1,I-1
                         TEMP=A(I+1,J)
                         A(I+1,J)=A(IP,J)
@@ -234,14 +234,14 @@
 
             I=1
             DO WHILE ( I .LE. N-1 )
-               IF( IPIV(I) .LT. 0 ) THEN
+               if ( IPIV(I) .LT. 0 ) {
                   A(I+1,I)=E(I)
                   I=I+1
                ENDIF
                I=I+1
             END DO
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

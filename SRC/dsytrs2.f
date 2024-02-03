@@ -38,21 +38,21 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSYTRS2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -62,14 +62,14 @@
 
       CALL DSYCONV( UPLO, 'C', N, A, LDA, IPIV, WORK, IINFO )
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Solve A*X = B, where A = U*D*U**T.
 
         // P**T * B
         K=N
         DO WHILE ( K .GE. 1 )
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K )
@@ -81,7 +81,7 @@
             KP = -IPIV( K )
             IF( KP.EQ.-IPIV( K-1 ) ) CALL DSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
-         END IF
+         }
         END DO
 
 *  Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
@@ -92,10 +92,10 @@
 
          I=N
          DO WHILE ( I .GE. 1 )
-            IF( IPIV(I) .GT. 0 ) THEN
+            if ( IPIV(I) .GT. 0 ) {
               CALL DSCAL( NRHS, ONE / A( I, I ), B( I, 1 ), LDB )
             ELSEIF ( I .GT. 1) THEN
-               IF ( IPIV(I-1) .EQ. IPIV(I) ) THEN
+               if ( IPIV(I-1) .EQ. IPIV(I) ) {
                   AKM1K = WORK(I)
                   AKM1 = A( I-1, I-1 ) / AKM1K
                   AK = A( I, I ) / AKM1K
@@ -120,7 +120,7 @@
 
         K=1
         DO WHILE ( K .LE. N )
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K )
@@ -142,7 +142,7 @@
         // P**T * B
         K=1
         DO WHILE ( K .LE. N )
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K )
@@ -165,7 +165,7 @@
 
          I=1
          DO WHILE ( I .LE. N )
-            IF( IPIV(I) .GT. 0 ) THEN
+            if ( IPIV(I) .GT. 0 ) {
               CALL DSCAL( NRHS, ONE / A( I, I ), B( I, 1 ), LDB )
             } else {
                   AKM1K = WORK(I)
@@ -191,7 +191,7 @@
 
         K=N
         DO WHILE ( K .GE. 1 )
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K )
@@ -206,7 +206,7 @@
          ENDIF
         END DO
 
-      END IF
+      }
 
       // Revert A
 

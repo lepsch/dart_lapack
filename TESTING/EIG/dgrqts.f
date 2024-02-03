@@ -53,11 +53,11 @@
       // Generate the N-by-N matrix Q
 
       CALL DLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
-      IF( M.LE.N ) THEN
+      if ( M.LE.N ) {
          IF( M.GT.0 .AND. M.LT.N ) CALL DLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M.GT.1 ) CALL DLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA )
       } else {
          IF( N.GT.1 ) CALL DLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA )
-      END IF
+      }
       CALL DORGRQ( N, N, MIN( M, N ), Q, LDA, TAUA, WORK, LWORK, INFO )
 
       // Generate the P-by-P matrix Z
@@ -69,12 +69,12 @@
       // Copy R
 
       CALL DLASET( 'Full', M, N, ZERO, ZERO, R, LDA )
-      IF( M.LE.N ) THEN
+      if ( M.LE.N ) {
          CALL DLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA )
       } else {
          CALL DLACPY( 'Full', M-N, N, AF, LDA, R, LDA )
          CALL DLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA )
-      END IF
+      }
 
       // Copy T
 
@@ -88,11 +88,11 @@
       // Compute norm( R - A*Q' ) / ( MAX(M,N)*norm(A)*ULP ) .
 
       RESID = DLANGE( '1', M, N, R, LDA, RWORK )
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP
       } else {
          RESULT( 1 ) = ZERO
-      END IF
+      }
 
       // Compute T*Q - Z'*B
 
@@ -101,11 +101,11 @@
       // Compute norm( T*Q - Z'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 
       RESID = DLANGE( '1', P, N, BWK, LDB, RWORK )
-      IF( BNORM.GT.ZERO ) THEN
+      if ( BNORM.GT.ZERO ) {
          RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, M ) ) ) / BNORM ) / ULP
       } else {
          RESULT( 2 ) = ZERO
-      END IF
+      }
 
       // Compute I - Q*Q'
 

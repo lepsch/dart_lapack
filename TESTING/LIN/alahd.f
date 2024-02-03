@@ -36,7 +36,7 @@
       CORZ = LSAME( C1, 'C' ) .OR. LSAME( C1, 'Z' )
       IF( .NOT.( SORD .OR. CORZ ) ) RETURN
 
-      IF( LSAMEN( 2, P2, 'GE' ) ) THEN
+      if ( LSAMEN( 2, P2, 'GE' ) ) {
 
          // GE: General dense
 
@@ -54,7 +54,7 @@
          WRITE( IOUNIT, FMT = 9955 )8
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'GB' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'GB' ) ) {
 
          // GB: General band
 
@@ -71,7 +71,7 @@
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'GT' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'GT' ) ) {
 
          // GT: General tridiagonal
 
@@ -87,21 +87,21 @@
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'PO' ) .OR. LSAMEN( 2, P2, 'PP' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'PO' ) .OR. LSAMEN( 2, P2, 'PP' ) ) {
 
          // PO: Positive definite full
          // PP: Positive definite packed
 
-         IF( SORD ) THEN
+         if ( SORD ) {
             SYM = 'Symmetric'
          } else {
             SYM = 'Hermitian'
-         END IF
-         IF( LSAME( C3, 'O' ) ) THEN
+         }
+         if ( LSAME( C3, 'O' ) ) {
             WRITE( IOUNIT, FMT = 9996 )PATH, SYM
          } else {
             WRITE( IOUNIT, FMT = 9995 )PATH, SYM
-         END IF
+         }
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9975 )PATH
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
@@ -115,20 +115,20 @@
          WRITE( IOUNIT, FMT = 9955 )8
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'PS' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'PS' ) ) {
 
          // PS: Positive semi-definite full
 
-         IF( SORD ) THEN
+         if ( SORD ) {
             SYM = 'Symmetric'
          } else {
             SYM = 'Hermitian'
-         END IF
-         IF( LSAME( C1, 'S' ) .OR. LSAME( C1, 'C' ) ) THEN
+         }
+         if ( LSAME( C1, 'S' ) .OR. LSAME( C1, 'C' ) ) {
             EIGCNM = '1E04'
          } else {
             EIGCNM = '1D12'
-         END IF
+         }
          WRITE( IOUNIT, FMT = 9995 )PATH, SYM
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 8973 )EIGCNM, EIGCNM, EIGCNM
@@ -137,15 +137,15 @@
          WRITE( IOUNIT, FMT = '( '' Test ratio:'' )' )
          WRITE( IOUNIT, FMT = 8950 )
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-      ELSE IF( LSAMEN( 2, P2, 'PB' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'PB' ) ) {
 
          // PB: Positive definite band
 
-         IF( SORD ) THEN
+         if ( SORD ) {
             WRITE( IOUNIT, FMT = 9994 )PATH, 'Symmetric'
          } else {
             WRITE( IOUNIT, FMT = 9994 )PATH, 'Hermitian'
-         END IF
+         }
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9973 )PATH
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
@@ -158,15 +158,15 @@
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'PT' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'PT' ) ) {
 
          // PT: Positive definite tridiagonal
 
-         IF( SORD ) THEN
+         if ( SORD ) {
             WRITE( IOUNIT, FMT = 9993 )PATH, 'Symmetric'
          } else {
             WRITE( IOUNIT, FMT = 9993 )PATH, 'Hermitian'
-         END IF
+         }
          WRITE( IOUNIT, FMT = 9976 )
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 9952 )1
@@ -178,22 +178,22 @@
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'SY' )  ) THEN
+      } else if ( LSAMEN( 2, P2, 'SY' )  ) {
 
          // SY: Symmetric indefinite full,
              // with partial (Bunch-Kaufman) pivoting algorithm
 
-         IF( LSAME( C3, 'Y' ) ) THEN
+         if ( LSAME( C3, 'Y' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric'
          } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Symmetric'
-         END IF
+         }
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
-         IF( SORD ) THEN
+         if ( SORD ) {
             WRITE( IOUNIT, FMT = 9972 )
          } else {
             WRITE( IOUNIT, FMT = 9971 )
-         END IF
+         }
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 9953 )1
          WRITE( IOUNIT, FMT = 9961 )2
@@ -206,7 +206,7 @@
          WRITE( IOUNIT, FMT = 9955 )9
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'SR' ) .OR. LSAMEN( 2, P2, 'SK') ) THEN
+      } else if ( LSAMEN( 2, P2, 'SR' ) .OR. LSAMEN( 2, P2, 'SK') ) {
 
          // SR: Symmetric indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm
@@ -220,11 +220,11 @@
          WRITE( IOUNIT, FMT = 9892 )PATH, 'Symmetric'
 
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
-         IF( SORD ) THEN
+         if ( SORD ) {
             WRITE( IOUNIT, FMT = 9972 )
          } else {
             WRITE( IOUNIT, FMT = 9971 )
-         END IF
+         }
 
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 9953 )1
@@ -238,22 +238,22 @@
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'SP' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'SP' ) ) {
 
          // SP: Symmetric indefinite packed,
              // with partial (Bunch-Kaufman) pivoting algorithm
 
-         IF( LSAME( C3, 'Y' ) ) THEN
+         if ( LSAME( C3, 'Y' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric'
          } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Symmetric'
-         END IF
+         }
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
-         IF( SORD ) THEN
+         if ( SORD ) {
             WRITE( IOUNIT, FMT = 9972 )
          } else {
             WRITE( IOUNIT, FMT = 9971 )
-         END IF
+         }
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 9953 )1
          WRITE( IOUNIT, FMT = 9961 )2
@@ -265,7 +265,7 @@
          WRITE( IOUNIT, FMT = 9955 )8
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'HA' )  ) THEN
+      } else if ( LSAMEN( 2, P2, 'HA' )  ) {
 
          // HA: Hermitian,
              // with Assen Algorithm
@@ -287,7 +287,7 @@
          WRITE( IOUNIT, FMT = 9955 )9
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'HE' )  ) THEN
+      } else if ( LSAMEN( 2, P2, 'HE' )  ) {
 
          // HE: Hermitian indefinite full,
              // with partial (Bunch-Kaufman) pivoting algorithm
@@ -309,7 +309,7 @@
          WRITE( IOUNIT, FMT = 9955 )9
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'HR' ) .OR. LSAMEN( 2, P2, 'HR' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'HR' ) .OR. LSAMEN( 2, P2, 'HR' ) ) {
 
          // HR: Hermitian indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm
@@ -337,16 +337,16 @@
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'HP' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'HP' ) ) {
 
          // HP: Hermitian indefinite packed,
              // with partial (Bunch-Kaufman) pivoting algorithm
 
-         IF( LSAME( C3, 'E' ) ) THEN
+         if ( LSAME( C3, 'E' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian'
          } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Hermitian'
-         END IF
+         }
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9972 )
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
@@ -360,18 +360,18 @@
          WRITE( IOUNIT, FMT = 9955 )8
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'TR' ) .OR. LSAMEN( 2, P2, 'TP' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'TR' ) .OR. LSAMEN( 2, P2, 'TP' ) ) {
 
          // TR: Triangular full
          // TP: Triangular packed
 
-         IF( LSAME( C3, 'R' ) ) THEN
+         if ( LSAME( C3, 'R' ) ) {
             WRITE( IOUNIT, FMT = 9990 )PATH
             SUBNAM = PATH( 1: 1 ) // 'LATRS'
          } else {
             WRITE( IOUNIT, FMT = 9989 )PATH
             SUBNAM = PATH( 1: 1 ) // 'LATPS'
-         END IF
+         }
          WRITE( IOUNIT, FMT = 9966 )PATH
          WRITE( IOUNIT, FMT = 9965 )SUBNAM(1:LEN_TRIM( SUBNAM ))
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
@@ -385,7 +385,7 @@
          WRITE( IOUNIT, FMT = 9951 )SUBNAM(1:LEN_TRIM( SUBNAM )), 8
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'TB' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'TB' ) ) {
 
          // TB: Triangular band
 
@@ -403,7 +403,7 @@
          WRITE( IOUNIT, FMT = 9951 )SUBNAM(1:LEN_TRIM( SUBNAM )), 7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'QR' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'QR' ) ) {
 
          // QR decomposition of rectangular matrices
 
@@ -422,7 +422,7 @@
          WRITE( IOUNIT, FMT = 6660 )9
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'LQ' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'LQ' ) ) {
 
          // LQ decomposition of rectangular matrices
 
@@ -439,7 +439,7 @@
          WRITE( IOUNIT, FMT = 9960 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'QL' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'QL' ) ) {
 
          // QL decomposition of rectangular matrices
 
@@ -456,7 +456,7 @@
          WRITE( IOUNIT, FMT = 9960 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'RQ' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'RQ' ) ) {
 
          // RQ decomposition of rectangular matrices
 
@@ -473,7 +473,7 @@
          WRITE( IOUNIT, FMT = 9960 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'QP' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'QP' ) ) {
 
          // QR decomposition with column pivoting
 
@@ -485,7 +485,7 @@
          WRITE( IOUNIT, FMT = 9938 )3
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'QK' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'QK' ) ) {
 
         t // runcated QR decomposition with column pivoting
 
@@ -499,7 +499,7 @@
          WRITE( IOUNIT, FMT = 8064 )5
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'TZ' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'TZ' ) ) {
 
          // TZ:  Trapezoidal
 
@@ -512,7 +512,7 @@
          WRITE( IOUNIT, FMT = 9938 )3
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'LS' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'LS' ) ) {
 
          // LS:  Least Squares driver routines for
               // LS, LST, TSLS, LSD, LSS, LSX and LSY.
@@ -530,7 +530,7 @@
          WRITE( IOUNIT, FMT = 9920 )
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'LU' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'LU' ) ) {
 
          // LU factorization variants
 
@@ -541,7 +541,7 @@
          WRITE( IOUNIT, FMT = 9962 )1
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'CH' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'CH' ) ) {
 
          // Cholesky factorization variants
 
@@ -552,7 +552,7 @@
          WRITE( IOUNIT, FMT = 9954 )1
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'QS' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'QS' ) ) {
 
          // QR factorization variants
 
@@ -561,7 +561,7 @@
          WRITE( IOUNIT, FMT = 9970 )
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'QT' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'QT' ) ) {
 
          // QRT (general matrices)
 
@@ -574,7 +574,7 @@
          WRITE( IOUNIT, FMT = 8015 ) 5
          WRITE( IOUNIT, FMT = 8016 ) 6
 
-      ELSE IF( LSAMEN( 2, P2, 'QX' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'QX' ) ) {
 
          // QRT (triangular-pentagonal)
 
@@ -587,7 +587,7 @@
          WRITE( IOUNIT, FMT = 8021 ) 5
          WRITE( IOUNIT, FMT = 8022 ) 6
 
-      ELSE IF( LSAMEN( 2, P2, 'TQ' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'TQ' ) ) {
 
          // QRT (triangular-pentagonal)
 
@@ -600,7 +600,7 @@
          WRITE( IOUNIT, FMT = 8027 ) 5
          WRITE( IOUNIT, FMT = 8028 ) 6
 
-      ELSE IF( LSAMEN( 2, P2, 'XQ' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'XQ' ) ) {
 
          // QRT (triangular-pentagonal)
 
@@ -613,7 +613,7 @@
          WRITE( IOUNIT, FMT = 8033 ) 5
          WRITE( IOUNIT, FMT = 8034 ) 6
 
-      ELSE IF( LSAMEN( 2, P2, 'TS' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'TS' ) ) {
 
          // TS:  QR routines for tall-skinny and short-wide matrices
 
@@ -626,7 +626,7 @@
          WRITE( IOUNIT, FMT = 8039 ) 5
          WRITE( IOUNIT, FMT = 8040 ) 6
 
-      ELSE IF( LSAMEN( 2, P2, 'HH' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'HH' ) ) {
 
          // HH:  Householder reconstruction for tall-skinny matrices
 
@@ -644,7 +644,7 @@
          // Print error message if no header is available.
 
          WRITE( IOUNIT, FMT = 9980 )PATH
-      END IF
+      }
 
       // First line of header
 

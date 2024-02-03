@@ -48,7 +48,7 @@
 
       PMAX = 1
       SWAP = ( HA.GT.FA )
-      IF( SWAP ) THEN
+      if ( SWAP ) {
          PMAX = 3
          TEMP = FT
          FT = HT
@@ -59,10 +59,10 @@
 
          // Now FA .ge. HA
 
-      END IF
+      }
       GT = G
       GA = ABS( GT )
-      IF( GA.EQ.ZERO ) THEN
+      if ( GA.EQ.ZERO ) {
 
          // Diagonal matrix
 
@@ -74,38 +74,38 @@
          SRT = ZERO
       } else {
          GASMAL = .TRUE.
-         IF( GA.GT.FA ) THEN
+         if ( GA.GT.FA ) {
             PMAX = 2
-            IF( ( FA / GA ).LT.SLAMCH( 'EPS' ) ) THEN
+            if ( ( FA / GA ).LT.SLAMCH( 'EPS' ) ) {
 
                // Case of very large GA
 
                GASMAL = .FALSE.
                SSMAX = GA
-               IF( HA.GT.ONE ) THEN
+               if ( HA.GT.ONE ) {
                   SSMIN = FA / ( GA / HA )
                } else {
                   SSMIN = ( FA / GA )*HA
-               END IF
+               }
                CLT = ONE
                SLT = HT / GT
                SRT = ONE
                CRT = FT / GT
-            END IF
-         END IF
-         IF( GASMAL ) THEN
+            }
+         }
+         if ( GASMAL ) {
 
             // Normal case
 
             D = FA - HA
-            IF( D.EQ.FA ) THEN
+            if ( D.EQ.FA ) {
 
                // Copes with infinite F or H
 
                L = ONE
             } else {
                L = D / FA
-            END IF
+            }
 
             // Note that 0 .le. L .le. 1
 
@@ -123,11 +123,11 @@
 
             // Note that 1 .le. S .le. 1 + 1/macheps
 
-            IF( L.EQ.ZERO ) THEN
+            if ( L.EQ.ZERO ) {
                R = ABS( M )
             } else {
                R = SQRT( L*L+MM )
-            END IF
+            }
 
             // Note that 0 .le. R .le. 1 + 1/macheps
 
@@ -137,26 +137,26 @@
 
             SSMIN = HA / A
             SSMAX = FA*A
-            IF( MM.EQ.ZERO ) THEN
+            if ( MM.EQ.ZERO ) {
 
                // Note that M is very tiny
 
-               IF( L.EQ.ZERO ) THEN
+               if ( L.EQ.ZERO ) {
                   T = SIGN( TWO, FT )*SIGN( ONE, GT )
                } else {
                   T = GT / SIGN( D, FT ) + M / T
-               END IF
+               }
             } else {
                T = ( M / ( S+T )+M / ( R+L ) )*( ONE+A )
-            END IF
+            }
             L = SQRT( T*T+FOUR )
             CRT = TWO / L
             SRT = T / L
             CLT = ( CRT+SRT*M ) / A
             SLT = ( HT / FT )*SRT / A
-         END IF
-      END IF
-      IF( SWAP ) THEN
+         }
+      }
+      if ( SWAP ) {
          CSL = SRT
          SNL = CRT
          CSR = SLT
@@ -166,7 +166,7 @@
          SNL = SLT
          CSR = CRT
          SNR = SRT
-      END IF
+      }
 
       // Correct signs of SSMAX and SSMIN
 

@@ -31,22 +31,22 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.M ) THEN
+      } else if ( N.LT.M ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DTZRQF', -INFO )
          RETURN
-      END IF
+      }
 
       // Perform the factorization.
 
       IF( M.EQ.0 ) RETURN
-      IF( M.EQ.N ) THEN
+      if ( M.EQ.N ) {
          DO 10 I = 1, N
             TAU( I ) = ZERO
    10    CONTINUE
@@ -59,7 +59,7 @@
 
             CALL DLARFG( N-M+1, A( K, K ), A( K, M1 ), LDA, TAU( K ) )
 
-            IF( ( TAU( K ).NE.ZERO ) .AND. ( K.GT.1 ) ) THEN
+            if ( ( TAU( K ).NE.ZERO ) .AND. ( K.GT.1 ) ) {
 
                // We now perform the operation  A := A*P( k ).
 
@@ -79,9 +79,9 @@
 
                CALL DAXPY( K-1, -TAU( K ), TAU, 1, A( 1, K ), 1 )
                CALL DGER( K-1, N-M, -TAU( K ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA )
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
 
       RETURN
 

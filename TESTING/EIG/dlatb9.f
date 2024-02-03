@@ -41,7 +41,7 @@
 
       // Set some constants for use in the subroutine.
 
-      IF( FIRST ) THEN
+      if ( FIRST ) {
          FIRST = .FALSE.
          EPS = DLAMCH( 'Precision' )
          BADC2 = TENTH / EPS
@@ -50,7 +50,7 @@
          LARGE = ONE / SMALL
          SMALL = SHRINK*( SMALL / EPS )
          LARGE = ONE / SMALL
-      END IF
+      }
 
       // Set some parameters we don't plan to change.
 
@@ -62,11 +62,11 @@
 
       // Set the lower and upper bandwidths.
 
-      IF( LSAMEN( 3, PATH, 'GRQ' ) .OR. LSAMEN( 3, PATH, 'LSE' ) .OR. LSAMEN( 3, PATH, 'GSV' ) ) THEN
+      if ( LSAMEN( 3, PATH, 'GRQ' ) .OR. LSAMEN( 3, PATH, 'LSE' ) .OR. LSAMEN( 3, PATH, 'GSV' ) ) {
 
          // A: M by N, B: P by N
 
-         IF( IMAT.EQ.1 ) THEN
+         if ( IMAT.EQ.1 ) {
 
             // A: diagonal, B: upper triangular
 
@@ -75,7 +75,7 @@
             KLB = 0
             KUB = MAX( N-1, 0 )
 
-         ELSE IF( IMAT.EQ.2 ) THEN
+         } else if ( IMAT.EQ.2 ) {
 
             // A: upper triangular, B: upper triangular
 
@@ -84,7 +84,7 @@
             KLB = 0
             KUB = MAX( N-1, 0 )
 
-         ELSE IF( IMAT.EQ.3 ) THEN
+         } else if ( IMAT.EQ.3 ) {
 
             // A: lower triangular, B: upper triangular
 
@@ -102,13 +102,13 @@
             KLB = MAX( P-1, 0 )
             KUB = MAX( N-1, 0 )
 
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GLM' ) ) THEN
+      } else if ( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GLM' ) ) {
 
          // A: N by M, B: N by P
 
-         IF( IMAT.EQ.1 ) THEN
+         if ( IMAT.EQ.1 ) {
 
             // A: diagonal, B: lower triangular
 
@@ -116,7 +116,7 @@
             KUA = 0
             KLB = MAX( N-1, 0 )
             KUB = 0
-         ELSE IF( IMAT.EQ.2 ) THEN
+         } else if ( IMAT.EQ.2 ) {
 
             // A: lower triangular, B: diagonal
 
@@ -125,7 +125,7 @@
             KLB = 0
             KUB = 0
 
-         ELSE IF( IMAT.EQ.3 ) THEN
+         } else if ( IMAT.EQ.3 ) {
 
             // A: lower triangular, B: upper triangular
 
@@ -142,46 +142,46 @@
             KUA = MAX( M-1, 0 )
             KLB = MAX( N-1, 0 )
             KUB = MAX( P-1, 0 )
-         END IF
+         }
 
-      END IF
+      }
 
       // Set the condition number and norm.
 
       CNDNMA = TEN*TEN
       CNDNMB = TEN
-      IF( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GRQ' ) .OR. LSAMEN( 3, PATH, 'GSV' ) ) THEN
-         IF( IMAT.EQ.5 ) THEN
+      if ( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GRQ' ) .OR. LSAMEN( 3, PATH, 'GSV' ) ) {
+         if ( IMAT.EQ.5 ) {
             CNDNMA = BADC1
             CNDNMB = BADC1
-         ELSE IF( IMAT.EQ.6 ) THEN
+         } else if ( IMAT.EQ.6 ) {
             CNDNMA = BADC2
             CNDNMB = BADC2
-         ELSE IF( IMAT.EQ.7 ) THEN
+         } else if ( IMAT.EQ.7 ) {
             CNDNMA = BADC1
             CNDNMB = BADC2
-         ELSE IF( IMAT.EQ.8 ) THEN
+         } else if ( IMAT.EQ.8 ) {
             CNDNMA = BADC2
             CNDNMB = BADC1
-         END IF
-      END IF
+         }
+      }
 
       ANORM = TEN
       BNORM = TEN*TEN*TEN
-      IF( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GRQ' ) ) THEN
-         IF( IMAT.EQ.7 ) THEN
+      if ( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GRQ' ) ) {
+         if ( IMAT.EQ.7 ) {
             ANORM = SMALL
             BNORM = LARGE
-         ELSE IF( IMAT.EQ.8 ) THEN
+         } else if ( IMAT.EQ.8 ) {
             ANORM = LARGE
             BNORM = SMALL
-         END IF
-      END IF
+         }
+      }
 
-      IF( N.LE.1 ) THEN
+      if ( N.LE.1 ) {
          CNDNMA = ONE
          CNDNMB = ONE
-      END IF
+      }
 
       RETURN
 

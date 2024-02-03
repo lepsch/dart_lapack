@@ -62,7 +62,7 @@
          JU = MIN( KL+KU, J-1 )
          JL = MIN( KL, M-J )
          LENJ = MIN( M, J ) - J + JU + 1
-         IF( LENJ.GT.0 ) THEN
+         if ( LENJ.GT.0 ) {
             CALL CCOPY( LENJ, AFAC( KD-JU, J ), 1, WORK, 1 )
             DO 20 I = LENJ + 1, JU + JL + 1
                WORK( I ) = ZERO
@@ -73,17 +73,17 @@
 
             DO 30 I = MIN( M-1, J ), J - JU, -1
                IL = MIN( KL, M-I )
-               IF( IL.GT.0 ) THEN
+               if ( IL.GT.0 ) {
                   IW = I - J + JU + 1
                   T = WORK( IW )
                   CALL CAXPY( IL, T, AFAC( KD+1, I ), 1, WORK( IW+1 ), 1 )
                   IP = IPIV( I )
-                  IF( I.NE.IP ) THEN
+                  if ( I.NE.IP ) {
                      IP = IP - J + JU + 1
                      WORK( IW ) = WORK( IP )
                      WORK( IP ) = T
-                  END IF
-               END IF
+                  }
+               }
    30       CONTINUE
 
             // Subtract the corresponding column of A.
@@ -94,16 +94,16 @@
             // Compute the 1-norm of the column.
 
             RESID = MAX( RESID, SCASUM( JU+JL+1, WORK, 1 ) )
-         END IF
+         }
    40 CONTINUE
 
       // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
-      END IF
+      }
 
       RETURN
 

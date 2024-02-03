@@ -53,7 +53,7 @@
 
       ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
          // Factorize the trailing columns of A using the upper triangle
          // of A and working backwards, and compute the matrix W = U12*D
@@ -77,10 +77,10 @@
 
          CALL ZCOPY( K-1, A( 1, K ), 1, W( 1, KW ), 1 )
          W( K, KW ) = DBLE( A( K, K ) )
-         IF( K.LT.N ) THEN
+         if ( K.LT.N ) {
             CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 )
             W( K, KW ) = DBLE( W( K, KW ) )
-         END IF
+         }
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
@@ -91,14 +91,14 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         IF( K.GT.1 ) THEN
+         if ( K.GT.1 ) {
             IMAX = IZAMAX( K-1, W( 1, KW ), 1 )
             COLMAX = CABS1( W( IMAX, KW ) )
          } else {
             COLMAX = ZERO
-         END IF
+         }
 
-         IF( MAX( ABSAKK, COLMAX ).EQ.ZERO ) THEN
+         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
@@ -112,7 +112,7 @@
             // BEGIN pivot search
 
             // Case(1)
-            IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
+            if ( ABSAKK.GE.ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -128,10 +128,10 @@
                W( IMAX, KW-1 ) = DBLE( A( IMAX, IMAX ) )
                CALL ZCOPY( K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 )
                CALL ZLACGV( K-IMAX, W( IMAX+1, KW-1 ), 1 )
-               IF( K.LT.N ) THEN
+               if ( K.LT.N ) {
                   CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 )
                   W( IMAX, KW-1 ) = DBLE( W( IMAX, KW-1 ) )
-               END IF
+               }
 
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value.
@@ -139,20 +139,20 @@
 
                JMAX = IMAX + IZAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
                ROWMAX = CABS1( W( JMAX, KW-1 ) )
-               IF( IMAX.GT.1 ) THEN
+               if ( IMAX.GT.1 ) {
                   JMAX = IZAMAX( IMAX-1, W( 1, KW-1 ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, KW-1 ) ) )
-               END IF
+               }
 
                // Case(2)
-               IF( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) THEN
+               if ( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K
 
                // Case(3)
-               ELSE IF( ABS( DBLE( W( IMAX, KW-1 ) ) ).GE.ALPHA*ROWMAX ) THEN
+               } else if ( ABS( DBLE( W( IMAX, KW-1 ) ) ).GE.ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -171,12 +171,12 @@
 
                   KP = IMAX
                   KSTEP = 2
-               END IF
+               }
 
 
                // END pivot search along IMAX row
 
-            END IF
+            }
 
             // END pivot search
 
@@ -193,7 +193,7 @@
             // Interchange rows and columns KP and KK.
             // Updated column KP is already stored in column KKW of W.
 
-            IF( KP.NE.KK ) THEN
+            if ( KP.NE.KK ) {
 
                // Copy non-updated column KK to column KP of submatrix A
                // at step K. No need to copy element into column K
@@ -212,9 +212,9 @@
 
                IF( K.LT.N ) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA )
                CALL ZSWAP( N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW )
-            END IF
+            }
 
-            IF( KSTEP.EQ.1 ) THEN
+            if ( KSTEP.EQ.1 ) {
 
                // 1-by-1 pivot block D(k): column kw of W now holds
 
@@ -233,7 +233,7 @@
                // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
                CALL ZCOPY( K, W( 1, KW ), 1, A( 1, K ), 1 )
-               IF( K.GT.1 ) THEN
+               if ( K.GT.1 ) {
 
                   // (NOTE: No need to check if A(k,k) is NOT ZERO,
                    // since that was ensured earlier in pivot search:
@@ -245,7 +245,7 @@
                   // (2) Conjugate column W(kw)
 
                   CALL ZLACGV( K-1, W( 1, KW ), 1 )
-               END IF
+               }
 
             } else {
 
@@ -264,7 +264,7 @@
                   // A(1:k-2,k-1:k) := U(1:k-2,k:k-1:k) =
                   // = W(1:k-2,kw-1:kw) * ( D(k-1:k,k-1:k)**(-1) )
 
-               IF( K.GT.2 ) THEN
+               if ( K.GT.2 ) {
 
                   // Factor out the columns of the inverse of 2-by-2 pivot
                   // block D, so that each column contains 1, to reduce the
@@ -322,7 +322,7 @@
                      A( J, K-1 ) = D21*( D11*W( J, KW-1 )-W( J, KW ) )
                      A( J, K ) = DCONJG( D21 )* ( D22*W( J, KW )-W( J, KW-1 ) )
    20             CONTINUE
-               END IF
+               }
 
                // Copy D(k) to A
 
@@ -335,18 +335,18 @@
                CALL ZLACGV( K-1, W( 1, KW ), 1 )
                CALL ZLACGV( K-2, W( 1, KW-1 ), 1 )
 
-            END IF
+            }
 
-         END IF
+         }
 
          // Store details of the interchanges in IPIV
 
-         IF( KSTEP.EQ.1 ) THEN
+         if ( KSTEP.EQ.1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP
             IPIV( K-1 ) = -KP
-         END IF
+         }
 
          // Decrease K and return to the start of the main loop
 
@@ -390,11 +390,11 @@
             // (Here, J is a diagonal index)
             JJ = J
             JP = IPIV( J )
-            IF( JP.LT.0 ) THEN
+            if ( JP.LT.0 ) {
                JP = -JP
                // (Here, J is a diagonal index)
                J = J + 1
-            END IF
+            }
             // (NOTE: Here, J is used to determine row length. Length N-J+1
             // of the rows to swap back doesn't include diagonal element)
             J = J + 1
@@ -436,14 +436,14 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         IF( K.LT.N ) THEN
+         if ( K.LT.N ) {
             IMAX = K + IZAMAX( N-K, W( K+1, K ), 1 )
             COLMAX = CABS1( W( IMAX, K ) )
          } else {
             COLMAX = ZERO
-         END IF
+         }
 
-         IF( MAX( ABSAKK, COLMAX ).EQ.ZERO ) THEN
+         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
@@ -457,7 +457,7 @@
             // BEGIN pivot search
 
             // Case(1)
-            IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
+            if ( ABSAKK.GE.ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -481,20 +481,20 @@
 
                JMAX = K - 1 + IZAMAX( IMAX-K, W( K, K+1 ), 1 )
                ROWMAX = CABS1( W( JMAX, K+1 ) )
-               IF( IMAX.LT.N ) THEN
+               if ( IMAX.LT.N ) {
                   JMAX = IMAX + IZAMAX( N-IMAX, W( IMAX+1, K+1 ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, K+1 ) ) )
-               END IF
+               }
 
                // Case(2)
-               IF( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) THEN
+               if ( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K
 
                // Case(3)
-               ELSE IF( ABS( DBLE( W( IMAX, K+1 ) ) ).GE.ALPHA*ROWMAX ) THEN
+               } else if ( ABS( DBLE( W( IMAX, K+1 ) ) ).GE.ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -513,12 +513,12 @@
 
                   KP = IMAX
                   KSTEP = 2
-               END IF
+               }
 
 
                // END pivot search along IMAX row
 
-            END IF
+            }
 
             // END pivot search
 
@@ -531,7 +531,7 @@
             // Interchange rows and columns KP and KK.
             // Updated column KP is already stored in column KK of W.
 
-            IF( KP.NE.KK ) THEN
+            if ( KP.NE.KK ) {
 
                // Copy non-updated column KK to column KP of submatrix A
                // at step K. No need to copy element into column K
@@ -550,9 +550,9 @@
 
                IF( K.GT.1 ) CALL ZSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
                CALL ZSWAP( KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW )
-            END IF
+            }
 
-            IF( KSTEP.EQ.1 ) THEN
+            if ( KSTEP.EQ.1 ) {
 
                // 1-by-1 pivot block D(k): column k of W now holds
 
@@ -571,7 +571,7 @@
                // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
                CALL ZCOPY( N-K+1, W( K, K ), 1, A( K, K ), 1 )
-               IF( K.LT.N ) THEN
+               if ( K.LT.N ) {
 
                   // (NOTE: No need to check if A(k,k) is NOT ZERO,
                    // since that was ensured earlier in pivot search:
@@ -583,7 +583,7 @@
                   // (2) Conjugate column W(k)
 
                   CALL ZLACGV( N-K, W( K+1, K ), 1 )
-               END IF
+               }
 
             } else {
 
@@ -602,7 +602,7 @@
                   // A(k+2:N,k:k+1) := L(k+2:N,k:k+1) =
                   // = W(k+2:N,k:k+1) * ( D(k:k+1,k:k+1)**(-1) )
 
-               IF( K.LT.N-1 ) THEN
+               if ( K.LT.N-1 ) {
 
                   // Factor out the columns of the inverse of 2-by-2 pivot
                   // block D, so that each column contains 1, to reduce the
@@ -660,7 +660,7 @@
                      A( J, K ) = DCONJG( D21 )* ( D11*W( J, K )-W( J, K+1 ) )
                      A( J, K+1 ) = D21*( D22*W( J, K+1 )-W( J, K ) )
    80             CONTINUE
-               END IF
+               }
 
                // Copy D(k) to A
 
@@ -673,18 +673,18 @@
                CALL ZLACGV( N-K, W( K+1, K ), 1 )
                CALL ZLACGV( N-K-1, W( K+2, K+1 ), 1 )
 
-            END IF
+            }
 
-         END IF
+         }
 
          // Store details of the interchanges in IPIV
 
-         IF( KSTEP.EQ.1 ) THEN
+         if ( KSTEP.EQ.1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP
             IPIV( K+1 ) = -KP
-         END IF
+         }
 
          // Increase K and return to the start of the main loop
 
@@ -728,11 +728,11 @@
             // (Here, J is a diagonal index)
             JJ = J
             JP = IPIV( J )
-            IF( JP.LT.0 ) THEN
+            if ( JP.LT.0 ) {
                JP = -JP
                // (Here, J is a diagonal index)
                J = J - 1
-            END IF
+            }
             // (NOTE: Here, J is used to determine row length. Length J
             // of the rows to swap back doesn't include diagonal element)
             J = J - 1
@@ -742,7 +742,7 @@
 
          KB = K - 1
 
-      END IF
+      }
       RETURN
 
       // End of ZLAHEF

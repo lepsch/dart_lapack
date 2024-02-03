@@ -43,15 +43,15 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZHPTRI', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -59,7 +59,7 @@
 
       // Check that the diagonal matrix D is nonsingular.
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Upper triangular storage: examine D from bottom to top
 
@@ -77,10 +77,10 @@
             IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO ) RETURN
             KP = KP + N - INFO + 1
    20    CONTINUE
-      END IF
+      }
       INFO = 0
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Compute inv(A) from the factorization A = U*D*U**H.
 
@@ -96,7 +96,7 @@
          IF( K.GT.N ) GO TO 50
 
          KCNEXT = KC + K
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
 
             // 1 x 1 diagonal block
 
@@ -106,10 +106,10 @@
 
             // Compute column K of the inverse.
 
-            IF( K.GT.1 ) THEN
+            if ( K.GT.1 ) {
                CALL ZCOPY( K-1, AP( KC ), 1, WORK, 1 )
                CALL ZHPMV( UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - DBLE( ZDOTC( K-1, WORK, 1, AP( KC ), 1 ) )
-            END IF
+            }
             KSTEP = 1
          } else {
 
@@ -128,18 +128,18 @@
 
             // Compute columns K and K+1 of the inverse.
 
-            IF( K.GT.1 ) THEN
+            if ( K.GT.1 ) {
                CALL ZCOPY( K-1, AP( KC ), 1, WORK, 1 )
                CALL ZHPMV( UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - DBLE( ZDOTC( K-1, WORK, 1, AP( KC ), 1 ) )                AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) - ZDOTC( K-1, AP( KC ), 1, AP( KCNEXT ), 1 )
                CALL ZCOPY( K-1, AP( KCNEXT ), 1, WORK, 1 )
                CALL ZHPMV( UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KCNEXT ), 1 )                AP( KCNEXT+K ) = AP( KCNEXT+K ) - DBLE( ZDOTC( K-1, WORK, 1, AP( KCNEXT ), 1 ) )
-            END IF
+            }
             KSTEP = 2
             KCNEXT = KCNEXT + K + 1
-         END IF
+         }
 
          KP = ABS( IPIV( K ) )
-         IF( KP.NE.K ) THEN
+         if ( KP.NE.K ) {
 
             // Interchange rows and columns K and KP in the leading
             // submatrix A(1:k+1,1:k+1)
@@ -157,12 +157,12 @@
             TEMP = AP( KC+K-1 )
             AP( KC+K-1 ) = AP( KPC+KP-1 )
             AP( KPC+KP-1 ) = TEMP
-            IF( KSTEP.EQ.2 ) THEN
+            if ( KSTEP.EQ.2 ) {
                TEMP = AP( KC+K+K-1 )
                AP( KC+K+K-1 ) = AP( KC+K+KP-1 )
                AP( KC+K+KP-1 ) = TEMP
-            END IF
-         END IF
+            }
+         }
 
          K = K + KSTEP
          KC = KCNEXT
@@ -186,7 +186,7 @@
          IF( K.LT.1 ) GO TO 80
 
          KCNEXT = KC - ( N-K+2 )
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
 
             // 1 x 1 diagonal block
 
@@ -196,10 +196,10 @@
 
             // Compute column K of the inverse.
 
-            IF( K.LT.N ) THEN
+            if ( K.LT.N ) {
                CALL ZCOPY( N-K, AP( KC+1 ), 1, WORK, 1 )
                CALL ZHPMV( UPLO, N-K, -CONE, AP( KC+N-K+1 ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - DBLE( ZDOTC( N-K, WORK, 1, AP( KC+1 ), 1 ) )
-            END IF
+            }
             KSTEP = 1
          } else {
 
@@ -218,18 +218,18 @@
 
             // Compute columns K-1 and K of the inverse.
 
-            IF( K.LT.N ) THEN
+            if ( K.LT.N ) {
                CALL ZCOPY( N-K, AP( KC+1 ), 1, WORK, 1 )
                CALL ZHPMV( UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - DBLE( ZDOTC( N-K, WORK, 1, AP( KC+1 ), 1 ) )                AP( KCNEXT+1 ) = AP( KCNEXT+1 ) - ZDOTC( N-K, AP( KC+1 ), 1, AP( KCNEXT+2 ), 1 )
                CALL ZCOPY( N-K, AP( KCNEXT+2 ), 1, WORK, 1 )
                CALL ZHPMV( UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KCNEXT+2 ), 1 )                AP( KCNEXT ) = AP( KCNEXT ) - DBLE( ZDOTC( N-K, WORK, 1, AP( KCNEXT+2 ), 1 ) )
-            END IF
+            }
             KSTEP = 2
             KCNEXT = KCNEXT - ( N-K+3 )
-         END IF
+         }
 
          KP = ABS( IPIV( K ) )
-         IF( KP.NE.K ) THEN
+         if ( KP.NE.K ) {
 
             // Interchange rows and columns K and KP in the trailing
             // submatrix A(k-1:n,k-1:n)
@@ -247,18 +247,18 @@
             TEMP = AP( KC )
             AP( KC ) = AP( KPC )
             AP( KPC ) = TEMP
-            IF( KSTEP.EQ.2 ) THEN
+            if ( KSTEP.EQ.2 ) {
                TEMP = AP( KC-N+K-1 )
                AP( KC-N+K-1 ) = AP( KC-N+KP-1 )
                AP( KC-N+KP-1 ) = TEMP
-            END IF
-         END IF
+            }
+         }
 
          K = K - KSTEP
          KC = KCNEXT
          GO TO 60
    80    CONTINUE
-      END IF
+      }
 
       RETURN
 

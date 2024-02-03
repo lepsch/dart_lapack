@@ -34,9 +34,9 @@
          DO I = MAX( J-KU, 1 ), J
             UMAX = MAX( ABS( AFB( KD+I-J, J ) ), UMAX )
          END DO
-         IF ( UMAX /= 0.0 ) THEN
+         if ( UMAX /= 0.0 ) {
             RPVGRW = MIN( AMAX / UMAX, RPVGRW )
-         END IF
+         }
       END DO
       SLA_GBRPVGRW = RPVGRW
 

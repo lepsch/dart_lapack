@@ -15,15 +15,15 @@
       const     BLAS_NO_TRANS = 111, BLAS_TRANS = 112, BLAS_CONJ_TRANS = 113 ;
       // ..
       // .. Executable Statements ..
-      IF( TRANS.EQ.BLAS_NO_TRANS ) THEN
+      if ( TRANS.EQ.BLAS_NO_TRANS ) {
          CHLA_TRANSTYPE = 'N'
-      ELSE IF( TRANS.EQ.BLAS_TRANS ) THEN
+      } else if ( TRANS.EQ.BLAS_TRANS ) {
          CHLA_TRANSTYPE = 'T'
-      ELSE IF( TRANS.EQ.BLAS_CONJ_TRANS ) THEN
+      } else if ( TRANS.EQ.BLAS_CONJ_TRANS ) {
          CHLA_TRANSTYPE = 'C'
       } else {
          CHLA_TRANSTYPE = 'X'
-      END IF
+      }
       RETURN
 
       // End of CHLA_TRANSTYPE

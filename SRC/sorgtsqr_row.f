@@ -41,46 +41,46 @@
 
       INFO = 0
       LQUERY  = LWORK.EQ.-1
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 .OR. M.LT.N ) THEN
+      } else if ( N.LT.0 .OR. M.LT.N ) {
          INFO = -2
-      ELSE IF( MB.LE.N ) THEN
+      } else if ( MB.LE.N ) {
          INFO = -3
-      ELSE IF( NB.LT.1 ) THEN
+      } else if ( NB.LT.1 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -6
-      ELSE IF( LDT.LT.MAX( 1, MIN( NB, N ) ) ) THEN
+      } else if ( LDT.LT.MAX( 1, MIN( NB, N ) ) ) {
          INFO = -8
-      ELSE IF( LWORK.LT.1 .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.1 .AND. .NOT.LQUERY ) {
          INFO = -10
-      END IF
+      }
 
       NBLOCAL = MIN( NB, N )
 
       // Determine the workspace size.
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          LWORKOPT = NBLOCAL * MAX( NBLOCAL, ( N - NBLOCAL ) )
-      END IF
+      }
 
       // Handle error in the input parameters and handle the workspace query.
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SORGTSQR_ROW', -INFO )
          RETURN
-      ELSE IF ( LQUERY ) THEN
+      } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( MIN( M, N ).EQ.0 ) THEN
+      if ( MIN( M, N ).EQ.0 ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
          RETURN
-      END IF
+      }
 
       // (0) Set the upper-triangular part of the matrix A to zero and
       // its diagonal elements to one.
@@ -96,7 +96,7 @@
       // (1) Bottom-up loop over row blocks of A, except the top row block.
       // NOTE: If MB>=M, then the loop is never executed.
 
-      IF ( MB.LT.M ) THEN
+      if ( MB.LT.M ) {
 
          // MB2 is the row blocking size for the row blocks before the
          // first top row block in the matrix A. IB is the row index for
@@ -147,7 +147,7 @@
 
          END DO
 
-      END IF
+      }
 
       // (2) Top row block of A.
       // NOTE: If MB>=M, then we have only one row block of A of size M
@@ -167,7 +167,7 @@
 
          KNB = MIN( NBLOCAL, N - KB + 1 )
 
-         IF( MB1-KB-KNB+1.EQ.0 ) THEN
+         if ( MB1-KB-KNB+1.EQ.0 ) {
 
             // In SLARFB_GETT parameters, when M=0, then the matrix B
             // does not exist, hence we need to pass a dummy array
@@ -177,7 +177,7 @@
          } else {
             CALL SLARFB_GETT( 'N', MB1-KB-KNB+1, N-KB+1, KNB, T( 1, KB ), LDT, A( KB, KB ), LDA, A( KB+KNB, KB), LDA, WORK, KNB )
 
-         END IF
+         }
 
       END DO
 

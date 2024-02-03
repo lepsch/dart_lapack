@@ -36,22 +36,22 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RCOND = ONE
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
       EPS = DLAMCH( 'Epsilon' )
       ANORM = DLANGE( '1', N, N, A, LDA, RWORK )
       AINVNM = DLANGE( '1', N, N, AINV, LDAINV, RWORK )
-      IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
       RCOND = ( ONE / ANORM ) / AINVNM
 
       // Compute I - A * AINV

@@ -43,54 +43,54 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( LWORK.LT.1 .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.1 .AND. .NOT.LQUERY ) {
          INFO = -9
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
          // Determine the block size.
 
          NB = ILAENV( 1, 'ZHETRD', UPLO, N, -1, -1, -1 )
          LWKOPT = N*NB
          WORK( 1 ) = LWKOPT
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZHETRD', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          WORK( 1 ) = 1
          RETURN
-      END IF
+      }
 
       NX = N
       IWS = 1
-      IF( NB.GT.1 .AND. NB.LT.N ) THEN
+      if ( NB.GT.1 .AND. NB.LT.N ) {
 
          // Determine when to cross over from blocked to unblocked code
          // (last block is always handled by unblocked code).
 
          NX = MAX( NB, ILAENV( 3, 'ZHETRD', UPLO, N, -1, -1, -1 ) )
-         IF( NX.LT.N ) THEN
+         if ( NX.LT.N ) {
 
             // Determine if workspace is large enough for blocked code.
 
             LDWORK = N
             IWS = LDWORK*NB
-            IF( LWORK.LT.IWS ) THEN
+            if ( LWORK.LT.IWS ) {
 
                // Not enough workspace to use optimal NB:  determine the
                // minimum value of NB, and reduce NB or force use of
@@ -99,15 +99,15 @@
                NB = MAX( LWORK / LDWORK, 1 )
                NBMIN = ILAENV( 2, 'ZHETRD', UPLO, N, -1, -1, -1 )
                IF( NB.LT.NBMIN ) NX = N
-            END IF
+            }
          } else {
             NX = N
-         END IF
+         }
       } else {
          NB = 1
-      END IF
+      }
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Reduce the upper triangle of A.
          // Columns 1:kk are handled by the unblocked method.
@@ -167,7 +167,7 @@
          // Use unblocked code to reduce the last or only block
 
          CALL ZHETD2( UPLO, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAU( I ), IINFO )
-      END IF
+      }
 
       WORK( 1 ) = LWKOPT
       RETURN

@@ -42,23 +42,23 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZPOTF2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Compute the Cholesky factorization A = U**H *U.
 
@@ -67,21 +67,21 @@
             // Compute U(J,J) and test for non-positive-definiteness.
 
             AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( 1, J ), 1, A( 1, J ), 1 ) )
-            IF( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) THEN
+            if ( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) {
                A( J, J ) = AJJ
                GO TO 30
-            END IF
+            }
             AJJ = SQRT( AJJ )
             A( J, J ) = AJJ
 
             // Compute elements J+1:N of row J.
 
-            IF( J.LT.N ) THEN
+            if ( J.LT.N ) {
                CALL ZLACGV( J-1, A( 1, J ), 1 )
                CALL ZGEMV( 'Transpose', J-1, N-J, -CONE, A( 1, J+1 ), LDA, A( 1, J ), 1, CONE, A( J, J+1 ), LDA )
                CALL ZLACGV( J-1, A( 1, J ), 1 )
                CALL ZDSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
-            END IF
+            }
    10    CONTINUE
       } else {
 
@@ -92,23 +92,23 @@
             // Compute L(J,J) and test for non-positive-definiteness.
 
             AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA ) )
-            IF( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) THEN
+            if ( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) {
                A( J, J ) = AJJ
                GO TO 30
-            END IF
+            }
             AJJ = SQRT( AJJ )
             A( J, J ) = AJJ
 
             // Compute elements J+1:N of column J.
 
-            IF( J.LT.N ) THEN
+            if ( J.LT.N ) {
                CALL ZLACGV( J-1, A( J, 1 ), LDA )
                CALL ZGEMV( 'No transpose', N-J, J-1, -CONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, CONE, A( J+1, J ), 1 )
                CALL ZLACGV( J-1, A( J, 1 ), LDA )
                CALL ZDSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
       GO TO 40
 
    30 CONTINUE

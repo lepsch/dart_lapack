@@ -47,63 +47,63 @@
       INFO = 0
       MN = MIN( M, N )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.( LSAME( TRANS, 'N' ) .OR. LSAME( TRANS, 'C' ) ) ) THEN
+      if ( .NOT.( LSAME( TRANS, 'N' ) .OR. LSAME( TRANS, 'C' ) ) ) {
          INFO = -1
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -6
-      ELSE IF( LDB.LT.MAX( 1, M, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, M, N ) ) {
          INFO = -8
-      ELSE IF( LWORK.LT.MAX( 1, MN+MAX( MN, NRHS ) ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX( 1, MN+MAX( MN, NRHS ) ) .AND. .NOT.LQUERY ) {
          INFO = -10
-      END IF
+      }
 
       // Figure out optimal block size
 
-      IF( INFO.EQ.0 .OR. INFO.EQ.-10 ) THEN
+      if ( INFO.EQ.0 .OR. INFO.EQ.-10 ) {
 
          TPSD = .TRUE.
          IF( LSAME( TRANS, 'N' ) ) TPSD = .FALSE.
 
-         IF( M.GE.N ) THEN
+         if ( M.GE.N ) {
             NB = ILAENV( 1, 'ZGEQRF', ' ', M, N, -1, -1 )
-            IF( TPSD ) THEN
+            if ( TPSD ) {
                NB = MAX( NB, ILAENV( 1, 'ZUNMQR', 'LN', M, NRHS, N, -1 ) )
             } else {
                NB = MAX( NB, ILAENV( 1, 'ZUNMQR', 'LC', M, NRHS, N, -1 ) )
-            END IF
+            }
          } else {
             NB = ILAENV( 1, 'ZGELQF', ' ', M, N, -1, -1 )
-            IF( TPSD ) THEN
+            if ( TPSD ) {
                NB = MAX( NB, ILAENV( 1, 'ZUNMLQ', 'LC', N, NRHS, M, -1 ) )
             } else {
                NB = MAX( NB, ILAENV( 1, 'ZUNMLQ', 'LN', N, NRHS, M, -1 ) )
-            END IF
-         END IF
+            }
+         }
 
          WSIZE = MAX( 1, MN+MAX( MN, NRHS )*NB )
          WORK( 1 ) = DBLE( WSIZE )
 
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGELS ', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( MIN( M, N, NRHS ).EQ.0 ) THEN
+      if ( MIN( M, N, NRHS ).EQ.0 ) {
          CALL ZLASET( 'Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
          RETURN
-      END IF
+      }
 
       // Get machine parameters
 
@@ -114,45 +114,45 @@
 
       ANRM = ZLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
          IASCL = 1
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
          IASCL = 2
-      ELSE IF( ANRM.EQ.ZERO ) THEN
+      } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
          CALL ZLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
          GO TO 50
-      END IF
+      }
 
       BROW = M
       IF( TPSD ) BROW = N
       BNRM = ZLANGE( 'M', BROW, NRHS, B, LDB, RWORK )
       IBSCL = 0
-      IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
+      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          CALL ZLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 1
-      ELSE IF( BNRM.GT.BIGNUM ) THEN
+      } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          CALL ZLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 2
-      END IF
+      }
 
-      IF( M.GE.N ) THEN
+      if ( M.GE.N ) {
 
          // compute QR factorization of A
 
@@ -160,7 +160,7 @@
 
          // workspace at least N, optimally N*NB
 
-         IF( .NOT.TPSD ) THEN
+         if ( .NOT.TPSD ) {
 
             // Least-Squares Problem min || A * X - B ||
 
@@ -174,9 +174,9 @@
 
             CALL ZTRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
 
-            IF( INFO.GT.0 ) THEN
+            if ( INFO.GT.0 ) {
                RETURN
-            END IF
+            }
 
             SCLLEN = N
 
@@ -188,9 +188,9 @@
 
             CALL ZTRTRS( 'Upper', 'Conjugate transpose','Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
 
-            IF( INFO.GT.0 ) THEN
+            if ( INFO.GT.0 ) {
                RETURN
-            END IF
+            }
 
             // B(N+1:M,1:NRHS) = ZERO
 
@@ -208,7 +208,7 @@
 
             SCLLEN = M
 
-         END IF
+         }
 
       } else {
 
@@ -218,7 +218,7 @@
 
          // workspace at least M, optimally M*NB.
 
-         IF( .NOT.TPSD ) THEN
+         if ( .NOT.TPSD ) {
 
             // underdetermined system of equations A * X = B
 
@@ -226,9 +226,9 @@
 
             CALL ZTRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
 
-            IF( INFO.GT.0 ) THEN
+            if ( INFO.GT.0 ) {
                RETURN
-            END IF
+            }
 
             // B(M+1:N,1:NRHS) = 0
 
@@ -260,28 +260,28 @@
 
             CALL ZTRTRS( 'Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
 
-            IF( INFO.GT.0 ) THEN
+            if ( INFO.GT.0 ) {
                RETURN
-            END IF
+            }
 
             SCLLEN = M
 
-         END IF
+         }
 
-      END IF
+      }
 
       // Undo scaling
 
-      IF( IASCL.EQ.1 ) THEN
+      if ( IASCL.EQ.1 ) {
          CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
-      ELSE IF( IASCL.EQ.2 ) THEN
+      } else if ( IASCL.EQ.2 ) {
          CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO )
-      END IF
-      IF( IBSCL.EQ.1 ) THEN
+      }
+      if ( IBSCL.EQ.1 ) {
          CALL ZLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
-      ELSE IF( IBSCL.EQ.2 ) THEN
+      } else if ( IBSCL.EQ.2 ) {
          CALL ZLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
-      END IF
+      }
 
    50 CONTINUE
       WORK( 1 ) = DBLE( WSIZE )

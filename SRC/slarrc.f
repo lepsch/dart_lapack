@@ -38,31 +38,31 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RETURN
-      END IF
+      }
 
       MATT = LSAME( JOBT, 'T' )
 
 
-      IF (MATT) THEN
+      if (MATT) {
          // Sturm sequence count on T
          LPIVOT = D( 1 ) - VL
          RPIVOT = D( 1 ) - VU
-         IF( LPIVOT.LE.ZERO ) THEN
+         if ( LPIVOT.LE.ZERO ) {
             LCNT = LCNT + 1
          ENDIF
-         IF( RPIVOT.LE.ZERO ) THEN
+         if ( RPIVOT.LE.ZERO ) {
             RCNT = RCNT + 1
          ENDIF
          DO 10 I = 1, N-1
             TMP = E(I)**2
             LPIVOT = ( D( I+1 )-VL ) - TMP/LPIVOT
             RPIVOT = ( D( I+1 )-VU ) - TMP/RPIVOT
-            IF( LPIVOT.LE.ZERO ) THEN
+            if ( LPIVOT.LE.ZERO ) {
                LCNT = LCNT + 1
             ENDIF
-            IF( RPIVOT.LE.ZERO ) THEN
+            if ( RPIVOT.LE.ZERO ) {
                RCNT = RCNT + 1
             ENDIF
  10      CONTINUE
@@ -73,34 +73,34 @@
          DO 20 I = 1, N - 1
             LPIVOT = D( I ) + SL
             RPIVOT = D( I ) + SU
-            IF( LPIVOT.LE.ZERO ) THEN
+            if ( LPIVOT.LE.ZERO ) {
                LCNT = LCNT + 1
             ENDIF
-            IF( RPIVOT.LE.ZERO ) THEN
+            if ( RPIVOT.LE.ZERO ) {
                RCNT = RCNT + 1
             ENDIF
             TMP = E(I) * D(I) * E(I)
 
             TMP2 = TMP / LPIVOT
-            IF( TMP2.EQ.ZERO ) THEN
+            if ( TMP2.EQ.ZERO ) {
                SL =  TMP - VL
             } else {
                SL = SL*TMP2 - VL
-            END IF
+            }
 
             TMP2 = TMP / RPIVOT
-            IF( TMP2.EQ.ZERO ) THEN
+            if ( TMP2.EQ.ZERO ) {
                SU =  TMP - VU
             } else {
                SU = SU*TMP2 - VU
-            END IF
+            }
  20      CONTINUE
          LPIVOT = D( N ) + SL
          RPIVOT = D( N ) + SU
-         IF( LPIVOT.LE.ZERO ) THEN
+         if ( LPIVOT.LE.ZERO ) {
             LCNT = LCNT + 1
          ENDIF
-         IF( RPIVOT.LE.ZERO ) THEN
+         if ( RPIVOT.LE.ZERO ) {
             RCNT = RCNT + 1
          ENDIF
       ENDIF

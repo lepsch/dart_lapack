@@ -41,7 +41,7 @@
       AJETER = IB + LDVT
       UPPER = LSAME( UPLO, 'U' )
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
           DPOS    = 2 * NB + 1
           OFDPOS  = 2 * NB
       } else {
@@ -52,9 +52,9 @@
 
       // Upper case
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
-          IF( WANTZ ) THEN
+          if ( WANTZ ) {
               VPOS   = MOD( SWEEP-1, 2 ) * N + ST
               TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
           } else {
@@ -62,7 +62,7 @@
               TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
           ENDIF
 
-          IF( TTYPE.EQ.1 ) THEN
+          if ( TTYPE.EQ.1 ) {
               LM = ED - ST + 1
 
               V( VPOS ) = ONE
@@ -78,21 +78,21 @@
               CALL SLARFY( UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
           ENDIF
 
-          IF( TTYPE.EQ.3 ) THEN
+          if ( TTYPE.EQ.3 ) {
 
               LM = ED - ST + 1
               CALL SLARFY( UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
           ENDIF
 
-          IF( TTYPE.EQ.2 ) THEN
+          if ( TTYPE.EQ.2 ) {
               J1 = ED+1
               J2 = MIN( ED+NB, N )
               LN = ED-ST+1
               LM = J2-J1+1
-              IF( LM.GT.0) THEN
+              if ( LM.GT.0) {
                   CALL SLARFX( 'Left', LN, LM, V( VPOS ), ( TAU( TAUPOS ) ), A( DPOS-NB, J1 ), LDA-1, WORK)
 
-                  IF( WANTZ ) THEN
+                  if ( WANTZ ) {
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
                       TAUPOS = MOD( SWEEP-1, 2 ) * N + J1
                   } else {
@@ -117,7 +117,7 @@
 
       } else {
 
-          IF( WANTZ ) THEN
+          if ( WANTZ ) {
               VPOS   = MOD( SWEEP-1, 2 ) * N + ST
               TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
           } else {
@@ -125,7 +125,7 @@
               TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
           ENDIF
 
-          IF( TTYPE.EQ.1 ) THEN
+          if ( TTYPE.EQ.1 ) {
               LM = ED - ST + 1
 
               V( VPOS ) = ONE
@@ -141,23 +141,23 @@
 
           ENDIF
 
-          IF( TTYPE.EQ.3 ) THEN
+          if ( TTYPE.EQ.3 ) {
               LM = ED - ST + 1
 
               CALL SLARFY( UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
 
           ENDIF
 
-          IF( TTYPE.EQ.2 ) THEN
+          if ( TTYPE.EQ.2 ) {
               J1 = ED+1
               J2 = MIN( ED+NB, N )
               LN = ED-ST+1
               LM = J2-J1+1
 
-              IF( LM.GT.0) THEN
+              if ( LM.GT.0) {
                   CALL SLARFX( 'Right', LM, LN, V( VPOS ), TAU( TAUPOS ), A( DPOS+NB, ST ), LDA-1, WORK)
 
-                  IF( WANTZ ) THEN
+                  if ( WANTZ ) {
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
                       TAUPOS = MOD( SWEEP-1, 2 ) * N + J1
                   } else {

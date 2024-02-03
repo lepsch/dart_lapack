@@ -123,27 +123,27 @@
 
                // Check error code from DLATMS.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 110
-               END IF
+               }
 
                // For types 3-5, zero one row and column of the matrix to
               t // est that INFO is returned correctly.
 
-               IF( ZEROT ) THEN
-                  IF( IMAT.EQ.3 ) THEN
+               if ( ZEROT ) {
+                  if ( IMAT.EQ.3 ) {
                      IZERO = 1
-                  ELSE IF( IMAT.EQ.4 ) THEN
+                  } else if ( IMAT.EQ.4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
-                  END IF
+                  }
                   IOFF = ( IZERO-1 )*LDA
 
                   // Set row and column IZERO of A to 0.
 
-                  IF( IUPLO.EQ.1 ) THEN
+                  if ( IUPLO.EQ.1 ) {
                      DO 20 I = 1, IZERO - 1
                         A( IOFF+I ) = ZERO
    20                CONTINUE
@@ -162,10 +162,10 @@
                      DO 50 I = IZERO, N
                         A( IOFF+I ) = ZERO
    50                CONTINUE
-                  END IF
+                  }
                } else {
                   IZERO = 0
-               END IF
+               }
 
                // Save a copy of the matrix A in ASAV.
 
@@ -173,11 +173,11 @@
 
                DO 100 IEQUED = 1, 2
                   EQUED = EQUEDS( IEQUED )
-                  IF( IEQUED.EQ.1 ) THEN
+                  if ( IEQUED.EQ.1 ) {
                      NFACT = 3
                   } else {
                      NFACT = 1
-                  END IF
+                  }
 
                   DO 90 IFACT = 1, NFACT
                      FACT = FACTS( IFACT )
@@ -185,11 +185,11 @@
                      NOFACT = LSAME( FACT, 'N' )
                      EQUIL = LSAME( FACT, 'E' )
 
-                     IF( ZEROT ) THEN
+                     if ( ZEROT ) {
                         IF( PREFAC ) GO TO 90
                         RCONDC = ZERO
 
-                     ELSE IF( .NOT.LSAME( FACT, 'N' ) ) THEN
+                     } else if ( .NOT.LSAME( FACT, 'N' ) ) {
 
                         // Compute the condition number for comparison with
                        t // he value returned by DPOSVX (FACT = 'N' reuses
@@ -197,20 +197,20 @@
                         // with FACT = 'F').
 
                         CALL DLACPY( UPLO, N, N, ASAV, LDA, AFAC, LDA )
-                        IF( EQUIL .OR. IEQUED.GT.1 ) THEN
+                        if ( EQUIL .OR. IEQUED.GT.1 ) {
 
                            // Compute row and column scale factors to
                            // equilibrate the matrix A.
 
                            CALL DPOEQU( N, AFAC, LDA, S, SCOND, AMAX, INFO )
-                           IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
+                           if ( INFO.EQ.0 .AND. N.GT.0 ) {
                               IF( IEQUED.GT.1 ) SCOND = ZERO
 
                               // Equilibrate the matrix.
 
                               CALL DLAQSY( UPLO, N, AFAC, LDA, S, SCOND, AMAX, EQUED )
-                           END IF
-                        END IF
+                           }
+                        }
 
                         // Save the condition number of the
                         // non-equilibrated system for use in DGET04.
@@ -233,12 +233,12 @@
                         // Compute the 1-norm condition number of A.
 
                         AINVNM = DLANSY( '1', UPLO, N, A, LDA, RWORK )
-                        IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                        if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                            RCONDC = ONE
                         } else {
                            RCONDC = ( ONE / ANORM ) / AINVNM
-                        END IF
-                     END IF
+                        }
+                     }
 
                      // Restore the matrix A.
 
@@ -251,7 +251,7 @@
                      XTYPE = 'C'
                      CALL DLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
 
-                     IF( NOFACT ) THEN
+                     if ( NOFACT ) {
 
                         // --- Test DPOSV  ---
 
@@ -266,12 +266,12 @@
 
                         // Check error code from DPOSV .
 
-                        IF( INFO.NE.IZERO ) THEN
+                        if ( INFO.NE.IZERO ) {
                            CALL ALAERH( PATH, 'DPOSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                            GO TO 70
-                        ELSE IF( INFO.NE.0 ) THEN
+                        } else if ( INFO.NE.0 ) {
                            GO TO 70
-                        END IF
+                        }
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -291,26 +291,26 @@
                         // pass the threshold.
 
                         DO 60 K = 1, NT
-                           IF( RESULT( K ).GE.THRESH ) THEN
+                           if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'DPOSV ', UPLO, N, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
    60                   CONTINUE
                         NRUN = NRUN + NT
    70                   CONTINUE
-                     END IF
+                     }
 
                      // --- Test DPOSVX ---
 
                      IF( .NOT.PREFAC ) CALL DLASET( UPLO, N, N, ZERO, ZERO, AFAC, LDA )
                      CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
-                     IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
+                     if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
                         // Equilibrate the matrix if FACT='F' and
                         // EQUED='Y'.
 
                         CALL DLAQSY( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
-                     END IF
+                     }
 
                      // Solve the system and compute the condition number
                      // and error bounds using DPOSVX.
@@ -320,13 +320,13 @@
 
                      // Check the error code from DPOSVX.
 
-                     IF( INFO.NE.IZERO ) THEN
+                     if ( INFO.NE.IZERO ) {
                         CALL ALAERH( PATH, 'DPOSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 90
-                     END IF
+                     }
 
-                     IF( INFO.EQ.0 ) THEN
-                        IF( .NOT.PREFAC ) THEN
+                     if ( INFO.EQ.0 ) {
+                        if ( .NOT.PREFAC ) {
 
                            // Reconstruct matrix from factors and compute
                            // residual.
@@ -335,7 +335,7 @@
                            K1 = 1
                         } else {
                            K1 = 2
-                        END IF
+                        }
 
                         // Compute residual of the computed solution.
 
@@ -346,7 +346,7 @@
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         } else {
                            CALL DGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
-                        END IF
+                        }
 
                         // Check the error bounds from iterative
                         // refinement.
@@ -354,7 +354,7 @@
                         CALL DPOT05( UPLO, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                      } else {
                         K1 = 6
-                     END IF
+                     }
 
                      // Compare RCOND from DPOSVX with the computed value
                      // in RCONDC.
@@ -365,15 +365,15 @@
                     t // he threshold.
 
                      DO 80 K = K1, 6
-                        IF( RESULT( K ).GE.THRESH ) THEN
+                        if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                           IF( PREFAC ) THEN
+                           if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DPOSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K )
                            } else {
                               WRITE( NOUT, FMT = 9998 )'DPOSVX', FACT, UPLO, N, IMAT, K, RESULT( K )
-                           END IF
+                           }
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
    80                CONTINUE
                      NRUN = NRUN + 7 - K1
 
@@ -385,13 +385,13 @@
                      CALL DLACPY( 'Full', N, NRHS, BSAV, LDA, B, LDA )
                       IF( .NOT.PREFAC ) CALL DLASET( UPLO, N, N, ZERO, ZERO, AFAC, LDA )
                      CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
-                     IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
+                     if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
                         // Equilibrate the matrix if FACT='F' and
                         // EQUED='Y'.
 
                         CALL DLAQSY( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
-                     END IF
+                     }
 
                      // Solve the system and compute the condition number
                      // and error bounds using DPOSVXX.
@@ -403,13 +403,13 @@
                      // Check the error code from DPOSVXX.
 
                      IF( INFO.EQ.N+1 ) GOTO 90
-                     IF( INFO.NE.IZERO ) THEN
+                     if ( INFO.NE.IZERO ) {
                         CALL ALAERH( PATH, 'DPOSVXX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 90
-                     END IF
+                     }
 
-                     IF( INFO.EQ.0 ) THEN
-                        IF( .NOT.PREFAC ) THEN
+                     if ( INFO.EQ.0 ) {
+                        if ( .NOT.PREFAC ) {
 
                            // Reconstruct matrix from factors and compute
                            // residual.
@@ -418,7 +418,7 @@
                            K1 = 1
                         } else {
                            K1 = 2
-                        END IF
+                        }
 
                         // Compute residual of the computed solution.
 
@@ -429,7 +429,7 @@
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         } else {
                            CALL DGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
-                        END IF
+                        }
 
                         // Check the error bounds from iterative
                         // refinement.
@@ -437,7 +437,7 @@
                         CALL DPOT05( UPLO, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                      } else {
                         K1 = 6
-                     END IF
+                     }
 
                      // Compare RCOND from DPOSVXX with the computed value
                      // in RCONDC.
@@ -448,15 +448,15 @@
                     t // he threshold.
 
                      DO 85 K = K1, 6
-                        IF( RESULT( K ).GE.THRESH ) THEN
+                        if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                           IF( PREFAC ) THEN
+                           if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DPOSVXX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K )
                            } else {
                               WRITE( NOUT, FMT = 9998 )'DPOSVXX', FACT, UPLO, N, IMAT, K, RESULT( K )
-                           END IF
+                           }
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
    85                CONTINUE
                      NRUN = NRUN + 7 - K1
    90             CONTINUE

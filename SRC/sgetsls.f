@@ -44,28 +44,28 @@
       TRAN  = LSAME( TRANS, 'T' )
 
       LQUERY = ( LWORK.EQ.-1 .OR. LWORK.EQ.-2 )
-      IF( .NOT.( LSAME( TRANS, 'N' ) .OR. LSAME( TRANS, 'T' ) ) ) THEN
+      if ( .NOT.( LSAME( TRANS, 'N' ) .OR. LSAME( TRANS, 'T' ) ) ) {
          INFO = -1
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -6
-      ELSE IF( LDB.LT.MAX( 1, M, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, M, N ) ) {
          INFO = -8
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
       // Determine the optimum and minimum LWORK
 
-       IF( MIN( M, N, NRHS ).EQ.0 ) THEN
+       if ( MIN( M, N, NRHS ).EQ.0 ) {
          WSIZEO = 1
          WSIZEM = 1
-       ELSE IF( M.GE.N ) THEN
+       } else if ( M.GE.N ) {
          CALL SGEQR( M, N, A, LDA, TQ, -1, WORKQ, -1, INFO2 )
          TSZO = INT( TQ( 1 ) )
          LWO  = INT( WORKQ( 1 ) )
@@ -91,38 +91,38 @@
          LWM  = MAX( LWM, INT( WORKQ( 1 ) ) )
          WSIZEO = TSZO + LWO
          WSIZEM = TSZM + LWM
-       END IF
+       }
 
-       IF( ( LWORK.LT.WSIZEM ).AND.( .NOT.LQUERY ) ) THEN
+       if ( ( LWORK.LT.WSIZEM ).AND.( .NOT.LQUERY ) ) {
           INFO = -10
-       END IF
+       }
 
        WORK( 1 ) = SROUNDUP_LWORK( WSIZEO )
 
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
         CALL XERBLA( 'SGETSLS', -INFO )
         RETURN
-      END IF
-      IF( LQUERY ) THEN
+      }
+      if ( LQUERY ) {
         IF( LWORK.EQ.-2 ) WORK( 1 ) = SROUNDUP_LWORK( WSIZEM )
         RETURN
-      END IF
-      IF( LWORK.LT.WSIZEO ) THEN
+      }
+      if ( LWORK.LT.WSIZEO ) {
         LW1 = TSZM
         LW2 = LWM
       } else {
         LW1 = TSZO
         LW2 = LWO
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( MIN( M, N, NRHS ).EQ.0 ) THEN
+      if ( MIN( M, N, NRHS ).EQ.0 ) {
            CALL SLASET( 'FULL', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
            RETURN
-      END IF
+      }
 
       // Get machine parameters
 
@@ -133,52 +133,52 @@
 
       ANRM = SLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
          IASCL = 1
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
          IASCL = 2
-      ELSE IF( ANRM.EQ.ZERO ) THEN
+      } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
          CALL SLASET( 'F', MAXMN, NRHS, ZERO, ZERO, B, LDB )
          GO TO 50
-      END IF
+      }
 
       BROW = M
-      IF ( TRAN ) THEN
+      if ( TRAN ) {
         BROW = N
-      END IF
+      }
       BNRM = SLANGE( 'M', BROW, NRHS, B, LDB, WORK )
       IBSCL = 0
-      IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
+      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          CALL SLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 1
-      ELSE IF( BNRM.GT.BIGNUM ) THEN
+      } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          CALL SLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 2
-      END IF
+      }
 
-      IF ( M.GE.N ) THEN
+      if ( M.GE.N ) {
 
          // compute QR factorization of A
 
         CALL SGEQR( M, N, A, LDA, WORK( LW2+1 ), LW1, WORK( 1 ), LW2, INFO )
-        IF ( .NOT.TRAN ) THEN
+        if ( .NOT.TRAN ) {
 
             // Least-Squares Problem min || A * X - B ||
 
@@ -189,9 +189,9 @@
             // B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 
           CALL STRTRS( 'U', 'N', 'N', N, NRHS, A, LDA, B, LDB, INFO )
-          IF( INFO.GT.0 ) THEN
+          if ( INFO.GT.0 ) {
             RETURN
-          END IF
+          }
           SCLLEN = N
         } else {
 
@@ -201,9 +201,9 @@
 
             CALL STRTRS( 'U', 'T', 'N', N, NRHS, A, LDA, B, LDB, INFO )
 
-            IF( INFO.GT.0 ) THEN
+            if ( INFO.GT.0 ) {
                RETURN
-            END IF
+            }
 
             // B(N+1:M,1:NRHS) = ZERO
 
@@ -219,7 +219,7 @@
 
             SCLLEN = M
 
-         END IF
+         }
 
       } else {
 
@@ -229,7 +229,7 @@
 
          // workspace at least M, optimally M*NB.
 
-         IF( .NOT.TRAN ) THEN
+         if ( .NOT.TRAN ) {
 
             // underdetermined system of equations A * X = B
 
@@ -237,9 +237,9 @@
 
             CALL STRTRS( 'L', 'N', 'N', M, NRHS, A, LDA, B, LDB, INFO )
 
-            IF( INFO.GT.0 ) THEN
+            if ( INFO.GT.0 ) {
                RETURN
-            END IF
+            }
 
             // B(M+1:N,1:NRHS) = 0
 
@@ -271,28 +271,28 @@
 
             CALL STRTRS( 'Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
 
-            IF( INFO.GT.0 ) THEN
+            if ( INFO.GT.0 ) {
                RETURN
-            END IF
+            }
 
             SCLLEN = M
 
-         END IF
+         }
 
-      END IF
+      }
 
       // Undo scaling
 
-      IF( IASCL.EQ.1 ) THEN
+      if ( IASCL.EQ.1 ) {
         CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
-      ELSE IF( IASCL.EQ.2 ) THEN
+      } else if ( IASCL.EQ.2 ) {
         CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO )
-      END IF
-      IF( IBSCL.EQ.1 ) THEN
+      }
+      if ( IBSCL.EQ.1 ) {
         CALL SLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
-      ELSE IF( IBSCL.EQ.2 ) THEN
+      } else if ( IBSCL.EQ.2 ) {
         CALL SLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
-      END IF
+      }
 
    50 CONTINUE
       WORK( 1 ) = SROUNDUP_LWORK( TSZO + LWO )

@@ -42,27 +42,27 @@
       LSIDE = LSAME( SIDE, 'L' )
       LOWER = LSAME( UPLO, 'L' )
       NOTRANS = LSAME( TRANS, 'N' )
-      IF( .NOT.NORMALTRANSR .AND. .NOT.LSAME( TRANSR, 'C' ) ) THEN
+      if ( .NOT.NORMALTRANSR .AND. .NOT.LSAME( TRANSR, 'C' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LSIDE .AND. .NOT.LSAME( SIDE, 'R' ) ) THEN
+      } else if ( .NOT.LSIDE .AND. .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -2
-      ELSE IF( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) THEN
+      } else if ( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) {
          INFO = -3
-      ELSE IF( .NOT.NOTRANS .AND. .NOT.LSAME( TRANS, 'C' ) ) THEN
+      } else if ( .NOT.NOTRANS .AND. .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -4
-      ELSE IF( .NOT.LSAME( DIAG, 'N' ) .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
+      } else if ( .NOT.LSAME( DIAG, 'N' ) .AND. .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -5
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -6
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, M ) ) THEN
+      } else if ( LDB.LT.MAX( 1, M ) ) {
          INFO = -11
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTFSM ', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return when ( (N.EQ.0).OR.(M.EQ.0) )
 
@@ -70,16 +70,16 @@
 
       // Quick return when ALPHA.EQ.(0D+0,0D+0)
 
-      IF( ALPHA.EQ.CZERO ) THEN
+      if ( ALPHA.EQ.CZERO ) {
          DO 20 J = 0, N - 1
             DO 10 I = 0, M - 1
                B( I, J ) = CZERO
    10       CONTINUE
    20    CONTINUE
          RETURN
-      END IF
+      }
 
-      IF( LSIDE ) THEN
+      if ( LSIDE ) {
 
          // SIDE = 'L'
 
@@ -87,61 +87,61 @@
          // If M is odd, set NISODD = .TRUE., and M1 and M2.
          // If M is even, NISODD = .FALSE., and M.
 
-         IF( MOD( M, 2 ).EQ.0 ) THEN
+         if ( MOD( M, 2 ).EQ.0 ) {
             MISODD = .FALSE.
             K = M / 2
          } else {
             MISODD = .TRUE.
-            IF( LOWER ) THEN
+            if ( LOWER ) {
                M2 = M / 2
                M1 = M - M2
             } else {
                M1 = M / 2
                M2 = M - M1
-            END IF
-         END IF
+            }
+         }
 
-         IF( MISODD ) THEN
+         if ( MISODD ) {
 
             // SIDE = 'L' and N is odd
 
-            IF( NORMALTRANSR ) THEN
+            if ( NORMALTRANSR ) {
 
                // SIDE = 'L', N is odd, and TRANSR = 'N'
 
-               IF( LOWER ) THEN
+               if ( LOWER ) {
 
                   // SIDE  ='L', N is odd, TRANSR = 'N', and UPLO = 'L'
 
-                  IF( NOTRANS ) THEN
+                  if ( NOTRANS ) {
 
                      // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'L', and
                      // TRANS = 'N'
 
-                     IF( M.EQ.1 ) THEN
+                     if ( M.EQ.1 ) {
                         CALL ZTRSM( 'L', 'L', 'N', DIAG, M1, N, ALPHA, A, M, B, LDB )
                      } else {
                         CALL ZTRSM( 'L', 'L', 'N', DIAG, M1, N, ALPHA, A( 0 ), M, B, LDB )                         CALL ZGEMM( 'N', 'N', M2, N, M1, -CONE, A( M1 ), M, B, LDB, ALPHA, B( M1, 0 ), LDB )                         CALL ZTRSM( 'L', 'U', 'C', DIAG, M2, N, CONE, A( M ), M, B( M1, 0 ), LDB )
-                     END IF
+                     }
 
                   } else {
 
                      // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'L', and
                      // TRANS = 'C'
 
-                     IF( M.EQ.1 ) THEN
+                     if ( M.EQ.1 ) {
                         CALL ZTRSM( 'L', 'L', 'C', DIAG, M1, N, ALPHA, A( 0 ), M, B, LDB )
                      } else {
                         CALL ZTRSM( 'L', 'U', 'N', DIAG, M2, N, ALPHA, A( M ), M, B( M1, 0 ), LDB )                         CALL ZGEMM( 'C', 'N', M1, N, M2, -CONE, A( M1 ), M, B( M1, 0 ), LDB, ALPHA, B, LDB )                         CALL ZTRSM( 'L', 'L', 'C', DIAG, M1, N, CONE, A( 0 ), M, B, LDB )
-                     END IF
+                     }
 
-                  END IF
+                  }
 
                } else {
 
                   // SIDE  ='L', N is odd, TRANSR = 'N', and UPLO = 'U'
 
-                  IF( .NOT.NOTRANS ) THEN
+                  if ( .NOT.NOTRANS ) {
 
                      // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'U', and
                      // TRANS = 'N'
@@ -155,49 +155,49 @@
 
                      CALL ZTRSM( 'L', 'U', 'N', DIAG, M2, N, ALPHA, A( M1 ), M, B( M1, 0 ), LDB )                      CALL ZGEMM( 'N', 'N', M1, N, M2, -CONE, A( 0 ), M, B( M1, 0 ), LDB, ALPHA, B, LDB )                      CALL ZTRSM( 'L', 'L', 'C', DIAG, M1, N, CONE, A( M2 ), M, B, LDB )
 
-                  END IF
+                  }
 
-               END IF
+               }
 
             } else {
 
                // SIDE = 'L', N is odd, and TRANSR = 'C'
 
-               IF( LOWER ) THEN
+               if ( LOWER ) {
 
                   // SIDE  ='L', N is odd, TRANSR = 'C', and UPLO = 'L'
 
-                  IF( NOTRANS ) THEN
+                  if ( NOTRANS ) {
 
                      // SIDE  ='L', N is odd, TRANSR = 'C', UPLO = 'L', and
                      // TRANS = 'N'
 
-                     IF( M.EQ.1 ) THEN
+                     if ( M.EQ.1 ) {
                         CALL ZTRSM( 'L', 'U', 'C', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB )
                      } else {
                         CALL ZTRSM( 'L', 'U', 'C', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB )                         CALL ZGEMM( 'C', 'N', M2, N, M1, -CONE, A( M1*M1 ), M1, B, LDB, ALPHA, B( M1, 0 ), LDB )
                         CALL ZTRSM( 'L', 'L', 'N', DIAG, M2, N, CONE, A( 1 ), M1, B( M1, 0 ), LDB )
-                     END IF
+                     }
 
                   } else {
 
                      // SIDE  ='L', N is odd, TRANSR = 'C', UPLO = 'L', and
                      // TRANS = 'C'
 
-                     IF( M.EQ.1 ) THEN
+                     if ( M.EQ.1 ) {
                         CALL ZTRSM( 'L', 'U', 'N', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB )
                      } else {
                         CALL ZTRSM( 'L', 'L', 'C', DIAG, M2, N, ALPHA, A( 1 ), M1, B( M1, 0 ), LDB )                         CALL ZGEMM( 'N', 'N', M1, N, M2, -CONE, A( M1*M1 ), M1, B( M1, 0 ), LDB, ALPHA, B, LDB )
                         CALL ZTRSM( 'L', 'U', 'N', DIAG, M1, N, CONE, A( 0 ), M1, B, LDB )
-                     END IF
+                     }
 
-                  END IF
+                  }
 
                } else {
 
                   // SIDE  ='L', N is odd, TRANSR = 'C', and UPLO = 'U'
 
-                  IF( .NOT.NOTRANS ) THEN
+                  if ( .NOT.NOTRANS ) {
 
                      // SIDE  ='L', N is odd, TRANSR = 'C', UPLO = 'U', and
                      // TRANS = 'N'
@@ -211,25 +211,25 @@
 
                      CALL ZTRSM( 'L', 'L', 'C', DIAG, M2, N, ALPHA, A( M1*M2 ), M2, B( M1, 0 ), LDB )                      CALL ZGEMM( 'C', 'N', M1, N, M2, -CONE, A( 0 ), M2, B( M1, 0 ), LDB, ALPHA, B, LDB )                      CALL ZTRSM( 'L', 'U', 'N', DIAG, M1, N, CONE, A( M2*M2 ), M2, B, LDB )
 
-                  END IF
+                  }
 
-               END IF
+               }
 
-            END IF
+            }
 
          } else {
 
             // SIDE = 'L' and N is even
 
-            IF( NORMALTRANSR ) THEN
+            if ( NORMALTRANSR ) {
 
                // SIDE = 'L', N is even, and TRANSR = 'N'
 
-               IF( LOWER ) THEN
+               if ( LOWER ) {
 
                   // SIDE  ='L', N is even, TRANSR = 'N', and UPLO = 'L'
 
-                  IF( NOTRANS ) THEN
+                  if ( NOTRANS ) {
 
                      // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'L',
                      // and TRANS = 'N'
@@ -243,13 +243,13 @@
 
                      CALL ZTRSM( 'L', 'U', 'N', DIAG, K, N, ALPHA, A( 0 ), M+1, B( K, 0 ), LDB )                      CALL ZGEMM( 'C', 'N', K, N, K, -CONE, A( K+1 ), M+1, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL ZTRSM( 'L', 'L', 'C', DIAG, K, N, CONE, A( 1 ), M+1, B, LDB )
 
-                  END IF
+                  }
 
                } else {
 
                   // SIDE  ='L', N is even, TRANSR = 'N', and UPLO = 'U'
 
-                  IF( .NOT.NOTRANS ) THEN
+                  if ( .NOT.NOTRANS ) {
 
                      // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'U',
                      // and TRANS = 'N'
@@ -262,19 +262,19 @@
                      // and TRANS = 'C'
                      CALL ZTRSM( 'L', 'U', 'N', DIAG, K, N, ALPHA, A( K ), M+1, B( K, 0 ), LDB )                      CALL ZGEMM( 'N', 'N', K, N, K, -CONE, A( 0 ), M+1, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL ZTRSM( 'L', 'L', 'C', DIAG, K, N, CONE, A( K+1 ), M+1, B, LDB )
 
-                  END IF
+                  }
 
-               END IF
+               }
 
             } else {
 
                // SIDE = 'L', N is even, and TRANSR = 'C'
 
-               IF( LOWER ) THEN
+               if ( LOWER ) {
 
                   // SIDE  ='L', N is even, TRANSR = 'C', and UPLO = 'L'
 
-                  IF( NOTRANS ) THEN
+                  if ( NOTRANS ) {
 
                      // SIDE  ='L', N is even, TRANSR = 'C', UPLO = 'L',
                      // and TRANS = 'N'
@@ -290,13 +290,13 @@
                      CALL ZTRSM( 'L', 'L', 'C', DIAG, K, N, ALPHA, A( 0 ), K, B( K, 0 ), LDB )                      CALL ZGEMM( 'N', 'N', K, N, K, -CONE, A( K*( K+1 ) ), K, B( K, 0 ), LDB, ALPHA, B, LDB )
                      CALL ZTRSM( 'L', 'U', 'N', DIAG, K, N, CONE, A( K ), K, B, LDB )
 
-                  END IF
+                  }
 
                } else {
 
                   // SIDE  ='L', N is even, TRANSR = 'C', and UPLO = 'U'
 
-                  IF( .NOT.NOTRANS ) THEN
+                  if ( .NOT.NOTRANS ) {
 
                      // SIDE  ='L', N is even, TRANSR = 'C', UPLO = 'U',
                      // and TRANS = 'N'
@@ -310,13 +310,13 @@
 
                      CALL ZTRSM( 'L', 'L', 'C', DIAG, K, N, ALPHA, A( K*K ), K, B( K, 0 ), LDB )                      CALL ZGEMM( 'C', 'N', K, N, K, -CONE, A( 0 ), K, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL ZTRSM( 'L', 'U', 'N', DIAG, K, N, CONE, A( K*( K+1 ) ), K, B, LDB )
 
-                  END IF
+                  }
 
-               END IF
+               }
 
-            END IF
+            }
 
-         END IF
+         }
 
       } else {
 
@@ -326,33 +326,33 @@
          // If N is odd, set NISODD = .TRUE., and N1 and N2.
          // If N is even, NISODD = .FALSE., and K.
 
-         IF( MOD( N, 2 ).EQ.0 ) THEN
+         if ( MOD( N, 2 ).EQ.0 ) {
             NISODD = .FALSE.
             K = N / 2
          } else {
             NISODD = .TRUE.
-            IF( LOWER ) THEN
+            if ( LOWER ) {
                N2 = N / 2
                N1 = N - N2
             } else {
                N1 = N / 2
                N2 = N - N1
-            END IF
-         END IF
+            }
+         }
 
-         IF( NISODD ) THEN
+         if ( NISODD ) {
 
             // SIDE = 'R' and N is odd
 
-            IF( NORMALTRANSR ) THEN
+            if ( NORMALTRANSR ) {
 
                // SIDE = 'R', N is odd, and TRANSR = 'N'
 
-               IF( LOWER ) THEN
+               if ( LOWER ) {
 
                   // SIDE  ='R', N is odd, TRANSR = 'N', and UPLO = 'L'
 
-                  IF( NOTRANS ) THEN
+                  if ( NOTRANS ) {
 
                      // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'L', and
                      // TRANS = 'N'
@@ -368,13 +368,13 @@
                      CALL ZTRSM( 'R', 'L', 'C', DIAG, M, N1, ALPHA, A( 0 ), N, B( 0, 0 ), LDB )                      CALL ZGEMM( 'N', 'C', M, N2, N1, -CONE, B( 0, 0 ), LDB, A( N1 ), N, ALPHA, B( 0, N1 ), LDB )
                      CALL ZTRSM( 'R', 'U', 'N', DIAG, M, N2, CONE, A( N ), N, B( 0, N1 ), LDB )
 
-                  END IF
+                  }
 
                } else {
 
                   // SIDE  ='R', N is odd, TRANSR = 'N', and UPLO = 'U'
 
-                  IF( NOTRANS ) THEN
+                  if ( NOTRANS ) {
 
                      // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'U', and
                      // TRANS = 'N'
@@ -389,19 +389,19 @@
 
                      CALL ZTRSM( 'R', 'U', 'C', DIAG, M, N2, ALPHA, A( N1 ), N, B( 0, N1 ), LDB )                      CALL ZGEMM( 'N', 'C', M, N1, N2, -CONE, B( 0, N1 ), LDB, A( 0 ), N, ALPHA, B( 0, 0 ), LDB )                      CALL ZTRSM( 'R', 'L', 'N', DIAG, M, N1, CONE, A( N2 ), N, B( 0, 0 ), LDB )
 
-                  END IF
+                  }
 
-               END IF
+               }
 
             } else {
 
                // SIDE = 'R', N is odd, and TRANSR = 'C'
 
-               IF( LOWER ) THEN
+               if ( LOWER ) {
 
                   // SIDE  ='R', N is odd, TRANSR = 'C', and UPLO = 'L'
 
-                  IF( NOTRANS ) THEN
+                  if ( NOTRANS ) {
 
                      // SIDE  ='R', N is odd, TRANSR = 'C', UPLO = 'L', and
                      // TRANS = 'N'
@@ -417,13 +417,13 @@
                      CALL ZTRSM( 'R', 'U', 'N', DIAG, M, N1, ALPHA, A( 0 ), N1, B( 0, 0 ), LDB )                      CALL ZGEMM( 'N', 'N', M, N2, N1, -CONE, B( 0, 0 ), LDB, A( N1*N1 ), N1, ALPHA, B( 0, N1 ), LDB )
                      CALL ZTRSM( 'R', 'L', 'C', DIAG, M, N2, CONE, A( 1 ), N1, B( 0, N1 ), LDB )
 
-                  END IF
+                  }
 
                } else {
 
                   // SIDE  ='R', N is odd, TRANSR = 'C', and UPLO = 'U'
 
-                  IF( NOTRANS ) THEN
+                  if ( NOTRANS ) {
 
                      // SIDE  ='R', N is odd, TRANSR = 'C', UPLO = 'U', and
                      // TRANS = 'N'
@@ -439,25 +439,25 @@
                      CALL ZTRSM( 'R', 'L', 'N', DIAG, M, N2, ALPHA, A( N1*N2 ), N2, B( 0, N1 ), LDB )                      CALL ZGEMM( 'N', 'N', M, N1, N2, -CONE, B( 0, N1 ), LDB, A( 0 ), N2, ALPHA, B( 0, 0 ), LDB )
                      CALL ZTRSM( 'R', 'U', 'C', DIAG, M, N1, CONE, A( N2*N2 ), N2, B( 0, 0 ), LDB )
 
-                  END IF
+                  }
 
-               END IF
+               }
 
-            END IF
+            }
 
          } else {
 
             // SIDE = 'R' and N is even
 
-            IF( NORMALTRANSR ) THEN
+            if ( NORMALTRANSR ) {
 
                // SIDE = 'R', N is even, and TRANSR = 'N'
 
-               IF( LOWER ) THEN
+               if ( LOWER ) {
 
                   // SIDE  ='R', N is even, TRANSR = 'N', and UPLO = 'L'
 
-                  IF( NOTRANS ) THEN
+                  if ( NOTRANS ) {
 
                      // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'L',
                      // and TRANS = 'N'
@@ -473,13 +473,13 @@
                      CALL ZTRSM( 'R', 'L', 'C', DIAG, M, K, ALPHA, A( 1 ), N+1, B( 0, 0 ), LDB )                      CALL ZGEMM( 'N', 'C', M, K, K, -CONE, B( 0, 0 ), LDB, A( K+1 ), N+1, ALPHA, B( 0, K ), LDB )
                      CALL ZTRSM( 'R', 'U', 'N', DIAG, M, K, CONE, A( 0 ), N+1, B( 0, K ), LDB )
 
-                  END IF
+                  }
 
                } else {
 
                   // SIDE  ='R', N is even, TRANSR = 'N', and UPLO = 'U'
 
-                  IF( NOTRANS ) THEN
+                  if ( NOTRANS ) {
 
                      // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'U',
                      // and TRANS = 'N'
@@ -495,19 +495,19 @@
                      CALL ZTRSM( 'R', 'U', 'C', DIAG, M, K, ALPHA, A( K ), N+1, B( 0, K ), LDB )                      CALL ZGEMM( 'N', 'C', M, K, K, -CONE, B( 0, K ), LDB, A( 0 ), N+1, ALPHA, B( 0, 0 ), LDB )
                      CALL ZTRSM( 'R', 'L', 'N', DIAG, M, K, CONE, A( K+1 ), N+1, B( 0, 0 ), LDB )
 
-                  END IF
+                  }
 
-               END IF
+               }
 
             } else {
 
                // SIDE = 'R', N is even, and TRANSR = 'C'
 
-               IF( LOWER ) THEN
+               if ( LOWER ) {
 
                   // SIDE  ='R', N is even, TRANSR = 'C', and UPLO = 'L'
 
-                  IF( NOTRANS ) THEN
+                  if ( NOTRANS ) {
 
                      // SIDE  ='R', N is even, TRANSR = 'C', UPLO = 'L',
                      // and TRANS = 'N'
@@ -523,13 +523,13 @@
                      CALL ZTRSM( 'R', 'U', 'N', DIAG, M, K, ALPHA, A( K ), K, B( 0, 0 ), LDB )                      CALL ZGEMM( 'N', 'N', M, K, K, -CONE, B( 0, 0 ), LDB, A( ( K+1 )*K ), K, ALPHA, B( 0, K ), LDB )
                      CALL ZTRSM( 'R', 'L', 'C', DIAG, M, K, CONE, A( 0 ), K, B( 0, K ), LDB )
 
-                  END IF
+                  }
 
                } else {
 
                   // SIDE  ='R', N is even, TRANSR = 'C', and UPLO = 'U'
 
-                  IF( NOTRANS ) THEN
+                  if ( NOTRANS ) {
 
                      // SIDE  ='R', N is even, TRANSR = 'C', UPLO = 'U',
                      // and TRANS = 'N'
@@ -543,14 +543,14 @@
 
                      CALL ZTRSM( 'R', 'L', 'N', DIAG, M, K, ALPHA, A( K*K ), K, B( 0, K ), LDB )                      CALL ZGEMM( 'N', 'N', M, K, K, -CONE, B( 0, K ), LDB, A( 0 ), K, ALPHA, B( 0, 0 ), LDB )                      CALL ZTRSM( 'R', 'U', 'C', DIAG, M, K, CONE, A( ( K+1 )*K ), K, B( 0, 0 ), LDB )
 
-                  END IF
+                  }
 
-               END IF
+               }
 
-            END IF
+            }
 
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

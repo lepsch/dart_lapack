@@ -44,13 +44,13 @@
       SAFMAX = ONE / SAFMIN
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
 
-      IF( LEFT ) THEN
+      if ( LEFT ) {
          TRANS = 'T'
          NORMAB = 'I'
       } else {
          TRANS = 'N'
          NORMAB = 'O'
-      END IF
+      }
 
       // Norm of A, B, and E:
 
@@ -65,7 +65,7 @@
 
       ILCPLX = .FALSE.
       DO 10 JVEC = 1, N
-         IF( ILCPLX ) THEN
+         if ( ILCPLX ) {
 
             // 2nd Eigenvalue/-vector of pair -- do nothing
 
@@ -74,16 +74,16 @@
             SALFR = ALPHAR( JVEC )
             SALFI = ALPHAI( JVEC )
             SBETA = BETA( JVEC )
-            IF( SALFI.EQ.ZERO ) THEN
+            if ( SALFI.EQ.ZERO ) {
 
                // Real eigenvalue and -vector
 
                ABMAX = MAX( ABS( SALFR ), ABS( SBETA ) )
-               IF( ABS( SALFR ).GT.ALFMAX .OR. ABS( SBETA ).GT. BETMAX .OR. ABMAX.LT.ONE ) THEN
+               if ( ABS( SALFR ).GT.ALFMAX .OR. ABS( SBETA ).GT. BETMAX .OR. ABMAX.LT.ONE ) {
                   SCALE = ONE / MAX( ABMAX, SAFMIN )
                   SALFR = SCALE*SALFR
                   SBETA = SCALE*SBETA
-               END IF
+               }
                SCALE = ONE / MAX( ABS( SALFR )*BNORM, ABS( SBETA )*ANORM, SAFMIN )
                ACOEF = SCALE*SBETA
                BCOEFR = SCALE*SALFR
@@ -93,30 +93,30 @@
                // Complex conjugate pair
 
                ILCPLX = .TRUE.
-               IF( JVEC.EQ.N ) THEN
+               if ( JVEC.EQ.N ) {
                   RESULT( 1 ) = TEN / ULP
                   RETURN
-               END IF
+               }
                ABMAX = MAX( ABS( SALFR )+ABS( SALFI ), ABS( SBETA ) )
-               IF( ABS( SALFR )+ABS( SALFI ).GT.ALFMAX .OR. ABS( SBETA ).GT.BETMAX .OR. ABMAX.LT.ONE ) THEN
+               if ( ABS( SALFR )+ABS( SALFI ).GT.ALFMAX .OR. ABS( SBETA ).GT.BETMAX .OR. ABMAX.LT.ONE ) {
                   SCALE = ONE / MAX( ABMAX, SAFMIN )
                   SALFR = SCALE*SALFR
                   SALFI = SCALE*SALFI
                   SBETA = SCALE*SBETA
-               END IF
+               }
                SCALE = ONE / MAX( ( ABS( SALFR )+ABS( SALFI ) )*BNORM, ABS( SBETA )*ANORM, SAFMIN )
                ACOEF = SCALE*SBETA
                BCOEFR = SCALE*SALFR
                BCOEFI = SCALE*SALFI
-               IF( LEFT ) THEN
+               if ( LEFT ) {
                   BCOEFI = -BCOEFI
-               END IF
+               }
 
                CALL DGEMV( TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC ), 1, ZERO, WORK( N*( JVEC-1 )+1 ), 1 )                CALL DGEMV( TRANS, N, N, -BCOEFR, B, LDA, E( 1, JVEC ), 1, ONE, WORK( N*( JVEC-1 )+1 ), 1 )                CALL DGEMV( TRANS, N, N, BCOEFI, B, LDA, E( 1, JVEC+1 ), 1, ONE, WORK( N*( JVEC-1 )+1 ), 1 )
 
                CALL DGEMV( TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC+1 ), 1, ZERO, WORK( N*JVEC+1 ), 1 )                CALL DGEMV( TRANS, N, N, -BCOEFI, B, LDA, E( 1, JVEC ), 1, ONE, WORK( N*JVEC+1 ), 1 )                CALL DGEMV( TRANS, N, N, -BCOEFR, B, LDA, E( 1, JVEC+1 ), 1, ONE, WORK( N*JVEC+1 ), 1 )
-            END IF
-         END IF
+            }
+         }
    10 CONTINUE
 
       ERRNRM = DLANGE( 'One', N, N, WORK, N, WORK( N**2+1 ) ) / ENORM
@@ -130,11 +130,11 @@
       ENRMER = ZERO
       ILCPLX = .FALSE.
       DO 40 JVEC = 1, N
-         IF( ILCPLX ) THEN
+         if ( ILCPLX ) {
             ILCPLX = .FALSE.
          } else {
             TEMP1 = ZERO
-            IF( ALPHAI( JVEC ).EQ.ZERO ) THEN
+            if ( ALPHAI( JVEC ).EQ.ZERO ) {
                DO 20 J = 1, N
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) ) )
    20          CONTINUE
@@ -145,8 +145,8 @@
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) )
    30          CONTINUE
                ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )
-            END IF
-         END IF
+            }
+         }
    40 CONTINUE
 
       // Compute RESULT(2) : the normalization error in E.

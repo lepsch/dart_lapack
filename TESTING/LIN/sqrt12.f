@@ -40,10 +40,10 @@
 
       // Test that enough workspace is supplied
 
-      IF( LWORK.LT.MAX( M*N+4*MIN( M, N )+MAX( M, N ), M*N+2*MIN( M, N )+4*N) ) THEN
+      if ( LWORK.LT.MAX( M*N+4*MIN( M, N )+MAX( M, N ), M*N+2*MIN( M, N )+4*N) ) {
          CALL XERBLA( 'SQRT12', 7 )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -70,41 +70,41 @@
 
       ANRM = SLANGE( 'M', M, N, WORK, M, DUMMY )
       ISCL = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, WORK, M, INFO )
          ISCL = 1
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, WORK, M, INFO )
          ISCL = 1
-      END IF
+      }
 
-      IF( ANRM.NE.ZERO ) THEN
+      if ( ANRM.NE.ZERO ) {
 
          // Compute SVD of work
 
          CALL SGEBD2( M, N, WORK, M, WORK( M*N+1 ), WORK( M*N+MN+1 ), WORK( M*N+2*MN+1 ), WORK( M*N+3*MN+1 ), WORK( M*N+4*MN+1 ), INFO )          CALL SBDSQR( 'Upper', MN, 0, 0, 0, WORK( M*N+1 ), WORK( M*N+MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, WORK( M*N+2*MN+1 ), INFO )
 
-         IF( ISCL.EQ.1 ) THEN
-            IF( ANRM.GT.BIGNUM ) THEN
+         if ( ISCL.EQ.1 ) {
+            if ( ANRM.GT.BIGNUM ) {
                CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MN, 1, WORK( M*N+1 ), MN, INFO )
-            END IF
-            IF( ANRM.LT.SMLNUM ) THEN
+            }
+            if ( ANRM.LT.SMLNUM ) {
                CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MN, 1, WORK( M*N+1 ), MN, INFO )
-            END IF
-         END IF
+            }
+         }
 
       } else {
 
          DO I = 1, MN
             WORK( M*N+I ) = ZERO
          END DO
-      END IF
+      }
 
       // Compare s and singular values of work
 

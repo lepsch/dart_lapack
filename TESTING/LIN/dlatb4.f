@@ -45,7 +45,7 @@
 
       // Set some constants for use in the subroutine.
 
-      IF( FIRST ) THEN
+      if ( FIRST ) {
          FIRST = .FALSE.
          EPS = DLAMCH( 'Precision' )
          BADC2 = TENTH / EPS
@@ -54,7 +54,7 @@
          LARGE = ONE / SMALL
          SMALL = SHRINK*( SMALL / EPS )
          LARGE = ONE / SMALL
-      END IF
+      }
 
       C2 = PATH( 2: 3 )
 
@@ -63,7 +63,7 @@
       DIST = 'S'
       MODE = 3
 
-      IF( LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR. LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) THEN
+      if ( LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR. LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) {
 
          // xQR, xLQ, xQL, xRQ:  Set parameters to generate a general
                               // M x N matrix.
@@ -74,39 +74,39 @@
 
          // Set the lower and upper bandwidths.
 
-         IF( IMAT.EQ.1 ) THEN
+         if ( IMAT.EQ.1 ) {
             KL = 0
             KU = 0
-         ELSE IF( IMAT.EQ.2 ) THEN
+         } else if ( IMAT.EQ.2 ) {
             KL = 0
             KU = MAX( N-1, 0 )
-         ELSE IF( IMAT.EQ.3 ) THEN
+         } else if ( IMAT.EQ.3 ) {
             KL = MAX( M-1, 0 )
             KU = 0
          } else {
             KL = MAX( M-1, 0 )
             KU = MAX( N-1, 0 )
-         END IF
+         }
 
          // Set the condition number and norm.
 
-         IF( IMAT.EQ.5 ) THEN
+         if ( IMAT.EQ.5 ) {
             CNDNUM = BADC1
-         ELSE IF( IMAT.EQ.6 ) THEN
+         } else if ( IMAT.EQ.6 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
-         END IF
+         }
 
-         IF( IMAT.EQ.7 ) THEN
+         if ( IMAT.EQ.7 ) {
             ANORM = SMALL
-         ELSE IF( IMAT.EQ.8 ) THEN
+         } else if ( IMAT.EQ.8 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'QK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'QK' ) ) {
 
          // xQK: truncated QR with pivoting.
               // Set parameters to generate a general
@@ -123,7 +123,7 @@
 
          // Set the lower and upper bandwidths.
 
-         IF( IMAT.EQ.2 ) THEN
+         if ( IMAT.EQ.2 ) {
 
             // 2. Random, Diagonal, CNDNUM = 2
 
@@ -132,7 +132,7 @@
             CNDNUM = TWO
             ANORM = ONE
             MODE = 3
-         ELSE IF( IMAT.EQ.3 ) THEN
+         } else if ( IMAT.EQ.3 ) {
 
             // 3. Random, Upper triangular,  CNDNUM = 2
 
@@ -141,7 +141,7 @@
             CNDNUM = TWO
             ANORM = ONE
             MODE = 3
-         ELSE IF( IMAT.EQ.4 ) THEN
+         } else if ( IMAT.EQ.4 ) {
 
            // 4. Random, Lower triangular,  CNDNUM = 2
 
@@ -157,7 +157,7 @@
             KL = MAX( M-1, 0 )
             KU = MAX( N-1, 0 )
 
-            IF( IMAT.GE.5 .AND. IMAT.LE.14 ) THEN
+            if ( IMAT.GE.5 .AND. IMAT.LE.14 ) {
 
                // 5.-14. Random, CNDNUM = 2.
 
@@ -165,7 +165,7 @@
                ANORM = ONE
                MODE = 3
 
-            ELSE IF( IMAT.EQ.15 ) THEN
+            } else if ( IMAT.EQ.15 ) {
 
                // 15. Random, CNDNUM = sqrt(0.1/EPS)
 
@@ -173,7 +173,7 @@
                ANORM = ONE
                MODE = 3
 
-            ELSE IF( IMAT.EQ.16 ) THEN
+            } else if ( IMAT.EQ.16 ) {
 
                // 16. Random, CNDNUM = 0.1/EPS
 
@@ -181,7 +181,7 @@
                ANORM = ONE
                MODE = 3
 
-            ELSE IF( IMAT.EQ.17 ) THEN
+            } else if ( IMAT.EQ.17 ) {
 
                // 17. Random, CNDNUM = 0.1/EPS,
                    // one small singular value S(N)=1/CNDNUM
@@ -190,7 +190,7 @@
                ANORM = ONE
                MODE = 2
 
-            ELSE IF( IMAT.EQ.18 ) THEN
+            } else if ( IMAT.EQ.18 ) {
 
                // 18. Random, scaled near underflow
 
@@ -198,7 +198,7 @@
                ANORM = SMALL
                MODE = 3
 
-            ELSE IF( IMAT.EQ.19 ) THEN
+            } else if ( IMAT.EQ.19 ) {
 
                // 19. Random, scaled near overflow
 
@@ -206,11 +206,11 @@
                ANORM = LARGE
                MODE = 3
 
-            END IF
+            }
 
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'GE' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GE' ) ) {
 
          // xGE:  Set parameters to generate a general M x N matrix.
 
@@ -220,39 +220,39 @@
 
          // Set the lower and upper bandwidths.
 
-         IF( IMAT.EQ.1 ) THEN
+         if ( IMAT.EQ.1 ) {
             KL = 0
             KU = 0
-         ELSE IF( IMAT.EQ.2 ) THEN
+         } else if ( IMAT.EQ.2 ) {
             KL = 0
             KU = MAX( N-1, 0 )
-         ELSE IF( IMAT.EQ.3 ) THEN
+         } else if ( IMAT.EQ.3 ) {
             KL = MAX( M-1, 0 )
             KU = 0
          } else {
             KL = MAX( M-1, 0 )
             KU = MAX( N-1, 0 )
-         END IF
+         }
 
          // Set the condition number and norm.
 
-         IF( IMAT.EQ.8 ) THEN
+         if ( IMAT.EQ.8 ) {
             CNDNUM = BADC1
-         ELSE IF( IMAT.EQ.9 ) THEN
+         } else if ( IMAT.EQ.9 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
-         END IF
+         }
 
-         IF( IMAT.EQ.10 ) THEN
+         if ( IMAT.EQ.10 ) {
             ANORM = SMALL
-         ELSE IF( IMAT.EQ.11 ) THEN
+         } else if ( IMAT.EQ.11 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // xGB:  Set parameters to generate a general banded matrix.
 
@@ -262,23 +262,23 @@
 
          // Set the condition number and norm.
 
-         IF( IMAT.EQ.5 ) THEN
+         if ( IMAT.EQ.5 ) {
             CNDNUM = BADC1
-         ELSE IF( IMAT.EQ.6 ) THEN
+         } else if ( IMAT.EQ.6 ) {
             CNDNUM = TENTH*BADC2
          } else {
             CNDNUM = TWO
-         END IF
+         }
 
-         IF( IMAT.EQ.7 ) THEN
+         if ( IMAT.EQ.7 ) {
             ANORM = SMALL
-         ELSE IF( IMAT.EQ.8 ) THEN
+         } else if ( IMAT.EQ.8 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GT' ) ) {
 
          // xGT:  Set parameters to generate a general tridiagonal matrix.
 
@@ -288,32 +288,32 @@
 
          // Set the lower and upper bandwidths.
 
-         IF( IMAT.EQ.1 ) THEN
+         if ( IMAT.EQ.1 ) {
             KL = 0
          } else {
             KL = 1
-         END IF
+         }
          KU = KL
 
          // Set the condition number and norm.
 
-         IF( IMAT.EQ.3 ) THEN
+         if ( IMAT.EQ.3 ) {
             CNDNUM = BADC1
-         ELSE IF( IMAT.EQ.4 ) THEN
+         } else if ( IMAT.EQ.4 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
-         END IF
+         }
 
-         IF( IMAT.EQ.5 .OR. IMAT.EQ.11 ) THEN
+         if ( IMAT.EQ.5 .OR. IMAT.EQ.11 ) {
             ANORM = SMALL
-         ELSE IF( IMAT.EQ.6 .OR. IMAT.EQ.12 ) THEN
+         } else if ( IMAT.EQ.6 .OR. IMAT.EQ.12 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'PP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'PP' ) ) {
 
          // xPO, xPP: Set parameters to generate a
          // symmetric positive definite matrix.
@@ -324,33 +324,33 @@
 
          // Set the lower and upper bandwidths.
 
-         IF( IMAT.EQ.1 ) THEN
+         if ( IMAT.EQ.1 ) {
             KL = 0
          } else {
             KL = MAX( N-1, 0 )
-         END IF
+         }
          KU = KL
 
          // Set the condition number and norm.
 
-         IF( IMAT.EQ.6 ) THEN
+         if ( IMAT.EQ.6 ) {
             CNDNUM = BADC1
-         ELSE IF( IMAT.EQ.7 ) THEN
+         } else if ( IMAT.EQ.7 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
-         END IF
+         }
 
-         IF( IMAT.EQ.8 ) THEN
+         if ( IMAT.EQ.8 ) {
             ANORM = SMALL
-         ELSE IF( IMAT.EQ.9 ) THEN
+         } else if ( IMAT.EQ.9 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
-         END IF
+         }
 
 
-      ELSE IF( LSAMEN( 2, C2, 'SY' ) .OR. LSAMEN( 2, C2, 'SP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SY' ) .OR. LSAMEN( 2, C2, 'SP' ) ) {
 
          // xSY, xSP: Set parameters to generate a
          // symmetric matrix.
@@ -361,32 +361,32 @@
 
          // Set the lower and upper bandwidths.
 
-         IF( IMAT.EQ.1 ) THEN
+         if ( IMAT.EQ.1 ) {
             KL = 0
          } else {
             KL = MAX( N-1, 0 )
-         END IF
+         }
          KU = KL
 
          // Set the condition number and norm.
 
-         IF( IMAT.EQ.7 ) THEN
+         if ( IMAT.EQ.7 ) {
             CNDNUM = BADC1
-         ELSE IF( IMAT.EQ.8 ) THEN
+         } else if ( IMAT.EQ.8 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
-         END IF
+         }
 
-         IF( IMAT.EQ.9 ) THEN
+         if ( IMAT.EQ.9 ) {
             ANORM = SMALL
-         ELSE IF( IMAT.EQ.10 ) THEN
+         } else if ( IMAT.EQ.10 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
 
          // xPB:  Set parameters to generate a symmetric band matrix.
 
@@ -396,54 +396,54 @@
 
          // Set the norm and condition number.
 
-         IF( IMAT.EQ.5 ) THEN
+         if ( IMAT.EQ.5 ) {
             CNDNUM = BADC1
-         ELSE IF( IMAT.EQ.6 ) THEN
+         } else if ( IMAT.EQ.6 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
-         END IF
+         }
 
-         IF( IMAT.EQ.7 ) THEN
+         if ( IMAT.EQ.7 ) {
             ANORM = SMALL
-         ELSE IF( IMAT.EQ.8 ) THEN
+         } else if ( IMAT.EQ.8 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
          // xPT:  Set parameters to generate a symmetric positive definite
         t // ridiagonal matrix.
 
          TYPE = 'P'
-         IF( IMAT.EQ.1 ) THEN
+         if ( IMAT.EQ.1 ) {
             KL = 0
          } else {
             KL = 1
-         END IF
+         }
          KU = KL
 
          // Set the condition number and norm.
 
-         IF( IMAT.EQ.3 ) THEN
+         if ( IMAT.EQ.3 ) {
             CNDNUM = BADC1
-         ELSE IF( IMAT.EQ.4 ) THEN
+         } else if ( IMAT.EQ.4 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
-         END IF
+         }
 
-         IF( IMAT.EQ.5 .OR. IMAT.EQ.11 ) THEN
+         if ( IMAT.EQ.5 .OR. IMAT.EQ.11 ) {
             ANORM = SMALL
-         ELSE IF( IMAT.EQ.6 .OR. IMAT.EQ.12 ) THEN
+         } else if ( IMAT.EQ.6 .OR. IMAT.EQ.12 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'TR' ) .OR. LSAMEN( 2, C2, 'TP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TR' ) .OR. LSAMEN( 2, C2, 'TP' ) ) {
 
          // xTR, xTP:  Set parameters to generate a triangular matrix
 
@@ -454,38 +454,38 @@
          // Set the lower and upper bandwidths.
 
          MAT = ABS( IMAT )
-         IF( MAT.EQ.1 .OR. MAT.EQ.7 ) THEN
+         if ( MAT.EQ.1 .OR. MAT.EQ.7 ) {
             KL = 0
             KU = 0
-         ELSE IF( IMAT.LT.0 ) THEN
+         } else if ( IMAT.LT.0 ) {
             KL = MAX( N-1, 0 )
             KU = 0
          } else {
             KL = 0
             KU = MAX( N-1, 0 )
-         END IF
+         }
 
          // Set the condition number and norm.
 
-         IF( MAT.EQ.3 .OR. MAT.EQ.9 ) THEN
+         if ( MAT.EQ.3 .OR. MAT.EQ.9 ) {
             CNDNUM = BADC1
-         ELSE IF( MAT.EQ.4 ) THEN
+         } else if ( MAT.EQ.4 ) {
             CNDNUM = BADC2
-         ELSE IF( MAT.EQ.10 ) THEN
+         } else if ( MAT.EQ.10 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
-         END IF
+         }
 
-         IF( MAT.EQ.5 ) THEN
+         if ( MAT.EQ.5 ) {
             ANORM = SMALL
-         ELSE IF( MAT.EQ.6 ) THEN
+         } else if ( MAT.EQ.6 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'TB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TB' ) ) {
 
          // xTB:  Set parameters to generate a triangular band matrix.
 
@@ -496,22 +496,22 @@
          // Set the norm and condition number.
 
          MAT = ABS( IMAT )
-         IF( MAT.EQ.2 .OR. MAT.EQ.8 ) THEN
+         if ( MAT.EQ.2 .OR. MAT.EQ.8 ) {
             CNDNUM = BADC1
-         ELSE IF( MAT.EQ.3 .OR. MAT.EQ.9 ) THEN
+         } else if ( MAT.EQ.3 .OR. MAT.EQ.9 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
-         END IF
+         }
 
-         IF( MAT.EQ.4 ) THEN
+         if ( MAT.EQ.4 ) {
             ANORM = SMALL
-         ELSE IF( MAT.EQ.5 ) THEN
+         } else if ( MAT.EQ.5 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
-         END IF
-      END IF
+         }
+      }
       IF( N.LE.1 ) CNDNUM = ONE
 
       RETURN

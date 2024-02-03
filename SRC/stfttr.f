@@ -37,28 +37,28 @@
       INFO = 0
       NORMALTRANSR = LSAME( TRANSR, 'N' )
       LOWER = LSAME( UPLO, 'L' )
-      IF( .NOT.NORMALTRANSR .AND. .NOT.LSAME( TRANSR, 'T' ) ) THEN
+      if ( .NOT.NORMALTRANSR .AND. .NOT.LSAME( TRANSR, 'T' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) THEN
+      } else if ( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'STFTTR', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.LE.1 ) THEN
-         IF( N.EQ.1 ) THEN
+      if ( N.LE.1 ) {
+         if ( N.EQ.1 ) {
             A( 0, 0 ) = ARF( 0 )
-         END IF
+         }
          RETURN
-      END IF
+      }
 
       // Size of array ARF(0:nt-1)
 
@@ -66,36 +66,36 @@
 
       // set N1 and N2 depending on LOWER: for N even N1=N2=K
 
-      IF( LOWER ) THEN
+      if ( LOWER ) {
          N2 = N / 2
          N1 = N - N2
       } else {
          N1 = N / 2
          N2 = N - N1
-      END IF
+      }
 
       // If N is odd, set NISODD = .TRUE., LDA=N+1 and A is (N+1)--by--K2.
       // If N is even, set K = N/2 and NISODD = .FALSE., LDA=N and A is
       // N--by--(N+1)/2.
 
-      IF( MOD( N, 2 ).EQ.0 ) THEN
+      if ( MOD( N, 2 ).EQ.0 ) {
          K = N / 2
          NISODD = .FALSE.
          IF( .NOT.LOWER ) NP1X2 = N + N + 2
       } else {
          NISODD = .TRUE.
          IF( .NOT.LOWER ) NX2 = N + N
-      END IF
+      }
 
-      IF( NISODD ) THEN
+      if ( NISODD ) {
 
          // N is odd
 
-         IF( NORMALTRANSR ) THEN
+         if ( NORMALTRANSR ) {
 
             // N is odd and TRANSR = 'N'
 
-            IF( LOWER ) THEN
+            if ( LOWER ) {
 
                // N is odd, TRANSR = 'N', and UPLO = 'L'
 
@@ -128,13 +128,13 @@
                   IJ = IJ - NX2
                END DO
 
-            END IF
+            }
 
          } else {
 
             // N is odd and TRANSR = 'T'
 
-            IF( LOWER ) THEN
+            if ( LOWER ) {
 
                // N is odd, TRANSR = 'T', and UPLO = 'L'
 
@@ -178,19 +178,19 @@
                   END DO
                END DO
 
-            END IF
+            }
 
-         END IF
+         }
 
       } else {
 
          // N is even
 
-         IF( NORMALTRANSR ) THEN
+         if ( NORMALTRANSR ) {
 
             // N is even and TRANSR = 'N'
 
-            IF( LOWER ) THEN
+            if ( LOWER ) {
 
                // N is even, TRANSR = 'N', and UPLO = 'L'
 
@@ -223,13 +223,13 @@
                   IJ = IJ - NP1X2
                END DO
 
-            END IF
+            }
 
          } else {
 
             // N is even and TRANSR = 'T'
 
-            IF( LOWER ) THEN
+            if ( LOWER ) {
 
                // N is even, TRANSR = 'T', and UPLO = 'L'
 
@@ -283,11 +283,11 @@
                   IJ = IJ + 1
                END DO
 
-            END IF
+            }
 
-         END IF
+         }
 
-      END IF
+      }
 
       RETURN
 

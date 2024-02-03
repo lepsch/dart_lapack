@@ -39,25 +39,25 @@
 
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KL.LT.0 ) THEN
+      } else if ( KL.LT.0 ) {
          INFO = -3
-      ELSE IF( KU.LT.0 ) THEN
+      } else if ( KU.LT.0 ) {
          INFO = -4
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -5
-      ELSE IF( LDAB.LT.( 2*KL+KU+1 ) ) THEN
+      } else if ( LDAB.LT.( 2*KL+KU+1 ) ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -10
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGBTRS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -66,7 +66,7 @@
       KD = KU + KL + 1
       LNOTI = KL.GT.0
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
 
          // Solve  A*X = B.
 
@@ -77,13 +77,13 @@
          // where each transformation L(i) is a rank-one modification of
         t // he identity matrix.
 
-         IF( LNOTI ) THEN
+         if ( LNOTI ) {
             DO 10 J = 1, N - 1
                LM = MIN( KL, N-J )
                L = IPIV( J )
                IF( L.NE.J ) CALL ZSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )                CALL ZGERU( LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB )
    10       CONTINUE
-         END IF
+         }
 
          DO 20 I = 1, NRHS
 
@@ -92,7 +92,7 @@
             CALL ZTBSV( 'Upper', 'No transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 )
    20    CONTINUE
 
-      ELSE IF( LSAME( TRANS, 'T' ) ) THEN
+      } else if ( LSAME( TRANS, 'T' ) ) {
 
          // Solve A**T * X = B.
 
@@ -105,14 +105,14 @@
 
          // Solve L**T * X = B, overwriting B with X.
 
-         IF( LNOTI ) THEN
+         if ( LNOTI ) {
             DO 40 J = N - 1, 1, -1
                LM = MIN( KL, N-J )
                CALL ZGEMV( 'Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB )
                L = IPIV( J )
                IF( L.NE.J ) CALL ZSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )
    40       CONTINUE
-         END IF
+         }
 
       } else {
 
@@ -127,7 +127,7 @@
 
          // Solve L**H * X = B, overwriting B with X.
 
-         IF( LNOTI ) THEN
+         if ( LNOTI ) {
             DO 60 J = N - 1, 1, -1
                LM = MIN( KL, N-J )
                CALL ZLACGV( NRHS, B( J, 1 ), LDB )
@@ -136,8 +136,8 @@
                L = IPIV( J )
                IF( L.NE.J ) CALL ZSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )
    60       CONTINUE
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of ZGBTRS

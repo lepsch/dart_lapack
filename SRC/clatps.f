@@ -55,21 +55,21 @@
 
       // Test the input parameters.
 
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
+      } else if ( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
-      ELSE IF( .NOT.LSAME( NORMIN, 'Y' ) .AND. .NOT. LSAME( NORMIN, 'N' ) ) THEN
+      } else if ( .NOT.LSAME( NORMIN, 'Y' ) .AND. .NOT. LSAME( NORMIN, 'N' ) ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CLATPS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -83,11 +83,11 @@
       BIGNUM = ONE / SMLNUM
       SCALE = ONE
 
-      IF( LSAME( NORMIN, 'N' ) ) THEN
+      if ( LSAME( NORMIN, 'N' ) ) {
 
          // Compute the 1-norm of each column, not including the diagonal.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
 
             // A is upper triangular.
 
@@ -106,20 +106,20 @@
                IP = IP + N - J + 1
    20       CONTINUE
             CNORM( N ) = ZERO
-         END IF
-      END IF
+         }
+      }
 
       // Scale the column norms by TSCAL if the maximum element in CNORM is
       // greater than BIGNUM/2.
 
       IMAX = ISAMAX( N, CNORM, 1 )
       TMAX = CNORM( IMAX )
-      IF( TMAX.LE.BIGNUM*HALF ) THEN
+      if ( TMAX.LE.BIGNUM*HALF ) {
          TSCAL = ONE
       } else {
          TSCAL = HALF / ( SMLNUM*TMAX )
          CALL SSCAL( N, TSCAL, CNORM, 1 )
-      END IF
+      }
 
       // Compute a bound on the computed solution vector to see if the
       // Level 2 BLAS routine CTPSV can be used.
@@ -129,11 +129,11 @@
          XMAX = MAX( XMAX, CABS2( X( J ) ) )
    30 CONTINUE
       XBND = XMAX
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
 
          // Compute the growth in A * x = b.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JFIRST = N
             JLAST = 1
             JINC = -1
@@ -141,14 +141,14 @@
             JFIRST = 1
             JLAST = N
             JINC = 1
-         END IF
+         }
 
-         IF( TSCAL.NE.ONE ) THEN
+         if ( TSCAL.NE.ONE ) {
             GROW = ZERO
             GO TO 60
-         END IF
+         }
 
-         IF( NOUNIT ) THEN
+         if ( NOUNIT ) {
 
             // A is non-unit triangular.
 
@@ -168,7 +168,7 @@
                TJJS = AP( IP )
                TJJ = CABS1( TJJS )
 
-               IF( TJJ.GE.SMLNUM ) THEN
+               if ( TJJ.GE.SMLNUM ) {
 
                   // M(j) = G(j-1) / abs(A(j,j))
 
@@ -178,9 +178,9 @@
                   // M(j) could overflow, set XBND to 0.
 
                   XBND = ZERO
-               END IF
+               }
 
-               IF( TJJ+CNORM( J ).GE.SMLNUM ) THEN
+               if ( TJJ+CNORM( J ).GE.SMLNUM ) {
 
                   // G(j) = G(j-1)*( 1 + CNORM(j) / abs(A(j,j)) )
 
@@ -190,7 +190,7 @@
                   // G(j) could overflow, set GROW to 0.
 
                   GROW = ZERO
-               END IF
+               }
                IP = IP + JINC*JLEN
                JLEN = JLEN - 1
    40       CONTINUE
@@ -212,14 +212,14 @@
 
                GROW = GROW*( ONE / ( ONE+CNORM( J ) ) )
    50       CONTINUE
-         END IF
+         }
    60    CONTINUE
 
       } else {
 
          // Compute the growth in A**T * x = b  or  A**H * x = b.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JFIRST = 1
             JLAST = N
             JINC = 1
@@ -227,14 +227,14 @@
             JFIRST = N
             JLAST = 1
             JINC = -1
-         END IF
+         }
 
-         IF( TSCAL.NE.ONE ) THEN
+         if ( TSCAL.NE.ONE ) {
             GROW = ZERO
             GO TO 90
-         END IF
+         }
 
-         IF( NOUNIT ) THEN
+         if ( NOUNIT ) {
 
             // A is non-unit triangular.
 
@@ -259,7 +259,7 @@
                TJJS = AP( IP )
                TJJ = CABS1( TJJS )
 
-               IF( TJJ.GE.SMLNUM ) THEN
+               if ( TJJ.GE.SMLNUM ) {
 
                   // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
@@ -269,7 +269,7 @@
                   // M(j) could overflow, set XBND to 0.
 
                   XBND = ZERO
-               END IF
+               }
                JLEN = JLEN + 1
                IP = IP + JINC*JLEN
    70       CONTINUE
@@ -292,11 +292,11 @@
                XJ = ONE + CNORM( J )
                GROW = GROW / XJ
    80       CONTINUE
-         END IF
+         }
    90    CONTINUE
-      END IF
+      }
 
-      IF( ( GROW*TSCAL ).GT.SMLNUM ) THEN
+      if ( ( GROW*TSCAL ).GT.SMLNUM ) {
 
          // Use the Level 2 BLAS solve if the reciprocal of the bound on
          // elements of X is not too small.
@@ -306,7 +306,7 @@
 
          // Use a Level 1 BLAS solve, scaling intermediate results.
 
-         IF( XMAX.GT.BIGNUM*HALF ) THEN
+         if ( XMAX.GT.BIGNUM*HALF ) {
 
             // Scale X so that its components are less than or equal to
             // BIGNUM in absolute value.
@@ -316,9 +316,9 @@
             XMAX = BIGNUM
          } else {
             XMAX = XMAX*TWO
-         END IF
+         }
 
-         IF( NOTRAN ) THEN
+         if ( NOTRAN ) {
 
             // Solve A * x = b
 
@@ -328,19 +328,19 @@
                // Compute x(j) = b(j) / A(j,j), scaling x if necessary.
 
                XJ = CABS1( X( J ) )
-               IF( NOUNIT ) THEN
+               if ( NOUNIT ) {
                   TJJS = AP( IP )*TSCAL
                } else {
                   TJJS = TSCAL
                   IF( TSCAL.EQ.ONE ) GO TO 105
-               END IF
+               }
                   TJJ = CABS1( TJJS )
-                  IF( TJJ.GT.SMLNUM ) THEN
+                  if ( TJJ.GT.SMLNUM ) {
 
                      // abs(A(j,j)) > SMLNUM:
 
-                     IF( TJJ.LT.ONE ) THEN
-                        IF( XJ.GT.TJJ*BIGNUM ) THEN
+                     if ( TJJ.LT.ONE ) {
+                        if ( XJ.GT.TJJ*BIGNUM ) {
 
                            // Scale x by 1/b(j).
 
@@ -348,31 +348,31 @@
                            CALL CSSCAL( N, REC, X, 1 )
                            SCALE = SCALE*REC
                            XMAX = XMAX*REC
-                        END IF
-                     END IF
+                        }
+                     }
                      X( J ) = CLADIV( X( J ), TJJS )
                      XJ = CABS1( X( J ) )
-                  ELSE IF( TJJ.GT.ZERO ) THEN
+                  } else if ( TJJ.GT.ZERO ) {
 
                      // 0 < abs(A(j,j)) <= SMLNUM:
 
-                     IF( XJ.GT.TJJ*BIGNUM ) THEN
+                     if ( XJ.GT.TJJ*BIGNUM ) {
 
                         // Scale x by (1/abs(x(j)))*abs(A(j,j))*BIGNUM
                        t // o avoid overflow when dividing by A(j,j).
 
                         REC = ( TJJ*BIGNUM ) / XJ
-                        IF( CNORM( J ).GT.ONE ) THEN
+                        if ( CNORM( J ).GT.ONE ) {
 
                            // Scale by 1/CNORM(j) to avoid overflow when
                            // multiplying x(j) times column j.
 
                            REC = REC / CNORM( J )
-                        END IF
+                        }
                         CALL CSSCAL( N, REC, X, 1 )
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
-                     END IF
+                     }
                      X( J ) = CLADIV( X( J ), TJJS )
                      XJ = CABS1( X( J ) )
                   } else {
@@ -387,32 +387,32 @@
                      XJ = ONE
                      SCALE = ZERO
                      XMAX = ZERO
-                  END IF
+                  }
   105          CONTINUE
 
                // Scale x if necessary to avoid overflow when adding a
                // multiple of column j of A.
 
-               IF( XJ.GT.ONE ) THEN
+               if ( XJ.GT.ONE ) {
                   REC = ONE / XJ
-                  IF( CNORM( J ).GT.( BIGNUM-XMAX )*REC ) THEN
+                  if ( CNORM( J ).GT.( BIGNUM-XMAX )*REC ) {
 
                      // Scale x by 1/(2*abs(x(j))).
 
                      REC = REC*HALF
                      CALL CSSCAL( N, REC, X, 1 )
                      SCALE = SCALE*REC
-                  END IF
-               ELSE IF( XJ*CNORM( J ).GT.( BIGNUM-XMAX ) ) THEN
+                  }
+               } else if ( XJ*CNORM( J ).GT.( BIGNUM-XMAX ) ) {
 
                   // Scale x by 1/2.
 
                   CALL CSSCAL( N, HALF, X, 1 )
                   SCALE = SCALE*HALF
-               END IF
+               }
 
-               IF( UPPER ) THEN
-                  IF( J.GT.1 ) THEN
+               if ( UPPER ) {
+                  if ( J.GT.1 ) {
 
                      // Compute the update
                         // x(1:j-1) := x(1:j-1) - x(j) * A(1:j-1,j)
@@ -420,10 +420,10 @@
                      CALL CAXPY( J-1, -X( J )*TSCAL, AP( IP-J+1 ), 1, X, 1 )
                      I = ICAMAX( J-1, X, 1 )
                      XMAX = CABS1( X( I ) )
-                  END IF
+                  }
                   IP = IP - J
                } else {
-                  IF( J.LT.N ) THEN
+                  if ( J.LT.N ) {
 
                      // Compute the update
                         // x(j+1:n) := x(j+1:n) - x(j) * A(j+1:n,j)
@@ -431,12 +431,12 @@
                      CALL CAXPY( N-J, -X( J )*TSCAL, AP( IP+1 ), 1, X( J+1 ), 1 )
                      I = J + ICAMAX( N-J, X( J+1 ), 1 )
                      XMAX = CABS1( X( I ) )
-                  END IF
+                  }
                   IP = IP + N - J + 1
-               END IF
+               }
   110       CONTINUE
 
-         ELSE IF( LSAME( TRANS, 'T' ) ) THEN
+         } else if ( LSAME( TRANS, 'T' ) ) {
 
             // Solve A**T * x = b
 
@@ -450,65 +450,65 @@
                XJ = CABS1( X( J ) )
                USCAL = TSCAL
                REC = ONE / MAX( XMAX, ONE )
-               IF( CNORM( J ).GT.( BIGNUM-XJ )*REC ) THEN
+               if ( CNORM( J ).GT.( BIGNUM-XJ )*REC ) {
 
                   // If x(j) could overflow, scale x by 1/(2*XMAX).
 
                   REC = REC*HALF
-                  IF( NOUNIT ) THEN
+                  if ( NOUNIT ) {
                      TJJS = AP( IP )*TSCAL
                   } else {
                      TJJS = TSCAL
-                  END IF
+                  }
                      TJJ = CABS1( TJJS )
-                     IF( TJJ.GT.ONE ) THEN
+                     if ( TJJ.GT.ONE ) {
 
                         // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
                         REC = MIN( ONE, REC*TJJ )
                         USCAL = CLADIV( USCAL, TJJS )
-                     END IF
-                  IF( REC.LT.ONE ) THEN
+                     }
+                  if ( REC.LT.ONE ) {
                      CALL CSSCAL( N, REC, X, 1 )
                      SCALE = SCALE*REC
                      XMAX = XMAX*REC
-                  END IF
-               END IF
+                  }
+               }
 
                CSUMJ = ZERO
-               IF( USCAL.EQ.CMPLX( ONE ) ) THEN
+               if ( USCAL.EQ.CMPLX( ONE ) ) {
 
                   // If the scaling needed for A in the dot product is 1,
                   // call CDOTU to perform the dot product.
 
-                  IF( UPPER ) THEN
+                  if ( UPPER ) {
                      CSUMJ = CDOTU( J-1, AP( IP-J+1 ), 1, X, 1 )
-                  ELSE IF( J.LT.N ) THEN
+                  } else if ( J.LT.N ) {
                      CSUMJ = CDOTU( N-J, AP( IP+1 ), 1, X( J+1 ), 1 )
-                  END IF
+                  }
                } else {
 
                   // Otherwise, use in-line code for the dot product.
 
-                  IF( UPPER ) THEN
+                  if ( UPPER ) {
                      DO 120 I = 1, J - 1
                         CSUMJ = CSUMJ + ( AP( IP-J+I )*USCAL )*X( I )
   120                CONTINUE
-                  ELSE IF( J.LT.N ) THEN
+                  } else if ( J.LT.N ) {
                      DO 130 I = 1, N - J
                         CSUMJ = CSUMJ + ( AP( IP+I )*USCAL )*X( J+I )
   130                CONTINUE
-                  END IF
-               END IF
+                  }
+               }
 
-               IF( USCAL.EQ.CMPLX( TSCAL ) ) THEN
+               if ( USCAL.EQ.CMPLX( TSCAL ) ) {
 
                   // Compute x(j) := ( x(j) - CSUMJ ) / A(j,j) if 1/A(j,j)
                   // was not used to scale the dotproduct.
 
                   X( J ) = X( J ) - CSUMJ
                   XJ = CABS1( X( J ) )
-                  IF( NOUNIT ) THEN
+                  if ( NOUNIT ) {
 
                      // Compute x(j) = x(j) / A(j,j), scaling if necessary.
 
@@ -516,14 +516,14 @@
                   } else {
                      TJJS = TSCAL
                      IF( TSCAL.EQ.ONE ) GO TO 145
-                  END IF
+                  }
                      TJJ = CABS1( TJJS )
-                     IF( TJJ.GT.SMLNUM ) THEN
+                     if ( TJJ.GT.SMLNUM ) {
 
                         // abs(A(j,j)) > SMLNUM:
 
-                        IF( TJJ.LT.ONE ) THEN
-                           IF( XJ.GT.TJJ*BIGNUM ) THEN
+                        if ( TJJ.LT.ONE ) {
+                           if ( XJ.GT.TJJ*BIGNUM ) {
 
                               // Scale X by 1/abs(x(j)).
 
@@ -531,14 +531,14 @@
                               CALL CSSCAL( N, REC, X, 1 )
                               SCALE = SCALE*REC
                               XMAX = XMAX*REC
-                           END IF
-                        END IF
+                           }
+                        }
                         X( J ) = CLADIV( X( J ), TJJS )
-                     ELSE IF( TJJ.GT.ZERO ) THEN
+                     } else if ( TJJ.GT.ZERO ) {
 
                         // 0 < abs(A(j,j)) <= SMLNUM:
 
-                        IF( XJ.GT.TJJ*BIGNUM ) THEN
+                        if ( XJ.GT.TJJ*BIGNUM ) {
 
                            // Scale x by (1/abs(x(j)))*abs(A(j,j))*BIGNUM.
 
@@ -546,7 +546,7 @@
                            CALL CSSCAL( N, REC, X, 1 )
                            SCALE = SCALE*REC
                            XMAX = XMAX*REC
-                        END IF
+                        }
                         X( J ) = CLADIV( X( J ), TJJS )
                      } else {
 
@@ -559,7 +559,7 @@
                         X( J ) = ONE
                         SCALE = ZERO
                         XMAX = ZERO
-                     END IF
+                     }
   145             CONTINUE
                } else {
 
@@ -567,7 +567,7 @@
                   // product has already been divided by 1/A(j,j).
 
                   X( J ) = CLADIV( X( J ), TJJS ) - CSUMJ
-               END IF
+               }
                XMAX = MAX( XMAX, CABS1( X( J ) ) )
                JLEN = JLEN + 1
                IP = IP + JINC*JLEN
@@ -587,65 +587,65 @@
                XJ = CABS1( X( J ) )
                USCAL = TSCAL
                REC = ONE / MAX( XMAX, ONE )
-               IF( CNORM( J ).GT.( BIGNUM-XJ )*REC ) THEN
+               if ( CNORM( J ).GT.( BIGNUM-XJ )*REC ) {
 
                   // If x(j) could overflow, scale x by 1/(2*XMAX).
 
                   REC = REC*HALF
-                  IF( NOUNIT ) THEN
+                  if ( NOUNIT ) {
                      TJJS = CONJG( AP( IP ) )*TSCAL
                   } else {
                      TJJS = TSCAL
-                  END IF
+                  }
                      TJJ = CABS1( TJJS )
-                     IF( TJJ.GT.ONE ) THEN
+                     if ( TJJ.GT.ONE ) {
 
                         // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
                         REC = MIN( ONE, REC*TJJ )
                         USCAL = CLADIV( USCAL, TJJS )
-                     END IF
-                  IF( REC.LT.ONE ) THEN
+                     }
+                  if ( REC.LT.ONE ) {
                      CALL CSSCAL( N, REC, X, 1 )
                      SCALE = SCALE*REC
                      XMAX = XMAX*REC
-                  END IF
-               END IF
+                  }
+               }
 
                CSUMJ = ZERO
-               IF( USCAL.EQ.CMPLX( ONE ) ) THEN
+               if ( USCAL.EQ.CMPLX( ONE ) ) {
 
                   // If the scaling needed for A in the dot product is 1,
                   // call CDOTC to perform the dot product.
 
-                  IF( UPPER ) THEN
+                  if ( UPPER ) {
                      CSUMJ = CDOTC( J-1, AP( IP-J+1 ), 1, X, 1 )
-                  ELSE IF( J.LT.N ) THEN
+                  } else if ( J.LT.N ) {
                      CSUMJ = CDOTC( N-J, AP( IP+1 ), 1, X( J+1 ), 1 )
-                  END IF
+                  }
                } else {
 
                   // Otherwise, use in-line code for the dot product.
 
-                  IF( UPPER ) THEN
+                  if ( UPPER ) {
                      DO 160 I = 1, J - 1
                         CSUMJ = CSUMJ + ( CONJG( AP( IP-J+I ) )*USCAL )* X( I )
   160                CONTINUE
-                  ELSE IF( J.LT.N ) THEN
+                  } else if ( J.LT.N ) {
                      DO 170 I = 1, N - J
                         CSUMJ = CSUMJ + ( CONJG( AP( IP+I ) )*USCAL )* X( J+I )
   170                CONTINUE
-                  END IF
-               END IF
+                  }
+               }
 
-               IF( USCAL.EQ.CMPLX( TSCAL ) ) THEN
+               if ( USCAL.EQ.CMPLX( TSCAL ) ) {
 
                   // Compute x(j) := ( x(j) - CSUMJ ) / A(j,j) if 1/A(j,j)
                   // was not used to scale the dotproduct.
 
                   X( J ) = X( J ) - CSUMJ
                   XJ = CABS1( X( J ) )
-                  IF( NOUNIT ) THEN
+                  if ( NOUNIT ) {
 
                      // Compute x(j) = x(j) / A(j,j), scaling if necessary.
 
@@ -653,14 +653,14 @@
                   } else {
                      TJJS = TSCAL
                      IF( TSCAL.EQ.ONE ) GO TO 185
-                  END IF
+                  }
                      TJJ = CABS1( TJJS )
-                     IF( TJJ.GT.SMLNUM ) THEN
+                     if ( TJJ.GT.SMLNUM ) {
 
                         // abs(A(j,j)) > SMLNUM:
 
-                        IF( TJJ.LT.ONE ) THEN
-                           IF( XJ.GT.TJJ*BIGNUM ) THEN
+                        if ( TJJ.LT.ONE ) {
+                           if ( XJ.GT.TJJ*BIGNUM ) {
 
                               // Scale X by 1/abs(x(j)).
 
@@ -668,14 +668,14 @@
                               CALL CSSCAL( N, REC, X, 1 )
                               SCALE = SCALE*REC
                               XMAX = XMAX*REC
-                           END IF
-                        END IF
+                           }
+                        }
                         X( J ) = CLADIV( X( J ), TJJS )
-                     ELSE IF( TJJ.GT.ZERO ) THEN
+                     } else if ( TJJ.GT.ZERO ) {
 
                         // 0 < abs(A(j,j)) <= SMLNUM:
 
-                        IF( XJ.GT.TJJ*BIGNUM ) THEN
+                        if ( XJ.GT.TJJ*BIGNUM ) {
 
                            // Scale x by (1/abs(x(j)))*abs(A(j,j))*BIGNUM.
 
@@ -683,7 +683,7 @@
                            CALL CSSCAL( N, REC, X, 1 )
                            SCALE = SCALE*REC
                            XMAX = XMAX*REC
-                        END IF
+                        }
                         X( J ) = CLADIV( X( J ), TJJS )
                      } else {
 
@@ -696,7 +696,7 @@
                         X( J ) = ONE
                         SCALE = ZERO
                         XMAX = ZERO
-                     END IF
+                     }
   185             CONTINUE
                } else {
 
@@ -704,20 +704,20 @@
                   // product has already been divided by 1/A(j,j).
 
                   X( J ) = CLADIV( X( J ), TJJS ) - CSUMJ
-               END IF
+               }
                XMAX = MAX( XMAX, CABS1( X( J ) ) )
                JLEN = JLEN + 1
                IP = IP + JINC*JLEN
   190       CONTINUE
-         END IF
+         }
          SCALE = SCALE / TSCAL
-      END IF
+      }
 
       // Scale the column norms by 1/TSCAL for return.
 
-      IF( TSCAL.NE.ONE ) THEN
+      if ( TSCAL.NE.ONE ) {
          CALL SSCAL( N, ONE / TSCAL, CNORM, 1 )
-      END IF
+      }
 
       RETURN
 

@@ -54,44 +54,44 @@
       M = 0
       PAIR = .FALSE.
       DO 10 K = 1, N
-         IF( PAIR ) THEN
+         if ( PAIR ) {
             PAIR = .FALSE.
             SELECT( K ) = .FALSE.
          } else {
-            IF( WI( K ).EQ.ZERO ) THEN
+            if ( WI( K ).EQ.ZERO ) {
                IF( SELECT( K ) ) M = M + 1
             } else {
                PAIR = .TRUE.
-               IF( SELECT( K ) .OR. SELECT( K+1 ) ) THEN
+               if ( SELECT( K ) .OR. SELECT( K+1 ) ) {
                   SELECT( K ) = .TRUE.
                   M = M + 2
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
    10 CONTINUE
 
       INFO = 0
-      IF( .NOT.RIGHTV .AND. .NOT.LEFTV ) THEN
+      if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
          INFO = -1
-      ELSE IF( .NOT.FROMQR .AND. .NOT.LSAME( EIGSRC, 'N' ) ) THEN
+      } else if ( .NOT.FROMQR .AND. .NOT.LSAME( EIGSRC, 'N' ) ) {
          INFO = -2
-      ELSE IF( .NOT.NOINIT .AND. .NOT.LSAME( INITV, 'U' ) ) THEN
+      } else if ( .NOT.NOINIT .AND. .NOT.LSAME( INITV, 'U' ) ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( LDH.LT.MAX( 1, N ) ) THEN
+      } else if ( LDH.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDVL.LT.1 .OR. ( LEFTV .AND. LDVL.LT.N ) ) THEN
+      } else if ( LDVL.LT.1 .OR. ( LEFTV .AND. LDVL.LT.N ) ) {
          INFO = -11
-      ELSE IF( LDVR.LT.1 .OR. ( RIGHTV .AND. LDVR.LT.N ) ) THEN
+      } else if ( LDVR.LT.1 .OR. ( RIGHTV .AND. LDVR.LT.N ) ) {
          INFO = -13
-      ELSE IF( MM.LT.M ) THEN
+      } else if ( MM.LT.M ) {
          INFO = -14
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DHSEIN', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -108,19 +108,19 @@
 
       KL = 1
       KLN = 0
-      IF( FROMQR ) THEN
+      if ( FROMQR ) {
          KR = 0
       } else {
          KR = N
-      END IF
+      }
       KSR = 1
 
       DO 120 K = 1, N
-         IF( SELECT( K ) ) THEN
+         if ( SELECT( K ) ) {
 
             // Compute eigenvector(s) corresponding to W(K).
 
-            IF( FROMQR ) THEN
+            if ( FROMQR ) {
 
                // If affiliation of eigenvalues is known, check whether
               t // he matrix splits.
@@ -138,31 +138,31 @@
    20          CONTINUE
    30          CONTINUE
                KL = I
-               IF( K.GT.KR ) THEN
+               if ( K.GT.KR ) {
                   DO 40 I = K, N - 1
                      IF( H( I+1, I ).EQ.ZERO ) GO TO 50
    40             CONTINUE
    50             CONTINUE
                   KR = I
-               END IF
-            END IF
+               }
+            }
 
-            IF( KL.NE.KLN ) THEN
+            if ( KL.NE.KLN ) {
                KLN = KL
 
                // Compute infinity-norm of submatrix H(KL:KR,KL:KR) if it
                // has not ben computed before.
 
                HNORM = DLANHS( 'I', KR-KL+1, H( KL, KL ), LDH, WORK )
-               IF( DISNAN( HNORM ) ) THEN
+               if ( DISNAN( HNORM ) ) {
                   INFO = -6
                   RETURN
-               ELSE IF( HNORM.GT.ZERO ) THEN
+               } else if ( HNORM.GT.ZERO ) {
                   EPS3 = HNORM*ULP
                } else {
                   EPS3 = SMLNUM
-               END IF
-            END IF
+               }
+            }
 
             // Perturb eigenvalue if it is close to any previous
             // selected eigenvalues affiliated to the submatrix
@@ -172,78 +172,78 @@
             WKI = WI( K )
    60       CONTINUE
             DO 70 I = K - 1, KL, -1
-               IF( SELECT( I ) .AND. ABS( WR( I )-WKR )+ ABS( WI( I )-WKI ).LT.EPS3 ) THEN
+               if ( SELECT( I ) .AND. ABS( WR( I )-WKR )+ ABS( WI( I )-WKI ).LT.EPS3 ) {
                   WKR = WKR + EPS3
                   GO TO 60
-               END IF
+               }
    70       CONTINUE
             WR( K ) = WKR
 
             PAIR = WKI.NE.ZERO
-            IF( PAIR ) THEN
+            if ( PAIR ) {
                KSI = KSR + 1
             } else {
                KSI = KSR
-            END IF
-            IF( LEFTV ) THEN
+            }
+            if ( LEFTV ) {
 
                // Compute left eigenvector.
 
                CALL DLAEIN( .FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH, WKR, WKI, VL( KL, KSR ), VL( KL, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO )
-               IF( IINFO.GT.0 ) THEN
-                  IF( PAIR ) THEN
+               if ( IINFO.GT.0 ) {
+                  if ( PAIR ) {
                      INFO = INFO + 2
                   } else {
                      INFO = INFO + 1
-                  END IF
+                  }
                   IFAILL( KSR ) = K
                   IFAILL( KSI ) = K
                } else {
                   IFAILL( KSR ) = 0
                   IFAILL( KSI ) = 0
-               END IF
+               }
                DO 80 I = 1, KL - 1
                   VL( I, KSR ) = ZERO
    80          CONTINUE
-               IF( PAIR ) THEN
+               if ( PAIR ) {
                   DO 90 I = 1, KL - 1
                      VL( I, KSI ) = ZERO
    90             CONTINUE
-               END IF
-            END IF
-            IF( RIGHTV ) THEN
+               }
+            }
+            if ( RIGHTV ) {
 
                // Compute right eigenvector.
 
                CALL DLAEIN( .TRUE., NOINIT, KR, H, LDH, WKR, WKI, VR( 1, KSR ), VR( 1, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO )
-               IF( IINFO.GT.0 ) THEN
-                  IF( PAIR ) THEN
+               if ( IINFO.GT.0 ) {
+                  if ( PAIR ) {
                      INFO = INFO + 2
                   } else {
                      INFO = INFO + 1
-                  END IF
+                  }
                   IFAILR( KSR ) = K
                   IFAILR( KSI ) = K
                } else {
                   IFAILR( KSR ) = 0
                   IFAILR( KSI ) = 0
-               END IF
+               }
                DO 100 I = KR + 1, N
                   VR( I, KSR ) = ZERO
   100          CONTINUE
-               IF( PAIR ) THEN
+               if ( PAIR ) {
                   DO 110 I = KR + 1, N
                      VR( I, KSI ) = ZERO
   110             CONTINUE
-               END IF
-            END IF
+               }
+            }
 
-            IF( PAIR ) THEN
+            if ( PAIR ) {
                KSR = KSR + 2
             } else {
                KSR = KSR + 1
-            END IF
-         END IF
+            }
+         }
   120 CONTINUE
 
       RETURN

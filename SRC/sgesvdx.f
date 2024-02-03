@@ -53,56 +53,56 @@
 
       WANTU = LSAME( JOBU, 'V' )
       WANTVT = LSAME( JOBVT, 'V' )
-      IF( WANTU .OR. WANTVT ) THEN
+      if ( WANTU .OR. WANTVT ) {
          JOBZ = 'V'
       } else {
          JOBZ = 'N'
-      END IF
+      }
       ALLS = LSAME( RANGE, 'A' )
       VALS = LSAME( RANGE, 'V' )
       INDS = LSAME( RANGE, 'I' )
 
       INFO = 0
-      IF( .NOT.LSAME( JOBU, 'V' ) .AND. .NOT.LSAME( JOBU, 'N' ) ) THEN
+      if ( .NOT.LSAME( JOBU, 'V' ) .AND. .NOT.LSAME( JOBU, 'N' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( JOBVT, 'V' ) .AND. .NOT.LSAME( JOBVT, 'N' ) ) THEN
+      } else if ( .NOT.LSAME( JOBVT, 'V' ) .AND. .NOT.LSAME( JOBVT, 'N' ) ) {
          INFO = -2
-      ELSE IF( .NOT.( ALLS .OR. VALS .OR. INDS ) ) THEN
+      } else if ( .NOT.( ALLS .OR. VALS .OR. INDS ) ) {
          INFO = -3
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( M.GT.LDA ) THEN
+      } else if ( M.GT.LDA ) {
          INFO = -7
-      ELSE IF( MINMN.GT.0 ) THEN
-         IF( VALS ) THEN
-            IF( VL.LT.ZERO ) THEN
+      } else if ( MINMN.GT.0 ) {
+         if ( VALS ) {
+            if ( VL.LT.ZERO ) {
                INFO = -8
-            ELSE IF( VU.LE.VL ) THEN
+            } else if ( VU.LE.VL ) {
                INFO = -9
-            END IF
-         ELSE IF( INDS ) THEN
-            IF( IL.LT.1 .OR. IL.GT.MAX( 1, MINMN ) ) THEN
+            }
+         } else if ( INDS ) {
+            if ( IL.LT.1 .OR. IL.GT.MAX( 1, MINMN ) ) {
                INFO = -10
-            ELSE IF( IU.LT.MIN( MINMN, IL ) .OR. IU.GT.MINMN ) THEN
+            } else if ( IU.LT.MIN( MINMN, IL ) .OR. IU.GT.MINMN ) {
                INFO = -11
-            END IF
-         END IF
-         IF( INFO.EQ.0 ) THEN
-            IF( WANTU .AND. LDU.LT.M ) THEN
+            }
+         }
+         if ( INFO.EQ.0 ) {
+            if ( WANTU .AND. LDU.LT.M ) {
                INFO = -15
-            ELSE IF( WANTVT ) THEN
-               IF( INDS ) THEN
-                   IF( LDVT.LT.IU-IL+1 ) THEN
+            } else if ( WANTVT ) {
+               if ( INDS ) {
+                   if ( LDVT.LT.IU-IL+1 ) {
                        INFO = -17
-                   END IF
-               ELSE IF( LDVT.LT.MINMN ) THEN
+                   }
+               } else if ( LDVT.LT.MINMN ) {
                    INFO = -17
-               END IF
-            END IF
-         END IF
-      END IF
+               }
+            }
+         }
+      }
 
       // Compute workspace
       // (Note: Comments in the code beginning "Workspace:" describe the
@@ -111,94 +111,94 @@
       // NB refers to the optimal block size for the immediately
       // following subroutine, as returned by ILAENV.)
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          MINWRK = 1
          MAXWRK = 1
-         IF( MINMN.GT.0 ) THEN
-            IF( M.GE.N ) THEN
+         if ( MINMN.GT.0 ) {
+            if ( M.GE.N ) {
                MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 )
-               IF( M.GE.MNTHR ) THEN
+               if ( M.GE.MNTHR ) {
 
                   // Path 1 (M much larger than N)
 
                   MAXWRK = N + N*ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, N*(N+5) + 2*N* ILAENV( 1, 'SGEBRD', ' ', N, N, -1, -1 ) )
-                  IF (WANTU) THEN
+                  if (WANTU) {
                       MAXWRK = MAX(MAXWRK,N*(N*3+6)+N* ILAENV( 1, 'SORMQR', ' ', N, N, -1, -1 ) )
-                  END IF
-                  IF (WANTVT) THEN
+                  }
+                  if (WANTVT) {
                       MAXWRK = MAX(MAXWRK,N*(N*3+6)+N* ILAENV( 1, 'SORMLQ', ' ', N, N, -1, -1 ) )
-                  END IF
+                  }
                   MINWRK = N*(N*3+20)
                } else {
 
                   // Path 2 (M at least N, but not much larger)
 
                   MAXWRK = 4*N + ( M+N )* ILAENV( 1, 'SGEBRD', ' ', M, N, -1, -1 )
-                  IF (WANTU) THEN
+                  if (WANTU) {
                       MAXWRK = MAX(MAXWRK,N*(N*2+5)+N* ILAENV( 1, 'SORMQR', ' ', N, N, -1, -1 ) )
-                  END IF
-                  IF (WANTVT) THEN
+                  }
+                  if (WANTVT) {
                       MAXWRK = MAX(MAXWRK,N*(N*2+5)+N* ILAENV( 1, 'SORMLQ', ' ', N, N, -1, -1 ) )
-                  END IF
+                  }
                   MINWRK = MAX(N*(N*2+19),4*N+M)
-               END IF
+               }
             } else {
                MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 )
-               IF( N.GE.MNTHR ) THEN
+               if ( N.GE.MNTHR ) {
 
                   // Path 1t (N much larger than M)
 
                   MAXWRK = M + M*ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, M*(M+5) + 2*M* ILAENV( 1, 'SGEBRD', ' ', M, M, -1, -1 ) )
-                  IF (WANTU) THEN
+                  if (WANTU) {
                       MAXWRK = MAX(MAXWRK,M*(M*3+6)+M* ILAENV( 1, 'SORMQR', ' ', M, M, -1, -1 ) )
-                  END IF
-                  IF (WANTVT) THEN
+                  }
+                  if (WANTVT) {
                       MAXWRK = MAX(MAXWRK,M*(M*3+6)+M* ILAENV( 1, 'SORMLQ', ' ', M, M, -1, -1 ) )
-                  END IF
+                  }
                   MINWRK = M*(M*3+20)
                } else {
 
                   // Path 2t (N at least M, but not much larger)
 
                   MAXWRK = 4*M + ( M+N )* ILAENV( 1, 'SGEBRD', ' ', M, N, -1, -1 )
-                  IF (WANTU) THEN
+                  if (WANTU) {
                       MAXWRK = MAX(MAXWRK,M*(M*2+5)+M* ILAENV( 1, 'SORMQR', ' ', M, M, -1, -1 ) )
-                  END IF
-                  IF (WANTVT) THEN
+                  }
+                  if (WANTVT) {
                       MAXWRK = MAX(MAXWRK,M*(M*2+5)+M* ILAENV( 1, 'SORMLQ', ' ', M, M, -1, -1 ) )
-                  END IF
+                  }
                   MINWRK = MAX(M*(M*2+19),4*M+N)
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
          MAXWRK = MAX( MAXWRK, MINWRK )
          WORK( 1 ) = SROUNDUP_LWORK( MAXWRK )
 
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
              INFO = -19
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGESVDX', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 ) {
          RETURN
-      END IF
+      }
 
       // Set singular values indices accord to RANGE.
 
-      IF( ALLS ) THEN
+      if ( ALLS ) {
          RNGTGK = 'I'
          ILTGK = 1
          IUTGK = MIN( M, N )
-      ELSE IF( INDS ) THEN
+      } else if ( INDS ) {
          RNGTGK = 'I'
          ILTGK = IL
          IUTGK = IU
@@ -206,7 +206,7 @@
          RNGTGK = 'V'
          ILTGK = 0
          IUTGK = 0
-      END IF
+      }
 
       // Get machine constants
 
@@ -218,21 +218,21 @@
 
       ANRM = SLANGE( 'M', M, N, A, LDA, DUM )
       ISCL = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ISCL = 1
          CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
          ISCL = 1
          CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
-      END IF
+      }
 
-      IF( M.GE.N ) THEN
+      if ( M.GE.N ) {
 
          // A has at least as many rows as columns. If A has sufficiently
          // more rows than columns, first reduce A using the QR
          // decomposition.
 
-         IF( M.GE.MNTHR ) THEN
+         if ( M.GE.MNTHR ) {
 
             // Path 1 (M much larger than N):
             // A = Q * R = Q * ( QB * B * PB**T )
@@ -268,7 +268,7 @@
 
             // If needed, compute left singular vectors.
 
-            IF( WANTU ) THEN
+            if ( WANTU ) {
                J = ITGKZ
                DO I = 1, NS
                   CALL SCOPY( N, WORK( J ), 1, U( 1,I ), 1 )
@@ -285,11 +285,11 @@
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
                CALL SORMQR( 'L', 'N', M, NS, N, A, LDA, WORK( ITAU ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
-            END IF
+            }
 
             // If needed, compute right singular vectors.
 
-            IF( WANTVT) THEN
+            if ( WANTVT) {
                J = ITGKZ + N
                DO I = 1, NS
                   CALL SCOPY( N, WORK( J ), 1, VT( I,1 ), LDVT )
@@ -300,7 +300,7 @@
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
                CALL SORMBR( 'P', 'R', 'T', NS, N, N, WORK( IQRF ), N, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
-            END IF
+            }
          } else {
 
             // Path 2 (M at least N, but not much larger)
@@ -327,7 +327,7 @@
 
             // If needed, compute left singular vectors.
 
-            IF( WANTU ) THEN
+            if ( WANTU ) {
                J = ITGKZ
                DO I = 1, NS
                   CALL SCOPY( N, WORK( J ), 1, U( 1,I ), 1 )
@@ -339,11 +339,11 @@
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
                CALL SORMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
-            END IF
+            }
 
             // If needed, compute right singular vectors.
 
-            IF( WANTVT) THEN
+            if ( WANTVT) {
                J = ITGKZ + N
                DO I = 1, NS
                   CALL SCOPY( N, WORK( J ), 1, VT( I,1 ), LDVT )
@@ -354,14 +354,14 @@
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
                CALL SORMBR( 'P', 'R', 'T', NS, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
-            END IF
-         END IF
+            }
+         }
       } else {
 
          // A has more columns than rows. If A has sufficiently more
          // columns than rows, first reduce A using the LQ decomposition.
 
-         IF( N.GE.MNTHR ) THEN
+         if ( N.GE.MNTHR ) {
 
             // Path 1t (N much larger than M):
             // A = L * Q = ( QB * B * PB**T ) * Q
@@ -397,7 +397,7 @@
 
             // If needed, compute left singular vectors.
 
-            IF( WANTU ) THEN
+            if ( WANTU ) {
                J = ITGKZ
                DO I = 1, NS
                   CALL SCOPY( M, WORK( J ), 1, U( 1,I ), 1 )
@@ -408,11 +408,11 @@
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
                CALL SORMBR( 'Q', 'L', 'N', M, NS, M, WORK( ILQF ), M, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
-            END IF
+            }
 
             // If needed, compute right singular vectors.
 
-            IF( WANTVT) THEN
+            if ( WANTVT) {
                J = ITGKZ + M
                DO I = 1, NS
                   CALL SCOPY( M, WORK( J ), 1, VT( I,1 ), LDVT )
@@ -429,7 +429,7 @@
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
                CALL SORMLQ( 'R', 'N', NS, N, M, A, LDA, WORK( ITAU ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
-            END IF
+            }
          } else {
 
             // Path 2t (N greater than M, but not much larger)
@@ -456,7 +456,7 @@
 
             // If needed, compute left singular vectors.
 
-            IF( WANTU ) THEN
+            if ( WANTU ) {
                J = ITGKZ
                DO I = 1, NS
                   CALL SCOPY( M, WORK( J ), 1, U( 1,I ), 1 )
@@ -467,11 +467,11 @@
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
                CALL SORMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
-            END IF
+            }
 
             // If needed, compute right singular vectors.
 
-            IF( WANTVT) THEN
+            if ( WANTVT) {
                J = ITGKZ + M
                DO I = 1, NS
                   CALL SCOPY( M, WORK( J ), 1, VT( I,1 ), LDVT )
@@ -483,15 +483,15 @@
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
                CALL SORMBR( 'P', 'R', 'T', NS, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
       // Undo scaling if necessary
 
-      IF( ISCL.EQ.1 ) THEN
+      if ( ISCL.EQ.1 ) {
          IF( ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )          IF( ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO )
-      END IF
+      }
 
       // Return optimal workspace in WORK(1)
 

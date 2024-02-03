@@ -77,32 +77,32 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -2
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -3
-      ELSE IF( THRESH.LT.ZERO ) THEN
+      } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      ELSE IF( NOUNIT.LE.0 ) THEN
+      } else if ( NOUNIT.LE.0 ) {
          INFO = -7
-      ELSE IF( LDA.LT.1 .OR. LDA.LT.NMAX ) THEN
+      } else if ( LDA.LT.1 .OR. LDA.LT.NMAX ) {
          INFO = -9
-      ELSE IF( LDVL.LT.1 .OR. LDVL.LT.NMAX ) THEN
+      } else if ( LDVL.LT.1 .OR. LDVL.LT.NMAX ) {
          INFO = -14
-      ELSE IF( LDVR.LT.1 .OR. LDVR.LT.NMAX ) THEN
+      } else if ( LDVR.LT.1 .OR. LDVR.LT.NMAX ) {
          INFO = -16
-      ELSE IF( LDLRE.LT.1 .OR. LDLRE.LT.NMAX ) THEN
+      } else if ( LDLRE.LT.1 .OR. LDLRE.LT.NMAX ) {
          INFO = -28
-      ELSE IF( 5*NMAX+2*NMAX**2.GT.NWORK ) THEN
+      } else if ( 5*NMAX+2*NMAX**2.GT.NWORK ) {
          INFO = -21
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZDRVEV', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if nothing to do
 
@@ -123,11 +123,11 @@
 
       DO 270 JSIZE = 1, NSIZES
          N = NN( JSIZE )
-         IF( NSIZES.NE.1 ) THEN
+         if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
-         END IF
+         }
 
          DO 260 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
@@ -185,10 +185,10 @@
 
                // Zero
 
-            IF( ITYPE.EQ.1 ) THEN
+            if ( ITYPE.EQ.1 ) {
                IINFO = 0
 
-            ELSE IF( ITYPE.EQ.2 ) THEN
+            } else if ( ITYPE.EQ.2 ) {
 
                // Identity
 
@@ -196,7 +196,7 @@
                   A( JCOL, JCOL ) = DCMPLX( ANORM )
    70          CONTINUE
 
-            ELSE IF( ITYPE.EQ.3 ) THEN
+            } else if ( ITYPE.EQ.3 ) {
 
                // Jordan Block
 
@@ -205,55 +205,55 @@
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = CONE
    80          CONTINUE
 
-            ELSE IF( ITYPE.EQ.4 ) THEN
+            } else if ( ITYPE.EQ.4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.5 ) THEN
+            } else if ( ITYPE.EQ.5 ) {
 
                // Hermitian, eigenvalues specified
 
                CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.6 ) THEN
+            } else if ( ITYPE.EQ.6 ) {
 
                // General, eigenvalues specified
 
-               IF( KCONDS( JTYPE ).EQ.1 ) THEN
+               if ( KCONDS( JTYPE ).EQ.1 ) {
                   CONDS = ONE
-               ELSE IF( KCONDS( JTYPE ).EQ.2 ) THEN
+               } else if ( KCONDS( JTYPE ).EQ.2 ) {
                   CONDS = RTULPI
                } else {
                   CONDS = ZERO
-               END IF
+               }
 
                CALL ZLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.7 ) THEN
+            } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
                CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.8 ) THEN
+            } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
                CALL ZLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.9 ) THEN
+            } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
                CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-               IF( N.GE.4 ) THEN
+               if ( N.GE.4 ) {
                   CALL ZLASET( 'Full', 2, N, CZERO, CZERO, A, LDA )
                   CALL ZLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL ZLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL ZLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA )
-               END IF
+               }
 
-            ELSE IF( ITYPE.EQ.10 ) THEN
+            } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
@@ -262,24 +262,24 @@
             } else {
 
                IINFO = 1
-            END IF
+            }
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9993 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
-            END IF
+            }
 
    90       CONTINUE
 
             // Test for minimal and generous workspace
 
             DO 250 IWK = 1, 2
-               IF( IWK.EQ.1 ) THEN
+               if ( IWK.EQ.1 ) {
                   NNWORK = 2*N
                } else {
                   NNWORK = 5*N + 2*N**2
-               END IF
+               }
                NNWORK = MAX( NNWORK, 1 )
 
                // Initialize RESULT
@@ -292,12 +292,12 @@
 
                CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
                CALL ZGEEV( 'V', 'V', N, H, LDA, W, VL, LDVL, VR, LDVR, WORK, NNWORK, RWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'ZGEEV1', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   GO TO 220
-               END IF
+               }
 
                // Do Test (1)
 
@@ -341,12 +341,12 @@
 
                CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
                CALL ZGEEV( 'N', 'N', N, H, LDA, W1, DUM, 1, DUM, 1, WORK, NNWORK, RWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'ZGEEV2', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   GO TO 220
-               END IF
+               }
 
                // Do Test (5)
 
@@ -358,12 +358,12 @@
 
                CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
                CALL ZGEEV( 'N', 'V', N, H, LDA, W1, DUM, 1, LRE, LDLRE, WORK, NNWORK, RWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'ZGEEV3', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   GO TO 220
-               END IF
+               }
 
                // Do Test (5) again
 
@@ -383,12 +383,12 @@
 
                CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
                CALL ZGEEV( 'V', 'N', N, H, LDA, W1, LRE, LDLRE, DUM, 1, WORK, NNWORK, RWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'ZGEEV4', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   GO TO 220
-               END IF
+               }
 
                // Do Test (5) again
 
@@ -415,19 +415,19 @@
   230          CONTINUE
 
                IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
-               IF( NTESTF.EQ.1 ) THEN
+               if ( NTESTF.EQ.1 ) {
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )
                   WRITE( NOUNIT, FMT = 9997 )
                   WRITE( NOUNIT, FMT = 9996 )
                   WRITE( NOUNIT, FMT = 9995 )THRESH
                   NTESTF = 2
-               END IF
+               }
 
                DO 240 J = 1, 7
-                  IF( RESULT( J ).GE.THRESH ) THEN
+                  if ( RESULT( J ).GE.THRESH ) {
                      WRITE( NOUNIT, FMT = 9994 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
-                  END IF
+                  }
   240          CONTINUE
 
                NERRS = NERRS + NFAIL

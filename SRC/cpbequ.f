@@ -41,33 +41,33 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -3
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CPBEQU', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          SCOND = ONE
          AMAX = ZERO
          RETURN
-      END IF
+      }
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
          J = KD + 1
       } else {
          J = 1
-      END IF
+      }
 
       // Initialize SMIN and AMAX.
 
@@ -83,15 +83,15 @@
          AMAX = MAX( AMAX, S( I ) )
    10 CONTINUE
 
-      IF( SMIN.LE.ZERO ) THEN
+      if ( SMIN.LE.ZERO ) {
 
          // Find the first non-positive diagonal element and return.
 
          DO 20 I = 1, N
-            IF( S( I ).LE.ZERO ) THEN
+            if ( S( I ).LE.ZERO ) {
                INFO = I
                RETURN
-            END IF
+            }
    20    CONTINUE
       } else {
 
@@ -105,7 +105,7 @@
          // Compute SCOND = min(S(I)) / max(S(I))
 
          SCOND = SQRT( SMIN ) / SQRT( AMAX )
-      END IF
+      }
       RETURN
 
       // End of CPBEQU

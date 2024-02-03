@@ -53,62 +53,62 @@
 
       // Decode DIST
 
-      IF( LSAME( DIST, 'U' ) ) THEN
+      if ( LSAME( DIST, 'U' ) ) {
          IDIST = 1
-      ELSE IF( LSAME( DIST, 'S' ) ) THEN
+      } else if ( LSAME( DIST, 'S' ) ) {
          IDIST = 2
-      ELSE IF( LSAME( DIST, 'N' ) ) THEN
+      } else if ( LSAME( DIST, 'N' ) ) {
          IDIST = 3
       } else {
          IDIST = -1
-      END IF
+      }
 
       // Decode SYM
 
-      IF( LSAME( SYM, 'N' ) ) THEN
+      if ( LSAME( SYM, 'N' ) ) {
          ISYM = 1
          IRSIGN = 0
-      ELSE IF( LSAME( SYM, 'P' ) ) THEN
+      } else if ( LSAME( SYM, 'P' ) ) {
          ISYM = 2
          IRSIGN = 0
-      ELSE IF( LSAME( SYM, 'S' ) ) THEN
+      } else if ( LSAME( SYM, 'S' ) ) {
          ISYM = 2
          IRSIGN = 1
-      ELSE IF( LSAME( SYM, 'H' ) ) THEN
+      } else if ( LSAME( SYM, 'H' ) ) {
          ISYM = 2
          IRSIGN = 1
       } else {
          ISYM = -1
-      END IF
+      }
 
       // Decode PACK
 
       ISYMPK = 0
-      IF( LSAME( PACK, 'N' ) ) THEN
+      if ( LSAME( PACK, 'N' ) ) {
          IPACK = 0
-      ELSE IF( LSAME( PACK, 'U' ) ) THEN
+      } else if ( LSAME( PACK, 'U' ) ) {
          IPACK = 1
          ISYMPK = 1
-      ELSE IF( LSAME( PACK, 'L' ) ) THEN
+      } else if ( LSAME( PACK, 'L' ) ) {
          IPACK = 2
          ISYMPK = 1
-      ELSE IF( LSAME( PACK, 'C' ) ) THEN
+      } else if ( LSAME( PACK, 'C' ) ) {
          IPACK = 3
          ISYMPK = 2
-      ELSE IF( LSAME( PACK, 'R' ) ) THEN
+      } else if ( LSAME( PACK, 'R' ) ) {
          IPACK = 4
          ISYMPK = 3
-      ELSE IF( LSAME( PACK, 'B' ) ) THEN
+      } else if ( LSAME( PACK, 'B' ) ) {
          IPACK = 5
          ISYMPK = 3
-      ELSE IF( LSAME( PACK, 'Q' ) ) THEN
+      } else if ( LSAME( PACK, 'Q' ) ) {
          IPACK = 6
          ISYMPK = 2
-      ELSE IF( LSAME( PACK, 'Z' ) ) THEN
+      } else if ( LSAME( PACK, 'Z' ) ) {
          IPACK = 7
       } else {
          IPACK = -1
-      END IF
+      }
 
       // Set certain internal parameters
 
@@ -118,55 +118,55 @@
       MR = MIN( M, N+LLB )
       NC = MIN( N, M+UUB )
 
-      IF( IPACK.EQ.5 .OR. IPACK.EQ.6 ) THEN
+      if ( IPACK.EQ.5 .OR. IPACK.EQ.6 ) {
          MINLDA = UUB + 1
-      ELSE IF( IPACK.EQ.7 ) THEN
+      } else if ( IPACK.EQ.7 ) {
          MINLDA = LLB + UUB + 1
       } else {
          MINLDA = M
-      END IF
+      }
 
       // Use Givens rotation method if bandwidth small enough,
       // or if LDA is too small to store the matrix unpacked.
 
       GIVENS = .FALSE.
-      IF( ISYM.EQ.1 ) THEN
+      if ( ISYM.EQ.1 ) {
          IF( DBLE( LLB+UUB ).LT.0.3D0*DBLE( MAX( 1, MR+NC ) ) ) GIVENS = .TRUE.
       } else {
          IF( 2*LLB.LT.M ) GIVENS = .TRUE.
-      END IF
+      }
       IF( LDA.LT.M .AND. LDA.GE.MINLDA ) GIVENS = .TRUE.
 
       // Set INFO if an error
 
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( M.NE.N .AND. ISYM.NE.1 ) THEN
+      } else if ( M.NE.N .AND. ISYM.NE.1 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( IDIST.EQ.-1 ) THEN
+      } else if ( IDIST.EQ.-1 ) {
          INFO = -3
-      ELSE IF( ISYM.EQ.-1 ) THEN
+      } else if ( ISYM.EQ.-1 ) {
          INFO = -5
-      ELSE IF( ABS( MODE ).GT.6 ) THEN
+      } else if ( ABS( MODE ).GT.6 ) {
          INFO = -7
-      ELSE IF( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE ) THEN
+      } else if ( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE ) {
          INFO = -8
-      ELSE IF( KL.LT.0 ) THEN
+      } else if ( KL.LT.0 ) {
          INFO = -10
-      ELSE IF( KU.LT.0 .OR. ( ISYM.NE.1 .AND. KL.NE.KU ) ) THEN
+      } else if ( KU.LT.0 .OR. ( ISYM.NE.1 .AND. KL.NE.KU ) ) {
          INFO = -11
-      ELSE IF( IPACK.EQ.-1 .OR. ( ISYMPK.EQ.1 .AND. ISYM.EQ.1 ) .OR. ( ISYMPK.EQ.2 .AND. ISYM.EQ.1 .AND. KL.GT.0 ) .OR. ( ISYMPK.EQ.3 .AND. ISYM.EQ.1 .AND. KU.GT.0 ) .OR. ( ISYMPK.NE.0 .AND. M.NE.N ) ) THEN
+      } else if ( IPACK.EQ.-1 .OR. ( ISYMPK.EQ.1 .AND. ISYM.EQ.1 ) .OR. ( ISYMPK.EQ.2 .AND. ISYM.EQ.1 .AND. KL.GT.0 ) .OR. ( ISYMPK.EQ.3 .AND. ISYM.EQ.1 .AND. KU.GT.0 ) .OR. ( ISYMPK.NE.0 .AND. M.NE.N ) ) {
          INFO = -12
-      ELSE IF( LDA.LT.MAX( 1, MINLDA ) ) THEN
+      } else if ( LDA.LT.MAX( 1, MINLDA ) ) {
          INFO = -14
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLATMS', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize random number generator
 
@@ -181,21 +181,21 @@
               // Compute D according to COND and MODE
 
       CALL DLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, IINFO )
-      IF( IINFO.NE.0 ) THEN
+      if ( IINFO.NE.0 ) {
          INFO = 1
          RETURN
-      END IF
+      }
 
       // Choose Top-Down if D is (apparently) increasing,
       // Bottom-Up if D is (apparently) decreasing.
 
-      IF( ABS( D( 1 ) ).LE.ABS( D( MNMIN ) ) ) THEN
+      if ( ABS( D( 1 ) ).LE.ABS( D( MNMIN ) ) ) {
          TOPDWN = .TRUE.
       } else {
          TOPDWN = .FALSE.
-      END IF
+      }
 
-      IF( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) THEN
+      if ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) {
 
          // Scale by DMAX
 
@@ -204,16 +204,16 @@
             TEMP = MAX( TEMP, ABS( D( I ) ) )
    20    CONTINUE
 
-         IF( TEMP.GT.ZERO ) THEN
+         if ( TEMP.GT.ZERO ) {
             ALPHA = DMAX / TEMP
          } else {
             INFO = 2
             RETURN
-         END IF
+         }
 
          CALL DSCAL( MNMIN, ALPHA, D, 1 )
 
-      END IF
+      }
 
       // 3)      Generate Banded Matrix using Givens rotations.
               // Also the special case of UUB=LLB=0
@@ -224,19 +224,19 @@
                t // he (i,j)-th element is in
                 // A( i - ISKEW*j + IOFFST, j )
 
-      IF( IPACK.GT.4 ) THEN
+      if ( IPACK.GT.4 ) {
          ILDA = LDA - 1
          ISKEW = 1
-         IF( IPACK.GT.5 ) THEN
+         if ( IPACK.GT.5 ) {
             IOFFST = UUB + 1
          } else {
             IOFFST = 1
-         END IF
+         }
       } else {
          ILDA = LDA
          ISKEW = 0
          IOFFST = 0
-      END IF
+      }
 
       // IPACKG is the format that the matrix is generated in. If this is
       // different from IPACK, then the matrix must be repacked at the
@@ -248,28 +248,28 @@
       // Diagonal Matrix -- We are done, unless it
       // is to be stored SP/PP/TP (PACK='R' or 'C')
 
-      IF( LLB.EQ.0 .AND. UUB.EQ.0 ) THEN
+      if ( LLB.EQ.0 .AND. UUB.EQ.0 ) {
          CALL DCOPY( MNMIN, D, 1, A( 1-ISKEW+IOFFST, 1 ), ILDA+1 )
          IF( IPACK.LE.2 .OR. IPACK.GE.5 ) IPACKG = IPACK
 
-      ELSE IF( GIVENS ) THEN
+      } else if ( GIVENS ) {
 
          // Check whether to use Givens rotations,
          // Householder transformations, or nothing.
 
-         IF( ISYM.EQ.1 ) THEN
+         if ( ISYM.EQ.1 ) {
 
             // Non-symmetric -- A = U D V
 
-            IF( IPACK.GT.4 ) THEN
+            if ( IPACK.GT.4 ) {
                IPACKG = IPACK
             } else {
                IPACKG = 0
-            END IF
+            }
 
             CALL DCOPY( MNMIN, D, 1, A( 1-ISKEW+IOFFST, 1 ), ILDA+1 )
 
-            IF( TOPDWN ) THEN
+            if ( TOPDWN ) {
                JKL = 0
                DO 50 JKU = 1, UUB
 
@@ -284,25 +284,25 @@
                      C = COS( ANGLE )
                      S = SIN( ANGLE )
                      ICOL = MAX( 1, JR-JKL )
-                     IF( JR.LT.M ) THEN
+                     if ( JR.LT.M ) {
                         IL = MIN( N, JR+JKU ) + 1 - ICOL
                         CALL DLAROT( .TRUE., JR.GT.JKL, .FALSE., IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY )
-                     END IF
+                     }
 
                      // Chase "EXTRA" back up
 
                      IR = JR
                      IC = ICOL
                      DO 30 JCH = JR - JKL, 1, -JKL - JKU
-                        IF( IR.LT.M ) THEN
+                        if ( IR.LT.M ) {
                            CALL DLARTG( A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, C, S, DUMMY )
-                        END IF
+                        }
                         IROW = MAX( 1, JCH-JKU )
                         IL = IR + 2 - IROW
                         TEMP = ZERO
                         ILTEMP = JCH.GT.JKU
                         CALL DLAROT( .FALSE., ILTEMP, .TRUE., IL, C, -S, A( IROW-ISKEW*IC+IOFFST, IC ), ILDA, TEMP, EXTRA )
-                        IF( ILTEMP ) THEN
+                        if ( ILTEMP ) {
                            CALL DLARTG( A( IROW+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), TEMP, C, S, DUMMY )
                            ICOL = MAX( 1, JCH-JKU-JKL )
                            IL = IC + 2 - ICOL
@@ -310,7 +310,7 @@
                            CALL DLAROT( .TRUE., JCH.GT.JKU+JKL, .TRUE., IL, C, -S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, TEMP )
                            IC = ICOL
                            IR = IROW
-                        END IF
+                        }
    30                CONTINUE
    40             CONTINUE
    50          CONTINUE
@@ -326,25 +326,25 @@
                      C = COS( ANGLE )
                      S = SIN( ANGLE )
                      IROW = MAX( 1, JC-JKU )
-                     IF( JC.LT.N ) THEN
+                     if ( JC.LT.N ) {
                         IL = MIN( M, JC+JKL ) + 1 - IROW
                         CALL DLAROT( .FALSE., JC.GT.JKU, .FALSE., IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY )
-                     END IF
+                     }
 
                      // Chase "EXTRA" back up
 
                      IC = JC
                      IR = IROW
                      DO 60 JCH = JC - JKU, 1, -JKL - JKU
-                        IF( IC.LT.N ) THEN
+                        if ( IC.LT.N ) {
                            CALL DLARTG( A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, C, S, DUMMY )
-                        END IF
+                        }
                         ICOL = MAX( 1, JCH-JKL )
                         IL = IC + 2 - ICOL
                         TEMP = ZERO
                         ILTEMP = JCH.GT.JKL
                         CALL DLAROT( .TRUE., ILTEMP, .TRUE., IL, C, -S, A( IR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, TEMP, EXTRA )
-                        IF( ILTEMP ) THEN
+                        if ( ILTEMP ) {
                            CALL DLARTG( A( IR+1-ISKEW*( ICOL+1 )+IOFFST, ICOL+1 ), TEMP, C, S, DUMMY )
                            IROW = MAX( 1, JCH-JKL-JKU )
                            IL = IR + 2 - IROW
@@ -352,7 +352,7 @@
                            CALL DLAROT( .FALSE., JCH.GT.JKL+JKU, .TRUE., IL, C, -S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, TEMP )
                            IC = ICOL
                            IR = IROW
-                        END IF
+                        }
    60                CONTINUE
    70             CONTINUE
    80          CONTINUE
@@ -376,31 +376,31 @@
                      C = COS( ANGLE )
                      S = SIN( ANGLE )
                      IROW = MAX( 1, JC-JKU+1 )
-                     IF( JC.GT.0 ) THEN
+                     if ( JC.GT.0 ) {
                         IL = MIN( M, JC+JKL+1 ) + 1 - IROW
                         CALL DLAROT( .FALSE., .FALSE., JC+JKL.LT.M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA )
-                     END IF
+                     }
 
                      // Chase "EXTRA" back down
 
                      IC = JC
                      DO 90 JCH = JC + JKL, IENDCH, JKL + JKU
                         ILEXTR = IC.GT.0
-                        IF( ILEXTR ) THEN
+                        if ( ILEXTR ) {
                            CALL DLARTG( A( JCH-ISKEW*IC+IOFFST, IC ), EXTRA, C, S, DUMMY )
-                        END IF
+                        }
                         IC = MAX( 1, IC )
                         ICOL = MIN( N-1, JCH+JKU )
                         ILTEMP = JCH + JKU.LT.N
                         TEMP = ZERO
                         CALL DLAROT( .TRUE., ILEXTR, ILTEMP, ICOL+2-IC, C, S, A( JCH-ISKEW*IC+IOFFST, IC ), ILDA, EXTRA, TEMP )
-                        IF( ILTEMP ) THEN
+                        if ( ILTEMP ) {
                            CALL DLARTG( A( JCH-ISKEW*ICOL+IOFFST, ICOL ), TEMP, C, S, DUMMY )
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = ZERO
                            CALL DLAROT( .FALSE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, TEMP, EXTRA )
                            IC = ICOL
-                        END IF
+                        }
    90                CONTINUE
   100             CONTINUE
   110          CONTINUE
@@ -420,35 +420,35 @@
                      C = COS( ANGLE )
                      S = SIN( ANGLE )
                      ICOL = MAX( 1, JR-JKL+1 )
-                     IF( JR.GT.0 ) THEN
+                     if ( JR.GT.0 ) {
                         IL = MIN( N, JR+JKU+1 ) + 1 - ICOL
                         CALL DLAROT( .TRUE., .FALSE., JR+JKU.LT.N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA )
-                     END IF
+                     }
 
                      // Chase "EXTRA" back down
 
                      IR = JR
                      DO 120 JCH = JR + JKU, IENDCH, JKL + JKU
                         ILEXTR = IR.GT.0
-                        IF( ILEXTR ) THEN
+                        if ( ILEXTR ) {
                            CALL DLARTG( A( IR-ISKEW*JCH+IOFFST, JCH ), EXTRA, C, S, DUMMY )
-                        END IF
+                        }
                         IR = MAX( 1, IR )
                         IROW = MIN( M-1, JCH+JKL )
                         ILTEMP = JCH + JKL.LT.M
                         TEMP = ZERO
                         CALL DLAROT( .FALSE., ILEXTR, ILTEMP, IROW+2-IR, C, S, A( IR-ISKEW*JCH+IOFFST, JCH ), ILDA, EXTRA, TEMP )
-                        IF( ILTEMP ) THEN
+                        if ( ILTEMP ) {
                            CALL DLARTG( A( IROW-ISKEW*JCH+IOFFST, JCH ), TEMP, C, S, DUMMY )
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = ZERO
                            CALL DLAROT( .TRUE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, TEMP, EXTRA )
                            IR = IROW
-                        END IF
+                        }
   120                CONTINUE
   130             CONTINUE
   140          CONTINUE
-            END IF
+            }
 
          } else {
 
@@ -457,16 +457,16 @@
             IPACKG = IPACK
             IOFFG = IOFFST
 
-            IF( TOPDWN ) THEN
+            if ( TOPDWN ) {
 
                // Top-Down -- Generate Upper triangle only
 
-               IF( IPACK.GE.5 ) THEN
+               if ( IPACK.GE.5 ) {
                   IPACKG = 6
                   IOFFG = UUB + 1
                } else {
                   IPACKG = 1
-               END IF
+               }
                CALL DCOPY( MNMIN, D, 1, A( 1-ISKEW+IOFFG, 1 ), ILDA+1 )
 
                DO 170 K = 1, UUB
@@ -499,36 +499,36 @@
                // If we need lower triangle, copy from upper. Note that
               t // he order of copying is chosen to work for 'q' -> 'b'
 
-               IF( IPACK.NE.IPACKG .AND. IPACK.NE.3 ) THEN
+               if ( IPACK.NE.IPACKG .AND. IPACK.NE.3 ) {
                   DO 190 JC = 1, N
                      IROW = IOFFST - ISKEW*JC
                      DO 180 JR = JC, MIN( N, JC+UUB )
                         A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
   180                CONTINUE
   190             CONTINUE
-                  IF( IPACK.EQ.5 ) THEN
+                  if ( IPACK.EQ.5 ) {
                      DO 210 JC = N - UUB + 1, N
                         DO 200 JR = N + 2 - JC, UUB + 1
                            A( JR, JC ) = ZERO
   200                   CONTINUE
   210                CONTINUE
-                  END IF
-                  IF( IPACKG.EQ.6 ) THEN
+                  }
+                  if ( IPACKG.EQ.6 ) {
                      IPACKG = IPACK
                   } else {
                      IPACKG = 0
-                  END IF
-               END IF
+                  }
+               }
             } else {
 
                // Bottom-Up -- Generate Lower triangle only
 
-               IF( IPACK.GE.5 ) THEN
+               if ( IPACK.GE.5 ) {
                   IPACKG = 5
                   IF( IPACK.EQ.6 ) IOFFG = 1
                } else {
                   IPACKG = 2
-               END IF
+               }
                CALL DCOPY( MNMIN, D, 1, A( 1-ISKEW+IOFFG, 1 ), ILDA+1 )
 
                DO 240 K = 1, UUB
@@ -561,28 +561,28 @@
                // If we need upper triangle, copy from lower. Note that
               t // he order of copying is chosen to work for 'b' -> 'q'
 
-               IF( IPACK.NE.IPACKG .AND. IPACK.NE.4 ) THEN
+               if ( IPACK.NE.IPACKG .AND. IPACK.NE.4 ) {
                   DO 260 JC = N, 1, -1
                      IROW = IOFFST - ISKEW*JC
                      DO 250 JR = JC, MAX( 1, JC-UUB ), -1
                         A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
   250                CONTINUE
   260             CONTINUE
-                  IF( IPACK.EQ.6 ) THEN
+                  if ( IPACK.EQ.6 ) {
                      DO 280 JC = 1, UUB
                         DO 270 JR = 1, UUB + 1 - JC
                            A( JR, JC ) = ZERO
   270                   CONTINUE
   280                CONTINUE
-                  END IF
-                  IF( IPACKG.EQ.5 ) THEN
+                  }
+                  if ( IPACKG.EQ.5 ) {
                      IPACKG = IPACK
                   } else {
                      IPACKG = 0
-                  END IF
-               END IF
-            END IF
-         END IF
+                  }
+               }
+            }
+         }
 
       } else {
 
@@ -593,7 +593,7 @@
 
                  // Note: we should get here only if LDA .ge. N
 
-         IF( ISYM.EQ.1 ) THEN
+         if ( ISYM.EQ.1 ) {
 
             // Non-symmetric -- A = U D V
 
@@ -604,17 +604,17 @@
 
             CALL DLAGSY( M, LLB, D, A, LDA, ISEED, WORK, IINFO )
 
-         END IF
-         IF( IINFO.NE.0 ) THEN
+         }
+         if ( IINFO.NE.0 ) {
             INFO = 3
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // 5)      Pack the matrix
 
-      IF( IPACK.NE.IPACKG ) THEN
-         IF( IPACK.EQ.1 ) THEN
+      if ( IPACK.NE.IPACKG ) {
+         if ( IPACK.EQ.1 ) {
 
             // 'U' -- Upper triangular, not packed
 
@@ -624,7 +624,7 @@
   290          CONTINUE
   300       CONTINUE
 
-         ELSE IF( IPACK.EQ.2 ) THEN
+         } else if ( IPACK.EQ.2 ) {
 
             // 'L' -- Lower triangular, not packed
 
@@ -634,7 +634,7 @@
   310          CONTINUE
   320       CONTINUE
 
-         ELSE IF( IPACK.EQ.3 ) THEN
+         } else if ( IPACK.EQ.3 ) {
 
             // 'C' -- Upper triangle packed Columnwise.
 
@@ -643,15 +643,15 @@
             DO 340 J = 1, M
                DO 330 I = 1, J
                   IROW = IROW + 1
-                  IF( IROW.GT.LDA ) THEN
+                  if ( IROW.GT.LDA ) {
                      IROW = 1
                      ICOL = ICOL + 1
-                  END IF
+                  }
                   A( IROW, ICOL ) = A( I, J )
   330          CONTINUE
   340       CONTINUE
 
-         ELSE IF( IPACK.EQ.4 ) THEN
+         } else if ( IPACK.EQ.4 ) {
 
             // 'R' -- Lower triangle packed Columnwise.
 
@@ -660,15 +660,15 @@
             DO 360 J = 1, M
                DO 350 I = J, M
                   IROW = IROW + 1
-                  IF( IROW.GT.LDA ) THEN
+                  if ( IROW.GT.LDA ) {
                      IROW = 1
                      ICOL = ICOL + 1
-                  END IF
+                  }
                   A( IROW, ICOL ) = A( I, J )
   350          CONTINUE
   360       CONTINUE
 
-         ELSE IF( IPACK.GE.5 ) THEN
+         } else if ( IPACK.GE.5 ) {
 
             // 'B' -- The lower triangle is packed as a band matrix.
             // 'Q' -- The upper triangle is packed as a band matrix.
@@ -687,14 +687,14 @@
                   A( I-J+UUB+1, J ) = A( I, J )
   390          CONTINUE
   400       CONTINUE
-         END IF
+         }
 
          // If packed, zero out extraneous elements.
 
          // Symmetric/Triangular Packed --
          // zero out everything after A(IROW,ICOL)
 
-         IF( IPACK.EQ.3 .OR. IPACK.EQ.4 ) THEN
+         if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
             DO 420 JC = ICOL, M
                DO 410 JR = IROW + 1, LDA
                   A( JR, JC ) = ZERO
@@ -702,7 +702,7 @@
                IROW = 0
   420       CONTINUE
 
-         ELSE IF( IPACK.GE.5 ) THEN
+         } else if ( IPACK.GE.5 ) {
 
             // Packed Band --
                // 1st row is now in A( UUB+2-j, j), zero above it
@@ -720,8 +720,8 @@
                   A( JR, JC ) = ZERO
   440          CONTINUE
   450       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

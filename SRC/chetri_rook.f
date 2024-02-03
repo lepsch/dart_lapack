@@ -43,17 +43,17 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHETRI_ROOK', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -61,7 +61,7 @@
 
       // Check that the diagonal matrix D is nonsingular.
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Upper triangular storage: examine D from bottom to top
 
@@ -75,10 +75,10 @@
          DO 20 INFO = 1, N
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
    20    CONTINUE
-      END IF
+      }
       INFO = 0
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Compute inv(A) from the factorization A = U*D*U**H.
 
@@ -92,7 +92,7 @@
 
          IF( K.GT.N ) GO TO 70
 
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
 
             // 1 x 1 diagonal block
 
@@ -102,10 +102,10 @@
 
             // Compute column K of the inverse.
 
-            IF( K.GT.1 ) THEN
+            if ( K.GT.1 ) {
                CALL CCOPY( K-1, A( 1, K ), 1, WORK, 1 )
                CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )
-            END IF
+            }
             KSTEP = 1
          } else {
 
@@ -124,22 +124,22 @@
 
             // Compute columns K and K+1 of the inverse.
 
-            IF( K.GT.1 ) THEN
+            if ( K.GT.1 ) {
                CALL CCOPY( K-1, A( 1, K ), 1, WORK, 1 )
                CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - CDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
                CALL CCOPY( K-1, A( 1, K+1 ), 1, WORK, 1 )
                CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K+1 ), 1 ) )
-            END IF
+            }
             KSTEP = 2
-         END IF
+         }
 
-         IF( KSTEP.EQ.1 ) THEN
+         if ( KSTEP.EQ.1 ) {
 
             // Interchange rows and columns K and IPIV(K) in the leading
             // submatrix A(1:k,1:k)
 
             KP = IPIV( K )
-            IF( KP.NE.K ) THEN
+            if ( KP.NE.K ) {
 
                IF( KP.GT.1 ) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
 
@@ -154,7 +154,7 @@
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP
-            END IF
+            }
          } else {
 
             // Interchange rows and columns K and K+1 with -IPIV(K) and
@@ -163,7 +163,7 @@
             // (1) Interchange rows and columns K and -IPIV(K)
 
             KP = -IPIV( K )
-            IF( KP.NE.K ) THEN
+            if ( KP.NE.K ) {
 
                IF( KP.GT.1 ) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
 
@@ -182,13 +182,13 @@
                TEMP = A( K, K+1 )
                A( K, K+1 ) = A( KP, K+1 )
                A( KP, K+1 ) = TEMP
-            END IF
+            }
 
             // (2) Interchange rows and columns K+1 and -IPIV(K+1)
 
             K = K + 1
             KP = -IPIV( K )
-            IF( KP.NE.K ) THEN
+            if ( KP.NE.K ) {
 
                IF( KP.GT.1 ) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
 
@@ -203,8 +203,8 @@
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP
-            END IF
-         END IF
+            }
+         }
 
          K = K + 1
          GO TO 30
@@ -224,7 +224,7 @@
 
          IF( K.LT.1 ) GO TO 120
 
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
 
             // 1 x 1 diagonal block
 
@@ -234,10 +234,10 @@
 
             // Compute column K of the inverse.
 
-            IF( K.LT.N ) THEN
+            if ( K.LT.N ) {
                CALL CCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
                CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )
-            END IF
+            }
             KSTEP = 1
          } else {
 
@@ -256,22 +256,22 @@
 
             // Compute columns K-1 and K of the inverse.
 
-            IF( K.LT.N ) THEN
+            if ( K.LT.N ) {
                CALL CCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
                CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - CDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 )
                CALL CCOPY( N-K, A( K+1, K-1 ), 1, WORK, 1 )
                CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K-1 ), 1 ) )
-            END IF
+            }
             KSTEP = 2
-         END IF
+         }
 
-         IF( KSTEP.EQ.1 ) THEN
+         if ( KSTEP.EQ.1 ) {
 
             // Interchange rows and columns K and IPIV(K) in the trailing
             // submatrix A(k:n,k:n)
 
             KP = IPIV( K )
-            IF( KP.NE.K ) THEN
+            if ( KP.NE.K ) {
 
                IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
 
@@ -286,7 +286,7 @@
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP
-            END IF
+            }
          } else {
 
             // Interchange rows and columns K and K-1 with -IPIV(K) and
@@ -295,7 +295,7 @@
             // (1) Interchange rows and columns K and -IPIV(K)
 
             KP = -IPIV( K )
-            IF( KP.NE.K ) THEN
+            if ( KP.NE.K ) {
 
                IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
 
@@ -314,13 +314,13 @@
                TEMP = A( K, K-1 )
                A( K, K-1 ) = A( KP, K-1 )
                A( KP, K-1 ) = TEMP
-            END IF
+            }
 
             // (2) Interchange rows and columns K-1 and -IPIV(K-1)
 
             K = K - 1
             KP = -IPIV( K )
-            IF( KP.NE.K ) THEN
+            if ( KP.NE.K ) {
 
                IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
 
@@ -335,13 +335,13 @@
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP
-            END IF
-         END IF
+            }
+         }
 
          K = K - 1
          GO TO 80
   120    CONTINUE
-      END IF
+      }
 
       RETURN
 

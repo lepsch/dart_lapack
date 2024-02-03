@@ -88,13 +88,13 @@
       CALL DSVDCT( N, S, E, UPPER, NUMU )
       COUNT = NUMU - NUML
       IF( LOWER.LT.ZERO ) COUNT = COUNT / 2
-      IF( COUNT.NE.BPNT-TPNT+1 ) THEN
+      if ( COUNT.NE.BPNT-TPNT+1 ) {
 
          // Wrong number of singular values in interval
 
          INFO = TPNT
          GO TO 40
-      END IF
+      }
       TPNT = BPNT + 1
       BPNT = TPNT
       IF( TPNT.LE.N ) GO TO 10

@@ -23,7 +23,7 @@
       // .. Executable Statements ..
 
       // Quick test for the common case where one corner is non-zero.
-      IF( M.EQ.0 ) THEN
+      if ( M.EQ.0 ) {
          ILASLR = M
       ELSEIF( A(M, 1).NE.ZERO .OR. A(M, N).NE.ZERO ) THEN
          ILASLR = M
@@ -37,6 +37,6 @@
             ENDDO
             ILASLR = MAX( ILASLR, I )
          END DO
-      END IF
+      }
       RETURN
       }

@@ -27,17 +27,17 @@
 
       // Quick return if possible
 
-      IF( N.LE.1 ) THEN
+      if ( N.LE.1 ) {
          IF( N.EQ.1 ) CALL ZDSCAL( NRHS, 1.D0 / D( 1 ), B, LDB )
          RETURN
-      END IF
+      }
 
-      IF( IUPLO.EQ.1 ) THEN
+      if ( IUPLO.EQ.1 ) {
 
          // Solve A * X = B using the factorization A = U**H *D*U,
          // overwriting each right hand side vector with its solution.
 
-         IF( NRHS.LE.2 ) THEN
+         if ( NRHS.LE.2 ) {
             J = 1
    10       CONTINUE
 
@@ -55,10 +55,10 @@
             DO 40 I = N - 1, 1, -1
                B( I, J ) = B( I, J ) - B( I+1, J )*E( I )
    40       CONTINUE
-            IF( J.LT.NRHS ) THEN
+            if ( J.LT.NRHS ) {
                J = J + 1
                GO TO 10
-            END IF
+            }
          } else {
             DO 70 J = 1, NRHS
 
@@ -75,13 +75,13 @@
                   B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*E( I )
    60          CONTINUE
    70       CONTINUE
-         END IF
+         }
       } else {
 
          // Solve A * X = B using the factorization A = L*D*L**H,
          // overwriting each right hand side vector with its solution.
 
-         IF( NRHS.LE.2 ) THEN
+         if ( NRHS.LE.2 ) {
             J = 1
    80       CONTINUE
 
@@ -99,10 +99,10 @@
             DO 110 I = N - 1, 1, -1
                B( I, J ) = B( I, J ) - B( I+1, J )*DCONJG( E( I ) )
   110       CONTINUE
-            IF( J.LT.NRHS ) THEN
+            if ( J.LT.NRHS ) {
                J = J + 1
                GO TO 80
-            END IF
+            }
          } else {
             DO 140 J = 1, NRHS
 
@@ -119,8 +119,8 @@
                   B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*DCONJG( E( I ) )
   130          CONTINUE
   140       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

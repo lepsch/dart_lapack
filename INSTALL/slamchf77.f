@@ -31,52 +31,52 @@
       // ..
       // .. Executable Statements ..
 
-      IF( FIRST ) THEN
+      if ( FIRST ) {
          CALL SLAMC2( BETA, IT, LRND, EPS, IMIN, RMIN, IMAX, RMAX )
          BASE = BETA
          T = IT
-         IF( LRND ) THEN
+         if ( LRND ) {
             RND = ONE
             EPS = ( BASE**( 1-IT ) ) / 2
          } else {
             RND = ZERO
             EPS = BASE**( 1-IT )
-         END IF
+         }
          PREC = EPS*BASE
          EMIN = IMIN
          EMAX = IMAX
          SFMIN = RMIN
          SMALL = ONE / RMAX
-         IF( SMALL.GE.SFMIN ) THEN
+         if ( SMALL.GE.SFMIN ) {
 
             // Use SMALL plus a bit, to avoid the possibility of rounding
             // causing overflow when computing  1/sfmin.
 
             SFMIN = SMALL*( ONE+EPS )
-         END IF
-      END IF
+         }
+      }
 
-      IF( LSAME( CMACH, 'E' ) ) THEN
+      if ( LSAME( CMACH, 'E' ) ) {
          RMACH = EPS
-      ELSE IF( LSAME( CMACH, 'S' ) ) THEN
+      } else if ( LSAME( CMACH, 'S' ) ) {
          RMACH = SFMIN
-      ELSE IF( LSAME( CMACH, 'B' ) ) THEN
+      } else if ( LSAME( CMACH, 'B' ) ) {
          RMACH = BASE
-      ELSE IF( LSAME( CMACH, 'P' ) ) THEN
+      } else if ( LSAME( CMACH, 'P' ) ) {
          RMACH = PREC
-      ELSE IF( LSAME( CMACH, 'N' ) ) THEN
+      } else if ( LSAME( CMACH, 'N' ) ) {
          RMACH = T
-      ELSE IF( LSAME( CMACH, 'R' ) ) THEN
+      } else if ( LSAME( CMACH, 'R' ) ) {
          RMACH = RND
-      ELSE IF( LSAME( CMACH, 'M' ) ) THEN
+      } else if ( LSAME( CMACH, 'M' ) ) {
          RMACH = EMIN
-      ELSE IF( LSAME( CMACH, 'U' ) ) THEN
+      } else if ( LSAME( CMACH, 'U' ) ) {
          RMACH = RMIN
-      ELSE IF( LSAME( CMACH, 'L' ) ) THEN
+      } else if ( LSAME( CMACH, 'L' ) ) {
          RMACH = EMAX
-      ELSE IF( LSAME( CMACH, 'O' ) ) THEN
+      } else if ( LSAME( CMACH, 'O' ) ) {
          RMACH = RMAX
-      END IF
+      }
 
       SLAMCH = RMACH
       FIRST  = .FALSE.
@@ -164,7 +164,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( FIRST ) THEN
+      if ( FIRST ) {
          ONE = 1
 
          // LBETA,  LIEEE1,  LT and  LRND  are the  local values  of  BETA,
@@ -184,12 +184,12 @@
 
 *+       WHILE( C.EQ.ONE )LOOP
    10    CONTINUE
-         IF( C.EQ.ONE ) THEN
+         if ( C.EQ.ONE ) {
             A = 2*A
             C = SLAMC3( A, ONE )
             C = SLAMC3( C, -A )
             GO TO 10
-         END IF
+         }
 *+       END WHILE
 
          // Now compute  b = 2.0**m  with the smallest positive integer m
@@ -202,11 +202,11 @@
 
 *+       WHILE( C.EQ.A )LOOP
    20    CONTINUE
-         IF( C.EQ.A ) THEN
+         if ( C.EQ.A ) {
             B = 2*B
             C = SLAMC3( A, B )
             GO TO 20
-         END IF
+         }
 *+       END WHILE
 
          // Now compute the base.  a and c  are neighbouring floating point
@@ -225,11 +225,11 @@
          B = LBETA
          F = SLAMC3( B / 2, -B / 100 )
          C = SLAMC3( F, A )
-         IF( C.EQ.A ) THEN
+         if ( C.EQ.A ) {
             LRND = .TRUE.
          } else {
             LRND = .FALSE.
-         END IF
+         }
          F = SLAMC3( B / 2, B / 100 )
          C = SLAMC3( F, A )
          IF( ( LRND ) .AND. ( C.EQ.A ) ) LRND = .FALSE.
@@ -257,16 +257,16 @@
 
 *+       WHILE( C.EQ.ONE )LOOP
    30    CONTINUE
-         IF( C.EQ.ONE ) THEN
+         if ( C.EQ.ONE ) {
             LT = LT + 1
             A = A*LBETA
             C = SLAMC3( A, ONE )
             C = SLAMC3( C, -A )
             GO TO 30
-         END IF
+         }
 *+       END WHILE
 
-      END IF
+      }
 
       BETA = LBETA
       T = LT
@@ -382,7 +382,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( FIRST ) THEN
+      if ( FIRST ) {
          ZERO = 0
          ONE = 1
          TWO = 2
@@ -419,7 +419,7 @@
 
 *+       WHILE( ( LEPS.GT.B ).AND.( B.GT.ZERO ) )LOOP
    10    CONTINUE
-         IF( ( LEPS.GT.B ) .AND. ( B.GT.ZERO ) ) THEN
+         if ( ( LEPS.GT.B ) .AND. ( B.GT.ZERO ) ) {
             LEPS = B
             C = SLAMC3( HALF*LEPS, ( TWO**5 )*( LEPS**2 ) )
             C = SLAMC3( HALF, -C )
@@ -427,7 +427,7 @@
             C = SLAMC3( HALF, -B )
             B = SLAMC3( HALF, C )
             GO TO 10
-         END IF
+         }
 *+       END WHILE
 
          IF( A.LT.LEPS ) LEPS = A
@@ -450,12 +450,12 @@
          CALL SLAMC4( GNMIN, -A, LBETA )
          IEEE = .FALSE.
 
-         IF( ( NGPMIN.EQ.NGNMIN ) .AND. ( GPMIN.EQ.GNMIN ) ) THEN
-            IF( NGPMIN.EQ.GPMIN ) THEN
+         if ( ( NGPMIN.EQ.NGNMIN ) .AND. ( GPMIN.EQ.GNMIN ) ) {
+            if ( NGPMIN.EQ.GPMIN ) {
                LEMIN = NGPMIN
              // ( Non twos-complement machines, no gradual underflow;
                // e.g.,  VAX )
-            ELSE IF( ( GPMIN-NGPMIN ).EQ.3 ) THEN
+            } else if ( ( GPMIN-NGPMIN ).EQ.3 ) {
                LEMIN = NGPMIN - 1 + LT
                IEEE = .TRUE.
              // ( Non twos-complement machines, with gradual underflow;
@@ -464,10 +464,10 @@
                LEMIN = MIN( NGPMIN, GPMIN )
              // ( A guess; no known machine )
                IWARN = .TRUE.
-            END IF
+            }
 
-         ELSE IF( ( NGPMIN.EQ.GPMIN ) .AND. ( NGNMIN.EQ.GNMIN ) ) THEN
-            IF( ABS( NGPMIN-NGNMIN ).EQ.1 ) THEN
+         } else if ( ( NGPMIN.EQ.GPMIN ) .AND. ( NGNMIN.EQ.GNMIN ) ) {
+            if ( ABS( NGPMIN-NGNMIN ).EQ.1 ) {
                LEMIN = MAX( NGPMIN, NGNMIN )
              // ( Twos-complement machines, no gradual underflow;
                // e.g., CYBER 205 )
@@ -475,10 +475,10 @@
                LEMIN = MIN( NGPMIN, NGNMIN )
              // ( A guess; no known machine )
                IWARN = .TRUE.
-            END IF
+            }
 
-         ELSE IF( ( ABS( NGPMIN-NGNMIN ).EQ.1 ) .AND. ( GPMIN.EQ.GNMIN ) ) THEN
-            IF( ( GPMIN-MIN( NGPMIN, NGNMIN ) ).EQ.3 ) THEN
+         } else if ( ( ABS( NGPMIN-NGNMIN ).EQ.1 ) .AND. ( GPMIN.EQ.GNMIN ) ) {
+            if ( ( GPMIN-MIN( NGPMIN, NGNMIN ) ).EQ.3 ) {
                LEMIN = MAX( NGPMIN, NGNMIN ) - 1 + LT
              // ( Twos-complement machines with gradual underflow;
                // no known machine )
@@ -486,20 +486,20 @@
                LEMIN = MIN( NGPMIN, NGNMIN )
              // ( A guess; no known machine )
                IWARN = .TRUE.
-            END IF
+            }
 
          } else {
             LEMIN = MIN( NGPMIN, NGNMIN, GPMIN, GNMIN )
           // ( A guess; no known machine )
             IWARN = .TRUE.
-         END IF
+         }
          FIRST = .FALSE.
 ***
 * Comment out this if block if EMIN is ok
-         IF( IWARN ) THEN
+         if ( IWARN ) {
             FIRST = .TRUE.
             WRITE( 6, FMT = 9999 )LEMIN
-         END IF
+         }
 ***
 
          // Assume IEEE arithmetic if we found denormalised  numbers above,
@@ -521,7 +521,7 @@
          // Finally, call SLAMC5 to compute EMAX and RMAX.
 
          CALL SLAMC5( LBETA, LT, LEMIN, IEEE, LEMAX, LRMAX )
-      END IF
+      }
 
       BETA = LBETA
       T = LT
@@ -646,7 +646,7 @@
 *+    WHILE( ( C1.EQ.A ).AND.( C2.EQ.A ).AND.
 *    $       ( D1.EQ.A ).AND.( D2.EQ.A )      )LOOP
    10 CONTINUE
-      IF( ( C1.EQ.A ) .AND. ( C2.EQ.A ) .AND. ( D1.EQ.A ) .AND. ( D2.EQ.A ) ) THEN
+      if ( ( C1.EQ.A ) .AND. ( C2.EQ.A ) .AND. ( D1.EQ.A ) .AND. ( D2.EQ.A ) ) {
          EMIN = EMIN - 1
          A = B1
          B1 = SLAMC3( A / BASE, ZERO )
@@ -662,7 +662,7 @@
             D2 = D2 + B2
    30    CONTINUE
          GO TO 10
-      END IF
+      }
 *+    END WHILE
 
       RETURN
@@ -756,27 +756,27 @@
       EXBITS = 1
    10 CONTINUE
       TRY = LEXP*2
-      IF( TRY.LE.( -EMIN ) ) THEN
+      if ( TRY.LE.( -EMIN ) ) {
          LEXP = TRY
          EXBITS = EXBITS + 1
          GO TO 10
-      END IF
-      IF( LEXP.EQ.-EMIN ) THEN
+      }
+      if ( LEXP.EQ.-EMIN ) {
          UEXP = LEXP
       } else {
          UEXP = TRY
          EXBITS = EXBITS + 1
-      END IF
+      }
 
       // Now -LEXP is less than or equal to EMIN, and -UEXP is greater
      t // han or equal to EMIN. EXBITS is the number of bits needed to
       // store the exponent.
 
-      IF( ( UEXP+EMIN ).GT.( -LEXP-EMIN ) ) THEN
+      if ( ( UEXP+EMIN ).GT.( -LEXP-EMIN ) ) {
          EXPSUM = 2*LEXP
       } else {
          EXPSUM = 2*UEXP
-      END IF
+      }
 
       // EXPSUM is the exponent range, approximately equal to
       // EMAX - EMIN + 1 .
@@ -787,7 +787,7 @@
       // NBITS is the total number of bits needed to store a
       // floating-point number.
 
-      IF( ( MOD( NBITS, 2 ).EQ.1 ) .AND. ( BETA.EQ.2 ) ) THEN
+      if ( ( MOD( NBITS, 2 ).EQ.1 ) .AND. ( BETA.EQ.2 ) ) {
 
          // Either there are an odd number of bits used to store a
          // floating-point number, which is unlikely, or some bits are
@@ -801,15 +801,15 @@
          // unnecessarily.
 
          EMAX = EMAX - 1
-      END IF
+      }
 
-      IF( IEEE ) THEN
+      if ( IEEE ) {
 
          // Assume we are on an IEEE machine which reserves one exponent
          // for infinity and NaN.
 
          EMAX = EMAX - 1
-      END IF
+      }
 
       // Now create RMAX, the largest machine number, which should
       // be equal to (1.0 - BETA**(-P)) * BETA**EMAX .

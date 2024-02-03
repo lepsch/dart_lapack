@@ -46,46 +46,46 @@
 
       IUPLO = 0
       IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2
-      IF( LSAME( COMPQ, 'N' ) ) THEN
+      if ( LSAME( COMPQ, 'N' ) ) {
          ICOMPQ = 0
-      ELSE IF( LSAME( COMPQ, 'P' ) ) THEN
+      } else if ( LSAME( COMPQ, 'P' ) ) {
          ICOMPQ = 1
-      ELSE IF( LSAME( COMPQ, 'I' ) ) THEN
+      } else if ( LSAME( COMPQ, 'I' ) ) {
          ICOMPQ = 2
       } else {
          ICOMPQ = -1
-      END IF
-      IF( IUPLO.EQ.0 ) THEN
+      }
+      if ( IUPLO.EQ.0 ) {
          INFO = -1
-      ELSE IF( ICOMPQ.LT.0 ) THEN
+      } else if ( ICOMPQ.LT.0 ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( ( LDU.LT.1 ) .OR. ( ( ICOMPQ.EQ.2 ) .AND. ( LDU.LT. N ) ) ) THEN
+      } else if ( ( LDU.LT.1 ) .OR. ( ( ICOMPQ.EQ.2 ) .AND. ( LDU.LT. N ) ) ) {
          INFO = -7
-      ELSE IF( ( LDVT.LT.1 ) .OR. ( ( ICOMPQ.EQ.2 ) .AND. ( LDVT.LT. N ) ) ) THEN
+      } else if ( ( LDVT.LT.1 ) .OR. ( ( ICOMPQ.EQ.2 ) .AND. ( LDVT.LT. N ) ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SBDSDC', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
       SMLSIZ = ILAENV( 9, 'SBDSDC', ' ', 0, 0, 0, 0 )
-      IF( N.EQ.1 ) THEN
-         IF( ICOMPQ.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
+         if ( ICOMPQ.EQ.1 ) {
             Q( 1 ) = SIGN( ONE, D( 1 ) )
             Q( 1+SMLSIZ*N ) = ONE
-         ELSE IF( ICOMPQ.EQ.2 ) THEN
+         } else if ( ICOMPQ.EQ.2 ) {
             U( 1, 1 ) = SIGN( ONE, D( 1 ) )
             VT( 1, 1 ) = ONE
-         END IF
+         }
          D( 1 ) = ABS( D( 1 ) )
          RETURN
-      END IF
+      }
       NM1 = N - 1
 
       // If matrix lower bidiagonal, rotate to be upper bidiagonal
@@ -93,11 +93,11 @@
 
       WSTART = 1
       QSTART = 3
-      IF( ICOMPQ.EQ.1 ) THEN
+      if ( ICOMPQ.EQ.1 ) {
          CALL SCOPY( N, D, 1, Q( 1 ), 1 )
          CALL SCOPY( N-1, E, 1, Q( N+1 ), 1 )
-      END IF
-      IF( IUPLO.EQ.2 ) THEN
+      }
+      if ( IUPLO.EQ.2 ) {
          QSTART = 5
          IF( ICOMPQ .EQ. 2 ) WSTART = 2*N - 1
          DO 10 I = 1, N - 1
@@ -105,46 +105,46 @@
             D( I ) = R
             E( I ) = SN*D( I+1 )
             D( I+1 ) = CS*D( I+1 )
-            IF( ICOMPQ.EQ.1 ) THEN
+            if ( ICOMPQ.EQ.1 ) {
                Q( I+2*N ) = CS
                Q( I+3*N ) = SN
-            ELSE IF( ICOMPQ.EQ.2 ) THEN
+            } else if ( ICOMPQ.EQ.2 ) {
                WORK( I ) = CS
                WORK( NM1+I ) = -SN
-            END IF
+            }
    10    CONTINUE
-      END IF
+      }
 
       // If ICOMPQ = 0, use SLASDQ to compute the singular values.
 
-      IF( ICOMPQ.EQ.0 ) THEN
+      if ( ICOMPQ.EQ.0 ) {
          // Ignore WSTART, instead using WORK( 1 ), since the two vectors
          // for CS and -SN above are added only if ICOMPQ == 2,
          // and adding them exceeds documented WORK size of 4*n.
          CALL SLASDQ( 'U', 0, N, 0, 0, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK( 1 ), INFO )
          GO TO 40
-      END IF
+      }
 
       // If N is smaller than the minimum divide size SMLSIZ, then solve
      t // he problem with another solver.
 
-      IF( N.LE.SMLSIZ ) THEN
-         IF( ICOMPQ.EQ.2 ) THEN
+      if ( N.LE.SMLSIZ ) {
+         if ( ICOMPQ.EQ.2 ) {
             CALL SLASET( 'A', N, N, ZERO, ONE, U, LDU )
             CALL SLASET( 'A', N, N, ZERO, ONE, VT, LDVT )
             CALL SLASDQ( 'U', 0, N, N, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK( WSTART ), INFO )
-         ELSE IF( ICOMPQ.EQ.1 ) THEN
+         } else if ( ICOMPQ.EQ.1 ) {
             IU = 1
             IVT = IU + N
             CALL SLASET( 'A', N, N, ZERO, ONE, Q( IU+( QSTART-1 )*N ), N )             CALL SLASET( 'A', N, N, ZERO, ONE, Q( IVT+( QSTART-1 )*N ), N )             CALL SLASDQ( 'U', 0, N, N, N, 0, D, E, Q( IVT+( QSTART-1 )*N ), N, Q( IU+( QSTART-1 )*N ), N, Q( IU+( QSTART-1 )*N ), N, WORK( WSTART ), INFO )
-         END IF
+         }
          GO TO 40
-      END IF
+      }
 
-      IF( ICOMPQ.EQ.2 ) THEN
+      if ( ICOMPQ.EQ.2 ) {
          CALL SLASET( 'A', N, N, ZERO, ONE, U, LDU )
          CALL SLASET( 'A', N, N, ZERO, ONE, VT, LDVT )
-      END IF
+      }
 
       // Scale.
 
@@ -158,7 +158,7 @@
       MLVL = INT( LOG( REAL( N ) / REAL( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1
       SMLSZP = SMLSIZ + 1
 
-      IF( ICOMPQ.EQ.1 ) THEN
+      if ( ICOMPQ.EQ.1 ) {
          IU = 1
          IVT = 1 + SMLSIZ
          DIFL = IVT + SMLSZP
@@ -173,29 +173,29 @@
          GIVPTR = 2
          PERM = 3
          GIVCOL = PERM + MLVL
-      END IF
+      }
 
       DO 20 I = 1, N
-         IF( ABS( D( I ) ).LT.EPS ) THEN
+         if ( ABS( D( I ) ).LT.EPS ) {
             D( I ) = SIGN( EPS, D( I ) )
-         END IF
+         }
    20 CONTINUE
 
       START = 1
       SQRE = 0
 
       DO 30 I = 1, NM1
-         IF( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) THEN
+         if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) {
 
          // Subproblem found. First determine its size and then
          // apply divide and conquer on it.
 
-            IF( I.LT.NM1 ) THEN
+            if ( I.LT.NM1 ) {
 
          // A subproblem with E(I) small for I < NM1.
 
                NSIZE = I - START + 1
-            ELSE IF( ABS( E( I ) ).GE.EPS ) THEN
+            } else if ( ABS( E( I ) ).GE.EPS ) {
 
          // A subproblem with E(NM1) not too small but I = NM1.
 
@@ -207,25 +207,25 @@
          // first.
 
                NSIZE = I - START + 1
-               IF( ICOMPQ.EQ.2 ) THEN
+               if ( ICOMPQ.EQ.2 ) {
                   U( N, N ) = SIGN( ONE, D( N ) )
                   VT( N, N ) = ONE
-               ELSE IF( ICOMPQ.EQ.1 ) THEN
+               } else if ( ICOMPQ.EQ.1 ) {
                   Q( N+( QSTART-1 )*N ) = SIGN( ONE, D( N ) )
                   Q( N+( SMLSIZ+QSTART-1 )*N ) = ONE
-               END IF
+               }
                D( N ) = ABS( D( N ) )
-            END IF
-            IF( ICOMPQ.EQ.2 ) THEN
+            }
+            if ( ICOMPQ.EQ.2 ) {
                CALL SLASD0( NSIZE, SQRE, D( START ), E( START ), U( START, START ), LDU, VT( START, START ), LDVT, SMLSIZ, IWORK, WORK( WSTART ), INFO )
             } else {
                CALL SLASDA( ICOMPQ, SMLSIZ, NSIZE, SQRE, D( START ), E( START ), Q( START+( IU+QSTART-2 )*N ), N, Q( START+( IVT+QSTART-2 )*N ), IQ( START+K*N ), Q( START+( DIFL+QSTART-2 )* N ), Q( START+( DIFR+QSTART-2 )*N ), Q( START+( Z+QSTART-2 )*N ), Q( START+( POLES+QSTART-2 )*N ), IQ( START+GIVPTR*N ), IQ( START+GIVCOL*N ), N, IQ( START+PERM*N ), Q( START+( GIVNUM+QSTART-2 )*N ), Q( START+( IC+QSTART-2 )*N ), Q( START+( IS+QSTART-2 )*N ), WORK( WSTART ), IWORK, INFO )
-            END IF
-            IF( INFO.NE.0 ) THEN
+            }
+            if ( INFO.NE.0 ) {
                RETURN
-            END IF
+            }
             START = I + 1
-         END IF
+         }
    30 CONTINUE
 
       // Unscale
@@ -240,34 +240,34 @@
          KK = I
          P = D( I )
          DO 50 J = II, N
-            IF( D( J ).GT.P ) THEN
+            if ( D( J ).GT.P ) {
                KK = J
                P = D( J )
-            END IF
+            }
    50    CONTINUE
-         IF( KK.NE.I ) THEN
+         if ( KK.NE.I ) {
             D( KK ) = D( I )
             D( I ) = P
-            IF( ICOMPQ.EQ.1 ) THEN
+            if ( ICOMPQ.EQ.1 ) {
                IQ( I ) = KK
-            ELSE IF( ICOMPQ.EQ.2 ) THEN
+            } else if ( ICOMPQ.EQ.2 ) {
                CALL SSWAP( N, U( 1, I ), 1, U( 1, KK ), 1 )
                CALL SSWAP( N, VT( I, 1 ), LDVT, VT( KK, 1 ), LDVT )
-            END IF
-         ELSE IF( ICOMPQ.EQ.1 ) THEN
+            }
+         } else if ( ICOMPQ.EQ.1 ) {
             IQ( I ) = I
-         END IF
+         }
    60 CONTINUE
 
       // If ICOMPQ = 1, use IQ(N,1) as the indicator for UPLO
 
-      IF( ICOMPQ.EQ.1 ) THEN
-         IF( IUPLO.EQ.1 ) THEN
+      if ( ICOMPQ.EQ.1 ) {
+         if ( IUPLO.EQ.1 ) {
             IQ( N ) = 1
          } else {
             IQ( N ) = 0
-         END IF
-      END IF
+         }
+      }
 
       // If B is lower bidiagonal, update U by those Givens rotations
       // which rotated B to be upper bidiagonal

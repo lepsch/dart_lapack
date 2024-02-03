@@ -54,13 +54,13 @@
 
       // Quick return if possible
 
-      IF( MINMN.EQ.0 ) THEN
+      if ( MINMN.EQ.0 ) {
          RESULT( 1 ) = ZERO
          RESULT( 2 ) = ZERO
          RESULT( 3 ) = ZERO
          RESULT( 4 ) = ZERO
          RETURN
-      END IF
+      }
 
       // Copy the last k rows of the factorization to the array Q
 
@@ -73,7 +73,7 @@
       CALL SORGRQ( N, N, K, Q, LDA, TAU( MINMN-K+1 ), WORK, LWORK, INFO )
 
       DO 30 ISIDE = 1, 2
-         IF( ISIDE.EQ.1 ) THEN
+         if ( ISIDE.EQ.1 ) {
             SIDE = 'L'
             MC = N
             NC = M
@@ -81,7 +81,7 @@
             SIDE = 'R'
             MC = M
             NC = N
-         END IF
+         }
 
          // Generate MC by NC matrix C
 
@@ -92,11 +92,11 @@
          IF( CNORM.EQ.0.0 ) CNORM = ONE
 
          DO 20 ITRANS = 1, 2
-            IF( ITRANS.EQ.1 ) THEN
+            if ( ITRANS.EQ.1 ) {
                TRANS = 'N'
             } else {
                TRANS = 'T'
-            END IF
+            }
 
             // Copy C
 
@@ -109,11 +109,11 @@
 
             // Form explicit product and subtract
 
-            IF( LSAME( SIDE, 'L' ) ) THEN
+            if ( LSAME( SIDE, 'L' ) ) {
                CALL SGEMM( TRANS, 'No transpose', MC, NC, MC, -ONE, Q, LDA, C, LDA, ONE, CC, LDA )
             } else {
                CALL SGEMM( 'No transpose', TRANS, MC, NC, NC, -ONE, C, LDA, Q, LDA, ONE, CC, LDA )
-            END IF
+            }
 
             // Compute error in the difference
 

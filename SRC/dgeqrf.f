@@ -35,61 +35,61 @@
       INFO = 0
       NB = ILAENV( 1, 'DGEQRF', ' ', M, N, -1, -1 )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      ELSE IF( .NOT.LQUERY ) THEN
+      } else if ( .NOT.LQUERY ) {
          IF( LWORK.LE.0 .OR. ( M.GT.0 .AND. LWORK.LT.MAX( 1, N ) ) ) INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGEQRF', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
-         IF( K.EQ.0 ) THEN
+      } else if ( LQUERY ) {
+         if ( K.EQ.0 ) {
             LWKOPT = 1
          } else {
             LWKOPT = N*NB
-         END IF
+         }
          WORK( 1 ) = LWKOPT
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( K.EQ.0 ) THEN
+      if ( K.EQ.0 ) {
          WORK( 1 ) = 1
          RETURN
-      END IF
+      }
 
       NBMIN = 2
       NX = 0
       IWS = N
-      IF( NB.GT.1 .AND. NB.LT.K ) THEN
+      if ( NB.GT.1 .AND. NB.LT.K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
          NX = MAX( 0, ILAENV( 3, 'DGEQRF', ' ', M, N, -1, -1 ) )
-         IF( NX.LT.K ) THEN
+         if ( NX.LT.K ) {
 
             // Determine if workspace is large enough for blocked code.
 
             LDWORK = N
             IWS = LDWORK*NB
-            IF( LWORK.LT.IWS ) THEN
+            if ( LWORK.LT.IWS ) {
 
                // Not enough workspace to use optimal NB:  reduce NB and
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK
                NBMIN = MAX( 2, ILAENV( 2, 'DGEQRF', ' ', M, N, -1, -1 ) )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
-      IF( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) THEN
+      if ( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) {
 
          // Use blocked code initially
 
@@ -100,7 +100,7 @@
             // A(i:m,i:i+ib-1)
 
             CALL DGEQR2( M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, IINFO )
-            IF( I+IB.LE.N ) THEN
+            if ( I+IB.LE.N ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i) H(i+1) . . . H(i+ib-1)
@@ -110,11 +110,11 @@
                // Apply H**T to A(i:m,i+ib:n) from the left
 
                CALL DLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ), LDA, WORK( IB+1 ), LDWORK )
-            END IF
+            }
    10    CONTINUE
       } else {
          I = 1
-      END IF
+      }
 
       // Use unblocked code to factor the last or only block.
 

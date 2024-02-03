@@ -51,27 +51,27 @@
 
       // Decode the input arguments
 
-      IF( LSAME( JOBVSL, 'N' ) ) THEN
+      if ( LSAME( JOBVSL, 'N' ) ) {
          IJOBVL = 1
          ILVSL = .FALSE.
-      ELSE IF( LSAME( JOBVSL, 'V' ) ) THEN
+      } else if ( LSAME( JOBVSL, 'V' ) ) {
          IJOBVL = 2
          ILVSL = .TRUE.
       } else {
          IJOBVL = -1
          ILVSL = .FALSE.
-      END IF
+      }
 
-      IF( LSAME( JOBVSR, 'N' ) ) THEN
+      if ( LSAME( JOBVSR, 'N' ) ) {
          IJOBVR = 1
          ILVSR = .FALSE.
-      ELSE IF( LSAME( JOBVSR, 'V' ) ) THEN
+      } else if ( LSAME( JOBVSR, 'V' ) ) {
          IJOBVR = 2
          ILVSR = .TRUE.
       } else {
          IJOBVR = -1
          ILVSR = .FALSE.
-      END IF
+      }
 
       WANTST = LSAME( SORT, 'S' )
       WANTSN = LSAME( SENSE, 'N' )
@@ -79,38 +79,38 @@
       WANTSV = LSAME( SENSE, 'V' )
       WANTSB = LSAME( SENSE, 'B' )
       LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
-      IF( WANTSN ) THEN
+      if ( WANTSN ) {
          IJOB = 0
-      ELSE IF( WANTSE ) THEN
+      } else if ( WANTSE ) {
          IJOB = 1
-      ELSE IF( WANTSV ) THEN
+      } else if ( WANTSV ) {
          IJOB = 2
-      ELSE IF( WANTSB ) THEN
+      } else if ( WANTSB ) {
          IJOB = 4
-      END IF
+      }
 
       // Test the input arguments
 
       INFO = 0
-      IF( IJOBVL.LE.0 ) THEN
+      if ( IJOBVL.LE.0 ) {
          INFO = -1
-      ELSE IF( IJOBVR.LE.0 ) THEN
+      } else if ( IJOBVR.LE.0 ) {
          INFO = -2
-      ELSE IF( ( .NOT.WANTST ) .AND. ( .NOT.LSAME( SORT, 'N' ) ) ) THEN
+      } else if ( ( .NOT.WANTST ) .AND. ( .NOT.LSAME( SORT, 'N' ) ) ) {
          INFO = -3
-      ELSE IF( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST .AND. .NOT.WANTSN ) ) THEN
+      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST .AND. .NOT.WANTSN ) ) {
          INFO = -5
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -6
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -8
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -10
-      ELSE IF( LDVSL.LT.1 .OR. ( ILVSL .AND. LDVSL.LT.N ) ) THEN
+      } else if ( LDVSL.LT.1 .OR. ( ILVSL .AND. LDVSL.LT.N ) ) {
          INFO = -15
-      ELSE IF( LDVSR.LT.1 .OR. ( ILVSR .AND. LDVSR.LT.N ) ) THEN
+      } else if ( LDVSR.LT.1 .OR. ( ILVSR .AND. LDVSR.LT.N ) ) {
          INFO = -17
-      END IF
+      }
 
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
@@ -119,49 +119,49 @@
         // NB refers to the optimal block size for the immediately
         // following subroutine, as returned by ILAENV.)
 
-      IF( INFO.EQ.0 ) THEN
-         IF( N.GT.0) THEN
+      if ( INFO.EQ.0 ) {
+         if ( N.GT.0) {
             MINWRK = 2*N
             MAXWRK = N*(1 + ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) )
             MAXWRK = MAX( MAXWRK, N*( 1 + ILAENV( 1, 'CUNMQR', ' ', N, 1, N, -1 ) ) )
-            IF( ILVSL ) THEN
+            if ( ILVSL ) {
                MAXWRK = MAX( MAXWRK, N*( 1 + ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) ) )
-            END IF
+            }
             LWRK = MAXWRK
             IF( IJOB.GE.1 ) LWRK = MAX( LWRK, N*N/2 )
          } else {
             MINWRK = 1
             MAXWRK = 1
             LWRK   = 1
-         END IF
+         }
          WORK( 1 ) = SROUNDUP_LWORK(LWRK)
-         IF( WANTSN .OR. N.EQ.0 ) THEN
+         if ( WANTSN .OR. N.EQ.0 ) {
             LIWMIN = 1
          } else {
             LIWMIN = N + 2
-         END IF
+         }
          IWORK( 1 ) = LIWMIN
 
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
             INFO = -21
-         ELSE IF( LIWORK.LT.LIWMIN  .AND. .NOT.LQUERY) THEN
+         } else if ( LIWORK.LT.LIWMIN  .AND. .NOT.LQUERY) {
             INFO = -24
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGGESX', -INFO )
          RETURN
-      ELSE IF (LQUERY) THEN
+      } else if (LQUERY) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          SDIM = 0
          RETURN
-      END IF
+      }
 
       // Get machine constants
 
@@ -175,26 +175,26 @@
 
       ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = .FALSE.
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = .TRUE.
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
-      END IF
+      }
       IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
       BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = .FALSE.
-      IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
+      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = .TRUE.
-      ELSE IF( BNRM.GT.BIGNUM ) THEN
+      } else if ( BNRM.GT.BIGNUM ) {
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
-      END IF
+      }
       IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 
       // Permute the matrix to make it more nearly triangular
@@ -222,13 +222,13 @@
       // Initialize VSL
       // (Complex Workspace: need N, prefer N*NB)
 
-      IF( ILVSL ) THEN
+      if ( ILVSL ) {
          CALL CLASET( 'Full', N, N, CZERO, CONE, VSL, LDVSL )
-         IF( IROWS.GT.1 ) THEN
+         if ( IROWS.GT.1 ) {
             CALL CLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )
-         END IF
+         }
          CALL CUNGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
-      END IF
+      }
 
       // Initialize VSR
 
@@ -247,21 +247,21 @@
 
       IWRK = ITAU
       CALL CHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), IERR )
-      IF( IERR.NE.0 ) THEN
-         IF( IERR.GT.0 .AND. IERR.LE.N ) THEN
+      if ( IERR.NE.0 ) {
+         if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
-         ELSE IF( IERR.GT.N .AND. IERR.LE.2*N ) THEN
+         } else if ( IERR.GT.N .AND. IERR.LE.2*N ) {
             INFO = IERR - N
          } else {
             INFO = N + 1
-         END IF
+         }
          GO TO 40
-      END IF
+      }
 
       // Sort eigenvalues ALPHA/BETA and compute the reciprocal of
       // condition number(s)
 
-      IF( WANTST ) THEN
+      if ( WANTST ) {
 
          // Undo scaling on eigenvalues before SELCTGing
 
@@ -281,24 +281,24 @@
          CALL CTGSEN( IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR )
 
          IF( IJOB.GE.1 ) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) )
-         IF( IERR.EQ.-21 ) THEN
+         if ( IERR.EQ.-21 ) {
 
              // not enough complex workspace
 
             INFO = -21
          } else {
-            IF( IJOB.EQ.1 .OR. IJOB.EQ.4 ) THEN
+            if ( IJOB.EQ.1 .OR. IJOB.EQ.4 ) {
                RCONDE( 1 ) = PL
                RCONDE( 2 ) = PR
-            END IF
-            IF( IJOB.EQ.2 .OR. IJOB.EQ.4 ) THEN
+            }
+            if ( IJOB.EQ.2 .OR. IJOB.EQ.4 ) {
                RCONDV( 1 ) = DIF( 1 )
                RCONDV( 2 ) = DIF( 2 )
-            END IF
+            }
             IF( IERR.EQ.1 ) INFO = N + 3
-         END IF
+         }
 
-      END IF
+      }
 
       // Apply permutation to VSL and VSR
       // (Workspace: none needed)
@@ -309,17 +309,17 @@
 
       // Undo scaling
 
-      IF( ILASCL ) THEN
+      if ( ILASCL ) {
          CALL CLASCL( 'U', 0, 0, ANRMTO, ANRM, N, N, A, LDA, IERR )
          CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )
-      END IF
+      }
 
-      IF( ILBSCL ) THEN
+      if ( ILBSCL ) {
          CALL CLASCL( 'U', 0, 0, BNRMTO, BNRM, N, N, B, LDB, IERR )
          CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
-      END IF
+      }
 
-      IF( WANTST ) THEN
+      if ( WANTST ) {
 
          // Check if reordering is correct
 
@@ -331,7 +331,7 @@
             LASTSL = CURSL
    30    CONTINUE
 
-      END IF
+      }
 
    40 CONTINUE
 

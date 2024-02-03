@@ -43,16 +43,16 @@
       LEFT = LSAME( JOB, 'L' )
       RIGHT = LSAME( JOB, 'R' )
       SING = LEFT .OR. RIGHT
-      IF( EIGEN ) THEN
+      if ( EIGEN ) {
          K = M
-      ELSE IF( SING ) THEN
+      } else if ( SING ) {
          K = MIN( M, N )
-      END IF
-      IF( .NOT.EIGEN .AND. .NOT.SING ) THEN
+      }
+      if ( .NOT.EIGEN .AND. .NOT.SING ) {
          INFO = -1
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -2
-      ELSE IF( K.LT.0 ) THEN
+      } else if ( K.LT.0 ) {
          INFO = -3
       } else {
          INCR = .TRUE.
@@ -60,15 +60,15 @@
          DO 10 I = 1, K - 1
             IF( INCR ) INCR = INCR .AND. D( I ).LE.D( I+1 )             IF( DECR ) DECR = DECR .AND. D( I ).GE.D( I+1 )
    10    CONTINUE
-         IF( SING .AND. K.GT.0 ) THEN
+         if ( SING .AND. K.GT.0 ) {
             IF( INCR ) INCR = INCR .AND. ZERO.LE.D( 1 )             IF( DECR ) DECR = DECR .AND. D( K ).GE.ZERO
-         END IF
+         }
          IF( .NOT.( INCR .OR. DECR ) ) INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DDISNA', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -76,7 +76,7 @@
 
       // Compute reciprocal condition numbers
 
-      IF( K.EQ.1 ) THEN
+      if ( K.EQ.1 ) {
          SEP( 1 ) = DLAMCH( 'O' )
       } else {
          OLDGAP = ABS( D( 2 )-D( 1 ) )
@@ -87,12 +87,12 @@
             OLDGAP = NEWGAP
    20    CONTINUE
          SEP( K ) = OLDGAP
-      END IF
-      IF( SING ) THEN
-         IF( ( LEFT .AND. M.GT.N ) .OR. ( RIGHT .AND. M.LT.N ) ) THEN
+      }
+      if ( SING ) {
+         if ( ( LEFT .AND. M.GT.N ) .OR. ( RIGHT .AND. M.LT.N ) ) {
             IF( INCR ) SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) )             IF( DECR ) SEP( K ) = MIN( SEP( K ), D( K ) )
-         END IF
-      END IF
+         }
+      }
 
       // Ensure that reciprocal condition numbers are not less than
      t // hreshold, in order to limit the size of the error bound
@@ -100,11 +100,11 @@
       EPS = DLAMCH( 'E' )
       SAFMIN = DLAMCH( 'S' )
       ANORM = MAX( ABS( D( 1 ) ), ABS( D( K ) ) )
-      IF( ANORM.EQ.ZERO ) THEN
+      if ( ANORM.EQ.ZERO ) {
          THRESH = EPS
       } else {
          THRESH = MAX( EPS*ANORM, SAFMIN )
-      END IF
+      }
       DO 30 I = 1, K
          SEP( I ) = MAX( SEP( I ), THRESH )
    30 CONTINUE

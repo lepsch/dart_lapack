@@ -51,7 +51,7 @@
       J3 = J1 + 2
       J4 = J1 + 3
 
-      IF( N1.EQ.1 .AND. N2.EQ.1 ) THEN
+      if ( N1.EQ.1 .AND. N2.EQ.1 ) {
 
          // Swap two 1-by-1 blocks.
 
@@ -70,12 +70,12 @@
          T( J1, J1 ) = T22
          T( J2, J2 ) = T11
 
-         IF( WANTQ ) THEN
+         if ( WANTQ ) {
 
             // Accumulate transformation in the matrix Q.
 
             CALL DROT( N, Q( 1, J1 ), 1, Q( 1, J2 ), 1, CS, SN )
-         END IF
+         }
 
       } else {
 
@@ -135,12 +135,12 @@
          T( J3, J2 ) = ZERO
          T( J3, J3 ) = T11
 
-         IF( WANTQ ) THEN
+         if ( WANTQ ) {
 
             // Accumulate transformation in the matrix Q.
 
             CALL DLARFX( 'R', N, 3, U, TAU, Q( 1, J1 ), LDQ, WORK )
-         END IF
+         }
          GO TO 40
 
    20    CONTINUE
@@ -176,12 +176,12 @@
          T( J2, J1 ) = ZERO
          T( J3, J1 ) = ZERO
 
-         IF( WANTQ ) THEN
+         if ( WANTQ ) {
 
             // Accumulate transformation in the matrix Q.
 
             CALL DLARFX( 'R', N, 3, U, TAU, Q( 1, J1 ), LDQ, WORK )
-         END IF
+         }
          GO TO 40
 
    30    CONTINUE
@@ -230,26 +230,26 @@
          T( J4, J1 ) = ZERO
          T( J4, J2 ) = ZERO
 
-         IF( WANTQ ) THEN
+         if ( WANTQ ) {
 
             // Accumulate transformation in the matrix Q.
 
             CALL DLARFX( 'R', N, 3, U1, TAU1, Q( 1, J1 ), LDQ, WORK )
             CALL DLARFX( 'R', N, 3, U2, TAU2, Q( 1, J2 ), LDQ, WORK )
-         END IF
+         }
 
    40    CONTINUE
 
-         IF( N2.EQ.2 ) THEN
+         if ( N2.EQ.2 ) {
 
             // Standardize new 2-by-2 block T11
 
             CALL DLANV2( T( J1, J1 ), T( J1, J2 ), T( J2, J1 ), T( J2, J2 ), WR1, WI1, WR2, WI2, CS, SN )             CALL DROT( N-J1-1, T( J1, J1+2 ), LDT, T( J2, J1+2 ), LDT, CS, SN )
             CALL DROT( J1-1, T( 1, J1 ), 1, T( 1, J2 ), 1, CS, SN )
             IF( WANTQ ) CALL DROT( N, Q( 1, J1 ), 1, Q( 1, J2 ), 1, CS, SN )
-         END IF
+         }
 
-         IF( N1.EQ.2 ) THEN
+         if ( N1.EQ.2 ) {
 
             // Standardize new 2-by-2 block T22
 
@@ -258,9 +258,9 @@
             CALL DLANV2( T( J3, J3 ), T( J3, J4 ), T( J4, J3 ), T( J4, J4 ), WR1, WI1, WR2, WI2, CS, SN )             IF( J3+2.LE.N ) CALL DROT( N-J3-1, T( J3, J3+2 ), LDT, T( J4, J3+2 ), LDT, CS, SN )
             CALL DROT( J3-1, T( 1, J3 ), 1, T( 1, J4 ), 1, CS, SN )
             IF( WANTQ ) CALL DROT( N, Q( 1, J3 ), 1, Q( 1, J4 ), 1, CS, SN )
-         END IF
+         }
 
-      END IF
+      }
       RETURN
 
       // Exit with INFO = 1 if swap was rejected.

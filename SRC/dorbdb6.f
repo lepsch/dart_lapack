@@ -37,28 +37,28 @@
       // Test input arguments
 
       INFO = 0
-      IF( M1 .LT. 0 ) THEN
+      if ( M1 .LT. 0 ) {
          INFO = -1
-      ELSE IF( M2 .LT. 0 ) THEN
+      } else if ( M2 .LT. 0 ) {
          INFO = -2
-      ELSE IF( N .LT. 0 ) THEN
+      } else if ( N .LT. 0 ) {
          INFO = -3
-      ELSE IF( INCX1 .LT. 1 ) THEN
+      } else if ( INCX1 .LT. 1 ) {
          INFO = -5
-      ELSE IF( INCX2 .LT. 1 ) THEN
+      } else if ( INCX2 .LT. 1 ) {
          INFO = -7
-      ELSE IF( LDQ1 .LT. MAX( 1, M1 ) ) THEN
+      } else if ( LDQ1 .LT. MAX( 1, M1 ) ) {
          INFO = -9
-      ELSE IF( LDQ2 .LT. MAX( 1, M2 ) ) THEN
+      } else if ( LDQ2 .LT. MAX( 1, M2 ) ) {
          INFO = -11
-      ELSE IF( LWORK .LT. N ) THEN
+      } else if ( LWORK .LT. N ) {
          INFO = -13
-      END IF
+      }
 
-      IF( INFO .NE. 0 ) THEN
+      if ( INFO .NE. 0 ) {
          CALL XERBLA( 'DORBDB6', -INFO )
          RETURN
-      END IF
+      }
 
       EPS = DLAMCH( 'Precision' )
 
@@ -73,13 +73,13 @@
       // First, project X onto the orthogonal complement of Q's column
       // space
 
-      IF( M1 .EQ. 0 ) THEN
+      if ( M1 .EQ. 0 ) {
          DO I = 1, N
             WORK(I) = ZERO
          END DO
       } else {
          CALL DGEMV( 'C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 )
-      END IF
+      }
 
       CALL DGEMV( 'C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 )
 
@@ -95,11 +95,11 @@
       // If projection is zero, then stop.
       // Otherwise, project again.
 
-      IF( NORM_NEW .GE. ALPHA * NORM ) THEN
+      if ( NORM_NEW .GE. ALPHA * NORM ) {
          RETURN
-      END IF
+      }
 
-      IF( NORM_NEW .LE. N * EPS * NORM ) THEN
+      if ( NORM_NEW .LE. N * EPS * NORM ) {
          DO IX = 1, 1 + (M1-1)*INCX1, INCX1
            X1( IX ) = ZERO
          END DO
@@ -107,7 +107,7 @@
            X2( IX ) = ZERO
          END DO
          RETURN
-      END IF
+      }
 
       NORM = NORM_NEW
 
@@ -115,13 +115,13 @@
          WORK(I) = ZERO
       END DO
 
-      IF( M1 .EQ. 0 ) THEN
+      if ( M1 .EQ. 0 ) {
          DO I = 1, N
             WORK(I) = ZERO
          END DO
       } else {
          CALL DGEMV( 'C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 )
-      END IF
+      }
 
       CALL DGEMV( 'C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 )
 
@@ -137,14 +137,14 @@
       // nothing more. Alternatively, if it shrunk significantly, then
      t // runcate it to zero.
 
-      IF( NORM_NEW .LT. ALPHA * NORM ) THEN
+      if ( NORM_NEW .LT. ALPHA * NORM ) {
          DO IX = 1, 1 + (M1-1)*INCX1, INCX1
             X1(IX) = ZERO
          END DO
          DO IX = 1, 1 + (M2-1)*INCX2, INCX2
             X2(IX) = ZERO
          END DO
-      END IF
+      }
 
       RETURN
 

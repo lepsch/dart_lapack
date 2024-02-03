@@ -41,58 +41,58 @@
 
       // NQ is the order of Q and NW is the minimum dimension of WORK
 
-      IF( LEFT ) THEN
+      if ( LEFT ) {
          NQ = M
          NW = MAX( 1, N )
       } else {
          NQ = N
          NW = MAX( 1, M )
-      END IF
-      IF( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) THEN
+      }
+      if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.LSAME( TRANS, 'T' ) ) THEN
+      } else if ( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -2
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( ILO.LT.1 .OR. ILO.GT.MAX( 1, NQ ) ) THEN
+      } else if ( ILO.LT.1 .OR. ILO.GT.MAX( 1, NQ ) ) {
          INFO = -5
-      ELSE IF( IHI.LT.MIN( ILO, NQ ) .OR. IHI.GT.NQ ) THEN
+      } else if ( IHI.LT.MIN( ILO, NQ ) .OR. IHI.GT.NQ ) {
          INFO = -6
-      ELSE IF( LDA.LT.MAX( 1, NQ ) ) THEN
+      } else if ( LDA.LT.MAX( 1, NQ ) ) {
          INFO = -8
-      ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+      } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -11
-      ELSE IF( LWORK.LT.NW .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.NW .AND. .NOT.LQUERY ) {
          INFO = -13
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
-         IF( LEFT ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( LEFT ) {
             NB = ILAENV( 1, 'SORMQR', SIDE // TRANS, NH, N, NH, -1 )
          } else {
             NB = ILAENV( 1, 'SORMQR', SIDE // TRANS, M, NH, NH, -1 )
-         END IF
+         }
          LWKOPT = NW*NB
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SORMHR', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 .OR. NH.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 .OR. NH.EQ.0 ) {
          WORK( 1 ) = 1
          RETURN
-      END IF
+      }
 
-      IF( LEFT ) THEN
+      if ( LEFT ) {
          MI = NH
          NI = N
          I1 = ILO + 1
@@ -102,7 +102,7 @@
          NI = NH
          I1 = 1
          I2 = ILO + 1
-      END IF
+      }
 
       CALL SORMQR( SIDE, TRANS, MI, NI, NH, A( ILO+1, ILO ), LDA, TAU( ILO ), C( I1, I2 ), LDC, WORK, LWORK, IINFO )
 

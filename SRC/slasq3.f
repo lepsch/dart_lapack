@@ -69,23 +69,23 @@
 
    40 CONTINUE
 
-      IF( Z( NN-3 ).GT.Z( NN-7 ) ) THEN
+      if ( Z( NN-3 ).GT.Z( NN-7 ) ) {
          S = Z( NN-3 )
          Z( NN-3 ) = Z( NN-7 )
          Z( NN-7 ) = S
-      END IF
+      }
       T = HALF*( ( Z( NN-7 )-Z( NN-3 ) )+Z( NN-5 ) )
-      IF( Z( NN-5 ).GT.Z( NN-3 )*TOL2.AND.T.NE.ZERO ) THEN
+      if ( Z( NN-5 ).GT.Z( NN-3 )*TOL2.AND.T.NE.ZERO ) {
          S = Z( NN-3 )*( Z( NN-5 ) / T )
-         IF( S.LE.T ) THEN
+         if ( S.LE.T ) {
             S = Z( NN-3 )*( Z( NN-5 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) )
          } else {
             S = Z( NN-3 )*( Z( NN-5 ) / ( T+SQRT( T )*SQRT( T+S ) ) )
-         END IF
+         }
          T = Z( NN-7 ) + ( S+Z( NN-5 ) )
          Z( NN-3 ) = Z( NN-3 )*( Z( NN-7 ) / T )
          Z( NN-7 ) = T
-      END IF
+      }
       Z( 4*N0-7 ) = Z( NN-7 ) + SIGMA
       Z( 4*N0-3 ) = Z( NN-3 ) + SIGMA
       N0 = N0 - 2
@@ -96,8 +96,8 @@
 
       // Reverse the qd-array, if warranted.
 
-      IF( DMIN.LE.ZERO .OR. N0.LT.N0IN ) THEN
-         IF( CBIAS*Z( 4*I0+PP-3 ).LT.Z( 4*N0+PP-3 ) ) THEN
+      if ( DMIN.LE.ZERO .OR. N0.LT.N0IN ) {
+         if ( CBIAS*Z( 4*I0+PP-3 ).LT.Z( 4*N0+PP-3 ) ) {
             IPN4 = 4*( I0+N0 )
             DO 60 J4 = 4*I0, 2*( I0+N0-1 ), 4
                TEMP = Z( J4-3 )
@@ -113,16 +113,16 @@
                Z( J4 ) = Z( IPN4-J4-4 )
                Z( IPN4-J4-4 ) = TEMP
    60       CONTINUE
-            IF( N0-I0.LE.4 ) THEN
+            if ( N0-I0.LE.4 ) {
                Z( 4*N0+PP-1 ) = Z( 4*I0+PP-1 )
                Z( 4*N0-PP ) = Z( 4*I0-PP )
-            END IF
+            }
             DMIN2 = MIN( DMIN2, Z( 4*N0+PP-1 ) )
             Z( 4*N0+PP-1 ) = MIN( Z( 4*N0+PP-1 ), Z( 4*I0+PP-1 ), Z( 4*I0+PP+3 ) )             Z( 4*N0-PP ) = MIN( Z( 4*N0-PP ), Z( 4*I0-PP ), Z( 4*I0-PP+4 ) )
             QMAX = MAX( QMAX, Z( 4*I0+PP-3 ), Z( 4*I0+PP+1 ) )
             DMIN = -ZERO
-         END IF
-      END IF
+         }
+      }
 
       // Choose a shift.
 
@@ -139,30 +139,30 @@
 
       // Check status.
 
-      IF( DMIN.GE.ZERO .AND. DMIN1.GE.ZERO ) THEN
+      if ( DMIN.GE.ZERO .AND. DMIN1.GE.ZERO ) {
 
          // Success.
 
          GO TO 90
 
-      ELSE IF( DMIN.LT.ZERO .AND. DMIN1.GT.ZERO .AND. Z( 4*( N0-1 )-PP ).LT.TOL*( SIGMA+DN1 ) .AND. ABS( DN ).LT.TOL*SIGMA ) THEN
+      } else if ( DMIN.LT.ZERO .AND. DMIN1.GT.ZERO .AND. Z( 4*( N0-1 )-PP ).LT.TOL*( SIGMA+DN1 ) .AND. ABS( DN ).LT.TOL*SIGMA ) {
 
          // Convergence hidden by negative DN.
 
          Z( 4*( N0-1 )-PP+2 ) = ZERO
          DMIN = ZERO
          GO TO 90
-      ELSE IF( DMIN.LT.ZERO ) THEN
+      } else if ( DMIN.LT.ZERO ) {
 
          // TAU too big. Select new TAU and try again.
 
          NFAIL = NFAIL + 1
-         IF( TTYPE.LT.-22 ) THEN
+         if ( TTYPE.LT.-22 ) {
 
             // Failed twice. Play it safe.
 
             TAU = ZERO
-         ELSE IF( DMIN1.GT.ZERO ) THEN
+         } else if ( DMIN1.GT.ZERO ) {
 
             // Late failure. Gives excellent shift.
 
@@ -174,24 +174,24 @@
 
             TAU = QURTR*TAU
             TTYPE = TTYPE - 12
-         END IF
+         }
          GO TO 70
-      ELSE IF( SISNAN( DMIN ) ) THEN
+      } else if ( SISNAN( DMIN ) ) {
 
          // NaN.
 
-         IF( TAU.EQ.ZERO ) THEN
+         if ( TAU.EQ.ZERO ) {
             GO TO 80
          } else {
             TAU = ZERO
             GO TO 70
-         END IF
+         }
       } else {
 
          // Possible underflow. Play it safe.
 
          GO TO 80
-      END IF
+      }
 
       // Risk of underflow.
 
@@ -202,14 +202,14 @@
       TAU = ZERO
 
    90 CONTINUE
-      IF( TAU.LT.SIGMA ) THEN
+      if ( TAU.LT.SIGMA ) {
          DESIG = DESIG + TAU
          T = SIGMA + DESIG
          DESIG = DESIG - ( T-SIGMA )
       } else {
          T = SIGMA + TAU
          DESIG = SIGMA - ( T-TAU ) + DESIG
-      END IF
+      }
       SIGMA = T
 
       RETURN

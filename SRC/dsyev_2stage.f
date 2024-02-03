@@ -46,17 +46,17 @@
       LQUERY = ( LWORK.EQ.-1 )
 
       INFO = 0
-      IF( .NOT.( LSAME( JOBZ, 'N' ) ) ) THEN
+      if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) THEN
+      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          KD    = ILAENV2STAGE( 1, 'DSYTRD_2STAGE', JOBZ, N, -1, -1, -1 )
          IB    = ILAENV2STAGE( 2, 'DSYTRD_2STAGE', JOBZ, N, KD, -1, -1 )
          LHTRD = ILAENV2STAGE( 3, 'DSYTRD_2STAGE', JOBZ, N, KD, IB, -1 )
@@ -65,27 +65,27 @@
          WORK( 1 )  = LWMIN
 
          IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -8
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSYEV_2STAGE ', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          RETURN
-      END IF
+      }
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          W( 1 ) = A( 1, 1 )
          WORK( 1 ) = 2
          IF( WANTZ ) A( 1, 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -100,13 +100,13 @@
 
       ANRM = DLANSY( 'M', UPLO, N, A, LDA, WORK )
       ISCALE = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
-      ELSE IF( ANRM.GT.RMAX ) THEN
+      } else if ( ANRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / ANRM
-      END IF
+      }
       IF( ISCALE.EQ.1 ) CALL DLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 
       // Call DSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
@@ -122,25 +122,25 @@
       // For eigenvalues only, call DSTERF.  For eigenvectors, first call
       // DORGTR to generate the orthogonal matrix, then call DSTEQR.
 
-      IF( .NOT.WANTZ ) THEN
+      if ( .NOT.WANTZ ) {
          CALL DSTERF( N, W, WORK( INDE ), INFO )
       } else {
          // Not available in this release, and argument checking should not
          // let it getting here
          RETURN
          CALL DORGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )          CALL DSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO )
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      IF( ISCALE.EQ.1 ) THEN
-         IF( INFO.EQ.0 ) THEN
+      if ( ISCALE.EQ.1 ) {
+         if ( INFO.EQ.0 ) {
             IMAX = N
          } else {
             IMAX = INFO - 1
-         END IF
+         }
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
-      END IF
+      }
 
       // Set WORK(1) to optimal workspace size.
 

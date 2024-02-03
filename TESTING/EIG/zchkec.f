@@ -45,42 +45,42 @@
 
       OK = .TRUE.
       CALL ZGET35( RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL, NIN )
-      IF( RTRSYL( 1 ).GT.THRESH ) THEN
+      if ( RTRSYL( 1 ).GT.THRESH ) {
          OK = .FALSE.
          WRITE( NOUT, FMT = 9999 )RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL
-      END IF
+      }
 
       CALL ZSYL01( THRESH, FTRSYL, RTRSYL, ITRSYL, KTRSYL3 )
-      IF( FTRSYL( 1 ).GT.0 ) THEN
+      if ( FTRSYL( 1 ).GT.0 ) {
          OK = .FALSE.
          WRITE( NOUT, FMT = 9970 )FTRSYL( 1 ), RTRSYL( 1 ), THRESH
-      END IF
-      IF( FTRSYL( 2 ).GT.0 ) THEN
+      }
+      if ( FTRSYL( 2 ).GT.0 ) {
          OK = .FALSE.
          WRITE( NOUT, FMT = 9971 )FTRSYL( 2 ), RTRSYL( 2 ), THRESH
-      END IF
-      IF( FTRSYL( 3 ).GT.0 ) THEN
+      }
+      if ( FTRSYL( 3 ).GT.0 ) {
          OK = .FALSE.
          WRITE( NOUT, FMT = 9972 )FTRSYL( 3 )
-      END IF
+      }
 
       CALL ZGET36( RTREXC, LTREXC, NTREXC, KTREXC, NIN )
-      IF( RTREXC.GT.THRESH .OR. NTREXC.GT.0 ) THEN
+      if ( RTREXC.GT.THRESH .OR. NTREXC.GT.0 ) {
          OK = .FALSE.
          WRITE( NOUT, FMT = 9998 )RTREXC, LTREXC, NTREXC, KTREXC
-      END IF
+      }
 
       CALL ZGET37( RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN )
-      IF( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ).NE.0 .OR. NTRSNA( 2 ).NE.0 .OR. NTRSNA( 3 ).NE.0 ) THEN
+      if ( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ).NE.0 .OR. NTRSNA( 2 ).NE.0 .OR. NTRSNA( 3 ).NE.0 ) {
          OK = .FALSE.
          WRITE( NOUT, FMT = 9997 )RTRSNA, LTRSNA, NTRSNA, KTRSNA
-      END IF
+      }
 
       CALL ZGET38( RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN )
-      IF( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ).NE.0 .OR. NTRSEN( 2 ).NE.0 .OR. NTRSEN( 3 ).NE.0 ) THEN
+      if ( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ).NE.0 .OR. NTRSEN( 2 ).NE.0 .OR. NTRSEN( 3 ).NE.0 ) {
          OK = .FALSE.
          WRITE( NOUT, FMT = 9996 )RTRSEN, LTRSEN, NTRSEN, KTRSEN
-      END IF
+      }
 
       NTESTS = KTRSYL + KTRSYL3 + KTREXC + KTRSNA + KTRSEN
       IF( OK ) WRITE( NOUT, FMT = 9995 )PATH, NTESTS

@@ -47,26 +47,26 @@
 
       // Set INFO if an error
 
-      IF( MODE.LT.-6 .OR. MODE.GT.6 ) THEN
+      if ( MODE.LT.-6 .OR. MODE.GT.6 ) {
          INFO = -1
-      ELSE IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. ( IRSIGN.NE.0 .AND. IRSIGN.NE.1 ) ) THEN
+      } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. ( IRSIGN.NE.0 .AND. IRSIGN.NE.1 ) ) {
          INFO = -2
-      ELSE IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. COND.LT.ONE ) THEN
+      } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. COND.LT.ONE ) {
          INFO = -3
-      ELSE IF( ( MODE.EQ.6 .OR. MODE.EQ.-6 ) .AND. ( IDIST.LT.1 .OR. IDIST.GT.4 ) ) THEN
+      } else if ( ( MODE.EQ.6 .OR. MODE.EQ.-6 ) .AND. ( IDIST.LT.1 .OR. IDIST.GT.4 ) ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -7
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CLATM1', -INFO )
          RETURN
-      END IF
+      }
 
       // Compute D according to COND and MODE
 
-      IF( MODE.NE.0 ) THEN
+      if ( MODE.NE.0 ) {
          GO TO ( 10, 30, 50, 70, 90, 110 )ABS( MODE )
 
          // One large D value:
@@ -91,25 +91,25 @@
 
    50    CONTINUE
          D( 1 ) = ONE
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
             ALPHA = COND**( -ONE / REAL( N-1 ) )
             DO 60 I = 2, N
                D( I ) = ALPHA**( I-1 )
    60       CONTINUE
-         END IF
+         }
          GO TO 120
 
          // Arithmetically distributed D values:
 
    70    CONTINUE
          D( 1 ) = ONE
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
             TEMP = ONE / COND
             ALPHA = ( ONE-TEMP ) / REAL( N-1 )
             DO 80 I = 2, N
                D( I ) = REAL( N-I )*ALPHA + TEMP
    80       CONTINUE
-         END IF
+         }
          GO TO 120
 
          // Randomly distributed D values on ( 1/COND , 1):
@@ -131,24 +131,24 @@
          // If MODE neither -6 nor 0 nor 6, and IRSIGN = 1, assign
          // random signs to D
 
-         IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.1 ) THEN
+         if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.1 ) {
             DO 130 I = 1, N
                CTEMP = CLARND( 3, ISEED )
                D( I ) = D( I )*( CTEMP / ABS( CTEMP ) )
   130       CONTINUE
-         END IF
+         }
 
          // Reverse if MODE < 0
 
-         IF( MODE.LT.0 ) THEN
+         if ( MODE.LT.0 ) {
             DO 140 I = 1, N / 2
                CTEMP = D( I )
                D( I ) = D( N+1-I )
                D( N+1-I ) = CTEMP
   140       CONTINUE
-         END IF
+         }
 
-      END IF
+      }
 
       RETURN
 

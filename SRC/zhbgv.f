@@ -35,27 +35,27 @@
       UPPER = LSAME( UPLO, 'U' )
 
       INFO = 0
-      IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) THEN
+      } else if ( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( KA.LT.0 ) THEN
+      } else if ( KA.LT.0 ) {
          INFO = -4
-      ELSE IF( KB.LT.0 .OR. KB.GT.KA ) THEN
+      } else if ( KB.LT.0 .OR. KB.GT.KA ) {
          INFO = -5
-      ELSE IF( LDAB.LT.KA+1 ) THEN
+      } else if ( LDAB.LT.KA+1 ) {
          INFO = -7
-      ELSE IF( LDBB.LT.KB+1 ) THEN
+      } else if ( LDBB.LT.KB+1 ) {
          INFO = -9
-      ELSE IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) THEN
+      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
          INFO = -12
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZHBGV', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -64,10 +64,10 @@
       // Form a split Cholesky factorization of B.
 
       CALL ZPBSTF( UPLO, N, KB, BB, LDBB, INFO )
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
-      END IF
+      }
 
       // Transform problem to standard eigenvalue problem.
 
@@ -77,20 +77,20 @@
 
       // Reduce to tridiagonal form.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          VECT = 'U'
       } else {
          VECT = 'N'
-      END IF
+      }
       CALL ZHBTRD( VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEQR.
 
-      IF( .NOT.WANTZ ) THEN
+      if ( .NOT.WANTZ ) {
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
       } else {
          CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDWRK ), INFO )
-      END IF
+      }
       RETURN
 
       // End of ZHBGV

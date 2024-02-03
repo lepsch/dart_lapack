@@ -23,10 +23,10 @@
 
       DFLAG = DPARAM(1)
       IF (N.LE.0 .OR. (DFLAG+TWO.EQ.ZERO)) RETURN
-      IF (INCX.EQ.INCY.AND.INCX.GT.0) THEN
+      if (INCX.EQ.INCY.AND.INCX.GT.0) {
 
          NSTEPS = N*INCX
-         IF (DFLAG.LT.ZERO) THEN
+         if (DFLAG.LT.ZERO) {
             DH11 = DPARAM(2)
             DH12 = DPARAM(4)
             DH21 = DPARAM(3)
@@ -37,7 +37,7 @@
                DX(I) = W*DH11 + Z*DH12
                DY(I) = W*DH21 + Z*DH22
             END DO
-         ELSE IF (DFLAG.EQ.ZERO) THEN
+         } else if (DFLAG.EQ.ZERO) {
             DH12 = DPARAM(4)
             DH21 = DPARAM(3)
             DO I = 1,NSTEPS,INCX
@@ -55,14 +55,14 @@
                DX(I) = W*DH11 + Z
                DY(I) = -W + DH22*Z
             END DO
-         END IF
+         }
       } else {
          KX = 1
          KY = 1
          IF (INCX.LT.0) KX = 1 + (1-N)*INCX
          IF (INCY.LT.0) KY = 1 + (1-N)*INCY
 
-         IF (DFLAG.LT.ZERO) THEN
+         if (DFLAG.LT.ZERO) {
             DH11 = DPARAM(2)
             DH12 = DPARAM(4)
             DH21 = DPARAM(3)
@@ -75,7 +75,7 @@
                KX = KX + INCX
                KY = KY + INCY
             END DO
-         ELSE IF (DFLAG.EQ.ZERO) THEN
+         } else if (DFLAG.EQ.ZERO) {
             DH12 = DPARAM(4)
             DH21 = DPARAM(3)
             DO I = 1,N
@@ -97,8 +97,8 @@
                 KX = KX + INCX
                 KY = KY + INCY
             END DO
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of DROTM

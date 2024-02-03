@@ -38,23 +38,23 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = SLANSY( '1', UPLO, N, A, LDA, RWORK )
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
       // Compute the product U**T * U, overwriting U.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 10 K = N, 1, -1
 
             // Compute the (K,K) element of the result.
@@ -84,11 +84,11 @@
             CALL SSCAL( N-K+1, T, AFAC( K, K ), 1 )
 
    20    CONTINUE
-      END IF
+      }
 
       // Compute the difference L * L**T - A (or U**T * U - A).
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 40 J = 1, N
             DO 30 I = 1, J
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
@@ -100,7 +100,7 @@
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    50       CONTINUE
    60    CONTINUE
-      END IF
+      }
 
       // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 

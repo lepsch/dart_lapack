@@ -41,17 +41,17 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CPOTRF2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -59,15 +59,15 @@
 
       // N=1 case
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
 
          // Test for non-positive-definiteness
 
          AJJ = REAL( A( 1, 1 ) )
-         IF( AJJ.LE.ZERO.OR.SISNAN( AJJ ) ) THEN
+         if ( AJJ.LE.ZERO.OR.SISNAN( AJJ ) ) {
             INFO = 1
             RETURN
-         END IF
+         }
 
          // Factor
 
@@ -82,14 +82,14 @@
          // Factor A11
 
          CALL CPOTRF2( UPLO, N1, A( 1, 1 ), LDA, IINFO )
-         IF ( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             INFO = IINFO
             RETURN
-         END IF
+         }
 
          // Compute the Cholesky factorization A = U**H*U
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
 
             // Update and scale A12
 
@@ -101,10 +101,10 @@
 
             CALL CPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
 
-            IF ( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                INFO = IINFO + N1
                RETURN
-            END IF
+            }
 
          // Compute the Cholesky factorization A = L*L**H
 
@@ -120,13 +120,13 @@
 
             CALL CPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
 
-            IF ( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                INFO = IINFO + N1
                RETURN
-            END IF
+            }
 
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of CPOTRF2

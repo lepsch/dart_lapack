@@ -45,11 +45,11 @@
          SAFMX2 = ONE / SAFMN2
          // FIRST = .FALSE.
       // END IF
-      IF( G.EQ.ZERO ) THEN
+      if ( G.EQ.ZERO ) {
          CS = SIGN( ONE, F )
          SN = ZERO
          R = ABS( F )
-      ELSE IF( F.EQ.ZERO ) THEN
+      } else if ( F.EQ.ZERO ) {
          CS = ZERO
          SN = SIGN( ONE, G )
          R = ABS( G )
@@ -57,7 +57,7 @@
          F1 = F
          G1 = G
          SCALE = MAX( ABS( F1 ), ABS( G1 ) )
-         IF( SCALE.GE.SAFMX2 ) THEN
+         if ( SCALE.GE.SAFMX2 ) {
             COUNT = 0
    10       CONTINUE
             COUNT = COUNT + 1
@@ -71,7 +71,7 @@
             DO 20 I = 1, COUNT
                R = R*SAFMX2
    20       CONTINUE
-         ELSE IF( SCALE.LE.SAFMN2 ) THEN
+         } else if ( SCALE.LE.SAFMN2 ) {
             COUNT = 0
    30       CONTINUE
             COUNT = COUNT + 1
@@ -89,13 +89,13 @@
             R = SQRT( F1**2+G1**2 )
             CS = F1 / R
             SN = G1 / R
-         END IF
-         IF( R.LT.ZERO ) THEN
+         }
+         if ( R.LT.ZERO ) {
             CS = -CS
             SN = -SN
             R = -R
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of SLARTGP

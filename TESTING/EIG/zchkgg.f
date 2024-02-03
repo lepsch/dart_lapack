@@ -75,26 +75,26 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -2
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -3
-      ELSE IF( THRESH.LT.ZERO ) THEN
+      } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      ELSE IF( LDA.LE.1 .OR. LDA.LT.NMAX ) THEN
+      } else if ( LDA.LE.1 .OR. LDA.LT.NMAX ) {
          INFO = -10
-      ELSE IF( LDU.LE.1 .OR. LDU.LT.NMAX ) THEN
+      } else if ( LDU.LE.1 .OR. LDU.LT.NMAX ) {
          INFO = -19
-      ELSE IF( LWKOPT.GT.LWORK ) THEN
+      } else if ( LWKOPT.GT.LWORK ) {
          INFO = -30
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZCHKGG', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -123,11 +123,11 @@
          RMAGN( 2 ) = SAFMAX*ULP / DBLE( N1 )
          RMAGN( 3 ) = SAFMIN*ULPINV*N1
 
-         IF( NSIZES.NE.1 ) THEN
+         if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
-         END IF
+         }
 
          DO 230 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 230
@@ -169,33 +169,33 @@
 
             IF( MTYPES.GT.MAXTYP ) GO TO 110
             IINFO = 0
-            IF( KCLASS( JTYPE ).LT.3 ) THEN
+            if ( KCLASS( JTYPE ).LT.3 ) {
 
                // Generate A (w/o rotation)
 
-               IF( ABS( KATYPE( JTYPE ) ).EQ.3 ) THEN
+               if ( ABS( KATYPE( JTYPE ) ).EQ.3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   IF( IN.NE.N ) CALL ZLASET( 'Full', N, N, CZERO, CZERO, A, LDA )
                } else {
                   IN = N
-               END IF
+               }
                CALL ZLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 4, ISEED, A, LDA )
                IADD = KADD( KAZERO( JTYPE ) )
                IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) )
 
                // Generate B (w/o rotation)
 
-               IF( ABS( KBTYPE( JTYPE ) ).EQ.3 ) THEN
+               if ( ABS( KBTYPE( JTYPE ) ).EQ.3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   IF( IN.NE.N ) CALL ZLASET( 'Full', N, N, CZERO, CZERO, B, LDA )
                } else {
                   IN = N
-               END IF
+               }
                CALL ZLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 4, ISEED, B, LDA )
                IADD = KADD( KBZERO( JTYPE ) )
                IF( IADD.NE.0 ) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) )
 
-               IF( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) THEN
+               if ( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) {
 
                   // Include rotations
 
@@ -232,7 +232,7 @@
    60                CONTINUE
    70             CONTINUE
                   CALL ZUNM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL ZUNM2R( 'R', 'C', N, N, N-1, V, LDU, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL ZUNM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL ZUNM2R( 'R', 'C', N, N, N-1, V, LDU, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100
-               END IF
+               }
             } else {
 
                // Random matrices
@@ -242,18 +242,18 @@
                      A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* ZLARND( 4, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* ZLARND( 4, ISEED )
    80             CONTINUE
    90          CONTINUE
-            END IF
+            }
 
             ANORM = ZLANGE( '1', N, N, A, LDA, RWORK )
             BNORM = ZLANGE( '1', N, N, B, LDA, RWORK )
 
   100       CONTINUE
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
-            END IF
+            }
 
   110       CONTINUE
 
@@ -265,33 +265,33 @@
             RESULT( 1 ) = ULPINV
 
             CALL ZGEQR2( N, N, T, LDA, WORK, WORK( N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZGEQR2', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
 
             CALL ZUNM2R( 'L', 'C', N, N, N, T, LDA, WORK, H, LDA, WORK( N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZUNM2R', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
 
             CALL ZLASET( 'Full', N, N, CZERO, CONE, U, LDU )
             CALL ZUNM2R( 'R', 'N', N, N, N, T, LDA, WORK, U, LDU, WORK( N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZUNM2R', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
 
             CALL ZGGHRD( 'V', 'I', N, 1, N, H, LDA, T, LDA, U, LDU, V, LDU, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZGGHRD', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
             NTEST = 4
 
             // Do tests 1--4
@@ -310,11 +310,11 @@
             RESULT( 5 ) = ULPINV
 
             CALL ZHGEQZ( 'E', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHA3, BETA3, Q, LDU, Z, LDU, WORK, LWORK, RWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHGEQZ(E)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
 
             // Eigenvalues and Full Schur Form
 
@@ -322,11 +322,11 @@
             CALL ZLACPY( ' ', N, N, T, LDA, P2, LDA )
 
             CALL ZHGEQZ( 'S', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHA1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, RWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHGEQZ(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
 
             // Eigenvalues, Schur Form, and Schur Vectors
 
@@ -334,11 +334,11 @@
             CALL ZLACPY( ' ', N, N, T, LDA, P1, LDA )
 
             CALL ZHGEQZ( 'S', 'I', 'I', N, 1, N, S1, LDA, P1, LDA, ALPHA1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, RWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHGEQZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
 
             NTEST = 8
 
@@ -366,11 +366,11 @@
   130       CONTINUE
 
             CALL ZTGEVC( 'L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(L,S1)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
 
             I1 = IN
             DO 140 J = 1, I1
@@ -381,17 +381,17 @@
   150       CONTINUE
 
             CALL ZTGEVC( 'L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(L,S2)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
 
             CALL ZGET52( .TRUE., N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
             RESULT( 9 ) = DUMMA( 1 )
-            IF( DUMMA( 2 ).GT.THRSHN ) THEN
+            if ( DUMMA( 2 ).GT.THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'ZTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
-            END IF
+            }
 
             // 10: Compute the left eigenvector Matrix with
                 // back transforming:
@@ -400,17 +400,17 @@
             RESULT( 10 ) = ULPINV
             CALL ZLACPY( 'F', N, N, Q, LDU, EVECTL, LDU )
             CALL ZTGEVC( 'L', 'B', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
 
             CALL ZGET52( .TRUE., N, H, LDA, T, LDA, EVECTL, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
             RESULT( 10 ) = DUMMA( 1 )
-            IF( DUMMA( 2 ).GT.THRSHN ) THEN
+            if ( DUMMA( 2 ).GT.THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'ZTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
-            END IF
+            }
 
             // 11: Compute the right eigenvector Matrix without
                 // back transforming:
@@ -430,11 +430,11 @@
   170       CONTINUE
 
             CALL ZTGEVC( 'R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(R,S1)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
 
             I1 = IN
             DO 180 J = 1, I1
@@ -445,17 +445,17 @@
   190       CONTINUE
 
             CALL ZTGEVC( 'R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, RWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(R,S2)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
 
             CALL ZGET52( .FALSE., N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
             RESULT( 11 ) = DUMMA( 1 )
-            IF( DUMMA( 2 ).GT.THRESH ) THEN
+            if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'ZTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
-            END IF
+            }
 
             // 12: Compute the right eigenvector Matrix with
                 // back transforming:
@@ -464,21 +464,21 @@
             RESULT( 12 ) = ULPINV
             CALL ZLACPY( 'F', N, N, Z, LDU, EVECTR, LDU )
             CALL ZTGEVC( 'R', 'B', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
-            END IF
+            }
 
             CALL ZGET52( .FALSE., N, H, LDA, T, LDA, EVECTR, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
             RESULT( 12 ) = DUMMA( 1 )
-            IF( DUMMA( 2 ).GT.THRESH ) THEN
+            if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'ZTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
-            END IF
+            }
 
             // Tests 13--15 are done only on request
 
-            IF( TSTDIF ) THEN
+            if ( TSTDIF ) {
 
                // Do Tests 13--14
 
@@ -502,7 +502,7 @@
                RESULT( 14 ) = ZERO
                RESULT( 15 ) = ZERO
                NTEST = 12
-            END IF
+            }
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
@@ -513,12 +513,12 @@
             // Print out tests which fail.
 
             DO 220 JR = 1, NTEST
-               IF( RESULT( JR ).GE.THRESH ) THEN
+               if ( RESULT( JR ).GE.THRESH ) {
 
                   // If this is the first test to fail,
                   // print a header to the data file.
 
-                  IF( NERRS.EQ.0 ) THEN
+                  if ( NERRS.EQ.0 ) {
                      WRITE( NOUNIT, FMT = 9997 )'ZGG'
 
                      // Matrix types
@@ -531,14 +531,14 @@
 
                      WRITE( NOUNIT, FMT = 9993 )'unitary', '*', 'conjugate transpose', ( '*', J = 1, 10 )
 
-                  END IF
+                  }
                   NERRS = NERRS + 1
-                  IF( RESULT( JR ).LT.10000.0D0 ) THEN
+                  if ( RESULT( JR ).LT.10000.0D0 ) {
                      WRITE( NOUNIT, FMT = 9992 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   } else {
                      WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR, RESULT( JR )
-                  END IF
-               END IF
+                  }
+               }
   220       CONTINUE
 
   230    CONTINUE

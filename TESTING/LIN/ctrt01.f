@@ -39,35 +39,35 @@
 
       // Quick exit if N = 0
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RCOND = ONE
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANTR( '1', UPLO, DIAG, N, N, A, LDA, RWORK )
       AINVNM = CLANTR( '1', UPLO, DIAG, N, N, AINV, LDAINV, RWORK )
-      IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
       RCOND = ( ONE / ANORM ) / AINVNM
 
       // Set the diagonal of AINV to 1 if AINV has unit diagonal.
 
-      IF( LSAME( DIAG, 'U' ) ) THEN
+      if ( LSAME( DIAG, 'U' ) ) {
          DO 10 J = 1, N
             AINV( J, J ) = ONE
    10    CONTINUE
-      END IF
+      }
 
       // Compute A * AINV, overwriting AINV.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 20 J = 1, N
             CALL CTRMV( 'Upper', 'No transpose', DIAG, J, A, LDA, AINV( 1, J ), 1 )
    20    CONTINUE
@@ -75,7 +75,7 @@
          DO 30 J = 1, N
             CALL CTRMV( 'Lower', 'No transpose', DIAG, N-J+1, A( J, J ), LDA, AINV( J, J ), 1 )
    30    CONTINUE
-      END IF
+      }
 
       // Subtract 1 from each diagonal element to form A*AINV - I.
 

@@ -54,19 +54,19 @@
       WNTQN  = LSAME( JOBZ, 'N' )
       LQUERY = ( LWORK.EQ.-1 )
 
-      IF( .NOT.( WNTQA .OR. WNTQS .OR. WNTQO .OR. WNTQN ) ) THEN
+      if ( .NOT.( WNTQA .OR. WNTQS .OR. WNTQO .OR. WNTQN ) ) {
          INFO = -1
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      ELSE IF( LDU.LT.1 .OR. ( WNTQAS .AND. LDU.LT.M ) .OR. ( WNTQO .AND. M.LT.N .AND. LDU.LT.M ) ) THEN
+      } else if ( LDU.LT.1 .OR. ( WNTQAS .AND. LDU.LT.M ) .OR. ( WNTQO .AND. M.LT.N .AND. LDU.LT.M ) ) {
          INFO = -8
-      ELSE IF( LDVT.LT.1 .OR. ( WNTQA .AND. LDVT.LT.N ) .OR. ( WNTQS .AND. LDVT.LT.MINMN ) .OR. ( WNTQO .AND. M.GE.N .AND. LDVT.LT.N ) ) THEN
+      } else if ( LDVT.LT.1 .OR. ( WNTQA .AND. LDVT.LT.N ) .OR. ( WNTQS .AND. LDVT.LT.MINMN ) .OR. ( WNTQO .AND. M.GE.N .AND. LDVT.LT.N ) ) {
          INFO = -10
-      END IF
+      }
 
       // Compute workspace
         // Note: Comments in the code beginning "Workspace:" describe the
@@ -75,22 +75,22 @@
         // NB refers to the optimal block size for the immediately
         // following subroutine, as returned by ILAENV.
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          MINWRK = 1
          MAXWRK = 1
          BDSPAC = 0
          MNTHR  = INT( MINMN*11.0D0 / 6.0D0 )
-         IF( M.GE.N .AND. MINMN.GT.0 ) THEN
+         if ( M.GE.N .AND. MINMN.GT.0 ) {
 
             // Compute space needed for DBDSDC
 
-            IF( WNTQN ) THEN
+            if ( WNTQN ) {
                // dbdsdc needs only 4*N (or 6*N for uplo=L for LAPACK <= 3.6)
                // keep 7*N for backwards compatibility.
                BDSPAC = 7*N
             } else {
                BDSPAC = 3*N*N + 4*N
-            END IF
+            }
 
             // Compute space preferred for each routine
             CALL DGEBRD( M, N, DUM(1), M, DUM(1), DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR )
@@ -123,8 +123,8 @@
             CALL DORMBR( 'Q', 'L', 'N', M, M, N, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR )
             LWORK_DORMBR_QLN_MM = INT( DUM(1) )
 
-            IF( M.GE.MNTHR ) THEN
-               IF( WNTQN ) THEN
+            if ( M.GE.MNTHR ) {
+               if ( WNTQN ) {
 
                   // Path 1 (M >> N, JOBZ='N')
 
@@ -132,7 +132,7 @@
                   WRKBL = MAX( WRKBL, 3*N + LWORK_DGEBRD_NN )
                   MAXWRK = MAX( WRKBL, BDSPAC + N )
                   MINWRK = BDSPAC + N
-               ELSE IF( WNTQO ) THEN
+               } else if ( WNTQO ) {
 
                   // Path 2 (M >> N, JOBZ='O')
 
@@ -144,7 +144,7 @@
                   WRKBL = MAX( WRKBL, 3*N + BDSPAC )
                   MAXWRK = WRKBL + 2*N*N
                   MINWRK = BDSPAC + 2*N*N + 3*N
-               ELSE IF( WNTQS ) THEN
+               } else if ( WNTQS ) {
 
                   // Path 3 (M >> N, JOBZ='S')
 
@@ -156,7 +156,7 @@
                   WRKBL = MAX( WRKBL, 3*N + BDSPAC )
                   MAXWRK = WRKBL + N*N
                   MINWRK = BDSPAC + N*N + 3*N
-               ELSE IF( WNTQA ) THEN
+               } else if ( WNTQA ) {
 
                   // Path 4 (M >> N, JOBZ='A')
 
@@ -168,48 +168,48 @@
                   WRKBL = MAX( WRKBL, 3*N + BDSPAC )
                   MAXWRK = WRKBL + N*N
                   MINWRK = N*N + MAX( 3*N + BDSPAC, N + M )
-               END IF
+               }
             } else {
 
                // Path 5 (M >= N, but not much larger)
 
                WRKBL = 3*N + LWORK_DGEBRD_MN
-               IF( WNTQN ) THEN
+               if ( WNTQN ) {
                   // Path 5n (M >= N, jobz='N')
                   MAXWRK = MAX( WRKBL, 3*N + BDSPAC )
                   MINWRK = 3*N + MAX( M, BDSPAC )
-               ELSE IF( WNTQO ) THEN
+               } else if ( WNTQO ) {
                   // Path 5o (M >= N, jobz='O')
                   WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN )
                   WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_MN )
                   WRKBL = MAX( WRKBL, 3*N + BDSPAC )
                   MAXWRK = WRKBL + M*N
                   MINWRK = 3*N + MAX( M, N*N + BDSPAC )
-               ELSE IF( WNTQS ) THEN
+               } else if ( WNTQS ) {
                   // Path 5s (M >= N, jobz='S')
                   WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_MN )
                   WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN )
                   MAXWRK = MAX( WRKBL, 3*N + BDSPAC )
                   MINWRK = 3*N + MAX( M, BDSPAC )
-               ELSE IF( WNTQA ) THEN
+               } else if ( WNTQA ) {
                   // Path 5a (M >= N, jobz='A')
                   WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_MM )
                   WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN )
                   MAXWRK = MAX( WRKBL, 3*N + BDSPAC )
                   MINWRK = 3*N + MAX( M, BDSPAC )
-               END IF
-            END IF
-         ELSE IF( MINMN.GT.0 ) THEN
+               }
+            }
+         } else if ( MINMN.GT.0 ) {
 
             // Compute space needed for DBDSDC
 
-            IF( WNTQN ) THEN
+            if ( WNTQN ) {
                // dbdsdc needs only 4*N (or 6*N for uplo=L for LAPACK <= 3.6)
                // keep 7*N for backwards compatibility.
                BDSPAC = 7*M
             } else {
                BDSPAC = 3*M*M + 4*M
-            END IF
+            }
 
             // Compute space preferred for each routine
             CALL DGEBRD( M, N, DUM(1), M, DUM(1), DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR )
@@ -242,8 +242,8 @@
             CALL DORMBR( 'Q', 'L', 'N', M, M, M, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR )
             LWORK_DORMBR_QLN_MM = INT( DUM(1) )
 
-            IF( N.GE.MNTHR ) THEN
-               IF( WNTQN ) THEN
+            if ( N.GE.MNTHR ) {
+               if ( WNTQN ) {
 
                   // Path 1t (N >> M, JOBZ='N')
 
@@ -251,7 +251,7 @@
                   WRKBL = MAX( WRKBL, 3*M + LWORK_DGEBRD_MM )
                   MAXWRK = MAX( WRKBL, BDSPAC + M )
                   MINWRK = BDSPAC + M
-               ELSE IF( WNTQO ) THEN
+               } else if ( WNTQO ) {
 
                   // Path 2t (N >> M, JOBZ='O')
 
@@ -263,7 +263,7 @@
                   WRKBL = MAX( WRKBL, 3*M + BDSPAC )
                   MAXWRK = WRKBL + 2*M*M
                   MINWRK = BDSPAC + 2*M*M + 3*M
-               ELSE IF( WNTQS ) THEN
+               } else if ( WNTQS ) {
 
                   // Path 3t (N >> M, JOBZ='S')
 
@@ -275,7 +275,7 @@
                   WRKBL = MAX( WRKBL, 3*M + BDSPAC )
                   MAXWRK = WRKBL + M*M
                   MINWRK = BDSPAC + M*M + 3*M
-               ELSE IF( WNTQA ) THEN
+               } else if ( WNTQA ) {
 
                   // Path 4t (N >> M, JOBZ='A')
 
@@ -287,59 +287,59 @@
                   WRKBL = MAX( WRKBL, 3*M + BDSPAC )
                   MAXWRK = WRKBL + M*M
                   MINWRK = M*M + MAX( 3*M + BDSPAC, M + N )
-               END IF
+               }
             } else {
 
                // Path 5t (N > M, but not much larger)
 
                WRKBL = 3*M + LWORK_DGEBRD_MN
-               IF( WNTQN ) THEN
+               if ( WNTQN ) {
                   // Path 5tn (N > M, jobz='N')
                   MAXWRK = MAX( WRKBL, 3*M + BDSPAC )
                   MINWRK = 3*M + MAX( N, BDSPAC )
-               ELSE IF( WNTQO ) THEN
+               } else if ( WNTQO ) {
                   // Path 5to (N > M, jobz='O')
                   WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM )
                   WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_MN )
                   WRKBL = MAX( WRKBL, 3*M + BDSPAC )
                   MAXWRK = WRKBL + M*N
                   MINWRK = 3*M + MAX( N, M*M + BDSPAC )
-               ELSE IF( WNTQS ) THEN
+               } else if ( WNTQS ) {
                   // Path 5ts (N > M, jobz='S')
                   WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM )
                   WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_MN )
                   MAXWRK = MAX( WRKBL, 3*M + BDSPAC )
                   MINWRK = 3*M + MAX( N, BDSPAC )
-               ELSE IF( WNTQA ) THEN
+               } else if ( WNTQA ) {
                   // Path 5ta (N > M, jobz='A')
                   WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM )
                   WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_NN )
                   MAXWRK = MAX( WRKBL, 3*M + BDSPAC )
                   MINWRK = 3*M + MAX( N, BDSPAC )
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
 
          MAXWRK = MAX( MAXWRK, MINWRK )
          WORK( 1 ) = DROUNDUP_LWORK( MAXWRK )
 
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
             INFO = -12
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGESDD', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 ) {
          RETURN
-      END IF
+      }
 
       // Get machine constants
 
@@ -350,28 +350,28 @@
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
       ANRM = DLANGE( 'M', M, N, A, LDA, DUM )
-      IF( DISNAN( ANRM ) ) THEN
+      if ( DISNAN( ANRM ) ) {
           INFO = -4
           RETURN
-      END IF
+      }
       ISCL = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ISCL = 1
          CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR )
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
          ISCL = 1
          CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR )
-      END IF
+      }
 
-      IF( M.GE.N ) THEN
+      if ( M.GE.N ) {
 
          // A has at least as many rows as columns. If A has sufficiently
          // more rows than columns, first reduce using the QR
          // decomposition (if sufficient workspace available)
 
-         IF( M.GE.MNTHR ) THEN
+         if ( M.GE.MNTHR ) {
 
-            IF( WNTQN ) THEN
+            if ( WNTQN ) {
 
                // Path 1 (M >> N, JOBZ='N')
                // No singular vectors to be computed
@@ -405,7 +405,7 @@
 
                CALL DBDSDC( 'U', 'N', N, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
 
-            ELSE IF( WNTQO ) THEN
+            } else if ( WNTQO ) {
 
                // Path 2 (M >> N, JOBZ = 'O')
                // N left singular vectors to be overwritten on A and
@@ -415,11 +415,11 @@
 
                // WORK(IR) is LDWRKR by N
 
-               IF( LWORK .GE. LDA*N + N*N + 3*N + BDSPAC ) THEN
+               if ( LWORK .GE. LDA*N + N*N + 3*N + BDSPAC ) {
                   LDWRKR = LDA
                } else {
                   LDWRKR = ( LWORK - N*N - 3*N - BDSPAC ) / N
-               END IF
+               }
                ITAU = IR + LDWRKR*N
                NWORK = ITAU + N
 
@@ -480,7 +480,7 @@
                   CALL DLACPY( 'F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA )
    10          CONTINUE
 
-            ELSE IF( WNTQS ) THEN
+            } else if ( WNTQS ) {
 
                // Path 3 (M >> N, JOBZ='S')
                // N left singular vectors to be computed in U and
@@ -544,7 +544,7 @@
                CALL DLACPY( 'F', N, N, U, LDU, WORK( IR ), LDWRKR )
                CALL DGEMM( 'N', 'N', M, N, N, ONE, A, LDA, WORK( IR ), LDWRKR, ZERO, U, LDU )
 
-            ELSE IF( WNTQA ) THEN
+            } else if ( WNTQA ) {
 
                // Path 4 (M >> N, JOBZ='A')
                // M left singular vectors to be computed in U and
@@ -608,7 +608,7 @@
 
                CALL DLACPY( 'F', M, N, A, LDA, U, LDU )
 
-            END IF
+            }
 
          } else {
 
@@ -627,17 +627,17 @@
             // Workspace: prefer 3*N [e, tauq, taup] + (M+N)*NB [work]
 
             CALL DGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
-            IF( WNTQN ) THEN
+            if ( WNTQN ) {
 
                // Path 5n (M >= N, JOBZ='N')
                // Perform bidiagonal SVD, only computing singular values
                // Workspace: need   3*N [e, tauq, taup] + BDSPAC
 
                CALL DBDSDC( 'U', 'N', N, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
-            ELSE IF( WNTQO ) THEN
+            } else if ( WNTQO ) {
                // Path 5o (M >= N, JOBZ='O')
                IU = NWORK
-               IF( LWORK .GE. M*N + 3*N + BDSPAC ) THEN
+               if ( LWORK .GE. M*N + 3*N + BDSPAC ) {
 
                   // WORK( IU ) is M by N
 
@@ -657,7 +657,7 @@
 
                   IR = NWORK
                   LDWRKR = ( LWORK - N*N - 3*N ) / N
-               END IF
+               }
                NWORK = IU + LDWRKU*N
 
                // Perform bidiagonal SVD, computing left singular vectors
@@ -673,7 +673,7 @@
 
                CALL DORMBR( 'P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
 
-               IF( LWORK .GE. M*N + 3*N + BDSPAC ) THEN
+               if ( LWORK .GE. M*N + 3*N + BDSPAC ) {
 
                   // Path 5o-fast
                   // Overwrite WORK(IU) by left singular vectors of A
@@ -705,9 +705,9 @@
                      CALL DGEMM( 'N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IU ), LDWRKU, ZERO, WORK( IR ), LDWRKR )
                      CALL DLACPY( 'F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA )
    20             CONTINUE
-               END IF
+               }
 
-            ELSE IF( WNTQS ) THEN
+            } else if ( WNTQS ) {
 
                // Path 5s (M >= N, JOBZ='S')
                // Perform bidiagonal SVD, computing left singular vectors
@@ -724,7 +724,7 @@
                // Workspace: prefer 3*N [e, tauq, taup] + N*NB [work]
 
                CALL DORMBR( 'Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
-            ELSE IF( WNTQA ) THEN
+            } else if ( WNTQA ) {
 
                // Path 5a (M >= N, JOBZ='A')
                // Perform bidiagonal SVD, computing left singular vectors
@@ -737,9 +737,9 @@
 
                // Set the right corner of U to identity matrix
 
-               IF( M.GT.N ) THEN
+               if ( M.GT.N ) {
                   CALL DLASET( 'F', M - N, M - N, ZERO, ONE, U(N+1,N+1), LDU )
-               END IF
+               }
 
                // Overwrite U by left singular vectors of A and VT
                // by right singular vectors of A
@@ -747,9 +747,9 @@
                // Workspace: prefer 3*N [e, tauq, taup] + M*NB [work]
 
                CALL DORMBR( 'Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
-            END IF
+            }
 
-         END IF
+         }
 
       } else {
 
@@ -757,9 +757,9 @@
          // columns than rows, first reduce using the LQ decomposition (if
          // sufficient workspace available)
 
-         IF( N.GE.MNTHR ) THEN
+         if ( N.GE.MNTHR ) {
 
-            IF( WNTQN ) THEN
+            if ( WNTQN ) {
 
                // Path 1t (N >> M, JOBZ='N')
                // No singular vectors to be computed
@@ -793,7 +793,7 @@
 
                CALL DBDSDC( 'U', 'N', M, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
 
-            ELSE IF( WNTQO ) THEN
+            } else if ( WNTQO ) {
 
                // Path 2t (N >> M, JOBZ='O')
                // M right singular vectors to be overwritten on A and
@@ -805,13 +805,13 @@
                // WORK(IL)  is M by M; it is later resized to M by chunk for gemm
 
                IL = IVT + M*M
-               IF( LWORK .GE. M*N + M*M + 3*M + BDSPAC ) THEN
+               if ( LWORK .GE. M*N + M*M + 3*M + BDSPAC ) {
                   LDWRKL = M
                   CHUNK = N
                } else {
                   LDWRKL = M
                   CHUNK = ( LWORK - M*M ) / M
-               END IF
+               }
                ITAU = IL + LDWRKL*M
                NWORK = ITAU + M
 
@@ -867,7 +867,7 @@
                   CALL DGEMM( 'N', 'N', M, BLK, M, ONE, WORK( IVT ), M, A( 1, I ), LDA, ZERO, WORK( IL ), LDWRKL )                   CALL DLACPY( 'F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA )
    30          CONTINUE
 
-            ELSE IF( WNTQS ) THEN
+            } else if ( WNTQS ) {
 
                // Path 3t (N >> M, JOBZ='S')
                // M right singular vectors to be computed in VT and
@@ -929,7 +929,7 @@
                CALL DLACPY( 'F', M, M, VT, LDVT, WORK( IL ), LDWRKL )
                CALL DGEMM( 'N', 'N', M, N, M, ONE, WORK( IL ), LDWRKL, A, LDA, ZERO, VT, LDVT )
 
-            ELSE IF( WNTQA ) THEN
+            } else if ( WNTQA ) {
 
                // Path 4t (N >> M, JOBZ='A')
                // N right singular vectors to be computed in VT and
@@ -994,7 +994,7 @@
 
                CALL DLACPY( 'F', M, N, A, LDA, VT, LDVT )
 
-            END IF
+            }
 
          } else {
 
@@ -1013,18 +1013,18 @@
             // Workspace: prefer 3*M [e, tauq, taup] + (M+N)*NB [work]
 
             CALL DGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
-            IF( WNTQN ) THEN
+            if ( WNTQN ) {
 
                // Path 5tn (N > M, JOBZ='N')
                // Perform bidiagonal SVD, only computing singular values
                // Workspace: need   3*M [e, tauq, taup] + BDSPAC
 
                CALL DBDSDC( 'L', 'N', M, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
-            ELSE IF( WNTQO ) THEN
+            } else if ( WNTQO ) {
                // Path 5to (N > M, JOBZ='O')
                LDWKVT = M
                IVT = NWORK
-               IF( LWORK .GE. M*N + 3*M + BDSPAC ) THEN
+               if ( LWORK .GE. M*N + 3*M + BDSPAC ) {
 
                   // WORK( IVT ) is M by N
 
@@ -1042,7 +1042,7 @@
                   // WORK(IL) is M by CHUNK
 
                   CHUNK = ( LWORK - M*M - 3*M ) / M
-               END IF
+               }
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in U and computing right singular
@@ -1057,7 +1057,7 @@
 
                CALL DORMBR( 'Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )
 
-               IF( LWORK .GE. M*N + 3*M + BDSPAC ) THEN
+               if ( LWORK .GE. M*N + 3*M + BDSPAC ) {
 
                   // Path 5to-fast
                   // Overwrite WORK(IVT) by left singular vectors of A
@@ -1089,8 +1089,8 @@
                      CALL DGEMM( 'N', 'N', M, BLK, M, ONE, WORK( IVT ), LDWKVT, A( 1, I ), LDA, ZERO, WORK( IL ), M )
                      CALL DLACPY( 'F', M, BLK, WORK( IL ), M, A( 1, I ), LDA )
    40             CONTINUE
-               END IF
-            ELSE IF( WNTQS ) THEN
+               }
+            } else if ( WNTQS ) {
 
                // Path 5ts (N > M, JOBZ='S')
                // Perform bidiagonal SVD, computing left singular vectors
@@ -1107,7 +1107,7 @@
                // Workspace: prefer 3*M [e, tauq, taup] + M*NB [work]
 
                CALL DORMBR( 'Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
-            ELSE IF( WNTQA ) THEN
+            } else if ( WNTQA ) {
 
                // Path 5ta (N > M, JOBZ='A')
                // Perform bidiagonal SVD, computing left singular vectors
@@ -1120,9 +1120,9 @@
 
                // Set the right corner of VT to identity matrix
 
-               IF( N.GT.M ) THEN
+               if ( N.GT.M ) {
                   CALL DLASET( 'F', N-M, N-M, ZERO, ONE, VT(M+1,M+1), LDVT )
-               END IF
+               }
 
                // Overwrite U by left singular vectors of A and VT
                // by right singular vectors of A
@@ -1130,17 +1130,17 @@
                // Workspace: prefer 3*M [e, tauq, taup] + N*NB [work]
 
                CALL DORMBR( 'Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
-            END IF
+            }
 
-         END IF
+         }
 
-      END IF
+      }
 
       // Undo scaling if necessary
 
-      IF( ISCL.EQ.1 ) THEN
+      if ( ISCL.EQ.1 ) {
          IF( ANRM.GT.BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )
-      END IF
+      }
 
       // Return optimal workspace in WORK(1)
 

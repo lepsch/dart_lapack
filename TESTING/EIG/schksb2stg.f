@@ -72,28 +72,28 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -2
-      ELSE IF( NWDTHS.LT.0 ) THEN
+      } else if ( NWDTHS.LT.0 ) {
          INFO = -3
-      ELSE IF( BADNNB ) THEN
+      } else if ( BADNNB ) {
          INFO = -4
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -5
-      ELSE IF( LDA.LT.KMAX+1 ) THEN
+      } else if ( LDA.LT.KMAX+1 ) {
          INFO = -11
-      ELSE IF( LDU.LT.NMAX ) THEN
+      } else if ( LDU.LT.NMAX ) {
          INFO = -15
-      ELSE IF( ( MAX( LDA, NMAX )+1 )*NMAX.GT.LWORK ) THEN
+      } else if ( ( MAX( LDA, NMAX )+1 )*NMAX.GT.LWORK ) {
          INFO = -17
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SCHKSB2STG', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -122,11 +122,11 @@
             IF( K.GT.N ) GO TO 180
             K = MAX( 0, MIN( N-1, K ) )
 
-            IF( NSIZES.NE.1 ) THEN
+            if ( NSIZES.NE.1 ) {
                MTYPES = MIN( MAXTYP, NTYPES )
             } else {
                MTYPES = MIN( MAXTYP+1, NTYPES )
-            END IF
+            }
 
             DO 170 JTYPE = 1, MTYPES
                IF( .NOT.DOTYPE( JTYPE ) ) GO TO 170
@@ -179,20 +179,20 @@
 
                CALL SLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
                IINFO = 0
-               IF( JTYPE.LE.15 ) THEN
+               if ( JTYPE.LE.15 ) {
                   COND = ULPINV
                } else {
                   COND = ULPINV*ANINV / TEN
-               END IF
+               }
 
                // Special Matrices -- Identity & Jordan block
 
                   // Zero
 
-               IF( ITYPE.EQ.1 ) THEN
+               if ( ITYPE.EQ.1 ) {
                   IINFO = 0
 
-               ELSE IF( ITYPE.EQ.2 ) THEN
+               } else if ( ITYPE.EQ.2 ) {
 
                   // Identity
 
@@ -200,58 +200,58 @@
                      A( K+1, JCOL ) = ANORM
    80             CONTINUE
 
-               ELSE IF( ITYPE.EQ.4 ) THEN
+               } else if ( ITYPE.EQ.4 ) {
 
                   // Diagonal Matrix, [Eigen]values Specified
 
                   CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'Q', A( K+1, 1 ), LDA, WORK( N+1 ), IINFO )
 
-               ELSE IF( ITYPE.EQ.5 ) THEN
+               } else if ( ITYPE.EQ.5 ) {
 
                   // Symmetric, eigenvalues specified
 
                   CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO )
 
-               ELSE IF( ITYPE.EQ.7 ) THEN
+               } else if ( ITYPE.EQ.7 ) {
 
                   // Diagonal, random eigenvalues
 
                   CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'Q', A( K+1, 1 ), LDA, IDUMMA, IINFO )
 
-               ELSE IF( ITYPE.EQ.8 ) THEN
+               } else if ( ITYPE.EQ.8 ) {
 
                   // Symmetric, random eigenvalues
 
                   CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, K, K, ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO )
 
-               ELSE IF( ITYPE.EQ.9 ) THEN
+               } else if ( ITYPE.EQ.9 ) {
 
                   // Positive definite, eigenvalues specified.
 
                   CALL SLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO )
 
-               ELSE IF( ITYPE.EQ.10 ) THEN
+               } else if ( ITYPE.EQ.10 ) {
 
                   // Positive definite tridiagonal, eigenvalues specified.
 
                   IF( N.GT.1 ) K = MAX( 1, K )                   CALL SLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK( N+1 ), IINFO )
                   DO 90 I = 2, N
                      TEMP1 = ABS( A( K, I ) ) / SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
-                     IF( TEMP1.GT.HALF ) THEN
+                     if ( TEMP1.GT.HALF ) {
                         A( K, I ) = HALF*SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
-                     END IF
+                     }
    90             CONTINUE
 
                } else {
 
                   IINFO = 1
-               END IF
+               }
 
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
-               END IF
+               }
 
   100          CONTINUE
 
@@ -262,16 +262,16 @@
                NTEST = 1
                CALL SSBTRD( 'V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO )
 
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSBTRD(U)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( 1 ) = ULPINV
                      GO TO 150
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 1 and 2
 
@@ -293,16 +293,16 @@
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
                CALL SSTEQR( 'N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( 5 ) = ULPINV
                      GO TO 150
-                  END IF
-               END IF
+                  }
+               }
 
                // SSYTRD_SB2ST Upper case is used to compute D2.
                // Note to set SD and SE to zero to be sure not reusing
@@ -322,16 +322,16 @@
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
                CALL SSTEQR( 'N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( 5 ) = ULPINV
                      GO TO 150
-                  END IF
-               END IF
+                  }
+               }
 
                // Convert A from Upper-Triangle-Only storage to
                // Lower-Triangle-Only storage.
@@ -354,16 +354,16 @@
                NTEST = 3
                CALL SSBTRD( 'V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO )
 
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSBTRD(L)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( 3 ) = ULPINV
                      GO TO 150
-                  END IF
-               END IF
+                  }
+               }
                NTEST = 4
 
                // Do tests 3 and 4
@@ -388,16 +388,16 @@
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
                CALL SSTEQR( 'N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( 6 ) = ULPINV
                      GO TO 150
-                  END IF
-               END IF
+                  }
+               }
 
 
                // Do Tests 3 and 4 which are similar to 11 and 12 but with the
@@ -427,21 +427,21 @@
                // Print out tests which fail.
 
                DO 160 JR = 1, NTEST
-                  IF( RESULT( JR ).GE.THRESH ) THEN
+                  if ( RESULT( JR ).GE.THRESH ) {
 
                      // If this is the first test to fail,
                      // print a header to the data file.
 
-                     IF( NERRS.EQ.0 ) THEN
+                     if ( NERRS.EQ.0 ) {
                         WRITE( NOUNIT, FMT = 9998 )'SSB'
                         WRITE( NOUNIT, FMT = 9997 )
                         WRITE( NOUNIT, FMT = 9996 )
                         WRITE( NOUNIT, FMT = 9995 )'Symmetric'
                         WRITE( NOUNIT, FMT = 9994 )'orthogonal', '''', 'transpose', ( '''', J = 1, 6 )
-                     END IF
+                     }
                      NERRS = NERRS + 1
                      WRITE( NOUNIT, FMT = 9993 )N, K, IOLDSD, JTYPE, JR, RESULT( JR )
-                  END IF
+                  }
   160          CONTINUE
 
   170       CONTINUE

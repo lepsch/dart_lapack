@@ -29,11 +29,11 @@
       // Set up deflation window
       JW = MIN( NW, IHI-ILO+1 )
       KWTOP = IHI-JW+1
-      IF ( KWTOP .EQ. ILO ) THEN
+      if ( KWTOP .EQ. ILO ) {
          S = CZERO
       } else {
          S = A( KWTOP, KWTOP-1 )
-      END IF
+      }
 
       // Determine required workspace
       IFST = 1
@@ -41,18 +41,18 @@
       CALL CLAQZ0( 'S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHA, BETA, QC, LDQC, ZC, LDZC, WORK, -1, RWORK, REC+1, QZ_SMALL_INFO )
       LWORKREQ = INT( WORK( 1 ) )+2*JW**2
       LWORKREQ = MAX( LWORKREQ, N*NW, 2*NW**2+N )
-      IF ( LWORK .EQ.-1 ) THEN
+      if ( LWORK .EQ.-1 ) {
          // workspace query, quick return
          WORK( 1 ) = LWORKREQ
          RETURN
-      ELSE IF ( LWORK .LT. LWORKREQ ) THEN
+      } else if ( LWORK .LT. LWORKREQ ) {
          INFO = -26
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CLAQZ2', -INFO )
          RETURN
-      END IF
+      }
 
       // Get machine constants
       SAFMIN = SLAMCH( 'SAFE MINIMUM' )
@@ -60,20 +60,20 @@
       ULP = SLAMCH( 'PRECISION' )
       SMLNUM = SAFMIN*( REAL( N )/ULP )
 
-      IF ( IHI .EQ. KWTOP ) THEN
+      if ( IHI .EQ. KWTOP ) {
          // 1 by 1 deflation window, just try a regular deflation
          ALPHA( KWTOP ) = A( KWTOP, KWTOP )
          BETA( KWTOP ) = B( KWTOP, KWTOP )
          NS = 1
          ND = 0
-         IF ( ABS( S ) .LE. MAX( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) THEN
+         if ( ABS( S ) .LE. MAX( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
-            IF ( KWTOP .GT. ILO ) THEN
+            if ( KWTOP .GT. ILO ) {
                A( KWTOP, KWTOP-1 ) = CZERO
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
 
       // Store window in case of convergence failure
@@ -85,17 +85,17 @@
       CALL CLASET( 'FULL', JW, JW, CZERO, CONE, ZC, LDZC )
       CALL CLAQZ0( 'S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHA, BETA, QC, LDQC, ZC, LDZC, WORK( 2*JW**2+1 ), LWORK-2*JW**2, RWORK, REC+1, QZ_SMALL_INFO )
 
-      IF( QZ_SMALL_INFO .NE. 0 ) THEN
+      if ( QZ_SMALL_INFO .NE. 0 ) {
          // Convergence failure, restore the window and exit
          ND = 0
          NS = JW-QZ_SMALL_INFO
          CALL CLACPY( 'ALL', JW, JW, WORK, JW, A( KWTOP, KWTOP ), LDA )
          CALL CLACPY( 'ALL', JW, JW, WORK( JW**2+1 ), JW, B( KWTOP, KWTOP ), LDB )
          RETURN
-      END IF
+      }
 
       // Deflation detection loop
-      IF ( KWTOP .EQ. ILO .OR. S .EQ. CZERO ) THEN
+      if ( KWTOP .EQ. ILO .OR. S .EQ. CZERO ) {
          KWBOT = KWTOP-1
       } else {
          KWBOT = IHI
@@ -104,10 +104,10 @@
          DO WHILE ( K .LE. JW )
                // Try to deflate eigenvalue
                TEMPR = ABS( A( KWBOT, KWBOT ) )
-               IF( TEMPR .EQ. ZERO ) THEN
+               if ( TEMPR .EQ. ZERO ) {
                   TEMPR = ABS( S )
-               END IF
-               IF ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( ULP* TEMPR, SMLNUM ) ) THEN
+               }
+               if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( ULP* TEMPR, SMLNUM ) ) {
                   // Deflatable
                   KWBOT = KWBOT-1
                } else {
@@ -116,11 +116,11 @@
                   ILST = K2
                   CALL CTGEXC( .TRUE., .TRUE., JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, CTGEXC_INFO )
                   K2 = K2+1
-               END IF
+               }
 
                K = K+1
          END DO
-      END IF
+      }
 
       // Store eigenvalues
       ND = IHI-KWBOT
@@ -132,7 +132,7 @@
          K = K+1
       END DO
 
-      IF ( KWTOP .NE. ILO .AND. S .NE. CZERO ) THEN
+      if ( KWTOP .NE. ILO .AND. S .NE. CZERO ) {
          // Reflect spike back, this will create optimally packed bulges
          A( KWTOP:KWBOT, KWTOP-1 ) = A( KWTOP, KWTOP-1 ) *CONJG( QC( 1, 1:JW-ND ) )
          DO K = KWBOT-1, KWTOP, -1
@@ -157,32 +157,32 @@
             K = K-1
          END DO
 
-      END IF
+      }
 
       // Apply Qc and Zc to rest of the matrix
-      IF ( ILSCHUR ) THEN
+      if ( ILSCHUR ) {
          ISTARTM = 1
          ISTOPM = N
       } else {
          ISTARTM = ILO
          ISTOPM = IHI
-      END IF
+      }
 
-      IF ( ISTOPM-IHI > 0 ) THEN
+      if ( ISTOPM-IHI > 0 ) {
          CALL CGEMM( 'C', 'N', JW, ISTOPM-IHI, JW, CONE, QC, LDQC, A( KWTOP, IHI+1 ), LDA, CZERO, WORK, JW )          CALL CLACPY( 'ALL', JW, ISTOPM-IHI, WORK, JW, A( KWTOP, IHI+1 ), LDA )          CALL CGEMM( 'C', 'N', JW, ISTOPM-IHI, JW, CONE, QC, LDQC, B( KWTOP, IHI+1 ), LDB, CZERO, WORK, JW )          CALL CLACPY( 'ALL', JW, ISTOPM-IHI, WORK, JW, B( KWTOP, IHI+1 ), LDB )
-      END IF
-      IF ( ILQ ) THEN
+      }
+      if ( ILQ ) {
          CALL CGEMM( 'N', 'N', N, JW, JW, CONE, Q( 1, KWTOP ), LDQ, QC, LDQC, CZERO, WORK, N )
          CALL CLACPY( 'ALL', N, JW, WORK, N, Q( 1, KWTOP ), LDQ )
-      END IF
+      }
 
-      IF ( KWTOP-1-ISTARTM+1 > 0 ) THEN
+      if ( KWTOP-1-ISTARTM+1 > 0 ) {
          CALL CGEMM( 'N', 'N', KWTOP-ISTARTM, JW, JW, CONE, A( ISTARTM, KWTOP ), LDA, ZC, LDZC, CZERO, WORK, KWTOP-ISTARTM )         CALL CLACPY( 'ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, A( ISTARTM, KWTOP ), LDA )          CALL CGEMM( 'N', 'N', KWTOP-ISTARTM, JW, JW, CONE, B( ISTARTM, KWTOP ), LDB, ZC, LDZC, CZERO, WORK, KWTOP-ISTARTM )
         CALL CLACPY( 'ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, B( ISTARTM, KWTOP ), LDB )
-      END IF
-      IF ( ILZ ) THEN
+      }
+      if ( ILZ ) {
          CALL CGEMM( 'N', 'N', N, JW, JW, CONE, Z( 1, KWTOP ), LDZ, ZC, LDZC, CZERO, WORK, N )
          CALL CLACPY( 'ALL', N, JW, WORK, N, Z( 1, KWTOP ), LDZ )
-      END IF
+      }
 
       END SUBROUTINE

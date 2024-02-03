@@ -88,28 +88,28 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADMM ) THEN
+      } else if ( BADMM ) {
          INFO = -2
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -3
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, MMAX ) ) THEN
+      } else if ( LDA.LT.MAX( 1, MMAX ) ) {
          INFO = -10
-      ELSE IF( LDU.LT.MAX( 1, MMAX ) ) THEN
+      } else if ( LDU.LT.MAX( 1, MMAX ) ) {
          INFO = -12
-      ELSE IF( LDVT.LT.MAX( 1, NMAX ) ) THEN
+      } else if ( LDVT.LT.MAX( 1, NMAX ) ) {
          INFO = -14
-      ELSE IF( MINWRK.GT.LWORK ) THEN
+      } else if ( MINWRK.GT.LWORK ) {
          INFO = -21
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SDRVBD', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize constants
 
@@ -131,11 +131,11 @@
          N = NN( JSIZE )
          MNMIN = MIN( M, N )
 
-         IF( NSIZES.NE.1 ) THEN
+         if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
-         END IF
+         }
 
          DO 230 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 230
@@ -148,13 +148,13 @@
 
             IF( MTYPES.GT.MAXTYP ) GO TO 30
 
-            IF( JTYPE.EQ.1 ) THEN
+            if ( JTYPE.EQ.1 ) {
 
                // Zero matrix
 
                CALL SLASET( 'Full', M, N, ZERO, ZERO, A, LDA )
 
-            ELSE IF( JTYPE.EQ.2 ) THEN
+            } else if ( JTYPE.EQ.2 ) {
 
                // Identity matrix
 
@@ -165,12 +165,12 @@
                // (Scaled) random matrix
 
                IF( JTYPE.EQ.3 ) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP                CALL SLATMS( M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
-               END IF
-            END IF
+               }
+            }
 
    30       CONTINUE
             CALL SLACPY( 'F', M, N, A, LDA, ASAV, LDA )
@@ -194,25 +194,25 @@
                IF( IWS.GT.1 ) CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                SRNAMT = 'SGESVD'
                CALL SGESVD( 'A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVD', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
-               END IF
+               }
 
                // Do tests 1--4
 
                CALL SBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 1 ) )
-               IF( M.NE.0 .AND. N.NE.0 ) THEN
+               if ( M.NE.0 .AND. N.NE.0 ) {
                   CALL SORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 2 ) )                   CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 3 ) )
-               END IF
+               }
                RESULT( 4 ) = ZERO
                DO 50 I = 1, MNMIN - 1
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 4 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 4 ) = ULPINV
    50          CONTINUE
-               IF( MNMIN.GE.1 ) THEN
+               if ( MNMIN.GE.1 ) {
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 4 ) = ULPINV
-               END IF
+               }
 
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
 
@@ -231,29 +231,29 @@
                      // Compare U
 
                      DIF = ZERO
-                     IF( M.GT.0 .AND. N.GT.0 ) THEN
-                        IF( IJU.EQ.1 ) THEN
+                     if ( M.GT.0 .AND. N.GT.0 ) {
+                        if ( IJU.EQ.1 ) {
                            CALL SORT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, IINFO )
-                        ELSE IF( IJU.EQ.2 ) THEN
+                        } else if ( IJU.EQ.2 ) {
                            CALL SORT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO )
-                        ELSE IF( IJU.EQ.3 ) THEN
+                        } else if ( IJU.EQ.3 ) {
                            CALL SORT03( 'C', M, M, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO )
-                        END IF
-                     END IF
+                        }
+                     }
                      RESULT( 5 ) = MAX( RESULT( 5 ), DIF )
 
                      // Compare VT
 
                      DIF = ZERO
-                     IF( M.GT.0 .AND. N.GT.0 ) THEN
-                        IF( IJVT.EQ.1 ) THEN
+                     if ( M.GT.0 .AND. N.GT.0 ) {
+                        if ( IJVT.EQ.1 ) {
                            CALL SORT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, DIF, IINFO )
-                        ELSE IF( IJVT.EQ.2 ) THEN
+                        } else if ( IJVT.EQ.2 ) {
                            CALL SORT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO )
-                        ELSE IF( IJVT.EQ.3 ) THEN
+                        } else if ( IJVT.EQ.3 ) {
                            CALL SORT03( 'R', N, N, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO )
-                        END IF
-                     END IF
+                        }
+                     }
                      RESULT( 6 ) = MAX( RESULT( 6 ), DIF )
 
                      // Compare S
@@ -279,25 +279,25 @@
                CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                SRNAMT = 'SGESDD'
                CALL SGESDD( 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESDD', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
-               END IF
+               }
 
                // Do tests 8--11
 
                CALL SBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 8 ) )
-               IF( M.NE.0 .AND. N.NE.0 ) THEN
+               if ( M.NE.0 .AND. N.NE.0 ) {
                   CALL SORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 9 ) )                   CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 10 ) )
-               END IF
+               }
                RESULT( 11 ) = ZERO
                DO 90 I = 1, MNMIN - 1
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 11 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 11 ) = ULPINV
    90          CONTINUE
-               IF( MNMIN.GE.1 ) THEN
+               if ( MNMIN.GE.1 ) {
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 11 ) = ULPINV
-               END IF
+               }
 
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
 
@@ -313,33 +313,33 @@
                   // Compare U
 
                   DIF = ZERO
-                  IF( M.GT.0 .AND. N.GT.0 ) THEN
-                     IF( IJQ.EQ.1 ) THEN
-                        IF( M.GE.N ) THEN
+                  if ( M.GT.0 .AND. N.GT.0 ) {
+                     if ( IJQ.EQ.1 ) {
+                        if ( M.GE.N ) {
                            CALL SORT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, INFO )
                         } else {
                            CALL SORT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, INFO )
-                        END IF
-                     ELSE IF( IJQ.EQ.2 ) THEN
+                        }
+                     } else if ( IJQ.EQ.2 ) {
                         CALL SORT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, INFO )
-                     END IF
-                  END IF
+                     }
+                  }
                   RESULT( 12 ) = MAX( RESULT( 12 ), DIF )
 
                   // Compare VT
 
                   DIF = ZERO
-                  IF( M.GT.0 .AND. N.GT.0 ) THEN
-                     IF( IJQ.EQ.1 ) THEN
-                        IF( M.GE.N ) THEN
+                  if ( M.GT.0 .AND. N.GT.0 ) {
+                     if ( IJQ.EQ.1 ) {
+                        if ( M.GE.N ) {
                            CALL SORT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO )
                         } else {
                            CALL SORT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, DIF, INFO )
-                        END IF
-                     ELSE IF( IJQ.EQ.2 ) THEN
+                        }
+                     } else if ( IJQ.EQ.2 ) {
                         CALL SORT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO )
-                     END IF
-                  END IF
+                     }
+                  }
                   RESULT( 13 ) = MAX( RESULT( 13 ), DIF )
 
                   // Compare S
@@ -361,7 +361,7 @@
                RESULT( 38 ) = ZERO
                RESULT( 39 ) = ZERO
 
-               IF( M.GE.N ) THEN
+               if ( M.GE.N ) {
                   IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
@@ -375,26 +375,26 @@
                   LIWORK = MAX( N, 1 )
                   CALL SGESVDQ( 'H', 'N', 'N', 'A', 'A',  M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, IINFO )
 
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUT, FMT = 9995 )'SGESVDQ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
-                  END IF
+                  }
 
                   // Do tests 36--39
 
                   CALL SBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 36 ) )
-                  IF( M.NE.0 .AND. N.NE.0 ) THEN
+                  if ( M.NE.0 .AND. N.NE.0 ) {
                      CALL SORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 37 ) )                      CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 38 ) )
-                  END IF
+                  }
                   RESULT( 39 ) = ZERO
                   DO 199 I = 1, MNMIN - 1
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 39 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 39 ) = ULPINV
   199             CONTINUE
-                  IF( MNMIN.GE.1 ) THEN
+                  if ( MNMIN.GE.1 ) {
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 39 ) = ULPINV
-                  END IF
-               END IF
+                  }
+               }
 
                // Test SGESVJ
                // Note: SGESVJ only works for M >= N
@@ -404,7 +404,7 @@
                RESULT( 17 ) = ZERO
                RESULT( 18 ) = ZERO
 
-               IF( M.GE.N ) THEN
+               if ( M.GE.N ) {
                   IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
@@ -423,26 +423,26 @@
                      END DO
                   END DO
 
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUT, FMT = 9995 )'GESVJ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
-                  END IF
+                  }
 
                   // Do tests 15--18
 
                   CALL SBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 15 ) )
-                  IF( M.NE.0 .AND. N.NE.0 ) THEN
+                  if ( M.NE.0 .AND. N.NE.0 ) {
                      CALL SORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 16 ) )                      CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 17 ) )
-                  END IF
+                  }
                   RESULT( 18 ) = ZERO
                   DO 120 I = 1, MNMIN - 1
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 18 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 18 ) = ULPINV
   120             CONTINUE
-                  IF( MNMIN.GE.1 ) THEN
+                  if ( MNMIN.GE.1 ) {
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 18 ) = ULPINV
-                  END IF
-               END IF
+                  }
+               }
 
                // Test SGEJSV
                // Note: SGEJSV only works for M >= N
@@ -451,7 +451,7 @@
                RESULT( 20 ) = ZERO
                RESULT( 21 ) = ZERO
                RESULT( 22 ) = ZERO
-               IF( M.GE.N ) THEN
+               if ( M.GE.N ) {
                   IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
@@ -470,36 +470,36 @@
   130                END DO
   140             END DO
 
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUT, FMT = 9995 )'GEJSV', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
-                  END IF
+                  }
 
                   // Do tests 19--22
 
                   CALL SBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 19 ) )
-                  IF( M.NE.0 .AND. N.NE.0 ) THEN
+                  if ( M.NE.0 .AND. N.NE.0 ) {
                      CALL SORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 20 ) )                      CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 21 ) )
-                  END IF
+                  }
                   RESULT( 22 ) = ZERO
                   DO 150 I = 1, MNMIN - 1
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 22 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 22 ) = ULPINV
   150             CONTINUE
-                  IF( MNMIN.GE.1 ) THEN
+                  if ( MNMIN.GE.1 ) {
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 22 ) = ULPINV
-                  END IF
-               END IF
+                  }
+               }
 
                // Test SGESVDX
 
                CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                CALL SGESVDX( 'V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LWORK, IWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
-               END IF
+               }
 
                // Do tests 23--29
 
@@ -507,16 +507,16 @@
                RESULT( 24 ) = ZERO
                RESULT( 25 ) = ZERO
                CALL SBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 23 ) )
-               IF( M.NE.0 .AND. N.NE.0 ) THEN
+               if ( M.NE.0 .AND. N.NE.0 ) {
                   CALL SORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 24 ) )                   CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 25 ) )
-               END IF
+               }
                RESULT( 26 ) = ZERO
                DO 160 I = 1, MNMIN - 1
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 26 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 26 ) = ULPINV
   160          CONTINUE
-               IF( MNMIN.GE.1 ) THEN
+               if ( MNMIN.GE.1 ) {
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 26 ) = ULPINV
-               END IF
+               }
 
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
 
@@ -535,21 +535,21 @@
                      // Compare U
 
                      DIF = ZERO
-                     IF( M.GT.0 .AND. N.GT.0 ) THEN
-                        IF( IJU.EQ.1 ) THEN
+                     if ( M.GT.0 .AND. N.GT.0 ) {
+                        if ( IJU.EQ.1 ) {
                            CALL SORT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO )
-                        END IF
-                     END IF
+                        }
+                     }
                      RESULT( 27 ) = MAX( RESULT( 27 ), DIF )
 
                      // Compare VT
 
                      DIF = ZERO
-                     IF( M.GT.0 .AND. N.GT.0 ) THEN
-                        IF( IJVT.EQ.1 ) THEN
+                     if ( M.GT.0 .AND. N.GT.0 ) {
+                        if ( IJVT.EQ.1 ) {
                            CALL SORT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO )
-                        END IF
-                     END IF
+                        }
+                     }
                      RESULT( 28 ) = MAX( RESULT( 28 ), DIF )
 
                      // Compare S
@@ -569,25 +569,25 @@
                DO 200 I = 1, 4
                   ISEED2( I ) = ISEED( I )
   200          CONTINUE
-               IF( MNMIN.LE.1 ) THEN
+               if ( MNMIN.LE.1 ) {
                   IL = 1
                   IU = MAX( 1, MNMIN )
                } else {
                   IL = 1 + INT( ( MNMIN-1 )*SLARND( 1, ISEED2 ) )
                   IU = 1 + INT( ( MNMIN-1 )*SLARND( 1, ISEED2 ) )
-                  IF( IU.LT.IL ) THEN
+                  if ( IU.LT.IL ) {
                      ITEMP = IU
                      IU = IL
                      IL = ITEMP
-                  END IF
-               END IF
+                  }
+               }
                CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                CALL SGESVDX( 'V', 'V', 'I', M, N, A, LDA, VL, VU, IL, IU, NSI, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
-               END IF
+               }
 
                RESULT( 30 ) = ZERO
                RESULT( 31 ) = ZERO
@@ -596,31 +596,31 @@
 
                // Do tests 33--35: SGESVDX( 'V', 'V', 'V' )
 
-               IF( MNMIN.GT.0 .AND. NSI.GT.1 ) THEN
-                  IF( IL.NE.1 ) THEN
+               if ( MNMIN.GT.0 .AND. NSI.GT.1 ) {
+                  if ( IL.NE.1 ) {
                      VU = SSAV( IL ) + MAX( HALF*ABS( SSAV( IL )-SSAV( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                   } else {
                      VU = SSAV( 1 ) + MAX( HALF*ABS( SSAV( NS )-SSAV( 1 ) ), ULP*ANORM, TWO*RTUNFL )
-                  END IF
-                  IF( IU.NE.NS ) THEN
+                  }
+                  if ( IU.NE.NS ) {
                      VL = SSAV( IU ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( IU+1 )-SSAV( IU ) ) )
                   } else {
                      VL = SSAV( NS ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( NS )-SSAV( 1 ) ) )
-                  END IF
+                  }
                   VL = MAX( VL,ZERO )
                   VU = MAX( VU,ZERO )
                   IF( VL.GE.VU ) VU = MAX( VU*2, VU+VL+HALF )
                } else {
                   VL = ZERO
                   VU = ONE
-               END IF
+               }
                CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                CALL SGESVDX( 'V', 'V', 'V', M, N, A, LDA, VL, VU, IL, IU, NSV, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
-               END IF
+               }
 
                RESULT( 33 ) = ZERO
                RESULT( 34 ) = ZERO
@@ -630,14 +630,14 @@
                // End of Loop -- Check for RESULT(j) > THRESH
 
                DO 210 J = 1, 39
-                  IF( RESULT( J ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 ) THEN
+                  if ( RESULT( J ).GE.THRESH ) {
+                     if ( NFAIL.EQ.0 ) {
                         WRITE( NOUT, FMT = 9999 )
                         WRITE( NOUT, FMT = 9998 )
-                     END IF
+                     }
                      WRITE( NOUT, FMT = 9997 )M, N, JTYPE, IWS, IOLDSD, J, RESULT( J )
                      NFAIL = NFAIL + 1
-                  END IF
+                  }
   210          CONTINUE
                NTEST = NTEST + 39
   220       CONTINUE

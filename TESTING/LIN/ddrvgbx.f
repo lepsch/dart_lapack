@@ -109,48 +109,48 @@
             // Do for KL = 0, N-1, (3N-1)/4, and (N+1)/4. This order makes
             // it easier to skip redundant values for small values of N.
 
-            IF( IKL.EQ.1 ) THEN
+            if ( IKL.EQ.1 ) {
                KL = 0
-            ELSE IF( IKL.EQ.2 ) THEN
+            } else if ( IKL.EQ.2 ) {
                KL = MAX( N-1, 0 )
-            ELSE IF( IKL.EQ.3 ) THEN
+            } else if ( IKL.EQ.3 ) {
                KL = ( 3*N-1 ) / 4
-            ELSE IF( IKL.EQ.4 ) THEN
+            } else if ( IKL.EQ.4 ) {
                KL = ( N+1 ) / 4
-            END IF
+            }
             DO 130 IKU = 1, NKU
 
                // Do for KU = 0, N-1, (3N-1)/4, and (N+1)/4. This order
                // makes it easier to skip redundant values for small
                // values of N.
 
-               IF( IKU.EQ.1 ) THEN
+               if ( IKU.EQ.1 ) {
                   KU = 0
-               ELSE IF( IKU.EQ.2 ) THEN
+               } else if ( IKU.EQ.2 ) {
                   KU = MAX( N-1, 0 )
-               ELSE IF( IKU.EQ.3 ) THEN
+               } else if ( IKU.EQ.3 ) {
                   KU = ( 3*N-1 ) / 4
-               ELSE IF( IKU.EQ.4 ) THEN
+               } else if ( IKU.EQ.4 ) {
                   KU = ( N+1 ) / 4
-               END IF
+               }
 
                // Check that A and AFB are big enough to generate this
                // matrix.
 
                LDA = KL + KU + 1
                LDAFB = 2*KL + KU + 1
-               IF( LDA*N.GT.LA .OR. LDAFB*N.GT.LAFB ) THEN
+               if ( LDA*N.GT.LA .OR. LDAFB*N.GT.LAFB ) {
                   IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                  IF( LDA*N.GT.LA ) THEN
+                  if ( LDA*N.GT.LA ) {
                      WRITE( NOUT, FMT = 9999 )LA, N, KL, KU, N*( KL+KU+1 )
                      NERRS = NERRS + 1
-                  END IF
-                  IF( LDAFB*N.GT.LAFB ) THEN
+                  }
+                  if ( LDAFB*N.GT.LAFB ) {
                      WRITE( NOUT, FMT = 9998 )LAFB, N, KL, KU, N*( 2*KL+KU+1 )
                      NERRS = NERRS + 1
-                  END IF
+                  }
                   GO TO 130
-               END IF
+               }
 
                DO 120 IMAT = 1, NIMAT
 
@@ -174,25 +174,25 @@
 
                   // Check the error code from DLATMS.
 
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                      CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                      GO TO 120
-                  END IF
+                  }
 
                   // For types 2, 3, and 4, zero one or more columns of
                  t // he matrix to test that INFO is returned correctly.
 
                   IZERO = 0
-                  IF( ZEROT ) THEN
-                     IF( IMAT.EQ.2 ) THEN
+                  if ( ZEROT ) {
+                     if ( IMAT.EQ.2 ) {
                         IZERO = 1
-                     ELSE IF( IMAT.EQ.3 ) THEN
+                     } else if ( IMAT.EQ.3 ) {
                         IZERO = N
                      } else {
                         IZERO = N / 2 + 1
-                     END IF
+                     }
                      IOFF = ( IZERO-1 )*LDA
-                     IF( IMAT.LT.4 ) THEN
+                     if ( IMAT.LT.4 ) {
                         I1 = MAX( 1, KU+2-IZERO )
                         I2 = MIN( KL+KU+1, KU+1+( N-IZERO ) )
                         DO 20 I = I1, I2
@@ -205,8 +205,8 @@
    30                      CONTINUE
                            IOFF = IOFF + LDA
    40                   CONTINUE
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Save a copy of the matrix A in ASAV.
 
@@ -214,11 +214,11 @@
 
                   DO 110 IEQUED = 1, 4
                      EQUED = EQUEDS( IEQUED )
-                     IF( IEQUED.EQ.1 ) THEN
+                     if ( IEQUED.EQ.1 ) {
                         NFACT = 3
                      } else {
                         NFACT = 1
-                     END IF
+                     }
 
                      DO 100 IFACT = 1, NFACT
                         FACT = FACTS( IFACT )
@@ -226,12 +226,12 @@
                         NOFACT = LSAME( FACT, 'N' )
                         EQUIL = LSAME( FACT, 'E' )
 
-                        IF( ZEROT ) THEN
+                        if ( ZEROT ) {
                            IF( PREFAC ) GO TO 100
                            RCONDO = ZERO
                            RCONDI = ZERO
 
-                        ELSE IF( .NOT.NOFACT ) THEN
+                        } else if ( .NOT.NOFACT ) {
 
                            // Compute the condition number for comparison
                            // with the value returned by DGESVX (FACT =
@@ -239,37 +239,37 @@
                            // previous iteration with FACT = 'F').
 
                            CALL DLACPY( 'Full', KL+KU+1, N, ASAV, LDA, AFB( KL+1 ), LDAFB )
-                           IF( EQUIL .OR. IEQUED.GT.1 ) THEN
+                           if ( EQUIL .OR. IEQUED.GT.1 ) {
 
                               // Compute row and column scale factors to
                               // equilibrate the matrix A.
 
                               CALL DGBEQU( N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO )
-                              IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
-                                 IF( LSAME( EQUED, 'R' ) ) THEN
+                              if ( INFO.EQ.0 .AND. N.GT.0 ) {
+                                 if ( LSAME( EQUED, 'R' ) ) {
                                     ROWCND = ZERO
                                     COLCND = ONE
-                                 ELSE IF( LSAME( EQUED, 'C' ) ) THEN
+                                 } else if ( LSAME( EQUED, 'C' ) ) {
                                     ROWCND = ONE
                                     COLCND = ZERO
-                                 ELSE IF( LSAME( EQUED, 'B' ) ) THEN
+                                 } else if ( LSAME( EQUED, 'B' ) ) {
                                     ROWCND = ZERO
                                     COLCND = ZERO
-                                 END IF
+                                 }
 
                                  // Equilibrate the matrix.
 
                                  CALL DLAQGB( N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
-                              END IF
-                           END IF
+                              }
+                           }
 
                            // Save the condition number of the
                            // non-equilibrated system for use in DGET04.
 
-                           IF( EQUIL ) THEN
+                           if ( EQUIL ) {
                               ROLDO = RCONDO
                               ROLDI = RCONDI
-                           END IF
+                           }
 
                            // Compute the 1-norm and infinity-norm of A.
 
@@ -288,33 +288,33 @@
                            // Compute the 1-norm condition number of A.
 
                            AINVNM = DLANGE( '1', N, N, WORK, LDB, RWORK )
-                           IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                           if ( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                               RCONDO = ONE
                            } else {
                               RCONDO = ( ONE / ANORMO ) / AINVNM
-                           END IF
+                           }
 
                            // Compute the infinity-norm condition number
                            // of A.
 
                            AINVNM = DLANGE( 'I', N, N, WORK, LDB, RWORK )
-                           IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                           if ( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                               RCONDI = ONE
                            } else {
                               RCONDI = ( ONE / ANORMI ) / AINVNM
-                           END IF
-                        END IF
+                           }
+                        }
 
                         DO 90 ITRAN = 1, NTRAN
 
                            // Do for each value of TRANS.
 
                            TRANS = TRANSS( ITRAN )
-                           IF( ITRAN.EQ.1 ) THEN
+                           if ( ITRAN.EQ.1 ) {
                               RCONDC = RCONDO
                            } else {
                               RCONDC = RCONDI
-                           END IF
+                           }
 
                            // Restore the matrix A.
 
@@ -328,7 +328,7 @@
                            XTYPE = 'C'
                            CALL DLACPY( 'Full', N, NRHS, B, LDB, BSAV, LDB )
 
-                           IF( NOFACT .AND. ITRAN.EQ.1 ) THEN
+                           if ( NOFACT .AND. ITRAN.EQ.1 ) {
 
                               // --- Test DGBSV  ---
 
@@ -349,7 +349,7 @@
 
                               CALL DGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) )
                               NT = 1
-                              IF( IZERO.EQ.0 ) THEN
+                              if ( IZERO.EQ.0 ) {
 
                                  // Compute residual of the computed
                                  // solution.
@@ -361,31 +361,31 @@
 
                                  CALL DGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
                                  NT = 3
-                              END IF
+                              }
 
                               // Print information about the tests that did
                               // not pass the threshold.
 
                               DO 50 K = 1, NT
-                                 IF( RESULT( K ).GE.THRESH ) THEN
+                                 if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'DGBSV ', N, KL, KU, IMAT, K, RESULT( K )
                                     NFAIL = NFAIL + 1
-                                 END IF
+                                 }
    50                         CONTINUE
                               NRUN = NRUN + NT
-                           END IF
+                           }
 
                            // --- Test DGBSVX ---
 
                            IF( .NOT.PREFAC ) CALL DLASET( 'Full', 2*KL+KU+1, N, ZERO, ZERO, AFB, LDAFB )
                            CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDB )
-                           IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
+                           if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
                               // Equilibrate the matrix if FACT = 'F' and
                               // EQUED = 'R', 'C', or 'B'.
 
                               CALL DLAQGB( N, N, KL, KU, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
-                           END IF
+                           }
 
                            // Solve the system and compute the condition
                            // number and error bounds using DGBSVX.
@@ -400,29 +400,29 @@
                            // Compare WORK(1) from DGBSVX with the computed
                            // reciprocal pivot growth factor RPVGRW
 
-                           IF( INFO.NE.0 ) THEN
+                           if ( INFO.NE.0 ) {
                               ANRMPV = ZERO
                               DO 70 J = 1, INFO
                                  DO 60 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )                                     ANRMPV = MAX( ANRMPV, ABS( A( I+( J-1 )*LDA ) ) )
    60                            CONTINUE
    70                         CONTINUE
                               RPVGRW = DLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ) ), LDAFB, WORK )
-                              IF( RPVGRW.EQ.ZERO ) THEN
+                              if ( RPVGRW.EQ.ZERO ) {
                                  RPVGRW = ONE
                               } else {
                                  RPVGRW = ANRMPV / RPVGRW
-                              END IF
+                              }
                            } else {
                               RPVGRW = DLANTB( 'M', 'U', 'N', N, KL+KU, AFB, LDAFB, WORK )
-                              IF( RPVGRW.EQ.ZERO ) THEN
+                              if ( RPVGRW.EQ.ZERO ) {
                                  RPVGRW = ONE
                               } else {
                                  RPVGRW = DLANGB( 'M', N, KL, KU, A, LDA, WORK ) / RPVGRW
-                              END IF
-                           END IF
+                              }
+                           }
                            RESULT( 7 ) = ABS( RPVGRW-WORK( 1 ) ) / MAX( WORK( 1 ), RPVGRW ) / DLAMCH( 'E' )
 
-                           IF( .NOT.PREFAC ) THEN
+                           if ( .NOT.PREFAC ) {
 
                               // Reconstruct matrix from factors and
                               // compute residual.
@@ -431,9 +431,9 @@
                               K1 = 1
                            } else {
                               K1 = 2
-                           END IF
+                           }
 
-                           IF( INFO.EQ.0 ) THEN
+                           if ( INFO.EQ.0 ) {
                               TRFCON = .FALSE.
 
                               // Compute residual of the computed solution.
@@ -445,13 +445,13 @@
 
                               IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                                  CALL DGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
                               } else {
-                                 IF( ITRAN.EQ.1 ) THEN
+                                 if ( ITRAN.EQ.1 ) {
                                     ROLDC = ROLDO
                                  } else {
                                     ROLDC = ROLDI
-                                 END IF
+                                 }
                                  CALL DGET04( N, NRHS, X, LDB, XACT, LDB, ROLDC, RESULT( 3 ) )
-                              END IF
+                              }
 
                               // Check the error bounds from iterative
                               // refinement.
@@ -459,7 +459,7 @@
                               CALL DGBT05( TRANS, N, KL, KU, NRHS, ASAV, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                            } else {
                               TRFCON = .TRUE.
-                           END IF
+                           }
 
                            // Compare RCOND from DGBSVX with the computed
                            // value in RCONDC.
@@ -469,51 +469,51 @@
                            // Print information about the tests that did
                            // not pass the threshold.
 
-                           IF( .NOT.TRFCON ) THEN
+                           if ( .NOT.TRFCON ) {
                               DO 80 K = K1, NTESTS
-                                 IF( RESULT( K ).GE.THRESH ) THEN
+                                 if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                                    IF( PREFAC ) THEN
+                                    if ( PREFAC ) {
                                        WRITE( NOUT, FMT = 9995 ) 'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
                                     } else {
                                        WRITE( NOUT, FMT = 9996 ) 'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, K, RESULT( K )
-                                    END IF
+                                    }
                                     NFAIL = NFAIL + 1
-                                 END IF
+                                 }
    80                         CONTINUE
                               NRUN = NRUN + 7 - K1
                            } else {
                               IF( RESULT( 1 ).GE.THRESH .AND. .NOT. PREFAC ) THEN                                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                                 IF( PREFAC ) THEN
+                                 if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 )
                                  } else {
                                     WRITE( NOUT, FMT = 9996 )'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 1, RESULT( 1 )
-                                 END IF
+                                 }
                                  NFAIL = NFAIL + 1
                                  NRUN = NRUN + 1
-                              END IF
-                              IF( RESULT( 6 ).GE.THRESH ) THEN
+                              }
+                              if ( RESULT( 6 ).GE.THRESH ) {
                                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                                 IF( PREFAC ) THEN
+                                 if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
                                  } else {
                                     WRITE( NOUT, FMT = 9996 )'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 6, RESULT( 6 )
-                                 END IF
+                                 }
                                  NFAIL = NFAIL + 1
                                  NRUN = NRUN + 1
-                              END IF
-                              IF( RESULT( 7 ).GE.THRESH ) THEN
+                              }
+                              if ( RESULT( 7 ).GE.THRESH ) {
                                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                                 IF( PREFAC ) THEN
+                                 if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )
                                  } else {
                                     WRITE( NOUT, FMT = 9996 )'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 7, RESULT( 7 )
-                                 END IF
+                                 }
                                  NFAIL = NFAIL + 1
                                  NRUN = NRUN + 1
-                              END IF
+                              }
 
-                           END IF
+                           }
 
                      // --- Test DGBSVXX ---
 
@@ -523,13 +523,13 @@
                      CALL DLACPY( 'Full', N, NRHS, BSAV, LDB, B, LDB )
                       IF( .NOT.PREFAC ) CALL DLASET( 'Full', 2*KL+KU+1, N, ZERO, ZERO, AFB, LDAFB )
                      CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDB )
-                     IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
+                     if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
                         // Equilibrate the matrix if FACT = 'F' and
                         // EQUED = 'R', 'C', or 'B'.
 
                         CALL DLAQGB( N, N, KL, KU, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
-                     END IF
+                     }
 
                      // Solve the system and compute the condition number
                      // and error bounds using DGBSVXX.
@@ -541,23 +541,23 @@
                      // Check the error code from DGBSVXX.
 
                      IF( INFO.EQ.N+1 ) GOTO 90
-                     IF( INFO.NE.IZERO ) THEN
+                     if ( INFO.NE.IZERO ) {
                         CALL ALAERH( PATH, 'DGBSVXX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                         GOTO 90
-                     END IF
+                     }
 
                      // Compare rpvgrw_svxx from DGBSVXX with the computed
                      // reciprocal pivot growth factor RPVGRW
 
 
-                     IF ( INFO .GT. 0 .AND. INFO .LT. N+1 ) THEN
+                     if ( INFO .GT. 0 .AND. INFO .LT. N+1 ) {
                         RPVGRW = DLA_GBRPVGRW(N, KL, KU, INFO, A, LDA, AFB, LDAFB)
                      } else {
                         RPVGRW = DLA_GBRPVGRW(N, KL, KU, N, A, LDA, AFB, LDAFB)
                      ENDIF
                       RESULT( 7 ) = ABS( RPVGRW-rpvgrw_svxx ) / MAX( rpvgrw_svxx, RPVGRW ) / DLAMCH( 'E' )
 
-                     IF( .NOT.PREFAC ) THEN
+                     if ( .NOT.PREFAC ) {
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -566,9 +566,9 @@
                         K1 = 1
                      } else {
                         K1 = 2
-                     END IF
+                     }
 
-                     IF( INFO.EQ.0 ) THEN
+                     if ( INFO.EQ.0 ) {
                         TRFCON = .FALSE.
 
                         // Compute residual of the computed solution.
@@ -579,16 +579,16 @@
 
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL DGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
                         } else {
-                           IF( ITRAN.EQ.1 ) THEN
+                           if ( ITRAN.EQ.1 ) {
                               ROLDC = ROLDO
                            } else {
                               ROLDC = ROLDI
-                           END IF
+                           }
                            CALL DGET04( N, NRHS, X, LDB, XACT, LDB, ROLDC, RESULT( 3 ) )
-                        END IF
+                        }
                      } else {
                         TRFCON = .TRUE.
-                     END IF
+                     }
 
                      // Compare RCOND from DGBSVXX with the computed value
                      // in RCONDC.
@@ -598,51 +598,51 @@
                      // Print information about the tests that did not pass
                     t // he threshold.
 
-                     IF( .NOT.TRFCON ) THEN
+                     if ( .NOT.TRFCON ) {
                         DO 45 K = K1, NTESTS
-                           IF( RESULT( K ).GE.THRESH ) THEN
+                           if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                              IF( PREFAC ) THEN
+                              if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9995 )'DGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
                               } else {
                                  WRITE( NOUT, FMT = 9996 )'DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, K, RESULT( K )
-                              END IF
+                              }
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
  45                     CONTINUE
                         NRUN = NRUN + 7 - K1
                      } else {
                         IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                           IF( PREFAC ) THEN
+                           if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9995 )'DGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 )
                            } else {
                               WRITE( NOUT, FMT = 9996 )'DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 1, RESULT( 1 )
-                           END IF
+                           }
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
-                        END IF
-                        IF( RESULT( 6 ).GE.THRESH ) THEN
+                        }
+                        if ( RESULT( 6 ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                           IF( PREFAC ) THEN
+                           if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9995 )'DGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
                            } else {
                               WRITE( NOUT, FMT = 9996 )'DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 6, RESULT( 6 )
-                           END IF
+                           }
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
-                        END IF
-                        IF( RESULT( 7 ).GE.THRESH ) THEN
+                        }
+                        if ( RESULT( 7 ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                           IF( PREFAC ) THEN
+                           if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9995 )'DGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )
                            } else {
                               WRITE( NOUT, FMT = 9996 )'DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 7, RESULT( 7 )
-                           END IF
+                           }
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
-                        END IF
+                        }
 
-                     END IF
+                     }
    90                   CONTINUE
   100                CONTINUE
   110             CONTINUE

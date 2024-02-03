@@ -47,7 +47,7 @@
 
       // ------------------------------------------------------------------
 
-      IF( N.GT.K ) THEN
+      if ( N.GT.K ) {
 
          // col2_(1) Compute W2: = A2. Therefore, copy A2 = A(1:K, K+1:N)
          // into W2=WORK(1:K, 1:N-K) column-by-column.
@@ -56,7 +56,7 @@
             CALL ZCOPY( K, A( 1, K+J ), 1, WORK( 1, J ), 1 )
          END DO
 
-         IF( LNOTIDENT ) THEN
+         if ( LNOTIDENT ) {
 
             // col2_(2) Compute W2: = (V1**H) * W2 = (A1**H) * W2,
             // V1 is not an identity matrix, but unit lower-triangular
@@ -64,14 +64,14 @@
 
 
             CALL ZTRMM( 'L', 'L', 'C', 'U', K, N-K, CONE, A, LDA, WORK, LDWORK )
-         END IF
+         }
 
          // col2_(3) Compute W2: = W2 + (V2**H) * B2 = W2 + (B1**H) * B2
          // V2 stored in B1.
 
-         IF( M.GT.0 ) THEN
+         if ( M.GT.0 ) {
             CALL ZGEMM( 'C', 'N', K, N-K, M, CONE, B, LDB, B( 1, K+1 ), LDB, CONE, WORK, LDWORK )
-         END IF
+         }
 
          // col2_(4) Compute W2: = T * W2,
          // T is upper-triangular.
@@ -81,18 +81,18 @@
          // col2_(5) Compute B2: = B2 - V2 * W2 = B2 - B1 * W2,
          // V2 stored in B1.
 
-         IF( M.GT.0 ) THEN
+         if ( M.GT.0 ) {
             CALL ZGEMM( 'N', 'N', M, N-K, K, -CONE, B, LDB, WORK, LDWORK, CONE, B( 1, K+1 ), LDB )
-         END IF
+         }
 
-         IF( LNOTIDENT ) THEN
+         if ( LNOTIDENT ) {
 
             // col2_(6) Compute W2: = V1 * W2 = A1 * W2,
             // V1 is not an identity matrix, but unit lower-triangular,
             // V1 stored in A1 (diagonal ones are not stored).
 
             CALL ZTRMM( 'L', 'L', 'N', 'U', K, N-K, CONE, A, LDA, WORK, LDWORK )
-         END IF
+         }
 
          // col2_(7) Compute A2: = A2 - W2 =
                               // = A(1:K, K+1:N-K) - WORK(1:K, 1:N-K),
@@ -104,7 +104,7 @@
             END DO
          END DO
 
-      END IF
+      }
 
       // ------------------------------------------------------------------
 
@@ -131,7 +131,7 @@
          END DO
       END DO
 
-      IF( LNOTIDENT ) THEN
+      if ( LNOTIDENT ) {
 
          // col1_(2) Compute W1: = (V1**H) * W1 = (A1**H) * W1,
          // V1 is not an identity matrix, but unit lower-triangular
@@ -139,7 +139,7 @@
          // W1 is upper-triangular with zeroes below the diagonal.
 
          CALL ZTRMM( 'L', 'L', 'C', 'U', K, K, CONE, A, LDA, WORK, LDWORK )
-      END IF
+      }
 
       // col1_(3) Compute W1: = T * W1,
       // T is upper-triangular,
@@ -150,11 +150,11 @@
       // col1_(4) Compute B1: = - V2 * W1 = - B1 * W1,
       // V2 = B1, W1 is upper-triangular with zeroes below the diagonal.
 
-      IF( M.GT.0 ) THEN
+      if ( M.GT.0 ) {
          CALL ZTRMM( 'R', 'U', 'N', 'N', M, K, -CONE, WORK, LDWORK, B, LDB )
-      END IF
+      }
 
-      IF( LNOTIDENT ) THEN
+      if ( LNOTIDENT ) {
 
          // col1_(5) Compute W1: = V1 * W1 = A1 * W1,
          // V1 is not an identity matrix, but unit lower-triangular
@@ -178,7 +178,7 @@
             END DO
          END DO
 
-      END IF
+      }
 
       // col1_(6)_b Compute elements of A1 on and above the diagonal.
 

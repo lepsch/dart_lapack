@@ -26,10 +26,10 @@
       // .. Executable Statements ..
       K = MIN( M, N )
       DO I = 1, K
-         IF( A( I, I ).LT.ZERO ) THEN
+         if ( A( I, I ).LT.ZERO ) {
             SGENND = .FALSE.
             RETURN
-         END IF
+         }
       END DO
       SGENND = .TRUE.
       RETURN

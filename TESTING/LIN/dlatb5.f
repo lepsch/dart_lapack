@@ -43,7 +43,7 @@
 
       // Set some constants for use in the subroutine.
 
-      IF( FIRST ) THEN
+      if ( FIRST ) {
          FIRST = .FALSE.
          EPS = DLAMCH( 'Precision' )
          BADC2 = TENTH / EPS
@@ -52,7 +52,7 @@
          LARGE = ONE / SMALL
          SMALL = SHRINK*( SMALL / EPS )
          LARGE = ONE / SMALL
-      END IF
+      }
 
       C2 = PATH( 2: 3 )
 
@@ -67,39 +67,39 @@
 
       // Set the lower and upper bandwidths.
 
-      IF( IMAT.EQ.1 ) THEN
+      if ( IMAT.EQ.1 ) {
          KL = 0
       } else {
          KL = MAX( N-1, 0 )
-      END IF
+      }
       KU = KL
 
       // Set the condition number and norm.etc
 
-      IF( IMAT.EQ.3 ) THEN
+      if ( IMAT.EQ.3 ) {
          CNDNUM = 1.0D12
          MODE = 2
-      ELSE IF( IMAT.EQ.4 ) THEN
+      } else if ( IMAT.EQ.4 ) {
          CNDNUM = 1.0D12
          MODE = 1
-      ELSE IF( IMAT.EQ.5 ) THEN
+      } else if ( IMAT.EQ.5 ) {
          CNDNUM = 1.0D12
          MODE = 3
-      ELSE IF( IMAT.EQ.6 ) THEN
+      } else if ( IMAT.EQ.6 ) {
          CNDNUM = BADC1
-      ELSE IF( IMAT.EQ.7 ) THEN
+      } else if ( IMAT.EQ.7 ) {
          CNDNUM = BADC2
       } else {
          CNDNUM = TWO
-      END IF
+      }
 
-      IF( IMAT.EQ.8 ) THEN
+      if ( IMAT.EQ.8 ) {
          ANORM = SMALL
-      ELSE IF( IMAT.EQ.9 ) THEN
+      } else if ( IMAT.EQ.9 ) {
          ANORM = LARGE
       } else {
          ANORM = ONE
-      END IF
+      }
 
       IF( N.LE.1 ) CNDNUM = ONE
 

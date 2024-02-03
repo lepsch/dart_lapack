@@ -38,23 +38,23 @@
 
       // Quick exit if N = 0
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = SLANSP( '1', UPLO, N, A, RWORK )
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
       // Compute the product U'*U, overwriting U.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          KC = ( N*( N-1 ) ) / 2 + 1
          DO 10 K = N, 1, -1
 
@@ -65,10 +65,10 @@
 
             // Compute the rest of column K.
 
-            IF( K.GT.1 ) THEN
+            if ( K.GT.1 ) {
                CALL STPMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 )
                KC = KC - ( K-1 )
-            END IF
+            }
    10    CONTINUE
 
       // Compute the product L*L', overwriting L.
@@ -89,7 +89,7 @@
 
             KC = KC - ( N-K+2 )
    20    CONTINUE
-      END IF
+      }
 
       // Compute the difference  L*L' - A (or U'*U - A).
 

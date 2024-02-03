@@ -28,9 +28,9 @@
 
       DEL = D( 2 ) - D( 1 )
       DELSQ = DEL*( D( 2 )+D( 1 ) )
-      IF( I.EQ.1 ) THEN
+      if ( I.EQ.1 ) {
          W = ONE + FOUR*RHO*( Z( 2 )*Z( 2 ) / ( D( 1 )+THREE*D( 2 ) )- Z( 1 )*Z( 1 ) / ( THREE*D( 1 )+D( 2 ) ) ) / DEL
-         IF( W.GT.ZERO ) THEN
+         if ( W.GT.ZERO ) {
             B = DELSQ + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
             C = RHO*Z( 1 )*Z( 1 )*DELSQ
 
@@ -56,11 +56,11 @@
 
             // The following TAU is DSIGMA * DSIGMA - D( 2 ) * D( 2 )
 
-            IF( B.GT.ZERO ) THEN
+            if ( B.GT.ZERO ) {
                TAU = -TWO*C / ( B+SQRT( B*B+FOUR*C ) )
             } else {
                TAU = ( B-SQRT( B*B+FOUR*C ) ) / TWO
-            END IF
+            }
 
             // The following TAU is DSIGMA - D( 2 )
 
@@ -72,7 +72,7 @@
             WORK( 2 ) = TWO*D( 2 ) + TAU
             // DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU )
             // DELTA( 2 ) = -Z( 2 ) / TAU
-         END IF
+         }
          // TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
          // DELTA( 1 ) = DELTA( 1 ) / TEMP
          // DELTA( 2 ) = DELTA( 2 ) / TEMP
@@ -85,11 +85,11 @@
 
          // The following TAU is DSIGMA * DSIGMA - D( 2 ) * D( 2 )
 
-         IF( B.GT.ZERO ) THEN
+         if ( B.GT.ZERO ) {
             TAU = ( B+SQRT( B*B+FOUR*C ) ) / TWO
          } else {
             TAU = TWO*C / ( -B+SQRT( B*B+FOUR*C ) )
-         END IF
+         }
 
          // The following TAU is DSIGMA - D( 2 )
 
@@ -104,7 +104,7 @@
          // TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
          // DELTA( 1 ) = DELTA( 1 ) / TEMP
          // DELTA( 2 ) = DELTA( 2 ) / TEMP
-      END IF
+      }
       RETURN
 
       // End of DLASD5

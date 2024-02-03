@@ -35,10 +35,10 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          INFO = 0
          RETURN
-      END IF
+      }
 
       // As a default, do NOT go for relative-accuracy preserving computations.
       INFO = 1
@@ -82,7 +82,7 @@
  10   CONTINUE
  11   CONTINUE
 
-      IF( YESREL ) THEN
+      if ( YESREL ) {
          INFO = 0
          RETURN
       } else {

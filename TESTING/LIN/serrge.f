@@ -66,7 +66,7 @@
    20 CONTINUE
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'GE' ) ) THEN
+      if ( LSAMEN( 2, C2, 'GE' ) ) {
 
          // Test error exits of the routines that use the LU decomposition
          // of a general matrix.
@@ -177,7 +177,7 @@
          CALL SGEEQU( 2, 2, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'SGEEQU', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // Test error exits of the routines that use the LU decomposition
          // of a general band matrix.
@@ -313,7 +313,7 @@
          INFOT = 6
          CALL SGBEQU( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'SGBEQU', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

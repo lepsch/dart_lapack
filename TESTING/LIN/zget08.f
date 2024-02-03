@@ -49,27 +49,27 @@
 
       // Quick exit if M = 0 or N = 0 or NRHS = 0
 
-      IF( M.LE.0 .OR. N.LE.0 .OR. NRHS.EQ.0 ) THEN
+      if ( M.LE.0 .OR. N.LE.0 .OR. NRHS.EQ.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
-      IF( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) THEN
+      if ( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) {
          N1 = N
          N2 = M
       } else {
          N1 = M
          N2 = N
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANGE( 'I', N1, N2, A, LDA, RWORK )
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
       // Compute  B - A*X  (or  B - A'*X ) and store in B.
 
@@ -82,11 +82,11 @@
       DO 10 J = 1, NRHS
          BNORM = CABS1( B( IZAMAX( N1, B( 1, J ), 1 ), J ) )
          XNORM = CABS1( X( IZAMAX( N2, X( 1, J ), 1 ), J ) )
-         IF( XNORM.LE.ZERO ) THEN
+         if ( XNORM.LE.ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
-         END IF
+         }
    10 CONTINUE
 
       RETURN

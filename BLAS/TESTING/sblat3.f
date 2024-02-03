@@ -60,9 +60,9 @@
       READ( NIN, FMT = * )SNAPS
       READ( NIN, FMT = * )NTRA
       TRACE = NTRA.GE.0
-      IF( TRACE )THEN
+      if ( TRACE ) {
          OPEN( NTRA, FILE = SNAPS )
-      END IF
+      }
       // Read the flag that directs rewinding of the snapshot file.
       READ( NIN, FMT = * )REWI
       REWI = REWI.AND.TRACE
@@ -77,30 +77,30 @@
 
       // Values of N
       READ( NIN, FMT = * )NIDIM
-      IF( NIDIM.LT.1.OR.NIDIM.GT.NIDMAX )THEN
+      if ( NIDIM.LT.1.OR.NIDIM.GT.NIDMAX ) {
          WRITE( NOUT, FMT = 9997 )'N', NIDMAX
          GO TO 220
-      END IF
+      }
       READ( NIN, FMT = * )( IDIM( I ), I = 1, NIDIM )
       DO 10 I = 1, NIDIM
-         IF( IDIM( I ).LT.0.OR.IDIM( I ).GT.NMAX )THEN
+         if ( IDIM( I ).LT.0.OR.IDIM( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9996 )NMAX
             GO TO 220
-         END IF
+         }
    10 CONTINUE
       // Values of ALPHA
       READ( NIN, FMT = * )NALF
-      IF( NALF.LT.1.OR.NALF.GT.NALMAX )THEN
+      if ( NALF.LT.1.OR.NALF.GT.NALMAX ) {
          WRITE( NOUT, FMT = 9997 )'ALPHA', NALMAX
          GO TO 220
-      END IF
+      }
       READ( NIN, FMT = * )( ALF( I ), I = 1, NALF )
       // Values of BETA
       READ( NIN, FMT = * )NBET
-      IF( NBET.LT.1.OR.NBET.GT.NBEMAX )THEN
+      if ( NBET.LT.1.OR.NBET.GT.NBEMAX ) {
          WRITE( NOUT, FMT = 9997 )'BETA', NBEMAX
          GO TO 220
-      END IF
+      }
       READ( NIN, FMT = * )( BET( I ), I = 1, NBET )
 
       // Report values of parameters.
@@ -109,10 +109,10 @@
       WRITE( NOUT, FMT = 9994 )( IDIM( I ), I = 1, NIDIM )
       WRITE( NOUT, FMT = 9993 )( ALF( I ), I = 1, NALF )
       WRITE( NOUT, FMT = 9992 )( BET( I ), I = 1, NBET )
-      IF( .NOT.TSTERR )THEN
+      if ( .NOT.TSTERR ) {
          WRITE( NOUT, FMT = * )
          WRITE( NOUT, FMT = 9984 )
-      END IF
+      }
       WRITE( NOUT, FMT = * )
       WRITE( NOUT, FMT = 9999 )THRESH
       WRITE( NOUT, FMT = * )
@@ -160,17 +160,17 @@
       TRANSB = 'N'
       CALL SMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
       SAME = LSE( CC, CT, N )
-      IF( .NOT.SAME.OR.ERR.NE.ZERO )THEN
+      if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
-      END IF
+      }
       TRANSB = 'T'
       CALL SMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
       SAME = LSE( CC, CT, N )
-      IF( .NOT.SAME.OR.ERR.NE.ZERO )THEN
+      if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
-      END IF
+      }
       DO 120 J = 1, N
          AB( J, NMAX + 1 ) = N - J + 1
          AB( 1, NMAX + J ) = N - J + 1
@@ -182,32 +182,32 @@
       TRANSB = 'N'
       CALL SMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
       SAME = LSE( CC, CT, N )
-      IF( .NOT.SAME.OR.ERR.NE.ZERO )THEN
+      if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
-      END IF
+      }
       TRANSB = 'T'
       CALL SMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
       SAME = LSE( CC, CT, N )
-      IF( .NOT.SAME.OR.ERR.NE.ZERO )THEN
+      if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
-      END IF
+      }
 
       // Test each subroutine in turn.
 
       DO 200 ISNUM = 1, NSUBS
          WRITE( NOUT, FMT = * )
-         IF( .NOT.LTEST( ISNUM ) )THEN
+         if ( .NOT.LTEST( ISNUM ) ) {
             // Subprogram is not to be tested.
             WRITE( NOUT, FMT = 9987 )SNAMES( ISNUM )
          } else {
             SRNAMT = SNAMES( ISNUM )
             // Test error exits.
-            IF( TSTERR )THEN
+            if ( TSTERR ) {
                CALL SCHKE( ISNUM, SNAMES( ISNUM ), NOUT )
                WRITE( NOUT, FMT = * )
-            END IF
+            }
             // Test computations.
             INFOT = 0
             OK = .TRUE.
@@ -244,7 +244,7 @@
 
   190       IF( FATAL.AND.SFATAL )
      $         GO TO 210
-         END IF
+         }
   200 CONTINUE
       WRITE( NOUT, FMT = 9986 )
       GO TO 230
@@ -363,13 +363,13 @@
                   TRANSA = ICH( ICA: ICA )
                   TRANA = TRANSA.EQ.'T'.OR.TRANSA.EQ.'C'
 
-                  IF( TRANA )THEN
+                  if ( TRANA ) {
                      MA = K
                      NA = M
                   } else {
                      MA = M
                      NA = K
-                  END IF
+                  }
                   // Set LDA to 1 more than minimum value if room.
                   LDA = MA
                   IF( LDA.LT.NMAX ) LDA = LDA + 1
@@ -385,13 +385,13 @@
                      TRANSB = ICH( ICB: ICB )
                      TRANB = TRANSB.EQ.'T'.OR.TRANSB.EQ.'C'
 
-                     IF( TRANB )THEN
+                     if ( TRANB ) {
                         MB = N
                         NB = K
                      } else {
                         MB = K
                         NB = N
-                     END IF
+                     }
                      // Set LDB to 1 more than minimum value if room.
                      LDB = MB
                      IF( LDB.LT.NMAX ) LDB = LDB + 1
@@ -445,11 +445,11 @@
 
                            // Check if error-exit was taken incorrectly.
 
-                           IF( .NOT.OK )THEN
+                           if ( .NOT.OK ) {
                               WRITE( NOUT, FMT = 9994 )
                               FATAL = .TRUE.
                               GO TO 120
-                           END IF
+                           }
 
                            // See what data changed inside subroutines.
 
@@ -464,11 +464,11 @@
                            ISAME( 9 ) = LSE( BS, BB, LBB )
                            ISAME( 10 ) = LDBS.EQ.LDB
                            ISAME( 11 ) = BLS.EQ.BETA
-                           IF( NULL )THEN
+                           if ( NULL ) {
                               ISAME( 12 ) = LSE( CS, CC, LCC )
                            } else {
                               ISAME( 12 ) = LSERES( 'GE', ' ', M, N, CS, CC, LDC )
-                           END IF
+                           }
                            ISAME( 13 ) = LDCS.EQ.LDC
 
                            // If data was incorrectly changed, report
@@ -479,12 +479,12 @@
                               SAME = SAME.AND.ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                      CONTINUE
-                           IF( .NOT.SAME )THEN
+                           if ( .NOT.SAME ) {
                               FATAL = .TRUE.
                               GO TO 120
-                           END IF
+                           }
 
-                           IF( .NOT.NULL )THEN
+                           if ( .NOT.NULL ) {
 
                               // Check the result.
 
@@ -493,7 +493,7 @@
                               // If got really bad answer, report and
                               // return.
                               IF( FATAL ) GO TO 120
-                           END IF
+                           }
 
    50                   CONTINUE
 
@@ -511,11 +511,11 @@
 
       // Report result.
 
-      IF( ERRMAX.LT.THRESH )THEN
+      if ( ERRMAX.LT.THRESH ) {
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
-      END IF
+      }
       GO TO 130
 
   120 CONTINUE
@@ -622,11 +622,11 @@
                SIDE = ICHS( ICS: ICS )
                LEFT = SIDE.EQ.'L'
 
-               IF( LEFT )THEN
+               if ( LEFT ) {
                   NA = M
                } else {
                   NA = N
-               END IF
+               }
                // Set LDA to 1 more than minimum value if room.
                LDA = NA
                IF( LDA.LT.NMAX ) LDA = LDA + 1
@@ -682,11 +682,11 @@
 
                         // Check if error-exit was taken incorrectly.
 
-                        IF( .NOT.OK )THEN
+                        if ( .NOT.OK ) {
                            WRITE( NOUT, FMT = 9994 )
                            FATAL = .TRUE.
                            GO TO 110
-                        END IF
+                        }
 
                         // See what data changed inside subroutines.
 
@@ -700,11 +700,11 @@
                         ISAME( 8 ) = LSE( BS, BB, LBB )
                         ISAME( 9 ) = LDBS.EQ.LDB
                         ISAME( 10 ) = BLS.EQ.BETA
-                        IF( NULL )THEN
+                        if ( NULL ) {
                            ISAME( 11 ) = LSE( CS, CC, LCC )
                         } else {
                            ISAME( 11 ) = LSERES( 'GE', ' ', M, N, CS, CC, LDC )
-                        END IF
+                        }
                         ISAME( 12 ) = LDCS.EQ.LDC
 
                         // If data was incorrectly changed, report and
@@ -715,25 +715,25 @@
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                   CONTINUE
-                        IF( .NOT.SAME )THEN
+                        if ( .NOT.SAME ) {
                            FATAL = .TRUE.
                            GO TO 110
-                        END IF
+                        }
 
-                        IF( .NOT.NULL )THEN
+                        if ( .NOT.NULL ) {
 
                            // Check the result.
 
-                           IF( LEFT )THEN
+                           if ( LEFT ) {
                               CALL SMMCH( 'N', 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                            } else {
                               CALL SMMCH( 'N', 'N', M, N, N, ALPHA, B, NMAX, A, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
-                           END IF
+                           }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and
                            // return.
                            IF( FATAL ) GO TO 110
-                        END IF
+                        }
 
    50                CONTINUE
 
@@ -749,11 +749,11 @@
 
       // Report result.
 
-      IF( ERRMAX.LT.THRESH )THEN
+      if ( ERRMAX.LT.THRESH ) {
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
-      END IF
+      }
       GO TO 120
 
   110 CONTINUE
@@ -855,11 +855,11 @@
             DO 120 ICS = 1, 2
                SIDE = ICHS( ICS: ICS )
                LEFT = SIDE.EQ.'L'
-               IF( LEFT )THEN
+               if ( LEFT ) {
                   NA = M
                } else {
                   NA = N
-               END IF
+               }
                // Set LDA to 1 more than minimum value if room.
                LDA = NA
                IF( LDA.LT.NMAX ) LDA = LDA + 1
@@ -910,21 +910,21 @@
 
                            // Call the subroutine.
 
-                           IF( SNAME( 4: 5 ).EQ.'MM' )THEN
+                           if ( SNAME( 4: 5 ).EQ.'MM' ) {
                               IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB
                               IF( REWI ) REWIND NTRA                               CALL STRMM( SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB )
-                           ELSE IF( SNAME( 4: 5 ).EQ.'SM' )THEN
+                           } else if ( SNAME( 4: 5 ).EQ.'SM' ) {
                               IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB
                               IF( REWI ) REWIND NTRA                               CALL STRSM( SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB )
-                           END IF
+                           }
 
                            // Check if error-exit was taken incorrectly.
 
-                           IF( .NOT.OK )THEN
+                           if ( .NOT.OK ) {
                               WRITE( NOUT, FMT = 9994 )
                               FATAL = .TRUE.
                               GO TO 150
-                           END IF
+                           }
 
                            // See what data changed inside subroutines.
 
@@ -937,11 +937,11 @@
                            ISAME( 7 ) = ALS.EQ.ALPHA
                            ISAME( 8 ) = LSE( AS, AA, LAA )
                            ISAME( 9 ) = LDAS.EQ.LDA
-                           IF( NULL )THEN
+                           if ( NULL ) {
                               ISAME( 10 ) = LSE( BS, BB, LBB )
                            } else {
                               ISAME( 10 ) = LSERES( 'GE', ' ', M, N, BS, BB, LDB )
-                           END IF
+                           }
                            ISAME( 11 ) = LDBS.EQ.LDB
 
                            // If data was incorrectly changed, report and
@@ -952,22 +952,22 @@
                               SAME = SAME.AND.ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    50                      CONTINUE
-                           IF( .NOT.SAME )THEN
+                           if ( .NOT.SAME ) {
                               FATAL = .TRUE.
                               GO TO 150
-                           END IF
+                           }
 
-                           IF( .NOT.NULL )THEN
-                              IF( SNAME( 4: 5 ).EQ.'MM' )THEN
+                           if ( .NOT.NULL ) {
+                              if ( SNAME( 4: 5 ).EQ.'MM' ) {
 
                                  // Check the result.
 
-                                 IF( LEFT )THEN
+                                 if ( LEFT ) {
                                     CALL SMMCH( TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
                                  } else {
                                     CALL SMMCH( 'N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
-                                 END IF
-                              ELSE IF( SNAME( 4: 5 ).EQ.'SM' )THEN
+                                 }
+                              } else if ( SNAME( 4: 5 ).EQ.'SM' ) {
 
                                  // Compute approximation to original
                                  // matrix.
@@ -978,17 +978,17 @@
    60                               CONTINUE
    70                            CONTINUE
 
-                                 IF( LEFT )THEN
+                                 if ( LEFT ) {
                                     CALL SMMCH( TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
                                  } else {
                                     CALL SMMCH( 'N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
-                                 END IF
-                              END IF
+                                 }
+                              }
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
                               IF( FATAL ) GO TO 150
-                           END IF
+                           }
 
    80                   CONTINUE
 
@@ -1006,11 +1006,11 @@
 
       // Report result.
 
-      IF( ERRMAX.LT.THRESH )THEN
+      if ( ERRMAX.LT.THRESH ) {
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
-      END IF
+      }
       GO TO 160
 
   150 CONTINUE
@@ -1105,13 +1105,13 @@
             DO 80 ICT = 1, 3
                TRANS = ICHT( ICT: ICT )
                TRAN = TRANS.EQ.'T'.OR.TRANS.EQ.'C'
-               IF( TRAN )THEN
+               if ( TRAN ) {
                   MA = K
                   NA = N
                } else {
                   MA = N
                   NA = K
-               END IF
+               }
                // Set LDA to 1 more than minimum value if room.
                LDA = MA
                IF( LDA.LT.NMAX ) LDA = LDA + 1
@@ -1163,11 +1163,11 @@
 
                         // Check if error-exit was taken incorrectly.
 
-                        IF( .NOT.OK )THEN
+                        if ( .NOT.OK ) {
                            WRITE( NOUT, FMT = 9993 )
                            FATAL = .TRUE.
                            GO TO 120
-                        END IF
+                        }
 
                         // See what data changed inside subroutines.
 
@@ -1179,11 +1179,11 @@
                         ISAME( 6 ) = LSE( AS, AA, LAA )
                         ISAME( 7 ) = LDAS.EQ.LDA
                         ISAME( 8 ) = BETS.EQ.BETA
-                        IF( NULL )THEN
+                        if ( NULL ) {
                            ISAME( 9 ) = LSE( CS, CC, LCC )
                         } else {
                            ISAME( 9 ) = LSERES( 'SY', UPLO, N, N, CS, CC, LDC )
-                        END IF
+                        }
                         ISAME( 10 ) = LDCS.EQ.LDC
 
                         // If data was incorrectly changed, report and
@@ -1194,40 +1194,40 @@
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    30                   CONTINUE
-                        IF( .NOT.SAME )THEN
+                        if ( .NOT.SAME ) {
                            FATAL = .TRUE.
                            GO TO 120
-                        END IF
+                        }
 
-                        IF( .NOT.NULL )THEN
+                        if ( .NOT.NULL ) {
 
                            // Check the result column by column.
 
                            JC = 1
                            DO 40 J = 1, N
-                              IF( UPPER )THEN
+                              if ( UPPER ) {
                                  JJ = 1
                                  LJ = J
                               } else {
                                  JJ = J
                                  LJ = N - J + 1
-                              END IF
-                              IF( TRAN )THEN
+                              }
+                              if ( TRAN ) {
                                  CALL SMMCH( 'T', 'N', LJ, 1, K, ALPHA, A( 1, JJ ), NMAX, A( 1, J ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                               } else {
                                  CALL SMMCH( 'N', 'T', LJ, 1, K, ALPHA, A( JJ, 1 ), NMAX, A( J, 1 ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
-                              END IF
-                              IF( UPPER )THEN
+                              }
+                              if ( UPPER ) {
                                  JC = JC + LDC
                               } else {
                                  JC = JC + LDC + 1
-                              END IF
+                              }
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
                               IF( FATAL ) GO TO 110
    40                      CONTINUE
-                        END IF
+                        }
 
    50                CONTINUE
 
@@ -1243,11 +1243,11 @@
 
       // Report result.
 
-      IF( ERRMAX.LT.THRESH )THEN
+      if ( ERRMAX.LT.THRESH ) {
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
-      END IF
+      }
       GO TO 130
 
   110 CONTINUE
@@ -1346,13 +1346,13 @@
             DO 110 ICT = 1, 3
                TRANS = ICHT( ICT: ICT )
                TRAN = TRANS.EQ.'T'.OR.TRANS.EQ.'C'
-               IF( TRAN )THEN
+               if ( TRAN ) {
                   MA = K
                   NA = N
                } else {
                   MA = N
                   NA = K
-               END IF
+               }
                // Set LDA to 1 more than minimum value if room.
                LDA = MA
                IF( LDA.LT.NMAX ) LDA = LDA + 1
@@ -1362,21 +1362,21 @@
 
                // Generate the matrix A.
 
-               IF( TRAN )THEN
+               if ( TRAN ) {
                   CALL SMAKE( 'GE', ' ', ' ', MA, NA, AB, 2*NMAX, AA, LDA, RESET, ZERO )
                } else {
                   CALL SMAKE( 'GE', ' ', ' ', MA, NA, AB, NMAX, AA, LDA, RESET, ZERO )
-               END IF
+               }
 
                // Generate the matrix B.
 
                LDB = LDA
                LBB = LAA
-               IF( TRAN )THEN
+               if ( TRAN ) {
                   CALL SMAKE( 'GE', ' ', ' ', MA, NA, AB( K + 1 ), 2*NMAX, BB, LDB, RESET, ZERO )
                } else {
                   CALL SMAKE( 'GE', ' ', ' ', MA, NA, AB( K*NMAX + 1 ), NMAX, BB, LDB, RESET, ZERO )
-               END IF
+               }
 
                DO 100 ICU = 1, 2
                   UPLO = ICHU( ICU: ICU )
@@ -1422,11 +1422,11 @@
 
                         // Check if error-exit was taken incorrectly.
 
-                        IF( .NOT.OK )THEN
+                        if ( .NOT.OK ) {
                            WRITE( NOUT, FMT = 9993 )
                            FATAL = .TRUE.
                            GO TO 150
-                        END IF
+                        }
 
                         // See what data changed inside subroutines.
 
@@ -1440,11 +1440,11 @@
                         ISAME( 8 ) = LSE( BS, BB, LBB )
                         ISAME( 9 ) = LDBS.EQ.LDB
                         ISAME( 10 ) = BETS.EQ.BETA
-                        IF( NULL )THEN
+                        if ( NULL ) {
                            ISAME( 11 ) = LSE( CS, CC, LCC )
                         } else {
                            ISAME( 11 ) = LSERES( 'SY', UPLO, N, N, CS, CC, LDC )
-                        END IF
+                        }
                         ISAME( 12 ) = LDCS.EQ.LDC
 
                         // If data was incorrectly changed, report and
@@ -1455,26 +1455,26 @@
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                   CONTINUE
-                        IF( .NOT.SAME )THEN
+                        if ( .NOT.SAME ) {
                            FATAL = .TRUE.
                            GO TO 150
-                        END IF
+                        }
 
-                        IF( .NOT.NULL )THEN
+                        if ( .NOT.NULL ) {
 
                            // Check the result column by column.
 
                            JJAB = 1
                            JC = 1
                            DO 70 J = 1, N
-                              IF( UPPER )THEN
+                              if ( UPPER ) {
                                  JJ = 1
                                  LJ = J
                               } else {
                                  JJ = J
                                  LJ = N - J + 1
-                              END IF
-                              IF( TRAN )THEN
+                              }
+                              if ( TRAN ) {
                                  DO 50 I = 1, K
                                     W( I ) = AB( ( J - 1 )*2*NMAX + K + I )                                     W( K + I ) = AB( ( J - 1 )*2*NMAX + I )
    50                            CONTINUE
@@ -1484,19 +1484,19 @@
                                     W( I ) = AB( ( K + I - 1 )*NMAX + J )                                     W( K + I ) = AB( ( I - 1 )*NMAX + J )
    60                            CONTINUE
                                  CALL SMMCH( 'N', 'N', LJ, 1, 2*K, ALPHA, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
-                              END IF
-                              IF( UPPER )THEN
+                              }
+                              if ( UPPER ) {
                                  JC = JC + LDC
                               } else {
                                  JC = JC + LDC + 1
                                  IF( TRAN ) JJAB = JJAB + 2*NMAX
-                              END IF
+                              }
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
                               IF( FATAL ) GO TO 140
    70                      CONTINUE
-                        END IF
+                        }
 
    80                CONTINUE
 
@@ -1512,11 +1512,11 @@
 
       // Report result.
 
-      IF( ERRMAX.LT.THRESH )THEN
+      if ( ERRMAX.LT.THRESH ) {
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
-      END IF
+      }
       GO TO 160
 
   140 CONTINUE
@@ -2091,7 +2091,7 @@
          WRITE( NOUT, FMT = 9999 )SRNAMT
       } else {
          WRITE( NOUT, FMT = 9998 )SRNAMT
-      END IF
+      }
       RETURN
 
  9999 FORMAT( ' ', A6, ' PASSED THE TESTS OF ERROR-EXITS' )
@@ -2148,25 +2148,25 @@
 
       DO 20 J = 1, N
          DO 10 I = 1, M
-            IF( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) THEN
+            if ( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) {
                A( I, J ) = SBEG( RESET ) + TRANSL
-               IF( I.NE.J )THEN
+               if ( I.NE.J ) {
                   // Set some elements to zero
                   IF( N.GT.3.AND.J.EQ.N/2 ) A( I, J ) = ZERO
-                  IF( SYM )THEN
+                  if ( SYM ) {
                      A( J, I ) = A( I, J )
-                  ELSE IF( TRI )THEN
+                  } else if ( TRI ) {
                      A( J, I ) = ZERO
-                  END IF
-               END IF
-            END IF
+                  }
+               }
+            }
    10    CONTINUE
          IF( TRI ) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE
    20 CONTINUE
 
       // Store elements in array AS in data structure required by routine.
 
-      IF( TYPE.EQ.'GE' )THEN
+      if ( TYPE.EQ.'GE' ) {
          DO 50 J = 1, N
             DO 30 I = 1, M
                AA( I + ( J - 1 )*LDA ) = A( I, J )
@@ -2175,23 +2175,23 @@
                AA( I + ( J - 1 )*LDA ) = ROGUE
    40       CONTINUE
    50    CONTINUE
-      ELSE IF( TYPE.EQ.'SY'.OR.TYPE.EQ.'TR' )THEN
+      } else if ( TYPE.EQ.'SY'.OR.TYPE.EQ.'TR' ) {
          DO 90 J = 1, N
-            IF( UPPER )THEN
+            if ( UPPER ) {
                IBEG = 1
-               IF( UNIT )THEN
+               if ( UNIT ) {
                   IEND = J - 1
                } else {
                   IEND = J
-               END IF
+               }
             } else {
-               IF( UNIT )THEN
+               if ( UNIT ) {
                   IBEG = J + 1
                } else {
                   IBEG = J
-               END IF
+               }
                IEND = N
-            END IF
+            }
             DO 60 I = 1, IBEG - 1
                AA( I + ( J - 1 )*LDA ) = ROGUE
    60       CONTINUE
@@ -2202,7 +2202,7 @@
                AA( I + ( J - 1 )*LDA ) = ROGUE
    80       CONTINUE
    90    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of SMAKE
@@ -2250,35 +2250,35 @@
             CT( I ) = ZERO
             G( I ) = ZERO
    10    CONTINUE
-         IF( .NOT.TRANA.AND..NOT.TRANB )THEN
+         if ( .NOT.TRANA.AND..NOT.TRANB ) {
             DO 30 K = 1, KK
                DO 20 I = 1, M
                   CT( I ) = CT( I ) + A( I, K )*B( K, J )
                   G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( K, J ) )
    20          CONTINUE
    30       CONTINUE
-         ELSE IF( TRANA.AND..NOT.TRANB )THEN
+         } else if ( TRANA.AND..NOT.TRANB ) {
             DO 50 K = 1, KK
                DO 40 I = 1, M
                   CT( I ) = CT( I ) + A( K, I )*B( K, J )
                   G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( K, J ) )
    40          CONTINUE
    50       CONTINUE
-         ELSE IF( .NOT.TRANA.AND.TRANB )THEN
+         } else if ( .NOT.TRANA.AND.TRANB ) {
             DO 70 K = 1, KK
                DO 60 I = 1, M
                   CT( I ) = CT( I ) + A( I, K )*B( J, K )
                   G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( J, K ) )
    60          CONTINUE
    70       CONTINUE
-         ELSE IF( TRANA.AND.TRANB )THEN
+         } else if ( TRANA.AND.TRANB ) {
             DO 90 K = 1, KK
                DO 80 I = 1, M
                   CT( I ) = CT( I ) + A( K, I )*B( J, K )
                   G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( J, K ) )
    80          CONTINUE
    90       CONTINUE
-         END IF
+         }
          DO 100 I = 1, M
             CT( I ) = ALPHA*CT( I ) + BETA*C( I, J )
             G( I ) = ABS( ALPHA )*G( I ) + ABS( BETA )*ABS( C( I, J ) )
@@ -2304,11 +2304,11 @@
   130 FATAL = .TRUE.
       WRITE( NOUT, FMT = 9999 )
       DO 140 I = 1, M
-         IF( MV )THEN
+         if ( MV ) {
             WRITE( NOUT, FMT = 9998 )I, CT( I ), CC( I, J )
          } else {
             WRITE( NOUT, FMT = 9998 )I, CC( I, J ), CT( I )
-         END IF
+         }
   140 CONTINUE
       IF( N.GT.1 ) WRITE( NOUT, FMT = 9997 )J
 
@@ -2380,21 +2380,21 @@
       bool               UPPER;
       // .. Executable Statements ..
       UPPER = UPLO.EQ.'U'
-      IF( TYPE.EQ.'GE' )THEN
+      if ( TYPE.EQ.'GE' ) {
          DO 20 J = 1, N
             DO 10 I = M + 1, LDA
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
    10       CONTINUE
    20    CONTINUE
-      ELSE IF( TYPE.EQ.'SY' )THEN
+      } else if ( TYPE.EQ.'SY' ) {
          DO 50 J = 1, N
-            IF( UPPER )THEN
+            if ( UPPER ) {
                IBEG = 1
                IEND = J
             } else {
                IBEG = J
                IEND = N
-            END IF
+            }
             DO 30 I = 1, IBEG - 1
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
    30       CONTINUE
@@ -2402,7 +2402,7 @@
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
    40       CONTINUE
    50    CONTINUE
-      END IF
+      }
 
       LSERES = .TRUE.
       GO TO 80
@@ -2432,13 +2432,13 @@
       // .. Save statement ..
       SAVE               I, IC, MI
       // .. Executable Statements ..
-      IF( RESET )THEN
+      if ( RESET ) {
          // Initialize local variables.
          MI = 891
          I = 7
          IC = 0
          RESET = .FALSE.
-      END IF
+      }
 
       // The sequence of values of I is bounded between 1 and 999.
       // If initial I = 1,2,3,6,7 or 9, the period will be 50.
@@ -2449,10 +2449,10 @@
       IC = IC + 1
    10 I = I*MI
       I = I - 1000*( I/1000 )
-      IF( IC.GE.5 )THEN
+      if ( IC.GE.5 ) {
          IC = 0
          GO TO 10
-      END IF
+      }
       SBEG = ( I - 500 )/1001.0
       RETURN
 
@@ -2495,10 +2495,10 @@
       bool               LERR, OK;
       String             SRNAMT;
       // .. Executable Statements ..
-      IF( .NOT.LERR )THEN
+      if ( .NOT.LERR ) {
          WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT
          OK = .FALSE.
-      END IF
+      }
       LERR = .FALSE.
       RETURN
 
@@ -2539,18 +2539,18 @@
       COMMON             /SRNAMC/SRNAMT
       // .. Executable Statements ..
       LERR = .TRUE.
-      IF( INFO.NE.INFOT )THEN
-         IF( INFOT.NE.0 )THEN
+      if ( INFO.NE.INFOT ) {
+         if ( INFOT.NE.0 ) {
             WRITE( NOUT, FMT = 9999 )INFO, INFOT
          } else {
             WRITE( NOUT, FMT = 9997 )INFO
-         END IF
+         }
          OK = .FALSE.
-      END IF
-      IF( SRNAME.NE.SRNAMT )THEN
+      }
+      if ( SRNAME.NE.SRNAMT ) {
          WRITE( NOUT, FMT = 9998 )SRNAME, SRNAMT
          OK = .FALSE.
-      END IF
+      }
       RETURN
 
  9999 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6, ' INSTEAD',

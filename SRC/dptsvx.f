@@ -40,23 +40,23 @@
 
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
-      IF( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
+      if ( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -11
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DPTSVX', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( NOFACT ) THEN
+      if ( NOFACT ) {
 
          // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 
@@ -66,11 +66,11 @@
 
          // Return if INFO is non-zero.
 
-         IF( INFO.GT.0 )THEN
+         if ( INFO.GT.0 ) {
             RCOND = ZERO
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Compute the norm of the matrix A.
 

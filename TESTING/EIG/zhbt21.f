@@ -48,13 +48,13 @@
 
       IKA = MAX( 0, MIN( N-1, KA ) )
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          LOWER = .FALSE.
          CUPLO = 'U'
       } else {
          LOWER = .TRUE.
          CUPLO = 'L'
-      END IF
+      }
 
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
@@ -73,7 +73,7 @@
 
       J = 0
       DO 50 JC = 1, N
-         IF( LOWER ) THEN
+         if ( LOWER ) {
             DO 10 JR = 1, MIN( IKA+1, N+1-JC )
                J = J + 1
                WORK( J ) = A( JR, JC )
@@ -91,29 +91,29 @@
                J = J + 1
                WORK( J ) = A( IKA+1-JR, JC )
    40       CONTINUE
-         END IF
+         }
    50 CONTINUE
 
       DO 60 J = 1, N
          CALL ZHPR( CUPLO, N, -D( J ), U( 1, J ), 1, WORK )
    60 CONTINUE
 
-      IF( N.GT.1 .AND. KS.EQ.1 ) THEN
+      if ( N.GT.1 .AND. KS.EQ.1 ) {
          DO 70 J = 1, N - 1
             CALL ZHPR2( CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK )
    70    CONTINUE
-      END IF
+      }
       WNORM = ZLANHP( '1', CUPLO, N, WORK, RWORK )
 
-      IF( ANORM.GT.WNORM ) THEN
+      if ( ANORM.GT.WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
       } else {
-         IF( ANORM.LT.ONE ) THEN
+         if ( ANORM.LT.ONE ) {
             RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
          } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP )
-         END IF
-      END IF
+         }
+      }
 
       // Do Test 2
 

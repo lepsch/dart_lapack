@@ -26,11 +26,11 @@
       // Set up deflation window
       JW = MIN( NW, IHI-ILO+1 )
       KWTOP = IHI-JW+1
-      IF ( KWTOP .EQ. ILO ) THEN
+      if ( KWTOP .EQ. ILO ) {
          S = ZERO
       } else {
          S = A( KWTOP, KWTOP-1 )
-      END IF
+      }
 
       // Determine required workspace
       IFST = 1
@@ -40,18 +40,18 @@
       CALL SLAQZ0( 'S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHAR, ALPHAI, BETA, QC, LDQC, ZC, LDZC, WORK, -1, REC+1, QZ_SMALL_INFO )
       LWORKREQ = MAX( LWORKREQ, INT( WORK( 1 ) )+2*JW**2 )
       LWORKREQ = MAX( LWORKREQ, N*NW, 2*NW**2+N )
-      IF ( LWORK .EQ.-1 ) THEN
+      if ( LWORK .EQ.-1 ) {
          // workspace query, quick return
          WORK( 1 ) = SROUNDUP_LWORK(LWORKREQ)
          RETURN
-      ELSE IF ( LWORK .LT. LWORKREQ ) THEN
+      } else if ( LWORK .LT. LWORKREQ ) {
          INFO = -26
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLAQZ3', -INFO )
          RETURN
-      END IF
+      }
 
       // Get machine constants
       SAFMIN = SLAMCH( 'SAFE MINIMUM' )
@@ -59,21 +59,21 @@
       ULP = SLAMCH( 'PRECISION' )
       SMLNUM = SAFMIN*( REAL( N )/ULP )
 
-      IF ( IHI .EQ. KWTOP ) THEN
+      if ( IHI .EQ. KWTOP ) {
          // 1 by 1 deflation window, just try a regular deflation
          ALPHAR( KWTOP ) = A( KWTOP, KWTOP )
          ALPHAI( KWTOP ) = ZERO
          BETA( KWTOP ) = B( KWTOP, KWTOP )
          NS = 1
          ND = 0
-         IF ( ABS( S ) .LE. MAX( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) THEN
+         if ( ABS( S ) .LE. MAX( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
-            IF ( KWTOP .GT. ILO ) THEN
+            if ( KWTOP .GT. ILO ) {
                A( KWTOP, KWTOP-1 ) = ZERO
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
 
       // Store window in case of convergence failure
@@ -85,17 +85,17 @@
       CALL SLASET( 'FULL', JW, JW, ZERO, ONE, ZC, LDZC )
       CALL SLAQZ0( 'S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHAR, ALPHAI, BETA, QC, LDQC, ZC, LDZC, WORK( 2*JW**2+1 ), LWORK-2*JW**2, REC+1, QZ_SMALL_INFO )
 
-      IF( QZ_SMALL_INFO .NE. 0 ) THEN
+      if ( QZ_SMALL_INFO .NE. 0 ) {
          // Convergence failure, restore the window and exit
          ND = 0
          NS = JW-QZ_SMALL_INFO
          CALL SLACPY( 'ALL', JW, JW, WORK, JW, A( KWTOP, KWTOP ), LDA )
          CALL SLACPY( 'ALL', JW, JW, WORK( JW**2+1 ), JW, B( KWTOP, KWTOP ), LDB )
          RETURN
-      END IF
+      }
 
       // Deflation detection loop
-      IF ( KWTOP .EQ. ILO .OR. S .EQ. ZERO ) THEN
+      if ( KWTOP .EQ. ILO .OR. S .EQ. ZERO ) {
          KWBOT = KWTOP-1
       } else {
          KWBOT = IHI
@@ -103,17 +103,17 @@
          K2 = 1
          DO WHILE ( K .LE. JW )
             BULGE = .FALSE.
-            IF ( KWBOT-KWTOP+1 .GE. 2 ) THEN
+            if ( KWBOT-KWTOP+1 .GE. 2 ) {
                BULGE = A( KWBOT, KWBOT-1 ) .NE. ZERO
-            END IF
-            IF ( BULGE ) THEN
+            }
+            if ( BULGE ) {
 
                // Try to deflate complex conjugate eigenvalue pair
                TEMP = ABS( A( KWBOT, KWBOT ) )+SQRT( ABS( A( KWBOT, KWBOT-1 ) ) )*SQRT( ABS( A( KWBOT-1, KWBOT ) ) )
-               IF( TEMP .EQ. ZERO )THEN
+               if ( TEMP .EQ. ZERO ) {
                   TEMP = ABS( S )
-               END IF
-               IF ( MAX( ABS( S*QC( 1, KWBOT-KWTOP ) ), ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( SMLNUM, ULP*TEMP ) ) THEN
+               }
+               if ( MAX( ABS( S*QC( 1, KWBOT-KWTOP ) ), ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( SMLNUM, ULP*TEMP ) ) {
                   // Deflatable
                   KWBOT = KWBOT-2
                } else {
@@ -122,16 +122,16 @@
                   ILST = K2
                   CALL STGEXC( .TRUE., .TRUE., JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, LWORK, STGEXC_INFO )
                   K2 = K2+2
-               END IF
+               }
                K = K+2
             } else {
 
                // Try to deflate real eigenvalue
                TEMP = ABS( A( KWBOT, KWBOT ) )
-               IF( TEMP .EQ. ZERO ) THEN
+               if ( TEMP .EQ. ZERO ) {
                   TEMP = ABS( S )
-               END IF
-               IF ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( ULP* TEMP, SMLNUM ) ) THEN
+               }
+               if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( ULP* TEMP, SMLNUM ) ) {
                   // Deflatable
                   KWBOT = KWBOT-1
                } else {
@@ -140,13 +140,13 @@
                   ILST = K2
                   CALL STGEXC( .TRUE., .TRUE., JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, LWORK, STGEXC_INFO )
                   K2 = K2+1
-               END IF
+               }
 
                K = K+1
 
-            END IF
+            }
          END DO
-      END IF
+      }
 
       // Store eigenvalues
       ND = IHI-KWBOT
@@ -154,12 +154,12 @@
       K = KWTOP
       DO WHILE ( K .LE. IHI )
          BULGE = .FALSE.
-         IF ( K .LT. IHI ) THEN
-            IF ( A( K+1, K ) .NE. ZERO ) THEN
+         if ( K .LT. IHI ) {
+            if ( A( K+1, K ) .NE. ZERO ) {
                BULGE = .TRUE.
-            END IF
-         END IF
-         IF ( BULGE ) THEN
+            }
+         }
+         if ( BULGE ) {
             // 2x2 eigenvalue block
             CALL SLAG2( A( K, K ), LDA, B( K, K ), LDB, SAFMIN, BETA( K ), BETA( K+1 ), ALPHAR( K ), ALPHAR( K+1 ), ALPHAI( K ) )
             ALPHAI( K+1 ) = -ALPHAI( K )
@@ -170,10 +170,10 @@
             ALPHAI( K ) = ZERO
             BETA( K ) = B( K, K )
             K = K+1
-         END IF
+         }
       END DO
 
-      IF ( KWTOP .NE. ILO .AND. S .NE. ZERO ) THEN
+      if ( KWTOP .NE. ILO .AND. S .NE. ZERO ) {
          // Reflect spike back, this will create optimally packed bulges
          A( KWTOP:KWBOT, KWTOP-1 ) = A( KWTOP, KWTOP-1 )*QC( 1, 1:JW-ND )
          DO K = KWBOT-1, KWTOP, -1
@@ -189,7 +189,7 @@
          ISTOPM = IHI
          K = KWBOT-1
          DO WHILE ( K .GE. KWTOP )
-            IF ( ( K .GE. KWTOP+1 ) .AND. A( K+1, K-1 ) .NE. ZERO ) THEN
+            if ( ( K .GE. KWTOP+1 ) .AND. A( K+1, K-1 ) .NE. ZERO ) {
 
                // Move double pole block down and remove it
                DO K2 = K-1, KWBOT-2
@@ -222,35 +222,35 @@
                CALL SROT( KWBOT-ISTARTM, B( ISTARTM, KWBOT ), 1, B( ISTARTM, KWBOT-1 ), 1, C1, S1 )                CALL SROT( KWBOT-ISTARTM+1, A( ISTARTM, KWBOT ), 1, A( ISTARTM, KWBOT-1 ), 1, C1, S1 )                CALL SROT( JW, ZC( 1, KWBOT-KWTOP+1 ), 1, ZC( 1, KWBOT-1-KWTOP+1 ), 1, C1, S1 )
 
                K = K-1
-            END IF
+            }
          END DO
 
-      END IF
+      }
 
       // Apply Qc and Zc to rest of the matrix
-      IF ( ILSCHUR ) THEN
+      if ( ILSCHUR ) {
          ISTARTM = 1
          ISTOPM = N
       } else {
          ISTARTM = ILO
          ISTOPM = IHI
-      END IF
+      }
 
-      IF ( ISTOPM-IHI > 0 ) THEN
+      if ( ISTOPM-IHI > 0 ) {
          CALL SGEMM( 'T', 'N', JW, ISTOPM-IHI, JW, ONE, QC, LDQC, A( KWTOP, IHI+1 ), LDA, ZERO, WORK, JW )          CALL SLACPY( 'ALL', JW, ISTOPM-IHI, WORK, JW, A( KWTOP, IHI+1 ), LDA )          CALL SGEMM( 'T', 'N', JW, ISTOPM-IHI, JW, ONE, QC, LDQC, B( KWTOP, IHI+1 ), LDB, ZERO, WORK, JW )          CALL SLACPY( 'ALL', JW, ISTOPM-IHI, WORK, JW, B( KWTOP, IHI+1 ), LDB )
-      END IF
-      IF ( ILQ ) THEN
+      }
+      if ( ILQ ) {
          CALL SGEMM( 'N', 'N', N, JW, JW, ONE, Q( 1, KWTOP ), LDQ, QC, LDQC, ZERO, WORK, N )
          CALL SLACPY( 'ALL', N, JW, WORK, N, Q( 1, KWTOP ), LDQ )
-      END IF
+      }
 
-      IF ( KWTOP-1-ISTARTM+1 > 0 ) THEN
+      if ( KWTOP-1-ISTARTM+1 > 0 ) {
          CALL SGEMM( 'N', 'N', KWTOP-ISTARTM, JW, JW, ONE, A( ISTARTM, KWTOP ), LDA, ZC, LDZC, ZERO, WORK, KWTOP-ISTARTM )          CALL SLACPY( 'ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, A( ISTARTM, KWTOP ), LDA )          CALL SGEMM( 'N', 'N', KWTOP-ISTARTM, JW, JW, ONE, B( ISTARTM, KWTOP ), LDB, ZC, LDZC, ZERO, WORK, KWTOP-ISTARTM )
          CALL SLACPY( 'ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, B( ISTARTM, KWTOP ), LDB )
-      END IF
-      IF ( ILZ ) THEN
+      }
+      if ( ILZ ) {
          CALL SGEMM( 'N', 'N', N, JW, JW, ONE, Z( 1, KWTOP ), LDZ, ZC, LDZC, ZERO, WORK, N )
          CALL SLACPY( 'ALL', N, JW, WORK, N, Z( 1, KWTOP ), LDZ )
-      END IF
+      }
 
       END SUBROUTINE

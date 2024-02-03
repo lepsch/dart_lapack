@@ -32,19 +32,19 @@
       // Test the input parameters
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) THEN
+      } else if ( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) {
          INFO = -2
-      ELSE IF( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) THEN
+      } else if ( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGEHD2', -INFO )
          RETURN
-      END IF
+      }
 
       DO 10 I = ILO, IHI - 1
 

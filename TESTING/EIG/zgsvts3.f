@@ -61,13 +61,13 @@
    10    CONTINUE
    20 CONTINUE
 
-      IF( M-K-L.LT.0 ) THEN
+      if ( M-K-L.LT.0 ) {
          DO 40 I = M + 1, K + L
             DO 30 J = I, K + L
                R( I, J ) = BF( I-K, N-K-L+J )
    30       CONTINUE
    40    CONTINUE
-      END IF
+      }
 
       // Compute A:= U'*A*Q - D1*R
 
@@ -90,11 +90,11 @@
       // Compute norm( U'*A*Q - D1*R ) / ( MAX(1,M,N)*norm(A)*ULP ) .
 
       RESID = ZLANGE( '1', M, N, A, LDA, RWORK )
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP
       } else {
          RESULT( 1 ) = ZERO
-      END IF
+      }
 
       // Compute B := V'*B*Q - D2*R
 
@@ -111,11 +111,11 @@
       // Compute norm( V'*B*Q - D2*R ) / ( MAX(P,N)*norm(B)*ULP ) .
 
       RESID = ZLANGE( '1', P, N, B, LDB, RWORK )
-      IF( BNORM.GT.ZERO ) THEN
+      if ( BNORM.GT.ZERO ) {
          RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) / ULP
       } else {
          RESULT( 2 ) = ZERO
-      END IF
+      }
 
       // Compute I - U'*U
 
@@ -152,11 +152,11 @@
       CALL DCOPY( N, ALPHA, 1, RWORK, 1 )
       DO 110 I = K + 1, MIN( K+L, M )
          J = IWORK( I )
-         IF( I.NE.J ) THEN
+         if ( I.NE.J ) {
             TEMP = RWORK( I )
             RWORK( I ) = RWORK( J )
             RWORK( J ) = TEMP
-         END IF
+         }
   110 CONTINUE
 
       RESULT( 6 ) = ZERO

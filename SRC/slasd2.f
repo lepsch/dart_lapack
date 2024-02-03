@@ -42,30 +42,30 @@
 
       INFO = 0
 
-      IF( NL.LT.1 ) THEN
+      if ( NL.LT.1 ) {
          INFO = -1
-      ELSE IF( NR.LT.1 ) THEN
+      } else if ( NR.LT.1 ) {
          INFO = -2
-      ELSE IF( ( SQRE.NE.1 ) .AND. ( SQRE.NE.0 ) ) THEN
+      } else if ( ( SQRE.NE.1 ) .AND. ( SQRE.NE.0 ) ) {
          INFO = -3
-      END IF
+      }
 
       N = NL + NR + 1
       M = N + SQRE
 
-      IF( LDU.LT.N ) THEN
+      if ( LDU.LT.N ) {
          INFO = -10
-      ELSE IF( LDVT.LT.M ) THEN
+      } else if ( LDVT.LT.M ) {
          INFO = -12
-      ELSE IF( LDU2.LT.N ) THEN
+      } else if ( LDU2.LT.N ) {
          INFO = -15
-      ELSE IF( LDVT2.LT.M ) THEN
+      } else if ( LDVT2.LT.M ) {
          INFO = -17
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLASD2', -INFO )
          RETURN
-      END IF
+      }
 
       NLP1 = NL + 1
       NLP2 = NL + 2
@@ -148,7 +148,7 @@
       K = 1
       K2 = N + 1
       DO 80 J = 2, N
-         IF( ABS( Z( J ) ).LE.TOL ) THEN
+         if ( ABS( Z( J ) ).LE.TOL ) {
 
             // Deflate due to small z component.
 
@@ -159,14 +159,14 @@
          } else {
             JPREV = J
             GO TO 90
-         END IF
+         }
    80 CONTINUE
    90 CONTINUE
       J = JPREV
   100 CONTINUE
       J = J + 1
       IF( J.GT.N ) GO TO 110
-      IF( ABS( Z( J ) ).LE.TOL ) THEN
+      if ( ABS( Z( J ) ).LE.TOL ) {
 
          // Deflate due to small z component.
 
@@ -177,7 +177,7 @@
 
          // Check if singular values are close enough to allow deflation.
 
-         IF( ABS( D( J )-D( JPREV ) ).LE.TOL ) THEN
+         if ( ABS( D( J )-D( JPREV ) ).LE.TOL ) {
 
             // Deflation is possible.
 
@@ -198,17 +198,17 @@
 
             IDXJP = IDXQ( IDX( JPREV )+1 )
             IDXJ = IDXQ( IDX( J )+1 )
-            IF( IDXJP.LE.NLP1 ) THEN
+            if ( IDXJP.LE.NLP1 ) {
                IDXJP = IDXJP - 1
-            END IF
-            IF( IDXJ.LE.NLP1 ) THEN
+            }
+            if ( IDXJ.LE.NLP1 ) {
                IDXJ = IDXJ - 1
-            END IF
+            }
             CALL SROT( N, U( 1, IDXJP ), 1, U( 1, IDXJ ), 1, C, S )
             CALL SROT( M, VT( IDXJP, 1 ), LDVT, VT( IDXJ, 1 ), LDVT, C, S )
-            IF( COLTYP( J ).NE.COLTYP( JPREV ) ) THEN
+            if ( COLTYP( J ).NE.COLTYP( JPREV ) ) {
                COLTYP( J ) = 3
-            END IF
+            }
             COLTYP( JPREV ) = 4
             K2 = K2 - 1
             IDXP( K2 ) = JPREV
@@ -219,8 +219,8 @@
             DSIGMA( K ) = D( JPREV )
             IDXP( K ) = JPREV
             JPREV = J
-         END IF
-      END IF
+         }
+      }
       GO TO 100
   110 CONTINUE
 
@@ -276,9 +276,9 @@
          JP = IDXP( J )
          DSIGMA( J ) = D( JP )
          IDXJ = IDXQ( IDX( IDXP( IDXC( J ) ) )+1 )
-         IF( IDXJ.LE.NLP1 ) THEN
+         if ( IDXJ.LE.NLP1 ) {
             IDXJ = IDXJ - 1
-         END IF
+         }
          CALL SCOPY( N, U( 1, IDXJ ), 1, U2( 1, J ), 1 )
          CALL SCOPY( M, VT( IDXJ, 1 ), LDVT, VT2( J, 1 ), LDVT2 )
   160 CONTINUE
@@ -288,23 +288,23 @@
       DSIGMA( 1 ) = ZERO
       HLFTOL = TOL / TWO
       IF( ABS( DSIGMA( 2 ) ).LE.HLFTOL ) DSIGMA( 2 ) = HLFTOL
-      IF( M.GT.N ) THEN
+      if ( M.GT.N ) {
          Z( 1 ) = SLAPY2( Z1, Z( M ) )
-         IF( Z( 1 ).LE.TOL ) THEN
+         if ( Z( 1 ).LE.TOL ) {
             C = ONE
             S = ZERO
             Z( 1 ) = TOL
          } else {
             C = Z1 / Z( 1 )
             S = Z( M ) / Z( 1 )
-         END IF
+         }
       } else {
-         IF( ABS( Z1 ).LE.TOL ) THEN
+         if ( ABS( Z1 ).LE.TOL ) {
             Z( 1 ) = TOL
          } else {
             Z( 1 ) = Z1
-         END IF
-      END IF
+         }
+      }
 
       // Move the rest of the updating row to Z.
 
@@ -315,7 +315,7 @@
 
       CALL SLASET( 'A', N, 1, ZERO, ZERO, U2, LDU2 )
       U2( NLP1, 1 ) = ONE
-      IF( M.GT.N ) THEN
+      if ( M.GT.N ) {
          DO 170 I = 1, NLP1
             VT( M, I ) = -S*VT( NLP1, I )
             VT2( 1, I ) = C*VT( NLP1, I )
@@ -326,18 +326,18 @@
   180    CONTINUE
       } else {
          CALL SCOPY( M, VT( NLP1, 1 ), LDVT, VT2( 1, 1 ), LDVT2 )
-      END IF
-      IF( M.GT.N ) THEN
+      }
+      if ( M.GT.N ) {
          CALL SCOPY( M, VT( M, 1 ), LDVT, VT2( M, 1 ), LDVT2 )
-      END IF
+      }
 
       // The deflated singular values and their corresponding vectors go
       // into the back of D, U, and V respectively.
 
-      IF( N.GT.K ) THEN
+      if ( N.GT.K ) {
          CALL SCOPY( N-K, DSIGMA( K+1 ), 1, D( K+1 ), 1 )
          CALL SLACPY( 'A', N, N-K, U2( 1, K+1 ), LDU2, U( 1, K+1 ), LDU )          CALL SLACPY( 'A', N-K, M, VT2( K+1, 1 ), LDVT2, VT( K+1, 1 ), LDVT )
-      END IF
+      }
 
       // Copy CTOT into COLTYP for referencing in SLASD3.
 

@@ -52,21 +52,21 @@
 
       // Check for errors
 
-      IF( NSIZE.LT.0 ) THEN
+      if ( NSIZE.LT.0 ) {
          INFO = -1
-      ELSE IF( THRESH.LT.ZERO ) THEN
+      } else if ( THRESH.LT.ZERO ) {
          INFO = -2
-      ELSE IF( NIN.LE.0 ) THEN
+      } else if ( NIN.LE.0 ) {
          INFO = -3
-      ELSE IF( NOUT.LE.0 ) THEN
+      } else if ( NOUT.LE.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.1 .OR. LDA.LT.NSIZE ) THEN
+      } else if ( LDA.LT.1 .OR. LDA.LT.NSIZE ) {
          INFO = -6
-      ELSE IF( LDC.LT.1 .OR. LDC.LT.NSIZE*NSIZE / 2 ) THEN
+      } else if ( LDC.LT.1 .OR. LDC.LT.NSIZE*NSIZE / 2 ) {
          INFO = -17
-      ELSE IF( LIWORK.LT.NSIZE+6 ) THEN
+      } else if ( LIWORK.LT.NSIZE+6 ) {
          INFO = -21
-      END IF
+      }
 
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
@@ -76,7 +76,7 @@
         // following subroutine, as returned by ILAENV.)
 
       MINWRK = 1
-      IF( INFO.EQ.0 .AND. LWORK.GE.1 ) THEN
+      if ( INFO.EQ.0 .AND. LWORK.GE.1 ) {
          // MINWRK = MAX( 10*( NSIZE+1 ), 5*NSIZE*NSIZE / 2-2 )
          MINWRK = MAX( 10*( NSIZE+1 ), 5*NSIZE*NSIZE / 2 )
 
@@ -93,14 +93,14 @@
          MAXWRK = MAX( MAXWRK, MINWRK )
 
          WORK( 1 ) = MAXWRK
-      END IF
+      }
 
       IF( LWORK.LT.MINWRK ) INFO = -19
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SDRGSX', -INFO )
          RETURN
-      END IF
+      }
 
       // Important constants
 
@@ -148,27 +148,27 @@
                   // Swapping is accomplished via the function SLCTSX
                   // which is supplied below.
 
-                  IF( IFUNC.EQ.0 ) THEN
+                  if ( IFUNC.EQ.0 ) {
                      SENSE = 'N'
-                  ELSE IF( IFUNC.EQ.1 ) THEN
+                  } else if ( IFUNC.EQ.1 ) {
                      SENSE = 'E'
-                  ELSE IF( IFUNC.EQ.2 ) THEN
+                  } else if ( IFUNC.EQ.2 ) {
                      SENSE = 'V'
-                  ELSE IF( IFUNC.EQ.3 ) THEN
+                  } else if ( IFUNC.EQ.3 ) {
                      SENSE = 'B'
-                  END IF
+                  }
 
                   CALL SLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, A, LDA )
                   CALL SLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, B, LDA )
 
                   CALL SGGESX( 'V', 'V', 'S', SLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHAR, ALPHAI, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, IWORK, LIWORK, BWORK, LINFO )
 
-                  IF( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) THEN
+                  if ( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) {
                      RESULT( 1 ) = ULPINV
                      WRITE( NOUT, FMT = 9999 )'SGGESX', LINFO, MPLUSN, PRTYPE
                      INFO = LINFO
                      GO TO 30
-                  END IF
+                  }
 
                   // Compute the norm(A, B)
 
@@ -188,53 +188,53 @@
 
                   DO 10 J = 1, MPLUSN
                      ILABAD = .FALSE.
-                     IF( ALPHAI( J ).EQ.ZERO ) THEN
+                     if ( ALPHAI( J ).EQ.ZERO ) {
                         TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / MAX( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ ABS( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP
-                        IF( J.LT.MPLUSN ) THEN
-                           IF( AI( J+1, J ).NE.ZERO ) THEN
+                        if ( J.LT.MPLUSN ) {
+                           if ( AI( J+1, J ).NE.ZERO ) {
                               ILABAD = .TRUE.
                               RESULT( 5 ) = ULPINV
-                           END IF
-                        END IF
-                        IF( J.GT.1 ) THEN
-                           IF( AI( J, J-1 ).NE.ZERO ) THEN
+                           }
+                        }
+                        if ( J.GT.1 ) {
+                           if ( AI( J, J-1 ).NE.ZERO ) {
                               ILABAD = .TRUE.
                               RESULT( 5 ) = ULPINV
-                           END IF
-                        END IF
+                           }
+                        }
                      } else {
-                        IF( ALPHAI( J ).GT.ZERO ) THEN
+                        if ( ALPHAI( J ).GT.ZERO ) {
                            I1 = J
                         } else {
                            I1 = J - 1
-                        END IF
-                        IF( I1.LE.0 .OR. I1.GE.MPLUSN ) THEN
+                        }
+                        if ( I1.LE.0 .OR. I1.GE.MPLUSN ) {
                            ILABAD = .TRUE.
-                        ELSE IF( I1.LT.MPLUSN-1 ) THEN
-                           IF( AI( I1+2, I1+1 ).NE.ZERO ) THEN
+                        } else if ( I1.LT.MPLUSN-1 ) {
+                           if ( AI( I1+2, I1+1 ).NE.ZERO ) {
                               ILABAD = .TRUE.
                               RESULT( 5 ) = ULPINV
-                           END IF
-                        ELSE IF( I1.GT.1 ) THEN
-                           IF( AI( I1, I1-1 ).NE.ZERO ) THEN
+                           }
+                        } else if ( I1.GT.1 ) {
+                           if ( AI( I1, I1-1 ).NE.ZERO ) {
                               ILABAD = .TRUE.
                               RESULT( 5 ) = ULPINV
-                           END IF
-                        END IF
-                        IF( .NOT.ILABAD ) THEN
+                           }
+                        }
+                        if ( .NOT.ILABAD ) {
                            CALL SGET53( AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO )
-                           IF( IINFO.GE.3 ) THEN
+                           if ( IINFO.GE.3 ) {
                               WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, PRTYPE
                               INFO = ABS( IINFO )
-                           END IF
+                           }
                         } else {
                            TEMP2 = ULPINV
-                        END IF
-                     END IF
+                        }
+                     }
                      TEMP1 = MAX( TEMP1, TEMP2 )
-                     IF( ILABAD ) THEN
+                     if ( ILABAD ) {
                         WRITE( NOUT, FMT = 9996 )J, MPLUSN, PRTYPE
-                     END IF
+                     }
    10             CONTINUE
                   RESULT( 6 ) = TEMP1
                   NTEST = NTEST + 2
@@ -242,11 +242,11 @@
                   // Test (7) (if sorting worked)
 
                   RESULT( 7 ) = ZERO
-                  IF( LINFO.EQ.MPLUSN+3 ) THEN
+                  if ( LINFO.EQ.MPLUSN+3 ) {
                      RESULT( 7 ) = ULPINV
-                  ELSE IF( MM.NE.N ) THEN
+                  } else if ( MM.NE.N ) {
                      RESULT( 7 ) = ULPINV
-                  END IF
+                  }
                   NTEST = NTEST + 1
 
                   // Test (8): compare the estimated value DIF and its
@@ -254,7 +254,7 @@
 
                   RESULT( 8 ) = ZERO
                   MN2 = MM*( MPLUSN-MM )*2
-                  IF( IFUNC.GE.2 .AND. MN2.LE.NCMAX*NCMAX ) THEN
+                  if ( IFUNC.GE.2 .AND. MN2.LE.NCMAX*NCMAX ) {
 
                      // Note: for either following two causes, there are
                      // almost same number of test cases fail the test.
@@ -264,33 +264,33 @@
                      CALL SGESVD( 'N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK( 2 ), 1, WORK( 3 ), LWORK-2, INFO )
                      DIFTRU = S( MN2 )
 
-                     IF( DIFEST( 2 ).EQ.ZERO ) THEN
+                     if ( DIFEST( 2 ).EQ.ZERO ) {
                         IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV
-                     ELSE IF( DIFTRU.EQ.ZERO ) THEN
+                     } else if ( DIFTRU.EQ.ZERO ) {
                         IF( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV                      ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR. ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) THEN                         RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
-                     END IF
+                     }
                      NTEST = NTEST + 1
-                  END IF
+                  }
 
                   // Test (9)
 
                   RESULT( 9 ) = ZERO
-                  IF( LINFO.EQ.( MPLUSN+2 ) ) THEN
+                  if ( LINFO.EQ.( MPLUSN+2 ) ) {
                      IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV
                      NTEST = NTEST + 1
-                  END IF
+                  }
 
                   NTESTT = NTESTT + NTEST
 
                   // Print out tests which fail.
 
                   DO 20 J = 1, 9
-                     IF( RESULT( J ).GE.THRESH ) THEN
+                     if ( RESULT( J ).GE.THRESH ) {
 
                         // If this is the first test to fail,
                         // print a header to the data file.
 
-                        IF( NERRS.EQ.0 ) THEN
+                        if ( NERRS.EQ.0 ) {
                            WRITE( NOUT, FMT = 9995 )'SGX'
 
                            // Matrix types
@@ -301,14 +301,14 @@
 
                            WRITE( NOUT, FMT = 9992 )'orthogonal', '''', 'transpose', ( '''', I = 1, 4 )
 
-                        END IF
+                        }
                         NERRS = NERRS + 1
-                        IF( RESULT( J ).LT.10000.0 ) THEN
+                        if ( RESULT( J ).LT.10000.0 ) {
                            WRITE( NOUT, FMT = 9991 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
                         } else {
                            WRITE( NOUT, FMT = 9990 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
-                        END IF
-                     END IF
+                        }
+                     }
    20             CONTINUE
 
    30          CONTINUE
@@ -350,11 +350,11 @@
 
       CALL SGGESX( 'V', 'V', 'S', SLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHAR, ALPHAI, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, IWORK, LIWORK, BWORK, LINFO )
 
-      IF( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) THEN
+      if ( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) {
          RESULT( 1 ) = ULPINV
          WRITE( NOUT, FMT = 9998 )'SGGESX', LINFO, MPLUSN, NPTKNT
          GO TO 130
-      END IF
+      }
 
       // Compute the norm(A, B)
          // (should this be norm of (A,B) or (AI,BI)?)
@@ -377,53 +377,53 @@
 
       DO 110 J = 1, MPLUSN
          ILABAD = .FALSE.
-         IF( ALPHAI( J ).EQ.ZERO ) THEN
+         if ( ALPHAI( J ).EQ.ZERO ) {
             TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / MAX( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ABS( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP
-            IF( J.LT.MPLUSN ) THEN
-               IF( AI( J+1, J ).NE.ZERO ) THEN
+            if ( J.LT.MPLUSN ) {
+               if ( AI( J+1, J ).NE.ZERO ) {
                   ILABAD = .TRUE.
                   RESULT( 5 ) = ULPINV
-               END IF
-            END IF
-            IF( J.GT.1 ) THEN
-               IF( AI( J, J-1 ).NE.ZERO ) THEN
+               }
+            }
+            if ( J.GT.1 ) {
+               if ( AI( J, J-1 ).NE.ZERO ) {
                   ILABAD = .TRUE.
                   RESULT( 5 ) = ULPINV
-               END IF
-            END IF
+               }
+            }
          } else {
-            IF( ALPHAI( J ).GT.ZERO ) THEN
+            if ( ALPHAI( J ).GT.ZERO ) {
                I1 = J
             } else {
                I1 = J - 1
-            END IF
-            IF( I1.LE.0 .OR. I1.GE.MPLUSN ) THEN
+            }
+            if ( I1.LE.0 .OR. I1.GE.MPLUSN ) {
                ILABAD = .TRUE.
-            ELSE IF( I1.LT.MPLUSN-1 ) THEN
-               IF( AI( I1+2, I1+1 ).NE.ZERO ) THEN
+            } else if ( I1.LT.MPLUSN-1 ) {
+               if ( AI( I1+2, I1+1 ).NE.ZERO ) {
                   ILABAD = .TRUE.
                   RESULT( 5 ) = ULPINV
-               END IF
-            ELSE IF( I1.GT.1 ) THEN
-               IF( AI( I1, I1-1 ).NE.ZERO ) THEN
+               }
+            } else if ( I1.GT.1 ) {
+               if ( AI( I1, I1-1 ).NE.ZERO ) {
                   ILABAD = .TRUE.
                   RESULT( 5 ) = ULPINV
-               END IF
-            END IF
-            IF( .NOT.ILABAD ) THEN
+               }
+            }
+            if ( .NOT.ILABAD ) {
                CALL SGET53( AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO )
-               IF( IINFO.GE.3 ) THEN
+               if ( IINFO.GE.3 ) {
                   WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, NPTKNT
                   INFO = ABS( IINFO )
-               END IF
+               }
             } else {
                TEMP2 = ULPINV
-            END IF
-         END IF
+            }
+         }
          TEMP1 = MAX( TEMP1, TEMP2 )
-         IF( ILABAD ) THEN
+         if ( ILABAD ) {
             WRITE( NOUT, FMT = 9996 )J, MPLUSN, NPTKNT
-         END IF
+         }
   110 CONTINUE
       RESULT( 6 ) = TEMP1
 
@@ -437,43 +437,43 @@
 
       NTEST = 8
       RESULT( 8 ) = ZERO
-      IF( DIFEST( 2 ).EQ.ZERO ) THEN
+      if ( DIFEST( 2 ).EQ.ZERO ) {
          IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV
-      ELSE IF( DIFTRU.EQ.ZERO ) THEN
-         IF( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV       ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR. ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) THEN
+      } else if ( DIFTRU.EQ.ZERO ) {
+         if ( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV       ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR. ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) {
          RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
-      END IF
+      }
 
       // Test (9)
 
       NTEST = 9
       RESULT( 9 ) = ZERO
-      IF( LINFO.EQ.( MPLUSN+2 ) ) THEN
+      if ( LINFO.EQ.( MPLUSN+2 ) ) {
          IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV
-      END IF
+      }
 
       // Test (10): compare the estimated value of PL and it true value.
 
       NTEST = 10
       RESULT( 10 ) = ZERO
-      IF( PL( 1 ).EQ.ZERO ) THEN
+      if ( PL( 1 ).EQ.ZERO ) {
          IF( PLTRU.GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV
-      ELSE IF( PLTRU.EQ.ZERO ) THEN
-         IF( PL( 1 ).GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV       ELSE IF( ( PLTRU.GT.THRESH*PL( 1 ) ) .OR. ( PLTRU*THRESH.LT.PL( 1 ) ) ) THEN
+      } else if ( PLTRU.EQ.ZERO ) {
+         if ( PL( 1 ).GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV       ELSE IF( ( PLTRU.GT.THRESH*PL( 1 ) ) .OR. ( PLTRU*THRESH.LT.PL( 1 ) ) ) {
          RESULT( 10 ) = ULPINV
-      END IF
+      }
 
       NTESTT = NTESTT + NTEST
 
       // Print out tests which fail.
 
       DO 120 J = 1, NTEST
-         IF( RESULT( J ).GE.THRESH ) THEN
+         if ( RESULT( J ).GE.THRESH ) {
 
             // If this is the first test to fail,
             // print a header to the data file.
 
-            IF( NERRS.EQ.0 ) THEN
+            if ( NERRS.EQ.0 ) {
                WRITE( NOUT, FMT = 9995 )'SGX'
 
                // Matrix types
@@ -484,14 +484,14 @@
 
                WRITE( NOUT, FMT = 9992 )'orthogonal', '''', 'transpose', ( '''', I = 1, 4 )
 
-            END IF
+            }
             NERRS = NERRS + 1
-            IF( RESULT( J ).LT.10000.0 ) THEN
+            if ( RESULT( J ).LT.10000.0 ) {
                WRITE( NOUT, FMT = 9989 )NPTKNT, MPLUSN, J, RESULT( J )
             } else {
                WRITE( NOUT, FMT = 9988 )NPTKNT, MPLUSN, J, RESULT( J )
-            END IF
-         END IF
+            }
+         }
 
   120 CONTINUE
 

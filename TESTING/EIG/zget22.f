@@ -54,27 +54,27 @@
       NORMA = 'O'
       NORME = 'O'
 
-      IF( LSAME( TRANSA, 'T' ) .OR. LSAME( TRANSA, 'C' ) ) THEN
+      if ( LSAME( TRANSA, 'T' ) .OR. LSAME( TRANSA, 'C' ) ) {
          NORMA = 'I'
-      END IF
+      }
 
-      IF( LSAME( TRANSE, 'T' ) ) THEN
+      if ( LSAME( TRANSE, 'T' ) ) {
          ITRNSE = 1
          NORME = 'I'
-      ELSE IF( LSAME( TRANSE, 'C' ) ) THEN
+      } else if ( LSAME( TRANSE, 'C' ) ) {
          ITRNSE = 2
          NORME = 'I'
-      END IF
+      }
 
-      IF( LSAME( TRANSW, 'C' ) ) THEN
+      if ( LSAME( TRANSW, 'C' ) ) {
          ITRNSW = 1
-      END IF
+      }
 
       // Normalization of E:
 
       ENRMIN = ONE / ULP
       ENRMAX = ZERO
-      IF( ITRNSE.EQ.0 ) THEN
+      if ( ITRNSE.EQ.0 ) {
          DO 20 JVEC = 1, N
             TEMP1 = ZERO
             DO 10 J = 1, N
@@ -98,7 +98,7 @@
             ENRMIN = MIN( ENRMIN, RWORK( JVEC ) )
             ENRMAX = MAX( ENRMAX, RWORK( JVEC ) )
    60    CONTINUE
-      END IF
+      }
 
       // Norm of A:
 
@@ -116,17 +116,17 @@
 
       JOFF = 0
       DO 100 JCOL = 1, N
-         IF( ITRNSW.EQ.0 ) THEN
+         if ( ITRNSW.EQ.0 ) {
             WTEMP = W( JCOL )
          } else {
             WTEMP = DCONJG( W( JCOL ) )
-         END IF
+         }
 
-         IF( ITRNSE.EQ.0 ) THEN
+         if ( ITRNSE.EQ.0 ) {
             DO 70 JROW = 1, N
                WORK( JOFF+JROW ) = E( JROW, JCOL )*WTEMP
    70       CONTINUE
-         ELSE IF( ITRNSE.EQ.1 ) THEN
+         } else if ( ITRNSE.EQ.1 ) {
             DO 80 JROW = 1, N
                WORK( JOFF+JROW ) = E( JCOL, JROW )*WTEMP
    80       CONTINUE
@@ -134,7 +134,7 @@
             DO 90 JROW = 1, N
                WORK( JOFF+JROW ) = DCONJG( E( JCOL, JROW ) )*WTEMP
    90       CONTINUE
-         END IF
+         }
          JOFF = JOFF + N
   100 CONTINUE
 
@@ -144,15 +144,15 @@
 
       // Compute RESULT(1) (avoiding under/overflow)
 
-      IF( ANORM.GT.ERRNRM ) THEN
+      if ( ANORM.GT.ERRNRM ) {
          RESULT( 1 ) = ( ERRNRM / ANORM ) / ULP
       } else {
-         IF( ANORM.LT.ONE ) THEN
+         if ( ANORM.LT.ONE ) {
             RESULT( 1 ) = ONE / ULP
          } else {
             RESULT( 1 ) = MIN( ERRNRM / ANORM, ONE ) / ULP
-         END IF
-      END IF
+         }
+      }
 
       // Compute RESULT(2) : the normalization error in E.
 

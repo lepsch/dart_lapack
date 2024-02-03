@@ -14,11 +14,11 @@
 
       I1 = ICHAR( 'A' )
       I2 = ICHAR( 'a' )
-      IF( I2-I1.EQ.32 ) THEN
+      if ( I2-I1.EQ.32 ) {
          WRITE( *, * ) ' ASCII String    set';
       } else {
          WRITE( *, * ) ' Non-ASCII String    set, IOFF should be ',I2-I1;
-      END IF
+      }
 
       // Test LSAME.
 

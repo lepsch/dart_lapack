@@ -38,30 +38,30 @@
       INFO = 0
       NORMALTRANSR = LSAME( TRANSR, 'N' )
       LOWER = LSAME( UPLO, 'L' )
-      IF( .NOT.NORMALTRANSR .AND. .NOT.LSAME( TRANSR, 'C' ) ) THEN
+      if ( .NOT.NORMALTRANSR .AND. .NOT.LSAME( TRANSR, 'C' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) THEN
+      } else if ( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CTPTTF', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
-         IF( NORMALTRANSR ) THEN
+      if ( N.EQ.1 ) {
+         if ( NORMALTRANSR ) {
             ARF( 0 ) = AP( 0 )
          } else {
             ARF( 0 ) = CONJG( AP( 0 ) )
-         END IF
+         }
          RETURN
-      END IF
+      }
 
       // Size of array ARF(0:NT-1)
 
@@ -69,13 +69,13 @@
 
       // Set N1 and N2 depending on LOWER
 
-      IF( LOWER ) THEN
+      if ( LOWER ) {
          N2 = N / 2
          N1 = N - N2
       } else {
          N1 = N / 2
          N2 = N - N1
-      END IF
+      }
 
       // If N is odd, set NISODD = .TRUE.
       // If N is even, set K = N/2 and NISODD = .FALSE.
@@ -83,14 +83,14 @@
       // set lda of ARF^C; ARF^C is (0:(N+1)/2-1,0:N-noe)
       // where noe = 0 if n is even, noe = 1 if n is odd
 
-      IF( MOD( N, 2 ).EQ.0 ) THEN
+      if ( MOD( N, 2 ).EQ.0 ) {
          K = N / 2
          NISODD = .FALSE.
          LDA = N + 1
       } else {
          NISODD = .TRUE.
          LDA = N
-      END IF
+      }
 
       // ARF^C has lda rows and n+1-noe cols
 
@@ -98,15 +98,15 @@
 
       // start execution: there are eight cases
 
-      IF( NISODD ) THEN
+      if ( NISODD ) {
 
          // N is odd
 
-         IF( NORMALTRANSR ) THEN
+         if ( NORMALTRANSR ) {
 
             // N is odd and TRANSR = 'N'
 
-            IF( LOWER ) THEN
+            if ( LOWER ) {
 
               // SRPA for LOWER, NORMAL and N is odd ( a(0:n-1,0:n1-1) )
               // T1 -> a(0,0), T2 -> a(0,1), S -> a(n1,0)
@@ -155,13 +155,13 @@
                   JS = JS + LDA
                END DO
 
-            END IF
+            }
 
          } else {
 
             // N is odd and TRANSR = 'C'
 
-            IF( LOWER ) THEN
+            if ( LOWER ) {
 
                // SRPA for LOWER, TRANSPOSE and N is odd
                // T1 -> A(0,0) , T2 -> A(1,0) , S -> A(0,n1)
@@ -205,19 +205,19 @@
                   END DO
                END DO
 
-            END IF
+            }
 
-         END IF
+         }
 
       } else {
 
          // N is even
 
-         IF( NORMALTRANSR ) THEN
+         if ( NORMALTRANSR ) {
 
             // N is even and TRANSR = 'N'
 
-            IF( LOWER ) THEN
+            if ( LOWER ) {
 
                // SRPA for LOWER, NORMAL, and N is even ( a(0:n,0:k-1) )
                // T1 -> a(1,0), T2 -> a(0,0), S -> a(k+1,0)
@@ -266,13 +266,13 @@
                   JS = JS + LDA
                END DO
 
-            END IF
+            }
 
          } else {
 
             // N is even and TRANSR = 'C'
 
-            IF( LOWER ) THEN
+            if ( LOWER ) {
 
                // SRPA for LOWER, TRANSPOSE and N is even (see paper)
                // T1 -> B(0,1), T2 -> B(0,0), S -> B(0,k+1)
@@ -316,11 +316,11 @@
                   END DO
                END DO
 
-            END IF
+            }
 
-         END IF
+         }
 
-      END IF
+      }
 
       RETURN
 

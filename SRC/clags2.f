@@ -34,7 +34,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Input matrices A and B are upper triangular matrices
 
@@ -59,7 +59,7 @@
 
          CALL SLASV2( A, FB, D, S1, S2, SNR, CSR, SNL, CSL )
 
-         IF( ABS( CSL ).GE.ABS( SNL ) .OR. ABS( CSR ).GE.ABS( SNR ) ) THEN
+         if ( ABS( CSL ).GE.ABS( SNL ) .OR. ABS( CSR ).GE.ABS( SNR ) ) {
 
             // Compute the (1,1) and (1,2) elements of U**H *A and V**H *B,
             // and (1,2) element of |U|**H *|A| and |V|**H *|B|.
@@ -75,13 +75,13 @@
 
             // zero (1,2) elements of U**H *A and V**H *B
 
-            IF( ( ABS( UA11R )+ABS1( UA12 ) ).EQ.ZERO ) THEN
+            if ( ( ABS( UA11R )+ABS1( UA12 ) ).EQ.ZERO ) {
                CALL CLARTG( -CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R )
-            ELSE IF( ( ABS( VB11R )+ABS1( VB12 ) ).EQ.ZERO ) THEN
+            } else if ( ( ABS( VB11R )+ABS1( VB12 ) ).EQ.ZERO ) {
                CALL CLARTG( -CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN                CALL CLARTG( -CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )
             } else {
                CALL CLARTG( -CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R )
-            END IF
+            }
 
             CSU = CSL
             SNU = -D1*SNL
@@ -104,22 +104,22 @@
 
             // zero (2,2) elements of U**H *A and V**H *B, and then swap.
 
-            IF( ( ABS1( UA21 )+ABS1( UA22 ) ).EQ.ZERO ) THEN
+            if ( ( ABS1( UA21 )+ABS1( UA22 ) ).EQ.ZERO ) {
                CALL CLARTG( -CONJG( VB21 ), CONJG( VB22 ), CSQ, SNQ, R )
-            ELSE IF( ( ABS1( VB21 )+ABS( VB22 ) ).EQ.ZERO ) THEN
+            } else if ( ( ABS1( VB21 )+ABS( VB22 ) ).EQ.ZERO ) {
                CALL CLARTG( -CONJG( UA21 ), CONJG( UA22 ), CSQ, SNQ, R )
-            ELSE IF( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ).LE.AVB22 / ( ABS1( VB21 )+ABS1( VB22 ) ) ) THEN
+            } else if ( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ).LE.AVB22 / ( ABS1( VB21 )+ABS1( VB22 ) ) ) {
                CALL CLARTG( -CONJG( UA21 ), CONJG( UA22 ), CSQ, SNQ, R )
             } else {
                CALL CLARTG( -CONJG( VB21 ), CONJG( VB22 ), CSQ, SNQ, R )
-            END IF
+            }
 
             CSU = SNL
             SNU = D1*CSL
             CSV = SNR
             SNV = D1*CSR
 
-         END IF
+         }
 
       } else {
 
@@ -146,7 +146,7 @@
 
          CALL SLASV2( A, FC, D, S1, S2, SNR, CSR, SNL, CSL )
 
-         IF( ABS( CSR ).GE.ABS( SNR ) .OR. ABS( CSL ).GE.ABS( SNL ) ) THEN
+         if ( ABS( CSR ).GE.ABS( SNR ) .OR. ABS( CSL ).GE.ABS( SNL ) ) {
 
             // Compute the (2,1) and (2,2) elements of U**H *A and V**H *B,
             // and (2,1) element of |U|**H *|A| and |V|**H *|B|.
@@ -162,15 +162,15 @@
 
             // zero (2,1) elements of U**H *A and V**H *B.
 
-            IF( ( ABS1( UA21 )+ABS( UA22R ) ).EQ.ZERO ) THEN
+            if ( ( ABS1( UA21 )+ABS( UA22R ) ).EQ.ZERO ) {
                CALL CLARTG( CMPLX( VB22R ), VB21, CSQ, SNQ, R )
-            ELSE IF( ( ABS1( VB21 )+ABS( VB22R ) ).EQ.ZERO ) THEN
+            } else if ( ( ABS1( VB21 )+ABS( VB22R ) ).EQ.ZERO ) {
                CALL CLARTG( CMPLX( UA22R ), UA21, CSQ, SNQ, R )
-            ELSE IF( AUA21 / ( ABS1( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS1( VB21 )+ABS( VB22R ) ) ) THEN
+            } else if ( AUA21 / ( ABS1( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS1( VB21 )+ABS( VB22R ) ) ) {
                CALL CLARTG( CMPLX( UA22R ), UA21, CSQ, SNQ, R )
             } else {
                CALL CLARTG( CMPLX( VB22R ), VB21, CSQ, SNQ, R )
-            END IF
+            }
 
             CSU = CSR
             SNU = -CONJG( D1 )*SNR
@@ -193,24 +193,24 @@
 
             // zero (1,1) elements of U**H *A and V**H *B, and then swap.
 
-            IF( ( ABS1( UA11 )+ABS1( UA12 ) ).EQ.ZERO ) THEN
+            if ( ( ABS1( UA11 )+ABS1( UA12 ) ).EQ.ZERO ) {
                CALL CLARTG( VB12, VB11, CSQ, SNQ, R )
-            ELSE IF( ( ABS1( VB11 )+ABS1( VB12 ) ).EQ.ZERO ) THEN
+            } else if ( ( ABS1( VB11 )+ABS1( VB12 ) ).EQ.ZERO ) {
                CALL CLARTG( UA12, UA11, CSQ, SNQ, R )
-            ELSE IF( AUA11 / ( ABS1( UA11 )+ABS1( UA12 ) ).LE.AVB11 / ( ABS1( VB11 )+ABS1( VB12 ) ) ) THEN
+            } else if ( AUA11 / ( ABS1( UA11 )+ABS1( UA12 ) ).LE.AVB11 / ( ABS1( VB11 )+ABS1( VB12 ) ) ) {
                CALL CLARTG( UA12, UA11, CSQ, SNQ, R )
             } else {
                CALL CLARTG( VB12, VB11, CSQ, SNQ, R )
-            END IF
+            }
 
             CSU = SNR
             SNU = CONJG( D1 )*CSR
             CSV = SNL
             SNV = CONJG( D1 )*CSL
 
-         END IF
+         }
 
-      END IF
+      }
 
       RETURN
 

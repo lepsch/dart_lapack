@@ -35,13 +35,13 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          CLANHF = ZERO
          RETURN
-      ELSE IF( N.EQ.1 ) THEN
+      } else if ( N.EQ.1 ) {
          CLANHF = ABS(REAL(A(0)))
          RETURN
-      END IF
+      }
 
       // set noe = 1 if n is odd. if n is even set noe=0
 
@@ -62,29 +62,29 @@
       // set lda = n when ifm = 1 and noe = 1
       // set lda = n+1 when ifm = 1 and noe = 0
 
-      IF( IFM.EQ.1 ) THEN
-         IF( NOE.EQ.1 ) THEN
+      if ( IFM.EQ.1 ) {
+         if ( NOE.EQ.1 ) {
             LDA = N
          } else {
             // noe=0
             LDA = N + 1
-         END IF
+         }
       } else {
          // ifm=0
          LDA = ( N+1 ) / 2
-      END IF
+      }
 
-      IF( LSAME( NORM, 'M' ) ) THEN
+      if ( LSAME( NORM, 'M' ) ) {
 
         // Find max(abs(A(i,j))).
 
          K = ( N+1 ) / 2
          VALUE = ZERO
-         IF( NOE.EQ.1 ) THEN
+         if ( NOE.EQ.1 ) {
             // n is odd & n = k + k - 1
-            IF( IFM.EQ.1 ) THEN
+            if ( IFM.EQ.1 ) {
                // A is n by k
-               IF( ILU.EQ.1 ) THEN
+               if ( ILU.EQ.1 ) {
                   // uplo ='L'
                   J = 0
                   // -> L(0,0)
@@ -140,10 +140,10 @@
                   // i=n-1 -> U(n-1,n-1)
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
                   IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-               END IF
+               }
             } else {
                // xpose case; A is k by n
-               IF( ILU.EQ.1 ) THEN
+               if ( ILU.EQ.1 ) {
                   // uplo ='L'
                   DO J = 0, K - 2
                      DO I = 0, J - 1
@@ -212,13 +212,13 @@
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
-               END IF
-            END IF
+               }
+            }
          } else {
             // n is even & k = n/2
-            IF( IFM.EQ.1 ) THEN
+            if ( IFM.EQ.1 ) {
                // A is n+1 by k
-               IF( ILU.EQ.1 ) THEN
+               if ( ILU.EQ.1 ) {
                   // uplo ='L'
                   J = 0
                   // -> L(k,k) & j=1 -> L(0,0)
@@ -280,10 +280,10 @@
                   // -> U(k-1,k-1)
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-               END IF
+               }
             } else {
                // xpose case; A is k by n+1
-               IF( ILU.EQ.1 ) THEN
+               if ( ILU.EQ.1 ) {
                   // uplo ='L'
                   J = 0
                   // -> L(k,k) at A(0,0)
@@ -369,19 +369,19 @@
                   // U(k,k) at A(i,j)
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
                   IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-               END IF
-            END IF
-         END IF
-      ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
+               }
+            }
+         }
+      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
 
         // Find normI(A) ( = norm1(A), since A is Hermitian).
 
-         IF( IFM.EQ.1 ) THEN
+         if ( IFM.EQ.1 ) {
             // A is 'N'
             K = N / 2
-            IF( NOE.EQ.1 ) THEN
+            if ( NOE.EQ.1 ) {
                // n is odd & A is n by (n+1)/2
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   // uplo = 'U'
                   DO I = 0, K - 1
                      WORK( I ) = ZERO
@@ -433,14 +433,14 @@
                         S = S + AA
                         WORK( I+K ) = WORK( I+K ) + AA
                      END DO
-                     IF( J.GT.0 ) THEN
+                     if ( J.GT.0 ) {
                         AA = ABS( REAL( A( I+J*LDA ) ) )
                         // -> A(j+k,j+k)
                         S = S + AA
                         WORK( I+K ) = WORK( I+K ) + S
                         // i=j
                         I = I + 1
-                     END IF
+                     }
                      AA = ABS( REAL( A( I+J*LDA ) ) )
                      // -> A(j,j)
                      WORK( J ) = AA
@@ -459,10 +459,10 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               END IF
+               }
             } else {
                // n is even & A is n+1 by k = n/2
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   // uplo = 'U'
                   DO I = 0, K - 1
                      WORK( I ) = ZERO
@@ -534,14 +534,14 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               END IF
-            END IF
+               }
+            }
          } else {
             // ifm=0
             K = N / 2
-            IF( NOE.EQ.1 ) THEN
+            if ( NOE.EQ.1 ) {
                // n is odd & A is (n+1)/2 by n
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   // uplo = 'U'
                   N1 = K
                   // n/2
@@ -664,10 +664,10 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               END IF
+               }
             } else {
                // n is even & A is k=n/2 by n+1
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   // uplo = 'U'
                   DO I = K, N - 1
                      WORK( I ) = ZERO
@@ -811,21 +811,21 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               END IF
-            END IF
-         END IF
-      ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
+               }
+            }
+         }
+      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
         // Find normF(A).
 
          K = ( N+1 ) / 2
          SCALE = ZERO
          S = ONE
-         IF( NOE.EQ.1 ) THEN
+         if ( NOE.EQ.1 ) {
             // n is odd
-            IF( IFM.EQ.1 ) THEN
+            if ( IFM.EQ.1 ) {
                // A is normal & A is n by k
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   // A is upper
                   DO J = 0, K - 3
                      CALL CLASSQ( K-J-2, A( K+J+1+J*LDA ), 1, SCALE, S )
@@ -842,36 +842,36 @@
                   DO I = 0, K - 2
                      AA = REAL( A( L ) )
                      // U(k+i,k+i)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      AA = REAL( A( L+1 ) )
                      // U(i,i)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      L = L + LDA + 1
                   END DO
                   AA = REAL( A( L ) )
                   // U(n-1,n-1)
-                  IF( AA.NE.ZERO ) THEN
-                     IF( SCALE.LT.AA ) THEN
+                  if ( AA.NE.ZERO ) {
+                     if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
                         S = S + ( AA / SCALE )**2
-                     END IF
-                  END IF
+                     }
+                  }
                } else {
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
@@ -886,43 +886,43 @@
                   // double s for the off diagonal elements
                   AA = REAL( A( 0 ) )
                   // L(0,0) at A(0,0)
-                  IF( AA.NE.ZERO ) THEN
-                     IF( SCALE.LT.AA ) THEN
+                  if ( AA.NE.ZERO ) {
+                     if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
                         S = S + ( AA / SCALE )**2
-                     END IF
-                  END IF
+                     }
+                  }
                   L = LDA
                   // -> L(k,k) at A(0,1)
                   DO I = 1, K - 1
                      AA = REAL( A( L ) )
                      // L(k-1+i,k-1+i)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      AA = REAL( A( L+1 ) )
                      // L(i,i)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      L = L + LDA + 1
                   END DO
-               END IF
+               }
             } else {
                // A is xpose & A is k by n
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   // A**H is upper
                   DO J = 1, K - 2
                      CALL CLASSQ( J, A( 0+( K+J )*LDA ), 1, SCALE, S )
@@ -942,37 +942,37 @@
                   // -> U(k-1,k-1) at A(0,k-1)
                   AA = REAL( A( L ) )
                   // U(k-1,k-1)
-                  IF( AA.NE.ZERO ) THEN
-                     IF( SCALE.LT.AA ) THEN
+                  if ( AA.NE.ZERO ) {
+                     if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
                         S = S + ( AA / SCALE )**2
-                     END IF
-                  END IF
+                     }
+                  }
                   L = L + LDA
                   // -> U(0,0) at A(0,k)
                   DO J = K, N - 1
                      AA = REAL( A( L ) )
                      // -> U(j-k,j-k)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      AA = REAL( A( L+1 ) )
                      // -> U(j,j)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      L = L + LDA + 1
                   END DO
                } else {
@@ -996,44 +996,44 @@
                   DO I = 0, K - 2
                      AA = REAL( A( L ) )
                      // L(i,i)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      AA = REAL( A( L+1 ) )
                      // L(k+i,k+i)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      L = L + LDA + 1
                   END DO
                   // L-> k-1 + (k-1)*lda or L(k-1,k-1) at A(k-1,k-1)
                   AA = REAL( A( L ) )
                   // L(k-1,k-1) at A(k-1,k-1)
-                  IF( AA.NE.ZERO ) THEN
-                     IF( SCALE.LT.AA ) THEN
+                  if ( AA.NE.ZERO ) {
+                     if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
                         S = S + ( AA / SCALE )**2
-                     END IF
-                  END IF
-               END IF
-            END IF
+                     }
+                  }
+               }
+            }
          } else {
             // n is even
-            IF( IFM.EQ.1 ) THEN
+            if ( IFM.EQ.1 ) {
                // A is normal
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   // A is upper
                   DO J = 0, K - 2
                      CALL CLASSQ( K-J-1, A( K+J+2+J*LDA ), 1, SCALE, S )
@@ -1050,24 +1050,24 @@
                   DO I = 0, K - 1
                      AA = REAL( A( L ) )
                      // U(k+i,k+i)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      AA = REAL( A( L+1 ) )
                      // U(i,i)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      L = L + LDA + 1
                   END DO
                } else {
@@ -1087,30 +1087,30 @@
                   DO I = 0, K - 1
                      AA = REAL( A( L ) )
                      // L(k-1+i,k-1+i)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      AA = REAL( A( L+1 ) )
                      // L(i,i)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      L = L + LDA + 1
                   END DO
-               END IF
+               }
             } else {
                // A is xpose
-               IF( ILU.EQ.0 ) THEN
+               if ( ILU.EQ.0 ) {
                   // A**H is upper
                   DO J = 1, K - 1
                      CALL CLASSQ( J, A( 0+( K+1+J )*LDA ), 1, SCALE, S )
@@ -1130,51 +1130,51 @@
                   // -> U(k,k) at A(0,k)
                   AA = REAL( A( L ) )
                   // U(k,k)
-                  IF( AA.NE.ZERO ) THEN
-                     IF( SCALE.LT.AA ) THEN
+                  if ( AA.NE.ZERO ) {
+                     if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
                         S = S + ( AA / SCALE )**2
-                     END IF
-                  END IF
+                     }
+                  }
                   L = L + LDA
                   // -> U(0,0) at A(0,k+1)
                   DO J = K + 1, N - 1
                      AA = REAL( A( L ) )
                      // -> U(j-k-1,j-k-1)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      AA = REAL( A( L+1 ) )
                      // -> U(j,j)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      L = L + LDA + 1
                   END DO
                   // L=k-1+n*lda
                   // -> U(k-1,k-1) at A(k-1,n)
                   AA = REAL( A( L ) )
                   // U(k,k)
-                  IF( AA.NE.ZERO ) THEN
-                     IF( SCALE.LT.AA ) THEN
+                  if ( AA.NE.ZERO ) {
+                     if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
                         S = S + ( AA / SCALE )**2
-                     END IF
-                  END IF
+                     }
+                  }
                } else {
                   // A**H is lower
                   DO J = 1, K - 1
@@ -1195,55 +1195,55 @@
                   // -> L(k,k) at A(0,0)
                   AA = REAL( A( L ) )
                   // L(k,k) at A(0,0)
-                  IF( AA.NE.ZERO ) THEN
-                     IF( SCALE.LT.AA ) THEN
+                  if ( AA.NE.ZERO ) {
+                     if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
                         S = S + ( AA / SCALE )**2
-                     END IF
-                  END IF
+                     }
+                  }
                   L = LDA
                   // -> L(0,0) at A(0,1)
                   DO I = 0, K - 2
                      AA = REAL( A( L ) )
                      // L(i,i)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      AA = REAL( A( L+1 ) )
                      // L(k+i+1,k+i+1)
-                     IF( AA.NE.ZERO ) THEN
-                        IF( SCALE.LT.AA ) THEN
+                     if ( AA.NE.ZERO ) {
+                        if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
                            S = S + ( AA / SCALE )**2
-                        END IF
-                     END IF
+                        }
+                     }
                      L = L + LDA + 1
                   END DO
                   // L-> k - 1 + k*lda or L(k-1,k-1) at A(k-1,k)
                   AA = REAL( A( L ) )
                   // L(k-1,k-1) at A(k-1,k)
-                  IF( AA.NE.ZERO ) THEN
-                     IF( SCALE.LT.AA ) THEN
+                  if ( AA.NE.ZERO ) {
+                     if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
                         S = S + ( AA / SCALE )**2
-                     END IF
-                  END IF
-               END IF
-            END IF
-         END IF
+                     }
+                  }
+               }
+            }
+         }
          VALUE = SCALE*SQRT( S )
-      END IF
+      }
 
       CLANHF = VALUE
       RETURN

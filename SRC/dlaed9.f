@@ -34,23 +34,23 @@
 
       INFO = 0
 
-      IF( K.LT.0 ) THEN
+      if ( K.LT.0 ) {
          INFO = -1
-      ELSE IF( KSTART.LT.1 .OR. KSTART.GT.MAX( 1, K ) ) THEN
+      } else if ( KSTART.LT.1 .OR. KSTART.GT.MAX( 1, K ) ) {
          INFO = -2
-      ELSE IF( MAX( 1, KSTOP ).LT.KSTART .OR. KSTOP.GT.MAX( 1, K ) ) THEN
+      } else if ( MAX( 1, KSTOP ).LT.KSTART .OR. KSTOP.GT.MAX( 1, K ) ) {
          INFO = -3
-      ELSE IF( N.LT.K ) THEN
+      } else if ( N.LT.K ) {
          INFO = -4
-      ELSE IF( LDQ.LT.MAX( 1, K ) ) THEN
+      } else if ( LDQ.LT.MAX( 1, K ) ) {
          INFO = -7
-      ELSE IF( LDS.LT.MAX( 1, K ) ) THEN
+      } else if ( LDS.LT.MAX( 1, K ) ) {
          INFO = -12
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLAED9', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -64,14 +64,14 @@
          IF( INFO.NE.0 ) GO TO 120
    20 CONTINUE
 
-      IF( K.EQ.1 .OR. K.EQ.2 ) THEN
+      if ( K.EQ.1 .OR. K.EQ.2 ) {
          DO 40 I = 1, K
             DO 30 J = 1, K
                S( J, I ) = Q( J, I )
    30       CONTINUE
    40    CONTINUE
          GO TO 120
-      END IF
+      }
 
       // Compute updated W.
 

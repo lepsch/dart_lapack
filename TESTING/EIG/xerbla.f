@@ -26,18 +26,18 @@
       // .. Executable Statements ..
 
       LERR = .TRUE.
-      IF( INFO.NE.INFOT ) THEN
-         IF( INFOT.NE.0 ) THEN
+      if ( INFO.NE.INFOT ) {
+         if ( INFOT.NE.0 ) {
             WRITE( NOUT, FMT = 9999 ) SRNAMT( 1:LEN_TRIM( SRNAMT ) ), INFO, INFOT
          } else {
             WRITE( NOUT, FMT = 9997 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO
-         END IF
+         }
          OK = .FALSE.
-      END IF
-      IF( SRNAME.NE.SRNAMT ) THEN
+      }
+      if ( SRNAME.NE.SRNAMT ) {
          WRITE( NOUT, FMT = 9998 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), SRNAMT( 1:LEN_TRIM( SRNAMT ) )
          OK = .FALSE.
-      END IF
+      }
       RETURN
 
  9999 FORMAT( ' *** XERBLA was called from ', A, ' with INFO = ', I6,

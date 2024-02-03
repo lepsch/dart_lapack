@@ -44,17 +44,17 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGETRF', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -76,11 +76,11 @@
          IPIV( J ) = JP
 
          // Permute just this column.
-         IF (JP .NE. J) THEN
+         if (JP .NE. J) {
             TMP = A( J, J )
             A( J, J ) = A( JP, J )
             A( JP, J ) = TMP
-         END IF
+         }
 
          // Apply pending permutations to L
          NTOPIV = 1
@@ -98,17 +98,17 @@
 
          // Factor the current column
          PIVMAG = ABS( A( J, J ) )
-         IF( PIVMAG.NE.ZERO .AND. .NOT.SISNAN( PIVMAG ) ) THEN
-               IF( PIVMAG .GE. SFMIN ) THEN
+         if ( PIVMAG.NE.ZERO .AND. .NOT.SISNAN( PIVMAG ) ) {
+               if ( PIVMAG .GE. SFMIN ) {
                   CALL CSCAL( M-J, ONE / A( J, J ), A( J+1, J ), 1 )
                } else {
                  DO I = 1, M-J
                     A( J+I, J ) = A( J+I, J ) / A( J, J )
                  END DO
-               END IF
-         ELSE IF( PIVMAG .EQ. ZERO .AND. INFO .EQ. 0 ) THEN
+               }
+         } else if ( PIVMAG .EQ. ZERO .AND. INFO .EQ. 0 ) {
             INFO = J
-         END IF
+         }
 
          // Solve for U block.
          CALL CTRSM( 'Left', 'Lower', 'No transpose', 'Unit', KAHEAD, KCOLS, ONE, A( KSTART, KSTART ), LDA, A( KSTART, J+1 ), LDA )
@@ -126,10 +126,10 @@
       END DO
 
       // If short and wide, handle the rest of the columns.
-      IF ( M .LT. N ) THEN
+      if ( M .LT. N ) {
          CALL CLASWP( N-M, A( 1, M+KCOLS+1 ), LDA, 1, M, IPIV, 1 )
          CALL CTRSM( 'Left', 'Lower', 'No transpose', 'Unit', M, N-M, ONE, A, LDA, A( 1,M+KCOLS+1 ), LDA )
-      END IF
+      }
 
       RETURN
 

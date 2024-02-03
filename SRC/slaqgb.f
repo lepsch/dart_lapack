@@ -34,21 +34,21 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 .OR. N.LE.0 ) THEN
+      if ( M.LE.0 .OR. N.LE.0 ) {
          EQUED = 'N'
          RETURN
-      END IF
+      }
 
       // Initialize LARGE and SMALL.
 
       SMALL = SLAMCH( 'Safe minimum' ) / SLAMCH( 'Precision' )
       LARGE = ONE / SMALL
 
-      IF( ROWCND.GE.THRESH .AND. AMAX.GE.SMALL .AND. AMAX.LE.LARGE ) THEN
+      if ( ROWCND.GE.THRESH .AND. AMAX.GE.SMALL .AND. AMAX.LE.LARGE ) {
 
          // No row scaling
 
-         IF( COLCND.GE.THRESH ) THEN
+         if ( COLCND.GE.THRESH ) {
 
             // No column scaling
 
@@ -64,8 +64,8 @@
    10          CONTINUE
    20       CONTINUE
             EQUED = 'C'
-         END IF
-      ELSE IF( COLCND.GE.THRESH ) THEN
+         }
+      } else if ( COLCND.GE.THRESH ) {
 
          // Row scaling, no column scaling
 
@@ -86,7 +86,7 @@
    50       CONTINUE
    60    CONTINUE
          EQUED = 'B'
-      END IF
+      }
 
       RETURN
 

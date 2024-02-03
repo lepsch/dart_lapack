@@ -80,30 +80,30 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -2
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -3
-      ELSE IF( THRESH.LT.ZERO ) THEN
+      } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      ELSE IF( LDA.LT.1 .OR. LDA.LT.NMAX ) THEN
+      } else if ( LDA.LT.1 .OR. LDA.LT.NMAX ) {
          INFO = -10
-      ELSE IF( LDVL.LT.1 .OR. LDVL.LT.NMAX ) THEN
+      } else if ( LDVL.LT.1 .OR. LDVL.LT.NMAX ) {
          INFO = -15
-      ELSE IF( LDVR.LT.1 .OR. LDVR.LT.NMAX ) THEN
+      } else if ( LDVR.LT.1 .OR. LDVR.LT.NMAX ) {
          INFO = -17
-      ELSE IF( LDLRE.LT.1 .OR. LDLRE.LT.NMAX ) THEN
+      } else if ( LDLRE.LT.1 .OR. LDLRE.LT.NMAX ) {
          INFO = -19
-      ELSE IF( 6*NMAX+2*NMAX**2.GT.NWORK ) THEN
+      } else if ( 6*NMAX+2*NMAX**2.GT.NWORK ) {
          INFO = -30
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CDRVVX', -INFO )
          RETURN
-      END IF
+      }
 
       // If nothing to do check on NIUNIT
 
@@ -124,11 +124,11 @@
 
       DO 150 JSIZE = 1, NSIZES
          N = NN( JSIZE )
-         IF( NSIZES.NE.1 ) THEN
+         if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
-         END IF
+         }
 
          DO 140 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 140
@@ -186,10 +186,10 @@
 
                // Zero
 
-            IF( ITYPE.EQ.1 ) THEN
+            if ( ITYPE.EQ.1 ) {
                IINFO = 0
 
-            ELSE IF( ITYPE.EQ.2 ) THEN
+            } else if ( ITYPE.EQ.2 ) {
 
                // Identity
 
@@ -197,7 +197,7 @@
                   A( JCOL, JCOL ) = ANORM
    70          CONTINUE
 
-            ELSE IF( ITYPE.EQ.3 ) THEN
+            } else if ( ITYPE.EQ.3 ) {
 
                // Jordan Block
 
@@ -206,55 +206,55 @@
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
    80          CONTINUE
 
-            ELSE IF( ITYPE.EQ.4 ) THEN
+            } else if ( ITYPE.EQ.4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.5 ) THEN
+            } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.6 ) THEN
+            } else if ( ITYPE.EQ.6 ) {
 
                // General, eigenvalues specified
 
-               IF( KCONDS( JTYPE ).EQ.1 ) THEN
+               if ( KCONDS( JTYPE ).EQ.1 ) {
                   CONDS = ONE
-               ELSE IF( KCONDS( JTYPE ).EQ.2 ) THEN
+               } else if ( KCONDS( JTYPE ).EQ.2 ) {
                   CONDS = RTULPI
                } else {
                   CONDS = ZERO
-               END IF
+               }
 
                CALL CLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.7 ) THEN
+            } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
                CALL CLATMR( N, N, 'D', ISEED, 'S', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
 
-            ELSE IF( ITYPE.EQ.8 ) THEN
+            } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
                CALL CLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
 
-            ELSE IF( ITYPE.EQ.9 ) THEN
+            } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
                CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
-               IF( N.GE.4 ) THEN
+               if ( N.GE.4 ) {
                   CALL CLASET( 'Full', 2, N, CZERO, CZERO, A, LDA )
                   CALL CLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL CLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL CLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA )
-               END IF
+               }
 
-            ELSE IF( ITYPE.EQ.10 ) THEN
+            } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
@@ -263,26 +263,26 @@
             } else {
 
                IINFO = 1
-            END IF
+            }
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
-            END IF
+            }
 
    90       CONTINUE
 
             // Test for minimal and generous workspace
 
             DO 130 IWK = 1, 3
-               IF( IWK.EQ.1 ) THEN
+               if ( IWK.EQ.1 ) {
                   NNWORK = 2*N
-               ELSE IF( IWK.EQ.2 ) THEN
+               } else if ( IWK.EQ.2 ) {
                   NNWORK = 2*N + N**2
                } else {
                   NNWORK = 6*N + 2*N**2
-               END IF
+               }
                NNWORK = MAX( NNWORK, 1 )
 
                // Test for all balancing options
@@ -303,19 +303,19 @@
   100             CONTINUE
 
                   IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
-                  IF( NTESTF.EQ.1 ) THEN
+                  if ( NTESTF.EQ.1 ) {
                      WRITE( NOUNIT, FMT = 9999 )PATH
                      WRITE( NOUNIT, FMT = 9998 )
                      WRITE( NOUNIT, FMT = 9997 )
                      WRITE( NOUNIT, FMT = 9996 )
                      WRITE( NOUNIT, FMT = 9995 )THRESH
                      NTESTF = 2
-                  END IF
+                  }
 
                   DO 110 J = 1, 9
-                     IF( RESULT( J ).GE.THRESH ) THEN
+                     if ( RESULT( J ).GE.THRESH ) {
                         WRITE( NOUNIT, FMT = 9994 )BALANC, N, IWK, IOLDSD, JTYPE, J, RESULT( J )
-                     END IF
+                     }
   110             CONTINUE
 
                   NERRS = NERRS + NFAIL
@@ -359,19 +359,19 @@
   200 CONTINUE
 
       IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
-      IF( NTESTF.EQ.1 ) THEN
+      if ( NTESTF.EQ.1 ) {
          WRITE( NOUNIT, FMT = 9999 )PATH
          WRITE( NOUNIT, FMT = 9998 )
          WRITE( NOUNIT, FMT = 9997 )
          WRITE( NOUNIT, FMT = 9996 )
          WRITE( NOUNIT, FMT = 9995 )THRESH
          NTESTF = 2
-      END IF
+      }
 
       DO 210 J = 1, 11
-         IF( RESULT( J ).GE.THRESH ) THEN
+         if ( RESULT( J ).GE.THRESH ) {
             WRITE( NOUNIT, FMT = 9993 )N, JTYPE, J, RESULT( J )
-         END IF
+         }
   210 CONTINUE
 
       NERRS = NERRS + NFAIL

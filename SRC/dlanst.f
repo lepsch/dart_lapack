@@ -34,9 +34,9 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          ANORM = ZERO
-      ELSE IF( LSAME( NORM, 'M' ) ) THEN
+      } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
@@ -47,11 +47,11 @@
             SUM = ABS( E( I ) )
             IF( ANORM .LT. SUM .OR. DISNAN( SUM ) ) ANORM = SUM
    10    CONTINUE
-      ELSE IF( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' .OR. LSAME( NORM, 'I' ) ) THEN
+      } else if ( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' .OR. LSAME( NORM, 'I' ) ) {
 
          // Find norm1(A).
 
-         IF( N.EQ.1 ) THEN
+         if ( N.EQ.1 ) {
             ANORM = ABS( D( 1 ) )
          } else {
             ANORM = ABS( D( 1 ) )+ABS( E( 1 ) )
@@ -61,20 +61,20 @@
                SUM = ABS( D( I ) )+ABS( E( I ) )+ABS( E( I-1 ) )
                IF( ANORM .LT. SUM .OR. DISNAN( SUM ) ) ANORM = SUM
    20       CONTINUE
-         END IF
-      ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
+         }
+      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
          SCALE = ZERO
          SUM = ONE
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
             CALL DLASSQ( N-1, E, 1, SCALE, SUM )
             SUM = 2*SUM
-         END IF
+         }
          CALL DLASSQ( N, D, 1, SCALE, SUM )
          ANORM = SCALE*SQRT( SUM )
-      END IF
+      }
 
       DLANST = ANORM
       RETURN

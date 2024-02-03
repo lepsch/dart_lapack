@@ -54,70 +54,70 @@
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
 
-      IF( .NOT.WANTS .AND. .NOT.WANTDF ) THEN
+      if ( .NOT.WANTS .AND. .NOT.WANTDF ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( HOWMNY, 'A' ) .AND. .NOT.SOMCON ) THEN
+      } else if ( .NOT.LSAME( HOWMNY, 'A' ) .AND. .NOT.SOMCON ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      ELSE IF( WANTS .AND. LDVL.LT.N ) THEN
+      } else if ( WANTS .AND. LDVL.LT.N ) {
          INFO = -10
-      ELSE IF( WANTS .AND. LDVR.LT.N ) THEN
+      } else if ( WANTS .AND. LDVR.LT.N ) {
          INFO = -12
       } else {
 
          // Set M to the number of eigenpairs for which condition numbers
          // are required, and test MM.
 
-         IF( SOMCON ) THEN
+         if ( SOMCON ) {
             M = 0
             PAIR = .FALSE.
             DO 10 K = 1, N
-               IF( PAIR ) THEN
+               if ( PAIR ) {
                   PAIR = .FALSE.
                } else {
-                  IF( K.LT.N ) THEN
-                     IF( A( K+1, K ).EQ.ZERO ) THEN
+                  if ( K.LT.N ) {
+                     if ( A( K+1, K ).EQ.ZERO ) {
                         IF( SELECT( K ) ) M = M + 1
                      } else {
                         PAIR = .TRUE.
                         IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
-                     END IF
+                     }
                   } else {
                      IF( SELECT( N ) ) M = M + 1
-                  END IF
-               END IF
+                  }
+               }
    10       CONTINUE
          } else {
             M = N
-         END IF
+         }
 
-         IF( N.EQ.0 ) THEN
+         if ( N.EQ.0 ) {
             LWMIN = 1
-         ELSE IF( LSAME( JOB, 'V' ) .OR. LSAME( JOB, 'B' ) ) THEN
+         } else if ( LSAME( JOB, 'V' ) .OR. LSAME( JOB, 'B' ) ) {
             LWMIN = 2*N*( N + 2 ) + 16
          } else {
             LWMIN = N
-         END IF
+         }
          WORK( 1 ) = LWMIN
 
-         IF( MM.LT.M ) THEN
+         if ( MM.LT.M ) {
             INFO = -15
-         ELSE IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+         } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
             INFO = -18
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DTGSNA', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -134,32 +134,32 @@
 
          // Determine whether A(k,k) begins a 1-by-1 or 2-by-2 block.
 
-         IF( PAIR ) THEN
+         if ( PAIR ) {
             PAIR = .FALSE.
             GO TO 20
          } else {
             IF( K.LT.N ) PAIR = A( K+1, K ).NE.ZERO
-         END IF
+         }
 
          // Determine whether condition numbers are required for the k-th
          // eigenpair.
 
-         IF( SOMCON ) THEN
-            IF( PAIR ) THEN
+         if ( SOMCON ) {
+            if ( PAIR ) {
                IF( .NOT.SELECT( K ) .AND. .NOT.SELECT( K+1 ) ) GO TO 20
             } else {
                IF( .NOT.SELECT( K ) ) GO TO 20
-            END IF
-         END IF
+            }
+         }
 
          KS = KS + 1
 
-         IF( WANTS ) THEN
+         if ( WANTS ) {
 
             // Compute the reciprocal condition number of the k-th
             // eigenvalue.
 
-            IF( PAIR ) THEN
+            if ( PAIR ) {
 
                // Complex eigenvalue pair.
 
@@ -196,23 +196,23 @@
                CALL DGEMV( 'N', N, N, ONE, B, LDB, VR( 1, KS ), 1, ZERO, WORK, 1 )
                UHBV = DDOT( N, WORK, 1, VL( 1, KS ), 1 )
                COND = DLAPY2( UHAV, UHBV )
-               IF( COND.EQ.ZERO ) THEN
+               if ( COND.EQ.ZERO ) {
                   S( KS ) = -ONE
                } else {
                   S( KS ) = COND / ( RNRM*LNRM )
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
 
-         IF( WANTDF ) THEN
-            IF( N.EQ.1 ) THEN
+         if ( WANTDF ) {
+            if ( N.EQ.1 ) {
                DIF( KS ) = DLAPY2( A( 1, 1 ), B( 1, 1 ) )
                GO TO 20
-            END IF
+            }
 
             // Estimate the reciprocal condition number of the k-th
             // eigenvectors.
-            IF( PAIR ) THEN
+            if ( PAIR ) {
 
                // Copy the  2-by 2 pencil beginning at (A(k,k), B(k, k)).
                // Compute the eigenvalue(s) at position K.
@@ -233,7 +233,7 @@
                ROOT1 = ROOT1 / TWO
                ROOT2 = C2 / ROOT1
                COND = MIN( SQRT( ROOT1 ), SQRT( ROOT2 ) )
-            END IF
+            }
 
             // Copy the matrix (A, B) to the array WORK and swap the
             // diagonal block beginning at A(k,k) to the (1,1) position.
@@ -245,7 +245,7 @@
 
             CALL DTGEXC( .FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, WORK( N*N*2+1 ), LWORK-2*N*N, IERR )
 
-            IF( IERR.GT.0 ) THEN
+            if ( IERR.GT.0 ) {
 
                // Ill-conditioned problem - swap rejected.
 
@@ -261,7 +261,7 @@
                N1 = 1
                IF( WORK( 2 ).NE.ZERO ) N1 = 2
                N2 = N - N1
-               IF( N2.EQ.0 ) THEN
+               if ( N2.EQ.0 ) {
                   DIF( KS ) = COND
                } else {
                   I = N*N + 1
@@ -269,10 +269,10 @@
                   CALL DTGSYL( 'N', DIFDRI, N2, N1, WORK( N*N1+N1+1 ), N, WORK, N, WORK( N1+1 ), N, WORK( N*N1+N1+I ), N, WORK( I ), N, WORK( N1+I ), N, SCALE, DIF( KS ), WORK( IZ+1 ), LWORK-2*N*N, IWORK, IERR )
 
                   IF( PAIR ) DIF( KS ) = MIN( MAX( ONE, ALPRQT )*DIF( KS ), COND )
-               END IF
-            END IF
+               }
+            }
             IF( PAIR ) DIF( KS+1 ) = DIF( KS )
-         END IF
+         }
          IF( PAIR ) KS = KS + 1
 
    20 CONTINUE

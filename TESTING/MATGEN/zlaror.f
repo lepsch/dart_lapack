@@ -44,37 +44,37 @@
       IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
 
       ITYPE = 0
-      IF( LSAME( SIDE, 'L' ) ) THEN
+      if ( LSAME( SIDE, 'L' ) ) {
          ITYPE = 1
-      ELSE IF( LSAME( SIDE, 'R' ) ) THEN
+      } else if ( LSAME( SIDE, 'R' ) ) {
          ITYPE = 2
-      ELSE IF( LSAME( SIDE, 'C' ) ) THEN
+      } else if ( LSAME( SIDE, 'C' ) ) {
          ITYPE = 3
-      ELSE IF( LSAME( SIDE, 'T' ) ) THEN
+      } else if ( LSAME( SIDE, 'T' ) ) {
          ITYPE = 4
-      END IF
+      }
 
       // Check for argument errors.
 
-      IF( ITYPE.EQ.0 ) THEN
+      if ( ITYPE.EQ.0 ) {
          INFO = -1
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 .OR. ( ITYPE.EQ.3 .AND. N.NE.M ) ) THEN
+      } else if ( N.LT.0 .OR. ( ITYPE.EQ.3 .AND. N.NE.M ) ) {
          INFO = -4
-      ELSE IF( LDA.LT.M ) THEN
+      } else if ( LDA.LT.M ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZLAROR', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( ITYPE.EQ.1 ) THEN
+      if ( ITYPE.EQ.1 ) {
          NXFRM = M
       } else {
          NXFRM = N
-      END IF
+      }
 
       // Initialize A to the identity matrix if desired
 
@@ -104,74 +104,74 @@
 
          XNORM = DZNRM2( IXFRM, X( KBEG ), 1 )
          XABS = ABS( X( KBEG ) )
-         IF( XABS.NE.CZERO ) THEN
+         if ( XABS.NE.CZERO ) {
             CSIGN = X( KBEG ) / XABS
          } else {
             CSIGN = CONE
-         END IF
+         }
          XNORMS = CSIGN*XNORM
          X( NXFRM+KBEG ) = -CSIGN
          FACTOR = XNORM*( XNORM+XABS )
-         IF( ABS( FACTOR ).LT.TOOSML ) THEN
+         if ( ABS( FACTOR ).LT.TOOSML ) {
             INFO = 1
             CALL XERBLA( 'ZLAROR', -INFO )
             RETURN
          } else {
             FACTOR = ONE / FACTOR
-         END IF
+         }
          X( KBEG ) = X( KBEG ) + XNORMS
 
          // Apply Householder transformation to A
 
-         IF( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) THEN
+         if ( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) {
 
             // Apply H(k) on the left of A
 
             CALL ZGEMV( 'C', IXFRM, N, CONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL ZGERC( IXFRM, N, -DCMPLX( FACTOR ), X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA )
 
-         END IF
+         }
 
-         IF( ITYPE.GE.2 .AND. ITYPE.LE.4 ) THEN
+         if ( ITYPE.GE.2 .AND. ITYPE.LE.4 ) {
 
             // Apply H(k)* (or H(k)') on the right of A
 
-            IF( ITYPE.EQ.4 ) THEN
+            if ( ITYPE.EQ.4 ) {
                CALL ZLACGV( IXFRM, X( KBEG ), 1 )
-            END IF
+            }
 
             CALL ZGEMV( 'N', M, IXFRM, CONE, A( 1, KBEG ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL ZGERC( M, IXFRM, -DCMPLX( FACTOR ), X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA )
 
-         END IF
+         }
    30 CONTINUE
 
       X( 1 ) = ZLARND( 3, ISEED )
       XABS = ABS( X( 1 ) )
-      IF( XABS.NE.ZERO ) THEN
+      if ( XABS.NE.ZERO ) {
          CSIGN = X( 1 ) / XABS
       } else {
          CSIGN = CONE
-      END IF
+      }
       X( 2*NXFRM ) = CSIGN
 
       // Scale the matrix A by D.
 
-      IF( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) THEN
+      if ( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) {
          DO 40 IROW = 1, M
             CALL ZSCAL( N, DCONJG( X( NXFRM+IROW ) ), A( IROW, 1 ), LDA )
    40    CONTINUE
-      END IF
+      }
 
-      IF( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) THEN
+      if ( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) {
          DO 50 JCOL = 1, N
             CALL ZSCAL( M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 )
    50    CONTINUE
-      END IF
+      }
 
-      IF( ITYPE.EQ.4 ) THEN
+      if ( ITYPE.EQ.4 ) {
          DO 60 JCOL = 1, N
             CALL ZSCAL( M, DCONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 )
    60    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of ZLAROR

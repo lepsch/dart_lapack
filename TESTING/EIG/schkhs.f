@@ -63,26 +63,26 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -2
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -3
-      ELSE IF( THRESH.LT.ZERO ) THEN
+      } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      ELSE IF( LDA.LE.1 .OR. LDA.LT.NMAX ) THEN
+      } else if ( LDA.LE.1 .OR. LDA.LT.NMAX ) {
          INFO = -9
-      ELSE IF( LDU.LE.1 .OR. LDU.LT.NMAX ) THEN
+      } else if ( LDU.LE.1 .OR. LDU.LT.NMAX ) {
          INFO = -14
-      ELSE IF( 4*NMAX*NMAX+2.GT.NWORK ) THEN
+      } else if ( 4*NMAX*NMAX+2.GT.NWORK ) {
          INFO = -28
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SCHKHS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -110,11 +110,11 @@
          N1 = MAX( 1, N )
          ANINV = ONE / REAL( N1 )
 
-         IF( NSIZES.NE.1 ) THEN
+         if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
-         END IF
+         }
 
          DO 260 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
@@ -178,13 +178,13 @@
 
             // Special Matrices
 
-            IF( ITYPE.EQ.1 ) THEN
+            if ( ITYPE.EQ.1 ) {
 
                // Zero
 
                IINFO = 0
 
-            ELSE IF( ITYPE.EQ.2 ) THEN
+            } else if ( ITYPE.EQ.2 ) {
 
                // Identity
 
@@ -192,7 +192,7 @@
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
 
-            ELSE IF( ITYPE.EQ.3 ) THEN
+            } else if ( ITYPE.EQ.3 ) {
 
                // Jordan Block
 
@@ -201,52 +201,52 @@
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
    90          CONTINUE
 
-            ELSE IF( ITYPE.EQ.4 ) THEN
+            } else if ( ITYPE.EQ.4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.5 ) THEN
+            } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
                CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.6 ) THEN
+            } else if ( ITYPE.EQ.6 ) {
 
                // General, eigenvalues specified
 
-               IF( KCONDS( JTYPE ).EQ.1 ) THEN
+               if ( KCONDS( JTYPE ).EQ.1 ) {
                   CONDS = ONE
-               ELSE IF( KCONDS( JTYPE ).EQ.2 ) THEN
+               } else if ( KCONDS( JTYPE ).EQ.2 ) {
                   CONDS = RTULPI
                } else {
                   CONDS = ZERO
-               END IF
+               }
 
                ADUMMA( 1 ) = ' '
                CALL SLATME( N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.7 ) THEN
+            } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
                CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.8 ) THEN
+            } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
                CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.9 ) THEN
+            } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
                CALL SLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.10 ) THEN
+            } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
@@ -255,13 +255,13 @@
             } else {
 
                IINFO = 1
-            END IF
+            }
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
-            END IF
+            }
 
   100       CONTINUE
 
@@ -276,12 +276,12 @@
 
             CALL SGEHRD( N, ILO, IHI, H, LDA, WORK, WORK( N+1 ), NWORK-N, IINFO )
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGEHRD', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
-            END IF
+            }
 
             DO 120 J = 1, N - 1
                UU( J+1, J ) = ZERO
@@ -306,24 +306,24 @@
             RESULT( 3 ) = ULPINV
 
             CALL SHSEQR( 'E', 'N', N, ILO, IHI, T2, LDA, WR3, WI3, UZ, LDU, WORK, NWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEQR(E)', IINFO, N, JTYPE, IOLDSD
-               IF( IINFO.LE.N+2 ) THEN
+               if ( IINFO.LE.N+2 ) {
                   INFO = ABS( IINFO )
                   GO TO 250
-               END IF
-            END IF
+               }
+            }
 
             // Eigenvalues (WR2,WI2) and Full Schur Form (T2)
 
             CALL SLACPY( ' ', N, N, H, LDA, T2, LDA )
 
             CALL SHSEQR( 'S', 'N', N, ILO, IHI, T2, LDA, WR2, WI2, UZ, LDU, WORK, NWORK, IINFO )
-            IF( IINFO.NE.0 .AND. IINFO.LE.N+2 ) THEN
+            if ( IINFO.NE.0 .AND. IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEQR(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
-            END IF
+            }
 
             // Eigenvalues (WR1,WI1), Schur Form (T1), and Schur vectors
             // (UZ)
@@ -332,11 +332,11 @@
             CALL SLACPY( ' ', N, N, U, LDU, UZ, LDU )
 
             CALL SHSEQR( 'S', 'V', N, ILO, IHI, T1, LDA, WR1, WI1, UZ, LDU, WORK, NWORK, IINFO )
-            IF( IINFO.NE.0 .AND. IINFO.LE.N+2 ) THEN
+            if ( IINFO.NE.0 .AND. IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
-            END IF
+            }
 
             // Compute Z = U' UZ
 
@@ -380,72 +380,72 @@
             NSELR = 0
             J = N
   140       CONTINUE
-            IF( WI1( J ).EQ.ZERO ) THEN
-               IF( NSELR.LT.MAX( N / 4, 1 ) ) THEN
+            if ( WI1( J ).EQ.ZERO ) {
+               if ( NSELR.LT.MAX( N / 4, 1 ) ) {
                   NSELR = NSELR + 1
                   SELECT( J ) = .TRUE.
                } else {
                   SELECT( J ) = .FALSE.
-               END IF
+               }
                J = J - 1
             } else {
-               IF( NSELC.LT.MAX( N / 4, 1 ) ) THEN
+               if ( NSELC.LT.MAX( N / 4, 1 ) ) {
                   NSELC = NSELC + 1
                   SELECT( J ) = .TRUE.
                   SELECT( J-1 ) = .FALSE.
                } else {
                   SELECT( J ) = .FALSE.
                   SELECT( J-1 ) = .FALSE.
-               END IF
+               }
                J = J - 2
-            END IF
+            }
             IF( J.GT.0 ) GO TO 140
 
             CALL STREVC( 'Right', 'All', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC(R,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
-            END IF
+            }
 
             // Test 9:  | TR - RW | / ( |T| |R| ulp )
 
             CALL SGET22( 'N', 'N', 'N', N, T1, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) )
             RESULT( 9 ) = DUMMA( 1 )
-            IF( DUMMA( 2 ).GT.THRESH ) THEN
+            if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'STREVC', DUMMA( 2 ), N, JTYPE, IOLDSD
-            END IF
+            }
 
             // Compute selected right eigenvectors and confirm that
            t // hey agree with previous right eigenvectors
 
             CALL STREVC( 'Right', 'Some', SELECT, N, T1, LDA, DUMMA, LDU, EVECTL, LDU, N, IN, WORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC(R,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
-            END IF
+            }
 
             K = 1
             MATCH = .TRUE.
             DO 170 J = 1, N
-               IF( SELECT( J ) .AND. WI1( J ).EQ.ZERO ) THEN
+               if ( SELECT( J ) .AND. WI1( J ).EQ.ZERO ) {
                   DO 150 JJ = 1, N
-                     IF( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) ) THEN
+                     if ( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) ) {
                         MATCH = .FALSE.
                         GO TO 180
-                     END IF
+                     }
   150             CONTINUE
                   K = K + 1
-               ELSE IF( SELECT( J ) .AND. WI1( J ).NE.ZERO ) THEN
+               } else if ( SELECT( J ) .AND. WI1( J ).NE.ZERO ) {
                   DO 160 JJ = 1, N
-                     IF( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) .OR. EVECTR( JJ, J+1 ).NE.EVECTL( JJ, K+1 ) ) THEN
+                     if ( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) .OR. EVECTR( JJ, J+1 ).NE.EVECTL( JJ, K+1 ) ) {
                         MATCH = .FALSE.
                         GO TO 180
-                     END IF
+                     }
   160             CONTINUE
                   K = K + 2
-               END IF
+               }
   170       CONTINUE
   180       CONTINUE
             IF( .NOT.MATCH ) WRITE( NOUNIT, FMT = 9997 )'Right', 'STREVC', N, JTYPE, IOLDSD
@@ -455,50 +455,50 @@
             NTEST = 10
             RESULT( 10 ) = ULPINV
             CALL STREVC( 'Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC(L,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
-            END IF
+            }
 
             // Test 10:  | LT - WL | / ( |T| |L| ulp )
 
             CALL SGET22( 'Trans', 'N', 'Conj', N, T1, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) )
             RESULT( 10 ) = DUMMA( 3 )
-            IF( DUMMA( 4 ).GT.THRESH ) THEN
+            if ( DUMMA( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'STREVC', DUMMA( 4 ), N, JTYPE, IOLDSD
-            END IF
+            }
 
             // Compute selected left eigenvectors and confirm that
            t // hey agree with previous left eigenvectors
 
             CALL STREVC( 'Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC(L,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
-            END IF
+            }
 
             K = 1
             MATCH = .TRUE.
             DO 210 J = 1, N
-               IF( SELECT( J ) .AND. WI1( J ).EQ.ZERO ) THEN
+               if ( SELECT( J ) .AND. WI1( J ).EQ.ZERO ) {
                   DO 190 JJ = 1, N
-                     IF( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) ) THEN
+                     if ( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) ) {
                         MATCH = .FALSE.
                         GO TO 220
-                     END IF
+                     }
   190             CONTINUE
                   K = K + 1
-               ELSE IF( SELECT( J ) .AND. WI1( J ).NE.ZERO ) THEN
+               } else if ( SELECT( J ) .AND. WI1( J ).NE.ZERO ) {
                   DO 200 JJ = 1, N
-                     IF( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) .OR. EVECTL( JJ, J+1 ).NE.EVECTR( JJ, K+1 ) ) THEN
+                     if ( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) .OR. EVECTL( JJ, J+1 ).NE.EVECTR( JJ, K+1 ) ) {
                         MATCH = .FALSE.
                         GO TO 220
-                     END IF
+                     }
   200             CONTINUE
                   K = K + 2
-               END IF
+               }
   210       CONTINUE
   220       CONTINUE
             IF( .NOT.MATCH ) WRITE( NOUNIT, FMT = 9997 )'Left', 'STREVC', N, JTYPE, IOLDSD
@@ -512,7 +512,7 @@
   230       CONTINUE
 
             CALL SHSEIN( 'Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN, WORK, IWORK, IWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEIN(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) GO TO 250
@@ -523,10 +523,10 @@
                          // (from inverse iteration)
 
                CALL SGET22( 'N', 'N', 'N', N, H, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA( 1 ) )                IF( DUMMA( 1 ).LT.ULPINV ) RESULT( 11 ) = DUMMA( 1 )*ANINV
-               IF( DUMMA( 2 ).GT.THRESH ) THEN
+               if ( DUMMA( 2 ).GT.THRESH ) {
                   WRITE( NOUNIT, FMT = 9998 )'Right', 'SHSEIN', DUMMA( 2 ), N, JTYPE, IOLDSD
-               END IF
-            END IF
+               }
+            }
 
             // Call SHSEIN for Left eigenvectors of H, do test 12
 
@@ -537,7 +537,7 @@
   240       CONTINUE
 
             CALL SHSEIN( 'Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK, IWORK, IWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEIN(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) GO TO 250
@@ -548,10 +548,10 @@
                          // (from inverse iteration)
 
                CALL SGET22( 'C', 'N', 'C', N, H, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA( 3 ) )                IF( DUMMA( 3 ).LT.ULPINV ) RESULT( 12 ) = DUMMA( 3 )*ANINV
-               IF( DUMMA( 4 ).GT.THRESH ) THEN
+               if ( DUMMA( 4 ).GT.THRESH ) {
                   WRITE( NOUNIT, FMT = 9998 )'Left', 'SHSEIN', DUMMA( 4 ), N, JTYPE, IOLDSD
-               END IF
-            END IF
+               }
+            }
 
             // Call SORMHR for Right eigenvectors of A, do test 13
 
@@ -559,7 +559,7 @@
             RESULT( 13 ) = ULPINV
 
             CALL SORMHR( 'Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORMHR(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) GO TO 250
@@ -570,7 +570,7 @@
                          // (from inverse iteration)
 
                CALL SGET22( 'N', 'N', 'N', N, A, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA( 1 ) )                IF( DUMMA( 1 ).LT.ULPINV ) RESULT( 13 ) = DUMMA( 1 )*ANINV
-            END IF
+            }
 
             // Call SORMHR for Left eigenvectors of A, do test 14
 
@@ -578,7 +578,7 @@
             RESULT( 14 ) = ULPINV
 
             CALL SORMHR( 'Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) GO TO 250
@@ -589,7 +589,7 @@
                          // (from inverse iteration)
 
                CALL SGET22( 'C', 'N', 'C', N, A, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA( 3 ) )                IF( DUMMA( 3 ).LT.ULPINV ) RESULT( 14 ) = DUMMA( 3 )*ANINV
-            END IF
+            }
 
             // Compute Left and Right Eigenvectors of A
 
@@ -601,11 +601,11 @@
             CALL SLACPY( ' ', N, N, UZ, LDU, EVECTR, LDU )
 
             CALL STREVC3( 'Right', 'Back', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, NWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC3(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
-            END IF
+            }
 
             // Test 15:  | AR - RW | / ( |A| |R| ulp )
 
@@ -613,9 +613,9 @@
 
             CALL SGET22( 'N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) )
             RESULT( 15 ) = DUMMA( 1 )
-            IF( DUMMA( 2 ).GT.THRESH ) THEN
+            if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'STREVC3', DUMMA( 2 ), N, JTYPE, IOLDSD
-            END IF
+            }
 
             // Compute a Left eigenvector matrix:
 
@@ -625,11 +625,11 @@
             CALL SLACPY( ' ', N, N, UZ, LDU, EVECTL, LDU )
 
             CALL STREVC3( 'Left', 'Back', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, NWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC3(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
-            END IF
+            }
 
             // Test 16:  | LA - WL | / ( |A| |L| ulp )
 
@@ -637,9 +637,9 @@
 
             CALL SGET22( 'Trans', 'N', 'Conj', N, A, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) )
             RESULT( 16 ) = DUMMA( 3 )
-            IF( DUMMA( 4 ).GT.THRESH ) THEN
+            if ( DUMMA( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'STREVC3', DUMMA( 4 ), N, JTYPE, IOLDSD
-            END IF
+            }
 
             // End of Loop -- Check for RESULT(j) > THRESH
 

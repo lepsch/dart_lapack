@@ -40,36 +40,36 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CLAUU2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Compute the product U * U**H.
 
          DO 10 I = 1, N
             AII = REAL( A( I, I ) )
-            IF( I.LT.N ) THEN
+            if ( I.LT.N ) {
                A( I, I ) = AII*AII + REAL( CDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) )
                CALL CLACGV( N-I, A( I, I+1 ), LDA )
                CALL CGEMV( 'No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, CMPLX( AII ), A( 1, I ), 1 )
                CALL CLACGV( N-I, A( I, I+1 ), LDA )
             } else {
                CALL CSSCAL( I, AII, A( 1, I ), 1 )
-            END IF
+            }
    10    CONTINUE
 
       } else {
@@ -78,16 +78,16 @@
 
          DO 20 I = 1, N
             AII = REAL( A( I, I ) )
-            IF( I.LT.N ) THEN
+            if ( I.LT.N ) {
                A( I, I ) = AII*AII + REAL( CDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) )
                CALL CLACGV( I-1, A( I, 1 ), LDA )
                CALL CGEMV( 'Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, CMPLX( AII ), A( I, 1 ), LDA )
                CALL CLACGV( I-1, A( I, 1 ), LDA )
             } else {
                CALL CSSCAL( I, AII, A( I, 1 ), LDA )
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
 
       RETURN
 

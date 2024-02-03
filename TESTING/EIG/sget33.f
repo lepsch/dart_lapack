@@ -109,10 +109,10 @@
    70                         CONTINUE
                               IF( T( 2, 1 ).NE.ZERO .AND. ( T( 1, 1 ).NE.T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) )*SIGN( ONE, T( 2, 1 ) ).GT.ZERO ) )RES = RES + ONE / EPS
                               KNT = KNT + 1
-                              IF( RES.GT.RMAX ) THEN
+                              if ( RES.GT.RMAX ) {
                                  LMAX = KNT
                                  RMAX = RES
-                              END IF
+                              }
    80                      CONTINUE
    90                   CONTINUE
   100                CONTINUE

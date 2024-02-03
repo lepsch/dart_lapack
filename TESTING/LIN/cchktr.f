@@ -109,11 +109,11 @@
 
                // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
-               IF( LSAME( DIAG, 'N' ) ) THEN
+               if ( LSAME( DIAG, 'N' ) ) {
                   IDIAG = 1
                } else {
                   IDIAG = 2
-               END IF
+               }
 
                DO 60 INB = 1, NNB
 
@@ -137,11 +137,11 @@
 
                   ANORM = CLANTR( 'I', UPLO, DIAG, N, N, A, LDA, RWORK )
                   AINVNM = CLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA, RWORK )
-                  IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                  if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                      RCONDI = ONE
                   } else {
                      RCONDI = ( ONE / ANORM ) / AINVNM
-                  END IF
+                  }
 
                   // Compute the residual for the triangular matrix times
                   // its inverse.  Also compute the 1-norm condition number
@@ -150,10 +150,10 @@
                   CALL CTRT01( UPLO, DIAG, N, A, LDA, AINV, LDA, RCONDO, RWORK, RESULT( 1 ) )
                   // Print the test ratio if it is .GE. THRESH.
 
-                  IF( RESULT( 1 ).GE.THRESH ) THEN
+                  if ( RESULT( 1 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, NB, IMAT, 1, RESULT( 1 )
                      NFAIL = NFAIL + 1
-                  END IF
+                  }
                   NRUN = NRUN + 1
 
                   // Skip remaining tests if not the first block size.
@@ -169,13 +169,13 @@
                      // Do for op(A) = A, A**T, or A**H.
 
                         TRANS = TRANSS( ITRAN )
-                        IF( ITRAN.EQ.1 ) THEN
+                        if ( ITRAN.EQ.1 ) {
                            NORM = 'O'
                            RCONDC = RCONDO
                         } else {
                            NORM = 'I'
                            RCONDC = RCONDI
-                        END IF
+                        }
 
 *+    TEST 2
                         // Solve and compute residual for op(A)*x = b.
@@ -220,10 +220,10 @@
                         // pass the threshold.
 
                         DO 20 K = 2, 6
-                           IF( RESULT( K ).GE.THRESH ) THEN
+                           if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
    20                   CONTINUE
                         NRUN = NRUN + 5
    30                CONTINUE
@@ -233,13 +233,13 @@
                         // Get an estimate of RCOND = 1/CNDNUM.
 
                   DO 50 ITRAN = 1, 2
-                     IF( ITRAN.EQ.1 ) THEN
+                     if ( ITRAN.EQ.1 ) {
                         NORM = 'O'
                         RCONDC = RCONDO
                      } else {
                         NORM = 'I'
                         RCONDC = RCONDI
-                     END IF
+                     }
                      SRNAMT = 'CTRCON'
                      CALL CTRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK, RWORK, INFO )
 
@@ -251,10 +251,10 @@
 
                      // Print the test ratio if it is .GE. THRESH.
 
-                     IF( RESULT( 7 ).GE.THRESH ) THEN
+                     if ( RESULT( 7 ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )NORM, UPLO, N, IMAT, 7, RESULT( 7 )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
                      NRUN = NRUN + 1
    50             CONTINUE
    60          CONTINUE
@@ -330,18 +330,18 @@
                   // Print information about the tests that did not pass
                  t // he threshold.
 
-                  IF( RESULT( 8 ).GE.THRESH ) THEN
+                  if ( RESULT( 8 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'CLATRS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 )
                      NFAIL = NFAIL + 1
-                  END IF
-                  IF( RESULT( 9 ).GE.THRESH ) THEN
+                  }
+                  if ( RESULT( 9 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'CLATRS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 )
                      NFAIL = NFAIL + 1
-                  END IF
-                  IF( RESULT( 10 ).GE.THRESH ) THEN
+                  }
+                  if ( RESULT( 10 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'CLATRS3', UPLO, TRANS, DIAG, 'N', N, IMAT, 10, RESULT( 10 )
                      NFAIL = NFAIL + 1
-                  END IF
+                  }
                   NRUN = NRUN + 3
    90          CONTINUE
   100       CONTINUE

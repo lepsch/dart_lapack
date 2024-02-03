@@ -42,83 +42,83 @@
 
       // Decode JOB, COMPQ, COMPZ
 
-      IF( LSAME( JOB, 'E' ) ) THEN
+      if ( LSAME( JOB, 'E' ) ) {
          ILSCHR = .FALSE.
          ISCHUR = 1
-      ELSE IF( LSAME( JOB, 'S' ) ) THEN
+      } else if ( LSAME( JOB, 'S' ) ) {
          ILSCHR = .TRUE.
          ISCHUR = 2
       } else {
          ISCHUR = 0
-      END IF
+      }
 
-      IF( LSAME( COMPQ, 'N' ) ) THEN
+      if ( LSAME( COMPQ, 'N' ) ) {
          ILQ = .FALSE.
          ICOMPQ = 1
-      ELSE IF( LSAME( COMPQ, 'V' ) ) THEN
+      } else if ( LSAME( COMPQ, 'V' ) ) {
          ILQ = .TRUE.
          ICOMPQ = 2
-      ELSE IF( LSAME( COMPQ, 'I' ) ) THEN
+      } else if ( LSAME( COMPQ, 'I' ) ) {
          ILQ = .TRUE.
          ICOMPQ = 3
       } else {
          ICOMPQ = 0
-      END IF
+      }
 
-      IF( LSAME( COMPZ, 'N' ) ) THEN
+      if ( LSAME( COMPZ, 'N' ) ) {
          ILZ = .FALSE.
          ICOMPZ = 1
-      ELSE IF( LSAME( COMPZ, 'V' ) ) THEN
+      } else if ( LSAME( COMPZ, 'V' ) ) {
          ILZ = .TRUE.
          ICOMPZ = 2
-      ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
+      } else if ( LSAME( COMPZ, 'I' ) ) {
          ILZ = .TRUE.
          ICOMPZ = 3
       } else {
          ICOMPZ = 0
-      END IF
+      }
 
       // Check Argument Values
 
       INFO = 0
       WORK( 1 ) = MAX( 1, N )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( ISCHUR.EQ.0 ) THEN
+      if ( ISCHUR.EQ.0 ) {
          INFO = -1
-      ELSE IF( ICOMPQ.EQ.0 ) THEN
+      } else if ( ICOMPQ.EQ.0 ) {
          INFO = -2
-      ELSE IF( ICOMPZ.EQ.0 ) THEN
+      } else if ( ICOMPZ.EQ.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( ILO.LT.1 ) THEN
+      } else if ( ILO.LT.1 ) {
          INFO = -5
-      ELSE IF( IHI.GT.N .OR. IHI.LT.ILO-1 ) THEN
+      } else if ( IHI.GT.N .OR. IHI.LT.ILO-1 ) {
          INFO = -6
-      ELSE IF( LDH.LT.N ) THEN
+      } else if ( LDH.LT.N ) {
          INFO = -8
-      ELSE IF( LDT.LT.N ) THEN
+      } else if ( LDT.LT.N ) {
          INFO = -10
-      ELSE IF( LDQ.LT.1 .OR. ( ILQ .AND. LDQ.LT.N ) ) THEN
+      } else if ( LDQ.LT.1 .OR. ( ILQ .AND. LDQ.LT.N ) ) {
          INFO = -15
-      ELSE IF( LDZ.LT.1 .OR. ( ILZ .AND. LDZ.LT.N ) ) THEN
+      } else if ( LDZ.LT.1 .OR. ( ILZ .AND. LDZ.LT.N ) ) {
          INFO = -17
-      ELSE IF( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
          INFO = -19
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DHGEQZ', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          WORK( 1 ) = DBLE( 1 )
          RETURN
-      END IF
+      }
 
       // Initialize Q and Z
 
@@ -140,8 +140,8 @@
       // Set Eigenvalues IHI+1:N
 
       DO 30 J = IHI + 1, N
-         IF( T( J, J ).LT.ZERO ) THEN
-            IF( ILSCHR ) THEN
+         if ( T( J, J ).LT.ZERO ) {
+            if ( ILSCHR ) {
                DO 10 JR = 1, J
                   H( JR, J ) = -H( JR, J )
                   T( JR, J ) = -T( JR, J )
@@ -149,13 +149,13 @@
             } else {
                H( J, J ) = -H( J, J )
                T( J, J ) = -T( J, J )
-            END IF
-            IF( ILZ ) THEN
+            }
+            if ( ILZ ) {
                DO 20 JR = 1, N
                   Z( JR, J ) = -Z( JR, J )
    20          CONTINUE
-            END IF
-         END IF
+            }
+         }
          ALPHAR( J ) = H( J, J )
          ALPHAI( J ) = ZERO
          BETA( J ) = T( J, J )
@@ -181,13 +181,13 @@
       // MAXIT is the maximum number of QZ sweeps allowed.
 
       ILAST = IHI
-      IF( ILSCHR ) THEN
+      if ( ILSCHR ) {
          IFRSTM = 1
          ILASTM = N
       } else {
          IFRSTM = ILO
          ILASTM = IHI
-      END IF
+      }
       IITER = 0
       ESHIFT = ZERO
       MAXIT = 30*( IHI-ILO+1 )
@@ -200,22 +200,22 @@
             // 1: H(j,j-1)=0  or  j=ILO
             // 2: T(j,j)=0
 
-         IF( ILAST.EQ.ILO ) THEN
+         if ( ILAST.EQ.ILO ) {
 
             // Special case: j=ILAST
 
             GO TO 80
          } else {
-            IF( ABS( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS( H( ILAST, ILAST ) ) + ABS( H( ILAST-1, ILAST-1 ) ) ) ) ) THEN
+            if ( ABS( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS( H( ILAST, ILAST ) ) + ABS( H( ILAST-1, ILAST-1 ) ) ) ) ) {
                H( ILAST, ILAST-1 ) = ZERO
                GO TO 80
-            END IF
-         END IF
+            }
+         }
 
-         IF( ABS( T( ILAST, ILAST ) ).LE.BTOL ) THEN
+         if ( ABS( T( ILAST, ILAST ) ).LE.BTOL ) {
             T( ILAST, ILAST ) = ZERO
             GO TO 70
-         END IF
+         }
 
          // General case: j<ILAST
 
@@ -223,35 +223,35 @@
 
             // Test 1: for H(j,j-1)=0 or j=ILO
 
-            IF( J.EQ.ILO ) THEN
+            if ( J.EQ.ILO ) {
                ILAZRO = .TRUE.
             } else {
-               IF( ABS( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS( H( J, J ) ) + ABS( H( J-1, J-1 ) ) ) ) ) THEN
+               if ( ABS( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS( H( J, J ) ) + ABS( H( J-1, J-1 ) ) ) ) ) {
                   H( J, J-1 ) = ZERO
                   ILAZRO = .TRUE.
                } else {
                   ILAZRO = .FALSE.
-               END IF
-            END IF
+               }
+            }
 
             // Test 2: for T(j,j)=0
 
-            IF( ABS( T( J, J ) ).LT.BTOL ) THEN
+            if ( ABS( T( J, J ) ).LT.BTOL ) {
                T( J, J ) = ZERO
 
                // Test 1a: Check for 2 consecutive small subdiagonals in A
 
                ILAZR2 = .FALSE.
-               IF( .NOT.ILAZRO ) THEN
+               if ( .NOT.ILAZRO ) {
                   TEMP = ABS( H( J, J-1 ) )
                   TEMP2 = ABS( H( J, J ) )
                   TEMPR = MAX( TEMP, TEMP2 )
-                  IF( TEMPR.LT.ONE .AND. TEMPR.NE.ZERO ) THEN
+                  if ( TEMPR.LT.ONE .AND. TEMPR.NE.ZERO ) {
                      TEMP = TEMP / TEMPR
                      TEMP2 = TEMP2 / TEMPR
-                  END IF
+                  }
                   IF( TEMP*( ASCALE*ABS( H( J+1, J ) ) ).LE.TEMP2* ( ASCALE*ATOL ) )ILAZR2 = .TRUE.
-               END IF
+               }
 
                // If both tests pass (1 & 2), i.e., the leading diagonal
                // element of B in the block is zero, split a 1x1 block off
@@ -259,7 +259,7 @@
                // diagonal element of the remainder can also be zero, so
               t // his may have to be done repeatedly.
 
-               IF( ILAZRO .OR. ILAZR2 ) THEN
+               if ( ILAZRO .OR. ILAZR2 ) {
                   DO 40 JCH = J, ILAST - 1
                      TEMP = H( JCH, JCH )
                      CALL DLARTG( TEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) )
@@ -267,14 +267,14 @@
                      CALL DROT( ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S )                      CALL DROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL DROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S )
                      IF( ILAZR2 ) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C
                      ILAZR2 = .FALSE.
-                     IF( ABS( T( JCH+1, JCH+1 ) ).GE.BTOL ) THEN
-                        IF( JCH+1.GE.ILAST ) THEN
+                     if ( ABS( T( JCH+1, JCH+1 ) ).GE.BTOL ) {
+                        if ( JCH+1.GE.ILAST ) {
                            GO TO 80
                         } else {
                            IFIRST = JCH + 1
                            GO TO 110
-                        END IF
-                     END IF
+                        }
+                     }
                      T( JCH+1, JCH+1 ) = ZERO
    40             CONTINUE
                   GO TO 70
@@ -294,14 +294,14 @@
                      CALL DROT( JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S )                      CALL DROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL DROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S )
    50             CONTINUE
                   GO TO 70
-               END IF
-            ELSE IF( ILAZRO ) THEN
+               }
+            } else if ( ILAZRO ) {
 
                // Only test 1 passed -- work on J:ILAST
 
                IFIRST = J
                GO TO 110
-            END IF
+            }
 
             // Neither test passed -- try next J
 
@@ -325,8 +325,8 @@
                                // and BETA
 
    80    CONTINUE
-         IF( T( ILAST, ILAST ).LT.ZERO ) THEN
-            IF( ILSCHR ) THEN
+         if ( T( ILAST, ILAST ).LT.ZERO ) {
+            if ( ILSCHR ) {
                DO 90 J = IFRSTM, ILAST
                   H( J, ILAST ) = -H( J, ILAST )
                   T( J, ILAST ) = -T( J, ILAST )
@@ -334,13 +334,13 @@
             } else {
                H( ILAST, ILAST ) = -H( ILAST, ILAST )
                T( ILAST, ILAST ) = -T( ILAST, ILAST )
-            END IF
-            IF( ILZ ) THEN
+            }
+            if ( ILZ ) {
                DO 100 J = 1, N
                   Z( J, ILAST ) = -Z( J, ILAST )
   100          CONTINUE
-            END IF
-         END IF
+            }
+         }
          ALPHAR( ILAST ) = H( ILAST, ILAST )
          ALPHAI( ILAST ) = ZERO
          BETA( ILAST ) = T( ILAST, ILAST )
@@ -354,10 +354,10 @@
 
          IITER = 0
          ESHIFT = ZERO
-         IF( .NOT.ILSCHR ) THEN
+         if ( .NOT.ILSCHR ) {
             ILASTM = ILAST
             IF( IFRSTM.GT.ILAST ) IFRSTM = ILO
-         END IF
+         }
          GO TO 350
 
          // QZ step
@@ -367,9 +367,9 @@
 
   110    CONTINUE
          IITER = IITER + 1
-         IF( .NOT.ILSCHR ) THEN
+         if ( .NOT.ILSCHR ) {
             IFRSTM = IFIRST
-         END IF
+         }
 
          // Compute single shifts.
 
@@ -377,7 +377,7 @@
          // T(IFIRST:ILAST,IFIRST,ILAST) are larger than BTOL (in
          // magnitude)
 
-         IF( ( IITER / 10 )*10.EQ.IITER ) THEN
+         if ( ( IITER / 10 )*10.EQ.IITER ) {
 
             // Exceptional shift.  Chosen for no particularly good reason.
             // (Single shift only.)
@@ -385,7 +385,7 @@
             IF( ( DBLE( MAXIT )*SAFMIN )*ABS( H( ILAST, ILAST-1 ) ).LT. ABS( T( ILAST-1, ILAST-1 ) ) ) THEN                ESHIFT = H( ILAST, ILAST-1 ) / T( ILAST-1, ILAST-1 )
             } else {
                ESHIFT = ESHIFT + ONE / ( SAFMIN*DBLE( MAXIT ) )
-            END IF
+            }
             S1 = ONE
             WR = ESHIFT
 
@@ -397,26 +397,26 @@
 
             CALL DLAG2( H( ILAST-1, ILAST-1 ), LDH, T( ILAST-1, ILAST-1 ), LDT, SAFMIN*SAFETY, S1, S2, WR, WR2, WI )
 
-            IF ( ABS( (WR/S1)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) .GT. ABS( (WR2/S2)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) ) THEN
+            if ( ABS( (WR/S1)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) .GT. ABS( (WR2/S2)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) ) {
                TEMP = WR
                WR = WR2
                WR2 = TEMP
                TEMP = S1
                S1 = S2
                S2 = TEMP
-            END IF
+            }
             TEMP = MAX( S1, SAFMIN*MAX( ONE, ABS( WR ), ABS( WI ) ) )
             IF( WI.NE.ZERO ) GO TO 200
-         END IF
+         }
 
          // Fiddle with shift to avoid overflow
 
          TEMP = MIN( ASCALE, ONE )*( HALF*SAFMAX )
-         IF( S1.GT.TEMP ) THEN
+         if ( S1.GT.TEMP ) {
             SCALE = TEMP / S1
          } else {
             SCALE = ONE
-         END IF
+         }
 
          TEMP = MIN( BSCALE, ONE )*( HALF*SAFMAX )
          IF( ABS( WR ).GT.TEMP ) SCALE = MIN( SCALE, TEMP / ABS( WR ) )
@@ -430,10 +430,10 @@
             TEMP = ABS( S1*H( J, J-1 ) )
             TEMP2 = ABS( S1*H( J, J )-WR*T( J, J ) )
             TEMPR = MAX( TEMP, TEMP2 )
-            IF( TEMPR.LT.ONE .AND. TEMPR.NE.ZERO ) THEN
+            if ( TEMPR.LT.ONE .AND. TEMPR.NE.ZERO ) {
                TEMP = TEMP / TEMPR
                TEMP2 = TEMP2 / TEMPR
-            END IF
+            }
             IF( ABS( ( ASCALE*H( J+1, J ) )*TEMP ).LE.( ASCALE*ATOL )* TEMP2 )GO TO 130
   120    CONTINUE
 
@@ -451,11 +451,11 @@
          // Sweep
 
          DO 190 J = ISTART, ILAST - 1
-            IF( J.GT.ISTART ) THEN
+            if ( J.GT.ISTART ) {
                TEMP = H( J, J-1 )
                CALL DLARTG( TEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) )
                H( J+1, J-1 ) = ZERO
-            END IF
+            }
 
             DO 140 JC = J, ILASTM
                TEMP = C*H( J, JC ) + S*H( J+1, JC )
@@ -465,13 +465,13 @@
                T( J+1, JC ) = -S*T( J, JC ) + C*T( J+1, JC )
                T( J, JC ) = TEMP2
   140       CONTINUE
-            IF( ILQ ) THEN
+            if ( ILQ ) {
                DO 150 JR = 1, N
                   TEMP = C*Q( JR, J ) + S*Q( JR, J+1 )
                   Q( JR, J+1 ) = -S*Q( JR, J ) + C*Q( JR, J+1 )
                   Q( JR, J ) = TEMP
   150          CONTINUE
-            END IF
+            }
 
             TEMP = T( J+1, J+1 )
             CALL DLARTG( TEMP, T( J+1, J ), C, S, T( J+1, J+1 ) )
@@ -487,13 +487,13 @@
                T( JR, J ) = -S*T( JR, J+1 ) + C*T( JR, J )
                T( JR, J+1 ) = TEMP
   170       CONTINUE
-            IF( ILZ ) THEN
+            if ( ILZ ) {
                DO 180 JR = 1, N
                   TEMP = C*Z( JR, J+1 ) + S*Z( JR, J )
                   Z( JR, J ) = -S*Z( JR, J+1 ) + C*Z( JR, J )
                   Z( JR, J+1 ) = TEMP
   180          CONTINUE
-            END IF
+            }
   190    CONTINUE
 
          GO TO 350
@@ -506,7 +506,7 @@
                // a 2x2 block with real eigenvalues.
 
   200    CONTINUE
-         IF( IFIRST+1.EQ.ILAST ) THEN
+         if ( IFIRST+1.EQ.ILAST ) {
 
             // Special case -- 2x2 block with complex eigenvectors
 
@@ -518,12 +518,12 @@
 
             CALL DLASV2( T( ILAST-1, ILAST-1 ), T( ILAST-1, ILAST ), T( ILAST, ILAST ), B22, B11, SR, CR, SL, CL )
 
-            IF( B11.LT.ZERO ) THEN
+            if ( B11.LT.ZERO ) {
                CR = -CR
                SR = -SR
                B11 = -B11
                B22 = -B22
-            END IF
+            }
 
             CALL DROT( ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH, H( ILAST, ILAST-1 ), LDH, CL, SL )             CALL DROT( ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1, H( IFRSTM, ILAST ), 1, CR, SR )
 
@@ -538,19 +538,19 @@
 
             // If B22 is negative, negate column ILAST
 
-            IF( B22.LT.ZERO ) THEN
+            if ( B22.LT.ZERO ) {
                DO 210 J = IFRSTM, ILAST
                   H( J, ILAST ) = -H( J, ILAST )
                   T( J, ILAST ) = -T( J, ILAST )
   210          CONTINUE
 
-               IF( ILZ ) THEN
+               if ( ILZ ) {
                   DO 220 J = 1, N
                      Z( J, ILAST ) = -Z( J, ILAST )
   220             CONTINUE
-               END IF
+               }
                B22 = -B22
-            END IF
+            }
 
             // Step 2: Compute ALPHAR, ALPHAI, and BETA (see refs.)
 
@@ -584,14 +584,14 @@
             C22R = S1*A22 - WR*B22
             C22I = -WI*B22
 
-            IF( ABS( C11R )+ABS( C11I )+ABS( C12 ).GT.ABS( C21 )+ ABS( C22R )+ABS( C22I ) ) THEN
+            if ( ABS( C11R )+ABS( C11I )+ABS( C12 ).GT.ABS( C21 )+ ABS( C22R )+ABS( C22I ) ) {
                T1 = DLAPY3( C12, C11R, C11I )
                CZ = C12 / T1
                SZR = -C11R / T1
                SZI = -C11I / T1
             } else {
                CZ = DLAPY2( C22R, C22I )
-               IF( CZ.LE.SAFMIN ) THEN
+               if ( CZ.LE.SAFMIN ) {
                   CZ = ZERO
                   SZR = ONE
                   SZI = ZERO
@@ -602,8 +602,8 @@
                   CZ = CZ / T1
                   SZR = -C21*TEMPR / T1
                   SZI = C21*TEMPI / T1
-               END IF
-            END IF
+               }
+            }
 
             // Compute Givens rotation on left
 
@@ -614,7 +614,7 @@
             AN = ABS( A11 ) + ABS( A12 ) + ABS( A21 ) + ABS( A22 )
             BN = ABS( B11 ) + ABS( B22 )
             WABS = ABS( WR ) + ABS( WI )
-            IF( S1*AN.GT.WABS*BN ) THEN
+            if ( S1*AN.GT.WABS*BN ) {
                CQ = CZ*B11
                SQR = SZR*B22
                SQI = -SZI*B22
@@ -624,7 +624,7 @@
                A2R = CZ*A21 + SZR*A22
                A2I = SZI*A22
                CQ = DLAPY2( A1R, A1I )
-               IF( CQ.LE.SAFMIN ) THEN
+               if ( CQ.LE.SAFMIN ) {
                   CQ = ZERO
                   SQR = ONE
                   SQI = ZERO
@@ -633,8 +633,8 @@
                   TEMPI = A1I / CQ
                   SQR = TEMPR*A2R + TEMPI*A2I
                   SQI = TEMPI*A2R - TEMPR*A2I
-               END IF
-            END IF
+               }
+            }
             T1 = DLAPY3( CQ, SQR, SQI )
             CQ = CQ / T1
             SQR = SQR / T1
@@ -669,10 +669,10 @@
 
             IITER = 0
             ESHIFT = ZERO
-            IF( .NOT.ILSCHR ) THEN
+            if ( .NOT.ILSCHR ) {
                ILASTM = ILAST
                IF( IFRSTM.GT.ILAST ) IFRSTM = ILO
-            END IF
+            }
             GO TO 350
          } else {
 
@@ -709,7 +709,7 @@
 
                // Zero (j-1)st column of A
 
-               IF( J.GT.ISTART ) THEN
+               if ( J.GT.ISTART ) {
                   V( 1 ) = H( J, J-1 )
                   V( 2 ) = H( J+1, J-1 )
                   V( 3 ) = H( J+2, J-1 )
@@ -718,7 +718,7 @@
                   V( 1 ) = ONE
                   H( J+1, J-1 ) = ZERO
                   H( J+2, J-1 ) = ZERO
-               END IF
+               }
 
                T2 = TAU*V( 2 )
                T3 = TAU*V( 3 )
@@ -732,14 +732,14 @@
                   T( J+1, JC ) = T( J+1, JC ) - TEMP2*T2
                   T( J+2, JC ) = T( J+2, JC ) - TEMP2*T3
   230          CONTINUE
-               IF( ILQ ) THEN
+               if ( ILQ ) {
                   DO 240 JR = 1, N
                      TEMP = Q( JR, J )+V( 2 )*Q( JR, J+1 )+V( 3 )* Q( JR, J+2 )
                      Q( JR, J ) = Q( JR, J ) - TEMP*TAU
                      Q( JR, J+1 ) = Q( JR, J+1 ) - TEMP*T2
                      Q( JR, J+2 ) = Q( JR, J+2 ) - TEMP*T3
   240             CONTINUE
-               END IF
+               }
 
                // Zero j-th column of B (see DLAGBC for details)
 
@@ -748,12 +748,12 @@
                ILPIVT = .FALSE.
                TEMP = MAX( ABS( T( J+1, J+1 ) ), ABS( T( J+1, J+2 ) ) )
                TEMP2 = MAX( ABS( T( J+2, J+1 ) ), ABS( T( J+2, J+2 ) ) )
-               IF( MAX( TEMP, TEMP2 ).LT.SAFMIN ) THEN
+               if ( MAX( TEMP, TEMP2 ).LT.SAFMIN ) {
                   SCALE = ZERO
                   U1 = ONE
                   U2 = ZERO
                   GO TO 250
-               ELSE IF( TEMP.GE.TEMP2 ) THEN
+               } else if ( TEMP.GE.TEMP2 ) {
                   W11 = T( J+1, J+1 )
                   W21 = T( J+2, J+1 )
                   W12 = T( J+1, J+2 )
@@ -767,11 +767,11 @@
                   W12 = T( J+2, J+2 )
                   U2 = T( J+1, J )
                   U1 = T( J+2, J )
-               END IF
+               }
 
                // Swap columns if nec.
 
-               IF( ABS( W12 ).GT.ABS( W11 ) ) THEN
+               if ( ABS( W12 ).GT.ABS( W11 ) ) {
                   ILPIVT = .TRUE.
                   TEMP = W12
                   TEMP2 = W22
@@ -779,7 +779,7 @@
                   W22 = W21
                   W11 = TEMP
                   W21 = TEMP2
-               END IF
+               }
 
                // LU-factor
 
@@ -791,12 +791,12 @@
                // Compute SCALE
 
                SCALE = ONE
-               IF( ABS( W22 ).LT.SAFMIN ) THEN
+               if ( ABS( W22 ).LT.SAFMIN ) {
                   SCALE = ZERO
                   U2 = ONE
                   U1 = -W12 / W11
                   GO TO 250
-               END IF
+               }
                IF( ABS( W22 ).LT.ABS( U2 ) ) SCALE = ABS( W22 / U2 )                IF( ABS( W11 ).LT.ABS( U1 ) ) SCALE = MIN( SCALE, ABS( W11 / U1 ) )
 
                // Solve
@@ -805,11 +805,11 @@
                U1 = ( SCALE*U1-W12*U2 ) / W11
 
   250          CONTINUE
-               IF( ILPIVT ) THEN
+               if ( ILPIVT ) {
                   TEMP = U2
                   U2 = U1
                   U1 = TEMP
-               END IF
+               }
 
                // Compute Householder Vector
 
@@ -836,14 +836,14 @@
                   T( JR, J+1 ) = T( JR, J+1 ) - TEMP*T2
                   T( JR, J+2 ) = T( JR, J+2 ) - TEMP*T3
   270          CONTINUE
-               IF( ILZ ) THEN
+               if ( ILZ ) {
                   DO 280 JR = 1, N
                      TEMP = Z( JR, J )+V( 2 )*Z( JR, J+1 )+V( 3 )* Z( JR, J+2 )
                      Z( JR, J ) = Z( JR, J ) - TEMP*TAU
                      Z( JR, J+1 ) = Z( JR, J+1 ) - TEMP*T2
                      Z( JR, J+2 ) = Z( JR, J+2 ) - TEMP*T3
   280             CONTINUE
-               END IF
+               }
                T( J+1, J ) = ZERO
                T( J+2, J ) = ZERO
   290       CONTINUE
@@ -865,13 +865,13 @@
                T( J+1, JC ) = -S*T( J, JC ) + C*T( J+1, JC )
                T( J, JC ) = TEMP2
   300       CONTINUE
-            IF( ILQ ) THEN
+            if ( ILQ ) {
                DO 310 JR = 1, N
                   TEMP = C*Q( JR, J ) + S*Q( JR, J+1 )
                   Q( JR, J+1 ) = -S*Q( JR, J ) + C*Q( JR, J+1 )
                   Q( JR, J ) = TEMP
   310          CONTINUE
-            END IF
+            }
 
             // Rotations from the right.
 
@@ -889,17 +889,17 @@
                T( JR, J ) = -S*T( JR, J+1 ) + C*T( JR, J )
                T( JR, J+1 ) = TEMP
   330       CONTINUE
-            IF( ILZ ) THEN
+            if ( ILZ ) {
                DO 340 JR = 1, N
                   TEMP = C*Z( JR, J+1 ) + S*Z( JR, J )
                   Z( JR, J ) = -S*Z( JR, J+1 ) + C*Z( JR, J )
                   Z( JR, J+1 ) = TEMP
   340          CONTINUE
-            END IF
+            }
 
             // End of Double-Shift code
 
-         END IF
+         }
 
          GO TO 350
 
@@ -920,8 +920,8 @@
       // Set Eigenvalues 1:ILO-1
 
       DO 410 J = 1, ILO - 1
-         IF( T( J, J ).LT.ZERO ) THEN
-            IF( ILSCHR ) THEN
+         if ( T( J, J ).LT.ZERO ) {
+            if ( ILSCHR ) {
                DO 390 JR = 1, J
                   H( JR, J ) = -H( JR, J )
                   T( JR, J ) = -T( JR, J )
@@ -929,13 +929,13 @@
             } else {
                H( J, J ) = -H( J, J )
                T( J, J ) = -T( J, J )
-            END IF
-            IF( ILZ ) THEN
+            }
+            if ( ILZ ) {
                DO 400 JR = 1, N
                   Z( JR, J ) = -Z( JR, J )
   400          CONTINUE
-            END IF
-         END IF
+            }
+         }
          ALPHAR( J ) = H( J, J )
          ALPHAI( J ) = ZERO
          BETA( J ) = T( J, J )

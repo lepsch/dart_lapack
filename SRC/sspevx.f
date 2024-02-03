@@ -47,52 +47,52 @@
       INDEIG = LSAME( RANGE, 'I' )
 
       INFO = 0
-      IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) THEN
+      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
          INFO = -2
-      ELSE IF( .NOT.( LSAME( UPLO, 'L' ) .OR. LSAME( UPLO, 'U' ) ) ) THEN
+      } else if ( .NOT.( LSAME( UPLO, 'L' ) .OR. LSAME( UPLO, 'U' ) ) ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
       } else {
-         IF( VALEIG ) THEN
+         if ( VALEIG ) {
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -7
-         ELSE IF( INDEIG ) THEN
-            IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
+         } else if ( INDEIG ) {
+            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -8
-            ELSE IF( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) THEN
+            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
                INFO = -9
-            END IF
-         END IF
-      END IF
-      IF( INFO.EQ.0 ) THEN
+            }
+         }
+      }
+      if ( INFO.EQ.0 ) {
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -14
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SSPEVX', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       M = 0
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
-         IF( ALLEIG .OR. INDEIG ) THEN
+      if ( N.EQ.1 ) {
+         if ( ALLEIG .OR. INDEIG ) {
             M = 1
             W( 1 ) = AP( 1 )
          } else {
-            IF( VL.LT.AP( 1 ) .AND. VU.GE.AP( 1 ) ) THEN
+            if ( VL.LT.AP( 1 ) .AND. VU.GE.AP( 1 ) ) {
                M = 1
                W( 1 ) = AP( 1 )
-            END IF
-         END IF
+            }
+         }
          IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -107,7 +107,7 @@
 
       ISCALE = 0
       ABSTLL = ABSTOL
-      IF ( VALEIG ) THEN
+      if ( VALEIG ) {
          VLL = VL
          VUU = VU
       } else {
@@ -115,21 +115,21 @@
          VUU = ZERO
       ENDIF
       ANRM = SLANSP( 'M', UPLO, N, AP, WORK )
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
-      ELSE IF( ANRM.GT.RMAX ) THEN
+      } else if ( ANRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / ANRM
-      END IF
-      IF( ISCALE.EQ.1 ) THEN
+      }
+      if ( ISCALE.EQ.1 ) {
          CALL SSCAL( ( N*( N+1 ) ) / 2, SIGMA, AP, 1 )
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
-         IF( VALEIG ) THEN
+         if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA
-         END IF
-      END IF
+         }
+      }
 
       // Call SSPTRD to reduce symmetric packed matrix to tridiagonal form.
 
@@ -144,95 +144,95 @@
       // for some eigenvalue, then try SSTEBZ.
 
       TEST = .FALSE.
-      IF (INDEIG) THEN
-         IF (IL.EQ.1 .AND. IU.EQ.N) THEN
+      if (INDEIG) {
+         if (IL.EQ.1 .AND. IU.EQ.N) {
             TEST = .TRUE.
-         END IF
-      END IF
-      IF ((ALLEIG .OR. TEST) .AND. (ABSTOL.LE.ZERO)) THEN
+         }
+      }
+      if ((ALLEIG .OR. TEST) .AND. (ABSTOL.LE.ZERO)) {
          CALL SCOPY( N, WORK( INDD ), 1, W, 1 )
          INDEE = INDWRK + 2*N
-         IF( .NOT.WANTZ ) THEN
+         if ( .NOT.WANTZ ) {
             CALL SCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
             CALL SSTERF( N, W, WORK( INDEE ), INFO )
          } else {
             CALL SOPGTR( UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
             CALL SCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
             CALL SSTEQR( JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO )
-            IF( INFO.EQ.0 ) THEN
+            if ( INFO.EQ.0 ) {
                DO 10 I = 1, N
                   IFAIL( I ) = 0
    10          CONTINUE
-            END IF
-         END IF
-         IF( INFO.EQ.0 ) THEN
+            }
+         }
+         if ( INFO.EQ.0 ) {
             M = N
             GO TO 20
-         END IF
+         }
          INFO = 0
-      END IF
+      }
 
       // Otherwise, call SSTEBZ and, if eigenvectors are desired, SSTEIN.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          ORDER = 'B'
       } else {
          ORDER = 'E'
-      END IF
+      }
       INDISP = 1 + N
       INDIWO = INDISP + N
       CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
 
          // Apply orthogonal matrix used in reduction to tridiagonal
          // form to eigenvectors returned by SSTEIN.
 
          CALL SOPMTR( 'L', UPLO, 'N', N, M, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
    20 CONTINUE
-      IF( ISCALE.EQ.1 ) THEN
-         IF( INFO.EQ.0 ) THEN
+      if ( ISCALE.EQ.1 ) {
+         if ( INFO.EQ.0 ) {
             IMAX = M
          } else {
             IMAX = INFO - 1
-         END IF
+         }
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
-      END IF
+      }
 
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          DO 40 J = 1, M - 1
             I = 0
             TMP1 = W( J )
             DO 30 JJ = J + 1, M
-               IF( W( JJ ).LT.TMP1 ) THEN
+               if ( W( JJ ).LT.TMP1 ) {
                   I = JJ
                   TMP1 = W( JJ )
-               END IF
+               }
    30       CONTINUE
 
-            IF( I.NE.0 ) THEN
+            if ( I.NE.0 ) {
                ITMP1 = IWORK( 1 + I-1 )
                W( I ) = W( J )
                IWORK( 1 + I-1 ) = IWORK( 1 + J-1 )
                W( J ) = TMP1
                IWORK( 1 + J-1 ) = ITMP1
                CALL SSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )
                   IFAIL( J ) = ITMP1
-               END IF
-            END IF
+               }
+            }
    40    CONTINUE
-      END IF
+      }
 
       RETURN
 

@@ -34,7 +34,7 @@
 
       IF( M.LE.0 .OR. N.LE.0 ) RETURN
 
-      IF( M.GE.N ) THEN
+      if ( M.GE.N ) {
 
          // Reduce to upper bidiagonal form
 
@@ -52,7 +52,7 @@
             ALPHA = A( I, I )
             CALL ZLARFG( M-I+1, ALPHA, A( MIN( I+1, M ), I ), 1, TAUQ( I ) )
             D( I ) = DBLE( ALPHA )
-            IF( I.LT.N ) THEN
+            if ( I.LT.N ) {
                A( I, I ) = ONE
 
                // Compute Y(i+1:n,i)
@@ -83,7 +83,7 @@
                CALL ZGEMV( 'No transpose', M-I, I, -ONE, A( I+1, 1 ), LDA, X( 1, I ), 1, ONE, X( I+1, I ), 1 )                CALL ZGEMV( 'No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, ZERO, X( 1, I ), 1 )                CALL ZGEMV( 'No transpose', M-I, I-1, -ONE, X( I+1, 1 ), LDX, X( 1, I ), 1, ONE, X( I+1, I ), 1 )
                CALL ZSCAL( M-I, TAUP( I ), X( I+1, I ), 1 )
                CALL ZLACGV( N-I, A( I, I+1 ), LDA )
-            END IF
+            }
    10    CONTINUE
       } else {
 
@@ -106,7 +106,7 @@
             ALPHA = A( I, I )
             CALL ZLARFG( N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAUP( I ) )
             D( I ) = DBLE( ALPHA )
-            IF( I.LT.M ) THEN
+            if ( I.LT.M ) {
                A( I, I ) = ONE
 
                // Compute X(i+1:m,i)
@@ -136,9 +136,9 @@
                CALL ZSCAL( N-I, TAUQ( I ), Y( I+1, I ), 1 )
             } else {
                CALL ZLACGV( N-I+1, A( I, I ), LDA )
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of ZLABRD

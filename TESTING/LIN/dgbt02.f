@@ -38,16 +38,16 @@
 
       // Quick return if N = 0 pr NRHS = 0
 
-      IF( M.LE.0 .OR. N.LE.0 .OR. NRHS.LE.0 ) THEN
+      if ( M.LE.0 .OR. N.LE.0 .OR. NRHS.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZERO
-      IF( LSAME( TRANS, 'N' ) ) THEN
+      if ( LSAME( TRANS, 'N' ) ) {
 
          // Find norm1(A).
 
@@ -55,10 +55,10 @@
          DO 10 J = 1, N
             I1 = MAX( KD+1-J, 1 )
             I2 = MIN( KD+M-J, KL+KD )
-            IF( I2.GE.I1 ) THEN
+            if ( I2.GE.I1 ) {
                TEMP = DASUM( I2-I1+1, A( I1, J ), 1 )
                IF( ANORM.LT.TEMP .OR. DISNAN( TEMP ) ) ANORM = TEMP
-            END IF
+            }
    10    CONTINUE
       } else {
 
@@ -77,17 +77,17 @@
             TEMP = RWORK( I1 )
             IF( ANORM.LT.TEMP .OR. DISNAN( TEMP ) ) ANORM = TEMP
    18    CONTINUE
-      END IF
-      IF( ANORM.LE.ZERO ) THEN
+      }
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
-      IF( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) THEN
+      if ( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) {
          N1 = N
       } else {
          N1 = M
-      END IF
+      }
 
       // Compute B - op(A)*X
 
@@ -102,11 +102,11 @@
       DO 30 J = 1, NRHS
          BNORM = DASUM( N1, B( 1, J ), 1 )
          XNORM = DASUM( N1, X( 1, J ), 1 )
-         IF( XNORM.LE.ZERO ) THEN
+         if ( XNORM.LE.ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
-         END IF
+         }
    30 CONTINUE
 
       RETURN

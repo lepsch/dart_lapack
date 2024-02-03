@@ -56,65 +56,65 @@
 
 
       INFO = 0
-      IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) THEN
+      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
       } else {
-         IF( VALEIG ) THEN
+         if ( VALEIG ) {
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -7
-         ELSE IF( INDEIG ) THEN
-            IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
+         } else if ( INDEIG ) {
+            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -8
-            ELSE IF( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) THEN
+            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
                INFO = -9
-            END IF
-         END IF
-      END IF
-      IF( INFO.EQ.0 ) THEN
-         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) THEN
+            }
+         }
+      }
+      if ( INFO.EQ.0 ) {
+         if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
             INFO = -14
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          IWORK( 1 ) = LIWMIN
 
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
             INFO = -17
-         ELSE IF( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) THEN
+         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
             INFO = -19
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SSTEVR', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       M = 0
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
-         IF( ALLEIG .OR. INDEIG ) THEN
+      if ( N.EQ.1 ) {
+         if ( ALLEIG .OR. INDEIG ) {
             M = 1
             W( 1 ) = D( 1 )
          } else {
-            IF( VL.LT.D( 1 ) .AND. VU.GE.D( 1 ) ) THEN
+            if ( VL.LT.D( 1 ) .AND. VU.GE.D( 1 ) ) {
                M = 1
                W( 1 ) = D( 1 )
-            END IF
-         END IF
+            }
+         }
          IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -129,27 +129,27 @@
       // Scale matrix to allowable range, if necessary.
 
       ISCALE = 0
-      IF( VALEIG ) THEN
+      if ( VALEIG ) {
          VLL = VL
          VUU = VU
-      END IF
+      }
 
       TNRM = SLANST( 'M', N, D, E )
-      IF( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) THEN
+      if ( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / TNRM
-      ELSE IF( TNRM.GT.RMAX ) THEN
+      } else if ( TNRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / TNRM
-      END IF
-      IF( ISCALE.EQ.1 ) THEN
+      }
+      if ( ISCALE.EQ.1 ) {
          CALL SSCAL( N, SIGMA, D, 1 )
          CALL SSCAL( N-1, SIGMA, E( 1 ), 1 )
-         IF( VALEIG ) THEN
+         if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA
-         END IF
-      END IF
+         }
+      }
 
       // Initialize indices into workspaces.  Note: These indices are used only
       // if SSTERF or SSTEMR fail.
@@ -174,79 +174,79 @@
 
 
       TEST = .FALSE.
-      IF( INDEIG ) THEN
-         IF( IL.EQ.1 .AND. IU.EQ.N ) THEN
+      if ( INDEIG ) {
+         if ( IL.EQ.1 .AND. IU.EQ.N ) {
             TEST = .TRUE.
-         END IF
-      END IF
-      IF( ( ALLEIG .OR. TEST ) .AND. IEEEOK.EQ.1 ) THEN
+         }
+      }
+      if ( ( ALLEIG .OR. TEST ) .AND. IEEEOK.EQ.1 ) {
          CALL SCOPY( N-1, E( 1 ), 1, WORK( 1 ), 1 )
-         IF( .NOT.WANTZ ) THEN
+         if ( .NOT.WANTZ ) {
             CALL SCOPY( N, D, 1, W, 1 )
             CALL SSTERF( N, W, WORK, INFO )
          } else {
             CALL SCOPY( N, D, 1, WORK( N+1 ), 1 )
-            IF (ABSTOL .LE. TWO*N*EPS) THEN
+            if (ABSTOL .LE. TWO*N*EPS) {
                TRYRAC = .TRUE.
             } else {
                TRYRAC = .FALSE.
-            END IF
+            }
             CALL SSTEMR( JOBZ, 'A', N, WORK( N+1 ), WORK, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( 2*N+1 ), LWORK-2*N, IWORK, LIWORK, INFO )
 
-         END IF
-         IF( INFO.EQ.0 ) THEN
+         }
+         if ( INFO.EQ.0 ) {
             M = N
             GO TO 10
-         END IF
+         }
          INFO = 0
-      END IF
+      }
 
       // Otherwise, call SSTEBZ and, if eigenvectors are desired, SSTEIN.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          ORDER = 'B'
       } else {
          ORDER = 'E'
-      END IF
+      }
        CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK, IWORK( INDIWO ), INFO )
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          CALL SSTEIN( N, D, E, M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK, IWORK( INDIWO ), IWORK( INDIFL ), INFO )
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
    10 CONTINUE
-      IF( ISCALE.EQ.1 ) THEN
-         IF( INFO.EQ.0 ) THEN
+      if ( ISCALE.EQ.1 ) {
+         if ( INFO.EQ.0 ) {
             IMAX = M
          } else {
             IMAX = INFO - 1
-         END IF
+         }
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
-      END IF
+      }
 
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          DO 30 J = 1, M - 1
             I = 0
             TMP1 = W( J )
             DO 20 JJ = J + 1, M
-               IF( W( JJ ).LT.TMP1 ) THEN
+               if ( W( JJ ).LT.TMP1 ) {
                   I = JJ
                   TMP1 = W( JJ )
-               END IF
+               }
    20       CONTINUE
 
-            IF( I.NE.0 ) THEN
+            if ( I.NE.0 ) {
                W( I ) = W( J )
                W( J ) = TMP1
                CALL SSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
-            END IF
+            }
    30    CONTINUE
-      END IF
+      }
 
        // Causes problems with tests 19 & 20:
        // IF (wantz .and. INDEIG ) Z( 1,1) = Z(1,1) / 1.002 + .002

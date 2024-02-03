@@ -98,19 +98,19 @@
       MMAX = 0
       NSMAX = 0
       DO I = 1, NM
-         IF ( MVAL( I ).GT.MMAX ) THEN
+         if ( MVAL( I ).GT.MMAX ) {
             MMAX = MVAL( I )
-         END IF
+         }
       ENDDO
       DO I = 1, NN
-         IF ( NVAL( I ).GT.NMAX ) THEN
+         if ( NVAL( I ).GT.NMAX ) {
             NMAX = NVAL( I )
-         END IF
+         }
       ENDDO
       DO I = 1, NNS
-         IF ( NSVAL( I ).GT.NSMAX ) THEN
+         if ( NSVAL( I ).GT.NSMAX ) {
             NSMAX = NSVAL( I )
-         END IF
+         }
       ENDDO
       M = MMAX
       N = NMAX
@@ -139,14 +139,14 @@
                DO IRANK = 1, 2
                   DO ISCALE = 1, 3
                      ITYPE = ( IRANK-1 )*3 + ISCALE
-                     IF( DOTYPE( ITYPE ) ) THEN
-                        IF( IRANK.EQ.1 ) THEN
+                     if ( DOTYPE( ITYPE ) ) {
+                        if ( IRANK.EQ.1 ) {
                            DO ITRAN = 1, 2
-                              IF( ITRAN.EQ.1 ) THEN
+                              if ( ITRAN.EQ.1 ) {
                                  TRANS = 'N'
                               } else {
                                  TRANS = 'T'
-                              END IF
+                              }
 
                               // Compute workspace needed for DGELS
                               CALL DGELS( TRANS, M, N, NRHS, A, LDA, B, LDB, WQ, -1, INFO )
@@ -158,7 +158,7 @@
                               CALL DGETSLS( TRANS, M, N, NRHS, A, LDA, B, LDB, WQ, -1, INFO )
                               LWORK_DGETSLS = INT( WQ ( 1 ) )
                            ENDDO
-                        END IF
+                        }
                         // Compute workspace needed for DGELSY
                         CALL DGELSY( M, N, NRHS, A, LDA, B, LDB, IWQ, RCOND, CRANK, WQ, -1, INFO )
                         LWORK_DGELSY = INT( WQ ( 1 ) )
@@ -172,7 +172,7 @@
                         LIWORK = MAX( LIWORK, N, IWQ( 1 ) )
                         // Compute LWORK workspace needed for all functions
                         LWORK = MAX( LWORK, LWORK_DGELS, LWORK_DGELST, LWORK_DGETSLS, LWORK_DGELSY, LWORK_DGELSS, LWORK_DGELSD )
-                     END IF
+                     }
                   ENDDO
                ENDDO
             ENDDO
@@ -204,7 +204,7 @@
                   // =====================================================
                         // Begin test DGELS
                   // =====================================================
-                     IF( IRANK.EQ.1 ) THEN
+                     if ( IRANK.EQ.1 ) {
 
                         // Generate a matrix of scaling type ISCALE
 
@@ -220,7 +220,7 @@
                            // Loop for testing non-transposed and transposed.
 
                            DO ITRAN = 1, 2
-                              IF( ITRAN.EQ.1 ) THEN
+                              if ( ITRAN.EQ.1 ) {
                                  TRANS = 'N'
                                  NROWS = M
                                  NCOLS = N
@@ -228,22 +228,22 @@
                                  TRANS = 'T'
                                  NROWS = N
                                  NCOLS = M
-                              END IF
+                              }
                               LDWORK = MAX( 1, NCOLS )
 
                               // Set up a consistent rhs
 
-                              IF( NCOLS.GT.0 ) THEN
+                              if ( NCOLS.GT.0 ) {
                                  CALL DLARNV( 2, ISEED, NCOLS*NRHS, WORK )                                  CALL DSCAL( NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 )
-                              END IF
+                              }
                               CALL DGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB )
                               CALL DLACPY( 'Full', NROWS, NRHS, B, LDB, COPYB, LDB )
 
                               // Solve LS or overdetermined system
 
-                              IF( M.GT.0 .AND. N.GT.0 ) THEN
+                              if ( M.GT.0 .AND. N.GT.0 ) {
                                  CALL DLACPY( 'Full', M, N, COPYA, LDA, A, LDA )                                  CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB )
-                              END IF
+                              }
                               SRNAMT = 'DGELS '
                               CALL DGELS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
 
@@ -257,7 +257,7 @@
                               // Test 2: Check correctness of results
                               // for DGELS.
 
-                              IF( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) THEN
+                              if ( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) {
 
                                  // Solving LS system, compute:
                                  // r = norm((B- A*X)**T * A) /
@@ -269,28 +269,28 @@
                                  // Solving overdetermined system
 
                                  RESULT( 2 ) = DQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
-                              END IF
+                              }
 
                               // Print information about the tests that
                               // did not pass the threshold.
 
                               DO K = 1, 2
-                                 IF( RESULT( K ).GE.THRESH ) THEN
+                                 if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
                                     NFAIL = NFAIL + 1
-                                 END IF
+                                 }
                               END DO
                               NRUN = NRUN + 2
                            END DO
                         END DO
-                     END IF
+                     }
                   // =====================================================
                         // End test DGELS
                   // =====================================================
                   // =====================================================
                         // Begin test DGELST
                   // =====================================================
-                     IF( IRANK.EQ.1 ) THEN
+                     if ( IRANK.EQ.1 ) {
 
                         // Generate a matrix of scaling type ISCALE
 
@@ -305,7 +305,7 @@
                            // Loop for testing non-transposed and transposed.
 
                            DO ITRAN = 1, 2
-                              IF( ITRAN.EQ.1 ) THEN
+                              if ( ITRAN.EQ.1 ) {
                                  TRANS = 'N'
                                  NROWS = M
                                  NCOLS = N
@@ -313,22 +313,22 @@
                                  TRANS = 'T'
                                  NROWS = N
                                  NCOLS = M
-                              END IF
+                              }
                               LDWORK = MAX( 1, NCOLS )
 
                               // Set up a consistent rhs
 
-                              IF( NCOLS.GT.0 ) THEN
+                              if ( NCOLS.GT.0 ) {
                                  CALL DLARNV( 2, ISEED, NCOLS*NRHS, WORK )                                  CALL DSCAL( NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 )
-                              END IF
+                              }
                               CALL DGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB )
                               CALL DLACPY( 'Full', NROWS, NRHS, B, LDB, COPYB, LDB )
 
                               // Solve LS or overdetermined system
 
-                              IF( M.GT.0 .AND. N.GT.0 ) THEN
+                              if ( M.GT.0 .AND. N.GT.0 ) {
                                  CALL DLACPY( 'Full', M, N, COPYA, LDA, A, LDA )                                  CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB )
-                              END IF
+                              }
                               SRNAMT = 'DGELST'
                               CALL DGELST( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
 
@@ -342,7 +342,7 @@
                               // Test 4: Check correctness of results
                               // for DGELST.
 
-                              IF( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) THEN
+                              if ( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) {
 
                                  // Solving LS system, compute:
                                  // r = norm((B- A*X)**T * A) /
@@ -354,28 +354,28 @@
                                  // Solving overdetermined system
 
                                  RESULT( 4 ) = DQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
-                              END IF
+                              }
 
                               // Print information about the tests that
                               // did not pass the threshold.
 
                               DO K = 3, 4
-                                 IF( RESULT( K ).GE.THRESH ) THEN
+                                 if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
                                     NFAIL = NFAIL + 1
-                                 END IF
+                                 }
                               END DO
                               NRUN = NRUN + 2
                            END DO
                         END DO
-                     END IF
+                     }
                   // =====================================================
                         // End test DGELST
                   // =====================================================
                   // =====================================================
                         // Begin test DGETSLS
                   // =====================================================
-                     IF( IRANK.EQ.1 ) THEN
+                     if ( IRANK.EQ.1 ) {
 
                         // Generate a matrix of scaling type ISCALE
 
@@ -397,7 +397,7 @@
                               // and transposed.
 
                               DO ITRAN = 1, 2
-                                 IF( ITRAN.EQ.1 ) THEN
+                                 if ( ITRAN.EQ.1 ) {
                                     TRANS = 'N'
                                     NROWS = M
                                     NCOLS = N
@@ -405,22 +405,22 @@
                                     TRANS = 'T'
                                     NROWS = N
                                     NCOLS = M
-                                 END IF
+                                 }
                                  LDWORK = MAX( 1, NCOLS )
 
                                  // Set up a consistent rhs
 
-                                 IF( NCOLS.GT.0 ) THEN
+                                 if ( NCOLS.GT.0 ) {
                                     CALL DLARNV( 2, ISEED, NCOLS*NRHS, WORK )                                     CALL DSCAL( NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 )
-                                 END IF
+                                 }
                                  CALL DGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB )
                                  CALL DLACPY( 'Full', NROWS, NRHS, B, LDB, COPYB, LDB )
 
                                  // Solve LS or overdetermined system
 
-                                 IF( M.GT.0 .AND. N.GT.0 ) THEN
+                                 if ( M.GT.0 .AND. N.GT.0 ) {
                                     CALL DLACPY( 'Full', M, N, COPYA, LDA, A, LDA )                                     CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB )
-                                 END IF
+                                 }
                                  SRNAMT = 'DGETSLS'
                                  CALL DGETSLS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGETSLS', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
 
@@ -434,7 +434,7 @@
                               // Test 6: Check correctness of results
                               // for DGETSLS.
 
-                                 IF( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) THEN
+                                 if ( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) {
 
                                     // Solving LS system, compute:
                                     // r = norm((B- A*X)**T * A) /
@@ -446,22 +446,22 @@
                                     // Solving overdetermined system
 
                                     RESULT( 6 ) = DQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
-                                 END IF
+                                 }
 
                                  // Print information about the tests that
                                  // did not pass the threshold.
 
                                  DO K = 5, 6
-                                    IF( RESULT( K ).GE.THRESH ) THEN
+                                    if ( RESULT( K ).GE.THRESH ) {
                                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 ) TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K )
                                        NFAIL = NFAIL + 1
-                                    END IF
+                                    }
                                  END DO
                                  NRUN = NRUN + 2
                               END DO
                            END DO
                         END DO
-                     END IF
+                     }
                   // =====================================================
                         // End test DGETSLS
                   // =====================================================
@@ -540,12 +540,12 @@
 
                         // Test 11:  Compute relative error in svd
 
-                        IF( RANK.GT.0 ) THEN
+                        if ( RANK.GT.0 ) {
                            CALL DAXPY( MNMIN, -ONE, COPYS, 1, S, 1 )
                            RESULT( 11 ) = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) )
                         } else {
                            RESULT( 11 ) = ZERO
-                        END IF
+                        }
 
                         // Test 12:  Compute error in solution
 
@@ -581,12 +581,12 @@
 
                         // Test 15:  Compute relative error in svd
 
-                        IF( RANK.GT.0 ) THEN
+                        if ( RANK.GT.0 ) {
                            CALL DAXPY( MNMIN, -ONE, COPYS, 1, S, 1 )
                            RESULT( 15 ) = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) )
                         } else {
                            RESULT( 15 ) = ZERO
-                        END IF
+                        }
 
                         // Test 16:  Compute error in solution
 
@@ -606,10 +606,10 @@
                         // pass the threshold.
 
                         DO 90 K = 7, 18
-                           IF( RESULT( K ).GE.THRESH ) THEN
+                           if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K )
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
    90                   CONTINUE
                         NRUN = NRUN + 12
 

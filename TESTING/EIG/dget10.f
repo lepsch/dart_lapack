@@ -36,10 +36,10 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 .OR. N.LE.0 ) THEN
+      if ( M.LE.0 .OR. N.LE.0 ) {
          RESULT = ZERO
          RETURN
-      END IF
+      }
 
       UNFL = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
@@ -53,15 +53,15 @@
 
       ANORM = MAX( DLANGE( '1', M, N, A, LDA, WORK ), UNFL )
 
-      IF( ANORM.GT.WNORM ) THEN
+      if ( ANORM.GT.WNORM ) {
          RESULT = ( WNORM / ANORM ) / ( M*EPS )
       } else {
-         IF( ANORM.LT.ONE ) THEN
+         if ( ANORM.LT.ONE ) {
             RESULT = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*EPS )
          } else {
             RESULT = MIN( WNORM / ANORM, DBLE( M ) ) / ( M*EPS )
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

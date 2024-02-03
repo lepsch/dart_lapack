@@ -25,16 +25,16 @@
       IF (N.LT.1 .OR. INCX.LE.0) RETURN
       ICAMAX = 1
       IF (N.EQ.1) RETURN
-      IF (INCX.EQ.1) THEN
+      if (INCX.EQ.1) {
 
          // code for increment equal to 1
 
          SMAX = SCABS1(CX(1))
          DO I = 2,N
-            IF (SCABS1(CX(I)).GT.SMAX) THEN
+            if (SCABS1(CX(I)).GT.SMAX) {
                ICAMAX = I
                SMAX = SCABS1(CX(I))
-            END IF
+            }
          END DO
       } else {
 
@@ -44,13 +44,13 @@
          SMAX = SCABS1(CX(1))
          IX = IX + INCX
          DO I = 2,N
-            IF (SCABS1(CX(IX)).GT.SMAX) THEN
+            if (SCABS1(CX(IX)).GT.SMAX) {
                ICAMAX = I
                SMAX = SCABS1(CX(IX))
-            END IF
+            }
             IX = IX + INCX
          END DO
-      END IF
+      }
       RETURN
 
       // End of ICAMAX

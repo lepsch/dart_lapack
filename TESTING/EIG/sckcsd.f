@@ -77,14 +77,14 @@
 
             // Generate X
 
-            IF( IMAT.EQ.1 ) THEN
+            if ( IMAT.EQ.1 ) {
                CALL SLAROR( 'L', 'I', M, M, X, LDX, ISEED, WORK, IINFO )
-               IF( M .NE. 0 .AND. IINFO .NE. 0 ) THEN
+               if ( M .NE. 0 .AND. IINFO .NE. 0 ) {
                   WRITE( NOUT, FMT = 9999 ) M, IINFO
                   INFO = ABS( IINFO )
                   GO TO 20
-               END IF
-            ELSE IF( IMAT.EQ.2 ) THEN
+               }
+            } else if ( IMAT.EQ.2 ) {
                R = MIN( P, M-P, Q, M-Q )
                DO I = 1, R
                   THETA(I) = PIOVER2 * SLARND( 1, ISEED )
@@ -95,7 +95,7 @@
                      X(I+(J-1)*LDX) = X(I+(J-1)*LDX) + ORTH*SLARND(2,ISEED)
                   END DO
                END DO
-            ELSE IF( IMAT.EQ.3 ) THEN
+            } else if ( IMAT.EQ.3 ) {
                R = MIN( P, M-P, Q, M-Q )
                DO I = 1, R+1
                   THETA(I) = TEN**(-SLARND(1,ISEED)*GAPDIGIT)
@@ -111,11 +111,11 @@
                CALL SLASET( 'F', M, M, ZERO, ONE, X, LDX )
                DO I = 1, M
                   J = INT( SLARAN( ISEED ) * M ) + 1
-                  IF( J .NE. I ) THEN
+                  if ( J .NE. I ) {
                      CALL SROT( M, X(1+(I-1)*LDX), 1, X(1+(J-1)*LDX), 1, ZERO, ONE )
-                  END IF
+                  }
                END DO
-            END IF
+            }
 
             NT = 15
 
@@ -125,14 +125,14 @@
             // pass the threshold.
 
             DO 10 I = 1, NT
-               IF( RESULT( I ).GE.THRESH ) THEN
-                  IF( NFAIL.EQ.0 .AND. FIRSTT ) THEN
+               if ( RESULT( I ).GE.THRESH ) {
+                  if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                      FIRSTT = .FALSE.
                      CALL ALAHDG( NOUT, PATH )
-                  END IF
+                  }
                   WRITE( NOUT, FMT = 9998 )M, P, Q, IMAT, I, RESULT( I )
                   NFAIL = NFAIL + 1
-               END IF
+               }
    10       CONTINUE
             NRUN = NRUN + NT
    20    CONTINUE

@@ -31,19 +31,19 @@
       // Test the input parameters
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.LT.0 ) THEN
+      }
+      if ( INFO.LT.0 ) {
          CALL XERBLA( 'DGEBD2', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( M.GE.N ) THEN
+      if ( M.GE.N ) {
 
          // Reduce to upper bidiagonal form
 
@@ -60,7 +60,7 @@
             IF( I.LT.N ) CALL DLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAUQ( I ), A( I, I+1 ), LDA, WORK )
             A( I, I ) = D( I )
 
-            IF( I.LT.N ) THEN
+            if ( I.LT.N ) {
 
                // Generate elementary reflector G(i) to annihilate
                // A(i,i+2:n)
@@ -75,7 +75,7 @@
                A( I, I+1 ) = E( I )
             } else {
                TAUP( I ) = ZERO
-            END IF
+            }
    10    CONTINUE
       } else {
 
@@ -94,7 +94,7 @@
             IF( I.LT.M ) CALL DLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK )
             A( I, I ) = D( I )
 
-            IF( I.LT.M ) THEN
+            if ( I.LT.M ) {
 
                // Generate elementary reflector H(i) to annihilate
                // A(i+2:m,i)
@@ -109,9 +109,9 @@
                A( I+1, I ) = E( I )
             } else {
                TAUQ( I ) = ZERO
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of DGEBD2

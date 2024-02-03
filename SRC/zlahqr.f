@@ -57,10 +57,10 @@
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
-      IF( ILO.EQ.IHI ) THEN
+      if ( ILO.EQ.IHI ) {
          W( ILO ) = H( ILO, ILO )
          RETURN
-      END IF
+      }
 
       // ==== clear out the trash ====
       DO 10 J = ILO, IHI - 3
@@ -69,15 +69,15 @@
    10 CONTINUE
       IF( ILO.LE.IHI-2 ) H( IHI, IHI-2 ) = ZERO
       // ==== ensure that subdiagonal entries are real ====
-      IF( WANTT ) THEN
+      if ( WANTT ) {
          JLO = 1
          JHI = N
       } else {
          JLO = ILO
          JHI = IHI
-      END IF
+      }
       DO 20 I = ILO + 1, IHI
-         IF( DIMAG( H( I, I-1 ) ).NE.RZERO ) THEN
+         if ( DIMAG( H( I, I-1 ) ).NE.RZERO ) {
             // ==== The following redundant normalization
             // .    avoids problems with both gradual and
             // .    sudden underflow in ABS(H(I,I-1)) ====
@@ -86,7 +86,7 @@
             H( I, I-1 ) = ABS( H( I, I-1 ) )
             CALL ZSCAL( JHI-I+1, SC, H( I, I ), LDH )
             CALL ZSCAL( MIN( JHI, I+1 )-JLO+1, DCONJG( SC ), H( JLO, I ), 1 )             IF( WANTZ ) CALL ZSCAL( IHIZ-ILOZ+1, DCONJG( SC ), Z( ILOZ, I ), 1 )
-         END IF
+         }
    20 CONTINUE
 
       NH = IHI - ILO + 1
@@ -103,10 +103,10 @@
      t // o which transformations must be applied. If eigenvalues only are
       // being computed, I1 and I2 are set inside the main loop.
 
-      IF( WANTT ) THEN
+      if ( WANTT ) {
          I1 = 1
          I2 = N
-      END IF
+      }
 
       // ITMAX is the total number of QR iterations allowed.
 
@@ -138,29 +138,29 @@
          DO 40 K = I, L + 1, -1
             IF( CABS1( H( K, K-1 ) ).LE.SMLNUM ) GO TO 50
             TST = CABS1( H( K-1, K-1 ) ) + CABS1( H( K, K ) )
-            IF( TST.EQ.ZERO ) THEN
+            if ( TST.EQ.ZERO ) {
                IF( K-2.GE.ILO ) TST = TST + ABS( DBLE( H( K-1, K-2 ) ) )                IF( K+1.LE.IHI ) TST = TST + ABS( DBLE( H( K+1, K ) ) )
-            END IF
+            }
             // ==== The following is a conservative small subdiagonal
             // .    deflation criterion due to Ahues & Tisseur (LAWN 122,
             // .    1997). It has better mathematical foundation and
             // .    improves accuracy in some examples.  ====
-            IF( ABS( DBLE( H( K, K-1 ) ) ).LE.ULP*TST ) THEN
+            if ( ABS( DBLE( H( K, K-1 ) ) ).LE.ULP*TST ) {
                AB = MAX( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) )
                BA = MIN( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) )
                AA = MAX( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )                BB = MIN( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )
                S = AA + AB
                IF( BA*( AB / S ).LE.MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 50
-            END IF
+            }
    40    CONTINUE
    50    CONTINUE
          L = K
-         IF( L.GT.ILO ) THEN
+         if ( L.GT.ILO ) {
 
             // H(L,L-1) is negligible
 
             H( L, L-1 ) = ZERO
-         END IF
+         }
 
          // Exit from loop if a submatrix of order 1 has split off.
 
@@ -171,18 +171,18 @@
          // eigenvalues only are being computed, only the active submatrix
          // need be transformed.
 
-         IF( .NOT.WANTT ) THEN
+         if ( .NOT.WANTT ) {
             I1 = L
             I2 = I
-         END IF
+         }
 
-         IF( MOD(KDEFL,2*KEXSH).EQ.0 ) THEN
+         if ( MOD(KDEFL,2*KEXSH).EQ.0 ) {
 
             // Exceptional shift.
 
             S = DAT1*ABS( DBLE( H( I, I-1 ) ) )
             T = S + H( I, I )
-         ELSE IF( MOD(KDEFL,KEXSH).EQ.0 ) THEN
+         } else if ( MOD(KDEFL,KEXSH).EQ.0 ) {
 
             // Exceptional shift.
 
@@ -195,17 +195,17 @@
             T = H( I, I )
             U = SQRT( H( I-1, I ) )*SQRT( H( I, I-1 ) )
             S = CABS1( U )
-            IF( S.NE.RZERO ) THEN
+            if ( S.NE.RZERO ) {
                X = HALF*( H( I-1, I-1 )-T )
                SX = CABS1( X )
                S = MAX( S, CABS1( X ) )
                Y = S*SQRT( ( X / S )**2+( U / S )**2 )
-               IF( SX.GT.RZERO ) THEN
+               if ( SX.GT.RZERO ) {
                   IF( DBLE( X / SX )*DBLE( Y )+DIMAG( X / SX )* DIMAG( Y ).LT.RZERO )Y = -Y
-               END IF
+               }
                T = T - U*ZLADIV( U, ( X+Y ) )
-            END IF
-         END IF
+            }
+         }
 
          // Look for two consecutive small subdiagonal elements.
 
@@ -256,10 +256,10 @@
 
             IF( K.GT.M ) CALL ZCOPY( 2, H( K, K-1 ), 1, V, 1 )
             CALL ZLARFG( 2, V( 1 ), V( 2 ), 1, T1 )
-            IF( K.GT.M ) THEN
+            if ( K.GT.M ) {
                H( K, K-1 ) = V( 1 )
                H( K+1, K-1 ) = ZERO
-            END IF
+            }
             V2 = V( 2 )
             T2 = DBLE( T1*V2 )
 
@@ -281,7 +281,7 @@
                H( J, K+1 ) = H( J, K+1 ) - SUM*DCONJG( V2 )
    90       CONTINUE
 
-            IF( WANTZ ) THEN
+            if ( WANTZ ) {
 
                // Accumulate transformations in the matrix Z
 
@@ -290,9 +290,9 @@
                   Z( J, K ) = Z( J, K ) - SUM
                   Z( J, K+1 ) = Z( J, K+1 ) - SUM*DCONJG( V2 )
   100          CONTINUE
-            END IF
+            }
 
-            IF( K.EQ.M .AND. M.GT.L ) THEN
+            if ( K.EQ.M .AND. M.GT.L ) {
 
                // If the QR step was started at row M > L because two
                // consecutive small subdiagonals were found, then extra
@@ -304,30 +304,30 @@
                H( M+1, M ) = H( M+1, M )*DCONJG( TEMP )
                IF( M+2.LE.I ) H( M+2, M+1 ) = H( M+2, M+1 )*TEMP
                DO 110 J = M, I
-                  IF( J.NE.M+1 ) THEN
+                  if ( J.NE.M+1 ) {
                      IF( I2.GT.J ) CALL ZSCAL( I2-J, TEMP, H( J, J+1 ), LDH )
                      CALL ZSCAL( J-I1, DCONJG( TEMP ), H( I1, J ), 1 )
-                     IF( WANTZ ) THEN
+                     if ( WANTZ ) {
                         CALL ZSCAL( NZ, DCONJG( TEMP ), Z( ILOZ, J ), 1 )
-                     END IF
-                  END IF
+                     }
+                  }
   110          CONTINUE
-            END IF
+            }
   120    CONTINUE
 
          // Ensure that H(I,I-1) is real.
 
          TEMP = H( I, I-1 )
-         IF( DIMAG( TEMP ).NE.RZERO ) THEN
+         if ( DIMAG( TEMP ).NE.RZERO ) {
             RTEMP = ABS( TEMP )
             H( I, I-1 ) = RTEMP
             TEMP = TEMP / RTEMP
             IF( I2.GT.I ) CALL ZSCAL( I2-I, DCONJG( TEMP ), H( I, I+1 ), LDH )
             CALL ZSCAL( I-I1, TEMP, H( I1, I ), 1 )
-            IF( WANTZ ) THEN
+            if ( WANTZ ) {
                CALL ZSCAL( NZ, TEMP, Z( ILOZ, I ), 1 )
-            END IF
-         END IF
+            }
+         }
 
   130 CONTINUE
 

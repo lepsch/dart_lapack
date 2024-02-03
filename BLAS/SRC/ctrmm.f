@@ -40,37 +40,37 @@
       // Test the input parameters.
 
       LSIDE = LSAME(SIDE,'L')
-      IF (LSIDE) THEN
+      if (LSIDE) {
           NROWA = M
       } else {
           NROWA = N
-      END IF
+      }
       NOCONJ = LSAME(TRANSA,'T')
       NOUNIT = LSAME(DIAG,'N')
       UPPER = LSAME(UPLO,'U')
 
       INFO = 0
-      IF ((.NOT.LSIDE) .AND. (.NOT.LSAME(SIDE,'R'))) THEN
+      if ((.NOT.LSIDE) .AND. (.NOT.LSAME(SIDE,'R'))) {
           INFO = 1
-      ELSE IF ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) THEN
+      } else if ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) {
           INFO = 2
-      ELSE IF ((.NOT.LSAME(TRANSA,'N')) .AND. (.NOT.LSAME(TRANSA,'T')) .AND. (.NOT.LSAME(TRANSA,'C'))) THEN
+      } else if ((.NOT.LSAME(TRANSA,'N')) .AND. (.NOT.LSAME(TRANSA,'T')) .AND. (.NOT.LSAME(TRANSA,'C'))) {
           INFO = 3
-      ELSE IF ((.NOT.LSAME(DIAG,'U')) .AND. (.NOT.LSAME(DIAG,'N'))) THEN
+      } else if ((.NOT.LSAME(DIAG,'U')) .AND. (.NOT.LSAME(DIAG,'N'))) {
           INFO = 4
-      ELSE IF (M.LT.0) THEN
+      } else if (M.LT.0) {
           INFO = 5
-      ELSE IF (N.LT.0) THEN
+      } else if (N.LT.0) {
           INFO = 6
-      ELSE IF (LDA.LT.MAX(1,NROWA)) THEN
+      } else if (LDA.LT.MAX(1,NROWA)) {
           INFO = 9
-      ELSE IF (LDB.LT.MAX(1,M)) THEN
+      } else if (LDB.LT.MAX(1,M)) {
           INFO = 11
-      END IF
-      IF (INFO.NE.0) THEN
+      }
+      if (INFO.NE.0) {
           CALL XERBLA('CTRMM ',INFO)
           RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -78,58 +78,58 @@
 
       // And when  alpha.eq.zero.
 
-      IF (ALPHA.EQ.ZERO) THEN
+      if (ALPHA.EQ.ZERO) {
           DO 20 J = 1,N
               DO 10 I = 1,M
                   B(I,J) = ZERO
    10         CONTINUE
    20     CONTINUE
           RETURN
-      END IF
+      }
 
       // Start the operations.
 
-      IF (LSIDE) THEN
-          IF (LSAME(TRANSA,'N')) THEN
+      if (LSIDE) {
+          if (LSAME(TRANSA,'N')) {
 
             // Form  B := alpha*A*B.
 
-              IF (UPPER) THEN
+              if (UPPER) {
                   DO 50 J = 1,N
                       DO 40 K = 1,M
-                          IF (B(K,J).NE.ZERO) THEN
+                          if (B(K,J).NE.ZERO) {
                               TEMP = ALPHA*B(K,J)
                               DO 30 I = 1,K - 1
                                   B(I,J) = B(I,J) + TEMP*A(I,K)
    30                         CONTINUE
                               IF (NOUNIT) TEMP = TEMP*A(K,K)
                               B(K,J) = TEMP
-                          END IF
+                          }
    40                 CONTINUE
    50             CONTINUE
               } else {
                   DO 80 J = 1,N
                       DO 70 K = M,1,-1
-                          IF (B(K,J).NE.ZERO) THEN
+                          if (B(K,J).NE.ZERO) {
                               TEMP = ALPHA*B(K,J)
                               B(K,J) = TEMP
                               IF (NOUNIT) B(K,J) = B(K,J)*A(K,K)
                               DO 60 I = K + 1,M
                                   B(I,J) = B(I,J) + TEMP*A(I,K)
    60                         CONTINUE
-                          END IF
+                          }
    70                 CONTINUE
    80             CONTINUE
-              END IF
+              }
           } else {
 
             // Form  B := alpha*A**T*B   or   B := alpha*A**H*B.
 
-              IF (UPPER) THEN
+              if (UPPER) {
                   DO 120 J = 1,N
                       DO 110 I = M,1,-1
                           TEMP = B(I,J)
-                          IF (NOCONJ) THEN
+                          if (NOCONJ) {
                               IF (NOUNIT) TEMP = TEMP*A(I,I)
                               DO 90 K = 1,I - 1
                                   TEMP = TEMP + A(K,I)*B(K,J)
@@ -139,7 +139,7 @@
                               DO 100 K = 1,I - 1
                                   TEMP = TEMP + CONJG(A(K,I))*B(K,J)
   100                         CONTINUE
-                          END IF
+                          }
                           B(I,J) = ALPHA*TEMP
   110                 CONTINUE
   120             CONTINUE
@@ -147,7 +147,7 @@
                   DO 160 J = 1,N
                       DO 150 I = 1,M
                           TEMP = B(I,J)
-                          IF (NOCONJ) THEN
+                          if (NOCONJ) {
                               IF (NOUNIT) TEMP = TEMP*A(I,I)
                               DO 130 K = I + 1,M
                                   TEMP = TEMP + A(K,I)*B(K,J)
@@ -157,18 +157,18 @@
                               DO 140 K = I + 1,M
                                   TEMP = TEMP + CONJG(A(K,I))*B(K,J)
   140                         CONTINUE
-                          END IF
+                          }
                           B(I,J) = ALPHA*TEMP
   150                 CONTINUE
   160             CONTINUE
-              END IF
-          END IF
+              }
+          }
       } else {
-          IF (LSAME(TRANSA,'N')) THEN
+          if (LSAME(TRANSA,'N')) {
 
             // Form  B := alpha*B*A.
 
-              IF (UPPER) THEN
+              if (UPPER) {
                   DO 200 J = N,1,-1
                       TEMP = ALPHA
                       IF (NOUNIT) TEMP = TEMP*A(J,J)
@@ -176,12 +176,12 @@
                           B(I,J) = TEMP*B(I,J)
   170                 CONTINUE
                       DO 190 K = 1,J - 1
-                          IF (A(K,J).NE.ZERO) THEN
+                          if (A(K,J).NE.ZERO) {
                               TEMP = ALPHA*A(K,J)
                               DO 180 I = 1,M
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
   180                         CONTINUE
-                          END IF
+                          }
   190                 CONTINUE
   200             CONTINUE
               } else {
@@ -192,78 +192,78 @@
                           B(I,J) = TEMP*B(I,J)
   210                 CONTINUE
                       DO 230 K = J + 1,N
-                          IF (A(K,J).NE.ZERO) THEN
+                          if (A(K,J).NE.ZERO) {
                               TEMP = ALPHA*A(K,J)
                               DO 220 I = 1,M
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
   220                         CONTINUE
-                          END IF
+                          }
   230                 CONTINUE
   240             CONTINUE
-              END IF
+              }
           } else {
 
             // Form  B := alpha*B*A**T   or   B := alpha*B*A**H.
 
-              IF (UPPER) THEN
+              if (UPPER) {
                   DO 280 K = 1,N
                       DO 260 J = 1,K - 1
-                          IF (A(J,K).NE.ZERO) THEN
-                              IF (NOCONJ) THEN
+                          if (A(J,K).NE.ZERO) {
+                              if (NOCONJ) {
                                   TEMP = ALPHA*A(J,K)
                               } else {
                                   TEMP = ALPHA*CONJG(A(J,K))
-                              END IF
+                              }
                               DO 250 I = 1,M
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
   250                         CONTINUE
-                          END IF
+                          }
   260                 CONTINUE
                       TEMP = ALPHA
-                      IF (NOUNIT) THEN
-                          IF (NOCONJ) THEN
+                      if (NOUNIT) {
+                          if (NOCONJ) {
                               TEMP = TEMP*A(K,K)
                           } else {
                               TEMP = TEMP*CONJG(A(K,K))
-                          END IF
-                      END IF
-                      IF (TEMP.NE.ONE) THEN
+                          }
+                      }
+                      if (TEMP.NE.ONE) {
                           DO 270 I = 1,M
                               B(I,K) = TEMP*B(I,K)
   270                     CONTINUE
-                      END IF
+                      }
   280             CONTINUE
               } else {
                   DO 320 K = N,1,-1
                       DO 300 J = K + 1,N
-                          IF (A(J,K).NE.ZERO) THEN
-                              IF (NOCONJ) THEN
+                          if (A(J,K).NE.ZERO) {
+                              if (NOCONJ) {
                                   TEMP = ALPHA*A(J,K)
                               } else {
                                   TEMP = ALPHA*CONJG(A(J,K))
-                              END IF
+                              }
                               DO 290 I = 1,M
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
   290                         CONTINUE
-                          END IF
+                          }
   300                 CONTINUE
                       TEMP = ALPHA
-                      IF (NOUNIT) THEN
-                          IF (NOCONJ) THEN
+                      if (NOUNIT) {
+                          if (NOCONJ) {
                               TEMP = TEMP*A(K,K)
                           } else {
                               TEMP = TEMP*CONJG(A(K,K))
-                          END IF
-                      END IF
-                      IF (TEMP.NE.ONE) THEN
+                          }
+                      }
+                      if (TEMP.NE.ONE) {
                           DO 310 I = 1,M
                               B(I,K) = TEMP*B(I,K)
   310                     CONTINUE
-                      END IF
+                      }
   320             CONTINUE
-              END IF
-          END IF
-      END IF
+              }
+          }
+      }
 
       RETURN
 

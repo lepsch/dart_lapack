@@ -38,27 +38,27 @@
 
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGETRS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
 
          // Solve A * X = B.
 
@@ -88,7 +88,7 @@
          // Apply row interchanges to the solution vectors.
 
          CALL CLASWP( NRHS, B, LDB, 1, N, IPIV, -1 )
-      END IF
+      }
 
       RETURN
 

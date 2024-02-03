@@ -83,19 +83,19 @@
       // Test for successful reordering of T2
 
       CALL CCOPY( N, TMP, LDT+1, DIAG, 1 )
-      IF( IFST.LT.ILST ) THEN
+      if ( IFST.LT.ILST ) {
          DO 70 I = IFST + 1, ILST
             CTEMP = DIAG( I )
             DIAG( I ) = DIAG( I-1 )
             DIAG( I-1 ) = CTEMP
    70    CONTINUE
-      ELSE IF( IFST.GT.ILST ) THEN
+      } else if ( IFST.GT.ILST ) {
          DO 80 I = IFST - 1, ILST, -1
             CTEMP = DIAG( I+1 )
             DIAG( I+1 ) = DIAG( I )
             DIAG( I ) = CTEMP
    80    CONTINUE
-      END IF
+      }
       DO 90 I = 1, N
          IF( T2( I, I ).NE.DIAG( I ) ) RES = RES + ONE / EPS
    90 CONTINUE
@@ -112,10 +112,10 @@
             IF( T2( I, J ).NE.CZERO ) RES = RES + ONE / EPS
   100    CONTINUE
   110 CONTINUE
-      IF( RES.GT.RMAX ) THEN
+      if ( RES.GT.RMAX ) {
          RMAX = RES
          LMAX = KNT
-      END IF
+      }
       GO TO 10
 
       // End of CGET36

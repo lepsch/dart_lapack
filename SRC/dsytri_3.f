@@ -40,30 +40,30 @@
 
       // Determine the block size
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          LWKOPT = 1
       } else {
          NB = MAX( 1, ILAENV( 1, 'DSYTRI_3', UPLO, N, -1, -1, -1 ) )
          LWKOPT = ( N+NB+1 ) * ( NB+3 )
-      END IF
+      }
       WORK( 1 ) = LWKOPT
 
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( LWORK.LT.LWKOPT .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.LWKOPT .AND. .NOT.LQUERY ) {
          INFO = -8
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSYTRI_3', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 

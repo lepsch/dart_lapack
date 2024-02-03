@@ -37,23 +37,23 @@
       // Test the input parameters.
 
       INFO = 0
-      IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
+      if (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) {
           INFO = 1
-      ELSE IF (.NOT.LSAME(TRANS,'N') .AND. .NOT.LSAME(TRANS,'T') .AND. .NOT.LSAME(TRANS,'C')) THEN
+      } else if (.NOT.LSAME(TRANS,'N') .AND. .NOT.LSAME(TRANS,'T') .AND. .NOT.LSAME(TRANS,'C')) {
           INFO = 2
-      ELSE IF (.NOT.LSAME(DIAG,'U') .AND. .NOT.LSAME(DIAG,'N')) THEN
+      } else if (.NOT.LSAME(DIAG,'U') .AND. .NOT.LSAME(DIAG,'N')) {
           INFO = 3
-      ELSE IF (N.LT.0) THEN
+      } else if (N.LT.0) {
           INFO = 4
-      ELSE IF (LDA.LT.MAX(1,N)) THEN
+      } else if (LDA.LT.MAX(1,N)) {
           INFO = 6
-      ELSE IF (INCX.EQ.0) THEN
+      } else if (INCX.EQ.0) {
           INFO = 8
-      END IF
-      IF (INFO.NE.0) THEN
+      }
+      if (INFO.NE.0) {
           CALL XERBLA('STRSV ',INFO)
           RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -64,34 +64,34 @@
       // Set up the start point in X if the increment is not unity. This
       // will be  ( N - 1 )*INCX  too small for descending loops.
 
-      IF (INCX.LE.0) THEN
+      if (INCX.LE.0) {
           KX = 1 - (N-1)*INCX
-      ELSE IF (INCX.NE.1) THEN
+      } else if (INCX.NE.1) {
           KX = 1
-      END IF
+      }
 
       // Start the operations. In this version the elements of A are
       // accessed sequentially with one pass through A.
 
-      IF (LSAME(TRANS,'N')) THEN
+      if (LSAME(TRANS,'N')) {
 
          // Form  x := inv( A )*x.
 
-          IF (LSAME(UPLO,'U')) THEN
-              IF (INCX.EQ.1) THEN
+          if (LSAME(UPLO,'U')) {
+              if (INCX.EQ.1) {
                   DO 20 J = N,1,-1
-                      IF (X(J).NE.ZERO) THEN
+                      if (X(J).NE.ZERO) {
                           IF (NOUNIT) X(J) = X(J)/A(J,J)
                           TEMP = X(J)
                           DO 10 I = J - 1,1,-1
                               X(I) = X(I) - TEMP*A(I,J)
    10                     CONTINUE
-                      END IF
+                      }
    20             CONTINUE
               } else {
                   JX = KX + (N-1)*INCX
                   DO 40 J = N,1,-1
-                      IF (X(JX).NE.ZERO) THEN
+                      if (X(JX).NE.ZERO) {
                           IF (NOUNIT) X(JX) = X(JX)/A(J,J)
                           TEMP = X(JX)
                           IX = JX
@@ -99,25 +99,25 @@
                               IX = IX - INCX
                               X(IX) = X(IX) - TEMP*A(I,J)
    30                     CONTINUE
-                      END IF
+                      }
                       JX = JX - INCX
    40             CONTINUE
-              END IF
+              }
           } else {
-              IF (INCX.EQ.1) THEN
+              if (INCX.EQ.1) {
                   DO 60 J = 1,N
-                      IF (X(J).NE.ZERO) THEN
+                      if (X(J).NE.ZERO) {
                           IF (NOUNIT) X(J) = X(J)/A(J,J)
                           TEMP = X(J)
                           DO 50 I = J + 1,N
                               X(I) = X(I) - TEMP*A(I,J)
    50                     CONTINUE
-                      END IF
+                      }
    60             CONTINUE
               } else {
                   JX = KX
                   DO 80 J = 1,N
-                      IF (X(JX).NE.ZERO) THEN
+                      if (X(JX).NE.ZERO) {
                           IF (NOUNIT) X(JX) = X(JX)/A(J,J)
                           TEMP = X(JX)
                           IX = JX
@@ -125,17 +125,17 @@
                               IX = IX + INCX
                               X(IX) = X(IX) - TEMP*A(I,J)
    70                     CONTINUE
-                      END IF
+                      }
                       JX = JX + INCX
    80             CONTINUE
-              END IF
-          END IF
+              }
+          }
       } else {
 
          // Form  x := inv( A**T )*x.
 
-          IF (LSAME(UPLO,'U')) THEN
-              IF (INCX.EQ.1) THEN
+          if (LSAME(UPLO,'U')) {
+              if (INCX.EQ.1) {
                   DO 100 J = 1,N
                       TEMP = X(J)
                       DO 90 I = 1,J - 1
@@ -157,9 +157,9 @@
                       X(JX) = TEMP
                       JX = JX + INCX
   120             CONTINUE
-              END IF
+              }
           } else {
-              IF (INCX.EQ.1) THEN
+              if (INCX.EQ.1) {
                   DO 140 J = N,1,-1
                       TEMP = X(J)
                       DO 130 I = N,J + 1,-1
@@ -182,9 +182,9 @@
                       X(JX) = TEMP
                       JX = JX - INCX
   160             CONTINUE
-              END IF
-          END IF
-      END IF
+              }
+          }
+      }
 
       RETURN
 

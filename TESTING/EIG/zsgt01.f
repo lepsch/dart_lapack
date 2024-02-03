@@ -43,7 +43,7 @@
 
       ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )* ZLANGE( '1', N, M, Z, LDZ, RWORK )       IF( ANORM.EQ.ZERO ) ANORM = ONE
 
-      IF( ITYPE.EQ.1 ) THEN
+      if ( ITYPE.EQ.1 ) {
 
          // Norm of AZ - BZD
 
@@ -55,7 +55,7 @@
 
          RESULT( 1 ) = ( ZLANGE( '1', N, M, WORK, N, RWORK ) / ANORM ) / ( N*ULP )
 
-      ELSE IF( ITYPE.EQ.2 ) THEN
+      } else if ( ITYPE.EQ.2 ) {
 
          // Norm of ABZ - ZD
 
@@ -67,7 +67,7 @@
 
          RESULT( 1 ) = ( ZLANGE( '1', N, M, Z, LDZ, RWORK ) / ANORM ) / ( N*ULP )
 
-      ELSE IF( ITYPE.EQ.3 ) THEN
+      } else if ( ITYPE.EQ.3 ) {
 
          // Norm of BAZ - ZD
 
@@ -78,7 +78,7 @@
          CALL ZHEMM( 'Left', UPLO, N, M, CONE, B, LDB, WORK, N, -CONE, Z, LDZ )
 
          RESULT( 1 ) = ( ZLANGE( '1', N, M, Z, LDZ, RWORK ) / ANORM ) / ( N*ULP )
-      END IF
+      }
 
       RETURN
 

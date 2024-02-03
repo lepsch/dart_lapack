@@ -61,11 +61,11 @@
       // Check for scaling
 
       I = ISAMAX( N, RHS, 1 )
-      IF( TWO*SMLNUM*ABS( RHS( I ) ).GT.ABS( A( N, N ) ) ) THEN
+      if ( TWO*SMLNUM*ABS( RHS( I ) ).GT.ABS( A( N, N ) ) ) {
          TEMP = ( ONE / TWO ) / ABS( RHS( I ) )
          CALL SSCAL( N, TEMP, RHS( 1 ), 1 )
          SCALE = SCALE*TEMP
-      END IF
+      }
 
       DO 40 I = N, 1, -1
          TEMP = ONE / A( I, I )

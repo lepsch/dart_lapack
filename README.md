@@ -91,7 +91,27 @@ find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^      ([ ]*)END$/  
 
 ### ELSE -> } else {
 ```
+^(\s+)ELSE$
+$1} else {
+```
 
+### END IF -> }
+```
+^(\s+)END IF$
+$1}
+```
+
+### IF ... THEN -> if ... {
+```
+^(\s+)(IF)\s*(.*?)\s*THEN$
+$1if $3 {
+```
+
+### ELSE IF ... THEN -> } else if ... {
+```
+^(\s+)(ELSE IF)\s*(.*?)\s*THEN$
+$1} else if $3 {
+```
 
 # LAPACK
 

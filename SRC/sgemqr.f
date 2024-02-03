@@ -43,73 +43,73 @@
 
       MB = INT( T( 2 ) )
       NB = INT( T( 3 ) )
-      IF( LEFT ) THEN
+      if ( LEFT ) {
         LW = N * NB
         MN = M
       } else {
         LW = MB * NB
         MN = N
-      END IF
+      }
 
       MINMNK = MIN( M, N, K )
-      IF( MINMNK.EQ.0 ) THEN
+      if ( MINMNK.EQ.0 ) {
          LWMIN = 1
       } else {
          LWMIN = MAX( 1, LW )
-      END IF
+      }
 
-      IF( ( MB.GT.K ) .AND. ( MN.GT.K ) ) THEN
-        IF( MOD( MN - K, MB - K ).EQ.0 ) THEN
+      if ( ( MB.GT.K ) .AND. ( MN.GT.K ) ) {
+        if ( MOD( MN - K, MB - K ).EQ.0 ) {
           NBLCKS = ( MN - K ) / ( MB - K )
         } else {
           NBLCKS = ( MN - K ) / ( MB - K ) + 1
-        END IF
+        }
       } else {
         NBLCKS = 1
-      END IF
+      }
 
       INFO = 0
-      IF( .NOT.LEFT .AND. .NOT.RIGHT ) THEN
+      if ( .NOT.LEFT .AND. .NOT.RIGHT ) {
         INFO = -1
-      ELSE IF( .NOT.TRAN .AND. .NOT.NOTRAN ) THEN
+      } else if ( .NOT.TRAN .AND. .NOT.NOTRAN ) {
         INFO = -2
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
         INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
         INFO = -4
-      ELSE IF( K.LT.0 .OR. K.GT.MN ) THEN
+      } else if ( K.LT.0 .OR. K.GT.MN ) {
         INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, MN ) ) THEN
+      } else if ( LDA.LT.MAX( 1, MN ) ) {
         INFO = -7
-      ELSE IF( TSIZE.LT.5 ) THEN
+      } else if ( TSIZE.LT.5 ) {
         INFO = -9
-      ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+      } else if ( LDC.LT.MAX( 1, M ) ) {
         INFO = -11
-      ELSE IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
         INFO = -13
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
         WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
         CALL XERBLA( 'SGEMQR', -INFO )
         RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
         RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( MINMNK.EQ.0 ) THEN
+      if ( MINMNK.EQ.0 ) {
         RETURN
-      END IF
+      }
 
       IF( ( LEFT .AND. M.LE.K ) .OR. ( RIGHT .AND. N.LE.K ) .OR. ( MB.LE.K ) .OR. ( MB.GE.MAX( M, N, K ) ) ) THEN         CALL SGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, INFO )
       } else {
         CALL SLAMTSQR( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, LWORK, INFO )
-      END IF
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
 

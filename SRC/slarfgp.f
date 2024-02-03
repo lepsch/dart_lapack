@@ -34,19 +34,19 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          TAU = ZERO
          RETURN
-      END IF
+      }
 
       EPS = SLAMCH( 'Precision' )
       XNORM = SNRM2( N-1, X, INCX )
 
-      IF( XNORM.LE.EPS*ABS(ALPHA) ) THEN
+      if ( XNORM.LE.EPS*ABS(ALPHA) ) {
 
          // H  =  [+/-1, 0; I], sign chosen so ALPHA >= 0.
 
-         IF( ALPHA.GE.ZERO ) THEN
+         if ( ALPHA.GE.ZERO ) {
             // When TAU.eq.ZERO, the vector is special-cased to be
             // all zeros in the application routines.  We do not need
            t // o clear it.
@@ -59,7 +59,7 @@
                X( 1 + (J-1)*INCX ) = 0
             END DO
             ALPHA = -ALPHA
-         END IF
+         }
       } else {
 
          // general case
@@ -67,7 +67,7 @@
          BETA = SIGN( SLAPY2( ALPHA, XNORM ), ALPHA )
          SMLNUM = SLAMCH( 'S' ) / SLAMCH( 'E' )
          KNT = 0
-         IF( ABS( BETA ).LT.SMLNUM ) THEN
+         if ( ABS( BETA ).LT.SMLNUM ) {
 
             // XNORM, BETA may be inaccurate; scale X and recompute them
 
@@ -83,19 +83,19 @@
 
             XNORM = SNRM2( N-1, X, INCX )
             BETA = SIGN( SLAPY2( ALPHA, XNORM ), ALPHA )
-         END IF
+         }
          SAVEALPHA = ALPHA
          ALPHA = ALPHA + BETA
-         IF( BETA.LT.ZERO ) THEN
+         if ( BETA.LT.ZERO ) {
             BETA = -BETA
             TAU = -ALPHA / BETA
          } else {
             ALPHA = XNORM * (XNORM/ALPHA)
             TAU = ALPHA / BETA
             ALPHA = -ALPHA
-         END IF
+         }
 
-         IF ( ABS(TAU).LE.SMLNUM ) THEN
+         if ( ABS(TAU).LE.SMLNUM ) {
 
             // In the case where the computed TAU ends up being a denormalized number,
             // it loses relative accuracy. This is a BIG problem. Solution: flush TAU
@@ -104,7 +104,7 @@
             // (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)
             // (Thanks Pat. Thanks MathWorks.)
 
-            IF( SAVEALPHA.GE.ZERO ) THEN
+            if ( SAVEALPHA.GE.ZERO ) {
                TAU = ZERO
             } else {
                TAU = TWO
@@ -112,7 +112,7 @@
                   X( 1 + (J-1)*INCX ) = 0
                END DO
                BETA = -SAVEALPHA
-            END IF
+            }
 
          } else {
 
@@ -120,7 +120,7 @@
 
             CALL SSCAL( N-1, ONE / ALPHA, X, INCX )
 
-         END IF
+         }
 
          // If BETA is subnormal, it may lose relative accuracy
 
@@ -128,7 +128,7 @@
             BETA = BETA*SMLNUM
  20      CONTINUE
          ALPHA = BETA
-      END IF
+      }
 
       RETURN
 

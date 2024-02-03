@@ -37,19 +37,19 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = 1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = 2
-      ELSE IF( INCX.EQ.0 ) THEN
+      } else if ( INCX.EQ.0 ) {
          INFO = 6
-      ELSE IF( INCY.EQ.0 ) THEN
+      } else if ( INCY.EQ.0 ) {
          INFO = 9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZSPMV ', INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -57,25 +57,25 @@
 
       // Set up the start points in  X  and  Y.
 
-      IF( INCX.GT.0 ) THEN
+      if ( INCX.GT.0 ) {
          KX = 1
       } else {
          KX = 1 - ( N-1 )*INCX
-      END IF
-      IF( INCY.GT.0 ) THEN
+      }
+      if ( INCY.GT.0 ) {
          KY = 1
       } else {
          KY = 1 - ( N-1 )*INCY
-      END IF
+      }
 
       // Start the operations. In this version the elements of the array AP
       // are accessed sequentially with one pass through AP.
 
       // First form  y := beta*y.
 
-      IF( BETA.NE.ONE ) THEN
-         IF( INCY.EQ.1 ) THEN
-            IF( BETA.EQ.ZERO ) THEN
+      if ( BETA.NE.ONE ) {
+         if ( INCY.EQ.1 ) {
+            if ( BETA.EQ.ZERO ) {
                DO 10 I = 1, N
                   Y( I ) = ZERO
    10          CONTINUE
@@ -83,10 +83,10 @@
                DO 20 I = 1, N
                   Y( I ) = BETA*Y( I )
    20          CONTINUE
-            END IF
+            }
          } else {
             IY = KY
-            IF( BETA.EQ.ZERO ) THEN
+            if ( BETA.EQ.ZERO ) {
                DO 30 I = 1, N
                   Y( IY ) = ZERO
                   IY = IY + INCY
@@ -96,16 +96,16 @@
                   Y( IY ) = BETA*Y( IY )
                   IY = IY + INCY
    40          CONTINUE
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
       IF( ALPHA.EQ.ZERO ) RETURN
       KK = 1
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
          // Form  y  when AP contains the upper triangle.
 
-         IF( ( INCX.EQ.1 ) .AND. ( INCY.EQ.1 ) ) THEN
+         if ( ( INCX.EQ.1 ) .AND. ( INCY.EQ.1 ) ) {
             DO 60 J = 1, N
                TEMP1 = ALPHA*X( J )
                TEMP2 = ZERO
@@ -137,12 +137,12 @@
                JY = JY + INCY
                KK = KK + J
    80       CONTINUE
-         END IF
+         }
       } else {
 
          // Form  y  when AP contains the lower triangle.
 
-         IF( ( INCX.EQ.1 ) .AND. ( INCY.EQ.1 ) ) THEN
+         if ( ( INCX.EQ.1 ) .AND. ( INCY.EQ.1 ) ) {
             DO 100 J = 1, N
                TEMP1 = ALPHA*X( J )
                TEMP2 = ZERO
@@ -176,8 +176,8 @@
                JY = JY + INCY
                KK = KK + ( N-J+1 )
   120       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

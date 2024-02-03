@@ -47,19 +47,19 @@
 
       NMAX = 5
 
-      IF( NSIZE.LT.0 ) THEN
+      if ( NSIZE.LT.0 ) {
          INFO = -1
-      ELSE IF( THRESH.LT.ZERO ) THEN
+      } else if ( THRESH.LT.ZERO ) {
          INFO = -2
-      ELSE IF( NIN.LE.0 ) THEN
+      } else if ( NIN.LE.0 ) {
          INFO = -3
-      ELSE IF( NOUT.LE.0 ) THEN
+      } else if ( NOUT.LE.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.1 .OR. LDA.LT.NMAX ) THEN
+      } else if ( LDA.LT.1 .OR. LDA.LT.NMAX ) {
          INFO = -6
-      ELSE IF( LIWORK.LT.NMAX+2 ) THEN
+      } else if ( LIWORK.LT.NMAX+2 ) {
          INFO = -26
-      END IF
+      }
 
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
@@ -69,19 +69,19 @@
         // following subroutine, as returned by ILAENV.)
 
       MINWRK = 1
-      IF( INFO.EQ.0 .AND. LWORK.GE.1 ) THEN
+      if ( INFO.EQ.0 .AND. LWORK.GE.1 ) {
          MINWRK = 2*NMAX*( NMAX+1 )
          MAXWRK = NMAX*( 1+ILAENV( 1, 'ZGEQRF', ' ', NMAX, 1, NMAX, 0 ) )
          MAXWRK = MAX( MAXWRK, 2*NMAX*( NMAX+1 ) )
          WORK( 1 ) = MAXWRK
-      END IF
+      }
 
       IF( LWORK.LT.MINWRK ) INFO = -23
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZDRGVX', -INFO )
          RETURN
-      END IF
+      }
 
       N = 5
       ULP = DLAMCH( 'P' )
@@ -119,10 +119,10 @@
                      CALL ZLACPY( 'F', N, N, B, LDA, BI, LDA )
 
                      CALL ZGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO )
-                     IF( LINFO.NE.0 ) THEN
+                     if ( LINFO.NE.0 ) {
                         WRITE( NOUT, FMT = 9999 )'ZGGEVX', LINFO, N, IPTYPE, IWA, IWB, IWX, IWY
                         GO TO 30
-                     END IF
+                     }
 
                      // Compute the norm(A, B)
 
@@ -134,57 +134,57 @@
 
                      RESULT( 1 ) = ZERO
                      CALL ZGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) )
-                     IF( RESULT( 2 ).GT.THRESH ) THEN
+                     if ( RESULT( 2 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Left', 'ZGGEVX', RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY
-                     END IF
+                     }
 
                      RESULT( 2 ) = ZERO
                      CALL ZGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) )
-                     IF( RESULT( 3 ).GT.THRESH ) THEN
+                     if ( RESULT( 3 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Right', 'ZGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY
-                     END IF
+                     }
 
                      // Test (3)
 
                      RESULT( 3 ) = ZERO
                      DO 10 I = 1, N
-                        IF( S( I ).EQ.ZERO ) THEN
+                        if ( S( I ).EQ.ZERO ) {
                            IF( DTRU( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
-                        ELSE IF( DTRU( I ).EQ.ZERO ) THEN
+                        } else if ( DTRU( I ).EQ.ZERO ) {
                            IF( S( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
                         } else {
                            RWORK( I ) = MAX( ABS( DTRU( I ) / S( I ) ), ABS( S( I ) / DTRU( I ) ) )
                            RESULT( 3 ) = MAX( RESULT( 3 ), RWORK( I ) )
-                        END IF
+                        }
    10                CONTINUE
 
                      // Test (4)
 
                      RESULT( 4 ) = ZERO
-                     IF( DIF( 1 ).EQ.ZERO ) THEN
+                     if ( DIF( 1 ).EQ.ZERO ) {
                         IF( DIFTRU( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-                     ELSE IF( DIFTRU( 1 ).EQ.ZERO ) THEN
+                     } else if ( DIFTRU( 1 ).EQ.ZERO ) {
                         IF( DIF( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-                     ELSE IF( DIF( 5 ).EQ.ZERO ) THEN
+                     } else if ( DIF( 5 ).EQ.ZERO ) {
                         IF( DIFTRU( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-                     ELSE IF( DIFTRU( 5 ).EQ.ZERO ) THEN
+                     } else if ( DIFTRU( 5 ).EQ.ZERO ) {
                         IF( DIF( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
                      } else {
                         RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )                         RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) )
                         RESULT( 4 ) = MAX( RATIO1, RATIO2 )
-                     END IF
+                     }
 
                      NTESTT = NTESTT + 4
 
                      // Print out tests which fail.
 
                      DO 20 J = 1, 4
-                        IF( ( RESULT( J ).GE.THRSH2 .AND. J.GE.4 ) .OR. ( RESULT( J ).GE.THRESH .AND. J.LE.3 ) ) THEN
+                        if ( ( RESULT( J ).GE.THRSH2 .AND. J.GE.4 ) .OR. ( RESULT( J ).GE.THRESH .AND. J.LE.3 ) ) {
 
                         // If this is the first test to fail,
                         // print a header to the data file.
 
-                           IF( NERRS.EQ.0 ) THEN
+                           if ( NERRS.EQ.0 ) {
                               WRITE( NOUT, FMT = 9997 )'ZXV'
 
                            // Print out messages for built-in examples
@@ -199,14 +199,14 @@
 
                               WRITE( NOUT, FMT = 9992 )'''', 'transpose', ''''
 
-                           END IF
+                           }
                            NERRS = NERRS + 1
-                           IF( RESULT( J ).LT.10000.0D0 ) THEN
+                           if ( RESULT( J ).LT.10000.0D0 ) {
                               WRITE( NOUT, FMT = 9991 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J )
                            } else {
                               WRITE( NOUT, FMT = 9990 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J )
-                           END IF
-                        END IF
+                           }
+                        }
    20                CONTINUE
 
    30                CONTINUE
@@ -246,10 +246,10 @@
 
       CALL ZGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO )
 
-      IF( LINFO.NE.0 ) THEN
+      if ( LINFO.NE.0 ) {
          WRITE( NOUT, FMT = 9987 )'ZGGEVX', LINFO, N, NPTKNT
          GO TO 140
-      END IF
+      }
 
       // Compute the norm(A, B)
 
@@ -261,57 +261,57 @@
 
       RESULT( 1 ) = ZERO
       CALL ZGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) )
-      IF( RESULT( 2 ).GT.THRESH ) THEN
+      if ( RESULT( 2 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Left', 'ZGGEVX', RESULT( 2 ), N, NPTKNT
-      END IF
+      }
 
       RESULT( 2 ) = ZERO
       CALL ZGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) )
-      IF( RESULT( 3 ).GT.THRESH ) THEN
+      if ( RESULT( 3 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Right', 'ZGGEVX', RESULT( 3 ), N, NPTKNT
-      END IF
+      }
 
       // Test (3)
 
       RESULT( 3 ) = ZERO
       DO 120 I = 1, N
-         IF( S( I ).EQ.ZERO ) THEN
+         if ( S( I ).EQ.ZERO ) {
             IF( DTRU( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
-         ELSE IF( DTRU( I ).EQ.ZERO ) THEN
+         } else if ( DTRU( I ).EQ.ZERO ) {
             IF( S( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
          } else {
             RWORK( I ) = MAX( ABS( DTRU( I ) / S( I ) ), ABS( S( I ) / DTRU( I ) ) )
             RESULT( 3 ) = MAX( RESULT( 3 ), RWORK( I ) )
-         END IF
+         }
   120 CONTINUE
 
       // Test (4)
 
       RESULT( 4 ) = ZERO
-      IF( DIF( 1 ).EQ.ZERO ) THEN
+      if ( DIF( 1 ).EQ.ZERO ) {
          IF( DIFTRU( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-      ELSE IF( DIFTRU( 1 ).EQ.ZERO ) THEN
+      } else if ( DIFTRU( 1 ).EQ.ZERO ) {
          IF( DIF( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-      ELSE IF( DIF( 5 ).EQ.ZERO ) THEN
+      } else if ( DIF( 5 ).EQ.ZERO ) {
          IF( DIFTRU( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-      ELSE IF( DIFTRU( 5 ).EQ.ZERO ) THEN
+      } else if ( DIFTRU( 5 ).EQ.ZERO ) {
          IF( DIF( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
       } else {
          RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )          RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) )
          RESULT( 4 ) = MAX( RATIO1, RATIO2 )
-      END IF
+      }
 
       NTESTT = NTESTT + 4
 
       // Print out tests which fail.
 
       DO 130 J = 1, 4
-         IF( RESULT( J ).GE.THRSH2 ) THEN
+         if ( RESULT( J ).GE.THRSH2 ) {
 
             // If this is the first test to fail,
             // print a header to the data file.
 
-            IF( NERRS.EQ.0 ) THEN
+            if ( NERRS.EQ.0 ) {
                WRITE( NOUT, FMT = 9997 )'ZXV'
 
                // Print out messages for built-in examples
@@ -324,14 +324,14 @@
 
                WRITE( NOUT, FMT = 9992 )'''', 'transpose', ''''
 
-            END IF
+            }
             NERRS = NERRS + 1
-            IF( RESULT( J ).LT.10000.0D0 ) THEN
+            if ( RESULT( J ).LT.10000.0D0 ) {
                WRITE( NOUT, FMT = 9989 )NPTKNT, N, J, RESULT( J )
             } else {
                WRITE( NOUT, FMT = 9988 )NPTKNT, N, J, RESULT( J )
-            END IF
-         END IF
+            }
+         }
   130 CONTINUE
 
   140 CONTINUE

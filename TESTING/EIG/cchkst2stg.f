@@ -79,24 +79,24 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -2
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.NMAX ) THEN
+      } else if ( LDA.LT.NMAX ) {
          INFO = -9
-      ELSE IF( LDU.LT.NMAX ) THEN
+      } else if ( LDU.LT.NMAX ) {
          INFO = -23
-      ELSE IF( 2*MAX( 2, NMAX )**2.GT.LWORK ) THEN
+      } else if ( 2*MAX( 2, NMAX )**2.GT.LWORK ) {
          INFO = -29
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CCHKST2STG', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -122,7 +122,7 @@
 
       DO 310 JSIZE = 1, NSIZES
          N = NN( JSIZE )
-         IF( N.GT.0 ) THEN
+         if ( N.GT.0 ) {
             LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) )
             IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2
@@ -132,15 +132,15 @@
             LWEDC = 8
             LRWEDC = 7
             LIWEDC = 12
-         END IF
+         }
          NAP = ( N*( N+1 ) ) / 2
          ANINV = ONE / REAL( MAX( 1, N ) )
 
-         IF( NSIZES.NE.1 ) THEN
+         if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
-         END IF
+         }
 
          DO 300 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 300
@@ -192,20 +192,20 @@
 
             CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
             IINFO = 0
-            IF( JTYPE.LE.15 ) THEN
+            if ( JTYPE.LE.15 ) {
                COND = ULPINV
             } else {
                COND = ULPINV*ANINV / TEN
-            END IF
+            }
 
             // Special Matrices -- Identity & Jordan block
 
                // Zero
 
-            IF( ITYPE.EQ.1 ) THEN
+            if ( ITYPE.EQ.1 ) {
                IINFO = 0
 
-            ELSE IF( ITYPE.EQ.2 ) THEN
+            } else if ( ITYPE.EQ.2 ) {
 
                // Identity
 
@@ -213,38 +213,38 @@
                   A( JC, JC ) = ANORM
    80          CONTINUE
 
-            ELSE IF( ITYPE.EQ.4 ) THEN
+            } else if ( ITYPE.EQ.4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
 
 
-            ELSE IF( ITYPE.EQ.5 ) THEN
+            } else if ( ITYPE.EQ.5 ) {
 
                // Hermitian, eigenvalues specified
 
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.7 ) THEN
+            } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
                CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.8 ) THEN
+            } else if ( ITYPE.EQ.8 ) {
 
                // Hermitian, random eigenvalues
 
                CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.9 ) THEN
+            } else if ( ITYPE.EQ.9 ) {
 
                // Positive definite, eigenvalues specified.
 
                CALL CLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.10 ) THEN
+            } else if ( ITYPE.EQ.10 ) {
 
                // Positive definite tridiagonal, eigenvalues specified.
 
@@ -252,22 +252,22 @@
                DO 90 I = 2, N
                   TEMP1 = ABS( A( I-1, I ) )
                   TEMP2 = SQRT( ABS( A( I-1, I-1 )*A( I, I ) ) )
-                  IF( TEMP1.GT.HALF*TEMP2 ) THEN
+                  if ( TEMP1.GT.HALF*TEMP2 ) {
                      A( I-1, I ) = A( I-1, I )* ( HALF*TEMP2 / ( UNFL+TEMP1 ) )
                      A( I, I-1 ) = CONJG( A( I-1, I ) )
-                  END IF
+                  }
    90          CONTINUE
 
             } else {
 
                IINFO = 1
-            END IF
+            }
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
-            END IF
+            }
 
   100       CONTINUE
 
@@ -279,31 +279,31 @@
             NTEST = 1
             CALL CHETRD( 'U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO )
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHETRD(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 1 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             CALL CLACPY( 'U', N, N, V, LDU, U, LDU )
 
             NTEST = 2
             CALL CUNGTR( 'U', N, U, LDU, TAU, WORK, LWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUNGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 2 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // Do tests 1 and 2
 
@@ -320,16 +320,16 @@
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
 
             CALL CSTEQR( 'N', N, D1, RWORK, WORK, LDU, RWORK( N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 3 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // 2-STAGE TRD Upper case is used to compute D2.
             // Note to set SD and SE to zero to be sure not reusing
@@ -350,16 +350,16 @@
 
             NTEST = 3
             CALL CSTEQR( 'N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 3 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // 2-STAGE TRD Lower case is used to compute D3.
             // Note to set SD and SE to zero to be sure not reusing
@@ -378,16 +378,16 @@
 
             NTEST = 4
             CALL CSTEQR( 'N', N, D3, RWORK, WORK, LDU, RWORK( N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 4 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // Do Tests 3 and 4 which are similar to 11 and 12 but with the
             // D1 computed using the standard 1-stage reduction as reference
@@ -425,29 +425,29 @@
             NTEST = 5
             CALL CHPTRD( 'U', N, VP, SD, SE, TAU, IINFO )
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHPTRD(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 5 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             NTEST = 6
             CALL CUPGTR( 'U', N, VP, TAU, U, LDU, WORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUPGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 6 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // Do tests 5 and 6
 
@@ -470,29 +470,29 @@
             NTEST = 7
             CALL CHPTRD( 'L', N, VP, SD, SE, TAU, IINFO )
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHPTRD(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 7 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             NTEST = 8
             CALL CUPGTR( 'L', N, VP, TAU, U, LDU, WORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUPGTR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 8 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             CALL CHPT21( 2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 7 ) )             CALL CHPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 8 ) )
 
@@ -506,16 +506,16 @@
 
             NTEST = 9
             CALL CSTEQR( 'V', N, D1, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 9 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // Compute D2
 
@@ -524,16 +524,16 @@
 
             NTEST = 11
             CALL CSTEQR( 'N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 11 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // Compute D3 (using PWK method)
 
@@ -542,16 +542,16 @@
 
             NTEST = 12
             CALL SSTERF( N, D3, RWORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTERF', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 12 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // Do Tests 9 and 10
 
@@ -592,7 +592,7 @@
             // For positive definite matrices ( JTYPE.GT.15 ) call CPTEQR
             // and do tests 14, 15, and 16 .
 
-            IF( JTYPE.GT.15 ) THEN
+            if ( JTYPE.GT.15 ) {
 
                // Compute D4 and Z4
 
@@ -602,16 +602,16 @@
 
                NTEST = 14
                CALL CPTEQR( 'V', N, D4, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CPTEQR(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( 14 ) = ULPINV
                      GO TO 280
-                  END IF
-               END IF
+                  }
+               }
 
                // Do Tests 14 and 15
 
@@ -624,16 +624,16 @@
 
                NTEST = 16
                CALL CPTEQR( 'N', N, D5, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CPTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( 16 ) = ULPINV
                      GO TO 280
-                  END IF
-               END IF
+                  }
+               }
 
                // Do Test 16
 
@@ -649,7 +649,7 @@
                RESULT( 14 ) = ZERO
                RESULT( 15 ) = ZERO
                RESULT( 16 ) = ZERO
-            END IF
+            }
 
             // Call SSTEBZ with different options and do tests 17-18.
 
@@ -660,20 +660,20 @@
             VU = ZERO
             IL = 0
             IU = 0
-            IF( JTYPE.EQ.21 ) THEN
+            if ( JTYPE.EQ.21 ) {
                NTEST = 17
                ABSTOL = UNFL + UNFL
                CALL SSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A,rel)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( 17 ) = ULPINV
                      GO TO 280
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 17
 
@@ -687,23 +687,23 @@
                RESULT( 17 ) = TEMP1 / TEMP2
             } else {
                RESULT( 17 ) = ZERO
-            END IF
+            }
 
             // Now ask for all eigenvalues with high absolute accuracy.
 
             NTEST = 18
             ABSTOL = UNFL + UNFL
             CALL SSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 18 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // Do test 18
 
@@ -720,76 +720,76 @@
             // IL-th through IU-th eigenvalues.
 
             NTEST = 19
-            IF( N.LE.1 ) THEN
+            if ( N.LE.1 ) {
                IL = 1
                IU = N
             } else {
                IL = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) )
                IU = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) )
-               IF( IU.LT.IL ) THEN
+               if ( IU.LT.IL ) {
                   ITEMP = IU
                   IU = IL
                   IL = ITEMP
-               END IF
-            END IF
+               }
+            }
 
             CALL SSTEBZ( 'I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 19 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // Determine the values VL and VU of the IL-th and IU-th
             // eigenvalues and ask for all eigenvalues in this range.
 
-            IF( N.GT.0 ) THEN
-               IF( IL.NE.1 ) THEN
+            if ( N.GT.0 ) {
+               if ( IL.NE.1 ) {
                   VL = WA1( IL ) - MAX( HALF*( WA1( IL )-WA1( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                } else {
                   VL = WA1( 1 ) - MAX( HALF*( WA1( N )-WA1( 1 ) ), ULP*ANORM, TWO*RTUNFL )
-               END IF
-               IF( IU.NE.N ) THEN
+               }
+               if ( IU.NE.N ) {
                   VU = WA1( IU ) + MAX( HALF*( WA1( IU+1 )-WA1( IU ) ), ULP*ANORM, TWO*RTUNFL )
                } else {
                   VU = WA1( N ) + MAX( HALF*( WA1( N )-WA1( 1 ) ), ULP*ANORM, TWO*RTUNFL )
-               END IF
+               }
             } else {
                VL = ZERO
                VU = ONE
-            END IF
+            }
 
             CALL SSTEBZ( 'V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 19 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
-            IF( M3.EQ.0 .AND. N.NE.0 ) THEN
+            if ( M3.EQ.0 .AND. N.NE.0 ) {
                RESULT( 19 ) = ULPINV
                GO TO 280
-            END IF
+            }
 
             // Do test 19
 
             TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
             TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-            IF( N.GT.0 ) THEN
+            if ( N.GT.0 ) {
                TEMP3 = MAX( ABS( WA1( N ) ), ABS( WA1( 1 ) ) )
             } else {
                TEMP3 = ZERO
-            END IF
+            }
 
             RESULT( 19 ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
@@ -799,30 +799,30 @@
 
             NTEST = 21
             CALL SSTEBZ( 'A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 20 ) = ULPINV
                   RESULT( 21 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             CALL CSTEIN( N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, RWORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEIN', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 20 ) = ULPINV
                   RESULT( 21 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // Do tests 20 and 21
 
@@ -840,16 +840,16 @@
 
             NTEST = 22
             CALL CSTEDC( 'I', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEDC(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 22 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // Do Tests 22 and 23
 
@@ -865,16 +865,16 @@
 
             NTEST = 24
             CALL CSTEDC( 'V', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEDC(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 24 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // Do Tests 24 and 25
 
@@ -890,16 +890,16 @@
 
             NTEST = 26
             CALL CSTEDC( 'N', N, D2, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEDC(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 26 ) = ULPINV
                   GO TO 280
-               END IF
-            END IF
+               }
+            }
 
             // Do Test 26
 
@@ -915,7 +915,7 @@
 
             // Only test CSTEMR if IEEE compliant
 
-            IF( ILAENV( 10, 'CSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 .AND. ILAENV( 11, 'CSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 ) THEN
+            if ( ILAENV( 10, 'CSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 .AND. ILAENV( 11, 'CSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 ) {
 
             // Call CSTEMR, do test 27 (relative eigenvalue accuracy)
 
@@ -926,20 +926,20 @@
                VU = ZERO
                IL = 0
                IU = 0
-               IF( JTYPE.EQ.21 .AND. CREL ) THEN
+               if ( JTYPE.EQ.21 .AND. CREL ) {
                   NTEST = 27
                   ABSTOL = UNFL + UNFL
                   CALL CSTEMR( 'V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,A,rel)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( 27 ) = ULPINV
                         GO TO 270
-                     END IF
-                  END IF
+                     }
+                  }
 
                // Do test 27
 
@@ -954,27 +954,27 @@
 
                   IL = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) )
                   IU = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) )
-                  IF( IU.LT.IL ) THEN
+                  if ( IU.LT.IL ) {
                      ITEMP = IU
                      IU = IL
                      IL = ITEMP
-                  END IF
+                  }
 
-                  IF( CRANGE ) THEN
+                  if ( CRANGE ) {
                      NTEST = 28
                      ABSTOL = UNFL + UNFL
                      CALL CSTEMR( 'V', 'I', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
 
-                     IF( IINFO.NE.0 ) THEN
+                     if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,I,rel)', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
-                        IF( IINFO.LT.0 ) THEN
+                        if ( IINFO.LT.0 ) {
                            RETURN
                         } else {
                            RESULT( 28 ) = ULPINV
                            GO TO 270
-                        END IF
-                     END IF
+                        }
+                     }
 
                   // Do test 28
 
@@ -988,11 +988,11 @@
                      RESULT( 28 ) = TEMP1 / TEMP2
                   } else {
                      RESULT( 28 ) = ZERO
-                  END IF
+                  }
                } else {
                   RESULT( 27 ) = ZERO
                   RESULT( 28 ) = ZERO
-               END IF
+               }
 
             // Call CSTEMR(V,I) to compute D1 and Z, do tests.
 
@@ -1002,26 +1002,26 @@
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
                CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
 
-               IF( CRANGE ) THEN
+               if ( CRANGE ) {
                   NTEST = 29
                   IL = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) )
                   IU = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) )
-                  IF( IU.LT.IL ) THEN
+                  if ( IU.LT.IL ) {
                      ITEMP = IU
                      IU = IL
                      IL = ITEMP
-                  END IF
+                  }
                   CALL CSTEMR( 'V', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( 29 ) = ULPINV
                         GO TO 280
-                     END IF
-                  END IF
+                     }
+                  }
 
             // Do Tests 29 and 30
 
@@ -1034,16 +1034,16 @@
 
                   NTEST = 31
                   CALL CSTEMR( 'N', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(N,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( 31 ) = ULPINV
                         GO TO 280
-                     END IF
-                  END IF
+                     }
+                  }
 
             // Do Test 31
 
@@ -1067,33 +1067,33 @@
 
                   NTEST = 32
 
-                  IF( N.GT.0 ) THEN
-                     IF( IL.NE.1 ) THEN
+                  if ( N.GT.0 ) {
+                     if ( IL.NE.1 ) {
                         VL = D2( IL ) - MAX( HALF* ( D2( IL )-D2( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                      } else {
                         VL = D2( 1 ) - MAX( HALF*( D2( N )-D2( 1 ) ), ULP*ANORM, TWO*RTUNFL )
-                     END IF
-                     IF( IU.NE.N ) THEN
+                     }
+                     if ( IU.NE.N ) {
                         VU = D2( IU ) + MAX( HALF* ( D2( IU+1 )-D2( IU ) ), ULP*ANORM, TWO*RTUNFL )
                      } else {
                         VU = D2( N ) + MAX( HALF*( D2( N )-D2( 1 ) ), ULP*ANORM, TWO*RTUNFL )
-                     END IF
+                     }
                   } else {
                      VL = ZERO
                      VU = ONE
-                  END IF
+                  }
 
                   CALL CSTEMR( 'V', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, M, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( 32 ) = ULPINV
                         GO TO 280
-                     END IF
-                  END IF
+                     }
+                  }
 
             // Do Tests 32 and 33
 
@@ -1108,16 +1108,16 @@
 
                   NTEST = 34
                   CALL CSTEMR( 'N', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
-                  IF( IINFO.NE.0 ) THEN
+                  if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(N,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     IF( IINFO.LT.0 ) THEN
+                     if ( IINFO.LT.0 ) {
                         RETURN
                      } else {
                         RESULT( 34 ) = ULPINV
                         GO TO 280
-                     END IF
-                  END IF
+                     }
+                  }
 
             // Do Test 34
 
@@ -1137,7 +1137,7 @@
                   RESULT( 32 ) = ZERO
                   RESULT( 33 ) = ZERO
                   RESULT( 34 ) = ZERO
-               END IF
+               }
 
             // Call CSTEMR(V,A) to compute D1 and Z, do tests.
 
@@ -1149,16 +1149,16 @@
                NTEST = 35
 
                CALL CSTEMR( 'V', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( 35 ) = ULPINV
                      GO TO 280
-                  END IF
-               END IF
+                  }
+               }
 
             // Do Tests 35 and 36
 
@@ -1173,16 +1173,16 @@
 
                NTEST = 37
                CALL CSTEMR( 'N', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CSTEMR(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( 37 ) = ULPINV
                      GO TO 280
-                  END IF
-               END IF
+                  }
+               }
 
             // Do Test 37
 
@@ -1195,7 +1195,7 @@
   260          CONTINUE
 
                RESULT( 37 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
-            END IF
+            }
   270       CONTINUE
   280       CONTINUE
             NTESTT = NTESTT + NTEST
@@ -1205,12 +1205,12 @@
             // Print out tests which fail.
 
             DO 290 JR = 1, NTEST
-               IF( RESULT( JR ).GE.THRESH ) THEN
+               if ( RESULT( JR ).GE.THRESH ) {
 
                   // If this is the first test to fail,
                   // print a header to the data file.
 
-                  IF( NERRS.EQ.0 ) THEN
+                  if ( NERRS.EQ.0 ) {
                      WRITE( NOUNIT, FMT = 9998 )'CST'
                      WRITE( NOUNIT, FMT = 9997 )
                      WRITE( NOUNIT, FMT = 9996 )
@@ -1220,14 +1220,14 @@
                      // Tests performed
 
                      WRITE( NOUNIT, FMT = 9987 )
-                  END IF
+                  }
                   NERRS = NERRS + 1
-                  IF( RESULT( JR ).LT.10000.0E0 ) THEN
+                  if ( RESULT( JR ).LT.10000.0E0 ) {
                      WRITE( NOUNIT, FMT = 9989 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   } else {
                      WRITE( NOUNIT, FMT = 9988 )N, JTYPE, IOLDSD, JR, RESULT( JR )
-                  END IF
-               END IF
+                  }
+               }
   290       CONTINUE
   300    CONTINUE
   310 CONTINUE

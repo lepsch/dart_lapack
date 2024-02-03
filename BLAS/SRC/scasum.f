@@ -23,7 +23,7 @@
       SCASUM = 0.0e0
       STEMP = 0.0e0
       IF (N.LE.0 .OR. INCX.LE.0) RETURN
-      IF (INCX.EQ.1) THEN
+      if (INCX.EQ.1) {
 
          // code for increment equal to 1
 
@@ -38,7 +38,7 @@
          DO I = 1,NINCX,INCX
             STEMP = STEMP + ABS(REAL(CX(I))) + ABS(AIMAG(CX(I)))
          END DO
-      END IF
+      }
       SCASUM = STEMP
       RETURN
 

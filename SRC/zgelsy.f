@@ -58,33 +58,33 @@
       LWKOPT = MAX( 1, MN+2*N+NB*( N+1 ), 2*MN+NB*NRHS )
       WORK( 1 ) = DCMPLX( LWKOPT )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, M, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, M, N ) ) {
          INFO = -7
-      ELSE IF( LWORK.LT.( MN+MAX( 2*MN, N+1, MN+NRHS ) ) .AND. .NOT. LQUERY ) THEN
+      } else if ( LWORK.LT.( MN+MAX( 2*MN, N+1, MN+NRHS ) ) .AND. .NOT. LQUERY ) {
          INFO = -12
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGELSY', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( MIN( M, N, NRHS ).EQ.0 ) THEN
+      if ( MIN( M, N, NRHS ).EQ.0 ) {
          RANK = 0
          RETURN
-      END IF
+      }
 
       // Get machine parameters
 
@@ -95,42 +95,42 @@
 
       ANRM = ZLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
          IASCL = 1
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
          IASCL = 2
-      ELSE IF( ANRM.EQ.ZERO ) THEN
+      } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
          CALL ZLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
          RANK = 0
          GO TO 70
-      END IF
+      }
 
       BNRM = ZLANGE( 'M', M, NRHS, B, LDB, RWORK )
       IBSCL = 0
-      IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
+      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          CALL ZLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 1
-      ELSE IF( BNRM.GT.BIGNUM ) THEN
+      } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          CALL ZLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 2
-      END IF
+      }
 
       // Compute QR factorization with column pivoting of A:
          // A * P = Q * R
@@ -147,20 +147,20 @@
       WORK( ISMAX ) = CONE
       SMAX = ABS( A( 1, 1 ) )
       SMIN = SMAX
-      IF( ABS( A( 1, 1 ) ).EQ.ZERO ) THEN
+      if ( ABS( A( 1, 1 ) ).EQ.ZERO ) {
          RANK = 0
          CALL ZLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
          GO TO 70
       } else {
          RANK = 1
-      END IF
+      }
 
    10 CONTINUE
-      IF( RANK.LT.MN ) THEN
+      if ( RANK.LT.MN ) {
          I = RANK + 1
          CALL ZLAIC1( IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL ZLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 )
 
-         IF( SMAXPR*RCOND.LE.SMINPR ) THEN
+         if ( SMAXPR*RCOND.LE.SMINPR ) {
             DO 20 I = 1, RANK
                WORK( ISMIN+I-1 ) = S1*WORK( ISMIN+I-1 )
                WORK( ISMAX+I-1 ) = S2*WORK( ISMAX+I-1 )
@@ -171,8 +171,8 @@
             SMAX = SMAXPR
             RANK = RANK + 1
             GO TO 10
-         END IF
-      END IF
+         }
+      }
 
       // complex workspace: 3*MN.
 
@@ -206,9 +206,9 @@
 
       // B(1:N,1:NRHS) := Y**H * B(1:N,1:NRHS)
 
-      IF( RANK.LT.N ) THEN
+      if ( RANK.LT.N ) {
          CALL ZUNMRZ( 'Left', 'Conjugate transpose', N, NRHS, RANK, N-RANK, A, LDA, WORK( MN+1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO )
-      END IF
+      }
 
       // complex workspace: 2*MN+NRHS.
 
@@ -225,18 +225,18 @@
 
       // Undo scaling
 
-      IF( IASCL.EQ.1 ) THEN
+      if ( IASCL.EQ.1 ) {
          CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
          CALL ZLASCL( 'U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA, INFO )
-      ELSE IF( IASCL.EQ.2 ) THEN
+      } else if ( IASCL.EQ.2 ) {
          CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
          CALL ZLASCL( 'U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA, INFO )
-      END IF
-      IF( IBSCL.EQ.1 ) THEN
+      }
+      if ( IBSCL.EQ.1 ) {
          CALL ZLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )
-      ELSE IF( IBSCL.EQ.2 ) THEN
+      } else if ( IBSCL.EQ.2 ) {
          CALL ZLASCL( 'G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO )
-      END IF
+      }
 
    70 CONTINUE
       WORK( 1 ) = DCMPLX( LWKOPT )

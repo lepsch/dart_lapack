@@ -38,14 +38,14 @@
       // ..
       // .. Executable Statements ..
 
-      IF( KASE.EQ.0 ) THEN
+      if ( KASE.EQ.0 ) {
          DO 10 I = 1, N
             X( I ) = ONE / DBLE( N )
    10    CONTINUE
          KASE = 1
          ISAVE( 1 ) = 1
          RETURN
-      END IF
+      }
 
       GO TO ( 20, 40, 70, 110, 140 )ISAVE( 1 )
 
@@ -53,20 +53,20 @@
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
 
    20 CONTINUE
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          V( 1 ) = X( 1 )
          EST = ABS( V( 1 ) )
          // ... QUIT
          GO TO 150
-      END IF
+      }
       EST = DASUM( N, X, 1 )
 
       DO 30 I = 1, N
-         IF( X(I).GE.ZERO ) THEN
+         if ( X(I).GE.ZERO ) {
             X(I) = ONE
          } else {
             X(I) = -ONE
-         END IF
+         }
          ISGN( I ) = NINT( X( I ) )
    30 CONTINUE
       KASE = 2
@@ -99,11 +99,11 @@
       ESTOLD = EST
       EST = DASUM( N, V, 1 )
       DO 80 I = 1, N
-         IF( X(I).GE.ZERO ) THEN
+         if ( X(I).GE.ZERO ) {
             XS = ONE
          } else {
             XS = -ONE
-         END IF
+         }
          IF( NINT( XS ).NE.ISGN( I ) ) GO TO 90
    80 CONTINUE
       // REPEATED SIGN VECTOR DETECTED, HENCE ALGORITHM HAS CONVERGED.
@@ -114,11 +114,11 @@
       IF( EST.LE.ESTOLD ) GO TO 120
 
       DO 100 I = 1, N
-         IF( X(I).GE.ZERO ) THEN
+         if ( X(I).GE.ZERO ) {
             X(I) = ONE
          } else {
             X(I) = -ONE
-         END IF
+         }
          ISGN( I ) = NINT( X( I ) )
   100 CONTINUE
       KASE = 2
@@ -131,10 +131,10 @@
   110 CONTINUE
       JLAST = ISAVE( 2 )
       ISAVE( 2 ) = IDAMAX( N, X, 1 )
-      IF( ( X( JLAST ).NE.ABS( X( ISAVE( 2 ) ) ) ) .AND. ( ISAVE( 3 ).LT.ITMAX ) ) THEN
+      if ( ( X( JLAST ).NE.ABS( X( ISAVE( 2 ) ) ) ) .AND. ( ISAVE( 3 ).LT.ITMAX ) ) {
          ISAVE( 3 ) = ISAVE( 3 ) + 1
          GO TO 50
-      END IF
+      }
 
       // ITERATION COMPLETE.  FINAL STAGE.
 
@@ -153,10 +153,10 @@
 
   140 CONTINUE
       TEMP = TWO*( DASUM( N, X, 1 ) / DBLE( 3*N ) )
-      IF( TEMP.GT.EST ) THEN
+      if ( TEMP.GT.EST ) {
          CALL DCOPY( N, X, 1, V, 1 )
          EST = TEMP
-      END IF
+      }
 
   150 CONTINUE
       KASE = 0

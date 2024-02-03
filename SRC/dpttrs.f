@@ -31,17 +31,17 @@
       // Test the input arguments.
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -2
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DPTTRS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -49,20 +49,20 @@
 
       // Determine the number of right-hand sides to solve at a time.
 
-      IF( NRHS.EQ.1 ) THEN
+      if ( NRHS.EQ.1 ) {
          NB = 1
       } else {
          NB = MAX( 1, ILAENV( 1, 'DPTTRS', ' ', N, NRHS, -1, -1 ) )
-      END IF
+      }
 
-      IF( NB.GE.NRHS ) THEN
+      if ( NB.GE.NRHS ) {
          CALL DPTTS2( N, NRHS, D, E, B, LDB )
       } else {
          DO 10 J = 1, NRHS, NB
             JB = MIN( NRHS-J+1, NB )
             CALL DPTTS2( N, JB, D, E, B( 1, J ), LDB )
    10    CONTINUE
-      END IF
+      }
 
       RETURN
 

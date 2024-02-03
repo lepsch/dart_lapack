@@ -46,17 +46,17 @@
       MINMN = MIN( M, N )
       MAXMN = MAX( M, N )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, MAXMN ) ) THEN
+      } else if ( LDB.LT.MAX( 1, MAXMN ) ) {
          INFO = -7
-      END IF
+      }
 
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
@@ -65,13 +65,13 @@
         // NB refers to the optimal block size for the immediately
         // following subroutine, as returned by ILAENV.)
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          MINWRK = 1
          MAXWRK = 1
-         IF( MINMN.GT.0 ) THEN
+         if ( MINMN.GT.0 ) {
             MM = M
             MNTHR = ILAENV( 6, 'DGELSS', ' ', M, N, NRHS, -1 )
-            IF( M.GE.N .AND. M.GE.MNTHR ) THEN
+            if ( M.GE.N .AND. M.GE.MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
                          // columns
@@ -85,8 +85,8 @@
                MM = N
                MAXWRK = MAX( MAXWRK, N + LWORK_DGEQRF )
                MAXWRK = MAX( MAXWRK, N + LWORK_DORMQR )
-            END IF
-            IF( M.GE.N ) THEN
+            }
+            if ( M.GE.N ) {
 
                // Path 1 - overdetermined or exactly determined
 
@@ -110,14 +110,14 @@
                MAXWRK = MAX( MAXWRK, N*NRHS )
                MINWRK = MAX( 3*N + MM, 3*N + NRHS, BDSPAC )
                MAXWRK = MAX( MINWRK, MAXWRK )
-            END IF
-            IF( N.GT.M ) THEN
+            }
+            if ( N.GT.M ) {
 
                // Compute workspace needed for DBDSQR
 
                BDSPAC = MAX( 1, 5*M )
                MINWRK = MAX( 3*M+NRHS, 3*M+N, BDSPAC )
-               IF( N.GE.MNTHR ) THEN
+               if ( N.GE.MNTHR ) {
 
                   // Path 2a - underdetermined, with many more columns
                  t // han rows
@@ -143,11 +143,11 @@
                   MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_DORMBR )
                   MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_DORGBR )
                   MAXWRK = MAX( MAXWRK, M*M + M + BDSPAC )
-                  IF( NRHS.GT.1 ) THEN
+                  if ( NRHS.GT.1 ) {
                      MAXWRK = MAX( MAXWRK, M*M + M + M*NRHS )
                   } else {
                      MAXWRK = MAX( MAXWRK, M*M + 2*M )
-                  END IF
+                  }
                   MAXWRK = MAX( MAXWRK, M + LWORK_DORMLQ )
                } else {
 
@@ -167,28 +167,28 @@
                   MAXWRK = MAX( MAXWRK, 3*M + LWORK_DORGBR )
                   MAXWRK = MAX( MAXWRK, BDSPAC )
                   MAXWRK = MAX( MAXWRK, N*NRHS )
-               END IF
-            END IF
+               }
+            }
             MAXWRK = MAX( MINWRK, MAXWRK )
-         END IF
+         }
          WORK( 1 ) = MAXWRK
 
          IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) INFO = -12
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGELSS', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 ) {
          RANK = 0
          RETURN
-      END IF
+      }
 
       // Get machine parameters
 
@@ -201,19 +201,19 @@
 
       ANRM = DLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
          IASCL = 1
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
          IASCL = 2
-      ELSE IF( ANRM.EQ.ZERO ) THEN
+      } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
@@ -221,34 +221,34 @@
          CALL DLASET( 'F', MINMN, 1, ZERO, ZERO, S, MINMN )
          RANK = 0
          GO TO 70
-      END IF
+      }
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
       BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK )
       IBSCL = 0
-      IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
+      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          CALL DLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 1
-      ELSE IF( BNRM.GT.BIGNUM ) THEN
+      } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          CALL DLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 2
-      END IF
+      }
 
       // Overdetermined case
 
-      IF( M.GE.N ) THEN
+      if ( M.GE.N ) {
 
          // Path 1 - overdetermined or exactly determined
 
          MM = M
-         IF( M.GE.MNTHR ) THEN
+         if ( M.GE.MNTHR ) {
 
             // Path 1a - overdetermined, with many more rows than columns
 
@@ -269,7 +269,7 @@
             // Zero out below R
 
             IF( N.GT.1 ) CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
-         END IF
+         }
 
          IE = 1
          ITAUQ = IE + N
@@ -305,33 +305,33 @@
          IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
          RANK = 0
          DO 10 I = 1, N
-            IF( S( I ).GT.THR ) THEN
+            if ( S( I ).GT.THR ) {
                CALL DRSCL( NRHS, S( I ), B( I, 1 ), LDB )
                RANK = RANK + 1
             } else {
                CALL DLASET( 'F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB )
-            END IF
+            }
    10    CONTINUE
 
          // Multiply B by right singular vectors
          // (Workspace: need N, prefer N*NRHS)
 
-         IF( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) THEN
+         if ( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) {
             CALL DGEMM( 'T', 'N', N, NRHS, N, ONE, A, LDA, B, LDB, ZERO, WORK, LDB )
             CALL DLACPY( 'G', N, NRHS, WORK, LDB, B, LDB )
-         ELSE IF( NRHS.GT.1 ) THEN
+         } else if ( NRHS.GT.1 ) {
             CHUNK = LWORK / N
             DO 20 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
                CALL DGEMM( 'T', 'N', N, BL, N, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N )
                CALL DLACPY( 'G', N, BL, WORK, N, B( 1, I ), LDB )
    20       CONTINUE
-         ELSE IF( NRHS.EQ.1 ) THEN
+         } else if ( NRHS.EQ.1 ) {
             CALL DGEMV( 'T', N, N, ONE, A, LDA, B, 1, ZERO, WORK, 1 )
             CALL DCOPY( N, WORK, 1, B, 1 )
-         END IF
+         }
 
-      ELSE IF( N.GE.MNTHR .AND. LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M ) ) THEN
+      } else if ( N.GE.MNTHR .AND. LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M ) ) {
 
          // Path 2a - underdetermined, with many more columns than rows
          // and sufficient workspace for an efficient algorithm
@@ -385,31 +385,31 @@
          IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
          RANK = 0
          DO 30 I = 1, M
-            IF( S( I ).GT.THR ) THEN
+            if ( S( I ).GT.THR ) {
                CALL DRSCL( NRHS, S( I ), B( I, 1 ), LDB )
                RANK = RANK + 1
             } else {
                CALL DLASET( 'F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB )
-            END IF
+            }
    30    CONTINUE
          IWORK = IE
 
          // Multiply B by right singular vectors of L in WORK(IL)
          // (Workspace: need M*M+2*M, prefer M*M+M+M*NRHS)
 
-         IF( LWORK.GE.LDB*NRHS+IWORK-1 .AND. NRHS.GT.1 ) THEN
+         if ( LWORK.GE.LDB*NRHS+IWORK-1 .AND. NRHS.GT.1 ) {
             CALL DGEMM( 'T', 'N', M, NRHS, M, ONE, WORK( IL ), LDWORK, B, LDB, ZERO, WORK( IWORK ), LDB )
             CALL DLACPY( 'G', M, NRHS, WORK( IWORK ), LDB, B, LDB )
-         ELSE IF( NRHS.GT.1 ) THEN
+         } else if ( NRHS.GT.1 ) {
             CHUNK = ( LWORK-IWORK+1 ) / M
             DO 40 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
                CALL DGEMM( 'T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M )                CALL DLACPY( 'G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB )
    40       CONTINUE
-         ELSE IF( NRHS.EQ.1 ) THEN
+         } else if ( NRHS.EQ.1 ) {
             CALL DGEMV( 'T', M, M, ONE, WORK( IL ), LDWORK, B( 1, 1 ), 1, ZERO, WORK( IWORK ), 1 )
             CALL DCOPY( M, WORK( IWORK ), 1, B( 1, 1 ), 1 )
-         END IF
+         }
 
          // Zero out below first M rows of B
 
@@ -459,47 +459,47 @@
          IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
          RANK = 0
          DO 50 I = 1, M
-            IF( S( I ).GT.THR ) THEN
+            if ( S( I ).GT.THR ) {
                CALL DRSCL( NRHS, S( I ), B( I, 1 ), LDB )
                RANK = RANK + 1
             } else {
                CALL DLASET( 'F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB )
-            END IF
+            }
    50    CONTINUE
 
          // Multiply B by right singular vectors of A
          // (Workspace: need N, prefer N*NRHS)
 
-         IF( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) THEN
+         if ( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) {
             CALL DGEMM( 'T', 'N', N, NRHS, M, ONE, A, LDA, B, LDB, ZERO, WORK, LDB )
             CALL DLACPY( 'F', N, NRHS, WORK, LDB, B, LDB )
-         ELSE IF( NRHS.GT.1 ) THEN
+         } else if ( NRHS.GT.1 ) {
             CHUNK = LWORK / N
             DO 60 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
                CALL DGEMM( 'T', 'N', N, BL, M, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N )
                CALL DLACPY( 'F', N, BL, WORK, N, B( 1, I ), LDB )
    60       CONTINUE
-         ELSE IF( NRHS.EQ.1 ) THEN
+         } else if ( NRHS.EQ.1 ) {
             CALL DGEMV( 'T', M, N, ONE, A, LDA, B, 1, ZERO, WORK, 1 )
             CALL DCOPY( N, WORK, 1, B, 1 )
-         END IF
-      END IF
+         }
+      }
 
       // Undo scaling
 
-      IF( IASCL.EQ.1 ) THEN
+      if ( IASCL.EQ.1 ) {
          CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
          CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO )
-      ELSE IF( IASCL.EQ.2 ) THEN
+      } else if ( IASCL.EQ.2 ) {
          CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
          CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )
-      END IF
-      IF( IBSCL.EQ.1 ) THEN
+      }
+      if ( IBSCL.EQ.1 ) {
          CALL DLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )
-      ELSE IF( IBSCL.EQ.2 ) THEN
+      } else if ( IBSCL.EQ.2 ) {
          CALL DLASCL( 'G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO )
-      END IF
+      }
 
    70 CONTINUE
       WORK( 1 ) = MAXWRK

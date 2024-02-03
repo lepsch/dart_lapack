@@ -54,35 +54,35 @@
       WANTV2T = LSAME( JOBV2T, 'Y' )
       COLMAJOR = .NOT. LSAME( TRANS, 'T' )
 
-      IF( M .LT. 0 ) THEN
+      if ( M .LT. 0 ) {
          INFO = -6
-      ELSE IF( P .LT. 0 .OR. P .GT. M ) THEN
+      } else if ( P .LT. 0 .OR. P .GT. M ) {
          INFO = -7
-      ELSE IF( Q .LT. 0 .OR. Q .GT. M ) THEN
+      } else if ( Q .LT. 0 .OR. Q .GT. M ) {
          INFO = -8
-      ELSE IF( Q .GT. P .OR. Q .GT. M-P .OR. Q .GT. M-Q ) THEN
+      } else if ( Q .GT. P .OR. Q .GT. M-P .OR. Q .GT. M-Q ) {
          INFO = -8
-      ELSE IF( WANTU1 .AND. LDU1 .LT. P ) THEN
+      } else if ( WANTU1 .AND. LDU1 .LT. P ) {
          INFO = -12
-      ELSE IF( WANTU2 .AND. LDU2 .LT. M-P ) THEN
+      } else if ( WANTU2 .AND. LDU2 .LT. M-P ) {
          INFO = -14
-      ELSE IF( WANTV1T .AND. LDV1T .LT. Q ) THEN
+      } else if ( WANTV1T .AND. LDV1T .LT. Q ) {
          INFO = -16
-      ELSE IF( WANTV2T .AND. LDV2T .LT. M-Q ) THEN
+      } else if ( WANTV2T .AND. LDV2T .LT. M-Q ) {
          INFO = -18
-      END IF
+      }
 
       // Quick return if Q = 0
 
-      IF( INFO .EQ. 0 .AND. Q .EQ. 0 ) THEN
+      if ( INFO .EQ. 0 .AND. Q .EQ. 0 ) {
          LWORKMIN = 1
          WORK(1) = LWORKMIN
          RETURN
-      END IF
+      }
 
       // Compute workspace
 
-      IF( INFO .EQ. 0 ) THEN
+      if ( INFO .EQ. 0 ) {
          IU1CS = 1
          IU1SN = IU1CS + Q
          IU2CS = IU1SN + Q
@@ -94,17 +94,17 @@
          LWORKOPT = IV2TSN + Q - 1
          LWORKMIN = LWORKOPT
          WORK(1) = LWORKOPT
-         IF( LWORK .LT. LWORKMIN .AND. .NOT. LQUERY ) THEN
+         if ( LWORK .LT. LWORKMIN .AND. .NOT. LQUERY ) {
             INFO = -28
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO .NE. 0 ) THEN
+      if ( INFO .NE. 0 ) {
          CALL XERBLA( 'DBBCSD', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Get machine constants
 
@@ -117,36 +117,36 @@
       // Test for negligible sines or cosines
 
       DO I = 1, Q
-         IF( THETA(I) .LT. THRESH ) THEN
+         if ( THETA(I) .LT. THRESH ) {
             THETA(I) = ZERO
-         ELSE IF( THETA(I) .GT. PIOVER2-THRESH ) THEN
+         } else if ( THETA(I) .GT. PIOVER2-THRESH ) {
             THETA(I) = PIOVER2
-         END IF
+         }
       END DO
       DO I = 1, Q-1
-         IF( PHI(I) .LT. THRESH ) THEN
+         if ( PHI(I) .LT. THRESH ) {
             PHI(I) = ZERO
-         ELSE IF( PHI(I) .GT. PIOVER2-THRESH ) THEN
+         } else if ( PHI(I) .GT. PIOVER2-THRESH ) {
             PHI(I) = PIOVER2
-         END IF
+         }
       END DO
 
       // Initial deflation
 
       IMAX = Q
       DO WHILE( IMAX .GT. 1 )
-         IF( PHI(IMAX-1) .NE. ZERO ) THEN
+         if ( PHI(IMAX-1) .NE. ZERO ) {
             EXIT
-         END IF
+         }
          IMAX = IMAX - 1
       END DO
       IMIN = IMAX - 1
-      IF  ( IMIN .GT. 1 ) THEN
+      if ( IMIN .GT. 1 ) {
          DO WHILE( PHI(IMIN-1) .NE. ZERO )
             IMIN = IMIN - 1
             IF  ( IMIN .LE. 1 ) EXIT
          END DO
-      END IF
+      }
 
       // Initialize iteration counter
 
@@ -176,13 +176,13 @@
 
          // Abort if not converging; otherwise, increment ITER
 
-         IF( ITER .GT. MAXIT ) THEN
+         if ( ITER .GT. MAXIT ) {
             INFO = 0
             DO I = 1, Q
                IF( PHI(I) .NE. ZERO ) INFO = INFO + 1
             END DO
             RETURN
-         END IF
+         }
 
          ITER = ITER + IMAX - IMIN
 
@@ -194,7 +194,7 @@
             IF( THETA(I) > THETAMAX ) THETAMAX = THETA(I)             IF( THETA(I) < THETAMIN ) THETAMIN = THETA(I)
          END DO
 
-         IF( THETAMAX .GT. PIOVER2 - THRESH ) THEN
+         if ( THETAMAX .GT. PIOVER2 - THRESH ) {
 
             // Zero on diagonals of B11 and B22; induce deflation with a
             // zero shift
@@ -202,7 +202,7 @@
             MU = ZERO
             NU = ONE
 
-         ELSE IF( THETAMIN .LT. THRESH ) THEN
+         } else if ( THETAMIN .LT. THRESH ) {
 
             // Zero on diagonals of B12 and B22; induce deflation with a
             // zero shift
@@ -216,30 +216,30 @@
 
             CALL DLAS2( B11D(IMAX-1), B11E(IMAX-1), B11D(IMAX), SIGMA11, DUMMY )             CALL DLAS2( B21D(IMAX-1), B21E(IMAX-1), B21D(IMAX), SIGMA21, DUMMY )
 
-            IF( SIGMA11 .LE. SIGMA21 ) THEN
+            if ( SIGMA11 .LE. SIGMA21 ) {
                MU = SIGMA11
                NU = SQRT( ONE - MU**2 )
-               IF( MU .LT. THRESH ) THEN
+               if ( MU .LT. THRESH ) {
                   MU = ZERO
                   NU = ONE
-               END IF
+               }
             } else {
                NU = SIGMA21
                MU = SQRT( 1.0 - NU**2 )
-               IF( NU .LT. THRESH ) THEN
+               if ( NU .LT. THRESH ) {
                   MU = ONE
                   NU = ZERO
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
 
          // Rotate to produce bulges in B11 and B21
 
-         IF( MU .LE. NU ) THEN
+         if ( MU .LE. NU ) {
             CALL DLARTGS( B11D(IMIN), B11E(IMIN), MU, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1) )
          } else {
             CALL DLARTGS( B21D(IMIN), B21E(IMIN), NU, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1) )
-         END IF
+         }
 
          TEMP = WORK(IV1TCS+IMIN-1)*B11D(IMIN) + WORK(IV1TSN+IMIN-1)*B11E(IMIN)          B11E(IMIN) = WORK(IV1TCS+IMIN-1)*B11E(IMIN) - WORK(IV1TSN+IMIN-1)*B11D(IMIN)
          B11D(IMIN) = TEMP
@@ -256,39 +256,39 @@
 
          // Chase the bulges in B11(IMIN+1,IMIN) and B21(IMIN+1,IMIN)
 
-         IF( B11D(IMIN)**2+B11BULGE**2 .GT. THRESH**2 ) THEN
+         if ( B11D(IMIN)**2+B11BULGE**2 .GT. THRESH**2 ) {
             CALL DLARTGP( B11BULGE, B11D(IMIN), WORK(IU1SN+IMIN-1), WORK(IU1CS+IMIN-1), R )
-         ELSE IF( MU .LE. NU ) THEN
+         } else if ( MU .LE. NU ) {
             CALL DLARTGS( B11E( IMIN ), B11D( IMIN + 1 ), MU, WORK(IU1CS+IMIN-1), WORK(IU1SN+IMIN-1) )
          } else {
             CALL DLARTGS( B12D( IMIN ), B12E( IMIN ), NU, WORK(IU1CS+IMIN-1), WORK(IU1SN+IMIN-1) )
-         END IF
-         IF( B21D(IMIN)**2+B21BULGE**2 .GT. THRESH**2 ) THEN
+         }
+         if ( B21D(IMIN)**2+B21BULGE**2 .GT. THRESH**2 ) {
             CALL DLARTGP( B21BULGE, B21D(IMIN), WORK(IU2SN+IMIN-1), WORK(IU2CS+IMIN-1), R )
-         ELSE IF( NU .LT. MU ) THEN
+         } else if ( NU .LT. MU ) {
             CALL DLARTGS( B21E( IMIN ), B21D( IMIN + 1 ), NU, WORK(IU2CS+IMIN-1), WORK(IU2SN+IMIN-1) )
          } else {
             CALL DLARTGS( B22D(IMIN), B22E(IMIN), MU, WORK(IU2CS+IMIN-1), WORK(IU2SN+IMIN-1) )
-         END IF
+         }
          WORK(IU2CS+IMIN-1) = -WORK(IU2CS+IMIN-1)
          WORK(IU2SN+IMIN-1) = -WORK(IU2SN+IMIN-1)
 
          TEMP = WORK(IU1CS+IMIN-1)*B11E(IMIN) + WORK(IU1SN+IMIN-1)*B11D(IMIN+1)          B11D(IMIN+1) = WORK(IU1CS+IMIN-1)*B11D(IMIN+1) - WORK(IU1SN+IMIN-1)*B11E(IMIN)
          B11E(IMIN) = TEMP
-         IF( IMAX .GT. IMIN+1 ) THEN
+         if ( IMAX .GT. IMIN+1 ) {
             B11BULGE = WORK(IU1SN+IMIN-1)*B11E(IMIN+1)
             B11E(IMIN+1) = WORK(IU1CS+IMIN-1)*B11E(IMIN+1)
-         END IF
+         }
          TEMP = WORK(IU1CS+IMIN-1)*B12D(IMIN) + WORK(IU1SN+IMIN-1)*B12E(IMIN)          B12E(IMIN) = WORK(IU1CS+IMIN-1)*B12E(IMIN) - WORK(IU1SN+IMIN-1)*B12D(IMIN)
          B12D(IMIN) = TEMP
          B12BULGE = WORK(IU1SN+IMIN-1)*B12D(IMIN+1)
          B12D(IMIN+1) = WORK(IU1CS+IMIN-1)*B12D(IMIN+1)
          TEMP = WORK(IU2CS+IMIN-1)*B21E(IMIN) + WORK(IU2SN+IMIN-1)*B21D(IMIN+1)          B21D(IMIN+1) = WORK(IU2CS+IMIN-1)*B21D(IMIN+1) - WORK(IU2SN+IMIN-1)*B21E(IMIN)
          B21E(IMIN) = TEMP
-         IF( IMAX .GT. IMIN+1 ) THEN
+         if ( IMAX .GT. IMIN+1 ) {
             B21BULGE = WORK(IU2SN+IMIN-1)*B21E(IMIN+1)
             B21E(IMIN+1) = WORK(IU2CS+IMIN-1)*B21E(IMIN+1)
-         END IF
+         }
          TEMP = WORK(IU2CS+IMIN-1)*B22D(IMIN) + WORK(IU2SN+IMIN-1)*B22E(IMIN)          B22E(IMIN) = WORK(IU2CS+IMIN-1)*B22E(IMIN) - WORK(IU2SN+IMIN-1)*B22D(IMIN)
          B22D(IMIN) = TEMP
          B22BULGE = WORK(IU2SN+IMIN-1)*B22D(IMIN+1)
@@ -321,30 +321,30 @@
             // B21(I-1,I+1), and B22(I-1,I). If necessary, restart bulge-
             // chasing by applying the original shift again.
 
-            IF( .NOT. RESTART11 .AND. .NOT. RESTART21 ) THEN
+            if ( .NOT. RESTART11 .AND. .NOT. RESTART21 ) {
                CALL DLARTGP( X2, X1, WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R )
-            ELSE IF( .NOT. RESTART11 .AND. RESTART21 ) THEN
+            } else if ( .NOT. RESTART11 .AND. RESTART21 ) {
                CALL DLARTGP( B11BULGE, B11E(I-1), WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R )
-            ELSE IF( RESTART11 .AND. .NOT. RESTART21 ) THEN
+            } else if ( RESTART11 .AND. .NOT. RESTART21 ) {
                CALL DLARTGP( B21BULGE, B21E(I-1), WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R )
-            ELSE IF( MU .LE. NU ) THEN
+            } else if ( MU .LE. NU ) {
                CALL DLARTGS( B11D(I), B11E(I), MU, WORK(IV1TCS+I-1), WORK(IV1TSN+I-1) )
             } else {
                CALL DLARTGS( B21D(I), B21E(I), NU, WORK(IV1TCS+I-1), WORK(IV1TSN+I-1) )
-            END IF
+            }
             WORK(IV1TCS+I-1) = -WORK(IV1TCS+I-1)
             WORK(IV1TSN+I-1) = -WORK(IV1TSN+I-1)
-            IF( .NOT. RESTART12 .AND. .NOT. RESTART22 ) THEN
+            if ( .NOT. RESTART12 .AND. .NOT. RESTART22 ) {
                CALL DLARTGP( Y2, Y1, WORK(IV2TSN+I-1-1), WORK(IV2TCS+I-1-1), R )
-            ELSE IF( .NOT. RESTART12 .AND. RESTART22 ) THEN
+            } else if ( .NOT. RESTART12 .AND. RESTART22 ) {
                CALL DLARTGP( B12BULGE, B12D(I-1), WORK(IV2TSN+I-1-1), WORK(IV2TCS+I-1-1), R )
-            ELSE IF( RESTART12 .AND. .NOT. RESTART22 ) THEN
+            } else if ( RESTART12 .AND. .NOT. RESTART22 ) {
                CALL DLARTGP( B22BULGE, B22D(I-1), WORK(IV2TSN+I-1-1), WORK(IV2TCS+I-1-1), R )
-            ELSE IF( NU .LT. MU ) THEN
+            } else if ( NU .LT. MU ) {
                CALL DLARTGS( B12E(I-1), B12D(I), NU, WORK(IV2TCS+I-1-1), WORK(IV2TSN+I-1-1) )
             } else {
                CALL DLARTGS( B22E(I-1), B22D(I), MU, WORK(IV2TCS+I-1-1), WORK(IV2TSN+I-1-1) )
-            END IF
+            }
 
             TEMP = WORK(IV1TCS+I-1)*B11D(I) + WORK(IV1TSN+I-1)*B11E(I)
             B11E(I) = WORK(IV1TCS+I-1)*B11E(I) - WORK(IV1TSN+I-1)*B11D(I)
@@ -386,45 +386,45 @@
             // B21(I+1,I), and B22(I+1,I-1). If necessary, restart bulge-
             // chasing by applying the original shift again.
 
-            IF( .NOT. RESTART11 .AND. .NOT. RESTART12 ) THEN
+            if ( .NOT. RESTART11 .AND. .NOT. RESTART12 ) {
                CALL DLARTGP( X2, X1, WORK(IU1SN+I-1), WORK(IU1CS+I-1), R )
-            ELSE IF( .NOT. RESTART11 .AND. RESTART12 ) THEN
+            } else if ( .NOT. RESTART11 .AND. RESTART12 ) {
                CALL DLARTGP( B11BULGE, B11D(I), WORK(IU1SN+I-1), WORK(IU1CS+I-1), R )
-            ELSE IF( RESTART11 .AND. .NOT. RESTART12 ) THEN
+            } else if ( RESTART11 .AND. .NOT. RESTART12 ) {
                CALL DLARTGP( B12BULGE, B12E(I-1), WORK(IU1SN+I-1), WORK(IU1CS+I-1), R )
-            ELSE IF( MU .LE. NU ) THEN
+            } else if ( MU .LE. NU ) {
                CALL DLARTGS( B11E(I), B11D(I+1), MU, WORK(IU1CS+I-1), WORK(IU1SN+I-1) )
             } else {
                CALL DLARTGS( B12D(I), B12E(I), NU, WORK(IU1CS+I-1), WORK(IU1SN+I-1) )
-            END IF
-            IF( .NOT. RESTART21 .AND. .NOT. RESTART22 ) THEN
+            }
+            if ( .NOT. RESTART21 .AND. .NOT. RESTART22 ) {
                CALL DLARTGP( Y2, Y1, WORK(IU2SN+I-1), WORK(IU2CS+I-1), R )
-            ELSE IF( .NOT. RESTART21 .AND. RESTART22 ) THEN
+            } else if ( .NOT. RESTART21 .AND. RESTART22 ) {
                CALL DLARTGP( B21BULGE, B21D(I), WORK(IU2SN+I-1), WORK(IU2CS+I-1), R )
-            ELSE IF( RESTART21 .AND. .NOT. RESTART22 ) THEN
+            } else if ( RESTART21 .AND. .NOT. RESTART22 ) {
                CALL DLARTGP( B22BULGE, B22E(I-1), WORK(IU2SN+I-1), WORK(IU2CS+I-1), R )
-            ELSE IF( NU .LT. MU ) THEN
+            } else if ( NU .LT. MU ) {
                CALL DLARTGS( B21E(I), B21E(I+1), NU, WORK(IU2CS+I-1), WORK(IU2SN+I-1) )
             } else {
                CALL DLARTGS( B22D(I), B22E(I), MU, WORK(IU2CS+I-1), WORK(IU2SN+I-1) )
-            END IF
+            }
             WORK(IU2CS+I-1) = -WORK(IU2CS+I-1)
             WORK(IU2SN+I-1) = -WORK(IU2SN+I-1)
 
             TEMP = WORK(IU1CS+I-1)*B11E(I) + WORK(IU1SN+I-1)*B11D(I+1)
             B11D(I+1) = WORK(IU1CS+I-1)*B11D(I+1) - WORK(IU1SN+I-1)*B11E(I)
             B11E(I) = TEMP
-            IF( I .LT. IMAX - 1 ) THEN
+            if ( I .LT. IMAX - 1 ) {
                B11BULGE = WORK(IU1SN+I-1)*B11E(I+1)
                B11E(I+1) = WORK(IU1CS+I-1)*B11E(I+1)
-            END IF
+            }
             TEMP = WORK(IU2CS+I-1)*B21E(I) + WORK(IU2SN+I-1)*B21D(I+1)
             B21D(I+1) = WORK(IU2CS+I-1)*B21D(I+1) - WORK(IU2SN+I-1)*B21E(I)
             B21E(I) = TEMP
-            IF( I .LT. IMAX - 1 ) THEN
+            if ( I .LT. IMAX - 1 ) {
                B21BULGE = WORK(IU2SN+I-1)*B21E(I+1)
                B21E(I+1) = WORK(IU2CS+I-1)*B21E(I+1)
-            END IF
+            }
             TEMP = WORK(IU1CS+I-1)*B12D(I) + WORK(IU1SN+I-1)*B12E(I)
             B12E(I) = WORK(IU1CS+I-1)*B12E(I) - WORK(IU1SN+I-1)*B12D(I)
             B12D(I) = TEMP
@@ -450,17 +450,17 @@
          RESTART12 = B12D(IMAX-1)**2 + B12BULGE**2 .LE. THRESH**2
          RESTART22 = B22D(IMAX-1)**2 + B22BULGE**2 .LE. THRESH**2
 
-         IF( .NOT. RESTART12 .AND. .NOT. RESTART22 ) THEN
+         if ( .NOT. RESTART12 .AND. .NOT. RESTART22 ) {
             CALL DLARTGP( Y2, Y1, WORK(IV2TSN+IMAX-1-1), WORK(IV2TCS+IMAX-1-1), R )
-         ELSE IF( .NOT. RESTART12 .AND. RESTART22 ) THEN
+         } else if ( .NOT. RESTART12 .AND. RESTART22 ) {
             CALL DLARTGP( B12BULGE, B12D(IMAX-1), WORK(IV2TSN+IMAX-1-1), WORK(IV2TCS+IMAX-1-1), R )
-         ELSE IF( RESTART12 .AND. .NOT. RESTART22 ) THEN
+         } else if ( RESTART12 .AND. .NOT. RESTART22 ) {
             CALL DLARTGP( B22BULGE, B22D(IMAX-1), WORK(IV2TSN+IMAX-1-1), WORK(IV2TCS+IMAX-1-1), R )
-         ELSE IF( NU .LT. MU ) THEN
+         } else if ( NU .LT. MU ) {
             CALL DLARTGS( B12E(IMAX-1), B12D(IMAX), NU, WORK(IV2TCS+IMAX-1-1), WORK(IV2TSN+IMAX-1-1) )
          } else {
             CALL DLARTGS( B22E(IMAX-1), B22D(IMAX), MU, WORK(IV2TCS+IMAX-1-1), WORK(IV2TSN+IMAX-1-1) )
-         END IF
+         }
 
          TEMP = WORK(IV2TCS+IMAX-1-1)*B12E(IMAX-1) + WORK(IV2TSN+IMAX-1-1)*B12D(IMAX)          B12D(IMAX) = WORK(IV2TCS+IMAX-1-1)*B12D(IMAX) - WORK(IV2TSN+IMAX-1-1)*B12E(IMAX-1)
          B12E(IMAX-1) = TEMP
@@ -469,48 +469,48 @@
 
          // Update singular vectors
 
-         IF( WANTU1 ) THEN
-            IF( COLMAJOR ) THEN
+         if ( WANTU1 ) {
+            if ( COLMAJOR ) {
                CALL DLASR( 'R', 'V', 'F', P, IMAX-IMIN+1, WORK(IU1CS+IMIN-1), WORK(IU1SN+IMIN-1), U1(1,IMIN), LDU1 )
             } else {
                CALL DLASR( 'L', 'V', 'F', IMAX-IMIN+1, P, WORK(IU1CS+IMIN-1), WORK(IU1SN+IMIN-1), U1(IMIN,1), LDU1 )
-            END IF
-         END IF
-         IF( WANTU2 ) THEN
-            IF( COLMAJOR ) THEN
+            }
+         }
+         if ( WANTU2 ) {
+            if ( COLMAJOR ) {
                CALL DLASR( 'R', 'V', 'F', M-P, IMAX-IMIN+1, WORK(IU2CS+IMIN-1), WORK(IU2SN+IMIN-1), U2(1,IMIN), LDU2 )
             } else {
                CALL DLASR( 'L', 'V', 'F', IMAX-IMIN+1, M-P, WORK(IU2CS+IMIN-1), WORK(IU2SN+IMIN-1), U2(IMIN,1), LDU2 )
-            END IF
-         END IF
-         IF( WANTV1T ) THEN
-            IF( COLMAJOR ) THEN
+            }
+         }
+         if ( WANTV1T ) {
+            if ( COLMAJOR ) {
                CALL DLASR( 'L', 'V', 'F', IMAX-IMIN+1, Q, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1), V1T(IMIN,1), LDV1T )
             } else {
                CALL DLASR( 'R', 'V', 'F', Q, IMAX-IMIN+1, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1), V1T(1,IMIN), LDV1T )
-            END IF
-         END IF
-         IF( WANTV2T ) THEN
-            IF( COLMAJOR ) THEN
+            }
+         }
+         if ( WANTV2T ) {
+            if ( COLMAJOR ) {
                CALL DLASR( 'L', 'V', 'F', IMAX-IMIN+1, M-Q, WORK(IV2TCS+IMIN-1), WORK(IV2TSN+IMIN-1), V2T(IMIN,1), LDV2T )
             } else {
                CALL DLASR( 'R', 'V', 'F', M-Q, IMAX-IMIN+1, WORK(IV2TCS+IMIN-1), WORK(IV2TSN+IMIN-1), V2T(1,IMIN), LDV2T )
-            END IF
-         END IF
+            }
+         }
 
          // Fix signs on B11(IMAX-1,IMAX) and B21(IMAX-1,IMAX)
 
-         IF( B11E(IMAX-1)+B21E(IMAX-1) .GT. 0 ) THEN
+         if ( B11E(IMAX-1)+B21E(IMAX-1) .GT. 0 ) {
             B11D(IMAX) = -B11D(IMAX)
             B21D(IMAX) = -B21D(IMAX)
-            IF( WANTV1T ) THEN
-               IF( COLMAJOR ) THEN
+            if ( WANTV1T ) {
+               if ( COLMAJOR ) {
                   CALL DSCAL( Q, NEGONE, V1T(IMAX,1), LDV1T )
                } else {
                   CALL DSCAL( Q, NEGONE, V1T(1,IMAX), 1 )
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
 
          // Compute THETA(IMAX)
 
@@ -521,71 +521,71 @@
          // Fix signs on B11(IMAX,IMAX), B12(IMAX,IMAX-1), B21(IMAX,IMAX),
          // and B22(IMAX,IMAX-1)
 
-         IF( B11D(IMAX)+B12E(IMAX-1) .LT. 0 ) THEN
+         if ( B11D(IMAX)+B12E(IMAX-1) .LT. 0 ) {
             B12D(IMAX) = -B12D(IMAX)
-            IF( WANTU1 ) THEN
-               IF( COLMAJOR ) THEN
+            if ( WANTU1 ) {
+               if ( COLMAJOR ) {
                   CALL DSCAL( P, NEGONE, U1(1,IMAX), 1 )
                } else {
                   CALL DSCAL( P, NEGONE, U1(IMAX,1), LDU1 )
-               END IF
-            END IF
-         END IF
-         IF( B21D(IMAX)+B22E(IMAX-1) .GT. 0 ) THEN
+               }
+            }
+         }
+         if ( B21D(IMAX)+B22E(IMAX-1) .GT. 0 ) {
             B22D(IMAX) = -B22D(IMAX)
-            IF( WANTU2 ) THEN
-               IF( COLMAJOR ) THEN
+            if ( WANTU2 ) {
+               if ( COLMAJOR ) {
                   CALL DSCAL( M-P, NEGONE, U2(1,IMAX), 1 )
                } else {
                   CALL DSCAL( M-P, NEGONE, U2(IMAX,1), LDU2 )
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
 
          // Fix signs on B12(IMAX,IMAX) and B22(IMAX,IMAX)
 
-         IF( B12D(IMAX)+B22D(IMAX) .LT. 0 ) THEN
-            IF( WANTV2T ) THEN
-               IF( COLMAJOR ) THEN
+         if ( B12D(IMAX)+B22D(IMAX) .LT. 0 ) {
+            if ( WANTV2T ) {
+               if ( COLMAJOR ) {
                   CALL DSCAL( M-Q, NEGONE, V2T(IMAX,1), LDV2T )
                } else {
                   CALL DSCAL( M-Q, NEGONE, V2T(1,IMAX), 1 )
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
 
          // Test for negligible sines or cosines
 
          DO I = IMIN, IMAX
-            IF( THETA(I) .LT. THRESH ) THEN
+            if ( THETA(I) .LT. THRESH ) {
                THETA(I) = ZERO
-            ELSE IF( THETA(I) .GT. PIOVER2-THRESH ) THEN
+            } else if ( THETA(I) .GT. PIOVER2-THRESH ) {
                THETA(I) = PIOVER2
-            END IF
+            }
          END DO
          DO I = IMIN, IMAX-1
-            IF( PHI(I) .LT. THRESH ) THEN
+            if ( PHI(I) .LT. THRESH ) {
                PHI(I) = ZERO
-            ELSE IF( PHI(I) .GT. PIOVER2-THRESH ) THEN
+            } else if ( PHI(I) .GT. PIOVER2-THRESH ) {
                PHI(I) = PIOVER2
-            END IF
+            }
          END DO
 
          // Deflate
 
-         IF (IMAX .GT. 1) THEN
+         if (IMAX .GT. 1) {
             DO WHILE( PHI(IMAX-1) .EQ. ZERO )
                IMAX = IMAX - 1
                IF (IMAX .LE. 1) EXIT
             END DO
-         END IF
+         }
          IF( IMIN .GT. IMAX - 1 ) IMIN = IMAX - 1
-         IF (IMIN .GT. 1) THEN
+         if (IMIN .GT. 1) {
             DO WHILE (PHI(IMIN-1) .NE. ZERO)
                 IMIN = IMIN - 1
                 IF (IMIN .LE. 1) EXIT
             END DO
-         END IF
+         }
 
          // Repeat main iteration loop
 
@@ -598,21 +598,21 @@
          MINI = I
          THETAMIN = THETA(I)
          DO J = I+1, Q
-            IF( THETA(J) .LT. THETAMIN ) THEN
+            if ( THETA(J) .LT. THETAMIN ) {
                MINI = J
                THETAMIN = THETA(J)
-            END IF
+            }
          END DO
 
-         IF( MINI .NE. I ) THEN
+         if ( MINI .NE. I ) {
             THETA(MINI) = THETA(I)
             THETA(I) = THETAMIN
-            IF( COLMAJOR ) THEN
+            if ( COLMAJOR ) {
                IF( WANTU1 ) CALL DSWAP( P, U1(1,I), 1, U1(1,MINI), 1 )                IF( WANTU2 ) CALL DSWAP( M-P, U2(1,I), 1, U2(1,MINI), 1 )                IF( WANTV1T ) CALL DSWAP( Q, V1T(I,1), LDV1T, V1T(MINI,1), LDV1T )                IF( WANTV2T ) CALL DSWAP( M-Q, V2T(I,1), LDV2T, V2T(MINI,1), LDV2T )
             } else {
                IF( WANTU1 ) CALL DSWAP( P, U1(I,1), LDU1, U1(MINI,1), LDU1 )                IF( WANTU2 ) CALL DSWAP( M-P, U2(I,1), LDU2, U2(MINI,1), LDU2 )                IF( WANTV1T ) CALL DSWAP( Q, V1T(1,I), 1, V1T(1,MINI), 1 )                IF( WANTV2T ) CALL DSWAP( M-Q, V2T(1,I), 1, V2T(1,MINI), 1 )
-            END IF
-         END IF
+            }
+         }
 
       END DO
 

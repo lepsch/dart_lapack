@@ -43,17 +43,17 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DPSTRF', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -62,7 +62,7 @@
       // Get block size
 
       NB = ILAENV( 1, 'DPOTRF', UPLO, N, -1, -1, -1 )
-      IF( NB.LE.1 .OR. NB.GE.N ) THEN
+      if ( NB.LE.1 .OR. NB.GE.N ) {
 
          // Use unblocked code
 
@@ -82,27 +82,27 @@
          PVT = 1
          AJJ = A( PVT, PVT )
          DO I = 2, N
-            IF( A( I, I ).GT.AJJ ) THEN
+            if ( A( I, I ).GT.AJJ ) {
                PVT = I
                AJJ = A( PVT, PVT )
-            END IF
+            }
          END DO
-         IF( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) THEN
+         if ( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) {
             RANK = 0
             INFO = 1
             GO TO 200
-         END IF
+         }
 
       // Compute stopping value if not supplied
 
-         IF( TOL.LT.ZERO ) THEN
+         if ( TOL.LT.ZERO ) {
             DSTOP = N * DLAMCH( 'Epsilon' ) * AJJ
          } else {
             DSTOP = TOL
-         END IF
+         }
 
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
 
             // Compute the Cholesky factorization P**T * A * P = U**T * U
 
@@ -127,24 +127,24 @@
 
                   DO 120 I = J, N
 
-                     IF( J.GT.K ) THEN
+                     if ( J.GT.K ) {
                         WORK( I ) = WORK( I ) + A( J-1, I )**2
-                     END IF
+                     }
                      WORK( N+I ) = A( I, I ) - WORK( I )
 
   120             CONTINUE
 
-                  IF( J.GT.1 ) THEN
+                  if ( J.GT.1 ) {
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                      PVT = ITEMP + J - 1
                      AJJ = WORK( N+PVT )
-                     IF( AJJ.LE.DSTOP.OR.DISNAN( AJJ ) ) THEN
+                     if ( AJJ.LE.DSTOP.OR.DISNAN( AJJ ) ) {
                         A( J, J ) = AJJ
                         GO TO 190
-                     END IF
-                  END IF
+                     }
+                  }
 
-                  IF( J.NE.PVT ) THEN
+                  if ( J.NE.PVT ) {
 
                      // Pivot OK, so can now swap pivot rows and columns
 
@@ -161,25 +161,25 @@
                      ITEMP = PIV( PVT )
                      PIV( PVT ) = PIV( J )
                      PIV( J ) = ITEMP
-                  END IF
+                  }
 
                   AJJ = SQRT( AJJ )
                   A( J, J ) = AJJ
 
                   // Compute elements J+1:N of row J.
 
-                  IF( J.LT.N ) THEN
+                  if ( J.LT.N ) {
                      CALL DGEMV( 'Trans', J-K, N-J, -ONE, A( K, J+1 ), LDA, A( K, J ), 1, ONE, A( J, J+1 ), LDA )
                      CALL DSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
-                  END IF
+                  }
 
   130          CONTINUE
 
                // Update trailing matrix, J already incremented
 
-               IF( K+JB.LE.N ) THEN
+               if ( K+JB.LE.N ) {
                   CALL DSYRK( 'Upper', 'Trans', N-J+1, JB, -ONE, A( K, J ), LDA, ONE, A( J, J ), LDA )
-               END IF
+               }
 
   140       CONTINUE
 
@@ -208,24 +208,24 @@
 
                   DO 160 I = J, N
 
-                     IF( J.GT.K ) THEN
+                     if ( J.GT.K ) {
                         WORK( I ) = WORK( I ) + A( I, J-1 )**2
-                     END IF
+                     }
                      WORK( N+I ) = A( I, I ) - WORK( I )
 
   160             CONTINUE
 
-                  IF( J.GT.1 ) THEN
+                  if ( J.GT.1 ) {
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                      PVT = ITEMP + J - 1
                      AJJ = WORK( N+PVT )
-                     IF( AJJ.LE.DSTOP.OR.DISNAN( AJJ ) ) THEN
+                     if ( AJJ.LE.DSTOP.OR.DISNAN( AJJ ) ) {
                         A( J, J ) = AJJ
                         GO TO 190
-                     END IF
-                  END IF
+                     }
+                  }
 
-                  IF( J.NE.PVT ) THEN
+                  if ( J.NE.PVT ) {
 
                      // Pivot OK, so can now swap pivot rows and columns
 
@@ -242,30 +242,30 @@
                      ITEMP = PIV( PVT )
                      PIV( PVT ) = PIV( J )
                      PIV( J ) = ITEMP
-                  END IF
+                  }
 
                   AJJ = SQRT( AJJ )
                   A( J, J ) = AJJ
 
                   // Compute elements J+1:N of column J.
 
-                  IF( J.LT.N ) THEN
+                  if ( J.LT.N ) {
                      CALL DGEMV( 'No Trans', N-J, J-K, -ONE, A( J+1, K ), LDA, A( J, K ), LDA, ONE, A( J+1, J ), 1 )
                      CALL DSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
-                  END IF
+                  }
 
   170          CONTINUE
 
                // Update trailing matrix, J already incremented
 
-               IF( K+JB.LE.N ) THEN
+               if ( K+JB.LE.N ) {
                   CALL DSYRK( 'Lower', 'No Trans', N-J+1, JB, -ONE, A( J, K ), LDA, ONE, A( J, J ), LDA )
-               END IF
+               }
 
   180       CONTINUE
 
-         END IF
-      END IF
+         }
+      }
 
       // Ran to completion, A has full rank
 

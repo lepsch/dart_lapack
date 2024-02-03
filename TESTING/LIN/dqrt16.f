@@ -38,12 +38,12 @@
 
       // Quick exit if M = 0 or N = 0 or NRHS = 0
 
-      IF( M.LE.0 .OR. N.LE.0 .OR. NRHS.EQ.0 ) THEN
+      if ( M.LE.0 .OR. N.LE.0 .OR. NRHS.EQ.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
-      IF( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) THEN
+      if ( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) {
          ANORM = DLANGE( 'I', M, N, A, LDA, RWORK )
          N1 = N
          N2 = M
@@ -51,7 +51,7 @@
          ANORM = DLANGE( '1', M, N, A, LDA, RWORK )
          N1 = M
          N2 = N
-      END IF
+      }
 
       EPS = DLAMCH( 'Epsilon' )
 
@@ -66,13 +66,13 @@
       DO 10 J = 1, NRHS
          BNORM = DASUM( N1, B( 1, J ), 1 )
          XNORM = DASUM( N2, X( 1, J ), 1 )
-         IF( ANORM.EQ.ZERO .AND. BNORM.EQ.ZERO ) THEN
+         if ( ANORM.EQ.ZERO .AND. BNORM.EQ.ZERO ) {
             RESID = ZERO
-         ELSE IF( ANORM.LE.ZERO .OR. XNORM.LE.ZERO ) THEN
+         } else if ( ANORM.LE.ZERO .OR. XNORM.LE.ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / ( MAX( M, N )*EPS ) )
-         END IF
+         }
    10 CONTINUE
 
       RETURN

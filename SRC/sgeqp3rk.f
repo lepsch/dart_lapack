@@ -46,21 +46,21 @@
 
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( KMAX.LT.0 ) THEN
+      } else if ( KMAX.LT.0 ) {
          INFO = -4
-      ELSE IF( SISNAN( ABSTOL ) ) THEN
+      } else if ( SISNAN( ABSTOL ) ) {
          INFO = -5
-      ELSE IF( SISNAN( RELTOL ) ) THEN
+      } else if ( SISNAN( RELTOL ) ) {
          INFO = -6
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -8
-      END IF
+      }
 
       // If the input parameters M, N, NRHS, KMAX, LDA are valid:
         // a) Test the input workspace size LWORK for the minimum
@@ -72,9 +72,9 @@
       // Here, IWS is the miminum workspace required for unblocked
       // code.
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          MINMN = MIN( M, N )
-         IF( MINMN.EQ.0 ) THEN
+         if ( MINMN.EQ.0 ) {
             IWS = 1
             LWKOPT = 1
          } else {
@@ -110,33 +110,33 @@
             // TOTAL_WORK_SIZE = 2*N + NB*( N+NRHS+1 ), given NBMIN=2.
 
             LWKOPT = 2*N + NB*( N+NRHS+1 )
-         END IF
+         }
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
 
-         IF( ( LWORK.LT.IWS ) .AND. .NOT.LQUERY ) THEN
+         if ( ( LWORK.LT.IWS ) .AND. .NOT.LQUERY ) {
             INFO = -15
-         END IF
-      END IF
+         }
+      }
 
        // NOTE: The optimal workspace size is returned in WORK(1), if
             t // he input parameters M, N, NRHS, KMAX, LDA are valid.
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGEQP3RK', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible for M=0 or N=0.
 
-      IF( MINMN.EQ.0 ) THEN
+      if ( MINMN.EQ.0 ) {
          K = 0
          MAXC2NRMK = ZERO
          RELMAXC2NRMK = ZERO
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
          RETURN
-      END IF
+      }
 
       // ==================================================================
 
@@ -171,7 +171,7 @@
 
       // ==================================================================.
 
-      IF( SISNAN( MAXC2NRM ) ) THEN
+      if ( SISNAN( MAXC2NRM ) ) {
 
          // Check if the matrix A contains NaN, set INFO parameter
         t // o the column number where the first NaN is found and return
@@ -189,11 +189,11 @@
 
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
          RETURN
-      END IF
+      }
 
       // ===================================================================
 
-      IF( MAXC2NRM.EQ.ZERO ) THEN
+      if ( MAXC2NRM.EQ.ZERO ) {
 
          // Check is the matrix A is a zero matrix, set array TAU and
          // return from the routine.
@@ -209,13 +209,13 @@
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
          RETURN
 
-      END IF
+      }
 
       // ===================================================================
 
       HUGEVAL = SLAMCH( 'Overflow' )
 
-      IF( MAXC2NRM.GT.HUGEVAL ) THEN
+      if ( MAXC2NRM.GT.HUGEVAL ) {
 
          // Check if the matrix A contains +Inf or -Inf, set INFO parameter
         t // o the column number, where the first +/-Inf  is found plus N,
@@ -223,14 +223,14 @@
 
          INFO = N + KP1
 
-      END IF
+      }
 
       // ==================================================================
 
       // Quick return if possible for the case when the first
       // stopping criterion is satisfied, i.e. KMAX = 0.
 
-      IF( KMAX.EQ.0 ) THEN
+      if ( KMAX.EQ.0 ) {
          K = 0
          MAXC2NRMK = MAXC2NRM
          RELMAXC2NRMK = ONE
@@ -239,7 +239,7 @@
          END DO
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
          RETURN
-      END IF
+      }
 
       // ==================================================================
 
@@ -247,16 +247,16 @@
 
       // Adjust ABSTOL
 
-      IF( ABSTOL.GE.ZERO ) THEN
+      if ( ABSTOL.GE.ZERO ) {
          SAFMIN = SLAMCH('Safe minimum')
          ABSTOL = MAX( ABSTOL, TWO*SAFMIN )
-      END IF
+      }
 
       // Adjust RELTOL
 
-      IF( RELTOL.GE.ZERO ) THEN
+      if ( RELTOL.GE.ZERO ) {
          RELTOL = MAX( RELTOL, EPS )
-      END IF
+      }
 
       // ===================================================================
 
@@ -272,7 +272,7 @@
       // i.e. MAXC2NRM <= ABSTOL or RELMAXC2NRM <= RELTOL
       // (which is ONE <= RELTOL).
 
-      IF( MAXC2NRM.LE.ABSTOL .OR. ONE.LE.RELTOL ) THEN
+      if ( MAXC2NRM.LE.ABSTOL .OR. ONE.LE.RELTOL ) {
 
          K = 0
          MAXC2NRMK = MAXC2NRM
@@ -284,7 +284,7 @@
 
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
          RETURN
-      END IF
+      }
 
       // ==================================================================
       // Factorize columns
@@ -295,18 +295,18 @@
       NBMIN = 2
       NX = 0
 
-      IF( ( NB.GT.1 ) .AND. ( NB.LT.MINMN ) ) THEN
+      if ( ( NB.GT.1 ) .AND. ( NB.LT.MINMN ) ) {
 
          // Determine when to cross over from blocked to unblocked code.
          // (for N less than NX, unblocked code should be used).
 
          NX = MAX( 0, ILAENV( IXOVER, 'SGEQP3RK', ' ', M, N, -1, -1 ))
 
-         IF( NX.LT.MINMN ) THEN
+         if ( NX.LT.MINMN ) {
 
             // Determine if workspace is large enough for blocked code.
 
-            IF( LWORK.LT.LWKOPT ) THEN
+            if ( LWORK.LT.LWKOPT ) {
 
                // Not enough workspace to use optimal block size that
                // is currently stored in NB.
@@ -315,9 +315,9 @@
                NB = ( LWORK-2*N ) / ( N+1 )
                NBMIN = MAX( 2, ILAENV( INBMIN, 'SGEQP3RK', ' ', M, N, -1, -1 ) )
 
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
       // ==================================================================
 
@@ -339,7 +339,7 @@
 
       JMAXB = MIN( KMAX, MINMN - NX )
 
-      IF( NB.GE.NBMIN .AND. NB.LT.JMAX .AND. JMAXB.GT.0 ) THEN
+      if ( NB.GE.NBMIN .AND. NB.LT.JMAX .AND. JMAXB.GT.0 ) {
 
          // Loop over the column blocks of the matrix A(1:M,1:JMAXB). Here:
          // J   is the column index of a column block;
@@ -363,11 +363,11 @@
 
             // Set INFO on the first occurence of Inf.
 
-            IF( IINFO.GT.N_SUB .AND. INFO.EQ.0 ) THEN
+            if ( IINFO.GT.N_SUB .AND. INFO.EQ.0 ) {
                INFO = 2*IOFFSET + IINFO
-            END IF
+            }
 
-            IF( DONE ) THEN
+            if ( DONE ) {
 
                // Either the submatrix is zero before the end of the
                // column block, or ABSTOL or RELTOL criterion is
@@ -387,9 +387,9 @@
                // Set INFO on the first occurrence of NaN, NaN takes
                // prcedence over Inf.
 
-               IF( IINFO.LE.N_SUB .AND. IINFO.GT.0 ) THEN
+               if ( IINFO.LE.N_SUB .AND. IINFO.GT.0 ) {
                   INFO = IOFFSET + IINFO
-               END IF
+               }
 
                // Return from the routine.
 
@@ -397,13 +397,13 @@
 
                RETURN
 
-            END IF
+            }
 
             J = J + JBF
 
          END DO
 
-      END IF
+      }
 
       // Use unblocked code to factor the last or only block.
       // J = JMAX+1 means we factorized the maximum possible number of
@@ -411,7 +411,7 @@
      t // he MAXC2NORM and RELMAXC2NORM to return after we processed
      t // he blocks.
 
-      IF( J.LE.JMAX ) THEN
+      if ( J.LE.JMAX ) {
 
          // N_SUB is the number of columns in the submatrix;
          // IOFFSET is the number of rows that should not be factorized.
@@ -437,11 +437,11 @@
          // Set INFO on the first exception occurence of Inf or NaN,
          // (NaN takes precedence over Inf).
 
-         IF( IINFO.GT.N_SUB .AND. INFO.EQ.0 ) THEN
+         if ( IINFO.GT.N_SUB .AND. INFO.EQ.0 ) {
             INFO = 2*IOFFSET + IINFO
-         ELSE IF( IINFO.LE.N_SUB .AND. IINFO.GT.0 ) THEN
+         } else if ( IINFO.LE.N_SUB .AND. IINFO.GT.0 ) {
             INFO = IOFFSET + IINFO
-         END IF
+         }
 
       } else {
 
@@ -457,24 +457,24 @@
                // residual matrix, otherwise set them to ZERO;
             // 2) Set TAU(K+1:MINMN) to ZERO.
 
-         IF( K.LT.MINMN ) THEN
+         if ( K.LT.MINMN ) {
             JMAXC2NRM = K + ISAMAX( N-K, WORK( K+1 ), 1 )
             MAXC2NRMK = WORK( JMAXC2NRM )
-            IF( K.EQ.0 ) THEN
+            if ( K.EQ.0 ) {
                RELMAXC2NRMK = ONE
             } else {
                RELMAXC2NRMK = MAXC2NRMK / MAXC2NRM
-            END IF
+            }
 
             DO J = K + 1, MINMN
                TAU( J ) = ZERO
             END DO
 
-         END IF
+         }
 
       // END IF( J.LE.JMAX ) THEN
 
-      END IF
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
 

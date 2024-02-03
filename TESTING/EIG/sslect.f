@@ -34,19 +34,19 @@
       // ..
       // .. Executable Statements ..
 
-      IF( SELOPT.EQ.0 ) THEN
+      if ( SELOPT.EQ.0 ) {
          SSLECT = ( ZR.LT.ZERO )
       } else {
          RMIN = SLAPY2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) )
          SSLECT = SELVAL( 1 )
          DO 10 I = 2, SELDIM
             X = SLAPY2( ZR-SELWR( I ), ZI-SELWI( I ) )
-            IF( X.LE.RMIN ) THEN
+            if ( X.LE.RMIN ) {
                RMIN = X
                SSLECT = SELVAL( I )
-            END IF
+            }
    10    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of SSLECT

@@ -45,14 +45,14 @@
          MX = MAX( MX, ABS( S( I+1 ) ), ABS( E( I ) ) )
    10 CONTINUE
 
-      IF( MX.EQ.ZERO ) THEN
-         IF( SHIFT.LT.ZERO ) THEN
+      if ( MX.EQ.ZERO ) {
+         if ( SHIFT.LT.ZERO ) {
             NUM = 0
          } else {
             NUM = 2*N
-         END IF
+         }
          RETURN
-      END IF
+      }
 
       // Compute scale factors as in Kahan's report
 
@@ -60,13 +60,13 @@
       SSUN = SQRT( SUN )
       SOV = SQRT( OVFL )
       TOM = SSUN*SOV
-      IF( MX.LE.ONE ) THEN
+      if ( MX.LE.ONE ) {
          M1 = ONE / MX
          M2 = TOM
       } else {
          M1 = ONE
          M2 = TOM / MX
-      END IF
+      }
 
       // Begin counting
 
@@ -74,45 +74,45 @@
       NUM = 0
       SSHIFT = ( SHIFT*M1 )*M2
       U = -SSHIFT
-      IF( U.LE.SUN ) THEN
-         IF( U.LE.ZERO ) THEN
+      if ( U.LE.SUN ) {
+         if ( U.LE.ZERO ) {
             NUM = NUM + 1
             IF( U.GT.-SUN ) U = -SUN
          } else {
             U = SUN
-         END IF
-      END IF
+         }
+      }
       TMP = ( S( 1 )*M1 )*M2
       U = -TMP*( TMP / U ) - SSHIFT
-      IF( U.LE.SUN ) THEN
-         IF( U.LE.ZERO ) THEN
+      if ( U.LE.SUN ) {
+         if ( U.LE.ZERO ) {
             NUM = NUM + 1
             IF( U.GT.-SUN ) U = -SUN
          } else {
             U = SUN
-         END IF
-      END IF
+         }
+      }
       DO 20 I = 1, N - 1
          TMP = ( E( I )*M1 )*M2
          U = -TMP*( TMP / U ) - SSHIFT
-         IF( U.LE.SUN ) THEN
-            IF( U.LE.ZERO ) THEN
+         if ( U.LE.SUN ) {
+            if ( U.LE.ZERO ) {
                NUM = NUM + 1
                IF( U.GT.-SUN ) U = -SUN
             } else {
                U = SUN
-            END IF
-         END IF
+            }
+         }
          TMP = ( S( I+1 )*M1 )*M2
          U = -TMP*( TMP / U ) - SSHIFT
-         IF( U.LE.SUN ) THEN
-            IF( U.LE.ZERO ) THEN
+         if ( U.LE.SUN ) {
+            if ( U.LE.ZERO ) {
                NUM = NUM + 1
                IF( U.GT.-SUN ) U = -SUN
             } else {
                U = SUN
-            END IF
-         END IF
+            }
+         }
    20 CONTINUE
       RETURN
 

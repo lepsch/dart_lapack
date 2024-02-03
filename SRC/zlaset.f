@@ -27,7 +27,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
          // Set the diagonal to BETA and the strictly upper triangular
          // part of the array to ALPHA.
@@ -41,7 +41,7 @@
             A( I, I ) = BETA
    30    CONTINUE
 
-      ELSE IF( LSAME( UPLO, 'L' ) ) THEN
+      } else if ( LSAME( UPLO, 'L' ) ) {
 
          // Set the diagonal to BETA and the strictly lower triangular
          // part of the array to ALPHA.
@@ -68,7 +68,7 @@
          DO 90 I = 1, MIN( M, N )
             A( I, I ) = BETA
    90    CONTINUE
-      END IF
+      }
 
       RETURN
 

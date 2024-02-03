@@ -51,7 +51,7 @@
       A( 2, 1 ) = 4.
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'TR' ) ) THEN
+      if ( LSAMEN( 2, C2, 'TR' ) ) {
 
          // Test error exits for the general triangular routines.
 
@@ -212,7 +212,7 @@
          CALL SLATRS3( 'U', 'N', 'N', 'N', 1, 0, A, 1, X, 1, SCALES, W, W( 2 ), 0, INFO )
          CALL CHKXER( 'SLATRS3', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'TP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TP' ) ) {
 
          // Test error exits for the packed triangular routines.
 
@@ -311,7 +311,7 @@
          CALL SLATPS( 'U', 'N', 'N', 'N', -1, A, X, SCALE, W, INFO )
          CALL CHKXER( 'SLATPS', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'TB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TB' ) ) {
 
          // Test error exits for the banded triangular routines.
 
@@ -420,7 +420,7 @@
          INFOT = 8
          CALL SLATBS( 'U', 'N', 'N', 'N', 2, 1, A, 1, X, SCALE, W, INFO )
          CALL CHKXER( 'SLATBS', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

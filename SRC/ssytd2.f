@@ -40,23 +40,23 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SSYTD2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.LE.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Reduce the upper triangle of A
 
@@ -68,7 +68,7 @@
             CALL SLARFG( I, A( I, I+1 ), A( 1, I+1 ), 1, TAUI )
             E( I ) = A( I, I+1 )
 
-            IF( TAUI.NE.ZERO ) THEN
+            if ( TAUI.NE.ZERO ) {
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
@@ -89,7 +89,7 @@
                CALL SSYR2( UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA )
 
                A( I, I+1 ) = E( I )
-            END IF
+            }
             D( I+1 ) = A( I+1, I+1 )
             TAU( I ) = TAUI
    10    CONTINUE
@@ -106,7 +106,7 @@
             CALL SLARFG( N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1, TAUI )
             E( I ) = A( I+1, I )
 
-            IF( TAUI.NE.ZERO ) THEN
+            if ( TAUI.NE.ZERO ) {
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 
@@ -127,12 +127,12 @@
                CALL SSYR2( UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA )
 
                A( I+1, I ) = E( I )
-            END IF
+            }
             D( I ) = A( I, I )
             TAU( I ) = TAUI
    20    CONTINUE
          D( N ) = A( N, N )
-      END IF
+      }
 
       RETURN
 

@@ -37,19 +37,19 @@
       // Test the input parameters.
 
       INFO = 0
-      IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
+      if (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) {
           INFO = 1
-      ELSE IF (N.LT.0) THEN
+      } else if (N.LT.0) {
           INFO = 2
-      ELSE IF (INCX.EQ.0) THEN
+      } else if (INCX.EQ.0) {
           INFO = 5
-      ELSE IF (INCY.EQ.0) THEN
+      } else if (INCY.EQ.0) {
           INFO = 7
-      END IF
-      IF (INFO.NE.0) THEN
+      }
+      if (INFO.NE.0) {
           CALL XERBLA('CHPR2 ',INFO)
           RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -58,32 +58,32 @@
       // Set up the start points in X and Y if the increments are not both
       // unity.
 
-      IF ((INCX.NE.1) .OR. (INCY.NE.1)) THEN
-          IF (INCX.GT.0) THEN
+      if ((INCX.NE.1) .OR. (INCY.NE.1)) {
+          if (INCX.GT.0) {
               KX = 1
           } else {
               KX = 1 - (N-1)*INCX
-          END IF
-          IF (INCY.GT.0) THEN
+          }
+          if (INCY.GT.0) {
               KY = 1
           } else {
               KY = 1 - (N-1)*INCY
-          END IF
+          }
           JX = KX
           JY = KY
-      END IF
+      }
 
       // Start the operations. In this version the elements of the array AP
       // are accessed sequentially with one pass through AP.
 
       KK = 1
-      IF (LSAME(UPLO,'U')) THEN
+      if (LSAME(UPLO,'U')) {
 
          // Form  A  when upper triangle is stored in AP.
 
-          IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
+          if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
               DO 20 J = 1,N
-                  IF ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) THEN
+                  if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(J))
                       TEMP2 = CONJG(ALPHA*X(J))
                       K = KK
@@ -94,12 +94,12 @@
                       AP(KK+J-1) = REAL(AP(KK+J-1)) + REAL(X(J)*TEMP1+Y(J)*TEMP2)
                   } else {
                       AP(KK+J-1) = REAL(AP(KK+J-1))
-                  END IF
+                  }
                   KK = KK + J
    20         CONTINUE
           } else {
               DO 40 J = 1,N
-                  IF ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) THEN
+                  if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(JY))
                       TEMP2 = CONJG(ALPHA*X(JX))
                       IX = KX
@@ -112,19 +112,19 @@
                       AP(KK+J-1) = REAL(AP(KK+J-1)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2)
                   } else {
                       AP(KK+J-1) = REAL(AP(KK+J-1))
-                  END IF
+                  }
                   JX = JX + INCX
                   JY = JY + INCY
                   KK = KK + J
    40         CONTINUE
-          END IF
+          }
       } else {
 
          // Form  A  when lower triangle is stored in AP.
 
-          IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
+          if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
               DO 60 J = 1,N
-                  IF ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) THEN
+                  if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(J))
                       TEMP2 = CONJG(ALPHA*X(J))
                       AP(KK) = REAL(AP(KK)) + REAL(X(J)*TEMP1+Y(J)*TEMP2)
@@ -135,12 +135,12 @@
    50                 CONTINUE
                   } else {
                       AP(KK) = REAL(AP(KK))
-                  END IF
+                  }
                   KK = KK + N - J + 1
    60         CONTINUE
           } else {
               DO 80 J = 1,N
-                  IF ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) THEN
+                  if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(JY))
                       TEMP2 = CONJG(ALPHA*X(JX))
                       AP(KK) = REAL(AP(KK)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2)
@@ -153,13 +153,13 @@
    70                 CONTINUE
                   } else {
                       AP(KK) = REAL(AP(KK))
-                  END IF
+                  }
                   JX = JX + INCX
                   JY = JY + INCY
                   KK = KK + N - J + 1
    80         CONTINUE
-          END IF
-      END IF
+          }
+      }
 
       RETURN
 

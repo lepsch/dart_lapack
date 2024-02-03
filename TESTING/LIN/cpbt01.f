@@ -41,42 +41,42 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANHB( '1', UPLO, N, KD, A, LDA, RWORK )
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
       // Check the imaginary parts of the diagonal elements and return with
       // an error code if any are nonzero.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 10 J = 1, N
-            IF( AIMAG( AFAC( KD+1, J ) ).NE.ZERO ) THEN
+            if ( AIMAG( AFAC( KD+1, J ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
-            END IF
+            }
    10    CONTINUE
       } else {
          DO 20 J = 1, N
-            IF( AIMAG( AFAC( 1, J ) ).NE.ZERO ) THEN
+            if ( AIMAG( AFAC( 1, J ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
 
       // Compute the product U'*U, overwriting U.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 30 K = N, 1, -1
             KC = MAX( 1, KD+2-K )
             KLEN = KD + 1 - KC
@@ -109,11 +109,11 @@
             CALL CSSCAL( KLEN+1, AKK, AFAC( 1, K ), 1 )
 
    40    CONTINUE
-      END IF
+      }
 
       // Compute the difference  L*L' - A  or  U'*U - A.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 60 J = 1, N
             MU = MAX( 1, KD+2-J )
             DO 50 I = MU, KD + 1
@@ -127,7 +127,7 @@
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    70       CONTINUE
    80    CONTINUE
-      END IF
+      }
 
       // Compute norm( L*L' - A ) / ( N * norm(A) * EPS )
 

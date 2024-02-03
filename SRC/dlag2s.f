@@ -30,10 +30,10 @@
       RMAX = SLAMCH( 'O' )
       DO 20 J = 1, N
          DO 10 I = 1, M
-            IF( ( A( I, J ).LT.-RMAX ) .OR. ( A( I, J ).GT.RMAX ) ) THEN
+            if ( ( A( I, J ).LT.-RMAX ) .OR. ( A( I, J ).GT.RMAX ) ) {
                INFO = 1
                GO TO 30
-            END IF
+            }
             SA( I, J ) = REAL( A( I, J ) )
    10    CONTINUE
    20 CONTINUE

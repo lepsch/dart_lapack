@@ -37,46 +37,46 @@
 
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      ELSE IF( LWORK.LT.MAX(2*N, 3*N-2) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX(2*N, 3*N-2) .AND. .NOT.LQUERY ) {
          INFO = -10
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          CALL CSYTRF_AA( UPLO, N, A, LDA, IPIV, WORK, -1, INFO )
          LWKOPT_SYTRF = INT( WORK(1) )
          CALL CSYTRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO )
          LWKOPT_SYTRS = INT( WORK(1) )
          LWKOPT = MAX( LWKOPT_SYTRF, LWKOPT_SYTRS )
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CSYSV_AA ', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Compute the factorization A = U**T*T*U or A = L*T*L**T.
 
       CALL CSYTRF_AA( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO )
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
          CALL CSYTRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO )
 
-      END IF
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 

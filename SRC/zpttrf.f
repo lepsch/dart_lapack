@@ -33,11 +33,11 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
          CALL XERBLA( 'ZPTTRF', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -47,10 +47,10 @@
 
       I4 = MOD( N-1, 4 )
       DO 10 I = 1, I4
-         IF( D( I ).LE.ZERO ) THEN
+         if ( D( I ).LE.ZERO ) {
             INFO = I
             GO TO 30
-         END IF
+         }
          EIR = DBLE( E( I ) )
          EII = DIMAG( E( I ) )
          F = EIR / D( I )
@@ -64,10 +64,10 @@
          // Drop out of the loop if d(i) <= 0: the matrix is not positive
          // definite.
 
-         IF( D( I ).LE.ZERO ) THEN
+         if ( D( I ).LE.ZERO ) {
             INFO = I
             GO TO 30
-         END IF
+         }
 
          // Solve for e(i) and d(i+1).
 
@@ -78,10 +78,10 @@
          E( I ) = DCMPLX( F, G )
          D( I+1 ) = D( I+1 ) - F*EIR - G*EII
 
-         IF( D( I+1 ).LE.ZERO ) THEN
+         if ( D( I+1 ).LE.ZERO ) {
             INFO = I + 1
             GO TO 30
-         END IF
+         }
 
          // Solve for e(i+1) and d(i+2).
 
@@ -92,10 +92,10 @@
          E( I+1 ) = DCMPLX( F, G )
          D( I+2 ) = D( I+2 ) - F*EIR - G*EII
 
-         IF( D( I+2 ).LE.ZERO ) THEN
+         if ( D( I+2 ).LE.ZERO ) {
             INFO = I + 2
             GO TO 30
-         END IF
+         }
 
          // Solve for e(i+2) and d(i+3).
 
@@ -106,10 +106,10 @@
          E( I+2 ) = DCMPLX( F, G )
          D( I+3 ) = D( I+3 ) - F*EIR - G*EII
 
-         IF( D( I+3 ).LE.ZERO ) THEN
+         if ( D( I+3 ).LE.ZERO ) {
             INFO = I + 3
             GO TO 30
-         END IF
+         }
 
          // Solve for e(i+3) and d(i+4).
 

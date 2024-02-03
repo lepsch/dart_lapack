@@ -41,41 +41,41 @@
 
       NOTA = LSAME(TRANSA,'N')
       NOTB = LSAME(TRANSB,'N')
-      IF (NOTA) THEN
+      if (NOTA) {
           NROWA = M
       } else {
           NROWA = K
-      END IF
-      IF (NOTB) THEN
+      }
+      if (NOTB) {
           NROWB = K
       } else {
           NROWB = N
-      END IF
+      }
 
       // Test the input parameters.
 
       INFO = 0
-      IF ((.NOT.NOTA) .AND. (.NOT.LSAME(TRANSA,'C')) .AND. (.NOT.LSAME(TRANSA,'T'))) THEN
+      if ((.NOT.NOTA) .AND. (.NOT.LSAME(TRANSA,'C')) .AND. (.NOT.LSAME(TRANSA,'T'))) {
           INFO = 1
-      ELSE IF ((.NOT.NOTB) .AND. (.NOT.LSAME(TRANSB,'C')) .AND. (.NOT.LSAME(TRANSB,'T'))) THEN
+      } else if ((.NOT.NOTB) .AND. (.NOT.LSAME(TRANSB,'C')) .AND. (.NOT.LSAME(TRANSB,'T'))) {
           INFO = 2
-      ELSE IF (M.LT.0) THEN
+      } else if (M.LT.0) {
           INFO = 3
-      ELSE IF (N.LT.0) THEN
+      } else if (N.LT.0) {
           INFO = 4
-      ELSE IF (K.LT.0) THEN
+      } else if (K.LT.0) {
           INFO = 5
-      ELSE IF (LDA.LT.MAX(1,NROWA)) THEN
+      } else if (LDA.LT.MAX(1,NROWA)) {
           INFO = 8
-      ELSE IF (LDB.LT.MAX(1,NROWB)) THEN
+      } else if (LDB.LT.MAX(1,NROWB)) {
           INFO = 10
-      ELSE IF (LDC.LT.MAX(1,M)) THEN
+      } else if (LDC.LT.MAX(1,M)) {
           INFO = 13
-      END IF
-      IF (INFO.NE.0) THEN
+      }
+      if (INFO.NE.0) {
           CALL XERBLA('DGEMM ',INFO)
           RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -83,8 +83,8 @@
 
       // And if  alpha.eq.zero.
 
-      IF (ALPHA.EQ.ZERO) THEN
-          IF (BETA.EQ.ZERO) THEN
+      if (ALPHA.EQ.ZERO) {
+          if (BETA.EQ.ZERO) {
               DO 20 J = 1,N
                   DO 10 I = 1,M
                       C(I,J) = ZERO
@@ -96,27 +96,27 @@
                       C(I,J) = BETA*C(I,J)
    30             CONTINUE
    40         CONTINUE
-          END IF
+          }
           RETURN
-      END IF
+      }
 
       // Start the operations.
 
-      IF (NOTB) THEN
-          IF (NOTA) THEN
+      if (NOTB) {
+          if (NOTA) {
 
             // Form  C := alpha*A*B + beta*C.
 
               DO 90 J = 1,N
-                  IF (BETA.EQ.ZERO) THEN
+                  if (BETA.EQ.ZERO) {
                       DO 50 I = 1,M
                           C(I,J) = ZERO
    50                 CONTINUE
-                  ELSE IF (BETA.NE.ONE) THEN
+                  } else if (BETA.NE.ONE) {
                       DO 60 I = 1,M
                           C(I,J) = BETA*C(I,J)
    60                 CONTINUE
-                  END IF
+                  }
                   DO 80 L = 1,K
                       TEMP = ALPHA*B(L,J)
                       DO 70 I = 1,M
@@ -134,29 +134,29 @@
                       DO 100 L = 1,K
                           TEMP = TEMP + A(L,I)*B(L,J)
   100                 CONTINUE
-                      IF (BETA.EQ.ZERO) THEN
+                      if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
-                      END IF
+                      }
   110             CONTINUE
   120         CONTINUE
-          END IF
+          }
       } else {
-          IF (NOTA) THEN
+          if (NOTA) {
 
             // Form  C := alpha*A*B**T + beta*C
 
               DO 170 J = 1,N
-                  IF (BETA.EQ.ZERO) THEN
+                  if (BETA.EQ.ZERO) {
                       DO 130 I = 1,M
                           C(I,J) = ZERO
   130                 CONTINUE
-                  ELSE IF (BETA.NE.ONE) THEN
+                  } else if (BETA.NE.ONE) {
                       DO 140 I = 1,M
                           C(I,J) = BETA*C(I,J)
   140                 CONTINUE
-                  END IF
+                  }
                   DO 160 L = 1,K
                       TEMP = ALPHA*B(J,L)
                       DO 150 I = 1,M
@@ -174,15 +174,15 @@
                       DO 180 L = 1,K
                           TEMP = TEMP + A(L,I)*B(J,L)
   180                 CONTINUE
-                      IF (BETA.EQ.ZERO) THEN
+                      if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
-                      END IF
+                      }
   190             CONTINUE
   200         CONTINUE
-          END IF
-      END IF
+          }
+      }
 
       RETURN
 

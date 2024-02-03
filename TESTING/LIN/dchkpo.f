@@ -115,27 +115,27 @@
 
                // Check error code from DLATMS.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 100
-               END IF
+               }
 
                // For types 3-5, zero one row and column of the matrix to
               t // est that INFO is returned correctly.
 
-               IF( ZEROT ) THEN
-                  IF( IMAT.EQ.3 ) THEN
+               if ( ZEROT ) {
+                  if ( IMAT.EQ.3 ) {
                      IZERO = 1
-                  ELSE IF( IMAT.EQ.4 ) THEN
+                  } else if ( IMAT.EQ.4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
-                  END IF
+                  }
                   IOFF = ( IZERO-1 )*LDA
 
                   // Set row and column IZERO of A to 0.
 
-                  IF( IUPLO.EQ.1 ) THEN
+                  if ( IUPLO.EQ.1 ) {
                      DO 20 I = 1, IZERO - 1
                         A( IOFF+I ) = ZERO
    20                CONTINUE
@@ -154,10 +154,10 @@
                      DO 50 I = IZERO, N
                         A( IOFF+I ) = ZERO
    50                CONTINUE
-                  END IF
+                  }
                } else {
                   IZERO = 0
-               END IF
+               }
 
                // Do for each value of NB in NBVAL
 
@@ -173,10 +173,10 @@
 
                   // Check error code from DPOTRF.
 
-                  IF( INFO.NE.IZERO ) THEN
+                  if ( INFO.NE.IZERO ) {
                      CALL ALAERH( PATH, 'DPOTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT )
                      GO TO 90
-                  END IF
+                  }
 
                   // Skip the tests if INFO is not 0.
 
@@ -205,10 +205,10 @@
                  t // he threshold.
 
                   DO 60 K = 1, 2
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
    60             CONTINUE
                   NRUN = NRUN + 2
 
@@ -258,10 +258,10 @@
                     t // he threshold.
 
                      DO 70 K = 3, 7
-                        IF( RESULT( K ).GE.THRESH ) THEN
+                        if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
    70                CONTINUE
                      NRUN = NRUN + 5
    80             CONTINUE
@@ -281,10 +281,10 @@
 
                   // Print the test ratio if it is .GE. THRESH.
 
-                  IF( RESULT( 8 ).GE.THRESH ) THEN
+                  if ( RESULT( 8 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 8, RESULT( 8 )
                      NFAIL = NFAIL + 1
-                  END IF
+                  }
                   NRUN = NRUN + 1
    90          CONTINUE
   100       CONTINUE

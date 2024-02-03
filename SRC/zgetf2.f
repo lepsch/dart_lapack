@@ -38,17 +38,17 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGETF2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -64,7 +64,7 @@
 
          JP = J - 1 + IZAMAX( M-J+1, A( J, J ), 1 )
          IPIV( J ) = JP
-         IF( A( JP, J ).NE.ZERO ) THEN
+         if ( A( JP, J ).NE.ZERO ) {
 
             // Apply the interchange to columns 1:N.
 
@@ -74,17 +74,17 @@
 
             IF( J.LT.M ) CALL ZRSCL( M-J, A( J, J ), A( J+1, J ), 1 )
 
-         ELSE IF( INFO.EQ.0 ) THEN
+         } else if ( INFO.EQ.0 ) {
 
             INFO = J
-         END IF
+         }
 
-         IF( J.LT.MIN( M, N ) ) THEN
+         if ( J.LT.MIN( M, N ) ) {
 
             // Update trailing submatrix.
 
             CALL ZGERU( M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA )
-         END IF
+         }
    10 CONTINUE
       RETURN
 

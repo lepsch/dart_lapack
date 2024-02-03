@@ -37,21 +37,21 @@
       // Test the input parameters.
 
       INFO = 0
-      IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
+      if (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) {
           INFO = 1
-      ELSE IF (N.LT.0) THEN
+      } else if (N.LT.0) {
           INFO = 2
-      ELSE IF (INCX.EQ.0) THEN
+      } else if (INCX.EQ.0) {
           INFO = 5
-      ELSE IF (INCY.EQ.0) THEN
+      } else if (INCY.EQ.0) {
           INFO = 7
-      ELSE IF (LDA.LT.MAX(1,N)) THEN
+      } else if (LDA.LT.MAX(1,N)) {
           INFO = 9
-      END IF
-      IF (INFO.NE.0) THEN
+      }
+      if (INFO.NE.0) {
           CALL XERBLA('CHER2 ',INFO)
           RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -60,32 +60,32 @@
       // Set up the start points in X and Y if the increments are not both
       // unity.
 
-      IF ((INCX.NE.1) .OR. (INCY.NE.1)) THEN
-          IF (INCX.GT.0) THEN
+      if ((INCX.NE.1) .OR. (INCY.NE.1)) {
+          if (INCX.GT.0) {
               KX = 1
           } else {
               KX = 1 - (N-1)*INCX
-          END IF
-          IF (INCY.GT.0) THEN
+          }
+          if (INCY.GT.0) {
               KY = 1
           } else {
               KY = 1 - (N-1)*INCY
-          END IF
+          }
           JX = KX
           JY = KY
-      END IF
+      }
 
       // Start the operations. In this version the elements of A are
       // accessed sequentially with one pass through the triangular part
       // of A.
 
-      IF (LSAME(UPLO,'U')) THEN
+      if (LSAME(UPLO,'U')) {
 
          // Form  A  when A is stored in the upper triangle.
 
-          IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
+          if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
               DO 20 J = 1,N
-                  IF ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) THEN
+                  if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(J))
                       TEMP2 = CONJG(ALPHA*X(J))
                       DO 10 I = 1,J - 1
@@ -94,11 +94,11 @@
                       A(J,J) = REAL(A(J,J)) + REAL(X(J)*TEMP1+Y(J)*TEMP2)
                   } else {
                       A(J,J) = REAL(A(J,J))
-                  END IF
+                  }
    20         CONTINUE
           } else {
               DO 40 J = 1,N
-                  IF ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) THEN
+                  if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(JY))
                       TEMP2 = CONJG(ALPHA*X(JX))
                       IX = KX
@@ -111,18 +111,18 @@
                       A(J,J) = REAL(A(J,J)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2)
                   } else {
                       A(J,J) = REAL(A(J,J))
-                  END IF
+                  }
                   JX = JX + INCX
                   JY = JY + INCY
    40         CONTINUE
-          END IF
+          }
       } else {
 
          // Form  A  when A is stored in the lower triangle.
 
-          IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
+          if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
               DO 60 J = 1,N
-                  IF ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) THEN
+                  if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(J))
                       TEMP2 = CONJG(ALPHA*X(J))
                       A(J,J) = REAL(A(J,J)) + REAL(X(J)*TEMP1+Y(J)*TEMP2)
@@ -131,11 +131,11 @@
    50                 CONTINUE
                   } else {
                       A(J,J) = REAL(A(J,J))
-                  END IF
+                  }
    60         CONTINUE
           } else {
               DO 80 J = 1,N
-                  IF ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) THEN
+                  if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(JY))
                       TEMP2 = CONJG(ALPHA*X(JX))
                       A(J,J) = REAL(A(J,J)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2)
@@ -148,12 +148,12 @@
    70                 CONTINUE
                   } else {
                       A(J,J) = REAL(A(J,J))
-                  END IF
+                  }
                   JX = JX + INCX
                   JY = JY + INCY
    80         CONTINUE
-          END IF
-      END IF
+          }
+      }
 
       RETURN
 

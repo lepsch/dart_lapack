@@ -38,17 +38,17 @@
       IF ( Y_IS_NAN ) DLAPY2 = Y
       HUGEVAL = DLAMCH( 'Overflow' )
 
-      IF ( .NOT.( X_IS_NAN.OR.Y_IS_NAN ) ) THEN
+      if ( .NOT.( X_IS_NAN.OR.Y_IS_NAN ) ) {
          XABS = ABS( X )
          YABS = ABS( Y )
          W = MAX( XABS, YABS )
          Z = MIN( XABS, YABS )
-         IF( Z.EQ.ZERO .OR. W.GT.HUGEVAL ) THEN
+         if ( Z.EQ.ZERO .OR. W.GT.HUGEVAL ) {
             DLAPY2 = W
          } else {
             DLAPY2 = W*SQRT( ONE+( Z / W )**2 )
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of DLAPY2

@@ -47,31 +47,31 @@
       WANTC = NCC.GT.0
       KLU1 = KL + KU + 1
       INFO = 0
-      IF( .NOT.WANTQ .AND. .NOT.WANTPT .AND. .NOT.LSAME( VECT, 'N' ) ) THEN
+      if ( .NOT.WANTQ .AND. .NOT.WANTPT .AND. .NOT.LSAME( VECT, 'N' ) ) {
          INFO = -1
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( NCC.LT.0 ) THEN
+      } else if ( NCC.LT.0 ) {
          INFO = -4
-      ELSE IF( KL.LT.0 ) THEN
+      } else if ( KL.LT.0 ) {
          INFO = -5
-      ELSE IF( KU.LT.0 ) THEN
+      } else if ( KU.LT.0 ) {
          INFO = -6
-      ELSE IF( LDAB.LT.KLU1 ) THEN
+      } else if ( LDAB.LT.KLU1 ) {
          INFO = -8
-      ELSE IF( LDQ.LT.1 .OR. WANTQ .AND. LDQ.LT.MAX( 1, M ) ) THEN
+      } else if ( LDQ.LT.1 .OR. WANTQ .AND. LDQ.LT.MAX( 1, M ) ) {
          INFO = -12
-      ELSE IF( LDPT.LT.1 .OR. WANTPT .AND. LDPT.LT.MAX( 1, N ) ) THEN
+      } else if ( LDPT.LT.1 .OR. WANTPT .AND. LDPT.LT.MAX( 1, N ) ) {
          INFO = -14
-      ELSE IF( LDC.LT.1 .OR. WANTC .AND. LDC.LT.MAX( 1, M ) ) THEN
+      } else if ( LDC.LT.1 .OR. WANTC .AND. LDC.LT.MAX( 1, M ) ) {
          INFO = -16
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGBBRD', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize Q and P**H to the unit matrix, if needed
 
@@ -83,19 +83,19 @@
 
       MINMN = MIN( M, N )
 
-      IF( KL+KU.GT.1 ) THEN
+      if ( KL+KU.GT.1 ) {
 
          // Reduce to upper bidiagonal form if KU > 0; if KU = 0, reduce
          // first to lower bidiagonal form and then transform to upper
          // bidiagonal
 
-         IF( KU.GT.0 ) THEN
+         if ( KU.GT.0 ) {
             ML0 = 1
             MU0 = 2
          } else {
             ML0 = 2
             MU0 = 1
-         END IF
+         }
 
          // Wherever possible, plane rotations are generated and applied in
          // vector operations of length NR over the index set J1:J2:KLU1.
@@ -130,16 +130,16 @@
                // apply plane rotations from the left
 
                DO 10 L = 1, KB
-                  IF( J2-KLM+L-1.GT.N ) THEN
+                  if ( J2-KLM+L-1.GT.N ) {
                      NRT = NR - 1
                   } else {
                      NRT = NR
-                  END IF
+                  }
                   IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, RWORK( J1 ), WORK( J1 ), KB1 )
    10          CONTINUE
 
-               IF( ML.GT.ML0 ) THEN
-                  IF( ML.LE.M-I+1 ) THEN
+               if ( ML.GT.ML0 ) {
+                  if ( ML.LE.M-I+1 ) {
 
                      // generate plane rotation to annihilate a(i+ml-1,i)
                      // within the band, and apply rotation from the left
@@ -147,36 +147,36 @@
                      CALL ZLARTG( AB( KU+ML-1, I ), AB( KU+ML, I ), RWORK( I+ML-1 ), WORK( I+ML-1 ), RA )
                      AB( KU+ML-1, I ) = RA
                      IF( I.LT.N ) CALL ZROT( MIN( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, RWORK( I+ML-1 ), WORK( I+ML-1 ) )
-                  END IF
+                  }
                   NR = NR + 1
                   J1 = J1 - KB1
-               END IF
+               }
 
-               IF( WANTQ ) THEN
+               if ( WANTQ ) {
 
                   // accumulate product of plane rotations in Q
 
                   DO 20 J = J1, J2, KB1
                      CALL ZROT( M, Q( 1, J-1 ), 1, Q( 1, J ), 1, RWORK( J ), DCONJG( WORK( J ) ) )
    20             CONTINUE
-               END IF
+               }
 
-               IF( WANTC ) THEN
+               if ( WANTC ) {
 
                   // apply plane rotations to C
 
                   DO 30 J = J1, J2, KB1
                      CALL ZROT( NCC, C( J-1, 1 ), LDC, C( J, 1 ), LDC, RWORK( J ), WORK( J ) )
    30             CONTINUE
-               END IF
+               }
 
-               IF( J2+KUN.GT.N ) THEN
+               if ( J2+KUN.GT.N ) {
 
                   // adjust J2 to keep within the bounds of the matrix
 
                   NR = NR - 1
                   J2 = J2 - KB1
-               END IF
+               }
 
                DO 40 J = J1, J2, KB1
 
@@ -195,16 +195,16 @@
                // apply plane rotations from the right
 
                DO 50 L = 1, KB
-                  IF( J2+L-1.GT.M ) THEN
+                  if ( J2+L-1.GT.M ) {
                      NRT = NR - 1
                   } else {
                      NRT = NR
-                  END IF
+                  }
                   IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, RWORK( J1+KUN ), WORK( J1+KUN ), KB1 )
    50          CONTINUE
 
-               IF( ML.EQ.ML0 .AND. MU.GT.MU0 ) THEN
-                  IF( MU.LE.N-I+1 ) THEN
+               if ( ML.EQ.ML0 .AND. MU.GT.MU0 ) {
+                  if ( MU.LE.N-I+1 ) {
 
                      // generate plane rotation to annihilate a(i,i+mu-1)
                      // within the band, and apply rotation from the right
@@ -212,27 +212,27 @@
                      CALL ZLARTG( AB( KU-MU+3, I+MU-2 ), AB( KU-MU+2, I+MU-1 ), RWORK( I+MU-1 ), WORK( I+MU-1 ), RA )
                      AB( KU-MU+3, I+MU-2 ) = RA
                      CALL ZROT( MIN( KL+MU-2, M-I ), AB( KU-MU+4, I+MU-2 ), 1, AB( KU-MU+3, I+MU-1 ), 1, RWORK( I+MU-1 ), WORK( I+MU-1 ) )
-                  END IF
+                  }
                   NR = NR + 1
                   J1 = J1 - KB1
-               END IF
+               }
 
-               IF( WANTPT ) THEN
+               if ( WANTPT ) {
 
                   // accumulate product of plane rotations in P**H
 
                   DO 60 J = J1, J2, KB1
                      CALL ZROT( N, PT( J+KUN-1, 1 ), LDPT, PT( J+KUN, 1 ), LDPT, RWORK( J+KUN ), DCONJG( WORK( J+KUN ) ) )
    60             CONTINUE
-               END IF
+               }
 
-               IF( J2+KB.GT.M ) THEN
+               if ( J2+KB.GT.M ) {
 
                   // adjust J2 to keep within the bounds of the matrix
 
                   NR = NR - 1
                   J2 = J2 - KB1
-               END IF
+               }
 
                DO 70 J = J1, J2, KB1
 
@@ -243,16 +243,16 @@
                   AB( KLU1, J+KUN ) = RWORK( J+KUN )*AB( KLU1, J+KUN )
    70          CONTINUE
 
-               IF( ML.GT.ML0 ) THEN
+               if ( ML.GT.ML0 ) {
                   ML = ML - 1
                } else {
                   MU = MU - 1
-               END IF
+               }
    80       CONTINUE
    90    CONTINUE
-      END IF
+      }
 
-      IF( KU.EQ.0 .AND. KL.GT.0 ) THEN
+      if ( KU.EQ.0 .AND. KL.GT.0 ) {
 
          // A has been reduced to complex lower bidiagonal form
 
@@ -263,10 +263,10 @@
          DO 100 I = 1, MIN( M-1, N )
             CALL ZLARTG( AB( 1, I ), AB( 2, I ), RC, RS, RA )
             AB( 1, I ) = RA
-            IF( I.LT.N ) THEN
+            if ( I.LT.N ) {
                AB( 2, I ) = RS*AB( 1, I+1 )
                AB( 1, I+1 ) = RC*AB( 1, I+1 )
-            END IF
+            }
             IF( WANTQ ) CALL ZROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, DCONJG( RS ) )             IF( WANTC ) CALL ZROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS )
   100    CONTINUE
       } else {
@@ -274,7 +274,7 @@
          // A has been reduced to complex upper bidiagonal form or is
          // diagonal
 
-         IF( KU.GT.0 .AND. M.LT.N ) THEN
+         if ( KU.GT.0 .AND. M.LT.N ) {
 
             // Annihilate a(m,m+1) by applying plane rotations from the
             // right
@@ -283,14 +283,14 @@
             DO 110 I = M, 1, -1
                CALL ZLARTG( AB( KU+1, I ), RB, RC, RS, RA )
                AB( KU+1, I ) = RA
-               IF( I.GT.1 ) THEN
+               if ( I.GT.1 ) {
                   RB = -DCONJG( RS )*AB( KU, I )
                   AB( KU, I ) = RC*AB( KU, I )
-               END IF
+               }
                IF( WANTPT ) CALL ZROT( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, DCONJG( RS ) )
   110       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       // Make diagonal and superdiagonal elements real, storing them in D
       // and E
@@ -299,33 +299,33 @@
       DO 120 I = 1, MINMN
          ABST = ABS( T )
          D( I ) = ABST
-         IF( ABST.NE.ZERO ) THEN
+         if ( ABST.NE.ZERO ) {
             T = T / ABST
          } else {
             T = CONE
-         END IF
+         }
          IF( WANTQ ) CALL ZSCAL( M, T, Q( 1, I ), 1 )          IF( WANTC ) CALL ZSCAL( NCC, DCONJG( T ), C( I, 1 ), LDC )
-         IF( I.LT.MINMN ) THEN
-            IF( KU.EQ.0 .AND. KL.EQ.0 ) THEN
+         if ( I.LT.MINMN ) {
+            if ( KU.EQ.0 .AND. KL.EQ.0 ) {
                E( I ) = ZERO
                T = AB( 1, I+1 )
             } else {
-               IF( KU.EQ.0 ) THEN
+               if ( KU.EQ.0 ) {
                   T = AB( 2, I )*DCONJG( T )
                } else {
                   T = AB( KU, I+1 )*DCONJG( T )
-               END IF
+               }
                ABST = ABS( T )
                E( I ) = ABST
-               IF( ABST.NE.ZERO ) THEN
+               if ( ABST.NE.ZERO ) {
                   T = T / ABST
                } else {
                   T = CONE
-               END IF
+               }
                IF( WANTPT ) CALL ZSCAL( N, T, PT( I+1, 1 ), LDPT )
                T = AB( KU+1, I+1 )*DCONJG( T )
-            END IF
-         END IF
+            }
+         }
   120 CONTINUE
       RETURN
 

@@ -79,38 +79,38 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADMM ) THEN
+      } else if ( BADMM ) {
          INFO = -2
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -3
-      ELSE IF( NWDTHS.LT.0 ) THEN
+      } else if ( NWDTHS.LT.0 ) {
          INFO = -4
-      ELSE IF( BADNNB ) THEN
+      } else if ( BADNNB ) {
          INFO = -5
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -6
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -8
-      ELSE IF( LDA.LT.NMAX ) THEN
+      } else if ( LDA.LT.NMAX ) {
          INFO = -13
-      ELSE IF( LDAB.LT.2*KMAX+1 ) THEN
+      } else if ( LDAB.LT.2*KMAX+1 ) {
          INFO = -15
-      ELSE IF( LDQ.LT.NMAX ) THEN
+      } else if ( LDQ.LT.NMAX ) {
          INFO = -19
-      ELSE IF( LDP.LT.NMAX ) THEN
+      } else if ( LDP.LT.NMAX ) {
          INFO = -21
-      ELSE IF( LDC.LT.NMAX ) THEN
+      } else if ( LDC.LT.NMAX ) {
          INFO = -23
-      ELSE IF( ( MAX( LDA, NMAX )+1 )*NMAX.GT.LWORK ) THEN
+      } else if ( ( MAX( LDA, NMAX )+1 )*NMAX.GT.LWORK ) {
          INFO = -26
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZCHKBB', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -142,11 +142,11 @@
             KL = MAX( 0, MIN( M-1, K ) )
             KU = MAX( 0, MIN( N-1, K ) )
 
-            IF( NSIZES.NE.1 ) THEN
+            if ( NSIZES.NE.1 ) {
                MTYPES = MIN( MAXTYP, NTYPES )
             } else {
                MTYPES = MIN( MAXTYP+1, NTYPES )
-            END IF
+            }
 
             DO 140 JTYPE = 1, MTYPES
                IF( .NOT.DOTYPE( JTYPE ) ) GO TO 140
@@ -204,10 +204,10 @@
 
                   // Zero
 
-               IF( ITYPE.EQ.1 ) THEN
+               if ( ITYPE.EQ.1 ) {
                   IINFO = 0
 
-               ELSE IF( ITYPE.EQ.2 ) THEN
+               } else if ( ITYPE.EQ.2 ) {
 
                   // Identity
 
@@ -215,19 +215,19 @@
                      A( JCOL, JCOL ) = ANORM
    80             CONTINUE
 
-               ELSE IF( ITYPE.EQ.4 ) THEN
+               } else if ( ITYPE.EQ.4 ) {
 
                   // Diagonal Matrix, singular values specified
 
                   CALL ZLATMS( M, N, 'S', ISEED, 'N', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
 
-               ELSE IF( ITYPE.EQ.6 ) THEN
+               } else if ( ITYPE.EQ.6 ) {
 
                   // Nonhermitian, singular values specified
 
                   CALL ZLATMS( M, N, 'S', ISEED, 'N', RWORK, IMODE, COND, ANORM, KL, KU, 'N', A, LDA, WORK, IINFO )
 
-               ELSE IF( ITYPE.EQ.9 ) THEN
+               } else if ( ITYPE.EQ.9 ) {
 
                   // Nonhermitian, random entries
 
@@ -236,17 +236,17 @@
                } else {
 
                   IINFO = 1
-               END IF
+               }
 
                // Generate Right-Hand Side
 
                CALL ZLATMR( M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( M+1 ), 1, ONE, WORK( 2*M+1 ), 1, ONE, 'N', IDUMMA, M, NRHS, ZERO, ONE, 'NO', C, LDC, IDUMMA, IINFO )
 
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
-               END IF
+               }
 
    90          CONTINUE
 
@@ -266,16 +266,16 @@
 
                CALL ZGBBRD( 'B', M, N, NRHS, KL, KU, AB, LDAB, BD, BE, Q, LDQ, P, LDP, CC, LDC, WORK, RWORK, IINFO )
 
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZGBBRD', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( 1 ) = ULPINV
                      GO TO 120
-                  END IF
-               END IF
+                  }
+               }
 
                // Test 1:  Check the decomposition A := Q * B * P'
                     // 2:  Check the orthogonality of Q
@@ -293,11 +293,11 @@
                // Print out tests which fail.
 
                DO 130 JR = 1, NTEST
-                  IF( RESULT( JR ).GE.THRESH ) THEN
+                  if ( RESULT( JR ).GE.THRESH ) {
                      IF( NERRS.EQ.0 ) CALL DLAHD2( NOUNIT, 'ZBB' )
                      NERRS = NERRS + 1
                      WRITE( NOUNIT, FMT = 9998 )M, N, K, IOLDSD, JTYPE, JR, RESULT( JR )
-                  END IF
+                  }
   130          CONTINUE
 
   140       CONTINUE

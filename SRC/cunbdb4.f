@@ -59,21 +59,21 @@
       INFO = 0
       LQUERY = LWORK .EQ. -1
 
-      IF( M .LT. 0 ) THEN
+      if ( M .LT. 0 ) {
          INFO = -1
-      ELSE IF( P .LT. M-Q .OR. M-P .LT. M-Q ) THEN
+      } else if ( P .LT. M-Q .OR. M-P .LT. M-Q ) {
          INFO = -2
-      ELSE IF( Q .LT. M-Q .OR. Q .GT. M ) THEN
+      } else if ( Q .LT. M-Q .OR. Q .GT. M ) {
          INFO = -3
-      ELSE IF( LDX11 .LT. MAX( 1, P ) ) THEN
+      } else if ( LDX11 .LT. MAX( 1, P ) ) {
          INFO = -5
-      ELSE IF( LDX21 .LT. MAX( 1, M-P ) ) THEN
+      } else if ( LDX21 .LT. MAX( 1, M-P ) ) {
          INFO = -7
-      END IF
+      }
 
       // Compute workspace
 
-      IF( INFO .EQ. 0 ) THEN
+      if ( INFO .EQ. 0 ) {
          ILARF = 2
          LLARF = MAX( Q-1, P-1, M-P-1 )
          IORBDB5 = 2
@@ -82,22 +82,22 @@
          LWORKOPT = MAX( LWORKOPT, IORBDB5 + LORBDB5 - 1 )
          LWORKMIN = LWORKOPT
          WORK(1) = SROUNDUP_LWORK(LWORKOPT)
-         IF( LWORK .LT. LWORKMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK .LT. LWORKMIN .AND. .NOT.LQUERY ) {
            INFO = -14
-         END IF
-      END IF
-      IF( INFO .NE. 0 ) THEN
+         }
+      }
+      if ( INFO .NE. 0 ) {
          CALL XERBLA( 'CUNBDB4', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Reduce columns 1, ..., M-Q of X11 and X21
 
       DO I = 1, M-Q
 
-         IF( I .EQ. 1 ) THEN
+         if ( I .EQ. 1 ) {
             DO J = 1, M
                PHANTOM(J) = ZERO
             END DO
@@ -122,7 +122,7 @@
             X11(I,I-1) = ONE
             X21(I,I-1) = ONE
             CALL CLARF( 'L', P-I+1, Q-I+1, X11(I,I-1), 1, CONJG(TAUP1(I)), X11(I,I), LDX11, WORK(ILARF) )             CALL CLARF( 'L', M-P-I+1, Q-I+1, X21(I,I-1), 1, CONJG(TAUP2(I)), X21(I,I), LDX21, WORK(ILARF) )
-         END IF
+         }
 
          CALL CSROT( Q-I+1, X11(I,I), LDX11, X21(I,I), LDX21, S, -C )
          CALL CLACGV( Q-I+1, X21(I,I), LDX21 )
@@ -131,10 +131,10 @@
          X21(I,I) = ONE
          CALL CLARF( 'R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL CLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) )
          CALL CLACGV( Q-I+1, X21(I,I), LDX21 )
-         IF( I .LT. M-Q ) THEN
+         if ( I .LT. M-Q ) {
             S = SQRT( SCNRM2( P-I, X11(I+1,I), 1 )**2 + SCNRM2( M-P-I, X21(I+1,I), 1 )**2 )
             PHI(I) = ATAN2( S, C )
-         END IF
+         }
 
       END DO
 

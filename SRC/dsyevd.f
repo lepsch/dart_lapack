@@ -49,59 +49,59 @@
       LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
 
       INFO = 0
-      IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) THEN
+      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
-         IF( N.LE.1 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( N.LE.1 ) {
             LIWMIN = 1
             LWMIN = 1
             LOPT = LWMIN
             LIOPT = LIWMIN
          } else {
-            IF( WANTZ ) THEN
+            if ( WANTZ ) {
                LIWMIN = 3 + 5*N
                LWMIN = 1 + 6*N + 2*N**2
             } else {
                LIWMIN = 1
                LWMIN = 2*N + 1
-            END IF
+            }
             LOPT = MAX( LWMIN, 2*N + N*ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 ) )
             LIOPT = LIWMIN
-         END IF
+         }
          WORK( 1 ) = LOPT
          IWORK( 1 ) = LIOPT
 
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
             INFO = -8
-         ELSE IF( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) THEN
+         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
             INFO = -10
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSYEVD', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          W( 1 ) = A( 1, 1 )
          IF( WANTZ ) A( 1, 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -116,13 +116,13 @@
 
       ANRM = DLANSY( 'M', UPLO, N, A, LDA, WORK )
       ISCALE = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
-      ELSE IF( ANRM.GT.RMAX ) THEN
+      } else if ( ANRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / ANRM
-      END IF
+      }
       IF( ISCALE.EQ.1 ) CALL DLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 
       // Call DSYTRD to reduce symmetric matrix to tridiagonal form.
@@ -141,12 +141,12 @@
      t // ridiagonal matrix, then call DORMTR to multiply it by the
       // Householder transformations stored in A.
 
-      IF( .NOT.WANTZ ) THEN
+      if ( .NOT.WANTZ ) {
          CALL DSTERF( N, W, WORK( INDE ), INFO )
       } else {
          CALL DSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL DORMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
          CALL DLACPY( 'A', N, N, WORK( INDWRK ), N, A, LDA )
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 

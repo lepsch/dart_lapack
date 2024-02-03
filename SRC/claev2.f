@@ -29,11 +29,11 @@
       // ..
       // .. Executable Statements ..
 
-      IF( ABS( B ).EQ.ZERO ) THEN
+      if ( ABS( B ).EQ.ZERO ) {
          W = ONE
       } else {
          W = CONJG( B ) / ABS( B )
-      END IF
+      }
       CALL SLAEV2( REAL( A ), ABS( B ), REAL( C ), RT1, RT2, CS1, T )
       SN1 = W*T
       RETURN

@@ -17,7 +17,7 @@
       // ..
       SROUNDUP_LWORK = REAL( LWORK )
 
-      IF( INT( SROUNDUP_LWORK ) .LT. LWORK ) THEN
+      if ( INT( SROUNDUP_LWORK ) .LT. LWORK ) {
           // Force round up of LWORK
           SROUNDUP_LWORK = SROUNDUP_LWORK * ( 1.0E+0 + EPSILON(0.0E+0) )
       ENDIF

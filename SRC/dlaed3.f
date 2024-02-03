@@ -39,17 +39,17 @@
 
       INFO = 0
 
-      IF( K.LT.0 ) THEN
+      if ( K.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.K ) THEN
+      } else if ( N.LT.K ) {
          INFO = -2
-      ELSE IF( LDQ.LT.MAX( 1, N ) ) THEN
+      } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLAED3', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -65,7 +65,7 @@
    20 CONTINUE
 
       IF( K.EQ.1 ) GO TO 110
-      IF( K.EQ.2 ) THEN
+      if ( K.EQ.2 ) {
          DO 30 J = 1, K
             W( 1 ) = Q( 1, J )
             W( 2 ) = Q( 2, J )
@@ -75,7 +75,7 @@
             Q( 2, J ) = W( II )
    30    CONTINUE
          GO TO 110
-      END IF
+      }
 
       // Compute updated W.
 
@@ -119,18 +119,18 @@
 
       CALL DLACPY( 'A', N23, K, Q( CTOT( 1 )+1, 1 ), LDQ, S, N23 )
       IQ2 = N1*N12 + 1
-      IF( N23.NE.0 ) THEN
+      if ( N23.NE.0 ) {
          CALL DGEMM( 'N', 'N', N2, K, N23, ONE, Q2( IQ2 ), N2, S, N23, ZERO, Q( N1+1, 1 ), LDQ )
       } else {
          CALL DLASET( 'A', N2, K, ZERO, ZERO, Q( N1+1, 1 ), LDQ )
-      END IF
+      }
 
       CALL DLACPY( 'A', N12, K, Q, LDQ, S, N12 )
-      IF( N12.NE.0 ) THEN
+      if ( N12.NE.0 ) {
          CALL DGEMM( 'N', 'N', N1, K, N12, ONE, Q2, N1, S, N12, ZERO, Q, LDQ )
       } else {
          CALL DLASET( 'A', N1, K, ZERO, ZERO, Q( 1, 1 ), LDQ )
-      END IF
+      }
 
 
   120 CONTINUE

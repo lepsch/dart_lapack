@@ -61,13 +61,13 @@
       INFO = 0
       TRANS_TYPE = ILATRANS( TRANS )
       REF_TYPE = INT( ITREF_DEFAULT )
-      IF ( NPARAMS .GE. LA_LINRX_ITREF_I ) THEN
-         IF ( PARAMS( LA_LINRX_ITREF_I ) .LT. 0.0D+0 ) THEN
+      if ( NPARAMS .GE. LA_LINRX_ITREF_I ) {
+         if ( PARAMS( LA_LINRX_ITREF_I ) .LT. 0.0D+0 ) {
             PARAMS( LA_LINRX_ITREF_I ) = ITREF_DEFAULT
          } else {
             REF_TYPE = PARAMS( LA_LINRX_ITREF_I )
-         END IF
-      END IF
+         }
+      }
 
       // Set default parameters.
 
@@ -77,31 +77,31 @@
       UNSTABLE_THRESH = DZTHRESH_DEFAULT
       IGNORE_CWISE = COMPONENTWISE_DEFAULT .EQ. 0.0D+0
 
-      IF ( NPARAMS.GE.LA_LINRX_ITHRESH_I ) THEN
-         IF ( PARAMS( LA_LINRX_ITHRESH_I ).LT.0.0D+0 ) THEN
+      if ( NPARAMS.GE.LA_LINRX_ITHRESH_I ) {
+         if ( PARAMS( LA_LINRX_ITHRESH_I ).LT.0.0D+0 ) {
             PARAMS( LA_LINRX_ITHRESH_I ) = ITHRESH
          } else {
             ITHRESH = INT( PARAMS( LA_LINRX_ITHRESH_I ) )
-         END IF
-      END IF
-      IF ( NPARAMS.GE.LA_LINRX_CWISE_I ) THEN
-         IF ( PARAMS( LA_LINRX_CWISE_I ).LT.0.0D+0 ) THEN
-            IF ( IGNORE_CWISE ) THEN
+         }
+      }
+      if ( NPARAMS.GE.LA_LINRX_CWISE_I ) {
+         if ( PARAMS( LA_LINRX_CWISE_I ).LT.0.0D+0 ) {
+            if ( IGNORE_CWISE ) {
                PARAMS( LA_LINRX_CWISE_I ) = 0.0D+0
             } else {
                PARAMS( LA_LINRX_CWISE_I ) = 1.0D+0
-            END IF
+            }
          } else {
             IGNORE_CWISE = PARAMS( LA_LINRX_CWISE_I ) .EQ. 0.0D+0
-         END IF
-      END IF
-      IF ( REF_TYPE .EQ. 0 .OR. N_ERR_BNDS .EQ. 0 ) THEN
+         }
+      }
+      if ( REF_TYPE .EQ. 0 .OR. N_ERR_BNDS .EQ. 0 ) {
          N_NORMS = 0
-      ELSE IF ( IGNORE_CWISE ) THEN
+      } else if ( IGNORE_CWISE ) {
          N_NORMS = 1
       } else {
          N_NORMS = 2
-      END IF
+      }
 
       NOTRAN = LSAME( TRANS, 'N' )
       ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
@@ -109,109 +109,109 @@
 
       // Test input parameters.
 
-      IF( TRANS_TYPE.EQ.-1 ) THEN
+      if ( TRANS_TYPE.EQ.-1 ) {
         INFO = -1
-      ELSE IF( .NOT.ROWEQU .AND. .NOT.COLEQU .AND. .NOT.LSAME( EQUED, 'N' ) ) THEN
+      } else if ( .NOT.ROWEQU .AND. .NOT.COLEQU .AND. .NOT.LSAME( EQUED, 'N' ) ) {
         INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
         INFO = -3
-      ELSE IF( KL.LT.0 ) THEN
+      } else if ( KL.LT.0 ) {
         INFO = -4
-      ELSE IF( KU.LT.0 ) THEN
+      } else if ( KU.LT.0 ) {
         INFO = -5
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
         INFO = -6
-      ELSE IF( LDAB.LT.KL+KU+1 ) THEN
+      } else if ( LDAB.LT.KL+KU+1 ) {
         INFO = -8
-      ELSE IF( LDAFB.LT.2*KL+KU+1 ) THEN
+      } else if ( LDAFB.LT.2*KL+KU+1 ) {
         INFO = -10
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
         INFO = -13
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
         INFO = -15
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
         CALL XERBLA( 'ZGBRFSX', -INFO )
         RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
+      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
          RCOND = 1.0D+0
          DO J = 1, NRHS
             BERR( J ) = 0.0D+0
-            IF ( N_ERR_BNDS .GE. 1 ) THEN
+            if ( N_ERR_BNDS .GE. 1 ) {
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0D+0
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0D+0
-            END IF
-            IF ( N_ERR_BNDS .GE. 2 ) THEN
+            }
+            if ( N_ERR_BNDS .GE. 2 ) {
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 0.0D+0
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 0.0D+0
-            END IF
-            IF ( N_ERR_BNDS .GE. 3 ) THEN
+            }
+            if ( N_ERR_BNDS .GE. 3 ) {
                ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = 1.0D+0
                ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = 1.0D+0
-            END IF
+            }
          END DO
          RETURN
-      END IF
+      }
 
       // Default to failure.
 
       RCOND = 0.0D+0
       DO J = 1, NRHS
          BERR( J ) = 1.0D+0
-         IF ( N_ERR_BNDS .GE. 1 ) THEN
+         if ( N_ERR_BNDS .GE. 1 ) {
             ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0D+0
             ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0D+0
-         END IF
-         IF ( N_ERR_BNDS .GE. 2 ) THEN
+         }
+         if ( N_ERR_BNDS .GE. 2 ) {
             ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
             ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
-         END IF
-         IF ( N_ERR_BNDS .GE. 3 ) THEN
+         }
+         if ( N_ERR_BNDS .GE. 3 ) {
             ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = 0.0D+0
             ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = 0.0D+0
-         END IF
+         }
       END DO
 
       // Compute the norm of A and the reciprocal of the condition
       // number of A.
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
          NORM = 'I'
       } else {
          NORM = '1'
-      END IF
+      }
       ANORM = ZLANGB( NORM, N, KL, KU, AB, LDAB, RWORK )
       CALL ZGBCON( NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND, WORK, RWORK, INFO )
 
       // Perform refinement on each right-hand side
 
-      IF ( REF_TYPE .NE. 0 .AND. INFO .EQ. 0 ) THEN
+      if ( REF_TYPE .NE. 0 .AND. INFO .EQ. 0 ) {
 
          PREC_TYPE = ILAPREC( 'E' )
 
-         IF ( NOTRAN ) THEN
+         if ( NOTRAN ) {
             CALL ZLA_GBRFSX_EXTENDED( PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, COLEQU, C, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO )
          } else {
             CALL ZLA_GBRFSX_EXTENDED( PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, ROWEQU, R, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO )
-         END IF
-      END IF
+         }
+      }
 
       ERR_LBND = MAX( 10.0D+0, SQRT( DBLE( N ) ) ) * DLAMCH( 'Epsilon' )
-      IF (N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 1) THEN
+      if (N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 1) {
 
       // Compute scaled normwise condition number cond(A*C).
 
-         IF ( COLEQU .AND. NOTRAN ) THEN
+         if ( COLEQU .AND. NOTRAN ) {
             RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, .TRUE., INFO, WORK, RWORK )
-         ELSE IF ( ROWEQU .AND. .NOT. NOTRAN ) THEN
+         } else if ( ROWEQU .AND. .NOT. NOTRAN ) {
             RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, R, .TRUE., INFO, WORK, RWORK )
          } else {
             RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, .FALSE., INFO, WORK, RWORK )
-         END IF
+         }
          DO J = 1, NRHS
 
       // Cap the error at 1.0.
@@ -220,25 +220,25 @@
 
       // Threshold the error (see LAWN).
 
-            IF ( RCOND_TMP .LT. ILLRCOND_THRESH ) THEN
+            if ( RCOND_TMP .LT. ILLRCOND_THRESH ) {
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 0.0D+0
                IF ( INFO .LE. N ) INFO = N + J
-            ELSE IF ( ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .LT. ERR_LBND ) THEN
+            } else if ( ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .LT. ERR_LBND ) {
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = ERR_LBND
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0D+0
-            END IF
+            }
 
       // Save the condition number.
 
-            IF ( N_ERR_BNDS .GE. LA_LINRX_RCOND_I ) THEN
+            if ( N_ERR_BNDS .GE. LA_LINRX_RCOND_I ) {
                ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = RCOND_TMP
-            END IF
+            }
 
          END DO
-      END IF
+      }
 
-      IF (N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 2) THEN
+      if (N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 2) {
 
       // Compute componentwise condition number cond(A*diag(Y(:,J))) for
       // each right-hand side using the current solution as an estimate of
@@ -253,7 +253,7 @@
             IF (ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. CWISE_WRONG ) THEN                RCOND_TMP = ZLA_GBRCOND_X( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, X( 1, J ), INFO, WORK, RWORK )
             } else {
                RCOND_TMP = 0.0D+0
-            END IF
+            }
 
       // Cap the error at 1.0.
 
@@ -261,22 +261,22 @@
 
       // Threshold the error (see LAWN).
 
-            IF ( RCOND_TMP .LT. ILLRCOND_THRESH ) THEN
+            if ( RCOND_TMP .LT. ILLRCOND_THRESH ) {
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 0.0D+0
-               IF ( PARAMS( LA_LINRX_CWISE_I ) .EQ. 1.0D+0 .AND. INFO.LT.N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. ERR_LBND ) THEN
+               if ( PARAMS( LA_LINRX_CWISE_I ) .EQ. 1.0D+0 .AND. INFO.LT.N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. ERR_LBND ) {
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = ERR_LBND
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0D+0
-            END IF
+            }
 
       // Save the condition number.
 
-            IF ( N_ERR_BNDS .GE. LA_LINRX_RCOND_I ) THEN
+            if ( N_ERR_BNDS .GE. LA_LINRX_RCOND_I ) {
                ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = RCOND_TMP
-            END IF
+            }
 
          END DO
-      END IF
+      }
 
       RETURN
 

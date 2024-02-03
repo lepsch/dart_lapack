@@ -40,28 +40,28 @@
       // .. Executable Statements ..
 
       SQRT14 = ZERO
-      IF( LSAME( TRANS, 'N' ) ) THEN
+      if ( LSAME( TRANS, 'N' ) ) {
          LDWORK = M + NRHS
          TPSD = .FALSE.
-         IF( LWORK.LT.( M+NRHS )*( N+2 ) ) THEN
+         if ( LWORK.LT.( M+NRHS )*( N+2 ) ) {
             CALL XERBLA( 'SQRT14', 10 )
             RETURN
-         ELSE IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
+         } else if ( N.LE.0 .OR. NRHS.LE.0 ) {
             RETURN
-         END IF
-      ELSE IF( LSAME( TRANS, 'T' ) ) THEN
+         }
+      } else if ( LSAME( TRANS, 'T' ) ) {
          LDWORK = M
          TPSD = .TRUE.
-         IF( LWORK.LT.( N+NRHS )*( M+2 ) ) THEN
+         if ( LWORK.LT.( N+NRHS )*( M+2 ) ) {
             CALL XERBLA( 'SQRT14', 10 )
             RETURN
-         ELSE IF( M.LE.0 .OR. NRHS.LE.0 ) THEN
+         } else if ( M.LE.0 .OR. NRHS.LE.0 ) {
             RETURN
-         END IF
+         }
       } else {
          CALL XERBLA( 'SQRT14', 1 )
          RETURN
-      END IF
+      }
 
       // Copy and scale A
 
@@ -71,7 +71,7 @@
 
       // Copy X or X' into the right place and scale it
 
-      IF( TPSD ) THEN
+      if ( TPSD ) {
 
          // Copy X into columns n+1:n+nrhs of work
 
@@ -118,7 +118,7 @@
    50       CONTINUE
    60    CONTINUE
 
-      END IF
+      }
 
       SQRT14 = ERR / ( REAL( MAX( M, N, NRHS ) )*SLAMCH( 'Epsilon' ) )
 

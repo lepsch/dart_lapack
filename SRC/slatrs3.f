@@ -74,40 +74,40 @@
       LANRM = NBA * NBA
       AWRK = LSCALE
 
-      IF( MIN( N, NRHS ).EQ.0 ) THEN
+      if ( MIN( N, NRHS ).EQ.0 ) {
          LWMIN = 1
       } else {
          LWMIN = LSCALE + LANRM
-      END IF
+      }
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
 
       // Test the input parameters.
 
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
+      } else if ( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
-      ELSE IF( .NOT.LSAME( NORMIN, 'Y' ) .AND. .NOT. LSAME( NORMIN, 'N' ) ) THEN
+      } else if ( .NOT.LSAME( NORMIN, 'Y' ) .AND. .NOT. LSAME( NORMIN, 'N' ) ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -6
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -8
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -10
-      ELSE IF( .NOT.LQUERY .AND. LWORK.LT.LWMIN ) THEN
+      } else if ( .NOT.LQUERY .AND. LWORK.LT.LWMIN ) {
          INFO = -14
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLATRS3', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Initialize scaling factors
 
@@ -126,13 +126,13 @@
 
       // Use unblocked code for small problems
 
-      IF( NRHS.LT.NRHSMIN ) THEN
+      if ( NRHS.LT.NRHSMIN ) {
          CALL SLATRS( UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X( 1, 1), SCALE( 1 ), CNORM, INFO )
          DO K = 2, NRHS
             CALL SLATRS( UPLO, TRANS, DIAG, 'Y', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO )
          END DO
          RETURN
-      END IF
+      }
 
       // Compute norms of blocks of A excluding diagonal blocks and find
      t // he block with the largest norm TMAX.
@@ -141,31 +141,31 @@
       DO J = 1, NBA
          J1 = (J-1)*NB + 1
          J2 = MIN( J*NB, N ) + 1
-         IF ( UPPER ) THEN
+         if ( UPPER ) {
             IFIRST = 1
             ILAST = J - 1
          } else {
             IFIRST = J + 1
             ILAST = NBA
-         END IF
+         }
          DO I = IFIRST, ILAST
             I1 = (I-1)*NB + 1
             I2 = MIN( I*NB, N ) + 1
 
             // Compute upper bound of A( I1:I2-1, J1:J2-1 ).
 
-            IF( NOTRAN ) THEN
+            if ( NOTRAN ) {
                ANRM = SLANGE( 'I', I2-I1, J2-J1, A( I1, J1 ), LDA, W )
                WORK( AWRK + I+(J-1)*NBA ) = ANRM
             } else {
                ANRM = SLANGE( '1', I2-I1, J2-J1, A( I1, J1 ), LDA, W )
                WORK( AWRK + J+(I-1)*NBA ) = ANRM
-            END IF
+            }
             TMAX = MAX( TMAX, ANRM )
          END DO
       END DO
 
-      IF( .NOT. TMAX.LE.SLAMCH('Overflow') ) THEN
+      if ( .NOT. TMAX.LE.SLAMCH('Overflow') ) {
 
          // Some matrix entries have huge absolute value. At least one upper
          // bound norm( A(I1:I2-1, J1:J2-1), 'I') is not a valid floating-point
@@ -178,7 +178,7 @@
             CALL SLATRS( UPLO, TRANS, DIAG, 'N', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO )
          END DO
          RETURN
-      END IF
+      }
 
       // Every right-hand side requires workspace to store NBA local scale
       // factors. To save workspace, X is computed successively in block columns
@@ -201,11 +201,11 @@
             END DO
          END DO
 
-         IF( NOTRAN ) THEN
+         if ( NOTRAN ) {
 
             // Solve A * X(:, K1:K2-1) = B * diag(scale(K1:K2-1))
 
-            IF( UPPER ) THEN
+            if ( UPPER ) {
                JFIRST = NBA
                JLAST = 1
                JINC = -1
@@ -213,12 +213,12 @@
                JFIRST = 1
                JLAST = NBA
                JINC = 1
-            END IF
+            }
          } else {
 
             // Solve A**T * X(:, K1:K2-1) = B * diag(scale(K1:K2-1))
 
-            IF( UPPER ) THEN
+            if ( UPPER ) {
                JFIRST = 1
                JLAST = NBA
                JINC = 1
@@ -226,8 +226,8 @@
                JFIRST = NBA
                JLAST = 1
                JINC = -1
-            END IF
-         END IF
+            }
+         }
 
          DO J = JFIRST, JLAST, JINC
             // J1: row index of the first row in A( J, J )
@@ -242,17 +242,17 @@
 
             DO KK = 1, K2-K1
                RHS = K1 + KK - 1
-               IF( KK.EQ.1 ) THEN
+               if ( KK.EQ.1 ) {
                   CALL SLATRS( UPLO, TRANS, DIAG, 'N', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO )
                } else {
                   CALL SLATRS( UPLO, TRANS, DIAG, 'Y', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO )
-               END IF
+               }
                // Find largest absolute value entry in the vector segment
                // X( J1:J2-1, RHS ) as an upper bound for the worst case
                // growth in the linear updates.
                XNRM( KK ) = SLANGE( 'I', J2-J1, 1, X( J1, RHS ), LDX, W )
 
-               IF( SCALOC .EQ. ZERO ) THEN
+               if ( SCALOC .EQ. ZERO ) {
                   // LATRS found that A is singular through A(j,j) = 0.
                   // Reset the computation x(1:n) = 0, x(j) = 1, SCALE = 0
                   // and compute A*x = 0 (or A**T*x = 0). Note that
@@ -269,7 +269,7 @@
                      WORK( II+KK*LDS ) = ONE
                   END DO
                   SCALOC = ONE
-               ELSE IF( SCALOC*WORK( J+KK*LDS ) .EQ. ZERO ) THEN
+               } else if ( SCALOC*WORK( J+KK*LDS ) .EQ. ZERO ) {
                   // LATRS computed a valid scale factor, but combined with
                  t // he current scaling the solution does not have a
                   // scale factor > 0.
@@ -283,7 +283,7 @@
                   // rescaled to preserve a valid combined scale
                   // factor WORK( J, KK ) > 0.
                   RSCAL = ONE / SCALOC
-                  IF( XNRM( KK )*RSCAL .LE. BIGNUM ) THEN
+                  if ( XNRM( KK )*RSCAL .LE. BIGNUM ) {
                      XNRM( KK ) = XNRM( KK ) * RSCAL
                      CALL SSCAL( J2-J1, RSCAL, X( J1, RHS ), 1 )
                      SCALOC = ONE
@@ -302,16 +302,16 @@
                         WORK( II+KK*LDS ) = ONE
                      END DO
                      SCALOC = ONE
-                  END IF
-               END IF
+                  }
+               }
                SCALOC = SCALOC * WORK( J+KK*LDS )
                WORK( J+KK*LDS ) = SCALOC
             END DO
 
             // Linear block updates
 
-            IF( NOTRAN ) THEN
-               IF( UPPER ) THEN
+            if ( NOTRAN ) {
+               if ( UPPER ) {
                   IFIRST = J - 1
                   ILAST = 1
                   IINC = -1
@@ -319,9 +319,9 @@
                   IFIRST = J + 1
                   ILAST = NBA
                   IINC = 1
-               END IF
+               }
             } else {
-               IF( UPPER ) THEN
+               if ( UPPER ) {
                   IFIRST = J + 1
                   ILAST = NBA
                   IINC = 1
@@ -329,8 +329,8 @@
                   IFIRST = J - 1
                   ILAST = 1
                   IINC = -1
-               END IF
-            END IF
+               }
+            }
 
             DO I = IFIRST, ILAST, IINC
                // I1: row index of the first column in X( I, K )
@@ -363,19 +363,19 @@
                   // consistency scaling factor to B( I, KK ) and B( J, KK ).
 
                   SCAL = ( SCAMIN / WORK( I+KK*LDS) )*SCALOC
-                  IF( SCAL.NE.ONE ) THEN
+                  if ( SCAL.NE.ONE ) {
                      CALL SSCAL( I2-I1, SCAL, X( I1, RHS ), 1 )
                      WORK( I+KK*LDS ) = SCAMIN*SCALOC
-                  END IF
+                  }
 
                   SCAL = ( SCAMIN / WORK( J+KK*LDS ) )*SCALOC
-                  IF( SCAL.NE.ONE ) THEN
+                  if ( SCAL.NE.ONE ) {
                      CALL SSCAL( J2-J1, SCAL, X( J1, RHS ), 1 )
                      WORK( J+KK*LDS ) = SCAMIN*SCALOC
-                  END IF
+                  }
                END DO
 
-               IF( NOTRAN ) THEN
+               if ( NOTRAN ) {
 
                   // B( I, K ) := B( I, K ) - A( I, J ) * X( J, K )
 
@@ -385,7 +385,7 @@
                   // B( I, K ) := B( I, K ) - A( I, J )**T * X( J, K )
 
                   CALL SGEMM( 'T', 'N', I2-I1, K2-K1, J2-J1, -ONE, A( J1, I1 ), LDA, X( J1, K1 ), LDX, ONE, X( I1, K1 ), LDX )
-               END IF
+               }
             END DO
          END DO
 
@@ -402,14 +402,14 @@
 
          DO KK = 1, K2-K1
             RHS = K1 + KK - 1
-            IF( SCALE( RHS ).NE.ONE .AND. SCALE( RHS ).NE. ZERO ) THEN
+            if ( SCALE( RHS ).NE.ONE .AND. SCALE( RHS ).NE. ZERO ) {
                DO I = 1, NBA
                   I1 = (I-1)*NB + 1
                   I2 = MIN( I*NB, N ) + 1
                   SCAL = SCALE( RHS ) / WORK( I+KK*LDS )
                   IF( SCAL.NE.ONE ) CALL SSCAL( I2-I1, SCAL, X( I1, RHS ), 1 )
                END DO
-            END IF
+            }
          END DO
       END DO
       RETURN

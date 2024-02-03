@@ -31,36 +31,36 @@
 
       INFO = 0
 
-      IF( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) THEN
+      if ( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) {
          INFO = -1
-      ELSE IF( SMLSIZ.LT.3 ) THEN
+      } else if ( SMLSIZ.LT.3 ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) THEN
+      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
          INFO = -4
-      ELSE IF( LDU.LT.( N+SQRE ) ) THEN
+      } else if ( LDU.LT.( N+SQRE ) ) {
          INFO = -8
-      ELSE IF( LDGCOL.LT.N ) THEN
+      } else if ( LDGCOL.LT.N ) {
          INFO = -17
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLASDA', -INFO )
          RETURN
-      END IF
+      }
 
       M = N + SQRE
 
       // If the input matrix is too small, call DLASDQ to find the SVD.
 
-      IF( N.LE.SMLSIZ ) THEN
-         IF( ICOMPQ.EQ.0 ) THEN
+      if ( N.LE.SMLSIZ ) {
+         if ( ICOMPQ.EQ.0 ) {
             CALL DLASDQ( 'U', SQRE, N, 0, 0, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO )
          } else {
             CALL DLASDQ( 'U', SQRE, N, M, N, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO )
-         END IF
+         }
          RETURN
-      END IF
+      }
 
       // Book-keeping and  set up the computation tree.
 
@@ -104,7 +104,7 @@
          VFI = VF + NLF - 1
          VLI = VL + NLF - 1
          SQREI = 1
-         IF( ICOMPQ.EQ.0 ) THEN
+         if ( ICOMPQ.EQ.0 ) {
             CALL DLASET( 'A', NLP1, NLP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP )             CALL DLASDQ( 'U', SQREI, NL, NLP1, NRU, NCC, D( NLF ), E( NLF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NL, WORK( NWORK2 ), NL, WORK( NWORK2 ), INFO )
             ITEMP = NWORK1 + NL*SMLSZP
             CALL DCOPY( NLP1, WORK( NWORK1 ), 1, WORK( VFI ), 1 )
@@ -115,23 +115,23 @@
             CALL DLASDQ( 'U', SQREI, NL, NLP1, NL, NCC, D( NLF ), E( NLF ), VT( NLF, 1 ), LDU, U( NLF, 1 ), LDU, U( NLF, 1 ), LDU, WORK( NWORK1 ), INFO )
             CALL DCOPY( NLP1, VT( NLF, 1 ), 1, WORK( VFI ), 1 )
             CALL DCOPY( NLP1, VT( NLF, NLP1 ), 1, WORK( VLI ), 1 )
-         END IF
-         IF( INFO.NE.0 ) THEN
+         }
+         if ( INFO.NE.0 ) {
             RETURN
-         END IF
+         }
          DO 10 J = 1, NL
             IWORK( IDXQI+J ) = J
    10    CONTINUE
-         IF( ( I.EQ.ND ) .AND. ( SQRE.EQ.0 ) ) THEN
+         if ( ( I.EQ.ND ) .AND. ( SQRE.EQ.0 ) ) {
             SQREI = 0
          } else {
             SQREI = 1
-         END IF
+         }
          IDXQI = IDXQI + NLP1
          VFI = VFI + NLP1
          VLI = VLI + NLP1
          NRP1 = NR + SQREI
-         IF( ICOMPQ.EQ.0 ) THEN
+         if ( ICOMPQ.EQ.0 ) {
             CALL DLASET( 'A', NRP1, NRP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP )             CALL DLASDQ( 'U', SQREI, NR, NRP1, NRU, NCC, D( NRF ), E( NRF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NR, WORK( NWORK2 ), NR, WORK( NWORK2 ), INFO )
             ITEMP = NWORK1 + ( NRP1-1 )*SMLSZP
             CALL DCOPY( NRP1, WORK( NWORK1 ), 1, WORK( VFI ), 1 )
@@ -142,10 +142,10 @@
             CALL DLASDQ( 'U', SQREI, NR, NRP1, NR, NCC, D( NRF ), E( NRF ), VT( NRF, 1 ), LDU, U( NRF, 1 ), LDU, U( NRF, 1 ), LDU, WORK( NWORK1 ), INFO )
             CALL DCOPY( NRP1, VT( NRF, 1 ), 1, WORK( VFI ), 1 )
             CALL DCOPY( NRP1, VT( NRF, NRP1 ), 1, WORK( VLI ), 1 )
-         END IF
-         IF( INFO.NE.0 ) THEN
+         }
+         if ( INFO.NE.0 ) {
             RETURN
-         END IF
+         }
          DO 20 J = 1, NR
             IWORK( IDXQI+J ) = J
    20    CONTINUE
@@ -160,13 +160,13 @@
          // Find the first node LF and last node LL on
         t // he current level LVL.
 
-         IF( LVL.EQ.1 ) THEN
+         if ( LVL.EQ.1 ) {
             LF = 1
             LL = 1
          } else {
             LF = 2**( LVL-1 )
             LL = 2*LF - 1
-         END IF
+         }
          DO 40 I = LF, LL
             IM1 = I - 1
             IC = IWORK( INODE+IM1 )
@@ -174,25 +174,25 @@
             NR = IWORK( NDIMR+IM1 )
             NLF = IC - NL
             NRF = IC + 1
-            IF( I.EQ.LL ) THEN
+            if ( I.EQ.LL ) {
                SQREI = SQRE
             } else {
                SQREI = 1
-            END IF
+            }
             VFI = VF + NLF - 1
             VLI = VL + NLF - 1
             IDXQI = IDXQ + NLF - 1
             ALPHA = D( IC )
             BETA = E( IC )
-            IF( ICOMPQ.EQ.0 ) THEN
+            if ( ICOMPQ.EQ.0 ) {
                CALL DLASD6( ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM, GIVPTR( 1 ), GIVCOL, LDGCOL, GIVNUM, LDU, POLES, DIFL, DIFR, Z, K( 1 ), C( 1 ), S( 1 ), WORK( NWORK1 ), IWORK( IWK ), INFO )
             } else {
                J = J - 1
                CALL DLASD6( ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK( NWORK1 ), IWORK( IWK ), INFO )
-            END IF
-            IF( INFO.NE.0 ) THEN
+            }
+            if ( INFO.NE.0 ) {
                RETURN
-            END IF
+            }
    40    CONTINUE
    50 CONTINUE
 

@@ -38,10 +38,10 @@
 
       // Quick exit if M = 0 or N = 0.
 
-      IF( M.LE.0 .OR. N.LE.0 ) THEN
+      if ( M.LE.0 .OR. N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Determine EPS and the norm of A.
 
@@ -53,17 +53,17 @@
       // column N.
 
       DO 10 K = N, 1, -1
-         IF( K.GT.M ) THEN
+         if ( K.GT.M ) {
             CALL DTRMV( 'Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 )
          } else {
 
             // Compute elements (K+1:M,K)
 
             T = AFAC( K, K )
-            IF( K+1.LE.M ) THEN
+            if ( K+1.LE.M ) {
                CALL DSCAL( M-K, T, AFAC( K+1, K ), 1 )
                CALL DGEMV( 'No transpose', M-K, K-1, ONE, AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, ONE, AFAC( K+1, K ), 1 )
-            END IF
+            }
 
             // Compute the (K,K) element
 
@@ -72,7 +72,7 @@
             // Compute elements (1:K-1,K)
 
             CALL DTRMV( 'Lower', 'No transpose', 'Unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
-         END IF
+         }
    10 CONTINUE
       CALL DLASWP( N, AFAC, LDAFAC, 1, MIN( M, N ), IPIV, -1 )
 
@@ -88,11 +88,11 @@
 
       RESID = DLANGE( '1', M, N, AFAC, LDAFAC, RWORK )
 
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
-      END IF
+      }
 
       RETURN
 

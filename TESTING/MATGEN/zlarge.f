@@ -38,15 +38,15 @@
       // Test the input arguments
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -3
-      END IF
-      IF( INFO.LT.0 ) THEN
+      }
+      if ( INFO.LT.0 ) {
          CALL XERBLA( 'ZLARGE', -INFO )
          RETURN
-      END IF
+      }
 
       // pre- and post-multiply A by random unitary matrix
 
@@ -57,14 +57,14 @@
          CALL ZLARNV( 3, ISEED, N-I+1, WORK )
          WN = DZNRM2( N-I+1, WORK, 1 )
          WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 )
-         IF( WN.EQ.ZERO ) THEN
+         if ( WN.EQ.ZERO ) {
             TAU = ZERO
          } else {
             WB = WORK( 1 ) + WA
             CALL ZSCAL( N-I, ONE / WB, WORK( 2 ), 1 )
             WORK( 1 ) = ONE
             TAU = DBLE( WB / WA )
-         END IF
+         }
 
          // multiply A(i:n,1:n) by random reflection from the left
 

@@ -40,33 +40,33 @@
 
       // Test the input parameters.
 
-      IF (LSAME(TRANS,'N')) THEN
+      if (LSAME(TRANS,'N')) {
           NROWA = N
       } else {
           NROWA = K
-      END IF
+      }
       UPPER = LSAME(UPLO,'U')
 
       INFO = 0
-      IF ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) THEN
+      if ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) {
           INFO = 1
-      ELSE IF ((.NOT.LSAME(TRANS,'N')) .AND. (.NOT.LSAME(TRANS,'C'))) THEN
+      } else if ((.NOT.LSAME(TRANS,'N')) .AND. (.NOT.LSAME(TRANS,'C'))) {
           INFO = 2
-      ELSE IF (N.LT.0) THEN
+      } else if (N.LT.0) {
           INFO = 3
-      ELSE IF (K.LT.0) THEN
+      } else if (K.LT.0) {
           INFO = 4
-      ELSE IF (LDA.LT.MAX(1,NROWA)) THEN
+      } else if (LDA.LT.MAX(1,NROWA)) {
           INFO = 7
-      ELSE IF (LDB.LT.MAX(1,NROWA)) THEN
+      } else if (LDB.LT.MAX(1,NROWA)) {
           INFO = 9
-      ELSE IF (LDC.LT.MAX(1,N)) THEN
+      } else if (LDC.LT.MAX(1,N)) {
           INFO = 12
-      END IF
-      IF (INFO.NE.0) THEN
+      }
+      if (INFO.NE.0) {
           CALL XERBLA('CHER2K',INFO)
           RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -74,9 +74,9 @@
 
       // And when  alpha.eq.zero.
 
-      IF (ALPHA.EQ.ZERO) THEN
-          IF (UPPER) THEN
-              IF (BETA.EQ.REAL(ZERO)) THEN
+      if (ALPHA.EQ.ZERO) {
+          if (UPPER) {
+              if (BETA.EQ.REAL(ZERO)) {
                   DO 20 J = 1,N
                       DO 10 I = 1,J
                           C(I,J) = ZERO
@@ -89,9 +89,9 @@
    30                 CONTINUE
                       C(J,J) = BETA*REAL(C(J,J))
    40             CONTINUE
-              END IF
+              }
           } else {
-              IF (BETA.EQ.REAL(ZERO)) THEN
+              if (BETA.EQ.REAL(ZERO)) {
                   DO 60 J = 1,N
                       DO 50 I = J,N
                           C(I,J) = ZERO
@@ -104,75 +104,75 @@
                           C(I,J) = BETA*C(I,J)
    70                 CONTINUE
    80             CONTINUE
-              END IF
-          END IF
+              }
+          }
           RETURN
-      END IF
+      }
 
       // Start the operations.
 
-      IF (LSAME(TRANS,'N')) THEN
+      if (LSAME(TRANS,'N')) {
 
          // Form  C := alpha*A*B**H + conjg( alpha )*B*A**H +
                     // C.
 
-          IF (UPPER) THEN
+          if (UPPER) {
               DO 130 J = 1,N
-                  IF (BETA.EQ.REAL(ZERO)) THEN
+                  if (BETA.EQ.REAL(ZERO)) {
                       DO 90 I = 1,J
                           C(I,J) = ZERO
    90                 CONTINUE
-                  ELSE IF (BETA.NE.ONE) THEN
+                  } else if (BETA.NE.ONE) {
                       DO 100 I = 1,J - 1
                           C(I,J) = BETA*C(I,J)
   100                 CONTINUE
                       C(J,J) = BETA*REAL(C(J,J))
                   } else {
                       C(J,J) = REAL(C(J,J))
-                  END IF
+                  }
                   DO 120 L = 1,K
-                      IF ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) THEN
+                      if ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) {
                           TEMP1 = ALPHA*CONJG(B(J,L))
                           TEMP2 = CONJG(ALPHA*A(J,L))
                           DO 110 I = 1,J - 1
                               C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2
   110                     CONTINUE
                           C(J,J) = REAL(C(J,J)) + REAL(A(J,L)*TEMP1+B(J,L)*TEMP2)
-                      END IF
+                      }
   120             CONTINUE
   130         CONTINUE
           } else {
               DO 180 J = 1,N
-                  IF (BETA.EQ.REAL(ZERO)) THEN
+                  if (BETA.EQ.REAL(ZERO)) {
                       DO 140 I = J,N
                           C(I,J) = ZERO
   140                 CONTINUE
-                  ELSE IF (BETA.NE.ONE) THEN
+                  } else if (BETA.NE.ONE) {
                       DO 150 I = J + 1,N
                           C(I,J) = BETA*C(I,J)
   150                 CONTINUE
                       C(J,J) = BETA*REAL(C(J,J))
                   } else {
                       C(J,J) = REAL(C(J,J))
-                  END IF
+                  }
                   DO 170 L = 1,K
-                      IF ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) THEN
+                      if ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) {
                           TEMP1 = ALPHA*CONJG(B(J,L))
                           TEMP2 = CONJG(ALPHA*A(J,L))
                           DO 160 I = J + 1,N
                               C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2
   160                     CONTINUE
                           C(J,J) = REAL(C(J,J)) + REAL(A(J,L)*TEMP1+B(J,L)*TEMP2)
-                      END IF
+                      }
   170             CONTINUE
   180         CONTINUE
-          END IF
+          }
       } else {
 
          // Form  C := alpha*A**H*B + conjg( alpha )*B**H*A +
                     // C.
 
-          IF (UPPER) THEN
+          if (UPPER) {
               DO 210 J = 1,N
                   DO 200 I = 1,J
                       TEMP1 = ZERO
@@ -181,19 +181,19 @@
                           TEMP1 = TEMP1 + CONJG(A(L,I))*B(L,J)
                           TEMP2 = TEMP2 + CONJG(B(L,I))*A(L,J)
   190                 CONTINUE
-                      IF (I.EQ.J) THEN
-                          IF (BETA.EQ.REAL(ZERO)) THEN
+                      if (I.EQ.J) {
+                          if (BETA.EQ.REAL(ZERO)) {
                               C(J,J) = REAL(ALPHA*TEMP1+ CONJG(ALPHA)*TEMP2)
                           } else {
                               C(J,J) = BETA*REAL(C(J,J)) + REAL(ALPHA*TEMP1+ CONJG(ALPHA)*TEMP2)
-                          END IF
+                          }
                       } else {
-                          IF (BETA.EQ.REAL(ZERO)) THEN
+                          if (BETA.EQ.REAL(ZERO)) {
                               C(I,J) = ALPHA*TEMP1 + CONJG(ALPHA)*TEMP2
                           } else {
                               C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + CONJG(ALPHA)*TEMP2
-                          END IF
-                      END IF
+                          }
+                      }
   200             CONTINUE
   210         CONTINUE
           } else {
@@ -205,23 +205,23 @@
                           TEMP1 = TEMP1 + CONJG(A(L,I))*B(L,J)
                           TEMP2 = TEMP2 + CONJG(B(L,I))*A(L,J)
   220                 CONTINUE
-                      IF (I.EQ.J) THEN
-                          IF (BETA.EQ.REAL(ZERO)) THEN
+                      if (I.EQ.J) {
+                          if (BETA.EQ.REAL(ZERO)) {
                               C(J,J) = REAL(ALPHA*TEMP1+ CONJG(ALPHA)*TEMP2)
                           } else {
                               C(J,J) = BETA*REAL(C(J,J)) + REAL(ALPHA*TEMP1+ CONJG(ALPHA)*TEMP2)
-                          END IF
+                          }
                       } else {
-                          IF (BETA.EQ.REAL(ZERO)) THEN
+                          if (BETA.EQ.REAL(ZERO)) {
                               C(I,J) = ALPHA*TEMP1 + CONJG(ALPHA)*TEMP2
                           } else {
                               C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + CONJG(ALPHA)*TEMP2
-                          END IF
-                      END IF
+                          }
+                      }
   230             CONTINUE
   240         CONTINUE
-          END IF
-      END IF
+          }
+      }
 
       RETURN
 

@@ -27,7 +27,7 @@
          K( I ) = -K( I )
    10 CONTINUE
 
-      IF( FORWRD ) THEN
+      if ( FORWRD ) {
 
          // Forward permutation
 
@@ -84,7 +84,7 @@
 
    90    CONTINUE
 
-      END IF
+      }
 
       RETURN
 

@@ -51,71 +51,71 @@
       DEFAULTSIGNS = .NOT. LSAME( SIGNS, 'O' )
       LQUERY = LWORK .EQ. -1
       LRQUERY = LRWORK .EQ. -1
-      IF( M .LT. 0 ) THEN
+      if ( M .LT. 0 ) {
          INFO = -7
-      ELSE IF( P .LT. 0 .OR. P .GT. M ) THEN
+      } else if ( P .LT. 0 .OR. P .GT. M ) {
          INFO = -8
-      ELSE IF( Q .LT. 0 .OR. Q .GT. M ) THEN
+      } else if ( Q .LT. 0 .OR. Q .GT. M ) {
          INFO = -9
-      ELSE IF ( COLMAJOR .AND.  LDX11 .LT. MAX( 1, P ) ) THEN
+      } else if ( COLMAJOR .AND.  LDX11 .LT. MAX( 1, P ) ) {
         INFO = -11
-      ELSE IF (.NOT. COLMAJOR .AND. LDX11 .LT. MAX( 1, Q ) ) THEN
+      } else if (.NOT. COLMAJOR .AND. LDX11 .LT. MAX( 1, Q ) ) {
         INFO = -11
-      ELSE IF (COLMAJOR .AND. LDX12 .LT. MAX( 1, P ) ) THEN
+      } else if (COLMAJOR .AND. LDX12 .LT. MAX( 1, P ) ) {
         INFO = -13
-      ELSE IF (.NOT. COLMAJOR .AND. LDX12 .LT. MAX( 1, M-Q ) ) THEN
+      } else if (.NOT. COLMAJOR .AND. LDX12 .LT. MAX( 1, M-Q ) ) {
         INFO = -13
-      ELSE IF (COLMAJOR .AND. LDX21 .LT. MAX( 1, M-P ) ) THEN
+      } else if (COLMAJOR .AND. LDX21 .LT. MAX( 1, M-P ) ) {
         INFO = -15
-      ELSE IF (.NOT. COLMAJOR .AND. LDX21 .LT. MAX( 1, Q ) ) THEN
+      } else if (.NOT. COLMAJOR .AND. LDX21 .LT. MAX( 1, Q ) ) {
         INFO = -15
-      ELSE IF (COLMAJOR .AND. LDX22 .LT. MAX( 1, M-P ) ) THEN
+      } else if (COLMAJOR .AND. LDX22 .LT. MAX( 1, M-P ) ) {
         INFO = -17
-      ELSE IF (.NOT. COLMAJOR .AND. LDX22 .LT. MAX( 1, M-Q ) ) THEN
+      } else if (.NOT. COLMAJOR .AND. LDX22 .LT. MAX( 1, M-Q ) ) {
         INFO = -17
-      ELSE IF( WANTU1 .AND. LDU1 .LT. P ) THEN
+      } else if ( WANTU1 .AND. LDU1 .LT. P ) {
          INFO = -20
-      ELSE IF( WANTU2 .AND. LDU2 .LT. M-P ) THEN
+      } else if ( WANTU2 .AND. LDU2 .LT. M-P ) {
          INFO = -22
-      ELSE IF( WANTV1T .AND. LDV1T .LT. Q ) THEN
+      } else if ( WANTV1T .AND. LDV1T .LT. Q ) {
          INFO = -24
-      ELSE IF( WANTV2T .AND. LDV2T .LT. M-Q ) THEN
+      } else if ( WANTV2T .AND. LDV2T .LT. M-Q ) {
          INFO = -26
-      END IF
+      }
 
       // Work with transpose if convenient
 
-      IF( INFO .EQ. 0 .AND. MIN( P, M-P ) .LT. MIN( Q, M-Q ) ) THEN
-         IF( COLMAJOR ) THEN
+      if ( INFO .EQ. 0 .AND. MIN( P, M-P ) .LT. MIN( Q, M-Q ) ) {
+         if ( COLMAJOR ) {
             TRANST = 'T'
          } else {
             TRANST = 'N'
-         END IF
-         IF( DEFAULTSIGNS ) THEN
+         }
+         if ( DEFAULTSIGNS ) {
             SIGNST = 'O'
          } else {
             SIGNST = 'D'
-         END IF
+         }
          CALL ZUNCSD( JOBV1T, JOBV2T, JOBU1, JOBU2, TRANST, SIGNST, M, Q, P, X11, LDX11, X21, LDX21, X12, LDX12, X22, LDX22, THETA, V1T, LDV1T, V2T, LDV2T, U1, LDU1, U2, LDU2, WORK, LWORK, RWORK, LRWORK, IWORK, INFO )
          RETURN
-      END IF
+      }
 
       // Work with permutation [ 0 I; I 0 ] * X * [ 0 I; I 0 ] if
       // convenient
 
-      IF( INFO .EQ. 0 .AND. M-Q .LT. Q ) THEN
-         IF( DEFAULTSIGNS ) THEN
+      if ( INFO .EQ. 0 .AND. M-Q .LT. Q ) {
+         if ( DEFAULTSIGNS ) {
             SIGNST = 'O'
          } else {
             SIGNST = 'D'
-         END IF
+         }
          CALL ZUNCSD( JOBU2, JOBU1, JOBV2T, JOBV1T, TRANS, SIGNST, M, M-P, M-Q, X22, LDX22, X21, LDX21, X12, LDX12, X11, LDX11, THETA, U2, LDU2, U1, LDU1, V2T, LDV2T, V1T, LDV1T, WORK, LWORK, RWORK, LRWORK, IWORK, INFO )
          RETURN
-      END IF
+      }
 
       // Compute workspace
 
-      IF( INFO .EQ. 0 ) THEN
+      if ( INFO .EQ. 0 ) {
 
          // Real workspace
 
@@ -157,26 +157,26 @@
          LWORKOPT = MAX( IORGQR + LORGQRWORKOPT, IORGLQ + LORGLQWORKOPT, IORBDB + LORBDBWORKOPT ) - 1          LWORKMIN = MAX( IORGQR + LORGQRWORKMIN, IORGLQ + LORGLQWORKMIN, IORBDB + LORBDBWORKMIN ) - 1
          WORK(1) = MAX(LWORKOPT,LWORKMIN)
 
-         IF( LWORK .LT. LWORKMIN .AND. .NOT. ( LQUERY .OR. LRQUERY ) ) THEN
+         if ( LWORK .LT. LWORKMIN .AND. .NOT. ( LQUERY .OR. LRQUERY ) ) {
             INFO = -22
-         ELSE IF( LRWORK .LT. LRWORKMIN .AND. .NOT. ( LQUERY .OR. LRQUERY ) ) THEN
+         } else if ( LRWORK .LT. LRWORKMIN .AND. .NOT. ( LQUERY .OR. LRQUERY ) ) {
             INFO = -24
          } else {
             LORGQRWORK = LWORK - IORGQR + 1
             LORGLQWORK = LWORK - IORGLQ + 1
             LORBDBWORK = LWORK - IORBDB + 1
             LBBCSDWORK = LRWORK - IBBCSD + 1
-         END IF
-      END IF
+         }
+      }
 
       // Abort if any illegal arguments
 
-      IF( INFO .NE. 0 ) THEN
+      if ( INFO .NE. 0 ) {
          CALL XERBLA( 'ZUNCSD', -INFO )
          RETURN
-      ELSE IF( LQUERY .OR. LRQUERY ) THEN
+      } else if ( LQUERY .OR. LRQUERY ) {
          RETURN
-      END IF
+      }
 
       // Transform to bidiagonal block form
 
@@ -184,16 +184,16 @@
 
       // Accumulate Householder reflectors
 
-      IF( COLMAJOR ) THEN
-         IF( WANTU1 .AND. P .GT. 0 ) THEN
+      if ( COLMAJOR ) {
+         if ( WANTU1 .AND. P .GT. 0 ) {
             CALL ZLACPY( 'L', P, Q, X11, LDX11, U1, LDU1 )
             CALL ZUNGQR( P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQRWORK, INFO)
-         END IF
-         IF( WANTU2 .AND. M-P .GT. 0 ) THEN
+         }
+         if ( WANTU2 .AND. M-P .GT. 0 ) {
             CALL ZLACPY( 'L', M-P, Q, X21, LDX21, U2, LDU2 )
             CALL ZUNGQR( M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQRWORK, INFO )
-         END IF
-         IF( WANTV1T .AND. Q .GT. 0 ) THEN
+         }
+         if ( WANTV1T .AND. Q .GT. 0 ) {
             CALL ZLACPY( 'U', Q-1, Q-1, X11(1,2), LDX11, V1T(2,2), LDV1T )
             V1T(1, 1) = ONE
             DO J = 2, Q
@@ -201,26 +201,26 @@
                V1T(J,1) = ZERO
             END DO
             CALL ZUNGLQ( Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQWORK, INFO )
-         END IF
-         IF( WANTV2T .AND. M-Q .GT. 0 ) THEN
+         }
+         if ( WANTV2T .AND. M-Q .GT. 0 ) {
             CALL ZLACPY( 'U', P, M-Q, X12, LDX12, V2T, LDV2T )
-            IF( M-P .GT. Q) THEN
+            if ( M-P .GT. Q) {
                CALL ZLACPY( 'U', M-P-Q, M-P-Q, X22(Q+1,P+1), LDX22, V2T(P+1,P+1), LDV2T )
-            END IF
-            IF( M .GT. Q ) THEN
+            }
+            if ( M .GT. Q ) {
                CALL ZUNGLQ( M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGLQ), LORGLQWORK, INFO )
-            END IF
-         END IF
+            }
+         }
       } else {
-         IF( WANTU1 .AND. P .GT. 0 ) THEN
+         if ( WANTU1 .AND. P .GT. 0 ) {
             CALL ZLACPY( 'U', Q, P, X11, LDX11, U1, LDU1 )
             CALL ZUNGLQ( P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGLQ), LORGLQWORK, INFO)
-         END IF
-         IF( WANTU2 .AND. M-P .GT. 0 ) THEN
+         }
+         if ( WANTU2 .AND. M-P .GT. 0 ) {
             CALL ZLACPY( 'U', Q, M-P, X21, LDX21, U2, LDU2 )
             CALL ZUNGLQ( M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGLQ), LORGLQWORK, INFO )
-         END IF
-         IF( WANTV1T .AND. Q .GT. 0 ) THEN
+         }
+         if ( WANTV1T .AND. Q .GT. 0 ) {
             CALL ZLACPY( 'L', Q-1, Q-1, X11(2,1), LDX11, V1T(2,2), LDV1T )
             V1T(1, 1) = ONE
             DO J = 2, Q
@@ -228,17 +228,17 @@
                V1T(J,1) = ZERO
             END DO
             CALL ZUNGQR( Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGQR), LORGQRWORK, INFO )
-         END IF
-         IF( WANTV2T .AND. M-Q .GT. 0 ) THEN
+         }
+         if ( WANTV2T .AND. M-Q .GT. 0 ) {
             P1 = MIN( P+1, M )
             Q1 = MIN( Q+1, M )
             CALL ZLACPY( 'L', M-Q, P, X12, LDX12, V2T, LDV2T )
-            IF( M .GT. P+Q ) THEN
+            if ( M .GT. P+Q ) {
                CALL ZLACPY( 'L', M-P-Q, M-P-Q, X22(P1,Q1), LDX22, V2T(P+1,P+1), LDV2T )
-            END IF
+            }
             CALL ZUNGQR( M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGQR), LORGQRWORK, INFO )
-         END IF
-      END IF
+         }
+      }
 
       // Compute the CSD of the matrix in bidiagonal-block form
 
@@ -249,32 +249,32 @@
       // block and/or bottom-right corner of (2,1)-block and/or top-left
       // corner of (2,2)-block
 
-      IF( Q .GT. 0 .AND. WANTU2 ) THEN
+      if ( Q .GT. 0 .AND. WANTU2 ) {
          DO I = 1, Q
             IWORK(I) = M - P - Q + I
          END DO
          DO I = Q + 1, M - P
             IWORK(I) = I - Q
          END DO
-         IF( COLMAJOR ) THEN
+         if ( COLMAJOR ) {
             CALL ZLAPMT( .FALSE., M-P, M-P, U2, LDU2, IWORK )
          } else {
             CALL ZLAPMR( .FALSE., M-P, M-P, U2, LDU2, IWORK )
-         END IF
-      END IF
-      IF( M .GT. 0 .AND. WANTV2T ) THEN
+         }
+      }
+      if ( M .GT. 0 .AND. WANTV2T ) {
          DO I = 1, P
             IWORK(I) = M - P - Q + I
          END DO
          DO I = P + 1, M - Q
             IWORK(I) = I - P
          END DO
-         IF( .NOT. COLMAJOR ) THEN
+         if ( .NOT. COLMAJOR ) {
             CALL ZLAPMT( .FALSE., M-Q, M-Q, V2T, LDV2T, IWORK )
          } else {
             CALL ZLAPMR( .FALSE., M-Q, M-Q, V2T, LDV2T, IWORK )
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

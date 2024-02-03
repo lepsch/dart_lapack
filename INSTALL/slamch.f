@@ -31,44 +31,44 @@
 
       RND = ONE
 
-      IF( ONE.EQ.RND ) THEN
+      if ( ONE.EQ.RND ) {
          EPS = EPSILON(ZERO) * 0.5
       } else {
          EPS = EPSILON(ZERO)
-      END IF
+      }
 
-      IF( LSAME( CMACH, 'E' ) ) THEN
+      if ( LSAME( CMACH, 'E' ) ) {
          RMACH = EPS
-      ELSE IF( LSAME( CMACH, 'S' ) ) THEN
+      } else if ( LSAME( CMACH, 'S' ) ) {
          SFMIN = TINY(ZERO)
          SMALL = ONE / HUGE(ZERO)
-         IF( SMALL.GE.SFMIN ) THEN
+         if ( SMALL.GE.SFMIN ) {
 
             // Use SMALL plus a bit, to avoid the possibility of rounding
             // causing overflow when computing  1/sfmin.
 
             SFMIN = SMALL*( ONE+EPS )
-         END IF
+         }
          RMACH = SFMIN
-      ELSE IF( LSAME( CMACH, 'B' ) ) THEN
+      } else if ( LSAME( CMACH, 'B' ) ) {
          RMACH = RADIX(ZERO)
-      ELSE IF( LSAME( CMACH, 'P' ) ) THEN
+      } else if ( LSAME( CMACH, 'P' ) ) {
          RMACH = EPS * RADIX(ZERO)
-      ELSE IF( LSAME( CMACH, 'N' ) ) THEN
+      } else if ( LSAME( CMACH, 'N' ) ) {
          RMACH = DIGITS(ZERO)
-      ELSE IF( LSAME( CMACH, 'R' ) ) THEN
+      } else if ( LSAME( CMACH, 'R' ) ) {
          RMACH = RND
-      ELSE IF( LSAME( CMACH, 'M' ) ) THEN
+      } else if ( LSAME( CMACH, 'M' ) ) {
          RMACH = MINEXPONENT(ZERO)
-      ELSE IF( LSAME( CMACH, 'U' ) ) THEN
+      } else if ( LSAME( CMACH, 'U' ) ) {
          RMACH = tiny(zero)
-      ELSE IF( LSAME( CMACH, 'L' ) ) THEN
+      } else if ( LSAME( CMACH, 'L' ) ) {
          RMACH = MAXEXPONENT(ZERO)
-      ELSE IF( LSAME( CMACH, 'O' ) ) THEN
+      } else if ( LSAME( CMACH, 'O' ) ) {
          RMACH = HUGE(ZERO)
       } else {
          RMACH = ZERO
-      END IF
+      }
 
       SLAMCH = RMACH
       RETURN

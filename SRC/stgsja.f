@@ -52,33 +52,33 @@
       WANTQ = INITQ .OR. LSAME( JOBQ, 'Q' )
 
       INFO = 0
-      IF( .NOT.( INITU .OR. WANTU .OR. LSAME( JOBU, 'N' ) ) ) THEN
+      if ( .NOT.( INITU .OR. WANTU .OR. LSAME( JOBU, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( INITV .OR. WANTV .OR. LSAME( JOBV, 'N' ) ) ) THEN
+      } else if ( .NOT.( INITV .OR. WANTV .OR. LSAME( JOBV, 'N' ) ) ) {
          INFO = -2
-      ELSE IF( .NOT.( INITQ .OR. WANTQ .OR. LSAME( JOBQ, 'N' ) ) ) THEN
+      } else if ( .NOT.( INITQ .OR. WANTQ .OR. LSAME( JOBQ, 'N' ) ) ) {
          INFO = -3
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -4
-      ELSE IF( P.LT.0 ) THEN
+      } else if ( P.LT.0 ) {
          INFO = -5
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -6
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -10
-      ELSE IF( LDB.LT.MAX( 1, P ) ) THEN
+      } else if ( LDB.LT.MAX( 1, P ) ) {
          INFO = -12
-      ELSE IF( LDU.LT.1 .OR. ( WANTU .AND. LDU.LT.M ) ) THEN
+      } else if ( LDU.LT.1 .OR. ( WANTU .AND. LDU.LT.M ) ) {
          INFO = -18
-      ELSE IF( LDV.LT.1 .OR. ( WANTV .AND. LDV.LT.P ) ) THEN
+      } else if ( LDV.LT.1 .OR. ( WANTV .AND. LDV.LT.P ) ) {
          INFO = -20
-      ELSE IF( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) THEN
+      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) {
          INFO = -22
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'STGSJA', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize U, V and Q, if necessary
 
@@ -102,13 +102,13 @@
                B1 = B( I, N-L+I )
                B3 = B( J, N-L+J )
 
-               IF( UPPER ) THEN
+               if ( UPPER ) {
                   IF( K+I.LE.M ) A2 = A( K+I, N-L+J )
                   B2 = B( I, N-L+J )
                } else {
                   IF( K+J.LE.M ) A2 = A( K+J, N-L+I )
                   B2 = B( J, N-L+I )
-               END IF
+               }
 
                CALL SLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ )
 
@@ -127,13 +127,13 @@
 
                CALL SROT( L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ, SNQ )
 
-               IF( UPPER ) THEN
+               if ( UPPER ) {
                   IF( K+I.LE.M ) A( K+I, N-L+J ) = ZERO
                   B( I, N-L+J ) = ZERO
                } else {
                   IF( K+J.LE.M ) A( K+J, N-L+I ) = ZERO
                   B( J, N-L+I ) = ZERO
-               END IF
+               }
 
                // Update orthogonal matrices U, V, Q, if desired.
 
@@ -146,7 +146,7 @@
    10       CONTINUE
    20    CONTINUE
 
-         IF( .NOT.UPPER ) THEN
+         if ( .NOT.UPPER ) {
 
             // The matrices A13 and B13 were lower triangular at the start
             // of the cycle, and are now upper triangular.
@@ -163,7 +163,7 @@
    30       CONTINUE
 
             IF( ABS( ERROR ).LE.MIN( TOLA, TOLB ) ) GO TO 50
-         END IF
+         }
 
          // End of cycle loop
 
@@ -191,22 +191,22 @@
          B1 = B( I, N-L+I )
          GAMMA = B1 / A1
 
-         IF( (GAMMA.LE.HUGENUM).AND.(GAMMA.GE.-HUGENUM) ) THEN
+         if ( (GAMMA.LE.HUGENUM).AND.(GAMMA.GE.-HUGENUM) ) {
 
             // change sign if necessary
 
-            IF( GAMMA.LT.ZERO ) THEN
+            if ( GAMMA.LT.ZERO ) {
                CALL SSCAL( L-I+1, -ONE, B( I, N-L+I ), LDB )
                IF( WANTV ) CALL SSCAL( P, -ONE, V( 1, I ), 1 )
-            END IF
+            }
 
             CALL SLARTG( ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK )
 
-            IF( ALPHA( K+I ).GE.BETA( K+I ) ) THEN
+            if ( ALPHA( K+I ).GE.BETA( K+I ) ) {
                CALL SSCAL( L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA )
             } else {
                CALL SSCAL( L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB )                CALL SCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA )
-            END IF
+            }
 
          } else {
 
@@ -214,7 +214,7 @@
             BETA( K+I ) = ONE
             CALL SCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA )
 
-         END IF
+         }
 
    70 CONTINUE
 
@@ -225,12 +225,12 @@
          BETA( I ) = ONE
    80 CONTINUE
 
-      IF( K+L.LT.N ) THEN
+      if ( K+L.LT.N ) {
          DO 90 I = K + L + 1, N
             ALPHA( I ) = ZERO
             BETA( I ) = ZERO
    90    CONTINUE
-      END IF
+      }
 
   100 CONTINUE
       NCYCLE = KCYCLE

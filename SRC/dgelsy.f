@@ -47,22 +47,22 @@
 
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, M, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, M, N ) ) {
          INFO = -7
-      END IF
+      }
 
       // Figure out optimal block size
 
-      IF( INFO.EQ.0 ) THEN
-         IF( MN.EQ.0 .OR. NRHS.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( MN.EQ.0 .OR. NRHS.EQ.0 ) {
             LWKMIN = 1
             LWKOPT = 1
          } else {
@@ -73,27 +73,27 @@
             NB = MAX( NB1, NB2, NB3, NB4 )
             LWKMIN = MN + MAX( 2*MN, N + 1, MN + NRHS )
             LWKOPT = MAX( LWKMIN, MN + 2*N + NB*( N + 1 ), 2*MN + NB*NRHS )
-         END IF
+         }
          WORK( 1 ) = LWKOPT
 
-         IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
             INFO = -12
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGELSY', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( MN.EQ.0 .OR. NRHS.EQ.0 ) THEN
+      if ( MN.EQ.0 .OR. NRHS.EQ.0 ) {
          RANK = 0
          RETURN
-      END IF
+      }
 
       // Get machine parameters
 
@@ -104,42 +104,42 @@
 
       ANRM = DLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
          IASCL = 1
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
          IASCL = 2
-      ELSE IF( ANRM.EQ.ZERO ) THEN
+      } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
          CALL DLASET( 'F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
          RANK = 0
          GO TO 70
-      END IF
+      }
 
       BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK )
       IBSCL = 0
-      IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
+      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          CALL DLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 1
-      ELSE IF( BNRM.GT.BIGNUM ) THEN
+      } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          CALL DLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 2
-      END IF
+      }
 
       // Compute QR factorization with column pivoting of A:
          // A * P = Q * R
@@ -156,20 +156,20 @@
       WORK( ISMAX ) = ONE
       SMAX = ABS( A( 1, 1 ) )
       SMIN = SMAX
-      IF( ABS( A( 1, 1 ) ).EQ.ZERO ) THEN
+      if ( ABS( A( 1, 1 ) ).EQ.ZERO ) {
          RANK = 0
          CALL DLASET( 'F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
          GO TO 70
       } else {
          RANK = 1
-      END IF
+      }
 
    10 CONTINUE
-      IF( RANK.LT.MN ) THEN
+      if ( RANK.LT.MN ) {
          I = RANK + 1
          CALL DLAIC1( IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL DLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 )
 
-         IF( SMAXPR*RCOND.LE.SMINPR ) THEN
+         if ( SMAXPR*RCOND.LE.SMINPR ) {
             DO 20 I = 1, RANK
                WORK( ISMIN+I-1 ) = S1*WORK( ISMIN+I-1 )
                WORK( ISMAX+I-1 ) = S2*WORK( ISMAX+I-1 )
@@ -180,8 +180,8 @@
             SMAX = SMAXPR
             RANK = RANK + 1
             GO TO 10
-         END IF
-      END IF
+         }
+      }
 
       // workspace: 3*MN.
 
@@ -215,9 +215,9 @@
 
       // B(1:N,1:NRHS) := Y**T * B(1:N,1:NRHS)
 
-      IF( RANK.LT.N ) THEN
+      if ( RANK.LT.N ) {
          CALL DORMRZ( 'Left', 'Transpose', N, NRHS, RANK, N-RANK, A, LDA, WORK( MN+1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO )
-      END IF
+      }
 
       // workspace: 2*MN+NRHS.
 
@@ -234,18 +234,18 @@
 
       // Undo scaling
 
-      IF( IASCL.EQ.1 ) THEN
+      if ( IASCL.EQ.1 ) {
          CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
          CALL DLASCL( 'U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA, INFO )
-      ELSE IF( IASCL.EQ.2 ) THEN
+      } else if ( IASCL.EQ.2 ) {
          CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
          CALL DLASCL( 'U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA, INFO )
-      END IF
-      IF( IBSCL.EQ.1 ) THEN
+      }
+      if ( IBSCL.EQ.1 ) {
          CALL DLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )
-      ELSE IF( IBSCL.EQ.2 ) THEN
+      } else if ( IBSCL.EQ.2 ) {
          CALL DLASCL( 'G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO )
-      END IF
+      }
 
    70 CONTINUE
       WORK( 1 ) = LWKOPT

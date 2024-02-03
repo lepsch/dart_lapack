@@ -39,23 +39,23 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.LSAME( TRANS, 'T' ) ) THEN
+      } else if ( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -2
-      ELSE IF( .NOT.LSAME( DIAG, 'U' ) .AND. .NOT.LSAME( DIAG, 'N' ) ) THEN
+      } else if ( .NOT.LSAME( DIAG, 'U' ) .AND. .NOT.LSAME( DIAG, 'N' ) ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZLAVSY ', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -67,19 +67,19 @@
       // Compute  B := A * B  (No transpose)
 
 *------------------------------------------
-      IF( LSAME( TRANS, 'N' ) ) THEN
+      if ( LSAME( TRANS, 'N' ) ) {
 
          // Compute  B := U*B
          // where U = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
 
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
 
          // Loop forward applying the transformations.
 
             K = 1
    10       CONTINUE
             IF( K.GT.N ) GO TO 30
-            IF( IPIV( K ).GT.0 ) THEN
+            if ( IPIV( K ).GT.0 ) {
 
                // 1 x 1 pivot block
 
@@ -89,7 +89,7 @@
 
                // Multiply by  P(K) * inv(U(K))  if K > 1.
 
-               IF( K.GT.1 ) THEN
+               if ( K.GT.1 ) {
 
                   // Apply the transformation.
 
@@ -99,7 +99,7 @@
 
                   KP = IPIV( K )
                   IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-               END IF
+               }
                K = K + 1
             } else {
 
@@ -107,7 +107,7 @@
 
                // Multiply by the diagonal block if forming U * D.
 
-               IF( NOUNIT ) THEN
+               if ( NOUNIT ) {
                   D11 = A( K, K )
                   D22 = A( K+1, K+1 )
                   D12 = A( K, K+1 )
@@ -118,11 +118,11 @@
                      B( K, J ) = D11*T1 + D12*T2
                      B( K+1, J ) = D21*T1 + D22*T2
    20             CONTINUE
-               END IF
+               }
 
                // Multiply by  P(K) * inv(U(K))  if K > 1.
 
-               IF( K.GT.1 ) THEN
+               if ( K.GT.1 ) {
 
                   // Apply the transformations.
 
@@ -132,9 +132,9 @@
 
                   KP = ABS( IPIV( K ) )
                   IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-               END IF
+               }
                K = K + 2
-            END IF
+            }
             GO TO 10
    30       CONTINUE
 
@@ -152,7 +152,7 @@
             // Test the pivot index.  If greater than zero, a 1 x 1
             // pivot was used, otherwise a 2 x 2 pivot was used.
 
-            IF( IPIV( K ).GT.0 ) THEN
+            if ( IPIV( K ).GT.0 ) {
 
                // 1 x 1 pivot block:
 
@@ -162,7 +162,7 @@
 
                // Multiply by  P(K) * inv(L(K))  if K < N.
 
-               IF( K.NE.N ) THEN
+               if ( K.NE.N ) {
                   KP = IPIV( K )
 
                   // Apply the transformation.
@@ -173,7 +173,7 @@
                   // K-th step of the factorization.
 
                   IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-               END IF
+               }
                K = K - 1
 
             } else {
@@ -182,7 +182,7 @@
 
                // Multiply by the diagonal block if forming L * D.
 
-               IF( NOUNIT ) THEN
+               if ( NOUNIT ) {
                   D11 = A( K-1, K-1 )
                   D22 = A( K, K )
                   D21 = A( K, K-1 )
@@ -193,11 +193,11 @@
                      B( K-1, J ) = D11*T1 + D12*T2
                      B( K, J ) = D21*T1 + D22*T2
    50             CONTINUE
-               END IF
+               }
 
                // Multiply by  P(K) * inv(L(K))  if K < N.
 
-               IF( K.NE.N ) THEN
+               if ( K.NE.N ) {
 
                   // Apply the transformation.
 
@@ -208,24 +208,24 @@
 
                   KP = ABS( IPIV( K ) )
                   IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-               END IF
+               }
                K = K - 2
-            END IF
+            }
             GO TO 40
    60       CONTINUE
-         END IF
+         }
 *----------------------------------------
 
       // Compute  B := A' * B  (transpose)
 
 *----------------------------------------
-      ELSE IF( LSAME( TRANS, 'T' ) ) THEN
+      } else if ( LSAME( TRANS, 'T' ) ) {
 
          // Form  B := U'*B
          // where U  = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
          // and   U' = inv(U'(1))*P(1)* ... *inv(U'(m))*P(m)
 
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
 
             // Loop backward applying the transformations.
 
@@ -235,8 +235,8 @@
 
             // 1 x 1 pivot block.
 
-            IF( IPIV( K ).GT.0 ) THEN
-               IF( K.GT.1 ) THEN
+            if ( IPIV( K ).GT.0 ) {
+               if ( K.GT.1 ) {
 
                   // Interchange if P(K) != I.
 
@@ -246,14 +246,14 @@
                   // Apply the transformation
 
                   CALL ZGEMV( 'Transpose', K-1, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB )
-               END IF
+               }
                IF( NOUNIT ) CALL ZSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K - 1
 
             // 2 x 2 pivot block.
 
             } else {
-               IF( K.GT.2 ) THEN
+               if ( K.GT.2 ) {
 
                   // Interchange if P(K) != I.
 
@@ -263,11 +263,11 @@
                   // Apply the transformations
 
                   CALL ZGEMV( 'Transpose', K-2, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB )                   CALL ZGEMV( 'Transpose', K-2, NRHS, CONE, B, LDB, A( 1, K-1 ), 1, CONE, B( K-1, 1 ), LDB )
-               END IF
+               }
 
                // Multiply by the diagonal block if non-unit.
 
-               IF( NOUNIT ) THEN
+               if ( NOUNIT ) {
                   D11 = A( K-1, K-1 )
                   D22 = A( K, K )
                   D12 = A( K-1, K )
@@ -278,9 +278,9 @@
                      B( K-1, J ) = D11*T1 + D12*T2
                      B( K, J ) = D21*T1 + D22*T2
    80             CONTINUE
-               END IF
+               }
                K = K - 2
-            END IF
+            }
             GO TO 70
    90       CONTINUE
 
@@ -298,8 +298,8 @@
 
             // 1 x 1 pivot block
 
-            IF( IPIV( K ).GT.0 ) THEN
-               IF( K.LT.N ) THEN
+            if ( IPIV( K ).GT.0 ) {
+               if ( K.LT.N ) {
 
                   // Interchange if P(K) != I.
 
@@ -309,14 +309,14 @@
                   // Apply the transformation
 
                   CALL ZGEMV( 'Transpose', N-K, NRHS, CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB )
-               END IF
+               }
                IF( NOUNIT ) CALL ZSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K + 1
 
             // 2 x 2 pivot block.
 
             } else {
-               IF( K.LT.N-1 ) THEN
+               if ( K.LT.N-1 ) {
 
                // Interchange if P(K) != I.
 
@@ -326,11 +326,11 @@
                   // Apply the transformation
 
                   CALL ZGEMV( 'Transpose', N-K-1, NRHS, CONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, CONE, B( K+1, 1 ), LDB )                   CALL ZGEMV( 'Transpose', N-K-1, NRHS, CONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, CONE, B( K, 1 ), LDB )
-               END IF
+               }
 
                // Multiply by the diagonal block if non-unit.
 
-               IF( NOUNIT ) THEN
+               if ( NOUNIT ) {
                   D11 = A( K, K )
                   D22 = A( K+1, K+1 )
                   D21 = A( K+1, K )
@@ -341,13 +341,13 @@
                      B( K, J ) = D11*T1 + D12*T2
                      B( K+1, J ) = D21*T1 + D22*T2
   110             CONTINUE
-               END IF
+               }
                K = K + 2
-            END IF
+            }
             GO TO 100
   120       CONTINUE
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of ZLAVSY

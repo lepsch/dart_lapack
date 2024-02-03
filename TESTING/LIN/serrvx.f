@@ -70,7 +70,7 @@
       EQ = ' '
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'GE' ) ) THEN
+      if ( LSAMEN( 2, C2, 'GE' ) ) {
 
          // SGESV
 
@@ -128,7 +128,7 @@
          CALL SGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGESVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // SGBSV
 
@@ -198,7 +198,7 @@
          CALL SGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GT' ) ) {
 
          // SGTSV
 
@@ -235,7 +235,7 @@
          CALL SGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGTSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PO' ) ) {
 
          // SPOSV
 
@@ -292,7 +292,7 @@
          CALL SPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPOSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PP' ) ) {
 
          // SPPSV
 
@@ -340,7 +340,7 @@
          CALL SPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
 
          // SPBSV
 
@@ -403,7 +403,7 @@
          CALL SPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
          // SPTSV
 
@@ -437,7 +437,7 @@
          CALL SPTSVX( 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 2, X, 1, RCOND, R1, R2, W, INFO )
          CALL CHKXER( 'SPTSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SY' ) ) {
 
          // SSYSV
 
@@ -496,7 +496,7 @@
          CALL CHKXER( 'SSYSVX', INFOT, NOUT, LERR, OK )
 
 
-      ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
 
          // SSYSV_ROOK
 
@@ -523,7 +523,7 @@
          CALL SSYSV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'SSYSV_ROOK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
 
          // SSYSV_RK
 
@@ -558,7 +558,7 @@
          CALL SSYSV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'SSYSV_RK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SA' ) ) {
 
          // SSYSV_AASEN
 
@@ -582,7 +582,7 @@
          CALL SSYSV_AA( 'U', 3, 1, A, 3, IP, B, 3, W, 6, INFO )
          CALL CHKXER( 'SSYSV_AA', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'S2' ) ) {
 
          // SSYSV_AASEN_2STAGE
 
@@ -609,7 +609,7 @@
          CALL SSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO )
          CALL CHKXER( 'SSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
          // SSPSV
 
@@ -648,15 +648,15 @@
          INFOT = 11
          CALL SSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SSPSVX', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 
-      IF( OK ) THEN
+      if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH
       } else {
          WRITE( NOUT, FMT = 9998 )PATH
-      END IF
+      }
 
  9999 FORMAT( 1X, A3, ' drivers passed the tests of the error exits' )
  9998 FORMAT( ' *** ', A3, ' drivers failed the tests of the error ',

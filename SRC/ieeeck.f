@@ -18,52 +18,52 @@
       IEEECK = 1
 
       POSINF = ONE / ZERO
-      IF( POSINF.LE.ONE ) THEN
+      if ( POSINF.LE.ONE ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
       NEGINF = -ONE / ZERO
-      IF( NEGINF.GE.ZERO ) THEN
+      if ( NEGINF.GE.ZERO ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
       NEGZRO = ONE / ( NEGINF+ONE )
-      IF( NEGZRO.NE.ZERO ) THEN
+      if ( NEGZRO.NE.ZERO ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
       NEGINF = ONE / NEGZRO
-      IF( NEGINF.GE.ZERO ) THEN
+      if ( NEGINF.GE.ZERO ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
       NEWZRO = NEGZRO + ZERO
-      IF( NEWZRO.NE.ZERO ) THEN
+      if ( NEWZRO.NE.ZERO ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
       POSINF = ONE / NEWZRO
-      IF( POSINF.LE.ONE ) THEN
+      if ( POSINF.LE.ONE ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
       NEGINF = NEGINF*POSINF
-      IF( NEGINF.GE.ZERO ) THEN
+      if ( NEGINF.GE.ZERO ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
       POSINF = POSINF*POSINF
-      IF( POSINF.LE.ONE ) THEN
+      if ( POSINF.LE.ONE ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
 
 
@@ -84,35 +84,35 @@
 
       NAN6 = NAN5*ZERO
 
-      IF( NAN1.EQ.NAN1 ) THEN
+      if ( NAN1.EQ.NAN1 ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
-      IF( NAN2.EQ.NAN2 ) THEN
+      if ( NAN2.EQ.NAN2 ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
-      IF( NAN3.EQ.NAN3 ) THEN
+      if ( NAN3.EQ.NAN3 ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
-      IF( NAN4.EQ.NAN4 ) THEN
+      if ( NAN4.EQ.NAN4 ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
-      IF( NAN5.EQ.NAN5 ) THEN
+      if ( NAN5.EQ.NAN5 ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
-      IF( NAN6.EQ.NAN6 ) THEN
+      if ( NAN6.EQ.NAN6 ) {
          IEEECK = 0
          RETURN
-      END IF
+      }
 
       RETURN
       }

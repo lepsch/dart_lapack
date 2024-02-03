@@ -23,10 +23,10 @@
 
       SFLAG = SPARAM(1)
       IF (N.LE.0 .OR. (SFLAG+TWO.EQ.ZERO)) RETURN
-      IF (INCX.EQ.INCY.AND.INCX.GT.0) THEN
+      if (INCX.EQ.INCY.AND.INCX.GT.0) {
 
          NSTEPS = N*INCX
-         IF (SFLAG.LT.ZERO) THEN
+         if (SFLAG.LT.ZERO) {
             SH11 = SPARAM(2)
             SH12 = SPARAM(4)
             SH21 = SPARAM(3)
@@ -37,7 +37,7 @@
                SX(I) = W*SH11 + Z*SH12
                SY(I) = W*SH21 + Z*SH22
             END DO
-         ELSE IF (SFLAG.EQ.ZERO) THEN
+         } else if (SFLAG.EQ.ZERO) {
             SH12 = SPARAM(4)
             SH21 = SPARAM(3)
             DO I = 1,NSTEPS,INCX
@@ -55,14 +55,14 @@
                SX(I) = W*SH11 + Z
                SY(I) = -W + SH22*Z
             END DO
-         END IF
+         }
       } else {
          KX = 1
          KY = 1
          IF (INCX.LT.0) KX = 1 + (1-N)*INCX
          IF (INCY.LT.0) KY = 1 + (1-N)*INCY
 
-         IF (SFLAG.LT.ZERO) THEN
+         if (SFLAG.LT.ZERO) {
             SH11 = SPARAM(2)
             SH12 = SPARAM(4)
             SH21 = SPARAM(3)
@@ -75,7 +75,7 @@
                KX = KX + INCX
                KY = KY + INCY
             END DO
-         ELSE IF (SFLAG.EQ.ZERO) THEN
+         } else if (SFLAG.EQ.ZERO) {
             SH12 = SPARAM(4)
             SH21 = SPARAM(3)
             DO I = 1,N
@@ -97,8 +97,8 @@
                 KX = KX + INCX
                 KY = KY + INCY
             END DO
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of SROTM

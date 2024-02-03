@@ -94,11 +94,11 @@
          // Compute eigenvalues and eigenvectors
 
          CALL ZGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
             GO TO 260
-         END IF
+         }
          DO 60 J = 1, N - 2
             DO 50 I = J + 2, N
                T( I, J ) = ZERO
@@ -108,11 +108,11 @@
          // Compute Schur form
 
          CALL ZHSEQR( 'S', 'N', N, 1, N, T, LDT, W, CDUM, 1, WORK, LWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
             GO TO 260
-         END IF
+         }
 
          // Compute eigenvectors
 
@@ -124,17 +124,17 @@
          // Compute condition numbers
 
          CALL ZTRSNA( 'B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, RWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
-         END IF
+         }
 
          // Sort eigenvalues and condition numbers lexicographically
         t // o compare with inputs
 
          CALL ZCOPY( N, W, 1, WTMP, 1 )
-         IF( ISRT.EQ.0 ) THEN
+         if ( ISRT.EQ.0 ) {
 
             // Sort by increasing real part
 
@@ -148,7 +148,7 @@
             DO 90 I = 1, N
                WSRT( I ) = DIMAG( W( I ) )
    90       CONTINUE
-         END IF
+         }
          CALL DCOPY( N, S, 1, STMP, 1 )
          CALL DCOPY( N, SEP, 1, SEPTMP, 1 )
          CALL DSCAL( N, ONE / VMUL, SEPTMP, 1 )
@@ -156,10 +156,10 @@
             KMIN = I
             VMIN = WSRT( I )
             DO 100 J = I + 1, N
-               IF( WSRT( J ).LT.VMIN ) THEN
+               if ( WSRT( J ).LT.VMIN ) {
                   KMIN = J
                   VMIN = WSRT( J )
-               END IF
+               }
   100       CONTINUE
             WSRT( KMIN ) = WSRT( I )
             WSRT( I ) = VMIN
@@ -180,112 +180,112 @@
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
          DO 120 I = 1, N
-            IF( V.GT.SEPTMP( I ) ) THEN
+            if ( V.GT.SEPTMP( I ) ) {
                TOL = ONE
             } else {
                TOL = V / SEPTMP( I )
-            END IF
-            IF( V.GT.SEPIN( I ) ) THEN
+            }
+            if ( V.GT.SEPIN( I ) ) {
                TOLIN = ONE
             } else {
                TOLIN = V / SEPIN( I )
-            END IF
+            }
             TOL = MAX( TOL, SMLNUM / EPS )
             TOLIN = MAX( TOLIN, SMLNUM / EPS )
-            IF( EPS*( SIN( I )-TOLIN ).GT.STMP( I )+TOL ) THEN
+            if ( EPS*( SIN( I )-TOLIN ).GT.STMP( I )+TOL ) {
                VMAX = ONE / EPS
-            ELSE IF( SIN( I )-TOLIN.GT.STMP( I )+TOL ) THEN
+            } else if ( SIN( I )-TOLIN.GT.STMP( I )+TOL ) {
                VMAX = ( SIN( I )-TOLIN ) / ( STMP( I )+TOL )
-            ELSE IF( SIN( I )+TOLIN.LT.EPS*( STMP( I )-TOL ) ) THEN
+            } else if ( SIN( I )+TOLIN.LT.EPS*( STMP( I )-TOL ) ) {
                VMAX = ONE / EPS
-            ELSE IF( SIN( I )+TOLIN.LT.STMP( I )-TOL ) THEN
+            } else if ( SIN( I )+TOLIN.LT.STMP( I )-TOL ) {
                VMAX = ( STMP( I )-TOL ) / ( SIN( I )+TOLIN )
             } else {
                VMAX = ONE
-            END IF
-            IF( VMAX.GT.RMAX( 2 ) ) THEN
+            }
+            if ( VMAX.GT.RMAX( 2 ) ) {
                RMAX( 2 ) = VMAX
                IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
-            END IF
+            }
   120    CONTINUE
 
          // Compare condition numbers for eigenvectors
         t // aking their condition numbers into account
 
          DO 130 I = 1, N
-            IF( V.GT.SEPTMP( I )*STMP( I ) ) THEN
+            if ( V.GT.SEPTMP( I )*STMP( I ) ) {
                TOL = SEPTMP( I )
             } else {
                TOL = V / STMP( I )
-            END IF
-            IF( V.GT.SEPIN( I )*SIN( I ) ) THEN
+            }
+            if ( V.GT.SEPIN( I )*SIN( I ) ) {
                TOLIN = SEPIN( I )
             } else {
                TOLIN = V / SIN( I )
-            END IF
+            }
             TOL = MAX( TOL, SMLNUM / EPS )
             TOLIN = MAX( TOLIN, SMLNUM / EPS )
-            IF( EPS*( SEPIN( I )-TOLIN ).GT.SEPTMP( I )+TOL ) THEN
+            if ( EPS*( SEPIN( I )-TOLIN ).GT.SEPTMP( I )+TOL ) {
                VMAX = ONE / EPS
-            ELSE IF( SEPIN( I )-TOLIN.GT.SEPTMP( I )+TOL ) THEN
+            } else if ( SEPIN( I )-TOLIN.GT.SEPTMP( I )+TOL ) {
                VMAX = ( SEPIN( I )-TOLIN ) / ( SEPTMP( I )+TOL )
-            ELSE IF( SEPIN( I )+TOLIN.LT.EPS*( SEPTMP( I )-TOL ) ) THEN
+            } else if ( SEPIN( I )+TOLIN.LT.EPS*( SEPTMP( I )-TOL ) ) {
                VMAX = ONE / EPS
-            ELSE IF( SEPIN( I )+TOLIN.LT.SEPTMP( I )-TOL ) THEN
+            } else if ( SEPIN( I )+TOLIN.LT.SEPTMP( I )-TOL ) {
                VMAX = ( SEPTMP( I )-TOL ) / ( SEPIN( I )+TOLIN )
             } else {
                VMAX = ONE
-            END IF
-            IF( VMAX.GT.RMAX( 2 ) ) THEN
+            }
+            if ( VMAX.GT.RMAX( 2 ) ) {
                RMAX( 2 ) = VMAX
                IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
-            END IF
+            }
   130    CONTINUE
 
          // Compare condition numbers for eigenvalues
          // without taking their condition numbers into account
 
          DO 140 I = 1, N
-            IF( SIN( I ).LE.DBLE( 2*N )*EPS .AND. STMP( I ).LE. DBLE( 2*N )*EPS ) THEN
+            if ( SIN( I ).LE.DBLE( 2*N )*EPS .AND. STMP( I ).LE. DBLE( 2*N )*EPS ) {
                VMAX = ONE
-            ELSE IF( EPS*SIN( I ).GT.STMP( I ) ) THEN
+            } else if ( EPS*SIN( I ).GT.STMP( I ) ) {
                VMAX = ONE / EPS
-            ELSE IF( SIN( I ).GT.STMP( I ) ) THEN
+            } else if ( SIN( I ).GT.STMP( I ) ) {
                VMAX = SIN( I ) / STMP( I )
-            ELSE IF( SIN( I ).LT.EPS*STMP( I ) ) THEN
+            } else if ( SIN( I ).LT.EPS*STMP( I ) ) {
                VMAX = ONE / EPS
-            ELSE IF( SIN( I ).LT.STMP( I ) ) THEN
+            } else if ( SIN( I ).LT.STMP( I ) ) {
                VMAX = STMP( I ) / SIN( I )
             } else {
                VMAX = ONE
-            END IF
-            IF( VMAX.GT.RMAX( 3 ) ) THEN
+            }
+            if ( VMAX.GT.RMAX( 3 ) ) {
                RMAX( 3 ) = VMAX
                IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
-            END IF
+            }
   140    CONTINUE
 
          // Compare condition numbers for eigenvectors
          // without taking their condition numbers into account
 
          DO 150 I = 1, N
-            IF( SEPIN( I ).LE.V .AND. SEPTMP( I ).LE.V ) THEN
+            if ( SEPIN( I ).LE.V .AND. SEPTMP( I ).LE.V ) {
                VMAX = ONE
-            ELSE IF( EPS*SEPIN( I ).GT.SEPTMP( I ) ) THEN
+            } else if ( EPS*SEPIN( I ).GT.SEPTMP( I ) ) {
                VMAX = ONE / EPS
-            ELSE IF( SEPIN( I ).GT.SEPTMP( I ) ) THEN
+            } else if ( SEPIN( I ).GT.SEPTMP( I ) ) {
                VMAX = SEPIN( I ) / SEPTMP( I )
-            ELSE IF( SEPIN( I ).LT.EPS*SEPTMP( I ) ) THEN
+            } else if ( SEPIN( I ).LT.EPS*SEPTMP( I ) ) {
                VMAX = ONE / EPS
-            ELSE IF( SEPIN( I ).LT.SEPTMP( I ) ) THEN
+            } else if ( SEPIN( I ).LT.SEPTMP( I ) ) {
                VMAX = SEPTMP( I ) / SEPIN( I )
             } else {
                VMAX = ONE
-            END IF
-            IF( VMAX.GT.RMAX( 3 ) ) THEN
+            }
+            if ( VMAX.GT.RMAX( 3 ) ) {
                RMAX( 3 ) = VMAX
                IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
-            END IF
+            }
   150    CONTINUE
 
          // Compute eigenvalue condition numbers only and compare
@@ -295,11 +295,11 @@
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL ZTRSNA( 'E', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
-         END IF
+         }
          DO 160 I = 1, N
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   160    CONTINUE
@@ -309,11 +309,11 @@
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL ZTRSNA( 'V', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
-         END IF
+         }
          DO 170 I = 1, N
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   170    CONTINUE
@@ -326,11 +326,11 @@
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL ZTRSNA( 'B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
-         END IF
+         }
          DO 190 I = 1, N
             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS
   190    CONTINUE
@@ -340,11 +340,11 @@
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL ZTRSNA( 'E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
-         END IF
+         }
          DO 200 I = 1, N
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   200    CONTINUE
@@ -354,18 +354,18 @@
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL ZTRSNA( 'V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
-         END IF
+         }
          DO 210 I = 1, N
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   210    CONTINUE
-         IF( VMAX.GT.RMAX( 1 ) ) THEN
+         if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
-         END IF
+         }
 
          // Select second and next to last eigenvalues
 
@@ -373,31 +373,31 @@
             SELECT( I ) = .FALSE.
   220    CONTINUE
          ICMP = 0
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
             ICMP = 1
             LCMP( 1 ) = 2
             SELECT( 2 ) = .TRUE.
             CALL ZCOPY( N, RE( 1, 2 ), 1, RE( 1, 1 ), 1 )
             CALL ZCOPY( N, LE( 1, 2 ), 1, LE( 1, 1 ), 1 )
-         END IF
-         IF( N.GT.3 ) THEN
+         }
+         if ( N.GT.3 ) {
             ICMP = 2
             LCMP( 2 ) = N - 1
             SELECT( N-1 ) = .TRUE.
             CALL ZCOPY( N, RE( 1, N-1 ), 1, RE( 1, 2 ), 1 )
             CALL ZCOPY( N, LE( 1, N-1 ), 1, LE( 1, 2 ), 1 )
-         END IF
+         }
 
          // Compute all selected condition numbers
 
          CALL DCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL DCOPY( ICMP, DUM, 0, SEPTMP, 1 )
          CALL ZTRSNA( 'B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
-         END IF
+         }
          DO 230 I = 1, ICMP
             J = LCMP( I )
             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS
@@ -408,11 +408,11 @@
          CALL DCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL DCOPY( ICMP, DUM, 0, SEPTMP, 1 )
          CALL ZTRSNA( 'E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
-         END IF
+         }
          DO 240 I = 1, ICMP
             J = LCMP( I )
             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
@@ -423,19 +423,19 @@
          CALL DCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL DCOPY( ICMP, DUM, 0, SEPTMP, 1 )
          CALL ZTRSNA( 'V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
-         END IF
+         }
          DO 250 I = 1, ICMP
             J = LCMP( I )
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS
   250    CONTINUE
-         IF( VMAX.GT.RMAX( 1 ) ) THEN
+         if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
-         END IF
+         }
   260 CONTINUE
       GO TO 10
 

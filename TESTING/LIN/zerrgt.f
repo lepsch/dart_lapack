@@ -55,7 +55,7 @@
       ANORM = 1.0D0
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'GT' ) ) THEN
+      if ( LSAMEN( 2, C2, 'GT' ) ) {
 
          // Test error exits for the general tridiagonal routines.
 
@@ -114,7 +114,7 @@
          CALL ZGTCON( 'I', 0, DL, E, DU, DU2, IP, -ANORM, RCOND, W, INFO )
          CALL CHKXER( 'ZGTCON', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
          // Test error exits for the positive definite tridiagonal
          // routines.
@@ -170,7 +170,7 @@
          INFOT = 4
          CALL ZPTCON( 0, D, E, -ANORM, RCOND, RW, INFO )
          CALL CHKXER( 'ZPTCON', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

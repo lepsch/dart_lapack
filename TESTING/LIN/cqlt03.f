@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      IF( MINMN.EQ.0 ) THEN
+      if ( MINMN.EQ.0 ) {
          RESULT( 1 ) = ZERO
          RESULT( 2 ) = ZERO
          RESULT( 3 ) = ZERO
@@ -74,7 +74,7 @@
       CALL CUNGQL( M, M, K, Q, LDA, TAU( MINMN-K+1 ), WORK, LWORK, INFO )
 
       DO 30 ISIDE = 1, 2
-         IF( ISIDE.EQ.1 ) THEN
+         if ( ISIDE.EQ.1 ) {
             SIDE = 'L'
             MC = M
             NC = N
@@ -82,7 +82,7 @@
             SIDE = 'R'
             MC = N
             NC = M
-         END IF
+         }
 
          // Generate MC by NC matrix C
 
@@ -93,11 +93,11 @@
          IF( CNORM.EQ.ZERO ) CNORM = ONE
 
          DO 20 ITRANS = 1, 2
-            IF( ITRANS.EQ.1 ) THEN
+            if ( ITRANS.EQ.1 ) {
                TRANS = 'N'
             } else {
                TRANS = 'C'
-            END IF
+            }
 
             // Copy C
 
@@ -110,11 +110,11 @@
 
             // Form explicit product and subtract
 
-            IF( LSAME( SIDE, 'L' ) ) THEN
+            if ( LSAME( SIDE, 'L' ) ) {
                CALL CGEMM( TRANS, 'No transpose', MC, NC, MC, CMPLX( -ONE ), Q, LDA, C, LDA, CMPLX( ONE ), CC, LDA )
             } else {
                CALL CGEMM( 'No transpose', TRANS, MC, NC, NC, CMPLX( -ONE ), C, LDA, Q, LDA, CMPLX( ONE ), CC, LDA )
-            END IF
+            }
 
             // Compute error in the difference
 

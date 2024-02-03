@@ -57,111 +57,111 @@
 
       // Decode DIST
 
-      IF( LSAME( DIST, 'U' ) ) THEN
+      if ( LSAME( DIST, 'U' ) ) {
          IDIST = 1
-      ELSE IF( LSAME( DIST, 'S' ) ) THEN
+      } else if ( LSAME( DIST, 'S' ) ) {
          IDIST = 2
-      ELSE IF( LSAME( DIST, 'N' ) ) THEN
+      } else if ( LSAME( DIST, 'N' ) ) {
          IDIST = 3
       } else {
          IDIST = -1
-      END IF
+      }
 
       // Check EI
 
       USEEI = .TRUE.
       BADEI = .FALSE.
-      IF( LSAME( EI( 1 ), ' ' ) .OR. MODE.NE.0 ) THEN
+      if ( LSAME( EI( 1 ), ' ' ) .OR. MODE.NE.0 ) {
          USEEI = .FALSE.
       } else {
-         IF( LSAME( EI( 1 ), 'R' ) ) THEN
+         if ( LSAME( EI( 1 ), 'R' ) ) {
             DO 10 J = 2, N
-               IF( LSAME( EI( J ), 'I' ) ) THEN
+               if ( LSAME( EI( J ), 'I' ) ) {
                   IF( LSAME( EI( J-1 ), 'I' ) ) BADEI = .TRUE.
                } else {
                   IF( .NOT.LSAME( EI( J ), 'R' ) ) BADEI = .TRUE.
-               END IF
+               }
    10       CONTINUE
          } else {
             BADEI = .TRUE.
-         END IF
-      END IF
+         }
+      }
 
       // Decode RSIGN
 
-      IF( LSAME( RSIGN, 'T' ) ) THEN
+      if ( LSAME( RSIGN, 'T' ) ) {
          IRSIGN = 1
-      ELSE IF( LSAME( RSIGN, 'F' ) ) THEN
+      } else if ( LSAME( RSIGN, 'F' ) ) {
          IRSIGN = 0
       } else {
          IRSIGN = -1
-      END IF
+      }
 
       // Decode UPPER
 
-      IF( LSAME( UPPER, 'T' ) ) THEN
+      if ( LSAME( UPPER, 'T' ) ) {
          IUPPER = 1
-      ELSE IF( LSAME( UPPER, 'F' ) ) THEN
+      } else if ( LSAME( UPPER, 'F' ) ) {
          IUPPER = 0
       } else {
          IUPPER = -1
-      END IF
+      }
 
       // Decode SIM
 
-      IF( LSAME( SIM, 'T' ) ) THEN
+      if ( LSAME( SIM, 'T' ) ) {
          ISIM = 1
-      ELSE IF( LSAME( SIM, 'F' ) ) THEN
+      } else if ( LSAME( SIM, 'F' ) ) {
          ISIM = 0
       } else {
          ISIM = -1
-      END IF
+      }
 
       // Check DS, if MODES=0 and ISIM=1
 
       BADS = .FALSE.
-      IF( MODES.EQ.0 .AND. ISIM.EQ.1 ) THEN
+      if ( MODES.EQ.0 .AND. ISIM.EQ.1 ) {
          DO 20 J = 1, N
             IF( DS( J ).EQ.ZERO ) BADS = .TRUE.
    20    CONTINUE
-      END IF
+      }
 
       // Set INFO if an error
 
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( IDIST.EQ.-1 ) THEN
+      } else if ( IDIST.EQ.-1 ) {
          INFO = -2
-      ELSE IF( ABS( MODE ).GT.6 ) THEN
+      } else if ( ABS( MODE ).GT.6 ) {
          INFO = -5
-      ELSE IF( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE ) THEN
+      } else if ( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE ) {
          INFO = -6
-      ELSE IF( BADEI ) THEN
+      } else if ( BADEI ) {
          INFO = -8
-      ELSE IF( IRSIGN.EQ.-1 ) THEN
+      } else if ( IRSIGN.EQ.-1 ) {
          INFO = -9
-      ELSE IF( IUPPER.EQ.-1 ) THEN
+      } else if ( IUPPER.EQ.-1 ) {
          INFO = -10
-      ELSE IF( ISIM.EQ.-1 ) THEN
+      } else if ( ISIM.EQ.-1 ) {
          INFO = -11
-      ELSE IF( BADS ) THEN
+      } else if ( BADS ) {
          INFO = -12
-      ELSE IF( ISIM.EQ.1 .AND. ABS( MODES ).GT.5 ) THEN
+      } else if ( ISIM.EQ.1 .AND. ABS( MODES ).GT.5 ) {
          INFO = -13
-      ELSE IF( ISIM.EQ.1 .AND. MODES.NE.0 .AND. CONDS.LT.ONE ) THEN
+      } else if ( ISIM.EQ.1 .AND. MODES.NE.0 .AND. CONDS.LT.ONE ) {
          INFO = -14
-      ELSE IF( KL.LT.1 ) THEN
+      } else if ( KL.LT.1 ) {
          INFO = -15
-      ELSE IF( KU.LT.1 .OR. ( KU.LT.N-1 .AND. KL.LT.N-1 ) ) THEN
+      } else if ( KU.LT.1 .OR. ( KU.LT.N-1 .AND. KL.LT.N-1 ) ) {
          INFO = -16
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -19
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLATME', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize random number generator
 
@@ -176,11 +176,11 @@
               // Compute D according to COND and MODE
 
       CALL SLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO )
-      IF( IINFO.NE.0 ) THEN
+      if ( IINFO.NE.0 ) {
          INFO = 1
          RETURN
-      END IF
-      IF( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) THEN
+      }
+      if ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) {
 
          // Scale by DMAX
 
@@ -189,59 +189,59 @@
             TEMP = MAX( TEMP, ABS( D( I ) ) )
    40    CONTINUE
 
-         IF( TEMP.GT.ZERO ) THEN
+         if ( TEMP.GT.ZERO ) {
             ALPHA = DMAX / TEMP
-         ELSE IF( DMAX.NE.ZERO ) THEN
+         } else if ( DMAX.NE.ZERO ) {
             INFO = 2
             RETURN
          } else {
             ALPHA = ZERO
-         END IF
+         }
 
          CALL SSCAL( N, ALPHA, D, 1 )
 
-      END IF
+      }
 
       CALL SLASET( 'Full', N, N, ZERO, ZERO, A, LDA )
       CALL SCOPY( N, D, 1, A, LDA+1 )
 
       // Set up complex conjugate pairs
 
-      IF( MODE.EQ.0 ) THEN
-         IF( USEEI ) THEN
+      if ( MODE.EQ.0 ) {
+         if ( USEEI ) {
             DO 50 J = 2, N
-               IF( LSAME( EI( J ), 'I' ) ) THEN
+               if ( LSAME( EI( J ), 'I' ) ) {
                   A( J-1, J ) = A( J, J )
                   A( J, J-1 ) = -A( J, J )
                   A( J, J ) = A( J-1, J-1 )
-               END IF
+               }
    50       CONTINUE
-         END IF
+         }
 
-      ELSE IF( ABS( MODE ).EQ.5 ) THEN
+      } else if ( ABS( MODE ).EQ.5 ) {
 
          DO 60 J = 2, N, 2
-            IF( SLARAN( ISEED ).GT.HALF ) THEN
+            if ( SLARAN( ISEED ).GT.HALF ) {
                A( J-1, J ) = A( J, J )
                A( J, J-1 ) = -A( J, J )
                A( J, J ) = A( J-1, J-1 )
-            END IF
+            }
    60    CONTINUE
-      END IF
+      }
 
       // 3)      If UPPER='T', set upper triangle of A to random numbers.
               // (but don't modify the corners of 2x2 blocks.)
 
-      IF( IUPPER.NE.0 ) THEN
+      if ( IUPPER.NE.0 ) {
          DO 70 JC = 2, N
-            IF( A( JC-1, JC ).NE.ZERO ) THEN
+            if ( A( JC-1, JC ).NE.ZERO ) {
                JR = JC - 2
             } else {
                JR = JC - 1
-            END IF
+            }
             CALL SLARNV( IDIST, ISEED, JR, A( 1, JC ) )
    70    CONTINUE
-      END IF
+      }
 
       // 4)      If SIM='T', apply similarity transformation.
 
@@ -250,49 +250,49 @@
 
               // it is  U S V A V' (1/S) U'
 
-      IF( ISIM.NE.0 ) THEN
+      if ( ISIM.NE.0 ) {
 
          // Compute S (singular values of the eigenvector matrix)
          // according to CONDS and MODES
 
          CALL SLATM1( MODES, CONDS, 0, 0, ISEED, DS, N, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             INFO = 3
             RETURN
-         END IF
+         }
 
          // Multiply by V and V'
 
          CALL SLARGE( N, A, LDA, ISEED, WORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             INFO = 4
             RETURN
-         END IF
+         }
 
          // Multiply by S and (1/S)
 
          DO 80 J = 1, N
             CALL SSCAL( N, DS( J ), A( J, 1 ), LDA )
-            IF( DS( J ).NE.ZERO ) THEN
+            if ( DS( J ).NE.ZERO ) {
                CALL SSCAL( N, ONE / DS( J ), A( 1, J ), 1 )
             } else {
                INFO = 5
                RETURN
-            END IF
+            }
    80    CONTINUE
 
          // Multiply by U and U'
 
          CALL SLARGE( N, A, LDA, ISEED, WORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             INFO = 4
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // 5)      Reduce the bandwidth.
 
-      IF( KL.LT.N-1 ) THEN
+      if ( KL.LT.N-1 ) {
 
          // Reduce bandwidth -- kill column
 
@@ -313,7 +313,7 @@
             A( JCR, IC ) = XNORMS
             CALL SLASET( 'Full', IROWS-1, 1, ZERO, ZERO, A( JCR+1, IC ), LDA )
    90    CONTINUE
-      ELSE IF( KU.LT.N-1 ) THEN
+      } else if ( KU.LT.N-1 ) {
 
          // Reduce upper bandwidth -- kill a row at a time.
 
@@ -334,19 +334,19 @@
             A( IR, JCR ) = XNORMS
             CALL SLASET( 'Full', 1, ICOLS-1, ZERO, ZERO, A( IR, JCR+1 ), LDA )
   100    CONTINUE
-      END IF
+      }
 
       // Scale the matrix to have norm ANORM
 
-      IF( ANORM.GE.ZERO ) THEN
+      if ( ANORM.GE.ZERO ) {
          TEMP = SLANGE( 'M', N, N, A, LDA, TEMPA )
-         IF( TEMP.GT.ZERO ) THEN
+         if ( TEMP.GT.ZERO ) {
             ALPHA = ANORM / TEMP
             DO 110 J = 1, N
                CALL SSCAL( N, ALPHA, A( 1, J ), 1 )
   110       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

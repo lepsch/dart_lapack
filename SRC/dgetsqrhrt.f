@@ -34,19 +34,19 @@
 
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 .OR. M.LT.N ) THEN
+      } else if ( N.LT.0 .OR. M.LT.N ) {
          INFO = -2
-      ELSE IF( MB1.LE.N ) THEN
+      } else if ( MB1.LE.N ) {
          INFO = -3
-      ELSE IF( NB1.LT.1 ) THEN
+      } else if ( NB1.LT.1 ) {
          INFO = -4
-      ELSE IF( NB2.LT.1 ) THEN
+      } else if ( NB2.LT.1 ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -7
-      ELSE IF( LDT.LT.MAX( 1, MIN( NB2, N ) ) ) THEN
+      } else if ( LDT.LT.MAX( 1, MIN( NB2, N ) ) ) {
          INFO = -9
       } else {
 
@@ -57,7 +57,7 @@
          // c) Matrix T and array WORK for DORGTSQR_ROW;
          // d) Diagonal D for DORHR_COL.
 
-         IF( LWORK.LT.N*N+1 .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.N*N+1 .AND. .NOT.LQUERY ) {
             INFO = -11
          } else {
 
@@ -85,29 +85,29 @@
             LWORKOPT = MAX( LWT + LW1, MAX( LWT+N*N+LW2, LWT+N*N+N ) )
             LWORKOPT = MAX( 1, LWORKOPT )
 
-            IF( LWORK.LT.LWORKOPT .AND. .NOT.LQUERY ) THEN
+            if ( LWORK.LT.LWORKOPT .AND. .NOT.LQUERY ) {
                INFO = -11
-            END IF
+            }
 
-         END IF
-      END IF
+         }
+      }
 
       // Handle error in the input parameters and return workspace query.
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGETSQRHRT', -INFO )
          RETURN
-      ELSE IF ( LQUERY ) THEN
+      } else if ( LQUERY ) {
          WORK( 1 ) = DBLE( LWORKOPT )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( MIN( M, N ).EQ.0 ) THEN
+      if ( MIN( M, N ).EQ.0 ) {
          WORK( 1 ) = DBLE( LWORKOPT )
          RETURN
-      END IF
+      }
 
       NB2LOCAL = MIN( NB2, N )
 
@@ -149,13 +149,13 @@
       // are accessed only once.
 
       DO I = 1, N
-         IF( WORK( LWT+N*N+I ).EQ.-ONE ) THEN
+         if ( WORK( LWT+N*N+I ).EQ.-ONE ) {
             DO J = I, N
                A( I, J ) = -ONE * WORK( LWT+N*(J-1)+I )
             END DO
          } else {
             CALL DCOPY( N-I+1, WORK(LWT+N*(I-1)+I), N, A( I, I ), LDA )
-         END IF
+         }
       END DO
 
       WORK( 1 ) = DBLE( LWORKOPT )

@@ -66,24 +66,24 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -2
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.NMAX ) THEN
+      } else if ( LDA.LT.NMAX ) {
          INFO = -9
-      ELSE IF( LDU.LT.NMAX ) THEN
+      } else if ( LDU.LT.NMAX ) {
          INFO = -16
-      ELSE IF( 2*MAX( 2, NMAX )**2.GT.LWORK ) THEN
+      } else if ( 2*MAX( 2, NMAX )**2.GT.LWORK ) {
          INFO = -22
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CDRVST', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if nothing to do
 
@@ -110,7 +110,7 @@
 
       DO 1220 JSIZE = 1, NSIZES
          N = NN( JSIZE )
-         IF( N.GT.0 ) THEN
+         if ( N.GT.0 ) {
             LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) )
             IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
             LWEDC = MAX( 2*N+N*N, 2*N*N )
@@ -120,14 +120,14 @@
             LWEDC = 2
             LRWEDC = 8
             LIWEDC = 8
-         END IF
+         }
          ANINV = ONE / REAL( MAX( 1, N ) )
 
-         IF( NSIZES.NE.1 ) THEN
+         if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
-         END IF
+         }
 
          DO 1210 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 1210
@@ -184,10 +184,10 @@
 
                     // Zero
 
-            IF( ITYPE.EQ.1 ) THEN
+            if ( ITYPE.EQ.1 ) {
                IINFO = 0
 
-            ELSE IF( ITYPE.EQ.2 ) THEN
+            } else if ( ITYPE.EQ.2 ) {
 
                // Identity
 
@@ -195,31 +195,31 @@
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
 
-            ELSE IF( ITYPE.EQ.4 ) THEN
+            } else if ( ITYPE.EQ.4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.5 ) THEN
+            } else if ( ITYPE.EQ.5 ) {
 
                // Hermitian, eigenvalues specified
 
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.7 ) THEN
+            } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
                CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.8 ) THEN
+            } else if ( ITYPE.EQ.8 ) {
 
                // Hermitian, random eigenvalues
 
                CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.9 ) THEN
+            } else if ( ITYPE.EQ.9 ) {
 
                // Hermitian banded, eigenvalues specified
 
@@ -240,39 +240,39 @@
   100          CONTINUE
             } else {
                IINFO = 1
-            END IF
+            }
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
-            END IF
+            }
 
   110       CONTINUE
 
             ABSTOL = UNFL + UNFL
-            IF( N.LE.1 ) THEN
+            if ( N.LE.1 ) {
                IL = 1
                IU = N
             } else {
                IL = 1 + INT( ( N-1 )*SLARND( 1, ISEED2 ) )
                IU = 1 + INT( ( N-1 )*SLARND( 1, ISEED2 ) )
-               IF( IL.GT.IU ) THEN
+               if ( IL.GT.IU ) {
                   ITEMP = IL
                   IL = IU
                   IU = ITEMP
-               END IF
-            END IF
+               }
+            }
 
             // Perform tests storing upper or lower triangular
             // part of matrix.
 
             DO 1200 IUPLO = 0, 1
-               IF( IUPLO.EQ.0 ) THEN
+               if ( IUPLO.EQ.0 ) {
                   UPLO = 'L'
                } else {
                   UPLO = 'U'
-               END IF
+               }
 
                // Call CHEEVD and CHEEVX.
 
@@ -280,18 +280,18 @@
 
                NTEST = NTEST + 1
                CALL CHEEVD( 'V', UPLO, N, A, LDU, D1, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 130
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 1 and 2.
 
@@ -301,16 +301,16 @@
 
                NTEST = NTEST + 2
                CALL CHEEVD( 'N', UPLO, N, A, LDU, D3, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 130
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 3.
 
@@ -327,37 +327,37 @@
 
                NTEST = NTEST + 1
 
-               IF( N.GT.0 ) THEN
+               if ( N.GT.0 ) {
                   TEMP3 = MAX( ABS( D1( 1 ) ), ABS( D1( N ) ) )
-                  IF( IL.NE.1 ) THEN
+                  if ( IL.NE.1 ) {
                      VL = D1( IL ) - MAX( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  ELSE IF( N.GT.0 ) THEN
+                  } else if ( N.GT.0 ) {
                      VL = D1( 1 ) - MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  END IF
-                  IF( IU.NE.N ) THEN
+                  }
+                  if ( IU.NE.N ) {
                      VU = D1( IU ) + MAX( HALF*( D1( IU+1 )-D1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  ELSE IF( N.GT.0 ) THEN
+                  } else if ( N.GT.0 ) {
                      VU = D1( N ) + MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  END IF
+                  }
                } else {
                   TEMP3 = ZERO
                   VL = ZERO
                   VU = ONE
-               END IF
+               }
 
                CALL CHEEVX( 'V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 150
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 4 and 5.
 
@@ -367,16 +367,16 @@
 
                NTEST = NTEST + 2
                CALL CHEEVX( 'N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 150
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 6.
 
@@ -394,16 +394,16 @@
                NTEST = NTEST + 1
 
                CALL CHEEVX( 'V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 160
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 7 and 8.
 
@@ -414,26 +414,26 @@
                NTEST = NTEST + 2
 
                CALL CHEEVX( 'N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 160
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 9.
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               IF( N.GT.0 ) THEN
+               if ( N.GT.0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
-               END IF
+               }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
   160          CONTINUE
@@ -442,16 +442,16 @@
                NTEST = NTEST + 1
 
                CALL CHEEVX( 'V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 170
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 10 and 11.
 
@@ -462,31 +462,31 @@
                NTEST = NTEST + 2
 
                CALL CHEEVX( 'N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 170
-                  END IF
-               END IF
+                  }
+               }
 
-               IF( M3.EQ.0 .AND. N.GT.0 ) THEN
+               if ( M3.EQ.0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 170
-               END IF
+               }
 
                // Do test 12.
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               IF( N.GT.0 ) THEN
+               if ( N.GT.0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
-               END IF
+               }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
   170          CONTINUE
@@ -498,7 +498,7 @@
                // Load array WORK with the upper or lower triangular
                // part of the matrix in packed form.
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   DO 190 J = 1, N
                      DO 180 I = 1, J
@@ -514,29 +514,29 @@
                         INDX = INDX + 1
   200                CONTINUE
   210             CONTINUE
-               END IF
+               }
 
                NTEST = NTEST + 1
                INDWRK = N*( N+1 ) / 2 + 1
                CALL CHPEVD( 'V', UPLO, N, WORK, D1, Z, LDU, WORK( INDWRK ), LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 270
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 13 and 14.
 
                CALL CHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   DO 230 J = 1, N
                      DO 220 I = 1, J
@@ -552,21 +552,21 @@
                         INDX = INDX + 1
   240                CONTINUE
   250             CONTINUE
-               END IF
+               }
 
                NTEST = NTEST + 2
                INDWRK = N*( N+1 ) / 2 + 1
                CALL CHPEVD( 'N', UPLO, N, WORK, D3, Z, LDU, WORK( INDWRK ), LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 270
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 15.
 
@@ -582,7 +582,7 @@
                // of the matrix in packed form.
 
   270          CONTINUE
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   DO 290 J = 1, N
                      DO 280 I = 1, J
@@ -598,41 +598,41 @@
                         INDX = INDX + 1
   300                CONTINUE
   310             CONTINUE
-               END IF
+               }
 
                NTEST = NTEST + 1
 
-               IF( N.GT.0 ) THEN
+               if ( N.GT.0 ) {
                   TEMP3 = MAX( ABS( D1( 1 ) ), ABS( D1( N ) ) )
-                  IF( IL.NE.1 ) THEN
+                  if ( IL.NE.1 ) {
                      VL = D1( IL ) - MAX( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  ELSE IF( N.GT.0 ) THEN
+                  } else if ( N.GT.0 ) {
                      VL = D1( 1 ) - MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  END IF
-                  IF( IU.NE.N ) THEN
+                  }
+                  if ( IU.NE.N ) {
                      VU = D1( IU ) + MAX( HALF*( D1( IU+1 )-D1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  ELSE IF( N.GT.0 ) THEN
+                  } else if ( N.GT.0 ) {
                      VU = D1( N ) + MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  END IF
+                  }
                } else {
                   TEMP3 = ZERO
                   VL = ZERO
                   VU = ONE
-               END IF
+               }
 
                CALL CHPEVX( 'V', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 370
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 16 and 17.
 
@@ -640,7 +640,7 @@
 
                NTEST = NTEST + 2
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   DO 330 J = 1, N
                      DO 320 I = 1, J
@@ -656,19 +656,19 @@
                         INDX = INDX + 1
   340                CONTINUE
   350             CONTINUE
-               END IF
+               }
 
                CALL CHPEVX( 'N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 370
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 18.
 
@@ -682,7 +682,7 @@
 
   370          CONTINUE
                NTEST = NTEST + 1
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   DO 390 J = 1, N
                      DO 380 I = 1, J
@@ -698,21 +698,21 @@
                         INDX = INDX + 1
   400                CONTINUE
   410             CONTINUE
-               END IF
+               }
 
                CALL CHPEVX( 'V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 460
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 19 and 20.
 
@@ -720,7 +720,7 @@
 
                NTEST = NTEST + 2
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   DO 430 J = 1, N
                      DO 420 I = 1, J
@@ -736,34 +736,34 @@
                         INDX = INDX + 1
   440                CONTINUE
   450             CONTINUE
-               END IF
+               }
 
                CALL CHPEVX( 'N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 460
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 21.
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               IF( N.GT.0 ) THEN
+               if ( N.GT.0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
-               END IF
+               }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
   460          CONTINUE
                NTEST = NTEST + 1
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   DO 480 J = 1, N
                      DO 470 I = 1, J
@@ -779,21 +779,21 @@
                         INDX = INDX + 1
   490                CONTINUE
   500             CONTINUE
-               END IF
+               }
 
                CALL CHPEVX( 'V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 550
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 22 and 23.
 
@@ -801,7 +801,7 @@
 
                NTEST = NTEST + 2
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   DO 520 J = 1, N
                      DO 510 I = 1, J
@@ -817,52 +817,52 @@
                         INDX = INDX + 1
   530                CONTINUE
   540             CONTINUE
-               END IF
+               }
 
                CALL CHPEVX( 'N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 550
-                  END IF
-               END IF
+                  }
+               }
 
-               IF( M3.EQ.0 .AND. N.GT.0 ) THEN
+               if ( M3.EQ.0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 550
-               END IF
+               }
 
                // Do test 24.
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               IF( N.GT.0 ) THEN
+               if ( N.GT.0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
-               END IF
+               }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
   550          CONTINUE
 
                // Call CHBEVD and CHBEVX.
 
-               IF( JTYPE.LE.7 ) THEN
+               if ( JTYPE.LE.7 ) {
                   KD = 0
-               ELSE IF( JTYPE.GE.8 .AND. JTYPE.LE.15 ) THEN
+               } else if ( JTYPE.GE.8 .AND. JTYPE.LE.15 ) {
                   KD = MAX( N-1, 0 )
                } else {
                   KD = IHBW
-               END IF
+               }
 
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   DO 570 J = 1, N
                      DO 560 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -874,28 +874,28 @@
                         V( 1+I-J, J ) = A( I, J )
   580                CONTINUE
   590             CONTINUE
-               END IF
+               }
 
                NTEST = NTEST + 1
                CALL CHBEVD( 'V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVD(V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 650
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 25 and 26.
 
                CALL CHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   DO 610 J = 1, N
                      DO 600 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -907,20 +907,20 @@
                         V( 1+I-J, J ) = A( I, J )
   620                CONTINUE
   630             CONTINUE
-               END IF
+               }
 
                NTEST = NTEST + 2
                CALL CHBEVD( 'N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVD(N,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 650
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 27.
 
@@ -936,7 +936,7 @@
                // of the matrix in band form.
 
   650          CONTINUE
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   DO 670 J = 1, N
                      DO 660 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -948,22 +948,22 @@
                         V( 1+I-J, J ) = A( I, J )
   680                CONTINUE
   690             CONTINUE
-               END IF
+               }
 
                NTEST = NTEST + 1
                CALL CHBEVX( 'V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHBEVX(V,A,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 750
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 28 and 29.
 
@@ -971,7 +971,7 @@
 
                NTEST = NTEST + 2
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   DO 710 J = 1, N
                      DO 700 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -983,19 +983,19 @@
                         V( 1+I-J, J ) = A( I, J )
   720                CONTINUE
   730             CONTINUE
-               END IF
+               }
 
                CALL CHBEVX( 'N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVX(N,A,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 750
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 30.
 
@@ -1012,7 +1012,7 @@
 
   750          CONTINUE
                NTEST = NTEST + 1
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   DO 770 J = 1, N
                      DO 760 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1024,21 +1024,21 @@
                         V( 1+I-J, J ) = A( I, J )
   780                CONTINUE
   790             CONTINUE
-               END IF
+               }
 
                CALL CHBEVX( 'V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVX(V,I,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 840
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 31 and 32.
 
@@ -1046,7 +1046,7 @@
 
                NTEST = NTEST + 2
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   DO 810 J = 1, N
                      DO 800 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1058,28 +1058,28 @@
                         V( 1+I-J, J ) = A( I, J )
   820                CONTINUE
   830             CONTINUE
-               END IF
+               }
                CALL CHBEVX( 'N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVX(N,I,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 840
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 33.
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               IF( N.GT.0 ) THEN
+               if ( N.GT.0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
-               END IF
+               }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
                // Load array V with the upper or lower triangular part
@@ -1087,7 +1087,7 @@
 
   840          CONTINUE
                NTEST = NTEST + 1
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   DO 860 J = 1, N
                      DO 850 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1099,20 +1099,20 @@
                         V( 1+I-J, J ) = A( I, J )
   870                CONTINUE
   880             CONTINUE
-               END IF
+               }
                CALL CHBEVX( 'V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVX(V,V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 930
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 34 and 35.
 
@@ -1120,7 +1120,7 @@
 
                NTEST = NTEST + 2
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   DO 900 J = 1, N
                      DO 890 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1132,33 +1132,33 @@
                         V( 1+I-J, J ) = A( I, J )
   910                CONTINUE
   920             CONTINUE
-               END IF
+               }
                CALL CHBEVX( 'N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVX(N,V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 930
-                  END IF
-               END IF
+                  }
+               }
 
-               IF( M3.EQ.0 .AND. N.GT.0 ) THEN
+               if ( M3.EQ.0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 930
-               END IF
+               }
 
                // Do test 36.
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               IF( N.GT.0 ) THEN
+               if ( N.GT.0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
-               END IF
+               }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
   930          CONTINUE
@@ -1169,18 +1169,18 @@
 
                NTEST = NTEST + 1
                CALL CHEEV( 'V', UPLO, N, A, LDU, D1, WORK, LWORK, RWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 950
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 37 and 38
 
@@ -1190,16 +1190,16 @@
 
                NTEST = NTEST + 2
                CALL CHEEV( 'N', UPLO, N, A, LDU, D3, WORK, LWORK, RWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 950
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 39
 
@@ -1220,7 +1220,7 @@
                // Load array WORK with the upper or lower triangular
                // part of the matrix in packed form.
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   DO 970 J = 1, N
                      DO 960 I = 1, J
@@ -1236,29 +1236,29 @@
                         INDX = INDX + 1
   980                CONTINUE
   990             CONTINUE
-               END IF
+               }
 
                NTEST = NTEST + 1
                INDWRK = N*( N+1 ) / 2 + 1
                CALL CHPEV( 'V', UPLO, N, WORK, D1, Z, LDU, WORK( INDWRK ), RWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 1050
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 40 and 41.
 
                CALL CHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   DO 1010 J = 1, N
                      DO 1000 I = 1, J
@@ -1274,21 +1274,21 @@
                         INDX = INDX + 1
  1020                CONTINUE
  1030             CONTINUE
-               END IF
+               }
 
                NTEST = NTEST + 2
                INDWRK = N*( N+1 ) / 2 + 1
                CALL CHPEV( 'N', UPLO, N, WORK, D3, Z, LDU, WORK( INDWRK ), RWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 1050
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 42
 
@@ -1304,18 +1304,18 @@
 
                // Call CHBEV
 
-               IF( JTYPE.LE.7 ) THEN
+               if ( JTYPE.LE.7 ) {
                   KD = 0
-               ELSE IF( JTYPE.GE.8 .AND. JTYPE.LE.15 ) THEN
+               } else if ( JTYPE.GE.8 .AND. JTYPE.LE.15 ) {
                   KD = MAX( N-1, 0 )
                } else {
                   KD = IHBW
-               END IF
+               }
 
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   DO 1070 J = 1, N
                      DO 1060 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1327,28 +1327,28 @@
                         V( 1+I-J, J ) = A( I, J )
  1080                CONTINUE
  1090             CONTINUE
-               END IF
+               }
 
                NTEST = NTEST + 1
                CALL CHBEV( 'V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, RWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEV(V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 1140
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 43 and 44.
 
                CALL CHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   DO 1110 J = 1, N
                      DO 1100 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1360,20 +1360,20 @@
                         V( 1+I-J, J ) = A( I, J )
  1120                CONTINUE
  1130             CONTINUE
-               END IF
+               }
 
                NTEST = NTEST + 2
                CALL CHBEV( 'N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, RWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEV(N,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 1140
-                  END IF
-               END IF
+                  }
+               }
 
  1140          CONTINUE
 
@@ -1390,18 +1390,18 @@
                CALL CLACPY( ' ', N, N, A, LDA, V, LDU )
                NTEST = NTEST + 1
                CALL CHEEVR( 'V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 1170
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 45 and 46 (or ... )
 
@@ -1411,16 +1411,16 @@
 
                NTEST = NTEST + 2
                CALL CHEEVR( 'N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 1170
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 47 (or ... )
 
@@ -1437,18 +1437,18 @@
                NTEST = NTEST + 1
                CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
                CALL CHEEVR( 'V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 1180
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 48 and 49 (or +??)
 
@@ -1459,16 +1459,16 @@
                NTEST = NTEST + 2
                CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
                CALL CHEEVR( 'N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 1180
-                  END IF
-               END IF
+                  }
+               }
 
                // Do test 50 (or +??)
 
@@ -1480,18 +1480,18 @@
                NTEST = NTEST + 1
                CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
                CALL CHEEVR( 'V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
                      GO TO 1190
-                  END IF
-               END IF
+                  }
+               }
 
                // Do tests 51 and 52 (or +??)
 
@@ -1502,31 +1502,31 @@
                NTEST = NTEST + 2
                CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
                CALL CHEEVR( 'N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  IF( IINFO.LT.0 ) THEN
+                  if ( IINFO.LT.0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 1190
-                  END IF
-               END IF
+                  }
+               }
 
-               IF( M3.EQ.0 .AND. N.GT.0 ) THEN
+               if ( M3.EQ.0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 1190
-               END IF
+               }
 
                // Do test 52 (or +??)
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               IF( N.GT.0 ) THEN
+               if ( N.GT.0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
-               END IF
+               }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
                CALL CLACPY( ' ', N, N, V, LDU, A, LDA )

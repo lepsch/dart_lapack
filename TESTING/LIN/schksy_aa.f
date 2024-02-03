@@ -93,11 +93,11 @@
 
       DO 180 IN = 1, NN
          N = NVAL( IN )
-         IF( N .GT. NMAX ) THEN
+         if ( N .GT. NMAX ) {
             NFAIL = NFAIL + 1
             WRITE(NOUT, 9995) 'M ', N, NMAX
             GO TO 180
-         END IF
+         }
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
@@ -138,32 +138,32 @@
 
                // Check error code from SLATMS and handle error.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
                      // Skip all tests for this generated matrix
 
                   GO TO 160
-               END IF
+               }
 
                // For matrix types 3-6, zero one or more rows and
                // columns of the matrix to test that INFO is returned
                // correctly.
 
-               IF( ZEROT ) THEN
-                  IF( IMAT.EQ.3 ) THEN
+               if ( ZEROT ) {
+                  if ( IMAT.EQ.3 ) {
                      IZERO = 1
-                  ELSE IF( IMAT.EQ.4 ) THEN
+                  } else if ( IMAT.EQ.4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
-                  END IF
+                  }
 
-                  IF( IMAT.LT.6 ) THEN
+                  if ( IMAT.LT.6 ) {
 
                      // Set row and column IZERO to zero.
 
-                     IF( IUPLO.EQ.1 ) THEN
+                     if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDA
                         DO 20 I = 1, IZERO - 1
                            A( IOFF+I ) = ZERO
@@ -183,9 +183,9 @@
                         DO 50 I = IZERO, N
                            A( IOFF+I ) = ZERO
    50                   CONTINUE
-                     END IF
+                     }
                   } else {
-                     IF( IUPLO.EQ.1 ) THEN
+                     if ( IUPLO.EQ.1 ) {
 
                         // Set the first IZERO rows and columns to zero.
 
@@ -210,11 +210,11 @@
    80                      CONTINUE
                            IOFF = IOFF + LDA
    90                   CONTINUE
-                     END IF
-                  END IF
+                     }
+                  }
                } else {
                   IZERO = 0
-               END IF
+               }
 
                // End generate the test matrix A.
 
@@ -265,9 +265,9 @@ c  100                CONTINUE
 
                   // Check error code from SSYTRF and handle error.
 
-                  IF( INFO.NE.K ) THEN
+                  if ( INFO.NE.K ) {
                      CALL ALAERH( PATH, 'SSYTRF_AA', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT )
-                  END IF
+                  }
 
 *+    TEST 1
                   // Reconstruct matrix from factors and compute residual.
@@ -280,18 +280,18 @@ c  100                CONTINUE
                  t // he threshold.
 
                   DO 110 K = 1, NT
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
   110             CONTINUE
                   NRUN = NRUN + NT
 
                   // Skip solver test if INFO is not 0.
 
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                      GO TO 140
-                  END IF
+                  }
 
                   // Do for each value of NRHS in NSVAL.
 
@@ -314,10 +314,10 @@ c  100                CONTINUE
 
                      // Check error code from SSYTRS and handle error.
 
-                     IF( INFO.NE.0 ) THEN
-                        IF( IZERO.EQ.0 ) THEN
+                     if ( INFO.NE.0 ) {
+                        if ( IZERO.EQ.0 ) {
                            CALL ALAERH( PATH, 'SSYTRS_AA', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
-                        END IF
+                        }
                      } else {
                         CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
 
@@ -330,12 +330,12 @@ c  100                CONTINUE
                     t // he threshold.
 
                         DO 120 K = 2, 2
-                           IF( RESULT( K ).GE.THRESH ) THEN
+                           if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
   120                   CONTINUE
-                     END IF
+                     }
                      NRUN = NRUN + 1
 
                   // End do for each value of NRHS in NSVAL.

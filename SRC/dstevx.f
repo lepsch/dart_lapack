@@ -47,50 +47,50 @@
       INDEIG = LSAME( RANGE, 'I' )
 
       INFO = 0
-      IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) THEN
+      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
       } else {
-         IF( VALEIG ) THEN
+         if ( VALEIG ) {
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -7
-         ELSE IF( INDEIG ) THEN
-            IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
+         } else if ( INDEIG ) {
+            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -8
-            ELSE IF( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) THEN
+            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
                INFO = -9
-            END IF
-         END IF
-      END IF
-      IF( INFO.EQ.0 ) THEN
+            }
+         }
+      }
+      if ( INFO.EQ.0 ) {
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -14
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSTEVX', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       M = 0
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
-         IF( ALLEIG .OR. INDEIG ) THEN
+      if ( N.EQ.1 ) {
+         if ( ALLEIG .OR. INDEIG ) {
             M = 1
             W( 1 ) = D( 1 )
          } else {
-            IF( VL.LT.D( 1 ) .AND. VU.GE.D( 1 ) ) THEN
+            if ( VL.LT.D( 1 ) .AND. VU.GE.D( 1 ) ) {
                M = 1
                W( 1 ) = D( 1 )
-            END IF
-         END IF
+            }
+         }
          IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -104,118 +104,118 @@
       // Scale matrix to allowable range, if necessary.
 
       ISCALE = 0
-      IF( VALEIG ) THEN
+      if ( VALEIG ) {
          VLL = VL
          VUU = VU
       } else {
          VLL = ZERO
          VUU = ZERO
-      END IF
+      }
       TNRM = DLANST( 'M', N, D, E )
-      IF( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) THEN
+      if ( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / TNRM
-      ELSE IF( TNRM.GT.RMAX ) THEN
+      } else if ( TNRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / TNRM
-      END IF
-      IF( ISCALE.EQ.1 ) THEN
+      }
+      if ( ISCALE.EQ.1 ) {
          CALL DSCAL( N, SIGMA, D, 1 )
          CALL DSCAL( N-1, SIGMA, E( 1 ), 1 )
-         IF( VALEIG ) THEN
+         if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA
-         END IF
-      END IF
+         }
+      }
 
       // If all eigenvalues are desired and ABSTOL is less than zero, then
       // call DSTERF or SSTEQR.  If this fails for some eigenvalue, then
      t // ry DSTEBZ.
 
       TEST = .FALSE.
-      IF( INDEIG ) THEN
-         IF( IL.EQ.1 .AND. IU.EQ.N ) THEN
+      if ( INDEIG ) {
+         if ( IL.EQ.1 .AND. IU.EQ.N ) {
             TEST = .TRUE.
-         END IF
-      END IF
-      IF( ( ALLEIG .OR. TEST ) .AND. ( ABSTOL.LE.ZERO ) ) THEN
+         }
+      }
+      if ( ( ALLEIG .OR. TEST ) .AND. ( ABSTOL.LE.ZERO ) ) {
          CALL DCOPY( N, D, 1, W, 1 )
          CALL DCOPY( N-1, E( 1 ), 1, WORK( 1 ), 1 )
          INDWRK = N + 1
-         IF( .NOT.WANTZ ) THEN
+         if ( .NOT.WANTZ ) {
             CALL DSTERF( N, W, WORK, INFO )
          } else {
             CALL DSTEQR( 'I', N, W, WORK, Z, LDZ, WORK( INDWRK ), INFO )
-            IF( INFO.EQ.0 ) THEN
+            if ( INFO.EQ.0 ) {
                DO 10 I = 1, N
                   IFAIL( I ) = 0
    10          CONTINUE
-            END IF
-         END IF
-         IF( INFO.EQ.0 ) THEN
+            }
+         }
+         if ( INFO.EQ.0 ) {
             M = N
             GO TO 20
-         END IF
+         }
          INFO = 0
-      END IF
+      }
 
       // Otherwise, call DSTEBZ and, if eigenvectors are desired, SSTEIN.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          ORDER = 'B'
       } else {
          ORDER = 'E'
-      END IF
+      }
       INDWRK = 1
       INDISP = 1 + N
       INDIWO = INDISP + N
       CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          CALL DSTEIN( N, D, E, M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
    20 CONTINUE
-      IF( ISCALE.EQ.1 ) THEN
-         IF( INFO.EQ.0 ) THEN
+      if ( ISCALE.EQ.1 ) {
+         if ( INFO.EQ.0 ) {
             IMAX = M
          } else {
             IMAX = INFO - 1
-         END IF
+         }
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
-      END IF
+      }
 
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          DO 40 J = 1, M - 1
             I = 0
             TMP1 = W( J )
             DO 30 JJ = J + 1, M
-               IF( W( JJ ).LT.TMP1 ) THEN
+               if ( W( JJ ).LT.TMP1 ) {
                   I = JJ
                   TMP1 = W( JJ )
-               END IF
+               }
    30       CONTINUE
 
-            IF( I.NE.0 ) THEN
+            if ( I.NE.0 ) {
                ITMP1 = IWORK( 1 + I-1 )
                W( I ) = W( J )
                IWORK( 1 + I-1 ) = IWORK( 1 + J-1 )
                W( J ) = TMP1
                IWORK( 1 + J-1 ) = ITMP1
                CALL DSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )
                   IFAIL( J ) = ITMP1
-               END IF
-            END IF
+               }
+            }
    40    CONTINUE
-      END IF
+      }
 
       RETURN
 

@@ -115,26 +115,26 @@
 
                // Check error code from CLATMS.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 90
-               END IF
+               }
 
                // For types 3-5, zero one row and column of the matrix to
               t // est that INFO is returned correctly.
 
-               IF( ZEROT ) THEN
-                  IF( IMAT.EQ.3 ) THEN
+               if ( ZEROT ) {
+                  if ( IMAT.EQ.3 ) {
                      IZERO = 1
-                  ELSE IF( IMAT.EQ.4 ) THEN
+                  } else if ( IMAT.EQ.4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
-                  END IF
+                  }
 
                   // Set row and column IZERO of A to 0.
 
-                  IF( IUPLO.EQ.1 ) THEN
+                  if ( IUPLO.EQ.1 ) {
                      IOFF = ( IZERO-1 )*IZERO / 2
                      DO 20 I = 1, IZERO - 1
                         A( IOFF+I ) = ZERO
@@ -154,18 +154,18 @@
                      DO 50 I = IZERO, N
                         A( IOFF+I ) = ZERO
    50                CONTINUE
-                  END IF
+                  }
                } else {
                   IZERO = 0
-               END IF
+               }
 
                // Set the imaginary part of the diagonals.
 
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   CALL CLAIPD( N, A, 2, 1 )
                } else {
                   CALL CLAIPD( N, A, N, -1 )
-               END IF
+               }
 
                // Compute the L*L' or U'*U factorization of the matrix.
 
@@ -176,10 +176,10 @@
 
                // Check error code from CPPTRF.
 
-               IF( INFO.NE.IZERO ) THEN
+               if ( INFO.NE.IZERO ) {
                   CALL ALAERH( PATH, 'CPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 90
-               END IF
+               }
 
                // Skip the tests if INFO is not 0.
 
@@ -208,10 +208,10 @@
               t // he threshold.
 
                DO 60 K = 1, 2
-                  IF( RESULT( K ).GE.THRESH ) THEN
+                  if ( RESULT( K ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
-                  END IF
+                  }
    60          CONTINUE
                NRUN = NRUN + 2
 
@@ -256,10 +256,10 @@
                  t // he threshold.
 
                   DO 70 K = 3, 7
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
    70             CONTINUE
                   NRUN = NRUN + 5
    80          CONTINUE
@@ -279,10 +279,10 @@
 
                // Print the test ratio if greater than or equal to THRESH.
 
-               IF( RESULT( 8 ).GE.THRESH ) THEN
+               if ( RESULT( 8 ).GE.THRESH ) {
                   IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 )
                   NFAIL = NFAIL + 1
-               END IF
+               }
                NRUN = NRUN + 1
 
    90       CONTINUE

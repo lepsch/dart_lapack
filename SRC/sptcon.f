@@ -37,25 +37,25 @@
       // Test the input arguments.
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( ANORM.LT.ZERO ) THEN
+      } else if ( ANORM.LT.ZERO ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SPTCON', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       RCOND = ZERO
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          RCOND = ONE
          RETURN
-      ELSE IF( ANORM.EQ.ZERO ) THEN
+      } else if ( ANORM.EQ.ZERO ) {
          RETURN
-      END IF
+      }
 
       // Check that D(1:N) is positive.
 

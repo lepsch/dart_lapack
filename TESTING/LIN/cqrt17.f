@@ -40,21 +40,21 @@
 
       CQRT17 = ZERO
 
-      IF( LSAME( TRANS, 'N' ) ) THEN
+      if ( LSAME( TRANS, 'N' ) ) {
          NROWS = M
          NCOLS = N
-      ELSE IF( LSAME( TRANS, 'C' ) ) THEN
+      } else if ( LSAME( TRANS, 'C' ) ) {
          NROWS = N
          NCOLS = M
       } else {
          CALL XERBLA( 'CQRT17', 1 )
          RETURN
-      END IF
+      }
 
-      IF( LWORK.LT.NCOLS*NRHS ) THEN
+      if ( LWORK.LT.NCOLS*NRHS ) {
          CALL XERBLA( 'CQRT17', 13 )
          RETURN
-      END IF
+      }
 
       IF( M.LE.0 .OR. N.LE.0 .OR. NRHS.LE.0 ) RETURN
 
@@ -67,10 +67,10 @@
       CALL CLACPY( 'All', NROWS, NRHS, B, LDB, C, LDB )
       CALL CGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, CMPLX( -ONE ), A, LDA, X, LDX, CMPLX( ONE ), C, LDB )
       NORMRS = CLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK )
-      IF( NORMRS.GT.SMLNUM ) THEN
+      if ( NORMRS.GT.SMLNUM ) {
          ISCL = 1
          CALL CLASCL( 'General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO )
-      END IF
+      }
 
       // compute R**H * op(A)
 
@@ -83,12 +83,12 @@
 
       IF( ISCL.EQ.1 ) ERR = ERR*NORMRS
 
-      IF( IRESID.EQ.1 ) THEN
+      if ( IRESID.EQ.1 ) {
          NORMB = CLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK )
          IF( NORMB.NE.ZERO ) ERR = ERR / NORMB
       } else {
          IF( NORMRS.NE.ZERO ) ERR = ERR / NORMRS
-      END IF
+      }
 
       CQRT17 = ERR / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N, NRHS ) ) )
       RETURN

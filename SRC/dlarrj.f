@@ -34,9 +34,9 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RETURN
-      END IF
+      }
 
       MAXITR = INT( ( LOG( SPDIAM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
 
@@ -64,7 +64,7 @@
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
 
          // The following test prevents the test of converged intervals
-         IF( WIDTH.LT.RTOL*TMP ) THEN
+         if ( WIDTH.LT.RTOL*TMP ) {
             // This interval has already converged and does not need refinement.
             // (Note that the gaps might change through refining the
              // eigenvalues, however, they can only get bigger.)
@@ -90,11 +90,11 @@
                DPLUS = D( J ) - S - E2( J-1 )/DPLUS
                IF( DPLUS.LT.ZERO ) CNT = CNT + 1
  30         CONTINUE
-            IF( CNT.GT.I-1 ) THEN
+            if ( CNT.GT.I-1 ) {
                LEFT = LEFT - WERR( II )*FAC
                FAC = TWO*FAC
                GO TO 20
-            END IF
+            }
 
             // Do while( CNT(RIGHT).LT.I )
 
@@ -108,15 +108,15 @@
                DPLUS = D( J ) - S - E2( J-1 )/DPLUS
                IF( DPLUS.LT.ZERO ) CNT = CNT + 1
  60         CONTINUE
-            IF( CNT.LT.I ) THEN
+            if ( CNT.LT.I ) {
                RIGHT = RIGHT + WERR( II )*FAC
                FAC = TWO*FAC
                GO TO 50
-            END IF
+            }
             NINT = NINT + 1
             IWORK( K-1 ) = I + 1
             IWORK( K ) = CNT
-         END IF
+         }
          WORK( K-1 ) = LEFT
          WORK( K ) = RIGHT
  75   CONTINUE
@@ -144,20 +144,20 @@
          // semiwidth of interval
          WIDTH = RIGHT - MID
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
-          IF( ( WIDTH.LT.RTOL*TMP ) .OR. (ITER.EQ.MAXITR) )THEN
+          if ( ( WIDTH.LT.RTOL*TMP ) .OR. (ITER.EQ.MAXITR) ) {
             // reduce number of unconverged intervals
             NINT = NINT - 1
             // Mark interval as converged.
             IWORK( K-1 ) = 0
-            IF( I1.EQ.I ) THEN
+            if ( I1.EQ.I ) {
                I1 = NEXT
             } else {
                // Prev holds the last unconverged interval previously examined
                IF(PREV.GE.I1) IWORK( 2*PREV-1 ) = NEXT
-            END IF
+            }
             I = NEXT
             GO TO 100
-         END IF
+         }
          PREV = I
 
          // Perform one bisection step
@@ -170,11 +170,11 @@
             DPLUS = D( J ) - S - E2( J-1 )/DPLUS
             IF( DPLUS.LT.ZERO ) CNT = CNT + 1
  90      CONTINUE
-         IF( CNT.LE.I-1 ) THEN
+         if ( CNT.LE.I-1 ) {
             WORK( K-1 ) = MID
          } else {
             WORK( K ) = MID
-         END IF
+         }
          I = NEXT
 
  100  CONTINUE
@@ -190,10 +190,10 @@
          K = 2*I
          II = I - OFFSET
          // All intervals marked by '0' have been refined.
-         IF( IWORK( K-1 ).EQ.0 ) THEN
+         if ( IWORK( K-1 ).EQ.0 ) {
             W( II ) = HALF*( WORK( K-1 )+WORK( K ) )
             WERR( II ) = WORK( K ) - W( II )
-         END IF
+         }
  110  CONTINUE
 
 

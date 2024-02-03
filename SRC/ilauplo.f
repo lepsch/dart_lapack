@@ -19,13 +19,13 @@
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          ILAUPLO = BLAS_UPPER
-      ELSE IF( LSAME( UPLO, 'L' ) ) THEN
+      } else if ( LSAME( UPLO, 'L' ) ) {
          ILAUPLO = BLAS_LOWER
       } else {
          ILAUPLO = -1
-      END IF
+      }
       RETURN
 
       // End of ILAUPLO

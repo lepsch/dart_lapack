@@ -25,20 +25,20 @@
       W( 1 ) = BETA1*A( 1, 1 )-SR1*B( 1, 1 )
       W( 2 ) = BETA1*A( 2, 1 )-SR1*B( 2, 1 )
       SCALE1 = SQRT( ABS( W( 1 ) ) ) * SQRT( ABS( W( 2 ) ) )
-      IF( SCALE1 .GE. SAFMIN .AND. SCALE1 .LE. SAFMAX ) THEN
+      if ( SCALE1 .GE. SAFMIN .AND. SCALE1 .LE. SAFMAX ) {
          W( 1 ) = W( 1 )/SCALE1
          W( 2 ) = W( 2 )/SCALE1
-      END IF
+      }
 
       // Solve linear system
 
       W( 2 ) = W( 2 )/B( 2, 2 )
       W( 1 ) = ( W( 1 )-B( 1, 2 )*W( 2 ) )/B( 1, 1 )
       SCALE2 = SQRT( ABS( W( 1 ) ) ) * SQRT( ABS( W( 2 ) ) )
-      IF( SCALE2 .GE. SAFMIN .AND. SCALE2 .LE. SAFMAX ) THEN
+      if ( SCALE2 .GE. SAFMIN .AND. SCALE2 .LE. SAFMAX ) {
          W( 1 ) = W( 1 )/SCALE2
          W( 2 ) = W( 2 )/SCALE2
-      END IF
+      }
 
       // Apply second shift
 
@@ -50,11 +50,11 @@
 
       // Check for overflow
 
-      IF( ABS( V( 1 ) ).GT.SAFMAX .OR. ABS( V( 2 ) ) .GT. SAFMAX .OR. ABS( V( 3 ) ).GT.SAFMAX .OR. DISNAN( V( 1 ) ) .OR. DISNAN( V( 2 ) ) .OR. DISNAN( V( 3 ) ) ) THEN
+      if ( ABS( V( 1 ) ).GT.SAFMAX .OR. ABS( V( 2 ) ) .GT. SAFMAX .OR. ABS( V( 3 ) ).GT.SAFMAX .OR. DISNAN( V( 1 ) ) .OR. DISNAN( V( 2 ) ) .OR. DISNAN( V( 3 ) ) ) {
          V( 1 ) = ZERO
          V( 2 ) = ZERO
          V( 3 ) = ZERO
-      END IF
+      }
 
       // End of DLAQZ1
 

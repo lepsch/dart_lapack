@@ -57,32 +57,32 @@
       NOBAL = LSAME( BALANC, 'N' )
       BALOK = NOBAL .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'B' )
       INFO = 0
-      IF( ISRT.NE.0 .AND. ISRT.NE.1 ) THEN
+      if ( ISRT.NE.0 .AND. ISRT.NE.1 ) {
          INFO = -2
-      ELSE IF( .NOT.BALOK ) THEN
+      } else if ( .NOT.BALOK ) {
          INFO = -3
-      ELSE IF( THRESH.LT.ZERO ) THEN
+      } else if ( THRESH.LT.ZERO ) {
          INFO = -5
-      ELSE IF( NOUNIT.LE.0 ) THEN
+      } else if ( NOUNIT.LE.0 ) {
          INFO = -7
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -8
-      ELSE IF( LDA.LT.1 .OR. LDA.LT.N ) THEN
+      } else if ( LDA.LT.1 .OR. LDA.LT.N ) {
          INFO = -10
-      ELSE IF( LDVL.LT.1 .OR. LDVL.LT.N ) THEN
+      } else if ( LDVL.LT.1 .OR. LDVL.LT.N ) {
          INFO = -15
-      ELSE IF( LDVR.LT.1 .OR. LDVR.LT.N ) THEN
+      } else if ( LDVR.LT.1 .OR. LDVR.LT.N ) {
          INFO = -17
-      ELSE IF( LDLRE.LT.1 .OR. LDLRE.LT.N ) THEN
+      } else if ( LDLRE.LT.1 .OR. LDLRE.LT.N ) {
          INFO = -19
-      ELSE IF( LWORK.LT.2*N .OR. ( COMP .AND. LWORK.LT.2*N+N*N ) ) THEN
+      } else if ( LWORK.LT.2*N .OR. ( COMP .AND. LWORK.LT.2*N+N*N ) ) {
          INFO = -30
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGET23', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if nothing to do
 
@@ -100,25 +100,25 @@
 
       // Compute eigenvalues and eigenvectors, and test them
 
-      IF( LWORK.GE.2*N+N*N ) THEN
+      if ( LWORK.GE.2*N+N*N ) {
          SENSE = 'B'
          ISENSM = 2
       } else {
          SENSE = 'E'
          ISENSM = 1
-      END IF
+      }
       CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
       CALL CGEEVX( BALANC, 'V', 'V', SENSE, N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO )
-      IF( IINFO.NE.0 ) THEN
+      if ( IINFO.NE.0 ) {
          RESULT( 1 ) = ULPINV
-         IF( JTYPE.NE.22 ) THEN
+         if ( JTYPE.NE.22 ) {
             WRITE( NOUNIT, FMT = 9998 )'CGEEVX1', IINFO, N, JTYPE, BALANC, ISEED
          } else {
             WRITE( NOUNIT, FMT = 9999 )'CGEEVX1', IINFO, N, ISEED( 1 )
-         END IF
+         }
          INFO = ABS( IINFO )
          RETURN
-      END IF
+      }
 
       // Do Test (1)
 
@@ -168,16 +168,16 @@
 
          CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL CGEEVX( BALANC, 'N', 'N', SENSE, N, H, LDA, W1, CDUM, 1, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 1 ) = ULPINV
-            IF( JTYPE.NE.22 ) THEN
+            if ( JTYPE.NE.22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEEVX2', IINFO, N, JTYPE, BALANC, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'CGEEVX2', IINFO, N, ISEED( 1 )
-            END IF
+            }
             INFO = ABS( IINFO )
             GO TO 190
-         END IF
+         }
 
          // Do Test (5)
 
@@ -187,35 +187,35 @@
 
          // Do Test (8)
 
-         IF( .NOT.NOBAL ) THEN
+         if ( .NOT.NOBAL ) {
             DO 70 J = 1, N
                IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
    70       CONTINUE
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
-         END IF
+         }
 
          // Do Test (9)
 
-         IF( ISENS.EQ.2 .AND. N.GT.1 ) THEN
+         if ( ISENS.EQ.2 .AND. N.GT.1 ) {
             DO 80 J = 1, N
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
    80       CONTINUE
-         END IF
+         }
 
          // Compute eigenvalues and right eigenvectors, and test them
 
          CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL CGEEVX( BALANC, 'N', 'V', SENSE, N, H, LDA, W1, CDUM, 1, LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 1 ) = ULPINV
-            IF( JTYPE.NE.22 ) THEN
+            if ( JTYPE.NE.22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEEVX3', IINFO, N, JTYPE, BALANC, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'CGEEVX3', IINFO, N, ISEED( 1 )
-            END IF
+            }
             INFO = ABS( IINFO )
             GO TO 190
-         END IF
+         }
 
          // Do Test (5) again
 
@@ -233,35 +233,35 @@
 
          // Do Test (8) again
 
-         IF( .NOT.NOBAL ) THEN
+         if ( .NOT.NOBAL ) {
             DO 120 J = 1, N
                IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
   120       CONTINUE
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
-         END IF
+         }
 
          // Do Test (9) again
 
-         IF( ISENS.EQ.2 .AND. N.GT.1 ) THEN
+         if ( ISENS.EQ.2 .AND. N.GT.1 ) {
             DO 130 J = 1, N
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
   130       CONTINUE
-         END IF
+         }
 
          // Compute eigenvalues and left eigenvectors, and test them
 
          CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL CGEEVX( BALANC, 'V', 'N', SENSE, N, H, LDA, W1, LRE, LDLRE, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 1 ) = ULPINV
-            IF( JTYPE.NE.22 ) THEN
+            if ( JTYPE.NE.22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEEVX4', IINFO, N, JTYPE, BALANC, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'CGEEVX4', IINFO, N, ISEED( 1 )
-            END IF
+            }
             INFO = ABS( IINFO )
             GO TO 190
-         END IF
+         }
 
          // Do Test (5) again
 
@@ -279,20 +279,20 @@
 
          // Do Test (8) again
 
-         IF( .NOT.NOBAL ) THEN
+         if ( .NOT.NOBAL ) {
             DO 170 J = 1, N
                IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
   170       CONTINUE
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
-         END IF
+         }
 
          // Do Test (9) again
 
-         IF( ISENS.EQ.2 .AND. N.GT.1 ) THEN
+         if ( ISENS.EQ.2 .AND. N.GT.1 ) {
             DO 180 J = 1, N
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
   180       CONTINUE
-         END IF
+         }
 
   190    CONTINUE
 
@@ -300,36 +300,36 @@
 
       // If COMP, compare condition numbers to precomputed ones
 
-      IF( COMP ) THEN
+      if ( COMP ) {
          CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL CGEEVX( 'N', 'V', 'V', 'B', N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO )
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             RESULT( 1 ) = ULPINV
             WRITE( NOUNIT, FMT = 9999 )'CGEEVX5', IINFO, N, ISEED( 1 )
             INFO = ABS( IINFO )
             GO TO 250
-         END IF
+         }
 
          // Sort eigenvalues and condition numbers lexicographically
         t // o compare with inputs
 
          DO 220 I = 1, N - 1
             KMIN = I
-            IF( ISRT.EQ.0 ) THEN
+            if ( ISRT.EQ.0 ) {
                VRIMIN = REAL( W( I ) )
             } else {
                VRIMIN = AIMAG( W( I ) )
-            END IF
+            }
             DO 210 J = I + 1, N
-               IF( ISRT.EQ.0 ) THEN
+               if ( ISRT.EQ.0 ) {
                   VRICMP = REAL( W( J ) )
                } else {
                   VRICMP = AIMAG( W( J ) )
-               END IF
-               IF( VRICMP.LT.VRIMIN ) THEN
+               }
+               if ( VRICMP.LT.VRIMIN ) {
                   KMIN = J
                   VRIMIN = VRICMP
-               END IF
+               }
   210       CONTINUE
             CTMP = W( KMIN )
             W( KMIN ) = W( I )
@@ -350,29 +350,29 @@
          V = MAX( REAL( N )*EPS*ABNRM, SMLNUM )
          IF( ABNRM.EQ.ZERO ) V = ONE
          DO 230 I = 1, N
-            IF( V.GT.RCONDV( I )*RCONDE( I ) ) THEN
+            if ( V.GT.RCONDV( I )*RCONDE( I ) ) {
                TOL = RCONDV( I )
             } else {
                TOL = V / RCONDE( I )
-            END IF
-            IF( V.GT.RCDVIN( I )*RCDEIN( I ) ) THEN
+            }
+            if ( V.GT.RCDVIN( I )*RCDEIN( I ) ) {
                TOLIN = RCDVIN( I )
             } else {
                TOLIN = V / RCDEIN( I )
-            END IF
+            }
             TOL = MAX( TOL, SMLNUM / EPS )
             TOLIN = MAX( TOLIN, SMLNUM / EPS )
-            IF( EPS*( RCDVIN( I )-TOLIN ).GT.RCONDV( I )+TOL ) THEN
+            if ( EPS*( RCDVIN( I )-TOLIN ).GT.RCONDV( I )+TOL ) {
                VMAX = ONE / EPS
-            ELSE IF( RCDVIN( I )-TOLIN.GT.RCONDV( I )+TOL ) THEN
+            } else if ( RCDVIN( I )-TOLIN.GT.RCONDV( I )+TOL ) {
                VMAX = ( RCDVIN( I )-TOLIN ) / ( RCONDV( I )+TOL )
-            ELSE IF( RCDVIN( I )+TOLIN.LT.EPS*( RCONDV( I )-TOL ) ) THEN
+            } else if ( RCDVIN( I )+TOLIN.LT.EPS*( RCONDV( I )-TOL ) ) {
                VMAX = ONE / EPS
-            ELSE IF( RCDVIN( I )+TOLIN.LT.RCONDV( I )-TOL ) THEN
+            } else if ( RCDVIN( I )+TOLIN.LT.RCONDV( I )-TOL ) {
                VMAX = ( RCONDV( I )-TOL ) / ( RCDVIN( I )+TOLIN )
             } else {
                VMAX = ONE
-            END IF
+            }
             RESULT( 10 ) = MAX( RESULT( 10 ), VMAX )
   230    CONTINUE
 
@@ -381,34 +381,34 @@
 
          RESULT( 11 ) = ZERO
          DO 240 I = 1, N
-            IF( V.GT.RCONDV( I ) ) THEN
+            if ( V.GT.RCONDV( I ) ) {
                TOL = ONE
             } else {
                TOL = V / RCONDV( I )
-            END IF
-            IF( V.GT.RCDVIN( I ) ) THEN
+            }
+            if ( V.GT.RCDVIN( I ) ) {
                TOLIN = ONE
             } else {
                TOLIN = V / RCDVIN( I )
-            END IF
+            }
             TOL = MAX( TOL, SMLNUM / EPS )
             TOLIN = MAX( TOLIN, SMLNUM / EPS )
-            IF( EPS*( RCDEIN( I )-TOLIN ).GT.RCONDE( I )+TOL ) THEN
+            if ( EPS*( RCDEIN( I )-TOLIN ).GT.RCONDE( I )+TOL ) {
                VMAX = ONE / EPS
-            ELSE IF( RCDEIN( I )-TOLIN.GT.RCONDE( I )+TOL ) THEN
+            } else if ( RCDEIN( I )-TOLIN.GT.RCONDE( I )+TOL ) {
                VMAX = ( RCDEIN( I )-TOLIN ) / ( RCONDE( I )+TOL )
-            ELSE IF( RCDEIN( I )+TOLIN.LT.EPS*( RCONDE( I )-TOL ) ) THEN
+            } else if ( RCDEIN( I )+TOLIN.LT.EPS*( RCONDE( I )-TOL ) ) {
                VMAX = ONE / EPS
-            ELSE IF( RCDEIN( I )+TOLIN.LT.RCONDE( I )-TOL ) THEN
+            } else if ( RCDEIN( I )+TOLIN.LT.RCONDE( I )-TOL ) {
                VMAX = ( RCONDE( I )-TOL ) / ( RCDEIN( I )+TOLIN )
             } else {
                VMAX = ONE
-            END IF
+            }
             RESULT( 11 ) = MAX( RESULT( 11 ), VMAX )
   240    CONTINUE
   250    CONTINUE
 
-      END IF
+      }
 
  9999 FORMAT( ' CGET23: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
      $      I6, ', INPUT EXAMPLE NUMBER = ', I4 )

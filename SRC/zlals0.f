@@ -41,38 +41,38 @@
       INFO = 0
       N = NL + NR + 1
 
-      IF( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) THEN
+      if ( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) {
          INFO = -1
-      ELSE IF( NL.LT.1 ) THEN
+      } else if ( NL.LT.1 ) {
          INFO = -2
-      ELSE IF( NR.LT.1 ) THEN
+      } else if ( NR.LT.1 ) {
          INFO = -3
-      ELSE IF( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) THEN
+      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
          INFO = -4
-      ELSE IF( NRHS.LT.1 ) THEN
+      } else if ( NRHS.LT.1 ) {
          INFO = -5
-      ELSE IF( LDB.LT.N ) THEN
+      } else if ( LDB.LT.N ) {
          INFO = -7
-      ELSE IF( LDBX.LT.N ) THEN
+      } else if ( LDBX.LT.N ) {
          INFO = -9
-      ELSE IF( GIVPTR.LT.0 ) THEN
+      } else if ( GIVPTR.LT.0 ) {
          INFO = -11
-      ELSE IF( LDGCOL.LT.N ) THEN
+      } else if ( LDGCOL.LT.N ) {
          INFO = -13
-      ELSE IF( LDGNUM.LT.N ) THEN
+      } else if ( LDGNUM.LT.N ) {
          INFO = -15
-      ELSE IF( K.LT.1 ) THEN
+      } else if ( K.LT.1 ) {
          INFO = -20
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZLALS0', -INFO )
          RETURN
-      END IF
+      }
 
       M = N + SQRE
       NLP1 = NL + 1
 
-      IF( ICOMPQ.EQ.0 ) THEN
+      if ( ICOMPQ.EQ.0 ) {
 
          // Apply back orthogonal transformations from the left.
 
@@ -92,27 +92,27 @@
          // Step (3L): apply the inverse of the left singular vector
          // matrix to BX.
 
-         IF( K.EQ.1 ) THEN
+         if ( K.EQ.1 ) {
             CALL ZCOPY( NRHS, BX, LDBX, B, LDB )
-            IF( Z( 1 ).LT.ZERO ) THEN
+            if ( Z( 1 ).LT.ZERO ) {
                CALL ZDSCAL( NRHS, NEGONE, B, LDB )
-            END IF
+            }
          } else {
             DO 100 J = 1, K
                DIFLJ = DIFL( J )
                DJ = POLES( J, 1 )
                DSIGJ = -POLES( J, 2 )
-               IF( J.LT.K ) THEN
+               if ( J.LT.K ) {
                   DIFRJ = -DIFR( J, 1 )
                   DSIGJP = -POLES( J+1, 2 )
-               END IF
-               IF( ( Z( J ).EQ.ZERO ) .OR. ( POLES( J, 2 ).EQ.ZERO ) ) THEN
+               }
+               if ( ( Z( J ).EQ.ZERO ) .OR. ( POLES( J, 2 ).EQ.ZERO ) ) {
                   RWORK( J ) = ZERO
                } else {
                   RWORK( J ) = -POLES( J, 2 )*Z( J ) / DIFLJ / ( POLES( J, 2 )+DJ )
-               END IF
+               }
                DO 30 I = 1, J - 1
-                  IF( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) THEN
+                  if ( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) {
                      RWORK( I ) = ZERO
                   } else {
 
@@ -121,14 +121,14 @@
                      // optimizing compilers from doing x+(y+z).
 
                      RWORK( I ) = POLES( I, 2 )*Z( I ) / ( DLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ )
-                  END IF
+                  }
    30          CONTINUE
                DO 40 I = J + 1, K
-                  IF( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) THEN
+                  if ( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) {
                      RWORK( I ) = ZERO
                   } else {
                      RWORK( I ) = POLES( I, 2 )*Z( I ) / ( DLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ )
-                  END IF
+                  }
    40          CONTINUE
                RWORK( 1 ) = NEGONE
                TEMP = DNRM2( K, RWORK, 1 )
@@ -160,7 +160,7 @@
    90          CONTINUE
                CALL ZLASCL( 'G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO )
   100       CONTINUE
-         END IF
+         }
 
          // Move the deflated rows of BX to B also.
 
@@ -172,18 +172,18 @@
          // Step (1R): apply back the new right singular vector matrix
         t // o B.
 
-         IF( K.EQ.1 ) THEN
+         if ( K.EQ.1 ) {
             CALL ZCOPY( NRHS, B, LDB, BX, LDBX )
          } else {
             DO 180 J = 1, K
                DSIGJ = POLES( J, 2 )
-               IF( Z( J ).EQ.ZERO ) THEN
+               if ( Z( J ).EQ.ZERO ) {
                   RWORK( J ) = ZERO
                } else {
                   RWORK( J ) = -Z( J ) / DIFL( J ) / ( DSIGJ+POLES( J, 1 ) ) / DIFR( J, 2 )
-               END IF
+               }
                DO 110 I = 1, J - 1
-                  IF( Z( J ).EQ.ZERO ) THEN
+                  if ( Z( J ).EQ.ZERO ) {
                      RWORK( I ) = ZERO
                   } else {
 
@@ -192,14 +192,14 @@
                      // optimizing compilers from doing x+(y+z).
 
                      RWORK( I ) = Z( J ) / ( DLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
-                  END IF
+                  }
   110          CONTINUE
                DO 120 I = J + 1, K
-                  IF( Z( J ).EQ.ZERO ) THEN
+                  if ( Z( J ).EQ.ZERO ) {
                      RWORK( I ) = ZERO
                   } else {
                      RWORK( I ) = Z( J ) / ( DLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
-                  END IF
+                  }
   120          CONTINUE
 
                // Since B and BX are complex, the following call to DGEMV
@@ -228,23 +228,23 @@
                   BX( J, JCOL ) = DCMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) )
   170          CONTINUE
   180       CONTINUE
-         END IF
+         }
 
          // Step (2R): if SQRE = 1, apply back the rotation that is
          // related to the right null space of the subproblem.
 
-         IF( SQRE.EQ.1 ) THEN
+         if ( SQRE.EQ.1 ) {
             CALL ZCOPY( NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX )
             CALL ZDROT( NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S )
-         END IF
+         }
          IF( K.LT.MAX( M, N ) ) CALL ZLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX )
 
          // Step (3R): permute rows of B.
 
          CALL ZCOPY( NRHS, BX( 1, 1 ), LDBX, B( NLP1, 1 ), LDB )
-         IF( SQRE.EQ.1 ) THEN
+         if ( SQRE.EQ.1 ) {
             CALL ZCOPY( NRHS, BX( M, 1 ), LDBX, B( M, 1 ), LDB )
-         END IF
+         }
          DO 190 I = 2, N
             CALL ZCOPY( NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB )
   190    CONTINUE
@@ -254,7 +254,7 @@
          DO 200 I = GIVPTR, 1, -1
             CALL ZDROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) )
   200    CONTINUE
-      END IF
+      }
 
       RETURN
 

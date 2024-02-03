@@ -56,11 +56,11 @@
          B( J, J ) = H( J, J ) - WR
    20 CONTINUE
 
-      IF( WI.EQ.ZERO ) THEN
+      if ( WI.EQ.ZERO ) {
 
          // Real eigenvalue.
 
-         IF( NOINIT ) THEN
+         if ( NOINIT ) {
 
             // Set initial vector.
 
@@ -73,16 +73,16 @@
 
             VNORM = SNRM2( N, VR, 1 )
             CALL SSCAL( N, ( EPS3*ROOTN ) / MAX( VNORM, NRMSML ), VR, 1 )
-         END IF
+         }
 
-         IF( RIGHTV ) THEN
+         if ( RIGHTV ) {
 
             // LU decomposition with partial pivoting of B, replacing zero
             // pivots by EPS3.
 
             DO 60 I = 1, N - 1
                EI = H( I+1, I )
-               IF( ABS( B( I, I ) ).LT.ABS( EI ) ) THEN
+               if ( ABS( B( I, I ) ).LT.ABS( EI ) ) {
 
                   // Interchange rows and eliminate.
 
@@ -99,12 +99,12 @@
 
                   IF( B( I, I ).EQ.ZERO ) B( I, I ) = EPS3
                   X = EI / B( I, I )
-                  IF( X.NE.ZERO ) THEN
+                  if ( X.NE.ZERO ) {
                      DO 50 J = I + 1, N
                         B( I+1, J ) = B( I+1, J ) - X*B( I, J )
    50                CONTINUE
-                  END IF
-               END IF
+                  }
+               }
    60       CONTINUE
             IF( B( N, N ).EQ.ZERO ) B( N, N ) = EPS3
 
@@ -117,7 +117,7 @@
 
             DO 90 J = N, 2, -1
                EJ = H( J, J-1 )
-               IF( ABS( B( J, J ) ).LT.ABS( EJ ) ) THEN
+               if ( ABS( B( J, J ) ).LT.ABS( EJ ) ) {
 
                   // Interchange columns and eliminate.
 
@@ -134,18 +134,18 @@
 
                   IF( B( J, J ).EQ.ZERO ) B( J, J ) = EPS3
                   X = EJ / B( J, J )
-                  IF( X.NE.ZERO ) THEN
+                  if ( X.NE.ZERO ) {
                      DO 80 I = 1, J - 1
                         B( I, J-1 ) = B( I, J-1 ) - X*B( I, J )
    80                CONTINUE
-                  END IF
-               END IF
+                  }
+               }
    90       CONTINUE
             IF( B( 1, 1 ).EQ.ZERO ) B( 1, 1 ) = EPS3
 
             TRANS = 'T'
 
-         END IF
+         }
 
          NORMIN = 'N'
          DO 110 ITS = 1, N
@@ -186,7 +186,7 @@
 
          // Complex eigenvalue.
 
-         IF( NOINIT ) THEN
+         if ( NOINIT ) {
 
             // Set initial vector.
 
@@ -202,9 +202,9 @@
             REC = ( EPS3*ROOTN ) / MAX( NORM, NRMSML )
             CALL SSCAL( N, REC, VR, 1 )
             CALL SSCAL( N, REC, VI, 1 )
-         END IF
+         }
 
-         IF( RIGHTV ) THEN
+         if ( RIGHTV ) {
 
             // LU decomposition with partial pivoting of B, replacing zero
             // pivots by EPS3.
@@ -220,7 +220,7 @@
             DO 170 I = 1, N - 1
                ABSBII = SLAPY2( B( I, I ), B( I+1, I ) )
                EI = H( I+1, I )
-               IF( ABSBII.LT.ABS( EI ) ) THEN
+               if ( ABSBII.LT.ABS( EI ) ) {
 
                   // Interchange rows and eliminate.
 
@@ -242,11 +242,11 @@
 
                   // Eliminate without interchanging rows.
 
-                  IF( ABSBII.EQ.ZERO ) THEN
+                  if ( ABSBII.EQ.ZERO ) {
                      B( I, I ) = EPS3
                      B( I+1, I ) = ZERO
                      ABSBII = EPS3
-                  END IF
+                  }
                   EI = ( EI / ABSBII ) / ABSBII
                   XR = B( I, I )*EI
                   XI = -B( I+1, I )*EI
@@ -255,7 +255,7 @@
                      B( J+1, I+1 ) = -XR*B( J+1, I ) - XI*B( I, J )
   160             CONTINUE
                   B( I+2, I+1 ) = B( I+2, I+1 ) - WI
-               END IF
+               }
 
                // Compute 1-norm of offdiagonal elements of i-th row.
 
@@ -283,7 +283,7 @@
             DO 210 J = N, 2, -1
                EJ = H( J, J-1 )
                ABSBJJ = SLAPY2( B( J, J ), B( J+1, J ) )
-               IF( ABSBJJ.LT.ABS( EJ ) ) THEN
+               if ( ABSBJJ.LT.ABS( EJ ) ) {
 
                   // Interchange columns and eliminate
 
@@ -305,11 +305,11 @@
 
                   // Eliminate without interchange.
 
-                  IF( ABSBJJ.EQ.ZERO ) THEN
+                  if ( ABSBJJ.EQ.ZERO ) {
                      B( J, J ) = EPS3
                      B( J+1, J ) = ZERO
                      ABSBJJ = EPS3
-                  END IF
+                  }
                   EJ = ( EJ / ABSBJJ ) / ABSBJJ
                   XR = B( J, J )*EJ
                   XI = -B( J+1, J )*EJ
@@ -318,7 +318,7 @@
                      B( J, I ) = -XR*B( J+1, I ) - XI*B( I, J )
   200             CONTINUE
                   B( J, J-1 ) = B( J, J-1 ) + WI
-               END IF
+               }
 
                // Compute 1-norm of offdiagonal elements of j-th column.
 
@@ -330,7 +330,7 @@
             I1 = 1
             I2 = N
             I3 = 1
-         END IF
+         }
 
          DO 270 ITS = 1, N
             SCALE = ONE
@@ -343,18 +343,18 @@
 
             DO 250 I = I1, I2, I3
 
-               IF( WORK( I ).GT.VCRIT ) THEN
+               if ( WORK( I ).GT.VCRIT ) {
                   REC = ONE / VMAX
                   CALL SSCAL( N, REC, VR, 1 )
                   CALL SSCAL( N, REC, VI, 1 )
                   SCALE = SCALE*REC
                   VMAX = ONE
                   VCRIT = BIGNUM
-               END IF
+               }
 
                XR = VR( I )
                XI = VI( I )
-               IF( RIGHTV ) THEN
+               if ( RIGHTV ) {
                   DO 220 J = I + 1, N
                      XR = XR - B( I, J )*VR( J ) + B( J+1, I )*VI( J )
                      XI = XI - B( I, J )*VI( J ) - B( J+1, I )*VR( J )
@@ -364,13 +364,13 @@
                      XR = XR - B( J, I )*VR( J ) + B( I+1, J )*VI( J )
                      XI = XI - B( J, I )*VI( J ) - B( I+1, J )*VR( J )
   230             CONTINUE
-               END IF
+               }
 
                W = ABS( B( I, I ) ) + ABS( B( I+1, I ) )
-               IF( W.GT.SMLNUM ) THEN
-                  IF( W.LT.ONE ) THEN
+               if ( W.GT.SMLNUM ) {
+                  if ( W.LT.ONE ) {
                      W1 = ABS( XR ) + ABS( XI )
-                     IF( W1.GT.W*BIGNUM ) THEN
+                     if ( W1.GT.W*BIGNUM ) {
                         REC = ONE / W1
                         CALL SSCAL( N, REC, VR, 1 )
                         CALL SSCAL( N, REC, VI, 1 )
@@ -378,8 +378,8 @@
                         XI = VI( I )
                         SCALE = SCALE*REC
                         VMAX = VMAX*REC
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Divide by diagonal element of B.
 
@@ -396,7 +396,7 @@
                   SCALE = ZERO
                   VMAX = ONE
                   VCRIT = BIGNUM
-               END IF
+               }
   250       CONTINUE
 
             // Test for sufficient growth in the norm of (VR,VI).
@@ -432,7 +432,7 @@
          CALL SSCAL( N, ONE / VNORM, VR, 1 )
          CALL SSCAL( N, ONE / VNORM, VI, 1 )
 
-      END IF
+      }
 
       RETURN
 

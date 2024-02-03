@@ -42,15 +42,15 @@
       ABSGAM = ABS( GAMMA )
       ABSEST = ABS( SEST )
 
-      IF( JOB.EQ.1 ) THEN
+      if ( JOB.EQ.1 ) {
 
          // Estimating largest singular value
 
          // special cases
 
-         IF( SEST.EQ.ZERO ) THEN
+         if ( SEST.EQ.ZERO ) {
             S1 = MAX( ABSGAM, ABSALP )
-            IF( S1.EQ.ZERO ) THEN
+            if ( S1.EQ.ZERO ) {
                S = ZERO
                C = ONE
                SESTPR = ZERO
@@ -61,9 +61,9 @@
                S = S / TMP
                C = C / TMP
                SESTPR = S1*TMP
-            END IF
+            }
             RETURN
-         ELSE IF( ABSGAM.LE.EPS*ABSEST ) THEN
+         } else if ( ABSGAM.LE.EPS*ABSEST ) {
             S = ONE
             C = ZERO
             TMP = MAX( ABSEST, ABSALP )
@@ -71,10 +71,10 @@
             S2 = ABSALP / TMP
             SESTPR = TMP*SQRT( S1*S1+S2*S2 )
             RETURN
-         ELSE IF( ABSALP.LE.EPS*ABSEST ) THEN
+         } else if ( ABSALP.LE.EPS*ABSEST ) {
             S1 = ABSGAM
             S2 = ABSEST
-            IF( S1.LE.S2 ) THEN
+            if ( S1.LE.S2 ) {
                S = ONE
                C = ZERO
                SESTPR = S2
@@ -82,12 +82,12 @@
                S = ZERO
                C = ONE
                SESTPR = S1
-            END IF
+            }
             RETURN
-         ELSE IF( ABSEST.LE.EPS*ABSALP .OR. ABSEST.LE.EPS*ABSGAM ) THEN
+         } else if ( ABSEST.LE.EPS*ABSALP .OR. ABSEST.LE.EPS*ABSGAM ) {
             S1 = ABSGAM
             S2 = ABSALP
-            IF( S1.LE.S2 ) THEN
+            if ( S1.LE.S2 ) {
                TMP = S1 / S2
                SCL = SQRT( ONE+TMP*TMP )
                SESTPR = S2*SCL
@@ -99,7 +99,7 @@
                SESTPR = S1*SCL
                S = ( ALPHA / S1 ) / SCL
                C = ( GAMMA / S1 ) / SCL
-            END IF
+            }
             RETURN
          } else {
 
@@ -110,11 +110,11 @@
 
             B = ( ONE-ZETA1*ZETA1-ZETA2*ZETA2 )*HALF
             C = ZETA1*ZETA1
-            IF( B.GT.ZERO ) THEN
+            if ( B.GT.ZERO ) {
                T = DBLE( C / ( B+SQRT( B*B+C ) ) )
             } else {
                T = DBLE( SQRT( B*B+C ) - B )
-            END IF
+            }
 
             SINE = -( ALPHA / ABSEST ) / T
             COSINE = -( GAMMA / ABSEST ) / ( ONE+T )
@@ -124,23 +124,23 @@
             C = COSINE / TMP
             SESTPR = SQRT( T+ONE )*ABSEST
             RETURN
-         END IF
+         }
 
-      ELSE IF( JOB.EQ.2 ) THEN
+      } else if ( JOB.EQ.2 ) {
 
          // Estimating smallest singular value
 
          // special cases
 
-         IF( SEST.EQ.ZERO ) THEN
+         if ( SEST.EQ.ZERO ) {
             SESTPR = ZERO
-            IF( MAX( ABSGAM, ABSALP ).EQ.ZERO ) THEN
+            if ( MAX( ABSGAM, ABSALP ).EQ.ZERO ) {
                SINE = ONE
                COSINE = ZERO
             } else {
                SINE = -DCONJG( GAMMA )
                COSINE = DCONJG( ALPHA )
-            END IF
+            }
             S1 = MAX( ABS( SINE ), ABS( COSINE ) )
             S = SINE / S1
             C = COSINE / S1
@@ -148,15 +148,15 @@
             S = S / TMP
             C = C / TMP
             RETURN
-         ELSE IF( ABSGAM.LE.EPS*ABSEST ) THEN
+         } else if ( ABSGAM.LE.EPS*ABSEST ) {
             S = ZERO
             C = ONE
             SESTPR = ABSGAM
             RETURN
-         ELSE IF( ABSALP.LE.EPS*ABSEST ) THEN
+         } else if ( ABSALP.LE.EPS*ABSEST ) {
             S1 = ABSGAM
             S2 = ABSEST
-            IF( S1.LE.S2 ) THEN
+            if ( S1.LE.S2 ) {
                S = ZERO
                C = ONE
                SESTPR = S1
@@ -164,12 +164,12 @@
                S = ONE
                C = ZERO
                SESTPR = S2
-            END IF
+            }
             RETURN
-         ELSE IF( ABSEST.LE.EPS*ABSALP .OR. ABSEST.LE.EPS*ABSGAM ) THEN
+         } else if ( ABSEST.LE.EPS*ABSALP .OR. ABSEST.LE.EPS*ABSGAM ) {
             S1 = ABSGAM
             S2 = ABSALP
-            IF( S1.LE.S2 ) THEN
+            if ( S1.LE.S2 ) {
                TMP = S1 / S2
                SCL = SQRT( ONE+TMP*TMP )
                SESTPR = ABSEST*( TMP / SCL )
@@ -181,7 +181,7 @@
                SESTPR = ABSEST / SCL
                S = -( DCONJG( GAMMA ) / S1 ) / SCL
                C = ( DCONJG( ALPHA ) / S1 ) / SCL
-            END IF
+            }
             RETURN
          } else {
 
@@ -195,7 +195,7 @@
             // See if root is closer to zero or to ONE
 
             TEST = ONE + TWO*( ZETA1-ZETA2 )*( ZETA1+ZETA2 )
-            IF( TEST.GE.ZERO ) THEN
+            if ( TEST.GE.ZERO ) {
 
                // root is close to zero, compute directly
 
@@ -211,22 +211,22 @@
 
                B = ( ZETA2*ZETA2+ZETA1*ZETA1-ONE )*HALF
                C = ZETA1*ZETA1
-               IF( B.GE.ZERO ) THEN
+               if ( B.GE.ZERO ) {
                   T = DBLE( -C / ( B+SQRT( B*B+C ) ) )
                } else {
                   T = DBLE( B - SQRT( B*B+C ) )
-               END IF
+               }
                SINE = -( ALPHA / ABSEST ) / T
                COSINE = -( GAMMA / ABSEST ) / ( ONE+T )
                SESTPR = SQRT( ONE+T+FOUR*EPS*EPS*NORMA )*ABSEST
-            END IF
+            }
             TMP = DBLE( SQRT( SINE * DCONJG( SINE ) + COSINE * DCONJG( COSINE ) ) )
             S = SINE / TMP
             C = COSINE / TMP
             RETURN
 
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of ZLAIC1

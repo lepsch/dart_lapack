@@ -41,14 +41,14 @@
       // ..
       // .. Executable Statements ..
 
-      IF( KASE.EQ.0 ) THEN
+      if ( KASE.EQ.0 ) {
          DO 10 I = 1, N
             X( I ) = ONE / DBLE( N )
    10    CONTINUE
          KASE = 1
          JUMP = 1
          RETURN
-      END IF
+      }
 
       GO TO ( 20, 40, 70, 110, 140 )JUMP
 
@@ -56,12 +56,12 @@
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
 
    20 CONTINUE
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          V( 1 ) = X( 1 )
          EST = ABS( V( 1 ) )
          // ... QUIT
          GO TO 150
-      END IF
+      }
       EST = DASUM( N, X, 1 )
 
       DO 30 I = 1, N
@@ -121,10 +121,10 @@
   110 CONTINUE
       JLAST = J
       J = IDAMAX( N, X, 1 )
-      IF( ( X( JLAST ).NE.ABS( X( J ) ) ) .AND. ( ITER.LT.ITMAX ) ) THEN
+      if ( ( X( JLAST ).NE.ABS( X( J ) ) ) .AND. ( ITER.LT.ITMAX ) ) {
          ITER = ITER + 1
          GO TO 50
-      END IF
+      }
 
       // ITERATION COMPLETE.  FINAL STAGE.
 
@@ -143,10 +143,10 @@
 
   140 CONTINUE
       TEMP = TWO*( DASUM( N, X, 1 ) / DBLE( 3*N ) )
-      IF( TEMP.GT.EST ) THEN
+      if ( TEMP.GT.EST ) {
          CALL DCOPY( N, X, 1, V, 1 )
          EST = TEMP
-      END IF
+      }
 
   150 CONTINUE
       KASE = 0

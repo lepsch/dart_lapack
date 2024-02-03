@@ -31,11 +31,11 @@
       // .. Executable Statements ..
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
          CALL XERBLA( 'DGTTRF', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -51,15 +51,15 @@
    20 CONTINUE
 
       DO 30 I = 1, N - 2
-         IF( ABS( D( I ) ).GE.ABS( DL( I ) ) ) THEN
+         if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
 
             // No row interchange required, eliminate DL(I)
 
-            IF( D( I ).NE.ZERO ) THEN
+            if ( D( I ).NE.ZERO ) {
                FACT = DL( I ) / D( I )
                DL( I ) = FACT
                D( I+1 ) = D( I+1 ) - FACT*DU( I )
-            END IF
+            }
          } else {
 
             // Interchange rows I and I+1, eliminate DL(I)
@@ -73,16 +73,16 @@
             DU2( I ) = DU( I+1 )
             DU( I+1 ) = -FACT*DU( I+1 )
             IPIV( I ) = I + 1
-         END IF
+         }
    30 CONTINUE
-      IF( N.GT.1 ) THEN
+      if ( N.GT.1 ) {
          I = N - 1
-         IF( ABS( D( I ) ).GE.ABS( DL( I ) ) ) THEN
-            IF( D( I ).NE.ZERO ) THEN
+         if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
+            if ( D( I ).NE.ZERO ) {
                FACT = DL( I ) / D( I )
                DL( I ) = FACT
                D( I+1 ) = D( I+1 ) - FACT*DU( I )
-            END IF
+            }
          } else {
             FACT = D( I ) / DL( I )
             D( I ) = DL( I )
@@ -91,16 +91,16 @@
             DU( I ) = D( I+1 )
             D( I+1 ) = TEMP - FACT*D( I+1 )
             IPIV( I ) = I + 1
-         END IF
-      END IF
+         }
+      }
 
       // Check for a zero on the diagonal of U.
 
       DO 40 I = 1, N
-         IF( D( I ).EQ.ZERO ) THEN
+         if ( D( I ).EQ.ZERO ) {
             INFO = I
             GO TO 50
-         END IF
+         }
    40 CONTINUE
    50 CONTINUE
 

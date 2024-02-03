@@ -13,10 +13,10 @@
       // INTRINSIC LEN_TRIM
       // ..
       // .. Executable Statements ..
-      IF( .NOT.LERR ) THEN
+      if ( .NOT.LERR ) {
          WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT( 1:LEN_TRIM( SRNAMT ) )
          OK = .FALSE.
-      END IF
+      }
       LERR = .FALSE.
       RETURN
 

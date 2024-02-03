@@ -67,11 +67,11 @@
          WORK( J ) = SASUM( J-1, T( 1, J ), 1 )
    10 CONTINUE
 
-      IF( .NOT.LREAL ) THEN
+      if ( .NOT.LREAL ) {
          DO 20 I = 2, N
             WORK( I ) = WORK( I ) + ABS( B( I ) )
    20    CONTINUE
-      END IF
+      }
 
       N2 = 2*N
       N1 = N
@@ -80,15 +80,15 @@
       XMAX = ABS( X( K ) )
       SCALE = ONE
 
-      IF( XMAX.GT.BIGNUM ) THEN
+      if ( XMAX.GT.BIGNUM ) {
          SCALE = BIGNUM / XMAX
          CALL SSCAL( N1, SCALE, X, 1 )
          XMAX = BIGNUM
-      END IF
+      }
 
-      IF( LREAL ) THEN
+      if ( LREAL ) {
 
-         IF( NOTRAN ) THEN
+         if ( NOTRAN ) {
 
             // Solve T*p = scale*c
 
@@ -98,14 +98,14 @@
                J1 = J
                J2 = J
                JNEXT = J - 1
-               IF( J.GT.1 ) THEN
-                  IF( T( J, J-1 ).NE.ZERO ) THEN
+               if ( J.GT.1 ) {
+                  if ( T( J, J-1 ).NE.ZERO ) {
                      J1 = J - 1
                      JNEXT = J - 2
-                  END IF
-               END IF
+                  }
+               }
 
-               IF( J1.EQ.J2 ) THEN
+               if ( J1.EQ.J2 ) {
 
                   // Meet 1 by 1 diagonal block
 
@@ -115,40 +115,40 @@
                   XJ = ABS( X( J1 ) )
                   TJJ = ABS( T( J1, J1 ) )
                   TMP = T( J1, J1 )
-                  IF( TJJ.LT.SMIN ) THEN
+                  if ( TJJ.LT.SMIN ) {
                      TMP = SMIN
                      TJJ = SMIN
                      INFO = 1
-                  END IF
+                  }
 
                   IF( XJ.EQ.ZERO ) GO TO 30
 
-                  IF( TJJ.LT.ONE ) THEN
-                     IF( XJ.GT.BIGNUM*TJJ ) THEN
+                  if ( TJJ.LT.ONE ) {
+                     if ( XJ.GT.BIGNUM*TJJ ) {
                         REC = ONE / XJ
                         CALL SSCAL( N, REC, X, 1 )
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
-                     END IF
-                  END IF
+                     }
+                  }
                   X( J1 ) = X( J1 ) / TMP
                   XJ = ABS( X( J1 ) )
 
                   // Scale x if necessary to avoid overflow when adding a
                   // multiple of column j1 of T.
 
-                  IF( XJ.GT.ONE ) THEN
+                  if ( XJ.GT.ONE ) {
                      REC = ONE / XJ
-                     IF( WORK( J1 ).GT.( BIGNUM-XMAX )*REC ) THEN
+                     if ( WORK( J1 ).GT.( BIGNUM-XMAX )*REC ) {
                         CALL SSCAL( N, REC, X, 1 )
                         SCALE = SCALE*REC
-                     END IF
-                  END IF
-                  IF( J1.GT.1 ) THEN
+                     }
+                  }
+                  if ( J1.GT.1 ) {
                      CALL SAXPY( J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 )
                      K = ISAMAX( J1-1, X, 1 )
                      XMAX = ABS( X( K ) )
-                  END IF
+                  }
 
                } else {
 
@@ -162,10 +162,10 @@
                   CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR )
                   IF( IERR.NE.0 ) INFO = 2
 
-                  IF( SCALOC.NE.ONE ) THEN
+                  if ( SCALOC.NE.ONE ) {
                      CALL SSCAL( N, SCALOC, X, 1 )
                      SCALE = SCALE*SCALOC
-                  END IF
+                  }
                   X( J1 ) = V( 1, 1 )
                   X( J2 ) = V( 2, 1 )
 
@@ -173,24 +173,24 @@
                  t // o avoid overflow in updating right-hand side.
 
                   XJ = MAX( ABS( V( 1, 1 ) ), ABS( V( 2, 1 ) ) )
-                  IF( XJ.GT.ONE ) THEN
+                  if ( XJ.GT.ONE ) {
                      REC = ONE / XJ
-                     IF( MAX( WORK( J1 ), WORK( J2 ) ).GT. ( BIGNUM-XMAX )*REC ) THEN
+                     if ( MAX( WORK( J1 ), WORK( J2 ) ).GT. ( BIGNUM-XMAX )*REC ) {
                         CALL SSCAL( N, REC, X, 1 )
                         SCALE = SCALE*REC
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Update right-hand side
 
-                  IF( J1.GT.1 ) THEN
+                  if ( J1.GT.1 ) {
                      CALL SAXPY( J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 )
                      CALL SAXPY( J1-1, -X( J2 ), T( 1, J2 ), 1, X, 1 )
                      K = ISAMAX( J1-1, X, 1 )
                      XMAX = ABS( X( K ) )
-                  END IF
+                  }
 
-               END IF
+               }
 
    30       CONTINUE
 
@@ -204,14 +204,14 @@
                J1 = J
                J2 = J
                JNEXT = J + 1
-               IF( J.LT.N ) THEN
-                  IF( T( J+1, J ).NE.ZERO ) THEN
+               if ( J.LT.N ) {
+                  if ( T( J+1, J ).NE.ZERO ) {
                      J2 = J + 1
                      JNEXT = J + 2
-                  END IF
-               END IF
+                  }
+               }
 
-               IF( J1.EQ.J2 ) THEN
+               if ( J1.EQ.J2 ) {
 
                   // 1 by 1 diagonal block
 
@@ -219,34 +219,34 @@
                   // right-hand side element by inner product.
 
                   XJ = ABS( X( J1 ) )
-                  IF( XMAX.GT.ONE ) THEN
+                  if ( XMAX.GT.ONE ) {
                      REC = ONE / XMAX
-                     IF( WORK( J1 ).GT.( BIGNUM-XJ )*REC ) THEN
+                     if ( WORK( J1 ).GT.( BIGNUM-XJ )*REC ) {
                         CALL SSCAL( N, REC, X, 1 )
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
-                     END IF
-                  END IF
+                     }
+                  }
 
                   X( J1 ) = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )
 
                   XJ = ABS( X( J1 ) )
                   TJJ = ABS( T( J1, J1 ) )
                   TMP = T( J1, J1 )
-                  IF( TJJ.LT.SMIN ) THEN
+                  if ( TJJ.LT.SMIN ) {
                      TMP = SMIN
                      TJJ = SMIN
                      INFO = 1
-                  END IF
+                  }
 
-                  IF( TJJ.LT.ONE ) THEN
-                     IF( XJ.GT.BIGNUM*TJJ ) THEN
+                  if ( TJJ.LT.ONE ) {
+                     if ( XJ.GT.BIGNUM*TJJ ) {
                         REC = ONE / XJ
                         CALL SSCAL( N, REC, X, 1 )
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
-                     END IF
-                  END IF
+                     }
+                  }
                   X( J1 ) = X( J1 ) / TMP
                   XMAX = MAX( XMAX, ABS( X( J1 ) ) )
 
@@ -258,36 +258,36 @@
                   // right-hand side elements by inner product.
 
                   XJ = MAX( ABS( X( J1 ) ), ABS( X( J2 ) ) )
-                  IF( XMAX.GT.ONE ) THEN
+                  if ( XMAX.GT.ONE ) {
                      REC = ONE / XMAX
-                     IF( MAX( WORK( J2 ), WORK( J1 ) ).GT.( BIGNUM-XJ )* REC ) THEN
+                     if ( MAX( WORK( J2 ), WORK( J1 ) ).GT.( BIGNUM-XJ )* REC ) {
                         CALL SSCAL( N, REC, X, 1 )
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
-                     END IF
-                  END IF
+                     }
+                  }
 
                   D( 1, 1 ) = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X, 1 )
 
                   CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR )
                   IF( IERR.NE.0 ) INFO = 2
 
-                  IF( SCALOC.NE.ONE ) THEN
+                  if ( SCALOC.NE.ONE ) {
                      CALL SSCAL( N, SCALOC, X, 1 )
                      SCALE = SCALE*SCALOC
-                  END IF
+                  }
                   X( J1 ) = V( 1, 1 )
                   X( J2 ) = V( 2, 1 )
                   XMAX = MAX( ABS( X( J1 ) ), ABS( X( J2 ) ), XMAX )
 
-               END IF
+               }
    40       CONTINUE
-         END IF
+         }
 
       } else {
 
          SMINW = MAX( EPS*ABS( W ), SMIN )
-         IF( NOTRAN ) THEN
+         if ( NOTRAN ) {
 
             // Solve (T + iB)*(p+iq) = c+id
 
@@ -297,14 +297,14 @@
                J1 = J
                J2 = J
                JNEXT = J - 1
-               IF( J.GT.1 ) THEN
-                  IF( T( J, J-1 ).NE.ZERO ) THEN
+               if ( J.GT.1 ) {
+                  if ( T( J, J-1 ).NE.ZERO ) {
                      J1 = J - 1
                      JNEXT = J - 2
-                  END IF
-               END IF
+                  }
+               }
 
-               IF( J1.EQ.J2 ) THEN
+               if ( J1.EQ.J2 ) {
 
                   // 1 by 1 diagonal block
 
@@ -315,22 +315,22 @@
                   XJ = ABS( X( J1 ) ) + ABS( X( N+J1 ) )
                   TJJ = ABS( T( J1, J1 ) ) + ABS( Z )
                   TMP = T( J1, J1 )
-                  IF( TJJ.LT.SMINW ) THEN
+                  if ( TJJ.LT.SMINW ) {
                      TMP = SMINW
                      TJJ = SMINW
                      INFO = 1
-                  END IF
+                  }
 
                   IF( XJ.EQ.ZERO ) GO TO 70
 
-                  IF( TJJ.LT.ONE ) THEN
-                     IF( XJ.GT.BIGNUM*TJJ ) THEN
+                  if ( TJJ.LT.ONE ) {
+                     if ( XJ.GT.BIGNUM*TJJ ) {
                         REC = ONE / XJ
                         CALL SSCAL( N2, REC, X, 1 )
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
-                     END IF
-                  END IF
+                     }
+                  }
                   CALL SLADIV( X( J1 ), X( N+J1 ), TMP, Z, SR, SI )
                   X( J1 ) = SR
                   X( N+J1 ) = SI
@@ -339,15 +339,15 @@
                   // Scale x if necessary to avoid overflow when adding a
                   // multiple of column j1 of T.
 
-                  IF( XJ.GT.ONE ) THEN
+                  if ( XJ.GT.ONE ) {
                      REC = ONE / XJ
-                     IF( WORK( J1 ).GT.( BIGNUM-XMAX )*REC ) THEN
+                     if ( WORK( J1 ).GT.( BIGNUM-XMAX )*REC ) {
                         CALL SSCAL( N2, REC, X, 1 )
                         SCALE = SCALE*REC
-                     END IF
-                  END IF
+                     }
+                  }
 
-                  IF( J1.GT.1 ) THEN
+                  if ( J1.GT.1 ) {
                      CALL SAXPY( J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 )
                      CALL SAXPY( J1-1, -X( N+J1 ), T( 1, J1 ), 1, X( N+1 ), 1 )
 
@@ -358,7 +358,7 @@
                      DO 50 K = 1, J1 - 1
                         XMAX = MAX( XMAX, ABS( X( K ) )+ ABS( X( K+N ) ) )
    50                CONTINUE
-                  END IF
+                  }
 
                } else {
 
@@ -371,10 +371,10 @@
                   CALL SLALN2( .FALSE., 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, -W, V, 2, SCALOC, XNORM, IERR )
                   IF( IERR.NE.0 ) INFO = 2
 
-                  IF( SCALOC.NE.ONE ) THEN
+                  if ( SCALOC.NE.ONE ) {
                      CALL SSCAL( 2*N, SCALOC, X, 1 )
                      SCALE = SCALOC*SCALE
-                  END IF
+                  }
                   X( J1 ) = V( 1, 1 )
                   X( J2 ) = V( 2, 1 )
                   X( N+J1 ) = V( 1, 2 )
@@ -384,17 +384,17 @@
                   // updating right hand side.
 
                   XJ = MAX( ABS( V( 1, 1 ) )+ABS( V( 1, 2 ) ), ABS( V( 2, 1 ) )+ABS( V( 2, 2 ) ) )
-                  IF( XJ.GT.ONE ) THEN
+                  if ( XJ.GT.ONE ) {
                      REC = ONE / XJ
-                     IF( MAX( WORK( J1 ), WORK( J2 ) ).GT. ( BIGNUM-XMAX )*REC ) THEN
+                     if ( MAX( WORK( J1 ), WORK( J2 ) ).GT. ( BIGNUM-XMAX )*REC ) {
                         CALL SSCAL( N2, REC, X, 1 )
                         SCALE = SCALE*REC
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Update the right-hand side.
 
-                  IF( J1.GT.1 ) THEN
+                  if ( J1.GT.1 ) {
                      CALL SAXPY( J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 )
                      CALL SAXPY( J1-1, -X( J2 ), T( 1, J2 ), 1, X, 1 )
 
@@ -406,9 +406,9 @@
                      DO 60 K = 1, J1 - 1
                         XMAX = MAX( ABS( X( K ) )+ABS( X( K+N ) ), XMAX )
    60                CONTINUE
-                  END IF
+                  }
 
-               END IF
+               }
    70       CONTINUE
 
          } else {
@@ -421,14 +421,14 @@
                J1 = J
                J2 = J
                JNEXT = J + 1
-               IF( J.LT.N ) THEN
-                  IF( T( J+1, J ).NE.ZERO ) THEN
+               if ( J.LT.N ) {
+                  if ( T( J+1, J ).NE.ZERO ) {
                      J2 = J + 1
                      JNEXT = J + 2
-                  END IF
-               END IF
+                  }
+               }
 
-               IF( J1.EQ.J2 ) THEN
+               if ( J1.EQ.J2 ) {
 
                   // 1 by 1 diagonal block
 
@@ -436,21 +436,21 @@
                   // right-hand side element by inner product.
 
                   XJ = ABS( X( J1 ) ) + ABS( X( J1+N ) )
-                  IF( XMAX.GT.ONE ) THEN
+                  if ( XMAX.GT.ONE ) {
                      REC = ONE / XMAX
-                     IF( WORK( J1 ).GT.( BIGNUM-XJ )*REC ) THEN
+                     if ( WORK( J1 ).GT.( BIGNUM-XJ )*REC ) {
                         CALL SSCAL( N2, REC, X, 1 )
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
-                     END IF
-                  END IF
+                     }
+                  }
 
                   X( J1 ) = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )
                   X( N+J1 ) = X( N+J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 )
-                  IF( J1.GT.1 ) THEN
+                  if ( J1.GT.1 ) {
                      X( J1 ) = X( J1 ) - B( J1 )*X( N+1 )
                      X( N+J1 ) = X( N+J1 ) + B( J1 )*X( 1 )
-                  END IF
+                  }
                   XJ = ABS( X( J1 ) ) + ABS( X( J1+N ) )
 
                   Z = W
@@ -461,20 +461,20 @@
 
                   TJJ = ABS( T( J1, J1 ) ) + ABS( Z )
                   TMP = T( J1, J1 )
-                  IF( TJJ.LT.SMINW ) THEN
+                  if ( TJJ.LT.SMINW ) {
                      TMP = SMINW
                      TJJ = SMINW
                      INFO = 1
-                  END IF
+                  }
 
-                  IF( TJJ.LT.ONE ) THEN
-                     IF( XJ.GT.BIGNUM*TJJ ) THEN
+                  if ( TJJ.LT.ONE ) {
+                     if ( XJ.GT.BIGNUM*TJJ ) {
                         REC = ONE / XJ
                         CALL SSCAL( N2, REC, X, 1 )
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
-                     END IF
-                  END IF
+                     }
+                  }
                   CALL SLADIV( X( J1 ), X( N+J1 ), TMP, -Z, SR, SI )
                   X( J1 ) = SR
                   X( J1+N ) = SI
@@ -488,14 +488,14 @@
                   // right-hand side element by inner product.
 
                   XJ = MAX( ABS( X( J1 ) )+ABS( X( N+J1 ) ), ABS( X( J2 ) )+ABS( X( N+J2 ) ) )
-                  IF( XMAX.GT.ONE ) THEN
+                  if ( XMAX.GT.ONE ) {
                      REC = ONE / XMAX
-                     IF( MAX( WORK( J1 ), WORK( J2 ) ).GT. ( BIGNUM-XJ ) / XMAX ) THEN
+                     if ( MAX( WORK( J1 ), WORK( J2 ) ).GT. ( BIGNUM-XJ ) / XMAX ) {
                         CALL SSCAL( N2, REC, X, 1 )
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
-                     END IF
-                  END IF
+                     }
+                  }
 
                   D( 1, 1 ) = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X, 1 )                   D( 1, 2 ) = X( N+J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 )                   D( 2, 2 ) = X( N+J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X( N+1 ), 1 )
                   D( 1, 1 ) = D( 1, 1 ) - B( J1 )*X( N+1 )
@@ -506,23 +506,23 @@
                   CALL SLALN2( .TRUE., 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, W, V, 2, SCALOC, XNORM, IERR )
                   IF( IERR.NE.0 ) INFO = 2
 
-                  IF( SCALOC.NE.ONE ) THEN
+                  if ( SCALOC.NE.ONE ) {
                      CALL SSCAL( N2, SCALOC, X, 1 )
                      SCALE = SCALOC*SCALE
-                  END IF
+                  }
                   X( J1 ) = V( 1, 1 )
                   X( J2 ) = V( 2, 1 )
                   X( N+J1 ) = V( 1, 2 )
                   X( N+J2 ) = V( 2, 2 )
                   XMAX = MAX( ABS( X( J1 ) )+ABS( X( N+J1 ) ), ABS( X( J2 ) )+ABS( X( N+J2 ) ), XMAX )
 
-               END IF
+               }
 
    80       CONTINUE
 
-         END IF
+         }
 
-      END IF
+      }
 
       RETURN
 

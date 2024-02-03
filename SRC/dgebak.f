@@ -41,25 +41,25 @@
       LEFTV = LSAME( SIDE, 'L' )
 
       INFO = 0
-      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
+      if ( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) {
          INFO = -1
-      ELSE IF( .NOT.RIGHTV .AND. .NOT.LEFTV ) THEN
+      } else if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) THEN
+      } else if ( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) THEN
+      } else if ( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) {
          INFO = -5
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -7
-      ELSE IF( LDV.LT.MAX( 1, N ) ) THEN
+      } else if ( LDV.LT.MAX( 1, N ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGEBAK', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -69,23 +69,23 @@
 
       // Backward balance
 
-      IF( LSAME( JOB, 'S' ) .OR. LSAME( JOB, 'B' ) ) THEN
+      if ( LSAME( JOB, 'S' ) .OR. LSAME( JOB, 'B' ) ) {
 
-         IF( RIGHTV ) THEN
+         if ( RIGHTV ) {
             DO 10 I = ILO, IHI
                S = SCALE( I )
                CALL DSCAL( M, S, V( I, 1 ), LDV )
    10       CONTINUE
-         END IF
+         }
 
-         IF( LEFTV ) THEN
+         if ( LEFTV ) {
             DO 20 I = ILO, IHI
                S = ONE / SCALE( I )
                CALL DSCAL( M, S, V( I, 1 ), LDV )
    20       CONTINUE
-         END IF
+         }
 
-      END IF
+      }
 
       // Backward permutation
 
@@ -93,8 +93,8 @@
                // IHI+1 step 1 until N do --
 
    30 CONTINUE
-      IF( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) THEN
-         IF( RIGHTV ) THEN
+      if ( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) {
+         if ( RIGHTV ) {
             DO 40 II = 1, N
                I = II
                IF( I.GE.ILO .AND. I.LE.IHI ) GO TO 40                IF( I.LT.ILO ) I = ILO - II
@@ -102,9 +102,9 @@
                IF( K.EQ.I ) GO TO 40
                CALL DSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
    40       CONTINUE
-         END IF
+         }
 
-         IF( LEFTV ) THEN
+         if ( LEFTV ) {
             DO 50 II = 1, N
                I = II
                IF( I.GE.ILO .AND. I.LE.IHI ) GO TO 50                IF( I.LT.ILO ) I = ILO - II
@@ -112,8 +112,8 @@
                IF( K.EQ.I ) GO TO 50
                CALL DSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
    50       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

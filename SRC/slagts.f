@@ -36,15 +36,15 @@
       // .. Executable Statements ..
 
       INFO = 0
-      IF( ( ABS( JOB ).GT.2 ) .OR. ( JOB.EQ.0 ) ) THEN
+      if ( ( ABS( JOB ).GT.2 ) .OR. ( JOB.EQ.0 ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLAGTS', -INFO )
          RETURN
-      END IF
+      }
 
       IF( N.EQ.0 ) RETURN
 
@@ -52,8 +52,8 @@
       SFMIN = SLAMCH( 'Safe minimum' )
       BIGNUM = ONE / SFMIN
 
-      IF( JOB.LT.0 ) THEN
-         IF( TOL.LE.ZERO ) THEN
+      if ( JOB.LT.0 ) {
+         if ( TOL.LE.ZERO ) {
             TOL = ABS( A( 1 ) )
             IF( N.GT.1 ) TOL = MAX( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) )
             DO 10 K = 3, N
@@ -61,152 +61,152 @@
    10       CONTINUE
             TOL = TOL*EPS
             IF( TOL.EQ.ZERO ) TOL = EPS
-         END IF
-      END IF
+         }
+      }
 
-      IF( ABS( JOB ).EQ.1 ) THEN
+      if ( ABS( JOB ).EQ.1 ) {
          DO 20 K = 2, N
-            IF( IN( K-1 ).EQ.0 ) THEN
+            if ( IN( K-1 ).EQ.0 ) {
                Y( K ) = Y( K ) - C( K-1 )*Y( K-1 )
             } else {
                TEMP = Y( K-1 )
                Y( K-1 ) = Y( K )
                Y( K ) = TEMP - C( K-1 )*Y( K )
-            END IF
+            }
    20    CONTINUE
-         IF( JOB.EQ.1 ) THEN
+         if ( JOB.EQ.1 ) {
             DO 30 K = N, 1, -1
-               IF( K.LE.N-2 ) THEN
+               if ( K.LE.N-2 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 ) - D( K )*Y( K+2 )
-               ELSE IF( K.EQ.N-1 ) THEN
+               } else if ( K.EQ.N-1 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 )
                } else {
                   TEMP = Y( K )
-               END IF
+               }
                AK = A( K )
                ABSAK = ABS( AK )
-               IF( ABSAK.LT.ONE ) THEN
-                  IF( ABSAK.LT.SFMIN ) THEN
-                     IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) THEN
+               if ( ABSAK.LT.ONE ) {
+                  if ( ABSAK.LT.SFMIN ) {
+                     if ( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         INFO = K
                         RETURN
                      } else {
                         TEMP = TEMP*BIGNUM
                         AK = AK*BIGNUM
-                     END IF
-                  ELSE IF( ABS( TEMP ).GT.ABSAK*BIGNUM ) THEN
+                     }
+                  } else if ( ABS( TEMP ).GT.ABSAK*BIGNUM ) {
                      INFO = K
                      RETURN
-                  END IF
-               END IF
+                  }
+               }
                Y( K ) = TEMP / AK
    30       CONTINUE
          } else {
             DO 50 K = N, 1, -1
-               IF( K.LE.N-2 ) THEN
+               if ( K.LE.N-2 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 ) - D( K )*Y( K+2 )
-               ELSE IF( K.EQ.N-1 ) THEN
+               } else if ( K.EQ.N-1 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 )
                } else {
                   TEMP = Y( K )
-               END IF
+               }
                AK = A( K )
                PERT = SIGN( TOL, AK )
    40          CONTINUE
                ABSAK = ABS( AK )
-               IF( ABSAK.LT.ONE ) THEN
-                  IF( ABSAK.LT.SFMIN ) THEN
-                     IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) THEN
+               if ( ABSAK.LT.ONE ) {
+                  if ( ABSAK.LT.SFMIN ) {
+                     if ( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         AK = AK + PERT
                         PERT = 2*PERT
                         GO TO 40
                      } else {
                         TEMP = TEMP*BIGNUM
                         AK = AK*BIGNUM
-                     END IF
-                  ELSE IF( ABS( TEMP ).GT.ABSAK*BIGNUM ) THEN
+                     }
+                  } else if ( ABS( TEMP ).GT.ABSAK*BIGNUM ) {
                      AK = AK + PERT
                      PERT = 2*PERT
                      GO TO 40
-                  END IF
-               END IF
+                  }
+               }
                Y( K ) = TEMP / AK
    50       CONTINUE
-         END IF
+         }
       } else {
 
          // Come to here if  JOB = 2 or -2
 
-         IF( JOB.EQ.2 ) THEN
+         if ( JOB.EQ.2 ) {
             DO 60 K = 1, N
-               IF( K.GE.3 ) THEN
+               if ( K.GE.3 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 ) - D( K-2 )*Y( K-2 )
-               ELSE IF( K.EQ.2 ) THEN
+               } else if ( K.EQ.2 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 )
                } else {
                   TEMP = Y( K )
-               END IF
+               }
                AK = A( K )
                ABSAK = ABS( AK )
-               IF( ABSAK.LT.ONE ) THEN
-                  IF( ABSAK.LT.SFMIN ) THEN
-                     IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) THEN
+               if ( ABSAK.LT.ONE ) {
+                  if ( ABSAK.LT.SFMIN ) {
+                     if ( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         INFO = K
                         RETURN
                      } else {
                         TEMP = TEMP*BIGNUM
                         AK = AK*BIGNUM
-                     END IF
-                  ELSE IF( ABS( TEMP ).GT.ABSAK*BIGNUM ) THEN
+                     }
+                  } else if ( ABS( TEMP ).GT.ABSAK*BIGNUM ) {
                      INFO = K
                      RETURN
-                  END IF
-               END IF
+                  }
+               }
                Y( K ) = TEMP / AK
    60       CONTINUE
          } else {
             DO 80 K = 1, N
-               IF( K.GE.3 ) THEN
+               if ( K.GE.3 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 ) - D( K-2 )*Y( K-2 )
-               ELSE IF( K.EQ.2 ) THEN
+               } else if ( K.EQ.2 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 )
                } else {
                   TEMP = Y( K )
-               END IF
+               }
                AK = A( K )
                PERT = SIGN( TOL, AK )
    70          CONTINUE
                ABSAK = ABS( AK )
-               IF( ABSAK.LT.ONE ) THEN
-                  IF( ABSAK.LT.SFMIN ) THEN
-                     IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) THEN
+               if ( ABSAK.LT.ONE ) {
+                  if ( ABSAK.LT.SFMIN ) {
+                     if ( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         AK = AK + PERT
                         PERT = 2*PERT
                         GO TO 70
                      } else {
                         TEMP = TEMP*BIGNUM
                         AK = AK*BIGNUM
-                     END IF
-                  ELSE IF( ABS( TEMP ).GT.ABSAK*BIGNUM ) THEN
+                     }
+                  } else if ( ABS( TEMP ).GT.ABSAK*BIGNUM ) {
                      AK = AK + PERT
                      PERT = 2*PERT
                      GO TO 70
-                  END IF
-               END IF
+                  }
+               }
                Y( K ) = TEMP / AK
    80       CONTINUE
-         END IF
+         }
 
          DO 90 K = N, 2, -1
-            IF( IN( K-1 ).EQ.0 ) THEN
+            if ( IN( K-1 ).EQ.0 ) {
                Y( K-1 ) = Y( K-1 ) - C( K-1 )*Y( K )
             } else {
                TEMP = Y( K-1 )
                Y( K-1 ) = Y( K )
                Y( K ) = TEMP - C( K-1 )*Y( K )
-            END IF
+            }
    90    CONTINUE
-      END IF
+      }
 
       // End of SLAGTS
 

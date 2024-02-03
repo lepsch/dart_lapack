@@ -29,19 +29,19 @@
       // Test the input arguments
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( M.LT.N ) THEN
+      } else if ( M.LT.N ) {
          INFO = -1
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      ELSE IF( LDT.LT.MAX( 1, N ) ) THEN
+      } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGEQRT2', -INFO )
          RETURN
-      END IF
+      }
 
       K = MIN( M, N )
 
@@ -50,7 +50,7 @@
          // Generate elem. refl. H(i) to annihilate A(i+1:m,i), tau(I) -> T(I,1)
 
          CALL ZLARFG( M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, T( I, 1 ) )
-         IF( I.LT.N ) THEN
+         if ( I.LT.N ) {
 
             // Apply H(i) to A(I:M,I+1:N) from the left
 
@@ -66,7 +66,7 @@
             ALPHA = -CONJG(T( I, 1 ))
             CALL ZGERC( M-I+1, N-I, ALPHA, A( I, I ), 1, T( 1, N ), 1, A( I, I+1 ), LDA )
             A( I, I ) = AII
-         END IF
+         }
       END DO
 
       DO I = 2, N

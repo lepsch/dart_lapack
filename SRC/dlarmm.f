@@ -24,15 +24,15 @@
       // Compute a scale factor.
 
       DLARMM = ONE
-      IF( BNORM .LE. ONE ) THEN
-         IF( ANORM * BNORM .GT. BIGNUM - CNORM ) THEN
+      if ( BNORM .LE. ONE ) {
+         if ( ANORM * BNORM .GT. BIGNUM - CNORM ) {
             DLARMM = HALF
-         END IF
+         }
       } else {
-         IF( ANORM .GT. (BIGNUM - CNORM) / BNORM ) THEN
+         if ( ANORM .GT. (BIGNUM - CNORM) / BNORM ) {
             DLARMM = HALF / BNORM
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // ==== End of DLARMM ====

@@ -32,22 +32,22 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.M ) THEN
+      } else if ( N.LT.M ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CTZRQF', -INFO )
          RETURN
-      END IF
+      }
 
       // Perform the factorization.
 
       IF( M.EQ.0 ) RETURN
-      IF( M.EQ.N ) THEN
+      if ( M.EQ.N ) {
          DO 10 I = 1, N
             TAU( I ) = CZERO
    10    CONTINUE
@@ -65,7 +65,7 @@
             A( K, K ) = ALPHA
             TAU( K ) = CONJG( TAU( K ) )
 
-            IF( TAU( K ).NE.CZERO .AND. K.GT.1 ) THEN
+            if ( TAU( K ).NE.CZERO .AND. K.GT.1 ) {
 
                // We now perform the operation  A := A*P( k )**H.
 
@@ -84,9 +84,9 @@
                // and       B      := B      - conjg(tau)*w*z( k )**H.
 
                CALL CAXPY( K-1, -CONJG( TAU( K ) ), TAU, 1, A( 1, K ), 1 )                CALL CGERC( K-1, N-M, -CONJG( TAU( K ) ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA )
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
 
       RETURN
 

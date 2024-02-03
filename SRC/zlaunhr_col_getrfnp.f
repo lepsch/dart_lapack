@@ -36,17 +36,17 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZLAUNHR_COL_GETRFNP', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -57,7 +57,7 @@
 
       NB = ILAENV( 1, 'ZLAUNHR_COL_GETRFNP', ' ', M, N, -1, -1 )
 
-      IF( NB.LE.1 .OR. NB.GE.MIN( M, N ) ) THEN
+      if ( NB.LE.1 .OR. NB.GE.MIN( M, N ) ) {
 
          // Use unblocked code.
 
@@ -73,20 +73,20 @@
 
             CALL ZLAUNHR_COL_GETRFNP2( M-J+1, JB, A( J, J ), LDA, D( J ), IINFO )
 
-            IF( J+JB.LE.N ) THEN
+            if ( J+JB.LE.N ) {
 
                // Compute block row of U.
 
                CALL ZTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, CONE, A( J, J ), LDA, A( J, J+JB ), LDA )
-               IF( J+JB.LE.M ) THEN
+               if ( J+JB.LE.M ) {
 
                   // Update trailing submatrix.
 
                   CALL ZGEMM( 'No transpose', 'No transpose', M-J-JB+1, N-J-JB+1, JB, -CONE, A( J+JB, J ), LDA, A( J, J+JB ), LDA, CONE, A( J+JB, J+JB ), LDA )
-               END IF
-            END IF
+               }
+            }
          END DO
-      END IF
+      }
       RETURN
 
       // End of ZLAUNHR_COL_GETRFNP

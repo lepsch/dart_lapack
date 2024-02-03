@@ -45,11 +45,11 @@
       // Compute B - U * S * V' one column at a time.
 
       BNORM = ZERO
-      IF( KD.GE.1 ) THEN
+      if ( KD.GE.1 ) {
 
          // B is bidiagonal.
 
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
 
             // B is upper bidiagonal.
 
@@ -59,12 +59,12 @@
    10          CONTINUE
                CALL DGEMV( 'No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 )
                WORK( J ) = WORK( J ) + D( J )
-               IF( J.GT.1 ) THEN
+               if ( J.GT.1 ) {
                   WORK( J-1 ) = WORK( J-1 ) + E( J-1 )
                   BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J-1 ) ) )
                } else {
                   BNORM = MAX( BNORM, ABS( D( J ) ) )
-               END IF
+               }
                RESID = MAX( RESID, DASUM( N, WORK, 1 ) )
    20       CONTINUE
          } else {
@@ -77,15 +77,15 @@
    30          CONTINUE
                CALL DGEMV( 'No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 )
                WORK( J ) = WORK( J ) + D( J )
-               IF( J.LT.N ) THEN
+               if ( J.LT.N ) {
                   WORK( J+1 ) = WORK( J+1 ) + E( J )
                   BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J ) ) )
                } else {
                   BNORM = MAX( BNORM, ABS( D( J ) ) )
-               END IF
+               }
                RESID = MAX( RESID, DASUM( N, WORK, 1 ) )
    40       CONTINUE
-         END IF
+         }
       } else {
 
          // B is diagonal.
@@ -100,25 +100,25 @@
    60    CONTINUE
          J = IDAMAX( N, D, 1 )
          BNORM = ABS( D( J ) )
-      END IF
+      }
 
       // Compute norm(B - U * S * V') / ( n * norm(B) * EPS )
 
       EPS = DLAMCH( 'Precision' )
 
-      IF( BNORM.LE.ZERO ) THEN
+      if ( BNORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
-         IF( BNORM.GE.RESID ) THEN
+         if ( BNORM.GE.RESID ) {
             RESID = ( RESID / BNORM ) / ( DBLE( N )*EPS )
          } else {
-            IF( BNORM.LT.ONE ) THEN
+            if ( BNORM.LT.ONE ) {
                RESID = ( MIN( RESID, DBLE( N )*BNORM ) / BNORM ) / ( DBLE( N )*EPS )
             } else {
                RESID = MIN( RESID / BNORM, DBLE( N ) ) / ( DBLE( N )*EPS )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
       RETURN
 

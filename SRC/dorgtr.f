@@ -40,41 +40,41 @@
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( LWORK.LT.MAX( 1, N-1 ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX( 1, N-1 ) .AND. .NOT.LQUERY ) {
          INFO = -7
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
-         IF( UPPER ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( UPPER ) {
             NB = ILAENV( 1, 'DORGQL', ' ', N-1, N-1, N-1, -1 )
          } else {
             NB = ILAENV( 1, 'DORGQR', ' ', N-1, N-1, N-1, -1 )
-         END IF
+         }
          LWKOPT = MAX( 1, N-1 )*NB
          WORK( 1 ) = LWKOPT
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DORGTR', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          WORK( 1 ) = 1
          RETURN
-      END IF
+      }
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Q was determined by a call to DSYTRD with UPLO = 'U'
 
@@ -115,13 +115,13 @@
          DO 60 I = 2, N
             A( I, 1 ) = ZERO
    60    CONTINUE
-         IF( N.GT.1 ) THEN
+         if ( N.GT.1 ) {
 
             // Generate Q(2:n,2:n)
 
             CALL DORGQR( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
-         END IF
-      END IF
+         }
+      }
       WORK( 1 ) = LWKOPT
       RETURN
 

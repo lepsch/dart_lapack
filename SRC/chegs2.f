@@ -42,24 +42,24 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
+      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
          INFO = -1
-      ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHEGS2', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( ITYPE.EQ.1 ) THEN
-         IF( UPPER ) THEN
+      if ( ITYPE.EQ.1 ) {
+         if ( UPPER ) {
 
             // Compute inv(U**H)*A*inv(U)
 
@@ -71,7 +71,7 @@
                BKK = REAL( B( K, K ) )
                AKK = AKK / BKK**2
                A( K, K ) = AKK
-               IF( K.LT.N ) THEN
+               if ( K.LT.N ) {
                   CALL CSSCAL( N-K, ONE / BKK, A( K, K+1 ), LDA )
                   CT = -HALF*AKK
                   CALL CLACGV( N-K, A( K, K+1 ), LDA )
@@ -80,7 +80,7 @@
                   CALL CLACGV( N-K, B( K, K+1 ), LDB )
                   CALL CTRSV( UPLO, 'Conjugate transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA )
                   CALL CLACGV( N-K, A( K, K+1 ), LDA )
-               END IF
+               }
    10       CONTINUE
          } else {
 
@@ -94,18 +94,18 @@
                BKK = REAL( B( K, K ) )
                AKK = AKK / BKK**2
                A( K, K ) = AKK
-               IF( K.LT.N ) THEN
+               if ( K.LT.N ) {
                   CALL CSSCAL( N-K, ONE / BKK, A( K+1, K ), 1 )
                   CT = -HALF*AKK
                   CALL CAXPY( N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 )
                   CALL CHER2( UPLO, N-K, -CONE, A( K+1, K ), 1, B( K+1, K ), 1, A( K+1, K+1 ), LDA )
                   CALL CAXPY( N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 )
                   CALL CTRSV( UPLO, 'No transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K+1, K ), 1 )
-               END IF
+               }
    20       CONTINUE
-         END IF
+         }
       } else {
-         IF( UPPER ) THEN
+         if ( UPPER ) {
 
             // Compute U*A*U**H
 
@@ -145,8 +145,8 @@
                CALL CLACGV( K-1, A( K, 1 ), LDA )
                A( K, K ) = AKK*BKK**2
    40       CONTINUE
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of CHEGS2

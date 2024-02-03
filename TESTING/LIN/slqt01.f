@@ -76,11 +76,11 @@
 
       ANORM = SLANGE( '1', M, N, A, LDA, RWORK )
       RESID = SLANGE( '1', M, N, L, LDA, RWORK )
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
          RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, N ) ) ) / ANORM ) / EPS
       } else {
          RESULT( 1 ) = ZERO
-      END IF
+      }
 
       // Compute I - Q*Q'
 

@@ -55,27 +55,27 @@
 
       // Decode the input arguments
 
-      IF( LSAME( JOBVL, 'N' ) ) THEN
+      if ( LSAME( JOBVL, 'N' ) ) {
          IJOBVL = 1
          ILVL = .FALSE.
-      ELSE IF( LSAME( JOBVL, 'V' ) ) THEN
+      } else if ( LSAME( JOBVL, 'V' ) ) {
          IJOBVL = 2
          ILVL = .TRUE.
       } else {
          IJOBVL = -1
          ILVL = .FALSE.
-      END IF
+      }
 
-      IF( LSAME( JOBVR, 'N' ) ) THEN
+      if ( LSAME( JOBVR, 'N' ) ) {
          IJOBVR = 1
          ILVR = .FALSE.
-      ELSE IF( LSAME( JOBVR, 'V' ) ) THEN
+      } else if ( LSAME( JOBVR, 'V' ) ) {
          IJOBVR = 2
          ILVR = .TRUE.
       } else {
          IJOBVR = -1
          ILVR = .FALSE.
-      END IF
+      }
       ILV = ILVL .OR. ILVR
 
       NOSCL  = LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'P' )
@@ -88,25 +88,25 @@
 
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.( NOSCL .OR. LSAME( BALANC,'S' ) .OR. LSAME( BALANC, 'B' ) ) ) THEN
+      if ( .NOT.( NOSCL .OR. LSAME( BALANC,'S' ) .OR. LSAME( BALANC, 'B' ) ) ) {
          INFO = -1
-      ELSE IF( IJOBVL.LE.0 ) THEN
+      } else if ( IJOBVL.LE.0 ) {
          INFO = -2
-      ELSE IF( IJOBVR.LE.0 ) THEN
+      } else if ( IJOBVR.LE.0 ) {
          INFO = -3
-      ELSE IF( .NOT.( WANTSN .OR. WANTSE .OR. WANTSB .OR. WANTSV ) ) THEN
+      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSB .OR. WANTSV ) ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      ELSE IF( LDVL.LT.1 .OR. ( ILVL .AND. LDVL.LT.N ) ) THEN
+      } else if ( LDVL.LT.1 .OR. ( ILVL .AND. LDVL.LT.N ) ) {
          INFO = -13
-      ELSE IF( LDVR.LT.1 .OR. ( ILVR .AND. LDVR.LT.N ) ) THEN
+      } else if ( LDVR.LT.1 .OR. ( ILVR .AND. LDVR.LT.N ) ) {
          INFO = -15
-      END IF
+      }
 
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
@@ -116,36 +116,36 @@
         // following subroutine, as returned by ILAENV. The workspace is
         // computed assuming ILO = 1 and IHI = N, the worst case.)
 
-      IF( INFO.EQ.0 ) THEN
-         IF( N.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( N.EQ.0 ) {
             MINWRK = 1
             MAXWRK = 1
          } else {
             MINWRK = 2*N
-            IF( WANTSE ) THEN
+            if ( WANTSE ) {
                MINWRK = 4*N
-            ELSE IF( WANTSV .OR. WANTSB ) THEN
+            } else if ( WANTSV .OR. WANTSB ) {
                MINWRK = 2*N*( N + 1)
-            END IF
+            }
             MAXWRK = MINWRK
             MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) )             MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'CUNMQR', ' ', N, 1, N, 0 ) )
-            IF( ILVL ) THEN
+            if ( ILVL ) {
                MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'CUNGQR', ' ', N, 1, N, 0 ) )
-            END IF
-         END IF
+            }
+         }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
             INFO = -25
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGGEVX', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -163,26 +163,26 @@
 
       ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = .FALSE.
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = .TRUE.
-      ELSE IF( ANRM.GT.BIGNUM ) THEN
+      } else if ( ANRM.GT.BIGNUM ) {
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
-      END IF
+      }
       IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
       BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = .FALSE.
-      IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
+      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = .TRUE.
-      ELSE IF( BNRM.GT.BIGNUM ) THEN
+      } else if ( BNRM.GT.BIGNUM ) {
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
-      END IF
+      }
       IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 
       // Permute and/or balance the matrix pair (A,B)
@@ -193,28 +193,28 @@
       // Compute ABNRM and BBNRM
 
       ABNRM = CLANGE( '1', N, N, A, LDA, RWORK( 1 ) )
-      IF( ILASCL ) THEN
+      if ( ILASCL ) {
          RWORK( 1 ) = ABNRM
          CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, 1, 1, RWORK( 1 ), 1, IERR )
          ABNRM = RWORK( 1 )
-      END IF
+      }
 
       BBNRM = CLANGE( '1', N, N, B, LDB, RWORK( 1 ) )
-      IF( ILBSCL ) THEN
+      if ( ILBSCL ) {
          RWORK( 1 ) = BBNRM
          CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, 1, 1, RWORK( 1 ), 1, IERR )
          BBNRM = RWORK( 1 )
-      END IF
+      }
 
       // Reduce B to triangular form (QR decomposition of B)
       // (Complex Workspace: need N, prefer N*NB )
 
       IROWS = IHI + 1 - ILO
-      IF( ILV .OR. .NOT.WANTSN ) THEN
+      if ( ILV .OR. .NOT.WANTSN ) {
          ICOLS = N + 1 - ILO
       } else {
          ICOLS = IROWS
-      END IF
+      }
       ITAU = 1
       IWRK = ITAU + IROWS
       CALL CGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
@@ -227,27 +227,27 @@
       // Initialize VL and/or VR
       // (Workspace: need N, prefer N*NB)
 
-      IF( ILVL ) THEN
+      if ( ILVL ) {
          CALL CLASET( 'Full', N, N, CZERO, CONE, VL, LDVL )
-         IF( IROWS.GT.1 ) THEN
+         if ( IROWS.GT.1 ) {
             CALL CLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )
-         END IF
+         }
          CALL CUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
-      END IF
+      }
 
       IF( ILVR ) CALL CLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
 
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
 
-      IF( ILV .OR. .NOT.WANTSN ) THEN
+      if ( ILV .OR. .NOT.WANTSN ) {
 
          // Eigenvectors requested -- work on whole matrix.
 
          CALL CGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR )
       } else {
          CALL CGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
-      END IF
+      }
 
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
       // Schur forms and Schur vectors)
@@ -255,23 +255,23 @@
       // (Real Workspace: need N)
 
       IWRK = ITAU
-      IF( ILV .OR. .NOT.WANTSN ) THEN
+      if ( ILV .OR. .NOT.WANTSN ) {
          CHTEMP = 'S'
       } else {
          CHTEMP = 'E'
-      END IF
+      }
 
       CALL CHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK, IERR )
-      IF( IERR.NE.0 ) THEN
-         IF( IERR.GT.0 .AND. IERR.LE.N ) THEN
+      if ( IERR.NE.0 ) {
+         if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
-         ELSE IF( IERR.GT.N .AND. IERR.LE.2*N ) THEN
+         } else if ( IERR.GT.N .AND. IERR.LE.2*N ) {
             INFO = IERR - N
          } else {
             INFO = N + 1
-         END IF
+         }
          GO TO 90
-      END IF
+      }
 
       // Compute Eigenvectors and estimate condition numbers if desired
       // CTGEVC: (Complex Workspace: need 2*N )
@@ -279,26 +279,26 @@
       // CTGSNA: (Complex Workspace: need 2*N*N if SENSE='V' or 'B')
               // (Integer Workspace: need N+2 )
 
-      IF( ILV .OR. .NOT.WANTSN ) THEN
-         IF( ILV ) THEN
-            IF( ILVL ) THEN
-               IF( ILVR ) THEN
+      if ( ILV .OR. .NOT.WANTSN ) {
+         if ( ILV ) {
+            if ( ILVL ) {
+               if ( ILVR ) {
                   CHTEMP = 'B'
                } else {
                   CHTEMP = 'L'
-               END IF
+               }
             } else {
                CHTEMP = 'R'
-            END IF
+            }
 
             CALL CTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK, IERR )
-            IF( IERR.NE.0 ) THEN
+            if ( IERR.NE.0 ) {
                INFO = N + 2
                GO TO 90
-            END IF
-         END IF
+            }
+         }
 
-         IF( .NOT.WANTSN ) THEN
+         if ( .NOT.WANTSN ) {
 
             // compute eigenvectors (CTGEVC) and estimate condition
             // numbers (CTGSNA). Note that the definition of the condition
@@ -319,24 +319,24 @@
                IWRK = N + 1
                IWRK1 = IWRK + N
 
-               IF( WANTSE .OR. WANTSB ) THEN
+               if ( WANTSE .OR. WANTSB ) {
                   CALL CTGEVC( 'B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, 1, M, WORK( IWRK1 ), RWORK, IERR )
-                  IF( IERR.NE.0 ) THEN
+                  if ( IERR.NE.0 ) {
                      INFO = N + 2
                      GO TO 90
-                  END IF
-               END IF
+                  }
+               }
 
                CALL CTGSNA( SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), 1, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR )
 
    20       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       // Undo balancing on VL and VR and normalization
       // (Workspace: none needed)
 
-      IF( ILVL ) THEN
+      if ( ILVL ) {
          CALL CGGBAK( BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR )
 
          DO 50 JC = 1, N
@@ -350,9 +350,9 @@
                VL( JR, JC ) = VL( JR, JC )*TEMP
    40       CONTINUE
    50    CONTINUE
-      END IF
+      }
 
-      IF( ILVR ) THEN
+      if ( ILVR ) {
          CALL CGGBAK( BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR )
          DO 80 JC = 1, N
             TEMP = ZERO
@@ -365,7 +365,7 @@
                VR( JR, JC ) = VR( JR, JC )*TEMP
    70       CONTINUE
    80    CONTINUE
-      END IF
+      }
 
       // Undo scaling if necessary
 

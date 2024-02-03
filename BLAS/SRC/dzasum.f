@@ -24,7 +24,7 @@
       DZASUM = 0.0d0
       STEMP = 0.0d0
       IF (N.LE.0 .OR. INCX.LE.0) RETURN
-      IF (INCX.EQ.1) THEN
+      if (INCX.EQ.1) {
 
          // code for increment equal to 1
 
@@ -39,7 +39,7 @@
          DO I = 1,NINCX,INCX
             STEMP = STEMP + DCABS1(ZX(I))
          END DO
-      END IF
+      }
       DZASUM = STEMP
       RETURN
 

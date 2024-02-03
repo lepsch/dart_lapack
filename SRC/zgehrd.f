@@ -40,38 +40,38 @@
 
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) THEN
+      } else if ( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) {
          INFO = -2
-      ELSE IF( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) THEN
+      } else if ( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
          INFO = -8
-      END IF
+      }
 
       NH = IHI - ILO + 1
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
          // Compute the workspace requirements
 
-         IF( NH.LE.1 ) THEN
+         if ( NH.LE.1 ) {
             LWKOPT = 1
          } else {
             NB = MIN( NBMAX, ILAENV( 1, 'ZGEHRD', ' ', N, ILO, IHI, -1 ) )
             LWKOPT = N*NB + TSIZE
-         END IF
+         }
          WORK( 1 ) = LWKOPT
       ENDIF
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGEHRD', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Set elements 1:ILO-1 and IHI:N-1 of TAU to zero
 
@@ -84,43 +84,43 @@
 
       // Quick return if possible
 
-      IF( NH.LE.1 ) THEN
+      if ( NH.LE.1 ) {
          WORK( 1 ) = 1
          RETURN
-      END IF
+      }
 
       // Determine the block size
 
       NB = MIN( NBMAX, ILAENV( 1, 'ZGEHRD', ' ', N, ILO, IHI, -1 ) )
       NBMIN = 2
-      IF( NB.GT.1 .AND. NB.LT.NH ) THEN
+      if ( NB.GT.1 .AND. NB.LT.NH ) {
 
          // Determine when to cross over from blocked to unblocked code
          // (last block is always handled by unblocked code)
 
          NX = MAX( NB, ILAENV( 3, 'ZGEHRD', ' ', N, ILO, IHI, -1 ) )
-         IF( NX.LT.NH ) THEN
+         if ( NX.LT.NH ) {
 
             // Determine if workspace is large enough for blocked code
 
-            IF( LWORK.LT.LWKOPT ) THEN
+            if ( LWORK.LT.LWKOPT ) {
 
                // Not enough workspace to use optimal NB:  determine the
                // minimum value of NB, and reduce NB or force use of
                // unblocked code
 
                NBMIN = MAX( 2, ILAENV( 2, 'ZGEHRD', ' ', N, ILO, IHI, -1 ) )
-               IF( LWORK.GE.(N*NBMIN + TSIZE) ) THEN
+               if ( LWORK.GE.(N*NBMIN + TSIZE) ) {
                   NB = (LWORK-TSIZE) / N
                } else {
                   NB = 1
-               END IF
-            END IF
-         END IF
-      END IF
+               }
+            }
+         }
+      }
       LDWORK = N
 
-      IF( NB.LT.NBMIN .OR. NB.GE.NH ) THEN
+      if ( NB.LT.NBMIN .OR. NB.GE.NH ) {
 
          // Use unblocked code below
 
@@ -162,7 +162,7 @@
 
             CALL ZLARFB( 'Left', 'Conjugate transpose', 'Forward', 'Columnwise', IHI-I, N-I-IB+1, IB, A( I+1, I ), LDA, WORK( IWT ), LDT, A( I+1, I+IB ), LDA, WORK, LDWORK )
    40    CONTINUE
-      END IF
+      }
 
       // Use unblocked code to reduce the rest of the matrix
 

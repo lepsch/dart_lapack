@@ -46,11 +46,11 @@
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
       SMLNUM = UNFL
       BIGNUM = ( ONE-ULP ) / SMLNUM
-      IF( ( IMAT.GE.6 .AND. IMAT.LE.9 ) .OR. IMAT.EQ.17 ) THEN
+      if ( ( IMAT.GE.6 .AND. IMAT.LE.9 ) .OR. IMAT.EQ.17 ) {
          DIAG = 'U'
       } else {
          DIAG = 'N'
-      END IF
+      }
       INFO = 0
 
       // Quick return if N.LE.0.
@@ -60,7 +60,7 @@
       // Call DLATB4 to set parameters for DLATMS.
 
       UPPER = LSAME( UPLO, 'U' )
-      IF( UPPER ) THEN
+      if ( UPPER ) {
          CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          KU = KD
          IOFF = 1 + MAX( 0, KD-N+1 )
@@ -72,11 +72,11 @@
          IOFF = 1
          KU = 0
          PACKIT = 'B'
-      END IF
+      }
 
       // IMAT <= 5:  Non-unit triangular matrix
 
-      IF( IMAT.LE.5 ) THEN
+      if ( IMAT.LE.5 ) {
          CALL DLATMS( N, N, DIST, ISEED, TYPE, B, MODE, CNDNUM, ANORM, KL, KU, PACKIT, AB( IOFF, 1 ), LDAB, WORK, INFO )
 
       // IMAT > 5:  Unit triangular matrix
@@ -84,8 +84,8 @@
 
       // IMAT = 6:  Matrix is the identity
 
-      ELSE IF( IMAT.EQ.6 ) THEN
-         IF( UPPER ) THEN
+      } else if ( IMAT.EQ.6 ) {
+         if ( UPPER ) {
             DO 20 J = 1, N
                DO 10 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
@@ -99,19 +99,19 @@
                   AB( I, J ) = ZERO
    30          CONTINUE
    40       CONTINUE
-         END IF
+         }
 
       // IMAT > 6:  Non-trivial unit triangular matrix
 
       // A unit triangular matrix T with condition CNDNUM is formed.
       // In this version, T only has bandwidth 2, the rest of it is zero.
 
-      ELSE IF( IMAT.LE.9 ) THEN
+      } else if ( IMAT.LE.9 ) {
          TNORM = SQRT( CNDNUM )
 
          // Initialize AB to zero.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             DO 60 J = 1, N
                DO 50 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
@@ -125,13 +125,13 @@
    70          CONTINUE
                AB( 1, J ) = DBLE( J )
    80       CONTINUE
-         END IF
+         }
 
          // Special case:  T is tridiagonal.  Set every other offdiagonal
          // so that the matrix has norm TNORM+1.
 
-         IF( KD.EQ.1 ) THEN
-            IF( UPPER ) THEN
+         if ( KD.EQ.1 ) {
+            if ( UPPER ) {
                AB( 1, 2 ) = SIGN( TNORM, DLARND( 2, ISEED ) )
                LENJ = ( N-3 ) / 2
                CALL DLARNV( 2, ISEED, LENJ, WORK )
@@ -145,8 +145,8 @@
                DO 100 J = 1, LENJ
                   AB( 2, 2*J+1 ) = TNORM*WORK( J )
   100          CONTINUE
-            END IF
-         ELSE IF( KD.GT.1 ) THEN
+            }
+         } else if ( KD.GT.1 ) {
 
             // Form a unit triangular matrix T with condition CNDNUM.  T is
             // given by
@@ -171,7 +171,7 @@
                PLUS2 = STAR1 / PLUS1
                WORK( J ) = PLUS1
                WORK( N+J ) = STAR1
-               IF( J+1.LE.N ) THEN
+               if ( J+1.LE.N ) {
                   WORK( J+1 ) = PLUS2
                   WORK( N+J+1 ) = ZERO
                   PLUS1 = STAR1 / PLUS2
@@ -180,36 +180,36 @@
                   // and TNORM.
 
                   REXP = DLARND( 2, ISEED )
-                  IF( REXP.LT.ZERO ) THEN
+                  if ( REXP.LT.ZERO ) {
                      STAR1 = -SFAC**( ONE-REXP )
                   } else {
                      STAR1 = SFAC**( ONE+REXP )
-                  END IF
-               END IF
+                  }
+               }
   110       CONTINUE
 
             // Copy the tridiagonal T to AB.
 
-            IF( UPPER ) THEN
+            if ( UPPER ) {
                CALL DCOPY( N-1, WORK, 1, AB( KD, 2 ), LDAB )
                CALL DCOPY( N-2, WORK( N+1 ), 1, AB( KD-1, 3 ), LDAB )
             } else {
                CALL DCOPY( N-1, WORK, 1, AB( 2, 1 ), LDAB )
                CALL DCOPY( N-2, WORK( N+1 ), 1, AB( 3, 1 ), LDAB )
-            END IF
-         END IF
+            }
+         }
 
       // IMAT > 9:  Pathological test cases.  These triangular matrices
       // are badly scaled or badly conditioned, so when used in solving a
      t // riangular system they may cause overflow in the solution vector.
 
-      ELSE IF( IMAT.EQ.10 ) THEN
+      } else if ( IMAT.EQ.10 ) {
 
          // Type 10:  Generate a triangular matrix with elements between
          // -1 and 1. Give the diagonal norm 2 to make it well-conditioned.
          // Make the right hand side large so that it requires scaling.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             DO 120 J = 1, N
                LENJ = MIN( J, KD+1 )
                CALL DLARNV( 2, ISEED, LENJ, AB( KD+2-LENJ, J ) )
@@ -221,7 +221,7 @@
                IF( LENJ.GT.0 ) CALL DLARNV( 2, ISEED, LENJ, AB( 1, J ) )
                AB( 1, J ) = SIGN( TWO, AB( 1, J ) )
   130       CONTINUE
-         END IF
+         }
 
          // Set the right hand side so that the largest value is BIGNUM.
 
@@ -231,7 +231,7 @@
          BSCAL = BIGNUM / MAX( ONE, BNORM )
          CALL DSCAL( N, BSCAL, B, 1 )
 
-      ELSE IF( IMAT.EQ.11 ) THEN
+      } else if ( IMAT.EQ.11 ) {
 
          // Type 11:  Make the first diagonal element in the solve small to
          // cause immediate overflow when dividing by T(j,j).
@@ -239,7 +239,7 @@
 
          CALL DLARNV( 2, ISEED, N, B )
          TSCAL = ONE / DBLE( KD+1 )
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             DO 140 J = 1, N
                LENJ = MIN( J, KD+1 )
                CALL DLARNV( 2, ISEED, LENJ, AB( KD+2-LENJ, J ) )
@@ -255,16 +255,16 @@
                AB( 1, J ) = SIGN( ONE, AB( 1, J ) )
   150       CONTINUE
             AB( 1, 1 ) = SMLNUM*AB( 1, 1 )
-         END IF
+         }
 
-      ELSE IF( IMAT.EQ.12 ) THEN
+      } else if ( IMAT.EQ.12 ) {
 
          // Type 12:  Make the first diagonal element in the solve small to
          // cause immediate overflow when dividing by T(j,j).
          // In type 12, the offdiagonal elements are O(1) (CNORM(j) > 1).
 
          CALL DLARNV( 2, ISEED, N, B )
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             DO 160 J = 1, N
                LENJ = MIN( J, KD+1 )
                CALL DLARNV( 2, ISEED, LENJ, AB( KD+2-LENJ, J ) )
@@ -278,25 +278,25 @@
                AB( 1, J ) = SIGN( ONE, AB( 1, J ) )
   170       CONTINUE
             AB( 1, 1 ) = SMLNUM*AB( 1, 1 )
-         END IF
+         }
 
-      ELSE IF( IMAT.EQ.13 ) THEN
+      } else if ( IMAT.EQ.13 ) {
 
          // Type 13:  T is diagonal with small numbers on the diagonal to
          // make the growth factor underflow, but a small right hand side
          // chosen so that the solution does not overflow.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JCOUNT = 1
             DO 190 J = N, 1, -1
                DO 180 I = MAX( 1, KD+1-( J-1 ) ), KD
                   AB( I, J ) = ZERO
   180          CONTINUE
-               IF( JCOUNT.LE.2 ) THEN
+               if ( JCOUNT.LE.2 ) {
                   AB( KD+1, J ) = SMLNUM
                } else {
                   AB( KD+1, J ) = ONE
-               END IF
+               }
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
   190       CONTINUE
@@ -306,19 +306,19 @@
                DO 200 I = 2, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
   200          CONTINUE
-               IF( JCOUNT.LE.2 ) THEN
+               if ( JCOUNT.LE.2 ) {
                   AB( 1, J ) = SMLNUM
                } else {
                   AB( 1, J ) = ONE
-               END IF
+               }
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
   210       CONTINUE
-         END IF
+         }
 
          // Set the right hand side alternately zero and small.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             B( 1 ) = ZERO
             DO 220 I = N, 2, -2
                B( I ) = ZERO
@@ -330,9 +330,9 @@
                B( I ) = ZERO
                B( I+1 ) = SMLNUM
   230       CONTINUE
-         END IF
+         }
 
-      ELSE IF( IMAT.EQ.14 ) THEN
+      } else if ( IMAT.EQ.14 ) {
 
          // Type 14:  Make the diagonal elements small to cause gradual
          // overflow when dividing by T(j,j).  To control the amount of
@@ -341,7 +341,7 @@
          TEXP = ONE / DBLE( KD+1 )
          TSCAL = SMLNUM**TEXP
          CALL DLARNV( 2, ISEED, N, B )
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             DO 250 J = 1, N
                DO 240 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
@@ -359,38 +359,38 @@
                AB( 1, J ) = TSCAL
   270       CONTINUE
             B( 1 ) = ONE
-         END IF
+         }
 
-      ELSE IF( IMAT.EQ.15 ) THEN
+      } else if ( IMAT.EQ.15 ) {
 
          // Type 15:  One zero diagonal element.
 
          IY = N / 2 + 1
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             DO 280 J = 1, N
                LENJ = MIN( J, KD+1 )
                CALL DLARNV( 2, ISEED, LENJ, AB( KD+2-LENJ, J ) )
-               IF( J.NE.IY ) THEN
+               if ( J.NE.IY ) {
                   AB( KD+1, J ) = SIGN( TWO, AB( KD+1, J ) )
                } else {
                   AB( KD+1, J ) = ZERO
-               END IF
+               }
   280       CONTINUE
          } else {
             DO 290 J = 1, N
                LENJ = MIN( N-J+1, KD+1 )
                CALL DLARNV( 2, ISEED, LENJ, AB( 1, J ) )
-               IF( J.NE.IY ) THEN
+               if ( J.NE.IY ) {
                   AB( 1, J ) = SIGN( TWO, AB( 1, J ) )
                } else {
                   AB( 1, J ) = ZERO
-               END IF
+               }
   290       CONTINUE
-         END IF
+         }
          CALL DLARNV( 2, ISEED, N, B )
          CALL DSCAL( N, TWO, B, 1 )
 
-      ELSE IF( IMAT.EQ.16 ) THEN
+      } else if ( IMAT.EQ.16 ) {
 
          // Type 16:  Make the offdiagonal elements large to cause overflow
          // when adding a column of T.  In the non-transposed case, the
@@ -405,18 +405,18 @@
   300       CONTINUE
   310    CONTINUE
          TEXP = ONE
-         IF( KD.GT.0 ) THEN
-            IF( UPPER ) THEN
+         if ( KD.GT.0 ) {
+            if ( UPPER ) {
                DO 330 J = N, 1, -KD
                   DO 320 I = J, MAX( 1, J-KD+1 ), -2
                      AB( 1+( J-I ), I ) = -TSCAL / DBLE( KD+2 )
                      AB( KD+1, I ) = ONE
                      B( I ) = TEXP*( ONE-ULP )
-                     IF( I.GT.MAX( 1, J-KD+1 ) ) THEN
+                     if ( I.GT.MAX( 1, J-KD+1 ) ) {
                         AB( 2+( J-I ), I-1 ) = -( TSCAL / DBLE( KD+2 ) ) / DBLE( KD+3 )
                         AB( KD+1, I-1 ) = ONE
                         B( I-1 ) = TEXP*DBLE( ( KD+1 )*( KD+1 )+KD )
-                     END IF
+                     }
                      TEXP = TEXP*TWO
   320             CONTINUE
                   B( MAX( 1, J-KD+1 ) ) = ( DBLE( KD+2 ) / DBLE( KD+3 ) )*TSCAL
@@ -429,30 +429,30 @@
                      AB( LENJ-( I-J ), J ) = -TSCAL / DBLE( KD+2 )
                      AB( 1, J ) = ONE
                      B( J ) = TEXP*( ONE-ULP )
-                     IF( I.LT.MIN( N, J+KD-1 ) ) THEN
+                     if ( I.LT.MIN( N, J+KD-1 ) ) {
                         AB( LENJ-( I-J+1 ), I+1 ) = -( TSCAL / DBLE( KD+2 ) ) / DBLE( KD+3 )
                         AB( 1, I+1 ) = ONE
                         B( I+1 ) = TEXP*DBLE( ( KD+1 )*( KD+1 )+KD )
-                     END IF
+                     }
                      TEXP = TEXP*TWO
   340             CONTINUE
                   B( MIN( N, J+KD-1 ) ) = ( DBLE( KD+2 ) / DBLE( KD+3 ) )*TSCAL
   350          CONTINUE
-            END IF
+            }
          } else {
             DO 360 J = 1, N
                AB( 1, J ) = ONE
                B( J ) = DBLE( J )
   360       CONTINUE
-         END IF
+         }
 
-      ELSE IF( IMAT.EQ.17 ) THEN
+      } else if ( IMAT.EQ.17 ) {
 
          // Type 17:  Generate a unit triangular matrix with elements
          // between -1 and 1, and make the right hand side large so that it
          // requires scaling.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             DO 370 J = 1, N
                LENJ = MIN( J-1, KD )
                CALL DLARNV( 2, ISEED, LENJ, AB( KD+1-LENJ, J ) )
@@ -464,7 +464,7 @@
                IF( LENJ.GT.0 ) CALL DLARNV( 2, ISEED, LENJ, AB( 2, J ) )
                AB( 1, J ) = DBLE( J )
   380       CONTINUE
-         END IF
+         }
 
          // Set the right hand side so that the largest value is BIGNUM.
 
@@ -474,7 +474,7 @@
          BSCAL = BIGNUM / MAX( ONE, BNORM )
          CALL DSCAL( N, BSCAL, B, 1 )
 
-      ELSE IF( IMAT.EQ.18 ) THEN
+      } else if ( IMAT.EQ.18 ) {
 
          // Type 18:  Generate a triangular matrix with elements between
          // BIGNUM/KD and BIGNUM so that at least one of the column
@@ -482,7 +482,7 @@
 
          TLEFT = BIGNUM / MAX( ONE, DBLE( KD ) )
          TSCAL = BIGNUM*( DBLE( KD ) / DBLE( KD+1 ) )
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             DO 400 J = 1, N
                LENJ = MIN( J, KD+1 )
                CALL DLARNV( 2, ISEED, LENJ, AB( KD+2-LENJ, J ) )
@@ -498,15 +498,15 @@
                   AB( I, J ) = SIGN( TLEFT, AB( I, J ) ) + TSCAL*AB( I, J )
   410          CONTINUE
   420       CONTINUE
-         END IF
+         }
          CALL DLARNV( 2, ISEED, N, B )
          CALL DSCAL( N, TWO, B, 1 )
-      END IF
+      }
 
       // Flip the matrix if the transpose will be used.
 
-      IF( .NOT.LSAME( TRANS, 'N' ) ) THEN
-         IF( UPPER ) THEN
+      if ( .NOT.LSAME( TRANS, 'N' ) ) {
+         if ( UPPER ) {
             DO 430 J = 1, N / 2
                LENJ = MIN( N-2*J+1, KD+1 )
                CALL DSWAP( LENJ, AB( KD+1, J ), LDAB-1, AB( KD+2-LENJ, N-J+1 ), -1 )
@@ -516,8 +516,8 @@
                LENJ = MIN( N-2*J+1, KD+1 )
                CALL DSWAP( LENJ, AB( 1, J ), 1, AB( LENJ, N-J+2-LENJ ), -LDAB+1 )
   440       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

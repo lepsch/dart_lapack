@@ -49,24 +49,24 @@
       // Test the input arguments
 
       INFO = 0
-      IF (N .LT. 0 .OR. N .GT. NMAX_APPROX) THEN
+      if (N .LT. 0 .OR. N .GT. NMAX_APPROX) {
          INFO = -1
-      ELSE IF (NRHS .LT. 0) THEN
+      } else if (NRHS .LT. 0) {
          INFO = -2
-      ELSE IF (LDA .LT. N) THEN
+      } else if (LDA .LT. N) {
          INFO = -4
-      ELSE IF (LDX .LT. N) THEN
+      } else if (LDX .LT. N) {
          INFO = -6
-      ELSE IF (LDB .LT. N) THEN
+      } else if (LDB .LT. N) {
          INFO = -8
-      END IF
-      IF (INFO .LT. 0) THEN
+      }
+      if (INFO .LT. 0) {
          CALL XERBLA('CLAHILB', -INFO)
          RETURN
-      END IF
-      IF (N .GT. NMAX_EXACT) THEN
+      }
+      if (N .GT. NMAX_EXACT) {
          INFO = 1
-      END IF
+      }
 
       // Compute M = the LCM of the integers [1, 2*N-1].  The largest
       // reasonable N is small enough that integers suffice (up to N = 11).
@@ -86,7 +86,7 @@
       // Generate the scaled Hilbert matrix in A
       // If we are testing SY routines, take
            // D1_i = D2_i, else, D1_i = D2_i*
-      IF ( LSAMEN( 2, C2, 'SY' ) ) THEN
+      if ( LSAMEN( 2, C2, 'SY' ) ) {
          DO J = 1, N
             DO I = 1, N
                A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D1(MOD(I,SIZE_D)+1)
@@ -98,7 +98,7 @@
                A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D2(MOD(I,SIZE_D)+1)
             END DO
          END DO
-      END IF
+      }
 
       // Generate matrix B as simply the first NRHS columns of M * the
       // identity.
@@ -115,7 +115,7 @@
 
       // If we are testing SY routines,
             t // ake D1_i = D2_i, else, D1_i = D2_i*
-      IF ( LSAMEN( 2, C2, 'SY' ) ) THEN
+      if ( LSAMEN( 2, C2, 'SY' ) ) {
          DO J = 1, NRHS
             DO I = 1, N
                X(I, J) = INVD1(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1)
@@ -127,5 +127,5 @@
                X(I, J) = INVD2(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1)
             END DO
          END DO
-      END IF
+      }
       }

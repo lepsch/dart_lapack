@@ -222,11 +222,11 @@
 
       // Print a summary line.
 
-      IF( OK ) THEN
+      if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH, NT
       } else {
          WRITE( NOUT, FMT = 9998 )PATH
-      END IF
+      }
 
       RETURN
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits (',

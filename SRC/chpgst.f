@@ -43,20 +43,20 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
+      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
          INFO = -1
-      ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHPGST', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( ITYPE.EQ.1 ) THEN
-         IF( UPPER ) THEN
+      if ( ITYPE.EQ.1 ) {
+         if ( UPPER ) {
 
             // Compute inv(U**H)*A*inv(U)
 
@@ -91,19 +91,19 @@
                BKK = REAL( BP( KK ) )
                AKK = AKK / BKK**2
                AP( KK ) = AKK
-               IF( K.LT.N ) THEN
+               if ( K.LT.N ) {
                   CALL CSSCAL( N-K, ONE / BKK, AP( KK+1 ), 1 )
                   CT = -HALF*AKK
                   CALL CAXPY( N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 )
                   CALL CHPR2( UPLO, N-K, -CONE, AP( KK+1 ), 1, BP( KK+1 ), 1, AP( K1K1 ) )
                   CALL CAXPY( N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 )
                   CALL CTPSV( UPLO, 'No transpose', 'Non-unit', N-K, BP( K1K1 ), AP( KK+1 ), 1 )
-               END IF
+               }
                KK = K1K1
    20       CONTINUE
-         END IF
+         }
       } else {
-         IF( UPPER ) THEN
+         if ( UPPER ) {
 
             // Compute U*A*U**H
 
@@ -145,8 +145,8 @@
                CALL CHPMV( UPLO, N-J, CONE, AP( J1J1 ), BP( JJ+1 ), 1, CONE, AP( JJ+1 ), 1 )                CALL CTPMV( UPLO, 'Conjugate transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 )
                JJ = J1J1
    40       CONTINUE
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of CHPGST

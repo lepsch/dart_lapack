@@ -44,11 +44,11 @@
 
       // Quick exit if N = 0 or NRHS = 0.
 
-      IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
+      if ( N.LE.0 .OR. NRHS.LE.0 ) {
          RESLTS( 1 ) = ZERO
          RESLTS( 2 ) = ZERO
          RETURN
-      END IF
+      }
 
       EPS = DLAMCH( 'Epsilon' )
       UNFL = DLAMCH( 'Safe minimum' )
@@ -69,21 +69,21 @@
             DIFF = MAX( DIFF, CABS1( X( I, J )-XACT( I, J ) ) )
    10    CONTINUE
 
-         IF( XNORM.GT.ONE ) THEN
+         if ( XNORM.GT.ONE ) {
             GO TO 20
-         ELSE IF( DIFF.LE.OVFL*XNORM ) THEN
+         } else if ( DIFF.LE.OVFL*XNORM ) {
             GO TO 20
          } else {
             ERRBND = ONE / EPS
             GO TO 30
-         END IF
+         }
 
    20    CONTINUE
-         IF( DIFF / XNORM.LE.FERR( J ) ) THEN
+         if ( DIFF / XNORM.LE.FERR( J ) ) {
             ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) )
          } else {
             ERRBND = ONE / EPS
-         END IF
+         }
    30 CONTINUE
       RESLTS( 1 ) = ERRBND
 
@@ -93,7 +93,7 @@
       DO 70 K = 1, NRHS
          DO 60 I = 1, N
             TMP = CABS1( B( I, K ) )
-            IF( NOTRAN ) THEN
+            if ( NOTRAN ) {
                DO 40 J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + CABS1( AB( KU+1+I-J, J ) )* CABS1( X( J, K ) )
    40          CONTINUE
@@ -101,19 +101,19 @@
                DO 50 J = MAX( I-KU, 1 ), MIN( I+KL, N )
                   TMP = TMP + CABS1( AB( KU+1+J-I, I ) )* CABS1( X( J, K ) )
    50          CONTINUE
-            END IF
-            IF( I.EQ.1 ) THEN
+            }
+            if ( I.EQ.1 ) {
                AXBI = TMP
             } else {
                AXBI = MIN( AXBI, TMP )
-            END IF
+            }
    60    CONTINUE
          TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) )
-         IF( K.EQ.1 ) THEN
+         if ( K.EQ.1 ) {
             RESLTS( 2 ) = TMP
          } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )
-         END IF
+         }
    70 CONTINUE
 
       RETURN

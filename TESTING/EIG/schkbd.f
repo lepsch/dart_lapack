@@ -80,32 +80,32 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADMM ) THEN
+      } else if ( BADMM ) {
          INFO = -2
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -3
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -4
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -6
-      ELSE IF( LDA.LT.MMAX ) THEN
+      } else if ( LDA.LT.MMAX ) {
          INFO = -11
-      ELSE IF( LDX.LT.MMAX ) THEN
+      } else if ( LDX.LT.MMAX ) {
          INFO = -17
-      ELSE IF( LDQ.LT.MMAX ) THEN
+      } else if ( LDQ.LT.MMAX ) {
          INFO = -21
-      ELSE IF( LDPT.LT.MNMAX ) THEN
+      } else if ( LDPT.LT.MNMAX ) {
          INFO = -23
-      ELSE IF( MINWRK.GT.LWORK ) THEN
+      } else if ( MINWRK.GT.LWORK ) {
          INFO = -27
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SCHKBD', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize constants
 
@@ -131,11 +131,11 @@
          MNMIN = MIN( M, N )
          AMNINV = ONE / MAX( M, N, 1 )
 
-         IF( NSIZES.NE.1 ) THEN
+         if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
-         END IF
+         }
 
          DO 290 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 290
@@ -194,13 +194,13 @@
             COND = ULPINV
 
             BIDIAG = .FALSE.
-            IF( ITYPE.EQ.1 ) THEN
+            if ( ITYPE.EQ.1 ) {
 
                // Zero matrix
 
                IINFO = 0
 
-            ELSE IF( ITYPE.EQ.2 ) THEN
+            } else if ( ITYPE.EQ.2 ) {
 
                // Identity
 
@@ -208,43 +208,43 @@
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
 
-            ELSE IF( ITYPE.EQ.4 ) THEN
+            } else if ( ITYPE.EQ.4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                CALL SLATMS( MNMIN, MNMIN, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( MNMIN+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.5 ) THEN
+            } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
                CALL SLATMS( MNMIN, MNMIN, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, M, N, 'N', A, LDA, WORK( MNMIN+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.6 ) THEN
+            } else if ( ITYPE.EQ.6 ) {
 
                // Nonsymmetric, singular values specified
 
                CALL SLATMS( M, N, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, M, N, 'N', A, LDA, WORK( MNMIN+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.7 ) THEN
+            } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random entries
 
                CALL SLATMR( MNMIN, MNMIN, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( 2*MNMIN+1 ), 1, ONE, 'N', IWORK, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.8 ) THEN
+            } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random entries
 
                CALL SLATMR( MNMIN, MNMIN, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( M+MNMIN+1 ), 1, ONE, 'N', IWORK, M, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.9 ) THEN
+            } else if ( ITYPE.EQ.9 ) {
 
                // Nonsymmetric, random entries
 
                CALL SLATMR( M, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( M+MNMIN+1 ), 1, ONE, 'N', IWORK, M, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.10 ) THEN
+            } else if ( ITYPE.EQ.10 ) {
 
                // Bidiagonal, random entries
 
@@ -256,39 +256,39 @@
 
                IINFO = 0
                BIDIAG = .TRUE.
-               IF( M.GE.N ) THEN
+               if ( M.GE.N ) {
                   UPLO = 'U'
                } else {
                   UPLO = 'L'
-               END IF
+               }
             } else {
                IINFO = 1
-            END IF
+            }
 
-            IF( IINFO.EQ.0 ) THEN
+            if ( IINFO.EQ.0 ) {
 
                // Generate Right-Hand Side
 
-               IF( BIDIAG ) THEN
+               if ( BIDIAG ) {
                   CALL SLATMR( MNMIN, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( 2*MNMIN+1 ), 1, ONE, 'N', IWORK, MNMIN, NRHS, ZERO, ONE, 'NO', Y, LDX, IWORK, IINFO )
                } else {
                   CALL SLATMR( M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( M+1 ), 1, ONE, WORK( 2*M+1 ), 1, ONE, 'N', IWORK, M, NRHS, ZERO, ONE, 'NO', X, LDX, IWORK, IINFO )
-               END IF
-            END IF
+               }
+            }
 
             // Error Exit
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9998 )'Generator', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
-            END IF
+            }
 
   100       CONTINUE
 
             // Call SGEBRD and SORGBR to compute B, Q, and P, do tests.
 
-            IF( .NOT.BIDIAG ) THEN
+            if ( .NOT.BIDIAG ) {
 
                // Compute transformations to reduce A to bidiagonal form:
                // B := Q' * A * P.
@@ -298,18 +298,18 @@
 
                // Check error code from SGEBRD.
 
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9998 )'SGEBRD', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
-               END IF
+               }
 
                CALL SLACPY( ' ', M, N, Q, LDQ, PT, LDPT )
-               IF( M.GE.N ) THEN
+               if ( M.GE.N ) {
                   UPLO = 'U'
                } else {
                   UPLO = 'L'
-               END IF
+               }
 
                // Generate Q
 
@@ -318,11 +318,11 @@
 
                // Check error code from SORGBR.
 
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9998 )'SORGBR(Q)', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
-               END IF
+               }
 
                // Generate P'
 
@@ -330,11 +330,11 @@
 
                // Check error code from SORGBR.
 
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9998 )'SORGBR(P)', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
-               END IF
+               }
 
                // Apply Q' to an M by NRHS matrix X:  Y := Q' * X.
 
@@ -345,7 +345,7 @@
                     // 3:  Check the orthogonality of PT
 
                CALL SBDT01( M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RESULT( 1 ) )                CALL SORT01( 'Columns', M, MQ, Q, LDQ, WORK, LWORK, RESULT( 2 ) )                CALL SORT01( 'Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RESULT( 3 ) )
-            END IF
+            }
 
             // Use SBDSQR to form the SVD of the bidiagonal matrix B:
             // B := U * S1 * VT, and compute Z = U' * Y.
@@ -360,16 +360,16 @@
 
             // Check error code from SBDSQR.
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSQR(vects)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 4 ) = ULPINV
                   GO TO 270
-               END IF
-            END IF
+               }
+            }
 
             // Use SBDSQR to compute only the singular values of the
             // bidiagonal matrix B;  U, VT, and Z should not be modified.
@@ -381,16 +381,16 @@
 
             // Check error code from SBDSQR.
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSQR(values)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 9 ) = ULPINV
                   GO TO 270
-               END IF
-            END IF
+               }
+            }
 
             // Test 4:  Check the decomposition B := U * S1 * VT
                  // 5:  Check the computation Z := U' * Y
@@ -406,9 +406,9 @@
             DO 110 I = 1, MNMIN - 1
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 8 ) = ULPINV
   110       CONTINUE
-            IF( MNMIN.GE.1 ) THEN
+            if ( MNMIN.GE.1 ) {
                IF( S1( MNMIN ).LT.ZERO ) RESULT( 8 ) = ULPINV
-            END IF
+            }
 
             // Test 9:  Compare SBDSQR with and without singular vectors
 
@@ -438,7 +438,7 @@
             // Use SBDSQR to form the decomposition A := (QU) S (VT PT)
             // from the bidiagonal form A := Q B PT.
 
-            IF( .NOT.BIDIAG ) THEN
+            if ( .NOT.BIDIAG ) {
                CALL SCOPY( MNMIN, BD, 1, S2, 1 )
                IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 )
 
@@ -450,7 +450,7 @@
                     // 14:  Check the orthogonality of VT*PT
 
                CALL SBDT01( M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK, RESULT( 11 ) )                CALL SBDT02( M, NRHS, X, LDX, Y, LDX, Q, LDQ, WORK, RESULT( 12 ) )                CALL SORT01( 'Columns', M, MQ, Q, LDQ, WORK, LWORK, RESULT( 13 ) )                CALL SORT01( 'Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RESULT( 14 ) )
-            END IF
+            }
 
             // Use SBDSDC to form the SVD of the bidiagonal matrix B:
             // B := U * S1 * VT
@@ -464,16 +464,16 @@
 
             // Check error code from SBDSDC.
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSDC(vects)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 15 ) = ULPINV
                   GO TO 270
-               END IF
-            END IF
+               }
+            }
 
             // Use SBDSDC to compute only the singular values of the
             // bidiagonal matrix B;  U and VT should not be modified.
@@ -485,16 +485,16 @@
 
             // Check error code from SBDSDC.
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSDC(values)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 18 ) = ULPINV
                   GO TO 270
-               END IF
-            END IF
+               }
+            }
 
             // Test 15:  Check the decomposition B := U * S1 * VT
                  // 16:  Check the orthogonality of U
@@ -509,9 +509,9 @@
             DO 150 I = 1, MNMIN - 1
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 18 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 18 ) = ULPINV
   150       CONTINUE
-            IF( MNMIN.GE.1 ) THEN
+            if ( MNMIN.GE.1 ) {
                IF( S1( MNMIN ).LT.ZERO ) RESULT( 18 ) = ULPINV
-            END IF
+            }
 
             // Test 19:  Compare SBDSQR with and without singular vectors
 
@@ -528,13 +528,13 @@
             // Use SBDSVDX to compute the SVD of the bidiagonal matrix B:
             // B := U * S1 * VT
 
-            IF( JTYPE.EQ.10 .OR. JTYPE.EQ.16 ) THEN
+            if ( JTYPE.EQ.10 .OR. JTYPE.EQ.16 ) {
                // =================================
                // Matrix types temporarily disabled
                // =================================
                RESULT( 20:34 ) = ZERO
                GO TO 270
-            END IF
+            }
 
             IWBS = 1
             IWBD = IWBS + MNMIN
@@ -550,16 +550,16 @@
 
             // Check error code from SBDSVDX.
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSVDX(vects,A)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 20 ) = ULPINV
                   GO TO 270
-               END IF
-            END IF
+               }
+            }
 
             J = IWBZ
             DO 170 I = 1, NS1
@@ -572,13 +572,13 @@
             // Use SBDSVDX to compute only the singular values of the
             // bidiagonal matrix B;  U and VT should not be modified.
 
-            IF( JTYPE.EQ.9 ) THEN
+            if ( JTYPE.EQ.9 ) {
                // =================================
                // Matrix types temporarily disabled
                // =================================
                RESULT( 24 ) = ZERO
                GO TO 270
-            END IF
+            }
 
             CALL SCOPY( MNMIN, BD, 1, WORK( IWBD ), 1 )
             IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 )
@@ -587,16 +587,16 @@
 
             // Check error code from SBDSVDX.
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSVDX(values,A)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 24 ) = ULPINV
                   GO TO 270
-               END IF
-            END IF
+               }
+            }
 
             // Save S1 for tests 30-34.
 
@@ -615,9 +615,9 @@
             DO 180 I = 1, MNMIN - 1
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 23 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 23 ) = ULPINV
   180       CONTINUE
-            IF( MNMIN.GE.1 ) THEN
+            if ( MNMIN.GE.1 ) {
                IF( S1( MNMIN ).LT.ZERO ) RESULT( 23 ) = ULPINV
-            END IF
+            }
 
             TEMP2 = ZERO
             DO 190 J = 1, MNMIN
@@ -634,18 +634,18 @@
             DO 200 I = 1, 4
                ISEED2( I ) = ISEED( I )
   200       CONTINUE
-            IF( MNMIN.LE.1 ) THEN
+            if ( MNMIN.LE.1 ) {
                IL = 1
                IU = MNMIN
             } else {
                IL = 1 + INT( ( MNMIN-1 )*SLARND( 1, ISEED2 ) )
                IU = 1 + INT( ( MNMIN-1 )*SLARND( 1, ISEED2 ) )
-               IF( IU.LT.IL ) THEN
+               if ( IU.LT.IL ) {
                   ITEMP = IU
                   IU = IL
                   IL = ITEMP
-               END IF
-            END IF
+               }
+            }
 
             CALL SCOPY( MNMIN, BD, 1, WORK( IWBD ), 1 )
             IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 )
@@ -654,16 +654,16 @@
 
             // Check error code from SBDSVDX.
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSVDX(vects,I)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 25 ) = ULPINV
                   GO TO 270
-               END IF
-            END IF
+               }
+            }
 
             J = IWBZ
             DO 210 I = 1, NS1
@@ -683,16 +683,16 @@
 
             // Check error code from SBDSVDX.
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSVDX(values,I)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 29 ) = ULPINV
                   GO TO 270
-               END IF
-            END IF
+               }
+            }
 
             // Test 25:  Check S1 - U' * B * VT'
                  // 26:  Check the orthogonality of U
@@ -707,9 +707,9 @@
             DO 220 I = 1, NS1 - 1
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 28 ) = ULPINV
   220       CONTINUE
-            IF( NS1.GE.1 ) THEN
+            if ( NS1.GE.1 ) {
                IF( S1( NS1 ).LT.ZERO ) RESULT( 28 ) = ULPINV
-            END IF
+            }
 
             TEMP2 = ZERO
             DO 230 J = 1, NS1
@@ -724,24 +724,24 @@
 
             CALL SCOPY( MNMIN, WORK( IWBS ), 1, S1, 1 )
 
-            IF( MNMIN.GT.0 ) THEN
-               IF( IL.NE.1 ) THEN
+            if ( MNMIN.GT.0 ) {
+               if ( IL.NE.1 ) {
                   VU = S1( IL ) + MAX( HALF*ABS( S1( IL )-S1( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                } else {
                   VU = S1( 1 ) + MAX( HALF*ABS( S1( MNMIN )-S1( 1 ) ), ULP*ANORM, TWO*RTUNFL )
-               END IF
-               IF( IU.NE.NS1 ) THEN
+               }
+               if ( IU.NE.NS1 ) {
                   VL = S1( IU ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( S1( IU+1 )-S1( IU ) ) )
                } else {
                   VL = S1( NS1 ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( S1( MNMIN )-S1( 1 ) ) )
-               END IF
+               }
                VL = MAX( VL,ZERO )
                VU = MAX( VU,ZERO )
                IF( VL.GE.VU ) VU = MAX( VU*2, VU+VL+HALF )
             } else {
                VL = ZERO
                VU = ONE
-            END IF
+            }
 
             CALL SCOPY( MNMIN, BD, 1, WORK( IWBD ), 1 )
             IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 )
@@ -750,16 +750,16 @@
 
             // Check error code from SBDSVDX.
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSVDX(vects,V)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 30 ) = ULPINV
                   GO TO 270
-               END IF
-            END IF
+               }
+            }
 
             J = IWBZ
             DO 240 I = 1, NS1
@@ -779,16 +779,16 @@
 
             // Check error code from SBDSVDX.
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSVDX(values,V)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) THEN
+               if ( IINFO.LT.0 ) {
                   RETURN
                } else {
                   RESULT( 34 ) = ULPINV
                   GO TO 270
-               END IF
-            END IF
+               }
+            }
 
             // Test 30:  Check S1 - U' * B * VT'
                  // 31:  Check the orthogonality of U
@@ -803,9 +803,9 @@
             DO 250 I = 1, NS1 - 1
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 28 ) = ULPINV
   250       CONTINUE
-            IF( NS1.GE.1 ) THEN
+            if ( NS1.GE.1 ) {
                IF( S1( NS1 ).LT.ZERO ) RESULT( 28 ) = ULPINV
-            END IF
+            }
 
             TEMP2 = ZERO
             DO 260 J = 1, NS1
@@ -819,16 +819,16 @@
   270       CONTINUE
 
             DO 280 J = 1, 34
-               IF( RESULT( J ).GE.THRESH ) THEN
+               if ( RESULT( J ).GE.THRESH ) {
                   IF( NFAIL.EQ.0 ) CALL SLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J )
                   NFAIL = NFAIL + 1
-               END IF
+               }
   280       CONTINUE
-            IF( .NOT.BIDIAG ) THEN
+            if ( .NOT.BIDIAG ) {
                NTEST = NTEST + 34
             } else {
                NTEST = NTEST + 30
-            END IF
+            }
 
   290    CONTINUE
   300 CONTINUE

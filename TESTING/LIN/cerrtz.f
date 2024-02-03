@@ -56,7 +56,7 @@
       // Test error exits for the trapezoidal routines.
 
       WRITE( NOUT, FMT = * )
-      IF( LSAMEN( 2, C2, 'TZ' ) ) THEN
+      if ( LSAMEN( 2, C2, 'TZ' ) ) {
 
          // CTZRZF
 
@@ -76,7 +76,7 @@
          INFOT = 7
          CALL CTZRZF( 2, 3, A, 2, TAU, W, 1, INFO )
          CALL CHKXER( 'CTZRZF', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

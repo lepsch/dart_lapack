@@ -37,29 +37,29 @@
 
       INFO = 0
 
-      IF( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) THEN
+      if ( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) {
          INFO = -1
-      ELSE IF( K.LT.1 ) THEN
+      } else if ( K.LT.1 ) {
          INFO = -2
-      ELSE IF( LDDIFR.LT.K ) THEN
+      } else if ( LDDIFR.LT.K ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLASD8', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( K.EQ.1 ) THEN
+      if ( K.EQ.1 ) {
          D( 1 ) = ABS( Z( 1 ) )
          DIFL( 1 ) = D( 1 )
-         IF( ICOMPQ.EQ.1 ) THEN
+         if ( ICOMPQ.EQ.1 ) {
             DIFL( 2 ) = ONE
             DIFR( 1, 2 ) = ONE
-         END IF
+         }
          RETURN
-      END IF
+      }
 
       // Book keeping.
 
@@ -87,9 +87,9 @@
 
          // If the root finder fails, report the convergence failure.
 
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             RETURN
-         END IF
+         }
          WORK( IWK3I+J ) = WORK( IWK3I+J )*WORK( J )*WORK( IWK2I+J )
          DIFL( J ) = -WORK( J )
          DIFR( J, 1 ) = -WORK( J+1 )
@@ -113,10 +113,10 @@
          DIFLJ = DIFL( J )
          DJ = D( J )
          DSIGJ = -DSIGMA( J )
-         IF( J.LT.K ) THEN
+         if ( J.LT.K ) {
             DIFRJ = -DIFR( J, 1 )
             DSIGJP = -DSIGMA( J+1 )
-         END IF
+         }
          WORK( J ) = -Z( J ) / DIFLJ / ( DSIGMA( J )+DJ )
 
          // Use calls to the subroutine DLAMC3 to enforce the parentheses
@@ -132,9 +132,9 @@
          TEMP = DNRM2( K, WORK, 1 )
          WORK( IWK2I+J ) = DDOT( K, WORK, 1, VF, 1 ) / TEMP
          WORK( IWK3I+J ) = DDOT( K, WORK, 1, VL, 1 ) / TEMP
-         IF( ICOMPQ.EQ.1 ) THEN
+         if ( ICOMPQ.EQ.1 ) {
             DIFR( J, 2 ) = TEMP
-         END IF
+         }
    80 CONTINUE
 
       CALL DCOPY( K, WORK( IWK2 ), 1, VF, 1 )

@@ -33,19 +33,19 @@
       // ..
       // .. Executable Statements ..
 
-      IF( SELOPT.EQ.0 ) THEN
+      if ( SELOPT.EQ.0 ) {
          CSLECT = ( REAL( Z ).LT.ZERO )
       } else {
          RMIN = ABS( Z-CMPLX( SELWR( 1 ), SELWI( 1 ) ) )
          CSLECT = SELVAL( 1 )
          DO 10 I = 2, SELDIM
             X = ABS( Z-CMPLX( SELWR( I ), SELWI( I ) ) )
-            IF( X.LE.RMIN ) THEN
+            if ( X.LE.RMIN ) {
                RMIN = X
                CSLECT = SELVAL( I )
-            END IF
+            }
    10    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of CSLECT

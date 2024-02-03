@@ -38,7 +38,7 @@
       // ==== Estimate optimal workspace. ====
 
       JW = MIN( NW, KBOT-KTOP+1 )
-      IF( JW.LE.2 ) THEN
+      if ( JW.LE.2 ) {
          LWKOPT = 1
       } else {
 
@@ -60,14 +60,14 @@
          // ==== Optimal workspace ====
 
          LWKOPT = MAX( JW+MAX( LWK1, LWK2 ), LWK3 )
-      END IF
+      }
 
       // ==== Quick return in case of workspace query. ====
 
-      IF( LWORK.EQ.-1 ) THEN
+      if ( LWORK.EQ.-1 ) {
          WORK( 1 ) = DBLE( LWKOPT )
          RETURN
-      END IF
+      }
 
       // ==== Nothing to do ...
       // ... for an empty active block ... ====
@@ -89,13 +89,13 @@
 
       JW = MIN( NW, KBOT-KTOP+1 )
       KWTOP = KBOT - JW + 1
-      IF( KWTOP.EQ.KTOP ) THEN
+      if ( KWTOP.EQ.KTOP ) {
          S = ZERO
       } else {
          S = H( KWTOP, KWTOP-1 )
-      END IF
+      }
 
-      IF( KBOT.EQ.KWTOP ) THEN
+      if ( KBOT.EQ.KWTOP ) {
 
          // ==== 1-by-1 deflation window: not much to do ====
 
@@ -103,14 +103,14 @@
          SI( KWTOP ) = ZERO
          NS = 1
          ND = 0
-         IF( ABS( S ).LE.MAX( SMLNUM, ULP*ABS( H( KWTOP, KWTOP ) ) ) ) THEN
+         if ( ABS( S ).LE.MAX( SMLNUM, ULP*ABS( H( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
             IF( KWTOP.GT.KTOP ) H( KWTOP, KWTOP-1 ) = ZERO
-         END IF
+         }
          WORK( 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // ==== Convert to spike-triangular form.  (In case of a
       // .    rare QR failure, this routine continues to do
@@ -123,11 +123,11 @@
 
       CALL DLASET( 'A', JW, JW, ZERO, ONE, V, LDV )
       NMIN = ILAENV( 12, 'DLAQR3', 'SV', JW, 1, JW, LWORK )
-      IF( JW.GT.NMIN ) THEN
+      if ( JW.GT.NMIN ) {
          CALL DLAQR4( .true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR )
       } else {
          CALL DLAHQR( .true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, INFQR )
-      END IF
+      }
 
       // ==== DTREXC needs a clean margin near the diagonal ====
 
@@ -142,22 +142,22 @@
       NS = JW
       ILST = INFQR + 1
    20 CONTINUE
-      IF( ILST.LE.NS ) THEN
-         IF( NS.EQ.1 ) THEN
+      if ( ILST.LE.NS ) {
+         if ( NS.EQ.1 ) {
             BULGE = .FALSE.
          } else {
             BULGE = T( NS, NS-1 ).NE.ZERO
-         END IF
+         }
 
          // ==== Small spike tip test for deflation ====
 
-         IF( .NOT. BULGE ) THEN
+         if ( .NOT. BULGE ) {
 
             // ==== Real eigenvalue ====
 
             FOO = ABS( T( NS, NS ) )
             IF( FOO.EQ.ZERO ) FOO = ABS( S )
-            IF( ABS( S*V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) THEN
+            if ( ABS( S*V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) {
 
                // ==== Deflatable ====
 
@@ -170,7 +170,7 @@
                IFST = NS
                CALL DTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
                ILST = ILST + 1
-            END IF
+            }
          } else {
 
             // ==== Complex conjugate pair ====
@@ -189,19 +189,19 @@
                IFST = NS
                CALL DTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
                ILST = ILST + 2
-            END IF
-         END IF
+            }
+         }
 
          // ==== End deflation detection loop ====
 
          GO TO 20
-      END IF
+      }
 
          // ==== Return to Hessenberg form ====
 
       IF( NS.EQ.0 ) S = ZERO
 
-      IF( NS.LT.JW ) THEN
+      if ( NS.LT.JW ) {
 
          // ==== sorting diagonal blocks of T improves accuracy for
          // .    graded matrices.  Bubble sort deals well with
@@ -215,65 +215,65 @@
 
          KEND = I - 1
          I = INFQR + 1
-         IF( I.EQ.NS ) THEN
+         if ( I.EQ.NS ) {
             K = I + 1
-         ELSE IF( T( I+1, I ).EQ.ZERO ) THEN
+         } else if ( T( I+1, I ).EQ.ZERO ) {
             K = I + 1
          } else {
             K = I + 2
-         END IF
+         }
    40    CONTINUE
-         IF( K.LE.KEND ) THEN
-            IF( K.EQ.I+1 ) THEN
+         if ( K.LE.KEND ) {
+            if ( K.EQ.I+1 ) {
                EVI = ABS( T( I, I ) )
             } else {
                EVI = ABS( T( I, I ) ) + SQRT( ABS( T( I+1, I ) ) )* SQRT( ABS( T( I, I+1 ) ) )
-            END IF
+            }
 
-            IF( K.EQ.KEND ) THEN
+            if ( K.EQ.KEND ) {
                EVK = ABS( T( K, K ) )
-            ELSE IF( T( K+1, K ).EQ.ZERO ) THEN
+            } else if ( T( K+1, K ).EQ.ZERO ) {
                EVK = ABS( T( K, K ) )
             } else {
                EVK = ABS( T( K, K ) ) + SQRT( ABS( T( K+1, K ) ) )* SQRT( ABS( T( K, K+1 ) ) )
-            END IF
+            }
 
-            IF( EVI.GE.EVK ) THEN
+            if ( EVI.GE.EVK ) {
                I = K
             } else {
                SORTED = .false.
                IFST = I
                ILST = K
                CALL DTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
-               IF( INFO.EQ.0 ) THEN
+               if ( INFO.EQ.0 ) {
                   I = ILST
                } else {
                   I = K
-               END IF
-            END IF
-            IF( I.EQ.KEND ) THEN
+               }
+            }
+            if ( I.EQ.KEND ) {
                K = I + 1
-            ELSE IF( T( I+1, I ).EQ.ZERO ) THEN
+            } else if ( T( I+1, I ).EQ.ZERO ) {
                K = I + 1
             } else {
                K = I + 2
-            END IF
+            }
             GO TO 40
-         END IF
+         }
          GO TO 30
    50    CONTINUE
-      END IF
+      }
 
       // ==== Restore shift/eigenvalue array from T ====
 
       I = JW
    60 CONTINUE
-      IF( I.GE.INFQR+1 ) THEN
-         IF( I.EQ.INFQR+1 ) THEN
+      if ( I.GE.INFQR+1 ) {
+         if ( I.EQ.INFQR+1 ) {
             SR( KWTOP+I-1 ) = T( I, I )
             SI( KWTOP+I-1 ) = ZERO
             I = I - 1
-         ELSE IF( T( I, I-1 ).EQ.ZERO ) THEN
+         } else if ( T( I, I-1 ).EQ.ZERO ) {
             SR( KWTOP+I-1 ) = T( I, I )
             SI( KWTOP+I-1 ) = ZERO
             I = I - 1
@@ -284,12 +284,12 @@
             DD = T( I, I )
             CALL DLANV2( AA, BB, CC, DD, SR( KWTOP+I-2 ), SI( KWTOP+I-2 ), SR( KWTOP+I-1 ), SI( KWTOP+I-1 ), CS, SN )
             I = I - 2
-         END IF
+         }
          GO TO 60
-      END IF
+      }
 
-      IF( NS.LT.JW .OR. S.EQ.ZERO ) THEN
-         IF( NS.GT.1 .AND. S.NE.ZERO ) THEN
+      if ( NS.LT.JW .OR. S.EQ.ZERO ) {
+         if ( NS.GT.1 .AND. S.NE.ZERO ) {
 
             // ==== Reflect spike back into lower triangle ====
 
@@ -303,7 +303,7 @@
             CALL DLARF( 'L', NS, JW, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL DLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL DLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) )
 
             CALL DGEHRD( JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO )
-         END IF
+         }
 
          // ==== Copy updated reduced window into place ====
 
@@ -318,11 +318,11 @@
 
          // ==== Update vertical slab in H ====
 
-         IF( WANTT ) THEN
+         if ( WANTT ) {
             LTOP = 1
          } else {
             LTOP = KTOP
-         END IF
+         }
          DO 70 KROW = LTOP, KWTOP - 1, NV
             KLN = MIN( NV, KWTOP-KROW )
             CALL DGEMM( 'N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV )
@@ -331,22 +331,22 @@
 
          // ==== Update horizontal slab in H ====
 
-         IF( WANTT ) THEN
+         if ( WANTT ) {
             DO 80 KCOL = KBOT + 1, N, NH
                KLN = MIN( NH, N-KCOL+1 )
                CALL DGEMM( 'C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL DLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH )
    80       CONTINUE
-         END IF
+         }
 
          // ==== Update vertical slab in Z ====
 
-         IF( WANTZ ) THEN
+         if ( WANTZ ) {
             DO 90 KROW = ILOZ, IHIZ, NV
                KLN = MIN( NV, IHIZ-KROW+1 )
                CALL DGEMM( 'N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL DLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ )
    90       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       // ==== Return the number of deflations ... ====
 

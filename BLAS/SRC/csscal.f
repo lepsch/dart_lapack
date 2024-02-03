@@ -25,7 +25,7 @@
       // INTRINSIC AIMAG,CMPLX,REAL
       // ..
       IF (N.LE.0 .OR. INCX.LE.0 .OR. SA.EQ.ONE) RETURN
-      IF (INCX.EQ.1) THEN
+      if (INCX.EQ.1) {
 
          // code for increment equal to 1
 
@@ -40,7 +40,7 @@
          DO I = 1,NINCX,INCX
             CX(I) = CMPLX(SA*REAL(CX(I)),SA*AIMAG(CX(I)))
          END DO
-      END IF
+      }
       RETURN
 
       // End of CSSCAL

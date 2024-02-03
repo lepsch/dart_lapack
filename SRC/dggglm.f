@@ -38,22 +38,22 @@
       INFO = 0
       NP = MIN( N, P )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( M.LT.0 .OR. M.GT.N ) THEN
+      } else if ( M.LT.0 .OR. M.GT.N ) {
          INFO = -2
-      ELSE IF( P.LT.0 .OR. P.LT.N-M ) THEN
+      } else if ( P.LT.0 .OR. P.LT.N-M ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      END IF
+      }
 
       // Calculate workspace
 
-      IF( INFO.EQ.0) THEN
-         IF( N.EQ.0 ) THEN
+      if ( INFO.EQ.0) {
+         if ( N.EQ.0 ) {
             LWKMIN = 1
             LWKOPT = 1
          } else {
@@ -64,24 +64,24 @@
             NB = MAX( NB1, NB2, NB3, NB4 )
             LWKMIN = M + N + P
             LWKOPT = M + NP + MAX( N, P )*NB
-         END IF
+         }
          WORK( 1 ) = LWKOPT
 
-         IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
             INFO = -12
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGGGLM', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          DO I = 1, M
             X(I) = ZERO
          END DO
@@ -89,7 +89,7 @@
             Y(I) = ZERO
          END DO
          RETURN
-      END IF
+      }
 
       // Compute the GQR factorization of matrices A and B:
 
@@ -111,16 +111,16 @@
 
       // Solve T22*y2 = d2 for y2
 
-      IF( N.GT.M ) THEN
+      if ( N.GT.M ) {
          CALL DTRTRS( 'Upper', 'No transpose', 'Non unit', N-M, 1, B( M+1, M+P-N+1 ), LDB, D( M+1 ), N-M, INFO )
 
-         IF( INFO.GT.0 ) THEN
+         if ( INFO.GT.0 ) {
             INFO = 1
             RETURN
-         END IF
+         }
 
          CALL DCOPY( N-M, D( M+1 ), 1, Y( M+P-N+1 ), 1 )
-      END IF
+      }
 
       // Set y1 = 0
 
@@ -134,18 +134,18 @@
 
       // Solve triangular system: R11*x = d1
 
-      IF( M.GT.0 ) THEN
+      if ( M.GT.0 ) {
          CALL DTRTRS( 'Upper', 'No Transpose', 'Non unit', M, 1, A, LDA, D, M, INFO )
 
-         IF( INFO.GT.0 ) THEN
+         if ( INFO.GT.0 ) {
             INFO = 2
             RETURN
-         END IF
+         }
 
          // Copy D to X
 
          CALL DCOPY( M, D, 1, X, 1 )
-      END IF
+      }
 
       // Backward transformation y = Z**T *y
 

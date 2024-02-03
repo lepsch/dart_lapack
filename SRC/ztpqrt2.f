@@ -32,23 +32,23 @@
       // Test the input arguments
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( L.LT.0 .OR. L.GT.MIN(M,N) ) THEN
+      } else if ( L.LT.0 .OR. L.GT.MIN(M,N) ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, M ) ) THEN
+      } else if ( LDB.LT.MAX( 1, M ) ) {
          INFO = -7
-      ELSE IF( LDT.LT.MAX( 1, N ) ) THEN
+      } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTPQRT2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -60,7 +60,7 @@
 
          P = M-L+MIN( L, I )
          CALL ZLARFG( P+1, A( I, I ), B( 1, I ), 1, T( I, 1 ) )
-         IF( I.LT.N ) THEN
+         if ( I.LT.N ) {
 
             // W(1:N-I) := C(I:M,I+1:N)**H * C(I:M,I) [use W = T(:,N)]
 
@@ -76,7 +76,7 @@
                A( I, I+J ) = A( I, I+J ) + ALPHA*CONJG(T( J, N ))
             END DO
             CALL ZGERC( P, N-I, ALPHA, B( 1, I ), 1, T( 1, N ), 1, B( 1, I+1 ), LDB )
-         END IF
+         }
       END DO
 
       DO I = 2, N

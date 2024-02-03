@@ -53,20 +53,20 @@
       NORMA = 'O'
       NORME = 'O'
 
-      IF( LSAME( TRANSA, 'T' ) .OR. LSAME( TRANSA, 'C' ) ) THEN
+      if ( LSAME( TRANSA, 'T' ) .OR. LSAME( TRANSA, 'C' ) ) {
          NORMA = 'I'
-      END IF
-      IF( LSAME( TRANSE, 'T' ) .OR. LSAME( TRANSE, 'C' ) ) THEN
+      }
+      if ( LSAME( TRANSE, 'T' ) .OR. LSAME( TRANSE, 'C' ) ) {
          NORME = 'I'
          ITRNSE = 1
          INCE = LDE
-      END IF
+      }
 
       // Check normalization of E
 
       ENRMIN = ONE / ULP
       ENRMAX = ZERO
-      IF( ITRNSE.EQ.0 ) THEN
+      if ( ITRNSE.EQ.0 ) {
 
          // Eigenvectors are column vectors.
 
@@ -74,7 +74,7 @@
          DO 30 JVEC = 1, N
             TEMP1 = ZERO
             IF( IPAIR.EQ.0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO ) IPAIR = 1
-            IF( IPAIR.EQ.1 ) THEN
+            if ( IPAIR.EQ.1 ) {
 
                // Complex eigenvector
 
@@ -84,7 +84,7 @@
                ENRMIN = MIN( ENRMIN, TEMP1 )
                ENRMAX = MAX( ENRMAX, TEMP1 )
                IPAIR = 2
-            ELSE IF( IPAIR.EQ.2 ) THEN
+            } else if ( IPAIR.EQ.2 ) {
                IPAIR = 0
             } else {
 
@@ -96,7 +96,7 @@
                ENRMIN = MIN( ENRMIN, TEMP1 )
                ENRMAX = MAX( ENRMAX, TEMP1 )
                IPAIR = 0
-            END IF
+            }
    30    CONTINUE
 
       } else {
@@ -111,15 +111,15 @@
             IPAIR = 0
             DO 50 JVEC = 1, N
                IF( IPAIR.EQ.0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO ) IPAIR = 1
-               IF( IPAIR.EQ.1 ) THEN
+               if ( IPAIR.EQ.1 ) {
                   WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) )+ABS( E( J, JVEC+1 ) ) )
                   WORK( JVEC+1 ) = WORK( JVEC )
-               ELSE IF( IPAIR.EQ.2 ) THEN
+               } else if ( IPAIR.EQ.2 ) {
                   IPAIR = 0
                } else {
                   WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) ) )
                   IPAIR = 0
-               END IF
+               }
    50       CONTINUE
    60    CONTINUE
 
@@ -127,7 +127,7 @@
             ENRMIN = MIN( ENRMIN, WORK( JVEC ) )
             ENRMAX = MAX( ENRMAX, WORK( JVEC ) )
    70    CONTINUE
-      END IF
+      }
 
       // Norm of A:
 
@@ -148,29 +148,29 @@
       IECOL = 1
 
       DO 80 JCOL = 1, N
-         IF( ITRNSE.EQ.1 ) THEN
+         if ( ITRNSE.EQ.1 ) {
             IEROW = JCOL
          } else {
             IECOL = JCOL
-         END IF
+         }
 
          IF( IPAIR.EQ.0 .AND. WI( JCOL ).NE.ZERO ) IPAIR = 1
 
-         IF( IPAIR.EQ.1 ) THEN
+         if ( IPAIR.EQ.1 ) {
             WMAT( 1, 1 ) = WR( JCOL )
             WMAT( 2, 1 ) = -WI( JCOL )
             WMAT( 1, 2 ) = WI( JCOL )
             WMAT( 2, 2 ) = WR( JCOL )
             CALL SGEMM( TRANSE, TRANSW, N, 2, 2, ONE, E( IEROW, IECOL ), LDE, WMAT, 2, ZERO, WORK( N*( JCOL-1 )+1 ), N )
             IPAIR = 2
-         ELSE IF( IPAIR.EQ.2 ) THEN
+         } else if ( IPAIR.EQ.2 ) {
             IPAIR = 0
 
          } else {
 
             CALL SAXPY( N, WR( JCOL ), E( IEROW, IECOL ), INCE, WORK( N*( JCOL-1 )+1 ), 1 )
             IPAIR = 0
-         END IF
+         }
 
    80 CONTINUE
 
@@ -180,15 +180,15 @@
 
       // Compute RESULT(1) (avoiding under/overflow)
 
-      IF( ANORM.GT.ERRNRM ) THEN
+      if ( ANORM.GT.ERRNRM ) {
          RESULT( 1 ) = ( ERRNRM / ANORM ) / ULP
       } else {
-         IF( ANORM.LT.ONE ) THEN
+         if ( ANORM.LT.ONE ) {
             RESULT( 1 ) = ONE / ULP
          } else {
             RESULT( 1 ) = MIN( ERRNRM / ANORM, ONE ) / ULP
-         END IF
-      END IF
+         }
+      }
 
       // Compute RESULT(2) : the normalization error in E.
 

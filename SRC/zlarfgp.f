@@ -36,21 +36,21 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          TAU = ZERO
          RETURN
-      END IF
+      }
 
       EPS = DLAMCH( 'Precision' )
       XNORM = DZNRM2( N-1, X, INCX )
       ALPHR = DBLE( ALPHA )
       ALPHI = DIMAG( ALPHA )
 
-      IF( XNORM.LE.EPS*ABS(ALPHA) .AND. ALPHI.EQ.ZERO ) THEN
+      if ( XNORM.LE.EPS*ABS(ALPHA) .AND. ALPHI.EQ.ZERO ) {
 
          // H  =  [1-alpha/abs(alpha) 0; 0 I], sign chosen so ALPHA >= 0.
 
-         IF( ALPHR.GE.ZERO ) THEN
+         if ( ALPHR.GE.ZERO ) {
             // When TAU.eq.ZERO, the vector is special-cased to be
             // all zeros in the application routines.  We do not need
            t // o clear it.
@@ -63,7 +63,7 @@
                X( 1 + (J-1)*INCX ) = ZERO
             END DO
             ALPHA = -ALPHA
-         END IF
+         }
       } else {
 
          // general case
@@ -73,7 +73,7 @@
          BIGNUM = ONE / SMLNUM
 
          KNT = 0
-         IF( ABS( BETA ).LT.SMLNUM ) THEN
+         if ( ABS( BETA ).LT.SMLNUM ) {
 
             // XNORM, BETA may be inaccurate; scale X and recompute them
 
@@ -90,10 +90,10 @@
             XNORM = DZNRM2( N-1, X, INCX )
             ALPHA = DCMPLX( ALPHR, ALPHI )
             BETA = SIGN( DLAPY3( ALPHR, ALPHI, XNORM ), ALPHR )
-         END IF
+         }
          SAVEALPHA = ALPHA
          ALPHA = ALPHA + BETA
-         IF( BETA.LT.ZERO ) THEN
+         if ( BETA.LT.ZERO ) {
             BETA = -BETA
             TAU = -ALPHA / BETA
          } else {
@@ -101,10 +101,10 @@
             ALPHR = ALPHR + XNORM * (XNORM/DBLE( ALPHA ))
             TAU = DCMPLX( ALPHR/BETA, -ALPHI/BETA )
             ALPHA = DCMPLX( -ALPHR, ALPHI )
-         END IF
+         }
          ALPHA = ZLADIV( DCMPLX( ONE ), ALPHA )
 
-         IF ( ABS(TAU).LE.SMLNUM ) THEN
+         if ( ABS(TAU).LE.SMLNUM ) {
 
             // In the case where the computed TAU ends up being a denormalized number,
             // it loses relative accuracy. This is a BIG problem. Solution: flush TAU
@@ -115,8 +115,8 @@
 
             ALPHR = DBLE( SAVEALPHA )
             ALPHI = DIMAG( SAVEALPHA )
-            IF( ALPHI.EQ.ZERO ) THEN
-               IF( ALPHR.GE.ZERO ) THEN
+            if ( ALPHI.EQ.ZERO ) {
+               if ( ALPHR.GE.ZERO ) {
                   TAU = ZERO
                } else {
                   TAU = TWO
@@ -124,7 +124,7 @@
                      X( 1 + (J-1)*INCX ) = ZERO
                   END DO
                   BETA = DBLE( -SAVEALPHA )
-               END IF
+               }
             } else {
                XNORM = DLAPY2( ALPHR, ALPHI )
                TAU = DCMPLX( ONE - ALPHR / XNORM, -ALPHI / XNORM )
@@ -132,7 +132,7 @@
                   X( 1 + (J-1)*INCX ) = ZERO
                END DO
                BETA = XNORM
-            END IF
+            }
 
          } else {
 
@@ -140,7 +140,7 @@
 
             CALL ZSCAL( N-1, ALPHA, X, INCX )
 
-         END IF
+         }
 
          // If BETA is subnormal, it may lose relative accuracy
 
@@ -148,7 +148,7 @@
             BETA = BETA*SMLNUM
  20      CONTINUE
          ALPHA = BETA
-      END IF
+      }
 
       RETURN
 

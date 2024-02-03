@@ -38,28 +38,28 @@
       // Test input arguments
 
       INFO = 0
-      IF( M1 .LT. 0 ) THEN
+      if ( M1 .LT. 0 ) {
          INFO = -1
-      ELSE IF( M2 .LT. 0 ) THEN
+      } else if ( M2 .LT. 0 ) {
          INFO = -2
-      ELSE IF( N .LT. 0 ) THEN
+      } else if ( N .LT. 0 ) {
          INFO = -3
-      ELSE IF( INCX1 .LT. 1 ) THEN
+      } else if ( INCX1 .LT. 1 ) {
          INFO = -5
-      ELSE IF( INCX2 .LT. 1 ) THEN
+      } else if ( INCX2 .LT. 1 ) {
          INFO = -7
-      ELSE IF( LDQ1 .LT. MAX( 1, M1 ) ) THEN
+      } else if ( LDQ1 .LT. MAX( 1, M1 ) ) {
          INFO = -9
-      ELSE IF( LDQ2 .LT. MAX( 1, M2 ) ) THEN
+      } else if ( LDQ2 .LT. MAX( 1, M2 ) ) {
          INFO = -11
-      ELSE IF( LWORK .LT. N ) THEN
+      } else if ( LWORK .LT. N ) {
          INFO = -13
-      END IF
+      }
 
-      IF( INFO .NE. 0 ) THEN
+      if ( INFO .NE. 0 ) {
          CALL XERBLA( 'ZUNBDB5', -INFO )
          RETURN
-      END IF
+      }
 
       EPS = DLAMCH( 'Precision' )
 
@@ -71,7 +71,7 @@
       CALL ZLASSQ( M2, X2, INCX2, SCL, SSQ )
       NORM = SCL * SQRT( SSQ )
 
-      IF( NORM .GT. N * EPS ) THEN
+      if ( NORM .GT. N * EPS ) {
          // Scale vector to unit norm to avoid problems in the caller code.
          // Computing the reciprocal is undesirable but
           // * xLASCL cannot be used because of the vector increments and
@@ -83,10 +83,10 @@
 
          // If the projection is nonzero, then return
 
-         IF( DZNRM2(M1,X1,INCX1) .NE. REALZERO .OR. DZNRM2(M2,X2,INCX2) .NE. REALZERO ) THEN
+         if ( DZNRM2(M1,X1,INCX1) .NE. REALZERO .OR. DZNRM2(M2,X2,INCX2) .NE. REALZERO ) {
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Project each standard basis vector e_1,...,e_M1 in turn, stopping
       // when a nonzero projection is found
@@ -101,7 +101,7 @@
          END DO
          CALL ZUNBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( DZNRM2(M1,X1,INCX1) .NE. REALZERO .OR. DZNRM2(M2,X2,INCX2) .NE. REALZERO ) THEN
             RETURN
-         END IF
+         }
       END DO
 
       // Project each standard basis vector e_(M1+1),...,e_(M1+M2) in turn,
@@ -117,7 +117,7 @@
          X2(I) = ONE
          CALL ZUNBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( DZNRM2(M1,X1,INCX1) .NE. REALZERO .OR. DZNRM2(M2,X2,INCX2) .NE. REALZERO ) THEN
             RETURN
-         END IF
+         }
       END DO
 
       RETURN

@@ -32,10 +32,10 @@
 
       // Quick return if possible
 
-      IF( N.LE.1 ) THEN
+      if ( N.LE.1 ) {
          SSMIN = ZERO
          RETURN
-      END IF
+      }
 
       // Compute the QR factorization of the N-by-2 matrix ( X Y )
 

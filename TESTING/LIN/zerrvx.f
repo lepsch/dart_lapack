@@ -70,7 +70,7 @@
       EQ = ' '
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'GE' ) ) THEN
+      if ( LSAMEN( 2, C2, 'GE' ) ) {
 
          // ZGESV
 
@@ -128,7 +128,7 @@
          CALL ZGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // ZGBSV
 
@@ -198,7 +198,7 @@
          CALL ZGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GT' ) ) {
 
          // ZGTSV
 
@@ -235,7 +235,7 @@
          CALL ZGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PO' ) ) {
 
          // ZPOSV
 
@@ -292,7 +292,7 @@
          CALL ZPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PP' ) ) {
 
          // ZPPSV
 
@@ -340,7 +340,7 @@
          CALL ZPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
 
          // ZPBSV
 
@@ -403,7 +403,7 @@
          CALL ZPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
          // ZPTSV
 
@@ -437,7 +437,7 @@
          CALL ZPTSVX( 'N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HE' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HE' ) ) {
 
          // ZHESV
 
@@ -495,7 +495,7 @@
          CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO )
          CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
 
          // ZHESV_ROOK
 
@@ -522,7 +522,7 @@
          CALL ZHESV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'ZHESV_ROOK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HK' ) ) {
 
          // ZSYSV_RK
 
@@ -557,7 +557,7 @@
          CALL ZHESV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'ZHESV_RK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HA' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HA' ) ) {
 
          // ZHESV_AASEN
 
@@ -581,7 +581,7 @@
          CALL ZHESV_AA( 'U', 3, 1, A, 3, IP, B, 3, W, 6, INFO )
          CALL CHKXER( 'ZHESV_AA', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'H2' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'H2' ) ) {
 
          // ZHESV_AASEN_2STAGE
 
@@ -608,7 +608,7 @@
          CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO )
          CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SA' ) ) {
 
          // ZSYSV_AASEN
 
@@ -632,7 +632,7 @@
          CALL ZSYSV_AA( 'U', 3, 1, A, 3, IP, B, 3, W, 6, INFO )
          CALL CHKXER( 'ZSYSV_AA', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'S2' ) ) {
 
          // ZSYSV_AASEN_2STAGE
 
@@ -659,7 +659,7 @@
          CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO )
          CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HP' ) ) {
 
          // ZHPSV
 
@@ -699,7 +699,7 @@
          CALL ZHPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SY' ) ) {
 
          // ZSYSV
 
@@ -757,7 +757,7 @@
          CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO )
          CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
 
          // ZSYSV_ROOK
 
@@ -783,7 +783,7 @@
          INFOT = 10
          CALL ZSYSV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
 
-      ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
 
          // ZSYSV_RK
 
@@ -818,7 +818,7 @@
          CALL ZSYSV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'ZSYSV_RK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
          // ZSPSV
 
@@ -857,15 +857,15 @@
          INFOT = 11
          CALL ZSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 
-      IF( OK ) THEN
+      if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH
       } else {
          WRITE( NOUT, FMT = 9998 )PATH
-      END IF
+      }
 
  9999 FORMAT( 1X, A3, ' drivers passed the tests of the error exits' )
  9998 FORMAT( ' *** ', A3, ' drivers failed the tests of the error ',

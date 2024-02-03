@@ -39,10 +39,10 @@
 
       // Test for sufficient workspace
 
-      IF( LWORK.LT.M*M+M ) THEN
+      if ( LWORK.LT.M*M+M ) {
          CALL XERBLA( 'DQRT11', 7 )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 

@@ -22,7 +22,7 @@
       const     ONE= (1.0D+0,0.0D+0);
       // ..
       IF (N.LE.0 .OR. INCX.LE.0 .OR. ZA.EQ.ONE) RETURN
-      IF (INCX.EQ.1) THEN
+      if (INCX.EQ.1) {
 
          // code for increment equal to 1
 
@@ -37,7 +37,7 @@
          DO I = 1,NINCX,INCX
             ZX(I) = ZA*ZX(I)
          END DO
-      END IF
+      }
       RETURN
 
       // End of ZSCAL

@@ -53,41 +53,41 @@
 
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDAF.LT.MAX( 1, N ) ) THEN
+      } else if ( LDAF.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -10
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -12
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGERFS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
+      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
          DO 10 J = 1, NRHS
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
          RETURN
-      END IF
+      }
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
          TRANST = 'T'
       } else {
          TRANST = 'N'
-      END IF
+      }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
@@ -128,7 +128,7 @@
 
          // Compute abs(op(A))*abs(X) + abs(B).
 
-         IF( NOTRAN ) THEN
+         if ( NOTRAN ) {
             DO 50 K = 1, N
                XK = ABS( X( K, J ) )
                DO 40 I = 1, N
@@ -143,14 +143,14 @@
    60          CONTINUE
                WORK( K ) = WORK( K ) + S
    70       CONTINUE
-         END IF
+         }
          S = ZERO
          DO 80 I = 1, N
-            IF( WORK( I ).GT.SAFE2 ) THEN
+            if ( WORK( I ).GT.SAFE2 ) {
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
-            END IF
+            }
    80    CONTINUE
          BERR( J ) = S
 
@@ -160,7 +160,7 @@
                // last iteration, and
             // 3) At most ITMAX iterations tried.
 
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
+         if ( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) {
 
             // Update solution and try again.
 
@@ -169,7 +169,7 @@
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
-         END IF
+         }
 
          // Bound error from formula
 
@@ -194,18 +194,18 @@
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
          DO 90 I = 1, N
-            IF( WORK( I ).GT.SAFE2 ) THEN
+            if ( WORK( I ).GT.SAFE2 ) {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
             } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
-            END IF
+            }
    90    CONTINUE
 
          KASE = 0
   100    CONTINUE
          CALL SLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE )
-         IF( KASE.NE.0 ) THEN
-            IF( KASE.EQ.1 ) THEN
+         if ( KASE.NE.0 ) {
+            if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**T).
 
@@ -221,9 +221,9 @@
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   120          CONTINUE
                CALL SGETRS( TRANS, N, 1, AF, LDAF, IPIV, WORK( N+1 ), N, INFO )
-            END IF
+            }
             GO TO 100
-         END IF
+         }
 
          // Normalize error.
 

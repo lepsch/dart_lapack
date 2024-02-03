@@ -42,10 +42,10 @@
       // .. Executable Statements ..
 
       MN = MIN( M, N )
-      IF( LWORK.LT.MAX( M+MN, MN*NRHS, 2*N+M ) ) THEN
+      if ( LWORK.LT.MAX( M+MN, MN*NRHS, 2*N+M ) ) {
          CALL XERBLA( 'CQRT15', 16 )
          RETURN
-      END IF
+      }
 
       SMLNUM = SLAMCH( 'Safe minimum' )
       BIGNUM = ONE / SMLNUM
@@ -55,18 +55,18 @@
 
       // Determine rank and (unscaled) singular values
 
-      IF( RKSEL.EQ.1 ) THEN
+      if ( RKSEL.EQ.1 ) {
          RANK = MN
-      ELSE IF( RKSEL.EQ.2 ) THEN
+      } else if ( RKSEL.EQ.2 ) {
          RANK = ( 3*MN ) / 4
          DO 10 J = RANK + 1, MN
             S( J ) = ZERO
    10    CONTINUE
       } else {
          CALL XERBLA( 'CQRT15', 2 )
-      END IF
+      }
 
-      IF( RANK.GT.0 ) THEN
+      if ( RANK.GT.0 ) {
 
          // Nontrivial case
 
@@ -74,11 +74,11 @@
          DO 30 J = 2, RANK
    20       CONTINUE
             TEMP = SLARND( 1, ISEED )
-            IF( TEMP.GT.SVMIN ) THEN
+            if ( TEMP.GT.SVMIN ) {
                S( J ) = ABS( TEMP )
             } else {
                GO TO 20
-            END IF
+            }
    30    CONTINUE
          CALL SLAORD( 'Decreasing', RANK, S, 1 )
 
@@ -118,19 +118,19 @@
          CALL CLASET( 'Full', M, N, CZERO, CZERO, A, LDA )
          CALL CLASET( 'Full', M, NRHS, CZERO, CZERO, B, LDB )
 
-      END IF
+      }
 
       // Scale the matrix
 
-      IF( SCALE.NE.1 ) THEN
+      if ( SCALE.NE.1 ) {
          NORMA = CLANGE( 'Max', M, N, A, LDA, DUMMY )
-         IF( NORMA.NE.ZERO ) THEN
-            IF( SCALE.EQ.2 ) THEN
+         if ( NORMA.NE.ZERO ) {
+            if ( SCALE.EQ.2 ) {
 
                // matrix scaled up
 
                CALL CLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO )                CALL CLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO )
-            ELSE IF( SCALE.EQ.3 ) THEN
+            } else if ( SCALE.EQ.3 ) {
 
                // matrix scaled down
 
@@ -138,9 +138,9 @@
             } else {
                CALL XERBLA( 'CQRT15', 1 )
                RETURN
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
       NORMA = SASUM( MN, S, 1 )
       NORMB = CLANGE( 'One-norm', M, NRHS, B, LDB, DUMMY )

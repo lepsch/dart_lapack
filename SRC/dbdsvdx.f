@@ -51,59 +51,59 @@
       LOWER = LSAME( UPLO, 'L' )
 
       INFO = 0
-      IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LOWER ) THEN
+      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LOWER ) {
          INFO = -1
-      ELSE IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      } else if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
-      ELSE IF( .NOT.( ALLSV .OR. VALSV .OR. INDSV ) ) THEN
+      } else if ( .NOT.( ALLSV .OR. VALSV .OR. INDSV ) ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( N.GT.0 ) THEN
-         IF( VALSV ) THEN
-            IF( VL.LT.ZERO ) THEN
+      } else if ( N.GT.0 ) {
+         if ( VALSV ) {
+            if ( VL.LT.ZERO ) {
                INFO = -7
-            ELSE IF( VU.LE.VL ) THEN
+            } else if ( VU.LE.VL ) {
                INFO = -8
-            END IF
-         ELSE IF( INDSV ) THEN
-            IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
+            }
+         } else if ( INDSV ) {
+            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -9
-            ELSE IF( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) THEN
+            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
                INFO = -10
-            END IF
-         END IF
-      END IF
-      IF( INFO.EQ.0 ) THEN
+            }
+         }
+      }
+      if ( INFO.EQ.0 ) {
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N*2 ) ) INFO = -14
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DBDSVDX', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible (N.LE.1)
 
       NS = 0
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
-         IF( ALLSV .OR. INDSV ) THEN
+      if ( N.EQ.1 ) {
+         if ( ALLSV .OR. INDSV ) {
             NS = 1
             S( 1 ) = ABS( D( 1 ) )
          } else {
-            IF( VL.LT.ABS( D( 1 ) ) .AND. VU.GE.ABS( D( 1 ) ) ) THEN
+            if ( VL.LT.ABS( D( 1 ) ) .AND. VU.GE.ABS( D( 1 ) ) ) {
                NS = 1
                S( 1 ) = ABS( D( 1 ) )
-            END IF
-         END IF
-         IF( WANTZ ) THEN
+            }
+         }
+         if ( WANTZ ) {
             Z( 1, 1 ) = SIGN( ONE, D( 1 ) )
             Z( 2, 1 ) = ONE
-         END IF
+         }
          RETURN
-      END IF
+      }
 
       ABSTOL = 2*DLAMCH( 'Safe Minimum' )
       ULP = DLAMCH( 'Precision' )
@@ -128,14 +128,14 @@
       // Compute threshold for neglecting D's and E's.
 
       SMIN = ABS( D( 1 ) )
-      IF( SMIN.NE.ZERO ) THEN
+      if ( SMIN.NE.ZERO ) {
          MU = SMIN
          DO I = 2, N
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) )
             SMIN = MIN( SMIN, MU )
             IF( SMIN.EQ.ZERO ) EXIT
          END DO
-      END IF
+      }
       SMIN = SMIN / SQRT( DBLE( N ) )
       THRESH = TOL*SMIN
 
@@ -164,7 +164,7 @@
       VLTGK = ZERO
       VUTGK = ZERO
 
-      IF( ALLSV ) THEN
+      if ( ALLSV ) {
 
          // All singular values will be found. We aim at -s (see
          // leading comments) with RNGVX = 'I'. IL and IU are set
@@ -173,7 +173,7 @@
 
          RNGVX = 'I'
          IF( WANTZ ) CALL DLASET( 'F', N*2, N+1, ZERO, ZERO, Z, LDZ )
-      ELSE IF( VALSV ) THEN
+      } else if ( VALSV ) {
 
          // Find singular values in a half-open interval. We aim
          // at -s (see leading comments) and we swap VL and VU
@@ -186,12 +186,12 @@
          CALL DCOPY( N, D, 1, WORK( IETGK ), 2 )
          CALL DCOPY( N-1, E, 1, WORK( IETGK+1 ), 2 )
          CALL DSTEVX( 'N', 'V', N*2, WORK( IDTGK ), WORK( IETGK ), VLTGK, VUTGK, ILTGK, ILTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO )
-         IF( NS.EQ.0 ) THEN
+         if ( NS.EQ.0 ) {
             RETURN
          } else {
             IF( WANTZ ) CALL DLASET( 'F', N*2, NS, ZERO, ZERO, Z, LDZ )
-         END IF
-      ELSE IF( INDSV ) THEN
+         }
+      } else if ( INDSV ) {
 
          // Find the IL-th through the IU-th singular values. We aim
          // at -s (see leading comments) and indices are mapped into
@@ -221,7 +221,7 @@
          IF( VLTGK.EQ.VUTGK ) VLTGK = VLTGK - TOL
 
          IF( WANTZ ) CALL DLASET( 'F', N*2, IU-IL+1, ZERO, ZERO, Z, LDZ)
-      END IF
+      }
 
       // Initialize variables and pointers for S, Z, and WORK.
 
@@ -255,7 +255,7 @@
       // in E and inner level in D.
 
       DO IEPTR = 2, N*2, 2
-         IF( WORK( IETGK+IEPTR-1 ).EQ.ZERO ) THEN
+         if ( WORK( IETGK+IEPTR-1 ).EQ.ZERO ) {
 
             // Split in E (this piece of B is square) or bottom
             // of the (input bidiagonal) matrix.
@@ -263,32 +263,32 @@
             ISPLT = IDBEG
             IDEND = IEPTR - 1
             DO IDPTR = IDBEG, IDEND, 2
-               IF( WORK( IETGK+IDPTR-1 ).EQ.ZERO ) THEN
+               if ( WORK( IETGK+IDPTR-1 ).EQ.ZERO ) {
 
                   // Split in D (rectangular submatrix). Set the number
                   // of rows in U and V (NRU and NRV) accordingly.
 
-                  IF( IDPTR.EQ.IDBEG ) THEN
+                  if ( IDPTR.EQ.IDBEG ) {
 
                      // D=0 at the top.
 
                      SVEQ0 = .TRUE.
-                     IF( IDBEG.EQ.IDEND) THEN
+                     if ( IDBEG.EQ.IDEND) {
                         NRU = 1
                         NRV = 1
-                     END IF
-                  ELSE IF( IDPTR.EQ.IDEND ) THEN
+                     }
+                  } else if ( IDPTR.EQ.IDEND ) {
 
                      // D=0 at the bottom.
 
                      SVEQ0 = .TRUE.
                      NRU = (IDEND-ISPLT)/2 + 1
                      NRV = NRU
-                     IF( ISPLT.NE.IDBEG ) THEN
+                     if ( ISPLT.NE.IDBEG ) {
                         NRU = NRU + 1
-                     END IF
+                     }
                   } else {
-                     IF( ISPLT.EQ.IDBEG ) THEN
+                     if ( ISPLT.EQ.IDBEG ) {
 
                         // Split: top rectangular submatrix.
 
@@ -300,13 +300,13 @@
 
                         NRU = (IDPTR-ISPLT)/2 + 1
                         NRV = NRU
-                     END IF
-                  END IF
-               ELSE IF( IDPTR.EQ.IDEND ) THEN
+                     }
+                  }
+               } else if ( IDPTR.EQ.IDEND ) {
 
                   // Last entry of D in the active submatrix.
 
-                  IF( ISPLT.EQ.IDBEG ) THEN
+                  if ( ISPLT.EQ.IDBEG ) {
 
                      // No split (trivial case).
 
@@ -318,12 +318,12 @@
 
                      NRV = (IDEND-ISPLT)/2 + 1
                      NRU = NRV + 1
-                  END IF
-               END IF
+                  }
+               }
 
                NTGK = NRU + NRV
 
-               IF( NTGK.GT.0 ) THEN
+               if ( NTGK.GT.0 ) {
 
                   // Compute eigenvalues/vectors of the active
                   // submatrix according to RANGE:
@@ -333,26 +333,26 @@
 
                   ILTGK = 1
                   IUTGK = NTGK / 2
-                  IF( ALLSV .OR. VUTGK.EQ.ZERO ) THEN
-                     IF( SVEQ0 .OR. SMIN.LT.EPS .OR. MOD(NTGK,2).GT.0 ) THEN
+                  if ( ALLSV .OR. VUTGK.EQ.ZERO ) {
+                     if ( SVEQ0 .OR. SMIN.LT.EPS .OR. MOD(NTGK,2).GT.0 ) {
                          // Special case: eigenvalue equal to zero or very
                          // small, additional eigenvector is needed.
                          IUTGK = IUTGK + 1
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Workspace needed by DSTEVX:
                   // WORK( ITEMP: ): 2*5*NTGK
                   // IWORK( 1: ): 2*6*NTGK
 
                   CALL DSTEVX( JOBZ, RNGVX, NTGK, WORK( IDTGK+ISPLT-1 ), WORK( IETGK+ISPLT-1 ), VLTGK, VUTGK, ILTGK, IUTGK, ABSTOL, NSL, S( ISBEG ), Z( IROWZ,ICOLZ ), LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO )
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                      // Exit with the error code from DSTEVX.
                      RETURN
-                  END IF
+                  }
                   EMIN = ABS( MAXVAL( S( ISBEG:ISBEG+NSL-1 ) ) )
 
-                  IF( NSL.GT.0 .AND. WANTZ ) THEN
+                  if ( NSL.GT.0 .AND. WANTZ ) {
 
                      // Normalize u=Z([2,4,...],:) and v=Z([1,3,...],:),
                      // changing the sign of v as discussed in the leading
@@ -362,7 +362,7 @@
                     t // hose norms and, if needed, reorthogonalize the
                      // vectors.
 
-                     IF( NSL.GT.1 .AND. VUTGK.EQ.ZERO .AND. MOD(NTGK,2).EQ.0 .AND. EMIN.EQ.0 .AND. .NOT.SPLIT ) THEN
+                     if ( NSL.GT.1 .AND. VUTGK.EQ.ZERO .AND. MOD(NTGK,2).EQ.0 .AND. EMIN.EQ.0 .AND. .NOT.SPLIT ) {
 
                         // D=0 at the top or bottom of the active submatrix:
                         // one eigenvalue is equal to zero; concatenate the
@@ -375,37 +375,37 @@
                            // Eigenvalue equal to zero or very small.
                            // NSL = NSL - 1
                         // END IF
-                     END IF
+                     }
 
                      DO I = 0, MIN( NSL-1, NRU-1 )
                         NRMU = DNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 )
-                        IF( NRMU.EQ.ZERO ) THEN
+                        if ( NRMU.EQ.ZERO ) {
                            INFO = N*2 + 1
                            RETURN
-                        END IF
+                        }
                         CALL DSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU.NE.ONE .AND. ABS( NRMU-ORTOL )*SQRT2.GT.ONE ) THEN
                            DO J = 0, I-1
                               ZJTJI = -DDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )                               CALL DAXPY( NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )
                            END DO
                            NRMU = DNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 )
                            CALL DSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )
-                        END IF
+                        }
                      END DO
                      DO I = 0, MIN( NSL-1, NRV-1 )
                         NRMV = DNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 )
-                        IF( NRMV.EQ.ZERO ) THEN
+                        if ( NRMV.EQ.ZERO ) {
                            INFO = N*2 + 1
                            RETURN
-                        END IF
+                        }
                         CALL DSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV.NE.ONE .AND. ABS( NRMV-ORTOL )*SQRT2.GT.ONE ) THEN
                            DO J = 0, I-1
                               ZJTJI = -DDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )                               CALL DAXPY( NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )
                            END DO
                            NRMV = DNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 )
                            CALL DSCAL( NRV, ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )
-                        END IF
+                        }
                      END DO
-                     IF( VUTGK.EQ.ZERO .AND. IDPTR.LT.IDEND .AND. MOD(NTGK,2).GT.0 ) THEN
+                     if ( VUTGK.EQ.ZERO .AND. IDPTR.LT.IDEND .AND. MOD(NTGK,2).GT.0 ) {
 
                         // D=0 in the middle of the active submatrix (one
                         // eigenvalue is equal to zero): save the corresponding
@@ -414,7 +414,7 @@
 
                         SPLIT = .TRUE.
                         Z( IROWZ:IROWZ+NTGK-1,N+1 ) = Z( IROWZ:IROWZ+NTGK-1,NS+NSL )                         Z( IROWZ:IROWZ+NTGK-1,NS+NSL ) = ZERO
-                     END IF
+                     }
                   END IF !** WANTZ **!
 
                   NSL = MIN( NSL, NRU )
@@ -438,18 +438,18 @@
                   NRU = 0
                   NRV = 0
                END IF !** NTGK.GT.0 **!
-               IF( IROWZ.LT.N*2 .AND. WANTZ ) THEN
+               if ( IROWZ.LT.N*2 .AND. WANTZ ) {
                   Z( 1:IROWZ-1, ICOLZ ) = ZERO
-               END IF
+               }
             END DO !** IDPTR loop **!
-            IF( SPLIT .AND. WANTZ ) THEN
+            if ( SPLIT .AND. WANTZ ) {
 
                // Bring back eigenvector corresponding
               t // o eigenvalue equal to zero.
 
                Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) = Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) + Z( IDBEG:IDEND-NTGK+1,N+1 )
                Z( IDBEG:IDEND-NTGK+1,N+1 ) = 0
-            END IF
+            }
             IROWV = IROWV - 1
             IROWU = IROWU + 1
             IDBEG = IEPTR + 1
@@ -465,44 +465,44 @@
          K = 1
          SMIN = S( 1 )
          DO J = 2, NS + 1 - I
-            IF( S( J ).LE.SMIN ) THEN
+            if ( S( J ).LE.SMIN ) {
                K = J
                SMIN = S( J )
-            END IF
+            }
          END DO
-         IF( K.NE.NS+1-I ) THEN
+         if ( K.NE.NS+1-I ) {
             S( K ) = S( NS+1-I )
             S( NS+1-I ) = SMIN
             IF( WANTZ ) CALL DSWAP( N*2, Z( 1,K ), 1, Z( 1,NS+1-I ), 1 )
-         END IF
+         }
       END DO
 
       // If RANGE=I, check for singular values/vectors to be discarded.
 
-      IF( INDSV ) THEN
+      if ( INDSV ) {
          K = IU - IL + 1
-         IF( K.LT.NS ) THEN
+         if ( K.LT.NS ) {
             S( K+1:NS ) = ZERO
             IF( WANTZ ) Z( 1:N*2,K+1:NS ) = ZERO
             NS = K
-         END IF
-      END IF
+         }
+      }
 
       // Reorder Z: U = Z( 1:N,1:NS ), V = Z( N+1:N*2,1:NS ).
       // If B is a lower diagonal, swap U and V.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
       DO I = 1, NS
          CALL DCOPY( N*2, Z( 1,I ), 1, WORK, 1 )
-         IF( LOWER ) THEN
+         if ( LOWER ) {
             CALL DCOPY( N, WORK( 2 ), 2, Z( N+1,I ), 1 )
             CALL DCOPY( N, WORK( 1 ), 2, Z( 1  ,I ), 1 )
          } else {
             CALL DCOPY( N, WORK( 2 ), 2, Z( 1  ,I ), 1 )
             CALL DCOPY( N, WORK( 1 ), 2, Z( N+1,I ), 1 )
-         END IF
+         }
       END DO
-      END IF
+      }
 
       RETURN
 

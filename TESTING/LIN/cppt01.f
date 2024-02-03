@@ -41,45 +41,45 @@
 
       // Quick exit if N = 0
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANHP( '1', UPLO, N, A, RWORK )
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
       // Check the imaginary parts of the diagonal elements and return with
       // an error code if any are nonzero.
 
       KC = 1
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 10 K = 1, N
-            IF( AIMAG( AFAC( KC ) ).NE.ZERO ) THEN
+            if ( AIMAG( AFAC( KC ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
-            END IF
+            }
             KC = KC + K + 1
    10    CONTINUE
       } else {
          DO 20 K = 1, N
-            IF( AIMAG( AFAC( KC ) ).NE.ZERO ) THEN
+            if ( AIMAG( AFAC( KC ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
-            END IF
+            }
             KC = KC + N - K + 1
    20    CONTINUE
-      END IF
+      }
 
       // Compute the product U'*U, overwriting U.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          KC = ( N*( N-1 ) ) / 2 + 1
          DO 30 K = N, 1, -1
 
@@ -90,10 +90,10 @@
 
             // Compute the rest of column K.
 
-            IF( K.GT.1 ) THEN
+            if ( K.GT.1 ) {
                CALL CTPMV( 'Upper', 'Conjugate', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 )
                KC = KC - ( K-1 )
-            END IF
+            }
    30    CONTINUE
 
          // Compute the difference  L*L' - A
@@ -136,7 +136,7 @@
    70       CONTINUE
             KC = KC + N - K + 1
    80    CONTINUE
-      END IF
+      }
 
       // Compute norm( L*U - A ) / ( N * norm(A) * EPS )
 

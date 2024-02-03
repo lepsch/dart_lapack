@@ -69,10 +69,10 @@
       KNT = KNT + 1
       CALL ZGEBAK( 'B', 'R', N, ILO, IHI, SCALE, N, E, LDE, INFO )
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 1 ) = KNT
-      END IF
+      }
 
       VMAX = ZERO
       DO 50 I = 1, N
@@ -83,10 +83,10 @@
    40    CONTINUE
    50 CONTINUE
 
-      IF( VMAX.GT.RMAX ) THEN
+      if ( VMAX.GT.RMAX ) {
          LMAX( 2 ) = KNT
          RMAX = VMAX
-      END IF
+      }
 
       GO TO 10
 

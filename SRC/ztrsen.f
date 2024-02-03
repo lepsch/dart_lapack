@@ -63,60 +63,60 @@
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
 
-      IF( WANTSP ) THEN
+      if ( WANTSP ) {
          LWMIN = MAX( 1, 2*NN )
-      ELSE IF( LSAME( JOB, 'N' ) ) THEN
+      } else if ( LSAME( JOB, 'N' ) ) {
          LWMIN = 1
-      ELSE IF( LSAME( JOB, 'E' ) ) THEN
+      } else if ( LSAME( JOB, 'E' ) ) {
          LWMIN = MAX( 1, NN )
-      END IF
+      }
 
-      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.WANTS .AND. .NOT.WANTSP ) THEN
+      if ( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.WANTS .AND. .NOT.WANTSP ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) THEN
+      } else if ( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( LDT.LT.MAX( 1, N ) ) THEN
+      } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) THEN
+      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) {
          INFO = -8
-      ELSE IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
          INFO = -14
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          WORK( 1 ) = LWMIN
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTRSEN', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.N .OR. M.EQ.0 ) THEN
+      if ( M.EQ.N .OR. M.EQ.0 ) {
          IF( WANTS ) S = ONE          IF( WANTSP ) SEP = ZLANGE( '1', N, N, T, LDT, RWORK )
          GO TO 40
-      END IF
+      }
 
       // Collect the selected eigenvalues at the top left corner of T.
 
       KS = 0
       DO 20 K = 1, N
-         IF( SELECT( K ) ) THEN
+         if ( SELECT( K ) ) {
             KS = KS + 1
 
             // Swap the K-th eigenvalue to position KS.
 
             IF( K.NE.KS ) CALL ZTREXC( COMPQ, N, T, LDT, Q, LDQ, K, KS, IERR )
-         END IF
+         }
    20 CONTINUE
 
-      IF( WANTS ) THEN
+      if ( WANTS ) {
 
          // Solve the Sylvester equation for R:
 
@@ -129,14 +129,14 @@
          // of eigenvalues.
 
          RNORM = ZLANGE( 'F', N1, N2, WORK, N1, RWORK )
-         IF( RNORM.EQ.ZERO ) THEN
+         if ( RNORM.EQ.ZERO ) {
             S = ONE
          } else {
             S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) )
-         END IF
-      END IF
+         }
+      }
 
-      IF( WANTSP ) THEN
+      if ( WANTSP ) {
 
          // Estimate sep(T11,T22).
 
@@ -144,8 +144,8 @@
          KASE = 0
    30    CONTINUE
          CALL ZLACN2( NN, WORK( NN+1 ), WORK, EST, KASE, ISAVE )
-         IF( KASE.NE.0 ) THEN
-            IF( KASE.EQ.1 ) THEN
+         if ( KASE.NE.0 ) {
+            if ( KASE.EQ.1 ) {
 
                // Solve T11*R - R*T22 = scale*X.
 
@@ -155,12 +155,12 @@
                // Solve T11**H*R - R*T22**H = scale*X.
 
                CALL ZTRSYL( 'C', 'C', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
-            END IF
+            }
             GO TO 30
-         END IF
+         }
 
          SEP = SCALE / EST
-      END IF
+      }
 
    40 CONTINUE
 

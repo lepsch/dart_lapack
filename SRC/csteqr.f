@@ -44,35 +44,35 @@
 
       INFO = 0
 
-      IF( LSAME( COMPZ, 'N' ) ) THEN
+      if ( LSAME( COMPZ, 'N' ) ) {
          ICOMPZ = 0
-      ELSE IF( LSAME( COMPZ, 'V' ) ) THEN
+      } else if ( LSAME( COMPZ, 'V' ) ) {
          ICOMPZ = 1
-      ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
+      } else if ( LSAME( COMPZ, 'I' ) ) {
          ICOMPZ = 2
       } else {
          ICOMPZ = -1
-      END IF
-      IF( ICOMPZ.LT.0 ) THEN
+      }
+      if ( ICOMPZ.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) THEN
+      } else if ( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CSTEQR', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          IF( ICOMPZ.EQ.2 ) Z( 1, 1 ) = CONE
          RETURN
-      END IF
+      }
 
       // Determine the unit roundoff and over/underflow thresholds.
 
@@ -100,15 +100,15 @@
 
    10 CONTINUE
       IF( L1.GT.N ) GO TO 160       IF( L1.GT.1 ) E( L1-1 ) = ZERO
-      IF( L1.LE.NM1 ) THEN
+      if ( L1.LE.NM1 ) {
          DO 20 M = L1, NM1
             TST = ABS( E( M ) )
-            IF( TST.EQ.ZERO ) GO TO 30             IF( TST.LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) THEN
+            if ( TST.EQ.ZERO ) GO TO 30             IF( TST.LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
                E( M ) = ZERO
                GO TO 30
-            END IF
+            }
    20    CONTINUE
-      END IF
+      }
       M = N
 
    30 CONTINUE
@@ -124,35 +124,35 @@
       ANORM = SLANST( 'I', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
       IF( ANORM.EQ.ZERO ) GO TO 10
-      IF( ANORM.GT.SSFMAX ) THEN
+      if ( ANORM.GT.SSFMAX ) {
          ISCALE = 1
          CALL SLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO )          CALL SLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO )
-      ELSE IF( ANORM.LT.SSFMIN ) THEN
+      } else if ( ANORM.LT.SSFMIN ) {
          ISCALE = 2
          CALL SLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO )          CALL SLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO )
-      END IF
+      }
 
       // Choose between QL and QR iteration
 
-      IF( ABS( D( LEND ) ).LT.ABS( D( L ) ) ) THEN
+      if ( ABS( D( LEND ) ).LT.ABS( D( L ) ) ) {
          LEND = LSV
          L = LENDSV
-      END IF
+      }
 
-      IF( LEND.GT.L ) THEN
+      if ( LEND.GT.L ) {
 
          // QL Iteration
 
          // Look for small subdiagonal element.
 
    40    CONTINUE
-         IF( L.NE.LEND ) THEN
+         if ( L.NE.LEND ) {
             LENDM1 = LEND - 1
             DO 50 M = L, LENDM1
                TST = ABS( E( M ) )**2
                IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M+1 ) )+ SAFMIN )GO TO 60
    50       CONTINUE
-         END IF
+         }
 
          M = LEND
 
@@ -164,22 +164,22 @@
          // If remaining matrix is 2-by-2, use SLAE2 or SLAEV2
         t // o compute its eigensystem.
 
-         IF( M.EQ.L+1 ) THEN
-            IF( ICOMPZ.GT.0 ) THEN
+         if ( M.EQ.L+1 ) {
+            if ( ICOMPZ.GT.0 ) {
                CALL SLAEV2( D( L ), E( L ), D( L+1 ), RT1, RT2, C, S )
                WORK( L ) = C
                WORK( N-1+L ) = S
                CALL CLASR( 'R', 'V', 'B', N, 2, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ )
             } else {
                CALL SLAE2( D( L ), E( L ), D( L+1 ), RT1, RT2 )
-            END IF
+            }
             D( L ) = RT1
             D( L+1 ) = RT2
             E( L ) = ZERO
             L = L + 2
             IF( L.LE.LEND ) GO TO 40
             GO TO 140
-         END IF
+         }
 
          IF( JTOT.EQ.NMAXIT ) GO TO 140
          JTOT = JTOT + 1
@@ -210,19 +210,19 @@
 
             // If eigenvectors are desired, then save rotations.
 
-            IF( ICOMPZ.GT.0 ) THEN
+            if ( ICOMPZ.GT.0 ) {
                WORK( I ) = C
                WORK( N-1+I ) = -S
-            END IF
+            }
 
    70    CONTINUE
 
          // If eigenvectors are desired, then apply saved rotations.
 
-         IF( ICOMPZ.GT.0 ) THEN
+         if ( ICOMPZ.GT.0 ) {
             MM = M - L + 1
             CALL CLASR( 'R', 'V', 'B', N, MM, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ )
-         END IF
+         }
 
          D( L ) = D( L ) - P
          E( L ) = G
@@ -244,13 +244,13 @@
          // Look for small superdiagonal element.
 
    90    CONTINUE
-         IF( L.NE.LEND ) THEN
+         if ( L.NE.LEND ) {
             LENDP1 = LEND + 1
             DO 100 M = L, LENDP1, -1
                TST = ABS( E( M-1 ) )**2
                IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M-1 ) )+ SAFMIN )GO TO 110
   100       CONTINUE
-         END IF
+         }
 
          M = LEND
 
@@ -262,22 +262,22 @@
          // If remaining matrix is 2-by-2, use SLAE2 or SLAEV2
         t // o compute its eigensystem.
 
-         IF( M.EQ.L-1 ) THEN
-            IF( ICOMPZ.GT.0 ) THEN
+         if ( M.EQ.L-1 ) {
+            if ( ICOMPZ.GT.0 ) {
                CALL SLAEV2( D( L-1 ), E( L-1 ), D( L ), RT1, RT2, C, S )
                WORK( M ) = C
                WORK( N-1+M ) = S
                CALL CLASR( 'R', 'V', 'F', N, 2, WORK( M ), WORK( N-1+M ), Z( 1, L-1 ), LDZ )
             } else {
                CALL SLAE2( D( L-1 ), E( L-1 ), D( L ), RT1, RT2 )
-            END IF
+            }
             D( L-1 ) = RT1
             D( L ) = RT2
             E( L-1 ) = ZERO
             L = L - 2
             IF( L.GE.LEND ) GO TO 90
             GO TO 140
-         END IF
+         }
 
          IF( JTOT.EQ.NMAXIT ) GO TO 140
          JTOT = JTOT + 1
@@ -308,19 +308,19 @@
 
             // If eigenvectors are desired, then save rotations.
 
-            IF( ICOMPZ.GT.0 ) THEN
+            if ( ICOMPZ.GT.0 ) {
                WORK( I ) = C
                WORK( N-1+I ) = S
-            END IF
+            }
 
   120    CONTINUE
 
          // If eigenvectors are desired, then apply saved rotations.
 
-         IF( ICOMPZ.GT.0 ) THEN
+         if ( ICOMPZ.GT.0 ) {
             MM = L - M + 1
             CALL CLASR( 'R', 'V', 'F', N, MM, WORK( M ), WORK( N-1+M ), Z( 1, M ), LDZ )
-         END IF
+         }
 
          D( L ) = D( L ) - P
          E( LM1 ) = G
@@ -335,32 +335,32 @@
          IF( L.GE.LEND ) GO TO 90
          GO TO 140
 
-      END IF
+      }
 
       // Undo scaling if necessary
 
   140 CONTINUE
-      IF( ISCALE.EQ.1 ) THEN
+      if ( ISCALE.EQ.1 ) {
          CALL SLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )          CALL SLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO )
-      ELSE IF( ISCALE.EQ.2 ) THEN
+      } else if ( ISCALE.EQ.2 ) {
          CALL SLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )          CALL SLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO )
-      END IF
+      }
 
       // Check for no convergence to an eigenvalue after a total
       // of N*MAXIT iterations.
 
-      IF( JTOT.EQ.NMAXIT ) THEN
+      if ( JTOT.EQ.NMAXIT ) {
          DO 150 I = 1, N - 1
             IF( E( I ).NE.ZERO ) INFO = INFO + 1
   150    CONTINUE
          RETURN
-      END IF
+      }
       GO TO 10
 
       // Order eigenvalues and eigenvectors.
 
   160 CONTINUE
-      IF( ICOMPZ.EQ.0 ) THEN
+      if ( ICOMPZ.EQ.0 ) {
 
          // Use Quick Sort
 
@@ -375,18 +375,18 @@
             K = I
             P = D( I )
             DO 170 J = II, N
-               IF( D( J ).LT.P ) THEN
+               if ( D( J ).LT.P ) {
                   K = J
                   P = D( J )
-               END IF
+               }
   170       CONTINUE
-            IF( K.NE.I ) THEN
+            if ( K.NE.I ) {
                D( K ) = D( I )
                D( I ) = P
                CALL CSWAP( N, Z( 1, I ), 1, Z( 1, K ), 1 )
-            END IF
+            }
   180    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of CSTEQR

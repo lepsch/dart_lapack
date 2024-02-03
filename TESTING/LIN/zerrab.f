@@ -83,11 +83,11 @@
 
       // Print a summary line.
 
-      IF( OK ) THEN
+      if ( OK ) {
          WRITE( NOUT, FMT = 9999 )'ZCGESV'
       } else {
          WRITE( NOUT, FMT = 9998 )'ZCGESV'
-      END IF
+      }
 
  9999 FORMAT( 1X, A6, ' drivers passed the tests of the error exits' )
  9998 FORMAT( ' *** ', A6, ' drivers failed the tests of the error ',

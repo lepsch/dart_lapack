@@ -36,34 +36,34 @@
       // .. Executable Statements ..
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -2
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZGTSV ', -INFO )
          RETURN
-      END IF
+      }
 
       IF( N.EQ.0 ) RETURN
 
       DO 30 K = 1, N - 1
-         IF( DL( K ).EQ.ZERO ) THEN
+         if ( DL( K ).EQ.ZERO ) {
 
             // Subdiagonal is zero, no elimination is required.
 
-            IF( D( K ).EQ.ZERO ) THEN
+            if ( D( K ).EQ.ZERO ) {
 
                // Diagonal is zero: set INFO = K and return; a unique
                // solution can not be found.
 
                INFO = K
                RETURN
-            END IF
-         ELSE IF( CABS1( D( K ) ).GE.CABS1( DL( K ) ) ) THEN
+            }
+         } else if ( CABS1( D( K ) ).GE.CABS1( DL( K ) ) ) {
 
             // No row interchange required
 
@@ -81,22 +81,22 @@
             D( K ) = DL( K )
             TEMP = D( K+1 )
             D( K+1 ) = DU( K ) - MULT*TEMP
-            IF( K.LT.( N-1 ) ) THEN
+            if ( K.LT.( N-1 ) ) {
                DL( K ) = DU( K+1 )
                DU( K+1 ) = -MULT*DL( K )
-            END IF
+            }
             DU( K ) = TEMP
             DO 20 J = 1, NRHS
                TEMP = B( K, J )
                B( K, J ) = B( K+1, J )
                B( K+1, J ) = TEMP - MULT*B( K+1, J )
    20       CONTINUE
-         END IF
+         }
    30 CONTINUE
-      IF( D( N ).EQ.ZERO ) THEN
+      if ( D( N ).EQ.ZERO ) {
          INFO = N
          RETURN
-      END IF
+      }
 
       // Back solve with the matrix U from the factorization.
 

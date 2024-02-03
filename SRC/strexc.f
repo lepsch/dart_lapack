@@ -38,23 +38,23 @@
 
       INFO = 0
       WANTQ = LSAME( COMPQ, 'V' )
-      IF( .NOT.WANTQ .AND. .NOT.LSAME( COMPQ, 'N' ) ) THEN
+      if ( .NOT.WANTQ .AND. .NOT.LSAME( COMPQ, 'N' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDT.LT.MAX( 1, N ) ) THEN
+      } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.MAX( 1, N ) ) ) THEN
+      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.MAX( 1, N ) ) ) {
          INFO = -6
-      ELSE IF(( IFST.LT.1 .OR. IFST.GT.N ).AND.( N.GT.0 )) THEN
+      } else if (( IFST.LT.1 .OR. IFST.GT.N ).AND.( N.GT.0 )) {
          INFO = -7
-      ELSE IF(( ILST.LT.1 .OR. ILST.GT.N ).AND.( N.GT.0 )) THEN
+      } else if (( ILST.LT.1 .OR. ILST.GT.N ).AND.( N.GT.0 )) {
          INFO = -8
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'STREXC', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -63,28 +63,28 @@
       // Determine the first row of specified block
       // and find out it is 1 by 1 or 2 by 2.
 
-      IF( IFST.GT.1 ) THEN
+      if ( IFST.GT.1 ) {
          IF( T( IFST, IFST-1 ).NE.ZERO ) IFST = IFST - 1
-      END IF
+      }
       NBF = 1
-      IF( IFST.LT.N ) THEN
+      if ( IFST.LT.N ) {
          IF( T( IFST+1, IFST ).NE.ZERO ) NBF = 2
-      END IF
+      }
 
       // Determine the first row of the final block
       // and find out it is 1 by 1 or 2 by 2.
 
-      IF( ILST.GT.1 ) THEN
+      if ( ILST.GT.1 ) {
          IF( T( ILST, ILST-1 ).NE.ZERO ) ILST = ILST - 1
-      END IF
+      }
       NBL = 1
-      IF( ILST.LT.N ) THEN
+      if ( ILST.LT.N ) {
          IF( T( ILST+1, ILST ).NE.ZERO ) NBL = 2
-      END IF
+      }
 
       IF( IFST.EQ.ILST ) RETURN
 
-      IF( IFST.LT.ILST ) THEN
+      if ( IFST.LT.ILST ) {
 
          // Update ILST
 
@@ -96,26 +96,26 @@
 
          // Swap block with next one below
 
-         IF( NBF.EQ.1 .OR. NBF.EQ.2 ) THEN
+         if ( NBF.EQ.1 .OR. NBF.EQ.2 ) {
 
             // Current block either 1 by 1 or 2 by 2
 
             NBNEXT = 1
-            IF( HERE+NBF+1.LE.N ) THEN
+            if ( HERE+NBF+1.LE.N ) {
                IF( T( HERE+NBF+1, HERE+NBF ).NE.ZERO ) NBNEXT = 2
-            END IF
+            }
             CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, NBF, NBNEXT, WORK, INFO )
-            IF( INFO.NE.0 ) THEN
+            if ( INFO.NE.0 ) {
                ILST = HERE
                RETURN
-            END IF
+            }
             HERE = HERE + NBNEXT
 
             // Test if 2 by 2 block breaks into two 1 by 1 blocks
 
-            IF( NBF.EQ.2 ) THEN
+            if ( NBF.EQ.2 ) {
                IF( T( HERE+1, HERE ).EQ.ZERO ) NBF = 3
-            END IF
+            }
 
          } else {
 
@@ -123,15 +123,15 @@
             // must be swapped individually
 
             NBNEXT = 1
-            IF( HERE+3.LE.N ) THEN
+            if ( HERE+3.LE.N ) {
                IF( T( HERE+3, HERE+2 ).NE.ZERO ) NBNEXT = 2
-            END IF
+            }
             CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, NBNEXT, WORK, INFO )
-            IF( INFO.NE.0 ) THEN
+            if ( INFO.NE.0 ) {
                ILST = HERE
                RETURN
-            END IF
-            IF( NBNEXT.EQ.1 ) THEN
+            }
+            if ( NBNEXT.EQ.1 ) {
 
                // Swap two 1 by 1 blocks, no problems possible
 
@@ -142,15 +142,15 @@
                // Recompute NBNEXT in case 2 by 2 split
 
                IF( T( HERE+2, HERE+1 ).EQ.ZERO ) NBNEXT = 1
-               IF( NBNEXT.EQ.2 ) THEN
+               if ( NBNEXT.EQ.2 ) {
 
                   // 2 by 2 Block did not split
 
                   CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO )
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                      ILST = HERE
                      RETURN
-                  END IF
+                  }
                   HERE = HERE + 2
                } else {
 
@@ -158,9 +158,9 @@
 
                   CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO )                   CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, 1, WORK, INFO )
                   HERE = HERE + 2
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
          IF( HERE.LT.ILST ) GO TO 10
 
       } else {
@@ -170,26 +170,26 @@
 
          // Swap block with next one above
 
-         IF( NBF.EQ.1 .OR. NBF.EQ.2 ) THEN
+         if ( NBF.EQ.1 .OR. NBF.EQ.2 ) {
 
             // Current block either 1 by 1 or 2 by 2
 
             NBNEXT = 1
-            IF( HERE.GE.3 ) THEN
+            if ( HERE.GE.3 ) {
                IF( T( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
-            END IF
+            }
             CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, NBF, WORK, INFO )
-            IF( INFO.NE.0 ) THEN
+            if ( INFO.NE.0 ) {
                ILST = HERE
                RETURN
-            END IF
+            }
             HERE = HERE - NBNEXT
 
             // Test if 2 by 2 block breaks into two 1 by 1 blocks
 
-            IF( NBF.EQ.2 ) THEN
+            if ( NBF.EQ.2 ) {
                IF( T( HERE+1, HERE ).EQ.ZERO ) NBF = 3
-            END IF
+            }
 
          } else {
 
@@ -197,15 +197,15 @@
             // must be swapped individually
 
             NBNEXT = 1
-            IF( HERE.GE.3 ) THEN
+            if ( HERE.GE.3 ) {
                IF( T( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
-            END IF
+            }
             CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, 1, WORK, INFO )
-            IF( INFO.NE.0 ) THEN
+            if ( INFO.NE.0 ) {
                ILST = HERE
                RETURN
-            END IF
-            IF( NBNEXT.EQ.1 ) THEN
+            }
+            if ( NBNEXT.EQ.1 ) {
 
                // Swap two 1 by 1 blocks, no problems possible
 
@@ -216,15 +216,15 @@
                // Recompute NBNEXT in case 2 by 2 split
 
                IF( T( HERE, HERE-1 ).EQ.ZERO ) NBNEXT = 1
-               IF( NBNEXT.EQ.2 ) THEN
+               if ( NBNEXT.EQ.2 ) {
 
                   // 2 by 2 Block did not split
 
                   CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-1, 2, 1, WORK, INFO )
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                      ILST = HERE
                      RETURN
-                  END IF
+                  }
                   HERE = HERE - 2
                } else {
 
@@ -232,11 +232,11 @@
 
                   CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO )                   CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-1, 1, 1, WORK, INFO )
                   HERE = HERE - 2
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
          IF( HERE.GT.ILST ) GO TO 20
-      END IF
+      }
       ILST = HERE
 
       RETURN

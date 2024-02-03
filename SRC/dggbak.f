@@ -36,29 +36,29 @@
       LEFTV = LSAME( SIDE, 'L' )
 
       INFO = 0
-      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
+      if ( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) {
          INFO = -1
-      ELSE IF( .NOT.RIGHTV .AND. .NOT.LEFTV ) THEN
+      } else if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( ILO.LT.1 ) THEN
+      } else if ( ILO.LT.1 ) {
          INFO = -4
-      ELSE IF( N.EQ.0 .AND. IHI.EQ.0 .AND. ILO.NE.1 ) THEN
+      } else if ( N.EQ.0 .AND. IHI.EQ.0 .AND. ILO.NE.1 ) {
          INFO = -4
-      ELSE IF( N.GT.0 .AND. ( IHI.LT.ILO .OR. IHI.GT.MAX( 1, N ) ) ) THEN
+      } else if ( N.GT.0 .AND. ( IHI.LT.ILO .OR. IHI.GT.MAX( 1, N ) ) ) {
          INFO = -5
-      ELSE IF( N.EQ.0 .AND. ILO.EQ.1 .AND. IHI.NE.0 ) THEN
+      } else if ( N.EQ.0 .AND. ILO.EQ.1 .AND. IHI.NE.0 ) {
          INFO = -5
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -8
-      ELSE IF( LDV.LT.MAX( 1, N ) ) THEN
+      } else if ( LDV.LT.MAX( 1, N ) ) {
          INFO = -10
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGGBAK', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -68,33 +68,33 @@
 
       // Backward balance
 
-      IF( LSAME( JOB, 'S' ) .OR. LSAME( JOB, 'B' ) ) THEN
+      if ( LSAME( JOB, 'S' ) .OR. LSAME( JOB, 'B' ) ) {
 
          // Backward transformation on right eigenvectors
 
-         IF( RIGHTV ) THEN
+         if ( RIGHTV ) {
             DO 10 I = ILO, IHI
                CALL DSCAL( M, RSCALE( I ), V( I, 1 ), LDV )
    10       CONTINUE
-         END IF
+         }
 
          // Backward transformation on left eigenvectors
 
-         IF( LEFTV ) THEN
+         if ( LEFTV ) {
             DO 20 I = ILO, IHI
                CALL DSCAL( M, LSCALE( I ), V( I, 1 ), LDV )
    20       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       // Backward permutation
 
    30 CONTINUE
-      IF( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) THEN
+      if ( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) {
 
          // Backward permutation on right eigenvectors
 
-         IF( RIGHTV ) THEN
+         if ( RIGHTV ) {
             IF( ILO.EQ.1 ) GO TO 50
 
             DO 40 I = ILO - 1, 1, -1
@@ -110,12 +110,12 @@
                IF( K.EQ.I ) GO TO 60
                CALL DSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
    60       CONTINUE
-         END IF
+         }
 
          // Backward permutation on left eigenvectors
 
    70    CONTINUE
-         IF( LEFTV ) THEN
+         if ( LEFTV ) {
             IF( ILO.EQ.1 ) GO TO 90
             DO 80 I = ILO - 1, 1, -1
                K = INT(LSCALE( I ))
@@ -130,8 +130,8 @@
                IF( K.EQ.I ) GO TO 100
                CALL DSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
   100       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
   110 CONTINUE
 

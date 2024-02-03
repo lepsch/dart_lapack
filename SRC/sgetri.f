@@ -44,19 +44,19 @@
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
 
       LQUERY = ( LWORK.EQ.-1 )
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -3
-      ELSE IF( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGETRI', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -70,19 +70,19 @@
 
       NBMIN = 2
       LDWORK = N
-      IF( NB.GT.1 .AND. NB.LT.N ) THEN
+      if ( NB.GT.1 .AND. NB.LT.N ) {
          IWS = MAX( LDWORK*NB, 1 )
-         IF( LWORK.LT.IWS ) THEN
+         if ( LWORK.LT.IWS ) {
             NB = LWORK / LDWORK
             NBMIN = MAX( 2, ILAENV( 2, 'SGETRI', ' ', N, -1, -1, -1 ) )
-         END IF
+         }
       } else {
          IWS = N
-      END IF
+      }
 
       // Solve the equation inv(A)*L = inv(U) for inv(A).
 
-      IF( NB.LT.NBMIN .OR. NB.GE.N ) THEN
+      if ( NB.LT.NBMIN .OR. NB.GE.N ) {
 
          // Use unblocked code.
 
@@ -122,7 +122,7 @@
             IF( J+JB.LE.N ) CALL SGEMM( 'No transpose', 'No transpose', N, JB, N-J-JB+1, -ONE, A( 1, J+JB ), LDA, WORK( J+JB ), LDWORK, ONE, A( 1, J ), LDA )
             CALL STRSM( 'Right', 'Lower', 'No transpose', 'Unit', N, JB, ONE, WORK( J ), LDWORK, A( 1, J ), LDA )
    50    CONTINUE
-      END IF
+      }
 
       // Apply column interchanges.
 

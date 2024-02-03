@@ -49,29 +49,29 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( LDAF.LT.MAX( 1, N ) ) THEN
+      } else if ( LDAF.LT.MAX( 1, N ) ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZLA_SYRCOND_C', -INFO )
          RETURN
-      END IF
+      }
       UP = .FALSE.
       IF ( LSAME( UPLO, 'U' ) ) UP = .TRUE.
 
       // Compute norm of op(A)*op2(C).
 
       ANORM = 0.0D+0
-      IF ( UP ) THEN
+      if ( UP ) {
          DO I = 1, N
             TMP = 0.0D+0
-            IF ( CAPPLY ) THEN
+            if ( CAPPLY ) {
                DO J = 1, I
                   TMP = TMP + CABS1( A( J, I ) ) / C( J )
                END DO
@@ -85,14 +85,14 @@
                DO J = I+1, N
                   TMP = TMP + CABS1( A( I, J ) )
                END DO
-            END IF
+            }
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
          END DO
       } else {
          DO I = 1, N
             TMP = 0.0D+0
-            IF ( CAPPLY ) THEN
+            if ( CAPPLY ) {
                DO J = 1, I
                   TMP = TMP + CABS1( A( I, J ) ) / C( J )
                END DO
@@ -106,20 +106,20 @@
                DO J = I+1, N
                   TMP = TMP + CABS1( A( J, I ) )
                END DO
-            END IF
+            }
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
          END DO
-      END IF
+      }
 
       // Quick return if possible.
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          ZLA_SYRCOND_C = 1.0D+0
          RETURN
-      ELSE IF( ANORM .EQ. 0.0D+0 ) THEN
+      } else if ( ANORM .EQ. 0.0D+0 ) {
          RETURN
-      END IF
+      }
 
       // Estimate the norm of inv(op(A)).
 
@@ -128,8 +128,8 @@
       KASE = 0
    10 CONTINUE
       CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
-      IF( KASE.NE.0 ) THEN
-         IF( KASE.EQ.2 ) THEN
+      if ( KASE.NE.0 ) {
+         if ( KASE.EQ.2 ) {
 
             // Multiply by R.
 
@@ -137,7 +137,7 @@
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
 
-            IF ( UP ) THEN
+            if ( UP ) {
                CALL ZSYTRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             } else {
                CALL ZSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
@@ -145,35 +145,35 @@
 
             // Multiply by inv(C).
 
-            IF ( CAPPLY ) THEN
+            if ( CAPPLY ) {
                DO I = 1, N
                   WORK( I ) = WORK( I ) * C( I )
                END DO
-            END IF
+            }
          } else {
 
             // Multiply by inv(C**T).
 
-            IF ( CAPPLY ) THEN
+            if ( CAPPLY ) {
                DO I = 1, N
                   WORK( I ) = WORK( I ) * C( I )
                END DO
-            END IF
+            }
 
-            IF ( UP ) THEN
+            if ( UP ) {
                CALL ZSYTRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             } else {
                CALL ZSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
-            END IF
+            }
 
             // Multiply by R.
 
             DO I = 1, N
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
-         END IF
+         }
          GO TO 10
-      END IF
+      }
 
       // Compute the estimate of the reciprocal condition number.
 

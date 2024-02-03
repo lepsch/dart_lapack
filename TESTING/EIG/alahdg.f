@@ -26,31 +26,31 @@
 
       // First line describing matrices in this path
 
-      IF( LSAMEN( 3, C2, 'GQR' ) ) THEN
+      if ( LSAMEN( 3, C2, 'GQR' ) ) {
          ITYPE = 1
          WRITE( IOUNIT, FMT = 9991 )PATH
-      ELSE IF( LSAMEN( 3, C2, 'GRQ' ) ) THEN
+      } else if ( LSAMEN( 3, C2, 'GRQ' ) ) {
          ITYPE = 2
          WRITE( IOUNIT, FMT = 9992 )PATH
-      ELSE IF( LSAMEN( 3, C2, 'LSE' ) ) THEN
+      } else if ( LSAMEN( 3, C2, 'LSE' ) ) {
          ITYPE = 3
          WRITE( IOUNIT, FMT = 9993 )PATH
-      ELSE IF( LSAMEN( 3, C2, 'GLM' ) ) THEN
+      } else if ( LSAMEN( 3, C2, 'GLM' ) ) {
          ITYPE = 4
          WRITE( IOUNIT, FMT = 9994 )PATH
-      ELSE IF( LSAMEN( 3, C2, 'GSV' ) ) THEN
+      } else if ( LSAMEN( 3, C2, 'GSV' ) ) {
          ITYPE = 5
          WRITE( IOUNIT, FMT = 9995 )PATH
-      ELSE IF( LSAMEN( 3, C2, 'CSD' ) ) THEN
+      } else if ( LSAMEN( 3, C2, 'CSD' ) ) {
          ITYPE = 6
          WRITE( IOUNIT, FMT = 9996 )PATH
-      END IF
+      }
 
       // Matrix types
 
       WRITE( IOUNIT, FMT = 9999 )'Matrix types: '
 
-      IF( ITYPE.EQ.1 )THEN
+      if ( ITYPE.EQ.1 ) {
          WRITE( IOUNIT, FMT = 9950 )1
          WRITE( IOUNIT, FMT = 9952 )2
          WRITE( IOUNIT, FMT = 9954 )3
@@ -59,7 +59,7 @@
          WRITE( IOUNIT, FMT = 9957 )6
          WRITE( IOUNIT, FMT = 9961 )7
          WRITE( IOUNIT, FMT = 9962 )8
-      ELSE IF( ITYPE.EQ.2 )THEN
+      } else if ( ITYPE.EQ.2 ) {
          WRITE( IOUNIT, FMT = 9951 )1
          WRITE( IOUNIT, FMT = 9953 )2
          WRITE( IOUNIT, FMT = 9954 )3
@@ -68,7 +68,7 @@
          WRITE( IOUNIT, FMT = 9957 )6
          WRITE( IOUNIT, FMT = 9961 )7
          WRITE( IOUNIT, FMT = 9962 )8
-      ELSE IF( ITYPE.EQ.3 )THEN
+      } else if ( ITYPE.EQ.3 ) {
          WRITE( IOUNIT, FMT = 9950 )1
          WRITE( IOUNIT, FMT = 9952 )2
          WRITE( IOUNIT, FMT = 9954 )3
@@ -77,7 +77,7 @@
          WRITE( IOUNIT, FMT = 9955 )6
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = 9955 )8
-      ELSE IF( ITYPE.EQ.4 )THEN
+      } else if ( ITYPE.EQ.4 ) {
          WRITE( IOUNIT, FMT = 9951 )1
          WRITE( IOUNIT, FMT = 9953 )2
          WRITE( IOUNIT, FMT = 9954 )3
@@ -86,7 +86,7 @@
          WRITE( IOUNIT, FMT = 9955 )6
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = 9955 )8
-      ELSE IF( ITYPE.EQ.5 )THEN
+      } else if ( ITYPE.EQ.5 ) {
          WRITE( IOUNIT, FMT = 9950 )1
          WRITE( IOUNIT, FMT = 9952 )2
          WRITE( IOUNIT, FMT = 9954 )3
@@ -95,17 +95,17 @@
          WRITE( IOUNIT, FMT = 9957 )6
          WRITE( IOUNIT, FMT = 9959 )7
          WRITE( IOUNIT, FMT = 9960 )8
-      ELSE IF( ITYPE.EQ.6 )THEN
+      } else if ( ITYPE.EQ.6 ) {
          WRITE( IOUNIT, FMT = 9963 )1
          WRITE( IOUNIT, FMT = 9964 )2
          WRITE( IOUNIT, FMT = 9965 )3
-      END IF
+      }
 
       // Tests performed
 
       WRITE( IOUNIT, FMT = 9999 )'Test ratios: '
 
-      IF( ITYPE.EQ.1 ) THEN
+      if ( ITYPE.EQ.1 ) {
 
          // GQR decomposition of rectangular matrices
 
@@ -113,7 +113,7 @@
          WRITE( IOUNIT, FMT = 9931 )2
          WRITE( IOUNIT, FMT = 9932 )3
          WRITE( IOUNIT, FMT = 9933 )4
-      ELSE IF( ITYPE.EQ.2 ) THEN
+      } else if ( ITYPE.EQ.2 ) {
 
          // GRQ decomposition of rectangular matrices
 
@@ -121,18 +121,18 @@
          WRITE( IOUNIT, FMT = 9935 )2
          WRITE( IOUNIT, FMT = 9932 )3
          WRITE( IOUNIT, FMT = 9933 )4
-      ELSE IF( ITYPE.EQ.3 ) THEN
+      } else if ( ITYPE.EQ.3 ) {
 
          // LSE Problem
 
          WRITE( IOUNIT, FMT = 9937 )1
          WRITE( IOUNIT, FMT = 9938 )2
-      ELSE IF( ITYPE.EQ.4 ) THEN
+      } else if ( ITYPE.EQ.4 ) {
 
          // GLM Problem
 
          WRITE( IOUNIT, FMT = 9939 )1
-      ELSE IF( ITYPE.EQ.5 ) THEN
+      } else if ( ITYPE.EQ.5 ) {
 
          // GSVD
 
@@ -141,7 +141,7 @@
          WRITE( IOUNIT, FMT = 9942 )3
          WRITE( IOUNIT, FMT = 9943 )4
          WRITE( IOUNIT, FMT = 9944 )5
-      ELSE IF( ITYPE.EQ.6 ) THEN
+      } else if ( ITYPE.EQ.6 ) {
 
          // CSD
 
@@ -162,7 +162,7 @@
          WRITE( IOUNIT, FMT = 9924 )13
          WRITE( IOUNIT, FMT = 9925 )14
          WRITE( IOUNIT, FMT = 9926 )15
-      END IF
+      }
 
  9999 FORMAT( 1X, A )
  9991 FORMAT( / 1X, A3, ': GQR factorization of general matrices' )

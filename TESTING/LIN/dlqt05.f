@@ -38,11 +38,11 @@
       EPS = DLAMCH( 'Epsilon' )
       K = M
       N2 = M+N
-      IF( N.GT.0 ) THEN
+      if ( N.GT.0 ) {
          NP1 = M+1
       } else {
          NP1 = 1
-      END IF
+      }
       LWORK = N2*N2*NB
 
       // Dynamically allocate all arrays
@@ -57,16 +57,16 @@
       DO J=1,M
          CALL DLARNV( 2, ISEED, M-J+1, A( J, J ) )
       END DO
-      IF( N.GT.0 ) THEN
+      if ( N.GT.0 ) {
          DO J=1,N-L
             CALL DLARNV( 2, ISEED, M, A( 1, MIN(N+M,M+1) + J - 1 ) )
          END DO
-      END IF
-      IF( L.GT.0 ) THEN
+      }
+      if ( L.GT.0 ) {
          DO J=1,L
             CALL DLARNV( 2, ISEED, M-J+1, A( J, MIN(N+M,N+M-L+1) + J - 1 ) )
          END DO
-      END IF
+      }
 
       // Copy the matrix A to the array AF.
 
@@ -91,11 +91,11 @@
       CALL DGEMM( 'N', 'T', M, N2, N2, -ONE,  A, M, Q, N2, ONE, R, N2)
       ANORM = DLANGE( '1', M, N2, A, M, RWORK )
       RESID = DLANGE( '1', M, N2, R, N2, RWORK )
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
          RESULT( 1 ) = RESID / (EPS*ANORM*MAX(1,N2))
       } else {
          RESULT( 1 ) = ZERO
-      END IF
+      }
 
       // Compute |I - Q*Q'| and store in RESULT(2)
 
@@ -121,11 +121,11 @@
 
       CALL DGEMM( 'N', 'N', N2, M, N2, -ONE, Q, N2, C, N2, ONE, CF, N2 )
       RESID = DLANGE( '1', N2, M, CF, N2, RWORK )
-      IF( CNORM.GT.ZERO ) THEN
+      if ( CNORM.GT.ZERO ) {
          RESULT( 3 ) = RESID / (EPS*MAX(1,N2)*CNORM)
       } else {
          RESULT( 3 ) = ZERO
-      END IF
+      }
 
 
       // Copy C into CF again
@@ -141,11 +141,11 @@
       CALL DGEMM('T','N',N2,M,N2,-ONE,Q,N2,C,N2,ONE,CF,N2)
       RESID = DLANGE( '1', N2, M, CF, N2, RWORK )
 
-      IF( CNORM.GT.ZERO ) THEN
+      if ( CNORM.GT.ZERO ) {
          RESULT( 4 ) = RESID / (EPS*MAX(1,N2)*CNORM)
       } else {
          RESULT( 4 ) = ZERO
-      END IF
+      }
 
       // Generate random m-by-n matrix D and a copy DF
 
@@ -163,11 +163,11 @@
 
       CALL DGEMM('N','N',M,N2,N2,-ONE,D,M,Q,N2,ONE,DF,M)
       RESID = DLANGE('1',M, N2,DF,M,RWORK )
-      IF( CNORM.GT.ZERO ) THEN
+      if ( CNORM.GT.ZERO ) {
          RESULT( 5 ) = RESID / (EPS*MAX(1,N2)*DNORM)
       } else {
          RESULT( 5 ) = ZERO
-      END IF
+      }
 
       // Copy D into DF again
 
@@ -182,11 +182,11 @@
 
       CALL DGEMM( 'N', 'T', M, N2, N2, -ONE, D, M, Q, N2, ONE, DF, M )
       RESID = DLANGE( '1', M, N2, DF, M, RWORK )
-      IF( CNORM.GT.ZERO ) THEN
+      if ( CNORM.GT.ZERO ) {
          RESULT( 6 ) = RESID / (EPS*MAX(1,N2)*DNORM)
       } else {
          RESULT( 6 ) = ZERO
-      END IF
+      }
 
       // Deallocate all arrays
 

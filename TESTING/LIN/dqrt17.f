@@ -40,25 +40,25 @@
 
       DQRT17 = ZERO
 
-      IF( LSAME( TRANS, 'N' ) ) THEN
+      if ( LSAME( TRANS, 'N' ) ) {
          NROWS = M
          NCOLS = N
-      ELSE IF( LSAME( TRANS, 'T' ) ) THEN
+      } else if ( LSAME( TRANS, 'T' ) ) {
          NROWS = N
          NCOLS = M
       } else {
          CALL XERBLA( 'DQRT17', 1 )
          RETURN
-      END IF
+      }
 
-      IF( LWORK.LT.NCOLS*NRHS ) THEN
+      if ( LWORK.LT.NCOLS*NRHS ) {
          CALL XERBLA( 'DQRT17', 13 )
          RETURN
-      END IF
+      }
 
-      IF( M.LE.0 .OR. N.LE.0 .OR. NRHS.LE.0 ) THEN
+      if ( M.LE.0 .OR. N.LE.0 .OR. NRHS.LE.0 ) {
          RETURN
-      END IF
+      }
 
       NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK )
       SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
@@ -69,10 +69,10 @@
       CALL DLACPY( 'All', NROWS, NRHS, B, LDB, C, LDB )
       CALL DGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A, LDA, X, LDX, ONE, C, LDB )
       NORMRS = DLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK )
-      IF( NORMRS.GT.SMLNUM ) THEN
+      if ( NORMRS.GT.SMLNUM ) {
          ISCL = 1
          CALL DLASCL( 'General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO )
-      END IF
+      }
 
       // compute R**T * op(A)
 
@@ -85,12 +85,12 @@
 
       IF( ISCL.EQ.1 ) ERR = ERR*NORMRS
 
-      IF( IRESID.EQ.1 ) THEN
+      if ( IRESID.EQ.1 ) {
          NORMB = DLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK )
          IF( NORMB.NE.ZERO ) ERR = ERR / NORMB
       } else {
          IF( NORMRS.NE.ZERO ) ERR = ERR / NORMRS
-      END IF
+      }
 
       DQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N, NRHS ) ) )
       RETURN

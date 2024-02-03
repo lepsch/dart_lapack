@@ -30,10 +30,10 @@
       RMAX = SLAMCH( 'O' )
       DO 20 J = 1, N
          DO 10 I = 1, M
-            IF( ( DBLE( A( I, J ) ).LT.-RMAX ) .OR. ( DBLE( A( I, J ) ).GT.RMAX ) .OR. ( DIMAG( A( I, J ) ).LT.-RMAX ) .OR. ( DIMAG( A( I, J ) ).GT.RMAX ) ) THEN
+            if ( ( DBLE( A( I, J ) ).LT.-RMAX ) .OR. ( DBLE( A( I, J ) ).GT.RMAX ) .OR. ( DIMAG( A( I, J ) ).LT.-RMAX ) .OR. ( DIMAG( A( I, J ) ).GT.RMAX ) ) {
                INFO = 1
                GO TO 30
-            END IF
+            }
             SA( I, J ) = CMPLX( A( I, J ) )
    10    CONTINUE
    20 CONTINUE

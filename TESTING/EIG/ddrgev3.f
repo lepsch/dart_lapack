@@ -65,21 +65,21 @@
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -2
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -3
-      ELSE IF( THRESH.LT.ZERO ) THEN
+      } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      ELSE IF( LDA.LE.1 .OR. LDA.LT.NMAX ) THEN
+      } else if ( LDA.LE.1 .OR. LDA.LT.NMAX ) {
          INFO = -9
-      ELSE IF( LDQ.LE.1 .OR. LDQ.LT.NMAX ) THEN
+      } else if ( LDQ.LE.1 .OR. LDQ.LT.NMAX ) {
          INFO = -14
-      ELSE IF( LDQE.LE.1 .OR. LDQE.LT.NMAX ) THEN
+      } else if ( LDQE.LE.1 .OR. LDQE.LT.NMAX ) {
          INFO = -17
-      END IF
+      }
 
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
@@ -89,19 +89,19 @@
         // following subroutine, as returned by ILAENV.
 
       MINWRK = 1
-      IF( INFO.EQ.0 .AND. LWORK.GE.1 ) THEN
+      if ( INFO.EQ.0 .AND. LWORK.GE.1 ) {
          MINWRK = MAX( 1, 8*NMAX, NMAX*( NMAX+1 ) )
          MAXWRK = 7*NMAX + NMAX*ILAENV( 1, 'DGEQRF', ' ', NMAX, 1, NMAX, 0 )
          MAXWRK = MAX( MAXWRK, NMAX*( NMAX+1 ) )
          WORK( 1 ) = MAXWRK
-      END IF
+      }
 
       IF( LWORK.LT.MINWRK ) INFO = -25
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DDRGEV3', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -130,11 +130,11 @@
          RMAGN( 2 ) = SAFMAX*ULP / DBLE( N1 )
          RMAGN( 3 ) = SAFMIN*ULPINV*N1
 
-         IF( NSIZES.NE.1 ) THEN
+         if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
-         END IF
+         }
 
          DO 210 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 210
@@ -172,33 +172,33 @@
 
             IF( MTYPES.GT.MAXTYP ) GO TO 100
             IERR = 0
-            IF( KCLASS( JTYPE ).LT.3 ) THEN
+            if ( KCLASS( JTYPE ).LT.3 ) {
 
                // Generate A (w/o rotation)
 
-               IF( ABS( KATYPE( JTYPE ) ).EQ.3 ) THEN
+               if ( ABS( KATYPE( JTYPE ) ).EQ.3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   IF( IN.NE.N ) CALL DLASET( 'Full', N, N, ZERO, ZERO, A, LDA )
                } else {
                   IN = N
-               END IF
+               }
                CALL DLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA )
                IADD = KADD( KAZERO( JTYPE ) )
                IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = ONE
 
                // Generate B (w/o rotation)
 
-               IF( ABS( KBTYPE( JTYPE ) ).EQ.3 ) THEN
+               if ( ABS( KBTYPE( JTYPE ) ).EQ.3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   IF( IN.NE.N ) CALL DLASET( 'Full', N, N, ZERO, ZERO, B, LDA )
                } else {
                   IN = N
-               END IF
+               }
                CALL DLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA )
                IADD = KADD( KBZERO( JTYPE ) )
                IF( IADD.NE.0 .AND. IADD.LE.N ) B( IADD, IADD ) = ONE
 
-               IF( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) THEN
+               if ( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) {
 
                   // Include rotations
 
@@ -232,8 +232,8 @@
    50                CONTINUE
    60             CONTINUE
                   CALL DORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90                   CALL DORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90                   CALL DORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90                   CALL DORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90
-               END IF
-            ELSE IF (KCLASS( JTYPE ).EQ.3) THEN
+               }
+            } else if (KCLASS( JTYPE ).EQ.3) {
 
                // Random matrices
 
@@ -266,15 +266,15 @@
                   B( JC, JC ) = ZERO
    83          CONTINUE
 
-            END IF
+            }
 
    90       CONTINUE
 
-            IF( IERR.NE.0 ) THEN
+            if ( IERR.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
                RETURN
-            END IF
+            }
 
   100       CONTINUE
 
@@ -295,38 +295,38 @@
             CALL DLACPY( ' ', N, N, A, LDA, S, LDA )
             CALL DLACPY( ' ', N, N, B, LDA, T, LDA )
             CALL DGGEV3( 'V', 'V', N, S, LDA, T, LDA, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, IERR )
-            IF( IERR.NE.0 .AND. IERR.NE.N+1 ) THEN
+            if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'DGGEV31', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
                GO TO 190
-            END IF
+            }
 
             // Do the tests (1) and (2)
 
             CALL DGET52( .TRUE., N, A, LDA, B, LDA, Q, LDQ, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) )
-            IF( RESULT( 2 ).GT.THRESH ) THEN
+            if ( RESULT( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DGGEV31', RESULT( 2 ), N, JTYPE, IOLDSD
-            END IF
+            }
 
             // Do the tests (3) and (4)
 
             CALL DGET52( .FALSE., N, A, LDA, B, LDA, Z, LDQ, ALPHAR, ALPHAI, BETA, WORK, RESULT( 3 ) )
-            IF( RESULT( 4 ).GT.THRESH ) THEN
+            if ( RESULT( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DGGEV31', RESULT( 4 ), N, JTYPE, IOLDSD
-            END IF
+            }
 
             // Do the test (5)
 
             CALL DLACPY( ' ', N, N, A, LDA, S, LDA )
             CALL DLACPY( ' ', N, N, B, LDA, T, LDA )
             CALL DGGEV3( 'N', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, Z, LDQ, WORK, LWORK, IERR )
-            IF( IERR.NE.0 .AND. IERR.NE.N+1 ) THEN
+            if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'DGGEV32', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
                GO TO 190
-            END IF
+            }
 
             DO 120 J = 1, N
                IF( ALPHAR( J ).NE.ALPHR1( J ) .OR. ALPHAI( J ).NE. ALPHI1( J ) .OR. BETA( J ).NE.BETA1( J ) )RESULT( 5 ) = ULPINV
@@ -338,12 +338,12 @@
             CALL DLACPY( ' ', N, N, A, LDA, S, LDA )
             CALL DLACPY( ' ', N, N, B, LDA, T, LDA )
             CALL DGGEV3( 'V', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, QE, LDQE, Z, LDQ, WORK, LWORK, IERR )
-            IF( IERR.NE.0 .AND. IERR.NE.N+1 ) THEN
+            if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'DGGEV33', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
                GO TO 190
-            END IF
+            }
 
             DO 130 J = 1, N
                IF( ALPHAR( J ).NE.ALPHR1( J ) .OR. ALPHAI( J ).NE. ALPHI1( J ) .OR. BETA( J ).NE.BETA1( J ) )RESULT( 6 ) = ULPINV
@@ -361,12 +361,12 @@
             CALL DLACPY( ' ', N, N, A, LDA, S, LDA )
             CALL DLACPY( ' ', N, N, B, LDA, T, LDA )
             CALL DGGEV3( 'N', 'V', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, QE, LDQE, WORK, LWORK, IERR )
-            IF( IERR.NE.0 .AND. IERR.NE.N+1 ) THEN
+            if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'DGGEV34', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
                GO TO 190
-            END IF
+            }
 
             DO 160 J = 1, N
                IF( ALPHAR( J ).NE.ALPHR1( J ) .OR. ALPHAI( J ).NE. ALPHI1( J ) .OR. BETA( J ).NE.BETA1( J ) )RESULT( 7 ) = ULPINV
@@ -387,12 +387,12 @@
             // Print out tests which fail.
 
             DO 200 JR = 1, 7
-               IF( RESULT( JR ).GE.THRESH ) THEN
+               if ( RESULT( JR ).GE.THRESH ) {
 
                   // If this is the first test to fail,
                   // print a header to the data file.
 
-                  IF( NERRS.EQ.0 ) THEN
+                  if ( NERRS.EQ.0 ) {
                      WRITE( NOUNIT, FMT = 9997 )'DGV'
 
                      // Matrix types
@@ -405,14 +405,14 @@
 
                      WRITE( NOUNIT, FMT = 9993 )
 
-                  END IF
+                  }
                   NERRS = NERRS + 1
-                  IF( RESULT( JR ).LT.10000.0D0 ) THEN
+                  if ( RESULT( JR ).LT.10000.0D0 ) {
                      WRITE( NOUNIT, FMT = 9992 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   } else {
                      WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR, RESULT( JR )
-                  END IF
-               END IF
+                  }
+               }
   200       CONTINUE
 
   210    CONTINUE

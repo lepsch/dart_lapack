@@ -45,19 +45,19 @@
          // INFO = -1
       // ELSE IF( ( ICOMPQ .EQ. 1 ) .AND. ( QSIZ .LT. MAX( 0, N ) ) )
 *    $        THEN
-      IF( QSIZ.LT.MAX( 0, N ) ) THEN
+      if ( QSIZ.LT.MAX( 0, N ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDQ.LT.MAX( 1, N ) ) THEN
+      } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDQS.LT.MAX( 1, N ) ) THEN
+      } else if ( LDQS.LT.MAX( 1, N ) ) {
          INFO = -8
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZLAED0', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -72,7 +72,7 @@
       SUBPBS = 1
       TLVLS = 0
    10 CONTINUE
-      IF( IWORK( SUBPBS ).GT.SMLSIZ ) THEN
+      if ( IWORK( SUBPBS ).GT.SMLSIZ ) {
          DO 20 J = SUBPBS, 1, -1
             IWORK( 2*J ) = ( IWORK( J )+1 ) / 2
             IWORK( 2*J-1 ) = IWORK( J ) / 2
@@ -80,7 +80,7 @@
          TLVLS = TLVLS + 1
          SUBPBS = 2*SUBPBS
          GO TO 10
-      END IF
+      }
       DO 30 J = 2, SUBPBS
          IWORK( J ) = IWORK( J ) + IWORK( J-1 )
    30 CONTINUE
@@ -125,21 +125,21 @@
 
       CURR = 0
       DO 70 I = 0, SPM1
-         IF( I.EQ.0 ) THEN
+         if ( I.EQ.0 ) {
             SUBMAT = 1
             MATSIZ = IWORK( 1 )
          } else {
             SUBMAT = IWORK( I ) + 1
             MATSIZ = IWORK( I+1 ) - IWORK( I )
-         END IF
+         }
          LL = IQ - 1 + IWORK( IQPTR+CURR )
          CALL DSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), RWORK( LL ), MATSIZ, RWORK, INFO )          CALL ZLACRM( QSIZ, MATSIZ, Q( 1, SUBMAT ), LDQ, RWORK( LL ), MATSIZ, QSTORE( 1, SUBMAT ), LDQS, RWORK( IWREM ) )
          IWORK( IQPTR+CURR+1 ) = IWORK( IQPTR+CURR ) + MATSIZ**2
          CURR = CURR + 1
-         IF( INFO.GT.0 ) THEN
+         if ( INFO.GT.0 ) {
             INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1
             RETURN
-         END IF
+         }
          K = 1
          DO 60 J = SUBMAT, IWORK( I+1 )
             IWORK( INDXQ+J ) = K
@@ -154,10 +154,10 @@
 
       CURLVL = 1
    80 CONTINUE
-      IF( SUBPBS.GT.1 ) THEN
+      if ( SUBPBS.GT.1 ) {
          SPM2 = SUBPBS - 2
          DO 90 I = 0, SPM2, 2
-            IF( I.EQ.0 ) THEN
+            if ( I.EQ.0 ) {
                SUBMAT = 1
                MATSIZ = IWORK( 2 )
                MSD2 = IWORK( 1 )
@@ -167,7 +167,7 @@
                MATSIZ = IWORK( I+2 ) - IWORK( I )
                MSD2 = MATSIZ / 2
                CURPRB = CURPRB + 1
-            END IF
+            }
 
       // Merge lower order eigensystems (of size MSD2 and MATSIZ - MSD2)
       // into an eigensystem of size MATSIZ.  ZLAED7 handles the case
@@ -177,16 +177,16 @@
       // I am free to use Q as a valuable working space until Loop 150.
 
             CALL ZLAED7( MATSIZ, MSD2, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, E( SUBMAT+MSD2-1 ), IWORK( INDXQ+SUBMAT ), RWORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), RWORK( IGIVNM ), Q( 1, SUBMAT ), RWORK( IWREM ), IWORK( SUBPBS+1 ), INFO )
-            IF( INFO.GT.0 ) THEN
+            if ( INFO.GT.0 ) {
                INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1
                RETURN
-            END IF
+            }
             IWORK( I / 2+1 ) = IWORK( I+2 )
    90    CONTINUE
          SUBPBS = SUBPBS / 2
          CURLVL = CURLVL + 1
          GO TO 80
-      END IF
+      }
 
       // end while
 

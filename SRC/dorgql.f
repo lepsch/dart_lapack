@@ -37,69 +37,69 @@
 
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 .OR. N.GT.M ) THEN
+      } else if ( N.LT.0 .OR. N.GT.M ) {
          INFO = -2
-      ELSE IF( K.LT.0 .OR. K.GT.N ) THEN
+      } else if ( K.LT.0 .OR. K.GT.N ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
-         IF( N.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( N.EQ.0 ) {
             LWKOPT = 1
          } else {
             NB = ILAENV( 1, 'DORGQL', ' ', M, N, K, -1 )
             LWKOPT = N*NB
-         END IF
+         }
          WORK( 1 ) = LWKOPT
 
-         IF( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
             INFO = -8
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DORGQL', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RETURN
-      END IF
+      }
 
       NBMIN = 2
       NX = 0
       IWS = N
-      IF( NB.GT.1 .AND. NB.LT.K ) THEN
+      if ( NB.GT.1 .AND. NB.LT.K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
          NX = MAX( 0, ILAENV( 3, 'DORGQL', ' ', M, N, K, -1 ) )
-         IF( NX.LT.K ) THEN
+         if ( NX.LT.K ) {
 
             // Determine if workspace is large enough for blocked code.
 
             LDWORK = N
             IWS = LDWORK*NB
-            IF( LWORK.LT.IWS ) THEN
+            if ( LWORK.LT.IWS ) {
 
                // Not enough workspace to use optimal NB:  reduce NB and
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK
                NBMIN = MAX( 2, ILAENV( 2, 'DORGQL', ' ', M, N, K, -1 ) )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
-      IF( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) THEN
+      if ( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) {
 
          // Use blocked code after the first block.
          // The last kk columns are handled by the block method.
@@ -115,19 +115,19 @@
    20    CONTINUE
       } else {
          KK = 0
-      END IF
+      }
 
       // Use unblocked code for the first or only block.
 
       CALL DORG2L( M-KK, N-KK, K-KK, A, LDA, TAU, WORK, IINFO )
 
-      IF( KK.GT.0 ) THEN
+      if ( KK.GT.0 ) {
 
          // Use blocked code
 
          DO 50 I = K - KK + 1, K, NB
             IB = MIN( NB, K-I+1 )
-            IF( N-K+I.GT.1 ) THEN
+            if ( N-K+I.GT.1 ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i+ib-1) . . . H(i+1) H(i)
@@ -137,7 +137,7 @@
                // Apply H to A(1:m-k+i+ib-1,1:n-k+i-1) from the left
 
                CALL DLARFB( 'Left', 'No transpose', 'Backward', 'Columnwise', M-K+I+IB-1, N-K+I-1, IB, A( 1, N-K+I ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK )
-            END IF
+            }
 
             // Apply H to rows 1:m-k+i+ib-1 of current block
 
@@ -151,7 +151,7 @@
    30          CONTINUE
    40       CONTINUE
    50    CONTINUE
-      END IF
+      }
 
       WORK( 1 ) = IWS
       RETURN

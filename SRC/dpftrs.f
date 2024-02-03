@@ -38,21 +38,21 @@
       INFO = 0
       NORMALTRANSR = LSAME( TRANSR, 'N' )
       LOWER = LSAME( UPLO, 'L' )
-      IF( .NOT.NORMALTRANSR .AND. .NOT.LSAME( TRANSR, 'T' ) ) THEN
+      if ( .NOT.NORMALTRANSR .AND. .NOT.LSAME( TRANSR, 'T' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) THEN
+      } else if ( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -4
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DPFTRS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -60,11 +60,11 @@
 
       // start execution: there are two triangular solves
 
-      IF( LOWER ) THEN
+      if ( LOWER ) {
          CALL DTFSM( TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, ONE, A, B, LDB )          CALL DTFSM( TRANSR, 'L', UPLO, 'T', 'N', N, NRHS, ONE, A, B, LDB )
       } else {
          CALL DTFSM( TRANSR, 'L', UPLO, 'T', 'N', N, NRHS, ONE, A, B, LDB )          CALL DTFSM( TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, ONE, A, B, LDB )
-      END IF
+      }
 
       RETURN
 

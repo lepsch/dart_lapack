@@ -24,21 +24,21 @@
       REAL, EXTERNAL :: SLAMCH
 
       INFO = 0
-      IF ( NBLOCK_DESIRED .LT. NSHIFTS+1 ) THEN
+      if ( NBLOCK_DESIRED .LT. NSHIFTS+1 ) {
          INFO = -8
-      END IF
-      IF ( LWORK .EQ.-1 ) THEN
+      }
+      if ( LWORK .EQ.-1 ) {
          // workspace query, quick return
          WORK( 1 ) = N*NBLOCK_DESIRED
          RETURN
-      ELSE IF ( LWORK .LT. N*NBLOCK_DESIRED ) THEN
+      } else if ( LWORK .LT. N*NBLOCK_DESIRED ) {
          INFO = -25
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CLAQZ3', -INFO )
          RETURN
-      END IF
+      }
 
 
       // Executable statements
@@ -48,17 +48,17 @@
       SAFMIN = SLAMCH( 'SAFE MINIMUM' )
       SAFMAX = ONE/SAFMIN
 
-      IF ( ILO .GE. IHI ) THEN
+      if ( ILO .GE. IHI ) {
          RETURN
-      END IF
+      }
 
-      IF ( ILSCHUR ) THEN
+      if ( ILSCHUR ) {
          ISTARTM = 1
          ISTOPM = N
       } else {
          ISTARTM = ILO
          ISTOPM = IHI
-      END IF
+      }
 
       NS = NSHIFTS
       NPOS = MAX( NBLOCK_DESIRED-NS, 1 )
@@ -75,17 +75,17 @@
       DO I = 1, NS
          // Introduce the shift
          SCALE = SQRT( ABS( ALPHA( I ) ) ) * SQRT( ABS( BETA( I ) ) )
-         IF( SCALE .GE. SAFMIN .AND. SCALE .LE. SAFMAX ) THEN
+         if ( SCALE .GE. SAFMIN .AND. SCALE .LE. SAFMAX ) {
             ALPHA( I ) = ALPHA( I )/SCALE
             BETA( I ) = BETA( I )/SCALE
-         END IF
+         }
 
          TEMP2 = BETA( I )*A( ILO, ILO )-ALPHA( I )*B( ILO, ILO )
          TEMP3 = BETA( I )*A( ILO+1, ILO )
-          IF ( ABS( TEMP2 ) .GT. SAFMAX .OR. ABS( TEMP3 ) .GT. SAFMAX ) THEN
+          if ( ABS( TEMP2 ) .GT. SAFMAX .OR. ABS( TEMP3 ) .GT. SAFMAX ) {
             TEMP2 = CONE
             TEMP3 = CZERO
-         END IF
+         }
 
          CALL CLARTG( TEMP2, TEMP3, C, S, TEMP )
          CALL CROT( NS, A( ILO, ILO ), LDA, A( ILO+1, ILO ), LDA, C, S )          CALL CROT( NS, B( ILO, ILO ), LDB, B( ILO+1, ILO ), LDB, C, S )
@@ -105,26 +105,26 @@
       // from the left with Qc(1:ns+1,1:ns+1)'
       SHEIGHT = NS+1
       SWIDTH = ISTOPM-( ILO+NS )+1
-      IF ( SWIDTH > 0 ) THEN
+      if ( SWIDTH > 0 ) {
          CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, A( ILO, ILO+NS ), LDA, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ILO, ILO+NS ), LDA )          CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, B( ILO, ILO+NS ), LDB, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ILO, ILO+NS ), LDB )
-      END IF
-      IF ( ILQ ) THEN
+      }
+      if ( ILQ ) {
         CALL CGEMM( 'N', 'N', N, SHEIGHT, SHEIGHT, CONE, Q( 1, ILO ), LDQ, QC, LDQC, CZERO, WORK, N )
          CALL CLACPY( 'ALL', N, SHEIGHT, WORK, N, Q( 1, ILO ), LDQ )
-      END IF
+      }
 
       // Update A(istartm:ilo-1,ilo:ilo+ns-1) and B(istartm:ilo-1,ilo:ilo+ns-1)
       // from the right with Zc(1:ns,1:ns)
       SHEIGHT = ILO-1-ISTARTM+1
       SWIDTH = NS
-      IF ( SHEIGHT > 0 ) THEN
+      if ( SHEIGHT > 0 ) {
          CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, A( ISTARTM, ILO ), LDA, ZC, LDZC, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, ILO ), LDA )          CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, B( ISTARTM, ILO ), LDB, ZC, LDZC, CZERO, WORK, SHEIGHT )
          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, ILO ), LDB )
-      END IF
-      IF ( ILZ ) THEN
+      }
+      if ( ILZ ) {
          CALL CGEMM( 'N', 'N', N, SWIDTH, SWIDTH, CONE, Z( 1, ILO ), LDZ, ZC, LDZC, CZERO, WORK, N )
          CALL CLACPY( 'ALL', N, SWIDTH, WORK, N, Z( 1, ILO ), LDZ )
-      END IF
+      }
 
       // The following block chases the shifts down to the bottom
       // right block. If possible, a shift is moved down npos
@@ -160,27 +160,27 @@
          // from the left with Qc(1:ns+np,1:ns+np)'
          SHEIGHT = NS+NP
          SWIDTH = ISTOPM-( K+NS+NP )+1
-         IF ( SWIDTH > 0 ) THEN
+         if ( SWIDTH > 0 ) {
             CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, A( K+1, K+NS+NP ), LDA, CZERO, WORK, SHEIGHT )             CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( K+1, K+NS+NP ), LDA )             CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, B( K+1, K+NS+NP ), LDB, CZERO, WORK, SHEIGHT )
             CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( K+1, K+NS+NP ), LDB )
-         END IF
-         IF ( ILQ ) THEN
+         }
+         if ( ILQ ) {
             CALL CGEMM( 'N', 'N', N, NBLOCK, NBLOCK, CONE, Q( 1, K+1 ), LDQ, QC, LDQC, CZERO, WORK, N )
             CALL CLACPY( 'ALL', N, NBLOCK, WORK, N, Q( 1, K+1 ), LDQ )
-         END IF
+         }
 
          // Update A(istartm:k,k:k+ns+npos-1) and B(istartm:k,k:k+ns+npos-1)
          // from the right with Zc(1:ns+np,1:ns+np)
          SHEIGHT = K-ISTARTM+1
          SWIDTH = NBLOCK
-         IF ( SHEIGHT > 0 ) THEN
+         if ( SHEIGHT > 0 ) {
             CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, A( ISTARTM, K ), LDA, ZC, LDZC, CZERO, WORK, SHEIGHT )             CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, K ), LDA )             CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, B( ISTARTM, K ), LDB, ZC, LDZC, CZERO, WORK, SHEIGHT )
             CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, K ), LDB )
-         END IF
-         IF ( ILZ ) THEN
+         }
+         if ( ILZ ) {
             CALL CGEMM( 'N', 'N', N, NBLOCK, NBLOCK, CONE, Z( 1, K ), LDZ, ZC, LDZC, CZERO, WORK, N )
             CALL CLACPY( 'ALL', N, NBLOCK, WORK, N, Z( 1, K ), LDZ )
-         END IF
+         }
 
          K = K+NP
 
@@ -211,25 +211,25 @@
       // from the left with Qc(1:ns,1:ns)'
       SHEIGHT = NS
       SWIDTH = ISTOPM-( IHI+1 )+1
-      IF ( SWIDTH > 0 ) THEN
+      if ( SWIDTH > 0 ) {
          CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, A( IHI-NS+1, IHI+1 ), LDA, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( IHI-NS+1, IHI+1 ), LDA )          CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, B( IHI-NS+1, IHI+1 ), LDB, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( IHI-NS+1, IHI+1 ), LDB )
-      END IF
-      IF ( ILQ ) THEN
+      }
+      if ( ILQ ) {
          CALL CGEMM( 'N', 'N', N, NS, NS, CONE, Q( 1, IHI-NS+1 ), LDQ, QC, LDQC, CZERO, WORK, N )
          CALL CLACPY( 'ALL', N, NS, WORK, N, Q( 1, IHI-NS+1 ), LDQ )
-      END IF
+      }
 
       // Update A(istartm:ihi-ns,ihi-ns:ihi)
       // from the right with Zc(1:ns+1,1:ns+1)
       SHEIGHT = IHI-NS-ISTARTM+1
       SWIDTH = NS+1
-      IF ( SHEIGHT > 0 ) THEN
+      if ( SHEIGHT > 0 ) {
          CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, A( ISTARTM, IHI-NS ), LDA, ZC, LDZC, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, IHI-NS ), LDA )          CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, B( ISTARTM, IHI-NS ), LDB, ZC, LDZC, CZERO, WORK, SHEIGHT )
          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, IHI-NS ), LDB )
-      END IF
-      IF ( ILZ ) THEN
+      }
+      if ( ILZ ) {
          CALL CGEMM( 'N', 'N', N, NS+1, NS+1, CONE, Z( 1, IHI-NS ), LDZ, ZC, LDZC, CZERO, WORK, N )
          CALL CLACPY( 'ALL', N, NS+1, WORK, N, Z( 1, IHI-NS ), LDZ )
-      END IF
+      }
 
       END SUBROUTINE

@@ -57,19 +57,19 @@
          J = J + NS
    10 CONTINUE
 
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
-         IF( ANORM.GE.RESID ) THEN
+         if ( ANORM.GE.RESID ) {
             RESID = ( RESID / ANORM ) / ( DBLE( N )*EPS )
          } else {
-            IF( ANORM.LT.ONE ) THEN
+            if ( ANORM.LT.ONE ) {
                RESID = ( MIN( RESID, DBLE( N )*ANORM ) / ANORM ) / ( DBLE( N )*EPS )
             } else {
                RESID = MIN( RESID / ANORM, DBLE( N ) ) / ( DBLE( N )*EPS )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
 
       RETURN
 

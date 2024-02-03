@@ -46,17 +46,17 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CPSTF2', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -75,19 +75,19 @@
   110 CONTINUE
       PVT = MAXLOC( WORK( 1:N ), 1 )
       AJJ = REAL ( A( PVT, PVT ) )
-      IF( AJJ.LE.ZERO.OR.SISNAN( AJJ ) ) THEN
+      if ( AJJ.LE.ZERO.OR.SISNAN( AJJ ) ) {
          RANK = 0
          INFO = 1
          GO TO 200
-      END IF
+      }
 
       // Compute stopping value if not supplied
 
-      IF( TOL.LT.ZERO ) THEN
+      if ( TOL.LT.ZERO ) {
          SSTOP = N * SLAMCH( 'Epsilon' ) * AJJ
       } else {
          SSTOP = TOL
-      END IF
+      }
 
       // Set first half of WORK to zero, holds dot products
 
@@ -95,7 +95,7 @@
          WORK( I ) = 0
   120 CONTINUE
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Compute the Cholesky factorization P**T * A * P = U**H * U
 
@@ -107,24 +107,24 @@
 
             DO 130 I = J, N
 
-               IF( J.GT.1 ) THEN
+               if ( J.GT.1 ) {
                   WORK( I ) = WORK( I ) + REAL( CONJG( A( J-1, I ) )* A( J-1, I ) )
-               END IF
+               }
                WORK( N+I ) = REAL( A( I, I ) ) - WORK( I )
 
   130       CONTINUE
 
-            IF( J.GT.1 ) THEN
+            if ( J.GT.1 ) {
                ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                PVT = ITEMP + J - 1
                AJJ = WORK( N+PVT )
-               IF( AJJ.LE.SSTOP.OR.SISNAN( AJJ ) ) THEN
+               if ( AJJ.LE.SSTOP.OR.SISNAN( AJJ ) ) {
                   A( J, J ) = AJJ
                   GO TO 190
-               END IF
-            END IF
+               }
+            }
 
-            IF( J.NE.PVT ) THEN
+            if ( J.NE.PVT ) {
 
                // Pivot OK, so can now swap pivot rows and columns
 
@@ -146,19 +146,19 @@
                ITEMP = PIV( PVT )
                PIV( PVT ) = PIV( J )
                PIV( J ) = ITEMP
-            END IF
+            }
 
             AJJ = SQRT( AJJ )
             A( J, J ) = AJJ
 
             // Compute elements J+1:N of row J
 
-            IF( J.LT.N ) THEN
+            if ( J.LT.N ) {
                CALL CLACGV( J-1, A( 1, J ), 1 )
                CALL CGEMV( 'Trans', J-1, N-J, -CONE, A( 1, J+1 ), LDA, A( 1, J ), 1, CONE, A( J, J+1 ), LDA )
                CALL CLACGV( J-1, A( 1, J ), 1 )
                CALL CSSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
-            END IF
+            }
 
   150    CONTINUE
 
@@ -174,24 +174,24 @@
 
             DO 160 I = J, N
 
-               IF( J.GT.1 ) THEN
+               if ( J.GT.1 ) {
                   WORK( I ) = WORK( I ) + REAL( CONJG( A( I, J-1 ) )* A( I, J-1 ) )
-               END IF
+               }
                WORK( N+I ) = REAL( A( I, I ) ) - WORK( I )
 
   160       CONTINUE
 
-            IF( J.GT.1 ) THEN
+            if ( J.GT.1 ) {
                ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                PVT = ITEMP + J - 1
                AJJ = WORK( N+PVT )
-               IF( AJJ.LE.SSTOP.OR.SISNAN( AJJ ) ) THEN
+               if ( AJJ.LE.SSTOP.OR.SISNAN( AJJ ) ) {
                   A( J, J ) = AJJ
                   GO TO 190
-               END IF
-            END IF
+               }
+            }
 
-            IF( J.NE.PVT ) THEN
+            if ( J.NE.PVT ) {
 
                // Pivot OK, so can now swap pivot rows and columns
 
@@ -213,23 +213,23 @@
                ITEMP = PIV( PVT )
                PIV( PVT ) = PIV( J )
                PIV( J ) = ITEMP
-            END IF
+            }
 
             AJJ = SQRT( AJJ )
             A( J, J ) = AJJ
 
             // Compute elements J+1:N of column J
 
-            IF( J.LT.N ) THEN
+            if ( J.LT.N ) {
                CALL CLACGV( J-1, A( J, 1 ), LDA )
                CALL CGEMV( 'No Trans', N-J, J-1, -CONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, CONE, A( J+1, J ), 1 )
                CALL CLACGV( J-1, A( J, 1 ), LDA )
                CALL CSSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
-            END IF
+            }
 
   180    CONTINUE
 
-      END IF
+      }
 
       // Ran to completion, A has full rank
 

@@ -34,30 +34,30 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       CONVERT = LSAME( WAY, 'C' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( .NOT.CONVERT .AND. .NOT.LSAME( WAY, 'R' ) ) THEN
+      } else if ( .NOT.CONVERT .AND. .NOT.LSAME( WAY, 'R' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
 
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSYCONVF', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Begin A is UPPER
 
-         IF ( CONVERT ) THEN
+         if ( CONVERT ) {
 
             // Convert A (A is upper)
 
@@ -70,14 +70,14 @@
             I = N
             E( 1 ) = ZERO
             DO WHILE ( I.GT.1 )
-               IF( IPIV( I ).LT.0 ) THEN
+               if ( IPIV( I ).LT.0 ) {
                   E( I ) = A( I-1, I )
                   E( I-1 ) = ZERO
                   A( I-1, I ) = ZERO
                   I = I - 1
                } else {
                   E( I ) = ZERO
-               END IF
+               }
                I = I - 1
             END DO
 
@@ -88,18 +88,18 @@
 
             I = N
             DO WHILE ( I.GE.1 )
-               IF( IPIV( I ).GT.0 ) THEN
+               if ( IPIV( I ).GT.0 ) {
 
                   // 1-by-1 pivot interchange
 
                   // Swap rows i and IPIV(i) in A(1:i,N-i:N)
 
                   IP = IPIV( I )
-                  IF( I.LT.N ) THEN
-                     IF( IP.NE.I ) THEN
+                  if ( I.LT.N ) {
+                     if ( IP.NE.I ) {
                         CALL DSWAP( N-I, A( I, I+1 ), LDA, A( IP, I+1 ), LDA )
-                     END IF
-                  END IF
+                     }
+                  }
 
                } else {
 
@@ -108,11 +108,11 @@
                   // Swap rows i-1 and IPIV(i) in A(1:i,N-i:N)
 
                   IP = -IPIV( I )
-                  IF( I.LT.N ) THEN
-                     IF( IP.NE.(I-1) ) THEN
+                  if ( I.LT.N ) {
+                     if ( IP.NE.(I-1) ) {
                         CALL DSWAP( N-I, A( I-1, I+1 ), LDA, A( IP, I+1 ), LDA )
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Convert IPIV
                   // There is no interchange of rows i and and IPIV(i),
@@ -123,7 +123,7 @@
 
                   I = I - 1
 
-               END IF
+               }
                I = I - 1
             END DO
 
@@ -139,18 +139,18 @@
 
             I = 1
             DO WHILE ( I.LE.N )
-               IF( IPIV( I ).GT.0 ) THEN
+               if ( IPIV( I ).GT.0 ) {
 
                   // 1-by-1 pivot interchange
 
                   // Swap rows i and IPIV(i) in A(1:i,N-i:N)
 
                   IP = IPIV( I )
-                  IF( I.LT.N ) THEN
-                     IF( IP.NE.I ) THEN
+                  if ( I.LT.N ) {
+                     if ( IP.NE.I ) {
                         CALL DSWAP( N-I, A( IP, I+1 ), LDA, A( I, I+1 ), LDA )
-                     END IF
-                  END IF
+                     }
+                  }
 
                } else {
 
@@ -160,11 +160,11 @@
 
                   I = I + 1
                   IP = -IPIV( I )
-                  IF( I.LT.N ) THEN
-                     IF( IP.NE.(I-1) ) THEN
+                  if ( I.LT.N ) {
+                     if ( IP.NE.(I-1) ) {
                         CALL DSWAP( N-I, A( IP, I+1 ), LDA, A( I-1, I+1 ), LDA )
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Convert IPIV
                   // There is one interchange of rows i-1 and IPIV(i-1),
@@ -173,7 +173,7 @@
 
                   IPIV( I ) = IPIV( I-1 )
 
-               END IF
+               }
                I = I + 1
             END DO
 
@@ -183,22 +183,22 @@
 
             I = N
             DO WHILE ( I.GT.1 )
-               IF( IPIV( I ).LT.0 ) THEN
+               if ( IPIV( I ).LT.0 ) {
                   A( I-1, I ) = E( I )
                   I = I - 1
-               END IF
+               }
                I = I - 1
             END DO
 
          // End A is UPPER
 
-         END IF
+         }
 
       } else {
 
          // Begin A is LOWER
 
-         IF ( CONVERT ) THEN
+         if ( CONVERT ) {
 
             // Convert A (A is lower)
 
@@ -210,14 +210,14 @@
             I = 1
             E( N ) = ZERO
             DO WHILE ( I.LE.N )
-               IF( I.LT.N .AND. IPIV(I).LT.0 ) THEN
+               if ( I.LT.N .AND. IPIV(I).LT.0 ) {
                   E( I ) = A( I+1, I )
                   E( I+1 ) = ZERO
                   A( I+1, I ) = ZERO
                   I = I + 1
                } else {
                   E( I ) = ZERO
-               END IF
+               }
                I = I + 1
             END DO
 
@@ -228,18 +228,18 @@
 
             I = 1
             DO WHILE ( I.LE.N )
-               IF( IPIV( I ).GT.0 ) THEN
+               if ( IPIV( I ).GT.0 ) {
 
                   // 1-by-1 pivot interchange
 
                   // Swap rows i and IPIV(i) in A(i:N,1:i-1)
 
                   IP = IPIV( I )
-                  IF ( I.GT.1 ) THEN
-                     IF( IP.NE.I ) THEN
+                  if ( I.GT.1 ) {
+                     if ( IP.NE.I ) {
                         CALL DSWAP( I-1, A( I, 1 ), LDA, A( IP, 1 ), LDA )
-                     END IF
-                  END IF
+                     }
+                  }
 
                } else {
 
@@ -248,11 +248,11 @@
                   // Swap rows i+1 and IPIV(i) in A(i:N,1:i-1)
 
                   IP = -IPIV( I )
-                  IF ( I.GT.1 ) THEN
-                     IF( IP.NE.(I+1) ) THEN
+                  if ( I.GT.1 ) {
+                     if ( IP.NE.(I+1) ) {
                         CALL DSWAP( I-1, A( I+1, 1 ), LDA, A( IP, 1 ), LDA )
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Convert IPIV
                   // There is no interchange of rows i and and IPIV(i),
@@ -263,7 +263,7 @@
 
                   I = I + 1
 
-               END IF
+               }
                I = I + 1
             END DO
 
@@ -279,18 +279,18 @@
 
             I = N
             DO WHILE ( I.GE.1 )
-               IF( IPIV( I ).GT.0 ) THEN
+               if ( IPIV( I ).GT.0 ) {
 
                   // 1-by-1 pivot interchange
 
                   // Swap rows i and IPIV(i) in A(i:N,1:i-1)
 
                   IP = IPIV( I )
-                  IF ( I.GT.1 ) THEN
-                     IF( IP.NE.I ) THEN
+                  if ( I.GT.1 ) {
+                     if ( IP.NE.I ) {
                         CALL DSWAP( I-1, A( IP, 1 ), LDA, A( I, 1 ), LDA )
-                     END IF
-                  END IF
+                     }
+                  }
 
                } else {
 
@@ -300,11 +300,11 @@
 
                   I = I - 1
                   IP = -IPIV( I )
-                  IF ( I.GT.1 ) THEN
-                     IF( IP.NE.(I+1) ) THEN
+                  if ( I.GT.1 ) {
+                     if ( IP.NE.(I+1) ) {
                         CALL DSWAP( I-1, A( IP, 1 ), LDA, A( I+1, 1 ), LDA )
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Convert IPIV
                   // There is one interchange of rows i+1 and IPIV(i+1),
@@ -313,7 +313,7 @@
 
                   IPIV( I ) = IPIV( I+1 )
 
-               END IF
+               }
                I = I - 1
             END DO
 
@@ -323,18 +323,18 @@
 
             I = 1
             DO WHILE ( I.LE.N-1 )
-               IF( IPIV( I ).LT.0 ) THEN
+               if ( IPIV( I ).LT.0 ) {
                   A( I + 1, I ) = E( I )
                   I = I + 1
-               END IF
+               }
                I = I + 1
             END DO
 
-         END IF
+         }
 
          // End A is LOWER
 
-      END IF
+      }
 
       RETURN
 

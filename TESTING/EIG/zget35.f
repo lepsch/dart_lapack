@@ -112,19 +112,19 @@
                            IF( INFO.NE.0 ) NINFO = NINFO + 1
                            XNRM = ZLANGE( 'M', M, N, C, LDT, DUM )
                            RMUL = CONE
-                           IF( XNRM.GT.ONE .AND. TNRM.GT.ONE ) THEN
-                              IF( XNRM.GT.BIGNUM / TNRM ) THEN
+                           if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {
+                              if ( XNRM.GT.BIGNUM / TNRM ) {
                                  RMUL = MAX( XNRM, TNRM )
                                  RMUL = CONE / RMUL
-                              END IF
-                           END IF
+                              }
+                           }
                            CALL ZGEMM( TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT )                            CALL ZGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT )
                            RES1 = ZLANGE( 'M', M, N, CSAV, LDT, DUM )
                            RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )
-                           IF( RES.GT.RMAX ) THEN
+                           if ( RES.GT.RMAX ) {
                               LMAX = KNT
                               RMAX = RES
-                           END IF
+                           }
   110                   CONTINUE
   120                CONTINUE
   130             CONTINUE

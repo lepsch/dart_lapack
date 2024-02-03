@@ -51,24 +51,24 @@
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
 
-      IF( IJOB.LT.0 .OR. IJOB.GT.5 ) THEN
+      if ( IJOB.LT.0 .OR. IJOB.GT.5 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      ELSE IF( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) THEN
+      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) {
          INFO = -13
-      ELSE IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) THEN
+      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
          INFO = -15
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CTGSEN', -INFO )
          RETURN
-      END IF
+      }
 
       IERR = 0
 
@@ -81,53 +81,53 @@
       // subspaces.
 
       M = 0
-      IF( .NOT.LQUERY .OR. IJOB.NE.0 ) THEN
+      if ( .NOT.LQUERY .OR. IJOB.NE.0 ) {
       DO 10 K = 1, N
          ALPHA( K ) = A( K, K )
          BETA( K ) = B( K, K )
-         IF( K.LT.N ) THEN
+         if ( K.LT.N ) {
             IF( SELECT( K ) ) M = M + 1
          } else {
             IF( SELECT( N ) ) M = M + 1
-         END IF
+         }
    10 CONTINUE
-      END IF
+      }
 
-      IF( IJOB.EQ.1 .OR. IJOB.EQ.2 .OR. IJOB.EQ.4 ) THEN
+      if ( IJOB.EQ.1 .OR. IJOB.EQ.2 .OR. IJOB.EQ.4 ) {
          LWMIN = MAX( 1, 2*M*(N-M) )
          LIWMIN = MAX( 1, N+2 )
-      ELSE IF( IJOB.EQ.3 .OR. IJOB.EQ.5 ) THEN
+      } else if ( IJOB.EQ.3 .OR. IJOB.EQ.5 ) {
          LWMIN = MAX( 1, 4*M*(N-M) )
          LIWMIN = MAX( 1, 2*M*(N-M), N+2 )
       } else {
          LWMIN = 1
          LIWMIN = 1
-      END IF
+      }
 
       WORK( 1 ) =  SROUNDUP_LWORK(LWMIN)
       IWORK( 1 ) = LIWMIN
 
-      IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+      if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
          INFO = -21
-      ELSE IF( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) THEN
+      } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
          INFO = -23
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CTGSEN', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
-      IF( M.EQ.N .OR. M.EQ.0 ) THEN
-         IF( WANTP ) THEN
+      if ( M.EQ.N .OR. M.EQ.0 ) {
+         if ( WANTP ) {
             PL = ONE
             PR = ONE
-         END IF
-         IF( WANTD ) THEN
+         }
+         if ( WANTD ) {
             DSCALE = ZERO
             DSUM = ONE
             DO 20 I = 1, N
@@ -136,9 +136,9 @@
    20       CONTINUE
             DIF( 1 ) = DSCALE*SQRT( DSUM )
             DIF( 2 ) = DIF( 1 )
-         END IF
+         }
          GO TO 70
-      END IF
+      }
 
       // Get machine constant
 
@@ -149,7 +149,7 @@
       KS = 0
       DO 30 K = 1, N
          SWAP = SELECT( K )
-         IF( SWAP ) THEN
+         if ( SWAP ) {
             KS = KS + 1
 
             // Swap the K-th block to position KS. Compute unitary Q
@@ -157,24 +157,24 @@
 
             IF( K.NE.KS ) CALL CTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, K, KS, IERR )
 
-            IF( IERR.GT.0 ) THEN
+            if ( IERR.GT.0 ) {
 
                // Swap is rejected: exit.
 
                INFO = 1
-               IF( WANTP ) THEN
+               if ( WANTP ) {
                   PL = ZERO
                   PR = ZERO
-               END IF
-               IF( WANTD ) THEN
+               }
+               if ( WANTD ) {
                   DIF( 1 ) = ZERO
                   DIF( 2 ) = ZERO
-               END IF
+               }
                GO TO 70
-            END IF
-         END IF
+            }
+         }
    30 CONTINUE
-      IF( WANTP ) THEN
+      if ( WANTP ) {
 
          // Solve generalized Sylvester equation for R and L:
                     // A11 * R - L * A22 = A12
@@ -195,26 +195,26 @@
          DSUM = ONE
          CALL CLASSQ( N1*N2, WORK, 1, RDSCAL, DSUM )
          PL = RDSCAL*SQRT( DSUM )
-         IF( PL.EQ.ZERO ) THEN
+         if ( PL.EQ.ZERO ) {
             PL = ONE
          } else {
             PL = DSCALE / ( SQRT( DSCALE*DSCALE / PL+PL )*SQRT( PL ) )
-         END IF
+         }
          RDSCAL = ZERO
          DSUM = ONE
          CALL CLASSQ( N1*N2, WORK( N1*N2+1 ), 1, RDSCAL, DSUM )
          PR = RDSCAL*SQRT( DSUM )
-         IF( PR.EQ.ZERO ) THEN
+         if ( PR.EQ.ZERO ) {
             PR = ONE
          } else {
             PR = DSCALE / ( SQRT( DSCALE*DSCALE / PR+PR )*SQRT( PR ) )
-         END IF
-      END IF
-      IF( WANTD ) THEN
+         }
+      }
+      if ( WANTD ) {
 
          // Compute estimates Difu and Difl.
 
-         IF( WANTD1 ) THEN
+         if ( WANTD1 ) {
             N1 = M
             N2 = N - M
             I = N1 + 1
@@ -245,8 +245,8 @@
 
    40       CONTINUE
             CALL CLACN2( MN2, WORK( MN2+1 ), WORK, DIF( 1 ), KASE, ISAVE )
-            IF( KASE.NE.0 ) THEN
-               IF( KASE.EQ.1 ) THEN
+            if ( KASE.NE.0 ) {
+               if ( KASE.EQ.1 ) {
 
                   // Solve generalized Sylvester equation
 
@@ -256,17 +256,17 @@
                   // Solve the transposed variant.
 
                   CALL CTGSYL( 'C', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
-               END IF
+               }
                GO TO 40
-            END IF
+            }
             DIF( 1 ) = DSCALE / DIF( 1 )
 
             // 1-norm-based estimate of Difl.
 
    50       CONTINUE
             CALL CLACN2( MN2, WORK( MN2+1 ), WORK, DIF( 2 ), KASE, ISAVE )
-            IF( KASE.NE.0 ) THEN
-               IF( KASE.EQ.1 ) THEN
+            if ( KASE.NE.0 ) {
+               if ( KASE.EQ.1 ) {
 
                   // Solve generalized Sylvester equation
 
@@ -276,12 +276,12 @@
                   // Solve the transposed variant.
 
                   CALL CTGSYL( 'C', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
-               END IF
+               }
                GO TO 50
-            END IF
+            }
             DIF( 2 ) = DSCALE / DIF( 2 )
-         END IF
-      END IF
+         }
+      }
 
       // If B(K,K) is complex, make it real and positive (normalization
       // of the generalized Schur form) and Store the generalized
@@ -289,7 +289,7 @@
 
       DO 60 K = 1, N
          DSCALE = ABS( B( K, K ) )
-         IF( DSCALE.GT.SAFMIN ) THEN
+         if ( DSCALE.GT.SAFMIN ) {
             TEMP1 = CONJG( B( K, K ) / DSCALE )
             TEMP2 = B( K, K ) / DSCALE
             B( K, K ) = DSCALE
@@ -298,7 +298,7 @@
             IF( WANTQ ) CALL CSCAL( N, TEMP2, Q( 1, K ), 1 )
          } else {
             B( K, K ) = CMPLX( ZERO, ZERO )
-         END IF
+         }
 
          ALPHA( K ) = A( K, K )
          BETA( K ) = B( K, K )

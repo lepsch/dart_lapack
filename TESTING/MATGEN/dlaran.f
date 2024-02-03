@@ -54,7 +54,7 @@
 
       RNDOUT = R*( DBLE( IT1 )+R*( DBLE( IT2 )+R*( DBLE( IT3 )+R* ( DBLE( IT4 ) ) ) ) )
 
-      IF (RNDOUT.EQ.1.0D+0) THEN
+      if (RNDOUT.EQ.1.0D+0) {
          // If a real number has n bits of precision, and the first
          // n bits of the 48-bit integer above happen to be all 1 (which
          // will occur about once every 2**n calls), then DLARAN will
@@ -66,7 +66,7 @@
          // N.B. the case DLARAN = 0.0 should not be possible.
 
          GOTO 10
-      END IF
+      }
 
       DLARAN = RNDOUT
       RETURN

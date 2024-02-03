@@ -71,23 +71,23 @@
          CALL CHER( 'L', N, -SD( J ), U( 1, J ), 1, WORK, N )
    20 CONTINUE
 
-      IF( N.GT.1 .AND. KBAND.EQ.1 ) THEN
+      if ( N.GT.1 .AND. KBAND.EQ.1 ) {
          DO 30 J = 1, N - 1
             CALL CHER2( 'L', N, -CMPLX( SE( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N )
    30    CONTINUE
-      END IF
+      }
 
       WNORM = CLANHE( '1', 'L', N, WORK, N, RWORK )
 
-      IF( ANORM.GT.WNORM ) THEN
+      if ( ANORM.GT.WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
       } else {
-         IF( ANORM.LT.ONE ) THEN
+         if ( ANORM.LT.ONE ) {
             RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
          } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP )
-         END IF
-      END IF
+         }
+      }
 
       // Do Test 2
 

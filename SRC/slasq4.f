@@ -32,18 +32,18 @@
       // A negative DMIN forces the shift to take that absolute value
       // TTYPE records the type of shift.
 
-      IF( DMIN.LE.ZERO ) THEN
+      if ( DMIN.LE.ZERO ) {
          TAU = -DMIN
          TTYPE = -1
          RETURN
-      END IF
+      }
 
       NN = 4*N0 + PP
-      IF( N0IN.EQ.N0 ) THEN
+      if ( N0IN.EQ.N0 ) {
 
          // No eigenvalues deflated.
 
-         IF( DMIN.EQ.DN .OR. DMIN.EQ.DN1 ) THEN
+         if ( DMIN.EQ.DN .OR. DMIN.EQ.DN1 ) {
 
             B1 = SQRT( Z( NN-3 ) )*SQRT( Z( NN-5 ) )
             B2 = SQRT( Z( NN-7 ) )*SQRT( Z( NN-9 ) )
@@ -51,14 +51,14 @@
 
             // Cases 2 and 3.
 
-            IF( DMIN.EQ.DN .AND. DMIN1.EQ.DN1 ) THEN
+            if ( DMIN.EQ.DN .AND. DMIN1.EQ.DN1 ) {
                GAP2 = DMIN2 - A2 - DMIN2*QURTR
-               IF( GAP2.GT.ZERO .AND. GAP2.GT.B2 ) THEN
+               if ( GAP2.GT.ZERO .AND. GAP2.GT.B2 ) {
                   GAP1 = A2 - DN - ( B2 / GAP2 )*B2
                } else {
                   GAP1 = A2 - DN - ( B1+B2 )
-               END IF
-               IF( GAP1.GT.ZERO .AND. GAP1.GT.B1 ) THEN
+               }
+               if ( GAP1.GT.ZERO .AND. GAP1.GT.B1 ) {
                   S = MAX( DN-( B1 / GAP1 )*B1, HALF*DMIN )
                   TTYPE = -2
                } else {
@@ -66,14 +66,14 @@
                   IF( DN.GT.B1 ) S = DN - B1                   IF( A2.GT.( B1+B2 ) ) S = MIN( S, A2-( B1+B2 ) )
                   S = MAX( S, THIRD*DMIN )
                   TTYPE = -3
-               END IF
+               }
             } else {
 
                // Case 4.
 
                TTYPE = -4
                S = QURTR*DMIN
-               IF( DMIN.EQ.DN ) THEN
+               if ( DMIN.EQ.DN ) {
                   GAM = DN
                   A2 = ZERO
                   IF( Z( NN-5 ) .GT. Z( NN-7 ) ) RETURN
@@ -87,7 +87,7 @@
                   IF( Z( NN-9 ) .GT. Z( NN-11 ) ) RETURN
                   B2 = Z( NN-9 ) / Z( NN-11 )
                   NP = NN - 13
-               END IF
+               }
 
                // Approximate contribution to norm squared from I < NN-1.
 
@@ -106,8 +106,8 @@
                // Rayleigh quotient residual bound.
 
                IF( A2.LT.CNST1 ) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 )
-            END IF
-         ELSE IF( DMIN.EQ.DN2 ) THEN
+            }
+         } else if ( DMIN.EQ.DN2 ) {
 
             // Case 5.
 
@@ -125,7 +125,7 @@
 
             // Approximate contribution to norm squared from I < NN-2.
 
-            IF( N0-I0.GT.2 ) THEN
+            if ( N0-I0.GT.2 ) {
                B2 = Z( NN-13 ) / Z( NN-15 )
                A2 = A2 + B2
                DO 30 I4 = NN - 17, 4*I0 - 1 + PP, -4
@@ -138,29 +138,29 @@
    30          CONTINUE
    40          CONTINUE
                A2 = CNST3*A2
-            END IF
+            }
 
             IF( A2.LT.CNST1 ) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 )
          } else {
 
             // Case 6, no information to guide us.
 
-            IF( TTYPE.EQ.-6 ) THEN
+            if ( TTYPE.EQ.-6 ) {
                G = G + THIRD*( ONE-G )
-            ELSE IF( TTYPE.EQ.-18 ) THEN
+            } else if ( TTYPE.EQ.-18 ) {
                G = QURTR*THIRD
             } else {
                G = QURTR
-            END IF
+            }
             S = G*DMIN
             TTYPE = -6
-         END IF
+         }
 
-      ELSE IF( N0IN.EQ.( N0+1 ) ) THEN
+      } else if ( N0IN.EQ.( N0+1 ) ) {
 
          // One eigenvalue just deflated. Use DMIN1, DN1 for DMIN and DN.
 
-         IF( DMIN1.EQ.DN1 .AND. DMIN2.EQ.DN2 ) THEN
+         if ( DMIN1.EQ.DN1 .AND. DMIN2.EQ.DN2 ) {
 
             // Cases 7 and 8.
 
@@ -181,12 +181,12 @@
             B2 = SQRT( CNST3*B2 )
             A2 = DMIN1 / ( ONE+B2**2 )
             GAP2 = HALF*DMIN2 - A2
-            IF( GAP2.GT.ZERO .AND. GAP2.GT.B2*A2 ) THEN
+            if ( GAP2.GT.ZERO .AND. GAP2.GT.B2*A2 ) {
                S = MAX( S, A2*( ONE-CNST2*A2*( B2 / GAP2 )*B2 ) )
             } else {
                S = MAX( S, A2*( ONE-CNST2*B2 ) )
                TTYPE = -8
-            END IF
+            }
          } else {
 
             // Case 9.
@@ -194,15 +194,15 @@
             S = QURTR*DMIN1
             IF( DMIN1.EQ.DN1 ) S = HALF*DMIN1
             TTYPE = -9
-         END IF
+         }
 
-      ELSE IF( N0IN.EQ.( N0+2 ) ) THEN
+      } else if ( N0IN.EQ.( N0+2 ) ) {
 
          // Two eigenvalues deflated. Use DMIN2, DN2 for DMIN and DN.
 
          // Cases 10 and 11.
 
-         IF( DMIN2.EQ.DN2 .AND. TWO*Z( NN-5 ).LT.Z( NN-7 ) ) THEN
+         if ( DMIN2.EQ.DN2 .AND. TWO*Z( NN-5 ).LT.Z( NN-7 ) ) {
             TTYPE = -10
             S = THIRD*DMIN2
             IF( Z( NN-5 ).GT.Z( NN-7 ) ) RETURN
@@ -219,22 +219,22 @@
             B2 = SQRT( CNST3*B2 )
             A2 = DMIN2 / ( ONE+B2**2 )
             GAP2 = Z( NN-7 ) + Z( NN-9 ) - SQRT( Z( NN-11 ) )*SQRT( Z( NN-9 ) ) - A2
-            IF( GAP2.GT.ZERO .AND. GAP2.GT.B2*A2 ) THEN
+            if ( GAP2.GT.ZERO .AND. GAP2.GT.B2*A2 ) {
                S = MAX( S, A2*( ONE-CNST2*A2*( B2 / GAP2 )*B2 ) )
             } else {
                S = MAX( S, A2*( ONE-CNST2*B2 ) )
-            END IF
+            }
          } else {
             S = QURTR*DMIN2
             TTYPE = -11
-         END IF
-      ELSE IF( N0IN.GT.( N0+2 ) ) THEN
+         }
+      } else if ( N0IN.GT.( N0+2 ) ) {
 
          // Case 12, more than two eigenvalues deflated. No information.
 
          S = ZERO
          TTYPE = -12
-      END IF
+      }
 
       TAU = S
       RETURN

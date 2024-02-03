@@ -33,7 +33,7 @@
 
       IF( ( MIN( M, N ).EQ.0 ) .OR. ( TAU.EQ.ZERO ) ) RETURN
 
-      IF( LSAME( SIDE, 'L' ) ) THEN
+      if ( LSAME( SIDE, 'L' ) ) {
 
          // w :=  ( C1 + v**H * C2 )**H
 
@@ -48,7 +48,7 @@
          CALL ZAXPY( N, -TAU, WORK, 1, C1, LDC )
          CALL ZGERU( M-1, N, -TAU, V, INCV, WORK, 1, C2, LDC )
 
-      ELSE IF( LSAME( SIDE, 'R' ) ) THEN
+      } else if ( LSAME( SIDE, 'R' ) ) {
 
          // w := C1 + C2 * v
 
@@ -59,7 +59,7 @@
 
          CALL ZAXPY( M, -TAU, WORK, 1, C1, 1 )
          CALL ZGERC( M, N-1, -TAU, WORK, 1, V, INCV, C2, LDC )
-      END IF
+      }
 
       RETURN
 

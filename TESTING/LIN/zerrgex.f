@@ -71,7 +71,7 @@
       // Test error exits of the routines that use the LU decomposition
       // of a general matrix.
 
-      IF( LSAMEN( 2, C2, 'GE' ) ) THEN
+      if ( LSAMEN( 2, C2, 'GE' ) ) {
 
          // ZGETRF
 
@@ -231,7 +231,7 @@
       // Test error exits of the routines that use the LU decomposition
       // of a general band matrix.
 
-      ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // ZGBTRF
 
@@ -424,7 +424,7 @@
          INFOT = 6
          CALL ZGBEQUB( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'ZGBEQUB', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

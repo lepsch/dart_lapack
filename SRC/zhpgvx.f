@@ -43,39 +43,39 @@
       INDEIG = LSAME( RANGE, 'I' )
 
       INFO = 0
-      IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
+      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
          INFO = -1
-      ELSE IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      } else if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
-      ELSE IF( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) THEN
+      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
          INFO = -3
-      ELSE IF( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) THEN
+      } else if ( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
       } else {
-         IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL ) THEN
+         if ( VALEIG ) {
+            if ( N.GT.0 .AND. VU.LE.VL ) {
                INFO = -9
-            END IF
-         ELSE IF( INDEIG ) THEN
-            IF( IL.LT.1 ) THEN
+            }
+         } else if ( INDEIG ) {
+            if ( IL.LT.1 ) {
                INFO = -10
-            ELSE IF( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) THEN
+            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
                INFO = -11
-            END IF
-         END IF
-      END IF
-      IF( INFO.EQ.0 ) THEN
-         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) THEN
+            }
+         }
+      }
+      if ( INFO.EQ.0 ) {
+         if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
             INFO = -16
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZHPGVX', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -84,52 +84,52 @@
       // Form a Cholesky factorization of B.
 
       CALL ZPPTRF( UPLO, N, BP, INFO )
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
-      END IF
+      }
 
       // Transform problem to standard eigenvalue problem and solve.
 
       CALL ZHPGST( ITYPE, UPLO, N, AP, BP, INFO )
       CALL ZHPEVX( JOBZ, RANGE, UPLO, N, AP, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, RWORK, IWORK, IFAIL, INFO )
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
 
          // Backtransform eigenvectors to the original problem.
 
          IF( INFO.GT.0 ) M = INFO - 1
-         IF( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) THEN
+         if ( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
             // backtransform eigenvectors: x = inv(L)**H *y or inv(U)*y
 
-            IF( UPPER ) THEN
+            if ( UPPER ) {
                TRANS = 'N'
             } else {
                TRANS = 'C'
-            END IF
+            }
 
             DO 10 J = 1, M
                CALL ZTPSV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
    10       CONTINUE
 
-         ELSE IF( ITYPE.EQ.3 ) THEN
+         } else if ( ITYPE.EQ.3 ) {
 
             // For B*A*x=(lambda)*x;
             // backtransform eigenvectors: x = L*y or U**H *y
 
-            IF( UPPER ) THEN
+            if ( UPPER ) {
                TRANS = 'C'
             } else {
                TRANS = 'N'
-            END IF
+            }
 
             DO 20 J = 1, M
                CALL ZTPMV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
    20       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

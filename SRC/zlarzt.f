@@ -33,18 +33,18 @@
       // Check for currently supported options
 
       INFO = 0
-      IF( .NOT.LSAME( DIRECT, 'B' ) ) THEN
+      if ( .NOT.LSAME( DIRECT, 'B' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( STOREV, 'R' ) ) THEN
+      } else if ( .NOT.LSAME( STOREV, 'R' ) ) {
          INFO = -2
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZLARZT', -INFO )
          RETURN
-      END IF
+      }
 
       DO 20 I = K, 1, -1
-         IF( TAU( I ).EQ.ZERO ) THEN
+         if ( TAU( I ).EQ.ZERO ) {
 
             // H(i)  =  I
 
@@ -55,7 +55,7 @@
 
             // general case
 
-            IF( I.LT.K ) THEN
+            if ( I.LT.K ) {
 
                // T(i+1:k,i) = - tau(i) * V(i+1:k,1:n) * V(i,1:n)**H
 
@@ -66,9 +66,9 @@
                // T(i+1:k,i) = T(i+1:k,i+1:k) * T(i+1:k,i)
 
                CALL ZTRMV( 'Lower', 'No transpose', 'Non-unit', K-I, T( I+1, I+1 ), LDT, T( I+1, I ), 1 )
-            END IF
+            }
             T( I, I ) = TAU( I )
-         END IF
+         }
    20 CONTINUE
       RETURN
 

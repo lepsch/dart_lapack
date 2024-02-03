@@ -23,10 +23,10 @@
 
       // Quick return if possible
 
-      IF( N.LE.1 ) THEN
+      if ( N.LE.1 ) {
          IF( N.EQ.1 ) CALL DSCAL( NRHS, 1.D0 / D( 1 ), B, LDB )
          RETURN
-      END IF
+      }
 
       // Solve A * X = B using the factorization A = L*D*L**T,
       // overwriting each right hand side vector with its solution.

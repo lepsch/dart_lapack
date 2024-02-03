@@ -58,66 +58,66 @@
 
       // Decode DIST
 
-      IF( LSAME( DIST, 'U' ) ) THEN
+      if ( LSAME( DIST, 'U' ) ) {
          IDIST = 1
-      ELSE IF( LSAME( DIST, 'S' ) ) THEN
+      } else if ( LSAME( DIST, 'S' ) ) {
          IDIST = 2
-      ELSE IF( LSAME( DIST, 'N' ) ) THEN
+      } else if ( LSAME( DIST, 'N' ) ) {
          IDIST = 3
       } else {
          IDIST = -1
-      END IF
+      }
 
       // Decode SYM
 
-      IF( LSAME( SYM, 'N' ) ) THEN
+      if ( LSAME( SYM, 'N' ) ) {
          ISYM = 1
          IRSIGN = 0
          CSYM = .FALSE.
-      ELSE IF( LSAME( SYM, 'P' ) ) THEN
+      } else if ( LSAME( SYM, 'P' ) ) {
          ISYM = 2
          IRSIGN = 0
          CSYM = .FALSE.
-      ELSE IF( LSAME( SYM, 'S' ) ) THEN
+      } else if ( LSAME( SYM, 'S' ) ) {
          ISYM = 2
          IRSIGN = 0
          CSYM = .TRUE.
-      ELSE IF( LSAME( SYM, 'H' ) ) THEN
+      } else if ( LSAME( SYM, 'H' ) ) {
          ISYM = 2
          IRSIGN = 1
          CSYM = .FALSE.
       } else {
          ISYM = -1
-      END IF
+      }
 
       // Decode PACK
 
       ISYMPK = 0
-      IF( LSAME( PACK, 'N' ) ) THEN
+      if ( LSAME( PACK, 'N' ) ) {
          IPACK = 0
-      ELSE IF( LSAME( PACK, 'U' ) ) THEN
+      } else if ( LSAME( PACK, 'U' ) ) {
          IPACK = 1
          ISYMPK = 1
-      ELSE IF( LSAME( PACK, 'L' ) ) THEN
+      } else if ( LSAME( PACK, 'L' ) ) {
          IPACK = 2
          ISYMPK = 1
-      ELSE IF( LSAME( PACK, 'C' ) ) THEN
+      } else if ( LSAME( PACK, 'C' ) ) {
          IPACK = 3
          ISYMPK = 2
-      ELSE IF( LSAME( PACK, 'R' ) ) THEN
+      } else if ( LSAME( PACK, 'R' ) ) {
          IPACK = 4
          ISYMPK = 3
-      ELSE IF( LSAME( PACK, 'B' ) ) THEN
+      } else if ( LSAME( PACK, 'B' ) ) {
          IPACK = 5
          ISYMPK = 3
-      ELSE IF( LSAME( PACK, 'Q' ) ) THEN
+      } else if ( LSAME( PACK, 'Q' ) ) {
          IPACK = 6
          ISYMPK = 2
-      ELSE IF( LSAME( PACK, 'Z' ) ) THEN
+      } else if ( LSAME( PACK, 'Z' ) ) {
          IPACK = 7
       } else {
          IPACK = -1
-      END IF
+      }
 
       // Set certain internal parameters
 
@@ -127,55 +127,55 @@
       MR = MIN( M, N+LLB )
       NC = MIN( N, M+UUB )
 
-      IF( IPACK.EQ.5 .OR. IPACK.EQ.6 ) THEN
+      if ( IPACK.EQ.5 .OR. IPACK.EQ.6 ) {
          MINLDA = UUB + 1
-      ELSE IF( IPACK.EQ.7 ) THEN
+      } else if ( IPACK.EQ.7 ) {
          MINLDA = LLB + UUB + 1
       } else {
          MINLDA = M
-      END IF
+      }
 
       // Use Givens rotation method if bandwidth small enough,
       // or if LDA is too small to store the matrix unpacked.
 
       GIVENS = .FALSE.
-      IF( ISYM.EQ.1 ) THEN
+      if ( ISYM.EQ.1 ) {
          IF( DBLE( LLB+UUB ).LT.0.3D0*DBLE( MAX( 1, MR+NC ) ) ) GIVENS = .TRUE.
       } else {
          IF( 2*LLB.LT.M ) GIVENS = .TRUE.
-      END IF
+      }
       IF( LDA.LT.M .AND. LDA.GE.MINLDA ) GIVENS = .TRUE.
 
       // Set INFO if an error
 
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( M.NE.N .AND. ISYM.NE.1 ) THEN
+      } else if ( M.NE.N .AND. ISYM.NE.1 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( IDIST.EQ.-1 ) THEN
+      } else if ( IDIST.EQ.-1 ) {
          INFO = -3
-      ELSE IF( ISYM.EQ.-1 ) THEN
+      } else if ( ISYM.EQ.-1 ) {
          INFO = -5
-      ELSE IF( ABS( MODE ).GT.6 ) THEN
+      } else if ( ABS( MODE ).GT.6 ) {
          INFO = -7
-      ELSE IF( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE ) THEN
+      } else if ( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE ) {
          INFO = -8
-      ELSE IF( KL.LT.0 ) THEN
+      } else if ( KL.LT.0 ) {
          INFO = -10
-      ELSE IF( KU.LT.0 .OR. ( ISYM.NE.1 .AND. KL.NE.KU ) ) THEN
+      } else if ( KU.LT.0 .OR. ( ISYM.NE.1 .AND. KL.NE.KU ) ) {
          INFO = -11
-      ELSE IF( IPACK.EQ.-1 .OR. ( ISYMPK.EQ.1 .AND. ISYM.EQ.1 ) .OR. ( ISYMPK.EQ.2 .AND. ISYM.EQ.1 .AND. KL.GT.0 ) .OR. ( ISYMPK.EQ.3 .AND. ISYM.EQ.1 .AND. KU.GT.0 ) .OR. ( ISYMPK.NE.0 .AND. M.NE.N ) ) THEN
+      } else if ( IPACK.EQ.-1 .OR. ( ISYMPK.EQ.1 .AND. ISYM.EQ.1 ) .OR. ( ISYMPK.EQ.2 .AND. ISYM.EQ.1 .AND. KL.GT.0 ) .OR. ( ISYMPK.EQ.3 .AND. ISYM.EQ.1 .AND. KU.GT.0 ) .OR. ( ISYMPK.NE.0 .AND. M.NE.N ) ) {
          INFO = -12
-      ELSE IF( LDA.LT.MAX( 1, MINLDA ) ) THEN
+      } else if ( LDA.LT.MAX( 1, MINLDA ) ) {
          INFO = -14
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZLATMT', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize random number generator
 
@@ -190,21 +190,21 @@
               // Compute D according to COND and MODE
 
       CALL DLATM7( MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, RANK, IINFO )
-      IF( IINFO.NE.0 ) THEN
+      if ( IINFO.NE.0 ) {
          INFO = 1
          RETURN
-      END IF
+      }
 
       // Choose Top-Down if D is (apparently) increasing,
       // Bottom-Up if D is (apparently) decreasing.
 
-      IF( ABS( D( 1 ) ).LE.ABS( D( RANK ) ) ) THEN
+      if ( ABS( D( 1 ) ).LE.ABS( D( RANK ) ) ) {
          TOPDWN = .TRUE.
       } else {
          TOPDWN = .FALSE.
-      END IF
+      }
 
-      IF( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) THEN
+      if ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) {
 
          // Scale by DMAX
 
@@ -213,16 +213,16 @@
             TEMP = MAX( TEMP, ABS( D( I ) ) )
   110    CONTINUE
 
-         IF( TEMP.GT.ZERO ) THEN
+         if ( TEMP.GT.ZERO ) {
             ALPHA = DMAX / TEMP
          } else {
             INFO = 2
             RETURN
-         END IF
+         }
 
          CALL DSCAL( RANK, ALPHA, D, 1 )
 
-      END IF
+      }
 
       CALL ZLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
 
@@ -235,19 +235,19 @@
                t // he (i,j)-th element is in
                 // A( i - ISKEW*j + IOFFST, j )
 
-      IF( IPACK.GT.4 ) THEN
+      if ( IPACK.GT.4 ) {
          ILDA = LDA - 1
          ISKEW = 1
-         IF( IPACK.GT.5 ) THEN
+         if ( IPACK.GT.5 ) {
             IOFFST = UUB + 1
          } else {
             IOFFST = 1
-         END IF
+         }
       } else {
          ILDA = LDA
          ISKEW = 0
          IOFFST = 0
-      END IF
+      }
 
       // IPACKG is the format that the matrix is generated in. If this is
       // different from IPACK, then the matrix must be repacked at the
@@ -258,33 +258,33 @@
       // Diagonal Matrix -- We are done, unless it
       // is to be stored HP/SP/PP/TP (PACK='R' or 'C')
 
-      IF( LLB.EQ.0 .AND. UUB.EQ.0 ) THEN
+      if ( LLB.EQ.0 .AND. UUB.EQ.0 ) {
          DO 120 J = 1, MNMIN
             A( ( 1-ISKEW )*J+IOFFST, J ) = DCMPLX( D( J ) )
   120    CONTINUE
 
          IF( IPACK.LE.2 .OR. IPACK.GE.5 ) IPACKG = IPACK
 
-      ELSE IF( GIVENS ) THEN
+      } else if ( GIVENS ) {
 
          // Check whether to use Givens rotations,
          // Householder transformations, or nothing.
 
-         IF( ISYM.EQ.1 ) THEN
+         if ( ISYM.EQ.1 ) {
 
             // Non-symmetric -- A = U D V
 
-            IF( IPACK.GT.4 ) THEN
+            if ( IPACK.GT.4 ) {
                IPACKG = IPACK
             } else {
                IPACKG = 0
-            END IF
+            }
 
             DO 130 J = 1, MNMIN
                A( ( 1-ISKEW )*J+IOFFST, J ) = DCMPLX( D( J ) )
   130       CONTINUE
 
-            IF( TOPDWN ) THEN
+            if ( TOPDWN ) {
                JKL = 0
                DO 160 JKU = 1, UUB
 
@@ -299,28 +299,28 @@
                      C = COS( ANGLE )*ZLARND( 5, ISEED )
                      S = SIN( ANGLE )*ZLARND( 5, ISEED )
                      ICOL = MAX( 1, JR-JKL )
-                     IF( JR.LT.M ) THEN
+                     if ( JR.LT.M ) {
                         IL = MIN( N, JR+JKU ) + 1 - ICOL
                         CALL ZLAROT( .TRUE., JR.GT.JKL, .FALSE., IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY )
-                     END IF
+                     }
 
                      // Chase "EXTRA" back up
 
                      IR = JR
                      IC = ICOL
                      DO 140 JCH = JR - JKL, 1, -JKL - JKU
-                        IF( IR.LT.M ) THEN
+                        if ( IR.LT.M ) {
                            CALL ZLARTG( A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY )
                            DUMMY = DLARND( 5, ISEED )
                            C = DCONJG( REALC*DUMMY )
                            S = DCONJG( -S*DUMMY )
-                        END IF
+                        }
                         IROW = MAX( 1, JCH-JKU )
                         IL = IR + 2 - IROW
                         ZTEMP = CZERO
                         ILTEMP = JCH.GT.JKU
                         CALL ZLAROT( .FALSE., ILTEMP, .TRUE., IL, C, S, A( IROW-ISKEW*IC+IOFFST, IC ), ILDA, ZTEMP, EXTRA )
-                        IF( ILTEMP ) THEN
+                        if ( ILTEMP ) {
                            CALL ZLARTG( A( IROW+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), ZTEMP, REALC, S, DUMMY )
                            DUMMY = ZLARND( 5, ISEED )
                            C = DCONJG( REALC*DUMMY )
@@ -332,7 +332,7 @@
                            CALL ZLAROT( .TRUE., JCH.GT.JKU+JKL, .TRUE., IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, ZTEMP )
                            IC = ICOL
                            IR = IROW
-                        END IF
+                        }
   140                CONTINUE
   150             CONTINUE
   160          CONTINUE
@@ -348,28 +348,28 @@
                      C = COS( ANGLE )*ZLARND( 5, ISEED )
                      S = SIN( ANGLE )*ZLARND( 5, ISEED )
                      IROW = MAX( 1, JC-JKU )
-                     IF( JC.LT.N ) THEN
+                     if ( JC.LT.N ) {
                         IL = MIN( M, JC+JKL ) + 1 - IROW
                         CALL ZLAROT( .FALSE., JC.GT.JKU, .FALSE., IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY )
-                     END IF
+                     }
 
                      // Chase "EXTRA" back up
 
                      IC = JC
                      IR = IROW
                      DO 170 JCH = JC - JKU, 1, -JKL - JKU
-                        IF( IC.LT.N ) THEN
+                        if ( IC.LT.N ) {
                            CALL ZLARTG( A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY )
                            DUMMY = ZLARND( 5, ISEED )
                            C = DCONJG( REALC*DUMMY )
                            S = DCONJG( -S*DUMMY )
-                        END IF
+                        }
                         ICOL = MAX( 1, JCH-JKL )
                         IL = IC + 2 - ICOL
                         ZTEMP = CZERO
                         ILTEMP = JCH.GT.JKL
                         CALL ZLAROT( .TRUE., ILTEMP, .TRUE., IL, C, S, A( IR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, ZTEMP, EXTRA )
-                        IF( ILTEMP ) THEN
+                        if ( ILTEMP ) {
                            CALL ZLARTG( A( IR+1-ISKEW*( ICOL+1 )+IOFFST, ICOL+1 ), ZTEMP, REALC, S, DUMMY )
                            DUMMY = ZLARND( 5, ISEED )
                            C = DCONJG( REALC*DUMMY )
@@ -380,7 +380,7 @@
                            CALL ZLAROT( .FALSE., JCH.GT.JKL+JKU, .TRUE., IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, ZTEMP )
                            IC = ICOL
                            IR = IROW
-                        END IF
+                        }
   170                CONTINUE
   180             CONTINUE
   190          CONTINUE
@@ -404,28 +404,28 @@
                      C = COS( ANGLE )*ZLARND( 5, ISEED )
                      S = SIN( ANGLE )*ZLARND( 5, ISEED )
                      IROW = MAX( 1, JC-JKU+1 )
-                     IF( JC.GT.0 ) THEN
+                     if ( JC.GT.0 ) {
                         IL = MIN( M, JC+JKL+1 ) + 1 - IROW
                         CALL ZLAROT( .FALSE., .FALSE., JC+JKL.LT.M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA )
-                     END IF
+                     }
 
                      // Chase "EXTRA" back down
 
                      IC = JC
                      DO 200 JCH = JC + JKL, IENDCH, JKL + JKU
                         ILEXTR = IC.GT.0
-                        IF( ILEXTR ) THEN
+                        if ( ILEXTR ) {
                            CALL ZLARTG( A( JCH-ISKEW*IC+IOFFST, IC ), EXTRA, REALC, S, DUMMY )
                            DUMMY = ZLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
-                        END IF
+                        }
                         IC = MAX( 1, IC )
                         ICOL = MIN( N-1, JCH+JKU )
                         ILTEMP = JCH + JKU.LT.N
                         ZTEMP = CZERO
                         CALL ZLAROT( .TRUE., ILEXTR, ILTEMP, ICOL+2-IC, C, S, A( JCH-ISKEW*IC+IOFFST, IC ), ILDA, EXTRA, ZTEMP )
-                        IF( ILTEMP ) THEN
+                        if ( ILTEMP ) {
                            CALL ZLARTG( A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ZTEMP, REALC, S, DUMMY )
                            DUMMY = ZLARND( 5, ISEED )
                            C = REALC*DUMMY
@@ -434,7 +434,7 @@
                            EXTRA = CZERO
                            CALL ZLAROT( .FALSE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, ZTEMP, EXTRA )
                            IC = ICOL
-                        END IF
+                        }
   200                CONTINUE
   210             CONTINUE
   220          CONTINUE
@@ -454,28 +454,28 @@
                      C = COS( ANGLE )*ZLARND( 5, ISEED )
                      S = SIN( ANGLE )*ZLARND( 5, ISEED )
                      ICOL = MAX( 1, JR-JKL+1 )
-                     IF( JR.GT.0 ) THEN
+                     if ( JR.GT.0 ) {
                         IL = MIN( N, JR+JKU+1 ) + 1 - ICOL
                         CALL ZLAROT( .TRUE., .FALSE., JR+JKU.LT.N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA )
-                     END IF
+                     }
 
                      // Chase "EXTRA" back down
 
                      IR = JR
                      DO 230 JCH = JR + JKU, IENDCH, JKL + JKU
                         ILEXTR = IR.GT.0
-                        IF( ILEXTR ) THEN
+                        if ( ILEXTR ) {
                            CALL ZLARTG( A( IR-ISKEW*JCH+IOFFST, JCH ), EXTRA, REALC, S, DUMMY )
                            DUMMY = ZLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
-                        END IF
+                        }
                         IR = MAX( 1, IR )
                         IROW = MIN( M-1, JCH+JKL )
                         ILTEMP = JCH + JKL.LT.M
                         ZTEMP = CZERO
                         CALL ZLAROT( .FALSE., ILEXTR, ILTEMP, IROW+2-IR, C, S, A( IR-ISKEW*JCH+IOFFST, JCH ), ILDA, EXTRA, ZTEMP )
-                        IF( ILTEMP ) THEN
+                        if ( ILTEMP ) {
                            CALL ZLARTG( A( IROW-ISKEW*JCH+IOFFST, JCH ), ZTEMP, REALC, S, DUMMY )
                            DUMMY = ZLARND( 5, ISEED )
                            C = REALC*DUMMY
@@ -484,12 +484,12 @@
                            EXTRA = CZERO
                            CALL ZLAROT( .TRUE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, ZTEMP, EXTRA )
                            IR = IROW
-                        END IF
+                        }
   230                CONTINUE
   240             CONTINUE
   250          CONTINUE
 
-            END IF
+            }
 
          } else {
 
@@ -499,16 +499,16 @@
             IPACKG = IPACK
             IOFFG = IOFFST
 
-            IF( TOPDWN ) THEN
+            if ( TOPDWN ) {
 
                // Top-Down -- Generate Upper triangle only
 
-               IF( IPACK.GE.5 ) THEN
+               if ( IPACK.GE.5 ) {
                   IPACKG = 6
                   IOFFG = UUB + 1
                } else {
                   IPACKG = 1
-               END IF
+               }
 
                DO 260 J = 1, MNMIN
                   A( ( 1-ISKEW )*J+IOFFG, J ) = DCMPLX( D( J ) )
@@ -523,14 +523,14 @@
                      ANGLE = TWOPI*DLARND( 1, ISEED )
                      C = COS( ANGLE )*ZLARND( 5, ISEED )
                      S = SIN( ANGLE )*ZLARND( 5, ISEED )
-                     IF( CSYM ) THEN
+                     if ( CSYM ) {
                         CT = C
                         ST = S
                      } else {
                         ZTEMP = DCONJG( ZTEMP )
                         CT = DCONJG( C )
                         ST = DCONJG( S )
-                     END IF
+                     }
                      CALL ZLAROT( .FALSE., JC.GT.K, .TRUE., IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, ZTEMP )                      CALL ZLAROT( .TRUE., .TRUE., .FALSE., MIN( K, N-JC )+1, CT, ST, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, ZTEMP, DUMMY )
 
                      // Chase EXTRA back up the matrix
@@ -542,14 +542,14 @@
                         C = DCONJG( REALC*DUMMY )
                         S = DCONJG( -S*DUMMY )
                         ZTEMP = A( JCH-ISKEW*( JCH+1 )+IOFFG, JCH+1 )
-                        IF( CSYM ) THEN
+                        if ( CSYM ) {
                            CT = C
                            ST = S
                         } else {
                            ZTEMP = DCONJG( ZTEMP )
                            CT = DCONJG( C )
                            ST = DCONJG( S )
-                        END IF
+                        }
                         CALL ZLAROT( .TRUE., .TRUE., .TRUE., K+2, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, ZTEMP, EXTRA )
                         IROW = MAX( 1, JCH-K )
                         IL = MIN( JCH+1, K+2 )
@@ -563,10 +563,10 @@
                // If we need lower triangle, copy from upper. Note that
               t // he order of copying is chosen to work for 'q' -> 'b'
 
-               IF( IPACK.NE.IPACKG .AND. IPACK.NE.3 ) THEN
+               if ( IPACK.NE.IPACKG .AND. IPACK.NE.3 ) {
                   DO 320 JC = 1, N
                      IROW = IOFFST - ISKEW*JC
-                     IF( CSYM ) THEN
+                     if ( CSYM ) {
                         DO 300 JR = JC, MIN( N, JC+UUB )
                            A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
   300                   CONTINUE
@@ -574,31 +574,31 @@
                         DO 310 JR = JC, MIN( N, JC+UUB )
                            A( JR+IROW, JC ) = DCONJG( A( JC-ISKEW*JR+ IOFFG, JR ) )
   310                   CONTINUE
-                     END IF
+                     }
   320             CONTINUE
-                  IF( IPACK.EQ.5 ) THEN
+                  if ( IPACK.EQ.5 ) {
                      DO 340 JC = N - UUB + 1, N
                         DO 330 JR = N + 2 - JC, UUB + 1
                            A( JR, JC ) = CZERO
   330                   CONTINUE
   340                CONTINUE
-                  END IF
-                  IF( IPACKG.EQ.6 ) THEN
+                  }
+                  if ( IPACKG.EQ.6 ) {
                      IPACKG = IPACK
                   } else {
                      IPACKG = 0
-                  END IF
-               END IF
+                  }
+               }
             } else {
 
                // Bottom-Up -- Generate Lower triangle only
 
-               IF( IPACK.GE.5 ) THEN
+               if ( IPACK.GE.5 ) {
                   IPACKG = 5
                   IF( IPACK.EQ.6 ) IOFFG = 1
                } else {
                   IPACKG = 2
-               END IF
+               }
 
                DO 350 J = 1, MNMIN
                   A( ( 1-ISKEW )*J+IOFFG, J ) = DCMPLX( D( J ) )
@@ -612,14 +612,14 @@
                      ANGLE = TWOPI*DLARND( 1, ISEED )
                      C = COS( ANGLE )*ZLARND( 5, ISEED )
                      S = SIN( ANGLE )*ZLARND( 5, ISEED )
-                     IF( CSYM ) THEN
+                     if ( CSYM ) {
                         CT = C
                         ST = S
                      } else {
                         ZTEMP = DCONJG( ZTEMP )
                         CT = DCONJG( C )
                         ST = DCONJG( S )
-                     END IF
+                     }
                      CALL ZLAROT( .FALSE., .TRUE., N-JC.GT.K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, ZTEMP, EXTRA )
                      ICOL = MAX( 1, JC-K+1 )
                      CALL ZLAROT( .TRUE., .FALSE., .TRUE., JC+2-ICOL, CT, ST, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, ZTEMP )
@@ -633,14 +633,14 @@
                         C = REALC*DUMMY
                         S = S*DUMMY
                         ZTEMP = A( 1+( 1-ISKEW )*JCH+IOFFG, JCH )
-                        IF( CSYM ) THEN
+                        if ( CSYM ) {
                            CT = C
                            ST = S
                         } else {
                            ZTEMP = DCONJG( ZTEMP )
                            CT = DCONJG( C )
                            ST = DCONJG( S )
-                        END IF
+                        }
                         CALL ZLAROT( .TRUE., .TRUE., .TRUE., K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, ZTEMP )
                         IL = MIN( N+1-JCH, K+2 )
                         EXTRA = CZERO
@@ -653,10 +653,10 @@
                // If we need upper triangle, copy from lower. Note that
               t // he order of copying is chosen to work for 'b' -> 'q'
 
-               IF( IPACK.NE.IPACKG .AND. IPACK.NE.4 ) THEN
+               if ( IPACK.NE.IPACKG .AND. IPACK.NE.4 ) {
                   DO 410 JC = N, 1, -1
                      IROW = IOFFST - ISKEW*JC
-                     IF( CSYM ) THEN
+                     if ( CSYM ) {
                         DO 390 JR = JC, MAX( 1, JC-UUB ), -1
                            A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
   390                   CONTINUE
@@ -664,33 +664,33 @@
                         DO 400 JR = JC, MAX( 1, JC-UUB ), -1
                            A( JR+IROW, JC ) = DCONJG( A( JC-ISKEW*JR+ IOFFG, JR ) )
   400                   CONTINUE
-                     END IF
+                     }
   410             CONTINUE
-                  IF( IPACK.EQ.6 ) THEN
+                  if ( IPACK.EQ.6 ) {
                      DO 430 JC = 1, UUB
                         DO 420 JR = 1, UUB + 1 - JC
                            A( JR, JC ) = CZERO
   420                   CONTINUE
   430                CONTINUE
-                  END IF
-                  IF( IPACKG.EQ.5 ) THEN
+                  }
+                  if ( IPACKG.EQ.5 ) {
                      IPACKG = IPACK
                   } else {
                      IPACKG = 0
-                  END IF
-               END IF
-            END IF
+                  }
+               }
+            }
 
             // Ensure that the diagonal is real if Hermitian
 
-            IF( .NOT.CSYM ) THEN
+            if ( .NOT.CSYM ) {
                DO 440 JC = 1, N
                   IROW = IOFFST + ( 1-ISKEW )*JC
                   A( IROW, JC ) = DCMPLX( DBLE( A( IROW, JC ) ) )
   440          CONTINUE
-            END IF
+            }
 
-         END IF
+         }
 
       } else {
 
@@ -701,7 +701,7 @@
 
                  // Note: we should get here only if LDA .ge. N
 
-         IF( ISYM.EQ.1 ) THEN
+         if ( ISYM.EQ.1 ) {
 
             // Non-symmetric -- A = U D V
 
@@ -711,23 +711,23 @@
             // Symmetric -- A = U D U' or
             // Hermitian -- A = U D U*
 
-            IF( CSYM ) THEN
+            if ( CSYM ) {
                CALL ZLAGSY( M, LLB, D, A, LDA, ISEED, WORK, IINFO )
             } else {
                CALL ZLAGHE( M, LLB, D, A, LDA, ISEED, WORK, IINFO )
-            END IF
-         END IF
+            }
+         }
 
-         IF( IINFO.NE.0 ) THEN
+         if ( IINFO.NE.0 ) {
             INFO = 3
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // 5)      Pack the matrix
 
-      IF( IPACK.NE.IPACKG ) THEN
-         IF( IPACK.EQ.1 ) THEN
+      if ( IPACK.NE.IPACKG ) {
+         if ( IPACK.EQ.1 ) {
 
             // 'U' -- Upper triangular, not packed
 
@@ -737,7 +737,7 @@
   450          CONTINUE
   460       CONTINUE
 
-         ELSE IF( IPACK.EQ.2 ) THEN
+         } else if ( IPACK.EQ.2 ) {
 
             // 'L' -- Lower triangular, not packed
 
@@ -747,7 +747,7 @@
   470          CONTINUE
   480       CONTINUE
 
-         ELSE IF( IPACK.EQ.3 ) THEN
+         } else if ( IPACK.EQ.3 ) {
 
             // 'C' -- Upper triangle packed Columnwise.
 
@@ -756,15 +756,15 @@
             DO 500 J = 1, M
                DO 490 I = 1, J
                   IROW = IROW + 1
-                  IF( IROW.GT.LDA ) THEN
+                  if ( IROW.GT.LDA ) {
                      IROW = 1
                      ICOL = ICOL + 1
-                  END IF
+                  }
                   A( IROW, ICOL ) = A( I, J )
   490          CONTINUE
   500       CONTINUE
 
-         ELSE IF( IPACK.EQ.4 ) THEN
+         } else if ( IPACK.EQ.4 ) {
 
             // 'R' -- Lower triangle packed Columnwise.
 
@@ -773,15 +773,15 @@
             DO 520 J = 1, M
                DO 510 I = J, M
                   IROW = IROW + 1
-                  IF( IROW.GT.LDA ) THEN
+                  if ( IROW.GT.LDA ) {
                      IROW = 1
                      ICOL = ICOL + 1
-                  END IF
+                  }
                   A( IROW, ICOL ) = A( I, J )
   510          CONTINUE
   520       CONTINUE
 
-         ELSE IF( IPACK.GE.5 ) THEN
+         } else if ( IPACK.GE.5 ) {
 
             // 'B' -- The lower triangle is packed as a band matrix.
             // 'Q' -- The upper triangle is packed as a band matrix.
@@ -800,14 +800,14 @@
                   A( I-J+UUB+1, J ) = A( I, J )
   550          CONTINUE
   560       CONTINUE
-         END IF
+         }
 
          // If packed, zero out extraneous elements.
 
          // Symmetric/Triangular Packed --
          // zero out everything after A(IROW,ICOL)
 
-         IF( IPACK.EQ.3 .OR. IPACK.EQ.4 ) THEN
+         if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
             DO 580 JC = ICOL, M
                DO 570 JR = IROW + 1, LDA
                   A( JR, JC ) = CZERO
@@ -815,7 +815,7 @@
                IROW = 0
   580       CONTINUE
 
-         ELSE IF( IPACK.GE.5 ) THEN
+         } else if ( IPACK.GE.5 ) {
 
             // Packed Band --
                // 1st row is now in A( UUB+2-j, j), zero above it
@@ -833,8 +833,8 @@
                   A( JR, JC ) = CZERO
   600          CONTINUE
   610       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

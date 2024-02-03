@@ -26,7 +26,7 @@
       // INTRINSIC LOG, MAX, MOD, NINT, REAL
       // ..
       // .. Executable Statements ..
-      IF( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR. ( ISPEC.EQ.IACC22 ) ) THEN
+      if ( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR. ( ISPEC.EQ.IACC22 ) ) {
 
          // ==== Set the number simultaneous shifts ====
 
@@ -34,9 +34,9 @@
          NS = 2
          IF( NH.GE.30 ) NS = 4          IF( NH.GE.60 ) NS = 10          IF( NH.GE.150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )          IF( NH.GE.590 ) NS = 64          IF( NH.GE.3000 ) NS = 128          IF( NH.GE.6000 ) NS = 256
          NS = MAX( 2, NS-MOD( NS, 2 ) )
-      END IF
+      }
 
-      IF( ISPEC.EQ.INMIN ) THEN
+      if ( ISPEC.EQ.INMIN ) {
 
 
          // ===== Matrices of order smaller than NMIN get sent
@@ -45,7 +45,7 @@
 
          IPARMQ = NMIN
 
-      ELSE IF( ISPEC.EQ.INIBL ) THEN
+      } else if ( ISPEC.EQ.INIBL ) {
 
          // ==== INIBL: skip a multi-shift qr iteration and
          // .    whenever aggressive early deflation finds
@@ -53,23 +53,23 @@
 
          IPARMQ = NIBBLE
 
-      ELSE IF( ISPEC.EQ.ISHFTS ) THEN
+      } else if ( ISPEC.EQ.ISHFTS ) {
 
          // ==== NSHFTS: The number of simultaneous shifts =====
 
          IPARMQ = NS
 
-      ELSE IF( ISPEC.EQ.INWIN ) THEN
+      } else if ( ISPEC.EQ.INWIN ) {
 
          // ==== NW: deflation window size.  ====
 
-         IF( NH.LE.KNWSWP ) THEN
+         if ( NH.LE.KNWSWP ) {
             IPARMQ = NS
          } else {
             IPARMQ = 3*NS / 2
-         END IF
+         }
 
-      ELSE IF( ISPEC.EQ.IACC22 ) THEN
+      } else if ( ISPEC.EQ.IACC22 ) {
 
          // ==== IACC22: Whether to accumulate reflections
          // .     before updating the far-from-diagonal elements
@@ -85,51 +85,51 @@
          SUBNAM = NAME
          IC = ICHAR( SUBNAM( 1: 1 ) )
          IZ = ICHAR( 'Z' )
-         IF( IZ.EQ.90 .OR. IZ.EQ.122 ) THEN
+         if ( IZ.EQ.90 .OR. IZ.EQ.122 ) {
 
             // ASCII character set
 
-            IF( IC.GE.97 .AND. IC.LE.122 ) THEN
+            if ( IC.GE.97 .AND. IC.LE.122 ) {
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                DO I = 2, 6
                   IC = ICHAR( SUBNAM( I: I ) )
                   IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
                END DO
-            END IF
+            }
 
-         ELSE IF( IZ.EQ.233 .OR. IZ.EQ.169 ) THEN
+         } else if ( IZ.EQ.233 .OR. IZ.EQ.169 ) {
 
             // EBCDIC character set
 
-            IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) THEN
+            if ( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) {
                SUBNAM( 1: 1 ) = CHAR( IC+64 )
                DO I = 2, 6
                   IC = ICHAR( SUBNAM( I: I ) )
                   IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
                END DO
-            END IF
+            }
 
-         ELSE IF( IZ.EQ.218 .OR. IZ.EQ.250 ) THEN
+         } else if ( IZ.EQ.218 .OR. IZ.EQ.250 ) {
 
             // Prime machines:  ASCII+128
 
-            IF( IC.GE.225 .AND. IC.LE.250 ) THEN
+            if ( IC.GE.225 .AND. IC.LE.250 ) {
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                DO I = 2, 6
                   IC = ICHAR( SUBNAM( I: I ) )
                   IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
                END DO
-            END IF
-         END IF
+            }
+         }
 
-         IF( SUBNAM( 2:6 ).EQ.'GGHRD' .OR. SUBNAM( 2:6 ).EQ.'GGHD3' ) THEN
+         if ( SUBNAM( 2:6 ).EQ.'GGHRD' .OR. SUBNAM( 2:6 ).EQ.'GGHD3' ) {
             IPARMQ = 1
             IF( NH.GE.K22MIN ) IPARMQ = 2
-         ELSE IF ( SUBNAM( 4:6 ).EQ.'EXC' ) THEN
+         } else if ( SUBNAM( 4:6 ).EQ.'EXC' ) {
             IF( NH.GE.KACMIN ) IPARMQ = 1             IF( NH.GE.K22MIN ) IPARMQ = 2          ELSE IF ( SUBNAM( 2:6 ).EQ.'HSEQR' .OR. SUBNAM( 2:5 ).EQ.'LAQR' ) THEN             IF( NS.GE.KACMIN ) IPARMQ = 1             IF( NS.GE.K22MIN ) IPARMQ = 2
-         END IF
+         }
 
-      ELSE IF( ISPEC.EQ.ICOST ) THEN
+      } else if ( ISPEC.EQ.ICOST ) {
 
          // === Relative cost of near-the-diagonal chase vs
              // BLAS updates ===
@@ -139,7 +139,7 @@
          // ===== invalid value of ispec =====
          IPARMQ = -1
 
-      END IF
+      }
 
       // ==== End of IPARMQ ====
 

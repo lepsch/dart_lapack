@@ -47,21 +47,21 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      END IF
+      }
 
       // Quick return if possible
 
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZHETRI2X', -INFO )
          RETURN
-      END IF
+      }
       IF( N.EQ.0 ) RETURN
 
       // Convert A
@@ -71,7 +71,7 @@
 
       // Check that the diagonal matrix D is nonsingular.
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Upper triangular storage: examine D from bottom to top
 
@@ -85,7 +85,7 @@
          DO INFO = 1, N
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
          END DO
-      END IF
+      }
       INFO = 0
 
 *  Splitting Workspace
@@ -98,7 +98,7 @@
       // The first element of INVD is in WORK(1,INVD)
       INVD = NB+2
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // invA = P * inv(U**H)*inv(D)*inv(U)*P**H.
 
@@ -108,7 +108,7 @@
 
         K=1
         DO WHILE ( K .LE. N )
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
             // 1 x 1 diagonal NNB
              WORK(K,INVD) = ONE / REAL ( A( K, K ) )
              WORK(K,INVD+1) = 0
@@ -125,7 +125,7 @@
              WORK(K,INVD+1) = -AKKP1 / D
              WORK(K+1,INVD) = DCONJG (WORK(K,INVD+1) )
             K=K+2
-         END IF
+         }
         END DO
 
         // inv(U**H) = (inv(U))**H
@@ -135,7 +135,7 @@
         CUT=N
         DO WHILE (CUT .GT. 0)
            NNB=NB
-           IF (CUT .LE. NNB) THEN
+           if (CUT .LE. NNB) {
               NNB=CUT
            } else {
               COUNT = 0
@@ -145,7 +145,7 @@
               END DO
               // need a even number for a clear cut
               IF (MOD(COUNT,2) .EQ. 1) NNB=NNB+1
-           END IF
+           }
 
            CUT=CUT-NNB
 
@@ -173,7 +173,7 @@
 
            I=1
            DO WHILE (I .LE. CUT)
-             IF (IPIV(I) > 0) THEN
+             if (IPIV(I) > 0) {
                 DO J=1,NNB
                     WORK(I,J)=WORK(I,INVD)*WORK(I,J)
                 END DO
@@ -185,14 +185,14 @@
                    WORK(I,J)=WORK(I,INVD)*U01_I_J+ WORK(I,INVD+1)*U01_IP1_J                    WORK(I+1,J)=WORK(I+1,INVD)*U01_I_J+ WORK(I+1,INVD+1)*U01_IP1_J
                 END DO
                 I=I+2
-             END IF
+             }
            END DO
 
          // invD1*U11
 
            I=1
            DO WHILE (I .LE. NNB)
-             IF (IPIV(CUT+I) > 0) THEN
+             if (IPIV(CUT+I) > 0) {
                 DO J=I,NNB
                     WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J)
                 END DO
@@ -204,7 +204,7 @@
                 WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J) + WORK(CUT+I,INVD+1)*WORK(U11+I+1,J)                 WORK(U11+I+1,J)=WORK(CUT+I+1,INVD)*U11_I_J+ WORK(CUT+I+1,INVD+1)*U11_IP1_J
                 END DO
                 I=I+2
-             END IF
+             }
            END DO
 
         // U11**H*invD1*U11->U11
@@ -250,7 +250,7 @@
 
             I=1
             DO WHILE ( I .LE. N )
-               IF( IPIV(I) .GT. 0 ) THEN
+               if ( IPIV(I) .GT. 0 ) {
                   IP=IPIV(I)
                  IF (I .LT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, I ,IP )
                  IF (I .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I )
@@ -273,7 +273,7 @@
 
         K=N
         DO WHILE ( K .GE. 1 )
-         IF( IPIV( K ).GT.0 ) THEN
+         if ( IPIV( K ).GT.0 ) {
             // 1 x 1 diagonal NNB
              WORK(K,INVD) = ONE / REAL ( A( K, K ) )
              WORK(K,INVD+1) = 0
@@ -290,7 +290,7 @@
              WORK(K,INVD+1) = -AKKP1 / D
              WORK(K-1,INVD+1) = DCONJG (WORK(K,INVD+1) )
             K=K-2
-         END IF
+         }
         END DO
 
         // inv(U**H) = (inv(U))**H
@@ -300,7 +300,7 @@
         CUT=0
         DO WHILE (CUT .LT. N)
            NNB=NB
-           IF (CUT + NNB .GE. N) THEN
+           if (CUT + NNB .GE. N) {
               NNB=N-CUT
            } else {
               COUNT = 0
@@ -310,7 +310,7 @@
               END DO
               // need a even number for a clear cut
               IF (MOD(COUNT,2) .EQ. 1) NNB=NNB+1
-           END IF
+           }
        // L21 Block
            DO I=1,N-CUT-NNB
              DO J=1,NNB
@@ -332,7 +332,7 @@
 
            I=N-CUT-NNB
            DO WHILE (I .GE. 1)
-             IF (IPIV(CUT+NNB+I) > 0) THEN
+             if (IPIV(CUT+NNB+I) > 0) {
                 DO J=1,NNB
                     WORK(I,J)=WORK(CUT+NNB+I,INVD)*WORK(I,J)
                 END DO
@@ -344,14 +344,14 @@
                    WORK(I,J)=WORK(CUT+NNB+I,INVD)*U01_I_J+ WORK(CUT+NNB+I,INVD+1)*U01_IP1_J                    WORK(I-1,J)=WORK(CUT+NNB+I-1,INVD+1)*U01_I_J+ WORK(CUT+NNB+I-1,INVD)*U01_IP1_J
                 END DO
                 I=I-2
-             END IF
+             }
            END DO
 
          // invD1*L11
 
            I=NNB
            DO WHILE (I .GE. 1)
-             IF (IPIV(CUT+I) > 0) THEN
+             if (IPIV(CUT+I) > 0) {
                 DO J=1,NNB
                     WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J)
                 END DO
@@ -363,7 +363,7 @@
                 WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J) + WORK(CUT+I,INVD+1)*U11_IP1_J                 WORK(U11+I-1,J)=WORK(CUT+I-1,INVD+1)*U11_I_J+ WORK(CUT+I-1,INVD)*U11_IP1_J
                 END DO
                 I=I-2
-             END IF
+             }
            END DO
 
         // L11**H*invD1*L11->L11
@@ -376,7 +376,7 @@
             END DO
          END DO
 
-        IF ( (CUT+NNB) .LT. N ) THEN
+        if ( (CUT+NNB) .LT. N ) {
 
            // L21**H*invD2*L21->A(CUT+I,CUT+J)
 
@@ -410,7 +410,7 @@
               A(CUT+I,CUT+J)=WORK(U11+I,J)
             END DO
          END DO
-       END IF
+       }
 
        // Next Block
 
@@ -421,7 +421,7 @@
 
             I=N
             DO WHILE ( I .GE. 1 )
-               IF( IPIV(I) .GT. 0 ) THEN
+               if ( IPIV(I) .GT. 0 ) {
                   IP=IPIV(I)
                  IF (I .LT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, I ,IP  )
                  IF (I .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I )
@@ -433,7 +433,7 @@
                ENDIF
                I=I-1
             END DO
-      END IF
+      }
 
       RETURN
 

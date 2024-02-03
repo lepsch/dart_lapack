@@ -88,23 +88,23 @@
                CALL ZTPTTR( UPLO, N, AP, ASAV, LDA, INFO )
 
                OK1 = .TRUE.
-               IF ( LOWER ) THEN
+               if ( LOWER ) {
                   DO J = 1, N
                      DO I = J, N
-                        IF ( A(I,J).NE.ASAV(I,J) ) THEN
+                        if ( A(I,J).NE.ASAV(I,J) ) {
                            OK1 = .FALSE.
-                        END IF
+                        }
                      END DO
                   END DO
                } else {
                   DO J = 1, N
                      DO I = 1, J
-                        IF ( A(I,J).NE.ASAV(I,J) ) THEN
+                        if ( A(I,J).NE.ASAV(I,J) ) {
                            OK1 = .FALSE.
-                        END IF
+                        }
                      END DO
                   END DO
-               END IF
+               }
 
                NRUN = NRUN + 1
 
@@ -118,32 +118,32 @@
                CALL ZTFTTR( CFORM, UPLO, N, ARF, ASAV, LDA, INFO )
 
                OK2 = .TRUE.
-               IF ( LOWER ) THEN
+               if ( LOWER ) {
                   DO J = 1, N
                      DO I = J, N
-                        IF ( A(I,J).NE.ASAV(I,J) ) THEN
+                        if ( A(I,J).NE.ASAV(I,J) ) {
                            OK2 = .FALSE.
-                        END IF
+                        }
                      END DO
                   END DO
                } else {
                   DO J = 1, N
                      DO I = 1, J
-                        IF ( A(I,J).NE.ASAV(I,J) ) THEN
+                        if ( A(I,J).NE.ASAV(I,J) ) {
                            OK2 = .FALSE.
-                        END IF
+                        }
                      END DO
                   END DO
-               END IF
+               }
 
-               IF (( .NOT.OK1 ).OR.( .NOT.OK2 )) THEN
-                  IF( NERRS.EQ.0 ) THEN
+               if (( .NOT.OK1 ).OR.( .NOT.OK2 )) {
+                  if ( NERRS.EQ.0 ) {
                      WRITE( NOUT, * )
                      WRITE( NOUT, FMT = 9999 )
-                  END IF
+                  }
                   WRITE( NOUT, FMT = 9998 ) N, UPLO, CFORM
                   NERRS = NERRS + 1
-               END IF
+               }
 
   100       CONTINUE
   110    CONTINUE
@@ -151,11 +151,11 @@
 
       // Print a summary of the results.
 
-      IF ( NERRS.EQ.0 ) THEN
+      if ( NERRS.EQ.0 ) {
          WRITE( NOUT, FMT = 9997 ) NRUN
       } else {
          WRITE( NOUT, FMT = 9996 ) NERRS, NRUN
-      END IF
+      }
 
  9999 FORMAT( 1X, ' *** Error(s) while testing the RFP conversion',
      +         ' routines ***')

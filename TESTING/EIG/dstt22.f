@@ -44,7 +44,7 @@
 
       // Compute the 1-norm of A.
 
-      IF( N.GT.1 ) THEN
+      if ( N.GT.1 ) {
          ANORM = ABS( AD( 1 ) ) + ABS( AE( 1 ) )
          DO 10 J = 2, N - 1
             ANORM = MAX( ANORM, ABS( AD( J ) )+ABS( AE( J ) )+ ABS( AE( J-1 ) ) )
@@ -52,7 +52,7 @@
          ANORM = MAX( ANORM, ABS( AD( N ) )+ABS( AE( N-1 ) ) )
       } else {
          ANORM = ABS( AD( 1 ) )
-      END IF
+      }
       ANORM = MAX( ANORM, UNFL )
 
       // Norm of U'AU - S
@@ -67,22 +67,22 @@
    20       CONTINUE
    30    CONTINUE
          WORK( I, I ) = WORK( I, I ) - SD( I )
-         IF( KBAND.EQ.1 ) THEN
+         if ( KBAND.EQ.1 ) {
             IF( I.NE.1 ) WORK( I, I-1 ) = WORK( I, I-1 ) - SE( I-1 )             IF( I.NE.N ) WORK( I, I+1 ) = WORK( I, I+1 ) - SE( I )
-         END IF
+         }
    40 CONTINUE
 
       WNORM = DLANSY( '1', 'L', M, WORK, M, WORK( 1, M+1 ) )
 
-      IF( ANORM.GT.WNORM ) THEN
+      if ( ANORM.GT.WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( M*ULP )
       } else {
-         IF( ANORM.LT.ONE ) THEN
+         if ( ANORM.LT.ONE ) {
             RESULT( 1 ) = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*ULP )
          } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( M ) ) / ( M*ULP )
-         END IF
-      END IF
+         }
+      }
 
       // Do Test 2
 

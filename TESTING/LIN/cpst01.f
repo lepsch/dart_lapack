@@ -44,41 +44,41 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK )
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
       // Check the imaginary parts of the diagonal elements and return with
       // an error code if any are nonzero.
 
       DO 100 J = 1, N
-         IF( AIMAG( AFAC( J, J ) ).NE.ZERO ) THEN
+         if ( AIMAG( AFAC( J, J ) ).NE.ZERO ) {
             RESID = ONE / EPS
             RETURN
-         END IF
+         }
   100 CONTINUE
 
       // Compute the product U'*U, overwriting U.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
-         IF( RANK.LT.N ) THEN
+         if ( RANK.LT.N ) {
             DO 120 J = RANK + 1, N
                DO 110 I = RANK + 1, J
                   AFAC( I, J ) = CZERO
   110          CONTINUE
   120       CONTINUE
-         END IF
+         }
 
          DO 130 K = N, 1, -1
 
@@ -97,13 +97,13 @@
 
       } else {
 
-         IF( RANK.LT.N ) THEN
+         if ( RANK.LT.N ) {
             DO 150 J = RANK + 1, N
                DO 140 I = J, N
                   AFAC( I, J ) = CZERO
   140          CONTINUE
   150       CONTINUE
-         END IF
+         }
 
          DO 160 K = N, 1, -1
             // Add a multiple of column K of the factor L to each of
@@ -117,21 +117,21 @@
             CALL CSCAL( N-K+1, TC, AFAC( K, K ), 1 )
   160    CONTINUE
 
-      END IF
+      }
 
          // Form P*L*L'*P' or P*U'*U*P'
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
          DO 180 J = 1, N
             DO 170 I = 1, N
-               IF( PIV( I ).LE.PIV( J ) ) THEN
-                  IF( I.LE.J ) THEN
+               if ( PIV( I ).LE.PIV( J ) ) {
+                  if ( I.LE.J ) {
                      PERM( PIV( I ), PIV( J ) ) = AFAC( I, J )
                   } else {
                      PERM( PIV( I ), PIV( J ) ) = CONJG( AFAC( J, I ) )
-                  END IF
-               END IF
+                  }
+               }
   170       CONTINUE
   180    CONTINUE
 
@@ -140,21 +140,21 @@
 
          DO 200 J = 1, N
             DO 190 I = 1, N
-               IF( PIV( I ).GE.PIV( J ) ) THEN
-                  IF( I.GE.J ) THEN
+               if ( PIV( I ).GE.PIV( J ) ) {
+                  if ( I.GE.J ) {
                      PERM( PIV( I ), PIV( J ) ) = AFAC( I, J )
                   } else {
                      PERM( PIV( I ), PIV( J ) ) = CONJG( AFAC( J, I ) )
-                  END IF
-               END IF
+                  }
+               }
   190       CONTINUE
   200    CONTINUE
 
-      END IF
+      }
 
       // Compute the difference  P*L*L'*P' - A (or P*U'*U*P' - A).
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 220 J = 1, N
             DO 210 I = 1, J - 1
                PERM( I, J ) = PERM( I, J ) - A( I, J )
@@ -168,7 +168,7 @@
                PERM( I, J ) = PERM( I, J ) - A( I, J )
   230       CONTINUE
   240    CONTINUE
-      END IF
+      }
 
       // Compute norm( P*L*L'P - A ) / ( N * norm(A) * EPS ), or
       // ( P*U'*U*P' - A )/ ( N * norm(A) * EPS ).

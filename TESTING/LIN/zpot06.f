@@ -51,19 +51,19 @@
 
       // Quick exit if N = 0 or NRHS = 0
 
-      IF( N.LE.0 .OR. NRHS.EQ.0 ) THEN
+      if ( N.LE.0 .OR. NRHS.EQ.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANSY( 'I', UPLO, N, A, LDA, RWORK )
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
       // Compute  B - A*X  and store in B.
       IFAIL=0
@@ -77,11 +77,11 @@
       DO 10 J = 1, NRHS
          BNORM = CABS1(B(IZAMAX( N, B( 1, J ), 1 ),J))
          XNORM = CABS1(X(IZAMAX( N, X( 1, J ), 1 ),J))
-         IF( XNORM.LE.ZERO ) THEN
+         if ( XNORM.LE.ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
-         END IF
+         }
    10 CONTINUE
 
       RETURN

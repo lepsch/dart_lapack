@@ -55,73 +55,73 @@
       LQUERY = ( LWORK.EQ.-1 )
 
       INFO = 0
-      IF( .NOT.( LSAME( JOBZ, 'N' ) ) ) THEN
+      if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) THEN
+      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
          INFO = -2
-      ELSE IF( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) THEN
+      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
       } else {
-         IF( VALEIG ) THEN
+         if ( VALEIG ) {
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -8
-         ELSE IF( INDEIG ) THEN
-            IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
+         } else if ( INDEIG ) {
+            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -9
-            ELSE IF( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) THEN
+            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
                INFO = -10
-            END IF
-         END IF
-      END IF
-      IF( INFO.EQ.0 ) THEN
-         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) THEN
+            }
+         }
+      }
+      if ( INFO.EQ.0 ) {
+         if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
             INFO = -15
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.EQ.0 ) THEN
-         IF( N.LE.1 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( N.LE.1 ) {
             LWMIN = 1
             WORK( 1 ) = LWMIN
          } else {
             KD    = ILAENV2STAGE( 1, 'ZHETRD_2STAGE', JOBZ, N, -1, -1, -1 )             IB    = ILAENV2STAGE( 2, 'ZHETRD_2STAGE', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'ZHETRD_2STAGE', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'ZHETRD_2STAGE', JOBZ, N, KD, IB, -1 )
             LWMIN = N + LHTRD + LWTRD
             WORK( 1 )  = LWMIN
-         END IF
+         }
 
          IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -17
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZHEEVX_2STAGE', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       M = 0
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          RETURN
-      END IF
+      }
 
-      IF( N.EQ.1 ) THEN
-         IF( ALLEIG .OR. INDEIG ) THEN
+      if ( N.EQ.1 ) {
+         if ( ALLEIG .OR. INDEIG ) {
             M = 1
          W( 1 ) = DBLE( A( 1, 1 ) )
-         ELSE IF( VALEIG ) THEN
-            IF( VL.LT.DBLE( A( 1, 1 ) ) .AND. VU.GE.DBLE( A( 1, 1 ) ) ) THEN
+         } else if ( VALEIG ) {
+            if ( VL.LT.DBLE( A( 1, 1 ) ) .AND. VU.GE.DBLE( A( 1, 1 ) ) ) {
                M = 1
                W( 1 ) = DBLE( A( 1, 1 ) )
-            END IF
-         END IF
+            }
+         }
          IF( WANTZ ) Z( 1, 1 ) = CONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -136,20 +136,20 @@
 
       ISCALE = 0
       ABSTLL = ABSTOL
-      IF( VALEIG ) THEN
+      if ( VALEIG ) {
          VLL = VL
          VUU = VU
-      END IF
+      }
       ANRM = ZLANHE( 'M', UPLO, N, A, LDA, RWORK )
-      IF( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) THEN
+      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
-      ELSE IF( ANRM.GT.RMAX ) THEN
+      } else if ( ANRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / ANRM
-      END IF
-      IF( ISCALE.EQ.1 ) THEN
-         IF( LOWER ) THEN
+      }
+      if ( ISCALE.EQ.1 ) {
+         if ( LOWER ) {
             DO 10 J = 1, N
                CALL ZDSCAL( N-J+1, SIGMA, A( J, J ), 1 )
    10       CONTINUE
@@ -157,13 +157,13 @@
             DO 20 J = 1, N
                CALL ZDSCAL( J, SIGMA, A( 1, J ), 1 )
    20       CONTINUE
-         END IF
+         }
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
-         IF( VALEIG ) THEN
+         if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA
-         END IF
-      END IF
+         }
+      }
 
       // Call ZHETRD_2STAGE to reduce Hermitian matrix to tridiagonal form.
 
@@ -182,15 +182,15 @@
       // some eigenvalue, then try DSTEBZ.
 
       TEST = .FALSE.
-      IF( INDEIG ) THEN
-         IF( IL.EQ.1 .AND. IU.EQ.N ) THEN
+      if ( INDEIG ) {
+         if ( IL.EQ.1 .AND. IU.EQ.N ) {
             TEST = .TRUE.
-         END IF
-      END IF
-      IF( ( ALLEIG .OR. TEST ) .AND. ( ABSTOL.LE.ZERO ) ) THEN
+         }
+      }
+      if ( ( ALLEIG .OR. TEST ) .AND. ( ABSTOL.LE.ZERO ) ) {
          CALL DCOPY( N, RWORK( INDD ), 1, W, 1 )
          INDEE = INDRWK + 2*N
-         IF( .NOT.WANTZ ) THEN
+         if ( .NOT.WANTZ ) {
             CALL DCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL DSTERF( N, W, RWORK( INDEE ), INFO )
          } else {
@@ -198,81 +198,81 @@
             CALL ZUNGTR( UPLO, N, Z, LDZ, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
             CALL DCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL ZSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO )
-            IF( INFO.EQ.0 ) THEN
+            if ( INFO.EQ.0 ) {
                DO 30 I = 1, N
                   IFAIL( I ) = 0
    30          CONTINUE
-            END IF
-         END IF
-         IF( INFO.EQ.0 ) THEN
+            }
+         }
+         if ( INFO.EQ.0 ) {
             M = N
             GO TO 40
-         END IF
+         }
          INFO = 0
-      END IF
+      }
 
       // Otherwise, call DSTEBZ and, if eigenvectors are desired, ZSTEIN.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          ORDER = 'B'
       } else {
          ORDER = 'E'
-      END IF
+      }
       INDIBL = 1
       INDISP = INDIBL + N
       INDIWK = INDISP + N
       CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO )
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
 
          // Apply unitary matrix used in reduction to tridiagonal
          // form to eigenvectors returned by ZSTEIN.
 
          CALL ZUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), LLWORK, IINFO )
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
    40 CONTINUE
-      IF( ISCALE.EQ.1 ) THEN
-         IF( INFO.EQ.0 ) THEN
+      if ( ISCALE.EQ.1 ) {
+         if ( INFO.EQ.0 ) {
             IMAX = M
          } else {
             IMAX = INFO - 1
-         END IF
+         }
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
-      END IF
+      }
 
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
 
-      IF( WANTZ ) THEN
+      if ( WANTZ ) {
          DO 60 J = 1, M - 1
             I = 0
             TMP1 = W( J )
             DO 50 JJ = J + 1, M
-               IF( W( JJ ).LT.TMP1 ) THEN
+               if ( W( JJ ).LT.TMP1 ) {
                   I = JJ
                   TMP1 = W( JJ )
-               END IF
+               }
    50       CONTINUE
 
-            IF( I.NE.0 ) THEN
+            if ( I.NE.0 ) {
                ITMP1 = IWORK( INDIBL+I-1 )
                W( I ) = W( J )
                IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 )
                W( J ) = TMP1
                IWORK( INDIBL+J-1 ) = ITMP1
                CALL ZSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )
                   IFAIL( J ) = ITMP1
-               END IF
-            END IF
+               }
+            }
    60    CONTINUE
-      END IF
+      }
 
       // Set WORK(1) to optimal complex workspace size.
 

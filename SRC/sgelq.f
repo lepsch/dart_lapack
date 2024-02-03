@@ -43,106 +43,106 @@
 
       MINT = .FALSE.
       MINW = .FALSE.
-      IF( TSIZE.EQ.-2 .OR. LWORK.EQ.-2 ) THEN
+      if ( TSIZE.EQ.-2 .OR. LWORK.EQ.-2 ) {
         IF( TSIZE.NE.-1 ) MINT = .TRUE.
         IF( LWORK.NE.-1 ) MINW = .TRUE.
-      END IF
+      }
 
       // Determine the block size
 
-      IF( MIN( M, N ).GT.0 ) THEN
+      if ( MIN( M, N ).GT.0 ) {
         MB = ILAENV( 1, 'SGELQ ', ' ', M, N, 1, -1 )
         NB = ILAENV( 1, 'SGELQ ', ' ', M, N, 2, -1 )
       } else {
         MB = 1
         NB = N
-      END IF
+      }
       IF( MB.GT.MIN( M, N ) .OR. MB.LT.1 ) MB = 1
       IF( NB.GT.N .OR. NB.LE.M ) NB = N
       MINTSZ = M + 5
-      IF ( NB.GT.M .AND. N.GT.M ) THEN
-        IF( MOD( N - M, NB - M ).EQ.0 ) THEN
+      if ( NB.GT.M .AND. N.GT.M ) {
+        if ( MOD( N - M, NB - M ).EQ.0 ) {
           NBLCKS = ( N - M ) / ( NB - M )
         } else {
           NBLCKS = ( N - M ) / ( NB - M ) + 1
-        END IF
+        }
       } else {
         NBLCKS = 1
-      END IF
+      }
 
       // Determine if the workspace size satisfies minimal size
 
-      IF( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) THEN
+      if ( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) {
          LWMIN = MAX( 1, N )
          LWOPT = MAX( 1, MB*N )
       } else {
          LWMIN = MAX( 1, M )
          LWOPT = MAX( 1, MB*M )
-      END IF
+      }
       LMINWS = .FALSE.
-      IF( ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) .OR. LWORK.LT.LWOPT ) .AND. ( LWORK.GE.LWMIN ) .AND. ( TSIZE.GE.MINTSZ ) .AND. ( .NOT.LQUERY ) ) THEN
-        IF( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) ) THEN
+      if ( ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) .OR. LWORK.LT.LWOPT ) .AND. ( LWORK.GE.LWMIN ) .AND. ( TSIZE.GE.MINTSZ ) .AND. ( .NOT.LQUERY ) ) {
+        if ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) ) {
           LMINWS = .TRUE.
           MB = 1
           NB = N
-        END IF
-        IF( LWORK.LT.LWOPT ) THEN
+        }
+        if ( LWORK.LT.LWOPT ) {
           LMINWS = .TRUE.
           MB = 1
-        END IF
-      END IF
-      IF( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) THEN
+        }
+      }
+      if ( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) {
          LWREQ = MAX( 1, MB*N )
       } else {
          LWREQ = MAX( 1, MB*M )
-      END IF
+      }
 
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
         INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
         INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
         INFO = -4
-      ELSE IF( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) .AND. ( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) THEN
+      } else if ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) .AND. ( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) {
         INFO = -6
-      ELSE IF( ( LWORK.LT.LWREQ ) .AND .( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) THEN
+      } else if ( ( LWORK.LT.LWREQ ) .AND .( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) {
         INFO = -8
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
-        IF( MINT ) THEN
+      if ( INFO.EQ.0 ) {
+        if ( MINT ) {
           T( 1 ) = MINTSZ
         } else {
           T( 1 ) = MB*M*NBLCKS + 5
-        END IF
+        }
         T( 2 ) = MB
         T( 3 ) = NB
-        IF( MINW ) THEN
+        if ( MINW ) {
           WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
         } else {
           WORK( 1 ) = SROUNDUP_LWORK( LWREQ )
-        END IF
-      END IF
-      IF( INFO.NE.0 ) THEN
+        }
+      }
+      if ( INFO.NE.0 ) {
         CALL XERBLA( 'SGELQ', -INFO )
         RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
         RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( MIN( M, N ).EQ.0 ) THEN
+      if ( MIN( M, N ).EQ.0 ) {
         RETURN
-      END IF
+      }
 
       // The LQ Decomposition
 
-      IF( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) THEN
+      if ( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) {
         CALL SGELQT( M, N, MB, A, LDA, T( 6 ), MB, WORK, INFO )
       } else {
         CALL SLASWLQ( M, N, MB, NB, A, LDA, T( 6 ), MB, WORK, LWORK, INFO )
-      END IF
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWREQ )
       RETURN

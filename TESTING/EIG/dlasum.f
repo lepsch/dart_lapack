@@ -13,11 +13,11 @@
 
       // .. Executable Statements ..
 
-      IF( IE.GT.0 ) THEN
+      if ( IE.GT.0 ) {
          WRITE( IOUNIT, FMT = 9999 )TYPE, ': ', IE, ' out of ', NRUN, ' tests failed to pass the threshold'
       } else {
          WRITE( IOUNIT, FMT = 9998 )'All tests for ', TYPE, ' passed the threshold ( ', NRUN, ' tests run)'
-      END IF
+      }
  9999 FORMAT( 1X, A3, A2, I4, A8, I5, A35 )
  9998 FORMAT( / 1X, A14, A3, A24, I5, A11 )
       RETURN

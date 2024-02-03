@@ -24,16 +24,16 @@
       IF (N.LT.1 .OR. INCX.LE.0) RETURN
       ISAMAX = 1
       IF (N.EQ.1) RETURN
-      IF (INCX.EQ.1) THEN
+      if (INCX.EQ.1) {
 
          // code for increment equal to 1
 
          SMAX = ABS(SX(1))
          DO I = 2,N
-            IF (ABS(SX(I)).GT.SMAX) THEN
+            if (ABS(SX(I)).GT.SMAX) {
                ISAMAX = I
                SMAX = ABS(SX(I))
-            END IF
+            }
          END DO
       } else {
 
@@ -43,13 +43,13 @@
          SMAX = ABS(SX(1))
          IX = IX + INCX
          DO I = 2,N
-            IF (ABS(SX(IX)).GT.SMAX) THEN
+            if (ABS(SX(IX)).GT.SMAX) {
                ISAMAX = I
                SMAX = ABS(SX(IX))
-            END IF
+            }
             IX = IX + INCX
          END DO
-      END IF
+      }
       RETURN
 
       // End of ISAMAX

@@ -44,33 +44,33 @@
       FORWRD = .TRUE.
 
       INFO = 0
-      IF( .NOT.( WANTU .OR. LSAME( JOBU, 'N' ) ) ) THEN
+      if ( .NOT.( WANTU .OR. LSAME( JOBU, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( .NOT.( WANTV .OR. LSAME( JOBV, 'N' ) ) ) THEN
+      } else if ( .NOT.( WANTV .OR. LSAME( JOBV, 'N' ) ) ) {
          INFO = -2
-      ELSE IF( .NOT.( WANTQ .OR. LSAME( JOBQ, 'N' ) ) ) THEN
+      } else if ( .NOT.( WANTQ .OR. LSAME( JOBQ, 'N' ) ) ) {
          INFO = -3
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -4
-      ELSE IF( P.LT.0 ) THEN
+      } else if ( P.LT.0 ) {
          INFO = -5
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -6
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -8
-      ELSE IF( LDB.LT.MAX( 1, P ) ) THEN
+      } else if ( LDB.LT.MAX( 1, P ) ) {
          INFO = -10
-      ELSE IF( LDU.LT.1 .OR. ( WANTU .AND. LDU.LT.M ) ) THEN
+      } else if ( LDU.LT.1 .OR. ( WANTU .AND. LDU.LT.M ) ) {
          INFO = -16
-      ELSE IF( LDV.LT.1 .OR. ( WANTV .AND. LDV.LT.P ) ) THEN
+      } else if ( LDV.LT.1 .OR. ( WANTV .AND. LDV.LT.P ) ) {
          INFO = -18
-      ELSE IF( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) THEN
+      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) {
          INFO = -20
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGGSVP', -INFO )
          RETURN
-      END IF
+      }
 
       // QR with column pivoting of B: B*P = V*( S11 S12 )
                                             // (  0   0  )
@@ -91,14 +91,14 @@
          IF( ABS( B( I, I ) ).GT.TOLB ) L = L + 1
    20 CONTINUE
 
-      IF( WANTV ) THEN
+      if ( WANTV ) {
 
          // Copy the details of V, and form V.
 
          CALL SLASET( 'Full', P, P, ZERO, ZERO, V, LDV )
          IF( P.GT.1 ) CALL SLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV )
          CALL SORG2R( P, P, MIN( P, N ), V, LDV, TAU, WORK, INFO )
-      END IF
+      }
 
       // Clean up B
 
@@ -109,15 +109,15 @@
    40 CONTINUE
       IF( P.GT.L ) CALL SLASET( 'Full', P-L, N, ZERO, ZERO, B( L+1, 1 ), LDB )
 
-      IF( WANTQ ) THEN
+      if ( WANTQ ) {
 
          // Set Q = I and Update Q := Q*P
 
          CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )
          CALL SLAPMT( FORWRD, N, N, Q, LDQ, IWORK )
-      END IF
+      }
 
-      IF( P.GE.L .AND. N.NE.L ) THEN
+      if ( P.GE.L .AND. N.NE.L ) {
 
          // RQ factorization of (S11 S12): ( S11 S12 ) = ( 0 S12 )*Z
 
@@ -127,12 +127,12 @@
 
          CALL SORMR2( 'Right', 'Transpose', M, N, L, B, LDB, TAU, A, LDA, WORK, INFO )
 
-         IF( WANTQ ) THEN
+         if ( WANTQ ) {
 
             // Update Q := Q*Z**T
 
             CALL SORMR2( 'Right', 'Transpose', N, N, L, B, LDB, TAU, Q, LDQ, WORK, INFO )
-         END IF
+         }
 
          // Clean up B
 
@@ -143,7 +143,7 @@
    50       CONTINUE
    60    CONTINUE
 
-      END IF
+      }
 
       // Let              N-L     L
                  // A = ( A11    A12 ) M,
@@ -169,21 +169,21 @@
 
       CALL SORM2R( 'Left', 'Transpose', M, L, MIN( M, N-L ), A, LDA, TAU, A( 1, N-L+1 ), LDA, WORK, INFO )
 
-      IF( WANTU ) THEN
+      if ( WANTU ) {
 
          // Copy the details of U, and form U
 
          CALL SLASET( 'Full', M, M, ZERO, ZERO, U, LDU )
          IF( M.GT.1 ) CALL SLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU )
          CALL SORG2R( M, M, MIN( M, N-L ), U, LDU, TAU, WORK, INFO )
-      END IF
+      }
 
-      IF( WANTQ ) THEN
+      if ( WANTQ ) {
 
          // Update Q( 1:N, 1:N-L )  = Q( 1:N, 1:N-L )*P1
 
          CALL SLAPMT( FORWRD, N, N-L, Q, LDQ, IWORK )
-      END IF
+      }
 
       // Clean up A: set the strictly lower triangular part of
       // A(1:K, 1:K) = 0, and A( K+1:M, 1:N-L ) = 0.
@@ -195,18 +195,18 @@
   100 CONTINUE
       IF( M.GT.K ) CALL SLASET( 'Full', M-K, N-L, ZERO, ZERO, A( K+1, 1 ), LDA )
 
-      IF( N-L.GT.K ) THEN
+      if ( N-L.GT.K ) {
 
          // RQ factorization of ( T11 T12 ) = ( 0 T12 )*Z1
 
          CALL SGERQ2( K, N-L, A, LDA, TAU, WORK, INFO )
 
-         IF( WANTQ ) THEN
+         if ( WANTQ ) {
 
             // Update Q( 1:N,1:N-L ) = Q( 1:N,1:N-L )*Z1**T
 
             CALL SORMR2( 'Right', 'Transpose', N, N-L, K, A, LDA, TAU, Q, LDQ, WORK, INFO )
-         END IF
+         }
 
          // Clean up A
 
@@ -217,20 +217,20 @@
   110       CONTINUE
   120    CONTINUE
 
-      END IF
+      }
 
-      IF( M.GT.K ) THEN
+      if ( M.GT.K ) {
 
          // QR factorization of A( K+1:M,N-L+1:N )
 
          CALL SGEQR2( M-K, L, A( K+1, N-L+1 ), LDA, TAU, WORK, INFO )
 
-         IF( WANTU ) THEN
+         if ( WANTU ) {
 
             // Update U(:,K+1:M) := U(:,K+1:M)*U1
 
             CALL SORM2R( 'Right', 'No transpose', M, M-K, MIN( M-K, L ), A( K+1, N-L+1 ), LDA, TAU, U( 1, K+1 ), LDU, WORK, INFO )
-         END IF
+         }
 
          // Clean up
 
@@ -240,7 +240,7 @@
   130       CONTINUE
   140    CONTINUE
 
-      END IF
+      }
 
       RETURN
 

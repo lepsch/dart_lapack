@@ -53,7 +53,7 @@
 
       ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
          // Factorize the trailing columns of A using the upper triangle
          // of A and working backwards, and compute the matrix W = U12*D
@@ -87,21 +87,21 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         IF( K.GT.1 ) THEN
+         if ( K.GT.1 ) {
             IMAX = ICAMAX( K-1, W( 1, KW ), 1 )
             COLMAX = CABS1( W( IMAX, KW ) )
          } else {
             COLMAX = ZERO
-         END IF
+         }
 
-         IF( MAX( ABSAKK, COLMAX ).EQ.ZERO ) THEN
+         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
             IF( INFO.EQ.0 ) INFO = K
             KP = K
          } else {
-            IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
+            if ( ABSAKK.GE.ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -118,17 +118,17 @@
 
                JMAX = IMAX + ICAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
                ROWMAX = CABS1( W( JMAX, KW-1 ) )
-               IF( IMAX.GT.1 ) THEN
+               if ( IMAX.GT.1 ) {
                   JMAX = ICAMAX( IMAX-1, W( 1, KW-1 ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, KW-1 ) ) )
-               END IF
+               }
 
-               IF( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) THEN
+               if ( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K
-               ELSE IF( CABS1( W( IMAX, KW-1 ) ).GE.ALPHA*ROWMAX ) THEN
+               } else if ( CABS1( W( IMAX, KW-1 ) ).GE.ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -145,8 +145,8 @@
 
                   KP = IMAX
                   KSTEP = 2
-               END IF
-            END IF
+               }
+            }
 
             // ============================================================
 
@@ -161,7 +161,7 @@
             // Interchange rows and columns KP and KK.
             // Updated column KP is already stored in column KKW of W.
 
-            IF( KP.NE.KK ) THEN
+            if ( KP.NE.KK ) {
 
                // Copy non-updated column KK to column KP of submatrix A
                // at step K. No need to copy element into column K
@@ -178,9 +178,9 @@
 
                IF( K.LT.N ) CALL CSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA )
                CALL CSWAP( N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW )
-            END IF
+            }
 
-            IF( KSTEP.EQ.1 ) THEN
+            if ( KSTEP.EQ.1 ) {
 
                // 1-by-1 pivot block D(k): column kw of W now holds
 
@@ -216,7 +216,7 @@
                   // A(1:k-2,k-1:k) := U(1:k-2,k:k-1:k) =
                   // = W(1:k-2,kw-1:kw) * ( D(k-1:k,k-1:k)**(-1) )
 
-               IF( K.GT.2 ) THEN
+               if ( K.GT.2 ) {
 
                   // Compose the columns of the inverse of 2-by-2 pivot
                   // block D in the following way to reduce the number
@@ -257,7 +257,7 @@
                      A( J, K-1 ) = D21*( D11*W( J, KW-1 )-W( J, KW ) )
                      A( J, K ) = D21*( D22*W( J, KW )-W( J, KW-1 ) )
    20             CONTINUE
-               END IF
+               }
 
                // Copy D(k) to A
 
@@ -265,18 +265,18 @@
                A( K-1, K ) = W( K-1, KW )
                A( K, K ) = W( K, KW )
 
-            END IF
+            }
 
-         END IF
+         }
 
          // Store details of the interchanges in IPIV
 
-         IF( KSTEP.EQ.1 ) THEN
+         if ( KSTEP.EQ.1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP
             IPIV( K-1 ) = -KP
-         END IF
+         }
 
          // Decrease K and return to the start of the main loop
 
@@ -317,11 +317,11 @@
             // (Here, J is a diagonal index)
             JJ = J
             JP = IPIV( J )
-            IF( JP.LT.0 ) THEN
+            if ( JP.LT.0 ) {
                JP = -JP
                // (Here, J is a diagonal index)
                J = J + 1
-            END IF
+            }
             // (NOTE: Here, J is used to determine row length. Length N-J+1
             // of the rows to swap back doesn't include diagonal element)
             J = J + 1
@@ -362,21 +362,21 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         IF( K.LT.N ) THEN
+         if ( K.LT.N ) {
             IMAX = K + ICAMAX( N-K, W( K+1, K ), 1 )
             COLMAX = CABS1( W( IMAX, K ) )
          } else {
             COLMAX = ZERO
-         END IF
+         }
 
-         IF( MAX( ABSAKK, COLMAX ).EQ.ZERO ) THEN
+         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
             IF( INFO.EQ.0 ) INFO = K
             KP = K
          } else {
-            IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
+            if ( ABSAKK.GE.ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -393,17 +393,17 @@
 
                JMAX = K - 1 + ICAMAX( IMAX-K, W( K, K+1 ), 1 )
                ROWMAX = CABS1( W( JMAX, K+1 ) )
-               IF( IMAX.LT.N ) THEN
+               if ( IMAX.LT.N ) {
                   JMAX = IMAX + ICAMAX( N-IMAX, W( IMAX+1, K+1 ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, K+1 ) ) )
-               END IF
+               }
 
-               IF( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) THEN
+               if ( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K
-               ELSE IF( CABS1( W( IMAX, K+1 ) ).GE.ALPHA*ROWMAX ) THEN
+               } else if ( CABS1( W( IMAX, K+1 ) ).GE.ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -420,8 +420,8 @@
 
                   KP = IMAX
                   KSTEP = 2
-               END IF
-            END IF
+               }
+            }
 
             // ============================================================
 
@@ -432,7 +432,7 @@
             // Interchange rows and columns KP and KK.
             // Updated column KP is already stored in column KK of W.
 
-            IF( KP.NE.KK ) THEN
+            if ( KP.NE.KK ) {
 
                // Copy non-updated column KK to column KP of submatrix A
                // at step K. No need to copy element into column K
@@ -449,9 +449,9 @@
 
                IF( K.GT.1 ) CALL CSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
                CALL CSWAP( KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW )
-            END IF
+            }
 
-            IF( KSTEP.EQ.1 ) THEN
+            if ( KSTEP.EQ.1 ) {
 
                // 1-by-1 pivot block D(k): column k of W now holds
 
@@ -467,10 +467,10 @@
                   // A(k+1:N,k) := L(k+1:N,k) = W(k+1:N,k)/D(k,k)
 
                CALL CCOPY( N-K+1, W( K, K ), 1, A( K, K ), 1 )
-               IF( K.LT.N ) THEN
+               if ( K.LT.N ) {
                   R1 = CONE / A( K, K )
                   CALL CSCAL( N-K, R1, A( K+1, K ), 1 )
-               END IF
+               }
 
             } else {
 
@@ -489,7 +489,7 @@
                   // A(k+2:N,k:k+1) := L(k+2:N,k:k+1) =
                   // = W(k+2:N,k:k+1) * ( D(k:k+1,k:k+1)**(-1) )
 
-               IF( K.LT.N-1 ) THEN
+               if ( K.LT.N-1 ) {
 
                   // Compose the columns of the inverse of 2-by-2 pivot
                   // block D in the following way to reduce the number
@@ -530,7 +530,7 @@
                      A( J, K ) = D21*( D11*W( J, K )-W( J, K+1 ) )
                      A( J, K+1 ) = D21*( D22*W( J, K+1 )-W( J, K ) )
    80             CONTINUE
-               END IF
+               }
 
                // Copy D(k) to A
 
@@ -538,18 +538,18 @@
                A( K+1, K ) = W( K+1, K )
                A( K+1, K+1 ) = W( K+1, K+1 )
 
-            END IF
+            }
 
-         END IF
+         }
 
          // Store details of the interchanges in IPIV
 
-         IF( KSTEP.EQ.1 ) THEN
+         if ( KSTEP.EQ.1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP
             IPIV( K+1 ) = -KP
-         END IF
+         }
 
          // Increase K and return to the start of the main loop
 
@@ -590,11 +590,11 @@
             // (Here, J is a diagonal index)
             JJ = J
             JP = IPIV( J )
-            IF( JP.LT.0 ) THEN
+            if ( JP.LT.0 ) {
                JP = -JP
                // (Here, J is a diagonal index)
                J = J - 1
-            END IF
+            }
             // (NOTE: Here, J is used to determine row length. Length J
             // of the rows to swap back doesn't include diagonal element)
             J = J - 1
@@ -604,7 +604,7 @@
 
          KB = K - 1
 
-      END IF
+      }
       RETURN
 
       // End of CLASYF

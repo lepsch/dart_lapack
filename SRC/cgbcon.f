@@ -56,33 +56,33 @@
 
       INFO = 0
       ONENRM = NORM.EQ.'1' .OR. LSAME( NORM, 'O' )
-      IF( .NOT.ONENRM .AND. .NOT.LSAME( NORM, 'I' ) ) THEN
+      if ( .NOT.ONENRM .AND. .NOT.LSAME( NORM, 'I' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KL.LT.0 ) THEN
+      } else if ( KL.LT.0 ) {
          INFO = -3
-      ELSE IF( KU.LT.0 ) THEN
+      } else if ( KU.LT.0 ) {
          INFO = -4
-      ELSE IF( LDAB.LT.2*KL+KU+1 ) THEN
+      } else if ( LDAB.LT.2*KL+KU+1 ) {
          INFO = -6
-      ELSE IF( ANORM.LT.ZERO ) THEN
+      } else if ( ANORM.LT.ZERO ) {
          INFO = -8
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGBCON', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       RCOND = ZERO
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          RCOND = ONE
          RETURN
-      ELSE IF( ANORM.EQ.ZERO ) THEN
+      } else if ( ANORM.EQ.ZERO ) {
          RETURN
-      END IF
+      }
 
       SMLNUM = SLAMCH( 'Safe minimum' )
 
@@ -90,33 +90,33 @@
 
       AINVNM = ZERO
       NORMIN = 'N'
-      IF( ONENRM ) THEN
+      if ( ONENRM ) {
          KASE1 = 1
       } else {
          KASE1 = 2
-      END IF
+      }
       KD = KL + KU + 1
       LNOTI = KL.GT.0
       KASE = 0
    10 CONTINUE
       CALL CLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
-      IF( KASE.NE.0 ) THEN
-         IF( KASE.EQ.KASE1 ) THEN
+      if ( KASE.NE.0 ) {
+         if ( KASE.EQ.KASE1 ) {
 
             // Multiply by inv(L).
 
-            IF( LNOTI ) THEN
+            if ( LNOTI ) {
                DO 20 J = 1, N - 1
                   LM = MIN( KL, N-J )
                   JP = IPIV( J )
                   T = WORK( JP )
-                  IF( JP.NE.J ) THEN
+                  if ( JP.NE.J ) {
                      WORK( JP ) = WORK( J )
                      WORK( J ) = T
-                  END IF
+                  }
                   CALL CAXPY( LM, -T, AB( KD+1, J ), 1, WORK( J+1 ), 1 )
    20          CONTINUE
-            END IF
+            }
 
             // Multiply by inv(U).
 
@@ -129,30 +129,30 @@
 
             // Multiply by inv(L**H).
 
-            IF( LNOTI ) THEN
+            if ( LNOTI ) {
                DO 30 J = N - 1, 1, -1
                   LM = MIN( KL, N-J )
                   WORK( J ) = WORK( J ) - CDOTC( LM, AB( KD+1, J ), 1, WORK( J+1 ), 1 )
                   JP = IPIV( J )
-                  IF( JP.NE.J ) THEN
+                  if ( JP.NE.J ) {
                      T = WORK( JP )
                      WORK( JP ) = WORK( J )
                      WORK( J ) = T
-                  END IF
+                  }
    30          CONTINUE
-            END IF
-         END IF
+            }
+         }
 
          // Divide X by 1/SCALE if doing so will not cause overflow.
 
          NORMIN = 'Y'
-         IF( SCALE.NE.ONE ) THEN
+         if ( SCALE.NE.ONE ) {
             IX = ICAMAX( N, WORK, 1 )
             IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 40
             CALL CSRSCL( N, SCALE, WORK, 1 )
-         END IF
+         }
          GO TO 10
-      END IF
+      }
 
       // Compute the estimate of the reciprocal condition number.
 

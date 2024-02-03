@@ -32,17 +32,17 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          EQUED = 'N'
          RETURN
-      END IF
+      }
 
       // Initialize LARGE and SMALL.
 
       SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
       LARGE = ONE / SMALL
 
-      IF( SCOND.GE.THRESH .AND. AMAX.GE.SMALL .AND. AMAX.LE.LARGE ) THEN
+      if ( SCOND.GE.THRESH .AND. AMAX.GE.SMALL .AND. AMAX.LE.LARGE ) {
 
          // No equilibration
 
@@ -51,7 +51,7 @@
 
          // Replace A by diag(S) * A * diag(S).
 
-         IF( LSAME( UPLO, 'U' ) ) THEN
+         if ( LSAME( UPLO, 'U' ) ) {
 
             // Upper triangle of A is stored.
 
@@ -75,9 +75,9 @@
    30          CONTINUE
                JC = JC + N - J + 1
    40       CONTINUE
-         END IF
+         }
          EQUED = 'Y'
-      END IF
+      }
 
       RETURN
 

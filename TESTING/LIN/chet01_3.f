@@ -42,10 +42,10 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // a) Revert to multipliers of L
 
@@ -60,10 +60,10 @@
       // an error code if any are nonzero.
 
       DO J = 1, N
-         IF( AIMAG( AFAC( J, J ) ).NE.ZERO ) THEN
+         if ( AIMAG( AFAC( J, J ) ).NE.ZERO ) {
             RESID = ONE / EPS
             RETURN
-         END IF
+         }
       END DO
 
       // 2) Initialize C to the identity matrix.
@@ -80,7 +80,7 @@
 
       // 5) Compute the difference  C - A .
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO J = 1, N
             DO I = 1, J - 1
                C( I, J ) = C( I, J ) - A( I, J )
@@ -94,17 +94,17 @@
                C( I, J ) = C( I, J ) - A( I, J )
             END DO
          END DO
-      END IF
+      }
 
       // 6) Compute norm( C - A ) / ( N * norm(A) * EPS )
 
       RESID = CLANHE( '1', UPLO, N, C, LDC, RWORK )
 
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
          RESID = ( ( RESID/REAL( N ) )/ANORM ) / EPS
-      END IF
+      }
 
       // b) Convert to factor of L (or U)
 

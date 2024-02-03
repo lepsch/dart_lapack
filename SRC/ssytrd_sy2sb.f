@@ -45,39 +45,39 @@
       INFO   = 0
       UPPER  = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK.EQ.-1 )
-      IF( N.LE.KD+1 ) THEN
+      if ( N.LE.KD+1 ) {
          LWMIN = 1
       } else {
          LWMIN = ILAENV2STAGE( 4, 'SSYTRD_SY2SB', '', N, KD, -1, -1 )
-      END IF
+      }
 
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDAB.LT.MAX( 1, KD+1 ) ) THEN
+      } else if ( LDAB.LT.MAX( 1, KD+1 ) ) {
          INFO = -7
-      ELSE IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
          INFO = -10
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SSYTRD_SY2SB', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
       // Copy the upper/lower portion of A into AB
 
-      IF( N.LE.KD+1 ) THEN
-          IF( UPPER ) THEN
+      if ( N.LE.KD+1 ) {
+          if ( UPPER ) {
               DO 100 I = 1, N
                   LK = MIN( KD+1, I )
                   CALL SCOPY( LK, A( I-LK+1, I ), 1,  AB( KD+1-LK+1, I ), 1 )
@@ -90,7 +90,7 @@
           ENDIF
           WORK( 1 ) = 1
           RETURN
-      END IF
+      }
 
       // Determine the pointer position for the workspace
 
@@ -105,7 +105,7 @@
       WPOS   = TPOS  + LT
       S1POS  = WPOS  + LW
       S2POS  = S1POS + LS1
-      IF( UPPER ) THEN
+      if ( UPPER ) {
           LDW    = KD
           LDS2   = KD
       } else {
@@ -119,7 +119,7 @@
 
       CALL SLASET( "A", LDT, KD, ZERO, ZERO, WORK( TPOS ), LDT )
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
           DO 10 I = 1, N - KD, KD
              PN = N-I-KD+1
              PK = MIN( N-I-KD+1, KD )
@@ -221,7 +221,7 @@
             CALL SCOPY( LK, A( J, J ), 1, AB( 1, J ), 1 )
    60    CONTINUE
 
-      END IF
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
       RETURN

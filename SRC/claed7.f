@@ -34,19 +34,19 @@
       // IF( ICOMPQ.LT.0 .OR. ICOMPQ.GT.1 ) THEN
          // INFO = -1
       // ELSE IF( N.LT.0 ) THEN
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( MIN( 1, N ).GT.CUTPNT .OR. N.LT.CUTPNT ) THEN
+      } else if ( MIN( 1, N ).GT.CUTPNT .OR. N.LT.CUTPNT ) {
          INFO = -2
-      ELSE IF( QSIZ.LT.N ) THEN
+      } else if ( QSIZ.LT.N ) {
          INFO = -3
-      ELSE IF( LDQ.LT.MAX( 1, N ) ) THEN
+      } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CLAED7', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -80,11 +80,11 @@
       // so we will overwrite the data from this level onto the previously
       // used storage space.
 
-      IF( CURLVL.EQ.TLVLS ) THEN
+      if ( CURLVL.EQ.TLVLS ) {
          QPTR( CURR ) = 1
          PRMPTR( CURR ) = 1
          GIVPTR( CURR ) = 1
-      END IF
+      }
 
       // Sort and Deflate eigenvalues.
 
@@ -94,13 +94,13 @@
 
       // Solve Secular Equation.
 
-      IF( K.NE.0 ) THEN
+      if ( K.NE.0 ) {
          CALL SLAED9( K, 1, K, N, D, RWORK( IQ ), K, RHO, RWORK( IDLMDA ), RWORK( IW ), QSTORE( QPTR( CURR ) ), K, INFO )
          CALL CLACRM( QSIZ, K, WORK, QSIZ, QSTORE( QPTR( CURR ) ), K, Q, LDQ, RWORK( IQ ) )
          QPTR( CURR+1 ) = QPTR( CURR ) + K**2
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             RETURN
-         END IF
+         }
 
       // Prepare the INDXQ sorting permutation.
 
@@ -112,7 +112,7 @@
          DO 20 I = 1, N
             INDXQ( I ) = I
    20    CONTINUE
-      END IF
+      }
 
       RETURN
 

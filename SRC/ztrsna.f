@@ -63,49 +63,49 @@
       // Set M to the number of eigenpairs for which condition numbers are
      t // o be computed.
 
-      IF( SOMCON ) THEN
+      if ( SOMCON ) {
          M = 0
          DO 10 J = 1, N
             IF( SELECT( J ) ) M = M + 1
    10    CONTINUE
       } else {
          M = N
-      END IF
+      }
 
       INFO = 0
-      IF( .NOT.WANTS .AND. .NOT.WANTSP ) THEN
+      if ( .NOT.WANTS .AND. .NOT.WANTSP ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( HOWMNY, 'A' ) .AND. .NOT.SOMCON ) THEN
+      } else if ( .NOT.LSAME( HOWMNY, 'A' ) .AND. .NOT.SOMCON ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( LDT.LT.MAX( 1, N ) ) THEN
+      } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDVL.LT.1 .OR. ( WANTS .AND. LDVL.LT.N ) ) THEN
+      } else if ( LDVL.LT.1 .OR. ( WANTS .AND. LDVL.LT.N ) ) {
          INFO = -8
-      ELSE IF( LDVR.LT.1 .OR. ( WANTS .AND. LDVR.LT.N ) ) THEN
+      } else if ( LDVR.LT.1 .OR. ( WANTS .AND. LDVR.LT.N ) ) {
          INFO = -10
-      ELSE IF( MM.LT.M ) THEN
+      } else if ( MM.LT.M ) {
          INFO = -13
-      ELSE IF( LDWORK.LT.1 .OR. ( WANTSP .AND. LDWORK.LT.N ) ) THEN
+      } else if ( LDWORK.LT.1 .OR. ( WANTSP .AND. LDWORK.LT.N ) ) {
          INFO = -16
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTRSNA', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
-         IF( SOMCON ) THEN
+      if ( N.EQ.1 ) {
+         if ( SOMCON ) {
             IF( .NOT.SELECT( 1 ) ) RETURN
-         END IF
+         }
          IF( WANTS ) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) )
          RETURN
-      END IF
+      }
 
       // Get machine constants
 
@@ -116,11 +116,11 @@
       KS = 1
       DO 50 K = 1, N
 
-         IF( SOMCON ) THEN
+         if ( SOMCON ) {
             IF( .NOT.SELECT( K ) ) GO TO 50
-         END IF
+         }
 
-         IF( WANTS ) THEN
+         if ( WANTS ) {
 
             // Compute the reciprocal condition number of the k-th
             // eigenvalue.
@@ -130,9 +130,9 @@
             LNRM = DZNRM2( N, VL( 1, KS ), 1 )
             S( KS ) = ABS( PROD ) / ( RNRM*LNRM )
 
-         END IF
+         }
 
-         IF( WANTSP ) THEN
+         if ( WANTSP ) {
 
             // Estimate the reciprocal condition number of the k-th
             // eigenvector.
@@ -159,8 +159,8 @@
    30       CONTINUE
             CALL ZLACN2( N-1, WORK( 1, N+1 ), WORK, EST, KASE, ISAVE )
 
-            IF( KASE.NE.0 ) THEN
-               IF( KASE.EQ.1 ) THEN
+            if ( KASE.NE.0 ) {
+               if ( KASE.EQ.1 ) {
 
                   // Solve C**H*x = scale*b
 
@@ -170,9 +170,9 @@
                   // Solve C*x = scale*b
 
                   CALL ZLATRS( 'Upper', 'No transpose', 'Nonunit', NORMIN, N-1, WORK( 2, 2 ), LDWORK, WORK, SCALE, RWORK, IERR )
-               END IF
+               }
                NORMIN = 'Y'
-               IF( SCALE.NE.ONE ) THEN
+               if ( SCALE.NE.ONE ) {
 
                   // Multiply by 1/SCALE if doing so will not cause
                   // overflow.
@@ -181,12 +181,12 @@
                   XNORM = CABS1( WORK( IX, 1 ) )
                   IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 40
                   CALL ZDRSCL( N, SCALE, WORK, 1 )
-               END IF
+               }
                GO TO 30
-            END IF
+            }
 
             SEP( KS ) = ONE / MAX( EST, SMLNUM )
-         END IF
+         }
 
    40    CONTINUE
          KS = KS + 1

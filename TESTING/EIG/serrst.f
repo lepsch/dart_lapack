@@ -68,7 +68,7 @@
 
       // Test error exits for the ST path.
 
-      IF( LSAMEN( 2, C2, 'ST' ) ) THEN
+      if ( LSAMEN( 2, C2, 'ST' ) ) {
 
          // SSYTRD
 
@@ -872,7 +872,7 @@
 
       // Test error exits for the SB path.
 
-      ELSE IF( LSAMEN( 2, C2, 'SB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SB' ) ) {
 
          // SSBTRD
 
@@ -1160,15 +1160,15 @@
          CALL CHKXER( 'SSBEVX_2STAGE', INFOT, NOUT, LERR, OK )
           // NT = NT + 15
          NT = NT + 13
-      END IF
+      }
 
       // Print a summary line.
 
-      IF( OK ) THEN
+      if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH, NT
       } else {
          WRITE( NOUT, FMT = 9998 )PATH
-      END IF
+      }
 
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits',
      $      ' (', I3, ' tests done)' )

@@ -37,41 +37,41 @@
 
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      ELSE IF( LWORK.LT.1 .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.1 .AND. .NOT.LQUERY ) {
          INFO = -10
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
-         IF( N.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( N.EQ.0 ) {
             LWKOPT = 1
          } else {
             NB = ILAENV( 1, 'CHETRF_ROOK', UPLO, N, -1, -1, -1 )
             LWKOPT = N*NB
-         END IF
+         }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHESV_ROOK ', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Compute the factorization A = U*D*U**H or A = L*D*L**H.
 
       CALL CHETRF_ROOK( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO )
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
@@ -79,7 +79,7 @@
 
          CALL CHETRS_ROOK( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
 
-      END IF
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 

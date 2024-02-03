@@ -32,27 +32,27 @@
 
       RMAX = SLAMCH( 'O' )
       UPPER = LSAME( UPLO, 'U' )
-      IF( UPPER ) THEN
+      if ( UPPER ) {
          DO 20 J = 1, N
             DO 10 I = 1, J
-               IF( ( DBLE( A( I, J ) ).LT.-RMAX ) .OR. ( DBLE( A( I, J ) ).GT.RMAX ) .OR. ( DIMAG( A( I, J ) ).LT.-RMAX ) .OR. ( DIMAG( A( I, J ) ).GT.RMAX ) ) THEN
+               if ( ( DBLE( A( I, J ) ).LT.-RMAX ) .OR. ( DBLE( A( I, J ) ).GT.RMAX ) .OR. ( DIMAG( A( I, J ) ).LT.-RMAX ) .OR. ( DIMAG( A( I, J ) ).GT.RMAX ) ) {
                   INFO = 1
                   GO TO 50
-               END IF
+               }
                SA( I, J ) = CMPLX( A( I, J ) )
    10       CONTINUE
    20    CONTINUE
       } else {
          DO 40 J = 1, N
             DO 30 I = J, N
-               IF( ( DBLE( A( I, J ) ).LT.-RMAX ) .OR. ( DBLE( A( I, J ) ).GT.RMAX ) .OR. ( DIMAG( A( I, J ) ).LT.-RMAX ) .OR. ( DIMAG( A( I, J ) ).GT.RMAX ) ) THEN
+               if ( ( DBLE( A( I, J ) ).LT.-RMAX ) .OR. ( DBLE( A( I, J ) ).GT.RMAX ) .OR. ( DIMAG( A( I, J ) ).LT.-RMAX ) .OR. ( DIMAG( A( I, J ) ).GT.RMAX ) ) {
                   INFO = 1
                   GO TO 50
-               END IF
+               }
                SA( I, J ) = CMPLX( A( I, J ) )
    30       CONTINUE
    40    CONTINUE
-      END IF
+      }
    50 CONTINUE
 
       RETURN

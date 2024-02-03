@@ -22,7 +22,7 @@
       // ..
       IF (N.LE.0) RETURN
       IF (DA.EQ.0.0d0) RETURN
-      IF (INCX.EQ.1 .AND. INCY.EQ.1) THEN
+      if (INCX.EQ.1 .AND. INCY.EQ.1) {
 
          // code for both increments equal to 1
 
@@ -30,11 +30,11 @@
          // clean-up loop
 
          M = MOD(N,4)
-         IF (M.NE.0) THEN
+         if (M.NE.0) {
             DO I = 1,M
                DY(I) = DY(I) + DA*DX(I)
             END DO
-         END IF
+         }
          IF (N.LT.4) RETURN
          MP1 = M + 1
          DO I = MP1,N,4
@@ -57,7 +57,7 @@
           IX = IX + INCX
           IY = IY + INCY
          END DO
-      END IF
+      }
       RETURN
 
       // End of DAXPY

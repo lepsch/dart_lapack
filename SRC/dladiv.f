@@ -46,32 +46,32 @@
       EPS = DLAMCH( 'Epsilon' )
       BE = BS / (EPS*EPS)
 
-      IF( AB >= HALF*OV ) THEN
+      if ( AB >= HALF*OV ) {
          AA = HALF * AA
          BB = HALF * BB
          S  = TWO * S
-      END IF
-      IF( CD >= HALF*OV ) THEN
+      }
+      if ( CD >= HALF*OV ) {
          CC = HALF * CC
          DD = HALF * DD
          S  = HALF * S
-      END IF
-      IF( AB <= UN*BS/EPS ) THEN
+      }
+      if ( AB <= UN*BS/EPS ) {
          AA = AA * BE
          BB = BB * BE
          S  = S / BE
-      END IF
-      IF( CD <= UN*BS/EPS ) THEN
+      }
+      if ( CD <= UN*BS/EPS ) {
          CC = CC * BE
          DD = DD * BE
          S  = S * BE
-      END IF
-      IF( ABS( D ).LE.ABS( C ) ) THEN
+      }
+      if ( ABS( D ).LE.ABS( C ) ) {
          CALL DLADIV1(AA, BB, CC, DD, P, Q)
       } else {
          CALL DLADIV1(BB, AA, DD, CC, P, Q)
          Q = -Q
-      END IF
+      }
       P = P * S
       Q = Q * S
 
@@ -144,16 +144,16 @@
       // ..
       // .. Executable Statements ..
 
-      IF( R.NE.ZERO ) THEN
+      if ( R.NE.ZERO ) {
          BR = B * R
-         IF( BR.NE.ZERO ) THEN
+         if ( BR.NE.ZERO ) {
             DLADIV2 = (A + BR) * T
          } else {
             DLADIV2 = A * T + (B * T) * R
-         END IF
+         }
       } else {
          DLADIV2 = (A + D * (B / C)) * T
-      END IF
+      }
 
       RETURN
 

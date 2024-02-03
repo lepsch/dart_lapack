@@ -90,18 +90,18 @@
          CALL DLACPY('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB)
 
          // Call D**SVXX with default PARAMS and N_ERR_BND = 3.
-         IF ( LSAMEN( 2, C2, 'SY' ) ) THEN
+         if ( LSAMEN( 2, C2, 'SY' ) ) {
             CALL DSYSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
-         ELSE IF ( LSAMEN( 2, C2, 'PO' ) ) THEN
+         } else if ( LSAMEN( 2, C2, 'PO' ) ) {
             CALL DPOSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
-         ELSE IF ( LSAMEN( 2, C2, 'GB' ) ) THEN
+         } else if ( LSAMEN( 2, C2, 'GB' ) ) {
             CALL DGBSVXX(FACT, TRANS, N, KL, KU, NRHS, ABCOPY, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
          } else {
             CALL DGESVXX(FACT, TRANS, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
-         END IF
+         }
 
          N_AUX_TESTS = N_AUX_TESTS + 1
-         IF (ORCOND .LT. EPS) THEN
+         if (ORCOND .LT. EPS) {
          // Either factorization failed or the matrix is flagged, and 1 <=
          // INFO <= N+1. We don't decide based on rcond anymore.
              // IF (INFO .EQ. 0 .OR. INFO .GT. N+1) THEN
@@ -111,11 +111,11 @@
          } else {
          // Either everything succeeded (INFO == 0) or some solution failed
         t // o converge (INFO > N+1).
-            IF (INFO .GT. 0 .AND. INFO .LE. N+1) THEN
+            if (INFO .GT. 0 .AND. INFO .LE. N+1) {
                NFAIL = NFAIL + 1
                WRITE (*, FMT=8000) C2, N, INFO, ORCOND, RCOND
-            END IF
-         END IF
+            }
+         }
 
          // Calculating the difference between D**SVXX's X and the true X.
          DO I = 1,N
@@ -127,7 +127,7 @@
          // Calculating the RCOND
          RNORM = 0.0D+0
          RINORM = 0.0D+0
-         IF ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'SY' ) ) THEN
+         if ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'SY' ) ) {
             DO I = 1, N
                SUMR = 0.0D+0
                SUMRI = 0.0D+0
@@ -139,7 +139,7 @@
                RNORM = MAX(RNORM,SUMR)
                RINORM = MAX(RINORM,SUMRI)
             END DO
-         ELSE IF ( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'GB' ) ) THEN
+         } else if ( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'GB' ) ) {
             DO I = 1, N
                SUMR = 0.0D+0
                SUMRI = 0.0D+0
@@ -150,7 +150,7 @@
                RNORM = MAX(RNORM,SUMR)
                RINORM = MAX(RINORM,SUMRI)
             END DO
-         END IF
+         }
 
          RNORM = RNORM / ABS(A(1, 1))
          RCOND = 1.0D+0/(RNORM * RINORM)
@@ -189,15 +189,15 @@
             DO I = 1, N
                NORMT = MAX(ABS(INVHILB(I, K)), NORMT)
                NORMDIF = MAX(ABS(X(I,K) - INVHILB(I,K)), NORMDIF)
-               IF (INVHILB(I,K) .NE. 0.0D+0) THEN
+               if (INVHILB(I,K) .NE. 0.0D+0) {
                   CWISE_ERR = MAX(ABS(X(I,K) - INVHILB(I,K)) /ABS(INVHILB(I,K)), CWISE_ERR)
-               ELSE IF (X(I, K) .NE. 0.0D+0) THEN
+               } else if (X(I, K) .NE. 0.0D+0) {
                   CWISE_ERR = DLAMCH('OVERFLOW')
-               END IF
+               }
             END DO
-            IF (NORMT .NE. 0.0D+0) THEN
+            if (NORMT .NE. 0.0D+0) {
                NWISE_ERR = NORMDIF / NORMT
-            ELSE IF (NORMDIF .NE. 0.0D+0) THEN
+            } else if (NORMDIF .NE. 0.0D+0) {
                NWISE_ERR = DLAMCH('OVERFLOW')
             } else {
                NWISE_ERR = 0.0D+0
@@ -231,55 +231,55 @@
              // write (*,*) 'nwise : ', n, k, ncond, nwise_rcond,
       // $           condthresh, ncond.ge.condthresh
              // write (*,*) 'nwise2: ', k, nwise_bnd, nwise_err, errthresh
-            IF (NCOND .GE. CONDTHRESH) THEN
+            if (NCOND .GE. CONDTHRESH) {
                NGUAR = 'YES'
-               IF (NWISE_BND .GT. ERRTHRESH) THEN
+               if (NWISE_BND .GT. ERRTHRESH) {
                   TSTRAT(1) = 1/(2.0D+0*EPS)
                } else {
-                  IF (NWISE_BND .NE. 0.0D+0) THEN
+                  if (NWISE_BND .NE. 0.0D+0) {
                      TSTRAT(1) = NWISE_ERR / NWISE_BND
-                  ELSE IF (NWISE_ERR .NE. 0.0D+0) THEN
+                  } else if (NWISE_ERR .NE. 0.0D+0) {
                      TSTRAT(1) = 1/(16.0*EPS)
                   } else {
                      TSTRAT(1) = 0.0D+0
-                  END IF
-                  IF (TSTRAT(1) .GT. 1.0D+0) THEN
+                  }
+                  if (TSTRAT(1) .GT. 1.0D+0) {
                      TSTRAT(1) = 1/(4.0D+0*EPS)
-                  END IF
-               END IF
+                  }
+               }
             } else {
                NGUAR = 'NO'
-               IF (NWISE_BND .LT. 1.0D+0) THEN
+               if (NWISE_BND .LT. 1.0D+0) {
                   TSTRAT(1) = 1/(8.0D+0*EPS)
                } else {
                   TSTRAT(1) = 1.0D+0
-               END IF
-            END IF
+               }
+            }
              // write (*,*) 'cwise : ', n, k, ccond, cwise_rcond,
       // $           condthresh, ccond.ge.condthresh
              // write (*,*) 'cwise2: ', k, cwise_bnd, cwise_err, errthresh
-            IF (CCOND .GE. CONDTHRESH) THEN
+            if (CCOND .GE. CONDTHRESH) {
                CGUAR = 'YES'
-               IF (CWISE_BND .GT. ERRTHRESH) THEN
+               if (CWISE_BND .GT. ERRTHRESH) {
                   TSTRAT(2) = 1/(2.0D+0*EPS)
                } else {
-                  IF (CWISE_BND .NE. 0.0D+0) THEN
+                  if (CWISE_BND .NE. 0.0D+0) {
                      TSTRAT(2) = CWISE_ERR / CWISE_BND
-                  ELSE IF (CWISE_ERR .NE. 0.0D+0) THEN
+                  } else if (CWISE_ERR .NE. 0.0D+0) {
                      TSTRAT(2) = 1/(16.0D+0*EPS)
                   } else {
                      TSTRAT(2) = 0.0D+0
-                  END IF
+                  }
                   IF (TSTRAT(2) .GT. 1.0D+0) TSTRAT(2) = 1/(4.0D+0*EPS)
-               END IF
+               }
             } else {
                CGUAR = 'NO'
-               IF (CWISE_BND .LT. 1.0D+0) THEN
+               if (CWISE_BND .LT. 1.0D+0) {
                   TSTRAT(2) = 1/(8.0D+0*EPS)
                } else {
                   TSTRAT(2) = 1.0D+0
-               END IF
-            END IF
+               }
+            }
 
       // Backwards error test
             TSTRAT(3) = BERR(K)/EPS
@@ -295,8 +295,8 @@
             IF (CCOND .GE. CONDTHRESH .AND. TSTRAT(6) .LT. 1.0D+0) TSTRAT(6) = 1.0D+0 / TSTRAT(6)
 
             DO I = 1, NTESTS
-               IF (TSTRAT(I) .GT. THRESH) THEN
-                  IF (.NOT.PRINTED_GUIDE) THEN
+               if (TSTRAT(I) .GT. THRESH) {
+                  if (.NOT.PRINTED_GUIDE) {
                      WRITE(*,*)
                      WRITE( *, 9996) 1
                      WRITE( *, 9995) 2
@@ -308,10 +308,10 @@
                      WRITE( *, 9989) 8
                      WRITE(*,*)
                      PRINTED_GUIDE = .TRUE.
-                  END IF
+                  }
                   WRITE( *, 9999) C2, N, K, NGUAR, CGUAR, I, TSTRAT(I)
                   NFAIL = NFAIL + 1
-               END IF
+               }
             END DO
       END DO
 
@@ -332,11 +332,11 @@ c$$$         WRITE(*,*)
       END DO
 
       WRITE(*,*)
-      IF( NFAIL .GT. 0 ) THEN
+      if ( NFAIL .GT. 0 ) {
          WRITE(*,9998) C2, NFAIL, NTESTS*N+N_AUX_TESTS
       } else {
          WRITE(*,9997) C2
-      END IF
+      }
  9999 FORMAT( ' D', A2, 'SVXX: N =', I2, ', RHS = ', I2,
      $     ', NWISE GUAR. = ', A, ', CWISE GUAR. = ', A,
      $     ' test(',I1,') =', G12.5 )

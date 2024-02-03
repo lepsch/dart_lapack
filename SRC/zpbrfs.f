@@ -59,37 +59,37 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -3
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -4
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -6
-      ELSE IF( LDAFB.LT.KD+1 ) THEN
+      } else if ( LDAFB.LT.KD+1 ) {
          INFO = -8
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -10
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -12
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZPBRFS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
+      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
          DO 10 J = 1, NRHS
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
          RETURN
-      END IF
+      }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
@@ -129,7 +129,7 @@
 
          // Compute abs(A)*abs(X) + abs(B).
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             DO 50 K = 1, N
                S = ZERO
                XK = CABS1( X( K, J ) )
@@ -152,14 +152,14 @@
    60          CONTINUE
                RWORK( K ) = RWORK( K ) + S
    70       CONTINUE
-         END IF
+         }
          S = ZERO
          DO 80 I = 1, N
-            IF( RWORK( I ).GT.SAFE2 ) THEN
+            if ( RWORK( I ).GT.SAFE2 ) {
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
-            END IF
+            }
    80    CONTINUE
          BERR( J ) = S
 
@@ -169,7 +169,7 @@
                // last iteration, and
             // 3) At most ITMAX iterations tried.
 
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
+         if ( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) {
 
             // Update solution and try again.
 
@@ -178,7 +178,7 @@
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
-         END IF
+         }
 
          // Bound error from formula
 
@@ -203,18 +203,18 @@
          // where W = abs(R) + NZ*EPS*( abs(A)*abs(X)+abs(B) )))
 
          DO 90 I = 1, N
-            IF( RWORK( I ).GT.SAFE2 ) THEN
+            if ( RWORK( I ).GT.SAFE2 ) {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
-            END IF
+            }
    90    CONTINUE
 
          KASE = 0
   100    CONTINUE
          CALL ZLACN2( N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE )
-         IF( KASE.NE.0 ) THEN
-            IF( KASE.EQ.1 ) THEN
+         if ( KASE.NE.0 ) {
+            if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(A**H).
 
@@ -222,7 +222,7 @@
                DO 110 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   110          CONTINUE
-            ELSE IF( KASE.EQ.2 ) THEN
+            } else if ( KASE.EQ.2 ) {
 
                // Multiply by inv(A)*diag(W).
 
@@ -230,9 +230,9 @@
                   WORK( I ) = RWORK( I )*WORK( I )
   120          CONTINUE
                CALL ZPBTRS( UPLO, N, KD, 1, AFB, LDAFB, WORK, N, INFO )
-            END IF
+            }
             GO TO 100
-         END IF
+         }
 
          // Normalize error.
 

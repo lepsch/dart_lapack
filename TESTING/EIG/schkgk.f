@@ -79,25 +79,25 @@
       CALL SLACPY( 'FULL', N, N, B, LDB, BF, LDB )
 
       CALL SGGBAL( 'B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO )
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 1 ) = KNT
-      END IF
+      }
 
       CALL SLACPY( 'FULL', N, M, VL, LDVL, VLF, LDVL )
       CALL SLACPY( 'FULL', N, M, VR, LDVR, VRF, LDVR )
 
       CALL SGGBAK( 'B', 'L', N, ILO, IHI, LSCALE, RSCALE, M, VL, LDVL, INFO )
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 2 ) = KNT
-      END IF
+      }
 
       CALL SGGBAK( 'B', 'R', N, ILO, IHI, LSCALE, RSCALE, M, VR, LDVR, INFO )
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 3 ) = KNT
-      END IF
+      }
 
       // Test of SGGBAK
 
@@ -115,10 +115,10 @@
    60    CONTINUE
    70 CONTINUE
       VMAX = VMAX / ( EPS*MAX( ANORM, BNORM ) )
-      IF( VMAX.GT.RMAX ) THEN
+      if ( VMAX.GT.RMAX ) {
          LMAX( 4 ) = KNT
          RMAX = VMAX
-      END IF
+      }
 
       // Check tilde(VL)'*B*tilde(VR) - VL'*tilde(B)*VR
 
@@ -133,10 +133,10 @@
    80    CONTINUE
    90 CONTINUE
       VMAX = VMAX / ( EPS*MAX( ANORM, BNORM ) )
-      IF( VMAX.GT.RMAX ) THEN
+      if ( VMAX.GT.RMAX ) {
          LMAX( 4 ) = KNT
          RMAX = VMAX
-      END IF
+      }
 
       GO TO 10
 

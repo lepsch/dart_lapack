@@ -33,10 +33,10 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       EPS = DLAMCH( 'Epsilon' )
 
@@ -51,7 +51,7 @@
 
       // Compute the 1-norms of the tridiagonal matrices A and WORK.
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          ANORM = D( 1 )
          RESID = ABS( WORK( 1 ) )
       } else {
@@ -61,15 +61,15 @@
             ANORM = MAX( ANORM, D( I )+ABS( E( I ) )+ABS( E( I-1 ) ) )
             RESID = MAX( RESID, ABS( WORK( I ) )+ABS( WORK( N+I-1 ) )+ ABS( WORK( N+I ) ) )
    20    CONTINUE
-      END IF
+      }
 
       // Compute norm(L*D*L' - A) / (n * norm(A) * EPS)
 
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
-      END IF
+      }
 
       RETURN
 

@@ -26,21 +26,21 @@
       // .. Executable Statements ..
 
       INFO = 0
-      IF( N .LT. 0 ) THEN
+      if ( N .LT. 0 ) {
          INFO = -2
-      ELSE IF( M .LT. N ) THEN
+      } else if ( M .LT. N ) {
          INFO = -1
-      ELSE IF( LDA .LT. MAX( 1, M ) ) THEN
+      } else if ( LDA .LT. MAX( 1, M ) ) {
          INFO = -4
-      ELSE IF( LDT .LT. MAX( 1, N ) ) THEN
+      } else if ( LDT .LT. MAX( 1, N ) ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGEQRT3', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
 
          // Compute Householder transform when N=1
 
@@ -105,7 +105,7 @@
          // Y = (Y1,Y2); R = [ R1  A(1:N1,J1:N) ];  T = [T1 T3]
                           // [  0        R2     ]       [ 0 T2]
 
-      END IF
+      }
 
       RETURN
 

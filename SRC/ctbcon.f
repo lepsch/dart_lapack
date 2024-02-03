@@ -57,30 +57,30 @@
       ONENRM = NORM.EQ.'1' .OR. LSAME( NORM, 'O' )
       NOUNIT = LSAME( DIAG, 'N' )
 
-      IF( .NOT.ONENRM .AND. .NOT.LSAME( NORM, 'I' ) ) THEN
+      if ( .NOT.ONENRM .AND. .NOT.LSAME( NORM, 'I' ) ) {
          INFO = -1
-      ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
+      } else if ( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -5
-      ELSE IF( LDAB.LT.KD+1 ) THEN
+      } else if ( LDAB.LT.KD+1 ) {
          INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CTBCON', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          RCOND = ONE
          RETURN
-      END IF
+      }
 
       RCOND = ZERO
       SMLNUM = SLAMCH( 'Safe minimum' )*REAL( MAX( N, 1 ) )
@@ -91,22 +91,22 @@
 
       // Continue only if ANORM > 0.
 
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
 
          // Estimate the 1-norm of the inverse of A.
 
          AINVNM = ZERO
          NORMIN = 'N'
-         IF( ONENRM ) THEN
+         if ( ONENRM ) {
             KASE1 = 1
          } else {
             KASE1 = 2
-         END IF
+         }
          KASE = 0
    10    CONTINUE
          CALL CLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
-         IF( KASE.NE.0 ) THEN
-            IF( KASE.EQ.KASE1 ) THEN
+         if ( KASE.NE.0 ) {
+            if ( KASE.EQ.KASE1 ) {
 
                // Multiply by inv(A).
 
@@ -116,24 +116,24 @@
                // Multiply by inv(A**H).
 
                CALL CLATBS( UPLO, 'Conjugate transpose', DIAG, NORMIN, N, KD, AB, LDAB, WORK, SCALE, RWORK, INFO )
-            END IF
+            }
             NORMIN = 'Y'
 
             // Multiply by 1/SCALE if doing so will not cause overflow.
 
-            IF( SCALE.NE.ONE ) THEN
+            if ( SCALE.NE.ONE ) {
                IX = ICAMAX( N, WORK, 1 )
                XNORM = CABS1( WORK( IX ) )
                IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
                CALL CSRSCL( N, SCALE, WORK, 1 )
-            END IF
+            }
             GO TO 10
-         END IF
+         }
 
          // Compute the estimate of the reciprocal condition number.
 
          IF( AINVNM.NE.ZERO ) RCOND = ( ONE / ANORM ) / AINVNM
-      END IF
+      }
 
    20 CONTINUE
       RETURN

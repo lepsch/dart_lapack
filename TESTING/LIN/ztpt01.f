@@ -40,28 +40,28 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RCOND = ONE
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANTP( '1', UPLO, DIAG, N, AP, RWORK )
       AINVNM = ZLANTP( '1', UPLO, DIAG, N, AINVP, RWORK )
-      IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
       RCOND = ( ONE / ANORM ) / AINVNM
 
       // Compute A * AINV, overwriting AINV.
 
       UNITD = LSAME( DIAG, 'U' )
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          JC = 1
          DO 10 J = 1, N
             IF( UNITD ) AINVP( JC+J-1 ) = ONE
@@ -89,7 +89,7 @@
             AINVP( JC ) = AINVP( JC ) - ONE
             JC = JC + N - J + 1
    20    CONTINUE
-      END IF
+      }
 
       // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
 

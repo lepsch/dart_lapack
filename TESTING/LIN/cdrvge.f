@@ -122,33 +122,33 @@
 
             // Check error code from CLATMS.
 
-            IF( INFO.NE.0 ) THEN
+            if ( INFO.NE.0 ) {
                CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                GO TO 80
-            END IF
+            }
 
             // For types 5-7, zero one or more columns of the matrix to
            t // est that INFO is returned correctly.
 
-            IF( ZEROT ) THEN
-               IF( IMAT.EQ.5 ) THEN
+            if ( ZEROT ) {
+               if ( IMAT.EQ.5 ) {
                   IZERO = 1
-               ELSE IF( IMAT.EQ.6 ) THEN
+               } else if ( IMAT.EQ.6 ) {
                   IZERO = N
                } else {
                   IZERO = N / 2 + 1
-               END IF
+               }
                IOFF = ( IZERO-1 )*LDA
-               IF( IMAT.LT.7 ) THEN
+               if ( IMAT.LT.7 ) {
                   DO 20 I = 1, N
                      A( IOFF+I ) = ZERO
    20             CONTINUE
                } else {
                   CALL CLASET( 'Full', N, N-IZERO+1, CMPLX( ZERO ), CMPLX( ZERO ), A( IOFF+1 ), LDA )
-               END IF
+               }
             } else {
                IZERO = 0
-            END IF
+            }
 
             // Save a copy of the matrix A in ASAV.
 
@@ -156,11 +156,11 @@
 
             DO 70 IEQUED = 1, 4
                EQUED = EQUEDS( IEQUED )
-               IF( IEQUED.EQ.1 ) THEN
+               if ( IEQUED.EQ.1 ) {
                   NFACT = 3
                } else {
                   NFACT = 1
-               END IF
+               }
 
                DO 60 IFACT = 1, NFACT
                   FACT = FACTS( IFACT )
@@ -168,12 +168,12 @@
                   NOFACT = LSAME( FACT, 'N' )
                   EQUIL = LSAME( FACT, 'E' )
 
-                  IF( ZEROT ) THEN
+                  if ( ZEROT ) {
                      IF( PREFAC ) GO TO 60
                      RCONDO = ZERO
                      RCONDI = ZERO
 
-                  ELSE IF( .NOT.NOFACT ) THEN
+                  } else if ( .NOT.NOFACT ) {
 
                      // Compute the condition number for comparison with
                     t // he value returned by CGESVX (FACT = 'N' reuses
@@ -181,37 +181,37 @@
                      // with FACT = 'F').
 
                      CALL CLACPY( 'Full', N, N, ASAV, LDA, AFAC, LDA )
-                     IF( EQUIL .OR. IEQUED.GT.1 ) THEN
+                     if ( EQUIL .OR. IEQUED.GT.1 ) {
 
                         // Compute row and column scale factors to
                         // equilibrate the matrix A.
 
                         CALL CGEEQU( N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO )
-                        IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
-                           IF( LSAME( EQUED, 'R' ) ) THEN
+                        if ( INFO.EQ.0 .AND. N.GT.0 ) {
+                           if ( LSAME( EQUED, 'R' ) ) {
                               ROWCND = ZERO
                               COLCND = ONE
-                           ELSE IF( LSAME( EQUED, 'C' ) ) THEN
+                           } else if ( LSAME( EQUED, 'C' ) ) {
                               ROWCND = ONE
                               COLCND = ZERO
-                           ELSE IF( LSAME( EQUED, 'B' ) ) THEN
+                           } else if ( LSAME( EQUED, 'B' ) ) {
                               ROWCND = ZERO
                               COLCND = ZERO
-                           END IF
+                           }
 
                            // Equilibrate the matrix.
 
                            CALL CLAQGE( N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
-                        END IF
-                     END IF
+                        }
+                     }
 
                      // Save the condition number of the non-equilibrated
                      // system for use in CGET04.
 
-                     IF( EQUIL ) THEN
+                     if ( EQUIL ) {
                         ROLDO = RCONDO
                         ROLDI = RCONDI
-                     END IF
+                     }
 
                      // Compute the 1-norm and infinity-norm of A.
 
@@ -233,32 +233,32 @@
                      // Compute the 1-norm condition number of A.
 
                      AINVNM = CLANGE( '1', N, N, A, LDA, RWORK )
-                     IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                     if ( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                         RCONDO = ONE
                      } else {
                         RCONDO = ( ONE / ANORMO ) / AINVNM
-                     END IF
+                     }
 
                      // Compute the infinity-norm condition number of A.
 
                      AINVNM = CLANGE( 'I', N, N, A, LDA, RWORK )
-                     IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                     if ( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                         RCONDI = ONE
                      } else {
                         RCONDI = ( ONE / ANORMI ) / AINVNM
-                     END IF
-                  END IF
+                     }
+                  }
 
                   DO 50 ITRAN = 1, NTRAN
 
                      // Do for each value of TRANS.
 
                      TRANS = TRANSS( ITRAN )
-                     IF( ITRAN.EQ.1 ) THEN
+                     if ( ITRAN.EQ.1 ) {
                         RCONDC = RCONDO
                      } else {
                         RCONDC = RCONDI
-                     END IF
+                     }
 
                      // Restore the matrix A.
 
@@ -271,7 +271,7 @@
                      XTYPE = 'C'
                      CALL CLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
 
-                     IF( NOFACT .AND. ITRAN.EQ.1 ) THEN
+                     if ( NOFACT .AND. ITRAN.EQ.1 ) {
 
                         // --- Test CGESV  ---
 
@@ -293,7 +293,7 @@
 
                         CALL CGET01( N, N, A, LDA, AFAC, LDA, IWORK, RWORK, RESULT( 1 ) )
                         NT = 1
-                        IF( IZERO.EQ.0 ) THEN
+                        if ( IZERO.EQ.0 ) {
 
                            // Compute residual of the computed solution.
 
@@ -303,31 +303,31 @@
 
                            CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                            NT = 3
-                        END IF
+                        }
 
                         // Print information about the tests that did not
                         // pass the threshold.
 
                         DO 30 K = 1, NT
-                           IF( RESULT( K ).GE.THRESH ) THEN
+                           if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'CGESV ', N, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
    30                   CONTINUE
                         NRUN = NRUN + NT
-                     END IF
+                     }
 
                      // --- Test CGESVX ---
 
                      IF( .NOT.PREFAC ) CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA )
                      CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA )
-                     IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
+                     if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
                         // Equilibrate the matrix if FACT = 'F' and
                         // EQUED = 'R', 'C', or 'B'.
 
                         CALL CLAQGE( N, N, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
-                     END IF
+                     }
 
                      // Solve the system and compute the condition number
                      // and error bounds using CGESVX.
@@ -342,24 +342,24 @@
                      // Compare RWORK(2*NRHS+1) from CGESVX with the
                      // computed reciprocal pivot growth factor RPVGRW
 
-                     IF( INFO.NE.0 .AND. INFO.LE.N) THEN
+                     if ( INFO.NE.0 .AND. INFO.LE.N) {
                         RPVGRW = CLANTR( 'M', 'U', 'N', INFO, INFO, AFAC, LDA, RDUM )
-                        IF( RPVGRW.EQ.ZERO ) THEN
+                        if ( RPVGRW.EQ.ZERO ) {
                            RPVGRW = ONE
                         } else {
                            RPVGRW = CLANGE( 'M', N, INFO, A, LDA, RDUM ) / RPVGRW
-                        END IF
+                        }
                      } else {
                         RPVGRW = CLANTR( 'M', 'U', 'N', N, N, AFAC, LDA, RDUM )
-                        IF( RPVGRW.EQ.ZERO ) THEN
+                        if ( RPVGRW.EQ.ZERO ) {
                            RPVGRW = ONE
                         } else {
                            RPVGRW = CLANGE( 'M', N, N, A, LDA, RDUM ) / RPVGRW
-                        END IF
-                     END IF
+                        }
+                     }
                      RESULT( 7 ) = ABS( RPVGRW-RWORK( 2*NRHS+1 ) ) / MAX( RWORK( 2*NRHS+1 ), RPVGRW ) / SLAMCH( 'E' )
 
-                     IF( .NOT.PREFAC ) THEN
+                     if ( .NOT.PREFAC ) {
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -368,9 +368,9 @@
                         K1 = 1
                      } else {
                         K1 = 2
-                     END IF
+                     }
 
-                     IF( INFO.EQ.0 ) THEN
+                     if ( INFO.EQ.0 ) {
                         TRFCON = .FALSE.
 
                         // Compute residual of the computed solution.
@@ -381,13 +381,13 @@
 
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         } else {
-                           IF( ITRAN.EQ.1 ) THEN
+                           if ( ITRAN.EQ.1 ) {
                               ROLDC = ROLDO
                            } else {
                               ROLDC = ROLDI
-                           END IF
+                           }
                            CALL CGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
-                        END IF
+                        }
 
                         // Check the error bounds from iterative
                         // refinement.
@@ -395,7 +395,7 @@
                         CALL CGET07( TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 4 ) )
                      } else {
                         TRFCON = .TRUE.
-                     END IF
+                     }
 
                      // Compare RCOND from CGESVX with the computed value
                      // in RCONDC.
@@ -405,51 +405,51 @@
                      // Print information about the tests that did not pass
                     t // he threshold.
 
-                     IF( .NOT.TRFCON ) THEN
+                     if ( .NOT.TRFCON ) {
                         DO 40 K = K1, NTESTS
-                           IF( RESULT( K ).GE.THRESH ) THEN
+                           if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                              IF( PREFAC ) THEN
+                              if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'CGESVX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K )
                               } else {
                                  WRITE( NOUT, FMT = 9998 )'CGESVX', FACT, TRANS, N, IMAT, K, RESULT( K )
-                              END IF
+                              }
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
    40                   CONTINUE
                         NRUN = NRUN + NTESTS - K1 + 1
                      } else {
                         IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                           IF( PREFAC ) THEN
+                           if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'CGESVX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
                            } else {
                               WRITE( NOUT, FMT = 9998 )'CGESVX', FACT, TRANS, N, IMAT, 1, RESULT( 1 )
-                           END IF
+                           }
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
-                        END IF
-                        IF( RESULT( 6 ).GE.THRESH ) THEN
+                        }
+                        if ( RESULT( 6 ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                           IF( PREFAC ) THEN
+                           if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'CGESVX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
                            } else {
                               WRITE( NOUT, FMT = 9998 )'CGESVX', FACT, TRANS, N, IMAT, 6, RESULT( 6 )
-                           END IF
+                           }
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
-                        END IF
-                        IF( RESULT( 7 ).GE.THRESH ) THEN
+                        }
+                        if ( RESULT( 7 ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
-                           IF( PREFAC ) THEN
+                           if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'CGESVX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
                            } else {
                               WRITE( NOUT, FMT = 9998 )'CGESVX', FACT, TRANS, N, IMAT, 7, RESULT( 7 )
-                           END IF
+                           }
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
-                        END IF
+                        }
 
-                     END IF
+                     }
 
    50             CONTINUE
    60          CONTINUE

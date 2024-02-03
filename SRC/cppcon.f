@@ -54,27 +54,27 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( ANORM.LT.ZERO ) THEN
+      } else if ( ANORM.LT.ZERO ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CPPCON', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       RCOND = ZERO
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          RCOND = ONE
          RETURN
-      ELSE IF( ANORM.EQ.ZERO ) THEN
+      } else if ( ANORM.EQ.ZERO ) {
          RETURN
-      END IF
+      }
 
       SMLNUM = SLAMCH( 'Safe minimum' )
 
@@ -84,8 +84,8 @@
       NORMIN = 'N'
    10 CONTINUE
       CALL CLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
-      IF( KASE.NE.0 ) THEN
-         IF( UPPER ) THEN
+      if ( KASE.NE.0 ) {
+         if ( UPPER ) {
 
             // Multiply by inv(U**H).
 
@@ -105,18 +105,18 @@
             // Multiply by inv(L**H).
 
             CALL CLATPS( 'Lower', 'Conjugate transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEU, RWORK, INFO )
-         END IF
+         }
 
          // Multiply by 1/SCALE if doing so will not cause overflow.
 
          SCALE = SCALEL*SCALEU
-         IF( SCALE.NE.ONE ) THEN
+         if ( SCALE.NE.ONE ) {
             IX = ICAMAX( N, WORK, 1 )
             IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
             CALL CSRSCL( N, SCALE, WORK, 1 )
-         END IF
+         }
          GO TO 10
-      END IF
+      }
 
       // Compute the estimate of the reciprocal condition number.
 

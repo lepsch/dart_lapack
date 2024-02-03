@@ -37,54 +37,54 @@
 
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          MINMN = MIN( M, N )
-         IF( MINMN.EQ.0 ) THEN
+         if ( MINMN.EQ.0 ) {
             IWS = 1
             LWKOPT = 1
          } else {
             IWS = 3*N + 1
             NB = ILAENV( INB, 'SGEQRF', ' ', M, N, -1, -1 )
             LWKOPT = 2*N + ( N + 1 )*NB
-         END IF
+         }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 
-         IF( ( LWORK.LT.IWS ) .AND. .NOT.LQUERY ) THEN
+         if ( ( LWORK.LT.IWS ) .AND. .NOT.LQUERY ) {
             INFO = -8
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGEQP3', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Move initial columns up front.
 
       NFXD = 1
       DO 10 J = 1, N
-         IF( JPVT( J ).NE.0 ) THEN
-            IF( J.NE.NFXD ) THEN
+         if ( JPVT( J ).NE.0 ) {
+            if ( J.NE.NFXD ) {
                CALL SSWAP( M, A( 1, J ), 1, A( 1, NFXD ), 1 )
                JPVT( J ) = JPVT( NFXD )
                JPVT( NFXD ) = J
             } else {
                JPVT( J ) = J
-            END IF
+            }
             NFXD = NFXD + 1
          } else {
             JPVT( J ) = J
-         END IF
+         }
    10 CONTINUE
       NFXD = NFXD - 1
 
@@ -94,23 +94,23 @@
       // Compute the QR factorization of fixed columns and update
       // remaining columns.
 
-      IF( NFXD.GT.0 ) THEN
+      if ( NFXD.GT.0 ) {
          NA = MIN( M, NFXD )
 *CC      CALL SGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
          CALL SGEQRF( M, NA, A, LDA, TAU, WORK, LWORK, INFO )
          IWS = MAX( IWS, INT( WORK( 1 ) ) )
-         IF( NA.LT.N ) THEN
+         if ( NA.LT.N ) {
 *CC         CALL SORM2R( 'Left', 'Transpose', M, N-NA, NA, A, LDA,
 *CC  $                   TAU, A( 1, NA+1 ), LDA, WORK, INFO )
             CALL SORMQR( 'Left', 'Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO )
             IWS = MAX( IWS, INT( WORK( 1 ) ) )
-         END IF
-      END IF
+         }
+      }
 
       // Factorize free columns
 *  ======================
 
-      IF( NFXD.LT.MINMN ) THEN
+      if ( NFXD.LT.MINMN ) {
 
          SM = M - NFXD
          SN = N - NFXD
@@ -122,20 +122,20 @@
          NBMIN = 2
          NX = 0
 
-         IF( ( NB.GT.1 ) .AND. ( NB.LT.SMINMN ) ) THEN
+         if ( ( NB.GT.1 ) .AND. ( NB.LT.SMINMN ) ) {
 
             // Determine when to cross over from blocked to unblocked code.
 
             NX = MAX( 0, ILAENV( IXOVER, 'SGEQRF', ' ', SM, SN, -1, -1 ) )
 
 
-            IF( NX.LT.SMINMN ) THEN
+            if ( NX.LT.SMINMN ) {
 
                // Determine if workspace is large enough for blocked code.
 
                MINWS = 2*SN + ( SN+1 )*NB
                IWS = MAX( IWS, MINWS )
-               IF( LWORK.LT.MINWS ) THEN
+               if ( LWORK.LT.MINWS ) {
 
                   // Not enough workspace to use optimal NB: Reduce NB and
                   // determine the minimum value of NB.
@@ -144,9 +144,9 @@
                   NBMIN = MAX( 2, ILAENV( INBMIN, 'SGEQRF', ' ', SM, SN, -1, -1 ) )
 
 
-               END IF
-            END IF
-         END IF
+               }
+            }
+         }
 
          // Initialize partial column norms. The first N elements of work
          // store the exact column norms.
@@ -156,7 +156,7 @@
             WORK( N+J ) = WORK( J )
    20    CONTINUE
 
-         IF( ( NB.GE.NBMIN ) .AND. ( NB.LT.SMINMN ) .AND. ( NX.LT.SMINMN ) ) THEN
+         if ( ( NB.GE.NBMIN ) .AND. ( NB.LT.SMINMN ) .AND. ( NX.LT.SMINMN ) ) {
 
             // Use blocked code initially.
 
@@ -167,7 +167,7 @@
 
             TOPBMN = MINMN - NX
    30       CONTINUE
-            IF( J.LE.TOPBMN ) THEN
+            if ( J.LE.TOPBMN ) {
                JB = MIN( NB, TOPBMN-J+1 )
 
                // Factorize JB columns among columns J:N.
@@ -176,17 +176,17 @@
 
                J = J + FJB
                GO TO 30
-            END IF
+            }
          } else {
             J = NFXD + 1
-         END IF
+         }
 
          // Use unblocked code to factor the last or only block.
 
 
          IF( J.LE.MINMN ) CALL SLAQP2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ) )
 
-      END IF
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK(IWS)
       RETURN

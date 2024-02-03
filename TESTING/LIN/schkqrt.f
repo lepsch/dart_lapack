@@ -147,7 +147,7 @@
             MINMN = MIN( M, N )
             DO K = 1, NNB
                NB = NBVAL( K )
-               IF( (NB.LE.MINMN).AND.(NB.GT.0) ) THEN
+               if ( (NB.LE.MINMN).AND.(NB.GT.0) ) {
 
                   // Test SGEQRT and SGEMQRT
 
@@ -157,13 +157,13 @@
                   // pass the threshold.
 
                   DO T = 1, NTESTS
-                     IF( RESULT( T ).GE.THRESH ) THEN
+                     if ( RESULT( T ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, T, RESULT( T )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
                   END DO
                   NRUN = NRUN + NTESTS
-               END IF
+               }
             END DO
          END DO
       END DO

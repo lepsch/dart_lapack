@@ -55,7 +55,7 @@
 
       // Check if A can be deflated
 
-      IF( ABS( A( 2, 1 ) ).LE.ULP ) THEN
+      if ( ABS( A( 2, 1 ) ).LE.ULP ) {
          CSL = ONE
          SNL = ZERO
          CSR = ONE
@@ -66,7 +66,7 @@
 
       // Check if B is singular
 
-      ELSE IF( ABS( B( 1, 1 ) ).LE.ULP ) THEN
+      } else if ( ABS( B( 1, 1 ) ).LE.ULP ) {
          CALL SLARTG( A( 1, 1 ), A( 2, 1 ), CSL, SNL, R )
          CSR = ONE
          SNR = ZERO
@@ -77,7 +77,7 @@
          B( 2, 1 ) = ZERO
          WI = ZERO
 
-      ELSE IF( ABS( B( 2, 2 ) ).LE.ULP ) THEN
+      } else if ( ABS( B( 2, 2 ) ).LE.ULP ) {
          CALL SLARTG( A( 2, 2 ), A( 2, 1 ), CSR, SNR, T )
          SNR = -SNR
          CALL SROT( 2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR )
@@ -95,7 +95,7 @@
 
          CALL SLAG2( A, LDA, B, LDB, SAFMIN, SCALE1, SCALE2, WR1, WR2, WI )
 
-         IF( WI.EQ.ZERO ) THEN
+         if ( WI.EQ.ZERO ) {
 
            t // wo real eigenvalues, compute s*A-w*B
 
@@ -106,7 +106,7 @@
             RR = SLAPY2( H1, H2 )
             QQ = SLAPY2( SCALE1*A( 2, 1 ), H3 )
 
-            IF( RR.GT.QQ ) THEN
+            if ( RR.GT.QQ ) {
 
                // find right rotation matrix to zero 1,1 element of
                // (sA - wB)
@@ -120,7 +120,7 @@
 
                CALL SLARTG( H3, SCALE1*A( 2, 1 ), CSR, SNR, T )
 
-            END IF
+            }
 
             SNR = -SNR
             CALL SROT( 2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR )
@@ -130,7 +130,7 @@
 
             H1 = MAX( ABS( A( 1, 1 ) )+ABS( A( 1, 2 ) ), ABS( A( 2, 1 ) )+ABS( A( 2, 2 ) ) )             H2 = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
 
-            IF( ( SCALE1*H1 ).GE.ABS( WR1 )*H2 ) THEN
+            if ( ( SCALE1*H1 ).GE.ABS( WR1 )*H2 ) {
 
                // find left rotation matrix Q to zero out B(2,1)
 
@@ -142,7 +142,7 @@
 
                CALL SLARTG( A( 1, 1 ), A( 2, 1 ), CSL, SNL, R )
 
-            END IF
+            }
 
             CALL SROT( 2, A( 1, 1 ), LDA, A( 2, 1 ), LDA, CSL, SNL )
             CALL SROT( 2, B( 1, 1 ), LDB, B( 2, 1 ), LDB, CSL, SNL )
@@ -168,9 +168,9 @@
             B( 2, 1 ) = ZERO
             B( 1, 2 ) = ZERO
 
-         END IF
+         }
 
-      END IF
+      }
 
       // Unscaling
 
@@ -183,7 +183,7 @@
       B( 1, 2 ) = BNORM*B( 1, 2 )
       B( 2, 2 ) = BNORM*B( 2, 2 )
 
-      IF( WI.EQ.ZERO ) THEN
+      if ( WI.EQ.ZERO ) {
          ALPHAR( 1 ) = A( 1, 1 )
          ALPHAR( 2 ) = A( 2, 2 )
          ALPHAI( 1 ) = ZERO
@@ -197,7 +197,7 @@
          ALPHAI( 2 ) = -ALPHAI( 1 )
          BETA( 1 ) = ONE
          BETA( 2 ) = ONE
-      END IF
+      }
 
       RETURN
 

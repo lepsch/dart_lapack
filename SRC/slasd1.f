@@ -36,17 +36,17 @@
 
       INFO = 0
 
-      IF( NL.LT.1 ) THEN
+      if ( NL.LT.1 ) {
          INFO = -1
-      ELSE IF( NR.LT.1 ) THEN
+      } else if ( NR.LT.1 ) {
          INFO = -2
-      ELSE IF( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) THEN
+      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
          INFO = -3
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLASD1', -INFO )
          RETURN
-      END IF
+      }
 
       N = NL + NR + 1
       M = N + SQRE
@@ -74,9 +74,9 @@
       ORGNRM = MAX( ABS( ALPHA ), ABS( BETA ) )
       D( NL+1 ) = ZERO
       DO 10 I = 1, N
-         IF( ABS( D( I ) ).GT.ORGNRM ) THEN
+         if ( ABS( D( I ) ).GT.ORGNRM ) {
             ORGNRM = ABS( D( I ) )
-         END IF
+         }
    10 CONTINUE
       CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO )
       ALPHA = ALPHA / ORGNRM
@@ -93,9 +93,9 @@
 
       // Report the possible convergence failure.
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          RETURN
-      END IF
+      }
 
       // Unscale.
 

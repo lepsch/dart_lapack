@@ -76,20 +76,20 @@
 
                   // Test ZTPQRT and ZTPMQRT
 
-                  IF( (NB.LE.N).AND.(NB.GT.0) ) THEN
+                  if ( (NB.LE.N).AND.(NB.GT.0) ) {
                      CALL ZQRT05( M, N, L, NB, RESULT )
 
                      // Print information about the tests that did not
                      // pass the threshold.
 
                      DO T = 1, NTESTS
-                        IF( RESULT( T ).GE.THRESH ) THEN
+                        if ( RESULT( T ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, NB, T, RESULT( T )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
                      END DO
                      NRUN = NRUN + NTESTS
-                  END IF
+                  }
                END DO
             END DO
          END DO

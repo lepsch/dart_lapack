@@ -43,32 +43,32 @@
       // Check inputs
 
       INFO = 0
-      IF( LSAME( RC, 'R' ) ) THEN
+      if ( LSAME( RC, 'R' ) ) {
          IRC = 0
-      ELSE IF( LSAME( RC, 'C' ) ) THEN
+      } else if ( LSAME( RC, 'C' ) ) {
          IRC = 1
       } else {
          IRC = -1
-      END IF
-      IF( IRC.EQ.-1 ) THEN
+      }
+      if ( IRC.EQ.-1 ) {
          INFO = -1
-      ELSE IF( MU.LT.0 ) THEN
+      } else if ( MU.LT.0 ) {
          INFO = -2
-      ELSE IF( MV.LT.0 ) THEN
+      } else if ( MV.LT.0 ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( K.LT.0 .OR. K.GT.MAX( MU, MV ) ) THEN
+      } else if ( K.LT.0 .OR. K.GT.MAX( MU, MV ) ) {
          INFO = -5
-      ELSE IF( ( IRC.EQ.0 .AND. LDU.LT.MAX( 1, MU ) ) .OR. ( IRC.EQ.1 .AND. LDU.LT.MAX( 1, N ) ) ) THEN
+      } else if ( ( IRC.EQ.0 .AND. LDU.LT.MAX( 1, MU ) ) .OR. ( IRC.EQ.1 .AND. LDU.LT.MAX( 1, N ) ) ) {
          INFO = -7
-      ELSE IF( ( IRC.EQ.0 .AND. LDV.LT.MAX( 1, MV ) ) .OR. ( IRC.EQ.1 .AND. LDV.LT.MAX( 1, N ) ) ) THEN
+      } else if ( ( IRC.EQ.0 .AND. LDV.LT.MAX( 1, MV ) ) .OR. ( IRC.EQ.1 .AND. LDV.LT.MAX( 1, N ) ) ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CUNT03', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize result
 
@@ -79,23 +79,23 @@
 
       ULP = SLAMCH( 'Precision' )
 
-      IF( IRC.EQ.0 ) THEN
+      if ( IRC.EQ.0 ) {
 
          // Compare rows
 
          RES1 = ZERO
          DO 20 I = 1, K
             LMX = ICAMAX( N, U( I, 1 ), LDU )
-            IF( V( I, LMX ).EQ.CMPLX( ZERO ) ) THEN
+            if ( V( I, LMX ).EQ.CMPLX( ZERO ) ) {
                SV = ONE
             } else {
                SV = ABS( V( I, LMX ) ) / V( I, LMX )
-            END IF
-            IF( U( I, LMX ).EQ.CMPLX( ZERO ) ) THEN
+            }
+            if ( U( I, LMX ).EQ.CMPLX( ZERO ) ) {
                SU = ONE
             } else {
                SU = ABS( U( I, LMX ) ) / U( I, LMX )
-            END IF
+            }
             S = SV / SU
             DO 10 J = 1, N
                RES1 = MAX( RES1, ABS( U( I, J )-S*V( I, J ) ) )
@@ -114,16 +114,16 @@
          RES1 = ZERO
          DO 40 I = 1, K
             LMX = ICAMAX( N, U( 1, I ), 1 )
-            IF( V( LMX, I ).EQ.CMPLX( ZERO ) ) THEN
+            if ( V( LMX, I ).EQ.CMPLX( ZERO ) ) {
                SV = ONE
             } else {
                SV = ABS( V( LMX, I ) ) / V( LMX, I )
-            END IF
-            IF( U( LMX, I ).EQ.CMPLX( ZERO ) ) THEN
+            }
+            if ( U( LMX, I ).EQ.CMPLX( ZERO ) ) {
                SU = ONE
             } else {
                SU = ABS( U( LMX, I ) ) / U( LMX, I )
-            END IF
+            }
             S = SV / SU
             DO 30 J = 1, N
                RES1 = MAX( RES1, ABS( U( J, I )-S*V( J, I ) ) )
@@ -134,7 +134,7 @@
          // Compute orthogonality of columns of V.
 
          CALL CUNT01( 'Columns', N, MV, V, LDV, WORK, LWORK, RWORK, RES2 )
-      END IF
+      }
 
       RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP )
       RETURN

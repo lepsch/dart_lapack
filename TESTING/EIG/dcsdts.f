@@ -46,11 +46,11 @@
 
       CALL DLASET( 'Full', M, M, ZERO, ONE, WORK, LDX )
       CALL DSYRK( 'Upper', 'Conjugate transpose', M, M, -ONE, X, LDX, ONE, WORK, LDX )
-      IF (M.GT.0) THEN
+      if (M.GT.0) {
          EPS2 = MAX( ULP, DLANGE( '1', M, M, WORK, LDX, RWORK ) / DBLE( M ) )
       } else {
          EPS2 = ULP
-      END IF
+      }
       R = MIN( P, M-P, Q, M-Q )
 
       // Copy the matrix X to the array XF.
@@ -173,25 +173,25 @@
 
       RESULT( 9 ) = REALZERO
       DO I = 1, R
-         IF( THETA(I).LT.REALZERO .OR. THETA(I).GT.PIOVER2 ) THEN
+         if ( THETA(I).LT.REALZERO .OR. THETA(I).GT.PIOVER2 ) {
             RESULT( 9 ) = ULPINV
-         END IF
-         IF( I.GT.1 ) THEN
-            IF ( THETA(I).LT.THETA(I-1) ) THEN
+         }
+         if ( I.GT.1 ) {
+            if ( THETA(I).LT.THETA(I-1) ) {
                RESULT( 9 ) = ULPINV
-            END IF
-         END IF
+            }
+         }
       END DO
 
       // The second half of the routine checks the 2-by-1 CSD
 
       CALL DLASET( 'Full', Q, Q, ZERO, ONE, WORK, LDX )
       CALL DSYRK( 'Upper', 'Conjugate transpose', Q, M, -ONE, X, LDX, ONE, WORK, LDX )
-      IF( M.GT.0 ) THEN
+      if ( M.GT.0 ) {
          EPS2 = MAX( ULP, DLANGE( '1', Q, Q, WORK, LDX, RWORK ) / DBLE( M ) )
       } else {
          EPS2 = ULP
-      END IF
+      }
       R = MIN( P, M-P, Q, M-Q )
 
       // Copy the matrix [ X11; X21 ] to the array XF.
@@ -270,14 +270,14 @@
 
       RESULT( 15 ) = REALZERO
       DO I = 1, R
-         IF( THETA(I).LT.REALZERO .OR. THETA(I).GT.PIOVER2 ) THEN
+         if ( THETA(I).LT.REALZERO .OR. THETA(I).GT.PIOVER2 ) {
             RESULT( 15 ) = ULPINV
-         END IF
-         IF( I.GT.1 ) THEN
-            IF ( THETA(I).LT.THETA(I-1) ) THEN
+         }
+         if ( I.GT.1 ) {
+            if ( THETA(I).LT.THETA(I-1) ) {
                RESULT( 15 ) = ULPINV
-            END IF
-         END IF
+            }
+         }
       END DO
 
       RETURN

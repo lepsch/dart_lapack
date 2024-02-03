@@ -25,21 +25,21 @@
       // Test the input arguments
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( MB.LT.1 .OR. ( MB.GT.MIN(M,N) .AND. MIN(M,N).GT.0 ) )THEN
+      } else if ( MB.LT.1 .OR. ( MB.GT.MIN(M,N) .AND. MIN(M,N).GT.0 ) ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      ELSE IF( LDT.LT.MB ) THEN
+      } else if ( LDT.LT.MB ) {
          INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGELQT', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -54,12 +54,12 @@
       // Compute the LQ factorization of the current block A(I:M,I:I+IB-1)
 
          CALL DGELQT3( IB, N-I+1, A(I,I), LDA, T(1,I), LDT, IINFO )
-         IF( I+IB.LE.M ) THEN
+         if ( I+IB.LE.M ) {
 
       // Update by applying H**T to A(I:M,I+IB:N) from the right
 
          CALL DLARFB( 'R', 'N', 'F', 'R', M-I-IB+1, N-I+1, IB, A( I, I ), LDA, T( 1, I ), LDT, A( I+IB, I ), LDA, WORK , M-I-IB+1 )
-         END IF
+         }
       END DO
       RETURN
 

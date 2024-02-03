@@ -53,7 +53,7 @@
 
       // Test error exits for the general triangular routines.
 
-      IF( LSAMEN( 2, C2, 'TR' ) ) THEN
+      if ( LSAMEN( 2, C2, 'TR' ) ) {
 
          // ZTRTRI
 
@@ -210,7 +210,7 @@
 
       // Test error exits for the packed triangular routines.
 
-      ELSE IF( LSAMEN( 2, C2, 'TP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TP' ) ) {
 
          // ZTPTRI
 
@@ -309,7 +309,7 @@
 
       // Test error exits for the banded triangular routines.
 
-      ELSE IF( LSAMEN( 2, C2, 'TB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'TB' ) ) {
 
          // ZTBTRS
 
@@ -416,7 +416,7 @@
          INFOT = 8
          CALL ZLATBS( 'U', 'N', 'N', 'N', 2, 1, A, 1, X, SCALE, RW, INFO )
          CALL CHKXER( 'ZLATBS', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

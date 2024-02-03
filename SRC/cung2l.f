@@ -31,19 +31,19 @@
       // Test the input arguments
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 .OR. N.GT.M ) THEN
+      } else if ( N.LT.0 .OR. N.GT.M ) {
          INFO = -2
-      ELSE IF( K.LT.0 .OR. K.GT.N ) THEN
+      } else if ( K.LT.0 .OR. K.GT.N ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CUNG2L', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 

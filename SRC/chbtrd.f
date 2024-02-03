@@ -50,23 +50,23 @@
       IQEND = 1
 
       INFO = 0
-      IF( .NOT.WANTQ .AND. .NOT.LSAME( VECT, 'N' ) ) THEN
+      if ( .NOT.WANTQ .AND. .NOT.LSAME( VECT, 'N' ) ) {
          INFO = -1
-      ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -4
-      ELSE IF( LDAB.LT.KD1 ) THEN
+      } else if ( LDAB.LT.KD1 ) {
          INFO = -6
-      ELSE IF( LDQ.LT.MAX( 1, N ) .AND. WANTQ ) THEN
+      } else if ( LDQ.LT.MAX( 1, N ) .AND. WANTQ ) {
          INFO = -10
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHBTRD', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -84,9 +84,9 @@
 
       INCA = KD1*LDAB
       KDN = MIN( N-1, KD )
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
-         IF( KD.GT.1 ) THEN
+         if ( KD.GT.1 ) {
 
             // Reduce to complex Hermitian tridiagonal form, working with
            t // he upper triangle
@@ -104,7 +104,7 @@
                   J1 = J1 + KDN
                   J2 = J2 + KDN
 
-                  IF( NR.GT.0 ) THEN
+                  if ( NR.GT.0 ) {
 
                      // generate plane rotations to annihilate nonzero
                      // elements which have been created outside the band
@@ -117,7 +117,7 @@
                      // Dependent on the the number of diagonals either
                      // CLARTV or CROT is used
 
-                     IF( NR.GE.2*KD-1 ) THEN
+                     if ( NR.GE.2*KD-1 ) {
                         DO 10 L = 1, KD - 1
                            CALL CLARTV( NR, AB( L+1, J1-1 ), INCA, AB( L, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
    10                   CONTINUE
@@ -127,12 +127,12 @@
                         DO 20 JINC = J1, JEND, KD1
                            CALL CROT( KDM1, AB( 2, JINC-1 ), 1, AB( 1, JINC ), 1, D( JINC ), WORK( JINC ) )
    20                   CONTINUE
-                     END IF
-                  END IF
+                     }
+                  }
 
 
-                  IF( K.GT.2 ) THEN
-                     IF( K.LE.N-I+1 ) THEN
+                  if ( K.GT.2 ) {
+                     if ( K.LE.N-I+1 ) {
 
                         // generate plane rotation to annihilate a(i,i+k-1)
                         // within the band
@@ -143,10 +143,10 @@
                         // apply rotation from the right
 
                         CALL CROT( K-3, AB( KD-K+4, I+K-2 ), 1, AB( KD-K+3, I+K-1 ), 1, D( I+K-1 ), WORK( I+K-1 ) )
-                     END IF
+                     }
                      NR = NR + 1
                      J1 = J1 - KDN - 1
-                  END IF
+                  }
 
                   // apply plane rotations from both sides to diagonal
                   // blocks
@@ -155,39 +155,39 @@
 
                   // apply plane rotations from the left
 
-                  IF( NR.GT.0 ) THEN
+                  if ( NR.GT.0 ) {
                      CALL CLACGV( NR, WORK( J1 ), KD1 )
-                     IF( 2*KD-1.LT.NR ) THEN
+                     if ( 2*KD-1.LT.NR ) {
 
                      // Dependent on the the number of diagonals either
                      // CLARTV or CROT is used
 
                         DO 30 L = 1, KD - 1
-                           IF( J2+L.GT.N ) THEN
+                           if ( J2+L.GT.N ) {
                               NRT = NR - 1
                            } else {
                               NRT = NR
-                           END IF
+                           }
                            IF( NRT.GT.0 ) CALL CLARTV( NRT, AB( KD-L, J1+L ), INCA, AB( KD-L+1, J1+L ), INCA, D( J1 ), WORK( J1 ), KD1 )
    30                   CONTINUE
                      } else {
                         J1END = J1 + KD1*( NR-2 )
-                        IF( J1END.GE.J1 ) THEN
+                        if ( J1END.GE.J1 ) {
                            DO 40 JIN = J1, J1END, KD1
                               CALL CROT( KD-1, AB( KD-1, JIN+1 ), INCX, AB( KD, JIN+1 ), INCX, D( JIN ), WORK( JIN ) )
    40                      CONTINUE
-                        END IF
+                        }
                         LEND = MIN( KDM1, N-J2 )
                         LAST = J1END + KD1
                         IF( LEND.GT.0 ) CALL CROT( LEND, AB( KD-1, LAST+1 ), INCX, AB( KD, LAST+1 ), INCX, D( LAST ), WORK( LAST ) )
-                     END IF
-                  END IF
+                     }
+                  }
 
-                  IF( WANTQ ) THEN
+                  if ( WANTQ ) {
 
                      // accumulate product of plane rotations in Q
 
-                     IF( INITQ ) THEN
+                     if ( INITQ ) {
 
                  t // ake advantage of the fact that Q was
                   // initially the Identity matrix
@@ -210,17 +210,17 @@
                         DO 60 J = J1, J2, KD1
                            CALL CROT( N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), CONJG( WORK( J ) ) )
    60                   CONTINUE
-                     END IF
+                     }
 
-                  END IF
+                  }
 
-                  IF( J2+KDN.GT.N ) THEN
+                  if ( J2+KDN.GT.N ) {
 
                      // adjust J2 to keep within the bounds of the matrix
 
                      NR = NR - 1
                      J2 = J2 - KDN - 1
-                  END IF
+                  }
 
                   DO 70 J = J1, J2, KD1
 
@@ -232,9 +232,9 @@
    70             CONTINUE
    80          CONTINUE
    90       CONTINUE
-         END IF
+         }
 
-         IF( KD.GT.0 ) THEN
+         if ( KD.GT.0 ) {
 
             // make off-diagonal elements real and copy them to E
 
@@ -243,15 +243,15 @@
                ABST = ABS( T )
                AB( KD, I+1 ) = ABST
                E( I ) = ABST
-               IF( ABST.NE.ZERO ) THEN
+               if ( ABST.NE.ZERO ) {
                   T = T / ABST
                } else {
                   T = CONE
-               END IF
+               }
                IF( I.LT.N-1 ) AB( KD, I+2 ) = AB( KD, I+2 )*T
-               IF( WANTQ ) THEN
+               if ( WANTQ ) {
                   CALL CSCAL( N, CONJG( T ), Q( 1, I+1 ), 1 )
-               END IF
+               }
   100       CONTINUE
          } else {
 
@@ -260,7 +260,7 @@
             DO 110 I = 1, N - 1
                E( I ) = ZERO
   110       CONTINUE
-         END IF
+         }
 
          // copy diagonal elements to D
 
@@ -270,7 +270,7 @@
 
       } else {
 
-         IF( KD.GT.1 ) THEN
+         if ( KD.GT.1 ) {
 
             // Reduce to complex Hermitian tridiagonal form, working with
            t // he lower triangle
@@ -288,7 +288,7 @@
                   J1 = J1 + KDN
                   J2 = J2 + KDN
 
-                  IF( NR.GT.0 ) THEN
+                  if ( NR.GT.0 ) {
 
                      // generate plane rotations to annihilate nonzero
                      // elements which have been created outside the band
@@ -301,7 +301,7 @@
                      // Dependent on the the number of diagonals either
                      // CLARTV or CROT is used
 
-                     IF( NR.GT.2*KD-1 ) THEN
+                     if ( NR.GT.2*KD-1 ) {
                         DO 130 L = 1, KD - 1
                            CALL CLARTV( NR, AB( KD1-L, J1-KD1+L ), INCA, AB( KD1-L+1, J1-KD1+L ), INCA, D( J1 ), WORK( J1 ), KD1 )
   130                   CONTINUE
@@ -310,12 +310,12 @@
                         DO 140 JINC = J1, JEND, KD1
                            CALL CROT( KDM1, AB( KD, JINC-KD ), INCX, AB( KD1, JINC-KD ), INCX, D( JINC ), WORK( JINC ) )
   140                   CONTINUE
-                     END IF
+                     }
 
-                  END IF
+                  }
 
-                  IF( K.GT.2 ) THEN
-                     IF( K.LE.N-I+1 ) THEN
+                  if ( K.GT.2 ) {
+                     if ( K.LE.N-I+1 ) {
 
                         // generate plane rotation to annihilate a(i+k-1,i)
                         // within the band
@@ -326,10 +326,10 @@
                         // apply rotation from the left
 
                         CALL CROT( K-3, AB( K-2, I+1 ), LDAB-1, AB( K-1, I+1 ), LDAB-1, D( I+K-1 ), WORK( I+K-1 ) )
-                     END IF
+                     }
                      NR = NR + 1
                      J1 = J1 - KDN - 1
-                  END IF
+                  }
 
                   // apply plane rotations from both sides to diagonal
                   // blocks
@@ -342,37 +342,37 @@
                      // Dependent on the the number of diagonals either
                      // CLARTV or CROT is used
 
-                  IF( NR.GT.0 ) THEN
+                  if ( NR.GT.0 ) {
                      CALL CLACGV( NR, WORK( J1 ), KD1 )
-                     IF( NR.GT.2*KD-1 ) THEN
+                     if ( NR.GT.2*KD-1 ) {
                         DO 150 L = 1, KD - 1
-                           IF( J2+L.GT.N ) THEN
+                           if ( J2+L.GT.N ) {
                               NRT = NR - 1
                            } else {
                               NRT = NR
-                           END IF
+                           }
                            IF( NRT.GT.0 ) CALL CLARTV( NRT, AB( L+2, J1-1 ), INCA, AB( L+1, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
   150                   CONTINUE
                      } else {
                         J1END = J1 + KD1*( NR-2 )
-                        IF( J1END.GE.J1 ) THEN
+                        if ( J1END.GE.J1 ) {
                            DO 160 J1INC = J1, J1END, KD1
                               CALL CROT( KDM1, AB( 3, J1INC-1 ), 1, AB( 2, J1INC ), 1, D( J1INC ), WORK( J1INC ) )
   160                      CONTINUE
-                        END IF
+                        }
                         LEND = MIN( KDM1, N-J2 )
                         LAST = J1END + KD1
                         IF( LEND.GT.0 ) CALL CROT( LEND, AB( 3, LAST-1 ), 1, AB( 2, LAST ), 1, D( LAST ), WORK( LAST ) )
-                     END IF
-                  END IF
+                     }
+                  }
 
 
 
-                  IF( WANTQ ) THEN
+                  if ( WANTQ ) {
 
                      // accumulate product of plane rotations in Q
 
-                     IF( INITQ ) THEN
+                     if ( INITQ ) {
 
                  t // ake advantage of the fact that Q was
                   // initially the Identity matrix
@@ -395,16 +395,16 @@
                         DO 180 J = J1, J2, KD1
                            CALL CROT( N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), WORK( J ) )
   180                   CONTINUE
-                     END IF
-                  END IF
+                     }
+                  }
 
-                  IF( J2+KDN.GT.N ) THEN
+                  if ( J2+KDN.GT.N ) {
 
                      // adjust J2 to keep within the bounds of the matrix
 
                      NR = NR - 1
                      J2 = J2 - KDN - 1
-                  END IF
+                  }
 
                   DO 190 J = J1, J2, KD1
 
@@ -416,9 +416,9 @@
   190             CONTINUE
   200          CONTINUE
   210       CONTINUE
-         END IF
+         }
 
-         IF( KD.GT.0 ) THEN
+         if ( KD.GT.0 ) {
 
             // make off-diagonal elements real and copy them to E
 
@@ -427,15 +427,15 @@
                ABST = ABS( T )
                AB( 2, I ) = ABST
                E( I ) = ABST
-               IF( ABST.NE.ZERO ) THEN
+               if ( ABST.NE.ZERO ) {
                   T = T / ABST
                } else {
                   T = CONE
-               END IF
+               }
                IF( I.LT.N-1 ) AB( 2, I+1 ) = AB( 2, I+1 )*T
-               IF( WANTQ ) THEN
+               if ( WANTQ ) {
                   CALL CSCAL( N, T, Q( 1, I+1 ), 1 )
-               END IF
+               }
   220       CONTINUE
          } else {
 
@@ -444,14 +444,14 @@
             DO 230 I = 1, N - 1
                E( I ) = ZERO
   230       CONTINUE
-         END IF
+         }
 
          // copy diagonal elements to D
 
          DO 240 I = 1, N
             D( I ) = REAL( AB( 1, I ) )
   240    CONTINUE
-      END IF
+      }
 
       RETURN
 

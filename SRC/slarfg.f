@@ -34,14 +34,14 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.LE.1 ) THEN
+      if ( N.LE.1 ) {
          TAU = ZERO
          RETURN
-      END IF
+      }
 
       XNORM = SNRM2( N-1, X, INCX )
 
-      IF( XNORM.EQ.ZERO ) THEN
+      if ( XNORM.EQ.ZERO ) {
 
          // H  =  I
 
@@ -53,7 +53,7 @@
          BETA = -SIGN( SLAPY2( ALPHA, XNORM ), ALPHA )
          SAFMIN = SLAMCH( 'S' ) / SLAMCH( 'E' )
          KNT = 0
-         IF( ABS( BETA ).LT.SAFMIN ) THEN
+         if ( ABS( BETA ).LT.SAFMIN ) {
 
             // XNORM, BETA may be inaccurate; scale X and recompute them
 
@@ -69,7 +69,7 @@
 
             XNORM = SNRM2( N-1, X, INCX )
             BETA = -SIGN( SLAPY2( ALPHA, XNORM ), ALPHA )
-         END IF
+         }
          TAU = ( BETA-ALPHA ) / BETA
          CALL SSCAL( N-1, ONE / ( ALPHA-BETA ), X, INCX )
 
@@ -79,7 +79,7 @@
             BETA = BETA*SAFMIN
  20      CONTINUE
          ALPHA = BETA
-      END IF
+      }
 
       RETURN
 

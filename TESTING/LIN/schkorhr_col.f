@@ -69,7 +69,7 @@
 
             // Only for M >= N
 
-            IF ( MIN( M, N ).GT.0 .AND. M.GE.N ) THEN
+            if ( MIN( M, N ).GT.0 .AND. M.GE.N ) {
 
                // Do for each possible value of MB1
 
@@ -78,7 +78,7 @@
 
                   // Only for MB1 > N
 
-                  IF ( MB1.GT.N ) THEN
+                  if ( MB1.GT.N ) {
 
                      // Do for each possible value of NB1
 
@@ -90,7 +90,7 @@
                         DO INB2 = 1, NNB
                            NB2 = NBVAL( INB2 )
 
-                           IF( NB1.GT.0 .AND. NB2.GT.0 ) THEN
+                           if ( NB1.GT.0 .AND. NB2.GT.0 ) {
 
                               // Test SORHR_COL
 
@@ -100,18 +100,18 @@
                               // not pass the threshold.
 
                               DO T = 1, NTESTS
-                                 IF( RESULT( T ).GE.THRESH ) THEN
+                                 if ( RESULT( T ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) M, N, MB1, NB1, NB2, T, RESULT( T )
                                     NFAIL = NFAIL + 1
-                                 END IF
+                                 }
                               END DO
                               NRUN = NRUN + NTESTS
-                           END IF
+                           }
                         END DO
                      END DO
-                  END IF
+                  }
                 END DO
-            END IF
+            }
          END DO
       END DO
 
@@ -127,7 +127,7 @@
 
             // Only for M >= N
 
-            IF ( MIN( M, N ).GT.0 .AND. M.GE.N ) THEN
+            if ( MIN( M, N ).GT.0 .AND. M.GE.N ) {
 
                // Do for each possible value of MB1
 
@@ -136,7 +136,7 @@
 
                   // Only for MB1 > N
 
-                  IF ( MB1.GT.N ) THEN
+                  if ( MB1.GT.N ) {
 
                      // Do for each possible value of NB1
 
@@ -148,7 +148,7 @@
                         DO INB2 = 1, NNB
                            NB2 = NBVAL( INB2 )
 
-                           IF( NB1.GT.0 .AND. NB2.GT.0 ) THEN
+                           if ( NB1.GT.0 .AND. NB2.GT.0 ) {
 
                               // Test SORHR_COL
 
@@ -158,18 +158,18 @@
                               // not pass the threshold.
 
                               DO T = 1, NTESTS
-                                 IF( RESULT( T ).GE.THRESH ) THEN
+                                 if ( RESULT( T ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9998 ) M, N, MB1, NB1, NB2, T, RESULT( T )
                                     NFAIL = NFAIL + 1
-                                 END IF
+                                 }
                               END DO
                               NRUN = NRUN + NTESTS
-                           END IF
+                           }
                         END DO
                      END DO
-                  END IF
+                  }
                 END DO
-            END IF
+            }
          END DO
       END DO
 

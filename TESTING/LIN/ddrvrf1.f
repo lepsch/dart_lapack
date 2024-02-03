@@ -86,21 +86,21 @@
                END DO
             END DO
 
-            IF ( IIT.EQ.2 ) THEN
+            if ( IIT.EQ.2 ) {
                DO J = 1, N
                   DO I = 1, N
                      A( I, J) = A( I, J ) * LARGE
                   END DO
                END DO
-            END IF
+            }
 
-            IF ( IIT.EQ.3 ) THEN
+            if ( IIT.EQ.3 ) {
                DO J = 1, N
                   DO I = 1, N
                      A( I, J) = A( I, J) * SMALL
                   END DO
                END DO
-            END IF
+            }
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -119,15 +119,15 @@
 
                   // Check error code from DTRTTF
 
-                  IF( INFO.NE.0 ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) THEN
+                  if ( INFO.NE.0 ) {
+                     if ( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) {
                         WRITE( NOUT, * )
                         WRITE( NOUT, FMT = 9999 )
-                     END IF
+                     }
                      WRITE( NOUT, FMT = 9998 ) SRNAMT, UPLO, CFORM, N
                      NERRS = NERRS + 1
                      GO TO 100
-                  END IF
+                  }
 
                   DO 90 INORM = 1, 4
 
@@ -140,14 +140,14 @@
                      RESULT(1) = ( NORMA - NORMARF ) / NORMA / EPS
                      NRUN = NRUN + 1
 
-                     IF( RESULT(1).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) THEN
+                     if ( RESULT(1).GE.THRESH ) {
+                        if ( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) {
                            WRITE( NOUT, * )
                            WRITE( NOUT, FMT = 9999 )
-                        END IF
+                        }
                         WRITE( NOUT, FMT = 9997 ) 'DLANSF', N, IIT, UPLO, CFORM, NORM, RESULT(1)
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
    90             CONTINUE
   100          CONTINUE
   110       CONTINUE
@@ -156,14 +156,14 @@
 
       // Print a summary of the results.
 
-      IF ( NFAIL.EQ.0 ) THEN
+      if ( NFAIL.EQ.0 ) {
          WRITE( NOUT, FMT = 9996 ) 'DLANSF', NRUN
       } else {
          WRITE( NOUT, FMT = 9995 ) 'DLANSF', NFAIL, NRUN
-      END IF
-      IF ( NERRS.NE.0 ) THEN
+      }
+      if ( NERRS.NE.0 ) {
          WRITE( NOUT, FMT = 9994 ) NERRS, 'DLANSF'
-      END IF
+      }
 
  9999 FORMAT( 1X, ' *** Error(s) or Failure(s) while testing DLANSF
      +         ***')

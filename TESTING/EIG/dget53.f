@@ -48,7 +48,7 @@
       // Check for possible overflow.
 
       TEMP = ( SAFMIN*BNORM )*ABSW + ( SAFMIN*ANORM )*SCALES
-      IF( TEMP.GE.ONE ) THEN
+      if ( TEMP.GE.ONE ) {
 
          // Scale down to avoid overflow
 
@@ -58,18 +58,18 @@
          WRS = WRS*TEMP
          WIS = WIS*TEMP
          ABSW = ABS( WRS ) + ABS( WIS )
-      END IF
+      }
       S1 = MAX( ULP*MAX( SCALES*ANORM, ABSW*BNORM ), SAFMIN*MAX( SCALES, ABSW ) )
 
       // Check for W and SCALE essentially zero.
 
-      IF( S1.LT.SAFMIN ) THEN
+      if ( S1.LT.SAFMIN ) {
          INFO = 2
-         IF( SCALES.LT.SAFMIN .AND. ABSW.LT.SAFMIN ) THEN
+         if ( SCALES.LT.SAFMIN .AND. ABSW.LT.SAFMIN ) {
             INFO = 3
             RESULT = ONE / ULP
             RETURN
-         END IF
+         }
 
          // Scale up to avoid underflow
 
@@ -79,12 +79,12 @@
          WIS = WIS*TEMP
          ABSW = ABS( WRS ) + ABS( WIS )
          S1 = MAX( ULP*MAX( SCALES*ANORM, ABSW*BNORM ), SAFMIN*MAX( SCALES, ABSW ) )
-         IF( S1.LT.SAFMIN ) THEN
+         if ( S1.LT.SAFMIN ) {
             INFO = 3
             RESULT = ONE / ULP
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Compute C = s A - w B
 

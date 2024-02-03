@@ -19,13 +19,13 @@
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..
-      IF( LSAME( DIAG, 'N' ) ) THEN
+      if ( LSAME( DIAG, 'N' ) ) {
          ILADIAG = BLAS_NON_UNIT_DIAG
-      ELSE IF( LSAME( DIAG, 'U' ) ) THEN
+      } else if ( LSAME( DIAG, 'U' ) ) {
          ILADIAG = BLAS_UNIT_DIAG
       } else {
          ILADIAG = -1
-      END IF
+      }
       RETURN
 
       // End of ILADIAG

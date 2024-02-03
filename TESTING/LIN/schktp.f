@@ -108,11 +108,11 @@
 
                // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
-               IF( LSAME( DIAG, 'N' ) ) THEN
+               if ( LSAME( DIAG, 'N' ) ) {
                   IDIAG = 1
                } else {
                   IDIAG = 2
-               END IF
+               }
 
 *+    TEST 1
                // Form the inverse of A.
@@ -129,11 +129,11 @@
 
                ANORM = SLANTP( 'I', UPLO, DIAG, N, AP, RWORK )
                AINVNM = SLANTP( 'I', UPLO, DIAG, N, AINVP, RWORK )
-               IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+               if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                   RCONDI = ONE
                } else {
                   RCONDI = ( ONE / ANORM ) / AINVNM
-               END IF
+               }
 
                // Compute the residual for the triangular matrix times its
                // inverse.  Also compute the 1-norm condition number of A.
@@ -142,10 +142,10 @@
 
                // Print the test ratio if it is .GE. THRESH.
 
-               IF( RESULT( 1 ).GE.THRESH ) THEN
+               if ( RESULT( 1 ).GE.THRESH ) {
                   IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, IMAT, 1, RESULT( 1 )
                   NFAIL = NFAIL + 1
-               END IF
+               }
                NRUN = NRUN + 1
 
                DO 40 IRHS = 1, NNS
@@ -157,13 +157,13 @@
                   // Do for op(A) = A, A**T, or A**H.
 
                      TRANS = TRANSS( ITRAN )
-                     IF( ITRAN.EQ.1 ) THEN
+                     if ( ITRAN.EQ.1 ) {
                         NORM = 'O'
                         RCONDC = RCONDO
                      } else {
                         NORM = 'I'
                         RCONDC = RCONDI
-                     END IF
+                     }
 
 *+    TEST 2
                   // Solve and compute residual for op(A)*x = b.
@@ -204,10 +204,10 @@
                     t // he threshold.
 
                      DO 20 K = 2, 6
-                        IF( RESULT( K ).GE.THRESH ) THEN
+                        if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
    20                CONTINUE
                      NRUN = NRUN + 5
    30             CONTINUE
@@ -217,13 +217,13 @@
                   // Get an estimate of RCOND = 1/CNDNUM.
 
                DO 50 ITRAN = 1, 2
-                  IF( ITRAN.EQ.1 ) THEN
+                  if ( ITRAN.EQ.1 ) {
                      NORM = 'O'
                      RCONDC = RCONDO
                   } else {
                      NORM = 'I'
                      RCONDC = RCONDI
-                  END IF
+                  }
 
                   SRNAMT = 'STPCON'
                   CALL STPCON( NORM, UPLO, DIAG, N, AP, RCOND, WORK, IWORK, INFO )
@@ -236,10 +236,10 @@
 
                   // Print the test ratio if it is .GE. THRESH.
 
-                  IF( RESULT( 7 ).GE.THRESH ) THEN
+                  if ( RESULT( 7 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 ) 'STPCON', NORM, UPLO, DIAG, N, IMAT, 7, RESULT( 7 )
                      NFAIL = NFAIL + 1
-                  END IF
+                  }
                   NRUN = NRUN + 1
    50          CONTINUE
    60       CONTINUE
@@ -297,14 +297,14 @@
                   // Print information about the tests that did not pass
                  t // he threshold.
 
-                  IF( RESULT( 8 ).GE.THRESH ) THEN
+                  if ( RESULT( 8 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATPS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 )
                      NFAIL = NFAIL + 1
-                  END IF
-                  IF( RESULT( 9 ).GE.THRESH ) THEN
+                  }
+                  if ( RESULT( 9 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATPS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 )
                      NFAIL = NFAIL + 1
-                  END IF
+                  }
                   NRUN = NRUN + 2
    80          CONTINUE
    90       CONTINUE

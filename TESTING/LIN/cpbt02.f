@@ -40,19 +40,19 @@
 
       // Quick exit if N = 0 or NRHS = 0.
 
-      IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
+      if ( N.LE.0 .OR. NRHS.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANHB( '1', UPLO, N, KD, A, LDA, RWORK )
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
       // Compute  B - A*X
 
@@ -67,11 +67,11 @@
       DO 20 J = 1, NRHS
          BNORM = SCASUM( N, B( 1, J ), 1 )
          XNORM = SCASUM( N, X( 1, J ), 1 )
-         IF( XNORM.LE.ZERO ) THEN
+         if ( XNORM.LE.ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM/ANORM )/XNORM )/EPS )
-         END IF
+         }
    20 CONTINUE
 
       RETURN

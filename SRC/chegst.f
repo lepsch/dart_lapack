@@ -41,21 +41,21 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
+      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
          INFO = -1
-      ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHEGST', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -65,7 +65,7 @@
 
       NB = ILAENV( 1, 'CHEGST', UPLO, N, -1, -1, -1 )
 
-      IF( NB.LE.1 .OR. NB.GE.N ) THEN
+      if ( NB.LE.1 .OR. NB.GE.N ) {
 
          // Use unblocked code
 
@@ -74,8 +74,8 @@
 
          // Use blocked code
 
-         IF( ITYPE.EQ.1 ) THEN
-            IF( UPPER ) THEN
+         if ( ITYPE.EQ.1 ) {
+            if ( UPPER ) {
 
                // Compute inv(U**H)*A*inv(U)
 
@@ -85,9 +85,9 @@
                   // Update the upper triangle of A(k:n,k:n)
 
                   CALL CHEGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
-                  IF( K+KB.LE.N ) THEN
+                  if ( K+KB.LE.N ) {
                      CALL CTRSM( 'Left', UPLO, 'Conjugate transpose', 'Non-unit', KB, N-K-KB+1, CONE, B( K, K ), LDB, A( K, K+KB ), LDA )                      CALL CHEMM( 'Left', UPLO, KB, N-K-KB+1, -HALF, A( K, K ), LDA, B( K, K+KB ), LDB, CONE, A( K, K+KB ), LDA )                      CALL CHER2K( UPLO, 'Conjugate transpose', N-K-KB+1, KB, -CONE, A( K, K+KB ), LDA, B( K, K+KB ), LDB, ONE, A( K+KB, K+KB ), LDA )                      CALL CHEMM( 'Left', UPLO, KB, N-K-KB+1, -HALF, A( K, K ), LDA, B( K, K+KB ), LDB, CONE, A( K, K+KB ), LDA )                      CALL CTRSM( 'Right', UPLO, 'No transpose', 'Non-unit', KB, N-K-KB+1, CONE, B( K+KB, K+KB ), LDB, A( K, K+KB ), LDA )
-                  END IF
+                  }
    10          CONTINUE
             } else {
 
@@ -99,13 +99,13 @@
                   // Update the lower triangle of A(k:n,k:n)
 
                   CALL CHEGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
-                  IF( K+KB.LE.N ) THEN
+                  if ( K+KB.LE.N ) {
                      CALL CTRSM( 'Right', UPLO, 'Conjugate transpose', 'Non-unit', N-K-KB+1, KB, CONE, B( K, K ), LDB, A( K+KB, K ), LDA )                      CALL CHEMM( 'Right', UPLO, N-K-KB+1, KB, -HALF, A( K, K ), LDA, B( K+KB, K ), LDB, CONE, A( K+KB, K ), LDA )                      CALL CHER2K( UPLO, 'No transpose', N-K-KB+1, KB, -CONE, A( K+KB, K ), LDA, B( K+KB, K ), LDB, ONE, A( K+KB, K+KB ), LDA )                      CALL CHEMM( 'Right', UPLO, N-K-KB+1, KB, -HALF, A( K, K ), LDA, B( K+KB, K ), LDB, CONE, A( K+KB, K ), LDA )                      CALL CTRSM( 'Left', UPLO, 'No transpose', 'Non-unit', N-K-KB+1, KB, CONE, B( K+KB, K+KB ), LDB, A( K+KB, K ), LDA )
-                  END IF
+                  }
    20          CONTINUE
-            END IF
+            }
          } else {
-            IF( UPPER ) THEN
+            if ( UPPER ) {
 
                // Compute U*A*U**H
 
@@ -129,9 +129,9 @@
                   CALL CTRMM( 'Right', UPLO, 'No transpose', 'Non-unit', KB, K-1, CONE, B, LDB, A( K, 1 ), LDA )                   CALL CHEMM( 'Left', UPLO, KB, K-1, HALF, A( K, K ), LDA, B( K, 1 ), LDB, CONE, A( K, 1 ), LDA )                   CALL CHER2K( UPLO, 'Conjugate transpose', K-1, KB, CONE, A( K, 1 ), LDA, B( K, 1 ), LDB, ONE, A, LDA )                   CALL CHEMM( 'Left', UPLO, KB, K-1, HALF, A( K, K ), LDA, B( K, 1 ), LDB, CONE, A( K, 1 ), LDA )                   CALL CTRMM( 'Left', UPLO, 'Conjugate transpose', 'Non-unit', KB, K-1, CONE, B( K, K ), LDB, A( K, 1 ), LDA )
                   CALL CHEGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
    40          CONTINUE
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
       RETURN
 
       // End of CHEGST

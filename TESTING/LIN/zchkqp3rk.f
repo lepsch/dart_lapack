@@ -105,10 +105,10 @@
 
                   // Check error code from ZLATMS.
 
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                      CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', M, NRHS, -1, -1, -1, 6, NFAIL, NERRS, NOUT )
                      CYCLE
-                  END IF
+                  }
 
                DO IMAT = 1, NTYPES
 
@@ -143,7 +143,7 @@
             // 18. Random, CNDNUM = 2, scaled near underflow                           CNDNUM = 2                      SMALL = SAFMIN
             // 19. Random, CNDNUM = 2, scaled near overflow                            CNDNUM = 2                      LARGE = 1.0/( 0.25 * ( SAFMIN / EPS ) )  3 ( geometric distribution of singular values )
 
-               IF( IMAT.EQ.1 ) THEN
+               if ( IMAT.EQ.1 ) {
 
                   // Matrix 1: Zero matrix
 
@@ -152,7 +152,7 @@
                      S( I ) = ZERO
                   END DO
 
-               ELSE IF( (IMAT.GE.2 .AND. IMAT.LE.4 ) .OR. (IMAT.GE.14 .AND. IMAT.LE.19 ) ) THEN
+               } else if ( (IMAT.GE.2 .AND. IMAT.LE.4 ) .OR. (IMAT.GE.14 .AND. IMAT.LE.19 ) ) {
 
                   // Matrices 2-5.
 
@@ -166,14 +166,14 @@
 
                   // Check error code from ZLATMS.
 
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                      CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                      CYCLE
-                  END IF
+                  }
 
                   CALL DLAORD( 'Decreasing', MINMN, S, 1 )
 
-               ELSE IF( MINMN.GE.2 .AND. IMAT.GE.5 .AND. IMAT.LE.13 ) THEN
+               } else if ( MINMN.GE.2 .AND. IMAT.GE.5 .AND. IMAT.LE.13 ) {
 
                   // Rectangular matrices 5-13 that contain zero columns,
                   // only for matrices MINMN >=2.
@@ -187,7 +187,7 @@
                   // J_FIRS_NZ is the index of the first non-zero
                   // column.
 
-                  IF( IMAT.EQ.5 ) THEN
+                  if ( IMAT.EQ.5 ) {
 
                      // First column is zero.
 
@@ -195,7 +195,7 @@
                      NB_ZERO = 1
                      NB_GEN = N - NB_ZERO
 
-                  ELSE IF( IMAT.EQ.6 ) THEN
+                  } else if ( IMAT.EQ.6 ) {
 
                      // Last column MINMN is zero.
 
@@ -203,7 +203,7 @@
                      NB_ZERO = 1
                      NB_GEN = N - NB_ZERO
 
-                  ELSE IF( IMAT.EQ.7 ) THEN
+                  } else if ( IMAT.EQ.7 ) {
 
                      // Last column N is zero.
 
@@ -211,7 +211,7 @@
                      NB_ZERO = 1
                      NB_GEN = N - NB_ZERO
 
-                  ELSE IF( IMAT.EQ.8 ) THEN
+                  } else if ( IMAT.EQ.8 ) {
 
                      // Middle column in MINMN is zero.
 
@@ -219,7 +219,7 @@
                      NB_ZERO = 1
                      NB_GEN = N - NB_ZERO
 
-                  ELSE IF( IMAT.EQ.9 ) THEN
+                  } else if ( IMAT.EQ.9 ) {
 
                      // First half of MINMN columns is zero.
 
@@ -227,7 +227,7 @@
                      NB_ZERO = MINMN / 2
                      NB_GEN = N - NB_ZERO
 
-                  ELSE IF( IMAT.EQ.10 ) THEN
+                  } else if ( IMAT.EQ.10 ) {
 
                      // Last columns are zero columns,
                      // starting from (MINMN / 2 + 1) column.
@@ -236,7 +236,7 @@
                      NB_ZERO = N - JB_ZERO + 1
                      NB_GEN = N - NB_ZERO
 
-                  ELSE IF( IMAT.EQ.11 ) THEN
+                  } else if ( IMAT.EQ.11 ) {
 
                      // Half of the columns in the middle of MINMN
                      // columns is zero, starting from
@@ -246,7 +246,7 @@
                      NB_ZERO = MINMN / 2
                      NB_GEN = N - NB_ZERO
 
-                  ELSE IF( IMAT.EQ.12 ) THEN
+                  } else if ( IMAT.EQ.12 ) {
 
                      // Odd-numbered columns are zero,
 
@@ -255,7 +255,7 @@
                      J_INC = 2
                      J_FIRST_NZ = 2
 
-                  ELSE IF( IMAT.EQ.13 ) THEN
+                  } else if ( IMAT.EQ.13 ) {
 
                      // Even-numbered columns are zero.
 
@@ -264,7 +264,7 @@
                      J_INC = 2
                      J_FIRST_NZ = 1
 
-                  END IF
+                  }
 
 
                   // 1) Set the first NB_ZERO columns in COPYA(1:M,1:N)
@@ -286,16 +286,16 @@
 
                   // Check error code from ZLATMS.
 
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                      CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', M, NB_GEN, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                      CYCLE
-                  END IF
+                  }
 
                   // 3) Swap the gererated colums from the right side
                   // NB_GEN-size block in COPYA into correct column
                   // positions.
 
-                  IF( IMAT.EQ.6 .OR. IMAT.EQ.7 .OR. IMAT.EQ.8 .OR. IMAT.EQ.10 .OR. IMAT.EQ.11 ) THEN
+                  if ( IMAT.EQ.6 .OR. IMAT.EQ.7 .OR. IMAT.EQ.8 .OR. IMAT.EQ.10 .OR. IMAT.EQ.11 ) {
 
                      // Move by swapping the generated columns
                      // from the right NB_GEN-size block from
@@ -306,7 +306,7 @@
                         CALL ZSWAP( M, COPYA( ( NB_ZERO+J-1)*LDA+1), 1, COPYA( (J-1)*LDA + 1 ), 1 )
                      END DO
 
-                  ELSE IF( IMAT.EQ.12 .OR. IMAT.EQ.13 ) THEN
+                  } else if ( IMAT.EQ.12 .OR. IMAT.EQ.13 ) {
 
                      // ( IMAT = 12, Odd-numbered ZERO columns. )
                      // Swap the generated columns from the right
@@ -323,7 +323,7 @@
                         IND_IN = ( J_INC*(J-1)+(J_FIRST_NZ-1) )*LDA + 1                         CALL ZSWAP( M, COPYA( IND_OUT ), 1, COPYA( IND_IN), 1 )
                         END DO
 
-                  END IF
+                  }
 
                   // 5) Order the singular values generated by
                      // DLAMTS in decreasing order and add trailing zeros
@@ -343,7 +343,7 @@
                      // IF(MINMN.LT.2) skip this size for this matrix type.
 
                      CYCLE
-               END IF
+               }
 
                // Initialize a copy array for a pivot array for DGEQP3RK.
 
@@ -394,7 +394,7 @@
 
                   IF( INFO.LT.0 ) CALL ALAERH( PATH, 'ZGEQP3RK', INFO, 0, ' ', M, N, NX, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 
-                  IF( KFACT.EQ.MINMN ) THEN
+                  if ( KFACT.EQ.MINMN ) {
 
                   // Compute test 1:
 
@@ -413,16 +413,16 @@
                      RESULT( 1 ) = ZQRT12( M, N, A, LDA, S, WORK, LWORK , RWORK )
 
                      DO T = 1, 1
-                        IF( RESULT( T ).GE.THRESH ) THEN
+                        if ( RESULT( T ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
                      END DO
                      NRUN = NRUN + 1
 
                     // End test 1
 
-                  END IF
+                  }
 
                   // Compute test 2:
 
@@ -444,10 +444,10 @@
                  t // he threshold.
 
                   DO T = 2, 3
-                     IF( RESULT( T ).GE.THRESH ) THEN
+                     if ( RESULT( T ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
                   END DO
                   NRUN = NRUN + 2
 
@@ -463,15 +463,15 @@
                   // Returns 1.0D+100 if abs(R(K+1,K+1)) > abs(R(K,K)),
                   // K=1:KFACT-1
 
-                  IF( MIN(KFACT, MINMN).GE.2 ) THEN
+                  if ( MIN(KFACT, MINMN).GE.2 ) {
 
                      DO J = 1, KFACT-1, 1
 
                         DTEMP = (( ABS( A( (J-1)*M+J ) ) - ABS( A( (J)*M+J+1 ) ) ) / ABS( A(1) ) )
 
-                        IF( DTEMP.LT.ZERO ) THEN
+                        if ( DTEMP.LT.ZERO ) {
                            RESULT( 4 ) = BIGNUM
-                        END IF
+                        }
 
                      END DO
 
@@ -479,16 +479,16 @@
                      // pass the threshold.
 
                      DO T = 4, 4
-                        IF( RESULT( T ).GE.THRESH ) THEN
+                        if ( RESULT( T ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
                      END DO
                      NRUN = NRUN + 1
 
                      // End test 4.
 
-                  END IF
+                  }
 
                   // Compute test 5:
 
@@ -501,7 +501,7 @@
 
                   // (1) Compute B:=Q**T * B in the matrix B.
 
-                  IF( MINMN.GT.0 ) THEN
+                  if ( MINMN.GT.0 ) {
 
                      LWORK_MQR = MAX(1, NRHS)
                      CALL ZUNMQR( 'Left', 'Conjugate transpose', M, NRHS, KFACT, A, LDA, TAU, B, LDA, WORK, LWORK_MQR, INFO )
@@ -519,16 +519,16 @@
                     t // he threshold.
 
                      DO T = 5, 5
-                        IF( RESULT( T ).GE.THRESH ) THEN
+                        if ( RESULT( T ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
                      END DO
                      NRUN = NRUN + 1
 
                      // End compute test 5.
 
-                  END IF
+                  }
 
                   // END DO KMAX = 1, MIN(M,N)+1
 

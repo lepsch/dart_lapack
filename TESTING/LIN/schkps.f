@@ -113,10 +113,10 @@
 
                // Check error code from SLATMT.
 
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                     CALL ALAERH( PATH, 'SLATMT', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                      GO TO 120
-                  END IF
+                  }
 
                // Do for each value of NB in NBVAL
 
@@ -139,7 +139,7 @@
 
                      IF( (INFO.LT.IZERO) .OR.(INFO.NE.IZERO.AND.RANK.EQ.N) .OR.(INFO.LE.IZERO.AND.RANK.LT.N) ) THEN                         CALL ALAERH( PATH, 'SPSTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 110
-                     END IF
+                     }
 
                   // Skip the test if INFO is not 0.
 
@@ -156,10 +156,10 @@
 
                      IF( N.EQ.0 ) COMPRANK = 0
                      RANKDIFF = RANK - COMPRANK
-                     IF( RESULT.GE.THRESH ) THEN
+                     if ( RESULT.GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
                      NRUN = NRUN + 1
   110             CONTINUE
 

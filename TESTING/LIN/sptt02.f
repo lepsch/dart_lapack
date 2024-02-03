@@ -36,10 +36,10 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Compute the 1-norm of the tridiagonal matrix A.
 
@@ -48,10 +48,10 @@
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
       // Compute B - A*X.
 
@@ -64,11 +64,11 @@
       DO 10 J = 1, NRHS
          BNORM = SASUM( N, B( 1, J ), 1 )
          XNORM = SASUM( N, X( 1, J ), 1 )
-         IF( XNORM.LE.ZERO ) THEN
+         if ( XNORM.LE.ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
-         END IF
+         }
    10 CONTINUE
 
       RETURN

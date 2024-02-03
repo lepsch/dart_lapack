@@ -38,19 +38,19 @@
 
       // Do the easy cases first.
 
-      IF( RMIN.LT.ZERO ) THEN
+      if ( RMIN.LT.ZERO ) {
 
          // Invalid value for RCOND or RCONDC, return 1/EPS.
 
          RAT = ONE / EPS
 
-      ELSE IF( RMIN.GT.ZERO ) THEN
+      } else if ( RMIN.GT.ZERO ) {
 
          // Both estimates are positive, return RMAX/RMIN - 1.
 
          RAT = RMAX / RMIN - ONE
 
-      ELSE IF( RMAX.EQ.ZERO ) THEN
+      } else if ( RMAX.EQ.ZERO ) {
 
          // Both estimates zero.
 
@@ -68,7 +68,7 @@
          ANORM = CLANTR( 'M', UPLO, DIAG, N, N, A, LDA, RWORK )
 
          RAT = RMAX*( MIN( BIGNUM / MAX( ONE, ANORM ), ONE / EPS ) )
-      END IF
+      }
 
       RETURN
 

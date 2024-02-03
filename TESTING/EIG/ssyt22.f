@@ -59,25 +59,25 @@
          JJ = NN + ( J-1 )*N + J
          WORK( JJ ) = WORK( JJ ) - D( J )
    10 CONTINUE
-      IF( KBAND.EQ.1 .AND. N.GT.1 ) THEN
+      if ( KBAND.EQ.1 .AND. N.GT.1 ) {
          DO 20 J = 2, M
             JJ1 = NN + ( J-1 )*N + J - 1
             JJ2 = NN + ( J-2 )*N + J
             WORK( JJ1 ) = WORK( JJ1 ) - E( J-1 )
             WORK( JJ2 ) = WORK( JJ2 ) - E( J-1 )
    20    CONTINUE
-      END IF
+      }
       WNORM = SLANSY( '1', UPLO, M, WORK( NNP1 ), N, WORK( 1 ) )
 
-      IF( ANORM.GT.WNORM ) THEN
+      if ( ANORM.GT.WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( M*ULP )
       } else {
-         IF( ANORM.LT.ONE ) THEN
+         if ( ANORM.LT.ONE ) {
             RESULT( 1 ) = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*ULP )
          } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, REAL( M ) ) / ( M*ULP )
-         END IF
-      END IF
+         }
+      }
 
       // Do Test 2
 

@@ -38,26 +38,26 @@
 
       // Quick exit if N = 0 or NRHS = 0
 
-      IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
+      if ( N.LE.0 .OR. NRHS.LE.0 ) {
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Compute the 1-norm of op(A).
 
-      IF( LSAME( TRANS, 'N' ) ) THEN
+      if ( LSAME( TRANS, 'N' ) ) {
          ANORM = SLANTP( '1', UPLO, DIAG, N, AP, WORK )
       } else {
          ANORM = SLANTP( 'I', UPLO, DIAG, N, AP, WORK )
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
       // Compute the maximum over the number of right hand sides of
          // norm(op(A)*X - B) / ( norm(op(A)) * norm(X) * EPS ).
@@ -69,11 +69,11 @@
          CALL SAXPY( N, -ONE, B( 1, J ), 1, WORK, 1 )
          BNORM = SASUM( N, WORK, 1 )
          XNORM = SASUM( N, X( 1, J ), 1 )
-         IF( XNORM.LE.ZERO ) THEN
+         if ( XNORM.LE.ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
-         END IF
+         }
    10 CONTINUE
 
       RETURN

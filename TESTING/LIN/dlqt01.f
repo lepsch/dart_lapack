@@ -76,11 +76,11 @@
 
       ANORM = DLANGE( '1', M, N, A, LDA, RWORK )
       RESID = DLANGE( '1', M, N, L, LDA, RWORK )
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS
       } else {
          RESULT( 1 ) = ZERO
-      END IF
+      }
 
       // Compute I - Q*Q'
 

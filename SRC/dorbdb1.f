@@ -40,21 +40,21 @@
       INFO = 0
       LQUERY = LWORK .EQ. -1
 
-      IF( M .LT. 0 ) THEN
+      if ( M .LT. 0 ) {
          INFO = -1
-      ELSE IF( P .LT. Q .OR. M-P .LT. Q ) THEN
+      } else if ( P .LT. Q .OR. M-P .LT. Q ) {
          INFO = -2
-      ELSE IF( Q .LT. 0 .OR. M-Q .LT. Q ) THEN
+      } else if ( Q .LT. 0 .OR. M-Q .LT. Q ) {
          INFO = -3
-      ELSE IF( LDX11 .LT. MAX( 1, P ) ) THEN
+      } else if ( LDX11 .LT. MAX( 1, P ) ) {
          INFO = -5
-      ELSE IF( LDX21 .LT. MAX( 1, M-P ) ) THEN
+      } else if ( LDX21 .LT. MAX( 1, M-P ) ) {
          INFO = -7
-      END IF
+      }
 
       // Compute workspace
 
-      IF( INFO .EQ. 0 ) THEN
+      if ( INFO .EQ. 0 ) {
          ILARF = 2
          LLARF = MAX( P-1, M-P-1, Q-1 )
          IORBDB5 = 2
@@ -62,16 +62,16 @@
          LWORKOPT = MAX( ILARF+LLARF-1, IORBDB5+LORBDB5-1 )
          LWORKMIN = LWORKOPT
          WORK(1) = LWORKOPT
-         IF( LWORK .LT. LWORKMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK .LT. LWORKMIN .AND. .NOT.LQUERY ) {
            INFO = -14
-         END IF
-      END IF
-      IF( INFO .NE. 0 ) THEN
+         }
+      }
+      if ( INFO .NE. 0 ) {
          CALL XERBLA( 'DORBDB1', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Reduce columns 1, ..., Q of X11 and X21
 
@@ -86,7 +86,7 @@
          X21(I,I) = ONE
          CALL DLARF( 'L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) )          CALL DLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, TAUP2(I), X21(I,I+1), LDX21, WORK(ILARF) )
 
-         IF( I .LT. Q ) THEN
+         if ( I .LT. Q ) {
             CALL DROT( Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S )
             CALL DLARFGP( Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) )
             S = X21(I,I+1)
@@ -94,7 +94,7 @@
             CALL DLARF( 'R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) )             CALL DLARF( 'R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) )             C = SQRT( DNRM2( P-I, X11(I+1,I+1), 1 )**2 + DNRM2( M-P-I, X21(I+1,I+1), 1 )**2 )
             PHI(I) = ATAN2( S, C )
             CALL DORBDB5( P-I, M-P-I, Q-I-1, X11(I+1,I+1), 1, X21(I+1,I+1), 1, X11(I+1,I+2), LDX11, X21(I+1,I+2), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO )
-         END IF
+         }
 
       END DO
 

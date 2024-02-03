@@ -41,7 +41,7 @@
 
       // UPLO = 'U':  Upper triangular storage
 
-      IF( UPLO.EQ.'U' ) THEN
+      if ( UPLO.EQ.'U' ) {
 
          // Fill the upper triangle of the matrix with zeros.
 
@@ -65,17 +65,17 @@
             X( I-1, I-1 ) = ZLARND( 2, ISEED )
             X( I-3, I-3 ) = ZLARND( 2, ISEED )
             X( I-4, I-4 ) = ZLARND( 2, ISEED )
-            IF( ABS( X( I-3, I-3 ) ).GT.ABS( X( I-4, I-4 ) ) ) THEN
+            if ( ABS( X( I-3, I-3 ) ).GT.ABS( X( I-4, I-4 ) ) ) {
                X( I-4, I-3 ) = 2.0D0*X( I-3, I-3 )
             } else {
                X( I-4, I-3 ) = 2.0D0*X( I-4, I-4 )
-            END IF
+            }
    30    CONTINUE
 
          // Clean-up for N not a multiple of 5.
 
          I = N5 - 1
-         IF( I.GT.2 ) THEN
+         if ( I.GT.2 ) {
             A = ALPHA3*ZLARND( 5, ISEED )
             B = ZLARND( 5, ISEED ) / ALPHA
             C = A - 2.D0*B*EYE
@@ -86,20 +86,20 @@
             X( I-2, I-2 ) = C
             X( I-1, I-1 ) = ZLARND( 2, ISEED )
             I = I - 3
-         END IF
-         IF( I.GT.1 ) THEN
+         }
+         if ( I.GT.1 ) {
             X( I, I ) = ZLARND( 2, ISEED )
             X( I-1, I-1 ) = ZLARND( 2, ISEED )
-            IF( ABS( X( I, I ) ).GT.ABS( X( I-1, I-1 ) ) ) THEN
+            if ( ABS( X( I, I ) ).GT.ABS( X( I-1, I-1 ) ) ) {
                X( I-1, I ) = 2.0D0*X( I, I )
             } else {
                X( I-1, I ) = 2.0D0*X( I-1, I-1 )
-            END IF
+            }
             I = I - 2
-         ELSE IF( I.EQ.1 ) THEN
+         } else if ( I.EQ.1 ) {
             X( I, I ) = ZLARND( 2, ISEED )
             I = I - 1
-         END IF
+         }
 
       // UPLO = 'L':  Lower triangular storage
 
@@ -127,17 +127,17 @@
             X( I+1, I+1 ) = ZLARND( 2, ISEED )
             X( I+3, I+3 ) = ZLARND( 2, ISEED )
             X( I+4, I+4 ) = ZLARND( 2, ISEED )
-            IF( ABS( X( I+3, I+3 ) ).GT.ABS( X( I+4, I+4 ) ) ) THEN
+            if ( ABS( X( I+3, I+3 ) ).GT.ABS( X( I+4, I+4 ) ) ) {
                X( I+4, I+3 ) = 2.0D0*X( I+3, I+3 )
             } else {
                X( I+4, I+3 ) = 2.0D0*X( I+4, I+4 )
-            END IF
+            }
    60    CONTINUE
 
          // Clean-up for N not a multiple of 5.
 
          I = N5 + 1
-         IF( I.LT.N-1 ) THEN
+         if ( I.LT.N-1 ) {
             A = ALPHA3*ZLARND( 5, ISEED )
             B = ZLARND( 5, ISEED ) / ALPHA
             C = A - 2.D0*B*EYE
@@ -148,21 +148,21 @@
             X( I+2, I+2 ) = C
             X( I+1, I+1 ) = ZLARND( 2, ISEED )
             I = I + 3
-         END IF
-         IF( I.LT.N ) THEN
+         }
+         if ( I.LT.N ) {
             X( I, I ) = ZLARND( 2, ISEED )
             X( I+1, I+1 ) = ZLARND( 2, ISEED )
-            IF( ABS( X( I, I ) ).GT.ABS( X( I+1, I+1 ) ) ) THEN
+            if ( ABS( X( I, I ) ).GT.ABS( X( I+1, I+1 ) ) ) {
                X( I+1, I ) = 2.0D0*X( I, I )
             } else {
                X( I+1, I ) = 2.0D0*X( I+1, I+1 )
-            END IF
+            }
             I = I + 2
-         ELSE IF( I.EQ.N ) THEN
+         } else if ( I.EQ.N ) {
             X( I, I ) = ZLARND( 2, ISEED )
             I = I + 1
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

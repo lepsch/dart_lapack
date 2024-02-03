@@ -47,7 +47,7 @@
       // ==== Estimate optimal workspace. ====
 
       JW = MIN( NW, KBOT-KTOP+1 )
-      IF( JW.LE.2 ) THEN
+      if ( JW.LE.2 ) {
          LWKOPT = 1
       } else {
 
@@ -69,14 +69,14 @@
          // ==== Optimal workspace ====
 
          LWKOPT = MAX( JW+MAX( LWK1, LWK2 ), LWK3 )
-      END IF
+      }
 
       // ==== Quick return in case of workspace query. ====
 
-      IF( LWORK.EQ.-1 ) THEN
+      if ( LWORK.EQ.-1 ) {
          WORK( 1 ) = DCMPLX( LWKOPT, 0 )
          RETURN
-      END IF
+      }
 
       // ==== Nothing to do ...
       // ... for an empty active block ... ====
@@ -98,27 +98,27 @@
 
       JW = MIN( NW, KBOT-KTOP+1 )
       KWTOP = KBOT - JW + 1
-      IF( KWTOP.EQ.KTOP ) THEN
+      if ( KWTOP.EQ.KTOP ) {
          S = ZERO
       } else {
          S = H( KWTOP, KWTOP-1 )
-      END IF
+      }
 
-      IF( KBOT.EQ.KWTOP ) THEN
+      if ( KBOT.EQ.KWTOP ) {
 
          // ==== 1-by-1 deflation window: not much to do ====
 
          SH( KWTOP ) = H( KWTOP, KWTOP )
          NS = 1
          ND = 0
-         IF( CABS1( S ).LE.MAX( SMLNUM, ULP*CABS1( H( KWTOP, KWTOP ) ) ) ) THEN
+         if ( CABS1( S ).LE.MAX( SMLNUM, ULP*CABS1( H( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
             IF( KWTOP.GT.KTOP ) H( KWTOP, KWTOP-1 ) = ZERO
-         END IF
+         }
          WORK( 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // ==== Convert to spike-triangular form.  (In case of a
       // .    rare QR failure, this routine continues to do
@@ -131,11 +131,11 @@
 
       CALL ZLASET( 'A', JW, JW, ZERO, ONE, V, LDV )
       NMIN = ILAENV( 12, 'ZLAQR3', 'SV', JW, 1, JW, LWORK )
-      IF( JW.GT.NMIN ) THEN
+      if ( JW.GT.NMIN ) {
          CALL ZLAQR4( .true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR )
       } else {
          CALL ZLAHQR( .true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR )
-      END IF
+      }
 
       // ==== Deflation detection loop ====
 
@@ -146,7 +146,7 @@
          // ==== Small spike tip deflation test ====
 
          FOO = CABS1( T( NS, NS ) )
-         IF( FOO.EQ.RZERO ) FOO = CABS1( S )          IF( CABS1( S )*CABS1( V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) THEN
+         if ( FOO.EQ.RZERO ) FOO = CABS1( S )          IF( CABS1( S )*CABS1( V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) {
 
             // ==== One more converged eigenvalue ====
 
@@ -159,14 +159,14 @@
             IFST = NS
             CALL ZTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO )
             ILST = ILST + 1
-         END IF
+         }
    10 CONTINUE
 
          // ==== Return to Hessenberg form ====
 
       IF( NS.EQ.0 ) S = ZERO
 
-      IF( NS.LT.JW ) THEN
+      if ( NS.LT.JW ) {
 
          // ==== sorting the diagonal of T improves accuracy for
          // .    graded matrices.  ====
@@ -179,7 +179,7 @@
             ILST = I
             IF( IFST.NE.ILST ) CALL ZTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO )
    30    CONTINUE
-      END IF
+      }
 
       // ==== Restore shift/eigenvalue array from T ====
 
@@ -188,8 +188,8 @@
    40 CONTINUE
 
 
-      IF( NS.LT.JW .OR. S.EQ.ZERO ) THEN
-         IF( NS.GT.1 .AND. S.NE.ZERO ) THEN
+      if ( NS.LT.JW .OR. S.EQ.ZERO ) {
+         if ( NS.GT.1 .AND. S.NE.ZERO ) {
 
             // ==== Reflect spike back into lower triangle ====
 
@@ -206,7 +206,7 @@
             CALL ZLARF( 'L', NS, JW, WORK, 1, DCONJG( TAU ), T, LDT, WORK( JW+1 ) )             CALL ZLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL ZLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) )
 
             CALL ZGEHRD( JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO )
-         END IF
+         }
 
          // ==== Copy updated reduced window into place ====
 
@@ -221,11 +221,11 @@
 
          // ==== Update vertical slab in H ====
 
-         IF( WANTT ) THEN
+         if ( WANTT ) {
             LTOP = 1
          } else {
             LTOP = KTOP
-         END IF
+         }
          DO 60 KROW = LTOP, KWTOP - 1, NV
             KLN = MIN( NV, KWTOP-KROW )
             CALL ZGEMM( 'N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV )
@@ -234,22 +234,22 @@
 
          // ==== Update horizontal slab in H ====
 
-         IF( WANTT ) THEN
+         if ( WANTT ) {
             DO 70 KCOL = KBOT + 1, N, NH
                KLN = MIN( NH, N-KCOL+1 )
                CALL ZGEMM( 'C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL ZLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH )
    70       CONTINUE
-         END IF
+         }
 
          // ==== Update vertical slab in Z ====
 
-         IF( WANTZ ) THEN
+         if ( WANTZ ) {
             DO 80 KROW = ILOZ, IHIZ, NV
                KLN = MIN( NV, IHIZ-KROW+1 )
                CALL ZGEMM( 'N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL ZLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ )
    80       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       // ==== Return the number of deflations ... ====
 

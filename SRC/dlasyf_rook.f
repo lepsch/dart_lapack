@@ -50,7 +50,7 @@
 
       SFMIN = DLAMCH( 'S' )
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
          // Factorize the trailing columns of A using the upper triangle
          // of A and working backwards, and compute the matrix W = U12*D
@@ -86,14 +86,14 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         IF( K.GT.1 ) THEN
+         if ( K.GT.1 ) {
             IMAX = IDAMAX( K-1, W( 1, KW ), 1 )
             COLMAX = ABS( W( IMAX, KW ) )
          } else {
             COLMAX = ZERO
-         END IF
+         }
 
-         IF( MAX( ABSAKK, COLMAX ).EQ.ZERO ) THEN
+         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
@@ -109,7 +109,7 @@
             // Equivalent to testing for ABSAKK.GE.ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
-            IF( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) THEN
+            if ( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -137,27 +137,27 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  IF( IMAX.NE.K ) THEN
+                  if ( IMAX.NE.K ) {
                      JMAX = IMAX + IDAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
                      ROWMAX = ABS( W( JMAX, KW-1 ) )
                   } else {
                      ROWMAX = ZERO
-                  END IF
+                  }
 
-                  IF( IMAX.GT.1 ) THEN
+                  if ( IMAX.GT.1 ) {
                      ITEMP = IDAMAX( IMAX-1, W( 1, KW-1 ), 1 )
                      DTEMP = ABS( W( ITEMP, KW-1 ) )
-                     IF( DTEMP.GT.ROWMAX ) THEN
+                     if ( DTEMP.GT.ROWMAX ) {
                         ROWMAX = DTEMP
                         JMAX = ITEMP
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Equivalent to testing for
                   // ABS( W( IMAX, KW-1 ) ).GE.ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  IF( .NOT.(ABS( W( IMAX, KW-1 ) ).LT.ALPHA*ROWMAX ) ) THEN
+                  if ( .NOT.(ABS( W( IMAX, KW-1 ) ).LT.ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -173,7 +173,7 @@
                   // Equivalent to testing for ROWMAX.EQ.COLMAX,
                   // (used to handle NaN and Inf)
 
-                  ELSE IF( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) THEN
+                  } else if ( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
 
                      // interchange rows and columns K-1 and IMAX,
                      // use 2-by-2 pivot block
@@ -193,13 +193,13 @@
 
                      CALL DCOPY( K, W( 1, KW-1 ), 1, W( 1, KW ), 1 )
 
-                  END IF
+                  }
 
                   // End pivot search loop body
 
                IF( .NOT. DONE ) GOTO 12
 
-            END IF
+            }
 
             // ============================================================
 
@@ -209,7 +209,7 @@
 
             KKW = NB + KK - N
 
-            IF( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) THEN
+            if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
 
                // Copy non-updated column K to column P
 
@@ -221,11 +221,11 @@
 
                CALL DSWAP( N-K+1, A( K, K ), LDA, A( P, K ), LDA )
                CALL DSWAP( N-KK+1, W( K, KKW ), LDW, W( P, KKW ), LDW )
-            END IF
+            }
 
             // Updated column KP is already stored in column KKW of W
 
-            IF( KP.NE.KK ) THEN
+            if ( KP.NE.KK ) {
 
                // Copy non-updated column KK to column KP
 
@@ -238,9 +238,9 @@
 
                CALL DSWAP( N-KK+1, A( KK, KK ), LDA, A( KP, KK ), LDA )
                CALL DSWAP( N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW )
-            END IF
+            }
 
-            IF( KSTEP.EQ.1 ) THEN
+            if ( KSTEP.EQ.1 ) {
 
                // 1-by-1 pivot block D(k): column KW of W now holds
 
@@ -251,16 +251,16 @@
                // Store U(k) in column k of A
 
                CALL DCOPY( K, W( 1, KW ), 1, A( 1, K ), 1 )
-               IF( K.GT.1 ) THEN
-                  IF( ABS( A( K, K ) ).GE.SFMIN ) THEN
+               if ( K.GT.1 ) {
+                  if ( ABS( A( K, K ) ).GE.SFMIN ) {
                      R1 = ONE / A( K, K )
                      CALL DSCAL( K-1, R1, A( 1, K ), 1 )
-                  ELSE IF( A( K, K ).NE.ZERO ) THEN
+                  } else if ( A( K, K ).NE.ZERO ) {
                      DO 14 II = 1, K - 1
                         A( II, K ) = A( II, K ) / A( K, K )
    14                CONTINUE
-                  END IF
-               END IF
+                  }
+               }
 
             } else {
 
@@ -272,7 +272,7 @@
                // where U(k) and U(k-1) are the k-th and (k-1)-th columns
                // of U
 
-               IF( K.GT.2 ) THEN
+               if ( K.GT.2 ) {
 
                   // Store U(k) and U(k-1) in columns k and k-1 of A
 
@@ -283,24 +283,24 @@
                   DO 20 J = 1, K - 2
                      A( J, K-1 ) = T*( (D11*W( J, KW-1 )-W( J, KW ) ) / D12 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / D12 )
    20             CONTINUE
-               END IF
+               }
 
                // Copy D(k) to A
 
                A( K-1, K-1 ) = W( K-1, KW-1 )
                A( K-1, K ) = W( K-1, KW )
                A( K, K ) = W( K, KW )
-            END IF
-         END IF
+            }
+         }
 
          // Store details of the interchanges in IPIV
 
-         IF( KSTEP.EQ.1 ) THEN
+         if ( KSTEP.EQ.1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -P
             IPIV( K-1 ) = -KP
-         END IF
+         }
 
          // Decrease K and return to the start of the main loop
 
@@ -339,12 +339,12 @@
             JP1 = 1
             JJ = J
             JP2 = IPIV( J )
-            IF( JP2.LT.0 ) THEN
+            if ( JP2.LT.0 ) {
                JP2 = -JP2
                J = J + 1
                JP1 = -IPIV( J )
                KSTEP = 2
-            END IF
+            }
 
             J = J + 1
             IF( JP2.NE.JJ .AND. J.LE.N ) CALL DSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA )
@@ -387,14 +387,14 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         IF( K.LT.N ) THEN
+         if ( K.LT.N ) {
             IMAX = K + IDAMAX( N-K, W( K+1, K ), 1 )
             COLMAX = ABS( W( IMAX, K ) )
          } else {
             COLMAX = ZERO
-         END IF
+         }
 
-         IF( MAX( ABSAKK, COLMAX ).EQ.ZERO ) THEN
+         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
@@ -410,7 +410,7 @@
             // Equivalent to testing for ABSAKK.GE.ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
-            IF( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) THEN
+            if ( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -436,27 +436,27 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  IF( IMAX.NE.K ) THEN
+                  if ( IMAX.NE.K ) {
                      JMAX = K - 1 + IDAMAX( IMAX-K, W( K, K+1 ), 1 )
                      ROWMAX = ABS( W( JMAX, K+1 ) )
                   } else {
                      ROWMAX = ZERO
-                  END IF
+                  }
 
-                  IF( IMAX.LT.N ) THEN
+                  if ( IMAX.LT.N ) {
                      ITEMP = IMAX + IDAMAX( N-IMAX, W( IMAX+1, K+1 ), 1)
                      DTEMP = ABS( W( ITEMP, K+1 ) )
-                     IF( DTEMP.GT.ROWMAX ) THEN
+                     if ( DTEMP.GT.ROWMAX ) {
                         ROWMAX = DTEMP
                         JMAX = ITEMP
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Equivalent to testing for
                   // ABS( W( IMAX, K+1 ) ).GE.ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  IF( .NOT.( ABS( W( IMAX, K+1 ) ).LT.ALPHA*ROWMAX ) ) THEN
+                  if ( .NOT.( ABS( W( IMAX, K+1 ) ).LT.ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -472,7 +472,7 @@
                   // Equivalent to testing for ROWMAX.EQ.COLMAX,
                   // (used to handle NaN and Inf)
 
-                  ELSE IF( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) THEN
+                  } else if ( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
 
                      // interchange rows and columns K+1 and IMAX,
                      // use 2-by-2 pivot block
@@ -492,19 +492,19 @@
 
                      CALL DCOPY( N-K+1, W( K, K+1 ), 1, W( K, K ), 1 )
 
-                  END IF
+                  }
 
                   // End pivot search loop body
 
                IF( .NOT. DONE ) GOTO 72
 
-            END IF
+            }
 
             // ============================================================
 
             KK = K + KSTEP - 1
 
-            IF( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) THEN
+            if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
 
                // Copy non-updated column K to column P
 
@@ -516,11 +516,11 @@
 
                CALL DSWAP( K, A( K, 1 ), LDA, A( P, 1 ), LDA )
                CALL DSWAP( KK, W( K, 1 ), LDW, W( P, 1 ), LDW )
-            END IF
+            }
 
             // Updated column KP is already stored in column KK of W
 
-            IF( KP.NE.KK ) THEN
+            if ( KP.NE.KK ) {
 
                // Copy non-updated column KK to column KP
 
@@ -532,9 +532,9 @@
 
                CALL DSWAP( KK, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
                CALL DSWAP( KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW )
-            END IF
+            }
 
-            IF( KSTEP.EQ.1 ) THEN
+            if ( KSTEP.EQ.1 ) {
 
                // 1-by-1 pivot block D(k): column k of W now holds
 
@@ -545,16 +545,16 @@
                // Store L(k) in column k of A
 
                CALL DCOPY( N-K+1, W( K, K ), 1, A( K, K ), 1 )
-               IF( K.LT.N ) THEN
-                  IF( ABS( A( K, K ) ).GE.SFMIN ) THEN
+               if ( K.LT.N ) {
+                  if ( ABS( A( K, K ) ).GE.SFMIN ) {
                      R1 = ONE / A( K, K )
                      CALL DSCAL( N-K, R1, A( K+1, K ), 1 )
-                  ELSE IF( A( K, K ).NE.ZERO ) THEN
+                  } else if ( A( K, K ).NE.ZERO ) {
                      DO 74 II = K + 1, N
                         A( II, K ) = A( II, K ) / A( K, K )
    74                CONTINUE
-                  END IF
-               END IF
+                  }
+               }
 
             } else {
 
@@ -565,7 +565,7 @@
                // where L(k) and L(k+1) are the k-th and (k+1)-th columns
                // of L
 
-               IF( K.LT.N-1 ) THEN
+               if ( K.LT.N-1 ) {
 
                   // Store L(k) and L(k+1) in columns k and k+1 of A
 
@@ -576,24 +576,24 @@
                   DO 80 J = K + 2, N
                      A( J, K ) = T*( ( D11*W( J, K )-W( J, K+1 ) ) / D21 )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 )
    80             CONTINUE
-               END IF
+               }
 
                // Copy D(k) to A
 
                A( K, K ) = W( K, K )
                A( K+1, K ) = W( K+1, K )
                A( K+1, K+1 ) = W( K+1, K+1 )
-            END IF
-         END IF
+            }
+         }
 
          // Store details of the interchanges in IPIV
 
-         IF( KSTEP.EQ.1 ) THEN
+         if ( KSTEP.EQ.1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -P
             IPIV( K+1 ) = -KP
-         END IF
+         }
 
          // Increase K and return to the start of the main loop
 
@@ -632,12 +632,12 @@
             JP1 = 1
             JJ = J
             JP2 = IPIV( J )
-            IF( JP2.LT.0 ) THEN
+            if ( JP2.LT.0 ) {
                JP2 = -JP2
                J = J - 1
                JP1 = -IPIV( J )
                KSTEP = 2
-            END IF
+            }
 
             J = J - 1
             IF( JP2.NE.JJ .AND. J.GE.1 ) CALL DSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA )
@@ -648,7 +648,7 @@
 
          KB = K - 1
 
-      END IF
+      }
       RETURN
 
       // End of DLASYF_ROOK

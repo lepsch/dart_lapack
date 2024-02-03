@@ -21,21 +21,21 @@
 
       N1SV = N1
       N2SV = N2
-      IF( DTRD1.GT.0 ) THEN
+      if ( DTRD1.GT.0 ) {
          IND1 = 1
       } else {
          IND1 = N1
-      END IF
-      IF( DTRD2.GT.0 ) THEN
+      }
+      if ( DTRD2.GT.0 ) {
          IND2 = 1 + N1
       } else {
          IND2 = N1 + N2
-      END IF
+      }
       I = 1
       // while ( (N1SV > 0) & (N2SV > 0) )
    10 CONTINUE
-      IF( N1SV.GT.0 .AND. N2SV.GT.0 ) THEN
-         IF( A( IND1 ).LE.A( IND2 ) ) THEN
+      if ( N1SV.GT.0 .AND. N2SV.GT.0 ) {
+         if ( A( IND1 ).LE.A( IND2 ) ) {
             INDEX( I ) = IND1
             I = I + 1
             IND1 = IND1 + DTRD1
@@ -45,11 +45,11 @@
             I = I + 1
             IND2 = IND2 + DTRD2
             N2SV = N2SV - 1
-         END IF
+         }
          GO TO 10
-      END IF
+      }
       // end while
-      IF( N1SV.EQ.0 ) THEN
+      if ( N1SV.EQ.0 ) {
          DO 20 N1SV = 1, N2SV
             INDEX( I ) = IND2
             I = I + 1
@@ -62,7 +62,7 @@
             I = I + 1
             IND1 = IND1 + DTRD1
    30    CONTINUE
-      END IF
+      }
 
       RETURN
 

@@ -41,7 +41,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( IJOB.NE.2 ) THEN
+      if ( IJOB.NE.2 ) {
 
          // Apply permutations IPIV to RHS
 
@@ -62,9 +62,9 @@
             SPLUS = SPLUS + DDOT( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 )
             SMINU = DDOT( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 )
             SPLUS = SPLUS*RHS( J )
-            IF( SPLUS.GT.SMINU ) THEN
+            if ( SPLUS.GT.SMINU ) {
                RHS( J ) = BP
-            ELSE IF( SMINU.GT.SPLUS ) THEN
+            } else if ( SMINU.GT.SPLUS ) {
                RHS( J ) = BM
             } else {
 
@@ -76,7 +76,7 @@
 
                RHS( J ) = RHS( J ) + PMONE
                PMONE = ONE
-            END IF
+            }
 
             // Compute the remaining r.h.s.
 
@@ -139,7 +139,7 @@
 
          CALL DLASSQ( N, RHS, 1, RDSCAL, RDSUM )
 
-      END IF
+      }
 
       RETURN
 

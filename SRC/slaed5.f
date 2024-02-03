@@ -27,9 +27,9 @@
       // .. Executable Statements ..
 
       DEL = D( 2 ) - D( 1 )
-      IF( I.EQ.1 ) THEN
+      if ( I.EQ.1 ) {
          W = ONE + TWO*RHO*( Z( 2 )*Z( 2 )-Z( 1 )*Z( 1 ) ) / DEL
-         IF( W.GT.ZERO ) THEN
+         if ( W.GT.ZERO ) {
             B = DEL + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
             C = RHO*Z( 1 )*Z( 1 )*DEL
 
@@ -42,15 +42,15 @@
          } else {
             B = -DEL + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
             C = RHO*Z( 2 )*Z( 2 )*DEL
-            IF( B.GT.ZERO ) THEN
+            if ( B.GT.ZERO ) {
                TAU = -TWO*C / ( B+SQRT( B*B+FOUR*C ) )
             } else {
                TAU = ( B-SQRT( B*B+FOUR*C ) ) / TWO
-            END IF
+            }
             DLAM = D( 2 ) + TAU
             DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU )
             DELTA( 2 ) = -Z( 2 ) / TAU
-         END IF
+         }
          TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
          DELTA( 1 ) = DELTA( 1 ) / TEMP
          DELTA( 2 ) = DELTA( 2 ) / TEMP
@@ -60,18 +60,18 @@
 
          B = -DEL + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
          C = RHO*Z( 2 )*Z( 2 )*DEL
-         IF( B.GT.ZERO ) THEN
+         if ( B.GT.ZERO ) {
             TAU = ( B+SQRT( B*B+FOUR*C ) ) / TWO
          } else {
             TAU = TWO*C / ( -B+SQRT( B*B+FOUR*C ) )
-         END IF
+         }
          DLAM = D( 2 ) + TAU
          DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU )
          DELTA( 2 ) = -Z( 2 ) / TAU
          TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
          DELTA( 1 ) = DELTA( 1 ) / TEMP
          DELTA( 2 ) = DELTA( 2 ) / TEMP
-      END IF
+      }
       RETURN
 
       // End of SLAED5

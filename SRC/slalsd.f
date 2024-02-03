@@ -41,61 +41,61 @@
 
       INFO = 0
 
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( NRHS.LT.1 ) THEN
+      } else if ( NRHS.LT.1 ) {
          INFO = -4
-      ELSE IF( ( LDB.LT.1 ) .OR. ( LDB.LT.N ) ) THEN
+      } else if ( ( LDB.LT.1 ) .OR. ( LDB.LT.N ) ) {
          INFO = -8
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLALSD', -INFO )
          RETURN
-      END IF
+      }
 
       EPS = SLAMCH( 'Epsilon' )
 
       // Set up the tolerance.
 
-      IF( ( RCOND.LE.ZERO ) .OR. ( RCOND.GE.ONE ) ) THEN
+      if ( ( RCOND.LE.ZERO ) .OR. ( RCOND.GE.ONE ) ) {
          RCND = EPS
       } else {
          RCND = RCOND
-      END IF
+      }
 
       RANK = 0
 
       // Quick return if possible.
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          RETURN
-      ELSE IF( N.EQ.1 ) THEN
-         IF( D( 1 ).EQ.ZERO ) THEN
+      } else if ( N.EQ.1 ) {
+         if ( D( 1 ).EQ.ZERO ) {
             CALL SLASET( 'A', 1, NRHS, ZERO, ZERO, B, LDB )
          } else {
             RANK = 1
             CALL SLASCL( 'G', 0, 0, D( 1 ), ONE, 1, NRHS, B, LDB, INFO )
             D( 1 ) = ABS( D( 1 ) )
-         END IF
+         }
          RETURN
-      END IF
+      }
 
       // Rotate the matrix if it is lower bidiagonal.
 
-      IF( UPLO.EQ.'L' ) THEN
+      if ( UPLO.EQ.'L' ) {
          DO 10 I = 1, N - 1
             CALL SLARTG( D( I ), E( I ), CS, SN, R )
             D( I ) = R
             E( I ) = SN*D( I+1 )
             D( I+1 ) = CS*D( I+1 )
-            IF( NRHS.EQ.1 ) THEN
+            if ( NRHS.EQ.1 ) {
                CALL SROT( 1, B( I, 1 ), 1, B( I+1, 1 ), 1, CS, SN )
             } else {
                WORK( I*2-1 ) = CS
                WORK( I*2 ) = SN
-            END IF
+            }
    10    CONTINUE
-         IF( NRHS.GT.1 ) THEN
+         if ( NRHS.GT.1 ) {
             DO 30 I = 1, NRHS
                DO 20 J = 1, N - 1
                   CS = WORK( J*2-1 )
@@ -103,17 +103,17 @@
                   CALL SROT( 1, B( J, I ), 1, B( J+1, I ), 1, CS, SN )
    20          CONTINUE
    30       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       // Scale.
 
       NM1 = N - 1
       ORGNRM = SLANST( 'M', N, D, E )
-      IF( ORGNRM.EQ.ZERO ) THEN
+      if ( ORGNRM.EQ.ZERO ) {
          CALL SLASET( 'A', N, NRHS, ZERO, ZERO, B, LDB )
          RETURN
-      END IF
+      }
 
       CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO )
       CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, INFO )
@@ -121,21 +121,21 @@
       // If N is smaller than the minimum divide size SMLSIZ, then solve
      t // he problem with another solver.
 
-      IF( N.LE.SMLSIZ ) THEN
+      if ( N.LE.SMLSIZ ) {
          NWORK = 1 + N*N
          CALL SLASET( 'A', N, N, ZERO, ONE, WORK, N )
          CALL SLASDQ( 'U', 0, N, N, 0, NRHS, D, E, WORK, N, WORK, N, B, LDB, WORK( NWORK ), INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             RETURN
-         END IF
+         }
          TOL = RCND*ABS( D( ISAMAX( N, D, 1 ) ) )
          DO 40 I = 1, N
-            IF( D( I ).LE.TOL ) THEN
+            if ( D( I ).LE.TOL ) {
                CALL SLASET( 'A', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB )
             } else {
                CALL SLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ), LDB, INFO )
                RANK = RANK + 1
-            END IF
+            }
    40    CONTINUE
          CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, WORK, N, B, LDB, ZERO, WORK( NWORK ), N )
          CALL SLACPY( 'A', N, NRHS, WORK( NWORK ), N, B, LDB )
@@ -147,7 +147,7 @@
          CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, N, NRHS, B, LDB, INFO )
 
          RETURN
-      END IF
+      }
 
       // Book-keeping and setting up some constants.
 
@@ -181,26 +181,26 @@
       NSUB = 0
 
       DO 50 I = 1, N
-         IF( ABS( D( I ) ).LT.EPS ) THEN
+         if ( ABS( D( I ) ).LT.EPS ) {
             D( I ) = SIGN( EPS, D( I ) )
-         END IF
+         }
    50 CONTINUE
 
       DO 60 I = 1, NM1
-         IF( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) THEN
+         if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) {
             NSUB = NSUB + 1
             IWORK( NSUB ) = ST
 
             // Subproblem found. First determine its size and then
             // apply divide and conquer on it.
 
-            IF( I.LT.NM1 ) THEN
+            if ( I.LT.NM1 ) {
 
                // A subproblem with E(I) small for I < NM1.
 
                NSIZE = I - ST + 1
                IWORK( SIZEI+NSUB-1 ) = NSIZE
-            ELSE IF( ABS( E( I ) ).GE.EPS ) THEN
+            } else if ( ABS( E( I ) ).GE.EPS ) {
 
                // A subproblem with E(NM1) not too small but I = NM1.
 
@@ -218,39 +218,39 @@
                IWORK( NSUB ) = N
                IWORK( SIZEI+NSUB-1 ) = 1
                CALL SCOPY( NRHS, B( N, 1 ), LDB, WORK( BX+NM1 ), N )
-            END IF
+            }
             ST1 = ST - 1
-            IF( NSIZE.EQ.1 ) THEN
+            if ( NSIZE.EQ.1 ) {
 
                // This is a 1-by-1 subproblem and is not solved
                // explicitly.
 
                CALL SCOPY( NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N )
-            ELSE IF( NSIZE.LE.SMLSIZ ) THEN
+            } else if ( NSIZE.LE.SMLSIZ ) {
 
                // This is a small subproblem and is solved by SLASDQ.
 
                CALL SLASET( 'A', NSIZE, NSIZE, ZERO, ONE, WORK( VT+ST1 ), N )                CALL SLASDQ( 'U', 0, NSIZE, NSIZE, 0, NRHS, D( ST ), E( ST ), WORK( VT+ST1 ), N, WORK( NWORK ), N, B( ST, 1 ), LDB, WORK( NWORK ), INFO )
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   RETURN
-               END IF
+               }
                CALL SLACPY( 'A', NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N )
             } else {
 
                // A large problem. Solve it using divide and conquer.
 
                CALL SLASDA( ICMPQ1, SMLSIZ, NSIZE, SQRE, D( ST ), E( ST ), WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO )
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   RETURN
-               END IF
+               }
                BXST = BX + ST1
                CALL SLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BXST ), N, WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO )
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   RETURN
-               END IF
-            END IF
+               }
+            }
             ST = I + 1
-         END IF
+         }
    60 CONTINUE
 
       // Apply the singular values and treat the tiny ones as zero.
@@ -262,12 +262,12 @@
          // Some of the elements in D can be negative because 1-by-1
          // subproblems were not solved explicitly.
 
-         IF( ABS( D( I ) ).LE.TOL ) THEN
+         if ( ABS( D( I ) ).LE.TOL ) {
             CALL SLASET( 'A', 1, NRHS, ZERO, ZERO, WORK( BX+I-1 ), N )
          } else {
             RANK = RANK + 1
             CALL SLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, WORK( BX+I-1 ), N, INFO )
-         END IF
+         }
          D( I ) = ABS( D( I ) )
    70 CONTINUE
 
@@ -279,16 +279,16 @@
          ST1 = ST - 1
          NSIZE = IWORK( SIZEI+I-1 )
          BXST = BX + ST1
-         IF( NSIZE.EQ.1 ) THEN
+         if ( NSIZE.EQ.1 ) {
             CALL SCOPY( NRHS, WORK( BXST ), N, B( ST, 1 ), LDB )
-         ELSE IF( NSIZE.LE.SMLSIZ ) THEN
+         } else if ( NSIZE.LE.SMLSIZ ) {
             CALL SGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE, WORK( VT+ST1 ), N, WORK( BXST ), N, ZERO, B( ST, 1 ), LDB )
          } else {
             CALL SLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N, B( ST, 1 ), LDB, WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO )
-            IF( INFO.NE.0 ) THEN
+            if ( INFO.NE.0 ) {
                RETURN
-            END IF
-         END IF
+            }
+         }
    80 CONTINUE
 
       // Unscale and sort the singular values.

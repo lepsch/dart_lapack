@@ -31,19 +31,19 @@
       // Test the input arguments
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 .OR. N.GT.M ) THEN
+      } else if ( N.LT.0 .OR. N.GT.M ) {
          INFO = -2
-      ELSE IF( K.LT.0 .OR. K.GT.N ) THEN
+      } else if ( K.LT.0 .OR. K.GT.N ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SORG2R', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -62,10 +62,10 @@
 
          // Apply H(i) to A(i:m,i:n) from the left
 
-         IF( I.LT.N ) THEN
+         if ( I.LT.N ) {
             A( I, I ) = ONE
             CALL SLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK )
-         END IF
+         }
          IF( I.LT.M ) CALL SSCAL( M-I, -TAU( I ), A( I+1, I ), 1 )
          A( I, I ) = ONE - TAU( I )
 

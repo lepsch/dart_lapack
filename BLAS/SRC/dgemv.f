@@ -37,23 +37,23 @@
       // Test the input parameters.
 
       INFO = 0
-      IF (.NOT.LSAME(TRANS,'N') .AND. .NOT.LSAME(TRANS,'T') .AND. .NOT.LSAME(TRANS,'C')) THEN
+      if (.NOT.LSAME(TRANS,'N') .AND. .NOT.LSAME(TRANS,'T') .AND. .NOT.LSAME(TRANS,'C')) {
           INFO = 1
-      ELSE IF (M.LT.0) THEN
+      } else if (M.LT.0) {
           INFO = 2
-      ELSE IF (N.LT.0) THEN
+      } else if (N.LT.0) {
           INFO = 3
-      ELSE IF (LDA.LT.MAX(1,M)) THEN
+      } else if (LDA.LT.MAX(1,M)) {
           INFO = 6
-      ELSE IF (INCX.EQ.0) THEN
+      } else if (INCX.EQ.0) {
           INFO = 8
-      ELSE IF (INCY.EQ.0) THEN
+      } else if (INCY.EQ.0) {
           INFO = 11
-      END IF
-      IF (INFO.NE.0) THEN
+      }
+      if (INFO.NE.0) {
           CALL XERBLA('DGEMV ',INFO)
           RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -62,32 +62,32 @@
       // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
       // up the start points in  X  and  Y.
 
-      IF (LSAME(TRANS,'N')) THEN
+      if (LSAME(TRANS,'N')) {
           LENX = N
           LENY = M
       } else {
           LENX = M
           LENY = N
-      END IF
-      IF (INCX.GT.0) THEN
+      }
+      if (INCX.GT.0) {
           KX = 1
       } else {
           KX = 1 - (LENX-1)*INCX
-      END IF
-      IF (INCY.GT.0) THEN
+      }
+      if (INCY.GT.0) {
           KY = 1
       } else {
           KY = 1 - (LENY-1)*INCY
-      END IF
+      }
 
       // Start the operations. In this version the elements of A are
       // accessed sequentially with one pass through A.
 
       // First form  y := beta*y.
 
-      IF (BETA.NE.ONE) THEN
-          IF (INCY.EQ.1) THEN
-              IF (BETA.EQ.ZERO) THEN
+      if (BETA.NE.ONE) {
+          if (INCY.EQ.1) {
+              if (BETA.EQ.ZERO) {
                   DO 10 I = 1,LENY
                       Y(I) = ZERO
    10             CONTINUE
@@ -95,10 +95,10 @@
                   DO 20 I = 1,LENY
                       Y(I) = BETA*Y(I)
    20             CONTINUE
-              END IF
+              }
           } else {
               IY = KY
-              IF (BETA.EQ.ZERO) THEN
+              if (BETA.EQ.ZERO) {
                   DO 30 I = 1,LENY
                       Y(IY) = ZERO
                       IY = IY + INCY
@@ -108,16 +108,16 @@
                       Y(IY) = BETA*Y(IY)
                       IY = IY + INCY
    40             CONTINUE
-              END IF
-          END IF
-      END IF
+              }
+          }
+      }
       IF (ALPHA.EQ.ZERO) RETURN
-      IF (LSAME(TRANS,'N')) THEN
+      if (LSAME(TRANS,'N')) {
 
          // Form  y := alpha*A*x + y.
 
           JX = KX
-          IF (INCY.EQ.1) THEN
+          if (INCY.EQ.1) {
               DO 60 J = 1,N
                   TEMP = ALPHA*X(JX)
                   DO 50 I = 1,M
@@ -135,13 +135,13 @@
    70             CONTINUE
                   JX = JX + INCX
    80         CONTINUE
-          END IF
+          }
       } else {
 
          // Form  y := alpha*A**T*x + y.
 
           JY = KY
-          IF (INCX.EQ.1) THEN
+          if (INCX.EQ.1) {
               DO 100 J = 1,N
                   TEMP = ZERO
                   DO 90 I = 1,M
@@ -161,8 +161,8 @@
                   Y(JY) = Y(JY) + ALPHA*TEMP
                   JY = JY + INCY
   120         CONTINUE
-          END IF
-      END IF
+          }
+      }
 
       RETURN
 

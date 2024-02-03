@@ -28,10 +28,10 @@
       K = MIN( M, N )
       DO I = 1, K
          AII = A( I, I )
-         IF( REAL( AII ).LT.ZERO.OR.AIMAG( AII ).NE.ZERO ) THEN
+         if ( REAL( AII ).LT.ZERO.OR.AIMAG( AII ).NE.ZERO ) {
             CGENND = .FALSE.
             RETURN
-         END IF
+         }
       END DO
       CGENND = .TRUE.
       RETURN

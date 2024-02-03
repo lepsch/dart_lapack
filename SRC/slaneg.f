@@ -57,7 +57,7 @@
       // A NaN should occur only with a zero pivot after an infinite
       // pivot.  In that case, substituting 1 for T/DPLUS is the
       // correct limit.
-         IF( SAWNAN ) THEN
+         if ( SAWNAN ) {
             NEG1 = 0
             T = BSAV
             DO 22 J = BJ, MIN(BJ+BLKLEN-1, R-1)
@@ -67,7 +67,7 @@
                IF (SISNAN(TMP)) TMP = ONE
                T = TMP * LLD(J) - SIGMA
  22         CONTINUE
-         END IF
+         }
          NEGCNT = NEGCNT + NEG1
  210  CONTINUE
 
@@ -85,7 +85,7 @@
          SAWNAN = SISNAN( P )
       // As above, run a slower version that substitutes 1 for Inf/Inf.
 
-         IF( SAWNAN ) THEN
+         if ( SAWNAN ) {
             NEG2 = 0
             P = BSAV
             DO 24 J = BJ, MAX(BJ-BLKLEN+1, R), -1
@@ -95,7 +95,7 @@
                IF (SISNAN(TMP)) TMP = ONE
                P = TMP * D(J) - SIGMA
  24         CONTINUE
-         END IF
+         }
          NEGCNT = NEGCNT + NEG2
  230  CONTINUE
 

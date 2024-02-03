@@ -36,29 +36,29 @@
 
       INFO = 0
       WANTQ = LSAME( COMPQ, 'V' )
-      IF( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) THEN
+      if ( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDT.LT.MAX( 1, N ) ) THEN
+      } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -4
-      ELSE IF( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.MAX( 1, N ) ) ) THEN
+      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.MAX( 1, N ) ) ) {
          INFO = -6
-      ELSE IF(( IFST.LT.1 .OR. IFST.GT.N ).AND.( N.GT.0 )) THEN
+      } else if (( IFST.LT.1 .OR. IFST.GT.N ).AND.( N.GT.0 )) {
          INFO = -7
-      ELSE IF(( ILST.LT.1 .OR. ILST.GT.N ).AND.( N.GT.0 )) THEN
+      } else if (( ILST.LT.1 .OR. ILST.GT.N ).AND.( N.GT.0 )) {
          INFO = -8
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTREXC', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.LE.1 .OR. IFST.EQ.ILST ) RETURN
 
-      IF( IFST.LT.ILST ) THEN
+      if ( IFST.LT.ILST ) {
 
          // Move the IFST-th diagonal element forward down the diagonal.
 
@@ -72,7 +72,7 @@
          M1 = -1
          M2 = 0
          M3 = -1
-      END IF
+      }
 
       DO 10 K = IFST + M1, ILST + M2, M3
 
@@ -93,12 +93,12 @@
          T( K, K ) = T22
          T( K+1, K+1 ) = T11
 
-         IF( WANTQ ) THEN
+         if ( WANTQ ) {
 
             // Accumulate transformation in the matrix Q.
 
             CALL ZROT( N, Q( 1, K ), 1, Q( 1, K+1 ), 1, CS, DCONJG( SN ) )
-         END IF
+         }
 
    10 CONTINUE
 

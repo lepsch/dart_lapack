@@ -17,7 +17,7 @@
       int     I,IX,IY;
       // ..
       IF (N.LE.0) RETURN
-      IF (INCX.EQ.1 .AND. INCY.EQ.1) THEN
+      if (INCX.EQ.1 .AND. INCY.EQ.1) {
 
          // code for both increments equal to 1
 
@@ -38,7 +38,7 @@
             IX = IX + INCX
             IY = IY + INCY
          END DO
-      END IF
+      }
       RETURN
 
       // End of ZCOPY

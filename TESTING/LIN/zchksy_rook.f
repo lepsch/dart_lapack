@@ -132,7 +132,7 @@
 
                // Begin generate test matrix A.
 
-               IF( IMAT.NE.NTYPES ) THEN
+               if ( IMAT.NE.NTYPES ) {
 
                   // Set up parameters with ZLATB4 for the matrix generator
                   // based on the type of matrix to be generated.
@@ -146,32 +146,32 @@
 
                   // Check error code from ZLATMS and handle error.
 
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                      CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
                      // Skip all tests for this generated matrix
 
                      GO TO 250
-                  END IF
+                  }
 
                   // For matrix types 3-6, zero one or more rows and
                   // columns of the matrix to test that INFO is returned
                   // correctly.
 
-                  IF( ZEROT ) THEN
-                     IF( IMAT.EQ.3 ) THEN
+                  if ( ZEROT ) {
+                     if ( IMAT.EQ.3 ) {
                         IZERO = 1
-                     ELSE IF( IMAT.EQ.4 ) THEN
+                     } else if ( IMAT.EQ.4 ) {
                         IZERO = N
                      } else {
                         IZERO = N / 2 + 1
-                     END IF
+                     }
 
-                     IF( IMAT.LT.6 ) THEN
+                     if ( IMAT.LT.6 ) {
 
                      // Set row and column IZERO to zero.
 
-                        IF( IUPLO.EQ.1 ) THEN
+                        if ( IUPLO.EQ.1 ) {
                            IOFF = ( IZERO-1 )*LDA
                            DO 20 I = 1, IZERO - 1
                               A( IOFF+I ) = CZERO
@@ -191,9 +191,9 @@
                            DO 50 I = IZERO, N
                               A( IOFF+I ) = CZERO
    50                      CONTINUE
-                        END IF
+                        }
                      } else {
-                        IF( IUPLO.EQ.1 ) THEN
+                        if ( IUPLO.EQ.1 ) {
 
                            // Set the first IZERO rows and columns to zero.
 
@@ -217,11 +217,11 @@
    80                         CONTINUE
                               IOFF = IOFF + LDA
    90                      CONTINUE
-                        END IF
-                     END IF
+                        }
+                     }
                   } else {
                      IZERO = 0
-                  END IF
+                  }
 
                } else {
 
@@ -231,7 +231,7 @@
 
                   CALL ZLATSY( UPLO, N, A, LDA, ISEED )
 
-               END IF
+               }
 
                // End generate test matrix A.
 
@@ -265,18 +265,18 @@
                   // pivoting.
 
                   K = IZERO
-                  IF( K.GT.0 ) THEN
+                  if ( K.GT.0 ) {
   100                CONTINUE
-                     IF( IWORK( K ).LT.0 ) THEN
-                        IF( IWORK( K ).NE.-K ) THEN
+                     if ( IWORK( K ).LT.0 ) {
+                        if ( IWORK( K ).NE.-K ) {
                            K = -IWORK( K )
                            GO TO 100
-                        END IF
-                     ELSE IF( IWORK( K ).NE.K ) THEN
+                        }
+                     } else if ( IWORK( K ).NE.K ) {
                         K = IWORK( K )
                         GO TO 100
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Check error code from ZSYTRF_ROOK and handle error.
 
@@ -284,11 +284,11 @@
 
                   // Set the condition estimate flag if the INFO is not 0.
 
-                  IF( INFO.NE.0 ) THEN
+                  if ( INFO.NE.0 ) {
                      TRFCON = .TRUE.
                   } else {
                      TRFCON = .FALSE.
-                  END IF
+                  }
 
 *+    TEST 1
                   // Reconstruct matrix from factors and compute residual.
@@ -302,7 +302,7 @@
                   // (i.e. there is no zero rows and columns).
                   // Do it only for the first block size.
 
-                  IF( INB.EQ.1 .AND. .NOT.TRFCON ) THEN
+                  if ( INB.EQ.1 .AND. .NOT.TRFCON ) {
                      CALL ZLACPY( UPLO, N, N, AFAC, LDA, AINV, LDA )
                      SRNAMT = 'ZSYTRI_ROOK'
                      CALL ZSYTRI_ROOK( UPLO, N, AINV, LDA, IWORK, WORK, INFO )
@@ -316,16 +316,16 @@
 
                      CALL ZSYT03( UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
                      NT = 2
-                  END IF
+                  }
 
                   // Print information about the tests that did not pass
                  t // he threshold.
 
                   DO 110 K = 1, NT
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
   110             CONTINUE
                   NRUN = NRUN + NT
 
@@ -337,7 +337,7 @@
 
                   CONST = ( ( ALPHA**2-ONE ) / ( ALPHA**2-ONEHALF ) ) / ( ONE-ALPHA )
 
-                  IF( IUPLO.EQ.1 ) THEN
+                  if ( IUPLO.EQ.1 ) {
 
                   // Compute largest element in U
 
@@ -345,7 +345,7 @@
   120                CONTINUE
                      IF( K.LE.1 ) GO TO 130
 
-                     IF( IWORK( K ).GT.ZERO ) THEN
+                     if ( IWORK( K ).GT.ZERO ) {
 
                         // Get max absolute value from elements
                         // in column k in in U
@@ -359,7 +359,7 @@
                         DTEMP = ZLANGE( 'M', K-2, 2, AFAC( ( K-2 )*LDA+1 ), LDA, RWORK )
                         K = K - 1
 
-                     END IF
+                     }
 
                      // DTEMP should be bounded by CONST
 
@@ -379,7 +379,7 @@
   140                CONTINUE
                      IF( K.GE.N ) GO TO 150
 
-                     IF( IWORK( K ).GT.ZERO ) THEN
+                     if ( IWORK( K ).GT.ZERO ) {
 
                         // Get max absolute value from elements
                         // in column k in in L
@@ -393,7 +393,7 @@
                         DTEMP = ZLANGE( 'M', N-K-1, 2, AFAC( ( K-1 )*LDA+K+2 ), LDA, RWORK )
                         K = K + 1
 
-                     END IF
+                     }
 
                      // DTEMP should be bounded by CONST
 
@@ -404,7 +404,7 @@
 
                      GO TO 140
   150                CONTINUE
-                  END IF
+                  }
 
 
 *+    TEST 4
@@ -416,7 +416,7 @@
 
                   CONST = ( ( ALPHA**2-ONE ) / ( ALPHA**2-ONEHALF ) )* ( ( ONE + ALPHA ) / ( ONE - ALPHA ) )
 
-                  IF( IUPLO.EQ.1 ) THEN
+                  if ( IUPLO.EQ.1 ) {
 
                      // Loop backward for UPLO = 'U'
 
@@ -424,7 +424,7 @@
   160                CONTINUE
                      IF( K.LE.1 ) GO TO 170
 
-                     IF( IWORK( K ).LT.ZERO ) THEN
+                     if ( IWORK( K ).LT.ZERO ) {
 
                         // Get the two singular values
                         // (real and non-negative) of a 2-by-2 block,
@@ -449,7 +449,7 @@
                         IF( DTEMP.GT.RESULT( 4 ) ) RESULT( 4 ) = DTEMP
                         K = K - 1
 
-                     END IF
+                     }
 
                      K = K - 1
 
@@ -464,7 +464,7 @@
   180                CONTINUE
                      IF( K.GE.N ) GO TO 190
 
-                     IF( IWORK( K ).LT.ZERO ) THEN
+                     if ( IWORK( K ).LT.ZERO ) {
 
                         // Get the two singular values
                         // (real and non-negative) of a 2-by-2 block,
@@ -488,22 +488,22 @@
                         IF( DTEMP.GT.RESULT( 4 ) ) RESULT( 4 ) = DTEMP
                         K = K + 1
 
-                     END IF
+                     }
 
                      K = K + 1
 
                      GO TO 180
   190                CONTINUE
-                  END IF
+                  }
 
                   // Print information about the tests that did not pass
                  t // he threshold.
 
                   DO 200 K = 3, 4
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
   200             CONTINUE
                   NRUN = NRUN + 2
 
@@ -514,10 +514,10 @@
 
                   // Do only the condition estimate if INFO is not 0.
 
-                  IF( TRFCON ) THEN
+                  if ( TRFCON ) {
                      RCONDC = ZERO
                      GO TO 230
-                  END IF
+                  }
 
                   // Do for each value of NRHS in NSVAL.
 
@@ -556,10 +556,10 @@
                     t // he threshold.
 
                      DO 210 K = 5, 6
-                        IF( RESULT( K ).GE.THRESH ) THEN
+                        if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
-                        END IF
+                        }
   210                CONTINUE
                      NRUN = NRUN + 2
 
@@ -586,10 +586,10 @@
                   // Print information about the tests that did not pass
                  t // he threshold.
 
-                  IF( RESULT( 7 ).GE.THRESH ) THEN
+                  if ( RESULT( 7 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 7, RESULT( 7 )
                      NFAIL = NFAIL + 1
-                  END IF
+                  }
                   NRUN = NRUN + 1
   240          CONTINUE
 

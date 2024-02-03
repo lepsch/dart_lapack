@@ -57,37 +57,37 @@
 
       INFO = 0
       LQUERY = ( LDSWORK.EQ.-1 )
-      IF( LQUERY ) THEN
+      if ( LQUERY ) {
          LDSWORK = 2
          SWORK(1,1) = MAX( NBA, NBB )
          SWORK(2,1) = 2 * NBB + NBA
-      END IF
+      }
 
       // Test the input arguments
 
-      IF( .NOT.NOTRNA .AND. .NOT. LSAME( TRANA, 'C' ) ) THEN
+      if ( .NOT.NOTRNA .AND. .NOT. LSAME( TRANA, 'C' ) ) {
          INFO = -1
-      ELSE IF( .NOT.NOTRNB .AND. .NOT. LSAME( TRANB, 'C' ) ) THEN
+      } else if ( .NOT.NOTRNB .AND. .NOT. LSAME( TRANB, 'C' ) ) {
          INFO = -2
-      ELSE IF( ISGN.NE.1 .AND. ISGN.NE.-1 ) THEN
+      } else if ( ISGN.NE.1 .AND. ISGN.NE.-1 ) {
          INFO = -3
-      ELSE IF( M.LT.0 ) THEN
+      } else if ( M.LT.0 ) {
          INFO = -4
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+      } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -11
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTRSYL3', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -97,10 +97,10 @@
       // Use unblocked code for small problems or if insufficient
       // workspace is provided
 
-      IF( MIN( NBA, NBB ).EQ.1 .OR. LDSWORK.LT.MAX( NBA, NBB ) ) THEN
+      if ( MIN( NBA, NBB ).EQ.1 .OR. LDSWORK.LT.MAX( NBA, NBB ) ) {
         CALL ZTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
         RETURN
-      END IF
+      }
 
       // Set constants to control overflow
 
@@ -129,11 +129,11 @@
          DO L = K, NBA
             L1 = (L - 1) * NB + 1
             L2 = MIN( L * NB, M ) + 1
-            IF( NOTRNA ) THEN
+            if ( NOTRNA ) {
                SWORK( K, AWRK + L ) = ZLANGE( 'I', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM )
             } else {
                SWORK( L, AWRK + K ) = ZLANGE( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM )
-            END IF
+            }
          END DO
       END DO
       BWRK = NBB + NBA
@@ -143,18 +143,18 @@
          DO L = K, NBB
             L1 = (L - 1) * NB + 1
             L2 = MIN( L * NB, N ) + 1
-            IF( NOTRNB ) THEN
+            if ( NOTRNB ) {
                SWORK( K, BWRK + L ) = ZLANGE( 'I', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM )
             } else {
                SWORK( L, BWRK + K ) = ZLANGE( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM )
-            END IF
+            }
          END DO
       END DO
 
       SGN = DBLE( ISGN )
       CSGN = DCMPLX( SGN, ZERO )
 
-      IF( NOTRNA .AND. NOTRNB ) THEN
+      if ( NOTRNA .AND. NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B = scale*C.
 
@@ -190,8 +190,8 @@
                CALL ZTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
                INFO = MAX( INFO, IINFO )
 
-               IF( SCALOC * SWORK( K, L ) .EQ. ZERO ) THEN
-                  IF( SCALOC .EQ. ZERO ) THEN
+               if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
+                  if ( SCALOC .EQ. ZERO ) {
                      // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
                      // is larger than the product of BIGNUM**2 and cannot be
                      // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
@@ -199,7 +199,7 @@
                      BUF = ZERO
                   } else {
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
-                  END IF
+                  }
                   DO JJ = 1, NBB
                      DO LL = 1, NBA
                         // Bound by BIGNUM to not introduce Inf. The value
@@ -208,7 +208,7 @@
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                      END DO
                   END DO
-               END IF
+               }
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = ZLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
 
@@ -228,7 +228,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   ANRM = SWORK( I, AWRK + K )
                   SCALOC = DLARMM( ANRM, XNRM, CNRM )
-                  IF( SCALOC * SCAMIN .EQ. ZERO ) THEN
+                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
@@ -238,7 +238,7 @@
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
-                  END IF
+                  }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
 
@@ -246,14 +246,14 @@
                   // consistency scaling factor to C( I, L ) and C( K, L ).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                       DO JJ = L1, L2-1
                          CALL ZDSCAL( K2-K1, SCAL, C( K1, JJ ), 1)
                       END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                       DO LL = L1, L2-1
                          CALL ZDSCAL( I2-I1, SCAL, C( I1, LL ), 1)
                       END DO
@@ -284,7 +284,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   BNRM = SWORK(L, BWRK + J)
                   SCALOC = DLARMM( BNRM, XNRM, CNRM )
-                  IF( SCALOC * SCAMIN .EQ. ZERO ) THEN
+                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
@@ -294,7 +294,7 @@
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
-                  END IF
+                  }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
 
@@ -302,14 +302,14 @@
                   // consistency scaling factor to C( K, J ) and C( K, L).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
                         CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                       DO JJ = J1, J2-1
                          CALL ZDSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
                       END DO
@@ -324,7 +324,7 @@
                END DO
             END DO
          END DO
-      ELSE IF( .NOT.NOTRNA .AND. NOTRNB ) THEN
+      } else if ( .NOT.NOTRNA .AND. NOTRNB ) {
 
          // Solve    A**H *X + ISGN*X*B = scale*C.
 
@@ -360,8 +360,8 @@
                CALL ZTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
                INFO = MAX( INFO, IINFO )
 
-               IF( SCALOC * SWORK( K, L ) .EQ. ZERO ) THEN
-                  IF( SCALOC .EQ. ZERO ) THEN
+               if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
+                  if ( SCALOC .EQ. ZERO ) {
                      // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
                      // is larger than the product of BIGNUM**2 and cannot be
                      // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
@@ -370,7 +370,7 @@
                   } else {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
-                  END IF
+                  }
                   DO JJ = 1, NBB
                      DO LL = 1, NBA
                         // Bound by BIGNUM to not introduce Inf. The value
@@ -379,7 +379,7 @@
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                      END DO
                   END DO
-               END IF
+               }
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = ZLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
 
@@ -399,7 +399,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   ANRM = SWORK( I, AWRK + K )
                   SCALOC = DLARMM( ANRM, XNRM, CNRM )
-                  IF( SCALOC * SCAMIN .EQ. ZERO ) THEN
+                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
@@ -409,7 +409,7 @@
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
-                  END IF
+                  }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
 
@@ -417,14 +417,14 @@
                   // consistency scaling factor to to C( I, L ) and C( K, L).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
                         CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
                         CALL ZDSCAL( I2-I1, SCAL, C( I1, LL ), 1 )
                      END DO
@@ -454,7 +454,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   BNRM = SWORK( L, BWRK + J )
                   SCALOC = DLARMM( BNRM, XNRM, CNRM )
-                  IF( SCALOC * SCAMIN .EQ. ZERO ) THEN
+                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
@@ -464,7 +464,7 @@
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
-                  END IF
+                  }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
 
@@ -472,14 +472,14 @@
                   // consistency scaling factor to to C( K, J ) and C( K, L).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                       DO LL = L1, L2-1
                          CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
                       END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                      DO JJ = J1, J2-1
                         CALL ZDSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
                      END DO
@@ -494,7 +494,7 @@
                END DO
             END DO
          END DO
-      ELSE IF( .NOT.NOTRNA .AND. .NOT.NOTRNB ) THEN
+      } else if ( .NOT.NOTRNA .AND. .NOT.NOTRNB ) {
 
          // Solve    A**H *X + ISGN*X*B**H = scale*C.
 
@@ -530,8 +530,8 @@
                CALL ZTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
                INFO = MAX( INFO, IINFO )
 
-               IF( SCALOC * SWORK( K, L ) .EQ. ZERO ) THEN
-                  IF( SCALOC .EQ. ZERO ) THEN
+               if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
+                  if ( SCALOC .EQ. ZERO ) {
                      // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
                      // is larger than the product of BIGNUM**2 and cannot be
                      // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
@@ -540,7 +540,7 @@
                   } else {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
-                  END IF
+                  }
                   DO JJ = 1, NBB
                      DO LL = 1, NBA
                         // Bound by BIGNUM to not introduce Inf. The value
@@ -549,7 +549,7 @@
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                      END DO
                   END DO
-               END IF
+               }
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = ZLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
 
@@ -569,7 +569,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   ANRM = SWORK( I, AWRK + K )
                   SCALOC = DLARMM( ANRM, XNRM, CNRM )
-                  IF( SCALOC * SCAMIN .EQ. ZERO ) THEN
+                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
@@ -579,7 +579,7 @@
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
-                  END IF
+                  }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
 
@@ -587,14 +587,14 @@
                   // consistency scaling factor to C( I, L ) and C( K, L).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
                         CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
                         CALL ZDSCAL( I2-I1, SCAL, C( I1, LL ), 1 )
                      END DO
@@ -624,7 +624,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   BNRM = SWORK( L, BWRK + J )
                   SCALOC = DLARMM( BNRM, XNRM, CNRM )
-                  IF( SCALOC * SCAMIN .EQ. ZERO ) THEN
+                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
@@ -634,7 +634,7 @@
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
-                  END IF
+                  }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
 
@@ -642,14 +642,14 @@
                   // consistency scaling factor to C( K, J ) and C( K, L).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
                         CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1)
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                      DO JJ = J1, J2-1
                         CALL ZDSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
                      END DO
@@ -664,7 +664,7 @@
                END DO
             END DO
          END DO
-      ELSE IF( NOTRNA .AND. .NOT.NOTRNB ) THEN
+      } else if ( NOTRNA .AND. .NOT.NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B**H = scale*C.
 
@@ -700,8 +700,8 @@
                CALL ZTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
                INFO = MAX( INFO, IINFO )
 
-               IF( SCALOC * SWORK( K, L ) .EQ. ZERO ) THEN
-                  IF( SCALOC .EQ. ZERO ) THEN
+               if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
+                  if ( SCALOC .EQ. ZERO ) {
                      // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
                      // is larger than the product of BIGNUM**2 and cannot be
                      // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
@@ -710,7 +710,7 @@
                   } else {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
-                  END IF
+                  }
                   DO JJ = 1, NBB
                      DO LL = 1, NBA
                         // Bound by BIGNUM to not introduce Inf. The value
@@ -719,7 +719,7 @@
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                      END DO
                   END DO
-               END IF
+               }
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = ZLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
 
@@ -739,7 +739,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   ANRM = SWORK( I, AWRK + K )
                   SCALOC = DLARMM( ANRM, XNRM, CNRM )
-                  IF( SCALOC * SCAMIN .EQ. ZERO ) THEN
+                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
@@ -749,7 +749,7 @@
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
-                  END IF
+                  }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
 
@@ -757,14 +757,14 @@
                   // consistency scaling factor to C( I, L ) and C( K, L).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
                         CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
                         CALL ZDSCAL( I2-I1, SCAL, C( I1, LL ), 1 )
                      END DO
@@ -795,7 +795,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   BNRM = SWORK( L, BWRK + J )
                   SCALOC = DLARMM( BNRM, XNRM, CNRM )
-                  IF( SCALOC * SCAMIN .EQ. ZERO ) THEN
+                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
@@ -805,7 +805,7 @@
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
-                  END IF
+                  }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
 
@@ -813,14 +813,14 @@
                   // consistency scaling factor to C( K, J ) and C( K, L).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                      DO JJ = L1, L2-1
                         CALL ZDSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
-                  IF( SCAL .NE. ONE ) THEN
+                  if ( SCAL .NE. ONE ) {
                      DO JJ = J1, J2-1
                         CALL ZDSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
                      END DO
@@ -836,7 +836,7 @@
             END DO
          END DO
 
-      END IF
+      }
 
       // Reduce local scaling factors
 
@@ -846,7 +846,7 @@
             SCALE = MIN( SCALE, SWORK( K, L ) )
          END DO
       END DO
-      IF( SCALE .EQ. ZERO ) THEN
+      if ( SCALE .EQ. ZERO ) {
 
          // The magnitude of the largest entry of the solution is larger
         t // han the product of BIGNUM**2 and cannot be represented in the
@@ -856,7 +856,7 @@
          SWORK(1,1) = MAX( NBA, NBB )
          SWORK(2,1) = 2 * NBB + NBA
          RETURN
-      END IF
+      }
 
       // Realize consistent scaling
 
@@ -867,7 +867,7 @@
             L1 = (L - 1) * NB + 1
             L2 = MIN( L * NB, N ) + 1
             SCAL = SCALE / SWORK( K, L )
-            IF( SCAL .NE. ONE ) THEN
+            if ( SCAL .NE. ONE ) {
                DO LL = L1, L2-1
                   CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
                END DO
@@ -875,16 +875,16 @@
          END DO
       END DO
 
-      IF( BUF .NE. ONE .AND. BUF.GT.ZERO ) THEN
+      if ( BUF .NE. ONE .AND. BUF.GT.ZERO ) {
 
          // Decrease SCALE as much as possible.
 
          SCALOC = MIN( SCALE / SMLNUM, ONE / BUF )
          BUF = BUF * SCALOC
          SCALE = SCALE / SCALOC
-      END IF
+      }
 
-      IF( BUF.NE.ONE .AND. BUF.GT.ZERO ) THEN
+      if ( BUF.NE.ONE .AND. BUF.GT.ZERO ) {
 
          // In case of overly aggressive scaling during the computation,
          // flushing of the global scale factor may be prevented by
@@ -906,7 +906,7 @@
          SCALOC = MIN( BIGNUM / SCAL, ONE / BUF )
          BUF = BUF * SCALOC
          CALL ZLASCL( 'G', -1, -1, ONE, SCALOC, M, N, C, LDC, IINFO )
-      END IF
+      }
 
       // Combine with buffer scaling factor. SCALE will be flushed if
       // BUF is less than one here.

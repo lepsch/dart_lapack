@@ -95,7 +95,7 @@
             CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
 
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
-            IF( IMAT.LE.6 ) THEN
+            if ( IMAT.LE.6 ) {
 
                // Type 1-6:  generate a symmetric tridiagonal matrix of
                // known condition number in lower triangular band storage.
@@ -105,10 +105,10 @@
 
                // Check the error code from DLATMS.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 100
-               END IF
+               }
                IZERO = 0
 
                // Copy the matrix to D and E.
@@ -125,7 +125,7 @@
                // Type 7-12:  generate a diagonally dominant matrix with
                // unknown condition number in the vectors D and E.
 
-               IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) THEN
+               if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) {
 
                   // Let D and E have values from [-1,1].
 
@@ -134,7 +134,7 @@
 
                   // Make the tridiagonal matrix diagonally dominant.
 
-                  IF( N.EQ.1 ) THEN
+                  if ( N.EQ.1 ) {
                      D( 1 ) = ABS( D( 1 ) )
                   } else {
                      D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) )
@@ -142,7 +142,7 @@
                      DO 30 I = 2, N - 1
                         D( I ) = ABS( D( I ) ) + ABS( E( I ) ) + ABS( E( I-1 ) )
    30                CONTINUE
-                  END IF
+                  }
 
                   // Scale D and E so the maximum element is ANORM.
 
@@ -151,56 +151,56 @@
                   CALL DSCAL( N, ANORM / DMAX, D, 1 )
                   CALL DSCAL( N-1, ANORM / DMAX, E, 1 )
 
-               ELSE IF( IZERO.GT.0 ) THEN
+               } else if ( IZERO.GT.0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
                   // elements.
 
-                  IF( IZERO.EQ.1 ) THEN
+                  if ( IZERO.EQ.1 ) {
                      D( 1 ) = Z( 2 )
                      IF( N.GT.1 ) E( 1 ) = Z( 3 )
-                  ELSE IF( IZERO.EQ.N ) THEN
+                  } else if ( IZERO.EQ.N ) {
                      E( N-1 ) = Z( 1 )
                      D( N ) = Z( 2 )
                   } else {
                      E( IZERO-1 ) = Z( 1 )
                      D( IZERO ) = Z( 2 )
                      E( IZERO ) = Z( 3 )
-                  END IF
-               END IF
+                  }
+               }
 
                // For types 8-10, set one row and column of the matrix to
                // zero.
 
                IZERO = 0
-               IF( IMAT.EQ.8 ) THEN
+               if ( IMAT.EQ.8 ) {
                   IZERO = 1
                   Z( 2 ) = D( 1 )
                   D( 1 ) = ZERO
-                  IF( N.GT.1 ) THEN
+                  if ( N.GT.1 ) {
                      Z( 3 ) = E( 1 )
                      E( 1 ) = ZERO
-                  END IF
-               ELSE IF( IMAT.EQ.9 ) THEN
+                  }
+               } else if ( IMAT.EQ.9 ) {
                   IZERO = N
-                  IF( N.GT.1 ) THEN
+                  if ( N.GT.1 ) {
                      Z( 1 ) = E( N-1 )
                      E( N-1 ) = ZERO
-                  END IF
+                  }
                   Z( 2 ) = D( N )
                   D( N ) = ZERO
-               ELSE IF( IMAT.EQ.10 ) THEN
+               } else if ( IMAT.EQ.10 ) {
                   IZERO = ( N+1 ) / 2
-                  IF( IZERO.GT.1 ) THEN
+                  if ( IZERO.GT.1 ) {
                      Z( 1 ) = E( IZERO-1 )
                      E( IZERO-1 ) = ZERO
                      Z( 3 ) = E( IZERO )
                      E( IZERO ) = ZERO
-                  END IF
+                  }
                   Z( 2 ) = D( IZERO )
                   D( IZERO ) = ZERO
-               END IF
-            END IF
+               }
+            }
 
             CALL DCOPY( N, D, 1, D( N+1 ), 1 )
             IF( N.GT.1 ) CALL DCOPY( N-1, E, 1, E( N+1 ), 1 )
@@ -213,25 +213,25 @@
 
             // Check error code from DPTTRF.
 
-            IF( INFO.NE.IZERO ) THEN
+            if ( INFO.NE.IZERO ) {
                CALL ALAERH( PATH, 'DPTTRF', INFO, IZERO, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                GO TO 100
-            END IF
+            }
 
-            IF( INFO.GT.0 ) THEN
+            if ( INFO.GT.0 ) {
                RCONDC = ZERO
                GO TO 90
-            END IF
+            }
 
             CALL DPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
 
             // Print the test ratio if greater than or equal to THRESH.
 
-            IF( RESULT( 1 ).GE.THRESH ) THEN
+            if ( RESULT( 1 ).GE.THRESH ) {
                IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 )
                NFAIL = NFAIL + 1
-            END IF
+            }
             NRUN = NRUN + 1
 
             // Compute RCONDC = 1 / (norm(A) * norm(inv(A))
@@ -303,10 +303,10 @@
            t // hreshold.
 
                DO 70 K = 2, 6
-                  IF( RESULT( K ).GE.THRESH ) THEN
+                  if ( RESULT( K ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )N, NRHS, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
-                  END IF
+                  }
    70          CONTINUE
                NRUN = NRUN + 5
    80       CONTINUE
@@ -327,11 +327,11 @@
 
             // Print the test ratio if greater than or equal to THRESH.
 
-            IF( RESULT( 7 ).GE.THRESH ) THEN
+            if ( RESULT( 7 ).GE.THRESH ) {
                IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
                WRITE( NOUT, FMT = 9999 )N, IMAT, 7, RESULT( 7 )
                NFAIL = NFAIL + 1
-            END IF
+            }
             NRUN = NRUN + 1
   100    CONTINUE
   110 CONTINUE

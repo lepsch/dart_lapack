@@ -69,7 +69,7 @@
       ANRM = 1.0
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'SY' ) ) THEN
+      if ( LSAMEN( 2, C2, 'SY' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with partial
@@ -237,7 +237,7 @@
          CALL CSYCON( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'CSYCON', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with rook
@@ -323,7 +323,7 @@
          CALL CSYCON_ROOK( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'CSYCON_ROOK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with rook
@@ -432,7 +432,7 @@
          CALL CSYCON_3( 'U', 1, A, 1, E, IP, -1.0E0, RCOND, W, INFO)
          CALL CHKXER( 'CSYCON_3', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite packed matrix with partial
@@ -505,7 +505,7 @@
          INFOT = 5
          CALL CSPCON( 'U', 1, A, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'CSPCON', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

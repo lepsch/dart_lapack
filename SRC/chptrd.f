@@ -41,21 +41,21 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHPTRD', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.LE.0 ) RETURN
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
 
          // Reduce the upper triangle of A.
          // I1 is the index in AP of A(1,I+1).
@@ -71,7 +71,7 @@
             CALL CLARFG( I, ALPHA, AP( I1 ), 1, TAUI )
             E( I ) = REAL( ALPHA )
 
-            IF( TAUI.NE.ZERO ) THEN
+            if ( TAUI.NE.ZERO ) {
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
@@ -91,7 +91,7 @@
 
                CALL CHPR2( UPLO, I, -ONE, AP( I1 ), 1, TAU, 1, AP )
 
-            END IF
+            }
             AP( I1+I-1 ) = E( I )
             D( I+1 ) = REAL( AP( I1+I ) )
             TAU( I ) = TAUI
@@ -115,7 +115,7 @@
             CALL CLARFG( N-I, ALPHA, AP( II+2 ), 1, TAUI )
             E( I ) = REAL( ALPHA )
 
-            IF( TAUI.NE.ZERO ) THEN
+            if ( TAUI.NE.ZERO ) {
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 
@@ -135,14 +135,14 @@
 
                CALL CHPR2( UPLO, N-I, -ONE, AP( II+1 ), 1, TAU( I ), 1, AP( I1I1 ) )
 
-            END IF
+            }
             AP( II+1 ) = E( I )
             D( I ) = REAL( AP( II ) )
             TAU( I ) = TAUI
             II = I1I1
    20    CONTINUE
          D( N ) = REAL( AP( II ) )
-      END IF
+      }
 
       RETURN
 

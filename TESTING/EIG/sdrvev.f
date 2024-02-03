@@ -72,32 +72,32 @@
 
       // Check for errors
 
-      IF( NSIZES.LT.0 ) THEN
+      if ( NSIZES.LT.0 ) {
          INFO = -1
-      ELSE IF( BADNN ) THEN
+      } else if ( BADNN ) {
          INFO = -2
-      ELSE IF( NTYPES.LT.0 ) THEN
+      } else if ( NTYPES.LT.0 ) {
          INFO = -3
-      ELSE IF( THRESH.LT.ZERO ) THEN
+      } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      ELSE IF( NOUNIT.LE.0 ) THEN
+      } else if ( NOUNIT.LE.0 ) {
          INFO = -7
-      ELSE IF( LDA.LT.1 .OR. LDA.LT.NMAX ) THEN
+      } else if ( LDA.LT.1 .OR. LDA.LT.NMAX ) {
          INFO = -9
-      ELSE IF( LDVL.LT.1 .OR. LDVL.LT.NMAX ) THEN
+      } else if ( LDVL.LT.1 .OR. LDVL.LT.NMAX ) {
          INFO = -16
-      ELSE IF( LDVR.LT.1 .OR. LDVR.LT.NMAX ) THEN
+      } else if ( LDVR.LT.1 .OR. LDVR.LT.NMAX ) {
          INFO = -18
-      ELSE IF( LDLRE.LT.1 .OR. LDLRE.LT.NMAX ) THEN
+      } else if ( LDLRE.LT.1 .OR. LDLRE.LT.NMAX ) {
          INFO = -20
-      ELSE IF( 5*NMAX+2*NMAX**2.GT.NWORK ) THEN
+      } else if ( 5*NMAX+2*NMAX**2.GT.NWORK ) {
          INFO = -23
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SDRVEV', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if nothing to do
 
@@ -118,11 +118,11 @@
 
       DO 270 JSIZE = 1, NSIZES
          N = NN( JSIZE )
-         IF( NSIZES.NE.1 ) THEN
+         if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
-         END IF
+         }
 
          DO 260 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
@@ -180,10 +180,10 @@
 
                // Zero
 
-            IF( ITYPE.EQ.1 ) THEN
+            if ( ITYPE.EQ.1 ) {
                IINFO = 0
 
-            ELSE IF( ITYPE.EQ.2 ) THEN
+            } else if ( ITYPE.EQ.2 ) {
 
                // Identity
 
@@ -191,7 +191,7 @@
                   A( JCOL, JCOL ) = ANORM
    70          CONTINUE
 
-            ELSE IF( ITYPE.EQ.3 ) THEN
+            } else if ( ITYPE.EQ.3 ) {
 
                // Jordan Block
 
@@ -200,56 +200,56 @@
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
    80          CONTINUE
 
-            ELSE IF( ITYPE.EQ.4 ) THEN
+            } else if ( ITYPE.EQ.4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.5 ) THEN
+            } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
                CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.6 ) THEN
+            } else if ( ITYPE.EQ.6 ) {
 
                // General, eigenvalues specified
 
-               IF( KCONDS( JTYPE ).EQ.1 ) THEN
+               if ( KCONDS( JTYPE ).EQ.1 ) {
                   CONDS = ONE
-               ELSE IF( KCONDS( JTYPE ).EQ.2 ) THEN
+               } else if ( KCONDS( JTYPE ).EQ.2 ) {
                   CONDS = RTULPI
                } else {
                   CONDS = ZERO
-               END IF
+               }
 
                ADUMMA( 1 ) = ' '
                CALL SLATME( N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
 
-            ELSE IF( ITYPE.EQ.7 ) THEN
+            } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
                CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.8 ) THEN
+            } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
                CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE IF( ITYPE.EQ.9 ) THEN
+            } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
                CALL SLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-               IF( N.GE.4 ) THEN
+               if ( N.GE.4 ) {
                   CALL SLASET( 'Full', 2, N, ZERO, ZERO, A, LDA )
                   CALL SLASET( 'Full', N-3, 1, ZERO, ZERO, A( 3, 1 ), LDA )                   CALL SLASET( 'Full', N-3, 2, ZERO, ZERO, A( 3, N-1 ), LDA )                   CALL SLASET( 'Full', 1, N, ZERO, ZERO, A( N, 1 ), LDA )
-               END IF
+               }
 
-            ELSE IF( ITYPE.EQ.10 ) THEN
+            } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
@@ -258,24 +258,24 @@
             } else {
 
                IINFO = 1
-            END IF
+            }
 
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9993 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
-            END IF
+            }
 
    90       CONTINUE
 
             // Test for minimal and generous workspace
 
             DO 250 IWK = 1, 2
-               IF( IWK.EQ.1 ) THEN
+               if ( IWK.EQ.1 ) {
                   NNWORK = 4*N
                } else {
                   NNWORK = 5*N + 2*N**2
-               END IF
+               }
                NNWORK = MAX( NNWORK, 1 )
 
                // Initialize RESULT
@@ -288,12 +288,12 @@
 
                CALL SLACPY( 'F', N, N, A, LDA, H, LDA )
                CALL SGEEV( 'V', 'V', N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, WORK, NNWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'SGEEV1', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   GO TO 220
-               END IF
+               }
 
                // Do Test (1)
 
@@ -309,13 +309,13 @@
 
                DO 120 J = 1, N
                   TNRM = ONE
-                  IF( WI( J ).EQ.ZERO ) THEN
+                  if ( WI( J ).EQ.ZERO ) {
                      TNRM = SNRM2( N, VR( 1, J ), 1 )
-                  ELSE IF( WI( J ).GT.ZERO ) THEN
+                  } else if ( WI( J ).GT.ZERO ) {
                      TNRM = SLAPY2( SNRM2( N, VR( 1, J ), 1 ), SNRM2( N, VR( 1, J+1 ), 1 ) )
-                  END IF
+                  }
                   RESULT( 3 ) = MAX( RESULT( 3 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
-                  IF( WI( J ).GT.ZERO ) THEN
+                  if ( WI( J ).GT.ZERO ) {
                      VMX = ZERO
                      VRMX = ZERO
                      DO 110 JJ = 1, N
@@ -323,20 +323,20 @@
                         IF( VTST.GT.VMX ) VMX = VTST                         IF( VR( JJ, J+1 ).EQ.ZERO .AND. ABS( VR( JJ, J ) ).GT.VRMX ) VRMX = ABS( VR( JJ, J ) )
   110                CONTINUE
                      IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 3 ) = ULPINV
-                  END IF
+                  }
   120          CONTINUE
 
                // Do Test (4)
 
                DO 140 J = 1, N
                   TNRM = ONE
-                  IF( WI( J ).EQ.ZERO ) THEN
+                  if ( WI( J ).EQ.ZERO ) {
                      TNRM = SNRM2( N, VL( 1, J ), 1 )
-                  ELSE IF( WI( J ).GT.ZERO ) THEN
+                  } else if ( WI( J ).GT.ZERO ) {
                      TNRM = SLAPY2( SNRM2( N, VL( 1, J ), 1 ), SNRM2( N, VL( 1, J+1 ), 1 ) )
-                  END IF
+                  }
                   RESULT( 4 ) = MAX( RESULT( 4 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
-                  IF( WI( J ).GT.ZERO ) THEN
+                  if ( WI( J ).GT.ZERO ) {
                      VMX = ZERO
                      VRMX = ZERO
                      DO 130 JJ = 1, N
@@ -344,19 +344,19 @@
                         IF( VTST.GT.VMX ) VMX = VTST                         IF( VL( JJ, J+1 ).EQ.ZERO .AND. ABS( VL( JJ, J ) ).GT.VRMX ) VRMX = ABS( VL( JJ, J ) )
   130                CONTINUE
                      IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 4 ) = ULPINV
-                  END IF
+                  }
   140          CONTINUE
 
                // Compute eigenvalues only, and test them
 
                CALL SLACPY( 'F', N, N, A, LDA, H, LDA )
                CALL SGEEV( 'N', 'N', N, H, LDA, WR1, WI1, DUM, 1, DUM, 1, WORK, NNWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'SGEEV2', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   GO TO 220
-               END IF
+               }
 
                // Do Test (5)
 
@@ -368,12 +368,12 @@
 
                CALL SLACPY( 'F', N, N, A, LDA, H, LDA )
                CALL SGEEV( 'N', 'V', N, H, LDA, WR1, WI1, DUM, 1, LRE, LDLRE, WORK, NNWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'SGEEV3', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   GO TO 220
-               END IF
+               }
 
                // Do Test (5) again
 
@@ -393,12 +393,12 @@
 
                CALL SLACPY( 'F', N, N, A, LDA, H, LDA )
                CALL SGEEV( 'V', 'N', N, H, LDA, WR1, WI1, LRE, LDLRE, DUM, 1, WORK, NNWORK, IINFO )
-               IF( IINFO.NE.0 ) THEN
+               if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'SGEEV4', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   GO TO 220
-               END IF
+               }
 
                // Do Test (5) again
 
@@ -425,19 +425,19 @@
   230          CONTINUE
 
                IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
-               IF( NTESTF.EQ.1 ) THEN
+               if ( NTESTF.EQ.1 ) {
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )
                   WRITE( NOUNIT, FMT = 9997 )
                   WRITE( NOUNIT, FMT = 9996 )
                   WRITE( NOUNIT, FMT = 9995 )THRESH
                   NTESTF = 2
-               END IF
+               }
 
                DO 240 J = 1, 7
-                  IF( RESULT( J ).GE.THRESH ) THEN
+                  if ( RESULT( J ).GE.THRESH ) {
                      WRITE( NOUNIT, FMT = 9994 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
-                  END IF
+                  }
   240          CONTINUE
 
                NERRS = NERRS + NFAIL

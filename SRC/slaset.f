@@ -27,7 +27,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
          // Set the strictly upper triangular or trapezoidal part of the
          // array to ALPHA.
@@ -38,7 +38,7 @@
    10       CONTINUE
    20    CONTINUE
 
-      ELSE IF( LSAME( UPLO, 'L' ) ) THEN
+      } else if ( LSAME( UPLO, 'L' ) ) {
 
          // Set the strictly lower triangular or trapezoidal part of the
          // array to ALPHA.
@@ -58,7 +58,7 @@
                A( I, J ) = ALPHA
    50       CONTINUE
    60    CONTINUE
-      END IF
+      }
 
       // Set the first min(M,N) diagonal elements to BETA.
 

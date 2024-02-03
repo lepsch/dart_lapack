@@ -47,38 +47,38 @@
       INFO = 0
       IERR = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) THEN
+      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -1
-      ELSE IF( NOTRAN ) THEN
-         IF( ( IJOB.LT.0 ) .OR. ( IJOB.GT.2 ) ) THEN
+      } else if ( NOTRAN ) {
+         if ( ( IJOB.LT.0 ) .OR. ( IJOB.GT.2 ) ) {
             INFO = -2
-         END IF
-      END IF
-      IF( INFO.EQ.0 ) THEN
-         IF( M.LE.0 ) THEN
+         }
+      }
+      if ( INFO.EQ.0 ) {
+         if ( M.LE.0 ) {
             INFO = -3
-         ELSE IF( N.LE.0 ) THEN
+         } else if ( N.LE.0 ) {
             INFO = -4
-         ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+         } else if ( LDA.LT.MAX( 1, M ) ) {
             INFO = -6
-         ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+         } else if ( LDB.LT.MAX( 1, N ) ) {
             INFO = -8
-         ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+         } else if ( LDC.LT.MAX( 1, M ) ) {
             INFO = -10
-         ELSE IF( LDD.LT.MAX( 1, M ) ) THEN
+         } else if ( LDD.LT.MAX( 1, M ) ) {
             INFO = -12
-         ELSE IF( LDE.LT.MAX( 1, N ) ) THEN
+         } else if ( LDE.LT.MAX( 1, N ) ) {
             INFO = -14
-         ELSE IF( LDF.LT.MAX( 1, M ) ) THEN
+         } else if ( LDF.LT.MAX( 1, M ) ) {
             INFO = -16
-         END IF
-      END IF
-      IF( INFO.NE.0 ) THEN
+         }
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTGSY2', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
 
          // Solve (I, J) - system
             // A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
@@ -106,17 +106,17 @@
 
                CALL ZGETC2( LDZ, Z, LDZ, IPIV, JPIV, IERR )
                IF( IERR.GT.0 ) INFO = IERR
-               IF( IJOB.EQ.0 ) THEN
+               if ( IJOB.EQ.0 ) {
                   CALL ZGESC2( LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
-                  IF( SCALOC.NE.ONE ) THEN
+                  if ( SCALOC.NE.ONE ) {
                      DO 10 K = 1, N
                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
    10                CONTINUE
                      SCALE = SCALE*SCALOC
-                  END IF
+                  }
                } else {
                   CALL ZLATDF( IJOB, LDZ, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
-               END IF
+               }
 
                // Unpack solution vector(s)
 
@@ -125,14 +125,14 @@
 
                // Substitute R(I, J) and L(I, J) into remaining equation.
 
-               IF( I.GT.1 ) THEN
+               if ( I.GT.1 ) {
                   ALPHA = -RHS( 1 )
                   CALL ZAXPY( I-1, ALPHA, A( 1, I ), 1, C( 1, J ), 1 )
                   CALL ZAXPY( I-1, ALPHA, D( 1, I ), 1, F( 1, J ), 1 )
-               END IF
-               IF( J.LT.N ) THEN
+               }
+               if ( J.LT.N ) {
                   CALL ZAXPY( N-J, RHS( 2 ), B( J, J+1 ), LDB, C( I, J+1 ), LDC )                   CALL ZAXPY( N-J, RHS( 2 ), E( J, J+1 ), LDE, F( I, J+1 ), LDF )
-               END IF
+               }
 
    20       CONTINUE
    30    CONTINUE
@@ -166,12 +166,12 @@
                CALL ZGETC2( LDZ, Z, LDZ, IPIV, JPIV, IERR )
                IF( IERR.GT.0 ) INFO = IERR
                CALL ZGESC2( LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
-               IF( SCALOC.NE.ONE ) THEN
+               if ( SCALOC.NE.ONE ) {
                   DO 40 K = 1, N
                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
    40             CONTINUE
                   SCALE = SCALE*SCALOC
-               END IF
+               }
 
                // Unpack solution vector(s)
 
@@ -189,7 +189,7 @@
 
    70       CONTINUE
    80    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of ZTGSY2

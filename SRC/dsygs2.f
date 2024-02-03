@@ -39,24 +39,24 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
+      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
          INFO = -1
-      ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSYGS2', -INFO )
          RETURN
-      END IF
+      }
 
-      IF( ITYPE.EQ.1 ) THEN
-         IF( UPPER ) THEN
+      if ( ITYPE.EQ.1 ) {
+         if ( UPPER ) {
 
             // Compute inv(U**T)*A*inv(U)
 
@@ -68,11 +68,11 @@
                BKK = B( K, K )
                AKK = AKK / BKK**2
                A( K, K ) = AKK
-               IF( K.LT.N ) THEN
+               if ( K.LT.N ) {
                   CALL DSCAL( N-K, ONE / BKK, A( K, K+1 ), LDA )
                   CT = -HALF*AKK
                   CALL DAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL DSYR2( UPLO, N-K, -ONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA )                   CALL DAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL DTRSV( UPLO, 'Transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA )
-               END IF
+               }
    10       CONTINUE
          } else {
 
@@ -86,18 +86,18 @@
                BKK = B( K, K )
                AKK = AKK / BKK**2
                A( K, K ) = AKK
-               IF( K.LT.N ) THEN
+               if ( K.LT.N ) {
                   CALL DSCAL( N-K, ONE / BKK, A( K+1, K ), 1 )
                   CT = -HALF*AKK
                   CALL DAXPY( N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 )
                   CALL DSYR2( UPLO, N-K, -ONE, A( K+1, K ), 1, B( K+1, K ), 1, A( K+1, K+1 ), LDA )
                   CALL DAXPY( N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 )
                   CALL DTRSV( UPLO, 'No transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K+1, K ), 1 )
-               END IF
+               }
    20       CONTINUE
-         END IF
+         }
       } else {
-         IF( UPPER ) THEN
+         if ( UPPER ) {
 
             // Compute U*A*U**T
 
@@ -133,8 +133,8 @@
                CALL DSCAL( K-1, BKK, A( K, 1 ), LDA )
                A( K, K ) = AKK*BKK**2
    40       CONTINUE
-         END IF
-      END IF
+         }
+      }
       RETURN
 
       // End of DSYGS2

@@ -27,31 +27,31 @@
 
       // Decode and test input arguments.
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDQ.LT.1 .OR. WANTQ .AND. ( LDQ.LT.MAX( 1, N ) ) ) THEN
+      } else if ( LDQ.LT.1 .OR. WANTQ .AND. ( LDQ.LT.MAX( 1, N ) ) ) {
          INFO = -9
-      ELSE IF( LDZ.LT.1 .OR. WANTZ .AND. ( LDZ.LT.MAX( 1, N ) ) ) THEN
+      } else if ( LDZ.LT.1 .OR. WANTZ .AND. ( LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -11
-      ELSE IF( IFST.LT.1 .OR. IFST.GT.N ) THEN
+      } else if ( IFST.LT.1 .OR. IFST.GT.N ) {
          INFO = -12
-      ELSE IF( ILST.LT.1 .OR. ILST.GT.N ) THEN
+      } else if ( ILST.LT.1 .OR. ILST.GT.N ) {
          INFO = -13
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CTGEXC', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.LE.1 ) RETURN       IF( IFST.EQ.ILST ) RETURN
 
-      IF( IFST.LT.ILST ) THEN
+      if ( IFST.LT.ILST ) {
 
          HERE = IFST
 
@@ -60,10 +60,10 @@
          // Swap with next one below
 
          CALL CTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             ILST = HERE
             RETURN
-         END IF
+         }
          HERE = HERE + 1
          IF( HERE.LT.ILST ) GO TO 10
          HERE = HERE - 1
@@ -75,14 +75,14 @@
          // Swap with next one above
 
          CALL CTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             ILST = HERE
             RETURN
-         END IF
+         }
          HERE = HERE - 1
          IF( HERE.GE.ILST ) GO TO 20
          HERE = HERE + 1
-      END IF
+      }
       ILST = HERE
       RETURN
 

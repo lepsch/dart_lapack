@@ -47,18 +47,18 @@
 
       // Some Error Checks
 
-      IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
+      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
          RESULT = TEN / ULP
          RETURN
-      END IF
+      }
 
-      IF( ITYPE.LE.2 ) THEN
+      if ( ITYPE.LE.2 ) {
 
          // Tests scaled by the norm(A)
 
          ANORM = MAX( ZLANGE( '1', N, N, A, LDA, RWORK ), UNFL )
 
-         IF( ITYPE.EQ.1 ) THEN
+         if ( ITYPE.EQ.1 ) {
 
             // ITYPE=1: Compute W = A - U B V**H
 
@@ -78,21 +78,21 @@
                   WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
    10          CONTINUE
    20       CONTINUE
-         END IF
+         }
 
          // Compute norm(W)/ ( ulp*norm(A) )
 
          WNORM = ZLANGE( '1', N, N, WORK, N, RWORK )
 
-         IF( ANORM.GT.WNORM ) THEN
+         if ( ANORM.GT.WNORM ) {
             RESULT = ( WNORM / ANORM ) / ( N*ULP )
          } else {
-            IF( ANORM.LT.ONE ) THEN
+            if ( ANORM.LT.ONE ) {
                RESULT = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
             } else {
                RESULT = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP )
-            END IF
-         END IF
+            }
+         }
 
       } else {
 
@@ -107,7 +107,7 @@
    30    CONTINUE
 
          RESULT = MIN( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP )
-      END IF
+      }
 
       RETURN
 

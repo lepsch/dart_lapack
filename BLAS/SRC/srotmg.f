@@ -25,7 +25,7 @@
       DATA GAM,GAMSQ,RGAMSQ/4096.E0,1.67772E7,5.96046E-8/
       // ..
 
-      IF (SD1.LT.ZERO) THEN
+      if (SD1.LT.ZERO) {
          // GO ZERO-H-D-AND-SX1..
          SFLAG = -ONE
          SH11 = ZERO
@@ -39,23 +39,23 @@
       } else {
          // CASE-SD1-NONNEGATIVE
          SP2 = SD2*SY1
-         IF (SP2.EQ.ZERO) THEN
+         if (SP2.EQ.ZERO) {
             SFLAG = -TWO
             SPARAM(1) = SFLAG
             RETURN
-         END IF
+         }
          // REGULAR-CASE..
          SP1 = SD1*SX1
          SQ2 = SP2*SY1
          SQ1 = SP1*SX1
 
-         IF (ABS(SQ1).GT.ABS(SQ2)) THEN
+         if (ABS(SQ1).GT.ABS(SQ2)) {
             SH21 = -SY1/SX1
             SH12 = SP2/SP1
 
             SU = ONE - SH12*SH21
 
-           IF (SU.GT.ZERO) THEN
+           if (SU.GT.ZERO) {
              SFLAG = ZERO
              SD1 = SD1/SU
              SD2 = SD2/SU
@@ -73,10 +73,10 @@
              SD1 = ZERO
              SD2 = ZERO
              SX1 = ZERO
-           END IF
+           }
          } else {
 
-            IF (SQ2.LT.ZERO) THEN
+            if (SQ2.LT.ZERO) {
                // GO ZERO-H-D-AND-SX1..
                SFLAG = -ONE
                SH11 = ZERO
@@ -96,13 +96,13 @@
                SD2 = SD1/SU
                SD1 = STEMP
                SX1 = SY1*SU
-            END IF
-         END IF
+            }
+         }
 
       // PROCEDURE..SCALE-CHECK
-         IF (SD1.NE.ZERO) THEN
+         if (SD1.NE.ZERO) {
             DO WHILE ((SD1.LE.RGAMSQ) .OR. (SD1.GE.GAMSQ))
-               IF (SFLAG.EQ.ZERO) THEN
+               if (SFLAG.EQ.ZERO) {
                   SH11 = ONE
                   SH22 = ONE
                   SFLAG = -ONE
@@ -110,8 +110,8 @@
                   SH21 = -ONE
                   SH12 = ONE
                   SFLAG = -ONE
-               END IF
-               IF (SD1.LE.RGAMSQ) THEN
+               }
+               if (SD1.LE.RGAMSQ) {
                   SD1 = SD1*GAM**2
                   SX1 = SX1/GAM
                   SH11 = SH11/GAM
@@ -121,13 +121,13 @@
                   SX1 = SX1*GAM
                   SH11 = SH11*GAM
                   SH12 = SH12*GAM
-               END IF
+               }
             ENDDO
-         END IF
+         }
 
-         IF (SD2.NE.ZERO) THEN
+         if (SD2.NE.ZERO) {
             DO WHILE ( (ABS(SD2).LE.RGAMSQ) .OR. (ABS(SD2).GE.GAMSQ) )
-               IF (SFLAG.EQ.ZERO) THEN
+               if (SFLAG.EQ.ZERO) {
                   SH11 = ONE
                   SH22 = ONE
                   SFLAG = -ONE
@@ -135,8 +135,8 @@
                   SH21 = -ONE
                   SH12 = ONE
                   SFLAG = -ONE
-               END IF
-               IF (ABS(SD2).LE.RGAMSQ) THEN
+               }
+               if (ABS(SD2).LE.RGAMSQ) {
                   SD2 = SD2*GAM**2
                   SH21 = SH21/GAM
                   SH22 = SH22/GAM
@@ -144,24 +144,24 @@
                   SD2 = SD2/GAM**2
                   SH21 = SH21*GAM
                   SH22 = SH22*GAM
-               END IF
+               }
             END DO
-         END IF
+         }
 
-      END IF
+      }
 
-      IF (SFLAG.LT.ZERO) THEN
+      if (SFLAG.LT.ZERO) {
          SPARAM(2) = SH11
          SPARAM(3) = SH21
          SPARAM(4) = SH12
          SPARAM(5) = SH22
-      ELSE IF (SFLAG.EQ.ZERO) THEN
+      } else if (SFLAG.EQ.ZERO) {
          SPARAM(3) = SH21
          SPARAM(4) = SH12
       } else {
          SPARAM(2) = SH11
          SPARAM(5) = SH22
-      END IF
+      }
 
       SPARAM(1) = SFLAG
       RETURN

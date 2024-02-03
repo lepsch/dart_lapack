@@ -41,27 +41,27 @@
       WANTZ = LSAME( JOBZ, 'V' )
 
       INFO = 0
-      IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
+      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) THEN
+      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
          INFO = -6
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSTEV ', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
+      if ( N.EQ.1 ) {
          IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -76,37 +76,37 @@
 
       ISCALE = 0
       TNRM = DLANST( 'M', N, D, E )
-      IF( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) THEN
+      if ( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / TNRM
-      ELSE IF( TNRM.GT.RMAX ) THEN
+      } else if ( TNRM.GT.RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / TNRM
-      END IF
-      IF( ISCALE.EQ.1 ) THEN
+      }
+      if ( ISCALE.EQ.1 ) {
          CALL DSCAL( N, SIGMA, D, 1 )
          CALL DSCAL( N-1, SIGMA, E( 1 ), 1 )
-      END IF
+      }
 
       // For eigenvalues only, call DSTERF.  For eigenvalues and
       // eigenvectors, call DSTEQR.
 
-      IF( .NOT.WANTZ ) THEN
+      if ( .NOT.WANTZ ) {
          CALL DSTERF( N, D, E, INFO )
       } else {
          CALL DSTEQR( 'I', N, D, E, Z, LDZ, WORK, INFO )
-      END IF
+      }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      IF( ISCALE.EQ.1 ) THEN
-         IF( INFO.EQ.0 ) THEN
+      if ( ISCALE.EQ.1 ) {
+         if ( INFO.EQ.0 ) {
             IMAX = N
          } else {
             IMAX = INFO - 1
-         END IF
+         }
          CALL DSCAL( IMAX, ONE / SIGMA, D, 1 )
-      END IF
+      }
 
       RETURN
 

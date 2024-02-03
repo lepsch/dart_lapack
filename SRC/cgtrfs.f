@@ -59,39 +59,39 @@
 
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -13
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -15
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CGTRFS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
+      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
          DO 10 J = 1, NRHS
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
          RETURN
-      END IF
+      }
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
          TRANSN = 'N'
          TRANST = 'C'
       } else {
          TRANSN = 'C'
          TRANST = 'N'
-      END IF
+      }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
@@ -120,8 +120,8 @@
          // Compute abs(op(A))*abs(x) + abs(b) for use in the backward
          // error bound.
 
-         IF( NOTRAN ) THEN
-            IF( N.EQ.1 ) THEN
+         if ( NOTRAN ) {
+            if ( N.EQ.1 ) {
                RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) )
             } else {
                RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DU( 1 ) )*CABS1( X( 2, J ) )
@@ -129,9 +129,9 @@
                   RWORK( I ) = CABS1( B( I, J ) ) + CABS1( DL( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DU( I ) )*CABS1( X( I+1, J ) )
    30          CONTINUE
                RWORK( N ) = CABS1( B( N, J ) ) + CABS1( DL( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) )
-            END IF
+            }
          } else {
-            IF( N.EQ.1 ) THEN
+            if ( N.EQ.1 ) {
                RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) )
             } else {
                RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DL( 1 ) )*CABS1( X( 2, J ) )
@@ -139,8 +139,8 @@
                   RWORK( I ) = CABS1( B( I, J ) ) + CABS1( DU( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DL( I ) )*CABS1( X( I+1, J ) )
    40          CONTINUE
                RWORK( N ) = CABS1( B( N, J ) ) + CABS1( DU( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) )
-            END IF
-         END IF
+            }
+         }
 
          // Compute componentwise relative backward error from formula
 
@@ -153,11 +153,11 @@
 
          S = ZERO
          DO 50 I = 1, N
-            IF( RWORK( I ).GT.SAFE2 ) THEN
+            if ( RWORK( I ).GT.SAFE2 ) {
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
-            END IF
+            }
    50    CONTINUE
          BERR( J ) = S
 
@@ -167,7 +167,7 @@
                // last iteration, and
             // 3) At most ITMAX iterations tried.
 
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
+         if ( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) {
 
             // Update solution and try again.
 
@@ -176,7 +176,7 @@
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
-         END IF
+         }
 
          // Bound error from formula
 
@@ -201,18 +201,18 @@
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
          DO 60 I = 1, N
-            IF( RWORK( I ).GT.SAFE2 ) THEN
+            if ( RWORK( I ).GT.SAFE2 ) {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
-            END IF
+            }
    60    CONTINUE
 
          KASE = 0
    70    CONTINUE
          CALL CLACN2( N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE )
-         IF( KASE.NE.0 ) THEN
-            IF( KASE.EQ.1 ) THEN
+         if ( KASE.NE.0 ) {
+            if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**H).
 
@@ -228,9 +228,9 @@
                   WORK( I ) = RWORK( I )*WORK( I )
    90          CONTINUE
                CALL CGTTRS( TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO )
-            END IF
+            }
             GO TO 70
-         END IF
+         }
 
          // Normalize error.
 

@@ -59,11 +59,11 @@
       // Generate the P-by-P matrix Z
 
       CALL SLASET( 'Full', P, P, ROGUE, ROGUE, Z, LDB )
-      IF( N.LE.P ) THEN
+      if ( N.LE.P ) {
          IF( N.GT.0 .AND. N.LT.P ) CALL SLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N.GT.1 ) CALL SLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB )
       } else {
          IF( P.GT.1) CALL SLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB )
-      END IF
+      }
       CALL SORGRQ( P, P, MIN( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO )
 
       // Copy R
@@ -74,12 +74,12 @@
       // Copy T
 
       CALL SLASET( 'Full', N, P, ZERO, ZERO, T, LDB )
-      IF( N.LE.P ) THEN
+      if ( N.LE.P ) {
          CALL SLACPY( 'Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ), LDB )
       } else {
          CALL SLACPY( 'Full', N-P, P, BF, LDB, T, LDB )
          CALL SLACPY( 'Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ), LDB )
-      END IF
+      }
 
       // Compute R - Q'*A
 
@@ -88,11 +88,11 @@
       // Compute norm( R - Q'*A ) / ( MAX(M,N)*norm(A)*ULP ) .
 
       RESID = SLANGE( '1', N, M, R, LDA, RWORK )
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
          RESULT( 1 ) = ( ( RESID / REAL( MAX(1,M,N) ) ) / ANORM ) / ULP
       } else {
          RESULT( 1 ) = ZERO
-      END IF
+      }
 
       // Compute T*Z - Q'*B
 
@@ -101,11 +101,11 @@
       // Compute norm( T*Z - Q'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 
       RESID = SLANGE( '1', N, P, BWK, LDB, RWORK )
-      IF( BNORM.GT.ZERO ) THEN
+      if ( BNORM.GT.ZERO ) {
          RESULT( 2 ) = ( ( RESID / REAL( MAX(1,P,N ) ) )/BNORM ) / ULP
       } else {
          RESULT( 2 ) = ZERO
-      END IF
+      }
 
       // Compute I - Q'*Q
 

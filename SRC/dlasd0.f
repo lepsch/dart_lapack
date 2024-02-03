@@ -27,32 +27,32 @@
 
       INFO = 0
 
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) THEN
+      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
          INFO = -2
-      END IF
+      }
 
       M = N + SQRE
 
-      IF( LDU.LT.N ) THEN
+      if ( LDU.LT.N ) {
          INFO = -6
-      ELSE IF( LDVT.LT.M ) THEN
+      } else if ( LDVT.LT.M ) {
          INFO = -8
-      ELSE IF( SMLSIZ.LT.3 ) THEN
+      } else if ( SMLSIZ.LT.3 ) {
          INFO = -9
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DLASD0', -INFO )
          RETURN
-      END IF
+      }
 
       // If the input matrix is too small, call DLASDQ to find the SVD.
 
-      IF( N.LE.SMLSIZ ) THEN
+      if ( N.LE.SMLSIZ ) {
          CALL DLASDQ( 'U', SQRE, N, M, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK, INFO )
          RETURN
-      END IF
+      }
 
       // Set up the computation tree.
 
@@ -86,23 +86,23 @@
          NRF = IC + 1
          SQREI = 1
          CALL DLASDQ( 'U', SQREI, NL, NLP1, NL, NCC, D( NLF ), E( NLF ), VT( NLF, NLF ), LDVT, U( NLF, NLF ), LDU, U( NLF, NLF ), LDU, WORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             RETURN
-         END IF
+         }
          ITEMP = IDXQ + NLF - 2
          DO 10 J = 1, NL
             IWORK( ITEMP+J ) = J
    10    CONTINUE
-         IF( I.EQ.ND ) THEN
+         if ( I.EQ.ND ) {
             SQREI = SQRE
          } else {
             SQREI = 1
-         END IF
+         }
          NRP1 = NR + SQREI
          CALL DLASDQ( 'U', SQREI, NR, NRP1, NR, NCC, D( NRF ), E( NRF ), VT( NRF, NRF ), LDVT, U( NRF, NRF ), LDU, U( NRF, NRF ), LDU, WORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             RETURN
-         END IF
+         }
          ITEMP = IDXQ + IC
          DO 20 J = 1, NR
             IWORK( ITEMP+J-1 ) = J
@@ -116,24 +116,24 @@
          // Find the first node LF and last node LL on the
          // current level LVL.
 
-         IF( LVL.EQ.1 ) THEN
+         if ( LVL.EQ.1 ) {
             LF = 1
             LL = 1
          } else {
             LF = 2**( LVL-1 )
             LL = 2*LF - 1
-         END IF
+         }
          DO 40 I = LF, LL
             IM1 = I - 1
             IC = IWORK( INODE+IM1 )
             NL = IWORK( NDIML+IM1 )
             NR = IWORK( NDIMR+IM1 )
             NLF = IC - NL
-            IF( ( SQRE.EQ.0 ) .AND. ( I.EQ.LL ) ) THEN
+            if ( ( SQRE.EQ.0 ) .AND. ( I.EQ.LL ) ) {
                SQREI = SQRE
             } else {
                SQREI = 1
-            END IF
+            }
             IDXQC = IDXQ + NLF - 1
             ALPHA = D( IC )
             BETA = E( IC )
@@ -141,9 +141,9 @@
 
          // Report the possible convergence failure.
 
-            IF( INFO.NE.0 ) THEN
+            if ( INFO.NE.0 ) {
                RETURN
-            END IF
+            }
    40    CONTINUE
    50 CONTINUE
 

@@ -50,39 +50,39 @@
          IFAIL( I ) = 0
    10 CONTINUE
 
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( M.LT.0 .OR. M.GT.N ) THEN
+      } else if ( M.LT.0 .OR. M.GT.N ) {
          INFO = -4
-      ELSE IF( LDZ.LT.MAX( 1, N ) ) THEN
+      } else if ( LDZ.LT.MAX( 1, N ) ) {
          INFO = -9
       } else {
          DO 20 J = 2, M
-            IF( IBLOCK( J ).LT.IBLOCK( J-1 ) ) THEN
+            if ( IBLOCK( J ).LT.IBLOCK( J-1 ) ) {
                INFO = -6
                GO TO 30
-            END IF
-            IF( IBLOCK( J ).EQ.IBLOCK( J-1 ) .AND. W( J ).LT.W( J-1 ) ) THEN
+            }
+            if ( IBLOCK( J ).EQ.IBLOCK( J-1 ) .AND. W( J ).LT.W( J-1 ) ) {
                INFO = -5
                GO TO 30
-            END IF
+            }
    20    CONTINUE
    30    CONTINUE
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZSTEIN', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. M.EQ.0 ) THEN
+      if ( N.EQ.0 .OR. M.EQ.0 ) {
          RETURN
-      ELSE IF( N.EQ.1 ) THEN
+      } else if ( N.EQ.1 ) {
          Z( 1, 1 ) = CONE
          RETURN
-      END IF
+      }
 
       // Get machine constants.
 
@@ -109,11 +109,11 @@
 
          // Find starting and ending indices of block nblk.
 
-         IF( NBLK.EQ.1 ) THEN
+         if ( NBLK.EQ.1 ) {
             B1 = 1
          } else {
             B1 = ISPLIT( NBLK-1 ) + 1
-         END IF
+         }
          BN = ISPLIT( NBLK )
          BLKSIZ = BN - B1 + 1
          IF( BLKSIZ.EQ.1 ) GO TO 60
@@ -135,29 +135,29 @@
    60    CONTINUE
          JBLK = 0
          DO 170 J = J1, M
-            IF( IBLOCK( J ).NE.NBLK ) THEN
+            if ( IBLOCK( J ).NE.NBLK ) {
                J1 = J
                GO TO 180
-            END IF
+            }
             JBLK = JBLK + 1
             XJ = W( J )
 
             // Skip all the work if the block size is one.
 
-            IF( BLKSIZ.EQ.1 ) THEN
+            if ( BLKSIZ.EQ.1 ) {
                WORK( INDRV1+1 ) = ONE
                GO TO 140
-            END IF
+            }
 
             // If eigenvalues j and j-1 are too close, add a relatively
             // small perturbation.
 
-            IF( JBLK.GT.1 ) THEN
+            if ( JBLK.GT.1 ) {
                EPS1 = ABS( EPS*XJ )
                PERTOL = TEN*EPS1
                SEP = XJ - XJM
                IF( SEP.LT.PERTOL ) XJ = XJM + PERTOL
-            END IF
+            }
 
             ITS = 0
             NRMCHK = 0
@@ -197,7 +197,7 @@
             // close enough.
 
             IF( JBLK.EQ.1 ) GO TO 110             IF( ABS( XJ-XJM ).GT.ORTOL ) GPIND = J
-            IF( GPIND.NE.J ) THEN
+            if ( GPIND.NE.J ) {
                DO 100 I = GPIND, J - 1
                   ZTR = ZERO
                   DO 80 JR = 1, BLKSIZ
@@ -207,7 +207,7 @@
                      WORK( INDRV1+JR ) = WORK( INDRV1+JR ) - ZTR*DBLE( Z( B1-1+JR, I ) )
    90             CONTINUE
   100          CONTINUE
-            END IF
+            }
 
             // Check the infinity norm of the iterate.
 

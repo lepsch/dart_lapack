@@ -57,7 +57,7 @@
 
       // Test error exits for QR factorization with pivoting
 
-      IF( LSAMEN( 2, C2, 'QP' ) ) THEN
+      if ( LSAMEN( 2, C2, 'QP' ) ) {
 
          // CGEQP3
 
@@ -74,7 +74,7 @@
          INFOT = 8
          CALL CGEQP3( 2, 2, A, 2, IP, TAU, W, LW-10, RW, INFO )
          CALL CHKXER( 'CGEQP3', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

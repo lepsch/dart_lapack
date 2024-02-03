@@ -71,7 +71,7 @@
       RCOND = 1.0D0
       OK = .TRUE.
 
-      IF( LSAMEN( 2, C2, 'SY' ) ) THEN
+      if ( LSAMEN( 2, C2, 'SY' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with partial
@@ -239,7 +239,7 @@
          CALL DSYCON( 'U', 1, A, 1, IP, -1.0D0, RCOND, W, IW, INFO )
          CALL CHKXER( 'DSYCON', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with rook
@@ -325,7 +325,7 @@
          CALL DSYCON_ROOK( 'U', 1, A, 1, IP, -1.0D0, RCOND, W, IW, INFO)
          CALL CHKXER( 'DSYCON_ROOK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with rook
@@ -434,7 +434,7 @@
          CALL DSYCON_3( 'U', 1, A, 1, E, IP, -1.0D0, RCOND, W, IW, INFO)
          CALL CHKXER( 'DSYCON_3', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite packed matrix with partial
@@ -507,7 +507,7 @@
          INFOT = 5
          CALL DSPCON( 'U', 1, A, IP, -1.0D0, RCOND, W, IW, INFO )
          CALL CHKXER( 'DSPCON', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

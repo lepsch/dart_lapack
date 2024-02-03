@@ -77,11 +77,11 @@
 
       ANORM = ZLANGE( '1', M, N, A, LDA, RWORK )
       RESID = ZLANGE( '1', M, N, R, LDA, RWORK )
-      IF( ANORM.GT.ZERO ) THEN
+      if ( ANORM.GT.ZERO ) {
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M ) ) ) / ANORM ) / EPS
       } else {
          RESULT( 1 ) = ZERO
-      END IF
+      }
 
       // Compute I - Q'*Q
 

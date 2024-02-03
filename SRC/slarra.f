@@ -34,33 +34,33 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RETURN
-      END IF
+      }
 
       // Compute splitting points
-      IF(SPLTOL.LT.ZERO) THEN
+      if (SPLTOL.LT.ZERO) {
          // Criterion based on absolute off-diagonal value
          TMP1 = ABS(SPLTOL)* TNRM
          DO 9 I = 1, N-1
             EABS = ABS( E(I) )
-            IF( EABS .LE. TMP1) THEN
+            if ( EABS .LE. TMP1) {
                E(I) = ZERO
                E2(I) = ZERO
                ISPLIT( NSPLIT ) = I
                NSPLIT = NSPLIT + 1
-            END IF
+            }
  9       CONTINUE
       } else {
          // Criterion that guarantees relative accuracy
          DO 10 I = 1, N-1
             EABS = ABS( E(I) )
-            IF( EABS .LE. SPLTOL * SQRT(ABS(D(I)))*SQRT(ABS(D(I+1))) ) THEN
+            if ( EABS .LE. SPLTOL * SQRT(ABS(D(I)))*SQRT(ABS(D(I+1))) ) {
                E(I) = ZERO
                E2(I) = ZERO
                ISPLIT( NSPLIT ) = I
                NSPLIT = NSPLIT + 1
-            END IF
+            }
  10      CONTINUE
       ENDIF
       ISPLIT( NSPLIT ) = N

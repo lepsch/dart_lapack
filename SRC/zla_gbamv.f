@@ -47,27 +47,27 @@
       // Test the input parameters.
 
       INFO = 0
-      IF     ( .NOT.( ( TRANS.EQ.ILATRANS( 'N' ) ) .OR. ( TRANS.EQ.ILATRANS( 'T' ) ) .OR. ( TRANS.EQ.ILATRANS( 'C' ) ) ) ) THEN
+      if ( .NOT.( ( TRANS.EQ.ILATRANS( 'N' ) ) .OR. ( TRANS.EQ.ILATRANS( 'T' ) ) .OR. ( TRANS.EQ.ILATRANS( 'C' ) ) ) ) {
          INFO = 1
-      ELSE IF( M.LT.0 )THEN
+      } else if ( M.LT.0 ) {
          INFO = 2
-      ELSE IF( N.LT.0 )THEN
+      } else if ( N.LT.0 ) {
          INFO = 3
-      ELSE IF( KL.LT.0 .OR. KL.GT.M-1 ) THEN
+      } else if ( KL.LT.0 .OR. KL.GT.M-1 ) {
          INFO = 4
-      ELSE IF( KU.LT.0 .OR. KU.GT.N-1 ) THEN
+      } else if ( KU.LT.0 .OR. KU.GT.N-1 ) {
          INFO = 5
-      ELSE IF( LDAB.LT.KL+KU+1 )THEN
+      } else if ( LDAB.LT.KL+KU+1 ) {
          INFO = 6
-      ELSE IF( INCX.EQ.0 )THEN
+      } else if ( INCX.EQ.0 ) {
          INFO = 8
-      ELSE IF( INCY.EQ.0 )THEN
+      } else if ( INCY.EQ.0 ) {
          INFO = 11
-      END IF
-      IF( INFO.NE.0 )THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZLA_GBAMV ', INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -76,23 +76,23 @@
       // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
       // up the start points in  X  and  Y.
 
-      IF( TRANS.EQ.ILATRANS( 'N' ) )THEN
+      if ( TRANS.EQ.ILATRANS( 'N' ) ) {
          LENX = N
          LENY = M
       } else {
          LENX = M
          LENY = N
-      END IF
-      IF( INCX.GT.0 )THEN
+      }
+      if ( INCX.GT.0 ) {
          KX = 1
       } else {
          KX = 1 - ( LENX - 1 )*INCX
-      END IF
-      IF( INCY.GT.0 )THEN
+      }
+      if ( INCY.GT.0 ) {
          KY = 1
       } else {
          KY = 1 - ( LENY - 1 )*INCY
-      END IF
+      }
 
       // Set SAFE1 essentially to be the underflow threshold times the
       // number of additions in each row.
@@ -109,67 +109,67 @@
       KD = KU + 1
       KE = KL + 1
       IY = KY
-      IF ( INCX.EQ.1 ) THEN
-         IF( TRANS.EQ.ILATRANS( 'N' ) )THEN
+      if ( INCX.EQ.1 ) {
+         if ( TRANS.EQ.ILATRANS( 'N' ) ) {
             DO I = 1, LENY
-               IF ( BETA .EQ. 0.0D+0 ) THEN
+               if ( BETA .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
-               ELSE IF ( Y( IY ) .EQ. 0.0D+0 ) THEN
+               } else if ( Y( IY ) .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
-               END IF
-               IF ( ALPHA .NE. 0.0D+0 ) THEN
+               }
+               if ( ALPHA .NE. 0.0D+0 ) {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = CABS1( AB( KD+I-J, J ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   END DO
-               END IF
+               }
                 IF ( .NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
          } else {
             DO I = 1, LENY
-               IF ( BETA .EQ. 0.0D+0 ) THEN
+               if ( BETA .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
-               ELSE IF ( Y( IY ) .EQ. 0.0D+0 ) THEN
+               } else if ( Y( IY ) .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
-               END IF
-               IF ( ALPHA .NE. 0.0D+0 ) THEN
+               }
+               if ( ALPHA .NE. 0.0D+0 ) {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = CABS1( AB( KE-I+J, I ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   END DO
-               END IF
+               }
                 IF ( .NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
-         END IF
+         }
       } else {
-         IF( TRANS.EQ.ILATRANS( 'N' ) )THEN
+         if ( TRANS.EQ.ILATRANS( 'N' ) ) {
             DO I = 1, LENY
-               IF ( BETA .EQ. 0.0D+0 ) THEN
+               if ( BETA .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
-               ELSE IF ( Y( IY ) .EQ. 0.0D+0 ) THEN
+               } else if ( Y( IY ) .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
-               END IF
-               IF ( ALPHA .NE. 0.0D+0 ) THEN
+               }
+               if ( ALPHA .NE. 0.0D+0 ) {
                   JX = KX
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = CABS1( AB( KD+I-J, J ) )
@@ -178,23 +178,23 @@
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
                   END DO
-               END IF
+               }
                 IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
          } else {
             DO I = 1, LENY
-               IF ( BETA .EQ. 0.0D+0 ) THEN
+               if ( BETA .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
-               ELSE IF ( Y( IY ) .EQ. 0.0D+0 ) THEN
+               } else if ( Y( IY ) .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
-               END IF
-               IF ( ALPHA .NE. 0.0D+0 ) THEN
+               }
+               if ( ALPHA .NE. 0.0D+0 ) {
                   JX = KX
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = CABS1( AB( KE-I+J, I ) )
@@ -203,14 +203,14 @@
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
                   END DO
-               END IF
+               }
                 IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
-         END IF
+         }
 
-      END IF
+      }
 
       RETURN
 

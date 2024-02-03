@@ -41,11 +41,11 @@
 
       // Quick return if possible
 
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
          CALL XERBLA( 'DSTERF', -INFO )
          RETURN
-      END IF
+      }
       IF( N.LE.1 ) RETURN
 
       // Determine the unit roundoff for this environment.
@@ -73,10 +73,10 @@
    10 CONTINUE
       IF( L1.GT.N ) GO TO 170       IF( L1.GT.1 ) E( L1-1 ) = ZERO
       DO 20 M = L1, N - 1
-         IF( ABS( E( M ) ).LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) THEN
+         if ( ABS( E( M ) ).LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
             E( M ) = ZERO
             GO TO 30
-         END IF
+         }
    20 CONTINUE
       M = N
 
@@ -93,13 +93,13 @@
       ANORM = DLANST( 'M', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
       IF( ANORM.EQ.ZERO ) GO TO 10
-      IF( (ANORM.GT.SSFMAX) ) THEN
+      if ( (ANORM.GT.SSFMAX) ) {
          ISCALE = 1
          CALL DLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO )          CALL DLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO )
-      ELSE IF( ANORM.LT.SSFMIN ) THEN
+      } else if ( ANORM.LT.SSFMIN ) {
          ISCALE = 2
          CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO )          CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO )
-      END IF
+      }
 
       DO 40 I = L, LEND - 1
          E( I ) = E( I )**2
@@ -107,23 +107,23 @@
 
       // Choose between QL and QR iteration
 
-      IF( ABS( D( LEND ) ).LT.ABS( D( L ) ) ) THEN
+      if ( ABS( D( LEND ) ).LT.ABS( D( L ) ) ) {
          LEND = LSV
          L = LENDSV
-      END IF
+      }
 
-      IF( LEND.GE.L ) THEN
+      if ( LEND.GE.L ) {
 
          // QL Iteration
 
          // Look for small subdiagonal element.
 
    50    CONTINUE
-         IF( L.NE.LEND ) THEN
+         if ( L.NE.LEND ) {
             DO 60 M = L, LEND - 1
                IF( ABS( E( M ) ).LE.EPS2*ABS( D( M )*D( M+1 ) ) ) GO TO 70
    60       CONTINUE
-         END IF
+         }
          M = LEND
 
    70    CONTINUE
@@ -134,7 +134,7 @@
          // If remaining matrix is 2 by 2, use DLAE2 to compute its
          // eigenvalues.
 
-         IF( M.EQ.L+1 ) THEN
+         if ( M.EQ.L+1 ) {
             RTE = SQRT( E( L ) )
             CALL DLAE2( D( L ), RTE, D( L+1 ), RT1, RT2 )
             D( L ) = RT1
@@ -143,7 +143,7 @@
             L = L + 2
             IF( L.LE.LEND ) GO TO 50
             GO TO 150
-         END IF
+         }
 
          IF( JTOT.EQ.NMAXIT ) GO TO 150
          JTOT = JTOT + 1
@@ -173,11 +173,11 @@
             ALPHA = D( I )
             GAMMA = C*( ALPHA-SIGMA ) - S*OLDGAM
             D( I+1 ) = OLDGAM + ( ALPHA-GAMMA )
-            IF( C.NE.ZERO ) THEN
+            if ( C.NE.ZERO ) {
                P = ( GAMMA*GAMMA ) / C
             } else {
                P = OLDC*BB
-            END IF
+            }
    80    CONTINUE
 
          E( L ) = S*P
@@ -213,7 +213,7 @@
          // If remaining matrix is 2 by 2, use DLAE2 to compute its
          // eigenvalues.
 
-         IF( M.EQ.L-1 ) THEN
+         if ( M.EQ.L-1 ) {
             RTE = SQRT( E( L-1 ) )
             CALL DLAE2( D( L ), RTE, D( L-1 ), RT1, RT2 )
             D( L ) = RT1
@@ -222,7 +222,7 @@
             L = L - 2
             IF( L.GE.LEND ) GO TO 100
             GO TO 150
-         END IF
+         }
 
          IF( JTOT.EQ.NMAXIT ) GO TO 150
          JTOT = JTOT + 1
@@ -252,11 +252,11 @@
             ALPHA = D( I+1 )
             GAMMA = C*( ALPHA-SIGMA ) - S*OLDGAM
             D( I ) = OLDGAM + ( ALPHA-GAMMA )
-            IF( C.NE.ZERO ) THEN
+            if ( C.NE.ZERO ) {
                P = ( GAMMA*GAMMA ) / C
             } else {
                P = OLDC*BB
-            END IF
+            }
   130    CONTINUE
 
          E( L-1 ) = S*P
@@ -272,7 +272,7 @@
          IF( L.GE.LEND ) GO TO 100
          GO TO 150
 
-      END IF
+      }
 
       // Undo scaling if necessary
 

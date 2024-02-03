@@ -23,7 +23,7 @@
       STEMP = 0.0e0
       SDOT = 0.0e0
       IF (N.LE.0) RETURN
-      IF (INCX.EQ.1 .AND. INCY.EQ.1) THEN
+      if (INCX.EQ.1 .AND. INCY.EQ.1) {
 
          // code for both increments equal to 1
 
@@ -31,15 +31,15 @@
          // clean-up loop
 
          M = MOD(N,5)
-         IF (M.NE.0) THEN
+         if (M.NE.0) {
             DO I = 1,M
                STEMP = STEMP + SX(I)*SY(I)
             END DO
-            IF (N.LT.5) THEN
+            if (N.LT.5) {
                SDOT=STEMP
             RETURN
-            END IF
-         END IF
+            }
+         }
          MP1 = M + 1
          DO I = MP1,N,5
           STEMP = STEMP + SX(I)*SY(I) + SX(I+1)*SY(I+1) + SX(I+2)*SY(I+2) + SX(I+3)*SY(I+3) + SX(I+4)*SY(I+4)
@@ -58,7 +58,7 @@
             IX = IX + INCX
             IY = IY + INCY
          END DO
-      END IF
+      }
       SDOT = STEMP
       RETURN
 

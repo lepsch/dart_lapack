@@ -53,99 +53,99 @@
 
       // Decode DIST
 
-      IF( LSAME( DIST, 'U' ) ) THEN
+      if ( LSAME( DIST, 'U' ) ) {
          IDIST = 1
-      ELSE IF( LSAME( DIST, 'S' ) ) THEN
+      } else if ( LSAME( DIST, 'S' ) ) {
          IDIST = 2
-      ELSE IF( LSAME( DIST, 'N' ) ) THEN
+      } else if ( LSAME( DIST, 'N' ) ) {
          IDIST = 3
       } else {
          IDIST = -1
-      END IF
+      }
 
       // Decode SYM
 
-      IF( LSAME( SYM, 'S' ) ) THEN
+      if ( LSAME( SYM, 'S' ) ) {
          ISYM = 0
-      ELSE IF( LSAME( SYM, 'N' ) ) THEN
+      } else if ( LSAME( SYM, 'N' ) ) {
          ISYM = 1
-      ELSE IF( LSAME( SYM, 'H' ) ) THEN
+      } else if ( LSAME( SYM, 'H' ) ) {
          ISYM = 0
       } else {
          ISYM = -1
-      END IF
+      }
 
       // Decode RSIGN
 
-      IF( LSAME( RSIGN, 'F' ) ) THEN
+      if ( LSAME( RSIGN, 'F' ) ) {
          IRSIGN = 0
-      ELSE IF( LSAME( RSIGN, 'T' ) ) THEN
+      } else if ( LSAME( RSIGN, 'T' ) ) {
          IRSIGN = 1
       } else {
          IRSIGN = -1
-      END IF
+      }
 
       // Decode PIVTNG
 
-      IF( LSAME( PIVTNG, 'N' ) ) THEN
+      if ( LSAME( PIVTNG, 'N' ) ) {
          IPVTNG = 0
-      ELSE IF( LSAME( PIVTNG, ' ' ) ) THEN
+      } else if ( LSAME( PIVTNG, ' ' ) ) {
          IPVTNG = 0
-      ELSE IF( LSAME( PIVTNG, 'L' ) ) THEN
+      } else if ( LSAME( PIVTNG, 'L' ) ) {
          IPVTNG = 1
          NPVTS = M
-      ELSE IF( LSAME( PIVTNG, 'R' ) ) THEN
+      } else if ( LSAME( PIVTNG, 'R' ) ) {
          IPVTNG = 2
          NPVTS = N
-      ELSE IF( LSAME( PIVTNG, 'B' ) ) THEN
+      } else if ( LSAME( PIVTNG, 'B' ) ) {
          IPVTNG = 3
          NPVTS = MIN( N, M )
-      ELSE IF( LSAME( PIVTNG, 'F' ) ) THEN
+      } else if ( LSAME( PIVTNG, 'F' ) ) {
          IPVTNG = 3
          NPVTS = MIN( N, M )
       } else {
          IPVTNG = -1
-      END IF
+      }
 
       // Decode GRADE
 
-      IF( LSAME( GRADE, 'N' ) ) THEN
+      if ( LSAME( GRADE, 'N' ) ) {
          IGRADE = 0
-      ELSE IF( LSAME( GRADE, 'L' ) ) THEN
+      } else if ( LSAME( GRADE, 'L' ) ) {
          IGRADE = 1
-      ELSE IF( LSAME( GRADE, 'R' ) ) THEN
+      } else if ( LSAME( GRADE, 'R' ) ) {
          IGRADE = 2
-      ELSE IF( LSAME( GRADE, 'B' ) ) THEN
+      } else if ( LSAME( GRADE, 'B' ) ) {
          IGRADE = 3
-      ELSE IF( LSAME( GRADE, 'E' ) ) THEN
+      } else if ( LSAME( GRADE, 'E' ) ) {
          IGRADE = 4
-      ELSE IF( LSAME( GRADE, 'H' ) .OR. LSAME( GRADE, 'S' ) ) THEN
+      } else if ( LSAME( GRADE, 'H' ) .OR. LSAME( GRADE, 'S' ) ) {
          IGRADE = 5
       } else {
          IGRADE = -1
-      END IF
+      }
 
       // Decode PACK
 
-      IF( LSAME( PACK, 'N' ) ) THEN
+      if ( LSAME( PACK, 'N' ) ) {
          IPACK = 0
-      ELSE IF( LSAME( PACK, 'U' ) ) THEN
+      } else if ( LSAME( PACK, 'U' ) ) {
          IPACK = 1
-      ELSE IF( LSAME( PACK, 'L' ) ) THEN
+      } else if ( LSAME( PACK, 'L' ) ) {
          IPACK = 2
-      ELSE IF( LSAME( PACK, 'C' ) ) THEN
+      } else if ( LSAME( PACK, 'C' ) ) {
          IPACK = 3
-      ELSE IF( LSAME( PACK, 'R' ) ) THEN
+      } else if ( LSAME( PACK, 'R' ) ) {
          IPACK = 4
-      ELSE IF( LSAME( PACK, 'B' ) ) THEN
+      } else if ( LSAME( PACK, 'B' ) ) {
          IPACK = 5
-      ELSE IF( LSAME( PACK, 'Q' ) ) THEN
+      } else if ( LSAME( PACK, 'Q' ) ) {
          IPACK = 6
-      ELSE IF( LSAME( PACK, 'Z' ) ) THEN
+      } else if ( LSAME( PACK, 'Z' ) ) {
          IPACK = 7
       } else {
          IPACK = -1
-      END IF
+      }
 
       // Set certain internal parameters
 
@@ -156,71 +156,71 @@
       // If inv(DL) is used, check to see if DL has a zero entry.
 
       DZERO = .FALSE.
-      IF( IGRADE.EQ.4 .AND. MODEL.EQ.0 ) THEN
+      if ( IGRADE.EQ.4 .AND. MODEL.EQ.0 ) {
          DO 10 I = 1, M
             IF( DL( I ).EQ.ZERO ) DZERO = .TRUE.
    10    CONTINUE
-      END IF
+      }
 
       // Check values in IPIVOT
 
       BADPVT = .FALSE.
-      IF( IPVTNG.GT.0 ) THEN
+      if ( IPVTNG.GT.0 ) {
          DO 20 J = 1, NPVTS
             IF( IPIVOT( J ).LE.0 .OR. IPIVOT( J ).GT.NPVTS ) BADPVT = .TRUE.
    20    CONTINUE
-      END IF
+      }
 
       // Set INFO if an error
 
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( M.NE.N .AND. ISYM.EQ.0 ) THEN
+      } else if ( M.NE.N .AND. ISYM.EQ.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( IDIST.EQ.-1 ) THEN
+      } else if ( IDIST.EQ.-1 ) {
          INFO = -3
-      ELSE IF( ISYM.EQ.-1 ) THEN
+      } else if ( ISYM.EQ.-1 ) {
          INFO = -5
-      ELSE IF( MODE.LT.-6 .OR. MODE.GT.6 ) THEN
+      } else if ( MODE.LT.-6 .OR. MODE.GT.6 ) {
          INFO = -7
-      ELSE IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. COND.LT.ONE ) THEN
+      } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. COND.LT.ONE ) {
          INFO = -8
-      ELSE IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.-1 ) THEN
+      } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.-1 ) {
          INFO = -10
-      ELSE IF( IGRADE.EQ.-1 .OR. ( IGRADE.EQ.4 .AND. M.NE.N ) .OR. ( ( IGRADE.GE.1 .AND. IGRADE.LE.4 ) .AND. ISYM.EQ.0 ) ) THEN
+      } else if ( IGRADE.EQ.-1 .OR. ( IGRADE.EQ.4 .AND. M.NE.N ) .OR. ( ( IGRADE.GE.1 .AND. IGRADE.LE.4 ) .AND. ISYM.EQ.0 ) ) {
          INFO = -11
-      ELSE IF( IGRADE.EQ.4 .AND. DZERO ) THEN
+      } else if ( IGRADE.EQ.4 .AND. DZERO ) {
          INFO = -12
-      ELSE IF( ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.5 ) .AND. ( MODEL.LT.-6 .OR. MODEL.GT.6 ) ) THEN
+      } else if ( ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.5 ) .AND. ( MODEL.LT.-6 .OR. MODEL.GT.6 ) ) {
          INFO = -13
-      ELSE IF( ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.5 ) .AND. ( MODEL.NE.-6 .AND. MODEL.NE.0 .AND. MODEL.NE.6 ) .AND. CONDL.LT.ONE ) THEN
+      } else if ( ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.5 ) .AND. ( MODEL.NE.-6 .AND. MODEL.NE.0 .AND. MODEL.NE.6 ) .AND. CONDL.LT.ONE ) {
          INFO = -14
-      ELSE IF( ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) .AND. ( MODER.LT.-6 .OR. MODER.GT.6 ) ) THEN
+      } else if ( ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) .AND. ( MODER.LT.-6 .OR. MODER.GT.6 ) ) {
          INFO = -16
-      ELSE IF( ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) .AND. ( MODER.NE.-6 .AND. MODER.NE.0 .AND. MODER.NE.6 ) .AND. CONDR.LT.ONE ) THEN
+      } else if ( ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) .AND. ( MODER.NE.-6 .AND. MODER.NE.0 .AND. MODER.NE.6 ) .AND. CONDR.LT.ONE ) {
          INFO = -17
-      ELSE IF( IPVTNG.EQ.-1 .OR. ( IPVTNG.EQ.3 .AND. M.NE.N ) .OR. ( ( IPVTNG.EQ.1 .OR. IPVTNG.EQ.2 ) .AND. ISYM.EQ.0 ) ) THEN
+      } else if ( IPVTNG.EQ.-1 .OR. ( IPVTNG.EQ.3 .AND. M.NE.N ) .OR. ( ( IPVTNG.EQ.1 .OR. IPVTNG.EQ.2 ) .AND. ISYM.EQ.0 ) ) {
          INFO = -18
-      ELSE IF( IPVTNG.NE.0 .AND. BADPVT ) THEN
+      } else if ( IPVTNG.NE.0 .AND. BADPVT ) {
          INFO = -19
-      ELSE IF( KL.LT.0 ) THEN
+      } else if ( KL.LT.0 ) {
          INFO = -20
-      ELSE IF( KU.LT.0 .OR. ( ISYM.EQ.0 .AND. KL.NE.KU ) ) THEN
+      } else if ( KU.LT.0 .OR. ( ISYM.EQ.0 .AND. KL.NE.KU ) ) {
          INFO = -21
-      ELSE IF( SPARSE.LT.ZERO .OR. SPARSE.GT.ONE ) THEN
+      } else if ( SPARSE.LT.ZERO .OR. SPARSE.GT.ONE ) {
          INFO = -22
-      ELSE IF( IPACK.EQ.-1 .OR. ( ( IPACK.EQ.1 .OR. IPACK.EQ.2 .OR. IPACK.EQ.5 .OR. IPACK.EQ.6 ) .AND. ISYM.EQ.1 ) .OR. ( IPACK.EQ.3 .AND. ISYM.EQ.1 .AND. ( KL.NE.0 .OR. M.NE. N ) ) .OR. ( IPACK.EQ.4 .AND. ISYM.EQ.1 .AND. ( KU.NE. 0 .OR. M.NE.N ) ) ) THEN
+      } else if ( IPACK.EQ.-1 .OR. ( ( IPACK.EQ.1 .OR. IPACK.EQ.2 .OR. IPACK.EQ.5 .OR. IPACK.EQ.6 ) .AND. ISYM.EQ.1 ) .OR. ( IPACK.EQ.3 .AND. ISYM.EQ.1 .AND. ( KL.NE.0 .OR. M.NE. N ) ) .OR. ( IPACK.EQ.4 .AND. ISYM.EQ.1 .AND. ( KU.NE. 0 .OR. M.NE.N ) ) ) {
          INFO = -24
-      ELSE IF( ( ( IPACK.EQ.0 .OR. IPACK.EQ.1 .OR. IPACK.EQ.2 ) .AND. LDA.LT.MAX( 1, M ) ) .OR. ( ( IPACK.EQ.3 .OR. IPACK.EQ. 4 ) .AND. LDA.LT.1 ) .OR. ( ( IPACK.EQ.5 .OR. IPACK.EQ. 6 ) .AND. LDA.LT.KUU+1 ) .OR. ( IPACK.EQ.7 .AND. LDA.LT.KLL+KUU+1 ) ) THEN
+      } else if ( ( ( IPACK.EQ.0 .OR. IPACK.EQ.1 .OR. IPACK.EQ.2 ) .AND. LDA.LT.MAX( 1, M ) ) .OR. ( ( IPACK.EQ.3 .OR. IPACK.EQ. 4 ) .AND. LDA.LT.1 ) .OR. ( ( IPACK.EQ.5 .OR. IPACK.EQ. 6 ) .AND. LDA.LT.KUU+1 ) .OR. ( IPACK.EQ.7 .AND. LDA.LT.KLL+KUU+1 ) ) {
          INFO = -26
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLATMR', -INFO )
          RETURN
-      END IF
+      }
 
       // Decide if we can pivot consistently
 
@@ -240,11 +240,11 @@
               // Compute D according to COND and MODE
 
       CALL SLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, INFO )
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          INFO = 1
          RETURN
-      END IF
-      IF( MODE.NE.0 .AND. MODE.NE.-6 .AND. MODE.NE.6 ) THEN
+      }
+      if ( MODE.NE.0 .AND. MODE.NE.-6 .AND. MODE.NE.6 ) {
 
          // Scale by DMAX
 
@@ -252,48 +252,48 @@
          DO 40 I = 2, MNMIN
             TEMP = MAX( TEMP, ABS( D( I ) ) )
    40    CONTINUE
-         IF( TEMP.EQ.ZERO .AND. DMAX.NE.ZERO ) THEN
+         if ( TEMP.EQ.ZERO .AND. DMAX.NE.ZERO ) {
             INFO = 2
             RETURN
-         END IF
-         IF( TEMP.NE.ZERO ) THEN
+         }
+         if ( TEMP.NE.ZERO ) {
             ALPHA = DMAX / TEMP
          } else {
             ALPHA = ONE
-         END IF
+         }
          DO 50 I = 1, MNMIN
             D( I ) = ALPHA*D( I )
    50    CONTINUE
 
-      END IF
+      }
 
       // Compute DL if grading set
 
-      IF( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ. 5 ) THEN
+      if ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ. 5 ) {
          CALL SLATM1( MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             INFO = 3
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // Compute DR if grading set
 
-      IF( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) THEN
+      if ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) {
          CALL SLATM1( MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             INFO = 4
             RETURN
-         END IF
-      END IF
+         }
+      }
 
       // 3)     Generate IWORK if pivoting
 
-      IF( IPVTNG.GT.0 ) THEN
+      if ( IPVTNG.GT.0 ) {
          DO 60 I = 1, NPVTS
             IWORK( I ) = I
    60    CONTINUE
-         IF( FULBND ) THEN
+         if ( FULBND ) {
             DO 70 I = 1, NPVTS
                K = IPIVOT( I )
                J = IWORK( I )
@@ -307,21 +307,21 @@
                IWORK( I ) = IWORK( K )
                IWORK( K ) = J
    80       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       // 4)      Generate matrices for each kind of PACKing
               // Always sweep matrix columnwise (if symmetric, upper
               // half only) so that matrix generated does not depend
               // on PACK
 
-      IF( FULBND ) THEN
+      if ( FULBND ) {
 
          // Use SLATM3 so matrices generated with differing PIVOTing only
          // differ only in the order of their rows and/or columns.
 
-         IF( IPACK.EQ.0 ) THEN
-            IF( ISYM.EQ.0 ) THEN
+         if ( IPACK.EQ.0 ) {
+            if ( ISYM.EQ.0 ) {
                DO 100 J = 1, N
                   DO 90 I = 1, J
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -329,16 +329,16 @@
                      A( JSUB, ISUB ) = TEMP
    90             CONTINUE
   100          CONTINUE
-            ELSE IF( ISYM.EQ.1 ) THEN
+            } else if ( ISYM.EQ.1 ) {
                DO 120 J = 1, N
                   DO 110 I = 1, M
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB, JSUB ) = TEMP
   110             CONTINUE
   120          CONTINUE
-            END IF
+            }
 
-         ELSE IF( IPACK.EQ.1 ) THEN
+         } else if ( IPACK.EQ.1 ) {
 
             DO 140 J = 1, N
                DO 130 I = 1, J
@@ -350,7 +350,7 @@
   130          CONTINUE
   140       CONTINUE
 
-         ELSE IF( IPACK.EQ.2 ) THEN
+         } else if ( IPACK.EQ.2 ) {
 
             DO 160 J = 1, N
                DO 150 I = 1, J
@@ -362,7 +362,7 @@
   150          CONTINUE
   160       CONTINUE
 
-         ELSE IF( IPACK.EQ.3 ) THEN
+         } else if ( IPACK.EQ.3 ) {
 
             DO 180 J = 1, N
                DO 170 I = 1, J
@@ -384,7 +384,7 @@
   170          CONTINUE
   180       CONTINUE
 
-         ELSE IF( IPACK.EQ.4 ) THEN
+         } else if ( IPACK.EQ.4 ) {
 
             DO 200 J = 1, N
                DO 190 I = 1, J
@@ -394,11 +394,11 @@
 
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
-                  IF( MNSUB.EQ.1 ) THEN
+                  if ( MNSUB.EQ.1 ) {
                      K = MXSUB
                   } else {
                      K = N*( N+1 ) / 2 - ( N-MNSUB+1 )*( N-MNSUB+2 ) / 2 + MXSUB - MNSUB + 1
-                  END IF
+                  }
 
                   // Convert K to (IISUB,JJSUB) location
 
@@ -409,22 +409,22 @@
   190          CONTINUE
   200       CONTINUE
 
-         ELSE IF( IPACK.EQ.5 ) THEN
+         } else if ( IPACK.EQ.5 ) {
 
             DO 220 J = 1, N
                DO 210 I = J - KUU, J
-                  IF( I.LT.1 ) THEN
+                  if ( I.LT.1 ) {
                      A( J-I+1, I+N ) = ZERO
                   } else {
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
                      A( MXSUB-MNSUB+1, MNSUB ) = TEMP
-                  END IF
+                  }
   210          CONTINUE
   220       CONTINUE
 
-         ELSE IF( IPACK.EQ.6 ) THEN
+         } else if ( IPACK.EQ.6 ) {
 
             DO 240 J = 1, N
                DO 230 I = J - KUU, J
@@ -435,9 +435,9 @@
   230          CONTINUE
   240       CONTINUE
 
-         ELSE IF( IPACK.EQ.7 ) THEN
+         } else if ( IPACK.EQ.7 ) {
 
-            IF( ISYM.EQ.0 ) THEN
+            if ( ISYM.EQ.0 ) {
                DO 260 J = 1, N
                   DO 250 I = J - KUU, J
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -447,38 +447,38 @@
                      IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. MNSUB.NE.MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP
   250             CONTINUE
   260          CONTINUE
-            ELSE IF( ISYM.EQ.1 ) THEN
+            } else if ( ISYM.EQ.1 ) {
                DO 280 J = 1, N
                   DO 270 I = J - KUU, J + KLL
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB-JSUB+KUU+1, JSUB ) = TEMP
   270             CONTINUE
   280          CONTINUE
-            END IF
+            }
 
-         END IF
+         }
 
       } else {
 
          // Use SLATM2
 
-         IF( IPACK.EQ.0 ) THEN
-            IF( ISYM.EQ.0 ) THEN
+         if ( IPACK.EQ.0 ) {
+            if ( ISYM.EQ.0 ) {
                DO 300 J = 1, N
                   DO 290 I = 1, J
                      A( I, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( J, I ) = A( I, J )
   290             CONTINUE
   300          CONTINUE
-            ELSE IF( ISYM.EQ.1 ) THEN
+            } else if ( ISYM.EQ.1 ) {
                DO 320 J = 1, N
                   DO 310 I = 1, M
                      A( I, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   310             CONTINUE
   320          CONTINUE
-            END IF
+            }
 
-         ELSE IF( IPACK.EQ.1 ) THEN
+         } else if ( IPACK.EQ.1 ) {
 
             DO 340 J = 1, N
                DO 330 I = 1, J
@@ -486,7 +486,7 @@
   330          CONTINUE
   340       CONTINUE
 
-         ELSE IF( IPACK.EQ.2 ) THEN
+         } else if ( IPACK.EQ.2 ) {
 
             DO 360 J = 1, N
                DO 350 I = 1, J
@@ -494,34 +494,34 @@
   350          CONTINUE
   360       CONTINUE
 
-         ELSE IF( IPACK.EQ.3 ) THEN
+         } else if ( IPACK.EQ.3 ) {
 
             ISUB = 0
             JSUB = 1
             DO 380 J = 1, N
                DO 370 I = 1, J
                   ISUB = ISUB + 1
-                  IF( ISUB.GT.LDA ) THEN
+                  if ( ISUB.GT.LDA ) {
                      ISUB = 1
                      JSUB = JSUB + 1
-                  END IF
+                  }
                   A( ISUB, JSUB ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   370          CONTINUE
   380       CONTINUE
 
-         ELSE IF( IPACK.EQ.4 ) THEN
+         } else if ( IPACK.EQ.4 ) {
 
-            IF( ISYM.EQ.0 ) THEN
+            if ( ISYM.EQ.0 ) {
                DO 400 J = 1, N
                   DO 390 I = 1, J
 
                      // Compute K = location of (I,J) entry in packed array
 
-                     IF( I.EQ.1 ) THEN
+                     if ( I.EQ.1 ) {
                         K = J
                      } else {
                         K = N*( N+1 ) / 2 - ( N-I+1 )*( N-I+2 ) / 2 + J - I + 1
-                     END IF
+                     }
 
                      // Convert K to (ISUB,JSUB) location
 
@@ -537,28 +537,28 @@
                DO 420 J = 1, N
                   DO 410 I = J, M
                      ISUB = ISUB + 1
-                     IF( ISUB.GT.LDA ) THEN
+                     if ( ISUB.GT.LDA ) {
                         ISUB = 1
                         JSUB = JSUB + 1
-                     END IF
+                     }
                      A( ISUB, JSUB ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   410             CONTINUE
   420          CONTINUE
-            END IF
+            }
 
-         ELSE IF( IPACK.EQ.5 ) THEN
+         } else if ( IPACK.EQ.5 ) {
 
             DO 440 J = 1, N
                DO 430 I = J - KUU, J
-                  IF( I.LT.1 ) THEN
+                  if ( I.LT.1 ) {
                      A( J-I+1, I+N ) = ZERO
                   } else {
                      A( J-I+1, I ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-                  END IF
+                  }
   430          CONTINUE
   440       CONTINUE
 
-         ELSE IF( IPACK.EQ.6 ) THEN
+         } else if ( IPACK.EQ.6 ) {
 
             DO 460 J = 1, N
                DO 450 I = J - KUU, J
@@ -566,103 +566,103 @@
   450          CONTINUE
   460       CONTINUE
 
-         ELSE IF( IPACK.EQ.7 ) THEN
+         } else if ( IPACK.EQ.7 ) {
 
-            IF( ISYM.EQ.0 ) THEN
+            if ( ISYM.EQ.0 ) {
                DO 480 J = 1, N
                   DO 470 I = J - KUU, J
                      A( I-J+KUU+1, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. I.NE.J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J )
   470             CONTINUE
   480          CONTINUE
-            ELSE IF( ISYM.EQ.1 ) THEN
+            } else if ( ISYM.EQ.1 ) {
                DO 500 J = 1, N
                   DO 490 I = J - KUU, J + KLL
                      A( I-J+KUU+1, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   490             CONTINUE
   500          CONTINUE
-            END IF
+            }
 
-         END IF
+         }
 
-      END IF
+      }
 
       // 5)      Scaling the norm
 
-      IF( IPACK.EQ.0 ) THEN
+      if ( IPACK.EQ.0 ) {
          ONORM = SLANGE( 'M', M, N, A, LDA, TEMPA )
-      ELSE IF( IPACK.EQ.1 ) THEN
+      } else if ( IPACK.EQ.1 ) {
          ONORM = SLANSY( 'M', 'U', N, A, LDA, TEMPA )
-      ELSE IF( IPACK.EQ.2 ) THEN
+      } else if ( IPACK.EQ.2 ) {
          ONORM = SLANSY( 'M', 'L', N, A, LDA, TEMPA )
-      ELSE IF( IPACK.EQ.3 ) THEN
+      } else if ( IPACK.EQ.3 ) {
          ONORM = SLANSP( 'M', 'U', N, A, TEMPA )
-      ELSE IF( IPACK.EQ.4 ) THEN
+      } else if ( IPACK.EQ.4 ) {
          ONORM = SLANSP( 'M', 'L', N, A, TEMPA )
-      ELSE IF( IPACK.EQ.5 ) THEN
+      } else if ( IPACK.EQ.5 ) {
          ONORM = SLANSB( 'M', 'L', N, KLL, A, LDA, TEMPA )
-      ELSE IF( IPACK.EQ.6 ) THEN
+      } else if ( IPACK.EQ.6 ) {
          ONORM = SLANSB( 'M', 'U', N, KUU, A, LDA, TEMPA )
-      ELSE IF( IPACK.EQ.7 ) THEN
+      } else if ( IPACK.EQ.7 ) {
          ONORM = SLANGB( 'M', N, KLL, KUU, A, LDA, TEMPA )
-      END IF
+      }
 
-      IF( ANORM.GE.ZERO ) THEN
+      if ( ANORM.GE.ZERO ) {
 
-         IF( ANORM.GT.ZERO .AND. ONORM.EQ.ZERO ) THEN
+         if ( ANORM.GT.ZERO .AND. ONORM.EQ.ZERO ) {
 
             // Desired scaling impossible
 
             INFO = 5
             RETURN
 
-         ELSE IF( ( ANORM.GT.ONE .AND. ONORM.LT.ONE ) .OR. ( ANORM.LT.ONE .AND. ONORM.GT.ONE ) ) THEN
+         } else if ( ( ANORM.GT.ONE .AND. ONORM.LT.ONE ) .OR. ( ANORM.LT.ONE .AND. ONORM.GT.ONE ) ) {
 
             // Scale carefully to avoid over / underflow
 
-            IF( IPACK.LE.2 ) THEN
+            if ( IPACK.LE.2 ) {
                DO 510 J = 1, N
                   CALL SSCAL( M, ONE / ONORM, A( 1, J ), 1 )
                   CALL SSCAL( M, ANORM, A( 1, J ), 1 )
   510          CONTINUE
 
-            ELSE IF( IPACK.EQ.3 .OR. IPACK.EQ.4 ) THEN
+            } else if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
 
                CALL SSCAL( N*( N+1 ) / 2, ONE / ONORM, A, 1 )
                CALL SSCAL( N*( N+1 ) / 2, ANORM, A, 1 )
 
-            ELSE IF( IPACK.GE.5 ) THEN
+            } else if ( IPACK.GE.5 ) {
 
                DO 520 J = 1, N
                   CALL SSCAL( KLL+KUU+1, ONE / ONORM, A( 1, J ), 1 )
                   CALL SSCAL( KLL+KUU+1, ANORM, A( 1, J ), 1 )
   520          CONTINUE
 
-            END IF
+            }
 
          } else {
 
             // Scale straightforwardly
 
-            IF( IPACK.LE.2 ) THEN
+            if ( IPACK.LE.2 ) {
                DO 530 J = 1, N
                   CALL SSCAL( M, ANORM / ONORM, A( 1, J ), 1 )
   530          CONTINUE
 
-            ELSE IF( IPACK.EQ.3 .OR. IPACK.EQ.4 ) THEN
+            } else if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
 
                CALL SSCAL( N*( N+1 ) / 2, ANORM / ONORM, A, 1 )
 
-            ELSE IF( IPACK.GE.5 ) THEN
+            } else if ( IPACK.GE.5 ) {
 
                DO 540 J = 1, N
                   CALL SSCAL( KLL+KUU+1, ANORM / ONORM, A( 1, J ), 1 )
   540          CONTINUE
-            END IF
+            }
 
-         END IF
+         }
 
-      END IF
+      }
 
       // End of SLATMR
 

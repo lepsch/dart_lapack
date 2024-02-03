@@ -38,37 +38,37 @@
       INFO = 0
       NH = IHI - ILO
       LQUERY = ( LWORK.EQ.-1 )
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) THEN
+      } else if ( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) {
          INFO = -2
-      ELSE IF( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) THEN
+      } else if ( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) {
          INFO = -3
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      ELSE IF( LWORK.LT.MAX( 1, NH ) .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.MAX( 1, NH ) .AND. .NOT.LQUERY ) {
          INFO = -8
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          NB = ILAENV( 1, 'ZUNGQR', ' ', NH, NH, NH, -1 )
          LWKOPT = MAX( 1, NH )*NB
          WORK( 1 ) = LWKOPT
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZUNGHR', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          WORK( 1 ) = 1
          RETURN
-      END IF
+      }
 
       // Shift the vectors which define the elementary reflectors one
       // column to the right, and set the first ilo and the last n-ihi
@@ -98,12 +98,12 @@
          A( J, J ) = ONE
    80 CONTINUE
 
-      IF( NH.GT.0 ) THEN
+      if ( NH.GT.0 ) {
 
          // Generate Q(ilo+1:ihi,ilo+1:ihi)
 
          CALL ZUNGQR( NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ), WORK, LWORK, IINFO )
-      END IF
+      }
       WORK( 1 ) = LWKOPT
       RETURN
 

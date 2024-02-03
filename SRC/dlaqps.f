@@ -43,14 +43,14 @@
       // Beginning of while loop.
 
    10 CONTINUE
-      IF( ( K.LT.NB ) .AND. ( LSTICC.EQ.0 ) ) THEN
+      if ( ( K.LT.NB ) .AND. ( LSTICC.EQ.0 ) ) {
          K = K + 1
          RK = OFFSET + K
 
          // Determine ith pivot column and swap if necessary
 
          PVT = ( K-1 ) + IDAMAX( N-K+1, VN1( K ), 1 )
-         IF( PVT.NE.K ) THEN
+         if ( PVT.NE.K ) {
             CALL DSWAP( M, A( 1, PVT ), 1, A( 1, K ), 1 )
             CALL DSWAP( K-1, F( PVT, 1 ), LDF, F( K, 1 ), LDF )
             ITEMP = JPVT( PVT )
@@ -58,22 +58,22 @@
             JPVT( K ) = ITEMP
             VN1( PVT ) = VN1( K )
             VN2( PVT ) = VN2( K )
-         END IF
+         }
 
          // Apply previous Householder reflectors to column K:
          // A(RK:M,K) := A(RK:M,K) - A(RK:M,1:K-1)*F(K,1:K-1)**T.
 
-         IF( K.GT.1 ) THEN
+         if ( K.GT.1 ) {
             CALL DGEMV( 'No transpose', M-RK+1, K-1, -ONE, A( RK, 1 ), LDA, F( K, 1 ), LDF, ONE, A( RK, K ), 1 )
-         END IF
+         }
 
          // Generate elementary reflector H(k).
 
-         IF( RK.LT.M ) THEN
+         if ( RK.LT.M ) {
             CALL DLARFG( M-RK+1, A( RK, K ), A( RK+1, K ), 1, TAU( K ) )
          } else {
             CALL DLARFG( 1, A( RK, K ), A( RK, K ), 1, TAU( K ) )
-         END IF
+         }
 
          AKK = A( RK, K )
          A( RK, K ) = ONE
@@ -82,9 +82,9 @@
 
          // Compute  F(K+1:N,K) := tau(K)*A(RK:M,K+1:N)**T*A(RK:M,K).
 
-         IF( K.LT.N ) THEN
+         if ( K.LT.N ) {
             CALL DGEMV( 'Transpose', M-RK+1, N-K, TAU( K ), A( RK, K+1 ), LDA, A( RK, K ), 1, ZERO, F( K+1, K ), 1 )
-         END IF
+         }
 
          // Padding F(1:K,K) with zeros.
 
@@ -96,24 +96,24 @@
          // F(1:N,K) := F(1:N,K) - tau(K)*F(1:N,1:K-1)*A(RK:M,1:K-1)**T
                      // *A(RK:M,K).
 
-         IF( K.GT.1 ) THEN
+         if ( K.GT.1 ) {
             CALL DGEMV( 'Transpose', M-RK+1, K-1, -TAU( K ), A( RK, 1 ), LDA, A( RK, K ), 1, ZERO, AUXV( 1 ), 1 )
 
             CALL DGEMV( 'No transpose', N, K-1, ONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, ONE, F( 1, K ), 1 )
-         END IF
+         }
 
          // Update the current row of A:
          // A(RK,K+1:N) := A(RK,K+1:N) - A(RK,1:K)*F(K+1:N,1:K)**T.
 
-         IF( K.LT.N ) THEN
+         if ( K.LT.N ) {
             CALL DGEMV( 'No transpose', N-K, K, -ONE, F( K+1, 1 ), LDF, A( RK, 1 ), LDA, ONE, A( RK, K+1 ), LDA )
-         END IF
+         }
 
          // Update partial column norms.
 
-         IF( RK.LT.LASTRK ) THEN
+         if ( RK.LT.LASTRK ) {
             DO 30 J = K + 1, N
-               IF( VN1( J ).NE.ZERO ) THEN
+               if ( VN1( J ).NE.ZERO ) {
 
                   // NOTE: The following 4 lines follow from the analysis in
                   // Lapack Working Note 176.
@@ -121,22 +121,22 @@
                   TEMP = ABS( A( RK, J ) ) / VN1( J )
                   TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) )
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2
-                  IF( TEMP2 .LE. TOL3Z ) THEN
+                  if ( TEMP2 .LE. TOL3Z ) {
                      VN2( J ) = DBLE( LSTICC )
                      LSTICC = J
                   } else {
                      VN1( J ) = VN1( J )*SQRT( TEMP )
-                  END IF
-               END IF
+                  }
+               }
    30       CONTINUE
-         END IF
+         }
 
          A( RK, K ) = AKK
 
          // End of while loop.
 
          GO TO 10
-      END IF
+      }
       KB = K
       RK = OFFSET + KB
 
@@ -144,14 +144,14 @@
       // A(OFFSET+KB+1:M,KB+1:N) := A(OFFSET+KB+1:M,KB+1:N) -
                           // A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**T.
 
-      IF( KB.LT.MIN( N, M-OFFSET ) ) THEN
+      if ( KB.LT.MIN( N, M-OFFSET ) ) {
          CALL DGEMM( 'No transpose', 'Transpose', M-RK, N-KB, KB, -ONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( RK+1, KB+1 ), LDA )
-      END IF
+      }
 
       // Recomputation of difficult columns.
 
    40 CONTINUE
-      IF( LSTICC.GT.0 ) THEN
+      if ( LSTICC.GT.0 ) {
          ITEMP = NINT( VN2( LSTICC ) )
          VN1( LSTICC ) = DNRM2( M-RK, A( RK+1, LSTICC ), 1 )
 
@@ -162,7 +162,7 @@
          VN2( LSTICC ) = VN1( LSTICC )
          LSTICC = ITEMP
          GO TO 40
-      END IF
+      }
 
       RETURN
 

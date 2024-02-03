@@ -24,27 +24,27 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -2
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -6
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DPTSV ', -INFO )
          RETURN
-      END IF
+      }
 
       // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 
       CALL DPTTRF( N, D, E, INFO )
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
          CALL DPTTRS( N, NRHS, D, E, B, LDB, INFO )
-      END IF
+      }
       RETURN
 
       // End of DPTSV

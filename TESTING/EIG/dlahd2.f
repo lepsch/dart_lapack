@@ -25,13 +25,13 @@
       IF( IOUNIT.LE.0 ) RETURN
       SORD = LSAME( PATH, 'S' ) .OR. LSAME( PATH, 'D' )
       CORZ = LSAME( PATH, 'C' ) .OR. LSAME( PATH, 'Z' )
-      IF( .NOT.SORD .AND. .NOT.CORZ ) THEN
+      if ( .NOT.SORD .AND. .NOT.CORZ ) {
          WRITE( IOUNIT, FMT = 9999 )PATH
-      END IF
+      }
       C2 = PATH( 2: 3 )
 
-      IF( LSAMEN( 2, C2, 'HS' ) ) THEN
-         IF( SORD ) THEN
+      if ( LSAMEN( 2, C2, 'HS' ) ) {
+         if ( SORD ) {
 
             // Real Non-symmetric Eigenvalue Problem:
 
@@ -64,11 +64,11 @@
             // Tests performed
 
             WRITE( IOUNIT, FMT = 9984 )'unitary', '*=conj.transp.', ( '*', J = 1, 6 )
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'ST' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'ST' ) ) {
 
-         IF( SORD ) THEN
+         if ( SORD ) {
 
             // Real Symmetric Eigenvalue Problem:
 
@@ -99,11 +99,11 @@
             // Tests performed
 
             WRITE( IOUNIT, FMT = 9967 )
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'SG' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'SG' ) ) {
 
-         IF( SORD ) THEN
+         if ( SORD ) {
 
             // Real Symmetric Generalized Eigenvalue Problem:
 
@@ -137,11 +137,11 @@
             WRITE( IOUNIT, FMT = 9975 )
             WRITE( IOUNIT, FMT = 9974 )
 
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'BD' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'BD' ) ) {
 
-         IF( SORD ) THEN
+         if ( SORD ) {
 
             // Real Singular Value Decomposition:
 
@@ -169,11 +169,11 @@
 
             WRITE( IOUNIT, FMT = 9972 )'unitary   '
             WRITE( IOUNIT, FMT = 9971 )
-         END IF
+         }
 
-      ELSE IF( LSAMEN( 2, C2, 'BB' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'BB' ) ) {
 
-         IF( SORD ) THEN
+         if ( SORD ) {
 
             // Real General Band reduction to bidiagonal form:
 
@@ -199,13 +199,13 @@
             // Tests performed
 
             WRITE( IOUNIT, FMT = 9969 )'unitary   '
-         END IF
+         }
 
       } else {
 
          WRITE( IOUNIT, FMT = 9999 )PATH
          RETURN
-      END IF
+      }
 
       RETURN
 

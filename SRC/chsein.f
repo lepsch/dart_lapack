@@ -67,27 +67,27 @@
    10 CONTINUE
 
       INFO = 0
-      IF( .NOT.RIGHTV .AND. .NOT.LEFTV ) THEN
+      if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
          INFO = -1
-      ELSE IF( .NOT.FROMQR .AND. .NOT.LSAME( EIGSRC, 'N' ) ) THEN
+      } else if ( .NOT.FROMQR .AND. .NOT.LSAME( EIGSRC, 'N' ) ) {
          INFO = -2
-      ELSE IF( .NOT.NOINIT .AND. .NOT.LSAME( INITV, 'U' ) ) THEN
+      } else if ( .NOT.NOINIT .AND. .NOT.LSAME( INITV, 'U' ) ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -5
-      ELSE IF( LDH.LT.MAX( 1, N ) ) THEN
+      } else if ( LDH.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDVL.LT.1 .OR. ( LEFTV .AND. LDVL.LT.N ) ) THEN
+      } else if ( LDVL.LT.1 .OR. ( LEFTV .AND. LDVL.LT.N ) ) {
          INFO = -10
-      ELSE IF( LDVR.LT.1 .OR. ( RIGHTV .AND. LDVR.LT.N ) ) THEN
+      } else if ( LDVR.LT.1 .OR. ( RIGHTV .AND. LDVR.LT.N ) ) {
          INFO = -12
-      ELSE IF( MM.LT.M ) THEN
+      } else if ( MM.LT.M ) {
          INFO = -13
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CHSEIN', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -103,19 +103,19 @@
 
       KL = 1
       KLN = 0
-      IF( FROMQR ) THEN
+      if ( FROMQR ) {
          KR = 0
       } else {
          KR = N
-      END IF
+      }
       KS = 1
 
       DO 100 K = 1, N
-         IF( SELECT( K ) ) THEN
+         if ( SELECT( K ) ) {
 
             // Compute eigenvector(s) corresponding to W(K).
 
-            IF( FROMQR ) THEN
+            if ( FROMQR ) {
 
                // If affiliation of eigenvalues is known, check whether
               t // he matrix splits.
@@ -133,31 +133,31 @@
    20          CONTINUE
    30          CONTINUE
                KL = I
-               IF( K.GT.KR ) THEN
+               if ( K.GT.KR ) {
                   DO 40 I = K, N - 1
                      IF( H( I+1, I ).EQ.ZERO ) GO TO 50
    40             CONTINUE
    50             CONTINUE
                   KR = I
-               END IF
-            END IF
+               }
+            }
 
-            IF( KL.NE.KLN ) THEN
+            if ( KL.NE.KLN ) {
                KLN = KL
 
                // Compute infinity-norm of submatrix H(KL:KR,KL:KR) if it
                // has not ben computed before.
 
                HNORM = CLANHS( 'I', KR-KL+1, H( KL, KL ), LDH, RWORK )
-               IF( SISNAN( HNORM ) ) THEN
+               if ( SISNAN( HNORM ) ) {
                   INFO = -6
                   RETURN
-               ELSE IF( (HNORM.GT.RZERO) ) THEN
+               } else if ( (HNORM.GT.RZERO) ) {
                   EPS3 = HNORM*ULP
                } else {
                   EPS3 = SMLNUM
-               END IF
-            END IF
+               }
+            }
 
             // Perturb eigenvalue if it is close to any previous
             // selected eigenvalues affiliated to the submatrix
@@ -166,45 +166,45 @@
             WK = W( K )
    60       CONTINUE
             DO 70 I = K - 1, KL, -1
-               IF( SELECT( I ) .AND. CABS1( W( I )-WK ).LT.EPS3 ) THEN
+               if ( SELECT( I ) .AND. CABS1( W( I )-WK ).LT.EPS3 ) {
                   WK = WK + EPS3
                   GO TO 60
-               END IF
+               }
    70       CONTINUE
             W( K ) = WK
 
-            IF( LEFTV ) THEN
+            if ( LEFTV ) {
 
                // Compute left eigenvector.
 
                CALL CLAEIN( .FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH, WK, VL( KL, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO )
-               IF( IINFO.GT.0 ) THEN
+               if ( IINFO.GT.0 ) {
                   INFO = INFO + 1
                   IFAILL( KS ) = K
                } else {
                   IFAILL( KS ) = 0
-               END IF
+               }
                DO 80 I = 1, KL - 1
                   VL( I, KS ) = ZERO
    80          CONTINUE
-            END IF
-            IF( RIGHTV ) THEN
+            }
+            if ( RIGHTV ) {
 
                // Compute right eigenvector.
 
                CALL CLAEIN( .TRUE., NOINIT, KR, H, LDH, WK, VR( 1, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO )
-               IF( IINFO.GT.0 ) THEN
+               if ( IINFO.GT.0 ) {
                   INFO = INFO + 1
                   IFAILR( KS ) = K
                } else {
                   IFAILR( KS ) = 0
-               END IF
+               }
                DO 90 I = KR + 1, N
                   VR( I, KS ) = ZERO
    90          CONTINUE
-            END IF
+            }
             KS = KS + 1
-         END IF
+         }
   100 CONTINUE
 
       RETURN

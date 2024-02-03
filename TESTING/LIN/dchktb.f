@@ -89,10 +89,10 @@
          XTYPE = 'N'
          NIMAT = NTYPE1
          NIMAT2 = NTYPES
-         IF( N.LE.0 ) THEN
+         if ( N.LE.0 ) {
             NIMAT = 1
             NIMAT2 = NTYPE1 + 1
-         END IF
+         }
 
          NK = MIN( N+1, 4 )
          DO 130 IK = 1, NK
@@ -100,15 +100,15 @@
             // Do for KD = 0, N, (3N-1)/4, and (N+1)/4. This order makes
             // it easier to skip redundant values for small values of N.
 
-            IF( IK.EQ.1 ) THEN
+            if ( IK.EQ.1 ) {
                KD = 0
-            ELSE IF( IK.EQ.2 ) THEN
+            } else if ( IK.EQ.2 ) {
                KD = MAX( N, 0 )
-            ELSE IF( IK.EQ.3 ) THEN
+            } else if ( IK.EQ.3 ) {
                KD = ( 3*N-1 ) / 4
-            ELSE IF( IK.EQ.4 ) THEN
+            } else if ( IK.EQ.4 ) {
                KD = ( N+1 ) / 4
-            END IF
+            }
             LDAB = KD + 1
 
             DO 90 IMAT = 1, NIMAT
@@ -130,17 +130,17 @@
 
                   // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
-                  IF( LSAME( DIAG, 'N' ) ) THEN
+                  if ( LSAME( DIAG, 'N' ) ) {
                      IDIAG = 1
                   } else {
                      IDIAG = 2
-                  END IF
+                  }
 
                   // Form the inverse of A so we can get a good estimate
                   // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
                   CALL DLASET( 'Full', N, N, ZERO, ONE, AINV, LDA )
-                  IF( LSAME( UPLO, 'U' ) ) THEN
+                  if ( LSAME( UPLO, 'U' ) ) {
                      DO 20 J = 1, N
                         CALL DTBSV( UPLO, 'No transpose', DIAG, J, KD, AB, LDAB, AINV( ( J-1 )*LDA+1 ), 1 )
    20                CONTINUE
@@ -148,25 +148,25 @@
                      DO 30 J = 1, N
                         CALL DTBSV( UPLO, 'No transpose', DIAG, N-J+1, KD, AB( ( J-1 )*LDAB+1 ), LDAB, AINV( ( J-1 )*LDA+J ), 1 )
    30                CONTINUE
-                  END IF
+                  }
 
                   // Compute the 1-norm condition number of A.
 
                   ANORM = DLANTB( '1', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = DLANTR( '1', UPLO, DIAG, N, N, AINV, LDA, RWORK )
-                  IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                  if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                      RCONDO = ONE
                   } else {
                      RCONDO = ( ONE / ANORM ) / AINVNM
-                  END IF
+                  }
 
                   // Compute the infinity-norm condition number of A.
 
                   ANORM = DLANTB( 'I', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = DLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA, RWORK )
-                  IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                  if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                      RCONDI = ONE
                   } else {
                      RCONDI = ( ONE / ANORM ) / AINVNM
-                  END IF
+                  }
 
                   DO 60 IRHS = 1, NNS
                      NRHS = NSVAL( IRHS )
@@ -177,13 +177,13 @@
                      // Do for op(A) = A, A**T, or A**H.
 
                         TRANS = TRANSS( ITRAN )
-                        IF( ITRAN.EQ.1 ) THEN
+                        if ( ITRAN.EQ.1 ) {
                            NORM = 'O'
                            RCONDC = RCONDO
                         } else {
                            NORM = 'I'
                            RCONDC = RCONDI
-                        END IF
+                        }
 
 *+    TEST 1
                      // Solve and compute residual for op(A)*x = b.
@@ -224,10 +224,10 @@
                         // pass the threshold.
 
                         DO 40 K = 1, 5
-                           IF( RESULT( K ).GE.THRESH ) THEN
+                           if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )UPLO, TRANS, DIAG, N, KD, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
    40                   CONTINUE
                         NRUN = NRUN + 5
    50                CONTINUE
@@ -237,13 +237,13 @@
                      // Get an estimate of RCOND = 1/CNDNUM.
 
                   DO 70 ITRAN = 1, 2
-                     IF( ITRAN.EQ.1 ) THEN
+                     if ( ITRAN.EQ.1 ) {
                         NORM = 'O'
                         RCONDC = RCONDO
                      } else {
                         NORM = 'I'
                         RCONDC = RCONDI
-                     END IF
+                     }
                      SRNAMT = 'DTBCON'
                      CALL DTBCON( NORM, UPLO, DIAG, N, KD, AB, LDAB, RCOND, WORK, IWORK, INFO )
 
@@ -256,10 +256,10 @@
                      // Print information about the tests that did not pass
                     t // he threshold.
 
-                     IF( RESULT( 6 ).GE.THRESH ) THEN
+                     if ( RESULT( 6 ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 ) 'DTBCON', NORM, UPLO, DIAG, N, KD, IMAT, 6, RESULT( 6 )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
                      NRUN = NRUN + 1
    70             CONTINUE
    80          CONTINUE
@@ -317,14 +317,14 @@
                      // Print information about the tests that did not pass
                     t // he threshold.
 
-                     IF( RESULT( 7 ).GE.THRESH ) THEN
+                     if ( RESULT( 7 ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )'DLATBS', UPLO, TRANS, DIAG, 'N', N, KD, IMAT, 7, RESULT( 7 )
                         NFAIL = NFAIL + 1
-                     END IF
-                     IF( RESULT( 8 ).GE.THRESH ) THEN
+                     }
+                     if ( RESULT( 8 ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )'DLATBS', UPLO, TRANS, DIAG, 'Y', N, KD, IMAT, 8, RESULT( 8 )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
                      NRUN = NRUN + 2
   100             CONTINUE
   110          CONTINUE

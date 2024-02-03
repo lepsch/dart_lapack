@@ -51,39 +51,39 @@
 
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
+      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NRHS.LT.0 ) THEN
+      } else if ( NRHS.LT.0 ) {
          INFO = -3
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -13
-      ELSE IF( LDX.LT.MAX( 1, N ) ) THEN
+      } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -15
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGTRFS', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
+      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
          DO 10 J = 1, NRHS
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
          RETURN
-      END IF
+      }
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
          TRANSN = 'N'
          TRANST = 'T'
       } else {
          TRANSN = 'T'
          TRANST = 'N'
-      END IF
+      }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
@@ -112,8 +112,8 @@
          // Compute abs(op(A))*abs(x) + abs(b) for use in the backward
          // error bound.
 
-         IF( NOTRAN ) THEN
-            IF( N.EQ.1 ) THEN
+         if ( NOTRAN ) {
+            if ( N.EQ.1 ) {
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) )
             } else {
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DU( 1 )*X( 2, J ) )
@@ -121,9 +121,9 @@
                   WORK( I ) = ABS( B( I, J ) ) + ABS( DL( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DU( I )*X( I+1, J ) )
    30          CONTINUE
                WORK( N ) = ABS( B( N, J ) ) + ABS( DL( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) )
-            END IF
+            }
          } else {
-            IF( N.EQ.1 ) THEN
+            if ( N.EQ.1 ) {
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) )
             } else {
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DL( 1 )*X( 2, J ) )
@@ -131,8 +131,8 @@
                   WORK( I ) = ABS( B( I, J ) ) + ABS( DU( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DL( I )*X( I+1, J ) )
    40          CONTINUE
                WORK( N ) = ABS( B( N, J ) ) + ABS( DU( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) )
-            END IF
-         END IF
+            }
+         }
 
          // Compute componentwise relative backward error from formula
 
@@ -145,11 +145,11 @@
 
          S = ZERO
          DO 50 I = 1, N
-            IF( WORK( I ).GT.SAFE2 ) THEN
+            if ( WORK( I ).GT.SAFE2 ) {
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
-            END IF
+            }
    50    CONTINUE
          BERR( J ) = S
 
@@ -159,7 +159,7 @@
                // last iteration, and
             // 3) At most ITMAX iterations tried.
 
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
+         if ( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) {
 
             // Update solution and try again.
 
@@ -168,7 +168,7 @@
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
-         END IF
+         }
 
          // Bound error from formula
 
@@ -193,18 +193,18 @@
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
          DO 60 I = 1, N
-            IF( WORK( I ).GT.SAFE2 ) THEN
+            if ( WORK( I ).GT.SAFE2 ) {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
             } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
-            END IF
+            }
    60    CONTINUE
 
          KASE = 0
    70    CONTINUE
          CALL SLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE )
-         IF( KASE.NE.0 ) THEN
-            IF( KASE.EQ.1 ) THEN
+         if ( KASE.NE.0 ) {
+            if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**T).
 
@@ -220,9 +220,9 @@
                   WORK( N+I ) = WORK( I )*WORK( N+I )
    90          CONTINUE
                CALL SGTTRS( TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO )
-            END IF
+            }
             GO TO 70
-         END IF
+         }
 
          // Normalize error.
 

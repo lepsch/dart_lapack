@@ -74,7 +74,7 @@
       // of a Hermitian indefinite matrix with partial
       // (Bunch-Kaufman) diagonal pivoting method.
 
-      IF( LSAMEN( 2, C2, 'HE' ) ) THEN
+      if ( LSAMEN( 2, C2, 'HE' ) ) {
 
          // ZHETRF
 
@@ -238,7 +238,7 @@
          CALL ZHECON( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'ZHECON', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HR' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with rook
@@ -324,7 +324,7 @@
          CALL ZHECON_ROOK( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'ZHECON_ROOK', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HK' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HK' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with rook
@@ -433,7 +433,7 @@
          CALL ZHECON_3( 'U', 1, A, 1, E, IP, -1.0D0, RCOND, W, INFO)
          CALL CHKXER( 'ZHECON_3', INFOT, NOUT, LERR, OK )
 
-      ELSE IF( LSAMEN( 2, C2, 'HP' ) ) THEN
+      } else if ( LSAMEN( 2, C2, 'HP' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite packed matrix with partial
@@ -506,7 +506,7 @@
          INFOT = 5
          CALL ZHPCON( 'U', 1, A, IP, -ANRM, RCOND, W, INFO )
          CALL CHKXER( 'ZHPCON', INFOT, NOUT, LERR, OK )
-      END IF
+      }
 
       // Print a summary line.
 

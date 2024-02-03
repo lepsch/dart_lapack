@@ -23,9 +23,9 @@
       // .. Executable Statements ..
 
       // Quick test for the common case where one corner is non-zero.
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
          ILACLC = N
-      ELSE IF( A(1, N).NE.ZERO .OR. A(M, N).NE.ZERO ) THEN
+      } else if ( A(1, N).NE.ZERO .OR. A(M, N).NE.ZERO ) {
          ILACLC = N
       } else {
       // Now scan each column from the end, returning with the first non-zero.
@@ -34,6 +34,6 @@
                IF( A(I, ILACLC).NE.ZERO ) RETURN
             END DO
          END DO
-      END IF
+      }
       RETURN
       }

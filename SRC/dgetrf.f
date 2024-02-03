@@ -36,17 +36,17 @@
       // Test the input parameters.
 
       INFO = 0
-      IF( M.LT.0 ) THEN
+      if ( M.LT.0 ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+      } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DGETRF', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -55,7 +55,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'DGETRF', ' ', M, N, -1, -1 )
-      IF( NB.LE.1 .OR. NB.GE.MIN( M, N ) ) THEN
+      if ( NB.LE.1 .OR. NB.GE.MIN( M, N ) ) {
 
          // Use unblocked code.
 
@@ -83,7 +83,7 @@
 
             CALL DLASWP( J-1, A, LDA, J, J+JB-1, IPIV, 1 )
 
-            IF( J+JB.LE.N ) THEN
+            if ( J+JB.LE.N ) {
 
                // Apply interchanges to columns J+JB:N.
 
@@ -92,15 +92,15 @@
                // Compute block row of U.
 
                CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA )
-               IF( J+JB.LE.M ) THEN
+               if ( J+JB.LE.M ) {
 
                   // Update trailing submatrix.
 
                   CALL DGEMM( 'No transpose', 'No transpose', M-J-JB+1, N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA )
-               END IF
-            END IF
+               }
+            }
    20    CONTINUE
-      END IF
+      }
       RETURN
 
       // End of DGETRF

@@ -27,17 +27,17 @@
 
       // Quick return if possible
 
-      IF( N.LE.1 ) THEN
+      if ( N.LE.1 ) {
          IF( N.EQ.1 ) CALL CSSCAL( NRHS, 1. / D( 1 ), B, LDB )
          RETURN
-      END IF
+      }
 
-      IF( IUPLO.EQ.1 ) THEN
+      if ( IUPLO.EQ.1 ) {
 
          // Solve A * X = B using the factorization A = U**H *D*U,
          // overwriting each right hand side vector with its solution.
 
-         IF( NRHS.LE.2 ) THEN
+         if ( NRHS.LE.2 ) {
             J = 1
     5       CONTINUE
 
@@ -55,10 +55,10 @@
             DO 30 I = N - 1, 1, -1
                B( I, J ) = B( I, J ) - B( I+1, J )*E( I )
    30       CONTINUE
-            IF( J.LT.NRHS ) THEN
+            if ( J.LT.NRHS ) {
                J = J + 1
                GO TO 5
-            END IF
+            }
          } else {
             DO 60 J = 1, NRHS
 
@@ -75,13 +75,13 @@
                   B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*E( I )
    50          CONTINUE
    60       CONTINUE
-         END IF
+         }
       } else {
 
          // Solve A * X = B using the factorization A = L*D*L**H,
          // overwriting each right hand side vector with its solution.
 
-         IF( NRHS.LE.2 ) THEN
+         if ( NRHS.LE.2 ) {
             J = 1
    65       CONTINUE
 
@@ -99,10 +99,10 @@
             DO 90 I = N - 1, 1, -1
                B( I, J ) = B( I, J ) - B( I+1, J )*CONJG( E( I ) )
    90       CONTINUE
-            IF( J.LT.NRHS ) THEN
+            if ( J.LT.NRHS ) {
                J = J + 1
                GO TO 65
-            END IF
+            }
          } else {
             DO 120 J = 1, NRHS
 
@@ -119,8 +119,8 @@
                   B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*CONJG( E( I ) )
   110          CONTINUE
   120       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

@@ -32,15 +32,15 @@
          INCX = 9999
          INCY = 9999
          MODE = 9999
-         IF (ICASE.EQ.3) THEN
+         if (ICASE.EQ.3) {
             CALL CHECK0(SFAC)
-         ELSE IF (ICASE.EQ.7 .OR. ICASE.EQ.8 .OR. ICASE.EQ.9 .OR. ICASE.EQ.10) THEN
+         } else if (ICASE.EQ.7 .OR. ICASE.EQ.8 .OR. ICASE.EQ.9 .OR. ICASE.EQ.10) {
             CALL CHECK1(SFAC)
-         ELSE IF (ICASE.EQ.1 .OR. ICASE.EQ.2 .OR. ICASE.EQ.5 .OR. ICASE.EQ.6) THEN
+         } else if (ICASE.EQ.1 .OR. ICASE.EQ.2 .OR. ICASE.EQ.5 .OR. ICASE.EQ.6) {
             CALL CHECK2(SFAC)
-         ELSE IF (ICASE.EQ.4) THEN
+         } else if (ICASE.EQ.4) {
             CALL CHECK3(SFAC)
-         END IF
+         }
          // -- Print
          IF (PASS) WRITE (NOUT,99998)
    20 CONTINUE
@@ -109,7 +109,7 @@
       DO 20 K = 1, 8
          // .. Set N=K for identification in output if any ..
          N = K
-         IF (ICASE.EQ.3) THEN
+         if (ICASE.EQ.3) {
             // .. SROTGTEST ..
             IF (K.GT.8) GO TO 40
             SA = DA1(K)
@@ -122,7 +122,7 @@
          } else {
             WRITE (NOUT,*) ' Shouldn''t be here in CHECK0'
             STOP
-         END IF
+         }
    20 CONTINUE
    40 RETURN
       }
@@ -166,28 +166,28 @@
                SX(I) = DV(I,NP1,INCX)
    20       CONTINUE
 
-            IF (ICASE.EQ.7) THEN
+            if (ICASE.EQ.7) {
                // .. SNRM2TEST ..
                STEMP(1) = DTRUE1(NP1)
                CALL STEST1(SNRM2TEST(N,SX,INCX),STEMP(1),STEMP,SFAC)
-            ELSE IF (ICASE.EQ.8) THEN
+            } else if (ICASE.EQ.8) {
                // .. SASUMTEST ..
                STEMP(1) = DTRUE3(NP1)
                CALL STEST1(SASUMTEST(N,SX,INCX),STEMP(1),STEMP,SFAC)
-            ELSE IF (ICASE.EQ.9) THEN
+            } else if (ICASE.EQ.9) {
                // .. SSCALTEST ..
                CALL SSCALTEST(N,SA((INCX-1)*5+NP1),SX,INCX)
                DO 40 I = 1, LEN
                   STRUE(I) = DTRUE5(I,NP1,INCX)
    40          CONTINUE
                CALL STEST(LEN,SX,STRUE,STRUE,SFAC)
-            ELSE IF (ICASE.EQ.10) THEN
+            } else if (ICASE.EQ.10) {
                // .. ISAMAXTEST ..
                CALL ITEST1(ISAMAXTEST(N,SX,INCX),ITRUE2(NP1))
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
-            END IF
+            }
    60    CONTINUE
    80 CONTINUE
       RETURN
@@ -245,24 +245,24 @@
                SY(I) = DY1(I)
    20       CONTINUE
 
-            IF (ICASE.EQ.1) THEN
+            if (ICASE.EQ.1) {
                // .. SDOTTEST ..
                CALL STEST1(SDOTTEST(N,SX,INCX,SY,INCY),DT7(KN,KI), SSIZE1(KN),SFAC)
-            ELSE IF (ICASE.EQ.2) THEN
+            } else if (ICASE.EQ.2) {
                // .. SAXPYTEST ..
                CALL SAXPYTEST(N,SA,SX,INCX,SY,INCY)
                DO 40 J = 1, LENY
                   STY(J) = DT8(J,KN,KI)
    40          CONTINUE
                CALL STEST(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC)
-            ELSE IF (ICASE.EQ.5) THEN
+            } else if (ICASE.EQ.5) {
                // .. SCOPYTEST ..
                DO 60 I = 1, 7
                   STY(I) = DT10Y(I,KN,KI)
    60          CONTINUE
                CALL SCOPYTEST(N,SX,INCX,SY,INCY)
                CALL STEST(LENY,SY,STY,SSIZE2(1,1),1.0E0)
-            ELSE IF (ICASE.EQ.6) THEN
+            } else if (ICASE.EQ.6) {
                // .. SSWAPTEST ..
                CALL SSWAPTEST(N,SX,INCX,SY,INCY)
                DO 80 I = 1, 7
@@ -274,7 +274,7 @@
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
-            END IF
+            }
   100    CONTINUE
   120 CONTINUE
       RETURN
@@ -323,7 +323,7 @@
             LENX = LENS(KN,MX)
             LENY = LENS(KN,MY)
 
-            IF (ICASE.EQ.4) THEN
+            if (ICASE.EQ.4) {
                // .. SROTTEST ..
                DO 20 I = 1, 7
                   SX(I) = DX1(I)
@@ -337,7 +337,7 @@
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK3'
                STOP
-            END IF
+            }
    40    CONTINUE
    60 CONTINUE
 

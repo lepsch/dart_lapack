@@ -31,15 +31,15 @@
       HA = ABS( H )
       FHMN = MIN( FA, HA )
       FHMX = MAX( FA, HA )
-      IF( FHMN.EQ.ZERO ) THEN
+      if ( FHMN.EQ.ZERO ) {
          SSMIN = ZERO
-         IF( FHMX.EQ.ZERO ) THEN
+         if ( FHMX.EQ.ZERO ) {
             SSMAX = GA
          } else {
             SSMAX = MAX( FHMX, GA )*SQRT( ONE+ ( MIN( FHMX, GA ) / MAX( FHMX, GA ) )**2 )
-         END IF
+         }
       } else {
-         IF( GA.LT.FHMX ) THEN
+         if ( GA.LT.FHMX ) {
             AS = ONE + FHMN / FHMX
             AT = ( FHMX-FHMN ) / FHMX
             AU = ( GA / FHMX )**2
@@ -48,7 +48,7 @@
             SSMAX = FHMX / C
          } else {
             AU = FHMX / GA
-            IF( AU.EQ.ZERO ) THEN
+            if ( AU.EQ.ZERO ) {
 
                // Avoid possible harmful underflow if exponent range
                // asymmetric (true SSMIN may not underflow even if
@@ -63,9 +63,9 @@
                SSMIN = ( FHMN*C )*AU
                SSMIN = SSMIN + SSMIN
                SSMAX = GA / ( C+C )
-            END IF
-         END IF
-      END IF
+            }
+         }
+      }
       RETURN
 
       // End of SLAS2

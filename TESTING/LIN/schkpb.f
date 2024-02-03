@@ -108,14 +108,14 @@
 
             DO 70 IUPLO = 1, 2
                KOFF = 1
-               IF( IUPLO.EQ.1 ) THEN
+               if ( IUPLO.EQ.1 ) {
                   UPLO = 'U'
                   KOFF = MAX( 1, KD+2-N )
                   PACKIT = 'Q'
                } else {
                   UPLO = 'L'
                   PACKIT = 'B'
-               END IF
+               }
 
                DO 60 IMAT = 1, NIMAT
 
@@ -128,7 +128,7 @@
                   ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
                   IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 60
 
-                  IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) THEN
+                  if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) {
 
                      // Set up parameters with SLATB4 and generate a test
                      // matrix with SLATMS.
@@ -140,17 +140,17 @@
 
                      // Check error code from SLATMS.
 
-                     IF( INFO.NE.0 ) THEN
+                     if ( INFO.NE.0 ) {
                         CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 60
-                     END IF
-                  ELSE IF( IZERO.GT.0 ) THEN
+                     }
+                  } else if ( IZERO.GT.0 ) {
 
                      // Use the same matrix for types 3 and 4 as for type
                      // 2 by copying back the zeroed out column,
 
                      IW = 2*LDA + 1
-                     IF( IUPLO.EQ.1 ) THEN
+                     if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
                         CALL SCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 )
                         IW = IW + IZERO - I1
@@ -161,21 +161,21 @@
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
                         CALL SCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 )
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // For types 2-4, zero one row and column of the matrix
                  t // o test that INFO is returned correctly.
 
                   IZERO = 0
-                  IF( ZEROT ) THEN
-                     IF( IMAT.EQ.2 ) THEN
+                  if ( ZEROT ) {
+                     if ( IMAT.EQ.2 ) {
                         IZERO = 1
-                     ELSE IF( IMAT.EQ.3 ) THEN
+                     } else if ( IMAT.EQ.3 ) {
                         IZERO = N
                      } else {
                         IZERO = N / 2 + 1
-                     END IF
+                     }
 
                      // Save the zeroed out row and column in WORK(*,3)
 
@@ -187,7 +187,7 @@
                      I1 = MAX( IZERO-KD, 1 )
                      I2 = MIN( IZERO+KD, N )
 
-                     IF( IUPLO.EQ.1 ) THEN
+                     if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
                         CALL SSWAP( IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 )
                         IW = IW + IZERO - I1
@@ -198,8 +198,8 @@
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
                         CALL SSWAP( I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 )
-                     END IF
-                  END IF
+                     }
+                  }
 
                   // Do for each value of NB in NBVAL
 
@@ -216,10 +216,10 @@
 
                      // Check error code from SPBTRF.
 
-                     IF( INFO.NE.IZERO ) THEN
+                     if ( INFO.NE.IZERO ) {
                         CALL ALAERH( PATH, 'SPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 50
-                     END IF
+                     }
 
                      // Skip the tests if INFO is not 0.
 
@@ -233,10 +233,10 @@
 
                      // Print the test ratio if it is .GE. THRESH.
 
-                     IF( RESULT( 1 ).GE.THRESH ) THEN
+                     if ( RESULT( 1 ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, KD, NB, IMAT, 1, RESULT( 1 )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
                      NRUN = NRUN + 1
 
                      // Only do other tests if this is the first blocksize.
@@ -254,11 +254,11 @@
 
                      ANORM = SLANSB( '1', UPLO, N, KD, A, LDAB, RWORK )
                      AINVNM = SLANGE( '1', N, N, AINV, LDA, RWORK )
-                     IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                     if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                         RCONDC = ONE
                      } else {
                         RCONDC = ( ONE / ANORM ) / AINVNM
-                     END IF
+                     }
 
                      DO 40 IRHS = 1, NNS
                         NRHS = NSVAL( IRHS )
@@ -300,10 +300,10 @@
                         // pass the threshold.
 
                         DO 30 K = 2, 6
-                           IF( RESULT( K ).GE.THRESH ) THEN
+                           if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
    30                   CONTINUE
                         NRUN = NRUN + 5
    40                CONTINUE
@@ -322,10 +322,10 @@
 
                      // Print the test ratio if it is .GE. THRESH.
 
-                     IF( RESULT( 7 ).GE.THRESH ) THEN
+                     if ( RESULT( 7 ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )UPLO, N, KD, IMAT, 7, RESULT( 7 )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
                      NRUN = NRUN + 1
    50             CONTINUE
    60          CONTINUE

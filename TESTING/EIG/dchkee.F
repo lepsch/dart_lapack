@@ -137,71 +137,71 @@
 
       // Report values of parameters.
 
-      IF( PATH.EQ.'   ' ) THEN
+      if ( PATH.EQ.'   ' ) {
          GO TO 10
-      ELSE IF( NEP ) THEN
+      } else if ( NEP ) {
          WRITE( NOUT, FMT = 9987 )
-      ELSE IF( SEP ) THEN
+      } else if ( SEP ) {
          WRITE( NOUT, FMT = 9986 )
-      ELSE IF( SVD ) THEN
+      } else if ( SVD ) {
          WRITE( NOUT, FMT = 9985 )
-      ELSE IF( DEV ) THEN
+      } else if ( DEV ) {
          WRITE( NOUT, FMT = 9979 )
-      ELSE IF( DES ) THEN
+      } else if ( DES ) {
          WRITE( NOUT, FMT = 9978 )
-      ELSE IF( DVX ) THEN
+      } else if ( DVX ) {
          WRITE( NOUT, FMT = 9977 )
-      ELSE IF( DSX ) THEN
+      } else if ( DSX ) {
          WRITE( NOUT, FMT = 9976 )
-      ELSE IF( DGG ) THEN
+      } else if ( DGG ) {
          WRITE( NOUT, FMT = 9975 )
-      ELSE IF( DGS ) THEN
+      } else if ( DGS ) {
          WRITE( NOUT, FMT = 9964 )
-      ELSE IF( DGX ) THEN
+      } else if ( DGX ) {
          WRITE( NOUT, FMT = 9965 )
-      ELSE IF( DGV ) THEN
+      } else if ( DGV ) {
          WRITE( NOUT, FMT = 9963 )
-      ELSE IF( DXV ) THEN
+      } else if ( DXV ) {
          WRITE( NOUT, FMT = 9962 )
-      ELSE IF( DSB ) THEN
+      } else if ( DSB ) {
          WRITE( NOUT, FMT = 9974 )
-      ELSE IF( DBB ) THEN
+      } else if ( DBB ) {
          WRITE( NOUT, FMT = 9967 )
-      ELSE IF( GLM ) THEN
+      } else if ( GLM ) {
          WRITE( NOUT, FMT = 9971 )
-      ELSE IF( GQR ) THEN
+      } else if ( GQR ) {
          WRITE( NOUT, FMT = 9970 )
-      ELSE IF( GSV ) THEN
+      } else if ( GSV ) {
          WRITE( NOUT, FMT = 9969 )
-      ELSE IF( CSD ) THEN
+      } else if ( CSD ) {
          WRITE( NOUT, FMT = 9960 )
-      ELSE IF( LSE ) THEN
+      } else if ( LSE ) {
          WRITE( NOUT, FMT = 9968 )
-      ELSE IF( DBL ) THEN
+      } else if ( DBL ) {
 
          // DGEBAL:  Balancing
 
          CALL DCHKBL( NIN, NOUT )
          GO TO 10
-      ELSE IF( DBK ) THEN
+      } else if ( DBK ) {
 
          // DGEBAK:  Back transformation
 
          CALL DCHKBK( NIN, NOUT )
          GO TO 10
-      ELSE IF( DGL ) THEN
+      } else if ( DGL ) {
 
          // DGGBAL:  Balancing
 
          CALL DCHKGL( NIN, NOUT )
          GO TO 10
-      ELSE IF( DGK ) THEN
+      } else if ( DGK ) {
 
          // DGGBAK:  Back transformation
 
          CALL DCHKGK( NIN, NOUT )
          GO TO 10
-      ELSE IF( LSAMEN( 3, PATH, 'DEC' ) ) THEN
+      } else if ( LSAMEN( 3, PATH, 'DEC' ) ) {
 
          // DEC:  Eigencondition estimation
 
@@ -218,7 +218,7 @@
       } else {
          WRITE( NOUT, FMT = 9992 )PATH
          GO TO 10
-      END IF
+      }
       CALL ILAVER( VERS_MAJOR, VERS_MINOR, VERS_PATCH )
       WRITE( NOUT, FMT = 9972 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
       WRITE( NOUT, FMT = 9984 )
@@ -226,125 +226,125 @@
       // Read the number of values of M, P, and N.
 
       READ( NIN, FMT = * )NN
-      IF( NN.LT.0 ) THEN
+      if ( NN.LT.0 ) {
          WRITE( NOUT, FMT = 9989 )'   NN ', NN, 1
          NN = 0
          FATAL = .TRUE.
-      ELSE IF( NN.GT.MAXIN ) THEN
+      } else if ( NN.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9988 )'   NN ', NN, MAXIN
          NN = 0
          FATAL = .TRUE.
-      END IF
+      }
 
       // Read the values of M
 
-      IF( .NOT.( DGX .OR. DXV ) ) THEN
+      if ( .NOT.( DGX .OR. DXV ) ) {
          READ( NIN, FMT = * )( MVAL( I ), I = 1, NN )
-         IF( SVD ) THEN
+         if ( SVD ) {
             VNAME = '    M '
          } else {
             VNAME = '    N '
-         END IF
+         }
          DO 20 I = 1, NN
-            IF( MVAL( I ).LT.0 ) THEN
+            if ( MVAL( I ).LT.0 ) {
                WRITE( NOUT, FMT = 9989 )VNAME, MVAL( I ), 0
                FATAL = .TRUE.
-            ELSE IF( MVAL( I ).GT.NMAX ) THEN
+            } else if ( MVAL( I ).GT.NMAX ) {
                WRITE( NOUT, FMT = 9988 )VNAME, MVAL( I ), NMAX
                FATAL = .TRUE.
-            END IF
+            }
    20    CONTINUE
          WRITE( NOUT, FMT = 9983 )'M:    ', ( MVAL( I ), I = 1, NN )
-      END IF
+      }
 
       // Read the values of P
 
-      IF( GLM .OR. GQR .OR. GSV .OR. CSD .OR. LSE ) THEN
+      if ( GLM .OR. GQR .OR. GSV .OR. CSD .OR. LSE ) {
          READ( NIN, FMT = * )( PVAL( I ), I = 1, NN )
          DO 30 I = 1, NN
-            IF( PVAL( I ).LT.0 ) THEN
+            if ( PVAL( I ).LT.0 ) {
                WRITE( NOUT, FMT = 9989 )' P  ', PVAL( I ), 0
                FATAL = .TRUE.
-            ELSE IF( PVAL( I ).GT.NMAX ) THEN
+            } else if ( PVAL( I ).GT.NMAX ) {
                WRITE( NOUT, FMT = 9988 )' P  ', PVAL( I ), NMAX
                FATAL = .TRUE.
-            END IF
+            }
    30    CONTINUE
          WRITE( NOUT, FMT = 9983 )'P:    ', ( PVAL( I ), I = 1, NN )
-      END IF
+      }
 
       // Read the values of N
 
-      IF( SVD .OR. DBB .OR. GLM .OR. GQR .OR. GSV .OR. CSD .OR. LSE ) THEN
+      if ( SVD .OR. DBB .OR. GLM .OR. GQR .OR. GSV .OR. CSD .OR. LSE ) {
          READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
          DO 40 I = 1, NN
-            IF( NVAL( I ).LT.0 ) THEN
+            if ( NVAL( I ).LT.0 ) {
                WRITE( NOUT, FMT = 9989 )'    N ', NVAL( I ), 0
                FATAL = .TRUE.
-            ELSE IF( NVAL( I ).GT.NMAX ) THEN
+            } else if ( NVAL( I ).GT.NMAX ) {
                WRITE( NOUT, FMT = 9988 )'    N ', NVAL( I ), NMAX
                FATAL = .TRUE.
-            END IF
+            }
    40    CONTINUE
       } else {
          DO 50 I = 1, NN
             NVAL( I ) = MVAL( I )
    50    CONTINUE
-      END IF
-      IF( .NOT.( DGX .OR. DXV ) ) THEN
+      }
+      if ( .NOT.( DGX .OR. DXV ) ) {
          WRITE( NOUT, FMT = 9983 )'N:    ', ( NVAL( I ), I = 1, NN )
       } else {
          WRITE( NOUT, FMT = 9983 )'N:    ', NN
-      END IF
+      }
 
       // Read the number of values of K, followed by the values of K
 
-      IF( DSB .OR. DBB ) THEN
+      if ( DSB .OR. DBB ) {
          READ( NIN, FMT = * )NK
          READ( NIN, FMT = * )( KVAL( I ), I = 1, NK )
          DO 60 I = 1, NK
-            IF( KVAL( I ).LT.0 ) THEN
+            if ( KVAL( I ).LT.0 ) {
                WRITE( NOUT, FMT = 9989 )'    K ', KVAL( I ), 0
                FATAL = .TRUE.
-            ELSE IF( KVAL( I ).GT.NMAX ) THEN
+            } else if ( KVAL( I ).GT.NMAX ) {
                WRITE( NOUT, FMT = 9988 )'    K ', KVAL( I ), NMAX
                FATAL = .TRUE.
-            END IF
+            }
    60    CONTINUE
          WRITE( NOUT, FMT = 9983 )'K:    ', ( KVAL( I ), I = 1, NK )
-      END IF
+      }
 
-      IF( DEV .OR. DES .OR. DVX .OR. DSX ) THEN
+      if ( DEV .OR. DES .OR. DVX .OR. DSX ) {
 
          // For the nonsymmetric QR driver routines, only one set of
          // parameters is allowed.
 
          READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), INMIN( 1 ), INWIN( 1 ), INIBL(1), ISHFTS(1), IACC22(1)
-         IF( NBVAL( 1 ).LT.1 ) THEN
+         if ( NBVAL( 1 ).LT.1 ) {
             WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( 1 ), 1
             FATAL = .TRUE.
-         ELSE IF( NBMIN( 1 ).LT.1 ) THEN
+         } else if ( NBMIN( 1 ).LT.1 ) {
             WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( 1 ), 1
             FATAL = .TRUE.
-         ELSE IF( NXVAL( 1 ).LT.1 ) THEN
+         } else if ( NXVAL( 1 ).LT.1 ) {
             WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( 1 ), 1
             FATAL = .TRUE.
-         ELSE IF( INMIN( 1 ).LT.1 ) THEN
+         } else if ( INMIN( 1 ).LT.1 ) {
             WRITE( NOUT, FMT = 9989 )'   INMIN ', INMIN( 1 ), 1
             FATAL = .TRUE.
-         ELSE IF( INWIN( 1 ).LT.1 ) THEN
+         } else if ( INWIN( 1 ).LT.1 ) {
             WRITE( NOUT, FMT = 9989 )'   INWIN ', INWIN( 1 ), 1
             FATAL = .TRUE.
-         ELSE IF( INIBL( 1 ).LT.1 ) THEN
+         } else if ( INIBL( 1 ).LT.1 ) {
             WRITE( NOUT, FMT = 9989 )'   INIBL ', INIBL( 1 ), 1
             FATAL = .TRUE.
-         ELSE IF( ISHFTS( 1 ).LT.1 ) THEN
+         } else if ( ISHFTS( 1 ).LT.1 ) {
             WRITE( NOUT, FMT = 9989 )'   ISHFTS ', ISHFTS( 1 ), 1
             FATAL = .TRUE.
-         ELSE IF( IACC22( 1 ).LT.0 ) THEN
+         } else if ( IACC22( 1 ).LT.0 ) {
             WRITE( NOUT, FMT = 9989 )'   IACC22 ', IACC22( 1 ), 0
             FATAL = .TRUE.
-         END IF
+         }
          CALL XLAENV( 1, NBVAL( 1 ) )
          CALL XLAENV( 2, NBMIN( 1 ) )
          CALL XLAENV( 3, NXVAL( 1 ) )
@@ -368,22 +368,22 @@
          // of parameters is allowed.
 
          READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), NSVAL( 1 ), MXBVAL( 1 )
-         IF( NBVAL( 1 ).LT.1 ) THEN
+         if ( NBVAL( 1 ).LT.1 ) {
             WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( 1 ), 1
             FATAL = .TRUE.
-         ELSE IF( NBMIN( 1 ).LT.1 ) THEN
+         } else if ( NBMIN( 1 ).LT.1 ) {
             WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( 1 ), 1
             FATAL = .TRUE.
-         ELSE IF( NXVAL( 1 ).LT.1 ) THEN
+         } else if ( NXVAL( 1 ).LT.1 ) {
             WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( 1 ), 1
             FATAL = .TRUE.
-         ELSE IF( NSVAL( 1 ).LT.2 ) THEN
+         } else if ( NSVAL( 1 ).LT.2 ) {
             WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( 1 ), 2
             FATAL = .TRUE.
-         ELSE IF( MXBVAL( 1 ).LT.1 ) THEN
+         } else if ( MXBVAL( 1 ).LT.1 ) {
             WRITE( NOUT, FMT = 9989 )' MAXB ', MXBVAL( 1 ), 1
             FATAL = .TRUE.
-         END IF
+         }
          CALL XLAENV( 1, NBVAL( 1 ) )
          CALL XLAENV( 2, NBMIN( 1 ) )
          CALL XLAENV( 3, NXVAL( 1 ) )
@@ -395,224 +395,224 @@
          WRITE( NOUT, FMT = 9983 )'NS:   ', NSVAL( 1 )
          WRITE( NOUT, FMT = 9983 )'MAXB: ', MXBVAL( 1 )
 
-      ELSE IF( .NOT.DSB .AND. .NOT.GLM .AND. .NOT.GQR .AND. .NOT. GSV .AND. .NOT.CSD .AND. .NOT.LSE ) THEN
+      } else if ( .NOT.DSB .AND. .NOT.GLM .AND. .NOT.GQR .AND. .NOT. GSV .AND. .NOT.CSD .AND. .NOT.LSE ) {
 
          // For the other paths, the number of parameters can be varied
          // from the input file.  Read the number of parameter values.
 
          READ( NIN, FMT = * )NPARMS
-         IF( NPARMS.LT.1 ) THEN
+         if ( NPARMS.LT.1 ) {
             WRITE( NOUT, FMT = 9989 )'NPARMS', NPARMS, 1
             NPARMS = 0
             FATAL = .TRUE.
-         ELSE IF( NPARMS.GT.MAXIN ) THEN
+         } else if ( NPARMS.GT.MAXIN ) {
             WRITE( NOUT, FMT = 9988 )'NPARMS', NPARMS, MAXIN
             NPARMS = 0
             FATAL = .TRUE.
-         END IF
+         }
 
          // Read the values of NB
 
-         IF( .NOT.DBB ) THEN
+         if ( .NOT.DBB ) {
             READ( NIN, FMT = * )( NBVAL( I ), I = 1, NPARMS )
             DO 70 I = 1, NPARMS
-               IF( NBVAL( I ).LT.0 ) THEN
+               if ( NBVAL( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( I ), 0
                   FATAL = .TRUE.
-               ELSE IF( NBVAL( I ).GT.NMAX ) THEN
+               } else if ( NBVAL( I ).GT.NMAX ) {
                   WRITE( NOUT, FMT = 9988 )'   NB ', NBVAL( I ), NMAX
                   FATAL = .TRUE.
-               END IF
+               }
    70       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NB:   ', ( NBVAL( I ), I = 1, NPARMS )
-         END IF
+         }
 
          // Read the values of NBMIN
 
-         IF( NEP .OR. SEP .OR. SVD .OR. DGG ) THEN
+         if ( NEP .OR. SEP .OR. SVD .OR. DGG ) {
             READ( NIN, FMT = * )( NBMIN( I ), I = 1, NPARMS )
             DO 80 I = 1, NPARMS
-               IF( NBMIN( I ).LT.0 ) THEN
+               if ( NBMIN( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( I ), 0
                   FATAL = .TRUE.
-               ELSE IF( NBMIN( I ).GT.NMAX ) THEN
+               } else if ( NBMIN( I ).GT.NMAX ) {
                   WRITE( NOUT, FMT = 9988 )'NBMIN ', NBMIN( I ), NMAX
                   FATAL = .TRUE.
-               END IF
+               }
    80       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NBMIN:', ( NBMIN( I ), I = 1, NPARMS )
          } else {
             DO 90 I = 1, NPARMS
                NBMIN( I ) = 1
    90       CONTINUE
-         END IF
+         }
 
          // Read the values of NX
 
-         IF( NEP .OR. SEP .OR. SVD ) THEN
+         if ( NEP .OR. SEP .OR. SVD ) {
             READ( NIN, FMT = * )( NXVAL( I ), I = 1, NPARMS )
             DO 100 I = 1, NPARMS
-               IF( NXVAL( I ).LT.0 ) THEN
+               if ( NXVAL( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( I ), 0
                   FATAL = .TRUE.
-               ELSE IF( NXVAL( I ).GT.NMAX ) THEN
+               } else if ( NXVAL( I ).GT.NMAX ) {
                   WRITE( NOUT, FMT = 9988 )'   NX ', NXVAL( I ), NMAX
                   FATAL = .TRUE.
-               END IF
+               }
   100       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NX:   ', ( NXVAL( I ), I = 1, NPARMS )
          } else {
             DO 110 I = 1, NPARMS
                NXVAL( I ) = 1
   110       CONTINUE
-         END IF
+         }
 
          // Read the values of NSHIFT (if DGG) or NRHS (if SVD
          // or DBB).
 
-         IF( SVD .OR. DBB .OR. DGG ) THEN
+         if ( SVD .OR. DBB .OR. DGG ) {
             READ( NIN, FMT = * )( NSVAL( I ), I = 1, NPARMS )
             DO 120 I = 1, NPARMS
-               IF( NSVAL( I ).LT.0 ) THEN
+               if ( NSVAL( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( I ), 0
                   FATAL = .TRUE.
-               ELSE IF( NSVAL( I ).GT.NMAX ) THEN
+               } else if ( NSVAL( I ).GT.NMAX ) {
                   WRITE( NOUT, FMT = 9988 )'   NS ', NSVAL( I ), NMAX
                   FATAL = .TRUE.
-               END IF
+               }
   120       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NS:   ', ( NSVAL( I ), I = 1, NPARMS )
          } else {
             DO 130 I = 1, NPARMS
                NSVAL( I ) = 1
   130       CONTINUE
-         END IF
+         }
 
          // Read the values for MAXB.
 
-         IF( DGG ) THEN
+         if ( DGG ) {
             READ( NIN, FMT = * )( MXBVAL( I ), I = 1, NPARMS )
             DO 140 I = 1, NPARMS
-               IF( MXBVAL( I ).LT.0 ) THEN
+               if ( MXBVAL( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )' MAXB ', MXBVAL( I ), 0
                   FATAL = .TRUE.
-               ELSE IF( MXBVAL( I ).GT.NMAX ) THEN
+               } else if ( MXBVAL( I ).GT.NMAX ) {
                   WRITE( NOUT, FMT = 9988 )' MAXB ', MXBVAL( I ), NMAX
                   FATAL = .TRUE.
-               END IF
+               }
   140       CONTINUE
             WRITE( NOUT, FMT = 9983 )'MAXB: ', ( MXBVAL( I ), I = 1, NPARMS )
          } else {
             DO 150 I = 1, NPARMS
                MXBVAL( I ) = 1
   150       CONTINUE
-         END IF
+         }
 
          // Read the values for INMIN.
 
-         IF( NEP ) THEN
+         if ( NEP ) {
             READ( NIN, FMT = * )( INMIN( I ), I = 1, NPARMS )
             DO 540 I = 1, NPARMS
-               IF( INMIN( I ).LT.0 ) THEN
+               if ( INMIN( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )' INMIN ', INMIN( I ), 0
                   FATAL = .TRUE.
-               END IF
+               }
   540       CONTINUE
             WRITE( NOUT, FMT = 9983 )'INMIN: ', ( INMIN( I ), I = 1, NPARMS )
          } else {
             DO 550 I = 1, NPARMS
                INMIN( I ) = 1
   550       CONTINUE
-         END IF
+         }
 
          // Read the values for INWIN.
 
-         IF( NEP ) THEN
+         if ( NEP ) {
             READ( NIN, FMT = * )( INWIN( I ), I = 1, NPARMS )
             DO 560 I = 1, NPARMS
-               IF( INWIN( I ).LT.0 ) THEN
+               if ( INWIN( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )' INWIN ', INWIN( I ), 0
                   FATAL = .TRUE.
-               END IF
+               }
   560       CONTINUE
             WRITE( NOUT, FMT = 9983 )'INWIN: ', ( INWIN( I ), I = 1, NPARMS )
          } else {
             DO 570 I = 1, NPARMS
                INWIN( I ) = 1
   570       CONTINUE
-         END IF
+         }
 
          // Read the values for INIBL.
 
-         IF( NEP ) THEN
+         if ( NEP ) {
             READ( NIN, FMT = * )( INIBL( I ), I = 1, NPARMS )
             DO 580 I = 1, NPARMS
-               IF( INIBL( I ).LT.0 ) THEN
+               if ( INIBL( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )' INIBL ', INIBL( I ), 0
                   FATAL = .TRUE.
-               END IF
+               }
   580       CONTINUE
             WRITE( NOUT, FMT = 9983 )'INIBL: ', ( INIBL( I ), I = 1, NPARMS )
          } else {
             DO 590 I = 1, NPARMS
                INIBL( I ) = 1
   590       CONTINUE
-         END IF
+         }
 
          // Read the values for ISHFTS.
 
-         IF( NEP ) THEN
+         if ( NEP ) {
             READ( NIN, FMT = * )( ISHFTS( I ), I = 1, NPARMS )
             DO 600 I = 1, NPARMS
-               IF( ISHFTS( I ).LT.0 ) THEN
+               if ( ISHFTS( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )' ISHFTS ', ISHFTS( I ), 0
                   FATAL = .TRUE.
-               END IF
+               }
   600       CONTINUE
             WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ( ISHFTS( I ), I = 1, NPARMS )
          } else {
             DO 610 I = 1, NPARMS
                ISHFTS( I ) = 1
   610       CONTINUE
-         END IF
+         }
 
          // Read the values for IACC22.
 
-         IF( NEP .OR. DGG ) THEN
+         if ( NEP .OR. DGG ) {
             READ( NIN, FMT = * )( IACC22( I ), I = 1, NPARMS )
             DO 620 I = 1, NPARMS
-               IF( IACC22( I ).LT.0 ) THEN
+               if ( IACC22( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )' IACC22 ', IACC22( I ), 0
                   FATAL = .TRUE.
-               END IF
+               }
   620       CONTINUE
             WRITE( NOUT, FMT = 9983 )'IACC22: ', ( IACC22( I ), I = 1, NPARMS )
          } else {
             DO 630 I = 1, NPARMS
                IACC22( I ) = 1
   630       CONTINUE
-         END IF
+         }
 
          // Read the values for NBCOL.
 
-         IF( DGG ) THEN
+         if ( DGG ) {
             READ( NIN, FMT = * )( NBCOL( I ), I = 1, NPARMS )
             DO 160 I = 1, NPARMS
-               IF( NBCOL( I ).LT.0 ) THEN
+               if ( NBCOL( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )'NBCOL ', NBCOL( I ), 0
                   FATAL = .TRUE.
-               ELSE IF( NBCOL( I ).GT.NMAX ) THEN
+               } else if ( NBCOL( I ).GT.NMAX ) {
                   WRITE( NOUT, FMT = 9988 )'NBCOL ', NBCOL( I ), NMAX
                   FATAL = .TRUE.
-               END IF
+               }
   160       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NBCOL:', ( NBCOL( I ), I = 1, NPARMS )
          } else {
             DO 170 I = 1, NPARMS
                NBCOL( I ) = 1
   170       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       // Calculate and print the machine dependent constants.
 
@@ -628,7 +628,7 @@
 
       READ( NIN, FMT = * )THRESH
       WRITE( NOUT, FMT = 9982 )THRESH
-      IF( SEP .OR. SVD .OR. DGG ) THEN
+      if ( SEP .OR. SVD .OR. DGG ) {
 
          // Read the flag that indicates whether to test LAPACK routines.
 
@@ -637,7 +637,7 @@
          // Read the flag that indicates whether to test driver routines.
 
          READ( NIN, FMT = * )TSTDRV
-      END IF
+      }
 
       // Read the flag that indicates whether to test the error exits.
 
@@ -655,10 +655,10 @@
          ISEED( I ) = IOLDSD( I )
   180 CONTINUE
 
-      IF( FATAL ) THEN
+      if ( FATAL ) {
          WRITE( NOUT, FMT = 9999 )
          STOP
-      END IF
+      }
 
       // Read the input lines indicating the test path and its parameters.
       // The first three characters indicate the test path, and the number
@@ -667,7 +667,7 @@
 
   190 CONTINUE
 
-      IF( .NOT.( DGX .OR. DXV ) ) THEN
+      if ( .NOT.( DGX .OR. DXV ) ) {
 
   200    CONTINUE
          READ( NIN, FMT = '(A80)', END = 380 )LINE
@@ -678,59 +678,59 @@
          I1 = 0
   210    CONTINUE
          I = I + 1
-         IF( I.GT.LENP ) THEN
-            IF( I1.GT.0 ) THEN
+         if ( I.GT.LENP ) {
+            if ( I1.GT.0 ) {
                GO TO 240
             } else {
                NTYPES = MAXT
                GO TO 240
-            END IF
-         END IF
-         IF( LINE( I: I ).NE.' ' .AND. LINE( I: I ).NE.',' ) THEN
+            }
+         }
+         if ( LINE( I: I ).NE.' ' .AND. LINE( I: I ).NE.',' ) {
             I1 = I
             C1 = LINE( I1: I1 )
 
          // Check that a valid integer was read
 
             DO 220 K = 1, 10
-               IF( C1.EQ.INTSTR( K: K ) ) THEN
+               if ( C1.EQ.INTSTR( K: K ) ) {
                   IC = K - 1
                   GO TO 230
-               END IF
+               }
   220       CONTINUE
             WRITE( NOUT, FMT = 9991 )I, LINE
             GO TO 200
   230       CONTINUE
             ITMP = 10*ITMP + IC
             GO TO 210
-         ELSE IF( I1.GT.0 ) THEN
+         } else if ( I1.GT.0 ) {
             GO TO 240
          } else {
             GO TO 210
-         END IF
+         }
   240    CONTINUE
          NTYPES = ITMP
 
       // Skip the tests if NTYPES is <= 0.
 
-         IF( .NOT.( DEV .OR. DES .OR. DVX .OR. DSX .OR. DGV .OR. DGS ) .AND. NTYPES.LE.0 ) THEN
+         if ( .NOT.( DEV .OR. DES .OR. DVX .OR. DSX .OR. DGV .OR. DGS ) .AND. NTYPES.LE.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
             GO TO 200
-         END IF
+         }
 
       } else {
          IF( DXV ) C3 = 'DXV'          IF( DGX ) C3 = 'DGX'
-      END IF
+      }
 
       // Reset the random number seed.
 
-      IF( NEWSD.EQ.0 ) THEN
+      if ( NEWSD.EQ.0 ) {
          DO 250 K = 1, 4
             ISEED( K ) = IOLDSD( K )
   250    CONTINUE
-      END IF
+      }
 
-      IF( LSAMEN( 3, C3, 'DHS' ) .OR. LSAMEN( 3, C3, 'NEP' ) ) THEN
+      if ( LSAMEN( 3, C3, 'DHS' ) .OR. LSAMEN( 3, C3, 'NEP' ) ) {
 
          // -------------------------------------
          // NEP:  Nonsymmetric Eigenvalue Problem
@@ -757,16 +757,16 @@
             CALL XLAENV(15, ISHFTS( I ) )
             CALL XLAENV(16, IACC22( I ) )
 
-            IF( NEWSD.EQ.0 ) THEN
+            if ( NEWSD.EQ.0 ) {
                DO 260 K = 1, 4
                   ISEED( K ) = IOLDSD( K )
   260          CONTINUE
-            END IF
+            }
             WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), MAX( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I )             CALL DCHKHS( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), A( 1, 7 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), A( 1, 8 ), A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), D( 1, 7 ), WORK, LWORK, IWORK, LOGWRK, RESULT, INFO )
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DCHKHS', INFO
   270    CONTINUE
 
-      ELSE IF( LSAMEN( 3, C3, 'DST' ) .OR. LSAMEN( 3, C3, 'SEP' )  .OR. LSAMEN( 3, C3, 'SE2' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'DST' ) .OR. LSAMEN( 3, C3, 'SEP' )  .OR. LSAMEN( 3, C3, 'SE2' ) ) {
 
          // ----------------------------------
          // SEP:  Symmetric Eigenvalue Problem
@@ -781,7 +781,7 @@
          CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
          CALL XLAENV( 1, 1 )
          CALL XLAENV( 9, 25 )
-         IF( TSTERR ) THEN
+         if ( TSTERR ) {
 #if defined(_OPENMP)
             N_THREADS = OMP_GET_MAX_THREADS()
             ONE_THREAD = 1
@@ -791,37 +791,37 @@
 #if defined(_OPENMP)
             CALL OMP_SET_NUM_THREADS(N_THREADS)
 #endif
-         END IF
+         }
          DO 290 I = 1, NPARMS
             CALL XLAENV( 1, NBVAL( I ) )
             CALL XLAENV( 2, NBMIN( I ) )
             CALL XLAENV( 3, NXVAL( I ) )
 
-            IF( NEWSD.EQ.0 ) THEN
+            if ( NEWSD.EQ.0 ) {
                DO 280 K = 1, 4
                   ISEED( K ) = IOLDSD( K )
   280          CONTINUE
-            END IF
+            }
             WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I )
-            IF( TSTCHK ) THEN
-               IF( LSAMEN( 3, C3, 'SE2' ) ) THEN
+            if ( TSTCHK ) {
+               if ( LSAMEN( 3, C3, 'SE2' ) ) {
                CALL DCHKST2STG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 7 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), D( 1, 12 ), A( 1, 6 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO )
                } else {
                CALL DCHKST( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 7 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), D( 1, 12 ), A( 1, 6 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO )
                ENDIF
                IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DCHKST', INFO
-            END IF
-            IF( TSTDRV ) THEN
-               IF( LSAMEN( 3, C3, 'SE2' ) ) THEN
+            }
+            if ( TSTDRV ) {
+               if ( LSAMEN( 3, C3, 'SE2' ) ) {
                CALL DDRVST2STG( NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11 ), A( 1, 2 ), NMAX, A( 1, 3 ), D( 1, 12 ), A( 1, 4 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO )
                } else {
                CALL DDRVST( NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11 ), A( 1, 2 ), NMAX, A( 1, 3 ), D( 1, 12 ), A( 1, 4 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO )
                ENDIF
                IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DDRVST', INFO
-            END IF
+            }
   290    CONTINUE
 
-      ELSE IF( LSAMEN( 3, C3, 'DSG' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'DSG' ) ) {
 
          // ----------------------------------------------
          // DSG:  Symmetric Generalized Eigenvalue Problem
@@ -840,13 +840,13 @@
             CALL XLAENV( 2, NBMIN( I ) )
             CALL XLAENV( 3, NXVAL( I ) )
 
-            IF( NEWSD.EQ.0 ) THEN
+            if ( NEWSD.EQ.0 ) {
                DO 300 K = 1, 4
                   ISEED( K ) = IOLDSD( K )
   300          CONTINUE
-            END IF
+            }
             WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I )
-            IF( TSTCHK ) THEN
+            if ( TSTCHK ) {
                 // CALL DDRVSG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
       // $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
       // $                      D( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ),
@@ -854,10 +854,10 @@
       // $                      LWORK, IWORK, LIWORK, RESULT, INFO )
                CALL DDRVSG2STG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, D( 1, 3 ), D( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO )
                IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DDRVSG', INFO
-            END IF
+            }
   310    CONTINUE
 
-      ELSE IF( LSAMEN( 3, C3, 'DBD' ) .OR. LSAMEN( 3, C3, 'SVD' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'DBD' ) .OR. LSAMEN( 3, C3, 'SVD' ) ) {
 
          // ----------------------------------
          // SVD:  Singular Value Decomposition
@@ -883,20 +883,20 @@
             CALL XLAENV( 1, NBVAL( I ) )
             CALL XLAENV( 2, NBMIN( I ) )
             CALL XLAENV( 3, NXVAL( I ) )
-            IF( NEWSD.EQ.0 ) THEN
+            if ( NEWSD.EQ.0 ) {
                DO 320 K = 1, 4
                   ISEED( K ) = IOLDSD( K )
   320          CONTINUE
-            END IF
+            }
             WRITE( NOUT, FMT = 9995 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), NRHS
-            IF( TSTCHK ) THEN
+            if ( TSTCHK ) {
                CALL DCHKBD( NN, MVAL, NVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), A( 1, 2 ), NMAX, A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), A( 1, 8 ), WORK, LWORK, IWORK, NOUT, INFO )
                IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DCHKBD', INFO
-            END IF
+            }
             IF( TSTDRV ) CALL DDRVBD( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), WORK, LWORK, IWORK, NOUT, INFO )
   330    CONTINUE
 
-      ELSE IF( LSAMEN( 3, C3, 'DEV' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'DEV' ) ) {
 
          // --------------------------------------------
          // DEV:  Nonsymmetric Eigenvalue Problem Driver
@@ -905,18 +905,18 @@
 
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
-         IF( NTYPES.LE.0 ) THEN
+         if ( NTYPES.LE.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             IF( TSTERR ) CALL DERRED( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL DDRVEV( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, RESULT, WORK, LWORK, IWORK, INFO )
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DGEEV', INFO
-         END IF
+         }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
 
-      ELSE IF( LSAMEN( 3, C3, 'DES' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'DES' ) ) {
 
          // --------------------------------------------
          // DES:  Nonsymmetric Eigenvalue Problem Driver
@@ -925,18 +925,18 @@
 
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
-         IF( NTYPES.LE.0 ) THEN
+         if ( NTYPES.LE.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             IF( TSTERR ) CALL DERRED( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL DDRVES( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), A( 1, 4 ), NMAX, RESULT, WORK, LWORK, IWORK, LOGWRK, INFO )
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DGEES', INFO
-         END IF
+         }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
 
-      ELSE IF( LSAMEN( 3, C3, 'DVX' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'DVX' ) ) {
 
          // --------------------------------------------------------------
          // DVX:  Nonsymmetric Eigenvalue Problem Expert Driver
@@ -945,18 +945,18 @@
 
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
-         IF( NTYPES.LT.0 ) THEN
+         if ( NTYPES.LT.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             IF( TSTERR ) CALL DERRED( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL DDRVVX( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, D( 1, 5 ), D( 1, 6 ), D( 1, 7 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11 ), D( 1, 12 ), RESULT, WORK, LWORK, IWORK, INFO )
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DGEEVX', INFO
-         END IF
+         }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
 
-      ELSE IF( LSAMEN( 3, C3, 'DSX' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'DSX' ) ) {
 
          // ---------------------------------------------------
          // DSX:  Nonsymmetric Eigenvalue Problem Expert Driver
@@ -965,18 +965,18 @@
 
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
-         IF( NTYPES.LT.0 ) THEN
+         if ( NTYPES.LT.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             IF( TSTERR ) CALL DERRED( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL DDRVSX( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), A( 1, 4 ), NMAX, A( 1, 5 ), RESULT, WORK, LWORK, IWORK, LOGWRK, INFO )
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DGEESX', INFO
-         END IF
+         }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
 
-      ELSE IF( LSAMEN( 3, C3, 'DGG' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'DGG' ) ) {
 
          // -------------------------------------------------
          // DGG:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1002,21 +1002,21 @@
             CALL XLAENV( 16, IACC22( I ) )
             CALL XLAENV( 5, NBCOL( I ) )
 
-            IF( NEWSD.EQ.0 ) THEN
+            if ( NEWSD.EQ.0 ) {
                DO 340 K = 1, 4
                   ISEED( K ) = IOLDSD( K )
   340          CONTINUE
-            END IF
+            }
             WRITE( NOUT, FMT = 9996 )C3, NBVAL( I ), NBMIN( I ), NSVAL( I ), MXBVAL( I ), IACC22( I ), NBCOL( I )
             TSTDIF = .FALSE.
             THRSHN = 10.D0
-            IF( TSTCHK ) THEN
+            if ( TSTCHK ) {
                CALL DCHKGG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, TSTDIF, THRSHN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), A( 1, 8 ), A( 1, 9 ), NMAX, A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), A( 1, 13 ), A( 1, 14 ), WORK, LWORK, LOGWRK, RESULT, INFO )
                IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DCHKGG', INFO
-            END IF
+            }
   350    CONTINUE
 
-      ELSE IF( LSAMEN( 3, C3, 'DGS' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'DGS' ) ) {
 
          // -------------------------------------------------
          // DGS:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1025,7 +1025,7 @@
 
          MAXTYP = 26
          NTYPES = MIN( MAXTYP, NTYPES )
-         IF( NTYPES.LE.0 ) THEN
+         if ( NTYPES.LE.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             IF( TSTERR ) CALL DERRGG( C3, NOUT )
@@ -1038,11 +1038,11 @@
             CALL XLAENV(16, 2)
             CALL DDRGES3( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), WORK, LWORK, RESULT, LOGWRK, INFO )
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DDRGES3', INFO
-         END IF
+         }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
 
-      ELSE IF( DGX ) THEN
+      } else if ( DGX ) {
 
          // -------------------------------------------------
          // DGX:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1051,7 +1051,7 @@
 
          MAXTYP = 5
          NTYPES = MAXTYP
-         IF( NN.LT.0 ) THEN
+         if ( NN.LT.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             IF( TSTERR ) CALL DERRGG( C3, NOUT )
@@ -1059,11 +1059,11 @@
             CALL XLAENV( 5, 2 )
             CALL DDRGSX( NN, NCMAX, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), C( 1, 1 ), NCMAX*NCMAX, A( 1, 12 ), WORK, LWORK, IWORK, LIWORK, LOGWRK, INFO )
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DDRGSX', INFO
-         END IF
+         }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
 
-      ELSE IF( LSAMEN( 3, C3, 'DGV' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'DGV' ) ) {
 
          // -------------------------------------------------
          // DGV:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1072,7 +1072,7 @@
 
          MAXTYP = 26
          NTYPES = MIN( MAXTYP, NTYPES )
-         IF( NTYPES.LE.0 ) THEN
+         if ( NTYPES.LE.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             IF( TSTERR ) CALL DERRGG( C3, NOUT )
@@ -1084,11 +1084,11 @@
 
             CALL DDRGEV3( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), A( 1, 9 ), NMAX, D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), WORK, LWORK, RESULT, INFO )
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DDRGEV3', INFO
-         END IF
+         }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
 
-      ELSE IF( DXV ) THEN
+      } else if ( DXV ) {
 
          // -------------------------------------------------
          // DXV:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1097,7 +1097,7 @@
 
          MAXTYP = 2
          NTYPES = MAXTYP
-         IF( NN.LT.0 ) THEN
+         if ( NN.LT.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             IF( TSTERR ) CALL DERRGG( C3, NOUT )
@@ -1105,11 +1105,11 @@
             CALL DDRGVX( NN, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), A( 1, 5 ), A( 1, 6 ), IWORK( 1 ), IWORK( 2 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 7 ), D( 1, 8 ), D( 1, 9 ), WORK, LWORK, IWORK( 3 ), LIWORK-2, RESULT, LOGWRK, INFO )
 
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DDRGVX', INFO
-         END IF
+         }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
 
-      ELSE IF( LSAMEN( 3, C3, 'DSB' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'DSB' ) ) {
 
          // ------------------------------
          // DSB:  Symmetric Band Reduction
@@ -1125,7 +1125,7 @@
          CALL DCHKSB2STG( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO )
          IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DCHKSB', INFO
 
-      ELSE IF( LSAMEN( 3, C3, 'DBB' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'DBB' ) ) {
 
          // ------------------------------
          // DBB:  General Band Reduction
@@ -1137,17 +1137,17 @@
          DO 370 I = 1, NPARMS
             NRHS = NSVAL( I )
 
-            IF( NEWSD.EQ.0 ) THEN
+            if ( NEWSD.EQ.0 ) {
                DO 360 K = 1, 4
                   ISEED( K ) = IOLDSD( K )
   360          CONTINUE
-            END IF
+            }
             WRITE( NOUT, FMT = 9966 )C3, NRHS
             CALL DCHKBB( NN, MVAL, NVAL, NK, KVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), 2*NMAX, D( 1, 1 ), D( 1, 2 ), A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), WORK, LWORK, RESULT, INFO )
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DCHKBB', INFO
   370    CONTINUE
 
-      ELSE IF( LSAMEN( 3, C3, 'GLM' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'GLM' ) ) {
 
          // -----------------------------------------
          // GLM:  Generalized Linear Regression Model
@@ -1157,7 +1157,7 @@
          IF( TSTERR ) CALL DERRGG( 'GLM', NOUT )          CALL DCKGLM( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, D( 1, 1 ), NIN, NOUT, INFO )
          IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DCKGLM', INFO
 
-      ELSE IF( LSAMEN( 3, C3, 'GQR' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'GQR' ) ) {
 
          // ------------------------------------------
          // GQR:  Generalized QR and RQ factorizations
@@ -1167,7 +1167,7 @@
          IF( TSTERR ) CALL DERRGG( 'GQR', NOUT )          CALL DCKGQR( NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, D( 1, 1 ), NIN, NOUT, INFO )
          IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DCKGQR', INFO
 
-      ELSE IF( LSAMEN( 3, C3, 'GSV' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'GSV' ) ) {
 
          // ----------------------------------------------
          // GSV:  Generalized Singular Value Decomposition
@@ -1177,7 +1177,7 @@
          IF( TSTERR ) CALL DERRGG( 'GSV', NOUT )          CALL DCKGSV( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), TAUA, TAUB, B( 1, 4 ), IWORK, WORK, D( 1, 1 ), NIN, NOUT, INFO )
          IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DCKGSV', INFO
 
-      ELSE IF( LSAMEN( 3, C3, 'CSD' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'CSD' ) ) {
 
          // ----------------------------------------------
          // CSD:  CS Decomposition
@@ -1187,7 +1187,7 @@
          IF( TSTERR ) CALL DERRGG( 'CSD', NOUT )          CALL DCKCSD( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), IWORK, WORK, D( 1, 1 ), NIN, NOUT, INFO )
          IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'DCKCSD', INFO
 
-      ELSE IF( LSAMEN( 3, C3, 'LSE' ) ) THEN
+      } else if ( LSAMEN( 3, C3, 'LSE' ) ) {
 
          // --------------------------------------
          // LSE:  Constrained Linear Least Squares
@@ -1201,7 +1201,7 @@
          WRITE( NOUT, FMT = * )
          WRITE( NOUT, FMT = * )
          WRITE( NOUT, FMT = 9992 )C3
-      END IF
+      }
       IF( .NOT.( DGX .OR. DXV ) ) GO TO 190
   380 CONTINUE
       WRITE( NOUT, FMT = 9994 )

@@ -54,27 +54,27 @@
 
       INFO = 0
       LOWER = LSAME( UPLO, 'L' )
-      IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LOWER ) THEN
+      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LOWER ) {
          INFO = -1
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -2
-      ELSE IF( NCVT.LT.0 ) THEN
+      } else if ( NCVT.LT.0 ) {
          INFO = -3
-      ELSE IF( NRU.LT.0 ) THEN
+      } else if ( NRU.LT.0 ) {
          INFO = -4
-      ELSE IF( NCC.LT.0 ) THEN
+      } else if ( NCC.LT.0 ) {
          INFO = -5
-      ELSE IF( ( NCVT.EQ.0 .AND. LDVT.LT.1 ) .OR. ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) THEN
+      } else if ( ( NCVT.EQ.0 .AND. LDVT.LT.1 ) .OR. ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) {
          INFO = -9
-      ELSE IF( LDU.LT.MAX( 1, NRU ) ) THEN
+      } else if ( LDU.LT.MAX( 1, NRU ) ) {
          INFO = -11
-      ELSE IF( ( NCC.EQ.0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) THEN
+      } else if ( ( NCC.EQ.0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) {
          INFO = -13
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SBDSQR', -INFO )
          RETURN
-      END IF
+      }
       IF( N.EQ.0 ) RETURN       IF( N.EQ.1 ) GO TO 160
 
       // ROTATE is true if any singular vectors desired, false otherwise
@@ -83,14 +83,14 @@
 
       // If no singular vectors desired, use qd algorithm
 
-      IF( .NOT.ROTATE ) THEN
+      if ( .NOT.ROTATE ) {
          CALL SLASQ1( N, D, E, WORK, INFO )
 
       // If INFO equals 2, dqds didn't finish, try to finish
 
          IF( INFO .NE. 2 ) RETURN
          INFO = 0
-      END IF
+      }
 
       NM1 = N - 1
       NM12 = NM1 + NM1
@@ -105,7 +105,7 @@
       // If matrix lower bidiagonal, rotate to be upper bidiagonal
       // by applying Givens rotations on the left
 
-      IF( LOWER ) THEN
+      if ( LOWER ) {
          DO 10 I = 1, N - 1
             CALL SLARTG( D( I ), E( I ), CS, SN, R )
             D( I ) = R
@@ -118,7 +118,7 @@
          // Update singular vectors if desired
 
          IF( NRU.GT.0 ) CALL SLASR( 'R', 'V', 'F', NRU, N, WORK( 1 ), WORK( N ), U, LDU )          IF( NCC.GT.0 ) CALL SLASR( 'L', 'V', 'F', N, NCC, WORK( 1 ), WORK( N ), C, LDC )
-      END IF
+      }
 
       // Compute singular values to relative accuracy TOL
       // (By setting TOL to be negative, algorithm will compute
@@ -137,7 +137,7 @@
          SMAX = MAX( SMAX, ABS( E( I ) ) )
    30 CONTINUE
       SMIN = ZERO
-      IF( TOL.GE.ZERO ) THEN
+      if ( TOL.GE.ZERO ) {
 
          // Relative accuracy desired
 
@@ -157,7 +157,7 @@
          // Absolute accuracy desired
 
          THRESH = MAX( ABS( TOL )*SMAX, MAXITR*(N*(N*UNFL)) )
-      END IF
+      }
 
       // Prepare for main iteration loop for the singular values
       // (MAXIT is the maximum number of passes through the inner
@@ -181,11 +181,11 @@
 
       IF( M.LE.1 ) GO TO 160
 
-      IF( ITER.GE.N ) THEN
+      if ( ITER.GE.N ) {
          ITER = ITER - N
          ITERDIVN = ITERDIVN + 1
          IF( ITERDIVN.GE.MAXITDIVN ) GO TO 200
-      END IF
+      }
 
       // Find diagonal block of matrix to work on
 
@@ -205,19 +205,19 @@
 
       // Matrix splits since E(LL) = 0
 
-      IF( LL.EQ.M-1 ) THEN
+      if ( LL.EQ.M-1 ) {
 
          // Convergence of bottom singular value, return to top of loop
 
          M = M - 1
          GO TO 60
-      END IF
+      }
    90 CONTINUE
       LL = LL + 1
 
       // E(LL) through E(M-1) are nonzero, E(LL-1) is zero
 
-      IF( LL.EQ.M-1 ) THEN
+      if ( LL.EQ.M-1 ) {
 
          // 2 by 2 block, handle separately
 
@@ -231,13 +231,13 @@
          IF( NCVT.GT.0 ) CALL SROT( NCVT, VT( M-1, 1 ), LDVT, VT( M, 1 ), LDVT, COSR, SINR )          IF( NRU.GT.0 ) CALL SROT( NRU, U( 1, M-1 ), 1, U( 1, M ), 1, COSL, SINL )          IF( NCC.GT.0 ) CALL SROT( NCC, C( M-1, 1 ), LDC, C( M, 1 ), LDC, COSL, SINL )
          M = M - 2
          GO TO 60
-      END IF
+      }
 
       // If working on new submatrix, choose shift direction
       // (from larger end diagonal element towards smaller)
 
-      IF( LL.GT.OLDM .OR. M.LT.OLDLL ) THEN
-         IF( ABS( D( LL ) ).GE.ABS( D( M ) ) ) THEN
+      if ( LL.GT.OLDM .OR. M.LT.OLDLL ) {
+         if ( ABS( D( LL ) ).GE.ABS( D( M ) ) ) {
 
             // Chase bulge from top (big end) to bottom (small end)
 
@@ -247,22 +247,22 @@
             // Chase bulge from bottom (big end) to top (small end)
 
             IDIR = 2
-         END IF
-      END IF
+         }
+      }
 
       // Apply convergence tests
 
-      IF( IDIR.EQ.1 ) THEN
+      if ( IDIR.EQ.1 ) {
 
          // Run convergence test in forward direction
          // First apply standard test to bottom of matrix
 
-         IF( ABS( E( M-1 ) ).LE.ABS( TOL )*ABS( D( M ) ) .OR. ( TOL.LT.ZERO .AND. ABS( E( M-1 ) ).LE.THRESH ) ) THEN
+         if ( ABS( E( M-1 ) ).LE.ABS( TOL )*ABS( D( M ) ) .OR. ( TOL.LT.ZERO .AND. ABS( E( M-1 ) ).LE.THRESH ) ) {
             E( M-1 ) = ZERO
             GO TO 60
-         END IF
+         }
 
-         IF( TOL.GE.ZERO ) THEN
+         if ( TOL.GE.ZERO ) {
 
             // If relative accuracy desired,
             // apply convergence criterion forward
@@ -270,26 +270,26 @@
             MU = ABS( D( LL ) )
             SMIN = MU
             DO 100 LLL = LL, M - 1
-               IF( ABS( E( LLL ) ).LE.TOL*MU ) THEN
+               if ( ABS( E( LLL ) ).LE.TOL*MU ) {
                   E( LLL ) = ZERO
                   GO TO 60
-               END IF
+               }
                MU = ABS( D( LLL+1 ) )*( MU / ( MU+ABS( E( LLL ) ) ) )
                SMIN = MIN( SMIN, MU )
   100       CONTINUE
-         END IF
+         }
 
       } else {
 
          // Run convergence test in backward direction
          // First apply standard test to top of matrix
 
-         IF( ABS( E( LL ) ).LE.ABS( TOL )*ABS( D( LL ) ) .OR. ( TOL.LT.ZERO .AND. ABS( E( LL ) ).LE.THRESH ) ) THEN
+         if ( ABS( E( LL ) ).LE.ABS( TOL )*ABS( D( LL ) ) .OR. ( TOL.LT.ZERO .AND. ABS( E( LL ) ).LE.THRESH ) ) {
             E( LL ) = ZERO
             GO TO 60
-         END IF
+         }
 
-         IF( TOL.GE.ZERO ) THEN
+         if ( TOL.GE.ZERO ) {
 
             // If relative accuracy desired,
             // apply convergence criterion backward
@@ -297,22 +297,22 @@
             MU = ABS( D( M ) )
             SMIN = MU
             DO 110 LLL = M - 1, LL, -1
-               IF( ABS( E( LLL ) ).LE.TOL*MU ) THEN
+               if ( ABS( E( LLL ) ).LE.TOL*MU ) {
                   E( LLL ) = ZERO
                   GO TO 60
-               END IF
+               }
                MU = ABS( D( LLL ) )*( MU / ( MU+ABS( E( LLL ) ) ) )
                SMIN = MIN( SMIN, MU )
   110       CONTINUE
-         END IF
-      END IF
+         }
+      }
       OLDLL = LL
       OLDM = M
 
       // Compute shift.  First, test if shifting would ruin relative
       // accuracy, and if so set the shift to zero.
 
-      IF( TOL.GE.ZERO .AND. N*TOL*( SMIN / SMAX ).LE. MAX( EPS, HNDRTH*TOL ) ) THEN
+      if ( TOL.GE.ZERO .AND. N*TOL*( SMIN / SMAX ).LE. MAX( EPS, HNDRTH*TOL ) ) {
 
          // Use a zero shift to avoid loss of relative accuracy
 
@@ -321,20 +321,20 @@
 
          // Compute the shift from 2-by-2 block at end of matrix
 
-         IF( IDIR.EQ.1 ) THEN
+         if ( IDIR.EQ.1 ) {
             SLL = ABS( D( LL ) )
             CALL SLAS2( D( M-1 ), E( M-1 ), D( M ), SHIFT, R )
          } else {
             SLL = ABS( D( M ) )
             CALL SLAS2( D( LL ), E( LL ), D( LL+1 ), SHIFT, R )
-         END IF
+         }
 
          // Test if shift negligible, and if so set to zero
 
-         IF( SLL.GT.ZERO ) THEN
+         if ( SLL.GT.ZERO ) {
             IF( ( SHIFT / SLL )**2.LT.EPS ) SHIFT = ZERO
-         END IF
-      END IF
+         }
+      }
 
       // Increment iteration count
 
@@ -342,8 +342,8 @@
 
       // If SHIFT = 0, do simplified QR iteration
 
-      IF( SHIFT.EQ.ZERO ) THEN
-         IF( IDIR.EQ.1 ) THEN
+      if ( SHIFT.EQ.ZERO ) {
+         if ( IDIR.EQ.1 ) {
 
             // Chase bulge from top to bottom
             // Save cosines and sines for later singular vector updates
@@ -398,12 +398,12 @@
             // Test convergence
 
             IF( ABS( E( LL ) ).LE.THRESH ) E( LL ) = ZERO
-         END IF
+         }
       } else {
 
          // Use nonzero shift
 
-         IF( IDIR.EQ.1 ) THEN
+         if ( IDIR.EQ.1 ) {
 
             // Chase bulge from top to bottom
             // Save cosines and sines for later singular vector updates
@@ -421,10 +421,10 @@
                D( I ) = R
                F = COSL*E( I ) + SINL*D( I+1 )
                D( I+1 ) = COSL*D( I+1 ) - SINL*E( I )
-               IF( I.LT.M-1 ) THEN
+               if ( I.LT.M-1 ) {
                   G = SINL*E( I+1 )
                   E( I+1 ) = COSL*E( I+1 )
-               END IF
+               }
                WORK( I-LL+1 ) = COSR
                WORK( I-LL+1+NM1 ) = SINR
                WORK( I-LL+1+NM12 ) = COSL
@@ -458,10 +458,10 @@
                D( I ) = R
                F = COSL*E( I-1 ) + SINL*D( I-1 )
                D( I-1 ) = COSL*D( I-1 ) - SINL*E( I-1 )
-               IF( I.GT.LL+1 ) THEN
+               if ( I.GT.LL+1 ) {
                   G = SINL*E( I-2 )
                   E( I-2 ) = COSL*E( I-2 )
-               END IF
+               }
                WORK( I-LL ) = COSR
                WORK( I-LL+NM1 ) = -SINR
                WORK( I-LL+NM12 ) = COSL
@@ -476,8 +476,8 @@
             // Update singular vectors if desired
 
             IF( NCVT.GT.0 ) CALL SLASR( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ), WORK( NM13+1 ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL SLASR( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ), WORK( N ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL SLASR( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ), WORK( N ), C( LL, 1 ), LDC )
-         END IF
-      END IF
+         }
+      }
 
       // QR iteration finished, go back and check convergence
 
@@ -487,13 +487,13 @@
 
   160 CONTINUE
       DO 170 I = 1, N
-         IF( D( I ).LT.ZERO ) THEN
+         if ( D( I ).LT.ZERO ) {
             D( I ) = -D( I )
 
             // Change sign of singular vectors, if desired
 
             IF( NCVT.GT.0 ) CALL SSCAL( NCVT, NEGONE, VT( I, 1 ), LDVT )
-         END IF
+         }
   170 CONTINUE
 
       // Sort the singular values into decreasing order (insertion sort on
@@ -506,12 +506,12 @@
          ISUB = 1
          SMIN = D( 1 )
          DO 180 J = 2, N + 1 - I
-            IF( D( J ).LE.SMIN ) THEN
+            if ( D( J ).LE.SMIN ) {
                ISUB = J
                SMIN = D( J )
-            END IF
+            }
   180    CONTINUE
-         IF( ISUB.NE.N+1-I ) THEN
+         if ( ISUB.NE.N+1-I ) {
 
             // Swap singular values and vectors
 
@@ -519,7 +519,7 @@
             D( N+1-I ) = SMIN
             IF( NCVT.GT.0 ) CALL SSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( N+1-I, 1 ), LDVT )
             IF( NRU.GT.0 ) CALL SSWAP( NRU, U( 1, ISUB ), 1, U( 1, N+1-I ), 1 )             IF( NCC.GT.0 ) CALL SSWAP( NCC, C( ISUB, 1 ), LDC, C( N+1-I, 1 ), LDC )
-         END IF
+         }
   190 CONTINUE
       GO TO 220
 

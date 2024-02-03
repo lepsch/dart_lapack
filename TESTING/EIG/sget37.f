@@ -97,11 +97,11 @@
          // Compute eigenvalues and eigenvectors
 
          CALL SGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
             GO TO 240
-         END IF
+         }
          DO 60 J = 1, N - 2
             DO 50 I = J + 2, N
                T( I, J ) = ZERO
@@ -111,11 +111,11 @@
          // Compute Schur form
 
          CALL SHSEQR( 'S', 'N', N, 1, N, T, LDT, WR, WI, DUM, 1, WORK, LWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
             GO TO 240
-         END IF
+         }
 
          // Compute eigenvectors
 
@@ -124,11 +124,11 @@
          // Compute condition numbers
 
          CALL STRSNA( 'Both', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, IWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
-         END IF
+         }
 
          // Sort eigenvalues and condition numbers lexicographically
         t // o compare with inputs
@@ -143,11 +143,11 @@
             VRMIN = WRTMP( I )
             VIMIN = WITMP( I )
             DO 70 J = I + 1, N
-               IF( WRTMP( J ).LT.VRMIN ) THEN
+               if ( WRTMP( J ).LT.VRMIN ) {
                   KMIN = J
                   VRMIN = WRTMP( J )
                   VIMIN = WITMP( J )
-               END IF
+               }
    70       CONTINUE
             WRTMP( KMIN ) = WRTMP( I )
             WITMP( KMIN ) = WITMP( I )
@@ -167,112 +167,112 @@
          V = MAX( TWO*REAL( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
          DO 90 I = 1, N
-            IF( V.GT.SEPTMP( I ) ) THEN
+            if ( V.GT.SEPTMP( I ) ) {
                TOL = ONE
             } else {
                TOL = V / SEPTMP( I )
-            END IF
-            IF( V.GT.SEPIN( I ) ) THEN
+            }
+            if ( V.GT.SEPIN( I ) ) {
                TOLIN = ONE
             } else {
                TOLIN = V / SEPIN( I )
-            END IF
+            }
             TOL = MAX( TOL, SMLNUM / EPS )
             TOLIN = MAX( TOLIN, SMLNUM / EPS )
-            IF( EPS*( SIN( I )-TOLIN ).GT.STMP( I )+TOL ) THEN
+            if ( EPS*( SIN( I )-TOLIN ).GT.STMP( I )+TOL ) {
                VMAX = ONE / EPS
-            ELSE IF( SIN( I )-TOLIN.GT.STMP( I )+TOL ) THEN
+            } else if ( SIN( I )-TOLIN.GT.STMP( I )+TOL ) {
                VMAX = ( SIN( I )-TOLIN ) / ( STMP( I )+TOL )
-            ELSE IF( SIN( I )+TOLIN.LT.EPS*( STMP( I )-TOL ) ) THEN
+            } else if ( SIN( I )+TOLIN.LT.EPS*( STMP( I )-TOL ) ) {
                VMAX = ONE / EPS
-            ELSE IF( SIN( I )+TOLIN.LT.STMP( I )-TOL ) THEN
+            } else if ( SIN( I )+TOLIN.LT.STMP( I )-TOL ) {
                VMAX = ( STMP( I )-TOL ) / ( SIN( I )+TOLIN )
             } else {
                VMAX = ONE
-            END IF
-            IF( VMAX.GT.RMAX( 2 ) ) THEN
+            }
+            if ( VMAX.GT.RMAX( 2 ) ) {
                RMAX( 2 ) = VMAX
                IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
-            END IF
+            }
    90    CONTINUE
 
          // Compare condition numbers for eigenvectors
         t // aking their condition numbers into account
 
          DO 100 I = 1, N
-            IF( V.GT.SEPTMP( I )*STMP( I ) ) THEN
+            if ( V.GT.SEPTMP( I )*STMP( I ) ) {
                TOL = SEPTMP( I )
             } else {
                TOL = V / STMP( I )
-            END IF
-            IF( V.GT.SEPIN( I )*SIN( I ) ) THEN
+            }
+            if ( V.GT.SEPIN( I )*SIN( I ) ) {
                TOLIN = SEPIN( I )
             } else {
                TOLIN = V / SIN( I )
-            END IF
+            }
             TOL = MAX( TOL, SMLNUM / EPS )
             TOLIN = MAX( TOLIN, SMLNUM / EPS )
-            IF( EPS*( SEPIN( I )-TOLIN ).GT.SEPTMP( I )+TOL ) THEN
+            if ( EPS*( SEPIN( I )-TOLIN ).GT.SEPTMP( I )+TOL ) {
                VMAX = ONE / EPS
-            ELSE IF( SEPIN( I )-TOLIN.GT.SEPTMP( I )+TOL ) THEN
+            } else if ( SEPIN( I )-TOLIN.GT.SEPTMP( I )+TOL ) {
                VMAX = ( SEPIN( I )-TOLIN ) / ( SEPTMP( I )+TOL )
-            ELSE IF( SEPIN( I )+TOLIN.LT.EPS*( SEPTMP( I )-TOL ) ) THEN
+            } else if ( SEPIN( I )+TOLIN.LT.EPS*( SEPTMP( I )-TOL ) ) {
                VMAX = ONE / EPS
-            ELSE IF( SEPIN( I )+TOLIN.LT.SEPTMP( I )-TOL ) THEN
+            } else if ( SEPIN( I )+TOLIN.LT.SEPTMP( I )-TOL ) {
                VMAX = ( SEPTMP( I )-TOL ) / ( SEPIN( I )+TOLIN )
             } else {
                VMAX = ONE
-            END IF
-            IF( VMAX.GT.RMAX( 2 ) ) THEN
+            }
+            if ( VMAX.GT.RMAX( 2 ) ) {
                RMAX( 2 ) = VMAX
                IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
-            END IF
+            }
   100    CONTINUE
 
          // Compare condition numbers for eigenvalues
          // without taking their condition numbers into account
 
          DO 110 I = 1, N
-            IF( SIN( I ).LE.REAL( 2*N )*EPS .AND. STMP( I ).LE. REAL( 2*N )*EPS ) THEN
+            if ( SIN( I ).LE.REAL( 2*N )*EPS .AND. STMP( I ).LE. REAL( 2*N )*EPS ) {
                VMAX = ONE
-            ELSE IF( EPS*SIN( I ).GT.STMP( I ) ) THEN
+            } else if ( EPS*SIN( I ).GT.STMP( I ) ) {
                VMAX = ONE / EPS
-            ELSE IF( SIN( I ).GT.STMP( I ) ) THEN
+            } else if ( SIN( I ).GT.STMP( I ) ) {
                VMAX = SIN( I ) / STMP( I )
-            ELSE IF( SIN( I ).LT.EPS*STMP( I ) ) THEN
+            } else if ( SIN( I ).LT.EPS*STMP( I ) ) {
                VMAX = ONE / EPS
-            ELSE IF( SIN( I ).LT.STMP( I ) ) THEN
+            } else if ( SIN( I ).LT.STMP( I ) ) {
                VMAX = STMP( I ) / SIN( I )
             } else {
                VMAX = ONE
-            END IF
-            IF( VMAX.GT.RMAX( 3 ) ) THEN
+            }
+            if ( VMAX.GT.RMAX( 3 ) ) {
                RMAX( 3 ) = VMAX
                IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
-            END IF
+            }
   110    CONTINUE
 
          // Compare condition numbers for eigenvectors
          // without taking their condition numbers into account
 
          DO 120 I = 1, N
-            IF( SEPIN( I ).LE.V .AND. SEPTMP( I ).LE.V ) THEN
+            if ( SEPIN( I ).LE.V .AND. SEPTMP( I ).LE.V ) {
                VMAX = ONE
-            ELSE IF( EPS*SEPIN( I ).GT.SEPTMP( I ) ) THEN
+            } else if ( EPS*SEPIN( I ).GT.SEPTMP( I ) ) {
                VMAX = ONE / EPS
-            ELSE IF( SEPIN( I ).GT.SEPTMP( I ) ) THEN
+            } else if ( SEPIN( I ).GT.SEPTMP( I ) ) {
                VMAX = SEPIN( I ) / SEPTMP( I )
-            ELSE IF( SEPIN( I ).LT.EPS*SEPTMP( I ) ) THEN
+            } else if ( SEPIN( I ).LT.EPS*SEPTMP( I ) ) {
                VMAX = ONE / EPS
-            ELSE IF( SEPIN( I ).LT.SEPTMP( I ) ) THEN
+            } else if ( SEPIN( I ).LT.SEPTMP( I ) ) {
                VMAX = SEPTMP( I ) / SEPIN( I )
             } else {
                VMAX = ONE
-            END IF
-            IF( VMAX.GT.RMAX( 3 ) ) THEN
+            }
+            if ( VMAX.GT.RMAX( 3 ) ) {
                RMAX( 3 ) = VMAX
                IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
-            END IF
+            }
   120    CONTINUE
 
          // Compute eigenvalue condition numbers only and compare
@@ -282,11 +282,11 @@
          CALL SCOPY( N, DUM, 0, STMP, 1 )
          CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL STRSNA( 'Eigcond', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
-         END IF
+         }
          DO 130 I = 1, N
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   130    CONTINUE
@@ -296,11 +296,11 @@
          CALL SCOPY( N, DUM, 0, STMP, 1 )
          CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL STRSNA( 'Veccond', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
-         END IF
+         }
          DO 140 I = 1, N
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   140    CONTINUE
@@ -313,11 +313,11 @@
          CALL SCOPY( N, DUM, 0, STMP, 1 )
          CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL STRSNA( 'Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
-         END IF
+         }
          DO 160 I = 1, N
             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS
   160    CONTINUE
@@ -327,11 +327,11 @@
          CALL SCOPY( N, DUM, 0, STMP, 1 )
          CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL STRSNA( 'Eigcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
-         END IF
+         }
          DO 170 I = 1, N
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   170    CONTINUE
@@ -341,26 +341,26 @@
          CALL SCOPY( N, DUM, 0, STMP, 1 )
          CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL STRSNA( 'Veccond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
-         END IF
+         }
          DO 180 I = 1, N
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   180    CONTINUE
-         IF( VMAX.GT.RMAX( 1 ) ) THEN
+         if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
-         END IF
+         }
 
          // Select first real and first complex eigenvalue
 
-         IF( WI( 1 ).EQ.ZERO ) THEN
+         if ( WI( 1 ).EQ.ZERO ) {
             LCMP( 1 ) = 1
             IFND = 0
             DO 190 I = 2, N
-               IF( IFND.EQ.1 .OR. WI( I ).EQ.ZERO ) THEN
+               if ( IFND.EQ.1 .OR. WI( I ).EQ.ZERO ) {
                   SELECT( I ) = .FALSE.
                } else {
                   IFND = 1
@@ -370,44 +370,44 @@
                   CALL SCOPY( N, RE( 1, I+1 ), 1, RE( 1, 3 ), 1 )
                   CALL SCOPY( N, LE( 1, I ), 1, LE( 1, 2 ), 1 )
                   CALL SCOPY( N, LE( 1, I+1 ), 1, LE( 1, 3 ), 1 )
-               END IF
+               }
   190       CONTINUE
-            IF( IFND.EQ.0 ) THEN
+            if ( IFND.EQ.0 ) {
                ICMP = 1
             } else {
                ICMP = 3
-            END IF
+            }
          } else {
             LCMP( 1 ) = 1
             LCMP( 2 ) = 2
             IFND = 0
             DO 200 I = 3, N
-               IF( IFND.EQ.1 .OR. WI( I ).NE.ZERO ) THEN
+               if ( IFND.EQ.1 .OR. WI( I ).NE.ZERO ) {
                   SELECT( I ) = .FALSE.
                } else {
                   LCMP( 3 ) = I
                   IFND = 1
                   CALL SCOPY( N, RE( 1, I ), 1, RE( 1, 3 ), 1 )
                   CALL SCOPY( N, LE( 1, I ), 1, LE( 1, 3 ), 1 )
-               END IF
+               }
   200       CONTINUE
-            IF( IFND.EQ.0 ) THEN
+            if ( IFND.EQ.0 ) {
                ICMP = 2
             } else {
                ICMP = 3
-            END IF
-         END IF
+            }
+         }
 
          // Compute all selected condition numbers
 
          CALL SCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL SCOPY( ICMP, DUM, 0, SEPTMP, 1 )
          CALL STRSNA( 'Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
-         END IF
+         }
          DO 210 I = 1, ICMP
             J = LCMP( I )
             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS
@@ -418,11 +418,11 @@
          CALL SCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL SCOPY( ICMP, DUM, 0, SEPTMP, 1 )
          CALL STRSNA( 'Eigcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
-         END IF
+         }
          DO 220 I = 1, ICMP
             J = LCMP( I )
             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
@@ -433,19 +433,19 @@
          CALL SCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL SCOPY( ICMP, DUM, 0, SEPTMP, 1 )
          CALL STRSNA( 'Veccond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
-         IF( INFO.NE.0 ) THEN
+         if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
-         END IF
+         }
          DO 230 I = 1, ICMP
             J = LCMP( I )
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS
   230    CONTINUE
-         IF( VMAX.GT.RMAX( 1 ) ) THEN
+         if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
-         END IF
+         }
   240 CONTINUE
       GO TO 10
 

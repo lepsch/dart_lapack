@@ -41,22 +41,22 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RCOND = ONE
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANHP( '1', UPLO, N, A, RWORK )
       AINVNM = CLANHP( '1', UPLO, N, AINV, RWORK )
-      IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
       RCOND = ( ONE/ANORM ) / AINVNM
 
       // UPLO = 'U':
@@ -64,7 +64,7 @@
       // expand it to a full matrix, then multiply by A one column at a
      t // ime, moving the result one column to the left.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
 
          // Copy AINV
 
@@ -115,7 +115,7 @@
    80    CONTINUE
          CALL CHPMV( 'Lower', N, -CONE, A, AINV( 1 ), 1, CZERO, WORK( 1, 1 ), 1 )
 
-      END IF
+      }
 
       // Add the identity matrix to WORK .
 

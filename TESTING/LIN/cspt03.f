@@ -38,29 +38,29 @@
 
       // Quick exit if N = 0.
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RCOND = ONE
          RESID = ZERO
          RETURN
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANSP( '1', UPLO, N, A, RWORK )
       AINVNM = CLANSP( '1', UPLO, N, AINV, RWORK )
-      IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
       RCOND = ( ONE/ANORM ) / AINVNM
 
       // Case where both A and AINV are upper triangular:
       // Each element of - A * AINV is computed by taking the dot product
       // of a row of A with a column of AINV.
 
-      IF( LSAME( UPLO, 'U' ) ) THEN
+      if ( LSAME( UPLO, 'U' ) ) {
          DO 70 I = 1, N
             ICOL = ( ( I-1 )*I ) / 2 + 1
 
@@ -153,7 +153,7 @@
                WORK( I, J ) = -T
   130       CONTINUE
   140    CONTINUE
-      END IF
+      }
 
       // Add the identity matrix to WORK .
 

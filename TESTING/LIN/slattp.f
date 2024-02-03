@@ -46,11 +46,11 @@
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
       SMLNUM = UNFL
       BIGNUM = ( ONE-ULP ) / SMLNUM
-      IF( ( IMAT.GE.7 .AND. IMAT.LE.10 ) .OR. IMAT.EQ.18 ) THEN
+      if ( ( IMAT.GE.7 .AND. IMAT.LE.10 ) .OR. IMAT.EQ.18 ) {
          DIAG = 'U'
       } else {
          DIAG = 'N'
-      END IF
+      }
       INFO = 0
 
       // Quick return if N.LE.0.
@@ -60,17 +60,17 @@
       // Call SLATB4 to set parameters for SLATMS.
 
       UPPER = LSAME( UPLO, 'U' )
-      IF( UPPER ) THEN
+      if ( UPPER ) {
          CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          PACKIT = 'C'
       } else {
          CALL SLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          PACKIT = 'R'
-      END IF
+      }
 
       // IMAT <= 6:  Non-unit triangular matrix
 
-      IF( IMAT.LE.6 ) THEN
+      if ( IMAT.LE.6 ) {
          CALL SLATMS( N, N, DIST, ISEED, TYPE, B, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, N, WORK, INFO )
 
       // IMAT > 6:  Unit triangular matrix
@@ -78,8 +78,8 @@
 
       // IMAT = 7:  Matrix is the identity
 
-      ELSE IF( IMAT.EQ.7 ) THEN
-         IF( UPPER ) THEN
+      } else if ( IMAT.EQ.7 ) {
+         if ( UPPER ) {
             JC = 1
             DO 20 J = 1, N
                DO 10 I = 1, J - 1
@@ -97,7 +97,7 @@
    30          CONTINUE
                JC = JC + N - J + 1
    40       CONTINUE
-         END IF
+         }
 
       // IMAT > 7:  Non-trivial unit triangular matrix
 
@@ -105,8 +105,8 @@
       // forming a triangular matrix with known singular values and
       // filling in the zero entries with Givens rotations.
 
-      ELSE IF( IMAT.LE.10 ) THEN
-         IF( UPPER ) THEN
+      } else if ( IMAT.LE.10 ) {
+         if ( UPPER ) {
             JC = 0
             DO 60 J = 1, N
                DO 50 I = 1, J - 1
@@ -124,7 +124,7 @@
    70          CONTINUE
                JC = JC + N - J + 1
    80       CONTINUE
-         END IF
+         }
 
          // Since the trace of a unit triangular matrix is 1, the product
          // of its singular values must be 1.  Let s = sqrt(CNDNUM),
@@ -191,29 +191,29 @@
             PLUS2 = STAR1 / PLUS1
             WORK( J ) = PLUS1
             WORK( N+J ) = STAR1
-            IF( J+1.LE.N ) THEN
+            if ( J+1.LE.N ) {
                WORK( J+1 ) = PLUS2
                WORK( N+J+1 ) = ZERO
                PLUS1 = STAR1 / PLUS2
                REXP = SLARND( 2, ISEED )
                STAR1 = STAR1*( SFAC**REXP )
-               IF( REXP.LT.ZERO ) THEN
+               if ( REXP.LT.ZERO ) {
                   STAR1 = -SFAC**( ONE-REXP )
                } else {
                   STAR1 = SFAC**( ONE+REXP )
-               END IF
-            END IF
+               }
+            }
    90    CONTINUE
 
          X = SQRT( CNDNUM ) - ONE / SQRT( CNDNUM )
-         IF( N.GT.2 ) THEN
+         if ( N.GT.2 ) {
             Y = SQRT( TWO / REAL( N-2 ) )*X
          } else {
             Y = ZERO
-         END IF
+         }
          Z = X*X
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
 
             // Set the upper triangle of A with a unit triangular matrix
             // of known condition number.
@@ -245,11 +245,11 @@
                A( JC+N-J ) = Y
                JC = JC + N - J + 1
   130       CONTINUE
-         END IF
+         }
 
          // Fill in the zeros using Givens rotations
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JC = 1
             DO 150 J = 1, N - 1
                JCNEXT = JC + J
@@ -259,7 +259,7 @@
 
                // Multiply by [ c  s; -s  c] on the left.
 
-               IF( N.GT.J+1 ) THEN
+               if ( N.GT.J+1 ) {
                   JX = JCNEXT + J
                   DO 140 I = J + 2, N
                      STEMP = C*A( JX+J ) + S*A( JX+J+1 )
@@ -267,7 +267,7 @@
                      A( JX+J ) = STEMP
                      JX = JX + I
   140             CONTINUE
-               END IF
+               }
 
                // Multiply by [-c -s;  s -c] on the right.
 
@@ -292,7 +292,7 @@
 
                // Multiply by [-c  s; -s -c] on the left.
 
-               IF( J.GT.1 ) THEN
+               if ( J.GT.1 ) {
                   JX = 1
                   DO 160 I = 1, J - 1
                      STEMP = -C*A( JX+J-I ) + S*A( JX+J-I+1 )
@@ -300,26 +300,26 @@
                      A( JX+J-I ) = STEMP
                      JX = JX + N - I + 1
   160             CONTINUE
-               END IF
+               }
 
                // Negate A(J+1,J).
 
                A( JC+1 ) = -A( JC+1 )
                JC = JCNEXT
   170       CONTINUE
-         END IF
+         }
 
       // IMAT > 10:  Pathological test cases.  These triangular matrices
       // are badly scaled or badly conditioned, so when used in solving a
      t // riangular system they may cause overflow in the solution vector.
 
-      ELSE IF( IMAT.EQ.11 ) THEN
+      } else if ( IMAT.EQ.11 ) {
 
          // Type 11:  Generate a triangular matrix with elements between
          // -1 and 1. Give the diagonal norm 2 to make it well-conditioned.
          // Make the right hand side large so that it requires scaling.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JC = 1
             DO 180 J = 1, N
                CALL SLARNV( 2, ISEED, J, A( JC ) )
@@ -333,7 +333,7 @@
                A( JC ) = SIGN( TWO, A( JC ) )
                JC = JC + N - J + 1
   190       CONTINUE
-         END IF
+         }
 
          // Set the right hand side so that the largest value is BIGNUM.
 
@@ -343,7 +343,7 @@
          BSCAL = BIGNUM / MAX( ONE, BNORM )
          CALL SSCAL( N, BSCAL, B, 1 )
 
-      ELSE IF( IMAT.EQ.12 ) THEN
+      } else if ( IMAT.EQ.12 ) {
 
          // Type 12:  Make the first diagonal element in the solve small to
          // cause immediate overflow when dividing by T(j,j).
@@ -351,7 +351,7 @@
 
          CALL SLARNV( 2, ISEED, N, B )
          TSCAL = ONE / MAX( ONE, REAL( N-1 ) )
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JC = 1
             DO 200 J = 1, N
                CALL SLARNV( 2, ISEED, J-1, A( JC ) )
@@ -369,16 +369,16 @@
                JC = JC + N - J + 1
   210       CONTINUE
             A( 1 ) = SMLNUM
-         END IF
+         }
 
-      ELSE IF( IMAT.EQ.13 ) THEN
+      } else if ( IMAT.EQ.13 ) {
 
          // Type 13:  Make the first diagonal element in the solve small to
          // cause immediate overflow when dividing by T(j,j).
          // In type 13, the offdiagonal elements are O(1) (CNORM(j) > 1).
 
          CALL SLARNV( 2, ISEED, N, B )
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JC = 1
             DO 220 J = 1, N
                CALL SLARNV( 2, ISEED, J-1, A( JC ) )
@@ -394,26 +394,26 @@
                JC = JC + N - J + 1
   230       CONTINUE
             A( 1 ) = SMLNUM
-         END IF
+         }
 
-      ELSE IF( IMAT.EQ.14 ) THEN
+      } else if ( IMAT.EQ.14 ) {
 
          // Type 14:  T is diagonal with small numbers on the diagonal to
          // make the growth factor underflow, but a small right hand side
          // chosen so that the solution does not overflow.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JCOUNT = 1
             JC = ( N-1 )*N / 2 + 1
             DO 250 J = N, 1, -1
                DO 240 I = 1, J - 1
                   A( JC+I-1 ) = ZERO
   240          CONTINUE
-               IF( JCOUNT.LE.2 ) THEN
+               if ( JCOUNT.LE.2 ) {
                   A( JC+J-1 ) = SMLNUM
                } else {
                   A( JC+J-1 ) = ONE
-               END IF
+               }
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
                JC = JC - J + 1
@@ -425,20 +425,20 @@
                DO 260 I = J + 1, N
                   A( JC+I-J ) = ZERO
   260          CONTINUE
-               IF( JCOUNT.LE.2 ) THEN
+               if ( JCOUNT.LE.2 ) {
                   A( JC ) = SMLNUM
                } else {
                   A( JC ) = ONE
-               END IF
+               }
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
                JC = JC + N - J + 1
   270       CONTINUE
-         END IF
+         }
 
          // Set the right hand side alternately zero and small.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             B( 1 ) = ZERO
             DO 280 I = N, 2, -2
                B( I ) = ZERO
@@ -450,9 +450,9 @@
                B( I ) = ZERO
                B( I+1 ) = SMLNUM
   290       CONTINUE
-         END IF
+         }
 
-      ELSE IF( IMAT.EQ.15 ) THEN
+      } else if ( IMAT.EQ.15 ) {
 
          // Type 15:  Make the diagonal elements small to cause gradual
          // overflow when dividing by T(j,j).  To control the amount of
@@ -461,7 +461,7 @@
          TEXP = ONE / MAX( ONE, REAL( N-1 ) )
          TSCAL = SMLNUM**TEXP
          CALL SLARNV( 2, ISEED, N, B )
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JC = 1
             DO 310 J = 1, N
                DO 300 I = 1, J - 2
@@ -483,40 +483,40 @@
                JC = JC + N - J + 1
   330       CONTINUE
             B( 1 ) = ONE
-         END IF
+         }
 
-      ELSE IF( IMAT.EQ.16 ) THEN
+      } else if ( IMAT.EQ.16 ) {
 
          // Type 16:  One zero diagonal element.
 
          IY = N / 2 + 1
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JC = 1
             DO 340 J = 1, N
                CALL SLARNV( 2, ISEED, J, A( JC ) )
-               IF( J.NE.IY ) THEN
+               if ( J.NE.IY ) {
                   A( JC+J-1 ) = SIGN( TWO, A( JC+J-1 ) )
                } else {
                   A( JC+J-1 ) = ZERO
-               END IF
+               }
                JC = JC + J
   340       CONTINUE
          } else {
             JC = 1
             DO 350 J = 1, N
                CALL SLARNV( 2, ISEED, N-J+1, A( JC ) )
-               IF( J.NE.IY ) THEN
+               if ( J.NE.IY ) {
                   A( JC ) = SIGN( TWO, A( JC ) )
                } else {
                   A( JC ) = ZERO
-               END IF
+               }
                JC = JC + N - J + 1
   350       CONTINUE
-         END IF
+         }
          CALL SLARNV( 2, ISEED, N, B )
          CALL SSCAL( N, TWO, B, 1 )
 
-      ELSE IF( IMAT.EQ.17 ) THEN
+      } else if ( IMAT.EQ.17 ) {
 
          // Type 17:  Make the offdiagonal elements large to cause overflow
          // when adding a column of T.  In the non-transposed case, the
@@ -529,7 +529,7 @@
             A( J ) = ZERO
   360    CONTINUE
          TEXP = ONE
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JC = ( N-1 )*N / 2 + 1
             DO 370 J = N, 2, -2
                A( JC ) = -TSCAL / REAL( N+1 )
@@ -557,15 +557,15 @@
                JC = JC + N - J
   380       CONTINUE
             B( N ) = ( REAL( N+1 ) / REAL( N+2 ) )*TSCAL
-         END IF
+         }
 
-      ELSE IF( IMAT.EQ.18 ) THEN
+      } else if ( IMAT.EQ.18 ) {
 
          // Type 18:  Generate a unit triangular matrix with elements
          // between -1 and 1, and make the right hand side large so that it
          // requires scaling.
 
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JC = 1
             DO 390 J = 1, N
                CALL SLARNV( 2, ISEED, J-1, A( JC ) )
@@ -579,7 +579,7 @@
                A( JC ) = ZERO
                JC = JC + N - J + 1
   400       CONTINUE
-         END IF
+         }
 
          // Set the right hand side so that the largest value is BIGNUM.
 
@@ -589,7 +589,7 @@
          BSCAL = BIGNUM / MAX( ONE, BNORM )
          CALL SSCAL( N, BSCAL, B, 1 )
 
-      ELSE IF( IMAT.EQ.19 ) THEN
+      } else if ( IMAT.EQ.19 ) {
 
          // Type 19:  Generate a triangular matrix with elements between
          // BIGNUM/(n-1) and BIGNUM so that at least one of the column
@@ -597,7 +597,7 @@
 
          TLEFT = BIGNUM / MAX( ONE, REAL( N-1 ) )
          TSCAL = BIGNUM*( REAL( N-1 ) / MAX( ONE, REAL( N ) ) )
-         IF( UPPER ) THEN
+         if ( UPPER ) {
             JC = 1
             DO 420 J = 1, N
                CALL SLARNV( 2, ISEED, J, A( JC ) )
@@ -615,16 +615,16 @@
   430          CONTINUE
                JC = JC + N - J + 1
   440       CONTINUE
-         END IF
+         }
          CALL SLARNV( 2, ISEED, N, B )
          CALL SSCAL( N, TWO, B, 1 )
-      END IF
+      }
 
       // Flip the matrix across its counter-diagonal if the transpose will
       // be used.
 
-      IF( .NOT.LSAME( TRANS, 'N' ) ) THEN
-         IF( UPPER ) THEN
+      if ( .NOT.LSAME( TRANS, 'N' ) ) {
+         if ( UPPER ) {
             JJ = 1
             JR = N*( N+1 ) / 2
             DO 460 J = 1, N / 2
@@ -652,8 +652,8 @@
                JL = JL + N - J + 1
                JJ = JJ - J - 1
   480       CONTINUE
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

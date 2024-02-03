@@ -77,18 +77,18 @@
             // Generate M by N matrix A
 
             CALL DLATMS( M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9999 )IINFO
                INFO = ABS( IINFO )
                GO TO 20
-            END IF
+            }
 
             CALL DLATMS( P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO )
-            IF( IINFO.NE.0 ) THEN
+            if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9999 )IINFO
                INFO = ABS( IINFO )
                GO TO 20
-            END IF
+            }
 
             NT = 6
 
@@ -98,14 +98,14 @@
             // pass the threshold.
 
             DO 10 I = 1, NT
-               IF( RESULT( I ).GE.THRESH ) THEN
-                  IF( NFAIL.EQ.0 .AND. FIRSTT ) THEN
+               if ( RESULT( I ).GE.THRESH ) {
+                  if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                      FIRSTT = .FALSE.
                      CALL ALAHDG( NOUT, PATH )
-                  END IF
+                  }
                   WRITE( NOUT, FMT = 9998 )M, P, N, IMAT, I, RESULT( I )
                   NFAIL = NFAIL + 1
-               END IF
+               }
    10       CONTINUE
             NRUN = NRUN + NT
    20    CONTINUE

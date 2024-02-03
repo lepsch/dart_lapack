@@ -25,18 +25,18 @@
       // ..
       // .. Executable Statements ..
 
-      IF( D.EQ.CZERO ) THEN
+      if ( D.EQ.CZERO ) {
          CLCTES = ( REAL( Z ).LT.ZERO )
       } else {
-         IF( REAL( Z ).EQ.ZERO .OR. REAL( D ).EQ.ZERO ) THEN
+         if ( REAL( Z ).EQ.ZERO .OR. REAL( D ).EQ.ZERO ) {
             CLCTES = ( SIGN( ONE, AIMAG( Z ) ).NE. SIGN( ONE, AIMAG( D ) ) )
-         ELSE IF( AIMAG( Z ).EQ.ZERO .OR. AIMAG( D ).EQ.ZERO ) THEN
+         } else if ( AIMAG( Z ).EQ.ZERO .OR. AIMAG( D ).EQ.ZERO ) {
             CLCTES = ( SIGN( ONE, REAL( Z ) ).NE. SIGN( ONE, REAL( D ) ) )
          } else {
             ZMAX = MAX( ABS( REAL( Z ) ), ABS( AIMAG( Z ) ) )
             CLCTES = ( ( REAL( Z ) / ZMAX )*REAL( D )+ ( AIMAG( Z ) / ZMAX )*AIMAG( D ).LT.ZERO )
-         END IF
-      END IF
+         }
+      }
 
       RETURN
 

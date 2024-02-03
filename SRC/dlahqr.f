@@ -47,11 +47,11 @@
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
-      IF( ILO.EQ.IHI ) THEN
+      if ( ILO.EQ.IHI ) {
          WR( ILO ) = H( ILO, ILO )
          WI( ILO ) = ZERO
          RETURN
-      END IF
+      }
 
       // ==== clear out the trash ====
       DO 10 J = ILO, IHI - 3
@@ -74,10 +74,10 @@
      t // o which transformations must be applied. If eigenvalues only are
       // being computed, I1 and I2 are set inside the main loop.
 
-      IF( WANTT ) THEN
+      if ( WANTT ) {
          I1 = 1
          I2 = N
-      END IF
+      }
 
       // ITMAX is the total number of QR iterations allowed.
 
@@ -109,29 +109,29 @@
          DO 30 K = I, L + 1, -1
             IF( ABS( H( K, K-1 ) ).LE.SMLNUM ) GO TO 40
             TST = ABS( H( K-1, K-1 ) ) + ABS( H( K, K ) )
-            IF( TST.EQ.ZERO ) THEN
+            if ( TST.EQ.ZERO ) {
                IF( K-2.GE.ILO ) TST = TST + ABS( H( K-1, K-2 ) )                IF( K+1.LE.IHI ) TST = TST + ABS( H( K+1, K ) )
-            END IF
+            }
             // ==== The following is a conservative small subdiagonal
             // .    deflation  criterion due to Ahues & Tisseur (LAWN 122,
             // .    1997). It has better mathematical foundation and
             // .    improves accuracy in some cases.  ====
-            IF( ABS( H( K, K-1 ) ).LE.ULP*TST ) THEN
+            if ( ABS( H( K, K-1 ) ).LE.ULP*TST ) {
                AB = MAX( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) )
                BA = MIN( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) )
                AA = MAX( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) )                BB = MIN( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) )
                S = AA + AB
                IF( BA*( AB / S ).LE.MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 40
-            END IF
+            }
    30    CONTINUE
    40    CONTINUE
          L = K
-         IF( L.GT.ILO ) THEN
+         if ( L.GT.ILO ) {
 
             // H(L,L-1) is negligible
 
             H( L, L-1 ) = ZERO
-         END IF
+         }
 
          // Exit from loop if a submatrix of order 1 or 2 has split off.
 
@@ -142,12 +142,12 @@
          // eigenvalues only are being computed, only the active submatrix
          // need be transformed.
 
-         IF( .NOT.WANTT ) THEN
+         if ( .NOT.WANTT ) {
             I1 = L
             I2 = I
-         END IF
+         }
 
-         IF( MOD(KDEFL,2*KEXSH).EQ.0 ) THEN
+         if ( MOD(KDEFL,2*KEXSH).EQ.0 ) {
 
             // Exceptional shift.
 
@@ -156,7 +156,7 @@
             H12 = DAT2*S
             H21 = S
             H22 = H11
-         ELSE IF( MOD(KDEFL,KEXSH).EQ.0 ) THEN
+         } else if ( MOD(KDEFL,KEXSH).EQ.0 ) {
 
             // Exceptional shift.
 
@@ -174,9 +174,9 @@
             H21 = H( I, I-1 )
             H12 = H( I-1, I )
             H22 = H( I, I )
-         END IF
+         }
          S = ABS( H11 ) + ABS( H12 ) + ABS( H21 ) + ABS( H22 )
-         IF( S.EQ.ZERO ) THEN
+         if ( S.EQ.ZERO ) {
             RT1R = ZERO
             RT1I = ZERO
             RT2R = ZERO
@@ -189,7 +189,7 @@
             TR = ( H11+H22 ) / TWO
             DET = ( H11-TR )*( H22-TR ) - H12*H21
             RTDISC = SQRT( ABS( DET ) )
-            IF( DET.GE.ZERO ) THEN
+            if ( DET.GE.ZERO ) {
 
                // ==== complex conjugate shifts ====
 
@@ -203,17 +203,17 @@
 
                RT1R = TR + RTDISC
                RT2R = TR - RTDISC
-               IF( ABS( RT1R-H22 ).LE.ABS( RT2R-H22 ) ) THEN
+               if ( ABS( RT1R-H22 ).LE.ABS( RT2R-H22 ) ) {
                   RT1R = RT1R*S
                   RT2R = RT1R
                } else {
                   RT2R = RT2R*S
                   RT1R = RT2R
-               END IF
+               }
                RT1I = ZERO
                RT2I = ZERO
-            END IF
-         END IF
+            }
+         }
 
          // Look for two consecutive small subdiagonal elements.
 
@@ -253,20 +253,20 @@
             NR = MIN( 3, I-K+1 )
             IF( K.GT.M ) CALL DCOPY( NR, H( K, K-1 ), 1, V, 1 )
             CALL DLARFG( NR, V( 1 ), V( 2 ), 1, T1 )
-            IF( K.GT.M ) THEN
+            if ( K.GT.M ) {
                H( K, K-1 ) = V( 1 )
                H( K+1, K-1 ) = ZERO
                IF( K.LT.I-1 ) H( K+2, K-1 ) = ZERO
-            ELSE IF( M.GT.L ) THEN
+            } else if ( M.GT.L ) {
                 // ==== Use the following instead of
                 // .    H( K, K-1 ) = -H( K, K-1 ) to
                 // .    avoid a bug when v(2) and v(3)
                 // .    underflow. ====
                H( K, K-1 ) = H( K, K-1 )*( ONE-T1 )
-            END IF
+            }
             V2 = V( 2 )
             T2 = T1*V2
-            IF( NR.EQ.3 ) THEN
+            if ( NR.EQ.3 ) {
                V3 = V( 3 )
                T3 = T1*V3
 
@@ -290,7 +290,7 @@
                   H( J, K+2 ) = H( J, K+2 ) - SUM*T3
    80          CONTINUE
 
-               IF( WANTZ ) THEN
+               if ( WANTZ ) {
 
                   // Accumulate transformations in the matrix Z
 
@@ -300,8 +300,8 @@
                      Z( J, K+1 ) = Z( J, K+1 ) - SUM*T2
                      Z( J, K+2 ) = Z( J, K+2 ) - SUM*T3
    90             CONTINUE
-               END IF
-            ELSE IF( NR.EQ.2 ) THEN
+               }
+            } else if ( NR.EQ.2 ) {
 
                // Apply G from the left to transform the rows of the matrix
                // in columns K to I2.
@@ -321,7 +321,7 @@
                   H( J, K+1 ) = H( J, K+1 ) - SUM*T2
   110          CONTINUE
 
-               IF( WANTZ ) THEN
+               if ( WANTZ ) {
 
                   // Accumulate transformations in the matrix Z
 
@@ -330,8 +330,8 @@
                      Z( J, K ) = Z( J, K ) - SUM*T1
                      Z( J, K+1 ) = Z( J, K+1 ) - SUM*T2
   120             CONTINUE
-               END IF
-            END IF
+               }
+            }
   130    CONTINUE
 
   140 CONTINUE
@@ -343,13 +343,13 @@
 
   150 CONTINUE
 
-      IF( L.EQ.I ) THEN
+      if ( L.EQ.I ) {
 
          // H(I,I-1) is negligible: one eigenvalue has converged.
 
          WR( I ) = H( I, I )
          WI( I ) = ZERO
-      ELSE IF( L.EQ.I-1 ) THEN
+      } else if ( L.EQ.I-1 ) {
 
          // H(I-1,I-2) is negligible: a pair of eigenvalues have converged.
 
@@ -358,20 +358,20 @@
 
          CALL DLANV2( H( I-1, I-1 ), H( I-1, I ), H( I, I-1 ), H( I, I ), WR( I-1 ), WI( I-1 ), WR( I ), WI( I ), CS, SN )
 
-         IF( WANTT ) THEN
+         if ( WANTT ) {
 
             // Apply the transformation to the rest of H.
 
             IF( I2.GT.I ) CALL DROT( I2-I, H( I-1, I+1 ), LDH, H( I, I+1 ), LDH, CS, SN )
             CALL DROT( I-I1-1, H( I1, I-1 ), 1, H( I1, I ), 1, CS, SN )
-         END IF
-         IF( WANTZ ) THEN
+         }
+         if ( WANTZ ) {
 
             // Apply the transformation to Z.
 
             CALL DROT( NZ, Z( ILOZ, I-1 ), 1, Z( ILOZ, I ), 1, CS, SN )
-         END IF
-      END IF
+         }
+      }
       // reset deflation counter
       KDEFL = 0
 

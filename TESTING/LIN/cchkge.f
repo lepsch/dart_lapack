@@ -117,33 +117,33 @@
 
                // Check error code from CLATMS.
 
-               IF( INFO.NE.0 ) THEN
+               if ( INFO.NE.0 ) {
                   CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 100
-               END IF
+               }
 
                // For types 5-7, zero one or more columns of the matrix to
               t // est that INFO is returned correctly.
 
-               IF( ZEROT ) THEN
-                  IF( IMAT.EQ.5 ) THEN
+               if ( ZEROT ) {
+                  if ( IMAT.EQ.5 ) {
                      IZERO = 1
-                  ELSE IF( IMAT.EQ.6 ) THEN
+                  } else if ( IMAT.EQ.6 ) {
                      IZERO = MIN( M, N )
                   } else {
                      IZERO = MIN( M, N ) / 2 + 1
-                  END IF
+                  }
                   IOFF = ( IZERO-1 )*LDA
-                  IF( IMAT.LT.7 ) THEN
+                  if ( IMAT.LT.7 ) {
                      DO 20 I = 1, M
                         A( IOFF+I ) = ZERO
    20                CONTINUE
                   } else {
                      CALL CLASET( 'Full', M, N-IZERO+1, CMPLX( ZERO ), CMPLX( ZERO ), A( IOFF+1 ), LDA )
-                  END IF
+                  }
                } else {
                   IZERO = 0
-               END IF
+               }
 
                // These lines, if used in place of the calls in the DO 60
                // loop, cause the code to bomb on a Sun SPARCstation.
@@ -179,7 +179,7 @@
                   // Form the inverse if the factorization was successful
                   // and compute the residual.
 
-                  IF( M.EQ.N .AND. INFO.EQ.0 ) THEN
+                  if ( M.EQ.N .AND. INFO.EQ.0 ) {
                      CALL CLACPY( 'Full', N, N, AFAC, LDA, AINV, LDA )
                      SRNAMT = 'CGETRI'
                      NRHS = NSVAL( 1 )
@@ -201,11 +201,11 @@
 
                      ANORMI = CLANGE( 'I', M, N, A, LDA, RWORK )
                      AINVNM = CLANGE( 'I', N, N, AINV, LDA, RWORK )
-                     IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
+                     if ( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) {
                         RCONDI = ONE
                      } else {
                         RCONDI = ( ONE / ANORMI ) / AINVNM
-                     END IF
+                     }
                      NT = 2
                   } else {
 
@@ -216,16 +216,16 @@
                      ANORMI = CLANGE( 'I', M, N, A, LDA, RWORK )
                      RCONDO = ZERO
                      RCONDI = ZERO
-                  END IF
+                  }
 
                   // Print information about the tests so far that did not
                   // pass the threshold.
 
                   DO 30 K = 1, NT
-                     IF( RESULT( K ).GE.THRESH ) THEN
+                     if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
    30             CONTINUE
                   NRUN = NRUN + NT
 
@@ -241,11 +241,11 @@
 
                      DO 50 ITRAN = 1, NTRAN
                         TRANS = TRANSS( ITRAN )
-                        IF( ITRAN.EQ.1 ) THEN
+                        if ( ITRAN.EQ.1 ) {
                            RCONDC = RCONDO
                         } else {
                            RCONDC = RCONDI
-                        END IF
+                        }
 
 *+    TEST 3
                         // Solve and compute residual for A * X = B.
@@ -286,10 +286,10 @@
                         // pass the threshold.
 
                         DO 40 K = 3, 7
-                           IF( RESULT( K ).GE.THRESH ) THEN
+                           if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
-                           END IF
+                           }
    40                   CONTINUE
                         NRUN = NRUN + 5
    50                CONTINUE
@@ -300,7 +300,7 @@
 
    70             CONTINUE
                   DO 80 ITRAN = 1, 2
-                     IF( ITRAN.EQ.1 ) THEN
+                     if ( ITRAN.EQ.1 ) {
                         ANORM = ANORMO
                         RCONDC = RCONDO
                         NORM = 'O'
@@ -308,7 +308,7 @@
                         ANORM = ANORMI
                         RCONDC = RCONDI
                         NORM = 'I'
-                     END IF
+                     }
                      SRNAMT = 'CGECON'
                      CALL CGECON( NORM, N, AFAC, LDA, ANORM, RCOND, WORK, RWORK, INFO )
 
@@ -325,10 +325,10 @@
                      // Print information about the tests that did not pass
                     t // he threshold.
 
-                     IF( RESULT( 8 ).GE.THRESH ) THEN
+                     if ( RESULT( 8 ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 8, RESULT( 8 )
                         NFAIL = NFAIL + 1
-                     END IF
+                     }
                      NRUN = NRUN + 1
    80             CONTINUE
    90          CONTINUE

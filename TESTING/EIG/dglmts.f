@@ -66,11 +66,11 @@
       XNORM = DASUM( M, X, 1 ) + DASUM( P, U, 1 )
       YNORM = ANORM + BNORM
 
-      IF( XNORM.LE.ZERO ) THEN
+      if ( XNORM.LE.ZERO ) {
          RESULT = ZERO
       } else {
          RESULT = ( ( DNORM / YNORM ) / XNORM ) / EPS
-      END IF
+      }
 
       RETURN
 

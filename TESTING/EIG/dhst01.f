@@ -35,11 +35,11 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) THEN
+      if ( N.LE.0 ) {
          RESULT( 1 ) = ZERO
          RESULT( 2 ) = ZERO
          RETURN
-      END IF
+      }
 
       UNFL = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )

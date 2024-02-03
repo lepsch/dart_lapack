@@ -26,16 +26,16 @@
       IF (N.LT.1 .OR. INCX.LE.0) RETURN
       IZMAX1 = 1
       IF (N.EQ.1) RETURN
-      IF (INCX.EQ.1) THEN
+      if (INCX.EQ.1) {
 
          // code for increment equal to 1
 
          DMAX = ABS(ZX(1))
          DO I = 2,N
-            IF (ABS(ZX(I)).GT.DMAX) THEN
+            if (ABS(ZX(I)).GT.DMAX) {
                IZMAX1 = I
                DMAX = ABS(ZX(I))
-            END IF
+            }
          END DO
       } else {
 
@@ -45,13 +45,13 @@
          DMAX = ABS(ZX(1))
          IX = IX + INCX
          DO I = 2,N
-            IF (ABS(ZX(IX)).GT.DMAX) THEN
+            if (ABS(ZX(IX)).GT.DMAX) {
                IZMAX1 = I
                DMAX = ABS(ZX(IX))
-            END IF
+            }
             IX = IX + INCX
          END DO
-      END IF
+      }
       RETURN
 
       // End of IZMAX1

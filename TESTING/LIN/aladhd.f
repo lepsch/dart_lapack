@@ -31,7 +31,7 @@
       CORZ = LSAME( C1, 'C' ) .OR. LSAME( C1, 'Z' )
       IF( .NOT.( SORD .OR. CORZ ) ) RETURN
 
-      IF( LSAMEN( 2, P2, 'GE' ) ) THEN
+      if ( LSAMEN( 2, P2, 'GE' ) ) {
 
          // GE: General dense
 
@@ -48,7 +48,7 @@
          WRITE( IOUNIT, FMT = 9972 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'GB' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'GB' ) ) {
 
          // GB: General band
 
@@ -65,7 +65,7 @@
          WRITE( IOUNIT, FMT = 9972 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'GT' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'GT' ) ) {
 
          // GT: General tridiagonal
 
@@ -80,22 +80,22 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'PO' ) .OR. LSAMEN( 2, P2, 'PP' ) .OR. LSAMEN( 2, P2, 'PS' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'PO' ) .OR. LSAMEN( 2, P2, 'PP' ) .OR. LSAMEN( 2, P2, 'PS' ) ) {
 
          // PO: Positive definite full
          // PS: Positive definite full
          // PP: Positive definite packed
 
-         IF( SORD ) THEN
+         if ( SORD ) {
             SYM = 'Symmetric'
          } else {
             SYM = 'Hermitian'
-         END IF
-         IF( LSAME( C3, 'O' ) ) THEN
+         }
+         if ( LSAME( C3, 'O' ) ) {
             WRITE( IOUNIT, FMT = 9996 )PATH, SYM
          } else {
             WRITE( IOUNIT, FMT = 9995 )PATH, SYM
-         END IF
+         }
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9985 )PATH
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
@@ -107,15 +107,15 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'PB' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'PB' ) ) {
 
          // PB: Positive definite band
 
-         IF( SORD ) THEN
+         if ( SORD ) {
             WRITE( IOUNIT, FMT = 9994 )PATH, 'Symmetric'
          } else {
             WRITE( IOUNIT, FMT = 9994 )PATH, 'Hermitian'
-         END IF
+         }
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9984 )PATH
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
@@ -127,15 +127,15 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'PT' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'PT' ) ) {
 
          // PT: Positive definite tridiagonal
 
-         IF( SORD ) THEN
+         if ( SORD ) {
             WRITE( IOUNIT, FMT = 9993 )PATH, 'Symmetric'
          } else {
             WRITE( IOUNIT, FMT = 9993 )PATH, 'Hermitian'
-         END IF
+         }
          WRITE( IOUNIT, FMT = 9986 )
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 9973 )1
@@ -146,24 +146,24 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'SY' ) .OR. LSAMEN( 2, P2, 'SP' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'SY' ) .OR. LSAMEN( 2, P2, 'SP' ) ) {
 
          // SY: Symmetric indefinite full
              // with partial (Bunch-Kaufman) pivoting algorithm
          // SP: Symmetric indefinite packed
              // with partial (Bunch-Kaufman) pivoting algorithm
 
-         IF( LSAME( C3, 'Y' ) ) THEN
+         if ( LSAME( C3, 'Y' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric'
          } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Symmetric'
-         END IF
+         }
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
-         IF( SORD ) THEN
+         if ( SORD ) {
             WRITE( IOUNIT, FMT = 9983 )
          } else {
             WRITE( IOUNIT, FMT = 9982 )
-         END IF
+         }
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 9974 )1
          WRITE( IOUNIT, FMT = 9980 )2
@@ -173,7 +173,7 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'SR' ) .OR. LSAMEN( 2, P2, 'SK') ) THEN
+      } else if ( LSAMEN( 2, P2, 'SR' ) .OR. LSAMEN( 2, P2, 'SK') ) {
 
          // SR: Symmetric indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm
@@ -187,11 +187,11 @@
          WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric'
 
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
-         IF( SORD ) THEN
+         if ( SORD ) {
             WRITE( IOUNIT, FMT = 9983 )
          } else {
             WRITE( IOUNIT, FMT = 9982 )
-         END IF
+         }
 
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 9974 )1
@@ -199,7 +199,7 @@
          WRITE( IOUNIT, FMT = 9979 )3
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'HA' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'HA' ) ) {
 
          // HA: Hermitian
              // Aasen algorithm
@@ -217,18 +217,18 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-       ELSE IF( LSAMEN( 2, P2, 'HE' ) .OR. LSAMEN( 2, P2, 'HP' ) ) THEN
+       } else if ( LSAMEN( 2, P2, 'HE' ) .OR. LSAMEN( 2, P2, 'HP' ) ) {
 
          // HE: Hermitian indefinite full
              // with partial (Bunch-Kaufman) pivoting algorithm
          // HP: Hermitian indefinite packed
              // with partial (Bunch-Kaufman) pivoting algorithm
 
-         IF( LSAME( C3, 'E' ) ) THEN
+         if ( LSAME( C3, 'E' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian'
          } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Hermitian'
-         END IF
+         }
 
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9983 )
@@ -242,7 +242,7 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE IF( LSAMEN( 2, P2, 'HR' ) .OR. LSAMEN( 2, P2, 'HK' ) ) THEN
+      } else if ( LSAMEN( 2, P2, 'HR' ) .OR. LSAMEN( 2, P2, 'HK' ) ) {
 
          // HR: Hermitian indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm
@@ -269,7 +269,7 @@
          // Print error message if no header is available.
 
          WRITE( IOUNIT, FMT = 9990 )PATH
-      END IF
+      }
 
       // First line of header
 

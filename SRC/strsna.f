@@ -51,68 +51,68 @@
       SOMCON = LSAME( HOWMNY, 'S' )
 
       INFO = 0
-      IF( .NOT.WANTS .AND. .NOT.WANTSP ) THEN
+      if ( .NOT.WANTS .AND. .NOT.WANTSP ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( HOWMNY, 'A' ) .AND. .NOT.SOMCON ) THEN
+      } else if ( .NOT.LSAME( HOWMNY, 'A' ) .AND. .NOT.SOMCON ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( LDT.LT.MAX( 1, N ) ) THEN
+      } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDVL.LT.1 .OR. ( WANTS .AND. LDVL.LT.N ) ) THEN
+      } else if ( LDVL.LT.1 .OR. ( WANTS .AND. LDVL.LT.N ) ) {
          INFO = -8
-      ELSE IF( LDVR.LT.1 .OR. ( WANTS .AND. LDVR.LT.N ) ) THEN
+      } else if ( LDVR.LT.1 .OR. ( WANTS .AND. LDVR.LT.N ) ) {
          INFO = -10
       } else {
 
          // Set M to the number of eigenpairs for which condition numbers
          // are required, and test MM.
 
-         IF( SOMCON ) THEN
+         if ( SOMCON ) {
             M = 0
             PAIR = .FALSE.
             DO 10 K = 1, N
-               IF( PAIR ) THEN
+               if ( PAIR ) {
                   PAIR = .FALSE.
                } else {
-                  IF( K.LT.N ) THEN
-                     IF( T( K+1, K ).EQ.ZERO ) THEN
+                  if ( K.LT.N ) {
+                     if ( T( K+1, K ).EQ.ZERO ) {
                         IF( SELECT( K ) ) M = M + 1
                      } else {
                         PAIR = .TRUE.
                         IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
-                     END IF
+                     }
                   } else {
                      IF( SELECT( N ) ) M = M + 1
-                  END IF
-               END IF
+                  }
+               }
    10       CONTINUE
          } else {
             M = N
-         END IF
+         }
 
-         IF( MM.LT.M ) THEN
+         if ( MM.LT.M ) {
             INFO = -13
-         ELSE IF( LDWORK.LT.1 .OR. ( WANTSP .AND. LDWORK.LT.N ) ) THEN
+         } else if ( LDWORK.LT.1 .OR. ( WANTSP .AND. LDWORK.LT.N ) ) {
             INFO = -16
-         END IF
-      END IF
-      IF( INFO.NE.0 ) THEN
+         }
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'STRSNA', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
       IF( N.EQ.0 ) RETURN
 
-      IF( N.EQ.1 ) THEN
-         IF( SOMCON ) THEN
+      if ( N.EQ.1 ) {
+         if ( SOMCON ) {
             IF( .NOT.SELECT( 1 ) ) RETURN
-         END IF
+         }
          IF( WANTS ) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) )
          RETURN
-      END IF
+      }
 
       // Get machine constants
 
@@ -126,32 +126,32 @@
 
          // Determine whether T(k,k) begins a 1-by-1 or 2-by-2 block.
 
-         IF( PAIR ) THEN
+         if ( PAIR ) {
             PAIR = .FALSE.
             GO TO 60
          } else {
             IF( K.LT.N ) PAIR = T( K+1, K ).NE.ZERO
-         END IF
+         }
 
          // Determine whether condition numbers are required for the k-th
          // eigenpair.
 
-         IF( SOMCON ) THEN
-            IF( PAIR ) THEN
+         if ( SOMCON ) {
+            if ( PAIR ) {
                IF( .NOT.SELECT( K ) .AND. .NOT.SELECT( K+1 ) ) GO TO 60
             } else {
                IF( .NOT.SELECT( K ) ) GO TO 60
-            END IF
-         END IF
+            }
+         }
 
          KS = KS + 1
 
-         IF( WANTS ) THEN
+         if ( WANTS ) {
 
             // Compute the reciprocal condition number of the k-th
             // eigenvalue.
 
-            IF( .NOT.PAIR ) THEN
+            if ( .NOT.PAIR ) {
 
                // Real eigenvalue.
 
@@ -170,10 +170,10 @@
                COND = SLAPY2( PROD1, PROD2 ) / ( RNRM*LNRM )
                S( KS ) = COND
                S( KS+1 ) = COND
-            END IF
-         END IF
+            }
+         }
 
-         IF( WANTSP ) THEN
+         if ( WANTSP ) {
 
             // Estimate the reciprocal condition number of the k-th
             // eigenvector.
@@ -186,7 +186,7 @@
             ILST = 1
             CALL STREXC( 'No Q', N, WORK, LDWORK, DUMMY, 1, IFST, ILST, WORK( 1, N+1 ), IERR )
 
-            IF( IERR.EQ.1 .OR. IERR.EQ.2 ) THEN
+            if ( IERR.EQ.1 .OR. IERR.EQ.2 ) {
 
                // Could not swap because blocks not well separated
 
@@ -196,7 +196,7 @@
 
                // Reordering successful
 
-               IF( WORK( 2, 1 ).EQ.ZERO ) THEN
+               if ( WORK( 2, 1 ).EQ.ZERO ) {
 
                   // Form C = T22 - lambda*I in WORK(2:N,2:N).
 
@@ -243,7 +243,7 @@
    40             CONTINUE
                   N2 = 2
                   NN = 2*( N-1 )
-               END IF
+               }
 
                // Estimate norm(inv(C**T))
 
@@ -251,9 +251,9 @@
                KASE = 0
    50          CONTINUE
                CALL SLACN2( NN, WORK( 1, N+2 ), WORK( 1, N+4 ), IWORK, EST, KASE, ISAVE )
-               IF( KASE.NE.0 ) THEN
-                  IF( KASE.EQ.1 ) THEN
-                     IF( N2.EQ.1 ) THEN
+               if ( KASE.NE.0 ) {
+                  if ( KASE.EQ.1 ) {
+                     if ( N2.EQ.1 ) {
 
                         // Real eigenvalue: solve C**T*x = scale*c.
 
@@ -264,9 +264,9 @@
                         // C**T*(p+iq) = scale*(c+id) in real arithmetic.
 
                         CALL SLAQTR( .TRUE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
-                     END IF
+                     }
                   } else {
-                     IF( N2.EQ.1 ) THEN
+                     if ( N2.EQ.1 ) {
 
                         // Real eigenvalue: solve C*x = scale*c.
 
@@ -278,16 +278,16 @@
 
                         CALL SLAQTR( .FALSE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
 
-                     END IF
-                  END IF
+                     }
+                  }
 
                   GO TO 50
-               END IF
-            END IF
+               }
+            }
 
             SEP( KS ) = SCALE / MAX( EST, SMLNUM )
             IF( PAIR ) SEP( KS+1 ) = SEP( KS )
-         END IF
+         }
 
          IF( PAIR ) KS = KS + 1
 

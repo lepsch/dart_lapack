@@ -55,51 +55,51 @@
       // Determine the block size, the workspace size and the hous size.
 
       IB       = ILAENV2STAGE( 2, 'DSYTRD_SB2ST', VECT, N, KD, -1, -1 )
-      IF( N.EQ.0 .OR. KD.LE.1 ) THEN
+      if ( N.EQ.0 .OR. KD.LE.1 ) {
          LHMIN = 1
          LWMIN = 1
       } else {
          LHMIN = ILAENV2STAGE( 3, 'DSYTRD_SB2ST', VECT, N, KD, IB, -1 )
          LWMIN = ILAENV2STAGE( 4, 'DSYTRD_SB2ST', VECT, N, KD, IB, -1 )
-      END IF
+      }
 
-      IF( .NOT.AFTERS1 .AND. .NOT.LSAME( STAGE1, 'N' ) ) THEN
+      if ( .NOT.AFTERS1 .AND. .NOT.LSAME( STAGE1, 'N' ) ) {
          INFO = -1
-      ELSE IF( .NOT.LSAME( VECT, 'N' ) ) THEN
+      } else if ( .NOT.LSAME( VECT, 'N' ) ) {
          INFO = -2
-      ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -3
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( KD.LT.0 ) THEN
+      } else if ( KD.LT.0 ) {
          INFO = -5
-      ELSE IF( LDAB.LT.(KD+1) ) THEN
+      } else if ( LDAB.LT.(KD+1) ) {
          INFO = -7
-      ELSE IF( LHOUS.LT.LHMIN .AND. .NOT.LQUERY ) THEN
+      } else if ( LHOUS.LT.LHMIN .AND. .NOT.LQUERY ) {
          INFO = -11
-      ELSE IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+      } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
          INFO = -13
-      END IF
+      }
 
-      IF( INFO.EQ.0 ) THEN
+      if ( INFO.EQ.0 ) {
          HOUS( 1 ) = LHMIN
          WORK( 1 ) = LWMIN
-      END IF
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'DSYTRD_SB2ST', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) THEN
+      if ( N.EQ.0 ) {
           HOUS( 1 ) = 1
           WORK( 1 ) = 1
           RETURN
-      END IF
+      }
 
       // Determine pointer position
 
@@ -115,7 +115,7 @@
       NTHREADS = 1
       TID      = 0
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
           APOS     = INDA + KD
           AWPOS    = INDA
           DPOS     = APOS + KD
@@ -138,7 +138,7 @@
       // and store it in D. A sequential code here is better or
       // in a parallel environment it might need two cores for D and E
 
-      IF( KD.EQ.0 ) THEN
+      if ( KD.EQ.0 ) {
           DO 30 I = 1, N
               D( I ) = ( AB( ABDPOS, I ) )
    30     CONTINUE
@@ -149,7 +149,7 @@
           HOUS( 1 ) = 1
           WORK( 1 ) = 1
           RETURN
-      END IF
+      }
 
       // Case KD=1:
       // The matrix is already Tridiagonal. We have to make diagonal
@@ -161,12 +161,12 @@
       // updating the Q matrix will be required and based if Q is generated
       // or not this might complicate the story.
 
-      IF( KD.EQ.1 ) THEN
+      if ( KD.EQ.1 ) {
           DO 50 I = 1, N
               D( I ) = ( AB( ABDPOS, I ) )
    50     CONTINUE
 
-          IF( UPPER ) THEN
+          if ( UPPER ) {
               DO 60 I = 1, N-1
                  E( I ) = ( AB( ABOFDPOS, I+1 ) )
    60         CONTINUE
@@ -179,7 +179,7 @@
           HOUS( 1 ) = 1
           WORK( 1 ) = 1
           RETURN
-      END IF
+      }
 
       // Main code start here.
       // Reduce the symmetric band of A to a tridiagonal matrix.
@@ -220,13 +220,13 @@
                   DO 130 SWEEPID = ST, ED
                       DO 140 K = 1, GRSIZ
                           MYID  = (I-SWEEPID)*(STEPERCOL*GRSIZ) + (M-1)*GRSIZ + K
-                          IF ( MYID.EQ.1 ) THEN
+                          if ( MYID.EQ.1 ) {
                               TTYPE = 1
                           } else {
                               TTYPE = MOD( MYID, 2 ) + 2
                           ENDIF
 
-                          IF( TTYPE.EQ.2 ) THEN
+                          if ( TTYPE.EQ.2 ) {
                               COLPT      = (MYID/2)*KD + SWEEPID
                               STIND      = COLPT-KD+1
                               EDIND      = MIN(COLPT,N)
@@ -235,7 +235,7 @@
                               COLPT      = ((MYID+1)/2)*KD + SWEEPID
                               STIND      = COLPT-KD+1
                               EDIND      = MIN(COLPT,N)
-                              IF( ( STIND.GE.EDIND-1 ).AND. ( EDIND.EQ.N ) ) THEN
+                              if ( ( STIND.GE.EDIND-1 ).AND. ( EDIND.EQ.N ) ) {
                                   BLKLASTIND = N
                               } else {
                                   BLKLASTIND = 0
@@ -245,7 +245,7 @@
                           // Call the kernel
 
 #if defined(_OPENMP) &&  _OPENMP >= 201307
-                          IF( TTYPE.NE.1 ) THEN
+                          if ( TTYPE.NE.1 ) {
 !$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
 !$OMP$     DEPEND(in:WORK(MYID-1))
 !$OMP$     DEPEND(out:WORK(MYID))
@@ -262,7 +262,7 @@
 #else
                           CALL DSB2ST_KERNELS( UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW ) )
 #endif
-                          IF ( BLKLASTIND.GE.(N-1) ) THEN
+                          if ( BLKLASTIND.GE.(N-1) ) {
                               STT = STT + 1
                               EXIT
                           ENDIF
@@ -287,7 +287,7 @@
       // Copy the off diagonal from A to E. Note that E is REAL thus only
      t // he Real part is needed, the imaginary part should be zero.
 
-      IF( UPPER ) THEN
+      if ( UPPER ) {
           DO 160 I = 1, N-1
              E( I ) = ( WORK( OFDPOS+I*LDA ) )
   160     CONTINUE

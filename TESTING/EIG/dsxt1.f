@@ -32,16 +32,16 @@
       J = 1
       DO 20 I = 1, N1
    10    CONTINUE
-         IF( D2( J ).LT.D1( I ) .AND. J.LT.N2 ) THEN
+         if ( D2( J ).LT.D1( I ) .AND. J.LT.N2 ) {
             J = J + 1
             GO TO 10
-         END IF
-         IF( J.EQ.1 ) THEN
+         }
+         if ( J.EQ.1 ) {
             TEMP2 = ABS( D2( J )-D1( I ) )
             IF( IJOB.EQ.2 ) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) )
          } else {
             TEMP2 = MIN( ABS( D2( J )-D1( I ) ), ABS( D1( I )-D2( J-1 ) ) )             IF( IJOB.EQ.2 ) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) )
-         END IF
+         }
          TEMP1 = MAX( TEMP1, TEMP2 )
    20 CONTINUE
 

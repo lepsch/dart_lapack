@@ -33,13 +33,13 @@
 
       INFO = 0
 
-      IF( N.LT.0 ) THEN
+      if ( N.LT.0 ) {
          INFO = -1
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SLAEDA', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
@@ -109,13 +109,13 @@
 
          BSIZ1 = INT( HALF+SQRT( REAL( QPTR( CURR+1 )-QPTR( CURR ) ) ) )
          BSIZ2 = INT( HALF+SQRT( REAL( QPTR( CURR+2 )-QPTR( CURR+ 1 ) ) ) )
-         IF( BSIZ1.GT.0 ) THEN
+         if ( BSIZ1.GT.0 ) {
             CALL SGEMV( 'T', BSIZ1, BSIZ1, ONE, Q( QPTR( CURR ) ), BSIZ1, ZTEMP( 1 ), 1, ZERO, Z( ZPTR1 ), 1 )
-         END IF
+         }
          CALL SCOPY( PSIZ1-BSIZ1, ZTEMP( BSIZ1+1 ), 1, Z( ZPTR1+BSIZ1 ), 1 )
-         IF( BSIZ2.GT.0 ) THEN
+         if ( BSIZ2.GT.0 ) {
             CALL SGEMV( 'T', BSIZ2, BSIZ2, ONE, Q( QPTR( CURR+1 ) ), BSIZ2, ZTEMP( PSIZ1+1 ), 1, ZERO, Z( MID ), 1 )
-         END IF
+         }
          CALL SCOPY( PSIZ2-BSIZ2, ZTEMP( PSIZ1+BSIZ2+1 ), 1, Z( MID+BSIZ2 ), 1 )
 
          PTR = PTR + 2**( TLVLS-K )

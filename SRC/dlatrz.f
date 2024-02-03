@@ -29,14 +29,14 @@
 
       // Quick return if possible
 
-      IF( M.EQ.0 ) THEN
+      if ( M.EQ.0 ) {
          RETURN
-      ELSE IF( M.EQ.N ) THEN
+      } else if ( M.EQ.N ) {
          DO 10 I = 1, N
             TAU( I ) = ZERO
    10    CONTINUE
          RETURN
-      END IF
+      }
 
       DO 20 I = M, 1, -1
 

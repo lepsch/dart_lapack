@@ -37,60 +37,60 @@
 
       // Decode COMPQ
 
-      IF( LSAME( COMPQ, 'N' ) ) THEN
+      if ( LSAME( COMPQ, 'N' ) ) {
          ILQ = .FALSE.
          ICOMPQ = 1
-      ELSE IF( LSAME( COMPQ, 'V' ) ) THEN
+      } else if ( LSAME( COMPQ, 'V' ) ) {
          ILQ = .TRUE.
          ICOMPQ = 2
-      ELSE IF( LSAME( COMPQ, 'I' ) ) THEN
+      } else if ( LSAME( COMPQ, 'I' ) ) {
          ILQ = .TRUE.
          ICOMPQ = 3
       } else {
          ICOMPQ = 0
-      END IF
+      }
 
       // Decode COMPZ
 
-      IF( LSAME( COMPZ, 'N' ) ) THEN
+      if ( LSAME( COMPZ, 'N' ) ) {
          ILZ = .FALSE.
          ICOMPZ = 1
-      ELSE IF( LSAME( COMPZ, 'V' ) ) THEN
+      } else if ( LSAME( COMPZ, 'V' ) ) {
          ILZ = .TRUE.
          ICOMPZ = 2
-      ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
+      } else if ( LSAME( COMPZ, 'I' ) ) {
          ILZ = .TRUE.
          ICOMPZ = 3
       } else {
          ICOMPZ = 0
-      END IF
+      }
 
       // Test the input parameters.
 
       INFO = 0
-      IF( ICOMPQ.LE.0 ) THEN
+      if ( ICOMPQ.LE.0 ) {
          INFO = -1
-      ELSE IF( ICOMPZ.LE.0 ) THEN
+      } else if ( ICOMPZ.LE.0 ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -3
-      ELSE IF( ILO.LT.1 ) THEN
+      } else if ( ILO.LT.1 ) {
          INFO = -4
-      ELSE IF( IHI.GT.N .OR. IHI.LT.ILO-1 ) THEN
+      } else if ( IHI.GT.N .OR. IHI.LT.ILO-1 ) {
          INFO = -5
-      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+      } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+      } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      ELSE IF( ( ILQ .AND. LDQ.LT.N ) .OR. LDQ.LT.1 ) THEN
+      } else if ( ( ILQ .AND. LDQ.LT.N ) .OR. LDQ.LT.1 ) {
          INFO = -11
-      ELSE IF( ( ILZ .AND. LDZ.LT.N ) .OR. LDZ.LT.1 ) THEN
+      } else if ( ( ILZ .AND. LDZ.LT.N ) .OR. LDZ.LT.1 ) {
          INFO = -13
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGGHRD', -INFO )
          RETURN
-      END IF
+      }
 
       // Initialize Q and Z if desired.
 

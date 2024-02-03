@@ -44,19 +44,19 @@
       // Compute the maximum over the number of right hand sides of
          // norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).
 
-      IF( LSAME( TRANS, 'N' ) ) THEN
+      if ( LSAME( TRANS, 'N' ) ) {
          ANORM = DLANGT( '1', N, DL, D, DU )
       } else {
          ANORM = DLANGT( 'I', N, DL, D, DU )
-      END IF
+      }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = DLAMCH( 'Epsilon' )
-      IF( ANORM.LE.ZERO ) THEN
+      if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
          RETURN
-      END IF
+      }
 
       // Compute B - op(A)*X and store in B.
 
@@ -65,11 +65,11 @@
       DO 10 J = 1, NRHS
          BNORM = DASUM( N, B( 1, J ), 1 )
          XNORM = DASUM( N, X( 1, J ), 1 )
-         IF( XNORM.LE.ZERO ) THEN
+         if ( XNORM.LE.ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
-         END IF
+         }
    10 CONTINUE
 
       RETURN

@@ -21,7 +21,7 @@
       // INTRINSIC MOD
       // ..
       IF (N.LE.0) RETURN
-      IF (INCX.EQ.1 .AND. INCY.EQ.1) THEN
+      if (INCX.EQ.1 .AND. INCY.EQ.1) {
 
         // code for both increments equal to 1
 
@@ -29,14 +29,14 @@
         // clean-up loop
 
          M = MOD(N,3)
-         IF (M.NE.0) THEN
+         if (M.NE.0) {
             DO I = 1,M
                DTEMP = DX(I)
                DX(I) = DY(I)
                DY(I) = DTEMP
             END DO
             IF (N.LT.3) RETURN
-         END IF
+         }
          MP1 = M + 1
          DO I = MP1,N,3
             DTEMP = DX(I)
@@ -65,7 +65,7 @@
             IX = IX + INCX
             IY = IY + INCY
          END DO
-      END IF
+      }
       RETURN
 
       // End of DSWAP

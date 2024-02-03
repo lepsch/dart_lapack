@@ -48,68 +48,68 @@
       NOTRAN = LSAME( TRANS, 'N' )
       LQUERY = ( LWORK.EQ.-1 )
 
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) THEN
+      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -1
-      ELSE IF( NOTRAN ) THEN
-         IF( ( IJOB.LT.0 ) .OR. ( IJOB.GT.4 ) ) THEN
+      } else if ( NOTRAN ) {
+         if ( ( IJOB.LT.0 ) .OR. ( IJOB.GT.4 ) ) {
             INFO = -2
-         END IF
-      END IF
-      IF( INFO.EQ.0 ) THEN
-         IF( M.LE.0 ) THEN
+         }
+      }
+      if ( INFO.EQ.0 ) {
+         if ( M.LE.0 ) {
             INFO = -3
-         ELSE IF( N.LE.0 ) THEN
+         } else if ( N.LE.0 ) {
             INFO = -4
-         ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
+         } else if ( LDA.LT.MAX( 1, M ) ) {
             INFO = -6
-         ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+         } else if ( LDB.LT.MAX( 1, N ) ) {
             INFO = -8
-         ELSE IF( LDC.LT.MAX( 1, M ) ) THEN
+         } else if ( LDC.LT.MAX( 1, M ) ) {
             INFO = -10
-         ELSE IF( LDD.LT.MAX( 1, M ) ) THEN
+         } else if ( LDD.LT.MAX( 1, M ) ) {
             INFO = -12
-         ELSE IF( LDE.LT.MAX( 1, N ) ) THEN
+         } else if ( LDE.LT.MAX( 1, N ) ) {
             INFO = -14
-         ELSE IF( LDF.LT.MAX( 1, M ) ) THEN
+         } else if ( LDF.LT.MAX( 1, M ) ) {
             INFO = -16
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.EQ.0 ) THEN
-         IF( NOTRAN ) THEN
-            IF( IJOB.EQ.1 .OR. IJOB.EQ.2 ) THEN
+      if ( INFO.EQ.0 ) {
+         if ( NOTRAN ) {
+            if ( IJOB.EQ.1 .OR. IJOB.EQ.2 ) {
                LWMIN = MAX( 1, 2*M*N )
             } else {
                LWMIN = 1
-            END IF
+            }
          } else {
             LWMIN = 1
-         END IF
+         }
          WORK( 1 ) = LWMIN
 
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
+         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
             INFO = -20
-         END IF
-      END IF
+         }
+      }
 
-      IF( INFO.NE.0 ) THEN
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'ZTGSYL', -INFO )
          RETURN
-      ELSE IF( LQUERY ) THEN
+      } else if ( LQUERY ) {
          RETURN
-      END IF
+      }
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) THEN
+      if ( M.EQ.0 .OR. N.EQ.0 ) {
          SCALE = 1
-         IF( NOTRAN ) THEN
-            IF( IJOB.NE.0 ) THEN
+         if ( NOTRAN ) {
+            if ( IJOB.NE.0 ) {
                DIF = 0
-            END IF
-         END IF
+            }
+         }
          RETURN
-      END IF
+      }
 
       // Determine  optimal block sizes MB and NB
 
@@ -118,17 +118,17 @@
 
       ISOLVE = 1
       IFUNC = 0
-      IF( NOTRAN ) THEN
-         IF( IJOB.GE.3 ) THEN
+      if ( NOTRAN ) {
+         if ( IJOB.GE.3 ) {
             IFUNC = IJOB - 2
             CALL ZLASET( 'F', M, N, CZERO, CZERO, C, LDC )
             CALL ZLASET( 'F', M, N, CZERO, CZERO, F, LDF )
-         ELSE IF( IJOB.GE.1 .AND. NOTRAN ) THEN
+         } else if ( IJOB.GE.1 .AND. NOTRAN ) {
             ISOLVE = 2
-         END IF
-      END IF
+         }
+      }
 
-      IF( ( MB.LE.1 .AND. NB.LE.1 ) .OR. ( MB.GE.M .AND. NB.GE.N ) ) THEN
+      if ( ( MB.LE.1 .AND. NB.LE.1 ) .OR. ( MB.GE.M .AND. NB.GE.N ) ) {
 
          // Use unblocked Level 2 solver
 
@@ -139,32 +139,32 @@
             DSUM = ONE
             PQ = M*N
             CALL ZTGSY2( TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, INFO )
-            IF( DSCALE.NE.ZERO ) THEN
-               IF( IJOB.EQ.1 .OR. IJOB.EQ.3 ) THEN
+            if ( DSCALE.NE.ZERO ) {
+               if ( IJOB.EQ.1 .OR. IJOB.EQ.3 ) {
                   DIF = SQRT( DBLE( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
                } else {
                   DIF = SQRT( DBLE( PQ ) ) / ( DSCALE*SQRT( DSUM ) )
-               END IF
-            END IF
-            IF( ISOLVE.EQ.2 .AND. IROUND.EQ.1 ) THEN
-               IF( NOTRAN ) THEN
+               }
+            }
+            if ( ISOLVE.EQ.2 .AND. IROUND.EQ.1 ) {
+               if ( NOTRAN ) {
                   IFUNC = IJOB
-               END IF
+               }
                SCALE2 = SCALE
                CALL ZLACPY( 'F', M, N, C, LDC, WORK, M )
                CALL ZLACPY( 'F', M, N, F, LDF, WORK( M*N+1 ), M )
                CALL ZLASET( 'F', M, N, CZERO, CZERO, C, LDC )
                CALL ZLASET( 'F', M, N, CZERO, CZERO, F, LDF )
-            ELSE IF( ISOLVE.EQ.2 .AND. IROUND.EQ.2 ) THEN
+            } else if ( ISOLVE.EQ.2 .AND. IROUND.EQ.2 ) {
                CALL ZLACPY( 'F', M, N, WORK, M, C, LDC )
                CALL ZLACPY( 'F', M, N, WORK( M*N+1 ), M, F, LDF )
                SCALE = SCALE2
-            END IF
+            }
    30    CONTINUE
 
          RETURN
 
-      END IF
+      }
 
       // Determine block structure of A
 
@@ -198,7 +198,7 @@
       IWORK( Q+1 ) = N + 1
       IF( IWORK( Q ).EQ.IWORK( Q+1 ) ) Q = Q - 1
 
-      IF( NOTRAN ) THEN
+      if ( NOTRAN ) {
          DO 150 IROUND = 1, ISOLVE
 
             // Solve (I, J) - subsystem
@@ -221,7 +221,7 @@
                   CALL ZTGSY2( TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO )
                   IF( LINFO.GT.0 ) INFO = LINFO
                   PQ = PQ + MB*NB
-                  IF( SCALOC.NE.ONE ) THEN
+                  if ( SCALOC.NE.ONE ) {
                      DO 80 K = 1, JS - 1
                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
    80                CONTINUE
@@ -235,39 +235,39 @@
                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
   110                CONTINUE
                      SCALE = SCALE*SCALOC
-                  END IF
+                  }
 
                   // Substitute R(I,J) and L(I,J) into remaining equation.
 
-                  IF( I.GT.1 ) THEN
+                  if ( I.GT.1 ) {
                      CALL ZGEMM( 'N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), A( 1, IS ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( 1, JS ), LDC )                      CALL ZGEMM( 'N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), D( 1, IS ), LDD, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), F( 1, JS ), LDF )
-                  END IF
-                  IF( J.LT.Q ) THEN
+                  }
+                  if ( J.LT.Q ) {
                      CALL ZGEMM( 'N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, B( JS, JE+1 ), LDB, DCMPLX( ONE, ZERO ), C( IS, JE+1 ), LDC )                      CALL ZGEMM( 'N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( JS, JE+1 ), LDE, DCMPLX( ONE, ZERO ), F( IS, JE+1 ), LDF )
-                  END IF
+                  }
   120          CONTINUE
   130       CONTINUE
-            IF( DSCALE.NE.ZERO ) THEN
-               IF( IJOB.EQ.1 .OR. IJOB.EQ.3 ) THEN
+            if ( DSCALE.NE.ZERO ) {
+               if ( IJOB.EQ.1 .OR. IJOB.EQ.3 ) {
                   DIF = SQRT( DBLE( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
                } else {
                   DIF = SQRT( DBLE( PQ ) ) / ( DSCALE*SQRT( DSUM ) )
-               END IF
-            END IF
-            IF( ISOLVE.EQ.2 .AND. IROUND.EQ.1 ) THEN
-               IF( NOTRAN ) THEN
+               }
+            }
+            if ( ISOLVE.EQ.2 .AND. IROUND.EQ.1 ) {
+               if ( NOTRAN ) {
                   IFUNC = IJOB
-               END IF
+               }
                SCALE2 = SCALE
                CALL ZLACPY( 'F', M, N, C, LDC, WORK, M )
                CALL ZLACPY( 'F', M, N, F, LDF, WORK( M*N+1 ), M )
                CALL ZLASET( 'F', M, N, CZERO, CZERO, C, LDC )
                CALL ZLASET( 'F', M, N, CZERO, CZERO, F, LDF )
-            ELSE IF( ISOLVE.EQ.2 .AND. IROUND.EQ.2 ) THEN
+            } else if ( ISOLVE.EQ.2 .AND. IROUND.EQ.2 ) {
                CALL ZLACPY( 'F', M, N, WORK, M, C, LDC )
                CALL ZLACPY( 'F', M, N, WORK( M*N+1 ), M, F, LDF )
                SCALE = SCALE2
-            END IF
+            }
   150    CONTINUE
       } else {
 
@@ -287,7 +287,7 @@
                NB = JE - JS + 1
                CALL ZTGSY2( TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO )
                IF( LINFO.GT.0 ) INFO = LINFO
-               IF( SCALOC.NE.ONE ) THEN
+               if ( SCALOC.NE.ONE ) {
                   DO 160 K = 1, JS - 1
                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
   160             CONTINUE
@@ -301,19 +301,19 @@
                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
   190             CONTINUE
                   SCALE = SCALE*SCALOC
-               END IF
+               }
 
                // Substitute R(I,J) and L(I,J) into remaining equation.
 
-               IF( J.GT.P+2 ) THEN
+               if ( J.GT.P+2 ) {
                   CALL ZGEMM( 'N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), C( IS, JS ), LDC, B( 1, JS ), LDB, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF )                   CALL ZGEMM( 'N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( 1, JS ), LDE, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF )
-               END IF
-               IF( I.LT.P ) THEN
+               }
+               if ( I.LT.P ) {
                   CALL ZGEMM( 'C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), A( IS, IE+1 ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC )                   CALL ZGEMM( 'C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), D( IS, IE+1 ), LDD, F( IS, JS ), LDF, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC )
-               END IF
+               }
   200       CONTINUE
   210    CONTINUE
-      END IF
+      }
 
       WORK( 1 ) = LWMIN
 

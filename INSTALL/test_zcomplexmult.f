@@ -61,7 +61,7 @@
                   nFailingTests = nFailingTests + 1
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, 'Inf and NaN'
               endif
-          else if( (i.eq.3) .or. (i.eq.4) ) then
+          } else if ( (i.eq.3) .or. (i.eq.4) ) {
               if( (R .ne. cInf(2)) .and. (R .eq. R) ) then
                   nFailingTests = nFailingTests + 1
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, '-Inf and NaN'

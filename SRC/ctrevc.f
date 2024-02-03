@@ -61,35 +61,35 @@
       // Set M to the number of columns required to store the selected
       // eigenvectors.
 
-      IF( SOMEV ) THEN
+      if ( SOMEV ) {
          M = 0
          DO 10 J = 1, N
             IF( SELECT( J ) ) M = M + 1
    10    CONTINUE
       } else {
          M = N
-      END IF
+      }
 
       INFO = 0
-      IF( .NOT.RIGHTV .AND. .NOT.LEFTV ) THEN
+      if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
          INFO = -1
-      ELSE IF( .NOT.ALLV .AND. .NOT.OVER .AND. .NOT.SOMEV ) THEN
+      } else if ( .NOT.ALLV .AND. .NOT.OVER .AND. .NOT.SOMEV ) {
          INFO = -2
-      ELSE IF( N.LT.0 ) THEN
+      } else if ( N.LT.0 ) {
          INFO = -4
-      ELSE IF( LDT.LT.MAX( 1, N ) ) THEN
+      } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      ELSE IF( LDVL.LT.1 .OR. ( LEFTV .AND. LDVL.LT.N ) ) THEN
+      } else if ( LDVL.LT.1 .OR. ( LEFTV .AND. LDVL.LT.N ) ) {
          INFO = -8
-      ELSE IF( LDVR.LT.1 .OR. ( RIGHTV .AND. LDVR.LT.N ) ) THEN
+      } else if ( LDVR.LT.1 .OR. ( RIGHTV .AND. LDVR.LT.N ) ) {
          INFO = -10
-      ELSE IF( MM.LT.M ) THEN
+      } else if ( MM.LT.M ) {
          INFO = -11
-      END IF
-      IF( INFO.NE.0 ) THEN
+      }
+      if ( INFO.NE.0 ) {
          CALL XERBLA( 'CTREVC', -INFO )
          RETURN
-      END IF
+      }
 
       // Quick return if possible.
 
@@ -116,16 +116,16 @@
          RWORK( J ) = SCASUM( J-1, T( 1, J ), 1 )
    30 CONTINUE
 
-      IF( RIGHTV ) THEN
+      if ( RIGHTV ) {
 
          // Compute right eigenvectors.
 
          IS = M
          DO 80 KI = N, 1, -1
 
-            IF( SOMEV ) THEN
+            if ( SOMEV ) {
                IF( .NOT.SELECT( KI ) ) GO TO 80
-            END IF
+            }
             SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM )
 
             WORK( 1 ) = CMONE
@@ -144,14 +144,14 @@
                IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
    50       CONTINUE
 
-            IF( KI.GT.1 ) THEN
+            if ( KI.GT.1 ) {
                CALL CLATRS( 'Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 ), SCALE, RWORK, INFO )
                WORK( KI ) = SCALE
-            END IF
+            }
 
             // Copy the vector x or Q*x to VR and normalize.
 
-            IF( .NOT.OVER ) THEN
+            if ( .NOT.OVER ) {
                CALL CCOPY( KI, WORK( 1 ), 1, VR( 1, IS ), 1 )
 
                II = ICAMAX( KI, VR( 1, IS ), 1 )
@@ -167,7 +167,7 @@
                II = ICAMAX( N, VR( 1, KI ), 1 )
                REMAX = ONE / CABS1( VR( II, KI ) )
                CALL CSSCAL( N, REMAX, VR( 1, KI ), 1 )
-            END IF
+            }
 
             // Set back the original diagonal elements of T.
 
@@ -177,18 +177,18 @@
 
             IS = IS - 1
    80    CONTINUE
-      END IF
+      }
 
-      IF( LEFTV ) THEN
+      if ( LEFTV ) {
 
          // Compute left eigenvectors.
 
          IS = 1
          DO 130 KI = 1, N
 
-            IF( SOMEV ) THEN
+            if ( SOMEV ) {
                IF( .NOT.SELECT( KI ) ) GO TO 130
-            END IF
+            }
             SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM )
 
             WORK( N ) = CMONE
@@ -207,14 +207,14 @@
                IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
   100       CONTINUE
 
-            IF( KI.LT.N ) THEN
+            if ( KI.LT.N ) {
                CALL CLATRS( 'Upper', 'Conjugate transpose', 'Non-unit', 'Y', N-KI, T( KI+1, KI+1 ), LDT, WORK( KI+1 ), SCALE, RWORK, INFO )
                WORK( KI ) = SCALE
-            END IF
+            }
 
             // Copy the vector x or Q*x to VL and normalize.
 
-            IF( .NOT.OVER ) THEN
+            if ( .NOT.OVER ) {
                CALL CCOPY( N-KI+1, WORK( KI ), 1, VL( KI, IS ), 1 )
 
                II = ICAMAX( N-KI+1, VL( KI, IS ), 1 ) + KI - 1
@@ -230,7 +230,7 @@
                II = ICAMAX( N, VL( 1, KI ), 1 )
                REMAX = ONE / CABS1( VL( II, KI ) )
                CALL CSSCAL( N, REMAX, VL( 1, KI ), 1 )
-            END IF
+            }
 
             // Set back the original diagonal elements of T.
 
@@ -240,7 +240,7 @@
 
             IS = IS + 1
   130    CONTINUE
-      END IF
+      }
 
       RETURN
 

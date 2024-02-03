@@ -30,34 +30,34 @@
       // ..
       // .. Executable Statements ..
 
-      IF( PRTYPE.EQ.1 ) THEN
+      if ( PRTYPE.EQ.1 ) {
          DO 20 I = 1, M
             DO 10 J = 1, M
-               IF( I.EQ.J ) THEN
+               if ( I.EQ.J ) {
                   A( I, J ) = ONE
                   D( I, J ) = ONE
-               ELSE IF( I.EQ.J-1 ) THEN
+               } else if ( I.EQ.J-1 ) {
                   A( I, J ) = -ONE
                   D( I, J ) = ZERO
                } else {
                   A( I, J ) = ZERO
                   D( I, J ) = ZERO
-               END IF
+               }
    10       CONTINUE
    20    CONTINUE
 
          DO 40 I = 1, N
             DO 30 J = 1, N
-               IF( I.EQ.J ) THEN
+               if ( I.EQ.J ) {
                   B( I, J ) = ONE - ALPHA
                   E( I, J ) = ONE
-               ELSE IF( I.EQ.J-1 ) THEN
+               } else if ( I.EQ.J-1 ) {
                   B( I, J ) = ONE
                   E( I, J ) = ZERO
                } else {
                   B( I, J ) = ZERO
                   E( I, J ) = ZERO
-               END IF
+               }
    30       CONTINUE
    40    CONTINUE
 
@@ -68,28 +68,28 @@
    50       CONTINUE
    60    CONTINUE
 
-      ELSE IF( PRTYPE.EQ.2 .OR. PRTYPE.EQ.3 ) THEN
+      } else if ( PRTYPE.EQ.2 .OR. PRTYPE.EQ.3 ) {
          DO 80 I = 1, M
             DO 70 J = 1, M
-               IF( I.LE.J ) THEN
+               if ( I.LE.J ) {
                   A( I, J ) = ( HALF-SIN( CMPLX( I ) ) )*TWO
                   D( I, J ) = ( HALF-SIN( CMPLX( I*J ) ) )*TWO
                } else {
                   A( I, J ) = ZERO
                   D( I, J ) = ZERO
-               END IF
+               }
    70       CONTINUE
    80    CONTINUE
 
          DO 100 I = 1, N
             DO 90 J = 1, N
-               IF( I.LE.J ) THEN
+               if ( I.LE.J ) {
                   B( I, J ) = ( HALF-SIN( CMPLX( I+J ) ) )*TWO
                   E( I, J ) = ( HALF-SIN( CMPLX( J ) ) )*TWO
                } else {
                   B( I, J ) = ZERO
                   E( I, J ) = ZERO
-               END IF
+               }
    90       CONTINUE
   100    CONTINUE
 
@@ -100,7 +100,7 @@
   110       CONTINUE
   120    CONTINUE
 
-         IF( PRTYPE.EQ.3 ) THEN
+         if ( PRTYPE.EQ.3 ) {
             IF( QBLCKA.LE.1 ) QBLCKA = 2
             DO 130 K = 1, M - 1, QBLCKA
                A( K+1, K+1 ) = A( K, K )
@@ -112,9 +112,9 @@
                B( K+1, K+1 ) = B( K, K )
                B( K+1, K ) = -SIN( B( K, K+1 ) )
   140       CONTINUE
-         END IF
+         }
 
-      ELSE IF( PRTYPE.EQ.4 ) THEN
+      } else if ( PRTYPE.EQ.4 ) {
          DO 160 I = 1, M
             DO 150 J = 1, M
                A( I, J ) = ( HALF-SIN( CMPLX( I*J ) ) )*TWENTY
@@ -136,7 +136,7 @@
   190       CONTINUE
   200    CONTINUE
 
-      ELSE IF( PRTYPE.GE.5 ) THEN
+      } else if ( PRTYPE.GE.5 ) {
          REEPS = HALF*TWO*TWENTY / ALPHA
          IMEPS = ( HALF-TWO ) / ALPHA
          DO 220 I = 1, M
@@ -151,66 +151,66 @@
   230    CONTINUE
 
          DO 240 I = 1, M
-            IF( I.LE.4 ) THEN
+            if ( I.LE.4 ) {
                A( I, I ) = ONE
                IF( I.GT.2 ) A( I, I ) = ONE + REEPS
-               IF( MOD( I, 2 ).NE.0 .AND. I.LT.M ) THEN
+               if ( MOD( I, 2 ).NE.0 .AND. I.LT.M ) {
                   A( I, I+1 ) = IMEPS
-               ELSE IF( I.GT.1 ) THEN
+               } else if ( I.GT.1 ) {
                   A( I, I-1 ) = -IMEPS
-               END IF
-            ELSE IF( I.LE.8 ) THEN
-               IF( I.LE.6 ) THEN
+               }
+            } else if ( I.LE.8 ) {
+               if ( I.LE.6 ) {
                   A( I, I ) = REEPS
                } else {
                   A( I, I ) = -REEPS
-               END IF
-               IF( MOD( I, 2 ).NE.0 .AND. I.LT.M ) THEN
+               }
+               if ( MOD( I, 2 ).NE.0 .AND. I.LT.M ) {
                   A( I, I+1 ) = ONE
-               ELSE IF( I.GT.1 ) THEN
+               } else if ( I.GT.1 ) {
                   A( I, I-1 ) = -ONE
-               END IF
+               }
             } else {
                A( I, I ) = ONE
-               IF( MOD( I, 2 ).NE.0 .AND. I.LT.M ) THEN
+               if ( MOD( I, 2 ).NE.0 .AND. I.LT.M ) {
                   A( I, I+1 ) = IMEPS*2
-               ELSE IF( I.GT.1 ) THEN
+               } else if ( I.GT.1 ) {
                   A( I, I-1 ) = -IMEPS*2
-               END IF
-            END IF
+               }
+            }
   240    CONTINUE
 
          DO 250 I = 1, N
             E( I, I ) = ONE
-            IF( I.LE.4 ) THEN
+            if ( I.LE.4 ) {
                B( I, I ) = -ONE
                IF( I.GT.2 ) B( I, I ) = ONE - REEPS
-               IF( MOD( I, 2 ).NE.0 .AND. I.LT.N ) THEN
+               if ( MOD( I, 2 ).NE.0 .AND. I.LT.N ) {
                   B( I, I+1 ) = IMEPS
-               ELSE IF( I.GT.1 ) THEN
+               } else if ( I.GT.1 ) {
                   B( I, I-1 ) = -IMEPS
-               END IF
-            ELSE IF( I.LE.8 ) THEN
-               IF( I.LE.6 ) THEN
+               }
+            } else if ( I.LE.8 ) {
+               if ( I.LE.6 ) {
                   B( I, I ) = REEPS
                } else {
                   B( I, I ) = -REEPS
-               END IF
-               IF( MOD( I, 2 ).NE.0 .AND. I.LT.N ) THEN
+               }
+               if ( MOD( I, 2 ).NE.0 .AND. I.LT.N ) {
                   B( I, I+1 ) = ONE + IMEPS
-               ELSE IF( I.GT.1 ) THEN
+               } else if ( I.GT.1 ) {
                   B( I, I-1 ) = -ONE - IMEPS
-               END IF
+               }
             } else {
                B( I, I ) = ONE - REEPS
-               IF( MOD( I, 2 ).NE.0 .AND. I.LT.N ) THEN
+               if ( MOD( I, 2 ).NE.0 .AND. I.LT.N ) {
                   B( I, I+1 ) = IMEPS*2
-               ELSE IF( I.GT.1 ) THEN
+               } else if ( I.GT.1 ) {
                   B( I, I-1 ) = -IMEPS*2
-               END IF
-            END IF
+               }
+            }
   250    CONTINUE
-      END IF
+      }
 
       // Compute rhs (C, F)
 
