@@ -6,27 +6,27 @@
 *
 *     .. Scalar Arguments ..
       int                IDIST, ISIGN, ITYPE, LDA, N, NZ1, NZ2
-      DOUBLE PRECISION   AMAGN, RCOND, TRIANG
+      double             AMAGN, RCOND, TRIANG;
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   A( LDA, * )
+      double             A( LDA, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO
+      double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
-      DOUBLE PRECISION   HALF
+      double             HALF;
       PARAMETER          ( HALF = ONE / TWO )
 *     ..
 *     .. Local Scalars ..
       int                I, IOFF, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN
-      DOUBLE PRECISION   ALPHA, CL, CR, SAFMIN, SL, SR, SV1, SV2, TEMP
+      double             ALPHA, CL, CR, SAFMIN, SL, SR, SV1, SV2, TEMP;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLARAN, DLARND
+      double             DLAMCH, DLARAN, DLARND;
       EXTERNAL           DLAMCH, DLARAN, DLARND
 *     ..
 *     .. External Subroutines ..

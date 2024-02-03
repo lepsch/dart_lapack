@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       int     N, NRHS, LDA, LDX, LDB, INFO
 *     .. Array Arguments ..
-      DOUBLE PRECISION WORK(N)
+      double           WORK(N);
       COMPLEX*16 A(LDA,N), X(LDX, NRHS), B(LDB, NRHS)
       String      PATH;
 *     ..

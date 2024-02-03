@@ -8,13 +8,13 @@
       int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION DX(*),DY(*)
+      double           DX(*),DY(*);
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION DTEMP
+      double           DTEMP;
       int     I,IX,IY,M,MP1
 *     ..
 *     .. Intrinsic Functions ..

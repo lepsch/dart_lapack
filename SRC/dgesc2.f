@@ -6,29 +6,29 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, N
-      DOUBLE PRECISION   SCALE
+      double             SCALE;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * ), JPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), RHS( * )
+      double             A( LDA, * ), RHS( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, TWO
+      double             ONE, TWO;
       PARAMETER          ( ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   BIGNUM, EPS, SMLNUM, TEMP
+      double             BIGNUM, EPS, SMLNUM, TEMP;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLASWP, DSCAL
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           IDAMAX, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

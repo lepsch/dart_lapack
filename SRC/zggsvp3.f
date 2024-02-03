@@ -9,11 +9,11 @@
 *     .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P, LWORK
-      DOUBLE PRECISION   TOLA, TOLB
+      double             TOLA, TOLB;
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *

@@ -7,18 +7,18 @@
 *     .. Scalar Arguments ..
       bool               NOINIT, RIGHTV;
       int                INFO, LDB, LDH, N
-      DOUBLE PRECISION   EPS3, SMLNUM
+      double             EPS3, SMLNUM;
       COMPLEX*16         W
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         B( LDB, * ), H( LDH, * ), V( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, TENTH
+      double             ONE, TENTH;
       PARAMETER          ( ONE = 1.0D+0, TENTH = 1.0D-1 )
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) )
@@ -26,12 +26,12 @@
 *     .. Local Scalars ..
       String             NORMIN, TRANS;
       int                I, IERR, ITS, J
-      DOUBLE PRECISION   GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM
+      double             GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM;
       COMPLEX*16         CDUM, EI, EJ, TEMP, X
 *     ..
 *     .. External Functions ..
       int                IZAMAX
-      DOUBLE PRECISION   DZASUM, DZNRM2
+      double             DZASUM, DZNRM2;
       COMPLEX*16         ZLADIV
       EXTERNAL           IZAMAX, DZASUM, DZNRM2, ZLADIV
 *     ..
@@ -42,7 +42,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, MAX, SQRT
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )

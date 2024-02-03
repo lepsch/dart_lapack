@@ -6,33 +6,33 @@
 *
 *     .. Scalar Arguments ..
       int                NN, NNS, NNT, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       int                NVAL( NN ), NSVAL( NNS ), NTVAL( NNT )
-      DOUBLE PRECISION   A( * )
-      DOUBLE PRECISION   AINV( * )
-      DOUBLE PRECISION   ASAV( * )
-      DOUBLE PRECISION   B( * )
-      DOUBLE PRECISION   BSAV( * )
-      DOUBLE PRECISION   AFAC( * )
-      DOUBLE PRECISION   ARF( * )
-      DOUBLE PRECISION   ARFINV( * )
-      DOUBLE PRECISION   XACT( * )
-      DOUBLE PRECISION   X( * )
-      DOUBLE PRECISION   D_WORK_DLATMS( * )
-      DOUBLE PRECISION   D_WORK_DPOT01( * )
-      DOUBLE PRECISION   D_TEMP_DPOT02( * )
-      DOUBLE PRECISION   D_TEMP_DPOT03( * )
-      DOUBLE PRECISION   D_WORK_DLANSY( * )
-      DOUBLE PRECISION   D_WORK_DPOT02( * )
-      DOUBLE PRECISION   D_WORK_DPOT03( * )
+      double             A( * );
+      double             AINV( * );
+      double             ASAV( * );
+      double             B( * );
+      double             BSAV( * );
+      double             AFAC( * );
+      double             ARF( * );
+      double             ARFINV( * );
+      double             XACT( * );
+      double             X( * );
+      double             D_WORK_DLATMS( * );
+      double             D_WORK_DPOT01( * );
+      double             D_TEMP_DPOT02( * );
+      double             D_TEMP_DPOT03( * );
+      double             D_WORK_DLANSY( * );
+      double             D_WORK_DPOT02( * );
+      double             D_WORK_DPOT03( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTESTS
       PARAMETER          ( NTESTS = 4 )
@@ -42,15 +42,15 @@
       int                I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL, NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS
       String             DIST, CTYPE, UPLO, CFORM;
       int                KL, KU, MODE
-      DOUBLE PRECISION   ANORM, AINVNM, CNDNUM, RCONDC
+      double             ANORM, AINVNM, CNDNUM, RCONDC;
 *     ..
 *     .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLANSY
+      double             DLANSY;
       EXTERNAL           DLANSY
 *     ..
 *     .. External Subroutines ..

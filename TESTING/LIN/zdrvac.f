@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       int                NMAX, NM, NNS, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                MVAL( * ), NSVAL( * )
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX            SWORK(*)
       COMPLEX*16         A( * ), AFAC( * ), B( * ), WORK( * ), X( * )
 *     ..
@@ -19,7 +19,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
       int                NTYPES
       PARAMETER          ( NTYPES = 9 )
@@ -31,12 +31,12 @@
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, IM, IMAT, INFO, IOFF, IRHS, IUPLO, IZERO, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
-      DOUBLE PRECISION   ANORM, CNDNUM
+      double             ANORM, CNDNUM;
 *     ..
 *     .. Local Arrays ..
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. Local Variables ..
       int                ITER, KASE

@@ -8,18 +8,18 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, LDA, LDU, LDVT, LWORK, NOUT, NSIZES, NTYPES
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * )
-      DOUBLE PRECISION   A( LDA, * ), ASAV( LDA, * ), E( * ), S( * ), SSAV( * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * )
+      double             A( LDA, * ), ASAV( LDA, * ), E( * ), S( * ), SSAV( * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION  ZERO, ONE, TWO, HALF
+      double            ZERO, ONE, TWO, HALF;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = 0.5D0 )
       int                MAXTYP
       PARAMETER          ( MAXTYP = 5 )
@@ -29,21 +29,21 @@
       String             JOBQ, JOBU, JOBVT, RANGE;
       String             PATH;
       int                I, IINFO, IJQ, IJU, IJVT, IL,IU, IWS, IWTMP, ITEMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NFAIL, NMAX, NS, NSI, NSV, NTEST
-      DOUBLE PRECISION   ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU
+      double             ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU;
 *     ..
 *     .. Local Scalars for DGESVDQ ..
       int                LIWORK, LRWORK, NUMRANK
 *     ..
 *     .. Local Arrays for DGESVDQ ..
-      DOUBLE PRECISION   RWORK( 2 )
+      double             RWORK( 2 );
 *     ..
 *     .. Local Arrays ..
       String             CJOB( 4 ), CJOBR( 3 ), CJOBV( 2 );
       int                IOLDSD( 4 ), ISEED2( 4 )
-      DOUBLE PRECISION   RESULT( 39 )
+      double             RESULT( 39 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLARND
+      double             DLAMCH, DLARND;
       EXTERNAL           DLAMCH, DLARND
 *     ..
 *     .. External Subroutines ..
@@ -113,7 +113,7 @@
 *
 *     Initialize constants
 *
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'BD'
       NFAIL = 0
       NTEST = 0

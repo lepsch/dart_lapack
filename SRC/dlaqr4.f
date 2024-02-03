@@ -9,7 +9,7 @@
       bool               WANTT, WANTZ;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * )
+      double             H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * );
 *     ..
 *
 *  ================================================================
@@ -35,13 +35,13 @@
 *
 *     ==== The constants WILK1 and WILK2 are used to form the
 *     .    exceptional shifts. ====
-      DOUBLE PRECISION   WILK1, WILK2
+      double             WILK1, WILK2;
       PARAMETER          ( WILK1 = 0.75d0, WILK2 = -0.4375d0 )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0d0, ONE = 1.0d0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   AA, BB, CC, CS, DD, SN, SS, SWAP
+      double             AA, BB, CC, CS, DD, SN, SS, SWAP;
       int                I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS, KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS, LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS, NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD
       bool               SORTED;
       String             JBCMPZ*2;
@@ -51,7 +51,7 @@
       EXTERNAL           ILAENV
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   ZDUM( 1, 1 )
+      double             ZDUM( 1, 1 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLACPY, DLAHQR, DLANV2, DLAQR2, DLAQR5

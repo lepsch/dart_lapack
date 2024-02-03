@@ -7,23 +7,23 @@
 *     .. Scalar Arguments ..
       String             NORM;
       int                INFO, N
-      DOUBLE PRECISION   ANORM, RCOND
+      double             ANORM, RCOND;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * ), IWORK( * )
-      DOUBLE PRECISION   D( * ), DL( * ), DU( * ), DU2( * ), WORK( * )
+      double             D( * ), DL( * ), DU( * ), DU2( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               ONENRM;
       int                I, KASE, KASE1
-      DOUBLE PRECISION   AINVNM
+      double             AINVNM;
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )

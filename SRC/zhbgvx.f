@@ -7,18 +7,18 @@
 *     .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N
-      DOUBLE PRECISION   ABSTOL, VL, VU
+      double             ABSTOL, VL, VU;
 *     ..
 *     .. Array Arguments ..
       int                IFAIL( * ), IWORK( * )
-      DOUBLE PRECISION   RWORK( * ), W( * )
+      double             RWORK( * ), W( * );
       COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
@@ -27,7 +27,7 @@
       bool               ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ;
       String             ORDER, VECT;
       int                I, IINFO, INDD, INDE, INDEE, INDISP, INDIWK, INDRWK, INDWRK, ITMP1, J, JJ, NSPLIT
-      DOUBLE PRECISION   TMP1
+      double             TMP1;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

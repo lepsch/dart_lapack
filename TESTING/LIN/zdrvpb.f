@@ -7,19 +7,19 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                NVAL( * )
-      DOUBLE PRECISION   RWORK( * ), S( * )
+      double             RWORK( * ), S( * );
       COMPLEX*16         A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTYPES, NTESTS
       PARAMETER          ( NTYPES = 8, NTESTS = 6 )
@@ -31,16 +31,16 @@
       String             DIST, EQUED, FACT, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, I1, I2, IEQUED, IFACT, IKD, IMAT, IN, INFO, IOFF, IUPLO, IW, IZERO, K, K1, KD, KL, KOFF, KU, LDA, LDAB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKD, NRUN, NT
-      DOUBLE PRECISION   AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND
+      double             AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND;
 *     ..
 *     .. Local Arrays ..
       String             EQUEDS( 2 ), FACTS( 3 );
       int                ISEED( 4 ), ISEEDY( 4 ), KDVAL( NBW )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DGET06, ZLANGE, ZLANHB
+      double             DGET06, ZLANGE, ZLANHB;
       EXTERNAL           LSAME, DGET06, ZLANGE, ZLANHB
 *     ..
 *     .. External Subroutines ..

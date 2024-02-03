@@ -9,15 +9,15 @@
       int                INFO, LDU1, LDU2, LDV1T, LWORK, LDX11, LDX21, M, P, Q
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   THETA(*)
-      DOUBLE PRECISION   U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*)
+      double             THETA(*);
+      double             U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       int                IWORK(*)
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
@@ -25,7 +25,7 @@
       bool               LQUERY, WANTU1, WANTU2, WANTV1T;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   DUM1(1), DUM2(1,1)
+      double             DUM1(1), DUM2(1,1);
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DBBCSD, DCOPY, DLACPY, DLAPMR, DLAPMT, DORBDB1, DORBDB2, DORBDB3, DORBDB4, DORGLQ, DORGQR, XERBLA

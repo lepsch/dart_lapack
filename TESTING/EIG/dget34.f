@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                KNT, LMAX
-      DOUBLE PRECISION   RMAX
+      double             RMAX;
 *     ..
 *     .. Array Arguments ..
       int                NINFO( 2 )
@@ -15,22 +15,22 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, HALF, ONE
+      double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
-      DOUBLE PRECISION   TWO, THREE
+      double             TWO, THREE;
       PARAMETER          ( TWO = 2.0D0, THREE = 3.0D0 )
       int                LWORK
       PARAMETER          ( LWORK = 32 )
 *     ..
 *     .. Local Scalars ..
       int                I, IA, IA11, IA12, IA21, IA22, IAM, IB, IC, IC11, IC12, IC21, IC22, ICM, INFO, J
-      DOUBLE PRECISION   BIGNUM, EPS, RES, SMLNUM, TNRM
+      double             BIGNUM, EPS, RES, SMLNUM, TNRM;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   Q( 4, 4 ), RESULT( 2 ), T( 4, 4 ), T1( 4, 4 ), VAL( 9 ), VM( 2 ), WORK( LWORK )
+      double             Q( 4, 4 ), RESULT( 2 ), T( 4, 4 ), T1( 4, 4 ), VAL( 9 ), VM( 2 ), WORK( LWORK );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

@@ -6,20 +6,20 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, K, KSTART, KSTOP, LDQ, LDS, N
-      DOUBLE PRECISION   RHO
+      double             RHO;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), DLAMBDA( * ), Q( LDQ, * ), S( LDS, * ), W( * )
+      double             D( * ), DLAMBDA( * ), Q( LDQ, * ), S( LDS, * ), W( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   TEMP
+      double             TEMP;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DNRM2
+      double             DNRM2;
       EXTERNAL           DNRM2
 *     ..
 *     .. External Subroutines ..

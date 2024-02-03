@@ -7,26 +7,26 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, LDC, N
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), RWORK( * )
+      double             A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), RWORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   ANORM, EPS
+      double             ANORM, EPS;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, DLANSY
+      double             DLAMCH, DLANSY;
       EXTERNAL           LSAME, DLAMCH, DLANSY
 *     ..
 *     .. External Subroutines ..

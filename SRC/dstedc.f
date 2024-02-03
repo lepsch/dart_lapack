@@ -10,24 +10,24 @@
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   D( * ), E( * ), WORK( * ), Z( LDZ, * )
+      double             D( * ), E( * ), WORK( * ), Z( LDZ, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO
+      double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY;
       int                FINISH, I, ICOMPZ, II, J, K, LGN, LIWMIN, LWMIN, M, SMLSIZ, START, STOREZ, STRTRW
-      DOUBLE PRECISION   EPS, ORGNRM, P, TINY
+      double             EPS, ORGNRM, P, TINY;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV
-      DOUBLE PRECISION   DLAMCH, DLANST
+      double             DLAMCH, DLANST;
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANST
 *     ..
 *     .. External Subroutines ..

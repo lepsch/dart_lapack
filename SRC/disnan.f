@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION, INTENT(IN) :: DIN
+      double          , INTENT(IN) :: DIN;
 *     ..
 *
 *  =====================================================================

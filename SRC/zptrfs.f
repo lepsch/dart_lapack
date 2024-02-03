@@ -9,7 +9,7 @@
       int                INFO, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       COMPLEX*16         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * )
+      double             BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       COMPLEX*16         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
 *     ..
 *
 *  =====================================================================
@@ -17,25 +17,25 @@
 *     .. Parameters ..
       int                ITMAX
       PARAMETER          ( ITMAX = 5 )
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
-      DOUBLE PRECISION   TWO
+      double             TWO;
       PARAMETER          ( TWO = 2.0D+0 )
-      DOUBLE PRECISION   THREE
+      double             THREE;
       PARAMETER          ( THREE = 3.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       int                COUNT, I, IX, J, NZ
-      DOUBLE PRECISION   EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN
+      double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN;
       COMPLEX*16         BI, CX, DX, EX, ZDUM
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                IDAMAX
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAME, IDAMAX, DLAMCH
 *     ..
 *     .. External Subroutines ..
@@ -45,7 +45,7 @@
       INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, DIMAG, MAX
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

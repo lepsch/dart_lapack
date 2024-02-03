@@ -7,19 +7,19 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNB, NNS, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                NBVAL( * ), NSVAL( * ), NVAL( * )
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTYPES, NTESTS
       PARAMETER          ( NTYPES = 8, NTESTS = 7 )
@@ -31,14 +31,14 @@
       String             DIST, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, I1, I2, IKD, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IW, IZERO, K, KD, KL, KOFF, KU, LDA, LDAB, MODE, N, NB, NERRS, NFAIL, NIMAT, NKD, NRHS, NRUN
-      DOUBLE PRECISION   AINVNM, ANORM, CNDNUM, RCOND, RCONDC
+      double             AINVNM, ANORM, CNDNUM, RCOND, RCONDC;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 ), KDVAL( NBW )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DGET06, ZLANGE, ZLANHB
+      double             DGET06, ZLANGE, ZLANHB;
       EXTERNAL           DGET06, ZLANGE, ZLANHB
 *     ..
 *     .. External Subroutines ..

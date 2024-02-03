@@ -6,26 +6,26 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, KL, KU, LDAB, M, N
-      DOUBLE PRECISION   AMAX, COLCND, ROWCND
+      double             AMAX, COLCND, ROWCND;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   C( * ), R( * )
+      double             C( * ), R( * );
       COMPLEX*16         AB( LDAB, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J, KD
-      DOUBLE PRECISION   BIGNUM, RCMAX, RCMIN, SMLNUM
+      double             BIGNUM, RCMAX, RCMIN, SMLNUM;
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..
@@ -35,7 +35,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, MAX, MIN
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

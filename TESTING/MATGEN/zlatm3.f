@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
 *
       int                I, IDIST, IGRADE, IPVTNG, ISUB, J, JSUB, KL, KU, M, N
-      DOUBLE PRECISION   SPARSE
+      double             SPARSE;
 *     ..
 *
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
 *
 *     .. Parameters ..
 *
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ) )
@@ -33,7 +33,7 @@
 *
 *     .. External Functions ..
 *
-      DOUBLE PRECISION   DLARAN
+      double             DLARAN;
       COMPLEX*16         ZLARND
       EXTERNAL           DLARAN, ZLARND
 *     ..

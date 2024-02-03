@@ -7,28 +7,28 @@
 *     .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, KD, LDAB, LDQ, LDZ, M, N
-      DOUBLE PRECISION   ABSTOL, VL, VU
+      double             ABSTOL, VL, VU;
 *     ..
 *     .. Array Arguments ..
       int                IFAIL( * ), IWORK( * )
-      DOUBLE PRECISION   AB( LDAB, * ), Q( LDQ, * ), W( * ), WORK( * ), Z( LDZ, * )
+      double             AB( LDAB, * ), Q( LDQ, * ), W( * ), WORK( * ), Z( LDZ, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       bool               ALLEIG, INDEIG, LOWER, TEST, VALEIG, WANTZ;
       String             ORDER;
       int                I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL, INDISP, INDIWO, INDWRK, ISCALE, ITMP1, J, JJ, NSPLIT
-      DOUBLE PRECISION   ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
+      double             ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, DLANSB
+      double             DLAMCH, DLANSB;
       EXTERNAL           LSAME, DLAMCH, DLANSB
 *     ..
 *     .. External Subroutines ..

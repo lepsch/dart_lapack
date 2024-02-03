@@ -7,27 +7,27 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       int                LDB, LDX, N, NRHS
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         A( * ), B( LDB, * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       int                J
-      DOUBLE PRECISION   ANORM, BNORM, EPS, XNORM
+      double             ANORM, BNORM, EPS, XNORM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DZASUM, ZLANSP
+      double             DLAMCH, DZASUM, ZLANSP;
       EXTERNAL           DLAMCH, DZASUM, ZLANSP
 *     ..
 *     .. External Subroutines ..

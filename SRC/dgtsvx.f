@@ -7,27 +7,27 @@
 *     .. Scalar Arguments ..
       String             FACT, TRANS;
       int                INFO, LDB, LDX, N, NRHS
-      DOUBLE PRECISION   RCOND
+      double             RCOND;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * ), IWORK( * )
-      DOUBLE PRECISION   B( LDB, * ), BERR( * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), FERR( * ), WORK( * ), X( LDX, * )
+      double             B( LDB, * ), BERR( * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), FERR( * ), WORK( * ), X( LDX, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               NOFACT, NOTRAN;
       String             NORM;
-      DOUBLE PRECISION   ANORM
+      double             ANORM;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, DLANGT
+      double             DLAMCH, DLANGT;
       EXTERNAL           LSAME, DLAMCH, DLANGT
 *     ..
 *     .. External Subroutines ..

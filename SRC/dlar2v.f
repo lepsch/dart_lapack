@@ -8,14 +8,14 @@
       int                INCC, INCX, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   C( * ), S( * ), X( * ), Y( * ), Z( * )
+      double             C( * ), S( * ), X( * ), Y( * ), Z( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       int                I, IC, IX
-      DOUBLE PRECISION   CI, SI, T1, T2, T3, T4, T5, T6, XI, YI, ZI
+      double             CI, SI, T1, T2, T3, T4, T5, T6, XI, YI, ZI;
 *     ..
 *     .. Executable Statements ..
 *

@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, CMODE, C, INFO, WORK, IWORK )
+      double           FUNCTION DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, CMODE, C, INFO, WORK, IWORK );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * ), IPIV( * )
-      DOUBLE PRECISION   AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), C( * )
+      double             AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), C( * );
 *     ..
 *
 *  =====================================================================
@@ -18,7 +18,7 @@
 *     .. Local Scalars ..
       bool               NOTRANS;
       int                KASE, I, J, KD, KE
-      DOUBLE PRECISION   AINVNM, TMP
+      double             AINVNM, TMP;
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )

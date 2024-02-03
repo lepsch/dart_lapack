@@ -11,19 +11,19 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   RMIN, X
+      double             RMIN, X;
 *     ..
 *     .. Scalars in Common ..
       int                SELDIM, SELOPT
 *     ..
 *     .. Arrays in Common ..
       bool               SELVAL( 20 );
-      DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
+      double             SELWI( 20 ), SELWR( 20 );
 *     ..
 *     .. Common blocks ..
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI

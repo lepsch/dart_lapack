@@ -11,21 +11,21 @@
 *     .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * )
-      DOUBLE PRECISION   DIF( * ), S( * )
+      double             DIF( * ), S( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       int                IDIFJB
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, IDIFJB = 3 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, SOMCON, WANTBH, WANTDF, WANTS;
       int                I, IERR, IFST, ILST, K, KS, LWMIN, N1, N2
-      DOUBLE PRECISION   BIGNUM, COND, EPS, LNRM, RNRM, SCALE, SMLNUM
+      double             BIGNUM, COND, EPS, LNRM, RNRM, SCALE, SMLNUM;
       COMPLEX*16         YHAX, YHBX
 *     ..
 *     .. Local Arrays ..
@@ -33,7 +33,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, DLAPY2, DZNRM2
+      double             DLAMCH, DLAPY2, DZNRM2;
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, DLAMCH, DLAPY2, DZNRM2, ZDOTC
 *     ..

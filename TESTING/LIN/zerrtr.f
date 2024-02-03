@@ -18,10 +18,10 @@
 *     .. Local Scalars ..
       String             C2;
       int                INFO
-      DOUBLE PRECISION   RCOND, SCALE, SCALES(0)
+      double             RCOND, SCALE, SCALES(0);
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   R1( NMAX ), R2( NMAX ), RW( NMAX )
+      double             R1( NMAX ), R2( NMAX ), RW( NMAX );
       COMPLEX*16         A( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..

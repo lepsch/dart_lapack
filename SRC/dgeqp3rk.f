@@ -7,11 +7,11 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, K, KF, KMAX, LDA, LWORK, M, N, NRHS
-      DOUBLE PRECISION   ABSTOL,  MAXC2NRMK, RELMAXC2NRMK, RELTOL
+      double             ABSTOL,  MAXC2NRMK, RELMAXC2NRMK, RELTOL;
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * ), JPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), TAU( * ), WORK( * )
+      double             A( LDA, * ), TAU( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
@@ -19,13 +19,13 @@
 *     .. Parameters ..
       int                INB, INBMIN, IXOVER
       PARAMETER          ( INB = 1, INBMIN = 2, IXOVER = 3 )
-      DOUBLE PRECISION   ZERO, ONE, TWO
+      double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, DONE;
       int                IINFO, IOFFSET, IWS, J, JB, JBF, JMAXB, JMAX, JMAXC2NRM, KP1, LWKOPT, MINMN, N_SUB, NB, NBMIN, NX
-      DOUBLE PRECISION   EPS, HUGEVAL, MAXC2NRM, SAFMIN
+      double             EPS, HUGEVAL, MAXC2NRM, SAFMIN;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLAQP2RK, DLAQP3RK, XERBLA
@@ -33,7 +33,7 @@
 *     .. External Functions ..
       bool               DISNAN;
       int                IDAMAX, ILAENV
-      DOUBLE PRECISION   DLAMCH, DNRM2
+      double             DLAMCH, DNRM2;
       EXTERNAL           DISNAN, DLAMCH, DNRM2, IDAMAX, ILAENV
 *     ..
 *     .. Intrinsic Functions ..

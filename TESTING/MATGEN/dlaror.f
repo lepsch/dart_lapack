@@ -10,22 +10,22 @@
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   A( LDA, * ), X( * )
+      double             A( LDA, * ), X( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TOOSML
+      double             ZERO, ONE, TOOSML;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TOOSML = 1.0D-20 )
 *     ..
 *     .. Local Scalars ..
       int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM
-      DOUBLE PRECISION   FACTOR, XNORM, XNORMS
+      double             FACTOR, XNORM, XNORMS;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLARND, DNRM2
+      double             DLARND, DNRM2;
       EXTERNAL           LSAME, DLARND, DNRM2
 *     ..
 *     .. External Subroutines ..

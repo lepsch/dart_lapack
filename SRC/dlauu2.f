@@ -9,23 +9,23 @@
       int                INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * )
+      double             A( LDA, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       int                I
-      DOUBLE PRECISION   AII
+      double             AII;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DDOT
+      double             DDOT;
       EXTERNAL           LSAME, DDOT
 *     ..
 *     .. External Subroutines ..

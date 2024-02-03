@@ -6,24 +6,24 @@
 *
       IMPLICIT NONE
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, SFMIN, TOL
+      double             EPS, SFMIN, TOL;
       int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP
       String             JOBV;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), D( N ), V( LDV, * ), WORK( LWORK )
-      DOUBLE PRECISION   SVA( N )
+      double             SVA( N );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Parameters ..
-      DOUBLE PRECISION   ZERO, HALF, ONE
+      double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0)
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16         AAPQ, OMPQ
-      DOUBLE PRECISION   AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN
+      double             AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
       int                BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND
       bool               APPLV, ROTOK, RSVEC;
 *     ..
@@ -32,7 +32,7 @@
       INTRINSIC          ABS, CONJG, MAX, DBLE, MIN, SIGN, SQRT
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DZNRM2
+      double             DZNRM2;
       COMPLEX*16         ZDOTC
       int                IDAMAX
       bool               LSAME;

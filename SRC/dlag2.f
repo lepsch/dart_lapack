@@ -6,24 +6,24 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, LDB
-      DOUBLE PRECISION   SAFMIN, SCALE1, SCALE2, WI, WR1, WR2
+      double             SAFMIN, SCALE1, SCALE2, WI, WR1, WR2;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * )
+      double             A( LDA, * ), B( LDB, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO
+      double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
-      DOUBLE PRECISION   HALF
+      double             HALF;
       PARAMETER          ( HALF = ONE / TWO )
-      DOUBLE PRECISION   FUZZY1
+      double             FUZZY1;
       PARAMETER          ( FUZZY1 = ONE+1.0D-5 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   A11, A12, A21, A22, ABI22, ANORM, AS11, AS12, AS22, ASCALE, B11, B12, B22, BINV11, BINV22, BMIN, BNORM, BSCALE, BSIZE, C1, C2, C3, C4, C5, DIFF, DISCR, PP, QQ, R, RTMAX, RTMIN, S1, S2, SAFMAX, SHIFT, SS, SUM, WABS, WBIG, WDET, WSCALE, WSIZE, WSMALL
+      double             A11, A12, A21, A22, ABI22, ANORM, AS11, AS12, AS22, ASCALE, B11, B12, B22, BINV11, BINV22, BMIN, BNORM, BSCALE, BSIZE, C1, C2, C3, C4, C5, DIFF, DISCR, PP, QQ, R, RTMAX, RTMIN, S1, S2, SAFMAX, SHIFT, SS, SUM, WABS, WBIG, WDET, WSCALE, WSIZE, WSMALL;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN, SIGN, SQRT

@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLANHT( NORM, N, D, E )
+      double           FUNCTION ZLANHT( NORM, N, D, E );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * )
+      double             D( * );
       COMPLEX*16         E( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   ANORM, SCALE, SUM
+      double             ANORM, SCALE, SUM;
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;

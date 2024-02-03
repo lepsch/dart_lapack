@@ -9,19 +9,19 @@
       int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
+      double             A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               ILQ, ILZ;
       int                ICOMPQ, ICOMPZ, JCOL, JROW
-      DOUBLE PRECISION   C, S, TEMP
+      double             C, S, TEMP;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

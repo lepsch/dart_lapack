@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       COMPLEX*16 ALPHA
-      DOUBLE PRECISION BETA
+      double           BETA;
       int     K,LDA,LDB,LDC,N
       String    TRANS,UPLO;
 *     ..
@@ -32,7 +32,7 @@
       bool    UPPER;
 *     ..
 *     .. Parameters ..
-      DOUBLE PRECISION ONE
+      double           ONE;
       PARAMETER (ONE=1.0D+0)
       COMPLEX*16 ZERO
       PARAMETER (ZERO= (0.0D+0,0.0D+0))

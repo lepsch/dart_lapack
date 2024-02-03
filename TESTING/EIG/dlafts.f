@@ -7,11 +7,11 @@
 *     .. Scalar Arguments ..
       String             TYPE;
       int                IE, IMAT, IOUNIT, M, N, NTESTS
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   RESULT( * )
+      double             RESULT( * );
 *     ..
 *
 *  =====================================================================

@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLANHF( NORM, TRANSR, UPLO, N, A, WORK )
+      double           FUNCTION ZLANHF( NORM, TRANSR, UPLO, N, A, WORK );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   WORK( 0: * )
+      double             WORK( 0: * );
       COMPLEX*16         A( 0: * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J, IFM, ILU, NOE, N1, K, L, LDA
-      DOUBLE PRECISION   SCALE, S, VALUE, AA, TEMP
+      double             SCALE, S, VALUE, AA, TEMP;
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;

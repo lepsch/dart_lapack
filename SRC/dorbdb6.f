@@ -8,23 +8,23 @@
       int                INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*)
+      double             Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*);
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ALPHA, REALONE, REALZERO
+      double             ALPHA, REALONE, REALZERO;
       PARAMETER          ( ALPHA = 0.83D0, REALONE = 1.0D0, REALZERO = 0.0D0 )
-      DOUBLE PRECISION   NEGONE, ONE, ZERO
+      double             NEGONE, ONE, ZERO;
       PARAMETER          ( NEGONE = -1.0D0, ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IX
-      DOUBLE PRECISION   EPS, NORM, NORM_NEW, SCL, SSQ
+      double             EPS, NORM, NORM_NEW, SCL, SSQ;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEMV, DLASSQ, XERBLA

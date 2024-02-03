@@ -10,7 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   RWORK( * ), W( * )
+      double             RWORK( * ), W( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
 *     ..
 *

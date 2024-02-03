@@ -5,27 +5,27 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   RESID
+      double             RESID;
       int                LDA, LDAFAC, LDPERM, N, RANK
       String             UPLO;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * ), RWORK( * )
+      double             A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * ), RWORK( * );
       int                PIV( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ANORM, EPS, T
+      double             ANORM, EPS, T;
       int                I, J, K
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DDOT, DLAMCH, DLANSY
+      double             DDOT, DLAMCH, DLANSY;
       bool               LSAME;
       EXTERNAL           DDOT, DLAMCH, DLANSY, LSAME
 *     ..

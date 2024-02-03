@@ -13,26 +13,26 @@
       PARAMETER          ( NSUBS = 17 )
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
-      DOUBLE PRECISION   RZERO
+      double             RZERO;
       PARAMETER          ( RZERO = 0.0D0 )
       int                NMAX, INCMAX
       PARAMETER          ( NMAX = 65, INCMAX = 2 )
       int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX
       PARAMETER          ( NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   EPS, ERR, THRESH
+      double             EPS, ERR, THRESH;
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NOUT, NTRA       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR;
       String             TRANS;
       String             SNAMET;
       String             SNAPS, SUMMRY;
 *     .. Local Arrays ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX )
-      DOUBLE PRECISION   G( NMAX )
+      double             G( NMAX );
       int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX )
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
 *     .. External Functions ..
-      DOUBLE PRECISION   DDIFF
+      double             DDIFF;
       bool               LZE;
       EXTERNAL           DDIFF, LZE
 *     .. External Subroutines ..
@@ -323,20 +323,20 @@
 *     .. Parameters ..
       COMPLEX*16         ZERO, HALF
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ) )
-      DOUBLE PRECISION   RZERO
+      double             RZERO;
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
-      DOUBLE PRECISION   G( NMAX )
+      double             G( NMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS, BETA, BLS, TRANSL
-      DOUBLE PRECISION   ERR, ERRMAX
+      double             ERR, ERRMAX;
       int                I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS
       bool               BANDED, FULL, NULL, RESET, SAME, TRAN;
       String             TRANS, TRANSS;
@@ -640,20 +640,20 @@
 *     .. Parameters ..
       COMPLEX*16         ZERO, HALF
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ) )
-      DOUBLE PRECISION   RZERO
+      double             RZERO;
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
-      DOUBLE PRECISION   G( NMAX )
+      double             G( NMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS, BETA, BLS, TRANSL
-      DOUBLE PRECISION   ERR, ERRMAX
+      double             ERR, ERRMAX;
       int                I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             UPLO, UPLOS;
@@ -945,20 +945,20 @@
 *     .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
-      DOUBLE PRECISION   RZERO
+      double             RZERO;
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX )
-      DOUBLE PRECISION   G( NMAX )
+      double             G( NMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
 *     .. Local Scalars ..
       COMPLEX*16         TRANSL
-      DOUBLE PRECISION   ERR, ERRMAX
+      double             ERR, ERRMAX;
       int                I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             DIAG, DIAGS, TRANS, TRANSS, UPLO, UPLOS;
@@ -1248,20 +1248,20 @@
 *     .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
-      DOUBLE PRECISION   RZERO
+      double             RZERO;
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
-      DOUBLE PRECISION   G( NMAX )
+      double             G( NMAX );
       int                IDIM( NIDIM ), INC( NINC )
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS, TRANSL
-      DOUBLE PRECISION   ERR, ERRMAX
+      double             ERR, ERRMAX;
       int                I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS
       bool               CONJ, NULL, RESET, SAME;
 *     .. Local Arrays ..
@@ -1491,20 +1491,20 @@
 *     .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
-      DOUBLE PRECISION   RZERO
+      double             RZERO;
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
-      DOUBLE PRECISION   G( NMAX )
+      double             G( NMAX );
       int                IDIM( NIDIM ), INC( NINC )
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, TRANSL
-      DOUBLE PRECISION   ERR, ERRMAX, RALPHA, RALS
+      double             ERR, ERRMAX, RALPHA, RALS;
       int                I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
@@ -1749,20 +1749,20 @@
 *     .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
-      DOUBLE PRECISION   RZERO
+      double             RZERO;
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 )
-      DOUBLE PRECISION   G( NMAX )
+      double             G( NMAX );
       int                IDIM( NIDIM ), INC( NINC )
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS, TRANSL
-      DOUBLE PRECISION   ERR, ERRMAX
+      double             ERR, ERRMAX;
       int                I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
@@ -2044,7 +2044,7 @@
       bool               LERR, OK;
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, BETA
-      DOUBLE PRECISION   RALPHA
+      double             RALPHA;
 *     .. Local Arrays ..
       COMPLEX*16         A( 1, 1 ), X( 1 ), Y( 1 )
 *     .. External Subroutines ..
@@ -2383,9 +2383,9 @@
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
       COMPLEX*16         ROGUE
       PARAMETER          ( ROGUE = ( -1.0D10, 1.0D10 ) )
-      DOUBLE PRECISION   RZERO
+      double             RZERO;
       PARAMETER          ( RZERO = 0.0D0 )
-      DOUBLE PRECISION   RROGUE
+      double             RROGUE;
       PARAMETER          ( RROGUE = -1.0D10 )
 *     .. Scalar Arguments ..
       COMPLEX*16         TRANSL
@@ -2556,26 +2556,26 @@
 *     .. Parameters ..
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ) )
-      DOUBLE PRECISION   RZERO, RONE
+      double             RZERO, RONE;
       PARAMETER          ( RZERO = 0.0D0, RONE = 1.0D0 )
 *     .. Scalar Arguments ..
       COMPLEX*16         ALPHA, BETA
-      DOUBLE PRECISION   EPS, ERR
+      double             EPS, ERR;
       int                INCX, INCY, M, N, NMAX, NOUT
       bool               FATAL, MV;
       String             TRANS;
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, * ), X( * ), Y( * ), YT( * ), YY( * )
-      DOUBLE PRECISION   G( * )
+      double             G( * );
 *     .. Local Scalars ..
       COMPLEX*16         C
-      DOUBLE PRECISION   ERRI
+      double             ERRI;
       int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL
       bool               CTRAN, TRAN;
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, DCONJG, DIMAG, MAX, SQRT
 *     .. Statement Functions ..
-      DOUBLE PRECISION   ABS1
+      double             ABS1;
 *     .. Statement Function definitions ..
       ABS1( C ) = ABS( DBLE( C ) ) + ABS( DIMAG( C ) )
 *     .. Executable Statements ..
@@ -2807,7 +2807,7 @@
 *     End of ZBEG
 *
       END
-      DOUBLE PRECISION FUNCTION DDIFF( X, Y )
+      double           FUNCTION DDIFF( X, Y );
 *
 *  Auxiliary routine for test program for Level 2 Blas.
 *
@@ -2815,7 +2815,7 @@
 *     Richard Hanson, Sandia National Labs.
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   X, Y
+      double             X, Y;
 *     .. Executable Statements ..
       DDIFF = X - Y
       RETURN

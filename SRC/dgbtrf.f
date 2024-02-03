@@ -9,23 +9,23 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   AB( LDAB, * )
+      double             AB( LDAB, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NBMAX, LDWORK
       PARAMETER          ( NBMAX = 64, LDWORK = NBMAX+1 )
 *     ..
 *     .. Local Scalars ..
       int                I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP, JU, K2, KM, KV, NB, NW
-      DOUBLE PRECISION   TEMP
+      double             TEMP;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX )
+      double             WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX );
 *     ..
 *     .. External Functions ..
       int                IDAMAX, ILAENV

@@ -12,12 +12,12 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), WORK( * )
+      double             A( LDA, * ), B( LDB, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..

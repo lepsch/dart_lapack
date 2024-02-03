@@ -17,7 +17,7 @@
 *
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   RMAX
+      double             RMAX;
       bool               UPPER;
 *     ..
 *     .. Intrinsic Functions ..

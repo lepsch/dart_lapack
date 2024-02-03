@@ -1,7 +1,7 @@
       subroutine dzasumsub(n,x,incx,asum)
 c
       external dzasum
-      double precision dzasum,asum
+      double           dzasum,asum;
       int     n,incx
       double complex x(*)
 c

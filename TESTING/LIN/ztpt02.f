@@ -7,26 +7,26 @@
 *     .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                LDB, LDX, N, NRHS
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         AP( * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                J
-      DOUBLE PRECISION   ANORM, BNORM, EPS, XNORM
+      double             ANORM, BNORM, EPS, XNORM;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, DZASUM, ZLANTP
+      double             DLAMCH, DZASUM, ZLANTP;
       EXTERNAL           LSAME, DLAMCH, DZASUM, ZLANTP
 *     ..
 *     .. External Subroutines ..

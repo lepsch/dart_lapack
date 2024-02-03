@@ -13,10 +13,10 @@
 *     ..
 *     .. Local Scalars ..
       int                INFO
-      DOUBLE PRECISION   ALPHA, BETA
+      double             ALPHA, BETA;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   A( 1, 1), B( 1, 1)
+      double             A( 1, 1), B( 1, 1);
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CHKXER, DTFSM, DTFTRI, DSFRK, DTFTTP, DTFTTR, DPFTRI, DPFTRF, DPFTRS, DTPTTF, DTPTTR, DTRTTF, DTRTTP
@@ -218,7 +218,7 @@
          WRITE( NOUT, FMT = 9998 )
       END IF
 *
- 9999 FORMAT( 1X, 'DOUBLE PRECISION RFP routines passed the tests of ',
+ 9999 FORMAT( 1X, 'double           RFP routines passed the tests of ',;
      $        'the error exits' )
  9998 FORMAT( ' *** RFP routines failed the tests of the error ',
      $        'exits ***' )

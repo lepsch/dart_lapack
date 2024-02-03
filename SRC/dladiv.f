@@ -5,24 +5,24 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   A, B, C, D, P, Q
+      double             A, B, C, D, P, Q;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   BS
+      double             BS;
       PARAMETER          ( BS = 2.0D0 )
-      DOUBLE PRECISION   HALF
+      double             HALF;
       PARAMETER          ( HALF = 0.5D0 )
-      DOUBLE PRECISION   TWO
+      double             TWO;
       PARAMETER          ( TWO = 2.0D0 )
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION   AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS
+      double             AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..
@@ -91,20 +91,20 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   A, B, C, D, P, Q
+      double             A, B, C, D, P, Q;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION   R, T
+      double             R, T;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLADIV2
+      double             DLADIV2;
       EXTERNAL           DLADIV2
 *     ..
 *     .. Executable Statements ..
@@ -123,24 +123,24 @@
 
 *> \ingroup ladiv
 
-      DOUBLE PRECISION FUNCTION DLADIV2( A, B, C, D, R, T )
+      double           FUNCTION DLADIV2( A, B, C, D, R, T );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   A, B, C, D, R, T
+      double             A, B, C, D, R, T;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION   BR
+      double             BR;
 *     ..
 *     .. Executable Statements ..
 *

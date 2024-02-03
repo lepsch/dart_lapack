@@ -9,17 +9,17 @@
       String    DIAG,TRANS,UPLO;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION A(LDA,*),X(*)
+      double           A(LDA,*),X(*);
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION ZERO
+      double           ZERO;
       PARAMETER (ZERO=0.0D+0)
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION TEMP
+      double           TEMP;
       int     I,INFO,IX,J,JX,KX
       bool    NOUNIT;
 *     ..

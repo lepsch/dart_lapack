@@ -7,18 +7,18 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                NN, NOUT, NRHS
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                NVAL( * )
-      DOUBLE PRECISION   A( * ), B( * ), D( * ), E( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
+      double             A( * ), B( * ), D( * ), E( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTYPES
       PARAMETER          ( NTYPES = 12 )
@@ -30,15 +30,15 @@
       String             DIST, FACT, TYPE;
       String             PATH;
       int                I, IA, IFACT, IMAT, IN, INFO, IX, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT
-      DOUBLE PRECISION   AINVNM, ANORM, COND, DMAX, RCOND, RCONDC
+      double             AINVNM, ANORM, COND, DMAX, RCOND, RCONDC;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS ), Z( 3 )
+      double             RESULT( NTESTS ), Z( 3 );
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DASUM, DGET06, DLANST
+      double             DASUM, DGET06, DLANST;
       EXTERNAL           IDAMAX, DASUM, DGET06, DLANST
 *     ..
 *     .. External Subroutines ..
@@ -61,7 +61,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'PT'
       NRUN = 0
       NFAIL = 0

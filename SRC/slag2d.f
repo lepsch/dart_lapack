@@ -9,7 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               SA( LDSA, * )
-      DOUBLE PRECISION   A( LDA, * )
+      double             A( LDA, * );
 *     ..
 *
 *  =====================================================================

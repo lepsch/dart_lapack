@@ -6,21 +6,21 @@
 *
 *     .. Scalar Arguments ..
       int                GIVPTR, ICOMPQ, INFO, K, LDGCOL, LDGNUM, NL, NR, SQRE
-      DOUBLE PRECISION   ALPHA, BETA, C, S
+      double             ALPHA, BETA, C, S;
 *     ..
 *     .. Array Arguments ..
-      int                GIVCOL( LDGCOL, * ), IDXQ( * ), IWORK( * ), PERM( * )       DOUBLE PRECISION   D( * ), DIFL( * ), DIFR( * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), VF( * ), VL( * ), WORK( * ), Z( * )
+      int                GIVCOL( LDGCOL, * ), IDXQ( * ), IWORK( * ), PERM( * )       double             D( * ), DIFL( * ), DIFR( * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), VF( * ), VL( * ), WORK( * ), Z( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IDX, IDXC, IDXP, ISIGMA, IVFW, IVLW, IW, M, N, N1, N2
-      DOUBLE PRECISION   ORGNRM
+      double             ORGNRM;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DCOPY, DLAMRG, DLASCL, DLASD7, DLASD8, XERBLA

@@ -21,11 +21,11 @@
       String             EQ;
       String             C2;
       int                I, INFO, J, N_ERR_BNDS, NPARAMS
-      DOUBLE PRECISION   RCOND, RPVGRW, BERR
+      double             RCOND, RPVGRW, BERR;
 *     ..
 *     .. Local Arrays ..
       int                IP( NMAX )
-      DOUBLE PRECISION   C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), RF( NMAX ), RW( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
+      double             C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), RF( NMAX ), RW( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 );
       COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..

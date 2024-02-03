@@ -25,7 +25,7 @@
 *     ..
 *     .. External Functions ..
       int                ILAENV
-      DOUBLE PRECISION   DROUNDUP_LWORK
+      double             DROUNDUP_LWORK;
       EXTERNAL           ILAENV, DROUNDUP_LWORK
 *     ..
 *     .. Executable Statements ..

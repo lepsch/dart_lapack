@@ -8,7 +8,7 @@
       int                M, N, LDX
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * )
+      double             D( * );
       COMPLEX*16         X( LDX, * )
 *     ..
 *

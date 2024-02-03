@@ -7,12 +7,12 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NN, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                MVAL( * ), NVAL( * )
-      DOUBLE PRECISION   S( * ), RWORK( * )
+      double             S( * ), RWORK( * );
       COMPLEX*16         A( * ), COPYA( * ), TAU( * ), WORK( * )
 *     ..
 *
@@ -23,20 +23,20 @@
       PARAMETER          ( NTYPES = 3 )
       int                NTESTS
       PARAMETER          ( NTESTS = 3 )
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       String             PATH;
       int                I, IM, IMODE, IN, INFO, K, LDA, LWORK, M, MNMIN, MODE, N, NERRS, NFAIL, NRUN
-      DOUBLE PRECISION   EPS
+      double             EPS;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZQRT12, ZRZT01, ZRZT02
+      double             DLAMCH, ZQRT12, ZRZT01, ZRZT02;
       EXTERNAL           DLAMCH, ZQRT12, ZRZT01, ZRZT02
 *     ..
 *     .. External Subroutines ..

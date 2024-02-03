@@ -9,7 +9,7 @@
       int                INFO, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * )
+      double             D( * );
 *     ..
 *
 *  =====================================================================
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       int                DIR, ENDD, I, J, START, STKPNT
-      DOUBLE PRECISION   D1, D2, D3, DMNMX, TMP
+      double             D1, D2, D3, DMNMX, TMP;
 *     ..
 *     .. Local Arrays ..
       int                STACK( 2, 32 )

@@ -9,19 +9,19 @@
       int                INFO, KD, LDAB, LDQ, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AB( LDAB, * ), D( * ), E( * ), Q( LDQ, * ), WORK( * )
+      double             AB( LDAB, * ), D( * ), E( * ), Q( LDQ, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               INITQ, UPPER, WANTQ;
       int                I, I2, IBL, INCA, INCX, IQAEND, IQB, IQEND, J, J1, J1END, J1INC, J2, JEND, JIN, JINC, K, KD1, KDM1, KDN, L, LAST, LEND, NQ, NR, NRT
-      DOUBLE PRECISION   TEMP
+      double             TEMP;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLAR2V, DLARGV, DLARTG, DLARTV, DLASET, DROT, XERBLA

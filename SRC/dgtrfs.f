@@ -10,7 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * ), IWORK( * )
-      DOUBLE PRECISION   B( LDB, * ), BERR( * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), FERR( * ), WORK( * ), X( LDX, * )
+      double             B( LDB, * ), BERR( * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), FERR( * ), WORK( * ), X( LDX, * );
 *     ..
 *
 *  =====================================================================
@@ -18,18 +18,18 @@
 *     .. Parameters ..
       int                ITMAX
       PARAMETER          ( ITMAX = 5 )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      DOUBLE PRECISION   TWO
+      double             TWO;
       PARAMETER          ( TWO = 2.0D+0 )
-      DOUBLE PRECISION   THREE
+      double             THREE;
       PARAMETER          ( THREE = 3.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               NOTRAN;
       String             TRANSN, TRANST;
       int                COUNT, I, J, KASE, NZ
-      DOUBLE PRECISION   EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN
+      double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN;
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )
@@ -42,7 +42,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAME, DLAMCH
 *     ..
 *     .. Executable Statements ..

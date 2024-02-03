@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       int     N, NRHS, LDA, LDX, LDB, INFO
 *     .. Array Arguments ..
-      DOUBLE PRECISION A(LDA, N), X(LDX, NRHS), B(LDB, NRHS), WORK(N)
+      double           A(LDA, N), X(LDX, NRHS), B(LDB, NRHS), WORK(N);
 *     ..
 *
 *  =====================================================================

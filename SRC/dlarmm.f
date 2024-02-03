@@ -1,16 +1,16 @@
-      DOUBLE PRECISION FUNCTION DLARMM( ANORM, BNORM, CNORM )
+      double           FUNCTION DLARMM( ANORM, BNORM, CNORM );
       IMPLICIT NONE
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   ANORM, BNORM, CNORM
+      double             ANORM, BNORM, CNORM;
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, HALF, FOUR
+      double             ONE, HALF, FOUR;
       PARAMETER          ( ONE = 1.0D0, HALF = 0.5D+0, FOUR = 4.0D0 )
 *     ..
 *     .. Local Scalars ..
-       DOUBLE PRECISION   BIGNUM, SMLNUM
+       double             BIGNUM, SMLNUM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. Executable Statements ..

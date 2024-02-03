@@ -9,24 +9,24 @@
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   X( * )
+      double             X( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, TWO
+      double             ONE, TWO;
       PARAMETER          ( ONE = 1.0D+0, TWO = 2.0D+0 )
       int                LV
       PARAMETER          ( LV = 128 )
-      DOUBLE PRECISION   TWOPI
+      double             TWOPI;
       PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IL, IL2, IV
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   U( LV )
+      double             U( LV );
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          COS, LOG, MIN, SQRT

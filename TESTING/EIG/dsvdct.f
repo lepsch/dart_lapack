@@ -6,26 +6,26 @@
 *
 *     .. Scalar Arguments ..
       int                N, NUM
-      DOUBLE PRECISION   SHIFT
+      double             SHIFT;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   E( * ), S( * )
+      double             E( * ), S( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   M1, M2, MX, OVFL, SOV, SSHIFT, SSUN, SUN, TMP, TOM, U, UNFL
+      double             M1, M2, MX, OVFL, SOV, SSHIFT, SSUN, SUN, TMP, TOM, U, UNFL;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

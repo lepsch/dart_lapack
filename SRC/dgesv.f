@@ -9,7 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * )
+      double             A( LDA, * ), B( LDB, * );
 *     ..
 *
 *  =====================================================================

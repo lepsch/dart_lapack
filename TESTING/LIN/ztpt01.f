@@ -7,27 +7,27 @@
 *     .. Scalar Arguments ..
       String             DIAG, UPLO;
       int                N
-      DOUBLE PRECISION   RCOND, RESID
+      double             RCOND, RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         AINVP( * ), AP( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UNITD;
       int                J, JC
-      DOUBLE PRECISION   AINVNM, ANORM, EPS
+      double             AINVNM, ANORM, EPS;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, ZLANTP
+      double             DLAMCH, ZLANTP;
       EXTERNAL           LSAME, DLAMCH, ZLANTP
 *     ..
 *     .. External Subroutines ..

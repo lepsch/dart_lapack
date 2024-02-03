@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, LDB, LDS, LDT, LDU, LDV, N
-      DOUBLE PRECISION   RESULT
+      double             RESULT;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), S( LDS, * ), T( LDT, * ), U( LDU, * ), V( LDV, * ), WORK( * )
@@ -15,19 +15,19 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ABNORM, ULP, UNFL, WNORM
+      double             ABNORM, ULP, UNFL, WNORM;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   DUM( 1 )
+      double             DUM( 1 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       EXTERNAL           DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..

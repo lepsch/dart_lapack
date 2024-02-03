@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLA_SYRCOND( UPLO, N, A, LDA, AF, LDAF, IPIV, CMODE, C, INFO, WORK, IWORK )
+      double           FUNCTION DLA_SYRCOND( UPLO, N, A, LDA, AF, LDAF, IPIV, CMODE, C, INFO, WORK, IWORK );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
 *     ..
 *     .. Array Arguments
       int                IWORK( * ), IPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * )
+      double             A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * );
 *     ..
 *
 *  =====================================================================
@@ -18,7 +18,7 @@
 *     .. Local Scalars ..
       String             NORMIN;
       int                KASE, I, J
-      DOUBLE PRECISION   AINVNM, SMLNUM, TMP
+      double             AINVNM, SMLNUM, TMP;
       bool               UP;
 *     ..
 *     .. Local Arrays ..
@@ -26,7 +26,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAME, DLAMCH
 *     ..
 *     .. External Subroutines ..

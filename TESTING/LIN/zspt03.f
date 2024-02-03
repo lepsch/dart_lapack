@@ -7,27 +7,27 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       int                LDW, N
-      DOUBLE PRECISION   RCOND, RESID
+      double             RCOND, RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         A( * ), AINV( * ), WORK( LDW, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, ICOL, J, JCOL, K, KCOL, NALL
-      DOUBLE PRECISION   AINVNM, ANORM, EPS
+      double             AINVNM, ANORM, EPS;
       COMPLEX*16         T
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, ZLANGE, ZLANSP
+      double             DLAMCH, ZLANGE, ZLANSP;
       COMPLEX*16         ZDOTU
       EXTERNAL           LSAME, DLAMCH, ZLANGE, ZLANSP, ZDOTU
 *     ..

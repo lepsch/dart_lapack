@@ -9,7 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       int                NVAL( NN )
-      DOUBLE PRECISION   A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * )
+      double             A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * );
 *     ..
 *
 *  =====================================================================
@@ -24,7 +24,7 @@
       int                ISEED( 4 ), ISEEDY( 4 )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLARND
+      double             DLARND;
       EXTERNAL           DLARND
 *     ..
 *     .. External Subroutines ..

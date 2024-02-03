@@ -7,19 +7,19 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                LA, LAFB, NN, NOUT, NRHS
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * )
-      DOUBLE PRECISION   RWORK( * ), S( * )
+      double             RWORK( * ), S( * );
       COMPLEX*16         A( * ), AFB( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTYPES
       PARAMETER          ( NTYPES = 8 )
@@ -33,16 +33,16 @@
       String             DIST, EQUED, FACT, TRANS, TYPE, XTYPE;
       String             PATH;
       int                I, I1, I2, IEQUED, IFACT, IKL, IKU, IMAT, IN, INFO, IOFF, ITRAN, IZERO, J, K, K1, KL, KU, LDA, LDAFB, LDB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKL, NKU, NRUN, NT
-      DOUBLE PRECISION   AINVNM, AMAX, ANORM, ANORMI, ANORMO, ANRMPV, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW
+      double             AINVNM, AMAX, ANORM, ANORMI, ANORMO, ANRMPV, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW;
 *     ..
 *     .. Local Arrays ..
       String             EQUEDS( 4 ), FACTS( 3 ), TRANSS( NTRAN );
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RDUM( 1 ), RESULT( NTESTS )
+      double             RDUM( 1 ), RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DGET06, DLAMCH, ZLANGB, ZLANGE, ZLANTB
+      double             DGET06, DLAMCH, ZLANGB, ZLANGE, ZLANTB;
       EXTERNAL           LSAME, DGET06, DLAMCH, ZLANGB, ZLANGE, ZLANTB
 *     ..
 *     .. External Subroutines ..

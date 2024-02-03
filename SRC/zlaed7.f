@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       int                CURLVL, CURPBM, CUTPNT, INFO, LDQ, N, QSIZ, TLVLS
-      DOUBLE PRECISION   RHO
+      double             RHO;
 *     ..
 *     .. Array Arguments ..
       int                GIVCOL( 2, * ), GIVPTR( * ), INDXQ( * ), IWORK( * ), PERM( * ), PRMPTR( * ), QPTR( * )
-      DOUBLE PRECISION   D( * ), GIVNUM( 2, * ), QSTORE( * ), RWORK( * )
+      double             D( * ), GIVNUM( 2, * ), QSTORE( * ), RWORK( * );
       COMPLEX*16         Q( LDQ, * ), WORK( * )
 *     ..
 *

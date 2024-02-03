@@ -19,10 +19,10 @@
       String             EQ;
       String             C2;
       int                I, INFO, J, N_ERR_BNDS, NPARAMS
-      DOUBLE PRECISION   ANRM, RCOND, BERR
+      double             ANRM, RCOND, BERR;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   S( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
+      double             S( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 );
       COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..

@@ -6,24 +6,24 @@
 *
 *     .. Scalar Arguments ..
       int                ITYPE, LDA, LDB, LDU, LDV, N
-      DOUBLE PRECISION   RESULT
+      double             RESULT;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), U( LDU, * ), V( LDV, * ), WORK( * )
+      double             A( LDA, * ), B( LDB, * ), U( LDU, * ), V( LDV, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TEN
+      double             ZERO, ONE, TEN;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                JCOL, JDIAG, JROW
-      DOUBLE PRECISION   ANORM, ULP, UNFL, WNORM
+      double             ANORM, ULP, UNFL, WNORM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLANGE
+      double             DLAMCH, DLANGE;
       EXTERNAL           DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

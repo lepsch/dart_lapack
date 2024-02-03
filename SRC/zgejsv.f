@@ -10,7 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16       A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( LWORK )
-      DOUBLE PRECISION SVA( N ), RWORK( LRWORK )
+      double           SVA( N ), RWORK( LRWORK );
       int              IWORK( * )
       String           JOBA, JOBP, JOBR, JOBT, JOBU, JOBV;
 *     ..
@@ -18,14 +18,14 @@
 *  ===========================================================================
 *
 *     .. Local Parameters ..
-      DOUBLE PRECISION ZERO, ONE
+      double           ZERO, ONE;
       PARAMETER ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16 CZERO, CONE
       PARAMETER ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16       CTEMP
-      DOUBLE PRECISION AAPP,    AAQQ,   AATMAX, AATMIN, BIG,    BIG1, COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN, MAXPRJ,  SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1, USCAL1,  USCAL2, XSC
+      double           AAPP,    AAQQ,   AATMAX, AATMIN, BIG,    BIG1, COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN, MAXPRJ,  SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1, USCAL1,  USCAL2, XSC;
       int     IERR,   N1,     NR,     NUMRANK,        p, q,   WARNING
       bool    ALMORT, DEFR,   ERREST, GOSCAL,  JRACC,  KILL,   LQUERY, LSVEC,  L2ABER, L2KILL, L2PERT,  L2RANK, L2TRAN, NOSCAL, ROWPIV, RSVEC,  TRANSP;
 *
@@ -34,13 +34,13 @@
 *     ..
 *     .. Local Arrays
       COMPLEX*16         CDUMMY(1)
-      DOUBLE PRECISION   RDUMMY(1)
+      double             RDUMMY(1);
 *
 *     .. Intrinsic Functions ..
       INTRINSIC ABS, DCMPLX, CONJG, DLOG, MAX, MIN, DBLE, NINT, SQRT
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION      DLAMCH, DZNRM2
+      double                DLAMCH, DZNRM2;
       int       IDAMAX, IZAMAX
       bool      LSAME;
       EXTERNAL  IDAMAX, IZAMAX, LSAME, DLAMCH, DZNRM2

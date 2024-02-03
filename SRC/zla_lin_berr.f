@@ -8,14 +8,14 @@
       int                N, NZ, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AYB( N, NRHS ), BERR( NRHS )
+      double             AYB( N, NRHS ), BERR( NRHS );
       COMPLEX*16         RES( N, NRHS )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION   TMP
+      double             TMP;
       int                I, J
       COMPLEX*16         CDUM
 *     ..
@@ -24,8 +24,8 @@
 *     ..
 *     .. External Functions ..
       EXTERNAL           DLAMCH
-      DOUBLE PRECISION   DLAMCH
-      DOUBLE PRECISION   SAFE1
+      double             DLAMCH;
+      double             SAFE1;
 *     ..
 *     .. Statement Functions ..
       COMPLEX*16         CABS1

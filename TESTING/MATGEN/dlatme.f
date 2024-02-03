@@ -7,35 +7,35 @@
 *     .. Scalar Arguments ..
       String             DIST, RSIGN, SIM, UPPER;
       int                INFO, KL, KU, LDA, MODE, MODES, N
-      DOUBLE PRECISION   ANORM, COND, CONDS, DMAX
+      double             ANORM, COND, CONDS, DMAX;
 *     ..
 *     .. Array Arguments ..
       String             EI( * );
       int                ISEED( 4 )
-      DOUBLE PRECISION   A( LDA, * ), D( * ), DS( * ), WORK( * )
+      double             A( LDA, * ), D( * ), DS( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
-      DOUBLE PRECISION   HALF
+      double             HALF;
       PARAMETER          ( HALF = 1.0D0 / 2.0D0 )
 *     ..
 *     .. Local Scalars ..
       bool               BADEI, BADS, USEEI;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR, JR
-      DOUBLE PRECISION   ALPHA, TAU, TEMP, XNORMS
+      double             ALPHA, TAU, TEMP, XNORMS;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   TEMPA( 1 )
+      double             TEMPA( 1 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLANGE, DLARAN
+      double             DLANGE, DLARAN;
       EXTERNAL           LSAME, DLANGE, DLARAN
 *     ..
 *     .. External Subroutines ..

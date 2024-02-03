@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DSECND( )
+      double           FUNCTION DSECND( );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

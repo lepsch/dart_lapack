@@ -13,21 +13,21 @@
 *     .. Parameters ..
       int                LDE
       PARAMETER          ( LDE = 20 )
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, N, NINFO
-      DOUBLE PRECISION   EPS, RMAX, SAFMIN, VMAX, X
+      double             EPS, RMAX, SAFMIN, VMAX, X;
       COMPLEX*16         CDUM
 *     ..
 *     .. Local Arrays ..
       int                LMAX( 2 )
-      DOUBLE PRECISION   SCALE( LDE )
+      double             SCALE( LDE );
       COMPLEX*16         E( LDE, LDE ), EIN( LDE, LDE )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..
@@ -37,7 +37,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, MAX
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )

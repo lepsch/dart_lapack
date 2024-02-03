@@ -7,12 +7,12 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NN, NNB, NNS, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * )
-      DOUBLE PRECISION   COPYS( * ), S( * )
+      double             COPYS( * ), S( * );
       COMPLEX*16         A( * ), B( * ), C( * ), COPYA( * ), COPYB( * )
 *     ..
 *
@@ -23,7 +23,7 @@
       PARAMETER          ( NTESTS = 18 )
       int                SMLSIZ
       PARAMETER          ( SMLSIZ = 25 )
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       COMPLEX*16         CONE, CZERO
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
@@ -32,20 +32,20 @@
       String             TRANS;
       String             PATH;
       int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LRWORK, LWORK_ZGELS, LWORK_ZGELST, LWORK_ZGETSLS, LWORK_ZGELSS, LWORK_ZGELSY, LWORK_ZGELSD, LRWORK_ZGELSY, LRWORK_ZGELSS, LRWORK_ZGELSD
-      DOUBLE PRECISION   EPS, NORMA, NORMB, RCOND
+      double             EPS, NORMA, NORMB, RCOND;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 ), IWQ( 1 )
-      DOUBLE PRECISION   RESULT( NTESTS ), RWQ( 1 )
+      double             RESULT( NTESTS ), RWQ( 1 );
       COMPLEX*16         WQ( 1 )
 *     ..
 *     .. Allocatable Arrays ..
       COMPLEX*16, ALLOCATABLE :: WORK (:)
-      DOUBLE PRECISION, ALLOCATABLE :: RWORK (:), WORK2 (:)
+      double          , ALLOCATABLE :: RWORK (:), WORK2 (:);
       int    , ALLOCATABLE :: IWORK (:)
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DASUM, DLAMCH, ZQRT12, ZQRT14, ZQRT17
+      double             DASUM, DLAMCH, ZQRT12, ZQRT14, ZQRT17;
       EXTERNAL           DASUM, DLAMCH, ZQRT12, ZQRT14, ZQRT17
 *     ..
 *     .. External Subroutines ..

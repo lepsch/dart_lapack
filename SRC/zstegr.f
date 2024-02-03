@@ -7,11 +7,11 @@
 *     .. Scalar Arguments ..
       String             JOBZ, RANGE;
       int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N
-      DOUBLE PRECISION ABSTOL, VL, VU
+      double           ABSTOL, VL, VU;
 *     ..
 *     .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * )
-      DOUBLE PRECISION   D( * ), E( * ), W( * ), WORK( * )
+      double             D( * ), E( * ), W( * ), WORK( * );
       COMPLEX*16         Z( LDZ, * )
 *     ..
 *

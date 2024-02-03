@@ -17,18 +17,18 @@
 *     .. Parameters ..
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ) )
-      DOUBLE PRECISION   RZERO
+      double             RZERO;
       PARAMETER          ( RZERO = 0.0d0 )
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16         CDUM, H21S, H31S
-      DOUBLE PRECISION   S
+      double             S;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, DIMAG
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )

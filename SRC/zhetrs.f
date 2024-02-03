@@ -22,7 +22,7 @@
 *     .. Local Scalars ..
       bool               UPPER;
       int                J, K, KP
-      DOUBLE PRECISION   S
+      double             S;
       COMPLEX*16         AK, AKM1, AKM1K, BK, BKM1, DENOM
 *     ..
 *     .. External Functions ..

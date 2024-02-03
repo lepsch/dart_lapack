@@ -7,26 +7,26 @@
 *     .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                LDB, LDX, N, NRHS
-      DOUBLE PRECISION   RESID, SCALE, TSCAL
+      double             RESID, SCALE, TSCAL;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AP( * ), B( LDB, * ), CNORM( * ), WORK( * ), X( LDX, * )
+      double             AP( * ), B( LDB, * ), CNORM( * ), WORK( * ), X( LDX, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                IX, J, JJ
-      DOUBLE PRECISION   BIGNUM, EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL
+      double             BIGNUM, EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                IDAMAX
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAME, IDAMAX, DLAMCH
 *     ..
 *     .. External Subroutines ..

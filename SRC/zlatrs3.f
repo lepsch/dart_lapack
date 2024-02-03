@@ -7,13 +7,13 @@
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), X( LDX, * )
-      DOUBLE PRECISION   CNORM( * ), SCALE( * ), WORK( * )
+      double             CNORM( * ), SCALE( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
@@ -23,17 +23,17 @@
       PARAMETER          ( NBMIN = 8, NBMAX = 64 )
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   W( NBMAX ), XNRM( NBRHS )
+      double             W( NBMAX ), XNRM( NBRHS );
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, NOTRAN, NOUNIT, UPPER;
       int                AWRK, I, IFIRST, IINC, ILAST, II, I1, I2, J, JFIRST, JINC, JLAST, J1, J2, K, KK, K1, K2, LANRM, LDS, LSCALE, NB, NBA, NBX, RHS, LWMIN
-      DOUBLE PRECISION   ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX
+      double             ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV
-      DOUBLE PRECISION   DLAMCH, ZLANGE, DLARMM
+      double             DLAMCH, ZLANGE, DLARMM;
       EXTERNAL           ILAENV, LSAME, DLAMCH, ZLANGE, DLARMM
 *     ..
 *     .. External Subroutines ..

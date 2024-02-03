@@ -14,12 +14,12 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   TWO
+      double             TWO;
       PARAMETER          ( TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IL, IR, LLST, MAXN, NCRNT, NLVL
-      DOUBLE PRECISION   TEMP
+      double             TEMP;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, INT, LOG, MAX

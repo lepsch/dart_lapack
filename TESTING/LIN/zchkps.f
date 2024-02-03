@@ -5,13 +5,13 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
       int                NMAX, NN, NNB, NOUT, NRANK
       bool               TSTERR;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( * ), AFAC( * ), PERM( * ), WORK( * )
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       int                NBVAL( * ), NVAL( * ), PIV( * ), RANKVAL( * )
       bool               DOTYPE( * );
 *     ..
@@ -19,13 +19,13 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0E+0 )
       int                NTYPES
       PARAMETER          ( NTYPES = 9 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ANORM, CNDNUM, RESULT, TOL
+      double             ANORM, CNDNUM, RESULT, TOL;
       int                COMPRANK, I, IMAT, IN, INB, INFO, IRANK, IUPLO, IZERO, KL, KU, LDA, MODE, N, NB, NERRS, NFAIL, NIMAT, NRUN, RANK, RANKDIFF
       String             DIST, TYPE, UPLO;
       String             PATH;

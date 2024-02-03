@@ -7,18 +7,18 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNB, NNS, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
-      DOUBLE PRECISION   A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
+      double             A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
       int                NTYPES
       PARAMETER          ( NTYPES = 9 )
@@ -30,15 +30,15 @@
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, K, KL, KU, LDA, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN
-      DOUBLE PRECISION   ANORM, CNDNUM, RCOND, RCONDC
+      double             ANORM, CNDNUM, RCOND, RCONDC;
 *     ..
 *     .. Local Arrays ..
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DGET06, DLANSY
+      double             DGET06, DLANSY;
       EXTERNAL           DGET06, DLANSY
 *     ..
 *     .. External Subroutines ..
@@ -64,7 +64,7 @@
 *
 *     Initialize constants and the random number seed.
 *
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'PO'
       NRUN = 0
       NFAIL = 0

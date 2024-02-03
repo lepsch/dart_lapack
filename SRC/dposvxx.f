@@ -7,17 +7,17 @@
 *     .. Scalar Arguments ..
       String             EQUED, FACT, UPLO;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
-      DOUBLE PRECISION   RCOND, RPVGRW
+      double             RCOND, RPVGRW;
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * )       DOUBLE PRECISION   S( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
+      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * )       double             S( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
 *     ..
 *
 *  ==================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
       int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
@@ -29,12 +29,12 @@
 *     .. Local Scalars ..
       bool               EQUIL, NOFACT, RCEQU;
       int                INFEQU, J
-      DOUBLE PRECISION   AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM
+      double             AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM;
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME, DLAMCH, DLA_PORPVGRW
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, DLA_PORPVGRW
+      double             DLAMCH, DLA_PORPVGRW;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DPOEQUB, DPOTRF, DPOTRS, DLACPY, DLAQSY, XERBLA, DLASCL2, DPORFSX

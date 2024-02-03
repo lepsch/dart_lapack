@@ -11,7 +11,7 @@
 *     .. Array Arguments ..
       bool               SELECT( * );
       int                IFAILL( * ), IFAILR( * )
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * )
 *     ..
 *
@@ -20,18 +20,18 @@
 *     .. Parameters ..
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) )
-      DOUBLE PRECISION   RZERO
+      double             RZERO;
       PARAMETER          ( RZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               BOTHV, FROMQR, LEFTV, NOINIT, RIGHTV;
       int                I, IINFO, K, KL, KLN, KR, KS, LDWORK
-      DOUBLE PRECISION   EPS3, HNORM, SMLNUM, ULP, UNFL
+      double             EPS3, HNORM, SMLNUM, ULP, UNFL;
       COMPLEX*16         CDUM, WK
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;
-      DOUBLE PRECISION   DLAMCH, ZLANHS
+      double             DLAMCH, ZLANHS;
       EXTERNAL           LSAME, DLAMCH, ZLANHS, DISNAN
 *     ..
 *     .. External Subroutines ..
@@ -41,7 +41,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, MAX
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )

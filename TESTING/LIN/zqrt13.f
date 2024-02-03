@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, M, N, SCALE
-      DOUBLE PRECISION   NORMA
+      double             NORMA;
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
@@ -16,15 +16,15 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                INFO, J
-      DOUBLE PRECISION   BIGNUM, SMLNUM
+      double             BIGNUM, SMLNUM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DZASUM, ZLANGE
+      double             DLAMCH, DZASUM, ZLANGE;
       EXTERNAL           DLAMCH, DZASUM, ZLANGE
 *     ..
 *     .. External Subroutines ..
@@ -34,7 +34,7 @@
       INTRINSIC          DBLE, DCMPLX, SIGN
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   DUMMY( 1 )
+      double             DUMMY( 1 );
 *     ..
 *     .. Executable Statements ..
 *

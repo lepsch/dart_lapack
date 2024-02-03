@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       bool               RSIGN;
       int                IDIST, ITYPE, LDA, N, NZ1, NZ2
-      DOUBLE PRECISION   AMAGN, RCOND, TRIANG
+      double             AMAGN, RCOND, TRIANG;
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
@@ -17,18 +17,18 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       int                I, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN
-      DOUBLE PRECISION   ALPHA
+      double             ALPHA;
       COMPLEX*16         CTEMP
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLARAN
+      double             DLARAN;
       COMPLEX*16         ZLARND
       EXTERNAL           DLARAN, ZLARND
 *     ..

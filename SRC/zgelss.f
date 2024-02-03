@@ -6,17 +6,17 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
-      DOUBLE PRECISION   RCOND
+      double             RCOND;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * ), S( * )
+      double             RWORK( * ), S( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
@@ -24,7 +24,7 @@
 *     .. Local Scalars ..
       bool               LQUERY;
       int                BL, CHUNK, I, IASCL, IBSCL, IE, IL, IRWORK, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR       int                LWORK_ZGEQRF, LWORK_ZUNMQR, LWORK_ZGEBRD, LWORK_ZUNMBR, LWORK_ZUNGBR, LWORK_ZUNMLQ, LWORK_ZGELQF
-      DOUBLE PRECISION   ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR
+      double             ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR;
 *     ..
 *     .. Local Arrays ..
       COMPLEX*16         DUM( 1 )
@@ -34,7 +34,7 @@
 *     ..
 *     .. External Functions ..
       int                ILAENV
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       EXTERNAL           ILAENV, DLAMCH, ZLANGE
 *     ..
 *     .. Intrinsic Functions ..

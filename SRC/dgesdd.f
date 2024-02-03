@@ -11,30 +11,30 @@
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
+      double             A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, WNTQA, WNTQAS, WNTQN, WNTQO, WNTQS;
       int                BDSPAC, BLK, CHUNK, I, IE, IERR, IL, IR, ISCL, ITAU, ITAUP, ITAUQ, IU, IVT, LDWKVT, LDWRKL, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NWORK, WRKBL       int                LWORK_DGEBRD_MN, LWORK_DGEBRD_MM, LWORK_DGEBRD_NN, LWORK_DGELQF_MN, LWORK_DGEQRF_MN, LWORK_DORGBR_P_MM, LWORK_DORGBR_Q_NN, LWORK_DORGLQ_MN, LWORK_DORGLQ_NN, LWORK_DORGQR_MM, LWORK_DORGQR_MN, LWORK_DORMBR_PRT_MM, LWORK_DORMBR_QLN_MM, LWORK_DORMBR_PRT_MN, LWORK_DORMBR_QLN_MN, LWORK_DORMBR_PRT_NN, LWORK_DORMBR_QLN_NN
-      DOUBLE PRECISION   ANRM, BIGNUM, EPS, SMLNUM
+      double             ANRM, BIGNUM, EPS, SMLNUM;
 *     ..
 *     .. Local Arrays ..
       int                IDUM( 1 )
-      DOUBLE PRECISION   DUM( 1 )
+      double             DUM( 1 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DBDSDC, DGEBRD, DGELQF, DGEMM, DGEQRF, DLACPY, DLASCL, DLASET, DORGBR, DORGLQ, DORGQR, DORMBR, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;
-      DOUBLE PRECISION   DLAMCH, DLANGE, DROUNDUP_LWORK
+      double             DLAMCH, DLANGE, DROUNDUP_LWORK;
       EXTERNAL           DLAMCH, DLANGE, LSAME, DISNAN,  DROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..

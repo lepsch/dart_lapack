@@ -10,21 +10,21 @@
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
-      DOUBLE PRECISION   RWORK( * ), S( * ), SEP( * )
+      double             RWORK( * ), S( * ), SEP( * );
       COMPLEX*16         T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D0+0 )
 *     ..
 *     .. Local Scalars ..
       bool               SOMCON, WANTBH, WANTS, WANTSP;
       String             NORMIN;
       int                I, IERR, IX, J, K, KASE, KS
-      DOUBLE PRECISION   BIGNUM, EPS, EST, LNRM, RNRM, SCALE, SMLNUM, XNORM
+      double             BIGNUM, EPS, EST, LNRM, RNRM, SCALE, SMLNUM, XNORM;
       COMPLEX*16         CDUM, PROD
 *     ..
 *     .. Local Arrays ..
@@ -34,7 +34,7 @@
 *     .. External Functions ..
       bool               LSAME;
       int                IZAMAX
-      DOUBLE PRECISION   DLAMCH, DZNRM2
+      double             DLAMCH, DZNRM2;
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, IZAMAX, DLAMCH, DZNRM2, ZDOTC
 *     ..
@@ -45,7 +45,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, MAX
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )

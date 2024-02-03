@@ -10,8 +10,8 @@
       int                LRWORK, LRWORKMIN, LRWORKOPT
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK(*)
-      DOUBLE PRECISION   THETA(*)
+      double             RWORK(*);
+      double             THETA(*);
       COMPLEX*16         U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*)
       int                IWORK(*)
 *     ..
@@ -27,7 +27,7 @@
       bool               LQUERY, WANTU1, WANTU2, WANTV1T;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   DUM( 1 )
+      double             DUM( 1 );
       COMPLEX*16         CDUM( 1, 1 )
 *     ..
 *     .. External Subroutines ..

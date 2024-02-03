@@ -17,7 +17,7 @@
 *     .. Local Scalars ..
       bool               WANTQ;
       int                K, M1, M2, M3
-      DOUBLE PRECISION   CS
+      double             CS;
       COMPLEX*16         SN, T11, T22, TEMP
 *     ..
 *     .. External Functions ..

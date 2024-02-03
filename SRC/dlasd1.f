@@ -6,23 +6,23 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, LDU, LDVT, NL, NR, SQRE
-      DOUBLE PRECISION   ALPHA, BETA
+      double             ALPHA, BETA;
 *     ..
 *     .. Array Arguments ..
       int                IDXQ( * ), IWORK( * )
-      DOUBLE PRECISION   D( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
+      double             D( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
 *
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                COLTYP, I, IDX, IDXC, IDXP, IQ, ISIGMA, IU2, IVT2, IZ, K, LDQ, LDU2, LDVT2, M, N, N1, N2
-      DOUBLE PRECISION   ORGNRM
+      double             ORGNRM;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLAMRG, DLASCL, DLASD2, DLASD3, XERBLA

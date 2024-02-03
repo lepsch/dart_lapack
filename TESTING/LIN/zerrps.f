@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Arrays ..
       COMPLEX*16         A( NMAX, NMAX )
-      DOUBLE PRECISION   RWORK( 2*NMAX )
+      double             RWORK( 2*NMAX );
       int                PIV( NMAX )
 *     ..
 *     .. External Subroutines ..

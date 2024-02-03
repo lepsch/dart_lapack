@@ -13,19 +13,19 @@
 *     .. Parameters ..
       int                LDE
       PARAMETER          ( LDE = 20 )
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, N, NINFO
-      DOUBLE PRECISION   EPS, RMAX, SAFMIN, VMAX, X
+      double             EPS, RMAX, SAFMIN, VMAX, X;
 *     ..
 *     .. Local Arrays ..
       int                LMAX( 2 )
-      DOUBLE PRECISION   E( LDE, LDE ), EIN( LDE, LDE ), SCALE( LDE )
+      double             E( LDE, LDE ), EIN( LDE, LDE ), SCALE( LDE );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

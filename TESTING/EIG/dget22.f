@@ -9,25 +9,25 @@
       int                LDA, LDE, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), E( LDE, * ), RESULT( 2 ), WI( * ), WORK( * ), WR( * )
+      double             A( LDA, * ), E( LDE, * ), RESULT( 2 ), WI( * ), WORK( * ), WR( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       String             NORMA, NORME;
-      int                IECOL, IEROW, INCE, IPAIR, ITRNSE, J, JCOL, JVEC       DOUBLE PRECISION   ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL
+      int                IECOL, IEROW, INCE, IPAIR, ITRNSE, J, JCOL, JVEC       double             ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   WMAT( 2, 2 )
+      double             WMAT( 2, 2 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, DLANGE
+      double             DLAMCH, DLANGE;
       EXTERNAL           LSAME, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

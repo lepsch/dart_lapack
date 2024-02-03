@@ -5,23 +5,23 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION        CS, SIGMA, SN, X, Y
+      double                  CS, SIGMA, SN, X, Y;
 *     ..
 *
 *  ===================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION        NEGONE, ONE, ZERO
+      double                  NEGONE, ONE, ZERO;
       PARAMETER          ( NEGONE = -1.0D0, ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION        R, S, THRESH, W, Z
+      double                  R, S, THRESH, W, Z;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLARTGP
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION        DLAMCH
+      double                  DLAMCH;
       EXTERNAL           DLAMCH
 *     .. Executable Statements ..
 *

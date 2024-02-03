@@ -6,24 +6,24 @@
 *
 *     .. Scalar Arguments ..
       int                LDB, LDC, LDU, M, N
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B( LDB, * ), C( LDC, * ), U( LDU, * ), WORK( * )
+      double             B( LDB, * ), C( LDC, * ), U( LDU, * ), WORK( * );
 *     ..
 *
 * ======================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                J
-      DOUBLE PRECISION   BNORM, EPS, REALMN
+      double             BNORM, EPS, REALMN;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DASUM, DLAMCH, DLANGE
+      double             DASUM, DLAMCH, DLANGE;
       EXTERNAL           DASUM, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

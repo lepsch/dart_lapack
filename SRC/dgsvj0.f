@@ -6,32 +6,32 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, LDA, LDV, LWORK, M, MV, N, NSWEEP
-      DOUBLE PRECISION   EPS, SFMIN, TOL
+      double             EPS, SFMIN, TOL;
       String             JOBV;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), SVA( N ), D( N ), V( LDV, * ), WORK( LWORK )
+      double             A( LDA, * ), SVA( N ), D( N ), V( LDV, * ), WORK( LWORK );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Parameters ..
-      DOUBLE PRECISION   ZERO, HALF, ONE
+      double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0)
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN
+      double             AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
       int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND
       bool               APPLV, ROTOK, RSVEC;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   FASTR( 5 )
+      double             FASTR( 5 );
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DABS, MAX, DBLE, MIN, DSIGN, DSQRT
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DDOT, DNRM2
+      double             DDOT, DNRM2;
       int                IDAMAX
       bool               LSAME;
       EXTERNAL           IDAMAX, LSAME, DDOT, DNRM2

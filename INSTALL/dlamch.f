@@ -1,7 +1,7 @@
 *> \ingroup lamch
 *
 *  =====================================================================
-      DOUBLE PRECISION FUNCTION DLAMCH( CMACH )
+      double           FUNCTION DLAMCH( CMACH );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,11 +14,11 @@
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   RND, EPS, SFMIN, SMALL, RMACH
+      double             RND, EPS, SFMIN, SMALL, RMACH;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
@@ -103,13 +103,13 @@
 *>
 *> \ingroup lamc3
 *>
-      DOUBLE PRECISION FUNCTION DLAMC3( A, B )
+      double           FUNCTION DLAMC3( A, B );
 *
 *  -- LAPACK auxiliary routine --
 *     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   A, B
+      double             A, B;
 *     ..
 * =====================================================================
 *

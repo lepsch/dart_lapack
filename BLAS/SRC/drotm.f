@@ -8,13 +8,13 @@
       int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION DPARAM(5),DX(*),DY(*)
+      double           DPARAM(5),DX(*),DY(*);
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION DFLAG,DH11,DH12,DH21,DH22,TWO,W,Z,ZERO
+      double           DFLAG,DH11,DH12,DH21,DH22,TWO,W,Z,ZERO;
       int     I,KX,KY,NSTEPS
 *     ..
 *     .. Data statements ..

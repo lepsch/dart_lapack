@@ -10,25 +10,25 @@
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   A( * ), B( * ), WORK( * )
+      double             A( * ), B( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, TWO, ZERO
+      double             ONE, TWO, ZERO;
       PARAMETER          ( ONE = 1.0D+0, TWO = 2.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       String             DIST, PACKIT, TYPE;
       String             PATH;
-      int                I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX, KL, KU, MODE       DOUBLE PRECISION   ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, STEMP, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z
+      int                I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX, KL, KU, MODE       double             ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, STEMP, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                IDAMAX
-      DOUBLE PRECISION   DLAMCH, DLARND
+      double             DLAMCH, DLARND;
       EXTERNAL           LSAME, IDAMAX, DLAMCH, DLARND
 *     ..
 *     .. External Subroutines ..
@@ -39,7 +39,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'TP'
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )

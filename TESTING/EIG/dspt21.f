@@ -9,26 +9,26 @@
       int                ITYPE, KBAND, LDU, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AP( * ), D( * ), E( * ), RESULT( 2 ), TAU( * ), U( LDU, * ), VP( * ), WORK( * )
+      double             AP( * ), D( * ), E( * ), RESULT( 2 ), TAU( * ), U( LDU, * ), VP( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TEN
+      double             ZERO, ONE, TEN;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0 )
-      DOUBLE PRECISION   HALF
+      double             HALF;
       PARAMETER          ( HALF = 1.0D+0 / 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
       int                IINFO, J, JP, JP1, JR, LAP
-      DOUBLE PRECISION   ANORM, TEMP, ULP, UNFL, VSAVE, WNORM
+      double             ANORM, TEMP, ULP, UNFL, VSAVE, WNORM;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DDOT, DLAMCH, DLANGE, DLANSP
+      double             DDOT, DLAMCH, DLANGE, DLANSP;
       EXTERNAL           LSAME, DDOT, DLAMCH, DLANGE, DLANSP
 *     ..
 *     .. External Subroutines ..

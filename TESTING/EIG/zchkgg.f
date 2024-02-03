@@ -7,19 +7,19 @@
 *     .. Scalar Arguments ..
       bool               TSTDIF;
       int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES
-      DOUBLE PRECISION   THRESH, THRSHN
+      double             THRESH, THRSHN;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * ), LLWORK( * );
       int                ISEED( 4 ), NN( * )
-      DOUBLE PRECISION   RESULT( 15 ), RWORK( * )
+      double             RESULT( 15 ), RWORK( * );
       COMPLEX*16         A( LDA, * ), ALPHA1( * ), ALPHA3( * ), B( LDA, * ), BETA1( * ), BETA3( * ), EVECTL( LDU, * ), EVECTR( LDU, * ), H( LDA, * ), P1( LDA, * ), P2( LDA, * ), Q( LDU, * ), S1( LDA, * ), S2( LDA, * ), T( LDA, * ), U( LDU, * ), V( LDU, * ), WORK( * ), Z( LDU, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
@@ -29,17 +29,17 @@
 *     .. Local Scalars ..
       bool               BADNN;
       int                I1, IADD, IINFO, IN, J, JC, JR, JSIZE, JTYPE, LWKOPT, MTYPES, N, N1, NERRS, NMATS, NMAX, NTEST, NTESTT
-      DOUBLE PRECISION   ANORM, BNORM, SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV
+      double             ANORM, BNORM, SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV;
       COMPLEX*16         CTEMP
 *     ..
 *     .. Local Arrays ..
       bool               LASIGN( MAXTYP ), LBSIGN( MAXTYP );
       int                IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
-      DOUBLE PRECISION   DUMMA( 4 ), RMAGN( 0: 3 )
+      double             DUMMA( 4 ), RMAGN( 0: 3 );
       COMPLEX*16         CDUMMA( 4 )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       COMPLEX*16         ZLARND
       EXTERNAL           DLAMCH, ZLANGE, ZLARND
 *     ..

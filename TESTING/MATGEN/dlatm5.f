@@ -6,21 +6,21 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, LDB, LDC, LDD, LDE, LDF, LDL, LDR, M, N, PRTYPE, QBLCKA, QBLCKB
-      DOUBLE PRECISION   ALPHA
+      double             ALPHA;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), L( LDL, * ), R( LDR, * )
+      double             A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), L( LDL, * ), R( LDR, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO, TWENTY, HALF, TWO
+      double             ONE, ZERO, TWENTY, HALF, TWO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, TWENTY = 2.0D+1, HALF = 0.5D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J, K
-      DOUBLE PRECISION   IMEPS, REEPS
+      double             IMEPS, REEPS;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, MOD, SIN

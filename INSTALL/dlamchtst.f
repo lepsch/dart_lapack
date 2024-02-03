@@ -1,7 +1,7 @@
-      DOUBLE PRECISION   BASE, EMAX, EMIN, EPS, PREC, RMAX, RMIN, RND, SFMIN, T
+      double             BASE, EMAX, EMIN, EPS, PREC, RMAX, RMIN, RND, SFMIN, T;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. Executable Statements ..

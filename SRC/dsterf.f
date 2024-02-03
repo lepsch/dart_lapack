@@ -8,22 +8,22 @@
       int                INFO, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * )
+      double             D( * ), E( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO, THREE
+      double             ZERO, ONE, TWO, THREE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0 )
       int                MAXIT
       PARAMETER          ( MAXIT = 30 )
 *     ..
 *     .. Local Scalars ..
-      int                I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT       DOUBLE PRECISION   ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC, OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN, SIGMA, SSFMAX, SSFMIN, RMAX
+      int                I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT       double             ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC, OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN, SIGMA, SSFMAX, SSFMIN, RMAX;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLANST, DLAPY2
+      double             DLAMCH, DLANST, DLAPY2;
       EXTERNAL           DLAMCH, DLANST, DLAPY2
 *     ..
 *     .. External Subroutines ..

@@ -10,14 +10,14 @@
 *     ..
 *     .. Array Arguments ..
       int                K( * )
-      DOUBLE PRECISION   X( LDX, * )
+      double             X( LDX, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       int                I, II, IN, J
-      DOUBLE PRECISION   TEMP
+      double             TEMP;
 *     ..
 *     .. Executable Statements ..
 *

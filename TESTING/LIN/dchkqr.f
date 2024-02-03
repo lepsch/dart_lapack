@@ -7,11 +7,11 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NMAX, NN, NNB, NOUT, NRHS
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )       DOUBLE PRECISION   A( * ), AC( * ), AF( * ), AQ( * ), AR( * ), B( * ), RWORK( * ), TAU( * ), WORK( * ), X( * ), XACT( * )
+      int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )       double             A( * ), AC( * ), AF( * ), AQ( * ), AR( * ), B( * ), RWORK( * ), TAU( * ), WORK( * ), X( * ), XACT( * );
 *     ..
 *
 *  =====================================================================
@@ -21,18 +21,18 @@
       PARAMETER          ( NTESTS = 9 )
       int                NTYPES
       PARAMETER          ( NTYPES = 8 )
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       String             DIST, TYPE;
       String             PATH;
       int                I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA, LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK, NRUN, NT, NX
-      DOUBLE PRECISION   ANORM, CNDNUM
+      double             ANORM, CNDNUM;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 ), KVAL( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
       bool               DGENND;
@@ -60,7 +60,7 @@
 *
 *     Initialize constants and the random number seed.
 *
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'QR'
       NRUN = 0
       NFAIL = 0

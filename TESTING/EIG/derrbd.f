@@ -14,7 +14,7 @@
 *     .. Parameters ..
       int                NMAX, LW
       PARAMETER          ( NMAX = 4, LW = NMAX )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Arrays ..
       int                IQ( NMAX, NMAX ), IW( NMAX )
-      DOUBLE PRECISION   A( NMAX, NMAX ), D( NMAX ), E( NMAX ), Q( NMAX, NMAX ), S( NMAX ), TP( NMAX ), TQ( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW )
+      double             A( NMAX, NMAX ), D( NMAX ), E( NMAX ), Q( NMAX, NMAX ), S( NMAX ), TP( NMAX ), TQ( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW );
 *     ..
 *     .. External Functions ..
       bool               LSAMEN;

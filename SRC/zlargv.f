@@ -8,14 +8,14 @@
       int                INCC, INCX, INCY, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   C( * )
+      double             C( * );
       COMPLEX*16         X( * ), Y( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   TWO, ONE, ZERO
+      double             TWO, ONE, ZERO;
       PARAMETER          ( TWO = 2.0D+0, ONE = 1.0D+0, ZERO = 0.0D+0 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
@@ -24,18 +24,18 @@
 *     LOGICAL            FIRST
 
       int                COUNT, I, IC, IX, IY, J
-      DOUBLE PRECISION   CS, D, DI, DR, EPS, F2, F2S, G2, G2S, SAFMIN, SAFMN2, SAFMX2, SCALE
+      double             CS, D, DI, DR, EPS, F2, F2S, G2, G2S, SAFMIN, SAFMN2, SAFMX2, SCALE;
       COMPLEX*16         F, FF, FS, G, GS, R, SN
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLAPY2
+      double             DLAMCH, DLAPY2;
       EXTERNAL           DLAMCH, DLAPY2
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, DIMAG, INT, LOG, MAX, SQRT
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   ABS1, ABSSQ
+      double             ABS1, ABSSQ;
 *     ..
 *     .. Save statement ..
 *     SAVE               FIRST, SAFMX2, SAFMIN, SAFMN2

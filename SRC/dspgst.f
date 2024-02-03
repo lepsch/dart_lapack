@@ -9,26 +9,26 @@
       int                INFO, ITYPE, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AP( * ), BP( * )
+      double             AP( * ), BP( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, HALF
+      double             ONE, HALF;
       PARAMETER          ( ONE = 1.0D0, HALF = 0.5D0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       int                J, J1, J1J1, JJ, K, K1, K1K1, KK
-      DOUBLE PRECISION   AJJ, AKK, BJJ, BKK, CT
+      double             AJJ, AKK, BJJ, BKK, CT;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DSCAL, DSPMV, DSPR2, DTPMV, DTPSV, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DDOT
+      double             DDOT;
       EXTERNAL           LSAME, DDOT
 *     ..
 *     .. Executable Statements ..

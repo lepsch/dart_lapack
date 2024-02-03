@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   WN
+      double             WN;
       COMPLEX*16         TAU, WA, WB
 *     ..
 *     .. External Subroutines ..
@@ -30,7 +30,7 @@
       INTRINSIC          ABS, DBLE, MAX
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DZNRM2
+      double             DZNRM2;
       EXTERNAL           DZNRM2
 *     ..
 *     .. Executable Statements ..

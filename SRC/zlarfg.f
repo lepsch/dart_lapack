@@ -15,15 +15,15 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                J, KNT
-      DOUBLE PRECISION   ALPHI, ALPHR, BETA, RSAFMN, SAFMIN, XNORM
+      double             ALPHI, ALPHR, BETA, RSAFMN, SAFMIN, XNORM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLAPY3, DZNRM2
+      double             DLAMCH, DLAPY3, DZNRM2;
       COMPLEX*16         ZLADIV
       EXTERNAL           DLAMCH, DLAPY3, DZNRM2, ZLADIV
 *     ..

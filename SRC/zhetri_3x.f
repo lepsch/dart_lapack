@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
       COMPLEX*16         CONE, CZERO
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
@@ -24,7 +24,7 @@
 *     .. Local Scalars ..
       bool               UPPER;
       int                CUT, I, ICOUNT, INVD, IP, K, NNB, J, U11
-      DOUBLE PRECISION   AK, AKP1, T
+      double             AK, AKP1, T;
       COMPLEX*16         AKKP1, D, U01_I_J, U01_IP1_J, U11_I_J, U11_IP1_J
 *     ..
 *     .. External Functions ..

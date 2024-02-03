@@ -12,19 +12,19 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), WORK( * )
+      double             A( LDA, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *
 *     .. Local Scalars ..
       bool               LQUERY, UPPER;
       int                J, LWKMIN, LWKOPT
       int                NB, MJ, NJ, K1, K2, J1, J2, J3, JB
-      DOUBLE PRECISION   ALPHA
+      double             ALPHA;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

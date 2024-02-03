@@ -9,7 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         X( LDX, * )
-      DOUBLE PRECISION   D( * )
+      double             D( * );
 *     ..
 *
 *  =====================================================================

@@ -3,13 +3,13 @@
 *     ..
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   ALPHA, AVG, T1, T2, TNOSEC, TOTAL
+      double             ALPHA, AVG, T1, T2, TNOSEC, TOTAL;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   X( NMAX ), Y( NMAX )
+      double             X( NMAX ), Y( NMAX );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DSECND
+      double             DSECND;
       EXTERNAL           DSECND
 *     ..
 *     .. External Subroutines ..
@@ -84,6 +84,6 @@
       END
       SUBROUTINE MYSUB(N,X,Y)
       int     N
-      DOUBLE PRECISION X(N), Y(N)
+      double           X(N), Y(N);
       RETURN
       END

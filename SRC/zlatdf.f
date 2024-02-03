@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                IJOB, LDZ, N
-      DOUBLE PRECISION   RDSCAL, RDSUM
+      double             RDSCAL, RDSUM;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * ), JPIV( * )
@@ -18,25 +18,25 @@
 *     .. Parameters ..
       int                MAXDIM
       PARAMETER          ( MAXDIM = 2 )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       int                I, INFO, J, K
-      DOUBLE PRECISION   RTEMP, SCALE, SMINU, SPLUS
+      double             RTEMP, SCALE, SMINU, SPLUS;
       COMPLEX*16         BM, BP, PMONE, TEMP
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   RWORK( MAXDIM )
+      double             RWORK( MAXDIM );
       COMPLEX*16         WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZAXPY, ZCOPY, ZGECON, ZGESC2, ZLASSQ, ZLASWP, ZSCAL
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DZASUM
+      double             DZASUM;
       COMPLEX*16         ZDOTC
       EXTERNAL           DZASUM, ZDOTC
 *     ..

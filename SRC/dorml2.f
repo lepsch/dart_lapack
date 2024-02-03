@@ -9,19 +9,19 @@
       int                INFO, K, LDA, LDC, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
+      double             A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LEFT, NOTRAN;
       int                I, I1, I2, I3, IC, JC, MI, NI, NQ
-      DOUBLE PRECISION   AII
+      double             AII;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

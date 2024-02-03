@@ -13,21 +13,21 @@
 *     .. Parameters ..
       int                LDA
       PARAMETER          ( LDA = 20 )
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO
-      DOUBLE PRECISION   ANORM, MEPS, RMAX, SFMIN, TEMP, VMAX
+      double             ANORM, MEPS, RMAX, SFMIN, TEMP, VMAX;
       COMPLEX*16         CDUM
 *     ..
 *     .. Local Arrays ..
       int                LMAX( 3 )
-      DOUBLE PRECISION   DUMMY( 1 ), SCALE( LDA ), SCALIN( LDA )
+      double             DUMMY( 1 ), SCALE( LDA ), SCALIN( LDA );
       COMPLEX*16         A( LDA, LDA ), AIN( LDA, LDA )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       EXTERNAL           DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
@@ -37,7 +37,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, MAX
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )

@@ -9,7 +9,7 @@
       String             COMPZ, JOB;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * )
+      double             H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * );
 *     ..
 *
 *  =====================================================================
@@ -30,11 +30,11 @@
 *     .    deflation window.  ====
       int                NL
       PARAMETER          ( NL = 49 )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0d0, ONE = 1.0d0 )
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   HL( NL, NL ), WORKL( NL )
+      double             HL( NL, NL ), WORKL( NL );
 *     ..
 *     .. Local Scalars ..
       int                I, KBOT, NMIN

@@ -8,7 +8,7 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NN, NNB, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       int                MVAL( * ), NBVAL( * ), NVAL( * )
@@ -25,7 +25,7 @@
       int                I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, INB, MINMN, MB, IMB
 *
 *     .. Local Arrays ..
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAERH, ALAHD, ALASUM, ZERRTSQR, ZTSQR01, XLAENV

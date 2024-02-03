@@ -7,11 +7,11 @@
 *
 *     .. Scalar Arguments ..
       int                NM, NN, NNB, NNS, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * )       DOUBLE PRECISION   A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * )
+      int                IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * )       double             A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
@@ -21,21 +21,21 @@
       PARAMETER          ( NTYPES = 19 )
       int                NTESTS
       PARAMETER          ( NTESTS = 5 )
-      DOUBLE PRECISION   ONE, ZERO, BIGNUM
+      double             ONE, ZERO, BIGNUM;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, BIGNUM = 1.0D+38 )
 *     ..
 *     .. Local Scalars ..
       String             DIST, TYPE;
       String             PATH;
       int                I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO, INB, IND_OFFSET_GEN, IND_IN, IND_OUT, INS, INFO, ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO, KFACT, KL, KMAX, KU, LDA, LW, LWORK, LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N, NB, NB_ZERO, NERRS, NFAIL, NB_GEN, NRHS, NRUN, NX, T
-      DOUBLE PRECISION   ANORM, CNDNUM, EPS, ABSTOL, RELTOL, DTEMP, MAXC2NRMK, RELMAXC2NRMK
+      double             ANORM, CNDNUM, EPS, ABSTOL, RELTOL, DTEMP, MAXC2NRMK, RELMAXC2NRMK;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS ), RDUMMY( 1 )
+      double             RESULT( NTESTS ), RDUMMY( 1 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DQPT01, DQRT11, DQRT12, DLANGE, DLAPY2
+      double             DLAMCH, DQPT01, DQRT11, DQRT12, DLANGE, DLAPY2;
       EXTERNAL           DLAMCH, DQPT01, DQRT11, DQRT12, DLANGE
 *     ..
 *     .. External Subroutines ..
@@ -60,7 +60,7 @@
 *
 *     Initialize constants and the random number seed.
 *
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'QK'
       NRUN = 0
       NFAIL = 0

@@ -1,24 +1,24 @@
-      DOUBLE PRECISION FUNCTION DLAPY3( X, Y, Z )
+      double           FUNCTION DLAPY3( X, Y, Z );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   X, Y, Z
+      double             X, Y, Z;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   W, XABS, YABS, ZABS, HUGEVAL
+      double             W, XABS, YABS, ZABS, HUGEVAL;
 *     ..
 *     .. External Subroutines ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, SQRT

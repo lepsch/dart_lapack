@@ -7,27 +7,27 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, N
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J, K
-      DOUBLE PRECISION   ANORM, EPS, TR
+      double             ANORM, EPS, TR;
       COMPLEX*16         TC
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, ZLANHE
+      double             DLAMCH, ZLANHE;
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, DLAMCH, ZLANHE, ZDOTC
 *     ..

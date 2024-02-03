@@ -8,13 +8,13 @@
       int                M, N, LDA
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * )
+      double             A( LDA, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION ZERO
+      double           ZERO;
       PARAMETER ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..

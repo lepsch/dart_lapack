@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   ALPHA, BETA
+      double             ALPHA, BETA;
       int                K, LDA, N
       String             TRANS, TRANSR, UPLO;
 *     ..
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       COMPLEX*16         CZERO
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )

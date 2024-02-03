@@ -7,22 +7,22 @@
 *     .. Scalar Arguments ..
       String             JOBT;
       int                EIGCNT, INFO, LCNT, N, RCNT
-      DOUBLE PRECISION   PIVMIN, VL, VU
+      double             PIVMIN, VL, VU;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * )
+      double             D( * ), E( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I
       bool               MATT;
-      DOUBLE PRECISION   LPIVOT, RPIVOT, SL, SU, TMP, TMP2
+      double             LPIVOT, RPIVOT, SL, SU, TMP, TMP2;
 
 *     ..
 *     .. External Functions ..

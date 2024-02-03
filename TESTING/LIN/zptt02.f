@@ -7,25 +7,25 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       int                LDB, LDX, N, NRHS
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * )
+      double             D( * );
       COMPLEX*16         B( LDB, * ), E( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                J
-      DOUBLE PRECISION   ANORM, BNORM, EPS, XNORM
+      double             ANORM, BNORM, EPS, XNORM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DZASUM, ZLANHT
+      double             DLAMCH, DZASUM, ZLANHT;
       EXTERNAL           DLAMCH, DZASUM, ZLANHT
 *     ..
 *     .. Intrinsic Functions ..

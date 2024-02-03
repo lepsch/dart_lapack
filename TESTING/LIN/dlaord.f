@@ -9,14 +9,14 @@
       int                INCX, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   X( * )
+      double             X( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       int                I, INC, IX, IXNEXT
-      DOUBLE PRECISION   TEMP
+      double             TEMP;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

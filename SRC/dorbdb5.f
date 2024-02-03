@@ -8,26 +8,26 @@
       int                INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*)
+      double             Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*);
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   REALZERO
+      double             REALZERO;
       PARAMETER          ( REALZERO = 0.0D0 )
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                CHILDINFO, I, J
-      DOUBLE PRECISION   EPS, NORM, SCL, SSQ
+      double             EPS, NORM, SCL, SSQ;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLASSQ, DORBDB6, DSCAL, XERBLA
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DNRM2
+      double             DLAMCH, DNRM2;
       EXTERNAL           DLAMCH, DNRM2
 *     ..
 *     .. Intrinsic Function ..

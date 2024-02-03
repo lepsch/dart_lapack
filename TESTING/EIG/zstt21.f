@@ -8,24 +8,24 @@
       int                KBAND, LDU, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * )
+      double             AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * );
       COMPLEX*16         U( LDU, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       int                J
-      DOUBLE PRECISION   ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM
+      double             ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANGE, ZLANHE
+      double             DLAMCH, ZLANGE, ZLANHE;
       EXTERNAL           DLAMCH, ZLANGE, ZLANHE
 *     ..
 *     .. External Subroutines ..

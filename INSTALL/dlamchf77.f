@@ -1,7 +1,7 @@
 *> \ingroup lamch
 *
 *  =====================================================================
-      DOUBLE PRECISION FUNCTION DLAMCH( CMACH )
+      double           FUNCTION DLAMCH( CMACH );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,13 +11,13 @@
       String             CMACH;
 *     ..
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               FIRST, LRND;
       int                BETA, IMAX, IMIN, IT
-      DOUBLE PRECISION   BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T
+      double             BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
@@ -153,10 +153,10 @@
 *     .. Local Scalars ..
       bool               FIRST, LIEEE1, LRND;
       int                LBETA, LT
-      DOUBLE PRECISION   A, B, C, F, ONE, QTR, SAVEC, T1, T2
+      double             A, B, C, F, ONE, QTR, SAVEC, T1, T2;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMC3
+      double             DLAMC3;
       EXTERNAL           DLAMC3
 *     ..
 *     .. Save statement ..
@@ -357,16 +357,16 @@
 *     .. Scalar Arguments ..
       bool               RND;
       int                BETA, EMAX, EMIN, T
-      DOUBLE PRECISION   EPS, RMAX, RMIN
+      double             EPS, RMAX, RMIN;
 *     ..
 * =====================================================================
 *
 *     .. Local Scalars ..
       bool               FIRST, IEEE, IWARN, LIEEE1, LRND;
-      int                GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN       DOUBLE PRECISION   A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO
+      int                GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN       double             A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMC3
+      double             DLAMC3;
       EXTERNAL           DLAMC3
 *     ..
 *     .. External Subroutines ..
@@ -565,13 +565,13 @@
 *>
 *> \ingroup lamc3
 *>
-      DOUBLE PRECISION FUNCTION DLAMC3( A, B )
+      double           FUNCTION DLAMC3( A, B );
 *
 *  -- LAPACK auxiliary routine --
 *     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   A, B
+      double             A, B;
 *     ..
 * =====================================================================
 *
@@ -619,16 +619,16 @@
 *
 *     .. Scalar Arguments ..
       int                BASE, EMIN
-      DOUBLE PRECISION   START
+      double             START;
 *     ..
 * =====================================================================
 *
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   A, B1, B2, C1, C2, D1, D2, ONE, RBASE, ZERO
+      double             A, B1, B2, C1, C2, D1, D2, ONE, RBASE, ZERO;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMC3
+      double             DLAMC3;
       EXTERNAL           DLAMC3
 *     ..
 *     .. Executable Statements ..
@@ -726,20 +726,20 @@
 *     .. Scalar Arguments ..
       bool               IEEE;
       int                BETA, EMAX, EMIN, P
-      DOUBLE PRECISION   RMAX
+      double             RMAX;
 *     ..
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                EXBITS, EXPSUM, I, LEXP, NBITS, TRY, UEXP
-      DOUBLE PRECISION   OLDY, RECBAS, Y, Z
+      double             OLDY, RECBAS, Y, Z;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMC3
+      double             DLAMC3;
       EXTERNAL           DLAMC3
 *     ..
 *     .. Intrinsic Functions ..

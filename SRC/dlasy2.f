@@ -7,33 +7,33 @@
 *     .. Scalar Arguments ..
       bool               LTRANL, LTRANR;
       int                INFO, ISGN, LDB, LDTL, LDTR, LDX, N1, N2
-      DOUBLE PRECISION   SCALE, XNORM
+      double             SCALE, XNORM;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B( LDB, * ), TL( LDTL, * ), TR( LDTR, * ), X( LDX, * )
+      double             B( LDB, * ), TL( LDTL, * ), TR( LDTR, * ), X( LDX, * );
 *     ..
 *
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      DOUBLE PRECISION   TWO, HALF, EIGHT
+      double             TWO, HALF, EIGHT;
       PARAMETER          ( TWO = 2.0D+0, HALF = 0.5D+0, EIGHT = 8.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               BSWAP, XSWAP;
       int                I, IP, IPIV, IPSV, J, JP, JPSV, K
-      DOUBLE PRECISION   BET, EPS, GAM, L21, SGN, SMIN, SMLNUM, TAU1, TEMP, U11, U12, U22, XMAX
+      double             BET, EPS, GAM, L21, SGN, SMIN, SMLNUM, TAU1, TEMP, U11, U12, U22, XMAX;
 *     ..
 *     .. Local Arrays ..
       bool               BSWPIV( 4 ), XSWPIV( 4 );
       int                JPIV( 4 ), LOCL21( 4 ), LOCU12( 4 ), LOCU22( 4 )
-      DOUBLE PRECISION   BTMP( 4 ), T16( 4, 4 ), TMP( 4 ), X2( 2 )
+      double             BTMP( 4 ), T16( 4, 4 ), TMP( 4 ), X2( 2 );
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           IDAMAX, DLAMCH
 *     ..
 *     .. External Subroutines ..

@@ -5,21 +5,21 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION ALPHA
+      double           ALPHA;
       int     INCX,INCY,LDA,M,N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION A(LDA,*),X(*),Y(*)
+      double           A(LDA,*),X(*),Y(*);
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION ZERO
+      double           ZERO;
       PARAMETER (ZERO=0.0D+0)
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION TEMP
+      double           TEMP;
       int     I,INFO,IX,J,JY,KX
 *     ..
 *     .. External Subroutines ..

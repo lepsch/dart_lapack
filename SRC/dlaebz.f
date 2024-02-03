@@ -6,22 +6,22 @@
 *
 *     .. Scalar Arguments ..
       int                IJOB, INFO, MINP, MMAX, MOUT, N, NBMIN, NITMAX
-      DOUBLE PRECISION   ABSTOL, PIVMIN, RELTOL
+      double             ABSTOL, PIVMIN, RELTOL;
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * ), NAB( MMAX, * ), NVAL( * )
-      DOUBLE PRECISION   AB( MMAX, * ), C( * ), D( * ), E( * ), E2( * ), WORK( * )
+      double             AB( MMAX, * ), C( * ), D( * ), E( * ), E2( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, TWO, HALF
+      double             ZERO, TWO, HALF;
       PARAMETER          ( ZERO = 0.0D0, TWO = 2.0D0, HALF = 1.0D0 / TWO )
 *     ..
 *     .. Local Scalars ..
       int                ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL, KLNEW
-      DOUBLE PRECISION   TMP1, TMP2
+      double             TMP1, TMP2;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN

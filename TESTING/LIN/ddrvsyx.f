@@ -7,18 +7,18 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * )
-      DOUBLE PRECISION   A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
+      double             A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTYPES, NTESTS
       PARAMETER          ( NTYPES = 10, NTESTS = 6 )
@@ -30,15 +30,15 @@
       String             DIST, EQUED, FACT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, K1, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFAIL, NIMAT, NRUN, NT, N_ERR_BNDS
-      DOUBLE PRECISION   AINVNM, ANORM, CNDNUM, RCOND, RCONDC, RPVGRW_SVXX
+      double             AINVNM, ANORM, CNDNUM, RCOND, RCONDC, RPVGRW_SVXX;
 *     ..
 *     .. Local Arrays ..
       String             FACTS( NFACT ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 )
+      double             RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DGET06, DLANSY
+      double             DGET06, DLANSY;
       EXTERNAL           DGET06, DLANSY
 *     ..
 *     .. External Subroutines ..
@@ -64,7 +64,7 @@
 *
 *     Initialize constants and the random number seed.
 *
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'SY'
       NRUN = 0
       NFAIL = 0

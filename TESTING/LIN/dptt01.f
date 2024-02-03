@@ -6,24 +6,24 @@
 *
 *     .. Scalar Arguments ..
       int                N
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), DF( * ), E( * ), EF( * ), WORK( * )
+      double             D( * ), DF( * ), E( * ), EF( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   ANORM, DE, EPS
+      double             ANORM, DE, EPS;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

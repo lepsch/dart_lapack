@@ -3,18 +3,18 @@
 *
 *     Arguments
       int    , INTENT( IN ) :: LDA, LDB
-      DOUBLE PRECISION, INTENT( IN ) :: A( LDA, * ), B( LDB, * ), SR1, SR2, SI, BETA1, BETA2
-      DOUBLE PRECISION, INTENT( OUT ) :: V( * )
+      double          , INTENT( IN ) :: A( LDA, * ), B( LDB, * ), SR1, SR2, SI, BETA1, BETA2;
+      double          , INTENT( OUT ) :: V( * );
 *
 *     Parameters
-      DOUBLE PRECISION :: ZERO, ONE, HALF
+      double           :: ZERO, ONE, HALF;
       PARAMETER( ZERO = 0.0D0, ONE = 1.0D0, HALF = 0.5D0 )
 *
 *     Local scalars
-      DOUBLE PRECISION :: W( 2 ), SAFMIN, SAFMAX, SCALE1, SCALE2
+      double           :: W( 2 ), SAFMIN, SAFMAX, SCALE1, SCALE2;
 *
 *     External Functions
-      DOUBLE PRECISION, EXTERNAL :: DLAMCH
+      double          , EXTERNAL :: DLAMCH;
       bool   , EXTERNAL :: DISNAN;
 *
       SAFMIN = DLAMCH( 'SAFE MINIMUM' )

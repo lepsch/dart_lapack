@@ -9,14 +9,14 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * )
+      double             B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       int                I, IP, J
-      DOUBLE PRECISION   TEMP
+      double             TEMP;
 *     ..
 *     .. Executable Statements ..
 *

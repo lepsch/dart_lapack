@@ -6,19 +6,19 @@
 *
 *     .. Scalar Arguments ..
       int                NM, NMAX, NNS, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                MVAL( * ), NSVAL( * ), IWORK( * )
       REAL               SWORK(*)
-      DOUBLE PRECISION   A( * ), AFAC( * ), B( * ), RWORK( * ), WORK( * ), X( * )
+      double             A( * ), AFAC( * ), B( * ), RWORK( * ), WORK( * ), X( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
       int                NTYPES
       PARAMETER          ( NTYPES = 11 )
@@ -30,11 +30,11 @@
       String             DIST, TRANS, TYPE, XTYPE;
       String             PATH;
       int                I, IM, IMAT, INFO, IOFF, IRHS, IZERO, KL, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
-      DOUBLE PRECISION   ANORM, CNDNUM
+      double             ANORM, CNDNUM;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. Local Variables ..
       int                ITER, KASE
@@ -62,7 +62,7 @@
 *     Initialize constants and the random number seed.
 *
       KASE = 0
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'GE'
       NRUN = 0
       NFAIL = 0

@@ -5,27 +5,27 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   ALPHA, BETA
+      double             ALPHA, BETA;
       int                INCX, INCY, LDAB, M, N, KL, KU, TRANS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AB( LDAB, * ), X( * ), Y( * )
+      double             AB( LDAB, * ), X( * ), Y( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               SYMB_ZERO;
-      DOUBLE PRECISION   TEMP, SAFE1
+      double             TEMP, SAFE1;
       int                I, INFO, IY, J, JX, KX, KY, LENX, LENY, KD, KE
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, DLAMCH
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
 *     ..
 *     .. External Functions ..
       EXTERNAL           ILATRANS

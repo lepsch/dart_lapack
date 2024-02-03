@@ -9,29 +9,29 @@
       String            TSSW;
       int               M, N, MB, NB
 *     .. Return values ..
-      DOUBLE PRECISION  RESULT(6)
+      double            RESULT(6);
 *
 *  =====================================================================
 *
 *     ..
 *     .. Local allocatable arrays
-      DOUBLE PRECISION, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T(:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:), LQ(:,:)
+      double          , ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T(:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:), LQ(:,:);
 *
 *     .. Parameters ..
-      DOUBLE PRECISION ONE, ZERO
+      double           ONE, ZERO;
       PARAMETER( ZERO = 0.0, ONE = 1.0 )
 *     ..
 *     .. Local Scalars ..
       bool    TESTZEROS, TS;
       int     INFO, J, K, L, LWORK, TSIZE, MNB
-      DOUBLE PRECISION   ANORM, EPS, RESID, CNORM, DNORM
+      double             ANORM, EPS, RESID, CNORM, DNORM;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   TQUERY( 5 ), WORKQUERY( 1 )
+      double             TQUERY( 5 ), WORKQUERY( 1 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION DLAMCH, DLANGE, DLANSY
+      double           DLAMCH, DLANGE, DLANSY;
       bool     LSAME;
       int     ILAENV
       EXTERNAL DLAMCH, DLANGE, DLANSY, LSAME, ILAENV

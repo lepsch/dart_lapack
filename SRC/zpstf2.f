@@ -5,32 +5,32 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   TOL
+      double             TOL;
       int                INFO, LDA, N, RANK
       String             UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * )
-      DOUBLE PRECISION   WORK( 2*N )
+      double             WORK( 2*N );
       int                PIV( N )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16         ZTEMP
-      DOUBLE PRECISION   AJJ, DSTOP, DTEMP
+      double             AJJ, DSTOP, DTEMP;
       int                I, ITEMP, J, PVT
       bool               UPPER;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       bool               LSAME, DISNAN;
       EXTERNAL           DLAMCH, LSAME, DISNAN
 *     ..

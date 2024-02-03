@@ -7,12 +7,12 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNB, NNS, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
-      DOUBLE PRECISION   A( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
+      double             A( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
 *     ..
 *
 *  =====================================================================
@@ -24,22 +24,22 @@
       PARAMETER          ( NTESTS = 10 )
       int                NTRAN
       PARAMETER          ( NTRAN = 3 )
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       String             DIAG, NORM, TRANS, UPLO, XTYPE;
       String             PATH;
-      int                I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN, IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN       DOUBLE PRECISION   AINVNM, ANORM, BIGNUM, DLAMCH, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE
+      int                I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN, IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN       double             AINVNM, ANORM, BIGNUM, DLAMCH, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE;
 *     ..
 *     .. Local Arrays ..
       String             TRANSS( NTRAN ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS ), SCALE3( 2 )
+      double             RESULT( NTESTS ), SCALE3( 2 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLANTR
+      double             DLANTR;
       EXTERNAL           LSAME, DLANTR
 *     ..
 *     .. External Subroutines ..
@@ -65,7 +65,7 @@
 *
 *     Initialize constants and the random number seed.
 *
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'TR'
       BIGNUM = DLAMCH('Overflow') / DLAMCH('Precision')
       NRUN = 0

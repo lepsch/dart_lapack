@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLARAN( ISEED )
+      double           FUNCTION DLARAN( ISEED );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,15 +13,15 @@
 *     .. Parameters ..
       int                M1, M2, M3, M4
       PARAMETER          ( M1 = 494, M2 = 322, M3 = 2508, M4 = 2549 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
       int                IPW2
-      DOUBLE PRECISION   R
+      double             R;
       PARAMETER          ( IPW2 = 4096, R = ONE / IPW2 )
 *     ..
 *     .. Local Scalars ..
       int                IT1, IT2, IT3, IT4
-      DOUBLE PRECISION   RNDOUT
+      double             RNDOUT;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, MOD

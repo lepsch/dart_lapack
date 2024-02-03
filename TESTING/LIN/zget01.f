@@ -6,29 +6,29 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, LDAFAC, M, N
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       int                I, J, K
-      DOUBLE PRECISION   ANORM, EPS
+      double             ANORM, EPS;
       COMPLEX*16         T
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       COMPLEX*16         ZDOTU
       EXTERNAL           DLAMCH, ZLANGE, ZDOTU
 *     ..

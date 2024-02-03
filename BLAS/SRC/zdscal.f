@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION DA
+      double           DA;
       int     INCX,N
 *     ..
 *     .. Array Arguments ..
@@ -17,7 +17,7 @@
 *     .. Local Scalars ..
       int     I,NINCX
 *     .. Parameters ..
-      DOUBLE PRECISION ONE
+      double           ONE;
       PARAMETER (ONE=1.0D+0)
 *     ..
 *     .. Intrinsic Functions ..

@@ -7,24 +7,24 @@
 *     .. Scalar Arguments ..
       String             NORM;
       int                INFO, KL, KU, LDAB, N
-      DOUBLE PRECISION   ANORM, RCOND
+      double             ANORM, RCOND;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * ), IWORK( * )
-      DOUBLE PRECISION   AB( LDAB, * ), WORK( * )
+      double             AB( LDAB, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LNOTI, ONENRM;
       String             NORMIN;
       int                IX, J, JP, KASE, KASE1, KD, LM
-      DOUBLE PRECISION   AINVNM, SCALE, SMLNUM, T
+      double             AINVNM, SCALE, SMLNUM, T;
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )
@@ -32,7 +32,7 @@
 *     .. External Functions ..
       bool               LSAME;
       int                IDAMAX
-      DOUBLE PRECISION   DDOT, DLAMCH
+      double             DDOT, DLAMCH;
       EXTERNAL           LSAME, IDAMAX, DDOT, DLAMCH
 *     ..
 *     .. External Subroutines ..

@@ -7,26 +7,26 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       int                KD, LDU, LDVT, N
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
+      double             D( * ), E( * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
 *     ..
 *
 * ======================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   BNORM, EPS
+      double             BNORM, EPS;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                IDAMAX
-      DOUBLE PRECISION   DASUM, DLAMCH
+      double             DASUM, DLAMCH;
       EXTERNAL           LSAME, IDAMAX, DASUM, DLAMCH
 *     ..
 *     .. External Subroutines ..

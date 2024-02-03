@@ -9,31 +9,31 @@
       String            TSSW;
       int               M, N, MB, NB
 *     .. Return values ..
-      DOUBLE PRECISION  RESULT(6)
+      double            RESULT(6);
 *
 *  =====================================================================
 *
 *     ..
 *     .. Local allocatable arrays
       COMPLEX*16, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:), LQ(:,:)
-      DOUBLE PRECISION, ALLOCATABLE :: RWORK(:)
+      double          , ALLOCATABLE :: RWORK(:);
 *
 *     .. Parameters ..
-      DOUBLE PRECISION ZERO
+      double           ZERO;
       COMPLEX*16 ONE, CZERO
       PARAMETER( ZERO = 0.0, ONE = (1.0,0.0), CZERO=(0.0,0.0) )
 *     ..
 *     .. Local Scalars ..
       bool    TESTZEROS, TS;
       int     INFO, J, K, L, LWORK, TSIZE, MNB
-      DOUBLE PRECISION   ANORM, EPS, RESID, CNORM, DNORM
+      double             ANORM, EPS, RESID, CNORM, DNORM;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 )
       COMPLEX*16         TQUERY( 5 ), WORKQUERY( 1 )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION DLAMCH, ZLANGE, ZLANSY
+      double           DLAMCH, ZLANGE, ZLANSY;
       bool     LSAME;
       int     ILAENV
       EXTERNAL DLAMCH, ZLANGE, ZLANSY, LSAME, ILAENV

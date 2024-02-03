@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZRZT02( M, N, AF, LDA, TAU, WORK, LWORK )
+      double           FUNCTION ZRZT02( M, N, AF, LDA, TAU, WORK, LWORK );
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,17 +14,17 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I, INFO
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   RWORK( 1 )
+      double             RWORK( 1 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       EXTERNAL           DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..

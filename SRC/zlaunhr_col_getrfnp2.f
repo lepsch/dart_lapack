@@ -15,18 +15,18 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   SFMIN
+      double             SFMIN;
       int                I, IINFO, N1, N2
       COMPLEX*16         Z
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..
@@ -36,7 +36,7 @@
       INTRINSIC          ABS, DBLE, DCMPLX, DIMAG, DSIGN, MAX, MIN
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( Z ) = ABS( DBLE( Z ) ) + ABS( DIMAG( Z ) )

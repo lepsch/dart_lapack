@@ -11,19 +11,19 @@
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D0, 0.0D0 ) )
-      DOUBLE PRECISION   HALF
+      double             HALF;
       PARAMETER          ( HALF = 0.5D0 )
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
       PARAMETER          ( THRESH = 0.1D0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   BABS, EVNORM, TABS, Z
+      double             BABS, EVNORM, TABS, Z;
       COMPLEX*16         S, T, TMP
 *     ..
 *     .. Intrinsic Functions ..

@@ -7,11 +7,11 @@
 *     .. Scalar Arguments ..
       String             TRANS;
       int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N, PQ
-      DOUBLE PRECISION   RDSCAL, RDSUM, SCALE
+      double             RDSCAL, RDSUM, SCALE;
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * )
+      double             A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * );
 *     ..
 *
 *  =====================================================================
@@ -21,17 +21,17 @@
 *     .. Parameters ..
       int                LDZ
       PARAMETER          ( LDZ = 8 )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               NOTRAN;
       int                I, IE, IERR, II, IS, ISP1, J, JE, JJ, JS, JSP1, K, MB, NB, P, Q, ZDIM
-      DOUBLE PRECISION   ALPHA, SCALOC
+      double             ALPHA, SCALOC;
 *     ..
 *     .. Local Arrays ..
       int                IPIV( LDZ ), JPIV( LDZ )
-      DOUBLE PRECISION   RHS( LDZ ), Z( LDZ, LDZ )
+      double             RHS( LDZ ), Z( LDZ, LDZ );
 *     ..
 *     .. External Functions ..
       bool               LSAME;

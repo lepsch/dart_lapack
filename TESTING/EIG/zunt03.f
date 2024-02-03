@@ -7,10 +7,10 @@
 *     .. Scalar Arguments ..
       List<String>       RC;
       int                INFO, K, LDU, LDV, LWORK, MU, MV, N
-      DOUBLE PRECISION   RESULT
+      double             RESULT;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
@@ -18,18 +18,18 @@
 *
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IRC, J, LMX
-      DOUBLE PRECISION   RES1, RES2, ULP
+      double             RES1, RES2, ULP;
       COMPLEX*16         S, SU, SV
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                IZAMAX
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAME, IZAMAX, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

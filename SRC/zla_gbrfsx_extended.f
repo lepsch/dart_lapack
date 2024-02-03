@@ -7,11 +7,11 @@
 *     .. Scalar Arguments ..
       int                INFO, LDAB, LDAFB, LDB, LDY, N, KL, KU, NRHS, PREC_TYPE, TRANS_TYPE, N_NORMS, ITHRESH
       bool               COLEQU, IGNORE_CWISE;
-      DOUBLE PRECISION   RTHRESH, DZ_UB
+      double             RTHRESH, DZ_UB;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       DOUBLE PRECISION   C( * ), AYB(*), RCOND, BERR_OUT( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
+      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       double             C( * ), AYB(*), RCOND, BERR_OUT( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
 *     ..
 *
 *  =====================================================================
@@ -19,7 +19,7 @@
 *     .. Local Scalars ..
       String             TRANS;
       int                CNT, I, J, M, X_STATE, Z_STATE, Y_PREC_STATE
-      DOUBLE PRECISION   YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH
+      double             YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
       bool               INCR_PREC;
       COMPLEX*16         ZDUM
 *     ..
@@ -39,14 +39,14 @@
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZAXPY, ZCOPY, ZGBTRS, ZGBMV, BLAS_ZGBMV_X, BLAS_ZGBMV2_X, ZLA_GBAMV, ZLA_WWADDW, DLAMCH, CHLA_TRANSTYPE, ZLA_LIN_BERR
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       String             CHLA_TRANSTYPE;
 *     ..
 *     .. Intrinsic Functions..
       INTRINSIC          ABS, MAX, MIN
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

@@ -28,7 +28,7 @@
       String             INTSTR;
       String             ALINE;
       int                I, IC, J, K, LA, LAFAC, LDA, NB, NM, NMATS, NN, NNB, NNB2, NNS, NRHS, NTYPES, NRANK, VERS_MAJOR, VERS_MINOR, VERS_PATCH
-      DOUBLE PRECISION   EPS, S1, S2, THREQ, THRESH
+      double             EPS, S1, S2, THREQ, THRESH;
 *     ..
 *     .. Local Arrays ..
       bool               DOTYPE( MATMAX );
@@ -36,13 +36,13 @@
 *     ..
 *     .. Allocatable Arrays ..
       int     AllocateStatus
-      DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: RWORK, S
-      DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: E
-      DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK
+      double          , DIMENSION(:), ALLOCATABLE :: RWORK, S;
+      double          , DIMENSION(:), ALLOCATABLE :: E;
+      double          , DIMENSION(:,:), ALLOCATABLE :: A, B, WORK;
 *     ..
 *     .. External Functions ..
       bool               LSAME, LSAMEN;
-      DOUBLE PRECISION   DLAMCH, DSECND
+      double             DLAMCH, DSECND;
       EXTERNAL           LSAME, LSAMEN, DLAMCH, DSECND
 *     ..
 *     .. External Subroutines ..
@@ -304,7 +304,7 @@
 *
 *     Check first character for correct precision.
 *
-      IF( .NOT.LSAME( C1, 'Double precision' ) ) THEN
+      IF( .NOT.LSAME( C1, 'double          ' ) ) THEN;
          WRITE( NOUT, FMT = 9990 )PATH
 *
       ELSE IF( NMATS.LE.0 ) THEN
@@ -831,7 +831,7 @@
      $      I6 )
  9995 FORMAT( ' Invalid input value: ', A4, '=', I6, '; must be <=',
      $      I6 )
- 9994 FORMAT( ' Tests of the DOUBLE PRECISION LAPACK routines ',
+ 9994 FORMAT( ' Tests of the double           LAPACK routines ',;
      $      / ' LAPACK VERSION ', I1, '.', I1, '.', I1,
      $      / / ' The following parameter values will be used:' )
  9993 FORMAT( 4X, A4, ':  ', 10I6, / 11X, 10I6 )

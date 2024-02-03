@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       COMPLEX*16         CONE
       PARAMETER          ( ONE = 1.D0, CONE = ( 1.D0, 0.D0 ) )
 *     ..

@@ -28,7 +28,7 @@
       String             INTSTR;
       String             ALINE;
       int                I, IC, J, K, LA, LAFAC, LDA, NB, NM, NMATS, NN, NNB, NNB2, NNS, NRHS, NTYPES, NRANK, VERS_MAJOR, VERS_MINOR, VERS_PATCH
-      DOUBLE PRECISION   EPS, S1, S2, THREQ, THRESH
+      double             EPS, S1, S2, THREQ, THRESH;
 *     ..
 *     .. Local Arrays ..
       bool               DOTYPE( MATMAX );
@@ -36,13 +36,13 @@
 *     ..
 *     .. Allocatable Arrays ..
       int     AllocateStatus
-      DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE::  RWORK, S
+      double          , DIMENSION(:), ALLOCATABLE::  RWORK, S;
       COMPLEX*16, DIMENSION(:), ALLOCATABLE :: E
       COMPLEX*16, DIMENSION(:,:), ALLOCATABLE::  A, B, WORK
 *     ..
 *     .. External Functions ..
       bool               LSAME, LSAMEN;
-      DOUBLE PRECISION   DLAMCH, DSECND
+      double             DLAMCH, DSECND;
       EXTERNAL           LSAME, LSAMEN, DLAMCH, DSECND
 *     ..
 *     .. External Subroutines ..

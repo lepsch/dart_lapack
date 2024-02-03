@@ -16,7 +16,7 @@
 *
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   RMAX
+      double             RMAX;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, DIMAG, CMPLX

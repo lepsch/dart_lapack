@@ -8,28 +8,28 @@
       String             DIST, TYPE;
       String             PATH;
       int                IMAT, KL, KU, M, MODE, N
-      DOUBLE PRECISION   ANORM, CNDNUM
+      double             ANORM, CNDNUM;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   SHRINK, TENTH
+      double             SHRINK, TENTH;
       PARAMETER          ( SHRINK = 0.25D+0, TENTH = 0.1D+0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
-      DOUBLE PRECISION   TWO
+      double             TWO;
       PARAMETER          ( TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               FIRST;
       String             C2;
       int                MAT
-      DOUBLE PRECISION   BADC1, BADC2, EPS, LARGE, SMALL
+      double             BADC1, BADC2, EPS, LARGE, SMALL;
 *     ..
 *     .. External Functions ..
       bool               LSAMEN;
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAMEN, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

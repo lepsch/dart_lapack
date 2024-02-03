@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                IDIST, INFO, IRSIGN, MODE, N
-      DOUBLE PRECISION   COND
+      double             COND;
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
@@ -16,16 +16,16 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   ALPHA, TEMP
+      double             ALPHA, TEMP;
       COMPLEX*16         CTEMP
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLARAN
+      double             DLARAN;
       COMPLEX*16         ZLARND
       EXTERNAL           DLARAN, ZLARND
 *     ..

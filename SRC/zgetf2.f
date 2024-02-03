@@ -19,11 +19,11 @@
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   SFMIN
+      double             SFMIN;
       int                J, JP
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       int                IZAMAX
       EXTERNAL           DLAMCH, IZAMAX
 *     ..

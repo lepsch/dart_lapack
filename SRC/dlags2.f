@@ -6,17 +6,17 @@
 *
 *     .. Scalar Arguments ..
       bool               UPPER;
-      DOUBLE PRECISION   A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, SNQ, SNU, SNV
+      double             A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, SNQ, SNU, SNV;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   A, AUA11, AUA12, AUA21, AUA22, AVB11, AVB12, AVB21, AVB22, B, C, CSL, CSR, D, R, S1, S2, SNL, SNR, UA11, UA11R, UA12, UA21, UA22, UA22R, VB11, VB11R, VB12, VB21, VB22, VB22R
+      double             A, AUA11, AUA12, AUA21, AUA22, AVB11, AVB12, AVB21, AVB22, B, C, CSL, CSR, D, R, S1, S2, SNL, SNR, UA11, UA11R, UA12, UA21, UA22, UA22R, VB11, VB11R, VB12, VB21, VB22, VB22R;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLARTG, DLASV2

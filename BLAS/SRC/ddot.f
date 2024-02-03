@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DDOT(N,DX,INCX,DY,INCY)
+      double           FUNCTION DDOT(N,DX,INCX,DY,INCY);
 *
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION DX(*),DY(*)
+      double           DX(*),DY(*);
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION DTEMP
+      double           DTEMP;
       int     I,IX,IY,M,MP1
 *     ..
 *     .. Intrinsic Functions ..

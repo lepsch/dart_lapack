@@ -12,7 +12,7 @@
 *     ..
 *     .. Local Variables ..
       int               i, nFailingTests, nTests
-      double precision  aInf, aNaN, OV
+      double            aInf, aNaN, OV;
       double complex    Y, R, cInf( nInf ), cNaN( nNaN )
 *
 *     .. Intrinsic Functions ..

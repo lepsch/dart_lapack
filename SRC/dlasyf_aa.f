@@ -12,17 +12,17 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), H( LDH, * ), WORK( * )
+      double             A( LDA, * ), H( LDH, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *
 *     .. Local Scalars ..
       int                J, K, K1, I1, I2, MJ
-      DOUBLE PRECISION   PIV, ALPHA
+      double             PIV, ALPHA;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

@@ -9,23 +9,23 @@
       int                INFO, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AP( * )
+      double             AP( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       int                J, JC, JJ, JJN
-      DOUBLE PRECISION   AJJ
+      double             AJJ;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DDOT
+      double             DDOT;
       EXTERNAL           LSAME, DDOT
 *     ..
 *     .. External Subroutines ..

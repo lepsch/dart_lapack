@@ -8,7 +8,7 @@
       int                INFO, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B( LDB, * ), BERR( * ), D( * ), DF( * ), E( * ), EF( * ), FERR( * ), WORK( * ), X( LDX, * )
+      double             B( LDB, * ), BERR( * ), D( * ), DF( * ), E( * ), EF( * ), FERR( * ), WORK( * ), X( LDX, * );
 *     ..
 *
 *  =====================================================================
@@ -16,18 +16,18 @@
 *     .. Parameters ..
       int                ITMAX
       PARAMETER          ( ITMAX = 5 )
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
-      DOUBLE PRECISION   TWO
+      double             TWO;
       PARAMETER          ( TWO = 2.0D+0 )
-      DOUBLE PRECISION   THREE
+      double             THREE;
       PARAMETER          ( THREE = 3.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                COUNT, I, IX, J, NZ
-      DOUBLE PRECISION   BI, CX, DX, EPS, EX, LSTRES, S, SAFE1, SAFE2, SAFMIN
+      double             BI, CX, DX, EPS, EX, LSTRES, S, SAFE1, SAFE2, SAFMIN;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DPTTRS, XERBLA
@@ -37,7 +37,7 @@
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           IDAMAX, DLAMCH
 *     ..
 *     .. Executable Statements ..

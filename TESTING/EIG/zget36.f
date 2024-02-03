@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       int                KNT, LMAX, NIN, NINFO
-      DOUBLE PRECISION   RMAX
+      double             RMAX;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
@@ -21,15 +21,15 @@
 *     ..
 *     .. Local Scalars ..
       int                I, IFST, ILST, INFO1, INFO2, J, N
-      DOUBLE PRECISION   EPS, RES
+      double             EPS, RES;
       COMPLEX*16         CTEMP
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   RESULT( 2 ), RWORK( LDT )
+      double             RESULT( 2 ), RWORK( LDT );
       COMPLEX*16         DIAG( LDT ), Q( LDT, LDT ), T1( LDT, LDT ), T2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

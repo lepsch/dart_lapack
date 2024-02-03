@@ -8,24 +8,24 @@
       String             DISTA, DISTB, TYPE;
       String             PATH;
       int                IMAT, KLA, KLB, KUA, KUB, M, MODEA, MODEB, N, P
-      DOUBLE PRECISION   ANORM, BNORM, CNDNMA, CNDNMB
+      double             ANORM, BNORM, CNDNMA, CNDNMB;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   SHRINK, TENTH
+      double             SHRINK, TENTH;
       PARAMETER          ( SHRINK = 0.25D0, TENTH = 0.1D+0 )
-      DOUBLE PRECISION   ONE, TEN
+      double             ONE, TEN;
       PARAMETER          ( ONE = 1.0D+0, TEN = 1.0D+1 )
 *     ..
 *     .. Local Scalars ..
       bool               FIRST;
-      DOUBLE PRECISION   BADC1, BADC2, EPS, LARGE, SMALL
+      double             BADC1, BADC2, EPS, LARGE, SMALL;
 *     ..
 *     .. External Functions ..
       bool               LSAMEN;
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAMEN, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

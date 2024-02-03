@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       int                CUTPNT, INFO, LDQ, N
-      DOUBLE PRECISION   RHO
+      double             RHO;
 *     ..
 *     .. Array Arguments ..
       int                INDXQ( * ), IWORK( * )
-      DOUBLE PRECISION   D( * ), Q( LDQ, * ), WORK( * )
+      double             D( * ), Q( LDQ, * ), WORK( * );
 *     ..
 *
 *  =====================================================================

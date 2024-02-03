@@ -7,28 +7,28 @@
 *     .. Scalar Arguments ..
       String             ROWCOL;
       int                LDU, LWORK, M, N
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         U( LDU, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       String             TRANSU;
       int                I, J, K, LDWORK, MNMIN
-      DOUBLE PRECISION   EPS
+      double             EPS;
       COMPLEX*16         TMP, ZDUM
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, ZLANSY
+      double             DLAMCH, ZLANSY;
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, DLAMCH, ZLANSY, ZDOTC
 *     ..
@@ -39,7 +39,7 @@
       INTRINSIC          ABS, DBLE, DCMPLX, DIMAG, MAX, MIN
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

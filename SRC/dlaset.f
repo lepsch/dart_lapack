@@ -7,10 +7,10 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       int                LDA, M, N
-      DOUBLE PRECISION   ALPHA, BETA
+      double             ALPHA, BETA;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * )
+      double             A( LDA, * );
 *     ..
 *
 * =====================================================================

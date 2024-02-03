@@ -9,26 +9,26 @@
       int                INFO, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AP( * ), D( * ), E( * ), TAU( * )
+      double             AP( * ), D( * ), E( * ), TAU( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO, HALF
+      double             ONE, ZERO, HALF;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0, HALF = 1.0D0 / 2.0D0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       int                I, I1, I1I1, II
-      DOUBLE PRECISION   ALPHA, TAUI
+      double             ALPHA, TAUI;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DLARFG, DSPMV, DSPR2, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DDOT
+      double             DDOT;
       EXTERNAL           LSAME, DDOT
 *     ..
 *     .. Executable Statements ..

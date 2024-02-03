@@ -8,29 +8,29 @@
 *     .. Scalar Arguments ..
       int               M, N, MB1, NB1, NB2
 *     .. Return values ..
-      DOUBLE PRECISION  RESULT(6)
+      double            RESULT(6);
 *
 *  =====================================================================
 *
 *     ..
 *     .. Local allocatable arrays
-      DOUBLE PRECISION, ALLOCATABLE ::  A(:,:), AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T1(:,:), T2(:,:), DIAG(:), C(:,:), CF(:,:), D(:,:), DF(:,:)
+      double          , ALLOCATABLE ::  A(:,:), AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T1(:,:), T2(:,:), DIAG(:), C(:,:), CF(:,:), D(:,:), DF(:,:);
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               TESTZEROS;
       int                INFO, J, K, L, LWORK, NB2_UB, NRB
-      DOUBLE PRECISION   ANORM, EPS, RESID, CNORM, DNORM
+      double             ANORM, EPS, RESID, CNORM, DNORM;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   WORKQUERY( 1 )
+      double             WORKQUERY( 1 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLANGE, DLANSY
+      double             DLAMCH, DLANGE, DLANSY;
       EXTERNAL           DLAMCH, DLANGE, DLANSY
 *     ..
 *     .. External Subroutines ..

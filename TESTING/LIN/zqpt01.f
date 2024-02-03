@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZQPT01( M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK )
+      double           FUNCTION ZQPT01( M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK );
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,18 +15,18 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I, INFO, J
-      DOUBLE PRECISION   NORMA
+      double             NORMA;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   RWORK( 1 )
+      double             RWORK( 1 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       EXTERNAL           DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..

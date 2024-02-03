@@ -14,18 +14,18 @@
 *     .. Parameters ..
       int                NMAX, LW
       PARAMETER          ( NMAX = 4, LW = 5*NMAX )
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       String             C2;
       int                I, IHI, ILO, INFO, J, NS, NT, SDIM
-      DOUBLE PRECISION   ABNRM
+      double             ABNRM;
 *     ..
 *     .. Local Arrays ..
       bool               B( NMAX );
       int                IW( 4*NMAX )
-      DOUBLE PRECISION   R1( NMAX ), R2( NMAX ), RW( LW ), S( NMAX )
+      double             R1( NMAX ), R2( NMAX ), RW( LW ), S( NMAX );
       COMPLEX*16         A( NMAX, NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), X( NMAX )
 *     ..
 *     .. External Subroutines ..
@@ -40,7 +40,7 @@
 *     ..
 *     .. Arrays in Common ..
       bool               SELVAL( 20 );
-      DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
+      double             SELWI( 20 ), SELWR( 20 );
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

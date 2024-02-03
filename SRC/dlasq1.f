@@ -8,24 +8,24 @@
       int                INFO, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * ), WORK( * )
+      double             D( * ), E( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IINFO
-      DOUBLE PRECISION   EPS, SCALE, SAFMIN, SIGMN, SIGMX
+      double             EPS, SCALE, SAFMIN, SIGMN, SIGMX;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DCOPY, DLAS2, DLASCL, DLASQ2, DLASRT, XERBLA
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

@@ -6,22 +6,22 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, N, NSPLIT
-      DOUBLE PRECISION    SPLTOL, TNRM
+      double              SPLTOL, TNRM;
 *     ..
 *     .. Array Arguments ..
       int                ISPLIT( * )
-      DOUBLE PRECISION   D( * ), E( * ), E2( * )
+      double             D( * ), E( * ), E2( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   EABS, TMP1
+      double             EABS, TMP1;
 
 *     ..
 *     .. Intrinsic Functions ..

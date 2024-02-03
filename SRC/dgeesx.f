@@ -7,12 +7,12 @@
 *     .. Scalar Arguments ..
       String             JOBVS, SENSE, SORT;
       int                INFO, LDA, LDVS, LIWORK, LWORK, N, SDIM
-      DOUBLE PRECISION   RCONDE, RCONDV
+      double             RCONDE, RCONDV;
 *     ..
 *     .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), VS( LDVS, * ), WI( * ), WORK( * ), WR( * )
+      double             A( LDA, * ), VS( LDVS, * ), WI( * ), WORK( * ), WR( * );
 *     ..
 *     .. Function Arguments ..
       bool               SELECT;
@@ -22,15 +22,15 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       bool               CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS       int                HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, LIWRK, LWRK, MAXWRK, MINWRK;
-      DOUBLE PRECISION   ANRM, BIGNUM, CSCALE, EPS, SMLNUM
+      double             ANRM, BIGNUM, CSCALE, EPS, SMLNUM;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   DUM( 1 )
+      double             DUM( 1 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DCOPY, DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLASCL, DORGHR, DSWAP, DTRSEN, XERBLA
@@ -38,7 +38,7 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV
-      DOUBLE PRECISION   DLAMCH, DLANGE
+      double             DLAMCH, DLANGE;
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANGE
 *     ..
 *     .. Intrinsic Functions ..

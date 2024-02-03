@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, NIN, NM, NMATS, NMAX, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ), PVAL( * )       DOUBLE PRECISION   A( * ), AF( * ), ALPHA( * ), B( * ), BETA( * ), BF( * ), Q( * ), R( * ), RWORK( * ), U( * ), V( * ), WORK( * )
+      int                ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ), PVAL( * )       double             A( * ), AF( * ), ALPHA( * ), B( * ), BETA( * ), BF( * ), Q( * ), R( * ), RWORK( * ), U( * ), V( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
@@ -25,11 +25,11 @@
       String             DISTA, DISTB, TYPE;
       String             PATH;
       int                I, IINFO, IM, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LDQ, LDR, LDU, LDV, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P
-      DOUBLE PRECISION   ANORM, BNORM, CNDNMA, CNDNMB
+      double             ANORM, BNORM, CNDNMA, CNDNMB;
 *     ..
 *     .. Local Arrays ..
       bool               DOTYPE( NTYPES );
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAHDG, ALAREQ, ALASUM, DGSVTS3, DLATB9, DLATMS

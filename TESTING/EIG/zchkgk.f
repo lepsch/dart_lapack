@@ -15,23 +15,23 @@
       PARAMETER          ( LDA = 50, LDB = 50, LDVL = 50, LDVR = 50 )
       int                LDE, LDF, LDWORK, LRWORK
       PARAMETER          ( LDE = 50, LDF = 50, LDWORK = 50, LRWORK = 6*50 )
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, M, N, NINFO
-      DOUBLE PRECISION   ANORM, BNORM, EPS, RMAX, VMAX
+      double             ANORM, BNORM, EPS, RMAX, VMAX;
       COMPLEX*16         CDUM
 *     ..
 *     .. Local Arrays ..
       int                LMAX( 4 )
-      DOUBLE PRECISION   LSCALE( LDA ), RSCALE( LDA ), RWORK( LRWORK )
+      double             LSCALE( LDA ), RSCALE( LDA ), RWORK( LRWORK );
       COMPLEX*16         A( LDA, LDA ), AF( LDA, LDA ), B( LDB, LDB ), BF( LDB, LDB ), E( LDE, LDE ), F( LDF, LDF ), VL( LDVL, LDVL ), VLF( LDVL, LDVL ), VR( LDVR, LDVR ), VRF( LDVR, LDVR ), WORK( LDWORK, LDWORK )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       EXTERNAL           DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
@@ -41,7 +41,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, MAX
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )

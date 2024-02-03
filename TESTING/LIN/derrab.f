@@ -19,8 +19,8 @@
 *     ..
 *     .. Local Arrays ..
       int                IP( NMAX )
-      DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX )
-      DOUBLE PRECISION   WORK(1)
+      double             A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX );
+      double             WORK(1);
       REAL               SWORK(1)
 *     ..
 *     .. External Subroutines ..

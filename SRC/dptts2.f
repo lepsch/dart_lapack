@@ -8,7 +8,7 @@
       int                LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B( LDB, * ), D( * ), E( * )
+      double             B( LDB, * ), D( * ), E( * );
 *     ..
 *
 *  =====================================================================

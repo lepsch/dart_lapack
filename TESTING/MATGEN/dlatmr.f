@@ -7,32 +7,32 @@
 *     .. Scalar Arguments ..
       String             DIST, GRADE, PACK, PIVTNG, RSIGN, SYM;
       int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N
-      DOUBLE PRECISION   ANORM, COND, CONDL, CONDR, DMAX, SPARSE
+      double             ANORM, COND, CONDL, CONDR, DMAX, SPARSE;
 *     ..
 *     .. Array Arguments ..
       int                IPIVOT( * ), ISEED( 4 ), IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), D( * ), DL( * ), DR( * )
+      double             A( LDA, * ), D( * ), DL( * ), DR( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       bool               BADPVT, DZERO, FULBND;
       int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS
-      DOUBLE PRECISION   ALPHA, ONORM, TEMP
+      double             ALPHA, ONORM, TEMP;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   TEMPA( 1 )
+      double             TEMPA( 1 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3       EXTERNAL           LSAME, DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3
+      double             DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3       EXTERNAL           LSAME, DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLATM1, DSCAL, XERBLA

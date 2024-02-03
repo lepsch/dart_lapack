@@ -9,23 +9,23 @@
       int                INFO, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), SEP( * )
+      double             D( * ), SEP( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               DECR, EIGEN, INCR, LEFT, RIGHT, SING;
       int                I, K
-      DOUBLE PRECISION   ANORM, EPS, NEWGAP, OLDGAP, SAFMIN, THRESH
+      double             ANORM, EPS, NEWGAP, OLDGAP, SAFMIN, THRESH;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAME, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

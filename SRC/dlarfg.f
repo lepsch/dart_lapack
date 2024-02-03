@@ -6,24 +6,24 @@
 *
 *     .. Scalar Arguments ..
       int                INCX, N
-      DOUBLE PRECISION   ALPHA, TAU
+      double             ALPHA, TAU;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   X( * )
+      double             X( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                J, KNT
-      DOUBLE PRECISION   BETA, RSAFMN, SAFMIN, XNORM
+      double             BETA, RSAFMN, SAFMIN, XNORM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLAPY2, DNRM2
+      double             DLAMCH, DLAPY2, DNRM2;
       EXTERNAL           DLAMCH, DLAPY2, DNRM2
 *     ..
 *     .. Intrinsic Functions ..

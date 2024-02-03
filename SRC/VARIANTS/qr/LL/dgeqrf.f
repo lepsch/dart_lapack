@@ -8,7 +8,7 @@
       int                INFO, LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), TAU( * ), WORK( * )
+      double             A( LDA, * ), TAU( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
@@ -25,7 +25,7 @@
 *     ..
 *     .. External Functions ..
       int                ILAENV
-      DOUBLE PRECISION   DROUNDUP_LWORK
+      double             DROUNDUP_LWORK;
       EXTERNAL           ILAENV, DROUNDUP_LWORK
 *     ..
 *     .. Executable Statements ..

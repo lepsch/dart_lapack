@@ -9,14 +9,14 @@
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
+      double             D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       int                I, I1, IC, IDXQ, IDXQC, IM1, INODE, ITEMP, IWK, J, LF, LL, LVL, M, NCC, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, SQREI
-      DOUBLE PRECISION   ALPHA, BETA
+      double             ALPHA, BETA;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLASD1, DLASDQ, DLASDT, XERBLA

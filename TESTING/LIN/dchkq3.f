@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       int                NM, NN, NNB, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )       DOUBLE PRECISION   A( * ), COPYA( * ), S( * ), TAU( * ), WORK( * )
+      int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )       double             A( * ), COPYA( * ), S( * ), TAU( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
@@ -20,20 +20,20 @@
       PARAMETER          ( NTYPES = 6 )
       int                NTESTS
       PARAMETER          ( NTESTS = 3 )
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       String             PATH;
       int                I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO, ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N, NB, NERRS, NFAIL, NRUN, NX
-      DOUBLE PRECISION   EPS
+      double             EPS;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DQPT01, DQRT11, DQRT12
+      double             DLAMCH, DQPT01, DQRT11, DQRT12;
       EXTERNAL           DLAMCH, DQPT01, DQRT11, DQRT12
 *     ..
 *     .. External Subroutines ..
@@ -58,7 +58,7 @@
 *
 *     Initialize constants and the random number seed.
 *
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'Q3'
       NRUN = 0
       NFAIL = 0

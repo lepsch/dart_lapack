@@ -7,31 +7,31 @@
 *     .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDZ, N, NS
-      DOUBLE PRECISION   VL, VU
+      double             VL, VU;
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   D( * ), E( * ), S( * ), WORK( * ), Z( LDZ, * )
+      double             D( * ), E( * ), S( * ), WORK( * ), Z( LDZ, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TEN, HNDRD, MEIGTH
+      double             ZERO, ONE, TEN, HNDRD, MEIGTH;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0, HNDRD = 100.0D0, MEIGTH = -0.1250D0 )
-      DOUBLE PRECISION   FUDGE
+      double             FUDGE;
       PARAMETER          ( FUDGE = 2.0D0 )
 *     ..
 *     .. Local Scalars ..
       String             RNGVX;
       bool               ALLSV, INDSV, LOWER, SPLIT, SVEQ0, VALSV, WANTZ;
       int                I, ICOLZ, IDBEG, IDEND, IDTGK, IDPTR, IEPTR, IETGK, IIFAIL, IIWORK, ILTGK, IROWU, IROWV, IROWZ, ISBEG, ISPLT, ITEMP, IUTGK, J, K, NTGK, NRU, NRV, NSL
-      DOUBLE PRECISION   ABSTOL, EPS, EMIN, MU, NRMU, NRMV, ORTOL, SMAX, SMIN, SQRT2, THRESH, TOL, ULP, VLTGK, VUTGK, ZJTJI
+      double             ABSTOL, EPS, EMIN, MU, NRMU, NRMV, ORTOL, SMAX, SMIN, SQRT2, THRESH, TOL, ULP, VLTGK, VUTGK, ZJTJI;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                IDAMAX
-      DOUBLE PRECISION   DDOT, DLAMCH, DNRM2
+      double             DDOT, DLAMCH, DNRM2;
       EXTERNAL           IDAMAX, LSAME, DAXPY, DDOT, DLAMCH, DNRM2
 *     ..
 *     .. External Subroutines ..

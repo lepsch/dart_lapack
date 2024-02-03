@@ -10,7 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       int                IQ( * ), IWORK( * )
-      DOUBLE PRECISION   D( * ), E( * ), Q( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
+      double             D( * ), E( * ), Q( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
@@ -19,17 +19,17 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO
+      double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, IC, ICOMPQ, IERR, II, IS, IU, IUPLO, IVT, J, K, KK, MLVL, NM1, NSIZE, PERM, POLES, QSTART, SMLSIZ, SMLSZP, SQRE, START, WSTART, Z
-      DOUBLE PRECISION   CS, EPS, ORGNRM, P, R, SN
+      double             CS, EPS, ORGNRM, P, R, SN;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV
-      DOUBLE PRECISION   DLAMCH, DLANST
+      double             DLAMCH, DLANST;
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANST
 *     ..
 *     .. External Subroutines ..

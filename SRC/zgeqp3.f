@@ -9,7 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       int                JPVT( * )
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * )
 *     ..
 *
@@ -28,7 +28,7 @@
 *     ..
 *     .. External Functions ..
       int                ILAENV
-      DOUBLE PRECISION   DZNRM2
+      double             DZNRM2;
       EXTERNAL           ILAENV, DZNRM2
 *     ..
 *     .. Intrinsic Functions ..

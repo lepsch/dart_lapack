@@ -16,19 +16,19 @@
 *
 *     .. Parameters ..
       COMPLEX*16         ONE, NEGONE
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ONE = (1.0D+0, 0.0D+0) )
       PARAMETER          ( NEGONE = (-1.0D+0, 0.0D+0) )
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   SFMIN, PIVMAG
+      double             SFMIN, PIVMAG;
       COMPLEX*16         TMP
       int                I, J, JP, NSTEP, NTOPIV, NPIVED, KAHEAD
       int                KSTART, IPIVSTART, JPIVSTART, KCOLS
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       int                IZAMAX
       bool               DISNAN;
       EXTERNAL           DLAMCH, IZAMAX, DISNAN

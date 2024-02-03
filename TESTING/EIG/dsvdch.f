@@ -6,26 +6,26 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, N
-      DOUBLE PRECISION   TOL
+      double             TOL;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   E( * ), S( * ), SVD( * )
+      double             E( * ), S( * ), SVD( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                BPNT, COUNT, NUML, NUMU, TPNT
-      DOUBLE PRECISION   EPS, LOWER, OVFL, TUPPR, UNFL, UNFLEP, UPPER
+      double             EPS, LOWER, OVFL, TUPPR, UNFL, UNFLEP, UPPER;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

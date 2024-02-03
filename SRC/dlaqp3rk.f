@@ -7,22 +7,22 @@
 *
 *     .. Scalar Arguments ..
       bool               DONE;
-      int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       DOUBLE PRECISION   ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
+      int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       double             ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL;
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * ), JPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ), VN1( * ), VN2( * )
+      double             A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ), VN1( * ), VN2( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                ITEMP, J, K, MINMNFACT, MINMNUPDT, LSTICC, KP, I, IF
-      DOUBLE PRECISION   AIK, HUGEVAL, TEMP, TEMP2, TOL3Z
+      double             AIK, HUGEVAL, TEMP, TEMP2, TOL3Z;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEMM, DGEMV, DLARFG, DSWAP
@@ -33,7 +33,7 @@
 *     .. External Functions ..
       bool               DISNAN;
       int                IDAMAX
-      DOUBLE PRECISION   DLAMCH, DNRM2
+      double             DLAMCH, DNRM2;
       EXTERNAL           DISNAN, DLAMCH, IDAMAX, DNRM2
 *     ..
 *     .. Executable Statements ..

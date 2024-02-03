@@ -7,16 +7,16 @@
 *     .. Scalar Arguments ..
       String             ORDER, RANGE;
       int                IL, INFO, IU, M, N, NSPLIT
-      DOUBLE PRECISION    PIVMIN, RELTOL, VL, VU, WL, WU
+      double              PIVMIN, RELTOL, VL, VU, WL, WU;
 *     ..
 *     .. Array Arguments ..
-      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * )       DOUBLE PRECISION   D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * )
+      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * )       double             D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO, HALF, FUDGE
+      double             ZERO, ONE, TWO, HALF, FUDGE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = ONE/TWO, FUDGE = TWO )
       int       ALLRNG, VALRNG, INDRNG
       PARAMETER ( ALLRNG = 1, VALRNG = 2, INDRNG = 3 )
@@ -24,7 +24,7 @@
 *     .. Local Scalars ..
       bool               NCNVRG, TOOFEW;
       int                I, IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IOUT, IRANGE, ITMAX, ITMP1, ITMP2, IW, IWOFF, J, JBLK, JDISC, JE, JEE, NB, NWL, NWU
-      DOUBLE PRECISION   ATOLI, EPS, GL, GU, RTOLI, TMP1, TMP2, TNORM, UFLOW, WKILL, WLU, WUL
+      double             ATOLI, EPS, GL, GU, RTOLI, TMP1, TMP2, TNORM, UFLOW, WKILL, WLU, WUL;
 
 *     ..
 *     .. Local Arrays ..
@@ -33,7 +33,7 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAME, ILAENV, DLAMCH
 *     ..
 *     .. External Subroutines ..

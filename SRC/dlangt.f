@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLANGT( NORM, N, DL, D, DU )
+      double           FUNCTION DLANGT( NORM, N, DL, D, DU );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,18 +9,18 @@
       int                N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), DL( * ), DU( * )
+      double             D( * ), DL( * ), DU( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   ANORM, SCALE, SUM, TEMP
+      double             ANORM, SCALE, SUM, TEMP;
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;

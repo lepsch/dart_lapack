@@ -9,16 +9,16 @@
       int                ITYPE, KBAND, LDU, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * ), RESULT( 2 ), RWORK( * )
+      double             D( * ), E( * ), RESULT( 2 ), RWORK( * );
       COMPLEX*16         AP( * ), TAU( * ), U( LDU, * ), VP( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TEN
+      double             ZERO, ONE, TEN;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 10.0D+0 )
-      DOUBLE PRECISION   HALF
+      double             HALF;
       PARAMETER          ( HALF = 1.0D+0 / 2.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
@@ -27,12 +27,12 @@
       bool               LOWER;
       String             CUPLO;
       int                IINFO, J, JP, JP1, JR, LAP
-      DOUBLE PRECISION   ANORM, ULP, UNFL, WNORM
+      double             ANORM, ULP, UNFL, WNORM;
       COMPLEX*16         TEMP, VSAVE
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, ZLANGE, ZLANHP
+      double             DLAMCH, ZLANGE, ZLANHP;
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, DLAMCH, ZLANGE, ZLANHP, ZDOTC
 *     ..

@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLA_PORCOND( UPLO, N, A, LDA, AF, LDAF, CMODE, C, INFO, WORK, IWORK )
+      double           FUNCTION DLA_PORCOND( UPLO, N, A, LDA, AF, LDAF, CMODE, C, INFO, WORK, IWORK );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       int                N, LDA, LDAF, INFO, CMODE
-      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * )
+      double             A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * );
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
@@ -17,7 +17,7 @@
 *
 *     .. Local Scalars ..
       int                KASE, I, J
-      DOUBLE PRECISION   AINVNM, TMP
+      double             AINVNM, TMP;
       bool               UP;
 *     ..
 *     .. Array Arguments ..

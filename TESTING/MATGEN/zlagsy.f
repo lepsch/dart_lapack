@@ -9,7 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   D( * )
+      double             D( * );
       COMPLEX*16         A( LDA, * ), WORK( * )
 *     ..
 *
@@ -21,14 +21,14 @@
 *     ..
 *     .. Local Scalars ..
       int                I, II, J, JJ
-      DOUBLE PRECISION   WN
+      double             WN;
       COMPLEX*16         ALPHA, TAU, WA, WB
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZAXPY, ZGEMV, ZGERC, ZLACGV, ZLARNV, ZSCAL, ZSYMV
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DZNRM2
+      double             DZNRM2;
       COMPLEX*16         ZDOTC
       EXTERNAL           DZNRM2, ZDOTC
 *     ..

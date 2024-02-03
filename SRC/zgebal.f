@@ -9,29 +9,29 @@
       int                IHI, ILO, INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   SCALE( * )
+      double             SCALE( * );
       COMPLEX*16         A( LDA, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      DOUBLE PRECISION   SCLFAC
+      double             SCLFAC;
       PARAMETER          ( SCLFAC = 2.0D+0 )
-      DOUBLE PRECISION   FACTOR
+      double             FACTOR;
       PARAMETER          ( FACTOR = 0.95D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               NOCONV, CANSWAP;
       int                I, ICA, IRA, J, K, L
-      DOUBLE PRECISION   C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2
+      double             C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2;
 *     ..
 *     .. External Functions ..
       bool               DISNAN, LSAME;
       int                IZAMAX
-      DOUBLE PRECISION   DLAMCH, DZNRM2
+      double             DLAMCH, DZNRM2;
       EXTERNAL           DISNAN, LSAME, IZAMAX, DLAMCH, DZNRM2
 *     ..
 *     .. External Subroutines ..

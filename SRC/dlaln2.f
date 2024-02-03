@@ -7,31 +7,31 @@
 *     .. Scalar Arguments ..
       bool               LTRANS;
       int                INFO, LDA, LDB, LDX, NA, NW
-      DOUBLE PRECISION   CA, D1, D2, SCALE, SMIN, WI, WR, XNORM
+      double             CA, D1, D2, SCALE, SMIN, WI, WR, XNORM;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), X( LDX, * )
+      double             A( LDA, * ), B( LDB, * ), X( LDX, * );
 *     ..
 *
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-      DOUBLE PRECISION   TWO
+      double             TWO;
       PARAMETER          ( TWO = 2.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                ICMAX, J
-      DOUBLE PRECISION   BBND, BI1, BI2, BIGNUM, BNORM, BR1, BR2, CI21, CI22, CMAX, CNORM, CR21, CR22, CSI, CSR, LI21, LR21, SMINI, SMLNUM, TEMP, U22ABS, UI11, UI11R, UI12, UI12S, UI22, UR11, UR11R, UR12, UR12S, UR22, XI1, XI2, XR1, XR2
+      double             BBND, BI1, BI2, BIGNUM, BNORM, BR1, BR2, CI21, CI22, CMAX, CNORM, CR21, CR22, CSI, CSR, LI21, LR21, SMINI, SMLNUM, TEMP, U22ABS, UI11, UI11R, UI12, UI12S, UI22, UR11, UR11R, UR12, UR12S, UR22, XI1, XI2, XR1, XR2;
 *     ..
 *     .. Local Arrays ..
       bool               RSWAP( 4 ), ZSWAP( 4 );
       int                IPIVOT( 4, 4 )
-      DOUBLE PRECISION   CI( 2, 2 ), CIV( 4 ), CR( 2, 2 ), CRV( 4 )
+      double             CI( 2, 2 ), CIV( 4 ), CR( 2, 2 ), CRV( 4 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

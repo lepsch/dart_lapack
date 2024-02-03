@@ -9,14 +9,14 @@
       COMPLEX*16         ALPHA, BETA, WX, WY
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   DIF( * ), S( * )
+      double             DIF( * ), S( * );
       COMPLEX*16         A( LDA, * ), B( LDA, * ), X( LDX, * ), Y( LDY, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   RONE, TWO, THREE
+      double             RONE, TWO, THREE;
       PARAMETER          ( RONE = 1.0D+0, TWO = 2.0D+0, THREE = 3.0D+0 )
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ), ONE = ( 1.0D+0, 0.0D+0 ) )
@@ -25,7 +25,7 @@
       int                I, INFO, J
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   RWORK( 50 )
+      double             RWORK( 50 );
       COMPLEX*16         WORK( 26 ), Z( 8, 8 )
 *     ..
 *     .. Intrinsic Functions ..

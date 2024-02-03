@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Arrays ..
       int                IP( NMAX )
-      DOUBLE PRECISION   RW( 2*NMAX )
+      double             RW( 2*NMAX );
       COMPLEX*16         A( NMAX, NMAX ), TAU( NMAX ), W( 2*NMAX+3*NMAX )
 *     ..
 *     .. External Functions ..

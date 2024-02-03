@@ -7,36 +7,36 @@
 *     .. Scalar Arguments ..
       String             TRANS;
       int                KL, KU, LDA, LDB, LDX, M, N, NRHS
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       int                I1, I2, J, KD, N1
-      DOUBLE PRECISION   ANORM, BNORM, EPS, TEMP, XNORM
+      double             ANORM, BNORM, EPS, TEMP, XNORM;
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
       bool               DISNAN, LSAME;
-      DOUBLE PRECISION   DLAMCH, DZASUM
+      double             DLAMCH, DZASUM;
       EXTERNAL           DISNAN, DLAMCH, DZASUM, LSAME
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZGBMV
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, DIMAG, MAX, MIN

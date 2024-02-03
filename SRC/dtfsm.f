@@ -7,17 +7,17 @@
 *     .. Scalar Arguments ..
       String             TRANSR, DIAG, SIDE, TRANS, UPLO;
       int                LDB, M, N
-      DOUBLE PRECISION   ALPHA
+      double             ALPHA;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( 0: * ), B( 0: LDB-1, 0: * )
+      double             A( 0: * ), B( 0: LDB-1, 0: * );
 *     ..
 *
 *  =====================================================================
 *
 *     ..
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..

@@ -8,7 +8,7 @@
       int                LDA, LDX, LDY, M, N, NB
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * )
+      double             D( * ), E( * );
       COMPLEX*16         A( LDA, * ), TAUP( * ), TAUQ( * ), X( LDX, * ), Y( LDY, * )
 *     ..
 *

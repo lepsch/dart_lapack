@@ -8,13 +8,13 @@
       int     INCX,N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION DX(*)
+      double           DX(*);
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION DMAX
+      double           DMAX;
       int     I,IX
 *     ..
 *     .. Intrinsic Functions ..

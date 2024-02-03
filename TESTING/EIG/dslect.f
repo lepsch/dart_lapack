@@ -5,14 +5,14 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   ZI, ZR
+      double             ZI, ZR;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Arrays in Common ..
       bool               SELVAL( 20 );
-      DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
+      double             SELWI( 20 ), SELWR( 20 );
 *     ..
 *     .. Scalars in Common ..
       int                SELDIM, SELOPT
@@ -22,14 +22,14 @@
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   RMIN, X
+      double             RMIN, X;
 *     ..
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAPY2
+      double             DLAPY2;
       EXTERNAL           DLAPY2
 *     ..
 *     .. Executable Statements ..

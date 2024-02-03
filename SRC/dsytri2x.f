@@ -10,13 +10,13 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), WORK( N+NB+1,* )
+      double             A( LDA, * ), WORK( N+NB+1,* );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
@@ -25,9 +25,9 @@
       int                COUNT
       int                J, U11, INVD
 
-      DOUBLE PRECISION   AK, AKKP1, AKP1, D, T
-      DOUBLE PRECISION   U01_I_J, U01_IP1_J
-      DOUBLE PRECISION   U11_I_J, U11_IP1_J
+      double             AK, AKKP1, AKP1, D, T;
+      double             U01_I_J, U01_IP1_J;
+      double             U11_I_J, U11_IP1_J;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

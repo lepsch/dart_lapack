@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       int                NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TEN
+      double             ZERO, ONE, TEN;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D+0, TEN = 1.0D1 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ) )
@@ -27,14 +27,14 @@
       bool               OK;
       String             PATH;
       int                I, INFO, J, KL, KU, M, N
-      DOUBLE PRECISION   CCOND, EPS, NORM, RATIO, RCMAX, RCMIN, RCOND
+      double             CCOND, EPS, NORM, RATIO, RCMAX, RCMIN, RCOND;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   C( NSZ ), POW( NPOW ), R( NSZ ), RESLTS( 5 ), RPOW( NPOW )
+      double             C( NSZ ), POW( NPOW ), R( NSZ ), RESLTS( 5 ), RPOW( NPOW );
       COMPLEX*16         A( NSZ, NSZ ), AB( NSZB, NSZ ), AP( NSZP )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

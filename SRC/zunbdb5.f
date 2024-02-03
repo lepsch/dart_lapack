@@ -14,20 +14,20 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   REALZERO
+      double             REALZERO;
       PARAMETER          ( REALZERO = 0.0D0 )
       COMPLEX*16         ONE, ZERO
       PARAMETER          ( ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) )
 *     ..
 *     .. Local Scalars ..
       int                CHILDINFO, I, J
-      DOUBLE PRECISION   EPS, NORM, SCL, SSQ
+      double             EPS, NORM, SCL, SSQ;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZLASSQ, ZUNBDB6, ZSCAL, XERBLA
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DZNRM2
+      double             DLAMCH, DZNRM2;
       EXTERNAL           DLAMCH, DZNRM2
 *     ..
 *     .. Intrinsic Function ..

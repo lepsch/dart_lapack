@@ -3,7 +3,7 @@ c
       external idamax
       int      idamax,iamax
       int     n,incx
-      double precision x(*)
+      double           x(*);
 c
       iamax=idamax(n,x,incx)
       return

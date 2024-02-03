@@ -9,7 +9,7 @@
       int                IHI, ILO, INFO, LDA, LDC, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
+      double             A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
 *     ..
 *
 *  =====================================================================

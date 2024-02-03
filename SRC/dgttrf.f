@@ -9,18 +9,18 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   D( * ), DL( * ), DU( * ), DU2( * )
+      double             D( * ), DL( * ), DU( * ), DU2( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   FACT, TEMP
+      double             FACT, TEMP;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS

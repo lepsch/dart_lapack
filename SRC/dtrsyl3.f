@@ -4,27 +4,27 @@
 *     .. Scalar Arguments ..
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N, LIWORK, LDSWORK
-      DOUBLE PRECISION   SCALE
+      double             SCALE;
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ), SWORK( LDSWORK, * )
+      double             A( LDA, * ), B( LDB, * ), C( LDC, * ), SWORK( LDSWORK, * );
 *     ..
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               NOTRNA, NOTRNB, LQUERY, SKIP;
-      int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB, PC       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM
+      int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB, PC       double             ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   WNRM( MAX( M, N ) )
+      double             WNRM( MAX( M, N ) );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV
-      DOUBLE PRECISION   DLANGE, DLAMCH, DLARMM
+      double             DLANGE, DLAMCH, DLARMM;
       EXTERNAL           DLANGE, DLAMCH, DLARMM, ILAENV, LSAME
 *     ..
 *     .. External Subroutines ..

@@ -9,36 +9,36 @@
       int                INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
+      double             C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
-      DOUBLE PRECISION   NEGONE
+      double             NEGONE;
       PARAMETER          ( NEGONE = -1.0D0 )
-      DOUBLE PRECISION   HNDRTH
+      double             HNDRTH;
       PARAMETER          ( HNDRTH = 0.01D0 )
-      DOUBLE PRECISION   TEN
+      double             TEN;
       PARAMETER          ( TEN = 10.0D0 )
-      DOUBLE PRECISION   HNDRD
+      double             HNDRD;
       PARAMETER          ( HNDRD = 100.0D0 )
-      DOUBLE PRECISION   MEIGTH
+      double             MEIGTH;
       PARAMETER          ( MEIGTH = -0.125D0 )
       int                MAXITR
       PARAMETER          ( MAXITR = 6 )
 *     ..
 *     .. Local Scalars ..
       bool               LOWER, ROTATE;
-      int                I, IDIR, ISUB, ITER, ITERDIVN, J, LL, LLL, M, MAXITDIVN, NM1, NM12, NM13, OLDLL, OLDM       DOUBLE PRECISION   ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU, OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL, SINR, SLL, SMAX, SMIN, SMINOA, SN, THRESH, TOL, TOLMUL, UNFL
+      int                I, IDIR, ISUB, ITER, ITERDIVN, J, LL, LLL, M, MAXITDIVN, NM1, NM12, NM13, OLDLL, OLDM       double             ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU, OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL, SINR, SLL, SMAX, SMIN, SMINOA, SN, THRESH, TOL, TOLMUL, UNFL;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAME, DLAMCH
 *     ..
 *     .. External Subroutines ..

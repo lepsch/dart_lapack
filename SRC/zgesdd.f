@@ -11,7 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   RWORK( * ), S( * )
+      double             RWORK( * ), S( * );
       COMPLEX*16         A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
@@ -20,17 +20,17 @@
 *     .. Parameters ..
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, WNTQA, WNTQAS, WNTQN, WNTQO, WNTQS;
       int                BLK, CHUNK, I, IE, IERR, IL, IR, IRU, IRVT, ISCL, ITAU, ITAUP, ITAUQ, IU, IVT, LDWKVT, LDWRKL, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR1, MNTHR2, NRWORK, NWORK, WRKBL       int                LWORK_ZGEBRD_MN, LWORK_ZGEBRD_MM, LWORK_ZGEBRD_NN, LWORK_ZGELQF_MN, LWORK_ZGEQRF_MN, LWORK_ZUNGBR_P_MN, LWORK_ZUNGBR_P_NN, LWORK_ZUNGBR_Q_MN, LWORK_ZUNGBR_Q_MM, LWORK_ZUNGLQ_MN, LWORK_ZUNGLQ_NN, LWORK_ZUNGQR_MM, LWORK_ZUNGQR_MN, LWORK_ZUNMBR_PRC_MM, LWORK_ZUNMBR_QLN_MM, LWORK_ZUNMBR_PRC_MN, LWORK_ZUNMBR_QLN_MN, LWORK_ZUNMBR_PRC_NN, LWORK_ZUNMBR_QLN_NN
-      DOUBLE PRECISION   ANRM, BIGNUM, EPS, SMLNUM
+      double             ANRM, BIGNUM, EPS, SMLNUM;
 *     ..
 *     .. Local Arrays ..
       int                IDUM( 1 )
-      DOUBLE PRECISION   DUM( 1 )
+      double             DUM( 1 );
       COMPLEX*16         CDUM( 1 )
 *     ..
 *     .. External Subroutines ..
@@ -38,7 +38,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;
-      DOUBLE PRECISION   DLAMCH, ZLANGE, DROUNDUP_LWORK
+      double             DLAMCH, ZLANGE, DROUNDUP_LWORK;
       EXTERNAL           LSAME, DLAMCH, ZLANGE, DISNAN,  DROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..

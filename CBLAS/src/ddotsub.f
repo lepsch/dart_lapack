@@ -1,9 +1,9 @@
       subroutine ddotsub(n,x,incx,y,incy,dot)
 c
       external ddot
-      double precision ddot
+      double           ddot;
       int     n,incx,incy
-      double precision x(*),y(*),dot
+      double           x(*),y(*),dot;
 c
       dot=ddot(n,x,incx,y,incy)
       return

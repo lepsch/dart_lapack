@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLA_SYRPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK )
+      double           FUNCTION DLA_SYRPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,14 +10,14 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), WORK( * )
+      double             A( LDA, * ), AF( LDAF, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       int                NCOLS, I, J, K, KP
-      DOUBLE PRECISION   AMAX, UMAX, RPVGRW, TMP
+      double             AMAX, UMAX, RPVGRW, TMP;
       bool               UPPER;
 *     ..
 *     .. Intrinsic Functions ..

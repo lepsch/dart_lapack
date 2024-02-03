@@ -5,24 +5,24 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   A, B, C, CS1, RT1, RT2, SN1
+      double             A, B, C, CS1, RT1, RT2, SN1;
 *     ..
 *
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
-      DOUBLE PRECISION   TWO
+      double             TWO;
       PARAMETER          ( TWO = 2.0D0 )
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-      DOUBLE PRECISION   HALF
+      double             HALF;
       PARAMETER          ( HALF = 0.5D0 )
 *     ..
 *     .. Local Scalars ..
       int                SGN1, SGN2
-      DOUBLE PRECISION   AB, ACMN, ACMX, ACS, ADF, CS, CT, DF, RT, SM, TB, TN
+      double             AB, ACMN, ACMX, ACS, ADF, CS, CT, DF, RT, SM, TB, TN;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, SQRT

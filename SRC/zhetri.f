@@ -16,14 +16,14 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       COMPLEX*16         CONE, ZERO
       PARAMETER          ( ONE = 1.0D+0, CONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       int                J, K, KP, KSTEP
-      DOUBLE PRECISION   AK, AKP1, D, T
+      double             AK, AKP1, D, T;
       COMPLEX*16         AKKP1, TEMP
 *     ..
 *     .. External Functions ..

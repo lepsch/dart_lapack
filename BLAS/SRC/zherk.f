@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION ALPHA,BETA
+      double           ALPHA,BETA;
       int     K,LDA,LDC,N
       String    TRANS,UPLO;
 *     ..
@@ -27,12 +27,12 @@
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16 TEMP
-      DOUBLE PRECISION RTEMP
+      double           RTEMP;
       int     I,INFO,J,L,NROWA
       bool    UPPER;
 *     ..
 *     .. Parameters ..
-      DOUBLE PRECISION ONE,ZERO
+      double           ONE,ZERO;
       PARAMETER (ONE=1.0D+0,ZERO=0.0D+0)
 *     ..
 *

@@ -10,14 +10,14 @@
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         AB( LDAB, * ), B( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, TWO, ZERO
+      double             ONE, TWO, ZERO;
       PARAMETER          ( ONE = 1.0D+0, TWO = 2.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
@@ -25,13 +25,13 @@
       String             DIST, PACKIT, TYPE;
       String             PATH;
       int                I, IOFF, IY, J, JCOUNT, KL, KU, LENJ, MODE
-      DOUBLE PRECISION   ANORM, BIGNUM, BNORM, BSCAL, CNDNUM, REXP, SFAC, SMLNUM, TEXP, TLEFT, TNORM, TSCAL, ULP, UNFL
+      double             ANORM, BIGNUM, BNORM, BSCAL, CNDNUM, REXP, SFAC, SMLNUM, TEXP, TLEFT, TNORM, TSCAL, ULP, UNFL;
       COMPLEX*16         PLUS1, PLUS2, STAR1
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                IZAMAX
-      DOUBLE PRECISION   DLAMCH, DLARND
+      double             DLAMCH, DLARND;
       COMPLEX*16         ZLARND
       EXTERNAL           LSAME, IZAMAX, DLAMCH, DLARND, ZLARND
 *     ..

@@ -10,19 +10,19 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   AP( * ), B( LDB, * )
+      double             AP( * ), B( LDB, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       int                J, K, KC, KP
-      DOUBLE PRECISION   AK, AKM1, AKM1K, BK, BKM1, DENOM
+      double             AK, AKM1, AKM1K, BK, BKM1, DENOM;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

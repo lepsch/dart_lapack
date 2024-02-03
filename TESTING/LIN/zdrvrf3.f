@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, NN, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       int                NVAL( NN )
-      DOUBLE PRECISION   D_WORK_ZLANGE( * )
+      double             D_WORK_ZLANGE( * );
       COMPLEX*16         A( LDA, * ), ARF( * ), B1( LDA, * ), B2( LDA, * )
       COMPLEX*16         Z_WORK_ZGEQRF( * ), TAU( * )
 *     ..
@@ -27,16 +27,16 @@
       String             UPLO, CFORM, DIAG, TRANS, SIDE;
       int                I, IFORM, IIM, IIN, INFO, IUPLO, J, M, N, NA, NFAIL, NRUN, ISIDE, IDIAG, IALPHA, ITRANS
       COMPLEX*16         ALPHA
-      DOUBLE PRECISION   EPS
+      double             EPS;
 *     ..
 *     .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 ), DIAGS( 2 ), SIDES( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       COMPLEX*16         ZLARND
       EXTERNAL           DLAMCH, ZLARND, ZLANGE, LSAME
 *     ..

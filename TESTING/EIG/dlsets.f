@@ -11,7 +11,7 @@
 *
 *  ====================================================================
 *
-      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), C( * ), CF( * ), D( * ), DF( * ), RESULT( 2 ), RWORK( * ), WORK( LWORK ), X( * )
+      double             A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), C( * ), CF( * ), D( * ), DF( * ), RESULT( 2 ), RWORK( * ), WORK( LWORK ), X( * );
 *     ..
 *     .. Local Scalars ..
       int                INFO

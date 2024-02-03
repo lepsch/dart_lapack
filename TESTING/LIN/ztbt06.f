@@ -7,24 +7,24 @@
 *     .. Scalar Arguments ..
       String             DIAG, UPLO;
       int                KD, LDAB, N
-      DOUBLE PRECISION   RAT, RCOND, RCONDC
+      double             RAT, RCOND, RCONDC;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         AB( LDAB, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ANORM, BIGNUM, EPS, RMAX, RMIN
+      double             ANORM, BIGNUM, EPS, RMAX, RMIN;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANTB
+      double             DLAMCH, ZLANTB;
       EXTERNAL           DLAMCH, ZLANTB
 *     ..
 *     .. Intrinsic Functions ..

@@ -9,7 +9,7 @@
       int                INFO, ITYPE, LDZ, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * ), W( * )
+      double             RWORK( * ), W( * );
       COMPLEX*16         AP( * ), BP( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *

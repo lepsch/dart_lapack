@@ -8,7 +8,7 @@
       int                INFO, LDA, LDB, LWORK, M, N, P
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), TAUA( * ), TAUB( * ), WORK( * )
+      double             A( LDA, * ), B( LDB, * ), TAUA( * ), TAUB( * ), WORK( * );
 *     ..
 *
 *  =====================================================================

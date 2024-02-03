@@ -21,7 +21,7 @@
 *     .. Local Scalars ..
       bool               ILQ, ILZ;
       int                ICOMPQ, ICOMPZ, JCOL, JROW
-      DOUBLE PRECISION   C
+      double             C;
       COMPLEX*16         CTEMP, S
 *     ..
 *     .. External Functions ..

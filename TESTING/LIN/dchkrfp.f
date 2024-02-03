@@ -22,32 +22,32 @@
       bool               FATAL, TSTERR;
       int                VERS_MAJOR, VERS_MINOR, VERS_PATCH
       int                I, NN, NNS, NNT
-      DOUBLE PRECISION   EPS, S1, S2, THRESH
+      double             EPS, S1, S2, THRESH;
 
 *     ..
 *     .. Local Arrays ..
       int                NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES )
-      DOUBLE PRECISION   WORKA( NMAX, NMAX )
-      DOUBLE PRECISION   WORKASAV( NMAX, NMAX )
-      DOUBLE PRECISION   WORKB( NMAX, MAXRHS )
-      DOUBLE PRECISION   WORKXACT( NMAX, MAXRHS )
-      DOUBLE PRECISION   WORKBSAV( NMAX, MAXRHS )
-      DOUBLE PRECISION   WORKX( NMAX, MAXRHS )
-      DOUBLE PRECISION   WORKAFAC( NMAX, NMAX )
-      DOUBLE PRECISION   WORKAINV( NMAX, NMAX )
-      DOUBLE PRECISION   WORKARF( (NMAX*(NMAX+1))/2 )
-      DOUBLE PRECISION   WORKAP( (NMAX*(NMAX+1))/2 )
-      DOUBLE PRECISION   WORKARFINV( (NMAX*(NMAX+1))/2 )
-      DOUBLE PRECISION   D_WORK_DLATMS( 3 * NMAX )
-      DOUBLE PRECISION   D_WORK_DPOT01( NMAX )
-      DOUBLE PRECISION   D_TEMP_DPOT02( NMAX, MAXRHS )
-      DOUBLE PRECISION   D_TEMP_DPOT03( NMAX, NMAX )
-      DOUBLE PRECISION   D_WORK_DLANSY( NMAX )
-      DOUBLE PRECISION   D_WORK_DPOT02( NMAX )
-      DOUBLE PRECISION   D_WORK_DPOT03( NMAX )
+      double             WORKA( NMAX, NMAX );
+      double             WORKASAV( NMAX, NMAX );
+      double             WORKB( NMAX, MAXRHS );
+      double             WORKXACT( NMAX, MAXRHS );
+      double             WORKBSAV( NMAX, MAXRHS );
+      double             WORKX( NMAX, MAXRHS );
+      double             WORKAFAC( NMAX, NMAX );
+      double             WORKAINV( NMAX, NMAX );
+      double             WORKARF( (NMAX*(NMAX+1))/2 );
+      double             WORKAP( (NMAX*(NMAX+1))/2 );
+      double             WORKARFINV( (NMAX*(NMAX+1))/2 );
+      double             D_WORK_DLATMS( 3 * NMAX );
+      double             D_WORK_DPOT01( NMAX );
+      double             D_TEMP_DPOT02( NMAX, MAXRHS );
+      double             D_TEMP_DPOT03( NMAX, NMAX );
+      double             D_WORK_DLANSY( NMAX );
+      double             D_WORK_DPOT02( NMAX );
+      double             D_WORK_DPOT03( NMAX );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DSECND
+      double             DLAMCH, DSECND;
       EXTERNAL           DLAMCH, DSECND
 *     ..
 *     .. External Subroutines ..
@@ -202,7 +202,7 @@
      $      I6 )
  9995 FORMAT( ' !! Invalid input value: ', A4, '=', I6, '; must be <=',
      $      I6 )
- 9994 FORMAT( /  ' Tests of the DOUBLE PRECISION LAPACK RFP routines ',
+ 9994 FORMAT( /  ' Tests of the double           LAPACK RFP routines ',;
      $      / ' LAPACK VERSION ', I1, '.', I1, '.', I1,
      $      / / ' The following parameter values will be used:' )
  9993 FORMAT( 4X, A4, ':  ', 10I6, / 11X, 10I6 )

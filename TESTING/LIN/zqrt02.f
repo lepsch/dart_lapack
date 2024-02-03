@@ -8,24 +8,24 @@
       int                K, LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RESULT( * ), RWORK( * )
+      double             RESULT( * ), RWORK( * );
       COMPLEX*16         A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         ROGUE
       PARAMETER          ( ROGUE = ( -1.0D+10, -1.0D+10 ) )
 *     ..
 *     .. Local Scalars ..
       int                INFO
-      DOUBLE PRECISION   ANORM, EPS, RESID
+      double             ANORM, EPS, RESID;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANGE, ZLANSY
+      double             DLAMCH, ZLANGE, ZLANSY;
       EXTERNAL           DLAMCH, ZLANGE, ZLANSY
 *     ..
 *     .. External Subroutines ..

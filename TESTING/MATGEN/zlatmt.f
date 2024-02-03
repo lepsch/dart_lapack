@@ -5,37 +5,37 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   COND, DMAX
+      double             COND, DMAX;
       int                INFO, KL, KU, LDA, M, MODE, N, RANK
       String             DIST, PACK, SYM;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), WORK( * )
-      DOUBLE PRECISION   D( * )
+      double             D( * );
       int                ISEED( 4 )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
-      DOUBLE PRECISION   TWOPI
+      double             TWOPI;
       PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839D+0 )
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16         C, CT, DUMMY, EXTRA, S, ST, ZTEMP
-      DOUBLE PRECISION   ALPHA, ANGLE, REALC, TEMP
+      double             ALPHA, ANGLE, REALC, TEMP;
       int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB
       bool               CSYM, GIVENS, ILEXTR, ILTEMP, TOPDWN;
 *     ..
 *     .. External Functions ..
       COMPLEX*16         ZLARND
-      DOUBLE PRECISION   DLARND
+      double             DLARND;
       bool               LSAME;
       EXTERNAL           ZLARND, DLARND, LSAME
 *     ..

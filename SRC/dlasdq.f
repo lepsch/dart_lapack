@@ -9,19 +9,19 @@
       int                INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU, SQRE
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
+      double             C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               ROTATE;
       int                I, ISUB, IUPLO, J, NP1, SQRE1
-      DOUBLE PRECISION   CS, R, SMIN, SN
+      double             CS, R, SMIN, SN;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DBDSQR, DLARTG, DLASR, DSWAP, XERBLA

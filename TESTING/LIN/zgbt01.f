@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                KL, KU, LDA, LDAFAC, M, N
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
@@ -16,16 +16,16 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, I1, I2, IL, IP, IW, J, JL, JU, JUA, KD, LENJ
-      DOUBLE PRECISION   ANORM, EPS
+      double             ANORM, EPS;
       COMPLEX*16         T
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DZASUM
+      double             DLAMCH, DZASUM;
       EXTERNAL           DLAMCH, DZASUM
 *     ..
 *     .. External Subroutines ..

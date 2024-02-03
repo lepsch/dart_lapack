@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Arrays ..
       int                IP( NMAX )
-      DOUBLE PRECISION   A( NMAX, NMAX ), TAU( NMAX ), W( 3*NMAX+1 )
+      double             A( NMAX, NMAX ), TAU( NMAX ), W( 3*NMAX+1 );
 *     ..
 *     .. External Functions ..
       bool               LSAMEN;

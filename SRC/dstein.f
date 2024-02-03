@@ -9,27 +9,27 @@
 *     ..
 *     .. Array Arguments ..
       int                IBLOCK( * ), IFAIL( * ), ISPLIT( * ), IWORK( * )
-      DOUBLE PRECISION   D( * ), E( * ), W( * ), WORK( * ), Z( LDZ, * )
+      double             D( * ), E( * ), W( * ), WORK( * ), Z( LDZ, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TEN, ODM3, ODM1
+      double             ZERO, ONE, TEN, ODM3, ODM1;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1, ODM3 = 1.0D-3, ODM1 = 1.0D-1 )
       int                MAXITS, EXTRA
       PARAMETER          ( MAXITS = 5, EXTRA = 2 )
 *     ..
 *     .. Local Scalars ..
       int                B1, BLKSIZ, BN, GPIND, I, IINFO, INDRV1, INDRV2, INDRV3, INDRV4, INDRV5, ITS, J, J1, JBLK, JMAX, NBLK, NRMCHK
-      DOUBLE PRECISION   DTPCRT, EPS, EPS1, NRM, ONENRM, ORTOL, PERTOL, SCL, SEP, TOL, XJ, XJM, ZTR
+      double             DTPCRT, EPS, EPS1, NRM, ONENRM, ORTOL, PERTOL, SCL, SEP, TOL, XJ, XJM, ZTR;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 )
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DDOT, DLAMCH, DNRM2
+      double             DDOT, DLAMCH, DNRM2;
       EXTERNAL           IDAMAX, DDOT, DLAMCH, DNRM2
 *     ..
 *     .. External Subroutines ..

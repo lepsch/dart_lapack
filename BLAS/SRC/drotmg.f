@@ -5,16 +5,16 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION DD1,DD2,DX1,DY1
+      double           DD1,DD2,DX1,DY1;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION DPARAM(5)
+      double           DPARAM(5);
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION DFLAG,DH11,DH12,DH21,DH22,DP1,DP2,DQ1,DQ2,DTEMP, DU,GAM,GAMSQ,ONE,RGAMSQ,TWO,ZERO
+      double           DFLAG,DH11,DH12,DH21,DH22,DP1,DP2,DQ1,DQ2,DTEMP, DU,GAM,GAMSQ,ONE,RGAMSQ,TWO,ZERO;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC DABS

@@ -7,32 +7,32 @@
 *     .. Scalar Arguments ..
       bool               COMP;
       int                INFO, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT
-      DOUBLE PRECISION   RCDEIN, RCDVIN, THRESH
+      double             RCDEIN, RCDVIN, THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               BWORK( * );
       int                ISEED( 4 ), ISLCT( * ), IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), H( LDA, * ), HT( LDA, * ), RESULT( 17 ), VS( LDVS, * ), VS1( LDVS, * ), WI( * ), WIT( * ), WITMP( * ), WORK( * ), WR( * ), WRT( * ), WRTMP( * )
+      double             A( LDA, * ), H( LDA, * ), HT( LDA, * ), RESULT( 17 ), VS( LDVS, * ), VS1( LDVS, * ), WI( * ), WIT( * ), WITMP( * ), WORK( * ), WR( * ), WRT( * ), WRTMP( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-      DOUBLE PRECISION   EPSIN
+      double             EPSIN;
       PARAMETER          ( EPSIN = 5.9605D-8 )
 *     ..
 *     .. Local Scalars ..
       String             SORT;
-      int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, LIWORK, RSUB, SDIM, SDIM1       DOUBLE PRECISION   ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TMP, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VRMIN, WNORM
+      int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, LIWORK, RSUB, SDIM, SDIM1       double             ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TMP, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VRMIN, WNORM;
 *     ..
 *     .. Local Arrays ..
       int                IPNT( 20 )
 *     ..
 *     .. Arrays in Common ..
       bool               SELVAL( 20 );
-      DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
+      double             SELWI( 20 ), SELWR( 20 );
 *     ..
 *     .. Scalars in Common ..
       int                SELDIM, SELOPT
@@ -42,7 +42,7 @@
 *     ..
 *     .. External Functions ..
       bool               DSLECT;
-      DOUBLE PRECISION   DLAMCH, DLANGE
+      double             DLAMCH, DLANGE;
       EXTERNAL           DSLECT, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

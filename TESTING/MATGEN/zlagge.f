@@ -9,7 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   D( * )
+      double             D( * );
       COMPLEX*16         A( LDA, * ), WORK( * )
 *     ..
 *
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   WN
+      double             WN;
       COMPLEX*16         TAU, WA, WB
 *     ..
 *     .. External Subroutines ..
@@ -31,7 +31,7 @@
       INTRINSIC          ABS, DBLE, MAX, MIN
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DZNRM2
+      double             DZNRM2;
       EXTERNAL           DZNRM2
 *     ..
 *     .. Executable Statements ..

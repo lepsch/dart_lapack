@@ -7,29 +7,29 @@
 *     .. Scalar Arguments ..
       bool               LREAL, LTRAN;
       int                INFO, LDT, N
-      DOUBLE PRECISION   SCALE, W
+      double             SCALE, W;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B( * ), T( LDT, * ), WORK( * ), X( * )
+      double             B( * ), T( LDT, * ), WORK( * ), X( * );
 *     ..
 *
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               NOTRAN;
       int                I, IERR, J, J1, J2, JNEXT, K, N1, N2
-      DOUBLE PRECISION   BIGNUM, EPS, REC, SCALOC, SI, SMIN, SMINW, SMLNUM, SR, TJJ, TMP, XJ, XMAX, XNORM, Z
+      double             BIGNUM, EPS, REC, SCALOC, SI, SMIN, SMINW, SMLNUM, SR, TJJ, TMP, XJ, XMAX, XNORM, Z;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   D( 2, 2 ), V( 2, 2 )
+      double             D( 2, 2 ), V( 2, 2 );
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DASUM, DDOT, DLAMCH, DLANGE
+      double             DASUM, DDOT, DLAMCH, DLANGE;
       EXTERNAL           IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

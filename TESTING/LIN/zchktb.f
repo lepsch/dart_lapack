@@ -7,12 +7,12 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNS, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                NSVAL( * ), NVAL( * )
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         AB( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
@@ -25,23 +25,23 @@
       PARAMETER          ( NTESTS = 8 )
       int                NTRAN
       PARAMETER          ( NTRAN = 3 )
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       String             DIAG, NORM, TRANS, UPLO, XTYPE;
       String             PATH;
       int                I, IDIAG, IK, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, J, K, KD, LDA, LDAB, N, NERRS, NFAIL, NIMAT, NIMAT2, NK, NRHS, NRUN
-      DOUBLE PRECISION   AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE
+      double             AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE;
 *     ..
 *     .. Local Arrays ..
       String             TRANSS( NTRAN ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   ZLANTB, ZLANTR
+      double             ZLANTB, ZLANTR;
       EXTERNAL           LSAME, ZLANTB, ZLANTR
 *     ..
 *     .. External Subroutines ..

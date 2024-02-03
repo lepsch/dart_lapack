@@ -11,14 +11,14 @@
       int                INFO, LDA, LDAB, LWORK, N, KD
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * )
+      double             A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   RONE
-      DOUBLE PRECISION   ZERO, ONE, HALF
+      double             RONE;
+      double             ZERO, ONE, HALF;
       PARAMETER          ( RONE = 1.0D+0, ZERO = 0.0D+0, ONE = 1.0D+0, HALF = 0.5D+0 )
 *     ..
 *     .. Local Scalars ..

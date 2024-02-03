@@ -7,11 +7,11 @@
 *     .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, KL, KU, LDAB, LDAFB, LDB, LDX, N, NRHS
-      DOUBLE PRECISION   RCOND
+      double             RCOND;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   BERR( * ), C( * ), FERR( * ), R( * ), RWORK( * )       COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
+      double             BERR( * ), C( * ), FERR( * ), R( * ), RWORK( * )       COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
 *     ..
 *
 *  =====================================================================
@@ -20,18 +20,18 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
       String             NORM;
       int                I, INFEQU, J, J1, J2
-      DOUBLE PRECISION   AMAX, ANORM, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, RPVGRW, SMLNUM
+      double             AMAX, ANORM, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, RPVGRW, SMLNUM;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, ZLANGB, ZLANTB
+      double             DLAMCH, ZLANGB, ZLANTB;
       EXTERNAL           LSAME, DLAMCH, ZLANGB, ZLANTB
 *     ..
 *     .. External Subroutines ..

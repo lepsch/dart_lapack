@@ -9,7 +9,7 @@
       int                INFO, N, LDA
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), AP( * )
+      double             A( LDA, * ), AP( * );
 *     ..
 *
 *  =====================================================================

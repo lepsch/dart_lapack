@@ -11,13 +11,13 @@
       int                M, N, N1, N2, LDQ, LDC, LWORK, INFO
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   Q( LDQ, * ), C( LDC, * ), WORK( * )
+      double             Q( LDQ, * ), C( LDC, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
 *
 *     .. Local Scalars ..

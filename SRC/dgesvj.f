@@ -9,24 +9,24 @@
       String             JOBA, JOBU, JOBV;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), SVA( N ), V( LDV, * ), WORK( LWORK )
+      double             A( LDA, * ), SVA( N ), V( LDV, * ), WORK( LWORK );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Parameters ..
-      DOUBLE PRECISION   ZERO, HALF, ONE
+      double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0)
       int                NSWEEP
       PARAMETER          ( NSWEEP = 30 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL
+      double             AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL;
       int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN
       bool               APPLV, GOSCALE, LOWER, LQUERY, LSVEC, NOSCALE, ROTOK, RSVEC, UCTOL, UPPER;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   FASTR( 5 )
+      double             FASTR( 5 );
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DABS, MAX, MIN, DBLE, DSIGN, DSQRT
@@ -34,12 +34,12 @@
 *     .. External Functions ..
 *     ..
 *     from BLAS
-      DOUBLE PRECISION   DDOT, DNRM2
+      double             DDOT, DNRM2;
       EXTERNAL           DDOT, DNRM2
       int                IDAMAX
       EXTERNAL           IDAMAX
 *     from LAPACK
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
       bool               LSAME;
       EXTERNAL           LSAME

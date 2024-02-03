@@ -6,18 +6,18 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, LDA, LDVS, NOUNIT, NSIZES, NTYPES, NWORK
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * )
-      DOUBLE PRECISION   A( LDA, * ), H( LDA, * ), HT( LDA, * ), RESULT( 13 ), VS( LDVS, * ), WI( * ), WIT( * ), WORK( * ), WR( * ), WRT( * )
+      double             A( LDA, * ), H( LDA, * ), HT( LDA, * ), RESULT( 13 ), VS( LDVS, * ), WI( * ), WIT( * ), WORK( * ), WR( * ), WRT( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       int                MAXTYP
       PARAMETER          ( MAXTYP = 21 )
@@ -27,16 +27,16 @@
       String             SORT;
       String             PATH;
       int                I, IINFO, IMODE, ISORT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, KNTEIG, LWORK, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT, RSUB, SDIM
-      DOUBLE PRECISION   ANORM, COND, CONDS, OVFL, RTULP, RTULPI, TMP, ULP, ULPINV, UNFL
+      double             ANORM, COND, CONDS, OVFL, RTULP, RTULPI, TMP, ULP, ULPINV, UNFL;
 *     ..
 *     .. Local Arrays ..
       String             ADUMMA( 1 );
       int                IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
-      DOUBLE PRECISION   RES( 2 )
+      double             RES( 2 );
 *     ..
 *     .. Arrays in Common ..
       bool               SELVAL( 20 );
-      DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
+      double             SELWI( 20 ), SELWR( 20 );
 *     ..
 *     .. Scalars in Common ..
       int                SELDIM, SELOPT
@@ -46,7 +46,7 @@
 *     ..
 *     .. External Functions ..
       bool               DSLECT;
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DSLECT, DLAMCH
 *     ..
 *     .. External Subroutines ..
@@ -62,7 +62,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'ES'
 *
 *     Check for errors

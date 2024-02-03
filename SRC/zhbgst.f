@@ -9,7 +9,7 @@
       int                INFO, KA, KB, LDAB, LDBB, LDX, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
@@ -17,13 +17,13 @@
 *
 *     .. Parameters ..
       COMPLEX*16         CZERO, CONE
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ), ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPDATE, UPPER, WANTX;
       int                I, I0, I1, I2, INCA, J, J1, J1T, J2, J2T, K, KA1, KB1, KBT, L, M, NR, NRT, NX
-      DOUBLE PRECISION   BII
+      double             BII;
       COMPLEX*16         RA, RA1, T
 *     ..
 *     .. External Functions ..

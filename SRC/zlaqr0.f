@@ -36,16 +36,16 @@
 *
 *     ==== The constant WILK1 is used to form the exceptional
 *     .    shifts. ====
-      DOUBLE PRECISION   WILK1
+      double             WILK1;
       PARAMETER          ( WILK1 = 0.75d0 )
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) )
-      DOUBLE PRECISION   TWO
+      double             TWO;
       PARAMETER          ( TWO = 2.0d0 )
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16         AA, BB, CC, CDUM, DD, DET, RTDISC, SWAP, TR2
-      DOUBLE PRECISION   S
+      double             S;
       int                I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS, KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS, LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS, NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD
       bool               SORTED;
       String             JBCMPZ*2;
@@ -64,7 +64,7 @@
       INTRINSIC          ABS, DBLE, DCMPLX, DIMAG, INT, MAX, MIN, MOD, SQRT
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )

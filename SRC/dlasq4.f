@@ -6,23 +6,23 @@
 *
 *     .. Scalar Arguments ..
       int                I0, N0, N0IN, PP, TTYPE
-      DOUBLE PRECISION   DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, TAU
+      double             DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, TAU;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   Z( * )
+      double             Z( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   CNST1, CNST2, CNST3
+      double             CNST1, CNST2, CNST3;
       PARAMETER          ( CNST1 = 0.5630D0, CNST2 = 1.010D0, CNST3 = 1.050D0 )
-      DOUBLE PRECISION   QURTR, THIRD, HALF, ZERO, ONE, TWO, HUNDRD
+      double             QURTR, THIRD, HALF, ZERO, ONE, TWO, HUNDRD;
       PARAMETER          ( QURTR = 0.250D0, THIRD = 0.3330D0, HALF = 0.50D0, ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HUNDRD = 100.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I4, NN, NP
-      DOUBLE PRECISION   A2, B1, B2, GAM, GAP1, GAP2, S
+      double             A2, B1, B2, GAM, GAP1, GAP2, S;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN, SQRT

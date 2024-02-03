@@ -9,7 +9,7 @@
       int                LDA, LDW, N, NB
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   E( * )
+      double             E( * );
       COMPLEX*16         A( LDA, * ), TAU( * ), W( LDW, * )
 *     ..
 *

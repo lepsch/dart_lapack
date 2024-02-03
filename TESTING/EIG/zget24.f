@@ -7,12 +7,12 @@
 *     .. Scalar Arguments ..
       bool               COMP;
       int                INFO, ISRT, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT
-      DOUBLE PRECISION   RCDEIN, RCDVIN, THRESH
+      double             RCDEIN, RCDVIN, THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               BWORK( * );
       int                ISEED( 4 ), ISLCT( * )
-      DOUBLE PRECISION   RESULT( 17 ), RWORK( * )
+      double             RESULT( 17 ), RWORK( * );
       COMPLEX*16         A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * )
 *     ..
 *
@@ -21,14 +21,14 @@
 *     .. Parameters ..
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      DOUBLE PRECISION   EPSIN
+      double             EPSIN;
       PARAMETER          ( EPSIN = 5.9605D-8 )
 *     ..
 *     .. Local Scalars ..
       String             SORT;
-      int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, RSUB, SDIM, SDIM1       DOUBLE PRECISION   ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM
+      int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, RSUB, SDIM, SDIM1       double             ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM;
       COMPLEX*16         CTMP
 *     ..
 *     .. Local Arrays ..
@@ -36,7 +36,7 @@
 *     ..
 *     .. External Functions ..
       bool               ZSLECT;
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       EXTERNAL           ZSLECT, DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
@@ -47,7 +47,7 @@
 *     ..
 *     .. Arrays in Common ..
       bool               SELVAL( 20 );
-      DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
+      double             SELWI( 20 ), SELWR( 20 );
 *     ..
 *     .. Scalars in Common ..
       int                SELDIM, SELOPT

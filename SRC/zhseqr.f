@@ -32,7 +32,7 @@
       PARAMETER          ( NL = 49 )
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) )
-      DOUBLE PRECISION   RZERO
+      double             RZERO;
       PARAMETER          ( RZERO = 0.0d0 )
 *     ..
 *     .. Local Arrays ..

@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DZSUM1( N, CX, INCX )
+      double           FUNCTION DZSUM1( N, CX, INCX );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,7 +15,7 @@
 *
 *     .. Local Scalars ..
       int                I, NINCX
-      DOUBLE PRECISION   STEMP
+      double             STEMP;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS

@@ -9,7 +9,7 @@
       int                LDA, LDB, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * )
+      double             A( LDA, * ), B( LDB, * );
 *     ..
 *
 *  =====================================================================

@@ -1,7 +1,7 @@
       subroutine dsdotsub(n,x,incx,y,incy,dot)
 c
       external dsdot
-      double precision dsdot,dot
+      double           dsdot,dot;
       int     n,incx,incy
       real x(*),y(*)
 c

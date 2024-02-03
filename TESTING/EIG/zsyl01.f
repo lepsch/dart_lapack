@@ -9,11 +9,11 @@
 *
 *     .. Scalar Arguments ..
       int                KNT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       int                NFAIL( 3 ), NINFO( 2 )
-      DOUBLE PRECISION   RMAX( 2 )
+      double             RMAX( 2 );
 *     ..
 *
 *  =====================================================================
@@ -21,29 +21,29 @@
 *     .. Parameters ..
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D0, 0.0D+0 ) )
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       int                MAXM, MAXN, LDSWORK
       PARAMETER          ( MAXM = 185, MAXN = 192, LDSWORK = 36 )
 *     ..
 *     .. Local Scalars ..
       String             TRANA, TRANB;
-      int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, M, N       DOUBLE PRECISION   ANRM, BNRM, BIGNUM, EPS, RES, RES1, SCALE, SCALE3, SMLNUM, TNRM, XNRM
+      int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, M, N       double             ANRM, BNRM, BIGNUM, EPS, RES, RES1, SCALE, SCALE3, SMLNUM, TNRM, XNRM;
       COMPLEX*16         RMUL
 *     ..
 *     .. Local Arrays ..
       COMPLEX*16         DUML( MAXM ), DUMR( MAXN ), D( MAX( MAXM, MAXN ) )
-      DOUBLE PRECISION   DUM( MAXN ), VM( 2 )
+      double             DUM( MAXN ), VM( 2 );
       int                ISEED( 4 ), IWORK( MAXM + MAXN + 2 )
 *     ..
 *     .. Allocatable Arrays ..
       int                AllocateStatus
       COMPLEX*16,       DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X
-      DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: SWORK
+      double          , DIMENSION(:,:), ALLOCATABLE :: SWORK;
 *     ..
 *     .. External Functions ..
       bool               DISNAN;
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       EXTERNAL           DISNAN, DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..

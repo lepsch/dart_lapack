@@ -8,19 +8,19 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, LDA, LDU, LDVT, LWORK, NOUNIT, NSIZES, NTYPES
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * )
-      DOUBLE PRECISION   E( * ), RWORK( * ), S( * ), SSAV( * )
+      double             E( * ), RWORK( * ), S( * ), SSAV( * );
       COMPLEX*16         A( LDA, * ), ASAV( LDA, * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO, HALF
+      double             ZERO, ONE, TWO, HALF;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = 0.5D0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
@@ -31,7 +31,7 @@
       bool               BADMM, BADNN;
       String             JOBQ, JOBU, JOBVT, RANGE;
       int                I, IINFO, IJQ, IJU, IJVT, IL, IU, ITEMP, IWSPC, IWTMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NERRS, NFAIL, NMAX, NS, NSI, NSV, NTEST, NTESTF, NTESTT, LRWORK
-      DOUBLE PRECISION   ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU
+      double             ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU;
 *     ..
 *     .. Local Scalars for ZGESVDQ ..
       int                LIWORK, NUMRANK
@@ -39,10 +39,10 @@
 *     .. Local Arrays ..
       String             CJOB( 4 ), CJOBR( 3 ), CJOBV( 2 );
       int                IOLDSD( 4 ), ISEED2( 4 )
-      DOUBLE PRECISION   RESULT( 39 )
+      double             RESULT( 39 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLARND
+      double             DLAMCH, DLARND;
       EXTERNAL           DLAMCH, DLARND
 *     ..
 *     .. External Subroutines ..

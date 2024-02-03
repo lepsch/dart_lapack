@@ -7,11 +7,11 @@
 *     .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NN, NNB, NNS, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * )       DOUBLE PRECISION   A( * ), B( * ), C( * ), COPYA( * ), COPYB( * ), COPYS( * ), S( * )
+      int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * )       double             A( * ), B( * ), C( * ), COPYA( * ), COPYB( * ), COPYS( * ), S( * );
 *     ..
 *
 *  =====================================================================
@@ -21,25 +21,25 @@
       PARAMETER          ( NTESTS = 18 )
       int                SMLSIZ
       PARAMETER          ( SMLSIZ = 25 )
-      DOUBLE PRECISION   ONE, TWO, ZERO
+      double             ONE, TWO, ZERO;
       PARAMETER          ( ONE = 1.0D0, TWO = 2.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       String             TRANS;
       String             PATH;
       int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LWORK_DGELS, LWORK_DGELST, LWORK_DGETSLS, LWORK_DGELSS, LWORK_DGELSY, LWORK_DGELSD
-      DOUBLE PRECISION   EPS, NORMA, NORMB, RCOND
+      double             EPS, NORMA, NORMB, RCOND;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 ), IWQ( 1 )
-      DOUBLE PRECISION   RESULT( NTESTS ), WQ( 1 )
+      double             RESULT( NTESTS ), WQ( 1 );
 *     ..
 *     .. Allocatable Arrays ..
-      DOUBLE PRECISION, ALLOCATABLE :: WORK (:)
+      double          , ALLOCATABLE :: WORK (:);
       int    , ALLOCATABLE :: IWORK (:)
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DASUM, DLAMCH, DQRT12, DQRT14, DQRT17
+      double             DASUM, DLAMCH, DQRT12, DQRT14, DQRT17;
       EXTERNAL           DASUM, DLAMCH, DQRT12, DQRT14, DQRT17
 *     ..
 *     .. External Subroutines ..
@@ -64,7 +64,7 @@
 *
 *     Initialize constants and the random number seed.
 *
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'LS'
       NRUN = 0
       NFAIL = 0

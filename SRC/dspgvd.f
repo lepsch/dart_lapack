@@ -10,7 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   AP( * ), BP( * ), W( * ), WORK( * ), Z( LDZ, * )
+      double             AP( * ), BP( * ), W( * ), WORK( * ), Z( LDZ, * );
 *     ..
 *
 *  =====================================================================

@@ -8,30 +8,30 @@
 *     .. Scalar Arguments ..
       int     LWORK, M, N, L, NB, LDT
 *     .. Return values ..
-      DOUBLE PRECISION RESULT(6)
+      double           RESULT(6);
 *
 *  =====================================================================
 *
 *     ..
 *     .. Local allocatable arrays
       COMPLEX*16, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
-      DOUBLE PRECISION, ALLOCATABLE :: RWORK(:)
+      double          , ALLOCATABLE :: RWORK(:);
 *
 *     .. Parameters ..
-      DOUBLE PRECISION ZERO
+      double           ZERO;
       COMPLEX*16 ONE, CZERO
       PARAMETER( ZERO = 0.0, ONE = (1.0,0.0), CZERO=(0.0,0.0) )
 *     ..
 *     .. Local Scalars ..
       int     INFO, J, K, M2, NP1
-      DOUBLE PRECISION ANORM, EPS, RESID, CNORM, DNORM
+      double           ANORM, EPS, RESID, CNORM, DNORM;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION DLAMCH
-      DOUBLE PRECISION ZLANGE, ZLANSY
+      double           DLAMCH;
+      double           ZLANGE, ZLANSY;
       bool     LSAME;
       EXTERNAL DLAMCH, ZLANGE, ZLANSY, LSAME
 *     ..

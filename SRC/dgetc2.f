@@ -9,24 +9,24 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * ), JPIV( * )
-      DOUBLE PRECISION   A( LDA, * )
+      double             A( LDA, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IP, IPV, J, JP, JPV
-      DOUBLE PRECISION   BIGNUM, EPS, SMIN, SMLNUM, XMAX
+      double             BIGNUM, EPS, SMIN, SMLNUM, XMAX;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGER, DSWAP
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

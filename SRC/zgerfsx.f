@@ -7,21 +7,21 @@
 *     .. Scalar Arguments ..
       String             TRANS, EQUED;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
-      DOUBLE PRECISION   RCOND
+      double             RCOND;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ), WORK( * )       DOUBLE PRECISION   R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * )
+      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ), WORK( * )       double             R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
 *     ..
 *
 *  ==================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      DOUBLE PRECISION   ITREF_DEFAULT, ITHRESH_DEFAULT
-      DOUBLE PRECISION   COMPONENTWISE_DEFAULT, RTHRESH_DEFAULT
-      DOUBLE PRECISION   DZTHRESH_DEFAULT
+      double             ITREF_DEFAULT, ITHRESH_DEFAULT;
+      double             COMPONENTWISE_DEFAULT, RTHRESH_DEFAULT;
+      double             DZTHRESH_DEFAULT;
       PARAMETER          ( ITREF_DEFAULT = 1.0D+0 )
       PARAMETER          ( ITHRESH_DEFAULT = 10.0D+0 )
       PARAMETER          ( COMPONENTWISE_DEFAULT = 1.0D+0 )
@@ -38,11 +38,11 @@
       bool               ROWEQU, COLEQU, NOTRAN;
       int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE
       int                N_NORMS
-      DOUBLE PRECISION   ANORM, RCOND_TMP
-      DOUBLE PRECISION   ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG
+      double             ANORM, RCOND_TMP;
+      double             ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG;
       bool               IGNORE_CWISE;
       int                ITHRESH
-      DOUBLE PRECISION   RTHRESH, UNSTABLE_THRESH
+      double             RTHRESH, UNSTABLE_THRESH;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZGECON, ZLA_GERFSX_EXTENDED
@@ -53,7 +53,7 @@
 *     .. External Functions ..
       EXTERNAL           LSAME, ILATRANS, ILAPREC
       EXTERNAL           DLAMCH, ZLANGE, ZLA_GERCOND_X, ZLA_GERCOND_C
-      DOUBLE PRECISION   DLAMCH, ZLANGE, ZLA_GERCOND_X, ZLA_GERCOND_C
+      double             DLAMCH, ZLANGE, ZLA_GERCOND_X, ZLA_GERCOND_C;
       bool               LSAME;
       int                ILATRANS, ILAPREC
 *     ..

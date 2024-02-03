@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLA_GERPVGRW( N, NCOLS, A, LDA, AF, LDAF )
+      double           FUNCTION DLA_GERPVGRW( N, NCOLS, A, LDA, AF, LDAF );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,14 +8,14 @@
       int                N, NCOLS, LDA, LDAF
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * )
+      double             A( LDA, * ), AF( LDAF, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   AMAX, UMAX, RPVGRW
+      double             AMAX, UMAX, RPVGRW;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN

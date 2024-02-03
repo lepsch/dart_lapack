@@ -1,23 +1,23 @@
-      DOUBLE PRECISION FUNCTION DLAPY2( X, Y )
+      double           FUNCTION DLAPY2( X, Y );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   X, Y
+      double             X, Y;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   W, XABS, YABS, Z, HUGEVAL
+      double             W, XABS, YABS, Z, HUGEVAL;
       bool               X_IS_NAN, Y_IS_NAN;
 *     ..
 *     .. External Functions ..
@@ -25,7 +25,7 @@
       EXTERNAL           DISNAN
 *     ..
 *     .. External Subroutines ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN, SQRT

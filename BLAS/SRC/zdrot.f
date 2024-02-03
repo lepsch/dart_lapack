@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                INCX, INCY, N
-      DOUBLE PRECISION   C, S
+      double             C, S;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         ZX( * ), ZY( * )

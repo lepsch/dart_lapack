@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       int                KASE, N
-      DOUBLE PRECISION   EST
+      double             EST;
 *     ..
 *     .. Array Arguments ..
       int                ISGN( * ), ISAVE( 3 )
-      DOUBLE PRECISION   V( * ), X( * )
+      double             V( * ), X( * );
 *     ..
 *
 *  =====================================================================
@@ -18,16 +18,16 @@
 *     .. Parameters ..
       int                ITMAX
       PARAMETER          ( ITMAX = 5 )
-      DOUBLE PRECISION   ZERO, ONE, TWO
+      double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, JLAST
-      DOUBLE PRECISION   ALTSGN, ESTOLD, TEMP, XS
+      double             ALTSGN, ESTOLD, TEMP, XS;
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DASUM
+      double             DASUM;
       EXTERNAL           IDAMAX, DASUM
 *     ..
 *     .. External Subroutines ..

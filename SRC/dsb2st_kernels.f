@@ -12,19 +12,19 @@
       int                TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), V( * ), TAU( * ), WORK( * )
+      double             A( LDA, * ), V( * ), TAU( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       int                I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER
-      DOUBLE PRECISION   CTMP
+      double             CTMP;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLARFG, DLARFX, DLARFY

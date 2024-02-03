@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                KNT, LMAX
-      DOUBLE PRECISION   RMAX
+      double             RMAX;
 *     ..
 *     .. Array Arguments ..
       int                NINFO( 2 )
@@ -15,24 +15,24 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, HALF, ONE
+      double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
-      DOUBLE PRECISION   TWO, THREE, FOUR
+      double             TWO, THREE, FOUR;
       PARAMETER          ( TWO = 2.0D0, THREE = 3.0D0, FOUR = 4.0D0 )
-      DOUBLE PRECISION   SEVEN, TEN
+      double             SEVEN, TEN;
       PARAMETER          ( SEVEN = 7.0D0, TEN = 10.0D0 )
-      DOUBLE PRECISION   TWNONE
+      double             TWNONE;
       PARAMETER          ( TWNONE = 21.0D0 )
 *     ..
 *     .. Local Scalars ..
-      int                IA, IB, ICA, ID1, ID2, INFO, ISMIN, ITRANS, IWI, IWR, NA, NW       DOUBLE PRECISION   BIGNUM, CA, D1, D2, DEN, EPS, RES, SCALE, SMIN, SMLNUM, TMP, UNFL, WI, WR, XNORM
+      int                IA, IB, ICA, ID1, ID2, INFO, ISMIN, ITRANS, IWI, IWR, NA, NW       double             BIGNUM, CA, D1, D2, DEN, EPS, RES, SCALE, SMIN, SMLNUM, TMP, UNFL, WI, WR, XNORM;
 *     ..
 *     .. Local Arrays ..
       bool               LTRANS( 0: 1 );
-      DOUBLE PRECISION   A( 2, 2 ), B( 2, 2 ), VAB( 3 ), VCA( 5 ), VDD( 4 ), VSMIN( 4 ), VWI( 4 ), VWR( 4 ), X( 2, 2 )
+      double             A( 2, 2 ), B( 2, 2 ), VAB( 3 ), VCA( 5 ), VDD( 4 ), VSMIN( 4 ), VWI( 4 ), VWR( 4 ), X( 2, 2 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

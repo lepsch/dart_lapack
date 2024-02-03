@@ -9,7 +9,7 @@
       int                INFO, LDZ, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * ), WORK( * )
+      double             D( * ), E( * ), WORK( * );
       COMPLEX*16         Z( LDZ, * )
 *     ..
 *

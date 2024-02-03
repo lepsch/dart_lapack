@@ -8,7 +8,7 @@
       int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION DX(*),DY(*)
+      double           DX(*),DY(*);
 *     ..
 *
 *  =====================================================================

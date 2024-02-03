@@ -13,7 +13,7 @@
 *     ..
 *     .. Local Scalars ..
       int                INFO
-      DOUBLE PRECISION   ALPHA, BETA
+      double             ALPHA, BETA;
       COMPLEX*16         CALPHA
 *     ..
 *     .. Local Arrays ..

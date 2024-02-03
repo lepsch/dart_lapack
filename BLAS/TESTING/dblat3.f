@@ -11,26 +11,26 @@
       PARAMETER          ( NIN = 5 )
       int                NSUBS
       PARAMETER          ( NSUBS = 6 )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       int                NMAX
       PARAMETER          ( NMAX = 65 )
       int                NIDMAX, NALMAX, NBEMAX
       PARAMETER          ( NIDMAX = 9, NALMAX = 7, NBEMAX = 7 )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   EPS, ERR, THRESH
+      double             EPS, ERR, THRESH;
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NOUT, NTRA
       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR;
       String             TRANSA, TRANSB;
       String             SNAMET;
       String             SNAPS, SUMMRY;
 *     .. Local Arrays ..
-      DOUBLE PRECISION   AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX )
+      double             AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX );
       int                IDIM( NIDMAX )
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
 *     .. External Functions ..
-      DOUBLE PRECISION   DDIFF
+      double             DDIFF;
       bool               LDE;
       EXTERNAL           DDIFF, LDE
 *     .. External Subroutines ..
@@ -267,7 +267,7 @@
  9997 FORMAT( ' NUMBER OF VALUES OF ', A, ' IS LESS THAN 1 OR GREATER ',
      $      'THAN ', I2 )
  9996 FORMAT( ' VALUE OF N IS LESS THAN 0 OR GREATER THAN ', I2 )
- 9995 FORMAT( ' TESTS OF THE DOUBLE PRECISION LEVEL 3 BLAS', //' THE F',
+ 9995 FORMAT( ' TESTS OF THE double           LEVEL 3 BLAS', //' THE F',;
      $      'OLLOWING PARAMETER VALUES WILL BE USED:' )
  9994 FORMAT( '   FOR N              ', 9I6 )
  9993 FORMAT( '   FOR ALPHA          ', 7F6.1 )
@@ -304,18 +304,18 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
+      double             A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX );
       int                IDIM( NIDIM )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA, ALS, BETA, BLS, ERR, ERRMAX
+      double             ALPHA, ALS, BETA, BLS, ERR, ERRMAX;
       int                I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS
       bool               NULL, RESET, SAME, TRANA, TRANB;
       String             TRANAS, TRANBS, TRANSA, TRANSB;
@@ -555,18 +555,18 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
+      double             A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX );
       int                IDIM( NIDIM )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA, ALS, BETA, BLS, ERR, ERRMAX
+      double             ALPHA, ALS, BETA, BLS, ERR, ERRMAX;
       int                I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS
       bool               LEFT, NULL, RESET, SAME;
       String             SIDE, SIDES, UPLO, UPLOS;
@@ -793,18 +793,18 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                NALF, NIDIM, NMAX, NOUT, NTRA
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX ), G( NMAX )
+      double             A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX ), G( NMAX );
       int                IDIM( NIDIM )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA, ALS, ERR, ERRMAX
+      double             ALPHA, ALS, ERR, ERRMAX;
       int                I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS
       bool               LEFT, NULL, RESET, SAME;
       String             DIAG, DIAGS, SIDE, SIDES, TRANAS, TRANSA, UPLO, UPLOS;
@@ -1049,18 +1049,18 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
+      double             A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX );
       int                IDIM( NIDIM )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA, ALS, BETA, BETS, ERR, ERRMAX
+      double             ALPHA, ALS, BETA, BETS, ERR, ERRMAX;
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
       bool               NULL, RESET, SAME, TRAN, UPPER;
       String             TRANS, TRANSS, UPLO, UPLOS;
@@ -1290,18 +1290,18 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX )
+      double             AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX );
       int                IDIM( NIDIM )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA, ALS, BETA, BETS, ERR, ERRMAX
+      double             ALPHA, ALS, BETA, BETS, ERR, ERRMAX;
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
       bool               NULL, RESET, SAME, TRAN, UPPER;
       String             TRANS, TRANSS, UPLO, UPLOS;
@@ -1571,12 +1571,12 @@
       int                INFOT, NOUTC
       bool               LERR, OK;
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, TWO
+      double             ONE, TWO;
       PARAMETER          ( ONE = 1.0D0, TWO = 2.0D0 )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA, BETA
+      double             ALPHA, BETA;
 *     .. Local Arrays ..
-      DOUBLE PRECISION   A( 2, 1 ), B( 2, 1 ), C( 2, 1 )
+      double             A( 2, 1 ), B( 2, 1 ), C( 2, 1 );
 *     .. External Subroutines ..
       EXTERNAL           CHKXER, DGEMM, DSYMM, DSYR2K, DSYRK, DTRMM, DTRSM
 *     .. Common blocks ..
@@ -2118,23 +2118,23 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-      DOUBLE PRECISION   ROGUE
+      double             ROGUE;
       PARAMETER          ( ROGUE = -1.0D10 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   TRANSL
+      double             TRANSL;
       int                LDA, M, N, NMAX
       bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, * ), AA( * )
+      double             A( NMAX, * ), AA( * );
 *     .. Local Scalars ..
       int                I, IBEG, IEND, J
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
-      DOUBLE PRECISION   DBEG
+      double             DBEG;
       EXTERNAL           DBEG
 *     .. Executable Statements ..
       GEN = TYPE.EQ.'GE'
@@ -2221,17 +2221,17 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   ALPHA, BETA, EPS, ERR
+      double             ALPHA, BETA, EPS, ERR;
       int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT
       bool               FATAL, MV;
       String             TRANSA, TRANSB;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * ), G( * )
+      double             A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * ), G( * );
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ERRI
+      double             ERRI;
       int                I, J, K
       bool               TRANA, TRANB;
 *     .. Intrinsic Functions ..
@@ -2339,7 +2339,7 @@
 *     .. Scalar Arguments ..
       int                LR
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RI( * ), RJ( * )
+      double             RI( * ), RJ( * );
 *     .. Local Scalars ..
       int                I
 *     .. Executable Statements ..
@@ -2374,7 +2374,7 @@
       String             UPLO;
       String             TYPE;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AA( LDA, * ), AS( LDA, * )
+      double             AA( LDA, * ), AS( LDA, * );
 *     .. Local Scalars ..
       int                I, IBEG, IEND, J
       bool               UPPER;
@@ -2413,7 +2413,7 @@
 *     End of LDERES
 *
       END
-      DOUBLE PRECISION FUNCTION DBEG( RESET )
+      double           FUNCTION DBEG( RESET );
 *
 *  Generates random numbers uniformly distributed between -0.5 and 0.5.
 *
@@ -2459,7 +2459,7 @@
 *     End of DBEG
 *
       END
-      DOUBLE PRECISION FUNCTION DDIFF( X, Y )
+      double           FUNCTION DDIFF( X, Y );
 *
 *  Auxiliary routine for test program for Level 3 Blas.
 *
@@ -2470,7 +2470,7 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   X, Y
+      double             X, Y;
 *     .. Executable Statements ..
       DDIFF = X - Y
       RETURN

@@ -9,28 +9,28 @@
       int                IHI, ILO, INFO, LDA, LDB, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   LSCALE( * ), RSCALE( * ), WORK( * )
+      double             LSCALE( * ), RSCALE( * ), WORK( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, HALF, ONE
+      double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D+0, HALF = 0.5D+0, ONE = 1.0D+0 )
-      DOUBLE PRECISION   THREE, SCLFAC
+      double             THREE, SCLFAC;
       PARAMETER          ( THREE = 3.0D+0, SCLFAC = 1.0D+1 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, ICAB, IFLOW, IP1, IR, IRAB, IT, J, JC, JP1, K, KOUNT, L, LCAB, LM1, LRAB, LSFMAX, LSFMIN, M, NR, NRP2       DOUBLE PRECISION   ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2, COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX, SFMIN, SUM, T, TA, TB, TC
+      int                I, ICAB, IFLOW, IP1, IR, IRAB, IT, J, JC, JP1, K, KOUNT, L, LCAB, LM1, LRAB, LSFMAX, LSFMIN, M, NR, NRP2       double             ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2, COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX, SFMIN, SUM, T, TA, TB, TC;
       COMPLEX*16         CDUM
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                IZAMAX
-      DOUBLE PRECISION   DDOT, DLAMCH
+      double             DDOT, DLAMCH;
       EXTERNAL           LSAME, IZAMAX, DDOT, DLAMCH
 *     ..
 *     .. External Subroutines ..
@@ -40,7 +40,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, INT, LOG10, MAX, MIN, SIGN
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )

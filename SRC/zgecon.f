@@ -7,24 +7,24 @@
 *     .. Scalar Arguments ..
       String             NORM;
       int                INFO, LDA, N
-      DOUBLE PRECISION   ANORM, RCOND
+      double             ANORM, RCOND;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         A( LDA, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               ONENRM;
       String             NORMIN;
       int                IX, KASE, KASE1
-      DOUBLE PRECISION   AINVNM, SCALE, SL, SMLNUM, SU, HUGEVAL
+      double             AINVNM, SCALE, SL, SMLNUM, SU, HUGEVAL;
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
@@ -33,7 +33,7 @@
 *     .. External Functions ..
       bool               LSAME, DISNAN;
       int                IZAMAX
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAME, IZAMAX, DLAMCH, DISNAN
 *     ..
 *     .. External Subroutines ..
@@ -43,7 +43,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, MAX
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

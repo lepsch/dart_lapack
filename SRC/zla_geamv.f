@@ -5,13 +5,13 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   ALPHA, BETA
+      double             ALPHA, BETA;
       int                INCX, INCY, LDA, M, N
       int                TRANS
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), X( * )
-      DOUBLE PRECISION   Y( * )
+      double             Y( * );
 *     ..
 *
 *  =====================================================================
@@ -22,13 +22,13 @@
 *     ..
 *     .. Local Scalars ..
       bool               SYMB_ZERO;
-      DOUBLE PRECISION   TEMP, SAFE1
+      double             TEMP, SAFE1;
       int                I, INFO, IY, J, JX, KX, KY, LENX, LENY
       COMPLEX*16         CDUM
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, DLAMCH
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
 *     ..
 *     .. External Functions ..
       EXTERNAL           ILATRANS
@@ -38,7 +38,7 @@
       INTRINSIC          MAX, ABS, REAL, DIMAG, SIGN
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function Definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )

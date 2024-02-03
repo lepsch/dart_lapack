@@ -8,14 +8,14 @@
       int                LDA, LDB, LDC, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), RWORK( * )
+      double             A( LDA, * ), RWORK( * );
       COMPLEX*16         B( LDB, * ), C( LDC, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..

@@ -9,26 +9,26 @@
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   RESULT( 15 ), RWORK( * ), THETA( * )
-      DOUBLE PRECISION   U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( LWORK ), X( LDX, * ), XF( LDX, * )
+      double             RESULT( 15 ), RWORK( * ), THETA( * );
+      double             U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( LWORK ), X( LDX, * ), XF( LDX, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   REALONE, REALZERO
+      double             REALONE, REALZERO;
       PARAMETER          ( REALONE = 1.0D0, REALZERO = 0.0D0 )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-      DOUBLE PRECISION   PIOVER2
+      double             PIOVER2;
       PARAMETER ( PIOVER2 = 1.57079632679489661923132169163975144210D0 )
 *     ..
 *     .. Local Scalars ..
       int                I, INFO, R
-      DOUBLE PRECISION   EPS2, RESID, ULP, ULPINV
+      double             EPS2, RESID, ULP, ULPINV;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLANGE, DLANSY
+      double             DLAMCH, DLANGE, DLANSY;
       EXTERNAL           DLAMCH, DLANGE, DLANSY
 *     ..
 *     .. External Subroutines ..

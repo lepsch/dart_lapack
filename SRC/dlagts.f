@@ -6,28 +6,28 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, JOB, N
-      DOUBLE PRECISION   TOL
+      double             TOL;
 *     ..
 *     .. Array Arguments ..
       int                IN( * )
-      DOUBLE PRECISION   A( * ), B( * ), C( * ), D( * ), Y( * )
+      double             A( * ), B( * ), C( * ), D( * ), Y( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                K
-      DOUBLE PRECISION   ABSAK, AK, BIGNUM, EPS, PERT, SFMIN, TEMP
+      double             ABSAK, AK, BIGNUM, EPS, PERT, SFMIN, TEMP;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, SIGN
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

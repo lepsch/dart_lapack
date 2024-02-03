@@ -19,7 +19,7 @@
 *     ..
 *     .. Local Arrays ..
       COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX )
-      DOUBLE PRECISION   RWORK( NMAX )
+      double             RWORK( NMAX );
       COMPLEX*16         WORK(NMAX*NMAX)
       COMPLEX            SWORK(NMAX*NMAX)
 *     ..

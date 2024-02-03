@@ -9,13 +9,13 @@
       int               INFO, LDA, LDT, LWORK, M, N, MB, NB
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION  A( LDA, * ), T( LDT, * ), WORK( * )
+      double            A( LDA, * ), T( LDT, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
@@ -23,7 +23,7 @@
       int                NBLOCAL, MB2, M_PLUS_ONE, ITMP, IB_BOTTOM, LWORKOPT, NUM_ALL_ROW_BLOCKS, JB_T, IB, IMB, KB, KB_LAST, KNB, MB1
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   DUMMY( 1, 1 )
+      double             DUMMY( 1, 1 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLARFB_GETT, DLASET, XERBLA

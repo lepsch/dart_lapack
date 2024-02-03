@@ -11,7 +11,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ZI, ZR
+      double             ZI, ZR;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLADIV

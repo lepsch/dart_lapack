@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DASUM(N,DX,INCX)
+      double           FUNCTION DASUM(N,DX,INCX);
 *
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int     INCX,N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION DX(*)
+      double           DX(*);
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION DTEMP
+      double           DTEMP;
       int     I,M,MP1,NINCX
 *     ..
 *     .. Intrinsic Functions ..

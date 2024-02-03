@@ -8,7 +8,7 @@
       int                IHI, ILO, INFO, LDA, LWORK, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), TAU( * ), WORK( * )
+      double             A( LDA, * ), TAU( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
@@ -16,13 +16,13 @@
 *     .. Parameters ..
       int                NBMAX, LDT, TSIZE
       PARAMETER          ( NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY;
       int                I, IB, IINFO, IWT, J, LDWORK, LWKOPT, NB, NBMIN, NH, NX
-      DOUBLE PRECISION   EI
+      double             EI;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DGEHD2, DGEMM, DLAHR2, DLARFB, DTRMM, XERBLA

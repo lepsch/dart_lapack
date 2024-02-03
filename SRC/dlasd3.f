@@ -9,21 +9,21 @@
 *     ..
 *     .. Array Arguments ..
       int                CTOT( * ), IDXC( * )
-      DOUBLE PRECISION   D( * ), DSIGMA( * ), Q( LDQ, * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * )
+      double             D( * ), DSIGMA( * ), Q( LDQ, * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO, NEGONE
+      double             ONE, ZERO, NEGONE;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, NEGONE = -1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                CTEMP, I, J, JC, KTEMP, M, N, NLP1, NLP2, NRP1
-      DOUBLE PRECISION   RHO, TEMP
+      double             RHO, TEMP;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DNRM2
+      double             DNRM2;
       EXTERNAL           DNRM2
 *     ..
 *     .. External Subroutines ..

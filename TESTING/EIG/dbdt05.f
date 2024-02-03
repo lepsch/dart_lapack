@@ -6,26 +6,26 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, LDU, LDVT, M, N, NS
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
+      double             A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
 *     ..
 *
 * ======================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   ANORM, EPS
+      double             ANORM, EPS;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                IDAMAX
-      DOUBLE PRECISION   DASUM, DLAMCH, DLANGE
+      double             DASUM, DLAMCH, DLANGE;
       EXTERNAL           LSAME, IDAMAX, DASUM, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

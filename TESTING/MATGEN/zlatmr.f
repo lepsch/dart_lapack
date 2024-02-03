@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       String             DIST, GRADE, PACK, PIVTNG, RSIGN, SYM;
       int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N
-      DOUBLE PRECISION   ANORM, COND, CONDL, CONDR, SPARSE
+      double             ANORM, COND, CONDL, CONDR, SPARSE;
       COMPLEX*16         DMAX
 *     ..
 *     .. Array Arguments ..
@@ -18,9 +18,9 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D0, 0.0D0 ) )
@@ -30,15 +30,15 @@
 *     .. Local Scalars ..
       bool               BADPVT, DZERO, FULBND;
       int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS
-      DOUBLE PRECISION   ONORM, TEMP
+      double             ONORM, TEMP;
       COMPLEX*16         CALPHA, CTEMP
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   TEMPA( 1 )
+      double             TEMPA( 1 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   ZLANGB, ZLANGE, ZLANSB, ZLANSP, ZLANSY
+      double             ZLANGB, ZLANGE, ZLANSB, ZLANSP, ZLANSY;
       COMPLEX*16         ZLATM2, ZLATM3
       EXTERNAL           LSAME, ZLANGB, ZLANGE, ZLANSB, ZLANSP, ZLANSY, ZLATM2, ZLATM3
 *     ..

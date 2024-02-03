@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       String             TRANS;
       int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N
-      DOUBLE PRECISION   RDSCAL, RDSUM, SCALE
+      double             RDSCAL, RDSUM, SCALE;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * )
@@ -16,14 +16,14 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       int                LDZ
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, LDZ = 2 )
 *     ..
 *     .. Local Scalars ..
       bool               NOTRAN;
       int                I, IERR, J, K
-      DOUBLE PRECISION   SCALOC
+      double             SCALOC;
       COMPLEX*16         ALPHA
 *     ..
 *     .. Local Arrays ..

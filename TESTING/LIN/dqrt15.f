@@ -6,28 +6,28 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, LDB, LWORK, M, N, NRHS, RANK, RKSEL, SCALE
-      DOUBLE PRECISION   NORMA, NORMB
+      double             NORMA, NORMB;
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), S( * ), WORK( LWORK )
+      double             A( LDA, * ), B( LDB, * ), S( * ), WORK( LWORK );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO, SVMIN
+      double             ZERO, ONE, TWO, SVMIN;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, SVMIN = 0.1D0 )
 *     ..
 *     .. Local Scalars ..
       int                INFO, J, MN
-      DOUBLE PRECISION   BIGNUM, EPS, SMLNUM, TEMP
+      double             BIGNUM, EPS, SMLNUM, TEMP;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   DUMMY( 1 )
+      double             DUMMY( 1 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DASUM, DLAMCH, DLANGE, DLARND, DNRM2
+      double             DASUM, DLAMCH, DLANGE, DLARND, DNRM2;
       EXTERNAL           DASUM, DLAMCH, DLANGE, DLARND, DNRM2
 *     ..
 *     .. External Subroutines ..

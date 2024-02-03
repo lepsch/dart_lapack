@@ -8,7 +8,7 @@
       int                INFO, LDA, M, N, MB, NB, LDT, LWORK
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), WORK( * ), T( LDT, * )
+      double             A( LDA, * ), WORK( * ), T( LDT, * );
 *     ..
 *
 *  =====================================================================

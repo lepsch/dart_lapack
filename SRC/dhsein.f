@@ -11,23 +11,23 @@
 *     .. Array Arguments ..
       bool               SELECT( * );
       int                IFAILL( * ), IFAILR( * )
-      DOUBLE PRECISION   H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * )
+      double             H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               BOTHV, FROMQR, LEFTV, NOINIT, PAIR, RIGHTV;
       int                I, IINFO, K, KL, KLN, KR, KSI, KSR, LDWORK
-      DOUBLE PRECISION   BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI, WKR
+      double             BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI, WKR;
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;
-      DOUBLE PRECISION   DLAMCH, DLANHS
+      double             DLAMCH, DLANHS;
       EXTERNAL           LSAME, DLAMCH, DLANHS, DISNAN
 *     ..
 *     .. External Subroutines ..

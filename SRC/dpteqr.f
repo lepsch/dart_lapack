@@ -9,13 +9,13 @@
       int                INFO, LDZ, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * ), WORK( * ), Z( LDZ, * )
+      double             D( * ), E( * ), WORK( * ), Z( LDZ, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. External Functions ..
@@ -26,7 +26,7 @@
       EXTERNAL           DBDSQR, DLASET, DPTTRF, XERBLA
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   C( 1, 1 ), VT( 1, 1 )
+      double             C( 1, 1 ), VT( 1, 1 );
 *     ..
 *     .. Local Scalars ..
       int                I, ICOMPZ, NRU

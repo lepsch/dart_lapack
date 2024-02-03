@@ -6,30 +6,30 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, LDA, N
-      DOUBLE PRECISION   AMAX, SCOND
+      double             AMAX, SCOND;
       String             UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), WORK( * )
-      DOUBLE PRECISION   S( * )
+      double             S( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
       int                MAX_ITER
       PARAMETER          ( MAX_ITER = 100 )
 *     ..
 *     .. Local Scalars ..
       int                I, J, ITER
-      DOUBLE PRECISION   AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ
+      double             AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ;
       bool               UP;
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       bool               LSAME;
       EXTERNAL           DLAMCH, LSAME
 *     ..
@@ -40,7 +40,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, INT, LOG, MAX, MIN, SQRT
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

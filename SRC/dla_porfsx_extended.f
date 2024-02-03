@@ -8,17 +8,17 @@
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, N_NORMS, ITHRESH
       String             UPLO;
       bool               COLEQU, IGNORE_CWISE;
-      DOUBLE PRECISION   RTHRESH, DZ_UB
+      double             RTHRESH, DZ_UB;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       DOUBLE PRECISION   C( * ), AYB(*), RCOND, BERR_OUT( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
+      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       double             C( * ), AYB(*), RCOND, BERR_OUT( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       int                UPLO2, CNT, I, J, X_STATE, Z_STATE
-      DOUBLE PRECISION   YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH
+      double             YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
       bool               INCR_PREC;
 *     ..
 *     .. Parameters ..
@@ -42,7 +42,7 @@
 *     ..
 *     .. External Subroutines ..
       EXTERNAL          DAXPY, DCOPY, DPOTRS, DSYMV, BLAS_DSYMV_X, BLAS_DSYMV2_X, DLA_SYAMV, DLA_WWADDW, DLA_LIN_BERR
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC         ABS, MAX, MIN

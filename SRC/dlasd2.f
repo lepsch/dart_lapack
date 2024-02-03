@@ -6,16 +6,16 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, K, LDU, LDU2, LDVT, LDVT2, NL, NR, SQRE
-      DOUBLE PRECISION   ALPHA, BETA
+      double             ALPHA, BETA;
 *     ..
 *     .. Array Arguments ..
-      int                COLTYP( * ), IDX( * ), IDXC( * ), IDXP( * ), IDXQ( * )       DOUBLE PRECISION   D( * ), DSIGMA( * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * )
+      int                COLTYP( * ), IDX( * ), IDXC( * ), IDXP( * ), IDXQ( * )       double             D( * ), DSIGMA( * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO, EIGHT
+      double             ZERO, ONE, TWO, EIGHT;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, EIGHT = 8.0D+0 )
 *     ..
 *     .. Local Arrays ..
@@ -23,10 +23,10 @@
 *     ..
 *     .. Local Scalars ..
       int                CT, I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M, N, NLP1, NLP2
-      DOUBLE PRECISION   C, EPS, HLFTOL, S, TAU, TOL, Z1
+      double             C, EPS, HLFTOL, S, TAU, TOL, Z1;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLAPY2
+      double             DLAMCH, DLAPY2;
       EXTERNAL           DLAMCH, DLAPY2
 *     ..
 *     .. External Subroutines ..

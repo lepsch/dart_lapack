@@ -6,22 +6,22 @@
 *
 *     .. Scalar Arguments ..
       int                IFIRST, ILAST, INFO, N, OFFSET, TWIST
-      DOUBLE PRECISION   PIVMIN, RTOL1, RTOL2, SPDIAM
+      double             PIVMIN, RTOL1, RTOL2, SPDIAM;
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   D( * ), LLD( * ), W( * ), WERR( * ), WGAP( * ), WORK( * )
+      double             D( * ), LLD( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, TWO, HALF
+      double             ZERO, TWO, HALF;
       PARAMETER        ( ZERO = 0.0D0, TWO = 2.0D0, HALF = 0.5D0 )
       int       MAXITR
 *     ..
 *     .. Local Scalars ..
-      int                I, I1, II, IP, ITER, K, NEGCNT, NEXT, NINT, OLNINT, PREV, R       DOUBLE PRECISION   BACK, CVRGD, GAP, LEFT, LGAP, MID, MNWDTH, RGAP, RIGHT, TMP, WIDTH
+      int                I, I1, II, IP, ITER, K, NEGCNT, NEXT, NINT, OLNINT, PREV, R       double             BACK, CVRGD, GAP, LEFT, LGAP, MID, MNWDTH, RGAP, RIGHT, TMP, WIDTH;
 *     ..
 *     .. External Functions ..
       int                DLANEG

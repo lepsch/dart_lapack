@@ -16,16 +16,16 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      DOUBLE PRECISION   EIGHT, SEVTEN
+      double             EIGHT, SEVTEN;
       PARAMETER          ( EIGHT = 8.0D+0, SEVTEN = 17.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       int                IMAX, J, JB, JJ, JMAX, JP, K, KK, KKW, KP, KSTEP, KW
-      DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, ROWMAX
+      double             ABSAKK, ALPHA, COLMAX, ROWMAX;
       COMPLEX*16         D11, D21, D22, R1, T, Z
 *     ..
 *     .. External Functions ..
@@ -40,7 +40,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, MAX, MIN, SQRT
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( Z ) = ABS( DBLE( Z ) ) + ABS( DIMAG( Z ) )

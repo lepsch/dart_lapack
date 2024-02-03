@@ -8,24 +8,24 @@
       int                ICOMPQ, INFO, K, LDDIFR
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), DIFL( * ), DIFR( LDDIFR, * ), DSIGMA( * ), VF( * ), VL( * ), WORK( * ), Z( * )
+      double             D( * ), DIFL( * ), DIFR( LDDIFR, * ), DSIGMA( * ), VF( * ), VL( * ), WORK( * ), Z( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IWK1, IWK2, IWK2I, IWK3, IWK3I, J
-      DOUBLE PRECISION   DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, RHO, TEMP
+      double             DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, RHO, TEMP;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DCOPY, DLASCL, DLASD4, DLASET, XERBLA
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DDOT, DLAMC3, DNRM2
+      double             DDOT, DLAMC3, DNRM2;
       EXTERNAL           DDOT, DLAMC3, DNRM2
 *     ..
 *     .. Intrinsic Functions ..

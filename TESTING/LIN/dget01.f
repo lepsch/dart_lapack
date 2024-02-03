@@ -6,26 +6,26 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, LDAFAC, M, N
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), AFAC( LDAFAC, * ), RWORK( * )
+      double             A( LDA, * ), AFAC( LDAFAC, * ), RWORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J, K
-      DOUBLE PRECISION   ANORM, EPS, T
+      double             ANORM, EPS, T;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DDOT, DLAMCH, DLANGE
+      double             DDOT, DLAMCH, DLANGE;
       EXTERNAL           DDOT, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

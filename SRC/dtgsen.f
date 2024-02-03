@@ -7,12 +7,12 @@
 *     .. Scalar Arguments ..
       bool               WANTQ, WANTZ;
       int                IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK, M, N
-      DOUBLE PRECISION   PL, PR
+      double             PL, PR;
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), DIF( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
+      double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), DIF( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
 *     ..
 *
 *  =====================================================================
@@ -20,12 +20,12 @@
 *     .. Parameters ..
       int                IDIFJB
       PARAMETER          ( IDIFJB = 3 )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, PAIR, SWAP, WANTD, WANTD1, WANTD2, WANTP       int                I, IERR, IJB, K, KASE, KK, KS, LIWMIN, LWMIN, MN2, N1, N2;
-      DOUBLE PRECISION   DSCALE, DSUM, EPS, RDSCAL, SMLNUM
+      double             DSCALE, DSUM, EPS, RDSCAL, SMLNUM;
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )
@@ -34,7 +34,7 @@
       EXTERNAL           DLACN2, DLACPY, DLAG2, DLASSQ, DTGEXC, DTGSYL, XERBLA
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

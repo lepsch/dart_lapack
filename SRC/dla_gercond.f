@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLA_GERCOND( TRANS, N, A, LDA, AF, LDAF, IPIV, CMODE, C, INFO, WORK, IWORK )
+      double           FUNCTION DLA_GERCOND( TRANS, N, A, LDA, AF, LDAF, IPIV, CMODE, C, INFO, WORK, IWORK );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * ), IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * )
+      double             A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * );
 *     ..
 *
 *  =====================================================================
@@ -18,7 +18,7 @@
 *     .. Local Scalars ..
       bool               NOTRANS;
       int                KASE, I, J
-      DOUBLE PRECISION   AINVNM, TMP
+      double             AINVNM, TMP;
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )

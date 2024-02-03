@@ -10,7 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   ALPHA( * ), BETA( * ), RWORK( * )
+      double             ALPHA( * ), BETA( * ), RWORK( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
@@ -19,11 +19,11 @@
 *     .. Local Scalars ..
       bool               WANTQ, WANTU, WANTV;
       int                I, IBND, ISUB, J, NCYCLE
-      DOUBLE PRECISION   ANORM, BNORM, SMAX, TEMP, TOLA, TOLB, ULP, UNFL
+      double             ANORM, BNORM, SMAX, TEMP, TOLA, TOLB, ULP, UNFL;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       EXTERNAL           LSAME, DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..

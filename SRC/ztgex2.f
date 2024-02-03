@@ -17,7 +17,7 @@
 *     .. Parameters ..
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-      DOUBLE PRECISION   TWENTY
+      double             TWENTY;
       PARAMETER          ( TWENTY = 2.0D+1 )
       int                LDST
       PARAMETER          ( LDST = 2 )
@@ -27,14 +27,14 @@
 *     .. Local Scalars ..
       bool               STRONG, WEAK;
       int                I, M
-      DOUBLE PRECISION   CQ, CZ, EPS, SA, SB, SCALE, SMLNUM, SUM, THRESHA, THRESHB
+      double             CQ, CZ, EPS, SA, SB, SCALE, SMLNUM, SUM, THRESHA, THRESHB;
       COMPLEX*16         CDUM, F, G, SQ, SZ
 *     ..
 *     .. Local Arrays ..
       COMPLEX*16         S( LDST, LDST ), T( LDST, LDST ), WORK( 8 )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

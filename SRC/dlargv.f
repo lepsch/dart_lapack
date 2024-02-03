@@ -8,18 +8,18 @@
       int                INCC, INCX, INCY, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   C( * ), X( * ), Y( * )
+      double             C( * ), X( * ), Y( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IC, IX, IY
-      DOUBLE PRECISION   F, G, T, TT
+      double             F, G, T, TT;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, SQRT

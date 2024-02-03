@@ -6,21 +6,21 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, LDA, N
-      DOUBLE PRECISION   AMAX, SCOND
+      double             AMAX, SCOND;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), S( * )
+      double             A( LDA, * ), S( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   SMIN
+      double             SMIN;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA

@@ -6,24 +6,24 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, LDAINV, LDWORK, N
-      DOUBLE PRECISION   RCOND, RESID
+      double             RCOND, RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), AINV( LDAINV, * ), RWORK( * ), WORK( LDWORK, * )
+      double             A( LDA, * ), AINV( LDAINV, * ), RWORK( * ), WORK( LDWORK, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   AINVNM, ANORM, EPS
+      double             AINVNM, ANORM, EPS;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLANGE
+      double             DLAMCH, DLANGE;
       EXTERNAL           DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

@@ -7,17 +7,17 @@
 *     .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, LDAB, LDAFB, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
-      DOUBLE PRECISION   RCOND, RPVGRW
+      double             RCOND, RPVGRW;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       DOUBLE PRECISION   R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * )
+      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       double             R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
 *     ..
 *
 *  ==================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
       int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
@@ -29,12 +29,12 @@
 *     .. Local Scalars ..
       bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
       int                INFEQU, I, J, KL, KU
-      DOUBLE PRECISION   AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM
+      double             AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM;
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME, DLAMCH, ZLA_GBRPVGRW
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, ZLA_GBRPVGRW
+      double             DLAMCH, ZLA_GBRPVGRW;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZGBEQUB, ZGBTRF, ZGBTRS, ZLACPY, ZLAQGB, XERBLA, ZLASCL2, ZGBRFSX

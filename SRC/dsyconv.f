@@ -10,13 +10,13 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), E( * )
+      double             A( LDA, * ), E( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. External Functions ..
@@ -28,7 +28,7 @@
 *     .. Local Scalars ..
       bool               UPPER, CONVERT;
       int                I, IP, J
-      DOUBLE PRECISION   TEMP
+      double             TEMP;
 *     ..
 *     .. Executable Statements ..
 *

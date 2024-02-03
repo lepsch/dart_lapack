@@ -7,26 +7,26 @@
 *     .. Scalar Arguments ..
       String             EQUED, UPLO;
       int                N
-      DOUBLE PRECISION   AMAX, SCOND
+      double             AMAX, SCOND;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   S( * )
+      double             S( * );
       COMPLEX*16         AP( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, THRESH
+      double             ONE, THRESH;
       PARAMETER          ( ONE = 1.0D+0, THRESH = 0.1D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J, JC
-      DOUBLE PRECISION   CJ, LARGE, SMALL
+      double             CJ, LARGE, SMALL;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAME, DLAMCH
 *     ..
 *     .. Executable Statements ..

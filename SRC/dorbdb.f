@@ -9,28 +9,28 @@
       int                INFO, LDX11, LDX12, LDX21, LDX22, LWORK, M, P, Q
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   PHI( * ), THETA( * )
-      DOUBLE PRECISION   TAUP1( * ), TAUP2( * ), TAUQ1( * ), TAUQ2( * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * )
+      double             PHI( * ), THETA( * );
+      double             TAUP1( * ), TAUP2( * ), TAUQ1( * ), TAUQ2( * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
 *     ..
 *
 *  ====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   REALONE
+      double             REALONE;
       PARAMETER          ( REALONE = 1.0D0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       bool               COLMAJOR, LQUERY;
       int                I, LWORKMIN, LWORKOPT
-      DOUBLE PRECISION   Z1, Z2, Z3, Z4
+      double             Z1, Z2, Z3, Z4;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DLARF, DLARFGP, DSCAL, XERBLA
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DNRM2
+      double             DNRM2;
       bool               LSAME;
       EXTERNAL           DNRM2, LSAME
 *     ..

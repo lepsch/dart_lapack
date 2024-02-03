@@ -9,11 +9,11 @@
 *     Parameters
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-      DOUBLE PRECISION :: ZERO, ONE, HALF
+      double           :: ZERO, ONE, HALF;
       PARAMETER( ZERO = 0.0D0, ONE = 1.0D0, HALF = 0.5D0 )
 *
 *     Local variables
-      DOUBLE PRECISION :: C
+      double           :: C;
       COMPLEX*16 :: S, TEMP
 *
 *     External Functions

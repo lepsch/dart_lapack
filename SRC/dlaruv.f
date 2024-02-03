@@ -9,16 +9,16 @@
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   X( N )
+      double             X( N );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
       int                LV, IPW2
-      DOUBLE PRECISION   R
+      double             R;
       PARAMETER          ( LV = 128, IPW2 = 4096, R = ONE / IPW2 )
 *     ..
 *     .. Local Scalars ..

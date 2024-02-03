@@ -8,18 +8,18 @@
       int       INFO, LDA, LDT, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), T( LDT, * )
+      double             A( LDA, * ), T( LDT, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION  ONE, ZERO
+      double            ONE, ZERO;
       PARAMETER( ONE = 1.0D+00, ZERO = 0.0D+00 )
 *     ..
 *     .. Local Scalars ..
       int       I, K
-      DOUBLE PRECISION   AII, ALPHA
+      double             AII, ALPHA;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL  DLARFG, DGEMV, DGER, DTRMV, XERBLA

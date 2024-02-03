@@ -6,24 +6,24 @@
 *
 *     .. Scalar Arguments ..
       int       INFO, IW, N
-      DOUBLE PRECISION    PIVMIN, RELTOL, GL, GU, W, WERR
+      double              PIVMIN, RELTOL, GL, GU, W, WERR;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E2( * )
+      double             D( * ), E2( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   FUDGE, HALF, TWO, ZERO
+      double             FUDGE, HALF, TWO, ZERO;
       PARAMETER          ( HALF = 0.5D0, TWO = 2.0D0, FUDGE = TWO, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int       I, IT, ITMAX, NEGCNT
-      DOUBLE PRECISION   ATOLI, EPS, LEFT, MID, RIGHT, RTOLI, TMP1, TMP2, TNORM
+      double             ATOLI, EPS, LEFT, MID, RIGHT, RTOLI, TMP1, TMP2, TNORM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL   DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

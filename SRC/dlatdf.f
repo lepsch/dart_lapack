@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       int                IJOB, LDZ, N
-      DOUBLE PRECISION   RDSCAL, RDSUM
+      double             RDSCAL, RDSUM;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * ), JPIV( * )
-      DOUBLE PRECISION   RHS( * ), Z( LDZ, * )
+      double             RHS( * ), Z( LDZ, * );
 *     ..
 *
 *  =====================================================================
@@ -18,22 +18,22 @@
 *     .. Parameters ..
       int                MAXDIM
       PARAMETER          ( MAXDIM = 8 )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, INFO, J, K
-      DOUBLE PRECISION   BM, BP, PMONE, SMINU, SPLUS, TEMP
+      double             BM, BP, PMONE, SMINU, SPLUS, TEMP;
 *     ..
 *     .. Local Arrays ..
       int                IWORK( MAXDIM )
-      DOUBLE PRECISION   WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM )
+      double             WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DCOPY, DGECON, DGESC2, DLASSQ, DLASWP, DSCAL
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DASUM, DDOT
+      double             DASUM, DDOT;
       EXTERNAL           DASUM, DDOT
 *     ..
 *     .. Intrinsic Functions ..

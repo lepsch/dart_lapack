@@ -16,9 +16,9 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      DOUBLE PRECISION   EIGHT, SEVTEN
+      double             EIGHT, SEVTEN;
       PARAMETER          ( EIGHT = 8.0D+0, SEVTEN = 17.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
@@ -26,13 +26,13 @@
 *     .. Local Scalars ..
       bool               UPPER, DONE;
       int                I, IMAX, J, JMAX, ITEMP, K, KK, KP, KSTEP, P, II
-      DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, ROWMAX, DTEMP, SFMIN
+      double             ABSAKK, ALPHA, COLMAX, ROWMAX, DTEMP, SFMIN;
       COMPLEX*16         D11, D12, D21, D22, T, WK, WKM1, WKP1, Z
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                IZAMAX
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAME, IZAMAX, DLAMCH
 *     ..
 *     .. External Subroutines ..
@@ -42,7 +42,7 @@
       INTRINSIC          ABS, MAX, SQRT, DIMAG, DBLE
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( Z ) = ABS( DBLE( Z ) ) + ABS( DIMAG( Z ) )

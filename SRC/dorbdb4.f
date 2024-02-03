@@ -8,18 +8,18 @@
       int                INFO, LWORK, M, P, Q, LDX11, LDX21
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   PHI(*), THETA(*)
-      DOUBLE PRECISION   PHANTOM(*), TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*)
+      double             PHI(*), THETA(*);
+      double             PHANTOM(*), TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
 *     ..
 *
 *  ====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   NEGONE, ONE, ZERO
+      double             NEGONE, ONE, ZERO;
       PARAMETER          ( NEGONE = -1.0D0, ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   C, S
+      double             C, S;
       int                CHILDINFO, I, ILARF, IORBDB5, J, LLARF, LORBDB5, LWORKMIN, LWORKOPT
       bool               LQUERY;
 *     ..
@@ -27,7 +27,7 @@
       EXTERNAL           DLARF, DLARFGP, DORBDB5, DROT, DSCAL, XERBLA
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DNRM2
+      double             DNRM2;
       EXTERNAL           DNRM2
 *     ..
 *     .. Intrinsic Function ..

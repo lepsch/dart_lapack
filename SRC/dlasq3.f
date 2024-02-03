@@ -7,29 +7,29 @@
 *     .. Scalar Arguments ..
       bool               IEEE;
       int                I0, ITER, N0, NDIV, NFAIL, PP
-      DOUBLE PRECISION   DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, QMAX, SIGMA, TAU
+      double             DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, QMAX, SIGMA, TAU;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   Z( * )
+      double             Z( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   CBIAS
+      double             CBIAS;
       PARAMETER          ( CBIAS = 1.50D0 )
-      DOUBLE PRECISION   ZERO, QURTR, HALF, ONE, TWO, HUNDRD
+      double             ZERO, QURTR, HALF, ONE, TWO, HUNDRD;
       PARAMETER          ( ZERO = 0.0D0, QURTR = 0.250D0, HALF = 0.5D0, ONE = 1.0D0, TWO = 2.0D0, HUNDRD = 100.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                IPN4, J4, N0IN, NN, TTYPE
-      DOUBLE PRECISION   EPS, S, T, TEMP, TOL, TOL2
+      double             EPS, S, T, TEMP, TOL, TOL2;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLASQ4, DLASQ5, DLASQ6
 *     ..
 *     .. External Function ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       bool               DISNAN;
       EXTERNAL           DISNAN, DLAMCH
 *     ..

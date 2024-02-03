@@ -22,7 +22,7 @@
       bool               FATAL, TSTERR;
       int                VERS_MAJOR, VERS_MINOR, VERS_PATCH
       int                I, NN, NNS, NNT
-      DOUBLE PRECISION   EPS, S1, S2, THRESH
+      double             EPS, S1, S2, THRESH;
 
 *     ..
 *     .. Local Arrays ..
@@ -41,14 +41,14 @@
       COMPLEX*16         Z_WORK_ZLATMS( 3 * NMAX )
       COMPLEX*16         Z_WORK_ZPOT02( NMAX, MAXRHS )
       COMPLEX*16         Z_WORK_ZPOT03( NMAX, NMAX )
-      DOUBLE PRECISION   D_WORK_ZLATMS( NMAX )
-      DOUBLE PRECISION   D_WORK_ZLANHE( NMAX )
-      DOUBLE PRECISION   D_WORK_ZPOT01( NMAX )
-      DOUBLE PRECISION   D_WORK_ZPOT02( NMAX )
-      DOUBLE PRECISION   D_WORK_ZPOT03( NMAX )
+      double             D_WORK_ZLATMS( NMAX );
+      double             D_WORK_ZLANHE( NMAX );
+      double             D_WORK_ZPOT01( NMAX );
+      double             D_WORK_ZPOT02( NMAX );
+      double             D_WORK_ZPOT03( NMAX );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DSECND
+      double             DLAMCH, DSECND;
       EXTERNAL           DLAMCH, DSECND
 *     ..
 *     .. External Subroutines ..

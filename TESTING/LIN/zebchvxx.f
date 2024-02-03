@@ -1,7 +1,7 @@
       SUBROUTINE ZEBCHVXX( THRESH, PATH )
       IMPLICIT NONE
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  THRESH
+      double            THRESH;
       String            PATH;
 
       int                NMAX, NPARAMS, NERRBND, NTESTS, KL, KU
@@ -13,16 +13,16 @@
       String             C2;
       String   (3)       NGUAR, CGUAR;
       bool               printed_guide;
-      DOUBLE PRECISION   NCOND, CCOND, M, NORMDIF, NORMT, RCOND, RNORM, RINORM, SUMR, SUMRI, EPS, BERR(NMAX), RPVGRW, ORCOND, CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND, CWISE_RCOND, NWISE_RCOND, CONDTHRESH, ERRTHRESH
+      double             NCOND, CCOND, M, NORMDIF, NORMT, RCOND, RNORM, RINORM, SUMR, SUMRI, EPS, BERR(NMAX), RPVGRW, ORCOND, CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND, CWISE_RCOND, NWISE_RCOND, CONDTHRESH, ERRTHRESH;
       COMPLEX*16         ZDUM
 
 *     .. Local Arrays ..
-      DOUBLE PRECISION   TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS), S(NMAX),R(NMAX),C(NMAX),RWORK(3*NMAX), DIFF(NMAX, NMAX), ERRBND_N(NMAX*3), ERRBND_C(NMAX*3)
+      double             TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS), S(NMAX),R(NMAX),C(NMAX),RWORK(3*NMAX), DIFF(NMAX, NMAX), ERRBND_N(NMAX*3), ERRBND_C(NMAX*3);
       int                IPIV(NMAX)
       COMPLEX*16         A(NMAX,NMAX),INVHILB(NMAX,NMAX),X(NMAX,NMAX), WORK(NMAX*3*5), AF(NMAX, NMAX),B(NMAX, NMAX), ACOPY(NMAX, NMAX), AB( (NMAX-1)+(NMAX-1)+1, NMAX ), ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ), AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX )
 
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
 
 *     .. External Subroutines ..
       EXTERNAL           ZLAHILB, ZGESVXX, ZPOSVXX, ZSYSVXX, ZGBSVXX, ZLACPY, LSAMEN
@@ -32,7 +32,7 @@
       INTRINSIC          SQRT, MAX, ABS, DBLE, DIMAG
 
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 
 *     .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

@@ -6,13 +6,13 @@
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16       A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( * )
-      DOUBLE PRECISION S( * ), RWORK( * )
+      double           S( * ), RWORK( * );
       int              IWORK( * )
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION ZERO,         ONE
+      double           ZERO,         ONE;
       PARAMETER      ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16       CZERO,                 CONE
       PARAMETER      ( CZERO = (0.0D0,0.0D0), CONE = (1.0D0,0.0D0) )
@@ -21,12 +21,12 @@
       int         IERR, NR, N1, OPTRATIO, p, q
       int         LWCON, LWQP3, LWRK_ZGELQF, LWRK_ZGESVD, LWRK_ZGESVD2, LWRK_ZGEQP3, LWRK_ZGEQRF, LWRK_ZUNMLQ, LWRK_ZUNMQR, LWRK_ZUNMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWUNQ, LWUNQ2, LWUNLQ, MINWRK, MINWRK2, OPTWRK, OPTWRK2, IMINWRK, RMINWRK
       bool        ACCLA,  ACCLM, ACCLH, ASCALED, CONDA, DNTWU,  DNTWV, LQUERY, LSVC0, LSVEC, ROWPRM,  RSVEC, RTRANS, WNTUA, WNTUF,  WNTUR, WNTUS, WNTVA,   WNTVR;
-      DOUBLE PRECISION BIG, EPSLN, RTMP, SCONDA, SFMIN
+      double           BIG, EPSLN, RTMP, SCONDA, SFMIN;
       COMPLEX*16       CTMP
 *     ..
 *     .. Local Arrays
       COMPLEX*16         CDUMMY(1)
-      DOUBLE PRECISION   RDUMMY(1)
+      double             RDUMMY(1);
 *     ..
 *     .. External Subroutines (BLAS, LAPACK)
       EXTERNAL    ZGELQF, ZGEQP3, ZGEQRF, ZGESVD, ZLACPY, ZLAPMT, ZLASCL, ZLASET, ZLASWP, ZDSCAL, DLASET, DLASCL, ZPOCON, ZUNMLQ, ZUNMQR, XERBLA
@@ -34,7 +34,7 @@
 *     .. External Functions (BLAS, LAPACK)
       bool        LSAME;
       int                         IDAMAX
-      DOUBLE PRECISION   ZLANGE,          DZNRM2, DLAMCH
+      double             ZLANGE,          DZNRM2, DLAMCH;
       EXTERNAL    LSAME, ZLANGE,  IDAMAX, DZNRM2, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

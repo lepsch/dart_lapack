@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION ALPHA,BETA
+      double           ALPHA,BETA;
       int     K,LDA,LDB,LDC,M,N
       String    TRANSA,TRANSB;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION A(LDA,*),B(LDB,*),C(LDC,*)
+      double           A(LDA,*),B(LDB,*),C(LDC,*);
 *     ..
 *
 *  =====================================================================
@@ -26,12 +26,12 @@
       INTRINSIC MAX
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION TEMP
+      double           TEMP;
       int     I,INFO,J,L,NROWA,NROWB
       bool    NOTA,NOTB;
 *     ..
 *     .. Parameters ..
-      DOUBLE PRECISION ONE,ZERO
+      double           ONE,ZERO;
       PARAMETER (ONE=1.0D+0,ZERO=0.0D+0)
 *     ..
 *

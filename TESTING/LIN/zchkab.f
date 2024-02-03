@@ -28,18 +28,18 @@
       String             INTSTR;
       String             ALINE;
       int                I, IC, K, LDA, NM, NMATS, NNS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH
-      DOUBLE PRECISION   EPS, S1, S2, THRESH
+      double             EPS, S1, S2, THRESH;
       REAL               SEPS
 *     ..
 *     .. Local Arrays ..
       bool               DOTYPE( MATMAX );
       int                IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN )
-      DOUBLE PRECISION   RWORK(NMAX)
+      double             RWORK(NMAX);
       COMPLEX*16         A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ), WORK( NMAX*MAXRHS*2 )
       COMPLEX            SWORK(NMAX*(NMAX+MAXRHS))
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DSECND
+      double             DLAMCH, DSECND;
       bool               LSAME, LSAMEN;
       REAL               SLAMCH
       EXTERNAL           DLAMCH, DSECND, LSAME, LSAMEN, SLAMCH
@@ -151,11 +151,11 @@
       WRITE( NOUT, FMT = * )
 *
       EPS = DLAMCH( 'Underflow threshold' )
-      WRITE( NOUT, FMT = 9991 )'(double precision) underflow', EPS
+      WRITE( NOUT, FMT = 9991 )'(double          ) underflow', EPS;
       EPS = DLAMCH( 'Overflow threshold' )
-      WRITE( NOUT, FMT = 9991 )'(double precision) overflow ', EPS
+      WRITE( NOUT, FMT = 9991 )'(double          ) overflow ', EPS;
       EPS = DLAMCH( 'Epsilon' )
-      WRITE( NOUT, FMT = 9991 )'(double precision) precision', EPS
+      WRITE( NOUT, FMT = 9991 )'(double          ) precision', EPS;
       WRITE( NOUT, FMT = * )
 *
    80 CONTINUE

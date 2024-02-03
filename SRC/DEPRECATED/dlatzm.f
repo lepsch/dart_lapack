@@ -7,16 +7,16 @@
 *     .. Scalar Arguments ..
       String             SIDE;
       int                INCV, LDC, M, N
-      DOUBLE PRECISION   TAU
+      double             TAU;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   C1( LDC, * ), C2( LDC, * ), V( * ), WORK( * )
+      double             C1( LDC, * ), C2( LDC, * ), V( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. External Subroutines ..

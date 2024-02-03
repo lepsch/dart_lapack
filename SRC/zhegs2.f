@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, HALF
+      double             ONE, HALF;
       PARAMETER          ( ONE = 1.0D+0, HALF = 0.5D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       bool               UPPER;
       int                K
-      DOUBLE PRECISION   AKK, BKK
+      double             AKK, BKK;
       COMPLEX*16         CT
 *     ..
 *     .. External Subroutines ..

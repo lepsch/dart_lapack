@@ -6,28 +6,28 @@
 *
 *     .. Scalar Arguments ..
       int                J, JOB
-      DOUBLE PRECISION   C, GAMMA, S, SEST, SESTPR
+      double             C, GAMMA, S, SEST, SESTPR;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   W( J ), X( J )
+      double             W( J ), X( J );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO
+      double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
-      DOUBLE PRECISION   HALF, FOUR
+      double             HALF, FOUR;
       PARAMETER          ( HALF = 0.5D0, FOUR = 4.0D0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ABSALP, ABSEST, ABSGAM, ALPHA, B, COSINE, EPS, NORMA, S1, S2, SINE, T, TEST, TMP, ZETA1, ZETA2
+      double             ABSALP, ABSEST, ABSGAM, ALPHA, B, COSINE, EPS, NORMA, S1, S2, SINE, T, TEST, TMP, ZETA1, ZETA2;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, SIGN, SQRT
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DDOT, DLAMCH
+      double             DDOT, DLAMCH;
       EXTERNAL           DDOT, DLAMCH
 *     ..
 *     .. Executable Statements ..

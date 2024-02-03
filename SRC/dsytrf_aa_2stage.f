@@ -12,19 +12,19 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * ), IPIV2( * )
-      DOUBLE PRECISION   A( LDA, * ), TB( * ), WORK( * )
+      double             A( LDA, * ), TB( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *
 *     .. Local Scalars ..
       bool               UPPER, TQUERY, WQUERY;
       int                I, J, K, I1, I2, TD
       int                LDTB, NB, KB, JB, NT, IINFO
-      DOUBLE PRECISION   PIV
+      double             PIV;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

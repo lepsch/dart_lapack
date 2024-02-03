@@ -9,7 +9,7 @@
       int                LDA, LDB, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * )
+      double             A( LDA, * );
       COMPLEX*16         B( LDB, * )
 *     ..
 *

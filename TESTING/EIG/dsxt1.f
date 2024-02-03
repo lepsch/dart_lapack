@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DSXT1( IJOB, D1, N1, D2, N2, ABSTOL, ULP, UNFL )
+      double           FUNCTION DSXT1( IJOB, D1, N1, D2, N2, ABSTOL, ULP, UNFL );
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,21 +6,21 @@
 *
 *     .. Scalar Arguments ..
       int                IJOB, N1, N2
-      DOUBLE PRECISION   ABSTOL, ULP, UNFL
+      double             ABSTOL, ULP, UNFL;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D1( * ), D2( * )
+      double             D1( * ), D2( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   TEMP1, TEMP2
+      double             TEMP1, TEMP2;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN

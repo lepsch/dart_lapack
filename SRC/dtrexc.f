@@ -9,13 +9,13 @@
       int                IFST, ILST, INFO, LDQ, LDT, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   Q( LDQ, * ), T( LDT, * ), WORK( * )
+      double             Q( LDQ, * ), T( LDT, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..

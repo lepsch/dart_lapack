@@ -11,17 +11,17 @@
 *     Parameters
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-      DOUBLE PRECISION :: ZERO, ONE, HALF
+      double           :: ZERO, ONE, HALF;
       PARAMETER( ZERO = 0.0D0, ONE = 1.0D0, HALF = 0.5D0 )
 
 *     Local scalars
       int     :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP, ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS
-      DOUBLE PRECISION :: SAFMIN, SAFMAX, C, SCALE
+      double           :: SAFMIN, SAFMAX, C, SCALE;
       COMPLEX*16 :: TEMP, TEMP2, TEMP3, S
 
 *     External Functions
       EXTERNAL :: XERBLA, ZLASET, ZLARTG, ZROT, ZLAQZ1, ZGEMM, ZLACPY
-      DOUBLE PRECISION, EXTERNAL :: DLAMCH
+      double          , EXTERNAL :: DLAMCH;
 
       INFO = 0
       IF ( NBLOCK_DESIRED .LT. NSHIFTS+1 ) THEN

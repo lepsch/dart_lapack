@@ -6,16 +6,16 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, K, LDQ, N, N1
-      DOUBLE PRECISION   RHO
+      double             RHO;
 *     ..
 *     .. Array Arguments ..
-      int                COLTYP( * ), INDX( * ), INDXC( * ), INDXP( * ), INDXQ( * )       DOUBLE PRECISION   D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), W( * ), Z( * )
+      int                COLTYP( * ), INDX( * ), INDXC( * ), INDXP( * ), INDXQ( * )       double             D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), W( * ), Z( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   MONE, ZERO, ONE, TWO, EIGHT
+      double             MONE, ZERO, ONE, TWO, EIGHT;
       PARAMETER          ( MONE = -1.0D0, ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, EIGHT = 8.0D0 )
 *     ..
 *     .. Local Arrays ..
@@ -23,11 +23,11 @@
 *     ..
 *     .. Local Scalars ..
       int                CT, I, IMAX, IQ1, IQ2, J, JMAX, JS, K2, N1P1, N2, NJ, PJ
-      DOUBLE PRECISION   C, EPS, S, T, TAU, TOL
+      double             C, EPS, S, T, TAU, TOL;
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DLAMCH, DLAPY2
+      double             DLAMCH, DLAPY2;
       EXTERNAL           IDAMAX, DLAMCH, DLAPY2
 *     ..
 *     .. External Subroutines ..

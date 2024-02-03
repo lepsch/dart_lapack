@@ -16,21 +16,21 @@
       int                N, KD, LDAB, LHOUS, LWORK, INFO
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * )
+      double             D( * ), E( * );
       COMPLEX*16         AB( LDAB, * ), HOUS( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   RZERO
+      double             RZERO;
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( RZERO = 0.0D+0, ZERO = ( 0.0D+0, 0.0D+0 ), ONE  = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, WANTQ, UPPER, AFTERS1;
       int                I, M, K, IB, SWEEPID, MYID, SHIFT, STT, ST, ED, STIND, EDIND, BLKLASTIND, COLPT, THED, STEPERCOL, GRSIZ, THGRSIZ, THGRNB, THGRID, NBTILES, TTYPE, TID, NTHREADS, ABDPOS, ABOFDPOS, DPOS, OFDPOS, AWPOS, INDA, INDW, APOS, SIZEA, LDA, INDV, INDTAU, SIZEV, SIZETAU, LDV, LHMIN, LWMIN
-      DOUBLE PRECISION   ABSTMP
+      double             ABSTMP;
       COMPLEX*16         TMP
 *     ..
 *     .. External Subroutines ..

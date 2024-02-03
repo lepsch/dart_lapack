@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                J, JOB
-      DOUBLE PRECISION   SEST, SESTPR
+      double             SEST, SESTPR;
       COMPLEX*16         C, GAMMA, S
 *     ..
 *     .. Array Arguments ..
@@ -16,20 +16,20 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO
+      double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
-      DOUBLE PRECISION   HALF, FOUR
+      double             HALF, FOUR;
       PARAMETER          ( HALF = 0.5D0, FOUR = 4.0D0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2, SCL, T, TEST, TMP, ZETA1, ZETA2
+      double             ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2, SCL, T, TEST, TMP, ZETA1, ZETA2;
       COMPLEX*16         ALPHA, COSINE, SINE
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DCONJG, MAX, SQRT
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       COMPLEX*16         ZDOTC
       EXTERNAL           DLAMCH, ZDOTC
 *     ..

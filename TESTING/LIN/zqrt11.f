@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZQRT11( M, K, A, LDA, TAU, WORK, LWORK )
+      double           FUNCTION ZQRT11( M, K, A, LDA, TAU, WORK, LWORK );
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,14 +14,14 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                INFO, J
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       EXTERNAL           DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
@@ -31,7 +31,7 @@
       INTRINSIC          DBLE, DCMPLX
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   RDUMMY( 1 )
+      double             RDUMMY( 1 );
 *     ..
 *     .. Executable Statements ..
 *

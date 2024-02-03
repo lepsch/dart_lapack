@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
+      double           FUNCTION DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,32 +7,32 @@
 *     .. Scalar Arguments ..
 *
       int                I, IDIST, IGRADE, IPVTNG, J, KL, KU, M, N
-      DOUBLE PRECISION   SPARSE
+      double             SPARSE;
 *     ..
 *
 *     .. Array Arguments ..
 *
       int                ISEED( 4 ), IWORK( * )
-      DOUBLE PRECISION   D( * ), DL( * ), DR( * )
+      double             D( * ), DL( * ), DR( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
 *
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *
 *     .. Local Scalars ..
 *
       int                ISUB, JSUB
-      DOUBLE PRECISION   TEMP
+      double             TEMP;
 *     ..
 *
 *     .. External Functions ..
 *
-      DOUBLE PRECISION   DLARAN, DLARND
+      double             DLARAN, DLARND;
       EXTERNAL           DLARAN, DLARND
 *     ..
 *

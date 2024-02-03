@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                INCX, N
-      DOUBLE PRECISION   SA
+      double             SA;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         SX( * )
@@ -15,15 +15,15 @@
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               DONE;
-      DOUBLE PRECISION   BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM
+      double             BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

@@ -8,14 +8,14 @@
       int                K, LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RESULT( * ), RWORK( * )
+      double             RESULT( * ), RWORK( * );
       COMPLEX*16         AF( LDA, * ), C( LDA, * ), CC( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         ROGUE
       PARAMETER          ( ROGUE = ( -1.0D+10, -1.0D+10 ) )
@@ -23,11 +23,11 @@
 *     .. Local Scalars ..
       String             SIDE, TRANS;
       int                INFO, ISIDE, ITRANS, J, MC, MINMN, NC
-      DOUBLE PRECISION   CNORM, EPS, RESID
+      double             CNORM, EPS, RESID;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, ZLANGE
+      double             DLAMCH, ZLANGE;
       EXTERNAL           LSAME, DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..

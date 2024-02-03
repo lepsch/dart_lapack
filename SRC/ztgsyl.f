@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       String             TRANS;
       int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, LWORK, M, N
-      DOUBLE PRECISION   DIF, SCALE
+      double             DIF, SCALE;
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
@@ -19,7 +19,7 @@
 *  Sven Hammarling, 1/5/02.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = (0.0D+0, 0.0D+0) )
@@ -27,7 +27,7 @@
 *     .. Local Scalars ..
       bool               LQUERY, NOTRAN;
       int                I, IE, IFUNC, IROUND, IS, ISOLVE, J, JE, JS, K, LINFO, LWMIN, MB, NB, P, PQ, Q
-      DOUBLE PRECISION   DSCALE, DSUM, SCALE2, SCALOC
+      double             DSCALE, DSUM, SCALE2, SCALOC;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

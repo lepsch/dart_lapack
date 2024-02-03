@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLANSY( NORM, UPLO, N, A, LDA, WORK )
+      double           FUNCTION ZLANSY( NORM, UPLO, N, A, LDA, WORK );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                LDA, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   WORK( * )
+      double             WORK( * );
       COMPLEX*16         A( LDA, * )
 *     ..
 *
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   ABSA, SCALE, SUM, VALUE
+      double             ABSA, SCALE, SUM, VALUE;
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;

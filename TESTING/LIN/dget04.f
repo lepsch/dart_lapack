@@ -6,25 +6,25 @@
 *
 *     .. Scalar Arguments ..
       int                LDX, LDXACT, N, NRHS
-      DOUBLE PRECISION   RCOND, RESID
+      double             RCOND, RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   X( LDX, * ), XACT( LDXACT, * )
+      double             X( LDX, * ), XACT( LDXACT, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IX, J
-      DOUBLE PRECISION   DIFFNM, EPS, XNORM
+      double             DIFFNM, EPS, XNORM;
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           IDAMAX, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

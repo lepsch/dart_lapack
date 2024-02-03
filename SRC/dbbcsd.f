@@ -9,8 +9,8 @@
       int                INFO, LDU1, LDU2, LDV1T, LDV2T, LWORK, M, P, Q
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B11D( * ), B11E( * ), B12D( * ), B12E( * ), B21D( * ), B21E( * ), B22D( * ), B22E( * ), PHI( * ), THETA( * ), WORK( * )
-      DOUBLE PRECISION   U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * )
+      double             B11D( * ), B11E( * ), B12D( * ), B12E( * ), B21D( * ), B21E( * ), B22D( * ), B22E( * ), PHI( * ), THETA( * ), WORK( * );
+      double             U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * );
 *     ..
 *
 *  ===================================================================
@@ -18,21 +18,21 @@
 *     .. Parameters ..
       int                MAXITR
       PARAMETER          ( MAXITR = 6 )
-      DOUBLE PRECISION   HUNDRED, MEIGHTH, ONE, TEN, ZERO
+      double             HUNDRED, MEIGHTH, ONE, TEN, ZERO;
       PARAMETER          ( HUNDRED = 100.0D0, MEIGHTH = -0.125D0, ONE = 1.0D0, TEN = 10.0D0, ZERO = 0.0D0 )
-      DOUBLE PRECISION   NEGONE
+      double             NEGONE;
       PARAMETER          ( NEGONE = -1.0D0 )
-      DOUBLE PRECISION   PIOVER2
+      double             PIOVER2;
       PARAMETER ( PIOVER2 = 1.57079632679489661923132169163975144210D0 )
 *     ..
 *     .. Local Scalars ..
-      bool               COLMAJOR, LQUERY, RESTART11, RESTART12, RESTART21, RESTART22, WANTU1, WANTU2, WANTV1T, WANTV2T       int                I, IMIN, IMAX, ITER, IU1CS, IU1SN, IU2CS, IU2SN, IV1TCS, IV1TSN, IV2TCS, IV2TSN, J, LWORKMIN, LWORKOPT, MAXIT, MINI       DOUBLE PRECISION   B11BULGE, B12BULGE, B21BULGE, B22BULGE, DUMMY, EPS, MU, NU, R, SIGMA11, SIGMA21, TEMP, THETAMAX, THETAMIN, THRESH, TOL, TOLMUL, UNFL, X1, X2, Y1, Y2;
+      bool               COLMAJOR, LQUERY, RESTART11, RESTART12, RESTART21, RESTART22, WANTU1, WANTU2, WANTV1T, WANTV2T       int                I, IMIN, IMAX, ITER, IU1CS, IU1SN, IU2CS, IU2SN, IV1TCS, IV1TSN, IV2TCS, IV2TSN, J, LWORKMIN, LWORKOPT, MAXIT, MINI       double             B11BULGE, B12BULGE, B21BULGE, B22BULGE, DUMMY, EPS, MU, NU, R, SIGMA11, SIGMA21, TEMP, THETAMAX, THETAMIN, THRESH, TOL, TOLMUL, UNFL, X1, X2, Y1, Y2;;
 *
 *     .. External Subroutines ..
       EXTERNAL           DLASR, DSCAL, DSWAP, DLARTGP, DLARTGS, DLAS2, XERBLA
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       bool               LSAME;
       EXTERNAL           LSAME, DLAMCH
 *     ..

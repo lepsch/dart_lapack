@@ -16,19 +16,19 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TOOSML
+      double             ZERO, ONE, TOOSML;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TOOSML = 1.0D-20 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM
-      DOUBLE PRECISION   FACTOR, XABS, XNORM
+      double             FACTOR, XABS, XNORM;
       COMPLEX*16         CSIGN, XNORMS
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DZNRM2
+      double             DZNRM2;
       COMPLEX*16         ZLARND
       EXTERNAL           LSAME, DZNRM2, ZLARND
 *     ..

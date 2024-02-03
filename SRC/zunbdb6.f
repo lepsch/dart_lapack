@@ -14,17 +14,17 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ALPHA, REALONE, REALZERO
+      double             ALPHA, REALONE, REALZERO;
       PARAMETER          ( ALPHA = 0.83D0, REALONE = 1.0D0, REALZERO = 0.0D0 )
       COMPLEX*16         NEGONE, ONE, ZERO
       PARAMETER          ( NEGONE = (-1.0D0,0.0D0), ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) )
 *     ..
 *     .. Local Scalars ..
       int                I, IX
-      DOUBLE PRECISION   EPS, NORM, NORM_NEW, SCL, SSQ
+      double             EPS, NORM, NORM_NEW, SCL, SSQ;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZGEMV, ZLASSQ, XERBLA

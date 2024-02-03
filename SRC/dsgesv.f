@@ -10,7 +10,7 @@
 *     .. Array Arguments ..
       int                IPIV( * )
       REAL               SWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * )
+      double             A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
 *     ..
 *
 *  =====================================================================
@@ -22,22 +22,22 @@
       int                ITERMAX
       PARAMETER          ( ITERMAX = 30 )
 *
-      DOUBLE PRECISION   BWDMAX
+      double             BWDMAX;
       PARAMETER          ( BWDMAX = 1.0E+00 )
 *
-      DOUBLE PRECISION   NEGONE, ONE
+      double             NEGONE, ONE;
       PARAMETER          ( NEGONE = -1.0D+0, ONE = 1.0D+0 )
 *
 *     .. Local Scalars ..
       int                I, IITER, PTSA, PTSX
-      DOUBLE PRECISION   ANRM, CTE, EPS, RNRM, XNRM
+      double             ANRM, CTE, EPS, RNRM, XNRM;
 *
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DGEMM, DLACPY, DLAG2S, DGETRF, DGETRS, SGETRF, SGETRS, SLAG2D, XERBLA
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DLAMCH, DLANGE
+      double             DLAMCH, DLANGE;
       EXTERNAL           IDAMAX, DLAMCH, DLANGE
 *     ..
 *     .. Intrinsic Functions ..

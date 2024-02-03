@@ -6,21 +6,21 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, N
-      DOUBLE PRECISION   ANORM, RCOND
+      double             ANORM, RCOND;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * ), WORK( * )
+      double             D( * ), E( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IX
-      DOUBLE PRECISION   AINVNM
+      double             AINVNM;
 *     ..
 *     .. External Functions ..
       int                IDAMAX

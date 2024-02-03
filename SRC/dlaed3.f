@@ -6,25 +6,25 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, K, LDQ, N, N1
-      DOUBLE PRECISION   RHO
+      double             RHO;
 *     ..
 *     .. Array Arguments ..
       int                CTOT( * ), INDX( * )
-      DOUBLE PRECISION   D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), S( * ), W( * )
+      double             D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), S( * ), W( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I, II, IQ2, J, N12, N2, N23
-      DOUBLE PRECISION   TEMP
+      double             TEMP;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DNRM2
+      double             DNRM2;
       EXTERNAL           DNRM2
 *     ..
 *     .. External Subroutines ..

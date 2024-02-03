@@ -5,22 +5,22 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION ALPHA
+      double           ALPHA;
       int     INCX,N
       String    UPLO;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION AP(*),X(*)
+      double           AP(*),X(*);
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION ZERO
+      double           ZERO;
       PARAMETER (ZERO=0.0D+0)
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION TEMP
+      double           TEMP;
       int     I,INFO,IX,J,JX,K,KK,KX
 *     ..
 *     .. External Functions ..

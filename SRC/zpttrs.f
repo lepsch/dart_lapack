@@ -9,7 +9,7 @@
       int                INFO, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * )
+      double             D( * );
       COMPLEX*16         B( LDB, * ), E( * )
 *     ..
 *

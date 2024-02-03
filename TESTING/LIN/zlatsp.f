@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       int                J, JJ, N5
-      DOUBLE PRECISION   ALPHA, ALPHA3, BETA
+      double             ALPHA, ALPHA3, BETA;
       COMPLEX*16         A, B, C, R
 *     ..
 *     .. External Functions ..

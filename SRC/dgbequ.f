@@ -6,24 +6,24 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, KL, KU, LDAB, M, N
-      DOUBLE PRECISION   AMAX, COLCND, ROWCND
+      double             AMAX, COLCND, ROWCND;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AB( LDAB, * ), C( * ), R( * )
+      double             AB( LDAB, * ), C( * ), R( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J, KD
-      DOUBLE PRECISION   BIGNUM, RCMAX, RCMIN, SMLNUM
+      double             BIGNUM, RCMAX, RCMIN, SMLNUM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

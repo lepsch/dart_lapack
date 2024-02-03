@@ -7,10 +7,10 @@
 *     .. Scalar Arguments ..
       bool               ORGATI;
       int                INFO, KNITER
-      DOUBLE PRECISION   FINIT, RHO, TAU
+      double             FINIT, RHO, TAU;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( 3 ), Z( 3 )
+      double             D( 3 ), Z( 3 );
 *     ..
 *
 *  =====================================================================
@@ -18,20 +18,20 @@
 *     .. Parameters ..
       int                MAXIT
       PARAMETER          ( MAXIT = 40 )
-      DOUBLE PRECISION   ZERO, ONE, TWO, THREE, FOUR, EIGHT
+      double             ZERO, ONE, TWO, THREE, FOUR, EIGHT;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0, FOUR = 4.0D0, EIGHT = 8.0D0 )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   DSCALE( 3 ), ZSCALE( 3 )
+      double             DSCALE( 3 ), ZSCALE( 3 );
 *     ..
 *     .. Local Scalars ..
       bool               SCALE;
       int                I, ITER, NITER
-      DOUBLE PRECISION   A, B, BASE, C, DDF, DF, EPS, ERRETM, ETA, F, FC, SCLFAC, SCLINV, SMALL1, SMALL2, SMINV1, SMINV2, TEMP, TEMP1, TEMP2, TEMP3, TEMP4, LBD, UBD
+      double             A, B, BASE, C, DDF, DF, EPS, ERRETM, ETA, F, FC, SCLFAC, SCLINV, SMALL1, SMALL2, SMINV1, SMINV2, TEMP, TEMP1, TEMP2, TEMP3, TEMP4, LBD, UBD;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, INT, LOG, MAX, MIN, SQRT

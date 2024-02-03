@@ -7,12 +7,12 @@
 *     .. Parameters ..
       int               n
       parameter       ( n = 8 )
-      double precision  zero
+      double            zero;
       parameter       ( zero = 0.0d0 )
 *     ..
 *     .. Local Variables ..
       int               i, nFailingTests, nTests
-      double precision  aInf, aNaN, OV, R, X(n), Y(n)
+      double            aInf, aNaN, OV, R, X(n), Y(n);
 *
 *     .. Intrinsic Functions ..
       intrinsic         HUGE, MIN, MAX

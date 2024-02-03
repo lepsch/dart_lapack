@@ -5,21 +5,21 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   F, G, H, SSMAX, SSMIN
+      double             F, G, H, SSMAX, SSMIN;
 *     ..
 *
 *  ====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
-      DOUBLE PRECISION   TWO
+      double             TWO;
       PARAMETER          ( TWO = 2.0D0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   AS, AT, AU, C, FA, FHMN, FHMX, GA, HA
+      double             AS, AT, AU, C, FA, FHMN, FHMX, GA, HA;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN, SQRT

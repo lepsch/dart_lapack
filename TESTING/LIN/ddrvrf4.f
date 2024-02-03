@@ -6,17 +6,17 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, LDC, NN, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       int                NVAL( NN )
-      DOUBLE PRECISION   A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * ), D_WORK_DLANGE( * )
+      double             A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * ), D_WORK_DLANGE( * );
 *     ..
 *
 *  =====================================================================
 *     ..
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE  = 1.0D+0 )
       int                NTESTS
       PARAMETER          ( NTESTS = 1 )
@@ -24,15 +24,15 @@
 *     .. Local Scalars ..
       String             UPLO, CFORM, TRANS;
       int                I, IFORM, IIK, IIN, INFO, IUPLO, J, K, N, NFAIL, NRUN, IALPHA, ITRANS
-      DOUBLE PRECISION   ALPHA, BETA, EPS, NORMA, NORMC
+      double             ALPHA, BETA, EPS, NORMA, NORMC;
 *     ..
 *     .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLARND, DLANGE
+      double             DLAMCH, DLARND, DLANGE;
       EXTERNAL           DLAMCH, DLARND, DLANGE
 *     ..
 *     .. External Subroutines ..

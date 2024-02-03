@@ -6,28 +6,28 @@
 *
 *     .. Scalar Arguments ..
       int                GIVPTR, ICOMPQ, INFO, K, LDB, LDBX, LDGCOL, LDGNUM, NL, NR, NRHS, SQRE
-      DOUBLE PRECISION   C, S
+      double             C, S;
 *     ..
 *     .. Array Arguments ..
       int                GIVCOL( LDGCOL, * ), PERM( * )
-      DOUBLE PRECISION   B( LDB, * ), BX( LDBX, * ), DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), WORK( * ), Z( * )
+      double             B( LDB, * ), BX( LDBX, * ), DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), WORK( * ), Z( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO, NEGONE
+      double             ONE, ZERO, NEGONE;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0, NEGONE = -1.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J, M, N, NLP1
-      DOUBLE PRECISION   DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP
+      double             DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DCOPY, DGEMV, DLACPY, DLASCL, DROT, DSCAL, XERBLA
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMC3, DNRM2
+      double             DLAMC3, DNRM2;
       EXTERNAL           DLAMC3, DNRM2
 *     ..
 *     .. Intrinsic Functions ..

@@ -15,14 +15,14 @@
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   SAFMAX, SAFMIN, OV, AR, AI, ABSR, ABSI, UR, UI
+      double             SAFMAX, SAFMIN, OV, AR, AI, ABSR, ABSI, UR, UI;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       COMPLEX*16         ZLADIV
       EXTERNAL           DLAMCH, ZLADIV
 *     ..

@@ -6,20 +6,20 @@
 *
 *     .. Scalar Arguments ..
       int                I
-      DOUBLE PRECISION   DSIGMA, RHO
+      double             DSIGMA, RHO;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( 2 ), DELTA( 2 ), WORK( 2 ), Z( 2 )
+      double             D( 2 ), DELTA( 2 ), WORK( 2 ), Z( 2 );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO, THREE, FOUR
+      double             ZERO, ONE, TWO, THREE, FOUR;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, THREE = 3.0D+0, FOUR = 4.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   B, C, DEL, DELSQ, TAU, W
+      double             B, C, DEL, DELSQ, TAU, W;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, SQRT

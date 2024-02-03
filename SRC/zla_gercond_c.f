@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C, CAPPLY, INFO, WORK, RWORK )
+      double           FUNCTION ZLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C, CAPPLY, INFO, WORK, RWORK );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,7 +12,7 @@
 *     .. Array Arguments ..
       int                IPIV( * )
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), WORK( * )
-      DOUBLE PRECISION   C( * ), RWORK( * )
+      double             C( * ), RWORK( * );
 *     ..
 *
 *  =====================================================================
@@ -20,7 +20,7 @@
 *     .. Local Scalars ..
       bool               NOTRANS;
       int                KASE, I, J
-      DOUBLE PRECISION   AINVNM, ANORM, TMP
+      double             AINVNM, ANORM, TMP;
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
@@ -37,7 +37,7 @@
       INTRINSIC          ABS, MAX, REAL, DIMAG
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

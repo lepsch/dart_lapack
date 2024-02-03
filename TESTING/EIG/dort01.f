@@ -7,26 +7,26 @@
 *     .. Scalar Arguments ..
       String             ROWCOL;
       int                LDU, LWORK, M, N
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   U( LDU, * ), WORK( * )
+      double             U( LDU, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       String             TRANSU;
       int                I, J, K, LDWORK, MNMIN
-      DOUBLE PRECISION   EPS, TMP
+      double             EPS, TMP;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DDOT, DLAMCH, DLANSY
+      double             DDOT, DLAMCH, DLANSY;
       EXTERNAL           LSAME, DDOT, DLAMCH, DLANSY
 *     ..
 *     .. External Subroutines ..

@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, NIN, NM, NMATS, MMAX, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ), QVAL( * )
-      DOUBLE PRECISION   RWORK( * ), THETA( * )
-      DOUBLE PRECISION   U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * )
+      double             RWORK( * ), THETA( * );
+      double             U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * );
 *     ..
 *
 *  =====================================================================
@@ -21,9 +21,9 @@
       PARAMETER          ( NTESTS = 15 )
       int                NTYPES
       PARAMETER          ( NTYPES = 4 )
-      DOUBLE PRECISION   GAPDIGIT, ONE, ORTH, TEN, ZERO
+      double             GAPDIGIT, ONE, ORTH, TEN, ZERO;
       PARAMETER          ( GAPDIGIT = 18.0D0, ONE = 1.0D0, ORTH = 1.0D-12, TEN = 10.0D0, ZERO = 0.0D0 )
-      DOUBLE PRECISION   PIOVER2
+      double             PIOVER2;
       PARAMETER ( PIOVER2 = 1.57079632679489661923132169163975144210D0 )
 *     ..
 *     .. Local Scalars ..
@@ -33,7 +33,7 @@
 *     ..
 *     .. Local Arrays ..
       bool               DOTYPE( NTYPES );
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAHDG, ALAREQ, ALASUM, DCSDTS, DLACSG, DLAROR, DLASET, DROT
@@ -42,7 +42,7 @@
       INTRINSIC          ABS, MIN
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLARAN, DLARND
+      double             DLARAN, DLARND;
       EXTERNAL           DLARAN, DLARND
 *     ..
 *     .. Executable Statements ..
@@ -158,10 +158,10 @@
 *
       int                LDX, M, P, Q
       int                ISEED( 4 )
-      DOUBLE PRECISION   THETA( * )
-      DOUBLE PRECISION   WORK( * ), X( LDX, * )
+      double             THETA( * );
+      double             WORK( * ), X( LDX, * );
 *
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *
       int                I, INFO, R

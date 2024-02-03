@@ -9,18 +9,18 @@
 *     ..
 *     .. Array Arguments ..
       int                JPVT( * )
-      DOUBLE PRECISION   A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ), VN1( * ), VN2( * )
+      double             A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ), VN1( * ), VN2( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                ITEMP, J, K, LASTRK, LSTICC, PVT, RK
-      DOUBLE PRECISION   AKK, TEMP, TEMP2, TOL3Z
+      double             AKK, TEMP, TEMP2, TOL3Z;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEMM, DGEMV, DLARFG, DSWAP
@@ -30,7 +30,7 @@
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DLAMCH, DNRM2
+      double             DLAMCH, DNRM2;
       EXTERNAL           IDAMAX, DLAMCH, DNRM2
 *     ..
 *     .. Executable Statements ..

@@ -14,16 +14,16 @@
 *     .. Parameters ..
       int                NMAX, LW
       PARAMETER          ( NMAX = 4, LW = NMAX*( NMAX+2 ) )
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IFST, ILST, INFO, J, M, NT
-      DOUBLE PRECISION   SCALE
+      double             SCALE;
 *     ..
 *     .. Local Arrays ..
       bool               SEL( NMAX );
-      DOUBLE PRECISION   RW( LW ), S( NMAX ), SEP( NMAX ), SWORK( NMAX )
+      double             RW( LW ), S( NMAX ), SEP( NMAX ), SWORK( NMAX );
       COMPLEX*16         A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), WORK( LW ), X( NMAX )
 *     ..
 *     .. External Subroutines ..

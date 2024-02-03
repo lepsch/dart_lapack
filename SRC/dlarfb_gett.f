@@ -10,13 +10,13 @@
       int                K, LDA, LDB, LDT, LDWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( LDWORK, * )
+      double             A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( LDWORK, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..

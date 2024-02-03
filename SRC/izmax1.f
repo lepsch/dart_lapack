@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION   DMAX
+      double             DMAX;
       int                I, IX
 *     ..
 *     .. Intrinsic Functions ..

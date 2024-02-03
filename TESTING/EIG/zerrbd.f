@@ -20,7 +20,7 @@
       int                I, INFO, J, NT
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   D( NMAX ), E( NMAX ), RW( 4*NMAX )
+      double             D( NMAX ), E( NMAX ), RW( 4*NMAX );
       COMPLEX*16         A( NMAX, NMAX ), TP( NMAX ), TQ( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW )
 *     ..
 *     .. External Functions ..

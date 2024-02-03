@@ -9,14 +9,14 @@
       int              I1, I2, LDA, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION A( LDA, * )
+      double           A( LDA, * );
 *
 *  =====================================================================
 *
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      DOUBLE PRECISION   TMP
+      double             TMP;
 *
 *     .. External Functions ..
       bool               LSAME;

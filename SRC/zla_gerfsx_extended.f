@@ -8,11 +8,11 @@
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, TRANS_TYPE, N_NORMS
       bool               COLEQU, IGNORE_CWISE;
       int                ITHRESH
-      DOUBLE PRECISION   RTHRESH, DZ_UB
+      double             RTHRESH, DZ_UB;
 *     ..
 *     .. Array Arguments
       int                IPIV( * )
-      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       DOUBLE PRECISION   C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERRS_N( NRHS, * ), ERRS_C( NRHS, * )
+      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       double             C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERRS_N( NRHS, * ), ERRS_C( NRHS, * );
 *     ..
 *
 *  =====================================================================
@@ -20,7 +20,7 @@
 *     .. Local Scalars ..
       String             TRANS;
       int                CNT, I, J,  X_STATE, Z_STATE, Y_PREC_STATE
-      DOUBLE PRECISION   YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH
+      double             YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
       bool               INCR_PREC;
       COMPLEX*16         ZDUM
 *     ..
@@ -40,14 +40,14 @@
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZAXPY, ZCOPY, ZGETRS, ZGEMV, BLAS_ZGEMV_X, BLAS_ZGEMV2_X, ZLA_GEAMV, ZLA_WWADDW, DLAMCH, CHLA_TRANSTYPE, ZLA_LIN_BERR
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       String             CHLA_TRANSTYPE;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

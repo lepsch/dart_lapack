@@ -8,7 +8,7 @@
       int                INCC, INCX, INCY, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   C( * )
+      double             C( * );
       COMPLEX*16         S( * ), X( * ), Y( * )
 *     ..
 *

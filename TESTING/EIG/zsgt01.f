@@ -9,24 +9,24 @@
       int                ITYPE, LDA, LDB, LDZ, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), RESULT( * ), RWORK( * )
+      double             D( * ), RESULT( * ), RWORK( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   ANORM, ULP
+      double             ANORM, ULP;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANGE, ZLANHE
+      double             DLAMCH, ZLANGE, ZLANHE;
       EXTERNAL           DLAMCH, ZLANGE, ZLANHE
 *     ..
 *     .. External Subroutines ..

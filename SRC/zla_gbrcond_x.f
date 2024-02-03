@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLA_GBRCOND_X( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, X, INFO, WORK, RWORK )
+      double           FUNCTION ZLA_GBRCOND_X( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, X, INFO, WORK, RWORK );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
 *     .. Array Arguments ..
       int                IPIV( * )
       COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), X( * )
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
 *
 *
 *  =====================================================================
@@ -19,7 +19,7 @@
 *     .. Local Scalars ..
       bool               NOTRANS;
       int                KASE, I, J
-      DOUBLE PRECISION   AINVNM, ANORM, TMP
+      double             AINVNM, ANORM, TMP;
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
@@ -36,7 +36,7 @@
       INTRINSIC          ABS, MAX
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

@@ -10,14 +10,14 @@
 *     ..
 *     .. Array Arguments ..
       REAL               SA( LDSA, * )
-      DOUBLE PRECISION   A( LDA, * )
+      double             A( LDA, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   RMAX
+      double             RMAX;
       bool               UPPER;
 *     ..
 *     .. External Functions ..

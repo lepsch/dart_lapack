@@ -18,11 +18,11 @@
 *     .. Local Scalars ..
       String             C2;
       int                I, INFO, J
-      DOUBLE PRECISION   ANRM, CCOND, RCOND
+      double             ANRM, CCOND, RCOND;
 *     ..
 *     .. Local Arrays ..
       int                IP( NMAX )
-      DOUBLE PRECISION   R( NMAX ), R1( NMAX ), R2( NMAX )
+      double             R( NMAX ), R1( NMAX ), R2( NMAX );
       COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..

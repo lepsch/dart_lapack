@@ -9,7 +9,7 @@
       int              ICASE, INCX, INCY, MODE, N
       bool             PASS;
 *     .. Local Scalars ..
-      DOUBLE PRECISION SFAC
+      double           SFAC;
       int              IC
 *     .. External Subroutines ..
       EXTERNAL         CHECK0, CHECK1, CHECK2, CHECK3, HEADER
@@ -82,15 +82,15 @@
       int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SFAC
+      double            SFAC;
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
       bool              PASS;
 *     .. Local Scalars ..
-      DOUBLE PRECISION  SA, SB, SC, SS
+      double            SA, SB, SC, SS;
       int               K
 *     .. Local Arrays ..
-      DOUBLE PRECISION  DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8)
+      double            DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8);
 *     .. External Subroutines ..
       EXTERNAL          DROTGTEST, STEST1
 *     .. Common blocks ..
@@ -131,17 +131,17 @@
       int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SFAC
+      double            SFAC;
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
       bool              PASS;
 *     .. Local Scalars ..
       int               I, LEN, NP1
 *     .. Local Arrays ..
-      DOUBLE PRECISION  DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), SA(10), STEMP(1), STRUE(8), SX(8)
+      double            DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), SA(10), STEMP(1), STRUE(8), SX(8);
       int               ITRUE2(5)
 *     .. External Functions ..
-      DOUBLE PRECISION  DASUMTEST, DNRM2TEST
+      double            DASUMTEST, DNRM2TEST;
       int               IDAMAXTEST
       EXTERNAL          DASUMTEST, DNRM2TEST, IDAMAXTEST
 *     .. External Subroutines ..
@@ -197,19 +197,19 @@
       int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SFAC
+      double            SFAC;
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
       bool              PASS;
 *     .. Local Scalars ..
-      DOUBLE PRECISION  SA
+      double            SA;
       int               I, J, KI, KN, KSIZE, LENX, LENY, MX, MY
 *     .. Local Arrays ..
-      DOUBLE PRECISION  DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7)
+      double            DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4)
 *     .. External Functions ..
       EXTERNAL          DDOTTEST
-      DOUBLE PRECISION  DDOTTEST
+      double            DDOTTEST;
 *     .. External Subroutines ..
       EXTERNAL          DAXPYTEST, DCOPYTEST, DSWAPTEST, STEST, STEST1
 *     .. Intrinsic Functions ..
@@ -284,15 +284,15 @@
       int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SFAC
+      double            SFAC;
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
       bool              PASS;
 *     .. Local Scalars ..
-      DOUBLE PRECISION  SC, SS
+      double            SC, SS;
       int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY
 *     .. Local Arrays ..
-      DOUBLE PRECISION  COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7)
+      double            COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
       int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4)
 *     .. External Subroutines ..
       EXTERNAL          STEST,DROTTEST
@@ -449,18 +449,18 @@
       int              NOUT
       PARAMETER        (NOUT=6)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION SFAC
+      double           SFAC;
       int              LEN
 *     .. Array Arguments ..
-      DOUBLE PRECISION SCOMP(LEN), SSIZE(LEN), STRUE(LEN)
+      double           SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N
       bool             PASS;
 *     .. Local Scalars ..
-      DOUBLE PRECISION SD
+      double           SD;
       int              I
 *     .. External Functions ..
-      DOUBLE PRECISION SDIFF
+      double           SDIFF;
       EXTERNAL         SDIFF
 *     .. Intrinsic Functions ..
       INTRINSIC        ABS
@@ -500,11 +500,11 @@
 *     C.L. LAWSON, JPL, 1978 DEC 6
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SCOMP1, SFAC, STRUE1
+      double            SCOMP1, SFAC, STRUE1;
 *     .. Array Arguments ..
-      DOUBLE PRECISION  SSIZE(*)
+      double            SSIZE(*);
 *     .. Local Arrays ..
-      DOUBLE PRECISION  SCOMP(1), STRUE(1)
+      double            SCOMP(1), STRUE(1);
 *     .. External Subroutines ..
       EXTERNAL          STEST
 *     .. Executable Statements ..
@@ -515,12 +515,12 @@
 *
       RETURN
       END
-      DOUBLE PRECISION FUNCTION SDIFF(SA,SB)
+      double           FUNCTION SDIFF(SA,SB);
 *     ********************************* SDIFF **************************
 *     COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION                SA, SB
+      double                          SA, SB;
 *     .. Executable Statements ..
       SDIFF = SA - SB
       RETURN

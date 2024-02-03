@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                LDX, LDXACT, N, NRHS
-      DOUBLE PRECISION   RCOND, RESID
+      double             RCOND, RESID;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         X( LDX, * ), XACT( LDXACT, * )
@@ -15,24 +15,24 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IX, J
-      DOUBLE PRECISION   DIFFNM, EPS, XNORM
+      double             DIFFNM, EPS, XNORM;
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
       int                IZAMAX
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           IZAMAX, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, DIMAG, MAX
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

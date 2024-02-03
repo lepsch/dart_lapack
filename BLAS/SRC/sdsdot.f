@@ -11,7 +11,7 @@
 *     .. Array Arguments ..
       REAL SX(*),SY(*)
 *     .. Local Scalars ..
-      DOUBLE PRECISION DSDOT
+      double           DSDOT;
       int     I,KX,KY,NS
 *     ..
 *     .. Intrinsic Functions ..

@@ -6,18 +6,18 @@
 *
 *     .. Scalar Arguments ..
       bool               UPPER;
-      DOUBLE PRECISION   A1, A3, B1, B3, CSQ, CSU, CSV
+      double             A1, A3, B1, B3, CSQ, CSU, CSV;
       COMPLEX*16         A2, B2, SNQ, SNU, SNV
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   A, AUA11, AUA12, AUA21, AUA22, AVB12, AVB11, AVB21, AVB22, CSL, CSR, D, FB, FC, S1, S2, SNL, SNR, UA11R, UA22R, VB11R, VB22R
+      double             A, AUA11, AUA12, AUA21, AUA22, AVB12, AVB11, AVB21, AVB22, CSL, CSR, D, FB, FC, S1, S2, SNL, SNR, UA11R, UA22R, VB11R, VB22R;
       COMPLEX*16         B, C, D1, R, T, UA11, UA12, UA21, UA22, VB11, VB12, VB21, VB22
 *     ..
 *     .. External Subroutines ..
@@ -27,7 +27,7 @@
       INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, DIMAG
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   ABS1
+      double             ABS1;
 *     ..
 *     .. Statement Function definitions ..
       ABS1( T ) = ABS( DBLE( T ) ) + ABS( DIMAG( T ) )

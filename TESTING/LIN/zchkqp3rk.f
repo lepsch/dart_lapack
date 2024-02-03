@@ -7,12 +7,12 @@
 *
 *     .. Scalar Arguments ..
       int                NM, NN, NNB, NNS, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * )
-      DOUBLE PRECISION   S( * ), RWORK( * )
+      double             S( * ), RWORK( * );
       COMPLEX*16         A( * ), COPYA( * ), B( * ), COPYB( * ), TAU( * ), WORK( * )
 *     ..
 *
@@ -23,7 +23,7 @@
       PARAMETER          ( NTYPES = 19 )
       int                NTESTS
       PARAMETER          ( NTESTS = 5 )
-      DOUBLE PRECISION   ONE, ZERO, BIGNUM
+      double             ONE, ZERO, BIGNUM;
       COMPLEX*16         CONE, CZERO
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ), BIGNUM = 1.0D+38 )
 *     ..
@@ -31,14 +31,14 @@
       String             DIST, TYPE;
       String             PATH;
       int                I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO, INB, IND_OFFSET_GEN, IND_IN, IND_OUT, INS, INFO, ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO, KFACT, KL, KMAX, KU, LDA, LW, LWORK, LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N, NB, NB_ZERO, NERRS, NFAIL, NB_GEN, NRHS, NRUN, NX, T
-      DOUBLE PRECISION   ANORM, CNDNUM, EPS, ABSTOL, RELTOL, DTEMP, MAXC2NRMK, RELMAXC2NRMK
+      double             ANORM, CNDNUM, EPS, ABSTOL, RELTOL, DTEMP, MAXC2NRMK, RELMAXC2NRMK;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS ), RDUMMY( 1 )
+      double             RESULT( NTESTS ), RDUMMY( 1 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZQPT01, ZQRT11, ZQRT12, ZLANGE
+      double             DLAMCH, ZQPT01, ZQRT11, ZQRT12, ZLANGE;
       EXTERNAL           DLAMCH, ZQPT01, ZQRT11, ZQRT12, ZLANGE
 *     ..
 *     .. External Subroutines ..

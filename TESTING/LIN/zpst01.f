@@ -5,32 +5,32 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   RESID
+      double             RESID;
       int                LDA, LDAFAC, LDPERM, N, RANK
       String             UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * )
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       int                PIV( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16         TC
-      DOUBLE PRECISION   ANORM, EPS, TR
+      double             ANORM, EPS, TR;
       int                I, J, K
 *     ..
 *     .. External Functions ..
       COMPLEX*16         ZDOTC
-      DOUBLE PRECISION   DLAMCH, ZLANHE
+      double             DLAMCH, ZLANHE;
       bool               LSAME;
       EXTERNAL           ZDOTC, DLAMCH, ZLANHE, LSAME
 *     ..

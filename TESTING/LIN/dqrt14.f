@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DQRT14( TRANS, M, N, NRHS, A, LDA, X, LDX, WORK, LWORK )
+      double           FUNCTION DQRT14( TRANS, M, N, NRHS, A, LDA, X, LDX, WORK, LWORK );
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,26 +9,26 @@
       int                LDA, LDX, LWORK, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), WORK( LWORK ), X( LDX, * )
+      double             A( LDA, * ), WORK( LWORK ), X( LDX, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       bool               TPSD;
       int                I, INFO, J, LDWORK
-      DOUBLE PRECISION   ANRM, ERR, XNRM
+      double             ANRM, ERR, XNRM;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   RWORK( 1 )
+      double             RWORK( 1 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, DLANGE
+      double             DLAMCH, DLANGE;
       EXTERNAL           LSAME, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

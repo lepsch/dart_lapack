@@ -11,24 +11,24 @@
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
-      DOUBLE PRECISION   T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
+      double             T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       int                NBMIN, NBMAX
       PARAMETER          ( NBMIN = 8, NBMAX = 128 )
 *     ..
 *     .. Local Scalars ..
-      bool               ALLV, BOTHV, LEFTV, LQUERY, OVER, PAIR, RIGHTV, SOMEV       int                I, IERR, II, IP, IS, J, J1, J2, JNXT, K, KI, IV, MAXWRK, NB, KI2       DOUBLE PRECISION   BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM;
+      bool               ALLV, BOTHV, LEFTV, LQUERY, OVER, PAIR, RIGHTV, SOMEV       int                I, IERR, II, IP, IS, J, J1, J2, JNXT, K, KI, IV, MAXWRK, NB, KI2       double             BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM;;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                IDAMAX, ILAENV
-      DOUBLE PRECISION   DDOT, DLAMCH
+      double             DDOT, DLAMCH;
       EXTERNAL           LSAME, IDAMAX, ILAENV, DDOT, DLAMCH
 *     ..
 *     .. External Subroutines ..
@@ -38,7 +38,7 @@
       INTRINSIC          ABS, MAX, SQRT
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   X( 2, 2 )
+      double             X( 2, 2 );
       int                ISCOMPLEX( NBMAX )
 *     ..
 *     .. Executable Statements ..

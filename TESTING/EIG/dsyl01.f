@@ -9,36 +9,36 @@
 *
 *     .. Scalar Arguments ..
       int                KNT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       int                NFAIL( 3 ), NINFO( 2 )
-      DOUBLE PRECISION   RMAX( 2 )
+      double             RMAX( 2 );
 *     ..
 *
 *  =====================================================================
 *     ..
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       int                MAXM, MAXN, LDSWORK
       PARAMETER          ( MAXM = 245, MAXN = 192, LDSWORK = 36 )
 *     ..
 *     .. Local Scalars ..
       String             TRANA, TRANB;
-      int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, LIWORK, M, N       DOUBLE PRECISION   ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL, SCALE, SCALE3, SMLNUM, TNRM, XNRM
+      int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, LIWORK, M, N       double             ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL, SCALE, SCALE3, SMLNUM, TNRM, XNRM;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   DUML( MAXM ), DUMR( MAXN ), D( MAX( MAXM, MAXN ) ), DUM( MAXN ), VM( 2 )
+      double             DUML( MAXM ), DUMR( MAXN ), D( MAX( MAXM, MAXN ) ), DUM( MAXN ), VM( 2 );
       int                ISEED( 4 ), IWORK( MAXM + MAXN + 2 )
 *     ..
 *     .. Allocatable Arrays ..
       int                AllocateStatus
-      DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X, SWORK
+      double          , DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X, SWORK;
 *     ..
 *     .. External Functions ..
       bool               DISNAN;
-      DOUBLE PRECISION   DLAMCH, DLANGE
+      double             DLAMCH, DLANGE;
       EXTERNAL           DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

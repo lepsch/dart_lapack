@@ -6,27 +6,27 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, LDB, LWORK, M, N, P
-      DOUBLE PRECISION   RESULT
+      double             RESULT;
 *     ..
 *     .. Array Arguments ..
 *
 *  ====================================================================
 *
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * )
 *     ..
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                INFO
-      DOUBLE PRECISION   ANORM, BNORM, DNORM, EPS, UNFL, XNORM, YNORM
+      double             ANORM, BNORM, DNORM, EPS, UNFL, XNORM, YNORM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DZASUM, ZLANGE
+      double             DLAMCH, DZASUM, ZLANGE;
       EXTERNAL           DLAMCH, DZASUM, ZLANGE
 *     ..
 *     .. External Subroutines ..

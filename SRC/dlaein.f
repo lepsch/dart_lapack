@@ -7,26 +7,26 @@
 *     .. Scalar Arguments ..
       bool               NOINIT, RIGHTV;
       int                INFO, LDB, LDH, N
-      DOUBLE PRECISION   BIGNUM, EPS3, SMLNUM, WI, WR
+      double             BIGNUM, EPS3, SMLNUM, WI, WR;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B( LDB, * ), H( LDH, * ), VI( * ), VR( * ), WORK( * )
+      double             B( LDB, * ), H( LDH, * ), VI( * ), VR( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TENTH
+      double             ZERO, ONE, TENTH;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TENTH = 1.0D-1 )
 *     ..
 *     .. Local Scalars ..
       String             NORMIN, TRANS;
       int                I, I1, I2, I3, IERR, ITS, J
-      DOUBLE PRECISION   ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y
+      double             ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y;
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DASUM, DLAPY2, DNRM2
+      double             DASUM, DLAPY2, DNRM2;
       EXTERNAL           IDAMAX, DASUM, DLAPY2, DNRM2
 *     ..
 *     .. External Subroutines ..

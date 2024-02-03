@@ -8,18 +8,18 @@
       int                K, LDA, LDT, LDY, N, NB
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB )
+      double             A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I
-      DOUBLE PRECISION   EI
+      double             EI;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DCOPY, DGEMV, DLARFG, DSCAL, DTRMV

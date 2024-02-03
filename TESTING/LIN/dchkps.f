@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
       int                NMAX, NN, NNB, NOUT, NRANK
       bool               TSTERR;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( * ), AFAC( * ), PERM( * ), RWORK( * ), WORK( * )
+      double             A( * ), AFAC( * ), PERM( * ), RWORK( * ), WORK( * );
       int                NBVAL( * ), NVAL( * ), PIV( * ), RANKVAL( * )
       bool               DOTYPE( * );
 *     ..
@@ -18,13 +18,13 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
       int                NTYPES
       PARAMETER          ( NTYPES = 9 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ANORM, CNDNUM, RESULT, TOL
+      double             ANORM, CNDNUM, RESULT, TOL;
       int                COMPRANK, I, IMAT, IN, INB, INFO, IRANK, IUPLO, IZERO, KL, KU, LDA, MODE, N, NB, NERRS, NFAIL, NIMAT, NRUN, RANK, RANKDIFF
       String             DIST, TYPE, UPLO;
       String             PATH;
@@ -56,7 +56,7 @@
 *
 *     Initialize constants and the random number seed.
 *
-      PATH( 1: 1 ) = 'Double precision'
+      PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'PS'
       NRUN = 0
       NFAIL = 0

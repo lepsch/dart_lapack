@@ -7,21 +7,21 @@
 *     .. Scalar Arguments ..
       String             DIST, RSIGN, SIM, UPPER;
       int                INFO, KL, KU, LDA, MODE, MODES, N
-      DOUBLE PRECISION   ANORM, COND, CONDS
+      double             ANORM, COND, CONDS;
       COMPLEX*16         DMAX
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   DS( * )
+      double             DS( * );
       COMPLEX*16         A( LDA, * ), D( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
@@ -31,15 +31,15 @@
 *     .. Local Scalars ..
       bool               BADS;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR
-      DOUBLE PRECISION   RALPHA, TEMP
+      double             RALPHA, TEMP;
       COMPLEX*16         ALPHA, TAU, XNORMS
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   TEMPA( 1 )
+      double             TEMPA( 1 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   ZLANGE
+      double             ZLANGE;
       COMPLEX*16         ZLARND
       EXTERNAL           LSAME, ZLANGE, ZLARND
 *     ..

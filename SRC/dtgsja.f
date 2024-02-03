@@ -7,10 +7,10 @@
 *     .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, NCYCLE, P
-      DOUBLE PRECISION   TOLA, TOLB
+      double             TOLA, TOLB;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
+      double             A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
@@ -18,14 +18,14 @@
 *     .. Parameters ..
       int                MAXIT
       PARAMETER          ( MAXIT = 40 )
-      DOUBLE PRECISION   ZERO, ONE, HUGENUM
+      double             ZERO, ONE, HUGENUM;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
 *
       bool               INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;
       int                I, J, KCYCLE
-      DOUBLE PRECISION   A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SNQ, SNU, SNV, SSMIN
+      double             A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SNQ, SNU, SNV, SSMIN;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

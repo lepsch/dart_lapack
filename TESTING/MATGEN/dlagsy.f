@@ -9,24 +9,24 @@
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   A( LDA, * ), D( * ), WORK( * )
+      double             A( LDA, * ), D( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, HALF
+      double             ZERO, ONE, HALF;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, HALF = 0.5D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   ALPHA, TAU, WA, WB, WN
+      double             ALPHA, TAU, WA, WB, WN;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DGEMV, DGER, DLARNV, DSCAL, DSYMV, DSYR2, XERBLA
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DDOT, DNRM2
+      double             DDOT, DNRM2;
       EXTERNAL           DDOT, DNRM2
 *     ..
 *     .. Intrinsic Functions ..

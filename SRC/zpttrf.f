@@ -8,19 +8,19 @@
       int                INFO, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * )
+      double             D( * );
       COMPLEX*16         E( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, I4
-      DOUBLE PRECISION   EII, EIR, F, G
+      double             EII, EIR, F, G;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA

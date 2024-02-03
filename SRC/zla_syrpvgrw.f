@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLA_SYRPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK )
+      double           FUNCTION ZLA_SYRPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), AF( LDAF, * )
-      DOUBLE PRECISION   WORK( * )
+      double             WORK( * );
       int                IPIV( * )
 *     ..
 *
@@ -18,7 +18,7 @@
 *
 *     .. Local Scalars ..
       int                NCOLS, I, J, K, KP
-      DOUBLE PRECISION   AMAX, UMAX, RPVGRW, TMP
+      double             AMAX, UMAX, RPVGRW, TMP;
       bool               UPPER;
       COMPLEX*16         ZDUM
 *     ..
@@ -30,7 +30,7 @@
       bool               LSAME;
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( DBLE ( ZDUM ) ) + ABS( DIMAG ( ZDUM ) )

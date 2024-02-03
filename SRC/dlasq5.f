@@ -7,21 +7,21 @@
 *     .. Scalar Arguments ..
       bool               IEEE;
       int                I0, N0, PP
-      DOUBLE PRECISION   DMIN, DMIN1, DMIN2, DN, DNM1, DNM2, TAU, SIGMA, EPS
+      double             DMIN, DMIN1, DMIN2, DN, DNM1, DNM2, TAU, SIGMA, EPS;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   Z( * )
+      double             Z( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameter ..
-      DOUBLE PRECISION   ZERO, HALF
+      double             ZERO, HALF;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5 )
 *     ..
 *     .. Local Scalars ..
       int                J4, J4P2
-      DOUBLE PRECISION   D, EMIN, TEMP, DTHRESH
+      double             D, EMIN, TEMP, DTHRESH;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MIN

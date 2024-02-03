@@ -6,26 +6,26 @@
 *
 *     .. Scalar Arguments ..
       int                KNT, LMAX, NINFO
-      DOUBLE PRECISION   RMAX
+      double             RMAX;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-      DOUBLE PRECISION   TWO, FOUR
+      double             TWO, FOUR;
       PARAMETER          ( TWO = 2.0D0, FOUR = 4.0D0 )
 *     ..
 *     .. Local Scalars ..
       int                I1, I2, I3, I4, IM1, IM2, IM3, IM4, J1, J2, J3
-      DOUBLE PRECISION   BIGNUM, CS, EPS, RES, SMLNUM, SN, SUM, TNRM, WI1, WI2, WR1, WR2
+      double             BIGNUM, CS, EPS, RES, SMLNUM, SN, SUM, TNRM, WI1, WI2, WR1, WR2;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   Q( 2, 2 ), T( 2, 2 ), T1( 2, 2 ), T2( 2, 2 ), VAL( 4 ), VM( 3 )
+      double             Q( 2, 2 ), T( 2, 2 ), T1( 2, 2 ), T2( 2, 2 ), VAL( 4 ), VM( 3 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

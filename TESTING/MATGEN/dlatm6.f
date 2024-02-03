@@ -6,23 +6,23 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, LDX, LDY, N, TYPE
-      DOUBLE PRECISION   ALPHA, BETA, WX, WY
+      double             ALPHA, BETA, WX, WY;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDA, * ), DIF( * ), S( * ), X( LDX, * ), Y( LDY, * )
+      double             A( LDA, * ), B( LDA, * ), DIF( * ), S( * ), X( LDX, * ), Y( LDY, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO, THREE
+      double             ZERO, ONE, TWO, THREE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, THREE = 3.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, INFO, J
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   WORK( 100 ), Z( 12, 12 )
+      double             WORK( 100 ), Z( 12, 12 );
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, SQRT

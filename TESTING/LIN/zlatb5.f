@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   ANORM, CNDNUM
+      double             ANORM, CNDNUM;
       int                IMAT, KL, KU, MODE, N
       String             DIST, TYPE;
       String             PATH;
@@ -14,20 +14,20 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   SHRINK, TENTH
+      double             SHRINK, TENTH;
       PARAMETER          ( SHRINK = 0.25D0, TENTH = 0.1D+0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
-      DOUBLE PRECISION   TWO
+      double             TWO;
       PARAMETER          ( TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   BADC1, BADC2, EPS, LARGE, SMALL
+      double             BADC1, BADC2, EPS, LARGE, SMALL;
       bool               FIRST;
       String             C2;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

@@ -9,20 +9,20 @@
 *     ..
 *     .. Array Arguments ..
       int                JPVT( * )
-      DOUBLE PRECISION   VN1( * ), VN2( * )
+      double             VN1( * ), VN2( * );
       COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       COMPLEX*16         CONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       int                I, ITEMP, J, MN, OFFPI, PVT
-      DOUBLE PRECISION   TEMP, TEMP2, TOL3Z
+      double             TEMP, TEMP2, TOL3Z;
       COMPLEX*16         AII
 *     ..
 *     .. External Subroutines ..
@@ -33,7 +33,7 @@
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DLAMCH, DZNRM2
+      double             DLAMCH, DZNRM2;
       EXTERNAL           IDAMAX, DLAMCH, DZNRM2
 *     ..
 *     .. Executable Statements ..

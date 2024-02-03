@@ -15,13 +15,13 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       int                J, JC, JJ
-      DOUBLE PRECISION   AJJ
+      double             AJJ;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, LDA, LDB, M, N, NRHS, RANK
-      DOUBLE PRECISION   RCOND
+      double             RCOND;
 *     ..
 *     .. Array Arguments ..
       int                JPVT( * )
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), WORK( * )
+      double             A( LDA, * ), B( LDB, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
@@ -18,15 +18,15 @@
 *     .. Parameters ..
       int                IMAX, IMIN
       PARAMETER          ( IMAX = 1, IMIN = 2 )
-      DOUBLE PRECISION   ZERO, ONE, DONE, NTDONE
+      double             ZERO, ONE, DONE, NTDONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, DONE = ZERO, NTDONE = ONE )
 *     ..
 *     .. Local Scalars ..
       int                I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN
-      DOUBLE PRECISION   ANRM, BIGNUM, BNRM, C1, C2, S1, S2, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, T1, T2
+      double             ANRM, BIGNUM, BNRM, C1, C2, S1, S2, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, T1, T2;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLANGE
+      double             DLAMCH, DLANGE;
       EXTERNAL           DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

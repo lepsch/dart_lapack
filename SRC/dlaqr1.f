@@ -5,21 +5,21 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   SI1, SI2, SR1, SR2
+      double             SI1, SI2, SR1, SR2;
       int                LDH, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   H( LDH, * ), V( * )
+      double             H( LDH, * ), V( * );
 *     ..
 *
 *  ================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0d0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   H21S, H31S, S
+      double             H21S, H31S, S;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS

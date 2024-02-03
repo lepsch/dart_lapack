@@ -5,32 +5,32 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   COND, DMAX
+      double             COND, DMAX;
       int                INFO, KL, KU, LDA, M, MODE, N, RANK
       String             DIST, PACK, SYM;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), D( * ), WORK( * )
+      double             A( LDA, * ), D( * ), WORK( * );
       int                ISEED( 4 )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
-      DOUBLE PRECISION   TWOPI
+      double             TWOPI;
       PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA, ANGLE, C, DUMMY, EXTRA, S, TEMP
+      double             ALPHA, ANGLE, C, DUMMY, EXTRA, S, TEMP;
       int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB
       bool               GIVENS, ILEXTR, ILTEMP, TOPDWN;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLARND
+      double             DLARND;
       bool               LSAME;
       EXTERNAL           DLARND, LSAME
 *     ..

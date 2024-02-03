@@ -11,7 +11,7 @@
       int                N, LDA, LWORK, LHOUS2, INFO
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * )
+      double             D( * ), E( * );
       COMPLEX*16         A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * )
 *     ..
 *

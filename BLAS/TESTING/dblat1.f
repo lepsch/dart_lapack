@@ -13,7 +13,7 @@
       int              ICASE, INCX, INCY, N
       bool             PASS;
 *     .. Local Scalars ..
-      DOUBLE PRECISION SFAC
+      double           SFAC;
       int              IC
 *     .. External Subroutines ..
       EXTERNAL         CHECK0, CHECK1, CHECK2, CHECK3, HEADER
@@ -94,15 +94,15 @@
       int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SFAC
+      double            SFAC;
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, N
       bool              PASS;
 *     .. Local Scalars ..
-      DOUBLE PRECISION  SA, SB, SC, SS, D12
+      double            SA, SB, SC, SS, D12;
       int               I, K
 *     .. Local Arrays ..
-      DOUBLE PRECISION  DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8), DAB(4,9), DTEMP(9), DTRUE(9,9)
+      double            DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8), DAB(4,9), DTEMP(9), DTRUE(9,9);
 *     .. External Subroutines ..
       EXTERNAL          DROTG, DROTMG, STEST, STEST1
 *     .. Common blocks ..
@@ -179,21 +179,21 @@
       END
       SUBROUTINE CHECK1(SFAC)
 *     .. Parameters ..
-      DOUBLE PRECISION  THRESH
+      double            THRESH;
       int               NOUT
       PARAMETER         (NOUT=6, THRESH=10.0D0)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SFAC
+      double            SFAC;
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, N
       bool              PASS;
 *     .. Local Scalars ..
       int               I, IX, LEN, NP1
 *     .. Local Arrays ..
-      DOUBLE PRECISION  DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), DVR(8), SA(10), STEMP(1), STRUE(8), SX(8), SXR(15)
+      double            DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), DVR(8), SA(10), STEMP(1), STRUE(8), SX(8), SXR(15);
       int               ITRUE2(5), ITRUEC(5)
 *     .. External Functions ..
-      DOUBLE PRECISION  DASUM, DNRM2
+      double            DASUM, DNRM2;
       int               IDAMAX
       EXTERNAL          DASUM, DNRM2, IDAMAX
 *     .. External Subroutines ..
@@ -271,18 +271,18 @@
       int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SFAC
+      double            SFAC;
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, N
       bool              PASS;
 *     .. Local Scalars ..
-      DOUBLE PRECISION  SA
+      double            SA;
       int               I, J, KI, KN, KNI, KPAR, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY
 *     .. Local Arrays ..
-      DOUBLE PRECISION  DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), SSIZE(7), STX(7), STY(7), SX(7), SY(7), DPAR(5,4), DT19X(7,4,16),DT19XA(7,4,4), DT19XB(7,4,4), DT19XC(7,4,4),DT19XD(7,4,4), DT19Y(7,4,16), DT19YA(7,4,4),DT19YB(7,4,4), DT19YC(7,4,4), DT19YD(7,4,4), DTEMP(5), STY0(1), SX0(1), SY0(1)
+      double            DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), SSIZE(7), STX(7), STY(7), SX(7), SY(7), DPAR(5,4), DT19X(7,4,16),DT19XA(7,4,4), DT19XB(7,4,4), DT19XC(7,4,4),DT19XD(7,4,4), DT19Y(7,4,16), DT19YA(7,4,4),DT19YB(7,4,4), DT19YC(7,4,4), DT19YD(7,4,4), DTEMP(5), STY0(1), SX0(1), SY0(1);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4)
 *     .. External Functions ..
-      DOUBLE PRECISION  DDOT, DSDOT
+      double            DDOT, DSDOT;
       EXTERNAL          DDOT, DSDOT
 *     .. External Subroutines ..
       EXTERNAL          DAXPY, DCOPY, DROTM, DSWAP, STEST, STEST1, TESTDSDOT
@@ -430,15 +430,15 @@
       int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SFAC
+      double            SFAC;
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, N
       bool              PASS;
 *     .. Local Scalars ..
-      DOUBLE PRECISION  SC, SS
+      double            SC, SS;
       int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY
 *     .. Local Arrays ..
-      DOUBLE PRECISION  COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7)
+      double            COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
       int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4)
 *     .. External Subroutines ..
       EXTERNAL          DROT, STEST
@@ -596,21 +596,21 @@
 *
 *     .. Parameters ..
       int              NOUT
-      DOUBLE PRECISION ZERO
+      double           ZERO;
       PARAMETER        (NOUT=6, ZERO=0.0D0)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION SFAC
+      double           SFAC;
       int              LEN
 *     .. Array Arguments ..
-      DOUBLE PRECISION SCOMP(LEN), SSIZE(LEN), STRUE(LEN)
+      double           SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, N
       bool             PASS;
 *     .. Local Scalars ..
-      DOUBLE PRECISION SD
+      double           SD;
       int              I
 *     .. External Functions ..
-      DOUBLE PRECISION SDIFF
+      double           SDIFF;
       EXTERNAL         SDIFF
 *     .. Intrinsic Functions ..
       INTRINSIC        ABS
@@ -703,11 +703,11 @@
 *     C.L. LAWSON, JPL, 1978 DEC 6
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SCOMP1, SFAC, STRUE1
+      double            SCOMP1, SFAC, STRUE1;
 *     .. Array Arguments ..
-      DOUBLE PRECISION  SSIZE(*)
+      double            SSIZE(*);
 *     .. Local Arrays ..
-      DOUBLE PRECISION  SCOMP(1), STRUE(1)
+      double            SCOMP(1), STRUE(1);
 *     .. External Subroutines ..
       EXTERNAL          STEST
 *     .. Executable Statements ..
@@ -721,12 +721,12 @@
 *     End of STEST1
 *
       END
-      DOUBLE PRECISION FUNCTION SDIFF(SA,SB)
+      double           FUNCTION SDIFF(SA,SB);
 *     ********************************* SDIFF **************************
 *     COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION                SA, SB
+      double                          SA, SB;
 *     .. Executable Statements ..
       SDIFF = SA - SB
       RETURN
@@ -796,28 +796,28 @@
 *
 *     .. Scalar Arguments ..
       int               INCX, N
-      DOUBLE PRECISION  THRESH
+      double            THRESH;
 *
 *  =====================================================================
 *     .. Parameters ..
       int               NMAX, NOUT, NV
       PARAMETER         (NMAX=20, NOUT=6, NV=10)
-      DOUBLE PRECISION  HALF, ONE, TWO, ZERO
+      double            HALF, ONE, TWO, ZERO;
       PARAMETER         (HALF=0.5D+0, ONE=1.0D+0, TWO= 2.0D+0, ZERO=0.0D+0)
 *     .. External Functions ..
-      DOUBLE PRECISION  DNRM2
+      double            DNRM2;
       EXTERNAL          DNRM2
 *     .. Intrinsic Functions ..
       INTRINSIC         ABS, DBLE, MAX, MIN, SQRT
 *     .. Model parameters ..
-      DOUBLE PRECISION  BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP
+      double            BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP;
       PARAMETER         (BIGNUM=0.99792015476735990583D+292, SAFMAX=0.44942328371557897693D+308, SAFMIN=0.22250738585072013831D-307, SMLNUM=0.10020841800044863890D-291, ULP=0.22204460492503130808D-015)
 *     .. Local Scalars ..
-      DOUBLE PRECISION  ROGUE, SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM
+      double            ROGUE, SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM;
       int               I, IV, IW, IX
       bool              FIRST;
 *     .. Local Arrays ..
-      DOUBLE PRECISION  VALUES(NV), WORK(NMAX), X(NMAX), Z(NMAX)
+      double            VALUES(NV), WORK(NMAX), X(NMAX), Z(NMAX);
 *     .. Executable Statements ..
       VALUES(1) = ZERO
       VALUES(2) = TWO*SAFMIN
@@ -960,12 +960,12 @@
      +  I2, ', test=', E15.8 )
       RETURN
       CONTAINS
-      DOUBLE PRECISION FUNCTION DXVALS(XX,K)
+      double           FUNCTION DXVALS(XX,K);
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  XX
+      double            XX;
       int               K
 *     .. Local Scalars ..
-      DOUBLE PRECISION  X, Y, YY, Z
+      double            X, Y, YY, Z;
 *     .. Intrinsic Functions ..
       INTRINSIC         HUGE
 *     .. Executable Statements ..

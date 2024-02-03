@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DZASUM(N,ZX,INCX)
+      double           FUNCTION DZASUM(N,ZX,INCX);
 *
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -14,11 +14,11 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION STEMP
+      double           STEMP;
       int     I,NINCX
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION DCABS1
+      double           DCABS1;
       EXTERNAL DCABS1
 *     ..
       DZASUM = 0.0d0

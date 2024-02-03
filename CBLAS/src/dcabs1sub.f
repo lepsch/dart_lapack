@@ -2,7 +2,7 @@
 c
       external dcabs1
       double complex z
-      double precision dcabs1, cabs1
+      double           dcabs1, cabs1;
 c
       cabs1=dcabs1(z)
       return

@@ -28,17 +28,17 @@
       String             INTSTR;
       String             ALINE;
       int                I, IC, K, LDA, NM, NMATS, NNS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH
-      DOUBLE PRECISION   EPS, S1, S2, THRESH
+      double             EPS, S1, S2, THRESH;
       REAL               SEPS
 *     ..
 *     .. Local Arrays ..
       bool               DOTYPE( MATMAX );
       int                IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN )
-      DOUBLE PRECISION   A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ), RWORK( NMAX ), WORK( NMAX*MAXRHS*2 )
+      double             A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ), RWORK( NMAX ), WORK( NMAX*MAXRHS*2 );
       REAL               SWORK(NMAX*(NMAX+MAXRHS))
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DSECND
+      double             DLAMCH, DSECND;
       bool               LSAME, LSAMEN;
       REAL               SLAMCH
       EXTERNAL           LSAME, LSAMEN, DLAMCH, DSECND, SLAMCH
@@ -150,11 +150,11 @@
       WRITE( NOUT, FMT = * )
 *
       EPS = DLAMCH( 'Underflow threshold' )
-      WRITE( NOUT, FMT = 9991 )'(double precision) underflow', EPS
+      WRITE( NOUT, FMT = 9991 )'(double          ) underflow', EPS;
       EPS = DLAMCH( 'Overflow threshold' )
-      WRITE( NOUT, FMT = 9991 )'(double precision) overflow ', EPS
+      WRITE( NOUT, FMT = 9991 )'(double          ) overflow ', EPS;
       EPS = DLAMCH( 'Epsilon' )
-      WRITE( NOUT, FMT = 9991 )'(double precision) precision', EPS
+      WRITE( NOUT, FMT = 9991 )'(double          ) precision', EPS;
       WRITE( NOUT, FMT = * )
 *
    80 CONTINUE
@@ -194,7 +194,7 @@
 *
 *     Check first character for correct precision.
 *
-      IF( .NOT.LSAME( C1, 'Double precision' ) ) THEN
+      IF( .NOT.LSAME( C1, 'double          ' ) ) THEN;
          WRITE( NOUT, FMT = 9990 )PATH
 
 *
@@ -261,7 +261,7 @@
      $      I6 )
  9995 FORMAT( ' Invalid input value: ', A4, '=', I6, '; must be <=',
      $      I6 )
- 9994 FORMAT( ' Tests of the DOUBLE PRECISION LAPACK DSGESV/DSPOSV',
+ 9994 FORMAT( ' Tests of the double           LAPACK DSGESV/DSPOSV',;
      $  ' routines ',
      $      / ' LAPACK VERSION ', I1, '.', I1, '.', I1,
      $      / / ' The following parameter values will be used:' )

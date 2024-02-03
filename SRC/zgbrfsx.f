@@ -7,21 +7,21 @@
 *     .. Scalar Arguments ..
       String             TRANS, EQUED;
       int                INFO, LDAB, LDAFB, LDB, LDX, N, KL, KU, NRHS, NPARAMS, N_ERR_BNDS
-      DOUBLE PRECISION   RCOND
+      double             RCOND;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       DOUBLE PRECISION   R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * )
+      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       double             R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
 *     ..
 *
 *  ==================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      DOUBLE PRECISION   ITREF_DEFAULT, ITHRESH_DEFAULT
-      DOUBLE PRECISION   COMPONENTWISE_DEFAULT, RTHRESH_DEFAULT
-      DOUBLE PRECISION   DZTHRESH_DEFAULT
+      double             ITREF_DEFAULT, ITHRESH_DEFAULT;
+      double             COMPONENTWISE_DEFAULT, RTHRESH_DEFAULT;
+      double             DZTHRESH_DEFAULT;
       PARAMETER          ( ITREF_DEFAULT = 1.0D+0 )
       PARAMETER          ( ITHRESH_DEFAULT = 10.0D+0 )
       PARAMETER          ( COMPONENTWISE_DEFAULT = 1.0D+0 )
@@ -36,7 +36,7 @@
 *     .. Local Scalars ..
       String   (1)       NORM;
       bool               ROWEQU, COLEQU, NOTRAN, IGNORE_CWISE;
-      int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE, N_NORMS, ITHRESH       DOUBLE PRECISION   ANORM, RCOND_TMP, ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG, RTHRESH, UNSTABLE_THRESH
+      int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE, N_NORMS, ITHRESH       double             ANORM, RCOND_TMP, ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG, RTHRESH, UNSTABLE_THRESH;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZGBCON, ZLA_GBRFSX_EXTENDED
@@ -47,7 +47,7 @@
 *     .. External Functions ..
       EXTERNAL           LSAME, ILAPREC
       EXTERNAL           DLAMCH, ZLANGB, ZLA_GBRCOND_X, ZLA_GBRCOND_C
-      DOUBLE PRECISION   DLAMCH, ZLANGB, ZLA_GBRCOND_X, ZLA_GBRCOND_C
+      double             DLAMCH, ZLANGB, ZLA_GBRCOND_X, ZLA_GBRCOND_C;
       bool               LSAME;
       int                ILATRANS, ILAPREC
 *     ..

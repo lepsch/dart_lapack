@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLANTB( NORM, UPLO, DIAG, N, K, AB, LDAB, WORK )
+      double           FUNCTION DLANTB( NORM, UPLO, DIAG, N, K, AB, LDAB, WORK );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                K, LDAB, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AB( LDAB, * ), WORK( * )
+      double             AB( LDAB, * ), WORK( * );
 *     ..
 *
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UDIAG;
       int                I, J, L
-      DOUBLE PRECISION   SCALE, SUM, VALUE
+      double             SCALE, SUM, VALUE;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLASSQ

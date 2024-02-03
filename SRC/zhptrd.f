@@ -9,7 +9,7 @@
       int                INFO, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * )
+      double             D( * ), E( * );
       COMPLEX*16         AP( * ), TAU( * )
 *     ..
 *

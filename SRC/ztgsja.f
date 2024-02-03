@@ -7,10 +7,10 @@
 *     .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, NCYCLE, P
-      DOUBLE PRECISION   TOLA, TOLB
+      double             TOLA, TOLB;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   ALPHA( * ), BETA( * )
+      double             ALPHA( * ), BETA( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
@@ -19,7 +19,7 @@
 *     .. Parameters ..
       int                MAXIT
       PARAMETER          ( MAXIT = 40 )
-      DOUBLE PRECISION   ZERO, ONE, HUGENUM
+      double             ZERO, ONE, HUGENUM;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
@@ -28,7 +28,7 @@
 *
       bool               INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;
       int                I, J, KCYCLE
-      DOUBLE PRECISION   A1, A3, B1, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SSMIN
+      double             A1, A3, B1, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SSMIN;
       COMPLEX*16         A2, B2, SNQ, SNU, SNV
 *     ..
 *     .. External Functions ..

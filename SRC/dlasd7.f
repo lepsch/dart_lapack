@@ -6,28 +6,28 @@
 *
 *     .. Scalar Arguments ..
       int                GIVPTR, ICOMPQ, INFO, K, LDGCOL, LDGNUM, NL, NR, SQRE
-      DOUBLE PRECISION   ALPHA, BETA, C, S
+      double             ALPHA, BETA, C, S;
 *     ..
 *     .. Array Arguments ..
-      int                GIVCOL( LDGCOL, * ), IDX( * ), IDXP( * ), IDXQ( * ), PERM( * )       DOUBLE PRECISION   D( * ), DSIGMA( * ), GIVNUM( LDGNUM, * ), VF( * ), VFW( * ), VL( * ), VLW( * ), Z( * ), ZW( * )
+      int                GIVCOL( LDGCOL, * ), IDX( * ), IDXP( * ), IDXQ( * ), PERM( * )       double             D( * ), DSIGMA( * ), GIVNUM( LDGNUM, * ), VF( * ), VFW( * ), VL( * ), VLW( * ), Z( * ), ZW( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO, EIGHT
+      double             ZERO, ONE, TWO, EIGHT;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, EIGHT = 8.0D+0 )
 *     ..
 *     .. Local Scalars ..
 *
       int                I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M, N, NLP1, NLP2
-      DOUBLE PRECISION   EPS, HLFTOL, TAU, TOL, Z1
+      double             EPS, HLFTOL, TAU, TOL, Z1;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DCOPY, DLAMRG, DROT, XERBLA
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLAPY2
+      double             DLAMCH, DLAPY2;
       EXTERNAL           DLAMCH, DLAPY2
 *     ..
 *     .. Intrinsic Functions ..

@@ -8,13 +8,13 @@
       int                N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   X( * ), Y( * ), W( * )
+      double             X( * ), Y( * ), W( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION   S
+      double             S;
       int                I
 *     ..
 *     .. Executable Statements ..

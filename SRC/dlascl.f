@@ -7,26 +7,26 @@
 *     .. Scalar Arguments ..
       String             TYPE;
       int                INFO, KL, KU, LDA, M, N
-      DOUBLE PRECISION   CFROM, CTO
+      double             CFROM, CTO;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * )
+      double             A( LDA, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
       bool               DONE;
       int                I, ITYPE, J, K1, K2, K3, K4
-      DOUBLE PRECISION   BIGNUM, CFROM1, CFROMC, CTO1, CTOC, MUL, SMLNUM
+      double             BIGNUM, CFROM1, CFROMC, CTO1, CTOC, MUL, SMLNUM;
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           LSAME, DLAMCH, DISNAN
 *     ..
 *     .. Intrinsic Functions ..

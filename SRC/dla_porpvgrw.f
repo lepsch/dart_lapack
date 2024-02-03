@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLA_PORPVGRW( UPLO, NCOLS, A, LDA, AF, LDAF, WORK )
+      double           FUNCTION DLA_PORPVGRW( UPLO, NCOLS, A, LDA, AF, LDAF, WORK );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,14 +9,14 @@
       int                NCOLS, LDA, LDAF
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), WORK( * )
+      double             A( LDA, * ), AF( LDAF, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   AMAX, UMAX, RPVGRW
+      double             AMAX, UMAX, RPVGRW;
       bool               UPPER;
 *     ..
 *     .. Intrinsic Functions ..

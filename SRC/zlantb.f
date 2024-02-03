@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLANTB( NORM, UPLO, DIAG, N, K, AB, LDAB, WORK )
+      double           FUNCTION ZLANTB( NORM, UPLO, DIAG, N, K, AB, LDAB, WORK );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,20 +9,20 @@
       int                K, LDAB, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   WORK( * )
+      double             WORK( * );
       COMPLEX*16         AB( LDAB, * )
 *     ..
 *
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UDIAG;
       int                I, J, L
-      DOUBLE PRECISION   SCALE, SUM, VALUE
+      double             SCALE, SUM, VALUE;
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;

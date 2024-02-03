@@ -5,22 +5,22 @@
       int         M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LWORK, LRWORK, INFO
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION A( LDA, * ), U( LDU, * ), V( LDV, * ), WORK( * )
-      DOUBLE PRECISION S( * ), RWORK( * )
+      double           A( LDA, * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      double           S( * ), RWORK( * );
       int              IWORK( * )
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION ZERO,         ONE
+      double           ZERO,         ONE;
       PARAMETER      ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     .. Local Scalars ..
       int         IERR, IWOFF, NR, N1, OPTRATIO, p, q
       int         LWCON, LWQP3, LWRK_DGELQF, LWRK_DGESVD, LWRK_DGESVD2, LWRK_DGEQP3,  LWRK_DGEQRF, LWRK_DORMLQ, LWRK_DORMQR, LWRK_DORMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWORQ, LWORQ2, LWORLQ, MINWRK, MINWRK2, OPTWRK, OPTWRK2, IMINWRK, RMINWRK
       bool        ACCLA,  ACCLM, ACCLH, ASCALED, CONDA, DNTWU,  DNTWV, LQUERY, LSVC0, LSVEC, ROWPRM,  RSVEC, RTRANS, WNTUA, WNTUF,  WNTUR, WNTUS, WNTVA,   WNTVR;
-      DOUBLE PRECISION BIG, EPSLN, RTMP, SCONDA, SFMIN
+      double           BIG, EPSLN, RTMP, SCONDA, SFMIN;
 *     .. Local Arrays
-      DOUBLE PRECISION RDUMMY(1)
+      double           RDUMMY(1);
 *     ..
 *     .. External Subroutines (BLAS, LAPACK)
       EXTERNAL    DGELQF, DGEQP3, DGEQRF, DGESVD, DLACPY, DLAPMT, DLASCL, DLASET, DLASWP, DSCAL,  DPOCON, DORMLQ, DORMQR, XERBLA
@@ -28,7 +28,7 @@
 *     .. External Functions (BLAS, LAPACK)
       bool       LSAME;
       int        IDAMAX
-      DOUBLE PRECISION  DLANGE, DNRM2, DLAMCH
+      double            DLANGE, DNRM2, DLAMCH;
       EXTERNAL    DLANGE, LSAME, IDAMAX, DNRM2, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

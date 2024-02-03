@@ -8,18 +8,18 @@
       int                INFO, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B( LDB, * ), D( * ), DL( * ), DU( * )
+      double             B( LDB, * ), D( * ), DL( * ), DU( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   FACT, TEMP
+      double             FACT, TEMP;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX

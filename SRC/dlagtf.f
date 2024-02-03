@@ -6,28 +6,28 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, N
-      DOUBLE PRECISION   LAMBDA, TOL
+      double             LAMBDA, TOL;
 *     ..
 *     .. Array Arguments ..
       int                IN( * )
-      DOUBLE PRECISION   A( * ), B( * ), C( * ), D( * )
+      double             A( * ), B( * ), C( * ), D( * );
 *     ..
 *
 * =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                K
-      DOUBLE PRECISION   EPS, MULT, PIV1, PIV2, SCALE1, SCALE2, TEMP, TL
+      double             EPS, MULT, PIV1, PIV2, SCALE1, SCALE2, TEMP, TL;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..

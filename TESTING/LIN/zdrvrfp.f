@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                NN, NNS, NNT, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       int                NVAL( NN ), NSVAL( NNS ), NTVAL( NNT )
@@ -23,17 +23,17 @@
       COMPLEX*16         Z_WORK_ZLATMS( * )
       COMPLEX*16         Z_WORK_ZPOT02( * )
       COMPLEX*16         Z_WORK_ZPOT03( * )
-      DOUBLE PRECISION   D_WORK_ZLATMS( * )
-      DOUBLE PRECISION   D_WORK_ZLANHE( * )
-      DOUBLE PRECISION   D_WORK_ZPOT01( * )
-      DOUBLE PRECISION   D_WORK_ZPOT02( * )
-      DOUBLE PRECISION   D_WORK_ZPOT03( * )
+      double             D_WORK_ZLATMS( * );
+      double             D_WORK_ZLANHE( * );
+      double             D_WORK_ZPOT01( * );
+      double             D_WORK_ZPOT02( * );
+      double             D_WORK_ZPOT03( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTESTS
       PARAMETER          ( NTESTS = 4 )
@@ -43,15 +43,15 @@
       int                I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL, NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS
       String             DIST, CTYPE, UPLO, CFORM;
       int                KL, KU, MODE
-      DOUBLE PRECISION   ANORM, AINVNM, CNDNUM, RCONDC
+      double             ANORM, AINVNM, CNDNUM, RCONDC;
 *     ..
 *     .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   ZLANHE
+      double             ZLANHE;
       EXTERNAL           ZLANHE
 *     ..
 *     .. External Subroutines ..

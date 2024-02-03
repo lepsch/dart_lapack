@@ -18,7 +18,7 @@
       int     I,IX,IY
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION DCABS1
+      double           DCABS1;
       EXTERNAL DCABS1
 *     ..
       IF (N.LE.0) RETURN

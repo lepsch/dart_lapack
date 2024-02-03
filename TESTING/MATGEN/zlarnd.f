@@ -14,16 +14,16 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE, TWO
+      double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
-      DOUBLE PRECISION   TWOPI
+      double             TWOPI;
       PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   T1, T2
+      double             T1, T2;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLARAN
+      double             DLARAN;
       EXTERNAL           DLARAN
 *     ..
 *     .. Intrinsic Functions ..

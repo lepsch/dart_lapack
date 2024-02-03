@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLA_GERPVGRW( N, NCOLS, A, LDA, AF, LDAF )
+      double           FUNCTION ZLA_GERPVGRW( N, NCOLS, A, LDA, AF, LDAF );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,14 +15,14 @@
 *
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   AMAX, UMAX, RPVGRW
+      double             AMAX, UMAX, RPVGRW;
       COMPLEX*16         ZDUM
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN, ABS, REAL, DIMAG
 *     ..
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

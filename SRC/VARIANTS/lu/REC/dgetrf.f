@@ -9,23 +9,23 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   A( LDA, * )
+      double             A( LDA, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO, NEGONE
+      double             ONE, ZERO, NEGONE;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       PARAMETER          ( NEGONE = -1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   SFMIN, TMP
+      double             SFMIN, TMP;
       int                I, J, JP, NSTEP, NTOPIV, NPIVED, KAHEAD
       int                KSTART, IPIVSTART, JPIVSTART, KCOLS
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       int                IDAMAX
       bool               DISNAN;
       EXTERNAL           DLAMCH, IDAMAX, DISNAN

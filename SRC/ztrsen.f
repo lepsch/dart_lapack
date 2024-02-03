@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       String             COMPQ, JOB;
       int                INFO, LDQ, LDT, LWORK, M, N
-      DOUBLE PRECISION   S, SEP
+      double             S, SEP;
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
@@ -17,21 +17,21 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, WANTBH, WANTQ, WANTS, WANTSP;
       int                IERR, K, KASE, KS, LWMIN, N1, N2, NN
-      DOUBLE PRECISION   EST, RNORM, SCALE
+      double             EST, RNORM, SCALE;
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )
-      DOUBLE PRECISION   RWORK( 1 )
+      double             RWORK( 1 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   ZLANGE
+      double             ZLANGE;
       EXTERNAL           LSAME, ZLANGE
 *     ..
 *     .. External Subroutines ..

@@ -9,7 +9,7 @@
       int                KA, KS, LDA, LDU, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * ), RESULT( 2 ), RWORK( * )
+      double             D( * ), E( * ), RESULT( 2 ), RWORK( * );
       COMPLEX*16         A( LDA, * ), U( LDU, * ), WORK( * )
 *     ..
 *
@@ -18,18 +18,18 @@
 *     .. Parameters ..
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
       int                IKA, J, JC, JR
-      DOUBLE PRECISION   ANORM, ULP, UNFL, WNORM
+      double             ANORM, ULP, UNFL, WNORM;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, ZLANGE, ZLANHB, ZLANHP
+      double             DLAMCH, ZLANGE, ZLANHB, ZLANHP;
       EXTERNAL           LSAME, DLAMCH, ZLANGE, ZLANHB, ZLANHP
 *     ..
 *     .. External Subroutines ..

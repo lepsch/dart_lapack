@@ -15,10 +15,10 @@
 *
 *     .. Local Scalars ..
       int                I, IA, IXA
-      DOUBLE PRECISION   BIGNUM
+      double             BIGNUM;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

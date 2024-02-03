@@ -9,20 +9,20 @@
       int                IHI, ILO, INFO, LDV, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   SCALE( * )
+      double             SCALE( * );
       COMPLEX*16         V( LDV, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LEFTV, RIGHTV;
       int                I, II, K
-      DOUBLE PRECISION   S
+      double             S;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

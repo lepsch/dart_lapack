@@ -8,14 +8,14 @@
       int                N, NZ, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AYB( N, NRHS ), BERR( NRHS )
-      DOUBLE PRECISION   RES( N, NRHS )
+      double             AYB( N, NRHS ), BERR( NRHS );
+      double             RES( N, NRHS );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION   TMP
+      double             TMP;
       int                I, J
 *     ..
 *     .. Intrinsic Functions ..
@@ -23,8 +23,8 @@
 *     ..
 *     .. External Functions ..
       EXTERNAL           DLAMCH
-      DOUBLE PRECISION   DLAMCH
-      DOUBLE PRECISION   SAFE1
+      double             DLAMCH;
+      double             SAFE1;
 *     ..
 *     .. Executable Statements ..
 *

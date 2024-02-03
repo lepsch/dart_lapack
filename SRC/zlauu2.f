@@ -21,7 +21,7 @@
 *     .. Local Scalars ..
       bool               UPPER;
       int                I
-      DOUBLE PRECISION   AII
+      double             AII;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                KNT, LMAX, NINFO
-      DOUBLE PRECISION   RMAX
+      double             RMAX;
 *     ..
 *
 *  =====================================================================
@@ -14,15 +14,15 @@
 *     .. Parameters ..
       int                LDT, LDT2
       PARAMETER          ( LDT = 10, LDT2 = 2*LDT )
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, INFO, IVM1, IVM2, IVM3, IVM4, IVM5, J, K, N, NDIM       DOUBLE PRECISION   BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM
+      int                I, INFO, IVM1, IVM2, IVM3, IVM4, IVM5, J, K, N, NDIM       double             BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM;
 *     ..
 *     .. External Functions ..
       int                IDAMAX
-      DOUBLE PRECISION   DASUM, DDOT, DLAMCH, DLANGE
+      double             DASUM, DDOT, DLAMCH, DLANGE;
       EXTERNAL           IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
@@ -33,7 +33,7 @@
 *     ..
 *     .. Local Arrays ..
       int                IDIM( 6 ), IVAL( 5, 5, 6 )
-      DOUBLE PRECISION   B( LDT ), D( LDT2 ), DUM( 1 ), T( LDT, LDT ), VM1( 5 ), VM2( 5 ), VM3( 5 ), VM4( 5 ), VM5( 3 ), WORK( LDT ), X( LDT2 ), Y( LDT2 )
+      double             B( LDT ), D( LDT2 ), DUM( 1 ), T( LDT, LDT ), VM1( 5 ), VM2( 5 ), VM3( 5 ), VM4( 5 ), VM5( 3 ), WORK( LDT ), X( LDT2 ), Y( LDT2 );
 *     ..
 *     .. Data statements ..
       DATA               IDIM / 4, 5*5 /

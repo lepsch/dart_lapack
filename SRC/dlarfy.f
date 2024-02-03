@@ -7,26 +7,26 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       int                INCV, LDC, N
-      DOUBLE PRECISION   TAU
+      double             TAU;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   C( LDC, * ), V( * ), WORK( * )
+      double             C( LDC, * ), V( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO, HALF
+      double             ONE, ZERO, HALF;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, HALF = 0.5D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA
+      double             ALPHA;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DSYMV, DSYR2
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DDOT
+      double             DDOT;
       EXTERNAL           DDOT
 *     ..
 *     .. Executable Statements ..

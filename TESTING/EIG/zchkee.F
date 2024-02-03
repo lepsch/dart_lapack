@@ -37,22 +37,22 @@
       String             LINE;
       int                I, I1, IC, INFO, ITMP, K, LENP, MAXTYP, NEWSD, NK, NN, NPARMS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH
       int    *4          N_THREADS, ONE_THREAD
-      DOUBLE PRECISION   EPS, S1, S2, THRESH, THRSHN
+      double             EPS, S1, S2, THRESH, THRSHN;
 *     ..
 *     .. Local Arrays ..
       bool               DOTYPE( MAXT ), LOGWRK( NMAX );
       int                IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ), KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ), NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), PVAL( MAXIN )
-      int                INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN )       DOUBLE PRECISION   ALPHA( NMAX ), BETA( NMAX ), DR( NMAX, 12 ), RESULT( 500 )       COMPLEX*16         DC( NMAX, 6 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX )
+      int                INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN )       double             ALPHA( NMAX ), BETA( NMAX ), DR( NMAX, 12 ), RESULT( 500 )       COMPLEX*16         DC( NMAX, 6 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX );
 *     ..
 *     .. Allocatable Arrays ..
       int     AllocateStatus
-      DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: RWORK, S
+      double          , DIMENSION(:), ALLOCATABLE :: RWORK, S;
       COMPLEX*16, DIMENSION(:), ALLOCATABLE :: WORK
       COMPLEX*16, DIMENSION(:,:), ALLOCATABLE :: A, B, C
 *     ..
 *     .. External Functions ..
       bool               LSAMEN;
-      DOUBLE PRECISION   DLAMCH, DSECND
+      double             DLAMCH, DSECND;
       EXTERNAL           LSAMEN, DLAMCH, DSECND
 *     ..
 *     .. External Subroutines ..
@@ -69,7 +69,7 @@
 *     .. Arrays in Common ..
       bool               SELVAL( 20 );
       int                IPARMS( 100 )
-      DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
+      double             SELWI( 20 ), SELWR( 20 );
 *     ..
 *     .. Common blocks ..
       COMMON             / CENVIR / NPROC, NSHIFT, MAXB

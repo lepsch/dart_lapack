@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DSDOT(N,SX,INCX,SY,INCY)
+      double           FUNCTION DSDOT(N,SX,INCX,SY,INCY);
 *
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

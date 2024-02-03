@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                INCX, INCY, N
-      DOUBLE PRECISION   SSMIN
+      double             SSMIN;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         X( * ), Y( * )
@@ -15,13 +15,13 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   SSMAX
+      double             SSMAX;
       COMPLEX*16         A11, A12, A22, C, TAU
 *     ..
 *     .. Intrinsic Functions ..

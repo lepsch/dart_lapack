@@ -8,24 +8,24 @@
       int                N, INFO
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * )
+      double             D( * ), E( * );
 *     ..
 *
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, RELCOND
+      double             ZERO, RELCOND;
       PARAMETER          ( ZERO = 0.0D0, RELCOND = 0.999D0 )
 *     ..
 *     .. Local Scalars ..
       int                I
       bool               YESREL;
-      DOUBLE PRECISION   EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2
+      double             EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2;
 
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

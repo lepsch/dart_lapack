@@ -13,7 +13,7 @@
       int              ICASE, INCX, INCY, MODE, N
       bool             PASS;
 *     .. Local Scalars ..
-      DOUBLE PRECISION SFAC
+      double           SFAC;
       int              IC
 *     .. External Subroutines ..
       EXTERNAL         CHECK1, CHECK2, HEADER
@@ -86,23 +86,23 @@
       SUBROUTINE CHECK1(SFAC)
 *     .. Parameters ..
       int               NOUT
-      DOUBLE PRECISION  THRESH
+      double            THRESH;
       PARAMETER         (NOUT=6, THRESH=10.0D0)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SFAC
+      double            SFAC;
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
       bool              PASS;
 *     .. Local Scalars ..
       COMPLEX*16        CA
-      DOUBLE PRECISION  SA
+      double            SA;
       int               I, IX, J, LEN, NP1
 *     .. Local Arrays ..
       COMPLEX*16        CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CVR(8), CX(8), CXR(15), MWPCS(5), MWPCT(5)
-      DOUBLE PRECISION  STRUE2(5), STRUE4(5)
+      double            STRUE2(5), STRUE4(5);
       int               ITRUE3(5), ITRUEC(5)
 *     .. External Functions ..
-      DOUBLE PRECISION  DZASUM, DZNRM2
+      double            DZASUM, DZNRM2;
       int               IZAMAX
       EXTERNAL          DZASUM, DZNRM2, IZAMAX
 *     .. External Subroutines ..
@@ -220,7 +220,7 @@
       int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SFAC
+      double            SFAC;
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
       bool              PASS;
@@ -326,21 +326,21 @@
 *
 *     .. Parameters ..
       int              NOUT
-      DOUBLE PRECISION ZERO
+      double           ZERO;
       PARAMETER        (NOUT=6, ZERO=0.0D0)
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION SFAC
+      double           SFAC;
       int              LEN
 *     .. Array Arguments ..
-      DOUBLE PRECISION SCOMP(LEN), SSIZE(LEN), STRUE(LEN)
+      double           SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N
       bool             PASS;
 *     .. Local Scalars ..
-      DOUBLE PRECISION SD
+      double           SD;
       int              I
 *     .. External Functions ..
-      DOUBLE PRECISION SDIFF
+      double           SDIFF;
       EXTERNAL         SDIFF
 *     .. Intrinsic Functions ..
       INTRINSIC        ABS
@@ -383,11 +383,11 @@
 *     C.L. LAWSON, JPL, 1978 DEC 6
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  SCOMP1, SFAC, STRUE1
+      double            SCOMP1, SFAC, STRUE1;
 *     .. Array Arguments ..
-      DOUBLE PRECISION  SSIZE(*)
+      double            SSIZE(*);
 *     .. Local Arrays ..
-      DOUBLE PRECISION  SCOMP(1), STRUE(1)
+      double            SCOMP(1), STRUE(1);
 *     .. External Subroutines ..
       EXTERNAL          STEST
 *     .. Executable Statements ..
@@ -401,12 +401,12 @@
 *     End of STEST1
 *
       END
-      DOUBLE PRECISION FUNCTION SDIFF(SA,SB)
+      double           FUNCTION SDIFF(SA,SB);
 *     ********************************* SDIFF **************************
 *     COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION                SA, SB
+      double                          SA, SB;
 *     .. Executable Statements ..
       SDIFF = SA - SB
       RETURN
@@ -420,14 +420,14 @@
 *     C.L. LAWSON, JPL, 1978 DEC 6
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION SFAC
+      double           SFAC;
       int              LEN
 *     .. Array Arguments ..
       COMPLEX*16       CCOMP(LEN), CSIZE(LEN), CTRUE(LEN)
 *     .. Local Scalars ..
       int              I
 *     .. Local Arrays ..
-      DOUBLE PRECISION SCOMP(20), SSIZE(20), STRUE(20)
+      double           SCOMP(20), SSIZE(20), STRUE(20);
 *     .. External Subroutines ..
       EXTERNAL         STEST
 *     .. Intrinsic Functions ..
@@ -509,30 +509,30 @@
 *
 *     .. Scalar Arguments ..
       int               INCX, N
-      DOUBLE PRECISION  THRESH
+      double            THRESH;
 *
 *  =====================================================================
 *     .. Parameters ..
       int               NMAX, NOUT, NV
       PARAMETER         (NMAX=20, NOUT=6, NV=10)
-      DOUBLE PRECISION  HALF, ONE, THREE, TWO, ZERO
+      double            HALF, ONE, THREE, TWO, ZERO;
       PARAMETER         (HALF=0.5D+0, ONE=1.0D+0, TWO= 2.0D+0, THREE=3.0D+0, ZERO=0.0D+0)
 *     .. External Functions ..
-      DOUBLE PRECISION  DZNRM2
+      double            DZNRM2;
       EXTERNAL          DZNRM2
 *     .. Intrinsic Functions ..
       INTRINSIC         AIMAG, ABS, DCMPLX, DBLE, MAX, MIN, SQRT
 *     .. Model parameters ..
-      DOUBLE PRECISION  BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP
+      double            BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP;
       PARAMETER         (BIGNUM=0.99792015476735990583D+292, SAFMAX=0.44942328371557897693D+308, SAFMIN=0.22250738585072013831D-307, SMLNUM=0.10020841800044863890D-291, ULP=0.22204460492503130808D-015)
 *     .. Local Scalars ..
       COMPLEX*16        ROGUE
-      DOUBLE PRECISION  SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM
+      double            SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM;
       int               I, IV, IW, IX, KS
       bool              FIRST;
 *     .. Local Arrays ..
       COMPLEX*16        X(NMAX), Z(NMAX)
-      DOUBLE PRECISION  VALUES(NV), WORK(NMAX)
+      double            VALUES(NV), WORK(NMAX);
 *     .. Executable Statements ..
       VALUES(1) = ZERO
       VALUES(2) = TWO*SAFMIN
@@ -688,12 +688,12 @@
      +  I2, ', test=', E15.8 )
       RETURN
       CONTAINS
-      DOUBLE PRECISION FUNCTION DXVALS(XX,K)
+      double           FUNCTION DXVALS(XX,K);
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION  XX
+      double            XX;
       int               K
 *     .. Local Scalars ..
-      DOUBLE PRECISION  X, Y, YY, Z
+      double            X, Y, YY, Z;
 *     .. Intrinsic Functions ..
       INTRINSIC         HUGE
 *     .. Executable Statements ..

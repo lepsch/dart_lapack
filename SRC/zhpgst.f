@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, HALF
+      double             ONE, HALF;
       PARAMETER          ( ONE = 1.0D+0, HALF = 0.5D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       bool               UPPER;
       int                J, J1, J1J1, JJ, K, K1, K1K1, KK
-      DOUBLE PRECISION   AJJ, AKK, BJJ, BKK
+      double             AJJ, AKK, BJJ, BKK;
       COMPLEX*16         CT
 *     ..
 *     .. External Subroutines ..

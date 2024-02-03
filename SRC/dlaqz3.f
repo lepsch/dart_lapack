@@ -4,22 +4,22 @@
 *     Arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
       int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC
-       DOUBLE PRECISION, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHAR( * ), ALPHAI( * ), BETA( * )
+       double          , INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHAR( * ), ALPHAI( * ), BETA( * );
       int    , INTENT( OUT ) :: NS, ND, INFO
-      DOUBLE PRECISION :: QC( LDQC, * ), ZC( LDZC, * ), WORK( * )
+      double           :: QC( LDQC, * ), ZC( LDZC, * ), WORK( * );
 
 *     Parameters
-      DOUBLE PRECISION :: ZERO, ONE, HALF
+      double           :: ZERO, ONE, HALF;
       PARAMETER( ZERO = 0.0D0, ONE = 1.0D0, HALF = 0.5D0 )
 
 *     Local Scalars
       bool    :: BULGE;
       int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, DTGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO
-      DOUBLE PRECISION :: S, SMLNUM, ULP, SAFMIN, SAFMAX, C1, S1, TEMP
+      double           :: S, SMLNUM, ULP, SAFMIN, SAFMAX, C1, S1, TEMP;
 
 *     External Functions
       EXTERNAL :: XERBLA, DTGEXC, DLAQZ0, DLACPY, DLASET, DLAQZ2, DROT, DLARTG, DLAG2, DGEMM
-      DOUBLE PRECISION, EXTERNAL :: DLAMCH
+      double          , EXTERNAL :: DLAMCH;
 
       INFO = 0
 

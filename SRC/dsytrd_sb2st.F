@@ -15,15 +15,15 @@
       int                N, KD, LDAB, LHOUS, LWORK, INFO
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * )
-      DOUBLE PRECISION   AB( LDAB, * ), HOUS( * ), WORK( * )
+      double             D( * ), E( * );
+      double             AB( LDAB, * ), HOUS( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   RZERO
-      DOUBLE PRECISION   ZERO, ONE
+      double             RZERO;
+      double             ZERO, ONE;
       PARAMETER          ( RZERO = 0.0D+0, ZERO = 0.0D+0, ONE  = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..

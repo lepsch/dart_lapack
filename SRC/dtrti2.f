@@ -9,19 +9,19 @@
       int                INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * )
+      double             A( LDA, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               NOUNIT, UPPER;
       int                J
-      DOUBLE PRECISION   AJJ
+      double             AJJ;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

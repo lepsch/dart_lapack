@@ -6,27 +6,27 @@
 *
 *     .. Scalar Arguments ..
       int                LDWORK, N
-      DOUBLE PRECISION   RESID
+      double             RESID;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX*16         D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( LDWORK, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IP, J, LASTJ
-      DOUBLE PRECISION   ANORM, EPS
+      double             ANORM, EPS;
       COMPLEX*16         LI
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZLANGT, ZLANHS
+      double             DLAMCH, ZLANGT, ZLANHS;
       EXTERNAL           DLAMCH, ZLANGT, ZLANHS
 *     ..
 *     .. Intrinsic Functions ..

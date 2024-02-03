@@ -6,23 +6,23 @@
 *
 *     .. Scalar Arguments ..
       int                INCX, INCY, N
-      DOUBLE PRECISION   SSMIN
+      double             SSMIN;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   X( * ), Y( * )
+      double             X( * ), Y( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   A11, A12, A22, C, SSMAX, TAU
+      double             A11, A12, A22, C, SSMAX, TAU;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DDOT
+      double             DDOT;
       EXTERNAL           DDOT
 *     ..
 *     .. External Subroutines ..

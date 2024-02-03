@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       int                NM, NN, NNB, NOUT
-      DOUBLE PRECISION   THRESH
+      double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )
-      DOUBLE PRECISION   S( * ), RWORK( * )
+      double             S( * ), RWORK( * );
       COMPLEX*16         A( * ), COPYA( * ), TAU( * ), WORK( * )
 *     ..
 *
@@ -22,21 +22,21 @@
       PARAMETER          ( NTYPES = 6 )
       int                NTESTS
       PARAMETER          ( NTESTS = 3 )
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       COMPLEX*16         CZERO
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       String             PATH;
       int                I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO, ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N, NB, NERRS, NFAIL, NRUN, NX
-      DOUBLE PRECISION   EPS
+      double             EPS;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS )
+      double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, ZQPT01, ZQRT11, ZQRT12
+      double             DLAMCH, ZQPT01, ZQRT11, ZQRT12;
       EXTERNAL           DLAMCH, ZQPT01, ZQRT11, ZQRT12
 *     ..
 *     .. External Subroutines ..

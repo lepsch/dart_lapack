@@ -9,19 +9,19 @@
       int                INFO, ITYPE, LDA, LDB, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * )
+      double             A( LDA, * ), B( LDB, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, HALF
+      double             ONE, HALF;
       PARAMETER          ( ONE = 1.0D0, HALF = 0.5D0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       int                K
-      DOUBLE PRECISION   AKK, BKK, CT
+      double             AKK, BKK, CT;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DSCAL, DSYR2, DTRMV, DTRSV, XERBLA

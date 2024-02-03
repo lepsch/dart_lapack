@@ -7,23 +7,23 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N
-      DOUBLE PRECISION   ANORM, RCOND
+      double             ANORM, RCOND;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * ), IWORK( * )
-      DOUBLE PRECISION   AP( * ), WORK( * )
+      double             AP( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       int                I, IP, KASE
-      DOUBLE PRECISION   AINVNM
+      double             AINVNM;
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )

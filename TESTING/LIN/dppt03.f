@@ -7,25 +7,25 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       int                LDWORK, N
-      DOUBLE PRECISION   RCOND, RESID
+      double             RCOND, RESID;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( * ), AINV( * ), RWORK( * ), WORK( LDWORK, * )
+      double             A( * ), AINV( * ), RWORK( * ), WORK( LDWORK, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J, JJ
-      DOUBLE PRECISION   AINVNM, ANORM, EPS
+      double             AINVNM, ANORM, EPS;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, DLANGE, DLANSP
+      double             DLAMCH, DLANGE, DLANSP;
       EXTERNAL           LSAME, DLAMCH, DLANGE, DLANSP
 *     ..
 *     .. Intrinsic Functions ..

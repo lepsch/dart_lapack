@@ -9,18 +9,18 @@
 *     ..
 *     .. Array Arguments ..
       int                ISEED( 4 )
-      DOUBLE PRECISION   A( LDA, * ), D( * ), WORK( * )
+      double             A( LDA, * ), D( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   TAU, WA, WB, WN
+      double             TAU, WA, WB, WN;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEMV, DGER, DLARNV, DSCAL, XERBLA
@@ -29,7 +29,7 @@
       INTRINSIC          MAX, MIN, SIGN
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DNRM2
+      double             DNRM2;
       EXTERNAL           DNRM2
 *     ..
 *     .. Executable Statements ..

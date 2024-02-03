@@ -7,17 +7,17 @@
 *     .. Scalar Arguments ..
       String             EQUED, FACT, UPLO;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
-      DOUBLE PRECISION   RCOND, RPVGRW
+      double             RCOND, RPVGRW;
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )       DOUBLE PRECISION   S( * ), PARAMS( * ), BERR( * ), RWORK( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
+      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )       double             S( * ), PARAMS( * ), BERR( * ), RWORK( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
 *     ..
 *
 *  ==================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
       int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
@@ -29,12 +29,12 @@
 *     .. Local Scalars ..
       bool               EQUIL, NOFACT, RCEQU;
       int                INFEQU, J
-      DOUBLE PRECISION   AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM
+      double             AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM;
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME, DLAMCH,  ZLA_HERPVGRW
       bool               LSAME;
-      DOUBLE PRECISION   DLAMCH, ZLA_HERPVGRW
+      double             DLAMCH, ZLA_HERPVGRW;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZHEEQUB, ZHETRF, ZHETRS, ZLACPY, ZLAQHE, XERBLA, ZLASCL2, ZHERFSX

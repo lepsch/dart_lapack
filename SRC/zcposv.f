@@ -9,7 +9,7 @@
       int                INFO, ITER, LDA, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RWORK( * )
+      double             RWORK( * );
       COMPLEX            SWORK( * )
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * )
 *     ..
@@ -23,7 +23,7 @@
       int                ITERMAX
       PARAMETER          ( ITERMAX = 30 )
 *
-      DOUBLE PRECISION   BWDMAX
+      double             BWDMAX;
       PARAMETER          ( BWDMAX = 1.0E+00 )
 *
       COMPLEX*16         NEGONE, ONE
@@ -31,7 +31,7 @@
 *
 *     .. Local Scalars ..
       int                I, IITER, PTSA, PTSX
-      DOUBLE PRECISION   ANRM, CTE, EPS, RNRM, XNRM
+      double             ANRM, CTE, EPS, RNRM, XNRM;
       COMPLEX*16         ZDUM
 *
 *     .. External Subroutines ..
@@ -39,14 +39,14 @@
 *     ..
 *     .. External Functions ..
       int                IZAMAX
-      DOUBLE PRECISION   DLAMCH, ZLANHE
+      double             DLAMCH, ZLANHE;
       bool               LSAME;
       EXTERNAL           IZAMAX, DLAMCH, ZLANHE, LSAME
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, MAX, SQRT
 *     .. Statement Functions ..
-      DOUBLE PRECISION   CABS1
+      double             CABS1;
 *     ..
 *     .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

@@ -7,25 +7,25 @@
 *     .. Scalar Arguments ..
       String             EQUED;
       int                KL, KU, LDAB, M, N
-      DOUBLE PRECISION   AMAX, COLCND, ROWCND
+      double             AMAX, COLCND, ROWCND;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   C( * ), R( * )
+      double             C( * ), R( * );
       COMPLEX*16         AB( LDAB, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, THRESH
+      double             ONE, THRESH;
       PARAMETER          ( ONE = 1.0D+0, THRESH = 0.1D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, J
-      DOUBLE PRECISION   CJ, LARGE, SMALL
+      double             CJ, LARGE, SMALL;
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH
+      double             DLAMCH;
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..

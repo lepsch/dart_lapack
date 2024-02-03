@@ -7,23 +7,23 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       int                INFO, KD, LDAB, N
-      DOUBLE PRECISION   AMAX, SCOND
+      double             AMAX, SCOND;
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   S( * )
+      double             S( * );
       COMPLEX*16         AB( LDAB, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
       int                I, J
-      DOUBLE PRECISION   SMIN
+      double             SMIN;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

@@ -9,7 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       int                IWORK( * )
-      DOUBLE PRECISION   D( * ), E( * ), RWORK( * )
+      double             D( * ), E( * ), RWORK( * );
       COMPLEX*16         Q( LDQ, * ), QSTORE( LDQS, * )
 *     ..
 *
@@ -18,12 +18,12 @@
 *  Warning:      N could be as big as QSIZ!
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   TWO
+      double             TWO;
       PARAMETER          ( TWO = 2.D+0 )
 *     ..
 *     .. Local Scalars ..
       int                CURLVL, CURPRB, CURR, I, IGIVCL, IGIVNM, IGIVPT, INDXQ, IPERM, IPRMPT, IQ, IQPTR, IWREM, J, K, LGN, LL, MATSIZ, MSD2, SMLSIZ, SMM1, SPM1, SPM2, SUBMAT, SUBPBS, TLVLS
-      DOUBLE PRECISION   TEMP
+      double             TEMP;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DCOPY, DSTEQR, XERBLA, ZCOPY, ZLACRM, ZLAED7

@@ -67,25 +67,25 @@
       PARAMETER          ( NIN = 5, NOUT = 6 )
       int                NSUBS
       PARAMETER          ( NSUBS = 16 )
-      DOUBLE PRECISION   ZERO, HALF, ONE
+      double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
       int                NMAX, INCMAX
       PARAMETER          ( NMAX = 65, INCMAX = 2 )
       int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX
       PARAMETER          ( NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   EPS, ERR, THRESH
+      double             EPS, ERR, THRESH;
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NTRA, LAYOUT       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;
       String             TRANS;
       String             SNAMET;
       String             SNAPS;
 *     .. Local Arrays ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX )
+      double             A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX );
       int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX )
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
 *     .. External Functions ..
-      DOUBLE PRECISION   DDIFF
+      double             DDIFF;
       bool               LDE;
       EXTERNAL           DDIFF, LDE
 *     .. External Subroutines ..
@@ -370,7 +370,7 @@
  9995 FORMAT( ' VALUE OF K IS LESS THAN 0' )
  9994 FORMAT( ' ABSOLUTE VALUE OF INCX OR INCY IS 0 OR GREATER THAN ',
      $      I2 )
- 9993 FORMAT( ' TESTS OF THE DOUBLE PRECISION LEVEL 2 BLAS', //' THE F',
+ 9993 FORMAT( ' TESTS OF THE double           LEVEL 2 BLAS', //' THE F',;
      $      'OLLOWING PARAMETER VALUES WILL BE USED:' )
  9992 FORMAT( '   FOR N              ', 9I6 )
  9991 FORMAT( '   FOR K              ', 7I6 )
@@ -406,18 +406,18 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, HALF
+      double             ZERO, HALF;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
+      double             A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA, ALS, BETA, BLS, ERR, ERRMAX, TRANSL
+      double             ALPHA, ALS, BETA, BLS, ERR, ERRMAX, TRANSL;
       int                I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS
       bool               BANDED, FULL, NULL, RESET, SAME, TRAN;
       String             TRANS, TRANSS;
@@ -720,18 +720,18 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, HALF
+      double             ZERO, HALF;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
+      double             A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA, ALS, BETA, BLS, ERR, ERRMAX, TRANSL
+      double             ALPHA, ALS, BETA, BLS, ERR, ERRMAX, TRANSL;
       int                I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             UPLO, UPLOS;
@@ -1035,18 +1035,18 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, HALF, ONE
+      double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX )
+      double             A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ERR, ERRMAX, TRANSL
+      double             ERR, ERRMAX, TRANSL;
       int                I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             DIAG, DIAGS, TRANS, TRANSS, UPLO, UPLOS;
@@ -1362,22 +1362,22 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, HALF, ONE
+      double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
+      double             A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX );
       int                IDIM( NIDIM ), INC( NINC )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA, ALS, ERR, ERRMAX, TRANSL
+      double             ALPHA, ALS, ERR, ERRMAX, TRANSL;
       int                I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS
       bool               NULL, RESET, SAME;
 *     .. Local Arrays ..
-      DOUBLE PRECISION   W( 1 )
+      double             W( 1 );
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
@@ -1605,25 +1605,25 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, HALF, ONE
+      double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
+      double             A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX );
       int                IDIM( NIDIM ), INC( NINC )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA, ALS, ERR, ERRMAX, TRANSL
+      double             ALPHA, ALS, ERR, ERRMAX, TRANSL;
       int                I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
       String             CUPLO;
       String             ICH;
 *     .. Local Arrays ..
-      DOUBLE PRECISION   W( 1 )
+      double             W( 1 );
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
@@ -1873,25 +1873,25 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, HALF, ONE
+      double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   EPS, THRESH
+      double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 )
+      double             A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 );
       int                IDIM( NIDIM ), INC( NINC )
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ALPHA, ALS, ERR, ERRMAX, TRANSL
+      double             ALPHA, ALS, ERR, ERRMAX, TRANSL;
       int                I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
       String             CUPLO;
       String             ICH;
 *     .. Local Arrays ..
-      DOUBLE PRECISION   W( 2 )
+      double             W( 2 );
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
@@ -2176,23 +2176,23 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-      DOUBLE PRECISION   ROGUE
+      double             ROGUE;
       PARAMETER          ( ROGUE = -1.0D10 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   TRANSL
+      double             TRANSL;
       int                KL, KU, LDA, M, N, NMAX
       bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, * ), AA( * )
+      double             A( NMAX, * ), AA( * );
 *     .. Local Scalars ..
       int                I, I1, I2, I3, IBEG, IEND, IOFF, J, KK
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
-      DOUBLE PRECISION   DBEG
+      double             DBEG;
       EXTERNAL           DBEG
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -2339,17 +2339,17 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   ALPHA, BETA, EPS, ERR
+      double             ALPHA, BETA, EPS, ERR;
       int                INCX, INCY, M, N, NMAX, NOUT
       bool               FATAL, MV;
       String             TRANS;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, * ), G( * ), X( * ), Y( * ), YT( * ), YY( * )
+      double             A( NMAX, * ), G( * ), X( * ), Y( * ), YT( * ), YY( * );
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ERRI
+      double             ERRI;
       int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL
       bool               TRAN;
 *     .. Intrinsic Functions ..
@@ -2452,7 +2452,7 @@
 *     .. Scalar Arguments ..
       int                LR
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RI( * ), RJ( * )
+      double             RI( * ), RJ( * );
 *     .. Local Scalars ..
       int                I
 *     .. Executable Statements ..
@@ -2485,7 +2485,7 @@
       String             UPLO;
       String             TYPE;
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AA( LDA, * ), AS( LDA, * )
+      double             AA( LDA, * ), AS( LDA, * );
 *     .. Local Scalars ..
       int                I, IBEG, IEND, J
       bool               UPPER;
@@ -2525,7 +2525,7 @@
 *     End of LDERES.
 *
       END
-      DOUBLE PRECISION FUNCTION DBEG( RESET )
+      double           FUNCTION DBEG( RESET );
 *
 *  Generates random numbers uniformly distributed between -0.5 and 0.5.
 *
@@ -2571,7 +2571,7 @@
 *     End of DBEG.
 *
       END
-      DOUBLE PRECISION FUNCTION DDIFF( X, Y )
+      double           FUNCTION DDIFF( X, Y );
 *
 *  Auxiliary routine for test program for Level 2 Blas.
 *
@@ -2579,7 +2579,7 @@
 *     Richard Hanson, Sandia National Labs.
 *
 *     .. Scalar Arguments ..
-      DOUBLE PRECISION   X, Y
+      double             X, Y;
 *     .. Executable Statements ..
       DDIFF = X - Y
       RETURN

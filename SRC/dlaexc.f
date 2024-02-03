@@ -9,28 +9,28 @@
       int                INFO, J1, LDQ, LDT, N, N1, N2
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   Q( LDQ, * ), T( LDT, * ), WORK( * )
+      double             Q( LDQ, * ), T( LDT, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ZERO, ONE
+      double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      DOUBLE PRECISION   TEN
+      double             TEN;
       PARAMETER          ( TEN = 1.0D+1 )
       int                LDD, LDX
       PARAMETER          ( LDD = 4, LDX = 2 )
 *     ..
 *     .. Local Scalars ..
       int                IERR, J2, J3, J4, K, ND
-      DOUBLE PRECISION   CS, DNORM, EPS, SCALE, SMLNUM, SN, T11, T22, T33, TAU, TAU1, TAU2, TEMP, THRESH, WI1, WI2, WR1, WR2, XNORM
+      double             CS, DNORM, EPS, SCALE, SMLNUM, SN, T11, T22, T33, TAU, TAU1, TAU2, TEMP, THRESH, WI1, WI2, WR1, WR2, XNORM;
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   D( LDD, 4 ), U( 3 ), U1( 3 ), U2( 3 ), X( LDX, 2 )
+      double             D( LDD, 4 ), U( 3 ), U1( 3 ), U2( 3 ), X( LDX, 2 );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLANGE
+      double             DLAMCH, DLANGE;
       EXTERNAL           DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

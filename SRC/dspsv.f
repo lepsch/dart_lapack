@@ -10,7 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       int                IPIV( * )
-      DOUBLE PRECISION   AP( * ), B( LDB, * )
+      double             AP( * ), B( LDB, * );
 *     ..
 *
 *  =====================================================================

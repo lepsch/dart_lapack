@@ -14,18 +14,18 @@
 *     .. Parameters ..
       int                NMAX, LW
       PARAMETER          ( NMAX = 3, LW = 6*NMAX )
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       String             C2;
       int                DUMMYK, DUMMYL, I, IFST, IHI, ILO, ILST, INFO, J, M, NCYCLE, NT, SDIM, LWORK
-      DOUBLE PRECISION   ANRM, BNRM, DIF, SCALE, TOLA, TOLB
+      double             ANRM, BNRM, DIF, SCALE, TOLA, TOLB;
 *     ..
 *     .. Local Arrays ..
       bool               BW( NMAX ), SEL( NMAX );
       int                IW( LW ), IDUM(NMAX)
-      DOUBLE PRECISION   LS( NMAX ), R1( NMAX ), R2( NMAX ), RCE( NMAX ), RCV( NMAX ), RS( NMAX ), RW( LW )       COMPLEX*16         A( NMAX, NMAX ), ALPHA( NMAX ), B( NMAX, NMAX ), BETA( NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX )
+      double             LS( NMAX ), R1( NMAX ), R2( NMAX ), RCE( NMAX ), RCV( NMAX ), RS( NMAX ), RW( LW )       COMPLEX*16         A( NMAX, NMAX ), ALPHA( NMAX ), B( NMAX, NMAX ), BETA( NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX );
 *     ..
 *     .. External Functions ..
       bool               LSAMEN, ZLCTES, ZLCTSX;

@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLA_GBRPVGRW( N, KL, KU, NCOLS, AB, LDAB, AFB, LDAFB )
+      double           FUNCTION DLA_GBRPVGRW( N, KL, KU, NCOLS, AB, LDAB, AFB, LDAFB );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,14 +8,14 @@
       int                N, KL, KU, NCOLS, LDAB, LDAFB
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AB( LDAB, * ), AFB( LDAFB, * )
+      double             AB( LDAB, * ), AFB( LDAFB, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       int                I, J, KD
-      DOUBLE PRECISION   AMAX, UMAX, RPVGRW
+      double             AMAX, UMAX, RPVGRW;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN

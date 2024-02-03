@@ -1,4 +1,4 @@
-      DOUBLE PRECISION FUNCTION DROUNDUP_LWORK( LWORK )
+      double           FUNCTION DROUNDUP_LWORK( LWORK );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

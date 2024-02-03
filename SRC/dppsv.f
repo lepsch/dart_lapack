@@ -9,7 +9,7 @@
       int                INFO, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AP( * ), B( LDB, * )
+      double             AP( * ), B( LDB, * );
 *     ..
 *
 *  =====================================================================

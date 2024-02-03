@@ -9,12 +9,12 @@
       int                N, INFO
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( 0: * )
+      double             A( 0: * );
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE
+      double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..

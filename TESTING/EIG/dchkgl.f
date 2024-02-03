@@ -13,19 +13,19 @@
 *     .. Parameters ..
       int                LDA, LDB, LWORK
       PARAMETER          ( LDA = 20, LDB = 20, LWORK = 6*LDA )
-      DOUBLE PRECISION   ZERO
+      double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO
-      DOUBLE PRECISION   ANORM, BNORM, EPS, RMAX, VMAX
+      double             ANORM, BNORM, EPS, RMAX, VMAX;
 *     ..
 *     .. Local Arrays ..
       int                LMAX( 5 )
-      DOUBLE PRECISION   A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB ), LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK )
+      double             A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB ), LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK );
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DLANGE
+      double             DLAMCH, DLANGE;
       EXTERNAL           DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..

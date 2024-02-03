@@ -9,7 +9,7 @@
       int                INFO, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AP( 0: * ), ARF( 0: * )
+      double             AP( 0: * ), ARF( 0: * );
 *
 *  =====================================================================
 *

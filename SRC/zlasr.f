@@ -9,19 +9,19 @@
       int                LDA, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   C( * ), S( * )
+      double             C( * ), S( * );
       COMPLEX*16         A( LDA, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      DOUBLE PRECISION   ONE, ZERO
+      double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       int                I, INFO, J
-      DOUBLE PRECISION   CTEMP, STEMP
+      double             CTEMP, STEMP;
       COMPLEX*16         TEMP
 *     ..
 *     .. Intrinsic Functions ..

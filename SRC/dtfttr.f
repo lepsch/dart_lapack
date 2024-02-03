@@ -9,7 +9,7 @@
       int                INFO, N, LDA
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( 0: LDA-1, 0: * ), ARF( 0: * )
+      double             A( 0: LDA-1, 0: * ), ARF( 0: * );
 *     ..
 *
 *  =====================================================================
