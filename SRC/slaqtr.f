@@ -159,7 +159,7 @@
 
                   D( 1, 1 ) = X( J1 )
                   D( 2, 1 ) = X( J2 )
-                  slaln2(.FALSE., 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
+                  slaln2( false , 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
                   if (IERR.NE.0) INFO = 2;
 
                   if ( SCALOC.NE.ONE ) {
@@ -269,7 +269,7 @@
 
                   D( 1, 1 ) = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X, 1 )
 
-                  slaln2(.TRUE., 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
+                  slaln2( true , 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
                   if (IERR.NE.0) INFO = 2;
 
                   if ( SCALOC.NE.ONE ) {
@@ -368,7 +368,7 @@
                   D( 2, 1 ) = X( J2 )
                   D( 1, 2 ) = X( N+J1 )
                   D( 2, 2 ) = X( N+J2 )
-                  slaln2(.FALSE., 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, -W, V, 2, SCALOC, XNORM, IERR );
+                  slaln2( false , 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, -W, V, 2, SCALOC, XNORM, IERR );
                   if (IERR.NE.0) INFO = 2;
 
                   if ( SCALOC.NE.ONE ) {
@@ -504,7 +504,7 @@
                   D( 1, 2 ) = D( 1, 2 ) + B( J1 )*X( 1 )
                   D( 2, 2 ) = D( 2, 2 ) + B( J2 )*X( 1 )
 
-                  slaln2(.TRUE., 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, W, V, 2, SCALOC, XNORM, IERR );
+                  slaln2( true , 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, W, V, 2, SCALOC, XNORM, IERR );
                   if (IERR.NE.0) INFO = 2;
 
                   if ( SCALOC.NE.ONE ) {

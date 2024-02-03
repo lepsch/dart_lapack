@@ -192,9 +192,9 @@
       // Compute scaled normwise condition number cond(A*C).
 
          if ( RCEQU ) {
-            RCOND_TMP = CLA_PORCOND_C( UPLO, N, A, LDA, AF, LDAF, S, .TRUE., INFO, WORK, RWORK )
+            RCOND_TMP = CLA_PORCOND_C( UPLO, N, A, LDA, AF, LDAF, S, true , INFO, WORK, RWORK )
          } else {
-            RCOND_TMP = CLA_PORCOND_C( UPLO, N, A, LDA, AF, LDAF, S, .FALSE., INFO, WORK, RWORK )
+            RCOND_TMP = CLA_PORCOND_C( UPLO, N, A, LDA, AF, LDAF, S, false , INFO, WORK, RWORK )
          }
          for (J = 1; J <= NRHS; J++) {
 

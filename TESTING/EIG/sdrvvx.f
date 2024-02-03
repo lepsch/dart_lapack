@@ -63,7 +63,7 @@
 
       // Important constants
 
-      BADNN = .FALSE.
+      BADNN = false;
 
       // 12 is the largest dimension in the input file of precomputed
       // problems
@@ -71,7 +71,7 @@
       NMAX = 12
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
       // Check for errors
@@ -291,7 +291,7 @@
 
                   // Perform tests
 
-                  sget23(.FALSE., BALANC, JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, NNWORK, IWORK, INFO );
+                  sget23( false , BALANC, JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, NNWORK, IWORK, INFO );
 
                   // Check for RESULT(j) > THRESH
 
@@ -346,7 +346,7 @@
       for (I = 1; I <= N; I++) { // 190
          READ( NIUNIT, FMT = * )WR1( I ), WI1( I ), RCDEIN( I ), RCDVIN( I )
       } // 190
-      sget23(.TRUE., 'N', 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, 6*N+2*N**2, IWORK, INFO );
+      sget23( true , 'N', 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, 6*N+2*N**2, IWORK, INFO );
 
       // Check for RESULT(j) > THRESH
 

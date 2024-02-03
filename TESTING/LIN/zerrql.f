@@ -51,7 +51,7 @@
          W( J ) = 0.D0
          X( J ) = 0.D0
       } // 20
-      OK = .TRUE.
+      OK = true;
 
       // Error exits for QL factorization
 

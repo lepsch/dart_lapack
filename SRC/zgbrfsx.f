@@ -206,11 +206,11 @@
       // Compute scaled normwise condition number cond(A*C).
 
          if ( COLEQU .AND. NOTRAN ) {
-            RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, .TRUE., INFO, WORK, RWORK )
+            RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, true , INFO, WORK, RWORK )
          } else if ( ROWEQU .AND. .NOT. NOTRAN ) {
-            RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, R, .TRUE., INFO, WORK, RWORK )
+            RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, R, true , INFO, WORK, RWORK )
          } else {
-            RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, .FALSE., INFO, WORK, RWORK )
+            RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, false , INFO, WORK, RWORK )
          }
          for (J = 1; J <= NRHS; J++) {
 

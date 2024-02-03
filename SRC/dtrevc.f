@@ -72,19 +72,19 @@
 
          if ( SOMEV ) {
             M = 0
-            PAIR = .FALSE.
+            PAIR = false;
             for (J = 1; J <= N; J++) { // 10
                if ( PAIR ) {
-                  PAIR = .FALSE.
-                  SELECT( J ) = .FALSE.
+                  PAIR = false;
+                  SELECT( J ) = false;
                } else {
                   if ( J.LT.N ) {
                      if ( T( J+1, J ).EQ.ZERO ) {
                         IF( SELECT( J ) ) M = M + 1
                      } else {
-                        PAIR = .TRUE.
+                        PAIR = true;
                         if ( SELECT( J ) .OR. SELECT( J+1 ) ) {
-                           SELECT( J ) = .TRUE.
+                           SELECT( J ) = true;
                            M = M + 2
                         }
                      }
@@ -195,7 +195,7 @@
 
                      // 1-by-1 diagonal block
 
-                     dlaln2(.FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
+                     dlaln2( false , 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
                      // Scale X(1,1) to avoid overflow when updating
                      // the right-hand side.
@@ -220,7 +220,7 @@
 
                      // 2-by-2 diagonal block
 
-                     dlaln2(.FALSE., 2, 1, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
+                     dlaln2( false , 2, 1, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
                      // Scale X(1,1) and X(2,1) to avoid overflow when
                      // updating the right-hand side.
@@ -312,7 +312,7 @@
 
                      // 1-by-1 diagonal block
 
-                     dlaln2(.FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, WI, X, 2, SCALE, XNORM, IERR );
+                     dlaln2( false , 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, WI, X, 2, SCALE, XNORM, IERR );
 
                      // Scale X(1,1) and X(1,2) to avoid overflow when
                      // updating the right-hand side.
@@ -343,7 +343,7 @@
 
                      // 2-by-2 diagonal block
 
-                     dlaln2(.FALSE., 2, 2, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+N ), N, WR, WI, X, 2, SCALE, XNORM, IERR );
+                     dlaln2( false , 2, 2, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+N ), N, WR, WI, X, 2, SCALE, XNORM, IERR );
 
                      // Scale X to avoid overflow when updating
                      // the right-hand side.
@@ -499,7 +499,7 @@
 
                      // Solve (T(J,J)-WR)**T*X = WORK
 
-                     dlaln2(.FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
+                     dlaln2( false , 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
                      // Scale if necessary
 
@@ -531,7 +531,7 @@
                        // [T(J,J)-WR   T(J,J+1)     ]**T * X = SCALE*( WORK1 )
                        // [T(J+1,J)    T(J+1,J+1)-WR]                ( WORK2 )
 
-                     dlaln2(.TRUE., 2, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
+                     dlaln2( true , 2, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
                      // Scale if necessary
 
@@ -631,7 +631,7 @@
 
                      // Solve (T(J,J)-(WR-i*WI))*(X11+i*X12)= WK+I*WK2
 
-                     dlaln2(.FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR );
+                     dlaln2( false , 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR );
 
                      // Scale if necessary
 
@@ -672,7 +672,7 @@
                        // ([T(j,j)   T(j,j+1)  ]**T-(wr-i*wi)*I)*X = SCALE*B
                        // ([T(j+1,j) T(j+1,j+1)]               )
 
-                     dlaln2(.TRUE., 2, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR );
+                     dlaln2( true , 2, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR );
 
                      // Scale if necessary
 

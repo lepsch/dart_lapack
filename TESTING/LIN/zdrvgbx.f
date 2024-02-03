@@ -437,7 +437,7 @@
                            }
 
                            if ( INFO.EQ.0 ) {
-                              TRFCON = .FALSE.
+                              TRFCON = false;
 
                               // Compute residual of the computed solution.
 
@@ -463,7 +463,7 @@
 
                               zgbt05(TRANS, N, KL, KU, NRHS, ASAV, LDA, BSAV, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                            } else {
-                              TRFCON = .TRUE.
+                              TRFCON = true;
                            }
 
                            // Compare RCOND from ZGBSVX with the computed
@@ -574,7 +574,7 @@
                      }
 
                      if ( INFO.EQ.0 ) {
-                        TRFCON = .FALSE.
+                        TRFCON = false;
 
                         // Compute residual of the computed solution.
 
@@ -594,7 +594,7 @@
                            zget04(N, NRHS, X, LDB, XACT, LDB, ROLDC, RESULT( 3 ) );
                         }
                      } else {
-                        TRFCON = .TRUE.
+                        TRFCON = true;
                      }
 
                      // Compare RCOND from ZGBSVXX with the computed value

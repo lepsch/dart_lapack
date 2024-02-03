@@ -135,7 +135,7 @@
 
                   // Generate test matrices
 
-                  FS = .TRUE.
+                  FS = true;
                   K = 0
 
                   dlaset('Full', MPLUSN, MPLUSN, ZERO, ZERO, AI, LDA );
@@ -191,18 +191,18 @@
                   RESULT( 6 ) = ZERO
 
                   for (J = 1; J <= MPLUSN; J++) { // 10
-                     ILABAD = .FALSE.
+                     ILABAD = false;
                      if ( ALPHAI( J ).EQ.ZERO ) {
                         TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / MAX( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ ABS( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP
                         if ( J.LT.MPLUSN ) {
                            if ( AI( J+1, J ).NE.ZERO ) {
-                              ILABAD = .TRUE.
+                              ILABAD = true;
                               RESULT( 5 ) = ULPINV
                            }
                         }
                         if ( J.GT.1 ) {
                            if ( AI( J, J-1 ).NE.ZERO ) {
-                              ILABAD = .TRUE.
+                              ILABAD = true;
                               RESULT( 5 ) = ULPINV
                            }
                         }
@@ -213,15 +213,15 @@
                            I1 = J - 1
                         }
                         if ( I1.LE.0 .OR. I1.GE.MPLUSN ) {
-                           ILABAD = .TRUE.
+                           ILABAD = true;
                         } else if ( I1.LT.MPLUSN-1 ) {
                            if ( AI( I1+2, I1+1 ).NE.ZERO ) {
-                              ILABAD = .TRUE.
+                              ILABAD = true;
                               RESULT( 5 ) = ULPINV
                            }
                         } else if ( I1.GT.1 ) {
                            if ( AI( I1, I1-1 ).NE.ZERO ) {
-                              ILABAD = .TRUE.
+                              ILABAD = true;
                               RESULT( 5 ) = ULPINV
                            }
                         }
@@ -342,7 +342,7 @@
       READ( NIN, FMT = * )PLTRU, DIFTRU
 
       NPTKNT = NPTKNT + 1
-      FS = .TRUE.
+      FS = true;
       K = 0
       M = MPLUSN - N
 
@@ -380,18 +380,18 @@
       RESULT( 6 ) = ZERO
 
       for (J = 1; J <= MPLUSN; J++) { // 110
-         ILABAD = .FALSE.
+         ILABAD = false;
          if ( ALPHAI( J ).EQ.ZERO ) {
             TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / MAX( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ABS( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP
             if ( J.LT.MPLUSN ) {
                if ( AI( J+1, J ).NE.ZERO ) {
-                  ILABAD = .TRUE.
+                  ILABAD = true;
                   RESULT( 5 ) = ULPINV
                }
             }
             if ( J.GT.1 ) {
                if ( AI( J, J-1 ).NE.ZERO ) {
-                  ILABAD = .TRUE.
+                  ILABAD = true;
                   RESULT( 5 ) = ULPINV
                }
             }
@@ -402,15 +402,15 @@
                I1 = J - 1
             }
             if ( I1.LE.0 .OR. I1.GE.MPLUSN ) {
-               ILABAD = .TRUE.
+               ILABAD = true;
             } else if ( I1.LT.MPLUSN-1 ) {
                if ( AI( I1+2, I1+1 ).NE.ZERO ) {
-                  ILABAD = .TRUE.
+                  ILABAD = true;
                   RESULT( 5 ) = ULPINV
                }
             } else if ( I1.GT.1 ) {
                if ( AI( I1, I1-1 ).NE.ZERO ) {
-                  ILABAD = .TRUE.
+                  ILABAD = true;
                   RESULT( 5 ) = ULPINV
                }
             }

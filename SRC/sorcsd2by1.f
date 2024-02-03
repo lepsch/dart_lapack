@@ -248,7 +248,7 @@
             for (I = Q + 1; I <= M - P; I++) {
                IWORK(I) = I - Q
             }
-            slapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
+            slapmt( false , M-P, M-P, U2, LDU2, IWORK );
          }
       } else if ( R .EQ. P ) {
 
@@ -292,7 +292,7 @@
             for (I = Q + 1; I <= M - P; I++) {
                IWORK(I) = I - Q
             }
-            slapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
+            slapmt( false , M-P, M-P, U2, LDU2, IWORK );
          }
       } else if ( R .EQ. M-P ) {
 
@@ -337,10 +337,10 @@
                IWORK(I) = I - R
             }
             if ( WANTU1 ) {
-               slapmt(.FALSE., P, Q, U1, LDU1, IWORK );
+               slapmt( false , P, Q, U1, LDU1, IWORK );
             }
             if ( WANTV1T ) {
-               slapmr(.FALSE., Q, Q, V1T, LDV1T, IWORK );
+               slapmr( false , Q, Q, V1T, LDV1T, IWORK );
             }
          }
       } else {
@@ -393,10 +393,10 @@
                IWORK(I) = I - R
             }
             if ( WANTU1 ) {
-               slapmt(.FALSE., P, P, U1, LDU1, IWORK );
+               slapmt( false , P, P, U1, LDU1, IWORK );
             }
             if ( WANTV1T ) {
-               slapmr(.FALSE., P, Q, V1T, LDV1T, IWORK );
+               slapmr( false , P, Q, V1T, LDV1T, IWORK );
             }
          }
       }

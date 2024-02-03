@@ -132,13 +132,13 @@
                      // Tests (1) and (2)
 
                      RESULT( 1 ) = ZERO
-                     cget52(.TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
+                     cget52( true , N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
                      if ( RESULT( 2 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Left', 'CGGEVX', RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
 
                      RESULT( 2 ) = ZERO
-                     cget52(.FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) );
+                     cget52( false , N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) );
                      if ( RESULT( 3 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Right', 'CGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
@@ -259,13 +259,13 @@
       // Tests (1) and (2)
 
       RESULT( 1 ) = ZERO
-      cget52(.TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
+      cget52( true , N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
       if ( RESULT( 2 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Left', 'CGGEVX', RESULT( 2 ), N, NPTKNT
       }
 
       RESULT( 2 ) = ZERO
-      cget52(.FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) );
+      cget52( false , N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) );
       if ( RESULT( 3 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Right', 'CGGEVX', RESULT( 3 ), N, NPTKNT
       }

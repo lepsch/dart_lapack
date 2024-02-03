@@ -5,7 +5,7 @@ void main() {
       // ..
       // .. Local parameters ..
       bool              debug;
-      const           debug = .false. ;
+      const           debug = false ;
       int               N, nNaN, nInf;
       const           N = 4, nNaN = 3, nInf = 5 ;
       double            threeFourth, fiveFourth, oneHalf;

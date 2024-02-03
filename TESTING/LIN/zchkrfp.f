@@ -56,7 +56,7 @@ void main() {
       // .. Executable Statements ..
 
       S1 = DSECND( )
-      FATAL = .FALSE.
+      FATAL = false;
 
       // Read a dummy line.
 
@@ -73,20 +73,20 @@ void main() {
       if ( NN.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NN ', NN, 1
          NN = 0
-         FATAL = .TRUE.
+         FATAL = true;
       } else if ( NN.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NN ', NN, MAXIN
          NN = 0
-         FATAL = .TRUE.
+         FATAL = true;
       }
       READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
       for (I = 1; I <= NN; I++) { // 10
          if ( NVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', NVAL( I ), 0
-            FATAL = .TRUE.
+            FATAL = true;
          } else if ( NVAL( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9995 )' M  ', NVAL( I ), NMAX
-            FATAL = .TRUE.
+            FATAL = true;
          }
       } // 10
       if (NN.GT.0) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN );
@@ -97,20 +97,20 @@ void main() {
       if ( NNS.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
          NNS = 0
-         FATAL = .TRUE.
+         FATAL = true;
       } else if ( NNS.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN
          NNS = 0
-         FATAL = .TRUE.
+         FATAL = true;
       }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS )
       for (I = 1; I <= NNS; I++) { // 30
          if ( NSVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
-            FATAL = .TRUE.
+            FATAL = true;
          } else if ( NSVAL( I ).GT.MAXRHS ) {
             WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
-            FATAL = .TRUE.
+            FATAL = true;
          }
       } // 30
       if (NNS.GT.0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
@@ -121,20 +121,20 @@ void main() {
       if ( NNT.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NMA', NNT, 1
          NNT = 0
-         FATAL = .TRUE.
+         FATAL = true;
       } else if ( NNT.GT.NTYPES ) {
          WRITE( NOUT, FMT = 9995 )' NMA', NNT, NTYPES
          NNT = 0
-         FATAL = .TRUE.
+         FATAL = true;
       }
       READ( NIN, FMT = * )( NTVAL( I ), I = 1, NNT )
       for (I = 1; I <= NNT; I++) { // 320
          if ( NTVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )'TYPE', NTVAL( I ), 0
-            FATAL = .TRUE.
+            FATAL = true;
          } else if ( NTVAL( I ).GT.NTYPES ) {
             WRITE( NOUT, FMT = 9995 )'TYPE', NTVAL( I ), NTYPES
-            FATAL = .TRUE.
+            FATAL = true;
          }
       } // 320
       if (NNT.GT.0) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT );

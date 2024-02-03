@@ -56,18 +56,18 @@
 
       // Important constants
 
-      BADNN = .FALSE.
+      BADNN = false;
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
-      BADNNB = .FALSE.
+      BADNNB = false;
       KMAX = 0
       for (J = 1; J <= NSIZES; J++) { // 20
          KMAX = MAX( KMAX, KK( J ) )
-         IF( KK( J ).LT.0 ) BADNNB = .TRUE.
+         IF( KK( J ).LT.0 ) BADNNB = true;
       } // 20
       KMAX = MIN( NMAX-1, KMAX )
 

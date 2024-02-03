@@ -51,7 +51,7 @@
 
       // Main loop to test the different Hilbert Matrices.
 
-      printed_guide = .false.
+      printed_guide = false;
 
       for (N = 1; N <= NMAX; N++) {
          PARAMS(1) = -1
@@ -307,7 +307,7 @@
                      WRITE( *, 9990) 7
                      WRITE( *, 9989) 8
                      WRITE(*,*)
-                     PRINTED_GUIDE = .TRUE.
+                     PRINTED_GUIDE = true;
                   }
                   WRITE( *, 9999) C2, N, K, NGUAR, CGUAR, I, TSTRAT(I)
                   NFAIL = NFAIL + 1

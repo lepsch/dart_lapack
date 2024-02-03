@@ -25,18 +25,18 @@
       // ..
       // .. Executable Statements ..
 
-      LERR = .TRUE.
+      LERR = true;
       if ( INFO.NE.INFOT ) {
          if ( INFOT.NE.0 ) {
             WRITE( NOUT, FMT = 9999 ) SRNAMT( 1:LEN_TRIM( SRNAMT ) ), INFO, INFOT
          } else {
             WRITE( NOUT, FMT = 9997 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO
          }
-         OK = .FALSE.
+         OK = false;
       }
       if ( SRNAME.NE.SRNAMT ) {
          WRITE( NOUT, FMT = 9998 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), SRNAMT( 1:LEN_TRIM( SRNAMT ) )
-         OK = .FALSE.
+         OK = false;
       }
       RETURN
 

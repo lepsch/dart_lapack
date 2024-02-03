@@ -124,7 +124,7 @@
       ccopy(JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 );
 
       claset('A', JW, JW, ZERO, ONE, V, LDV );
-      clahqr(.true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR );
+      clahqr( true , true , JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR );
 
       // ==== Deflation detection loop ====
 

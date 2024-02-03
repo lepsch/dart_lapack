@@ -371,7 +371,7 @@
                      }
 
                      if ( INFO.EQ.0 ) {
-                        TRFCON = .FALSE.
+                        TRFCON = false;
 
                         // Compute residual of the computed solution.
 
@@ -394,9 +394,9 @@
                         // Check the error bounds from iterative
                         // refinement.
 
-                        dget07(TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 4 ) );
+                        dget07(TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, true , RWORK( NRHS+1 ), RESULT( 4 ) );
                      } else {
-                        TRFCON = .TRUE.
+                        TRFCON = true;
                      }
 
                      // Compare RCOND from DGESVX with the computed value

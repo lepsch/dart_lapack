@@ -56,21 +56,21 @@
          // Pre-multiply X by SMLNUM if CDEN is large compared to CNUM.
 
          MUL = SMLNUM
-         DONE = .FALSE.
+         DONE = false;
          CDEN = CDEN1
       } else if ( ABS( CNUM1 ).GT.ABS( CDEN ) ) {
 
          // Pre-multiply X by BIGNUM if CDEN is small compared to CNUM.
 
          MUL = BIGNUM
-         DONE = .FALSE.
+         DONE = false;
          CNUM = CNUM1
       } else {
 
          // Multiply X by CNUM / CDEN and return.
 
          MUL = CNUM / CDEN
-         DONE = .TRUE.
+         DONE = true;
       }
 
       // Scale the vector X by MUL

@@ -94,7 +94,7 @@
 
          // Chase the shift down
          for (J = 1; J <= NS-I; J++) {
-             claqz1(.TRUE., .TRUE., J, 1, NS, IHI-ILO+1, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, NS+1, 1, QC, LDQC, NS, 1, ZC, LDZC );
+             claqz1( true , true , J, 1, NS, IHI-ILO+1, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, NS+1, 1, QC, LDQC, NS, 1, ZC, LDZC );
 
          }
 
@@ -155,7 +155,7 @@
                // Move down the block with index k+i+j, updating
                // the (ns+np x ns+np) block:
                // (k:k+ns+np,k:k+ns+np-1)
-               claqz1(.TRUE., .TRUE., K+I+J, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NBLOCK, K+1, QC, LDQC, NBLOCK, K, ZC, LDZC );
+               claqz1( true , true , K+I+J, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NBLOCK, K+1, QC, LDQC, NBLOCK, K, ZC, LDZC );
             }
          }
 
@@ -210,7 +210,7 @@
       for (I = 1; I <= NS; I++) {
          // Chase the shift down to the bottom right corner
          for (ISHIFT = IHI-I; ISHIFT <= IHI-1; ISHIFT++) {
-            claqz1(.TRUE., .TRUE., ISHIFT, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NS, IHI-NS+1, QC, LDQC, NS+1, IHI-NS, ZC, LDZC );
+            claqz1( true , true , ISHIFT, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NS, IHI-NS+1, QC, LDQC, NS+1, IHI-NS, ZC, LDZC );
          }
 
       }

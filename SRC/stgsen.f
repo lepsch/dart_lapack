@@ -82,17 +82,17 @@
       // subspaces.
 
       M = 0
-      PAIR = .FALSE.
+      PAIR = false;
       if ( .NOT.LQUERY .OR. IJOB.NE.0 ) {
       for (K = 1; K <= N; K++) { // 10
          if ( PAIR ) {
-            PAIR = .FALSE.
+            PAIR = false;
          } else {
             if ( K.LT.N ) {
                if ( A( K+1, K ).EQ.ZERO ) {
                   IF( SELECT( K ) ) M = M + 1
                } else {
-                  PAIR = .TRUE.
+                  PAIR = true;
                   IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
                }
             } else {
@@ -152,16 +152,16 @@
       // Collect the selected blocks at the top-left corner of (A, B).
 
       KS = 0
-      PAIR = .FALSE.
+      PAIR = false;
       for (K = 1; K <= N; K++) { // 30
          if ( PAIR ) {
-            PAIR = .FALSE.
+            PAIR = false;
          } else {
 
             SWAP = SELECT( K )
             if ( K.LT.N ) {
                if ( A( K+1, K ).NE.ZERO ) {
-                  PAIR = .TRUE.
+                  PAIR = true;
                   SWAP = SWAP .OR. SELECT( K+1 )
                }
             }
@@ -313,15 +313,15 @@
       // Compute generalized eigenvalues of reordered pair (A, B) and
       // normalize the generalized Schur form.
 
-      PAIR = .FALSE.
+      PAIR = false;
       for (K = 1; K <= N; K++) { // 70
          if ( PAIR ) {
-            PAIR = .FALSE.
+            PAIR = false;
          } else {
 
             if ( K.LT.N ) {
                if ( A( K+1, K ).NE.ZERO ) {
-                  PAIR = .TRUE.
+                  PAIR = true;
                }
             }
 

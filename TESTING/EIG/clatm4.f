@@ -174,7 +174,7 @@
             A( JD+1, JD ) = AMAGN*REAL( A( JD+1, JD ) )
          } // 240
 
-         // If RSIGN = .TRUE., assign random signs to diagonal and
+         // If RSIGN = true , assign random signs to diagonal and
          // subdiagonal
 
          if ( RSIGN ) {

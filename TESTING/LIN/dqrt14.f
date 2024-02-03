@@ -42,7 +42,7 @@
       DQRT14 = ZERO
       if ( LSAME( TRANS, 'N' ) ) {
          LDWORK = M + NRHS
-         TPSD = .FALSE.
+         TPSD = false;
          if ( LWORK.LT.( M+NRHS )*( N+2 ) ) {
             xerbla('DQRT14', 10 );
             RETURN
@@ -51,7 +51,7 @@
          }
       } else if ( LSAME( TRANS, 'T' ) ) {
          LDWORK = M
-         TPSD = .TRUE.
+         TPSD = true;
          if ( LWORK.LT.( N+NRHS )*( M+2 ) ) {
             xerbla('DQRT14', 10 );
             RETURN

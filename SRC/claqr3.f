@@ -63,7 +63,7 @@
 
          // ==== Workspace query call to CLAQR4 ====
 
-         claqr4(.true., .true., JW, 1, JW, T, LDT, SH, 1, JW, V, LDV, WORK, -1, INFQR );
+         claqr4( true , true , JW, 1, JW, T, LDT, SH, 1, JW, V, LDV, WORK, -1, INFQR );
          LWK3 = INT( WORK( 1 ) )
 
          // ==== Optimal workspace ====
@@ -132,9 +132,9 @@
       claset('A', JW, JW, ZERO, ONE, V, LDV );
       NMIN = ILAENV( 12, 'CLAQR3', 'SV', JW, 1, JW, LWORK )
       if ( JW.GT.NMIN ) {
-         claqr4(.true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR );
+         claqr4( true , true , JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR );
       } else {
-         clahqr(.true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR );
+         clahqr( true , true , JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR );
       }
 
       // ==== Deflation detection loop ====

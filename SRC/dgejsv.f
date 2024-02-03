@@ -121,8 +121,8 @@
       // column norm left from the underflow threshold (extreme case).
 
       SCALEM  = ONE / DSQRT(DBLE(M)*DBLE(N))
-      NOSCAL  = .TRUE.
-      GOSCAL  = .TRUE.
+      NOSCAL  = true;
+      GOSCAL  = true;
       for (p = 1; p <= N; p++) { // 1874
          AAPP = ZERO
          AAQQ = ONE
@@ -136,10 +136,10 @@
          if ( ( AAPP .LT. (BIG / AAQQ) ) .AND. NOSCAL  ) {
             SVA(p)  = AAPP * AAQQ
          } else {
-            NOSCAL  = .FALSE.
+            NOSCAL  = false;
             SVA(p)  = AAPP * ( AAQQ * SCALEM )
             if ( GOSCAL ) {
-               GOSCAL = .FALSE.
+               GOSCAL = false;
                dscal(p-1, SCALEM, SVA, 1 );
             }
          }
@@ -182,8 +182,8 @@
 * #:(
       WARNING = 0
       if ( AAQQ .LE. SFMIN ) {
-         L2RANK = .TRUE.
-         L2KILL = .TRUE.
+         L2RANK = true;
+         L2KILL = true;
          WARNING = 1
       }
 
@@ -235,7 +235,7 @@
 
       }
 
-      TRANSP = .FALSE.
+      TRANSP = false;
       L2TRAN = L2TRAN .AND. ( M .EQ. N )
 
       AATMAX = -ONE
@@ -245,7 +245,7 @@
       // Compute the row norms, needed to determine row pivoting sequence
       // (in the case of heavily row weighted A, row pivoting is strongly
       // advised) and to collect information needed to compare the
-      // structures of A * A^t and A^t * A (in the case L2TRAN.EQ..TRUE.).
+      // structures of A * A^t and A^t * A (in the case L2TRAN.EQ. true ).
 
          if ( L2TRAN ) {
             for (p = 1; p <= M; p++) { // 1950
@@ -337,7 +337,7 @@
             RSVEC  = KILL
             if (LSVEC) N1 = N;
 
-            ROWPIV = .TRUE.
+            ROWPIV = true;
          }
 
       }
@@ -388,7 +388,7 @@
          // (i.e. how they behave in presence of extreme ill-conditioning) the
          // implementor may decide to remove this switch.
          if ( ( AAQQ.LT.DSQRT(SFMIN) ) .AND. LSVEC .AND. RSVEC ) {
-            JRACC = .TRUE.
+            JRACC = true;
          }
 
       }
@@ -493,14 +493,14 @@
 
       }
 
-      ALMORT = .FALSE.
+      ALMORT = false;
       if ( NR .EQ. N ) {
          MAXPRJ = ONE
          for (p = 2; p <= N; p++) { // 3051
             TEMP1  = DABS(A(p,p)) / SVA(IWORK(p))
             MAXPRJ = MIN( MAXPRJ, TEMP1 )
          } // 3051
-         IF ( MAXPRJ**2 .GE. ONE - DBLE(N)*EPSLN ) ALMORT = .TRUE.
+         IF ( MAXPRJ**2 .GE. ONE - DBLE(N)*EPSLN ) ALMORT = true;
       }
 
 
@@ -567,7 +567,7 @@
          // new perturbation of the singular values, and it does not destroy
          // the job done by the preconditioner.
          // The licence for this perturbation is in the variable L2PERT, which
-         // should be .FALSE. if FLUSH TO ZERO underflow is active.
+         // should be false if FLUSH TO ZERO underflow is active.
 
          if ( .NOT. ALMORT ) {
 
@@ -744,8 +744,8 @@
             // is a parameter that can be changed by the implementer.
             // This perturbation device will be obsolete on machines with
             // properly implemented arithmetic.
-            // To switch it off, set L2PERT=.FALSE. To remove it from  the
-            // code, remove the action under L2PERT=.TRUE., leave the ELSE part.
+            // To switch it off, set L2PERT= false To remove it from  the
+            // code, remove the action under L2PERT= true , leave the ELSE part.
             // The following two loops should be blocked and fused with the
             // transposed copy above.
 

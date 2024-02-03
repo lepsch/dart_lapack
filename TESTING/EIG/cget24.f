@@ -414,7 +414,7 @@
          EPS = MAX( ULP, EPSIN )
          for (I = 1; I <= N; I++) { // 230
             IPNT( I ) = I
-            SELVAL( I ) = .FALSE.
+            SELVAL( I ) = false;
             SELWR( I ) = REAL( WTMP( I ) )
             SELWI( I ) = AIMAG( WTMP( I ) )
          } // 230
@@ -444,7 +444,7 @@
             IPNT( KMIN ) = ITMP
          } // 250
          for (I = 1; I <= NSLCT; I++) { // 260
-            SELVAL( IPNT( ISLCT( I ) ) ) = .TRUE.
+            SELVAL( IPNT( ISLCT( I ) ) ) = true;
          } // 260
 
          // Compute condition numbers

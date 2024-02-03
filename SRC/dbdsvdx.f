@@ -239,8 +239,8 @@
       ICOLZ = 1
       IROWU = 2
       IROWV = 1
-      SPLIT = .FALSE.
-      SVEQ0 = .FALSE.
+      SPLIT = false;
+      SVEQ0 = false;
 
       // Form the tridiagonal TGK matrix.
 
@@ -272,7 +272,7 @@
 
                      // D=0 at the top.
 
-                     SVEQ0 = .TRUE.
+                     SVEQ0 = true;
                      if ( IDBEG.EQ.IDEND) {
                         NRU = 1
                         NRV = 1
@@ -281,7 +281,7 @@
 
                      // D=0 at the bottom.
 
-                     SVEQ0 = .TRUE.
+                     SVEQ0 = true;
                      NRU = (IDEND-ISPLT)/2 + 1
                      NRV = NRU
                      if ( ISPLT.NE.IDBEG ) {
@@ -414,13 +414,13 @@
                         // eigenvector for later use (when bottom of the
                         // active submatrix is reached).
 
-                        SPLIT = .TRUE.
+                        SPLIT = true;
                         Z( IROWZ:IROWZ+NTGK-1,N+1 ) = Z( IROWZ:IROWZ+NTGK-1,NS+NSL )                         Z( IROWZ:IROWZ+NTGK-1,NS+NSL ) = ZERO
                      }
                   END IF !** WANTZ **!
 
                   NSL = MIN( NSL, NRU )
-                  SVEQ0 = .FALSE.
+                  SVEQ0 = false;
 
                   // Absolute values of the eigenvalues of TGK.
 
@@ -455,8 +455,8 @@
             IROWV = IROWV - 1
             IROWU = IROWU + 1
             IDBEG = IEPTR + 1
-            SVEQ0 = .FALSE.
-            SPLIT = .FALSE.
+            SVEQ0 = false;
+            SPLIT = false;
          END IF !** Check for split in E **!
       END DO !** IEPTR loop **!
 

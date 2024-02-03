@@ -141,7 +141,7 @@
 
             } else {
 
-               DONE = .FALSE.
+               DONE = false;
 
                // Loop until pivot found
 
@@ -181,7 +181,7 @@
                      // use 1-by-1 pivot block
 
                      KP = IMAX
-                     DONE = .TRUE.
+                     DONE = true;
 
                   // Case(3)
                   // Equivalent to testing for ROWMAX.EQ.COLMAX,
@@ -194,7 +194,7 @@
 
                      KP = IMAX
                      KSTEP = 2
-                     DONE = .TRUE.
+                     DONE = true;
 
                   // Case(4)
                   } else {
@@ -478,7 +478,7 @@
 
             } else {
 
-               DONE = .FALSE.
+               DONE = false;
 
                // Loop until pivot found
 
@@ -518,7 +518,7 @@
                      // use 1-by-1 pivot block
 
                      KP = IMAX
-                     DONE = .TRUE.
+                     DONE = true;
 
                   // Case(3)
                   // Equivalent to testing for ROWMAX.EQ.COLMAX,
@@ -531,7 +531,7 @@
 
                      KP = IMAX
                      KSTEP = 2
-                     DONE = .TRUE.
+                     DONE = true;
 
                   // Case(4)
                   } else {

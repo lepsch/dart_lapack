@@ -65,11 +65,11 @@
 
       INFO = 0
 
-      BADNN = .FALSE.
+      BADNN = false;
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
       if ( NSIZES.LT.0 ) {
@@ -320,19 +320,19 @@
                TEMP1 = ZERO
 
                for (J = 1; J <= N; J++) { // 130
-                  ILABAD = .FALSE.
+                  ILABAD = false;
                   if ( ALPHAI( J ).EQ.ZERO ) {
                      TEMP2 = ( ABS( ALPHAR( J )-S( J, J ) ) / MAX( SAFMIN, ABS( ALPHAR( J ) ), ABS( S( J, J ) ) )+ABS( BETA( J )-T( J, J ) ) / MAX( SAFMIN, ABS( BETA( J ) ), ABS( T( J, J ) ) ) ) / ULP
 
                      if ( J.LT.N ) {
                         if ( S( J+1, J ).NE.ZERO ) {
-                           ILABAD = .TRUE.
+                           ILABAD = true;
                            RESULT( 5+RSUB ) = ULPINV
                         }
                      }
                      if ( J.GT.1 ) {
                         if ( S( J, J-1 ).NE.ZERO ) {
-                           ILABAD = .TRUE.
+                           ILABAD = true;
                            RESULT( 5+RSUB ) = ULPINV
                         }
                      }
@@ -344,15 +344,15 @@
                         I1 = J - 1
                      }
                      if ( I1.LE.0 .OR. I1.GE.N ) {
-                        ILABAD = .TRUE.
+                        ILABAD = true;
                      } else if ( I1.LT.N-1 ) {
                         if ( S( I1+2, I1+1 ).NE.ZERO ) {
-                           ILABAD = .TRUE.
+                           ILABAD = true;
                            RESULT( 5+RSUB ) = ULPINV
                         }
                      } else if ( I1.GT.1 ) {
                         if ( S( I1, I1-1 ).NE.ZERO ) {
-                           ILABAD = .TRUE.
+                           ILABAD = true;
                            RESULT( 5+RSUB ) = ULPINV
                         }
                      }

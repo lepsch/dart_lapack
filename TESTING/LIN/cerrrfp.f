@@ -37,7 +37,7 @@
       // .. Executable Statements ..
 
       NOUT = NUNIT
-      OK = .TRUE.
+      OK = true;
       A( 1, 1 ) = CMPLX( 1.0 , 1.0 )
       B( 1, 1 ) = CMPLX( 1.0 , 1.0  )
       ALPHACMPLX = CMPLX( 1.0 , 1.0  )

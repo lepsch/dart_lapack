@@ -27,9 +27,9 @@
       int                MAXTYP;
       const              MAXTYP = 21 ;
       bool               CRANGE;
-      const              CRANGE = .FALSE. ;
+      const              CRANGE = false ;
       bool               CREL;
-      const              CREL = .FALSE. ;
+      const              CREL = false ;
       // ..
       // .. Local Scalars ..
       bool               BADNN, TRYRAC;
@@ -68,12 +68,12 @@
 
       // Important constants
 
-      BADNN = .FALSE.
-      TRYRAC = .TRUE.
+      BADNN = false;
+      TRYRAC = true;
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
       NBLOCK = ILAENV( 1, 'ZHETRD', 'L', NMAX, -1, -1, -1 )

@@ -346,14 +346,14 @@
          C = RHOINV + PSI + PHI
          W = C + Z( I )*Z( I ) / ( WORK( I )*DELTA( I ) ) + Z( IP1 )*Z( IP1 ) / ( WORK( IP1 )*DELTA( IP1 ) )
 
-         GEOMAVG = .FALSE.
+         GEOMAVG = false;
          if ( W.GT.ZERO ) {
 
             // d(i)^2 < the ith sigma^2 < (d(i)^2+d(i+1)^2)/2
 
             // We choose d(i) as origin.
 
-            ORGATI = .TRUE.
+            ORGATI = true;
             II = I
             SGLB = ZERO
             SGUB = DELSQ2  / ( D( I )+SQ2 )
@@ -373,7 +373,7 @@
             TEMP = SQRT(EPS)
             if ( (D(I).LE.TEMP*D(IP1)).AND.(ABS(Z(I)).LE.TEMP) .AND.(D(I).GT.ZERO) ) {
                TAU = MIN( TEN*D(I), SGUB )
-               GEOMAVG = .TRUE.
+               GEOMAVG = true;
             }
          } else {
 
@@ -381,7 +381,7 @@
 
             // We choose d(i+1) as origin.
 
-            ORGATI = .FALSE.
+            ORGATI = false;
             II = IP1
             SGLB = -DELSQ2  / ( D( II )+SQ2 )
             SGUB = ZERO
@@ -437,13 +437,13 @@
          // W is the value of the secular function with
          // its ii-th element removed.
 
-         SWTCH3 = .FALSE.
+         SWTCH3 = false;
          if ( ORGATI ) {
-            if (W.LT.ZERO) SWTCH3 = .TRUE.;
+            if (W.LT.ZERO) SWTCH3 = true ;
          } else {
-            if (W.GT.ZERO) SWTCH3 = .TRUE.;
+            if (W.GT.ZERO) SWTCH3 = true ;
          }
-         if (II.EQ.1 .OR. II.EQ.N) SWTCH3 = .FALSE.;
+         if (II.EQ.1 .OR. II.EQ.N) SWTCH3 = false ;
 
          TEMP = Z( II ) / ( WORK( II )*DELTA( II ) )
          DW = DPSI + DPHI + TEMP*TEMP
@@ -530,7 +530,7 @@
                // If INFO is not 0, i.e., SLAED6 failed, switch back
                // to 2 pole interpolation.
 
-               SWTCH3 = .FALSE.
+               SWTCH3 = false;
                INFO = 0
                DTIPSQ = WORK( IP1 )*DELTA( IP1 )
                DTISQ = WORK( I )*DELTA( I )
@@ -629,11 +629,11 @@
          ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP )
 *    $          + ABS( TAU2 )*DW
 
-         SWTCH = .FALSE.
+         SWTCH = false;
          if ( ORGATI ) {
-            IF( -W.GT.ABS( PREW ) / TEN ) SWTCH = .TRUE.
+            IF( -W.GT.ABS( PREW ) / TEN ) SWTCH = true;
          } else {
-            IF( W.GT.ABS( PREW ) / TEN ) SWTCH = .TRUE.
+            IF( W.GT.ABS( PREW ) / TEN ) SWTCH = true;
          }
 
          // Main loop to update the values of the array   DELTA and WORK
@@ -741,7 +741,7 @@
                   // If INFO is not 0, i.e., SLAED6 failed, switch
                   // back to two pole interpolation
 
-                  SWTCH3 = .FALSE.
+                  SWTCH3 = false;
                   INFO = 0
                   DTIPSQ = WORK( IP1 )*DELTA( IP1 )
                   DTISQ = WORK( I )*DELTA( I )

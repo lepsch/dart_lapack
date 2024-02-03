@@ -69,21 +69,21 @@
 
       // Check EI
 
-      USEEI = .TRUE.
-      BADEI = .FALSE.
+      USEEI = true;
+      BADEI = false;
       if ( LSAME( EI( 1 ), ' ' ) .OR. MODE.NE.0 ) {
-         USEEI = .FALSE.
+         USEEI = false;
       } else {
          if ( LSAME( EI( 1 ), 'R' ) ) {
             for (J = 2; J <= N; J++) { // 10
                if ( LSAME( EI( J ), 'I' ) ) {
-                  IF( LSAME( EI( J-1 ), 'I' ) ) BADEI = .TRUE.
+                  IF( LSAME( EI( J-1 ), 'I' ) ) BADEI = true;
                } else {
-                  IF( .NOT.LSAME( EI( J ), 'R' ) ) BADEI = .TRUE.
+                  IF( .NOT.LSAME( EI( J ), 'R' ) ) BADEI = true;
                }
             } // 10
          } else {
-            BADEI = .TRUE.
+            BADEI = true;
          }
       }
 
@@ -119,10 +119,10 @@
 
       // Check DS, if MODES=0 and ISIM=1
 
-      BADS = .FALSE.
+      BADS = false;
       if ( MODES.EQ.0 .AND. ISIM.EQ.1 ) {
          for (J = 1; J <= N; J++) { // 20
-            IF( DS( J ).EQ.ZERO ) BADS = .TRUE.
+            IF( DS( J ).EQ.ZERO ) BADS = true;
          } // 20
       }
 

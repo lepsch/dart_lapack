@@ -58,11 +58,11 @@
       NTESTT = 0
       INFO = 0
 
-      BADNN = .FALSE.
+      BADNN = false;
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
       // Check for errors

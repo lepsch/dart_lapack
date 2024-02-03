@@ -42,7 +42,7 @@
       CQRT14 = ZERO
       if ( LSAME( TRANS, 'N' ) ) {
          LDWORK = M + NRHS
-         TPSD = .FALSE.
+         TPSD = false;
          if ( LWORK.LT.( M+NRHS )*( N+2 ) ) {
             xerbla('CQRT14', 10 );
             RETURN
@@ -51,7 +51,7 @@
          }
       } else if ( LSAME( TRANS, 'C' ) ) {
          LDWORK = M
-         TPSD = .TRUE.
+         TPSD = true;
          if ( LWORK.LT.( N+NRHS )*( M+2 ) ) {
             xerbla('CQRT14', 10 );
             RETURN

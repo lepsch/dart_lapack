@@ -27,7 +27,7 @@
       SAVE               FIRST, EPS, SFMIN, BASE, T, RND, EMIN, RMIN, EMAX, RMAX, PREC
       // ..
       // .. Data statements ..
-      DATA               FIRST / .TRUE. /
+      DATA               FIRST / true /
       // ..
       // .. Executable Statements ..
 
@@ -79,7 +79,7 @@
       }
 
       SLAMCH = RMACH
-      FIRST  = .FALSE.
+      FIRST  = false;
       RETURN
 
       // End of SLAMCH
@@ -107,8 +107,8 @@
 *>
 *> \param[out] RND
 *> \verbatim
-*>          Specifies whether proper rounding  ( RND = .TRUE. )  or
-*>          chopping  ( RND = .FALSE. )  occurs in addition. This may not
+*>          Specifies whether proper rounding  ( RND = true )  or
+*>          chopping  ( RND = false )  occurs in addition. This may not
 *>          be a reliable guide to the way in which the machine performs
 *>          its arithmetic.
 *> \endverbatim
@@ -160,7 +160,7 @@
       SAVE               FIRST, LIEEE1, LBETA, LRND, LT
       // ..
       // .. Data statements ..
-      DATA               FIRST / .TRUE. /
+      DATA               FIRST / true /
       // ..
       // .. Executable Statements ..
 
@@ -226,13 +226,13 @@
          F = SLAMC3( B / 2, -B / 100 )
          C = SLAMC3( F, A )
          if ( C.EQ.A ) {
-            LRND = .TRUE.
+            LRND = true;
          } else {
-            LRND = .FALSE.
+            LRND = false;
          }
          F = SLAMC3( B / 2, B / 100 )
          C = SLAMC3( F, A )
-         IF( ( LRND ) .AND. ( C.EQ.A ) ) LRND = .FALSE.
+         IF( ( LRND ) .AND. ( C.EQ.A ) ) LRND = false;
 
          // Try and decide whether rounding is done in the  IEEE  'round to
          // nearest' style. B/2 is half a unit in the last place of the two
@@ -272,7 +272,7 @@
       T = LT
       RND = LRND
       IEEE1 = LIEEE1
-      FIRST = .FALSE.
+      FIRST = false;
       RETURN
 
       // End of SLAMC1
@@ -303,8 +303,8 @@
 *>
 *> \param[out] RND
 *> \verbatim
-*>          Specifies whether proper rounding  ( RND = .TRUE. )  or
-*>          chopping  ( RND = .FALSE. )  occurs in addition. This may not
+*>          Specifies whether proper rounding  ( RND = true )  or
+*>          chopping  ( RND = false )  occurs in addition. This may not
 *>          be a reliable guide to the way in which the machine performs
 *>          its arithmetic.
 *> \endverbatim
@@ -378,7 +378,7 @@
       SAVE               FIRST, IWARN, LBETA, LEMAX, LEMIN, LEPS, LRMAX, LRMIN, LT
       // ..
       // .. Data statements ..
-      DATA               FIRST / .TRUE. / , IWARN / .FALSE. /
+      DATA               FIRST / true / , IWARN / false /
       // ..
       // .. Executable Statements ..
 
@@ -448,7 +448,7 @@
          slamc4(NGNMIN, -ONE, LBETA );
          slamc4(GPMIN, A, LBETA );
          slamc4(GNMIN, -A, LBETA );
-         IEEE = .FALSE.
+         IEEE = false;
 
          if ( ( NGPMIN.EQ.NGNMIN ) .AND. ( GPMIN.EQ.GNMIN ) ) {
             if ( NGPMIN.EQ.GPMIN ) {
@@ -457,13 +457,13 @@
                // e.g.,  VAX )
             } else if ( ( GPMIN-NGPMIN ).EQ.3 ) {
                LEMIN = NGPMIN - 1 + LT
-               IEEE = .TRUE.
+               IEEE = true;
              // ( Non twos-complement machines, with gradual underflow;
                // e.g., IEEE standard followers )
             } else {
                LEMIN = MIN( NGPMIN, GPMIN )
              // ( A guess; no known machine )
-               IWARN = .TRUE.
+               IWARN = true;
             }
 
          } else if ( ( NGPMIN.EQ.GPMIN ) .AND. ( NGNMIN.EQ.GNMIN ) ) {
@@ -474,7 +474,7 @@
             } else {
                LEMIN = MIN( NGPMIN, NGNMIN )
              // ( A guess; no known machine )
-               IWARN = .TRUE.
+               IWARN = true;
             }
 
          } else if ( ( ABS( NGPMIN-NGNMIN ).EQ.1 ) .AND. ( GPMIN.EQ.GNMIN ) ) {
@@ -485,19 +485,19 @@
             } else {
                LEMIN = MIN( NGPMIN, NGNMIN )
              // ( A guess; no known machine )
-               IWARN = .TRUE.
+               IWARN = true;
             }
 
          } else {
             LEMIN = MIN( NGPMIN, NGNMIN, GPMIN, GNMIN )
           // ( A guess; no known machine )
-            IWARN = .TRUE.
+            IWARN = true;
          }
-         FIRST = .FALSE.
+         FIRST = false;
 ***
 * Comment out this if block if EMIN is ok
          if ( IWARN ) {
-            FIRST = .TRUE.
+            FIRST = true;
             WRITE( 6, FMT = 9999 )LEMIN
          }
 ***

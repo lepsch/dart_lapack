@@ -63,7 +63,7 @@
          I2( J ) = J
          TAU( J ) = 1.
       } // 30
-      OK = .TRUE.
+      OK = true;
       NT = 0
 
       // Test error exits for the ST path.

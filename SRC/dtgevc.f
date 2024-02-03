@@ -45,33 +45,33 @@
 
       if ( LSAME( HOWMNY, 'A' ) ) {
          IHWMNY = 1
-         ILALL = .TRUE.
-         ILBACK = .FALSE.
+         ILALL = true;
+         ILBACK = false;
       } else if ( LSAME( HOWMNY, 'S' ) ) {
          IHWMNY = 2
-         ILALL = .FALSE.
-         ILBACK = .FALSE.
+         ILALL = false;
+         ILBACK = false;
       } else if ( LSAME( HOWMNY, 'B' ) ) {
          IHWMNY = 3
-         ILALL = .TRUE.
-         ILBACK = .TRUE.
+         ILALL = true;
+         ILBACK = true;
       } else {
          IHWMNY = -1
-         ILALL = .TRUE.
+         ILALL = true;
       }
 
       if ( LSAME( SIDE, 'R' ) ) {
          ISIDE = 1
-         COMPL = .FALSE.
-         COMPR = .TRUE.
+         COMPL = false;
+         COMPR = true;
       } else if ( LSAME( SIDE, 'L' ) ) {
          ISIDE = 2
-         COMPL = .TRUE.
-         COMPR = .FALSE.
+         COMPL = true;
+         COMPR = false;
       } else if ( LSAME( SIDE, 'B' ) ) {
          ISIDE = 3
-         COMPL = .TRUE.
-         COMPR = .TRUE.
+         COMPL = true;
+         COMPR = true;
       } else {
          ISIDE = -1
       }
@@ -97,14 +97,14 @@
 
       if ( .NOT.ILALL ) {
          IM = 0
-         ILCPLX = .FALSE.
+         ILCPLX = false;
          for (J = 1; J <= N; J++) { // 10
             if ( ILCPLX ) {
-               ILCPLX = .FALSE.
+               ILCPLX = false;
                GO TO 10
             }
             if ( J.LT.N ) {
-               IF( S( J+1, J ).NE.ZERO ) ILCPLX = .TRUE.
+               IF( S( J+1, J ).NE.ZERO ) ILCPLX = true;
             }
             if ( ILCPLX ) {
                IF( SELECT( J ) .OR. SELECT( J+1 ) ) IM = IM + 2
@@ -118,13 +118,13 @@
 
       // Check 2-by-2 diagonal blocks of A, B
 
-      ILABAD = .FALSE.
-      ILBBAD = .FALSE.
+      ILABAD = false;
+      ILBBAD = false;
       for (J = 1; J <= N - 1; J++) { // 20
          if ( S( J+1, J ).NE.ZERO ) {
-            IF( P( J, J ).EQ.ZERO .OR. P( J+1, J+1 ).EQ.ZERO .OR. P( J, J+1 ).NE.ZERO )ILBBAD = .TRUE.
+            IF( P( J, J ).EQ.ZERO .OR. P( J+1, J+1 ).EQ.ZERO .OR. P( J, J+1 ).NE.ZERO )ILBBAD = true;
             if ( J.LT.N-1 ) {
-               IF( S( J+2, J+1 ).NE.ZERO ) ILABAD = .TRUE.
+               IF( S( J+2, J+1 ).NE.ZERO ) ILABAD = true;
             }
          }
       } // 20
@@ -202,27 +202,27 @@
 
          // Main loop over eigenvalues
 
-         ILCPLX = .FALSE.
+         ILCPLX = false;
          for (JE = 1; JE <= N; JE++) { // 220
 
-            // Skip this iteration if (a) HOWMNY='S' and SELECT=.FALSE., or
+            // Skip this iteration if (a) HOWMNY='S' and SELECT= false , or
             // (b) this would be the second of a complex pair.
             // Check for complex eigenvalue, so as to be sure of which
             // entry(-ies) of SELECT to look at.
 
             if ( ILCPLX ) {
-               ILCPLX = .FALSE.
+               ILCPLX = false;
                GO TO 220
             }
             NW = 1
             if ( JE.LT.N ) {
                if ( S( JE+1, JE ).NE.ZERO ) {
-                  ILCPLX = .TRUE.
+                  ILCPLX = true;
                   NW = 2
                }
             }
             if ( ILALL ) {
-               ILCOMP = .TRUE.
+               ILCOMP = true;
             } else if ( ILCPLX ) {
                ILCOMP = SELECT( JE ) .OR. SELECT( JE+1 )
             } else {
@@ -346,11 +346,11 @@
                                     // T
             // (rowwise in  (a A - b B) , or columnwise in (a A - b B) )
 
-            IL2BY2 = .FALSE.
+            IL2BY2 = false;
 
             for (J = JE + NW; J <= N; J++) { // 160
                if ( IL2BY2 ) {
-                  IL2BY2 = .FALSE.
+                  IL2BY2 = false;
                   GO TO 160
                }
 
@@ -358,7 +358,7 @@
                BDIAG( 1 ) = P( J, J )
                if ( J.LT.N ) {
                   if ( S( J+1, J ).NE.ZERO ) {
-                     IL2BY2 = .TRUE.
+                     IL2BY2 = true;
                      BDIAG( 2 ) = P( J+1, J+1 )
                      NA = 2
                   }
@@ -416,7 +416,7 @@
                // Solve  ( a A - b B )  y = SUM(,)
                // with scaling and perturbation of the denominator
 
-               dlaln2(.TRUE., NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), SUM, 2, BCOEFR, BCOEFI, WORK( 2*N+J ), N, SCALE, TEMP, IINFO );
+               dlaln2( true , NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), SUM, 2, BCOEFR, BCOEFI, WORK( 2*N+J ), N, SCALE, TEMP, IINFO );
                if ( SCALE.LT.ONE ) {
                   for (JW = 0; JW <= NW - 1; JW++) { // 150
                      for (JR = JE; JR <= J - 1; JR++) { // 140
@@ -477,10 +477,10 @@
 
          // Main loop over eigenvalues
 
-         ILCPLX = .FALSE.
+         ILCPLX = false;
          DO 500 JE = N, 1, -1
 
-            // Skip this iteration if (a) HOWMNY='S' and SELECT=.FALSE., or
+            // Skip this iteration if (a) HOWMNY='S' and SELECT= false , or
             // (b) this would be the second of a complex pair.
             // Check for complex eigenvalue, so as to be sure of which
             // entry(-ies) of SELECT to look at -- if complex, SELECT(JE)
@@ -489,18 +489,18 @@
             // corresponding to the eigenvalue is in rows/columns JE-1:JE
 
             if ( ILCPLX ) {
-               ILCPLX = .FALSE.
+               ILCPLX = false;
                GO TO 500
             }
             NW = 1
             if ( JE.GT.1 ) {
                if ( S( JE, JE-1 ).NE.ZERO ) {
-                  ILCPLX = .TRUE.
+                  ILCPLX = true;
                   NW = 2
                }
             }
             if ( ILALL ) {
-               ILCOMP = .TRUE.
+               ILCOMP = true;
             } else if ( ILCPLX ) {
                ILCOMP = SELECT( JE ) .OR. SELECT( JE-1 )
             } else {
@@ -644,7 +644,7 @@
 
             // Columnwise triangular solve of  (a A - b B)  x = 0
 
-            IL2BY2 = .FALSE.
+            IL2BY2 = false;
             DO 370 J = JE - NW, 1, -1
 
                // If a 2-by-2 block, is in position j-1:j, wait until
@@ -652,7 +652,7 @@
 
                if ( .NOT.IL2BY2 .AND. J.GT.1 ) {
                   if ( S( J, J-1 ).NE.ZERO ) {
-                     IL2BY2 = .TRUE.
+                     IL2BY2 = true;
                      GO TO 370
                   }
                }
@@ -666,7 +666,7 @@
 
                // Compute x(j) (and x(j+1), if 2-by-2 block)
 
-               dlaln2(.FALSE., NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), WORK( 2*N+J ), N, BCOEFR, BCOEFI, SUM, 2, SCALE, TEMP, IINFO );
+               dlaln2( false , NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), WORK( 2*N+J ), N, BCOEFR, BCOEFI, SUM, 2, SCALE, TEMP, IINFO );
                if ( SCALE.LT.ONE ) {
 
                   for (JW = 0; JW <= NW - 1; JW++) { // 290
@@ -726,7 +726,7 @@
                   } // 360
                }
 
-               IL2BY2 = .FALSE.
+               IL2BY2 = false;
             } // 370
 
             // Copy eigenvector to VR, back transforming if

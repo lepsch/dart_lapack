@@ -113,9 +113,9 @@
       } else {
          TEMP = MIN( ABS( D( 1 )-TAU ), ABS( D( 2 )-TAU ) )
       }
-      SCALE = .FALSE.
+      SCALE = false;
       if ( TEMP.LE.SMALL1 ) {
-         SCALE = .TRUE.
+         SCALE = true;
          if ( TEMP.LE.SMALL2 ) {
 
          // Scale up by power of radix nearest 1/SAFMIN**(2/3)

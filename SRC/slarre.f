@@ -131,7 +131,7 @@
 
       // Can force use of bisection instead of faster DQDS.
       // Option left in the code for future multisection work.
-      FORCEB = .FALSE.
+      FORCEB = false;
 
       // Initialize USEDQD, DQDS should be used for ALLRNG unless someone
       // explicitly wants bisection.
@@ -274,7 +274,7 @@
          // eigenvalues to be computed is large compared to the blocksize.
          if ( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) {
             // If all the eigenvalues have to be computed, we use dqd
-            USEDQD = .TRUE.
+            USEDQD = true;
             // INDL is the local index of the first eigenvalue to compute
             INDL = 1
             INDU = IN
@@ -380,16 +380,16 @@
             } // 70
             // check for element growth
             if ( DMAX .GT. MAXGROWTH*SPDIAM ) {
-               NOREP = .TRUE.
+               NOREP = true;
             } else {
-               NOREP = .FALSE.
+               NOREP = false;
             }
             if ( USEDQD .AND. .NOT.NOREP ) {
                // Ensure the definiteness of the representation
                // All entries of D (of L D L^T) must have the same sign
                for (I = 1; I <= IN; I++) { // 71
                   TMP = SGNDEF*WORK( I )
-                  if (TMP.LT.ZERO) NOREP = .TRUE.;
+                  if (TMP.LT.ZERO) NOREP = true ;
                } // 71
             }
             if (NOREP) {

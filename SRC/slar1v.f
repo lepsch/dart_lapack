@@ -65,7 +65,7 @@
       // Compute the stationary transform (using the differential form)
       // until the index R2.
 
-      SAWNAN1 = .FALSE.
+      SAWNAN1 = false;
       NEG1 = 0
       S = WORK( INDS+B1-1 ) - LAMBDA
       for (I = B1; I <= R1 - 1; I++) { // 50
@@ -112,7 +112,7 @@
       // Compute the progressive transform (using the differential form)
       // until the index R1
 
-      SAWNAN2 = .FALSE.
+      SAWNAN2 = false;
       NEG2 = 0
       WORK( INDP+BN-1 ) = D( BN ) - LAMBDA
       DO 80 I = BN - 1, R1, -1

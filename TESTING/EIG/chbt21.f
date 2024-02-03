@@ -49,10 +49,10 @@
       IKA = MAX( 0, MIN( N-1, KA ) )
 
       if ( LSAME( UPLO, 'U' ) ) {
-         LOWER = .FALSE.
+         LOWER = false;
          CUPLO = 'U'
       } else {
-         LOWER = .TRUE.
+         LOWER = true;
          CUPLO = 'L'
       }
 

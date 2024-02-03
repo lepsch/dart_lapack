@@ -44,8 +44,8 @@
       // ..
       // .. Data statements ..
       DATA               LOCU12 / 3, 4, 1, 2 / , LOCL21 / 2, 1, 4, 3 / , LOCU22 / 4, 3, 2, 1 /
-      DATA               XSWPIV / .FALSE., .FALSE., .TRUE., .TRUE. /
-      DATA               BSWPIV / .FALSE., .TRUE., .FALSE., .TRUE. /
+      DATA               XSWPIV / false , false , true , true /
+      DATA               BSWPIV / false , true , false , true /
       // ..
       // .. Executable Statements ..
 

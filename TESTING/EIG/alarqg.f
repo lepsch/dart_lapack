@@ -37,13 +37,13 @@
          // Test everything if NMATS >= NTYPES.
 
          for (I = 1; I <= NTYPES; I++) { // 10
-            DOTYPE( I ) = .TRUE.
+            DOTYPE( I ) = true;
          } // 10
       } else {
          for (I = 1; I <= NTYPES; I++) { // 20
-            DOTYPE( I ) = .FALSE.
+            DOTYPE( I ) = false;
          } // 20
-         FIRSTT = .TRUE.
+         FIRSTT = true;
 
          // Read a line of matrix types if 0 < NMATS < NTYPES.
 
@@ -95,10 +95,10 @@
             if ( NT.GT.0 .AND. NT.LE.NTYPES ) {
                if ( DOTYPE( NT ) ) {
                   if (FIRSTT) WRITE( NOUT, FMT = * );
-                  FIRSTT = .FALSE.
+                  FIRSTT = false;
                   WRITE( NOUT, FMT = 9997 )NT, PATH
                }
-               DOTYPE( NT ) = .TRUE.
+               DOTYPE( NT ) = true;
             } else {
                WRITE( NOUT, FMT = 9999 )PATH, NT, NTYPES
  9999          FORMAT( ' *** Invalid type request for ', A3, ', type  ', I4, ': must satisfy  1 <= type <= ', I2 )

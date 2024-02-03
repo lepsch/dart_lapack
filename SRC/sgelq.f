@@ -41,11 +41,11 @@
 
       LQUERY = ( TSIZE.EQ.-1 .OR. TSIZE.EQ.-2 .OR. LWORK.EQ.-1 .OR. LWORK.EQ.-2 )
 
-      MINT = .FALSE.
-      MINW = .FALSE.
+      MINT = false;
+      MINW = false;
       if ( TSIZE.EQ.-2 .OR. LWORK.EQ.-2 ) {
-        if (TSIZE.NE.-1) MINT = .TRUE.;
-        if (LWORK.NE.-1) MINW = .TRUE.;
+        if (TSIZE.NE.-1) MINT = true ;
+        if (LWORK.NE.-1) MINW = true ;
       }
 
       // Determine the block size
@@ -79,15 +79,15 @@
          LWMIN = MAX( 1, M )
          LWOPT = MAX( 1, MB*M )
       }
-      LMINWS = .FALSE.
+      LMINWS = false;
       if ( ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) .OR. LWORK.LT.LWOPT ) .AND. ( LWORK.GE.LWMIN ) .AND. ( TSIZE.GE.MINTSZ ) .AND. ( .NOT.LQUERY ) ) {
         if ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) ) {
-          LMINWS = .TRUE.
+          LMINWS = true;
           MB = 1
           NB = N
         }
         if ( LWORK.LT.LWOPT ) {
-          LMINWS = .TRUE.
+          LMINWS = true;
           MB = 1
         }
       }

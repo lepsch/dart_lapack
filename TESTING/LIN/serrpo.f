@@ -63,7 +63,7 @@
          X( J ) = 0.
          IW( J ) = J
       } // 20
-      OK = .TRUE.
+      OK = true;
 
       if ( LSAMEN( 2, C2, 'PO' ) ) {
 

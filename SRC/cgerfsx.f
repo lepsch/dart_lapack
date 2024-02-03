@@ -205,11 +205,11 @@
       // Compute scaled normwise condition number cond(A*C).
 
          if ( COLEQU .AND. NOTRAN ) {
-            RCOND_TMP = CLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C, .TRUE., INFO, WORK, RWORK )
+            RCOND_TMP = CLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C, true , INFO, WORK, RWORK )
          } else if ( ROWEQU .AND. .NOT. NOTRAN ) {
-            RCOND_TMP = CLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, R, .TRUE., INFO, WORK, RWORK )
+            RCOND_TMP = CLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, R, true , INFO, WORK, RWORK )
          } else {
-            RCOND_TMP = CLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C, .FALSE., INFO, WORK, RWORK )
+            RCOND_TMP = CLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C, false , INFO, WORK, RWORK )
          }
          for (J = 1; J <= NRHS; J++) {
 

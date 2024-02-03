@@ -49,7 +49,7 @@
       A( 1, 2 ) = 2.
       A( 2, 2 ) = 3.
       A( 2, 1 ) = 4.
-      OK = .TRUE.
+      OK = true;
 
       // Test error exits for the general triangular routines.
 

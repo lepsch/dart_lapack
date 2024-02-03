@@ -133,7 +133,7 @@
 
                // Lop until pivot found
 
-               DONE = .FALSE.
+               DONE = false;
 
                } // 12
 
@@ -189,7 +189,7 @@
 
                      zcopy(K, W( 1, KW-1 ), 1, W( 1, KW ), 1 );
 
-                     DONE = .TRUE.
+                     DONE = true;
 
                   // Case(3)
                   // Equivalent to testing for ROWMAX.EQ.COLMAX,
@@ -202,7 +202,7 @@
 
                      KP = IMAX
                      KSTEP = 2
-                     DONE = .TRUE.
+                     DONE = true;
 
                   // Case(4)
                   } else {
@@ -561,7 +561,7 @@
 
             } else {
 
-               DONE = .FALSE.
+               DONE = false;
 
                // Loop until pivot found
 
@@ -619,7 +619,7 @@
 
                      zcopy(N-K+1, W( K, K+1 ), 1, W( K, K ), 1 );
 
-                     DONE = .TRUE.
+                     DONE = true;
 
                   // Case(3)
                   // Equivalent to testing for ROWMAX.EQ.COLMAX,
@@ -632,7 +632,7 @@
 
                      KP = IMAX
                      KSTEP = 2
-                     DONE = .TRUE.
+                     DONE = true;
 
                   // Case(4)
                   } else {

@@ -39,36 +39,36 @@
       if (M.LE.0 .OR. N.LE.0 .OR. K.LE.0 .OR. L.LT.0) RETURN;
 
       if ( LSAME( STOREV, 'C' ) ) {
-         COLUMN = .TRUE.
-         ROW = .FALSE.
+         COLUMN = true;
+         ROW = false;
       } else if ( LSAME( STOREV, 'R' ) ) {
-         COLUMN = .FALSE.
-         ROW = .TRUE.
+         COLUMN = false;
+         ROW = true;
       } else {
-         COLUMN = .FALSE.
-         ROW = .FALSE.
+         COLUMN = false;
+         ROW = false;
       }
 
       if ( LSAME( SIDE, 'L' ) ) {
-         LEFT = .TRUE.
-         RIGHT = .FALSE.
+         LEFT = true;
+         RIGHT = false;
       } else if ( LSAME( SIDE, 'R' ) ) {
-         LEFT = .FALSE.
-         RIGHT = .TRUE.
+         LEFT = false;
+         RIGHT = true;
       } else {
-         LEFT = .FALSE.
-         RIGHT = .FALSE.
+         LEFT = false;
+         RIGHT = false;
       }
 
       if ( LSAME( DIRECT, 'F' ) ) {
-         FORWARD = .TRUE.
-         BACKWARD = .FALSE.
+         FORWARD = true;
+         BACKWARD = false;
       } else if ( LSAME( DIRECT, 'B' ) ) {
-         FORWARD = .FALSE.
-         BACKWARD = .TRUE.
+         FORWARD = false;
+         BACKWARD = true;
       } else {
-         FORWARD = .FALSE.
-         BACKWARD = .FALSE.
+         FORWARD = false;
+         BACKWARD = false;
       }
 
 * ---------------------------------------------------------------------------

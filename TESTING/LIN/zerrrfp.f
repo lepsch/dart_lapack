@@ -37,7 +37,7 @@
       // .. Executable Statements ..
 
       NOUT = NUNIT
-      OK = .TRUE.
+      OK = true;
       A( 1, 1 ) = DCMPLX( 1.0D0 , 1.0D0  )
       B( 1, 1 ) = DCMPLX( 1.0D0 , 1.0D0  )
       ALPHA     = 1.0D0

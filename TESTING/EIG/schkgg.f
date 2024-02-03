@@ -63,11 +63,11 @@
 
       INFO = 0
 
-      BADNN = .FALSE.
+      BADNN = false;
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
       // Maximum blocksize and shift -- we assume that blocksize and number
@@ -369,10 +369,10 @@
 
             I1 = N / 2
             for (J = 1; J <= I1; J++) { // 120
-               LLWORK( J ) = .TRUE.
+               LLWORK( J ) = true;
             } // 120
             for (J = I1 + 1; J <= N; J++) { // 130
-               LLWORK( J ) = .FALSE.
+               LLWORK( J ) = false;
             } // 130
 
             stgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
@@ -384,10 +384,10 @@
 
             I1 = IN
             for (J = 1; J <= I1; J++) { // 140
-               LLWORK( J ) = .FALSE.
+               LLWORK( J ) = false;
             } // 140
             for (J = I1 + 1; J <= N; J++) { // 150
-               LLWORK( J ) = .TRUE.
+               LLWORK( J ) = true;
             } // 150
 
             stgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, DUMMA, LDU, N, IN, WORK, IINFO );
@@ -397,7 +397,7 @@
                GO TO 210
             }
 
-            sget52(.TRUE., N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
+            sget52( true , N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 9 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'STGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -416,7 +416,7 @@
                GO TO 210
             }
 
-            sget52(.TRUE., N, H, LDA, T, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
+            sget52( true , N, H, LDA, T, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 10 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'STGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -433,10 +433,10 @@
 
             I1 = N / 2
             for (J = 1; J <= I1; J++) { // 160
-               LLWORK( J ) = .TRUE.
+               LLWORK( J ) = true;
             } // 160
             for (J = I1 + 1; J <= N; J++) { // 170
-               LLWORK( J ) = .FALSE.
+               LLWORK( J ) = false;
             } // 170
 
             stgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
@@ -448,10 +448,10 @@
 
             I1 = IN
             for (J = 1; J <= I1; J++) { // 180
-               LLWORK( J ) = .FALSE.
+               LLWORK( J ) = false;
             } // 180
             for (J = I1 + 1; J <= N; J++) { // 190
-               LLWORK( J ) = .TRUE.
+               LLWORK( J ) = true;
             } // 190
 
             stgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, IINFO );
@@ -461,7 +461,7 @@
                GO TO 210
             }
 
-            sget52(.FALSE., N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
+            sget52( false , N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 11 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'STGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -480,7 +480,7 @@
                GO TO 210
             }
 
-            sget52(.FALSE., N, H, LDA, T, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
+            sget52( false , N, H, LDA, T, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 12 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'STGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD

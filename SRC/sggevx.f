@@ -48,24 +48,24 @@
 
       if ( LSAME( JOBVL, 'N' ) ) {
          IJOBVL = 1
-         ILVL = .FALSE.
+         ILVL = false;
       } else if ( LSAME( JOBVL, 'V' ) ) {
          IJOBVL = 2
-         ILVL = .TRUE.
+         ILVL = true;
       } else {
          IJOBVL = -1
-         ILVL = .FALSE.
+         ILVL = false;
       }
 
       if ( LSAME( JOBVR, 'N' ) ) {
          IJOBVR = 1
-         ILVR = .FALSE.
+         ILVR = false;
       } else if ( LSAME( JOBVR, 'V' ) ) {
          IJOBVR = 2
-         ILVR = .TRUE.
+         ILVR = true;
       } else {
          IJOBVR = -1
-         ILVR = .FALSE.
+         ILVR = false;
       }
       ILV = ILVL .OR. ILVR
 
@@ -158,26 +158,26 @@
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
       ANRM = SLANGE( 'M', N, N, A, LDA, WORK )
-      ILASCL = .FALSE.
+      ILASCL = false;
       if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ANRMTO = SMLNUM
-         ILASCL = .TRUE.
+         ILASCL = true;
       } else if ( ANRM.GT.BIGNUM ) {
          ANRMTO = BIGNUM
-         ILASCL = .TRUE.
+         ILASCL = true;
       }
       if (ILASCL) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
       BNRM = SLANGE( 'M', N, N, B, LDB, WORK )
-      ILBSCL = .FALSE.
+      ILBSCL = false;
       if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
          BNRMTO = SMLNUM
-         ILBSCL = .TRUE.
+         ILBSCL = true;
       } else if ( BNRM.GT.BIGNUM ) {
          BNRMTO = BIGNUM
-         ILBSCL = .TRUE.
+         ILBSCL = true;
       }
       if (ILBSCL) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
@@ -301,29 +301,29 @@
             // to avoid using extra 2*N*N workspace, we have to recalculate
             // eigenvectors and estimate one condition numbers at a time.
 
-            PAIR = .FALSE.
+            PAIR = false;
             for (I = 1; I <= N; I++) { // 20
 
                if ( PAIR ) {
-                  PAIR = .FALSE.
+                  PAIR = false;
                   GO TO 20
                }
                MM = 1
                if ( I.LT.N ) {
                   if ( A( I+1, I ).NE.ZERO ) {
-                     PAIR = .TRUE.
+                     PAIR = true;
                      MM = 2
                   }
                }
 
                for (J = 1; J <= N; J++) { // 10
-                  BWORK( J ) = .FALSE.
+                  BWORK( J ) = false;
                } // 10
                if ( MM.EQ.1 ) {
-                  BWORK( I ) = .TRUE.
+                  BWORK( I ) = true;
                } else if ( MM.EQ.2 ) {
-                  BWORK( I ) = .TRUE.
-                  BWORK( I+1 ) = .TRUE.
+                  BWORK( I ) = true;
+                  BWORK( I+1 ) = true;
                }
 
                IWRK = MM*N + 1

@@ -61,8 +61,8 @@
          for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
 
             UPLO = UPLOS( IUPLO )
-            LOWER = .TRUE.
-            if (IUPLO.EQ.1) LOWER = .FALSE.;
+            LOWER = true;
+            if (IUPLO.EQ.1) LOWER = false ;
 
             // Do first for CFORM = 'N', then for CFORM = 'C'
 
@@ -87,12 +87,12 @@
                SRNAMT = 'CTPTTR'
                ctpttr(UPLO, N, AP, ASAV, LDA, INFO );
 
-               OK1 = .TRUE.
+               OK1 = true;
                if ( LOWER ) {
                   for (J = 1; J <= N; J++) {
                      for (I = J; I <= N; I++) {
                         if ( A(I,J).NE.ASAV(I,J) ) {
-                           OK1 = .FALSE.
+                           OK1 = false;
                         }
                      }
                   }
@@ -100,7 +100,7 @@
                   for (J = 1; J <= N; J++) {
                      for (I = 1; I <= J; I++) {
                         if ( A(I,J).NE.ASAV(I,J) ) {
-                           OK1 = .FALSE.
+                           OK1 = false;
                         }
                      }
                   }
@@ -117,12 +117,12 @@
                SRNAMT = 'CTFTTR'
                ctfttr(CFORM, UPLO, N, ARF, ASAV, LDA, INFO );
 
-               OK2 = .TRUE.
+               OK2 = true;
                if ( LOWER ) {
                   for (J = 1; J <= N; J++) {
                      for (I = J; I <= N; I++) {
                         if ( A(I,J).NE.ASAV(I,J) ) {
-                           OK2 = .FALSE.
+                           OK2 = false;
                         }
                      }
                   }
@@ -130,7 +130,7 @@
                   for (J = 1; J <= N; J++) {
                      for (I = 1; I <= J; I++) {
                         if ( A(I,J).NE.ASAV(I,J) ) {
-                           OK2 = .FALSE.
+                           OK2 = false;
                         }
                      }
                   }

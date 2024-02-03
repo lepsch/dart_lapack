@@ -22,7 +22,7 @@
       int                LDST;
       const              LDST = 2 ;
       bool               WANDS;
-      const              WANDS = .TRUE. ;
+      const              WANDS = true ;
       // ..
       // .. Local Scalars ..
       bool               STRONG, WEAK;
@@ -52,8 +52,8 @@
       if (N.LE.1) RETURN;
 
       M = LDST
-      WEAK = .FALSE.
-      STRONG = .FALSE.
+      WEAK = false;
+      STRONG = false;
 
       // Make a local copy of selected block in (A, B)
 

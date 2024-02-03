@@ -157,10 +157,10 @@
 
       // IEEE = ( ILAENV( 10, 'SLASQ2', 'N', 1, 2, 3, 4 ).EQ.1 )
 
-      // [11/15/2008] The case IEEE=.TRUE. has a problem in single precision with
+      // [11/15/2008] The case IEEE= true has a problem in single precision with
       // some the test matrices of type 16. The double precision code is fine.
 
-      IEEE = .FALSE.
+      IEEE = false;
 
       // Rearrange data for locality: Z=(q1,qq1,e1,ee1,q2,qq2,e2,ee2,...).
 

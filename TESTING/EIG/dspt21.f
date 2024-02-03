@@ -47,10 +47,10 @@
       LAP = ( N*( N+1 ) ) / 2
 
       if ( LSAME( UPLO, 'U' ) ) {
-         LOWER = .FALSE.
+         LOWER = false;
          CUPLO = 'U'
       } else {
-         LOWER = .TRUE.
+         LOWER = true;
          CUPLO = 'L'
       }
 

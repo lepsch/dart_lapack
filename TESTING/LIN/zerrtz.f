@@ -51,7 +51,7 @@
       A( 2, 1 ) = DCMPLX( 4.D+0, -4.D+0 )
       W( 1 ) = DCMPLX( 0.D+0, 0.D+0 )
       W( 2 ) = DCMPLX( 0.D+0, 0.D+0 )
-      OK = .TRUE.
+      OK = true;
 
       // Test error exits for the trapezoidal routines.
       WRITE( NOUT, FMT = * )

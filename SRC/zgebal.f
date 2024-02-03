@@ -81,17 +81,17 @@
 
          // Row and column exchange.
 
-         NOCONV = .TRUE.
+         NOCONV = true;
          DO WHILE( NOCONV )
 
             // Search for rows isolating an eigenvalue and push them down.
 
-            NOCONV = .FALSE.
+            NOCONV = false;
             DO I = L, 1, -1
-               CANSWAP = .TRUE.
+               CANSWAP = true;
                for (J = 1; J <= L; J++) {
                   if ( I.NE.J .AND. ( DBLE( A( I, J ) ).NE.ZERO .OR. DIMAG( A( I, J ) ).NE.ZERO ) ) {
-                     CANSWAP = .FALSE.
+                     CANSWAP = false;
                      EXIT
                   }
                }
@@ -102,7 +102,7 @@
                      zswap(L, A( 1, I ), 1, A( 1, L ), 1 );
                      zswap(N-K+1, A( I, K ), LDA, A( L, K ), LDA );
                   }
-                  NOCONV = .TRUE.
+                  NOCONV = true;
 
                   if ( L.EQ.1 ) {
                      ILO = 1
@@ -116,17 +116,17 @@
 
          }
 
-         NOCONV = .TRUE.
+         NOCONV = true;
          DO WHILE( NOCONV )
 
             // Search for columns isolating an eigenvalue and push them left.
 
-            NOCONV = .FALSE.
+            NOCONV = false;
             for (J = K; J <= L; J++) {
-               CANSWAP = .TRUE.
+               CANSWAP = true;
                for (I = K; I <= L; I++) {
                   if ( I.NE.J .AND. ( DBLE( A( I, J ) ).NE.ZERO .OR. DIMAG( A( I, J ) ).NE.ZERO ) ) {
-                     CANSWAP = .FALSE.
+                     CANSWAP = false;
                      EXIT
                   }
                }
@@ -137,7 +137,7 @@
                      zswap(L, A( 1, J ), 1, A( 1, K ), 1 );
                      zswap(N-K+1, A( J, K ), LDA, A( K, K ), LDA );
                   }
-                  NOCONV = .TRUE.
+                  NOCONV = true;
 
                   K = K + 1
                }
@@ -170,9 +170,9 @@
       SFMIN2 = SFMIN1*SCLFAC
       SFMAX2 = ONE / SFMIN2
 
-      NOCONV = .TRUE.
+      NOCONV = true;
       DO WHILE( NOCONV )
-         NOCONV = .FALSE.
+         NOCONV = false;
 
          for (I = K; I <= L; I++) {
 
@@ -230,7 +230,7 @@
             }
             G = ONE / F
             SCALE( I ) = SCALE( I )*F
-            NOCONV = .TRUE.
+            NOCONV = true;
 
             zdscal(N-K+1, G, A( I, K ), LDA );
             zdscal(L, F, A( 1, I ), 1 );

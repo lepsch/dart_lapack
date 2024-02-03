@@ -57,7 +57,7 @@
 
       K = 0
       LSTICC = 0
-      DONE = .FALSE.
+      DONE = false;
 
       DO WHILE ( K.LT.NB .AND. LSTICC.EQ.0 )
          K = K + 1
@@ -96,7 +96,7 @@
 
             if ( DISNAN( MAXC2NRMK ) ) {
 
-               DONE = .TRUE.
+               DONE = true;
 
                // Set KB, the number of factorized partial columns
                        // that are non-zero in each step in the block,
@@ -148,7 +148,7 @@
 
             if ( MAXC2NRMK.EQ.ZERO ) {
 
-               DONE = .TRUE.
+               DONE = true;
 
                // Set KB, the number of factorized partial columns
                        // that are non-zero in each step in the block,
@@ -224,7 +224,7 @@
 
             if ( MAXC2NRMK.LE.ABSTOL .OR. RELMAXC2NRMK.LE.RELTOL ) {
 
-               DONE = .TRUE.
+               DONE = true;
 
                // Set KB, the number of factorized partial columns
                        // that are non-zero in each step in the block,
@@ -324,7 +324,7 @@
 
          if ( DISNAN( TAU(K) ) ) {
 
-            DONE = .TRUE.
+            DONE = true;
 
             // Set KB, the number of factorized partial columns
                     // that are non-zero in each step in the block,

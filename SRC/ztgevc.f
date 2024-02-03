@@ -53,32 +53,32 @@
 
       if ( LSAME( HOWMNY, 'A' ) ) {
          IHWMNY = 1
-         ILALL = .TRUE.
-         ILBACK = .FALSE.
+         ILALL = true;
+         ILBACK = false;
       } else if ( LSAME( HOWMNY, 'S' ) ) {
          IHWMNY = 2
-         ILALL = .FALSE.
-         ILBACK = .FALSE.
+         ILALL = false;
+         ILBACK = false;
       } else if ( LSAME( HOWMNY, 'B' ) ) {
          IHWMNY = 3
-         ILALL = .TRUE.
-         ILBACK = .TRUE.
+         ILALL = true;
+         ILBACK = true;
       } else {
          IHWMNY = -1
       }
 
       if ( LSAME( SIDE, 'R' ) ) {
          ISIDE = 1
-         COMPL = .FALSE.
-         COMPR = .TRUE.
+         COMPL = false;
+         COMPR = true;
       } else if ( LSAME( SIDE, 'L' ) ) {
          ISIDE = 2
-         COMPL = .TRUE.
-         COMPR = .FALSE.
+         COMPL = true;
+         COMPR = false;
       } else if ( LSAME( SIDE, 'B' ) ) {
          ISIDE = 3
-         COMPL = .TRUE.
-         COMPR = .TRUE.
+         COMPL = true;
+         COMPR = true;
       } else {
          ISIDE = -1
       }
@@ -113,9 +113,9 @@
 
       // Check diagonal of B
 
-      ILBBAD = .FALSE.
+      ILBBAD = false;
       for (J = 1; J <= N; J++) { // 20
-         IF( DIMAG( P( J, J ) ).NE.ZERO ) ILBBAD = .TRUE.
+         IF( DIMAG( P( J, J ) ).NE.ZERO ) ILBBAD = true;
       } // 20
 
       if ( ILBBAD ) {
@@ -177,7 +177,7 @@
 
          for (JE = 1; JE <= N; JE++) { // 140
             if ( ILALL ) {
-               ILCOMP = .TRUE.
+               ILCOMP = true;
             } else {
                ILCOMP = SELECT( JE )
             }
@@ -331,7 +331,7 @@
 
          DO 250 JE = N, 1, -1
             if ( ILALL ) {
-               ILCOMP = .TRUE.
+               ILCOMP = true;
             } else {
                ILCOMP = SELECT( JE )
             }

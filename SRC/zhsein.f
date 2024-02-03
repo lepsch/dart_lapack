@@ -177,7 +177,7 @@
 
                // Compute left eigenvector.
 
-               zlaein(.FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH, WK, VL( KL, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO );
+               zlaein( false , NOINIT, N-KL+1, H( KL, KL ), LDH, WK, VL( KL, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO );
                if ( IINFO.GT.0 ) {
                   INFO = INFO + 1
                   IFAILL( KS ) = K
@@ -192,7 +192,7 @@
 
                // Compute right eigenvector.
 
-               zlaein(.TRUE., NOINIT, KR, H, LDH, WK, VR( 1, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO );
+               zlaein( true , NOINIT, KR, H, LDH, WK, VR( 1, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO );
                if ( IINFO.GT.0 ) {
                   INFO = INFO + 1
                   IFAILR( KS ) = K

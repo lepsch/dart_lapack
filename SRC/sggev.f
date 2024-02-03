@@ -45,24 +45,24 @@
 
       if ( LSAME( JOBVL, 'N' ) ) {
          IJOBVL = 1
-         ILVL = .FALSE.
+         ILVL = false;
       } else if ( LSAME( JOBVL, 'V' ) ) {
          IJOBVL = 2
-         ILVL = .TRUE.
+         ILVL = true;
       } else {
          IJOBVL = -1
-         ILVL = .FALSE.
+         ILVL = false;
       }
 
       if ( LSAME( JOBVR, 'N' ) ) {
          IJOBVR = 1
-         ILVR = .FALSE.
+         ILVR = false;
       } else if ( LSAME( JOBVR, 'V' ) ) {
          IJOBVR = 2
-         ILVR = .TRUE.
+         ILVR = true;
       } else {
          IJOBVR = -1
-         ILVR = .FALSE.
+         ILVR = false;
       }
       ILV = ILVL .OR. ILVR
 
@@ -127,26 +127,26 @@
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
       ANRM = SLANGE( 'M', N, N, A, LDA, WORK )
-      ILASCL = .FALSE.
+      ILASCL = false;
       if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ANRMTO = SMLNUM
-         ILASCL = .TRUE.
+         ILASCL = true;
       } else if ( ANRM.GT.BIGNUM ) {
          ANRMTO = BIGNUM
-         ILASCL = .TRUE.
+         ILASCL = true;
       }
       if (ILASCL) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
       BNRM = SLANGE( 'M', N, N, B, LDB, WORK )
-      ILBSCL = .FALSE.
+      ILBSCL = false;
       if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
          BNRMTO = SMLNUM
-         ILBSCL = .TRUE.
+         ILBSCL = true;
       } else if ( BNRM.GT.BIGNUM ) {
          BNRMTO = BIGNUM
-         ILBSCL = .TRUE.
+         ILBSCL = true;
       }
       if (ILBSCL) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 

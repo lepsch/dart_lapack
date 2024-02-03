@@ -52,7 +52,7 @@
          }
          W( J ) = 0.E0
       }
-      OK = .TRUE.
+      OK = true;
 
       // Error exits for TPLQT factorization
 

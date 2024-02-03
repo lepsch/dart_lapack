@@ -39,46 +39,46 @@
       WRITE( NOUT, FMT = 9993 )EPS, SFMIN
       WRITE( NOUT, FMT = 9992 )THRESH
 
-      // Test error exits if TSTERR is .TRUE.
+      // Test error exits if TSTERR is true;
 
       if (TSTERR) CALL CERREC( PATH, NOUT );
 
-      OK = .TRUE.
+      OK = true;
       cget35(RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL, NIN );
       if ( RTRSYL( 1 ).GT.THRESH ) {
-         OK = .FALSE.
+         OK = false;
          WRITE( NOUT, FMT = 9999 )RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL
       }
 
       csyl01(THRESH, FTRSYL, RTRSYL, ITRSYL, KTRSYL3 );
       if ( FTRSYL( 1 ).GT.0 ) {
-         OK = .FALSE.
+         OK = false;
          WRITE( NOUT, FMT = 9970 )FTRSYL( 1 ), RTRSYL( 1 ), THRESH
       }
       if ( FTRSYL( 2 ).GT.0 ) {
-         OK = .FALSE.
+         OK = false;
          WRITE( NOUT, FMT = 9971 )FTRSYL( 2 ), RTRSYL( 2 ), THRESH
       }
       if ( FTRSYL( 3 ).GT.0 ) {
-         OK = .FALSE.
+         OK = false;
          WRITE( NOUT, FMT = 9972 )FTRSYL( 3 )
       }
 
       cget36(RTREXC, LTREXC, NTREXC, KTREXC, NIN );
       if ( RTREXC.GT.THRESH .OR. NTREXC.GT.0 ) {
-         OK = .FALSE.
+         OK = false;
          WRITE( NOUT, FMT = 9998 )RTREXC, LTREXC, NTREXC, KTREXC
       }
 
       cget37(RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN );
       if ( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ).NE.0 .OR. NTRSNA( 2 ).NE.0 .OR. NTRSNA( 3 ).NE.0 ) {
-         OK = .FALSE.
+         OK = false;
          WRITE( NOUT, FMT = 9997 )RTRSNA, LTRSNA, NTRSNA, KTRSNA
       }
 
       cget38(RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN );
       if ( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ).NE.0 .OR. NTRSEN( 2 ).NE.0 .OR. NTRSEN( 3 ).NE.0 ) {
-         OK = .FALSE.
+         OK = false;
          WRITE( NOUT, FMT = 9996 )RTRSEN, LTRSEN, NTRSEN, KTRSEN
       }
 

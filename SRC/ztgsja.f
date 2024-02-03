@@ -90,7 +90,7 @@
 
       // Loop until convergence
 
-      UPPER = .FALSE.
+      UPPER = false;
       for (KCYCLE = 1; KCYCLE <= MAXIT; KCYCLE++) { // 40
 
          UPPER = .NOT.UPPER

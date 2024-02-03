@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       bool               DOITREF;
-      const              DOITREF = .TRUE. ;
+      const              DOITREF = true ;
 
       int                ITERMAX;
       const              ITERMAX = 30 ;

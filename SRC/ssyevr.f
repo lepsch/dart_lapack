@@ -222,10 +222,10 @@
       // If all eigenvalues are desired
       // then call SSTERF or SSTEMR and SORMTR.
 
-      TEST = .FALSE.
+      TEST = false;
       if ( INDEIG ) {
          if ( IL.EQ.1 .AND. IU.EQ.N ) {
-            TEST = .TRUE.
+            TEST = true;
          }
       }
       if ( ( ALLEIG.OR.TEST ) .AND. ( IEEEOK.EQ.1 ) ) {
@@ -238,9 +238,9 @@
             scopy(N, WORK( INDD ), 1, WORK( INDDD ), 1 );
 
             if (ABSTOL .LE. TWO*N*EPS) {
-               TRYRAC = .TRUE.
+               TRYRAC = true;
             } else {
-               TRYRAC = .FALSE.
+               TRYRAC = false;
             }
             sstemr(JOBZ, 'A', N, WORK( INDDD ), WORK( INDEE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( INDWK ), LWORK, IWORK, LIWORK, INFO );
 

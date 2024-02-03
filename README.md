@@ -172,6 +172,18 @@ $1if ($2) $3;
  ==
 ```
 
+### TRUE/FALSE
+Repeat multiple times
+```
+\s*\.TRUE\.\s*(.+)$
+ true $1
+```
+
+```
+\s*\.TRUE\.$
+ true;
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

@@ -63,7 +63,7 @@
 
          // ==== Workspace query call to ZLAQR4 ====
 
-         zlaqr4(.true., .true., JW, 1, JW, T, LDT, SH, 1, JW, V, LDV, WORK, -1, INFQR );
+         zlaqr4( true , true , JW, 1, JW, T, LDT, SH, 1, JW, V, LDV, WORK, -1, INFQR );
          LWK3 = INT( WORK( 1 ) )
 
          // ==== Optimal workspace ====
@@ -132,9 +132,9 @@
       zlaset('A', JW, JW, ZERO, ONE, V, LDV );
       NMIN = ILAENV( 12, 'ZLAQR3', 'SV', JW, 1, JW, LWORK )
       if ( JW.GT.NMIN ) {
-         zlaqr4(.true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR );
+         zlaqr4( true , true , JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR );
       } else {
-         zlahqr(.true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR );
+         zlahqr( true , true , JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR );
       }
 
       // ==== Deflation detection loop ====

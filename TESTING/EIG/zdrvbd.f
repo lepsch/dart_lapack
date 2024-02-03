@@ -73,17 +73,17 @@
       NERRS = 0
       NTESTT = 0
       NTESTF = 0
-      BADMM = .FALSE.
-      BADNN = .FALSE.
+      BADMM = false;
+      BADNN = false;
       MMAX = 1
       NMAX = 1
       MNMAX = 1
       MINWRK = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MM( J ) )
-         IF( MM( J ).LT.0 ) BADMM = .TRUE.
+         IF( MM( J ).LT.0 ) BADMM = true;
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
          MNMAX = MAX( MNMAX, MIN( MM( J ), NN( J ) ) )
          MINWRK = MAX( MINWRK, MAX( 3*MIN( MM( J ), NN( J ) )+MAX( MM( J ), NN( J ) )**2, 5*MIN( MM( J ), NN( J ) ), 3*MAX( MM( J ), NN( J ) ) ) )
       } // 10

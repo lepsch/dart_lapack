@@ -163,7 +163,7 @@
                IFST = K
                ILST = 1
 
-               ztgexc(.FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, IERR );
+               ztgexc( false , false , N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, IERR );
 
                if ( IERR.GT.0 ) {
 

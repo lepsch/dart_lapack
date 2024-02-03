@@ -178,7 +178,7 @@
                   SUMR = DDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
-                  dlaln2(.FALSE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
+                  dlaln2( false , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
@@ -200,7 +200,7 @@
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
-                  dlaln2(.TRUE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
+                  dlaln2( true , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
@@ -230,7 +230,7 @@
                   SUMR = DDOT( L1-1, C( K2, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
-                  dlasy2(.FALSE., .FALSE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
+                  dlasy2( false , false , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
@@ -342,7 +342,7 @@
                   SUMR = DDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
-                  dlaln2(.TRUE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
+                  dlaln2( true , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
@@ -364,7 +364,7 @@
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
-                  dlaln2(.TRUE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
+                  dlaln2( true , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
@@ -394,7 +394,7 @@
                   SUMR = DDOT( L1-1, C( K2, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
-                  dlasy2(.TRUE., .FALSE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
+                  dlasy2( true , false , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
@@ -505,7 +505,7 @@
                   SUMR = DDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
-                  dlaln2(.TRUE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
+                  dlaln2( true , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
@@ -527,7 +527,7 @@
                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
-                  dlaln2(.FALSE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
+                  dlaln2( false , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
@@ -557,7 +557,7 @@
                   SUMR = DDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
-                  dlasy2(.TRUE., .TRUE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
+                  dlasy2( true , true , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
@@ -665,7 +665,7 @@
                   SUML = DDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
-                  dlaln2(.FALSE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
+                  dlaln2( false , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
@@ -685,7 +685,7 @@
                   SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L2 ), 1 )                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
-                  dlaln2(.FALSE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
+                  dlaln2( false , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
@@ -711,7 +711,7 @@
                   SUML = DDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L2 ), 1 )                   SUMR = DDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
-                  dlasy2(.FALSE., .TRUE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
+                  dlasy2( false , true , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {

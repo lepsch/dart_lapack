@@ -31,7 +31,7 @@ void main() {
          // .. detailed  output, if any, for cases  that do not involve ..
          // .. these parameters ..
 
-         PASS = .TRUE.
+         PASS = true;
          INCX = 9999
          INCY = 9999
          if (ICASE.EQ.3 .OR. ICASE.EQ.11) {
@@ -639,7 +639,7 @@ void main() {
 
          if (.NOT. PASS) GO TO 20;
                               // PRINT FAIL MESSAGE AND HEADER.
-         PASS = .FALSE.
+         PASS = false;
          WRITE (NOUT,99999)
          WRITE (NOUT,99998)
    20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, I, SCOMP(I), STRUE(I), SD, SSIZE(I)
@@ -721,7 +721,7 @@ void main() {
 
       if (.NOT. PASS) GO TO 20;
                               // PRINT FAIL MESSAGE AND HEADER.
-      PASS = .FALSE.
+      PASS = false;
       WRITE (NOUT,99999)
       WRITE (NOUT,99998)
    20 ID = ICOMP - ITRUE
@@ -789,7 +789,7 @@ void main() {
       VALUES(9) = SXVALS(V0,2)
       VALUES(10) = SXVALS(V0,3)
       ROGUE = -1234.5678E+0
-      FIRST = .TRUE.
+      FIRST = true;
 
       // Check that the arrays are large enough
 
@@ -905,7 +905,7 @@ void main() {
             }
             if ((TRAT.NE.TRAT).OR.(TRAT.GE.THRESH)) {
                if (FIRST) {
-                  FIRST = .FALSE.
+                  FIRST = false;
                   WRITE(NOUT,99999)
                }
                WRITE (NOUT,98) "SNRM2", N, INCX, IV, IW, TRAT

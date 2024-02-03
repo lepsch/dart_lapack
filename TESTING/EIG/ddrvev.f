@@ -64,11 +64,11 @@
 
       // Important constants
 
-      BADNN = .FALSE.
+      BADNN = false;
       NMAX = 0
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
       // Check for errors

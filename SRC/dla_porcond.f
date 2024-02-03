@@ -50,8 +50,8 @@
          DLA_PORCOND = 1.0D+0
          RETURN
       }
-      UP = .FALSE.
-      IF ( LSAME( UPLO, 'U' ) ) UP = .TRUE.
+      UP = false;
+      IF ( LSAME( UPLO, 'U' ) ) UP = true;
 
       // Compute the equilibration matrix R such that
       // inv(R)*A*C has unit 1-norm.

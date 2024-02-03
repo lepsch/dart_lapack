@@ -342,7 +342,7 @@
                   }
 
                   if ( INFO.EQ.0 ) {
-                     TRFCON = .FALSE.
+                     TRFCON = false;
 
                      // Check residual of computed solution.
 

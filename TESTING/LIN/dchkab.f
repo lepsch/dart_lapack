@@ -61,7 +61,7 @@ void main() {
 
       S1 = DSECND( )
       LDA = NMAX
-      FATAL = .FALSE.
+      FATAL = false;
 
       // Read a dummy line.
 
@@ -78,20 +78,20 @@ void main() {
       if ( NM.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NM ', NM, 1
          NM = 0
-         FATAL = .TRUE.
+         FATAL = true;
       } else if ( NM.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NM ', NM, MAXIN
          NM = 0
-         FATAL = .TRUE.
+         FATAL = true;
       }
       READ( NIN, FMT = * )( MVAL( I ), I = 1, NM )
       for (I = 1; I <= NM; I++) { // 10
          if ( MVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', MVAL( I ), 0
-            FATAL = .TRUE.
+            FATAL = true;
          } else if ( MVAL( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9995 )' M  ', MVAL( I ), NMAX
-            FATAL = .TRUE.
+            FATAL = true;
          }
       } // 10
       if (NM.GT.0) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM );
@@ -102,20 +102,20 @@ void main() {
       if ( NNS.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
          NNS = 0
-         FATAL = .TRUE.
+         FATAL = true;
       } else if ( NNS.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN
          NNS = 0
-         FATAL = .TRUE.
+         FATAL = true;
       }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS )
       for (I = 1; I <= NNS; I++) { // 30
          if ( NSVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
-            FATAL = .TRUE.
+            FATAL = true;
          } else if ( NSVAL( I ).GT.MAXRHS ) {
             WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
-            FATAL = .TRUE.
+            FATAL = true;
          }
       } // 30
       if (NNS.GT.0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );

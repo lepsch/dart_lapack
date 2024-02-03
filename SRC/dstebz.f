@@ -91,8 +91,8 @@
       // Initialize error flags
 
       INFO = 0
-      NCNVRG = .FALSE.
-      TOOFEW = .FALSE.
+      NCNVRG = false;
+      TOOFEW = false;
 
       // Quick return if possible
 
@@ -336,7 +336,7 @@
                // Flag non-convergence.
 
                if ( J.GT.IOUT-IINFO ) {
-                  NCNVRG = .TRUE.
+                  NCNVRG = true;
                   IB = -JB
                } else {
                   IB = JB
@@ -423,7 +423,7 @@
             M = IM
          }
          if ( IDISCL.LT.0 .OR. IDISCU.LT.0 ) {
-            TOOFEW = .TRUE.
+            TOOFEW = true;
          }
       }
 

@@ -193,9 +193,9 @@
       // Compute scaled normwise condition number cond(A*C).
 
          if ( RCEQU ) {
-            RCOND_TMP = CLA_SYRCOND_C( UPLO, N, A, LDA, AF, LDAF, IPIV, S, .TRUE., INFO, WORK, RWORK )
+            RCOND_TMP = CLA_SYRCOND_C( UPLO, N, A, LDA, AF, LDAF, IPIV, S, true , INFO, WORK, RWORK )
          } else {
-            RCOND_TMP = CLA_SYRCOND_C( UPLO, N, A, LDA, AF, LDAF, IPIV, S, .FALSE., INFO, WORK, RWORK )
+            RCOND_TMP = CLA_SYRCOND_C( UPLO, N, A, LDA, AF, LDAF, IPIV, S, false , INFO, WORK, RWORK )
          }
          for (J = 1; J <= NRHS; J++) {
 

@@ -31,23 +31,23 @@
       if ( FS ) {
          I = I + 1
          if ( I.LE.M ) {
-            ZLCTSX = .FALSE.
+            ZLCTSX = false;
          } else {
-            ZLCTSX = .TRUE.
+            ZLCTSX = true;
          }
          if ( I.EQ.MPLUSN ) {
-            FS = .FALSE.
+            FS = false;
             I = 0
          }
       } else {
          I = I + 1
          if ( I.LE.N ) {
-            ZLCTSX = .TRUE.
+            ZLCTSX = true;
          } else {
-            ZLCTSX = .FALSE.
+            ZLCTSX = false;
          }
          if ( I.EQ.MPLUSN ) {
-            FS = .TRUE.
+            FS = true;
             I = 0
          }
       }

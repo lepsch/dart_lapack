@@ -76,7 +76,7 @@
 
       dlaset('Full', N, N, ZERO, ONE, Q, LDT );
       dlaset('Full', N, N, ZERO, ONE, Z, LDT );
-      dtgexc(.FALSE., .FALSE., N, T1, LDT, S1, LDT, Q, LDT, Z, LDT, IFST1, ILST1, WORK, LWORK, NINFO ( 1 ) );
+      dtgexc( false , false , N, T1, LDT, S1, LDT, Q, LDT, Z, LDT, IFST1, ILST1, WORK, LWORK, NINFO ( 1 ) );
       for (I = 1; I <= N; I++) { // 40
          for (J = 1; J <= N; J++) { // 30
             IF( I.EQ.J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS             IF( I.EQ.J .AND. Z( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Z( I, J ).NE.ZERO ) RES = RES + ONE / EPS
@@ -87,7 +87,7 @@
 
       dlaset('Full', N, N, ZERO, ONE, Q, LDT );
       dlaset('Full', N, N, ZERO, ONE, Z, LDT );
-      dtgexc(.TRUE., .TRUE., N, T2, LDT, S2, LDT, Q, LDT, Z, LDT, IFST2, ILST2, WORK, LWORK, NINFO ( 2 ) );
+      dtgexc( true , true , N, T2, LDT, S2, LDT, Q, LDT, Z, LDT, IFST2, ILST2, WORK, LWORK, NINFO ( 2 ) );
 
       // Compare T1 with T2 and S1 with S2
 

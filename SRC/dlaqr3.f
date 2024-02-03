@@ -54,7 +54,7 @@
 
          // ==== Workspace query call to DLAQR4 ====
 
-         dlaqr4(.true., .true., JW, 1, JW, T, LDT, SR, SI, 1, JW, V, LDV, WORK, -1, INFQR );
+         dlaqr4( true , true , JW, 1, JW, T, LDT, SR, SI, 1, JW, V, LDV, WORK, -1, INFQR );
          LWK3 = INT( WORK( 1 ) )
 
          // ==== Optimal workspace ====
@@ -124,9 +124,9 @@
       dlaset('A', JW, JW, ZERO, ONE, V, LDV );
       NMIN = ILAENV( 12, 'DLAQR3', 'SV', JW, 1, JW, LWORK )
       if ( JW.GT.NMIN ) {
-         dlaqr4(.true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR );
+         dlaqr4( true , true , JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR );
       } else {
-         dlahqr(.true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, INFQR );
+         dlahqr( true , true , JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, INFQR );
       }
 
       // ==== DTREXC needs a clean margin near the diagonal ====
@@ -144,7 +144,7 @@
       } // 20
       if ( ILST.LE.NS ) {
          if ( NS.EQ.1 ) {
-            BULGE = .FALSE.
+            BULGE = false;
          } else {
             BULGE = T( NS, NS-1 ).NE.ZERO
          }
@@ -207,11 +207,11 @@
          // .    graded matrices.  Bubble sort deals well with
          // .    exchange failures. ====
 
-         SORTED = .false.
+         SORTED = false;
          I = NS + 1
          } // 30
          if (SORTED) GO TO 50;
-         SORTED = .true.
+         SORTED = true;
 
          KEND = I - 1
          I = INFQR + 1
@@ -241,7 +241,7 @@
             if ( EVI.GE.EVK ) {
                I = K
             } else {
-               SORTED = .false.
+               SORTED = false;
                IFST = I
                ILST = K
                dtrexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO );

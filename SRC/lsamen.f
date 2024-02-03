@@ -23,7 +23,7 @@
       // ..
       // .. Executable Statements ..
 
-      LSAMEN = .FALSE.
+      LSAMEN = false;
       IF( LEN( CA ).LT.N .OR. LEN( CB ).LT.N ) GO TO 20
 
       // Do for each character in the two strings.
@@ -35,7 +35,7 @@
          IF( .NOT.LSAME( CA( I: I ), CB( I: I ) ) ) GO TO 20
 
       } // 10
-      LSAMEN = .TRUE.
+      LSAMEN = true;
 
       } // 20
       RETURN

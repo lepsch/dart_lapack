@@ -56,9 +56,9 @@
             A( I, J ) = 1.D0 / DBLE( I+J )
          } // 10
          WI( J ) = DBLE( J )
-         SEL( J ) = .TRUE.
+         SEL( J ) = true;
       } // 20
-      OK = .TRUE.
+      OK = true;
       NT = 0
 
       // Test error exits of the nonsymmetric eigenvalue routines.

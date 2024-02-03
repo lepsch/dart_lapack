@@ -52,7 +52,7 @@
 
       LQUERY = ( ( LWORK.EQ.-1 ).OR.( LIWORK.EQ.-1 ) )
       ZQUERY = ( NZC.EQ.-1 )
-      LAESWAP = .FALSE.
+      LAESWAP = false;
 
       // DSTEMR needs WORK of size 6*N, IWORK of size 3*N.
       // In addition, DLARRE needs WORK of size 6*N, IWORK of size 5*N.
@@ -180,7 +180,7 @@
             E(2) = R1
             R1 = R2
             R2 = E(2)
-            LAESWAP = .TRUE.
+            LAESWAP = true;
          }
          if ( ALLEIG.OR. (VALEIG.AND.(R2.GT.WL).AND. (R2.LE.WU)).OR. (INDEIG.AND.(IIL.EQ.1)) ) {
             M = M+1
@@ -297,7 +297,7 @@
          } else {
             THRESH = -EPS
             // relative accuracy is desired but T does not guarantee it
-            TRYRAC = .FALSE.
+            TRYRAC = false;
          }
 
          if ( TRYRAC ) {

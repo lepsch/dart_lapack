@@ -80,18 +80,18 @@
          N2 = N - N1
       }
 
-      // If N is odd, set NISODD = .TRUE.
-      // If N is even, set K = N/2 and NISODD = .FALSE.
+      // If N is odd, set NISODD = true;
+      // If N is even, set K = N/2 and NISODD = false;
 
       // set lda of ARF^C; ARF^C is (0:(N+1)/2-1,0:N-noe)
       // where noe = 0 if n is even, noe = 1 if n is odd
 
       if ( MOD( N, 2 ).EQ.0 ) {
          K = N / 2
-         NISODD = .FALSE.
+         NISODD = false;
          LDA = N + 1
       } else {
-         NISODD = .TRUE.
+         NISODD = true;
          LDA = N
       }
 

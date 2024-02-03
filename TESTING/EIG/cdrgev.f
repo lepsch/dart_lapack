@@ -60,8 +60,8 @@
       DATA               KAMAGN / 8*1, 2, 3, 2, 3, 2, 3, 7*1, 2, 3, 3, 2, 1 /
       DATA               KBMAGN / 8*1, 3, 2, 3, 2, 2, 3, 7*1, 3, 2, 3, 2, 1 /
       DATA               KTRIAN / 16*0, 10*1 /
-      DATA               LASIGN / 6*.FALSE., .TRUE., .FALSE., 2*.TRUE., 2*.FALSE., 3*.TRUE., .FALSE., .TRUE., 3*.FALSE., 5*.TRUE., .FALSE. /
-      DATA               LBSIGN / 7*.FALSE., .TRUE., 2*.FALSE., 2*.TRUE., 2*.FALSE., .TRUE., .FALSE., .TRUE., 9*.FALSE. /
+      DATA               LASIGN / 6* false , true , false , 2* true , 2* false , 3* true , false , true , 3* false , 5* true , false /
+      DATA               LBSIGN / 7* false , true , 2* false , 2* true , 2* false , true , false , true , 9* false /
       // ..
       // .. Executable Statements ..
 
@@ -69,11 +69,11 @@
 
       INFO = 0
 
-      BADNN = .FALSE.
+      BADNN = false;
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
       if ( NSIZES.LT.0 ) {
@@ -171,7 +171,7 @@
                     // non-zero entries.)
             // KAMAGN: the magnitude of the matrix: =0: zero, =1: O(1),
                     // =2: large, =3: small.
-            // LASIGN: .TRUE. if the diagonal elements of A are to be
+            // LASIGN: true if the diagonal elements of A are to be
                     // multiplied by a random magnitude 1 number.
             // KBTYPE, KBZERO, KBMAGN, LBSIGN: the same, but for B.
             // KTRIAN: =0: don't fill in the upper triangle, =1: do.
@@ -285,14 +285,14 @@
 
             // Do the tests (1) and (2)
 
-            cget52(.TRUE., N, A, LDA, B, LDA, Q, LDQ, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
+            cget52( true , N, A, LDA, B, LDA, Q, LDQ, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
             if ( RESULT( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'CGGEV1', RESULT( 2 ), N, JTYPE, IOLDSD
             }
 
             // Do the tests (3) and (4)
 
-            cget52(.FALSE., N, A, LDA, B, LDA, Z, LDQ, ALPHA, BETA, WORK, RWORK, RESULT( 3 ) );
+            cget52( false , N, A, LDA, B, LDA, Z, LDQ, ALPHA, BETA, WORK, RWORK, RESULT( 3 ) );
             if ( RESULT( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'CGGEV1', RESULT( 4 ), N, JTYPE, IOLDSD
             }

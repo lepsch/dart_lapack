@@ -185,10 +185,10 @@
       // to zero, then call SSTERF or CSTEQR.  If this fails for some
       // eigenvalue, then try SSTEBZ.
 
-      TEST = .FALSE.
+      TEST = false;
       if (INDEIG) {
          if (IL.EQ.1 .AND. IU.EQ.N) {
-            TEST = .TRUE.
+            TEST = true;
          }
       }
       if ((ALLEIG .OR. TEST) .AND. (ABSTOL.LE.ZERO)) {

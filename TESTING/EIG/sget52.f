@@ -63,13 +63,13 @@
       // Compute error matrix.
       // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
 
-      ILCPLX = .FALSE.
+      ILCPLX = false;
       for (JVEC = 1; JVEC <= N; JVEC++) { // 10
          if ( ILCPLX ) {
 
             // 2nd Eigenvalue/-vector of pair -- do nothing
 
-            ILCPLX = .FALSE.
+            ILCPLX = false;
          } else {
             SALFR = ALPHAR( JVEC )
             SALFI = ALPHAI( JVEC )
@@ -93,7 +93,7 @@
 
                // Complex conjugate pair
 
-               ILCPLX = .TRUE.
+               ILCPLX = true;
                if ( JVEC.EQ.N ) {
                   RESULT( 1 ) = TEN / ULP
                   RETURN
@@ -133,10 +133,10 @@
       // Normalization of E:
 
       ENRMER = ZERO
-      ILCPLX = .FALSE.
+      ILCPLX = false;
       for (JVEC = 1; JVEC <= N; JVEC++) { // 40
          if ( ILCPLX ) {
-            ILCPLX = .FALSE.
+            ILCPLX = false;
          } else {
             TEMP1 = ZERO
             if ( ALPHAI( JVEC ).EQ.ZERO ) {
@@ -145,7 +145,7 @@
                } // 20
                ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )
             } else {
-               ILCPLX = .TRUE.
+               ILCPLX = true;
                for (J = 1; J <= N; J++) { // 30
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) )
                } // 30

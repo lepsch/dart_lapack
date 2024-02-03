@@ -25,31 +25,31 @@
       if ( FS ) {
          I = I + 1
          if ( I.LE.M ) {
-            DLCTSX = .FALSE.
+            DLCTSX = false;
          } else {
-            DLCTSX = .TRUE.
+            DLCTSX = true;
          }
          if ( I.EQ.MPLUSN ) {
-            FS = .FALSE.
+            FS = false;
             I = 0
          }
       } else {
          I = I + 1
          if ( I.LE.N ) {
-            DLCTSX = .TRUE.
+            DLCTSX = true;
          } else {
-            DLCTSX = .FALSE.
+            DLCTSX = false;
          }
          if ( I.EQ.MPLUSN ) {
-            FS = .TRUE.
+            FS = true;
             I = 0
          }
       }
 
         // IF( AR/BETA.GT.0.0 )THEN
-           // DLCTSX = .TRUE.
+           // DLCTSX = true;
         // ELSE
-           // DLCTSX = .FALSE.
+           // DLCTSX = false;
         // END IF
 
       RETURN

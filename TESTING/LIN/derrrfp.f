@@ -33,7 +33,7 @@
       // .. Executable Statements ..
 
       NOUT = NUNIT
-      OK = .TRUE.
+      OK = true;
       A( 1, 1 ) = 1.0D+0
       B( 1, 1 ) = 1.0D+0
       ALPHA     = 1.0D+0

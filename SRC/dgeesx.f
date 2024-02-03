@@ -142,12 +142,12 @@
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
       ANRM = DLANGE( 'M', N, N, A, LDA, DUM )
-      SCALEA = .FALSE.
+      SCALEA = false;
       if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
-         SCALEA = .TRUE.
+         SCALEA = true;
          CSCALE = SMLNUM
       } else if ( ANRM.GT.BIGNUM ) {
-         SCALEA = .TRUE.
+         SCALEA = true;
          CSCALE = BIGNUM
       }
       if (SCALEA) CALL DLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
@@ -289,8 +289,8 @@
 
          // Check if reordering successful
 
-         LASTSL = .TRUE.
-         LST2SL = .TRUE.
+         LASTSL = true;
+         LST2SL = true;
          SDIM = 0
          IP = 0
          for (I = 1; I <= N; I++) { // 30

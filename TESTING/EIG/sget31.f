@@ -43,7 +43,7 @@
       // INTRINSIC ABS, MAX, SQRT
       // ..
       // .. Data statements ..
-      DATA               LTRANS / .FALSE., .TRUE. /
+      DATA               LTRANS / false , true /
       // ..
       // .. Executable Statements ..
 

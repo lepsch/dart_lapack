@@ -45,8 +45,8 @@
       NOTRAN = LSAME( TRANS, 'N' )
       if ( NOFACT .OR. EQUIL ) {
          EQUED = 'N'
-         ROWEQU = .FALSE.
-         COLEQU = .FALSE.
+         ROWEQU = false;
+         COLEQU = false;
       } else {
          ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
          COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )

@@ -40,7 +40,7 @@
       // .. Executable Statements ..
 
       NOUT = NUNIT
-      OK = .TRUE.
+      OK = true;
       NT = 0
 
       // Initialize A, B and SEL
@@ -53,7 +53,7 @@
       } // 20
       for (I = 1; I <= NMAX; I++) { // 30
          A( I, I ) = ONE
-         SEL( I ) = .TRUE.
+         SEL( I ) = true;
       } // 30
 
       // Test DTRSYL
@@ -186,7 +186,7 @@
 
       // Test DTRSEN
 
-      SEL( 1 ) = .FALSE.
+      SEL( 1 ) = false;
       SRNAMT = 'DTRSEN'
       INFOT = 1
       dtrsen('X', 'N', SEL, 0, A, 1, B, 1, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 1, IWORK, 1, INFO );

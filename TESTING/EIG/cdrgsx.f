@@ -145,7 +145,7 @@
 
                   // Generate test matrices
 
-                  FS = .TRUE.
+                  FS = true;
                   K = 0
 
                   claset('Full', MPLUSN, MPLUSN, CZERO, CZERO, AI, LDA );
@@ -202,17 +202,17 @@
                   RESULT( 6 ) = ZERO
 
                   for (J = 1; J <= MPLUSN; J++) { // 10
-                     ILABAD = .FALSE.
+                     ILABAD = false;
                      TEMP2 = ( ABS1( ALPHA( J )-AI( J, J ) ) / MAX( SMLNUM, ABS1( ALPHA( J ) ), ABS1( AI( J, J ) ) )+ ABS1( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS1( BETA( J ) ), ABS1( BI( J, J ) ) ) ) / ULP
                      if ( J.LT.MPLUSN ) {
                         if ( AI( J+1, J ).NE.ZERO ) {
-                           ILABAD = .TRUE.
+                           ILABAD = true;
                            RESULT( 5 ) = ULPINV
                         }
                      }
                      if ( J.GT.1 ) {
                         if ( AI( J, J-1 ).NE.ZERO ) {
-                           ILABAD = .TRUE.
+                           ILABAD = true;
                            RESULT( 5 ) = ULPINV
                         }
                      }
@@ -323,7 +323,7 @@
       READ( NIN, FMT = * )PLTRU, DIFTRU
 
       NPTKNT = NPTKNT + 1
-      FS = .TRUE.
+      FS = true;
       K = 0
       M = MPLUSN - N
 
@@ -361,17 +361,17 @@
       RESULT( 6 ) = ZERO
 
       for (J = 1; J <= MPLUSN; J++) { // 110
-         ILABAD = .FALSE.
+         ILABAD = false;
          TEMP2 = ( ABS1( ALPHA( J )-AI( J, J ) ) / MAX( SMLNUM, ABS1( ALPHA( J ) ), ABS1( AI( J, J ) ) )+ ABS1( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS1( BETA( J ) ), ABS1( BI( J, J ) ) ) ) / ULP
          if ( J.LT.MPLUSN ) {
             if ( AI( J+1, J ).NE.ZERO ) {
-               ILABAD = .TRUE.
+               ILABAD = true;
                RESULT( 5 ) = ULPINV
             }
          }
          if ( J.GT.1 ) {
             if ( AI( J, J-1 ).NE.ZERO ) {
-               ILABAD = .TRUE.
+               ILABAD = true;
                RESULT( 5 ) = ULPINV
             }
          }

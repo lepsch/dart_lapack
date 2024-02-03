@@ -52,7 +52,7 @@
       BIGNUM = ONE / SMLNUM
       if ( NOFACT .OR. EQUIL ) {
          EQUED = 'N'
-         RCEQU = .FALSE.
+         RCEQU = false;
       } else {
          RCEQU = LSAME( EQUED, 'Y' )
       }

@@ -73,14 +73,14 @@
          SLT = ZERO
          SRT = ZERO
       } else {
-         GASMAL = .TRUE.
+         GASMAL = true;
          if ( GA.GT.FA ) {
             PMAX = 2
             if ( ( FA / GA ).LT.DLAMCH( 'EPS' ) ) {
 
                // Case of very large GA
 
-               GASMAL = .FALSE.
+               GASMAL = false;
                SSMAX = GA
                if ( HA.GT.ONE ) {
                   SSMIN = FA / ( GA / HA )

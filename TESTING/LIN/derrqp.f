@@ -49,7 +49,7 @@
       A( 1, 2 ) = 2.0D+0
       A( 2, 2 ) = 3.0D+0
       A( 2, 1 ) = 4.0D+0
-      OK = .TRUE.
+      OK = true;
 
       if ( LSAMEN( 2, C2, 'QP' ) ) {
 

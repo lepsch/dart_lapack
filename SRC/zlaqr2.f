@@ -124,7 +124,7 @@
       zcopy(JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 );
 
       zlaset('A', JW, JW, ZERO, ONE, V, LDV );
-      zlahqr(.true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR );
+      zlahqr( true , true , JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR );
 
       // ==== Deflation detection loop ====
 

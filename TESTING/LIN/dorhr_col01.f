@@ -50,7 +50,7 @@
 
       // TEST MATRICES WITH HALF OF MATRIX BEING ZEROS
 
-      TESTZEROS = .FALSE.
+      TESTZEROS = false;
 
       EPS = DLAMCH( 'Epsilon' )
       K = MIN( M, N )

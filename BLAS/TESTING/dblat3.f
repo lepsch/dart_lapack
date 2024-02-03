@@ -120,7 +120,7 @@ void main() {
       // whether they are to be tested.
 
       for (I = 1; I <= NSUBS; I++) { // 20
-         LTEST( I ) = .FALSE.
+         LTEST( I ) = false;
       } // 20
    30 READ( NIN, FMT = 9988, END = 60 )SNAMET, LTESTT
       for (I = 1; I <= NSUBS; I++) { // 40
@@ -157,14 +157,14 @@ void main() {
       // the result computed by DMMCH.
       TRANSA = 'N'
       TRANSB = 'N'
-      dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
+      dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LDE( CC, CT, N )
       if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'T'
-      dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
+      dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LDE( CC, CT, N )
       if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
@@ -179,14 +179,14 @@ void main() {
       } // 130
       TRANSA = 'T'
       TRANSB = 'N'
-      dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
+      dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LDE( CC, CT, N )
       if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'T'
-      dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
+      dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LDE( CC, CT, N )
       if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
@@ -209,8 +209,8 @@ void main() {
             }
             // Test computations.
             INFOT = 0
-            OK = .TRUE.
-            FATAL = .FALSE.
+            OK = true;
+            FATAL = false;
             GO TO ( 140, 150, 160, 160, 170, 180 )ISNUM
             // Test DGEMM, 01.
   140       CALL DCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G )
@@ -315,7 +315,7 @@ void main() {
 
       NARGS = 13
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = ZERO
 
       for (IM = 1; IM <= NIDIM; IM++) { // 110
@@ -423,7 +423,7 @@ void main() {
 
                            if ( .NOT.OK ) {
                               WRITE( NOUT, FMT = 9994 )
-                              FATAL = .TRUE.
+                              FATAL = true;
                               GO TO 120
                            }
 
@@ -450,13 +450,13 @@ void main() {
                            // If data was incorrectly changed, report
                            // and return.
 
-                           SAME = .TRUE.
+                           SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 40
                               SAME = SAME.AND.ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                            } // 40
                            if ( .NOT.SAME ) {
-                              FATAL = .TRUE.
+                              FATAL = true;
                               GO TO 120
                            }
 
@@ -464,7 +464,7 @@ void main() {
 
                               // Check the result.
 
-                              dmmch(TRANSA, TRANSB, M, N, K, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
+                              dmmch(TRANSA, TRANSB, M, N, K, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, true );
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
@@ -560,7 +560,7 @@ void main() {
 
       NARGS = 12
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = ZERO
 
       for (IM = 1; IM <= NIDIM; IM++) { // 100
@@ -654,7 +654,7 @@ void main() {
 
                         if ( .NOT.OK ) {
                            WRITE( NOUT, FMT = 9994 )
-                           FATAL = .TRUE.
+                           FATAL = true;
                            GO TO 110
                         }
 
@@ -680,13 +680,13 @@ void main() {
                         // If data was incorrectly changed, report and
                         // return.
 
-                        SAME = .TRUE.
+                        SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 40
                         if ( .NOT.SAME ) {
-                           FATAL = .TRUE.
+                           FATAL = true;
                            GO TO 110
                         }
 
@@ -695,9 +695,9 @@ void main() {
                            // Check the result.
 
                            if ( LEFT ) {
-                              dmmch('N', 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
+                              dmmch('N', 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, true );
                            } else {
-                              dmmch('N', 'N', M, N, N, ALPHA, B, NMAX, A, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
+                              dmmch('N', 'N', M, N, N, ALPHA, B, NMAX, A, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, true );
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and
@@ -793,7 +793,7 @@ void main() {
 
       NARGS = 11
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = ZERO
       // Set up zero matrix for DMMCH.
       for (J = 1; J <= NMAX; J++) { // 20
@@ -887,7 +887,7 @@ void main() {
 
                            if ( .NOT.OK ) {
                               WRITE( NOUT, FMT = 9994 )
-                              FATAL = .TRUE.
+                              FATAL = true;
                               GO TO 150
                            }
 
@@ -912,13 +912,13 @@ void main() {
                            // If data was incorrectly changed, report and
                            // return.
 
-                           SAME = .TRUE.
+                           SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 50
                               SAME = SAME.AND.ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                            } // 50
                            if ( .NOT.SAME ) {
-                              FATAL = .TRUE.
+                              FATAL = true;
                               GO TO 150
                            }
 
@@ -928,9 +928,9 @@ void main() {
                                  // Check the result.
 
                                  if ( LEFT ) {
-                                    dmmch(TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. );
+                                    dmmch(TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, true );
                                  } else {
-                                    dmmch('N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. );
+                                    dmmch('N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, true );
                                  }
                               } else if ( SNAME( 4: 5 ).EQ.'SM' ) {
 
@@ -944,9 +944,9 @@ void main() {
                                  } // 70
 
                                  if ( LEFT ) {
-                                    dmmch(TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. );
+                                    dmmch(TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, false );
                                  } else {
-                                    dmmch('N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. );
+                                    dmmch('N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, false );
                                  }
                               }
                               ERRMAX = MAX( ERRMAX, ERR )
@@ -1045,7 +1045,7 @@ void main() {
 
       NARGS = 10
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = ZERO
 
       for (IN = 1; IN <= NIDIM; IN++) { // 100
@@ -1125,7 +1125,7 @@ void main() {
 
                         if ( .NOT.OK ) {
                            WRITE( NOUT, FMT = 9993 )
-                           FATAL = .TRUE.
+                           FATAL = true;
                            GO TO 120
                         }
 
@@ -1149,13 +1149,13 @@ void main() {
                         // If data was incorrectly changed, report and
                         // return.
 
-                        SAME = .TRUE.
+                        SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 30
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 30
                         if ( .NOT.SAME ) {
-                           FATAL = .TRUE.
+                           FATAL = true;
                            GO TO 120
                         }
 
@@ -1173,9 +1173,9 @@ void main() {
                                  LJ = N - J + 1
                               }
                               if ( TRAN ) {
-                                 dmmch('T', 'N', LJ, 1, K, ALPHA, A( 1, JJ ), NMAX, A( 1, J ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
+                                 dmmch('T', 'N', LJ, 1, K, ALPHA, A( 1, JJ ), NMAX, A( 1, J ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
                               } else {
-                                 dmmch('N', 'T', LJ, 1, K, ALPHA, A( JJ, 1 ), NMAX, A( J, 1 ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
+                                 dmmch('N', 'T', LJ, 1, K, ALPHA, A( JJ, 1 ), NMAX, A( J, 1 ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
                               }
                               if ( UPPER ) {
                                  JC = JC + LDC
@@ -1281,7 +1281,7 @@ void main() {
 
       NARGS = 12
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = ZERO
 
       for (IN = 1; IN <= NIDIM; IN++) { // 130
@@ -1379,7 +1379,7 @@ void main() {
 
                         if ( .NOT.OK ) {
                            WRITE( NOUT, FMT = 9993 )
-                           FATAL = .TRUE.
+                           FATAL = true;
                            GO TO 150
                         }
 
@@ -1405,13 +1405,13 @@ void main() {
                         // If data was incorrectly changed, report and
                         // return.
 
-                        SAME = .TRUE.
+                        SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 40
                         if ( .NOT.SAME ) {
-                           FATAL = .TRUE.
+                           FATAL = true;
                            GO TO 150
                         }
 
@@ -1433,12 +1433,12 @@ void main() {
                                  for (I = 1; I <= K; I++) { // 50
                                     W( I ) = AB( ( J - 1 )*2*NMAX + K + I )                                     W( K + I ) = AB( ( J - 1 )*2*NMAX + I )
                                  } // 50
-                                 dmmch('T', 'N', LJ, 1, 2*K, ALPHA, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
+                                 dmmch('T', 'N', LJ, 1, 2*K, ALPHA, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
                               } else {
                                  for (I = 1; I <= K; I++) { // 60
                                     W( I ) = AB( ( K + I - 1 )*NMAX + J )                                     W( K + I ) = AB( ( I - 1 )*NMAX + J )
                                  } // 60
-                                 dmmch('N', 'N', LJ, 1, 2*K, ALPHA, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
+                                 dmmch('N', 'N', LJ, 1, 2*K, ALPHA, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
                               }
                               if ( UPPER ) {
                                  JC = JC + LDC
@@ -1530,12 +1530,12 @@ void main() {
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Executable Statements ..
-      // OK is set to .FALSE. by the special version of XERBLA or by CHKXER
+      // OK is set to false by the special version of XERBLA or by CHKXER
       // if anything is wrong.
-      OK = .TRUE.
-      // LERR is set to .TRUE. by the special version of XERBLA each time
+      OK = true;
+      // LERR is set to true by the special version of XERBLA each time
       // it is called, and is then tested and re-set by CHKXER.
-      LERR = .FALSE.
+      LERR = false;
 
       // Initialize ALPHA and BETA.
 
@@ -2248,7 +2248,7 @@ void main() {
 
       // Report fatal error.
 
-  130 FATAL = .TRUE.
+  130 FATAL = true;
       WRITE( NOUT, FMT = 9999 )
       for (I = 1; I <= M; I++) { // 140
          if ( MV ) {
@@ -2291,10 +2291,10 @@ void main() {
       for (I = 1; I <= LR; I++) { // 10
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
       } // 10
-      LDE = .TRUE.
+      LDE = true;
       GO TO 30
       } // 20
-      LDE = .FALSE.
+      LDE = false;
    30 RETURN
 
       // End of LDE
@@ -2349,10 +2349,10 @@ void main() {
          } // 50
       }
 
-      LDERES = .TRUE.
+      LDERES = true;
       GO TO 80
       } // 70
-      LDERES = .FALSE.
+      LDERES = false;
    80 RETURN
 
       // End of LDERES
@@ -2382,7 +2382,7 @@ void main() {
          MI = 891
          I = 7
          IC = 0
-         RESET = .FALSE.
+         RESET = false;
       }
 
       // The sequence of values of I is bounded between 1 and 999.
@@ -2442,9 +2442,9 @@ void main() {
       // .. Executable Statements ..
       if ( .NOT.LERR ) {
          WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT
-         OK = .FALSE.
+         OK = false;
       }
-      LERR = .FALSE.
+      LERR = false;
       RETURN
 
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D', 'ETECTED BY ', A6, ' *****' )
@@ -2482,18 +2482,18 @@ void main() {
       // COMMON /INFOC/INFOT, NOUT, OK, LERR
       // COMMON /SRNAMC/SRNAMT
       // .. Executable Statements ..
-      LERR = .TRUE.
+      LERR = true;
       if ( INFO.NE.INFOT ) {
          if ( INFOT.NE.0 ) {
             WRITE( NOUT, FMT = 9999 )INFO, INFOT
          } else {
             WRITE( NOUT, FMT = 9997 )INFO
          }
-         OK = .FALSE.
+         OK = false;
       }
       if ( SRNAME.NE.SRNAMT ) {
          WRITE( NOUT, FMT = 9998 )SRNAME, SRNAMT
-         OK = .FALSE.
+         OK = false;
       }
       RETURN
 

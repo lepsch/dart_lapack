@@ -52,7 +52,7 @@
       A( 1, 2 ) = CMPLX( 2.0E+0, -2.0E+0 )
       A( 2, 2 ) = CMPLX( 3.0E+0, -3.0E+0 )
       A( 2, 1 ) = CMPLX( 4.0E+0, -4.0E+0 )
-      OK = .TRUE.
+      OK = true;
       WRITE( NOUT, FMT = * )
 
       // Test error exits for QR factorization with pivoting

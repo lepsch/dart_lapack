@@ -59,7 +59,7 @@
          R( J ) = 0.D0
          IP( J ) = J
       } // 20
-      OK = .TRUE.
+      OK = true;
 
       SRNAMT = 'DSGESV'
       INFOT = 1

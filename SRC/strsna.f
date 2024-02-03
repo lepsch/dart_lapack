@@ -70,16 +70,16 @@
 
          if ( SOMCON ) {
             M = 0
-            PAIR = .FALSE.
+            PAIR = false;
             for (K = 1; K <= N; K++) { // 10
                if ( PAIR ) {
-                  PAIR = .FALSE.
+                  PAIR = false;
                } else {
                   if ( K.LT.N ) {
                      if ( T( K+1, K ).EQ.ZERO ) {
                         IF( SELECT( K ) ) M = M + 1
                      } else {
-                        PAIR = .TRUE.
+                        PAIR = true;
                         IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
                      }
                   } else {
@@ -121,13 +121,13 @@
       BIGNUM = ONE / SMLNUM
 
       KS = 0
-      PAIR = .FALSE.
+      PAIR = false;
       for (K = 1; K <= N; K++) { // 60
 
          // Determine whether T(k,k) begins a 1-by-1 or 2-by-2 block.
 
          if ( PAIR ) {
-            PAIR = .FALSE.
+            PAIR = false;
             GO TO 60
          } else {
             if (K.LT.N) PAIR = T( K+1, K ).NE.ZERO;
@@ -257,26 +257,26 @@
 
                         // Real eigenvalue: solve C**T*x = scale*c.
 
-                        slaqtr(.TRUE., .TRUE., N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
+                        slaqtr( true , true , N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
                      } else {
 
                         // Complex eigenvalue: solve
                         // C**T*(p+iq) = scale*(c+id) in real arithmetic.
 
-                        slaqtr(.TRUE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
+                        slaqtr( true , false , N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
                      }
                   } else {
                      if ( N2.EQ.1 ) {
 
                         // Real eigenvalue: solve C*x = scale*c.
 
-                        slaqtr(.FALSE., .TRUE., N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
+                        slaqtr( false , true , N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
                      } else {
 
                         // Complex eigenvalue: solve
                         // C*(p+iq) = scale*(c+id) in real arithmetic.
 
-                        slaqtr(.FALSE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
+                        slaqtr( false , false , N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
 
                      }
                   }

@@ -309,9 +309,9 @@
                      KT = N - NS + 1
                      clacpy('A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH );
                      if ( NS.GT.NMIN ) {
-                        claqr4(.false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, WORK, LWORK, INF );
+                        claqr4( false , false , NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, WORK, LWORK, INF );
                      } else {
-                        clahqr(.false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, INF );
+                        clahqr( false , false , NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, INF );
                      }
                      KS = KS + INF
 
@@ -342,13 +342,13 @@
 
                      // ==== Sort the shifts (Helps a little) ====
 
-                     SORTED = .false.
+                     SORTED = false;
                      DO 50 K = KBOT, KS + 1, -1
                         if (SORTED) GO TO 60;
-                        SORTED = .true.
+                        SORTED = true;
                         for (I = KS; I <= K - 1; I++) { // 40
                            if ( CABS1( W( I ) ).LT.CABS1( W( I+1 ) ) ) {
-                              SORTED = .false.
+                              SORTED = false;
                               SWAP = W( I )
                               W( I ) = W( I+1 )
                               W( I+1 ) = SWAP

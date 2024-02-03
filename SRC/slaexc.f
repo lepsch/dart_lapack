@@ -97,7 +97,7 @@
 
          // Solve T11*X - X*T22 = scale*T12 for X.
 
-         slasy2(.FALSE., .FALSE., -1, N1, N2, D, LDD, D( N1+1, N1+1 ), LDD, D( 1, N1+1 ), LDD, SCALE, X, LDX, XNORM, IERR );
+         slasy2( false , false , -1, N1, N2, D, LDD, D( N1+1, N1+1 ), LDD, D( 1, N1+1 ), LDD, SCALE, X, LDX, XNORM, IERR );
 
          // Swap the adjacent diagonal blocks.
 

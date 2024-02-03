@@ -28,36 +28,36 @@
       // Decode wantS,wantQ,wantZ
 
       if ( LSAME( WANTS, 'E' ) ) {
-         ILSCHUR = .FALSE.
+         ILSCHUR = false;
          IWANTS = 1
       } else if ( LSAME( WANTS, 'S' ) ) {
-         ILSCHUR = .TRUE.
+         ILSCHUR = true;
          IWANTS = 2
       } else {
          IWANTS = 0
       }
 
       if ( LSAME( WANTQ, 'N' ) ) {
-         ILQ = .FALSE.
+         ILQ = false;
          IWANTQ = 1
       } else if ( LSAME( WANTQ, 'V' ) ) {
-         ILQ = .TRUE.
+         ILQ = true;
          IWANTQ = 2
       } else if ( LSAME( WANTQ, 'I' ) ) {
-         ILQ = .TRUE.
+         ILQ = true;
          IWANTQ = 3
       } else {
          IWANTQ = 0
       }
 
       if ( LSAME( WANTZ, 'N' ) ) {
-         ILZ = .FALSE.
+         ILZ = false;
          IWANTZ = 1
       } else if ( LSAME( WANTZ, 'V' ) ) {
-         ILZ = .TRUE.
+         ILZ = true;
          IWANTZ = 2
       } else if ( LSAME( WANTZ, 'I' ) ) {
-         ILZ = .TRUE.
+         ILZ = true;
          IWANTZ = 3
       } else {
          IWANTZ = 0

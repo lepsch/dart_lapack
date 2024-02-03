@@ -35,7 +35,7 @@
       // Determine required workspace
       IFST = 1
       ILST = JW
-      stgexc(.TRUE., .TRUE., JW, A, LDA, B, LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, -1, STGEXC_INFO );
+      stgexc( true , true , JW, A, LDA, B, LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, -1, STGEXC_INFO );
       LWORKREQ = INT( WORK( 1 ) )
       slaqz0('S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHAR, ALPHAI, BETA, QC, LDQC, ZC, LDZC, WORK, -1, REC+1, QZ_SMALL_INFO );
       LWORKREQ = MAX( LWORKREQ, INT( WORK( 1 ) )+2*JW**2 )
@@ -102,7 +102,7 @@
          K = 1
          K2 = 1
          DO WHILE ( K .LE. JW )
-            BULGE = .FALSE.
+            BULGE = false;
             if ( KWBOT-KWTOP+1 .GE. 2 ) {
                BULGE = A( KWBOT, KWBOT-1 ) .NE. ZERO
             }
@@ -120,7 +120,7 @@
                   // Not deflatable, move out of the way
                   IFST = KWBOT-KWTOP+1
                   ILST = K2
-                  stgexc(.TRUE., .TRUE., JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, LWORK, STGEXC_INFO );
+                  stgexc( true , true , JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, LWORK, STGEXC_INFO );
                   K2 = K2+2
                }
                K = K+2
@@ -138,7 +138,7 @@
                   // Not deflatable, move out of the way
                   IFST = KWBOT-KWTOP+1
                   ILST = K2
-                  stgexc(.TRUE., .TRUE., JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, LWORK, STGEXC_INFO );
+                  stgexc( true , true , JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, LWORK, STGEXC_INFO );
                   K2 = K2+1
                }
 
@@ -153,10 +153,10 @@
       NS = JW-ND
       K = KWTOP
       DO WHILE ( K .LE. IHI )
-         BULGE = .FALSE.
+         BULGE = false;
          if ( K .LT. IHI ) {
             if ( A( K+1, K ) .NE. ZERO ) {
-               BULGE = .TRUE.
+               BULGE = true;
             }
          }
          if ( BULGE ) {
@@ -195,7 +195,7 @@
 
                // Move double pole block down and remove it
                for (K2 = K-1; K2 <= KWBOT-2; K2++) {
-                  slaqz2(.TRUE., .TRUE., K2, KWTOP, KWTOP+JW-1, KWBOT, A, LDA, B, LDB, JW, KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC );
+                  slaqz2( true , true , K2, KWTOP, KWTOP+JW-1, KWBOT, A, LDA, B, LDB, JW, KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC );
                }
 
                K = K-2

@@ -55,8 +55,8 @@
       } else if ( K.LT.0 ) {
          INFO = -3
       } else {
-         INCR = .TRUE.
-         DECR = .TRUE.
+         INCR = true;
+         DECR = true;
          for (I = 1; I <= K - 1; I++) { // 10
             if (INCR) INCR = INCR .AND. D( I ).LE.D( I+1 )             IF( DECR ) DECR = DECR .AND. D( I ).GE.D( I+1 );
          } // 10

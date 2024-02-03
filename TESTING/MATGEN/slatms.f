@@ -129,13 +129,13 @@
       // Use Givens rotation method if bandwidth small enough,
       // or if LDA is too small to store the matrix unpacked.
 
-      GIVENS = .FALSE.
+      GIVENS = false;
       if ( ISYM.EQ.1 ) {
-         IF( REAL( LLB+UUB ).LT.0.3*REAL( MAX( 1, MR+NC ) ) ) GIVENS = .TRUE.
+         IF( REAL( LLB+UUB ).LT.0.3*REAL( MAX( 1, MR+NC ) ) ) GIVENS = true;
       } else {
-         if (2*LLB.LT.M) GIVENS = .TRUE.;
+         if (2*LLB.LT.M) GIVENS = true ;
       }
-      if (LDA.LT.M .AND. LDA.GE.MINLDA) GIVENS = .TRUE.;
+      if (LDA.LT.M .AND. LDA.GE.MINLDA) GIVENS = true ;
 
       // Set INFO if an error
 
@@ -190,9 +190,9 @@
       // Bottom-Up if D is (apparently) decreasing.
 
       if ( ABS( D( 1 ) ).LE.ABS( D( MNMIN ) ) ) {
-         TOPDWN = .TRUE.
+         TOPDWN = true;
       } else {
-         TOPDWN = .FALSE.
+         TOPDWN = false;
       }
 
       if ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) {
@@ -286,7 +286,7 @@
                      ICOL = MAX( 1, JR-JKL )
                      if ( JR.LT.M ) {
                         IL = MIN( N, JR+JKU ) + 1 - ICOL
-                        slarot(.TRUE., JR.GT.JKL, .FALSE., IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY );
+                        slarot( true , JR.GT.JKL, false , IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY );
                      }
 
                      // Chase "EXTRA" back up
@@ -301,13 +301,13 @@
                         IL = IR + 2 - IROW
                         TEMP = ZERO
                         ILTEMP = JCH.GT.JKU
-                        slarot(.FALSE., ILTEMP, .TRUE., IL, C, -S, A( IROW-ISKEW*IC+IOFFST, IC ), ILDA, TEMP, EXTRA );
+                        slarot( false , ILTEMP, true , IL, C, -S, A( IROW-ISKEW*IC+IOFFST, IC ), ILDA, TEMP, EXTRA );
                         if ( ILTEMP ) {
                            slartg(A( IROW+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), TEMP, C, S, DUMMY );
                            ICOL = MAX( 1, JCH-JKU-JKL )
                            IL = IC + 2 - ICOL
                            EXTRA = ZERO
-                           slarot(.TRUE., JCH.GT.JKU+JKL, .TRUE., IL, C, -S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, TEMP );
+                           slarot( true , JCH.GT.JKU+JKL, true , IL, C, -S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, TEMP );
                            IC = ICOL
                            IR = IROW
                         }
@@ -328,7 +328,7 @@
                      IROW = MAX( 1, JC-JKU )
                      if ( JC.LT.N ) {
                         IL = MIN( M, JC+JKL ) + 1 - IROW
-                        slarot(.FALSE., JC.GT.JKU, .FALSE., IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY );
+                        slarot( false , JC.GT.JKU, false , IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY );
                      }
 
                      // Chase "EXTRA" back up
@@ -343,13 +343,13 @@
                         IL = IC + 2 - ICOL
                         TEMP = ZERO
                         ILTEMP = JCH.GT.JKL
-                        slarot(.TRUE., ILTEMP, .TRUE., IL, C, -S, A( IR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, TEMP, EXTRA );
+                        slarot( true , ILTEMP, true , IL, C, -S, A( IR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, TEMP, EXTRA );
                         if ( ILTEMP ) {
                            slartg(A( IR+1-ISKEW*( ICOL+1 )+IOFFST, ICOL+1 ), TEMP, C, S, DUMMY );
                            IROW = MAX( 1, JCH-JKL-JKU )
                            IL = IR + 2 - IROW
                            EXTRA = ZERO
-                           slarot(.FALSE., JCH.GT.JKL+JKU, .TRUE., IL, C, -S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, TEMP );
+                           slarot( false , JCH.GT.JKL+JKU, true , IL, C, -S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, TEMP );
                            IC = ICOL
                            IR = IROW
                         }
@@ -378,7 +378,7 @@
                      IROW = MAX( 1, JC-JKU+1 )
                      if ( JC.GT.0 ) {
                         IL = MIN( M, JC+JKL+1 ) + 1 - IROW
-                        slarot(.FALSE., .FALSE., JC+JKL.LT.M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA );
+                        slarot( false , false , JC+JKL.LT.M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA );
                      }
 
                      // Chase "EXTRA" back down
@@ -393,12 +393,12 @@
                         ICOL = MIN( N-1, JCH+JKU )
                         ILTEMP = JCH + JKU.LT.N
                         TEMP = ZERO
-                        slarot(.TRUE., ILEXTR, ILTEMP, ICOL+2-IC, C, S, A( JCH-ISKEW*IC+IOFFST, IC ), ILDA, EXTRA, TEMP );
+                        slarot( true , ILEXTR, ILTEMP, ICOL+2-IC, C, S, A( JCH-ISKEW*IC+IOFFST, IC ), ILDA, EXTRA, TEMP );
                         if ( ILTEMP ) {
                            slartg(A( JCH-ISKEW*ICOL+IOFFST, ICOL ), TEMP, C, S, DUMMY );
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = ZERO
-                           slarot(.FALSE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, TEMP, EXTRA );
+                           slarot( false , true , JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, TEMP, EXTRA );
                            IC = ICOL
                         }
                      } // 90
@@ -422,7 +422,7 @@
                      ICOL = MAX( 1, JR-JKL+1 )
                      if ( JR.GT.0 ) {
                         IL = MIN( N, JR+JKU+1 ) + 1 - ICOL
-                        slarot(.TRUE., .FALSE., JR+JKU.LT.N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA );
+                        slarot( true , false , JR+JKU.LT.N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA );
                      }
 
                      // Chase "EXTRA" back down
@@ -437,12 +437,12 @@
                         IROW = MIN( M-1, JCH+JKL )
                         ILTEMP = JCH + JKL.LT.M
                         TEMP = ZERO
-                        slarot(.FALSE., ILEXTR, ILTEMP, IROW+2-IR, C, S, A( IR-ISKEW*JCH+IOFFST, JCH ), ILDA, EXTRA, TEMP );
+                        slarot( false , ILEXTR, ILTEMP, IROW+2-IR, C, S, A( IR-ISKEW*JCH+IOFFST, JCH ), ILDA, EXTRA, TEMP );
                         if ( ILTEMP ) {
                            slartg(A( IROW-ISKEW*JCH+IOFFST, JCH ), TEMP, C, S, DUMMY );
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = ZERO
-                           slarot(.TRUE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, TEMP, EXTRA );
+                           slarot( true , true , JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, TEMP, EXTRA );
                            IR = IROW
                         }
                      } // 120
@@ -478,8 +478,8 @@
                      ANGLE = TWOPI*SLARND( 1, ISEED )
                      C = COS( ANGLE )
                      S = SIN( ANGLE )
-                     slarot(.FALSE., JC.GT.K, .TRUE., IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, TEMP );
-                     slarot(.TRUE., .TRUE., .FALSE., MIN( K, N-JC )+1, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, TEMP, DUMMY );
+                     slarot( false , JC.GT.K, true , IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, TEMP );
+                     slarot( true , true , false , MIN( K, N-JC )+1, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, TEMP, DUMMY );
 
                      // Chase EXTRA back up the matrix
 
@@ -487,11 +487,11 @@
                      DO 150 JCH = JC - K, 1, -K
                         slartg(A( JCH+1-ISKEW*( ICOL+1 )+IOFFG, ICOL+1 ), EXTRA, C, S, DUMMY );
                         TEMP = A( JCH-ISKEW*( JCH+1 )+IOFFG, JCH+1 )
-                        slarot(.TRUE., .TRUE., .TRUE., K+2, C, -S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, TEMP, EXTRA );
+                        slarot( true , true , true , K+2, C, -S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, TEMP, EXTRA );
                         IROW = MAX( 1, JCH-K )
                         IL = MIN( JCH+1, K+2 )
                         EXTRA = ZERO
-                        slarot(.FALSE., JCH.GT.K, .TRUE., IL, C, -S, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, TEMP );
+                        slarot( false , JCH.GT.K, true , IL, C, -S, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, TEMP );
                         ICOL = JCH
                      } // 150
                   } // 160
@@ -540,9 +540,9 @@
                      ANGLE = TWOPI*SLARND( 1, ISEED )
                      C = COS( ANGLE )
                      S = -SIN( ANGLE )
-                     slarot(.FALSE., .TRUE., N-JC.GT.K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, TEMP, EXTRA );
+                     slarot( false , true , N-JC.GT.K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, TEMP, EXTRA );
                      ICOL = MAX( 1, JC-K+1 )
-                     slarot(.TRUE., .FALSE., .TRUE., JC+2-ICOL, C, S, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, TEMP );
+                     slarot( true , false , true , JC+2-ICOL, C, S, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, TEMP );
 
                      // Chase EXTRA back down the matrix
 
@@ -550,10 +550,10 @@
                      DO 220 JCH = JC + K, N - 1, K
                         slartg(A( JCH-ISKEW*ICOL+IOFFG, ICOL ), EXTRA, C, S, DUMMY );
                         TEMP = A( 1+( 1-ISKEW )*JCH+IOFFG, JCH )
-                        slarot(.TRUE., .TRUE., .TRUE., K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, TEMP );
+                        slarot( true , true , true , K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, TEMP );
                         IL = MIN( N+1-JCH, K+2 )
                         EXTRA = ZERO
-                        slarot(.FALSE., .TRUE., N-JCH.GT.K, IL, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, TEMP, EXTRA );
+                        slarot( false , true , N-JCH.GT.K, IL, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, TEMP, EXTRA );
                         ICOL = JCH
                      } // 220
                   } // 230

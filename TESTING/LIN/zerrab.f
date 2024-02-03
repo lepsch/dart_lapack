@@ -62,7 +62,7 @@
          R( J ) = 0.D0
          IP( J ) = J
       } // 20
-      OK = .TRUE.
+      OK = true;
 
       SRNAMT = 'ZCGESV'
       INFOT = 1

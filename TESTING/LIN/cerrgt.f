@@ -52,7 +52,7 @@
          DU( I ) = 4.
       } // 10
       ANORM = 1.0
-      OK = .TRUE.
+      OK = true;
 
       if ( LSAMEN( 2, C2, 'GT' ) ) {
 

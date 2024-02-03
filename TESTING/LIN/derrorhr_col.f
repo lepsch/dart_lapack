@@ -51,7 +51,7 @@
          }
          D( J ) = 0.D+0
       }
-      OK = .TRUE.
+      OK = true;
 
       // Error exits for Householder reconstruction
 

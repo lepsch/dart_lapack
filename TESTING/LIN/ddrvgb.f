@@ -437,7 +437,7 @@
                            }
 
                            if ( INFO.EQ.0 ) {
-                              TRFCON = .FALSE.
+                              TRFCON = false;
 
                               // Compute residual of the computed solution.
 
@@ -463,7 +463,7 @@
 
                               dgbt05(TRANS, N, KL, KU, NRHS, ASAV, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                            } else {
-                              TRFCON = .TRUE.
+                              TRFCON = true;
                            }
 
                            // Compare RCOND from DGBSVX with the computed

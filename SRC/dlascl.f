@@ -104,7 +104,7 @@
          // CFROMC is an inf.  Multiply by a correctly signed zero for
          // finite CTOC, or a NaN if CTOC is infinite.
          MUL = CTOC / CFROMC
-         DONE = .TRUE.
+         DONE = true;
          CTO1 = CTOC
       } else {
          CTO1 = CTOC / BIGNUM
@@ -112,19 +112,19 @@
             // CTOC is either 0 or an inf.  In both cases, CTOC itself
             // serves as the correct multiplication factor.
             MUL = CTOC
-            DONE = .TRUE.
+            DONE = true;
             CFROMC = ONE
          } else if ( ABS( CFROM1 ).GT.ABS( CTOC ) .AND. CTOC.NE.ZERO ) {
             MUL = SMLNUM
-            DONE = .FALSE.
+            DONE = false;
             CFROMC = CFROM1
          } else if ( ABS( CTO1 ).GT.ABS( CFROMC ) ) {
             MUL = BIGNUM
-            DONE = .FALSE.
+            DONE = false;
             CTOC = CTO1
          } else {
             MUL = CTOC / CFROMC
-            DONE = .TRUE.
+            DONE = true;
             if (MUL .EQ. ONE) RETURN;
          }
       }

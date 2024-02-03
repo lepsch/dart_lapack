@@ -285,9 +285,9 @@
                   // Set the condition estimate flag if the INFO is not 0.
 
                   if ( INFO.NE.0 ) {
-                     TRFCON = .TRUE.
+                     TRFCON = true;
                   } else {
-                     TRFCON = .FALSE.
+                     TRFCON = false;
                   }
 
 *+    TEST 1

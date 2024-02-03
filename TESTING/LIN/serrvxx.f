@@ -70,7 +70,7 @@
          IP( J ) = J
       } // 20
       EQ = ' '
-      OK = .TRUE.
+      OK = true;
 
       if ( LSAMEN( 2, C2, 'GE' ) ) {
 

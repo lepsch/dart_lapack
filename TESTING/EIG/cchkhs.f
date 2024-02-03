@@ -58,11 +58,11 @@
       NTESTT = 0
       INFO = 0
 
-      BADNN = .FALSE.
+      BADNN = false;
       NMAX = 0
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
       // Check for errors
@@ -378,10 +378,10 @@
             // Select every other eigenvector
 
             for (J = 1; J <= N; J++) { // 140
-               SELECT( J ) = .FALSE.
+               SELECT( J ) = false;
             } // 140
             DO 150 J = 1, N, 2
-               SELECT( J ) = .TRUE.
+               SELECT( J ) = true;
             } // 150
             ctrevc('Right', 'All', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
@@ -409,12 +409,12 @@
             }
 
             K = 1
-            MATCH = .TRUE.
+            MATCH = true;
             for (J = 1; J <= N; J++) { // 170
                if ( SELECT( J ) ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 160
                      if ( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) ) {
-                        MATCH = .FALSE.
+                        MATCH = false;
                         GO TO 180
                      }
                   } // 160
@@ -454,12 +454,12 @@
             }
 
             K = 1
-            MATCH = .TRUE.
+            MATCH = true;
             for (J = 1; J <= N; J++) { // 200
                if ( SELECT( J ) ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 190
                      if ( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) ) {
-                        MATCH = .FALSE.
+                        MATCH = false;
                         GO TO 210
                      }
                   } // 190
@@ -474,7 +474,7 @@
             NTEST = 11
             RESULT( 11 ) = ULPINV
             for (J = 1; J <= N; J++) { // 220
-               SELECT( J ) = .TRUE.
+               SELECT( J ) = true;
             } // 220
 
             chsein('Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, W3, CDUMMA, LDU, EVECTX, LDU, N1, IN, WORK, RWORK, IWORK, IWORK, IINFO );
@@ -499,7 +499,7 @@
             NTEST = 12
             RESULT( 12 ) = ULPINV
             for (J = 1; J <= N; J++) { // 230
-               SELECT( J ) = .TRUE.
+               SELECT( J ) = true;
             } // 230
 
             chsein('Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, W3, EVECTY, LDU, CDUMMA, LDU, N1, IN, WORK, RWORK, IWORK, IWORK, IINFO );

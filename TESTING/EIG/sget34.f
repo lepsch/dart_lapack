@@ -82,7 +82,7 @@
                   scopy(16, T, 1, T1, 1 );
                   scopy(16, VAL( 1 ), 0, Q, 1 );
                   scopy(4, VAL( 3 ), 0, Q, 5 );
-                  slaexc(.TRUE., 2, T, 4, Q, 4, 1, 1, 1, WORK, INFO )                   IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1;
+                  slaexc( true , 2, T, 4, Q, 4, 1, 1, 1, WORK, INFO )                   IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1;
                   shst01(2, 1, 2, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT );
                   RES = RESULT( 1 ) + RESULT( 2 )
                   if (INFO.NE.0) RES = RES + ONE / EPS                   IF( T( 1, 1 ).NE.T1( 2, 2 ) ) RES = RES + ONE / EPS                   IF( T( 2, 2 ).NE.T1( 1, 1 ) ) RES = RES + ONE / EPS                   IF( T( 2, 1 ).NE.ZERO ) RES = RES + ONE / EPS;
@@ -116,7 +116,7 @@
                            scopy(16, T, 1, T1, 1 );
                            scopy(16, VAL( 1 ), 0, Q, 1 );
                            scopy(4, VAL( 3 ), 0, Q, 5 );
-                           slaexc(.TRUE., 3, T, 4, Q, 4, 1, 1, 2, WORK, INFO )                            IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1;
+                           slaexc( true , 3, T, 4, Q, 4, 1, 1, 2, WORK, INFO )                            IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1;
                            shst01(3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT );
                            RES = RESULT( 1 ) + RESULT( 2 )
                            if ( INFO.EQ.0 ) {
@@ -155,7 +155,7 @@
                            scopy(16, T, 1, T1, 1 );
                            scopy(16, VAL( 1 ), 0, Q, 1 );
                            scopy(4, VAL( 3 ), 0, Q, 5 );
-                           slaexc(.TRUE., 3, T, 4, Q, 4, 1, 2, 1, WORK, INFO )                            IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1;
+                           slaexc( true , 3, T, 4, Q, 4, 1, 2, 1, WORK, INFO )                            IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1;
                            shst01(3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT );
                            RES = RESULT( 1 ) + RESULT( 2 )
                            if ( INFO.EQ.0 ) {
@@ -208,7 +208,7 @@
                                     scopy(16, T, 1, T1, 1 );
                                     scopy(16, VAL( 1 ), 0, Q, 1 );
                                     scopy(4, VAL( 3 ), 0, Q, 5 );
-                                    slaexc(.TRUE., 4, T, 4, Q, 4, 1, 2, 2, WORK, INFO )                                     IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1;
+                                    slaexc( true , 4, T, 4, Q, 4, 1, 2, 2, WORK, INFO )                                     IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1;
                                     shst01(4, 1, 4, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT );
                                     RES = RESULT( 1 ) + RESULT( 2 )
                                     if ( INFO.EQ.0 ) {

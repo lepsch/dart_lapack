@@ -15,9 +15,9 @@
       // .. Executable Statements ..
       if ( .NOT.LERR ) {
          WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT( 1:LEN_TRIM( SRNAMT ) )
-         OK = .FALSE.
+         OK = false;
       }
-      LERR = .FALSE.
+      LERR = false;
       RETURN
 
  9999 FORMAT( ' *** Illegal value of parameter number ', I2, ' not detected by ', A6, ' ***' )

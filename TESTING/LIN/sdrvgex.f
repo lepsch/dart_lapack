@@ -369,7 +369,7 @@
                      }
 
                      if ( INFO.EQ.0 ) {
-                        TRFCON = .FALSE.
+                        TRFCON = false;
 
                         // Compute residual of the computed solution.
 
@@ -392,9 +392,9 @@
                         // Check the error bounds from iterative
                         // refinement.
 
-                        sget07(TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 4 ) );
+                        sget07(TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, true , RWORK( NRHS+1 ), RESULT( 4 ) );
                      } else {
-                        TRFCON = .TRUE.
+                        TRFCON = true;
                      }
 
                      // Compare RCOND from SGESVX with the computed value
@@ -505,7 +505,7 @@
                      }
 
                      if ( INFO.EQ.0 ) {
-                        TRFCON = .FALSE.
+                        TRFCON = false;
 
                         // Compute residual of the computed solution.
 
@@ -525,7 +525,7 @@
                            sget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
                         }
                      } else {
-                        TRFCON = .TRUE.
+                        TRFCON = true;
                      }
 
                      // Compare RCOND from SGESVXX with the computed value

@@ -372,7 +372,7 @@
                      }
 
                      if ( INFO.EQ.0 ) {
-                        TRFCON = .FALSE.
+                        TRFCON = false;
 
                         // Compute residual of the computed solution.
 
@@ -395,9 +395,9 @@
                         // Check the error bounds from iterative
                         // refinement.
 
-                        zget07(TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 4 ) );
+                        zget07(TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, true , RWORK( NRHS+1 ), RESULT( 4 ) );
                      } else {
-                        TRFCON = .TRUE.
+                        TRFCON = true;
                      }
 
                      // Compare RCOND from ZGESVX with the computed value

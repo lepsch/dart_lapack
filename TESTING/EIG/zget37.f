@@ -117,7 +117,7 @@
          // Compute eigenvectors
 
          for (I = 1; I <= N; I++) { // 70
-            SELECT( I ) = .TRUE.
+            SELECT( I ) = true;
          } // 70
          ztrevc('B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, RWORK, INFO );
 
@@ -321,7 +321,7 @@
          // Compute all condition numbers using SELECT and compare
 
          for (I = 1; I <= N; I++) { // 180
-            SELECT( I ) = .TRUE.
+            SELECT( I ) = true;
          } // 180
          dcopy(N, DUM, 0, STMP, 1 );
          dcopy(N, DUM, 0, SEPTMP, 1 );
@@ -370,20 +370,20 @@
          // Select second and next to last eigenvalues
 
          for (I = 1; I <= N; I++) { // 220
-            SELECT( I ) = .FALSE.
+            SELECT( I ) = false;
          } // 220
          ICMP = 0
          if ( N.GT.1 ) {
             ICMP = 1
             LCMP( 1 ) = 2
-            SELECT( 2 ) = .TRUE.
+            SELECT( 2 ) = true;
             zcopy(N, RE( 1, 2 ), 1, RE( 1, 1 ), 1 );
             zcopy(N, LE( 1, 2 ), 1, LE( 1, 1 ), 1 );
          }
          if ( N.GT.3 ) {
             ICMP = 2
             LCMP( 2 ) = N - 1
-            SELECT( N-1 ) = .TRUE.
+            SELECT( N-1 ) = true;
             zcopy(N, RE( 1, N-1 ), 1, RE( 1, 2 ), 1 );
             zcopy(N, LE( 1, N-1 ), 1, LE( 1, 2 ), 1 );
          }

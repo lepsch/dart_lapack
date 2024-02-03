@@ -55,11 +55,11 @@
       NTESTT = 0
       INFO = 0
 
-      BADNN = .FALSE.
+      BADNN = false;
       NMAX = 0
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
       // Check for errors
@@ -384,19 +384,19 @@
             if ( WI1( J ).EQ.ZERO ) {
                if ( NSELR.LT.MAX( N / 4, 1 ) ) {
                   NSELR = NSELR + 1
-                  SELECT( J ) = .TRUE.
+                  SELECT( J ) = true;
                } else {
-                  SELECT( J ) = .FALSE.
+                  SELECT( J ) = false;
                }
                J = J - 1
             } else {
                if ( NSELC.LT.MAX( N / 4, 1 ) ) {
                   NSELC = NSELC + 1
-                  SELECT( J ) = .TRUE.
-                  SELECT( J-1 ) = .FALSE.
+                  SELECT( J ) = true;
+                  SELECT( J-1 ) = false;
                } else {
-                  SELECT( J ) = .FALSE.
-                  SELECT( J-1 ) = .FALSE.
+                  SELECT( J ) = false;
+                  SELECT( J-1 ) = false;
                }
                J = J - 2
             }
@@ -428,12 +428,12 @@
             }
 
             K = 1
-            MATCH = .TRUE.
+            MATCH = true;
             for (J = 1; J <= N; J++) { // 170
                if ( SELECT( J ) .AND. WI1( J ).EQ.ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 150
                      if ( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) ) {
-                        MATCH = .FALSE.
+                        MATCH = false;
                         GO TO 180
                      }
                   } // 150
@@ -441,7 +441,7 @@
                } else if ( SELECT( J ) .AND. WI1( J ).NE.ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 160
                      if ( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) .OR. EVECTR( JJ, J+1 ).NE.EVECTL( JJ, K+1 ) ) {
-                        MATCH = .FALSE.
+                        MATCH = false;
                         GO TO 180
                      }
                   } // 160
@@ -481,12 +481,12 @@
             }
 
             K = 1
-            MATCH = .TRUE.
+            MATCH = true;
             for (J = 1; J <= N; J++) { // 210
                if ( SELECT( J ) .AND. WI1( J ).EQ.ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 190
                      if ( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) ) {
-                        MATCH = .FALSE.
+                        MATCH = false;
                         GO TO 220
                      }
                   } // 190
@@ -494,7 +494,7 @@
                } else if ( SELECT( J ) .AND. WI1( J ).NE.ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 200
                      if ( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) .OR. EVECTL( JJ, J+1 ).NE.EVECTR( JJ, K+1 ) ) {
-                        MATCH = .FALSE.
+                        MATCH = false;
                         GO TO 220
                      }
                   } // 200
@@ -509,7 +509,7 @@
             NTEST = 11
             RESULT( 11 ) = ULPINV
             for (J = 1; J <= N; J++) { // 230
-               SELECT( J ) = .TRUE.
+               SELECT( J ) = true;
             } // 230
 
             dhsein('Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
@@ -534,7 +534,7 @@
             NTEST = 12
             RESULT( 12 ) = ULPINV
             for (J = 1; J <= N; J++) { // 240
-               SELECT( J ) = .TRUE.
+               SELECT( J ) = true;
             } // 240
 
             dhsein('Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );

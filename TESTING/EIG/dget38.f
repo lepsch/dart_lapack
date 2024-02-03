@@ -121,7 +121,7 @@
 
          for (I = 1; I <= N; I++) { // 40
             IPNT( I ) = I
-            SELECT( I ) = .FALSE.
+            SELECT( I ) = false;
          } // 40
          dcopy(N, WR, 1, WRTMP, 1 );
          dcopy(N, WI, 1, WITMP, 1 );
@@ -145,7 +145,7 @@
             IPNT( KMIN ) = ITMP
          } // 60
          for (I = 1; I <= NDIM; I++) { // 70
-            SELECT( IPNT( ISELEC( I ) ) ) = .TRUE.
+            SELECT( IPNT( ISELEC( I ) ) ) = true;
          } // 70
 
          // Compute condition numbers

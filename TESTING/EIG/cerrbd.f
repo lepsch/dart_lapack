@@ -55,7 +55,7 @@
             A( I, J ) = 1. / REAL( I+J )
          } // 10
       } // 20
-      OK = .TRUE.
+      OK = true;
       NT = 0
 
       // Test error exits of the SVD routines.

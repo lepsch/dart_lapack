@@ -52,7 +52,7 @@
          }
          W( J ) = DCMPLX(0.D0,0.D0)
       }
-      OK = .TRUE.
+      OK = true;
 
       // Error exits for TPQRT factorization
 

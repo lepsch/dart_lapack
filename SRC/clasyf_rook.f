@@ -126,7 +126,7 @@
 
             } else {
 
-               DONE = .FALSE.
+               DONE = false;
 
                // Loop until pivot found
 
@@ -177,7 +177,7 @@
 
                      ccopy(K, W( 1, KW-1 ), 1, W( 1, KW ), 1 );
 
-                     DONE = .TRUE.
+                     DONE = true;
 
                   // Equivalent to testing for ROWMAX.EQ.COLMAX,
                   // (used to handle NaN and Inf)
@@ -189,7 +189,7 @@
 
                      KP = IMAX
                      KSTEP = 2
-                     DONE = .TRUE.
+                     DONE = true;
                   } else {
 
                      // Pivot not found: set params and repeat
@@ -427,7 +427,7 @@
 
             } else {
 
-               DONE = .FALSE.
+               DONE = false;
 
                // Loop until pivot found
 
@@ -476,7 +476,7 @@
 
                      ccopy(N-K+1, W( K, K+1 ), 1, W( K, K ), 1 );
 
-                     DONE = .TRUE.
+                     DONE = true;
 
                   // Equivalent to testing for ROWMAX.EQ.COLMAX,
                   // (used to handle NaN and Inf)
@@ -488,7 +488,7 @@
 
                      KP = IMAX
                      KSTEP = 2
-                     DONE = .TRUE.
+                     DONE = true;
                   } else {
 
                      // Pivot not found: set params and repeat

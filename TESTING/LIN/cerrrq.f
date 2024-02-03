@@ -52,7 +52,7 @@
          W( J ) = 0.
          X( J ) = 0.
       } // 20
-      OK = .TRUE.
+      OK = true;
 
       // Error exits for RQ factorization
 

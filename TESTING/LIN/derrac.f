@@ -57,7 +57,7 @@
          C( J ) = 0.D0
          R( J ) = 0.D0
       } // 20
-      OK = .TRUE.
+      OK = true;
 
       SRNAMT = 'DSPOSV'
       INFOT = 1

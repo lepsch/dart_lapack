@@ -49,7 +49,7 @@
       A( 2, 1 ) = 4.D+0
       W( 1 ) = 0.0D+0
       W( 2 ) = 0.0D+0
-      OK = .TRUE.
+      OK = true;
 
       if ( LSAMEN( 2, C2, 'TZ' ) ) {
 

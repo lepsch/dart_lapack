@@ -55,7 +55,7 @@
          RWORK( NMAX+J ) = 0.D0
 
       } // 110
-      OK = .TRUE.
+      OK = true;
 
 
          // Test error exits of the routines that use the Cholesky

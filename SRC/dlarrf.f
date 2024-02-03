@@ -48,7 +48,7 @@
       FACT = DBLE(2**KTRYMAX)
       EPS = DLAMCH( 'Precision' )
       SHIFT = 0
-      FORCER = .FALSE.
+      FORCER = false;
 
 
       // Note that we cannot guarantee that for any of the shifts tried,
@@ -63,8 +63,8 @@
 
       // Decide whether the code should accept the best among all
       // representations despite large element growth or signal INFO=1
-      // Setting NOFAIL to .FALSE. for quick fix for bug 113
-      NOFAIL = .FALSE.
+      // Setting NOFAIL to false for quick fix for bug 113
+      NOFAIL = false;
 
 
       // Compute the average gap length of the cluster
@@ -99,8 +99,8 @@
       GROWTHBOUND = MAXGROWTH1*SPDIAM
 
       } // 5
-      SAWNAN1 = .FALSE.
-      SAWNAN2 = .FALSE.
+      SAWNAN1 = false;
+      SAWNAN2 = false;
       // Ensure that we do not back off too much of the initial shifts
       LDELTA = MIN(LDMAX,LDELTA)
       RDELTA = MIN(RDMAX,RDELTA)
@@ -115,7 +115,7 @@
          DPLUS(1) = -PIVMIN
          // Need to set SAWNAN1 because refined RRR test should not be used
          // in this case
-         SAWNAN1 = .TRUE.
+         SAWNAN1 = true;
       }
       MAX1 = ABS( DPLUS( 1 ) )
       for (I = 1; I <= N - 1; I++) { // 6
@@ -126,7 +126,7 @@
             DPLUS(I+1) = -PIVMIN
             // Need to set SAWNAN1 because refined RRR test should not be used
             // in this case
-            SAWNAN1 = .TRUE.
+            SAWNAN1 = true;
          }
          MAX1 = MAX( MAX1,ABS(DPLUS(I+1)) )
       } // 6
@@ -144,7 +144,7 @@
          WORK(1) = -PIVMIN
          // Need to set SAWNAN2 because refined RRR test should not be used
          // in this case
-         SAWNAN2 = .TRUE.
+         SAWNAN2 = true;
       }
       MAX2 = ABS( WORK( 1 ) )
       for (I = 1; I <= N - 1; I++) { // 7
@@ -155,7 +155,7 @@
             WORK(I+1) = -PIVMIN
             // Need to set SAWNAN2 because refined RRR test should not be used
             // in this case
-            SAWNAN2 = .TRUE.
+            SAWNAN2 = true;
          }
          MAX2 = MAX( MAX2,ABS(WORK(I+1)) )
       } // 7
@@ -194,11 +194,11 @@
       // refined test for RRR. This test supposes that no NaN occurred.
       // Moreover, we use the refined RRR test only for isolated clusters.
       if ((CLWDTH.LT.MINGAP/DBLE(128)) .AND. (MIN(MAX1,MAX2).LT.FAIL2) .AND.(.NOT.SAWNAN1).AND.(.NOT.SAWNAN2)) {
-         DORRR1 = .TRUE.
+         DORRR1 = true;
       } else {
-         DORRR1 = .FALSE.
+         DORRR1 = false;
       }
-      TRYRRR1 = .TRUE.
+      TRYRRR1 = true;
       if ( TRYRRR1 .AND. DORRR1 ) {
       if (INDX.EQ.1) {
          TMP = ABS( DPLUS( N ) )
@@ -261,7 +261,7 @@
          if ((SMLGROWTH.LT.FAIL).OR.NOFAIL) {
             LSIGMA = BESTSHIFT
             RSIGMA = BESTSHIFT
-            FORCER = .TRUE.
+            FORCER = true;
             GOTO 5
          } else {
             INFO = 1

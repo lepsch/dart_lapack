@@ -52,41 +52,41 @@
       // Decode JOB, COMPQ, COMPZ
 
       if ( LSAME( JOB, 'E' ) ) {
-         ILSCHR = .FALSE.
+         ILSCHR = false;
          ISCHUR = 1
       } else if ( LSAME( JOB, 'S' ) ) {
-         ILSCHR = .TRUE.
+         ILSCHR = true;
          ISCHUR = 2
       } else {
-         ILSCHR = .TRUE.
+         ILSCHR = true;
          ISCHUR = 0
       }
 
       if ( LSAME( COMPQ, 'N' ) ) {
-         ILQ = .FALSE.
+         ILQ = false;
          ICOMPQ = 1
       } else if ( LSAME( COMPQ, 'V' ) ) {
-         ILQ = .TRUE.
+         ILQ = true;
          ICOMPQ = 2
       } else if ( LSAME( COMPQ, 'I' ) ) {
-         ILQ = .TRUE.
+         ILQ = true;
          ICOMPQ = 3
       } else {
-         ILQ = .TRUE.
+         ILQ = true;
          ICOMPQ = 0
       }
 
       if ( LSAME( COMPZ, 'N' ) ) {
-         ILZ = .FALSE.
+         ILZ = false;
          ICOMPZ = 1
       } else if ( LSAME( COMPZ, 'V' ) ) {
-         ILZ = .TRUE.
+         ILZ = true;
          ICOMPZ = 2
       } else if ( LSAME( COMPZ, 'I' ) ) {
-         ILZ = .TRUE.
+         ILZ = true;
          ICOMPZ = 3
       } else {
-         ILZ = .TRUE.
+         ILZ = true;
          ICOMPZ = 0
       }
 
@@ -237,13 +237,13 @@
             // Test 1: for H(j,j-1)=0 or j=ILO
 
             if ( J.EQ.ILO ) {
-               ILAZRO = .TRUE.
+               ILAZRO = true;
             } else {
                if ( ABS1( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) ) ) ) {
                   H( J, J-1 ) = CZERO
-                  ILAZRO = .TRUE.
+                  ILAZRO = true;
                } else {
-                  ILAZRO = .FALSE.
+                  ILAZRO = false;
                }
             }
 
@@ -254,9 +254,9 @@
 
                // Test 1a: Check for 2 consecutive small subdiagonals in A
 
-               ILAZR2 = .FALSE.
+               ILAZR2 = false;
                if ( .NOT.ILAZRO ) {
-                  IF( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1, J ) ) ).LE.ABS1( H( J, J ) )*( ASCALE*ATOL ) ) ILAZR2 = .TRUE.
+                  IF( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1, J ) ) ).LE.ABS1( H( J, J ) )*( ASCALE*ATOL ) ) ILAZR2 = true;
                }
 
                // If both tests pass (1 & 2), i.e., the leading diagonal
@@ -273,7 +273,7 @@
                      zrot(ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S );
                      zrot(ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL ZROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, DCONJG( S ) );
                      if (ILAZR2) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C;
-                     ILAZR2 = .FALSE.
+                     ILAZR2 = false;
                      if ( ABS1( T( JCH+1, JCH+1 ) ).GE.BTOL ) {
                         if ( JCH+1.GE.ILAST ) {
                            GO TO 60

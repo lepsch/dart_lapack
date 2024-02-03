@@ -27,7 +27,7 @@ void main() {      // Test program for the COMPLEX    Level 1 CBLAS.
          // detailed  output, if any, for cases that do not involve
          // these parameters.
 
-         PASS = .TRUE.
+         PASS = true;
          INCX = 9999
          INCY = 9999
          MODE = 9999
@@ -321,7 +321,7 @@ void main() {      // Test program for the COMPLEX    Level 1 CBLAS.
 
          if (.NOT. PASS) GO TO 20;
                               // PRINT FAIL MESSAGE AND HEADER.
-         PASS = .FALSE.
+         PASS = false;
          WRITE (NOUT,99999)
          WRITE (NOUT,99998)
    20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, I, SCOMP(I), STRUE(I), SD, SSIZE(I)
@@ -424,7 +424,7 @@ void main() {      // Test program for the COMPLEX    Level 1 CBLAS.
 
       if (.NOT. PASS) GO TO 20;
                               // PRINT FAIL MESSAGE AND HEADER.
-      PASS = .FALSE.
+      PASS = false;
       WRITE (NOUT,99999)
       WRITE (NOUT,99998)
    20 ID = ICOMP - ITRUE

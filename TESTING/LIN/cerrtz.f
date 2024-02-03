@@ -51,7 +51,7 @@
       A( 2, 1 ) = CMPLX( 4.E+0, -4.E+0 )
       W( 1 ) = CMPLX( 0.E+0, 0.E+0 )
       W( 2 ) = CMPLX( 0.E+0, 0.E+0 )
-      OK = .TRUE.
+      OK = true;
 
       // Test error exits for the trapezoidal routines.
 

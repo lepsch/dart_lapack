@@ -178,8 +178,8 @@
       // in A are detected, the procedure returns with INFO=-6.
 
       SKL = ONE / SQRT( REAL( M )*REAL( N ) )
-      NOSCALE = .TRUE.
-      GOSCALE = .TRUE.
+      NOSCALE = true;
+      GOSCALE = true;
 
       if ( LOWER ) {
          // the input matrix is M-by-N lower triangular (trapezoidal)
@@ -196,10 +196,10 @@
             if ( ( AAPP.LT.( BIG / AAQQ ) ) .AND. NOSCALE ) {
                SVA( p ) = AAPP*AAQQ
             } else {
-               NOSCALE = .FALSE.
+               NOSCALE = false;
                SVA( p ) = AAPP*( AAQQ*SKL )
                if ( GOSCALE ) {
-                  GOSCALE = .FALSE.
+                  GOSCALE = false;
                   for (q = 1; q <= p - 1; q++) { // 1873
                      SVA( q ) = SVA( q )*SKL
                   } // 1873
@@ -221,10 +221,10 @@
             if ( ( AAPP.LT.( BIG / AAQQ ) ) .AND. NOSCALE ) {
                SVA( p ) = AAPP*AAQQ
             } else {
-               NOSCALE = .FALSE.
+               NOSCALE = false;
                SVA( p ) = AAPP*( AAQQ*SKL )
                if ( GOSCALE ) {
-                  GOSCALE = .FALSE.
+                  GOSCALE = false;
                   for (q = 1; q <= p - 1; q++) { // 2873
                      SVA( q ) = SVA( q )*SKL
                   } // 2873
@@ -246,10 +246,10 @@
             if ( ( AAPP.LT.( BIG / AAQQ ) ) .AND. NOSCALE ) {
                SVA( p ) = AAPP*AAQQ
             } else {
-               NOSCALE = .FALSE.
+               NOSCALE = false;
                SVA( p ) = AAPP*( AAQQ*SKL )
                if ( GOSCALE ) {
-                  GOSCALE = .FALSE.
+                  GOSCALE = false;
                   for (q = 1; q <= p - 1; q++) { // 3873
                      SVA( q ) = SVA( q )*SKL
                   } // 3873

@@ -59,8 +59,8 @@
          xerbla('ZLA_PORCOND_X', -INFO );
          RETURN
       }
-      UP = .FALSE.
-      IF ( LSAME( UPLO, 'U' ) ) UP = .TRUE.
+      UP = false;
+      IF ( LSAME( UPLO, 'U' ) ) UP = true;
 
       // Compute norm of op(A)*op2(C).
 

@@ -300,7 +300,7 @@
       }
 
       BIG = DLAMCH('O')
-      ASCALED = .FALSE.
+      ASCALED = false;
       IWOFF = 1
       if ( ROWPRM ) {
             IWOFF = M
@@ -356,7 +356,7 @@
                 // .. to prevent overflow in the QR factorization, scale the
                 // matrix by 1/sqrt(M) if too large entry detected
                 dlascl('G',0,0,SQRT(DBLE(M)),ONE, M,N, A,LDA, IERR);
-                ASCALED = .TRUE.
+                ASCALED = true;
             }
             dlaswp(N, A, LDA, 1, M-1, IWORK(N+1), 1 );
       }
@@ -377,7 +377,7 @@
               // .. to prevent overflow in the QR factorization, scale the
               // matrix by 1/sqrt(M) if too large entry detected
               dlascl('G',0,0, SQRT(DBLE(M)),ONE, M,N, A,LDA, IERR);
-              ASCALED = .TRUE.
+              ASCALED = true;
           }
       }
 
@@ -592,7 +592,7 @@
                       } // 1104
                    } // 1103
                }
-               dlapmt(.FALSE., NR, N, V, LDV, IWORK );
+               dlapmt( false , NR, N, V, LDV, IWORK );
             } else {
                 // .. need all N right singular vectors and NR < N
                 // [!] This is simple implementation that augments [V](1:N,1:NR)
@@ -609,7 +609,7 @@
                       V(p,q) = RTMP
                    } // 1124
                 } // 1123
-                dlapmt(.FALSE., N, N, V, LDV, IWORK );
+                dlapmt( false , N, N, V, LDV, IWORK );
             }
 
           } else {
@@ -621,7 +621,7 @@
              // vectors stored in U(1:NR,1:NR)
              if ( WNTVR .OR. ( NR .EQ. N ) ) {
                 dgesvd('N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
-                dlapmt(.FALSE., NR, N, V, LDV, IWORK );
+                dlapmt( false , NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**T
              } else {
                 // .. need all N right singular vectors and NR < N
@@ -631,7 +631,7 @@
                 // how to implement this, see the " FULL SVD " branch.
                  dlaset('G', N-NR, N, ZERO,ZERO, V(NR+1,1), LDV);
                  dgesvd('N', 'O', N, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
-                 dlapmt(.FALSE., N, N, V, LDV, IWORK );
+                 dlapmt( false , N, N, V, LDV, IWORK );
              }
              // .. now [V] contains the transposed matrix of the right singular
              // vectors of A.
@@ -673,7 +673,7 @@
                       } // 1102
                    } // 1101
                }
-               dlapmt(.FALSE., NR, N, V, LDV, IWORK );
+               dlapmt( false , NR, N, V, LDV, IWORK );
 
                 for (p = 1; p <= NR; p++) { // 1117
                    for (q = p + 1; q <= NR; q++) { // 1118
@@ -719,7 +719,7 @@
                          V(p,q) = RTMP
                       } // 1114
                    } // 1113
-                   dlapmt(.FALSE., N, N, V, LDV, IWORK );
+                   dlapmt( false , N, N, V, LDV, IWORK );
                // .. assemble the left singular vector matrix U of dimensions
                // (M x N1), i.e. (M x N) or (M x M).
 
@@ -759,7 +759,7 @@
                   dlaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV);
                   dlaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV);
                   dormqr('R','C', N, N, NR, U(1,NR+1), LDU, WORK(N+1),V,LDV,WORK(N+NR+1),LWORK-N-NR,IERR);
-                  dlapmt(.FALSE., N, N, V, LDV, IWORK );
+                  dlapmt( false , N, N, V, LDV, IWORK );
                   // .. assemble the left singular vector matrix U of dimensions
                   // (M x NR) or (M x N) or (M x M).
                   if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {
@@ -783,7 +783,7 @@
                 // .. the right singular vectors of R overwrite [V], the NR left
                 // singular vectors of R stored in [U](1:NR,1:NR)
                 dgesvd('S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
-                dlapmt(.FALSE., NR, N, V, LDV, IWORK );
+                dlapmt( false , NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**T
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
@@ -812,7 +812,7 @@
                   // singular vectors of R stored in [U](1:NR,1:NR)
                   dlaset('A', N-NR,N, ZERO,ZERO, V(NR+1,1),LDV);
                   dgesvd('S', 'O', N, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
-                  dlapmt(.FALSE., N, N, V, LDV, IWORK );
+                  dlapmt( false , N, N, V, LDV, IWORK );
                   // .. now [V] contains the transposed matrix of the right
                   // singular vectors of A. The leading N left singular vectors
                   // are in [U](1:N,1:N)
@@ -836,7 +836,7 @@
                   dlaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV);
                   dlaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV);
                   dormlq('R','N',N,N,NR,U(NR+1,1),LDU,WORK(N+1), V, LDV, WORK(N+NR+1),LWORK-N-NR,IERR);
-                  dlapmt(.FALSE., N, N, V, LDV, IWORK );
+                  dlapmt( false , N, N, V, LDV, IWORK );
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
                   if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {

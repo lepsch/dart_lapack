@@ -52,7 +52,7 @@
       // Set the variables to innocuous values.
 
       for (J = 1; J <= NMAX; J++) { // 20
-         SEL( J ) = .TRUE.
+         SEL( J ) = true;
          for (I = 1; I <= NMAX; I++) { // 10
             A( I, J ) = ZERO
             B( I, J ) = ZERO
@@ -62,7 +62,7 @@
          A( I, I ) = ONE
          B( I, I ) = ONE
       } // 30
-      OK = .TRUE.
+      OK = true;
       TOLA = 1.0E0
       TOLB = 1.0E0
       IFST = 1
@@ -716,25 +716,25 @@
 
          SRNAMT = 'CTGEXC'
          INFOT = 3
-         ctgexc(.TRUE., .TRUE., -1, A, 1, B, 1, Q, 1, Z, 1, IFST, ILST, INFO );
+         ctgexc( true , true , -1, A, 1, B, 1, Q, 1, Z, 1, IFST, ILST, INFO );
          chkxer('CTGEXC', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         ctgexc(.TRUE., .TRUE., 1, A, 0, B, 1, Q, 1, Z, 1, IFST, ILST, INFO );
+         ctgexc( true , true , 1, A, 0, B, 1, Q, 1, Z, 1, IFST, ILST, INFO );
          chkxer('CTGEXC', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         ctgexc(.TRUE., .TRUE., 1, A, 1, B, 0, Q, 1, Z, 1, IFST, ILST, INFO );
+         ctgexc( true , true , 1, A, 1, B, 0, Q, 1, Z, 1, IFST, ILST, INFO );
          chkxer('CTGEXC', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         ctgexc(.FALSE., .TRUE., 1, A, 1, B, 1, Q, 0, Z, 1, IFST, ILST, INFO );
+         ctgexc( false , true , 1, A, 1, B, 1, Q, 0, Z, 1, IFST, ILST, INFO );
          chkxer('CTGEXC', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         ctgexc(.TRUE., .TRUE., 1, A, 1, B, 1, Q, 0, Z, 1, IFST, ILST, INFO );
+         ctgexc( true , true , 1, A, 1, B, 1, Q, 0, Z, 1, IFST, ILST, INFO );
          chkxer('CTGEXC', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         ctgexc(.TRUE., .FALSE., 1, A, 1, B, 1, Q, 1, Z, 0, IFST, ILST, INFO );
+         ctgexc( true , false , 1, A, 1, B, 1, Q, 1, Z, 0, IFST, ILST, INFO );
          chkxer('CTGEXC', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         ctgexc(.TRUE., .TRUE., 1, A, 1, B, 1, Q, 1, Z, 0, IFST, ILST, INFO );
+         ctgexc( true , true , 1, A, 1, B, 1, Q, 1, Z, 0, IFST, ILST, INFO );
          chkxer('CTGEXC', INFOT, NOUT, LERR, OK );
          NT = NT + 7
 
@@ -742,34 +742,34 @@
 
          SRNAMT = 'CTGSEN'
          INFOT = 1
-         ctgsen(-1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
+         ctgsen(-1, true , true , SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
          chkxer('CTGSEN', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         ctgsen(1, .TRUE., .TRUE., SEL, -1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
+         ctgsen(1, true , true , SEL, -1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
          chkxer('CTGSEN', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         ctgsen(1, .TRUE., .TRUE., SEL, 1, A, 0, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
+         ctgsen(1, true , true , SEL, 1, A, 0, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
          chkxer('CTGSEN', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         ctgsen(1, .TRUE., .TRUE., SEL, 1, A, 1, B, 0, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
+         ctgsen(1, true , true , SEL, 1, A, 1, B, 0, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
          chkxer('CTGSEN', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         ctgsen(1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 0, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
+         ctgsen(1, true , true , SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 0, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
          chkxer('CTGSEN', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         ctgsen(1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 0, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
+         ctgsen(1, true , true , SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 0, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
          chkxer('CTGSEN', INFOT, NOUT, LERR, OK );
          INFOT = 21
-         ctgsen(3, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, -5, IW, 1, INFO );
+         ctgsen(3, true , true , SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, -5, IW, 1, INFO );
          chkxer('CTGSEN', INFOT, NOUT, LERR, OK );
          INFOT = 23
-         ctgsen(0, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 0, INFO );
+         ctgsen(0, true , true , SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 0, INFO );
          chkxer('CTGSEN', INFOT, NOUT, LERR, OK );
          INFOT = 23
-         ctgsen(1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 0, INFO );
+         ctgsen(1, true , true , SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 0, INFO );
          chkxer('CTGSEN', INFOT, NOUT, LERR, OK );
          INFOT = 23
-         ctgsen(5, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 1, INFO );
+         ctgsen(5, true , true , SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 1, INFO );
          chkxer('CTGSEN', INFOT, NOUT, LERR, OK );
          NT = NT + 11
 

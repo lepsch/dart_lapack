@@ -75,16 +75,16 @@
 
          if ( SOMCON ) {
             M = 0
-            PAIR = .FALSE.
+            PAIR = false;
             for (K = 1; K <= N; K++) { // 10
                if ( PAIR ) {
-                  PAIR = .FALSE.
+                  PAIR = false;
                } else {
                   if ( K.LT.N ) {
                      if ( A( K+1, K ).EQ.ZERO ) {
                         IF( SELECT( K ) ) M = M + 1
                      } else {
-                        PAIR = .TRUE.
+                        PAIR = true;
                         IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
                      }
                   } else {
@@ -128,14 +128,14 @@
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       KS = 0
-      PAIR = .FALSE.
+      PAIR = false;
 
       for (K = 1; K <= N; K++) { // 20
 
          // Determine whether A(k,k) begins a 1-by-1 or 2-by-2 block.
 
          if ( PAIR ) {
-            PAIR = .FALSE.
+            PAIR = false;
             GO TO 20
          } else {
             if (K.LT.N) PAIR = A( K+1, K ).NE.ZERO;
@@ -244,7 +244,7 @@
             IFST = K
             ILST = 1
 
-            stgexc(.FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, WORK( N*N*2+1 ), LWORK-2*N*N, IERR );
+            stgexc( false , false , N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, WORK( N*N*2+1 ), LWORK-2*N*N, IERR );
 
             if ( IERR.GT.0 ) {
 

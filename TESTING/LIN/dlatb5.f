@@ -37,14 +37,14 @@
       SAVE               EPS, SMALL, LARGE, BADC1, BADC2, FIRST
       // ..
       // .. Data statements ..
-      DATA               FIRST / .TRUE. /
+      DATA               FIRST / true /
       // ..
       // .. Executable Statements ..
 
       // Set some constants for use in the subroutine.
 
       if ( FIRST ) {
-         FIRST = .FALSE.
+         FIRST = false;
          EPS = DLAMCH( 'Precision' )
          BADC2 = TENTH / EPS
          BADC1 = SQRT( BADC2 )

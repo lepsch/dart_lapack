@@ -308,7 +308,7 @@
          // Compute all condition numbers using SELECT and compare
 
          for (I = 1; I <= N; I++) { // 150
-            SELECT( I ) = .TRUE.
+            SELECT( I ) = true;
          } // 150
          dcopy(N, DUM, 0, STMP, 1 );
          dcopy(N, DUM, 0, SEPTMP, 1 );
@@ -361,7 +361,7 @@
             IFND = 0
             for (I = 2; I <= N; I++) { // 190
                if ( IFND.EQ.1 .OR. WI( I ).EQ.ZERO ) {
-                  SELECT( I ) = .FALSE.
+                  SELECT( I ) = false;
                } else {
                   IFND = 1
                   LCMP( 2 ) = I
@@ -383,7 +383,7 @@
             IFND = 0
             for (I = 3; I <= N; I++) { // 200
                if ( IFND.EQ.1 .OR. WI( I ).NE.ZERO ) {
-                  SELECT( I ) = .FALSE.
+                  SELECT( I ) = false;
                } else {
                   LCMP( 3 ) = I
                   IFND = 1

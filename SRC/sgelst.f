@@ -65,8 +65,8 @@
 
       if ( INFO.EQ.0 .OR. INFO.EQ.-10 ) {
 
-         TPSD = .TRUE.
-         IF( LSAME( TRANS, 'N' ) ) TPSD = .FALSE.
+         TPSD = true;
+         IF( LSAME( TRANS, 'N' ) ) TPSD = false;
 
          NB = ILAENV( 1, 'SGELST', ' ', M, N, -1, -1 )
 

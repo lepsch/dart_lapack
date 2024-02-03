@@ -34,7 +34,7 @@
       // SAVE               FIRST, SAFMX2, SAFMIN, SAFMN2
       // ..
       // .. Data statements ..
-      // DATA               FIRST / .TRUE. /
+      // DATA               FIRST / true /
       // ..
       // .. Executable Statements ..
 
@@ -43,7 +43,7 @@
          EPS = SLAMCH( 'E' )
          SAFMN2 = SLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( SLAMCH( 'B' ) ) / TWO )
          SAFMX2 = ONE / SAFMN2
-         // FIRST = .FALSE.
+         // FIRST = false;
       // END IF
       if ( G.EQ.ZERO ) {
          CS = SIGN( ONE, F )

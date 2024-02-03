@@ -61,8 +61,8 @@
       DATA               KAMAGN / 8*1, 2, 3, 2, 3, 2, 3, 7*1, 2, 3, 3, 2, 1 /
       DATA               KBMAGN / 8*1, 3, 2, 3, 2, 2, 3, 7*1, 3, 2, 3, 2, 1 /
       DATA               KTRIAN / 16*0, 10*1 /
-      DATA               LASIGN / 6*.FALSE., .TRUE., .FALSE., 2*.TRUE., 2*.FALSE., 3*.TRUE., .FALSE., .TRUE., 3*.FALSE., 5*.TRUE., .FALSE. /
-      DATA               LBSIGN / 7*.FALSE., .TRUE., 2*.FALSE., 2*.TRUE., 2*.FALSE., .TRUE., .FALSE., .TRUE., 9*.FALSE. /
+      DATA               LASIGN / 6* false , true , false , 2* true , 2* false , 3* true , false , true , 3* false , 5* true , false /
+      DATA               LBSIGN / 7* false , true , 2* false , 2* true , 2* false , true , false , true , 9* false /
       // ..
       // .. Executable Statements ..
 
@@ -70,11 +70,11 @@
 
       INFO = 0
 
-      BADNN = .FALSE.
+      BADNN = false;
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
       LWKOPT = MAX( 2*NMAX*NMAX, 4*NMAX, 1 )
@@ -166,7 +166,7 @@
                     // non-zero entries.)
             // KAMAGN: the magnitude of the matrix: =0: zero, =1: O(1),
                     // =2: large, =3: small.
-            // LASIGN: .TRUE. if the diagonal elements of A are to be
+            // LASIGN: true if the diagonal elements of A are to be
                     // multiplied by a random magnitude 1 number.
             // KBTYPE, KBZERO, KBMAGN, LBSIGN: the same, but for B.
             // KTRIAN: =0: don't fill in the upper triangle, =1: do.
@@ -374,10 +374,10 @@
 
             I1 = N / 2
             for (J = 1; J <= I1; J++) { // 120
-               LLWORK( J ) = .TRUE.
+               LLWORK( J ) = true;
             } // 120
             for (J = I1 + 1; J <= N; J++) { // 130
-               LLWORK( J ) = .FALSE.
+               LLWORK( J ) = false;
             } // 130
 
             ctgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO );
@@ -389,10 +389,10 @@
 
             I1 = IN
             for (J = 1; J <= I1; J++) { // 140
-               LLWORK( J ) = .FALSE.
+               LLWORK( J ) = false;
             } // 140
             for (J = I1 + 1; J <= N; J++) { // 150
-               LLWORK( J ) = .TRUE.
+               LLWORK( J ) = true;
             } // 150
 
             ctgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO );
@@ -402,7 +402,7 @@
                GO TO 210
             }
 
-            cget52(.TRUE., N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) );
+            cget52( true , N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) );
             RESULT( 9 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'CTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -421,7 +421,7 @@
                GO TO 210
             }
 
-            cget52(.TRUE., N, H, LDA, T, LDA, EVECTL, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) );
+            cget52( true , N, H, LDA, T, LDA, EVECTL, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) );
             RESULT( 10 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'CTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -438,10 +438,10 @@
 
             I1 = N / 2
             for (J = 1; J <= I1; J++) { // 160
-               LLWORK( J ) = .TRUE.
+               LLWORK( J ) = true;
             } // 160
             for (J = I1 + 1; J <= N; J++) { // 170
-               LLWORK( J ) = .FALSE.
+               LLWORK( J ) = false;
             } // 170
 
             ctgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO );
@@ -453,10 +453,10 @@
 
             I1 = IN
             for (J = 1; J <= I1; J++) { // 180
-               LLWORK( J ) = .FALSE.
+               LLWORK( J ) = false;
             } // 180
             for (J = I1 + 1; J <= N; J++) { // 190
-               LLWORK( J ) = .TRUE.
+               LLWORK( J ) = true;
             } // 190
 
             ctgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, RWORK, IINFO );
@@ -466,7 +466,7 @@
                GO TO 210
             }
 
-            cget52(.FALSE., N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) );
+            cget52( false , N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) );
             RESULT( 11 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'CTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -485,7 +485,7 @@
                GO TO 210
             }
 
-            cget52(.FALSE., N, H, LDA, T, LDA, EVECTR, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) );
+            cget52( false , N, H, LDA, T, LDA, EVECTR, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) );
             RESULT( 12 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'CTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD

@@ -27,10 +27,10 @@
       K = MIN( M, N )
       for (I = 1; I <= K; I++) {
          if ( A( I, I ).LT.ZERO ) {
-            SGENND = .FALSE.
+            SGENND = false;
             RETURN
          }
       }
-      SGENND = .TRUE.
+      SGENND = true;
       RETURN
       }

@@ -68,7 +68,7 @@
          IP( J ) = J
       } // 20
       ANRM = 1.0D0
-      OK = .TRUE.
+      OK = true;
 
       // Test error exits of the routines that use factorization
       // of a Hermitian indefinite matrix with partial

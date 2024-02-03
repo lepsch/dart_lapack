@@ -44,7 +44,7 @@
       WANTU = LSAME( JOBU, 'U' )
       WANTV = LSAME( JOBV, 'V' )
       WANTQ = LSAME( JOBQ, 'Q' )
-      FORWRD = .TRUE.
+      FORWRD = true;
       LQUERY = ( LWORK.EQ.-1 )
       LWKOPT = 1
 

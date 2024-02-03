@@ -79,16 +79,16 @@
          N2 = N - N1
       }
 
-      // If N is odd, set NISODD = .TRUE., LDA=N+1 and A is (N+1)--by--K2.
-      // If N is even, set K = N/2 and NISODD = .FALSE., LDA=N and A is
+      // If N is odd, set NISODD = true , LDA=N+1 and A is (N+1)--by--K2.
+      // If N is even, set K = N/2 and NISODD = false , LDA=N and A is
       // N--by--(N+1)/2.
 
       if ( MOD( N, 2 ).EQ.0 ) {
          K = N / 2
-         NISODD = .FALSE.
+         NISODD = false;
          if (.NOT.LOWER) NP1X2 = N + N + 2;
       } else {
-         NISODD = .TRUE.
+         NISODD = true;
          if (.NOT.LOWER) NX2 = N + N;
       }
 

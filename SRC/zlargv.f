@@ -41,7 +41,7 @@
       // SAVE               FIRST, SAFMX2, SAFMIN, SAFMN2
       // ..
       // .. Data statements ..
-      // DATA               FIRST / .TRUE. /
+      // DATA               FIRST / true /
       // ..
       // .. Statement Function definitions ..
       ABS1( FF ) = MAX( ABS( DBLE( FF ) ), ABS( DIMAG( FF ) ) )
@@ -50,7 +50,7 @@
       // .. Executable Statements ..
 
       // IF( FIRST ) THEN
-         // FIRST = .FALSE.
+         // FIRST = false;
          SAFMIN = DLAMCH( 'S' )
          EPS = DLAMCH( 'E' )
          SAFMN2 = DLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( DLAMCH( 'B' ) ) / TWO )

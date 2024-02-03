@@ -49,7 +49,7 @@
       WANTU = LSAME( JOBU, 'U' )
       WANTV = LSAME( JOBV, 'V' )
       WANTQ = LSAME( JOBQ, 'Q' )
-      FORWRD = .TRUE.
+      FORWRD = true;
 
       INFO = 0
       if ( .NOT.( WANTU .OR. LSAME( JOBU, 'N' ) ) ) {

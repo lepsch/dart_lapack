@@ -82,14 +82,14 @@
       }
 
       // C is N-by-N.
-      // If N is odd, set NISODD = .TRUE., and N1 and N2.
-      // If N is even, NISODD = .FALSE., and NK.
+      // If N is odd, set NISODD = true , and N1 and N2.
+      // If N is even, NISODD = false , and NK.
 
       if ( MOD( N, 2 ).EQ.0 ) {
-         NISODD = .FALSE.
+         NISODD = false;
          NK = N / 2
       } else {
-         NISODD = .TRUE.
+         NISODD = true;
          if ( LOWER ) {
             N2 = N / 2
             N1 = N - N2

@@ -52,24 +52,24 @@
 
       if ( LSAME( JOBVSL, 'N' ) ) {
          IJOBVL = 1
-         ILVSL = .FALSE.
+         ILVSL = false;
       } else if ( LSAME( JOBVSL, 'V' ) ) {
          IJOBVL = 2
-         ILVSL = .TRUE.
+         ILVSL = true;
       } else {
          IJOBVL = -1
-         ILVSL = .FALSE.
+         ILVSL = false;
       }
 
       if ( LSAME( JOBVSR, 'N' ) ) {
          IJOBVR = 1
-         ILVSR = .FALSE.
+         ILVSR = false;
       } else if ( LSAME( JOBVSR, 'V' ) ) {
          IJOBVR = 2
-         ILVSR = .TRUE.
+         ILVSR = true;
       } else {
          IJOBVR = -1
-         ILVSR = .FALSE.
+         ILVSR = false;
       }
 
       WANTST = LSAME( SORT, 'S' )
@@ -152,13 +152,13 @@
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
       ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
-      ILASCL = .FALSE.
+      ILASCL = false;
       if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ANRMTO = SMLNUM
-         ILASCL = .TRUE.
+         ILASCL = true;
       } else if ( ANRM.GT.BIGNUM ) {
          ANRMTO = BIGNUM
-         ILASCL = .TRUE.
+         ILASCL = true;
       }
 
       if (ILASCL) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
@@ -166,13 +166,13 @@
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
       BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
-      ILBSCL = .FALSE.
+      ILBSCL = false;
       if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
          BNRMTO = SMLNUM
-         ILBSCL = .TRUE.
+         ILBSCL = true;
       } else if ( BNRM.GT.BIGNUM ) {
          BNRMTO = BIGNUM
-         ILBSCL = .TRUE.
+         ILBSCL = true;
       }
 
       if (ILBSCL) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
@@ -270,7 +270,7 @@
 
          // Check if reordering is correct
 
-         LASTSL = .TRUE.
+         LASTSL = true;
          SDIM = 0
          for (I = 1; I <= N; I++) { // 20
             CURSL = SELCTG( ALPHA( I ), BETA( I ) )

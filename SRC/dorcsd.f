@@ -239,9 +239,9 @@
             IWORK(I) = I - Q
          }
          if ( COLMAJOR ) {
-            dlapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
+            dlapmt( false , M-P, M-P, U2, LDU2, IWORK );
          } else {
-            dlapmr(.FALSE., M-P, M-P, U2, LDU2, IWORK );
+            dlapmr( false , M-P, M-P, U2, LDU2, IWORK );
          }
       }
       if ( M .GT. 0 .AND. WANTV2T ) {
@@ -252,9 +252,9 @@
             IWORK(I) = I - P
          }
          if ( .NOT. COLMAJOR ) {
-            dlapmt(.FALSE., M-Q, M-Q, V2T, LDV2T, IWORK );
+            dlapmt( false , M-Q, M-Q, V2T, LDV2T, IWORK );
          } else {
-            dlapmr(.FALSE., M-Q, M-Q, V2T, LDV2T, IWORK );
+            dlapmr( false , M-Q, M-Q, V2T, LDV2T, IWORK );
          }
       }
 

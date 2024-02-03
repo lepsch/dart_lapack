@@ -271,7 +271,7 @@
             for (I = Q + 1; I <= M - P; I++) {
                IWORK(I) = I - Q
             }
-            zlapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
+            zlapmt( false , M-P, M-P, U2, LDU2, IWORK );
          }
       } else if ( R .EQ. P ) {
 
@@ -315,7 +315,7 @@
             for (I = Q + 1; I <= M - P; I++) {
                IWORK(I) = I - Q
             }
-            zlapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
+            zlapmt( false , M-P, M-P, U2, LDU2, IWORK );
          }
       } else if ( R .EQ. M-P ) {
 
@@ -360,10 +360,10 @@
                IWORK(I) = I - R
             }
             if ( WANTU1 ) {
-               zlapmt(.FALSE., P, Q, U1, LDU1, IWORK );
+               zlapmt( false , P, Q, U1, LDU1, IWORK );
             }
             if ( WANTV1T ) {
-               zlapmr(.FALSE., Q, Q, V1T, LDV1T, IWORK );
+               zlapmr( false , Q, Q, V1T, LDV1T, IWORK );
             }
          }
       } else {
@@ -416,10 +416,10 @@
                IWORK(I) = I - R
             }
             if ( WANTU1 ) {
-               zlapmt(.FALSE., P, P, U1, LDU1, IWORK );
+               zlapmt( false , P, P, U1, LDU1, IWORK );
             }
             if ( WANTV1T ) {
-               zlapmr(.FALSE., P, Q, V1T, LDV1T, IWORK );
+               zlapmr( false , P, Q, V1T, LDV1T, IWORK );
             }
          }
       }

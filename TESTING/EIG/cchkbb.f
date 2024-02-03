@@ -57,24 +57,24 @@
 
       // Important constants
 
-      BADMM = .FALSE.
-      BADNN = .FALSE.
+      BADMM = false;
+      BADNN = false;
       MMAX = 1
       NMAX = 1
       MNMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MVAL( J ) )
-         IF( MVAL( J ).LT.0 ) BADMM = .TRUE.
+         IF( MVAL( J ).LT.0 ) BADMM = true;
          NMAX = MAX( NMAX, NVAL( J ) )
-         IF( NVAL( J ).LT.0 ) BADNN = .TRUE.
+         IF( NVAL( J ).LT.0 ) BADNN = true;
          MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) )
       } // 10
 
-      BADNNB = .FALSE.
+      BADNNB = false;
       KMAX = 0
       for (J = 1; J <= NWDTHS; J++) { // 20
          KMAX = MAX( KMAX, KK( J ) )
-         IF( KK( J ).LT.0 ) BADNNB = .TRUE.
+         IF( KK( J ).LT.0 ) BADNNB = true;
       } // 20
 
       // Check for errors

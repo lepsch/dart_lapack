@@ -250,7 +250,7 @@
                         // Check error code from CGBTRF.
 
                         if (INFO.NE.IZERO) CALL ALAERH( PATH, 'CGBTRF', INFO, IZERO, ' ', M, N, KL, KU, NB, IMAT, NFAIL, NERRS, NOUT );
-                        TRFCON = .FALSE.
+                        TRFCON = false;
 
 *+    TEST 1
                         // Reconstruct matrix from factors and compute
@@ -307,7 +307,7 @@
 
                            // Do only the condition estimate if INFO.NE.0.
 
-                           TRFCON = .TRUE.
+                           TRFCON = true;
                            RCONDO = ZERO
                            RCONDI = ZERO
                         }

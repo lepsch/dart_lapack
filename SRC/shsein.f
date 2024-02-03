@@ -52,18 +52,18 @@
       // eigenvectors, and standardize the array SELECT.
 
       M = 0
-      PAIR = .FALSE.
+      PAIR = false;
       for (K = 1; K <= N; K++) { // 10
          if ( PAIR ) {
-            PAIR = .FALSE.
-            SELECT( K ) = .FALSE.
+            PAIR = false;
+            SELECT( K ) = false;
          } else {
             if ( WI( K ).EQ.ZERO ) {
                IF( SELECT( K ) ) M = M + 1
             } else {
-               PAIR = .TRUE.
+               PAIR = true;
                if ( SELECT( K ) .OR. SELECT( K+1 ) ) {
-                  SELECT( K ) = .TRUE.
+                  SELECT( K ) = true;
                   M = M + 2
                }
             }
@@ -189,7 +189,7 @@
 
                // Compute left eigenvector.
 
-               slaein(.FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH, WKR, WKI, VL( KL, KSR ), VL( KL, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO );
+               slaein( false , NOINIT, N-KL+1, H( KL, KL ), LDH, WKR, WKI, VL( KL, KSR ), VL( KL, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO );
                if ( IINFO.GT.0 ) {
                   if ( PAIR ) {
                      INFO = INFO + 2
@@ -215,7 +215,7 @@
 
                // Compute right eigenvector.
 
-               slaein(.TRUE., NOINIT, KR, H, LDH, WKR, WKI, VR( 1, KSR ), VR( 1, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO );
+               slaein( true , NOINIT, KR, H, LDH, WKR, WKI, VR( 1, KSR ), VR( 1, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO );
                if ( IINFO.GT.0 ) {
                   if ( PAIR ) {
                      INFO = INFO + 2

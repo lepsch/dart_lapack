@@ -125,12 +125,12 @@
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
       ANRM = ZLANGE( 'M', N, N, A, LDA, DUM )
-      SCALEA = .FALSE.
+      SCALEA = false;
       if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
-         SCALEA = .TRUE.
+         SCALEA = true;
          CSCALE = SMLNUM
       } else if ( ANRM.GT.BIGNUM ) {
-         SCALEA = .TRUE.
+         SCALEA = true;
          CSCALE = BIGNUM
       }
       if (SCALEA) CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );

@@ -39,13 +39,13 @@
       // Decode COMPQ
 
       if ( LSAME( COMPQ, 'N' ) ) {
-         ILQ = .FALSE.
+         ILQ = false;
          ICOMPQ = 1
       } else if ( LSAME( COMPQ, 'V' ) ) {
-         ILQ = .TRUE.
+         ILQ = true;
          ICOMPQ = 2
       } else if ( LSAME( COMPQ, 'I' ) ) {
-         ILQ = .TRUE.
+         ILQ = true;
          ICOMPQ = 3
       } else {
          ICOMPQ = 0
@@ -54,13 +54,13 @@
       // Decode COMPZ
 
       if ( LSAME( COMPZ, 'N' ) ) {
-         ILZ = .FALSE.
+         ILZ = false;
          ICOMPZ = 1
       } else if ( LSAME( COMPZ, 'V' ) ) {
-         ILZ = .TRUE.
+         ILZ = true;
          ICOMPZ = 2
       } else if ( LSAME( COMPZ, 'I' ) ) {
-         ILZ = .TRUE.
+         ILZ = true;
          ICOMPZ = 3
       } else {
          ICOMPZ = 0

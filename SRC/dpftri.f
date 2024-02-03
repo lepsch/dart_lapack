@@ -59,14 +59,14 @@
       dtftri(TRANSR, UPLO, 'N', N, A, INFO );
       if (INFO.GT.0) RETURN;
 
-      // If N is odd, set NISODD = .TRUE.
-      // If N is even, set K = N/2 and NISODD = .FALSE.
+      // If N is odd, set NISODD = true;
+      // If N is even, set K = N/2 and NISODD = false;
 
       if ( MOD( N, 2 ).EQ.0 ) {
          K = N / 2
-         NISODD = .FALSE.
+         NISODD = false;
       } else {
-         NISODD = .TRUE.
+         NISODD = true;
       }
 
       // Set N1 and N2 depending on LOWER

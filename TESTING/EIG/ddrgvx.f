@@ -133,13 +133,13 @@
                      // Tests (1) and (2)
 
                      RESULT( 1 ) = ZERO
-                     dget52(.TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
+                     dget52( true , N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
                      if ( RESULT( 2 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Left', 'DGGEVX', RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
 
                      RESULT( 2 ) = ZERO
-                     dget52(.FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) );
+                     dget52( false , N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) );
                      if ( RESULT( 3 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Right', 'DGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
@@ -261,13 +261,13 @@
       // Tests (1) and (2)
 
       RESULT( 1 ) = ZERO
-      dget52(.TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
+      dget52( true , N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
       if ( RESULT( 2 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Left', 'DGGEVX', RESULT( 2 ), N, NPTKNT
       }
 
       RESULT( 2 ) = ZERO
-      dget52(.FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) );
+      dget52( false , N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) );
       if ( RESULT( 3 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Right', 'DGGEVX', RESULT( 3 ), N, NPTKNT
       }

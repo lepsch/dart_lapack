@@ -63,11 +63,11 @@
 
       INFO = 0
 
-      BADNN = .FALSE.
+      BADNN = false;
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
       if ( NSIZES.LT.0 ) {
@@ -279,14 +279,14 @@
 
             // Do the tests (1) and (2)
 
-            dget52(.TRUE., N, A, LDA, B, LDA, Q, LDQ, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
+            dget52( true , N, A, LDA, B, LDA, Q, LDQ, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
             if ( RESULT( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DGGEV1', RESULT( 2 ), N, JTYPE, IOLDSD
             }
 
             // Do the tests (3) and (4)
 
-            dget52(.FALSE., N, A, LDA, B, LDA, Z, LDQ, ALPHAR, ALPHAI, BETA, WORK, RESULT( 3 ) );
+            dget52( false , N, A, LDA, B, LDA, Z, LDQ, ALPHAR, ALPHAI, BETA, WORK, RESULT( 3 ) );
             if ( RESULT( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DGGEV1', RESULT( 4 ), N, JTYPE, IOLDSD
             }

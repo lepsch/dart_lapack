@@ -54,7 +54,7 @@
       EF( 1 ) = 3.
       EF( 2 ) = 4.
       ANORM = 1.0
-      OK = .TRUE.
+      OK = true;
 
       if ( LSAMEN( 2, C2, 'GT' ) ) {
 

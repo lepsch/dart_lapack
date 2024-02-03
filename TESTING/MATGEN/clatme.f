@@ -106,10 +106,10 @@
 
       // Check DS, if MODES=0 and ISIM=1
 
-      BADS = .FALSE.
+      BADS = false;
       if ( MODES.EQ.0 .AND. ISIM.EQ.1 ) {
          for (J = 1; J <= N; J++) { // 10
-            IF( DS( J ).EQ.ZERO ) BADS = .TRUE.
+            IF( DS( J ).EQ.ZERO ) BADS = true;
          } // 10
       }
 

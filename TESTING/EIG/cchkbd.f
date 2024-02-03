@@ -66,17 +66,17 @@
 
       INFO = 0
 
-      BADMM = .FALSE.
-      BADNN = .FALSE.
+      BADMM = false;
+      BADNN = false;
       MMAX = 1
       NMAX = 1
       MNMAX = 1
       MINWRK = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MVAL( J ) )
-         IF( MVAL( J ).LT.0 ) BADMM = .TRUE.
+         IF( MVAL( J ).LT.0 ) BADMM = true;
          NMAX = MAX( NMAX, NVAL( J ) )
-         IF( NVAL( J ).LT.0 ) BADNN = .TRUE.
+         IF( NVAL( J ).LT.0 ) BADNN = true;
          MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) )
          MINWRK = MAX( MINWRK, 3*( MVAL( J )+NVAL( J ) ), MVAL( J )*( MVAL( J )+MAX( MVAL( J ), NVAL( J ), NRHS )+1 )+NVAL( J )*MIN( NVAL( J ), MVAL( J ) ) )
       } // 10
@@ -195,7 +195,7 @@
             IINFO = 0
             COND = ULPINV
 
-            BIDIAG = .FALSE.
+            BIDIAG = false;
             if ( ITYPE.EQ.1 ) {
 
                // Zero matrix
@@ -257,7 +257,7 @@
                } // 90
 
                IINFO = 0
-               BIDIAG = .TRUE.
+               BIDIAG = true;
                if ( M.GE.N ) {
                   UPLO = 'U'
                } else {

@@ -114,7 +114,7 @@
                   // Not deflatable, move out of the way
                   IFST = KWBOT-KWTOP+1
                   ILST = K2
-                  ctgexc(.TRUE., .TRUE., JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, CTGEXC_INFO );
+                  ctgexc( true , true , JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, CTGEXC_INFO );
                   K2 = K2+1
                }
 
@@ -153,7 +153,7 @@
 
             // Move bulge down and remove it
             for (K2 = K; K2 <= KWBOT-1; K2++) {
-               claqz1(.TRUE., .TRUE., K2, KWTOP, KWTOP+JW-1, KWBOT, A, LDA, B, LDB, JW, KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC );
+               claqz1( true , true , K2, KWTOP, KWTOP+JW-1, KWBOT, A, LDA, B, LDB, JW, KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC );
             }
 
             K = K-1

@@ -70,7 +70,7 @@
            // size requirement IWS.
         // b) Determine the optimal block size NB and optimal
            // workspace size LWKOPT to be returned in WORK(1)
-           // in case of (1) LWORK < IWS, (2) LQUERY = .TRUE.,
+           // in case of (1) LWORK < IWS, (2) LQUERY = true ,
            // (3) when routine exits.
       // Here, IWS is the miminum workspace required for unblocked
       // code.
@@ -325,7 +325,7 @@
       // factorization completed in the block factorization routine,
       // before the end of the block.
 
-      DONE = .FALSE.
+      DONE = false;
 
       // J is the column index.
 

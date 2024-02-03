@@ -68,7 +68,7 @@
       } // 20
       ANRM = 1.0
       RCOND = 1.0
-      OK = .TRUE.
+      OK = true;
 
       if ( LSAMEN( 2, C2, 'SY' ) ) {
 

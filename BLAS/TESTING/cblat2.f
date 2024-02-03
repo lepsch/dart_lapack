@@ -151,7 +151,7 @@ void main() {
       // whether they are to be tested.
 
       for (I = 1; I <= NSUBS; I++) { // 40
-         LTEST( I ) = .FALSE.
+         LTEST( I ) = false;
       } // 40
    50 READ( NIN, FMT = 9984, END = 80 )SNAMET, LTESTT
       for (I = 1; I <= NSUBS; I++) { // 60
@@ -186,14 +186,14 @@ void main() {
       // YY holds the exact result. On exit from CMVCH YT holds
       // the result computed by CMVCH.
       TRANS = 'N'
-      cmvch(TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
+      cmvch(TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
       SAME = LCE( YY, YT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
          STOP
       }
       TRANS = 'T'
-      cmvch(TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
+      cmvch(TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
       SAME = LCE( YY, YT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
@@ -216,8 +216,8 @@ void main() {
             }
             // Test computations.
             INFOT = 0
-            OK = .TRUE.
-            FATAL = .FALSE.
+            OK = true;
+            FATAL = false;
             GO TO ( 140, 140, 150, 150, 150, 160, 160, 160, 160, 160, 160, 170, 170, 180, 180, 190, 190 )ISNUM
             // Test CGEMV, 01, and CGBMV, 02.
   140       CALL CCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
@@ -338,7 +338,7 @@ void main() {
       }
 
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = RZERO
 
       for (IN = 1; IN <= NIDIM; IN++) { // 120
@@ -459,7 +459,7 @@ void main() {
 
                               if ( .NOT.OK ) {
                                  WRITE( NOUT, FMT = 9993 )
-                                 FATAL = .TRUE.
+                                 FATAL = true;
                                  GO TO 130
                               }
 
@@ -501,13 +501,13 @@ void main() {
                               // If data was incorrectly changed, report
                               // and return.
 
-                              SAME = .TRUE.
+                              SAME = true;
                               for (I = 1; I <= NARGS; I++) { // 40
                                  SAME = SAME.AND.ISAME( I )
                                  IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                               } // 40
                               if ( .NOT.SAME ) {
-                                 FATAL = .TRUE.
+                                 FATAL = true;
                                  GO TO 130
                               }
 
@@ -515,7 +515,7 @@ void main() {
 
                                  // Check the result.
 
-                                 cmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
+                                 cmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
                                  ERRMAX = MAX( ERRMAX, ERR )
                                  // If got really bad answer, report and
                                  // return.
@@ -557,7 +557,7 @@ void main() {
       NC = NC + 1
       if ( .NOT.LCE( YS, YY, LY ) ) {
          WRITE( NOUT, FMT = 9998 )NARGS - 1
-         FATAL = .TRUE.
+         FATAL = true;
          GO TO 130
       }
 
@@ -653,7 +653,7 @@ void main() {
       }
 
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = RZERO
 
       for (IN = 1; IN <= NIDIM; IN++) { // 110
@@ -765,7 +765,7 @@ void main() {
 
                            if ( .NOT.OK ) {
                               WRITE( NOUT, FMT = 9992 )
-                              FATAL = .TRUE.
+                              FATAL = true;
                               GO TO 120
                            }
 
@@ -817,13 +817,13 @@ void main() {
                            // If data was incorrectly changed, report and
                            // return.
 
-                           SAME = .TRUE.
+                           SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 40
                               SAME = SAME.AND.ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                            } // 40
                            if ( .NOT.SAME ) {
-                              FATAL = .TRUE.
+                              FATAL = true;
                               GO TO 120
                            }
 
@@ -831,7 +831,7 @@ void main() {
 
                               // Check the result.
 
-                              cmvch('N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
+                              cmvch('N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
@@ -951,7 +951,7 @@ void main() {
       }
 
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = RZERO
       // Set up zero vector for CMVCH.
       for (I = 1; I <= NMAX; I++) { // 10
@@ -1069,7 +1069,7 @@ void main() {
 
                         if ( .NOT.OK ) {
                            WRITE( NOUT, FMT = 9992 )
-                           FATAL = .TRUE.
+                           FATAL = true;
                            GO TO 120
                         }
 
@@ -1111,13 +1111,13 @@ void main() {
                         // If data was incorrectly changed, report and
                         // return.
 
-                        SAME = .TRUE.
+                        SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 40
                         if ( .NOT.SAME ) {
-                           FATAL = .TRUE.
+                           FATAL = true;
                            GO TO 120
                         }
 
@@ -1126,7 +1126,7 @@ void main() {
 
                               // Check the result.
 
-                              cmvch(TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .TRUE. );
+                              cmvch(TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, true );
                            } else if ( SNAME( 4: 5 ).EQ.'SV' ) {
 
                               // Compute approximation to original vector.
@@ -1134,7 +1134,7 @@ void main() {
                               for (I = 1; I <= N; I++) { // 50
                                  Z( I ) = XX( 1 + ( I - 1 )* ABS( INCX ) )                                  XX( 1 + ( I - 1 )*ABS( INCX ) ) = X( I )
                               } // 50
-                              cmvch(TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .FALSE. );
+                              cmvch(TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, false );
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
@@ -1240,7 +1240,7 @@ void main() {
       NARGS = 9
 
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = RZERO
 
       for (IN = 1; IN <= NIDIM; IN++) { // 120
@@ -1327,7 +1327,7 @@ void main() {
 
                      if ( .NOT.OK ) {
                         WRITE( NOUT, FMT = 9993 )
-                        FATAL = .TRUE.
+                        FATAL = true;
                         GO TO 140
                      }
 
@@ -1349,13 +1349,13 @@ void main() {
 
                      // If data was incorrectly changed, report and return.
 
-                     SAME = .TRUE.
+                     SAME = true;
                      for (I = 1; I <= NARGS; I++) { // 40
                         SAME = SAME.AND.ISAME( I )
                         IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                      } // 40
                      if ( .NOT.SAME ) {
-                        FATAL = .TRUE.
+                        FATAL = true;
                         GO TO 140
                      }
 
@@ -1379,7 +1379,7 @@ void main() {
                               W( 1 ) = Y( N - J + 1 )
                            }
                            if (CONJ) W( 1 ) = CONJG( W( 1 ) );
-                           cmvch('N', M, 1, ALPHA, Z, NMAX, W, 1, ONE, A( 1, J ), 1, YT, G, AA( 1 + ( J - 1 )*LDA ), EPS, ERR, FATAL, NOUT, .TRUE. );
+                           cmvch('N', M, 1, ALPHA, Z, NMAX, W, 1, ONE, A( 1, J ), 1, YT, G, AA( 1 + ( J - 1 )*LDA ), EPS, ERR, FATAL, NOUT, true );
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
                            if (FATAL) GO TO 130;
@@ -1488,7 +1488,7 @@ void main() {
       }
 
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = RZERO
 
       for (IN = 1; IN <= NIDIM; IN++) { // 100
@@ -1563,7 +1563,7 @@ void main() {
 
                   if ( .NOT.OK ) {
                      WRITE( NOUT, FMT = 9992 )
-                     FATAL = .TRUE.
+                     FATAL = true;
                      GO TO 120
                   }
 
@@ -1585,13 +1585,13 @@ void main() {
 
                   // If data was incorrectly changed, report and return.
 
-                  SAME = .TRUE.
+                  SAME = true;
                   for (I = 1; I <= NARGS; I++) { // 30
                      SAME = SAME.AND.ISAME( I )
                      IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                   } // 30
                   if ( .NOT.SAME ) {
-                     FATAL = .TRUE.
+                     FATAL = true;
                      GO TO 120
                   }
 
@@ -1618,7 +1618,7 @@ void main() {
                            JJ = J
                            LJ = N - J + 1
                         }
-                        cmvch('N', LJ, 1, ALPHA, Z( JJ ), LJ, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. );
+                        cmvch('N', LJ, 1, ALPHA, Z( JJ ), LJ, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, true );
                         if ( FULL ) {
                            if ( UPPER ) {
                               JA = JA + LDA
@@ -1739,7 +1739,7 @@ void main() {
       }
 
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = RZERO
 
       for (IN = 1; IN <= NIDIM; IN++) { // 140
@@ -1830,7 +1830,7 @@ void main() {
 
                      if ( .NOT.OK ) {
                         WRITE( NOUT, FMT = 9992 )
-                        FATAL = .TRUE.
+                        FATAL = true;
                         GO TO 160
                      }
 
@@ -1854,13 +1854,13 @@ void main() {
 
                      // If data was incorrectly changed, report and return.
 
-                     SAME = .TRUE.
+                     SAME = true;
                      for (I = 1; I <= NARGS; I++) { // 40
                         SAME = SAME.AND.ISAME( I )
                         IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                      } // 40
                      if ( .NOT.SAME ) {
-                        FATAL = .TRUE.
+                        FATAL = true;
                         GO TO 160
                      }
 
@@ -1897,7 +1897,7 @@ void main() {
                               JJ = J
                               LJ = N - J + 1
                            }
-                           cmvch('N', LJ, 2, ONE, Z( JJ, 1 ), NMAX, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. );
+                           cmvch('N', LJ, 2, ONE, Z( JJ, 1 ), NMAX, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, true );
                            if ( FULL ) {
                               if ( UPPER ) {
                                  JA = JA + LDA
@@ -1989,12 +1989,12 @@ void main() {
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Executable Statements ..
-      // OK is set to .FALSE. by the special version of XERBLA or by CHKXER
+      // OK is set to false by the special version of XERBLA or by CHKXER
       // if anything is wrong.
-      OK = .TRUE.
-      // LERR is set to .TRUE. by the special version of XERBLA each time
+      OK = true;
+      // LERR is set to true by the special version of XERBLA each time
       // it is called, and is then tested and re-set by CHKXER.
-      LERR = .FALSE.
+      LERR = false;
       GO TO ( 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170 )ISNUM
    10 INFOT = 1
       cgemv('/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
@@ -2585,7 +2585,7 @@ void main() {
 
       // Report fatal error.
 
-   60 FATAL = .TRUE.
+   60 FATAL = true;
       WRITE( NOUT, FMT = 9999 )
       for (I = 1; I <= ML; I++) { // 70
          if ( MV ) {
@@ -2624,10 +2624,10 @@ void main() {
       for (I = 1; I <= LR; I++) { // 10
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
       } // 10
-      LCE = .TRUE.
+      LCE = true;
       GO TO 30
       } // 20
-      LCE = .FALSE.
+      LCE = false;
    30 RETURN
 
       // End of LCE
@@ -2680,10 +2680,10 @@ void main() {
          } // 50
       }
 
-      LCERES = .TRUE.
+      LCERES = true;
       GO TO 80
       } // 70
-      LCERES = .FALSE.
+      LCERES = false;
    80 RETURN
 
       // End of LCERES
@@ -2716,7 +2716,7 @@ void main() {
          I = 7
          J = 7
          IC = 0
-         RESET = .FALSE.
+         RESET = false;
       }
 
       // The sequence of values of I or J is bounded between 1 and 999.
@@ -2774,9 +2774,9 @@ void main() {
       // .. Executable Statements ..
       if ( .NOT.LERR ) {
          WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT
-         OK = .FALSE.
+         OK = false;
       }
-      LERR = .FALSE.
+      LERR = false;
       RETURN
 
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D', 'ETECTED BY ', A6, ' *****' )
@@ -2844,18 +2844,18 @@ void main() {
       // COMMON /INFOC/INFOT, NOUT, OK, LERR
       // COMMON /SRNAMC/SRNAMT
       // .. Executable Statements ..
-      LERR = .TRUE.
+      LERR = true;
       if ( INFO.NE.INFOT ) {
          if ( INFOT.NE.0 ) {
             WRITE( NOUT, FMT = 9999 )INFO, INFOT
          } else {
             WRITE( NOUT, FMT = 9997 )INFO
          }
-         OK = .FALSE.
+         OK = false;
       }
       if ( SRNAME.NE.SRNAMT ) {
          WRITE( NOUT, FMT = 9998 )SRNAME, SRNAMT
-         OK = .FALSE.
+         OK = false;
       }
       RETURN
 

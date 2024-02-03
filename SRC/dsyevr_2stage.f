@@ -241,9 +241,9 @@
             dcopy(N, WORK( INDD ), 1, WORK( INDDD ), 1 );
 
             if (ABSTOL .LE. TWO*N*EPS) {
-               TRYRAC = .TRUE.
+               TRYRAC = true;
             } else {
-               TRYRAC = .FALSE.
+               TRYRAC = false;
             }
             dstemr(JOBZ, 'A', N, WORK( INDDD ), WORK( INDEE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( INDWK ), LWORK, IWORK, LIWORK, INFO );
 

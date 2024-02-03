@@ -75,7 +75,7 @@
 
       // Important constants
 
-      BADNN = .FALSE.
+      BADNN = false;
 
       // 8 is the largest dimension in the input file of precomputed
       // problems
@@ -83,7 +83,7 @@
       NMAX = 8
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = true;
       } // 10
 
       // Check for errors
@@ -294,7 +294,7 @@
                }
                NNWORK = MAX( NNWORK, 1 )
 
-               zget24(.FALSE., JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, 0, RESULT, WORK, NNWORK, RWORK, BWORK, INFO );
+               zget24( false , JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, 0, RESULT, WORK, NNWORK, RWORK, BWORK, INFO );
 
                // Check for RESULT(j) > THRESH
 
@@ -345,7 +345,7 @@
       } // 170
       READ( NIUNIT, FMT = * )RCDEIN, RCDVIN
 
-      zget24(.TRUE., 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, ISRT, RESULT, WORK, LWORK, RWORK, BWORK, INFO );
+      zget24( true , 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, ISRT, RESULT, WORK, LWORK, RWORK, BWORK, INFO );
 
       // Check for RESULT(j) > THRESH
 

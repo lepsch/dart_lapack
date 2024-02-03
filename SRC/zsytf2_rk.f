@@ -136,7 +136,7 @@
                KP = K
             } else {
 
-               DONE = .FALSE.
+               DONE = false;
 
                // Loop until pivot found
 
@@ -173,7 +173,7 @@
                      // use 1-by-1 pivot block
 
                      KP = IMAX
-                     DONE = .TRUE.
+                     DONE = true;
 
                   // Equivalent to testing for ROWMAX .EQ. COLMAX,
                   // used to handle NaN and Inf
@@ -185,7 +185,7 @@
 
                      KP = IMAX
                      KSTEP = 2
-                     DONE = .TRUE.
+                     DONE = true;
                   } else {
 
                      // Pivot NOT found, set variables and repeat
@@ -429,7 +429,7 @@
 
             } else {
 
-               DONE = .FALSE.
+               DONE = false;
 
                // Loop until pivot found
 
@@ -466,7 +466,7 @@
                      // use 1-by-1 pivot block
 
                      KP = IMAX
-                     DONE = .TRUE.
+                     DONE = true;
 
                   // Equivalent to testing for ROWMAX .EQ. COLMAX,
                   // used to handle NaN and Inf
@@ -478,7 +478,7 @@
 
                      KP = IMAX
                      KSTEP = 2
-                     DONE = .TRUE.
+                     DONE = true;
                   } else {
 
                      // Pivot NOT found, set variables and repeat

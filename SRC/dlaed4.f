@@ -346,7 +346,7 @@
 
             // We choose d(i) as origin.
 
-            ORGATI = .TRUE.
+            ORGATI = true;
             A = C*DEL + Z( I )*Z( I ) + Z( IP1 )*Z( IP1 )
             B = Z( I )*Z( I )*DEL
             if ( A.GT.ZERO ) {
@@ -362,7 +362,7 @@
 
             // We choose d(i+1) as origin.
 
-            ORGATI = .FALSE.
+            ORGATI = false;
             A = C*DEL - Z( I )*Z( I ) - Z( IP1 )*Z( IP1 )
             B = Z( IP1 )*Z( IP1 )*DEL
             if ( A.LT.ZERO ) {
@@ -420,13 +420,13 @@
          // W is the value of the secular function with
          // its ii-th element removed.
 
-         SWTCH3 = .FALSE.
+         SWTCH3 = false;
          if ( ORGATI ) {
-            if (W.LT.ZERO) SWTCH3 = .TRUE.;
+            if (W.LT.ZERO) SWTCH3 = true ;
          } else {
-            if (W.GT.ZERO) SWTCH3 = .TRUE.;
+            if (W.GT.ZERO) SWTCH3 = true ;
          }
-         if (II.EQ.1 .OR. II.EQ.N) SWTCH3 = .FALSE.;
+         if (II.EQ.1 .OR. II.EQ.N) SWTCH3 = false ;
 
          TEMP = Z( II ) / DELTA( II )
          DW = DPSI + DPHI + TEMP*TEMP
@@ -549,11 +549,11 @@
          W = RHOINV + PHI + PSI + TEMP
          ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP ) + ABS( TAU+ETA )*DW
 
-         SWTCH = .FALSE.
+         SWTCH = false;
          if ( ORGATI ) {
-            IF( -W.GT.ABS( PREW ) / TEN ) SWTCH = .TRUE.
+            IF( -W.GT.ABS( PREW ) / TEN ) SWTCH = true;
          } else {
-            IF( W.GT.ABS( PREW ) / TEN ) SWTCH = .TRUE.
+            IF( W.GT.ABS( PREW ) / TEN ) SWTCH = true;
          }
 
          TAU = TAU + ETA

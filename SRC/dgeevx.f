@@ -153,12 +153,12 @@
 
       ICOND = 0
       ANRM = DLANGE( 'M', N, N, A, LDA, DUM )
-      SCALEA = .FALSE.
+      SCALEA = false;
       if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
-         SCALEA = .TRUE.
+         SCALEA = true;
          CSCALE = SMLNUM
       } else if ( ANRM.GT.BIGNUM ) {
-         SCALEA = .TRUE.
+         SCALEA = true;
          CSCALE = BIGNUM
       }
       if (SCALEA) CALL DLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );

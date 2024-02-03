@@ -165,7 +165,7 @@
                   // Check error code from SGETRF.
 
                   if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SGETRF', INFO, IZERO, ' ', M, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
-                  TRFCON = .FALSE.
+                  TRFCON = false;
 
 *+    TEST 1
                   // Reconstruct matrix from factors and compute residual.
@@ -210,7 +210,7 @@
 
                      // Do only the condition estimate if INFO > 0.
 
-                     TRFCON = .TRUE.
+                     TRFCON = true;
                      ANORMO = SLANGE( 'O', M, N, A, LDA, RWORK )
                      ANORMI = SLANGE( 'I', M, N, A, LDA, RWORK )
                      RCONDO = ZERO
@@ -281,7 +281,7 @@
                         if (INFO.NE.0) CALL ALAERH( PATH, 'SGERFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
-                        sget07(TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 6 ) );
+                        sget07(TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, true , RWORK( NRHS+1 ), RESULT( 6 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.

@@ -64,7 +64,7 @@
          S( J ) = 0.D0
       } // 20
       ANRM = 1.D0
-      OK = .TRUE.
+      OK = true;
 
       // Test error exits of the routines that use the Cholesky
       // decomposition of a Hermitian positive definite matrix.

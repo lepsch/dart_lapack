@@ -197,17 +197,17 @@ void main() {
       WRITE( NOUT, FMT = 9999 )THRESH
       WRITE( NOUT, FMT = * )
 
-      RORDER = .FALSE.
-      CORDER = .FALSE.
+      RORDER = false;
+      CORDER = false;
       if (LAYOUT.EQ.2) {
-         RORDER = .TRUE.
-         CORDER = .TRUE.
+         RORDER = true;
+         CORDER = true;
          WRITE( *, FMT = 10002 )
       } else if (LAYOUT.EQ.1) {
-         RORDER = .TRUE.
+         RORDER = true;
          WRITE( *, FMT = 10001 )
       } else if (LAYOUT.EQ.0) {
-         CORDER = .TRUE.
+         CORDER = true;
          WRITE( *, FMT = 10000 )
       }
       WRITE( *, FMT = * )
@@ -216,7 +216,7 @@ void main() {
       // whether they are to be tested.
 
       for (I = 1; I <= NSUBS; I++) { // 40
-         LTEST( I ) = .FALSE.
+         LTEST( I ) = false;
       } // 40
    50 READ( NIN, FMT = 9984, END = 80 )SNAMET, LTESTT
       for (I = 1; I <= NSUBS; I++) { // 60
@@ -257,14 +257,14 @@ void main() {
       // YY holds the exact result. On exit from SMVCH YT holds
       // the result computed by SMVCH.
       TRANS = 'N'
-      smvch(TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
+      smvch(TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
       SAME = LSE( YY, YT, N )
       if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
          STOP
       }
       TRANS = 'T'
-      smvch(TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
+      smvch(TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
       SAME = LSE( YY, YT, N )
       if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
@@ -287,8 +287,8 @@ void main() {
             }
             // Test computations.
             INFOT = 0
-            OK = .TRUE.
-            FATAL = .FALSE.
+            OK = true;
+            FATAL = false;
             GO TO ( 140, 140, 150, 150, 150, 160, 160, 160, 160, 160, 160, 170, 180, 180, 190, 190 )ISNUM
             // Test SGEMV, 01, and SGBMV, 02.
   140       IF (CORDER) THEN
@@ -439,7 +439,7 @@ void main() {
       }
 
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = ZERO
 
       for (IN = 1; IN <= NIDIM; IN++) { // 120
@@ -567,7 +567,7 @@ void main() {
 
                               if ( .NOT.OK ) {
                                  WRITE( NOUT, FMT = 9993 )
-                                 FATAL = .TRUE.
+                                 FATAL = true;
                                  GO TO 130
                               }
 
@@ -609,13 +609,13 @@ void main() {
                               // If data was incorrectly changed, report
                               // and return.
 
-                              SAME = .TRUE.
+                              SAME = true;
                               for (I = 1; I <= NARGS; I++) { // 40
                                  SAME = SAME.AND.ISAME( I )
                                  IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                               } // 40
                               if ( .NOT.SAME ) {
-                                 FATAL = .TRUE.
+                                 FATAL = true;
                                  GO TO 130
                               }
 
@@ -623,7 +623,7 @@ void main() {
 
                                  // Check the result.
 
-                                 smvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
+                                 smvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
                                  ERRMAX = MAX( ERRMAX, ERR )
                                  // If got really bad answer, report and
                                  // return.
@@ -744,7 +744,7 @@ void main() {
       }
 
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = ZERO
 
       for (IN = 1; IN <= NIDIM; IN++) { // 110
@@ -861,7 +861,7 @@ void main() {
 
                            if ( .NOT.OK ) {
                               WRITE( NOUT, FMT = 9992 )
-                              FATAL = .TRUE.
+                              FATAL = true;
                               GO TO 120
                            }
 
@@ -913,13 +913,13 @@ void main() {
                            // If data was incorrectly changed, report and
                            // return.
 
-                           SAME = .TRUE.
+                           SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 40
                               SAME = SAME.AND.ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                            } // 40
                            if ( .NOT.SAME ) {
-                              FATAL = .TRUE.
+                              FATAL = true;
                               GO TO 120
                            }
 
@@ -927,7 +927,7 @@ void main() {
 
                               // Check the result.
 
-                              smvch('N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
+                              smvch('N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
@@ -1049,7 +1049,7 @@ void main() {
       }
 
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = ZERO
       // Set up zero vector for SMVCH.
       for (I = 1; I <= NMAX; I++) { // 10
@@ -1184,7 +1184,7 @@ void main() {
 
                         if ( .NOT.OK ) {
                            WRITE( NOUT, FMT = 9992 )
-                           FATAL = .TRUE.
+                           FATAL = true;
                            GO TO 120
                         }
 
@@ -1226,13 +1226,13 @@ void main() {
                         // If data was incorrectly changed, report and
                         // return.
 
-                        SAME = .TRUE.
+                        SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 40
                         if ( .NOT.SAME ) {
-                           FATAL = .TRUE.
+                           FATAL = true;
                            GO TO 120
                         }
 
@@ -1241,7 +1241,7 @@ void main() {
 
                               // Check the result.
 
-                              smvch(TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .TRUE. );
+                              smvch(TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, true );
                            } else if ( SNAME( 10: 11 ).EQ.'sv' ) {
 
                               // Compute approximation to original vector.
@@ -1249,7 +1249,7 @@ void main() {
                               for (I = 1; I <= N; I++) { // 50
                                  Z( I ) = XX( 1 + ( I - 1 )* ABS( INCX ) )                                  XX( 1 + ( I - 1 )*ABS( INCX ) ) = X( I )
                               } // 50
-                              smvch(TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .FALSE. );
+                              smvch(TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, false );
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
@@ -1355,7 +1355,7 @@ void main() {
       NARGS = 9
 
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = ZERO
 
       for (IN = 1; IN <= NIDIM; IN++) { // 120
@@ -1437,7 +1437,7 @@ void main() {
 
                      if ( .NOT.OK ) {
                         WRITE( NOUT, FMT = 9993 )
-                        FATAL = .TRUE.
+                        FATAL = true;
                         GO TO 140
                      }
 
@@ -1459,13 +1459,13 @@ void main() {
 
                      // If data was incorrectly changed, report and return.
 
-                     SAME = .TRUE.
+                     SAME = true;
                      for (I = 1; I <= NARGS; I++) { // 40
                         SAME = SAME.AND.ISAME( I )
                         IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                      } // 40
                      if ( .NOT.SAME ) {
-                        FATAL = .TRUE.
+                        FATAL = true;
                         GO TO 140
                      }
 
@@ -1488,7 +1488,7 @@ void main() {
                            } else {
                               W( 1 ) = Y( N - J + 1 )
                            }
-                           smvch('N', M, 1, ALPHA, Z, NMAX, W, 1, ONE, A( 1, J ), 1, YT, G, AA( 1 + ( J - 1 )*LDA ), EPS, ERR, FATAL, NOUT, .TRUE. );
+                           smvch('N', M, 1, ALPHA, Z, NMAX, W, 1, ONE, A( 1, J ), 1, YT, G, AA( 1 + ( J - 1 )*LDA ), EPS, ERR, FATAL, NOUT, true );
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
                            if (FATAL) GO TO 130;
@@ -1599,7 +1599,7 @@ void main() {
       }
 
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = ZERO
 
       for (IN = 1; IN <= NIDIM; IN++) { // 100
@@ -1678,7 +1678,7 @@ void main() {
 
                   if ( .NOT.OK ) {
                      WRITE( NOUT, FMT = 9992 )
-                     FATAL = .TRUE.
+                     FATAL = true;
                      GO TO 120
                   }
 
@@ -1700,13 +1700,13 @@ void main() {
 
                   // If data was incorrectly changed, report and return.
 
-                  SAME = .TRUE.
+                  SAME = true;
                   for (I = 1; I <= NARGS; I++) { // 30
                      SAME = SAME.AND.ISAME( I )
                      IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                   } // 30
                   if ( .NOT.SAME ) {
-                     FATAL = .TRUE.
+                     FATAL = true;
                      GO TO 120
                   }
 
@@ -1733,7 +1733,7 @@ void main() {
                            JJ = J
                            LJ = N - J + 1
                         }
-                        smvch('N', LJ, 1, ALPHA, Z( JJ ), LJ, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. );
+                        smvch('N', LJ, 1, ALPHA, Z( JJ ), LJ, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, true );
                         if ( FULL ) {
                            if ( UPPER ) {
                               JA = JA + LDA
@@ -1856,7 +1856,7 @@ void main() {
       }
 
       NC = 0
-      RESET = .TRUE.
+      RESET = true;
       ERRMAX = ZERO
 
       for (IN = 1; IN <= NIDIM; IN++) { // 140
@@ -1952,7 +1952,7 @@ void main() {
 
                      if ( .NOT.OK ) {
                         WRITE( NOUT, FMT = 9992 )
-                        FATAL = .TRUE.
+                        FATAL = true;
                         GO TO 160
                      }
 
@@ -1976,13 +1976,13 @@ void main() {
 
                      // If data was incorrectly changed, report and return.
 
-                     SAME = .TRUE.
+                     SAME = true;
                      for (I = 1; I <= NARGS; I++) { // 40
                         SAME = SAME.AND.ISAME( I )
                         IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                      } // 40
                      if ( .NOT.SAME ) {
-                        FATAL = .TRUE.
+                        FATAL = true;
                         GO TO 160
                      }
 
@@ -2019,7 +2019,7 @@ void main() {
                               JJ = J
                               LJ = N - J + 1
                            }
-                           smvch('N', LJ, 2, ALPHA, Z( JJ, 1 ), NMAX, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. );
+                           smvch('N', LJ, 2, ALPHA, Z( JJ, 1 ), NMAX, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, true );
                            if ( FULL ) {
                               if ( UPPER ) {
                                  JA = JA + LDA
@@ -2346,7 +2346,7 @@ void main() {
 
       // Report fatal error.
 
-   50 FATAL = .TRUE.
+   50 FATAL = true;
       WRITE( NOUT, FMT = 9999 )
       for (I = 1; I <= ML; I++) { // 60
          if ( MV ) {
@@ -2385,10 +2385,10 @@ void main() {
       for (I = 1; I <= LR; I++) { // 10
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
       } // 10
-      LSE = .TRUE.
+      LSE = true;
       GO TO 30
       } // 20
-      LSE = .FALSE.
+      LSE = false;
    30 RETURN
 
       // End of LSE.
@@ -2442,10 +2442,10 @@ void main() {
       }
 
       } // 60
-      LSERES = .TRUE.
+      LSERES = true;
       GO TO 80
       } // 70
-      LSERES = .FALSE.
+      LSERES = false;
    80 RETURN
 
       // End of LSERES.
@@ -2475,7 +2475,7 @@ void main() {
          MI = 891
          I = 7
          IC = 0
-         RESET = .FALSE.
+         RESET = false;
       }
 
       // The sequence of values of I is bounded between 1 and 999.

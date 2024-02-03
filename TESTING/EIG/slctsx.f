@@ -25,31 +25,31 @@
       if ( FS ) {
          I = I + 1
          if ( I.LE.M ) {
-            SLCTSX = .FALSE.
+            SLCTSX = false;
          } else {
-            SLCTSX = .TRUE.
+            SLCTSX = true;
          }
          if ( I.EQ.MPLUSN ) {
-            FS = .FALSE.
+            FS = false;
             I = 0
          }
       } else {
          I = I + 1
          if ( I.LE.N ) {
-            SLCTSX = .TRUE.
+            SLCTSX = true;
          } else {
-            SLCTSX = .FALSE.
+            SLCTSX = false;
          }
          if ( I.EQ.MPLUSN ) {
-            FS = .TRUE.
+            FS = true;
             I = 0
          }
       }
 
         // IF( AR/BETA.GT.0.0 )THEN
-           // SLCTSX = .TRUE.
+           // SLCTSX = true;
         // ELSE
-           // SLCTSX = .FALSE.
+           // SLCTSX = false;
         // END IF
 
       RETURN

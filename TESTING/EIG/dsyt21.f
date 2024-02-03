@@ -41,10 +41,10 @@
       if (ITYPE.EQ.1) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN;
 
       if ( LSAME( UPLO, 'U' ) ) {
-         LOWER = .FALSE.
+         LOWER = false;
          CUPLO = 'U'
       } else {
-         LOWER = .TRUE.
+         LOWER = true;
          CUPLO = 'L'
       }
 

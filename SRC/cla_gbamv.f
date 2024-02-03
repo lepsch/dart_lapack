@@ -113,12 +113,12 @@
          if ( TRANS.EQ.ILATRANS( 'N' ) ) {
             for (I = 1; I <= LENY; I++) {
                if ( BETA .EQ. 0.0 ) {
-                  SYMB_ZERO = .TRUE.
+                  SYMB_ZERO = true;
                   Y( IY ) = 0.0
                } else if ( Y( IY ) .EQ. 0.0 ) {
-                  SYMB_ZERO = .TRUE.
+                  SYMB_ZERO = true;
                } else {
-                  SYMB_ZERO = .FALSE.
+                  SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
                if ( ALPHA .NE. 0.0 ) {
@@ -136,12 +136,12 @@
          } else {
             for (I = 1; I <= LENY; I++) {
                if ( BETA .EQ. 0.0 ) {
-                  SYMB_ZERO = .TRUE.
+                  SYMB_ZERO = true;
                   Y( IY ) = 0.0
                } else if ( Y( IY ) .EQ. 0.0 ) {
-                  SYMB_ZERO = .TRUE.
+                  SYMB_ZERO = true;
                } else {
-                  SYMB_ZERO = .FALSE.
+                  SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
                if ( ALPHA .NE. 0.0 ) {
@@ -161,12 +161,12 @@
          if ( TRANS.EQ.ILATRANS( 'N' ) ) {
             for (I = 1; I <= LENY; I++) {
                if ( BETA .EQ. 0.0 ) {
-                  SYMB_ZERO = .TRUE.
+                  SYMB_ZERO = true;
                   Y( IY ) = 0.0
                } else if ( Y( IY ) .EQ. 0.0 ) {
-                  SYMB_ZERO = .TRUE.
+                  SYMB_ZERO = true;
                } else {
-                  SYMB_ZERO = .FALSE.
+                  SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
                if ( ALPHA .NE. 0.0 ) {
@@ -186,12 +186,12 @@
          } else {
             for (I = 1; I <= LENY; I++) {
                if ( BETA .EQ. 0.0 ) {
-                  SYMB_ZERO = .TRUE.
+                  SYMB_ZERO = true;
                   Y( IY ) = 0.0
                } else if ( Y( IY ) .EQ. 0.0 ) {
-                  SYMB_ZERO = .TRUE.
+                  SYMB_ZERO = true;
                } else {
-                  SYMB_ZERO = .FALSE.
+                  SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
                if ( ALPHA .NE. 0.0 ) {

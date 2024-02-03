@@ -65,17 +65,17 @@
       // to losing at most 3 decimal digits: 1 / (1 - (OFFDIG + OFFDIG2)) <= 1000
       // instead of the current OFFDIG + OFFDIG2 < 1
 
-      YESREL = .TRUE.
+      YESREL = true;
       OFFDIG = ZERO
       TMP = SQRT(ABS(D(1)))
-      if (TMP.LT.RMIN) YESREL = .FALSE.;
+      if (TMP.LT.RMIN) YESREL = false ;
       if (.NOT.YESREL) GOTO 11;
       for (I = 2; I <= N; I++) { // 10
          TMP2 = SQRT(ABS(D(I)))
-         if (TMP2.LT.RMIN) YESREL = .FALSE.;
+         if (TMP2.LT.RMIN) YESREL = false ;
          if (.NOT.YESREL) GOTO 11;
          OFFDIG2 = ABS(E(I-1))/(TMP*TMP2)
-         if (OFFDIG+OFFDIG2.GE.RELCOND) YESREL = .FALSE.;
+         if (OFFDIG+OFFDIG2.GE.RELCOND) YESREL = false ;
          if (.NOT.YESREL) GOTO 11;
          TMP = TMP2
          OFFDIG = OFFDIG2

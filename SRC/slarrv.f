@@ -91,7 +91,7 @@
       RQTOL = TWO * EPS
 
       // Set expert flags for standard code.
-      TRYRQC = .TRUE.
+      TRYRQC = true;
 
       if ((DOL.EQ.1).AND.(DOU.EQ.M)) {
       } else {
@@ -431,10 +431,10 @@
                      DONE = DONE + 1
                      // Check if eigenvector computation is to be skipped
                      if ((WINDEX.LT.DOL).OR. (WINDEX.GT.DOU)) {
-                        ESKIP = .TRUE.
+                        ESKIP = true;
                         GOTO 125
                      } else {
-                        ESKIP = .FALSE.
+                        ESKIP = false;
                      }
                      LEFT = WORK( WINDEX ) - WERR( WINDEX )
                      RIGHT = WORK( WINDEX ) + WERR( WINDEX )
@@ -491,15 +491,15 @@
                      // However, the Rayleigh Quotient can have the wrong sign
                      // and lead us away from the desired eigenvalue. In this
                      // case, the best we can do is to use bisection.
-                     USEDBS = .FALSE.
-                     USEDRQ = .FALSE.
+                     USEDBS = false;
+                     USEDRQ = false;
                      // Bisection is initially turned off unless it is forced
                      NEEDBS =  .NOT.TRYRQC
                      } // 120
                      // Check if bisection should be used to refine eigenvalue
                      if (NEEDBS) {
                         // Take the bisection as new iterate
-                        USEDBS = .TRUE.
+                        USEDBS = true;
                         ITMP1 = IWORK( IINDR+WINDEX )
                         OFFSET = INDEXW( WBEGIN ) - 1
                         slarrb(IN, D(IBEGIN), WORK(INDLLD+IBEGIN-1),INDEIG,INDEIG, ZERO, TWO*EPS, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, ITMP1, IINFO );
@@ -548,7 +548,7 @@
                         // We only use the RQCORR if it improves the
                         // the iterate reasonably.
                         if ( ( RQCORR*SGNDEF.GE.ZERO ) .AND.( LAMBDA + RQCORR.LE. RIGHT) .AND.( LAMBDA + RQCORR.GE. LEFT) ) {
-                           USEDRQ = .TRUE.
+                           USEDRQ = true;
                            // Store new midpoint of bisection interval in WORK
                            if (SGNDEF.EQ.ONE) {
                               // The current LAMBDA is on the left of the true
@@ -575,27 +575,27 @@
                            // Update width of error interval
                            WERR( WINDEX ) = HALF * (RIGHT-LEFT)
                         } else {
-                           NEEDBS = .TRUE.
+                           NEEDBS = true;
                         }
                         if (RIGHT-LEFT.LT.RQTOL*ABS(LAMBDA)) {
                               // The eigenvalue is computed to bisection accuracy
                               // compute eigenvector and stop
-                           USEDBS = .TRUE.
+                           USEDBS = true;
                            GOTO 120
                         } else if ( ITER.LT.MAXITR ) {
                            GOTO 120
                         } else if ( ITER.EQ.MAXITR ) {
-                           NEEDBS = .TRUE.
+                           NEEDBS = true;
                            GOTO 120
                         } else {
                            INFO = 5
                            RETURN
                         }
                      } else {
-                        STP2II = .FALSE.
+                        STP2II = false;
         if (USEDRQ .AND. USEDBS .AND. BSTRES.LE.RESID) {
                            LAMBDA = BSTW
-                           STP2II = .TRUE.
+                           STP2II = true;
                         }
                         if (STP2II) {
                            // improve error angle by second step

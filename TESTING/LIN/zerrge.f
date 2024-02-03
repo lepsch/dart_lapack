@@ -63,7 +63,7 @@
          X( J ) = 0.D0
          IP( J ) = J
       } // 20
-      OK = .TRUE.
+      OK = true;
 
       // Test error exits of the routines that use the LU decomposition
       // of a general matrix.

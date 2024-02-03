@@ -86,8 +86,8 @@
       }
 
       // Initialize error flags
-      NCNVRG = .FALSE.
-      TOOFEW = .FALSE.
+      NCNVRG = false;
+      TOOFEW = false;
 
       // Simplification:
       if (IRANGE.EQ.INDRNG .AND. IL.EQ.1 .AND. IU.EQ.N) IRANGE = 1;
@@ -337,7 +337,7 @@
                TMP2 = HALF*ABS( WORK( J+N )-WORK( J+IN+N ) )
                if ( J.GT.IOUT-IINFO ) {
                   // Flag non-convergence.
-                  NCNVRG = .TRUE.
+                  NCNVRG = true;
                   IB = -JBLK
                } else {
                   IB = JBLK
@@ -450,12 +450,12 @@
             M = IM
          }
          if ( IDISCL.LT.0 .OR. IDISCU.LT.0 ) {
-            TOOFEW = .TRUE.
+            TOOFEW = true;
          }
       }
 
       if (( IRANGE.EQ.ALLRNG .AND. M.NE.N ).OR. ( IRANGE.EQ.INDRNG .AND. M.NE.IU-IL+1 ) ) {
-         TOOFEW = .TRUE.
+         TOOFEW = true;
       }
 
       // If ORDER='B', do nothing the eigenvalues are already sorted by

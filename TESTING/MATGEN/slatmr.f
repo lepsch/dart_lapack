@@ -155,19 +155,19 @@
 
       // If inv(DL) is used, check to see if DL has a zero entry.
 
-      DZERO = .FALSE.
+      DZERO = false;
       if ( IGRADE.EQ.4 .AND. MODEL.EQ.0 ) {
          for (I = 1; I <= M; I++) { // 10
-            IF( DL( I ).EQ.ZERO ) DZERO = .TRUE.
+            IF( DL( I ).EQ.ZERO ) DZERO = true;
          } // 10
       }
 
       // Check values in IPIVOT
 
-      BADPVT = .FALSE.
+      BADPVT = false;
       if ( IPVTNG.GT.0 ) {
          for (J = 1; J <= NPVTS; J++) { // 20
-            IF( IPIVOT( J ).LE.0 .OR. IPIVOT( J ).GT.NPVTS ) BADPVT = .TRUE.
+            IF( IPIVOT( J ).LE.0 .OR. IPIVOT( J ).GT.NPVTS ) BADPVT = true;
          } // 20
       }
 
@@ -224,8 +224,8 @@
 
       // Decide if we can pivot consistently
 
-      FULBND = .FALSE.
-      if (KUU.EQ.N-1 .AND. KLL.EQ.M-1) FULBND = .TRUE.;
+      FULBND = false;
+      if (KUU.EQ.N-1 .AND. KLL.EQ.M-1) FULBND = true ;
 
       // Initialize random number generator
 

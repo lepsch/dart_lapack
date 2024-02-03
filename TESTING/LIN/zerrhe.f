@@ -66,7 +66,7 @@
          IP( J ) = J
       } // 20
       ANRM = 1.0D0
-      OK = .TRUE.
+      OK = true;
 
       if ( LSAMEN( 2, C2, 'HE' ) ) {
 

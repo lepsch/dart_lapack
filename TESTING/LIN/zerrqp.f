@@ -52,7 +52,7 @@
       A( 1, 2 ) = DCMPLX( 2.0D+0, -2.0D+0 )
       A( 2, 2 ) = DCMPLX( 3.0D+0, -3.0D+0 )
       A( 2, 1 ) = DCMPLX( 4.0D+0, -4.0D+0 )
-      OK = .TRUE.
+      OK = true;
       WRITE( NOUT, FMT = * )
 
       // Test error exits for QR factorization with pivoting

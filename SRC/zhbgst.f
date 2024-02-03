@@ -130,19 +130,19 @@
 
       // The logical structure of this phase is:
 
-      // UPDATE = .TRUE.
+      // UPDATE = true;
       // DO I = N, M + 1, -1
          // use S(i) to update A and create a new bulge
          // apply rotations to push all bulges KA positions downward
       // END DO
-      // UPDATE = .FALSE.
+      // UPDATE = false;
       // DO I = M + KA + 1, N - 1
          // apply rotations to push all bulges KA positions downward
       // END DO
 
       // To avoid duplicating code, the two loops are merged.
 
-      UPDATE = .TRUE.
+      UPDATE = true;
       I = N + 1
       } // 10
       if ( UPDATE ) {
@@ -152,7 +152,7 @@
          I1 = MIN( N, I+KA )
          I2 = I - KBT + KA1
          if ( I.LT.M+1 ) {
-            UPDATE = .FALSE.
+            UPDATE = false;
             I = I + 1
             I0 = M
             if (KA.EQ.0) GO TO 480;
@@ -623,19 +623,19 @@
 
       // The logical structure of this phase is:
 
-      // UPDATE = .TRUE.
+      // UPDATE = true;
       // DO I = 1, M
          // use S(i) to update A and create a new bulge
          // apply rotations to push all bulges KA positions upward
       // END DO
-      // UPDATE = .FALSE.
+      // UPDATE = false;
       // DO I = M - KA - 1, 2, -1
          // apply rotations to push all bulges KA positions upward
       // END DO
 
       // To avoid duplicating code, the two loops are merged.
 
-      UPDATE = .TRUE.
+      UPDATE = true;
       I = 0
       } // 490
       if ( UPDATE ) {
@@ -645,7 +645,7 @@
          I1 = MAX( 1, I-KA )
          I2 = I + KBT - KA1
          if ( I.GT.M ) {
-            UPDATE = .FALSE.
+            UPDATE = false;
             I = I - 1
             I0 = M + 1
             if (KA.EQ.0) RETURN;

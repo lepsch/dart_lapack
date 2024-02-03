@@ -47,7 +47,7 @@
       INFO = 0
       NRUN = 0
       NFAIL = 0
-      FIRSTT = .TRUE.
+      FIRSTT = true;
       alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
       LDA = NMAX
       LDB = NMAX
@@ -62,12 +62,12 @@
          if ( P.GT.N .OR. N.GT.M+P ) {
             if ( FIRSTT ) {
                WRITE( NOUT, FMT = * )
-               FIRSTT = .FALSE.
+               FIRSTT = false;
             }
             WRITE( NOUT, FMT = 9997 )M, P, N
          }
       } // 10
-      FIRSTT = .TRUE.
+      FIRSTT = true;
 
       // Do for each value of M in MVAL.
 
@@ -118,7 +118,7 @@
             for (I = 1; I <= NT; I++) { // 20
                if ( RESULT( I ).GE.THRESH ) {
                   if ( NFAIL.EQ.0 .AND. FIRSTT ) {
-                     FIRSTT = .FALSE.
+                     FIRSTT = false;
                      alahdg(NOUT, PATH );
                   }
                   WRITE( NOUT, FMT = 9998 )M, P, N, IMAT, I, RESULT( I )

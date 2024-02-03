@@ -55,24 +55,24 @@
 
       if ( LSAME( JOBVL, 'N' ) ) {
          IJOBVL = 1
-         ILVL = .FALSE.
+         ILVL = false;
       } else if ( LSAME( JOBVL, 'V' ) ) {
          IJOBVL = 2
-         ILVL = .TRUE.
+         ILVL = true;
       } else {
          IJOBVL = -1
-         ILVL = .FALSE.
+         ILVL = false;
       }
 
       if ( LSAME( JOBVR, 'N' ) ) {
          IJOBVR = 1
-         ILVR = .FALSE.
+         ILVR = false;
       } else if ( LSAME( JOBVR, 'V' ) ) {
          IJOBVR = 2
-         ILVR = .TRUE.
+         ILVR = true;
       } else {
          IJOBVR = -1
-         ILVR = .FALSE.
+         ILVR = false;
       }
       ILV = ILVL .OR. ILVR
 
@@ -330,34 +330,34 @@
          SALFAR = ANRM*DBLE( ALPHA( JC ) )
          SALFAI = ANRM*DIMAG( ALPHA( JC ) )
          SBETA = BNRM*DBLE( BETA( JC ) )
-         ILIMIT = .FALSE.
+         ILIMIT = false;
          SCALE = ONE
 
          // Check for significant underflow in imaginary part of ALPHA
 
          if ( ABS( SALFAI ).LT.SAFMIN .AND. ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
-            ILIMIT = .TRUE.
+            ILIMIT = true;
             SCALE = ( SAFMIN / ANRM1 ) / MAX( SAFMIN, ANRM2*ABSAI )
          }
 
          // Check for significant underflow in real part of ALPHA
 
          if ( ABS( SALFAR ).LT.SAFMIN .AND. ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
-            ILIMIT = .TRUE.
+            ILIMIT = true;
             SCALE = MAX( SCALE, ( SAFMIN / ANRM1 ) / MAX( SAFMIN, ANRM2*ABSAR ) )
          }
 
          // Check for significant underflow in BETA
 
          if ( ABS( SBETA ).LT.SAFMIN .AND. ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
-            ILIMIT = .TRUE.
+            ILIMIT = true;
             SCALE = MAX( SCALE, ( SAFMIN / BNRM1 ) / MAX( SAFMIN, BNRM2*ABSB ) )
          }
 
          // Check for possible overflow when limiting scaling
 
          if ( ILIMIT ) {
-            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE.LT.ONE ) ILIMIT = .FALSE.
+            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE.LT.ONE ) ILIMIT = false;
          }
 
          // Recompute un-scaled ALPHA, BETA if necessary.

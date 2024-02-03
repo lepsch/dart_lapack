@@ -49,7 +49,7 @@
       A( 1, 2 ) = 2.D0
       A( 2, 2 ) = 3.D0
       A( 2, 1 ) = 4.D0
-      OK = .TRUE.
+      OK = true;
 
       if ( LSAMEN( 2, C2, 'TR' ) ) {
 

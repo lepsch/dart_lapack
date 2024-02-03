@@ -126,7 +126,7 @@
 
          for (I = 1; I <= N; I++) { // 60
             IPNT( I ) = I
-            SELECT( I ) = .FALSE.
+            SELECT( I ) = false;
          } // 60
          if ( ISRT.EQ.0 ) {
             for (I = 1; I <= N; I++) { // 70
@@ -153,7 +153,7 @@
             IPNT( KMIN ) = ITMP
          } // 100
          for (I = 1; I <= NDIM; I++) { // 110
-            SELECT( IPNT( ISELEC( I ) ) ) = .TRUE.
+            SELECT( IPNT( ISELEC( I ) ) ) = true;
          } // 110
 
          // Compute condition numbers

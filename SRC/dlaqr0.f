@@ -311,9 +311,9 @@
                      KT = N - NS + 1
                      dlacpy('A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH );
                      if ( NS.GT.NMIN ) {
-                        dlaqr4(.false., .false., NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, WORK, LWORK, INF );
+                        dlaqr4( false , false , NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, WORK, LWORK, INF );
                      } else {
-                        dlahqr(.false., .false., NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, INF );
+                        dlahqr( false , false , NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, INF );
                      }
                      KS = KS + INF
 
@@ -337,13 +337,13 @@
                      // .    Bubble sort keeps complex conjugate
                      // .    pairs together. ====
 
-                     SORTED = .false.
+                     SORTED = false;
                      DO 50 K = KBOT, KS + 1, -1
                         if (SORTED) GO TO 60;
-                        SORTED = .true.
+                        SORTED = true;
                         for (I = KS; I <= K - 1; I++) { // 40
                            if ( ABS( WR( I ) )+ABS( WI( I ) ).LT. ABS( WR( I+1 ) )+ABS( WI( I+1 ) ) ) {
-                              SORTED = .false.
+                              SORTED = false;
 
                               SWAP = WR( I )
                               WR( I ) = WR( I+1 )

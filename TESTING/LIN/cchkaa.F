@@ -82,7 +82,7 @@ void main() {
 
       S1 = SECOND( )
       LDA = NMAX
-      FATAL = .FALSE.
+      FATAL = false;
 
       // Read a dummy line.
 
@@ -99,20 +99,20 @@ void main() {
       if ( NM.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NM ', NM, 1
          NM = 0
-         FATAL = .TRUE.
+         FATAL = true;
       } else if ( NM.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NM ', NM, MAXIN
          NM = 0
-         FATAL = .TRUE.
+         FATAL = true;
       }
       READ( NIN, FMT = * )( MVAL( I ), I = 1, NM )
       for (I = 1; I <= NM; I++) { // 10
          if ( MVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', MVAL( I ), 0
-            FATAL = .TRUE.
+            FATAL = true;
          } else if ( MVAL( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9995 )' M  ', MVAL( I ), NMAX
-            FATAL = .TRUE.
+            FATAL = true;
          }
       } // 10
       if (NM.GT.0) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM );
@@ -123,20 +123,20 @@ void main() {
       if ( NN.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NN ', NN, 1
          NN = 0
-         FATAL = .TRUE.
+         FATAL = true;
       } else if ( NN.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NN ', NN, MAXIN
          NN = 0
-         FATAL = .TRUE.
+         FATAL = true;
       }
       READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
       for (I = 1; I <= NN; I++) { // 20
          if ( NVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' N  ', NVAL( I ), 0
-            FATAL = .TRUE.
+            FATAL = true;
          } else if ( NVAL( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9995 )' N  ', NVAL( I ), NMAX
-            FATAL = .TRUE.
+            FATAL = true;
          }
       } // 20
       if (NN.GT.0) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN );
@@ -147,20 +147,20 @@ void main() {
       if ( NNS.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
          NNS = 0
-         FATAL = .TRUE.
+         FATAL = true;
       } else if ( NNS.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN
          NNS = 0
-         FATAL = .TRUE.
+         FATAL = true;
       }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS )
       for (I = 1; I <= NNS; I++) { // 30
          if ( NSVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
-            FATAL = .TRUE.
+            FATAL = true;
          } else if ( NSVAL( I ).GT.MAXRHS ) {
             WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
-            FATAL = .TRUE.
+            FATAL = true;
          }
       } // 30
       if (NNS.GT.0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
@@ -171,17 +171,17 @@ void main() {
       if ( NNB.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )'NNB ', NNB, 1
          NNB = 0
-         FATAL = .TRUE.
+         FATAL = true;
       } else if ( NNB.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )'NNB ', NNB, MAXIN
          NNB = 0
-         FATAL = .TRUE.
+         FATAL = true;
       }
       READ( NIN, FMT = * )( NBVAL( I ), I = 1, NNB )
       for (I = 1; I <= NNB; I++) { // 40
          if ( NBVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' NB ', NBVAL( I ), 0
-            FATAL = .TRUE.
+            FATAL = true;
          }
       } // 40
       if (NNB.GT.0) WRITE( NOUT, FMT = 9993 )'NB  ', ( NBVAL( I ), I = 1, NNB );
@@ -204,7 +204,7 @@ void main() {
       for (I = 1; I <= NNB; I++) { // 70
          if ( NXVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' NX ', NXVAL( I ), 0
-            FATAL = .TRUE.
+            FATAL = true;
          }
       } // 70
       if (NNB.GT.0) WRITE( NOUT, FMT = 9993 )'NX  ', ( NXVAL( I ), I = 1, NNB );
@@ -215,20 +215,20 @@ void main() {
       if ( NN.LT.1 ) {
          WRITE( NOUT, FMT = 9996 )' NRANK ', NRANK, 1
          NRANK = 0
-         FATAL = .TRUE.
+         FATAL = true;
       } else if ( NN.GT.MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NRANK ', NRANK, MAXIN
          NRANK = 0
-         FATAL = .TRUE.
+         FATAL = true;
       }
       READ( NIN, FMT = * )( RANKVAL( I ), I = 1, NRANK )
       for (I = 1; I <= NRANK; I++) {
          if ( RANKVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' RANK  ', RANKVAL( I ), 0
-            FATAL = .TRUE.
+            FATAL = true;
          } else if ( RANKVAL( I ).GT.100 ) {
             WRITE( NOUT, FMT = 9995 )' RANK  ', RANKVAL( I ), 100
-            FATAL = .TRUE.
+            FATAL = true;
          }
       }
       if (NRANK.GT.0) WRITE( NOUT, FMT = 9993 )'RANK % OF N', ( RANKVAL( I ), I = 1, NRANK );

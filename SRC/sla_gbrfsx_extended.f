@@ -80,7 +80,7 @@
 
          X_STATE = WORKING_STATE
          Z_STATE = UNSTABLE_STATE
-         INCR_PREC = .FALSE.
+         INCR_PREC = false;
 
          for (CNT = 1; CNT <= ITHRESH; CNT++) {
 
@@ -144,14 +144,14 @@
 
           // Check termination criteria.
 
-            if (.NOT.IGNORE_CWISE .AND. YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y) INCR_PREC = .TRUE.;
+            if (.NOT.IGNORE_CWISE .AND. YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y) INCR_PREC = true ;
              if (X_STATE .EQ. NOPROG_STATE .AND. DXRAT .LE. RTHRESH) X_STATE = WORKING_STATE;
             if ( X_STATE .EQ. WORKING_STATE ) {
                if ( DX_X .LE. EPS ) {
                   X_STATE = CONV_STATE
                } else if ( DXRAT .GT. RTHRESH ) {
                   if ( Y_PREC_STATE .NE. EXTRA_Y ) {
-                     INCR_PREC = .TRUE.
+                     INCR_PREC = true;
                   } else {
                      X_STATE = NOPROG_STATE
                   }
@@ -170,7 +170,7 @@
                   FINAL_DZ_Z = HUGEVAL
                } else if ( DZRAT .GT. RTHRESH ) {
                   if ( Y_PREC_STATE .NE. EXTRA_Y ) {
-                     INCR_PREC = .TRUE.
+                     INCR_PREC = true;
                   } else {
                      Z_STATE = NOPROG_STATE
                   }
@@ -191,7 +191,7 @@
             }
 
             if ( INCR_PREC ) {
-               INCR_PREC = .FALSE.
+               INCR_PREC = false;
                Y_PREC_STATE = Y_PREC_STATE + 1
                for (I = 1; I <= N; I++) {
                   Y_TAIL( I ) = 0.0

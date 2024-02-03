@@ -299,7 +299,7 @@
       }
 
       BIG = DLAMCH('O')
-      ASCALED = .FALSE.
+      ASCALED = false;
       if ( ROWPRM ) {
             // .. reordering the rows in decreasing sequence in the
             // ell-infinity norm - this enhances numerical robustness in
@@ -353,7 +353,7 @@
                 // .. to prevent overflow in the QR factorization, scale the
                 // matrix by 1/sqrt(M) if too large entry detected
                 zlascl('G',0,0,SQRT(DBLE(M)),ONE, M,N, A,LDA, IERR);
-                ASCALED = .TRUE.
+                ASCALED = true;
             }
             zlaswp(N, A, LDA, 1, M-1, IWORK(N+1), 1 );
       }
@@ -374,7 +374,7 @@
               // .. to prevent overflow in the QR factorization, scale the
               // matrix by 1/sqrt(M) if too large entry detected
               zlascl('G',0,0, SQRT(DBLE(M)),ONE, M,N, A,LDA, IERR);
-              ASCALED = .TRUE.
+              ASCALED = true;
           }
       }
 
@@ -592,7 +592,7 @@
                       } // 1104
                    } // 1103
                }
-               zlapmt(.FALSE., NR, N, V, LDV, IWORK );
+               zlapmt( false , NR, N, V, LDV, IWORK );
             } else {
                 // .. need all N right singular vectors and NR < N
                 // [!] This is simple implementation that augments [V](1:N,1:NR)
@@ -610,7 +610,7 @@
                       V(p,q) = CTMP
                    } // 1124
                 } // 1123
-                zlapmt(.FALSE., N, N, V, LDV, IWORK );
+                zlapmt( false , N, N, V, LDV, IWORK );
             }
 
           } else {
@@ -622,7 +622,7 @@
              // vectors stored in U(1:NR,1:NR)
              if ( WNTVR .OR. ( NR .EQ. N ) ) {
                 zgesvd('N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
-                zlapmt(.FALSE., NR, N, V, LDV, IWORK );
+                zlapmt( false , NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**H
              } else {
                 // .. need all N right singular vectors and NR < N
@@ -632,7 +632,7 @@
                 // how to implement this, see the " FULL SVD " branch.
                  zlaset('G', N-NR, N, CZERO,CZERO, V(NR+1,1), LDV);
                  zgesvd('N', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
-                 zlapmt(.FALSE., N, N, V, LDV, IWORK );
+                 zlapmt( false , N, N, V, LDV, IWORK );
              }
              // .. now [V] contains the adjoint of the matrix of the right singular
              // vectors of A.
@@ -676,7 +676,7 @@
                       } // 1102
                    } // 1101
                }
-               zlapmt(.FALSE., NR, N, V, LDV, IWORK );
+               zlapmt( false , NR, N, V, LDV, IWORK );
 
                 for (p = 1; p <= NR; p++) { // 1117
                    U(p,p) = CONJG(U(p,p))
@@ -724,7 +724,7 @@
                          V(p,q) = CTMP
                       } // 1114
                    } // 1113
-                   zlapmt(.FALSE., N, N, V, LDV, IWORK );
+                   zlapmt( false , N, N, V, LDV, IWORK );
                // .. assemble the left singular vector matrix U of dimensions
                // (M x N1), i.e. (M x N) or (M x M).
 
@@ -765,7 +765,7 @@
                   zlaset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
                   zlaset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV);
                   zunmqr('R','C', N, N, NR, U(1,NR+1), LDU, CWORK(N+1),V,LDV,CWORK(N+NR+1),LCWORK-N-NR,IERR);
-                  zlapmt(.FALSE., N, N, V, LDV, IWORK );
+                  zlapmt( false , N, N, V, LDV, IWORK );
                   // .. assemble the left singular vector matrix U of dimensions
                   // (M x NR) or (M x N) or (M x M).
                   if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {
@@ -789,7 +789,7 @@
                 // .. the right singular vectors of R overwrite [V], the NR left
                 // singular vectors of R stored in [U](1:NR,1:NR)
                 zgesvd('S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
-                zlapmt(.FALSE., NR, N, V, LDV, IWORK );
+                zlapmt( false , NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**H
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
@@ -818,7 +818,7 @@
                   // singular vectors of R stored in [U](1:NR,1:NR)
                   zlaset('A', N-NR,N, CZERO,CZERO, V(NR+1,1),LDV);
                   zgesvd('S', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
-                  zlapmt(.FALSE., N, N, V, LDV, IWORK );
+                  zlapmt( false , N, N, V, LDV, IWORK );
                   // .. now [V] contains the adjoint of the matrix of the right
                   // singular vectors of A. The leading N left singular vectors
                   // are in [U](1:N,1:N)
@@ -842,7 +842,7 @@
                   zlaset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
                   zlaset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV);
                   zunmlq('R','N',N,N,NR,U(NR+1,1),LDU,CWORK(N+1), V, LDV, CWORK(N+NR+1),LCWORK-N-NR,IERR);
-                  zlapmt(.FALSE., N, N, V, LDV, IWORK );
+                  zlapmt( false , N, N, V, LDV, IWORK );
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
                   if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {

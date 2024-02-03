@@ -106,7 +106,7 @@
 
        // Partition A such that 2-by-2 blocks on the diagonal are not split
 
-       SKIP = .FALSE.
+       SKIP = false;
        for (I = 1; I <= NBA; I++) {
           IWORK( I ) = ( I - 1 ) * NB + 1
        }
@@ -116,7 +116,7 @@
           L2 = IWORK( K + 1 ) - 1
           for (L = L1; L <= L2; L++) {
              if ( SKIP ) {
-                SKIP = .FALSE.
+                SKIP = false;
                 CYCLE
              }
              if ( L.GE.M ) {
@@ -129,7 +129,7 @@
                    IWORK( K + 1 ) = IWORK( K + 1 ) + 1
                    CYCLE
                 }
-                SKIP = .TRUE.
+                SKIP = true;
              }
           }
        }
@@ -142,7 +142,7 @@
        // Partition B such that 2-by-2 blocks on the diagonal are not split
 
        PC = NBA + 1
-       SKIP = .FALSE.
+       SKIP = false;
        for (I = 1; I <= NBB; I++) {
           IWORK( PC + I ) = ( I - 1 ) * NB + 1
        }
@@ -152,7 +152,7 @@
           L2 = IWORK( PC + K + 1 ) - 1
           for (L = L1; L <= L2; L++) {
              if ( SKIP ) {
-                SKIP = .FALSE.
+                SKIP = false;
                 CYCLE
              }
              if ( L.GE.N ) {
@@ -165,7 +165,7 @@
                    IWORK( PC + K + 1 ) = IWORK( PC + K + 1 ) + 1
                    CYCLE
                 }
-                SKIP = .TRUE.
+                SKIP = true;
              }
           }
        }

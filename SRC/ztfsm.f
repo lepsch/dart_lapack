@@ -84,14 +84,14 @@
          // SIDE = 'L'
 
          // A is M-by-M.
-         // If M is odd, set NISODD = .TRUE., and M1 and M2.
-         // If M is even, NISODD = .FALSE., and M.
+         // If M is odd, set NISODD = true , and M1 and M2.
+         // If M is even, NISODD = false , and M.
 
          if ( MOD( M, 2 ).EQ.0 ) {
-            MISODD = .FALSE.
+            MISODD = false;
             K = M / 2
          } else {
-            MISODD = .TRUE.
+            MISODD = true;
             if ( LOWER ) {
                M2 = M / 2
                M1 = M - M2
@@ -351,14 +351,14 @@
          // SIDE = 'R'
 
          // A is N-by-N.
-         // If N is odd, set NISODD = .TRUE., and N1 and N2.
-         // If N is even, NISODD = .FALSE., and K.
+         // If N is odd, set NISODD = true , and N1 and N2.
+         // If N is even, NISODD = false , and K.
 
          if ( MOD( N, 2 ).EQ.0 ) {
-            NISODD = .FALSE.
+            NISODD = false;
             K = N / 2
          } else {
-            NISODD = .TRUE.
+            NISODD = true;
             if ( LOWER ) {
                N2 = N / 2
                N1 = N - N2

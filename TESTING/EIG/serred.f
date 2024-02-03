@@ -66,7 +66,7 @@
       for (I = 1; I <= NMAX; I++) { // 30
          A( I, I ) = ONE
       } // 30
-      OK = .TRUE.
+      OK = true;
       NT = 0
 
       if ( LSAMEN( 2, C2, 'EV' ) ) {

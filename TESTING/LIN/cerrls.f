@@ -49,7 +49,7 @@
       A( 1, 2 ) = ( 2.0E+0, 0.0E+0 )
       A( 2, 2 ) = ( 3.0E+0, 0.0E+0 )
       A( 2, 1 ) = ( 4.0E+0, 0.0E+0 )
-      OK = .TRUE.
+      OK = true;
       WRITE( NOUT, FMT = * )
 
       // Test error exits for the least squares driver routines.
