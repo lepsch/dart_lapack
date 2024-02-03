@@ -1,5 +1,4 @@
-      SUBROUTINE DSYTRD_SB2ST( STAGE1, VECT, UPLO, N, KD, AB, LDAB,
-     $                         D, E, HOUS, LHOUS, WORK, LWORK, INFO )
+      SUBROUTINE DSYTRD_SB2ST( STAGE1, VECT, UPLO, N, KD, AB, LDAB, D, E, HOUS, LHOUS, WORK, LWORK, INFO )
 *
 #if defined(_OPENMP)
       use omp_lib
@@ -25,19 +24,11 @@
 *     .. Parameters ..
       DOUBLE PRECISION   RZERO
       DOUBLE PRECISION   ZERO, ONE
-      PARAMETER          ( RZERO = 0.0D+0,
-     $                   ZERO = 0.0D+0,
-     $                   ONE  = 1.0D+0 )
+      PARAMETER          ( RZERO = 0.0D+0, ZERO = 0.0D+0, ONE  = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, WANTQ, UPPER, AFTERS1
-      INTEGER            I, M, K, IB, SWEEPID, MYID, SHIFT, STT, ST,
-     $                   ED, STIND, EDIND, BLKLASTIND, COLPT, THED,
-     $                   STEPERCOL, GRSIZ, THGRSIZ, THGRNB, THGRID,
-     $                   NBTILES, TTYPE, TID, NTHREADS,
-     $                   ABDPOS, ABOFDPOS, DPOS, OFDPOS, AWPOS,
-     $                   INDA, INDW, APOS, SIZEA, LDA, INDV, INDTAU,
-     $                   SIDEV, SIZETAU, LDV, LHMIN, LWMIN
+      INTEGER            I, M, K, IB, SWEEPID, MYID, SHIFT, STT, ST, ED, STIND, EDIND, BLKLASTIND, COLPT, THED, STEPERCOL, GRSIZ, THGRSIZ, THGRNB, THGRID, NBTILES, TTYPE, TID, NTHREADS, ABDPOS, ABOFDPOS, DPOS, OFDPOS, AWPOS, INDA, INDW, APOS, SIZEA, LDA, INDV, INDTAU, SIDEV, SIZETAU, LDV, LHMIN, LWMIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DSB2ST_KERNELS, DLACPY, DLASET, XERBLA
@@ -228,8 +219,7 @@
                   ST = STT
                   DO 130 SWEEPID = ST, ED
                       DO 140 K = 1, GRSIZ
-                          MYID  = (I-SWEEPID)*(STEPERCOL*GRSIZ)
-     $                           + (M-1)*GRSIZ + K
+                          MYID  = (I-SWEEPID)*(STEPERCOL*GRSIZ) + (M-1)*GRSIZ + K
                           IF ( MYID.EQ.1 ) THEN
                               TTYPE = 1
                           ELSE
@@ -245,8 +235,7 @@
                               COLPT      = ((MYID+1)/2)*KD + SWEEPID
                               STIND      = COLPT-KD+1
                               EDIND      = MIN(COLPT,N)
-                              IF( ( STIND.GE.EDIND-1 ).AND.
-     $                            ( EDIND.EQ.N ) ) THEN
+                              IF( ( STIND.GE.EDIND-1 ).AND. ( EDIND.EQ.N ) ) THEN
                                   BLKLASTIND = N
                               ELSE
                                   BLKLASTIND = 0
@@ -261,29 +250,17 @@
 !$OMP$     DEPEND(in:WORK(MYID-1))
 !$OMP$     DEPEND(out:WORK(MYID))
                               TID      = OMP_GET_THREAD_NUM()
-                              CALL DSB2ST_KERNELS( UPLO, WANTQ, TTYPE,
-     $                             STIND, EDIND, SWEEPID, N, KD, IB,
-     $                             WORK ( INDA ), LDA,
-     $                             HOUS( INDV ), HOUS( INDTAU ), LDV,
-     $                             WORK( INDW + TID*KD ) )
+                              CALL DSB2ST_KERNELS( UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW + TID*KD ) )
 !$OMP END TASK
                           ELSE
 !$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
 !$OMP$     DEPEND(out:WORK(MYID))
                               TID      = OMP_GET_THREAD_NUM()
-                              CALL DSB2ST_KERNELS( UPLO, WANTQ, TTYPE,
-     $                             STIND, EDIND, SWEEPID, N, KD, IB,
-     $                             WORK ( INDA ), LDA,
-     $                             HOUS( INDV ), HOUS( INDTAU ), LDV,
-     $                             WORK( INDW + TID*KD ) )
+                              CALL DSB2ST_KERNELS( UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW + TID*KD ) )
 !$OMP END TASK
                           ENDIF
 #else
-                          CALL DSB2ST_KERNELS( UPLO, WANTQ, TTYPE,
-     $                         STIND, EDIND, SWEEPID, N, KD, IB,
-     $                         WORK ( INDA ), LDA,
-     $                         HOUS( INDV ), HOUS( INDTAU ), LDV,
-     $                         WORK( INDW ) )
+                          CALL DSB2ST_KERNELS( UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW ) )
 #endif
                           IF ( BLKLASTIND.GE.(N-1) ) THEN
                               STT = STT + 1

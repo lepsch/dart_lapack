@@ -1,5 +1,4 @@
-      SUBROUTINE CHETRD_HB2ST( STAGE1, VECT, UPLO, N, KD, AB, LDAB,
-     $                         D, E, HOUS, LHOUS, WORK, LWORK, INFO )
+      SUBROUTINE CHETRD_HB2ST( STAGE1, VECT, UPLO, N, KD, AB, LDAB, D, E, HOUS, LHOUS, WORK, LWORK, INFO )
 *
 *
 #if defined(_OPENMP)
@@ -26,19 +25,11 @@
 *     .. Parameters ..
       REAL               RZERO
       COMPLEX            ZERO, ONE
-      PARAMETER          ( RZERO = 0.0E+0,
-     $                   ZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   ONE  = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( RZERO = 0.0E+0, ZERO = ( 0.0E+0, 0.0E+0 ), ONE  = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, WANTQ, UPPER, AFTERS1
-      INTEGER            I, M, K, IB, SWEEPID, MYID, SHIFT, STT, ST,
-     $                   ED, STIND, EDIND, BLKLASTIND, COLPT, THED,
-     $                   STEPERCOL, GRSIZ, THGRSIZ, THGRNB, THGRID,
-     $                   NBTILES, TTYPE, TID, NTHREADS,
-     $                   ABDPOS, ABOFDPOS, DPOS, OFDPOS, AWPOS,
-     $                   INDA, INDW, APOS, SIZEA, LDA, INDV, INDTAU,
-     $                   SICEV, SIZETAU, LDV, LHMIN, LWMIN
+      INTEGER            I, M, K, IB, SWEEPID, MYID, SHIFT, STT, ST, ED, STIND, EDIND, BLKLASTIND, COLPT, THED, STEPERCOL, GRSIZ, THGRSIZ, THGRNB, THGRID, NBTILES, TTYPE, TID, NTHREADS, ABDPOS, ABOFDPOS, DPOS, OFDPOS, AWPOS, INDA, INDW, APOS, SIZEA, LDA, INDV, INDTAU, SICEV, SIZETAU, LDV, LHMIN, LWMIN
       REAL               ABSTMP
       COMPLEX            TMP
 *     ..
@@ -192,8 +183,7 @@
                   ELSE
                      TMP = ONE
                   END IF
-                  IF( I.LT.N-1 )
-     $               AB( ABOFDPOS, I+2 ) = AB( ABOFDPOS, I+2 )*TMP
+                  IF( I.LT.N-1 ) AB( ABOFDPOS, I+2 ) = AB( ABOFDPOS, I+2 )*TMP
 C                  IF( WANTZ ) THEN
 C                     CALL CSCAL( N, CONJG( TMP ), Q( 1, I+1 ), 1 )
 C                  END IF
@@ -209,8 +199,7 @@ C                  END IF
                  ELSE
                     TMP = ONE
                  END IF
-                 IF( I.LT.N-1 )
-     $              AB( ABOFDPOS, I+1 ) = AB( ABOFDPOS, I+1 )*TMP
+                 IF( I.LT.N-1 ) AB( ABOFDPOS, I+1 ) = AB( ABOFDPOS, I+1 )*TMP
 C                 IF( WANTQ ) THEN
 C                    CALL CSCAL( N, TMP, Q( 1, I+1 ), 1 )
 C                 END IF
@@ -260,8 +249,7 @@ C                 END IF
                   ST = STT
                   DO 130 SWEEPID = ST, ED
                       DO 140 K = 1, GRSIZ
-                          MYID  = (I-SWEEPID)*(STEPERCOL*GRSIZ)
-     $                           + (M-1)*GRSIZ + K
+                          MYID  = (I-SWEEPID)*(STEPERCOL*GRSIZ) + (M-1)*GRSIZ + K
                           IF ( MYID.EQ.1 ) THEN
                               TTYPE = 1
                           ELSE
@@ -277,8 +265,7 @@ C                 END IF
                               COLPT      = ((MYID+1)/2)*KD + SWEEPID
                               STIND      = COLPT-KD+1
                               EDIND      = MIN(COLPT,N)
-                              IF( ( STIND.GE.EDIND-1 ).AND.
-     $                            ( EDIND.EQ.N ) ) THEN
+                              IF( ( STIND.GE.EDIND-1 ).AND. ( EDIND.EQ.N ) ) THEN
                                   BLKLASTIND = N
                               ELSE
                                   BLKLASTIND = 0
@@ -293,29 +280,17 @@ C                 END IF
 !$OMP$     DEPEND(in:WORK(MYID-1))
 !$OMP$     DEPEND(out:WORK(MYID))
                               TID      = OMP_GET_THREAD_NUM()
-                              CALL CHB2ST_KERNELS( UPLO, WANTQ, TTYPE,
-     $                             STIND, EDIND, SWEEPID, N, KD, IB,
-     $                             WORK ( INDA ), LDA,
-     $                             HOUS( INDV ), HOUS( INDTAU ), LDV,
-     $                             WORK( INDW + TID*KD ) )
+                              CALL CHB2ST_KERNELS( UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW + TID*KD ) )
 !$OMP END TASK
                           ELSE
 !$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
 !$OMP$     DEPEND(out:WORK(MYID))
                               TID      = OMP_GET_THREAD_NUM()
-                              CALL CHB2ST_KERNELS( UPLO, WANTQ, TTYPE,
-     $                             STIND, EDIND, SWEEPID, N, KD, IB,
-     $                             WORK ( INDA ), LDA,
-     $                             HOUS( INDV ), HOUS( INDTAU ), LDV,
-     $                             WORK( INDW + TID*KD ) )
+                              CALL CHB2ST_KERNELS( UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW + TID*KD ) )
 !$OMP END TASK
                           ENDIF
 #else
-                          CALL CHB2ST_KERNELS( UPLO, WANTQ, TTYPE,
-     $                         STIND, EDIND, SWEEPID, N, KD, IB,
-     $                         WORK ( INDA ), LDA,
-     $                         HOUS( INDV ), HOUS( INDTAU ), LDV,
-     $                         WORK( INDW ) )
+                          CALL CHB2ST_KERNELS( UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW ) )
 #endif
                           IF ( BLKLASTIND.GE.(N-1) ) THEN
                               STT = STT + 1

@@ -29,34 +29,20 @@
       PARAMETER          ( NIN = 5, NOUT = 6 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CBB, CBK, CBL, CES, CEV, CGG, CGK, CGL, CGS,
-     $                   CGV, CGX, CHB, CSD, CSX, CVX, CXV, FATAL, GLM,
-     $                   GQR, GSV, LSE, NEP, SEP, SVD, TSTCHK, TSTDIF,
-     $                   TSTDRV, TSTERR
+      LOGICAL            CBB, CBK, CBL, CES, CEV, CGG, CGK, CGL, CGS, CGV, CGX, CHB, CSD, CSX, CVX, CXV, FATAL, GLM, GQR, GSV, LSE, NEP, SEP, SVD, TSTCHK, TSTDIF, TSTDRV, TSTERR
       CHARACTER          C1
       CHARACTER*3        C3, PATH
       CHARACTER*32       VNAME
       CHARACTER*10       INTSTR
       CHARACTER*80       LINE
-      INTEGER            I, I1, IC, INFO, ITMP, K, LENP, MAXTYP, NEWSD,
-     $                   NK, NN, NPARMS, NRHS, NTYPES,
-     $                   VERS_MAJOR, VERS_MINOR, VERS_PATCH
+      INTEGER            I, I1, IC, INFO, ITMP, K, LENP, MAXTYP, NEWSD, NK, NN, NPARMS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH
       INTEGER*4          N_THREADS, ONE_THREAD
       REAL               EPS, S1, S2, THRESH, THRSHN
 *     ..
 *     .. Local Arrays ..
       LOGICAL            DOTYPE( MAXT ), LOGWRK( NMAX )
-      INTEGER            IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ),
-     $                   KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ),
-     $                   NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ),
-     $                   NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ),
-     $                   PVAL( MAXIN )
-      INTEGER            INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ),
-     $                   ISHFTS( MAXIN ), IACC22( MAXIN )
-      REAL               ALPHA( NMAX ), BETA( NMAX ), DR( NMAX, 12 ),
-     $                   RESULT( 500 )
-      COMPLEX            DC( NMAX, 6 ), TAUA( NMAX ), TAUB( NMAX ),
-     $                   X( 5*NMAX )
+      INTEGER            IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ), KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ), NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), PVAL( MAXIN )
+      INTEGER            INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN )       REAL               ALPHA( NMAX ), BETA( NMAX ), DR( NMAX, 12 ), RESULT( 500 )       COMPLEX            DC( NMAX, 6 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX )
 *     ..
 *     .. Allocatable Arrays ..
       INTEGER AllocateStatus
@@ -70,14 +56,7 @@
       EXTERNAL           LSAMEN, SECOND, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAREQ, CCHKBB, CCHKBD, CCHKBK, CCHKBL, CCHKEC,
-     $                   CCHKGG, CCHKGK, CCHKGL, CCHKHB, CCHKHS, CCHKST,
-     $                   CCKCSD, CCKGLM, CCKGQR, CCKGSV, CCKLSE, CDRGES,
-     $                   CDRGEV, CDRGSX, CDRGVX, CDRVBD, CDRVES, CDRVEV,
-     $                   CDRVSG, CDRVST, CDRVSX, CDRVVX, CERRBD,
-     $                   CERRED, CERRGG, CERRHS, CERRST, ILAVER, XLAENV,
-     $                   CDRGES3, CDRGEV3, 
-     $                   CCHKST2STG, CDRVST2STG, CCHKHB2STG
+      EXTERNAL           ALAREQ, CCHKBB, CCHKBD, CCHKBK, CCHKBL, CCHKEC, CCHKGG, CCHKGK, CCHKGL, CCHKHB, CCHKHS, CCHKST, CCKCSD, CCKGLM, CCKGQR, CCKGSV, CCKLSE, CDRGES, CDRGEV, CDRGSX, CDRGVX, CDRVBD, CDRVES, CDRVEV, CDRVSG, CDRVST, CDRVSX, CDRVVX, CERRBD, CERRED, CERRGG, CERRHS, CERRST, ILAVER, XLAENV, CDRGES3, CDRGEV3, CCHKST2STG, CDRVST2STG, CCHKHB2STG
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          LEN, MIN
@@ -85,8 +64,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, MAXB, NPROC, NSHIFT, NUNIT, SELDIM,
-     $                   SELOPT
+      INTEGER            INFOT, MAXB, NPROC, NSHIFT, NUNIT, SELDIM, SELOPT
 *     ..
 *     .. Arrays in Common ..
       LOGICAL            SELVAL( 20 )
@@ -138,8 +116,7 @@
       READ( NIN, FMT = '(A80)', END = 380 )LINE
       PATH = LINE( 1: 3 )
       NEP = LSAMEN( 3, PATH, 'NEP' ) .OR. LSAMEN( 3, PATH, 'CHS' )
-      SEP = LSAMEN( 3, PATH, 'SEP' ) .OR. LSAMEN( 3, PATH, 'CST' ) .OR.
-     $      LSAMEN( 3, PATH, 'CSG' ) .OR. LSAMEN( 3, PATH, 'SE2' )
+      SEP = LSAMEN( 3, PATH, 'SEP' ) .OR. LSAMEN( 3, PATH, 'CST' ) .OR. LSAMEN( 3, PATH, 'CSG' ) .OR. LSAMEN( 3, PATH, 'SE2' )
       SVD = LSAMEN( 3, PATH, 'SVD' ) .OR. LSAMEN( 3, PATH, 'CBD' )
       CEV = LSAMEN( 3, PATH, 'CEV' )
       CES = LSAMEN( 3, PATH, 'CES' )
@@ -298,8 +275,7 @@
 *
 *     Read the values of N
 *
-      IF( SVD .OR. CBB .OR. GLM .OR. GQR .OR. GSV .OR. CSD .OR.
-     $    LSE ) THEN
+      IF( SVD .OR. CBB .OR. GLM .OR. GQR .OR. GSV .OR. CSD .OR. LSE ) THEN
          READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
          DO 40 I = 1, NN
             IF( NVAL( I ).LT.0 ) THEN
@@ -343,8 +319,7 @@
 *        For the nonsymmetric QR driver routines, only one set of
 *        parameters is allowed.
 *
-         READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ),
-     $      INMIN( 1 ), INWIN( 1 ), INIBL(1), ISHFTS(1), IACC22(1)
+         READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), INMIN( 1 ), INWIN( 1 ), INIBL(1), ISHFTS(1), IACC22(1)
          IF( NBVAL( 1 ).LT.1 ) THEN
             WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( 1 ), 1
             FATAL = .TRUE.
@@ -392,8 +367,7 @@
 *        For the nonsymmetric generalized driver routines, only one set of
 *        parameters is allowed.
 *
-         READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ),
-     $      NSVAL( 1 ), MXBVAL( 1 )
+         READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), NSVAL( 1 ), MXBVAL( 1 )
          IF( NBVAL( 1 ).LT.1 ) THEN
             WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( 1 ), 1
             FATAL = .TRUE.
@@ -420,8 +394,7 @@
          WRITE( NOUT, FMT = 9983 )'NX:   ', NXVAL( 1 )
          WRITE( NOUT, FMT = 9983 )'NS:   ', NSVAL( 1 )
          WRITE( NOUT, FMT = 9983 )'MAXB: ', MXBVAL( 1 )
-      ELSE IF( .NOT.CHB .AND. .NOT.GLM .AND. .NOT.GQR .AND. .NOT.
-     $         GSV .AND. .NOT.CSD .AND. .NOT.LSE ) THEN
+      ELSE IF( .NOT.CHB .AND. .NOT.GLM .AND. .NOT.GQR .AND. .NOT. GSV .AND. .NOT.CSD .AND. .NOT.LSE ) THEN
 *
 *        For the other paths, the number of parameters can be varied
 *        from the input file.  Read the number of parameter values.
@@ -450,8 +423,7 @@
                   FATAL = .TRUE.
                END IF
    70       CONTINUE
-            WRITE( NOUT, FMT = 9983 )'NB:   ',
-     $         ( NBVAL( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'NB:   ', ( NBVAL( I ), I = 1, NPARMS )
          END IF
 *
 *        Read the values of NBMIN
@@ -467,8 +439,7 @@
                   FATAL = .TRUE.
                END IF
    80       CONTINUE
-            WRITE( NOUT, FMT = 9983 )'NBMIN:',
-     $         ( NBMIN( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'NBMIN:', ( NBMIN( I ), I = 1, NPARMS )
          ELSE
             DO 90 I = 1, NPARMS
                NBMIN( I ) = 1
@@ -488,8 +459,7 @@
                   FATAL = .TRUE.
                END IF
   100       CONTINUE
-            WRITE( NOUT, FMT = 9983 )'NX:   ',
-     $         ( NXVAL( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'NX:   ', ( NXVAL( I ), I = 1, NPARMS )
          ELSE
             DO 110 I = 1, NPARMS
                NXVAL( I ) = 1
@@ -510,8 +480,7 @@
                   FATAL = .TRUE.
                END IF
   120       CONTINUE
-            WRITE( NOUT, FMT = 9983 )'NS:   ',
-     $         ( NSVAL( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'NS:   ', ( NSVAL( I ), I = 1, NPARMS )
          ELSE
             DO 130 I = 1, NPARMS
                NSVAL( I ) = 1
@@ -531,8 +500,7 @@
                   FATAL = .TRUE.
                END IF
   140       CONTINUE
-            WRITE( NOUT, FMT = 9983 )'MAXB: ',
-     $         ( MXBVAL( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'MAXB: ', ( MXBVAL( I ), I = 1, NPARMS )
          ELSE
             DO 150 I = 1, NPARMS
                MXBVAL( I ) = 1
@@ -549,8 +517,7 @@
                   FATAL = .TRUE.
                END IF
   540       CONTINUE
-            WRITE( NOUT, FMT = 9983 )'INMIN: ',
-     $         ( INMIN( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'INMIN: ', ( INMIN( I ), I = 1, NPARMS )
          ELSE
             DO 550 I = 1, NPARMS
                INMIN( I ) = 1
@@ -567,8 +534,7 @@
                   FATAL = .TRUE.
                END IF
   560       CONTINUE
-            WRITE( NOUT, FMT = 9983 )'INWIN: ',
-     $         ( INWIN( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'INWIN: ', ( INWIN( I ), I = 1, NPARMS )
          ELSE
             DO 570 I = 1, NPARMS
                INWIN( I ) = 1
@@ -585,8 +551,7 @@
                   FATAL = .TRUE.
                END IF
   580       CONTINUE
-            WRITE( NOUT, FMT = 9983 )'INIBL: ',
-     $         ( INIBL( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'INIBL: ', ( INIBL( I ), I = 1, NPARMS )
          ELSE
             DO 590 I = 1, NPARMS
                INIBL( I ) = 1
@@ -603,8 +568,7 @@
                   FATAL = .TRUE.
                END IF
   600       CONTINUE
-            WRITE( NOUT, FMT = 9983 )'ISHFTS: ',
-     $         ( ISHFTS( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ( ISHFTS( I ), I = 1, NPARMS )
          ELSE
             DO 610 I = 1, NPARMS
                ISHFTS( I ) = 1
@@ -621,8 +585,7 @@
                   FATAL = .TRUE.
                END IF
   620       CONTINUE
-            WRITE( NOUT, FMT = 9983 )'IACC22: ',
-     $         ( IACC22( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'IACC22: ', ( IACC22( I ), I = 1, NPARMS )
          ELSE
             DO 630 I = 1, NPARMS
                IACC22( I ) = 1
@@ -642,8 +605,7 @@
                   FATAL = .TRUE.
                END IF
   160       CONTINUE
-            WRITE( NOUT, FMT = 9983 )'NBCOL:',
-     $         ( NBCOL( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'NBCOL:', ( NBCOL( I ), I = 1, NPARMS )
          ELSE
             DO 170 I = 1, NPARMS
                NBCOL( I ) = 1
@@ -686,8 +648,7 @@
 *
 *     If NEWSD = 2, read another line with 4 integers for the seed.
 *
-      IF( NEWSD.EQ.2 )
-     $   READ( NIN, FMT = * )( IOLDSD( I ), I = 1, 4 )
+      IF( NEWSD.EQ.2 ) READ( NIN, FMT = * )( IOLDSD( I ), I = 1, 4 )
 *
       DO 180 I = 1, 4
          ISEED( I ) = IOLDSD( I )
@@ -751,17 +712,13 @@
 *
 *     Skip the tests if NTYPES is <= 0.
 *
-         IF( .NOT.( CEV .OR. CES .OR. CVX .OR. CSX .OR. CGV .OR.
-     $       CGS ) .AND. NTYPES.LE.0 ) THEN
+         IF( .NOT.( CEV .OR. CES .OR. CVX .OR. CSX .OR. CGV .OR. CGS ) .AND. NTYPES.LE.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
             GO TO 200
          END IF
 *
       ELSE
-         IF( CGX )
-     $      C3 = 'CGX'
-         IF( CXV )
-     $      C3 = 'CXV'
+         IF( CGX ) C3 = 'CGX'          IF( CXV ) C3 = 'CXV'
       END IF
 *
 *     Reset the random number seed.
@@ -788,8 +745,7 @@
          NTYPES = MIN( MAXTYP, NTYPES )
          CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
          CALL XLAENV( 1, 1 )
-         IF( TSTERR )
-     $      CALL CERRHS( 'CHSEQR', NOUT )
+         IF( TSTERR ) CALL CERRHS( 'CHSEQR', NOUT )
          DO 270 I = 1, NPARMS
             CALL XLAENV( 1, NBVAL( I ) )
             CALL XLAENV( 2, NBMIN( I ) )
@@ -805,22 +761,11 @@
                   ISEED( K ) = IOLDSD( K )
   260          CONTINUE
             END IF
-            WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ),
-     $         NXVAL( I ), MAX( 11, INMIN(I)),
-     $         INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I )
-            CALL CCHKHS( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT,
-     $                   A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ),
-     $                   A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ),
-     $                   A( 1, 7 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 8 ),
-     $                   A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ),
-     $                   DC( 1, 3 ), WORK, LWORK, RWORK, IWORK, LOGWRK,
-     $                   RESULT, INFO )
-            IF( INFO.NE.0 )
-     $         WRITE( NOUT, FMT = 9980 )'CCHKHS', INFO
+            WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), MAX( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I )             CALL CCHKHS( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), A( 1, 7 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 8 ), A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), DC( 1, 3 ), WORK, LWORK, RWORK, IWORK, LOGWRK, RESULT, INFO )
+            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCHKHS', INFO
   270    CONTINUE
 *
-      ELSE IF( LSAMEN( 3, C3, 'CST' ) .OR. LSAMEN( 3, C3, 'SEP' )
-     $                                .OR. LSAMEN( 3, C3, 'SE2' ) ) THEN
+      ELSE IF( LSAMEN( 3, C3, 'CST' ) .OR. LSAMEN( 3, C3, 'SEP' ) .OR. LSAMEN( 3, C3, 'SE2' ) ) THEN
 *
 *        ----------------------------------
 *        SEP:  Symmetric Eigenvalue Problem
@@ -856,51 +801,22 @@
                   ISEED( K ) = IOLDSD( K )
   280          CONTINUE
             END IF
-            WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ),
-     $         NXVAL( I )
+            WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I )
             IF( TSTCHK ) THEN
                IF( LSAMEN( 3, C3, 'SE2' ) ) THEN
-               CALL CCHKST2STG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-     $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ),
-     $                      DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ),
-     $                      DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ),
-     $                      DR( 1, 7 ), DR( 1, 8 ), DR( 1, 9 ),
-     $                      DR( 1, 10 ), DR( 1, 11 ), A( 1, 3 ), NMAX,
-     $                      A( 1, 4 ), A( 1, 5 ), DC( 1, 1 ), A( 1, 6 ),
-     $                      WORK, LWORK, RWORK, LWORK, IWORK, LIWORK,
-     $                      RESULT, INFO )
+               CALL CCHKST2STG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), DR( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), DC( 1, 1 ), A( 1, 6 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO )
                ELSE
-               CALL CCHKST( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-     $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ),
-     $                      DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ),
-     $                      DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ),
-     $                      DR( 1, 7 ), DR( 1, 8 ), DR( 1, 9 ),
-     $                      DR( 1, 10 ), DR( 1, 11 ), A( 1, 3 ), NMAX,
-     $                      A( 1, 4 ), A( 1, 5 ), DC( 1, 1 ), A( 1, 6 ),
-     $                      WORK, LWORK, RWORK, LWORK, IWORK, LIWORK,
-     $                      RESULT, INFO )
+               CALL CCHKST( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), DR( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), DC( 1, 1 ), A( 1, 6 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO )
                ENDIF
-               IF( INFO.NE.0 )
-     $            WRITE( NOUT, FMT = 9980 )'CCHKST', INFO
+               IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCHKST', INFO
             END IF
             IF( TSTDRV ) THEN
                IF( LSAMEN( 3, C3, 'SE2' ) ) THEN
-               CALL CDRVST2STG( NN, NVAL, 18, DOTYPE, ISEED, THRESH,
-     $                    NOUT, A( 1, 1 ), NMAX, DR( 1, 3 ), DR( 1, 4 ),
-     $                    DR( 1, 5 ), DR( 1, 8 ), DR( 1, 9 ),
-     $                    DR( 1, 10 ), A( 1, 2 ), NMAX, A( 1, 3 ),
-     $                    DC( 1, 1 ), A( 1, 4 ), WORK, LWORK, RWORK,
-     $                    LWORK, IWORK, LIWORK, RESULT, INFO )
+               CALL CDRVST2STG( NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), A( 1, 2 ), NMAX, A( 1, 3 ), DC( 1, 1 ), A( 1, 4 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO )
                ELSE
-               CALL CDRVST( NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT,
-     $                    A( 1, 1 ), NMAX, DR( 1, 3 ), DR( 1, 4 ),
-     $                    DR( 1, 5 ), DR( 1, 8 ), DR( 1, 9 ),
-     $                    DR( 1, 10 ), A( 1, 2 ), NMAX, A( 1, 3 ),
-     $                    DC( 1, 1 ), A( 1, 4 ), WORK, LWORK, RWORK,
-     $                    LWORK, IWORK, LIWORK, RESULT, INFO )
+               CALL CDRVST( NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), A( 1, 2 ), NMAX, A( 1, 3 ), DC( 1, 1 ), A( 1, 4 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO )
            ENDIF
-               IF( INFO.NE.0 )
-     $            WRITE( NOUT, FMT = 9980 )'CDRVST', INFO
+               IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRVST', INFO
             END IF
   290    CONTINUE
 *
@@ -928,8 +844,7 @@
                   ISEED( K ) = IOLDSD( K )
   300          CONTINUE
             END IF
-            WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ),
-     $         NXVAL( I )
+            WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I )
             IF( TSTCHK ) THEN
 *               CALL CDRVSG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
 *     $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
@@ -937,14 +852,8 @@
 *     $                      A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK,
 *     $                      LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT,
 *     $                      INFO )
-               CALL CDRVSG2STG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-     $                          NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
-     $                          DR( 1, 3 ), DR( 1, 4 ), A( 1, 3 ), NMAX,
-     $                          A( 1, 4 ), A( 1, 5 ), A( 1, 6 ),
-     $                          A( 1, 7 ), WORK, LWORK, RWORK, LWORK,
-     $                          IWORK, LIWORK, RESULT, INFO )
-               IF( INFO.NE.0 )
-     $            WRITE( NOUT, FMT = 9980 )'CDRVSG', INFO
+               CALL CDRVSG2STG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, DR( 1, 3 ), DR( 1, 4 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO )
+               IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRVSG', INFO
             END IF
   310    CONTINUE
 *
@@ -967,10 +876,7 @@
 *        Test the error exits
 *
          CALL XLAENV( 1, 1 )
-         IF( TSTERR .AND. TSTCHK )
-     $      CALL CERRBD( 'CBD', NOUT )
-         IF( TSTERR .AND. TSTDRV )
-     $      CALL CERRED( 'CBD', NOUT )
+         IF( TSTERR .AND. TSTCHK ) CALL CERRBD( 'CBD', NOUT )          IF( TSTERR .AND. TSTDRV ) CALL CERRED( 'CBD', NOUT )
 *
          DO 330 I = 1, NPARMS
             NRHS = NSVAL( I )
@@ -982,25 +888,12 @@
                   ISEED( K ) = IOLDSD( K )
   320          CONTINUE
             END IF
-            WRITE( NOUT, FMT = 9995 )C3, NBVAL( I ), NBMIN( I ),
-     $         NXVAL( I ), NRHS
+            WRITE( NOUT, FMT = 9995 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), NRHS
             IF( TSTCHK ) THEN
-               CALL CCHKBD( NN, MVAL, NVAL, MAXTYP, DOTYPE, NRHS, ISEED,
-     $                      THRESH, A( 1, 1 ), NMAX, DR( 1, 1 ),
-     $                      DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ),
-     $                      A( 1, 2 ), NMAX, A( 1, 3 ), A( 1, 4 ),
-     $                      A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ),
-     $                      A( 1, 8 ), WORK, LWORK, RWORK, NOUT, INFO )
-               IF( INFO.NE.0 )
-     $            WRITE( NOUT, FMT = 9980 )'CCHKBD', INFO
+               CALL CCHKBD( NN, MVAL, NVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), A( 1, 2 ), NMAX, A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), A( 1, 8 ), WORK, LWORK, RWORK, NOUT, INFO )
+               IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCHKBD', INFO
             END IF
-            IF( TSTDRV )
-     $         CALL CDRVBD( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED,
-     $                      THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
-     $                      A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ),
-     $                      A( 1, 6 ), DR( 1, 1 ), DR( 1, 2 ),
-     $                      DR( 1, 3 ), WORK, LWORK, RWORK, IWORK, NOUT,
-     $                      INFO )
+            IF( TSTDRV ) CALL CDRVBD( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), WORK, LWORK, RWORK, IWORK, NOUT, INFO )
   330    CONTINUE
 *
       ELSE IF( LSAMEN( 3, C3, 'CEV' ) ) THEN
@@ -1015,16 +908,10 @@
          IF( NTYPES.LE.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
          ELSE
-            IF( TSTERR )
-     $         CALL CERRED( C3, NOUT )
+            IF( TSTERR ) CALL CERRED( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
-            CALL CDRVEV( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT,
-     $                   A( 1, 1 ), NMAX, A( 1, 2 ), DC( 1, 1 ),
-     $                   DC( 1, 2 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX,
-     $                   A( 1, 5 ), NMAX, RESULT, WORK, LWORK, RWORK,
-     $                   IWORK, INFO )
-            IF( INFO.NE.0 )
-     $         WRITE( NOUT, FMT = 9980 )'CGEEV', INFO
+            CALL CDRVEV( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, RESULT, WORK, LWORK, RWORK, IWORK, INFO )
+            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CGEEV', INFO
          END IF
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -1041,16 +928,10 @@
          IF( NTYPES.LE.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
          ELSE
-            IF( TSTERR )
-     $         CALL CERRED( C3, NOUT )
+            IF( TSTERR ) CALL CERRED( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
-            CALL CDRVES( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT,
-     $                   A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ),
-     $                   DC( 1, 1 ), DC( 1, 2 ), A( 1, 4 ), NMAX,
-     $                   RESULT, WORK, LWORK, RWORK, IWORK, LOGWRK,
-     $                   INFO )
-            IF( INFO.NE.0 )
-     $         WRITE( NOUT, FMT = 9980 )'CGEES', INFO
+            CALL CDRVES( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 4 ), NMAX, RESULT, WORK, LWORK, RWORK, IWORK, LOGWRK, INFO )
+            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CGEES', INFO
          END IF
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -1067,18 +948,10 @@
          IF( NTYPES.LT.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
          ELSE
-            IF( TSTERR )
-     $         CALL CERRED( C3, NOUT )
+            IF( TSTERR ) CALL CERRED( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
-            CALL CDRVVX( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN,
-     $                   NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DC( 1, 1 ),
-     $                   DC( 1, 2 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX,
-     $                   A( 1, 5 ), NMAX, DR( 1, 1 ), DR( 1, 2 ),
-     $                   DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ),
-     $                   DR( 1, 7 ), DR( 1, 8 ), RESULT, WORK, LWORK,
-     $                   RWORK, INFO )
-            IF( INFO.NE.0 )
-     $         WRITE( NOUT, FMT = 9980 )'CGEEVX', INFO
+            CALL CDRVVX( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), RESULT, WORK, LWORK, RWORK, INFO )
+            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CGEEVX', INFO
          END IF
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -1095,16 +968,10 @@
          IF( NTYPES.LT.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
          ELSE
-            IF( TSTERR )
-     $         CALL CERRED( C3, NOUT )
+            IF( TSTERR ) CALL CERRED( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
-            CALL CDRVSX( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN,
-     $                   NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ),
-     $                   DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), A( 1, 4 ),
-     $                   NMAX, A( 1, 5 ), RESULT, WORK, LWORK, RWORK,
-     $                   LOGWRK, INFO )
-            IF( INFO.NE.0 )
-     $         WRITE( NOUT, FMT = 9980 )'CGEESX', INFO
+            CALL CDRVSX( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), A( 1, 4 ), NMAX, A( 1, 5 ), RESULT, WORK, LWORK, RWORK, LOGWRK, INFO )
+            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CGEESX', INFO
          END IF
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -1126,8 +993,7 @@
          NTYPES = MIN( MAXTYP, NTYPES )
          CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
          CALL XLAENV(1,1)
-         IF( TSTCHK .AND. TSTERR )
-     $      CALL CERRGG( C3, NOUT )
+         IF( TSTCHK .AND. TSTERR ) CALL CERRGG( C3, NOUT )
          DO 350 I = 1, NPARMS
             CALL XLAENV( 1, NBVAL( I ) )
             CALL XLAENV( 2, NBMIN( I ) )
@@ -1141,21 +1007,12 @@
                   ISEED( K ) = IOLDSD( K )
   340          CONTINUE
             END IF
-            WRITE( NOUT, FMT = 9996 )C3, NBVAL( I ), NBMIN( I ),
-     $         NSVAL( I ), MXBVAL( I ), IACC22( I ), NBCOL( I )
+            WRITE( NOUT, FMT = 9996 )C3, NBVAL( I ), NBMIN( I ), NSVAL( I ), MXBVAL( I ), IACC22( I ), NBCOL( I )
             TSTDIF = .FALSE.
             THRSHN = 10.
             IF( TSTCHK ) THEN
-               CALL CCHKGG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-     $                      TSTDIF, THRSHN, NOUT, A( 1, 1 ), NMAX,
-     $                      A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ),
-     $                      A( 1, 6 ), A( 1, 7 ), A( 1, 8 ), A( 1, 9 ),
-     $                      NMAX, A( 1, 10 ), A( 1, 11 ), A( 1, 12 ),
-     $                      DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ),
-     $                      DC( 1, 4 ), A( 1, 13 ), A( 1, 14 ), WORK,
-     $                      LWORK, RWORK, LOGWRK, RESULT, INFO )
-               IF( INFO.NE.0 )
-     $            WRITE( NOUT, FMT = 9980 )'CCHKGG', INFO
+               CALL CCHKGG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, TSTDIF, THRSHN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), A( 1, 8 ), A( 1, 9 ), NMAX, A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), DC( 1, 4 ), A( 1, 13 ), A( 1, 14 ), WORK, LWORK, RWORK, LOGWRK, RESULT, INFO )
+               IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCHKGG', INFO
             END IF
   350    CONTINUE
 *
@@ -1171,29 +1028,18 @@
          IF( NTYPES.LE.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
          ELSE
-            IF( TSTERR )
-     $         CALL CERRGG( C3, NOUT )
+            IF( TSTERR ) CALL CERRGG( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
-            CALL CDRGES( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT,
-     $                   A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ),
-     $                   A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ),
-     $                   DC( 1, 1 ), DC( 1, 2 ), WORK, LWORK, RWORK,
-     $                   RESULT, LOGWRK, INFO )
+            CALL CDRGES( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), DC( 1, 1 ), DC( 1, 2 ), WORK, LWORK, RWORK, RESULT, LOGWRK, INFO )
 *
-            IF( INFO.NE.0 )
-     $         WRITE( NOUT, FMT = 9980 )'CDRGES', INFO
+            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRGES', INFO
 *
 * Blocked version
 *
             CALL XLAENV(16,2)
-            CALL CDRGES3( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT,
-     $                    A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ),
-     $                    A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ),
-     $                    DC( 1, 1 ), DC( 1, 2 ), WORK, LWORK, RWORK,
-     $                    RESULT, LOGWRK, INFO )
+            CALL CDRGES3( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), DC( 1, 1 ), DC( 1, 2 ), WORK, LWORK, RWORK, RESULT, LOGWRK, INFO )
 *
-            IF( INFO.NE.0 )
-     $         WRITE( NOUT, FMT = 9980 )'CDRGES3', INFO
+            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRGES3', INFO
          END IF
          WRITE( NOUT, FMT = 9973 )
 
@@ -1211,17 +1057,11 @@
          IF( NN.LT.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
          ELSE
-            IF( TSTERR )
-     $         CALL CERRGG( C3, NOUT )
+            IF( TSTERR ) CALL CERRGG( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL XLAENV( 5, 2 )
-            CALL CDRGSX( NN, NCMAX, THRESH, NIN, NOUT, A( 1, 1 ), NMAX,
-     $                   A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ),
-     $                   A( 1, 6 ), DC( 1, 1 ), DC( 1, 2 ), C,
-     $                   NCMAX*NCMAX, S, WORK, LWORK, RWORK, IWORK,
-     $                   LIWORK, LOGWRK, INFO )
-            IF( INFO.NE.0 )
-     $         WRITE( NOUT, FMT = 9980 )'CDRGSX', INFO
+            CALL CDRGSX( NN, NCMAX, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DC( 1, 1 ), DC( 1, 2 ), C, NCMAX*NCMAX, S, WORK, LWORK, RWORK, IWORK, LIWORK, LOGWRK, INFO )
+            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRGSX', INFO
          END IF
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -1238,29 +1078,16 @@
          IF( NTYPES.LE.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
          ELSE
-            IF( TSTERR )
-     $         CALL CERRGG( C3, NOUT )
+            IF( TSTERR ) CALL CERRGG( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
-            CALL CDRGEV( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT,
-     $                   A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ),
-     $                   A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ),
-     $                   A( 1, 9 ), NMAX, DC( 1, 1 ), DC( 1, 2 ),
-     $                   DC( 1, 3 ), DC( 1, 4 ), WORK, LWORK, RWORK,
-     $                   RESULT, INFO )
-            IF( INFO.NE.0 )
-     $         WRITE( NOUT, FMT = 9980 )'CDRGEV', INFO
+            CALL CDRGEV( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), A( 1, 9 ), NMAX, DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), DC( 1, 4 ), WORK, LWORK, RWORK, RESULT, INFO )
+            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRGEV', INFO
 *
 * Blocked version
 *
             CALL XLAENV(16,2)
-            CALL CDRGEV3( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT,
-     $                    A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ),
-     $                    A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ),
-     $                    A( 1, 9 ), NMAX, DC( 1, 1 ), DC( 1, 2 ),
-     $                    DC( 1, 3 ), DC( 1, 4 ), WORK, LWORK, RWORK,
-     $                    RESULT, INFO )
-            IF( INFO.NE.0 )
-     $           WRITE( NOUT, FMT = 9980 )'CDRGEV3', INFO
+            CALL CDRGEV3( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), A( 1, 9 ), NMAX, DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), DC( 1, 4 ), WORK, LWORK, RWORK, RESULT, INFO )
+            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRGEV3', INFO
          END IF
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -1277,19 +1104,11 @@
          IF( NN.LT.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
          ELSE
-            IF( TSTERR )
-     $         CALL CERRGG( C3, NOUT )
+            IF( TSTERR ) CALL CERRGG( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
-            CALL CDRGVX( NN, THRESH, NIN, NOUT, A( 1, 1 ), NMAX,
-     $                   A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), DC( 1, 1 ),
-     $                   DC( 1, 2 ), A( 1, 5 ), A( 1, 6 ), IWORK( 1 ),
-     $                   IWORK( 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ),
-     $                   DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), WORK,
-     $                   LWORK, RWORK, IWORK( 3 ), LIWORK-2, RESULT,
-     $                   LOGWRK, INFO )
+            CALL CDRGVX( NN, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 5 ), A( 1, 6 ), IWORK( 1 ), IWORK( 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), WORK, LWORK, RWORK, IWORK( 3 ), LIWORK-2, RESULT, LOGWRK, INFO )
 *
-            IF( INFO.NE.0 )
-     $         WRITE( NOUT, FMT = 9980 )'CDRGVX', INFO
+            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRGVX', INFO
          END IF
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -1318,13 +1137,8 @@
 *     $                NOUT, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ),
 *     $                A( 1, 2 ), NMAX, WORK, LWORK, RWORK, RESULT,
 *     $                INFO )
-         CALL CCHKHB2STG( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED,
-     $                 THRESH, NOUT, A( 1, 1 ), NMAX, DR( 1, 1 ), 
-     $                 DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ),
-     $                 A( 1, 2 ), NMAX, WORK, LWORK, RWORK, RESULT, 
-     $                 INFO )
-         IF( INFO.NE.0 )
-     $      WRITE( NOUT, FMT = 9980 )'CCHKHB', INFO
+         CALL CCHKHB2STG( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), A( 1, 2 ), NMAX, WORK, LWORK, RWORK, RESULT, INFO )
+         IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCHKHB', INFO
 *
       ELSE IF( LSAMEN( 3, C3, 'CBB' ) ) THEN
 *
@@ -1344,14 +1158,8 @@
   360          CONTINUE
             END IF
             WRITE( NOUT, FMT = 9966 )C3, NRHS
-            CALL CCHKBB( NN, MVAL, NVAL, NK, KVAL, MAXTYP, DOTYPE, NRHS,
-     $                   ISEED, THRESH, NOUT, A( 1, 1 ), NMAX,
-     $                   A( 1, 2 ), 2*NMAX, DR( 1, 1 ), DR( 1, 2 ),
-     $                   A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, A( 1, 6 ),
-     $                   NMAX, A( 1, 7 ), WORK, LWORK, RWORK, RESULT,
-     $                   INFO )
-            IF( INFO.NE.0 )
-     $         WRITE( NOUT, FMT = 9980 )'CCHKBB', INFO
+            CALL CCHKBB( NN, MVAL, NVAL, NK, KVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), 2*NMAX, DR( 1, 1 ), DR( 1, 2 ), A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), WORK, LWORK, RWORK, RESULT, INFO )
+            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCHKBB', INFO
   370    CONTINUE
 *
       ELSE IF( LSAMEN( 3, C3, 'GLM' ) ) THEN
@@ -1361,13 +1169,8 @@
 *        -----------------------------------------
 *
          CALL XLAENV( 1, 1 )
-         IF( TSTERR )
-     $      CALL CERRGG( 'GLM', NOUT )
-         CALL CCKGLM( NN, NVAL, MVAL, PVAL, NTYPES, ISEED, THRESH, NMAX,
-     $                A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X,
-     $                WORK, DR( 1, 1 ), NIN, NOUT, INFO )
-         IF( INFO.NE.0 )
-     $      WRITE( NOUT, FMT = 9980 )'CCKGLM', INFO
+         IF( TSTERR ) CALL CERRGG( 'GLM', NOUT )          CALL CCKGLM( NN, NVAL, MVAL, PVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO )
+         IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCKGLM', INFO
 *
       ELSE IF( LSAMEN( 3, C3, 'GQR' ) ) THEN
 *
@@ -1376,15 +1179,8 @@
 *        ------------------------------------------
 *
          CALL XLAENV( 1, 1 )
-         IF( TSTERR )
-     $      CALL CERRGG( 'GQR', NOUT )
-         CALL CCKGQR( NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED,
-     $                THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ),
-     $                B( 1, 4 ), B( 1, 5 ), TAUB, WORK, DR( 1, 1 ), NIN,
-     $                NOUT, INFO )
-         IF( INFO.NE.0 )
-     $      WRITE( NOUT, FMT = 9980 )'CCKGQR', INFO
+         IF( TSTERR ) CALL CERRGG( 'GQR', NOUT )          CALL CCKGQR( NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, DR( 1, 1 ), NIN, NOUT, INFO )
+         IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCKGQR', INFO
 *
       ELSE IF( LSAMEN( 3, C3, 'GSV' ) ) THEN
 *
@@ -1393,15 +1189,8 @@
 *        ----------------------------------------------
 *
          CALL XLAENV(1,1)
-         IF( TSTERR )
-     $      CALL CERRGG( 'GSV', NOUT )
-         CALL CCKGSV( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX,
-     $                A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ),
-     $                A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), ALPHA, BETA,
-     $                B( 1, 4 ), IWORK, WORK, DR( 1, 1 ), NIN, NOUT,
-     $                INFO )
-         IF( INFO.NE.0 )
-     $      WRITE( NOUT, FMT = 9980 )'CCKGSV', INFO
+         IF( TSTERR ) CALL CERRGG( 'GSV', NOUT )          CALL CCKGSV( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), ALPHA, BETA, B( 1, 4 ), IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO )
+         IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCKGSV', INFO
 *
       ELSE IF( LSAMEN( 3, C3, 'CSD' ) ) THEN
 *
@@ -1410,14 +1199,8 @@
 *        ----------------------------------------------
 *
          CALL XLAENV(1,1)
-         IF( TSTERR )
-     $      CALL CERRGG( 'CSD', NOUT )
-         CALL CCKCSD( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX,
-     $                A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ),
-     $                A( 1, 5 ), A( 1, 6 ), RWORK, IWORK, WORK,
-     $                DR( 1, 1 ), NIN, NOUT, INFO )
-         IF( INFO.NE.0 )
-     $      WRITE( NOUT, FMT = 9980 )'CCKCSD', INFO
+         IF( TSTERR ) CALL CERRGG( 'CSD', NOUT )          CALL CCKCSD( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), RWORK, IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO )
+         IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCKCSD', INFO
 *
       ELSE IF( LSAMEN( 3, C3, 'LSE' ) ) THEN
 *
@@ -1426,24 +1209,18 @@
 *        --------------------------------------
 *
          CALL XLAENV( 1, 1 )
-         IF( TSTERR )
-     $      CALL CERRGG( 'LSE', NOUT )
-         CALL CCKLSE( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX,
-     $                A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X,
-     $                WORK, DR( 1, 1 ), NIN, NOUT, INFO )
-         IF( INFO.NE.0 )
-     $      WRITE( NOUT, FMT = 9980 )'CCKLSE', INFO
+         IF( TSTERR ) CALL CERRGG( 'LSE', NOUT )          CALL CCKLSE( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO )
+         IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCKLSE', INFO
       ELSE
          WRITE( NOUT, FMT = * )
          WRITE( NOUT, FMT = * )
          WRITE( NOUT, FMT = 9992 )C3
       END IF
-      IF( .NOT.( CGX .OR. CXV ) )
-     $   GO TO 190
+      IF( .NOT.( CGX .OR. CXV ) ) GO TO 190
   380 CONTINUE
       WRITE( NOUT, FMT = 9994 )
       S2 = SECOND( )
-      WRITE( NOUT, FMT = 9993 )S2 - S1    
+      WRITE( NOUT, FMT = 9993 )S2 - S1
 *
       DEALLOCATE (S, STAT = AllocateStatus)
       DEALLOCATE (A, STAT = AllocateStatus)

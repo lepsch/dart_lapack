@@ -1,5 +1,4 @@
-      INTEGER FUNCTION IPARAM2STAGE( ISPEC, NAME, OPTS,
-     $                              NI, NBI, IBI, NXI )
+      INTEGER FUNCTION IPARAM2STAGE( ISPEC, NAME, OPTS, NI, NBI, IBI, NXI )
 #if defined(_OPENMP)
       use omp_lib
 #endif
@@ -16,8 +15,7 @@
 *  ================================================================
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IC, IZ, KD, IB, LHOUS, LWORK, NTHREADS,
-     $                   FACTOPTNB, QROPTNB, LQOPTNB
+      INTEGER            I, IC, IZ, KD, IB, LHOUS, LWORK, NTHREADS, FACTOPTNB, QROPTNB, LQOPTNB
       LOGICAL            RPREC, CPREC
       CHARACTER          PREC*1, ALGO*3, STAG*5, SUBNAM*12, VECT*1
 *     ..
@@ -64,8 +62,7 @@
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                DO 100 I = 2, 12
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( IC.GE.97 .AND. IC.LE.122 )
-     $               SUBNAM( I: I ) = CHAR( IC-32 )
+                  IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
   100          CONTINUE
             END IF
 *
@@ -73,16 +70,11 @@
 *
 *           EBCDIC character set
 *
-            IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR.
-     $          ( IC.GE.145 .AND. IC.LE.153 ) .OR.
-     $          ( IC.GE.162 .AND. IC.LE.169 ) ) THEN
+            IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) THEN
                SUBNAM( 1: 1 ) = CHAR( IC+64 )
                DO 110 I = 2, 12
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR.
-     $                ( IC.GE.145 .AND. IC.LE.153 ) .OR.
-     $                ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I:
-     $                I ) = CHAR( IC+64 )
+                  IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
   110          CONTINUE
             END IF
 *
@@ -94,8 +86,7 @@
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                DO 120 I = 2, 12
                  IC = ICHAR( SUBNAM( I: I ) )
-                 IF( IC.GE.225 .AND. IC.LE.250 )
-     $             SUBNAM( I: I ) = CHAR( IC-32 )
+                 IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
   120          CONTINUE
             END IF
          END IF
@@ -196,9 +187,7 @@
          FACTOPTNB    = MAX(QROPTNB, LQOPTNB)
          IF( ALGO.EQ.'TRD' ) THEN
             IF( STAG.EQ.'2STAG' ) THEN
-               LWORK = NI*NBI + NI*MAX(NBI+1,FACTOPTNB)
-     $              + MAX(2*NBI*NBI, NBI*NTHREADS)
-     $              + (NBI+1)*NI
+               LWORK = NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI
             ELSE IF( (STAG.EQ.'HE2HB').OR.(STAG.EQ.'SY2SB') ) THEN
                LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI
             ELSE IF( (STAG.EQ.'HB2ST').OR.(STAG.EQ.'SB2ST') ) THEN
@@ -206,9 +195,7 @@
             ENDIF
          ELSE IF( ALGO.EQ.'BRD' ) THEN
             IF( STAG.EQ.'2STAG' ) THEN
-               LWORK = 2*NI*NBI + NI*MAX(NBI+1,FACTOPTNB)
-     $              + MAX(2*NBI*NBI, NBI*NTHREADS)
-     $              + (NBI+1)*NI
+               LWORK = 2*NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI
             ELSE IF( STAG.EQ.'GE2GB' ) THEN
                LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI
             ELSE IF( STAG.EQ.'GB2BD' ) THEN
