@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CSSCAL, CSYCONV, CSWAP, CTRSM, XERBLA
+      // EXTERNAL CSSCAL, CSYCONV, CSWAP, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG, MAX, REAL

@@ -26,10 +26,10 @@
       bool               LSAME;
       int                IDAMAX;
       double             DASUM, DLAMCH, DLANGE;
-      EXTERNAL           LSAME, IDAMAX, DASUM, DLAMCH, DLANGE
+      // EXTERNAL LSAME, IDAMAX, DASUM, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM
+      // EXTERNAL DGEMM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN

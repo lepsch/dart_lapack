@@ -27,14 +27,14 @@
       COMPLEX            CT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CHER2, CLACGV, CSSCAL, CTRMV, CTRSV, XERBLA
+      // EXTERNAL CAXPY, CHER2, CLACGV, CSSCAL, CTRMV, CTRSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Executable Statements ..
 *

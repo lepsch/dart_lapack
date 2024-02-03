@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGERC, CGERU, CLACGV, CLAR2V, CLARGV, CLARTG, CLARTV, CLASET, CROT, CSSCAL, XERBLA
+      // EXTERNAL CGERC, CGERU, CLACGV, CLAR2V, CLARGV, CLARTG, CLARTV, CLASET, CROT, CSSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG, MAX, MIN, REAL

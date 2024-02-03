@@ -25,13 +25,13 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLANGT, DLANHS;
-      EXTERNAL           DLAMCH, DLANGT, DLANHS
+      // EXTERNAL DLAMCH, DLANGT, DLANHS
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DSWAP
+      // EXTERNAL DAXPY, DSWAP
 *     ..
 *     .. Executable Statements ..
 *

@@ -25,14 +25,14 @@
       COMPLEX*16         TAU, WA, WB
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEMV, ZGERC, ZLACGV, ZLARNV, ZSCAL
+      // EXTERNAL XERBLA, ZGEMV, ZGERC, ZLACGV, ZLARNV, ZSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN
 *     ..
 *     .. External Functions ..
       double             DZNRM2;
-      EXTERNAL           DZNRM2
+      // EXTERNAL DZNRM2
 *     ..
 *     .. Executable Statements ..
 *

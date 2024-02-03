@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. External Subroutines ..
-      EXTERNAL           CGBTRF, CGBTRS, XERBLA
+      // EXTERNAL CGBTRF, CGBTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

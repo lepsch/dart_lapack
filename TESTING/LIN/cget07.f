@@ -30,7 +30,7 @@
       bool               LSAME;
       int                ICAMAX;
       REAL               SLAMCH
-      EXTERNAL           LSAME, ICAMAX, SLAMCH
+      // EXTERNAL LSAME, ICAMAX, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL

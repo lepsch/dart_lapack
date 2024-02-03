@@ -18,11 +18,11 @@
       double                  R, S, THRESH, W, Z;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARTGP
+      // EXTERNAL DLARTGP
 *     ..
 *     .. External Functions ..
       double                  DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     .. Executable Statements ..
 *
       THRESH = DLAMCH('E')

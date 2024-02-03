@@ -30,10 +30,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGBEQU, SGEEQU, SPBEQU, SPOEQU, SPPEQU
+      // EXTERNAL SGBEQU, SGEEQU, SPBEQU, SPOEQU, SPPEQU
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

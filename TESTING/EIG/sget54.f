@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANGE
-      EXTERNAL           SLAMCH, SLANGE
+      // EXTERNAL SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SLACPY
+      // EXTERNAL SGEMM, SLACPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL

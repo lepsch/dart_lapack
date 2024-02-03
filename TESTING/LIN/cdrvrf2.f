@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       COMPLEX            CLARND
-      EXTERNAL           CLARND
+      // EXTERNAL CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CTFTTR, CTFTTP, CTRTTF, CTRTTP, CTPTTR, CTPTTF
+      // EXTERNAL CTFTTR, CTFTTP, CTRTTF, CTRTTP, CTPTTR, CTPTTF
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

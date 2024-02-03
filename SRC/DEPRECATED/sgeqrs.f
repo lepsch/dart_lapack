@@ -18,7 +18,7 @@
       PARAMETER          ( ONE = 1.0E+0 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SORMQR, STRSM, XERBLA
+      // EXTERNAL SORMQR, STRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

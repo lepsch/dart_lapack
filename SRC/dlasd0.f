@@ -19,7 +19,7 @@
       double             ALPHA, BETA;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASD1, DLASDQ, DLASDT, XERBLA
+      // EXTERNAL DLASD1, DLASDQ, DLASDT, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

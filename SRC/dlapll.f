@@ -23,10 +23,10 @@
 *     ..
 *     .. External Functions ..
       double             DDOT;
-      EXTERNAL           DDOT
+      // EXTERNAL DDOT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DLARFG, DLAS2
+      // EXTERNAL DAXPY, DLARFG, DLAS2
 *     ..
 *     .. Executable Statements ..
 *

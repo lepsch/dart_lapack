@@ -34,7 +34,7 @@
       COMPLEX            TMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHB2ST_KERNELS, CLACPY, CLASET, XERBLA
+      // EXTERNAL CHB2ST_KERNELS, CLACPY, CLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN, MAX, CEILING, REAL
@@ -43,7 +43,7 @@
       bool               LSAME;
       int                ILAENV2STAGE;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV2STAGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..
 *     .. Executable Statements ..
 *

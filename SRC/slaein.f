@@ -27,10 +27,10 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SASUM, SLAPY2, SNRM2
-      EXTERNAL           ISAMAX, SASUM, SLAPY2, SNRM2
+      // EXTERNAL ISAMAX, SASUM, SLAPY2, SNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLADIV, SLATRS, SSCAL
+      // EXTERNAL SLADIV, SLATRS, SSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, REAL, SQRT

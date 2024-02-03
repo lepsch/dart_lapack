@@ -24,7 +24,7 @@
       // INTRINSIC MIN, LEN
 *     ..
 *     .. External Functions ..
-      EXTERNAL XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. Executable Statements ..
       SRNAME = ' '

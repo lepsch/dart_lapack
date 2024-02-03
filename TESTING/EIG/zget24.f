@@ -37,10 +37,10 @@
 *     .. External Functions ..
       bool               ZSLECT;
       double             DLAMCH, ZLANGE;
-      EXTERNAL           ZSLECT, DLAMCH, ZLANGE
+      // EXTERNAL ZSLECT, DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZCOPY, ZGEESX, ZGEMM, ZLACPY, ZUNT01
+      // EXTERNAL XERBLA, ZCOPY, ZGEESX, ZGEMM, ZLACPY, ZUNT01
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN

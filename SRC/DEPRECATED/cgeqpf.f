@@ -25,7 +25,7 @@
       COMPLEX            AII
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEQR2, CLARF, CLARFG, CSWAP, CUNM2R, XERBLA
+      // EXTERNAL CGEQR2, CLARF, CLARFG, CSWAP, CUNM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, CONJG, MAX, MIN, SQRT
@@ -33,7 +33,7 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SCNRM2, SLAMCH
-      EXTERNAL           ISAMAX, SCNRM2, SLAMCH
+      // EXTERNAL ISAMAX, SCNRM2, SLAMCH
 *     ..
 *     .. Executable Statements ..
 *

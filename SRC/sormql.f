@@ -26,10 +26,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARFB, SLARFT, SORM2L, XERBLA
+      // EXTERNAL SLARFB, SLARFT, SORM2L, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

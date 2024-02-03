@@ -24,11 +24,11 @@
       double             DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEMV, DLACPY, DLASCL, DROT, DSCAL, XERBLA
+      // EXTERNAL DCOPY, DGEMV, DLACPY, DLASCL, DROT, DSCAL, XERBLA
 *     ..
 *     .. External Functions ..
       double             DLAMC3, DNRM2;
-      EXTERNAL           DLAMC3, DNRM2
+      // EXTERNAL DLAMC3, DNRM2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

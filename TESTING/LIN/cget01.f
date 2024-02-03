@@ -30,10 +30,10 @@
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
       COMPLEX            CDOTU
-      EXTERNAL           CLANGE, SLAMCH, CDOTU
+      // EXTERNAL CLANGE, SLAMCH, CDOTU
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMV, CLASWP, CSCAL, CTRMV
+      // EXTERNAL CGEMV, CLASWP, CSCAL, CTRMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN, REAL

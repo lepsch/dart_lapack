@@ -24,13 +24,13 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLAPY2, DNRM2;
-      EXTERNAL           DLAMCH, DLAPY2, DNRM2
+      // EXTERNAL DLAMCH, DLAPY2, DNRM2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL
+      // EXTERNAL DSCAL
 *     ..
 *     .. Executable Statements ..
 *

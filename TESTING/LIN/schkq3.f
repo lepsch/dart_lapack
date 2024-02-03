@@ -34,10 +34,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SQPT01, SQRT11, SQRT12
-      EXTERNAL           SLAMCH, SQPT01, SQRT11, SQRT12
+      // EXTERNAL SLAMCH, SQPT01, SQRT11, SQRT12
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHD, ALASUM, ICOPY, SGEQP3, SLACPY, SLAORD, SLASET, SLATMS, XLAENV
+      // EXTERNAL ALAHD, ALASUM, ICOPY, SGEQP3, SLACPY, SLAORD, SLASET, SLATMS, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

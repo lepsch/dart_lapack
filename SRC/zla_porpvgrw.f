@@ -22,7 +22,7 @@
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
       bool               LSAME;
 *     ..
 *     .. Intrinsic Functions ..

@@ -25,12 +25,12 @@
       COMPLEX            TEMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLASWP, CSCAL
+      // EXTERNAL CLASWP, CSCAL
 *     ..
 *     .. External Functions ..
       int                ICAMAX;
       REAL               SLAMCH
-      EXTERNAL           ICAMAX, SLAMCH
+      // EXTERNAL ICAMAX, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, REAL

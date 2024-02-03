@@ -30,10 +30,10 @@
       bool               LSAME;
       REAL               SCNRM2
       COMPLEX            CLARND
-      EXTERNAL           LSAME, SCNRM2, CLARND
+      // EXTERNAL LSAME, SCNRM2, CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMV, CGERC, CLACGV, CLASET, CSCAL, XERBLA
+      // EXTERNAL CGEMV, CGERC, CLACGV, CLASET, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, CONJG

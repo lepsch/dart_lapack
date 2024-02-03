@@ -17,7 +17,7 @@
       COMPLEX*16 :: S, TEMP
 *
 *     External Functions
-      EXTERNAL :: ZLARTG, ZROT
+      // EXTERNAL :: ZLARTG, ZROT
 *
       IF( K+1 .EQ. IHI ) THEN
 *

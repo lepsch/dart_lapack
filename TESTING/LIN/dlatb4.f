@@ -30,7 +30,7 @@
 *     .. External Functions ..
       bool               LSAMEN;
       double             DLAMCH;
-      EXTERNAL           LSAMEN, DLAMCH
+      // EXTERNAL LSAMEN, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

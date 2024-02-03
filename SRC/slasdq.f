@@ -24,11 +24,11 @@
       REAL               CS, R, SMIN, SN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SBDSQR, SLARTG, SLASR, SSWAP, XERBLA
+      // EXTERNAL SBDSQR, SLARTG, SLASR, SSWAP, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

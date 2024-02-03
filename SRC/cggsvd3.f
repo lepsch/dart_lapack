@@ -24,10 +24,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, SLAMCH
-      EXTERNAL           LSAME, CLANGE, SLAMCH
+      // EXTERNAL LSAME, CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGGSVP3, CTGSJA, SCOPY, XERBLA
+      // EXTERNAL CGGSVP3, CTGSJA, SCOPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

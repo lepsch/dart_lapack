@@ -41,10 +41,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLANTB, DLANTR;
-      EXTERNAL           LSAME, DLANTB, DLANTR
+      // EXTERNAL LSAME, DLANTB, DLANTR
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DCOPY, DERRTR, DGET04, DLACPY, DLARHS, DLASET, DLATBS, DLATTB, DTBCON, DTBRFS, DTBSV, DTBT02, DTBT03, DTBT05, DTBT06, DTBTRS
+      // EXTERNAL ALAERH, ALAHD, ALASUM, DCOPY, DERRTR, DGET04, DLACPY, DLARHS, DLASET, DLATBS, DLATTB, DTBCON, DTBRFS, DTBSV, DTBT02, DTBT03, DTBT05, DTBT06, DTBTRS
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

@@ -29,13 +29,13 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, CLANHP, SLAMCH
-      EXTERNAL           LSAME, CLANGE, CLANHP, SLAMCH
+      // EXTERNAL LSAME, CLANGE, CLANHP, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG, REAL
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CHPMV
+      // EXTERNAL CCOPY, CHPMV
 *     ..
 *     .. Executable Statements ..
 *

@@ -31,10 +31,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLAR1V, CLASET, CSSCAL, SCOPY, SLARRB, SLARRF
+      // EXTERNAL CLAR1V, CLASET, CSSCAL, SCOPY, SLARRB, SLARRF
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, MAX, MIN

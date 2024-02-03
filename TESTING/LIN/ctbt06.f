@@ -25,7 +25,7 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANTB, SLAMCH
-      EXTERNAL           CLANTB, SLAMCH
+      // EXTERNAL CLANTB, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

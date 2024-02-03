@@ -22,7 +22,7 @@
       double             ALPHA;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL  DLARFG, DGEMV, DGER, DTRMV, XERBLA
+      // EXTERNAL DLARFG, DGEMV, DGER, DTRMV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

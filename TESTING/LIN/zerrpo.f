@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAMEN;
-      EXTERNAL           LSAMEN
+      // EXTERNAL LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, ZPBCON, ZPBEQU, ZPBRFS, ZPBTF2, ZPBTRF, ZPBTRS, ZPOCON, ZPOEQU, ZPORFS, ZPOTF2, ZPOTRF, ZPOTRI, ZPOTRS, ZPPCON, ZPPEQU, ZPPRFS, ZPPTRF, ZPPTRI, ZPPTRS
+      // EXTERNAL ALAESM, CHKXER, ZPBCON, ZPBEQU, ZPBRFS, ZPBTF2, ZPBTRF, ZPBTRS, ZPOCON, ZPOEQU, ZPORFS, ZPOTF2, ZPOTRF, ZPOTRI, ZPOTRS, ZPPCON, ZPPEQU, ZPPRFS, ZPPTRF, ZPPTRI, ZPPTRS
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

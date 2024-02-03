@@ -18,14 +18,14 @@
       int                I, IB, IINFO, IWS, K, KI, KK, LDWORK, LWKOPT, MU, NB, NBMIN, NU, NX;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEQL2, DLARFB, DLARFT, XERBLA
+      // EXTERNAL DGEQL2, DLARFB, DLARFT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Executable Statements ..
 *

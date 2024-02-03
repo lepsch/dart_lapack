@@ -27,7 +27,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
 *
@@ -37,7 +37,7 @@
       COMPLEX            VT( 3 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CLACPY, CLAQR1, CLARFG, CLASET, CTRMM
+      // EXTERNAL CGEMM, CLACPY, CLAQR1, CLARFG, CLASET, CTRMM
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

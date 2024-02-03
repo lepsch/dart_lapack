@@ -23,11 +23,11 @@
       REAL               BIGNUM, EPS, SMIN, SMLNUM, XMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGERU, CSWAP
+      // EXTERNAL CGERU, CSWAP
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, MAX

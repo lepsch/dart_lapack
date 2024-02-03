@@ -23,11 +23,11 @@
       double             RTRSEN( 3 ), RTRSNA( 3 ), RTRSYL( 2 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZERREC, ZGET35, ZGET36, ZGET37, ZGET38, ZSYL01
+      // EXTERNAL ZERREC, ZGET35, ZGET36, ZGET37, ZGET38, ZSYL01
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. Executable Statements ..
 *

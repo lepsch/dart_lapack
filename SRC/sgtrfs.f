@@ -35,7 +35,7 @@
       int                ISAVE( 3 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, SGTTRS, SLACN2, SLAGTM, XERBLA
+      // EXTERNAL SAXPY, SCOPY, SGTTRS, SLACN2, SLAGTM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
@@ -43,7 +43,7 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH
-      EXTERNAL           LSAME, SLAMCH
+      // EXTERNAL LSAME, SLAMCH
 *     ..
 *     .. Executable Statements ..
 *

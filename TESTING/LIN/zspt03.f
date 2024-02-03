@@ -29,7 +29,7 @@
       bool               LSAME;
       double             DLAMCH, ZLANGE, ZLANSP;
       COMPLEX*16         ZDOTU
-      EXTERNAL           LSAME, DLAMCH, ZLANGE, ZLANSP, ZDOTU
+      // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANSP, ZDOTU
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE

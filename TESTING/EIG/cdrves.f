@@ -51,10 +51,10 @@
 *     .. External Functions ..
       bool               CSLECT;
       REAL               SLAMCH
-      EXTERNAL           CSLECT, SLAMCH
+      // EXTERNAL CSLECT, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEES, CHST01, CLACPY, CLATME, CLATMR, CLATMS, CLASET, SLASUM, XERBLA
+      // EXTERNAL CGEES, CHST01, CLACPY, CLATME, CLATMR, CLATMS, CLASET, SLASUM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, MAX, MIN, SQRT

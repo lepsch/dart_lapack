@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANTR, SLAMCH
-      EXTERNAL           LSAME, CLANTR, SLAMCH
+      // EXTERNAL LSAME, CLANTR, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CTRMV
+      // EXTERNAL CTRMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC REAL

@@ -32,7 +32,7 @@
       // INTRINSIC CABS, CMPLX, CONJG, REAL, SQRT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGESVD, CLACPY, CLAKF2
+      // EXTERNAL CGESVD, CLACPY, CLAKF2
 *     ..
 *     .. Executable Statements ..
 *

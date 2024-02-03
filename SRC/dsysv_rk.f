@@ -21,10 +21,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, DSYTRF_RK, DSYTRS_3
+      // EXTERNAL XERBLA, DSYTRF_RK, DSYTRS_3
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

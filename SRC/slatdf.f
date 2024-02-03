@@ -30,11 +30,11 @@
       REAL               WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, SGECON, SGESC2, SLASSQ, SLASWP, SSCAL
+      // EXTERNAL SAXPY, SCOPY, SGECON, SGESC2, SLASSQ, SLASWP, SSCAL
 *     ..
 *     .. External Functions ..
       REAL               SASUM, SDOT
-      EXTERNAL           SASUM, SDOT
+      // EXTERNAL SASUM, SDOT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT

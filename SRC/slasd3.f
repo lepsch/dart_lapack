@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SNRM2
-      EXTERNAL           SNRM2
+      // EXTERNAL SNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMM, SLACPY, SLASCL, SLASD4, XERBLA
+      // EXTERNAL SCOPY, SGEMM, SLACPY, SLASCL, SLASD4, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN, SQRT

@@ -28,7 +28,7 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

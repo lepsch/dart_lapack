@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SASUM, SLAMCH, SLANSB
-      EXTERNAL           SASUM, SLAMCH, SLANSB
+      // EXTERNAL SASUM, SLAMCH, SLANSB
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSBMV
+      // EXTERNAL SSBMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

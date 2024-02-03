@@ -14,7 +14,7 @@
 *     ..
 *     .. Function Arguments ..
       bool               SELCTG;
-      EXTERNAL           SELCTG
+      // EXTERNAL SELCTG
 *     ..
 *
 *  =====================================================================
@@ -32,12 +32,12 @@
       REAL               DIF( 2 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEQRF, SGGBAK, SGGBAL, SGGHD3, SLAQZ0, SLACPY, SLASCL, SLASET, SORGQR, SORMQR, STGSEN, XERBLA
+      // EXTERNAL SGEQRF, SGGBAK, SGGBAL, SGGHD3, SLAQZ0, SLACPY, SLASCL, SLASET, SORGQR, SORMQR, STGSEN, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
-      EXTERNAL           LSAME, SLAMCH, SLANGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

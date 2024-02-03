@@ -24,7 +24,7 @@
       // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
       bool               LSAME;
 *     ..
 *     .. Executable Statements ..

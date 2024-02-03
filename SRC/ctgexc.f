@@ -18,7 +18,7 @@
       int                HERE;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CTGEX2, XERBLA
+      // EXTERNAL CTGEX2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

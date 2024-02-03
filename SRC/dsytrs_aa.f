@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLACPY, DGTSV, DSWAP, DTRSM, XERBLA
+      // EXTERNAL DLACPY, DGTSV, DSWAP, DTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN, MAX

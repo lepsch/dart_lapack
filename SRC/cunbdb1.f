@@ -43,12 +43,12 @@
       bool               LQUERY;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLARF, CLARFGP, CUNBDB5, CSROT, XERBLA
-      EXTERNAL           CLACGV
+      // EXTERNAL CLARF, CLARFGP, CUNBDB5, CSROT, XERBLA
+      // EXTERNAL CLACGV
 *     ..
 *     .. External Functions ..
       REAL               SCNRM2, SROUNDUP_LWORK
-      EXTERNAL           SCNRM2, SROUNDUP_LWORK
+      // EXTERNAL SCNRM2, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Function ..
       // INTRINSIC ATAN2, COS, MAX, SIN, SQRT

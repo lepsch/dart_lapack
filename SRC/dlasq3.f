@@ -26,12 +26,12 @@
       double             EPS, S, T, TEMP, TOL, TOL2;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASQ4, DLASQ5, DLASQ6
+      // EXTERNAL DLASQ4, DLASQ5, DLASQ6
 *     ..
 *     .. External Function ..
       double             DLAMCH;
       bool               DISNAN;
-      EXTERNAL           DISNAN, DLAMCH
+      // EXTERNAL DISNAN, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT

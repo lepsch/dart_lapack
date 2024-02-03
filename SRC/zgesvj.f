@@ -39,22 +39,22 @@
 *     from BLAS
       double             DZNRM2;
       COMPLEX*16         ZDOTC
-      EXTERNAL           ZDOTC, DZNRM2
+      // EXTERNAL ZDOTC, DZNRM2
       int                IDAMAX;
-      EXTERNAL           IDAMAX
+      // EXTERNAL IDAMAX
 *     from LAPACK
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
 *     ..
 *     from BLAS
-      EXTERNAL           ZCOPY, ZROT, ZDSCAL, ZSWAP, ZAXPY
+      // EXTERNAL ZCOPY, ZROT, ZDSCAL, ZSWAP, ZAXPY
 *     from LAPACK
-      EXTERNAL           DLASCL, ZLASCL, ZLASET, ZLASSQ, XERBLA
-      EXTERNAL           ZGSVJ0, ZGSVJ1
+      // EXTERNAL DLASCL, ZLASCL, ZLASET, ZLASSQ, XERBLA
+      // EXTERNAL ZGSVJ0, ZGSVJ1
 *     ..
 *     .. Executable Statements ..
 *

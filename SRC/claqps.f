@@ -26,7 +26,7 @@
       COMPLEX            AKK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CGEMV, CLARFG, CSWAP
+      // EXTERNAL CGEMM, CGEMV, CLARFG, CSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN, NINT, REAL, SQRT
@@ -34,7 +34,7 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SCNRM2, SLAMCH
-      EXTERNAL           ISAMAX, SCNRM2, SLAMCH
+      // EXTERNAL ISAMAX, SCNRM2, SLAMCH
 *     ..
 *     .. Executable Statements ..
 *

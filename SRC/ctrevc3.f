@@ -35,10 +35,10 @@
       bool               LSAME;
       int                ILAENV, ICAMAX;
       REAL               SLAMCH, SCASUM, SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV, ICAMAX, SLAMCH, SCASUM, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV, ICAMAX, SLAMCH, SCASUM, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, CCOPY, CLASET, CSSCAL, CGEMM, CGEMV, CLATRS, CLACPY
+      // EXTERNAL XERBLA, CCOPY, CLASET, CSSCAL, CGEMM, CGEMV, CLATRS, CLACPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, CMPLX, CONJG, AIMAG, MAX

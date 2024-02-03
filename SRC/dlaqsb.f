@@ -26,7 +26,7 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH;
-      EXTERNAL           LSAME, DLAMCH
+      // EXTERNAL LSAME, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

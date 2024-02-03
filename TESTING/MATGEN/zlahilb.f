@@ -34,10 +34,10 @@
       DATA D1 /(-1.0D0,0.0D0),(0.0D0,1.0D0),(-1.0D0,-1.0D0), (0.0D0,-1.0D0),(1.0D0,0.0D0),(-1.0D0,1.0D0),(1.0D0,1.0D0), (1.0D0,-1.0D0)/       DATA D2 /(-1.0D0,0.0D0),(0.0D0,-1.0D0),(-1.0D0,1.0D0), (0.0D0,1.0D0),(1.0D0,0.0D0),(-1.0D0,-1.0D0),(1.0D0,-1.0D0), (1.0D0,1.0D0)/        DATA INVD1 /(-1.0D0,0.0D0),(0.0D0,-1.0D0),(-0.5D0,0.5D0), (0.0D0,1.0D0),(1.0D0,0.0D0),(-0.5D0,-0.5D0),(0.5D0,-0.5D0), (0.5D0,0.5D0)/       DATA INVD2 /(-1.0D0,0.0D0),(0.0D0,1.0D0),(-0.5D0,-0.5D0), (0.0D0,-1.0D0),(1.0D0,0.0D0),(-0.5D0,0.5D0),(0.5D0,0.5D0), (0.5D0,-0.5D0)/
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. External Functions
-      EXTERNAL ZLASET, LSAMEN
+      // EXTERNAL ZLASET, LSAMEN
       // INTRINSIC DBLE
       bool    LSAMEN;
 *     ..

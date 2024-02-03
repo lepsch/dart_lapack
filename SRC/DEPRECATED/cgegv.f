@@ -31,13 +31,13 @@
       bool               LDUMMA( 1 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY, CLASCL, CLASET, CTGEVC, CUNGQR, CUNMQR, XERBLA
+      // EXTERNAL CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY, CLASCL, CLASET, CTGEVC, CUNGQR, CUNMQR, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               CLANGE, SLAMCH
-      EXTERNAL           ILAENV, LSAME, CLANGE, SLAMCH
+      // EXTERNAL ILAENV, LSAME, CLANGE, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, INT, MAX, REAL

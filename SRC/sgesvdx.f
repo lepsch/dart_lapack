@@ -30,13 +30,13 @@
       REAL               DUM( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SBDSVDX, SGEBRD, SGELQF, SGEQRF, SLACPY, SLASCL, SLASET, SORMBR, SORMLQ, SORMQR, SCOPY, XERBLA
+      // EXTERNAL SBDSVDX, SGEBRD, SGELQF, SGEQRF, SLACPY, SLASCL, SLASET, SORMBR, SORMLQ, SORMQR, SCOPY, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT

@@ -18,7 +18,7 @@
       int                INFO;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGGLSE, CLACPY, CGET02
+      // EXTERNAL CGGLSE, CLACPY, CGET02
 *     ..
 *     .. Executable Statements ..
 *

@@ -18,16 +18,16 @@
       int                I, IB, IINFO, IWS, K, LDWORK, LWKMIN, LWKOPT, NB, NBMIN, NX;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEQR2P, SLARFB, SLARFT, XERBLA
+      // EXTERNAL SGEQR2P, SLARFB, SLARFT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
       REAL               SROUNDUP_LWORK
-      EXTERNAL           SROUNDUP_LWORK
+      // EXTERNAL SROUNDUP_LWORK
 *     ..
 *     .. Executable Statements ..
 *

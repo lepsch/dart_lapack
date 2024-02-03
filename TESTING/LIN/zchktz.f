@@ -37,10 +37,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, ZQRT12, ZRZT01, ZRZT02;
-      EXTERNAL           DLAMCH, ZQRT12, ZRZT01, ZRZT02
+      // EXTERNAL DLAMCH, ZQRT12, ZRZT01, ZRZT02
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHD, ALASUM, DLAORD, ZERRTZ, ZGEQR2, ZLACPY, ZLASET, ZLATMS, ZTZRZF
+      // EXTERNAL ALAHD, ALASUM, DLAORD, ZERRTZ, ZGEQR2, ZLACPY, ZLASET, ZLATMS, ZTZRZF
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, MAX, MIN

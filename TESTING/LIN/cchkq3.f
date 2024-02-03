@@ -37,10 +37,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CQPT01, CQRT11, CQRT12, SLAMCH
-      EXTERNAL           CQPT01, CQRT11, CQRT12, SLAMCH
+      // EXTERNAL CQPT01, CQRT11, CQRT12, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHD, ALASUM, CGEQP3, CLACPY, CLASET, CLATMS, ICOPY, SLAORD, XLAENV
+      // EXTERNAL ALAHD, ALASUM, CGEQP3, CLACPY, CLASET, CLATMS, ICOPY, SLAORD, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

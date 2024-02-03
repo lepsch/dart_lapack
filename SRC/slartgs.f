@@ -18,11 +18,11 @@
       REAL                    R, S, THRESH, W, Z
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARTGP
+      // EXTERNAL SLARTGP
 *     ..
 *     .. External Functions ..
       REAL                    SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     .. Executable Statements ..
 *
       THRESH = SLAMCH('E')

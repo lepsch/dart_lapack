@@ -32,10 +32,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANGB, CLANTB, SLAMCH
-      EXTERNAL           LSAME, CLANGB, CLANTB, SLAMCH
+      // EXTERNAL LSAME, CLANGB, CLANTB, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGBCON, CGBEQU, CGBRFS, CGBTRF, CGBTRS, CLACPY, CLAQGB, XERBLA
+      // EXTERNAL CCOPY, CGBCON, CGBEQU, CGBRFS, CGBTRF, CGBTRS, CLACPY, CLAQGB, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

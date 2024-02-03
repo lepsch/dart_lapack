@@ -26,13 +26,13 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANGE, SLANSP
-      EXTERNAL           LSAME, SLAMCH, SLANGE, SLANSP
+      // EXTERNAL LSAME, SLAMCH, SLANGE, SLANSP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC REAL
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SSPMV
+      // EXTERNAL SCOPY, SSPMV
 *     ..
 *     .. Executable Statements ..
 *

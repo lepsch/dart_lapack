@@ -30,10 +30,10 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SDOT, SLAMCH, SNRM2
-      EXTERNAL           ISAMAX, SDOT, SLAMCH, SNRM2
+      // EXTERNAL ISAMAX, SDOT, SLAMCH, SNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, SLAGTF, SLAGTS, SLARNV, SSCAL, XERBLA
+      // EXTERNAL SAXPY, SCOPY, SLAGTF, SLAGTS, SLARNV, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

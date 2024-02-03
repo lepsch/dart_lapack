@@ -39,10 +39,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLANSY
-      EXTERNAL           SLANSY
+      // EXTERNAL SLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, SERRVX, SGET04, SLACPY, SLARHS, SLATB4, SLATMS, SPOT02, SSYSV_RK, SSYT01_3, SSYTRF_RK, SSYTRI_3, XLAENV
+      // EXTERNAL ALADHD, ALAERH, ALASVM, SERRVX, SGET04, SLACPY, SLARHS, SLATB4, SLATMS, SPOT02, SSYSV_RK, SSYT01_3, SSYTRF_RK, SSYTRI_3, XLAENV
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

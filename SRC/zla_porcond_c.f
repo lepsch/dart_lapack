@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLACN2, ZPOTRS, XERBLA
+      // EXTERNAL ZLACN2, ZPOTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, REAL, DIMAG

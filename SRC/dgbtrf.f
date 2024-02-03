@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       int                IDAMAX, ILAENV;
-      EXTERNAL           IDAMAX, ILAENV
+      // EXTERNAL IDAMAX, ILAENV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGBTF2, DGEMM, DGER, DLASWP, DSCAL, DSWAP, DTRSM, XERBLA
+      // EXTERNAL DCOPY, DGBTF2, DGEMM, DGER, DLASWP, DSCAL, DSWAP, DTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

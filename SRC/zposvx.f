@@ -28,10 +28,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANHE;
-      EXTERNAL           LSAME, DLAMCH, ZLANHE
+      // EXTERNAL LSAME, DLAMCH, ZLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZLACPY, ZLAQHE, ZPOCON, ZPOEQU, ZPORFS, ZPOTRF, ZPOTRS
+      // EXTERNAL XERBLA, ZLACPY, ZLAQHE, ZPOCON, ZPOEQU, ZPORFS, ZPOTRF, ZPOTRS
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

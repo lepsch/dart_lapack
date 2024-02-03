@@ -19,7 +19,7 @@
       int                COLTYP, I, IDLMDA, INDX, INDXC, INDXP, IQ2, IS, IW, IZ, K, N1, N2, ZPP1;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLAED2, DLAED3, DLAMRG, XERBLA
+      // EXTERNAL DCOPY, DLAED2, DLAED3, DLAMRG, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

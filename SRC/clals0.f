@@ -25,11 +25,11 @@
       REAL               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLACPY, CLASCL, CSROT, CSSCAL, SGEMV, XERBLA
+      // EXTERNAL CCOPY, CLACPY, CLASCL, CSROT, CSSCAL, SGEMV, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SLAMC3, SNRM2
-      EXTERNAL           SLAMC3, SNRM2
+      // EXTERNAL SLAMC3, SNRM2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC AIMAG, CMPLX, MAX, REAL

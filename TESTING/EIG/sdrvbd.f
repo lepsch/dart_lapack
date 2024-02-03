@@ -44,10 +44,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLARND
-      EXTERNAL           SLAMCH, SLARND
+      // EXTERNAL SLAMCH, SLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, SBDT01, SGEJSV, SGESDD, SGESVD, SGESVDQ, SGESVDX, SGESVJ, SLACPY, SLASET, SLATMS, SORT01, SORT03, XERBLA
+      // EXTERNAL ALASVM, SBDT01, SGEJSV, SGESDD, SGESVD, SGESVDQ, SGESVDX, SGESVJ, SLACPY, SLASET, SLATMS, SORT01, SORT03, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, INT, MAX, MIN

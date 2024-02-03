@@ -26,7 +26,7 @@
       REAL               A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), S( NMAX ), SEP( NMAX ), WI( NMAX ), WORK( NMAX ), WR( NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, STREXC, STRSEN, STRSNA, STRSYL, STRSYL3
+      // EXTERNAL CHKXER, STREXC, STRSEN, STRSNA, STRSYL, STRSYL3
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

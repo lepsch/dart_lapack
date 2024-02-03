@@ -22,7 +22,7 @@
       REAL               XT( 2 ), YT( 2 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SROT, XERBLA
+      // EXTERNAL SROT, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

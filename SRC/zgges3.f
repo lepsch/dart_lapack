@@ -15,7 +15,7 @@
 *     ..
 *     .. Function Arguments ..
       bool               SELCTG;
-      EXTERNAL           SELCTG
+      // EXTERNAL SELCTG
 *     ..
 *
 *  =====================================================================
@@ -35,12 +35,12 @@
       double             DIF( 2 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHD3, ZLAQZ0, ZLACPY, ZLASCL, ZLASET, ZTGSEN, ZUNGQR, ZUNMQR
+      // EXTERNAL XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHD3, ZLAQZ0, ZLACPY, ZLASCL, ZLASET, ZTGSEN, ZUNGQR, ZUNMQR
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE;
-      EXTERNAL           LSAME, DLAMCH, ZLANGE
+      // EXTERNAL LSAME, DLAMCH, ZLANGE
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

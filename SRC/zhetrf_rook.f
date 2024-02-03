@@ -22,10 +22,10 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      EXTERNAL           LSAME, ILAENV
+      // EXTERNAL LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLAHEF_ROOK, ZHETF2_ROOK, XERBLA
+      // EXTERNAL ZLAHEF_ROOK, ZHETF2_ROOK, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

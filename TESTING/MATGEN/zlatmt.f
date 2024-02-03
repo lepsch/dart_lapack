@@ -37,10 +37,10 @@
       COMPLEX*16         ZLARND
       double             DLARND;
       bool               LSAME;
-      EXTERNAL           ZLARND, DLARND, LSAME
+      // EXTERNAL ZLARND, DLARND, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLATM7, DSCAL, XERBLA, ZLAGGE, ZLAGHE, ZLAGSY, ZLAROT, ZLARTG, ZLASET
+      // EXTERNAL DLATM7, DSCAL, XERBLA, ZLAGGE, ZLAGHE, ZLAGSY, ZLAROT, ZLARTG, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, COS, DBLE, DCMPLX, DCONJG, MAX, MIN, MOD, SIN

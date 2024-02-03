@@ -19,7 +19,7 @@
 *     ..
 *     .. External Functions ..
       double           DCABS1;
-      EXTERNAL DCABS1
+      // EXTERNAL DCABS1
 *     ..
       IZAMAX = 0
       IF (N.LT.1 .OR. INCX.LE.0) RETURN

@@ -29,10 +29,10 @@
       bool               LSAME;
       int                ILAENV2STAGE;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV2STAGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SPOTRF, SSYGST, STRMM, STRSM, XERBLA, SSYEV_2STAGE
+      // EXTERNAL SPOTRF, SSYGST, STRMM, STRSM, XERBLA, SSYEV_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

@@ -31,9 +31,9 @@
 *     .. External Functions ..
       double             DDIFF;
       bool               LDE;
-      EXTERNAL           DDIFF, LDE
+      // EXTERNAL DDIFF, LDE
 *     .. External Subroutines ..
-      EXTERNAL           DCHK1, DCHK2, DCHK3, DCHK4, DCHK5, DCHK6, DCHKE, DMVCH
+      // EXTERNAL DCHK1, DCHK2, DCHK3, DCHK4, DCHK5, DCHK6, DCHKE, DMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -336,9 +336,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DGBMV, DGEMV, DMAKE, DMVCH, DREGR1
+      // EXTERNAL DGBMV, DGEMV, DMAKE, DMVCH, DREGR1
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -648,9 +648,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DMAKE, DMVCH, DSBMV, DSPMV, DSYMV
+      // EXTERNAL DMAKE, DMVCH, DSBMV, DSPMV, DSYMV
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -948,9 +948,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DMAKE, DMVCH, DTBMV, DTBSV, DTPMV, DTPSV, DTRMV, DTRSV
+      // EXTERNAL DMAKE, DMVCH, DTBMV, DTBSV, DTPMV, DTPSV, DTRMV, DTRSV
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -1245,9 +1245,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DGER, DMAKE, DMVCH
+      // EXTERNAL DGER, DMAKE, DMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -1480,9 +1480,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DMAKE, DMVCH, DSPR, DSYR
+      // EXTERNAL DMAKE, DMVCH, DSPR, DSYR
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -1733,9 +1733,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DMAKE, DMVCH, DSPR2, DSYR2
+      // EXTERNAL DMAKE, DMVCH, DSPR2, DSYR2
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -2006,7 +2006,7 @@
 *     .. Local Arrays ..
       double             A( 1, 1 ), X( 1 ), Y( 1 );
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, DGBMV, DGEMV, DGER, DSBMV, DSPMV, DSPR, DSPR2, DSYMV, DSYR, DSYR2, DTBMV, DTBSV, DTPMV, DTPSV, DTRMV, DTRSV
+      // EXTERNAL CHKXER, DGBMV, DGEMV, DGER, DSBMV, DSPMV, DSPR, DSPR2, DSYMV, DSYR, DSYR2, DTBMV, DTBSV, DTPMV, DTPSV, DTRMV, DTRSV
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
 *     .. Executable Statements ..
@@ -2338,7 +2338,7 @@
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       double             DBEG;
-      EXTERNAL           DBEG
+      // EXTERNAL DBEG
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
 *     .. Executable Statements ..

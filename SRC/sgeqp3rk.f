@@ -28,13 +28,13 @@
       REAL               EPS, HUGEVAL, MAXC2NRM, SAFMIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAQP2RK, SLAQP3RK, XERBLA
+      // EXTERNAL SLAQP2RK, SLAQP3RK, XERBLA
 *     ..
 *     .. External Functions ..
       bool               SISNAN;
       int                ISAMAX, ILAENV;
       REAL               SLAMCH, SNRM2, SROUNDUP_LWORK
-      EXTERNAL           SISNAN, SLAMCH, SNRM2, ISAMAX, ILAENV, SROUNDUP_LWORK
+      // EXTERNAL SISNAN, SLAMCH, SNRM2, ISAMAX, ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC REAL, MAX, MIN

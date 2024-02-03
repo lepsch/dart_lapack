@@ -26,7 +26,7 @@
       double             DUMMY( 1, 1 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARFB_GETT, DLASET, XERBLA
+      // EXTERNAL DLARFB_GETT, DLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN

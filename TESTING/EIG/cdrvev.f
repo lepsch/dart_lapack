@@ -42,10 +42,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SCNRM2, SLAMCH
-      EXTERNAL           SCNRM2, SLAMCH
+      // EXTERNAL SCNRM2, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEEV, CGET22, CLACPY, CLATME, CLATMR, CLATMS, CLASET, SLASUM, XERBLA
+      // EXTERNAL CGEEV, CGET22, CLACPY, CLATME, CLATMR, CLATMS, CLASET, SLASUM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, MAX, MIN, REAL, SQRT

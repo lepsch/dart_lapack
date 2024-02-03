@@ -1,6 +1,6 @@
       subroutine izamaxsub(n,x,incx,iamax)
 c
-      external izamax
+      // external izamax
       int      izamax,iamax;
       int     n,incx;
       double complex x(*)

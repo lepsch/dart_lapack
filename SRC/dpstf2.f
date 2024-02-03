@@ -28,10 +28,10 @@
 *     .. External Functions ..
       double             DLAMCH;
       bool               LSAME, DISNAN;
-      EXTERNAL           DLAMCH, LSAME, DISNAN
+      // EXTERNAL DLAMCH, LSAME, DISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMV, DSCAL, DSWAP, XERBLA
+      // EXTERNAL DGEMV, DSCAL, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT, MAXLOC

@@ -23,7 +23,7 @@
       int     I,INFO,IX,J,JY,KX;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DCONJG,MAX

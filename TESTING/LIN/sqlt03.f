@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANGE
-      EXTERNAL           LSAME, SLAMCH, SLANGE
+      // EXTERNAL LSAME, SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SLACPY, SLARNV, SLASET, SORGQL, SORMQL
+      // EXTERNAL SGEMM, SLACPY, SLARNV, SLASET, SORGQL, SORMQL
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 );

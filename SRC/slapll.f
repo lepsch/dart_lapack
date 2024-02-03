@@ -23,10 +23,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SDOT
-      EXTERNAL           SDOT
+      // EXTERNAL SDOT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SLARFG, SLAS2
+      // EXTERNAL SAXPY, SLARFG, SLAS2
 *     ..
 *     .. Executable Statements ..
 *

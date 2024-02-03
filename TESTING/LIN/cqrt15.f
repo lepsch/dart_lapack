@@ -31,10 +31,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SASUM, SCNRM2, SLAMCH, SLARND
-      EXTERNAL           CLANGE, SASUM, SCNRM2, SLAMCH, SLARND
+      // EXTERNAL CLANGE, SASUM, SCNRM2, SLAMCH, SLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CLARF, CLARNV, CLAROR, CLASCL, CLASET, CSSCAL, SLAORD, SLASCL, XERBLA
+      // EXTERNAL CGEMM, CLARF, CLARNV, CLAROR, CLASCL, CLASET, CSSCAL, SLAORD, SLASCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, MAX, MIN

@@ -22,10 +22,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLARTG, CROT, XERBLA
+      // EXTERNAL CLARTG, CROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG, MAX

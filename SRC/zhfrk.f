@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEMM, ZHERK
+      // EXTERNAL XERBLA, ZGEMM, ZHERK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, DCMPLX

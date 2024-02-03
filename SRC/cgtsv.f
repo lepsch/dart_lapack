@@ -25,7 +25,7 @@
       // INTRINSIC ABS, AIMAG, MAX, REAL
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

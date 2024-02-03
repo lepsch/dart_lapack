@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SSYSWAPR, STRTRI, STRMM, XERBLA
+      // EXTERNAL SGEMM, SSYSWAPR, STRTRI, STRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MOD

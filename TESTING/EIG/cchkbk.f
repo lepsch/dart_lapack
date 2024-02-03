@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEBAK
+      // EXTERNAL CGEBAK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL

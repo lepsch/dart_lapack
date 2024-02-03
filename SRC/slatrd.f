@@ -23,12 +23,12 @@
       REAL               ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SGEMV, SLARFG, SSCAL, SSYMV
+      // EXTERNAL SAXPY, SGEMV, SLARFG, SSCAL, SSYMV
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       REAL               SDOT
-      EXTERNAL           LSAME, SDOT
+      // EXTERNAL LSAME, SDOT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

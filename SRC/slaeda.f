@@ -22,7 +22,7 @@
       int                BSIZ1, BSIZ2, CURR, I, K, MID, PSIZ1, PSIZ2, PTR, ZPTR1;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMV, SROT, XERBLA
+      // EXTERNAL SCOPY, SGEMV, SROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, REAL, SQRT

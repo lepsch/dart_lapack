@@ -32,10 +32,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACN2, CSYTRS_ROOK, XERBLA
+      // EXTERNAL CLACN2, CSYTRS_ROOK, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

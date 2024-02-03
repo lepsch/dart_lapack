@@ -50,13 +50,13 @@
 *     .. External Functions ..
       int                ILAENV;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           ILAENV, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. Local Arrays ..
       REAL               ZDUM( 1, 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACPY, SLAHQR, SLANV2, SLAQR2, SLAQR5
+      // EXTERNAL SLACPY, SLAHQR, SLANV2, SLAQR2, SLAQR5
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, MAX, MIN, MOD

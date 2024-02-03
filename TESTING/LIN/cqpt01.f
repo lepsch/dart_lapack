@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
-      EXTERNAL           CLANGE, SLAMCH
+      // EXTERNAL CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CUNMQR, XERBLA
+      // EXTERNAL CAXPY, CCOPY, CUNMQR, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN, REAL

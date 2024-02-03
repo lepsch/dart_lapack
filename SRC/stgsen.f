@@ -31,11 +31,11 @@
       int                ISAVE( 3 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACN2, SLACPY, SLAG2, SLASSQ, STGEXC, STGSYL, XERBLA
+      // EXTERNAL SLACN2, SLACPY, SLAG2, SLASSQ, STGEXC, STGSYL, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SROUNDUP_LWORK
-      EXTERNAL           SLAMCH, SROUNDUP_LWORK
+      // EXTERNAL SLAMCH, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SIGN, SQRT

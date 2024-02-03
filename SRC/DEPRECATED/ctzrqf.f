@@ -25,7 +25,7 @@
       // INTRINSIC CONJG, MAX, MIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CGEMV, CGERC, CLACGV, CLARFG, XERBLA
+      // EXTERNAL CAXPY, CCOPY, CGEMV, CGERC, CLACGV, CLARFG, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

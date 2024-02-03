@@ -26,7 +26,7 @@
 *     .. External Functions ..
       int                ICAMAX;
       REAL               SLAMCH
-      EXTERNAL           ICAMAX, SLAMCH
+      // EXTERNAL ICAMAX, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL

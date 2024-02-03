@@ -27,13 +27,13 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, ZLANGT, ZLANHS;
-      EXTERNAL           DLAMCH, ZLANGT, ZLANHS
+      // EXTERNAL DLAMCH, ZLANGT, ZLANHS
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZAXPY, ZSWAP
+      // EXTERNAL ZAXPY, ZSWAP
 *     ..
 *     .. Executable Statements ..
 *

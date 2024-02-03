@@ -21,7 +21,7 @@
       COMPLEX            B, C, D1, R, T, UA11, UA12, UA21, UA22, VB11, VB12, VB21, VB22
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLARTG, SLASV2
+      // EXTERNAL CLARTG, SLASV2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, REAL

@@ -22,13 +22,13 @@
       int                KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, CHETRD_HE2HB, CHETRD_HB2ST
+      // EXTERNAL XERBLA, CHETRD_HE2HB, CHETRD_HB2ST
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV2STAGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..
 *     .. Executable Statements ..
 *

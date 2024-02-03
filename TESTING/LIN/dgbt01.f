@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       double             DASUM, DLAMCH;
-      EXTERNAL           DASUM, DLAMCH
+      // EXTERNAL DASUM, DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DCOPY
+      // EXTERNAL DAXPY, DCOPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN

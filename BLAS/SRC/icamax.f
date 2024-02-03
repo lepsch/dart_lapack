@@ -19,7 +19,7 @@
 *     ..
 *     .. External Functions ..
       REAL SCABS1
-      EXTERNAL SCABS1
+      // EXTERNAL SCABS1
 *     ..
       ICAMAX = 0
       IF (N.LT.1 .OR. INCX.LE.0) RETURN

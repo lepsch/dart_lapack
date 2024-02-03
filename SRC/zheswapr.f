@@ -21,10 +21,10 @@
 *
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZSWAP
+      // EXTERNAL ZSWAP
 *     ..
 *     .. Executable Statements ..
 *

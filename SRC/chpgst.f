@@ -27,7 +27,7 @@
       COMPLEX            CT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CHPMV, CHPR2, CSSCAL, CTPMV, CTPSV, XERBLA
+      // EXTERNAL CAXPY, CHPMV, CHPR2, CSSCAL, CTPMV, CTPSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -35,7 +35,7 @@
 *     .. External Functions ..
       bool               LSAME;
       COMPLEX            CDOTC
-      EXTERNAL           LSAME, CDOTC
+      // EXTERNAL LSAME, CDOTC
 *     ..
 *     .. Executable Statements ..
 *

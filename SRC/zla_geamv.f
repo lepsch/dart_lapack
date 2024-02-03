@@ -27,11 +27,11 @@
       COMPLEX*16         CDUM
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, DLAMCH
+      // EXTERNAL XERBLA, DLAMCH
       double             DLAMCH;
 *     ..
 *     .. External Functions ..
-      EXTERNAL           ILATRANS
+      // EXTERNAL ILATRANS
       int                ILATRANS;
 *     ..
 *     .. Intrinsic Functions ..

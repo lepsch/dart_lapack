@@ -18,7 +18,7 @@
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZTRSM, ZUNMQR
+      // EXTERNAL XERBLA, ZTRSM, ZUNMQR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

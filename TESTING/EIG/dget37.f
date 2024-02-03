@@ -33,10 +33,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLANGE;
-      EXTERNAL           DLAMCH, DLANGE
+      // EXTERNAL DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEHRD, DHSEQR, DLACPY, DSCAL, DTREVC, DTRSNA
+      // EXTERNAL DCOPY, DGEHRD, DHSEQR, DLACPY, DSCAL, DTREVC, DTRSNA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, SQRT

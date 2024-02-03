@@ -10,10 +10,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SECOND
-      EXTERNAL           SECOND
+      // EXTERNAL SECOND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           MYSUB
+      // EXTERNAL MYSUB
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC REAL

@@ -31,10 +31,10 @@
       REAL               SLAMCH
       int                ICAMAX;
       bool               SISNAN;
-      EXTERNAL           SLAMCH, ICAMAX, SISNAN
+      // EXTERNAL SLAMCH, ICAMAX, SISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CTRSM, CSCAL, XERBLA, CLASWP
+      // EXTERNAL CTRSM, CSCAL, XERBLA, CLASWP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, IAND, ABS

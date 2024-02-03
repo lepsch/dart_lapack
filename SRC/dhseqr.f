@@ -43,10 +43,10 @@
 *     .. External Functions ..
       int                ILAENV;
       bool               LSAME;
-      EXTERNAL           ILAENV, LSAME
+      // EXTERNAL ILAENV, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLACPY, DLAHQR, DLAQR0, DLASET, XERBLA
+      // EXTERNAL DLACPY, DLAHQR, DLAQR0, DLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN

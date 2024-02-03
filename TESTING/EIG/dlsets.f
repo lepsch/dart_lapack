@@ -17,7 +17,7 @@
       int                INFO;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGET02, DGGLSE, DLACPY
+      // EXTERNAL DCOPY, DGET02, DGGLSE, DLACPY
 *     ..
 *     .. Executable Statements ..
 *

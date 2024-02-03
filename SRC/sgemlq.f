@@ -21,14 +21,14 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Functions ..
       REAL               SROUNDUP_LWORK
-      EXTERNAL           SROUNDUP_LWORK
+      // EXTERNAL SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAMSWLQ, SGEMLQT, XERBLA
+      // EXTERNAL SLAMSWLQ, SGEMLQT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN, MOD

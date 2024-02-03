@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAMEN;
-      EXTERNAL           LSAMEN
+      // EXTERNAL LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, DBDSDC, DBDSQR, DBDSVDX, DGEBD2, DGEBRD, DORGBR, DORMBR
+      // EXTERNAL CHKXER, DBDSDC, DBDSQR, DBDSVDX, DGEBD2, DGEBRD, DORGBR, DORMBR
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

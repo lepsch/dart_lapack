@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANGE
-      EXTERNAL           SLAMCH, SLANGE
+      // EXTERNAL SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGGBAL
+      // EXTERNAL SGGBAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

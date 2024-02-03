@@ -27,14 +27,14 @@
       double             Z1, Z2, Z3, Z4;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZAXPY, ZLARF, ZLARFGP, ZSCAL, XERBLA
-      EXTERNAL           ZLACGV
+      // EXTERNAL ZAXPY, ZLARF, ZLARFGP, ZSCAL, XERBLA
+      // EXTERNAL ZLACGV
 *
 *     ..
 *     .. External Functions ..
       double             DZNRM2;
       bool               LSAME;
-      EXTERNAL           DZNRM2, LSAME
+      // EXTERNAL DZNRM2, LSAME
 *     ..
 *     .. Intrinsic Functions
       // INTRINSIC ATAN2, COS, MAX, MIN, SIN

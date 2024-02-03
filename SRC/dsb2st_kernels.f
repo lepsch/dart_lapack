@@ -27,13 +27,13 @@
       double             CTMP;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARFG, DLARFX, DLARFY
+      // EXTERNAL DLARFG, DLARFX, DLARFY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MOD
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     ..
 *     .. Executable Statements ..

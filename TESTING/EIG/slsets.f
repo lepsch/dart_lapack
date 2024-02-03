@@ -17,7 +17,7 @@
       int                INFO;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGGLSE, SLACPY, SGET02
+      // EXTERNAL SGGLSE, SLACPY, SGET02
 *     ..
 *     .. Executable Statements ..
 *

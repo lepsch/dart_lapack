@@ -22,7 +22,7 @@
       REAL               ALPHA, BETA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SLASD6, SLASDQ, SLASDT, SLASET, XERBLA
+      // EXTERNAL SCOPY, SLASD6, SLASDQ, SLASDT, SLASET, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

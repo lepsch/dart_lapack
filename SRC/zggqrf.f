@@ -18,11 +18,11 @@
       int                LOPT, LWKOPT, NB, NB1, NB2, NB3;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEQRF, ZGERQF, ZUNMQR
+      // EXTERNAL XERBLA, ZGEQRF, ZGERQF, ZUNMQR
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN

@@ -22,10 +22,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
-      EXTERNAL           CLANGE, SLAMCH
+      // EXTERNAL CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLASET, CUNM2R, XERBLA
+      // EXTERNAL CLASET, CUNM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL

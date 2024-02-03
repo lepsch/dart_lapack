@@ -23,7 +23,7 @@
       REAL               A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX)
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, SORHR_COL
+      // EXTERNAL ALAESM, CHKXER, SORHR_COL
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

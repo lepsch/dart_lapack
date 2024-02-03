@@ -27,7 +27,7 @@
       COMPLEX            A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), WORK( LW ), X( NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, CTREXC, CTRSEN, CTRSNA, CTRSYL, CTRSYL3
+      // EXTERNAL CHKXER, CTREXC, CTRSEN, CTRSNA, CTRSYL, CTRSYL3
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

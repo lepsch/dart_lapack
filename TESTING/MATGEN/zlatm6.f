@@ -32,7 +32,7 @@
       // INTRINSIC CDABS, DBLE, DCMPLX, DCONJG, SQRT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGESVD, ZLACPY, ZLAKF2
+      // EXTERNAL ZGESVD, ZLACPY, ZLAKF2
 *     ..
 *     .. Executable Statements ..
 *

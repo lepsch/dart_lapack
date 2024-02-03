@@ -35,10 +35,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
-      EXTERNAL           CLANGE, SLAMCH
+      // EXTERNAL CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEHRD, CHSEQR, CHST01, CLACPY, CSSCAL, CTRSEN, CUNGHR
+      // EXTERNAL CGEHRD, CHSEQR, CHST01, CLACPY, CSSCAL, CTRSEN, CUNGHR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC AIMAG, MAX, REAL, SQRT

@@ -38,11 +38,11 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           ILAUPLO
+      // EXTERNAL ILAUPLO
       int                ILAUPLO;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DCOPY, DSYTRS, DSYMV, BLAS_DSYMV_X, BLAS_DSYMV2_X, DLA_SYAMV, DLA_WWADDW, DLA_LIN_BERR
+      // EXTERNAL DAXPY, DCOPY, DSYTRS, DSYMV, BLAS_DSYMV_X, BLAS_DSYMV2_X, DLA_SYAMV, DLA_WWADDW, DLA_LIN_BERR
       double             DLAMCH;
 *     ..
 *     .. Intrinsic Functions ..

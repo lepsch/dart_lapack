@@ -30,10 +30,10 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SLAMCH, SLANST
-      EXTERNAL           ISAMAX, SLAMCH, SLANST
+      // EXTERNAL ISAMAX, SLAMCH, SLANST
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLACPY, CLALSA, CLASCL, CLASET, CSROT, SGEMM, SLARTG, SLASCL, SLASDA, SLASDQ, SLASET, SLASRT, XERBLA
+      // EXTERNAL CCOPY, CLACPY, CLALSA, CLASCL, CLASET, CSROT, SGEMM, SLARTG, SLASCL, SLASDA, SLASDQ, SLASET, SLASRT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, INT, LOG, REAL, SIGN

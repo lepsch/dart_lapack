@@ -19,7 +19,7 @@
 *     ..
 *     .. External Functions ..
       double           DCABS1;
-      EXTERNAL DCABS1
+      // EXTERNAL DCABS1
 *     ..
       IF (N.LE.0) RETURN
       IF (DCABS1(ZA).EQ.0.0d0) RETURN

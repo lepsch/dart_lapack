@@ -22,11 +22,11 @@
       int                IINFO, J, JB, NB;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CLAUNHR_COL_GETRFNP2, CTRSM, XERBLA
+      // EXTERNAL CGEMM, CLAUNHR_COL_GETRFNP2, CTRSM, XERBLA
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

@@ -24,10 +24,10 @@
 *     .. External Functions ..
       double             DLAMCH;
       COMPLEX*16         ZLADIV
-      EXTERNAL           DLAMCH, ZLADIV
+      // EXTERNAL DLAMCH, ZLADIV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, ZDSCAL, ZDRSCL
+      // EXTERNAL DSCAL, ZDSCAL, ZDRSCL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

@@ -32,13 +32,13 @@
       REAL   DUM( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLASCL, XERBLA, CSSCAL, CGEBAK, CGEBAL, CGEHRD, CHSEQR, CLACPY, CLASCL, CSCAL, CTREVC3, CTRSNA, CUNGHR
+      // EXTERNAL SLASCL, XERBLA, CSSCAL, CGEBAK, CGEBAL, CGEHRD, CHSEQR, CLACPY, CLASCL, CSCAL, CTREVC3, CTRSNA, CUNGHR
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ISAMAX, ILAENV;
       REAL               SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK
-      EXTERNAL           LSAME, ISAMAX, ILAENV, SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ISAMAX, ILAENV, SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC REAL, CMPLX, CONJG, AIMAG, MAX, SQRT

@@ -29,10 +29,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, SLAMCH
-      EXTERNAL           LSAME, CLANGE, SLAMCH
+      // EXTERNAL LSAME, CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGELQ2, CGEQR2, CLACPY, CLASCL, XERBLA
+      // EXTERNAL CGELQ2, CGEQR2, CLACPY, CLASCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN, REAL

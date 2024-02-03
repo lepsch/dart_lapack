@@ -33,10 +33,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANSY, SLANSF, SLARND
-      EXTERNAL           SLAMCH, SLANSY, SLANSF, SLARND
+      // EXTERNAL SLAMCH, SLANSY, SLANSF, SLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           STRTTF
+      // EXTERNAL STRTTF
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

@@ -40,10 +40,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASUM, XERBLA, ZGET23, ZLASET, ZLATME, ZLATMR, ZLATMS
+      // EXTERNAL DLASUM, XERBLA, ZGET23, ZLASET, ZLATME, ZLATMR, ZLATMS
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCMPLX, MAX, MIN, SQRT

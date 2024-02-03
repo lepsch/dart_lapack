@@ -30,13 +30,13 @@
       bool               LSAME;
       int                ICAMAX;
       REAL               SLAMCH
-      EXTERNAL           LSAME, ICAMAX, SLAMCH
+      // EXTERNAL LSAME, ICAMAX, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, MAX, MIN, REAL
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CUNT01, XERBLA
+      // EXTERNAL CUNT01, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

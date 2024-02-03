@@ -28,12 +28,12 @@
       REAL               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEBRD, CGELQF, CGEQRF, CLACPY, CLALSD, CLASCL, CLASET, CUNMBR, CUNMLQ, CUNMQR, SLASCL, SLASET, XERBLA
+      // EXTERNAL CGEBRD, CGELQF, CGEQRF, CLACPY, CLALSD, CLASCL, CLASET, CUNMBR, CUNMLQ, CUNMQR, SLASCL, SLASET, XERBLA
 *     ..
 *     .. External Functions ..
       int                ILAENV;
       REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
-      EXTERNAL           CLANGE, SLAMCH, ILAENV, SROUNDUP_LWORK
+      // EXTERNAL CLANGE, SLAMCH, ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, LOG, MAX, MIN, REAL

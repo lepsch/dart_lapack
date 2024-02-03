@@ -24,11 +24,11 @@
       int                I, INFO, IY, J, JX, KX, KY;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, SLAMCH
+      // EXTERNAL XERBLA, SLAMCH
       REAL               SLAMCH
 *     ..
 *     .. External Functions ..
-      EXTERNAL           ILAUPLO
+      // EXTERNAL ILAUPLO
       int                ILAUPLO;
 *     ..
 *     .. Intrinsic Functions ..

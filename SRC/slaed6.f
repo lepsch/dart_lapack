@@ -23,7 +23,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. Local Arrays ..
       REAL               DSCALE( 3 ), ZSCALE( 3 )

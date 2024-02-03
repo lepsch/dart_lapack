@@ -26,7 +26,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

@@ -21,7 +21,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME, LSAMEN;
-      EXTERNAL           LSAME, LSAMEN
+      // EXTERNAL LSAME, LSAMEN
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM

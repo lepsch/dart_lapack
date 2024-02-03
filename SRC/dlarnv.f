@@ -32,7 +32,7 @@
       // INTRINSIC COS, LOG, MIN, SQRT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARUV
+      // EXTERNAL DLARUV
 *     ..
 *     .. Executable Statements ..
 *

@@ -34,10 +34,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANGE, SLARND
-      EXTERNAL           SLAMCH, SLANGE, SLARND
+      // EXTERNAL SLAMCH, SLANGE, SLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEQR2, SGET51, SGET52, SGGHRD, SHGEQZ, SLACPY, SLARFG, SLASET, SLASUM, SLATM4, SORM2R, STGEVC, XERBLA
+      // EXTERNAL SGEQR2, SGET51, SGET52, SGGHRD, SHGEQZ, SLACPY, SLARFG, SLASET, SLASUM, SLATM4, SORM2R, STGEVC, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SIGN

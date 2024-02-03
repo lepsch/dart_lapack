@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       int                IZAMAX, ILAENV;
-      EXTERNAL           LSAME, ILAENV, IZAMAX
+      // EXTERNAL LSAME, ILAENV, IZAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMV, ZAXPY, ZSCAL, ZCOPY, ZSWAP, ZLASET, XERBLA
+      // EXTERNAL ZGEMV, ZAXPY, ZSCAL, ZCOPY, ZSWAP, ZLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

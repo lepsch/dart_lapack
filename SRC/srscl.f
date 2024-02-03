@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSCAL
+      // EXTERNAL SSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

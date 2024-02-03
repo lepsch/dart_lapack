@@ -31,10 +31,10 @@
       COMPLEX            CLADIV
       bool               LSAME;
       REAL               CLANHS, SLAMCH
-      EXTERNAL           CLADIV, LSAME, CLANHS, SLAMCH
+      // EXTERNAL CLADIV, LSAME, CLANHS, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLARTG, CLASET, CROT, CSCAL, XERBLA
+      // EXTERNAL CLARTG, CLASET, CROT, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL, SQRT

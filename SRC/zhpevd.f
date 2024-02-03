@@ -29,10 +29,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANHP;
-      EXTERNAL           LSAME, DLAMCH, ZLANHP
+      // EXTERNAL LSAME, DLAMCH, ZLANHP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSTERF, XERBLA, ZDSCAL, ZHPTRD, ZSTEDC, ZUPMTR
+      // EXTERNAL DSCAL, DSTERF, XERBLA, ZDSCAL, ZHPTRD, ZSTEDC, ZUPMTR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC SQRT

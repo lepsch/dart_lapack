@@ -21,10 +21,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZTPMLQT, ZGEMLQT, XERBLA
+      // EXTERNAL ZTPMLQT, ZGEMLQT, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLARND, DNRM2;
-      EXTERNAL           LSAME, DLARND, DNRM2
+      // EXTERNAL LSAME, DLARND, DNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMV, DGER, DLASET, DSCAL, XERBLA
+      // EXTERNAL DGEMV, DGER, DLASET, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN

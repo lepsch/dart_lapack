@@ -22,10 +22,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLANGE;
-      EXTERNAL           DLAMCH, DLANGE
+      // EXTERNAL DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASET, DORM2R, XERBLA
+      // EXTERNAL DLASET, DORM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE

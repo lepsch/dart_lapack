@@ -30,10 +30,10 @@
 *     .. External Functions ..
       double             DLAMCH, ZLANGE;
       COMPLEX*16         ZDOTU
-      EXTERNAL           DLAMCH, ZLANGE, ZDOTU
+      // EXTERNAL DLAMCH, ZLANGE, ZDOTU
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMV, ZLASWP, ZSCAL, ZTRMV
+      // EXTERNAL ZGEMV, ZLASWP, ZSCAL, ZTRMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MIN

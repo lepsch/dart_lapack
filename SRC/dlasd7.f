@@ -24,11 +24,11 @@
       double             EPS, HLFTOL, TAU, TOL, Z1;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLAMRG, DROT, XERBLA
+      // EXTERNAL DCOPY, DLAMRG, DROT, XERBLA
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLAPY2;
-      EXTERNAL           DLAMCH, DLAPY2
+      // EXTERNAL DLAMCH, DLAPY2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

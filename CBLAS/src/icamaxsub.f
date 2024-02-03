@@ -1,6 +1,6 @@
       subroutine icamaxsub(n,x,incx,iamax)
 c
-      external icamax
+      // external icamax
       int      icamax,iamax;
       int     n,incx;
       complex x(*)

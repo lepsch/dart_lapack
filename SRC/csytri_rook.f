@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       COMPLEX            CDOTU
-      EXTERNAL           LSAME, CDOTU
+      // EXTERNAL LSAME, CDOTU
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CSWAP, CSYMV, XERBLA
+      // EXTERNAL CCOPY, CSWAP, CSYMV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

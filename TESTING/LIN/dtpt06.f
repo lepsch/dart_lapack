@@ -24,7 +24,7 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLANTP;
-      EXTERNAL           DLAMCH, DLANTP
+      // EXTERNAL DLAMCH, DLANTP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

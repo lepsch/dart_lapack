@@ -19,7 +19,7 @@
       REAL               A, AUA11, AUA12, AUA21, AUA22, AVB11, AVB12, AVB21, AVB22, CSL, CSR, D, S1, S2, SNL, SNR, UA11R, UA22R, VB11R, VB22R, B, C, R, UA11, UA12, UA21, UA22, VB11, VB12, VB21, VB22
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARTG, SLASV2
+      // EXTERNAL SLARTG, SLASV2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

@@ -23,10 +23,10 @@
 *     ..
 *     .. External Functions ..
       double             DASUM, DLAMCH, DLANGE, DNRM2;
-      EXTERNAL           DASUM, DLAMCH, DLANGE, DNRM2
+      // EXTERNAL DASUM, DLAMCH, DLANGE, DNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DBDSQR, DGEBD2, DLASCL, DLASET, XERBLA
+      // EXTERNAL DAXPY, DBDSQR, DGEBD2, DLASCL, DLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN

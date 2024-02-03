@@ -27,13 +27,13 @@
       bool               LSAME;
       int                ISAMAX;
       REAL               SLAMCH
-      EXTERNAL           LSAME, ISAMAX, SLAMCH
+      // EXTERNAL LSAME, ISAMAX, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SIGN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SORT01, XERBLA
+      // EXTERNAL SORT01, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

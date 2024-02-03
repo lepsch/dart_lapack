@@ -21,17 +21,17 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, SROUNDUP_LWORK
+      // EXTERNAL LSAME, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGELQT, CLASWLQ, XERBLA
+      // EXTERNAL CGELQT, CLASWLQ, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, MOD
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Executable Statements ..
 *

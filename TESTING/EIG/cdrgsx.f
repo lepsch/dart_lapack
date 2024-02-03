@@ -37,10 +37,10 @@
       bool               CLCTSX;
       int                ILAENV;
       REAL               CLANGE, SLAMCH
-      EXTERNAL           CLCTSX, ILAENV, CLANGE, SLAMCH
+      // EXTERNAL CLCTSX, ILAENV, CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, CGESVD, CGET51, CGGESX, CLACPY, CLAKF2, CLASET, CLATM5, XERBLA
+      // EXTERNAL ALASVM, CGESVD, CGET51, CGGESX, CLACPY, CLAKF2, CLASET, CLATM5, XERBLA
 *     ..
 *     .. Scalars in Common ..
       bool               FS;

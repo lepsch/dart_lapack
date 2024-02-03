@@ -35,7 +35,7 @@
 *     ..
 *     .. External Functions ..
       bool    DISNAN;
-      EXTERNAL DISNAN
+      // EXTERNAL DISNAN
 *     ..
 *     .. Executable Statements ..
 

@@ -38,15 +38,15 @@
       COMPLEX*16         ZDOTC
       int                IDAMAX;
       bool               LSAME;
-      EXTERNAL           IDAMAX, LSAME, ZDOTC, DZNRM2
+      // EXTERNAL IDAMAX, LSAME, ZDOTC, DZNRM2
 *     ..
 *     ..
 *     .. External Subroutines ..
 *     ..
 *     from BLAS
-      EXTERNAL           ZCOPY, ZROT, ZSWAP, ZAXPY
+      // EXTERNAL ZCOPY, ZROT, ZSWAP, ZAXPY
 *     from LAPACK
-      EXTERNAL           ZLASCL, ZLASSQ, XERBLA
+      // EXTERNAL ZLASCL, ZLASSQ, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

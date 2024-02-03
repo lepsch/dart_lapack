@@ -23,14 +23,14 @@
       double             TAU, WA, WB, WN;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMV, DGER, DLARNV, DSCAL, XERBLA
+      // EXTERNAL DGEMV, DGER, DLARNV, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SIGN
 *     ..
 *     .. External Functions ..
       double             DNRM2;
-      EXTERNAL           DNRM2
+      // EXTERNAL DNRM2
 *     ..
 *     .. Executable Statements ..
 *

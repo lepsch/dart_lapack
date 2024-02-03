@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANGE, DLANSY;
-      EXTERNAL           LSAME, DLAMCH, DLANGE, DLANSY
+      // EXTERNAL LSAME, DLAMCH, DLANGE, DLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSYMM
+      // EXTERNAL DSYMM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE

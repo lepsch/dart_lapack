@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGET51, SLACPY, SLASET, STGEXC
+      // EXTERNAL SGET51, SLACPY, SLASET, STGEXC
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN

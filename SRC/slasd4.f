@@ -29,11 +29,11 @@
       REAL               DD( 3 ), ZZ( 3 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAED6, SLASD5
+      // EXTERNAL SLAED6, SLASD5
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT

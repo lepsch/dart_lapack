@@ -22,7 +22,7 @@
       int                I, IB, IINFO, IWS, J, KI, KK, L, LDWORK, LWKOPT, NB, NBMIN, NX;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLARFB, CLARFT, CUNG2R, XERBLA
+      // EXTERNAL CLARFB, CLARFT, CUNG2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -30,7 +30,7 @@
 *     .. External Functions ..
       int                ILAENV;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           ILAENV, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. Executable Statements ..
 *

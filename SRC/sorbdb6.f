@@ -27,7 +27,7 @@
       REAL               SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMV, SLASSQ, XERBLA
+      // EXTERNAL SGEMV, SLASSQ, XERBLA
 *     ..
 *     .. Intrinsic Function ..
       // INTRINSIC MAX

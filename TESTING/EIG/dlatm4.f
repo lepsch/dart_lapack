@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLARAN, DLARND;
-      EXTERNAL           DLAMCH, DLARAN, DLARND
+      // EXTERNAL DLAMCH, DLARAN, DLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASET
+      // EXTERNAL DLASET
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, EXP, LOG, MAX, MIN, MOD, SQRT

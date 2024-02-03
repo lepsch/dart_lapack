@@ -30,10 +30,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACN2, CSPTRS, XERBLA
+      // EXTERNAL CLACN2, CSPTRS, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

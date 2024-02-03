@@ -31,7 +31,7 @@
       int                I, M, K, IB, SWEEPID, MYID, SHIFT, STT, ST, ED, STIND, EDIND, BLKLASTIND, COLPT, THED, STEPERCOL, GRSIZ, THGRSIZ, THGRNB, THGRID, NBTILES, TTYPE, TID, NTHREADS, ABDPOS, ABOFDPOS, DPOS, OFDPOS, AWPOS, INDA, INDW, APOS, SIZEA, LDA, INDV, INDTAU, SISEV, SIZETAU, LDV, LHMIN, LWMIN;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSB2ST_KERNELS, SLACPY, SLASET, XERBLA
+      // EXTERNAL SSB2ST_KERNELS, SLACPY, SLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN, MAX, CEILING, REAL
@@ -40,7 +40,7 @@
       bool               LSAME;
       int                ILAENV2STAGE;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV2STAGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..
 *     .. Executable Statements ..
 *

@@ -22,7 +22,7 @@
       int       I, I1, J, J1, M1, M2, IINFO;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL  ZLARFG, ZTRMM, ZGEMM, XERBLA
+      // EXTERNAL ZLARFG, ZTRMM, ZGEMM, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

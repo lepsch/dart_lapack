@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
-      EXTERNAL           CLANGE, SLAMCH
+      // EXTERNAL CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CLACPY
+      // EXTERNAL CGEMM, CLACPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL

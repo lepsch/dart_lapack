@@ -24,7 +24,7 @@
       // INTRINSIC MAX, MIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, SGEMV, SGER, SLARFG, XERBLA
+      // EXTERNAL SAXPY, SCOPY, SGEMV, SGER, SLARFG, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

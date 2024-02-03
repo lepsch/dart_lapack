@@ -27,7 +27,7 @@
       double             DLAMCH;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMV, DLASSQ, XERBLA
+      // EXTERNAL DGEMV, DLASSQ, XERBLA
 *     ..
 *     .. Intrinsic Function ..
       // INTRINSIC MAX

@@ -28,10 +28,10 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SASUM
-      EXTERNAL           ISAMAX, SASUM
+      // EXTERNAL ISAMAX, SASUM
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY
+      // EXTERNAL SCOPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, NINT, REAL, SIGN

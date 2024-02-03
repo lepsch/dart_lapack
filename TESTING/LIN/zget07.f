@@ -30,7 +30,7 @@
       bool               LSAME;
       int                IZAMAX;
       double             DLAMCH;
-      EXTERNAL           LSAME, IZAMAX, DLAMCH
+      // EXTERNAL LSAME, IZAMAX, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN

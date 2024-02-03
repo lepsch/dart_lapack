@@ -17,7 +17,7 @@
 *     ..
 *     .. External Functions ..
       int                IPARAM2STAGE;
-      EXTERNAL           IPARAM2STAGE
+      // EXTERNAL IPARAM2STAGE
 *     ..
 *     .. Executable Statements ..
 *

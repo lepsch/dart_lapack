@@ -20,10 +20,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           STPSV, XERBLA
+      // EXTERNAL STPSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

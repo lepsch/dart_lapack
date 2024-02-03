@@ -26,7 +26,7 @@
       // INTRINSIC ABS
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. Executable Statements ..
 *

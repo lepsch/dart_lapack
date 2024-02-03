@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SASUM, SLAMCH, SLANGE
-      EXTERNAL           SASUM, SLAMCH, SLANGE
+      // EXTERNAL SASUM, SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMV
+      // EXTERNAL SCOPY, SGEMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL

@@ -22,7 +22,7 @@
       REAL               AII
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARF, SLARFGP, XERBLA
+      // EXTERNAL SLARF, SLARFGP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

@@ -16,7 +16,7 @@
       REAL             SFAC
       int              IC;
 *     .. External Subroutines ..
-      EXTERNAL         CHECK1, CHECK2, HEADER
+      // EXTERNAL CHECK1, CHECK2, HEADER
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Data statements ..
@@ -104,9 +104,9 @@
 *     .. External Functions ..
       REAL              SCASUM, SCNRM2
       int               ICAMAX;
-      EXTERNAL          SCASUM, SCNRM2, ICAMAX
+      // EXTERNAL SCASUM, SCNRM2, ICAMAX
 *     .. External Subroutines ..
-      EXTERNAL          CB1NRM2, CSCAL, CSSCAL, CTEST, ITEST1, STEST1
+      // EXTERNAL CB1NRM2, CSCAL, CSSCAL, CTEST, ITEST1, STEST1
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Common blocks ..
@@ -235,9 +235,9 @@
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
 *     .. External Functions ..
       COMPLEX           CDOTC, CDOTU
-      EXTERNAL          CDOTC, CDOTU
+      // EXTERNAL CDOTC, CDOTU
 *     .. External Subroutines ..
-      EXTERNAL          CAXPY, CCOPY, CSWAP, CTEST
+      // EXTERNAL CAXPY, CCOPY, CSWAP, CTEST
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
 *     .. Common blocks ..
@@ -355,7 +355,7 @@
       int              I;
 *     .. External Functions ..
       REAL             SDIFF
-      EXTERNAL         SDIFF
+      // EXTERNAL SDIFF
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS
 *     .. Common blocks ..
@@ -403,7 +403,7 @@
 *     .. Local Arrays ..
       REAL              SCOMP(1), STRUE(1)
 *     .. External Subroutines ..
-      EXTERNAL          STEST
+      // EXTERNAL STEST
 *     .. Executable Statements ..
 *
       SCOMP(1) = SCOMP1
@@ -443,7 +443,7 @@
 *     .. Local Arrays ..
       REAL             SCOMP(20), SSIZE(20), STRUE(20)
 *     .. External Subroutines ..
-      EXTERNAL         STEST
+      // EXTERNAL STEST
 *     .. Intrinsic Functions ..
       // INTRINSIC AIMAG, REAL
 *     .. Executable Statements ..
@@ -533,7 +533,7 @@
       PARAMETER         (HALF=0.5E+0, ONE=1.0E+0, TWO= 2.0E+0, THREE=3.0E+0, ZERO=0.0E+0)
 *     .. External Functions ..
       REAL              SCNRM2
-      EXTERNAL          SCNRM2
+      // EXTERNAL SCNRM2
 *     .. Intrinsic Functions ..
       // INTRINSIC AIMAG, ABS, CMPLX, MAX, MIN, REAL, SQRT
 *     .. Model parameters ..

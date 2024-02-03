@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DDOT;
-      EXTERNAL           LSAME, DDOT
+      // EXTERNAL LSAME, DDOT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSPR, DTPSV, XERBLA
+      // EXTERNAL DSCAL, DSPR, DTPSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC SQRT

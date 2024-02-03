@@ -24,12 +24,12 @@
       int                FJB, IWS, J, JB, LWKOPT, MINMN, MINWS, NA, NB, NBMIN, NFXD, NX, SM, SMINMN, SN, TOPBMN;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEQRF, CLAQP2, CLAQPS, CSWAP, CUNMQR, XERBLA
+      // EXTERNAL CGEQRF, CLAQP2, CLAQPS, CSWAP, CUNMQR, XERBLA
 *     ..
 *     .. External Functions ..
       int                ILAENV;
       REAL               SCNRM2
-      EXTERNAL           ILAENV, SCNRM2
+      // EXTERNAL ILAENV, SCNRM2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN

@@ -27,12 +27,12 @@
       double             Z1, Z2, Z3, Z4;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DLARF, DLARFGP, DSCAL, XERBLA
+      // EXTERNAL DAXPY, DLARF, DLARFGP, DSCAL, XERBLA
 *     ..
 *     .. External Functions ..
       double             DNRM2;
       bool               LSAME;
-      EXTERNAL           DNRM2, LSAME
+      // EXTERNAL DNRM2, LSAME
 *     ..
 *     .. Intrinsic Functions
       // INTRINSIC ATAN2, COS, MAX, SIN

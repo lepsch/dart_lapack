@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAMEN;
-      EXTERNAL           LSAMEN
+      // EXTERNAL LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, CBDSQR, CGEBD2, CGEBRD, CUNGBR, CUNMBR
+      // EXTERNAL CHKXER, CBDSQR, CGEBD2, CGEBRD, CUNGBR, CUNMBR
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

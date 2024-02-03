@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. External Subroutines ..
-      EXTERNAL           SGBTRF, SGBTRS, XERBLA
+      // EXTERNAL SGBTRF, SGBTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

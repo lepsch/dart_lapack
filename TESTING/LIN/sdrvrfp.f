@@ -51,10 +51,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLANSY
-      EXTERNAL           SLANSY
+      // EXTERNAL SLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, SGET04, STFTTR, SLACPY, SLARHS, SLATB4, SLATMS, SPFTRI, SPFTRF, SPFTRS, SPOT01, SPOT02, SPOT03, SPOTRI, SPOTRF, STRTTF
+      // EXTERNAL ALADHD, ALAERH, ALASVM, SGET04, STFTTR, SLACPY, SLARHS, SLATB4, SLATMS, SPFTRI, SPFTRF, SPFTRS, SPOT01, SPOT02, SPOT03, SPOTRI, SPOTRF, STRTTF
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

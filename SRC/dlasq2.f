@@ -24,12 +24,12 @@
       int                I0, I1, I4, IINFO, IPN4, ITER, IWHILA, IWHILB, K, KMIN, N0, N1, NBIG, NDIV, NFAIL, PP, SPLT, TTYPE       double             D, DEE, DEEMIN, DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, E, EMAX, EMIN, EPS, G, OLDEMN, QMAX, QMIN, S, SAFMIN, SIGMA, T, TAU, TEMP, TOL, TOL2, TRACE, ZMAX, TEMPE, TEMPQ;;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASQ3, DLASRT, XERBLA
+      // EXTERNAL DLASQ3, DLASRT, XERBLA
 *     ..
 *     .. External Functions ..
       int                ILAENV;
       double             DLAMCH;
-      EXTERNAL           DLAMCH, ILAENV
+      // EXTERNAL DLAMCH, ILAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, SQRT

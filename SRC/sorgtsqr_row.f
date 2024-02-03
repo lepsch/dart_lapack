@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SROUNDUP_LWORK
-      EXTERNAL           SROUNDUP_LWORK
+      // EXTERNAL SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARFB_GETT, SLASET, XERBLA
+      // EXTERNAL SLARFB_GETT, SLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

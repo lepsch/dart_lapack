@@ -36,14 +36,14 @@
       double             RESULT( NTESTS );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHDG, ALAREQ, ALASUM, DCSDTS, DLACSG, DLAROR, DLASET, DROT
+      // EXTERNAL ALAHDG, ALAREQ, ALASUM, DCSDTS, DLACSG, DLAROR, DLASET, DROT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
 *     ..
 *     .. External Functions ..
       double             DLARAN, DLARND;
-      EXTERNAL           DLARAN, DLARND
+      // EXTERNAL DLARAN, DLARND
 *     ..
 *     .. Executable Statements ..
 *

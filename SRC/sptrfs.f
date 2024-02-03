@@ -30,7 +30,7 @@
       REAL               BI, CX, DX, EPS, EX, LSTRES, S, SAFE1, SAFE2, SAFMIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SPTTRS, XERBLA
+      // EXTERNAL SAXPY, SPTTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
@@ -38,7 +38,7 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SLAMCH
-      EXTERNAL           ISAMAX, SLAMCH
+      // EXTERNAL ISAMAX, SLAMCH
 *     ..
 *     .. Executable Statements ..
 *

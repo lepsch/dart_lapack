@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHPEVX, CHPGST, CPPTRF, CTPMV, CTPSV, XERBLA
+      // EXTERNAL CHPEVX, CHPGST, CPPTRF, CTPMV, CTPSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

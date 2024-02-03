@@ -35,10 +35,10 @@
       bool               LSAME;
       REAL               SCNRM2, SLAMCH, SLAPY2, SROUNDUP_LWORK
       COMPLEX            CDOTC
-      EXTERNAL           LSAME, SCNRM2, SLAMCH, SLAPY2, SROUNDUP_LWORK, CDOTC
+      // EXTERNAL LSAME, SCNRM2, SLAMCH, SLAPY2, SROUNDUP_LWORK, CDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMV, CLACPY, CTGEXC, CTGSYL, XERBLA
+      // EXTERNAL CGEMV, CLACPY, CTGEXC, CTGSYL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, MAX

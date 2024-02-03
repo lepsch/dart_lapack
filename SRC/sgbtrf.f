@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       int                ILAENV, ISAMAX;
-      EXTERNAL           ILAENV, ISAMAX
+      // EXTERNAL ILAENV, ISAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGBTF2, SGEMM, SGER, SLASWP, SSCAL, SSWAP, STRSM, XERBLA
+      // EXTERNAL SCOPY, SGBTF2, SGEMM, SGER, SLASWP, SSCAL, SSWAP, STRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

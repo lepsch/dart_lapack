@@ -44,15 +44,15 @@
       REAL               RTHRESH, UNSTABLE_THRESH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, SGBCON
-      EXTERNAL           SLA_GBRFSX_EXTENDED
+      // EXTERNAL XERBLA, SGBCON
+      // EXTERNAL SLA_GBRFSX_EXTENDED
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME, ILATRANS, ILAPREC
-      EXTERNAL           SLAMCH, SLANGB, SLA_GBRCOND
+      // EXTERNAL LSAME, ILATRANS, ILAPREC
+      // EXTERNAL SLAMCH, SLANGB, SLA_GBRCOND
       REAL               SLAMCH, SLANGB, SLA_GBRCOND
       bool               LSAME;
       int                ILATRANS, ILAPREC;

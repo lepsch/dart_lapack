@@ -29,13 +29,13 @@
       double             RDUMMY(1);
 *     ..
 *     .. External Subroutines (BLAS, LAPACK)
-      EXTERNAL    ZGELQF, ZGEQP3, ZGEQRF, ZGESVD, ZLACPY, ZLAPMT, ZLASCL, ZLASET, ZLASWP, ZDSCAL, DLASET, DLASCL, ZPOCON, ZUNMLQ, ZUNMQR, XERBLA
+      // EXTERNAL ZGELQF, ZGEQP3, ZGEQRF, ZGESVD, ZLACPY, ZLAPMT, ZLASCL, ZLASET, ZLASWP, ZDSCAL, DLASET, DLASCL, ZPOCON, ZUNMLQ, ZUNMQR, XERBLA
 *     ..
 *     .. External Functions (BLAS, LAPACK)
       bool        LSAME;
       int                         IDAMAX;
       double             ZLANGE,          DZNRM2, DLAMCH;
-      EXTERNAL    LSAME, ZLANGE,  IDAMAX, DZNRM2, DLAMCH
+      // EXTERNAL LSAME, ZLANGE,  IDAMAX, DZNRM2, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN, DBLE, SQRT

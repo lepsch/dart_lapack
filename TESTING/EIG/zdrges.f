@@ -42,10 +42,10 @@
       int                ILAENV;
       double             DLAMCH;
       COMPLEX*16         ZLARND
-      EXTERNAL           ZLCTES, ILAENV, DLAMCH, ZLARND
+      // EXTERNAL ZLCTES, ILAENV, DLAMCH, ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, XERBLA, ZGET51, ZGET54, ZGGES, ZLACPY, ZLARFG, ZLASET, ZLATM4, ZUNM2R
+      // EXTERNAL ALASVM, XERBLA, ZGET51, ZGET54, ZGGES, ZLACPY, ZLARFG, ZLASET, ZLATM4, ZUNM2R
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX, MIN, SIGN

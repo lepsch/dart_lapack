@@ -32,10 +32,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             ZLANGE;
-      EXTERNAL           LSAME, ZLANGE
+      // EXTERNAL LSAME, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZLACN2, ZLACPY, ZTREXC, ZTRSYL
+      // EXTERNAL XERBLA, ZLACN2, ZLACPY, ZTREXC, ZTRSYL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

@@ -23,11 +23,11 @@
       double             RTRSEN( 3 ), RTRSNA( 3 ), RTRSYL( 2 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DERREC, DGET31, DGET32, DGET33, DGET34, DGET35, DGET36, DGET37, DGET38, DGET39, DGET40, DSYL01
+      // EXTERNAL DERREC, DGET31, DGET32, DGET33, DGET34, DGET35, DGET36, DGET37, DGET38, DGET39, DGET40, DSYL01
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. Executable Statements ..
 *

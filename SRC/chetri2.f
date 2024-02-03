@@ -23,10 +23,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHETRI2X, CHETRI, XERBLA
+      // EXTERNAL CHETRI2X, CHETRI, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

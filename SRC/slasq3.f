@@ -26,12 +26,12 @@
       REAL               EPS, S, T, TEMP, TOL, TOL2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLASQ4, SLASQ5, SLASQ6
+      // EXTERNAL SLASQ4, SLASQ5, SLASQ6
 *     ..
 *     .. External Function ..
       REAL               SLAMCH
       bool               SISNAN;
-      EXTERNAL           SISNAN, SLAMCH
+      // EXTERNAL SISNAN, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT

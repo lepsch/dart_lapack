@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEQPF, DGEQR2, DGERQ2, DLACPY, DLAPMT, DLASET, DORG2R, DORM2R, DORMR2, XERBLA
+      // EXTERNAL DGEQPF, DGEQR2, DGERQ2, DLACPY, DLAPMT, DLASET, DORG2R, DORM2R, DORMR2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

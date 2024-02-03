@@ -25,10 +25,10 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      EXTERNAL           LSAME, ILAENV
+      // EXTERNAL LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DPOTRF2, DSYRK, DTRSM, XERBLA
+      // EXTERNAL DGEMM, DPOTRF2, DSYRK, DTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

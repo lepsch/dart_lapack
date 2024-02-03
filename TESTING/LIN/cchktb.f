@@ -42,10 +42,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANTB, CLANTR
-      EXTERNAL           LSAME, CLANTB, CLANTR
+      // EXTERNAL LSAME, CLANTB, CLANTR
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, CCOPY, CERRTR, CGET04, CLACPY, CLARHS, CLASET, CLATBS, CLATTB, CTBCON, CTBRFS, CTBSV, CTBT02, CTBT03, CTBT05, CTBT06, CTBTRS
+      // EXTERNAL ALAERH, ALAHD, ALASUM, CCOPY, CERRTR, CGET04, CLACPY, CLARHS, CLASET, CLATBS, CLATTB, CTBCON, CTBRFS, CTBSV, CTBT02, CTBT03, CTBT05, CTBT06, CTBTRS
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

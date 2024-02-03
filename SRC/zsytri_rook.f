@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       COMPLEX*16         ZDOTU
-      EXTERNAL           LSAME, ZDOTU
+      // EXTERNAL LSAME, ZDOTU
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZCOPY, ZSWAP, ZSYMV, XERBLA
+      // EXTERNAL ZCOPY, ZSWAP, ZSYMV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

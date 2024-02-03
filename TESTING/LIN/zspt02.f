@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DZASUM, ZLANSP;
-      EXTERNAL           DLAMCH, DZASUM, ZLANSP
+      // EXTERNAL DLAMCH, DZASUM, ZLANSP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZSPMV
+      // EXTERNAL ZSPMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

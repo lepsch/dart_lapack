@@ -34,7 +34,7 @@
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHDG, ALAREQ, ALASUM, CLARHS, CLATMS, CLSETS, SLATB9
+      // EXTERNAL ALAHDG, ALAREQ, ALASUM, CLARHS, CLATMS, CLSETS, SLATB9
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

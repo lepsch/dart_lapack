@@ -24,14 +24,14 @@
       double             AKK, BKK, CT;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DSCAL, DSYR2, DTRMV, DTRSV, XERBLA
+      // EXTERNAL DAXPY, DSCAL, DSYR2, DTRMV, DTRSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Executable Statements ..
 *

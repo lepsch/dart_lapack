@@ -36,10 +36,10 @@
       bool               LSAME;
       int                ISAMAX;
       REAL               SLAMCH
-      EXTERNAL           LSAME, ISAMAX, SLAMCH
+      // EXTERNAL LSAME, ISAMAX, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CPTTRS, XERBLA
+      // EXTERNAL CAXPY, CPTTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, REAL

@@ -18,7 +18,7 @@
       int                I, J;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CSSCAL
+      // EXTERNAL CSSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG

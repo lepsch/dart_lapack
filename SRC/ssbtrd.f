@@ -24,14 +24,14 @@
       REAL               TEMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAR2V, SLARGV, SLARTG, SLARTV, SLASET, SROT, XERBLA
+      // EXTERNAL SLAR2V, SLARGV, SLARTG, SLARTV, SLASET, SROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Executable Statements ..
 *

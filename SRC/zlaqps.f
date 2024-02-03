@@ -26,7 +26,7 @@
       COMPLEX*16         AKK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMM, ZGEMV, ZLARFG, ZSWAP
+      // EXTERNAL ZGEMM, ZGEMV, ZLARFG, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, NINT, SQRT
@@ -34,7 +34,7 @@
 *     .. External Functions ..
       int                IDAMAX;
       double             DLAMCH, DZNRM2;
-      EXTERNAL           IDAMAX, DLAMCH, DZNRM2
+      // EXTERNAL IDAMAX, DLAMCH, DZNRM2
 *     ..
 *     .. Executable Statements ..
 *

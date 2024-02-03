@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLARAN
-      EXTERNAL           SLARAN
+      // EXTERNAL SLARAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARNV, XERBLA
+      // EXTERNAL SLARNV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, EXP, LOG, REAL

@@ -27,13 +27,13 @@
       double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SAFMIN, SMLNUM;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHRD, ZHGEQZ, ZLACPY, ZLASCL, ZLASET, ZUNGQR, ZUNMQR
+      // EXTERNAL XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHRD, ZHGEQZ, ZLACPY, ZLASCL, ZLASET, ZUNGQR, ZUNMQR
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, ZLANGE;
-      EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANGE
+      // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANGE
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, MAX

@@ -26,7 +26,7 @@
       // INTRINSIC DBLE, MOD, SIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM
+      // EXTERNAL DGEMM
 *     ..
 *     .. Executable Statements ..
 *

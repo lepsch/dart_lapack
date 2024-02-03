@@ -25,7 +25,7 @@
       PARAMETER (NMAX_EXACT = 6, NMAX_APPROX = 11)
 *     ..
 *     .. External Functions
-      EXTERNAL SLASET
+      // EXTERNAL SLASET
       // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..

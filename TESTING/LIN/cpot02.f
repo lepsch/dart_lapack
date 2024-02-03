@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANHE, SCASUM, SLAMCH
-      EXTERNAL           CLANHE, SCASUM, SLAMCH
+      // EXTERNAL CLANHE, SCASUM, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHEMM
+      // EXTERNAL CHEMM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

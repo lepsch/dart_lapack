@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. Executable Statements ..
 *

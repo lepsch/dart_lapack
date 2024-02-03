@@ -1,6 +1,6 @@
       subroutine isamaxsub(n,x,incx,iamax)
 c
-      external isamax
+      // external isamax
       int      isamax,iamax;
       int     n,incx;
       real x(*)

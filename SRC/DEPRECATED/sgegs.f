@@ -24,13 +24,13 @@
       REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SAFMIN, SMLNUM
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEQRF, SGGBAK, SGGBAL, SGGHRD, SHGEQZ, SLACPY, SLASCL, SLASET, SORGQR, SORMQR, XERBLA
+      // EXTERNAL SGEQRF, SGGBAK, SGGBAL, SGGHRD, SHGEQZ, SLACPY, SLASCL, SLASET, SORGQR, SORMQR, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH, SLANGE
-      EXTERNAL           ILAENV, LSAME, SLAMCH, SLANGE
+      // EXTERNAL ILAENV, LSAME, SLAMCH, SLANGE
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, MAX

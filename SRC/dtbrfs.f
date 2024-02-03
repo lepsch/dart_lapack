@@ -31,7 +31,7 @@
       int                ISAVE( 3 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DCOPY, DLACN2, DTBMV, DTBSV, XERBLA
+      // EXTERNAL DAXPY, DCOPY, DLACN2, DTBMV, DTBSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
@@ -39,7 +39,7 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH;
-      EXTERNAL           LSAME, DLAMCH
+      // EXTERNAL LSAME, DLAMCH
 *     ..
 *     .. Executable Statements ..
 *

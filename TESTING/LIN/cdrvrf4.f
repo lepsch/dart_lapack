@@ -35,10 +35,10 @@
 *     .. External Functions ..
       REAL               SLAMCH, SLARND, CLANGE
       COMPLEX            CLARND
-      EXTERNAL           SLAMCH, SLARND, CLANGE, CLARND
+      // EXTERNAL SLAMCH, SLARND, CLANGE, CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHERK, CHFRK, CTFTTR, CTRTTF
+      // EXTERNAL CHERK, CHFRK, CTFTTR, CTRTTF
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

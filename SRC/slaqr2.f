@@ -23,10 +23,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SROUNDUP_LWORK
-      EXTERNAL           SLAMCH, SROUNDUP_LWORK
+      // EXTERNAL SLAMCH, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEHRD, SGEMM, SLACPY, SLAHQR, SLANV2, SLARF, SLARFG, SLASET, SORMHR, STREXC
+      // EXTERNAL SCOPY, SGEHRD, SGEMM, SLACPY, SLAHQR, SLANV2, SLARF, SLARFG, SLASET, SORMHR, STREXC
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, MAX, MIN, REAL, SQRT

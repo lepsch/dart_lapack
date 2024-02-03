@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGER, DLAR2V, DLARGV, DLARTG, DLARTV, DLASET, DROT, DSCAL, XERBLA
+      // EXTERNAL DGER, DLAR2V, DLARGV, DLARTG, DLARTV, DLASET, DROT, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

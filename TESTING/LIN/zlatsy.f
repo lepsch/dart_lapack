@@ -26,7 +26,7 @@
 *     ..
 *     .. External Functions ..
       COMPLEX*16         ZLARND
-      EXTERNAL           ZLARND
+      // EXTERNAL ZLARND
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT

@@ -31,10 +31,10 @@
       bool               LSAME;
       REAL               SLAMCH
       COMPLEX            CLADIV
-      EXTERNAL           LSAME, SLAMCH, CLADIV
+      // EXTERNAL LSAME, SLAMCH, CLADIV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMV, XERBLA
+      // EXTERNAL CGEMV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL

@@ -22,7 +22,7 @@
       REAL   AII, ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL  SLARFG, SGEMV, SGER, STRMV, XERBLA
+      // EXTERNAL SLARFG, SGEMV, SGER, STRMV, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

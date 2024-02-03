@@ -35,10 +35,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DCOPY, DGEMM, DGEMV, DGER, DGESC2, DGETC2, DLASET, DLATDF, DSCAL, XERBLA
+      // EXTERNAL DAXPY, DCOPY, DGEMM, DGEMV, DGER, DGESC2, DGETC2, DLASET, DLATDF, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

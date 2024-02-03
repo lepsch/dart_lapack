@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLARND, SNRM2
-      EXTERNAL           LSAME, SLARND, SNRM2
+      // EXTERNAL LSAME, SLARND, SNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMV, SGER, SLASET, SSCAL, XERBLA
+      // EXTERNAL SGEMV, SGER, SLASET, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN

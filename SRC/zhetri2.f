@@ -22,10 +22,10 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      EXTERNAL           LSAME, ILAENV
+      // EXTERNAL LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZHETRI2X, ZHETRI, XERBLA
+      // EXTERNAL ZHETRI2X, ZHETRI, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

@@ -22,10 +22,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. EXTERNAL SUBROUTINES ..
-      EXTERNAL           CGELQT, CTPLQT, XERBLA
+      // EXTERNAL CGELQT, CTPLQT, XERBLA
 *     ..
 *     .. INTRINSIC FUNCTIONS ..
       // INTRINSIC MAX, MIN, MOD

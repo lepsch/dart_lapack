@@ -12,7 +12,7 @@
 *     ..
 *     .. External Functions ..
       REAL               ETIME_
-      EXTERNAL           ETIME_
+      // EXTERNAL ETIME_
 *     ..
 *     .. Executable Statements ..
 *

@@ -29,10 +29,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DZASUM, ZLANGE;
-      EXTERNAL           LSAME, DLAMCH, DZASUM, ZLANGE
+      // EXTERNAL LSAME, DLAMCH, DZASUM, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMM
+      // EXTERNAL ZGEMM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

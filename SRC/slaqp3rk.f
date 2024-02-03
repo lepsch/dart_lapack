@@ -25,7 +25,7 @@
       REAL               AIK, HUGEVAL, TEMP, TEMP2, TOL3Z
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SGEMV, SLARFG, SSWAP
+      // EXTERNAL SGEMM, SGEMV, SLARFG, SSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
@@ -34,7 +34,7 @@
       bool               SISNAN;
       int                ISAMAX;
       REAL               SLAMCH, SNRM2
-      EXTERNAL           SISNAN, SLAMCH, ISAMAX, SNRM2
+      // EXTERNAL SISNAN, SLAMCH, ISAMAX, SNRM2
 *     ..
 *     .. Executable Statements ..
 *

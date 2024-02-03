@@ -22,11 +22,11 @@
       int                I, IINFO, J, JB, K, NB;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DGETF2, DLASWP, DTRSM, XERBLA
+      // EXTERNAL DGEMM, DGETF2, DLASWP, DTRSM, XERBLA
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

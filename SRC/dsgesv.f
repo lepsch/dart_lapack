@@ -33,12 +33,12 @@
       double             ANRM, CTE, EPS, RNRM, XNRM;
 *
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DGEMM, DLACPY, DLAG2S, DGETRF, DGETRS, SGETRF, SGETRS, SLAG2D, XERBLA
+      // EXTERNAL DAXPY, DGEMM, DLACPY, DLAG2S, DGETRF, DGETRS, SGETRF, SGETRS, SLAG2D, XERBLA
 *     ..
 *     .. External Functions ..
       int                IDAMAX;
       double             DLAMCH, DLANGE;
-      EXTERNAL           IDAMAX, DLAMCH, DLANGE
+      // EXTERNAL IDAMAX, DLAMCH, DLANGE
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, SQRT

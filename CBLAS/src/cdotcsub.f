@@ -1,6 +1,6 @@
       subroutine cdotcsub(n,x,incx,y,incy,dotc)
 c
-      external cdotc
+      // external cdotc
       complex cdotc,dotc
       int     n,incx,incy;
       complex x(*),y(*)

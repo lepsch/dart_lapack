@@ -34,10 +34,10 @@
 *     .. External Functions ..
       COMPLEX            CLADIV
       REAL               SLAMCH
-      EXTERNAL           CLADIV, SLAMCH
+      // EXTERNAL CLADIV, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLARFG, CSCAL
+      // EXTERNAL CCOPY, CLARFG, CSCAL
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

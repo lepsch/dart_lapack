@@ -23,10 +23,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SPPTRF, SSPEVX, SSPGST, STPMV, STPSV, XERBLA
+      // EXTERNAL SPPTRF, SSPEVX, SSPGST, STPMV, STPSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

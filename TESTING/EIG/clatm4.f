@@ -30,10 +30,10 @@
 *     .. External Functions ..
       REAL               SLARAN
       COMPLEX            CLARND
-      EXTERNAL           SLARAN, CLARND
+      // EXTERNAL SLARAN, CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLASET
+      // EXTERNAL CLASET
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, EXP, LOG, MAX, MIN, MOD, REAL

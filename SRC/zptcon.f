@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       int                IDAMAX;
-      EXTERNAL           IDAMAX
+      // EXTERNAL IDAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

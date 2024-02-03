@@ -24,11 +24,11 @@
       bool               LQUERY;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARF, SLARFGP, SORBDB5, SROT, XERBLA
+      // EXTERNAL SLARF, SLARFGP, SORBDB5, SROT, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SNRM2
-      EXTERNAL           SNRM2
+      // EXTERNAL SNRM2
 *     ..
 *     .. Intrinsic Function ..
       // INTRINSIC ATAN2, COS, MAX, SIN, SQRT

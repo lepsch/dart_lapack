@@ -1,6 +1,6 @@
       subroutine scasumsub(n,x,incx,asum)
 c
-      external scasum
+      // external scasum
       real scasum,asum
       int     n,incx;
       complex x(*)

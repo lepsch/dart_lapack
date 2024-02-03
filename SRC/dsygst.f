@@ -23,7 +23,7 @@
       int                K, KB, NB;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSYGS2, DSYMM, DSYR2K, DTRMM, DTRSM, XERBLA
+      // EXTERNAL DSYGS2, DSYMM, DSYR2K, DTRMM, DTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -31,7 +31,7 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      EXTERNAL           LSAME, ILAENV
+      // EXTERNAL LSAME, ILAENV
 *     ..
 *     .. Executable Statements ..
 *

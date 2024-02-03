@@ -27,11 +27,11 @@
       REAL               A( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), S( NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), WI( NMAX ), WR( NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, SGEES, SGEESX, SGEEV, SGEEVX, SGEJSV, SGESDD, SGESVD, SGESVDX, SGESVDQ
+      // EXTERNAL CHKXER, SGEES, SGEESX, SGEEV, SGEEVX, SGEJSV, SGESDD, SGESVD, SGESVDX, SGESVDQ
 *     ..
 *     .. External Functions ..
       bool               SSLECT, LSAMEN;
-      EXTERNAL           SSLECT, LSAMEN
+      // EXTERNAL SSLECT, LSAMEN
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM

@@ -23,11 +23,11 @@
       COMPLEX            ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CHEMV, CHER2
+      // EXTERNAL CAXPY, CHEMV, CHER2
 *     ..
 *     .. External Functions ..
       COMPLEX            CDOTC
-      EXTERNAL           CDOTC
+      // EXTERNAL CDOTC
 *     ..
 *     .. Executable Statements ..
 *

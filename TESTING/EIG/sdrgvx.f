@@ -29,10 +29,10 @@
 *     .. External Functions ..
       int                ILAENV;
       REAL               SLAMCH, SLANGE
-      EXTERNAL           ILAENV, SLAMCH, SLANGE
+      // EXTERNAL ILAENV, SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, SGET52, SGGEVX, SLACPY, SLATM6, XERBLA
+      // EXTERNAL ALASVM, SGET52, SGGEVX, SLACPY, SLATM6, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGEHRD, CGEMM, CLACPY, CLAHQR, CLARF, CLARFG, CLASET, CTREXC, CUNMHR
+      // EXTERNAL CCOPY, CGEHRD, CGEMM, CLACPY, CLAHQR, CLARF, CLARFG, CLASET, CTREXC, CUNMHR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, INT, MAX, MIN, REAL

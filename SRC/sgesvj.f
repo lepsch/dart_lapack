@@ -35,23 +35,23 @@
 *     ..
 *     from BLAS
       REAL               SDOT, SNRM2
-      EXTERNAL           SDOT, SNRM2
+      // EXTERNAL SDOT, SNRM2
       int                ISAMAX;
-      EXTERNAL           ISAMAX
+      // EXTERNAL ISAMAX
 *     from LAPACK
       REAL               SLAMCH, SROUNDUP_LWORK
-      EXTERNAL           SLAMCH, SROUNDUP_LWORK
+      // EXTERNAL SLAMCH, SROUNDUP_LWORK
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
 *     ..
 *     from BLAS
-      EXTERNAL           SAXPY, SCOPY, SROTM, SSCAL, SSWAP
+      // EXTERNAL SAXPY, SCOPY, SROTM, SSCAL, SSWAP
 *     from LAPACK
-      EXTERNAL           SLASCL, SLASET, SLASSQ, XERBLA
+      // EXTERNAL SLASCL, SLASET, SLASSQ, XERBLA
 *
-      EXTERNAL           SGSVJ0, SGSVJ1
+      // EXTERNAL SGSVJ0, SGSVJ1
 *     ..
 *     .. Executable Statements ..
 *

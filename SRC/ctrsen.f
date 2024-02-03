@@ -32,10 +32,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, SROUNDUP_LWORK
-      EXTERNAL           LSAME, CLANGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, CLANGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACN2, CLACPY, CTREXC, CTRSYL, XERBLA
+      // EXTERNAL CLACN2, CLACPY, CTREXC, CTRSYL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

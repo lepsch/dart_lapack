@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SROUNDUP_LWORK
-      EXTERNAL           SROUNDUP_LWORK
+      // EXTERNAL SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SLATSQR, SORGTSQR_ROW, SORHR_COL, XERBLA
+      // EXTERNAL SCOPY, SLATSQR, SORGTSQR_ROW, SORHR_COL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CEILING, MAX, MIN

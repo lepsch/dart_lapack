@@ -23,7 +23,7 @@
       COMPLEX*16         A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX)
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, ZUNHR_COL
+      // EXTERNAL ALAESM, CHKXER, ZUNHR_COL
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

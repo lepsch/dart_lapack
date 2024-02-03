@@ -30,10 +30,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANST, SROUNDUP_LWORK
-      EXTERNAL           LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
+      // EXTERNAL LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SLAE2, SLAEV2, SLARRC, SLARRE, SLARRJ, SLARRR, SLARRV, SLASRT, SSCAL, SSWAP, XERBLA
+      // EXTERNAL SCOPY, SLAE2, SLAEV2, SLARRC, SLARRE, SLARRJ, SLARRR, SLARRV, SLASRT, SSCAL, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT

@@ -33,10 +33,10 @@
       bool               LSAME;
       int                IDAMAX;
       double             DDOT, DLAMCH;
-      EXTERNAL           LSAME, IDAMAX, DDOT, DLAMCH
+      // EXTERNAL LSAME, IDAMAX, DDOT, DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DLACN2, DLATBS, DRSCL, XERBLA
+      // EXTERNAL DAXPY, DLACN2, DLATBS, DRSCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN

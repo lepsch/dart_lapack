@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       COMPLEX*16         ZDOTC
-      EXTERNAL           LSAME, ZDOTC
+      // EXTERNAL LSAME, ZDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZDSCAL, ZGEMV, ZLACGV
+      // EXTERNAL XERBLA, ZDSCAL, ZGEMV, ZLACGV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, MAX

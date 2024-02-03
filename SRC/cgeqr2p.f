@@ -22,7 +22,7 @@
       COMPLEX            ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLARF, CLARFGP, XERBLA
+      // EXTERNAL CLARF, CLARFGP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG, MAX, MIN

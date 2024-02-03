@@ -36,10 +36,10 @@
 *     ..
 *     .. External Functions ..
       bool               DGENND;
-      EXTERNAL           DGENND
+      // EXTERNAL DGENND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DERRQR, DGELS, DGET02, DLACPY, DLARHS, DLATB4, DLATMS, DQRT01, DQRT01P, DQRT02, DQRT03, XLAENV
+      // EXTERNAL ALAERH, ALAHD, ALASUM, DERRQR, DGELS, DGET02, DLACPY, DLARHS, DLATB4, DLATMS, DQRT01, DQRT01P, DQRT02, DQRT03, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

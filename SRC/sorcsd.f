@@ -29,11 +29,11 @@
       bool               COLMAJOR, DEFAULTSIGNS, LQUERY, WANTU1, WANTU2, WANTV1T, WANTV2T;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SBBCSD, SLACPY, SLAPMR, SLAPMT, SORBDB, SORGLQ, SORGQR, XERBLA
+      // EXTERNAL SBBCSD, SLACPY, SLAPMR, SLAPMT, SORBDB, SORGLQ, SORGQR, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Intrinsic Functions
       // INTRINSIC INT, MAX, MIN

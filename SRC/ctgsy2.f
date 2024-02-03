@@ -32,10 +32,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CGESC2, CGETC2, CSCAL, CLATDF, XERBLA
+      // EXTERNAL CAXPY, CGESC2, CGETC2, CSCAL, CLATDF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CMPLX, CONJG, MAX

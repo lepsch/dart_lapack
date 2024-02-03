@@ -22,7 +22,7 @@
       COMPLEX            ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACGV, CLARFG, CLARZ
+      // EXTERNAL CLACGV, CLARFG, CLARZ
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG

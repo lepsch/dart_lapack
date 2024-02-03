@@ -36,10 +36,10 @@
       int                IZAMAX;
       double             DLAMCH, DZNRM2;
       COMPLEX*16         ZDOTC
-      EXTERNAL           LSAME, IZAMAX, DLAMCH, DZNRM2, ZDOTC
+      // EXTERNAL LSAME, IZAMAX, DLAMCH, DZNRM2, ZDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZDRSCL, ZLACN2, ZLACPY, ZLATRS, ZTREXC
+      // EXTERNAL XERBLA, ZDRSCL, ZLACN2, ZLACPY, ZLATRS, ZTREXC
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX

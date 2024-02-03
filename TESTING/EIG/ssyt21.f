@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANGE, SLANSY
-      EXTERNAL           LSAME, SLAMCH, SLANGE, SLANSY
+      // EXTERNAL LSAME, SLAMCH, SLANGE, SLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SLACPY, SLARFY, SLASET, SORM2L, SORM2R, SSYR, SSYR2
+      // EXTERNAL SGEMM, SLACPY, SLARFY, SLASET, SORM2L, SORM2R, SSYR, SSYR2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL

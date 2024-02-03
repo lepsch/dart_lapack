@@ -22,12 +22,12 @@
       int                I, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3, NB4, NP;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMV, SGGQRF, SORMQR, SORMRQ, STRTRS, XERBLA
+      // EXTERNAL SCOPY, SGEMV, SGGQRF, SORMQR, SORMRQ, STRTRS, XERBLA
 *     ..
 *     .. External Functions ..
       int                ILAENV;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           ILAENV, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN

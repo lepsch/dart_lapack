@@ -41,10 +41,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH
-      EXTERNAL           LSAME, SLAMCH
+      // EXTERNAL LSAME, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CGEMV, CGETRS, CLACN2, XERBLA
+      // EXTERNAL CAXPY, CCOPY, CGEMV, CGETRS, CLACN2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL

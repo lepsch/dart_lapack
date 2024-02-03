@@ -37,7 +37,7 @@
       int                ISAVE( 3 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CGTTRS, CLACN2, CLAGTM, XERBLA
+      // EXTERNAL CAXPY, CCOPY, CGTTRS, CLACN2, CLAGTM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, MAX, REAL
@@ -45,7 +45,7 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH
-      EXTERNAL           LSAME, SLAMCH
+      // EXTERNAL LSAME, SLAMCH
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

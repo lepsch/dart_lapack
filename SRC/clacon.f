@@ -29,10 +29,10 @@
 *     .. External Functions ..
       int                ICMAX1;
       REAL               SCSUM1, SLAMCH
-      EXTERNAL           ICMAX1, SCSUM1, SLAMCH
+      // EXTERNAL ICMAX1, SCSUM1, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY
+      // EXTERNAL CCOPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, REAL

@@ -29,13 +29,13 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE, ZLANHP;
-      EXTERNAL           LSAME, DLAMCH, ZLANGE, ZLANHP
+      // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANHP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCONJG
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZCOPY, ZHPMV
+      // EXTERNAL ZCOPY, ZHPMV
 *     ..
 *     .. Executable Statements ..
 *

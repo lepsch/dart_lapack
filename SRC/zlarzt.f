@@ -22,11 +22,11 @@
       int                I, INFO, J;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEMV, ZLACGV, ZTRMV
+      // EXTERNAL XERBLA, ZGEMV, ZLACGV, ZTRMV
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Executable Statements ..
 *

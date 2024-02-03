@@ -19,7 +19,7 @@
       REAL               ALPHA, BETA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLASD1, SLASDQ, SLASDT, XERBLA
+      // EXTERNAL SLASD1, SLASDQ, SLASDT, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

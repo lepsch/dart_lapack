@@ -31,10 +31,10 @@
       bool               LSAME;
       double             DLAMCH;
       COMPLEX*16         ZLADIV
-      EXTERNAL           LSAME, DLAMCH, ZLADIV
+      // EXTERNAL LSAME, DLAMCH, ZLADIV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEMV
+      // EXTERNAL XERBLA, ZGEMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG, MAX, MIN

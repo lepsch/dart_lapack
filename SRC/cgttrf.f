@@ -23,7 +23,7 @@
       COMPLEX            FACT, TEMP, ZDUM
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, REAL

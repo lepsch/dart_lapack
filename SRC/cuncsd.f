@@ -29,12 +29,12 @@
       bool               LRQUERY;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, CBBCSD, CLACPY, CLAPMR, CLAPMT, CUNBDB, CUNGLQ, CUNGQR
+      // EXTERNAL XERBLA, CBBCSD, CLACPY, CLAPMR, CLAPMT, CUNBDB, CUNGLQ, CUNGQR
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, SROUNDUP_LWORK
+      // EXTERNAL LSAME, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions
       // INTRINSIC INT, MAX, MIN

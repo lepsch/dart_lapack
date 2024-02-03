@@ -91,9 +91,9 @@
 *     .. External Functions ..
       REAL               SDIFF
       bool               LCE;
-      EXTERNAL           SDIFF, LCE
+      // EXTERNAL SDIFF, LCE
 *     .. External Subroutines ..
-      EXTERNAL           CCHK1, CCHK2, CCHK3, CCHK4, CCHK5, CCHK6, CC2CHKE, CMVCH
+      // EXTERNAL CCHK1, CCHK2, CCHK3, CCHK4, CCHK5, CCHK6, CC2CHKE, CMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -437,9 +437,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LCE, LCERES;
-      EXTERNAL           LCE, LCERES
+      // EXTERNAL LCE, LCERES
 *     .. External Subroutines ..
-      EXTERNAL           CCGBMV, CCGEMV, CMAKE, CMVCH
+      // EXTERNAL CCGBMV, CCGEMV, CMAKE, CMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -747,9 +747,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LCE, LCERES;
-      EXTERNAL           LCE, LCERES
+      // EXTERNAL LCE, LCERES
 *     .. External Subroutines ..
-      EXTERNAL           CCHBMV, CCHEMV, CCHPMV, CMAKE, CMVCH
+      // EXTERNAL CCHBMV, CCHEMV, CCHPMV, CMAKE, CMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -1058,9 +1058,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LCE, LCERES;
-      EXTERNAL           LCE, LCERES
+      // EXTERNAL LCE, LCERES
 *     .. External Subroutines ..
-      EXTERNAL           CMAKE, CMVCH, CCTBMV, CCTBSV, CCTPMV, CCTPSV, CCTRMV, CCTRSV
+      // EXTERNAL CMAKE, CMVCH, CCTBMV, CCTBSV, CCTPMV, CCTPSV, CCTRMV, CCTRSV
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -1376,9 +1376,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LCE, LCERES;
-      EXTERNAL           LCE, LCERES
+      // EXTERNAL LCE, LCERES
 *     .. External Subroutines ..
-      EXTERNAL           CCGERC, CCGERU, CMAKE, CMVCH
+      // EXTERNAL CCGERC, CCGERU, CMAKE, CMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN
 *     .. Scalars in Common ..
@@ -1621,9 +1621,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LCE, LCERES;
-      EXTERNAL           LCE, LCERES
+      // EXTERNAL LCE, LCERES
 *     .. External Subroutines ..
-      EXTERNAL           CCHER, CCHPR, CMAKE, CMVCH
+      // EXTERNAL CCHER, CCHPR, CMAKE, CMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, CONJG, MAX, REAL
 *     .. Scalars in Common ..
@@ -1883,9 +1883,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LCE, LCERES;
-      EXTERNAL           LCE, LCERES
+      // EXTERNAL LCE, LCERES
 *     .. External Subroutines ..
-      EXTERNAL           CCHER2, CCHPR2, CMAKE, CMVCH
+      // EXTERNAL CCHER2, CCHPR2, CMAKE, CMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX
 *     .. Scalars in Common ..
@@ -2456,7 +2456,7 @@
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       COMPLEX            CBEG
-      EXTERNAL           CBEG
+      // EXTERNAL CBEG
 *     .. Intrinsic Functions ..
       // INTRINSIC CMPLX, CONJG, MAX, MIN, REAL
 *     .. Executable Statements ..

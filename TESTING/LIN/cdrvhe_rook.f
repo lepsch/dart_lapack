@@ -41,10 +41,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANHE
-      EXTERNAL           CLANHE
+      // EXTERNAL CLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, XLAENV, CERRVX, CGET04, CLACPY, CLARHS, CLATB4, CLATMS, CHESV_ROOK, CHET01_ROOK, CPOT02, CHETRF_ROOK, CHETRI_ROOK
+      // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, CERRVX, CGET04, CLACPY, CLARHS, CLATB4, CLATMS, CHESV_ROOK, CHET01_ROOK, CPOT02, CHETRF_ROOK, CHETRI_ROOK
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

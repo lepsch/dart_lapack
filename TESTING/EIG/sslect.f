@@ -30,7 +30,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAPY2
-      EXTERNAL           SLAPY2
+      // EXTERNAL SLAPY2
 *     ..
 *     .. Executable Statements ..
 *

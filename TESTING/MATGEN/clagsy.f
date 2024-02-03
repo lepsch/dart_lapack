@@ -25,12 +25,12 @@
       COMPLEX            ALPHA, TAU, WA, WB
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CGEMV, CGERC, CLACGV, CLARNV, CSCAL, CSYMV, XERBLA
+      // EXTERNAL CAXPY, CGEMV, CGERC, CLACGV, CLARNV, CSCAL, CSYMV, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SCNRM2
       COMPLEX            CDOTC
-      EXTERNAL           SCNRM2, CDOTC
+      // EXTERNAL SCNRM2, CDOTC
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, REAL

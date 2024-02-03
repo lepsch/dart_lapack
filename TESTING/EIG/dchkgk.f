@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLANGE;
-      EXTERNAL           DLAMCH, DLANGE
+      // EXTERNAL DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DGGBAK, DGGBAL, DLACPY
+      // EXTERNAL DGEMM, DGGBAK, DGGBAL, DLACPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

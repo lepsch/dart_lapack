@@ -35,10 +35,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGBEQU, CGEEQU, CPBEQU, CPOEQU, CPPEQU
+      // EXTERNAL CGBEQU, CGEEQU, CPBEQU, CPOEQU, CPPEQU
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

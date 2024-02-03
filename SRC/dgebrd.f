@@ -22,14 +22,14 @@
       int                I, IINFO, J, LDWRKX, LDWRKY, LWKMIN, LWKOPT, MINMN, NB, NBMIN, NX, WS;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEBD2, DGEMM, DLABRD, XERBLA
+      // EXTERNAL DGEBD2, DGEMM, DLABRD, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Executable Statements ..
 *

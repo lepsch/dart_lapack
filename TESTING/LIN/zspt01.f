@@ -30,10 +30,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANSP, ZLANSY;
-      EXTERNAL           LSAME, DLAMCH, ZLANSP, ZLANSY
+      // EXTERNAL LSAME, DLAMCH, ZLANSP, ZLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLASET, ZLAVSP
+      // EXTERNAL ZLASET, ZLAVSP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE

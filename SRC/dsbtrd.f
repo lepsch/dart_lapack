@@ -24,14 +24,14 @@
       double             TEMP;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAR2V, DLARGV, DLARTG, DLARTV, DLASET, DROT, XERBLA
+      // EXTERNAL DLAR2V, DLARGV, DLARTG, DLARTV, DLASET, DROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Executable Statements ..
 *

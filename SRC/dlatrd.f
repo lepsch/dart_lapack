@@ -23,12 +23,12 @@
       double             ALPHA;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DGEMV, DLARFG, DSCAL, DSYMV
+      // EXTERNAL DAXPY, DGEMV, DLARFG, DSCAL, DSYMV
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       double             DDOT;
-      EXTERNAL           LSAME, DDOT
+      // EXTERNAL LSAME, DDOT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

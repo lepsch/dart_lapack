@@ -25,12 +25,12 @@
       double             ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEBRD, DGELQF, DGEQRF, DLACPY, DLALSD, DLASCL, DLASET, DORMBR, DORMLQ, DORMQR, XERBLA
+      // EXTERNAL DGEBRD, DGELQF, DGEQRF, DLACPY, DLALSD, DLASCL, DLASET, DORMBR, DORMLQ, DORMQR, XERBLA
 *     ..
 *     .. External Functions ..
       int                ILAENV;
       double             DLAMCH, DLANGE;
-      EXTERNAL           ILAENV, DLAMCH, DLANGE
+      // EXTERNAL ILAENV, DLAMCH, DLANGE
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, INT, LOG, MAX, MIN

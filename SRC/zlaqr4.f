@@ -52,13 +52,13 @@
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Local Arrays ..
       COMPLEX*16         ZDUM( 1, 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLACPY, ZLAHQR, ZLAQR2, ZLAQR5
+      // EXTERNAL ZLACPY, ZLAHQR, ZLAQR2, ZLAQR5
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, INT, MAX, MIN, MOD, SQRT

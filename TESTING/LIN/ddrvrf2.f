@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       double             DLARND;
-      EXTERNAL           DLARND
+      // EXTERNAL DLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DTFTTR, DTFTTP, DTRTTF, DTRTTP, DTPTTR, DTPTTF
+      // EXTERNAL DTFTTR, DTFTTP, DTRTTF, DTRTTP, DTPTTR, DTPTTF
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

@@ -41,10 +41,10 @@
       bool               LSAME;
       REAL               CLANGE
       COMPLEX            CLARND
-      EXTERNAL           LSAME, CLANGE, CLARND
+      // EXTERNAL LSAME, CLANGE, CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGEMV, CGERC, CLACGV, CLARFG, CLARGE, CLARNV, CLATM1, CLASET, CSCAL, CSSCAL, SLATM1, XERBLA
+      // EXTERNAL CCOPY, CGEMV, CGERC, CLACGV, CLARFG, CLARGE, CLARNV, CLATM1, CLASET, CSCAL, CSSCAL, SLATM1, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MOD

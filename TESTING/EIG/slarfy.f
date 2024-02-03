@@ -23,11 +23,11 @@
       REAL               ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SSYMV, SSYR2
+      // EXTERNAL SAXPY, SSYMV, SSYR2
 *     ..
 *     .. External Functions ..
       REAL               SDOT
-      EXTERNAL           SDOT
+      // EXTERNAL SDOT
 *     ..
 *     .. Executable Statements ..
 *

@@ -32,9 +32,9 @@
 *     .. External Functions ..
       double             DDIFF;
       bool               LDE;
-      EXTERNAL           DDIFF, LDE
+      // EXTERNAL DDIFF, LDE
 *     .. External Subroutines ..
-      EXTERNAL           DCHK1, DCHK2, DCHK3, DCHK4, DCHK5, DCHKE, DMMCH
+      // EXTERNAL DCHK1, DCHK2, DCHK3, DCHK4, DCHK5, DCHKE, DMMCH
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
 *     .. Scalars in Common ..
@@ -324,9 +324,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DMAKE, DMMCH
+      // EXTERNAL DGEMM, DMAKE, DMMCH
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Scalars in Common ..
@@ -575,9 +575,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DMAKE, DMMCH, DSYMM
+      // EXTERNAL DMAKE, DMMCH, DSYMM
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Scalars in Common ..
@@ -814,9 +814,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DMAKE, DMMCH, DTRMM, DTRSM
+      // EXTERNAL DMAKE, DMMCH, DTRMM, DTRSM
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Scalars in Common ..
@@ -1070,9 +1070,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DMAKE, DMMCH, DSYRK
+      // EXTERNAL DMAKE, DMMCH, DSYRK
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Scalars in Common ..
@@ -1311,9 +1311,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DMAKE, DMMCH, DSYR2K
+      // EXTERNAL DMAKE, DMMCH, DSYR2K
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Scalars in Common ..
@@ -1578,7 +1578,7 @@
 *     .. Local Arrays ..
       double             A( 2, 1 ), B( 2, 1 ), C( 2, 1 );
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, DGEMM, DSYMM, DSYR2K, DSYRK, DTRMM, DTRSM
+      // EXTERNAL CHKXER, DGEMM, DSYMM, DSYR2K, DSYRK, DTRMM, DTRSM
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
 *     .. Executable Statements ..
@@ -2135,7 +2135,7 @@
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       double             DBEG;
-      EXTERNAL           DBEG
+      // EXTERNAL DBEG
 *     .. Executable Statements ..
       GEN = TYPE.EQ.'GE'
       SYM = TYPE.EQ.'SY'

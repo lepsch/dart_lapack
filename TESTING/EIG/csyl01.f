@@ -44,10 +44,10 @@
 *     .. External Functions ..
       bool               SISNAN;
       REAL               SLAMCH, CLANGE
-      EXTERNAL           SISNAN, SLAMCH, CLANGE
+      // EXTERNAL SISNAN, SLAMCH, CLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLATMR, CLACPY, CGEMM, CTRSYL, CTRSYL3
+      // EXTERNAL CLATMR, CLACPY, CGEMM, CTRSYL, CTRSYL3
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, MAX

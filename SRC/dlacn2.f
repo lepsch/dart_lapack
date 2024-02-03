@@ -28,10 +28,10 @@
 *     .. External Functions ..
       int                IDAMAX;
       double             DASUM;
-      EXTERNAL           IDAMAX, DASUM
+      // EXTERNAL IDAMAX, DASUM
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY
+      // EXTERNAL DCOPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, NINT

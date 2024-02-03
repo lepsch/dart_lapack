@@ -32,12 +32,12 @@
       double             AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM;
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME, DLAMCH, ZLA_GERPVGRW
+      // EXTERNAL LSAME, DLAMCH, ZLA_GERPVGRW
       bool               LSAME;
       double             DLAMCH, ZLA_GERPVGRW;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEEQUB, ZGETRF, ZGETRS, ZLACPY, ZLAQGE, XERBLA, ZLASCL2, ZGERFSX
+      // EXTERNAL ZGEEQUB, ZGETRF, ZGETRS, ZLACPY, ZLAQGE, XERBLA, ZLASCL2, ZGERFSX
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

@@ -36,10 +36,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLANGE, SLARAN
-      EXTERNAL           LSAME, SLANGE, SLARAN
+      // EXTERNAL LSAME, SLANGE, SLARAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMV, SGER, SLARFG, SLARGE, SLARNV, SLATM1, SLASET, SSCAL, XERBLA
+      // EXTERNAL SCOPY, SGEMV, SGER, SLARFG, SLARGE, SLARNV, SLATM1, SLASET, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MOD

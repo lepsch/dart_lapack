@@ -23,7 +23,7 @@
       REAL               A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, SGEQRT2, SGEQRT3, SGEQRT, SGEMQRT
+      // EXTERNAL ALAESM, CHKXER, SGEQRT2, SGEQRT3, SGEQRT, SGEMQRT
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

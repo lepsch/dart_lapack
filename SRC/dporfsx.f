@@ -45,14 +45,14 @@
       double             RTHRESH, UNSTABLE_THRESH;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, DPOCON, DLA_PORFSX_EXTENDED
+      // EXTERNAL XERBLA, DPOCON, DLA_PORFSX_EXTENDED
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME, ILAPREC
-      EXTERNAL           DLAMCH, DLANSY, DLA_PORCOND
+      // EXTERNAL LSAME, ILAPREC
+      // EXTERNAL DLAMCH, DLANSY, DLA_PORCOND
       double             DLAMCH, DLANSY, DLA_PORCOND;
       bool               LSAME;
       int                ILAPREC;

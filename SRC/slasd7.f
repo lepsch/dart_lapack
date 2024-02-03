@@ -24,11 +24,11 @@
       REAL               EPS, HLFTOL, TAU, TOL, Z1
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SLAMRG, SROT, XERBLA
+      // EXTERNAL SCOPY, SLAMRG, SROT, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLAPY2
-      EXTERNAL           SLAMCH, SLAPY2
+      // EXTERNAL SLAMCH, SLAPY2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

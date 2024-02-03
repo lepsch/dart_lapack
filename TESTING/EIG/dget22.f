@@ -28,10 +28,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANGE;
-      EXTERNAL           LSAME, DLAMCH, DLANGE
+      // EXTERNAL LSAME, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DGEMM, DLASET
+      // EXTERNAL DAXPY, DGEMM, DLASET
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN

@@ -28,7 +28,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SDOT, SLAMCH
-      EXTERNAL           SDOT, SLAMCH
+      // EXTERNAL SDOT, SLAMCH
 *     ..
 *     .. Executable Statements ..
 *

@@ -39,10 +39,10 @@
 *     ..
 *     .. External Functions ..
       REAL               DGET06, SLANSY
-      EXTERNAL           DGET06, SLANSY
+      // EXTERNAL DGET06, SLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, SERRVX, SGET04, SLACPY, SLARHS, SLASET, SLATB4, SLATMS, SPOT02, SSYSV_AA, SSYT01_AA, SSYTRF_AA, XLAENV
+      // EXTERNAL ALADHD, ALAERH, ALASVM, SERRVX, SGET04, SLACPY, SLARHS, SLASET, SLATB4, SLATMS, SPOT02, SSYSV_AA, SSYT01_AA, SSYTRF_AA, XLAENV
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

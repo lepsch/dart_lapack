@@ -30,7 +30,7 @@
 *     .. External Functions ..
       REAL        SLAMCH, SLANGE, SLANSY
       bool        LSAME;
-      EXTERNAL    SLAMCH, SLANGE, SLANSY, LSAME
+      // EXTERNAL SLAMCH, SLANGE, SLANSY, LSAME
 *     ..
 *     .. Data statements ..
       DATA ISEED / 1988, 1989, 1990, 1991 /

@@ -28,10 +28,10 @@
       REAL               SLAMCH
       int                ISAMAX;
       bool               SISNAN;
-      EXTERNAL           SLAMCH, ISAMAX, SISNAN
+      // EXTERNAL SLAMCH, ISAMAX, SISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           STRSM, SSCAL, XERBLA, SLASWP
+      // EXTERNAL STRSM, SSCAL, XERBLA, SLASWP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, IAND

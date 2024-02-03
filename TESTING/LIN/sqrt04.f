@@ -28,13 +28,13 @@
       int                ISEED( 4 );
 *     ..
 *     .. External Subroutine ..
-      EXTERNAL SGEMM, SLACPY, SLARNV, SGEMQRT, SLASET, SGEQRT, SSYRK
+      // EXTERNAL SGEMM, SLACPY, SLARNV, SGEMQRT, SLASET, SGEQRT, SSYRK
 *     ..
 *     .. External Functions ..
       REAL SLAMCH
       REAL SLANGE, SLANSY
       bool     LSAME;
-      EXTERNAL SLAMCH, SLANGE, SLANSY, LSAME
+      // EXTERNAL SLAMCH, SLANGE, SLANSY, LSAME
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

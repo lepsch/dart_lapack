@@ -47,10 +47,10 @@
 *     .. External Functions ..
       bool               DSLECT;
       double             DLAMCH;
-      EXTERNAL           DSLECT, DLAMCH
+      // EXTERNAL DSLECT, DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEES, DHST01, DLACPY, DLASET, DLASUM, DLATME, DLATMR, DLATMS, XERBLA
+      // EXTERNAL DGEES, DHST01, DLACPY, DLASET, DLASUM, DLATME, DLATMR, DLATMS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SIGN, SQRT

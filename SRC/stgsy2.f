@@ -35,10 +35,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, SGEMM, SGEMV, SGER, SGESC2, SGETC2, SSCAL, SLASET, SLATDF, XERBLA
+      // EXTERNAL SAXPY, SCOPY, SGEMM, SGEMV, SGER, SGESC2, SGETC2, SSCAL, SLASET, SLATDF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

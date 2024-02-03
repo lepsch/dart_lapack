@@ -32,10 +32,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANHP, SLAMCH
-      EXTERNAL           LSAME, CLANHP, SLAMCH
+      // EXTERNAL LSAME, CLANHP, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHPTRD, CSSCAL, CSTEIN, CSTEQR, CSWAP, CUPGTR, CUPMTR, SCOPY, SSCAL, SSTEBZ, SSTERF, XERBLA
+      // EXTERNAL CHPTRD, CSSCAL, CSTEIN, CSTEQR, CSWAP, CUPGTR, CUPMTR, SCOPY, SSCAL, SSTEBZ, SSTERF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL, SQRT

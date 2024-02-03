@@ -91,9 +91,9 @@
 *     .. External Functions ..
       double             DDIFF;
       bool               LZE;
-      EXTERNAL           DDIFF, LZE
+      // EXTERNAL DDIFF, LZE
 *     .. External Subroutines ..
-      EXTERNAL           ZCHK1, ZCHK2, ZCHK3, ZCHK4, ZCHK5, ZCHK6, CZ2CHKE, ZMVCH
+      // EXTERNAL ZCHK1, ZCHK2, ZCHK3, ZCHK4, ZCHK5, ZCHK6, CZ2CHKE, ZMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -436,9 +436,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LZE, LZERES;
-      EXTERNAL           LZE, LZERES
+      // EXTERNAL LZE, LZERES
 *     .. External Subroutines ..
-      EXTERNAL           CZGBMV, CZGEMV, ZMAKE, ZMVCH
+      // EXTERNAL CZGBMV, CZGEMV, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -746,9 +746,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LZE, LZERES;
-      EXTERNAL           LZE, LZERES
+      // EXTERNAL LZE, LZERES
 *     .. External Subroutines ..
-      EXTERNAL           CZHBMV, CZHEMV, CZHPMV, ZMAKE, ZMVCH
+      // EXTERNAL CZHBMV, CZHEMV, CZHPMV, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -1057,9 +1057,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LZE, LZERES;
-      EXTERNAL           LZE, LZERES
+      // EXTERNAL LZE, LZERES
 *     .. External Subroutines ..
-      EXTERNAL           ZMAKE, ZMVCH, CZTBMV, CZTBSV, CZTPMV, CZTPSV, CZTRMV, CZTRSV
+      // EXTERNAL ZMAKE, ZMVCH, CZTBMV, CZTBSV, CZTPMV, CZTPSV, CZTRMV, CZTRSV
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -1375,9 +1375,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LZE, LZERES;
-      EXTERNAL           LZE, LZERES
+      // EXTERNAL LZE, LZERES
 *     .. External Subroutines ..
-      EXTERNAL           CZGERC, CZGERU, ZMAKE, ZMVCH
+      // EXTERNAL CZGERC, CZGERU, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, MAX, MIN
 *     .. Scalars in Common ..
@@ -1620,9 +1620,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LZE, LZERES;
-      EXTERNAL           LZE, LZERES
+      // EXTERNAL LZE, LZERES
 *     .. External Subroutines ..
-      EXTERNAL           CZHER, CZHPR, ZMAKE, ZMVCH
+      // EXTERNAL CZHER, CZHPR, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCMPLX, DCONJG, MAX, DBLE
 *     .. Scalars in Common ..
@@ -1882,9 +1882,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LZE, LZERES;
-      EXTERNAL           LZE, LZERES
+      // EXTERNAL LZE, LZERES
 *     .. External Subroutines ..
-      EXTERNAL           CZHER2, CZHPR2, ZMAKE, ZMVCH
+      // EXTERNAL CZHER2, CZHPR2, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, MAX
 *     .. Scalars in Common ..
@@ -2455,7 +2455,7 @@
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       COMPLEX*16         ZBEG
-      EXTERNAL           ZBEG
+      // EXTERNAL ZBEG
 *     .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, DCONJG, MAX, MIN, DBLE
 *     .. Executable Statements ..

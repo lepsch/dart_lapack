@@ -44,10 +44,10 @@
 *     .. External Functions ..
       bool               DISNAN;
       double             DLAMCH, ZLANGE;
-      EXTERNAL           DISNAN, DLAMCH, ZLANGE
+      // EXTERNAL DISNAN, DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLATMR, ZLACPY, ZGEMM, ZTRSYL, ZTRSYL3
+      // EXTERNAL ZLATMR, ZLACPY, ZGEMM, ZTRSYL, ZTRSYL3
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, SQRT

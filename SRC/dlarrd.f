@@ -34,10 +34,10 @@
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH;
-      EXTERNAL           LSAME, ILAENV, DLAMCH
+      // EXTERNAL LSAME, ILAENV, DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAEBZ
+      // EXTERNAL DLAEBZ
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, MIN

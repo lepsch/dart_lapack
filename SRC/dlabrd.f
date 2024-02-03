@@ -21,7 +21,7 @@
       int                I;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMV, DLARFG, DSCAL
+      // EXTERNAL DGEMV, DLARFG, DSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

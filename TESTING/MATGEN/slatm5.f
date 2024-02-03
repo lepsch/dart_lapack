@@ -26,7 +26,7 @@
       // INTRINSIC MOD, REAL, SIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM
+      // EXTERNAL SGEMM
 *     ..
 *     .. Executable Statements ..
 *

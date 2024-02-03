@@ -29,10 +29,10 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      EXTERNAL           LSAME, ILAENV
+      // EXTERNAL LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLASYF_AA, ZGEMM, ZGEMV, ZSCAL, ZCOPY, ZSWAP, XERBLA
+      // EXTERNAL ZLASYF_AA, ZGEMM, ZGEMV, ZSCAL, ZCOPY, ZSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       double             DNRM2;
-      EXTERNAL           DNRM2
+      // EXTERNAL DNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEMM, DLACPY, DLASCL, DLASD4, XERBLA
+      // EXTERNAL DCOPY, DGEMM, DLACPY, DLASCL, DLASD4, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN, SQRT

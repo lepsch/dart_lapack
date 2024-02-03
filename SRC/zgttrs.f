@@ -21,10 +21,10 @@
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGTTS2
+      // EXTERNAL XERBLA, ZGTTS2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

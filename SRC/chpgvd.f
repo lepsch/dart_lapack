@@ -24,10 +24,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, SROUNDUP_LWORK
+      // EXTERNAL LSAME, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHPEVD, CHPGST, CPPTRF, CTPMV, CTPSV, XERBLA
+      // EXTERNAL CHPEVD, CHPGST, CPPTRF, CTPMV, CTPSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, REAL

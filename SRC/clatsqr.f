@@ -21,10 +21,10 @@
 *     .. EXTERNAL FUNCTIONS ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, SROUNDUP_LWORK
+      // EXTERNAL LSAME, SROUNDUP_LWORK
 *     ..
 *     .. EXTERNAL SUBROUTINES ..
-      EXTERNAL           CGEQRT, CTPQRT, XERBLA
+      // EXTERNAL CGEQRT, CTPQRT, XERBLA
 *     ..
 *     .. INTRINSIC FUNCTIONS ..
       // INTRINSIC MAX, MIN, MOD

@@ -26,7 +26,7 @@
 *     .. External Functions ..
       int                IZAMAX;
       double             DLAMCH;
-      EXTERNAL           IZAMAX, DLAMCH
+      // EXTERNAL IZAMAX, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN

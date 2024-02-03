@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLANGE, DLANSY;
-      EXTERNAL           DLAMCH, DLANGE, DLANSY
+      // EXTERNAL DLAMCH, DLANGE, DLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSYMM
+      // EXTERNAL DSCAL, DSYMM
 *     ..
 *     .. Executable Statements ..
 *

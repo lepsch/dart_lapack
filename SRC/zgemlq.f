@@ -21,10 +21,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLAMSWLQ, ZGEMLQT, XERBLA
+      // EXTERNAL ZLAMSWLQ, ZGEMLQT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN, MOD

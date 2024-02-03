@@ -32,12 +32,12 @@
       double             AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM;
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME, DLAMCH, DLA_SYRPVGRW
+      // EXTERNAL LSAME, DLAMCH, DLA_SYRPVGRW
       bool               LSAME;
       double             DLAMCH, DLA_SYRPVGRW;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSYEQUB, DSYTRF, DSYTRS, DLACPY, DLAQSY, XERBLA, DLASCL2, DSYRFSX
+      // EXTERNAL DSYEQUB, DSYTRF, DSYTRS, DLACPY, DLAQSY, XERBLA, DLASCL2, DSYRFSX
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

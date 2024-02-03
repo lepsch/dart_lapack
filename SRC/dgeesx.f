@@ -16,7 +16,7 @@
 *     ..
 *     .. Function Arguments ..
       bool               SELECT;
-      EXTERNAL           SELECT
+      // EXTERNAL SELECT
 *     ..
 *
 *  =====================================================================
@@ -33,13 +33,13 @@
       double             DUM( 1 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLASCL, DORGHR, DSWAP, DTRSEN, XERBLA
+      // EXTERNAL DCOPY, DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLASCL, DORGHR, DSWAP, DTRSEN, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, DLANGE;
-      EXTERNAL           LSAME, ILAENV, DLAMCH, DLANGE
+      // EXTERNAL LSAME, ILAENV, DLAMCH, DLANGE
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

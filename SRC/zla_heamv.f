@@ -26,11 +26,11 @@
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, DLAMCH
+      // EXTERNAL XERBLA, DLAMCH
       double             DLAMCH;
 *     ..
 *     .. External Functions ..
-      EXTERNAL           ILAUPLO
+      // EXTERNAL ILAUPLO
       int                ILAUPLO;
 *     ..
 *     .. Intrinsic Functions ..

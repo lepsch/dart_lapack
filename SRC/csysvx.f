@@ -30,10 +30,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               CLANSY, SLAMCH, SROUNDUP_LWORK
-      EXTERNAL           ILAENV, LSAME, CLANSY, SLAMCH, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, LSAME, CLANSY, SLAMCH, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACPY, CSYCON, CSYRFS, CSYTRF, CSYTRS, XERBLA
+      // EXTERNAL CLACPY, CSYCON, CSYRFS, CSYTRF, CSYTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

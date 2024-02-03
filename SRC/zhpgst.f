@@ -27,7 +27,7 @@
       COMPLEX*16         CT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZAXPY, ZDSCAL, ZHPMV, ZHPR2, ZTPMV, ZTPSV
+      // EXTERNAL XERBLA, ZAXPY, ZDSCAL, ZHPMV, ZHPR2, ZTPMV, ZTPSV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE
@@ -35,7 +35,7 @@
 *     .. External Functions ..
       bool               LSAME;
       COMPLEX*16         ZDOTC
-      EXTERNAL           LSAME, ZDOTC
+      // EXTERNAL LSAME, ZDOTC
 *     ..
 *     .. Executable Statements ..
 *

@@ -18,7 +18,7 @@
       String    :: JBCMPZ*3;
 
 *     External Functions
-      EXTERNAL :: XERBLA, DHGEQZ, DLASET, DLAQZ3, DLAQZ4, DLARTG, DROT
+      // EXTERNAL :: XERBLA, DHGEQZ, DLASET, DLAQZ3, DLAQZ4, DLARTG, DROT
       double          , EXTERNAL :: DLAMCH, DLANHS;
       bool   , EXTERNAL :: LSAME;
       int    , EXTERNAL :: ILAENV;

@@ -33,10 +33,10 @@
       bool               LSAME;
       int                IZAMAX;
       double             DLAMCH;
-      EXTERNAL           LSAME, IZAMAX, DLAMCH
+      // EXTERNAL LSAME, IZAMAX, DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZCOPY, ZGEMM, ZGEMV, ZSCAL, ZSWAP
+      // EXTERNAL ZCOPY, ZGEMM, ZGEMV, ZSCAL, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT, DIMAG, DBLE

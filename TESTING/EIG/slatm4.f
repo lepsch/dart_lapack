@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLARAN, SLARND
-      EXTERNAL           SLAMCH, SLARAN, SLARND
+      // EXTERNAL SLAMCH, SLARAN, SLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLASET
+      // EXTERNAL SLASET
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, EXP, LOG, MAX, MIN, MOD, REAL, SQRT

@@ -24,14 +24,14 @@
       REAL               AKK, BKK, CT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SSCAL, SSYR2, STRMV, STRSV, XERBLA
+      // EXTERNAL SAXPY, SSCAL, SSYR2, STRMV, STRSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Executable Statements ..
 *

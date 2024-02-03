@@ -27,13 +27,13 @@
 *     .. External Functions ..
       bool               LSAME, SISNAN;
       REAL               SLAMCH
-      EXTERNAL           LSAME, SLAMCH, SISNAN
+      // EXTERNAL LSAME, SLAMCH, SISNAN
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. Executable Statements ..
 *

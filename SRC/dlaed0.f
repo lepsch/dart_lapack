@@ -23,11 +23,11 @@
       double             TEMP;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEMM, DLACPY, DLAED1, DLAED7, DSTEQR, XERBLA
+      // EXTERNAL DCOPY, DGEMM, DLACPY, DLAED1, DLAED7, DSTEQR, XERBLA
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, INT, LOG, MAX

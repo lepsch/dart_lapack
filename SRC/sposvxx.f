@@ -32,12 +32,12 @@
       REAL               AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME, SLAMCH, SLA_PORPVGRW
+      // EXTERNAL LSAME, SLAMCH, SLA_PORPVGRW
       bool               LSAME;
       REAL               SLAMCH, SLA_PORPVGRW
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SPOEQUB, SPOTRF, SPOTRS, SLACPY, SLAQSY, XERBLA, SLASCL2, SPORFSX
+      // EXTERNAL SPOEQUB, SPOTRF, SPOTRS, SLACPY, SLAQSY, XERBLA, SLASCL2, SPORFSX
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

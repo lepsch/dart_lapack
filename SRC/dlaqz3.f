@@ -18,7 +18,7 @@
       double           :: S, SMLNUM, ULP, SAFMIN, SAFMAX, C1, S1, TEMP;
 
 *     External Functions
-      EXTERNAL :: XERBLA, DTGEXC, DLAQZ0, DLACPY, DLASET, DLAQZ2, DROT, DLARTG, DLAG2, DGEMM
+      // EXTERNAL :: XERBLA, DTGEXC, DLAQZ0, DLACPY, DLASET, DLAQZ2, DROT, DLARTG, DLAG2, DGEMM
       double          , EXTERNAL :: DLAMCH;
 
       INFO = 0

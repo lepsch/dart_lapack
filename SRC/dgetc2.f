@@ -23,11 +23,11 @@
       double             BIGNUM, EPS, SMIN, SMLNUM, XMAX;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGER, DSWAP
+      // EXTERNAL DGER, DSWAP
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

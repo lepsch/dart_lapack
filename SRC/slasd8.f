@@ -22,11 +22,11 @@
       REAL               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, RHO, TEMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SLASCL, SLASD4, SLASET, XERBLA
+      // EXTERNAL SCOPY, SLASCL, SLASD4, SLASET, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SDOT, SLAMC3, SNRM2
-      EXTERNAL           SDOT, SLAMC3, SNRM2
+      // EXTERNAL SDOT, SLAMC3, SNRM2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN, SQRT

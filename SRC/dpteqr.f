@@ -20,10 +20,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DBDSQR, DLASET, DPTTRF, XERBLA
+      // EXTERNAL DBDSQR, DLASET, DPTTRF, XERBLA
 *     ..
 *     .. Local Arrays ..
       double             C( 1, 1 ), VT( 1, 1 );

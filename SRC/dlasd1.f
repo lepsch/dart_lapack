@@ -25,7 +25,7 @@
       double             ORGNRM;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAMRG, DLASCL, DLASD2, DLASD3, XERBLA
+      // EXTERNAL DLAMRG, DLASCL, DLASD2, DLASD3, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

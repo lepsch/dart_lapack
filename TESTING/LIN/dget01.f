@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       double             DDOT, DLAMCH, DLANGE;
-      EXTERNAL           DDOT, DLAMCH, DLANGE
+      // EXTERNAL DDOT, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMV, DLASWP, DSCAL, DTRMV
+      // EXTERNAL DGEMV, DLASWP, DSCAL, DTRMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MIN

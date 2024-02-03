@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DZASUM, ZLANGE;
-      EXTERNAL           DLAMCH, DZASUM, ZLANGE
+      // EXTERNAL DLAMCH, DZASUM, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZAXPY, ZCOPY
+      // EXTERNAL ZAXPY, ZCOPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, MAX, MIN

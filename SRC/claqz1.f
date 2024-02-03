@@ -17,7 +17,7 @@
       COMPLEX :: S, TEMP
 *
 *     External Functions
-      EXTERNAL :: CLARTG, CROT
+      // EXTERNAL :: CLARTG, CROT
 *
       IF( K+1 .EQ. IHI ) THEN
 *

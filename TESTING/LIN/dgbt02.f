@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               DISNAN, LSAME;
       double             DASUM, DLAMCH;
-      EXTERNAL           DASUM, DISNAN, DLAMCH, LSAME
+      // EXTERNAL DASUM, DISNAN, DLAMCH, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGBMV
+      // EXTERNAL DGBMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

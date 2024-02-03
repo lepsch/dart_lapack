@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, CLANHE, SLAMCH
-      EXTERNAL           CLANGE, CLANHE, SLAMCH
+      // EXTERNAL CLANGE, CLANHE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHEMM, CSSCAL
+      // EXTERNAL CHEMM, CSSCAL
 *     ..
 *     .. Executable Statements ..
 *

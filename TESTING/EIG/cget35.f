@@ -32,10 +32,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
-      EXTERNAL           CLANGE, SLAMCH
+      // EXTERNAL CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CTRSYL
+      // EXTERNAL CGEMM, CTRSYL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, REAL, SQRT

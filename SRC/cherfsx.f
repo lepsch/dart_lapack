@@ -43,14 +43,14 @@
       REAL               RTHRESH, UNSTABLE_THRESH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, CHECON, CLA_HERFSX_EXTENDED
+      // EXTERNAL XERBLA, CHECON, CLA_HERFSX_EXTENDED
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT, TRANSFER
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME, ILAPREC
-      EXTERNAL           SLAMCH, CLANHE, CLA_HERCOND_X, CLA_HERCOND_C
+      // EXTERNAL LSAME, ILAPREC
+      // EXTERNAL SLAMCH, CLANHE, CLA_HERCOND_X, CLA_HERCOND_C
       REAL               SLAMCH, CLANHE, CLA_HERCOND_X, CLA_HERCOND_C
       bool               LSAME;
       int                ILAPREC;

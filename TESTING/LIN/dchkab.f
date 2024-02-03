@@ -41,10 +41,10 @@
       double             DLAMCH, DSECND;
       bool               LSAME, LSAMEN;
       REAL               SLAMCH
-      EXTERNAL           LSAME, LSAMEN, DLAMCH, DSECND, SLAMCH
+      // EXTERNAL LSAME, LSAMEN, DLAMCH, DSECND, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAREQ, DDRVAB, DDRVAC, DERRAB, DERRAC, ILAVER
+      // EXTERNAL ALAREQ, DDRVAB, DDRVAC, DERRAB, DERRAC, ILAVER
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

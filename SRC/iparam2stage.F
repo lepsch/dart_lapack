@@ -25,7 +25,7 @@
 *     .. External Functions ..
       int                ILAENV;
       bool               LSAME;
-      EXTERNAL           ILAENV, LSAME
+      // EXTERNAL ILAENV, LSAME
 *     ..
 *     .. Executable Statements ..
 *

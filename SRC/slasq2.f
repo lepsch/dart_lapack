@@ -24,11 +24,11 @@
       int                I0, I4, IINFO, IPN4, ITER, IWHILA, IWHILB, K, KMIN, N0, NBIG, NDIV, NFAIL, PP, SPLT, TTYPE, I1, N1       REAL               D, DEE, DEEMIN, DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, E, EMAX, EMIN, EPS, G, OLDEMN, QMAX, QMIN, S, SAFMIN, SIGMA, T, TAU, TEMP, TOL, TOL2, TRACE, ZMAX, TEMPE, TEMPQ;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLASQ3, SLASRT, XERBLA
+      // EXTERNAL SLASQ3, SLASRT, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT

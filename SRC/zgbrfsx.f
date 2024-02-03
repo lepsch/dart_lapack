@@ -39,14 +39,14 @@
       int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE, N_NORMS, ITHRESH       double             ANORM, RCOND_TMP, ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG, RTHRESH, UNSTABLE_THRESH;;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGBCON, ZLA_GBRFSX_EXTENDED
+      // EXTERNAL XERBLA, ZGBCON, ZLA_GBRFSX_EXTENDED
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT, TRANSFER
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME, ILAPREC
-      EXTERNAL           DLAMCH, ZLANGB, ZLA_GBRCOND_X, ZLA_GBRCOND_C
+      // EXTERNAL LSAME, ILAPREC
+      // EXTERNAL DLAMCH, ZLANGB, ZLA_GBRCOND_X, ZLA_GBRCOND_C
       double             DLAMCH, ZLANGB, ZLA_GBRCOND_X, ZLA_GBRCOND_C;
       bool               LSAME;
       int                ILATRANS, ILAPREC;

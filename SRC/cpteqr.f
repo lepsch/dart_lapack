@@ -21,10 +21,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CBDSQR, CLASET, SPTTRF, XERBLA
+      // EXTERNAL CBDSQR, CLASET, SPTTRF, XERBLA
 *     ..
 *     .. Local Arrays ..
       COMPLEX            C( 1, 1 ), VT( 1, 1 )

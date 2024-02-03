@@ -28,10 +28,10 @@
 *     .. External Functions ..
       bool               LSAME, DISNAN;
       double             DLAMCH, DLANHS;
-      EXTERNAL           LSAME, DLAMCH, DLANHS, DISNAN
+      // EXTERNAL LSAME, DLAMCH, DLANHS, DISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAEIN, XERBLA
+      // EXTERNAL DLAEIN, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

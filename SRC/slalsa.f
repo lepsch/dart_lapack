@@ -21,7 +21,7 @@
       int                I, I1, IC, IM1, INODE, J, LF, LL, LVL, LVL2, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, SQRE;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMM, SLALS0, SLASDT, XERBLA
+      // EXTERNAL SCOPY, SGEMM, SLALS0, SLASDT, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

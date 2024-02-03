@@ -25,7 +25,7 @@
 *     ..
 *     .. External Functions ..
       int                SLANEG;
-      EXTERNAL           SLANEG
+      // EXTERNAL SLANEG
 *
 *     ..
 *     .. Intrinsic Functions ..

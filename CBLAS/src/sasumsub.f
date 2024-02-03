@@ -1,6 +1,6 @@
       subroutine sasumsub(n,x,incx,asum)
 c
-      external sasum
+      // external sasum
       real sasum,asum
       int     n,incx;
       real x(*)

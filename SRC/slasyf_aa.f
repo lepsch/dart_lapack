@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ISAMAX, ILAENV;
-      EXTERNAL           LSAME, ILAENV, ISAMAX
+      // EXTERNAL LSAME, ILAENV, ISAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SGEMV, SSCAL, SCOPY, SSWAP, SLASET, XERBLA
+      // EXTERNAL SAXPY, SGEMV, SSCAL, SCOPY, SSWAP, SLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

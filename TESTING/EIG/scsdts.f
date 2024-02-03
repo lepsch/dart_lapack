@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANGE, SLANSY
-      EXTERNAL           SLAMCH, SLANGE, SLANSY
+      // EXTERNAL SLAMCH, SLANGE, SLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SLACPY, SLASET, SORCSD, SORCSD2BY1, SSYRK
+      // EXTERNAL SGEMM, SLACPY, SLASET, SORCSD, SORCSD2BY1, SSYRK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC COS, MAX, MIN, REAL, SIN

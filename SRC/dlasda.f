@@ -22,7 +22,7 @@
       double             ALPHA, BETA;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLASD6, DLASDQ, DLASDT, DLASET, XERBLA
+      // EXTERNAL DCOPY, DLASD6, DLASDQ, DLASDT, DLASET, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

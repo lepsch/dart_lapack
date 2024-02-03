@@ -29,10 +29,10 @@
 *     .. External Functions ..
       bool               LSAME, DISNAN;
       int                IDAMAX;
-      EXTERNAL           LSAME, IDAMAX, DISNAN
+      // EXTERNAL LSAME, IDAMAX, DISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSWAP, DSYR, XERBLA
+      // EXTERNAL DSCAL, DSWAP, DSYR, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

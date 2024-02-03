@@ -1,6 +1,6 @@
       subroutine dzasumsub(n,x,incx,asum)
 c
-      external dzasum
+      // external dzasum
       double           dzasum,asum;
       int     n,incx;
       double complex x(*)

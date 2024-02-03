@@ -41,10 +41,10 @@
 *     .. External Functions ..
       double             DLAMCH, ZLANGE;
       COMPLEX*16         ZLARND
-      EXTERNAL           DLAMCH, ZLANGE, ZLARND
+      // EXTERNAL DLAMCH, ZLANGE, ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASUM, XERBLA, ZGEQR2, ZGET51, ZGET52, ZGGHRD, ZHGEQZ, ZLACPY, ZLARFG, ZLASET, ZLATM4, ZTGEVC, ZUNM2R
+      // EXTERNAL DLASUM, XERBLA, ZGEQR2, ZGET51, ZGET52, ZGGHRD, ZHGEQZ, ZLACPY, ZLARFG, ZLASET, ZLATM4, ZTGEVC, ZUNM2R
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, SIGN

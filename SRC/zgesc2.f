@@ -25,12 +25,12 @@
       COMPLEX*16         TEMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLASWP, ZSCAL
+      // EXTERNAL ZLASWP, ZSCAL
 *     ..
 *     .. External Functions ..
       int                IZAMAX;
       double             DLAMCH;
-      EXTERNAL           IZAMAX, DLAMCH
+      // EXTERNAL IZAMAX, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX

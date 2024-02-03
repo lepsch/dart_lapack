@@ -34,10 +34,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACPY, SLASUM, SLATMR, SLATMS, SLASET, SSBT21, SSBTRD, XERBLA
+      // EXTERNAL SLACPY, SLASUM, SLATMR, SLATMS, SLASET, SSBT21, SSBTRD, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT

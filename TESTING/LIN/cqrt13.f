@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SCASUM, SLAMCH
-      EXTERNAL           CLANGE, SCASUM, SLAMCH
+      // EXTERNAL CLANGE, SCASUM, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLARNV, CLASCL
+      // EXTERNAL CLARNV, CLASCL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL, SIGN

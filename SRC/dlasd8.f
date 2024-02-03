@@ -22,11 +22,11 @@
       double             DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, RHO, TEMP;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLASCL, DLASD4, DLASET, XERBLA
+      // EXTERNAL DCOPY, DLASCL, DLASD4, DLASET, XERBLA
 *     ..
 *     .. External Functions ..
       double             DDOT, DLAMC3, DNRM2;
-      EXTERNAL           DDOT, DLAMC3, DNRM2
+      // EXTERNAL DDOT, DLAMC3, DNRM2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN, SQRT

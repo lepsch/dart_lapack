@@ -28,7 +28,7 @@
 *     ..
 *     .. External Functions ..
       double             DDOT, DLAMCH;
-      EXTERNAL           DDOT, DLAMCH
+      // EXTERNAL DDOT, DLAMCH
 *     ..
 *     .. Executable Statements ..
 *

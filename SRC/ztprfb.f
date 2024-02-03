@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       bool      LSAME;
-      EXTERNAL  LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL  ZGEMM, ZTRMM
+      // EXTERNAL ZGEMM, ZTRMM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG

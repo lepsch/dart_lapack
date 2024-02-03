@@ -25,7 +25,7 @@
       // INTRINSIC DCONJG, MAX, MIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZAXPY, ZCOPY, ZGEMV, ZGERC, ZLACGV, ZLARFG
+      // EXTERNAL XERBLA, ZAXPY, ZCOPY, ZGEMV, ZGERC, ZLACGV, ZLARFG
 *     ..
 *     .. Executable Statements ..
 *

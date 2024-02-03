@@ -30,12 +30,12 @@
       COMPLEX            C1, C2, S1, S2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGEQP3, CLAIC1, CLASCL, CLASET, CTRSM, CTZRZF, CUNMQR, CUNMRZ, XERBLA
+      // EXTERNAL CCOPY, CGEQP3, CLAIC1, CLASCL, CLASET, CTRSM, CTZRZF, CUNMQR, CUNMRZ, XERBLA
 *     ..
 *     .. External Functions ..
       int                ILAENV;
       REAL               CLANGE, SLAMCH
-      EXTERNAL           CLANGE, ILAENV, SLAMCH
+      // EXTERNAL CLANGE, ILAENV, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, CMPLX

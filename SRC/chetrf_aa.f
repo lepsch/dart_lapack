@@ -30,10 +30,10 @@
       bool         LSAME;
       int          ILAENV;
       REAL         SROUNDUP_LWORK
-      EXTERNAL     LSAME, ILAENV, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL     CLAHEF_AA, CGEMM, CCOPY, CSWAP, CSCAL, XERBLA
+      // EXTERNAL CLAHEF_AA, CGEMM, CCOPY, CSWAP, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC REAL, CONJG, MAX

@@ -37,10 +37,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SGEQR2, SGERQ2, SLACPY, SLAGV2, SLARTG, SLASET, SLASSQ, SORG2R, SORGR2, SORM2R, SORMR2, SROT, SSCAL, STGSY2
+      // EXTERNAL SGEMM, SGEQR2, SGERQ2, SLACPY, SLAGV2, SLARTG, SLASET, SLASSQ, SORG2R, SORGR2, SORM2R, SORMR2, SROT, SSCAL, STGSY2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

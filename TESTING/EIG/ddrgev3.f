@@ -34,10 +34,10 @@
 *     .. External Functions ..
       int                ILAENV;
       double             DLAMCH, DLARND;
-      EXTERNAL           ILAENV, DLAMCH, DLARND
+      // EXTERNAL ILAENV, DLAMCH, DLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, DGET52, DGGEV3, DLACPY, DLARFG, DLASET, DLATM4, DORM2R, XERBLA
+      // EXTERNAL ALASVM, DGET52, DGGEV3, DLACPY, DLARFG, DLASET, DLATM4, DORM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, SIGN

@@ -25,10 +25,10 @@
 *     ..
 *     .. EXTERNAL FUNCTIONS ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGEMM, CTRMM
+      // EXTERNAL CCOPY, CGEMM, CTRMM
 *     ..
 *     .. Executable Statements ..
 *

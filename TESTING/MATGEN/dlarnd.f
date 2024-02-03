@@ -24,7 +24,7 @@
 *     ..
 *     .. External Functions ..
       double             DLARAN;
-      EXTERNAL           DLARAN
+      // EXTERNAL DLARAN
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC COS, LOG, SQRT

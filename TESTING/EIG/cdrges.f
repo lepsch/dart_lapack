@@ -42,10 +42,10 @@
       int                ILAENV;
       REAL               SLAMCH
       COMPLEX            CLARND
-      EXTERNAL           CLCTES, ILAENV, SLAMCH, CLARND
+      // EXTERNAL CLCTES, ILAENV, SLAMCH, CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, CGET51, CGET54, CGGES, CLACPY, CLARFG, CLASET, CLATM4, CUNM2R, XERBLA
+      // EXTERNAL ALASVM, CGET51, CGET54, CGGES, CLACPY, CLARFG, CLASET, CLATM4, CUNM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CONJG, MAX, MIN, REAL, SIGN

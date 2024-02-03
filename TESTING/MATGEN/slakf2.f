@@ -21,7 +21,7 @@
       int                I, IK, J, JK, L, MN, MN2;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLASET
+      // EXTERNAL SLASET
 *     ..
 *     .. Executable Statements ..
 *

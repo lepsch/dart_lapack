@@ -33,10 +33,10 @@
       bool               LSAME;
       int                ISAMAX;
       REAL               SDOT, SLAMCH
-      EXTERNAL           LSAME, ISAMAX, SDOT, SLAMCH
+      // EXTERNAL LSAME, ISAMAX, SDOT, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SLACN2, SLATBS, SRSCL, XERBLA
+      // EXTERNAL SAXPY, SLACN2, SLATBS, SRSCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN

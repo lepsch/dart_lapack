@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ISAMAX;
-      EXTERNAL           LSAME, ISAMAX
+      // EXTERNAL LSAME, ISAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMM, SGEMV, SSCAL, SSWAP
+      // EXTERNAL SCOPY, SGEMM, SGEMV, SSCAL, SSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT

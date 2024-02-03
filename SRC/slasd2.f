@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLAPY2
-      EXTERNAL           SLAMCH, SLAPY2
+      // EXTERNAL SLAMCH, SLAPY2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SLACPY, SLAMRG, SLASET, SROT, XERBLA
+      // EXTERNAL SCOPY, SLACPY, SLAMRG, SLASET, SROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

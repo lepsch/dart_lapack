@@ -32,7 +32,7 @@
       // INTRINSIC DCMPLX, EXP, LOG, MIN, SQRT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARUV
+      // EXTERNAL DLARUV
 *     ..
 *     .. Executable Statements ..
 *

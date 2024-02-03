@@ -28,14 +28,14 @@
       COMPLEX            RA, RB, RS, T
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLARGV, CLARTG, CLARTV, CLASET, CROT, CSCAL, XERBLA
+      // EXTERNAL CLARGV, CLARTG, CLARTV, CLASET, CROT, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Executable Statements ..
 *

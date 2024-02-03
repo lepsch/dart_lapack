@@ -33,10 +33,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANGE
-      EXTERNAL           SLAMCH, SLANGE
+      // EXTERNAL SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEHRD, SHSEQR, SLACPY, SSCAL, STREVC, STRSNA
+      // EXTERNAL SCOPY, SGEHRD, SHSEQR, SLACPY, SSCAL, STREVC, STRSNA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, REAL, SQRT

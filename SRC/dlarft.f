@@ -22,11 +22,11 @@
       int                I, J, PREVLASTV, LASTV;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMV, DTRMV
+      // EXTERNAL DGEMV, DTRMV
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Executable Statements ..
 *

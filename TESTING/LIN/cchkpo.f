@@ -40,10 +40,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANHE, SGET06
-      EXTERNAL           CLANHE, SGET06
+      // EXTERNAL CLANHE, SGET06
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, CERRPO, CGET04, CLACPY, CLAIPD, CLARHS, CLATB4, CLATMS, CPOCON, CPORFS, CPOT01, CPOT02, CPOT03, CPOT05, CPOTRF, CPOTRI, CPOTRS, XLAENV
+      // EXTERNAL ALAERH, ALAHD, ALASUM, CERRPO, CGET04, CLACPY, CLAIPD, CLARHS, CLATB4, CLATMS, CPOCON, CPORFS, CPOT01, CPOT02, CPOT03, CPOT05, CPOTRF, CPOTRI, CPOTRS, XLAENV
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

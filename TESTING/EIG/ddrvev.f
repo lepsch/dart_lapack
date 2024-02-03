@@ -37,10 +37,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLAPY2, DNRM2;
-      EXTERNAL           DLAMCH, DLAPY2, DNRM2
+      // EXTERNAL DLAMCH, DLAPY2, DNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEEV, DGET22, DLACPY, DLASET, DLASUM, DLATME, DLATMR, DLATMS, XERBLA
+      // EXTERNAL DGEEV, DGET22, DLACPY, DLASET, DLASUM, DLATME, DLATMR, DLATMS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT

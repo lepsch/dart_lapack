@@ -32,7 +32,7 @@
       // INTRINSIC CMPLX, EXP, LOG, MIN, SQRT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARUV
+      // EXTERNAL SLARUV
 *     ..
 *     .. Executable Statements ..
 *

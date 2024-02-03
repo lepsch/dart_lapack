@@ -23,7 +23,7 @@
       double             AKK, TEMP, TEMP2, TOL3Z;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DGEMV, DLARFG, DSWAP
+      // EXTERNAL DGEMM, DGEMV, DLARFG, DSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, NINT, SQRT
@@ -31,7 +31,7 @@
 *     .. External Functions ..
       int                IDAMAX;
       double             DLAMCH, DNRM2;
-      EXTERNAL           IDAMAX, DLAMCH, DNRM2
+      // EXTERNAL IDAMAX, DLAMCH, DNRM2
 *     ..
 *     .. Executable Statements ..
 *

@@ -44,14 +44,14 @@
       REAL               RTHRESH, UNSTABLE_THRESH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, SPOCON, SLA_PORFSX_EXTENDED
+      // EXTERNAL XERBLA, SPOCON, SLA_PORFSX_EXTENDED
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME, ILAPREC
-      EXTERNAL           SLAMCH, SLANSY, SLA_PORCOND
+      // EXTERNAL LSAME, ILAPREC
+      // EXTERNAL SLAMCH, SLANSY, SLA_PORCOND
       REAL               SLAMCH, SLANSY, SLA_PORCOND
       bool               LSAME;
       int                ILAPREC;

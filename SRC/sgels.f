@@ -30,10 +30,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGELQF, SGEQRF, SLASCL, SLASET, SORMLQ, SORMQR, STRTRS, XERBLA
+      // EXTERNAL SGELQF, SGEQRF, SLASCL, SLASET, SORMLQ, SORMQR, STRTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

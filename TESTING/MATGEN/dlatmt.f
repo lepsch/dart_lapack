@@ -32,10 +32,10 @@
 *     .. External Functions ..
       double             DLARND;
       bool               LSAME;
-      EXTERNAL           DLARND, LSAME
+      // EXTERNAL DLARND, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLATM7, DCOPY, DLAGGE, DLAGSY, DLAROT, DLARTG, DLASET, DSCAL, XERBLA
+      // EXTERNAL DLATM7, DCOPY, DLAGGE, DLAGSY, DLAROT, DLARTG, DLASET, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, COS, DBLE, MAX, MIN, MOD, SIN

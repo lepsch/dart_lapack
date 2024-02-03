@@ -28,10 +28,10 @@
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, DLANST;
-      EXTERNAL           LSAME, ILAENV, DLAMCH, DLANST
+      // EXTERNAL LSAME, ILAENV, DLAMCH, DLANST
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DLACPY, DLAED0, DLASCL, DLASET, DLASRT, DSTEQR, DSTERF, DSWAP, XERBLA
+      // EXTERNAL DGEMM, DLACPY, DLAED0, DLASCL, DLASET, DLASRT, DSTEQR, DSTERF, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, INT, LOG, MAX, MOD, SQRT

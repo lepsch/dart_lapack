@@ -28,10 +28,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, SLAMCH
-      EXTERNAL           LSAME, CLANGE, SLAMCH
+      // EXTERNAL LSAME, CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CLACPY, CLARNV, CLASET, CUNGQL, CUNMQL
+      // EXTERNAL CGEMM, CLACPY, CLARNV, CLASET, CUNGQL, CUNMQL
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 );

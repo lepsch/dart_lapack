@@ -1,6 +1,6 @@
       subroutine dasumsub(n,x,incx,asum)
 c
-      external dasum
+      // external dasum
       double           dasum,asum;
       int     n,incx;
       double           x(*);

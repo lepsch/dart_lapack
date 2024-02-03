@@ -26,7 +26,7 @@
       // INTRINSIC DCMPLX, MOD, SIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMM
+      // EXTERNAL ZGEMM
 *     ..
 *     .. Executable Statements ..
 *

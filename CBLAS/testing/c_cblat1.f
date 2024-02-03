@@ -12,7 +12,7 @@
       REAL             SFAC
       int              IC;
 *     .. External Subroutines ..
-      EXTERNAL         CHECK1, CHECK2, HEADER
+      // EXTERNAL CHECK1, CHECK2, HEADER
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Data statements ..
@@ -93,9 +93,9 @@
 *     .. External Functions ..
       REAL              SCASUMTEST, SCNRM2TEST
       int               ICAMAXTEST;
-      EXTERNAL          SCASUMTEST, SCNRM2TEST, ICAMAXTEST
+      // EXTERNAL SCASUMTEST, SCNRM2TEST, ICAMAXTEST
 *     .. External Subroutines ..
-      EXTERNAL          CSCAL, CSSCALTEST, CTEST, ITEST1, STEST1
+      // EXTERNAL CSCAL, CSSCALTEST, CTEST, ITEST1, STEST1
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Common blocks ..
@@ -198,9 +198,9 @@
       COMPLEX           CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CX(7), CX1(7), CY(7), CY1(7)
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
 *     .. External Functions ..
-      EXTERNAL          CDOTCTEST, CDOTUTEST
+      // EXTERNAL CDOTCTEST, CDOTUTEST
 *     .. External Subroutines ..
-      EXTERNAL          CAXPYTEST, CCOPYTEST, CSWAPTEST, CTEST
+      // EXTERNAL CAXPYTEST, CCOPYTEST, CSWAPTEST, CTEST
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
 *     .. Common blocks ..
@@ -288,7 +288,7 @@
       int              I;
 *     .. External Functions ..
       REAL             SDIFF
-      EXTERNAL         SDIFF
+      // EXTERNAL SDIFF
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS
 *     .. Common blocks ..
@@ -333,7 +333,7 @@
 *     .. Local Arrays ..
       REAL              SCOMP(1), STRUE(1)
 *     .. External Subroutines ..
-      EXTERNAL          STEST
+      // EXTERNAL STEST
 *     .. Executable Statements ..
 *
       SCOMP(1) = SCOMP1
@@ -367,7 +367,7 @@
 *     .. Local Arrays ..
       REAL             SCOMP(20), SSIZE(20), STRUE(20)
 *     .. External Subroutines ..
-      EXTERNAL         STEST
+      // EXTERNAL STEST
 *     .. Intrinsic Functions ..
       // INTRINSIC AIMAG, REAL
 *     .. Executable Statements ..

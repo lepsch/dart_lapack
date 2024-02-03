@@ -22,12 +22,12 @@
       int                I, IINFO, J, LWKOPT, NB, NH;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CUNGQR, XERBLA
+      // EXTERNAL CUNGQR, XERBLA
 *     ..
 *     .. External Functions ..
       int                ILAENV;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           ILAENV, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

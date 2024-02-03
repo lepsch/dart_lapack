@@ -33,10 +33,10 @@
       int                IZAMAX;
       double             DZASUM, DZNRM2;
       COMPLEX*16         ZLADIV
-      EXTERNAL           IZAMAX, DZASUM, DZNRM2, ZLADIV
+      // EXTERNAL IZAMAX, DZASUM, DZNRM2, ZLADIV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZDSCAL, ZLATRS
+      // EXTERNAL ZDSCAL, ZLATRS
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX, SQRT

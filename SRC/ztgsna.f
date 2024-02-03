@@ -35,10 +35,10 @@
       bool               LSAME;
       double             DLAMCH, DLAPY2, DZNRM2;
       COMPLEX*16         ZDOTC
-      EXTERNAL           LSAME, DLAMCH, DLAPY2, DZNRM2, ZDOTC
+      // EXTERNAL LSAME, DLAMCH, DLAPY2, DZNRM2, ZDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEMV, ZLACPY, ZTGEXC, ZTGSYL
+      // EXTERNAL XERBLA, ZGEMV, ZLACPY, ZTGEXC, ZTGSYL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCMPLX, MAX

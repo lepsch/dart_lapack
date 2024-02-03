@@ -30,10 +30,10 @@
 *     .. External Functions ..
       int                IDAMAX;
       double             DLAMCH, DLANST;
-      EXTERNAL           IDAMAX, DLAMCH, DLANST
+      // EXTERNAL IDAMAX, DLAMCH, DLANST
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DLARTG, DLASCL, DLASDA, DLASDQ, DLASET, DLASRT, XERBLA, ZCOPY, ZDROT, ZLACPY, ZLALSA, ZLASCL, ZLASET
+      // EXTERNAL DGEMM, DLARTG, DLASCL, DLASDA, DLASDQ, DLASET, DLASRT, XERBLA, ZCOPY, ZDROT, ZLACPY, ZLALSA, ZLASCL, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, INT, LOG, SIGN

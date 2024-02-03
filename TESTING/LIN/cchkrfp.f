@@ -49,10 +49,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SECOND
-      EXTERNAL           SLAMCH, SECOND
+      // EXTERNAL SLAMCH, SECOND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ILAVER, CDRVRFP, CDRVRF1, CDRVRF2, CDRVRF3, CDRVRF4
+      // EXTERNAL ILAVER, CDRVRFP, CDRVRF1, CDRVRF2, CDRVRF3, CDRVRF4
 *     ..
 *     .. Executable Statements ..
 *

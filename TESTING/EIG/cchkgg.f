@@ -41,10 +41,10 @@
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
       COMPLEX            CLARND
-      EXTERNAL           CLANGE, SLAMCH, CLARND
+      // EXTERNAL CLANGE, SLAMCH, CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEQR2, CGET51, CGET52, CGGHRD, CHGEQZ, CLACPY, CLARFG, CLASET, CLATM4, CTGEVC, CUNM2R, SLASUM, XERBLA
+      // EXTERNAL CGEQR2, CGET51, CGET52, CGGHRD, CHGEQZ, CLACPY, CLARFG, CLASET, CLATM4, CTGEVC, CUNM2R, SLASUM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN, REAL, SIGN

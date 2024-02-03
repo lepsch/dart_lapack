@@ -30,12 +30,12 @@
       COMPLEX*16         DUM( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASCL, DLASET, XERBLA, ZBDSQR, ZCOPY, ZDRSCL, ZGEBRD, ZGELQF, ZGEMM, ZGEMV, ZGEQRF, ZLACPY, ZLASCL, ZLASET, ZUNGBR, ZUNMBR, ZUNMLQ
+      // EXTERNAL DLASCL, DLASET, XERBLA, ZBDSQR, ZCOPY, ZDRSCL, ZGEBRD, ZGELQF, ZGEMM, ZGEMV, ZGEQRF, ZLACPY, ZLASCL, ZLASET, ZUNGBR, ZUNMBR, ZUNMLQ
 *     ..
 *     .. External Functions ..
       int                ILAENV;
       double             DLAMCH, ZLANGE;
-      EXTERNAL           ILAENV, DLAMCH, ZLANGE
+      // EXTERNAL ILAENV, DLAMCH, ZLANGE
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

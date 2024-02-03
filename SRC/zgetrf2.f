@@ -26,10 +26,10 @@
 *     .. External Functions ..
       double             DLAMCH;
       int                IZAMAX;
-      EXTERNAL           DLAMCH, IZAMAX
+      // EXTERNAL DLAMCH, IZAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMM, ZSCAL, ZLASWP, ZTRSM, XERBLA
+      // EXTERNAL ZGEMM, ZSCAL, ZLASWP, ZTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

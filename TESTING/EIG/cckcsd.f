@@ -38,14 +38,14 @@
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHDG, ALAREQ, ALASUM, CCSDTS, CLACSG, CLAROR, CLASET, CSROT
+      // EXTERNAL ALAHDG, ALAREQ, ALASUM, CCSDTS, CLACSG, CLAROR, CLASET, CSROT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
 *     ..
 *     .. External Functions ..
       REAL               SLARAN, SLARND
-      EXTERNAL           SLARAN, SLARND
+      // EXTERNAL SLARAN, SLARND
 *     ..
 *     .. Executable Statements ..
 *

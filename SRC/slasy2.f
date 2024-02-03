@@ -34,10 +34,10 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SLAMCH
-      EXTERNAL           ISAMAX, SLAMCH
+      // EXTERNAL ISAMAX, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SSWAP
+      // EXTERNAL SCOPY, SSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

@@ -26,7 +26,7 @@
 *     .. External Functions ..
       bool               LSAMEN;
       REAL               SLAMCH
-      EXTERNAL           LSAMEN, SLAMCH
+      // EXTERNAL LSAMEN, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

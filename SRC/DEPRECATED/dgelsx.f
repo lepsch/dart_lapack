@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLANGE;
-      EXTERNAL           DLAMCH, DLANGE
+      // EXTERNAL DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEQPF, DLAIC1, DLASCL, DLASET, DLATZM, DORM2R, DTRSM, DTZRQF, XERBLA
+      // EXTERNAL DGEQPF, DLAIC1, DLASCL, DLASET, DLATZM, DORM2R, DTRSM, DTZRQF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

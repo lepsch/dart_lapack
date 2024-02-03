@@ -1,6 +1,6 @@
       subroutine zdotcsub(n,x,incx,y,incy,dotc)
 c
-      external zdotc
+      // external zdotc
       double complex zdotc,dotc
       int     n,incx,incy;
       double complex x(*),y(*)

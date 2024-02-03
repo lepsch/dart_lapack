@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEQP3, CGEQR2, CGERQ2, CLACPY, CLAPMT, CLASET, CUNG2R, CUNM2R, CUNMR2, XERBLA
+      // EXTERNAL CGEQP3, CGEQR2, CGERQ2, CLACPY, CLAPMT, CLASET, CUNG2R, CUNM2R, CUNMR2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL

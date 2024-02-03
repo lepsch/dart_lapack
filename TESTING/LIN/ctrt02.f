@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANTR, SCASUM, SLAMCH
-      EXTERNAL           LSAME, CLANTR, SCASUM, SLAMCH
+      // EXTERNAL LSAME, CLANTR, SCASUM, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CTRMV
+      // EXTERNAL CAXPY, CCOPY, CTRMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX

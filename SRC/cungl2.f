@@ -21,7 +21,7 @@
       int                I, J, L;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACGV, CLARF, CSCAL, XERBLA
+      // EXTERNAL CLACGV, CLARF, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG, MAX

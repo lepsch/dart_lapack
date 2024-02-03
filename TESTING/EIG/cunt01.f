@@ -30,10 +30,10 @@
       bool               LSAME;
       REAL               CLANSY, SLAMCH
       COMPLEX            CDOTC
-      EXTERNAL           LSAME, CLANSY, SLAMCH, CDOTC
+      // EXTERNAL LSAME, CLANSY, SLAMCH, CDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHERK, CLASET
+      // EXTERNAL CHERK, CLASET
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, MAX, MIN, REAL

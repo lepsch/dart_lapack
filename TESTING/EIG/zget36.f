@@ -30,10 +30,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZCOPY, ZHST01, ZLACPY, ZLASET, ZTREXC
+      // EXTERNAL ZCOPY, ZHST01, ZLACPY, ZLASET, ZTREXC
 *     ..
 *     .. Executable Statements ..
 *

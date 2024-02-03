@@ -22,11 +22,11 @@
       double             ANORM, ASCALE, BNORM, BSCALE, H1, H2, H3, QQ, R, RR, SAFMIN, SCALE1, SCALE2, T, ULP, WI, WR1, WR2;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAG2, DLARTG, DLASV2, DROT
+      // EXTERNAL DLAG2, DLARTG, DLASV2, DROT
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLAPY2;
-      EXTERNAL           DLAMCH, DLAPY2
+      // EXTERNAL DLAMCH, DLAPY2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

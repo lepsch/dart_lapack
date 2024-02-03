@@ -31,13 +31,13 @@
       COMPLEX            CDUM( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CBDSQR, CGEBRD, CGELQF, CGEMM, CGEQRF, CLACPY, CLASCL, CLASET, CUNGBR, CUNGLQ, CUNGQR, CUNMBR, SLASCL, XERBLA
+      // EXTERNAL CBDSQR, CGEBRD, CGELQF, CGEMM, CGEQRF, CLACPY, CLASCL, CLASET, CUNGBR, CUNGLQ, CUNGQR, CUNMBR, SLASCL, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV, CLANGE, SLAMCH, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV, CLANGE, SLAMCH, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT

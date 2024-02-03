@@ -27,14 +27,14 @@
       REAL               Z1, Z2, Z3, Z4
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CLARF, CLARFGP, CSCAL, XERBLA
-      EXTERNAL           CLACGV
+      // EXTERNAL CAXPY, CLARF, CLARFGP, CSCAL, XERBLA
+      // EXTERNAL CLACGV
 *
 *     ..
 *     .. External Functions ..
       REAL               SCNRM2, SROUNDUP_LWORK
       bool               LSAME;
-      EXTERNAL           SCNRM2, SROUNDUP_LWORK, LSAME
+      // EXTERNAL SCNRM2, SROUNDUP_LWORK, LSAME
 *     ..
 *     .. Intrinsic Functions
       // INTRINSIC ATAN2, COS, MAX, MIN, SIN

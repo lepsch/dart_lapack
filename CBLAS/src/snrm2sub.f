@@ -1,6 +1,6 @@
       subroutine snrm2sub(n,x,incx,nrm2)
 c
-      external snrm2
+      // external snrm2
       real snrm2,nrm2
       int     n,incx;
       real x(*)

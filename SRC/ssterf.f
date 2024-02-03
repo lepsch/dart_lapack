@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANST, SLAPY2
-      EXTERNAL           SLAMCH, SLANST, SLAPY2
+      // EXTERNAL SLAMCH, SLANST, SLAPY2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAE2, SLASCL, SLASRT, XERBLA
+      // EXTERNAL SLAE2, SLASCL, SLASRT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN, SQRT

@@ -48,10 +48,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DSECND;
-      EXTERNAL           DLAMCH, DSECND
+      // EXTERNAL DLAMCH, DSECND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ILAVER, DDRVRFP, DDRVRF1, DDRVRF2, DDRVRF3, DDRVRF4
+      // EXTERNAL ILAVER, DDRVRFP, DDRVRF1, DDRVRF2, DDRVRF3, DDRVRF4
 *     ..
 *     .. Executable Statements ..
 *

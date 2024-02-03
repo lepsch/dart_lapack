@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       double             DASUM, DLAMCH, DLANSP;
-      EXTERNAL           DASUM, DLAMCH, DLANSP
+      // EXTERNAL DASUM, DLAMCH, DLANSP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSPMV
+      // EXTERNAL DSPMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

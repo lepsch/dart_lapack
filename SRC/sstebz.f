@@ -34,10 +34,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH
-      EXTERNAL           LSAME, ILAENV, SLAMCH
+      // EXTERNAL LSAME, ILAENV, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAEBZ, XERBLA
+      // EXTERNAL SLAEBZ, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, MIN, SQRT

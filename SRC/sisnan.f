@@ -12,7 +12,7 @@
 *
 *  .. External Functions ..
       bool    SLAISNAN;
-      EXTERNAL SLAISNAN
+      // EXTERNAL SLAISNAN
 *  ..
 *  .. Executable Statements ..
       SISNAN = SLAISNAN(SIN,SIN)

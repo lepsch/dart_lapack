@@ -42,7 +42,7 @@
       int                ITER, KASE;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ZLACPY, ZLAIPD, ZLARHS, ZLATB4, ZLATMS, ZPOT06, ZCPOSV
+      // EXTERNAL ALAERH, ZLACPY, ZLAIPD, ZLARHS, ZLATB4, ZLATMS, ZPOT06, ZCPOSV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, SQRT

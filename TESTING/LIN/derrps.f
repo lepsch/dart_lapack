@@ -23,7 +23,7 @@
       int                PIV( NMAX );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, DPSTF2, DPSTRF
+      // EXTERNAL ALAESM, CHKXER, DPSTF2, DPSTRF
 *     ..
 *     .. Scalars in Common ..
       int                INFOT, NOUT;

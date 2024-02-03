@@ -28,10 +28,10 @@
 *     .. External Functions ..
       bool               LSAME, SISNAN;
       REAL               SLAMCH, SLANHS
-      EXTERNAL           LSAME, SLAMCH, SLANHS, SISNAN
+      // EXTERNAL LSAME, SLAMCH, SLANHS, SISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAEIN, XERBLA
+      // EXTERNAL SLAEIN, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGEMM, CLACGV, CTRMM
+      // EXTERNAL CCOPY, CGEMM, CLACGV, CTRMM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG

@@ -23,10 +23,10 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SASUM, SDOT, SLAMCH, SLANGE
-      EXTERNAL           ISAMAX, SASUM, SDOT, SLAMCH, SLANGE
+      // EXTERNAL ISAMAX, SASUM, SDOT, SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMV, SLAQTR
+      // EXTERNAL SCOPY, SGEMV, SLAQTR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, COS, MAX, REAL, SIN, SQRT

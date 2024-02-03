@@ -24,12 +24,12 @@
       double             AJJ, AKK, BJJ, BKK, CT;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DSCAL, DSPMV, DSPR2, DTPMV, DTPSV, XERBLA
+      // EXTERNAL DAXPY, DSCAL, DSPMV, DSPR2, DTPMV, DTPSV, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       double             DDOT;
-      EXTERNAL           LSAME, DDOT
+      // EXTERNAL LSAME, DDOT
 *     ..
 *     .. Executable Statements ..
 *

@@ -26,7 +26,7 @@
       // INTRINSIC ABS, REAL, AIMAG, MAX, MIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
       bool               LSAME;
 *     ..
 *     .. Statement Functions ..

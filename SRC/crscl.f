@@ -24,10 +24,10 @@
 *     .. External Functions ..
       REAL               SLAMCH
       COMPLEX            CLADIV
-      EXTERNAL           SLAMCH, CLADIV
+      // EXTERNAL SLAMCH, CLADIV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CSCAL, CSSCAL, CSRSCL
+      // EXTERNAL CSCAL, CSSCAL, CSRSCL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

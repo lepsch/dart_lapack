@@ -30,10 +30,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGBEQU, DGEEQU, DPBEQU, DPOEQU, DPPEQU
+      // EXTERNAL DGBEQU, DGEEQU, DPBEQU, DPOEQU, DPPEQU
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

@@ -23,10 +23,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
-      EXTERNAL           LSAME, SLAMCH, SLANGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGGSVP3, STGSJA, XERBLA
+      // EXTERNAL SCOPY, SGGSVP3, STGSJA, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

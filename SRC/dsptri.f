@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DDOT;
-      EXTERNAL           LSAME, DDOT
+      // EXTERNAL LSAME, DDOT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DSPMV, DSWAP, XERBLA
+      // EXTERNAL DCOPY, DSPMV, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

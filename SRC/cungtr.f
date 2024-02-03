@@ -26,10 +26,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           ILAENV, LSAME, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, LSAME, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CUNGQL, CUNGQR, XERBLA
+      // EXTERNAL CUNGQL, CUNGQR, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

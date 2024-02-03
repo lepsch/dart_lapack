@@ -31,10 +31,10 @@
       bool               DISNAN, LSAME;
       int                IDAMAX;
       double             DLAMCH, DNRM2;
-      EXTERNAL           DISNAN, LSAME, IDAMAX, DLAMCH, DNRM2
+      // EXTERNAL DISNAN, LSAME, IDAMAX, DLAMCH, DNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSWAP, XERBLA
+      // EXTERNAL DSCAL, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

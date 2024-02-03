@@ -22,7 +22,7 @@
       COMPLEX*16         ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZLARF, ZLARFGP
+      // EXTERNAL XERBLA, ZLARF, ZLARFGP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DCONJG, MAX, MIN

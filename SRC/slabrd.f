@@ -21,7 +21,7 @@
       int                I;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMV, SLARFG, SSCAL
+      // EXTERNAL SGEMV, SLARFG, SSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

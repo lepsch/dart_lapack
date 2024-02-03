@@ -24,10 +24,10 @@
 *     .. External Functions ..
       double             DLAMCH;
       int                ILAENV;
-      EXTERNAL           DLAMCH, ILAENV
+      // EXTERNAL DLAMCH, ILAENV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEHRD, DGEMM, DLACPY, DLAHQR, DLANV2, DLAQR4, DLARF, DLARFG, DLASET, DORMHR, DTREXC
+      // EXTERNAL DCOPY, DGEHRD, DGEMM, DLACPY, DLAHQR, DLANV2, DLAQR4, DLARF, DLARFG, DLASET, DORMHR, DTREXC
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, INT, MAX, MIN, SQRT

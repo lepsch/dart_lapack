@@ -22,7 +22,7 @@
       double             A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, DGELQ2, DGELQF, DORGL2, DORGLQ, DORML2, DORMLQ
+      // EXTERNAL ALAESM, CHKXER, DGELQ2, DGELQF, DORGL2, DORGLQ, DORML2, DORMLQ
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

@@ -30,10 +30,10 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SASUM, SDOT, SLAMCH, SLANGE
-      EXTERNAL           ISAMAX, SASUM, SDOT, SLAMCH, SLANGE
+      // EXTERNAL ISAMAX, SASUM, SDOT, SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SLADIV, SLALN2, SSCAL
+      // EXTERNAL SAXPY, SLADIV, SLALN2, SSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

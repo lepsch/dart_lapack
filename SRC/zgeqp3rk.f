@@ -31,13 +31,13 @@
       double             EPS, HUGEVAL, MAXC2NRM, SAFMIN;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLAQP2RK, ZLAQP3RK, XERBLA
+      // EXTERNAL ZLAQP2RK, ZLAQP3RK, XERBLA
 *     ..
 *     .. External Functions ..
       bool               DISNAN;
       int                IDAMAX, ILAENV;
       double             DLAMCH, DZNRM2;
-      EXTERNAL           DISNAN, DLAMCH, DZNRM2, IDAMAX, ILAENV
+      // EXTERNAL DISNAN, DLAMCH, DZNRM2, IDAMAX, ILAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, MAX, MIN

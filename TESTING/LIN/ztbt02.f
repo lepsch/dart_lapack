@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DZASUM, ZLANTB;
-      EXTERNAL           LSAME, DLAMCH, DZASUM, ZLANTB
+      // EXTERNAL LSAME, DLAMCH, DZASUM, ZLANTB
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZAXPY, ZCOPY, ZTBMV
+      // EXTERNAL ZAXPY, ZCOPY, ZTBMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, MAX

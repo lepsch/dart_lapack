@@ -1,6 +1,6 @@
       subroutine cdotusub(n,x,incx,y,incy,dotu)
 c
-      external cdotu
+      // external cdotu
       complex cdotu,dotu
       int     n,incx,incy;
       complex x(*),y(*)

@@ -31,7 +31,7 @@
 *     .. External Functions ..
       double             DLAMCH;
       COMPLEX*16         ZDOTC
-      EXTERNAL           DLAMCH, ZDOTC
+      // EXTERNAL DLAMCH, ZDOTC
 *     ..
 *     .. Executable Statements ..
 *

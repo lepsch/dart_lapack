@@ -34,10 +34,10 @@
       bool               LSAME;
       REAL               CLANGE, CLANHP, SLAMCH
       COMPLEX            CDOTC
-      EXTERNAL           LSAME, CLANGE, CLANHP, SLAMCH, CDOTC
+      // EXTERNAL LSAME, CLANGE, CLANHP, SLAMCH, CDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CGEMM, CHPMV, CHPR, CHPR2, CLACPY, CLASET, CUPMTR
+      // EXTERNAL CAXPY, CCOPY, CGEMM, CHPMV, CHPR, CHPR2, CLACPY, CLASET, CUPMTR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN, REAL

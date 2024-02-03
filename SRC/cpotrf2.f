@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME, SISNAN;
-      EXTERNAL           LSAME, SISNAN
+      // EXTERNAL LSAME, SISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHERK, CTRSM, XERBLA
+      // EXTERNAL CHERK, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, REAL, SQRT

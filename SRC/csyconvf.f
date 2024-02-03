@@ -21,10 +21,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *
 *     .. External Subroutines ..
-      EXTERNAL           CSWAP, XERBLA
+      // EXTERNAL CSWAP, XERBLA
 *     .. Local Scalars ..
       bool               UPPER, CONVERT;
       int                I, IP;

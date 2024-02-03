@@ -21,7 +21,7 @@
 *     ..
 *     .. External Functions ..
       int                IEEECK, IPARMQ, IPARAM2STAGE;
-      EXTERNAL           IEEECK, IPARMQ, IPARAM2STAGE
+      // EXTERNAL IEEECK, IPARMQ, IPARAM2STAGE
 *     ..
 *     .. Executable Statements ..
 *

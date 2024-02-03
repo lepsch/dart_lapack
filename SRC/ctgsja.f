@@ -33,10 +33,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLAGS2, CLAPLL, CLASET, CROT, CSSCAL, SLARTG, XERBLA
+      // EXTERNAL CCOPY, CLAGS2, CLAPLL, CLASET, CROT, CSSCAL, SLARTG, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN, REAL, HUGE

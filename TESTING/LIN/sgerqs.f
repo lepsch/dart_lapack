@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLASET, SORMRQ, STRSM, XERBLA
+      // EXTERNAL SLASET, SORMRQ, STRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

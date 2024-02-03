@@ -27,13 +27,13 @@
       COMPLEX            CTMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLARFG, CLARFX, CLARFY
+      // EXTERNAL CLARFG, CLARFX, CLARFY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG, MOD
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     ..
 *     .. Executable Statements ..

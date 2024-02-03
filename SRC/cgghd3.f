@@ -32,10 +32,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           ILAENV, LSAME, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, LSAME, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGGHRD, CLARTG, CLASET, CUNM22, CROT, CGEMM, CGEMV, CTRMV, CLACPY, XERBLA
+      // EXTERNAL CGGHRD, CLARTG, CLASET, CUNM22, CROT, CGEMM, CGEMV, CTRMV, CLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC REAL, CMPLX, CONJG, MAX

@@ -24,10 +24,10 @@
 *     .. External Functions ..
       REAL               SLAMCH, SROUNDUP_LWORK
       int                ILAENV;
-      EXTERNAL           SLAMCH, SROUNDUP_LWORK, ILAENV
+      // EXTERNAL SLAMCH, SROUNDUP_LWORK, ILAENV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEHRD, SGEMM, SLACPY, SLAHQR, SLANV2, SLAQR4, SLARF, SLARFG, SLASET, SORMHR, STREXC
+      // EXTERNAL SCOPY, SGEHRD, SGEMM, SLACPY, SLAHQR, SLANV2, SLAQR4, SLARF, SLARFG, SLASET, SORMHR, STREXC
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, MAX, MIN, REAL, SQRT

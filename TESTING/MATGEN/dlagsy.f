@@ -23,11 +23,11 @@
       double             ALPHA, TAU, WA, WB, WN;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DGEMV, DGER, DLARNV, DSCAL, DSYMV, DSYR2, XERBLA
+      // EXTERNAL DAXPY, DGEMV, DGER, DLARNV, DSCAL, DSYMV, DSYR2, XERBLA
 *     ..
 *     .. External Functions ..
       double             DDOT, DNRM2;
-      EXTERNAL           DDOT, DNRM2
+      // EXTERNAL DDOT, DNRM2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SIGN

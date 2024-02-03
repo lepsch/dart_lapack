@@ -14,7 +14,7 @@
       REAL               ZI, ZR
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLADIV
+      // EXTERNAL SLADIV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC AIMAG, CMPLX, REAL

@@ -31,10 +31,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DSTEBZ, DSTERF, XERBLA, ZCOPY, ZGEMV, ZHBGST, ZHBTRD, ZLACPY, ZPBSTF, ZSTEIN, ZSTEQR, ZSWAP
+      // EXTERNAL DCOPY, DSTEBZ, DSTERF, XERBLA, ZCOPY, ZGEMV, ZHBGST, ZHBTRD, ZLACPY, ZPBSTF, ZSTEIN, ZSTEQR, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

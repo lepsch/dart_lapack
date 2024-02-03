@@ -26,7 +26,7 @@
       int                I, J, IINFO, LWMIN, PN, PK, LK, LDT, LDW, LDS2, LDS1, LS2, LS1, LW, LT, TPOS, WPOS, S2POS, S1POS;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZHER2K, ZHEMM, ZGEMM, ZCOPY, ZLARFT, ZGELQF, ZGEQRF, ZLASET
+      // EXTERNAL XERBLA, ZHER2K, ZHEMM, ZGEMM, ZCOPY, ZLARFT, ZGELQF, ZGEQRF, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN, MAX
@@ -34,7 +34,7 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
-      EXTERNAL           LSAME, ILAENV2STAGE
+      // EXTERNAL LSAME, ILAENV2STAGE
 *     ..
 *     .. Executable Statements ..
 *

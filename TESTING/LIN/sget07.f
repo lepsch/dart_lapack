@@ -28,7 +28,7 @@
       bool               LSAME;
       int                ISAMAX;
       REAL               SLAMCH
-      EXTERNAL           LSAME, ISAMAX, SLAMCH
+      // EXTERNAL LSAME, ISAMAX, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

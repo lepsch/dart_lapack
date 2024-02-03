@@ -35,7 +35,7 @@
       String             UPLOS( 2 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, CERRPS, CLACPY, CLATB5, CLATMT, CPST01, CPSTRF, XLAENV
+      // EXTERNAL ALAERH, ALAHD, ALASUM, CERRPS, CLACPY, CLATB5, CLATMT, CPST01, CPSTRF, XLAENV
 *     ..
 *     .. Scalars in Common ..
       int                INFOT, NUNIT;

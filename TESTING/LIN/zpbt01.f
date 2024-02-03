@@ -29,10 +29,10 @@
       bool               LSAME;
       double             DLAMCH, ZLANHB;
       COMPLEX*16         ZDOTC
-      EXTERNAL           LSAME, DLAMCH, ZLANHB, ZDOTC
+      // EXTERNAL LSAME, DLAMCH, ZLANHB, ZDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZDSCAL, ZHER, ZTRMV
+      // EXTERNAL ZDSCAL, ZHER, ZTRMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, DIMAG, MAX, MIN

@@ -24,7 +24,7 @@
       COMPLEX            SWORK(NMAX*NMAX)
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, ZCPOSV
+      // EXTERNAL CHKXER, ZCPOSV
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

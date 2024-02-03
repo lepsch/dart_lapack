@@ -23,7 +23,7 @@
       int                HERE, LWMIN, NBF, NBL, NBNEXT;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DTGEX2, XERBLA
+      // EXTERNAL DTGEX2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

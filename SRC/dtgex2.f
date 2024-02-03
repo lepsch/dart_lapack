@@ -37,10 +37,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DGEQR2, DGERQ2, DLACPY, DLAGV2, DLARTG, DLASET, DLASSQ, DORG2R, DORGR2, DORM2R, DORMR2, DROT, DSCAL, DTGSY2
+      // EXTERNAL DGEMM, DGEQR2, DGERQ2, DLACPY, DLAGV2, DLARTG, DLASET, DLASSQ, DORG2R, DORGR2, DORM2R, DORMR2, DROT, DSCAL, DTGSY2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

@@ -26,7 +26,7 @@
 *     .. External Functions ..
       REAL               SLAMCH
       bool               LSAME;
-      EXTERNAL           SLAMCH, LSAME
+      // EXTERNAL SLAMCH, LSAME
 *     ..
 *     .. Executable Statements ..
 *

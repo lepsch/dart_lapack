@@ -29,11 +29,11 @@
       COMPLEX            A( NMAX, NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), X( NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, CGEES, CGEESX, CGEEV, CGEEVX, CGEJSV, CGESDD, CGESVD, CGESVDX, CGESVDQ
+      // EXTERNAL CHKXER, CGEES, CGEESX, CGEEV, CGEEVX, CGEJSV, CGESDD, CGESVD, CGESVDX, CGESVDQ
 *     ..
 *     .. External Functions ..
       bool               LSAMEN, CSLECT;
-      EXTERNAL           LSAMEN, CSLECT
+      // EXTERNAL LSAMEN, CSLECT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM

@@ -29,10 +29,10 @@
       bool               LSAME;
       int                ISAMAX;
       REAL               SLAMCH, SLARND
-      EXTERNAL           LSAME, ISAMAX, SLAMCH, SLARND
+      // EXTERNAL LSAME, ISAMAX, SLAMCH, SLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARNV, SLATB4, SLATMS, SROT, SROTG, SSCAL
+      // EXTERNAL SLARNV, SLATB4, SLATMS, SROT, SROTG, SSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, REAL, SIGN, SQRT

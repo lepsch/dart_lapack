@@ -27,10 +27,10 @@
 *     .. External Functions ..
       int                IDAMAX;
       double             DLAMCH, DLANSY;
-      EXTERNAL           IDAMAX, DLAMCH, DLANSY
+      // EXTERNAL IDAMAX, DLAMCH, DLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSYMM
+      // EXTERNAL DSYMM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, ABS

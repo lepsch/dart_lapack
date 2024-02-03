@@ -23,10 +23,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, CHETRF_AA, CHETRS_AA
+      // EXTERNAL XERBLA, CHETRF_AA, CHETRS_AA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

@@ -34,10 +34,10 @@
       double             DDOT, DNRM2;
       int                IDAMAX;
       bool               LSAME;
-      EXTERNAL           IDAMAX, LSAME, DDOT, DNRM2
+      // EXTERNAL IDAMAX, LSAME, DDOT, DNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DCOPY, DLASCL, DLASSQ, DROTM, DSWAP, XERBLA
+      // EXTERNAL DAXPY, DCOPY, DLASCL, DLASSQ, DROTM, DSWAP, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

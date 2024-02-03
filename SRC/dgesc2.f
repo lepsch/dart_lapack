@@ -24,12 +24,12 @@
       double             BIGNUM, EPS, SMLNUM, TEMP;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASWP, DSCAL
+      // EXTERNAL DLASWP, DSCAL
 *     ..
 *     .. External Functions ..
       int                IDAMAX;
       double             DLAMCH;
-      EXTERNAL           IDAMAX, DLAMCH
+      // EXTERNAL IDAMAX, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

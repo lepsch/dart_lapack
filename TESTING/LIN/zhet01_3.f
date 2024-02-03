@@ -30,10 +30,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             ZLANHE, DLAMCH;
-      EXTERNAL           LSAME, ZLANHE, DLAMCH
+      // EXTERNAL LSAME, ZLANHE, DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLASET, ZLAVHE_ROOK, ZSYCONVF_ROOK
+      // EXTERNAL ZLASET, ZLAVHE_ROOK, ZSYCONVF_ROOK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DIMAG, DBLE

@@ -35,23 +35,23 @@
 *     ..
 *     from BLAS
       double             DDOT, DNRM2;
-      EXTERNAL           DDOT, DNRM2
+      // EXTERNAL DDOT, DNRM2
       int                IDAMAX;
-      EXTERNAL           IDAMAX
+      // EXTERNAL IDAMAX
 *     from LAPACK
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
 *     ..
 *     from BLAS
-      EXTERNAL           DAXPY, DCOPY, DROTM, DSCAL, DSWAP
+      // EXTERNAL DAXPY, DCOPY, DROTM, DSCAL, DSWAP
 *     from LAPACK
-      EXTERNAL           DLASCL, DLASET, DLASSQ, XERBLA
+      // EXTERNAL DLASCL, DLASET, DLASSQ, XERBLA
 *
-      EXTERNAL           DGSVJ0, DGSVJ1
+      // EXTERNAL DGSVJ0, DGSVJ1
 *     ..
 *     .. Executable Statements ..
 *

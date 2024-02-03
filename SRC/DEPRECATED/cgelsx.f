@@ -30,11 +30,11 @@
       COMPLEX            C1, C2, S1, S2, T1, T2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEQPF, CLAIC1, CLASCL, CLASET, CLATZM, CTRSM, CTZRQF, CUNM2R, XERBLA
+      // EXTERNAL CGEQPF, CLAIC1, CLASCL, CLASET, CLATZM, CTRSM, CTZRQF, CUNM2R, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
-      EXTERNAL           CLANGE, SLAMCH
+      // EXTERNAL CLANGE, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN

@@ -18,7 +18,7 @@
       int        I, IB, IINFO, K;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL   ZGELQT3, ZLARFB, XERBLA
+      // EXTERNAL ZGELQT3, ZLARFB, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

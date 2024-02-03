@@ -33,10 +33,10 @@
       int                ICAMAX;
       REAL               SLAMCH, SLARND
       COMPLEX            CLARND
-      EXTERNAL           LSAME, ICAMAX, SLAMCH, SLARND, CLARND
+      // EXTERNAL LSAME, ICAMAX, SLAMCH, SLARND, CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLARNV, CLATB4, CLATMS, CROT, CROTG, CSSCAL, CSWAP, SLARNV
+      // EXTERNAL CCOPY, CLARNV, CLATB4, CLATMS, CROT, CROTG, CSSCAL, CSWAP, SLARNV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, CONJG, MAX, REAL, SQRT

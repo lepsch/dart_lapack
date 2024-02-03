@@ -22,7 +22,7 @@
       String    :: JBCMPZ*3;
 
 *     External Functions
-      EXTERNAL :: XERBLA, CHGEQZ, CLAQZ2, CLAQZ3, CLASET, CLARTG, CROT
+      // EXTERNAL :: XERBLA, CHGEQZ, CLAQZ2, CLAQZ3, CLASET, CLARTG, CROT
       REAL, EXTERNAL :: SLAMCH, CLANHS
       bool   , EXTERNAL :: LSAME;
       int    , EXTERNAL :: ILAENV;

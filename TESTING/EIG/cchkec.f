@@ -23,11 +23,11 @@
       REAL               RTRSEN( 3 ), RTRSNA( 3 ), RTRSYL( 2 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CERREC, CGET35, CGET36, CGET37, CGET38, CSYL01
+      // EXTERNAL CERREC, CGET35, CGET36, CGET37, CGET38, CSYL01
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. Executable Statements ..
 *

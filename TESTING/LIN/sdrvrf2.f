@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLARND
-      EXTERNAL           SLARND
+      // EXTERNAL SLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           STFTTR, STFTTP, STRTTF, STRTTP, STPTTR, STPTTF
+      // EXTERNAL STFTTR, STFTTP, STRTTF, STRTTP, STPTTR, STPTTF
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

@@ -5,7 +5,7 @@
 *
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Local Scalars ..
       int                IEEEOK;

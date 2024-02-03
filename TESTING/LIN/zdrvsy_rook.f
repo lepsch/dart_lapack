@@ -41,10 +41,10 @@
 *     ..
 *     .. External Functions ..
       double             ZLANSY;
-      EXTERNAL           ZLANSY
+      // EXTERNAL ZLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGET04, ZLACPY, ZLARHS, ZLASET, ZLATB4, ZLATMS, ZLATSY, ZPOT05, ZSYSV_ROOK, ZSYT01_ROOK, ZSYT02, ZSYTRF_ROOK, ZSYTRI_ROOK
+      // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGET04, ZLACPY, ZLARHS, ZLASET, ZLATB4, ZLATMS, ZLATSY, ZPOT05, ZSYSV_ROOK, ZSYT01_ROOK, ZSYT02, ZSYTRF_ROOK, ZSYTRI_ROOK
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

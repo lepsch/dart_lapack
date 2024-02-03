@@ -28,11 +28,11 @@
       REAL               DUM1(1), DUM2(1,1)
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SBBCSD, SCOPY, SLACPY, SLAPMR, SLAPMT, SORBDB1, SORBDB2, SORBDB3, SORBDB4, SORGLQ, SORGQR, XERBLA
+      // EXTERNAL SBBCSD, SCOPY, SLACPY, SLAPMR, SLAPMT, SORBDB1, SORBDB2, SORBDB3, SORBDB4, SORGLQ, SORGQR, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Intrinsic Function ..
       // INTRINSIC INT, MAX, MIN

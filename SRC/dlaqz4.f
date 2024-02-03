@@ -17,7 +17,7 @@
       double           :: TEMP, V( 3 ), C1, S1, C2, S2, SWAP;
 *
 *     External functions
-      EXTERNAL :: XERBLA, DGEMM, DLAQZ1, DLAQZ2, DLASET, DLARTG, DROT, DLACPY
+      // EXTERNAL :: XERBLA, DGEMM, DLAQZ1, DLAQZ2, DLASET, DLARTG, DROT, DLACPY
 
       INFO = 0
       IF ( NBLOCK_DESIRED .LT. NSHIFTS+1 ) THEN

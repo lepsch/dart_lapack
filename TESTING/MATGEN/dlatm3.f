@@ -32,7 +32,7 @@
 *     .. External Functions ..
 *
       double             DLARAN, DLARND;
-      EXTERNAL           DLARAN, DLARND
+      // EXTERNAL DLARAN, DLARND
 *     ..
 *
 *-----------------------------------------------------------------------

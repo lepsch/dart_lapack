@@ -33,7 +33,7 @@
       double             RESULT( NTESTS );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHDG, ALAREQ, ALASUM, DLARHS, DLATB9, DLATMS, DLSETS
+      // EXTERNAL ALAHDG, ALAREQ, ALASUM, DLARHS, DLATB9, DLATMS, DLSETS
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

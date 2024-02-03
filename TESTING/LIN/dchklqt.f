@@ -28,7 +28,7 @@
       double             RESULT( NTESTS );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DERRLQT, DLQT04
+      // EXTERNAL ALAERH, ALAHD, ALASUM, DERRLQT, DLQT04
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

@@ -29,10 +29,10 @@
 *     .. External Functions ..
       int                ILAENV;
       double             DLAMCH, ZLANGE;
-      EXTERNAL           ILAENV, DLAMCH, ZLANGE
+      // EXTERNAL ILAENV, DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, XERBLA, ZGET52, ZGGEVX, ZLACPY, ZLATM6
+      // EXTERNAL ALASVM, XERBLA, ZGET52, ZGGEVX, ZLACPY, ZLATM6
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCMPLX, MAX, SQRT

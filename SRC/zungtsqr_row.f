@@ -26,7 +26,7 @@
       COMPLEX*16         DUMMY( 1, 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLARFB_GETT, ZLASET, XERBLA
+      // EXTERNAL ZLARFB_GETT, ZLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, MAX, MIN

@@ -23,10 +23,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SASUM, SLAMCH, SLANGE
-      EXTERNAL           SASUM, SLAMCH, SLANGE
+      // EXTERNAL SASUM, SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACPY
+      // EXTERNAL SLACPY
 *
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

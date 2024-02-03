@@ -16,7 +16,7 @@
 *     ..
 *     .. External Functions ..
       int                IEEECK, IPARAM2STAGE;
-      EXTERNAL           IEEECK, IPARAM2STAGE
+      // EXTERNAL IEEECK, IPARAM2STAGE
 *     ..
 *     .. Arrays in Common ..
       int                IPARMS( 100 );
@@ -109,7 +109,7 @@ C        ILAENV = 0
       int                IISPEC;
 *     .. External Functions ..
       int                IPARAM2STAGE;
-      EXTERNAL           IPARAM2STAGE
+      // EXTERNAL IPARAM2STAGE
 *     ..
 *     .. Arrays in Common ..
       int                IPARMS( 100 );

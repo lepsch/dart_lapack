@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMM, ZHESWAPR, ZTRTRI, ZTRMM, XERBLA
+      // EXTERNAL ZGEMM, ZHESWAPR, ZTRTRI, ZTRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, DBLE, MAX

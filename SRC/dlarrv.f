@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLAR1V, DLARRB, DLARRF, DLASET, DSCAL
+      // EXTERNAL DCOPY, DLAR1V, DLARRB, DLARRF, DLASET, DSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN

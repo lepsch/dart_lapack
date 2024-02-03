@@ -25,14 +25,14 @@
       COMPLEX*16         EI
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZAXPY, ZGEHD2, ZGEMM, ZLAHR2, ZLARFB, ZTRMM, XERBLA
+      // EXTERNAL ZAXPY, ZGEHD2, ZGEMM, ZLAHR2, ZLARFB, ZTRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Executable Statements ..
 *

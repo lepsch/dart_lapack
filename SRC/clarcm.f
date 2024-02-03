@@ -25,7 +25,7 @@
       // INTRINSIC AIMAG, CMPLX, REAL
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM
+      // EXTERNAL SGEMM
 *     ..
 *     .. Executable Statements ..
 *

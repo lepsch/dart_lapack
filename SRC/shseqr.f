@@ -44,10 +44,10 @@
       int                ILAENV;
       bool               LSAME;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           ILAENV, LSAME, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, LSAME, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACPY, SLAHQR, SLAQR0, SLASET, XERBLA
+      // EXTERNAL SLACPY, SLAHQR, SLAQR0, SLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL

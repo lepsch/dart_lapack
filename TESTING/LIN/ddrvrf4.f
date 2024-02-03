@@ -33,10 +33,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLARND, DLANGE;
-      EXTERNAL           DLAMCH, DLARND, DLANGE
+      // EXTERNAL DLAMCH, DLARND, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSYRK, DSFRK, DTFTTR, DTRTTF
+      // EXTERNAL DSYRK, DSFRK, DTFTTR, DTRTTF
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

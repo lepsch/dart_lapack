@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       COMPLEX            CDOTC
-      EXTERNAL           CDOTC
+      // EXTERNAL CDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CLARFG, SLAS2
+      // EXTERNAL CAXPY, CLARFG, SLAS2
 *     ..
 *     .. Executable Statements ..
 *

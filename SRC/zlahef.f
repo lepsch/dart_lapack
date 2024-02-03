@@ -31,10 +31,10 @@
 *     .. External Functions ..
       bool               LSAME;
       int                IZAMAX;
-      EXTERNAL           LSAME, IZAMAX
+      // EXTERNAL LSAME, IZAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZCOPY, ZDSCAL, ZGEMM, ZGEMV, ZLACGV, ZSWAP
+      // EXTERNAL ZCOPY, ZDSCAL, ZGEMM, ZGEMV, ZLACGV, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX, MIN, SQRT

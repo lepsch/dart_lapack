@@ -30,7 +30,7 @@
 *     .. External Functions ..
       bool    DISNAN;
       double             DLAMCH;
-      EXTERNAL           DISNAN, DLAMCH
+      // EXTERNAL DISNAN, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

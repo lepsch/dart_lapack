@@ -40,10 +40,10 @@
 *     ..
 *     .. External Functions ..
       double             DGET06, ZLANSY;
-      EXTERNAL           DGET06, ZLANSY
+      // EXTERNAL DGET06, ZLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGET04, ZLACPY, ZLARHS, ZLASET, ZLATB4, ZLATMS, ZLATSY, ZPOT05, ZSYSV, ZSYSVX, ZSYT01, ZSYT02, ZSYTRF, ZSYTRI2
+      // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGET04, ZLACPY, ZLARHS, ZLASET, ZLATB4, ZLATMS, ZLATSY, ZPOT05, ZSYSV, ZSYSVX, ZSYT01, ZSYT02, ZSYTRF, ZSYTRI2
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

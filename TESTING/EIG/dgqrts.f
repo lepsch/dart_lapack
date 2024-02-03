@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLANGE, DLANSY;
-      EXTERNAL           DLAMCH, DLANGE, DLANSY
+      // EXTERNAL DLAMCH, DLANGE, DLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DGGQRF, DLACPY, DLASET, DORGQR, DORGRQ, DSYRK
+      // EXTERNAL DGEMM, DGGQRF, DLACPY, DLASET, DORGQR, DORGRQ, DSYRK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN

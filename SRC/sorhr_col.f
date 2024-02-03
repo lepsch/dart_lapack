@@ -22,7 +22,7 @@
       int                I, IINFO, J, JB, JBTEMP1, JBTEMP2, JNB, NPLUSONE;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SLAORHR_COL_GETRFNP, SSCAL, STRSM, XERBLA
+      // EXTERNAL SCOPY, SLAORHR_COL_GETRFNP, SSCAL, STRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

@@ -29,13 +29,13 @@
       double             DUM( 1 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLARTG, DLASCL, DORGHR, DROT, DSCAL, DTREVC3, XERBLA
+      // EXTERNAL DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLARTG, DLASCL, DORGHR, DROT, DSCAL, DTREVC3, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                IDAMAX, ILAENV;
       double             DLAMCH, DLANGE, DLAPY2, DNRM2;
-      EXTERNAL           LSAME, IDAMAX, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2
+      // EXTERNAL LSAME, IDAMAX, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

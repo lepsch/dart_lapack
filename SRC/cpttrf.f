@@ -23,7 +23,7 @@
       REAL               EII, EIR, F, G
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC AIMAG, CMPLX, MOD, REAL

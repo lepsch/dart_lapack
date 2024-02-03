@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       COMPLEX            CDOTC
-      EXTERNAL           LSAME, CDOTC
+      // EXTERNAL LSAME, CDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHPR, CSSCAL, CTPMV, CTPTRI, XERBLA
+      // EXTERNAL CHPR, CSSCAL, CTPMV, CTPTRI, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC REAL

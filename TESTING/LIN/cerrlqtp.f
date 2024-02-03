@@ -23,7 +23,7 @@
       COMPLEX            A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, CTPLQT2, CTPLQT, CTPMLQT
+      // EXTERNAL ALAESM, CHKXER, CTPLQT2, CTPLQT, CTPMLQT
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

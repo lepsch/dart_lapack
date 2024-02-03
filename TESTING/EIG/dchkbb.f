@@ -32,10 +32,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DBDT01, DBDT02, DGBBRD, DLACPY, DLAHD2, DLASET, DLASUM, DLATMR, DLATMS, DORT01, XERBLA
+      // EXTERNAL DBDT01, DBDT02, DGBBRD, DLACPY, DLAHD2, DLASET, DLASUM, DLATMR, DLATMS, DORT01, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, SQRT

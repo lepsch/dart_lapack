@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLANST, DLAPY2;
-      EXTERNAL           DLAMCH, DLANST, DLAPY2
+      // EXTERNAL DLAMCH, DLANST, DLAPY2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAE2, DLASCL, DLASRT, XERBLA
+      // EXTERNAL DLAE2, DLASCL, DLASRT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN, SQRT

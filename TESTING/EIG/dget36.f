@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DHST01, DLACPY, DLASET, DTREXC
+      // EXTERNAL DHST01, DLACPY, DLASET, DTREXC
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN

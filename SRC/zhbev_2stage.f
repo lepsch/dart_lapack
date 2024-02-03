@@ -29,10 +29,10 @@
       bool               LSAME;
       int                ILAENV2STAGE;
       double             DLAMCH, ZLANHB;
-      EXTERNAL           LSAME, DLAMCH, ZLANHB, ILAENV2STAGE
+      // EXTERNAL LSAME, DLAMCH, ZLANHB, ILAENV2STAGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSTERF, XERBLA, ZLASCL, ZSTEQR, ZHETRD_2STAGE, ZHETRD_HB2ST
+      // EXTERNAL DSCAL, DSTERF, XERBLA, ZLASCL, ZSTEQR, ZHETRD_2STAGE, ZHETRD_HB2ST
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, SQRT

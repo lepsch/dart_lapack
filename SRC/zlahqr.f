@@ -34,10 +34,10 @@
 *     .. External Functions ..
       COMPLEX*16         ZLADIV
       double             DLAMCH;
-      EXTERNAL           ZLADIV, DLAMCH
+      // EXTERNAL ZLADIV, DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZCOPY, ZLARFG, ZSCAL
+      // EXTERNAL ZCOPY, ZLARFG, ZSCAL
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

@@ -37,11 +37,11 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           ILAUPLO
+      // EXTERNAL ILAUPLO
       int                ILAUPLO;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CPOTRS, CHEMV, BLAS_CHEMV_X, BLAS_CHEMV2_X, CLA_HEAMV, CLA_WWADDW, CLA_LIN_BERR, SLAMCH
+      // EXTERNAL CAXPY, CCOPY, CPOTRS, CHEMV, BLAS_CHEMV_X, BLAS_CHEMV2_X, CLA_HEAMV, CLA_WWADDW, CLA_LIN_BERR, SLAMCH
       REAL               SLAMCH
 *     ..
 *     .. Intrinsic Functions ..

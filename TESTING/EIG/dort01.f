@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DDOT, DLAMCH, DLANSY;
-      EXTERNAL           LSAME, DDOT, DLAMCH, DLANSY
+      // EXTERNAL LSAME, DDOT, DLAMCH, DLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASET, DSYRK
+      // EXTERNAL DLASET, DSYRK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN

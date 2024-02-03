@@ -28,12 +28,12 @@
 *     .. Local Scalars ..
       bool               COLMAJOR, LQUERY, RESTART11, RESTART12, RESTART21, RESTART22, WANTU1, WANTU2, WANTV1T, WANTV2T       int                I, IMIN, IMAX, ITER, IU1CS, IU1SN, IU2CS, IU2SN, IV1TCS, IV1TSN, IV2TCS, IV2TSN, J, LRWORKMIN, LRWORKOPT, MAXIT, MINI       double             B11BULGE, B12BULGE, B21BULGE, B22BULGE, DUMMY, EPS, MU, NU, R, SIGMA11, SIGMA21, TEMP, THETAMAX, THETAMIN, THRESH, TOL, TOLMUL, UNFL, X1, X2, Y1, Y2;;;
 *
-      EXTERNAL           DLARTGP, DLARTGS, DLAS2, XERBLA, ZLASR, ZSCAL, ZSWAP
+      // EXTERNAL DLARTGP, DLARTGS, DLAS2, XERBLA, ZLASR, ZSCAL, ZSWAP
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
       bool               LSAME;
-      EXTERNAL           LSAME, DLAMCH
+      // EXTERNAL LSAME, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, ATAN2, COS, MAX, MIN, SIN, SQRT

@@ -33,10 +33,10 @@
       bool               DLCTSX;
       int                ILAENV;
       double             DLAMCH, DLANGE;
-      EXTERNAL           DLCTSX, ILAENV, DLAMCH, DLANGE
+      // EXTERNAL DLCTSX, ILAENV, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, DGESVD, DGET51, DGET53, DGGESX, DLACPY, DLAKF2, DLASET, DLATM5, XERBLA
+      // EXTERNAL ALASVM, DGESVD, DGET51, DGET53, DGGESX, DLACPY, DLAKF2, DLASET, DLATM5, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

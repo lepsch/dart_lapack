@@ -28,10 +28,10 @@
 *     .. External Functions ..
       REAL               SLAMCH
       int                ILAENV;
-      EXTERNAL           SLAMCH, ILAENV
+      // EXTERNAL SLAMCH, ILAENV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGEHRD, CGEMM, CLACPY, CLAHQR, CLAQR4, CLARF, CLARFG, CLASET, CTREXC, CUNMHR
+      // EXTERNAL CCOPY, CGEHRD, CGEMM, CLACPY, CLAHQR, CLAQR4, CLARF, CLARFG, CLASET, CTREXC, CUNMHR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, INT, MAX, MIN, REAL

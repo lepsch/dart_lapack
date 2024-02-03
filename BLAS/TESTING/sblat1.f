@@ -16,7 +16,7 @@
       REAL             SFAC
       int              IC;
 *     .. External Subroutines ..
-      EXTERNAL         CHECK0, CHECK1, CHECK2, CHECK3, HEADER
+      // EXTERNAL CHECK0, CHECK1, CHECK2, CHECK3, HEADER
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Data statements ..
@@ -104,7 +104,7 @@
 *     .. Local Arrays ..
       REAL              DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8), DAB(4,9), DTEMP(9), DTRUE(9,9)
 *     .. External Subroutines ..
-      EXTERNAL          SROTG, SROTMG, STEST, STEST1
+      // EXTERNAL SROTG, SROTMG, STEST, STEST1
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Data statements ..
@@ -195,9 +195,9 @@
 *     .. External Functions ..
       REAL              SASUM, SNRM2
       int               ISAMAX;
-      EXTERNAL          SASUM, SNRM2, ISAMAX
+      // EXTERNAL SASUM, SNRM2, ISAMAX
 *     .. External Subroutines ..
-      EXTERNAL          ITEST1, SB1NRM2, SSCAL, STEST, STEST1
+      // EXTERNAL ITEST1, SB1NRM2, SSCAL, STEST, STEST1
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Common blocks ..
@@ -283,9 +283,9 @@
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
 *     .. External Functions ..
       REAL              SDOT, SDSDOT
-      EXTERNAL          SDOT, SDSDOT
+      // EXTERNAL SDOT, SDSDOT
 *     .. External Subroutines ..
-      EXTERNAL          SAXPY, SCOPY, SROTM, SSWAP, STEST, STEST1
+      // EXTERNAL SAXPY, SCOPY, SROTM, SSWAP, STEST, STEST1
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
 *     .. Common blocks ..
@@ -442,7 +442,7 @@
       REAL              COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7)
       int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4);
 *     .. External Subroutines ..
-      EXTERNAL          SROT, STEST
+      // EXTERNAL SROT, STEST
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
 *     .. Common blocks ..
@@ -612,7 +612,7 @@
       int              I;
 *     .. External Functions ..
       REAL             SDIFF
-      EXTERNAL         SDIFF
+      // EXTERNAL SDIFF
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS
 *     .. Common blocks ..
@@ -660,7 +660,7 @@
 *     .. Local Arrays ..
       REAL              SCOMP(1), STRUE(1)
 *     .. External Subroutines ..
-      EXTERNAL          STEST
+      // EXTERNAL STEST
 *     .. Executable Statements ..
 *
       SCOMP(1) = SCOMP1
@@ -758,7 +758,7 @@
       PARAMETER         (HALF=0.5E+0, ONE=1.0E+0, TWO= 2.0E+0, ZERO=0.0E+0)
 *     .. External Functions ..
       REAL              SNRM2
-      EXTERNAL          SNRM2
+      // EXTERNAL SNRM2
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT
 *     .. Model parameters ..

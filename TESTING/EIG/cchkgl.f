@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
-      EXTERNAL           CLANGE, SLAMCH
+      // EXTERNAL CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGGBAL
+      // EXTERNAL CGGBAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

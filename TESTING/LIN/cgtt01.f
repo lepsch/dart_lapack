@@ -27,13 +27,13 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANGT, CLANHS, SLAMCH
-      EXTERNAL           CLANGT, CLANHS, SLAMCH
+      // EXTERNAL CLANGT, CLANHS, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CSWAP
+      // EXTERNAL CAXPY, CSWAP
 *     ..
 *     .. Executable Statements ..
 *

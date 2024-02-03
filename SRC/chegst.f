@@ -25,7 +25,7 @@
       int                K, KB, NB;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHEGS2, CHEMM, CHER2K, CTRMM, CTRSM, XERBLA
+      // EXTERNAL CHEGS2, CHEMM, CHER2K, CTRMM, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -33,7 +33,7 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      EXTERNAL           LSAME, ILAENV
+      // EXTERNAL LSAME, ILAENV
 *     ..
 *     .. Executable Statements ..
 *

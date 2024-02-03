@@ -23,10 +23,10 @@
 *     ..
 *     .. External Functions ..
       int                IZAMAX;
-      EXTERNAL           IZAMAX
+      // EXTERNAL IZAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGERU, ZSCAL, ZSWAP
+      // EXTERNAL XERBLA, ZGERU, ZSCAL, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

@@ -32,10 +32,10 @@
 *     .. External Functions ..
       REAL               SLARND
       bool               LSAME;
-      EXTERNAL           SLARND, LSAME
+      // EXTERNAL SLARND, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLATM7, SCOPY, SLAGGE, SLAGSY, SLAROT, SLARTG, SLASET, SSCAL, XERBLA
+      // EXTERNAL SLATM7, SCOPY, SLAGGE, SLAGSY, SLAROT, SLARTG, SLASET, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, COS, MAX, MIN, MOD, REAL, SIN

@@ -24,11 +24,11 @@
       bool               LQUERY;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARF, DLARFGP, DORBDB5, DROT, DSCAL, XERBLA
+      // EXTERNAL DLARF, DLARFGP, DORBDB5, DROT, DSCAL, XERBLA
 *     ..
 *     .. External Functions ..
       double             DNRM2;
-      EXTERNAL           DNRM2
+      // EXTERNAL DNRM2
 *     ..
 *     .. Intrinsic Function ..
       // INTRINSIC ATAN2, COS, MAX, SIN, SQRT

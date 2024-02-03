@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZDSCAL
+      // EXTERNAL ZDSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

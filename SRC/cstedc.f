@@ -29,10 +29,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH, SLANST, SROUNDUP_LWORK
-      EXTERNAL           ILAENV, LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, CLACPY, CLACRM, CLAED0, CSTEQR, CSWAP, SLASCL, SLASET, SSTEDC, SSTEQR, SSTERF
+      // EXTERNAL XERBLA, CLACPY, CLACRM, CLAED0, CSTEQR, CSWAP, SLASCL, SLASET, SSTEDC, SSTEQR, SSTERF
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, MOD, REAL, SQRT

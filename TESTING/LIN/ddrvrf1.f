@@ -33,10 +33,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLANSY, DLANSF, DLARND;
-      EXTERNAL           DLAMCH, DLANSY, DLANSF, DLARND
+      // EXTERNAL DLAMCH, DLANSY, DLANSF, DLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DTRTTF
+      // EXTERNAL DTRTTF
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

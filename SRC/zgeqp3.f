@@ -24,12 +24,12 @@
       int                FJB, IWS, J, JB, LWKOPT, MINMN, MINWS, NA, NB, NBMIN, NFXD, NX, SM, SMINMN, SN, TOPBMN;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEQRF, ZLAQP2, ZLAQPS, ZSWAP, ZUNMQR
+      // EXTERNAL XERBLA, ZGEQRF, ZLAQP2, ZLAQPS, ZSWAP, ZUNMQR
 *     ..
 *     .. External Functions ..
       int                ILAENV;
       double             DZNRM2;
-      EXTERNAL           ILAENV, DZNRM2
+      // EXTERNAL ILAENV, DZNRM2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN

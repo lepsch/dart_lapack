@@ -39,10 +39,10 @@
 *     ..
 *     .. External Functions ..
       double             DGET06, DLANSP;
-      EXTERNAL           DGET06, DLANSP
+      // EXTERNAL DGET06, DLANSP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DCOPY, DERRPO, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DPPCON, DPPRFS, DPPT01, DPPT02, DPPT03, DPPT05, DPPTRF, DPPTRI, DPPTRS
+      // EXTERNAL ALAERH, ALAHD, ALASUM, DCOPY, DERRPO, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DPPCON, DPPRFS, DPPT01, DPPT02, DPPT03, DPPT05, DPPTRF, DPPTRI, DPPTRS
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

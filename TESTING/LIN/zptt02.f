@@ -26,13 +26,13 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DZASUM, ZLANHT;
-      EXTERNAL           DLAMCH, DZASUM, ZLANHT
+      // EXTERNAL DLAMCH, DZASUM, ZLANHT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLAPTM
+      // EXTERNAL ZLAPTM
 *     ..
 *     .. Executable Statements ..
 *

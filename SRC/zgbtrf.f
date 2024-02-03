@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       int                ILAENV, IZAMAX;
-      EXTERNAL           ILAENV, IZAMAX
+      // EXTERNAL ILAENV, IZAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZCOPY, ZGBTF2, ZGEMM, ZGERU, ZLASWP, ZSCAL, ZSWAP, ZTRSM
+      // EXTERNAL XERBLA, ZCOPY, ZGBTF2, ZGEMM, ZGERU, ZLASWP, ZSCAL, ZSWAP, ZTRSM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

@@ -22,11 +22,11 @@
       int                LOPT, LWKMIN, LWKOPT, MN, NB, NB1, NB2, NB3, NB4, NR;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DCOPY, DGEMV, DGGRQF, DORMQR, DORMRQ, DTRMV, DTRTRS, XERBLA
+      // EXTERNAL DAXPY, DCOPY, DGEMV, DGGRQF, DORMQR, DORMRQ, DTRMV, DTRTRS, XERBLA
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN

@@ -27,10 +27,10 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SLAMCH, SLANST
-      EXTERNAL           ISAMAX, SLAMCH, SLANST
+      // EXTERNAL ISAMAX, SLAMCH, SLANST
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMM, SLACPY, SLALSA, SLARTG, SLASCL, SLASDA, SLASDQ, SLASET, SLASRT, SROT, XERBLA
+      // EXTERNAL SCOPY, SGEMM, SLACPY, SLALSA, SLARTG, SLASCL, SLASDA, SLASDQ, SLASET, SLASRT, SROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, REAL, SIGN

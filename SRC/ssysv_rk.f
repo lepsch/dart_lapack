@@ -22,10 +22,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, SROUNDUP_LWORK
+      // EXTERNAL LSAME, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, SSYTRF_RK, SSYTRS_3
+      // EXTERNAL XERBLA, SSYTRF_RK, SSYTRS_3
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

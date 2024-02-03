@@ -23,7 +23,7 @@
       int                I, IINFO, J, LW1, LW2, LWT, LDWT, LWORKOPT, NB1LOCAL, NB2LOCAL, NUM_ALL_ROW_BLOCKS;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLATSQR, DORGTSQR_ROW, DORHR_COL, XERBLA
+      // EXTERNAL DCOPY, DLATSQR, DORGTSQR_ROW, DORHR_COL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CEILING, DBLE, MAX, MIN

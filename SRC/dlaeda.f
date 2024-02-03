@@ -22,7 +22,7 @@
       int                BSIZ1, BSIZ2, CURR, I, K, MID, PSIZ1, PSIZ2, PTR, ZPTR1;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEMV, DROT, XERBLA
+      // EXTERNAL DCOPY, DGEMV, DROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, INT, SQRT

@@ -39,10 +39,10 @@
 *     .. External Functions ..
       bool               DISNAN;
       double             DLAMCH, DLANGE;
-      EXTERNAL           DLAMCH, DLANGE
+      // EXTERNAL DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLATMR, DLACPY, DGEMM, DTRSYL, DTRSYL3
+      // EXTERNAL DLATMR, DLACPY, DGEMM, DTRSYL, DTRSYL3
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX

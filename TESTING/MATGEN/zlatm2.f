@@ -36,7 +36,7 @@
 *
       double             DLARAN;
       COMPLEX*16         ZLARND
-      EXTERNAL           DLARAN, ZLARND
+      // EXTERNAL DLARAN, ZLARND
 *     ..
 *
 *     .. Intrinsic Functions ..

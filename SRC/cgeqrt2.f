@@ -22,7 +22,7 @@
       COMPLEX   AII, ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL  CLARFG, CGEMV, CGERC, CTRMV, XERBLA
+      // EXTERNAL CLARFG, CGEMV, CGERC, CTRMV, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

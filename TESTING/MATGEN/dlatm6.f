@@ -28,7 +28,7 @@
       // INTRINSIC DBLE, SQRT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGESVD, DLACPY, DLAKF2
+      // EXTERNAL DGESVD, DLACPY, DLAKF2
 *     ..
 *     .. Executable Statements ..
 *

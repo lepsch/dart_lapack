@@ -26,7 +26,7 @@
       COMPLEX            DUMMY( 1, 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLARFB_GETT, CLASET, XERBLA
+      // EXTERNAL CLARFB_GETT, CLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN

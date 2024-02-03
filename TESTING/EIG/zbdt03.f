@@ -28,10 +28,10 @@
       bool               LSAME;
       int                IDAMAX;
       double             DLAMCH, DZASUM;
-      EXTERNAL           LSAME, IDAMAX, DLAMCH, DZASUM
+      // EXTERNAL LSAME, IDAMAX, DLAMCH, DZASUM
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMV
+      // EXTERNAL ZGEMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, MAX, MIN

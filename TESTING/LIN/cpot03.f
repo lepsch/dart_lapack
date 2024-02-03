@@ -29,10 +29,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, CLANHE, SLAMCH
-      EXTERNAL           LSAME, CLANGE, CLANHE, SLAMCH
+      // EXTERNAL LSAME, CLANGE, CLANHE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHEMM
+      // EXTERNAL CHEMM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG, REAL

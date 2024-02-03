@@ -28,10 +28,10 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
-      EXTERNAL           LSAME, ILAENV2STAGE
+      // EXTERNAL LSAME, ILAENV2STAGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DPOTRF, DSYGST, DTRMM, DTRSM, XERBLA, DSYEV_2STAGE
+      // EXTERNAL DPOTRF, DSYGST, DTRMM, DTRSM, XERBLA, DSYEV_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

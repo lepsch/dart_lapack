@@ -23,11 +23,11 @@
       REAL               TEMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMM, SLACPY, SLAED1, SLAED7, SSTEQR, XERBLA
+      // EXTERNAL SCOPY, SGEMM, SLACPY, SLAED1, SLAED7, SSTEQR, XERBLA
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, REAL

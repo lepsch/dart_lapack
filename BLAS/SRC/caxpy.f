@@ -19,7 +19,7 @@
 *     ..
 *     .. External Functions ..
       REAL SCABS1
-      EXTERNAL SCABS1
+      // EXTERNAL SCABS1
 *     ..
       IF (N.LE.0) RETURN
       IF (SCABS1(CA).EQ.0.0E+0) RETURN

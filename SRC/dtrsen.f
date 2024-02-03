@@ -31,10 +31,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLANGE;
-      EXTERNAL           LSAME, DLANGE
+      // EXTERNAL LSAME, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLACN2, DLACPY, DTREXC, DTRSYL, XERBLA
+      // EXTERNAL DLACN2, DLACPY, DTREXC, DTRSYL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

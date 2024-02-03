@@ -35,10 +35,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLACPY, ZLARTG, ZLASSQ, ZROT
+      // EXTERNAL ZLACPY, ZLARTG, ZLASSQ, ZROT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCONJG, MAX, SQRT

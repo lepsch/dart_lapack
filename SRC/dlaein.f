@@ -27,10 +27,10 @@
 *     .. External Functions ..
       int                IDAMAX;
       double             DASUM, DLAPY2, DNRM2;
-      EXTERNAL           IDAMAX, DASUM, DLAPY2, DNRM2
+      // EXTERNAL IDAMAX, DASUM, DLAPY2, DNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLADIV, DLATRS, DSCAL
+      // EXTERNAL DLADIV, DLATRS, DSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, SQRT

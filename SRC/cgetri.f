@@ -25,10 +25,10 @@
 *     .. External Functions ..
       int                ILAENV;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           ILAENV, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CGEMV, CSWAP, CTRSM, CTRTRI, XERBLA
+      // EXTERNAL CGEMM, CGEMV, CSWAP, CTRSM, CTRTRI, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

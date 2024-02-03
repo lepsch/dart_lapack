@@ -34,10 +34,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANGE, SLARND
-      EXTERNAL           SLAMCH, SLANGE, SLARND, LSAME
+      // EXTERNAL SLAMCH, SLANGE, SLARND, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           STRTTF, SGEQRF, SGEQLF, STFSM, STRSM
+      // EXTERNAL STRTTF, SGEQRF, SGEQLF, STFSM, STRSM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

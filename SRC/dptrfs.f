@@ -30,7 +30,7 @@
       double             BI, CX, DX, EPS, EX, LSTRES, S, SAFE1, SAFE2, SAFMIN;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DPTTRS, XERBLA
+      // EXTERNAL DAXPY, DPTTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
@@ -38,7 +38,7 @@
 *     .. External Functions ..
       int                IDAMAX;
       double             DLAMCH;
-      EXTERNAL           IDAMAX, DLAMCH
+      // EXTERNAL IDAMAX, DLAMCH
 *     ..
 *     .. Executable Statements ..
 *

@@ -37,10 +37,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CQRT12, CRZT01, CRZT02, SLAMCH
-      EXTERNAL           CQRT12, CRZT01, CRZT02, SLAMCH
+      // EXTERNAL CQRT12, CRZT01, CRZT02, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHD, ALASUM, CERRTZ, CGEQR2, CLACPY, CLASET, CLATMS, CTZRZF, SLAORD
+      // EXTERNAL ALAHD, ALASUM, CERRTZ, CGEQR2, CLACPY, CLASET, CLATMS, CTZRZF, SLAORD
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN

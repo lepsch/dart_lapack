@@ -36,10 +36,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DQRT12, DRZT01, DRZT02;
-      EXTERNAL           DLAMCH, DQRT12, DRZT01, DRZT02
+      // EXTERNAL DLAMCH, DQRT12, DRZT01, DRZT02
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHD, ALASUM, DERRTZ, DGEQR2, DLACPY, DLAORD, DLASET, DLATMS, DTZRZF
+      // EXTERNAL ALAHD, ALASUM, DERRTZ, DGEQR2, DLACPY, DLAORD, DLASET, DLATMS, DTZRZF
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

@@ -36,7 +36,7 @@
        DATA INVD1 /(-1,0),(0,-1),(-.5,.5),(0,1),(1,0), (-.5,-.5),(.5,-.5),(.5,.5)/       DATA INVD2 /(-1,0),(0,1),(-.5,-.5),(0,-1),(1,0), (-.5,.5),(.5,.5),(.5,-.5)/
 *     ..
 *     .. External Functions
-      EXTERNAL ZLASET, LSAMEN
+      // EXTERNAL ZLASET, LSAMEN
       // INTRINSIC DBLE
       bool    LSAMEN;
 *     ..

@@ -18,7 +18,7 @@
       int        I, IB, LB, NB, IINFO;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL   STPLQT2, STPRFB, XERBLA
+      // EXTERNAL STPLQT2, STPRFB, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

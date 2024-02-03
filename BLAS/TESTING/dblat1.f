@@ -16,7 +16,7 @@
       double           SFAC;
       int              IC;
 *     .. External Subroutines ..
-      EXTERNAL         CHECK0, CHECK1, CHECK2, CHECK3, HEADER
+      // EXTERNAL CHECK0, CHECK1, CHECK2, CHECK3, HEADER
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Data statements ..
@@ -104,7 +104,7 @@
 *     .. Local Arrays ..
       double            DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8), DAB(4,9), DTEMP(9), DTRUE(9,9);
 *     .. External Subroutines ..
-      EXTERNAL          DROTG, DROTMG, STEST, STEST1
+      // EXTERNAL DROTG, DROTMG, STEST, STEST1
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Data statements ..
@@ -195,9 +195,9 @@
 *     .. External Functions ..
       double            DASUM, DNRM2;
       int               IDAMAX;
-      EXTERNAL          DASUM, DNRM2, IDAMAX
+      // EXTERNAL DASUM, DNRM2, IDAMAX
 *     .. External Subroutines ..
-      EXTERNAL          ITEST1, DB1NRM2, DSCAL, STEST, STEST1
+      // EXTERNAL ITEST1, DB1NRM2, DSCAL, STEST, STEST1
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Common blocks ..
@@ -283,9 +283,9 @@
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
 *     .. External Functions ..
       double            DDOT, DSDOT;
-      EXTERNAL          DDOT, DSDOT
+      // EXTERNAL DDOT, DSDOT
 *     .. External Subroutines ..
-      EXTERNAL          DAXPY, DCOPY, DROTM, DSWAP, STEST, STEST1, TESTDSDOT
+      // EXTERNAL DAXPY, DCOPY, DROTM, DSWAP, STEST, STEST1, TESTDSDOT
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
 *     .. Common blocks ..
@@ -441,7 +441,7 @@
       double            COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
       int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4);
 *     .. External Subroutines ..
-      EXTERNAL          DROT, STEST
+      // EXTERNAL DROT, STEST
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
 *     .. Common blocks ..
@@ -611,7 +611,7 @@
       int              I;
 *     .. External Functions ..
       double           SDIFF;
-      EXTERNAL         SDIFF
+      // EXTERNAL SDIFF
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS
 *     .. Common blocks ..
@@ -709,7 +709,7 @@
 *     .. Local Arrays ..
       double            SCOMP(1), STRUE(1);
 *     .. External Subroutines ..
-      EXTERNAL          STEST
+      // EXTERNAL STEST
 *     .. Executable Statements ..
 *
       SCOMP(1) = SCOMP1
@@ -806,7 +806,7 @@
       PARAMETER         (HALF=0.5D+0, ONE=1.0D+0, TWO= 2.0D+0, ZERO=0.0D+0)
 *     .. External Functions ..
       double            DNRM2;
-      EXTERNAL          DNRM2
+      // EXTERNAL DNRM2
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
 *     .. Model parameters ..

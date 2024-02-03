@@ -33,10 +33,10 @@
       bool               SLCTSX;
       int                ILAENV;
       REAL               SLAMCH, SLANGE
-      EXTERNAL           SLCTSX, ILAENV, SLAMCH, SLANGE
+      // EXTERNAL SLCTSX, ILAENV, SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, SGESVD, SGET51, SGET53, SGGESX, SLACPY, SLAKF2, SLASET, SLATM5, XERBLA
+      // EXTERNAL ALASVM, SGESVD, SGET51, SGET53, SGGESX, SLACPY, SLAKF2, SLASET, SLATM5, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

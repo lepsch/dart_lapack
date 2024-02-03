@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SDOT, SLAMCH, SLANGE
-      EXTERNAL           SDOT, SLAMCH, SLANGE
+      // EXTERNAL SDOT, SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMV, SLASWP, SSCAL, STRMV
+      // EXTERNAL SGEMV, SLASWP, SSCAL, STRMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN, REAL

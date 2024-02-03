@@ -36,10 +36,10 @@
       bool               LSAME;
       int                ILAENV2STAGE;
       double             DLAMCH, ZLANHB;
-      EXTERNAL           LSAME, DLAMCH, ZLANHB, ILAENV2STAGE
+      // EXTERNAL LSAME, DLAMCH, ZLANHB, ILAENV2STAGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZCOPY, ZGEMV, ZLACPY, ZLASCL, ZSTEIN, ZSTEQR, ZSWAP, ZHETRD_HB2ST
+      // EXTERNAL DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZCOPY, ZGEMV, ZLACPY, ZLASCL, ZSTEIN, ZSTEQR, ZSWAP, ZHETRD_HB2ST
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN, SQRT

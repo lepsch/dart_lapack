@@ -29,10 +29,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANGT, SLAMCH
-      EXTERNAL           LSAME, CLANGT, SLAMCH
+      // EXTERNAL LSAME, CLANGT, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGTCON, CGTRFS, CGTTRF, CGTTRS, CLACPY, XERBLA
+      // EXTERNAL CCOPY, CGTCON, CGTRFS, CGTTRF, CGTTRS, CLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

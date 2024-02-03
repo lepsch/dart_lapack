@@ -28,7 +28,7 @@
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHD, ALASUM, CERRUNHR_COL, CUNHR_COL01, CUNHR_COL02
+      // EXTERNAL ALAHD, ALASUM, CERRUNHR_COL, CUNHR_COL01, CUNHR_COL02
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

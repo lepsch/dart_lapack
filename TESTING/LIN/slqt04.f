@@ -30,7 +30,7 @@
 *     .. External Functions ..
       REAL SLAMCH, SLANGE, SLANSY
       bool     LSAME;
-      EXTERNAL SLAMCH, SLANGE, SLANSY, LSAME
+      // EXTERNAL SLAMCH, SLANGE, SLANSY, LSAME
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

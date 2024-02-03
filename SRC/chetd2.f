@@ -25,12 +25,12 @@
       COMPLEX            ALPHA, TAUI
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CHEMV, CHER2, CLARFG, XERBLA
+      // EXTERNAL CAXPY, CHEMV, CHER2, CLARFG, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       COMPLEX            CDOTC
-      EXTERNAL           LSAME, CDOTC
+      // EXTERNAL LSAME, CDOTC
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL

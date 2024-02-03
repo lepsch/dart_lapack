@@ -12,7 +12,7 @@
 *
 *  .. External Functions ..
       bool    DLAISNAN;
-      EXTERNAL DLAISNAN
+      // EXTERNAL DLAISNAN
 *  ..
 *  .. Executable Statements ..
       DISNAN = DLAISNAN(DIN,DIN)

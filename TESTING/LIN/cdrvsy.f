@@ -40,10 +40,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANSY, SGET06
-      EXTERNAL           CLANSY, SGET06
+      // EXTERNAL CLANSY, SGET06
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, CERRVX, CGET04, CLACPY, CLARHS, CLASET, CLATB4, CLATMS, CLATSY, CPOT05, CSYSV, CSYSVX, CSYT01, CSYT02, CSYTRF, CSYTRI2, XLAENV
+      // EXTERNAL ALADHD, ALAERH, ALASVM, CERRVX, CGET04, CLACPY, CLARHS, CLASET, CLATB4, CLATMS, CLATSY, CPOT05, CSYSV, CSYSVX, CSYT01, CSYT02, CSYTRF, CSYTRI2, XLAENV
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

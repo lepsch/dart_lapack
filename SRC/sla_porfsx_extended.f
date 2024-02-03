@@ -37,11 +37,11 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           ILAUPLO
+      // EXTERNAL ILAUPLO
       int                ILAUPLO;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL          SAXPY, SCOPY, SPOTRS, SSYMV, BLAS_SSYMV_X, BLAS_SSYMV2_X, SLA_SYAMV, SLA_WWADDW, SLA_LIN_BERR
+      // EXTERNAL SAXPY, SCOPY, SPOTRS, SSYMV, BLAS_SSYMV_X, BLAS_SSYMV2_X, SLA_SYAMV, SLA_WWADDW, SLA_LIN_BERR
       REAL              SLAMCH
 *     ..
 *     .. Intrinsic Functions ..

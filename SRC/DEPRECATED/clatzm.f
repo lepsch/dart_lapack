@@ -20,11 +20,11 @@
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CGEMV, CGERC, CGERU, CLACGV
+      // EXTERNAL CAXPY, CCOPY, CGEMV, CGERC, CGERU, CLACGV
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

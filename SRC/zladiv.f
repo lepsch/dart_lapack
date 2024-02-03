@@ -14,7 +14,7 @@
       double             ZI, ZR;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLADIV
+      // EXTERNAL DLADIV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, DIMAG

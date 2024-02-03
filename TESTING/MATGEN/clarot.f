@@ -23,7 +23,7 @@
       COMPLEX            XT( 2 ), YT( 2 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG

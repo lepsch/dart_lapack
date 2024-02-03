@@ -29,10 +29,10 @@
       bool               LSAME;
       REAL               CLANHP, SLAMCH
       COMPLEX            CDOTC
-      EXTERNAL           LSAME, CLANHP, SLAMCH, CDOTC
+      // EXTERNAL LSAME, CLANHP, SLAMCH, CDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHPR, CSCAL, CTPMV
+      // EXTERNAL CHPR, CSCAL, CTPMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC AIMAG, REAL

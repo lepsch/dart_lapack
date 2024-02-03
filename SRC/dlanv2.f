@@ -22,7 +22,7 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLAPY2;
-      EXTERNAL           DLAMCH, DLAPY2
+      // EXTERNAL DLAMCH, DLAPY2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SIGN, SQRT

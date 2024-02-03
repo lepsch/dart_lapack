@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool    DISNAN;
       double             DLAMCH;
-      EXTERNAL           DISNAN, DLAMCH
+      // EXTERNAL DISNAN, DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY
+      // EXTERNAL DCOPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

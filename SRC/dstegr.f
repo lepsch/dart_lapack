@@ -21,7 +21,7 @@
       bool    TRYRAC;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL DSTEMR
+      // EXTERNAL DSTEMR
 *     ..
 *     .. Executable Statements ..
       INFO = 0

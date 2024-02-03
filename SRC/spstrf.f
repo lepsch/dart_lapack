@@ -29,10 +29,10 @@
       REAL               SLAMCH
       int                ILAENV;
       bool               LSAME, SISNAN;
-      EXTERNAL           SLAMCH, ILAENV, LSAME, SISNAN
+      // EXTERNAL SLAMCH, ILAENV, LSAME, SISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMV, SPSTF2, SSCAL, SSWAP, SSYRK, XERBLA
+      // EXTERNAL SGEMV, SPSTF2, SSCAL, SSWAP, SSYRK, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT, MAXLOC

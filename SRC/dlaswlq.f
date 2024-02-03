@@ -20,10 +20,10 @@
 *     ..
 *     .. EXTERNAL FUNCTIONS ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. EXTERNAL SUBROUTINES ..
-      EXTERNAL           DGELQT, DTPLQT, XERBLA
+      // EXTERNAL DGELQT, DTPLQT, XERBLA
 *     ..
 *     .. INTRINSIC FUNCTIONS ..
       // INTRINSIC MAX, MIN, MOD

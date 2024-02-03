@@ -40,10 +40,10 @@
       bool               LSAME;
       REAL               CLANGB, CLANGE, CLANSB, CLANSP, CLANSY
       COMPLEX            CLATM2, CLATM3
-      EXTERNAL           LSAME, CLANGB, CLANGE, CLANSB, CLANSP, CLANSY, CLATM2, CLATM3
+      // EXTERNAL LSAME, CLANGB, CLANGE, CLANSB, CLANSP, CLANSY, CLATM2, CLATM3
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLATM1, CSSCAL, XERBLA
+      // EXTERNAL CLATM1, CSSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN, MOD, REAL

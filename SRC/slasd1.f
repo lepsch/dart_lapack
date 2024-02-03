@@ -25,7 +25,7 @@
       REAL               ORGNRM
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAMRG, SLASCL, SLASD2, SLASD3, XERBLA
+      // EXTERNAL SLAMRG, SLASCL, SLASD2, SLASD3, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

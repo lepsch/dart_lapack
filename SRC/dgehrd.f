@@ -25,14 +25,14 @@
       double             EI;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DGEHD2, DGEMM, DLAHR2, DLARFB, DTRMM, XERBLA
+      // EXTERNAL DAXPY, DGEHD2, DGEMM, DLAHR2, DLARFB, DTRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Executable Statements ..
 *

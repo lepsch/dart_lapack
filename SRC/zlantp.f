@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;
-      EXTERNAL           LSAME, DISNAN
+      // EXTERNAL LSAME, DISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLASSQ
+      // EXTERNAL ZLASSQ
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT

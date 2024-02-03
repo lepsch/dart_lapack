@@ -24,14 +24,14 @@
       double             RA, RB, RC, RS;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARGV, DLARTG, DLARTV, DLASET, DROT, XERBLA
+      // EXTERNAL DLARGV, DLARTG, DLARTV, DLASET, DROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Executable Statements ..
 *

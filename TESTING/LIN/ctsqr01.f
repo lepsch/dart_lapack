@@ -36,7 +36,7 @@
       REAL     SLAMCH, CLANGE, CLANSY
       bool     LSAME;
       int      ILAENV;
-      EXTERNAL SLAMCH, CLANGE, CLANSY, LSAME, ILAENV
+      // EXTERNAL SLAMCH, CLANGE, CLANSY, LSAME, ILAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

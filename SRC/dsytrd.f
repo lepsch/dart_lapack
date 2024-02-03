@@ -23,7 +23,7 @@
       int                I, IINFO, IWS, J, KK, LDWORK, LWKOPT, NB, NBMIN, NX;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLATRD, DSYR2K, DSYTD2, XERBLA
+      // EXTERNAL DLATRD, DSYR2K, DSYTD2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
@@ -31,7 +31,7 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      EXTERNAL           LSAME, ILAENV
+      // EXTERNAL LSAME, ILAENV
 *     ..
 *     .. Executable Statements ..
 *

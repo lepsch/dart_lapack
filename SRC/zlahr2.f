@@ -22,7 +22,7 @@
       COMPLEX*16        EI
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZAXPY, ZCOPY, ZGEMM, ZGEMV, ZLACPY, ZLARFG, ZSCAL, ZTRMM, ZTRMV, ZLACGV
+      // EXTERNAL ZAXPY, ZCOPY, ZGEMM, ZGEMV, ZLACPY, ZLARFG, ZSCAL, ZTRMM, ZTRMV, ZLACGV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

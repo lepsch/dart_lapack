@@ -17,7 +17,7 @@
 *     ..
 *     .. External Functions ..
       bool              LSAMEN;
-      EXTERNAL          LSAMEN
+      // EXTERNAL LSAMEN
 *     ..
 *     .. Executable Statements ..
 *

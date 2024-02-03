@@ -31,10 +31,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLANGE, DLANSY;
-      EXTERNAL           DLAMCH, DLANGE, DLANSY
+      // EXTERNAL DLAMCH, DLANGE, DLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLACPY, DLARNV, DLASET, DLATSQR, DORHR_COL, DORGTSQR, DSCAL, DGEMM, DGEMQRT, DSYRK
+      // EXTERNAL DLACPY, DLARNV, DLASET, DLATSQR, DORHR_COL, DORGTSQR, DSCAL, DGEMM, DGEMQRT, DSYRK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CEILING, DBLE, MAX, MIN

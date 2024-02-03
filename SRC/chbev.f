@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANHB, SLAMCH
-      EXTERNAL           LSAME, CLANHB, SLAMCH
+      // EXTERNAL LSAME, CLANHB, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHBTRD, CLASCL, CSTEQR, SSCAL, SSTERF, XERBLA
+      // EXTERNAL CHBTRD, CLASCL, CSTEQR, SSCAL, SSTERF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC SQRT

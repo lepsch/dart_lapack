@@ -33,10 +33,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANHB;
-      EXTERNAL           LSAME, DLAMCH, ZLANHB
+      // EXTERNAL LSAME, DLAMCH, ZLANHB
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZCOPY, ZGEMV, ZHBTRD, ZLACPY, ZLASCL, ZSTEIN, ZSTEQR, ZSWAP
+      // EXTERNAL DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZCOPY, ZGEMV, ZHBTRD, ZLACPY, ZLASCL, ZSTEIN, ZSTEQR, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN, SQRT

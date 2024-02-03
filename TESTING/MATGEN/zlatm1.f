@@ -27,10 +27,10 @@
 *     .. External Functions ..
       double             DLARAN;
       COMPLEX*16         ZLARND
-      EXTERNAL           DLARAN, ZLARND
+      // EXTERNAL DLARAN, ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZLARNV
+      // EXTERNAL XERBLA, ZLARNV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, EXP, LOG

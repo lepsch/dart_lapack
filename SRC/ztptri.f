@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZSCAL, ZTPMV
+      // EXTERNAL XERBLA, ZSCAL, ZTPMV
 *     ..
 *     .. Executable Statements ..
 *

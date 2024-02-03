@@ -24,12 +24,12 @@
       REAL               BIGNUM, EPS, SMLNUM, TEMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLASWP, SSCAL
+      // EXTERNAL SLASWP, SSCAL
 *     ..
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SLAMCH
-      EXTERNAL           ISAMAX, SLAMCH
+      // EXTERNAL ISAMAX, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

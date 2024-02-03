@@ -23,7 +23,7 @@
       COMPLEX            ZDUM
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, AIMAG, MAX, MIN

@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       COMPLEX*16         ZDOTC
-      EXTERNAL           ZDOTC
+      // EXTERNAL ZDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAS2, ZAXPY, ZLARFG
+      // EXTERNAL DLAS2, ZAXPY, ZLARFG
 *     ..
 *     .. Executable Statements ..
 *

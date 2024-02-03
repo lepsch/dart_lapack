@@ -30,10 +30,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, CLANHB, CLANHP, SLAMCH
-      EXTERNAL           LSAME, CLANGE, CLANHB, CLANHP, SLAMCH
+      // EXTERNAL LSAME, CLANGE, CLANHB, CLANHP, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CHPR, CHPR2
+      // EXTERNAL CGEMM, CHPR, CHPR2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN, REAL

@@ -30,10 +30,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, CLANSY
-      EXTERNAL           LSAME, SLAMCH, CLANSY
+      // EXTERNAL LSAME, SLAMCH, CLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLASET, CLAVSY_ROOK, CSYCONVF_ROOK
+      // EXTERNAL CLASET, CLAVSY_ROOK, CSYCONVF_ROOK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC REAL

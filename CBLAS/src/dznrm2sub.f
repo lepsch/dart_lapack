@@ -1,6 +1,6 @@
       subroutine dznrm2sub(n,x,incx,nrm2)
 c
-      external dznrm2
+      // external dznrm2
       double           dznrm2,nrm2;
       int     n,incx;
       double complex x(*)

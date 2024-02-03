@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, ZLANGE;
-      EXTERNAL           DLAMCH, ZLANGE
+      // EXTERNAL DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGGBAL
+      // EXTERNAL ZGGBAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

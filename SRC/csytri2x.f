@@ -31,11 +31,11 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CSYCONV, XERBLA, CTRTRI
-      EXTERNAL           CGEMM, CTRMM, CSYSWAPR
+      // EXTERNAL CSYCONV, XERBLA, CTRTRI
+      // EXTERNAL CGEMM, CTRMM, CSYSWAPR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

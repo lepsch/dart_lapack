@@ -28,7 +28,7 @@
       // INTRINSIC REAL, SQRT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGESVD, SLACPY, SLAKF2
+      // EXTERNAL SGESVD, SLACPY, SLAKF2
 *     ..
 *     .. Executable Statements ..
 *

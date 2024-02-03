@@ -18,10 +18,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAMC2
+      // EXTERNAL SLAMC2
 *     ..
 *     .. Save statement ..
       SAVE               FIRST, EPS, SFMIN, BASE, T, RND, EMIN, RMIN, EMAX, RMAX, PREC
@@ -154,7 +154,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMC3
-      EXTERNAL           SLAMC3
+      // EXTERNAL SLAMC3
 *     ..
 *     .. Save statement ..
       SAVE               FIRST, LIEEE1, LBETA, LRND, LT
@@ -365,10 +365,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMC3
-      EXTERNAL           SLAMC3
+      // EXTERNAL SLAMC3
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAMC1, SLAMC4, SLAMC5
+      // EXTERNAL SLAMC1, SLAMC4, SLAMC5
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
@@ -628,7 +628,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMC3
-      EXTERNAL           SLAMC3
+      // EXTERNAL SLAMC3
 *     ..
 *     .. Executable Statements ..
 *
@@ -739,7 +739,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMC3
-      EXTERNAL           SLAMC3
+      // EXTERNAL SLAMC3
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MOD

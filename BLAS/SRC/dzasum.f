@@ -19,7 +19,7 @@
 *     ..
 *     .. External Functions ..
       double           DCABS1;
-      EXTERNAL DCABS1
+      // EXTERNAL DCABS1
 *     ..
       DZASUM = 0.0d0
       STEMP = 0.0d0

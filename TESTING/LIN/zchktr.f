@@ -41,10 +41,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             ZLANTR;
-      EXTERNAL           LSAME, ZLANTR
+      // EXTERNAL LSAME, ZLANTR
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DLAMCH, XLAENV, ZCOPY, ZDSCAL, ZERRTR, ZGET04, ZLACPY, ZLARHS, ZLATRS, ZLATRS3, ZLATTR, ZTRCON, ZTRRFS, ZTRT01, ZTRT02, ZTRT03, ZTRT05, ZTRT06, ZTRTRI, ZTRTRS
+      // EXTERNAL ALAERH, ALAHD, ALASUM, DLAMCH, XLAENV, ZCOPY, ZDSCAL, ZERRTR, ZGET04, ZLACPY, ZLARHS, ZLATRS, ZLATRS3, ZLATTR, ZTRCON, ZTRRFS, ZTRT01, ZTRT02, ZTRT03, ZTRT05, ZTRT06, ZTRTRI, ZTRTRS
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

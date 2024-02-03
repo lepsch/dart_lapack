@@ -28,14 +28,14 @@
       COMPLEX            T, TEMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACGV, CLAR2V, CLARGV, CLARTG, CLARTV, CLASET, CROT, CSCAL, XERBLA
+      // EXTERNAL CLACGV, CLAR2V, CLARGV, CLARTG, CLARTV, CLASET, CROT, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN, REAL
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Executable Statements ..
 *

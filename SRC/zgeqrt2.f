@@ -22,7 +22,7 @@
       COMPLEX*16   AII, ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL  ZLARFG, ZGEMV, ZGERC, ZTRMV, XERBLA
+      // EXTERNAL ZLARFG, ZGEMV, ZGERC, ZTRMV, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

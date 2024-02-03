@@ -31,10 +31,10 @@
       bool               LSAME;
       int                ILAENV2STAGE;
       REAL               SLAMCH, CLANHE, SROUNDUP_LWORK
-      EXTERNAL           LSAME, SLAMCH, CLANHE, ILAENV2STAGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, SLAMCH, CLANHE, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSCAL, SSTERF, XERBLA, CLASCL, CSTEQR, CUNGTR, CHETRD_2STAGE
+      // EXTERNAL SSCAL, SSTERF, XERBLA, CLASCL, CSTEQR, CUNGTR, CHETRD_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC REAL, MAX, SQRT

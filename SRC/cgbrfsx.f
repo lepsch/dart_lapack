@@ -41,14 +41,14 @@
       REAL               ANORM, RCOND_TMP, ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG, RTHRESH, UNSTABLE_THRESH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, CGBCON, CLA_GBRFSX_EXTENDED
+      // EXTERNAL XERBLA, CGBCON, CLA_GBRFSX_EXTENDED
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT, TRANSFER
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME, ILATRANS, ILAPREC
-      EXTERNAL           SLAMCH, CLANGB, CLA_GBRCOND_X, CLA_GBRCOND_C
+      // EXTERNAL LSAME, ILATRANS, ILAPREC
+      // EXTERNAL SLAMCH, CLANGB, CLA_GBRCOND_X, CLA_GBRCOND_C
       REAL               SLAMCH, CLANGB, CLA_GBRCOND_X, CLA_GBRCOND_C
       bool               LSAME;
       int                ILATRANS, ILAPREC;

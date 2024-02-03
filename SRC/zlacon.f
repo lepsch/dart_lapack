@@ -29,10 +29,10 @@
 *     .. External Functions ..
       int                IZMAX1;
       double             DLAMCH, DZSUM1;
-      EXTERNAL           IZMAX1, DLAMCH, DZSUM1
+      // EXTERNAL IZMAX1, DLAMCH, DZSUM1
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZCOPY
+      // EXTERNAL ZCOPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DIMAG

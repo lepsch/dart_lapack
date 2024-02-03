@@ -29,11 +29,11 @@
       bool               LRQUERY;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZBBCSD, ZLACPY, ZLAPMR, ZLAPMT, ZUNBDB, ZUNGLQ, ZUNGQR
+      // EXTERNAL XERBLA, ZBBCSD, ZLACPY, ZLAPMR, ZLAPMT, ZUNBDB, ZUNGLQ, ZUNGQR
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Intrinsic Functions
       // INTRINSIC INT, MAX, MIN

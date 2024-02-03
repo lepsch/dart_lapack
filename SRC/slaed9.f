@@ -20,10 +20,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SNRM2
-      EXTERNAL           SNRM2
+      // EXTERNAL SNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SLAED4, XERBLA
+      // EXTERNAL SCOPY, SLAED4, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SIGN, SQRT

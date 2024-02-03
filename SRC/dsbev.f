@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANSB;
-      EXTERNAL           LSAME, DLAMCH, DLANSB
+      // EXTERNAL LSAME, DLAMCH, DLANSB
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASCL, DSBTRD, DSCAL, DSTEQR, DSTERF, XERBLA
+      // EXTERNAL DLASCL, DSBTRD, DSCAL, DSTEQR, DSTERF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC SQRT

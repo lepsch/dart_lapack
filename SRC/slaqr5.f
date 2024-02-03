@@ -24,7 +24,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
 *
@@ -34,7 +34,7 @@
       REAL               VT( 3 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SLACPY, SLAQR1, SLARFG, SLASET, STRMM
+      // EXTERNAL SGEMM, SLACPY, SLAQR1, SLARFG, SLASET, STRMM
 *     ..
 *     .. Executable Statements ..
 *

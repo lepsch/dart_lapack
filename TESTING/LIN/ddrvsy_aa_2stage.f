@@ -40,10 +40,10 @@
 *     ..
 *     .. External Functions ..
       double             DLANSY, SGET06;
-      EXTERNAL           DLANSY, SGET06
+      // EXTERNAL DLANSY, SGET06
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, XLAENV, DERRVX, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DSYSV_AA_2STAGE, DPOT02, DSYTRF_AA_2STAGE
+      // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, DERRVX, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DSYSV_AA_2STAGE, DPOT02, DSYTRF_AA_2STAGE
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

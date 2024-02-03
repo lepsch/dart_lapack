@@ -38,10 +38,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SCNRM2, SLAMCH
-      EXTERNAL           LSAME, SCNRM2, SLAMCH
+      // EXTERNAL LSAME, SCNRM2, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEEVX, CGET22, CLACPY, XERBLA
+      // EXTERNAL CGEEVX, CGET22, CLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL

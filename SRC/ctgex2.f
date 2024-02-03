@@ -35,10 +35,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACPY, CLARTG, CLASSQ, CROT
+      // EXTERNAL CLACPY, CLARTG, CLASSQ, CROT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, REAL, SQRT

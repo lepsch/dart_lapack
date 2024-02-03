@@ -26,7 +26,7 @@
       int                I, J, IINFO, LWMIN, PN, PK, LK, LDT, LDW, LDS2, LDS1, LS2, LS1, LW, LT, TPOS, WPOS, S2POS, S1POS;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, SSYR2K, SSYMM, SGEMM, SCOPY, SLARFT, SGELQF, SGEQRF, SLASET
+      // EXTERNAL XERBLA, SSYR2K, SSYMM, SGEMM, SCOPY, SLARFT, SGELQF, SGEQRF, SLASET
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN, MAX
@@ -35,7 +35,7 @@
       bool               LSAME;
       int                ILAENV2STAGE;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV2STAGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..
 *     .. Executable Statements ..
 *

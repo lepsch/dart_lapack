@@ -32,10 +32,10 @@
       COMPLEX            CDOTC
       REAL               CLANHE, SLAMCH
       bool               LSAME;
-      EXTERNAL           CDOTC, CLANHE, SLAMCH, LSAME
+      // EXTERNAL CDOTC, CLANHE, SLAMCH, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHER, CSCAL, CTRMV
+      // EXTERNAL CHER, CSCAL, CTRMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC AIMAG, CONJG, REAL

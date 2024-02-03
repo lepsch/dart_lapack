@@ -22,7 +22,7 @@
       double             AII;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARF, DLARFGP, XERBLA
+      // EXTERNAL DLARF, DLARFGP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

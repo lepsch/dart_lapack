@@ -23,7 +23,7 @@
       REAL               AII, TEMP, TEMP2, TOL3Z
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARF, SLARFG, SSWAP
+      // EXTERNAL SLARF, SLARFG, SSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
@@ -31,7 +31,7 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SLAMCH, SNRM2
-      EXTERNAL           ISAMAX, SLAMCH, SNRM2
+      // EXTERNAL ISAMAX, SLAMCH, SNRM2
 *     ..
 *     .. Executable Statements ..
 *

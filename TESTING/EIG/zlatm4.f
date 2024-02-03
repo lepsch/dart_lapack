@@ -30,10 +30,10 @@
 *     .. External Functions ..
       double             DLARAN;
       COMPLEX*16         ZLARND
-      EXTERNAL           DLARAN, ZLARND
+      // EXTERNAL DLARAN, ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLASET
+      // EXTERNAL ZLASET
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, EXP, LOG, MAX, MIN, MOD

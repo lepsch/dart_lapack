@@ -33,10 +33,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLARND, SLANGE
-      EXTERNAL           SLAMCH, SLARND, SLANGE
+      // EXTERNAL SLAMCH, SLARND, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSYRK, SSFRK, STFTTR, STRTTF
+      // EXTERNAL SSYRK, SSFRK, STFTTR, STRTTF
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

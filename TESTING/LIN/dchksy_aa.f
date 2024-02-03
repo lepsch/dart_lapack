@@ -40,7 +40,7 @@
       double             RESULT( NTESTS );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DERRSY, DLACPY, DLARHS, DLATB4, DLATMS, DPOT02, DSYT01_AA, DSYTRF_AA, DSYTRS_AA, XLAENV
+      // EXTERNAL ALAERH, ALAHD, ALASUM, DERRSY, DLACPY, DLARHS, DLATB4, DLATMS, DPOT02, DSYT01_AA, DSYTRF_AA, DSYTRS_AA, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

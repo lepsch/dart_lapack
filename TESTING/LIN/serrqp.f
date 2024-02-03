@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAMEN;
-      EXTERNAL           LSAMEN
+      // EXTERNAL LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, SGEQP3
+      // EXTERNAL ALAESM, CHKXER, SGEQP3
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

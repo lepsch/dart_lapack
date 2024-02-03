@@ -23,10 +23,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, SSYRK, SPOTRF, STRSM
+      // EXTERNAL XERBLA, SSYRK, SPOTRF, STRSM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MOD

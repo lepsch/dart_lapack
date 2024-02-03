@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLAGS2, DLAPLL, DLARTG, DLASET, DROT, DSCAL, XERBLA
+      // EXTERNAL DCOPY, DLAGS2, DLAPLL, DLARTG, DLASET, DROT, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, HUGE

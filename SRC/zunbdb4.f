@@ -24,11 +24,11 @@
       bool               LQUERY;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLARF, ZLARFGP, ZUNBDB5, ZDROT, ZSCAL, ZLACGV, XERBLA
+      // EXTERNAL ZLARF, ZLARFGP, ZUNBDB5, ZDROT, ZSCAL, ZLACGV, XERBLA
 *     ..
 *     .. External Functions ..
       double             DZNRM2;
-      EXTERNAL           DZNRM2
+      // EXTERNAL DZNRM2
 *     ..
 *     .. Intrinsic Function ..
       // INTRINSIC ATAN2, COS, MAX, SIN, SQRT

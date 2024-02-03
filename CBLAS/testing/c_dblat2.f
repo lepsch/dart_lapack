@@ -87,9 +87,9 @@
 *     .. External Functions ..
       double             DDIFF;
       bool               LDE;
-      EXTERNAL           DDIFF, LDE
+      // EXTERNAL DDIFF, LDE
 *     .. External Subroutines ..
-      EXTERNAL           DCHK1, DCHK2, DCHK3, DCHK4, DCHK5, DCHK6, CD2CHKE, DMVCH
+      // EXTERNAL DCHK1, DCHK2, DCHK3, DCHK4, DCHK5, DCHK6, CD2CHKE, DMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -427,9 +427,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           CDGBMV, CDGEMV, DMAKE, DMVCH
+      // EXTERNAL CDGBMV, CDGEMV, DMAKE, DMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -741,9 +741,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DMAKE, DMVCH, CDSBMV, CDSPMV, CDSYMV
+      // EXTERNAL DMAKE, DMVCH, CDSBMV, CDSPMV, CDSYMV
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -1057,9 +1057,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DMAKE, DMVCH, CDTBMV, CDTBSV, CDTPMV, CDTPSV, CDTRMV,  CDTRSV
+      // EXTERNAL DMAKE, DMVCH, CDTBMV, CDTBSV, CDTPMV, CDTPSV, CDTRMV,  CDTRSV
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -1381,9 +1381,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DGER, DMAKE, DMVCH
+      // EXTERNAL DGER, DMAKE, DMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -1627,9 +1627,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DMAKE, DMVCH, CDSPR, CDSYR
+      // EXTERNAL DMAKE, DMVCH, CDSPR, CDSYR
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -1895,9 +1895,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LDE, LDERES;
-      EXTERNAL           LDE, LDERES
+      // EXTERNAL LDE, LDERES
 *     .. External Subroutines ..
-      EXTERNAL           DMAKE, DMVCH, CDSPR2, CDSYR2
+      // EXTERNAL DMAKE, DMVCH, CDSPR2, CDSYR2
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -2193,7 +2193,7 @@
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       double             DBEG;
-      EXTERNAL           DBEG
+      // EXTERNAL DBEG
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
 *     .. Executable Statements ..

@@ -23,14 +23,14 @@
       REAL               TAU, WA, WB, WN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMV, SGER, SLARNV, SSCAL, XERBLA
+      // EXTERNAL SGEMV, SGER, SLARNV, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SIGN
 *     ..
 *     .. External Functions ..
       REAL               SNRM2
-      EXTERNAL           SNRM2
+      // EXTERNAL SNRM2
 *     ..
 *     .. Executable Statements ..
 *

@@ -42,10 +42,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, DLACPY, DLARHS, DLASET, DLATB4, DLATMS, DPOT06, DSPOSV
+      // EXTERNAL ALAERH, DLACPY, DLARHS, DLASET, DLATB4, DLATMS, DPOT06, DSPOSV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, SQRT

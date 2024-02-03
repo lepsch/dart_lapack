@@ -26,7 +26,7 @@
 *     ..
 *     .. External Functions ..
       COMPLEX            CLARND
-      EXTERNAL           CLARND
+      // EXTERNAL CLARND
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT

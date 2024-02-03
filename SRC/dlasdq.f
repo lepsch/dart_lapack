@@ -24,11 +24,11 @@
       double             CS, R, SMIN, SN;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DBDSQR, DLARTG, DLASR, DSWAP, XERBLA
+      // EXTERNAL DBDSQR, DLARTG, DLASR, DSWAP, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

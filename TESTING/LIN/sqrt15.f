@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SASUM, SLAMCH, SLANGE, SLARND, SNRM2
-      EXTERNAL           SASUM, SLAMCH, SLANGE, SLARND, SNRM2
+      // EXTERNAL SASUM, SLAMCH, SLANGE, SLARND, SNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SLAORD, SLARF, SLARNV, SLAROR, SLASCL, SLASET, SSCAL, XERBLA
+      // EXTERNAL SGEMM, SLAORD, SLARF, SLARNV, SLAROR, SLASCL, SLASET, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

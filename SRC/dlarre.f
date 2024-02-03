@@ -32,11 +32,11 @@
 *     .. External Functions ..
       bool               LSAME;
       double                      DLAMCH;
-      EXTERNAL           DLAMCH, LSAME
+      // EXTERNAL DLAMCH, LSAME
 
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLARNV, DLARRA, DLARRB, DLARRC, DLARRD, DLASQ2, DLARRK
+      // EXTERNAL DCOPY, DLARNV, DLARRA, DLARRB, DLARRC, DLARRD, DLASQ2, DLARRK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

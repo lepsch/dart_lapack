@@ -20,7 +20,7 @@
       PARAMETER( USE_RECURSIVE_QR=.TRUE. )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL   DGEQRT2, DGEQRT3, DLARFB, XERBLA
+      // EXTERNAL DGEQRT2, DGEQRT3, DLARFB, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

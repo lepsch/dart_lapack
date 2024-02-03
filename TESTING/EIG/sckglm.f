@@ -31,10 +31,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLARND
-      EXTERNAL           SLARND
+      // EXTERNAL SLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHDG, ALAREQ, ALASUM, SGLMTS, SLATB9, SLATMS
+      // EXTERNAL ALAHDG, ALAREQ, ALASUM, SGLMTS, SLATB9, SLATMS
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

@@ -39,10 +39,10 @@
 *     .. External Functions ..
       bool               SISNAN;
       REAL               SLAMCH, SLANGE
-      EXTERNAL           SISNAN, SLAMCH, SLANGE
+      // EXTERNAL SISNAN, SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLATMR, SLACPY, SGEMM, STRSYL, STRSYL3
+      // EXTERNAL SLATMR, SLACPY, SGEMM, STRSYL, STRSYL3
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, MAX

@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME, LSAMEN;
-      EXTERNAL           LSAME, LSAMEN
+      // EXTERNAL LSAME, LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGBMV, DGEMM, DLACPY, DLARNV, DSBMV, DSPMV, DSYMM, DTBMV, DTPMV, DTRMM, XERBLA
+      // EXTERNAL DGBMV, DGEMM, DLACPY, DLARNV, DSBMV, DSPMV, DSYMM, DTBMV, DTPMV, DTRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

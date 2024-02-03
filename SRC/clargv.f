@@ -28,7 +28,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLAPY2
-      EXTERNAL           SLAMCH, SLAPY2
+      // EXTERNAL SLAMCH, SLAPY2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, INT, LOG, MAX, REAL, SQRT

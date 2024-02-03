@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SDOT
-      EXTERNAL           LSAME, SDOT
+      // EXTERNAL LSAME, SDOT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMV, SSCAL, XERBLA
+      // EXTERNAL SGEMV, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

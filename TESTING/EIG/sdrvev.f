@@ -37,10 +37,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLAPY2, SNRM2
-      EXTERNAL           SLAMCH, SLAPY2, SNRM2
+      // EXTERNAL SLAMCH, SLAPY2, SNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEEV, SGET22, SLACPY, SLASUM, SLATME, SLATMR, SLATMS, SLASET, XERBLA
+      // EXTERNAL SGEEV, SGET22, SLACPY, SLASUM, SLATME, SLATMR, SLATMS, SLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT

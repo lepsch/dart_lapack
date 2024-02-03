@@ -25,14 +25,14 @@
       COMPLEX            TAU, WA, WB
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMV, CGERC, CLACGV, CLARNV, CSCAL, XERBLA
+      // EXTERNAL CGEMV, CGERC, CLACGV, CLARNV, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL
 *     ..
 *     .. External Functions ..
       REAL               SCNRM2
-      EXTERNAL           SCNRM2
+      // EXTERNAL SCNRM2
 *     ..
 *     .. Executable Statements ..
 *

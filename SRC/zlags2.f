@@ -21,7 +21,7 @@
       COMPLEX*16         B, C, D1, R, T, UA11, UA12, UA21, UA22, VB11, VB12, VB21, VB22
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASV2, ZLARTG
+      // EXTERNAL DLASV2, ZLARTG
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG

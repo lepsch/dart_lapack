@@ -27,7 +27,7 @@
 *     .. External Functions ..
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, ZCGESV
+      // EXTERNAL CHKXER, ZCGESV
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

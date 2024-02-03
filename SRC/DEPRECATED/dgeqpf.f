@@ -23,7 +23,7 @@
       double             AII, TEMP, TEMP2, TOL3Z;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEQR2, DLARF, DLARFG, DORM2R, DSWAP, XERBLA
+      // EXTERNAL DGEQR2, DLARF, DLARFG, DORM2R, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
@@ -31,7 +31,7 @@
 *     .. External Functions ..
       int                IDAMAX;
       double             DLAMCH, DNRM2;
-      EXTERNAL           IDAMAX, DLAMCH, DNRM2
+      // EXTERNAL IDAMAX, DLAMCH, DNRM2
 *     ..
 *     .. Executable Statements ..
 *

@@ -25,7 +25,7 @@
       // INTRINSIC ABS, DBLE, DIMAG, MAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

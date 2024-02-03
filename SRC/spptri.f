@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SDOT
-      EXTERNAL           LSAME, SDOT
+      // EXTERNAL LSAME, SDOT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSCAL, SSPR, STPMV, STPTRI, XERBLA
+      // EXTERNAL SSCAL, SSPR, STPMV, STPTRI, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

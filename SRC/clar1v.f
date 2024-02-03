@@ -32,7 +32,7 @@
 *     .. External Functions ..
       bool    SISNAN;
       REAL               SLAMCH
-      EXTERNAL           SISNAN, SLAMCH
+      // EXTERNAL SISNAN, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL

@@ -35,13 +35,13 @@
       COMPLEX*16         ZDUM
 *
 *     .. External Subroutines ..
-      EXTERNAL           ZAXPY, ZHEMM, ZLACPY, ZLAT2C, ZLAG2C, CLAG2Z, CPOTRF, CPOTRS, XERBLA, ZPOTRF, ZPOTRS
+      // EXTERNAL ZAXPY, ZHEMM, ZLACPY, ZLAT2C, ZLAG2C, CLAG2Z, CPOTRF, CPOTRS, XERBLA, ZPOTRF, ZPOTRS
 *     ..
 *     .. External Functions ..
       int                IZAMAX;
       double             DLAMCH, ZLANHE;
       bool               LSAME;
-      EXTERNAL           IZAMAX, DLAMCH, ZLANHE, LSAME
+      // EXTERNAL IZAMAX, DLAMCH, ZLANHE, LSAME
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, SQRT

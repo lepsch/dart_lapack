@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAMEN;
-      EXTERNAL           LSAMEN
+      // EXTERNAL LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, DGEBAK, DGEBAL, DGEHRD, DHSEIN, DHSEQR, DORGHR, DORMHR, DTREVC, DTREVC3, DGEHD2
+      // EXTERNAL CHKXER, DGEBAK, DGEBAL, DGEHRD, DHSEIN, DHSEQR, DORGHR, DORMHR, DTREVC, DTREVC3, DGEHD2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE

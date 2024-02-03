@@ -33,7 +33,7 @@
       REAL SLAMCH
       REAL CLANGE, CLANSY
       bool     LSAME;
-      EXTERNAL SLAMCH, CLANGE, CLANSY, LSAME
+      // EXTERNAL SLAMCH, CLANGE, CLANSY, LSAME
 *     ..
 *     .. Data statements ..
       DATA ISEED / 1988, 1989, 1990, 1991 /

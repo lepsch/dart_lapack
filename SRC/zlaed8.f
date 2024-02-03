@@ -26,10 +26,10 @@
 *     .. External Functions ..
       int                IDAMAX;
       double             DLAMCH, DLAPY2;
-      EXTERNAL           IDAMAX, DLAMCH, DLAPY2
+      // EXTERNAL IDAMAX, DLAMCH, DLAPY2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLAMRG, DSCAL, XERBLA, ZCOPY, ZDROT, ZLACPY
+      // EXTERNAL DCOPY, DLAMRG, DSCAL, XERBLA, ZCOPY, ZDROT, ZLACPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT

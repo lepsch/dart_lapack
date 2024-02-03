@@ -29,10 +29,10 @@
 *     .. External Functions ..
       bool               LSAME;
       COMPLEX            CDOTC
-      EXTERNAL           LSAME, CDOTC
+      // EXTERNAL LSAME, CDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CHEMV, CSWAP, XERBLA
+      // EXTERNAL CCOPY, CHEMV, CSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, REAL

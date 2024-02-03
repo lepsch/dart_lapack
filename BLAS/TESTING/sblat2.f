@@ -31,9 +31,9 @@
 *     .. External Functions ..
       REAL               SDIFF
       bool               LSE;
-      EXTERNAL           SDIFF, LSE
+      // EXTERNAL SDIFF, LSE
 *     .. External Subroutines ..
-      EXTERNAL           SCHK1, SCHK2, SCHK3, SCHK4, SCHK5, SCHK6, SCHKE, SMVCH
+      // EXTERNAL SCHK1, SCHK2, SCHK3, SCHK4, SCHK5, SCHK6, SCHKE, SMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -336,9 +336,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LSE, LSERES;
-      EXTERNAL           LSE, LSERES
+      // EXTERNAL LSE, LSERES
 *     .. External Subroutines ..
-      EXTERNAL           SGBMV, SGEMV, SMAKE, SMVCH, SREGR1
+      // EXTERNAL SGBMV, SGEMV, SMAKE, SMVCH, SREGR1
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -648,9 +648,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LSE, LSERES;
-      EXTERNAL           LSE, LSERES
+      // EXTERNAL LSE, LSERES
 *     .. External Subroutines ..
-      EXTERNAL           SMAKE, SMVCH, SSBMV, SSPMV, SSYMV
+      // EXTERNAL SMAKE, SMVCH, SSBMV, SSPMV, SSYMV
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -948,9 +948,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LSE, LSERES;
-      EXTERNAL           LSE, LSERES
+      // EXTERNAL LSE, LSERES
 *     .. External Subroutines ..
-      EXTERNAL           SMAKE, SMVCH, STBMV, STBSV, STPMV, STPSV, STRMV, STRSV
+      // EXTERNAL SMAKE, SMVCH, STBMV, STBSV, STPMV, STPSV, STRMV, STRSV
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -1245,9 +1245,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LSE, LSERES;
-      EXTERNAL           LSE, LSERES
+      // EXTERNAL LSE, LSERES
 *     .. External Subroutines ..
-      EXTERNAL           SGER, SMAKE, SMVCH
+      // EXTERNAL SGER, SMAKE, SMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -1480,9 +1480,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LSE, LSERES;
-      EXTERNAL           LSE, LSERES
+      // EXTERNAL LSE, LSERES
 *     .. External Subroutines ..
-      EXTERNAL           SMAKE, SMVCH, SSPR, SSYR
+      // EXTERNAL SMAKE, SMVCH, SSPR, SSYR
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -1733,9 +1733,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LSE, LSERES;
-      EXTERNAL           LSE, LSERES
+      // EXTERNAL LSE, LSERES
 *     .. External Subroutines ..
-      EXTERNAL           SMAKE, SMVCH, SSPR2, SSYR2
+      // EXTERNAL SMAKE, SMVCH, SSPR2, SSYR2
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -2006,7 +2006,7 @@
 *     .. Local Arrays ..
       REAL               A( 1, 1 ), X( 1 ), Y( 1 )
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, SGBMV, SGEMV, SGER, SSBMV, SSPMV, SSPR, SSPR2, SSYMV, SSYR, SSYR2, STBMV, STBSV, STPMV, STPSV, STRMV, STRSV
+      // EXTERNAL CHKXER, SGBMV, SGEMV, SGER, SSBMV, SSPMV, SSPR, SSPR2, SSYMV, SSYR, SSYR2, STBMV, STBSV, STPMV, STPSV, STRMV, STRSV
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
 *     .. Executable Statements ..
@@ -2338,7 +2338,7 @@
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       REAL               SBEG
-      EXTERNAL           SBEG
+      // EXTERNAL SBEG
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
 *     .. Executable Statements ..

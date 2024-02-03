@@ -23,10 +23,10 @@
 *     .. External Functions ..
       int                IDAMAX;
       double             DASUM, DDOT, DLAMCH, DLANGE;
-      EXTERNAL           IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
+      // EXTERNAL IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEMV, DLAQTR
+      // EXTERNAL DCOPY, DGEMV, DLAQTR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, COS, DBLE, MAX, SIN, SQRT

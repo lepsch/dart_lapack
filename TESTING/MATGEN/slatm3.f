@@ -32,7 +32,7 @@
 *     .. External Functions ..
 *
       REAL               SLARAN, SLARND
-      EXTERNAL           SLARAN, SLARND
+      // EXTERNAL SLARAN, SLARND
 *     ..
 *
 *-----------------------------------------------------------------------

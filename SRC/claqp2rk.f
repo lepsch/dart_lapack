@@ -29,7 +29,7 @@
       COMPLEX            AIKK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLARF, CLARFG, CSWAP
+      // EXTERNAL CLARF, CLARFG, CSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, CONJG, AIMAG, MAX, MIN, SQRT
@@ -38,7 +38,7 @@
       bool               SISNAN;
       int                ISAMAX;
       REAL               SLAMCH, SCNRM2
-      EXTERNAL           SISNAN, SLAMCH, ISAMAX, SCNRM2
+      // EXTERNAL SISNAN, SLAMCH, ISAMAX, SCNRM2
 *     ..
 *     .. Executable Statements ..
 *

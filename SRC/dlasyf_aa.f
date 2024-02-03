@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       int                IDAMAX, ILAENV;
-      EXTERNAL           LSAME, ILAENV, IDAMAX
+      // EXTERNAL LSAME, ILAENV, IDAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMV, DAXPY, DCOPY, DSWAP, DSCAL, DLASET, XERBLA
+      // EXTERNAL DGEMV, DAXPY, DCOPY, DSWAP, DSCAL, DLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

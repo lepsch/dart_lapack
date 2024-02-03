@@ -22,11 +22,11 @@
       int                I, IINFO, J, LWKOPT, NB, NH;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZUNGQR
+      // EXTERNAL XERBLA, ZUNGQR
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

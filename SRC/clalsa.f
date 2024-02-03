@@ -22,7 +22,7 @@
       int                I, I1, IC, IM1, INODE, J, JCOL, JIMAG, JREAL, JROW, LF, LL, LVL, LVL2, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, SQRE;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLALS0, SGEMM, SLASDT, XERBLA
+      // EXTERNAL CCOPY, CLALS0, SGEMM, SLASDT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC AIMAG, CMPLX, REAL

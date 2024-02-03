@@ -23,7 +23,7 @@
       COMPLEX*16         ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMV, ZLACGV, ZLARFG, ZSCAL
+      // EXTERNAL ZGEMV, ZLACGV, ZLARFG, ZSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

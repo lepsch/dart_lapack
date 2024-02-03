@@ -18,7 +18,7 @@
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CTRSM, CUNMQR, XERBLA
+      // EXTERNAL CTRSM, CUNMQR, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

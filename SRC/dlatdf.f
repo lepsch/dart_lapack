@@ -30,11 +30,11 @@
       double             WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DCOPY, DGECON, DGESC2, DLASSQ, DLASWP, DSCAL
+      // EXTERNAL DAXPY, DCOPY, DGECON, DGESC2, DLASSQ, DLASWP, DSCAL
 *     ..
 *     .. External Functions ..
       double             DASUM, DDOT;
-      EXTERNAL           DASUM, DDOT
+      // EXTERNAL DASUM, DDOT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT

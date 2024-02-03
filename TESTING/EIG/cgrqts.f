@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, CLANGE, CLANHE
-      EXTERNAL           SLAMCH, CLANGE, CLANHE
+      // EXTERNAL SLAMCH, CLANGE, CLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CGGRQF, CLACPY, CLASET, CUNGQR, CUNGRQ, CHERK
+      // EXTERNAL CGEMM, CGGRQF, CLACPY, CLASET, CUNGQR, CUNGRQ, CHERK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL

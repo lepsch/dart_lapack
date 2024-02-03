@@ -20,7 +20,7 @@
       int                K;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAHD2
+      // EXTERNAL DLAHD2
 *     ..
 *     .. Executable Statements ..
 *

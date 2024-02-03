@@ -26,7 +26,7 @@
 
 *     ..
 *     .. External Functions
-      EXTERNAL DLASET
+      // EXTERNAL DLASET
       // INTRINSIC DBLE
 *     ..
 *     .. Executable Statements ..

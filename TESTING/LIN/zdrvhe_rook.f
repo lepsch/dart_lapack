@@ -41,10 +41,10 @@
 *     ..
 *     .. External Functions ..
       double             ZLANHE;
-      EXTERNAL           ZLANHE
+      // EXTERNAL ZLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGET04, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZHESV_ROOK, ZHET01_ROOK, ZPOT02, ZHETRF_ROOK, ZHETRI_ROOK
+      // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGET04, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZHESV_ROOK, ZHET01_ROOK, ZPOT02, ZHETRF_ROOK, ZHETRI_ROOK
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

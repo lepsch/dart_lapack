@@ -21,7 +21,7 @@
       int       I, I1, J, J1, N1, N2, IINFO;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL  CLARFG, CTRMM, CGEMM, XERBLA
+      // EXTERNAL CLARFG, CTRMM, CGEMM, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

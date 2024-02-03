@@ -32,10 +32,10 @@
 *     .. External Functions ..
       REAL               SLAMCH
       bool               LSAME, SISNAN;
-      EXTERNAL           SLAMCH, LSAME, SISNAN
+      // EXTERNAL SLAMCH, LSAME, SISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMV, CLACGV, CSSCAL, CSWAP, XERBLA
+      // EXTERNAL CGEMV, CLACGV, CSSCAL, CSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG, MAX, REAL, SQRT

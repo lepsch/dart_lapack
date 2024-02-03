@@ -16,7 +16,7 @@
       double           SFAC;
       int              IC;
 *     .. External Subroutines ..
-      EXTERNAL         CHECK1, CHECK2, HEADER
+      // EXTERNAL CHECK1, CHECK2, HEADER
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Data statements ..
@@ -104,9 +104,9 @@
 *     .. External Functions ..
       double            DZASUM, DZNRM2;
       int               IZAMAX;
-      EXTERNAL          DZASUM, DZNRM2, IZAMAX
+      // EXTERNAL DZASUM, DZNRM2, IZAMAX
 *     .. External Subroutines ..
-      EXTERNAL          ZB1NRM2, ZSCAL, ZDSCAL, CTEST, ITEST1, STEST1
+      // EXTERNAL ZB1NRM2, ZSCAL, ZDSCAL, CTEST, ITEST1, STEST1
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Common blocks ..
@@ -232,9 +232,9 @@
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
 *     .. External Functions ..
       COMPLEX*16        ZDOTC, ZDOTU
-      EXTERNAL          ZDOTC, ZDOTU
+      // EXTERNAL ZDOTC, ZDOTU
 *     .. External Subroutines ..
-      EXTERNAL          ZAXPY, ZCOPY, ZSWAP, CTEST
+      // EXTERNAL ZAXPY, ZCOPY, ZSWAP, CTEST
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
 *     .. Common blocks ..
@@ -341,7 +341,7 @@
       int              I;
 *     .. External Functions ..
       double           SDIFF;
-      EXTERNAL         SDIFF
+      // EXTERNAL SDIFF
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS
 *     .. Common blocks ..
@@ -389,7 +389,7 @@
 *     .. Local Arrays ..
       double            SCOMP(1), STRUE(1);
 *     .. External Subroutines ..
-      EXTERNAL          STEST
+      // EXTERNAL STEST
 *     .. Executable Statements ..
 *
       SCOMP(1) = SCOMP1
@@ -429,7 +429,7 @@
 *     .. Local Arrays ..
       double           SCOMP(20), SSIZE(20), STRUE(20);
 *     .. External Subroutines ..
-      EXTERNAL         STEST
+      // EXTERNAL STEST
 *     .. Intrinsic Functions ..
       // INTRINSIC DIMAG, DBLE
 *     .. Executable Statements ..
@@ -519,7 +519,7 @@
       PARAMETER         (HALF=0.5D+0, ONE=1.0D+0, TWO= 2.0D+0, THREE=3.0D+0, ZERO=0.0D+0)
 *     .. External Functions ..
       double            DZNRM2;
-      EXTERNAL          DZNRM2
+      // EXTERNAL DZNRM2
 *     .. Intrinsic Functions ..
       // INTRINSIC AIMAG, ABS, DCMPLX, DBLE, MAX, MIN, SQRT
 *     .. Model parameters ..

@@ -29,11 +29,11 @@
       double             DD( 3 ), ZZ( 3 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAED6, DLASD5
+      // EXTERNAL DLAED6, DLASD5
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT

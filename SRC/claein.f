@@ -33,10 +33,10 @@
       int                ICAMAX;
       REAL               SCASUM, SCNRM2
       COMPLEX            CLADIV
-      EXTERNAL           ICAMAX, SCASUM, SCNRM2, CLADIV
+      // EXTERNAL ICAMAX, SCASUM, SCNRM2, CLADIV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLATRS, CSSCAL
+      // EXTERNAL CLATRS, CSSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT

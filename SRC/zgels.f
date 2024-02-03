@@ -32,10 +32,10 @@
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, ZLANGE;
-      EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANGE
+      // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGELQF, ZGEQRF, ZLASCL, ZLASET, ZTRTRS, ZUNMLQ, ZUNMQR
+      // EXTERNAL XERBLA, ZGELQF, ZGEQRF, ZLASCL, ZLASET, ZTRTRS, ZUNMLQ, ZUNMQR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN

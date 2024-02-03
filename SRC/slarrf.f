@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool    SISNAN;
       REAL               SLAMCH
-      EXTERNAL           SISNAN, SLAMCH
+      // EXTERNAL SISNAN, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY
+      // EXTERNAL SCOPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

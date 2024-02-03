@@ -51,13 +51,13 @@
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Local Arrays ..
       COMPLEX            ZDUM( 1, 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACPY, CLAHQR, CLAQR3, CLAQR4, CLAQR5
+      // EXTERNAL CLACPY, CLAHQR, CLAQR3, CLAQR4, CLAQR5
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, INT, MAX, MIN, MOD, REAL, SQRT

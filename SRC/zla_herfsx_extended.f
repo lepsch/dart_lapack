@@ -38,11 +38,11 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           ILAUPLO
+      // EXTERNAL ILAUPLO
       int                ILAUPLO;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZAXPY, ZCOPY, ZHETRS, ZHEMV, BLAS_ZHEMV_X, BLAS_ZHEMV2_X, ZLA_HEAMV, ZLA_WWADDW, ZLA_LIN_BERR
+      // EXTERNAL ZAXPY, ZCOPY, ZHETRS, ZHEMV, BLAS_ZHEMV_X, BLAS_ZHEMV2_X, ZLA_HEAMV, ZLA_WWADDW, ZLA_LIN_BERR
       double             DLAMCH;
 *     ..
 *     .. Intrinsic Functions ..

@@ -1,6 +1,6 @@
       subroutine zdotusub(n,x,incx,y,incy,dotu)
 c
-      external zdotu
+      // external zdotu
       double complex zdotu,dotu
       int     n,incx,incy;
       double complex x(*),y(*)

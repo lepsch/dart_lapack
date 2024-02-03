@@ -33,10 +33,10 @@
       int                IZAMAX;
       double             DLAMCH, DLARND;
       COMPLEX*16         ZLARND
-      EXTERNAL           LSAME, IZAMAX, DLAMCH, DLARND, ZLARND
+      // EXTERNAL LSAME, IZAMAX, DLAMCH, DLARND, ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARNV, ZCOPY, ZDSCAL, ZLARNV, ZLATB4, ZLATMS, ZROT, ZROTG, ZSWAP
+      // EXTERNAL DLARNV, ZCOPY, ZDSCAL, ZLARNV, ZLATB4, ZLATMS, ZROT, ZROTG, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, MAX, SQRT

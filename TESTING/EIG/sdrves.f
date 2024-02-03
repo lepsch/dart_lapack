@@ -47,10 +47,10 @@
 *     .. External Functions ..
       bool               SSLECT;
       REAL               SLAMCH
-      EXTERNAL           SSLECT, SLAMCH
+      // EXTERNAL SSLECT, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEES, SHST01, SLACPY, SLASUM, SLATME, SLATMR, SLATMS, SLASET, XERBLA
+      // EXTERNAL SGEES, SHST01, SLACPY, SLASUM, SLATME, SLATMR, SLATMS, SLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SIGN, SQRT

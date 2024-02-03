@@ -22,10 +22,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, SROUNDUP_LWORK
+      // EXTERNAL LSAME, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CTPMLQT, CGEMLQT, XERBLA
+      // EXTERNAL CTPMLQT, CGEMLQT, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

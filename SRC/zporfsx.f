@@ -44,14 +44,14 @@
       double             RTHRESH, UNSTABLE_THRESH;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZPOCON, ZLA_PORFSX_EXTENDED
+      // EXTERNAL XERBLA, ZPOCON, ZLA_PORFSX_EXTENDED
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT, TRANSFER
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME, ILAPREC
-      EXTERNAL           DLAMCH, ZLANHE, ZLA_PORCOND_X, ZLA_PORCOND_C
+      // EXTERNAL LSAME, ILAPREC
+      // EXTERNAL DLAMCH, ZLANHE, ZLA_PORCOND_X, ZLA_PORCOND_C
       double             DLAMCH, ZLANHE, ZLA_PORCOND_X, ZLA_PORCOND_C;
       bool               LSAME;
       int                ILAPREC;

@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DASUM, DLAMCH, DLANGT;
-      EXTERNAL           LSAME, DASUM, DLAMCH, DLANGT
+      // EXTERNAL LSAME, DASUM, DLAMCH, DLANGT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAGTM
+      // EXTERNAL DLAGTM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

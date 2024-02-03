@@ -25,13 +25,13 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANGT, SLANHS
-      EXTERNAL           SLAMCH, SLANGT, SLANHS
+      // EXTERNAL SLAMCH, SLANGT, SLANHS
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SSWAP
+      // EXTERNAL SAXPY, SSWAP
 *     ..
 *     .. Executable Statements ..
 *

@@ -22,7 +22,7 @@
       COMPLEX            EI
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CGEMV, CLACGV, CLARFG, CSCAL, CTRMV
+      // EXTERNAL CAXPY, CCOPY, CGEMV, CLACGV, CLARFG, CSCAL, CTRMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

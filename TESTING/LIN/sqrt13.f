@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SASUM, SLAMCH, SLANGE
-      EXTERNAL           SASUM, SLAMCH, SLANGE
+      // EXTERNAL SASUM, SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARNV, SLASCL
+      // EXTERNAL SLARNV, SLASCL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC SIGN

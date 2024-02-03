@@ -23,11 +23,11 @@
       double             SCALE, SUM, VALUE, TEMP;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASSQ
+      // EXTERNAL DLASSQ
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;
-      EXTERNAL           LSAME, DISNAN
+      // EXTERNAL LSAME, DISNAN
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN, SQRT

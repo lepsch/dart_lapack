@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ICAMAX, ILAENV;
-      EXTERNAL           LSAME, ILAENV, ICAMAX
+      // EXTERNAL LSAME, ILAENV, ICAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CGEMV, CSCAL, CCOPY, CSWAP, CLASET, XERBLA
+      // EXTERNAL CAXPY, CGEMV, CSCAL, CCOPY, CSWAP, CLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

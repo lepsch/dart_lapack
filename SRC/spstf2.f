@@ -28,10 +28,10 @@
 *     .. External Functions ..
       REAL               SLAMCH
       bool               LSAME, SISNAN;
-      EXTERNAL           SLAMCH, LSAME, SISNAN
+      // EXTERNAL SLAMCH, LSAME, SISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMV, SSCAL, SSWAP, XERBLA
+      // EXTERNAL SGEMV, SSCAL, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT, MAXLOC

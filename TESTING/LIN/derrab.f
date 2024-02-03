@@ -24,7 +24,7 @@
       REAL               SWORK(1)
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, DSGESV
+      // EXTERNAL CHKXER, DSGESV
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

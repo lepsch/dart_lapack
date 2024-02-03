@@ -32,10 +32,10 @@
       bool               SISNAN, LSAME;
       int                ICAMAX;
       REAL               SLAMCH, SCNRM2
-      EXTERNAL           SISNAN, LSAME, ICAMAX, SLAMCH, SCNRM2
+      // EXTERNAL SISNAN, LSAME, ICAMAX, SLAMCH, SCNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, CSSCAL, CSWAP
+      // EXTERNAL XERBLA, CSSCAL, CSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, AIMAG, MAX, MIN

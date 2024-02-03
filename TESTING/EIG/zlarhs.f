@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME, LSAMEN;
-      EXTERNAL           LSAME, LSAMEN
+      // EXTERNAL LSAME, LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGBMV, ZGEMM, ZHBMV, ZHEMM, ZHPMV, ZLACPY, ZLARNV, ZSBMV, ZSPMV, ZSYMM, ZTBMV, ZTPMV, ZTRMM
+      // EXTERNAL XERBLA, ZGBMV, ZGEMM, ZHBMV, ZHEMM, ZHPMV, ZLACPY, ZLARNV, ZSBMV, ZSPMV, ZSYMM, ZTBMV, ZTPMV, ZTRMM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

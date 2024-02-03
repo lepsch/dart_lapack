@@ -25,7 +25,7 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, ZLANTB;
-      EXTERNAL           DLAMCH, ZLANTB
+      // EXTERNAL DLAMCH, ZLANTB
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

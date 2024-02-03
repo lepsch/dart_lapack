@@ -25,12 +25,12 @@
       COMPLEX*16         ALPHA, TAUI
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZAXPY, ZHPMV, ZHPR2, ZLARFG
+      // EXTERNAL XERBLA, ZAXPY, ZHPMV, ZHPR2, ZLARFG
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       COMPLEX*16         ZDOTC
-      EXTERNAL           LSAME, ZDOTC
+      // EXTERNAL LSAME, ZDOTC
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE

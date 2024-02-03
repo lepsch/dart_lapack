@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SROUNDUP_LWORK
-      EXTERNAL           SROUNDUP_LWORK
+      // EXTERNAL SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLATSQR, CUNGTSQR_ROW, CUNHR_COL, XERBLA
+      // EXTERNAL CCOPY, CLATSQR, CUNGTSQR_ROW, CUNHR_COL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CEILING, REAL, CMPLX, MAX, MIN

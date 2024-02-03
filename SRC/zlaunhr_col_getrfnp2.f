@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMM, ZSCAL, ZTRSM, XERBLA
+      // EXTERNAL ZGEMM, ZSCAL, ZTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, DSIGN, MAX, MIN

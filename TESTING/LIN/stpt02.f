@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SASUM, SLAMCH, SLANTP
-      EXTERNAL           LSAME, SASUM, SLAMCH, SLANTP
+      // EXTERNAL LSAME, SASUM, SLAMCH, SLANTP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, STPMV
+      // EXTERNAL SAXPY, SCOPY, STPMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

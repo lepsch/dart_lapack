@@ -35,11 +35,11 @@
 *     ..
 *     .. External Functions ..
       REAL               SROUNDUP_LWORK
-      EXTERNAL           SROUNDUP_LWORK
+      // EXTERNAL SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
       REAL               SLAMCH
-      EXTERNAL           CLACN2, CLACPY, CLASSQ, CSCAL, CTGEXC, CTGSYL, SLAMCH, XERBLA
+      // EXTERNAL CLACN2, CLACPY, CLASSQ, CSCAL, CTGEXC, CTGSYL, SLAMCH, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, CONJG, MAX, SQRT

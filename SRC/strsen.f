@@ -31,10 +31,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLANGE, SROUNDUP_LWORK
-      EXTERNAL           LSAME, SLANGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, SLANGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACN2, SLACPY, STREXC, STRSYL, XERBLA
+      // EXTERNAL SLACN2, SLACPY, STREXC, STRSYL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

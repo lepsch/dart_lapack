@@ -29,10 +29,10 @@
       double             DLAMCH;
       int                ILAENV;
       bool               LSAME, DISNAN;
-      EXTERNAL           DLAMCH, ILAENV, LSAME, DISNAN
+      // EXTERNAL DLAMCH, ILAENV, LSAME, DISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMV, DPSTF2, DSCAL, DSWAP, DSYRK, XERBLA
+      // EXTERNAL DGEMV, DPSTF2, DSCAL, DSWAP, DSYRK, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT, MAXLOC

@@ -36,10 +36,10 @@
 *     ..
 *     .. External Functions ..
       bool               SGENND;
-      EXTERNAL           SGENND
+      // EXTERNAL SGENND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, SERRQR, SGELS, SGET02, SLACPY, SLARHS, SLATB4, SLATMS, SQRT01, SQRT01P, SQRT02, SQRT03, XLAENV
+      // EXTERNAL ALAERH, ALAHD, ALASUM, SERRQR, SGELS, SGET02, SLACPY, SLARHS, SLATB4, SLATMS, SQRT01, SQRT01P, SQRT02, SQRT03, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

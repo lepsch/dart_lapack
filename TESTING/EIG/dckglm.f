@@ -31,10 +31,10 @@
 *     ..
 *     .. External Functions ..
       double             DLARND;
-      EXTERNAL           DLARND
+      // EXTERNAL DLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHDG, ALAREQ, ALASUM, DGLMTS, DLATB9, DLATMS
+      // EXTERNAL ALAHDG, ALAREQ, ALASUM, DGLMTS, DLATB9, DLATMS
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

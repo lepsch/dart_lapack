@@ -22,11 +22,11 @@
       REAL               ANORM, ASCALE, BNORM, BSCALE, H1, H2, H3, QQ, R, RR, SAFMIN, SCALE1, SCALE2, T, ULP, WI, WR1, WR2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAG2, SLARTG, SLASV2, SROT
+      // EXTERNAL SLAG2, SLARTG, SLASV2, SROT
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLAPY2
-      EXTERNAL           SLAMCH, SLAPY2
+      // EXTERNAL SLAMCH, SLAPY2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

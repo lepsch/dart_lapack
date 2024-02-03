@@ -23,7 +23,7 @@
       double             A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, DTPQRT2, DTPQRT, DTPMQRT
+      // EXTERNAL ALAESM, CHKXER, DTPQRT2, DTPQRT, DTPMQRT
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

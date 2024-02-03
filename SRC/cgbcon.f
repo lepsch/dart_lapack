@@ -36,10 +36,10 @@
       int                ICAMAX;
       REAL               SLAMCH
       COMPLEX            CDOTC
-      EXTERNAL           LSAME, ICAMAX, SLAMCH, CDOTC
+      // EXTERNAL LSAME, ICAMAX, SLAMCH, CDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CLACN2, CLATBS, CSRSCL, XERBLA
+      // EXTERNAL CAXPY, CLACN2, CLATBS, CSRSCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MIN, REAL

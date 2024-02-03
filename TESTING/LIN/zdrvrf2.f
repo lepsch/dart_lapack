@@ -25,10 +25,10 @@
 *     ..
 *     .. External Functions ..
       COMPLEX*16         ZLARND
-      EXTERNAL           ZLARND
+      // EXTERNAL ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZTFTTR, ZTFTTP, ZTRTTF, ZTRTTP, ZTPTTR, ZTPTTF
+      // EXTERNAL ZTFTTR, ZTFTTP, ZTRTTF, ZTRTTP, ZTPTTR, ZTPTTF
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

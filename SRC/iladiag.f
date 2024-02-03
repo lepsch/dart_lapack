@@ -16,7 +16,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Executable Statements ..
       IF( LSAME( DIAG, 'N' ) ) THEN

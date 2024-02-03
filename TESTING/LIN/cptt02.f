@@ -26,13 +26,13 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANHT, SCASUM, SLAMCH
-      EXTERNAL           CLANHT, SCASUM, SLAMCH
+      // EXTERNAL CLANHT, SCASUM, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLAPTM
+      // EXTERNAL CLAPTM
 *     ..
 *     .. Executable Statements ..
 *

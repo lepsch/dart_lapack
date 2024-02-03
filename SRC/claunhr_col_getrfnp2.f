@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CSCAL, CTRSM, XERBLA
+      // EXTERNAL CGEMM, CSCAL, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, CMPLX, AIMAG, SIGN, MAX, MIN

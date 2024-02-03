@@ -21,7 +21,7 @@
       bool    TRYRAC;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL ZSTEMR
+      // EXTERNAL ZSTEMR
 *     ..
 *     .. Executable Statements ..
       INFO = 0

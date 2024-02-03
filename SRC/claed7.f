@@ -20,7 +20,7 @@
       int                COLTYP, CURR, I, IDLMDA, INDX, INDXC, INDXP, IQ, IW, IZ, K, N1, N2, PTR;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACRM, CLAED8, SLAED9, SLAEDA, SLAMRG, XERBLA
+      // EXTERNAL CLACRM, CLAED8, SLAED9, SLAEDA, SLAMRG, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

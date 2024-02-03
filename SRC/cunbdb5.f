@@ -24,11 +24,11 @@
       REAL               EPS, NORM, SCL, SSQ
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLASSQ, CUNBDB6, CSCAL, XERBLA
+      // EXTERNAL CLASSQ, CUNBDB6, CSCAL, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SCNRM2
-      EXTERNAL           SLAMCH, SCNRM2
+      // EXTERNAL SLAMCH, SCNRM2
 *     ..
 *     .. Intrinsic Function ..
       // INTRINSIC MAX

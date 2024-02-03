@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSVDCT
+      // EXTERNAL DSVDCT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

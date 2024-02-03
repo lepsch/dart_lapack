@@ -20,7 +20,7 @@
       COMPLEX*16         A( 1, 1), B( 1, 1)
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, ZTFSM, ZTFTRI, ZHFRK, ZTFTTP, ZTFTTR, ZPFTRI, ZPFTRF, ZPFTRS, ZTPTTF, ZTPTTR, ZTRTTF, ZTRTTP
+      // EXTERNAL CHKXER, ZTFSM, ZTFTRI, ZHFRK, ZTFTTP, ZTFTTR, ZPFTRI, ZPFTRF, ZPFTRS, ZTPTTF, ZTPTTR, ZTRTTF, ZTRTTP
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

@@ -25,10 +25,10 @@
 *     .. External Functions ..
       REAL               SLAMCH
       int                ISAMAX;
-      EXTERNAL           SLAMCH, ISAMAX
+      // EXTERNAL SLAMCH, ISAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SSCAL, SLASWP, STRSM, XERBLA
+      // EXTERNAL SGEMM, SSCAL, SLASWP, STRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

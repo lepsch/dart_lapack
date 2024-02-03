@@ -32,10 +32,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLADIV
+      // EXTERNAL DLADIV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

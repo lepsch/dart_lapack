@@ -38,10 +38,10 @@
       bool               LSAME;
       double             DLAMCH, ZLANGE;
       COMPLEX*16         ZLARND
-      EXTERNAL           DLAMCH, ZLARND, ZLANGE, LSAME
+      // EXTERNAL DLAMCH, ZLARND, ZLANGE, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZTRTTF, ZGEQRF, ZGEQLF, ZTFSM, ZTRSM
+      // EXTERNAL ZTRTTF, ZGEQRF, ZGEQLF, ZTFSM, ZTRSM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

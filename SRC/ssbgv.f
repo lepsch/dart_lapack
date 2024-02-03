@@ -21,10 +21,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SPBSTF, SSBGST, SSBTRD, SSTEQR, SSTERF, XERBLA
+      // EXTERNAL SPBSTF, SSBGST, SSBTRD, SSTEQR, SSTERF, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

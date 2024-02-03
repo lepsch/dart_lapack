@@ -22,7 +22,7 @@
       COMPLEX            W
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAEV2
+      // EXTERNAL SLAEV2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, REAL

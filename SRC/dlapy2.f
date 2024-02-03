@@ -22,7 +22,7 @@
 *     ..
 *     .. External Functions ..
       bool               DISNAN;
-      EXTERNAL           DISNAN
+      // EXTERNAL DISNAN
 *     ..
 *     .. External Subroutines ..
       double             DLAMCH;

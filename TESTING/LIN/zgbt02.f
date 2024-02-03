@@ -30,10 +30,10 @@
 *     .. External Functions ..
       bool               DISNAN, LSAME;
       double             DLAMCH, DZASUM;
-      EXTERNAL           DISNAN, DLAMCH, DZASUM, LSAME
+      // EXTERNAL DISNAN, DLAMCH, DZASUM, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGBMV
+      // EXTERNAL ZGBMV
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

@@ -23,7 +23,7 @@
       int                IINFO, LDC, LWORKOPT, LC, LW, NBLOCAL, J;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLAMTSQR, DLASET, XERBLA
+      // EXTERNAL DCOPY, DLAMTSQR, DLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN

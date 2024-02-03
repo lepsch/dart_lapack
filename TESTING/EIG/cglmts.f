@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SCASUM, SLAMCH, CLANGE
-      EXTERNAL           SCASUM, SLAMCH, CLANGE
+      // EXTERNAL SCASUM, SLAMCH, CLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACPY
+      // EXTERNAL CLACPY
 *
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

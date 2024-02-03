@@ -24,12 +24,12 @@
       int                I, LASTV, LASTC;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMV, DGER
+      // EXTERNAL DGEMV, DGER
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILADLR, ILADLC;
-      EXTERNAL           LSAME, ILADLR, ILADLC
+      // EXTERNAL LSAME, ILADLR, ILADLC
 *     ..
 *     .. Executable Statements ..
 *

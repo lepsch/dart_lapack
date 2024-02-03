@@ -22,7 +22,7 @@
       double             EI;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DCOPY, DGEMV, DLARFG, DSCAL, DTRMV
+      // EXTERNAL DAXPY, DCOPY, DGEMV, DLARFG, DSCAL, DTRMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

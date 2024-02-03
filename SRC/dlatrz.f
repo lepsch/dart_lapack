@@ -21,7 +21,7 @@
       int                I;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARFG, DLARZ
+      // EXTERNAL DLARFG, DLARZ
 *     ..
 *     .. Executable Statements ..
 *

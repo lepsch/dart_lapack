@@ -24,13 +24,13 @@
 *     ..
 *     .. External Functions ..
       REAL               SASUM, SLAMCH, SLANST
-      EXTERNAL           SASUM, SLAMCH, SLANST
+      // EXTERNAL SASUM, SLAMCH, SLANST
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAPTM
+      // EXTERNAL SLAPTM
 *     ..
 *     .. Executable Statements ..
 *

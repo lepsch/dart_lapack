@@ -24,13 +24,13 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLAPY2, SNRM2
-      EXTERNAL           SLAMCH, SLAPY2, SNRM2
+      // EXTERNAL SLAMCH, SLAPY2, SNRM2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSCAL
+      // EXTERNAL SSCAL
 *     ..
 *     .. Executable Statements ..
 *

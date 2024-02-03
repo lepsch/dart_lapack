@@ -18,7 +18,7 @@
       int                INFO;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZCOPY, ZGET02, ZGGLSE, ZLACPY
+      // EXTERNAL ZCOPY, ZGET02, ZGGLSE, ZLACPY
 *     ..
 *     .. Executable Statements ..
 *

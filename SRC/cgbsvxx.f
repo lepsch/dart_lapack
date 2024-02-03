@@ -32,12 +32,12 @@
       REAL               AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM
 *     ..
 *     .. External Functions ..
-      EXTERNAL           LSAME, SLAMCH, CLA_GBRPVGRW
+      // EXTERNAL LSAME, SLAMCH, CLA_GBRPVGRW
       bool               LSAME;
       REAL               SLAMCH, CLA_GBRPVGRW
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGBEQUB, CGBTRF, CGBTRS, CLACPY, CLAQGB, XERBLA, CLASCL2, CGBRFSX
+      // EXTERNAL CGBEQUB, CGBTRF, CGBTRS, CLACPY, CLAQGB, XERBLA, CLASCL2, CGBRFSX
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

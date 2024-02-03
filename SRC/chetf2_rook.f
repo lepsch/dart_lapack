@@ -31,10 +31,10 @@
       bool               LSAME;
       int                ICAMAX;
       REAL               SLAMCH, SLAPY2
-      EXTERNAL           LSAME, ICAMAX, SLAMCH, SLAPY2
+      // EXTERNAL LSAME, ICAMAX, SLAMCH, SLAPY2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, CSSCAL, CHER, CSWAP
+      // EXTERNAL XERBLA, CSSCAL, CHER, CSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, REAL, SQRT

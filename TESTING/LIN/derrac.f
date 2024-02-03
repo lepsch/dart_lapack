@@ -23,7 +23,7 @@
       REAL               SWORK(NMAX*NMAX)
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, DSPOSV
+      // EXTERNAL CHKXER, DSPOSV
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

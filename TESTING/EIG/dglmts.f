@@ -24,11 +24,11 @@
 *     ..
 *     .. External Functions ..
       double             DASUM, DLAMCH, DLANGE;
-      EXTERNAL           DASUM, DLAMCH, DLANGE
+      // EXTERNAL DASUM, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
 *
-      EXTERNAL           DCOPY, DGEMV, DGGGLM, DLACPY
+      // EXTERNAL DCOPY, DGEMV, DGGGLM, DLACPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

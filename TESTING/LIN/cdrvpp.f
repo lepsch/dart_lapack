@@ -41,10 +41,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANHP, SGET06
-      EXTERNAL           LSAME, CLANHP, SGET06
+      // EXTERNAL LSAME, CLANHP, SGET06
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, CCOPY, CERRVX, CGET04, CLACPY, CLAIPD, CLAQHP, CLARHS, CLASET, CLATB4, CLATMS, CPPEQU, CPPSV, CPPSVX, CPPT01, CPPT02, CPPT05, CPPTRF, CPPTRI
+      // EXTERNAL ALADHD, ALAERH, ALASVM, CCOPY, CERRVX, CGET04, CLACPY, CLAIPD, CLAQHP, CLARHS, CLASET, CLATB4, CLATMS, CPPEQU, CPPSV, CPPSVX, CPPT01, CPPT02, CPPT05, CPPTRF, CPPTRI
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

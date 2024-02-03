@@ -24,12 +24,12 @@
       double             ALPHA, TAUI;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DLARFG, DSPMV, DSPR2, XERBLA
+      // EXTERNAL DAXPY, DLARFG, DSPMV, DSPR2, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       double             DDOT;
-      EXTERNAL           LSAME, DDOT
+      // EXTERNAL LSAME, DDOT
 *     ..
 *     .. Executable Statements ..
 *

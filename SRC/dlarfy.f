@@ -23,11 +23,11 @@
       double             ALPHA;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DSYMV, DSYR2
+      // EXTERNAL DAXPY, DSYMV, DSYR2
 *     ..
 *     .. External Functions ..
       double             DDOT;
-      EXTERNAL           DDOT
+      // EXTERNAL DDOT
 *     ..
 *     .. Executable Statements ..
 *

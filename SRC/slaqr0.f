@@ -48,13 +48,13 @@
 *     ..
 *     .. External Functions ..
       int                ILAENV;
-      EXTERNAL           ILAENV
+      // EXTERNAL ILAENV
 *     ..
 *     .. Local Arrays ..
       REAL               ZDUM( 1, 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACPY, SLAHQR, SLANV2, SLAQR3, SLAQR4, SLAQR5
+      // EXTERNAL SLACPY, SLAHQR, SLANV2, SLAQR3, SLAQR4, SLAQR5
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, MAX, MIN, MOD, REAL

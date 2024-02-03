@@ -24,11 +24,11 @@
       double             EPS, NORM, SCL, SSQ;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLASSQ, ZUNBDB6, ZSCAL, XERBLA
+      // EXTERNAL ZLASSQ, ZUNBDB6, ZSCAL, XERBLA
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DZNRM2;
-      EXTERNAL           DLAMCH, DZNRM2
+      // EXTERNAL DLAMCH, DZNRM2
 *     ..
 *     .. Intrinsic Function ..
       // INTRINSIC MAX

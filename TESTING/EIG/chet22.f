@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANHE, SLAMCH
-      EXTERNAL           CLANHE, SLAMCH
+      // EXTERNAL CLANHE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CHEMM
+      // EXTERNAL CGEMM, CHEMM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL

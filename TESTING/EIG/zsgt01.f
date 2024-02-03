@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, ZLANGE, ZLANHE;
-      EXTERNAL           DLAMCH, ZLANGE, ZLANHE
+      // EXTERNAL DLAMCH, ZLANGE, ZLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZDSCAL, ZHEMM
+      // EXTERNAL ZDSCAL, ZHEMM
 *     ..
 *     .. Executable Statements ..
 *

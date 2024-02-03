@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLANSY;
-      EXTERNAL           DLAMCH, DLANSY
+      // EXTERNAL DLAMCH, DLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DORT01, DSYMM
+      // EXTERNAL DGEMM, DORT01, DSYMM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN

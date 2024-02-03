@@ -24,12 +24,12 @@
       COMPLEX            ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CGEMV, CHEMV, CLACGV, CLARFG, CSCAL
+      // EXTERNAL CAXPY, CGEMV, CHEMV, CLACGV, CLARFG, CSCAL
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       COMPLEX            CDOTC
-      EXTERNAL           LSAME, CDOTC
+      // EXTERNAL LSAME, CDOTC
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN, REAL

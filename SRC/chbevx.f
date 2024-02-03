@@ -33,10 +33,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANHB, SLAMCH
-      EXTERNAL           LSAME, CLANHB, SLAMCH
+      // EXTERNAL LSAME, CLANHB, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGEMV, CHBTRD, CLACPY, CLASCL, CSTEIN, CSTEQR, CSWAP, SCOPY, SSCAL, SSTEBZ, SSTERF, XERBLA
+      // EXTERNAL CCOPY, CGEMV, CHBTRD, CLACPY, CLASCL, CSTEIN, CSTEQR, CSWAP, SCOPY, SSCAL, SSTEBZ, SSTERF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL, SQRT

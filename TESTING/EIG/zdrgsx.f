@@ -37,10 +37,10 @@
       bool               ZLCTSX;
       int                ILAENV;
       double             DLAMCH, ZLANGE;
-      EXTERNAL           ZLCTSX, ILAENV, DLAMCH, ZLANGE
+      // EXTERNAL ZLCTSX, ILAENV, DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, XERBLA, ZGESVD, ZGET51, ZGGESX, ZLACPY, ZLAKF2, ZLASET, ZLATM5
+      // EXTERNAL ALASVM, XERBLA, ZGESVD, ZGET51, ZGGESX, ZLACPY, ZLAKF2, ZLASET, ZLATM5
 *     ..
 *     .. Scalars in Common ..
       bool               FS;

@@ -10,10 +10,10 @@
 *     ..
 *     .. External Functions ..
       double             DSECND;
-      EXTERNAL           DSECND
+      // EXTERNAL DSECND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           MYSUB
+      // EXTERNAL MYSUB
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE

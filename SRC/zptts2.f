@@ -18,7 +18,7 @@
       int                I, J;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZDSCAL
+      // EXTERNAL ZDSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DCONJG

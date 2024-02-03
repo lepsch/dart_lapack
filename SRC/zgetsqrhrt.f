@@ -23,7 +23,7 @@
       int                I, IINFO, J, LW1, LW2, LWT, LDWT, LWORKOPT, NB1LOCAL, NB2LOCAL, NUM_ALL_ROW_BLOCKS;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZCOPY, ZLATSQR, ZUNGTSQR_ROW, ZUNHR_COL, XERBLA
+      // EXTERNAL ZCOPY, ZLATSQR, ZUNGTSQR_ROW, ZUNHR_COL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CEILING, DBLE, DCMPLX, MAX, MIN

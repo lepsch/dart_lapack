@@ -23,7 +23,7 @@
       double             A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX);
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, DORHR_COL
+      // EXTERNAL ALAESM, CHKXER, DORHR_COL
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

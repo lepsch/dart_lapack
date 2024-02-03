@@ -31,10 +31,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANGE
-      EXTERNAL           SLAMCH, SLANGE
+      // EXTERNAL SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACPY, SLANV2, SLARFG, SLARFX, SLARTG, SLASY2, SROT
+      // EXTERNAL SLACPY, SLANV2, SLARFG, SLARFX, SLARTG, SLASY2, SROT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

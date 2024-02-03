@@ -20,7 +20,7 @@
       COMPLEX*16 :: TEMP, TEMP2, TEMP3, S
 
 *     External Functions
-      EXTERNAL :: XERBLA, ZLASET, ZLARTG, ZROT, ZLAQZ1, ZGEMM, ZLACPY
+      // EXTERNAL :: XERBLA, ZLASET, ZLARTG, ZROT, ZLAQZ1, ZGEMM, ZLACPY
       double          , EXTERNAL :: DLAMCH;
 
       INFO = 0

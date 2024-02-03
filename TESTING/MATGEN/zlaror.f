@@ -30,10 +30,10 @@
       bool               LSAME;
       double             DZNRM2;
       COMPLEX*16         ZLARND
-      EXTERNAL           LSAME, DZNRM2, ZLARND
+      // EXTERNAL LSAME, DZNRM2, ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEMV, ZGERC, ZLACGV, ZLASET, ZSCAL
+      // EXTERNAL XERBLA, ZGEMV, ZGERC, ZLACGV, ZLASET, ZSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCMPLX, DCONJG

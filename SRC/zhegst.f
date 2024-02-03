@@ -25,7 +25,7 @@
       int                K, KB, NB;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZHEGS2, ZHEMM, ZHER2K, ZTRMM, ZTRSM
+      // EXTERNAL XERBLA, ZHEGS2, ZHEMM, ZHER2K, ZTRMM, ZTRSM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -33,7 +33,7 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      EXTERNAL           LSAME, ILAENV
+      // EXTERNAL LSAME, ILAENV
 *     ..
 *     .. Executable Statements ..
 *

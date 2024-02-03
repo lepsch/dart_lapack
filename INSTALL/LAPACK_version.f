@@ -7,7 +7,7 @@
       int     MAJOR, MINOR, PATCH;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL ILAVER
+      // EXTERNAL ILAVER
 *
       CALL ILAVER ( MAJOR, MINOR, PATCH )
       WRITE(*,*) "LAPACK ",MAJOR,".",MINOR,".",PATCH

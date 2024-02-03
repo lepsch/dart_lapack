@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DDOT;
-      EXTERNAL           LSAME, DDOT
+      // EXTERNAL LSAME, DDOT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSPR, DTPMV, DTPTRI, XERBLA
+      // EXTERNAL DSCAL, DSPR, DTPMV, DTPTRI, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

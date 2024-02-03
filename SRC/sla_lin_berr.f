@@ -22,7 +22,7 @@
       // INTRINSIC ABS, MAX
 *     ..
 *     .. External Functions ..
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
       REAL               SLAMCH
       REAL               SAFE1
 *     ..

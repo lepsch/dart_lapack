@@ -24,12 +24,12 @@
       REAL               ALPHA, TAUI
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SLARFG, SSYMV, SSYR2, XERBLA
+      // EXTERNAL SAXPY, SLARFG, SSYMV, SSYR2, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       REAL               SDOT
-      EXTERNAL           LSAME, SDOT
+      // EXTERNAL LSAME, SDOT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

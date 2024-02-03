@@ -35,10 +35,10 @@
 *     .. External Functions ..
       COMPLEX            CLARND
       REAL               SLAMCH, CLANHE, CLANHF
-      EXTERNAL           SLAMCH, CLARND, CLANHE, CLANHF
+      // EXTERNAL SLAMCH, CLARND, CLANHE, CLANHF
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CTRTTF
+      // EXTERNAL CTRTTF
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

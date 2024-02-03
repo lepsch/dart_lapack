@@ -35,7 +35,7 @@
       REAL               SLANGB, SLANGE, SLANSB, SLANSP, SLANSY, SLATM2, SLATM3       EXTERNAL           LSAME, SLANGB, SLANGE, SLANSB, SLANSP, SLANSY, SLATM2, SLATM3
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLATM1, SSCAL, XERBLA
+      // EXTERNAL SLATM1, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, MOD

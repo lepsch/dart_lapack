@@ -23,7 +23,7 @@
       double             DLAMCH;
 
 *     .. External Subroutines ..
-      EXTERNAL           DLAHILB, DGESVXX, DPOSVXX, DSYSVXX, DGBSVXX, DLACPY, LSAMEN
+      // EXTERNAL DLAHILB, DGESVXX, DPOSVXX, DSYSVXX, DGBSVXX, DLACPY, LSAMEN
       bool               LSAMEN;
 
 *     .. Intrinsic Functions ..

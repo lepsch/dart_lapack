@@ -23,10 +23,10 @@
 *     ..
 *     .. External Functions ..
       int                IDAMAX;
-      EXTERNAL           IDAMAX
+      // EXTERNAL IDAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGER, DSCAL, DSWAP, XERBLA
+      // EXTERNAL DGER, DSCAL, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

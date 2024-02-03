@@ -18,7 +18,7 @@
       int        I, IB, LB, NB, IINFO;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL   DTPLQT2, DTPRFB, XERBLA
+      // EXTERNAL DTPLQT2, DTPRFB, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANST, SLAPY2
-      EXTERNAL           LSAME, SLAMCH, SLANST, SLAPY2
+      // EXTERNAL LSAME, SLAMCH, SLANST, SLAPY2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAE2, SLAEV2, SLARTG, SLASCL, SLASET, SLASR, SLASRT, SSWAP, XERBLA
+      // EXTERNAL SLAE2, SLAEV2, SLARTG, SLASCL, SLASET, SLASR, SLASRT, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SIGN, SQRT

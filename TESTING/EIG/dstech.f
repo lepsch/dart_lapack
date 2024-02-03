@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSTECT
+      // EXTERNAL DSTECT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

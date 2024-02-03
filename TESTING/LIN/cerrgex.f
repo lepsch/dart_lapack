@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAMEN;
-      EXTERNAL           LSAMEN
+      // EXTERNAL LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CGBCON, CGBEQU, CGBRFS, CGBTF2, CGBTRF, CGBTRS, CGECON, CGEEQU, CGERFS, CGETF2, CGETRF, CGETRI, CGETRS, CHKXER, CGEEQUB, CGERFSX, CGBEQUB, CGBRFSX
+      // EXTERNAL ALAESM, CGBCON, CGBEQU, CGBRFS, CGBTF2, CGBTRF, CGBTRS, CGECON, CGEEQU, CGERFS, CGETF2, CGETRF, CGETRI, CGETRS, CHKXER, CGEEQUB, CGERFSX, CGBEQUB, CGBRFSX
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

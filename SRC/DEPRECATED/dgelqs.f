@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASET, DORMLQ, DTRSM, XERBLA
+      // EXTERNAL DLASET, DORMLQ, DTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

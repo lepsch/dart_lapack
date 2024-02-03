@@ -25,10 +25,10 @@
       PARAMETER (NMAX_EXACT = 6, NMAX_APPROX = 11)
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL XERBLA
+      // EXTERNAL XERBLA
 *     ..
 *     .. External Functions
-      EXTERNAL DLASET
+      // EXTERNAL DLASET
       // INTRINSIC DBLE
 *     ..
 *     .. Executable Statements ..

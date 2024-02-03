@@ -24,7 +24,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SLARAN
-      EXTERNAL           SLARAN
+      // EXTERNAL SLARAN
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CMPLX, EXP, LOG, SQRT

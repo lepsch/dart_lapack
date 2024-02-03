@@ -22,7 +22,7 @@
       double             XT( 2 ), YT( 2 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DROT, XERBLA
+      // EXTERNAL DROT, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

@@ -34,10 +34,10 @@
       REAL               SDOT, SNRM2
       int                ISAMAX;
       bool               LSAME;
-      EXTERNAL           ISAMAX, LSAME, SDOT, SNRM2
+      // EXTERNAL ISAMAX, LSAME, SDOT, SNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, SLASCL, SLASSQ, SROTM, SSWAP, XERBLA
+      // EXTERNAL SAXPY, SCOPY, SLASCL, SLASSQ, SROTM, SSWAP, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

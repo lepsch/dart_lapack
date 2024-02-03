@@ -29,10 +29,10 @@
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, ZLANHE;
-      EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANHE
+      // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSTERF, XERBLA, ZHETRD, ZLASCL, ZSTEQR, ZUNGTR
+      // EXTERNAL DSCAL, DSTERF, XERBLA, ZHETRD, ZLASCL, ZSTEQR, ZUNGTR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

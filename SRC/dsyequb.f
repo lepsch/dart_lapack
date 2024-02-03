@@ -29,10 +29,10 @@
 *     .. External Functions ..
       double             DLAMCH;
       bool               LSAME;
-      EXTERNAL           DLAMCH, LSAME
+      // EXTERNAL DLAMCH, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASSQ, XERBLA
+      // EXTERNAL DLASSQ, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, MIN, SQRT

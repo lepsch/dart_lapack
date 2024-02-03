@@ -38,10 +38,10 @@
       bool               LSAME;
       REAL               SLAMCH, CLANGE
       COMPLEX            CLARND
-      EXTERNAL           SLAMCH, CLARND, CLANGE, LSAME
+      // EXTERNAL SLAMCH, CLARND, CLANGE, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CTRTTF, CGEQRF, CGEQLF, CTFSM, CTRSM
+      // EXTERNAL CTRTTF, CGEQRF, CGEQLF, CTFSM, CTRSM
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

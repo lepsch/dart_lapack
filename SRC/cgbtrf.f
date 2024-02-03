@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       int                ICAMAX, ILAENV;
-      EXTERNAL           ICAMAX, ILAENV
+      // EXTERNAL ICAMAX, ILAENV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGBTF2, CGEMM, CGERU, CLASWP, CSCAL, CSWAP, CTRSM, XERBLA
+      // EXTERNAL CCOPY, CGBTF2, CGEMM, CGERU, CLASWP, CSCAL, CSWAP, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

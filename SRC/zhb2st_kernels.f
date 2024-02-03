@@ -27,13 +27,13 @@
       COMPLEX*16         CTMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLARFG, ZLARFX, ZLARFY
+      // EXTERNAL ZLARFG, ZLARFX, ZLARFY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DCONJG, MOD
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     ..
 *     .. Executable Statements ..

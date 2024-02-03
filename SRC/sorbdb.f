@@ -27,12 +27,12 @@
       REAL               Z1, Z2, Z3, Z4
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SLARF, SLARFGP, SSCAL, XERBLA
+      // EXTERNAL SAXPY, SLARF, SLARFGP, SSCAL, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SNRM2
       bool               LSAME;
-      EXTERNAL           SNRM2, LSAME
+      // EXTERNAL SNRM2, LSAME
 *     ..
 *     .. Intrinsic Functions
       // INTRINSIC ATAN2, COS, MAX, SIN

@@ -30,11 +30,11 @@
       COMPLEX*16         C1, C2, S1, S2, T1, T2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEQPF, ZLAIC1, ZLASCL, ZLASET, ZLATZM, ZTRSM, ZTZRQF, ZUNM2R
+      // EXTERNAL XERBLA, ZGEQPF, ZLAIC1, ZLASCL, ZLASET, ZLATZM, ZTRSM, ZTZRQF, ZUNM2R
 *     ..
 *     .. External Functions ..
       double             DLAMCH, ZLANGE;
-      EXTERNAL           DLAMCH, ZLANGE
+      // EXTERNAL DLAMCH, ZLANGE
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, MAX, MIN

@@ -33,10 +33,10 @@
       REAL               SLAMCH
       int                ILAENV;
       bool               LSAME, SISNAN;
-      EXTERNAL           SLAMCH, ILAENV, LSAME, SISNAN
+      // EXTERNAL SLAMCH, ILAENV, LSAME, SISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMV, CHERK, CLACGV, CPSTF2, CSSCAL, CSWAP, XERBLA
+      // EXTERNAL CGEMV, CHERK, CLACGV, CPSTF2, CSSCAL, CSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CONJG, MAX, MIN, REAL, SQRT, MAXLOC

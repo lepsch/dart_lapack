@@ -28,7 +28,7 @@
       double             RESULT( NTESTS );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHD, ALASUM, ZERRUNHR_COL, ZUNHR_COL01, ZUNHR_COL02
+      // EXTERNAL ALAHD, ALASUM, ZERRUNHR_COL, ZUNHR_COL01, ZUNHR_COL02
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANSP
-      EXTERNAL           LSAME, SLAMCH, SLANSP
+      // EXTERNAL LSAME, SLAMCH, SLANSP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SOPGTR, SSCAL, SSPTRD, SSTEQR, SSTERF, XERBLA
+      // EXTERNAL SOPGTR, SSCAL, SSPTRD, SSTEQR, SSTERF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC SQRT

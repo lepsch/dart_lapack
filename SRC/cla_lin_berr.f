@@ -23,7 +23,7 @@
       // INTRINSIC ABS, REAL, AIMAG, MAX
 *     ..
 *     .. External Functions ..
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
       REAL               SLAMCH
       REAL               SAFE1
 *     ..

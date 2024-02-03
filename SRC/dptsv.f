@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. External Subroutines ..
-      EXTERNAL           DPTTRF, DPTTRS, XERBLA
+      // EXTERNAL DPTTRF, DPTTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

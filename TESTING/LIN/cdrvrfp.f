@@ -52,10 +52,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANHE
-      EXTERNAL           CLANHE
+      // EXTERNAL CLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, CGET04, CTFTTR, CLACPY, CLAIPD, CLARHS, CLATB4, CLATMS, CPFTRI, CPFTRF, CPFTRS, CPOT01, CPOT02, CPOT03, CPOTRI, CPOTRF, CTRTTF
+      // EXTERNAL ALADHD, ALAERH, ALASVM, CGET04, CTFTTR, CLACPY, CLAIPD, CLARHS, CLATB4, CLATMS, CPFTRI, CPFTRF, CPFTRS, CPOT01, CPOT02, CPOT03, CPOTRI, CPOTRF, CTRTTF
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

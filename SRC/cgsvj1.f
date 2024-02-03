@@ -35,13 +35,13 @@
       COMPLEX            CDOTC
       int                ISAMAX;
       bool               LSAME;
-      EXTERNAL           ISAMAX, LSAME, CDOTC, SCNRM2
+      // EXTERNAL ISAMAX, LSAME, CDOTC, SCNRM2
 *     ..
 *     .. External Subroutines ..
 *     .. from BLAS
-      EXTERNAL           CCOPY, CROT, CSWAP, CAXPY
+      // EXTERNAL CCOPY, CROT, CSWAP, CAXPY
 *     .. from LAPACK
-      EXTERNAL           CLASCL, CLASSQ, XERBLA
+      // EXTERNAL CLASCL, CLASSQ, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

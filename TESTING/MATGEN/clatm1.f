@@ -27,10 +27,10 @@
 *     .. External Functions ..
       REAL               SLARAN
       COMPLEX            CLARND
-      EXTERNAL           SLARAN, CLARND
+      // EXTERNAL SLARAN, CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLARNV, XERBLA
+      // EXTERNAL CLARNV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, EXP, LOG, REAL

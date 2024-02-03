@@ -40,10 +40,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DGET06, DLANSP;
-      EXTERNAL           LSAME, DGET06, DLANSP
+      // EXTERNAL LSAME, DGET06, DLANSP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, DCOPY, DERRVX, DGET04, DLACPY, DLAQSP, DLARHS, DLASET, DLATB4, DLATMS, DPPEQU, DPPSV, DPPSVX, DPPT01, DPPT02, DPPT05, DPPTRF, DPPTRI
+      // EXTERNAL ALADHD, ALAERH, ALASVM, DCOPY, DERRVX, DGET04, DLACPY, DLAQSP, DLARHS, DLASET, DLATB4, DLATMS, DPPEQU, DPPSV, DPPSVX, DPPT01, DPPT02, DPPT05, DPPTRF, DPPTRI
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

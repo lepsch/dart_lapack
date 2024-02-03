@@ -35,10 +35,10 @@
 *     .. External Functions ..
       COMPLEX*16         ZLARND
       double             DLAMCH, ZLANHE, ZLANHF;
-      EXTERNAL           DLAMCH, ZLARND, ZLANHE, ZLANHF
+      // EXTERNAL DLAMCH, ZLARND, ZLANHE, ZLANHF
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZTRTTF
+      // EXTERNAL ZTRTTF
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

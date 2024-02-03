@@ -30,10 +30,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CHST01, CLACPY, CLASET, CTREXC
+      // EXTERNAL CCOPY, CHST01, CLACPY, CLASET, CTREXC
 *     ..
 *     .. Executable Statements ..
 *

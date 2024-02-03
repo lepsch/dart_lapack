@@ -40,10 +40,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SLANTP
-      EXTERNAL           LSAME, SLANTP
+      // EXTERNAL LSAME, SLANTP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, SCOPY, SERRTR, SGET04, SLACPY, SLARHS, SLATPS, SLATTP, STPCON, STPRFS, STPT01, STPT02, STPT03, STPT05, STPT06, STPTRI, STPTRS
+      // EXTERNAL ALAERH, ALAHD, ALASUM, SCOPY, SERRTR, SGET04, SLACPY, SLARHS, SLATPS, SLATTP, STPCON, STPRFS, STPT01, STPT02, STPT03, STPT05, STPT06, STPTRI, STPTRS
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

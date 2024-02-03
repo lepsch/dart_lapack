@@ -22,7 +22,7 @@
       String    :: JBCMPZ*3;
 
 *     External Functions
-      EXTERNAL :: XERBLA, ZHGEQZ, ZLAQZ2, ZLAQZ3, ZLASET, ZLARTG, ZROT
+      // EXTERNAL :: XERBLA, ZHGEQZ, ZLAQZ2, ZLAQZ3, ZLASET, ZLARTG, ZROT
       double          , EXTERNAL :: DLAMCH, ZLANHS;
       bool   , EXTERNAL :: LSAME;
       int    , EXTERNAL :: ILAENV;

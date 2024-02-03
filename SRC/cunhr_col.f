@@ -22,7 +22,7 @@
       int                I, IINFO, J, JB, JBTEMP1, JBTEMP2, JNB, NPLUSONE;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLAUNHR_COL_GETRFNP, CSCAL, CTRSM, XERBLA
+      // EXTERNAL CCOPY, CLAUNHR_COL_GETRFNP, CSCAL, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

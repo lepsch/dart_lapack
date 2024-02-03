@@ -28,11 +28,11 @@
       double             DUM1(1), DUM2(1,1);
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DBBCSD, DCOPY, DLACPY, DLAPMR, DLAPMT, DORBDB1, DORBDB2, DORBDB3, DORBDB4, DORGLQ, DORGQR, XERBLA
+      // EXTERNAL DBBCSD, DCOPY, DLACPY, DLAPMR, DLAPMT, DORBDB1, DORBDB2, DORBDB3, DORBDB4, DORGLQ, DORGQR, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Intrinsic Function ..
       // INTRINSIC INT, MAX, MIN

@@ -28,14 +28,14 @@
       COMPLEX*16         RA, RB, RS, T
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZLARGV, ZLARTG, ZLARTV, ZLASET, ZROT, ZSCAL
+      // EXTERNAL XERBLA, ZLARGV, ZLARTG, ZLARTV, ZLASET, ZROT, ZSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, MAX, MIN
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. Executable Statements ..
 *

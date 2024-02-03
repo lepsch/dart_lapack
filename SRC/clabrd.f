@@ -23,7 +23,7 @@
       COMPLEX            ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMV, CLACGV, CLARFG, CSCAL
+      // EXTERNAL CGEMV, CLACGV, CLARFG, CSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

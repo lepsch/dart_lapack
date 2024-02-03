@@ -34,7 +34,7 @@
       double           DLAMCH, DLANGE, DLANSY;
       bool     LSAME;
       int     ILAENV;
-      EXTERNAL DLAMCH, DLANGE, DLANSY, LSAME, ILAENV
+      // EXTERNAL DLAMCH, DLANGE, DLANSY, LSAME, ILAENV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

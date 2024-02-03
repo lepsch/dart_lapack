@@ -26,10 +26,10 @@
 *     .. External Functions ..
       REAL               SLAMCH
       int                ICAMAX;
-      EXTERNAL           SLAMCH, ICAMAX
+      // EXTERNAL SLAMCH, ICAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CSCAL, CLASWP, CTRSM, XERBLA
+      // EXTERNAL CGEMM, CSCAL, CLASWP, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

@@ -28,10 +28,10 @@
 *     .. External Functions ..
       bool               LSAME, SISNAN;
       COMPLEX            CDOTC
-      EXTERNAL           LSAME, CDOTC, SISNAN
+      // EXTERNAL LSAME, CDOTC, SISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMV, CLACGV, CSSCAL, XERBLA
+      // EXTERNAL CGEMV, CLACGV, CSSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, REAL, SQRT

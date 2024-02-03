@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SLAGS2, SLAPLL, SLARTG, SLASET, SROT, SSCAL, XERBLA
+      // EXTERNAL SCOPY, SLAGS2, SLAPLL, SLARTG, SLASET, SROT, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, HUGE

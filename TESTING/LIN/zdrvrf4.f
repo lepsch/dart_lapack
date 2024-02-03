@@ -35,10 +35,10 @@
 *     .. External Functions ..
       double             DLAMCH, DLARND, ZLANGE;
       COMPLEX*16         ZLARND
-      EXTERNAL           DLAMCH, DLARND, ZLANGE, ZLARND
+      // EXTERNAL DLAMCH, DLARND, ZLANGE, ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZHERK, ZHFRK, ZTFTTR, ZTRTTF
+      // EXTERNAL ZHERK, ZHFRK, ZTFTTR, ZTRTTF
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DABS, MAX

@@ -23,10 +23,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLADIV1
+      // EXTERNAL SLADIV1
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
@@ -105,7 +105,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SLADIV2
-      EXTERNAL           SLADIV2
+      // EXTERNAL SLADIV2
 *     ..
 *     .. Executable Statements ..
 *

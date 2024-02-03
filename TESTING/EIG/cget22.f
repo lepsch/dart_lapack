@@ -30,10 +30,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, SLAMCH
-      EXTERNAL           LSAME, CLANGE, SLAMCH
+      // EXTERNAL LSAME, CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CLASET
+      // EXTERNAL CGEMM, CLASET
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CONJG, MAX, MIN, REAL

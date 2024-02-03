@@ -30,12 +30,12 @@
       double             DUM( 1 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DBDSDC, DGEBRD, DGELQF, DGEMM, DGEQRF, DLACPY, DLASCL, DLASET, DORGBR, DORGLQ, DORGQR, DORMBR, XERBLA
+      // EXTERNAL DBDSDC, DGEBRD, DGELQF, DGEMM, DGEQRF, DLACPY, DLASCL, DLASET, DORGBR, DORGLQ, DORGQR, DORMBR, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;
       double             DLAMCH, DLANGE, DROUNDUP_LWORK;
-      EXTERNAL           DLAMCH, DLANGE, LSAME, DISNAN,  DROUNDUP_LWORK
+      // EXTERNAL DLAMCH, DLANGE, LSAME, DISNAN,  DROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN, SQRT

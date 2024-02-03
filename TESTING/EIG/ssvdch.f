@@ -26,10 +26,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSVDCT
+      // EXTERNAL SSVDCT
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

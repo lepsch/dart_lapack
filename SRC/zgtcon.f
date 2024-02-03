@@ -30,10 +30,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGTTRS, ZLACN2
+      // EXTERNAL XERBLA, ZGTTRS, ZLACN2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DCMPLX

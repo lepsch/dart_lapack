@@ -18,7 +18,7 @@
       int        I, IB, IINFO, K;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL   CGELQT3, CLARFB, XERBLA
+      // EXTERNAL CGELQT3, CLARFB, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

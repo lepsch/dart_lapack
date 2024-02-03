@@ -27,10 +27,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANGE;
-      EXTERNAL           LSAME, DLAMCH, DLANGE
+      // EXTERNAL LSAME, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEQR, DGEMQR, DLASCL, DLASET, DTRTRS, XERBLA, DGELQ, DGEMLQ
+      // EXTERNAL DGEQR, DGEMQR, DLASCL, DLASET, DTRTRS, XERBLA, DGELQ, DGEMLQ
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN, INT

@@ -26,10 +26,10 @@
 *     .. External Functions ..
       bool               LSAME, SISNAN;
       REAL               SASUM, SLAMCH
-      EXTERNAL           LSAME, SASUM, SISNAN, SLAMCH
+      // EXTERNAL LSAME, SASUM, SISNAN, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGBMV
+      // EXTERNAL SGBMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

@@ -28,10 +28,10 @@
 *     .. External Functions ..
       int                ILAENV;
       double             DLAMCH, DLANGE;
-      EXTERNAL           ILAENV, DLAMCH, DLANGE
+      // EXTERNAL ILAENV, DLAMCH, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEQP3, DLAIC1, DLASCL, DLASET, DORMQR, DORMRZ, DTRSM, DTZRZF, XERBLA
+      // EXTERNAL DCOPY, DGEQP3, DLAIC1, DLASCL, DLASET, DORMQR, DORMRZ, DTRSM, DTZRZF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

@@ -22,10 +22,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSTERF, XERBLA, ZHBGST, ZHBTRD, ZPBSTF, ZSTEQR
+      // EXTERNAL DSTERF, XERBLA, ZHBGST, ZHBTRD, ZPBSTF, ZSTEQR
 *     ..
 *     .. Executable Statements ..
 *

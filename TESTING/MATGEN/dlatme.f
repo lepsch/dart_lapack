@@ -36,10 +36,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLANGE, DLARAN;
-      EXTERNAL           LSAME, DLANGE, DLARAN
+      // EXTERNAL LSAME, DLANGE, DLARAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEMV, DGER, DLARFG, DLARGE, DLARNV, DLASET, DLATM1, DSCAL, XERBLA
+      // EXTERNAL DCOPY, DGEMV, DGER, DLARFG, DLARGE, DLARNV, DLASET, DLATM1, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MOD

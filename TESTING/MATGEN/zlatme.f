@@ -41,10 +41,10 @@
       bool               LSAME;
       double             ZLANGE;
       COMPLEX*16         ZLARND
-      EXTERNAL           LSAME, ZLANGE, ZLARND
+      // EXTERNAL LSAME, ZLANGE, ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLATM1, XERBLA, ZCOPY, ZDSCAL, ZGEMV, ZGERC, ZLACGV, ZLARFG, ZLARGE, ZLARNV, ZLASET, ZLATM1, ZSCAL
+      // EXTERNAL DLATM1, XERBLA, ZCOPY, ZDSCAL, ZGEMV, ZGERC, ZLACGV, ZLARFG, ZLARGE, ZLARNV, ZLASET, ZLATM1, ZSCAL
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, MAX, MOD

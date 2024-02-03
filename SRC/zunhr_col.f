@@ -22,7 +22,7 @@
       int                I, IINFO, J, JB, JBTEMP1, JBTEMP2, JNB, NPLUSONE;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZCOPY, ZLAUNHR_COL_GETRFNP, ZSCAL, ZTRSM, XERBLA
+      // EXTERNAL ZCOPY, ZLAUNHR_COL_GETRFNP, ZSCAL, ZTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

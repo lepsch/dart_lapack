@@ -30,7 +30,7 @@
 *     ..
 *     .. External Functions ..
       double             DLAPY2;
-      EXTERNAL           DLAPY2
+      // EXTERNAL DLAPY2
 *     ..
 *     .. Executable Statements ..
 *

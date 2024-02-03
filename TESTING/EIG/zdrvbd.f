@@ -43,10 +43,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLARND;
-      EXTERNAL           DLAMCH, DLARND
+      // EXTERNAL DLAMCH, DLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, XERBLA, ZBDT01, ZBDT05, ZGESDD, ZGESVD, ZGESVDQ, ZGESVJ, ZGEJSV, ZGESVDX, ZLACPY, ZLASET, ZLATMS, ZUNT01, ZUNT03
+      // EXTERNAL ALASVM, XERBLA, ZBDT01, ZBDT05, ZGESDD, ZGESVD, ZGESVDQ, ZGESVJ, ZGEJSV, ZGESVDX, ZLACPY, ZLASET, ZLATMS, ZUNT01, ZUNT03
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN

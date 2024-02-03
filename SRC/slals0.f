@@ -24,11 +24,11 @@
       REAL               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMV, SLACPY, SLASCL, SROT, SSCAL, XERBLA
+      // EXTERNAL SCOPY, SGEMV, SLACPY, SLASCL, SROT, SSCAL, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SLAMC3, SNRM2
-      EXTERNAL           SLAMC3, SNRM2
+      // EXTERNAL SLAMC3, SNRM2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

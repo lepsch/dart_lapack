@@ -31,10 +31,10 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ICAMAX;
-      EXTERNAL           LSAME, ICAMAX
+      // EXTERNAL LSAME, ICAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGEMM, CGEMV, CLACGV, CSSCAL, CSWAP
+      // EXTERNAL CCOPY, CGEMM, CGEMV, CLACGV, CSSCAL, CSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CONJG, MAX, MIN, REAL, SQRT

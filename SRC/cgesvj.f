@@ -38,22 +38,22 @@
 *     from BLAS
       REAL               SCNRM2
       COMPLEX            CDOTC
-      EXTERNAL           CDOTC, SCNRM2
+      // EXTERNAL CDOTC, SCNRM2
       int                ISAMAX;
-      EXTERNAL           ISAMAX
+      // EXTERNAL ISAMAX
 *     from LAPACK
       REAL               SLAMCH, SROUNDUP_LWORK
-      EXTERNAL           SLAMCH, SROUNDUP_LWORK
+      // EXTERNAL SLAMCH, SROUNDUP_LWORK
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
 *     ..
 *     from BLAS
-      EXTERNAL           CCOPY, CROT, CSSCAL, CSWAP, CAXPY
+      // EXTERNAL CCOPY, CROT, CSSCAL, CSWAP, CAXPY
 *     from LAPACK
-      EXTERNAL           CLASCL, CLASET, CLASSQ, SLASCL, XERBLA
-      EXTERNAL           CGSVJ0, CGSVJ1
+      // EXTERNAL CLASCL, CLASET, CLASSQ, SLASCL, XERBLA
+      // EXTERNAL CGSVJ0, CGSVJ1
 *     ..
 *     .. Executable Statements ..
 *

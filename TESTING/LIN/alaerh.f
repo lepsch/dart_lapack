@@ -20,13 +20,13 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME, LSAMEN;
-      EXTERNAL           LSAME, LSAMEN
+      // EXTERNAL LSAME, LSAMEN
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAHD
+      // EXTERNAL ALADHD, ALAHD
 *     ..
 *     .. Executable Statements ..
 *

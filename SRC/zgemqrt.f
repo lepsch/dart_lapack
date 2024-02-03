@@ -21,10 +21,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZLARFB
+      // EXTERNAL XERBLA, ZLARFB
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

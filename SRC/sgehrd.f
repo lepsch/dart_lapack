@@ -25,7 +25,7 @@
       REAL               EI
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SGEHD2, SGEMM, SLAHR2, SLARFB, STRMM, XERBLA
+      // EXTERNAL SAXPY, SGEHD2, SGEMM, SLAHR2, SLARFB, STRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -33,7 +33,7 @@
 *     .. External Functions ..
       int                ILAENV;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           ILAENV, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. Executable Statements ..
 *

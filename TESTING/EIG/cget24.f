@@ -37,10 +37,10 @@
 *     .. External Functions ..
       bool               CSLECT;
       REAL               CLANGE, SLAMCH
-      EXTERNAL           CSLECT, CLANGE, SLAMCH
+      // EXTERNAL CSLECT, CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGEESX, CGEMM, CLACPY, CUNT01, XERBLA
+      // EXTERNAL CCOPY, CGEESX, CGEMM, CLACPY, CUNT01, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL

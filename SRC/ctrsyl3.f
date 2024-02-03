@@ -28,10 +28,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               CLANGE, SLAMCH, SLARMM
-      EXTERNAL           CLANGE, ILAENV, LSAME, SLAMCH, SLARMM
+      // EXTERNAL CLANGE, ILAENV, LSAME, SLAMCH, SLARMM
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CSSCAL, CGEMM, CLASCL, CTRSYL, XERBLA
+      // EXTERNAL CSSCAL, CGEMM, CLASCL, CTRSYL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, EXPONENT, MAX, MIN, REAL

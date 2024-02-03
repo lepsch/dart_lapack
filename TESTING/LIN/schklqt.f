@@ -28,7 +28,7 @@
       REAL              RESULT( NTESTS )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, SERRLQT, SLQT04
+      // EXTERNAL ALAERH, ALAHD, ALASUM, SERRLQT, SLQT04
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

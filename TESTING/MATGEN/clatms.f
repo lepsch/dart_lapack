@@ -37,10 +37,10 @@
       bool               LSAME;
       REAL               SLARND
       COMPLEX            CLARND
-      EXTERNAL           LSAME, SLARND, CLARND
+      // EXTERNAL LSAME, SLARND, CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLAGGE, CLAGHE, CLAGSY, CLAROT, CLARTG, CLASET, SLATM1, SSCAL, XERBLA
+      // EXTERNAL CLAGGE, CLAGHE, CLAGSY, CLAROT, CLARTG, CLASET, SLATM1, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, CONJG, COS, MAX, MIN, MOD, REAL, SIN

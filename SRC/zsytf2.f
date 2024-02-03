@@ -32,10 +32,10 @@
 *     .. External Functions ..
       bool               DISNAN, LSAME;
       int                IZAMAX;
-      EXTERNAL           DISNAN, LSAME, IZAMAX
+      // EXTERNAL DISNAN, LSAME, IZAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZSCAL, ZSWAP, ZSYR
+      // EXTERNAL XERBLA, ZSCAL, ZSWAP, ZSYR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX, SQRT

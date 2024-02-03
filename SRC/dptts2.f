@@ -17,7 +17,7 @@
       int                I, J;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL
+      // EXTERNAL DSCAL
 *     ..
 *     .. Executable Statements ..
 *

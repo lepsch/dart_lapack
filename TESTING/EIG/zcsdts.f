@@ -29,10 +29,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, ZLANGE, ZLANHE;
-      EXTERNAL           DLAMCH, ZLANGE, ZLANHE
+      // EXTERNAL DLAMCH, ZLANGE, ZLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMM, ZHERK, ZLACPY, ZLASET, ZUNCSD, ZUNCSD2BY1
+      // EXTERNAL ZGEMM, ZHERK, ZLACPY, ZLASET, ZUNCSD, ZUNCSD2BY1
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC COS, DBLE, DCMPLX, MAX, MIN, REAL, SIN

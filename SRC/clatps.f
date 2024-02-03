@@ -31,10 +31,10 @@
       int                ICAMAX, ISAMAX;
       REAL               SCASUM, SLAMCH
       COMPLEX            CDOTC, CDOTU, CLADIV
-      EXTERNAL           LSAME, ICAMAX, ISAMAX, SCASUM, SLAMCH, CDOTC, CDOTU, CLADIV
+      // EXTERNAL LSAME, ICAMAX, ISAMAX, SCASUM, SLAMCH, CDOTC, CDOTU, CLADIV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CSSCAL, CTPSV, SSCAL, XERBLA
+      // EXTERNAL CAXPY, CSSCAL, CTPSV, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL

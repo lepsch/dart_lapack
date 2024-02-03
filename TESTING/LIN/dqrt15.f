@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       double             DASUM, DLAMCH, DLANGE, DLARND, DNRM2;
-      EXTERNAL           DASUM, DLAMCH, DLANGE, DLARND, DNRM2
+      // EXTERNAL DASUM, DLAMCH, DLANGE, DLARND, DNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DLAORD, DLARF, DLARNV, DLAROR, DLASCL, DLASET, DSCAL, XERBLA
+      // EXTERNAL DGEMM, DLAORD, DLARF, DLARNV, DLAROR, DLASCL, DLASET, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

@@ -32,10 +32,10 @@
 *     ..
 *     .. External Functions ..
       COMPLEX*16         ZLARND
-      EXTERNAL           ZLARND
+      // EXTERNAL ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHDG, ALAREQ, ALASUM, DLATB9, ZGLMTS, ZLATMS
+      // EXTERNAL ALAHDG, ALAREQ, ALASUM, DLATB9, ZGLMTS, ZLATMS
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

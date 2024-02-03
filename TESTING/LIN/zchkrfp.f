@@ -49,10 +49,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DSECND;
-      EXTERNAL           DLAMCH, DSECND
+      // EXTERNAL DLAMCH, DSECND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ILAVER, ZDRVRFP, ZDRVRF1, ZDRVRF2, ZDRVRF3, ZDRVRF4
+      // EXTERNAL ILAVER, ZDRVRFP, ZDRVRF1, ZDRVRF2, ZDRVRF3, ZDRVRF4
 *     ..
 *     .. Executable Statements ..
 *

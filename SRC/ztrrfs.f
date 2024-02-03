@@ -32,7 +32,7 @@
       int                ISAVE( 3 );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZAXPY, ZCOPY, ZLACN2, ZTRMV, ZTRSV
+      // EXTERNAL XERBLA, ZAXPY, ZCOPY, ZLACN2, ZTRMV, ZTRSV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX
@@ -40,7 +40,7 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH;
-      EXTERNAL           LSAME, DLAMCH
+      // EXTERNAL LSAME, DLAMCH
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

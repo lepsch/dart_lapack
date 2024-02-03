@@ -24,7 +24,7 @@
       // INTRINSIC MAX, MIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DCOPY, DGEMV, DGER, DLARFG, XERBLA
+      // EXTERNAL DAXPY, DCOPY, DGEMV, DGER, DLARFG, XERBLA
 *     ..
 *     .. Executable Statements ..
 *

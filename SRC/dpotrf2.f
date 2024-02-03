@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME, DISNAN;
-      EXTERNAL           LSAME, DISNAN
+      // EXTERNAL LSAME, DISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSYRK, DTRSM, XERBLA
+      // EXTERNAL DSYRK, DTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

@@ -37,7 +37,7 @@
       double             RESULT( NTESTS );
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, XLAENV, ZERRRQ, ZGERQS, ZGET02, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZRQT01, ZRQT02, ZRQT03
+      // EXTERNAL ALAERH, ALAHD, ALASUM, XLAENV, ZERRRQ, ZGERQS, ZGET02, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZRQT01, ZRQT02, ZRQT03
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

@@ -32,10 +32,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH, CLANGE, SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV, SLAMCH, CLANGE, SROUNDUP_LWORK
+      // EXTERNAL LSAME, ILAENV, SLAMCH, CLANGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGELQT, CGEQRT, CGEMLQT, CGEMQRT, CLASCL, CLASET, CTRTRS, XERBLA
+      // EXTERNAL CGELQT, CGEQRT, CGEMLQT, CGEMQRT, CLASCL, CLASET, CTRTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

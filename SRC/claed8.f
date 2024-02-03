@@ -26,10 +26,10 @@
 *     .. External Functions ..
       int                ISAMAX;
       REAL               SLAMCH, SLAPY2
-      EXTERNAL           ISAMAX, SLAMCH, SLAPY2
+      // EXTERNAL ISAMAX, SLAMCH, SLAPY2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLACPY, CSROT, SCOPY, SLAMRG, SSCAL, XERBLA
+      // EXTERNAL CCOPY, CLACPY, CSROT, SCOPY, SLAMRG, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT

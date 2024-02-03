@@ -18,7 +18,7 @@
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DORMQR, DTRSM, XERBLA
+      // EXTERNAL DORMQR, DTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

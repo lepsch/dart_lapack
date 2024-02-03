@@ -33,12 +33,12 @@
       COMPLEX*16         WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZAXPY, ZCOPY, ZGECON, ZGESC2, ZLASSQ, ZLASWP, ZSCAL
+      // EXTERNAL ZAXPY, ZCOPY, ZGECON, ZGESC2, ZLASSQ, ZLASWP, ZSCAL
 *     ..
 *     .. External Functions ..
       double             DZASUM;
       COMPLEX*16         ZDOTC
-      EXTERNAL           DZASUM, ZDOTC
+      // EXTERNAL DZASUM, ZDOTC
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, SQRT

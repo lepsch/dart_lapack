@@ -22,7 +22,7 @@
       REAL               EI
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, SGEMV, SLARFG, SSCAL, STRMV
+      // EXTERNAL SAXPY, SCOPY, SGEMV, SLARFG, SSCAL, STRMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN

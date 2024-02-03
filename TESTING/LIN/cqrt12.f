@@ -27,10 +27,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SASUM, SLAMCH, SNRM2
-      EXTERNAL           CLANGE, SASUM, SLAMCH, SNRM2
+      // EXTERNAL CLANGE, SASUM, SLAMCH, SNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEBD2, CLASCL, CLASET, SAXPY, SBDSQR, SLASCL, XERBLA
+      // EXTERNAL CGEBD2, CLASCL, CLASET, SAXPY, SBDSQR, SLASCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN, REAL

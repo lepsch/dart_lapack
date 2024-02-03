@@ -23,10 +23,10 @@
 *     ..
 *     .. External Functions ..
       int                ISAMAX;
-      EXTERNAL           ISAMAX
+      // EXTERNAL ISAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGER, SSCAL, SSWAP, XERBLA
+      // EXTERNAL SGER, SSCAL, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

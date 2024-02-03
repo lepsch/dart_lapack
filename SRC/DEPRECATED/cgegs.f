@@ -27,13 +27,13 @@
       REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SAFMIN, SMLNUM
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY, CLASCL, CLASET, CUNGQR, CUNMQR, XERBLA
+      // EXTERNAL CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY, CLASCL, CLASET, CUNGQR, CUNMQR, XERBLA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               CLANGE, SLAMCH
-      EXTERNAL           ILAENV, LSAME, CLANGE, SLAMCH
+      // EXTERNAL ILAENV, LSAME, CLANGE, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC INT, MAX

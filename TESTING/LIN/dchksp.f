@@ -40,10 +40,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DGET06, DLANSP;
-      EXTERNAL           LSAME, DGET06, DLANSP
+      // EXTERNAL LSAME, DGET06, DLANSP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DCOPY, DERRSY, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DPPT02, DPPT03, DPPT05, DSPCON, DSPRFS, DSPT01, DSPTRF, DSPTRI, DSPTRS
+      // EXTERNAL ALAERH, ALAHD, ALASUM, DCOPY, DERRSY, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DPPT02, DPPT03, DPPT05, DSPCON, DSPRFS, DSPT01, DSPTRF, DSPTRI, DSPTRS
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

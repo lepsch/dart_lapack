@@ -19,7 +19,7 @@
       REAL               A( 1, 1), B( 1, 1)
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, STFSM, STFTRI, SSFRK, STFTTP, STFTTR, SPFTRI, SPFTRF, SPFTRS, STPTTF, STPTTR, STRTTF, STRTTP
+      // EXTERNAL CHKXER, STFSM, STFTRI, SSFRK, STFTTP, STFTTR, SPFTRI, SPFTRF, SPFTRS, STPTTF, STPTTR, STRTTF, STRTTP
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

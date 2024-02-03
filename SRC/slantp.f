@@ -24,11 +24,11 @@
       REAL               SCALE, SUM, VALUE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLASSQ
+      // EXTERNAL SLASSQ
 *     ..
 *     .. External Functions ..
       bool               LSAME, SISNAN;
-      EXTERNAL           LSAME, SISNAN
+      // EXTERNAL LSAME, SISNAN
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT

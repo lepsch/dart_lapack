@@ -24,10 +24,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SROUNDUP_LWORK
-      EXTERNAL           SROUNDUP_LWORK
+      // EXTERNAL SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           STGEX2, XERBLA
+      // EXTERNAL STGEX2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

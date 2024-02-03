@@ -23,11 +23,11 @@
       COMPLEX*16         ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZAXPY, ZHEMV, ZHER2
+      // EXTERNAL ZAXPY, ZHEMV, ZHER2
 *     ..
 *     .. External Functions ..
       COMPLEX*16         ZDOTC
-      EXTERNAL           ZDOTC
+      // EXTERNAL ZDOTC
 *     ..
 *     .. Executable Statements ..
 *

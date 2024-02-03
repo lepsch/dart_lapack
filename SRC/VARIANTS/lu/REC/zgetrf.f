@@ -31,10 +31,10 @@
       double             DLAMCH;
       int                IZAMAX;
       bool               DISNAN;
-      EXTERNAL           DLAMCH, IZAMAX, DISNAN
+      // EXTERNAL DLAMCH, IZAMAX, DISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZTRSM, ZSCAL, XERBLA, ZLASWP
+      // EXTERNAL ZTRSM, ZSCAL, XERBLA, ZLASWP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, IAND, ABS

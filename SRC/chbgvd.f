@@ -28,10 +28,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
-      EXTERNAL           LSAME, SROUNDUP_LWORK
+      // EXTERNAL LSAME, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSTERF, XERBLA, CGEMM, CHBGST, CHBTRD, CLACPY, CPBSTF, CSTEDC
+      // EXTERNAL SSTERF, XERBLA, CGEMM, CHBGST, CHBTRD, CLACPY, CPBSTF, CSTEDC
 *     ..
 *     .. Executable Statements ..
 *

@@ -51,10 +51,10 @@
 *     ..
 *     .. External Functions ..
       double             DLANSY;
-      EXTERNAL           DLANSY
+      // EXTERNAL DLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, DGET04, DTFTTR, DLACPY, DLARHS, DLATB4, DLATMS, DPFTRI, DPFTRF, DPFTRS, DPOT01, DPOT02, DPOT03, DPOTRI, DPOTRF, DTRTTF
+      // EXTERNAL ALADHD, ALAERH, ALASVM, DGET04, DTFTTR, DLACPY, DLARHS, DLATB4, DLATMS, DPFTRI, DPFTRF, DPFTRS, DPOT01, DPOT02, DPOT03, DPOTRI, DPOTRF, DTRTTF
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

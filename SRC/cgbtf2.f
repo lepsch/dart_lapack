@@ -23,10 +23,10 @@
 *     ..
 *     .. External Functions ..
       int                ICAMAX;
-      EXTERNAL           ICAMAX
+      // EXTERNAL ICAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGERU, CSCAL, CSWAP, XERBLA
+      // EXTERNAL CGERU, CSCAL, CSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

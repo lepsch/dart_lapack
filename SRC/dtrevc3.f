@@ -29,10 +29,10 @@
       bool               LSAME;
       int                IDAMAX, ILAENV;
       double             DDOT, DLAMCH;
-      EXTERNAL           LSAME, IDAMAX, ILAENV, DDOT, DLAMCH
+      // EXTERNAL LSAME, IDAMAX, ILAENV, DDOT, DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DCOPY, DGEMV, DLALN2, DSCAL, XERBLA, DGEMM, DLASET, DLACPY
+      // EXTERNAL DAXPY, DCOPY, DGEMV, DLALN2, DSCAL, XERBLA, DGEMM, DLASET, DLACPY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

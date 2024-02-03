@@ -30,7 +30,7 @@
 *     .. External Functions ..
       double           DLAMCH, DLANGE, DLANSY;
       bool     LSAME;
-      EXTERNAL DLAMCH, DLANGE, DLANSY, LSAME
+      // EXTERNAL DLAMCH, DLANGE, DLANSY, LSAME
 *     ..
 *     .. Data statements ..
       DATA ISEED / 1988, 1989, 1990, 1991 /

@@ -35,7 +35,7 @@
 *
       REAL               SLARAN
       COMPLEX            CLARND
-      EXTERNAL           SLARAN, CLARND
+      // EXTERNAL SLARAN, CLARND
 *     ..
 *
 *     .. Intrinsic Functions ..

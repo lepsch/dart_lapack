@@ -25,7 +25,7 @@
       // INTRINSIC DBLE, DCMPLX, DIMAG
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM
+      // EXTERNAL DGEMM
 *     ..
 *     .. Executable Statements ..
 *

@@ -33,12 +33,12 @@
       COMPLEX            WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CGECON, CGESC2, CLASSQ, CLASWP, CSCAL
+      // EXTERNAL CAXPY, CCOPY, CGECON, CGESC2, CLASSQ, CLASWP, CSCAL
 *     ..
 *     .. External Functions ..
       REAL               SCASUM
       COMPLEX            CDOTC
-      EXTERNAL           SCASUM, CDOTC
+      // EXTERNAL SCASUM, CDOTC
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, SQRT

@@ -34,7 +34,7 @@
       COMPLEX*16         TMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZHB2ST_KERNELS, ZLACPY, ZLASET, XERBLA
+      // EXTERNAL ZHB2ST_KERNELS, ZLACPY, ZLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MIN, MAX, CEILING, DBLE, REAL
@@ -42,7 +42,7 @@
 *     .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
-      EXTERNAL           LSAME, ILAENV2STAGE
+      // EXTERNAL LSAME, ILAENV2STAGE
 *     ..
 *     .. Executable Statements ..
 *

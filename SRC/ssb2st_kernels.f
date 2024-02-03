@@ -27,13 +27,13 @@
       REAL               CTMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARFG, SLARFX, SLARFY
+      // EXTERNAL SLARFG, SLARFX, SLARFY
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MOD
 *     .. External Functions ..
       bool               LSAME;
-      EXTERNAL           LSAME
+      // EXTERNAL LSAME
 *     ..
 *     ..
 *     .. Executable Statements ..

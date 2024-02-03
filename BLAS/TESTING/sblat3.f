@@ -32,9 +32,9 @@
 *     .. External Functions ..
       REAL               SDIFF
       bool               LSE;
-      EXTERNAL           SDIFF, LSE
+      // EXTERNAL SDIFF, LSE
 *     .. External Subroutines ..
-      EXTERNAL           SCHK1, SCHK2, SCHK3, SCHK4, SCHK5, SCHKE, SMMCH
+      // EXTERNAL SCHK1, SCHK2, SCHK3, SCHK4, SCHK5, SCHKE, SMMCH
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
 *     .. Scalars in Common ..
@@ -324,9 +324,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LSE, LSERES;
-      EXTERNAL           LSE, LSERES
+      // EXTERNAL LSE, LSERES
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SMAKE, SMMCH
+      // EXTERNAL SGEMM, SMAKE, SMMCH
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Scalars in Common ..
@@ -575,9 +575,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LSE, LSERES;
-      EXTERNAL           LSE, LSERES
+      // EXTERNAL LSE, LSERES
 *     .. External Subroutines ..
-      EXTERNAL           SMAKE, SMMCH, SSYMM
+      // EXTERNAL SMAKE, SMMCH, SSYMM
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Scalars in Common ..
@@ -814,9 +814,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LSE, LSERES;
-      EXTERNAL           LSE, LSERES
+      // EXTERNAL LSE, LSERES
 *     .. External Subroutines ..
-      EXTERNAL           SMAKE, SMMCH, STRMM, STRSM
+      // EXTERNAL SMAKE, SMMCH, STRMM, STRSM
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Scalars in Common ..
@@ -1070,9 +1070,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LSE, LSERES;
-      EXTERNAL           LSE, LSERES
+      // EXTERNAL LSE, LSERES
 *     .. External Subroutines ..
-      EXTERNAL           SMAKE, SMMCH, SSYRK
+      // EXTERNAL SMAKE, SMMCH, SSYRK
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Scalars in Common ..
@@ -1311,9 +1311,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LSE, LSERES;
-      EXTERNAL           LSE, LSERES
+      // EXTERNAL LSE, LSERES
 *     .. External Subroutines ..
-      EXTERNAL           SMAKE, SMMCH, SSYR2K
+      // EXTERNAL SMAKE, SMMCH, SSYR2K
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX
 *     .. Scalars in Common ..
@@ -1578,7 +1578,7 @@
 *     .. Local Arrays ..
       REAL               A( 2, 1 ), B( 2, 1 ), C( 2, 1 )
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, SGEMM, SSYMM, SSYR2K, SSYRK, STRMM, STRSM
+      // EXTERNAL CHKXER, SGEMM, SSYMM, SSYR2K, SSYRK, STRMM, STRSM
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
 *     .. Executable Statements ..
@@ -2135,7 +2135,7 @@
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       REAL               SBEG
-      EXTERNAL           SBEG
+      // EXTERNAL SBEG
 *     .. Executable Statements ..
       GEN = TYPE.EQ.'GE'
       SYM = TYPE.EQ.'SY'

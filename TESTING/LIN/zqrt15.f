@@ -31,10 +31,10 @@
 *     ..
 *     .. External Functions ..
       double             DASUM, DLAMCH, DLARND, DZNRM2, ZLANGE;
-      EXTERNAL           DASUM, DLAMCH, DLARND, DZNRM2, ZLANGE
+      // EXTERNAL DASUM, DLAMCH, DLARND, DZNRM2, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAORD, DLASCL, XERBLA, ZDSCAL, ZGEMM, ZLARF, ZLARNV, ZLAROR, ZLASCL, ZLASET
+      // EXTERNAL DLAORD, DLASCL, XERBLA, ZDSCAL, ZGEMM, ZLARF, ZLARNV, ZLAROR, ZLASCL, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCMPLX, MAX, MIN

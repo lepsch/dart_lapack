@@ -25,10 +25,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               SLANGE, SLAMCH, SLARMM
-      EXTERNAL           SLANGE, SLAMCH, SLARMM, ILAENV, LSAME
+      // EXTERNAL SLANGE, SLAMCH, SLARMM, ILAENV, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SLASCL, SSCAL, STRSYL, XERBLA
+      // EXTERNAL SGEMM, SLASCL, SSCAL, STRSYL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, EXPONENT, MAX, MIN, REAL

@@ -22,10 +22,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANGE
-      EXTERNAL           SLAMCH, SLANGE
+      // EXTERNAL SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLASET, SORM2R, XERBLA
+      // EXTERNAL SLASET, SORM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC REAL

@@ -40,7 +40,7 @@
       int                ITER, KASE;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, DGET08, DLACPY, DLARHS, DLASET, DLATB4, DLATMS
+      // EXTERNAL ALAERH, ALAHD, DGET08, DLACPY, DLARHS, DLASET, DLATB4, DLATMS
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN, SQRT

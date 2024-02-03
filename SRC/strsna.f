@@ -32,10 +32,10 @@
 *     .. External Functions ..
       bool               LSAME;
       REAL               SDOT, SLAMCH, SLAPY2, SNRM2
-      EXTERNAL           LSAME, SDOT, SLAMCH, SLAPY2, SNRM2
+      // EXTERNAL LSAME, SDOT, SLAMCH, SLAPY2, SNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACN2, SLACPY, SLAQTR, STREXC, XERBLA
+      // EXTERNAL SLACN2, SLACPY, SLAQTR, STREXC, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

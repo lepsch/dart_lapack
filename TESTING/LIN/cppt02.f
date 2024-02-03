@@ -28,10 +28,10 @@
 *     ..
 *     .. External Functions ..
       REAL               CLANHP, SCASUM, SLAMCH
-      EXTERNAL           CLANHP, SCASUM, SLAMCH
+      // EXTERNAL CLANHP, SCASUM, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHPMV
+      // EXTERNAL CHPMV
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

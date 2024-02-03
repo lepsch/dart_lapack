@@ -22,7 +22,7 @@
       COMPLEX*16         W
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAEV2
+      // EXTERNAL DLAEV2
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCONJG

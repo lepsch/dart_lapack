@@ -34,10 +34,10 @@
 *     .. External Functions ..
       int                IDAMAX;
       double             DLAMCH;
-      EXTERNAL           IDAMAX, DLAMCH
+      // EXTERNAL IDAMAX, DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DSWAP
+      // EXTERNAL DCOPY, DSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

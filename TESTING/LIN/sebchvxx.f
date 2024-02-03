@@ -23,7 +23,7 @@
       REAL               SLAMCH
 
 *     .. External Subroutines ..
-      EXTERNAL           SLAHILB, SGESVXX, SSYSVXX, SPOSVXX, SGBSVXX, SLACPY, LSAMEN
+      // EXTERNAL SLAHILB, SGESVXX, SSYSVXX, SPOSVXX, SGBSVXX, SLACPY, LSAMEN
       bool               LSAMEN;
 
 *     .. Intrinsic Functions ..

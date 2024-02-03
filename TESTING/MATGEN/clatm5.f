@@ -26,7 +26,7 @@
       // INTRINSIC CMPLX, MOD, SIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM
+      // EXTERNAL CGEMM
 *     ..
 *     .. Executable Statements ..
 *

@@ -29,10 +29,10 @@
       bool               LSAME;
       int                ILAENV;
       REAL               CLANHE, SLAMCH, SROUNDUP_LWORK
-      EXTERNAL           ILAENV, LSAME, CLANHE, SLAMCH, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, LSAME, CLANHE, SLAMCH, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHETRD, CLASCL, CSTEQR, CUNGTR, SSCAL, SSTERF, XERBLA
+      // EXTERNAL CHETRD, CLASCL, CSTEQR, CUNGTR, SSCAL, SSTERF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT

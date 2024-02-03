@@ -28,10 +28,10 @@
 *     .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE;
-      EXTERNAL           LSAME, DLAMCH, ZLANGE
+      // EXTERNAL LSAME, DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMM, ZLACPY, ZLARNV, ZLASET, ZUNGQR, ZUNMQR
+      // EXTERNAL ZGEMM, ZLACPY, ZLARNV, ZLASET, ZUNGQR, ZUNMQR
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 );

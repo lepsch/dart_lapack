@@ -48,10 +48,10 @@
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      EXTERNAL           SLAMCH
+      // EXTERNAL SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGET24, CLATME, CLATMR, CLATMS, CLASET, SLASUM, XERBLA
+      // EXTERNAL CGET24, CLATME, CLATMR, CLATMS, CLASET, SLASUM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT

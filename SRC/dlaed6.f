@@ -23,7 +23,7 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      EXTERNAL           DLAMCH
+      // EXTERNAL DLAMCH
 *     ..
 *     .. Local Arrays ..
       double             DSCALE( 3 ), ZSCALE( 3 );

@@ -32,10 +32,10 @@
 *     .. External Functions ..
       double             DLAMCH;
       bool               LSAME, DISNAN;
-      EXTERNAL           DLAMCH, LSAME, DISNAN
+      // EXTERNAL DLAMCH, LSAME, DISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZDSCAL, ZGEMV, ZLACGV, ZSWAP, XERBLA
+      // EXTERNAL ZDSCAL, ZGEMV, ZLACGV, ZSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCONJG, MAX, SQRT

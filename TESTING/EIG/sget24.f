@@ -43,10 +43,10 @@
 *     .. External Functions ..
       bool               SSLECT;
       REAL               SLAMCH, SLANGE
-      EXTERNAL           SSLECT, SLAMCH, SLANGE
+      // EXTERNAL SSLECT, SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEESX, SGEMM, SLACPY, SORT01, XERBLA
+      // EXTERNAL SCOPY, SGEESX, SGEMM, SLACPY, SORT01, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SIGN, SQRT

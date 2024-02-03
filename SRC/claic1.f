@@ -31,7 +31,7 @@
 *     .. External Functions ..
       REAL               SLAMCH
       COMPLEX            CDOTC
-      EXTERNAL           SLAMCH, CDOTC
+      // EXTERNAL SLAMCH, CDOTC
 *     ..
 *     .. Executable Statements ..
 *

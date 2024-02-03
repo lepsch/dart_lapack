@@ -32,10 +32,10 @@
 *     ..
 *     .. External Functions ..
       COMPLEX            CLARND
-      EXTERNAL           CLARND
+      // EXTERNAL CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHDG, ALAREQ, ALASUM, CGLMTS, CLATMS, SLATB9
+      // EXTERNAL ALAHDG, ALAREQ, ALASUM, CGLMTS, CLATMS, SLATB9
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS

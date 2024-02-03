@@ -22,7 +22,7 @@
       REAL   ALPHA
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL  SLARFG, SGEMV, SGER, STRMV, XERBLA
+      // EXTERNAL SLARFG, SGEMV, SGER, STRMV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

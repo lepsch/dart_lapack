@@ -25,7 +25,7 @@
       double             AIK, HUGEVAL, TEMP, TEMP2, TOL3Z;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DGEMV, DLARFG, DSWAP
+      // EXTERNAL DGEMM, DGEMV, DLARFG, DSWAP
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
@@ -34,7 +34,7 @@
       bool               DISNAN;
       int                IDAMAX;
       double             DLAMCH, DNRM2;
-      EXTERNAL           DISNAN, DLAMCH, IDAMAX, DNRM2
+      // EXTERNAL DISNAN, DLAMCH, IDAMAX, DNRM2
 *     ..
 *     .. Executable Statements ..
 *

@@ -22,7 +22,7 @@
 *     ..
 *     .. External Functions ..
       bool               SISNAN;
-      EXTERNAL           SISNAN
+      // EXTERNAL SISNAN
 *     ..
 *     .. External Subroutines ..
       REAL               SLAMCH

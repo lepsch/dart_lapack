@@ -18,7 +18,7 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLASET, CTRSM, CUNMRQ, XERBLA
+      // EXTERNAL CLASET, CTRSM, CUNMRQ, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

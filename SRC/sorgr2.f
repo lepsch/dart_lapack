@@ -21,7 +21,7 @@
       int                I, II, J, L;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLARF, SSCAL, XERBLA
+      // EXTERNAL SLARF, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX

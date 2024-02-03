@@ -34,9 +34,9 @@
 *     .. External Functions ..
       double             DDIFF;
       bool               LZE;
-      EXTERNAL           DDIFF, LZE
+      // EXTERNAL DDIFF, LZE
 *     .. External Subroutines ..
-      EXTERNAL           ZCHK1, ZCHK2, ZCHK3, ZCHK4, ZCHK5, ZCHK6, ZCHKE, ZMVCH
+      // EXTERNAL ZCHK1, ZCHK2, ZCHK3, ZCHK4, ZCHK5, ZCHK6, ZCHKE, ZMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -345,9 +345,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LZE, LZERES;
-      EXTERNAL           LZE, LZERES
+      // EXTERNAL LZE, LZERES
 *     .. External Subroutines ..
-      EXTERNAL           ZGBMV, ZGEMV, ZMAKE, ZMVCH, ZREGR1
+      // EXTERNAL ZGBMV, ZGEMV, ZMAKE, ZMVCH, ZREGR1
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
@@ -662,9 +662,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LZE, LZERES;
-      EXTERNAL           LZE, LZERES
+      // EXTERNAL LZE, LZERES
 *     .. External Subroutines ..
-      EXTERNAL           ZHBMV, ZHEMV, ZHPMV, ZMAKE, ZMVCH
+      // EXTERNAL ZHBMV, ZHEMV, ZHPMV, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -968,9 +968,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LZE, LZERES;
-      EXTERNAL           LZE, LZERES
+      // EXTERNAL LZE, LZERES
 *     .. External Subroutines ..
-      EXTERNAL           ZMAKE, ZMVCH, ZTBMV, ZTBSV, ZTPMV, ZTPSV, ZTRMV, ZTRSV
+      // EXTERNAL ZMAKE, ZMVCH, ZTBMV, ZTBSV, ZTPMV, ZTPSV, ZTRMV, ZTRSV
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
@@ -1269,9 +1269,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LZE, LZERES;
-      EXTERNAL           LZE, LZERES
+      // EXTERNAL LZE, LZERES
 *     .. External Subroutines ..
-      EXTERNAL           ZGERC, ZGERU, ZMAKE, ZMVCH
+      // EXTERNAL ZGERC, ZGERU, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, MAX, MIN
 *     .. Scalars in Common ..
@@ -1514,9 +1514,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LZE, LZERES;
-      EXTERNAL           LZE, LZERES
+      // EXTERNAL LZE, LZERES
 *     .. External Subroutines ..
-      EXTERNAL           ZHER, ZHPR, ZMAKE, ZMVCH
+      // EXTERNAL ZHER, ZHPR, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, MAX
 *     .. Scalars in Common ..
@@ -1772,9 +1772,9 @@
       bool               ISAME( 13 );
 *     .. External Functions ..
       bool               LZE, LZERES;
-      EXTERNAL           LZE, LZERES
+      // EXTERNAL LZE, LZERES
 *     .. External Subroutines ..
-      EXTERNAL           ZHER2, ZHPR2, ZMAKE, ZMVCH
+      // EXTERNAL ZHER2, ZHPR2, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, MAX
 *     .. Scalars in Common ..
@@ -2048,7 +2048,7 @@
 *     .. Local Arrays ..
       COMPLEX*16         A( 1, 1 ), X( 1 ), Y( 1 )
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, ZGBMV, ZGEMV, ZGERC, ZGERU, ZHBMV, ZHEMV, ZHER, ZHER2, ZHPMV, ZHPR, ZHPR2, ZTBMV, ZTBSV, ZTPMV, ZTPSV, ZTRMV, ZTRSV
+      // EXTERNAL CHKXER, ZGBMV, ZGEMV, ZGERC, ZGERU, ZHBMV, ZHEMV, ZHER, ZHER2, ZHPMV, ZHPR, ZHPR2, ZTBMV, ZTBSV, ZTPMV, ZTPSV, ZTRMV, ZTRSV
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
 *     .. Executable Statements ..
@@ -2400,7 +2400,7 @@
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       COMPLEX*16         ZBEG
-      EXTERNAL           ZBEG
+      // EXTERNAL ZBEG
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, DCONJG, MAX, MIN
 *     .. Executable Statements ..

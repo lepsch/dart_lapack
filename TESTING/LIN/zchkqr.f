@@ -38,10 +38,10 @@
 *     ..
 *     .. External Functions ..
       bool               ZGENND;
-      EXTERNAL           ZGENND
+      // EXTERNAL ZGENND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, XLAENV, ZERRQR, ZGELS, ZGET02, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZQRT01, ZQRT01P, ZQRT02, ZQRT03
+      // EXTERNAL ALAERH, ALAHD, ALASUM, XLAENV, ZERRQR, ZGELS, ZGET02, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZQRT01, ZQRT01P, ZQRT02, ZQRT03
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

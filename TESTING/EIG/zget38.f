@@ -35,10 +35,10 @@
 *     ..
 *     .. External Functions ..
       double             DLAMCH, ZLANGE;
-      EXTERNAL           DLAMCH, ZLANGE
+      // EXTERNAL DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZDSCAL, ZGEHRD, ZHSEQR, ZHST01, ZLACPY, ZTRSEN, ZUNGHR
+      // EXTERNAL ZDSCAL, ZGEHRD, ZHSEQR, ZHST01, ZLACPY, ZTRSEN, ZUNGHR
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC DBLE, DIMAG, MAX, SQRT

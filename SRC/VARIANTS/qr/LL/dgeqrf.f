@@ -18,7 +18,7 @@
       int                I, IB, IINFO, IWS, J, K, LWKOPT, NB, NBMIN, NX, LBWORK, NT, LLWORK;
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEQR2, DLARFB, DLARFT, XERBLA
+      // EXTERNAL DGEQR2, DLARFB, DLARFT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       // INTRINSIC CEILING, MAX, MIN, REAL
@@ -26,7 +26,7 @@
 *     .. External Functions ..
       int                ILAENV;
       double             DROUNDUP_LWORK;
-      EXTERNAL           ILAENV, DROUNDUP_LWORK
+      // EXTERNAL ILAENV, DROUNDUP_LWORK
 *     ..
 *     .. Executable Statements ..
 
