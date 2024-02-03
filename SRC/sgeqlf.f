@@ -53,7 +53,7 @@
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 
          if ( .NOT.LQUERY ) {
-            IF( LWORK.LE.0 .OR. ( M.GT.0 && LWORK.LT.MAX( 1, N ) ) ) INFO = -7
+            IF( LWORK.LE.0 || ( M.GT.0 && LWORK.LT.MAX( 1, N ) ) ) INFO = -7
          }
       }
 

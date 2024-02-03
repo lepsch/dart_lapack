@@ -37,7 +37,7 @@
       // Print the header if this is the first error message.
 
       if ( NFAIL == 0 && NERRS == 0 ) {
-         if ( LSAMEN( 3, C3, 'SV ' ) .OR. LSAMEN( 3, C3, 'SVX' ) ) {
+         if ( LSAMEN( 3, C3, 'SV ' ) || LSAMEN( 3, C3, 'SVX' ) ) {
             aladhd(NOUT, PATH );
          } else {
             alahd(NOUT, PATH );
@@ -92,7 +92,7 @@
 
             WRITE( NOUT, FMT = 9965 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, N, KL, N5, IMAT
 
-         } else if ( LSAMEN( 3, C3, 'LSX' ) .OR. LSAMEN( 3, C3, 'LSS' ) ) {
+         } else if ( LSAMEN( 3, C3, 'LSX' ) || LSAMEN( 3, C3, 'LSS' ) ) {
 
             WRITE( NOUT, FMT = 9974 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT
 
@@ -212,7 +212,7 @@
 
             WRITE( NOUT, FMT = 9956 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT
 
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) .OR. LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) || LSAMEN( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9960 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, IMAT
 
@@ -254,7 +254,7 @@
 
             WRITE( NOUT, FMT = 9956 )SUBNAM, INFO, UPLO, M, N5, IMAT
 
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMT' ) .OR. LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMT' ) || LSAMEN( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9960 )SUBNAM, INFO, UPLO, M, IMAT
 
@@ -263,7 +263,7 @@
             WRITE( NOUT, FMT = 9955 )SUBNAM, INFO, UPLO, M, N5, IMAT
          }
 
-      } else if ( LSAMEN( 2, P2, 'SY' ) .OR. LSAMEN( 2, P2, 'SR' ) .OR. LSAMEN( 2, P2, 'SK' ) .OR. LSAMEN( 2, P2, 'HE' ) .OR. LSAMEN( 2, P2, 'HR' ) .OR. LSAMEN( 2, P2, 'HK' ) .OR. LSAMEN( 2, P2, 'HA' ) ) {
+      } else if ( LSAMEN( 2, P2, 'SY' ) || LSAMEN( 2, P2, 'SR' ) || LSAMEN( 2, P2, 'SK' ) || LSAMEN( 2, P2, 'HE' ) || LSAMEN( 2, P2, 'HR' ) || LSAMEN( 2, P2, 'HK' ) || LSAMEN( 2, P2, 'HA' ) ) {
 
          // xSY: symmetric indefinite matrices
               // with partial (Bunch-Kaufman) pivoting;
@@ -307,7 +307,7 @@
                WRITE( NOUT, FMT = 9995 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             }
 
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) .OR. LSAMEN( 3, C3, 'TRI' ) .OR. LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) || LSAMEN( 3, C3, 'TRI' ) || LSAMEN( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9960 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, IMAT
 
@@ -316,7 +316,7 @@
             WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT
          }
 
-      } else if ( LSAMEN( 2, P2, 'PP' ) .OR. LSAMEN( 2, P2, 'SP' ) .OR. LSAMEN( 2, P2, 'HP' ) ) {
+      } else if ( LSAMEN( 2, P2, 'PP' ) || LSAMEN( 2, P2, 'SP' ) || LSAMEN( 2, P2, 'HP' ) ) {
 
          // xPP, xHP, or xSP:  Symmetric or Hermitian packed matrices
 
@@ -345,7 +345,7 @@
                WRITE( NOUT, FMT = 9995 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             }
 
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) .OR. LSAMEN( 3, C3, 'TRI' ) .OR. LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) || LSAMEN( 3, C3, 'TRI' ) || LSAMEN( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9960 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, IMAT
 
@@ -383,7 +383,7 @@
                WRITE( NOUT, FMT = 9996 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, N5, IMAT
             }
 
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) .OR. LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) || LSAMEN( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9959 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, KL, IMAT
 
@@ -422,7 +422,7 @@
 
          } else if ( LSAMEN( 3, C3, 'CON' ) ) {
 
-            IF( LSAME( SUBNAM( 1: 1 ), 'S' ) .OR. LSAME( SUBNAM( 1: 1 ), 'D' ) ) THEN                WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, IMAT
+            IF( LSAME( SUBNAM( 1: 1 ), 'S' ) || LSAME( SUBNAM( 1: 1 ), 'D' ) ) THEN                WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, IMAT
             } else {
                WRITE( NOUT, FMT = 9969 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, IMAT
             }

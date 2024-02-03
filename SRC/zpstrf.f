@@ -66,7 +66,7 @@
       // Get block size
 
       NB = ILAENV( 1, 'ZPOTRF', UPLO, N, -1, -1, -1 )
-      if ( NB.LE.1 .OR. NB.GE.N ) {
+      if ( NB.LE.1 || NB.GE.N ) {
 
          // Use unblocked code
 
@@ -88,7 +88,7 @@
          } // 110
          PVT = MAXLOC( WORK( 1:N ), 1 )
          AJJ = DBLE( A( PVT, PVT ) )
-         if ( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) {
+         if ( AJJ.LE.ZERO || DISNAN( AJJ ) ) {
             RANK = 0
             INFO = 1
             GO TO 230
@@ -139,7 +139,7 @@
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                      PVT = ITEMP + J - 1
                      AJJ = WORK( N+PVT )
-                     if ( AJJ.LE.DSTOP.OR.DISNAN( AJJ ) ) {
+                     if ( AJJ.LE.DSTOP || DISNAN( AJJ ) ) {
                         A( J, J ) = AJJ
                         GO TO 220
                      }
@@ -227,7 +227,7 @@
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                      PVT = ITEMP + J - 1
                      AJJ = WORK( N+PVT )
-                     if ( AJJ.LE.DSTOP.OR.DISNAN( AJJ ) ) {
+                     if ( AJJ.LE.DSTOP || DISNAN( AJJ ) ) {
                         A( J, J ) = AJJ
                         GO TO 220
                      }

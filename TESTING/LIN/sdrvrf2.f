@@ -136,7 +136,7 @@
                   }
                }
 
-               if (( .NOT.OK1 ).OR.( .NOT.OK2 )) {
+               if (( .NOT.OK1 ) || ( .NOT.OK2 )) {
                   if ( NERRS == 0 ) {
                      WRITE( NOUT, * )
                      WRITE( NOUT, FMT = 9999 )

@@ -54,7 +54,7 @@
       NORMA = 'O'
       NORME = 'O'
 
-      if ( LSAME( TRANSA, 'T' ) .OR. LSAME( TRANSA, 'C' ) ) {
+      if ( LSAME( TRANSA, 'T' ) || LSAME( TRANSA, 'C' ) ) {
          NORMA = 'I'
       }
 

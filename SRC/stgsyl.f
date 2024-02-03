@@ -50,7 +50,7 @@
       if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
-         if ( ( IJOB.LT.0 ) .OR. ( IJOB.GT.4 ) ) {
+         if ( ( IJOB.LT.0 ) || ( IJOB.GT.4 ) ) {
             INFO = -2
          }
       }
@@ -76,7 +76,7 @@
 
       if ( INFO == 0 ) {
          if ( NOTRAN ) {
-            if ( IJOB == 1 .OR. IJOB == 2 ) {
+            if ( IJOB == 1 || IJOB == 2 ) {
                LWMIN = MAX( 1, 2*M*N )
             } else {
                LWMIN = 1
@@ -100,7 +100,7 @@
 
       // Quick return if possible
 
-      if ( M == 0 .OR. N == 0 ) {
+      if ( M == 0 || N == 0 ) {
          SCALE = 1
          if ( NOTRAN ) {
             if ( IJOB != 0 ) {
@@ -127,7 +127,7 @@
          }
       }
 
-      if ( ( MB.LE.1 && NB.LE.1 ) .OR. ( MB.GE.M && NB.GE.N ) ) {
+      if ( ( MB.LE.1 && NB.LE.1 ) || ( MB.GE.M && NB.GE.N ) ) {
 
          for (IROUND = 1; IROUND <= ISOLVE; IROUND++) { // 30
 
@@ -138,7 +138,7 @@
             PQ = 0
             stgsy2(TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, IWORK, PQ, INFO );
             if ( DSCALE != ZERO ) {
-               if ( IJOB == 1 .OR. IJOB == 3 ) {
+               if ( IJOB == 1 || IJOB == 3 ) {
                   DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
                } else {
                   DIF = SQRT( REAL( PQ ) ) / ( DSCALE*SQRT( DSUM ) )
@@ -256,7 +256,7 @@
                } // 120
             } // 130
             if ( DSCALE != ZERO ) {
-               if ( IJOB == 1 .OR. IJOB == 3 ) {
+               if ( IJOB == 1 || IJOB == 3 ) {
                   DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
                } else {
                   DIF = SQRT( REAL( PQ ) ) / ( DSCALE*SQRT( DSUM ) )

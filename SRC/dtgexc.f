@@ -40,13 +40,13 @@
          INFO = -5
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDQ.LT.1 .OR. WANTQ && ( LDQ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDQ.LT.1 || WANTQ && ( LDQ.LT.MAX( 1, N ) ) ) {
          INFO = -9
-      } else if ( LDZ.LT.1 .OR. WANTZ && ( LDZ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDZ.LT.1 || WANTZ && ( LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -11
-      } else if ( IFST.LT.1 .OR. IFST.GT.N ) {
+      } else if ( IFST.LT.1 || IFST.GT.N ) {
          INFO = -12
-      } else if ( ILST.LT.1 .OR. ILST.GT.N ) {
+      } else if ( ILST.LT.1 || ILST.GT.N ) {
          INFO = -13
       }
 
@@ -109,7 +109,7 @@
 
          // Swap with next one below.
 
-         if ( NBF == 1 .OR. NBF == 2 ) {
+         if ( NBF == 1 || NBF == 2 ) {
 
             // Current block either 1-by-1 or 2-by-2.
 
@@ -198,7 +198,7 @@
 
          // Swap with next one below.
 
-         if ( NBF == 1 .OR. NBF == 2 ) {
+         if ( NBF == 1 || NBF == 2 ) {
 
             // Current block either 1-by-1 or 2-by-2.
 

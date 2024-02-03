@@ -79,7 +79,7 @@
         INFO = -3
       } else if ( N.LT.0 ) {
         INFO = -4
-      } else if ( K.LT.0 .OR. K.GT.MN ) {
+      } else if ( K.LT.0 || K.GT.MN ) {
         INFO = -5
       } else if ( LDA.LT.MAX( 1, K ) ) {
         INFO = -7
@@ -108,7 +108,7 @@
         RETURN
       }
 
-      IF( ( LEFT && M.LE.K ) .OR. ( RIGHT && N.LE.K ) .OR. ( NB.LE.K ) .OR. ( NB.GE.MAX( M, N, K ) ) ) THEN         CALL SGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO )
+      IF( ( LEFT && M.LE.K ) || ( RIGHT && N.LE.K ) || ( NB.LE.K ) || ( NB.GE.MAX( M, N, K ) ) ) THEN         CALL SGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO )
       } else {
         slamswlq(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), MB, C, LDC, WORK, LWORK, INFO );
       }

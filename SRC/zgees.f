@@ -60,7 +60,7 @@
          INFO = -4
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVS.LT.1 .OR. ( WANTVS && LDVS.LT.N ) ) {
+      } else if ( LDVS.LT.1 || ( WANTVS && LDVS.LT.N ) ) {
          INFO = -10
       }
 

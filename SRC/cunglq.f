@@ -45,7 +45,7 @@
          INFO = -1
       } else if ( N.LT.M ) {
          INFO = -2
-      } else if ( K.LT.0 .OR. K.GT.M ) {
+      } else if ( K.LT.0 || K.GT.M ) {
          INFO = -3
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5

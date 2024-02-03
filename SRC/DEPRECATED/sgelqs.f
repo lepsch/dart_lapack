@@ -30,7 +30,7 @@
       INFO = 0
       if ( M.LT.0 ) {
          INFO = -1
-      } else if ( N.LT.0 .OR. M.GT.N ) {
+      } else if ( N.LT.0 || M.GT.N ) {
          INFO = -2
       } else if ( NRHS.LT.0 ) {
          INFO = -3
@@ -38,7 +38,7 @@
          INFO = -5
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LWORK.LT.1 .OR. LWORK.LT.NRHS && M.GT.0 && N.GT.0 ) {
+      } else if ( LWORK.LT.1 || LWORK.LT.NRHS && M.GT.0 && N.GT.0 ) {
          INFO = -10
       }
       if ( INFO != 0 ) {
@@ -48,7 +48,7 @@
 
       // Quick return if possible
 
-      if (N == 0 .OR. NRHS == 0 .OR. M == 0) RETURN;
+      if (N == 0 || NRHS == 0 || M == 0) RETURN;
 
       // Solve L*X = B(1:m,:)
 

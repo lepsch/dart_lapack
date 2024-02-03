@@ -81,7 +81,7 @@
 
       // Treat case of 1x1 matrix for quick return
       if ( N == 1 ) {
-         if ( (IRANGE == ALLRNG).OR. ((IRANGE == VALRNG) && (D(1).GT.VL) && (D(1).LE.VU)).OR. ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
+         if ( (IRANGE == ALLRNG) || ((IRANGE == VALRNG) && (D(1).GT.VL) && (D(1).LE.VU)) || ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
             M = 1
             W(1) = D(1)
             // The computation error of the eigenvalue is zero
@@ -173,7 +173,7 @@
 
          // 1 X 1 block
          if ( IN == 1 ) {
-            if ( (IRANGE == ALLRNG).OR.( (IRANGE == VALRNG) && ( D( IBEGIN ).GT.VL ) && ( D( IBEGIN ).LE.VU ) ) .OR. ( (IRANGE == INDRNG) && (IBLOCK(WBEGIN) == JBLK)) ) {
+            if ( (IRANGE == ALLRNG) || ( (IRANGE == VALRNG) && ( D( IBEGIN ).GT.VL ) && ( D( IBEGIN ).LE.VU ) ) || ( (IRANGE == INDRNG) && (IBLOCK(WBEGIN) == JBLK)) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
@@ -240,7 +240,7 @@
                INDU = INDEXW( WEND )
             }
          }
-         if (( (IRANGE == ALLRNG) && (.NOT. FORCEB) ).OR.USEDQD) {
+         if (( (IRANGE == ALLRNG) && (.NOT. FORCEB) ) || USEDQD) {
             // Case of DQDS
             // Find approximations to the extremal eigenvalues of the block
             slarrk(IN, 1, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );

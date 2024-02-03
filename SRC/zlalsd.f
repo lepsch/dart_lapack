@@ -48,7 +48,7 @@
          INFO = -3
       } else if ( NRHS.LT.1 ) {
          INFO = -4
-      } else if ( ( LDB.LT.1 ) .OR. ( LDB.LT.N ) ) {
+      } else if ( ( LDB.LT.1 ) || ( LDB.LT.N ) ) {
          INFO = -8
       }
       if ( INFO != 0 ) {
@@ -60,7 +60,7 @@
 
       // Set up the tolerance.
 
-      if ( ( RCOND.LE.ZERO ) .OR. ( RCOND.GE.ONE ) ) {
+      if ( ( RCOND.LE.ZERO ) || ( RCOND.GE.ONE ) ) {
          RCND = EPS
       } else {
          RCND = RCOND
@@ -262,7 +262,7 @@
       } // 170
 
       for (I = 1; I <= NM1; I++) { // 240
-         if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I == NM1 ) ) {
+         if ( ( ABS( E( I ) ).LT.EPS ) || ( I == NM1 ) ) {
             NSUB = NSUB + 1
             IWORK( NSUB ) = ST
 

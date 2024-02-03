@@ -223,7 +223,7 @@
                RESULT( 7 ) = ZERO
                for (IJU = 0; IJU <= 3; IJU++) { // 80
                   for (IJVT = 0; IJVT <= 3; IJVT++) { // 70
-                     IF( ( IJU == 3 && IJVT == 3 ) .OR. ( IJU == 1 && IJVT == 1 ) )GO TO 70
+                     IF( ( IJU == 3 && IJVT == 3 ) || ( IJU == 1 && IJVT == 1 ) )GO TO 70
                      JOBU = CJOB( IJU+1 )
                      JOBVT = CJOB( IJVT+1 )
                      slacpy('F', M, N, ASAV, LDA, A, LDA );
@@ -532,7 +532,7 @@
                RESULT( 29 ) = ZERO
                for (IJU = 0; IJU <= 1; IJU++) { // 180
                   for (IJVT = 0; IJVT <= 1; IJVT++) { // 170
-                     IF( ( IJU == 0 && IJVT == 0 ) .OR. ( IJU == 1 && IJVT == 1 ) )GO TO 170
+                     IF( ( IJU == 0 && IJVT == 0 ) || ( IJU == 1 && IJVT == 1 ) )GO TO 170
                      JOBU = CJOBV( IJU+1 )
                      JOBVT = CJOBV( IJVT+1 )
                      RANGE = CJOBR( 1 )

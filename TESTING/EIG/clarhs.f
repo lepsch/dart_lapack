@@ -43,20 +43,20 @@
       INFO = 0
       C1 = PATH( 1: 1 )
       C2 = PATH( 2: 3 )
-      TRAN = LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' )
+      TRAN = LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' )
       NOTRAN = .NOT.TRAN
       GEN = LSAME( PATH( 2: 2 ), 'G' )
-      QRS = LSAME( PATH( 2: 2 ), 'Q' ) .OR. LSAME( PATH( 3: 3 ), 'Q' )
-      SYM = LSAME( PATH( 2: 2 ), 'P' ) .OR. LSAME( PATH( 2: 2 ), 'S' ) .OR. LSAME( PATH( 2: 2 ), 'H' )
+      QRS = LSAME( PATH( 2: 2 ), 'Q' ) || LSAME( PATH( 3: 3 ), 'Q' )
+      SYM = LSAME( PATH( 2: 2 ), 'P' ) || LSAME( PATH( 2: 2 ), 'S' ) || LSAME( PATH( 2: 2 ), 'H' )
       TRI = LSAME( PATH( 2: 2 ), 'T' )
       BAND = LSAME( PATH( 3: 3 ), 'B' )
       if ( .NOT.LSAME( C1, 'Complex precision' ) ) {
          INFO = -1
-      } else if ( .NOT.( LSAME( XTYPE, 'N' ) .OR. LSAME( XTYPE, 'C' ) ) ) {
+      } else if ( .NOT.( LSAME( XTYPE, 'N' ) || LSAME( XTYPE, 'C' ) ) ) {
          INFO = -2
-      } else if ( ( SYM .OR. TRI ) && .NOT. ( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) {
+      } else if ( ( SYM || TRI ) && .NOT. ( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
          INFO = -3
-      } else if ( ( GEN.OR.QRS ) && .NOT.( TRAN .OR. LSAME( TRANS, 'N' ) ) ) {
+      } else if ( ( GEN || QRS ) && .NOT.( TRAN || LSAME( TRANS, 'N' ) ) ) {
          INFO = -4
       } else if ( M.LT.0 ) {
          INFO = -5
@@ -68,11 +68,11 @@
          INFO = -8
       } else if ( NRHS.LT.0 ) {
          INFO = -9
-      } else if ( ( .NOT.BAND && LDA.LT.MAX( 1, M ) ) .OR. ( BAND && ( SYM .OR. TRI ) && LDA.LT.KL+1 ) .OR. ( BAND && GEN && LDA.LT.KL+KU+1 ) ) {
+      } else if ( ( .NOT.BAND && LDA.LT.MAX( 1, M ) ) || ( BAND && ( SYM || TRI ) && LDA.LT.KL+1 ) || ( BAND && GEN && LDA.LT.KL+KU+1 ) ) {
          INFO = -11
-      } else if ( ( NOTRAN && LDX.LT.MAX( 1, N ) ) .OR. ( TRAN && LDX.LT.MAX( 1, M ) ) ) {
+      } else if ( ( NOTRAN && LDX.LT.MAX( 1, N ) ) || ( TRAN && LDX.LT.MAX( 1, M ) ) ) {
          INFO = -13
-      } else if ( ( NOTRAN && LDB.LT.MAX( 1, M ) ) .OR. ( TRAN && LDB.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NOTRAN && LDB.LT.MAX( 1, M ) ) || ( TRAN && LDB.LT.MAX( 1, N ) ) ) {
          INFO = -15
       }
       if ( INFO != 0 ) {
@@ -98,13 +98,13 @@
       // Multiply X by op(A) using an appropriate
       // matrix multiply routine.
 
-      if ( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR. LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) {
+      if ( LSAMEN( 2, C2, 'GE' ) || LSAMEN( 2, C2, 'QR' ) || LSAMEN( 2, C2, 'LQ' ) || LSAMEN( 2, C2, 'QL' ) || LSAMEN( 2, C2, 'RQ' ) ) {
 
          // General matrix
 
          cgemm(TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX, ZERO, B, LDB );
 
-      } else if ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'HE' ) ) {
+      } else if ( LSAMEN( 2, C2, 'PO' ) || LSAMEN( 2, C2, 'HE' ) ) {
 
          // Hermitian matrix, 2-D storage
 
@@ -124,7 +124,7 @@
             cgbmv(TRANS, M, N, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
          } // 20
 
-      } else if ( LSAMEN( 2, C2, 'PB' ) .OR. LSAMEN( 2, C2, 'HB' ) ) {
+      } else if ( LSAMEN( 2, C2, 'PB' ) || LSAMEN( 2, C2, 'HB' ) ) {
 
          // Hermitian matrix, band storage
 
@@ -140,7 +140,7 @@
             csbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
          } // 40
 
-      } else if ( LSAMEN( 2, C2, 'PP' ) .OR. LSAMEN( 2, C2, 'HP' ) ) {
+      } else if ( LSAMEN( 2, C2, 'PP' ) || LSAMEN( 2, C2, 'HP' ) ) {
 
          // Hermitian matrix, packed storage
 

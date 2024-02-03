@@ -34,11 +34,11 @@ void main() {
          PASS = true;
          INCX = 9999
          INCY = 9999
-         if (ICASE == 3 .OR. ICASE == 11) {
+         if (ICASE == 3 || ICASE == 11) {
             check0(SFAC);
-         } else if (ICASE == 7 .OR. ICASE == 8 .OR. ICASE == 9 .OR. ICASE == 10) {
+         } else if (ICASE == 7 || ICASE == 8 || ICASE == 9 || ICASE == 10) {
             check1(SFAC);
-         } else if (ICASE == 1 .OR. ICASE == 2 .OR. ICASE == 5 .OR. ICASE == 6 .OR. ICASE == 12 .OR. ICASE == 13) {
+         } else if (ICASE == 1 || ICASE == 2 || ICASE == 5 || ICASE == 6 || ICASE == 12 || ICASE == 13) {
             check2(SFAC);
          } else if (ICASE == 4) {
             check3(SFAC);
@@ -852,7 +852,7 @@ void main() {
             // for YMIN == YMAX avoids further computation if both
             // are infinity.
 
-            if ((Y1 != Y1).OR.(Y2 != Y2)) {
+            if ((Y1 != Y1) || (Y2 != Y2)) {
                // add to propagate NaN
                YNRM = Y1 + Y2
             } else if (YMIN == YMAX) {
@@ -890,7 +890,7 @@ void main() {
 
             // The tests for NaN rely on the compiler not being overly
             // aggressive and removing the statements altogether.
-            if ((SNRM != SNRM).OR.(ZNRM != ZNRM)) {
+            if ((SNRM != SNRM) || (ZNRM != ZNRM)) {
                if ((SNRM != SNRM).NEQV.(ZNRM != ZNRM)) {
                   TRAT = ONE / ULP
                } else {
@@ -903,7 +903,7 @@ void main() {
             } else {
                TRAT = (ABS(SNRM-ZNRM) / ZNRM) / (REAL(N)*ULP)
             }
-            if ((TRAT != TRAT).OR.(TRAT.GE.THRESH)) {
+            if ((TRAT != TRAT) || (TRAT.GE.THRESH)) {
                if (FIRST) {
                   FIRST = false;
                   WRITE(NOUT,99999)

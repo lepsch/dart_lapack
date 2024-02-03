@@ -42,9 +42,9 @@
 
          ANORM = ABS( D( N ) )
          for (I = 1; I <= N - 1; I++) { // 10
-            IF( ANORM.LT.ABS( DL( I ) ) .OR. SISNAN( ABS( DL( I ) ) ) ) ANORM = ABS(DL(I))             IF( ANORM.LT.ABS( D( I ) ) .OR. SISNAN( ABS( D( I ) ) ) ) ANORM = ABS(D(I))             IF( ANORM.LT.ABS( DU( I ) ) .OR. SISNAN (ABS( DU( I ) ) ) ) ANORM = ABS(DU(I))
+            IF( ANORM.LT.ABS( DL( I ) ) || SISNAN( ABS( DL( I ) ) ) ) ANORM = ABS(DL(I))             IF( ANORM.LT.ABS( D( I ) ) || SISNAN( ABS( D( I ) ) ) ) ANORM = ABS(D(I))             IF( ANORM.LT.ABS( DU( I ) ) || SISNAN (ABS( DU( I ) ) ) ) ANORM = ABS(DU(I))
          } // 10
-      } else if ( LSAME( NORM, 'O' ) .OR. NORM == '1' ) {
+      } else if ( LSAME( NORM, 'O' ) || NORM == '1' ) {
 
          // Find norm1(A).
 
@@ -53,10 +53,10 @@
          } else {
             ANORM = ABS( D( 1 ) )+ABS( DL( 1 ) )
             TEMP = ABS( D( N ) )+ABS( DU( N-1 ) )
-            IF( ANORM .LT. TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
+            IF( ANORM .LT. TEMP || SISNAN( TEMP ) ) ANORM = TEMP
             for (I = 2; I <= N - 1; I++) { // 20
                TEMP = ABS( D( I ) )+ABS( DL( I ) )+ABS( DU( I-1 ) )
-               IF( ANORM .LT. TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
+               IF( ANORM .LT. TEMP || SISNAN( TEMP ) ) ANORM = TEMP
             } // 20
          }
       } else if ( LSAME( NORM, 'I' ) ) {
@@ -68,13 +68,13 @@
          } else {
             ANORM = ABS( D( 1 ) )+ABS( DU( 1 ) )
             TEMP = ABS( D( N ) )+ABS( DL( N-1 ) )
-            IF( ANORM .LT. TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
+            IF( ANORM .LT. TEMP || SISNAN( TEMP ) ) ANORM = TEMP
             for (I = 2; I <= N - 1; I++) { // 30
                TEMP = ABS( D( I ) )+ABS( DU( I ) )+ABS( DL( I-1 ) )
-               IF( ANORM .LT. TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
+               IF( ANORM .LT. TEMP || SISNAN( TEMP ) ) ANORM = TEMP
             } // 30
          }
-      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
+      } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 

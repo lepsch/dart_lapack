@@ -55,14 +55,14 @@
       MNTHR2 = INT( MINMN*5.0D0 / 3.0D0 )
       WNTQA  = LSAME( JOBZ, 'A' )
       WNTQS  = LSAME( JOBZ, 'S' )
-      WNTQAS = WNTQA .OR. WNTQS
+      WNTQAS = WNTQA || WNTQS
       WNTQO  = LSAME( JOBZ, 'O' )
       WNTQN  = LSAME( JOBZ, 'N' )
       LQUERY = ( LWORK == -1 )
       MINWRK = 1
       MAXWRK = 1
 
-      if ( .NOT.( WNTQA .OR. WNTQS .OR. WNTQO .OR. WNTQN ) ) {
+      if ( .NOT.( WNTQA || WNTQS || WNTQO || WNTQN ) ) {
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -2
@@ -70,9 +70,9 @@
          INFO = -3
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      } else if ( LDU.LT.1 .OR. ( WNTQAS && LDU.LT.M ) .OR. ( WNTQO && M.LT.N && LDU.LT.M ) ) {
+      } else if ( LDU.LT.1 || ( WNTQAS && LDU.LT.M ) || ( WNTQO && M.LT.N && LDU.LT.M ) ) {
          INFO = -8
-      } else if ( LDVT.LT.1 .OR. ( WNTQA && LDVT.LT.N ) .OR. ( WNTQS && LDVT.LT.MINMN ) .OR. ( WNTQO && M.GE.N && LDVT.LT.N ) ) {
+      } else if ( LDVT.LT.1 || ( WNTQA && LDVT.LT.N ) || ( WNTQS && LDVT.LT.MINMN ) || ( WNTQO && M.GE.N && LDVT.LT.N ) ) {
          INFO = -10
       }
 
@@ -366,7 +366,7 @@
 
       // Quick return if possible
 
-      if ( M == 0 .OR. N == 0 ) {
+      if ( M == 0 || N == 0 ) {
          RETURN
       }
 

@@ -54,7 +54,7 @@
 
       // Quick return if possible
 
-      if (M == 0 .OR. N == 0) RETURN;
+      if (M == 0 || N == 0) RETURN;
 
       // Decode DIST
 
@@ -127,7 +127,7 @@
       MR = MIN( M, N+LLB )
       NC = MIN( N, M+UUB )
 
-      if ( IPACK == 5 .OR. IPACK == 6 ) {
+      if ( IPACK == 5 || IPACK == 6 ) {
          MINLDA = UUB + 1
       } else if ( IPACK == 7 ) {
          MINLDA = LLB + UUB + 1
@@ -164,9 +164,9 @@
          INFO = -8
       } else if ( KL.LT.0 ) {
          INFO = -10
-      } else if ( KU.LT.0 .OR. ( ISYM != 1 && KL != KU ) ) {
+      } else if ( KU.LT.0 || ( ISYM != 1 && KL != KU ) ) {
          INFO = -11
-      } else if ( IPACK == -1 .OR. ( ISYMPK == 1 && ISYM == 1 ) .OR. ( ISYMPK == 2 && ISYM == 1 && KL.GT.0 ) .OR. ( ISYMPK == 3 && ISYM == 1 && KU.GT.0 ) .OR. ( ISYMPK != 0 && M != N ) ) {
+      } else if ( IPACK == -1 || ( ISYMPK == 1 && ISYM == 1 ) || ( ISYMPK == 2 && ISYM == 1 && KL.GT.0 ) || ( ISYMPK == 3 && ISYM == 1 && KU.GT.0 ) || ( ISYMPK != 0 && M != N ) ) {
          INFO = -12
       } else if ( LDA.LT.MAX( 1, MINLDA ) ) {
          INFO = -14
@@ -263,7 +263,7 @@
             A( ( 1-ISKEW )*J+IOFFST, J ) = DCMPLX( D( J ) )
          } // 120
 
-         if (IPACK.LE.2 .OR. IPACK.GE.5) IPACKG = IPACK;
+         if (IPACK.LE.2 || IPACK.GE.5) IPACKG = IPACK;
 
       } else if ( GIVENS ) {
 
@@ -808,7 +808,7 @@
          // Symmetric/Triangular Packed --
          // zero out everything after A(IROW,ICOL)
 
-         if ( IPACK == 3 .OR. IPACK == 4 ) {
+         if ( IPACK == 3 || IPACK == 4 ) {
             for (JC = ICOL; JC <= M; JC++) { // 580
                for (JR = IROW + 1; JR <= LDA; JR++) { // 570
                   A( JR, JC ) = CZERO

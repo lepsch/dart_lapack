@@ -73,7 +73,7 @@
             WORK( 1 ) = MAX( 1, N*NB )
          }
       }
-      if ( TQUERY .OR. WQUERY ) {
+      if ( TQUERY || WQUERY ) {
          RETURN
       }
 

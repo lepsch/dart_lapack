@@ -22,7 +22,7 @@
       // EXTERNAL SCABS1
       // ..
       ICAMAX = 0
-      if (N.LT.1 .OR. INCX.LE.0) RETURN;
+      if (N.LT.1 || INCX.LE.0) RETURN;
       ICAMAX = 1
       if (N == 1) RETURN;
       if (INCX == 1) {

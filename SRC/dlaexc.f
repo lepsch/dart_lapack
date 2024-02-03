@@ -45,7 +45,7 @@
 
       // Quick return if possible
 
-      if (N == 0 .OR. N1 == 0 .OR. N2 == 0) RETURN       IF( J1+N1.GT.N ) RETURN;
+      if (N == 0 || N1 == 0 || N2 == 0) RETURN       IF( J1+N1.GT.N ) RETURN;
 
       J2 = J1 + 1
       J3 = J1 + 2

@@ -65,7 +65,7 @@
             // Compute U(J,J) and test for non-positive-definiteness.
 
             AJJ = A( J, J ) - SDOT( J-1, A( 1, J ), 1, A( 1, J ), 1 )
-            if ( AJJ.LE.ZERO.OR.SISNAN( AJJ ) ) {
+            if ( AJJ.LE.ZERO || SISNAN( AJJ ) ) {
                A( J, J ) = AJJ
                GO TO 30
             }
@@ -88,7 +88,7 @@
             // Compute L(J,J) and test for non-positive-definiteness.
 
             AJJ = A( J, J ) - SDOT( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA )
-            if ( AJJ.LE.ZERO.OR.SISNAN( AJJ ) ) {
+            if ( AJJ.LE.ZERO || SISNAN( AJJ ) ) {
                A( J, J ) = AJJ
                GO TO 30
             }

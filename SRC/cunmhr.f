@@ -56,9 +56,9 @@
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
-      } else if ( ILO.LT.1 .OR. ILO.GT.MAX( 1, NQ ) ) {
+      } else if ( ILO.LT.1 || ILO.GT.MAX( 1, NQ ) ) {
          INFO = -5
-      } else if ( IHI.LT.MIN( ILO, NQ ) .OR. IHI.GT.NQ ) {
+      } else if ( IHI.LT.MIN( ILO, NQ ) || IHI.GT.NQ ) {
          INFO = -6
       } else if ( LDA.LT.MAX( 1, NQ ) ) {
          INFO = -8
@@ -87,7 +87,7 @@
 
       // Quick return if possible
 
-      if ( M == 0 .OR. N == 0 .OR. NH == 0 ) {
+      if ( M == 0 || N == 0 || NH == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }

@@ -65,7 +65,7 @@
 
       // Quick return if possible.
 
-      IF( ( N == 0 ).OR.( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
+      IF( ( N == 0 ) || ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
 
       // Set up the start points in  X  and  Y.
 
@@ -108,13 +108,13 @@
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
@@ -137,13 +137,13 @@
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
@@ -169,14 +169,14 @@
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
@@ -201,14 +201,14 @@
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX

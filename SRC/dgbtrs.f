@@ -61,7 +61,7 @@
 
       // Quick return if possible
 
-      if (N == 0 .OR. NRHS == 0) RETURN;
+      if (N == 0 || NRHS == 0) RETURN;
 
       KD = KU + KL + 1
       LNOTI = KL.GT.0

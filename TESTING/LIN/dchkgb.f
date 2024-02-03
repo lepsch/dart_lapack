@@ -119,7 +119,7 @@
             NKU = MIN( N+1, 4 )
             if (M == 0) NKU = 2;
             NIMAT = NTYPES
-            if (M.LE.0 .OR. N.LE.0) NIMAT = 1;
+            if (M.LE.0 || N.LE.0) NIMAT = 1;
 
             for (IKL = 1; IKL <= NKL; IKL++) { // 140
 
@@ -141,7 +141,7 @@
 
                   LDA = KL + KU + 1
                   LDAFAC = 2*KL + KU + 1
-                  if ( ( LDA*N ).GT.LA .OR. ( LDAFAC*N ).GT.LAFAC ) {
+                  if ( ( LDA*N ).GT.LA || ( LDAFAC*N ).GT.LAFAC ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
                      if ( N*( KL+KU+1 ).GT.LA ) {
                         WRITE( NOUT, FMT = 9999 )LA, M, N, KL, KU, N*( KL+KU+1 )
@@ -166,7 +166,7 @@
                      ZEROT = IMAT.GE.2 && IMAT.LE.4
                      if (ZEROT && N.LT.IMAT-1) GO TO 120;
 
-                     if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) {
+                     if ( .NOT.ZEROT || .NOT.DOTYPE( 1 ) ) {
 
                         // Set up parameters with DLATB4 and generate a
                         // test matrix with DLATMS.
@@ -270,7 +270,7 @@
                         // Skip the remaining tests if this is not the
                         // first block size or if M != N.
 
-                        if (INB.GT.1 .OR. M != N) GO TO 110;
+                        if (INB.GT.1 || M != N) GO TO 110;
 
                         ANORMO = DLANGB( 'O', N, KL, KU, A, LDA, RWORK )
                         ANORMI = DLANGB( 'I', N, KL, KU, A, LDA, RWORK )
@@ -288,7 +288,7 @@
                            // Compute the 1-norm condition number of A.
 
                            AINVNM = DLANGE( 'O', N, N, WORK, LDB, RWORK )
-                           if ( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                           if ( ANORMO.LE.ZERO || AINVNM.LE.ZERO ) {
                               RCONDO = ONE
                            } else {
                               RCONDO = ( ONE / ANORMO ) / AINVNM
@@ -298,7 +298,7 @@
                            // A.
 
                            AINVNM = DLANGE( 'I', N, N, WORK, LDB, RWORK )
-                           if ( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                           if ( ANORMI.LE.ZERO || AINVNM.LE.ZERO ) {
                               RCONDI = ONE
                            } else {
                               RCONDI = ( ONE / ANORMI ) / AINVNM

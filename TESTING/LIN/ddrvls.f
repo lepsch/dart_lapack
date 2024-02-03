@@ -87,7 +87,7 @@
 
       // Print the header if NM = 0 or NN = 0 and THRESH = 0.
 
-      IF( ( NM == 0 .OR. NN == 0 ) && THRESH == ZERO ) CALL ALAHD( NOUT, PATH )
+      IF( ( NM == 0 || NN == 0 ) && THRESH == ZERO ) CALL ALAHD( NOUT, PATH )
       INFOT = 0
       xlaenv(2, 2 );
       xlaenv(9, SMLSIZ );
@@ -260,7 +260,7 @@
                               // Test 2: Check correctness of results
                               // for DGELS.
 
-                              if ( ( ITRAN == 1 && M.GE.N ) .OR. ( ITRAN == 2 && M.LT.N ) ) {
+                              if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M.LT.N ) ) {
 
                                  // Solving LS system, compute:
                                  // r = norm((B- A*X)**T * A) /
@@ -348,7 +348,7 @@
                               // Test 4: Check correctness of results
                               // for DGELST.
 
-                              if ( ( ITRAN == 1 && M.GE.N ) .OR. ( ITRAN == 2 && M.LT.N ) ) {
+                              if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M.LT.N ) ) {
 
                                  // Solving LS system, compute:
                                  // r = norm((B- A*X)**T * A) /
@@ -443,7 +443,7 @@
                               // Test 6: Check correctness of results
                               // for DGETSLS.
 
-                                 if ( ( ITRAN == 1 && M.GE.N ) .OR. ( ITRAN == 2 && M.LT.N ) ) {
+                                 if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M.LT.N ) ) {
 
                                     // Solving LS system, compute:
                                     // r = norm((B- A*X)**T * A) /

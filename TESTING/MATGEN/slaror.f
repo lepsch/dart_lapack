@@ -37,14 +37,14 @@
       // .. Executable Statements ..
 
       INFO = 0
-      if (N == 0 .OR. M == 0) RETURN;
+      if (N == 0 || M == 0) RETURN;
 
       ITYPE = 0
       if ( LSAME( SIDE, 'L' ) ) {
          ITYPE = 1
       } else if ( LSAME( SIDE, 'R' ) ) {
          ITYPE = 2
-      } else if ( LSAME( SIDE, 'C' ) .OR. LSAME( SIDE, 'T' ) ) {
+      } else if ( LSAME( SIDE, 'C' ) || LSAME( SIDE, 'T' ) ) {
          ITYPE = 3
       }
 
@@ -54,7 +54,7 @@
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -3
-      } else if ( N.LT.0 .OR. ( ITYPE == 3 && N != M ) ) {
+      } else if ( N.LT.0 || ( ITYPE == 3 && N != M ) ) {
          INFO = -4
       } else if ( LDA.LT.M ) {
          INFO = -6
@@ -109,7 +109,7 @@
 
          // Apply Householder transformation to A
 
-         if ( ITYPE == 1 .OR. ITYPE == 3 ) {
+         if ( ITYPE == 1 || ITYPE == 3 ) {
 
             // Apply H(k) from the left.
 
@@ -118,7 +118,7 @@
 
          }
 
-         if ( ITYPE == 2 .OR. ITYPE == 3 ) {
+         if ( ITYPE == 2 || ITYPE == 3 ) {
 
             // Apply H(k) from the right.
 
@@ -132,13 +132,13 @@
 
       // Scale the matrix A by D.
 
-      if ( ITYPE == 1 .OR. ITYPE == 3 ) {
+      if ( ITYPE == 1 || ITYPE == 3 ) {
          for (IROW = 1; IROW <= M; IROW++) { // 40
             sscal(N, X( NXFRM+IROW ), A( IROW, 1 ), LDA );
          } // 40
       }
 
-      if ( ITYPE == 2 .OR. ITYPE == 3 ) {
+      if ( ITYPE == 2 || ITYPE == 3 ) {
          for (JCOL = 1; JCOL <= N; JCOL++) { // 50
             sscal(M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 );
          } // 50

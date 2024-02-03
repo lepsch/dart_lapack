@@ -94,7 +94,7 @@
             N = NVAL( IN )
             XTYPE = 'N'
             NIMAT = NTYPES
-            if (M.LE.0 .OR. N.LE.0) NIMAT = 1;
+            if (M.LE.0 || N.LE.0) NIMAT = 1;
 
             for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 100
 
@@ -201,7 +201,7 @@
 
                      ANORMI = ZLANGE( 'I', M, N, A, LDA, RWORK )
                      AINVNM = ZLANGE( 'I', N, N, AINV, LDA, RWORK )
-                     if ( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                     if ( ANORMI.LE.ZERO || AINVNM.LE.ZERO ) {
                         RCONDI = ONE
                      } else {
                         RCONDI = ( ONE / ANORMI ) / AINVNM
@@ -233,7 +233,7 @@
                   // block size or if M != N.  Skip the solve tests if
                   // the matrix is singular.
 
-                  if (INB.GT.1 .OR. M != N) GO TO 90                   IF( TRFCON ) GO TO 70;
+                  if (INB.GT.1 || M != N) GO TO 90                   IF( TRFCON ) GO TO 70;
 
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
                      NRHS = NSVAL( IRHS )

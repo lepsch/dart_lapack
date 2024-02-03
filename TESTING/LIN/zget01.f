@@ -42,7 +42,7 @@
 
       // Quick exit if M = 0 or N = 0.
 
-      if ( M.LE.0 .OR. N.LE.0 ) {
+      if ( M.LE.0 || N.LE.0 ) {
          RESID = ZERO
          RETURN
       }

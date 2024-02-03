@@ -196,7 +196,7 @@
 
          if (W*ETA.GT.ZERO) ETA = -W / ( DPSI+DPHI );
          TEMP = TAU + ETA
-         if ( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) {
+         if ( TEMP.GT.DLTUB || TEMP.LT.DLTLB ) {
             if ( W.LT.ZERO ) {
                ETA = ( DLTUB-TAU ) / TWO
             } else {
@@ -269,7 +269,7 @@
 
             if (W*ETA.GT.ZERO) ETA = -W / ( DPSI+DPHI );
             TEMP = TAU + ETA
-            if ( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) {
+            if ( TEMP.GT.DLTUB || TEMP.LT.DLTLB ) {
                if ( W.LT.ZERO ) {
                   ETA = ( DLTUB-TAU ) / TWO
                } else {
@@ -426,7 +426,7 @@
          } else {
             if (W.GT.ZERO) SWTCH3 = true ;
          }
-         if (II == 1 .OR. II == N) SWTCH3 = false ;
+         if (II == 1 || II == N) SWTCH3 = false ;
 
          TEMP = Z( II ) / DELTA( II )
          DW = DPSI + DPHI + TEMP*TEMP
@@ -505,7 +505,7 @@
 
          if (W*ETA.GE.ZERO) ETA = -W / DW;
          TEMP = TAU + ETA
-         if ( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) {
+         if ( TEMP.GT.DLTUB || TEMP.LT.DLTLB ) {
             if ( W.LT.ZERO ) {
                ETA = ( DLTUB-TAU ) / TWO
             } else {
@@ -653,7 +653,7 @@
 
             if (W*ETA.GE.ZERO) ETA = -W / DW;
             TEMP = TAU + ETA
-            if ( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) {
+            if ( TEMP.GT.DLTUB || TEMP.LT.DLTLB ) {
                if ( W.LT.ZERO ) {
                   ETA = ( DLTUB-TAU ) / TWO
                } else {

@@ -98,9 +98,9 @@
          INFO = -6
       } else if ( NOUNIT.LE.0 ) {
          INFO = -7
-      } else if ( LDA.LT.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LT.1 || LDA.LT.NMAX ) {
          INFO = -9
-      } else if ( LDVS.LT.1 .OR. LDVS.LT.NMAX ) {
+      } else if ( LDVS.LT.1 || LDVS.LT.NMAX ) {
          INFO = -15
       } else if ( 5*NMAX+2*NMAX**2.GT.NWORK ) {
          INFO = -18
@@ -113,7 +113,7 @@
 
       // Quick return if nothing to do
 
-      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) RETURN;
 
       // More Important constants
 

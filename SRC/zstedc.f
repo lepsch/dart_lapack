@@ -42,7 +42,7 @@
       // Test the input parameters.
 
       INFO = 0
-      LQUERY = ( LWORK == -1 .OR. LRWORK == -1 .OR. LIWORK == -1 )
+      LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 )
 
       if ( LSAME( COMPZ, 'N' ) ) {
          ICOMPZ = 0
@@ -57,7 +57,7 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 && LDZ.LT.MAX( 1, N ) ) ) {
+      } else if ( ( LDZ.LT.1 ) || ( ICOMPZ.GT.0 && LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -6
       }
 
@@ -66,7 +66,7 @@
          // Compute the workspace requirements
 
          SMLSIZ = ILAENV( 9, 'ZSTEDC', ' ', 0, 0, 0, 0 )
-         if ( N.LE.1 .OR. ICOMPZ == 0 ) {
+         if ( N.LE.1 || ICOMPZ == 0 ) {
             LWMIN = 1
             LIWMIN = 1
             LRWMIN = 1

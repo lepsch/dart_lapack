@@ -31,7 +31,7 @@
       // Check for Errors
 
       INFO = 0
-      if ( IJOB.LT.1 .OR. IJOB.GT.3 ) {
+      if ( IJOB.LT.1 || IJOB.GT.3 ) {
          INFO = -1
          RETURN
       }
@@ -263,7 +263,7 @@
          for (JI = KF; JI <= KL; JI++) { // 110
             TMP1 = ABS( AB( JI, 2 )-AB( JI, 1 ) )
             TMP2 = MAX( ABS( AB( JI, 2 ) ), ABS( AB( JI, 1 ) ) )
-            if ( TMP1.LT.MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) .OR. NAB( JI, 1 ).GE.NAB( JI, 2 ) ) {
+            if ( TMP1.LT.MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) || NAB( JI, 1 ).GE.NAB( JI, 2 ) ) {
 
                // Converged -- Swap with position KFNEW,
                             // then increment KFNEW

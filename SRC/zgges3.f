@@ -92,9 +92,9 @@
          INFO = -7
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      } else if ( LDVSL.LT.1 .OR. ( ILVSL && LDVSL.LT.N ) ) {
+      } else if ( LDVSL.LT.1 || ( ILVSL && LDVSL.LT.N ) ) {
          INFO = -14
-      } else if ( LDVSR.LT.1 .OR. ( ILVSR && LDVSR.LT.N ) ) {
+      } else if ( LDVSR.LT.1 || ( ILVSR && LDVSR.LT.N ) ) {
          INFO = -16
       } else if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
          INFO = -18

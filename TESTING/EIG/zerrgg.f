@@ -480,7 +480,7 @@
 
       // Test error exits for the ZGS, ZGV, ZGX, and ZXV paths.
 
-      } else if ( LSAMEN( 3, PATH, 'ZGS' ) .OR. LSAMEN( 3, PATH, 'ZGV' ) .OR. LSAMEN( 3, PATH, 'ZGX' ) .OR. LSAMEN( 3, PATH, 'ZXV' ) ) {
+      } else if ( LSAMEN( 3, PATH, 'ZGS' ) || LSAMEN( 3, PATH, 'ZGV' ) || LSAMEN( 3, PATH, 'ZGX' ) || LSAMEN( 3, PATH, 'ZXV' ) ) {
 
          // ZGGES
 

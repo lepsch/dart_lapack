@@ -56,7 +56,7 @@
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
-      } else if ( K.LT.0 .OR. K.GT.NQ ) {
+      } else if ( K.LT.0 || K.GT.NQ ) {
          INFO = -5
       } else if ( LDA.LT.MAX( 1, NQ ) ) {
          INFO = -7
@@ -70,9 +70,9 @@
 
       // Quick return if possible
 
-      if (M == 0 .OR. N == 0 .OR. K == 0) RETURN;
+      if (M == 0 || N == 0 || K == 0) RETURN;
 
-      if ( ( LEFT && NOTRAN .OR. .NOT.LEFT && .NOT.NOTRAN ) ) {
+      if ( ( LEFT && NOTRAN || .NOT.LEFT && .NOT.NOTRAN ) ) {
          I1 = 1
          I2 = K
          I3 = 1

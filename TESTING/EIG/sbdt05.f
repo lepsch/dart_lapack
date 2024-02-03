@@ -39,7 +39,7 @@
       // Quick return if possible.
 
       RESID = ZERO
-      IF( MIN( M, N ).LE.0 .OR. NS.LE.0 ) RETURN
+      IF( MIN( M, N ).LE.0 || NS.LE.0 ) RETURN
 
       EPS = SLAMCH( 'Precision' )
       ANORM = SLANGE( 'M', M, N, A, LDA, WORK )

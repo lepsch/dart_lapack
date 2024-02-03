@@ -62,13 +62,13 @@
          INFO = -1
       } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST && .NOT.WANTSN ) ) {
+      } else if ( .NOT.( WANTSN || WANTSE || WANTSV || WANTSB ) || ( .NOT.WANTST && .NOT.WANTSN ) ) {
          INFO = -4
       } else if ( N.LT.0 ) {
          INFO = -5
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVS.LT.1 .OR. ( WANTVS && LDVS.LT.N ) ) {
+      } else if ( LDVS.LT.1 || ( WANTVS && LDVS.LT.N ) ) {
          INFO = -11
       }
 
@@ -225,7 +225,7 @@
 
          zlascl('U', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR );
          zcopy(N, A, LDA+1, W, 1 );
-         if ( ( WANTSV .OR. WANTSB ) && INFO == 0 ) {
+         if ( ( WANTSV || WANTSB ) && INFO == 0 ) {
             DUM( 1 ) = RCONDV
             dlascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
             RCONDV = DUM( 1 )

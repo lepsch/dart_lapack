@@ -34,7 +34,7 @@
 
       INFO = 0
 
-      if ( ICOMPQ.LT.0 .OR. ICOMPQ.GT.1 ) {
+      if ( ICOMPQ.LT.0 || ICOMPQ.GT.1 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -42,7 +42,7 @@
          INFO = -3
       } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -9
-      } else if ( MIN( 1, N ).GT.CUTPNT .OR. N.LT.CUTPNT ) {
+      } else if ( MIN( 1, N ).GT.CUTPNT || N.LT.CUTPNT ) {
          INFO = -12
       }
       if ( INFO != 0 ) {

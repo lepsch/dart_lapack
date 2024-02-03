@@ -71,7 +71,7 @@
 
       NB = MIN( NB, NBMAX )
 
-      if ( NB.LE.1 .OR. NB.GT.KD ) {
+      if ( NB.LE.1 || NB.GT.KD ) {
 
          // Use unblocked code
 

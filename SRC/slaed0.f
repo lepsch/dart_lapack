@@ -38,7 +38,7 @@
 
       INFO = 0
 
-      if ( ICOMPQ.LT.0 .OR. ICOMPQ.GT.2 ) {
+      if ( ICOMPQ.LT.0 || ICOMPQ.GT.2 ) {
          INFO = -1
       } else if ( ( ICOMPQ == 1 ) && ( QSIZ.LT.MAX( 0, N ) ) ) {
          INFO = -2

@@ -100,9 +100,9 @@
          INFO = -7
       } else if ( NOUNIT.LE.0 ) {
          INFO = -8
-      } else if ( LDA.LT.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LT.1 || LDA.LT.NMAX ) {
          INFO = -10
-      } else if ( LDVS.LT.1 .OR. LDVS.LT.NMAX ) {
+      } else if ( LDVS.LT.1 || LDVS.LT.NMAX ) {
          INFO = -20
       } else if ( MAX( 3*NMAX, 2*NMAX**2 ).GT.LWORK ) {
          INFO = -24
@@ -115,7 +115,7 @@
 
       // If nothing to do check on NIUNIT
 
-      if (NSIZES == 0 .OR. NTYPES == 0) GO TO 150;
+      if (NSIZES == 0 || NTYPES == 0) GO TO 150;
 
       // More Important constants
 

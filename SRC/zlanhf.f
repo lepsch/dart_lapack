@@ -89,27 +89,27 @@
                   J = 0
                   // -> L(0,0)
                   TEMP = ABS( DBLE( A( J+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   for (I = 1; I <= N - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                   for (J = 1; J <= K - 1; J++) {
                      for (I = 0; I <= J - 2; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = J - 1
                      // L(k+j,k+j)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      I = J
                      // -> L(j,j)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      for (I = J + 1; I <= N - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                } else {
@@ -117,29 +117,29 @@
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= K + J - 2; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = K + J - 1
                      // -> U(i,i)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      I = I + 1
                      // =k+j; i -> U(j,j)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      for (I = K + J + 1; I <= N - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   for (I = 0; I <= N - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      // j=k-1
                   }
                   // i=n-1 -> U(n-1,n-1)
                   TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                }
             } else {
                // xpose case; A is k by n
@@ -148,34 +148,34 @@
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= J - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = J
                      // L(i,i)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      I = J + 1
                      // L(j+k,j+k)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      for (I = J + 2; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   J = K - 1
                   for (I = 0; I <= K - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                   I = K - 1
                   // -> L(i,i) is at A(i,j)
                   TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   for (J = K; J <= N - 1; J++) {
                      for (I = 0; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                } else {
@@ -183,33 +183,33 @@
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   J = K - 1
                   // -> U(j,j) is at A(0,j)
                   TEMP = ABS( DBLE( A( 0+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   for (I = 1; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                   for (J = K; J <= N - 1; J++) {
                      for (I = 0; I <= J - K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = J - K
                      // -> U(i,i) at A(i,j)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      I = J - K + 1
                      // U(j,j)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      for (I = J - K + 2; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                }
@@ -223,29 +223,29 @@
                   J = 0
                   // -> L(k,k) & j=1 -> L(0,0)
                   TEMP = ABS( DBLE( A( J+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   TEMP = ABS( DBLE( A( J+1+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   for (I = 2; I <= N; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                   for (J = 1; J <= K - 1; J++) {
                      for (I = 0; I <= J - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = J
                      // L(k+j,k+j)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      I = J + 1
                      // -> L(j,j)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      for (I = J + 2; I <= N; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                } else {
@@ -253,33 +253,33 @@
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= K + J - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = K + J
                      // -> U(i,i)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      I = I + 1
                      // =k+j+1; i -> U(j,j)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      for (I = K + J + 2; I <= N; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   for (I = 0; I <= N - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      // j=k-1
                   }
                   // i=n-1 -> U(n-1,n-1)
                   TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   I = N
                   // -> U(k-1,k-1)
                   TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                }
             } else {
                // xpose case; A is k by n+1
@@ -288,42 +288,42 @@
                   J = 0
                   // -> L(k,k) at A(0,0)
                   TEMP = ABS( DBLE( A( J+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   for (I = 1; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                   for (J = 1; J <= K - 1; J++) {
                      for (I = 0; I <= J - 2; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = J - 1
                      // L(i,i)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      I = J
                      // L(j+k,j+k)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      for (I = J + 1; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   J = K
                   for (I = 0; I <= K - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                   I = K - 1
                   // -> L(i,i) is at A(i,j)
                   TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   for (J = K + 1; J <= N; J++) {
                      for (I = 0; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                } else {
@@ -331,48 +331,48 @@
                   for (J = 0; J <= K - 1; J++) {
                      for (I = 0; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   J = K
                   // -> U(j,j) is at A(0,j)
                   TEMP = ABS( DBLE( A( 0+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   for (I = 1; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                   for (J = K + 1; J <= N - 1; J++) {
                      for (I = 0; I <= J - K - 2; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = J - K - 1
                      // -> U(i,i) at A(i,j)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      I = J - K
                      // U(j,j)
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      for (I = J - K + 1; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   J = N
                   for (I = 0; I <= K - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                   I = K - 1
                   // U(k,k) at A(i,j)
                   TEMP = ABS( DBLE( A( I+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                }
             }
          }
-      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM == '1' ) ) {
+      } else if ( ( LSAME( NORM, 'I' ) ) || ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
 
         // Find normI(A) ( = norm1(A), since A is Hermitian).
 
@@ -416,7 +416,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                } else {
                   // ilu = 1 & uplo = 'L'
@@ -457,7 +457,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             } else {
@@ -495,7 +495,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                } else {
                   // ilu = 1 & uplo = 'L'
@@ -532,7 +532,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             }
@@ -598,7 +598,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                } else {
                   // ilu=1 & uplo = 'L'
@@ -662,7 +662,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             } else {
@@ -735,7 +735,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                } else {
                   // ilu=1 & uplo = 'L'
@@ -809,12 +809,12 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || DISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             }
          }
-      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
+      } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 
         // Find normF(A).
 

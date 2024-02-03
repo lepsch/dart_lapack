@@ -146,7 +146,7 @@
 
            // if the first panel and JB=1 (NB=1), then nothing to do
 
-            if ( J1.GT.1 .OR. JB.GT.1 ) {
+            if ( J1.GT.1 || JB.GT.1 ) {
 
                // Merge rank-1 update with BLAS-3 update
 
@@ -253,7 +253,7 @@
 
            // if the first panel and JB=1 (NB=1), then nothing to do
 
-            if ( J1.GT.1 .OR. JB.GT.1 ) {
+            if ( J1.GT.1 || JB.GT.1 ) {
 
                // Merge rank-1 update with BLAS-3 update
 

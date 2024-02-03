@@ -57,7 +57,7 @@
 
       // Quick return if possible.
 
-      IF ((M == 0) .OR. (N == 0) .OR. ((ALPHA == ZERO) && (BETA == ONE))) RETURN
+      IF ((M == 0) || (N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) RETURN
 
       // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
       // up the start points in  X  and  Y.

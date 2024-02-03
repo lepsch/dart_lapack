@@ -92,12 +92,12 @@
       // Quick return if possible
 
       SCALE = ONE
-      if (M == 0 .OR. N == 0) RETURN;
+      if (M == 0 || N == 0) RETURN;
 
       // Use unblocked code for small problems or if insufficient
       // workspace is provided
 
-      if ( MIN( NBA, NBB ) == 1 .OR. LDSWORK.LT.MAX( NBA, NBB ) ) {
+      if ( MIN( NBA, NBB ) == 1 || LDSWORK.LT.MAX( NBA, NBB ) ) {
         ztrsyl(TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO );
         RETURN
       }

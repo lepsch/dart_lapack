@@ -225,7 +225,7 @@
             }
             if ( NDFL.LT.KEXNW ) {
                NDEC = -1
-            } else if ( NDEC.GE.0 .OR. NW.GE.NWUPBD ) {
+            } else if ( NDEC.GE.0 || NW.GE.NWUPBD ) {
                NDEC = NDEC + 1
                if (NW-NDEC.LT.2) NDEC = 0;
                NW = NW - NDEC
@@ -266,7 +266,7 @@
             // .    skipped if many eigenvalues have just been deflated
             // .    or if the remaining active block is small.
 
-            if ( ( LD == 0 ) .OR. ( ( 100*LD.LE.NW*NIBBLE ) && ( KBOT- KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) {
+            if ( ( LD == 0 ) || ( ( 100*LD.LE.NW*NIBBLE ) && ( KBOT- KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) {
 
                // ==== NS = nominal number of simultaneous shifts.
                // .    This may be lowered (slightly) if DLAQR3

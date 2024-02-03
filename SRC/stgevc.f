@@ -107,7 +107,7 @@
                IF( S( J+1, J ) != ZERO ) ILCPLX = true;
             }
             if ( ILCPLX ) {
-               IF( SELECT( J ) .OR. SELECT( J+1 ) ) IM = IM + 2
+               IF( SELECT( J ) || SELECT( J+1 ) ) IM = IM + 2
             } else {
                IF( SELECT( J ) ) IM = IM + 1
             }
@@ -122,7 +122,7 @@
       ILBBAD = false;
       for (J = 1; J <= N - 1; J++) { // 20
          if ( S( J+1, J ) != ZERO ) {
-            IF( P( J, J ) == ZERO .OR. P( J+1, J+1 ) == ZERO .OR. P( J, J+1 ) != ZERO )ILBBAD = true;
+            IF( P( J, J ) == ZERO || P( J+1, J+1 ) == ZERO || P( J, J+1 ) != ZERO )ILBBAD = true;
             if ( J.LT.N-1 ) {
                IF( S( J+2, J+1 ) != ZERO ) ILABAD = true;
             }
@@ -133,9 +133,9 @@
          INFO = -5
       } else if ( ILBBAD ) {
          INFO = -7
-      } else if ( COMPL && LDVL.LT.N .OR. LDVL.LT.1 ) {
+      } else if ( COMPL && LDVL.LT.N || LDVL.LT.1 ) {
          INFO = -10
-      } else if ( COMPR && LDVR.LT.N .OR. LDVR.LT.1 ) {
+      } else if ( COMPR && LDVR.LT.N || LDVR.LT.1 ) {
          INFO = -12
       } else if ( MM.LT.IM ) {
          INFO = -13
@@ -224,7 +224,7 @@
             if ( ILALL ) {
                ILCOMP = true;
             } else if ( ILCPLX ) {
-               ILCOMP = SELECT( JE ) .OR. SELECT( JE+1 )
+               ILCOMP = SELECT( JE ) || SELECT( JE+1 )
             } else {
                ILCOMP = SELECT( JE )
             }
@@ -273,7 +273,7 @@
                SCALE = ONE
                LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEF ).LT.SMALL
                LSB = ABS( SALFAR ).GE.SAFMIN && ABS( BCOEFR ).LT. SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
-               if ( LSA .OR. LSB ) {
+               if ( LSA || LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) )
                   if ( LSA ) {
                      ACOEF = ASCALE*( SCALE*SBETA )
@@ -502,7 +502,7 @@
             if ( ILALL ) {
                ILCOMP = true;
             } else if ( ILCPLX ) {
-               ILCOMP = SELECT( JE ) .OR. SELECT( JE-1 )
+               ILCOMP = SELECT( JE ) || SELECT( JE-1 )
             } else {
                ILCOMP = SELECT( JE )
             }
@@ -553,7 +553,7 @@
                SCALE = ONE
                LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEF ).LT.SMALL
                LSB = ABS( SALFAR ).GE.SAFMIN && ABS( BCOEFR ).LT. SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
-               if ( LSA .OR. LSB ) {
+               if ( LSA || LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) )
                   if ( LSA ) {
                      ACOEF = ASCALE*( SCALE*SBETA )

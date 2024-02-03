@@ -83,7 +83,7 @@
 
          // If the projection is nonzero, then return
 
-         if ( SCNRM2(M1,X1,INCX1) != REALZERO .OR. SCNRM2(M2,X2,INCX2) != REALZERO ) {
+         if ( SCNRM2(M1,X1,INCX1) != REALZERO || SCNRM2(M2,X2,INCX2) != REALZERO ) {
             RETURN
          }
       }
@@ -99,7 +99,7 @@
          for (J = 1; J <= M2; J++) {
             X2(J) = ZERO
          }
-         CALL CUNBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SCNRM2(M1,X1,INCX1) != REALZERO .OR. SCNRM2(M2,X2,INCX2) != REALZERO ) THEN
+         CALL CUNBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SCNRM2(M1,X1,INCX1) != REALZERO || SCNRM2(M2,X2,INCX2) != REALZERO ) THEN
             RETURN
          }
       }
@@ -115,7 +115,7 @@
             X2(J) = ZERO
          }
          X2(I) = ONE
-         CALL CUNBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SCNRM2(M1,X1,INCX1) != REALZERO .OR. SCNRM2(M2,X2,INCX2) != REALZERO ) THEN
+         CALL CUNBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SCNRM2(M1,X1,INCX1) != REALZERO || SCNRM2(M2,X2,INCX2) != REALZERO ) THEN
             RETURN
          }
       }

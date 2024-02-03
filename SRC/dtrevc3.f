@@ -48,8 +48,8 @@
       // Decode and test the input parameters
 
       BOTHV  = LSAME( SIDE, 'B' )
-      RIGHTV = LSAME( SIDE, 'R' ) .OR. BOTHV
-      LEFTV  = LSAME( SIDE, 'L' ) .OR. BOTHV
+      RIGHTV = LSAME( SIDE, 'R' ) || BOTHV
+      LEFTV  = LSAME( SIDE, 'L' ) || BOTHV
 
       ALLV  = LSAME( HOWMNY, 'A' )
       OVER  = LSAME( HOWMNY, 'B' )
@@ -68,9 +68,9 @@
          INFO = -4
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVL.LT.1 .OR. ( LEFTV && LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 || ( LEFTV && LDVL.LT.N ) ) {
          INFO = -8
-      } else if ( LDVR.LT.1 .OR. ( RIGHTV && LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 || ( RIGHTV && LDVR.LT.N ) ) {
          INFO = -10
       } else if ( LWORK.LT.MAX( 1, 3*N ) && .NOT.LQUERY ) {
          INFO = -14
@@ -93,7 +93,7 @@
                         IF( SELECT( J ) ) M = M + 1
                      } else {
                         PAIR = true;
-                        if ( SELECT( J ) .OR. SELECT( J+1 ) ) {
+                        if ( SELECT( J ) || SELECT( J+1 ) ) {
                            SELECT( J ) = true;
                            M = M + 2
                         }
@@ -508,7 +508,7 @@
                // Columns IV:NB of work are valid vectors.
                // When the number of vectors stored reaches NB-1 or NB,
                // or if this was last vector, do the GEMM
-               if ( (IV.LE.2) .OR. (KI2 == 1) ) {
+               if ( (IV.LE.2) || (KI2 == 1) ) {
                   dgemm('N', 'N', N, NB-IV+1, KI2+NB-IV, ONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, ZERO, WORK( 1 + (NB+IV)*N ), N );
                   // normalize vectors
                   for (K = IV; K <= NB; K++) {
@@ -905,7 +905,7 @@
                // Columns 1:IV of work are valid vectors.
                // When the number of vectors stored reaches NB-1 or NB,
                // or if this was last vector, do the GEMM
-               if ( (IV.GE.NB-1) .OR. (KI2 == N) ) {
+               if ( (IV.GE.NB-1) || (KI2 == N) ) {
                   dgemm('N', 'N', N, IV, N-KI2+IV, ONE, VL( 1, KI2-IV+1 ), LDVL, WORK( KI2-IV+1 + (1)*N ), N, ZERO, WORK( 1 + (NB+1)*N ), N );
                   // normalize vectors
                   for (K = 1; K <= IV; K++) {

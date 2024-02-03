@@ -31,12 +31,12 @@
 
       INFO = 0
 
-      // IF( ICOMPQ.LT.0 .OR. ICOMPQ.GT.1 ) THEN
+      // IF( ICOMPQ.LT.0 || ICOMPQ.GT.1 ) THEN
          // INFO = -1
       // ELSE IF( N.LT.0 ) THEN
       if ( N.LT.0 ) {
          INFO = -1
-      } else if ( MIN( 1, N ).GT.CUTPNT .OR. N.LT.CUTPNT ) {
+      } else if ( MIN( 1, N ).GT.CUTPNT || N.LT.CUTPNT ) {
          INFO = -2
       } else if ( QSIZ.LT.N ) {
          INFO = -3

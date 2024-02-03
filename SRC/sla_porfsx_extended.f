@@ -186,7 +186,7 @@
                }
                if (Z_STATE .GT. WORKING_STATE) FINAL_DZ_Z = DZ_Z;
             }
-             IF ( X_STATE != WORKING_STATE && ( IGNORE_CWISE.OR.Z_STATE != WORKING_STATE ) ) GOTO 666
+             IF ( X_STATE != WORKING_STATE && ( IGNORE_CWISE || Z_STATE != WORKING_STATE ) ) GOTO 666
 
             if ( INCR_PREC ) {
                INCR_PREC = false;

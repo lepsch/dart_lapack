@@ -79,7 +79,7 @@
                // Real eigenvalue and -vector
 
                ABMAX = MAX( ABS( SALFR ), ABS( SBETA ) )
-               if ( ABS( SALFR ).GT.ALFMAX .OR. ABS( SBETA ).GT. BETMAX .OR. ABMAX.LT.ONE ) {
+               if ( ABS( SALFR ).GT.ALFMAX || ABS( SBETA ).GT. BETMAX || ABMAX.LT.ONE ) {
                   SCALE = ONE / MAX( ABMAX, SAFMIN )
                   SALFR = SCALE*SALFR
                   SBETA = SCALE*SBETA
@@ -99,7 +99,7 @@
                   RETURN
                }
                ABMAX = MAX( ABS( SALFR )+ABS( SALFI ), ABS( SBETA ) )
-               if ( ABS( SALFR )+ABS( SALFI ).GT.ALFMAX .OR. ABS( SBETA ).GT.BETMAX .OR. ABMAX.LT.ONE ) {
+               if ( ABS( SALFR )+ABS( SALFI ).GT.ALFMAX || ABS( SBETA ).GT.BETMAX || ABMAX.LT.ONE ) {
                   SCALE = ONE / MAX( ABMAX, SAFMIN )
                   SALFR = SCALE*SALFR
                   SALFI = SCALE*SALFI

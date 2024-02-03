@@ -51,7 +51,7 @@
       NLP1 = NL + 1
       NLP2 = NL + 2
 
-      if ( ( K.LT.1 ) .OR. ( K.GT.N ) ) {
+      if ( ( K.LT.1 ) || ( K.GT.N ) ) {
          INFO = -4
       } else if ( LDQ.LT.K ) {
          INFO = -7

@@ -51,8 +51,8 @@
       // Decode and test the input parameters.
 
       BOTHV = LSAME( SIDE, 'B' )
-      RIGHTV = LSAME( SIDE, 'R' ) .OR. BOTHV
-      LEFTV = LSAME( SIDE, 'L' ) .OR. BOTHV
+      RIGHTV = LSAME( SIDE, 'R' ) || BOTHV
+      LEFTV = LSAME( SIDE, 'L' ) || BOTHV
 
       FROMQR = LSAME( EIGSRC, 'Q' )
 
@@ -77,9 +77,9 @@
          INFO = -5
       } else if ( LDH.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVL.LT.1 .OR. ( LEFTV && LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 || ( LEFTV && LDVL.LT.N ) ) {
          INFO = -10
-      } else if ( LDVR.LT.1 .OR. ( RIGHTV && LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 || ( RIGHTV && LDVR.LT.N ) ) {
          INFO = -12
       } else if ( MM.LT.M ) {
          INFO = -13

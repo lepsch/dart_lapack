@@ -49,7 +49,7 @@
 
       // Quick return if possible
 
-      if (M == 0 .OR. N == 0) RETURN;
+      if (M == 0 || N == 0) RETURN;
 
       // Decode DIST
 
@@ -119,7 +119,7 @@
          IGRADE = 3
       } else if ( LSAME( GRADE, 'E' ) ) {
          IGRADE = 4
-      } else if ( LSAME( GRADE, 'H' ) .OR. LSAME( GRADE, 'S' ) ) {
+      } else if ( LSAME( GRADE, 'H' ) || LSAME( GRADE, 'S' ) ) {
          IGRADE = 5
       } else {
          IGRADE = -1
@@ -167,7 +167,7 @@
       BADPVT = false;
       if ( IPVTNG.GT.0 ) {
          for (J = 1; J <= NPVTS; J++) { // 20
-            IF( IPIVOT( J ).LE.0 .OR. IPIVOT( J ).GT.NPVTS ) BADPVT = true;
+            IF( IPIVOT( J ).LE.0 || IPIVOT( J ).GT.NPVTS ) BADPVT = true;
          } // 20
       }
 
@@ -183,37 +183,37 @@
          INFO = -3
       } else if ( ISYM == -1 ) {
          INFO = -5
-      } else if ( MODE.LT.-6 .OR. MODE.GT.6 ) {
+      } else if ( MODE.LT.-6 || MODE.GT.6 ) {
          INFO = -7
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && COND.LT.ONE ) {
          INFO = -8
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && IRSIGN == -1 ) {
          INFO = -10
-      } else if ( IGRADE == -1 .OR. ( IGRADE == 4 && M != N ) .OR. ( ( IGRADE.GE.1 && IGRADE.LE.4 ) && ISYM == 0 ) ) {
+      } else if ( IGRADE == -1 || ( IGRADE == 4 && M != N ) || ( ( IGRADE.GE.1 && IGRADE.LE.4 ) && ISYM == 0 ) ) {
          INFO = -11
       } else if ( IGRADE == 4 && DZERO ) {
          INFO = -12
-      } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) && ( MODEL.LT.-6 .OR. MODEL.GT.6 ) ) {
+      } else if ( ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 ) && ( MODEL.LT.-6 || MODEL.GT.6 ) ) {
          INFO = -13
-      } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) && ( MODEL != -6 && MODEL != 0 && MODEL != 6 ) && CONDL.LT.ONE ) {
+      } else if ( ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 ) && ( MODEL != -6 && MODEL != 0 && MODEL != 6 ) && CONDL.LT.ONE ) {
          INFO = -14
-      } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) && ( MODER.LT.-6 .OR. MODER.GT.6 ) ) {
+      } else if ( ( IGRADE == 2 || IGRADE == 3 ) && ( MODER.LT.-6 || MODER.GT.6 ) ) {
          INFO = -16
-      } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) && ( MODER != -6 && MODER != 0 && MODER != 6 ) && CONDR.LT.ONE ) {
+      } else if ( ( IGRADE == 2 || IGRADE == 3 ) && ( MODER != -6 && MODER != 0 && MODER != 6 ) && CONDR.LT.ONE ) {
          INFO = -17
-      } else if ( IPVTNG == -1 .OR. ( IPVTNG == 3 && M != N ) .OR. ( ( IPVTNG == 1 .OR. IPVTNG == 2 ) && ISYM == 0 ) ) {
+      } else if ( IPVTNG == -1 || ( IPVTNG == 3 && M != N ) || ( ( IPVTNG == 1 || IPVTNG == 2 ) && ISYM == 0 ) ) {
          INFO = -18
       } else if ( IPVTNG != 0 && BADPVT ) {
          INFO = -19
       } else if ( KL.LT.0 ) {
          INFO = -20
-      } else if ( KU.LT.0 .OR. ( ISYM == 0 && KL != KU ) ) {
+      } else if ( KU.LT.0 || ( ISYM == 0 && KL != KU ) ) {
          INFO = -21
-      } else if ( SPARSE.LT.ZERO .OR. SPARSE.GT.ONE ) {
+      } else if ( SPARSE.LT.ZERO || SPARSE.GT.ONE ) {
          INFO = -22
-      } else if ( IPACK == -1 .OR. ( ( IPACK == 1 .OR. IPACK == 2 .OR. IPACK == 5 .OR. IPACK == 6 ) && ISYM == 1 ) .OR. ( IPACK == 3 && ISYM == 1 && ( KL != 0 .OR. M != N ) ) .OR. ( IPACK == 4 && ISYM == 1 && ( KU != 0 .OR. M != N ) ) ) {
+      } else if ( IPACK == -1 || ( ( IPACK == 1 || IPACK == 2 || IPACK == 5 || IPACK == 6 ) && ISYM == 1 ) || ( IPACK == 3 && ISYM == 1 && ( KL != 0 || M != N ) ) || ( IPACK == 4 && ISYM == 1 && ( KU != 0 || M != N ) ) ) {
          INFO = -24
-      } else if ( ( ( IPACK == 0 .OR. IPACK == 1 .OR. IPACK == 2 ) && LDA.LT.MAX( 1, M ) ) .OR. ( ( IPACK == 3 .OR. IPACK == 4 ) && LDA.LT.1 ) .OR. ( ( IPACK == 5 .OR. IPACK == 6 ) && LDA.LT.KUU+1 ) .OR. ( IPACK == 7 && LDA.LT.KLL+KUU+1 ) ) {
+      } else if ( ( ( IPACK == 0 || IPACK == 1 || IPACK == 2 ) && LDA.LT.MAX( 1, M ) ) || ( ( IPACK == 3 || IPACK == 4 ) && LDA.LT.1 ) || ( ( IPACK == 5 || IPACK == 6 ) && LDA.LT.KUU+1 ) || ( IPACK == 7 && LDA.LT.KLL+KUU+1 ) ) {
          INFO = -26
       }
 
@@ -269,7 +269,7 @@
 
       // Compute DL if grading set
 
-      if ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) {
+      if ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 ) {
          dlatm1(MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO );
          if ( INFO != 0 ) {
             INFO = 3
@@ -279,7 +279,7 @@
 
       // Compute DR if grading set
 
-      if ( IGRADE == 2 .OR. IGRADE == 3 ) {
+      if ( IGRADE == 2 || IGRADE == 3 ) {
          dlatm1(MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO );
          if ( INFO != 0 ) {
             INFO = 4
@@ -616,7 +616,7 @@
             INFO = 5
             RETURN
 
-         } else if ( ( ANORM.GT.ONE && ONORM.LT.ONE ) .OR. ( ANORM.LT.ONE && ONORM.GT.ONE ) ) {
+         } else if ( ( ANORM.GT.ONE && ONORM.LT.ONE ) || ( ANORM.LT.ONE && ONORM.GT.ONE ) ) {
 
             // Scale carefully to avoid over / underflow
 
@@ -626,7 +626,7 @@
                   dscal(M, ANORM, A( 1, J ), 1 );
                } // 510
 
-            } else if ( IPACK == 3 .OR. IPACK == 4 ) {
+            } else if ( IPACK == 3 || IPACK == 4 ) {
 
                dscal(N*( N+1 ) / 2, ONE / ONORM, A, 1 );
                dscal(N*( N+1 ) / 2, ANORM, A, 1 );
@@ -649,7 +649,7 @@
                   dscal(M, ANORM / ONORM, A( 1, J ), 1 );
                } // 530
 
-            } else if ( IPACK == 3 .OR. IPACK == 4 ) {
+            } else if ( IPACK == 3 || IPACK == 4 ) {
 
                dscal(N*( N+1 ) / 2, ANORM / ONORM, A, 1 );
 

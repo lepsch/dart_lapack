@@ -56,7 +56,7 @@
          RETURN
       }
 
-      if (M.LE.0 .OR. N.LE.0 .OR. NRHS.LE.0) RETURN;
+      if (M.LE.0 || N.LE.0 || NRHS.LE.0) RETURN;
 
       NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK )
       SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )

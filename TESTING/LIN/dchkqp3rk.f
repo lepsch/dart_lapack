@@ -152,7 +152,7 @@
                      S( I ) = ZERO
                   }
 
-               } else if ( (IMAT.GE.2 && IMAT.LE.4 ) .OR. (IMAT.GE.14 && IMAT.LE.19 ) ) {
+               } else if ( (IMAT.GE.2 && IMAT.LE.4 ) || (IMAT.GE.14 && IMAT.LE.19 ) ) {
 
                   // Matrices 2-5.
 
@@ -295,7 +295,7 @@
                   // NB_GEN-size block in COPYA into correct column
                   // positions.
 
-                  if ( IMAT == 6 .OR. IMAT == 7 .OR. IMAT == 8 .OR. IMAT == 10 .OR. IMAT == 11 ) {
+                  if ( IMAT == 6 || IMAT == 7 || IMAT == 8 || IMAT == 10 || IMAT == 11 ) {
 
                      // Move by swapping the generated columns
                      // from the right NB_GEN-size block from
@@ -306,7 +306,7 @@
                         dswap(M, COPYA( ( NB_ZERO+J-1)*LDA+1), 1, COPYA( (J-1)*LDA + 1 ), 1 );
                      }
 
-                  } else if ( IMAT == 12 .OR. IMAT == 13 ) {
+                  } else if ( IMAT == 12 || IMAT == 13 ) {
 
                      // ( IMAT = 12, Odd-numbered ZERO columns. )
                      // Swap the generated columns from the right

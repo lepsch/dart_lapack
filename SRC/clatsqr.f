@@ -46,11 +46,11 @@
 
       if ( M.LT.0 ) {
         INFO = -1
-      } else if ( N.LT.0 .OR. M.LT.N ) {
+      } else if ( N.LT.0 || M.LT.N ) {
         INFO = -2
       } else if ( MB.LT.1 ) {
         INFO = -3
-      } else if ( NB.LT.1 .OR. ( NB.GT.N && N.GT.0 ) ) {
+      } else if ( NB.LT.1 || ( NB.GT.N && N.GT.0 ) ) {
         INFO = -4
       } else if ( LDA.LT.MAX( 1, M ) ) {
         INFO = -6
@@ -78,7 +78,7 @@
 
       // The QR Decomposition
 
-      if ( (MB.LE.N) .OR. (MB.GE.M) ) {
+      if ( (MB.LE.N) || (MB.GE.M) ) {
         cgeqrt(M, N, NB, A, LDA, T, LDT, WORK, INFO );
         RETURN
       }

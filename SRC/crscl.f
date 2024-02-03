@@ -79,17 +79,17 @@
          UR = AR + AI * ( AI / AR )
          UI = AI + AR * ( AR / AI )
 
-         if ( (ABS( UR ).LT.SAFMIN).OR.(ABS( UI ).LT.SAFMIN) ) {
+         if ( (ABS( UR ).LT.SAFMIN) || (ABS( UI ).LT.SAFMIN) ) {
             // This means that both alphaR and alphaI are very small.
             cscal(N, CMPLX( SAFMIN / UR, -SAFMIN / UI ), X, INCX );
             csscal(N, SAFMAX, X, INCX );
-         } else if ( (ABS( UR ).GT.SAFMAX).OR.(ABS( UI ).GT.SAFMAX) ) {
-            if ( (ABSR.GT.OV).OR.(ABSI.GT.OV) ) {
+         } else if ( (ABS( UR ).GT.SAFMAX) || (ABS( UI ).GT.SAFMAX) ) {
+            if ( (ABSR.GT.OV) || (ABSI.GT.OV) ) {
                // This means that a and b are both Inf. No need for scaling.
                cscal(N, CMPLX( ONE / UR, -ONE / UI ), X, INCX );
             } else {
                csscal(N, SAFMIN, X, INCX );
-               if ( (ABS( UR ).GT.OV).OR.(ABS( UI ).GT.OV) ) {
+               if ( (ABS( UR ).GT.OV) || (ABS( UI ).GT.OV) ) {
                   // Infs were generated. We do proper scaling to avoid them.
                   if ( ABSR.GE.ABSI ) {
                      // ABS( UR ) <= ABS( UI )

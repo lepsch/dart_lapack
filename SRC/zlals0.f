@@ -41,13 +41,13 @@
       INFO = 0
       N = NL + NR + 1
 
-      if ( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) {
+      if ( ( ICOMPQ.LT.0 ) || ( ICOMPQ.GT.1 ) ) {
          INFO = -1
       } else if ( NL.LT.1 ) {
          INFO = -2
       } else if ( NR.LT.1 ) {
          INFO = -3
-      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE.LT.0 ) || ( SQRE.GT.1 ) ) {
          INFO = -4
       } else if ( NRHS.LT.1 ) {
          INFO = -5
@@ -106,13 +106,13 @@
                   DIFRJ = -DIFR( J, 1 )
                   DSIGJP = -POLES( J+1, 2 )
                }
-               if ( ( Z( J ) == ZERO ) .OR. ( POLES( J, 2 ) == ZERO ) ) {
+               if ( ( Z( J ) == ZERO ) || ( POLES( J, 2 ) == ZERO ) ) {
                   RWORK( J ) = ZERO
                } else {
                   RWORK( J ) = -POLES( J, 2 )*Z( J ) / DIFLJ / ( POLES( J, 2 )+DJ )
                }
                for (I = 1; I <= J - 1; I++) { // 30
-                  if ( ( Z( I ) == ZERO ) .OR. ( POLES( I, 2 ) == ZERO ) ) {
+                  if ( ( Z( I ) == ZERO ) || ( POLES( I, 2 ) == ZERO ) ) {
                      RWORK( I ) = ZERO
                   } else {
 
@@ -124,7 +124,7 @@
                   }
                } // 30
                for (I = J + 1; I <= K; I++) { // 40
-                  if ( ( Z( I ) == ZERO ) .OR. ( POLES( I, 2 ) == ZERO ) ) {
+                  if ( ( Z( I ) == ZERO ) || ( POLES( I, 2 ) == ZERO ) ) {
                      RWORK( I ) = ZERO
                   } else {
                      RWORK( I ) = POLES( I, 2 )*Z( I ) / ( DLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ )

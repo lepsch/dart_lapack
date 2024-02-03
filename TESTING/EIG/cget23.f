@@ -55,7 +55,7 @@
       // Check for errors
 
       NOBAL = LSAME( BALANC, 'N' )
-      BALOK = NOBAL .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'B' )
+      BALOK = NOBAL || LSAME( BALANC, 'P' ) || LSAME( BALANC, 'S' ) || LSAME( BALANC, 'B' )
       INFO = 0
       if ( ISRT != 0 && ISRT != 1 ) {
          INFO = -2
@@ -67,15 +67,15 @@
          INFO = -7
       } else if ( N.LT.0 ) {
          INFO = -8
-      } else if ( LDA.LT.1 .OR. LDA.LT.N ) {
+      } else if ( LDA.LT.1 || LDA.LT.N ) {
          INFO = -10
-      } else if ( LDVL.LT.1 .OR. LDVL.LT.N ) {
+      } else if ( LDVL.LT.1 || LDVL.LT.N ) {
          INFO = -15
-      } else if ( LDVR.LT.1 .OR. LDVR.LT.N ) {
+      } else if ( LDVR.LT.1 || LDVR.LT.N ) {
          INFO = -17
-      } else if ( LDLRE.LT.1 .OR. LDLRE.LT.N ) {
+      } else if ( LDLRE.LT.1 || LDLRE.LT.N ) {
          INFO = -19
-      } else if ( LWORK.LT.2*N .OR. ( COMP && LWORK.LT.2*N+N*N ) ) {
+      } else if ( LWORK.LT.2*N || ( COMP && LWORK.LT.2*N+N*N ) ) {
          INFO = -30
       }
 

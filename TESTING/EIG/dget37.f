@@ -360,7 +360,7 @@
             LCMP( 1 ) = 1
             IFND = 0
             for (I = 2; I <= N; I++) { // 190
-               if ( IFND == 1 .OR. WI( I ) == ZERO ) {
+               if ( IFND == 1 || WI( I ) == ZERO ) {
                   SELECT( I ) = false;
                } else {
                   IFND = 1
@@ -382,7 +382,7 @@
             LCMP( 2 ) = 2
             IFND = 0
             for (I = 3; I <= N; I++) { // 200
-               if ( IFND == 1 .OR. WI( I ) != ZERO ) {
+               if ( IFND == 1 || WI( I ) != ZERO ) {
                   SELECT( I ) = false;
                } else {
                   LCMP( 3 ) = I

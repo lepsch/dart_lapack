@@ -64,7 +64,7 @@
          // Test for non-positive-definiteness
 
          AJJ = DBLE( A( 1, 1 ) )
-         if ( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) {
+         if ( AJJ.LE.ZERO || DISNAN( AJJ ) ) {
             INFO = 1
             RETURN
          }

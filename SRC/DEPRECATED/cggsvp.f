@@ -52,11 +52,11 @@
       FORWRD = true;
 
       INFO = 0
-      if ( .NOT.( WANTU .OR. LSAME( JOBU, 'N' ) ) ) {
+      if ( .NOT.( WANTU || LSAME( JOBU, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( WANTV .OR. LSAME( JOBV, 'N' ) ) ) {
+      } else if ( .NOT.( WANTV || LSAME( JOBV, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( WANTQ .OR. LSAME( JOBQ, 'N' ) ) ) {
+      } else if ( .NOT.( WANTQ || LSAME( JOBQ, 'N' ) ) ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -68,11 +68,11 @@
          INFO = -8
       } else if ( LDB.LT.MAX( 1, P ) ) {
          INFO = -10
-      } else if ( LDU.LT.1 .OR. ( WANTU && LDU.LT.M ) ) {
+      } else if ( LDU.LT.1 || ( WANTU && LDU.LT.M ) ) {
          INFO = -16
-      } else if ( LDV.LT.1 .OR. ( WANTV && LDV.LT.P ) ) {
+      } else if ( LDV.LT.1 || ( WANTV && LDV.LT.P ) ) {
          INFO = -18
-      } else if ( LDQ.LT.1 .OR. ( WANTQ && LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 || ( WANTQ && LDQ.LT.N ) ) {
          INFO = -20
       }
       if ( INFO != 0 ) {

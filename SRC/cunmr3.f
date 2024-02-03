@@ -52,9 +52,9 @@
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
-      } else if ( K.LT.0 .OR. K.GT.NQ ) {
+      } else if ( K.LT.0 || K.GT.NQ ) {
          INFO = -5
-      } else if ( L.LT.0 .OR. ( LEFT && ( L.GT.M ) ) .OR. ( .NOT.LEFT && ( L.GT.N ) ) ) {
+      } else if ( L.LT.0 || ( LEFT && ( L.GT.M ) ) || ( .NOT.LEFT && ( L.GT.N ) ) ) {
          INFO = -6
       } else if ( LDA.LT.MAX( 1, K ) ) {
          INFO = -8
@@ -68,9 +68,9 @@
 
       // Quick return if possible
 
-      if (M == 0 .OR. N == 0 .OR. K == 0) RETURN;
+      if (M == 0 || N == 0 || K == 0) RETURN;
 
-      if ( ( LEFT && .NOT.NOTRAN .OR. .NOT.LEFT && NOTRAN ) ) {
+      if ( ( LEFT && .NOT.NOTRAN || .NOT.LEFT && NOTRAN ) ) {
          I1 = 1
          I2 = K
          I3 = 1

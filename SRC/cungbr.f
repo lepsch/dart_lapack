@@ -45,7 +45,7 @@
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -2
-      } else if ( N.LT.0 .OR. ( WANTQ && ( N.GT.M .OR. N.LT.MIN( M, K ) ) ) .OR. ( .NOT.WANTQ && ( M.GT.N .OR. M.LT. MIN( N, K ) ) ) ) {
+      } else if ( N.LT.0 || ( WANTQ && ( N.GT.M || N.LT.MIN( M, K ) ) ) || ( .NOT.WANTQ && ( M.GT.N || M.LT. MIN( N, K ) ) ) ) {
          INFO = -3
       } else if ( K.LT.0 ) {
          INFO = -4
@@ -88,7 +88,7 @@
 
       // Quick return if possible
 
-      if ( M == 0 .OR. N == 0 ) {
+      if ( M == 0 || N == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }

@@ -71,7 +71,7 @@
 
       // Quick return if possible.
 
-      IF ((M == 0) .OR. (N == 0) .OR. ((ALPHA == ZERO) && (BETA == ONE))) RETURN
+      IF ((M == 0) || (N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) RETURN
 
       // And when  alpha == zero.
 

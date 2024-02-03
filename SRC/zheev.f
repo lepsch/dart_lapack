@@ -47,9 +47,9 @@
       LQUERY = ( LWORK == -1 )
 
       INFO = 0
-      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
+      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
+      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3

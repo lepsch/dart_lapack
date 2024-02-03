@@ -46,7 +46,7 @@
       // Test the input parameters.
 
       INFO = 0
-      ONENRM = NORM == '1' .OR. LSAME( NORM, 'O' )
+      ONENRM = NORM == '1' || LSAME( NORM, 'O' )
       if ( .NOT.ONENRM && .NOT.LSAME( NORM, 'I' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -139,7 +139,7 @@
          NORMIN = 'Y'
          if ( SCALE != ONE ) {
             IX = ISAMAX( N, WORK, 1 )
-            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE == ZERO ) GO TO 40
+            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 40
             srscl(N, SCALE, WORK, 1 );
          }
          GO TO 10

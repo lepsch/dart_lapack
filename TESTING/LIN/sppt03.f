@@ -49,7 +49,7 @@
       EPS = SLAMCH( 'Epsilon' )
       ANORM = SLANSP( '1', UPLO, N, A, RWORK )
       AINVNM = SLANSP( '1', UPLO, N, AINV, RWORK )
-      if ( ANORM.LE.ZERO .OR. AINVNM == ZERO ) {
+      if ( ANORM.LE.ZERO || AINVNM == ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN

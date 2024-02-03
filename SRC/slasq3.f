@@ -96,7 +96,7 @@
 
       // Reverse the qd-array, if warranted.
 
-      if ( DMIN.LE.ZERO .OR. N0.LT.N0IN ) {
+      if ( DMIN.LE.ZERO || N0.LT.N0IN ) {
          if ( CBIAS*Z( 4*I0+PP-3 ).LT.Z( 4*N0+PP-3 ) ) {
             IPN4 = 4*( I0+N0 )
             DO 60 J4 = 4*I0, 2*( I0+N0-1 ), 4

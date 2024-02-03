@@ -50,13 +50,13 @@
          INFO = -3
       } else if ( KA.LT.0 ) {
          INFO = -4
-      } else if ( KB.LT.0 .OR. KB.GT.KA ) {
+      } else if ( KB.LT.0 || KB.GT.KA ) {
          INFO = -5
       } else if ( LDAB.LT.KA+1 ) {
          INFO = -7
       } else if ( LDBB.LT.KB+1 ) {
          INFO = -9
-      } else if ( LDX.LT.1 .OR. WANTX && LDX.LT.MAX( 1, N ) ) {
+      } else if ( LDX.LT.1 || WANTX && LDX.LT.MAX( 1, N ) ) {
          INFO = -11
       }
       if ( INFO != 0 ) {

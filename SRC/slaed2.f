@@ -47,7 +47,7 @@
          INFO = -2
       } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( MIN( 1, ( N / 2 ) ).GT.N1 .OR. ( N / 2 ).LT.N1 ) {
+      } else if ( MIN( 1, ( N / 2 ) ).GT.N1 || ( N / 2 ).LT.N1 ) {
          INFO = -3
       }
       if ( INFO != 0 ) {

@@ -57,9 +57,9 @@
          INFO = -3
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDVL.LT.1 .OR. ( WANTVL && LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 || ( WANTVL && LDVL.LT.N ) ) {
          INFO = -9
-      } else if ( LDVR.LT.1 .OR. ( WANTVR && LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 || ( WANTVR && LDVR.LT.N ) ) {
          INFO = -11
       }
 
@@ -219,7 +219,7 @@
 
       if (INFO != 0) GO TO 50;
 
-      if ( WANTVL .OR. WANTVR ) {
+      if ( WANTVL || WANTVR ) {
 
          // Compute left and/or right eigenvectors
          // (Workspace: need 4*N, prefer N + N + 2*N*NB)

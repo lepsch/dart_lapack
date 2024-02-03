@@ -43,20 +43,20 @@
       // Decode and test the input parameters
 
       INITU = LSAME( JOBU, 'I' )
-      WANTU = INITU .OR. LSAME( JOBU, 'U' )
+      WANTU = INITU || LSAME( JOBU, 'U' )
 
       INITV = LSAME( JOBV, 'I' )
-      WANTV = INITV .OR. LSAME( JOBV, 'V' )
+      WANTV = INITV || LSAME( JOBV, 'V' )
 
       INITQ = LSAME( JOBQ, 'I' )
-      WANTQ = INITQ .OR. LSAME( JOBQ, 'Q' )
+      WANTQ = INITQ || LSAME( JOBQ, 'Q' )
 
       INFO = 0
-      if ( .NOT.( INITU .OR. WANTU .OR. LSAME( JOBU, 'N' ) ) ) {
+      if ( .NOT.( INITU || WANTU || LSAME( JOBU, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( INITV .OR. WANTV .OR. LSAME( JOBV, 'N' ) ) ) {
+      } else if ( .NOT.( INITV || WANTV || LSAME( JOBV, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( INITQ .OR. WANTQ .OR. LSAME( JOBQ, 'N' ) ) ) {
+      } else if ( .NOT.( INITQ || WANTQ || LSAME( JOBQ, 'N' ) ) ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -68,11 +68,11 @@
          INFO = -10
       } else if ( LDB.LT.MAX( 1, P ) ) {
          INFO = -12
-      } else if ( LDU.LT.1 .OR. ( WANTU && LDU.LT.M ) ) {
+      } else if ( LDU.LT.1 || ( WANTU && LDU.LT.M ) ) {
          INFO = -18
-      } else if ( LDV.LT.1 .OR. ( WANTV && LDV.LT.P ) ) {
+      } else if ( LDV.LT.1 || ( WANTV && LDV.LT.P ) ) {
          INFO = -20
-      } else if ( LDQ.LT.1 .OR. ( WANTQ && LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 || ( WANTQ && LDQ.LT.N ) ) {
          INFO = -22
       }
       if ( INFO != 0 ) {

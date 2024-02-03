@@ -79,20 +79,20 @@ void main() {
 
       // Values of N
       READ( NIN, FMT = * )NIDIM
-      if ( NIDIM.LT.1.OR.NIDIM.GT.NIDMAX ) {
+      if ( NIDIM.LT.1 || NIDIM.GT.NIDMAX ) {
          WRITE( NOUT, FMT = 9997 )'N', NIDMAX
          GO TO 230
       }
       READ( NIN, FMT = * )( IDIM( I ), I = 1, NIDIM )
       for (I = 1; I <= NIDIM; I++) { // 10
-         if ( IDIM( I ).LT.0.OR.IDIM( I ).GT.NMAX ) {
+         if ( IDIM( I ).LT.0 || IDIM( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9996 )NMAX
             GO TO 230
          }
       } // 10
       // Values of K
       READ( NIN, FMT = * )NKB
-      if ( NKB.LT.1.OR.NKB.GT.NKBMAX ) {
+      if ( NKB.LT.1 || NKB.GT.NKBMAX ) {
          WRITE( NOUT, FMT = 9997 )'K', NKBMAX
          GO TO 230
       }
@@ -105,27 +105,27 @@ void main() {
       } // 20
       // Values of INCX and INCY
       READ( NIN, FMT = * )NINC
-      if ( NINC.LT.1.OR.NINC.GT.NINMAX ) {
+      if ( NINC.LT.1 || NINC.GT.NINMAX ) {
          WRITE( NOUT, FMT = 9997 )'INCX AND INCY', NINMAX
          GO TO 230
       }
       READ( NIN, FMT = * )( INC( I ), I = 1, NINC )
       for (I = 1; I <= NINC; I++) { // 30
-         if ( INC( I ) == 0.OR.ABS( INC( I ) ).GT.INCMAX ) {
+         if ( INC( I ) == 0 || ABS( INC( I ) ).GT.INCMAX ) {
             WRITE( NOUT, FMT = 9994 )INCMAX
             GO TO 230
          }
       } // 30
       // Values of ALPHA
       READ( NIN, FMT = * )NALF
-      if ( NALF.LT.1.OR.NALF.GT.NALMAX ) {
+      if ( NALF.LT.1 || NALF.GT.NALMAX ) {
          WRITE( NOUT, FMT = 9997 )'ALPHA', NALMAX
          GO TO 230
       }
       READ( NIN, FMT = * )( ALF( I ), I = 1, NALF )
       // Values of BETA
       READ( NIN, FMT = * )NBET
-      if ( NBET.LT.1.OR.NBET.GT.NBEMAX ) {
+      if ( NBET.LT.1 || NBET.GT.NBEMAX ) {
          WRITE( NOUT, FMT = 9997 )'BETA', NBEMAX
          GO TO 230
       }
@@ -188,14 +188,14 @@ void main() {
       TRANS = 'N'
       cmvch(TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
       SAME = LCE( YY, YT, N )
-      if ( .NOT.SAME.OR.ERR != RZERO ) {
+      if ( .NOT.SAME || ERR != RZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
          STOP
       }
       TRANS = 'T'
       cmvch(TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
       SAME = LCE( YY, YT, N )
-      if ( .NOT.SAME.OR.ERR != RZERO ) {
+      if ( .NOT.SAME || ERR != RZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
          STOP
       }
@@ -371,7 +371,7 @@ void main() {
                // Skip tests if not enough room.
                if (LDA.GT.NMAX) GO TO 100;
                LAA = LDA*N
-               NULL = N.LE.0.OR.M.LE.0
+               NULL = N.LE.0 || M.LE.0
 
                // Generate the matrix A.
 
@@ -380,7 +380,7 @@ void main() {
 
                for (IC = 1; IC <= 3; IC++) { // 90
                   TRANS = ICH( IC: IC )
-                  TRAN = TRANS == 'T'.OR.TRANS == 'C'
+                  TRAN = TRANS == 'T' || TRANS == 'C'
 
                   if ( TRAN ) {
                      ML = N
@@ -1256,7 +1256,7 @@ void main() {
             // Skip tests if not enough room.
             if (LDA.GT.NMAX) GO TO 110;
             LAA = LDA*N
-            NULL = N.LE.0.OR.M.LE.0
+            NULL = N.LE.0 || M.LE.0
 
             for (IX = 1; IX <= NINC; IX++) { // 100
                INCX = INC( IX )
@@ -1524,7 +1524,7 @@ void main() {
                for (IA = 1; IA <= NALF; IA++) { // 70
                   RALPHA = REAL( ALF( IA ) )
                   ALPHA = CMPLX( RALPHA, RZERO )
-                  NULL = N.LE.0.OR.RALPHA == RZERO
+                  NULL = N.LE.0 || RALPHA == RZERO
 
                   // Generate the matrix A.
 
@@ -1787,7 +1787,7 @@ void main() {
 
                   for (IA = 1; IA <= NALF; IA++) { // 100
                      ALPHA = ALF( IA )
-                     NULL = N.LE.0.OR.ALPHA == ZERO
+                     NULL = N.LE.0 || ALPHA == ZERO
 
                      // Generate the matrix A.
 
@@ -2343,15 +2343,15 @@ void main() {
       GEN = TYPE( 1: 1 ) == 'G'
       SYM = TYPE( 1: 1 ) == 'H'
       TRI = TYPE( 1: 1 ) == 'T'
-      UPPER = ( SYM.OR.TRI ) && UPLO == 'U'
-      LOWER = ( SYM.OR.TRI ) && UPLO == 'L'
+      UPPER = ( SYM || TRI ) && UPLO == 'U'
+      LOWER = ( SYM || TRI ) && UPLO == 'L'
       UNIT = TRI && DIAG == 'U'
 
       // Generate data in array A.
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            if ( GEN.OR.( UPPER && I.LE.J ).OR.( LOWER && I.GE.J ) ) THEN                IF( ( I.LE.J && J - I.LE.KU ).OR. ( I.GE.J && I - J.LE.KL ) ) {
+            if ( GEN || ( UPPER && I.LE.J ) || ( LOWER && I.GE.J ) ) THEN                IF( ( I.LE.J && J - I.LE.KU ) || ( I.GE.J && I - J.LE.KL ) ) {
                   A( I, J ) = CBEG( RESET ) + TRANSL
                } else {
                   A( I, J ) = ZERO
@@ -2391,7 +2391,7 @@ void main() {
                AA( I3 + ( J - 1 )*LDA ) = ROGUE
             } // 80
          } // 90
-      } else if ( TYPE == 'HE'.OR.TYPE == 'TR' ) {
+      } else if ( TYPE == 'HE' || TYPE == 'TR' ) {
          for (J = 1; J <= N; J++) { // 130
             if ( UPPER ) {
                IBEG = 1
@@ -2422,7 +2422,7 @@ void main() {
                AA( JJ ) = CMPLX( REAL( AA( JJ ) ), RROGUE )
             }
          } // 130
-      } else if ( TYPE == 'HB'.OR.TYPE == 'TB' ) {
+      } else if ( TYPE == 'HB' || TYPE == 'TB' ) {
          for (J = 1; J <= N; J++) { // 170
             if ( UPPER ) {
                KK = KL + 1
@@ -2455,7 +2455,7 @@ void main() {
                AA( JJ ) = CMPLX( REAL( AA( JJ ) ), RROGUE )
             }
          } // 170
-      } else if ( TYPE == 'HP'.OR.TYPE == 'TP' ) {
+      } else if ( TYPE == 'HP' || TYPE == 'TP' ) {
          IOFF = 0
          for (J = 1; J <= N; J++) { // 190
             if ( UPPER ) {
@@ -2517,7 +2517,7 @@ void main() {
       // .. Executable Statements ..
       TRAN = TRANS == 'T'
       CTRAN = TRANS == 'C'
-      if ( TRAN.OR.CTRAN ) {
+      if ( TRAN || CTRAN ) {
          ML = N
          NL = M
       } else {

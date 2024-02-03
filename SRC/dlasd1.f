@@ -40,7 +40,7 @@
          INFO = -1
       } else if ( NR.LT.1 ) {
          INFO = -2
-      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE.LT.0 ) || ( SQRE.GT.1 ) ) {
          INFO = -3
       }
       if ( INFO != 0 ) {

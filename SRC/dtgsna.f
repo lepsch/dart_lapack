@@ -46,8 +46,8 @@
       // Decode and test the input parameters
 
       WANTBH = LSAME( JOB, 'B' )
-      WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
-      WANTDF = LSAME( JOB, 'V' ) .OR. WANTBH
+      WANTS = LSAME( JOB, 'E' ) || WANTBH
+      WANTDF = LSAME( JOB, 'V' ) || WANTBH
 
       SOMCON = LSAME( HOWMNY, 'S' )
 
@@ -85,7 +85,7 @@
                         IF( SELECT( K ) ) M = M + 1
                      } else {
                         PAIR = true;
-                        IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
+                        IF( SELECT( K ) || SELECT( K+1 ) ) M = M + 2
                      }
                   } else {
                      IF( SELECT( N ) ) M = M + 1
@@ -98,7 +98,7 @@
 
          if ( N == 0 ) {
             LWMIN = 1
-         } else if ( LSAME( JOB, 'V' ) .OR. LSAME( JOB, 'B' ) ) {
+         } else if ( LSAME( JOB, 'V' ) || LSAME( JOB, 'B' ) ) {
             LWMIN = 2*N*( N + 2 ) + 16
          } else {
             LWMIN = N

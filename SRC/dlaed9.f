@@ -36,9 +36,9 @@
 
       if ( K.LT.0 ) {
          INFO = -1
-      } else if ( KSTART.LT.1 .OR. KSTART.GT.MAX( 1, K ) ) {
+      } else if ( KSTART.LT.1 || KSTART.GT.MAX( 1, K ) ) {
          INFO = -2
-      } else if ( MAX( 1, KSTOP ).LT.KSTART .OR. KSTOP.GT.MAX( 1, K ) ) {
+      } else if ( MAX( 1, KSTOP ).LT.KSTART || KSTOP.GT.MAX( 1, K ) ) {
          INFO = -3
       } else if ( N.LT.K ) {
          INFO = -4
@@ -64,7 +64,7 @@
          if (INFO != 0) GO TO 120;
       } // 20
 
-      if ( K == 1 .OR. K == 2 ) {
+      if ( K == 1 || K == 2 ) {
          for (I = 1; I <= K; I++) { // 40
             for (J = 1; J <= K; J++) { // 30
                S( J, I ) = Q( J, I )

@@ -67,7 +67,7 @@
 
       // Quick return if possible.
 
-      IF ((N == 0) .OR. (((ALPHA == ZERO).OR. (K == 0)) && (BETA == ONE))) RETURN
+      IF ((N == 0) || (((ALPHA == ZERO) || (K == 0)) && (BETA == ONE))) RETURN
 
       // And when  alpha == zero.
 
@@ -122,7 +122,7 @@
                       } // 100
                   }
                   for (L = 1; L <= K; L++) { // 120
-                      if ((A(J,L) != ZERO) .OR. (B(J,L) != ZERO)) {
+                      if ((A(J,L) != ZERO) || (B(J,L) != ZERO)) {
                           TEMP1 = ALPHA*B(J,L)
                           TEMP2 = ALPHA*A(J,L)
                           for (I = 1; I <= J; I++) { // 110
@@ -143,7 +143,7 @@
                       } // 150
                   }
                   for (L = 1; L <= K; L++) { // 170
-                      if ((A(J,L) != ZERO) .OR. (B(J,L) != ZERO)) {
+                      if ((A(J,L) != ZERO) || (B(J,L) != ZERO)) {
                           TEMP1 = ALPHA*B(J,L)
                           TEMP2 = ALPHA*A(J,L)
                           for (I = J; I <= N; I++) { // 160

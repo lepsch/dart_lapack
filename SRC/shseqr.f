@@ -58,7 +58,7 @@
 
       WANTT = LSAME( JOB, 'S' )
       INITZ = LSAME( COMPZ, 'I' )
-      WANTZ = INITZ .OR. LSAME( COMPZ, 'V' )
+      WANTZ = INITZ || LSAME( COMPZ, 'V' )
       WORK( 1 ) = SROUNDUP_LWORK( MAX( 1, N ) )
       LQUERY = LWORK == -1
 
@@ -69,13 +69,13 @@
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) {
+      } else if ( ILO.LT.1 || ILO.GT.MAX( 1, N ) ) {
          INFO = -4
-      } else if ( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) {
+      } else if ( IHI.LT.MIN( ILO, N ) || IHI.GT.N ) {
          INFO = -5
       } else if ( LDH.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -11
       } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -13
@@ -168,14 +168,14 @@
                   slacpy('A', N, N, H, LDH, HL, NL );
                   HL( N+1, N ) = ZERO
                   slaset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL );
-                  slaqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR, WI, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO != 0 ) CALL SLACPY( 'A', N, N, HL, NL, H, LDH );
+                  slaqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR, WI, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT || INFO != 0 ) CALL SLACPY( 'A', N, N, HL, NL, H, LDH );
                }
             }
          }
 
          // ==== Clear out the trash, if necessary. ====
 
-         IF( ( WANTT .OR. INFO != 0 ) && N.GT.2 ) CALL SLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
+         IF( ( WANTT || INFO != 0 ) && N.GT.2 ) CALL SLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
 
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====

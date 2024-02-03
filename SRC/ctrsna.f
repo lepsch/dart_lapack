@@ -55,8 +55,8 @@
       // Decode and test the input parameters
 
       WANTBH = LSAME( JOB, 'B' )
-      WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
-      WANTSP = LSAME( JOB, 'V' ) .OR. WANTBH
+      WANTS = LSAME( JOB, 'E' ) || WANTBH
+      WANTSP = LSAME( JOB, 'V' ) || WANTBH
 
       SOMCON = LSAME( HOWMNY, 'S' )
 
@@ -81,13 +81,13 @@
          INFO = -4
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVL.LT.1 .OR. ( WANTS && LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 || ( WANTS && LDVL.LT.N ) ) {
          INFO = -8
-      } else if ( LDVR.LT.1 .OR. ( WANTS && LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 || ( WANTS && LDVR.LT.N ) ) {
          INFO = -10
       } else if ( MM.LT.M ) {
          INFO = -13
-      } else if ( LDWORK.LT.1 .OR. ( WANTSP && LDWORK.LT.N ) ) {
+      } else if ( LDWORK.LT.1 || ( WANTSP && LDWORK.LT.N ) ) {
          INFO = -16
       }
       if ( INFO != 0 ) {
@@ -179,7 +179,7 @@
 
                   IX = ICAMAX( N-1, WORK, 1 )
                   XNORM = CABS1( WORK( IX, 1 ) )
-                  if (SCALE.LT.XNORM*SMLNUM .OR. SCALE == ZERO) GO TO 40;
+                  if (SCALE.LT.XNORM*SMLNUM || SCALE == ZERO) GO TO 40;
                   csrscl(N, SCALE, WORK, 1 );
                }
                GO TO 30

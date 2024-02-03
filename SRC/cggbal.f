@@ -114,14 +114,14 @@
       DO 80 I = L, 1, -1
          for (J = 1; J <= LM1; J++) { // 40
             JP1 = J + 1
-            IF( A( I, J ) != CZERO .OR. B( I, J ) != CZERO ) GO TO 50
+            IF( A( I, J ) != CZERO || B( I, J ) != CZERO ) GO TO 50
          } // 40
          J = L
          GO TO 70
 
          } // 50
          for (J = JP1; J <= L; J++) { // 60
-            IF( A( I, J ) != CZERO .OR. B( I, J ) != CZERO ) GO TO 80
+            IF( A( I, J ) != CZERO || B( I, J ) != CZERO ) GO TO 80
          } // 60
          J = JP1 - 1
 
@@ -141,13 +141,13 @@
       for (J = K; J <= L; J++) { // 150
          for (I = K; I <= LM1; I++) { // 110
             IP1 = I + 1
-            IF( A( I, J ) != CZERO .OR. B( I, J ) != CZERO ) GO TO 120
+            IF( A( I, J ) != CZERO || B( I, J ) != CZERO ) GO TO 120
          } // 110
          I = L
          GO TO 140
          } // 120
          for (I = IP1; I <= L; I++) { // 130
-            IF( A( I, J ) != CZERO .OR. B( I, J ) != CZERO ) GO TO 150
+            IF( A( I, J ) != CZERO || B( I, J ) != CZERO ) GO TO 150
          } // 130
          I = IP1 - 1
          } // 140

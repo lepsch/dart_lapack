@@ -479,7 +479,7 @@
 
       // Test error exits for the SGS, SGV, SGX, and SXV paths.
 
-      } else if ( LSAMEN( 3, PATH, 'SGS' ) .OR. LSAMEN( 3, PATH, 'SGV' ) .OR. LSAMEN( 3, PATH, 'SGX' ) .OR. LSAMEN( 3, PATH, 'SXV' ) ) {
+      } else if ( LSAMEN( 3, PATH, 'SGS' ) || LSAMEN( 3, PATH, 'SGV' ) || LSAMEN( 3, PATH, 'SGX' ) || LSAMEN( 3, PATH, 'SXV' ) ) {
 
          // SGGES
 

@@ -70,7 +70,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 && NB.LT.N ) .OR. K.LT.1 ) GO TO 30
+         IF( ( K.LE.N-NB+1 && NB.LT.N ) || K.LT.1 ) GO TO 30
 
          KSTEP = 1
 
@@ -418,7 +418,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB && NB.LT.N ) .OR. K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB.LT.N ) || K.GT.N ) GO TO 90
 
          KSTEP = 1
 

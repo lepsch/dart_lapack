@@ -50,7 +50,7 @@
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
 
-      LQUERY = ( ( LWORK == -1 ) .OR. ( LIWORK == -1 ) )
+      LQUERY = ( ( LWORK == -1 ) || ( LIWORK == -1 ) )
 
       if ( N.LE.1 ) {
          LWMIN  = 1
@@ -61,11 +61,11 @@
       }
 
       INFO = 0
-      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
+      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
+      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
-      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
+      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
@@ -75,15 +75,15 @@
          if ( VALEIG ) {
             if (N.GT.0 && VU.LE.VL) INFO = -8;
          } else if ( INDEIG ) {
-            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
+            if ( IL.LT.1 || IL.GT.MAX( 1, N ) ) {
                INFO = -9
-            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
+            } else if ( IU.LT.MIN( N, IL ) || IU.GT.N ) {
                INFO = -10
             }
          }
       }
       if ( INFO == 0 ) {
-         if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
+         if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
             INFO = -15
          }
       }
@@ -119,7 +119,7 @@
 
       if ( N == 1 ) {
          WORK( 1 ) = 26
-         if ( ALLEIG .OR. INDEIG ) {
+         if ( ALLEIG || INDEIG ) {
             M = 1
             W( 1 ) = A( 1, 1 )
          } else {
@@ -228,7 +228,7 @@
             TEST = true;
          }
       }
-      if ( ( ALLEIG.OR.TEST ) && ( IEEEOK == 1 ) ) {
+      if ( ( ALLEIG || TEST ) && ( IEEEOK == 1 ) ) {
          if ( .NOT.WANTZ ) {
             scopy(N, WORK( INDD ), 1, W, 1 );
             scopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );

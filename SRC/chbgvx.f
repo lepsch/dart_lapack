@@ -50,37 +50,37 @@
       INDEIG = LSAME( RANGE, 'I' )
 
       INFO = 0
-      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
+      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
+      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
-      } else if ( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) {
+      } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
       } else if ( KA.LT.0 ) {
          INFO = -5
-      } else if ( KB.LT.0 .OR. KB.GT.KA ) {
+      } else if ( KB.LT.0 || KB.GT.KA ) {
          INFO = -6
       } else if ( LDAB.LT.KA+1 ) {
          INFO = -8
       } else if ( LDBB.LT.KB+1 ) {
          INFO = -10
-      } else if ( LDQ.LT.1 .OR. ( WANTZ && LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 || ( WANTZ && LDQ.LT.N ) ) {
          INFO = -12
       } else {
          if ( VALEIG ) {
             if (N.GT.0 && VU.LE.VL) INFO = -14;
          } else if ( INDEIG ) {
-            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
+            if ( IL.LT.1 || IL.GT.MAX( 1, N ) ) {
                INFO = -15
-            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
+            } else if ( IU.LT.MIN( N, IL ) || IU.GT.N ) {
                INFO = -16
             }
          }
       }
       if ( INFO == 0) {
-         if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
+         if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
             INFO = -21
          }
       }
@@ -131,7 +131,7 @@
             TEST = true;
          }
       }
-      if ( ( ALLEIG .OR. TEST ) && ( ABSTOL.LE.ZERO ) ) {
+      if ( ( ALLEIG || TEST ) && ( ABSTOL.LE.ZERO ) ) {
          scopy(N, RWORK( INDD ), 1, W, 1 );
          INDEE = INDRWK + 2*N
          scopy(N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 );

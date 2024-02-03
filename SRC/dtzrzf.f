@@ -46,7 +46,7 @@
       }
 
       if ( INFO == 0 ) {
-         if ( M == 0 .OR. M == N ) {
+         if ( M == 0 || M == N ) {
             LWKOPT = 1
             LWKMIN = 1
          } else {

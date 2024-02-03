@@ -48,7 +48,7 @@
 
       // Quick return if N = 0 pr NRHS = 0
 
-      if ( M.LE.0 .OR. N.LE.0 .OR. NRHS.LE.0 ) {
+      if ( M.LE.0 || N.LE.0 || NRHS.LE.0 ) {
          RESID = ZERO
          RETURN
       }
@@ -67,7 +67,7 @@
             I2 = MIN( KD+M-J, KL+KD )
             if ( I2.GE.I1 ) {
                TEMP = SCASUM( I2-I1+1, A( I1, J ), 1 )
-               IF( ANORM.LT.TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
+               IF( ANORM.LT.TEMP || SISNAN( TEMP ) ) ANORM = TEMP
             }
          } // 10
       } else {
@@ -85,7 +85,7 @@
          } // 16
          for (I1 = 1; I1 <= M; I1++) { // 18
             TEMP = RWORK( I1 )
-            IF( ANORM.LT.TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
+            IF( ANORM.LT.TEMP || SISNAN( TEMP ) ) ANORM = TEMP
          } // 18
       }
       if ( ANORM.LE.ZERO ) {
@@ -93,7 +93,7 @@
          RETURN
       }
 
-      if ( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) {
+      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
          N1 = N
       } else {
          N1 = M

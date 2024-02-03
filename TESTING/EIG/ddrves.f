@@ -94,9 +94,9 @@
          INFO = -6
       } else if ( NOUNIT.LE.0 ) {
          INFO = -7
-      } else if ( LDA.LT.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LT.1 || LDA.LT.NMAX ) {
          INFO = -9
-      } else if ( LDVS.LT.1 .OR. LDVS.LT.NMAX ) {
+      } else if ( LDVS.LT.1 || LDVS.LT.NMAX ) {
          INFO = -17
       } else if ( 5*NMAX+2*NMAX**2.GT.NWORK ) {
          INFO = -20
@@ -109,7 +109,7 @@
 
       // Quick return if nothing to do
 
-      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) RETURN;
 
       // More Important constants
 
@@ -326,7 +326,7 @@
                   } // 130
                   for (I = 1; I <= N - 1; I++) { // 140
                      if ( H( I+1, I ) != ZERO ) {
-                        IF( H( I, I ) != H( I+1, I+1 ) .OR. H( I, I+1 ) == ZERO .OR. SIGN( ONE, H( I+1, I ) ) == SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
+                        IF( H( I, I ) != H( I+1, I+1 ) || H( I, I+1 ) == ZERO || SIGN( ONE, H( I+1, I ) ) == SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
                      }
                   } // 140
 
@@ -376,7 +376,7 @@
 
                   RESULT( 6+RSUB ) = ZERO
                   for (I = 1; I <= N; I++) { // 190
-                     IF( WR( I ) != WRT( I ) .OR. WI( I ) != WIT( I ) ) RESULT( 6+RSUB ) = ULPINV
+                     IF( WR( I ) != WRT( I ) || WI( I ) != WIT( I ) ) RESULT( 6+RSUB ) = ULPINV
                   } // 190
 
                   // Do Test (13)
@@ -385,9 +385,9 @@
                      RESULT( 13 ) = ZERO
                      KNTEIG = 0
                      for (I = 1; I <= N; I++) { // 200
-                        IF( DSLECT( WR( I ), WI( I ) ) .OR. DSLECT( WR( I ), -WI( I ) ) ) KNTEIG = KNTEIG + 1
+                        IF( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) ) KNTEIG = KNTEIG + 1
                         if ( I.LT.N ) {
-                           IF( ( DSLECT( WR( I+1 ), WI( I+1 ) ) .OR. DSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( .NOT.( DSLECT( WR( I ), WI( I ) ) .OR. DSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 ) RESULT( 13 ) = ULPINV
+                           IF( ( DSLECT( WR( I+1 ), WI( I+1 ) ) || DSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( .NOT.( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 ) RESULT( 13 ) = ULPINV
                         }
                      } // 200
                      if ( SDIM != KNTEIG ) {

@@ -39,7 +39,7 @@
 
       // Quick exit if N = 0 or NRHS = 0
 
-      if ( N.LE.0 .OR. NRHS == 0 ) {
+      if ( N.LE.0 || NRHS == 0 ) {
          RESID = ZERO
          RETURN
       }

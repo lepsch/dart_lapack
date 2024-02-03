@@ -54,11 +54,11 @@
 
       if ( M .LT. 0 ) {
          INFO = -6
-      } else if ( P .LT. 0 .OR. P .GT. M ) {
+      } else if ( P .LT. 0 || P .GT. M ) {
          INFO = -7
-      } else if ( Q .LT. 0 .OR. Q .GT. M ) {
+      } else if ( Q .LT. 0 || Q .GT. M ) {
          INFO = -8
-      } else if ( Q .GT. P .OR. Q .GT. M-P .OR. Q .GT. M-Q ) {
+      } else if ( Q .GT. P || Q .GT. M-P || Q .GT. M-Q ) {
          INFO = -8
       } else if ( WANTU1 && LDU1 .LT. P ) {
          INFO = -12

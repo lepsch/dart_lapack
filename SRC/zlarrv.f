@@ -48,7 +48,7 @@
 
       // Quick return if possible
 
-      if ( (N.LE.0).OR.(M.LE.0) ) {
+      if ( (N.LE.0) || (M.LE.0) ) {
          RETURN
       }
 
@@ -134,7 +134,7 @@
          if ( WEND.LT.WBEGIN ) {
             IBEGIN = IEND + 1
             GO TO 170
-         } else if ( (WEND.LT.DOL).OR.(WBEGIN.GT.DOU) ) {
+         } else if ( (WEND.LT.DOL) || (WBEGIN.GT.DOU) ) {
             IBEGIN = IEND + 1
             WBEGIN = WEND + 1
             GO TO 170
@@ -378,7 +378,7 @@
                         dlarrb(IN, D(IBEGIN), WORK( INDLLD+IBEGIN-1 ),P,P, RQTOL, RQTOL, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO );
                      } // 55
 
-                     if ((WBEGIN+NEWLST-1.LT.DOL).OR. (WBEGIN+NEWFST-1.GT.DOU)) {
+                     if ((WBEGIN+NEWLST-1.LT.DOL) || (WBEGIN+NEWFST-1.GT.DOU)) {
                         // if the cluster contains no desired eigenvalues
                         // skip the computation of that branch of the rep. tree
 
@@ -445,7 +445,7 @@
                      LAMBDA = WORK( WINDEX )
                      DONE = DONE + 1
                      // Check if eigenvector computation is to be skipped
-                     if ((WINDEX.LT.DOL).OR. (WINDEX.GT.DOU)) {
+                     if ((WINDEX.LT.DOL) || (WINDEX.GT.DOU)) {
                         ESKIP = true;
                         GOTO 125
                      } else {
@@ -483,7 +483,7 @@
                         RGAP = WGAP(WINDEX)
                      }
                      GAP = MIN( LGAP, RGAP )
-                     if (( K == 1).OR.(K == IM)) {
+                     if (( K == 1) || (K == IM)) {
                         // The eigenvector support can become wrong
                         // because significant entries could be cut off due to a
                         // large GAPTOL parameter in LAR1V. Prevent this.

@@ -44,7 +44,7 @@
 
          slasv2(A, B, D, S1, S2, SNR, CSR, SNL, CSL );
 
-         if ( ABS( CSL ).GE.ABS( SNL ) .OR. ABS( CSR ).GE.ABS( SNR ) ) {
+         if ( ABS( CSL ).GE.ABS( SNL ) || ABS( CSR ).GE.ABS( SNR ) ) {
 
             // Compute the (1,1) and (1,2) elements of U**T *A and V**T *B,
             // and (1,2) element of |U|**T *|A| and |V|**T *|B|.
@@ -126,7 +126,7 @@
 
          slasv2(A, C, D, S1, S2, SNR, CSR, SNL, CSL );
 
-         if ( ABS( CSR ).GE.ABS( SNR ) .OR. ABS( CSL ).GE.ABS( SNL ) ) {
+         if ( ABS( CSR ).GE.ABS( SNR ) || ABS( CSL ).GE.ABS( SNL ) ) {
 
             // Compute the (2,1) and (2,2) elements of U**T *A and V**T *B,
             // and (2,1) element of |U|**T *|A| and |V|**T *|B|.

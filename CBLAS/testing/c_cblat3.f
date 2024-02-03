@@ -115,27 +115,27 @@ void main() {
 
       // Values of N
       READ( NIN, FMT = * )NIDIM
-      if ( NIDIM.LT.1.OR.NIDIM.GT.NIDMAX ) {
+      if ( NIDIM.LT.1 || NIDIM.GT.NIDMAX ) {
          WRITE( NOUT, FMT = 9997 )'N', NIDMAX
          GO TO 220
       }
       READ( NIN, FMT = * )( IDIM( I ), I = 1, NIDIM )
       for (I = 1; I <= NIDIM; I++) { // 10
-         if ( IDIM( I ).LT.0.OR.IDIM( I ).GT.NMAX ) {
+         if ( IDIM( I ).LT.0 || IDIM( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9996 )NMAX
             GO TO 220
          }
       } // 10
       // Values of ALPHA
       READ( NIN, FMT = * )NALF
-      if ( NALF.LT.1.OR.NALF.GT.NALMAX ) {
+      if ( NALF.LT.1 || NALF.GT.NALMAX ) {
          WRITE( NOUT, FMT = 9997 )'ALPHA', NALMAX
          GO TO 220
       }
       READ( NIN, FMT = * )( ALF( I ), I = 1, NALF )
       // Values of BETA
       READ( NIN, FMT = * )NBET
-      if ( NBET.LT.1.OR.NBET.GT.NBEMAX ) {
+      if ( NBET.LT.1 || NBET.GT.NBEMAX ) {
          WRITE( NOUT, FMT = 9997 )'BETA', NBEMAX
          GO TO 220
       }
@@ -220,14 +220,14 @@ void main() {
       TRANSB = 'N'
       cmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LCE( CC, CT, N )
-      if ( .NOT.SAME.OR.ERR != RZERO ) {
+      if ( .NOT.SAME || ERR != RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'C'
       cmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LCE( CC, CT, N )
-      if ( .NOT.SAME.OR.ERR != RZERO ) {
+      if ( .NOT.SAME || ERR != RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
@@ -242,14 +242,14 @@ void main() {
       TRANSB = 'N'
       cmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LCE( CC, CT, N )
-      if ( .NOT.SAME.OR.ERR != RZERO ) {
+      if ( .NOT.SAME || ERR != RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'C'
       cmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LCE( CC, CT, N )
-      if ( .NOT.SAME.OR.ERR != RZERO ) {
+      if ( .NOT.SAME || ERR != RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
@@ -422,14 +422,14 @@ void main() {
             // Skip tests if not enough room.
             if (LDC.GT.NMAX) GO TO 100;
             LCC = LDC*N
-            NULL = N.LE.0.OR.M.LE.0
+            NULL = N.LE.0 || M.LE.0
 
             for (IK = 1; IK <= NIDIM; IK++) { // 90
                K = IDIM( IK )
 
                for (ICA = 1; ICA <= 3; ICA++) { // 80
                   TRANSA = ICH( ICA: ICA )
-                  TRANA = TRANSA == 'T'.OR.TRANSA == 'C'
+                  TRANA = TRANSA == 'T' || TRANSA == 'C'
 
                   if ( TRANA ) {
                      MA = K
@@ -451,7 +451,7 @@ void main() {
 
                   for (ICB = 1; ICB <= 3; ICB++) { // 70
                      TRANSB = ICH( ICB: ICB )
-                     TRANB = TRANSB == 'T'.OR.TRANSB == 'C'
+                     TRANB = TRANSB == 'T' || TRANSB == 'C'
 
                      if ( TRANB ) {
                         MB = N
@@ -710,7 +710,7 @@ void main() {
             // Skip tests if not enough room.
             if (LDC.GT.NMAX) GO TO 90;
             LCC = LDC*N
-            NULL = N.LE.0.OR.M.LE.0
+            NULL = N.LE.0 || M.LE.0
             // Set LDB to 1 more than minimum value if room.
             LDB = M
             if (LDB.LT.NMAX) LDB = LDB + 1;
@@ -990,7 +990,7 @@ void main() {
             // Skip tests if not enough room.
             if (LDB.GT.NMAX) GO TO 130;
             LBB = LDB*N
-            NULL = M.LE.0.OR.N.LE.0
+            NULL = M.LE.0 || N.LE.0
 
             for (ICS = 1; ICS <= 2; ICS++) { // 120
                SIDE = ICHS( ICS: ICS )
@@ -1327,7 +1327,7 @@ void main() {
                            BETA = CMPLX( RBETA, RZERO )
                         }
                         NULL = N.LE.0
-                        if (CONJ) NULL = NULL.OR.( ( K.LE.0.OR.RALPHA == RZERO ) && RBETA == RONE );
+                        if (CONJ) NULL = NULL || ( ( K.LE.0 || RALPHA == RZERO ) && RBETA == RONE );
 
                         // Generate the matrix C.
 
@@ -1687,7 +1687,7 @@ void main() {
                            BETA = CMPLX( RBETA, RZERO )
                         }
                         NULL = N.LE.0
-                        if (CONJ) NULL = NULL.OR.( ( K.LE.0.OR.ALPHA == ZERO ) && RBETA == RONE );
+                        if (CONJ) NULL = NULL || ( ( K.LE.0 || ALPHA == ZERO ) && RBETA == RONE );
 
                         // Generate the matrix C.
 
@@ -1990,15 +1990,15 @@ void main() {
       HER = TYPE == 'he'
       SYM = TYPE == 'sy'
       TRI = TYPE == 'tr'
-      UPPER = ( HER.OR.SYM.OR.TRI ) && UPLO == 'U'
-      LOWER = ( HER.OR.SYM.OR.TRI ) && UPLO == 'L'
+      UPPER = ( HER || SYM || TRI ) && UPLO == 'U'
+      LOWER = ( HER || SYM || TRI ) && UPLO == 'L'
       UNIT = TRI && DIAG == 'U'
 
       // Generate data in array A.
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            if ( GEN.OR.( UPPER && I.LE.J ).OR.( LOWER && I.GE.J ) ) {
+            if ( GEN || ( UPPER && I.LE.J ) || ( LOWER && I.GE.J ) ) {
                A( I, J ) = CBEG( RESET ) + TRANSL
                if ( I != J ) {
                   // Set some elements to zero
@@ -2027,7 +2027,7 @@ void main() {
                AA( I + ( J - 1 )*LDA ) = ROGUE
             } // 40
          } // 50
-      } else if ( TYPE == 'he'.OR.TYPE == 'sy'.OR.TYPE == 'tr' ) {
+      } else if ( TYPE == 'he' || TYPE == 'sy' || TYPE == 'tr' ) {
          for (J = 1; J <= N; J++) { // 90
             if ( UPPER ) {
                IBEG = 1
@@ -2102,8 +2102,8 @@ void main() {
       // .. Statement Function definitions ..
       ABS1( CL ) = ABS( REAL( CL ) ) + ABS( AIMAG( CL ) )
       // .. Executable Statements ..
-      TRANA = TRANSA == 'T'.OR.TRANSA == 'C'
-      TRANB = TRANSB == 'T'.OR.TRANSB == 'C'
+      TRANA = TRANSA == 'T' || TRANSA == 'C'
+      TRANB = TRANSB == 'T' || TRANSB == 'C'
       CTRANA = TRANSA == 'C'
       CTRANB = TRANSB == 'C'
 
@@ -2295,7 +2295,7 @@ void main() {
                IF( AA( I, J ) != AS( I, J ) ) GO TO 70
             } // 10
          } // 20
-      } else if ( TYPE == 'he'.OR.TYPE == 'sy' ) {
+      } else if ( TYPE == 'he' || TYPE == 'sy' ) {
          for (J = 1; J <= N; J++) { // 50
             if ( UPPER ) {
                IBEG = 1

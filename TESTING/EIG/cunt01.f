@@ -50,10 +50,10 @@
 
       // Quick return if possible
 
-      if (M.LE.0 .OR. N.LE.0) RETURN;
+      if (M.LE.0 || N.LE.0) RETURN;
 
       EPS = SLAMCH( 'Precision' )
-      if ( M.LT.N .OR. ( M == N && LSAME( ROWCOL, 'R' ) ) ) {
+      if ( M.LT.N || ( M == N && LSAME( ROWCOL, 'R' ) ) ) {
          TRANSU = 'N'
          K = N
       } else {

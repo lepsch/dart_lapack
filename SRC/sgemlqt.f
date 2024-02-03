@@ -54,9 +54,9 @@
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
-      } else if ( K.LT.0 .OR. K.GT.Q ) {
+      } else if ( K.LT.0 || K.GT.Q ) {
          INFO = -5
-      } else if ( MB.LT.1 .OR. (MB.GT.K && K.GT.0)) {
+      } else if ( MB.LT.1 || (MB.GT.K && K.GT.0)) {
          INFO = -6
       } else if ( LDV.LT.MAX( 1, K ) ) {
           INFO = -8
@@ -73,7 +73,7 @@
 
       // .. Quick return if possible ..
 
-      if (M == 0 .OR. N == 0 .OR. K == 0) RETURN;
+      if (M == 0 || N == 0 || K == 0) RETURN;
 
       if ( LEFT && NOTRAN ) {
 

@@ -38,7 +38,7 @@
 
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 .OR. LRWORK == -1 .OR. LIWORK == -1 )
+      LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 )
 
       INFO = 0
       if ( N.LE.1 ) {
@@ -54,21 +54,21 @@
          LRWMIN = N
          LIWMIN = 1
       }
-      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
+      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) {
+      } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
       } else if ( KA.LT.0 ) {
          INFO = -4
-      } else if ( KB.LT.0 .OR. KB.GT.KA ) {
+      } else if ( KB.LT.0 || KB.GT.KA ) {
          INFO = -5
       } else if ( LDAB.LT.KA+1 ) {
          INFO = -7
       } else if ( LDBB.LT.KB+1 ) {
          INFO = -9
-      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
          INFO = -12
       }
 

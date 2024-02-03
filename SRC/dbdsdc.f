@@ -61,9 +61,9 @@
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( ( LDU.LT.1 ) .OR. ( ( ICOMPQ == 2 ) && ( LDU.LT. N ) ) ) {
+      } else if ( ( LDU.LT.1 ) || ( ( ICOMPQ == 2 ) && ( LDU.LT. N ) ) ) {
          INFO = -7
-      } else if ( ( LDVT.LT.1 ) .OR. ( ( ICOMPQ == 2 ) && ( LDVT.LT. N ) ) ) {
+      } else if ( ( LDVT.LT.1 ) || ( ( ICOMPQ == 2 ) && ( LDVT.LT. N ) ) ) {
          INFO = -9
       }
       if ( INFO != 0 ) {
@@ -187,7 +187,7 @@
       SQRE = 0
 
       for (I = 1; I <= NM1; I++) { // 30
-         if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I == NM1 ) ) {
+         if ( ( ABS( E( I ) ).LT.EPS ) || ( I == NM1 ) ) {
 
             // Subproblem found. First determine its size and then
             // apply divide and conquer on it.

@@ -50,7 +50,7 @@
       EQUIL = LSAME( FACT, 'E' )
       SMLNUM = DLAMCH( 'Safe minimum' )
       BIGNUM = ONE / SMLNUM
-      if ( NOFACT .OR. EQUIL ) {
+      if ( NOFACT || EQUIL ) {
          EQUED = 'N'
          RCEQU = false;
       } else {
@@ -77,7 +77,7 @@
          INFO = -6
       } else if ( LDAF.LT.MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LSAME( FACT, 'F' ) && .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) {
+      } else if ( LSAME( FACT, 'F' ) && .NOT. ( RCEQU || LSAME( EQUED, 'N' ) ) ) {
          INFO = -10
       } else {
          if ( RCEQU ) {
@@ -127,7 +127,7 @@
 
       if (RCEQU) CALL DLASCL2( N, NRHS, S, B, LDB );
 
-      if ( NOFACT .OR. EQUIL ) {
+      if ( NOFACT || EQUIL ) {
 
          // Compute the LDL^T or UDU^T factorization of A.
 

@@ -47,9 +47,9 @@
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) {
+      } else if ( ILO.LT.1 || ILO.GT.MAX( 1, N ) ) {
          INFO = -4
-      } else if ( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) {
+      } else if ( IHI.LT.MIN( ILO, N ) || IHI.GT.N ) {
          INFO = -5
       } else if ( M.LT.0 ) {
          INFO = -7
@@ -69,7 +69,7 @@
 
       // Backward balance
 
-      if ( LSAME( JOB, 'S' ) .OR. LSAME( JOB, 'B' ) ) {
+      if ( LSAME( JOB, 'S' ) || LSAME( JOB, 'B' ) ) {
 
          if ( RIGHTV ) {
             for (I = ILO; I <= IHI; I++) { // 10
@@ -93,7 +93,7 @@
                // IHI+1 step 1 until N do --
 
       } // 30
-      if ( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) {
+      if ( LSAME( JOB, 'P' ) || LSAME( JOB, 'B' ) ) {
          if ( RIGHTV ) {
             for (II = 1; II <= N; II++) { // 40
                I = II

@@ -60,7 +60,7 @@
 
          // Test for non-positive-definiteness
 
-         if ( A( 1, 1 ).LE.ZERO.OR.DISNAN( A( 1, 1 ) ) ) {
+         if ( A( 1, 1 ).LE.ZERO || DISNAN( A( 1, 1 ) ) ) {
             INFO = 1
             RETURN
          }

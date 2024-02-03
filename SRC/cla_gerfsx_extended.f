@@ -193,7 +193,7 @@
 
             if ( X_STATE != WORKING_STATE ) {
                if (IGNORE_CWISE) GOTO 666;
-               if (Z_STATE == NOPROG_STATE .OR. Z_STATE == CONV_STATE) GOTO 666;
+               if (Z_STATE == NOPROG_STATE || Z_STATE == CONV_STATE) GOTO 666;
                if (Z_STATE == UNSTABLE_STATE && CNT.GT.1) GOTO 666;
             }
 

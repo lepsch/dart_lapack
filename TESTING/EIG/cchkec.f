@@ -65,19 +65,19 @@
       }
 
       cget36(RTREXC, LTREXC, NTREXC, KTREXC, NIN );
-      if ( RTREXC.GT.THRESH .OR. NTREXC.GT.0 ) {
+      if ( RTREXC.GT.THRESH || NTREXC.GT.0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9998 )RTREXC, LTREXC, NTREXC, KTREXC
       }
 
       cget37(RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN );
-      if ( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ) != 0 .OR. NTRSNA( 2 ) != 0 .OR. NTRSNA( 3 ) != 0 ) {
+      if ( RTRSNA( 1 ).GT.THRESH || RTRSNA( 2 ).GT.THRESH || NTRSNA( 1 ) != 0 || NTRSNA( 2 ) != 0 || NTRSNA( 3 ) != 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9997 )RTRSNA, LTRSNA, NTRSNA, KTRSNA
       }
 
       cget38(RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN );
-      if ( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ) != 0 .OR. NTRSEN( 2 ) != 0 .OR. NTRSEN( 3 ) != 0 ) {
+      if ( RTRSEN( 1 ).GT.THRESH || RTRSEN( 2 ).GT.THRESH || NTRSEN( 1 ) != 0 || NTRSEN( 2 ) != 0 || NTRSEN( 3 ) != 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9996 )RTRSEN, LTRSEN, NTRSEN, KTRSEN
       }

@@ -93,7 +93,7 @@
 
       // Quick return if possible
 
-      if ( M == 0 .OR. N == 0 .OR. NQ == 1 ) {
+      if ( M == 0 || N == 0 || NQ == 1 ) {
          WORK( 1 ) = 1
          RETURN
       }

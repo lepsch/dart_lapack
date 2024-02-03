@@ -76,9 +76,9 @@
          IJOBVR = -1
          ILVR = false;
       }
-      ILV = ILVL .OR. ILVR
+      ILV = ILVL || ILVR
 
-      NOSCL  = LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'P' )
+      NOSCL  = LSAME( BALANC, 'N' ) || LSAME( BALANC, 'P' )
       WANTSN = LSAME( SENSE, 'N' )
       WANTSE = LSAME( SENSE, 'E' )
       WANTSV = LSAME( SENSE, 'V' )
@@ -88,13 +88,13 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.( NOSCL .OR. LSAME( BALANC,'S' ) .OR. LSAME( BALANC, 'B' ) ) ) {
+      if ( .NOT.( NOSCL || LSAME( BALANC,'S' ) || LSAME( BALANC, 'B' ) ) ) {
          INFO = -1
       } else if ( IJOBVL.LE.0 ) {
          INFO = -2
       } else if ( IJOBVR.LE.0 ) {
          INFO = -3
-      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSB .OR. WANTSV ) ) {
+      } else if ( .NOT.( WANTSN || WANTSE || WANTSB || WANTSV ) ) {
          INFO = -4
       } else if ( N.LT.0 ) {
          INFO = -5
@@ -102,9 +102,9 @@
          INFO = -7
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      } else if ( LDVL.LT.1 .OR. ( ILVL && LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 || ( ILVL && LDVL.LT.N ) ) {
          INFO = -13
-      } else if ( LDVR.LT.1 .OR. ( ILVR && LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 || ( ILVR && LDVR.LT.N ) ) {
          INFO = -15
       }
 
@@ -124,7 +124,7 @@
             MINWRK = 2*N
             if ( WANTSE ) {
                MINWRK = 4*N
-            } else if ( WANTSV .OR. WANTSB ) {
+            } else if ( WANTSV || WANTSB ) {
                MINWRK = 2*N*( N + 1)
             }
             MAXWRK = MINWRK
@@ -210,7 +210,7 @@
       // (Complex Workspace: need N, prefer N*NB )
 
       IROWS = IHI + 1 - ILO
-      if ( ILV .OR. .NOT.WANTSN ) {
+      if ( ILV || .NOT.WANTSN ) {
          ICOLS = N + 1 - ILO
       } else {
          ICOLS = IROWS
@@ -240,7 +240,7 @@
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
 
-      if ( ILV .OR. .NOT.WANTSN ) {
+      if ( ILV || .NOT.WANTSN ) {
 
          // Eigenvectors requested -- work on whole matrix.
 
@@ -255,7 +255,7 @@
       // (Real Workspace: need N)
 
       IWRK = ITAU
-      if ( ILV .OR. .NOT.WANTSN ) {
+      if ( ILV || .NOT.WANTSN ) {
          CHTEMP = 'S'
       } else {
          CHTEMP = 'E'
@@ -279,7 +279,7 @@
       // CTGSNA: (Complex Workspace: need 2*N*N if SENSE='V' or 'B')
               // (Integer Workspace: need N+2 )
 
-      if ( ILV .OR. .NOT.WANTSN ) {
+      if ( ILV || .NOT.WANTSN ) {
          if ( ILV ) {
             if ( ILVL ) {
                if ( ILVR ) {
@@ -319,7 +319,7 @@
                IWRK = N + 1
                IWRK1 = IWRK + N
 
-               if ( WANTSE .OR. WANTSB ) {
+               if ( WANTSE || WANTSB ) {
                   ctgevc('B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, 1, M, WORK( IWRK1 ), RWORK, IERR );
                   if ( IERR != 0 ) {
                      INFO = N + 2

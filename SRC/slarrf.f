@@ -130,8 +130,8 @@
          }
          MAX1 = MAX( MAX1,ABS(DPLUS(I+1)) )
       } // 6
-      SAWNAN1 = SAWNAN1 .OR.  SISNAN( MAX1 )
-       if ( FORCER .OR. (MAX1.LE.GROWTHBOUND && .NOT.SAWNAN1 ) ) {
+      SAWNAN1 = SAWNAN1 || SISNAN( MAX1 )
+       if ( FORCER || (MAX1.LE.GROWTHBOUND && .NOT.SAWNAN1 ) ) {
          SIGMA = LSIGMA
          SHIFT = SLEFT
          GOTO 100
@@ -159,8 +159,8 @@
          }
          MAX2 = MAX( MAX2,ABS(WORK(I+1)) )
       } // 7
-      SAWNAN2 = SAWNAN2 .OR.  SISNAN( MAX2 )
-       if ( FORCER .OR. (MAX2.LE.GROWTHBOUND && .NOT.SAWNAN2 ) ) {
+      SAWNAN2 = SAWNAN2 || SISNAN( MAX2 )
+       if ( FORCER || (MAX2.LE.GROWTHBOUND && .NOT.SAWNAN2 ) ) {
          SIGMA = RSIGMA
          SHIFT = SRIGHT
          GOTO 100
@@ -180,7 +180,7 @@
             }
          }
          if ( .NOT.SAWNAN2 ) {
-            if (SAWNAN1 .OR. MAX2.LE.MAX1) INDX = 2;
+            if (SAWNAN1 || MAX2.LE.MAX1) INDX = 2;
             if (MAX2.LE.SMLGROWTH) {
                SMLGROWTH = MAX2
                BESTSHIFT = RSIGMA
@@ -258,7 +258,7 @@
       } else {
          // None of the representations investigated satisfied our
          // criteria. Take the best one we found.
-         if ((SMLGROWTH.LT.FAIL).OR.NOFAIL) {
+         if ((SMLGROWTH.LT.FAIL) || NOFAIL) {
             LSIGMA = BESTSHIFT
             RSIGMA = BESTSHIFT
             FORCER = true;

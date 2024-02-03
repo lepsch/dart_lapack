@@ -107,7 +107,7 @@
          SCALE = SCALEL*SCALEU
          if ( SCALE != ONE ) {
             IX = IDAMAX( N, WORK, 1 )
-            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE == ZERO ) GO TO 20
+            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20
             drscl(N, SCALE, WORK, 1 );
          }
          GO TO 10

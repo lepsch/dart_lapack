@@ -60,9 +60,9 @@
          INFO = -3
       } else if ( NOUT.LE.0 ) {
          INFO = -4
-      } else if ( LDA.LT.1 .OR. LDA.LT.NSIZE ) {
+      } else if ( LDA.LT.1 || LDA.LT.NSIZE ) {
          INFO = -6
-      } else if ( LDC.LT.1 .OR. LDC.LT.NSIZE*NSIZE / 2 ) {
+      } else if ( LDC.LT.1 || LDC.LT.NSIZE*NSIZE / 2 ) {
          INFO = -17
       } else if ( LIWORK.LT.NSIZE+6 ) {
          INFO = -21
@@ -213,7 +213,7 @@
                         } else {
                            I1 = J - 1
                         }
-                        if ( I1.LE.0 .OR. I1.GE.MPLUSN ) {
+                        if ( I1.LE.0 || I1.GE.MPLUSN ) {
                            ILABAD = true;
                         } else if ( I1.LT.MPLUSN-1 ) {
                            if ( AI( I1+2, I1+1 ) != ZERO ) {
@@ -272,7 +272,7 @@
                      if ( DIFEST( 2 ) == ZERO ) {
                         if (DIFTRU.GT.ABNRM*ULP) RESULT( 8 ) = ULPINV;
                      } else if ( DIFTRU == ZERO ) {
-                        IF( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV                      ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR. ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) THEN                         RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
+                        IF( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV                      ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) THEN                         RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
                      }
                      NTEST = NTEST + 1
                   }
@@ -402,7 +402,7 @@
             } else {
                I1 = J - 1
             }
-            if ( I1.LE.0 .OR. I1.GE.MPLUSN ) {
+            if ( I1.LE.0 || I1.GE.MPLUSN ) {
                ILABAD = true;
             } else if ( I1.LT.MPLUSN-1 ) {
                if ( AI( I1+2, I1+1 ) != ZERO ) {
@@ -445,7 +445,7 @@
       if ( DIFEST( 2 ) == ZERO ) {
          if (DIFTRU.GT.ABNRM*ULP) RESULT( 8 ) = ULPINV;
       } else if ( DIFTRU == ZERO ) {
-         if ( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV       ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR. ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) {
+         if ( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV       ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) {
          RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
       }
 
@@ -464,7 +464,7 @@
       if ( PL( 1 ) == ZERO ) {
          if (PLTRU.GT.ABNRM*ULP) RESULT( 10 ) = ULPINV;
       } else if ( PLTRU == ZERO ) {
-         if ( PL( 1 ).GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV       ELSE IF( ( PLTRU.GT.THRESH*PL( 1 ) ) .OR. ( PLTRU*THRESH.LT.PL( 1 ) ) ) {
+         if ( PL( 1 ).GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV       ELSE IF( ( PLTRU.GT.THRESH*PL( 1 ) ) || ( PLTRU*THRESH.LT.PL( 1 ) ) ) {
          RESULT( 10 ) = ULPINV
       }
 

@@ -54,9 +54,9 @@
       LRQUERY = LRWORK == -1
       if ( M .LT. 0 ) {
          INFO = -7
-      } else if ( P .LT. 0 .OR. P .GT. M ) {
+      } else if ( P .LT. 0 || P .GT. M ) {
          INFO = -8
-      } else if ( Q .LT. 0 .OR. Q .GT. M ) {
+      } else if ( Q .LT. 0 || Q .GT. M ) {
          INFO = -9
       } else if ( COLMAJOR && LDX11 .LT. MAX( 1, P ) ) {
         INFO = -11
@@ -159,9 +159,9 @@
          LWORKOPT = MAX(LWORKOPT,LWORKMIN)
          WORK(1) = SROUNDUP_LWORK(LWORKOPT)
 
-         if ( LWORK .LT. LWORKMIN && .NOT. ( LQUERY .OR. LRQUERY ) ) {
+         if ( LWORK .LT. LWORKMIN && .NOT. ( LQUERY || LRQUERY ) ) {
             INFO = -22
-         } else if ( LRWORK .LT. LRWORKMIN && .NOT. ( LQUERY .OR. LRQUERY ) ) {
+         } else if ( LRWORK .LT. LRWORKMIN && .NOT. ( LQUERY || LRQUERY ) ) {
             INFO = -24
          } else {
             LORGQRWORK = LWORK - IORGQR + 1
@@ -176,7 +176,7 @@
       if ( INFO != 0 ) {
          xerbla('CUNCSD', -INFO );
          RETURN
-      } else if ( LQUERY .OR. LRQUERY ) {
+      } else if ( LQUERY || LRQUERY ) {
          RETURN
       }
 

@@ -47,7 +47,7 @@
       EPS = DLAMCH( 'Epsilon' )
       ANORM = DLANGE( '1', N, N, A, LDA, RWORK )
       AINVNM = DLANGE( '1', N, N, AINV, LDAINV, RWORK )
-      if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+      if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN

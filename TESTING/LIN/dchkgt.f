@@ -122,7 +122,7 @@
                // Types 7-12:  generate tridiagonal matrices with
                // unknown condition numbers.
 
-               if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) {
+               if ( .NOT.ZEROT || .NOT.DOTYPE( 7 ) ) {
 
                   // Generate a matrix with elements from [-1,1].
 
@@ -227,7 +227,7 @@
 
                   // Compute RCONDC = 1 / (norm(A) * norm(inv(A))
 
-                  if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                  if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
                      RCONDC = ONE
                   } else {
                      RCONDC = ( ONE / ANORM ) / AINVNM

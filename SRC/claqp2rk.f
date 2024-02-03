@@ -182,7 +182,7 @@
 
             RELMAXC2NRMK =  MAXC2NRMK / MAXC2NRM
 
-            if ( MAXC2NRMK.LE.ABSTOL .OR. RELMAXC2NRMK.LE.RELTOL ) {
+            if ( MAXC2NRMK.LE.ABSTOL || RELMAXC2NRMK.LE.RELTOL ) {
 
                // Set K, the number of factorized columns.
 

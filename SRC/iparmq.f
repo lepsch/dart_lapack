@@ -26,7 +26,7 @@
       // INTRINSIC LOG, MAX, MOD, NINT, REAL
       // ..
       // .. Executable Statements ..
-      if ( ( ISPEC == ISHFTS ) .OR. ( ISPEC == INWIN ) .OR. ( ISPEC == IACC22 ) ) {
+      if ( ( ISPEC == ISHFTS ) || ( ISPEC == INWIN ) || ( ISPEC == IACC22 ) ) {
 
          // ==== Set the number simultaneous shifts ====
 
@@ -85,7 +85,7 @@
          SUBNAM = NAME
          IC = ICHAR( SUBNAM( 1: 1 ) )
          IZ = ICHAR( 'Z' )
-         if ( IZ == 90 .OR. IZ == 122 ) {
+         if ( IZ == 90 || IZ == 122 ) {
 
             // ASCII character set
 
@@ -97,19 +97,19 @@
                }
             }
 
-         } else if ( IZ == 233 .OR. IZ == 169 ) {
+         } else if ( IZ == 233 || IZ == 169 ) {
 
             // EBCDIC character set
 
-            if ( ( IC.GE.129 && IC.LE.137 ) .OR. ( IC.GE.145 && IC.LE.153 ) .OR. ( IC.GE.162 && IC.LE.169 ) ) {
+            if ( ( IC.GE.129 && IC.LE.137 ) || ( IC.GE.145 && IC.LE.153 ) || ( IC.GE.162 && IC.LE.169 ) ) {
                SUBNAM( 1: 1 ) = CHAR( IC+64 )
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( ( IC.GE.129 && IC.LE.137 ) .OR. ( IC.GE.145 && IC.LE.153 ) .OR. ( IC.GE.162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
+                  IF( ( IC.GE.129 && IC.LE.137 ) || ( IC.GE.145 && IC.LE.153 ) || ( IC.GE.162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
                }
             }
 
-         } else if ( IZ == 218 .OR. IZ == 250 ) {
+         } else if ( IZ == 218 || IZ == 250 ) {
 
             // Prime machines:  ASCII+128
 
@@ -122,11 +122,11 @@
             }
          }
 
-         if ( SUBNAM( 2:6 ) == 'GGHRD' .OR. SUBNAM( 2:6 ) == 'GGHD3' ) {
+         if ( SUBNAM( 2:6 ) == 'GGHRD' || SUBNAM( 2:6 ) == 'GGHD3' ) {
             IPARMQ = 1
             if (NH.GE.K22MIN) IPARMQ = 2;
          } else if ( SUBNAM( 4:6 ) == 'EXC' ) {
-            if (NH.GE.KACMIN) IPARMQ = 1             IF( NH.GE.K22MIN ) IPARMQ = 2          ELSE IF ( SUBNAM( 2:6 ) == 'HSEQR' .OR. SUBNAM( 2:5 ) == 'LAQR' ) THEN             IF( NS.GE.KACMIN ) IPARMQ = 1             IF( NS.GE.K22MIN ) IPARMQ = 2;
+            if (NH.GE.KACMIN) IPARMQ = 1             IF( NH.GE.K22MIN ) IPARMQ = 2          ELSE IF ( SUBNAM( 2:6 ) == 'HSEQR' || SUBNAM( 2:5 ) == 'LAQR' ) THEN             IF( NS.GE.KACMIN ) IPARMQ = 1             IF( NS.GE.K22MIN ) IPARMQ = 2;
          }
 
       } else if ( ISPEC == ICOST ) {

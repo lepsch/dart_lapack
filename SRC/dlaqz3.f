@@ -95,7 +95,7 @@
       }
 
       // Deflation detection loop
-      if ( KWTOP == ILO .OR. S == ZERO ) {
+      if ( KWTOP == ILO || S == ZERO ) {
          KWBOT = KWTOP-1
       } else {
          KWBOT = IHI

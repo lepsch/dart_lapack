@@ -48,14 +48,14 @@
                for (J = 1; J <= N; J++) { // 20
                   DO 10 I = 1, MIN( M, J-1 )
                      SUM = ABS( A( I, J ) )
-                     IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
+                     IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
                   } // 10
                } // 20
             } else {
                for (J = 1; J <= N; J++) { // 40
                   for (I = J + 1; I <= M; I++) { // 30
                      SUM = ABS( A( I, J ) )
-                     IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
+                     IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
                   } // 30
                } // 40
             }
@@ -65,19 +65,19 @@
                for (J = 1; J <= N; J++) { // 60
                   DO 50 I = 1, MIN( M, J )
                      SUM = ABS( A( I, J ) )
-                     IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
+                     IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
                   } // 50
                } // 60
             } else {
                for (J = 1; J <= N; J++) { // 80
                   for (I = J; I <= M; I++) { // 70
                      SUM = ABS( A( I, J ) )
-                     IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
+                     IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
                   } // 70
                } // 80
             }
          }
-      } else if ( ( LSAME( NORM, 'O' ) ) .OR. ( NORM == '1' ) ) {
+      } else if ( ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
 
          // Find norm1(A).
 
@@ -96,7 +96,7 @@
                      SUM = SUM + ABS( A( I, J ) )
                   } // 100
                }
-               IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
             } // 110
          } else {
             for (J = 1; J <= N; J++) { // 140
@@ -111,7 +111,7 @@
                      SUM = SUM + ABS( A( I, J ) )
                   } // 130
                }
-               IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
             } // 140
          }
       } else if ( LSAME( NORM, 'I' ) ) {
@@ -165,9 +165,9 @@
          VALUE = ZERO
          for (I = 1; I <= M; I++) { // 280
             SUM = WORK( I )
-            IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
+            IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
          } // 280
-      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
+      } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 

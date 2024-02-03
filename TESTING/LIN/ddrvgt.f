@@ -122,7 +122,7 @@
                // Types 7-12:  generate tridiagonal matrices with
                // unknown condition numbers.
 
-               if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) {
+               if ( .NOT.ZEROT || .NOT.DOTYPE( 7 ) ) {
 
                   // Generate a matrix with elements from [-1,1].
 
@@ -218,7 +218,7 @@
 
                   // Compute the 1-norm condition number of A.
 
-                  if ( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                  if ( ANORMO.LE.ZERO || AINVNM.LE.ZERO ) {
                      RCONDO = ONE
                   } else {
                      RCONDO = ( ONE / ANORMO ) / AINVNM
@@ -239,7 +239,7 @@
 
                   // Compute the infinity-norm condition number of A.
 
-                  if ( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                  if ( ANORMI.LE.ZERO || AINVNM.LE.ZERO ) {
                      RCONDI = ONE
                   } else {
                      RCONDI = ( ONE / ANORMI ) / AINVNM

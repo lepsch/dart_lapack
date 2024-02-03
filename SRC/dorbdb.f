@@ -58,9 +58,9 @@
 
       if ( M .LT. 0 ) {
          INFO = -3
-      } else if ( P .LT. 0 .OR. P .GT. M ) {
+      } else if ( P .LT. 0 || P .GT. M ) {
          INFO = -4
-      } else if ( Q .LT. 0 .OR. Q .GT. P .OR. Q .GT. M-P .OR. Q .GT. M-Q ) {
+      } else if ( Q .LT. 0 || Q .GT. P || Q .GT. M-P || Q .GT. M-Q ) {
          INFO = -5
       } else if ( COLMAJOR && LDX11 .LT. MAX( 1, P ) ) {
          INFO = -7

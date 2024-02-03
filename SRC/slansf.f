@@ -87,7 +87,7 @@
                for (J = 0; J <= K - 1; J++) {
                   for (I = 0; I <= N - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             } else {
@@ -95,7 +95,7 @@
                for (J = 0; J <= N - 1; J++) {
                   for (I = 0; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             }
@@ -106,7 +106,7 @@
                for (J = 0; J <= K - 1; J++) {
                   for (I = 0; I <= N; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             } else {
@@ -114,12 +114,12 @@
                for (J = 0; J <= N; J++) {
                   for (I = 0; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             }
          }
-      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM == '1' ) ) {
+      } else if ( ( LSAME( NORM, 'I' ) ) || ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
 
          // Find normI(A) ( = norm1(A), since A is symmetric).
 
@@ -161,7 +161,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                } else {
                   // ilu = 1
@@ -202,7 +202,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             } else {
@@ -239,7 +239,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                } else {
                   // ilu = 1
@@ -276,7 +276,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             }
@@ -341,7 +341,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                } else {
                   // ilu=1
@@ -405,7 +405,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             } else {
@@ -477,7 +477,7 @@
                   VALUE = WORK ( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                } else {
                   // ilu=1
@@ -549,12 +549,12 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             }
          }
-      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
+      } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 
         // Find normF(A).
 

@@ -47,7 +47,7 @@
 
       // Some Error Checks
 
-      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
+      if ( ITYPE.LT.1 || ITYPE.GT.3 ) {
          RESULT = TEN / ULP
          RETURN
       }

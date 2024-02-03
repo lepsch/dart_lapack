@@ -349,13 +349,13 @@
             // When EMIN is very small check for splits.
 
             if ( PP == 0 && N0-I0.GE.3 ) {
-               if ( Z( 4*N0 ).LE.TOL2*QMAX .OR. Z( 4*N0-1 ).LE.TOL2*SIGMA ) {
+               if ( Z( 4*N0 ).LE.TOL2*QMAX || Z( 4*N0-1 ).LE.TOL2*SIGMA ) {
                   SPLT = I0 - 1
                   QMAX = Z( 4*I0-3 )
                   EMIN = Z( 4*I0-1 )
                   OLDEMN = Z( 4*I0 )
                   DO 130 I4 = 4*I0, 4*( N0-3 ), 4
-                     if ( Z( I4 ).LE.TOL2*Z( I4-3 ) .OR. Z( I4-1 ).LE.TOL2*SIGMA ) {
+                     if ( Z( I4 ).LE.TOL2*Z( I4-3 ) || Z( I4-1 ).LE.TOL2*SIGMA ) {
                         Z( I4-1 ) = -SIGMA
                         SPLT = I4 / 4
                         QMAX = ZERO

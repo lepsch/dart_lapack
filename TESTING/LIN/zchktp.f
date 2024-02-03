@@ -130,7 +130,7 @@
 
                ANORM = ZLANTP( 'I', UPLO, DIAG, N, AP, RWORK )
                AINVNM = ZLANTP( 'I', UPLO, DIAG, N, AINVP, RWORK )
-               if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+               if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
                   RCONDI = ONE
                } else {
                   RCONDI = ( ONE / ANORM ) / AINVNM

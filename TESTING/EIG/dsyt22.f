@@ -36,7 +36,7 @@
 
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      if (N.LE.0 .OR. M.LE.0) RETURN;
+      if (N.LE.0 || M.LE.0) RETURN;
 
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Precision' )

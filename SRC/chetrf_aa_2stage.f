@@ -75,7 +75,7 @@
             WORK( 1 ) = SROUNDUP_LWORK( MAX( 1, N*NB ) )
          }
       }
-      if ( TQUERY .OR. WQUERY ) {
+      if ( TQUERY || WQUERY ) {
          RETURN
       }
 

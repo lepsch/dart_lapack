@@ -48,7 +48,7 @@
       INFO = 0
       if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
+      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -56,7 +56,7 @@
          INFO = -4
       } else if ( LDAB.LT.KD+1 ) {
          INFO = -6
-      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
          INFO = -9
       }
 

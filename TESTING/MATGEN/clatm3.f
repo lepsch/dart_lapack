@@ -50,7 +50,7 @@
 
       // Check for I and J in range
 
-      if ( I.LT.1 .OR. I.GT.M .OR. J.LT.1 .OR. J.GT.N ) {
+      if ( I.LT.1 || I.GT.M || J.LT.1 || J.GT.N ) {
          ISUB = I
          JSUB = J
          CLATM3 = CZERO
@@ -75,7 +75,7 @@
 
       // Check for banding
 
-      if ( JSUB.GT.ISUB+KU .OR. JSUB.LT.ISUB-KL ) {
+      if ( JSUB.GT.ISUB+KU || JSUB.LT.ISUB-KL ) {
          CLATM3 = CZERO
          RETURN
       }

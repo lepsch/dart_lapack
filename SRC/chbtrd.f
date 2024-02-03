@@ -42,7 +42,7 @@
       // Test the input parameters
 
       INITQ = LSAME( VECT, 'V' )
-      WANTQ = INITQ .OR. LSAME( VECT, 'U' )
+      WANTQ = INITQ || LSAME( VECT, 'U' )
       UPPER = LSAME( UPLO, 'U' )
       KD1 = KD + 1
       KDM1 = KD - 1

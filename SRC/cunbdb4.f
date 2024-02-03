@@ -61,9 +61,9 @@
 
       if ( M .LT. 0 ) {
          INFO = -1
-      } else if ( P .LT. M-Q .OR. M-P .LT. M-Q ) {
+      } else if ( P .LT. M-Q || M-P .LT. M-Q ) {
          INFO = -2
-      } else if ( Q .LT. M-Q .OR. Q .GT. M ) {
+      } else if ( Q .LT. M-Q || Q .GT. M ) {
          INFO = -3
       } else if ( LDX11 .LT. MAX( 1, P ) ) {
          INFO = -5

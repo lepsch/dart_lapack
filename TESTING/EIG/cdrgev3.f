@@ -84,11 +84,11 @@
          INFO = -3
       } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      } else if ( LDA.LE.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LE.1 || LDA.LT.NMAX ) {
          INFO = -9
-      } else if ( LDQ.LE.1 .OR. LDQ.LT.NMAX ) {
+      } else if ( LDQ.LE.1 || LDQ.LT.NMAX ) {
          INFO = -14
-      } else if ( LDQE.LE.1 .OR. LDQE.LT.NMAX ) {
+      } else if ( LDQE.LE.1 || LDQE.LT.NMAX ) {
          INFO = -17
       }
 
@@ -116,7 +116,7 @@
 
       // Quick return if possible
 
-      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) RETURN;
 
       ULP = SLAMCH( 'Precision' )
       SAFMIN = SLAMCH( 'Safe minimum' )
@@ -318,7 +318,7 @@
             }
 
             for (J = 1; J <= N; J++) { // 120
-               IF( ALPHA( J ) != ALPHA1( J ) .OR. BETA( J ) != BETA1( J ) ) RESULT( 5 ) = ULPINV
+               IF( ALPHA( J ) != ALPHA1( J ) || BETA( J ) != BETA1( J ) ) RESULT( 5 ) = ULPINV
             } // 120
 
             // Do the test (6): Compute eigenvalues and left eigenvectors,
@@ -336,7 +336,7 @@
 
 
             for (J = 1; J <= N; J++) { // 130
-               if ( ALPHA( J ) != ALPHA1( J ) .OR. BETA( J ) != BETA1( J ) ) {
+               if ( ALPHA( J ) != ALPHA1( J ) || BETA( J ) != BETA1( J ) ) {
                   RESULT( 6 ) = ULPINV
                }
             } // 130
@@ -363,7 +363,7 @@
             }
 
             for (J = 1; J <= N; J++) { // 160
-               IF( ALPHA( J ) != ALPHA1( J ) .OR. BETA( J ) != BETA1( J ) )RESULT( 7 ) = ULPINV
+               IF( ALPHA( J ) != ALPHA1( J ) || BETA( J ) != BETA1( J ) )RESULT( 7 ) = ULPINV
             } // 160
 
             for (J = 1; J <= N; J++) { // 180

@@ -70,7 +70,7 @@
          LMAX( 1 ) = KNT
       }
 
-      if ( ILO != ILOIN .OR. IHI != IHIIN ) {
+      if ( ILO != ILOIN || IHI != IHIIN ) {
          NINFO = NINFO + 1
          LMAX( 2 ) = KNT
       }

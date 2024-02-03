@@ -72,21 +72,21 @@
       }
 
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.( UPPER .OR. LOWER .OR. LSAME( JOBA, 'G' ) ) ) {
+      if ( .NOT.( UPPER || LOWER || LSAME( JOBA, 'G' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LSVEC .OR. UCTOL .OR. LSAME( JOBU, 'N' ) ) ) {
+      } else if ( .NOT.( LSVEC || UCTOL || LSAME( JOBU, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( RSVEC .OR. APPLV .OR. LSAME( JOBV, 'N' ) ) ) {
+      } else if ( .NOT.( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
-      } else if ( ( N.LT.0 ) .OR. ( N.GT.M ) ) {
+      } else if ( ( N.LT.0 ) || ( N.GT.M ) ) {
          INFO = -5
       } else if ( LDA.LT.M ) {
          INFO = -7
       } else if ( MV.LT.0 ) {
          INFO = -9
-      } else if ( ( RSVEC && ( LDV.LT.N ) ) .OR. ( APPLV && ( LDV.LT.MV ) ) ) {
+      } else if ( ( RSVEC && ( LDV.LT.N ) ) || ( APPLV && ( LDV.LT.MV ) ) ) {
          INFO = -11
       } else if ( UCTOL && ( WORK( 1 ).LE.ONE ) ) {
          INFO = -12
@@ -121,7 +121,7 @@
          CTOL = WORK( 1 )
       } else {
          // ... default
-         if ( LSVEC .OR. RSVEC .OR. APPLV ) {
+         if ( LSVEC || RSVEC || APPLV ) {
             CTOL = DSQRT( DBLE( M ) )
          } else {
             CTOL = DBLE( M )
@@ -158,7 +158,7 @@
       } else if ( APPLV ) {
          MVL = MV
       }
-      RSVEC = RSVEC .OR. APPLV
+      RSVEC = RSVEC || APPLV
 
       // Initialize SVA( 1:N ) = ( ||A e_i||_2, i = 1:N )
 *(!)  If necessary, scale A to protect the largest singular value
@@ -298,7 +298,7 @@
 
       SN = DSQRT( SFMIN / EPSLN )
       TEMP1 = DSQRT( BIG / DBLE( N ) )
-      if ( ( AAPP.LE.SN ) .OR. ( AAQQ.GE.TEMP1 ) .OR. ( ( SN.LE.AAQQ ) && ( AAPP.LE.TEMP1 ) ) ) {
+      if ( ( AAPP.LE.SN ) || ( AAQQ.GE.TEMP1 ) || ( ( SN.LE.AAQQ ) && ( AAPP.LE.TEMP1 ) ) ) {
          TEMP1 = MIN( BIG, TEMP1 / AAPP )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
@@ -375,7 +375,7 @@
       // invokes cubic convergence. Big part of this cycle is done inside
       // canonical subspaces of dimensions less than M.
 
-      if ( ( LOWER .OR. UPPER ) && ( N.GT.MAX( 64, 4*KBL ) ) ) {
+      if ( ( LOWER || UPPER ) && ( N.GT.MAX( 64, 4*KBL ) ) ) {
 *[TP] The number of partition levels and the actual partition are
       // tuning parameters.
          N4 = N / 4
@@ -942,7 +942,7 @@
 
       // Additional steering devices
 
-         IF( ( i.LT.SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
+         IF( ( i.LT.SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) || ( ISWROT.LE.N ) ) )SWBAND = i
 
          if ( ( i.GT.SWBAND+1 ) && ( MXAAPQ.LT.DSQRT( DBLE( N ) )* TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ.LT.TOL ) ) {
             GO TO 1994
@@ -994,7 +994,7 @@
 
       // Normalize the left singular vectors.
 
-      if ( LSVEC .OR. UCTOL ) {
+      if ( LSVEC || UCTOL ) {
          for (p = 1; p <= N2; p++) { // 1998
             dscal(M, WORK( p ) / SVA( p ), A( 1, p ), 1 );
          } // 1998
@@ -1016,7 +1016,7 @@
       }
 
       // Undo scaling, if necessary (and possible).
-      if ( ( ( SKL.GT.ONE ) && ( SVA( 1 ).LT.( BIG / SKL) ) ) .OR. ( ( SKL.LT.ONE ) && ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL) ) ) ) {
+      if ( ( ( SKL.GT.ONE ) && ( SVA( 1 ).LT.( BIG / SKL) ) ) || ( ( SKL.LT.ONE ) && ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL) ) ) ) {
          for (p = 1; p <= N; p++) { // 2400
             SVA( P ) = SKL*SVA( P )
          } // 2400

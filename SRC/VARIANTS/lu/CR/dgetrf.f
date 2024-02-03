@@ -50,12 +50,12 @@
 
       // Quick return if possible
 
-      if (M == 0 .OR. N == 0) RETURN;
+      if (M == 0 || N == 0) RETURN;
 
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'DGETRF', ' ', M, N, -1, -1 )
-      if ( NB.LE.1 .OR. NB.GE.MIN( M, N ) ) {
+      if ( NB.LE.1 || NB.GE.MIN( M, N ) ) {
 
          // Use unblocked code.
 

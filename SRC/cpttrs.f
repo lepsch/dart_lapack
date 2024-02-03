@@ -34,8 +34,8 @@
       // Test the input arguments.
 
       INFO = 0
-      UPPER = ( UPLO == 'U' .OR. UPLO == 'u' )
-      if ( .NOT.UPPER && .NOT.( UPLO == 'L' .OR. UPLO == 'l' ) ) {
+      UPPER = ( UPLO == 'U' || UPLO == 'u' )
+      if ( .NOT.UPPER && .NOT.( UPLO == 'L' || UPLO == 'l' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -51,7 +51,7 @@
 
       // Quick return if possible
 
-      if (N == 0 .OR. NRHS == 0) RETURN;
+      if (N == 0 || NRHS == 0) RETURN;
 
       // Determine the number of right-hand sides to solve at a time.
 

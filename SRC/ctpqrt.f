@@ -29,9 +29,9 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( L.LT.0 .OR. (L.GT.MIN(M,N) && MIN(M,N).GE.0)) {
+      } else if ( L.LT.0 || (L.GT.MIN(M,N) && MIN(M,N).GE.0)) {
          INFO = -3
-      } else if ( NB.LT.1 .OR. (NB.GT.N && N.GT.0)) {
+      } else if ( NB.LT.1 || (NB.GT.N && N.GT.0)) {
          INFO = -4
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
@@ -47,7 +47,7 @@
 
       // Quick return if possible
 
-      if (M == 0 .OR. N == 0) RETURN;
+      if (M == 0 || N == 0) RETURN;
 
       DO I = 1, N, NB
 

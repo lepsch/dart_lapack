@@ -56,7 +56,7 @@
 
       WANTU = LSAME( JOBU, 'V' )
       WANTVT = LSAME( JOBVT, 'V' )
-      if ( WANTU .OR. WANTVT ) {
+      if ( WANTU || WANTVT ) {
          JOBZ = 'V'
       } else {
          JOBZ = 'N'
@@ -70,7 +70,7 @@
          INFO = -1
       } else if ( .NOT.LSAME( JOBVT, 'V' ) && .NOT.LSAME( JOBVT, 'N' ) ) {
          INFO = -2
-      } else if ( .NOT.( ALLS .OR. VALS .OR. INDS ) ) {
+      } else if ( .NOT.( ALLS || VALS || INDS ) ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -86,9 +86,9 @@
                INFO = -9
             }
          } else if ( INDS ) {
-            if ( IL.LT.1 .OR. IL.GT.MAX( 1, MINMN ) ) {
+            if ( IL.LT.1 || IL.GT.MAX( 1, MINMN ) ) {
                INFO = -10
-            } else if ( IU.LT.MIN( MINMN, IL ) .OR. IU.GT.MINMN ) {
+            } else if ( IU.LT.MIN( MINMN, IL ) || IU.GT.MINMN ) {
                INFO = -11
             }
          }
@@ -127,7 +127,7 @@
                   MINWRK = N*(N+5)
                   MAXWRK = N + N*ILAENV(1,'ZGEQRF',' ',M,N,-1,-1)
                   MAXWRK = MAX(MAXWRK, N*N+2*N+2*N*ILAENV(1,'ZGEBRD',' ',N,N,-1,-1))
-                  if (WANTU .OR. WANTVT) {
+                  if (WANTU || WANTVT) {
                      MAXWRK = MAX(MAXWRK, N*N+2*N+N*ILAENV(1,'ZUNMQR','LN',N,N,N,-1))
                   }
                } else {
@@ -136,7 +136,7 @@
 
                   MINWRK = 3*N + M
                   MAXWRK = 2*N + (M+N)*ILAENV(1,'ZGEBRD',' ',M,N,-1,-1)
-                  if (WANTU .OR. WANTVT) {
+                  if (WANTU || WANTVT) {
                      MAXWRK = MAX(MAXWRK, 2*N+N*ILAENV(1,'ZUNMQR','LN',N,N,N,-1))
                   }
                }
@@ -149,7 +149,7 @@
                   MINWRK = M*(M+5)
                   MAXWRK = M + M*ILAENV(1,'ZGELQF',' ',M,N,-1,-1)
                   MAXWRK = MAX(MAXWRK, M*M+2*M+2*M*ILAENV(1,'ZGEBRD',' ',M,M,-1,-1))
-                  if (WANTU .OR. WANTVT) {
+                  if (WANTU || WANTVT) {
                      MAXWRK = MAX(MAXWRK, M*M+2*M+M*ILAENV(1,'ZUNMQR','LN',M,M,M,-1))
                   }
                } else {
@@ -159,7 +159,7 @@
 
                   MINWRK = 3*M + N
                   MAXWRK = 2*M + (M+N)*ILAENV(1,'ZGEBRD',' ',M,N,-1,-1)
-                  if (WANTU .OR. WANTVT) {
+                  if (WANTU || WANTVT) {
                      MAXWRK = MAX(MAXWRK, 2*M+M*ILAENV(1,'ZUNMQR','LN',M,M,M,-1))
                   }
                }
@@ -182,7 +182,7 @@
 
       // Quick return if possible
 
-      if ( M == 0 .OR. N == 0 ) {
+      if ( M == 0 || N == 0 ) {
          RETURN
       }
 

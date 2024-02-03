@@ -50,19 +50,19 @@
 
       APPLV = LSAME( JOBV, 'A' )
       RSVEC = LSAME( JOBV, 'V' )
-      if ( .NOT.( RSVEC .OR. APPLV .OR. LSAME( JOBV, 'N' ) ) ) {
+      if ( .NOT.( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -2
-      } else if ( ( N.LT.0 ) .OR. ( N.GT.M ) ) {
+      } else if ( ( N.LT.0 ) || ( N.GT.M ) ) {
          INFO = -3
       } else if ( N1.LT.0 ) {
          INFO = -4
       } else if ( LDA.LT.M ) {
          INFO = -6
-      } else if ( ( RSVEC.OR.APPLV ) && ( MV.LT.0 ) ) {
+      } else if ( ( RSVEC || APPLV ) && ( MV.LT.0 ) ) {
          INFO = -9
-      } else if ( ( RSVEC && ( LDV.LT.N ) ).OR. ( APPLV && ( LDV.LT.MV ) )  ) {
+      } else if ( ( RSVEC && ( LDV.LT.N ) ) || ( APPLV && ( LDV.LT.MV ) )  ) {
          INFO = -11
       } else if ( TOL.LE.EPS ) {
          INFO = -14
@@ -85,7 +85,7 @@
       } else if ( APPLV ) {
          MVL = MV
       }
-      RSVEC = RSVEC .OR. APPLV
+      RSVEC = RSVEC || APPLV
 
       ROOTEPS = SQRT( EPS )
       ROOTSFMIN = SQRT( SFMIN )
@@ -365,7 +365,7 @@
 
       // Additional steering devices
 
-         IF( ( i.LT.SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
+         IF( ( i.LT.SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) || ( ISWROT.LE.N ) ) )SWBAND = i
 
          if ( ( i.GT.SWBAND+1 ) && ( MXAAPQ.LT.SQRT( DBLE( N ) )* TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ.LT.TOL ) ) {
             GO TO 1994

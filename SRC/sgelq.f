@@ -39,11 +39,11 @@
 
       INFO = 0
 
-      LQUERY = ( TSIZE == -1 .OR. TSIZE == -2 .OR. LWORK == -1 .OR. LWORK == -2 )
+      LQUERY = ( TSIZE == -1 || TSIZE == -2 || LWORK == -1 || LWORK == -2 )
 
       MINT = false;
       MINW = false;
-      if ( TSIZE == -2 .OR. LWORK == -2 ) {
+      if ( TSIZE == -2 || LWORK == -2 ) {
         if (TSIZE != -1) MINT = true ;
         if (LWORK != -1) MINW = true ;
       }
@@ -57,8 +57,8 @@
         MB = 1
         NB = N
       }
-      IF( MB.GT.MIN( M, N ) .OR. MB.LT.1 ) MB = 1
-      if (NB.GT.N .OR. NB.LE.M) NB = N;
+      IF( MB.GT.MIN( M, N ) || MB.LT.1 ) MB = 1
+      if (NB.GT.N || NB.LE.M) NB = N;
       MINTSZ = M + 5
       if ( NB.GT.M && N.GT.M ) {
         if ( MOD( N - M, NB - M ) == 0 ) {
@@ -72,7 +72,7 @@
 
       // Determine if the workspace size satisfies minimal size
 
-      if ( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) {
+      if ( ( N.LE.M ) || ( NB.LE.M ) || ( NB.GE.N ) ) {
          LWMIN = MAX( 1, N )
          LWOPT = MAX( 1, MB*N )
       } else {
@@ -80,7 +80,7 @@
          LWOPT = MAX( 1, MB*M )
       }
       LMINWS = false;
-      if ( ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) .OR. LWORK.LT.LWOPT ) && ( LWORK.GE.LWMIN ) && ( TSIZE.GE.MINTSZ ) && ( .NOT.LQUERY ) ) {
+      if ( ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) || LWORK.LT.LWOPT ) && ( LWORK.GE.LWMIN ) && ( TSIZE.GE.MINTSZ ) && ( .NOT.LQUERY ) ) {
         if ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) ) {
           LMINWS = true;
           MB = 1
@@ -91,7 +91,7 @@
           MB = 1
         }
       }
-      if ( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) {
+      if ( ( N.LE.M ) || ( NB.LE.M ) || ( NB.GE.N ) ) {
          LWREQ = MAX( 1, MB*N )
       } else {
          LWREQ = MAX( 1, MB*M )
@@ -138,7 +138,7 @@
 
       // The LQ Decomposition
 
-      if ( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) {
+      if ( ( N.LE.M ) || ( NB.LE.M ) || ( NB.GE.N ) ) {
         sgelqt(M, N, MB, A, LDA, T( 6 ), MB, WORK, INFO );
       } else {
         slaswlq(M, N, MB, NB, A, LDA, T( 6 ), MB, WORK, LWORK, INFO );

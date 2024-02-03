@@ -76,7 +76,7 @@
       // The quick return case: ((ALPHA == 0) && (BETA != ZERO)) is not
       // done (it is in CHERK for example) and left in the general case.
 
-      IF( ( N == 0 ) .OR. ( ( ( ALPHA == ZERO ) .OR. ( K == 0 ) ) && ( BETA == ONE ) ) )RETURN
+      IF( ( N == 0 ) || ( ( ( ALPHA == ZERO ) || ( K == 0 ) ) && ( BETA == ONE ) ) )RETURN
 
       if ( ( ALPHA == ZERO ) && ( BETA == ZERO ) ) {
          for (J = 1; J <= ( ( N*( N+1 ) ) / 2 ); J++) {

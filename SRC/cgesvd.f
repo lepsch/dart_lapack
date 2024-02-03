@@ -51,19 +51,19 @@
       MINMN = MIN( M, N )
       WNTUA = LSAME( JOBU, 'A' )
       WNTUS = LSAME( JOBU, 'S' )
-      WNTUAS = WNTUA .OR. WNTUS
+      WNTUAS = WNTUA || WNTUS
       WNTUO = LSAME( JOBU, 'O' )
       WNTUN = LSAME( JOBU, 'N' )
       WNTVA = LSAME( JOBVT, 'A' )
       WNTVS = LSAME( JOBVT, 'S' )
-      WNTVAS = WNTVA .OR. WNTVS
+      WNTVAS = WNTVA || WNTVS
       WNTVO = LSAME( JOBVT, 'O' )
       WNTVN = LSAME( JOBVT, 'N' )
       LQUERY = ( LWORK == -1 )
 
-      if ( .NOT.( WNTUA .OR. WNTUS .OR. WNTUO .OR. WNTUN ) ) {
+      if ( .NOT.( WNTUA || WNTUS || WNTUO || WNTUN ) ) {
          INFO = -1
-      } else if ( .NOT.( WNTVA .OR. WNTVS .OR. WNTVO .OR. WNTVN ) .OR. ( WNTVO && WNTUO ) ) {
+      } else if ( .NOT.( WNTVA || WNTVS || WNTVO || WNTVN ) || ( WNTVO && WNTUO ) ) {
          INFO = -2
       } else if ( M.LT.0 ) {
          INFO = -3
@@ -71,9 +71,9 @@
          INFO = -4
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -6
-      } else if ( LDU.LT.1 .OR. ( WNTUAS && LDU.LT.M ) ) {
+      } else if ( LDU.LT.1 || ( WNTUAS && LDU.LT.M ) ) {
          INFO = -9
-      } else if ( LDVT.LT.1 .OR. ( WNTVA && LDVT.LT.N ) .OR. ( WNTVS && LDVT.LT.MINMN ) ) {
+      } else if ( LDVT.LT.1 || ( WNTVA && LDVT.LT.N ) || ( WNTVS && LDVT.LT.MINMN ) ) {
          INFO = -11
       }
 
@@ -118,7 +118,7 @@
 
                   MAXWRK = N + LWORK_CGEQRF
                   MAXWRK = MAX( MAXWRK, 2*N+LWORK_CGEBRD )
-                  if (WNTVO .OR. WNTVAS) MAXWRK = MAX( MAXWRK, 2*N+LWORK_CUNGBR_P );
+                  if (WNTVO || WNTVAS) MAXWRK = MAX( MAXWRK, 2*N+LWORK_CUNGBR_P );
                   MINWRK = 3*N
                } else if ( WNTUO && WNTVN ) {
 
@@ -216,7 +216,7 @@
                cgebrd(M, N, A, LDA, S, DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR );
                LWORK_CGEBRD = INT( CDUM(1) )
                MAXWRK = 2*N + LWORK_CGEBRD
-               if ( WNTUS .OR. WNTUO ) {
+               if ( WNTUS || WNTUO ) {
                   cungbr('Q', M, N, N, A, LDA, CDUM(1), CDUM(1), -1, IERR );
                   LWORK_CUNGBR_Q = INT( CDUM(1) )
                   MAXWRK = MAX( MAXWRK, 2*N+LWORK_CUNGBR_Q )
@@ -260,7 +260,7 @@
 
                   MAXWRK = M + LWORK_CGELQF
                   MAXWRK = MAX( MAXWRK, 2*M+LWORK_CGEBRD )
-                  if (WNTUO .OR. WNTUAS) MAXWRK = MAX( MAXWRK, 2*M+LWORK_CUNGBR_Q );
+                  if (WNTUO || WNTUAS) MAXWRK = MAX( MAXWRK, 2*M+LWORK_CUNGBR_Q );
                   MINWRK = 3*M
                } else if ( WNTVO && WNTUN ) {
 
@@ -358,7 +358,7 @@
                cgebrd(M, N, A, LDA, S, DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR );
                LWORK_CGEBRD = INT( CDUM(1) )
                MAXWRK = 2*M + LWORK_CGEBRD
-               if ( WNTVS .OR. WNTVO ) {
+               if ( WNTVS || WNTVO ) {
                  // Compute space needed for CUNGBR P
                  cungbr('P', M, N, M, A, N, CDUM(1), CDUM(1), -1, IERR );
                  LWORK_CUNGBR_P = INT( CDUM(1) )
@@ -392,7 +392,7 @@
 
       // Quick return if possible
 
-      if ( M == 0 .OR. N == 0 ) {
+      if ( M == 0 || N == 0 ) {
          RETURN
       }
 
@@ -452,7 +452,7 @@
 
                cgebrd(N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                NCVT = 0
-               if ( WNTVO .OR. WNTVAS ) {
+               if ( WNTVO || WNTVAS ) {
 
                   // If right singular vectors desired, generate P'.
                   // (CWorkspace: need 3*N-1, prefer 2*N+(N-1)*NB)
@@ -1678,7 +1678,7 @@
                cungbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             IRWORK = IE + N
-            if (WNTUAS .OR. WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
+            if (WNTUAS || WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS || WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
             if ( ( .NOT.WNTUO ) && ( .NOT.WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -1745,7 +1745,7 @@
                // (RWorkspace: need M)
 
                cgebrd(M, M, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-               if ( WNTUO .OR. WNTUAS ) {
+               if ( WNTUO || WNTUAS ) {
 
                   // If left singular vectors desired, generate Q
                   // (CWorkspace: need 3*M, prefer 2*M+M*NB)
@@ -1755,7 +1755,7 @@
                }
                IRWORK = IE + M
                NRU = 0
-               if (WNTUO .OR. WNTUAS) NRU = M;
+               if (WNTUO || WNTUAS) NRU = M;
 
                // Perform bidiagonal QR iteration, computing left singular
                // vectors of A in A if desired
@@ -2974,7 +2974,7 @@
                cungbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             IRWORK = IE + M
-            if (WNTUAS .OR. WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
+            if (WNTUAS || WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS || WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
             if ( ( .NOT.WNTUO ) && ( .NOT.WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing

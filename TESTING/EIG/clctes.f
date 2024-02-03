@@ -28,9 +28,9 @@
       if ( D == CZERO ) {
          CLCTES = ( REAL( Z ).LT.ZERO )
       } else {
-         if ( REAL( Z ) == ZERO .OR. REAL( D ) == ZERO ) {
+         if ( REAL( Z ) == ZERO || REAL( D ) == ZERO ) {
             CLCTES = ( SIGN( ONE, AIMAG( Z ) ) != SIGN( ONE, AIMAG( D ) ) )
-         } else if ( AIMAG( Z ) == ZERO .OR. AIMAG( D ) == ZERO ) {
+         } else if ( AIMAG( Z ) == ZERO || AIMAG( D ) == ZERO ) {
             CLCTES = ( SIGN( ONE, REAL( Z ) ) != SIGN( ONE, REAL( D ) ) )
          } else {
             ZMAX = MAX( ABS( REAL( Z ) ), ABS( AIMAG( Z ) ) )

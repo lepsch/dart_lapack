@@ -43,7 +43,7 @@
       LQUERY  = LWORK == -1
       if ( M.LT.0 ) {
          INFO = -1
-      } else if ( N.LT.0 .OR. M.LT.N ) {
+      } else if ( N.LT.0 || M.LT.N ) {
          INFO = -2
       } else if ( MB.LE.N ) {
          INFO = -3

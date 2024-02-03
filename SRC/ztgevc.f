@@ -120,9 +120,9 @@
 
       if ( ILBBAD ) {
          INFO = -7
-      } else if ( COMPL && LDVL.LT.N .OR. LDVL.LT.1 ) {
+      } else if ( COMPL && LDVL.LT.N || LDVL.LT.1 ) {
          INFO = -10
-      } else if ( COMPR && LDVR.LT.N .OR. LDVR.LT.1 ) {
+      } else if ( COMPR && LDVR.LT.N || LDVR.LT.1 ) {
          INFO = -12
       } else if ( MM.LT.IM ) {
          INFO = -13
@@ -213,7 +213,7 @@
 
                SCALE = ONE
                if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
-               if ( LSA .OR. LSB ) {
+               if ( LSA || LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) )
                   if ( LSA ) {
                      ACOEFF = ASCALE*( SCALE*SBETA )
@@ -367,7 +367,7 @@
 
                SCALE = ONE
                if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
-               if ( LSA .OR. LSB ) {
+               if ( LSA || LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) )
                   if ( LSA ) {
                      ACOEFF = ASCALE*( SCALE*SBETA )

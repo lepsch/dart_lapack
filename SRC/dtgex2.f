@@ -51,7 +51,7 @@
 
       // Quick return if possible
 
-      if (N.LE.1 .OR. N1.LE.0 .OR. N2.LE.0) RETURN       IF( N1.GT.N .OR. ( J1+N1 ).GT.N ) RETURN;
+      if (N.LE.1 || N1.LE.0 || N2.LE.0) RETURN       IF( N1.GT.N || ( J1+N1 ).GT.N ) RETURN;
       M = N1 + N2
       if ( LWORK.LT.MAX( 1, N*M, M*M*2 ) ) {
          INFO = -16

@@ -28,7 +28,7 @@
       K = MIN( M, N )
       for (I = 1; I <= K; I++) {
          AII = A( I, I )
-         if ( DBLE( AII ).LT.ZERO.OR.DIMAG( AII ) != ZERO ) {
+         if ( DBLE( AII ).LT.ZERO || DIMAG( AII ) != ZERO ) {
             ZGENND = false;
             RETURN
          }

@@ -43,14 +43,14 @@
 
       // Check for I and J in range
 
-      if ( I.LT.1 .OR. I.GT.M .OR. J.LT.1 .OR. J.GT.N ) {
+      if ( I.LT.1 || I.GT.M || J.LT.1 || J.GT.N ) {
          DLATM2 = ZERO
          RETURN
       }
 
       // Check for banding
 
-      if ( J.GT.I+KU .OR. J.LT.I-KL ) {
+      if ( J.GT.I+KU || J.LT.I-KL ) {
          DLATM2 = ZERO
          RETURN
       }

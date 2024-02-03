@@ -47,7 +47,7 @@
          INFO = -3
       } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -5
-      } else if ( CUTPNT.LT.MIN( 1, N ) .OR. CUTPNT.GT.N ) {
+      } else if ( CUTPNT.LT.MIN( 1, N ) || CUTPNT.GT.N ) {
          INFO = -8
       } else if ( LDQ2.LT.MAX( 1, N ) ) {
          INFO = -12

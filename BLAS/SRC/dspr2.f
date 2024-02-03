@@ -50,12 +50,12 @@
 
       // Quick return if possible.
 
-      IF ((N == 0) .OR. (ALPHA == ZERO)) RETURN
+      IF ((N == 0) || (ALPHA == ZERO)) RETURN
 
       // Set up the start points in X and Y if the increments are not both
       // unity.
 
-      if ((INCX != 1) .OR. (INCY != 1)) {
+      if ((INCX != 1) || (INCY != 1)) {
           if (INCX.GT.0) {
               KX = 1
           } else {
@@ -80,7 +80,7 @@
 
           if ((INCX == 1) && (INCY == 1)) {
               for (J = 1; J <= N; J++) { // 20
-                  if ((X(J) != ZERO) .OR. (Y(J) != ZERO)) {
+                  if ((X(J) != ZERO) || (Y(J) != ZERO)) {
                       TEMP1 = ALPHA*Y(J)
                       TEMP2 = ALPHA*X(J)
                       K = KK
@@ -93,7 +93,7 @@
               } // 20
           } else {
               for (J = 1; J <= N; J++) { // 40
-                  if ((X(JX) != ZERO) .OR. (Y(JY) != ZERO)) {
+                  if ((X(JX) != ZERO) || (Y(JY) != ZERO)) {
                       TEMP1 = ALPHA*Y(JY)
                       TEMP2 = ALPHA*X(JX)
                       IX = KX
@@ -115,7 +115,7 @@
 
           if ((INCX == 1) && (INCY == 1)) {
               for (J = 1; J <= N; J++) { // 60
-                  if ((X(J) != ZERO) .OR. (Y(J) != ZERO)) {
+                  if ((X(J) != ZERO) || (Y(J) != ZERO)) {
                       TEMP1 = ALPHA*Y(J)
                       TEMP2 = ALPHA*X(J)
                       K = KK
@@ -128,7 +128,7 @@
               } // 60
           } else {
               for (J = 1; J <= N; J++) { // 80
-                  if ((X(JX) != ZERO) .OR. (Y(JY) != ZERO)) {
+                  if ((X(JX) != ZERO) || (Y(JY) != ZERO)) {
                       TEMP1 = ALPHA*Y(JY)
                       TEMP2 = ALPHA*X(JX)
                       IX = JX

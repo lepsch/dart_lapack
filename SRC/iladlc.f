@@ -25,7 +25,7 @@
       // Quick test for the common case where one corner is non-zero.
       if ( N == 0 ) {
          ILADLC = N
-      } else if ( A(1, N) != ZERO .OR. A(M, N) != ZERO ) {
+      } else if ( A(1, N) != ZERO || A(M, N) != ZERO ) {
          ILADLC = N
       } else {
       // Now scan each column from the end, returning with the first non-zero.

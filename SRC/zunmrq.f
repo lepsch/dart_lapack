@@ -60,7 +60,7 @@
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
-      } else if ( K.LT.0 .OR. K.GT.NQ ) {
+      } else if ( K.LT.0 || K.GT.NQ ) {
          INFO = -5
       } else if ( LDA.LT.MAX( 1, K ) ) {
          INFO = -7
@@ -74,7 +74,7 @@
 
          // Compute the workspace requirements
 
-         if ( M == 0 .OR. N == 0 ) {
+         if ( M == 0 || N == 0 ) {
             LWKOPT = 1
          } else {
             NB = MIN( NBMAX, ILAENV( 1, 'ZUNMRQ', SIDE // TRANS, M, N, K, -1 ) )
@@ -92,7 +92,7 @@
 
       // Quick return if possible
 
-      if ( M == 0 .OR. N == 0 ) {
+      if ( M == 0 || N == 0 ) {
          RETURN
       }
 
@@ -105,7 +105,7 @@
          }
       }
 
-      if ( NB.LT.NBMIN .OR. NB.GE.K ) {
+      if ( NB.LT.NBMIN || NB.GE.K ) {
 
          // Use unblocked code
 
@@ -115,7 +115,7 @@
          // Use blocked code
 
          IWT = 1 + NW*NB
-         if ( ( LEFT && .NOT.NOTRAN ) .OR. ( .NOT.LEFT && NOTRAN ) ) {
+         if ( ( LEFT && .NOT.NOTRAN ) || ( .NOT.LEFT && NOTRAN ) ) {
             I1 = 1
             I2 = K
             I3 = NB

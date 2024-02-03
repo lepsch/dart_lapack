@@ -54,8 +54,8 @@
       // Decode and test the input parameters
 
       BOTHV  = LSAME( SIDE, 'B' )
-      RIGHTV = LSAME( SIDE, 'R' ) .OR. BOTHV
-      LEFTV  = LSAME( SIDE, 'L' ) .OR. BOTHV
+      RIGHTV = LSAME( SIDE, 'R' ) || BOTHV
+      LEFTV  = LSAME( SIDE, 'L' ) || BOTHV
 
       ALLV  = LSAME( HOWMNY, 'A' )
       OVER  = LSAME( HOWMNY, 'B' )
@@ -78,7 +78,7 @@
       MAXWRK = MAX( 1, N + 2*N*NB )
       WORK(1) = SROUNDUP_LWORK(MAXWRK)
       RWORK(1) = MAX( 1, N )
-      LQUERY = ( LWORK == -1 .OR. LRWORK == -1 )
+      LQUERY = ( LWORK == -1 || LRWORK == -1 )
       if ( .NOT.RIGHTV && .NOT.LEFTV ) {
          INFO = -1
       } else if ( .NOT.ALLV && .NOT.OVER && .NOT.SOMEV ) {
@@ -87,9 +87,9 @@
          INFO = -4
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVL.LT.1 .OR. ( LEFTV && LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 || ( LEFTV && LDVL.LT.N ) ) {
          INFO = -8
-      } else if ( LDVR.LT.1 .OR. ( RIGHTV && LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 || ( RIGHTV && LDVR.LT.N ) ) {
          INFO = -10
       } else if ( MM.LT.M ) {
          INFO = -11
@@ -217,7 +217,7 @@
                // Columns IV:NB of work are valid vectors.
                // When the number of vectors stored reaches NB,
                // or if this was last vector, do the GEMM
-               if ( (IV == 1) .OR. (KI == 1) ) {
+               if ( (IV == 1) || (KI == 1) ) {
                   cgemm('N', 'N', N, NB-IV+1, KI+NB-IV, CONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, CZERO, WORK( 1 + (NB+IV)*N ), N );
                   // normalize vectors
                   for (K = IV; K <= NB; K++) {
@@ -320,7 +320,7 @@
                // Columns 1:IV of work are valid vectors.
                // When the number of vectors stored reaches NB,
                // or if this was last vector, do the GEMM
-               if ( (IV == NB) .OR. (KI == N) ) {
+               if ( (IV == NB) || (KI == N) ) {
                   cgemm('N', 'N', N, IV, N-KI+IV, CONE, VL( 1, KI-IV+1 ), LDVL, WORK( KI-IV+1 + (1)*N ), N, CZERO, WORK( 1 + (NB+1)*N ), N );
                   // normalize vectors
                   for (K = 1; K <= IV; K++) {

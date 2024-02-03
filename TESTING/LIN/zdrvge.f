@@ -181,7 +181,7 @@
                      // with FACT = 'F').
 
                      zlacpy('Full', N, N, ASAV, LDA, AFAC, LDA );
-                     if ( EQUIL .OR. IEQUED.GT.1 ) {
+                     if ( EQUIL || IEQUED.GT.1 ) {
 
                         // Compute row and column scale factors to
                         // equilibrate the matrix A.
@@ -233,7 +233,7 @@
                      // Compute the 1-norm condition number of A.
 
                      AINVNM = ZLANGE( '1', N, N, A, LDA, RWORK )
-                     if ( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                     if ( ANORMO.LE.ZERO || AINVNM.LE.ZERO ) {
                         RCONDO = ONE
                      } else {
                         RCONDO = ( ONE / ANORMO ) / AINVNM
@@ -242,7 +242,7 @@
                      // Compute the infinity-norm condition number of A.
 
                      AINVNM = ZLANGE( 'I', N, N, A, LDA, RWORK )
-                     if ( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                     if ( ANORMI.LE.ZERO || AINVNM.LE.ZERO ) {
                         RCONDI = ONE
                      } else {
                         RCONDI = ( ONE / ANORMI ) / AINVNM
@@ -381,7 +381,7 @@
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        IF( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                            zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN == 1 ) {

@@ -49,7 +49,7 @@
 
       if ( N.LT.0 ) {
          INFO = -1
-      } else if ( M.LT.0 .OR. M.GT.N ) {
+      } else if ( M.LT.0 || M.GT.N ) {
          INFO = -4
       } else if ( LDZ.LT.MAX( 1, N ) ) {
          INFO = -9
@@ -74,7 +74,7 @@
 
       // Quick return if possible
 
-      if ( N == 0 .OR. M == 0 ) {
+      if ( N == 0 || M == 0 ) {
          RETURN
       } else if ( N == 1 ) {
          Z( 1, 1 ) = ONE

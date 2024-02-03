@@ -24,7 +24,7 @@
       // .. Executable Statements ..
 
       LSAMEN = false;
-      IF( LEN( CA ).LT.N .OR. LEN( CB ).LT.N ) GO TO 20
+      IF( LEN( CA ).LT.N || LEN( CB ).LT.N ) GO TO 20
 
       // Do for each character in the two strings.
 

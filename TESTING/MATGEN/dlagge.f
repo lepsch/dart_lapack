@@ -41,9 +41,9 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( KL.LT.0 .OR. KL.GT.M-1 ) {
+      } else if ( KL.LT.0 || KL.GT.M-1 ) {
          INFO = -3
-      } else if ( KU.LT.0 .OR. KU.GT.N-1 ) {
+      } else if ( KU.LT.0 || KU.GT.N-1 ) {
          INFO = -4
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -7

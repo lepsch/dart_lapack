@@ -37,13 +37,13 @@
       N = NL + NR + 1
       M = N + SQRE
 
-      if ( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) {
+      if ( ( ICOMPQ.LT.0 ) || ( ICOMPQ.GT.1 ) ) {
          INFO = -1
       } else if ( NL.LT.1 ) {
          INFO = -2
       } else if ( NR.LT.1 ) {
          INFO = -3
-      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE.LT.0 ) || ( SQRE.GT.1 ) ) {
          INFO = -4
       } else if ( LDGCOL.LT.N ) {
          INFO = -14

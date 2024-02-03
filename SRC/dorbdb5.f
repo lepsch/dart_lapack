@@ -83,7 +83,7 @@
 
          // If the projection is nonzero, then return
 
-         if ( DNRM2(M1,X1,INCX1) != REALZERO .OR. DNRM2(M2,X2,INCX2) != REALZERO ) {
+         if ( DNRM2(M1,X1,INCX1) != REALZERO || DNRM2(M2,X2,INCX2) != REALZERO ) {
             RETURN
          }
       }
@@ -99,7 +99,7 @@
          for (J = 1; J <= M2; J++) {
             X2(J) = ZERO
          }
-         CALL DORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( DNRM2(M1,X1,INCX1) != REALZERO .OR. DNRM2(M2,X2,INCX2) != REALZERO ) THEN
+         CALL DORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( DNRM2(M1,X1,INCX1) != REALZERO || DNRM2(M2,X2,INCX2) != REALZERO ) THEN
             RETURN
          }
       }
@@ -115,7 +115,7 @@
             X2(J) = ZERO
          }
          X2(I) = ONE
-         CALL DORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( DNRM2(M1,X1,INCX1) != REALZERO .OR. DNRM2(M2,X2,INCX2) != REALZERO ) THEN
+         CALL DORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( DNRM2(M1,X1,INCX1) != REALZERO || DNRM2(M2,X2,INCX2) != REALZERO ) THEN
             RETURN
          }
       }

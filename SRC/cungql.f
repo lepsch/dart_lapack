@@ -40,9 +40,9 @@
       LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
-      } else if ( N.LT.0 .OR. N.GT.M ) {
+      } else if ( N.LT.0 || N.GT.M ) {
          INFO = -2
-      } else if ( K.LT.0 .OR. K.GT.N ) {
+      } else if ( K.LT.0 || K.GT.N ) {
          INFO = -3
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5

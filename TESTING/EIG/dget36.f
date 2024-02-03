@@ -111,7 +111,7 @@
 
          // 2 by 2 block
 
-         IF( T2( LOC, LOC+1 ) == ZERO .OR. T2( LOC, LOC ) != T2( LOC+1, LOC+1 ) .OR. SIGN( ONE, T2( LOC, LOC+1 ) ) == SIGN( ONE, T2( LOC+1, LOC ) ) )RES = RES + ONE / EPS
+         IF( T2( LOC, LOC+1 ) == ZERO || T2( LOC, LOC ) != T2( LOC+1, LOC+1 ) || SIGN( ONE, T2( LOC, LOC+1 ) ) == SIGN( ONE, T2( LOC+1, LOC ) ) )RES = RES + ONE / EPS
          for (I = LOC + 2; I <= N; I++) { // 80
             IF( T2( I, LOC ) != ZERO ) RES = RES + ONE / RES             IF( T2( I, LOC+1 ) != ZERO ) RES = RES + ONE / RES
          } // 80

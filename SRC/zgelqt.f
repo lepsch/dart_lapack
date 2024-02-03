@@ -29,7 +29,7 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( MB.LT.1 .OR. (MB.GT.MIN(M,N) && MIN(M,N).GT.0 )) {
+      } else if ( MB.LT.1 || (MB.GT.MIN(M,N) && MIN(M,N).GT.0 )) {
          INFO = -3
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5

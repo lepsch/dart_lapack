@@ -58,11 +58,11 @@
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
-      } else if ( K.LT.0 .OR. K.GT.MAX( MU, MV ) ) {
+      } else if ( K.LT.0 || K.GT.MAX( MU, MV ) ) {
          INFO = -5
-      } else if ( ( IRC == 0 && LDU.LT.MAX( 1, MU ) ) .OR. ( IRC == 1 && LDU.LT.MAX( 1, N ) ) ) {
+      } else if ( ( IRC == 0 && LDU.LT.MAX( 1, MU ) ) || ( IRC == 1 && LDU.LT.MAX( 1, N ) ) ) {
          INFO = -7
-      } else if ( ( IRC == 0 && LDV.LT.MAX( 1, MV ) ) .OR. ( IRC == 1 && LDV.LT.MAX( 1, N ) ) ) {
+      } else if ( ( IRC == 0 && LDV.LT.MAX( 1, MV ) ) || ( IRC == 1 && LDV.LT.MAX( 1, N ) ) ) {
          INFO = -9
       }
       if ( INFO != 0 ) {
@@ -73,7 +73,7 @@
       // Initialize result
 
       RESULT = ZERO
-      if (MU == 0 .OR. MV == 0 .OR. N == 0) RETURN;
+      if (MU == 0 || MV == 0 || N == 0) RETURN;
 
       // Machine constants
 

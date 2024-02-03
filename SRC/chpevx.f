@@ -50,11 +50,11 @@
       INDEIG = LSAME( RANGE, 'I' )
 
       INFO = 0
-      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
+      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
+      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
-      } else if ( .NOT.( LSAME( UPLO, 'L' ) .OR. LSAME( UPLO, 'U' ) ) ) {
+      } else if ( .NOT.( LSAME( UPLO, 'L' ) || LSAME( UPLO, 'U' ) ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
@@ -62,15 +62,15 @@
          if ( VALEIG ) {
             if (N.GT.0 && VU.LE.VL) INFO = -7;
          } else if ( INDEIG ) {
-            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
+            if ( IL.LT.1 || IL.GT.MAX( 1, N ) ) {
                INFO = -8
-            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
+            } else if ( IU.LT.MIN( N, IL ) || IU.GT.N ) {
                INFO = -9
             }
          }
       }
       if ( INFO == 0 ) {
-         IF( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) INFO = -14
+         IF( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) INFO = -14
       }
 
       if ( INFO != 0 ) {
@@ -84,7 +84,7 @@
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
-         if ( ALLEIG .OR. INDEIG ) {
+         if ( ALLEIG || INDEIG ) {
             M = 1
             W( 1 ) = REAL( AP( 1 ) )
          } else {
@@ -153,7 +153,7 @@
             TEST = true;
          }
       }
-      if ((ALLEIG .OR. TEST) && (ABSTOL.LE.ZERO)) {
+      if ((ALLEIG || TEST) && (ABSTOL.LE.ZERO)) {
          scopy(N, RWORK( INDD ), 1, W, 1 );
          INDEE = INDRWK + 2*N
          if ( .NOT.WANTZ ) {

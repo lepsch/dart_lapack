@@ -154,7 +154,7 @@
                   // Compute the 1-norm condition number of A.
 
                   ANORM = CLANTB( '1', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = CLANTR( '1', UPLO, DIAG, N, N, AINV, LDA, RWORK )
-                  if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                  if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
                      RCONDO = ONE
                   } else {
                      RCONDO = ( ONE / ANORM ) / AINVNM
@@ -163,7 +163,7 @@
                   // Compute the infinity-norm condition number of A.
 
                   ANORM = CLANTB( 'I', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = CLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA, RWORK )
-                  if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                  if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
                      RCONDI = ONE
                   } else {
                      RCONDI = ( ONE / ANORM ) / AINVNM

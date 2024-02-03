@@ -82,7 +82,7 @@
 
          TEMP2 = BETA( I )*A( ILO, ILO )-ALPHA( I )*B( ILO, ILO )
          TEMP3 = BETA( I )*A( ILO+1, ILO )
-          if ( ABS( TEMP2 ) .GT. SAFMAX .OR. ABS( TEMP3 ) .GT. SAFMAX ) {
+          if ( ABS( TEMP2 ) .GT. SAFMAX || ABS( TEMP3 ) .GT. SAFMAX ) {
             TEMP2 = CONE
             TEMP3 = CZERO
          }

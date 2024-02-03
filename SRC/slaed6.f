@@ -78,8 +78,8 @@
          } else {
             TAU = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
          }
-         if (TAU .LT. LBD .OR. TAU .GT. UBD) TAU = ( LBD+UBD )/TWO;
-         if ( D(1) == TAU .OR. D(2) == TAU .OR. D(3) == TAU ) {
+         if (TAU .LT. LBD || TAU .GT. UBD) TAU = ( LBD+UBD )/TWO;
+         if ( D(1) == TAU || D(2) == TAU || D(3) == TAU ) {
             TAU = ZERO
          } else {
             TEMP = FINIT + TAU*Z(1)/( D(1)*( D( 1 )-TAU ) ) + TAU*Z(2)/( D(2)*( D( 2 )-TAU ) ) + TAU*Z(3)/( D(3)*( D( 3 )-TAU ) )
@@ -211,7 +211,7 @@
          }
 
          TAU = TAU + ETA
-         if (TAU .LT. LBD .OR. TAU .GT. UBD) TAU = ( LBD + UBD )/TWO;
+         if (TAU .LT. LBD || TAU .GT. UBD) TAU = ( LBD + UBD )/TWO;
 
          FC = ZERO
          ERRETM = ZERO
@@ -233,7 +233,7 @@
             }
          } // 40
          F = FINIT + TAU*FC
-         ERRETM = EIGHT*( ABS( FINIT )+ABS( TAU )*ERRETM ) + ABS( TAU )*DF          IF( ( ABS( F ).LE.FOUR*EPS*ERRETM ) .OR. ( (UBD-LBD).LE.FOUR*EPS*ABS(TAU) )  ) GO TO 60
+         ERRETM = EIGHT*( ABS( FINIT )+ABS( TAU )*ERRETM ) + ABS( TAU )*DF          IF( ( ABS( F ).LE.FOUR*EPS*ERRETM ) || ( (UBD-LBD).LE.FOUR*EPS*ABS(TAU) )  ) GO TO 60
          if ( F .LE. ZERO ) {
             LBD = TAU
          } else {

@@ -272,7 +272,7 @@
       // i.e. MAXC2NRM <= ABSTOL or RELMAXC2NRM <= RELTOL
       // (which is ONE <= RELTOL).
 
-      if ( MAXC2NRM.LE.ABSTOL .OR. ONE.LE.RELTOL ) {
+      if ( MAXC2NRM.LE.ABSTOL || ONE.LE.RELTOL ) {
 
          K = 0
          MAXC2NRMK = MAXC2NRM

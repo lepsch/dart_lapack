@@ -41,12 +41,12 @@
 
       // Quick exit if M = 0 or N = 0 or NRHS = 0
 
-      if ( M.LE.0 .OR. N.LE.0 .OR. NRHS == 0 ) {
+      if ( M.LE.0 || N.LE.0 || NRHS == 0 ) {
          RESID = ZERO
          RETURN
       }
 
-      if ( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) {
+      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
          ANORM = CLANGE( 'I', M, N, A, LDA, RWORK )
          N1 = N
          N2 = M
@@ -71,7 +71,7 @@
          XNORM = SCASUM( N2, X( 1, J ), 1 )
          if ( ANORM == ZERO && BNORM == ZERO ) {
             RESID = ZERO
-         } else if ( ANORM.LE.ZERO .OR. XNORM.LE.ZERO ) {
+         } else if ( ANORM.LE.ZERO || XNORM.LE.ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / ( MAX( M, N )*EPS ) )

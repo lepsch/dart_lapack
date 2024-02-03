@@ -144,7 +144,7 @@
          // semiwidth of interval
          WIDTH = RIGHT - MID
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
-          if ( ( WIDTH.LT.RTOL*TMP ) .OR. (ITER == MAXITR) ) {
+          if ( ( WIDTH.LT.RTOL*TMP ) || (ITER == MAXITR) ) {
             // reduce number of unconverged intervals
             NINT = NINT - 1
             // Mark interval as converged.

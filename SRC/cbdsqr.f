@@ -65,11 +65,11 @@
          INFO = -4
       } else if ( NCC.LT.0 ) {
          INFO = -5
-      } else if ( ( NCVT == 0 && LDVT.LT.1 ) .OR. ( NCVT.GT.0 && LDVT.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCVT == 0 && LDVT.LT.1 ) || ( NCVT.GT.0 && LDVT.LT.MAX( 1, N ) ) ) {
          INFO = -9
       } else if ( LDU.LT.MAX( 1, NRU ) ) {
          INFO = -11
-      } else if ( ( NCC == 0 && LDC.LT.1 ) .OR. ( NCC.GT.0 && LDC.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCC == 0 && LDC.LT.1 ) || ( NCC.GT.0 && LDC.LT.MAX( 1, N ) ) ) {
          INFO = -13
       }
       if ( INFO != 0 ) {
@@ -80,7 +80,7 @@
 
       // ROTATE is true if any singular vectors desired, false otherwise
 
-      ROTATE = ( NCVT.GT.0 ) .OR. ( NRU.GT.0 ) .OR. ( NCC.GT.0 )
+      ROTATE = ( NCVT.GT.0 ) || ( NRU.GT.0 ) || ( NCC.GT.0 )
 
       // If no singular vectors desired, use qd algorithm
 
@@ -236,7 +236,7 @@
       // If working on new submatrix, choose shift direction
       // (from larger end diagonal element towards smaller)
 
-      if ( LL.GT.OLDM .OR. M.LT.OLDLL ) {
+      if ( LL.GT.OLDM || M.LT.OLDLL ) {
          if ( ABS( D( LL ) ).GE.ABS( D( M ) ) ) {
 
             // Chase bulge from top (big end) to bottom (small end)
@@ -257,7 +257,7 @@
          // Run convergence test in forward direction
          // First apply standard test to bottom of matrix
 
-         if ( ABS( E( M-1 ) ).LE.ABS( TOL )*ABS( D( M ) ) .OR. ( TOL.LT.ZERO && ABS( E( M-1 ) ).LE.THRESH ) ) {
+         if ( ABS( E( M-1 ) ).LE.ABS( TOL )*ABS( D( M ) ) || ( TOL.LT.ZERO && ABS( E( M-1 ) ).LE.THRESH ) ) {
             E( M-1 ) = ZERO
             GO TO 60
          }
@@ -284,7 +284,7 @@
          // Run convergence test in backward direction
          // First apply standard test to top of matrix
 
-         if ( ABS( E( LL ) ).LE.ABS( TOL )*ABS( D( LL ) ) .OR. ( TOL.LT.ZERO && ABS( E( LL ) ).LE.THRESH ) ) {
+         if ( ABS( E( LL ) ).LE.ABS( TOL )*ABS( D( LL ) ) || ( TOL.LT.ZERO && ABS( E( LL ) ).LE.THRESH ) ) {
             E( LL ) = ZERO
             GO TO 60
          }

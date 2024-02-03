@@ -39,7 +39,7 @@
       // Quick exit if N = 0 or NRHS = 0
 
       RESID = ZERO
-      if (N.LE.0 .OR. NRHS == 0) RETURN;
+      if (N.LE.0 || NRHS == 0) RETURN;
 
       // Compute the maximum over the number of right hand sides of
          // norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).

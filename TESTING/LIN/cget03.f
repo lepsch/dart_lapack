@@ -50,7 +50,7 @@
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANGE( '1', N, N, A, LDA, RWORK )
       AINVNM = CLANGE( '1', N, N, AINV, LDAINV, RWORK )
-      if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+      if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN

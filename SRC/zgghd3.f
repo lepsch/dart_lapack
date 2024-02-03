@@ -52,9 +52,9 @@
       }
       WORK( 1 ) = DCMPLX( LWKOPT )
       INITQ = LSAME( COMPQ, 'I' )
-      WANTQ = INITQ .OR. LSAME( COMPQ, 'V' )
+      WANTQ = INITQ || LSAME( COMPQ, 'V' )
       INITZ = LSAME( COMPZ, 'I' )
-      WANTZ = INITZ .OR. LSAME( COMPZ, 'V' )
+      WANTZ = INITZ || LSAME( COMPZ, 'V' )
       LQUERY = ( LWORK == -1 )
 
       if ( .NOT.LSAME( COMPQ, 'N' ) && .NOT.WANTQ ) {
@@ -65,15 +65,15 @@
          INFO = -3
       } else if ( ILO.LT.1 ) {
          INFO = -4
-      } else if ( IHI.GT.N .OR. IHI.LT.ILO-1 ) {
+      } else if ( IHI.GT.N || IHI.LT.ILO-1 ) {
          INFO = -5
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      } else if ( ( WANTQ && LDQ.LT.N ) .OR. LDQ.LT.1 ) {
+      } else if ( ( WANTQ && LDQ.LT.N ) || LDQ.LT.1 ) {
          INFO = -11
-      } else if ( ( WANTZ && LDZ.LT.N ) .OR. LDZ.LT.1 ) {
+      } else if ( ( WANTZ && LDZ.LT.N ) || LDZ.LT.1 ) {
          INFO = -13
       } else if ( LWORK.LT.1 && .NOT.LQUERY ) {
          INFO = -15
@@ -128,7 +128,7 @@
          }
       }
 
-      if ( NB.LT.NBMIN .OR. NB.GE.NH ) {
+      if ( NB.LT.NBMIN || NB.GE.NH ) {
 
          // Use unblocked code below
 
@@ -415,7 +415,7 @@
 
             // Accumulate right Givens rotations if required.
 
-            if ( WANTZ .OR. TOP.GT.0 ) {
+            if ( WANTZ || TOP.GT.0 ) {
 
                // Initialize small unitary factors that will hold the
                // accumulated Givens rotations in workspace.

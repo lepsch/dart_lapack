@@ -52,7 +52,7 @@
          NQ = N
       }
       NW = NQ
-      if (N1 == 0 .OR. N2 == 0) NW = 1;
+      if (N1 == 0 || N2 == 0) NW = 1;
       if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
       } else if ( .NOT.LSAME( TRANS, 'N' ) && .NOT.LSAME( TRANS, 'T' ) ) {
@@ -61,7 +61,7 @@
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
-      } else if ( N1.LT.0 .OR. N1+N2 != NQ ) {
+      } else if ( N1.LT.0 || N1+N2 != NQ ) {
          INFO = -5
       } else if ( N2.LT.0 ) {
          INFO = -6
@@ -87,7 +87,7 @@
 
       // Quick return if possible
 
-      if ( M == 0 .OR. N == 0 ) {
+      if ( M == 0 || N == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }

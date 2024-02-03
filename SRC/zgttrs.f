@@ -32,8 +32,8 @@
       // .. Executable Statements ..
 
       INFO = 0
-      NOTRAN = ( TRANS == 'N' .OR. TRANS == 'n' )
-      if ( .NOT.NOTRAN && .NOT.( TRANS == 'T' .OR. TRANS == 't' ) && .NOT.( TRANS == 'C' .OR. TRANS == 'c' ) ) {
+      NOTRAN = ( TRANS == 'N' || TRANS == 'n' )
+      if ( .NOT.NOTRAN && .NOT.( TRANS == 'T' || TRANS == 't' ) && .NOT.( TRANS == 'C' || TRANS == 'c' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -49,13 +49,13 @@
 
       // Quick return if possible
 
-      if (N == 0 .OR. NRHS == 0) RETURN;
+      if (N == 0 || NRHS == 0) RETURN;
 
       // Decode TRANS
 
       if ( NOTRAN ) {
          ITRANS = 0
-      } else if ( TRANS == 'T' .OR. TRANS == 't' ) {
+      } else if ( TRANS == 'T' || TRANS == 't' ) {
          ITRANS = 1
       } else {
          ITRANS = 2

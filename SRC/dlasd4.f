@@ -443,7 +443,7 @@
          } else {
             if (W.GT.ZERO) SWTCH3 = true ;
          }
-         if (II == 1 .OR. II == N) SWTCH3 = false ;
+         if (II == 1 || II == N) SWTCH3 = false ;
 
          TEMP = Z( II ) / ( WORK( II )*DELTA( II ) )
          DW = DPSI + DPHI + TEMP*TEMP
@@ -568,7 +568,7 @@
 
          ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) )
          TEMP = TAU + ETA
-         if ( TEMP.GT.SGUB .OR. TEMP.LT.SGLB ) {
+         if ( TEMP.GT.SGUB || TEMP.LT.SGLB ) {
             if ( W.LT.ZERO ) {
                ETA = ( SGUB-TAU ) / TWO
             } else {
@@ -645,7 +645,7 @@
             // Test for convergence
 
             if ( ABS( W ).LE.EPS*ERRETM ) {
-      // $          .OR. (SGUB-SGLB).LE.EIGHT*ABS(SGUB+SGLB) ) THEN
+      // $ || (SGUB-SGLB).LE.EIGHT*ABS(SGUB+SGLB) ) THEN
                GO TO 240
             }
 
@@ -793,7 +793,7 @@
 
             ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) )
             TEMP=TAU+ETA
-            if ( TEMP.GT.SGUB .OR. TEMP.LT.SGLB ) {
+            if ( TEMP.GT.SGUB || TEMP.LT.SGLB ) {
                if ( W.LT.ZERO ) {
                   ETA = ( SGUB-TAU ) / TWO
                } else {

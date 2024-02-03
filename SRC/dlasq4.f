@@ -43,7 +43,7 @@
 
          // No eigenvalues deflated.
 
-         if ( DMIN == DN .OR. DMIN == DN1 ) {
+         if ( DMIN == DN || DMIN == DN1 ) {
 
             B1 = SQRT( Z( NN-3 ) )*SQRT( Z( NN-5 ) )
             B2 = SQRT( Z( NN-7 ) )*SQRT( Z( NN-9 ) )
@@ -98,7 +98,7 @@
                   IF( Z( I4 ) .GT. Z( I4-2 ) ) RETURN
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) )
                   A2 = A2 + B2
-                  IF( HUNDRD*MAX( B2, B1 ).LT.A2 .OR. CNST1.LT.A2 ) GO TO 20
+                  IF( HUNDRD*MAX( B2, B1 ).LT.A2 || CNST1.LT.A2 ) GO TO 20
                } // 10
                } // 20
                A2 = CNST3*A2
@@ -120,7 +120,7 @@
             B1 = Z( NP-2 )
             B2 = Z( NP-6 )
             GAM = DN2
-            IF( Z( NP-8 ).GT.B2 .OR. Z( NP-4 ).GT.B1 ) RETURN
+            IF( Z( NP-8 ).GT.B2 || Z( NP-4 ).GT.B1 ) RETURN
             A2 = ( Z( NP-8 ) / B2 )*( ONE+Z( NP-4 ) / B1 )
 
             // Approximate contribution to norm squared from I < NN-2.
@@ -134,7 +134,7 @@
                   IF( Z( I4 ) .GT. Z( I4-2 ) ) RETURN
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) )
                   A2 = A2 + B2
-                  IF( HUNDRD*MAX( B2, B1 ).LT.A2 .OR. CNST1.LT.A2 ) GO TO 40
+                  IF( HUNDRD*MAX( B2, B1 ).LT.A2 || CNST1.LT.A2 ) GO TO 40
                } // 30
                } // 40
                A2 = CNST3*A2

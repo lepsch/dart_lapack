@@ -62,7 +62,7 @@
       // Figure out optimal block size
 
       if ( INFO == 0 ) {
-         if ( MN == 0 .OR. NRHS == 0 ) {
+         if ( MN == 0 || NRHS == 0 ) {
             LWKMIN = 1
             LWKOPT = 1
          } else {
@@ -90,7 +90,7 @@
 
       // Quick return if possible
 
-      if ( MN == 0 .OR. NRHS == 0 ) {
+      if ( MN == 0 || NRHS == 0 ) {
          RANK = 0
          RETURN
       }

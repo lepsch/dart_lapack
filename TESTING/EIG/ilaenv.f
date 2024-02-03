@@ -165,7 +165,7 @@
       // INTRINSIC LOG, MAX, MOD, NINT, REAL
       // ..
       // .. Executable Statements ..
-      if ( ( ISPEC == ISHFTS ) .OR. ( ISPEC == INWIN ) .OR. ( ISPEC == IACC22 ) ) {
+      if ( ( ISPEC == ISHFTS ) || ( ISPEC == INWIN ) || ( ISPEC == IACC22 ) ) {
 
          // ==== Set the number simultaneous shifts ====
 

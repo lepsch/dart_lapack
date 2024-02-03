@@ -78,7 +78,7 @@
       WANTSE = LSAME( SENSE, 'E' )
       WANTSV = LSAME( SENSE, 'V' )
       WANTSB = LSAME( SENSE, 'B' )
-      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
+      LQUERY = ( LWORK == -1 || LIWORK == -1 )
       if ( WANTSN ) {
          IJOB = 0
       } else if ( WANTSE ) {
@@ -98,7 +98,7 @@
          INFO = -2
       } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
          INFO = -3
-      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST && .NOT.WANTSN ) ) {
+      } else if ( .NOT.( WANTSN || WANTSE || WANTSV || WANTSB ) || ( .NOT.WANTST && .NOT.WANTSN ) ) {
          INFO = -5
       } else if ( N.LT.0 ) {
          INFO = -6
@@ -106,9 +106,9 @@
          INFO = -8
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -10
-      } else if ( LDVSL.LT.1 .OR. ( ILVSL && LDVSL.LT.N ) ) {
+      } else if ( LDVSL.LT.1 || ( ILVSL && LDVSL.LT.N ) ) {
          INFO = -15
-      } else if ( LDVSR.LT.1 .OR. ( ILVSR && LDVSR.LT.N ) ) {
+      } else if ( LDVSR.LT.1 || ( ILVSR && LDVSR.LT.N ) ) {
          INFO = -17
       }
 
@@ -135,7 +135,7 @@
             LWRK   = 1
          }
          WORK( 1 ) = LWRK
-         if ( WANTSN .OR. N == 0 ) {
+         if ( WANTSN || N == 0 ) {
             LIWMIN = 1
          } else {
             LIWMIN = N + 2
@@ -287,11 +287,11 @@
 
             INFO = -21
          } else {
-            if ( IJOB == 1 .OR. IJOB == 4 ) {
+            if ( IJOB == 1 || IJOB == 4 ) {
                RCONDE( 1 ) = PL
                RCONDE( 2 ) = PR
             }
-            if ( IJOB == 2 .OR. IJOB == 4 ) {
+            if ( IJOB == 2 || IJOB == 4 ) {
                RCONDV( 1 ) = DIF( 1 )
                RCONDV( 2 ) = DIF( 2 )
             }

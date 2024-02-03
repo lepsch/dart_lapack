@@ -91,7 +91,7 @@
 
       // Print the header if NM = 0 or NN = 0 and THRESH = 0.
 
-      IF( ( NM == 0 .OR. NN == 0 ) && THRESH == ZERO ) CALL ALAHD( NOUT, PATH )
+      IF( ( NM == 0 || NN == 0 ) && THRESH == ZERO ) CALL ALAHD( NOUT, PATH )
       INFOT = 0
 
       // Compute maximal workspace needed for all routines
@@ -272,7 +272,7 @@
                               // Test 2: Check correctness of results
                               // for CGELS.
 
-                              if ( ( ITRAN == 1 && M.GE.N ) .OR. ( ITRAN == 2 && M.LT.N ) ) {
+                              if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M.LT.N ) ) {
 
                                  // Solving LS system
 
@@ -361,7 +361,7 @@
                               // Test 4: Check correctness of results
                               // for CGELST.
 
-                              if ( ( ITRAN == 1 && M.GE.N ) .OR. ( ITRAN == 2 && M.LT.N ) ) {
+                              if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M.LT.N ) ) {
 
                                  // Solving LS system
 
@@ -454,7 +454,7 @@
                               // Test 6: Check correctness of results
                               // for CGETSLS.
 
-                                 if ( ( ITRAN == 1 && M.GE.N ) .OR. ( ITRAN == 2 && M.LT.N ) ) {
+                                 if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M.LT.N ) ) {
 
                                     // Solving LS system, compute:
                                     // r = norm((B- A*X)**T * A) /

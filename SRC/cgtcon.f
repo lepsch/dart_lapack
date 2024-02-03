@@ -43,7 +43,7 @@
       // Test the input arguments.
 
       INFO = 0
-      ONENRM = NORM == '1' .OR. LSAME( NORM, 'O' )
+      ONENRM = NORM == '1' || LSAME( NORM, 'O' )
       if ( .NOT.ONENRM && .NOT.LSAME( NORM, 'I' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {

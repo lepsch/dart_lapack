@@ -140,7 +140,7 @@
 
                LDA = KL + KU + 1
                LDAFB = 2*KL + KU + 1
-               if ( LDA*N.GT.LA .OR. LDAFB*N.GT.LAFB ) {
+               if ( LDA*N.GT.LA || LDAFB*N.GT.LAFB ) {
                   if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                   if ( LDA*N.GT.LA ) {
                      WRITE( NOUT, FMT = 9999 )LA, N, KL, KU, N*( KL+KU+1 )
@@ -240,7 +240,7 @@
                            // previous iteration with FACT = 'F').
 
                            clacpy('Full', KL+KU+1, N, ASAV, LDA, AFB( KL+1 ), LDAFB );
-                           if ( EQUIL .OR. IEQUED.GT.1 ) {
+                           if ( EQUIL || IEQUED.GT.1 ) {
 
                               // Compute row and column scale factors to
                               // equilibrate the matrix A.
@@ -289,7 +289,7 @@
                            // Compute the 1-norm condition number of A.
 
                            AINVNM = CLANGE( '1', N, N, WORK, LDB, RWORK )
-                           if ( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                           if ( ANORMO.LE.ZERO || AINVNM.LE.ZERO ) {
                               RCONDO = ONE
                            } else {
                               RCONDO = ( ONE / ANORMO ) / AINVNM
@@ -299,7 +299,7 @@
                            // of A.
 
                            AINVNM = CLANGE( 'I', N, N, WORK, LDB, RWORK )
-                           if ( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                           if ( ANORMI.LE.ZERO || AINVNM.LE.ZERO ) {
                               RCONDI = ONE
                            } else {
                               RCONDI = ( ONE / ANORMI ) / AINVNM
@@ -447,7 +447,7 @@
                               // Check solution from generated exact
                               // solution.
 
-                              IF( NOFACT .OR. ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                              IF( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                                  cget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                               } else {
                                  if ( ITRAN == 1 ) {
@@ -583,7 +583,7 @@
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        IF( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                            cget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN == 1 ) {

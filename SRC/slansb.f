@@ -45,18 +45,18 @@
             for (J = 1; J <= N; J++) { // 20
                DO 10 I = MAX( K+2-J, 1 ), K + 1
                   SUM = ABS( AB( I, J ) )
-                  IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
+                  IF( VALUE .LT. SUM || SISNAN( SUM ) ) VALUE = SUM
                } // 10
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
                DO 30 I = 1, MIN( N+1-J, K+1 )
                   SUM = ABS( AB( I, J ) )
-                  IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
+                  IF( VALUE .LT. SUM || SISNAN( SUM ) ) VALUE = SUM
                } // 30
             } // 40
          }
-      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM == '1' ) ) {
+      } else if ( ( LSAME( NORM, 'I' ) ) || ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
 
          // Find normI(A) ( = norm1(A), since A is symmetric).
 
@@ -74,7 +74,7 @@
             } // 60
             for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I )
-               IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE .LT. SUM || SISNAN( SUM ) ) VALUE = SUM
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
@@ -88,10 +88,10 @@
                   SUM = SUM + ABSA
                   WORK( I ) = WORK( I ) + ABSA
                } // 90
-               IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE .LT. SUM || SISNAN( SUM ) ) VALUE = SUM
             } // 100
          }
-      } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
+      } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 

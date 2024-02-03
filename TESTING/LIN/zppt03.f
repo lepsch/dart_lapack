@@ -52,7 +52,7 @@
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANHP( '1', UPLO, N, A, RWORK )
       AINVNM = ZLANHP( '1', UPLO, N, AINV, RWORK )
-      if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+      if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN

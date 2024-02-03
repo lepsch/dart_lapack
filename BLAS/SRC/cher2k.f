@@ -70,7 +70,7 @@
 
       // Quick return if possible.
 
-      IF ((N == 0) .OR. (((ALPHA == ZERO).OR. (K == 0)) && (BETA == ONE))) RETURN
+      IF ((N == 0) || (((ALPHA == ZERO) || (K == 0)) && (BETA == ONE))) RETURN
 
       // And when  alpha == zero.
 
@@ -131,7 +131,7 @@
                       C(J,J) = REAL(C(J,J))
                   }
                   for (L = 1; L <= K; L++) { // 120
-                      if ((A(J,L) != ZERO) .OR. (B(J,L) != ZERO)) {
+                      if ((A(J,L) != ZERO) || (B(J,L) != ZERO)) {
                           TEMP1 = ALPHA*CONJG(B(J,L))
                           TEMP2 = CONJG(ALPHA*A(J,L))
                           for (I = 1; I <= J - 1; I++) { // 110
@@ -156,7 +156,7 @@
                       C(J,J) = REAL(C(J,J))
                   }
                   for (L = 1; L <= K; L++) { // 170
-                      if ((A(J,L) != ZERO) .OR. (B(J,L) != ZERO)) {
+                      if ((A(J,L) != ZERO) || (B(J,L) != ZERO)) {
                           TEMP1 = ALPHA*CONJG(B(J,L))
                           TEMP2 = CONJG(ALPHA*A(J,L))
                           for (I = J + 1; I <= N; I++) { // 160

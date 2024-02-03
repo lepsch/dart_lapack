@@ -115,7 +115,7 @@
 
       // Quick return if nothing to do
 
-      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) RETURN;
 
       // More Important constants
 
@@ -235,7 +235,7 @@
                RESULT( 7 ) = ZERO
                for (IJU = 0; IJU <= 3; IJU++) { // 100
                   for (IJVT = 0; IJVT <= 3; IJVT++) { // 90
-                     IF( ( IJU == 3 && IJVT == 3 ) .OR. ( IJU == 1 && IJVT == 1 ) )GO TO 90
+                     IF( ( IJU == 3 && IJVT == 3 ) || ( IJU == 1 && IJVT == 1 ) )GO TO 90
                      JOBU = CJOB( IJU+1 )
                      JOBVT = CJOB( IJVT+1 )
                      clacpy('F', M, N, ASAV, LDA, A, LDA );
@@ -552,7 +552,7 @@
                RESULT( 29 ) = ZERO
                for (IJU = 0; IJU <= 1; IJU++) { // 170
                   for (IJVT = 0; IJVT <= 1; IJVT++) { // 160
-                     IF( ( IJU == 0 && IJVT == 0 ) .OR. ( IJU == 1 && IJVT == 1 ) ) GO TO 160
+                     IF( ( IJU == 0 && IJVT == 0 ) || ( IJU == 1 && IJVT == 1 ) ) GO TO 160
                      JOBU = CJOBV( IJU+1 )
                      JOBVT = CJOBV( IJVT+1 )
                      RANGE = CJOBR( 1 )

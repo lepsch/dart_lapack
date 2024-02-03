@@ -54,35 +54,35 @@
 
       // Test the input arguments
 
-      LSVEC  = LSAME( JOBU, 'U' ) .OR. LSAME( JOBU, 'F' )
+      LSVEC  = LSAME( JOBU, 'U' ) || LSAME( JOBU, 'F' )
       JRACC  = LSAME( JOBV, 'J' )
-      RSVEC  = LSAME( JOBV, 'V' ) .OR. JRACC
-      ROWPIV = LSAME( JOBA, 'F' ) .OR. LSAME( JOBA, 'G' )
+      RSVEC  = LSAME( JOBV, 'V' ) || JRACC
+      ROWPIV = LSAME( JOBA, 'F' ) || LSAME( JOBA, 'G' )
       L2RANK = LSAME( JOBA, 'R' )
       L2ABER = LSAME( JOBA, 'A' )
-      ERREST = LSAME( JOBA, 'E' ) .OR. LSAME( JOBA, 'G' )
+      ERREST = LSAME( JOBA, 'E' ) || LSAME( JOBA, 'G' )
       L2TRAN = LSAME( JOBT, 'T' ) && ( M == N )
       L2KILL = LSAME( JOBR, 'R' )
       DEFR   = LSAME( JOBR, 'N' )
       L2PERT = LSAME( JOBP, 'P' )
 
-      LQUERY = ( LWORK == -1 ) .OR. ( LRWORK == -1 )
+      LQUERY = ( LWORK == -1 ) || ( LRWORK == -1 )
 
-      if ( .NOT.(ROWPIV .OR. L2RANK .OR. L2ABER .OR. ERREST .OR. LSAME( JOBA, 'C' ) )) {
+      if ( .NOT.(ROWPIV || L2RANK || L2ABER || ERREST || LSAME( JOBA, 'C' ) )) {
          INFO = - 1
-      } else if ( .NOT.( LSVEC .OR. LSAME( JOBU, 'N' ) .OR. ( LSAME( JOBU, 'W' ) && RSVEC && L2TRAN ) ) ) {
+      } else if ( .NOT.( LSVEC || LSAME( JOBU, 'N' ) || ( LSAME( JOBU, 'W' ) && RSVEC && L2TRAN ) ) ) {
          INFO = - 2
-      } else if ( .NOT.( RSVEC .OR. LSAME( JOBV, 'N' ) .OR. ( LSAME( JOBV, 'W' ) && LSVEC && L2TRAN ) ) ) {
+      } else if ( .NOT.( RSVEC || LSAME( JOBV, 'N' ) || ( LSAME( JOBV, 'W' ) && LSVEC && L2TRAN ) ) ) {
          INFO = - 3
-      } else if ( .NOT. ( L2KILL .OR. DEFR ) ) {
+      } else if ( .NOT. ( L2KILL || DEFR ) ) {
          INFO = - 4
-      } else if ( .NOT. ( LSAME(JOBT,'T') .OR. LSAME(JOBT,'N') ) ) {
+      } else if ( .NOT. ( LSAME(JOBT,'T') || LSAME(JOBT,'N') ) ) {
          INFO = - 5
-      } else if ( .NOT. ( L2PERT .OR. LSAME( JOBP, 'N' ) ) ) {
+      } else if ( .NOT. ( L2PERT || LSAME( JOBP, 'N' ) ) ) {
          INFO = - 6
       } else if ( M .LT. 0 ) {
          INFO = - 7
-      } else if ( ( N .LT. 0 ) .OR. ( N .GT. M ) ) {
+      } else if ( ( N .LT. 0 ) || ( N .GT. M ) ) {
          INFO = - 8
       } else if ( LDA .LT. M ) {
          INFO = - 10
@@ -133,7 +133,7 @@
           MINWRK  = 2
           OPTWRK  = 2
           MINIWRK = N
-          if ( .NOT. (LSVEC .OR. RSVEC ) ) {
+          if ( .NOT. (LSVEC || RSVEC ) ) {
               // .. minimal and optimal sizes of the complex workspace if
               // only the singular values are requested
               if ( ERREST ) {
@@ -150,7 +150,7 @@
                       OPTWRK = MAX( N+LWRK_CGEQP3, N+LWRK_CGEQRF,  LWRK_CGESVJ )
                   }
               }
-              if ( L2TRAN .OR. ROWPIV ) {
+              if ( L2TRAN || ROWPIV ) {
                   if ( ERREST ) {
                      MINRWRK = MAX( 7, 2*M,  LRWQP3, LRWCON, LRWSVDJ )
                   } else {
@@ -163,7 +163,7 @@
                      MINRWRK = MAX( 7, LRWQP3, LRWSVDJ )
                   }
               }
-              if (ROWPIV .OR. L2TRAN) MINIWRK = MINIWRK + M;
+              if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
           } else if ( RSVEC && (.NOT.LSVEC) ) {
              // .. minimal and optimal sizes of the complex workspace if the
              // singular values and the right singular vectors are requested
@@ -183,7 +183,7 @@
                  OPTWRK = MAX( N+LWRK_CGEQP3, LWRK_CGESVJ,N+LWRK_CGELQF, 2*N+LWRK_CGEQRF, N+LWRK_CGESVJ, N+LWRK_CUNMLQ )
                  }
              }
-             if ( L2TRAN .OR. ROWPIV ) {
+             if ( L2TRAN || ROWPIV ) {
                   if ( ERREST ) {
                      MINRWRK = MAX( 7, 2*M,  LRWQP3, LRWSVDJ, LRWCON )
                   } else {
@@ -196,7 +196,7 @@
                      MINRWRK = MAX( 7, LRWQP3, LRWSVDJ )
                   }
              }
-             if (ROWPIV .OR. L2TRAN) MINIWRK = MINIWRK + M;
+             if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
           } else if ( LSVEC && (.NOT.RSVEC) ) {
              // .. minimal and optimal sizes of the complex workspace if the
              // singular values and the left singular vectors are requested
@@ -216,7 +216,7 @@
                  OPTWRK = N + MAX( LWRK_CGEQP3, N+LWRK_CGEQRF, LWRK_CGESVJ, LWRK_CUNMQRM )
                  }
              }
-             if ( L2TRAN .OR. ROWPIV ) {
+             if ( L2TRAN || ROWPIV ) {
                  if ( ERREST ) {
                     MINRWRK = MAX( 7, 2*M,  LRWQP3, LRWSVDJ, LRWCON )
                  } else {
@@ -229,7 +229,7 @@
                     MINRWRK = MAX( 7, LRWQP3, LRWSVDJ )
                  }
              }
-             if (ROWPIV .OR. L2TRAN) MINIWRK = MINIWRK + M;
+             if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
           } else {
              // .. minimal and optimal sizes of the complex workspace if the
              // full SVD is requested
@@ -240,14 +240,14 @@
                     MINWRK = MAX( N+LWQP3,        2*N+N**2+LWCON,  2*N+LWQRF,         2*N+LWQP3, 2*N+N**2+N+LWLQF,  2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWSVDJ, 2*N+N**2+N+LWSVDJV, 2*N+N**2+N+LWUNMQR,2*N+N**2+N+LWUNMLQ, N+N**2+LWSVDJ,      N+LWUNMQRM )
                  }
                  MINIWRK = MINIWRK + N
-                 if (ROWPIV .OR. L2TRAN) MINIWRK = MINIWRK + M;
+                 if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
              } else {
                  if ( ERREST ) {
                     MINWRK = MAX( N+LWQP3, N+LWCON, 2*N+LWQRF,  2*N+N**2+LWSVDJV, 2*N+N**2+N+LWUNMQR, N+LWUNMQRM )
                  } else {
                     MINWRK = MAX( N+LWQP3, 2*N+LWQRF,  2*N+N**2+LWSVDJV, 2*N+N**2+N+LWUNMQR, N+LWUNMQRM )
                  }
-                 if (ROWPIV .OR. L2TRAN) MINIWRK = MINIWRK + M;
+                 if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
              }
              if ( LQUERY ) {
                  cunmqr('L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR );
@@ -284,7 +284,7 @@
                      }
                  }
              }
-             if ( L2TRAN .OR. ROWPIV ) {
+             if ( L2TRAN || ROWPIV ) {
                  MINRWRK = MAX( 7, 2*M,  LRWQP3, LRWSVDJ, LRWCON )
              } else {
                  MINRWRK = MAX( 7, LRWQP3, LRWSVDJ, LRWCON )
@@ -310,7 +310,7 @@
 
       // Quick return for void matrix (Y3K safe)
 * #:)
-      if ( ( M == 0 ) .OR. ( N == 0 ) ) {
+      if ( ( M == 0 ) || ( N == 0 ) ) {
          IWORK(1:4) = 0
          RWORK(1:7) = 0
          RETURN
@@ -460,7 +460,7 @@
 
       AATMAX = -ONE
       AATMIN =  BIG
-      if ( ROWPIV .OR. L2TRAN ) {
+      if ( ROWPIV || L2TRAN ) {
 
       // Compute the row norms, needed to determine row pivoting sequence
       // (in the case of heavily row weighted A, row pivoting is strongly
@@ -703,7 +703,7 @@
          // close-to-rank-deficient.
          TEMP1 = SQRT(SFMIN)
          for (p = 2; p <= N; p++) { // 3401
-            IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) .OR. ( ABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL && (ABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
+            IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) .LT. SMALL ) || ( L2KILL && (ABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
             NR = NR + 1
          } // 3401
          } // 3402
@@ -718,7 +718,7 @@
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = SQRT(SFMIN)
          for (p = 2; p <= N; p++) { // 3301
-            IF ( ( ABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL && (ABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
+            IF ( ( ABS(A(p,p)) .LT. SMALL ) || ( L2KILL && (ABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
             NR = NR + 1
          } // 3301
          } // 3302
@@ -796,7 +796,7 @@
 
       // Phase 3:
 
-      if ( .NOT. ( RSVEC .OR. LSVEC ) ) {
+      if ( .NOT. ( RSVEC || LSVEC ) ) {
 
           // Singular Values only
 
@@ -827,7 +827,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   CTEMP = CMPLX(XSC*ABS(A(q,q)),ZERO)
                   for (p = 1; p <= N; p++) { // 4949
-                     IF ( ( (p.GT.q) && (ABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) )
+                     IF ( ( (p.GT.q) && (ABS(A(p,q)).LE.TEMP1) ) || ( p .LT. q ) )
       // $                     A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 4949
                } // 4947
@@ -857,7 +857,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   CTEMP = CMPLX(XSC*ABS(A(q,q)),ZERO)
                   for (p = 1; p <= NR; p++) { // 1949
-                     IF ( ( (p.GT.q) && (ABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) )
+                     IF ( ( (p.GT.q) && (ABS(A(p,q)).LE.TEMP1) ) || ( p .LT. q ) )
       // $                   A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 1949
                } // 1947
@@ -875,7 +875,7 @@
             NUMRANK = NINT(RWORK(2))
 
 
-      } else if ( ( RSVEC && ( .NOT. LSVEC ) && ( .NOT. JRACC ) )  .OR. ( JRACC && ( .NOT. LSVEC ) && ( NR != N ) ) ) {
+      } else if ( ( RSVEC && ( .NOT. LSVEC ) && ( .NOT. JRACC ) ) || ( JRACC && ( .NOT. LSVEC ) && ( NR != N ) ) ) {
 
          // -> Singular Values and Right Singular Vectors <-
 
@@ -1022,7 +1022,7 @@
                for (q = 1; q <= NR; q++) { // 2969
                   CTEMP = CMPLX(XSC*ABS( V(q,q) ),ZERO)
                   for (p = 1; p <= N; p++) { // 2968
-                     IF ( ( p .GT. q ) && ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) )
+                     IF ( ( p .GT. q ) && ( ABS(V(p,q)) .LE. TEMP1 ) || ( p .LT. q ) )
       // $                   V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                      if (p .LT. q) V(p,q) = - V(p,q);
                   } // 2968
@@ -1272,7 +1272,7 @@
                   V(p,q) = CWORK(2*N+N*NR+NR+p)
                } // 973
                XSC = ONE / SCNRM2( N, V(1,q), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,q), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,q), 1 )
             } // 1972
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
@@ -1293,7 +1293,7 @@
             TEMP1 = SQRT(REAL(M)) * EPSLN
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / SCNRM2( M, U(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 )
             } // 1973
 
             // If the initial QRF is computed with row pivoting, the left
@@ -1337,7 +1337,7 @@
             TEMP1 = SQRT(REAL(N))*EPSLN
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / SCNRM2( N, V(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,p), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,p), 1 )
             } // 6971
 
             // Assemble the left singular vector matrix U (M x N).
@@ -1353,7 +1353,7 @@
             TEMP1 = SQRT(REAL(M))*EPSLN
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / SCNRM2( M, U(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 )
             } // 6973
 
             if (ROWPIV) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
@@ -1385,7 +1385,7 @@
             for (q = 1; q <= NR; q++) { // 5969
                CTEMP = CMPLX(XSC*ABS( V(q,q) ),ZERO)
                for (p = 1; p <= N; p++) { // 5968
-                  IF ( ( p .GT. q ) && ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) )
+                  IF ( ( p .GT. q ) && ( ABS(V(p,q)) .LE. TEMP1 ) || ( p .LT. q ) )
       // $                V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                   if (p .LT. q) V(p,q) = - V(p,q);
                } // 5968
@@ -1437,7 +1437,7 @@
                   V(p,q) = CWORK(2*N+N*NR+NR+p)
                } // 8973
                XSC = ONE / SCNRM2( N, V(1,q), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,q), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,q), 1 )
             } // 7972
 
             // At this moment, V contains the right singular vectors of A.

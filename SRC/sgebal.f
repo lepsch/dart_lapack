@@ -184,7 +184,7 @@
 
             // Guard against zero C or R due to underflow.
 
-            if (C == ZERO .OR. R == ZERO) CYCLE;
+            if (C == ZERO || R == ZERO) CYCLE;
 
             // Exit if NaN to avoid infinite loop
 

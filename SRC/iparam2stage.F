@@ -31,7 +31,7 @@
 
       // Invalid value for ISPEC
 
-      if ( (ISPEC.LT.17).OR.(ISPEC.GT.21) ) {
+      if ( (ISPEC.LT.17) || (ISPEC.GT.21) ) {
           IPARAM2STAGE = -1
           RETURN
       }
@@ -54,7 +54,7 @@
          SUBNAM = NAME
          IC = ICHAR( SUBNAM( 1: 1 ) )
          IZ = ICHAR( 'Z' )
-         if ( IZ == 90 .OR. IZ == 122 ) {
+         if ( IZ == 90 || IZ == 122 ) {
 
             // ASCII character set
 
@@ -66,19 +66,19 @@
                } // 100
             }
 
-         } else if ( IZ == 233 .OR. IZ == 169 ) {
+         } else if ( IZ == 233 || IZ == 169 ) {
 
             // EBCDIC character set
 
-            if ( ( IC.GE.129 && IC.LE.137 ) .OR. ( IC.GE.145 && IC.LE.153 ) .OR. ( IC.GE.162 && IC.LE.169 ) ) {
+            if ( ( IC.GE.129 && IC.LE.137 ) || ( IC.GE.145 && IC.LE.153 ) || ( IC.GE.162 && IC.LE.169 ) ) {
                SUBNAM( 1: 1 ) = CHAR( IC+64 )
                for (I = 2; I <= 12; I++) { // 110
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( ( IC.GE.129 && IC.LE.137 ) .OR. ( IC.GE.145 && IC.LE.153 ) .OR. ( IC.GE.162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
+                  IF( ( IC.GE.129 && IC.LE.137 ) || ( IC.GE.145 && IC.LE.153 ) || ( IC.GE.162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
                } // 110
             }
 
-         } else if ( IZ == 218 .OR. IZ == 250 ) {
+         } else if ( IZ == 218 || IZ == 250 ) {
 
             // Prime machines:  ASCII+128
 
@@ -94,12 +94,12 @@
          PREC  = SUBNAM( 1: 1 )
          ALGO  = SUBNAM( 4: 6 )
          STAG  = SUBNAM( 8:12 )
-         RPREC = PREC == 'S' .OR. PREC == 'D'
-         CPREC = PREC == 'C' .OR. PREC == 'Z'
+         RPREC = PREC == 'S' || PREC == 'D'
+         CPREC = PREC == 'C' || PREC == 'Z'
 
          // Invalid value for PRECISION
 
-         if ( .NOT.( RPREC .OR. CPREC ) ) {
+         if ( .NOT.( RPREC || CPREC ) ) {
              IPARAM2STAGE = -1
              RETURN
          }
@@ -108,7 +108,7 @@
       // $           '   ALGO ',ALGO,'    STAGE ',STAG
 
 
-      if (( ISPEC == 17 ) .OR. ( ISPEC == 18 )) {
+      if (( ISPEC == 17 ) || ( ISPEC == 18 )) {
 
       // ISPEC = 17, 18:  block size KD, IB
       // Could be also dependent from N but for now it
@@ -188,9 +188,9 @@
          if ( ALGO == 'TRD' ) {
             if ( STAG == '2STAG' ) {
                LWORK = NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI
-            } else if ( (STAG == 'HE2HB').OR.(STAG == 'SY2SB') ) {
+            } else if ( (STAG == 'HE2HB') || (STAG == 'SY2SB') ) {
                LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI
-            } else if ( (STAG == 'HB2ST').OR.(STAG == 'SB2ST') ) {
+            } else if ( (STAG == 'HB2ST') || (STAG == 'SB2ST') ) {
                LWORK = (2*NBI+1)*NI + NBI*NTHREADS
             }
          } else if ( ALGO == 'BRD' ) {

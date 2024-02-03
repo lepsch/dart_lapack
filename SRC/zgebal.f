@@ -90,7 +90,7 @@
             DO I = L, 1, -1
                CANSWAP = true;
                for (J = 1; J <= L; J++) {
-                  if ( I != J && ( DBLE( A( I, J ) ) != ZERO .OR. DIMAG( A( I, J ) ) != ZERO ) ) {
+                  if ( I != J && ( DBLE( A( I, J ) ) != ZERO || DIMAG( A( I, J ) ) != ZERO ) ) {
                      CANSWAP = false;
                      EXIT
                   }
@@ -125,7 +125,7 @@
             for (J = K; J <= L; J++) {
                CANSWAP = true;
                for (I = K; I <= L; I++) {
-                  if ( I != J && ( DBLE( A( I, J ) ) != ZERO .OR. DIMAG( A( I, J ) ) != ZERO ) ) {
+                  if ( I != J && ( DBLE( A( I, J ) ) != ZERO || DIMAG( A( I, J ) ) != ZERO ) ) {
                      CANSWAP = false;
                      EXIT
                   }
@@ -185,7 +185,7 @@
 
             // Guard against zero C or R due to underflow.
 
-            if (C == ZERO .OR. R == ZERO) CYCLE;
+            if (C == ZERO || R == ZERO) CYCLE;
 
             // Exit if NaN to avoid infinite loop
 

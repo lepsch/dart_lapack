@@ -33,9 +33,9 @@ void main() {      // Test program for the double           Level 1 CBLAS.;
          MODE = 9999
          if (ICASE == 3) {
             check0(SFAC);
-         } else if (ICASE == 7 .OR. ICASE == 8 .OR. ICASE == 9 .OR. ICASE == 10) {
+         } else if (ICASE == 7 || ICASE == 8 || ICASE == 9 || ICASE == 10) {
             check1(SFAC);
-         } else if (ICASE == 1 .OR. ICASE == 2 .OR. ICASE == 5 .OR. ICASE == 6) {
+         } else if (ICASE == 1 || ICASE == 2 || ICASE == 5 || ICASE == 6) {
             check2(SFAC);
          } else if (ICASE == 4) {
             check3(SFAC);

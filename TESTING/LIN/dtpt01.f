@@ -50,7 +50,7 @@
       EPS = DLAMCH( 'Epsilon' )
       ANORM = DLANTP( '1', UPLO, DIAG, N, AP, WORK )
       AINVNM = DLANTP( '1', UPLO, DIAG, N, AINVP, WORK )
-      if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+      if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN

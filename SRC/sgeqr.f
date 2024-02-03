@@ -40,11 +40,11 @@
 
       INFO = 0
 
-      LQUERY = ( TSIZE == -1 .OR. TSIZE == -2 .OR. LWORK == -1 .OR. LWORK == -2 )
+      LQUERY = ( TSIZE == -1 || TSIZE == -2 || LWORK == -1 || LWORK == -2 )
 
       MINT = false;
       MINW = false;
-      if ( TSIZE == -2 .OR. LWORK == -2 ) {
+      if ( TSIZE == -2 || LWORK == -2 ) {
         if (TSIZE != -1) MINT = true ;
         if (LWORK != -1) MINW = true ;
       }
@@ -58,8 +58,8 @@
         MB = M
         NB = 1
       }
-      if (MB.GT.M .OR. MB.LE.N) MB = M;
-      IF( NB.GT.MIN( M, N ) .OR. NB.LT.1 ) NB = 1
+      if (MB.GT.M || MB.LE.N) MB = M;
+      IF( NB.GT.MIN( M, N ) || NB.LT.1 ) NB = 1
       MINTSZ = N + 5
       if ( MB.GT.N && M.GT.N ) {
         if ( MOD( M - N, MB - N ) == 0 ) {
@@ -76,7 +76,7 @@
       LWMIN = MAX( 1, N )
       LWREQ = MAX( 1, N*NB )
       LMINWS = false;
-      if ( ( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) .OR. LWORK.LT.LWREQ ) && ( LWORK.GE.N ) && ( TSIZE.GE.MINTSZ ) && ( .NOT.LQUERY ) ) {
+      if ( ( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) || LWORK.LT.LWREQ ) && ( LWORK.GE.N ) && ( TSIZE.GE.MINTSZ ) && ( .NOT.LQUERY ) ) {
         if ( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) ) {
           LMINWS = true;
           NB = 1
@@ -129,7 +129,7 @@
 
       // The QR Decomposition
 
-      if ( ( M.LE.N ) .OR. ( MB.LE.N ) .OR. ( MB.GE.M ) ) {
+      if ( ( M.LE.N ) || ( MB.LE.N ) || ( MB.GE.M ) ) {
         sgeqrt(M, N, NB, A, LDA, T( 6 ), NB, WORK, INFO );
       } else {
         slatsqr(M, N, MB, NB, A, LDA, T( 6 ), NB, WORK, LWORK, INFO );

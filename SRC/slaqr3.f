@@ -288,7 +288,7 @@
          GO TO 60
       }
 
-      if ( NS.LT.JW .OR. S == ZERO ) {
+      if ( NS.LT.JW || S == ZERO ) {
          if ( NS.GT.1 && S != ZERO ) {
 
             // ==== Reflect spike back into lower triangle ====

@@ -53,7 +53,7 @@
       // Compute workspace
 
       INFO = 0
-      LQUERY = ( LIWORK == -1 .OR. LDSWORK == -1 )
+      LQUERY = ( LIWORK == -1 || LDSWORK == -1 )
       IWORK( 1 ) = NBA + NBB + 2
       if ( LQUERY ) {
          LDSWORK = 2
@@ -94,12 +94,12 @@
       // Quick return if possible
 
       SCALE = ONE
-      if (M == 0 .OR. N == 0) RETURN;
+      if (M == 0 || N == 0) RETURN;
 
       // Use unblocked code for small problems or if insufficient
       // workspaces are provided
 
-      IF( MIN( NBA, NBB ) == 1 .OR. LDSWORK.LT.MAX( NBA, NBB ) .OR. LIWORK.LT.IWORK(1) ) THEN         CALL STRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
+      IF( MIN( NBA, NBB ) == 1 || LDSWORK.LT.MAX( NBA, NBB ) || LIWORK.LT.IWORK(1) ) THEN         CALL STRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
         RETURN
       }
 

@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      if (N1 == 0 .OR. N2 == 0) RETURN;
+      if (N1 == 0 || N2 == 0) RETURN;
 
       // Set constants to control overflow
 
@@ -150,7 +150,7 @@
          BTMP( 2 ) = BTMP( 2 ) - L21*BTMP( 1 )
       }
       SCALE = ONE
-      if ( ( TWO*SMLNUM )*ABS( BTMP( 2 ) ).GT.ABS( U22 ) .OR. ( TWO*SMLNUM )*ABS( BTMP( 1 ) ).GT.ABS( U11 ) ) {
+      if ( ( TWO*SMLNUM )*ABS( BTMP( 2 ) ).GT.ABS( U22 ) || ( TWO*SMLNUM )*ABS( BTMP( 1 ) ).GT.ABS( U11 ) ) {
          SCALE = HALF / MAX( ABS( BTMP( 1 ) ), ABS( BTMP( 2 ) ) )
          BTMP( 1 ) = BTMP( 1 )*SCALE
          BTMP( 2 ) = BTMP( 2 )*SCALE
@@ -253,7 +253,7 @@
          T16( 4, 4 ) = SMIN
       }
       SCALE = ONE
-      if ( ( EIGHT*SMLNUM )*ABS( BTMP( 1 ) ).GT.ABS( T16( 1, 1 ) ) .OR. ( EIGHT*SMLNUM )*ABS( BTMP( 2 ) ).GT.ABS( T16( 2, 2 ) ) .OR. ( EIGHT*SMLNUM )*ABS( BTMP( 3 ) ).GT.ABS( T16( 3, 3 ) ) .OR. ( EIGHT*SMLNUM )*ABS( BTMP( 4 ) ).GT.ABS( T16( 4, 4 ) ) ) {
+      if ( ( EIGHT*SMLNUM )*ABS( BTMP( 1 ) ).GT.ABS( T16( 1, 1 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 2 ) ).GT.ABS( T16( 2, 2 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 3 ) ).GT.ABS( T16( 3, 3 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 4 ) ).GT.ABS( T16( 4, 4 ) ) ) {
          SCALE = ( ONE / EIGHT ) / MAX( ABS( BTMP( 1 ) ), ABS( BTMP( 2 ) ), ABS( BTMP( 3 ) ), ABS( BTMP( 4 ) ) )
          BTMP( 1 ) = BTMP( 1 )*SCALE
          BTMP( 2 ) = BTMP( 2 )*SCALE

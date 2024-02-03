@@ -103,7 +103,7 @@
             // flush-to-zero threshold and handle numbers above that
             // threshold correctly, it would not be necessary.
 
-      if ( DISCR.GE.ZERO .OR. R == ZERO ) {
+      if ( DISCR.GE.ZERO || R == ZERO ) {
          SUM = PP + SIGN( R, PP )
          DIFF = PP - SIGN( R, PP )
          WBIG = SHIFT + SUM
@@ -156,7 +156,7 @@
       } else {
          C4 = ONE
       }
-      if ( ASCALE.LE.ONE .OR. BSIZE.LE.ONE ) {
+      if ( ASCALE.LE.ONE || BSIZE.LE.ONE ) {
          C5 = MIN( ONE, ASCALE*BSIZE )
       } else {
          C5 = ONE

@@ -89,7 +89,7 @@ void main() {
       Xj = X(1)
       if (Xj == 0.0d0) {
         subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-        if (debug .or. subnormalTreatedAs0 == 1) {
+        if (debug || subnormalTreatedAs0 == 1) {
             print *, "!! fl( subnormal ) may be 0"
         }
       } else {
@@ -97,7 +97,7 @@ void main() {
             Xj = X(i)
             if (Xj == 0.0d0) {
                 subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-                if (debug .or. subnormalTreatedAs0 == 1) {
+                if (debug || subnormalTreatedAs0 == 1) {
                     print *, "!! fl( subnormal ) may be 0"
                 }
             }
@@ -109,7 +109,7 @@ void main() {
         Xj = X(i)
         if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 == 1) {
+            if (debug || subnormalTreatedAs0 == 1) {
                 print *, "!! [a] fl( subnormal ) may be 0"
             }
         } else {
@@ -134,7 +134,7 @@ void main() {
         Xj = X(i)
         if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 == 1) {
+            if (debug || subnormalTreatedAs0 == 1) {
                 print *, "!! [b] fl( subnormal ) may be 0"
             }
         } else {
@@ -159,7 +159,7 @@ void main() {
         Xj = X(i)
         if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 == 1) {
+            if (debug || subnormalTreatedAs0 == 1) {
                 print *, "!! [c] fl( subnormal ) may be 0"
             }
         } else {
@@ -184,7 +184,7 @@ void main() {
         Xj = X(i)
         if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 == 1) {
+            if (debug || subnormalTreatedAs0 == 1) {
                 print *, "!! [d] fl( subnormal ) may be 0"
             }
         } else {
@@ -210,7 +210,7 @@ void main() {
         Xj = X(i)
         if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 == 1) {
+            if (debug || subnormalTreatedAs0 == 1) {
                 print *, "!! [e] fl( subnormal ) may be 0"
             }
         } else {
@@ -236,7 +236,7 @@ void main() {
         Xj = X(i)
         if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 == 1) {
+            if (debug || subnormalTreatedAs0 == 1) {
                 print *, "!! [f] fl( subnormal ) may be 0"
             }
         } else {
@@ -307,7 +307,7 @@ void main() {
       }
 
       // If anything was written to stderr, print the message
-      if( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or. (caseCFails .gt. 0) .or. (caseDFails .gt. 0) .or. (caseEFails .gt. 0) .or. (caseFFails .gt. 0) ) print *, "# Please check the failed divisions in [stderr]"
+      if( (caseAFails .gt. 0) || (caseBFails .gt. 0) || (caseCFails .gt. 0) || (caseDFails .gt. 0) || (caseEFails .gt. 0) || (caseFFails .gt. 0) ) print *, "# Please check the failed divisions in [stderr]"
 
       // .. Formats ..
  9998 FORMAT( '[',A2,I1, '] ', (ES24.16E3,SP,ES24.16E3,"*I"), ' * ', (ES24.16E3,SP,ES24.16E3,"*I"), ' = ', (ES24.16E3,SP,ES24.16E3,"*I"), ' differs from ', A10 )

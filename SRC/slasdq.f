@@ -42,7 +42,7 @@
       IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2
       if ( IUPLO == 0 ) {
          INFO = -1
-      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE.LT.0 ) || ( SQRE.GT.1 ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -52,11 +52,11 @@
          INFO = -5
       } else if ( NCC.LT.0 ) {
          INFO = -6
-      } else if ( ( NCVT == 0 && LDVT.LT.1 ) .OR. ( NCVT.GT.0 && LDVT.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCVT == 0 && LDVT.LT.1 ) || ( NCVT.GT.0 && LDVT.LT.MAX( 1, N ) ) ) {
          INFO = -10
       } else if ( LDU.LT.MAX( 1, NRU ) ) {
          INFO = -12
-      } else if ( ( NCC == 0 && LDC.LT.1 ) .OR. ( NCC.GT.0 && LDC.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCC == 0 && LDC.LT.1 ) || ( NCC.GT.0 && LDC.LT.MAX( 1, N ) ) ) {
          INFO = -14
       }
       if ( INFO != 0 ) {
@@ -67,7 +67,7 @@
 
       // ROTATE is true if any singular vectors desired, false otherwise
 
-      ROTATE = ( NCVT.GT.0 ) .OR. ( NRU.GT.0 ) .OR. ( NCC.GT.0 )
+      ROTATE = ( NCVT.GT.0 ) || ( NRU.GT.0 ) || ( NCC.GT.0 )
       NP1 = N + 1
       SQRE1 = SQRE
 

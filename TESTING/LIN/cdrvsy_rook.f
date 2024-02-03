@@ -255,7 +255,7 @@
 
                      // Compute the 1-norm condition number of A.
 
-                     if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                     if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
                         RCONDC = ONE
                      } else {
                         RCONDC = ( ONE / ANORM ) / AINVNM

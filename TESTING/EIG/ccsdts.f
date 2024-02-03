@@ -173,7 +173,7 @@
 
       RESULT( 9 ) = REALZERO
       for (I = 1; I <= R; I++) {
-         if ( THETA(I).LT.REALZERO .OR. THETA(I).GT.PIOVER2 ) {
+         if ( THETA(I).LT.REALZERO || THETA(I).GT.PIOVER2 ) {
             RESULT( 9 ) = ULPINV
          }
          if ( I.GT.1) {
@@ -270,7 +270,7 @@
 
       RESULT( 15 ) = REALZERO
       for (I = 1; I <= R; I++) {
-         if ( THETA(I).LT.REALZERO .OR. THETA(I).GT.PIOVER2 ) {
+         if ( THETA(I).LT.REALZERO || THETA(I).GT.PIOVER2 ) {
             RESULT( 15 ) = ULPINV
          }
          if ( I.GT.1) {

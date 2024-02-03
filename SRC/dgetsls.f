@@ -43,8 +43,8 @@
       MAXMN = MAX( M, N )
       TRAN  = LSAME( TRANS, 'T' )
 
-      LQUERY = ( LWORK == -1 .OR. LWORK == -2 )
-      if ( .NOT.( LSAME( TRANS, 'N' ) .OR. LSAME( TRANS, 'T' ) ) ) {
+      LQUERY = ( LWORK == -1 || LWORK == -2 )
+      if ( .NOT.( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -2

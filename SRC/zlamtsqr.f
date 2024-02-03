@@ -61,7 +61,7 @@
         INFO = -4
       } else if ( K.LT.0 ) {
         INFO = -5
-      } else if ( K.LT.NB .OR. NB.LT.1 ) {
+      } else if ( K.LT.NB || NB.LT.1 ) {
         INFO = -7
       } else if ( LDA.LT.MAX( 1, Q ) ) {
         INFO = -9
@@ -92,7 +92,7 @@
 
       // Determine the block size if it is tall skinny or short and wide
 
-      if ((MB.LE.K).OR.(MB.GE.MAX(M,N,K))) {
+      if ((MB.LE.K) || (MB.GE.MAX(M,N,K))) {
         zgemqrt(SIDE, TRANS, M, N, K, NB, A, LDA, T, LDT, C, LDC, WORK, INFO );
         RETURN
       }

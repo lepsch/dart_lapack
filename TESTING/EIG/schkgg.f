@@ -85,9 +85,9 @@
          INFO = -3
       } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      } else if ( LDA.LE.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LE.1 || LDA.LT.NMAX ) {
          INFO = -10
-      } else if ( LDU.LE.1 .OR. LDU.LT.NMAX ) {
+      } else if ( LDU.LE.1 || LDU.LT.NMAX ) {
          INFO = -19
       } else if ( LWKOPT.GT.LWORK ) {
          INFO = -30
@@ -100,7 +100,7 @@
 
       // Quick return if possible
 
-      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) RETURN;
 
       SAFMIN = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )

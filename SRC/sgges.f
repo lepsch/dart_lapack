@@ -88,9 +88,9 @@
          INFO = -7
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      } else if ( LDVSL.LT.1 .OR. ( ILVSL && LDVSL.LT.N ) ) {
+      } else if ( LDVSL.LT.1 || ( ILVSL && LDVSL.LT.N ) ) {
          INFO = -15
-      } else if ( LDVSR.LT.1 .OR. ( ILVSR && LDVSR.LT.N ) ) {
+      } else if ( LDVSR.LT.1 || ( ILVSR && LDVSR.LT.N ) ) {
          INFO = -17
       }
 
@@ -262,12 +262,12 @@
       if ( ILASCL ) {
          for (I = 1; I <= N; I++) { // 50
             if ( ALPHAI( I ) != ZERO ) {
-               if ( ( ALPHAR( I )/SAFMAX ).GT.( ANRMTO/ANRM ) .OR. ( SAFMIN/ALPHAR( I ) ).GT.( ANRM/ANRMTO ) ) {
+               if ( ( ALPHAR( I )/SAFMAX ).GT.( ANRMTO/ANRM ) || ( SAFMIN/ALPHAR( I ) ).GT.( ANRM/ANRMTO ) ) {
                   WORK( 1 ) = ABS( A( I, I )/ALPHAR( I ) )
                   BETA( I ) = BETA( I )*WORK( 1 )
                   ALPHAR( I ) = ALPHAR( I )*WORK( 1 )
                   ALPHAI( I ) = ALPHAI( I )*WORK( 1 )
-               } else if ( ( ALPHAI( I )/SAFMAX ).GT.( ANRMTO/ANRM ) .OR. ( SAFMIN/ALPHAI( I ) ).GT.( ANRM/ANRMTO ) ) {
+               } else if ( ( ALPHAI( I )/SAFMAX ).GT.( ANRMTO/ANRM ) || ( SAFMIN/ALPHAI( I ) ).GT.( ANRM/ANRMTO ) ) {
                   WORK( 1 ) = ABS( A( I, I+1 )/ALPHAI( I ) )
                   BETA( I ) = BETA( I )*WORK( 1 )
                   ALPHAR( I ) = ALPHAR( I )*WORK( 1 )
@@ -280,7 +280,7 @@
       if ( ILBSCL ) {
          for (I = 1; I <= N; I++) { // 60
             if ( ALPHAI( I ) != ZERO ) {
-                if ( ( BETA( I )/SAFMAX ).GT.( BNRMTO/BNRM ) .OR. ( SAFMIN/BETA( I ) ).GT.( BNRM/BNRMTO ) ) {
+                if ( ( BETA( I )/SAFMAX ).GT.( BNRMTO/BNRM ) || ( SAFMIN/BETA( I ) ).GT.( BNRM/BNRMTO ) ) {
                    WORK( 1 ) = ABS(B( I, I )/BETA( I ))
                    BETA( I ) = BETA( I )*WORK( 1 )
                    ALPHAR( I ) = ALPHAR( I )*WORK( 1 )
@@ -322,7 +322,7 @@
 
                   // Last eigenvalue of conjugate pair
 
-                  CURSL = CURSL .OR. LASTSL
+                  CURSL = CURSL || LASTSL
                   LASTSL = CURSL
                   if (CURSL) SDIM = SDIM + 2;
                   IP = -1

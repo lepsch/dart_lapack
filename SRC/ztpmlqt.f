@@ -54,9 +54,9 @@
          INFO = -4
       } else if ( K.LT.0 ) {
          INFO = -5
-      } else if ( L.LT.0 .OR. L.GT.K ) {
+      } else if ( L.LT.0 || L.GT.K ) {
          INFO = -6
-      } else if ( MB.LT.1 .OR. (MB.GT.K && K.GT.0) ) {
+      } else if ( MB.LT.1 || (MB.GT.K && K.GT.0) ) {
          INFO = -7
       } else if ( LDV.LT.K ) {
          INFO = -9
@@ -75,7 +75,7 @@
 
       // .. Quick return if possible ..
 
-      if (M == 0 .OR. N == 0 .OR. K == 0) RETURN;
+      if (M == 0 || N == 0 || K == 0) RETURN;
 
       if ( LEFT && NOTRAN ) {
 

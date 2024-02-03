@@ -65,7 +65,7 @@
          xerbla('ZLAROT', 4 );
          RETURN
       }
-      if ( LDA.LE.0 .OR. ( .NOT.LROWS && LDA.LT.NL-NT ) ) {
+      if ( LDA.LE.0 || ( .NOT.LROWS && LDA.LT.NL-NT ) ) {
          xerbla('ZLAROT', 8 );
          RETURN
       }

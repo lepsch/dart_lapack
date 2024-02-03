@@ -36,7 +36,7 @@
       // .. Executable Statements ..
 
       INFO = 0
-      if ( ( ABS( JOB ).GT.2 ) .OR. ( JOB == 0 ) ) {
+      if ( ( ABS( JOB ).GT.2 ) || ( JOB == 0 ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -87,7 +87,7 @@
                ABSAK = ABS( AK )
                if ( ABSAK.LT.ONE ) {
                   if ( ABSAK.LT.SFMIN ) {
-                     if ( ABSAK == ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
+                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         INFO = K
                         RETURN
                      } else {
@@ -116,7 +116,7 @@
                ABSAK = ABS( AK )
                if ( ABSAK.LT.ONE ) {
                   if ( ABSAK.LT.SFMIN ) {
-                     if ( ABSAK == ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
+                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         AK = AK + PERT
                         PERT = 2*PERT
                         GO TO 40
@@ -150,7 +150,7 @@
                ABSAK = ABS( AK )
                if ( ABSAK.LT.ONE ) {
                   if ( ABSAK.LT.SFMIN ) {
-                     if ( ABSAK == ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
+                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         INFO = K
                         RETURN
                      } else {
@@ -179,7 +179,7 @@
                ABSAK = ABS( AK )
                if ( ABSAK.LT.ONE ) {
                   if ( ABSAK.LT.SFMIN ) {
-                     if ( ABSAK == ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
+                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         AK = AK + PERT
                         PERT = 2*PERT
                         GO TO 70

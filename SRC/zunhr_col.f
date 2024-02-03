@@ -34,7 +34,7 @@
       INFO = 0
       if ( M.LT.0 ) {
          INFO = -1
-      } else if ( N.LT.0 .OR. N.GT.M ) {
+      } else if ( N.LT.0 || N.GT.M ) {
          INFO = -2
       } else if ( NB.LT.1 ) {
          INFO = -3

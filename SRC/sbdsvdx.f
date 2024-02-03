@@ -53,9 +53,9 @@
       INFO = 0
       if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LOWER ) {
          INFO = -1
-      } else if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
+      } else if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( ALLSV .OR. VALSV .OR. INDSV ) ) {
+      } else if ( .NOT.( ALLSV || VALSV || INDSV ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
@@ -67,15 +67,15 @@
                INFO = -8
             }
          } else if ( INDSV ) {
-            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
+            if ( IL.LT.1 || IL.GT.MAX( 1, N ) ) {
                INFO = -9
-            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
+            } else if ( IU.LT.MIN( N, IL ) || IU.GT.N ) {
                INFO = -10
             }
          }
       }
       if ( INFO == 0 ) {
-         IF( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N*2 ) ) INFO = -14
+         IF( LDZ.LT.1 || ( WANTZ && LDZ.LT.N*2 ) ) INFO = -14
       }
 
       if ( INFO != 0 ) {
@@ -89,7 +89,7 @@
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
-         if ( ALLSV .OR. INDSV ) {
+         if ( ALLSV || INDSV ) {
             NS = 1
             S( 1 ) = ABS( D( 1 ) )
          } else {
@@ -333,8 +333,8 @@
 
                   ILTGK = 1
                   IUTGK = NTGK / 2
-                  if ( ALLSV .OR. VUTGK == ZERO ) {
-                     if ( SVEQ0 .OR. SMIN.LT.EPS .OR. MOD(NTGK,2).GT.0 ) {
+                  if ( ALLSV || VUTGK == ZERO ) {
+                     if ( SVEQ0 || SMIN.LT.EPS || MOD(NTGK,2).GT.0 ) {
                          // Special case: eigenvalue equal to zero or very
                          // small, additional eigenvector is needed.
                          IUTGK = IUTGK + 1

@@ -75,9 +75,9 @@
          INFO = -3
       } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      } else if ( LDA.LE.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LE.1 || LDA.LT.NMAX ) {
          INFO = -9
-      } else if ( LDU.LE.1 .OR. LDU.LT.NMAX ) {
+      } else if ( LDU.LE.1 || LDU.LT.NMAX ) {
          INFO = -14
       } else if ( 4*NMAX*NMAX+2.GT.NWORK ) {
          INFO = -26
@@ -90,7 +90,7 @@
 
       // Quick return if possible
 
-      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) RETURN;
 
       // More important constants
 

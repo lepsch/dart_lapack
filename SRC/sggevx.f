@@ -67,9 +67,9 @@
          IJOBVR = -1
          ILVR = false;
       }
-      ILV = ILVL .OR. ILVR
+      ILV = ILVL || ILVR
 
-      NOSCL  = LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'P' )
+      NOSCL  = LSAME( BALANC, 'N' ) || LSAME( BALANC, 'P' )
       WANTSN = LSAME( SENSE, 'N' )
       WANTSE = LSAME( SENSE, 'E' )
       WANTSV = LSAME( SENSE, 'V' )
@@ -79,13 +79,13 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.( NOSCL .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'B' ) ) ) {
+      if ( .NOT.( NOSCL || LSAME( BALANC, 'S' ) || LSAME( BALANC, 'B' ) ) ) {
          INFO = -1
       } else if ( IJOBVL.LE.0 ) {
          INFO = -2
       } else if ( IJOBVR.LE.0 ) {
          INFO = -3
-      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSB .OR. WANTSV ) ) {
+      } else if ( .NOT.( WANTSN || WANTSE || WANTSB || WANTSV ) ) {
          INFO = -4
       } else if ( N.LT.0 ) {
          INFO = -5
@@ -93,9 +93,9 @@
          INFO = -7
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      } else if ( LDVL.LT.1 .OR. ( ILVL && LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 || ( ILVL && LDVL.LT.N ) ) {
          INFO = -14
-      } else if ( LDVR.LT.1 .OR. ( ILVR && LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 || ( ILVR && LDVR.LT.N ) ) {
          INFO = -16
       }
 
@@ -119,7 +119,7 @@
             }
             if ( WANTSE ) {
                MINWRK = 10*N
-            } else if ( WANTSV .OR. WANTSB ) {
+            } else if ( WANTSV || WANTSB ) {
                MINWRK = 2*N*( N + 4 ) + 16
             }
             MAXWRK = MINWRK
@@ -206,7 +206,7 @@
       // (Workspace: need N, prefer N*NB )
 
       IROWS = IHI + 1 - ILO
-      if ( ILV .OR. .NOT.WANTSN ) {
+      if ( ILV || .NOT.WANTSN ) {
          ICOLS = N + 1 - ILO
       } else {
          ICOLS = IROWS
@@ -236,7 +236,7 @@
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
 
-      if ( ILV .OR. .NOT.WANTSN ) {
+      if ( ILV || .NOT.WANTSN ) {
 
          // Eigenvectors requested -- work on whole matrix.
 
@@ -249,7 +249,7 @@
       // Schur forms and Schur vectors)
       // (Workspace: need N)
 
-      if ( ILV .OR. .NOT.WANTSN ) {
+      if ( ILV || .NOT.WANTSN ) {
          CHTEMP = 'S'
       } else {
          CHTEMP = 'E'
@@ -272,7 +272,7 @@
                   // STGSNA: need 2*N*(N+2)+16 if SENSE = 'V' or 'B',
                           // need N otherwise )
 
-      if ( ILV .OR. .NOT.WANTSN ) {
+      if ( ILV || .NOT.WANTSN ) {
          if ( ILV ) {
             if ( ILVL ) {
                if ( ILVR ) {
@@ -332,7 +332,7 @@
                // Compute a pair of left and right eigenvectors.
                // (compute workspace: need up to 4*N + 6*N)
 
-               if ( WANTSE .OR. WANTSB ) {
+               if ( WANTSE || WANTSB ) {
                   stgevc('B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, MM, M, WORK( IWRK1 ), IERR );
                   if ( IERR != 0 ) {
                      INFO = N + 2

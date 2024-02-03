@@ -116,9 +116,9 @@ void main() {
 
       READ( NIN, FMT = '(A80)', END = 380 )LINE
       PATH = LINE( 1: 3 )
-      NEP = LSAMEN( 3, PATH, 'NEP' ) .OR. LSAMEN( 3, PATH, 'CHS' )
-      SEP = LSAMEN( 3, PATH, 'SEP' ) .OR. LSAMEN( 3, PATH, 'CST' ) .OR. LSAMEN( 3, PATH, 'CSG' ) .OR. LSAMEN( 3, PATH, 'SE2' )
-      SVD = LSAMEN( 3, PATH, 'SVD' ) .OR. LSAMEN( 3, PATH, 'CBD' )
+      NEP = LSAMEN( 3, PATH, 'NEP' ) || LSAMEN( 3, PATH, 'CHS' )
+      SEP = LSAMEN( 3, PATH, 'SEP' ) || LSAMEN( 3, PATH, 'CST' ) || LSAMEN( 3, PATH, 'CSG' ) || LSAMEN( 3, PATH, 'SE2' )
+      SVD = LSAMEN( 3, PATH, 'SVD' ) || LSAMEN( 3, PATH, 'CBD' )
       CEV = LSAMEN( 3, PATH, 'CEV' )
       CES = LSAMEN( 3, PATH, 'CES' )
       CVX = LSAMEN( 3, PATH, 'CVX' )
@@ -131,7 +131,7 @@ void main() {
       CHB = LSAMEN( 3, PATH, 'CHB' )
       CBB = LSAMEN( 3, PATH, 'CBB' )
       GLM = LSAMEN( 3, PATH, 'GLM' )
-      GQR = LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GRQ' )
+      GQR = LSAMEN( 3, PATH, 'GQR' ) || LSAMEN( 3, PATH, 'GRQ' )
       GSV = LSAMEN( 3, PATH, 'GSV' )
       CSD = LSAMEN( 3, PATH, 'CSD' )
       LSE = LSAMEN( 3, PATH, 'LSE' )
@@ -239,7 +239,7 @@ void main() {
 
       // Read the values of M
 
-      if ( .NOT.( CGX .OR. CXV ) ) {
+      if ( .NOT.( CGX || CXV ) ) {
          READ( NIN, FMT = * )( MVAL( I ), I = 1, NN )
          if ( SVD ) {
             VNAME = '    M '
@@ -260,7 +260,7 @@ void main() {
 
       // Read the values of P
 
-      if ( GLM .OR. GQR .OR. GSV .OR. CSD .OR. LSE ) {
+      if ( GLM || GQR || GSV || CSD || LSE ) {
          READ( NIN, FMT = * )( PVAL( I ), I = 1, NN )
          for (I = 1; I <= NN; I++) { // 30
             if ( PVAL( I ).LT.0 ) {
@@ -276,7 +276,7 @@ void main() {
 
       // Read the values of N
 
-      if ( SVD .OR. CBB .OR. GLM .OR. GQR .OR. GSV .OR. CSD .OR. LSE ) {
+      if ( SVD || CBB || GLM || GQR || GSV || CSD || LSE ) {
          READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
          for (I = 1; I <= NN; I++) { // 40
             if ( NVAL( I ).LT.0 ) {
@@ -292,7 +292,7 @@ void main() {
             NVAL( I ) = MVAL( I )
          } // 50
       }
-      if ( .NOT.( CGX .OR. CXV ) ) {
+      if ( .NOT.( CGX || CXV ) ) {
          WRITE( NOUT, FMT = 9983 )'N:    ', ( NVAL( I ), I = 1, NN )
       } else {
          WRITE( NOUT, FMT = 9983 )'N:    ', NN
@@ -300,7 +300,7 @@ void main() {
 
       // Read the number of values of K, followed by the values of K
 
-      if ( CHB .OR. CBB ) {
+      if ( CHB || CBB ) {
          READ( NIN, FMT = * )NK
          READ( NIN, FMT = * )( KVAL( I ), I = 1, NK )
          for (I = 1; I <= NK; I++) { // 60
@@ -315,7 +315,7 @@ void main() {
          WRITE( NOUT, FMT = 9983 )'K:    ', ( KVAL( I ), I = 1, NK )
       }
 
-      if ( CEV .OR. CES .OR. CVX .OR. CSX ) {
+      if ( CEV || CES || CVX || CSX ) {
 
          // For the nonsymmetric QR driver routines, only one set of
          // parameters is allowed.
@@ -363,7 +363,7 @@ void main() {
          WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ISHFTS( 1 )
          WRITE( NOUT, FMT = 9983 )'IACC22: ', IACC22( 1 )
 
-      } else if ( CGS .OR. CGX .OR. CGV .OR. CXV ) {
+      } else if ( CGS || CGX || CGV || CXV ) {
 
          // For the nonsymmetric generalized driver routines, only one set of
          // parameters is allowed.
@@ -429,7 +429,7 @@ void main() {
 
          // Read the values of NBMIN
 
-         if ( NEP .OR. SEP .OR. SVD .OR. CGG ) {
+         if ( NEP || SEP || SVD || CGG ) {
             READ( NIN, FMT = * )( NBMIN( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 80
                if ( NBMIN( I ).LT.0 ) {
@@ -449,7 +449,7 @@ void main() {
 
          // Read the values of NX
 
-         if ( NEP .OR. SEP .OR. SVD ) {
+         if ( NEP || SEP || SVD ) {
             READ( NIN, FMT = * )( NXVAL( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 100
                if ( NXVAL( I ).LT.0 ) {
@@ -470,7 +470,7 @@ void main() {
          // Read the values of NSHIFT (if CGG) or NRHS (if SVD
          // or CBB).
 
-         if ( SVD .OR. CBB .OR. CGG ) {
+         if ( SVD || CBB || CGG ) {
             READ( NIN, FMT = * )( NSVAL( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 120
                if ( NSVAL( I ).LT.0 ) {
@@ -578,7 +578,7 @@ void main() {
 
          // Read the values for IACC22.
 
-         if ( NEP .OR. CGG ) {
+         if ( NEP || CGG ) {
             READ( NIN, FMT = * )( IACC22( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 620
                if ( IACC22( I ).LT.0 ) {
@@ -628,7 +628,7 @@ void main() {
 
       READ( NIN, FMT = * )THRESH
       WRITE( NOUT, FMT = 9982 )THRESH
-      if ( SEP .OR. SVD .OR. CGG ) {
+      if ( SEP || SVD || CGG ) {
 
          // Read the flag that indicates whether to test LAPACK routines.
 
@@ -667,7 +667,7 @@ void main() {
 
       } // 190
 
-      if ( .NOT.( CGX .OR. CXV ) ) {
+      if ( .NOT.( CGX || CXV ) ) {
 
          } // 200
          READ( NIN, FMT = '(A80)', END = 380 )LINE
@@ -713,7 +713,7 @@ void main() {
 
       // Skip the tests if NTYPES is <= 0.
 
-         if ( .NOT.( CEV .OR. CES .OR. CVX .OR. CSX .OR. CGV .OR. CGS ) && NTYPES.LE.0 ) {
+         if ( .NOT.( CEV || CES || CVX || CSX || CGV || CGS ) && NTYPES.LE.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
             GO TO 200
          }
@@ -730,7 +730,7 @@ void main() {
          } // 250
       }
 
-      if ( LSAMEN( 3, C3, 'CHS' ) .OR. LSAMEN( 3, C3, 'NEP' ) ) {
+      if ( LSAMEN( 3, C3, 'CHS' ) || LSAMEN( 3, C3, 'NEP' ) ) {
 
          // -------------------------------------
          // NEP:  Nonsymmetric Eigenvalue Problem
@@ -767,7 +767,7 @@ void main() {
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'CCHKHS', INFO;
          } // 270
 
-      } else if ( LSAMEN( 3, C3, 'CST' ) .OR. LSAMEN( 3, C3, 'SEP' ) .OR. LSAMEN( 3, C3, 'SE2' ) ) {
+      } else if ( LSAMEN( 3, C3, 'CST' ) || LSAMEN( 3, C3, 'SEP' ) || LSAMEN( 3, C3, 'SE2' ) ) {
 
          // ----------------------------------
          // SEP:  Symmetric Eigenvalue Problem
@@ -859,7 +859,7 @@ void main() {
             }
          } // 310
 
-      } else if ( LSAMEN( 3, C3, 'CBD' ) .OR. LSAMEN( 3, C3, 'SVD' ) ) {
+      } else if ( LSAMEN( 3, C3, 'CBD' ) || LSAMEN( 3, C3, 'SVD' ) ) {
 
          // ----------------------------------
          // SVD:  Singular Value Decomposition
@@ -1223,7 +1223,7 @@ void main() {
          WRITE( NOUT, FMT = * )
          WRITE( NOUT, FMT = 9992 )C3
       }
-      IF( .NOT.( CGX .OR. CXV ) ) GO TO 190
+      IF( .NOT.( CGX || CXV ) ) GO TO 190
       } // 380
       WRITE( NOUT, FMT = 9994 )
       S2 = SECOND( )

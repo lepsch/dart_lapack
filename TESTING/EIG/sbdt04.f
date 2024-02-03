@@ -40,7 +40,7 @@
       // Quick return if possible.
 
       RESID = ZERO
-      if (N.LE.0 .OR. NS.LE.0) RETURN;
+      if (N.LE.0 || NS.LE.0) RETURN;
 
       EPS = SLAMCH( 'Precision' )
 

@@ -48,7 +48,7 @@
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
 
-      LQUERY = ( ( LWORK == -1 ).OR.( LIWORK == -1 ) )
+      LQUERY = ( ( LWORK == -1 ) || ( LIWORK == -1 ) )
       ZQUERY = ( NZC == -1 )
       LAESWAP = false;
 
@@ -83,19 +83,19 @@
       }
 
       INFO = 0
-      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
+      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
+      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
       } else if ( VALEIG && N.GT.0 && WU.LE.WL ) {
          INFO = -7
-      } else if ( INDEIG && ( IIL.LT.1 .OR. IIL.GT.N ) ) {
+      } else if ( INDEIG && ( IIL.LT.1 || IIL.GT.N ) ) {
          INFO = -8
-      } else if ( INDEIG && ( IIU.LT.IIL .OR. IIU.GT.N ) ) {
+      } else if ( INDEIG && ( IIU.LT.IIL || IIU.GT.N ) ) {
          INFO = -9
-      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
          INFO = -13
       } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
          INFO = -17
@@ -138,7 +138,7 @@
          xerbla('SSTEMR', -INFO );
 
          RETURN
-      } else if ( LQUERY .OR. ZQUERY ) {
+      } else if ( LQUERY || ZQUERY ) {
          RETURN
       }
 
@@ -148,7 +148,7 @@
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
-         if ( ALLEIG .OR. INDEIG ) {
+         if ( ALLEIG || INDEIG ) {
             M = 1
             W( 1 ) = D( 1 )
          } else {
@@ -180,7 +180,7 @@
             R2 = E(2)
             LAESWAP = true;
          }
-         if ( ALLEIG.OR. (VALEIG && (R2.GT.WL) && (R2.LE.WU)).OR. (INDEIG && (IIL == 1)) ) {
+         if ( ALLEIG || (VALEIG && (R2.GT.WL) && (R2.LE.WU)) || (INDEIG && (IIL == 1)) ) {
             M = M+1
             W( M ) = R2
             if ( WANTZ && (.NOT.ZQUERY) ) {
@@ -206,7 +206,7 @@
                }
             }
          }
-         if ( ALLEIG.OR. (VALEIG && (R1.GT.WL) && (R1.LE.WU)).OR. (INDEIG && (IIU == 2)) ) {
+         if ( ALLEIG || (VALEIG && (R1.GT.WL) && (R1.LE.WU)) || (INDEIG && (IIU == 2)) ) {
             M = M+1
             W( M ) = R1
             if ( WANTZ && (.NOT.ZQUERY) ) {
@@ -394,7 +394,7 @@
       // If eigenvalues are not in increasing order, then sort them,
       // possibly along with eigenvectors.
 
-      if ( NSPLIT.GT.1 .OR. N == 2 ) {
+      if ( NSPLIT.GT.1 || N == 2 ) {
          if ( .NOT. WANTZ ) {
             slasrt('I', M, W, IINFO );
             if ( IINFO != 0 ) {

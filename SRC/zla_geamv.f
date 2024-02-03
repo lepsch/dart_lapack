@@ -48,7 +48,7 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( .NOT.( ( TRANS == ILATRANS( 'N' ) ) .OR. ( TRANS == ILATRANS( 'T' ) ) .OR. ( TRANS == ILATRANS( 'C' ) ) ) ) {
+      if ( .NOT.( ( TRANS == ILATRANS( 'N' ) ) || ( TRANS == ILATRANS( 'T' ) ) || ( TRANS == ILATRANS( 'C' ) ) ) ) {
          INFO = 1
       } else if ( M.LT.0 ) {
          INFO = 2
@@ -68,7 +68,7 @@
 
       // Quick return if possible.
 
-      IF( ( M == 0 ).OR.( N == 0 ).OR. ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
+      IF( ( M == 0 ) || ( N == 0 ) || ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
 
       // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
       // up the start points in  X  and  Y.
@@ -119,7 +119,7 @@
                if ( ALPHA != 0.0D+0 ) {
                   for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
@@ -142,7 +142,7 @@
                if ( ALPHA != 0.0D+0 ) {
                   for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
@@ -168,7 +168,7 @@
                   JX = KX
                   for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
@@ -193,7 +193,7 @@
                   JX = KX
                   for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX

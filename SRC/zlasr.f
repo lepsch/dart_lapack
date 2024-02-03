@@ -39,11 +39,11 @@
       // Test the input parameters
 
       INFO = 0
-      if ( .NOT.( LSAME( SIDE, 'L' ) .OR. LSAME( SIDE, 'R' ) ) ) {
+      if ( .NOT.( LSAME( SIDE, 'L' ) || LSAME( SIDE, 'R' ) ) ) {
          INFO = 1
-      } else if ( .NOT.( LSAME( PIVOT, 'V' ) .OR. LSAME( PIVOT, 'T' ) .OR. LSAME( PIVOT, 'B' ) ) ) {
+      } else if ( .NOT.( LSAME( PIVOT, 'V' ) || LSAME( PIVOT, 'T' ) || LSAME( PIVOT, 'B' ) ) ) {
          INFO = 2
-      } else if ( .NOT.( LSAME( DIRECT, 'F' ) .OR. LSAME( DIRECT, 'B' ) ) ) {
+      } else if ( .NOT.( LSAME( DIRECT, 'F' ) || LSAME( DIRECT, 'B' ) ) ) {
          INFO = 3
       } else if ( M.LT.0 ) {
          INFO = 4
@@ -59,7 +59,7 @@
 
       // Quick return if possible
 
-      IF( ( M == 0 ) .OR. ( N == 0 ) ) RETURN
+      IF( ( M == 0 ) || ( N == 0 ) ) RETURN
       if ( LSAME( SIDE, 'L' ) ) {
 
          // Form  P * A
@@ -69,7 +69,7 @@
                for (J = 1; J <= M - 1; J++) { // 20
                   CTEMP = C( J )
                   STEMP = S( J )
-                  if ( ( CTEMP != ONE ) .OR. ( STEMP != ZERO ) ) {
+                  if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= N; I++) { // 10
                         TEMP = A( J+1, I )
                         A( J+1, I ) = CTEMP*TEMP - STEMP*A( J, I )
@@ -81,7 +81,7 @@
                DO 40 J = M - 1, 1, -1
                   CTEMP = C( J )
                   STEMP = S( J )
-                  if ( ( CTEMP != ONE ) .OR. ( STEMP != ZERO ) ) {
+                  if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= N; I++) { // 30
                         TEMP = A( J+1, I )
                         A( J+1, I ) = CTEMP*TEMP - STEMP*A( J, I )
@@ -95,7 +95,7 @@
                for (J = 2; J <= M; J++) { // 60
                   CTEMP = C( J-1 )
                   STEMP = S( J-1 )
-                  if ( ( CTEMP != ONE ) .OR. ( STEMP != ZERO ) ) {
+                  if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= N; I++) { // 50
                         TEMP = A( J, I )
                         A( J, I ) = CTEMP*TEMP - STEMP*A( 1, I )
@@ -107,7 +107,7 @@
                DO 80 J = M, 2, -1
                   CTEMP = C( J-1 )
                   STEMP = S( J-1 )
-                  if ( ( CTEMP != ONE ) .OR. ( STEMP != ZERO ) ) {
+                  if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= N; I++) { // 70
                         TEMP = A( J, I )
                         A( J, I ) = CTEMP*TEMP - STEMP*A( 1, I )
@@ -121,7 +121,7 @@
                for (J = 1; J <= M - 1; J++) { // 100
                   CTEMP = C( J )
                   STEMP = S( J )
-                  if ( ( CTEMP != ONE ) .OR. ( STEMP != ZERO ) ) {
+                  if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= N; I++) { // 90
                         TEMP = A( J, I )
                         A( J, I ) = STEMP*A( M, I ) + CTEMP*TEMP
@@ -133,7 +133,7 @@
                DO 120 J = M - 1, 1, -1
                   CTEMP = C( J )
                   STEMP = S( J )
-                  if ( ( CTEMP != ONE ) .OR. ( STEMP != ZERO ) ) {
+                  if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= N; I++) { // 110
                         TEMP = A( J, I )
                         A( J, I ) = STEMP*A( M, I ) + CTEMP*TEMP
@@ -152,7 +152,7 @@
                for (J = 1; J <= N - 1; J++) { // 140
                   CTEMP = C( J )
                   STEMP = S( J )
-                  if ( ( CTEMP != ONE ) .OR. ( STEMP != ZERO ) ) {
+                  if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= M; I++) { // 130
                         TEMP = A( I, J+1 )
                         A( I, J+1 ) = CTEMP*TEMP - STEMP*A( I, J )
@@ -164,7 +164,7 @@
                DO 160 J = N - 1, 1, -1
                   CTEMP = C( J )
                   STEMP = S( J )
-                  if ( ( CTEMP != ONE ) .OR. ( STEMP != ZERO ) ) {
+                  if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= M; I++) { // 150
                         TEMP = A( I, J+1 )
                         A( I, J+1 ) = CTEMP*TEMP - STEMP*A( I, J )
@@ -178,7 +178,7 @@
                for (J = 2; J <= N; J++) { // 180
                   CTEMP = C( J-1 )
                   STEMP = S( J-1 )
-                  if ( ( CTEMP != ONE ) .OR. ( STEMP != ZERO ) ) {
+                  if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= M; I++) { // 170
                         TEMP = A( I, J )
                         A( I, J ) = CTEMP*TEMP - STEMP*A( I, 1 )
@@ -190,7 +190,7 @@
                DO 200 J = N, 2, -1
                   CTEMP = C( J-1 )
                   STEMP = S( J-1 )
-                  if ( ( CTEMP != ONE ) .OR. ( STEMP != ZERO ) ) {
+                  if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= M; I++) { // 190
                         TEMP = A( I, J )
                         A( I, J ) = CTEMP*TEMP - STEMP*A( I, 1 )
@@ -204,7 +204,7 @@
                for (J = 1; J <= N - 1; J++) { // 220
                   CTEMP = C( J )
                   STEMP = S( J )
-                  if ( ( CTEMP != ONE ) .OR. ( STEMP != ZERO ) ) {
+                  if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= M; I++) { // 210
                         TEMP = A( I, J )
                         A( I, J ) = STEMP*A( I, N ) + CTEMP*TEMP
@@ -216,7 +216,7 @@
                DO 240 J = N - 1, 1, -1
                   CTEMP = C( J )
                   STEMP = S( J )
-                  if ( ( CTEMP != ONE ) .OR. ( STEMP != ZERO ) ) {
+                  if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= M; I++) { // 230
                         TEMP = A( I, J )
                         A( I, J ) = STEMP*A( I, N ) + CTEMP*TEMP

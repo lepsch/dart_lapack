@@ -55,21 +55,21 @@
       WNTSNE = LSAME( SENSE, 'E' )
       WNTSNV = LSAME( SENSE, 'V' )
       WNTSNB = LSAME( SENSE, 'B' )
-      if ( .NOT.( LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'B' ) ) ) {
+      if ( .NOT.( LSAME( BALANC, 'N' ) || LSAME( BALANC, 'S' ) || LSAME( BALANC, 'P' ) || LSAME( BALANC, 'B' ) ) ) {
          INFO = -1
       } else if ( ( .NOT.WANTVL ) && ( .NOT.LSAME( JOBVL, 'N' ) ) ) {
          INFO = -2
       } else if ( ( .NOT.WANTVR ) && ( .NOT.LSAME( JOBVR, 'N' ) ) ) {
          INFO = -3
-      } else if ( .NOT.( WNTSNN .OR. WNTSNE .OR. WNTSNB .OR. WNTSNV ) .OR. ( ( WNTSNE .OR. WNTSNB ) && .NOT.( WANTVL && WANTVR ) ) ) {
+      } else if ( .NOT.( WNTSNN || WNTSNE || WNTSNB || WNTSNV ) || ( ( WNTSNE || WNTSNB ) && .NOT.( WANTVL && WANTVR ) ) ) {
          INFO = -4
       } else if ( N.LT.0 ) {
          INFO = -5
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVL.LT.1 .OR. ( WANTVL && LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 || ( WANTVL && LDVL.LT.N ) ) {
          INFO = -11
-      } else if ( LDVR.LT.1 .OR. ( WANTVR && LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 || ( WANTVR && LDVR.LT.N ) ) {
          INFO = -13
       }
 
@@ -248,7 +248,7 @@
 
       if (INFO != 0) GO TO 50;
 
-      if ( WANTVL .OR. WANTVR ) {
+      if ( WANTVL || WANTVR ) {
 
          // Compute left and/or right eigenvectors
          // (Workspace: need 3*N, prefer N + 2*N*NB)
@@ -324,7 +324,7 @@
          slascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          slascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          if ( INFO == 0 ) {
-            IF( ( WNTSNV .OR. WNTSNB ) && ICOND == 0 ) CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
+            IF( ( WNTSNV || WNTSNB ) && ICOND == 0 ) CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
          } else {
             slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR );
             slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );

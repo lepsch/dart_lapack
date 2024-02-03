@@ -38,8 +38,8 @@
       // Test the input parameters
 
       WANTB = LSAME( VECT, 'B' )
-      WANTQ = LSAME( VECT, 'Q' ) .OR. WANTB
-      WANTPT = LSAME( VECT, 'P' ) .OR. WANTB
+      WANTQ = LSAME( VECT, 'Q' ) || WANTB
+      WANTPT = LSAME( VECT, 'P' ) || WANTB
       WANTC = NCC.GT.0
       KLU1 = KL + KU + 1
       INFO = 0
@@ -57,11 +57,11 @@
          INFO = -6
       } else if ( LDAB.LT.KLU1 ) {
          INFO = -8
-      } else if ( LDQ.LT.1 .OR. WANTQ && LDQ.LT.MAX( 1, M ) ) {
+      } else if ( LDQ.LT.1 || WANTQ && LDQ.LT.MAX( 1, M ) ) {
          INFO = -12
-      } else if ( LDPT.LT.1 .OR. WANTPT && LDPT.LT.MAX( 1, N ) ) {
+      } else if ( LDPT.LT.1 || WANTPT && LDPT.LT.MAX( 1, N ) ) {
          INFO = -14
-      } else if ( LDC.LT.1 .OR. WANTC && LDC.LT.MAX( 1, M ) ) {
+      } else if ( LDC.LT.1 || WANTC && LDC.LT.MAX( 1, M ) ) {
          INFO = -16
       }
       if ( INFO != 0 ) {
@@ -75,7 +75,7 @@
 
       // Quick return if possible.
 
-      if (M == 0 .OR. N == 0) RETURN;
+      if (M == 0 || N == 0) RETURN;
 
       MINMN = MIN( M, N )
 

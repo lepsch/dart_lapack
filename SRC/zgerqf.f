@@ -52,7 +52,7 @@
          WORK( 1 ) = LWKOPT
 
          if ( .NOT.LQUERY ) {
-            IF( LWORK.LE.0 .OR. ( N.GT.0 && LWORK.LT.MAX( 1, M ) ) ) INFO = -7
+            IF( LWORK.LE.0 || ( N.GT.0 && LWORK.LT.MAX( 1, M ) ) ) INFO = -7
          }
       }
 

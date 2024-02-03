@@ -69,7 +69,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 && NB.LT.N ) .OR. K.LT.1 ) GO TO 30
+         IF( ( K.LE.N-NB+1 && NB.LT.N ) || K.LT.1 ) GO TO 30
 
          // Copy column K of A to column KW of W and update it
 
@@ -344,7 +344,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB && NB.LT.N ) .OR. K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB.LT.N ) || K.GT.N ) GO TO 90
 
          // Copy column K of A to column K of W and update it
 

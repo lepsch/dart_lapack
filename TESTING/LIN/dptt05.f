@@ -33,7 +33,7 @@
 
       // Quick exit if N = 0 or NRHS = 0.
 
-      if ( N.LE.0 .OR. NRHS.LE.0 ) {
+      if ( N.LE.0 || NRHS.LE.0 ) {
          RESLTS( 1 ) = ZERO
          RESLTS( 2 ) = ZERO
          RETURN

@@ -50,7 +50,7 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( .NOT. ( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) {
+      if ( .NOT. ( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
          INFO = -1
       } else if ( N .LT. 0 ) {
          INFO = -2

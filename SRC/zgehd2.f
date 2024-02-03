@@ -34,9 +34,9 @@
       INFO = 0
       if ( N.LT.0 ) {
          INFO = -1
-      } else if ( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) {
+      } else if ( ILO.LT.1 || ILO.GT.MAX( 1, N ) ) {
          INFO = -2
-      } else if ( IHI.LT.MIN( ILO, N ) .OR. IHI.GT.N ) {
+      } else if ( IHI.LT.MIN( ILO, N ) || IHI.GT.N ) {
          INFO = -3
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5

@@ -71,7 +71,7 @@
       // Quick return if possible
 
       SCALE = ONE
-      if (M == 0 .OR. N == 0) RETURN;
+      if (M == 0 || N == 0) RETURN;
 
       // Set constants to control overflow
 

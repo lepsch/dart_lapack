@@ -50,13 +50,13 @@
       LQUERY = ( LWORK == -1 )
 
       INFO = 0
-      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
+      if ( ITYPE.LT.1 || ITYPE.GT.3 ) {
          INFO = -1
-      } else if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
+      } else if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
+      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -3
-      } else if ( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) {
+      } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -4
       } else if ( N.LT.0 ) {
          INFO = -5
@@ -68,15 +68,15 @@
          if ( VALEIG ) {
             if (N.GT.0 && VU.LE.VL) INFO = -11;
          } else if ( INDEIG ) {
-            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
+            if ( IL.LT.1 || IL.GT.MAX( 1, N ) ) {
                INFO = -12
-            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
+            } else if ( IU.LT.MIN( N, IL ) || IU.GT.N ) {
                INFO = -13
             }
          }
       }
       if (INFO == 0) {
-         if (LDZ.LT.1 .OR. (WANTZ && LDZ.LT.N)) {
+         if (LDZ.LT.1 || (WANTZ && LDZ.LT.N)) {
             INFO = -18
          }
       }
@@ -123,7 +123,7 @@
          // Backtransform eigenvectors to the original problem.
 
          if (INFO.GT.0) M = INFO - 1;
-         if ( ITYPE == 1 .OR. ITYPE == 2 ) {
+         if ( ITYPE == 1 || ITYPE == 2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
             // backtransform eigenvectors: x = inv(L)**H*y or inv(U)*y

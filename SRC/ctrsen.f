@@ -45,8 +45,8 @@
       // Decode and test the input parameters.
 
       WANTBH = LSAME( JOB, 'B' )
-      WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
-      WANTSP = LSAME( JOB, 'V' ) .OR. WANTBH
+      WANTS = LSAME( JOB, 'E' ) || WANTBH
+      WANTSP = LSAME( JOB, 'V' ) || WANTBH
       WANTQ = LSAME( COMPQ, 'V' )
 
       // Set M to the number of selected eigenvalues.
@@ -79,7 +79,7 @@
          INFO = -4
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDQ.LT.1 .OR. ( WANTQ && LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 || ( WANTQ && LDQ.LT.N ) ) {
          INFO = -8
       } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
          INFO = -14
@@ -98,7 +98,7 @@
 
       // Quick return if possible
 
-      if ( M == N .OR. M == 0 ) {
+      if ( M == N || M == 0 ) {
          if (WANTS) S = ONE          IF( WANTSP ) SEP = CLANGE( '1', N, N, T, LDT, RWORK );
          GO TO 40
       }

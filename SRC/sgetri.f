@@ -82,7 +82,7 @@
 
       // Solve the equation inv(A)*L = inv(U) for inv(A).
 
-      if ( NB.LT.NBMIN .OR. NB.GE.N ) {
+      if ( NB.LT.NBMIN || NB.GE.N ) {
 
          // Use unblocked code.
 

@@ -38,15 +38,15 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( .NOT.( ( TRANS == ILATRANS( 'N' ) ) .OR. ( TRANS == ILATRANS( 'T' ) ) .OR. ( TRANS == ILATRANS( 'C' ) ) ) ) {
+      if ( .NOT.( ( TRANS == ILATRANS( 'N' ) ) || ( TRANS == ILATRANS( 'T' ) ) || ( TRANS == ILATRANS( 'C' ) ) ) ) {
          INFO = 1
       } else if ( M.LT.0 ) {
          INFO = 2
       } else if ( N.LT.0 ) {
          INFO = 3
-      } else if ( KL.LT.0 .OR. KL.GT.M-1 ) {
+      } else if ( KL.LT.0 || KL.GT.M-1 ) {
          INFO = 4
-      } else if ( KU.LT.0 .OR. KU.GT.N-1 ) {
+      } else if ( KU.LT.0 || KU.GT.N-1 ) {
          INFO = 5
       } else if ( LDAB.LT.KL+KU+1 ) {
          INFO = 6
@@ -62,7 +62,7 @@
 
       // Quick return if possible.
 
-      IF( ( M == 0 ).OR.( N == 0 ).OR. ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
+      IF( ( M == 0 ) || ( N == 0 ) || ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
 
       // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
       // up the start points in  X  and  Y.
@@ -115,7 +115,7 @@
                if ( ALPHA != ZERO ) {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = ABS( AB( KD+I-J, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   }
@@ -137,7 +137,7 @@
                if ( ALPHA != ZERO ) {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = ABS( AB( KE-I+J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   }
@@ -162,7 +162,7 @@
                   JX = KX
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = ABS( AB( KD+I-J, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
                      JX = JX + INCX
@@ -187,7 +187,7 @@
                   JX = KX
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = ABS( AB( KE-I+J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO || TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
                      JX = JX + INCX

@@ -66,7 +66,7 @@
       // xQR, xLQ, xQL, xRQ:  Set parameters to generate a general
                            // M x N matrix.
 
-      if ( LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR. LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) {
+      if ( LSAMEN( 2, C2, 'QR' ) || LSAMEN( 2, C2, 'LQ' ) || LSAMEN( 2, C2, 'QL' ) || LSAMEN( 2, C2, 'RQ' ) ) {
 
          // Set TYPE, the type of matrix to be generated.
 
@@ -305,15 +305,15 @@
             CNDNUM = TWO
          }
 
-         if ( IMAT == 5 .OR. IMAT == 11 ) {
+         if ( IMAT == 5 || IMAT == 11 ) {
             ANORM = SMALL
-         } else if ( IMAT == 6 .OR. IMAT == 12 ) {
+         } else if ( IMAT == 6 || IMAT == 12 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
          }
 
-      } else if ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'PP' ) ) {
+      } else if ( LSAMEN( 2, C2, 'PO' ) || LSAMEN( 2, C2, 'PP' ) ) {
 
          // xPO, xPP: Set parameters to generate a
          // symmetric or Hermitian positive definite matrix.
@@ -349,7 +349,7 @@
             ANORM = ONE
          }
 
-      } else if ( LSAMEN( 2, C2, 'HE' ) .OR. LSAMEN( 2, C2, 'HP' ) .OR. LSAMEN( 2, C2, 'SY' ) .OR. LSAMEN( 2, C2, 'SP' ) ) {
+      } else if ( LSAMEN( 2, C2, 'HE' ) || LSAMEN( 2, C2, 'HP' ) || LSAMEN( 2, C2, 'SY' ) || LSAMEN( 2, C2, 'SP' ) ) {
 
          // xHE, xHP, xSY, xSP: Set parameters to generate a
          // symmetric or Hermitian matrix.
@@ -434,15 +434,15 @@
             CNDNUM = TWO
          }
 
-         if ( IMAT == 5 .OR. IMAT == 11 ) {
+         if ( IMAT == 5 || IMAT == 11 ) {
             ANORM = SMALL
-         } else if ( IMAT == 6 .OR. IMAT == 12 ) {
+         } else if ( IMAT == 6 || IMAT == 12 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
          }
 
-      } else if ( LSAMEN( 2, C2, 'TR' ) .OR. LSAMEN( 2, C2, 'TP' ) ) {
+      } else if ( LSAMEN( 2, C2, 'TR' ) || LSAMEN( 2, C2, 'TP' ) ) {
 
          // xTR, xTP:  Set parameters to generate a triangular matrix
 
@@ -453,7 +453,7 @@
          // Set the lower and upper bandwidths.
 
          MAT = ABS( IMAT )
-         if ( MAT == 1 .OR. MAT == 7 ) {
+         if ( MAT == 1 || MAT == 7 ) {
             KL = 0
             KU = 0
          } else if ( IMAT.LT.0 ) {
@@ -466,9 +466,9 @@
 
          // Set the condition number and norm.
 
-         if ( MAT == 3 .OR. MAT == 9 ) {
+         if ( MAT == 3 || MAT == 9 ) {
             CNDNUM = BADC1
-         } else if ( MAT == 4 .OR. MAT == 10 ) {
+         } else if ( MAT == 4 || MAT == 10 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
@@ -493,9 +493,9 @@
          // Set the norm and condition number.
 
          MAT = ABS( IMAT )
-         if ( MAT == 2 .OR. MAT == 8 ) {
+         if ( MAT == 2 || MAT == 8 ) {
             CNDNUM = BADC1
-         } else if ( MAT == 3 .OR. MAT == 9 ) {
+         } else if ( MAT == 3 || MAT == 9 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO

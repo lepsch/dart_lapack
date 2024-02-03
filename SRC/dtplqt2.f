@@ -36,7 +36,7 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( L.LT.0 .OR. L.GT.MIN(M,N) ) {
+      } else if ( L.LT.0 || L.GT.MIN(M,N) ) {
          INFO = -3
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
@@ -52,7 +52,7 @@
 
       // Quick return if possible
 
-      if (N == 0 .OR. M == 0) RETURN;
+      if (N == 0 || M == 0) RETURN;
 
       for (I = 1; I <= M; I++) {
 

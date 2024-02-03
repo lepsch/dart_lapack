@@ -137,7 +137,7 @@
          INFO = -14
       } else if ( KL.LT.1 ) {
          INFO = -15
-      } else if ( KU.LT.1 .OR. ( KU.LT.N-1 && KL.LT.N-1 ) ) {
+      } else if ( KU.LT.1 || ( KU.LT.N-1 && KL.LT.N-1 ) ) {
          INFO = -16
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -19

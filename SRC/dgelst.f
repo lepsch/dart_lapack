@@ -45,7 +45,7 @@
       INFO = 0
       MN = MIN( M, N )
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.( LSAME( TRANS, 'N' ) .OR. LSAME( TRANS, 'T' ) ) ) {
+      if ( .NOT.( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -2
@@ -63,7 +63,7 @@
 
       // Figure out optimal block size and optimal workspace size
 
-      if ( INFO == 0 .OR. INFO == -10 ) {
+      if ( INFO == 0 || INFO == -10 ) {
 
          TPSD = true;
          IF( LSAME( TRANS, 'N' ) ) TPSD = false;

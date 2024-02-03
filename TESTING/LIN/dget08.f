@@ -39,12 +39,12 @@
 
       // Quick exit if M = 0 or N = 0 or NRHS = 0
 
-      if ( M.LE.0 .OR. N.LE.0 .OR. NRHS == 0 ) {
+      if ( M.LE.0 || N.LE.0 || NRHS == 0 ) {
          RESID = ZERO
          RETURN
       }
 
-      if ( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) {
+      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
          N1 = N
          N2 = M
       } else {

@@ -32,9 +32,9 @@
       C1 = PATH( 1: 1 )
       C3 = PATH( 3: 3 )
       P2 = PATH( 2: 3 )
-      SORD = LSAME( C1, 'S' ) .OR. LSAME( C1, 'D' )
-      CORZ = LSAME( C1, 'C' ) .OR. LSAME( C1, 'Z' )
-      IF( .NOT.( SORD .OR. CORZ ) ) RETURN
+      SORD = LSAME( C1, 'S' ) || LSAME( C1, 'D' )
+      CORZ = LSAME( C1, 'C' ) || LSAME( C1, 'Z' )
+      IF( .NOT.( SORD || CORZ ) ) RETURN
 
       if ( LSAMEN( 2, P2, 'GE' ) ) {
 
@@ -87,7 +87,7 @@
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      } else if ( LSAMEN( 2, P2, 'PO' ) .OR. LSAMEN( 2, P2, 'PP' ) ) {
+      } else if ( LSAMEN( 2, P2, 'PO' ) || LSAMEN( 2, P2, 'PP' ) ) {
 
          // PO: Positive definite full
          // PP: Positive definite packed
@@ -124,7 +124,7 @@
          } else {
             SYM = 'Hermitian'
          }
-         if ( LSAME( C1, 'S' ) .OR. LSAME( C1, 'C' ) ) {
+         if ( LSAME( C1, 'S' ) || LSAME( C1, 'C' ) ) {
             EIGCNM = '1E04'
          } else {
             EIGCNM = '1D12'
@@ -206,7 +206,7 @@
          WRITE( IOUNIT, FMT = 9955 )9
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      } else if ( LSAMEN( 2, P2, 'SR' ) .OR. LSAMEN( 2, P2, 'SK') ) {
+      } else if ( LSAMEN( 2, P2, 'SR' ) || LSAMEN( 2, P2, 'SK') ) {
 
          // SR: Symmetric indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm
@@ -309,7 +309,7 @@
          WRITE( IOUNIT, FMT = 9955 )9
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      } else if ( LSAMEN( 2, P2, 'HR' ) .OR. LSAMEN( 2, P2, 'HR' ) ) {
+      } else if ( LSAMEN( 2, P2, 'HR' ) || LSAMEN( 2, P2, 'HR' ) ) {
 
          // HR: Hermitian indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm
@@ -360,7 +360,7 @@
          WRITE( IOUNIT, FMT = 9955 )8
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      } else if ( LSAMEN( 2, P2, 'TR' ) .OR. LSAMEN( 2, P2, 'TP' ) ) {
+      } else if ( LSAMEN( 2, P2, 'TR' ) || LSAMEN( 2, P2, 'TP' ) ) {
 
          // TR: Triangular full
          // TP: Triangular packed

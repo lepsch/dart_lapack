@@ -77,15 +77,15 @@
          INFO = -3
       } else if ( ILO.LT.1 ) {
          INFO = -4
-      } else if ( IHI.GT.N .OR. IHI.LT.ILO-1 ) {
+      } else if ( IHI.GT.N || IHI.LT.ILO-1 ) {
          INFO = -5
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      } else if ( ( ILQ && LDQ.LT.N ) .OR. LDQ.LT.1 ) {
+      } else if ( ( ILQ && LDQ.LT.N ) || LDQ.LT.1 ) {
          INFO = -11
-      } else if ( ( ILZ && LDZ.LT.N ) .OR. LDZ.LT.1 ) {
+      } else if ( ( ILZ && LDZ.LT.N ) || LDZ.LT.1 ) {
          INFO = -13
       }
       if ( INFO != 0 ) {

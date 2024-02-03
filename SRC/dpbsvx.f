@@ -42,7 +42,7 @@
       NOFACT = LSAME( FACT, 'N' )
       EQUIL = LSAME( FACT, 'E' )
       UPPER = LSAME( UPLO, 'U' )
-      if ( NOFACT .OR. EQUIL ) {
+      if ( NOFACT || EQUIL ) {
          EQUED = 'N'
          RCEQU = false;
       } else {
@@ -67,7 +67,7 @@
          INFO = -7
       } else if ( LDAFB.LT.KD+1 ) {
          INFO = -9
-      } else if ( LSAME( FACT, 'F' ) && .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) {
+      } else if ( LSAME( FACT, 'F' ) && .NOT. ( RCEQU || LSAME( EQUED, 'N' ) ) ) {
          INFO = -10
       } else {
          if ( RCEQU ) {
@@ -123,7 +123,7 @@
          } // 30
       }
 
-      if ( NOFACT .OR. EQUIL ) {
+      if ( NOFACT || EQUIL ) {
 
          // Compute the Cholesky factorization A = U**T *U or A = L*L**T.
 

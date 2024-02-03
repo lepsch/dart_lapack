@@ -43,13 +43,13 @@
       NOFACT = LSAME( FACT, 'N' )
       EQUIL = LSAME( FACT, 'E' )
       NOTRAN = LSAME( TRANS, 'N' )
-      if ( NOFACT .OR. EQUIL ) {
+      if ( NOFACT || EQUIL ) {
          EQUED = 'N'
          ROWEQU = false;
          COLEQU = false;
       } else {
-         ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
-         COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
+         ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' )
+         COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' )
          SMLNUM = DLAMCH( 'Safe minimum' )
          BIGNUM = ONE / SMLNUM
       }
@@ -68,7 +68,7 @@
          INFO = -6
       } else if ( LDAF.LT.MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LSAME( FACT, 'F' ) && .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) {
+      } else if ( LSAME( FACT, 'F' ) && .NOT. ( ROWEQU || COLEQU || LSAME( EQUED, 'N' ) ) ) {
          INFO = -10
       } else {
          if ( ROWEQU ) {
@@ -125,8 +125,8 @@
             // Equilibrate the matrix.
 
             dlaqge(N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED );
-            ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
-            COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
+            ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' )
+            COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' )
          }
       }
 
@@ -148,7 +148,7 @@
          } // 60
       }
 
-      if ( NOFACT .OR. EQUIL ) {
+      if ( NOFACT || EQUIL ) {
 
          // Compute the LU factorization of A.
 

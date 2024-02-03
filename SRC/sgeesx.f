@@ -56,19 +56,19 @@
       WANTSE = LSAME( SENSE, 'E' )
       WANTSV = LSAME( SENSE, 'V' )
       WANTSB = LSAME( SENSE, 'B' )
-      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
+      LQUERY = ( LWORK == -1 || LIWORK == -1 )
 
       if ( ( .NOT.WANTVS ) && ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
          INFO = -1
       } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST && .NOT.WANTSN ) ) {
+      } else if ( .NOT.( WANTSN || WANTSE || WANTSV || WANTSB ) || ( .NOT.WANTST && .NOT.WANTSN ) ) {
          INFO = -4
       } else if ( N.LT.0 ) {
          INFO = -5
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVS.LT.1 .OR. ( WANTVS && LDVS.LT.N ) ) {
+      } else if ( LDVS.LT.1 || ( WANTVS && LDVS.LT.N ) ) {
          INFO = -12
       }
 
@@ -105,7 +105,7 @@
                MAXWRK = MAX( MAXWRK, N + HSWORK )
             }
             LWRK = MAXWRK
-            if (.NOT.WANTSN) LWRK = MAX( LWRK, N + ( N*N )/2 )             IF( WANTSV .OR. WANTSB ) LIWRK = ( N*N )/4;
+            if (.NOT.WANTSN) LWRK = MAX( LWRK, N + ( N*N )/2 )             IF( WANTSV || WANTSB ) LIWRK = ( N*N )/4;
          }
          IWORK( 1 ) = LIWRK
          WORK( 1 ) = SROUNDUP_LWORK(LWRK)
@@ -237,7 +237,7 @@
 
          slascl('H', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR );
          scopy(N, A, LDA+1, WR, 1 );
-         if ( ( WANTSV .OR. WANTSB ) && INFO == 0 ) {
+         if ( ( WANTSV || WANTSB ) && INFO == 0 ) {
             DUM( 1 ) = RCONDV
             slascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
             RCONDV = DUM( 1 )
@@ -304,7 +304,7 @@
 
                   // Last eigenvalue of conjugate pair
 
-                  CURSL = CURSL .OR. LASTSL
+                  CURSL = CURSL || LASTSL
                   LASTSL = CURSL
                   if (CURSL) SDIM = SDIM + 2;
                   IP = -1
@@ -322,7 +322,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
-      if ( WANTSV .OR. WANTSB ) {
+      if ( WANTSV || WANTSB ) {
          IWORK( 1 ) = SDIM*(N-SDIM)
       } else {
          IWORK( 1 ) = 1

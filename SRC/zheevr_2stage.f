@@ -53,7 +53,7 @@
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
 
-      LQUERY = ( ( LWORK == -1 ) .OR. ( LRWORK == -1 ) .OR. ( LIWORK == -1 ) )
+      LQUERY = ( ( LWORK == -1 ) || ( LRWORK == -1 ) || ( LIWORK == -1 ) )
 
       KD     = ILAENV2STAGE( 1, 'ZHETRD_2STAGE', JOBZ, N, -1, -1, -1 )
       IB     = ILAENV2STAGE( 2, 'ZHETRD_2STAGE', JOBZ, N, KD, -1, -1 )
@@ -73,9 +73,9 @@
       INFO = 0
       if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) {
+      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
-      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
+      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
@@ -85,15 +85,15 @@
          if ( VALEIG ) {
             if (N.GT.0 && VU.LE.VL) INFO = -8;
          } else if ( INDEIG ) {
-            if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
+            if ( IL.LT.1 || IL.GT.MAX( 1, N ) ) {
                INFO = -9
-            } else if ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) {
+            } else if ( IU.LT.MIN( N, IL ) || IU.GT.N ) {
                INFO = -10
             }
          }
       }
       if ( INFO == 0 ) {
-         if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
+         if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
             INFO = -15
          }
       }
@@ -129,7 +129,7 @@
 
       if ( N == 1 ) {
          WORK( 1 ) = 1
-         if ( ALLEIG .OR. INDEIG ) {
+         if ( ALLEIG || INDEIG ) {
             M = 1
             W( 1 ) = DBLE( A( 1, 1 ) )
          } else {
@@ -245,7 +245,7 @@
             TEST = true;
          }
       }
-      if ( ( ALLEIG.OR.TEST ) && ( IEEEOK == 1 ) ) {
+      if ( ( ALLEIG || TEST ) && ( IEEEOK == 1 ) ) {
          if ( .NOT.WANTZ ) {
             dcopy(N, RWORK( INDRD ), 1, W, 1 );
             dcopy(N-1, RWORK( INDRE ), 1, RWORK( INDREE ), 1 );

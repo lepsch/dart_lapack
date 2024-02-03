@@ -128,7 +128,7 @@
                   ZEROT = IMAT.GE.2 && IMAT.LE.4
                   if (ZEROT && N.LT.IMAT-1) GO TO 60;
 
-                  if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) {
+                  if ( .NOT.ZEROT || .NOT.DOTYPE( 1 ) ) {
 
                      // Set up parameters with DLATB4 and generate a test
                      // matrix with DLATMS.
@@ -255,7 +255,7 @@
 
                      ANORM = DLANSB( '1', UPLO, N, KD, A, LDAB, RWORK )
                      AINVNM = DLANGE( '1', N, N, AINV, LDA, RWORK )
-                     if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                     if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
                         RCONDC = ONE
                      } else {
                         RCONDC = ( ONE / ANORM ) / AINVNM

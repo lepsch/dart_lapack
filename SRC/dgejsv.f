@@ -42,33 +42,33 @@
 
       // Test the input arguments
 
-      LSVEC  = LSAME( JOBU, 'U' ) .OR. LSAME( JOBU, 'F' )
+      LSVEC  = LSAME( JOBU, 'U' ) || LSAME( JOBU, 'F' )
       JRACC  = LSAME( JOBV, 'J' )
-      RSVEC  = LSAME( JOBV, 'V' ) .OR. JRACC
-      ROWPIV = LSAME( JOBA, 'F' ) .OR. LSAME( JOBA, 'G' )
+      RSVEC  = LSAME( JOBV, 'V' ) || JRACC
+      ROWPIV = LSAME( JOBA, 'F' ) || LSAME( JOBA, 'G' )
       L2RANK = LSAME( JOBA, 'R' )
       L2ABER = LSAME( JOBA, 'A' )
-      ERREST = LSAME( JOBA, 'E' ) .OR. LSAME( JOBA, 'G' )
+      ERREST = LSAME( JOBA, 'E' ) || LSAME( JOBA, 'G' )
       L2TRAN = LSAME( JOBT, 'T' )
       L2KILL = LSAME( JOBR, 'R' )
       DEFR   = LSAME( JOBR, 'N' )
       L2PERT = LSAME( JOBP, 'P' )
 
-      if ( .NOT.(ROWPIV .OR. L2RANK .OR. L2ABER .OR. ERREST .OR. LSAME( JOBA, 'C' ) )) {
+      if ( .NOT.(ROWPIV || L2RANK || L2ABER || ERREST || LSAME( JOBA, 'C' ) )) {
          INFO = - 1
-      } else if ( .NOT.( LSVEC  .OR. LSAME( JOBU, 'N' ) .OR. LSAME( JOBU, 'W' )) ) {
+      } else if ( .NOT.( LSVEC || LSAME( JOBU, 'N' ) || LSAME( JOBU, 'W' )) ) {
          INFO = - 2
-      } else if ( .NOT.( RSVEC .OR. LSAME( JOBV, 'N' ) .OR. LSAME( JOBV, 'W' )) .OR. ( JRACC && (.NOT.LSVEC) ) ) {
+      } else if ( .NOT.( RSVEC || LSAME( JOBV, 'N' ) || LSAME( JOBV, 'W' )) || ( JRACC && (.NOT.LSVEC) ) ) {
          INFO = - 3
-      } else if ( .NOT. ( L2KILL .OR. DEFR ) ) {
+      } else if ( .NOT. ( L2KILL || DEFR ) ) {
          INFO = - 4
-      } else if ( .NOT. ( L2TRAN .OR. LSAME( JOBT, 'N' ) ) ) {
+      } else if ( .NOT. ( L2TRAN || LSAME( JOBT, 'N' ) ) ) {
          INFO = - 5
-      } else if ( .NOT. ( L2PERT .OR. LSAME( JOBP, 'N' ) ) ) {
+      } else if ( .NOT. ( L2PERT || LSAME( JOBP, 'N' ) ) ) {
          INFO = - 6
       } else if ( M .LT. 0 ) {
          INFO = - 7
-      } else if ( ( N .LT. 0 ) .OR. ( N .GT. M ) ) {
+      } else if ( ( N .LT. 0 ) || ( N .GT. M ) ) {
          INFO = - 8
       } else if ( LDA .LT. M ) {
          INFO = - 10
@@ -76,7 +76,7 @@
          INFO = - 13
       } else if ( RSVEC && ( LDV .LT. N ) ) {
          INFO = - 15
-      } else if ( (.NOT.(LSVEC .OR. RSVEC .OR. ERREST) && (LWORK .LT. MAX(7,4*N+1,2*M+N))) .OR. (.NOT.(LSVEC .OR. RSVEC) && ERREST && (LWORK .LT. MAX(7,4*N+N*N,2*M+N))) .OR. (LSVEC && (.NOT.RSVEC) && (LWORK .LT. MAX(7,2*M+N,4*N+1))) .OR. (RSVEC && (.NOT.LSVEC) && (LWORK .LT. MAX(7,2*M+N,4*N+1))) .OR. (LSVEC && RSVEC && (.NOT.JRACC) && (LWORK.LT.MAX(2*M+N,6*N+2*N*N))) .OR. (LSVEC && RSVEC && JRACC && LWORK.LT.MAX(2*M+N,4*N+N*N,2*N+N*N+6))) {
+      } else if ( (.NOT.(LSVEC || RSVEC || ERREST) && (LWORK .LT. MAX(7,4*N+1,2*M+N))) || (.NOT.(LSVEC || RSVEC) && ERREST && (LWORK .LT. MAX(7,4*N+N*N,2*M+N))) || (LSVEC && (.NOT.RSVEC) && (LWORK .LT. MAX(7,2*M+N,4*N+1))) || (RSVEC && (.NOT.LSVEC) && (LWORK .LT. MAX(7,2*M+N,4*N+1))) || (LSVEC && RSVEC && (.NOT.JRACC) && (LWORK.LT.MAX(2*M+N,6*N+2*N*N))) || (LSVEC && RSVEC && JRACC && LWORK.LT.MAX(2*M+N,4*N+N*N,2*N+N*N+6))) {
          INFO = - 17
       } else {
          // #:)
@@ -91,7 +91,7 @@
 
       // Quick return for void matrix (Y3K safe)
 * #:)
-      if ( ( M == 0 ) .OR. ( N == 0 ) ) {
+      if ( ( M == 0 ) || ( N == 0 ) ) {
          IWORK(1:3) = 0
          WORK(1:7) = 0
          RETURN
@@ -240,7 +240,7 @@
 
       AATMAX = -ONE
       AATMIN =  BIG
-      if ( ROWPIV .OR. L2TRAN ) {
+      if ( ROWPIV || L2TRAN ) {
 
       // Compute the row norms, needed to determine row pivoting sequence
       // (in the case of heavily row weighted A, row pivoting is strongly
@@ -471,7 +471,7 @@
          // close-to-rank-deficient.
          TEMP1 = DSQRT(SFMIN)
          for (p = 2; p <= N; p++) { // 3401
-            IF ( ( DABS(A(p,p)) .LT. (EPSLN*DABS(A(p-1,p-1))) ) .OR. ( DABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL && (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
+            IF ( ( DABS(A(p,p)) .LT. (EPSLN*DABS(A(p-1,p-1))) ) || ( DABS(A(p,p)) .LT. SMALL ) || ( L2KILL && (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
             NR = NR + 1
          } // 3401
          } // 3402
@@ -486,7 +486,7 @@
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = DSQRT(SFMIN)
          for (p = 2; p <= N; p++) { // 3301
-            IF ( ( DABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL && (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
+            IF ( ( DABS(A(p,p)) .LT. SMALL ) || ( L2KILL && (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
             NR = NR + 1
          } // 3301
          } // 3302
@@ -548,7 +548,7 @@
 
       // Phase 3:
 
-      if ( .NOT. ( RSVEC .OR. LSVEC ) ) {
+      if ( .NOT. ( RSVEC || LSVEC ) ) {
 
           // Singular Values only
 
@@ -577,7 +577,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   TEMP1 = XSC*DABS(A(q,q))
                   for (p = 1; p <= N; p++) { // 4949
-                     IF ( ( (p.GT.q) && (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
+                     IF ( ( (p.GT.q) && (DABS(A(p,q)).LE.TEMP1) ) || ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
                   } // 4949
                } // 4947
             } else {
@@ -605,7 +605,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   TEMP1 = XSC*DABS(A(q,q))
                   for (p = 1; p <= NR; p++) { // 1949
-                     IF ( ( (p.GT.q) && (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
+                     IF ( ( (p.GT.q) && (DABS(A(p,q)).LE.TEMP1) ) || ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
                   } // 1949
                } // 1947
             } else {
@@ -754,7 +754,7 @@
                for (q = 1; q <= NR; q++) { // 2969
                   TEMP1 = XSC*DABS( V(q,q) )
                   for (p = 1; p <= N; p++) { // 2968
-                     IF ( ( p .GT. q ) && ( DABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
+                     IF ( ( p .GT. q ) && ( DABS(V(p,q)) .LE. TEMP1 ) || ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
                      if (p .LT. q) V(p,q) = - V(p,q);
                   } // 2968
                } // 2969
@@ -999,7 +999,7 @@
                   V(p,q) = WORK(2*N+N*NR+NR+p)
                } // 973
                XSC = ONE / DNRM2( N, V(1,q), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 )
             } // 1972
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
@@ -1020,7 +1020,7 @@
             TEMP1 = DSQRT(DBLE(M)) * EPSLN
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / DNRM2( M, U(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
             } // 1973
 
             // If the initial QRF is computed with row pivoting, the left
@@ -1062,7 +1062,7 @@
             TEMP1 = DSQRT(DBLE(N))*EPSLN
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / DNRM2( N, V(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,p), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,p), 1 )
             } // 6971
 
             // Assemble the left singular vector matrix U (M x N).
@@ -1078,7 +1078,7 @@
             TEMP1 = DSQRT(DBLE(M))*EPSLN
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / DNRM2( M, U(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
             } // 6973
 
             if (ROWPIV) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
@@ -1108,7 +1108,7 @@
             for (q = 1; q <= NR; q++) { // 5969
                TEMP1 = XSC*DABS( V(q,q) )
                for (p = 1; p <= N; p++) { // 5968
-                  IF ( ( p .GT. q ) && ( DABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
+                  IF ( ( p .GT. q ) && ( DABS(V(p,q)) .LE. TEMP1 ) || ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
                   if (p .LT. q) V(p,q) = - V(p,q);
                } // 5968
             } // 5969
@@ -1157,7 +1157,7 @@
                   V(p,q) = WORK(2*N+N*NR+NR+p)
                } // 8973
                XSC = ONE / DNRM2( N, V(1,q), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 )
             } // 7972
 
             // At this moment, V contains the right singular vectors of A.

@@ -55,7 +55,7 @@
       // Test the input parameters.
 
       INFO = 0
-      ONENRM = NORM == '1' .OR. LSAME( NORM, 'O' )
+      ONENRM = NORM == '1' || LSAME( NORM, 'O' )
       if ( .NOT.ONENRM && .NOT.LSAME( NORM, 'I' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -128,7 +128,7 @@
          NORMIN = 'Y'
          if ( SCALE != ONE ) {
             IX = IZAMAX( N, WORK, 1 )
-            IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE == ZERO ) GO TO 20
+            IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20
             zdrscl(N, SCALE, WORK, 1 );
          }
          GO TO 10
@@ -145,7 +145,7 @@
 
       // Check for NaNs and Infs
 
-      IF( DISNAN( RCOND ) .OR. RCOND.GT.HUGEVAL ) INFO = 1
+      IF( DISNAN( RCOND ) || RCOND.GT.HUGEVAL ) INFO = 1
 
       } // 20
       RETURN

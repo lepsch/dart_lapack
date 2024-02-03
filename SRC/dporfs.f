@@ -74,7 +74,7 @@
 
       // Quick return if possible
 
-      if ( N == 0 .OR. NRHS == 0 ) {
+      if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO

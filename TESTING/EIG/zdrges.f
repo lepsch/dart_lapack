@@ -92,9 +92,9 @@
          INFO = -3
       } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      } else if ( LDA.LE.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LE.1 || LDA.LT.NMAX ) {
          INFO = -9
-      } else if ( LDQ.LE.1 .OR. LDQ.LT.NMAX ) {
+      } else if ( LDQ.LE.1 || LDQ.LT.NMAX ) {
          INFO = -14
       }
 
@@ -122,7 +122,7 @@
 
       // Quick return if possible
 
-      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) RETURN;
 
       ULP = DLAMCH( 'Precision' )
       SAFMIN = DLAMCH( 'Safe minimum' )

@@ -507,7 +507,7 @@
          // in routine SLAMC1. A true IEEE machine should have both  things
          // true; however, faulty machines may have one or the other.
 
-         IEEE = IEEE .OR. LIEEE1
+         IEEE = IEEE || LIEEE1
 
          // Compute  RMIN by successive division by  BETA. We could compute
          // RMIN as BASE**( EMIN - 1 ),  but some machines underflow during

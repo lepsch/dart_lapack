@@ -273,7 +273,7 @@
             UI12 = CIV( IPIVOT( 3, ICMAX ) )
             CR22 = CRV( IPIVOT( 4, ICMAX ) )
             CI22 = CIV( IPIVOT( 4, ICMAX ) )
-            if ( ICMAX == 1 .OR. ICMAX == 4 ) {
+            if ( ICMAX == 1 || ICMAX == 4 ) {
 
                // Code when off-diagonals of pivoted C are real
 

@@ -46,7 +46,7 @@
       MNWDTH = TWO * PIVMIN
 
       R = TWIST
-      IF((R.LT.1).OR.(R.GT.N)) R = N
+      IF((R.LT.1) || (R.GT.N)) R = N
 
       // Initialize unconverged intervals in [ WORK(2*I-1), WORK(2*I) ].
       // The Sturm Count, Count( WORK(2*I-1) ) is arranged to be I-1, while
@@ -100,7 +100,7 @@
          WIDTH = HALF*ABS( LEFT - RIGHT )
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
          CVRGD = MAX(RTOL1*GAP,RTOL2*TMP)
-         if ( WIDTH.LE.CVRGD .OR. WIDTH.LE.MNWDTH ) {
+         if ( WIDTH.LE.CVRGD || WIDTH.LE.MNWDTH ) {
             // This interval has already converged and does not need refinement.
             // (Note that the gaps might change through refining the
              // eigenvalues, however, they can only get bigger.)
@@ -146,7 +146,7 @@
          WIDTH = RIGHT - MID
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
          CVRGD = MAX(RTOL1*GAP,RTOL2*TMP)
-         if ( ( WIDTH.LE.CVRGD ) .OR. ( WIDTH.LE.MNWDTH ).OR. ( ITER == MAXITR ) ) {
+         if ( ( WIDTH.LE.CVRGD ) || ( WIDTH.LE.MNWDTH ) || ( ITER == MAXITR ) ) {
             // reduce number of unconverged intervals
             NINT = NINT - 1
             // Mark interval as converged.

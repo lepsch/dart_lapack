@@ -83,13 +83,13 @@
          INFO = -6
       } else if ( NOUNIT.LE.0 ) {
          INFO = -7
-      } else if ( LDA.LT.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LT.1 || LDA.LT.NMAX ) {
          INFO = -9
-      } else if ( LDVL.LT.1 .OR. LDVL.LT.NMAX ) {
+      } else if ( LDVL.LT.1 || LDVL.LT.NMAX ) {
          INFO = -16
-      } else if ( LDVR.LT.1 .OR. LDVR.LT.NMAX ) {
+      } else if ( LDVR.LT.1 || LDVR.LT.NMAX ) {
          INFO = -18
-      } else if ( LDLRE.LT.1 .OR. LDLRE.LT.NMAX ) {
+      } else if ( LDLRE.LT.1 || LDLRE.LT.NMAX ) {
          INFO = -20
       } else if ( 5*NMAX+2*NMAX**2.GT.NWORK ) {
          INFO = -23
@@ -102,7 +102,7 @@
 
       // Quick return if nothing to do
 
-      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) RETURN;
 
       // More Important constants
 
@@ -364,7 +364,7 @@
                // Do Test (5)
 
                for (J = 1; J <= N; J++) { // 150
-                  IF( WR( J ) != WR1( J ) .OR. WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
+                  IF( WR( J ) != WR1( J ) || WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
                } // 150
 
                // Compute eigenvalues and right eigenvectors, and test them
@@ -381,7 +381,7 @@
                // Do Test (5) again
 
                for (J = 1; J <= N; J++) { // 160
-                  IF( WR( J ) != WR1( J ) .OR. WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
+                  IF( WR( J ) != WR1( J ) || WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
                } // 160
 
                // Do Test (6)
@@ -406,7 +406,7 @@
                // Do Test (5) again
 
                for (J = 1; J <= N; J++) { // 190
-                  IF( WR( J ) != WR1( J ) .OR. WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
+                  IF( WR( J ) != WR1( J ) || WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
                } // 190
 
                // Do Test (7)

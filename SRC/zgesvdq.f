@@ -44,23 +44,23 @@
 
       // Test the input arguments
 
-      WNTUS  = LSAME( JOBU, 'S' ) .OR. LSAME( JOBU, 'U' )
+      WNTUS  = LSAME( JOBU, 'S' ) || LSAME( JOBU, 'U' )
       WNTUR  = LSAME( JOBU, 'R' )
       WNTUA  = LSAME( JOBU, 'A' )
       WNTUF  = LSAME( JOBU, 'F' )
-      LSVC0  = WNTUS .OR. WNTUR .OR. WNTUA
-      LSVEC  = LSVC0 .OR. WNTUF
+      LSVC0  = WNTUS || WNTUR || WNTUA
+      LSVEC  = LSVC0 || WNTUF
       DNTWU  = LSAME( JOBU, 'N' )
 
       WNTVR  = LSAME( JOBV, 'R' )
-      WNTVA  = LSAME( JOBV, 'A' ) .OR. LSAME( JOBV, 'V' )
-      RSVEC  = WNTVR .OR. WNTVA
+      WNTVA  = LSAME( JOBV, 'A' ) || LSAME( JOBV, 'V' )
+      RSVEC  = WNTVR || WNTVA
       DNTWV  = LSAME( JOBV, 'N' )
 
       ACCLA  = LSAME( JOBA, 'A' )
       ACCLM  = LSAME( JOBA, 'M' )
       CONDA  = LSAME( JOBA, 'E' )
-      ACCLH  = LSAME( JOBA, 'H' ) .OR. CONDA
+      ACCLH  = LSAME( JOBA, 'H' ) || CONDA
 
       ROWPRM = LSAME( JOBP, 'P' )
       RTRANS = LSAME( JOBR, 'T' )
@@ -72,29 +72,29 @@
          IMINWRK = MAX( 1, N )
          RMINWRK = MAX( 2, 5*N )
       }
-      LQUERY = (LIWORK == -1 .OR. LCWORK == -1 .OR. LRWORK == -1)
+      LQUERY = (LIWORK == -1 || LCWORK == -1 || LRWORK == -1)
       INFO  = 0
-      if ( .NOT. ( ACCLA .OR. ACCLM .OR. ACCLH ) ) {
+      if ( .NOT. ( ACCLA || ACCLM || ACCLH ) ) {
          INFO = -1
-      } else if ( .NOT.( ROWPRM .OR. LSAME( JOBP, 'N' ) ) ) {
+      } else if ( .NOT.( ROWPRM || LSAME( JOBP, 'N' ) ) ) {
           INFO = -2
-      } else if ( .NOT.( RTRANS .OR. LSAME( JOBR, 'N' ) ) ) {
+      } else if ( .NOT.( RTRANS || LSAME( JOBR, 'N' ) ) ) {
           INFO = -3
-      } else if ( .NOT.( LSVEC .OR. DNTWU ) ) {
+      } else if ( .NOT.( LSVEC || DNTWU ) ) {
          INFO = -4
       } else if ( WNTUR && WNTVA ) {
          INFO = -5
-      } else if ( .NOT.( RSVEC .OR. DNTWV )) {
+      } else if ( .NOT.( RSVEC || DNTWV )) {
          INFO = -5
       } else if ( M.LT.0 ) {
          INFO = -6
-      } else if ( ( N.LT.0 ) .OR. ( N.GT.M ) ) {
+      } else if ( ( N.LT.0 ) || ( N.GT.M ) ) {
          INFO = -7
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -9
-      } else if ( LDU.LT.1 .OR. ( LSVC0 && LDU.LT.M ) .OR. ( WNTUF && LDU.LT.N ) ) {
+      } else if ( LDU.LT.1 || ( LSVC0 && LDU.LT.M ) || ( WNTUF && LDU.LT.N ) ) {
          INFO = -12
-      } else if ( LDV.LT.1 .OR. ( RSVEC && LDV.LT.N ) .OR. ( CONDA && LDV.LT.N ) ) {
+      } else if ( LDV.LT.1 || ( RSVEC && LDV.LT.N ) || ( CONDA && LDV.LT.N ) ) {
          INFO = -14
       } else if ( LIWORK .LT. IMINWRK && .NOT. LQUERY ) {
          INFO = -17
@@ -111,7 +111,7 @@
          // .. minimal workspace length for ZGEQP3 of an M x N matrix
          LWQP3 = N+1
          // .. minimal workspace length for ZUNMQR to build left singular vectors
-         if ( WNTUS .OR. WNTUR ) {
+         if ( WNTUS || WNTUR ) {
              LWUNQ  = MAX( N  , 1 )
          } else if ( WNTUA ) {
              LWUNQ = MAX( M , 1 )
@@ -123,7 +123,7 @@
          if ( LQUERY ) {
              zgeqp3(M, N, A, LDA, IWORK, CDUMMY, CDUMMY, -1, RDUMMY, IERR );
              LWRK_ZGEQP3 = INT( CDUMMY(1) )
-             if ( WNTUS .OR. WNTUR ) {
+             if ( WNTUS || WNTUR ) {
                  zunmqr('L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR );
                  LWRK_ZUNMQR = INT( CDUMMY(1) )
              } else if ( WNTUA ) {
@@ -135,7 +135,7 @@
          }
          MINWRK = 2
          OPTWRK = 2
-         if ( .NOT. (LSVEC .OR. RSVEC ) ) {
+         if ( .NOT. (LSVEC || RSVEC ) ) {
              // .. minimal and optimal sizes of the complex workspace if
              // only the singular values are requested
              if ( CONDA ) {
@@ -293,7 +293,7 @@
 
       // Quick return if the matrix is void.
 
-      if ( ( M == 0 ) .OR. ( N == 0 ) ) {
+      if ( ( M == 0 ) || ( N == 0 ) ) {
       // .. all output is void.
          RETURN
       }
@@ -309,7 +309,7 @@
                 // [[ZLANGE will return NaN if an entry of the p-th row is Nan]]
                 RWORK(p) = ZLANGE( 'M', 1, N, A(p,1), LDA, RDUMMY )
                 // .. check for NaN's and Inf's
-                if ( ( RWORK(p) != RWORK(p) ) .OR. ( (RWORK(p)*ZERO) != ZERO ) ) {
+                if ( ( RWORK(p) != RWORK(p) ) || ( (RWORK(p)*ZERO) != ZERO ) ) {
                     INFO = -8
                     xerbla('ZGESVDQ', -INFO );
                     RETURN
@@ -365,7 +365,7 @@
 
       if ( .NOT.ROWPRM ) {
           RTMP = ZLANGE( 'M', M, N, A, LDA, RWORK )
-          if ( ( RTMP != RTMP ) .OR. ( (RTMP*ZERO) != ZERO ) ) {
+          if ( ( RTMP != RTMP ) || ( (RTMP*ZERO) != ZERO ) ) {
                INFO = -8
                xerbla('ZGESVDQ', -INFO );
                RETURN
@@ -421,7 +421,7 @@
          // will be truncated.
          NR = 1
          for (p = 2; p <= N; p++) { // 3401
-            IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) .OR. ( ABS(A(p,p)) .LT. SFMIN ) ) GO TO 3402
+            IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) .LT. SFMIN ) ) GO TO 3402
             NR = NR + 1
          } // 3401
          } // 3402
@@ -452,7 +452,7 @@
                   RTMP = DZNRM2( p, V(1,p), 1 )
                   zdscal(p, ONE/RTMP, V(1,p), 1 );
                } // 3053
-               if ( .NOT. ( LSVEC .OR. RSVEC ) ) {
+               if ( .NOT. ( LSVEC || RSVEC ) ) {
                    zpocon('U', NR, V, LDV, ONE, RTMP, CWORK, RWORK, IERR );
                } else {
                    zpocon('U', NR, V, LDV, ONE, RTMP, CWORK(N+1), RWORK, IERR );
@@ -467,13 +467,13 @@
 
       if ( WNTUR ) {
           N1 = NR
-      } else if ( WNTUS .OR. WNTUF) {
+      } else if ( WNTUS || WNTUF) {
           N1 = N
       } else if ( WNTUA ) {
           N1 = M
       }
 
-      if ( .NOT. ( RSVEC .OR. LSVEC ) ) {
+      if ( .NOT. ( RSVEC || LSVEC ) ) {
 *.......................................................................
          // .. only the singular values are requested
 *.......................................................................
@@ -573,7 +573,7 @@
             if (NR .GT. 1) CALL ZLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV );
             // .. the left singular vectors of R**H overwrite V, the right singular
             // vectors not computed
-            if ( WNTVR .OR. ( NR == N ) ) {
+            if ( WNTVR || ( NR == N ) ) {
                zgesvd('O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                for (p = 1; p <= NR; p++) { // 1121
@@ -620,7 +620,7 @@
              if (NR .GT. 1) CALL ZLASET( 'L', NR-1, NR-1, CZERO, CZERO, V(2,1), LDV );
              // .. the right singular vectors overwrite V, the NR left singular
              // vectors stored in U(1:NR,1:NR)
-             if ( WNTVR .OR. ( NR == N ) ) {
+             if ( WNTVR || ( NR == N ) ) {
                 zgesvd('N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
                 zlapmt( false , NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**H
@@ -646,7 +646,7 @@
 
              // .. apply ZGESVD to R**H [[this option is left for R&D&T]]
 
-            if ( WNTVR .OR. ( NR == N ) ) {
+            if ( WNTVR || ( NR == N ) ) {
              // .. copy R**H into [V] and overwrite [V] with the left singular
              // vectors of R**H
             for (p = 1; p <= NR; p++) { // 1168
@@ -782,7 +782,7 @@
 
              // .. apply ZGESVD to R [[this is the recommended option]]
 
-             if ( WNTVR .OR. ( NR == N ) ) {
+             if ( WNTVR || ( NR == N ) ) {
                  // .. copy R into [V] and overwrite V with the right singular vectors
                  zlacpy('U', NR, N, A, LDA, V, LDV );
                 if (NR .GT. 1) CALL ZLASET( 'L', NR-1,NR-1, CZERO,CZERO, V(2,1), LDV );

@@ -51,7 +51,7 @@
       INFO = 0
       if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
+      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3

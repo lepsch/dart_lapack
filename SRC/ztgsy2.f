@@ -50,7 +50,7 @@
       if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
-         if ( ( IJOB.LT.0 ) .OR. ( IJOB.GT.2 ) ) {
+         if ( ( IJOB.LT.0 ) || ( IJOB.GT.2 ) ) {
             INFO = -2
          }
       }

@@ -69,9 +69,9 @@
          INFO = -2
       } else if ( NTYPES.LT.0 ) {
          INFO = -3
-      } else if ( LDA.LE.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LE.1 || LDA.LT.NMAX ) {
          INFO = -9
-      } else if ( LDZ.LE.1 .OR. LDZ.LT.NMAX ) {
+      } else if ( LDZ.LE.1 || LDZ.LT.NMAX ) {
          INFO = -16
       } else if ( 2*MAX( NMAX, 3 )**2.GT.NWORK ) {
          INFO = -21
@@ -86,7 +86,7 @@
 
       // Quick return if possible
 
-      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) RETURN;
 
       // More Important constants
 

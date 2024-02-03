@@ -479,7 +479,7 @@
 
       // Test error exits for the CGS, CGV, CGX, and CXV paths.
 
-      } else if ( LSAMEN( 3, PATH, 'CGS' ) .OR. LSAMEN( 3, PATH, 'CGV' ) .OR. LSAMEN( 3, PATH, 'CGX' ) .OR. LSAMEN( 3, PATH, 'CXV' ) ) {
+      } else if ( LSAMEN( 3, PATH, 'CGS' ) || LSAMEN( 3, PATH, 'CGV' ) || LSAMEN( 3, PATH, 'CGX' ) || LSAMEN( 3, PATH, 'CXV' ) ) {
 
          // CGGES
 

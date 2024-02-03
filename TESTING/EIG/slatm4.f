@@ -243,7 +243,7 @@
       // Fill in upper triangle (except for 2x2 blocks)
 
       if ( TRIANG != ZERO ) {
-         if ( ISIGN != 2 .OR. ITYPE == 2 .OR. ITYPE == 3 ) {
+         if ( ISIGN != 2 || ITYPE == 2 || ITYPE == 3 ) {
             IOFF = 1
          } else {
             IOFF = 2

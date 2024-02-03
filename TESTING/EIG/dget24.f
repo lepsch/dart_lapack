@@ -63,9 +63,9 @@
          INFO = -5
       } else if ( N.LT.0 ) {
          INFO = -6
-      } else if ( LDA.LT.1 .OR. LDA.LT.N ) {
+      } else if ( LDA.LT.1 || LDA.LT.N ) {
          INFO = -8
-      } else if ( LDVS.LT.1 .OR. LDVS.LT.N ) {
+      } else if ( LDVS.LT.1 || LDVS.LT.N ) {
          INFO = -18
       } else if ( LWORK.LT.3*N ) {
          INFO = -26
@@ -135,7 +135,7 @@
          } // 40
          for (I = 1; I <= N - 1; I++) { // 50
             if ( H( I+1, I ) != ZERO ) {
-               IF( H( I, I ) != H( I+1, I+1 ) .OR. H( I, I+1 ) == ZERO .OR. SIGN( ONE, H( I+1, I ) ) == SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
+               IF( H( I, I ) != H( I+1, I+1 ) || H( I, I+1 ) == ZERO || SIGN( ONE, H( I+1, I ) ) == SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
             }
          } // 50
 
@@ -213,7 +213,7 @@
 
          RESULT( 6+RSUB ) = ZERO
          for (I = 1; I <= N; I++) { // 100
-            IF( WR( I ) != WRT( I ) .OR. WI( I ) != WIT( I ) ) RESULT( 6+RSUB ) = ULPINV
+            IF( WR( I ) != WRT( I ) || WI( I ) != WIT( I ) ) RESULT( 6+RSUB ) = ULPINV
          } // 100
 
          // Do Test (13)
@@ -222,9 +222,9 @@
             RESULT( 13 ) = ZERO
             KNTEIG = 0
             for (I = 1; I <= N; I++) { // 110
-               IF( DSLECT( WR( I ), WI( I ) ) .OR. DSLECT( WR( I ), -WI( I ) ) )KNTEIG = KNTEIG + 1
+               IF( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) )KNTEIG = KNTEIG + 1
                if ( I.LT.N ) {
-                  IF( ( DSLECT( WR( I+1 ), WI( I+1 ) ) .OR. DSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( .NOT.( DSLECT( WR( I ), WI( I ) ) .OR. DSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 )RESULT( 13 ) = ULPINV
+                  IF( ( DSLECT( WR( I+1 ), WI( I+1 ) ) || DSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( .NOT.( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 )RESULT( 13 ) = ULPINV
                }
             } // 110
             if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;
@@ -259,7 +259,7 @@
          // Perform tests (10), (11), (12), and (13)
 
          for (I = 1; I <= N; I++) { // 140
-            IF( WR( I ) != WRT( I ) .OR. WI( I ) != WIT( I ) ) RESULT( 10 ) = ULPINV
+            IF( WR( I ) != WRT( I ) || WI( I ) != WIT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 130
                IF( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 130
@@ -289,7 +289,7 @@
          // Perform tests (10), (11), (12), and (13)
 
          for (I = 1; I <= N; I++) { // 160
-            IF( WR( I ) != WRT( I ) .OR. WI( I ) != WIT( I ) ) RESULT( 10 ) = ULPINV
+            IF( WR( I ) != WRT( I ) || WI( I ) != WIT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 150
                IF( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 150
@@ -318,7 +318,7 @@
          // Perform tests (10), (11), (12), and (13)
 
          for (I = 1; I <= N; I++) { // 180
-            IF( WR( I ) != WRT( I ) .OR. WI( I ) != WIT( I ) ) RESULT( 10 ) = ULPINV
+            IF( WR( I ) != WRT( I ) || WI( I ) != WIT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 170
                IF( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 170
@@ -347,7 +347,7 @@
          // Perform tests (10), (11), (12), and (13)
 
          for (I = 1; I <= N; I++) { // 200
-            IF( WR( I ) != WRT( I ) .OR. WI( I ) != WIT( I ) ) RESULT( 10 ) = ULPINV
+            IF( WR( I ) != WRT( I ) || WI( I ) != WIT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 190
                IF( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 190
@@ -376,7 +376,7 @@
          // Perform tests (10), (11), (12), and (13)
 
          for (I = 1; I <= N; I++) { // 220
-            IF( WR( I ) != WRT( I ) .OR. WI( I ) != WIT( I ) ) RESULT( 10 ) = ULPINV
+            IF( WR( I ) != WRT( I ) || WI( I ) != WIT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 210
                IF( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 210
@@ -405,7 +405,7 @@
          // Perform tests (10), (11), (12), and (13)
 
          for (I = 1; I <= N; I++) { // 240
-            IF( WR( I ) != WRT( I ) .OR. WI( I ) != WIT( I ) ) RESULT( 10 ) = ULPINV
+            IF( WR( I ) != WRT( I ) || WI( I ) != WIT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 230
                IF( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 230

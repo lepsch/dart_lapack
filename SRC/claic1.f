@@ -84,7 +84,7 @@
                SESTPR = S1
             }
             RETURN
-         } else if ( ABSEST.LE.EPS*ABSALP .OR. ABSEST.LE.EPS*ABSGAM ) {
+         } else if ( ABSEST.LE.EPS*ABSALP || ABSEST.LE.EPS*ABSGAM ) {
             S1 = ABSGAM
             S2 = ABSALP
             if ( S1.LE.S2 ) {
@@ -165,7 +165,7 @@
                SESTPR = S2
             }
             RETURN
-         } else if ( ABSEST.LE.EPS*ABSALP .OR. ABSEST.LE.EPS*ABSGAM ) {
+         } else if ( ABSEST.LE.EPS*ABSALP || ABSEST.LE.EPS*ABSGAM ) {
             S1 = ABSGAM
             S2 = ABSALP
             if ( S1.LE.S2 ) {

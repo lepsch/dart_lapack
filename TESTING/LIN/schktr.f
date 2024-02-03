@@ -137,7 +137,7 @@
 
                   ANORM = SLANTR( 'I', UPLO, DIAG, N, N, A, LDA, RWORK )
                   AINVNM = SLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA, RWORK )
-                  if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                  if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
                      RCONDI = ONE
                   } else {
                      RCONDI = ( ONE / ANORM ) / AINVNM

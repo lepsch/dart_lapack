@@ -25,7 +25,7 @@
          ILAPREC = BLAS_PREC_DOUBLE
       } else if ( LSAME( PREC, 'I' ) ) {
          ILAPREC = BLAS_PREC_INDIGENOUS
-      } else if ( LSAME( PREC, 'X' ) .OR. LSAME( PREC, 'E' ) ) {
+      } else if ( LSAME( PREC, 'X' ) || LSAME( PREC, 'E' ) ) {
          ILAPREC = BLAS_PREC_EXTRA
       } else {
          ILAPREC = -1

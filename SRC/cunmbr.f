@@ -62,7 +62,7 @@
          INFO = -5
       } else if ( K.LT.0 ) {
          INFO = -6
-      } else if ( ( APPLYQ && LDA.LT.MAX( 1, NQ ) ) .OR. ( .NOT.APPLYQ && LDA.LT.MAX( 1, MIN( NQ, K ) ) ) ) {
+      } else if ( ( APPLYQ && LDA.LT.MAX( 1, NQ ) ) || ( .NOT.APPLYQ && LDA.LT.MAX( 1, MIN( NQ, K ) ) ) ) {
          INFO = -8
       } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -11
@@ -101,7 +101,7 @@
 
       // Quick return if possible
 
-      if (M == 0 .OR. N == 0) RETURN;
+      if (M == 0 || N == 0) RETURN;
 
       if ( APPLYQ ) {
 

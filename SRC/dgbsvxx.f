@@ -51,13 +51,13 @@
       NOTRAN = LSAME( TRANS, 'N' )
       SMLNUM = DLAMCH( 'Safe minimum' )
       BIGNUM = ONE / SMLNUM
-      if ( NOFACT .OR. EQUIL ) {
+      if ( NOFACT || EQUIL ) {
          EQUED = 'N'
          ROWEQU = false;
          COLEQU = false;
       } else {
-         ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
-         COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
+         ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' )
+         COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' )
       }
 
       // Default is failure.  If an input parameter is wrong or
@@ -84,7 +84,7 @@
          INFO = -8
       } else if ( LDAFB.LT.2*KL+KU+1 ) {
          INFO = -10
-      } else if ( LSAME( FACT, 'F' ) && .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) {
+      } else if ( LSAME( FACT, 'F' ) && .NOT. ( ROWEQU || COLEQU || LSAME( EQUED, 'N' ) ) ) {
          INFO = -12
       } else {
          if ( ROWEQU ) {
@@ -141,8 +141,8 @@
       // Equilibrate the matrix.
 
             dlaqgb(N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED );
-            ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
-            COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
+            ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' )
+            COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' )
          }
 
       // If the scaling factors are not applied, set them to 1.0.
@@ -167,7 +167,7 @@
          if (COLEQU) CALL DLASCL2(N, NRHS, C, B, LDB);
       }
 
-      if ( NOFACT .OR. EQUIL ) {
+      if ( NOFACT || EQUIL ) {
 
          // Compute the LU factorization of A.
 

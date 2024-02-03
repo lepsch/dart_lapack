@@ -23,7 +23,7 @@
       // .. Executable Statements ..
 
       ICMAX1 = 0
-      if (N.LT.1 .OR. INCX.LE.0) RETURN;
+      if (N.LT.1 || INCX.LE.0) RETURN;
       ICMAX1 = 1
       if (N == 1) RETURN;
       if (INCX == 1) {

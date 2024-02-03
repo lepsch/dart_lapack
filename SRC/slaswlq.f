@@ -97,9 +97,9 @@
 
       if ( M.LT.0 ) {
         INFO = -1
-      } else if ( N.LT.0 .OR. N.LT.M ) {
+      } else if ( N.LT.0 || N.LT.M ) {
         INFO = -2
-      } else if ( MB.LT.1 .OR. ( MB.GT.M && M.GT.0 ) ) {
+      } else if ( MB.LT.1 || ( MB.GT.M && M.GT.0 ) ) {
         INFO = -3
       } else if ( NB.LE.0 ) {
         INFO = -4
@@ -129,7 +129,7 @@
 
       // The LQ Decomposition
 
-      if ( (M.GE.N) .OR. (NB.LE.M) .OR. (NB.GE.N) ) {
+      if ( (M.GE.N) || (NB.LE.M) || (NB.GE.N) ) {
         sgelqt(M, N, MB, A, LDA, T, LDT, WORK, INFO );
         RETURN
       }

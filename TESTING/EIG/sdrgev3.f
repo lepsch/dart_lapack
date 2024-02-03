@@ -78,11 +78,11 @@
          INFO = -3
       } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      } else if ( LDA.LE.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LE.1 || LDA.LT.NMAX ) {
          INFO = -9
-      } else if ( LDQ.LE.1 .OR. LDQ.LT.NMAX ) {
+      } else if ( LDQ.LE.1 || LDQ.LT.NMAX ) {
          INFO = -14
-      } else if ( LDQE.LE.1 .OR. LDQE.LT.NMAX ) {
+      } else if ( LDQE.LE.1 || LDQE.LT.NMAX ) {
          INFO = -17
       }
 
@@ -110,7 +110,7 @@
 
       // Quick return if possible
 
-      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) RETURN;
 
       SAFMIN = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
@@ -312,7 +312,7 @@
             }
 
             for (J = 1; J <= N; J++) { // 120
-               if ( ALPHAR( J ) != ALPHR1( J ) .OR. BETA( J ) != BETA1( J ) ) {
+               if ( ALPHAR( J ) != ALPHR1( J ) || BETA( J ) != BETA1( J ) ) {
                   RESULT( 5 ) = ULPINV
                }
             } // 120
@@ -331,7 +331,7 @@
             }
 
             for (J = 1; J <= N; J++) { // 130
-               IF( ALPHAR( J ) != ALPHR1( J ) .OR. ALPHAI( J ) != ALPHI1( J ) .OR. BETA( J ) != BETA1( J ) ) RESULT( 6 ) = ULPINV
+               IF( ALPHAR( J ) != ALPHR1( J ) || ALPHAI( J ) != ALPHI1( J ) || BETA( J ) != BETA1( J ) ) RESULT( 6 ) = ULPINV
             } // 130
 
             for (J = 1; J <= N; J++) { // 150
@@ -354,7 +354,7 @@
             }
 
             for (J = 1; J <= N; J++) { // 160
-               IF( ALPHAR( J ) != ALPHR1( J ) .OR. ALPHAI( J ) != ALPHI1( J ) .OR. BETA( J ) != BETA1( J ) ) RESULT( 7 ) = ULPINV
+               IF( ALPHAR( J ) != ALPHR1( J ) || ALPHAI( J ) != ALPHI1( J ) || BETA( J ) != BETA1( J ) ) RESULT( 7 ) = ULPINV
             } // 160
 
             for (J = 1; J <= N; J++) { // 180

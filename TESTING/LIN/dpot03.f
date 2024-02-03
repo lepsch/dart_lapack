@@ -49,7 +49,7 @@
       EPS = DLAMCH( 'Epsilon' )
       ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK )
       AINVNM = DLANSY( '1', UPLO, N, AINV, LDAINV, RWORK )
-      if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+      if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN

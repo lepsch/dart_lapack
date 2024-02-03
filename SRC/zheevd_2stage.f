@@ -48,12 +48,12 @@
 
       WANTZ = LSAME( JOBZ, 'V' )
       LOWER = LSAME( UPLO, 'L' )
-      LQUERY = ( LWORK == -1 .OR. LRWORK == -1 .OR. LIWORK == -1 )
+      LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 )
 
       INFO = 0
       if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LOWER .OR. LSAME( UPLO, 'U' ) ) ) {
+      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3

@@ -78,7 +78,7 @@
             IF( T1( I, J ) != T2( I, J ) ) RES = RES + ONE / EPS
          } // 50
       } // 60
-      if (INFO1 != 0 .OR. INFO2 != 0) NINFO = NINFO + 1       IF( INFO1 != INFO2 ) RES = RES + ONE / EPS;
+      if (INFO1 != 0 || INFO2 != 0) NINFO = NINFO + 1       IF( INFO1 != INFO2 ) RES = RES + ONE / EPS;
 
       // Test for successful reordering of T2
 

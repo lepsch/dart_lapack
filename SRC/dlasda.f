@@ -31,13 +31,13 @@
 
       INFO = 0
 
-      if ( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) {
+      if ( ( ICOMPQ.LT.0 ) || ( ICOMPQ.GT.1 ) ) {
          INFO = -1
       } else if ( SMLSIZ.LT.3 ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE.LT.0 ) || ( SQRE.GT.1 ) ) {
          INFO = -4
       } else if ( LDU.LT.( N+SQRE ) ) {
          INFO = -8

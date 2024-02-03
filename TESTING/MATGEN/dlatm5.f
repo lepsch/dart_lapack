@@ -68,7 +68,7 @@
             } // 50
          } // 60
 
-      } else if ( PRTYPE == 2 .OR. PRTYPE == 3 ) {
+      } else if ( PRTYPE == 2 || PRTYPE == 3 ) {
          for (I = 1; I <= M; I++) { // 80
             for (J = 1; J <= M; J++) { // 70
                if ( I.LE.J ) {

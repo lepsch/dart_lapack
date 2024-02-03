@@ -80,9 +80,9 @@
          INFO = -3
       } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      } else if ( LDA.LE.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LE.1 || LDA.LT.NMAX ) {
          INFO = -9
-      } else if ( LDQ.LE.1 .OR. LDQ.LT.NMAX ) {
+      } else if ( LDQ.LE.1 || LDQ.LT.NMAX ) {
          INFO = -14
       }
 
@@ -110,7 +110,7 @@
 
       // Quick return if possible
 
-      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) RETURN;
 
       SAFMIN = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
@@ -343,7 +343,7 @@
                      } else {
                         I1 = J - 1
                      }
-                     if ( I1.LE.0 .OR. I1.GE.N ) {
+                     if ( I1.LE.0 || I1.GE.N ) {
                         ILABAD = true;
                      } else if ( I1.LT.N-1 ) {
                         if ( S( I1+2, I1+1 ) != ZERO ) {
@@ -382,11 +382,11 @@
                   RESULT( 12 ) = ZERO
                   KNTEIG = 0
                   for (I = 1; I <= N; I++) { // 140
-                     if ( DLCTES( ALPHAR( I ), ALPHAI( I ), BETA( I ) ) .OR. DLCTES( ALPHAR( I ), -ALPHAI( I ), BETA( I ) ) ) {
+                     if ( DLCTES( ALPHAR( I ), ALPHAI( I ), BETA( I ) ) || DLCTES( ALPHAR( I ), -ALPHAI( I ), BETA( I ) ) ) {
                         KNTEIG = KNTEIG + 1
                      }
                      if ( I.LT.N ) {
-                        if ( ( DLCTES( ALPHAR( I+1 ), ALPHAI( I+1 ), BETA( I+1 ) ) .OR. DLCTES( ALPHAR( I+1 ), -ALPHAI( I+1 ), BETA( I+1 ) ) ) && ( .NOT.( DLCTES( ALPHAR( I ), ALPHAI( I ), BETA( I ) ) .OR. DLCTES( ALPHAR( I ), -ALPHAI( I ), BETA( I ) ) ) ) && IINFO != N+2 ) {
+                        if ( ( DLCTES( ALPHAR( I+1 ), ALPHAI( I+1 ), BETA( I+1 ) ) || DLCTES( ALPHAR( I+1 ), -ALPHAI( I+1 ), BETA( I+1 ) ) ) && ( .NOT.( DLCTES( ALPHAR( I ), ALPHAI( I ), BETA( I ) ) || DLCTES( ALPHAR( I ), -ALPHAI( I ), BETA( I ) ) ) ) && IINFO != N+2 ) {
                            RESULT( 12 ) = ULPINV
                         }
                      }

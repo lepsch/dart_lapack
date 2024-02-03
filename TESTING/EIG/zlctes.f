@@ -28,9 +28,9 @@
       if ( D == CZERO ) {
          ZLCTES = ( DBLE( Z ).LT.ZERO )
       } else {
-         if ( DBLE( Z ) == ZERO .OR. DBLE( D ) == ZERO ) {
+         if ( DBLE( Z ) == ZERO || DBLE( D ) == ZERO ) {
             ZLCTES = ( SIGN( ONE, DIMAG( Z ) ) != SIGN( ONE, DIMAG( D ) ) )
-         } else if ( DIMAG( Z ) == ZERO .OR. DIMAG( D ) == ZERO ) {
+         } else if ( DIMAG( Z ) == ZERO || DIMAG( D ) == ZERO ) {
             ZLCTES = ( SIGN( ONE, DBLE( Z ) ) != SIGN( ONE, DBLE( D ) ) )
          } else {
             ZMAX = MAX( ABS( DBLE( Z ) ), ABS( DIMAG( Z ) ) )

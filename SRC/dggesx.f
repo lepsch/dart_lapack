@@ -75,7 +75,7 @@
       WANTSE = LSAME( SENSE, 'E' )
       WANTSV = LSAME( SENSE, 'V' )
       WANTSB = LSAME( SENSE, 'B' )
-      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
+      LQUERY = ( LWORK == -1 || LIWORK == -1 )
       if ( WANTSN ) {
          IJOB = 0
       } else if ( WANTSE ) {
@@ -95,7 +95,7 @@
          INFO = -2
       } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
          INFO = -3
-      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST && .NOT.WANTSN ) ) {
+      } else if ( .NOT.( WANTSN || WANTSE || WANTSV || WANTSB ) || ( .NOT.WANTST && .NOT.WANTSN ) ) {
          INFO = -5
       } else if ( N.LT.0 ) {
          INFO = -6
@@ -103,9 +103,9 @@
          INFO = -8
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -10
-      } else if ( LDVSL.LT.1 .OR. ( ILVSL && LDVSL.LT.N ) ) {
+      } else if ( LDVSL.LT.1 || ( ILVSL && LDVSL.LT.N ) ) {
          INFO = -16
-      } else if ( LDVSR.LT.1 .OR. ( ILVSR && LDVSR.LT.N ) ) {
+      } else if ( LDVSR.LT.1 || ( ILVSR && LDVSR.LT.N ) ) {
          INFO = -18
       }
 
@@ -131,7 +131,7 @@
             LWRK   = 1
          }
          WORK( 1 ) = LWRK
-         if ( WANTSN .OR. N == 0 ) {
+         if ( WANTSN || N == 0 ) {
             LIWMIN = 1
          } else {
             LIWMIN = N + 6
@@ -286,11 +286,11 @@
 
             INFO = -22
          } else {
-            if ( IJOB == 1 .OR. IJOB == 4 ) {
+            if ( IJOB == 1 || IJOB == 4 ) {
                RCONDE( 1 ) = PL
                RCONDE( 2 ) = PR
             }
-            if ( IJOB == 2 .OR. IJOB == 4 ) {
+            if ( IJOB == 2 || IJOB == 4 ) {
                RCONDV( 1 ) = DIF( 1 )
                RCONDV( 2 ) = DIF( 2 )
             }
@@ -313,12 +313,12 @@
       if ( ILASCL ) {
          for (I = 1; I <= N; I++) { // 20
             if ( ALPHAI( I ) != ZERO ) {
-               if ( ( ALPHAR( I ) / SAFMAX ).GT.( ANRMTO / ANRM ) .OR. ( SAFMIN / ALPHAR( I ) ).GT.( ANRM / ANRMTO ) ) {
+               if ( ( ALPHAR( I ) / SAFMAX ).GT.( ANRMTO / ANRM ) || ( SAFMIN / ALPHAR( I ) ).GT.( ANRM / ANRMTO ) ) {
                   WORK( 1 ) = ABS( A( I, I ) / ALPHAR( I ) )
                   BETA( I ) = BETA( I )*WORK( 1 )
                   ALPHAR( I ) = ALPHAR( I )*WORK( 1 )
                   ALPHAI( I ) = ALPHAI( I )*WORK( 1 )
-               } else if ( ( ALPHAI( I ) / SAFMAX ).GT. ( ANRMTO / ANRM ) .OR. ( SAFMIN / ALPHAI( I ) ).GT.( ANRM / ANRMTO ) ) {
+               } else if ( ( ALPHAI( I ) / SAFMAX ).GT. ( ANRMTO / ANRM ) || ( SAFMIN / ALPHAI( I ) ).GT.( ANRM / ANRMTO ) ) {
                   WORK( 1 ) = ABS( A( I, I+1 ) / ALPHAI( I ) )
                   BETA( I ) = BETA( I )*WORK( 1 )
                   ALPHAR( I ) = ALPHAR( I )*WORK( 1 )
@@ -331,7 +331,7 @@
       if ( ILBSCL ) {
          for (I = 1; I <= N; I++) { // 30
             if ( ALPHAI( I ) != ZERO ) {
-               if ( ( BETA( I ) / SAFMAX ).GT.( BNRMTO / BNRM ) .OR. ( SAFMIN / BETA( I ) ).GT.( BNRM / BNRMTO ) ) {
+               if ( ( BETA( I ) / SAFMAX ).GT.( BNRMTO / BNRM ) || ( SAFMIN / BETA( I ) ).GT.( BNRM / BNRMTO ) ) {
                   WORK( 1 ) = ABS( B( I, I ) / BETA( I ) )
                   BETA( I ) = BETA( I )*WORK( 1 )
                   ALPHAR( I ) = ALPHAR( I )*WORK( 1 )
@@ -373,7 +373,7 @@
 
                   // Last eigenvalue of conjugate pair
 
-                  CURSL = CURSL .OR. LASTSL
+                  CURSL = CURSL || LASTSL
                   LASTSL = CURSL
                   if (CURSL) SDIM = SDIM + 2;
                   IP = -1

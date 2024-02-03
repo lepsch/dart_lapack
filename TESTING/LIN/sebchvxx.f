@@ -104,7 +104,7 @@
          if (ORCOND .LT. EPS) {
          // Either factorization failed or the matrix is flagged, and 1 <=
          // INFO <= N+1. We don't decide based on rcond anymore.
-             // IF (INFO == 0 .OR. INFO .GT. N+1) THEN
+             // IF (INFO == 0 || INFO .GT. N+1) THEN
                 // NFAIL = NFAIL + 1
                 // WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND
              // END IF
@@ -127,7 +127,7 @@
          // Calculating the RCOND
          RNORM = 0
          RINORM = 0
-         if ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'SY' ) ) {
+         if ( LSAMEN( 2, C2, 'PO' ) || LSAMEN( 2, C2, 'SY' ) ) {
             for (I = 1; I <= N; I++) {
                SUMR = 0
                SUMRI = 0
@@ -138,7 +138,7 @@
                RNORM = MAX(RNORM,SUMR)
                RINORM = MAX(RINORM,SUMRI)
             }
-         } else if ( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'GB' ) ) {
+         } else if ( LSAMEN( 2, C2, 'GE' ) || LSAMEN( 2, C2, 'GB' ) ) {
             for (I = 1; I <= N; I++) {
                SUMR = 0
                SUMRI = 0

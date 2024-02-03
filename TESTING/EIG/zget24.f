@@ -67,9 +67,9 @@
          INFO = -5
       } else if ( N.LT.0 ) {
          INFO = -6
-      } else if ( LDA.LT.1 .OR. LDA.LT.N ) {
+      } else if ( LDA.LT.1 || LDA.LT.N ) {
          INFO = -8
-      } else if ( LDVS.LT.1 .OR. LDVS.LT.N ) {
+      } else if ( LDVS.LT.1 || LDVS.LT.N ) {
          INFO = -15
       } else if ( LWORK.LT.2*N ) {
          INFO = -24

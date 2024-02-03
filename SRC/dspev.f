@@ -41,13 +41,13 @@
       WANTZ = LSAME( JOBZ, 'V' )
 
       INFO = 0
-      if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
+      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) {
+      } else if ( .NOT.( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
          INFO = -7
       }
 

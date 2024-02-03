@@ -54,12 +54,12 @@
       AFTERS1 = LSAME( STAGE1, 'Y' )
       WANTQ   = LSAME( VECT, 'V' )
       UPPER   = LSAME( UPLO, 'U' )
-      LQUERY  = ( LWORK == -1 ) .OR. ( LHOUS == -1 )
+      LQUERY  = ( LWORK == -1 ) || ( LHOUS == -1 )
 
       // Determine the block size, the workspace size and the hous size.
 
       IB       = ILAENV2STAGE( 2, 'CHETRD_HB2ST', VECT, N, KD, -1, -1 )
-      if ( N == 0 .OR. KD.LE.1 ) {
+      if ( N == 0 || KD.LE.1 ) {
          LHMIN = 1
          LWMIN = 1
       } else {

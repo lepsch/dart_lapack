@@ -53,10 +53,10 @@
       NORMA = 'O'
       NORME = 'O'
 
-      if ( LSAME( TRANSA, 'T' ) .OR. LSAME( TRANSA, 'C' ) ) {
+      if ( LSAME( TRANSA, 'T' ) || LSAME( TRANSA, 'C' ) ) {
          NORMA = 'I'
       }
-      if ( LSAME( TRANSE, 'T' ) .OR. LSAME( TRANSE, 'C' ) ) {
+      if ( LSAME( TRANSE, 'T' ) || LSAME( TRANSE, 'C' ) ) {
          NORME = 'I'
          ITRNSE = 1
          INCE = LDE

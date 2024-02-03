@@ -539,7 +539,7 @@
             // Use SBDSVDX to compute the SVD of the bidiagonal matrix B:
             // B := U * S1 * VT
 
-            if ( JTYPE == 10 .OR. JTYPE == 16 ) {
+            if ( JTYPE == 10 || JTYPE == 16 ) {
                // =================================
                // Matrix types temporarily disabled
                // =================================

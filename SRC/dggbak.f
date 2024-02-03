@@ -46,7 +46,7 @@
          INFO = -4
       } else if ( N == 0 && IHI == 0 && ILO != 1 ) {
          INFO = -4
-      } else if ( N.GT.0 && ( IHI.LT.ILO .OR. IHI.GT.MAX( 1, N ) ) ) {
+      } else if ( N.GT.0 && ( IHI.LT.ILO || IHI.GT.MAX( 1, N ) ) ) {
          INFO = -5
       } else if ( N == 0 && ILO == 1 && IHI != 0 ) {
          INFO = -5
@@ -68,7 +68,7 @@
 
       // Backward balance
 
-      if ( LSAME( JOB, 'S' ) .OR. LSAME( JOB, 'B' ) ) {
+      if ( LSAME( JOB, 'S' ) || LSAME( JOB, 'B' ) ) {
 
          // Backward transformation on right eigenvectors
 
@@ -90,7 +90,7 @@
       // Backward permutation
 
       } // 30
-      if ( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) {
+      if ( LSAME( JOB, 'P' ) || LSAME( JOB, 'B' ) ) {
 
          // Backward permutation on right eigenvectors
 

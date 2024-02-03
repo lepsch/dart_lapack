@@ -44,7 +44,7 @@
 
       // Quick return if possible
 
-      if ( M == 0 .OR. N == 0 .OR. K == 0 ) {
+      if ( M == 0 || N == 0 || K == 0 ) {
          RESULT( 1 ) = ZERO
          RESULT( 2 ) = ZERO
          RETURN

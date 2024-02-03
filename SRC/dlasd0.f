@@ -29,7 +29,7 @@
 
       if ( N.LT.0 ) {
          INFO = -1
-      } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE.LT.0 ) || ( SQRE.GT.1 ) ) {
          INFO = -2
       }
 

@@ -30,7 +30,7 @@
 
       // Quick return if possible
 
-      if (M.LE.0 .OR. N.LE.0) RETURN;
+      if (M.LE.0 || N.LE.0) RETURN;
 
       if ( M.GE.N ) {
 

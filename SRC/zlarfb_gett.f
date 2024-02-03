@@ -34,7 +34,7 @@
 
       // Quick return if possible
 
-      if (M.LT.0 .OR. N.LE.0 .OR. K == 0 .OR. K.GT.N) RETURN;
+      if (M.LT.0 || N.LE.0 || K == 0 || K.GT.N) RETURN;
 
       LNOTIDENT = .NOT.LSAME( IDENT, 'I' )
 

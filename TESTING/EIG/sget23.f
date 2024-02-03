@@ -53,7 +53,7 @@
       // Check for errors
 
       NOBAL = LSAME( BALANC, 'N' )
-      BALOK = NOBAL .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'B' )
+      BALOK = NOBAL || LSAME( BALANC, 'P' ) || LSAME( BALANC, 'S' ) || LSAME( BALANC, 'B' )
       INFO = 0
       if ( .NOT.BALOK ) {
          INFO = -2
@@ -63,15 +63,15 @@
          INFO = -6
       } else if ( N.LT.0 ) {
          INFO = -7
-      } else if ( LDA.LT.1 .OR. LDA.LT.N ) {
+      } else if ( LDA.LT.1 || LDA.LT.N ) {
          INFO = -9
-      } else if ( LDVL.LT.1 .OR. LDVL.LT.N ) {
+      } else if ( LDVL.LT.1 || LDVL.LT.N ) {
          INFO = -16
-      } else if ( LDVR.LT.1 .OR. LDVR.LT.N ) {
+      } else if ( LDVR.LT.1 || LDVR.LT.N ) {
          INFO = -18
-      } else if ( LDLRE.LT.1 .OR. LDLRE.LT.N ) {
+      } else if ( LDLRE.LT.1 || LDLRE.LT.N ) {
          INFO = -20
-      } else if ( LWORK.LT.3*N .OR. ( COMP && LWORK.LT.6*N+N*N ) ) {
+      } else if ( LWORK.LT.3*N || ( COMP && LWORK.LT.6*N+N*N ) ) {
          INFO = -31
       }
 
@@ -192,7 +192,7 @@
          // Do Test (5)
 
          for (J = 1; J <= N; J++) { // 60
-            IF( WR( J ) != WR1( J ) .OR. WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
+            IF( WR( J ) != WR1( J ) || WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
          } // 60
 
          // Do Test (8)
@@ -230,7 +230,7 @@
          // Do Test (5) again
 
          for (J = 1; J <= N; J++) { // 90
-            IF( WR( J ) != WR1( J ) .OR. WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
+            IF( WR( J ) != WR1( J ) || WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
          } // 90
 
          // Do Test (6)
@@ -276,7 +276,7 @@
          // Do Test (5) again
 
          for (J = 1; J <= N; J++) { // 140
-            IF( WR( J ) != WR1( J ) .OR. WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
+            IF( WR( J ) != WR1( J ) || WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
          } // 140
 
          // Do Test (7)

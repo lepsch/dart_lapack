@@ -35,7 +35,7 @@
       INTA = ICHAR( CA )
       INTB = ICHAR( CB )
 
-      if ( ZCODE == 90 .OR. ZCODE == 122 ) {
+      if ( ZCODE == 90 || ZCODE == 122 ) {
 
          // ASCII is assumed - ZCODE is the ASCII code of either lower or
          // upper case 'Z'.
@@ -43,14 +43,14 @@
          if (INTA.GE.97 && INTA.LE.122) INTA = INTA - 32;
          if (INTB.GE.97 && INTB.LE.122) INTB = INTB - 32;
 
-      } else if ( ZCODE == 233 .OR. ZCODE == 169 ) {
+      } else if ( ZCODE == 233 || ZCODE == 169 ) {
 
          // EBCDIC is assumed - ZCODE is the EBCDIC code of either lower or
          // upper case 'Z'.
 
-         if (INTA.GE.129 && INTA.LE.137 .OR. INTA.GE.145 && INTA.LE.153 .OR. INTA.GE.162 && INTA.LE.169) INTA = INTA + 64          IF( INTB.GE.129 && INTB.LE.137 .OR. INTB.GE.145 && INTB.LE.153 .OR. INTB.GE.162 && INTB.LE.169 ) INTB = INTB + 64;
+         if (INTA.GE.129 && INTA.LE.137 || INTA.GE.145 && INTA.LE.153 || INTA.GE.162 && INTA.LE.169) INTA = INTA + 64          IF( INTB.GE.129 && INTB.LE.137 || INTB.GE.145 && INTB.LE.153 || INTB.GE.162 && INTB.LE.169 ) INTB = INTB + 64;
 
-      } else if ( ZCODE == 218 .OR. ZCODE == 250 ) {
+      } else if ( ZCODE == 218 || ZCODE == 250 ) {
 
          // ASCII is assumed, on Prime machines - ZCODE is the ASCII code
          // plus 128 of either lower or upper case 'Z'.

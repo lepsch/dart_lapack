@@ -23,8 +23,8 @@
       // .. Executable Statements ..
 
       if (IOUNIT.LE.0) RETURN;
-      SORD = LSAME( PATH, 'S' ) .OR. LSAME( PATH, 'D' )
-      CORZ = LSAME( PATH, 'C' ) .OR. LSAME( PATH, 'Z' )
+      SORD = LSAME( PATH, 'S' ) || LSAME( PATH, 'D' )
+      CORZ = LSAME( PATH, 'C' ) || LSAME( PATH, 'Z' )
       if ( .NOT.SORD && .NOT.CORZ ) {
          WRITE( IOUNIT, FMT = 9999 )PATH
       }

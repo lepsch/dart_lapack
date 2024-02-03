@@ -79,15 +79,15 @@
          INFO = -4
       } else if ( ILO.LT.1 ) {
          INFO = -5
-      } else if ( IHI.GT.N .OR. IHI.LT.ILO-1 ) {
+      } else if ( IHI.GT.N || IHI.LT.ILO-1 ) {
          INFO = -6
       } else if ( LDA.LT.N ) {
          INFO = -8
       } else if ( LDB.LT.N ) {
          INFO = -10
-      } else if ( LDQ.LT.1 .OR. ( ILQ && LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 || ( ILQ && LDQ.LT.N ) ) {
          INFO = -15
-      } else if ( LDZ.LT.1 .OR. ( ILZ && LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 || ( ILZ && LDZ.LT.N ) ) {
          INFO = -17
       }
       if ( INFO != 0 ) {
@@ -127,7 +127,7 @@
       ITEMP1 = ( ( ITEMP1-1 )/4 )*4+4
       NBR = NSR+ITEMP1
 
-      if ( N .LT. NMIN .OR. REC .GE. 2 ) {
+      if ( N .LT. NMIN || REC .GE. 2 ) {
          zhgeqz(WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK, INFO );
          RETURN
       }
@@ -306,7 +306,7 @@
             LD = 0
             ESHIFT = CZERO
          }
-          if ( 100*N_DEFLATED > NIBBLE*( N_DEFLATED+N_UNDEFLATED ) .OR. ISTOP-ISTART2+1 .LT. NMIN ) {
+          if ( 100*N_DEFLATED > NIBBLE*( N_DEFLATED+N_UNDEFLATED ) || ISTOP-ISTART2+1 .LT. NMIN ) {
             // AED has uncovered many eigenvalues. Skip a QZ sweep and run
             // AED again.
             CYCLE

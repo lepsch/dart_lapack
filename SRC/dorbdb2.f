@@ -42,9 +42,9 @@
 
       if ( M .LT. 0 ) {
          INFO = -1
-      } else if ( P .LT. 0 .OR. P .GT. M-P ) {
+      } else if ( P .LT. 0 || P .GT. M-P ) {
          INFO = -2
-      } else if ( Q .LT. 0 .OR. Q .LT. P .OR. M-Q .LT. P ) {
+      } else if ( Q .LT. 0 || Q .LT. P || M-Q .LT. P ) {
          INFO = -3
       } else if ( LDX11 .LT. MAX( 1, P ) ) {
          INFO = -5

@@ -53,7 +53,7 @@
 
       WANTU = LSAME( JOBU, 'V' )
       WANTVT = LSAME( JOBVT, 'V' )
-      if ( WANTU .OR. WANTVT ) {
+      if ( WANTU || WANTVT ) {
          JOBZ = 'V'
       } else {
          JOBZ = 'N'
@@ -67,7 +67,7 @@
          INFO = -1
       } else if ( .NOT.LSAME( JOBVT, 'V' ) && .NOT.LSAME( JOBVT, 'N' ) ) {
          INFO = -2
-      } else if ( .NOT.( ALLS .OR. VALS .OR. INDS ) ) {
+      } else if ( .NOT.( ALLS || VALS || INDS ) ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -83,9 +83,9 @@
                INFO = -9
             }
          } else if ( INDS ) {
-            if ( IL.LT.1 .OR. IL.GT.MAX( 1, MINMN ) ) {
+            if ( IL.LT.1 || IL.GT.MAX( 1, MINMN ) ) {
                INFO = -10
-            } else if ( IU.LT.MIN( MINMN, IL ) .OR. IU.GT.MINMN ) {
+            } else if ( IU.LT.MIN( MINMN, IL ) || IU.GT.MINMN ) {
                INFO = -11
             }
          }
@@ -188,7 +188,7 @@
 
       // Quick return if possible
 
-      if ( M == 0 .OR. N == 0 ) {
+      if ( M == 0 || N == 0 ) {
          RETURN
       }
 

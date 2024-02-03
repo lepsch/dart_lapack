@@ -42,7 +42,7 @@
       EIGEN = LSAME( JOB, 'E' )
       LEFT = LSAME( JOB, 'L' )
       RIGHT = LSAME( JOB, 'R' )
-      SING = LEFT .OR. RIGHT
+      SING = LEFT || RIGHT
       if ( EIGEN ) {
          K = M
       } else if ( SING ) {
@@ -63,7 +63,7 @@
          if ( SING && K.GT.0 ) {
             if (INCR) INCR = INCR && ZERO.LE.D( 1 )             IF( DECR ) DECR = DECR && D( K ).GE.ZERO;
          }
-         IF( .NOT.( INCR .OR. DECR ) ) INFO = -4
+         IF( .NOT.( INCR || DECR ) ) INFO = -4
       }
       if ( INFO != 0 ) {
          xerbla('SDISNA', -INFO );
@@ -89,7 +89,7 @@
          SEP( K ) = OLDGAP
       }
       if ( SING ) {
-         if ( ( LEFT && M.GT.N ) .OR. ( RIGHT && M.LT.N ) ) {
+         if ( ( LEFT && M.GT.N ) || ( RIGHT && M.LT.N ) ) {
             if (INCR) SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) )             IF( DECR ) SEP( K ) = MIN( SEP( K ), D( K ) );
          }
       }

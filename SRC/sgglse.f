@@ -43,7 +43,7 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( P.LT.0 .OR. P.GT.N .OR. P.LT.N-M ) {
+      } else if ( P.LT.0 || P.GT.N || P.LT.N-M ) {
          INFO = -3
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5

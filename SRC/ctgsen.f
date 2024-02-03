@@ -49,9 +49,9 @@
       // Decode and test the input parameters
 
       INFO = 0
-      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
+      LQUERY = ( LWORK == -1 || LIWORK == -1 )
 
-      if ( IJOB.LT.0 .OR. IJOB.GT.5 ) {
+      if ( IJOB.LT.0 || IJOB.GT.5 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -5
@@ -59,9 +59,9 @@
          INFO = -7
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      } else if ( LDQ.LT.1 .OR. ( WANTQ && LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 || ( WANTQ && LDQ.LT.N ) ) {
          INFO = -13
-      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
          INFO = -15
       }
 
@@ -72,16 +72,16 @@
 
       IERR = 0
 
-      WANTP = IJOB == 1 .OR. IJOB.GE.4
-      WANTD1 = IJOB == 2 .OR. IJOB == 4
-      WANTD2 = IJOB == 3 .OR. IJOB == 5
-      WANTD = WANTD1 .OR. WANTD2
+      WANTP = IJOB == 1 || IJOB.GE.4
+      WANTD1 = IJOB == 2 || IJOB == 4
+      WANTD2 = IJOB == 3 || IJOB == 5
+      WANTD = WANTD1 || WANTD2
 
       // Set M to the dimension of the specified pair of deflating
       // subspaces.
 
       M = 0
-      if ( .NOT.LQUERY .OR. IJOB != 0 ) {
+      if ( .NOT.LQUERY || IJOB != 0 ) {
       for (K = 1; K <= N; K++) { // 10
          ALPHA( K ) = A( K, K )
          BETA( K ) = B( K, K )
@@ -93,10 +93,10 @@
       } // 10
       }
 
-      if ( IJOB == 1 .OR. IJOB == 2 .OR. IJOB == 4 ) {
+      if ( IJOB == 1 || IJOB == 2 || IJOB == 4 ) {
          LWMIN = MAX( 1, 2*M*(N-M) )
          LIWMIN = MAX( 1, N+2 )
-      } else if ( IJOB == 3 .OR. IJOB == 5 ) {
+      } else if ( IJOB == 3 || IJOB == 5 ) {
          LWMIN = MAX( 1, 4*M*(N-M) )
          LIWMIN = MAX( 1, 2*M*(N-M), N+2 )
       } else {
@@ -122,7 +122,7 @@
 
       // Quick return if possible.
 
-      if ( M == N .OR. M == 0 ) {
+      if ( M == N || M == 0 ) {
          if ( WANTP ) {
             PL = ONE
             PR = ONE

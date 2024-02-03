@@ -74,7 +74,7 @@
          IJOBVR = -1
          ILVR = false;
       }
-      ILV = ILVL .OR. ILVR
+      ILV = ILVL || ILVR
 
       // Test the input arguments
 
@@ -93,9 +93,9 @@
          INFO = -5
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVL.LT.1 .OR. ( ILVL && LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 || ( ILVL && LDVL.LT.N ) ) {
          INFO = -11
-      } else if ( LDVR.LT.1 .OR. ( ILVR && LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 || ( ILVR && LDVR.LT.N ) ) {
          INFO = -13
       } else if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
          INFO = -15

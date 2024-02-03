@@ -191,7 +191,7 @@
                         // with FACT = 'F').
 
                         scopy(NPP, ASAV, 1, AFAC, 1 );
-                        if ( EQUIL .OR. IEQUED.GT.1 ) {
+                        if ( EQUIL || IEQUED.GT.1 ) {
 
                            // Compute row and column scale factors to
                            // equilibrate the matrix A.
@@ -227,7 +227,7 @@
                         // Compute the 1-norm condition number of A.
 
                         AINVNM = SLANSP( '1', UPLO, N, A, RWORK )
-                        if ( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) {
+                        if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
                            RCONDC = ONE
                         } else {
                            RCONDC = ( ONE / ANORM ) / AINVNM
@@ -339,7 +339,7 @@
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        IF( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                            sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            sget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );

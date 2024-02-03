@@ -84,13 +84,13 @@
          INFO = -3
       } else if ( THRESH.LT.ZERO ) {
          INFO = -6
-      } else if ( LDA.LT.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LT.1 || LDA.LT.NMAX ) {
          INFO = -10
-      } else if ( LDVL.LT.1 .OR. LDVL.LT.NMAX ) {
+      } else if ( LDVL.LT.1 || LDVL.LT.NMAX ) {
          INFO = -17
-      } else if ( LDVR.LT.1 .OR. LDVR.LT.NMAX ) {
+      } else if ( LDVR.LT.1 || LDVR.LT.NMAX ) {
          INFO = -19
-      } else if ( LDLRE.LT.1 .OR. LDLRE.LT.NMAX ) {
+      } else if ( LDLRE.LT.1 || LDLRE.LT.NMAX ) {
          INFO = -21
       } else if ( 6*NMAX+2*NMAX**2.GT.NWORK ) {
          INFO = -32
@@ -103,7 +103,7 @@
 
       // If nothing to do check on NIUNIT
 
-      if (NSIZES == 0 .OR. NTYPES == 0) GO TO 160;
+      if (NSIZES == 0 || NTYPES == 0) GO TO 160;
 
       // More Important constants
 

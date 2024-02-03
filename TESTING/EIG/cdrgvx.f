@@ -54,7 +54,7 @@
          INFO = -3
       } else if ( NOUT.LE.0 ) {
          INFO = -4
-      } else if ( LDA.LT.1 .OR. LDA.LT.NMAX ) {
+      } else if ( LDA.LT.1 || LDA.LT.NMAX ) {
          INFO = -6
       } else if ( LIWORK.LT.NMAX+2 ) {
          INFO = -26
@@ -178,7 +178,7 @@
                      // Print out tests which fail.
 
                      for (J = 1; J <= 4; J++) { // 20
-                        if ( ( RESULT( J ).GE.THRSH2 && J.GE.4 ) .OR. ( RESULT( J ).GE.THRESH && J.LE.3 ) ) {
+                        if ( ( RESULT( J ).GE.THRSH2 && J.GE.4 ) || ( RESULT( J ).GE.THRESH && J.LE.3 ) ) {
 
                         // If this is the first test to fail,
                         // print a header to the data file.

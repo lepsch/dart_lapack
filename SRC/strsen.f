@@ -45,8 +45,8 @@
       // Decode and test the input parameters
 
       WANTBH = LSAME( JOB, 'B' )
-      WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
-      WANTSP = LSAME( JOB, 'V' ) .OR. WANTBH
+      WANTS = LSAME( JOB, 'E' ) || WANTBH
+      WANTSP = LSAME( JOB, 'V' ) || WANTBH
       WANTQ = LSAME( COMPQ, 'V' )
 
       INFO = 0
@@ -59,7 +59,7 @@
          INFO = -4
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDQ.LT.1 .OR. ( WANTQ && LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 || ( WANTQ && LDQ.LT.N ) ) {
          INFO = -8
       } else {
 
@@ -77,7 +77,7 @@
                      IF( SELECT( K ) ) M = M + 1
                   } else {
                      PAIR = true;
-                     IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
+                     IF( SELECT( K ) || SELECT( K+1 ) ) M = M + 2
                   }
                } else {
                   IF( SELECT( N ) ) M = M + 1
@@ -121,7 +121,7 @@
 
       // Quick return if possible.
 
-      if ( M == N .OR. M == 0 ) {
+      if ( M == N || M == 0 ) {
          if (WANTS) S = ONE          IF( WANTSP ) SEP = SLANGE( '1', N, N, T, LDT, WORK );
          GO TO 40
       }
@@ -138,7 +138,7 @@
             if ( K.LT.N ) {
                if ( T( K+1, K ) != ZERO ) {
                   PAIR = true;
-                  SWAP = SWAP .OR. SELECT( K+1 )
+                  SWAP = SWAP || SELECT( K+1 )
                }
             }
             if ( SWAP ) {
@@ -149,7 +149,7 @@
                IERR = 0
                KK = K
                if (K != KS) CALL STREXC( COMPQ, N, T, LDT, Q, LDQ, KK, KS, WORK, IERR );
-               if ( IERR == 1 .OR. IERR == 2 ) {
+               if ( IERR == 1 || IERR == 2 ) {
 
                   // Blocks too close to swap: exit.
 

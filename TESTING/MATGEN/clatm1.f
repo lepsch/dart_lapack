@@ -47,13 +47,13 @@
 
       // Set INFO if an error
 
-      if ( MODE.LT.-6 .OR. MODE.GT.6 ) {
+      if ( MODE.LT.-6 || MODE.GT.6 ) {
          INFO = -1
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && ( IRSIGN != 0 && IRSIGN != 1 ) ) {
          INFO = -2
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && COND.LT.ONE ) {
          INFO = -3
-      } else if ( ( MODE == 6 .OR. MODE == -6 ) && ( IDIST.LT.1 .OR. IDIST.GT.4 ) ) {
+      } else if ( ( MODE == 6 || MODE == -6 ) && ( IDIST.LT.1 || IDIST.GT.4 ) ) {
          INFO = -4
       } else if ( N.LT.0 ) {
          INFO = -7

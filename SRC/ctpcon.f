@@ -54,7 +54,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      ONENRM = NORM == '1' .OR. LSAME( NORM, 'O' )
+      ONENRM = NORM == '1' || LSAME( NORM, 'O' )
       NOUNIT = LSAME( DIAG, 'N' )
 
       if ( .NOT.ONENRM && .NOT.LSAME( NORM, 'I' ) ) {
@@ -120,7 +120,7 @@
             if ( SCALE != ONE ) {
                IX = ICAMAX( N, WORK, 1 )
                XNORM = CABS1( WORK( IX ) )
-               if (SCALE.LT.XNORM*SMLNUM .OR. SCALE == ZERO) GO TO 20;
+               if (SCALE.LT.XNORM*SMLNUM || SCALE == ZERO) GO TO 20;
                csrscl(N, SCALE, WORK, 1 );
             }
             GO TO 10

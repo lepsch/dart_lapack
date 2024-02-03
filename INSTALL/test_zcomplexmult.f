@@ -55,12 +55,12 @@ void main() {
               WRITE( *, FMT = 9998 ) 'ib',i, cone, Y, R, 'the input and NaN'
           }
           R = Y * Y
-          if ( (i == 1) .or. (i == 2) ) {
+          if ( (i == 1) || (i == 2) ) {
               if ( (R != cInf(1)) && (R == R) ) {
                   nFailingTests = nFailingTests + 1
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, 'Inf and NaN'
               }
-          } else if ( (i == 3) .or. (i == 4) ) {
+          } else if ( (i == 3) || (i == 4) ) {
               if ( (R != cInf(2)) && (R == R) ) {
                   nFailingTests = nFailingTests + 1
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, '-Inf and NaN'

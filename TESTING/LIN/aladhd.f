@@ -27,9 +27,9 @@
       C1 = PATH( 1: 1 )
       C3 = PATH( 3: 3 )
       P2 = PATH( 2: 3 )
-      SORD = LSAME( C1, 'S' ) .OR. LSAME( C1, 'D' )
-      CORZ = LSAME( C1, 'C' ) .OR. LSAME( C1, 'Z' )
-      IF( .NOT.( SORD .OR. CORZ ) ) RETURN
+      SORD = LSAME( C1, 'S' ) || LSAME( C1, 'D' )
+      CORZ = LSAME( C1, 'C' ) || LSAME( C1, 'Z' )
+      IF( .NOT.( SORD || CORZ ) ) RETURN
 
       if ( LSAMEN( 2, P2, 'GE' ) ) {
 
@@ -80,7 +80,7 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      } else if ( LSAMEN( 2, P2, 'PO' ) .OR. LSAMEN( 2, P2, 'PP' ) .OR. LSAMEN( 2, P2, 'PS' ) ) {
+      } else if ( LSAMEN( 2, P2, 'PO' ) || LSAMEN( 2, P2, 'PP' ) || LSAMEN( 2, P2, 'PS' ) ) {
 
          // PO: Positive definite full
          // PS: Positive definite full
@@ -146,7 +146,7 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      } else if ( LSAMEN( 2, P2, 'SY' ) .OR. LSAMEN( 2, P2, 'SP' ) ) {
+      } else if ( LSAMEN( 2, P2, 'SY' ) || LSAMEN( 2, P2, 'SP' ) ) {
 
          // SY: Symmetric indefinite full
              // with partial (Bunch-Kaufman) pivoting algorithm
@@ -173,7 +173,7 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      } else if ( LSAMEN( 2, P2, 'SR' ) .OR. LSAMEN( 2, P2, 'SK') ) {
+      } else if ( LSAMEN( 2, P2, 'SR' ) || LSAMEN( 2, P2, 'SK') ) {
 
          // SR: Symmetric indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm
@@ -217,7 +217,7 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-       } else if ( LSAMEN( 2, P2, 'HE' ) .OR. LSAMEN( 2, P2, 'HP' ) ) {
+       } else if ( LSAMEN( 2, P2, 'HE' ) || LSAMEN( 2, P2, 'HP' ) ) {
 
          // HE: Hermitian indefinite full
              // with partial (Bunch-Kaufman) pivoting algorithm
@@ -242,7 +242,7 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      } else if ( LSAMEN( 2, P2, 'HR' ) .OR. LSAMEN( 2, P2, 'HK' ) ) {
+      } else if ( LSAMEN( 2, P2, 'HR' ) || LSAMEN( 2, P2, 'HK' ) ) {
 
          // HR: Hermitian indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm

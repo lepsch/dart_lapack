@@ -40,7 +40,7 @@
 
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
+      LQUERY = ( LWORK == -1 || LIWORK == -1 )
 
       INFO = 0
       if ( N.LE.1 ) {
@@ -55,11 +55,11 @@
       }
       LOPT = LWMIN
       LIOPT = LIWMIN
-      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
+      if ( ITYPE.LT.1 || ITYPE.GT.3 ) {
          INFO = -1
-      } else if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
+      } else if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) {
+      } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
@@ -110,7 +110,7 @@
 
          // Backtransform eigenvectors to the original problem.
 
-         if ( ITYPE == 1 .OR. ITYPE == 2 ) {
+         if ( ITYPE == 1 || ITYPE == 2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
             // backtransform eigenvectors: x = inv(L)**T*y or inv(U)*y

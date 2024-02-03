@@ -48,8 +48,8 @@
       // Decode and test the input parameters
 
       WANTBH = LSAME( JOB, 'B' )
-      WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
-      WANTDF = LSAME( JOB, 'V' ) .OR. WANTBH
+      WANTS = LSAME( JOB, 'E' ) || WANTBH
+      WANTDF = LSAME( JOB, 'V' ) || WANTBH
 
       SOMCON = LSAME( HOWMNY, 'S' )
 
@@ -86,7 +86,7 @@
 
          if ( N == 0 ) {
             LWMIN = 1
-         } else if ( LSAME( JOB, 'V' ) .OR. LSAME( JOB, 'B' ) ) {
+         } else if ( LSAME( JOB, 'V' ) || LSAME( JOB, 'B' ) ) {
             LWMIN = 2*N*N
          } else {
             LWMIN = N

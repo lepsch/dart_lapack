@@ -479,7 +479,7 @@
 
       // Test error exits for the DGS, DGV, DGX, and DXV paths.
 
-      } else if ( LSAMEN( 3, PATH, 'DGS' ) .OR. LSAMEN( 3, PATH, 'DGV' ) .OR. LSAMEN( 3, PATH, 'DGX' ) .OR. LSAMEN( 3, PATH, 'DXV' ) ) {
+      } else if ( LSAMEN( 3, PATH, 'DGS' ) || LSAMEN( 3, PATH, 'DGV' ) || LSAMEN( 3, PATH, 'DGX' ) || LSAMEN( 3, PATH, 'DXV' ) ) {
 
          // DGGES
 

@@ -39,7 +39,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
+      if ( ITYPE.LT.1 || ITYPE.GT.3 ) {
          INFO = -1
       } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
@@ -63,7 +63,7 @@
 
       NB = ILAENV( 1, 'DSYGST', UPLO, N, -1, -1, -1 )
 
-      if ( NB.LE.1 .OR. NB.GE.N ) {
+      if ( NB.LE.1 || NB.GE.N ) {
 
          // Use unblocked code
 

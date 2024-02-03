@@ -36,7 +36,7 @@
       INFO   = 0
       WANTQ  = LSAME( VECT, 'V' )
       UPPER  = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 ) .OR. ( LHOUS2 == -1 )
+      LQUERY = ( LWORK == -1 ) || ( LHOUS2 == -1 )
 
       // Determine the block size, the workspace size and the hous size.
 

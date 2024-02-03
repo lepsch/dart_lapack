@@ -98,7 +98,7 @@
             IGNORE_CWISE = PARAMS( LA_LINRX_CWISE_I ) == 0.0D+0
          }
       }
-      if ( REF_TYPE == 0 .OR. N_ERR_BNDS == 0 ) {
+      if ( REF_TYPE == 0 || N_ERR_BNDS == 0 ) {
          N_NORMS = 0
       } else if ( IGNORE_CWISE ) {
          N_NORMS = 1
@@ -134,7 +134,7 @@
 
       // Quick return if possible.
 
-      if ( N == 0 .OR. NRHS == 0 ) {
+      if ( N == 0 || NRHS == 0 ) {
          RCOND = 1.0D+0
          for (J = 1; J <= NRHS; J++) {
             BERR( J ) = 0.0D+0

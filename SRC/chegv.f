@@ -45,11 +45,11 @@
       LQUERY = ( LWORK == -1 )
 
       INFO = 0
-      if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
+      if ( ITYPE.LT.1 || ITYPE.GT.3 ) {
          INFO = -1
-      } else if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
+      } else if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( UPPER .OR. LSAME( UPLO, 'L' ) ) ) {
+      } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
@@ -99,7 +99,7 @@
 
          NEIG = N
          if (INFO.GT.0) NEIG = INFO - 1;
-         if ( ITYPE == 1 .OR. ITYPE == 2 ) {
+         if ( ITYPE == 1 || ITYPE == 2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
             // backtransform eigenvectors: x = inv(L)**H*y or inv(U)*y

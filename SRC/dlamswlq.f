@@ -58,7 +58,7 @@
         INFO = -3
       } else if ( N.LT.0 ) {
         INFO = -4
-      } else if ( K.LT.MB .OR. MB.LT.1 ) {
+      } else if ( K.LT.MB || MB.LT.1 ) {
         INFO = -6
       } else if ( LDA.LT.MAX( 1, K ) ) {
         INFO = -9
@@ -86,7 +86,7 @@
         RETURN
       }
 
-      if ((NB.LE.K).OR.(NB.GE.MAX(M,N,K))) {
+      if ((NB.LE.K) || (NB.GE.MAX(M,N,K))) {
         dgemlqt(SIDE, TRANS, M, N, K, MB, A, LDA, T, LDT, C, LDC, WORK, INFO);
         RETURN
       }

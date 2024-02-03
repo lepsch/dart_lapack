@@ -93,15 +93,15 @@
          INFO = -4
       } else if ( ILO.LT.1 ) {
          INFO = -5
-      } else if ( IHI.GT.N .OR. IHI.LT.ILO-1 ) {
+      } else if ( IHI.GT.N || IHI.LT.ILO-1 ) {
          INFO = -6
       } else if ( LDH.LT.N ) {
          INFO = -8
       } else if ( LDT.LT.N ) {
          INFO = -10
-      } else if ( LDQ.LT.1 .OR. ( ILQ && LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 || ( ILQ && LDQ.LT.N ) ) {
          INFO = -15
-      } else if ( LDZ.LT.1 .OR. ( ILZ && LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 || ( ILZ && LDZ.LT.N ) ) {
          INFO = -17
       } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -19
@@ -259,7 +259,7 @@
                // diagonal element of the remainder can also be zero, so
                // this may have to be done repeatedly.
 
-               if ( ILAZRO .OR. ILAZR2 ) {
+               if ( ILAZRO || ILAZR2 ) {
                   for (JCH = J; JCH <= ILAST - 1; JCH++) { // 40
                      TEMP = H( JCH, JCH )
                      slartg(TEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) );

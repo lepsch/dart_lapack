@@ -57,7 +57,7 @@
 
       NB = ILAENV( 1, 'DLAORHR_COL_GETRFNP', ' ', M, N, -1, -1 )
 
-      if ( NB.LE.1 .OR. NB.GE.MIN( M, N ) ) {
+      if ( NB.LE.1 || NB.GE.MIN( M, N ) ) {
 
          // Use unblocked code.
 

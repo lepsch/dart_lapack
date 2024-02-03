@@ -75,7 +75,7 @@
         INFO = -3
       } else if ( N.LT.0 ) {
         INFO = -4
-      } else if ( K.LT.0 .OR. K.GT.MN ) {
+      } else if ( K.LT.0 || K.GT.MN ) {
         INFO = -5
       } else if ( LDA.LT.MAX( 1, MN ) ) {
         INFO = -7
@@ -104,7 +104,7 @@
         RETURN
       }
 
-      IF( ( LEFT && M.LE.K ) .OR. ( RIGHT && N.LE.K ) .OR. ( MB.LE.K ) .OR. ( MB.GE.MAX( M, N, K ) ) ) THEN         CALL ZGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, INFO )
+      IF( ( LEFT && M.LE.K ) || ( RIGHT && N.LE.K ) || ( MB.LE.K ) || ( MB.GE.MAX( M, N, K ) ) ) THEN         CALL ZGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, INFO )
       } else {
         zlamtsqr(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, LWORK, INFO );
       }

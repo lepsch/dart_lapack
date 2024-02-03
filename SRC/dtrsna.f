@@ -45,8 +45,8 @@
       // Decode and test the input parameters
 
       WANTBH = LSAME( JOB, 'B' )
-      WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
-      WANTSP = LSAME( JOB, 'V' ) .OR. WANTBH
+      WANTS = LSAME( JOB, 'E' ) || WANTBH
+      WANTSP = LSAME( JOB, 'V' ) || WANTBH
 
       SOMCON = LSAME( HOWMNY, 'S' )
 
@@ -59,9 +59,9 @@
          INFO = -4
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVL.LT.1 .OR. ( WANTS && LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 || ( WANTS && LDVL.LT.N ) ) {
          INFO = -8
-      } else if ( LDVR.LT.1 .OR. ( WANTS && LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 || ( WANTS && LDVR.LT.N ) ) {
          INFO = -10
       } else {
 
@@ -80,7 +80,7 @@
                         IF( SELECT( K ) ) M = M + 1
                      } else {
                         PAIR = true;
-                        IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
+                        IF( SELECT( K ) || SELECT( K+1 ) ) M = M + 2
                      }
                   } else {
                      IF( SELECT( N ) ) M = M + 1
@@ -93,7 +93,7 @@
 
          if ( MM.LT.M ) {
             INFO = -13
-         } else if ( LDWORK.LT.1 .OR. ( WANTSP && LDWORK.LT.N ) ) {
+         } else if ( LDWORK.LT.1 || ( WANTSP && LDWORK.LT.N ) ) {
             INFO = -16
          }
       }
@@ -186,7 +186,7 @@
             ILST = 1
             dtrexc('No Q', N, WORK, LDWORK, DUMMY, 1, IFST, ILST, WORK( 1, N+1 ), IERR );
 
-            if ( IERR == 1 .OR. IERR == 2 ) {
+            if ( IERR == 1 || IERR == 2 ) {
 
                // Could not swap because blocks not well separated
 

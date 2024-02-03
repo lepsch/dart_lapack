@@ -85,7 +85,7 @@
       // ==== Use accumulated reflections to update far-from-diagonal
       // .    entries ? ====
 
-      ACCUM = ( KACC22 == 1 ) .OR. ( KACC22 == 2 )
+      ACCUM = ( KACC22 == 1 ) || ( KACC22 == 2 )
 
       // ==== clear trash ====
 
@@ -212,7 +212,7 @@
                         SCL = H11 + H12
                         TST2 = H22*( H11 / SCL )
 
-                        if ( TST2 == ZERO .OR. H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) ) {
+                        if ( TST2 == ZERO || H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) ) {
                            H( K+1, K ) = ZERO
                         }
                      }
@@ -276,7 +276,7 @@
                   // .    underflow case, try the two-small-subdiagonals
                   // .    trick to try to reinflate the bulge.  ====
 
-                  if ( H( K+3, K ) != ZERO .OR. H( K+3, K+1 ) != ZERO .OR. H( K+3, K+2 ) == ZERO ) {
+                  if ( H( K+3, K ) != ZERO || H( K+3, K+1 ) != ZERO || H( K+3, K+2 ) == ZERO ) {
 
                      // ==== Typical case: not collapsed (yet). ====
 
@@ -371,7 +371,7 @@
                      SCL = H11 + H12
                      TST2 = H22*( H11 / SCL )
 
-                     if ( TST2 == ZERO .OR. H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) ) {
+                     if ( TST2 == ZERO || H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) ) {
                         H( K+1, K ) = ZERO
                      }
                   }

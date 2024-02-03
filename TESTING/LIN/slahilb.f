@@ -33,7 +33,7 @@
       // Test the input arguments
 
       INFO = 0
-      if (N .LT. 0 .OR. N .GT. NMAX_APPROX) {
+      if (N .LT. 0 || N .GT. NMAX_APPROX) {
          INFO = -1
       } else if (NRHS .LT. 0) {
          INFO = -2

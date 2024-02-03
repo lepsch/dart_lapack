@@ -64,9 +64,9 @@
          RETURN
       }
 
-      // Quick return when ( (N == 0).OR.(M == 0) )
+      // Quick return when ( (N == 0) || (M == 0) )
 
-      IF( ( M == 0 ) .OR. ( N == 0 ) ) RETURN
+      IF( ( M == 0 ) || ( N == 0 ) ) RETURN
 
       // Quick return when ALPHA == (0D+0,0D+0)
 

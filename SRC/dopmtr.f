@@ -69,13 +69,13 @@
 
       // Quick return if possible
 
-      if (M == 0 .OR. N == 0) RETURN;
+      if (M == 0 || N == 0) RETURN;
 
       if ( UPPER ) {
 
          // Q was determined by a call to DSPTRD with UPLO = 'U'
 
-         FORWRD = ( LEFT && NOTRAN ) .OR. ( .NOT.LEFT && .NOT.NOTRAN )
+         FORWRD = ( LEFT && NOTRAN ) || ( .NOT.LEFT && .NOT.NOTRAN )
 
          if ( FORWRD ) {
             I1 = 1
@@ -125,7 +125,7 @@
 
          // Q was determined by a call to DSPTRD with UPLO = 'L'.
 
-         FORWRD = ( LEFT && .NOT.NOTRAN ) .OR. ( .NOT.LEFT && NOTRAN )
+         FORWRD = ( LEFT && .NOT.NOTRAN ) || ( .NOT.LEFT && NOTRAN )
 
          if ( FORWRD ) {
             I1 = 1
