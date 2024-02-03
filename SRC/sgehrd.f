@@ -76,7 +76,7 @@
 
       // Set elements 1:ILO-1 and IHI:N-1 of TAU to zero
 
-      DO 10 I = 1, ILO - 1
+      for (I = 1; I <= ILO - 1; I++) { // 10
          TAU( I ) = ZERO
       } // 10
       DO 20 I = MAX( 1, IHI ), N - 1
@@ -154,7 +154,7 @@
             // right
 
             strmm('Right', 'Lower', 'Transpose', 'Unit', I, IB-1, ONE, A( I+1, I ), LDA, WORK, LDWORK );
-            DO 30 J = 0, IB-2
+            for (J = 0; J <= IB-2; J++) { // 30
                saxpy(I, -ONE, WORK( LDWORK*J+1 ), 1, A( 1, I+J+1 ), 1 );
             } // 30
 

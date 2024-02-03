@@ -59,7 +59,7 @@
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
                } else {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) + DU( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) + DL( N-1 )*X( N-1, J ) + D( N )*X( N, J )
-                  DO 50 I = 2, N - 1
+                  for (I = 2; I <= N - 1; I++) { // 50
                      B( I, J ) = B( I, J ) + DL( I-1 )*X( I-1, J ) + D( I )*X( I, J ) + DU( I )*X( I+1, J )
                   } // 50
                }
@@ -73,7 +73,7 @@
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
                } else {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) + DL( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) + DU( N-1 )*X( N-1, J ) + D( N )*X( N, J )
-                  DO 70 I = 2, N - 1
+                  for (I = 2; I <= N - 1; I++) { // 70
                      B( I, J ) = B( I, J ) + DU( I-1 )*X( I-1, J ) + D( I )*X( I, J ) + DL( I )*X( I+1, J )
                   } // 70
                }
@@ -87,7 +87,7 @@
                   B( 1, J ) = B( 1, J ) + CONJG( D( 1 ) )*X( 1, J )
                } else {
                   B( 1, J ) = B( 1, J ) + CONJG( D( 1 ) )*X( 1, J ) + CONJG( DL( 1 ) )*X( 2, J )                   B( N, J ) = B( N, J ) + CONJG( DU( N-1 ) )* X( N-1, J ) + CONJG( D( N ) )*X( N, J )
-                  DO 90 I = 2, N - 1
+                  for (I = 2; I <= N - 1; I++) { // 90
                      B( I, J ) = B( I, J ) + CONJG( DU( I-1 ) )* X( I-1, J ) + CONJG( D( I ) )* X( I, J ) + CONJG( DL( I ) )* X( I+1, J )
                   } // 90
                }
@@ -103,7 +103,7 @@
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
                } else {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) - DU( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) - DL( N-1 )*X( N-1, J ) - D( N )*X( N, J )
-                  DO 110 I = 2, N - 1
+                  for (I = 2; I <= N - 1; I++) { // 110
                      B( I, J ) = B( I, J ) - DL( I-1 )*X( I-1, J ) - D( I )*X( I, J ) - DU( I )*X( I+1, J )
                   } // 110
                }
@@ -117,7 +117,7 @@
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
                } else {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) - DL( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) - DU( N-1 )*X( N-1, J ) - D( N )*X( N, J )
-                  DO 130 I = 2, N - 1
+                  for (I = 2; I <= N - 1; I++) { // 130
                      B( I, J ) = B( I, J ) - DU( I-1 )*X( I-1, J ) - D( I )*X( I, J ) - DL( I )*X( I+1, J )
                   } // 130
                }
@@ -131,7 +131,7 @@
                   B( 1, J ) = B( 1, J ) - CONJG( D( 1 ) )*X( 1, J )
                } else {
                   B( 1, J ) = B( 1, J ) - CONJG( D( 1 ) )*X( 1, J ) - CONJG( DL( 1 ) )*X( 2, J )                   B( N, J ) = B( N, J ) - CONJG( DU( N-1 ) )* X( N-1, J ) - CONJG( D( N ) )*X( N, J )
-                  DO 150 I = 2, N - 1
+                  for (I = 2; I <= N - 1; I++) { // 150
                      B( I, J ) = B( I, J ) - CONJG( DU( I-1 ) )* X( I-1, J ) - CONJG( D( I ) )* X( I, J ) - CONJG( DL( I ) )* X( I+1, J )
                   } // 150
                }

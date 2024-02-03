@@ -89,7 +89,7 @@
          } // 10
 
          PSI = ZERO
-         DO 20 J = 1, N - 2
+         for (J = 1; J <= N - 2; J++) { // 20
             PSI = PSI + Z( J )*Z( J ) / ( DELTA( J )*WORK( J ) )
          } // 20
 
@@ -335,7 +335,7 @@
          } // 100
 
          PSI = ZERO
-         DO 110 J = 1, I - 1
+         for (J = 1; J <= I - 1; J++) { // 110
             PSI = PSI + Z( J )*Z( J ) / ( WORK( J )*DELTA( J ) )
          } // 110
 

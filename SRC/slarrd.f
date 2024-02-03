@@ -341,7 +341,7 @@
                } else {
                   IB = JBLK
                }
-               DO 50 JE = IWORK( J ) + 1 + IWOFF, IWORK( J+IN ) + IWOFF
+               for (JE = IWORK( J ) + 1 + IWOFF; JE <= IWORK( J+IN ) + IWOFF; JE++) { // 50
                   W( JE ) = TMP1
                   WERR( JE ) = TMP2
                   INDEXW( JE ) = JE - IWOFF
@@ -462,10 +462,10 @@
       // If ORDER='E', sort the eigenvalues from smallest to largest
 
       if ( LSAME(ORDER,'E') .AND. NSPLIT.GT.1 ) {
-         DO 150 JE = 1, M - 1
+         for (JE = 1; JE <= M - 1; JE++) { // 150
             IE = 0
             TMP1 = W( JE )
-            DO 140 J = JE + 1, M
+            for (J = JE + 1; J <= M; J++) { // 140
                if ( W( J ).LT.TMP1 ) {
                   IE = J
                   TMP1 = W( J )

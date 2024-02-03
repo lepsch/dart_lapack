@@ -54,7 +54,7 @@
          // Solve for L-part choosing RHS either to +1 or -1.
 
          PMONE = -CONE
-         DO 10 J = 1, N - 1
+         for (J = 1; J <= N - 1; J++) { // 10
             BP = RHS( J ) + CONE
             BM = RHS( J ) - CONE
             SPLUS = ONE
@@ -101,7 +101,7 @@
             TEMP = CONE / Z( I, I )
             WORK( I ) = WORK( I )*TEMP
             RHS( I ) = RHS( I )*TEMP
-            DO 20 K = I + 1, N
+            for (K = I + 1; K <= N; K++) { // 20
                WORK( I ) = WORK( I ) - WORK( K )*( Z( I, K )*TEMP )
                RHS( I ) = RHS( I ) - RHS( K )*( Z( I, K )*TEMP )
             } // 20

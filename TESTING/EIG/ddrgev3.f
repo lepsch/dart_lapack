@@ -205,7 +205,7 @@
                   // Generate Q, Z as Householder transformations times
                   // a diagonal matrix.
 
-                  DO 40 JC = 1, N - 1
+                  for (JC = 1; JC <= N - 1; JC++) { // 40
                      for (JR = JC; JR <= N; JR++) { // 30
                         Q( JR, JC ) = DLARND( 3, ISEED )
                         Z( JR, JC ) = DLARND( 3, ISEED )
@@ -250,7 +250,7 @@
                   DO 71 JR = 1, min( JC + 1, N)
                      A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )
                   } // 71
-                  DO 72 JR = JC + 2, N
+                  for (JR = JC + 2; JR <= N; JR++) { // 72
                      A( JR, JC ) = ZERO
                   } // 72
                } // 81
@@ -258,7 +258,7 @@
                   for (JR = 1; JR <= JC; JR++) { // 73
                      B( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )
                   } // 73
-                  DO 74 JR = JC + 1, N
+                  for (JR = JC + 1; JR <= N; JR++) { // 74
                      B( JR, JC ) = ZERO
                   } // 74
                } // 82

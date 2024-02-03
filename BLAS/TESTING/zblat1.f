@@ -585,7 +585,7 @@
             if (ABS(V1).GT.ONE) {
                V1 = (V1*HALF) / SQRT(DBLE(KS+1))
             }
-            DO I = 1, N-1
+            for (I = 1; I <= N-1; I++) {
                Z(I+1) = DCMPLX(V1*WORK(2*I-1),V1*WORK(2*I))
             END DO
 

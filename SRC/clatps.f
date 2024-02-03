@@ -101,7 +101,7 @@
             // A is lower triangular.
 
             IP = 1
-            DO 20 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 20
                CNORM( J ) = SCASUM( N-J, AP( IP+1 ), 1 )
                IP = IP + N - J + 1
             } // 20
@@ -491,11 +491,11 @@
                   // Otherwise, use in-line code for the dot product.
 
                   if ( UPPER ) {
-                     DO 120 I = 1, J - 1
+                     for (I = 1; I <= J - 1; I++) { // 120
                         CSUMJ = CSUMJ + ( AP( IP-J+I )*USCAL )*X( I )
                      } // 120
                   } else if ( J.LT.N ) {
-                     DO 130 I = 1, N - J
+                     for (I = 1; I <= N - J; I++) { // 130
                         CSUMJ = CSUMJ + ( AP( IP+I )*USCAL )*X( J+I )
                      } // 130
                   }
@@ -628,11 +628,11 @@
                   // Otherwise, use in-line code for the dot product.
 
                   if ( UPPER ) {
-                     DO 160 I = 1, J - 1
+                     for (I = 1; I <= J - 1; I++) { // 160
                         CSUMJ = CSUMJ + ( CONJG( AP( IP-J+I ) )*USCAL )* X( I )
                      } // 160
                   } else if ( J.LT.N ) {
-                     DO 170 I = 1, N - J
+                     for (I = 1; I <= N - J; I++) { // 170
                         CSUMJ = CSUMJ + ( CONJG( AP( IP+I ) )*USCAL )* X( J+I )
                      } // 170
                   }

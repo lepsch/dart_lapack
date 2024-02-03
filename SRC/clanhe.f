@@ -44,7 +44,7 @@
          VALUE = ZERO
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 20
-               DO 10 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 10
                   SUM = ABS( A( I, J ) )
                   IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
                } // 10
@@ -55,7 +55,7 @@
             for (J = 1; J <= N; J++) { // 40
                SUM = ABS( REAL( A( J, J ) ) )
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
-               DO 30 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 30
                   SUM = ABS( A( I, J ) )
                   IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
                } // 30
@@ -69,7 +69,7 @@
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 60
                SUM = ZERO
-               DO 50 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 50
                   ABSA = ABS( A( I, J ) )
                   SUM = SUM + ABSA
                   WORK( I ) = WORK( I ) + ABSA
@@ -86,7 +86,7 @@
             } // 80
             for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ABS( REAL( A( J, J ) ) )
-               DO 90 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 90
                   ABSA = ABS( A( I, J ) )
                   SUM = SUM + ABSA
                   WORK( I ) = WORK( I ) + ABSA
@@ -105,7 +105,7 @@
                classq(J-1, A( 1, J ), 1, SCALE, SUM );
             } // 110
          } else {
-            DO 120 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 120
                classq(N-J, A( J+1, J ), 1, SCALE, SUM );
             } // 120
          }

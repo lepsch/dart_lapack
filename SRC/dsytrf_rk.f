@@ -178,7 +178,7 @@
 
          // Adjust IPIV
 
-         DO I = K, K + KB - 1
+         for (I = K; I <= K + KB - 1; I++) {
             if ( IPIV( I ).GT.0 ) {
                IPIV( I ) = IPIV( I ) + K - 1
             } else {

@@ -305,11 +305,11 @@
          // A(I:M,K) := A(I:M,K) - A(I:M,1:K-1)*F(K,1:K-1)**H.
 
          if ( K.GT.1 ) {
-            DO J = 1, K - 1
+            for (J = 1; J <= K - 1; J++) {
                F( K, J ) = DCONJG( F( K, J ) )
             END DO
             zgemv('No transpose', M-I+1, K-1, -CONE, A( I, 1 ), LDA, F( K, 1 ), LDF, CONE, A( I, K ), 1 );
-            DO J = 1, K - 1
+            for (J = 1; J <= K - 1; J++) {
                F( K, J ) = DCONJG( F( K, J ) )
             END DO
          }
@@ -436,7 +436,7 @@
 
          if ( K.LT.MINMNFACT ) {
 
-            DO J = K + 1, N
+            for (J = K + 1; J <= N; J++) {
                if ( VN1( J ).NE.ZERO ) {
 
                   // NOTE: The following lines follow from the analysis in

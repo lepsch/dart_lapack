@@ -51,7 +51,7 @@
 
          PMONE = -ONE
 
-         DO 10 J = 1, N - 1
+         for (J = 1; J <= N - 1; J++) { // 10
             BP = RHS( J ) + ONE
             BM = RHS( J ) - ONE
             SPLUS = ONE
@@ -99,7 +99,7 @@
             TEMP = ONE / Z( I, I )
             XP( I ) = XP( I )*TEMP
             RHS( I ) = RHS( I )*TEMP
-            DO 20 K = I + 1, N
+            for (K = I + 1; K <= N; K++) { // 20
                XP( I ) = XP( I ) - XP( K )*( Z( I, K )*TEMP )
                RHS( I ) = RHS( I ) - RHS( K )*( Z( I, K )*TEMP )
             } // 20

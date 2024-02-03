@@ -100,7 +100,7 @@
          // column-by-column, total JNB*(JNB+1)/2 elements.
 
          JBTEMP1 = JB - 1
-         DO J = JB, JB+JNB-1
+         for (J = JB; J <= JB+JNB-1; J++) {
             zcopy(J-JBTEMP1, A( JB, J ), 1, T( 1, J ), 1 );
          END DO
 
@@ -115,7 +115,7 @@
          // U(JB) according to the sign of the diagonal element of the block
          // S(JB), i.e. S(J,J) that is stored in the array element D(J).
 
-         DO J = JB, JB+JNB-1
+         for (J = JB; J <= JB+JNB-1; J++) {
             if ( D( J ).EQ.CONE ) {
                zscal(J-JBTEMP1, -CONE, T( 1, J ), 1 );
             }
@@ -158,8 +158,8 @@
          // (2-3a) Set the elements to zero.
 
          JBTEMP2 = JB - 2
-         DO J = JB, JB+JNB-2
-            DO I = J-JBTEMP2, NB
+         for (J = JB; J <= JB+JNB-2; J++) {
+            for (I = J-JBTEMP2; I <= NB; I++) {
                T( I, J ) = CZERO
             END DO
          END DO

@@ -39,12 +39,12 @@
       IL = 0
       IR = 1
       LLST = 1
-      DO 20 NLVL = 1, LVL - 1
+      for (NLVL = 1; NLVL <= LVL - 1; NLVL++) { // 20
 
          // Constructing the tree at (NLVL+1)-st level. The number of
          // nodes created on this level is LLST * 2.
 
-         DO 10 I = 0, LLST - 1
+         for (I = 0; I <= LLST - 1; I++) { // 10
             IL = IL + 2
             IR = IR + 2
             NCRNT = LLST + I

@@ -121,12 +121,12 @@
          // Copy diagonal and off-diagonal elements of B back into A
 
          if ( M.GE.N ) {
-            DO 10 J = I, I + NB - 1
+            for (J = I; J <= I + NB - 1; J++) { // 10
                A( J, J ) = D( J )
                A( J, J+1 ) = E( J )
             } // 10
          } else {
-            DO 20 J = I, I + NB - 1
+            for (J = I; J <= I + NB - 1; J++) { // 20
                A( J, J ) = D( J )
                A( J+1, J ) = E( J )
             } // 20

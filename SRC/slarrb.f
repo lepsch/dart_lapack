@@ -190,7 +190,7 @@
          }
       } // 110
 
-      DO 111 I = IFIRST+1, ILAST
+      for (I = IFIRST+1; I <= ILAST; I++) { // 111
          K = 2*I
          II = I - OFFSET
          WGAP( II-1 ) = MAX( ZERO, W(II) - WERR (II) - W( II-1 ) - WERR( II-1 ))

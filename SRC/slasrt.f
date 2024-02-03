@@ -72,7 +72,7 @@
 
             // Sort into decreasing order
 
-            DO 30 I = START + 1, ENDD
+            for (I = START + 1; I <= ENDD; I++) { // 30
                DO 20 J = I, START + 1, -1
                   if ( D( J ).GT.D( J-1 ) ) {
                      DMNMX = D( J )
@@ -88,7 +88,7 @@
 
             // Sort into increasing order
 
-            DO 50 I = START + 1, ENDD
+            for (I = START + 1; I <= ENDD; I++) { // 50
                DO 40 J = I, START + 1, -1
                   if ( D( J ).LT.D( J-1 ) ) {
                      DMNMX = D( J )

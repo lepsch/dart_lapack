@@ -42,7 +42,7 @@
          // Find max(abs(A(i,j))).
 
          ANORM = ABS( D( N ) )
-         DO 10 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 10
             SUM = ABS( D( I ) )
             IF( ANORM .LT. SUM .OR. SISNAN( SUM ) ) ANORM = SUM
             SUM = ABS( E( I ) )
@@ -58,7 +58,7 @@
             ANORM = ABS( D( 1 ) )+ABS( E( 1 ) )
             SUM = ABS( E( N-1 ) )+ABS( D( N ) )
             IF( ANORM .LT. SUM .OR. SISNAN( SUM ) ) ANORM = SUM
-            DO 20 I = 2, N - 1
+            for (I = 2; I <= N - 1; I++) { // 20
                SUM = ABS( D( I ) )+ABS( E( I ) )+ABS( E( I-1 ) )
                IF( ANORM .LT. SUM .OR. SISNAN( SUM ) ) ANORM = SUM
             } // 20

@@ -128,7 +128,7 @@
 
          SCALE = ONE
          SCALOC = ONE
-         DO 120 J = P + 2, Q
+         for (J = P + 2; J <= Q; J++) { // 120
             JS = IWORK( J )
             JSP1 = JS + 1
             JE = IWORK( J+1 ) - 1
@@ -366,7 +366,7 @@
 
                   K = 1
                   II = MB*NB + 1
-                  DO 80 JJ = 0, NB - 1
+                  for (JJ = 0; JJ <= NB - 1; JJ++) { // 80
                      scopy(MB, C( IS, JS+JJ ), 1, RHS( K ), 1 );
                      scopy(MB, F( IS, JS+JJ ), 1, RHS( II ), 1 );
                      K = K + MB
@@ -394,7 +394,7 @@
 
                   K = 1
                   II = MB*NB + 1
-                  DO 100 JJ = 0, NB - 1
+                  for (JJ = 0; JJ <= NB - 1; JJ++) { // 100
                      scopy(MB, RHS( K ), 1, C( IS, JS+JJ ), 1 );
                      scopy(MB, RHS( II ), 1, F( IS, JS+JJ ), 1 );
                      K = K + MB
@@ -656,7 +656,7 @@
 
                   K = 1
                   II = MB*NB + 1
-                  DO 160 JJ = 0, NB - 1
+                  for (JJ = 0; JJ <= NB - 1; JJ++) { // 160
                      scopy(MB, C( IS, JS+JJ ), 1, RHS( K ), 1 );
                      scopy(MB, F( IS, JS+JJ ), 1, RHS( II ), 1 );
                      K = K + MB
@@ -682,7 +682,7 @@
 
                   K = 1
                   II = MB*NB + 1
-                  DO 180 JJ = 0, NB - 1
+                  for (JJ = 0; JJ <= NB - 1; JJ++) { // 180
                      scopy(MB, RHS( K ), 1, C( IS, JS+JJ ), 1 );
                      scopy(MB, RHS( II ), 1, F( IS, JS+JJ ), 1 );
                      K = K + MB

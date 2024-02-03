@@ -76,12 +76,12 @@
                J = J + 1
                WORK( J ) = A( JR, JC )
             } // 10
-            DO 20 JR = IKA + 2, N + 1 - JC
+            for (JR = IKA + 2; JR <= N + 1 - JC; JR++) { // 20
                J = J + 1
                WORK( J ) = ZERO
             } // 20
          } else {
-            DO 30 JR = IKA + 2, JC
+            for (JR = IKA + 2; JR <= JC; JR++) { // 30
                J = J + 1
                WORK( J ) = ZERO
             } // 30
@@ -97,7 +97,7 @@
       } // 60
 
       if ( N.GT.1 .AND. KS.EQ.1 ) {
-         DO 70 J = 1, N - 1
+         for (J = 1; J <= N - 1; J++) { // 70
             sspr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK );
          } // 70
       }

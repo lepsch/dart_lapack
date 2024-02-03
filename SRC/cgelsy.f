@@ -199,7 +199,7 @@
       ctrsm('Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, CONE, A, LDA, B, LDB );
 
       for (J = 1; J <= NRHS; J++) { // 40
-         DO 30 I = RANK + 1, N
+         for (I = RANK + 1; I <= N; I++) { // 30
             B( I, J ) = CZERO
          } // 30
       } // 40

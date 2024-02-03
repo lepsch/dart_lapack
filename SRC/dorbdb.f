@@ -185,7 +185,7 @@
 
          // Reduce columns Q + 1, ..., P of X12, X22
 
-         DO I = Q + 1, P
+         for (I = Q + 1; I <= P; I++) {
 
             dscal(M-Q-I+1, -Z1*Z4, X12(I,I), LDX12 );
             if ( I .GE. M-Q ) {
@@ -204,7 +204,7 @@
 
          // Reduce columns P + 1, ..., M - Q of X12, X22
 
-         DO I = 1, M - P - Q
+         for (I = 1; I <= M - P - Q; I++) {
 
             dscal(M-P-Q-I+1, Z2*Z4, X22(Q+I,P+I), LDX22 );
             if ( I .EQ. M-P-Q ) {
@@ -298,7 +298,7 @@
 
          // Reduce columns Q + 1, ..., P of X12, X22
 
-         DO I = Q + 1, P
+         for (I = Q + 1; I <= P; I++) {
 
             dscal(M-Q-I+1, -Z1*Z4, X12(I,I), 1 );
             dlarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
@@ -313,7 +313,7 @@
 
          // Reduce columns P + 1, ..., M - Q of X12, X22
 
-         DO I = 1, M - P - Q
+         for (I = 1; I <= M - P - Q; I++) {
 
             dscal(M-P-Q-I+1, Z2*Z4, X22(P+I,Q+I), 1 );
             if ( M-P-Q .EQ. I ) {

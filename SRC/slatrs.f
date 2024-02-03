@@ -91,7 +91,7 @@
 
             // A is lower triangular.
 
-            DO 20 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 20
                CNORM( J ) = SASUM( N-J, A( J+1, J ), 1 )
             } // 20
             CNORM( N ) = ZERO
@@ -131,7 +131,7 @@
 
                // A is lower triangular.
 
-               DO J = 1, N - 1
+               for (J = 1; J <= N - 1; J++) {
                   TMAX = MAX( SLANGE( 'M', N-J, 1, A( J+1, J ), 1, WORK ), TMAX )
                END DO
             }
@@ -146,11 +146,11 @@
                      // in the summation
                      CNORM( J ) = ZERO
                      if ( UPPER ) {
-                        DO I = 1, J - 1
+                        for (I = 1; I <= J - 1; I++) {
                            CNORM( J ) = CNORM( J ) + TSCAL * ABS( A( I, J ) )
                         END DO
                      } else {
-                        DO I = J + 1, N
+                        for (I = J + 1; I <= N; I++) {
                            CNORM( J ) = CNORM( J ) + TSCAL * ABS( A( I, J ) )
                         END DO
                      }
@@ -497,11 +497,11 @@
                   // Otherwise, use in-line code for the dot product.
 
                   if ( UPPER ) {
-                     DO 110 I = 1, J - 1
+                     for (I = 1; I <= J - 1; I++) { // 110
                         SUMJ = SUMJ + ( A( I, J )*USCAL )*X( I )
                      } // 110
                   } else if ( J.LT.N ) {
-                     DO 120 I = J + 1, N
+                     for (I = J + 1; I <= N; I++) { // 120
                         SUMJ = SUMJ + ( A( I, J )*USCAL )*X( I )
                      } // 120
                   }

@@ -315,7 +315,7 @@
                     RETURN
                 }
             } // 1904
-            DO 1952 p = 1, M - 1
+            for (p = 1; p <= M - 1; p++) { // 1952
             q = IDAMAX( M-p+1, RWORK(p), 1 ) + p - 1
             IWORK(N+p) = q
             if ( p .NE. q ) {
@@ -340,7 +340,7 @@
                    IWORK(p) = p
                } // 5001
                if ( ROWPRM ) {
-                   DO 5002 p = N + 1, N + M - 1
+                   for (p = N + 1; p <= N + M - 1; p++) { // 5002
                        IWORK(p) = p - N
                    } // 5002
                }
@@ -484,7 +484,7 @@
             // the upper triangle of [A] to zero.
             DO 1146 p = 1, MIN( N, NR )
                A(p,p) = CONJG(A(p,p))
-               DO 1147 q = p + 1, N
+               for (q = p + 1; q <= N; q++) { // 1147
                   A(q,p) = CONJG(A(p,q))
                   IF ( q .LE. NR ) A(p,q) = CZERO
                } // 1147
@@ -521,7 +521,7 @@
 
                for (p = 1; p <= NR; p++) { // 1119
                    U(p,p) = CONJG(U(p,p))
-                   DO 1120 q = p + 1, NR
+                   for (q = p + 1; q <= NR; q++) { // 1120
                       CTMP   = CONJG(U(q,p))
                       U(q,p) = CONJG(U(p,q))
                       U(p,q) = CTMP
@@ -577,7 +577,7 @@
 
                for (p = 1; p <= NR; p++) { // 1121
                    V(p,p) = CONJG(V(p,p))
-                   DO 1122 q = p + 1, NR
+                   for (q = p + 1; q <= NR; q++) { // 1122
                       CTMP   = CONJG(V(q,p))
                       V(q,p) = CONJG(V(p,q))
                       V(p,q) = CTMP
@@ -586,7 +586,7 @@
 
                if ( NR .LT. N ) {
                    for (p = 1; p <= NR; p++) { // 1103
-                      DO 1104 q = NR + 1, N
+                      for (q = NR + 1; q <= N; q++) { // 1104
                           V(p,q) = CONJG(V(q,p))
                       } // 1104
                    } // 1103
@@ -603,7 +603,7 @@
 
                 for (p = 1; p <= N; p++) { // 1123
                    V(p,p) = CONJG(V(p,p))
-                   DO 1124 q = p + 1, N
+                   for (q = p + 1; q <= N; q++) { // 1124
                       CTMP   = CONJG(V(q,p))
                       V(q,p) = CONJG(V(p,q))
                       V(p,q) = CTMP
@@ -662,7 +662,7 @@
                // .. assemble V
                for (p = 1; p <= NR; p++) { // 1115
                   V(p,p) = CONJG(V(p,p))
-                  DO 1116 q = p + 1, NR
+                  for (q = p + 1; q <= NR; q++) { // 1116
                      CTMP   = CONJG(V(q,p))
                      V(q,p) = CONJG(V(p,q))
                      V(p,q) = CTMP
@@ -670,7 +670,7 @@
                } // 1115
                if ( NR .LT. N ) {
                    for (p = 1; p <= NR; p++) { // 1101
-                      DO 1102 q = NR+1, N
+                      for (q = NR+1; q <= N; q++) { // 1102
                          V(p,q) = CONJG(V(q,p))
                       } // 1102
                    } // 1101
@@ -679,7 +679,7 @@
 
                 for (p = 1; p <= NR; p++) { // 1117
                    U(p,p) = CONJG(U(p,p))
-                   DO 1118 q = p + 1, NR
+                   for (q = p + 1; q <= NR; q++) { // 1118
                       CTMP   = CONJG(U(q,p))
                       U(q,p) = CONJG(U(p,q))
                       U(p,q) = CTMP
@@ -717,7 +717,7 @@
 
                    for (p = 1; p <= N; p++) { // 1113
                       V(p,p) = CONJG(V(p,p))
-                      DO 1114 q = p + 1, N
+                      for (q = p + 1; q <= N; q++) { // 1114
                          CTMP   = CONJG(V(q,p))
                          V(q,p) = CONJG(V(p,q))
                          V(p,q) = CTMP
@@ -729,7 +729,7 @@
 
                    for (p = 1; p <= N; p++) { // 1111
                       U(p,p) = CONJG(U(p,p))
-                      DO 1112 q = p + 1, N
+                      for (q = p + 1; q <= N; q++) { // 1112
                          CTMP   = CONJG(U(q,p))
                          U(q,p) = CONJG(U(p,q))
                          U(p,q) = CTMP

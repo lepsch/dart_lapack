@@ -267,7 +267,7 @@
 
             // Use pathological test matrices to test SLATBS.
 
-            DO 120 IMAT = NTYPE1 + 1, NIMAT2
+            for (IMAT = NTYPE1 + 1; IMAT <= NIMAT2; IMAT++) { // 120
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 

@@ -35,7 +35,7 @@
 
             // Solve L*x = b.
 
-            DO 20 I = 1, N - 1
+            for (I = 1; I <= N - 1; I++) { // 20
                IP = IPIV( I )
                TEMP = B( I+1-IP+I, J ) - DL( I )*B( IP, J )
                B( I, J ) = B( IP, J )
@@ -58,7 +58,7 @@
 
                // Solve L*x = b.
 
-               DO 40 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 40
                   if ( IPIV( I ).EQ.I ) {
                      B( I+1, J ) = B( I+1, J ) - DL( I )*B( I, J )
                   } else {

@@ -55,7 +55,7 @@
       // Compute M = the LCM of the integers [1, 2*N-1].  The largest
       // reasonable N is small enough that integers suffice (up to N = 11).
       M = 1
-      DO I = 2, (2*N-1)
+      for (I = 2; I <= (2*N-1); I++) {
          TM = M
          TI = I
          R = MOD(TM, TI)

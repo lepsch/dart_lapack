@@ -135,7 +135,7 @@
                } else {
                   for (K = 1; K <= N; K++) { // 60
                      XK = ABS( X( K, J ) )
-                     DO 50 I = 1, K - 1
+                     for (I = 1; I <= K - 1; I++) { // 50
                         WORK( I ) = WORK( I ) + ABS( A( I, K ) )*XK
                      } // 50
                      WORK( K ) = WORK( K ) + XK
@@ -152,7 +152,7 @@
                } else {
                   for (K = 1; K <= N; K++) { // 100
                      XK = ABS( X( K, J ) )
-                     DO 90 I = K + 1, N
+                     for (I = K + 1; I <= N; I++) { // 90
                         WORK( I ) = WORK( I ) + ABS( A( I, K ) )*XK
                      } // 90
                      WORK( K ) = WORK( K ) + XK
@@ -175,7 +175,7 @@
                } else {
                   for (K = 1; K <= N; K++) { // 140
                      S = ABS( X( K, J ) )
-                     DO 130 I = 1, K - 1
+                     for (I = 1; I <= K - 1; I++) { // 130
                         S = S + ABS( A( I, K ) )*ABS( X( I, J ) )
                      } // 130
                      WORK( K ) = WORK( K ) + S
@@ -193,7 +193,7 @@
                } else {
                   for (K = 1; K <= N; K++) { // 180
                      S = ABS( X( K, J ) )
-                     DO 170 I = K + 1, N
+                     for (I = K + 1; I <= N; I++) { // 170
                         S = S + ABS( A( I, K ) )*ABS( X( I, J ) )
                      } // 170
                      WORK( K ) = WORK( K ) + S

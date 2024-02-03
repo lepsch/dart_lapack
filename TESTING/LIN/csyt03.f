@@ -65,13 +65,13 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
-            DO 10 I = 1, J - 1
+            for (I = 1; I <= J - 1; I++) { // 10
                AINV( J, I ) = AINV( I, J )
             } // 10
          } // 20
       } else {
          for (J = 1; J <= N; J++) { // 40
-            DO 30 I = J + 1, N
+            for (I = J + 1; I <= N; I++) { // 30
                AINV( J, I ) = AINV( I, J )
             } // 30
          } // 40

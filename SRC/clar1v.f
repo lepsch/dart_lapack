@@ -70,7 +70,7 @@
       SAWNAN1 = .FALSE.
       NEG1 = 0
       S = WORK( INDS+B1-1 ) - LAMBDA
-      DO 50 I = B1, R1 - 1
+      for (I = B1; I <= R1 - 1; I++) { // 50
          DPLUS = D( I ) + S
          WORK( INDLPL+I ) = LD( I ) / DPLUS
          IF(DPLUS.LT.ZERO) NEG1 = NEG1 + 1
@@ -79,7 +79,7 @@
       } // 50
       SAWNAN1 = SISNAN( S )
       IF( SAWNAN1 ) GOTO 60
-      DO 51 I = R1, R2 - 1
+      for (I = R1; I <= R2 - 1; I++) { // 51
          DPLUS = D( I ) + S
          WORK( INDLPL+I ) = LD( I ) / DPLUS
          WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
@@ -92,7 +92,7 @@
          // Runs a slower version of the above loop if a NaN is detected
          NEG1 = 0
          S = WORK( INDS+B1-1 ) - LAMBDA
-         DO 70 I = B1, R1 - 1
+         for (I = B1; I <= R1 - 1; I++) { // 70
             DPLUS = D( I ) + S
             IF(ABS(DPLUS).LT.PIVMIN) DPLUS = -PIVMIN
             WORK( INDLPL+I ) = LD( I ) / DPLUS
@@ -101,7 +101,7 @@
             IF( WORK( INDLPL+I ).EQ.ZERO ) WORK( INDS+I ) = LLD( I )
             S = WORK( INDS+I ) - LAMBDA
          } // 70
-         DO 71 I = R1, R2 - 1
+         for (I = R1; I <= R2 - 1; I++) { // 71
             DPLUS = D( I ) + S
             IF(ABS(DPLUS).LT.PIVMIN) DPLUS = -PIVMIN
             WORK( INDLPL+I ) = LD( I ) / DPLUS
@@ -153,7 +153,7 @@
       }
       IF( ABS(MINGMA).EQ.ZERO ) MINGMA = EPS*WORK( INDS+R1-1 )
       R = R1
-      DO 110 I = R1, R2 - 1
+      for (I = R1; I <= R2 - 1; I++) { // 110
          TMP = WORK( INDS+I ) + WORK( INDP+I )
          IF( TMP.EQ.ZERO ) TMP = EPS*WORK( INDS+I )
          if ( ABS( TMP ).LE.ABS( MINGMA ) ) {
@@ -202,7 +202,7 @@
 
       // Compute the FP vector downwards from R in blocks of size BLKSIZ
       if ( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) {
-         DO 250 I = R, BN-1
+         for (I = R; I <= BN-1; I++) { // 250
             Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) )
             if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) {
                Z( I+1 ) = ZERO
@@ -214,7 +214,7 @@
          } // 260
       } else {
          // Run slower loop if NaN occurred.
-         DO 270 I = R, BN - 1
+         for (I = R; I <= BN - 1; I++) { // 270
             if ( Z( I ).EQ.ZERO ) {
                Z( I+1 ) = -( LD( I-1 ) / LD( I ) )*Z( I-1 )
             } else {

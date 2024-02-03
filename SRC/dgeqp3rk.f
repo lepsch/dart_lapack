@@ -466,7 +466,7 @@
                RELMAXC2NRMK = MAXC2NRMK / MAXC2NRM
             }
 
-            DO J = K + 1, MINMN
+            for (J = K + 1; J <= MINMN; J++) {
                TAU( J ) = ZERO
             END DO
 

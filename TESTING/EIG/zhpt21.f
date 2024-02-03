@@ -93,7 +93,7 @@
          } // 10
 
          if ( N.GT.1 .AND. KBAND.EQ.1 ) {
-            DO 20 J = 2, N - 1
+            for (J = 2; J <= N - 1; J++) { // 20
                zhpr2(CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J-1 ), 1, WORK );
             } // 20
          }
@@ -112,7 +112,7 @@
                JP1 = JP + N - J
                if ( KBAND.EQ.1 ) {
                   WORK( JP+J+1 ) = ( CONE-TAU( J ) )*E( J )
-                  DO 30 JR = J + 2, N
+                  for (JR = J + 2; JR <= N; JR++) { // 30
                      WORK( JP+JR ) = -TAU( J )*E( J )*VP( JP+JR )
                   } // 30
                }
@@ -128,12 +128,12 @@
             } // 40
          } else {
             WORK( 1 ) = D( 1 )
-            DO 60 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 60
                JP = ( J*( J-1 ) ) / 2
                JP1 = JP + J
                if ( KBAND.EQ.1 ) {
                   WORK( JP1+J ) = ( CONE-TAU( J ) )*E( J )
-                  DO 50 JR = 1, J - 1
+                  for (JR = 1; JR <= J - 1; JR++) { // 50
                      WORK( JP1+JR ) = -TAU( J )*E( J )*VP( JP1+JR )
                   } // 50
                }

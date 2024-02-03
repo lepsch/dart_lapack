@@ -138,8 +138,8 @@
 
       for (IFUNC = 0; IFUNC <= 3; IFUNC++) { // 60
          for (PRTYPE = 1; PRTYPE <= 5; PRTYPE++) { // 50
-            DO 40 M = 1, NSIZE - 1
-               DO 30 N = 1, NSIZE - M
+            for (M = 1; M <= NSIZE - 1; M++) { // 40
+               for (N = 1; N <= NSIZE - M; N++) { // 30
 
                   WEIGHT = ONE / WEIGHT
                   MPLUSN = M + N

@@ -109,7 +109,7 @@
                       if (X(J).NE.ZERO) {
                           IF (NOUNIT) X(J) = X(J)/A(J,J)
                           TEMP = X(J)
-                          DO 50 I = J + 1,N
+                          for (I = J + 1; I <= N; I++) { // 50
                               X(I) = X(I) - TEMP*A(I,J)
                           } // 50
                       }
@@ -121,7 +121,7 @@
                           IF (NOUNIT) X(JX) = X(JX)/A(J,J)
                           TEMP = X(JX)
                           IX = JX
-                          DO 70 I = J + 1,N
+                          for (I = J + 1; I <= N; I++) { // 70
                               IX = IX + INCX
                               X(IX) = X(IX) - TEMP*A(I,J)
                           } // 70
@@ -138,7 +138,7 @@
               if (INCX.EQ.1) {
                   for (J = 1; J <= N; J++) { // 100
                       TEMP = X(J)
-                      DO 90 I = 1,J - 1
+                      for (I = 1; I <= J - 1; I++) { // 90
                           TEMP = TEMP - A(I,J)*X(I)
                       } // 90
                       IF (NOUNIT) TEMP = TEMP/A(J,J)
@@ -149,7 +149,7 @@
                   for (J = 1; J <= N; J++) { // 120
                       TEMP = X(JX)
                       IX = KX
-                      DO 110 I = 1,J - 1
+                      for (I = 1; I <= J - 1; I++) { // 110
                           TEMP = TEMP - A(I,J)*X(IX)
                           IX = IX + INCX
                       } // 110

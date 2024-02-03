@@ -89,14 +89,14 @@
          // Initialize partial column norms. The first n elements of
          // work store the exact column norms.
 
-         DO 20 I = ITEMP + 1, N
+         for (I = ITEMP + 1; I <= N; I++) { // 20
             RWORK( I ) = SCNRM2( M-ITEMP, A( ITEMP+1, I ), 1 )
             RWORK( N+I ) = RWORK( I )
          } // 20
 
          // Compute factorization
 
-         DO 40 I = ITEMP + 1, MN
+         for (I = ITEMP + 1; I <= MN; I++) { // 40
 
             // Determine ith pivot column and swap if necessary
 
@@ -129,7 +129,7 @@
 
             // Update partial column norms
 
-            DO 30 J = I + 1, N
+            for (J = I + 1; J <= N; J++) { // 30
                if ( RWORK( J ).NE.ZERO ) {
 
                   // NOTE: The following 4 lines follow from the analysis in

@@ -152,7 +152,7 @@
 
       // Set Eigenvalues IHI+1:N
 
-      DO 10 J = IHI + 1, N
+      for (J = IHI + 1; J <= N; J++) { // 10
          ABSB = ABS( T( J, J ) )
          if ( ABSB.GT.SAFMIN ) {
             SIGNBC = CONJG( T( J, J ) / ABSB )
@@ -266,7 +266,7 @@
                // this may have to be done repeatedly.
 
                if ( ILAZRO .OR. ILAZR2 ) {
-                  DO 20 JCH = J, ILAST - 1
+                  for (JCH = J; JCH <= ILAST - 1; JCH++) { // 20
                      CTEMP = H( JCH, JCH )
                      clartg(CTEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) );
                      H( JCH+1, JCH ) = CZERO
@@ -289,7 +289,7 @@
                   // Only test 2 passed -- chase the zero to T(ILAST,ILAST)
                   // Then process as in the case T(ILAST,ILAST)=0
 
-                  DO 30 JCH = J, ILAST - 1
+                  for (JCH = J; JCH <= ILAST - 1; JCH++) { // 30
                      CTEMP = T( JCH, JCH+1 )
                      clartg(CTEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = CZERO
@@ -444,7 +444,7 @@
 
          // Sweep
 
-         DO 150 J = ISTART, ILAST - 1
+         for (J = ISTART; J <= ILAST - 1; J++) { // 150
             if ( J.GT.ISTART ) {
                CTEMP = H( J, J-1 )
                clartg(CTEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) );
@@ -506,7 +506,7 @@
 
       // Set Eigenvalues 1:ILO-1
 
-      DO 200 J = 1, ILO - 1
+      for (J = 1; J <= ILO - 1; J++) { // 200
          ABSB = ABS( T( J, J ) )
          if ( ABSB.GT.SAFMIN ) {
             SIGNBC = CONJG( T( J, J ) / ABSB )

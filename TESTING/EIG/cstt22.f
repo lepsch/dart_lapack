@@ -50,7 +50,7 @@
 
       if ( N.GT.1 ) {
          ANORM = ABS( AD( 1 ) ) + ABS( AE( 1 ) )
-         DO 10 J = 2, N - 1
+         for (J = 2; J <= N - 1; J++) { // 10
             ANORM = MAX( ANORM, ABS( AD( J ) )+ABS( AE( J ) )+ ABS( AE( J-1 ) ) )
          } // 10
          ANORM = MAX( ANORM, ABS( AD( N ) )+ABS( AE( N-1 ) ) )

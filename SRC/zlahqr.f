@@ -63,7 +63,7 @@
       }
 
       // ==== clear out the trash ====
-      DO 10 J = ILO, IHI - 3
+      for (J = ILO; J <= IHI - 3; J++) { // 10
          H( J+2, J ) = ZERO
          H( J+3, J ) = ZERO
       } // 10
@@ -76,7 +76,7 @@
          JLO = ILO
          JHI = IHI
       }
-      DO 20 I = ILO + 1, IHI
+      for (I = ILO + 1; I <= IHI; I++) { // 20
          if ( DIMAG( H( I, I-1 ) ).NE.RZERO ) {
             // ==== The following redundant normalization
             // .    avoids problems with both gradual and
@@ -240,7 +240,7 @@
 
          // Single-shift QR step
 
-         DO 120 K = M, I - 1
+         for (K = M; K <= I - 1; K++) { // 120
 
             // The first iteration of this loop determines a reflection G
             // from the vector V and applies it from left and right to H,

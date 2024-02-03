@@ -64,7 +64,7 @@
 
             // W(1:N-I) := C(I:M,I+1:N)^H * C(I:M,I) [use W = T(:,N)]
 
-            DO J = 1, N-I
+            for (J = 1; J <= N-I; J++) {
                T( J, N ) = (A( I, I+J ))
             END DO
             sgemv('T', P, N-I, ONE, B( 1, I+1 ), LDB, B( 1, I ), 1, ONE, T( 1, N ), 1 );
@@ -72,7 +72,7 @@
             // C(I:M,I+1:N) = C(I:m,I+1:N) + alpha*C(I:M,I)*W(1:N-1)^H
 
             ALPHA = -(T( I, 1 ))
-            DO J = 1, N-I
+            for (J = 1; J <= N-I; J++) {
                A( I, I+J ) = A( I, I+J ) + ALPHA*(T( J, N ))
             END DO
             sger(P, N-I, ALPHA, B( 1, I ), 1, T( 1, N ), 1, B( 1, I+1 ), LDB );
@@ -85,7 +85,7 @@
 
          ALPHA = -T( I, 1 )
 
-         DO J = 1, I-1
+         for (J = 1; J <= I-1; J++) {
             T( J, I ) = ZERO
          END DO
          P = MIN( I-1, L )

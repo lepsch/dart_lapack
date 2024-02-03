@@ -83,7 +83,7 @@
       // Rotate the matrix if it is lower bidiagonal.
 
       if ( UPLO.EQ.'L' ) {
-         DO 10 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 10
             dlartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )
@@ -97,7 +97,7 @@
          } // 10
          if ( NRHS.GT.1 ) {
             for (I = 1; I <= NRHS; I++) { // 30
-               DO 20 J = 1, N - 1
+               for (J = 1; J <= N - 1; J++) { // 20
                   CS = WORK( J*2-1 )
                   SN = WORK( J*2 )
                   drot(1, B( J, I ), 1, B( J+1, I ), 1, CS, SN );

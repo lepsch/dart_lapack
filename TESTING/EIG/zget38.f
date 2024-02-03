@@ -110,8 +110,8 @@
 
          // Compute Schur form
 
-         DO 50 J = 1, N - 2
-            DO 40 I = J + 2, N
+         for (J = 1; J <= N - 2; J++) { // 50
+            for (I = J + 2; I <= N; I++) { // 40
                T( I, J ) = CZERO
             } // 40
          } // 50
@@ -137,10 +137,10 @@
                WSRT( I ) = DIMAG( W( I ) )
             } // 80
          }
-         DO 100 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 100
             KMIN = I
             VMIN = WSRT( I )
-            DO 90 J = I + 1, N
+            for (J = I + 1; J <= N; J++) { // 90
                if ( WSRT( J ).LT.VMIN ) {
                   KMIN = J
                   VMIN = WSRT( J )

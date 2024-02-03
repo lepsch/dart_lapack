@@ -320,8 +320,8 @@
                   // Do Test (1) or Test (7)
 
                   RESULT( 1+RSUB ) = ZERO
-                  DO 120 J = 1, N - 1
-                     DO 110 I = J + 1, N
+                  for (J = 1; J <= N - 1; J++) { // 120
+                     for (I = J + 1; I <= N; I++) { // 110
                         IF( H( I, J ).NE.ZERO ) RESULT( 1+RSUB ) = ULPINV
                      } // 110
                   } // 120

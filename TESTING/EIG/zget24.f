@@ -127,8 +127,8 @@
          // Do Test (1) or Test (7)
 
          RESULT( 1+RSUB ) = ZERO
-         DO 30 J = 1, N - 1
-            DO 20 I = J + 1, N
+         for (J = 1; J <= N - 1; J++) { // 30
+            for (I = J + 1; I <= N; I++) { // 20
                IF( H( I, J ).NE.CZERO ) RESULT( 1+RSUB ) = ULPINV
             } // 20
          } // 30
@@ -418,14 +418,14 @@
             SELWR( I ) = DBLE( WTMP( I ) )
             SELWI( I ) = DIMAG( WTMP( I ) )
          } // 230
-         DO 250 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 250
             KMIN = I
             if ( ISRT.EQ.0 ) {
                VRIMIN = DBLE( WTMP( I ) )
             } else {
                VRIMIN = DIMAG( WTMP( I ) )
             }
-            DO 240 J = I + 1, N
+            for (J = I + 1; J <= N; J++) { // 240
                if ( ISRT.EQ.0 ) {
                   VRICMP = DBLE( WTMP( J ) )
                } else {

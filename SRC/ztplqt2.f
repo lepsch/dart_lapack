@@ -68,7 +68,7 @@
 
             // W(M-I:1) := C(I+1:M,I:N) * C(I,I:N) [use W = T(M,:)]
 
-            DO J = 1, M-I
+            for (J = 1; J <= M-I; J++) {
                T( M, J ) = (A( I+J, I ))
             END DO
             zgemv('N', M-I, P, ONE, B( I+1, 1 ), LDB, B( I, 1 ), LDB, ONE, T( M, 1 ), LDT );
@@ -76,7 +76,7 @@
             // C(I+1:M,I:N) = C(I+1:M,I:N) + alpha * C(I,I:N)*W(M-1:1)^H
 
             ALPHA = -(T( 1, I ))
-            DO J = 1, M-I
+            for (J = 1; J <= M-I; J++) {
                A( I+J, I ) = A( I+J, I ) + ALPHA*(T( M, J ))
             END DO
             zgerc(M-I, P, (ALPHA),  T( M, 1 ), LDT, B( I, 1 ), LDB, B( I+1, 1 ), LDB );
@@ -91,13 +91,13 @@
          // T(I,1:I-1) := C(I:I-1,1:N)**H * (alpha * C(I,I:N))
 
          ALPHA = -(T( 1, I ))
-         DO J = 1, I-1
+         for (J = 1; J <= I-1; J++) {
             T( I, J ) = ZERO
          END DO
          P = MIN( I-1, L )
          NP = MIN( N-L+1, N )
          MP = MIN( P+1, M )
-         DO J = 1, N-L+P
+         for (J = 1; J <= N-L+P; J++) {
            B(I,J)=CONJG(B(I,J))
          END DO
 
@@ -121,14 +121,14 @@
 
          // T(1:I-1,I) := T(1:I-1,1:I-1) * T(I,1:I-1)
 
-         DO J = 1, I-1
+         for (J = 1; J <= I-1; J++) {
             T(I,J)=CONJG(T(I,J))
          END DO
          ztrmv('L', 'C', 'N', I-1, T, LDT, T( I, 1 ), LDT );
-         DO J = 1, I-1
+         for (J = 1; J <= I-1; J++) {
             T(I,J)=CONJG(T(I,J))
          END DO
-         DO J = 1, N-L+P
+         for (J = 1; J <= N-L+P; J++) {
             B(I,J)=CONJG(B(I,J))
          END DO
 
@@ -138,7 +138,7 @@
          T( 1, I ) = ZERO
       END DO
       for (I = 1; I <= M; I++) {
-         DO J= I+1,M
+         for (J = I+1; J <= M; J++) {
             T(I,J)=(T(J,I))
             T(J,I)=ZERO
          END DO

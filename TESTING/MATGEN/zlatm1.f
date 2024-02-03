@@ -141,7 +141,7 @@
          // Reverse if MODE < 0
 
          if ( MODE.LT.0 ) {
-            DO 140 I = 1, N / 2
+            for (I = 1; I <= N / 2; I++) { // 140
                CTEMP = D( I )
                D( I ) = D( N+1-I )
                D( N+1-I ) = CTEMP

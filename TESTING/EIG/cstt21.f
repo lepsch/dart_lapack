@@ -54,7 +54,7 @@
       ANORM = ZERO
       TEMP1 = ZERO
 
-      DO 10 J = 1, N - 1
+      for (J = 1; J <= N - 1; J++) { // 10
          WORK( ( N+1 )*( J-1 )+1 ) = AD( J )
          WORK( ( N+1 )*( J-1 )+2 ) = AE( J )
          TEMP2 = ABS( AE( J ) )
@@ -72,7 +72,7 @@
       } // 20
 
       if ( N.GT.1 .AND. KBAND.EQ.1 ) {
-         DO 30 J = 1, N - 1
+         for (J = 1; J <= N - 1; J++) { // 30
             cher2('L', N, -CMPLX( SE( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
          } // 30
       }

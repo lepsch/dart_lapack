@@ -163,7 +163,7 @@
          GL = D( 1 )
          TMP1 = ZERO
 
-         DO 20 J = 1, N - 1
+         for (J = 1; J <= N - 1; J++) { // 20
             TMP2 = SQRT( WORK( J ) )
             GU = MAX( GU, D( J )+TMP1+TMP2 )
             GL = MIN( GL, D( J )-TMP1-TMP2 )
@@ -226,7 +226,7 @@
 
          TNORM = MAX( ABS( D( 1 ) )+ABS( E( 1 ) ), ABS( D( N ) )+ABS( E( N-1 ) ) )
 
-         DO 30 J = 2, N - 1
+         for (J = 2; J <= N - 1; J++) { // 30
             TNORM = MAX( TNORM, ABS( D( J ) )+ABS( E( J-1 ) )+ ABS( E( J ) ) )
          } // 30
 
@@ -281,7 +281,7 @@
             GL = D( IBEGIN )
             TMP1 = ZERO
 
-            DO 40 J = IBEGIN, IEND - 1
+            for (J = IBEGIN; J <= IEND - 1; J++) { // 40
                TMP2 = ABS( E( J ) )
                GU = MAX( GU, D( J )+TMP1+TMP2 )
                GL = MIN( GL, D( J )-TMP1-TMP2 )
@@ -341,7 +341,7 @@
                } else {
                   IB = JB
                }
-               DO 50 JE = IWORK( J ) + 1 + IWOFF, IWORK( J+IN ) + IWOFF
+               for (JE = IWORK( J ) + 1 + IWOFF; JE <= IWORK( J+IN ) + IWOFF; JE++) { // 50
                   W( JE ) = TMP1
                   IBLOCK( JE ) = IB
                } // 50
@@ -432,10 +432,10 @@
       // If ORDER='E', sort the eigenvalues from smallest to largest
 
       if ( IORDER.EQ.1 .AND. NSPLIT.GT.1 ) {
-         DO 150 JE = 1, M - 1
+         for (JE = 1; JE <= M - 1; JE++) { // 150
             IE = 0
             TMP1 = W( JE )
-            DO 140 J = JE + 1, M
+            for (J = JE + 1; J <= M; J++) { // 140
                if ( W( J ).LT.TMP1 ) {
                   IE = J
                   TMP1 = W( J )

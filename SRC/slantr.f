@@ -52,7 +52,7 @@
                } // 20
             } else {
                for (J = 1; J <= N; J++) { // 40
-                  DO 30 I = J + 1, M
+                  for (I = J + 1; I <= M; I++) { // 30
                      SUM = ABS( A( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
                   } // 30
@@ -86,7 +86,7 @@
             for (J = 1; J <= N; J++) { // 110
                if ( ( UDIAG ) .AND. ( J.LE.M ) ) {
                   SUM = ONE
-                  DO 90 I = 1, J - 1
+                  for (I = 1; I <= J - 1; I++) { // 90
                      SUM = SUM + ABS( A( I, J ) )
                   } // 90
                } else {
@@ -101,7 +101,7 @@
             for (J = 1; J <= N; J++) { // 140
                if ( UDIAG ) {
                   SUM = ONE
-                  DO 120 I = J + 1, M
+                  for (I = J + 1; I <= M; I++) { // 120
                      SUM = SUM + ABS( A( I, J ) )
                   } // 120
                } else {
@@ -142,11 +142,11 @@
                DO 210 I = 1, MIN( M, N )
                   WORK( I ) = ONE
                } // 210
-               DO 220 I = N + 1, M
+               for (I = N + 1; I <= M; I++) { // 220
                   WORK( I ) = ZERO
                } // 220
                for (J = 1; J <= N; J++) { // 240
-                  DO 230 I = J + 1, M
+                  for (I = J + 1; I <= M; I++) { // 230
                      WORK( I ) = WORK( I ) + ABS( A( I, J ) )
                   } // 230
                } // 240

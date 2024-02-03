@@ -86,7 +86,7 @@
       // Rotate the matrix if it is lower bidiagonal.
 
       if ( UPLO.EQ.'L' ) {
-         DO 10 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 10
             slartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )
@@ -100,7 +100,7 @@
          } // 10
          if ( NRHS.GT.1 ) {
             for (I = 1; I <= NRHS; I++) { // 30
-               DO 20 J = 1, N - 1
+               for (J = 1; J <= N - 1; J++) { // 20
                   CS = RWORK( J*2-1 )
                   SN = RWORK( J*2 )
                   csrot(1, B( J, I ), 1, B( J+1, I ), 1, CS, SN );
@@ -316,7 +316,7 @@
 
                J = IRWB - 1
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 190
-                  DO 180 JROW = ST, ST + NSIZE - 1
+                  for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) { // 180
                      J = J + 1
                      RWORK( J ) = REAL( B( JROW, JCOL ) )
                   } // 180
@@ -324,7 +324,7 @@
                sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );
                J = IRWB - 1
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 210
-                  DO 200 JROW = ST, ST + NSIZE - 1
+                  for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) { // 200
                      J = J + 1
                      RWORK( J ) = AIMAG( B( JROW, JCOL ) )
                   } // 200
@@ -333,7 +333,7 @@
                JREAL = IRWRB - 1
                JIMAG = IRWIB - 1
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 230
-                  DO 220 JROW = ST, ST + NSIZE - 1
+                  for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) { // 220
                      JREAL = JREAL + 1
                      JIMAG = JIMAG + 1
                      B( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
@@ -419,7 +419,7 @@
             JREAL = IRWRB - 1
             JIMAG = IRWIB - 1
             for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 310
-               DO 300 JROW = ST, ST + NSIZE - 1
+               for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) { // 300
                   JREAL = JREAL + 1
                   JIMAG = JIMAG + 1
                   B( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )

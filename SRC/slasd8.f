@@ -93,10 +93,10 @@
          WORK( IWK3I+J ) = WORK( IWK3I+J )*WORK( J )*WORK( IWK2I+J )
          DIFL( J ) = -WORK( J )
          DIFR( J, 1 ) = -WORK( J+1 )
-         DO 20 I = 1, J - 1
+         for (I = 1; I <= J - 1; I++) { // 20
             WORK( IWK3I+I ) = WORK( IWK3I+I )*WORK( I )* WORK( IWK2I+I ) / ( DSIGMA( I )- DSIGMA( J ) ) / ( DSIGMA( I )+ DSIGMA( J ) )
          } // 20
-         DO 30 I = J + 1, K
+         for (I = J + 1; I <= K; I++) { // 30
             WORK( IWK3I+I ) = WORK( IWK3I+I )*WORK( I )* WORK( IWK2I+I ) / ( DSIGMA( I )- DSIGMA( J ) ) / ( DSIGMA( I )+ DSIGMA( J ) )
          } // 30
       } // 40
@@ -123,10 +123,10 @@
          // (x+y)+z. The goal is to prevent optimizing compilers
          // from doing x+(y+z).
 
-         DO 60 I = 1, J - 1
+         for (I = 1; I <= J - 1; I++) { // 60
             WORK( I ) = Z( I ) / ( SLAMC3( DSIGMA( I ), DSIGJ )-DIFLJ ) / ( DSIGMA( I )+DJ )
          } // 60
-         DO 70 I = J + 1, K
+         for (I = J + 1; I <= K; I++) { // 70
             WORK( I ) = Z( I ) / ( SLAMC3( DSIGMA( I ), DSIGJP )+DIFRJ ) / ( DSIGMA( I )+DJ )
          } // 70
          TEMP = SNRM2( K, WORK, 1 )

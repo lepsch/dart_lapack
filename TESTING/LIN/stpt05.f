@@ -91,7 +91,7 @@
             if ( UPPER ) {
                JC = ( ( I-1 )*I ) / 2
                if ( .NOT.NOTRAN ) {
-                  DO 40 J = 1, I - IFU
+                  for (J = 1; J <= I - IFU; J++) { // 40
                      TMP = TMP + ABS( AP( JC+J ) )*ABS( X( J, K ) )
                   } // 40
                   IF( UNIT ) TMP = TMP + ABS( X( I, K ) )
@@ -101,7 +101,7 @@
                      TMP = TMP + ABS( X( I, K ) )
                      JC = JC + I
                   }
-                  DO 50 J = I + IFU, N
+                  for (J = I + IFU; J <= N; J++) { // 50
                      TMP = TMP + ABS( AP( JC ) )*ABS( X( J, K ) )
                      JC = JC + J
                   } // 50
@@ -109,7 +109,7 @@
             } else {
                if ( NOTRAN ) {
                   JC = I
-                  DO 60 J = 1, I - IFU
+                  for (J = 1; J <= I - IFU; J++) { // 60
                      TMP = TMP + ABS( AP( JC ) )*ABS( X( J, K ) )
                      JC = JC + N - J
                   } // 60
@@ -117,7 +117,7 @@
                } else {
                   JC = ( I-1 )*( N-I ) + ( I*( I+1 ) ) / 2
                   IF( UNIT ) TMP = TMP + ABS( X( I, K ) )
-                  DO 70 J = I + IFU, N
+                  for (J = I + IFU; J <= N; J++) { // 70
                      TMP = TMP + ABS( AP( JC+J-I ) )*ABS( X( J, K ) )
                   } // 70
                }

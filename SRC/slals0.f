@@ -110,7 +110,7 @@
                } else {
                   WORK( J ) = -POLES( J, 2 )*Z( J ) / DIFLJ / ( POLES( J, 2 )+DJ )
                }
-               DO 30 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 30
                   if ( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) {
                      WORK( I ) = ZERO
                   } else {
@@ -122,7 +122,7 @@
                      WORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ )
                   }
                } // 30
-               DO 40 I = J + 1, K
+               for (I = J + 1; I <= K; I++) { // 40
                   if ( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) {
                      WORK( I ) = ZERO
                   } else {
@@ -155,7 +155,7 @@
                } else {
                   WORK( J ) = -Z( J ) / DIFL( J ) / ( DSIGJ+POLES( J, 1 ) ) / DIFR( J, 2 )
                }
-               DO 60 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 60
                   if ( Z( J ).EQ.ZERO ) {
                      WORK( I ) = ZERO
                   } else {
@@ -167,7 +167,7 @@
                      WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
                   }
                } // 60
-               DO 70 I = J + 1, K
+               for (I = J + 1; I <= K; I++) { // 70
                   if ( Z( J ).EQ.ZERO ) {
                      WORK( I ) = ZERO
                   } else {

@@ -105,7 +105,7 @@
       // Compute eigenvectors of matrix blocks.
 
       J1 = 1
-      DO 180 NBLK = 1, IBLOCK( M )
+      for (NBLK = 1; NBLK <= IBLOCK( M ); NBLK++) { // 180
 
          // Find starting and ending indices of block nblk.
 
@@ -123,7 +123,7 @@
 
          ONENRM = ABS( D( B1 ) ) + ABS( E( B1 ) )
          ONENRM = MAX( ONENRM, ABS( D( BN ) )+ABS( E( BN-1 ) ) )
-         DO 50 I = B1 + 1, BN - 1
+         for (I = B1 + 1; I <= BN - 1; I++) { // 50
             ONENRM = MAX( ONENRM, ABS( D( I ) )+ABS( E( I-1 ) )+ ABS( E( I ) ) )
          } // 50
          ORTOL = ODM3*ONENRM
@@ -198,7 +198,7 @@
 
             IF( JBLK.EQ.1 ) GO TO 110             IF( ABS( XJ-XJM ).GT.ORTOL ) GPIND = J
             if ( GPIND.NE.J ) {
-               DO 100 I = GPIND, J - 1
+               for (I = GPIND; I <= J - 1; I++) { // 100
                   CTR = ZERO
                   for (JR = 1; JR <= BLKSIZ; JR++) { // 80
                      CTR = CTR + WORK( INDRV1+JR )* REAL( Z( B1-1+JR, I ) )

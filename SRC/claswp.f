@@ -44,7 +44,7 @@
             DO 20 I = I1, I2, INC
                IP = IPIV( IX )
                if ( IP.NE.I ) {
-                  DO 10 K = J, J + 31
+                  for (K = J; K <= J + 31; K++) { // 10
                      TEMP = A( I, K )
                      A( I, K ) = A( IP, K )
                      A( IP, K ) = TEMP

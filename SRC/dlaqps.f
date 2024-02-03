@@ -112,7 +112,7 @@
          // Update partial column norms.
 
          if ( RK.LT.LASTRK ) {
-            DO 30 J = K + 1, N
+            for (J = K + 1; J <= N; J++) { // 30
                if ( VN1( J ).NE.ZERO ) {
 
                   // NOTE: The following 4 lines follow from the analysis in

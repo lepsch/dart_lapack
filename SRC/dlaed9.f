@@ -81,10 +81,10 @@
 
       dcopy(K, Q, LDQ+1, W, 1 );
       for (J = 1; J <= K; J++) { // 70
-         DO 50 I = 1, J - 1
+         for (I = 1; I <= J - 1; I++) { // 50
             W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
          } // 50
-         DO 60 I = J + 1, K
+         for (I = J + 1; I <= K; I++) { // 60
             W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
          } // 60
       } // 70

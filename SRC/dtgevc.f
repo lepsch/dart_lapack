@@ -120,7 +120,7 @@
 
       ILABAD = .FALSE.
       ILBBAD = .FALSE.
-      DO 20 J = 1, N - 1
+      for (J = 1; J <= N - 1; J++) { // 20
          if ( S( J+1, J ).NE.ZERO ) {
             IF( P( J, J ).EQ.ZERO .OR. P( J+1, J+1 ).EQ.ZERO .OR. P( J, J+1 ).NE.ZERO )ILBBAD = .TRUE.
             if ( J.LT.N-1 ) {
@@ -249,7 +249,7 @@
 
             // Clear vector
 
-            DO 70 JR = 1, NW*N
+            for (JR = 1; JR <= NW*N; JR++) { // 70
                WORK( 2*N+JR ) = ZERO
             } // 70
                                                   // T
@@ -348,7 +348,7 @@
 
             IL2BY2 = .FALSE.
 
-            DO 160 J = JE + NW, N
+            for (J = JE + NW; J <= N; J++) { // 160
                if ( IL2BY2 ) {
                   IL2BY2 = .FALSE.
                   GO TO 160
@@ -369,8 +369,8 @@
                XSCALE = ONE / MAX( ONE, XMAX )
                TEMP = MAX( WORK( J ), WORK( N+J ), ACOEFA*WORK( J )+BCOEFA*WORK( N+J ) )                IF( IL2BY2 ) TEMP = MAX( TEMP, WORK( J+1 ), WORK( N+J+1 ), ACOEFA*WORK( J+1 )+BCOEFA*WORK( N+J+1 ) )
                if ( TEMP.GT.BIGNUM*XSCALE ) {
-                  DO 90 JW = 0, NW - 1
-                     DO 80 JR = JE, J - 1
+                  for (JW = 0; JW <= NW - 1; JW++) { // 90
+                     for (JR = JE; JR <= J - 1; JR++) { // 80
                         WORK( ( JW+2 )*N+JR ) = XSCALE* WORK( ( JW+2 )*N+JR )
                      } // 80
                   } // 90
@@ -398,7 +398,7 @@
                      SUMS( JA, JW ) = ZERO
                      SUMP( JA, JW ) = ZERO
 
-                     DO 100 JR = JE, J - 1
+                     for (JR = JE; JR <= J - 1; JR++) { // 100
                         SUMS( JA, JW ) = SUMS( JA, JW ) + S( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR )                         SUMP( JA, JW ) = SUMP( JA, JW ) + P( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR )
                      } // 100
                   } // 110
@@ -418,8 +418,8 @@
 
                dlaln2(.TRUE., NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), SUM, 2, BCOEFR, BCOEFI, WORK( 2*N+J ), N, SCALE, TEMP, IINFO );
                if ( SCALE.LT.ONE ) {
-                  DO 150 JW = 0, NW - 1
-                     DO 140 JR = JE, J - 1
+                  for (JW = 0; JW <= NW - 1; JW++) { // 150
+                     for (JR = JE; JR <= J - 1; JR++) { // 140
                         WORK( ( JW+2 )*N+JR ) = SCALE* WORK( ( JW+2 )*N+JR )
                      } // 140
                   } // 150
@@ -433,7 +433,7 @@
 
             IEIG = IEIG + 1
             if ( ILBACK ) {
-               DO 170 JW = 0, NW - 1
+               for (JW = 0; JW <= NW - 1; JW++) { // 170
                   dgemv('N', N, N+1-JE, ONE, VL( 1, JE ), LDVL, WORK( ( JW+2 )*N+JE ), 1, ZERO, WORK( ( JW+4 )*N+1 ), 1 );
                } // 170
                dlacpy(' ', N, NW, WORK( 4*N+1 ), N, VL( 1, JE ), LDVL );
@@ -459,7 +459,7 @@
             if ( XMAX.GT.SAFMIN ) {
                XSCALE = ONE / XMAX
 
-               DO 210 JW = 0, NW - 1
+               for (JW = 0; JW <= NW - 1; JW++) { // 210
                   for (JR = IBEG; JR <= N; JR++) { // 200
                      VL( JR, IEIG+JW ) = XSCALE*VL( JR, IEIG+JW )
                   } // 200
@@ -527,7 +527,7 @@
 
             // Clear vector
 
-            DO 250 JW = 0, NW - 1
+            for (JW = 0; JW <= NW - 1; JW++) { // 250
                for (JR = 1; JR <= N; JR++) { // 240
                   WORK( ( JW+2 )*N+JR ) = ZERO
                } // 240
@@ -577,7 +577,7 @@
                // Compute contribution from column JE of A and B to sum
                // (See "Further Details", above.)
 
-               DO 260 JR = 1, JE - 1
+               for (JR = 1; JR <= JE - 1; JR++) { // 260
                   WORK( 2*N+JR ) = BCOEFR*P( JR, JE ) - ACOEF*S( JR, JE )
                } // 260
             } else {
@@ -635,7 +635,7 @@
                CIM2A = ACOEF*WORK( 3*N+JE )
                CRE2B = BCOEFR*WORK( 2*N+JE ) - BCOEFI*WORK( 3*N+JE )
                CIM2B = BCOEFI*WORK( 2*N+JE ) + BCOEFR*WORK( 3*N+JE )
-               DO 270 JR = 1, JE - 2
+               for (JR = 1; JR <= JE - 2; JR++) { // 270
                   WORK( 2*N+JR ) = -CREALA*S( JR, JE-1 ) + CREALB*P( JR, JE-1 ) - CRE2A*S( JR, JE ) + CRE2B*P( JR, JE )                   WORK( 3*N+JR ) = -CIMAGA*S( JR, JE-1 ) + CIMAGB*P( JR, JE-1 ) - CIM2A*S( JR, JE ) + CIM2B*P( JR, JE )
                } // 270
             }
@@ -669,7 +669,7 @@
                dlaln2(.FALSE., NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), WORK( 2*N+J ), N, BCOEFR, BCOEFI, SUM, 2, SCALE, TEMP, IINFO );
                if ( SCALE.LT.ONE ) {
 
-                  DO 290 JW = 0, NW - 1
+                  for (JW = 0; JW <= NW - 1; JW++) { // 290
                      for (JR = 1; JR <= JE; JR++) { // 280
                         WORK( ( JW+2 )*N+JR ) = SCALE* WORK( ( JW+2 )*N+JR )
                      } // 280
@@ -695,7 +695,7 @@
                   TEMP = MAX( TEMP, ACOEFA, BCOEFA )
                   if ( TEMP.GT.BIGNUM*XSCALE ) {
 
-                     DO 330 JW = 0, NW - 1
+                     for (JW = 0; JW <= NW - 1; JW++) { // 330
                         for (JR = 1; JR <= JE; JR++) { // 320
                            WORK( ( JW+2 )*N+JR ) = XSCALE* WORK( ( JW+2 )*N+JR )
                         } // 320
@@ -713,13 +713,13 @@
                         CREALA = ACOEF*WORK( 2*N+J+JA-1 )
                         CIMAGA = ACOEF*WORK( 3*N+J+JA-1 )
                         CREALB = BCOEFR*WORK( 2*N+J+JA-1 ) - BCOEFI*WORK( 3*N+J+JA-1 )                         CIMAGB = BCOEFI*WORK( 2*N+J+JA-1 ) + BCOEFR*WORK( 3*N+J+JA-1 )
-                        DO 340 JR = 1, J - 1
+                        for (JR = 1; JR <= J - 1; JR++) { // 340
                            WORK( 2*N+JR ) = WORK( 2*N+JR ) - CREALA*S( JR, J+JA-1 ) + CREALB*P( JR, J+JA-1 )                            WORK( 3*N+JR ) = WORK( 3*N+JR ) - CIMAGA*S( JR, J+JA-1 ) + CIMAGB*P( JR, J+JA-1 )
                         } // 340
                      } else {
                         CREALA = ACOEF*WORK( 2*N+J+JA-1 )
                         CREALB = BCOEFR*WORK( 2*N+J+JA-1 )
-                        DO 350 JR = 1, J - 1
+                        for (JR = 1; JR <= J - 1; JR++) { // 350
                            WORK( 2*N+JR ) = WORK( 2*N+JR ) - CREALA*S( JR, J+JA-1 ) + CREALB*P( JR, J+JA-1 )
                         } // 350
                      }
@@ -735,7 +735,7 @@
             IEIG = IEIG - NW
             if ( ILBACK ) {
 
-               DO 410 JW = 0, NW - 1
+               for (JW = 0; JW <= NW - 1; JW++) { // 410
                   for (JR = 1; JR <= N; JR++) { // 380
                      WORK( ( JW+4 )*N+JR ) = WORK( ( JW+2 )*N+1 )* VR( JR, 1 )
                   } // 380
@@ -751,7 +751,7 @@
                   } // 400
                } // 410
 
-               DO 430 JW = 0, NW - 1
+               for (JW = 0; JW <= NW - 1; JW++) { // 430
                   for (JR = 1; JR <= N; JR++) { // 420
                      VR( JR, IEIG+JW ) = WORK( ( JW+4 )*N+JR )
                   } // 420
@@ -759,7 +759,7 @@
 
                IEND = N
             } else {
-               DO 450 JW = 0, NW - 1
+               for (JW = 0; JW <= NW - 1; JW++) { // 450
                   for (JR = 1; JR <= N; JR++) { // 440
                      VR( JR, IEIG+JW ) = WORK( ( JW+2 )*N+JR )
                   } // 440
@@ -783,7 +783,7 @@
 
             if ( XMAX.GT.SAFMIN ) {
                XSCALE = ONE / XMAX
-               DO 490 JW = 0, NW - 1
+               for (JW = 0; JW <= NW - 1; JW++) { // 490
                   for (JR = 1; JR <= IEND; JR++) { // 480
                      VR( JR, IEIG+JW ) = XSCALE*VR( JR, IEIG+JW )
                   } // 480

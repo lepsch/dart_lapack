@@ -77,7 +77,7 @@
 
          // Update partial column norms.
 
-         DO 10 J = I + 1, N
+         for (J = I + 1; J <= N; J++) { // 10
             if ( VN1( J ).NE.ZERO ) {
 
                // NOTE: The following 4 lines follow from the analysis in

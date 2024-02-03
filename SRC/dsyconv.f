@@ -84,7 +84,7 @@
             if ( IPIV(I) .GT. 0) {
                IP=IPIV(I)
                if ( I .LT. N) {
-                  DO 12 J= I+1,N
+                  for (J = I+1; J <= N; J++) { // 12
                     TEMP=A(IP,J)
                     A(IP,J)=A(I,J)
                     A(I,J)=TEMP
@@ -93,7 +93,7 @@
             } else {
               IP=-IPIV(I)
                if ( I .LT. N) {
-             DO 13 J= I+1,N
+             for (J = I+1; J <= N; J++) { // 13
                  TEMP=A(IP,J)
                  A(IP,J)=A(I-1,J)
                  A(I-1,J)=TEMP
@@ -116,7 +116,7 @@
                if ( IPIV(I) .GT. 0 ) {
                   IP=IPIV(I)
                   if ( I .LT. N) {
-                  DO J= I+1,N
+                  for (J = I+1; J <= N; J++) {
                     TEMP=A(IP,J)
                     A(IP,J)=A(I,J)
                     A(I,J)=TEMP
@@ -126,7 +126,7 @@
                  IP=-IPIV(I)
                  I=I+1
                  if ( I .LT. N) {
-                    DO J= I+1,N
+                    for (J = I+1; J <= N; J++) {
                        TEMP=A(IP,J)
                        A(IP,J)=A(I-1,J)
                        A(I-1,J)=TEMP
@@ -179,7 +179,7 @@
             if ( IPIV(I) .GT. 0 ) {
                IP=IPIV(I)
                if (I .GT. 1) {
-               DO 22 J= 1,I-1
+               for (J = 1; J <= I-1; J++) { // 22
                  TEMP=A(IP,J)
                  A(IP,J)=A(I,J)
                  A(I,J)=TEMP
@@ -188,7 +188,7 @@
             } else {
               IP=-IPIV(I)
               if (I .GT. 1) {
-              DO 23 J= 1,I-1
+              for (J = 1; J <= I-1; J++) { // 23
                  TEMP=A(IP,J)
                  A(IP,J)=A(I+1,J)
                  A(I+1,J)=TEMP
@@ -210,7 +210,7 @@
                if ( IPIV(I) .GT. 0 ) {
                   IP=IPIV(I)
                   if (I .GT. 1) {
-                     DO J= 1,I-1
+                     for (J = 1; J <= I-1; J++) {
                         TEMP=A(I,J)
                         A(I,J)=A(IP,J)
                         A(IP,J)=TEMP
@@ -220,7 +220,7 @@
                   IP=-IPIV(I)
                   I=I-1
                   if (I .GT. 1) {
-                     DO J= 1,I-1
+                     for (J = 1; J <= I-1; J++) {
                         TEMP=A(I+1,J)
                         A(I+1,J)=A(IP,J)
                         A(IP,J)=TEMP

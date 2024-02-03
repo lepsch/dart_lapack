@@ -341,7 +341,7 @@
                      DO 50 K = KBOT, KS + 1, -1
                         IF( SORTED ) GO TO 60
                         SORTED = .true.
-                        DO 40 I = KS, K - 1
+                        for (I = KS; I <= K - 1; I++) { // 40
                            if ( ABS( WR( I ) )+ABS( WI( I ) ).LT. ABS( WR( I+1 ) )+ABS( WI( I+1 ) ) ) {
                               SORTED = .false.
 

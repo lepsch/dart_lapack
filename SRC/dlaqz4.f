@@ -107,7 +107,7 @@
          drot(NS+1, QC( 1, 1 ), 1, QC( 1, 2 ), 1, C2, S2 );
 
          // Chase the shift down
-         DO J = 1, NS-1-I
+         for (J = 1; J <= NS-1-I; J++) {
              dlaqz2(.TRUE., .TRUE., J, 1, NS, IHI-ILO+1, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, NS+1, 1, QC, LDQC, NS, 1, ZC, LDZC );
 
          END DO
@@ -159,7 +159,7 @@
 
          // Near the diagonal shift chase
          DO I = NS-1, 0, -2
-            DO J = 0, NP-1
+            for (J = 0; J <= NP-1; J++) {
                // Move down the block with index k+i+j-1, updating
                // the (ns+np x ns+np) block:
                // (k:k+ns+np,k:k+ns+np-1)
@@ -213,7 +213,7 @@
 
       DO I = 1, NS, 2
          // Chase the shift down to the bottom right corner
-         DO ISHIFT = IHI-I-1, IHI-2
+         for (ISHIFT = IHI-I-1; ISHIFT <= IHI-2; ISHIFT++) {
             dlaqz2(.TRUE., .TRUE., ISHIFT, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NS, IHI-NS+1, QC, LDQC, NS+1, IHI-NS, ZC, LDZC );
          END DO
 

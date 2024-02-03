@@ -71,7 +71,7 @@
       AMAX = ZERO
       if ( UP ) {
          for (J = 1; J <= N; J++) {
-            DO I = 1, J-1
+            for (I = 1; I <= J-1; I++) {
                S( I ) = MAX( S( I ), ABS( A( I, J ) ) )
                S( J ) = MAX( S( J ), ABS( A( I, J ) ) )
                AMAX = MAX( AMAX, ABS( A( I, J ) ) )
@@ -83,7 +83,7 @@
          for (J = 1; J <= N; J++) {
             S( J ) = MAX( S( J ), ABS( A( J, J ) ) )
             AMAX = MAX( AMAX, ABS( A( J, J ) ) )
-            DO I = J+1, N
+            for (I = J+1; I <= N; I++) {
                S( I ) = MAX( S( I ), ABS( A( I, J ) ) )
                S( J ) = MAX( S( J ), ABS( A( I, J ) ) )
                AMAX = MAX( AMAX, ABS( A( I, J ) ) )
@@ -105,7 +105,7 @@
          END DO
          if ( UP ) {
             for (J = 1; J <= N; J++) {
-               DO I = 1, J-1
+               for (I = 1; I <= J-1; I++) {
                   WORK( I ) = WORK( I ) + ABS( A( I, J ) ) * S( J )
                   WORK( J ) = WORK( J ) + ABS( A( I, J ) ) * S( I )
                END DO
@@ -114,7 +114,7 @@
          } else {
             for (J = 1; J <= N; J++) {
                WORK( J ) = WORK( J ) + ABS( A( J, J ) ) * S( J )
-               DO I = J+1, N
+               for (I = J+1; I <= N; I++) {
                   WORK( I ) = WORK( I ) + ABS( A( I, J ) ) * S( J )
                   WORK( J ) = WORK( J ) + ABS( A( I, J ) ) * S( I )
                END DO
@@ -129,7 +129,7 @@
          AVG = AVG / N
 
          STD = 0.0E0
-         DO I = N+1, 2*N
+         for (I = N+1; I <= 2*N; I++) {
             WORK( I ) = S( I-N ) * WORK( I-N ) - AVG
          END DO
          slassq(N, WORK( N+1 ), 1, SCALE, SUMSQ );
@@ -159,7 +159,7 @@
                   U = U + S( J )*T
                   WORK( J ) = WORK( J ) + D*T
                END DO
-               DO J = I+1,N
+               for (J = I+1; J <= N; J++) {
                   T = ABS( A( I, J ) )
                   U = U + S( J )*T
                   WORK( J ) = WORK( J ) + D*T
@@ -170,7 +170,7 @@
                   U = U + S( J )*T
                   WORK( J ) = WORK( J ) + D*T
                END DO
-               DO J = I+1,N
+               for (J = I+1; J <= N; J++) {
                   T = ABS( A( J, I ) )
                   U = U + S( J )*T
                   WORK( J ) = WORK( J ) + D*T

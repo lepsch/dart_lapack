@@ -88,7 +88,7 @@
          // Zero the superdiagonal elements of the work array WORK13
 
          for (J = 1; J <= NB; J++) { // 20
-            DO 10 I = 1, J - 1
+            for (I = 1; I <= J - 1; I++) { // 10
                WORK13( I, J ) = ZERO
             } // 10
          } // 20
@@ -96,7 +96,7 @@
          // Zero the subdiagonal elements of the work array WORK31
 
          for (J = 1; J <= NB; J++) { // 40
-            DO 30 I = J + 1, NB
+            for (I = J + 1; I <= NB; I++) { // 30
                WORK31( I, J ) = ZERO
             } // 30
          } // 40
@@ -106,7 +106,7 @@
          // Set fill-in elements in columns KU+2 to KV to zero
 
          DO 60 J = KU + 2, MIN( KV, N )
-            DO 50 I = KV - J + 2, KL
+            for (I = KV - J + 2; I <= KL; I++) { // 50
                AB( I, J ) = ZERO
             } // 50
          } // 60
@@ -138,7 +138,7 @@
 
             // Factorize the current block of JB columns
 
-            DO 80 JJ = J, J + JB - 1
+            for (JJ = J; JJ <= J + JB - 1; JJ++) { // 80
 
                // Set fill-in elements in column JJ+KV to zero
 
@@ -209,7 +209,7 @@
 
                // Adjust the pivot indices.
 
-               DO 90 I = J, J + JB - 1
+               for (I = J; I <= J + JB - 1; I++) { // 90
                   IPIV( I ) = IPIV( I ) + J - 1
                } // 90
 
@@ -219,7 +219,7 @@
                K2 = J - 1 + JB + J2
                for (I = 1; I <= J3; I++) { // 110
                   JJ = K2 + I
-                  DO 100 II = J + I - 1, J + JB - 1
+                  for (II = J + I - 1; II <= J + JB - 1; II++) { // 100
                      IP = IPIV( II )
                      if ( IP.NE.II ) {
                         TEMP = AB( KV+1+II-JJ, JJ )
@@ -293,7 +293,7 @@
 
                // Adjust the pivot indices.
 
-               DO 160 I = J, J + JB - 1
+               for (I = J; I <= J + JB - 1; I++) { // 160
                   IPIV( I ) = IPIV( I ) + J - 1
                } // 160
             }

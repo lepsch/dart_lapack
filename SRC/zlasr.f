@@ -66,7 +66,7 @@
 
          if ( LSAME( PIVOT, 'V' ) ) {
             if ( LSAME( DIRECT, 'F' ) ) {
-               DO 20 J = 1, M - 1
+               for (J = 1; J <= M - 1; J++) { // 20
                   CTEMP = C( J )
                   STEMP = S( J )
                   if ( ( CTEMP.NE.ONE ) .OR. ( STEMP.NE.ZERO ) ) {
@@ -118,7 +118,7 @@
             }
          } else if ( LSAME( PIVOT, 'B' ) ) {
             if ( LSAME( DIRECT, 'F' ) ) {
-               DO 100 J = 1, M - 1
+               for (J = 1; J <= M - 1; J++) { // 100
                   CTEMP = C( J )
                   STEMP = S( J )
                   if ( ( CTEMP.NE.ONE ) .OR. ( STEMP.NE.ZERO ) ) {
@@ -149,7 +149,7 @@
 
          if ( LSAME( PIVOT, 'V' ) ) {
             if ( LSAME( DIRECT, 'F' ) ) {
-               DO 140 J = 1, N - 1
+               for (J = 1; J <= N - 1; J++) { // 140
                   CTEMP = C( J )
                   STEMP = S( J )
                   if ( ( CTEMP.NE.ONE ) .OR. ( STEMP.NE.ZERO ) ) {
@@ -201,7 +201,7 @@
             }
          } else if ( LSAME( PIVOT, 'B' ) ) {
             if ( LSAME( DIRECT, 'F' ) ) {
-               DO 220 J = 1, N - 1
+               for (J = 1; J <= N - 1; J++) { // 220
                   CTEMP = C( J )
                   STEMP = S( J )
                   if ( ( CTEMP.NE.ONE ) .OR. ( STEMP.NE.ZERO ) ) {

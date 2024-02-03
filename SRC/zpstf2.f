@@ -131,7 +131,7 @@
                A( PVT, PVT ) = A( J, J )
                zswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
                IF( PVT.LT.N ) CALL ZSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA )
-               DO 140 I = J + 1, PVT - 1
+               for (I = J + 1; I <= PVT - 1; I++) { // 140
                   ZTEMP = DCONJG( A( J, I ) )
                   A( J, I ) = DCONJG( A( I, PVT ) )
                   A( I, PVT ) = ZTEMP
@@ -198,7 +198,7 @@
                A( PVT, PVT ) = A( J, J )
                zswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
                IF( PVT.LT.N ) CALL ZSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 )
-               DO 170 I = J + 1, PVT - 1
+               for (I = J + 1; I <= PVT - 1; I++) { // 170
                   ZTEMP = DCONJG( A( I, J ) )
                   A( I, J ) = DCONJG( A( PVT, I ) )
                   A( PVT, I ) = ZTEMP

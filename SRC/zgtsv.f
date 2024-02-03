@@ -50,7 +50,7 @@
 
       IF( N.EQ.0 ) RETURN
 
-      DO 30 K = 1, N - 1
+      for (K = 1; K <= N - 1; K++) { // 30
          if ( DL( K ).EQ.ZERO ) {
 
             // Subdiagonal is zero, no elimination is required.

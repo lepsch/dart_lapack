@@ -299,7 +299,7 @@
          // same trace.
 
          ENTRAT = ZERO
-         DO 1114 p = N+1, N+M
+         for (p = N+1; p <= N+M; p++) { // 1114
             BIG1 = ( ( WORK(p) / XSC )**2 ) * TEMP1
             IF ( BIG1 .NE. ZERO ) ENTRAT = ENTRAT + BIG1 * ALOG(BIG1)
          } // 1114
@@ -315,8 +315,8 @@
          if ( TRANSP ) {
             // In an optimal implementation, this trivial transpose
             // should be replaced with faster transpose.
-            DO 1115 p = 1, N - 1
-               DO 1116 q = p + 1, N
+            for (p = 1; p <= N - 1; p++) { // 1115
+               for (q = p + 1; q <= N; q++) { // 1116
                    TEMP1 = A(q,p)
                   A(q,p) = A(p,q)
                   A(p,q) = TEMP1
@@ -409,7 +409,7 @@
          // row pivoting combined with standard column pivoting
          // has similar effect as Powell-Reid complete pivoting.
          // The ell-infinity norms of A are made nonincreasing.
-         DO 1952 p = 1, M - 1
+         for (p = 1; p <= M - 1; p++) { // 1952
             q = ISAMAX( M-p+1, WORK(M+N+p), 1 ) + p - 1
             IWORK(2*N+p) = q
             if ( p .NE. q ) {
@@ -589,7 +589,7 @@
             sgeqrf(N,NR, A,LDA, WORK, WORK(N+1),LWORK-N, IERR );
 
             // .. and transpose upper to lower triangular
-            DO 1948 p = 1, NR - 1
+            for (p = 1; p <= NR - 1; p++) { // 1948
                scopy(NR-p, A(p,p+1), LDA, A(p+1,p), 1 );
             } // 1948
 
@@ -688,7 +688,7 @@
 
          sgeqrf(N, NR, U, LDU, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
 
-         DO 1967 p = 1, NR - 1
+         for (p = 1; p <= NR - 1; p++) { // 1967
             scopy(NR-p, U(p,p+1), LDU, U(p+1,p), 1 );
          } // 1967
          slaset('Upper', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU );
@@ -791,7 +791,7 @@
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)/EPSLN
                   for (p = 2; p <= NR; p++) { // 3959
-                     DO 3958 q = 1, p - 1
+                     for (q = 1; q <= p - 1; q++) { // 3958
                         TEMP1 = XSC * MIN(ABS(V(p,p)),ABS(V(q,q)))
                         IF ( ABS(V(q,p)) .LE. TEMP1 ) V(q,p) = SIGN( TEMP1, V(q,p) )
                      } // 3958
@@ -802,7 +802,7 @@
                // .. save ...
 
             // .. this transposed copy should be better than naive
-               DO 1969 p = 1, NR - 1
+               for (p = 1; p <= NR - 1; p++) { // 1969
                   scopy(NR-p, V(p,p+1), LDV, V(p+1,p), 1 );
                } // 1969
 
@@ -827,7 +827,7 @@
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)
                   for (p = 2; p <= NR; p++) { // 3969
-                     DO 3968 q = 1, p - 1
+                     for (q = 1; q <= p - 1; q++) { // 3968
                         TEMP1 = XSC * MIN(ABS(V(p,p)),ABS(V(q,q)))
                         IF ( ABS(V(q,p)) .LE. TEMP1 ) V(q,p) = SIGN( TEMP1, V(q,p) )
                      } // 3968
@@ -839,7 +839,7 @@
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)
                   for (p = 2; p <= NR; p++) { // 8970
-                     DO 8971 q = 1, p - 1
+                     for (q = 1; q <= p - 1; q++) { // 8971
                         TEMP1 = XSC * MIN(ABS(V(p,p)),ABS(V(q,q)))
                         V(p,q) = - SIGN( TEMP1, V(q,p) )
                      } // 8971
@@ -874,7 +874,7 @@
                XSC = SQRT(SMALL)
                for (q = 2; q <= NR; q++) { // 4968
                   TEMP1 = XSC * V(q,q)
-                  DO 4969 p = 1, q - 1
+                  for (p = 1; p <= q - 1; p++) { // 4969
                      // V(p,q) = - SIGN( TEMP1, V(q,p) )
                      V(p,q) = - SIGN( TEMP1, V(p,q) )
                   } // 4969
@@ -1038,7 +1038,7 @@
                XSC = SQRT(SMALL)
                for (p = 2; p <= N; p++) { // 5970
                   TEMP1 = XSC * WORK( N + (p-1)*N + p )
-                  DO 5971 q = 1, p - 1
+                  for (q = 1; q <= p - 1; q++) { // 5971
                      WORK(N+(q-1)*N+p)=-SIGN(TEMP1,WORK(N+(p-1)*N+q))
                   } // 5971
                } // 5970
@@ -1125,7 +1125,7 @@
          if ( L2PERT ) {
             XSC = SQRT(SMALL/EPSLN)
             for (q = 2; q <= NR; q++) { // 9970
-               DO 9971 p = 1, q - 1
+               for (p = 1; p <= q - 1; p++) { // 9971
                   TEMP1 = XSC * MIN(ABS(U(p,p)),ABS(U(q,q)))
                   U(p,q) = - SIGN( TEMP1, U(q,p) )
                } // 9971
@@ -1196,7 +1196,7 @@
       }
 
       if ( NR .LT. N ) {
-         DO 3004 p = NR+1, N
+         for (p = NR+1; p <= N; p++) { // 3004
             SVA(p) = ZERO
          } // 3004
       }

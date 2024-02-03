@@ -90,12 +90,12 @@
                   // -> L(0,0)
                   TEMP = ABS( REAL( A( J+J*LDA ) ) )
                   IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                  DO I = 1, N - 1
+                  for (I = 1; I <= N - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-                  DO J = 1, K - 1
-                     DO I = 0, J - 2
+                  for (J = 1; J <= K - 1; J++) {
+                     for (I = 0; I <= J - 2; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
@@ -107,15 +107,15 @@
                      // -> L(j,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                     DO I = J + 1, N - 1
+                     for (I = J + 1; I <= N - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
                } else {
                   // uplo = 'U'
-                  DO J = 0, K - 2
-                     DO I = 0, K + J - 2
+                  for (J = 0; J <= K - 2; J++) {
+                     for (I = 0; I <= K + J - 2; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
@@ -127,12 +127,12 @@
                      // =k+j; i -> U(j,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                     DO I = K + J + 1, N - 1
+                     for (I = K + J + 1; I <= N - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
-                  DO I = 0, N - 2
+                  for (I = 0; I <= N - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      // j=k-1
@@ -145,8 +145,8 @@
                // xpose case; A is k by n
                if ( ILU.EQ.1 ) {
                   // uplo ='L'
-                  DO J = 0, K - 2
-                     DO I = 0, J - 1
+                  for (J = 0; J <= K - 2; J++) {
+                     for (I = 0; I <= J - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
@@ -158,13 +158,13 @@
                      // L(j+k,j+k)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                     DO I = J + 2, K - 1
+                     for (I = J + 2; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
                   J = K - 1
-                  DO I = 0, K - 2
+                  for (I = 0; I <= K - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -172,16 +172,16 @@
                   // -> L(i,i) is at A(i,j)
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                  DO J = K, N - 1
-                     DO I = 0, K - 1
+                  for (J = K; J <= N - 1; J++) {
+                     for (I = 0; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
                } else {
                   // uplo = 'U'
-                  DO J = 0, K - 2
-                     DO I = 0, K - 1
+                  for (J = 0; J <= K - 2; J++) {
+                     for (I = 0; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
@@ -190,12 +190,12 @@
                   // -> U(j,j) is at A(0,j)
                   TEMP = ABS( REAL( A( 0+J*LDA ) ) )
                   IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                  DO I = 1, K - 1
+                  for (I = 1; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-                  DO J = K, N - 1
-                     DO I = 0, J - K - 1
+                  for (J = K; J <= N - 1; J++) {
+                     for (I = 0; I <= J - K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
@@ -207,7 +207,7 @@
                      // U(j,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                     DO I = J - K + 2, K - 1
+                     for (I = J - K + 2; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
@@ -230,8 +230,8 @@
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-                  DO J = 1, K - 1
-                     DO I = 0, J - 1
+                  for (J = 1; J <= K - 1; J++) {
+                     for (I = 0; I <= J - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
@@ -243,15 +243,15 @@
                      // -> L(j,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                     DO I = J + 2, N
+                     for (I = J + 2; I <= N; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
                } else {
                   // uplo = 'U'
-                  DO J = 0, K - 2
-                     DO I = 0, K + J - 1
+                  for (J = 0; J <= K - 2; J++) {
+                     for (I = 0; I <= K + J - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
@@ -263,12 +263,12 @@
                      // =k+j+1; i -> U(j,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                     DO I = K + J + 2, N
+                     for (I = K + J + 2; I <= N; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
-                  DO I = 0, N - 2
+                  for (I = 0; I <= N - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   // j=k-1
@@ -289,12 +289,12 @@
                   // -> L(k,k) at A(0,0)
                   TEMP = ABS( REAL( A( J+J*LDA ) ) )
                   IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                  DO I = 1, K - 1
+                  for (I = 1; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-                  DO J = 1, K - 1
-                     DO I = 0, J - 2
+                  for (J = 1; J <= K - 1; J++) {
+                     for (I = 0; I <= J - 2; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
@@ -306,13 +306,13 @@
                      // L(j+k,j+k)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                     DO I = J + 1, K - 1
+                     for (I = J + 1; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
                   J = K
-                  DO I = 0, K - 2
+                  for (I = 0; I <= K - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -320,16 +320,16 @@
                   // -> L(i,i) is at A(i,j)
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
                   IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                  DO J = K + 1, N
-                     DO I = 0, K - 1
+                  for (J = K + 1; J <= N; J++) {
+                     for (I = 0; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
                } else {
                   // uplo = 'U'
-                  DO J = 0, K - 1
-                     DO I = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
+                     for (I = 0; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
@@ -338,12 +338,12 @@
                   // -> U(j,j) is at A(0,j)
                   TEMP = ABS( REAL( A( 0+J*LDA ) ) )
                   IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                  DO I = 1, K - 1
+                  for (I = 1; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-                  DO J = K + 1, N - 1
-                     DO I = 0, J - K - 2
+                  for (J = K + 1; J <= N - 1; J++) {
+                     for (I = 0; I <= J - K - 2; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
@@ -355,13 +355,13 @@
                      // U(j,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
-                     DO I = J - K + 1, K - 1
+                     for (I = J - K + 1; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
                   J = N
-                  DO I = 0, K - 2
+                  for (I = 0; I <= K - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -383,12 +383,12 @@
                // n is odd & A is n by (n+1)/2
                if ( ILU.EQ.0 ) {
                   // uplo = 'U'
-                  DO I = 0, K - 1
+                  for (I = 0; I <= K - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
                   for (J = 0; J <= K; J++) {
                      S = ZERO
-                     DO I = 0, K + J - 1
+                     for (I = 0; I <= K + J - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(i,j+k)
                         S = S + AA
@@ -403,7 +403,7 @@
                      // -> A(j,j)
                      WORK( J ) = WORK( J ) + AA
                      S = ZERO
-                     DO L = J + 1, K - 1
+                     for (L = J + 1; L <= K - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(l,j)
@@ -414,7 +414,7 @@
                   END DO
                   } // 10
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -422,12 +422,12 @@
                   // ilu = 1 & uplo = 'L'
                   K = K + 1
                   // k=(n+1)/2 for n odd and ilu=1
-                  DO I = K, N - 1
+                  for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
                   DO J = K - 1, 0, -1
                      S = ZERO
-                     DO I = 0, J - 2
+                     for (I = 0; I <= J - 2; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(j+k,i+k)
                         S = S + AA
@@ -445,7 +445,7 @@
                      // -> A(j,j)
                      WORK( J ) = AA
                      S = ZERO
-                     DO L = J + 1, N - 1
+                     for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(l,j)
@@ -455,7 +455,7 @@
                      WORK( J ) = WORK( J ) + S
                   END DO
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -464,12 +464,12 @@
                // n is even & A is n+1 by k = n/2
                if ( ILU.EQ.0 ) {
                   // uplo = 'U'
-                  DO I = 0, K - 1
+                  for (I = 0; I <= K - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      S = ZERO
-                     DO I = 0, K + J - 1
+                     for (I = 0; I <= K + J - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(i,j+k)
                         S = S + AA
@@ -483,7 +483,7 @@
                      // -> A(j,j)
                      WORK( J ) = WORK( J ) + AA
                      S = ZERO
-                     DO L = J + 1, K - 1
+                     for (L = J + 1; L <= K - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(l,j)
@@ -493,18 +493,18 @@
                      WORK( J ) = WORK( J ) + S
                   END DO
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                } else {
                   // ilu = 1 & uplo = 'L'
-                  DO I = K, N - 1
+                  for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
                   DO J = K - 1, 0, -1
                      S = ZERO
-                     DO I = 0, J - 1
+                     for (I = 0; I <= J - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(j+k,i+k)
                         S = S + AA
@@ -520,7 +520,7 @@
                      // -> A(j,j)
                      WORK( J ) = AA
                      S = ZERO
-                     DO L = J + 1, N - 1
+                     for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(l,j)
@@ -530,7 +530,7 @@
                      WORK( J ) = WORK( J ) + S
                   END DO
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -547,12 +547,12 @@
                   // n/2
                   K = K + 1
                   // k is the row size and lda
-                  DO I = N1, N - 1
+                  for (I = N1; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
-                  DO J = 0, N1 - 1
+                  for (J = 0; J <= N1 - 1; J++) {
                      S = ZERO
-                     DO I = 0, K - 1
+                     for (I = 0; I <= K - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(j,n1+i)
                         WORK( I+N1 ) = WORK( I+N1 ) + AA
@@ -563,16 +563,16 @@
                   // j=n1=k-1 is special
                   S = ABS( REAL( A( 0+J*LDA ) ) )
                   // A(k-1,k-1)
-                  DO I = 1, K - 1
+                  for (I = 1; I <= K - 1; I++) {
                      AA = ABS( A( I+J*LDA ) )
                      // A(k-1,i+n1)
                      WORK( I+N1 ) = WORK( I+N1 ) + AA
                      S = S + AA
                   END DO
                   WORK( J ) = WORK( J ) + S
-                  DO J = K, N - 1
+                  for (J = K; J <= N - 1; J++) {
                      S = ZERO
-                     DO I = 0, J - K - 1
+                     for (I = 0; I <= J - K - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(i,j-k)
                         WORK( I ) = WORK( I ) + AA
@@ -586,7 +586,7 @@
                      I = I + 1
                      S = ABS( REAL( A( I+J*LDA ) ) )
                      // A(j,j)
-                     DO L = J + 1, N - 1
+                     for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // A(j,l)
@@ -596,7 +596,7 @@
                      WORK( J ) = WORK( J ) + S
                   END DO
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -604,13 +604,13 @@
                   // ilu=1 & uplo = 'L'
                   K = K + 1
                   // k=(n+1)/2 for n odd and ilu=1
-                  DO I = K, N - 1
+                  for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      // process
                      S = ZERO
-                     DO I = 0, J - 1
+                     for (I = 0; I <= J - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(j,i)
                         WORK( I ) = WORK( I ) + AA
@@ -625,7 +625,7 @@
                      // i=j process A(j+k,j+k)
                      AA = ABS( REAL( A( I+J*LDA ) ) )
                      S = AA
-                     DO L = K + J + 1, N - 1
+                     for (L = K + J + 1; L <= N - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // A(l,k+j)
@@ -636,7 +636,7 @@
                   END DO
                   // j=k-1 is special :process col A(k-1,0:k-1)
                   S = ZERO
-                  DO I = 0, K - 2
+                  for (I = 0; I <= K - 2; I++) {
                      AA = ABS( A( I+J*LDA ) )
                      // A(k,i)
                      WORK( I ) = WORK( I ) + AA
@@ -648,10 +648,10 @@
                   S = S + AA
                   WORK( I ) = S
                   // done with col j=k+1
-                  DO J = K, N - 1
+                  for (J = K; J <= N - 1; J++) {
                      // process col j of A = A(j,0:k-1)
                      S = ZERO
-                     DO I = 0, K - 1
+                     for (I = 0; I <= K - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(j,i)
                         WORK( I ) = WORK( I ) + AA
@@ -660,7 +660,7 @@
                      WORK( J ) = WORK( J ) + S
                   END DO
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -669,12 +669,12 @@
                // n is even & A is k=n/2 by n+1
                if ( ILU.EQ.0 ) {
                   // uplo = 'U'
-                  DO I = K, N - 1
+                  for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      S = ZERO
-                     DO I = 0, K - 1
+                     for (I = 0; I <= K - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(j,i+k)
                         WORK( I+K ) = WORK( I+K ) + AA
@@ -686,16 +686,16 @@
                   AA = ABS( REAL( A( 0+J*LDA ) ) )
                   // A(k,k)
                   S = AA
-                  DO I = 1, K - 1
+                  for (I = 1; I <= K - 1; I++) {
                      AA = ABS( A( I+J*LDA ) )
                      // A(k,k+i)
                      WORK( I+K ) = WORK( I+K ) + AA
                      S = S + AA
                   END DO
                   WORK( J ) = WORK( J ) + S
-                  DO J = K + 1, N - 1
+                  for (J = K + 1; J <= N - 1; J++) {
                      S = ZERO
-                     DO I = 0, J - 2 - K
+                     for (I = 0; I <= J - 2 - K; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(i,j-k-1)
                         WORK( I ) = WORK( I ) + AA
@@ -710,7 +710,7 @@
                      AA = ABS( REAL( A( I+J*LDA ) ) )
                      // A(j,j)
                      S = AA
-                     DO L = J + 1, N - 1
+                     for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // A(j,l)
@@ -721,7 +721,7 @@
                   END DO
                   // j=n
                   S = ZERO
-                  DO I = 0, K - 2
+                  for (I = 0; I <= K - 2; I++) {
                      AA = ABS( A( I+J*LDA ) )
                      // A(i,k-1)
                      WORK( I ) = WORK( I ) + AA
@@ -733,29 +733,29 @@
                   S = S + AA
                   WORK( I ) = WORK( I ) + S
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                } else {
                   // ilu=1 & uplo = 'L'
-                  DO I = K, N - 1
+                  for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
                   // j=0 is special :process col A(k:n-1,k)
                   S = ABS( REAL( A( 0 ) ) )
                   // A(k,k)
-                  DO I = 1, K - 1
+                  for (I = 1; I <= K - 1; I++) {
                      AA = ABS( A( I ) )
                      // A(k+i,k)
                      WORK( I+K ) = WORK( I+K ) + AA
                      S = S + AA
                   END DO
                   WORK( K ) = WORK( K ) + S
-                  DO J = 1, K - 1
+                  for (J = 1; J <= K - 1; J++) {
                      // process
                      S = ZERO
-                     DO I = 0, J - 2
+                     for (I = 0; I <= J - 2; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(j-1,i)
                         WORK( I ) = WORK( I ) + AA
@@ -770,7 +770,7 @@
                      // i=j process A(j+k,j+k)
                      AA = ABS( REAL( A( I+J*LDA ) ) )
                      S = AA
-                     DO L = K + J + 1, N - 1
+                     for (L = K + J + 1; L <= N - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // A(l,k+j)
@@ -781,7 +781,7 @@
                   END DO
                   // j=k is special :process col A(k,0:k-1)
                   S = ZERO
-                  DO I = 0, K - 2
+                  for (I = 0; I <= K - 2; I++) {
                      AA = ABS( A( I+J*LDA ) )
                      // A(k,i)
                      WORK( I ) = WORK( I ) + AA
@@ -794,11 +794,11 @@
                   S = S + AA
                   WORK( I ) = S
                   // done with col j=k+1
-                  DO J = K + 1, N
+                  for (J = K + 1; J <= N; J++) {
 
                      // process col j-1 of A = A(j-1,0:k-1)
                      S = ZERO
-                     DO I = 0, K - 1
+                     for (I = 0; I <= K - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(j-1,i)
                         WORK( I ) = WORK( I ) + AA
@@ -807,7 +807,7 @@
                      WORK( J-1 ) = WORK( J-1 ) + S
                   END DO
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -827,11 +827,11 @@
                // A is normal & A is n by k
                if ( ILU.EQ.0 ) {
                   // A is upper
-                  DO J = 0, K - 3
+                  for (J = 0; J <= K - 3; J++) {
                      classq(K-J-2, A( K+J+1+J*LDA ), 1, SCALE, S );
                      // L at A(k,0)
                   END DO
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      classq(K+J-1, A( 0+J*LDA ), 1, SCALE, S );
                      // trap U at A(0,0)
                   END DO
@@ -839,7 +839,7 @@
                   // double s for the off diagonal elements
                   L = K - 1
                   // -> U(k,k) at A(k-1,0)
-                  DO I = 0, K - 2
+                  for (I = 0; I <= K - 2; I++) {
                      AA = REAL( A( L ) )
                      // U(k+i,k+i)
                      if ( AA.NE.ZERO ) {
@@ -874,11 +874,11 @@
                   }
                } else {
                   // ilu=1 & A is lower
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      classq(N-J-1, A( J+1+J*LDA ), 1, SCALE, S );
                      // trap L at A(0,0)
                   END DO
-                  DO J = 1, K - 2
+                  for (J = 1; J <= K - 2; J++) {
                      classq(J, A( 0+( 1+J )*LDA ), 1, SCALE, S );
                      // U at A(0,1)
                   END DO
@@ -896,7 +896,7 @@
                   }
                   L = LDA
                   // -> L(k,k) at A(0,1)
-                  DO I = 1, K - 1
+                  for (I = 1; I <= K - 1; I++) {
                      AA = REAL( A( L ) )
                      // L(k-1+i,k-1+i)
                      if ( AA.NE.ZERO ) {
@@ -924,15 +924,15 @@
                // A is xpose & A is k by n
                if ( ILU.EQ.0 ) {
                   // A**H is upper
-                  DO J = 1, K - 2
+                  for (J = 1; J <= K - 2; J++) {
                      classq(J, A( 0+( K+J )*LDA ), 1, SCALE, S );
                      // U at A(0,k)
                   END DO
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      classq(K, A( 0+J*LDA ), 1, SCALE, S );
                      // k by k-1 rect. at A(0,0)
                   END DO
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      classq(K-J-1, A( J+1+( J+K-1 )*LDA ), 1, SCALE, S );
                      // L at A(0,k-1)
                   END DO
@@ -952,7 +952,7 @@
                   }
                   L = L + LDA
                   // -> U(0,0) at A(0,k)
-                  DO J = K, N - 1
+                  for (J = K; J <= N - 1; J++) {
                      AA = REAL( A( L ) )
                      // -> U(j-k,j-k)
                      if ( AA.NE.ZERO ) {
@@ -977,15 +977,15 @@
                   END DO
                } else {
                   // A**H is lower
-                  DO J = 1, K - 1
+                  for (J = 1; J <= K - 1; J++) {
                      classq(J, A( 0+J*LDA ), 1, SCALE, S );
                      // U at A(0,0)
                   END DO
-                  DO J = K, N - 1
+                  for (J = K; J <= N - 1; J++) {
                      classq(K, A( 0+J*LDA ), 1, SCALE, S );
                      // k by k-1 rect. at A(0,k)
                   END DO
-                  DO J = 0, K - 3
+                  for (J = 0; J <= K - 3; J++) {
                      classq(K-J-2, A( J+2+J*LDA ), 1, SCALE, S );
                      // L at A(1,0)
                   END DO
@@ -993,7 +993,7 @@
                   // double s for the off diagonal elements
                   L = 0
                   // -> L(0,0) at A(0,0)
-                  DO I = 0, K - 2
+                  for (I = 0; I <= K - 2; I++) {
                      AA = REAL( A( L ) )
                      // L(i,i)
                      if ( AA.NE.ZERO ) {
@@ -1035,11 +1035,11 @@
                // A is normal
                if ( ILU.EQ.0 ) {
                   // A is upper
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      classq(K-J-1, A( K+J+2+J*LDA ), 1, SCALE, S );
                   // L at A(k+1,0)
                   END DO
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      classq(K+J, A( 0+J*LDA ), 1, SCALE, S );
                   // trap U at A(0,0)
                   END DO
@@ -1047,7 +1047,7 @@
                   // double s for the off diagonal elements
                   L = K
                   // -> U(k,k) at A(k,0)
-                  DO I = 0, K - 1
+                  for (I = 0; I <= K - 1; I++) {
                      AA = REAL( A( L ) )
                      // U(k+i,k+i)
                      if ( AA.NE.ZERO ) {
@@ -1072,11 +1072,11 @@
                   END DO
                } else {
                   // ilu=1 & A is lower
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      classq(N-J-1, A( J+2+J*LDA ), 1, SCALE, S );
                      // trap L at A(1,0)
                   END DO
-                  DO J = 1, K - 1
+                  for (J = 1; J <= K - 1; J++) {
                      classq(J, A( 0+J*LDA ), 1, SCALE, S );
                      // U at A(0,0)
                   END DO
@@ -1084,7 +1084,7 @@
                   // double s for the off diagonal elements
                   L = 0
                   // -> L(k,k) at A(0,0)
-                  DO I = 0, K - 1
+                  for (I = 0; I <= K - 1; I++) {
                      AA = REAL( A( L ) )
                      // L(k-1+i,k-1+i)
                      if ( AA.NE.ZERO ) {
@@ -1112,15 +1112,15 @@
                // A is xpose
                if ( ILU.EQ.0 ) {
                   // A**H is upper
-                  DO J = 1, K - 1
+                  for (J = 1; J <= K - 1; J++) {
                      classq(J, A( 0+( K+1+J )*LDA ), 1, SCALE, S );
                   // U at A(0,k+1)
                   END DO
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      classq(K, A( 0+J*LDA ), 1, SCALE, S );
                   // k by k rect. at A(0,0)
                   END DO
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      classq(K-J-1, A( J+1+( J+K )*LDA ), 1, SCALE, S );
                   // L at A(0,k)
                   END DO
@@ -1140,7 +1140,7 @@
                   }
                   L = L + LDA
                   // -> U(0,0) at A(0,k+1)
-                  DO J = K + 1, N - 1
+                  for (J = K + 1; J <= N - 1; J++) {
                      AA = REAL( A( L ) )
                      // -> U(j-k-1,j-k-1)
                      if ( AA.NE.ZERO ) {
@@ -1177,15 +1177,15 @@
                   }
                } else {
                   // A**H is lower
-                  DO J = 1, K - 1
+                  for (J = 1; J <= K - 1; J++) {
                      classq(J, A( 0+( J+1 )*LDA ), 1, SCALE, S );
                   // U at A(0,1)
                   END DO
-                  DO J = K + 1, N
+                  for (J = K + 1; J <= N; J++) {
                      classq(K, A( 0+J*LDA ), 1, SCALE, S );
                   // k by k rect. at A(0,k+1)
                   END DO
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      classq(K-J-1, A( J+1+J*LDA ), 1, SCALE, S );
                   // L at A(0,0)
                   END DO
@@ -1205,7 +1205,7 @@
                   }
                   L = LDA
                   // -> L(0,0) at A(0,1)
-                  DO I = 0, K - 2
+                  for (I = 0; I <= K - 2; I++) {
                      AA = REAL( A( L ) )
                      // L(i,i)
                      if ( AA.NE.ZERO ) {

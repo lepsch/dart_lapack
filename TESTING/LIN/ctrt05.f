@@ -98,25 +98,25 @@
             TMP = CABS1( B( I, K ) )
             if ( UPPER ) {
                if ( .NOT.NOTRAN ) {
-                  DO 40 J = 1, I - IFU
+                  for (J = 1; J <= I - IFU; J++) { // 40
                      TMP = TMP + CABS1( A( J, I ) )*CABS1( X( J, K ) )
                   } // 40
                   IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
                } else {
                   IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
-                  DO 50 J = I + IFU, N
+                  for (J = I + IFU; J <= N; J++) { // 50
                      TMP = TMP + CABS1( A( I, J ) )*CABS1( X( J, K ) )
                   } // 50
                }
             } else {
                if ( NOTRAN ) {
-                  DO 60 J = 1, I - IFU
+                  for (J = 1; J <= I - IFU; J++) { // 60
                      TMP = TMP + CABS1( A( I, J ) )*CABS1( X( J, K ) )
                   } // 60
                   IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
                } else {
                   IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
-                  DO 70 J = I + IFU, N
+                  for (J = I + IFU; J <= N; J++) { // 70
                      TMP = TMP + CABS1( A( J, I ) )*CABS1( X( J, K ) )
                   } // 70
                }

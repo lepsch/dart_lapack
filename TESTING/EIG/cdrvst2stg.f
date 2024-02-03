@@ -229,7 +229,7 @@
                // Store as dense matrix for most routines.
 
                claset('Full', LDA, N, CZERO, CZERO, A, LDA );
-               DO 100 IDIAG = -IHBW, IHBW
+               for (IDIAG = -IHBW; IDIAG <= IHBW; IDIAG++) { // 100
                   IROW = IHBW - IDIAG + 1
                   J1 = MAX( 1, IDIAG+1 )
                   J2 = MIN( N, N+IDIAG )

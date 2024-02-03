@@ -126,7 +126,7 @@
             // Copy superdiagonal elements back into A, and diagonal
             // elements into D
 
-            DO 10 J = I, I + NB - 1
+            for (J = I; J <= I + NB - 1; J++) { // 10
                A( J-1, J ) = E( J-1 )
                D( J ) = A( J, J )
             } // 10
@@ -155,7 +155,7 @@
             // Copy subdiagonal elements back into A, and diagonal
             // elements into D
 
-            DO 30 J = I, I + NB - 1
+            for (J = I; J <= I + NB - 1; J++) { // 30
                A( J+1, J ) = E( J )
                D( J ) = A( J, J )
             } // 30

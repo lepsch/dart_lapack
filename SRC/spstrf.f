@@ -119,7 +119,7 @@
                   WORK( I ) = 0
                } // 110
 
-               DO 130 J = K, K + JB - 1
+               for (J = K; J <= K + JB - 1; J++) { // 130
 
                // Find pivot, test for exit, else swap rows and columns
                // Update dot products, compute possible pivots which are
@@ -200,7 +200,7 @@
                   WORK( I ) = 0
                } // 150
 
-               DO 170 J = K, K + JB - 1
+               for (J = K; J <= K + JB - 1; J++) { // 170
 
                // Find pivot, test for exit, else swap rows and columns
                // Update dot products, compute possible pivots which are

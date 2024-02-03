@@ -216,7 +216,7 @@
          WR( K ) = T( K, K )
          WI( K ) = ZERO
       } // 50
-      DO 60 K = 1, N - 1
+      for (K = 1; K <= N - 1; K++) { // 60
          if ( T( K+1, K ).NE.ZERO ) {
             WI( K ) = SQRT( ABS( T( K, K+1 ) ) )* SQRT( ABS( T( K+1, K ) ) )
             WI( K+1 ) = -WI( K )

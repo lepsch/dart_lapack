@@ -207,7 +207,7 @@
                   // Generate Q, Z as Householder transformations times
                   // a diagonal matrix.
 
-                  DO 40 JC = 1, N - 1
+                  for (JC = 1; JC <= N - 1; JC++) { // 40
                      for (JR = JC; JR <= N; JR++) { // 30
                         Q( JR, JC ) = ZLARND( 3, ISEED )
                         Z( JR, JC ) = ZLARND( 3, ISEED )

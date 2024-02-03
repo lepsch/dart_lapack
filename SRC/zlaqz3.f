@@ -91,7 +91,7 @@
          zrot(NS, A( ILO, ILO ), LDA, A( ILO+1, ILO ), LDA, C, S )          CALL ZROT( NS, B( ILO, ILO ), LDB, B( ILO+1, ILO ), LDB, C, S )          CALL ZROT( NS+1, QC( 1, 1 ), 1, QC( 1, 2 ), 1, C, DCONJG( S ) );
 
          // Chase the shift down
-         DO J = 1, NS-I
+         for (J = 1; J <= NS-I; J++) {
              zlaqz1(.TRUE., .TRUE., J, 1, NS, IHI-ILO+1, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, NS+1, 1, QC, LDQC, NS, 1, ZC, LDZC );
 
          END DO
@@ -144,7 +144,7 @@
 
          // Near the diagonal shift chase
          DO I = NS-1, 0, -1
-            DO J = 0, NP-1
+            for (J = 0; J <= NP-1; J++) {
                // Move down the block with index k+i+j, updating
                // the (ns+np x ns+np) block:
                // (k:k+ns+np,k:k+ns+np-1)
@@ -198,7 +198,7 @@
 
       for (I = 1; I <= NS; I++) {
          // Chase the shift down to the bottom right corner
-         DO ISHIFT = IHI-I, IHI-1
+         for (ISHIFT = IHI-I; ISHIFT <= IHI-1; ISHIFT++) {
             zlaqz1(.TRUE., .TRUE., ISHIFT, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NS, IHI-NS+1, QC, LDQC, NS+1, IHI-NS, ZC, LDZC );
          END DO
 

@@ -98,7 +98,7 @@
                       TEMP2 = ALPHA*X(JX)
                       IX = KX
                       IY = KY
-                      DO 30 K = KK,KK + J - 1
+                      for (K = KK; K <= KK + J - 1; K++) { // 30
                           AP(K) = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2
                           IX = IX + INCX
                           IY = IY + INCY
@@ -133,7 +133,7 @@
                       TEMP2 = ALPHA*X(JX)
                       IX = JX
                       IY = JY
-                      DO 70 K = KK,KK + N - J
+                      for (K = KK; K <= KK + N - J; K++) { // 70
                           AP(K) = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2
                           IX = IX + INCX
                           IY = IY + INCY

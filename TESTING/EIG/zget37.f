@@ -99,8 +99,8 @@
             NINFO( 1 ) = NINFO( 1 ) + 1
             GO TO 260
          }
-         DO 60 J = 1, N - 2
-            DO 50 I = J + 2, N
+         for (J = 1; J <= N - 2; J++) { // 60
+            for (I = J + 2; I <= N; I++) { // 50
                T( I, J ) = ZERO
             } // 50
          } // 60
@@ -152,10 +152,10 @@
          dcopy(N, S, 1, STMP, 1 );
          dcopy(N, SEP, 1, SEPTMP, 1 );
          dscal(N, ONE / VMUL, SEPTMP, 1 );
-         DO 110 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 110
             KMIN = I
             VMIN = WSRT( I )
-            DO 100 J = I + 1, N
+            for (J = I + 1; J <= N; J++) { // 100
                if ( WSRT( J ).LT.VMIN ) {
                   KMIN = J
                   VMIN = WSRT( J )

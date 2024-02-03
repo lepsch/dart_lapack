@@ -116,7 +116,7 @@
                EX = E( 1 )*X( 2, J )
                WORK( 1 ) = BI - DX - EX
                RWORK( 1 ) = CABS1( BI ) + CABS1( DX ) + CABS1( E( 1 ) )*CABS1( X( 2, J ) )
-               DO 30 I = 2, N - 1
+               for (I = 2; I <= N - 1; I++) { // 30
                   BI = B( I, J )
                   CX = DCONJG( E( I-1 ) )*X( I-1, J )
                   DX = D( I )*X( I, J )
@@ -142,7 +142,7 @@
                EX = DCONJG( E( 1 ) )*X( 2, J )
                WORK( 1 ) = BI - DX - EX
                RWORK( 1 ) = CABS1( BI ) + CABS1( DX ) + CABS1( E( 1 ) )*CABS1( X( 2, J ) )
-               DO 40 I = 2, N - 1
+               for (I = 2; I <= N - 1; I++) { // 40
                   BI = B( I, J )
                   CX = E( I-1 )*X( I-1, J )
                   DX = D( I )*X( I, J )

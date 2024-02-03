@@ -75,13 +75,13 @@
       // rows and columns to those of the unit matrix
 
       DO 40 J = IHI, ILO + 1, -1
-         DO 10 I = 1, J - 1
+         for (I = 1; I <= J - 1; I++) { // 10
             A( I, J ) = ZERO
          } // 10
-         DO 20 I = J + 1, IHI
+         for (I = J + 1; I <= IHI; I++) { // 20
             A( I, J ) = A( I, J-1 )
          } // 20
-         DO 30 I = IHI + 1, N
+         for (I = IHI + 1; I <= N; I++) { // 30
             A( I, J ) = ZERO
          } // 30
       } // 40
@@ -91,7 +91,7 @@
          } // 50
          A( J, J ) = ONE
       } // 60
-      DO 80 J = IHI + 1, N
+      for (J = IHI + 1; J <= N; J++) { // 80
          for (I = 1; I <= N; I++) { // 70
             A( I, J ) = ZERO
          } // 70

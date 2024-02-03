@@ -108,11 +108,11 @@
 
          // ==== copy eigenvalues isolated by SGEBAL ====
 
-         DO 10 I = 1, ILO - 1
+         for (I = 1; I <= ILO - 1; I++) { // 10
             WR( I ) = H( I, I )
             WI( I ) = ZERO
          } // 10
-         DO 20 I = IHI + 1, N
+         for (I = IHI + 1; I <= N; I++) { // 20
             WR( I ) = H( I, I )
             WI( I ) = ZERO
          } // 20

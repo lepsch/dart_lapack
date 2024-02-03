@@ -84,7 +84,7 @@
                   } // 20
               } else {
                   for (J = 1; J <= N; J++) { // 40
-                      DO 30 I = 1,J - 1
+                      for (I = 1; I <= J - 1; I++) { // 30
                           C(I,J) = BETA*C(I,J)
                       } // 30
                       C(J,J) = BETA*REAL(C(J,J))
@@ -100,7 +100,7 @@
               } else {
                   for (J = 1; J <= N; J++) { // 80
                       C(J,J) = BETA*REAL(C(J,J))
-                      DO 70 I = J + 1,N
+                      for (I = J + 1; I <= N; I++) { // 70
                           C(I,J) = BETA*C(I,J)
                       } // 70
                   } // 80
@@ -123,7 +123,7 @@
                           C(I,J) = ZERO
                       } // 90
                   } else if (BETA.NE.ONE) {
-                      DO 100 I = 1,J - 1
+                      for (I = 1; I <= J - 1; I++) { // 100
                           C(I,J) = BETA*C(I,J)
                       } // 100
                       C(J,J) = BETA*REAL(C(J,J))
@@ -134,7 +134,7 @@
                       if ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) {
                           TEMP1 = ALPHA*CONJG(B(J,L))
                           TEMP2 = CONJG(ALPHA*A(J,L))
-                          DO 110 I = 1,J - 1
+                          for (I = 1; I <= J - 1; I++) { // 110
                               C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2
                           } // 110
                           C(J,J) = REAL(C(J,J)) + REAL(A(J,L)*TEMP1+B(J,L)*TEMP2)
@@ -148,7 +148,7 @@
                           C(I,J) = ZERO
                       } // 140
                   } else if (BETA.NE.ONE) {
-                      DO 150 I = J + 1,N
+                      for (I = J + 1; I <= N; I++) { // 150
                           C(I,J) = BETA*C(I,J)
                       } // 150
                       C(J,J) = BETA*REAL(C(J,J))
@@ -159,7 +159,7 @@
                       if ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) {
                           TEMP1 = ALPHA*CONJG(B(J,L))
                           TEMP2 = CONJG(ALPHA*A(J,L))
-                          DO 160 I = J + 1,N
+                          for (I = J + 1; I <= N; I++) { // 160
                               C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2
                           } // 160
                           C(J,J) = REAL(C(J,J)) + REAL(A(J,L)*TEMP1+B(J,L)*TEMP2)

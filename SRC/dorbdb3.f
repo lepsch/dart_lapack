@@ -75,7 +75,7 @@
 
       // Reduce rows 1, ..., M-P of X11 and X21
 
-      DO I = 1, M-P
+      for (I = 1; I <= M-P; I++) {
 
          if ( I .GT. 1 ) {
             drot(Q-I+1, X11(I-1,I), LDX11, X21(I,I), LDX11, C, S );
@@ -104,7 +104,7 @@
 
       // Reduce the bottom-right portion of X11 to the identity matrix
 
-      DO I = M-P + 1, Q
+      for (I = M-P + 1; I <= Q; I++) {
          dlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
          X11(I,I) = ONE
          dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) );

@@ -371,7 +371,7 @@
                   T = CONE / ( D11*D22-CONE )
                   D21 = T / D21
 
-                  DO 60 J = K + 2, N
+                  for (J = K + 2; J <= N; J++) { // 60
                      WK = D21*( D11*A( J, K )-A( J, K+1 ) )
                      WKP1 = D21*( D22*A( J, K+1 )-A( J, K ) )
                      for (I = J; I <= N; I++) { // 50

@@ -73,8 +73,8 @@
       if ( LSAME( UPLO, 'U' ) ) {
 
          if ( RANK.LT.N ) {
-            DO 120 J = RANK + 1, N
-               DO 110 I = RANK + 1, J
+            for (J = RANK + 1; J <= N; J++) { // 120
+               for (I = RANK + 1; I <= J; I++) { // 110
                   AFAC( I, J ) = CZERO
                } // 110
             } // 120
@@ -98,7 +98,7 @@
       } else {
 
          if ( RANK.LT.N ) {
-            DO 150 J = RANK + 1, N
+            for (J = RANK + 1; J <= N; J++) { // 150
                for (I = J; I <= N; I++) { // 140
                   AFAC( I, J ) = CZERO
                } // 140
@@ -156,7 +156,7 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 220
-            DO 210 I = 1, J - 1
+            for (I = 1; I <= J - 1; I++) { // 210
                PERM( I, J ) = PERM( I, J ) - A( I, J )
             } // 210
             PERM( J, J ) = PERM( J, J ) - DBLE( A( J, J ) )
@@ -164,7 +164,7 @@
       } else {
          for (J = 1; J <= N; J++) { // 240
             PERM( J, J ) = PERM( J, J ) - DBLE( A( J, J ) )
-            DO 230 I = J + 1, N
+            for (I = J + 1; I <= N; I++) { // 230
                PERM( I, J ) = PERM( I, J ) - A( I, J )
             } // 230
          } // 240

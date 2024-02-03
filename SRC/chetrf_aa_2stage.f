@@ -117,12 +117,12 @@
          // Factorize A as U**T*D*U using the upper triangle of A
          // .....................................................
 
-         DO J = 0, NT-1
+         for (J = 0; J <= NT-1; J++) {
 
             // Generate Jth column of W and H
 
             KB = MIN(NB, N-J*NB)
-            DO I = 1, J-1
+            for (I = 1; I <= J-1; I++) {
                if ( I.EQ.1 ) {
                    // H(I,J) = T(I,I)*U(I,J) + T(I+1,I)*U(I+1,J)
                   if ( I .EQ. (J-1) ) {
@@ -159,7 +159,7 @@
 
             for (I = 1; I <= KB; I++) {
                TB( TD+1 + (J*NB+I-1)*LDTB ) = REAL( TB( TD+1 + (J*NB+I-1)*LDTB ) )
-               DO K = I+1, KB
+               for (K = I+1; K <= KB; K++) {
                   TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) = CONJG( TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) )
                END DO
             END DO
@@ -261,12 +261,12 @@
          // Factorize A as L*D*L**T using the lower triangle of A
          // .....................................................
 
-         DO J = 0, NT-1
+         for (J = 0; J <= NT-1; J++) {
 
             // Generate Jth column of W and H
 
             KB = MIN(NB, N-J*NB)
-            DO I = 1, J-1
+            for (I = 1; I <= J-1; I++) {
                if ( I.EQ.1 ) {
                    // H(I,J) = T(I,I)*L(J,I)' + T(I+1,I)'*L(J,I+1)'
                   if ( I .EQ. (J-1) ) {
@@ -303,7 +303,7 @@
 
             for (I = 1; I <= KB; I++) {
                TB( TD+1 + (J*NB+I-1)*LDTB )  = REAL( TB( TD+1 + (J*NB+I-1)*LDTB ) )
-               DO K = I+1, KB
+               for (K = I+1; K <= KB; K++) {
                   TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) = CONJG( TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) )
                END DO
             END DO

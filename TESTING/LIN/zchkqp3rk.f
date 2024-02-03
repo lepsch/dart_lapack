@@ -334,7 +334,7 @@
 
                   dlaord('Decreasing', MINMNB_GEN, S, 1 );
 
-                  DO I = MINMNB_GEN+1, MINMN
+                  for (I = MINMNB_GEN+1; I <= MINMN; I++) {
                      S( I ) = ZERO
                   END DO
 

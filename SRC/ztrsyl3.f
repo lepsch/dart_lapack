@@ -247,14 +247,14 @@
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                      DO JJ = L1, L2-1
+                      for (JJ = L1; JJ <= L2-1; JJ++) {
                          zdscal(K2-K1, SCAL, C( K1, JJ ), 1);
                       END DO
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                      DO LL = L1, L2-1
+                      for (LL = L1; LL <= L2-1; LL++) {
                          zdscal(I2-I1, SCAL, C( I1, LL ), 1);
                       END DO
                   }
@@ -268,7 +268,7 @@
 
                END DO
 
-               DO J = L + 1, NBB
+               for (J = L + 1; J <= NBB; J++) {
 
                   // C( K, J ) := C( K, J ) - SGN * C( K, L ) * B( L, J )
 
@@ -303,14 +303,14 @@
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                     DO LL = L1, L2-1
+                     for (LL = L1; LL <= L2-1; LL++) {
                         zdscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                      DO JJ = J1, J2-1
+                      for (JJ = J1; JJ <= J2-1; JJ++) {
                          zdscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                       END DO
                   }
@@ -383,7 +383,7 @@
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = ZLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
 
-               DO I = K + 1, NBA
+               for (I = K + 1; I <= NBA; I++) {
 
                   // C( I, L ) := C( I, L ) - A( K, I )**H * C( K, L )
 
@@ -418,14 +418,14 @@
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                     DO LL = L1, L2-1
+                     for (LL = L1; LL <= L2-1; LL++) {
                         zdscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                     DO LL = L1, L2-1
+                     for (LL = L1; LL <= L2-1; LL++) {
                         zdscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      END DO
                   }
@@ -438,7 +438,7 @@
                   zgemm('C', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
                END DO
 
-               DO J = L + 1, NBB
+               for (J = L + 1; J <= NBB; J++) {
 
                   // C( K, J ) := C( K, J ) - SGN * C( K, L ) * B( L, J )
 
@@ -473,14 +473,14 @@
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                      DO LL = L1, L2-1
+                      for (LL = L1; LL <= L2-1; LL++) {
                          zdscal(K2-K1, SCAL, C( K1, LL ), 1 );
                       END DO
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                     DO JJ = J1, J2-1
+                     for (JJ = J1; JJ <= J2-1; JJ++) {
                         zdscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
                   }
@@ -553,7 +553,7 @@
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = ZLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
 
-               DO I = K + 1, NBA
+               for (I = K + 1; I <= NBA; I++) {
 
                   // C( I, L ) := C( I, L ) - A( K, I )**H * C( K, L )
 
@@ -588,14 +588,14 @@
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                     DO LL = L1, L2-1
+                     for (LL = L1; LL <= L2-1; LL++) {
                         zdscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                     DO LL = L1, L2-1
+                     for (LL = L1; LL <= L2-1; LL++) {
                         zdscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      END DO
                   }
@@ -608,7 +608,7 @@
                   zgemm('C', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
                END DO
 
-               DO J = 1, L - 1
+               for (J = 1; J <= L - 1; J++) {
 
                   // C( K, J ) := C( K, J ) - SGN * C( K, L ) * B( J, L )**H
 
@@ -643,14 +643,14 @@
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                     DO LL = L1, L2-1
+                     for (LL = L1; LL <= L2-1; LL++) {
                         zdscal(K2-K1, SCAL, C( K1, LL ), 1);
                      END DO
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                     DO JJ = J1, J2-1
+                     for (JJ = J1; JJ <= J2-1; JJ++) {
                         zdscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
                   }
@@ -723,7 +723,7 @@
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = ZLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
 
-               DO I = 1, K - 1
+               for (I = 1; I <= K - 1; I++) {
 
                   // C( I, L ) := C( I, L ) - A( I, K ) * C( K, L )
 
@@ -758,14 +758,14 @@
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                     DO LL = L1, L2-1
+                     for (LL = L1; LL <= L2-1; LL++) {
                         zdscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                     DO LL = L1, L2-1
+                     for (LL = L1; LL <= L2-1; LL++) {
                         zdscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      END DO
                   }
@@ -779,7 +779,7 @@
 
                END DO
 
-               DO J = 1, L - 1
+               for (J = 1; J <= L - 1; J++) {
 
                   // C( K, J ) := C( K, J ) - SGN * C( K, L ) * B( J, L )**H
 
@@ -814,14 +814,14 @@
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                     DO JJ = L1, L2-1
+                     for (JJ = L1; JJ <= L2-1; JJ++) {
                         zdscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
-                     DO JJ = J1, J2-1
+                     for (JJ = J1; JJ <= J2-1; JJ++) {
                         zdscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
                   }
@@ -868,7 +868,7 @@
             L2 = MIN( L * NB, N ) + 1
             SCAL = SCALE / SWORK( K, L )
             if ( SCAL .NE. ONE ) {
-               DO LL = L1, L2-1
+               for (LL = L1; LL <= L2-1; LL++) {
                   zdscal(K2-K1, SCAL, C( K1, LL ), 1 );
                END DO
             }

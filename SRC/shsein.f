@@ -139,7 +139,7 @@
                } // 30
                KL = I
                if ( K.GT.KR ) {
-                  DO 40 I = K, N - 1
+                  for (I = K; I <= N - 1; I++) { // 40
                      IF( H( I+1, I ).EQ.ZERO ) GO TO 50
                   } // 40
                   } // 50
@@ -202,11 +202,11 @@
                   IFAILL( KSR ) = 0
                   IFAILL( KSI ) = 0
                }
-               DO 80 I = 1, KL - 1
+               for (I = 1; I <= KL - 1; I++) { // 80
                   VL( I, KSR ) = ZERO
                } // 80
                if ( PAIR ) {
-                  DO 90 I = 1, KL - 1
+                  for (I = 1; I <= KL - 1; I++) { // 90
                      VL( I, KSI ) = ZERO
                   } // 90
                }
@@ -228,11 +228,11 @@
                   IFAILR( KSR ) = 0
                   IFAILR( KSI ) = 0
                }
-               DO 100 I = KR + 1, N
+               for (I = KR + 1; I <= N; I++) { // 100
                   VR( I, KSR ) = ZERO
                } // 100
                if ( PAIR ) {
-                  DO 110 I = KR + 1, N
+                  for (I = KR + 1; I <= N; I++) { // 110
                      VR( I, KSI ) = ZERO
                   } // 110
                }

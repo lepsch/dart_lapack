@@ -403,7 +403,7 @@
                      // non-increasing order and are non-negative
 
             RESULT( 8 ) = ZERO
-            DO 110 I = 1, MNMIN - 1
+            for (I = 1; I <= MNMIN - 1; I++) { // 110
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 8 ) = ULPINV
             } // 110
             if ( MNMIN.GE.1 ) {
@@ -506,7 +506,7 @@
                       // non-increasing order and are non-negative
 
             RESULT( 18 ) = ZERO
-            DO 150 I = 1, MNMIN - 1
+            for (I = 1; I <= MNMIN - 1; I++) { // 150
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 18 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 18 ) = ULPINV
             } // 150
             if ( MNMIN.GE.1 ) {
@@ -612,7 +612,7 @@
             sbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK( IWBS+MNMIN ), RESULT( 20 ) )             CALL SORT01( 'Columns', MNMIN, MNMIN, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 21 ) )             CALL SORT01( 'Rows', MNMIN, MNMIN, VT, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 22) );
 
             RESULT( 23 ) = ZERO
-            DO 180 I = 1, MNMIN - 1
+            for (I = 1; I <= MNMIN - 1; I++) { // 180
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 23 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 23 ) = ULPINV
             } // 180
             if ( MNMIN.GE.1 ) {
@@ -704,7 +704,7 @@
             sbdt04(UPLO, MNMIN, BD, BE, S1, NS1, U, LDPT, VT, LDPT, WORK( IWBS+MNMIN ), RESULT( 25 ) )             CALL SORT01( 'Columns', MNMIN, NS1, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 26 ) )             CALL SORT01( 'Rows', NS1, MNMIN, VT, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 27 ) );
 
             RESULT( 28 ) = ZERO
-            DO 220 I = 1, NS1 - 1
+            for (I = 1; I <= NS1 - 1; I++) { // 220
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 28 ) = ULPINV
             } // 220
             if ( NS1.GE.1 ) {
@@ -800,7 +800,7 @@
             sbdt04(UPLO, MNMIN, BD, BE, S1, NS1, U, LDPT, VT, LDPT, WORK( IWBS+MNMIN ), RESULT( 30 ) )             CALL SORT01( 'Columns', MNMIN, NS1, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 31 ) )             CALL SORT01( 'Rows', NS1, MNMIN, VT, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 32 ) );
 
             RESULT( 33 ) = ZERO
-            DO 250 I = 1, NS1 - 1
+            for (I = 1; I <= NS1 - 1; I++) { // 250
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 28 ) = ULPINV
             } // 250
             if ( NS1.GE.1 ) {

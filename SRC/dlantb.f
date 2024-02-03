@@ -192,7 +192,7 @@
                SCALE = ONE
                SUM = N
                if ( K.GT.0 ) {
-                  DO 300 J = 1, N - 1
+                  for (J = 1; J <= N - 1; J++) { // 300
                      dlassq(MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM );
                   } // 300
                }

@@ -283,9 +283,9 @@
                GO TO 250
             }
 
-            DO 120 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 120
                UU( J+1, J ) = ZERO
-               DO 110 I = J + 2, N
+               for (I = J + 2; I <= N; I++) { // 110
                   U( I, J ) = H( I, J )
                   UU( I, J ) = H( I, J )
                   H( I, J ) = ZERO

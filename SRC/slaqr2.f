@@ -120,7 +120,7 @@
 
       // ==== STREXC needs a clean margin near the diagonal ====
 
-      DO 10 J = 1, JW - 3
+      for (J = 1; J <= JW - 3; J++) { // 10
          T( J+2, J ) = ZERO
          T( J+3, J ) = ZERO
       } // 10

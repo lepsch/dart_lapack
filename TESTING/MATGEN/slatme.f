@@ -296,7 +296,7 @@
 
          // Reduce bandwidth -- kill column
 
-         DO 90 JCR = KL + 1, N - 1
+         for (JCR = KL + 1; JCR <= N - 1; JCR++) { // 90
             IC = JCR - KL
             IROWS = N + 1 - JCR
             ICOLS = N + KL - JCR
@@ -317,7 +317,7 @@
 
          // Reduce upper bandwidth -- kill a row at a time.
 
-         DO 100 JCR = KU + 1, N - 1
+         for (JCR = KU + 1; JCR <= N - 1; JCR++) { // 100
             IR = JCR - KU
             IROWS = N + KU - JCR
             ICOLS = N + 1 - JCR

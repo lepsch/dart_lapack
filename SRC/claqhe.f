@@ -61,7 +61,7 @@
 
             for (J = 1; J <= N; J++) { // 20
                CJ = S( J )
-               DO 10 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 10
                   A( I, J ) = CJ*S( I )*A( I, J )
                } // 10
                A( J, J ) = CJ*CJ*REAL( A( J, J ) )
@@ -73,7 +73,7 @@
             for (J = 1; J <= N; J++) { // 40
                CJ = S( J )
                A( J, J ) = CJ*CJ*REAL( A( J, J ) )
-               DO 30 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 30
                   A( I, J ) = CJ*S( I )*A( I, J )
                } // 30
             } // 40

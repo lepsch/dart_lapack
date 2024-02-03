@@ -62,7 +62,7 @@
       // stored).
 
       for (J = 1; J <= N; J++) { // 20
-         DO 10 I = 1, J - 1
+         for (I = 1; I <= J - 1; I++) { // 10
             B( I, J ) = H( I, J )
          } // 10
          B( J, J ) = H( J, J ) - W
@@ -88,7 +88,7 @@
          // LU decomposition with partial pivoting of B, replacing zero
          // pivots by EPS3.
 
-         DO 60 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 60
             EI = H( I+1, I )
             if ( CABS1( B( I, I ) ).LT.CABS1( EI ) ) {
 
@@ -96,7 +96,7 @@
 
                X = ZLADIV( B( I, I ), EI )
                B( I, I ) = EI
-               DO 40 J = I + 1, N
+               for (J = I + 1; J <= N; J++) { // 40
                   TEMP = B( I+1, J )
                   B( I+1, J ) = B( I, J ) - X*TEMP
                   B( I, J ) = TEMP
@@ -108,7 +108,7 @@
                IF( B( I, I ).EQ.ZERO ) B( I, I ) = EPS3
                X = ZLADIV( EI, B( I, I ) )
                if ( X.NE.ZERO ) {
-                  DO 50 J = I + 1, N
+                  for (J = I + 1; J <= N; J++) { // 50
                      B( I+1, J ) = B( I+1, J ) - X*B( I, J )
                   } // 50
                }
@@ -131,7 +131,7 @@
 
                X = ZLADIV( B( J, J ), EJ )
                B( J, J ) = EJ
-               DO 70 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 70
                   TEMP = B( I, J-1 )
                   B( I, J-1 ) = B( I, J ) - X*TEMP
                   B( I, J ) = TEMP
@@ -143,7 +143,7 @@
                IF( B( J, J ).EQ.ZERO ) B( J, J ) = EPS3
                X = ZLADIV( EJ, B( J, J ) )
                if ( X.NE.ZERO ) {
-                  DO 80 I = 1, J - 1
+                  for (I = 1; I <= J - 1; I++) { // 80
                      B( I, J-1 ) = B( I, J-1 ) - X*B( I, J )
                   } // 80
                }

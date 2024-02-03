@@ -100,7 +100,7 @@
 
          J = NL*NRHS*2
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 20
-            DO 10 JROW = NLF, NLF + NL - 1
+            for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) { // 10
                J = J + 1
                RWORK( J ) = REAL( B( JROW, JCOL ) )
             } // 10
@@ -108,7 +108,7 @@
          sgemm('T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, RWORK( 1+NL*NRHS*2 ), NL, ZERO, RWORK( 1 ), NL );
          J = NL*NRHS*2
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 40
-            DO 30 JROW = NLF, NLF + NL - 1
+            for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) { // 30
                J = J + 1
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
             } // 30
@@ -117,7 +117,7 @@
          JREAL = 0
          JIMAG = NL*NRHS
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 60
-            DO 50 JROW = NLF, NLF + NL - 1
+            for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) { // 50
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
                BX( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
@@ -132,7 +132,7 @@
 
          J = NR*NRHS*2
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 80
-            DO 70 JROW = NRF, NRF + NR - 1
+            for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) { // 70
                J = J + 1
                RWORK( J ) = REAL( B( JROW, JCOL ) )
             } // 70
@@ -140,7 +140,7 @@
          sgemm('T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, RWORK( 1+NR*NRHS*2 ), NR, ZERO, RWORK( 1 ), NR );
          J = NR*NRHS*2
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 100
-            DO 90 JROW = NRF, NRF + NR - 1
+            for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) { // 90
                J = J + 1
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
             } // 90
@@ -149,7 +149,7 @@
          JREAL = 0
          JIMAG = NR*NRHS
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 120
-            DO 110 JROW = NRF, NRF + NR - 1
+            for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) { // 110
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
                BX( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
@@ -263,7 +263,7 @@
 
          J = NLP1*NRHS*2
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 210
-            DO 200 JROW = NLF, NLF + NLP1 - 1
+            for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) { // 200
                J = J + 1
                RWORK( J ) = REAL( B( JROW, JCOL ) )
             } // 200
@@ -271,7 +271,7 @@
          sgemm('T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, RWORK( 1+NLP1*NRHS*2 ), NLP1, ZERO, RWORK( 1 ), NLP1 );
          J = NLP1*NRHS*2
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 230
-            DO 220 JROW = NLF, NLF + NLP1 - 1
+            for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) { // 220
                J = J + 1
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
             } // 220
@@ -280,7 +280,7 @@
          JREAL = 0
          JIMAG = NLP1*NRHS
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 250
-            DO 240 JROW = NLF, NLF + NLP1 - 1
+            for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) { // 240
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
                BX( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
@@ -295,7 +295,7 @@
 
          J = NRP1*NRHS*2
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 270
-            DO 260 JROW = NRF, NRF + NRP1 - 1
+            for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) { // 260
                J = J + 1
                RWORK( J ) = REAL( B( JROW, JCOL ) )
             } // 260
@@ -303,7 +303,7 @@
          sgemm('T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, RWORK( 1+NRP1*NRHS*2 ), NRP1, ZERO, RWORK( 1 ), NRP1 );
          J = NRP1*NRHS*2
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 290
-            DO 280 JROW = NRF, NRF + NRP1 - 1
+            for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) { // 280
                J = J + 1
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
             } // 280
@@ -312,7 +312,7 @@
          JREAL = 0
          JIMAG = NRP1*NRHS
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 310
-            DO 300 JROW = NRF, NRF + NRP1 - 1
+            for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) { // 300
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
                BX( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )

@@ -456,7 +456,7 @@
          } else if ( IPACK.EQ.5 ) {
 
             for (J = 1; J <= N; J++) { // 250
-               DO 240 I = J - KUU, J
+               for (I = J - KUU; I <= J; I++) { // 240
                   if ( I.LT.1 ) {
                      A( J-I+1, I+N ) = CZERO
                   } else {
@@ -475,7 +475,7 @@
          } else if ( IPACK.EQ.6 ) {
 
             for (J = 1; J <= N; J++) { // 270
-               DO 260 I = J - KUU, J
+               for (I = J - KUU; I <= J; I++) { // 260
                   CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
@@ -491,7 +491,7 @@
 
             if ( ISYM.NE.1 ) {
                for (J = 1; J <= N; J++) { // 290
-                  DO 280 I = J - KUU, J
+                  for (I = J - KUU; I <= J; I++) { // 280
                      CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
@@ -512,7 +512,7 @@
                } // 290
             } else if ( ISYM.EQ.1 ) {
                for (J = 1; J <= N; J++) { // 310
-                  DO 300 I = J - KUU, J + KLL
+                  for (I = J - KUU; I <= J + KLL; I++) { // 300
                      CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB-JSUB+KUU+1, JSUB ) = CTEMP
                   } // 300
@@ -625,7 +625,7 @@
          } else if ( IPACK.EQ.5 ) {
 
             for (J = 1; J <= N; J++) { // 490
-               DO 480 I = J - KUU, J
+               for (I = J - KUU; I <= J; I++) { // 480
                   if ( I.LT.1 ) {
                      A( J-I+1, I+N ) = CZERO
                   } else {
@@ -641,7 +641,7 @@
          } else if ( IPACK.EQ.6 ) {
 
             for (J = 1; J <= N; J++) { // 510
-               DO 500 I = J - KUU, J
+               for (I = J - KUU; I <= J; I++) { // 500
                   A( I-J+KUU+1, J ) = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                } // 500
             } // 510
@@ -650,7 +650,7 @@
 
             if ( ISYM.NE.1 ) {
                for (J = 1; J <= N; J++) { // 530
-                  DO 520 I = J - KUU, J
+                  for (I = J - KUU; I <= J; I++) { // 520
                      A( I-J+KUU+1, J ) = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = CZERO
                      if ( I.GE.1 .AND. I.NE.J ) {
@@ -664,7 +664,7 @@
                } // 530
             } else if ( ISYM.EQ.1 ) {
                for (J = 1; J <= N; J++) { // 550
-                  DO 540 I = J - KUU, J + KLL
+                  for (I = J - KUU; I <= J + KLL; I++) { // 540
                      A( I-J+KUU+1, J ) = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   } // 540
                } // 550

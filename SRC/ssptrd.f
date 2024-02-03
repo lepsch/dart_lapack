@@ -98,7 +98,7 @@
          // A(i,i) and I1I1 is the index of A(i+1,i+1).
 
          II = 1
-         DO 20 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 20
             I1I1 = II + N - I + 1
 
             // Generate elementary reflector H(i) = I - tau * v * v**T

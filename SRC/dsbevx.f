@@ -225,10 +225,10 @@
       // eigenvectors.
 
       if ( WANTZ ) {
-         DO 50 J = 1, M - 1
+         for (J = 1; J <= M - 1; J++) { // 50
             I = 0
             TMP1 = W( J )
-            DO 40 JJ = J + 1, M
+            for (JJ = J + 1; JJ <= M; JJ++) { // 40
                if ( W( JJ ).LT.TMP1 ) {
                   I = JJ
                   TMP1 = W( JJ )

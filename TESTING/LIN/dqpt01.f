@@ -63,7 +63,7 @@
 
          // Zero out the elements below the diagonal in the work array.
 
-         DO I = J + 1, M
+         for (I = J + 1; I <= M; I++) {
             WORK( ( J-1 )*M+I ) = ZERO
          END DO
       END DO
@@ -73,7 +73,7 @@
       // factor R, AF(K+1:M,K+1:N) contains the partially updated residual
       // matrix of R.
 
-      DO J = K + 1, N
+      for (J = K + 1; J <= N; J++) {
          dcopy(M, AF( 1, J ), 1, WORK( ( J-1 )*M+1 ), 1 );
       END DO
 

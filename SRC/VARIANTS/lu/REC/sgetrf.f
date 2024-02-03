@@ -98,7 +98,7 @@
                if ( ABS(A( J, J )) .GE. SFMIN ) {
                   sscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
-                 DO I = 1, M-J
+                 for (I = 1; I <= M-J; I++) {
                     A( J+I, J ) = A( J+I, J ) / A( J, J )
                  END DO
                }

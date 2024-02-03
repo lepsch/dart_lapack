@@ -77,7 +77,7 @@
          for (I = 2; I <= RANK; I++) { // 110
             D( I ) = ONE / COND
          } // 110
-         DO 120 I = RANK + 1, N
+         for (I = RANK + 1; I <= N; I++) { // 120
             D( I ) = ZERO
          } // 120
          D( 1 ) = ONE
@@ -86,10 +86,10 @@
          // One small D value:
 
          } // 130
-         DO 140 I = 1, RANK - 1
+         for (I = 1; I <= RANK - 1; I++) { // 140
             D( I ) = ONE
          } // 140
-         DO 150 I = RANK + 1, N
+         for (I = RANK + 1; I <= N; I++) { // 150
             D( I ) = ZERO
          } // 150
          D( RANK ) = ONE / COND
@@ -104,7 +104,7 @@
             for (I = 2; I <= RANK; I++) { // 170
                D( I ) = ALPHA**( I-1 )
             } // 170
-            DO 180 I = RANK + 1, N
+            for (I = RANK + 1; I <= N; I++) { // 180
                D( I ) = ZERO
             } // 180
          }
@@ -152,7 +152,7 @@
          // Reverse if MODE < 0
 
          if ( MODE.LT.0 ) {
-            DO 260 I = 1, N / 2
+            for (I = 1; I <= N / 2; I++) { // 260
                TEMP = D( I )
                D( I ) = D( N+1-I )
                D( N+1-I ) = TEMP

@@ -105,7 +105,7 @@
                } // 110
                L = K + 1
             } else {
-               DO 120 J = 1, N - 1
+               for (J = 1; J <= N - 1; J++) { // 120
                   zlassq(MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM );
                } // 120
                L = 1

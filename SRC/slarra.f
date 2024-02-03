@@ -42,7 +42,7 @@
       if (SPLTOL.LT.ZERO) {
          // Criterion based on absolute off-diagonal value
          TMP1 = ABS(SPLTOL)* TNRM
-         DO 9 I = 1, N-1
+         for (I = 1; I <= N-1; I++) { // 9
             EABS = ABS( E(I) )
             if ( EABS .LE. TMP1) {
                E(I) = ZERO
@@ -53,7 +53,7 @@
          } // 9
       } else {
          // Criterion that guarantees relative accuracy
-         DO 10 I = 1, N-1
+         for (I = 1; I <= N-1; I++) { // 10
             EABS = ABS( E(I) )
             if ( EABS .LE. SPLTOL * SQRT(ABS(D(I)))*SQRT(ABS(D(I+1))) ) {
                E(I) = ZERO

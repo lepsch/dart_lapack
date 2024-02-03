@@ -46,7 +46,7 @@
             VALUE = ONE
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 20
-                  DO 10 I = K, K + J - 2
+                  for (I = K; I <= K + J - 2; I++) { // 10
                      SUM = ABS( AP( I ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
                   } // 10
@@ -54,7 +54,7 @@
                } // 20
             } else {
                for (J = 1; J <= N; J++) { // 40
-                  DO 30 I = K + 1, K + N - J
+                  for (I = K + 1; I <= K + N - J; I++) { // 30
                      SUM = ABS( AP( I ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
                   } // 30
@@ -65,7 +65,7 @@
             VALUE = ZERO
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 60
-                  DO 50 I = K, K + J - 1
+                  for (I = K; I <= K + J - 1; I++) { // 50
                      SUM = ABS( AP( I ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
                   } // 50
@@ -73,7 +73,7 @@
                } // 60
             } else {
                for (J = 1; J <= N; J++) { // 80
-                  DO 70 I = K, K + N - J
+                  for (I = K; I <= K + N - J; I++) { // 70
                      SUM = ABS( AP( I ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
                   } // 70
@@ -92,12 +92,12 @@
             for (J = 1; J <= N; J++) { // 110
                if ( UDIAG ) {
                   SUM = ONE
-                  DO 90 I = K, K + J - 2
+                  for (I = K; I <= K + J - 2; I++) { // 90
                      SUM = SUM + ABS( AP( I ) )
                   } // 90
                } else {
                   SUM = ZERO
-                  DO 100 I = K, K + J - 1
+                  for (I = K; I <= K + J - 1; I++) { // 100
                      SUM = SUM + ABS( AP( I ) )
                   } // 100
                }
@@ -108,12 +108,12 @@
             for (J = 1; J <= N; J++) { // 140
                if ( UDIAG ) {
                   SUM = ONE
-                  DO 120 I = K + 1, K + N - J
+                  for (I = K + 1; I <= K + N - J; I++) { // 120
                      SUM = SUM + ABS( AP( I ) )
                   } // 120
                } else {
                   SUM = ZERO
-                  DO 130 I = K, K + N - J
+                  for (I = K; I <= K + N - J; I++) { // 130
                      SUM = SUM + ABS( AP( I ) )
                   } // 130
                }
@@ -132,7 +132,7 @@
                   WORK( I ) = ONE
                } // 150
                for (J = 1; J <= N; J++) { // 170
-                  DO 160 I = 1, J - 1
+                  for (I = 1; I <= J - 1; I++) { // 160
                      WORK( I ) = WORK( I ) + ABS( AP( K ) )
                      K = K + 1
                   } // 160
@@ -156,7 +156,7 @@
                } // 210
                for (J = 1; J <= N; J++) { // 230
                   K = K + 1
-                  DO 220 I = J + 1, N
+                  for (I = J + 1; I <= N; I++) { // 220
                      WORK( I ) = WORK( I ) + ABS( AP( K ) )
                      K = K + 1
                   } // 220
@@ -205,7 +205,7 @@
                SCALE = ONE
                SUM = N
                K = 2
-               DO 300 J = 1, N - 1
+               for (J = 1; J <= N - 1; J++) { // 300
                   slassq(N-J, AP( K ), 1, SCALE, SUM );
                   K = K + N - J + 1
                } // 300

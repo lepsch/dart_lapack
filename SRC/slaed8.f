@@ -89,7 +89,7 @@
 
       // Sort the eigenvalues into increasing order
 
-      DO 20 I = CUTPNT + 1, N
+      for (I = CUTPNT + 1; I <= N; I++) { // 20
          INDXQ( I ) = INDXQ( I ) + CUTPNT
       } // 20
       for (I = 1; I <= N; I++) { // 30

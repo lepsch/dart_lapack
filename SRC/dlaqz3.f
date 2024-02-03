@@ -192,7 +192,7 @@
             if ( ( K .GE. KWTOP+1 ) .AND. A( K+1, K-1 ) .NE. ZERO ) {
 
                // Move double pole block down and remove it
-               DO K2 = K-1, KWBOT-2
+               for (K2 = K-1; K2 <= KWBOT-2; K2++) {
                   dlaqz2(.TRUE., .TRUE., K2, KWTOP, KWTOP+JW-1, KWBOT, A, LDA, B, LDB, JW, KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC );
                END DO
 
@@ -200,7 +200,7 @@
             } else {
 
                // k points to single shift
-               DO K2 = K, KWBOT-2
+               for (K2 = K; K2 <= KWBOT-2; K2++) {
 
                   // Move shift down
                   dlartg(B( K2+1, K2+1 ), B( K2+1, K2 ), C1, S1, TEMP );

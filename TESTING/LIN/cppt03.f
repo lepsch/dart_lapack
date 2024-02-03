@@ -69,21 +69,21 @@
          // Copy AINV
 
          JJ = 1
-         DO 20 J = 1, N - 1
+         for (J = 1; J <= N - 1; J++) { // 20
             ccopy(J, AINV( JJ ), 1, WORK( 1, J+1 ), 1 );
-            DO 10 I = 1, J - 1
+            for (I = 1; I <= J - 1; I++) { // 10
                WORK( J, I+1 ) = CONJG( AINV( JJ+I-1 ) )
             } // 10
             JJ = JJ + J
          } // 20
          JJ = ( ( N-1 )*N ) / 2 + 1
-         DO 30 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 30
             WORK( N, I+1 ) = CONJG( AINV( JJ+I-1 ) )
          } // 30
 
          // Multiply by A
 
-         DO 40 J = 1, N - 1
+         for (J = 1; J <= N - 1; J++) { // 40
             chpmv('Upper', N, -CONE, A, WORK( 1, J+1 ), 1, CZERO, WORK( 1, J ), 1 );
          } // 40
          chpmv('Upper', N, -CONE, A, AINV( JJ ), 1, CZERO, WORK( 1, N ), 1 );
@@ -96,13 +96,13 @@
 
          // Copy AINV
 
-         DO 50 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 50
             WORK( 1, I ) = CONJG( AINV( I+1 ) )
          } // 50
          JJ = N + 1
          for (J = 2; J <= N; J++) { // 70
             ccopy(N-J+1, AINV( JJ ), 1, WORK( J, J-1 ), 1 );
-            DO 60 I = 1, N - J
+            for (I = 1; I <= N - J; I++) { // 60
                WORK( J, J+I-1 ) = CONJG( AINV( JJ+I ) )
             } // 60
             JJ = JJ + N - J + 1

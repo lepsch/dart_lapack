@@ -66,10 +66,10 @@
       for (I = 1; I <= N; I++) { // 20
          WORK( I ) = EIG( I )
       } // 20
-      DO 40 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 40
          ISUB = 1
          EMIN = WORK( 1 )
-         DO 30 J = 2, N + 1 - I
+         for (J = 2; J <= N + 1 - I; J++) { // 30
             if ( WORK( J ).LT.EMIN ) {
                ISUB = J
                EMIN = WORK( J )

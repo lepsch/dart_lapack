@@ -104,7 +104,7 @@
          // Reduce the lower triangle of A
 
          A( 1, 1 ) = DBLE( A( 1, 1 ) )
-         DO 20 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 20
 
             // Generate elementary reflector H(i) = I - tau * v * v**H
             // to annihilate A(i+2:n,i)

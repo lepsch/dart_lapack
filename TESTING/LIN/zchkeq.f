@@ -224,7 +224,7 @@
 
          // Upper triangular packed storage
 
-         DO 300 I = 1, ( N*( N+1 ) ) / 2
+         for (I = 1; I <= ( N*( N+1 ) ) / 2; I++) { // 300
             AP( I ) = CZERO
          } // 300
          for (I = 1; I <= N; I++) { // 310
@@ -246,7 +246,7 @@
 
          // Lower triangular packed storage
 
-         DO 330 I = 1, ( N*( N+1 ) ) / 2
+         for (I = 1; I <= ( N*( N+1 ) ) / 2; I++) { // 330
             AP( I ) = CZERO
          } // 330
          J = 1

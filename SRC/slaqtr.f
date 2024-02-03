@@ -355,7 +355,7 @@
                      X( N+1 ) = X( N+1 ) - B( J1 )*X( J1 )
 
                      XMAX = ZERO
-                     DO 50 K = 1, J1 - 1
+                     for (K = 1; K <= J1 - 1; K++) { // 50
                         XMAX = MAX( XMAX, ABS( X( K ) )+ ABS( X( K+N ) ) )
                      } // 50
                   }
@@ -403,7 +403,7 @@
                      X( 1 ) = X( 1 ) + B( J1 )*X( N+J1 ) + B( J2 )*X( N+J2 )                      X( N+1 ) = X( N+1 ) - B( J1 )*X( J1 ) - B( J2 )*X( J2 )
 
                      XMAX = ZERO
-                     DO 60 K = 1, J1 - 1
+                     for (K = 1; K <= J1 - 1; K++) { // 60
                         XMAX = MAX( ABS( X( K ) )+ABS( X( K+N ) ), XMAX )
                      } // 60
                   }

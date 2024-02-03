@@ -514,7 +514,7 @@
          // this computation.
 
          LRMIN = 1
-         DO 30 I = 1, 1 - LEMIN
+         for (I = 1; I <= 1 - LEMIN; I++) { // 30
             LRMIN = SLAMC3( LRMIN*RBASE, ZERO )
          } // 30
 

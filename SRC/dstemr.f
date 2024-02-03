@@ -305,7 +305,7 @@
             dcopy(N,D,1,WORK(INDD),1);
          }
          // Store the squares of the offdiagonal values of T
-         DO 5 J = 1, N-1
+         for (J = 1; J <= N-1; J++) { // 5
             WORK( INDE2+J-1 ) = E(J)**2
          } // 5
 
@@ -360,7 +360,7 @@
             // with respect to the original matrix T.
             IBEGIN = 1
             WBEGIN = 1
-            DO 39  JBLK = 1, IWORK( IINDBL+M-1 )
+            for (JBLK = 1; JBLK <= IWORK( IINDBL+M-1 ); JBLK++) { // 39
                IEND = IWORK( IINSPL+JBLK-1 )
                IN = IEND - IBEGIN + 1
                WEND = WBEGIN - 1
@@ -407,10 +407,10 @@
                RETURN
             }
          } else {
-            DO 60 J = 1, M - 1
+            for (J = 1; J <= M - 1; J++) { // 60
                I = 0
                TMP = W( J )
-               DO 50 JJ = J + 1, M
+               for (JJ = J + 1; JJ <= M; JJ++) { // 50
                   if ( W( JJ ).LT.TMP ) {
                      I = JJ
                      TMP = W( JJ )

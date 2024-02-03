@@ -160,7 +160,7 @@
 
             // Reduce columns JCOL:JCOL+NNB-1 of A to Hessenberg form.
 
-            DO J = JCOL, JCOL+NNB-1
+            for (J = JCOL; J <= JCOL+NNB-1; J++) {
 
                // Reduce Jth column of A. Store cosines and sines in Jth
                // column of A and B, respectively.
@@ -180,7 +180,7 @@
                DO I = IHI, JROW, -1
                   C = A( I, J )
                   S = B( I, J )
-                  DO JJ = PPW, PPW+LEN-1
+                  for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
                      TEMP = WORK( JJ + NBLST )
                      WORK( JJ + NBLST ) = C*TEMP - S*WORK( JJ )
                      WORK( JJ ) = S*TEMP + C*WORK( JJ )
@@ -197,7 +197,7 @@
                   DO I = JROW+NNB-1, JROW, -1
                      C = A( I, J )
                      S = B( I, J )
-                     DO JJ = PPW, PPW+LEN-1
+                     for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
                         TEMP = WORK( JJ + 2*NNB )
                         WORK( JJ + 2*NNB ) = C*TEMP - S*WORK( JJ )
                         WORK( JJ ) = S*TEMP + C*WORK( JJ )
@@ -260,7 +260,7 @@
                   C2 = A( J+3+I, J )
                   S2 = -B( J+3+I, J )
 
-                  DO K = TOP+1, IHI
+                  for (K = TOP+1; K <= IHI; K++) {
                      TEMP = A( K, J+I  )
                      TEMP1 = A( K, J+I+1 )
                      TEMP2 = A( K, J+I+2 )
@@ -298,13 +298,13 @@
                   JROW = IHI - NBLST + 1
                   sgemv('Transpose', NBLST, LEN, ONE, WORK, NBLST, A( JROW, J+1 ), 1, ZERO, WORK( PW ), 1 );
                   PPW = PW + LEN
-                  DO I = JROW, JROW+NBLST-LEN-1
+                  for (I = JROW; I <= JROW+NBLST-LEN-1; I++) {
                      WORK( PPW ) = A( I, J+1 )
                      PPW = PPW + 1
                   END DO
                   strmv('Lower', 'Transpose', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 )                   CALL SGEMV( 'Transpose', LEN, NBLST-LEN, ONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, ONE, WORK( PW+LEN ), 1 );
                   PPW = PW
-                  DO I = JROW, JROW+NBLST-1
+                  for (I = JROW; I <= JROW+NBLST-1; I++) {
                      A( I, J+1 ) = WORK( PPW )
                      PPW = PPW + 1
                   END DO
@@ -326,18 +326,18 @@
                   J0 = JROW - NNB
                   DO JROW = J0, JCOL+1, -NNB
                      PPW = PW + LEN
-                     DO I = JROW, JROW+NNB-1
+                     for (I = JROW; I <= JROW+NNB-1; I++) {
                         WORK( PPW ) = A( I, J+1 )
                         PPW = PPW + 1
                      END DO
                      PPW = PW
-                     DO I = JROW+NNB, JROW+NNB+LEN-1
+                     for (I = JROW+NNB; I <= JROW+NNB+LEN-1; I++) {
                         WORK( PPW ) = A( I, J+1 )
                         PPW = PPW + 1
                      END DO
                      strmv('Upper', 'Transpose', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 )                      CALL STRMV( 'Lower', 'Transpose', 'Non-unit', NNB, WORK( PPWO + 2*LEN*NNB ), 2*NNB, WORK( PW + LEN ), 1 )                      CALL SGEMV( 'Transpose', NNB, LEN, ONE, WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1, ONE, WORK( PW ), 1 )                      CALL SGEMV( 'Transpose', LEN, NNB, ONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, ONE, WORK( PW+LEN ), 1 );
                      PPW = PW
-                     DO I = JROW, JROW+LEN+NNB-1
+                     for (I = JROW; I <= JROW+LEN+NNB-1; I++) {
                         A( I, J+1 ) = WORK( PPW )
                         PPW = PPW + 1
                      END DO
@@ -429,7 +429,7 @@
 
                // Accumulate Givens rotations into workspace array.
 
-               DO J = JCOL, JCOL+NNB-1
+               for (J = JCOL; J <= JCOL+NNB-1; J++) {
                   PPW  = ( NBLST + 1 )*( NBLST - 2 ) - J + JCOL + 1
                   LEN  = 2 + J - JCOL
                   JROW = J + N2NB*NNB + 2
@@ -438,7 +438,7 @@
                      A( I, J ) = ZERO
                      S = B( I, J )
                      B( I, J ) = ZERO
-                     DO JJ = PPW, PPW+LEN-1
+                     for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
                         TEMP = WORK( JJ + NBLST )
                         WORK( JJ + NBLST ) = C*TEMP - S*WORK( JJ )
                         WORK( JJ ) = S*TEMP + C*WORK( JJ )
@@ -457,7 +457,7 @@
                         A( I, J ) = ZERO
                         S = B( I, J )
                         B( I, J ) = ZERO
-                        DO JJ = PPW, PPW+LEN-1
+                        for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
                            TEMP = WORK( JJ + 2*NNB )
                            WORK( JJ + 2*NNB ) = C*TEMP - S*WORK( JJ )
                            WORK( JJ ) = S*TEMP + C*WORK( JJ )

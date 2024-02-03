@@ -2257,7 +2257,7 @@
       UPPER = UPLO.EQ.'U'
       if ( TYPE.EQ.'ge' ) {
          for (J = 1; J <= N; J++) { // 20
-            DO 10 I = M + 1, LDA
+            for (I = M + 1; I <= LDA; I++) { // 10
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
             } // 10
          } // 20
@@ -2270,10 +2270,10 @@
                IBEG = J
                IEND = N
             }
-            DO 30 I = 1, IBEG - 1
+            for (I = 1; I <= IBEG - 1; I++) { // 30
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
             } // 30
-            DO 40 I = IEND + 1, LDA
+            for (I = IEND + 1; I <= LDA; I++) { // 40
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
             } // 40
          } // 50
@@ -2433,13 +2433,13 @@
             for (I = 1; I <= M; I++) { // 30
                AA( I + ( J - 1 )*LDA ) = A( I, J )
             } // 30
-            DO 40 I = M + 1, LDA
+            for (I = M + 1; I <= LDA; I++) { // 40
                AA( I + ( J - 1 )*LDA ) = ROGUE
             } // 40
          } // 50
       } else if ( TYPE.EQ.'gb' ) {
          for (J = 1; J <= N; J++) { // 90
-            DO 60 I1 = 1, KU + 1 - J
+            for (I1 = 1; I1 <= KU + 1 - J; I1++) { // 60
                AA( I1 + ( J - 1 )*LDA ) = ROGUE
             } // 60
             DO 70 I2 = I1, MIN( KL + KU + 1, KU + 1 + M - J )
@@ -2466,13 +2466,13 @@
                }
                IEND = N
             }
-            DO 100 I = 1, IBEG - 1
+            for (I = 1; I <= IBEG - 1; I++) { // 100
                AA( I + ( J - 1 )*LDA ) = ROGUE
             } // 100
             for (I = IBEG; I <= IEND; I++) { // 110
                AA( I + ( J - 1 )*LDA ) = A( I, J )
             } // 110
-            DO 120 I = IEND + 1, LDA
+            for (I = IEND + 1; I <= LDA; I++) { // 120
                AA( I + ( J - 1 )*LDA ) = ROGUE
             } // 120
             if ( SYM ) {
@@ -2499,13 +2499,13 @@
                }
                IEND = MIN( KL + 1, 1 + M - J )
             }
-            DO 140 I = 1, IBEG - 1
+            for (I = 1; I <= IBEG - 1; I++) { // 140
                AA( I + ( J - 1 )*LDA ) = ROGUE
             } // 140
             for (I = IBEG; I <= IEND; I++) { // 150
                AA( I + ( J - 1 )*LDA ) = A( I + J - KK, J )
             } // 150
-            DO 160 I = IEND + 1, LDA
+            for (I = IEND + 1; I <= LDA; I++) { // 160
                AA( I + ( J - 1 )*LDA ) = ROGUE
             } // 160
             if ( SYM ) {

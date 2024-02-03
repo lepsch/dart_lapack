@@ -270,7 +270,7 @@
                      // Store L(k) in column K
 
                      D11 = A( K, K )
-                     DO 16 II = 1, K - 1
+                     for (II = 1; II <= K - 1; II++) { // 16
                         A( II, K ) = A( II, K ) / D11
                      } // 16
 
@@ -563,7 +563,7 @@
                      // Store L(k) in column k
 
                      D11 = A( K, K )
-                     DO 46 II = K + 1, N
+                     for (II = K + 1; II <= N; II++) { // 46
                         A( II, K ) = A( II, K ) / D11
                      } // 46
 
@@ -605,7 +605,7 @@
                   D22 = A( K, K ) / D21
                   T = ONE / ( D11*D22-ONE )
 
-                  DO 60 J = K + 2, N
+                  for (J = K + 2; J <= N; J++) { // 60
 
                      // Compute  D21 * ( W(k)W(k+1) ) * inv(D(k)) for row J
 

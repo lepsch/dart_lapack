@@ -313,14 +313,14 @@
          // Sort eigenvalues and condition numbers lexicographically
          // to compare with inputs
 
-         DO 220 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 220
             KMIN = I
             if ( ISRT.EQ.0 ) {
                VRIMIN = DBLE( W( I ) )
             } else {
                VRIMIN = DIMAG( W( I ) )
             }
-            DO 210 J = I + 1, N
+            for (J = I + 1; J <= N; J++) { // 210
                if ( ISRT.EQ.0 ) {
                   VRICMP = DBLE( W( J ) )
                } else {

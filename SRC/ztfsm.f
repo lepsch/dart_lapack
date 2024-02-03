@@ -71,8 +71,8 @@
       // Quick return when ALPHA.EQ.(0D+0,0D+0)
 
       if ( ALPHA.EQ.CZERO ) {
-         DO 20 J = 0, N - 1
-            DO 10 I = 0, M - 1
+         for (J = 0; J <= N - 1; J++) { // 20
+            for (I = 0; I <= M - 1; I++) { // 10
                B( I, J ) = CZERO
             } // 10
          } // 20

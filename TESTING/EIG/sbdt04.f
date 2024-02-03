@@ -54,7 +54,7 @@
 
          K = 0
          for (I = 1; I <= NS; I++) { // 20
-            DO 10 J = 1, N-1
+            for (J = 1; J <= N-1; J++) { // 10
                K = K + 1
                WORK( K ) = D( J )*VT( I, J ) + E( J )*VT( I, J+1 )
             } // 10
@@ -73,13 +73,13 @@
          for (I = 1; I <= NS; I++) { // 50
             K = K + 1
             WORK( K ) = D( 1 )*VT( I, 1 )
-            DO 40 J = 1, N-1
+            for (J = 1; J <= N-1; J++) { // 40
                K = K + 1
                WORK( K ) = E( J )*VT( I, J ) + D( J+1 )*VT( I, J+1 )
             } // 40
          } // 50
          BNORM = ABS( D( N ) )
-         DO 60 I = 1, N-1
+         for (I = 1; I <= N-1; I++) { // 60
             BNORM = MAX( BNORM, ABS( D( I ) )+ABS( E( I ) ) )
          } // 60
       }

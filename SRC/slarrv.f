@@ -112,7 +112,7 @@
       DONE = 0
       IBEGIN = 1
       WBEGIN = 1
-      DO 170 JBLK = 1, IBLOCK( M )
+      for (JBLK = 1; JBLK <= IBLOCK( M ); JBLK++) { // 170
          IEND = ISPLIT( JBLK )
          SIGMA = L( IEND )
          // Find the eigenvectors of the submatrix indexed IBEGIN
@@ -137,7 +137,7 @@
          // Find local spectral diameter of the block
          GL = GERS( 2*IBEGIN-1 )
          GU = GERS( 2*IBEGIN )
-         DO 20 I = IBEGIN+1 , IEND
+         for (I = IBEGIN+1 ; I <= IEND; I++) { // 20
             GL = MIN( GERS( 2*I-1 ), GL )
             GU = MAX( GERS( 2*I ), GU )
          } // 20
@@ -253,7 +253,7 @@
                }
 
                // Compute DL and DLL of current RRR
-               DO 50 J = IBEGIN, IEND-1
+               for (J = IBEGIN; J <= IEND-1; J++) { // 50
                   TMP = D( J )*L( J )
                   WORK( INDLD-1+J ) = TMP
                   WORK( INDLLD-1+J ) = TMP*L( J )
@@ -614,12 +614,12 @@
                      ISUPMX = ISUPMX + OLDIEN
                      // Ensure vector is ok if support in the RQI has changed
                      if (ISUPMN.LT.ZFROM) {
-                        DO 122 II = ISUPMN,ZFROM-1
+                        for (II = ISUPMN; II <= ZFROM-1; II++) { // 122
                            Z( II, WINDEX ) = ZERO
                         } // 122
                      }
                      if (ISUPMX.GT.ZTO) {
-                        DO 123 II = ZTO+1,ISUPMX
+                        for (II = ZTO+1; II <= ISUPMX; II++) { // 123
                            Z( II, WINDEX ) = ZERO
                         } // 123
                      }

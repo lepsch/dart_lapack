@@ -139,7 +139,7 @@
             } else {
                ICOUNT = 0
                // count negative elements,
-               DO I = CUT+1-NNB, CUT
+               for (I = CUT+1-NNB; I <= CUT; I++) {
                   IF( IPIV( I ).LT.0 ) ICOUNT = ICOUNT + 1
                END DO
                // need a even number for a clear cut
@@ -160,10 +160,10 @@
 
             for (I = 1; I <= NNB; I++) {
                WORK( U11+I, I ) = ONE
-               DO J = 1, I-1
+               for (J = 1; J <= I-1; J++) {
                   WORK( U11+I, J ) = ZERO
                 END DO
-                DO J = I+1, NNB
+                for (J = I+1; J <= NNB; J++) {
                    WORK( U11+I, J ) = A( CUT+I, CUT+J )
                 END DO
             END DO
@@ -309,7 +309,7 @@
             } else {
                ICOUNT = 0
                // count negative elements,
-               DO I = CUT + 1, CUT+NNB
+               for (I = CUT + 1; I <= CUT+NNB; I++) {
                   IF ( IPIV( I ).LT.0 ) ICOUNT = ICOUNT + 1
                END DO
                // need a even number for a clear cut
@@ -318,7 +318,7 @@
 
             // L21 Block
 
-            DO I = 1, N-CUT-NNB
+            for (I = 1; I <= N-CUT-NNB; I++) {
                for (J = 1; J <= NNB; J++) {
                  WORK( I, J ) = A( CUT+NNB+I, CUT+J )
                END DO
@@ -328,10 +328,10 @@
 
             for (I = 1; I <= NNB; I++) {
                WORK( U11+I, I) = ONE
-               DO J = I+1, NNB
+               for (J = I+1; J <= NNB; J++) {
                   WORK( U11+I, J ) = ZERO
                END DO
-               DO J = 1, I-1
+               for (J = 1; J <= I-1; J++) {
                   WORK( U11+I, J ) = A( CUT+I, CUT+J )
                END DO
             END DO
@@ -407,7 +407,7 @@
 
                // Update L21
 
-               DO I = 1, N-CUT-NNB
+               for (I = 1; I <= N-CUT-NNB; I++) {
                   for (J = 1; J <= NNB; J++) {
                      A( CUT+NNB+I, CUT+J ) = WORK( I, J )
                   END DO

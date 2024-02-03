@@ -56,7 +56,7 @@
          RANK = MN
       } else if ( RKSEL.EQ.2 ) {
          RANK = ( 3*MN ) / 4
-         DO 10 J = RANK + 1, MN
+         for (J = RANK + 1; J <= MN; J++) { // 10
             S( J ) = ZERO
          } // 10
       } else {

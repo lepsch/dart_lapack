@@ -55,7 +55,7 @@
 
             for (J = 1; J <= N; J++) { // 20
                ccopy(M, A( 1, J ), 1, WORK, 1 );
-               DO 10 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 10
                   WORK( M+I ) = D( I )*PT( I, J ) + E( I )*PT( I+1, J )
                } // 10
                WORK( M+N ) = D( N )*PT( N, J )
@@ -68,7 +68,7 @@
 
             for (J = 1; J <= N; J++) { // 40
                ccopy(M, A( 1, J ), 1, WORK, 1 );
-               DO 30 I = 1, M - 1
+               for (I = 1; I <= M - 1; I++) { // 30
                   WORK( M+I ) = D( I )*PT( I, J ) + E( I )*PT( I+1, J )
                } // 30
                WORK( M+M ) = D( M )*PT( M, J )

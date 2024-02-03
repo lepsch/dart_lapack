@@ -240,10 +240,10 @@
             INFO = 1
             T16( I, I ) = SMIN
          }
-         DO 90 J = I + 1, 4
+         for (J = I + 1; J <= 4; J++) { // 90
             T16( J, I ) = T16( J, I ) / T16( I, I )
             BTMP( J ) = BTMP( J ) - T16( J, I )*BTMP( I )
-            DO 80 K = I + 1, 4
+            for (K = I + 1; K <= 4; K++) { // 80
                T16( J, K ) = T16( J, K ) - T16( J, I )*T16( I, K )
             } // 80
          } // 90
@@ -264,7 +264,7 @@
          K = 5 - I
          TEMP = ONE / T16( K, K )
          TMP( K ) = BTMP( K )*TEMP
-         DO 110 J = K + 1, 4
+         for (J = K + 1; J <= 4; J++) { // 110
             TMP( K ) = TMP( K ) - ( TEMP*T16( K, J ) )*TMP( J )
          } // 110
       } // 120

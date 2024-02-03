@@ -78,7 +78,7 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 30
-            DO 20 I = 1, J - 1
+            for (I = 1; I <= J - 1; I++) { // 20
                C( I, J ) = C( I, J ) - A( I, J )
             } // 20
             C( J, J ) = C( J, J ) - DBLE( A( J, J ) )
@@ -86,7 +86,7 @@
       } else {
          for (J = 1; J <= N; J++) { // 50
             C( J, J ) = C( J, J ) - DBLE( A( J, J ) )
-            DO 40 I = J + 1, N
+            for (I = J + 1; I <= N; I++) { // 40
                C( I, J ) = C( I, J ) - A( I, J )
             } // 40
          } // 50

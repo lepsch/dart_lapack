@@ -140,7 +140,7 @@
             // submatrix A(1:k+1,1:k+1)
 
             cswap(KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
-            DO 40 J = KP + 1, K - 1
+            for (J = KP + 1; J <= K - 1; J++) { // 40
                TEMP = CONJG( A( J, K ) )
                A( J, K ) = CONJG( A( KP, J ) )
                A( KP, J ) = TEMP
@@ -222,7 +222,7 @@
             // submatrix A(k-1:n,k-1:n)
 
             IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
-            DO 70 J = K + 1, KP - 1
+            for (J = K + 1; J <= KP - 1; J++) { // 70
                TEMP = CONJG( A( J, K ) )
                A( J, K ) = CONJG( A( KP, J ) )
                A( KP, J ) = TEMP

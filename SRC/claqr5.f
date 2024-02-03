@@ -174,7 +174,7 @@
                }
                T1 = CONJG( V( 1, M22 ) )
                T2 = T1*V( 2, M22 )
-               DO 40 J = K+1, JBOT
+               for (J = K+1; J <= JBOT; J++) { // 40
                   REFSUM = H( K+1, J ) + CONJG( V( 2, M22 ) )*H( K+2, J )
                   H( K+1, J ) = H( K+1, J ) - REFSUM*T1
                   H( K+2, J ) = H( K+2, J ) - REFSUM*T2

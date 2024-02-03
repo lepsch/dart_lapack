@@ -132,7 +132,7 @@
             for (K = 1; K <= N; K++) { // 50
                S = ZERO
                XK = CABS1( X( K, J ) )
-               DO 40 I = 1, K - 1
+               for (I = 1; I <= K - 1; I++) { // 40
                   RWORK( I ) = RWORK( I ) + CABS1( A( I, K ) )*XK
                   S = S + CABS1( A( I, K ) )*CABS1( X( I, J ) )
                } // 40
@@ -143,7 +143,7 @@
                S = ZERO
                XK = CABS1( X( K, J ) )
                RWORK( K ) = RWORK( K ) + ABS( DBLE( A( K, K ) ) )*XK
-               DO 60 I = K + 1, N
+               for (I = K + 1; I <= N; I++) { // 60
                   RWORK( I ) = RWORK( I ) + CABS1( A( I, K ) )*XK
                   S = S + CABS1( A( I, K ) )*CABS1( X( I, J ) )
                } // 60

@@ -50,7 +50,7 @@
       // the imaginary parts of the diagonal elements are not stored).
 
       for (J = 1; J <= N; J++) { // 20
-         DO 10 I = 1, J - 1
+         for (I = 1; I <= J - 1; I++) { // 10
             B( I, J ) = H( I, J )
          } // 10
          B( J, J ) = H( J, J ) - WR
@@ -80,7 +80,7 @@
             // LU decomposition with partial pivoting of B, replacing zero
             // pivots by EPS3.
 
-            DO 60 I = 1, N - 1
+            for (I = 1; I <= N - 1; I++) { // 60
                EI = H( I+1, I )
                if ( ABS( B( I, I ) ).LT.ABS( EI ) ) {
 
@@ -88,7 +88,7 @@
 
                   X = B( I, I ) / EI
                   B( I, I ) = EI
-                  DO 40 J = I + 1, N
+                  for (J = I + 1; J <= N; J++) { // 40
                      TEMP = B( I+1, J )
                      B( I+1, J ) = B( I, J ) - X*TEMP
                      B( I, J ) = TEMP
@@ -100,7 +100,7 @@
                   IF( B( I, I ).EQ.ZERO ) B( I, I ) = EPS3
                   X = EI / B( I, I )
                   if ( X.NE.ZERO ) {
-                     DO 50 J = I + 1, N
+                     for (J = I + 1; J <= N; J++) { // 50
                         B( I+1, J ) = B( I+1, J ) - X*B( I, J )
                      } // 50
                   }
@@ -123,7 +123,7 @@
 
                   X = B( J, J ) / EJ
                   B( J, J ) = EJ
-                  DO 70 I = 1, J - 1
+                  for (I = 1; I <= J - 1; I++) { // 70
                      TEMP = B( I, J-1 )
                      B( I, J-1 ) = B( I, J ) - X*TEMP
                      B( I, J ) = TEMP
@@ -135,7 +135,7 @@
                   IF( B( J, J ).EQ.ZERO ) B( J, J ) = EPS3
                   X = EJ / B( J, J )
                   if ( X.NE.ZERO ) {
-                     DO 80 I = 1, J - 1
+                     for (I = 1; I <= J - 1; I++) { // 80
                         B( I, J-1 ) = B( I, J-1 ) - X*B( I, J )
                      } // 80
                   }
@@ -217,7 +217,7 @@
                B( I+1, 1 ) = ZERO
             } // 140
 
-            DO 170 I = 1, N - 1
+            for (I = 1; I <= N - 1; I++) { // 170
                ABSBII = SLAPY2( B( I, I ), B( I+1, I ) )
                EI = H( I+1, I )
                if ( ABSBII.LT.ABS( EI ) ) {
@@ -228,7 +228,7 @@
                   XI = B( I+1, I ) / EI
                   B( I, I ) = EI
                   B( I+1, I ) = ZERO
-                  DO 150 J = I + 1, N
+                  for (J = I + 1; J <= N; J++) { // 150
                      TEMP = B( I+1, J )
                      B( I+1, J ) = B( I, J ) - XR*TEMP
                      B( J+1, I+1 ) = B( J+1, I ) - XI*TEMP
@@ -250,7 +250,7 @@
                   EI = ( EI / ABSBII ) / ABSBII
                   XR = B( I, I )*EI
                   XI = -B( I+1, I )*EI
-                  DO 160 J = I + 1, N
+                  for (J = I + 1; J <= N; J++) { // 160
                      B( I+1, J ) = B( I+1, J ) - XR*B( I, J ) + XI*B( J+1, I )
                      B( J+1, I+1 ) = -XR*B( J+1, I ) - XI*B( I, J )
                   } // 160
@@ -276,7 +276,7 @@
             // B(j+1,i).
 
             B( N+1, N ) = WI
-            DO 180 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 180
                B( N+1, J ) = ZERO
             } // 180
 
@@ -291,7 +291,7 @@
                   XI = B( J+1, J ) / EJ
                   B( J, J ) = EJ
                   B( J+1, J ) = ZERO
-                  DO 190 I = 1, J - 1
+                  for (I = 1; I <= J - 1; I++) { // 190
                      TEMP = B( I, J-1 )
                      B( I, J-1 ) = B( I, J ) - XR*TEMP
                      B( J, I ) = B( J+1, I ) - XI*TEMP
@@ -313,7 +313,7 @@
                   EJ = ( EJ / ABSBJJ ) / ABSBJJ
                   XR = B( J, J )*EJ
                   XI = -B( J+1, J )*EJ
-                  DO 200 I = 1, J - 1
+                  for (I = 1; I <= J - 1; I++) { // 200
                      B( I, J-1 ) = B( I, J-1 ) - XR*B( I, J ) + XI*B( J+1, I )
                      B( J, I ) = -XR*B( J+1, I ) - XI*B( I, J )
                   } // 200
@@ -355,12 +355,12 @@
                XR = VR( I )
                XI = VI( I )
                if ( RIGHTV ) {
-                  DO 220 J = I + 1, N
+                  for (J = I + 1; J <= N; J++) { // 220
                      XR = XR - B( I, J )*VR( J ) + B( J+1, I )*VI( J )
                      XI = XI - B( I, J )*VI( J ) - B( J+1, I )*VR( J )
                   } // 220
                } else {
-                  DO 230 J = 1, I - 1
+                  for (J = 1; J <= I - 1; J++) { // 230
                      XR = XR - B( J, I )*VR( J ) + B( I+1, J )*VI( J )
                      XI = XI - B( J, I )*VI( J ) - B( I+1, J )*VR( J )
                   } // 230

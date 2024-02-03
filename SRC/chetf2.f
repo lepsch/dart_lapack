@@ -152,7 +152,7 @@
                // submatrix A(1:k,1:k)
 
                cswap(KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
-               DO 20 J = KP + 1, KK - 1
+               for (J = KP + 1; J <= KK - 1; J++) { // 20
                   T = CONJG( A( J, KK ) )
                   A( J, KK ) = CONJG( A( KP, J ) )
                   A( KP, J ) = T
@@ -330,7 +330,7 @@
                // submatrix A(k:n,k:n)
 
                IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
-               DO 60 J = KK + 1, KP - 1
+               for (J = KK + 1; J <= KP - 1; J++) { // 60
                   T = CONJG( A( J, KK ) )
                   A( J, KK ) = CONJG( A( KP, J ) )
                   A( KP, J ) = T
@@ -394,7 +394,7 @@
                   D21 = A( K+1, K ) / D
                   D =  TT / D
 
-                  DO 80 J = K + 2, N
+                  for (J = K + 2; J <= N; J++) { // 80
                      WK = D*( D11*A( J, K )-D21*A( J, K+1 ) )
                      WKP1 = D*( D22*A( J, K+1 )-CONJG( D21 )*A( J, K ) )
                      for (I = J; I <= N; I++) { // 70

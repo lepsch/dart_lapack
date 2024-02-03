@@ -152,7 +152,7 @@
 
          // Adjust IPIV
 
-         DO 30 J = K, K + KB - 1
+         for (J = K; J <= K + KB - 1; J++) { // 30
             if ( IPIV( J ).GT.0 ) {
                IPIV( J ) = IPIV( J ) + K - 1
             } else {

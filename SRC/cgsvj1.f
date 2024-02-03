@@ -378,7 +378,7 @@
       } // 1995
 
       // Sort the vector SVA() of column norms.
-      DO 5991 p = 1, N - 1
+      for (p = 1; p <= N - 1; p++) { // 5991
          q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1
          if ( p.NE.q ) {
             TEMP1 = SVA( p )

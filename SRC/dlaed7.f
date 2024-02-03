@@ -79,7 +79,7 @@
       // first row of Q_2.
 
       PTR = 1 + 2**TLVLS
-      DO 10 I = 1, CURLVL - 1
+      for (I = 1; I <= CURLVL - 1; I++) { // 10
          PTR = PTR + 2**( TLVLS-I )
       } // 10
       CURR = PTR + CURPBM

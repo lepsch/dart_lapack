@@ -53,7 +53,7 @@
       // Estimate the largest singular value.
 
       SIGMX = ZERO
-      DO 10 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 10
          D( I ) = ABS( D( I ) )
          SIGMX = MAX( SIGMX, ABS( E( I ) ) )
       } // 10
@@ -82,7 +82,7 @@
 
       // Compute the q's and e's.
 
-      DO 30 I = 1, 2*N - 1
+      for (I = 1; I <= 2*N - 1; I++) { // 30
          WORK( I ) = WORK( I )**2
       } // 30
       WORK( 2*N ) = ZERO

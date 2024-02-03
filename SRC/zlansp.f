@@ -45,7 +45,7 @@
          if ( LSAME( UPLO, 'U' ) ) {
             K = 1
             for (J = 1; J <= N; J++) { // 20
-               DO 10 I = K, K + J - 1
+               for (I = K; I <= K + J - 1; I++) { // 10
                   SUM = ABS( AP( I ) )
                   IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
                } // 10
@@ -54,7 +54,7 @@
          } else {
             K = 1
             for (J = 1; J <= N; J++) { // 40
-               DO 30 I = K, K + N - J
+               for (I = K; I <= K + N - J; I++) { // 30
                   SUM = ABS( AP( I ) )
                   IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
                } // 30
@@ -70,7 +70,7 @@
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 60
                SUM = ZERO
-               DO 50 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 50
                   ABSA = ABS( AP( K ) )
                   SUM = SUM + ABSA
                   WORK( I ) = WORK( I ) + ABSA
@@ -90,7 +90,7 @@
             for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ABS( AP( K ) )
                K = K + 1
-               DO 90 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 90
                   ABSA = ABS( AP( K ) )
                   SUM = SUM + ABSA
                   WORK( I ) = WORK( I ) + ABSA
@@ -112,7 +112,7 @@
                K = K + J
             } // 110
          } else {
-            DO 120 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 120
                zlassq(N-J, AP( K ), 1, SCALE, SUM );
                K = K + N - J + 1
             } // 120

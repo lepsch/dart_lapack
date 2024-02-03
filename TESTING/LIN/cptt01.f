@@ -45,7 +45,7 @@
       // Construct the difference L*D*L' - A.
 
       WORK( 1 ) = DF( 1 ) - D( 1 )
-      DO 10 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 10
          DE = DF( I )*EF( I )
          WORK( N+I ) = DE - E( I )
          WORK( 1+I ) = DE*CONJG( EF( I ) ) + DF( I+1 ) - D( I+1 )
@@ -59,7 +59,7 @@
       } else {
          ANORM = MAX( D( 1 )+ABS( E( 1 ) ), D( N )+ABS( E( N-1 ) ) )
          RESID = MAX( ABS( WORK( 1 ) )+ABS( WORK( N+1 ) ), ABS( WORK( N ) )+ABS( WORK( 2*N-1 ) ) )
-         DO 20 I = 2, N - 1
+         for (I = 2; I <= N - 1; I++) { // 20
             ANORM = MAX( ANORM, D( I )+ABS( E( I ) )+ABS( E( I-1 ) ) )
             RESID = MAX( RESID, ABS( WORK( I ) )+ABS( WORK( N+I-1 ) )+ ABS( WORK( N+I ) ) )
          } // 20

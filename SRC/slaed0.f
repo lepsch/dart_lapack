@@ -143,7 +143,7 @@
             CURR = CURR + 1
          }
          K = 1
-         DO 60 J = SUBMAT, IWORK( I+1 )
+         for (J = SUBMAT; J <= IWORK( I+1 ); J++) { // 60
             IWORK( INDXQ+J ) = K
             K = K + 1
          } // 60

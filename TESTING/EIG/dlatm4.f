@@ -72,7 +72,7 @@
          // abs(ITYPE) = 2: Transposed Jordan block
 
          } // 30
-         DO 40 JD = 1, N - 1
+         for (JD = 1; JD <= N - 1; JD++) { // 40
             A( JD+1, JD ) = ONE
          } // 40
          ISDB = 1
@@ -89,7 +89,7 @@
          } // 60
          ISDB = 1
          ISDE = K
-         DO 70 JD = K + 2, 2*K + 1
+         for (JD = K + 2; JD <= 2*K + 1; JD++) { // 70
             A( JD, JD ) = ONE
          } // 70
          GO TO 220
@@ -105,7 +105,7 @@
          // abs(ITYPE) = 5: One large D value:
 
          } // 100
-         DO 110 JD = KBEG + 1, KEND
+         for (JD = KBEG + 1; JD <= KEND; JD++) { // 110
             A( JD, JD ) = RCOND
          } // 110
          A( KBEG, KBEG ) = ONE
@@ -114,7 +114,7 @@
          // abs(ITYPE) = 6: One small D value:
 
          } // 120
-         DO 130 JD = KBEG, KEND - 1
+         for (JD = KBEG; JD <= KEND - 1; JD++) { // 130
             A( JD, JD ) = ONE
          } // 130
          A( KEND, KEND ) = RCOND
@@ -190,12 +190,12 @@
          // Reverse if ITYPE < 0
 
          if ( ITYPE.LT.0 ) {
-            DO 270 JD = KBEG, ( KBEG+KEND-1 ) / 2
+            for (JD = KBEG; JD <= ( KBEG+KEND-1 ) / 2; JD++) { // 270
                TEMP = A( JD, JD )
                A( JD, JD ) = A( KBEG+KEND-JD, KBEG+KEND-JD )
                A( KBEG+KEND-JD, KBEG+KEND-JD ) = TEMP
             } // 270
-            DO 280 JD = 1, ( N-1 ) / 2
+            for (JD = 1; JD <= ( N-1 ) / 2; JD++) { // 280
                TEMP = A( JD+1, JD )
                A( JD+1, JD ) = A( N+1-JD, N-JD )
                A( N+1-JD, N-JD ) = TEMP
@@ -247,13 +247,13 @@
             IOFF = 1
          } else {
             IOFF = 2
-            DO 300 JR = 1, N - 1
+            for (JR = 1; JR <= N - 1; JR++) { // 300
                IF( A( JR+1, JR ).EQ.ZERO ) A( JR, JR+1 ) = TRIANG*DLARND( IDIST, ISEED )
             } // 300
          }
 
          for (JC = 2; JC <= N; JC++) { // 320
-            DO 310 JR = 1, JC - IOFF
+            for (JR = 1; JR <= JC - IOFF; JR++) { // 310
                A( JR, JC ) = TRIANG*DLARND( IDIST, ISEED )
             } // 310
          } // 320

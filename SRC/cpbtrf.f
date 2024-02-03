@@ -89,7 +89,7 @@
             // Zero the upper triangle of the work array.
 
             for (J = 1; J <= NB; J++) { // 20
-               DO 10 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 10
                   WORK( I, J ) = ZERO
                } // 10
             } // 20
@@ -177,7 +177,7 @@
             // Zero the lower triangle of the work array.
 
             for (J = 1; J <= NB; J++) { // 90
-               DO 80 I = J + 1, NB
+               for (I = J + 1; I <= NB; I++) { // 80
                   WORK( I, J ) = ZERO
                } // 80
             } // 90

@@ -130,7 +130,7 @@
 
              // Copy the upper portion of A into AB
 
-             DO 20 J = I, I+PK-1
+             for (J = I; J <= I+PK-1; J++) { // 20
                 LK = MIN( KD, N-J ) + 1
                 scopy(LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 );
              } // 20
@@ -160,7 +160,7 @@
 
          // Copy the upper band to AB which is the band storage matrix
 
-         DO 30 J = N-KD+1, N
+         for (J = N-KD+1; J <= N; J++) { // 30
             LK = MIN(KD, N-J) + 1
             scopy(LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 );
          } // 30
@@ -179,7 +179,7 @@
 
              // Copy the upper portion of A into AB
 
-             DO 50 J = I, I+PK-1
+             for (J = I; J <= I+PK-1; J++) { // 50
                 LK = MIN( KD, N-J ) + 1
                 scopy(LK, A( J, J ), 1, AB( 1, J ), 1 );
              } // 50
@@ -216,7 +216,7 @@
 
          // Copy the lower band to AB which is the band storage matrix
 
-         DO 60 J = N-KD+1, N
+         for (J = N-KD+1; J <= N; J++) { // 60
             LK = MIN(KD, N-J) + 1
             scopy(LK, A( J, J ), 1, AB( 1, J ), 1 );
          } // 60

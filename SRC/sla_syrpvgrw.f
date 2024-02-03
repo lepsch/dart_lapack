@@ -41,7 +41,7 @@
       }
 
       RPVGRW = 1.0
-      DO I = 1, 2*N
+      for (I = 1; I <= 2*N; I++) {
          WORK( I ) = 0.0
       END DO
 
@@ -93,7 +93,7 @@
                TMP = WORK( N+K-1 )
                WORK( N+K-1 ) = WORK( N+KP )
                WORK( N+KP ) = TMP
-               DO I = 1, K-1
+               for (I = 1; I <= K-1; I++) {
                   WORK( K ) = MAX( ABS( AF( I, K ) ), WORK( K ) )
                   WORK( K-1 ) = MAX( ABS( AF( I, K-1 ) ), WORK( K-1 ) )
                END DO
@@ -140,7 +140,7 @@
                TMP = WORK( N+K+1 )
                WORK( N+K+1 ) = WORK( N+KP )
                WORK( N+KP ) = TMP
-               DO I = K+1, N
+               for (I = K+1; I <= N; I++) {
                   WORK( K ) = MAX( ABS( AF( I, K ) ), WORK( K ) )
                   WORK( K+1 ) = MAX( ABS( AF(I, K+1 ) ), WORK( K+1 ) )
                END DO

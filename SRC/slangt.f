@@ -41,7 +41,7 @@
          // Find max(abs(A(i,j))).
 
          ANORM = ABS( D( N ) )
-         DO 10 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 10
             IF( ANORM.LT.ABS( DL( I ) ) .OR. SISNAN( ABS( DL( I ) ) ) ) ANORM = ABS(DL(I))             IF( ANORM.LT.ABS( D( I ) ) .OR. SISNAN( ABS( D( I ) ) ) ) ANORM = ABS(D(I))             IF( ANORM.LT.ABS( DU( I ) ) .OR. SISNAN (ABS( DU( I ) ) ) ) ANORM = ABS(DU(I))
          } // 10
       } else if ( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' ) {
@@ -54,7 +54,7 @@
             ANORM = ABS( D( 1 ) )+ABS( DL( 1 ) )
             TEMP = ABS( D( N ) )+ABS( DU( N-1 ) )
             IF( ANORM .LT. TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
-            DO 20 I = 2, N - 1
+            for (I = 2; I <= N - 1; I++) { // 20
                TEMP = ABS( D( I ) )+ABS( DL( I ) )+ABS( DU( I-1 ) )
                IF( ANORM .LT. TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
             } // 20
@@ -69,7 +69,7 @@
             ANORM = ABS( D( 1 ) )+ABS( DU( 1 ) )
             TEMP = ABS( D( N ) )+ABS( DL( N-1 ) )
             IF( ANORM .LT. TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
-            DO 30 I = 2, N - 1
+            for (I = 2; I <= N - 1; I++) { // 30
                TEMP = ABS( D( I ) )+ABS( DU( I ) )+ABS( DL( I-1 ) )
                IF( ANORM .LT. TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
             } // 30

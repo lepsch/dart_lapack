@@ -241,7 +241,7 @@
                // Store as dense matrix for most routines.
 
                slaset('Full', LDA, N, ZERO, ZERO, A, LDA );
-               DO 100 IDIAG = -IHBW, IHBW
+               for (IDIAG = -IHBW; IDIAG <= IHBW; IDIAG++) { // 100
                   IROW = IHBW - IDIAG + 1
                   J1 = MAX( 1, IDIAG+1 )
                   J2 = MIN( N, N+IDIAG )
@@ -283,7 +283,7 @@
                for (I = 1; I <= N; I++) { // 120
                   D1( I ) = REAL( A( I, I ) )
                } // 120
-               DO 130 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 130
                   D2( I ) = REAL( A( I+1, I ) )
                } // 130
                SRNAMT = 'SSTEV'
@@ -306,13 +306,13 @@
                for (I = 1; I <= N; I++) { // 140
                   D3( I ) = REAL( A( I, I ) )
                } // 140
-               DO 150 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 150
                   D4( I ) = REAL( A( I+1, I ) )
                } // 150
                sstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT( 1 ) );
 
                NTEST = 3
-               DO 160 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 160
                   D4( I ) = REAL( A( I+1, I ) )
                } // 160
                SRNAMT = 'SSTEV'
@@ -345,7 +345,7 @@
                   EVEIGS( I ) = D3( I )
                   D1( I ) = REAL( A( I, I ) )
                } // 190
-               DO 200 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 200
                   D2( I ) = REAL( A( I+1, I ) )
                } // 200
                SRNAMT = 'SSTEVX'
@@ -373,13 +373,13 @@
                for (I = 1; I <= N; I++) { // 210
                   D3( I ) = REAL( A( I, I ) )
                } // 210
-               DO 220 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 220
                   D4( I ) = REAL( A( I+1, I ) )
                } // 220
                sstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT( 4 ) );
 
                NTEST = 6
-               DO 230 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 230
                   D4( I ) = REAL( A( I+1, I ) )
                } // 230
                SRNAMT = 'SSTEVX'
@@ -411,7 +411,7 @@
                for (I = 1; I <= N; I++) { // 260
                   D1( I ) = REAL( A( I, I ) )
                } // 260
-               DO 270 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 270
                   D2( I ) = REAL( A( I+1, I ) )
                } // 270
                SRNAMT = 'SSTEVR'
@@ -438,13 +438,13 @@
                for (I = 1; I <= N; I++) { // 280
                   D3( I ) = REAL( A( I, I ) )
                } // 280
-               DO 290 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 290
                   D4( I ) = REAL( A( I+1, I ) )
                } // 290
                sstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT( 7 ) );
 
                NTEST = 9
-               DO 300 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 300
                   D4( I ) = REAL( A( I+1, I ) )
                } // 300
                SRNAMT = 'SSTEVR'
@@ -477,7 +477,7 @@
                for (I = 1; I <= N; I++) { // 330
                   D1( I ) = REAL( A( I, I ) )
                } // 330
-               DO 340 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 340
                   D2( I ) = REAL( A( I+1, I ) )
                } // 340
                SRNAMT = 'SSTEVX'
@@ -500,14 +500,14 @@
                for (I = 1; I <= N; I++) { // 350
                   D3( I ) = REAL( A( I, I ) )
                } // 350
-               DO 360 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 360
                   D4( I ) = REAL( A( I+1, I ) )
                } // 360
                sstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 10 ) );
 
 
                NTEST = 12
-               DO 370 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 370
                   D4( I ) = REAL( A( I+1, I ) )
                } // 370
                SRNAMT = 'SSTEVX'
@@ -551,7 +551,7 @@
                for (I = 1; I <= N; I++) { // 390
                   D1( I ) = REAL( A( I, I ) )
                } // 390
-               DO 400 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 400
                   D2( I ) = REAL( A( I+1, I ) )
                } // 400
                SRNAMT = 'SSTEVX'
@@ -581,13 +581,13 @@
                for (I = 1; I <= N; I++) { // 410
                   D3( I ) = REAL( A( I, I ) )
                } // 410
-               DO 420 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 420
                   D4( I ) = REAL( A( I+1, I ) )
                } // 420
                sstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 13 ) );
 
                NTEST = 15
-               DO 430 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 430
                   D4( I ) = REAL( A( I+1, I ) )
                } // 430
                SRNAMT = 'SSTEVX'
@@ -615,7 +615,7 @@
                for (I = 1; I <= N; I++) { // 450
                   D1( I ) = REAL( A( I, I ) )
                } // 450
-               DO 460 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 460
                   D2( I ) = REAL( A( I+1, I ) )
                } // 460
                SRNAMT = 'SSTEVD'
@@ -638,13 +638,13 @@
                for (I = 1; I <= N; I++) { // 470
                   D3( I ) = REAL( A( I, I ) )
                } // 470
-               DO 480 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 480
                   D4( I ) = REAL( A( I+1, I ) )
                } // 480
                sstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT( 16 ) );
 
                NTEST = 18
-               DO 490 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 490
                   D4( I ) = REAL( A( I+1, I ) )
                } // 490
                SRNAMT = 'SSTEVD'
@@ -676,7 +676,7 @@
                for (I = 1; I <= N; I++) { // 520
                   D1( I ) = REAL( A( I, I ) )
                } // 520
-               DO 530 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 530
                   D2( I ) = REAL( A( I+1, I ) )
                } // 530
                SRNAMT = 'SSTEVR'
@@ -699,14 +699,14 @@
                for (I = 1; I <= N; I++) { // 540
                   D3( I ) = REAL( A( I, I ) )
                } // 540
-               DO 550 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 550
                   D4( I ) = REAL( A( I+1, I ) )
                } // 550
                sstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 19 ) );
 
 
                NTEST = 21
-               DO 560 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 560
                   D4( I ) = REAL( A( I+1, I ) )
                } // 560
                SRNAMT = 'SSTEVR'
@@ -750,7 +750,7 @@
                for (I = 1; I <= N; I++) { // 580
                   D1( I ) = REAL( A( I, I ) )
                } // 580
-               DO 590 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 590
                   D2( I ) = REAL( A( I+1, I ) )
                } // 590
                SRNAMT = 'SSTEVR'
@@ -780,13 +780,13 @@
                for (I = 1; I <= N; I++) { // 600
                   D3( I ) = REAL( A( I, I ) )
                } // 600
-               DO 610 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 610
                   D4( I ) = REAL( A( I+1, I ) )
                } // 610
                sstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 22 ) );
 
                NTEST = 24
-               DO 620 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 620
                   D4( I ) = REAL( A( I+1, I ) )
                } // 620
                SRNAMT = 'SSTEVR'

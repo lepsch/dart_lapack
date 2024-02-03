@@ -319,7 +319,7 @@
                   // dot products of rows of ( W(kw-1) W(kw) ) and columns
                   // of D**(-1)
 
-                  DO 20 J = 1, K - 2
+                  for (J = 1; J <= K - 2; J++) { // 20
                      A( J, K-1 ) = D21*( D11*W( J, KW-1 )-W( J, KW ) )
                      A( J, K ) = CONJG( D21 )* ( D22*W( J, KW )-W( J, KW-1 ) )
                   } // 20
@@ -368,7 +368,7 @@
 
             // Update the upper triangle of the diagonal block
 
-            DO 40 JJ = J, J + JB - 1
+            for (JJ = J; JJ <= J + JB - 1; JJ++) { // 40
                A( JJ, JJ ) = REAL( A( JJ, JJ ) )
                cgemv('No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 );
                A( JJ, JJ ) = REAL( A( JJ, JJ ) )
@@ -657,7 +657,7 @@
                   // dot products of rows of ( W(k) W(k+1) ) and columns
                   // of D**(-1)
 
-                  DO 80 J = K + 2, N
+                  for (J = K + 2; J <= N; J++) { // 80
                      A( J, K ) = CONJG( D21 )* ( D11*W( J, K )-W( J, K+1 ) )
                      A( J, K+1 ) = D21*( D22*W( J, K+1 )-W( J, K ) )
                   } // 80
@@ -706,7 +706,7 @@
 
             // Update the lower triangle of the diagonal block
 
-            DO 100 JJ = J, J + JB - 1
+            for (JJ = J; JJ <= J + JB - 1; JJ++) { // 100
                A( JJ, JJ ) = REAL( A( JJ, JJ ) )
                cgemv('No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 );
                A( JJ, JJ ) = REAL( A( JJ, JJ ) )

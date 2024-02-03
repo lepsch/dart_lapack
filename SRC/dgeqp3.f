@@ -154,7 +154,7 @@
          // Initialize partial column norms. The first N elements of work
          // store the exact column norms.
 
-         DO 20 J = NFXD + 1, N
+         for (J = NFXD + 1; J <= N; J++) { // 20
             WORK( J ) = DNRM2( SM, A( NFXD+1, J ), 1 )
             WORK( N+J ) = WORK( J )
          } // 20

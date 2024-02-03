@@ -2799,7 +2799,7 @@
 
       if ( INFO.NE.0 ) {
          if ( IE.GT.2 ) {
-            DO 50 I = 1, MINMN - 1
+            for (I = 1; I <= MINMN - 1; I++) { // 50
                WORK( I+1 ) = WORK( I+IE-1 )
             } // 50
          }

@@ -254,7 +254,7 @@
       NFAIL = 0
       NDIV = 2*( N0-I0 )
 
-      DO 160 IWHILA = 1, N + 1
+      for (IWHILA = 1; IWHILA <= N + 1; IWHILA++) { // 160
          IF( N0.LT.1 ) GO TO 170
 
          // While array unfinished do
@@ -390,7 +390,7 @@
          } // 145
          TEMPQ = Z( 4*I0-3 )
          Z( 4*I0-3 ) = Z( 4*I0-3 ) + SIGMA
-         DO K = I0+1, N0
+         for (K = I0+1; K <= N0; K++) {
             TEMPE = Z( 4*K-5 )
             Z( 4*K-5 ) = Z( 4*K-5 ) * (TEMPQ / Z( 4*K-7 ))
             TEMPQ = Z( 4*K-3 )

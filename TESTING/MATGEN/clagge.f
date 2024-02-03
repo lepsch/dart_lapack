@@ -219,13 +219,13 @@
          }
 
          if (I .LE. N) {
-            DO 50 J = KL + I + 1, M
+            for (J = KL + I + 1; J <= M; J++) { // 50
                A( J, I ) = ZERO
             } // 50
          }
 
          if (I .LE. M) {
-            DO 60 J = KU + I + 1, N
+            for (J = KU + I + 1; J <= N; J++) { // 60
                A( I, J ) = ZERO
             } // 60
          }

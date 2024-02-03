@@ -91,7 +91,7 @@
             AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 )*X( 1, K ) )
          } else {
             AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 )*X( 1, K ) ) + CABS1( E( 1 ) )*CABS1( X( 2, K ) )
-            DO 40 I = 2, N - 1
+            for (I = 2; I <= N - 1; I++) { // 40
                TMP = CABS1( B( I, K ) ) + CABS1( E( I-1 ) )* CABS1( X( I-1, K ) ) + CABS1( D( I )*X( I, K ) ) + CABS1( E( I ) )*CABS1( X( I+1, K ) )
                AXBI = MIN( AXBI, TMP )
             } // 40

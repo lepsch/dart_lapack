@@ -150,7 +150,7 @@
          DO WHILE ( K .GE. KWTOP )
 
             // Move bulge down and remove it
-            DO K2 = K, KWBOT-1
+            for (K2 = K; K2 <= KWBOT-1; K2++) {
                claqz1(.TRUE., .TRUE., K2, KWTOP, KWTOP+JW-1, KWBOT, A, LDA, B, LDB, JW, KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC );
             END DO
 

@@ -102,15 +102,15 @@
 
       // Zero out lower triangle of B
 
-      DO 20 JCOL = 1, N - 1
-         DO 10 JROW = JCOL + 1, N
+      for (JCOL = 1; JCOL <= N - 1; JCOL++) { // 20
+         for (JROW = JCOL + 1; JROW <= N; JROW++) { // 10
             B( JROW, JCOL ) = ZERO
          } // 10
       } // 20
 
       // Reduce A and B
 
-      DO 40 JCOL = ILO, IHI - 2
+      for (JCOL = ILO; JCOL <= IHI - 2; JCOL++) { // 40
 
          DO 30 JROW = IHI, JCOL + 2, -1
 

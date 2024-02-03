@@ -219,7 +219,7 @@
                   zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 2 ) )                   CALL ZUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 3 ) );
                }
                RESULT( 4 ) = 0
-               DO 70 I = 1, MNMIN - 1
+               for (I = 1; I <= MNMIN - 1; I++) { // 70
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 4 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 4 ) = ULPINV
                } // 70
                if ( MNMIN.GE.1 ) {
@@ -272,7 +272,7 @@
 
                      DIF = ZERO
                      DIV = MAX( DBLE( MNMIN )*ULP*S( 1 ), DLAMCH( 'Safe minimum' ) )
-                     DO 80 I = 1, MNMIN - 1
+                     for (I = 1; I <= MNMIN - 1; I++) { // 80
                         IF( SSAV( I ).LT.SSAV( I+1 ) ) DIF = ULPINV                         IF( SSAV( I ).LT.ZERO ) DIF = ULPINV
                         DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV )
                      } // 80
@@ -306,7 +306,7 @@
                   zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 9 ) )                   CALL ZUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 10 ) );
                }
                RESULT( 11 ) = 0
-               DO 110 I = 1, MNMIN - 1
+               for (I = 1; I <= MNMIN - 1; I++) { // 110
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 11 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 11 ) = ULPINV
                } // 110
                if ( MNMIN.GE.1 ) {
@@ -360,7 +360,7 @@
 
                   DIF = ZERO
                   DIV = MAX( DBLE( MNMIN )*ULP*S( 1 ), DLAMCH( 'Safe minimum' ) )
-                  DO 120 I = 1, MNMIN - 1
+                  for (I = 1; I <= MNMIN - 1; I++) { // 120
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) DIF = ULPINV                      IF( SSAV( I ).LT.ZERO ) DIF = ULPINV
                      DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV )
                   } // 120
@@ -402,7 +402,7 @@
                      zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 37 ) )                      CALL ZUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 38 ) );
                   }
                   RESULT( 39 ) = ZERO
-                  DO 199 I = 1, MNMIN - 1
+                  for (I = 1; I <= MNMIN - 1; I++) { // 199
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 39 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 39 ) = ULPINV
                   } // 199
                   if ( MNMIN.GE.1 ) {
@@ -451,7 +451,7 @@
                      zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 16 ) )                      CALL ZUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 17 ) );
                   }
                   RESULT( 18 ) = ZERO
-                  DO 131 I = 1, MNMIN - 1
+                  for (I = 1; I <= MNMIN - 1; I++) { // 131
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 18 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 18 ) = ULPINV
                   } // 131
                   if ( MNMIN.GE.1 ) {
@@ -499,7 +499,7 @@
                      zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 20 ) )                      CALL ZUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 21 ) );
                   }
                   RESULT( 22 ) = ZERO
-                  DO 134 I = 1, MNMIN - 1
+                  for (I = 1; I <= MNMIN - 1; I++) { // 134
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 22 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 22 ) = ULPINV
                   } // 134
                   if ( MNMIN.GE.1 ) {
@@ -530,7 +530,7 @@
                   zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 24 ) )                   CALL ZUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 25 ) );
                }
                RESULT( 26 ) = ZERO
-               DO 140 I = 1, MNMIN - 1
+               for (I = 1; I <= MNMIN - 1; I++) { // 140
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 26 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 26 ) = ULPINV
                } // 140
                if ( MNMIN.GE.1 ) {
@@ -576,7 +576,7 @@
 
                      DIF = ZERO
                      DIV = MAX( DBLE( MNMIN )*ULP*S( 1 ), DLAMCH( 'Safe minimum' ) )
-                     DO 150 I = 1, MNMIN - 1
+                     for (I = 1; I <= MNMIN - 1; I++) { // 150
                         IF( SSAV( I ).LT.SSAV( I+1 ) ) DIF = ULPINV                         IF( SSAV( I ).LT.ZERO ) DIF = ULPINV
                         DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV )
                      } // 150

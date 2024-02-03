@@ -195,7 +195,7 @@
 
          // Initialize local scaling factors of current block column X( J, K )
 
-         DO KK = 1, K2 - K1
+         for (KK = 1; KK <= K2 - K1; KK++) {
             for (I = 1; I <= NBA; I++) {
                WORK( I+KK*LDS ) = ONE
             END DO
@@ -240,7 +240,7 @@
             // for all right-hand sides in the current block column,
             // one RHS at a time.
 
-            DO KK = 1, K2-K1
+            for (KK = 1; KK <= K2-K1; KK++) {
                RHS = K1 + KK - 1
                if ( KK.EQ.1 ) {
                   slatrs(UPLO, TRANS, DIAG, 'N', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO );
@@ -258,7 +258,7 @@
                   // and compute A*x = 0 (or A**T*x = 0). Note that
                   // X(J1:J2-1, KK) is set by LATRS.
                   SCALE( RHS ) = ZERO
-                  DO II = 1, J1-1
+                  for (II = 1; II <= J1-1; II++) {
                      X( II, KK ) = ZERO
                   END DO
                   for (II = J2; II <= N; II++) {
@@ -345,7 +345,7 @@
                // rescale the column segments, if necessary. Then
                // the linear update is safely executed.
 
-               DO KK = 1, K2-K1
+               for (KK = 1; KK <= K2-K1; KK++) {
                   RHS = K1 + KK - 1
                   // Compute consistent scaling
                   SCAMIN = MIN( WORK( I+KK*LDS), WORK( J+KK*LDS ) )
@@ -391,7 +391,7 @@
 
          // Reduce local scaling factors
 
-         DO KK = 1, K2-K1
+         for (KK = 1; KK <= K2-K1; KK++) {
             RHS = K1 + KK - 1
             for (I = 1; I <= NBA; I++) {
                SCALE( RHS ) = MIN( SCALE( RHS ), WORK( I+KK*LDS ) )
@@ -400,7 +400,7 @@
 
          // Realize consistent scaling
 
-         DO KK = 1, K2-K1
+         for (KK = 1; KK <= K2-K1; KK++) {
             RHS = K1 + KK - 1
             if ( SCALE( RHS ).NE.ONE .AND. SCALE( RHS ).NE. ZERO ) {
                for (I = 1; I <= NBA; I++) {

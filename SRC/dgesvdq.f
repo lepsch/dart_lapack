@@ -318,7 +318,7 @@
                     RETURN
                 }
             } // 1904
-            DO 1952 p = 1, M - 1
+            for (p = 1; p <= M - 1; p++) { // 1952
             q = IDAMAX( M-p+1, RWORK(p), 1 ) + p - 1
             IWORK(N+p) = q
             if ( p .NE. q ) {
@@ -343,7 +343,7 @@
                    IWORK(p) = p
                } // 5001
                if ( ROWPRM ) {
-                   DO 5002 p = N + 1, N + M - 1
+                   for (p = N + 1; p <= N + M - 1; p++) { // 5002
                        IWORK(p) = p - N
                    } // 5002
                }
@@ -486,7 +486,7 @@
             // .. set the lower triangle of [A] to [A](1:NR,1:N)**T and
             // the upper triangle of [A] to zero.
             DO 1146 p = 1, MIN( N, NR )
-               DO 1147 q = p + 1, N
+               for (q = p + 1; q <= N; q++) { // 1147
                   A(q,p) = A(p,q)
                   IF ( q .LE. NR ) A(p,q) = ZERO
                } // 1147
@@ -522,7 +522,7 @@
                dgesvd('N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO );
 
                for (p = 1; p <= NR; p++) { // 1119
-                   DO 1120 q = p + 1, NR
+                   for (q = p + 1; q <= NR; q++) { // 1120
                       RTMP   = U(q,p)
                       U(q,p) = U(p,q)
                       U(p,q) = RTMP
@@ -577,7 +577,7 @@
                dgesvd('O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO );
 
                for (p = 1; p <= NR; p++) { // 1121
-                   DO 1122 q = p + 1, NR
+                   for (q = p + 1; q <= NR; q++) { // 1122
                       RTMP   = V(q,p)
                       V(q,p) = V(p,q)
                       V(p,q) = RTMP
@@ -586,7 +586,7 @@
 
                if ( NR .LT. N ) {
                    for (p = 1; p <= NR; p++) { // 1103
-                      DO 1104 q = NR + 1, N
+                      for (q = NR + 1; q <= N; q++) { // 1104
                           V(p,q) = V(q,p)
                       } // 1104
                    } // 1103
@@ -602,7 +602,7 @@
                 dgesvd('O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO );
 
                 for (p = 1; p <= N; p++) { // 1123
-                   DO 1124 q = p + 1, N
+                   for (q = p + 1; q <= N; q++) { // 1124
                       RTMP   = V(q,p)
                       V(q,p) = V(p,q)
                       V(p,q) = RTMP
@@ -659,7 +659,7 @@
                dgesvd('O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, WORK(N+1), LWORK-N, INFO );
                // .. assemble V
                for (p = 1; p <= NR; p++) { // 1115
-                  DO 1116 q = p + 1, NR
+                  for (q = p + 1; q <= NR; q++) { // 1116
                      RTMP   = V(q,p)
                      V(q,p) = V(p,q)
                      V(p,q) = RTMP
@@ -667,7 +667,7 @@
                } // 1115
                if ( NR .LT. N ) {
                    for (p = 1; p <= NR; p++) { // 1101
-                      DO 1102 q = NR+1, N
+                      for (q = NR+1; q <= N; q++) { // 1102
                          V(p,q) = V(q,p)
                       } // 1102
                    } // 1101
@@ -675,7 +675,7 @@
                dlapmt(.FALSE., NR, N, V, LDV, IWORK );
 
                 for (p = 1; p <= NR; p++) { // 1117
-                   DO 1118 q = p + 1, NR
+                   for (q = p + 1; q <= NR; q++) { // 1118
                       RTMP   = U(q,p)
                       U(q,p) = U(p,q)
                       U(p,q) = RTMP
@@ -712,7 +712,7 @@
                    dgesvd('O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, WORK(N+1), LWORK-N, INFO );
 
                    for (p = 1; p <= N; p++) { // 1113
-                      DO 1114 q = p + 1, N
+                      for (q = p + 1; q <= N; q++) { // 1114
                          RTMP   = V(q,p)
                          V(q,p) = V(p,q)
                          V(p,q) = RTMP
@@ -723,7 +723,7 @@
                // (M x N1), i.e. (M x N) or (M x M).
 
                    for (p = 1; p <= N; p++) { // 1111
-                      DO 1112 q = p + 1, N
+                      for (q = p + 1; q <= N; q++) { // 1112
                          RTMP   = U(q,p)
                          U(q,p) = U(p,q)
                          U(p,q) = RTMP

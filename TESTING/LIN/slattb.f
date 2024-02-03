@@ -400,7 +400,7 @@
          TSCAL = UNFL / ULP
          TSCAL = ( ONE-ULP ) / TSCAL
          for (J = 1; J <= N; J++) { // 310
-            DO 300 I = 1, KD + 1
+            for (I = 1; I <= KD + 1; I++) { // 300
                AB( I, J ) = ZERO
             } // 300
          } // 310
@@ -486,7 +486,7 @@
             for (J = 1; J <= N; J++) { // 400
                LENJ = MIN( J, KD+1 )
                slarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
-               DO 390 I = KD + 2 - LENJ, KD + 1
+               for (I = KD + 2 - LENJ; I <= KD + 1; I++) { // 390
                   AB( I, J ) = SIGN( TLEFT, AB( I, J ) ) + TSCAL*AB( I, J )
                } // 390
             } // 400
@@ -507,12 +507,12 @@
 
       if ( .NOT.LSAME( TRANS, 'N' ) ) {
          if ( UPPER ) {
-            DO 430 J = 1, N / 2
+            for (J = 1; J <= N / 2; J++) { // 430
                LENJ = MIN( N-2*J+1, KD+1 )
                sswap(LENJ, AB( KD+1, J ), LDAB-1, AB( KD+2-LENJ, N-J+1 ), -1 );
             } // 430
          } else {
-            DO 440 J = 1, N / 2
+            for (J = 1; J <= N / 2; J++) { // 440
                LENJ = MIN( N-2*J+1, KD+1 )
                sswap(LENJ, AB( 1, J ), 1, AB( LENJ, N-J+2-LENJ ), -LDAB+1 );
             } // 440

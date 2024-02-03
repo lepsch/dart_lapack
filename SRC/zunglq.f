@@ -101,7 +101,7 @@
          // Set A(kk+1:m,1:kk) to zero.
 
          for (J = 1; J <= KK; J++) { // 20
-            DO 10 I = KK + 1, M
+            for (I = KK + 1; I <= M; I++) { // 10
                A( I, J ) = ZERO
             } // 10
          } // 20
@@ -137,8 +137,8 @@
 
             // Set columns 1:i-1 of current block to zero
 
-            DO 40 J = 1, I - 1
-               DO 30 L = I, I + IB - 1
+            for (J = 1; J <= I - 1; J++) { // 40
+               for (L = I; L <= I + IB - 1; L++) { // 30
                   A( L, J ) = ZERO
                } // 30
             } // 40

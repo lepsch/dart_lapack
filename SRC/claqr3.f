@@ -141,7 +141,7 @@
 
       NS = JW
       ILST = INFQR + 1
-      DO 10 KNT = INFQR + 1, JW
+      for (KNT = INFQR + 1; KNT <= JW; KNT++) { // 10
 
          // ==== Small spike tip deflation test ====
 
@@ -171,9 +171,9 @@
          // ==== sorting the diagonal of T improves accuracy for
          // .    graded matrices.  ====
 
-         DO 30 I = INFQR + 1, NS
+         for (I = INFQR + 1; I <= NS; I++) { // 30
             IFST = I
-            DO 20 J = I + 1, NS
+            for (J = I + 1; J <= NS; J++) { // 20
                IF( CABS1( T( J, J ) ).GT.CABS1( T( IFST, IFST ) ) ) IFST = J
             } // 20
             ILST = I
@@ -183,7 +183,7 @@
 
       // ==== Restore shift/eigenvalue array from T ====
 
-      DO 40 I = INFQR + 1, JW
+      for (I = INFQR + 1; I <= JW; I++) { // 40
          SH( KWTOP+I-1 ) = T( I, I )
       } // 40
 

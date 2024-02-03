@@ -66,7 +66,7 @@
               LM = ED - ST + 1
 
               V( VPOS ) = ONE
-              DO 10 I = 1, LM-1
+              for (I = 1; I <= LM-1; I++) { // 10
                   V( VPOS+I )         = ( A( OFDPOS-I, ST+I ) )
                   A( OFDPOS-I, ST+I ) = ZERO
               } // 10
@@ -101,7 +101,7 @@
                   }
 
                   V( VPOS ) = ONE
-                  DO 30 I = 1, LM-1
+                  for (I = 1; I <= LM-1; I++) { // 30
                       V( VPOS+I )          = ( A( DPOS-NB-I, J1+I ) )
                       A( DPOS-NB-I, J1+I ) = ZERO
                   } // 30
@@ -129,7 +129,7 @@
               LM = ED - ST + 1
 
               V( VPOS ) = ONE
-              DO 20 I = 1, LM-1
+              for (I = 1; I <= LM-1; I++) { // 20
                   V( VPOS+I )         = A( OFDPOS+I, ST-1 )
                   A( OFDPOS+I, ST-1 ) = ZERO
               } // 20
@@ -166,7 +166,7 @@
                   }
 
                   V( VPOS ) = ONE
-                  DO 40 I = 1, LM-1
+                  for (I = 1; I <= LM-1; I++) { // 40
                       V( VPOS+I )        = A( DPOS+NB+I, ST )
                       A( DPOS+NB+I, ST ) = ZERO
                   } // 40

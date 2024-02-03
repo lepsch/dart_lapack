@@ -244,7 +244,7 @@
             for (I = 1; I <= Q; I++) {
                IWORK(I) = M - P - Q + I
             END DO
-            DO I = Q + 1, M - P
+            for (I = Q + 1; I <= M - P; I++) {
                IWORK(I) = I - Q
             END DO
             dlapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
@@ -288,7 +288,7 @@
             for (I = 1; I <= Q; I++) {
                IWORK(I) = M - P - Q + I
             END DO
-            DO I = Q + 1, M - P
+            for (I = Q + 1; I <= M - P; I++) {
                IWORK(I) = I - Q
             END DO
             dlapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
@@ -309,7 +309,7 @@
          }
          if ( WANTU2 .AND. M-P .GT. 0 ) {
             U2(1,1) = ONE
-            DO J = 2, M-P
+            for (J = 2; J <= M-P; J++) {
                U2(1,J) = ZERO
                U2(J,1) = ZERO
             END DO
@@ -331,7 +331,7 @@
             for (I = 1; I <= R; I++) {
                IWORK(I) = Q - R + I
             END DO
-            DO I = R + 1, Q
+            for (I = R + 1; I <= Q; I++) {
                IWORK(I) = I - R
             END DO
             if ( WANTU1 ) {
@@ -362,7 +362,7 @@
             dlacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 )             CALL DORGQR( P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 .AND. M-P .GT. 0 ) {
-            DO J = 2, M-P
+            for (J = 2; J <= M-P; J++) {
                U2(1,J) = ZERO
             END DO
             dlacpy('L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 )             CALL DORGQR( M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
@@ -383,7 +383,7 @@
             for (I = 1; I <= R; I++) {
                IWORK(I) = P - R + I
             END DO
-            DO I = R + 1, P
+            for (I = R + 1; I <= P; I++) {
                IWORK(I) = I - R
             END DO
             if ( WANTU1 ) {

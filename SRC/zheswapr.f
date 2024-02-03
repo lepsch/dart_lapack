@@ -45,7 +45,7 @@
          A(I1,I1)=A(I2,I2)
          A(I2,I2)=TMP
 
-         DO I=1,I2-I1-1
+         for (I = 1; I <= I2-I1-1; I++) {
             TMP=A(I1,I1+I)
             A(I1,I1+I)=DCONJG(A(I1+I,I2))
             A(I1+I,I2)=DCONJG(TMP)
@@ -56,7 +56,7 @@
 
            // third swap
            // - swap row I1 and I2 from I2+1 to N
-         DO I=I2+1,N
+         for (I = I2+1; I <= N; I++) {
             TMP=A(I1,I)
             A(I1,I)=A(I2,I)
             A(I2,I)=TMP
@@ -78,7 +78,7 @@
           A(I1,I1)=A(I2,I2)
           A(I2,I2)=TMP
 
-          DO I=1,I2-I1-1
+          for (I = 1; I <= I2-I1-1; I++) {
              TMP=A(I1+I,I1)
              A(I1+I,I1)=DCONJG(A(I2,I1+I))
              A(I2,I1+I)=DCONJG(TMP)
@@ -88,7 +88,7 @@
 
           // third swap
            // - swap col I1 and I2 from I2+1 to N
-          DO I=I2+1,N
+          for (I = I2+1; I <= N; I++) {
              TMP=A(I,I1)
              A(I,I1)=A(I,I2)
              A(I,I2)=TMP

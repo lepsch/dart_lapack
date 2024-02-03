@@ -55,7 +55,7 @@
       // initialize lower triangle of A to diagonal matrix
 
       for (J = 1; J <= N; J++) { // 20
-         DO 10 I = J + 1, N
+         for (I = J + 1; I <= N; I++) { // 10
             A( I, J ) = ZERO
          } // 10
       } // 20
@@ -100,7 +100,7 @@
 
       // Reduce number of subdiagonals to K
 
-      DO 60 I = 1, N - 1 - K
+      for (I = 1; I <= N - 1 - K; I++) { // 60
 
          // generate reflection to annihilate A(k+i+1:n,i)
 
@@ -135,7 +135,7 @@
          zher2('Lower', N-K-I+1, -ONE, A( K+I, I ), 1, WORK, 1, A( K+I, K+I ), LDA );
 
          A( K+I, I ) = -WA
-         DO 50 J = K + I + 1, N
+         for (J = K + I + 1; J <= N; J++) { // 50
             A( J, I ) = ZERO
          } // 50
       } // 60
@@ -143,7 +143,7 @@
       // Store full hermitian matrix
 
       for (J = 1; J <= N; J++) { // 80
-         DO 70 I = J + 1, N
+         for (I = J + 1; I <= N; I++) { // 70
             A( J, I ) = DCONJG( A( I, J ) )
          } // 70
       } // 80

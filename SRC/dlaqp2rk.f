@@ -287,7 +287,7 @@
             // only if the residual matrix A(I+1:M,KK+1:N) exists, i.e.
             // when KK < min(M-IOFFSET, N).
 
-            DO J = KK + 1, N
+            for (J = KK + 1; J <= N; J++) {
                if ( VN1( J ).NE.ZERO ) {
 
                   // NOTE: The following lines follow from the analysis in
@@ -355,7 +355,7 @@
       // factorized, set TAUs corresponding to the columns that were
       // not factorized to ZERO, i.e. TAU(K+1:MINMNFACT) set to ZERO.
 
-      DO J = K + 1, MINMNFACT
+      for (J = K + 1; J <= MINMNFACT; J++) {
          TAU( J ) = ZERO
       END DO
 

@@ -119,7 +119,7 @@
 
          ISUB = I
          SMAX = RWORK( K+I )
-         DO 10 J = I + 1, IBND
+         for (J = I + 1; J <= IBND; J++) { // 10
             TEMP = RWORK( K+J )
             if ( TEMP.GT.SMAX ) {
                ISUB = J

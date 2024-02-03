@@ -145,7 +145,7 @@
 
                      if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDA
-                        DO 20 I = 1, IZERO - 1
+                        for (I = 1; I <= IZERO - 1; I++) { // 20
                            A( IOFF+I ) = ZERO
                         } // 20
                         IOFF = IOFF + IZERO
@@ -155,7 +155,7 @@
                         } // 30
                      } else {
                         IOFF = IZERO
-                        DO 40 I = 1, IZERO - 1
+                        for (I = 1; I <= IZERO - 1; I++) { // 40
                            A( IOFF ) = ZERO
                            IOFF = IOFF + LDA
                         } // 40

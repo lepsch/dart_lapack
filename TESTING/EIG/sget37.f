@@ -102,8 +102,8 @@
             NINFO( 1 ) = NINFO( 1 ) + 1
             GO TO 240
          }
-         DO 60 J = 1, N - 2
-            DO 50 I = J + 2, N
+         for (J = 1; J <= N - 2; J++) { // 60
+            for (I = J + 2; I <= N; I++) { // 50
                T( I, J ) = ZERO
             } // 50
          } // 60
@@ -138,11 +138,11 @@
          scopy(N, S, 1, STMP, 1 );
          scopy(N, SEP, 1, SEPTMP, 1 );
          sscal(N, ONE / VMUL, SEPTMP, 1 );
-         DO 80 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 80
             KMIN = I
             VRMIN = WRTMP( I )
             VIMIN = WITMP( I )
-            DO 70 J = I + 1, N
+            for (J = I + 1; J <= N; J++) { // 70
                if ( WRTMP( J ).LT.VRMIN ) {
                   KMIN = J
                   VRMIN = WRTMP( J )

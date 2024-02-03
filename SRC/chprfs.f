@@ -130,7 +130,7 @@
                S = ZERO
                XK = CABS1( X( K, J ) )
                IK = KK
-               DO 40 I = 1, K - 1
+               for (I = 1; I <= K - 1; I++) { // 40
                   RWORK( I ) = RWORK( I ) + CABS1( AP( IK ) )*XK
                   S = S + CABS1( AP( IK ) )*CABS1( X( I, J ) )
                   IK = IK + 1
@@ -144,7 +144,7 @@
                XK = CABS1( X( K, J ) )
                RWORK( K ) = RWORK( K ) + ABS( REAL( AP( KK ) ) )*XK
                IK = KK + 1
-               DO 60 I = K + 1, N
+               for (I = K + 1; I <= N; I++) { // 60
                   RWORK( I ) = RWORK( I ) + CABS1( AP( IK ) )*XK
                   S = S + CABS1( AP( IK ) )*CABS1( X( I, J ) )
                   IK = IK + 1

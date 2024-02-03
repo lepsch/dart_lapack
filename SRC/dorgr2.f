@@ -54,7 +54,7 @@
          // Initialise rows 1:m-k to rows of the unit matrix
 
          for (J = 1; J <= N; J++) { // 20
-            DO 10 L = 1, M - K
+            for (L = 1; L <= M - K; L++) { // 10
                A( L, J ) = ZERO
             } // 10
             IF( J.GT.N-M .AND. J.LE.N-K ) A( M-N+J, J ) = ONE
@@ -73,7 +73,7 @@
 
          // Set A(m-k+i,n-k+i+1:n) to zero
 
-         DO 30 L = N - M + II + 1, N
+         for (L = N - M + II + 1; L <= N; L++) { // 30
             A( II, L ) = ZERO
          } // 30
       } // 40

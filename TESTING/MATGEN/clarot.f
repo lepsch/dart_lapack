@@ -74,7 +74,7 @@
 
       // CROT( NL-NT, A(IX),IINC, A(IY),IINC, C, S ) with complex C, S
 
-      DO 10 J = 0, NL - NT - 1
+      for (J = 0; J <= NL - NT - 1; J++) { // 10
          TEMPX = C*A( IX+J*IINC ) + S*A( IY+J*IINC )
          A( IY+J*IINC ) = -CONJG( S )*A( IX+J*IINC ) + CONJG( C )*A( IY+J*IINC )
          A( IX+J*IINC ) = TEMPX

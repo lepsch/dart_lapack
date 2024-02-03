@@ -157,7 +157,7 @@
       for (J = 2; J <= N; J++) { // 40
          RWORK( J ) = ZERO
          RWORK( N+J ) = ZERO
-         DO 30 I = 1, J - 1
+         for (I = 1; I <= J - 1; I++) { // 30
             RWORK( J ) = RWORK( J ) + ABS1( S( I, J ) )
             RWORK( N+J ) = RWORK( N+J ) + ABS1( P( I, J ) )
          } // 30
@@ -242,7 +242,7 @@
                                        // H
                // (rowwise in  (a A - b B) , or columnwise in a A - b B)
 
-               DO 100 J = JE + 1, N
+               for (J = JE + 1; J <= N; J++) { // 100
 
                   // Compute
                         // j-1
@@ -252,7 +252,7 @@
 
                   TEMP = ONE / XMAX
                   if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GT.BIGNUM* TEMP ) {
-                     DO 70 JR = JE, J - 1
+                     for (JR = JE; JR <= J - 1; JR++) { // 70
                         WORK( JR ) = TEMP*WORK( JR )
                      } // 70
                      XMAX = ONE
@@ -260,7 +260,7 @@
                   SUMA = CZERO
                   SUMB = CZERO
 
-                  DO 80 JR = JE, J - 1
+                  for (JR = JE; JR <= J - 1; JR++) { // 80
                      SUMA = SUMA + CONJG( S( JR, J ) )*WORK( JR )
                      SUMB = SUMB + CONJG( P( JR, J ) )*WORK( JR )
                   } // 80
@@ -276,7 +276,7 @@
                   if ( ABS1( D ).LT.ONE ) {
                      if ( ABS1( SUM ).GE.BIGNUM*ABS1( D ) ) {
                         TEMP = ONE / ABS1( SUM )
-                        DO 90 JR = JE, J - 1
+                        for (JR = JE; JR <= J - 1; JR++) { // 90
                            WORK( JR ) = TEMP*WORK( JR )
                         } // 90
                         XMAX = TEMP*XMAX
@@ -314,7 +314,7 @@
                   IBEG = N + 1
                }
 
-               DO 130 JR = 1, IBEG - 1
+               for (JR = 1; JR <= IBEG - 1; JR++) { // 130
                   VL( JR, IEIG ) = CZERO
                } // 130
 
@@ -395,7 +395,7 @@
                // WORK(1:j-1) contains sums w,
                // WORK(j+1:JE) contains x
 
-               DO 170 JR = 1, JE - 1
+               for (JR = 1; JR <= JE - 1; JR++) { // 170
                   WORK( JR ) = ACOEFF*S( JR, JE ) - BCOEFF*P( JR, JE )
                } // 170
                WORK( JE ) = CONE
@@ -434,7 +434,7 @@
 
                      CA = ACOEFF*WORK( J )
                      CB = BCOEFF*WORK( J )
-                     DO 200 JR = 1, J - 1
+                     for (JR = 1; JR <= J - 1; JR++) { // 200
                         WORK( JR ) = WORK( JR ) + CA*S( JR, J ) - CB*P( JR, J )
                      } // 200
                   }
@@ -467,7 +467,7 @@
                   IEND = 0
                }
 
-               DO 240 JR = IEND + 1, N
+               for (JR = IEND + 1; JR <= N; JR++) { // 240
                   VR( JR, IEIG ) = CZERO
                } // 240
 

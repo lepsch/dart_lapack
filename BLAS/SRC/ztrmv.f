@@ -83,7 +83,7 @@
                   for (J = 1; J <= N; J++) { // 20
                       if (X(J).NE.ZERO) {
                           TEMP = X(J)
-                          DO 10 I = 1,J - 1
+                          for (I = 1; I <= J - 1; I++) { // 10
                               X(I) = X(I) + TEMP*A(I,J)
                           } // 10
                           IF (NOUNIT) X(J) = X(J)*A(J,J)
@@ -95,7 +95,7 @@
                       if (X(JX).NE.ZERO) {
                           TEMP = X(JX)
                           IX = KX
-                          DO 30 I = 1,J - 1
+                          for (I = 1; I <= J - 1; I++) { // 30
                               X(IX) = X(IX) + TEMP*A(I,J)
                               IX = IX + INCX
                           } // 30
@@ -181,12 +181,12 @@
                       TEMP = X(J)
                       if (NOCONJ) {
                           IF (NOUNIT) TEMP = TEMP*A(J,J)
-                          DO 150 I = J + 1,N
+                          for (I = J + 1; I <= N; I++) { // 150
                               TEMP = TEMP + A(I,J)*X(I)
                           } // 150
                       } else {
                           IF (NOUNIT) TEMP = TEMP*DCONJG(A(J,J))
-                          DO 160 I = J + 1,N
+                          for (I = J + 1; I <= N; I++) { // 160
                               TEMP = TEMP + DCONJG(A(I,J))*X(I)
                           } // 160
                       }
@@ -199,13 +199,13 @@
                       IX = JX
                       if (NOCONJ) {
                           IF (NOUNIT) TEMP = TEMP*A(J,J)
-                          DO 180 I = J + 1,N
+                          for (I = J + 1; I <= N; I++) { // 180
                               IX = IX + INCX
                               TEMP = TEMP + A(I,J)*X(IX)
                           } // 180
                       } else {
                           IF (NOUNIT) TEMP = TEMP*DCONJG(A(J,J))
-                          DO 190 I = J + 1,N
+                          for (I = J + 1; I <= N; I++) { // 190
                               IX = IX + INCX
                               TEMP = TEMP + DCONJG(A(I,J))*X(IX)
                           } // 190

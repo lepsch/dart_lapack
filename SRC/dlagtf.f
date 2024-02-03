@@ -55,7 +55,7 @@
 
       TL = MAX( TOL, EPS )
       SCALE1 = ABS( A( 1 ) ) + ABS( B( 1 ) )
-      DO 10 K = 1, N - 1
+      for (K = 1; K <= N - 1; K++) { // 10
          A( K+1 ) = A( K+1 ) - LAMBDA
          SCALE2 = ABS( C( K ) ) + ABS( A( K+1 ) )
          IF( K.LT.( N-1 ) ) SCALE2 = SCALE2 + ABS( B( K+1 ) )

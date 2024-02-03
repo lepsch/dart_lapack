@@ -313,15 +313,15 @@
                   // Do Test (1) or Test (7)
 
                   RESULT( 1+RSUB ) = ZERO
-                  DO 120 J = 1, N - 2
-                     DO 110 I = J + 2, N
+                  for (J = 1; J <= N - 2; J++) { // 120
+                     for (I = J + 2; I <= N; I++) { // 110
                         IF( H( I, J ).NE.ZERO ) RESULT( 1+RSUB ) = ULPINV
                      } // 110
                   } // 120
-                  DO 130 I = 1, N - 2
+                  for (I = 1; I <= N - 2; I++) { // 130
                      IF( H( I+1, I ).NE.ZERO .AND. H( I+2, I+1 ).NE. ZERO )RESULT( 1+RSUB ) = ULPINV
                   } // 130
-                  DO 140 I = 1, N - 1
+                  for (I = 1; I <= N - 1; I++) { // 140
                      if ( H( I+1, I ).NE.ZERO ) {
                         IF( H( I, I ).NE.H( I+1, I+1 ) .OR. H( I, I+1 ).EQ.ZERO .OR. SIGN( ONE, H( I+1, I ) ).EQ. SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
                      }
@@ -343,7 +343,7 @@
                   if ( N.GT.1 ) {
                      IF( H( 2, 1 ).EQ.ZERO .AND. WI( 1 ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV                      IF( H( N, N-1 ).EQ.ZERO .AND. WI( N ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV
                   }
-                  DO 160 I = 1, N - 1
+                  for (I = 1; I <= N - 1; I++) { // 160
                      if ( H( I+1, I ).NE.ZERO ) {
                         TMP = SQRT( ABS( H( I+1, I ) ) )* SQRT( ABS( H( I, I+1 ) ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / MAX( ULP*TMP, UNFL ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / MAX( ULP*TMP, UNFL ) )
                      } else if ( I.GT.1 ) {

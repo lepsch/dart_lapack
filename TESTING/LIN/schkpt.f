@@ -114,7 +114,7 @@
                // Copy the matrix to D and E.
 
                IA = 1
-               DO 20 I = 1, N - 1
+               for (I = 1; I <= N - 1; I++) { // 20
                   D( I ) = A( IA )
                   E( I ) = A( IA+1 )
                   IA = IA + 2
@@ -139,7 +139,7 @@
                   } else {
                      D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) )
                      D( N ) = ABS( D( N ) ) + ABS( E( N-1 ) )
-                     DO 30 I = 2, N - 1
+                     for (I = 2; I <= N - 1; I++) { // 30
                         D( I ) = ABS( D( I ) ) + ABS( E( I ) ) + ABS( E( I-1 ) )
                      } // 30
                   }

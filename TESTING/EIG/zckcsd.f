@@ -99,10 +99,10 @@
                END DO
             } else if ( IMAT.EQ.3 ) {
                R = MIN( P, M-P, Q, M-Q )
-               DO I = 1, R+1
+               for (I = 1; I <= R+1; I++) {
                   THETA(I) = TEN**(-DLARND(1,ISEED)*GAPDIGIT)
                END DO
-               DO I = 2, R+1
+               for (I = 2; I <= R+1; I++) {
                   THETA(I) = THETA(I-1) + THETA(I)
                END DO
                for (I = 1; I <= R; I++) {

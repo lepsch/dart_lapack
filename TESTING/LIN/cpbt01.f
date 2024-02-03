@@ -116,7 +116,7 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 60
             MU = MAX( 1, KD+2-J )
-            DO 50 I = MU, KD + 1
+            for (I = MU; I <= KD + 1; I++) { // 50
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
             } // 50
          } // 60

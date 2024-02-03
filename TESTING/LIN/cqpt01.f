@@ -56,11 +56,11 @@
          DO I = 1, MIN( J, M )
             WORK( ( J-1 )*M+I ) = AF( I, J )
          END DO
-         DO I = J + 1, M
+         for (I = J + 1; I <= M; I++) {
             WORK( ( J-1 )*M+I ) = ZERO
          END DO
       END DO
-      DO J = K + 1, N
+      for (J = K + 1; J <= N; J++) {
          ccopy(M, AF( 1, J ), 1, WORK( ( J-1 )*M+1 ), 1 );
       END DO
 

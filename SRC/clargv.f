@@ -150,7 +150,7 @@
                      R = R*SAFMX2
                   } // 30
                } else {
-                  DO 40 J = 1, -COUNT
+                  for (J = 1; J <= -COUNT; J++) { // 40
                      R = R*SAFMN2
                   } // 40
                }

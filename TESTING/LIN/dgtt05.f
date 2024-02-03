@@ -88,7 +88,7 @@
                AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) )
             } else {
                AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) + ABS( DU( 1 )*X( 2, K ) )
-               DO 40 I = 2, N - 1
+               for (I = 2; I <= N - 1; I++) { // 40
                   TMP = ABS( B( I, K ) ) + ABS( DL( I-1 )*X( I-1, K ) ) + ABS( D( I )*X( I, K ) ) + ABS( DU( I )*X( I+1, K ) )
                   AXBI = MIN( AXBI, TMP )
                } // 40
@@ -100,7 +100,7 @@
                AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) )
             } else {
                AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) + ABS( DL( 1 )*X( 2, K ) )
-               DO 50 I = 2, N - 1
+               for (I = 2; I <= N - 1; I++) { // 50
                   TMP = ABS( B( I, K ) ) + ABS( DU( I-1 )*X( I-1, K ) ) + ABS( D( I )*X( I, K ) ) + ABS( DL( I )*X( I+1, K ) )
                   AXBI = MIN( AXBI, TMP )
                } // 50

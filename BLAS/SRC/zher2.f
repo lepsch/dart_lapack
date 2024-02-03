@@ -88,7 +88,7 @@
                   if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*DCONJG(Y(J))
                       TEMP2 = DCONJG(ALPHA*X(J))
-                      DO 10 I = 1,J - 1
+                      for (I = 1; I <= J - 1; I++) { // 10
                           A(I,J) = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2
                       } // 10
                       A(J,J) = DBLE(A(J,J)) + DBLE(X(J)*TEMP1+Y(J)*TEMP2)
@@ -103,7 +103,7 @@
                       TEMP2 = DCONJG(ALPHA*X(JX))
                       IX = KX
                       IY = KY
-                      DO 30 I = 1,J - 1
+                      for (I = 1; I <= J - 1; I++) { // 30
                           A(I,J) = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2
                           IX = IX + INCX
                           IY = IY + INCY
@@ -126,7 +126,7 @@
                       TEMP1 = ALPHA*DCONJG(Y(J))
                       TEMP2 = DCONJG(ALPHA*X(J))
                       A(J,J) = DBLE(A(J,J)) + DBLE(X(J)*TEMP1+Y(J)*TEMP2)
-                      DO 50 I = J + 1,N
+                      for (I = J + 1; I <= N; I++) { // 50
                           A(I,J) = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2
                       } // 50
                   } else {
@@ -141,7 +141,7 @@
                       A(J,J) = DBLE(A(J,J)) + DBLE(X(JX)*TEMP1+Y(JY)*TEMP2)
                       IX = JX
                       IY = JY
-                      DO 70 I = J + 1,N
+                      for (I = J + 1; I <= N; I++) { // 70
                           IX = IX + INCX
                           IY = IY + INCY
                           A(I,J) = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2

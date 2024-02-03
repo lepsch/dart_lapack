@@ -118,7 +118,7 @@
                ROWMAX = ZERO
                JMAX = IMAX
                KX = IMAX*( IMAX+1 ) / 2 + IMAX
-               DO 20 J = IMAX + 1, K
+               for (J = IMAX + 1; J <= K; J++) { // 20
                   if ( CABS1( AP( KX ) ).GT.ROWMAX ) {
                      ROWMAX = CABS1( AP( KX ) )
                      JMAX = J
@@ -161,7 +161,7 @@
 
                zswap(KP-1, AP( KNC ), 1, AP( KPC ), 1 );
                KX = KPC + KP - 1
-               DO 30 J = KP + 1, KK - 1
+               for (J = KP + 1; J <= KK - 1; J++) { // 30
                   KX = KX + J - 1
                   T = DCONJG( AP( KNC+J-1 ) )
                   AP( KNC+J-1 ) = DCONJG( AP( KX ) )
@@ -308,7 +308,7 @@
 
                ROWMAX = ZERO
                KX = KC + IMAX - K
-               DO 70 J = K, IMAX - 1
+               for (J = K; J <= IMAX - 1; J++) { // 70
                   if ( CABS1( AP( KX ) ).GT.ROWMAX ) {
                      ROWMAX = CABS1( AP( KX ) )
                      JMAX = J
@@ -351,7 +351,7 @@
 
                IF( KP.LT.N ) CALL ZSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ), 1 )
                KX = KNC + KP - KK
-               DO 80 J = KK + 1, KP - 1
+               for (J = KK + 1; J <= KP - 1; J++) { // 80
                   KX = KX + N - J + 1
                   T = DCONJG( AP( KNC+J-KK ) )
                   AP( KNC+J-KK ) = DCONJG( AP( KX ) )
@@ -421,7 +421,7 @@
                   D21 = AP( K+1+( K-1 )*( 2*N-K ) / 2 ) / D
                   D = TT / D
 
-                  DO 100 J = K + 2, N
+                  for (J = K + 2; J <= N; J++) { // 100
                      WK = D*( D11*AP( J+( K-1 )*( 2*N-K ) / 2 )-D21* AP( J+K*( 2*N-K-1 ) / 2 ) )                      WKP1 = D*( D22*AP( J+K*( 2*N-K-1 ) / 2 )- DCONJG( D21 )*AP( J+( K-1 )*( 2*N-K ) / 2 ) )
                      for (I = J; I <= N; I++) { // 90
                         AP( I+( J-1 )*( 2*N-J ) / 2 ) = AP( I+( J-1 )* ( 2*N-J ) / 2 ) - AP( I+( K-1 )*( 2*N-K ) / 2 )*DCONJG( WK ) - AP( I+K*( 2*N-K-1 ) / 2 )* DCONJG( WKP1 )

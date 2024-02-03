@@ -147,7 +147,7 @@
             KPC = ( KP-1 )*KP / 2 + 1
             cswap(KP-1, AP( KC ), 1, AP( KPC ), 1 );
             KX = KPC + KP - 1
-            DO 40 J = KP + 1, K - 1
+            for (J = KP + 1; J <= K - 1; J++) { // 40
                KX = KX + J - 1
                TEMP = CONJG( AP( KC+J-1 ) )
                AP( KC+J-1 ) = CONJG( AP( KX ) )
@@ -237,7 +237,7 @@
             KPC = NPP - ( N-KP+1 )*( N-KP+2 ) / 2 + 1
             IF( KP.LT.N ) CALL CSWAP( N-KP, AP( KC+KP-K+1 ), 1, AP( KPC+1 ), 1 )
             KX = KC + KP - K
-            DO 70 J = K + 1, KP - 1
+            for (J = K + 1; J <= KP - 1; J++) { // 70
                KX = KX + N - J + 1
                TEMP = CONJG( AP( KC+J-K ) )
                AP( KC+J-K ) = CONJG( AP( KX ) )

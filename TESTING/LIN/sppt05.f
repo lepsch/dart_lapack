@@ -90,13 +90,13 @@
                   TMP = TMP + ABS( AP( JC+J ) )*ABS( X( J, K ) )
                } // 40
                JC = JC + I
-               DO 50 J = I + 1, N
+               for (J = I + 1; J <= N; J++) { // 50
                   TMP = TMP + ABS( AP( JC ) )*ABS( X( J, K ) )
                   JC = JC + J
                } // 50
             } else {
                JC = I
-               DO 60 J = 1, I - 1
+               for (J = 1; J <= I - 1; J++) { // 60
                   TMP = TMP + ABS( AP( JC ) )*ABS( X( J, K ) )
                   JC = JC + N - J
                } // 60

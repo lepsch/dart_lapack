@@ -46,7 +46,7 @@
          RETURN
       }
 
-      DO 10 I = ILO, IHI - 1
+      for (I = ILO; I <= IHI - 1; I++) { // 10
 
          // Compute elementary reflector H(i) to annihilate A(i+2:ihi,i)
 

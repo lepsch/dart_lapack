@@ -124,7 +124,7 @@
       WORK( 1 ) = ZERO
       for (J = 2; J <= N; J++) { // 30
          WORK( J ) = ZERO
-         DO 20 I = 1, J - 1
+         for (I = 1; I <= J - 1; I++) { // 20
             WORK( J ) = WORK( J ) + ABS( T( I, J ) )
          } // 20
       } // 30
@@ -171,7 +171,7 @@
 
                // Form right-hand side
 
-               DO 50 K = 1, KI - 1
+               for (K = 1; K <= KI - 1; K++) { // 50
                   WORK( K+N ) = -T( K, KI )
                } // 50
 
@@ -255,7 +255,7 @@
                   REMAX = ONE / ABS( VR( II, IS ) )
                   dscal(KI, REMAX, VR( 1, IS ), 1 );
 
-                  DO 70 K = KI + 1, N
+                  for (K = KI + 1; K <= N; K++) { // 70
                      VR( K, IS ) = ZERO
                   } // 70
                } else {
@@ -286,7 +286,7 @@
 
                // Form right-hand side
 
-               DO 80 K = 1, KI - 2
+               for (K = 1; K <= KI - 2; K++) { // 80
                   WORK( K+N ) = -WORK( KI-1+N )*T( K, KI-1 )
                   WORK( K+N2 ) = -WORK( KI+N2 )*T( K, KI )
                } // 80
@@ -390,7 +390,7 @@
                   dscal(KI, REMAX, VR( 1, IS-1 ), 1 );
                   dscal(KI, REMAX, VR( 1, IS ), 1 );
 
-                  DO 110 K = KI + 1, N
+                  for (K = KI + 1; K <= N; K++) { // 110
                      VR( K, IS-1 ) = ZERO
                      VR( K, IS ) = ZERO
                   } // 110
@@ -452,7 +452,7 @@
 
                // Form right-hand side
 
-               DO 160 K = KI + 1, N
+               for (K = KI + 1; K <= N; K++) { // 160
                   WORK( K+N ) = -T( KI, K )
                } // 160
 
@@ -463,7 +463,7 @@
                VCRIT = BIGNUM
 
                JNXT = KI + 1
-               DO 170 J = KI + 1, N
+               for (J = KI + 1; J <= N; J++) { // 170
                   IF( J.LT.JNXT ) GO TO 170
                   J1 = J
                   J2 = J
@@ -548,7 +548,7 @@
                   REMAX = ONE / ABS( VL( II, IS ) )
                   dscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
-                  DO 180 K = 1, KI - 1
+                  for (K = 1; K <= KI - 1; K++) { // 180
                      VL( K, IS ) = ZERO
                   } // 180
 
@@ -582,7 +582,7 @@
 
                // Form right-hand side
 
-               DO 190 K = KI + 2, N
+               for (K = KI + 2; K <= N; K++) { // 190
                   WORK( K+N ) = -WORK( KI+N )*T( KI, K )
                   WORK( K+N2 ) = -WORK( KI+1+N2 )*T( KI+1, K )
                } // 190
@@ -594,7 +594,7 @@
                VCRIT = BIGNUM
 
                JNXT = KI + 2
-               DO 200 J = KI + 2, N
+               for (J = KI + 2; J <= N; J++) { // 200
                   IF( J.LT.JNXT ) GO TO 200
                   J1 = J
                   J2 = J
@@ -698,7 +698,7 @@
                   dscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
                   dscal(N-KI+1, REMAX, VL( KI, IS+1 ), 1 );
 
-                  DO 230 K = 1, KI - 1
+                  for (K = 1; K <= KI - 1; K++) { // 230
                      VL( K, IS ) = ZERO
                      VL( K, IS+1 ) = ZERO
                   } // 230

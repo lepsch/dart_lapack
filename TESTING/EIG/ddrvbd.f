@@ -207,7 +207,7 @@
                   dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 2 ) )                   CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 3 ) );
                }
                RESULT( 4 ) = ZERO
-               DO 50 I = 1, MNMIN - 1
+               for (I = 1; I <= MNMIN - 1; I++) { // 50
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 4 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 4 ) = ULPINV
                } // 50
                if ( MNMIN.GE.1 ) {
@@ -260,7 +260,7 @@
 
                      DIF = ZERO
                      DIV = MAX( MNMIN*ULP*S( 1 ), UNFL )
-                     DO 60 I = 1, MNMIN - 1
+                     for (I = 1; I <= MNMIN - 1; I++) { // 60
                         IF( SSAV( I ).LT.SSAV( I+1 ) ) DIF = ULPINV                         IF( SSAV( I ).LT.ZERO ) DIF = ULPINV
                         DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV )
                      } // 60
@@ -292,7 +292,7 @@
                   dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 9 ) )                   CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 10 ) );
                }
                RESULT( 11 ) = ZERO
-               DO 90 I = 1, MNMIN - 1
+               for (I = 1; I <= MNMIN - 1; I++) { // 90
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 11 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 11 ) = ULPINV
                } // 90
                if ( MNMIN.GE.1 ) {
@@ -346,7 +346,7 @@
 
                   DIF = ZERO
                   DIV = MAX( MNMIN*ULP*S( 1 ), UNFL )
-                  DO 100 I = 1, MNMIN - 1
+                  for (I = 1; I <= MNMIN - 1; I++) { // 100
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) DIF = ULPINV                      IF( SSAV( I ).LT.ZERO ) DIF = ULPINV
                      DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV )
                   } // 100
@@ -388,7 +388,7 @@
                      dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 37 ) )                      CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 38 ) );
                   }
                   RESULT( 39 ) = ZERO
-                  DO 199 I = 1, MNMIN - 1
+                  for (I = 1; I <= MNMIN - 1; I++) { // 199
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 39 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 39 ) = ULPINV
                   } // 199
                   if ( MNMIN.GE.1 ) {
@@ -436,7 +436,7 @@
                      dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 16 ) )                      CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 17 ) );
                   }
                   RESULT( 18 ) = ZERO
-                  DO 120 I = 1, MNMIN - 1
+                  for (I = 1; I <= MNMIN - 1; I++) { // 120
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 18 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 18 ) = ULPINV
                   } // 120
                   if ( MNMIN.GE.1 ) {
@@ -483,7 +483,7 @@
                      dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 20 ) )                      CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 21 ) );
                   }
                   RESULT( 22 ) = ZERO
-                  DO 150 I = 1, MNMIN - 1
+                  for (I = 1; I <= MNMIN - 1; I++) { // 150
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 22 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 22 ) = ULPINV
                   } // 150
                   if ( MNMIN.GE.1 ) {
@@ -511,7 +511,7 @@
                   dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 24 ) )                   CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 25 ) );
                }
                RESULT( 26 ) = ZERO
-               DO 160 I = 1, MNMIN - 1
+               for (I = 1; I <= MNMIN - 1; I++) { // 160
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 26 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 26 ) = ULPINV
                } // 160
                if ( MNMIN.GE.1 ) {
@@ -556,7 +556,7 @@
 
                      DIF = ZERO
                      DIV = MAX( MNMIN*ULP*S( 1 ), UNFL )
-                     DO 190 I = 1, MNMIN - 1
+                     for (I = 1; I <= MNMIN - 1; I++) { // 190
                         IF( SSAV( I ).LT.SSAV( I+1 ) ) DIF = ULPINV                         IF( SSAV( I ).LT.ZERO ) DIF = ULPINV
                         DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV )
                      } // 190

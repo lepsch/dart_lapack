@@ -74,7 +74,7 @@
       IF( ( N.EQ.0 ) .OR. ( ( ( ALPHA.EQ.ZERO ) .OR. ( K.EQ.0 ) ) .AND. ( BETA.EQ.ONE ) ) )RETURN
 
       if ( ( ALPHA.EQ.ZERO ) .AND. ( BETA.EQ.ZERO ) ) {
-         DO J = 1, ( ( N*( N+1 ) ) / 2 )
+         for (J = 1; J <= ( ( N*( N+1 ) ) / 2 ); J++) {
             C( J ) = ZERO
          END DO
          RETURN

@@ -56,14 +56,14 @@
       // Copy R
 
       DO 20 I = 1, MIN( K+L, M )
-         DO 10 J = I, K + L
+         for (J = I; J <= K + L; J++) { // 10
             R( I, J ) = AF( I, N-K-L+J )
          } // 10
       } // 20
 
       if ( M-K-L.LT.0 ) {
-         DO 40 I = M + 1, K + L
-            DO 30 J = I, K + L
+         for (I = M + 1; I <= K + L; I++) { // 40
+            for (J = I; J <= K + L; J++) { // 30
                R( I, J ) = BF( I-K, N-K-L+J )
             } // 30
          } // 40
@@ -76,13 +76,13 @@
       zgemm('Conjugate transpose', 'No transpose', M, N, M, CONE, U, LDU, WORK, LDA, CZERO, A, LDA );
 
       for (I = 1; I <= K; I++) { // 60
-         DO 50 J = I, K + L
+         for (J = I; J <= K + L; J++) { // 50
             A( I, N-K-L+J ) = A( I, N-K-L+J ) - R( I, J )
          } // 50
       } // 60
 
       DO 80 I = K + 1, MIN( K+L, M )
-         DO 70 J = I, K + L
+         for (J = I; J <= K + L; J++) { // 70
             A( I, N-K-L+J ) = A( I, N-K-L+J ) - ALPHA( I )*R( I, J )
          } // 70
       } // 80

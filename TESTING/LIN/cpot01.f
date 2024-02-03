@@ -103,7 +103,7 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 50
-            DO 40 I = 1, J - 1
+            for (I = 1; I <= J - 1; I++) { // 40
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
             } // 40
             AFAC( J, J ) = AFAC( J, J ) - REAL( A( J, J ) )
@@ -111,7 +111,7 @@
       } else {
          for (J = 1; J <= N; J++) { // 70
             AFAC( J, J ) = AFAC( J, J ) - REAL( A( J, J ) )
-            DO 60 I = J + 1, N
+            for (I = J + 1; I <= N; I++) { // 60
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
             } // 60
          } // 70

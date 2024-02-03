@@ -79,7 +79,7 @@
 
          // Store A in band format for GB tests
          for (J = 1; J <= N; J++) {
-            DO I = 1, KL+KU+1
+            for (I = 1; I <= KL+KU+1; I++) {
                AB( I, J ) = (0.0D+0,0.0D+0)
             END DO
          END DO
@@ -91,7 +91,7 @@
 
          // Copy AB into ABCOPY.
          for (J = 1; J <= N; J++) {
-            DO I = 1, KL+KU+1
+            for (I = 1; I <= KL+KU+1; I++) {
                ABCOPY( I, J ) = (0.0D+0,0.0D+0)
             END DO
          END DO

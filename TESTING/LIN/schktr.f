@@ -264,7 +264,7 @@
 
          // Use pathological test matrices to test SLATRS.
 
-         DO 110 IMAT = NTYPE1 + 1, NTYPES
+         for (IMAT = NTYPE1 + 1; IMAT <= NTYPES; IMAT++) { // 110
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 

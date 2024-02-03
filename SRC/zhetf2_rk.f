@@ -227,7 +227,7 @@
                // (1) Swap columnar parts
                IF( P.GT.1 ) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 )
                // (2) Swap and conjugate middle parts
-               DO 14 J = P + 1, K - 1
+               for (J = P + 1; J <= K - 1; J++) { // 14
                   T = DCONJG( A( J, K ) )
                   A( J, K ) = DCONJG( A( P, J ) )
                   A( P, J ) = T
@@ -253,7 +253,7 @@
                // (1) Swap columnar parts
                IF( KP.GT.1 ) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
                // (2) Swap and conjugate middle parts
-               DO 15 J = KP + 1, KK - 1
+               for (J = KP + 1; J <= KK - 1; J++) { // 15
                   T = DCONJG( A( J, KK ) )
                   A( J, KK ) = DCONJG( A( KP, J ) )
                   A( KP, J ) = T
@@ -317,7 +317,7 @@
                      // Store L(k) in column K
 
                      D11 = DBLE( A( K, K ) )
-                     DO 16 II = 1, K - 1
+                     for (II = 1; II <= K - 1; II++) { // 16
                         A( II, K ) = A( II, K ) / D11
                      } // 16
 
@@ -565,7 +565,7 @@
                // (1) Swap columnar parts
                IF( P.LT.N ) CALL ZSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )
                // (2) Swap and conjugate middle parts
-               DO 44 J = K + 1, P - 1
+               for (J = K + 1; J <= P - 1; J++) { // 44
                   T = DCONJG( A( J, K ) )
                   A( J, K ) = DCONJG( A( P, J ) )
                   A( P, J ) = T
@@ -591,7 +591,7 @@
                // (1) Swap columnar parts
                IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
                // (2) Swap and conjugate middle parts
-               DO 45 J = KK + 1, KP - 1
+               for (J = KK + 1; J <= KP - 1; J++) { // 45
                   T = DCONJG( A( J, KK ) )
                   A( J, KK ) = DCONJG( A( KP, J ) )
                   A( KP, J ) = T
@@ -657,7 +657,7 @@
                      // Store L(k) in column k
 
                      D11 = DBLE( A( K, K ) )
-                     DO 46 II = K + 1, N
+                     for (II = K + 1; II <= N; II++) { // 46
                         A( II, K ) = A( II, K ) / D11
                      } // 46
 
@@ -700,7 +700,7 @@
                   D21 = A( K+1, K ) / D
                   TT = ONE / ( D11*D22-ONE )
 
-                  DO 60 J = K + 2, N
+                  for (J = K + 2; J <= N; J++) { // 60
 
                      // Compute  D21 * ( W(k)W(k+1) ) * inv(D(k)) for row J
 

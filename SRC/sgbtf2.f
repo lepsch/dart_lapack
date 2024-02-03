@@ -66,7 +66,7 @@
       // Set fill-in elements in columns KU+2 to KV to zero.
 
       DO 20 J = KU + 2, MIN( KV, N )
-         DO 10 I = KV - J + 2, KL
+         for (I = KV - J + 2; I <= KL; I++) { // 10
             AB( I, J ) = ZERO
          } // 10
       } // 20

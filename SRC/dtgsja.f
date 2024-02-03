@@ -91,8 +91,8 @@
 
          UPPER = .NOT.UPPER
 
-         DO 20 I = 1, L - 1
-            DO 10 J = I + 1, L
+         for (I = 1; I <= L - 1; I++) { // 20
+            for (J = I + 1; J <= L; J++) { // 10
 
                A1 = ZERO
                A2 = ZERO
@@ -220,13 +220,13 @@
 
       // Post-assignment
 
-      DO 80 I = M + 1, K + L
+      for (I = M + 1; I <= K + L; I++) { // 80
          ALPHA( I ) = ZERO
          BETA( I ) = ONE
       } // 80
 
       if ( K+L.LT.N ) {
-         DO 90 I = K + L + 1, N
+         for (I = K + L + 1; I <= N; I++) { // 90
             ALPHA( I ) = ZERO
             BETA( I ) = ZERO
          } // 90

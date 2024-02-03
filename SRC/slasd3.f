@@ -110,10 +110,10 @@
 
       for (I = 1; I <= K; I++) { // 60
          Z( I ) = U( I, K )*VT( I, K )
-         DO 40 J = 1, I - 1
+         for (J = 1; J <= I - 1; J++) { // 40
             Z( I ) = Z( I )*( U( I, J )*VT( I, J ) / ( DSIGMA( I )-DSIGMA( J ) ) / ( DSIGMA( I )+DSIGMA( J ) ) )
          } // 40
-         DO 50 J = I, K - 1
+         for (J = I; J <= K - 1; J++) { // 50
             Z( I ) = Z( I )*( U( I, J )*VT( I, J ) / ( DSIGMA( I )-DSIGMA( J+1 ) ) / ( DSIGMA( I )+DSIGMA( J+1 ) ) )
          } // 50
          Z( I ) = SIGN( SQRT( ABS( Z( I ) ) ), Q( I, 1 ) )

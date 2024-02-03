@@ -347,7 +347,7 @@
       // of N*MAXIT iterations.
 
       IF( JTOT.LT.NMAXIT ) GO TO 10
-      DO 150 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 150
          IF( E( I ).NE.ZERO ) INFO = INFO + 1
       } // 150
       GO TO 190

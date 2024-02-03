@@ -1832,7 +1832,7 @@
             for (I = 1; I <= M; I++) { // 30
                AA( I + ( J - 1 )*LDA ) = A( I, J )
             } // 30
-            DO 40 I = M + 1, LDA
+            for (I = M + 1; I <= LDA; I++) { // 40
                AA( I + ( J - 1 )*LDA ) = ROGUE
             } // 40
          } // 50
@@ -1853,13 +1853,13 @@
                }
                IEND = N
             }
-            DO 60 I = 1, IBEG - 1
+            for (I = 1; I <= IBEG - 1; I++) { // 60
                AA( I + ( J - 1 )*LDA ) = ROGUE
             } // 60
             for (I = IBEG; I <= IEND; I++) { // 70
                AA( I + ( J - 1 )*LDA ) = A( I, J )
             } // 70
-            DO 80 I = IEND + 1, LDA
+            for (I = IEND + 1; I <= LDA; I++) { // 80
                AA( I + ( J - 1 )*LDA ) = ROGUE
             } // 80
          } // 90
@@ -2041,7 +2041,7 @@
       UPPER = UPLO.EQ.'U'
       if ( TYPE.EQ.'GE' ) {
          for (J = 1; J <= N; J++) { // 20
-            DO 10 I = M + 1, LDA
+            for (I = M + 1; I <= LDA; I++) { // 10
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
             } // 10
          } // 20
@@ -2054,10 +2054,10 @@
                IBEG = J
                IEND = N
             }
-            DO 30 I = 1, IBEG - 1
+            for (I = 1; I <= IBEG - 1; I++) { // 30
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
             } // 30
-            DO 40 I = IEND + 1, LDA
+            for (I = IEND + 1; I <= LDA; I++) { // 40
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
             } // 40
          } // 50

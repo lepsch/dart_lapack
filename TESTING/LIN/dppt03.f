@@ -66,7 +66,7 @@
          // Copy AINV
 
          JJ = 1
-         DO 10 J = 1, N - 1
+         for (J = 1; J <= N - 1; J++) { // 10
             dcopy(J, AINV( JJ ), 1, WORK( 1, J+1 ), 1 );
             dcopy(J-1, AINV( JJ ), 1, WORK( J, 2 ), LDWORK );
             JJ = JJ + J
@@ -76,7 +76,7 @@
 
          // Multiply by A
 
-         DO 20 J = 1, N - 1
+         for (J = 1; J <= N - 1; J++) { // 20
             dspmv('Upper', N, -ONE, A, WORK( 1, J+1 ), 1, ZERO, WORK( 1, J ), 1 );
          } // 20
          dspmv('Upper', N, -ONE, A, AINV( JJ ), 1, ZERO, WORK( 1, N ), 1 );

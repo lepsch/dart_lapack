@@ -97,7 +97,7 @@
             // Multiply by inv(L).
 
             if ( LNOTI ) {
-               DO 20 J = 1, N - 1
+               for (J = 1; J <= N - 1; J++) { // 20
                   LM = MIN( KL, N-J )
                   JP = IPIV( J )
                   T = WORK( JP )

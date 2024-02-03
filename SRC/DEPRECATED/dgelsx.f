@@ -175,7 +175,7 @@
 
       dtrsm('Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, ONE, A, LDA, B, LDB );
 
-      DO 40 I = RANK + 1, N
+      for (I = RANK + 1; I <= N; I++) { // 40
          for (J = 1; J <= NRHS; J++) { // 30
             B( I, J ) = ZERO
          } // 30

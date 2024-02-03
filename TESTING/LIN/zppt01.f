@@ -100,7 +100,7 @@
 
          KC = 1
          for (K = 1; K <= N; K++) { // 50
-            DO 40 I = 1, K - 1
+            for (I = 1; I <= K - 1; I++) { // 40
                AFAC( KC+I-1 ) = AFAC( KC+I-1 ) - A( KC+I-1 )
             } // 40
             AFAC( KC+K-1 ) = AFAC( KC+K-1 ) - DBLE( A( KC+K-1 ) )
@@ -131,7 +131,7 @@
          KC = 1
          for (K = 1; K <= N; K++) { // 80
             AFAC( KC ) = AFAC( KC ) - DBLE( A( KC ) )
-            DO 70 I = K + 1, N
+            for (I = K + 1; I <= N; I++) { // 70
                AFAC( KC+I-K ) = AFAC( KC+I-K ) - A( KC+I-K )
             } // 70
             KC = KC + N - K + 1

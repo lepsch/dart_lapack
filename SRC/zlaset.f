@@ -47,7 +47,7 @@
          // part of the array to ALPHA.
 
          DO 50 J = 1, MIN( M, N )
-            DO 40 I = J + 1, M
+            for (I = J + 1; I <= M; I++) { // 40
                A( I, J ) = ALPHA
             } // 40
          } // 50

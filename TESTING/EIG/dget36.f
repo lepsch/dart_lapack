@@ -112,7 +112,7 @@
          // 2 by 2 block
 
          IF( T2( LOC, LOC+1 ).EQ.ZERO .OR. T2( LOC, LOC ).NE. T2( LOC+1, LOC+1 ) .OR. SIGN( ONE, T2( LOC, LOC+1 ) ).EQ. SIGN( ONE, T2( LOC+1, LOC ) ) )RES = RES + ONE / EPS
-         DO 80 I = LOC + 2, N
+         for (I = LOC + 2; I <= N; I++) { // 80
             IF( T2( I, LOC ).NE.ZERO ) RES = RES + ONE / RES             IF( T2( I, LOC+1 ).NE.ZERO ) RES = RES + ONE / RES
          } // 80
          LOC = LOC + 2
@@ -120,7 +120,7 @@
 
          // 1 by 1 block
 
-         DO 90 I = LOC + 1, N
+         for (I = LOC + 1; I <= N; I++) { // 90
             IF( T2( I, LOC ).NE.ZERO ) RES = RES + ONE / RES
          } // 90
          LOC = LOC + 1

@@ -98,7 +98,7 @@
 
          // Reduce the lower triangle of A
 
-         DO 20 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 20
 
             // Generate elementary reflector H(i) = I - tau * v * v**T
             // to annihilate A(i+2:n,i)

@@ -94,23 +94,23 @@
             TMP = CABS1( B( I, K ) )
             if ( UPPER ) {
                JC = ( ( I-1 )*I ) / 2
-               DO 40 J = 1, I - 1
+               for (J = 1; J <= I - 1; J++) { // 40
                   TMP = TMP + CABS1( AP( JC+J ) )*CABS1( X( J, K ) )
                } // 40
                TMP = TMP + ABS( DBLE( AP( JC+I ) ) )*CABS1( X( I, K ) )
                JC = JC + I + I
-               DO 50 J = I + 1, N
+               for (J = I + 1; J <= N; J++) { // 50
                   TMP = TMP + CABS1( AP( JC ) )*CABS1( X( J, K ) )
                   JC = JC + J
                } // 50
             } else {
                JC = I
-               DO 60 J = 1, I - 1
+               for (J = 1; J <= I - 1; J++) { // 60
                   TMP = TMP + CABS1( AP( JC ) )*CABS1( X( J, K ) )
                   JC = JC + N - J
                } // 60
                TMP = TMP + ABS( DBLE( AP( JC ) ) )*CABS1( X( I, K ) )
-               DO 70 J = I + 1, N
+               for (J = I + 1; J <= N; J++) { // 70
                   TMP = TMP + CABS1( AP( JC+J-I ) )*CABS1( X( J, K ) )
                } // 70
             }

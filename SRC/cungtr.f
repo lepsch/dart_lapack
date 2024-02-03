@@ -83,13 +83,13 @@
          // column to the left, and set the last row and column of Q to
          // those of the unit matrix
 
-         DO 20 J = 1, N - 1
-            DO 10 I = 1, J - 1
+         for (J = 1; J <= N - 1; J++) { // 20
+            for (I = 1; I <= J - 1; I++) { // 10
                A( I, J ) = A( I, J+1 )
             } // 10
             A( N, J ) = ZERO
          } // 20
-         DO 30 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 30
             A( I, N ) = ZERO
          } // 30
          A( N, N ) = ONE
@@ -108,7 +108,7 @@
 
          DO 50 J = N, 2, -1
             A( 1, J ) = ZERO
-            DO 40 I = J + 1, N
+            for (I = J + 1; I <= N; I++) { // 40
                A( I, J ) = A( I, J-1 )
             } // 40
          } // 50

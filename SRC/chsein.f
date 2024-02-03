@@ -134,7 +134,7 @@
                } // 30
                KL = I
                if ( K.GT.KR ) {
-                  DO 40 I = K, N - 1
+                  for (I = K; I <= N - 1; I++) { // 40
                      IF( H( I+1, I ).EQ.ZERO ) GO TO 50
                   } // 40
                   } // 50
@@ -184,7 +184,7 @@
                } else {
                   IFAILL( KS ) = 0
                }
-               DO 80 I = 1, KL - 1
+               for (I = 1; I <= KL - 1; I++) { // 80
                   VL( I, KS ) = ZERO
                } // 80
             }
@@ -199,7 +199,7 @@
                } else {
                   IFAILR( KS ) = 0
                }
-               DO 90 I = KR + 1, N
+               for (I = KR + 1; I <= N; I++) { // 90
                   VR( I, KS ) = ZERO
                } // 90
             }

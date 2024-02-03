@@ -39,7 +39,7 @@
       // Find largest entry
 
       MX = ABS( A( 1 ) )
-      DO 10 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 10
          MX = MAX( MX, ABS( A( I+1 ) ), ABS( B( I ) ) )
       } // 10
 

@@ -418,7 +418,7 @@
 
          if ( K.LT.MINMNFACT ) {
 
-            DO J = K + 1, N
+            for (J = K + 1; J <= N; J++) {
                if ( VN1( J ).NE.ZERO ) {
 
                   // NOTE: The following lines follow from the analysis in

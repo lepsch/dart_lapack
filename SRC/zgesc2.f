@@ -49,8 +49,8 @@
 
       // Solve for L part
 
-      DO 20 I = 1, N - 1
-         DO 10 J = I + 1, N
+      for (I = 1; I <= N - 1; I++) { // 20
+         for (J = I + 1; J <= N; J++) { // 10
             RHS( J ) = RHS( J ) - A( J, I )*RHS( I )
          } // 10
       } // 20
@@ -70,7 +70,7 @@
       DO 40 I = N, 1, -1
          TEMP = DCMPLX( ONE, ZERO ) / A( I, I )
          RHS( I ) = RHS( I )*TEMP
-         DO 30 J = I + 1, N
+         for (J = I + 1; J <= N; J++) { // 30
             RHS( I ) = RHS( I ) - RHS( J )*( A( I, J )*TEMP )
          } // 30
       } // 40

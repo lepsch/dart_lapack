@@ -87,7 +87,7 @@
                       TEMP1 = ALPHA*CONJG(Y(J))
                       TEMP2 = CONJG(ALPHA*X(J))
                       K = KK
-                      DO 10 I = 1,J - 1
+                      for (I = 1; I <= J - 1; I++) { // 10
                           AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2
                           K = K + 1
                       } // 10
@@ -104,7 +104,7 @@
                       TEMP2 = CONJG(ALPHA*X(JX))
                       IX = KX
                       IY = KY
-                      DO 30 K = KK,KK + J - 2
+                      for (K = KK; K <= KK + J - 2; K++) { // 30
                           AP(K) = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2
                           IX = IX + INCX
                           IY = IY + INCY
@@ -129,7 +129,7 @@
                       TEMP2 = CONJG(ALPHA*X(J))
                       AP(KK) = REAL(AP(KK)) + REAL(X(J)*TEMP1+Y(J)*TEMP2)
                       K = KK + 1
-                      DO 50 I = J + 1,N
+                      for (I = J + 1; I <= N; I++) { // 50
                           AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2
                           K = K + 1
                       } // 50
@@ -146,7 +146,7 @@
                       AP(KK) = REAL(AP(KK)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2)
                       IX = JX
                       IY = JY
-                      DO 70 K = KK + 1,KK + N - J
+                      for (K = KK + 1; K <= KK + N - J; K++) { // 70
                           IX = IX + INCX
                           IY = IY + INCY
                           AP(K) = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2

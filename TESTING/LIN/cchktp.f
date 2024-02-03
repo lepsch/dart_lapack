@@ -247,7 +247,7 @@
 
          // Use pathological test matrices to test CLATPS.
 
-         DO 100 IMAT = NTYPE1 + 1, NTYPES
+         for (IMAT = NTYPE1 + 1; IMAT <= NTYPES; IMAT++) { // 100
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 

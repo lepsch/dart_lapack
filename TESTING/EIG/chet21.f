@@ -86,7 +86,7 @@
          } // 10
 
          if ( N.GT.1 .AND. KBAND.EQ.1 ) {
-            DO 20 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 20
                cher2(CUPLO, N, -CMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
             } // 20
          }
@@ -103,7 +103,7 @@
             DO 40 J = N - 1, 1, -1
                if ( KBAND.EQ.1 ) {
                   WORK( ( N+1 )*( J-1 )+2 ) = ( CONE-TAU( J ) )*E( J )
-                  DO 30 JR = J + 2, N
+                  for (JR = J + 2; JR <= N; JR++) { // 30
                      WORK( ( J-1 )*N+JR ) = -TAU( J )*E( J )*V( JR, J )
                   } // 30
                }
@@ -116,10 +116,10 @@
             } // 40
          } else {
             WORK( 1 ) = D( 1 )
-            DO 60 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 60
                if ( KBAND.EQ.1 ) {
                   WORK( ( N+1 )*J ) = ( CONE-TAU( J ) )*E( J )
-                  DO 50 JR = 1, J - 1
+                  for (JR = 1; JR <= J - 1; JR++) { // 50
                      WORK( J*N+JR ) = -TAU( J )*E( J )*V( JR, J+1 )
                   } // 50
                }

@@ -76,7 +76,7 @@
 
       // Reduce columns 1, ..., M-Q of X11 and X21
 
-      DO I = 1, M-Q
+      for (I = 1; I <= M-Q; I++) {
 
          if ( I .EQ. 1 ) {
             for (J = 1; J <= M; J++) {
@@ -119,7 +119,7 @@
 
       // Reduce the bottom-right portion of X11 to [ I 0 ]
 
-      DO I = M - Q + 1, P
+      for (I = M - Q + 1; I <= P; I++) {
          dlarfgp(Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) );
          X11(I,I) = ONE
          dlarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL DLARF( 'R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) );
@@ -127,7 +127,7 @@
 
       // Reduce the bottom-right portion of X21 to [ 0 I ]
 
-      DO I = P + 1, Q
+      for (I = P + 1; I <= Q; I++) {
          dlarfgp(Q-I+1, X21(M-Q+I-P,I), X21(M-Q+I-P,I+1), LDX21, TAUQ1(I) );
          X21(M-Q+I-P,I) = ONE
          dlarf('R', Q-I, Q-I+1, X21(M-Q+I-P,I), LDX21, TAUQ1(I), X21(M-Q+I-P+1,I), LDX21, WORK(ILARF) );

@@ -124,7 +124,7 @@
             for (K = 1; K <= N; K++) { // 50
                S = ZERO
                XK = ABS( X( K, J ) )
-               DO 40 I = 1, K - 1
+               for (I = 1; I <= K - 1; I++) { // 40
                   WORK( I ) = WORK( I ) + ABS( A( I, K ) )*XK
                   S = S + ABS( A( I, K ) )*ABS( X( I, J ) )
                } // 40
@@ -135,7 +135,7 @@
                S = ZERO
                XK = ABS( X( K, J ) )
                WORK( K ) = WORK( K ) + ABS( A( K, K ) )*XK
-               DO 60 I = K + 1, N
+               for (I = K + 1; I <= N; I++) { // 60
                   WORK( I ) = WORK( I ) + ABS( A( I, K ) )*XK
                   S = S + ABS( A( I, K ) )*ABS( X( I, J ) )
                } // 60

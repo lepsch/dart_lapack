@@ -134,8 +134,8 @@
 
       // Clean up B
 
-      DO 40 J = 1, L - 1
-         DO 30 I = J + 1, L
+      for (J = 1; J <= L - 1; J++) { // 40
+         for (I = J + 1; I <= L; I++) { // 30
             B( I, J ) = CZERO
          } // 30
       } // 40
@@ -168,8 +168,8 @@
          // Clean up B
 
          claset('Full', L, N-L, CZERO, CZERO, B, LDB );
-         DO 60 J = N - L + 1, N
-            DO 50 I = J - N + L + 1, L
+         for (J = N - L + 1; J <= N; J++) { // 60
+            for (I = J - N + L + 1; I <= L; I++) { // 50
                B( I, J ) = CZERO
             } // 50
          } // 60
@@ -184,7 +184,7 @@
                // A11 = U*(  0  T12 )*P1**H
                        // (  0   0  )
 
-      DO 70 I = 1, N - L
+      for (I = 1; I <= N - L; I++) { // 70
          IWORK( I ) = 0
       } // 70
       cgeqp3(M, N-L, A, LDA, IWORK, TAU, WORK, LWORK, RWORK, INFO );
@@ -219,8 +219,8 @@
       // Clean up A: set the strictly lower triangular part of
       // A(1:K, 1:K) = 0, and A( K+1:M, 1:N-L ) = 0.
 
-      DO 100 J = 1, K - 1
-         DO 90 I = J + 1, K
+      for (J = 1; J <= K - 1; J++) { // 100
+         for (I = J + 1; I <= K; I++) { // 90
             A( I, J ) = CZERO
          } // 90
       } // 100
@@ -242,8 +242,8 @@
          // Clean up A
 
          claset('Full', K, N-L-K, CZERO, CZERO, A, LDA );
-         DO 120 J = N - L - K + 1, N - L
-            DO 110 I = J - N + L + K + 1, K
+         for (J = N - L - K + 1; J <= N - L; J++) { // 120
+            for (I = J - N + L + K + 1; I <= K; I++) { // 110
                A( I, J ) = CZERO
             } // 110
          } // 120
@@ -265,8 +265,8 @@
 
          // Clean up
 
-         DO 140 J = N - L + 1, N
-            DO 130 I = J - N + K + L + 1, M
+         for (J = N - L + 1; J <= N; J++) { // 140
+            for (I = J - N + K + L + 1; I <= M; I++) { // 130
                A( I, J ) = CZERO
             } // 130
          } // 140

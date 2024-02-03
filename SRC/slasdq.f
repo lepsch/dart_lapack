@@ -75,7 +75,7 @@
       // bidiagonal.  The rotations are on the right.
 
       if ( ( IUPLO.EQ.1 ) .AND. ( SQRE1.EQ.1 ) ) {
-         DO 10 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 10
             slartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )
@@ -104,7 +104,7 @@
       // by applying Givens rotations on the left.
 
       if ( IUPLO.EQ.2 ) {
-         DO 20 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 20
             slartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )
@@ -159,7 +159,7 @@
 
          ISUB = I
          SMIN = D( I )
-         DO 30 J = I + 1, N
+         for (J = I + 1; J <= N; J++) { // 30
             if ( D( J ).LT.SMIN ) {
                ISUB = J
                SMIN = D( J )

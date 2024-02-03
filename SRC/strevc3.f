@@ -147,7 +147,7 @@
       WORK( 1 ) = ZERO
       for (J = 2; J <= N; J++) { // 30
          WORK( J ) = ZERO
-         DO 20 I = 1, J - 1
+         for (I = 1; I <= J - 1; I++) { // 20
             WORK( J ) = WORK( J ) + ABS( T( I, J ) )
          } // 20
       } // 30
@@ -216,7 +216,7 @@
 
                // Form right-hand side.
 
-               DO 50 K = 1, KI - 1
+               for (K = 1; K <= KI - 1; K++) { // 50
                   WORK( K + IV*N ) = -T( K, KI )
                } // 50
 
@@ -302,7 +302,7 @@
                   REMAX = ONE / ABS( VR( II, IS ) )
                   sscal(KI, REMAX, VR( 1, IS ), 1 );
 
-                  DO 70 K = KI + 1, N
+                  for (K = KI + 1; K <= N; K++) { // 70
                      VR( K, IS ) = ZERO
                   } // 70
 
@@ -319,7 +319,7 @@
                   // ------------------------------
                   // version 2: back-transform block of vectors with GEMM
                   // zero out below vector
-                  DO K = KI + 1, N
+                  for (K = KI + 1; K <= N; K++) {
                      WORK( K + IV*N ) = ZERO
                   END DO
                   ISCOMPLEX( IV ) = IP
@@ -346,7 +346,7 @@
 
                // Form right-hand side.
 
-               DO 80 K = 1, KI - 2
+               for (K = 1; K <= KI - 2; K++) { // 80
                   WORK( K+(IV-1)*N ) = -WORK( KI-1+(IV-1)*N )*T(K,KI-1)
                   WORK( K+(IV  )*N ) = -WORK( KI  +(IV  )*N )*T(K,KI  )
                } // 80
@@ -451,7 +451,7 @@
                   sscal(KI, REMAX, VR( 1, IS-1 ), 1 );
                   sscal(KI, REMAX, VR( 1, IS   ), 1 );
 
-                  DO 110 K = KI + 1, N
+                  for (K = KI + 1; K <= N; K++) { // 110
                      VR( K, IS-1 ) = ZERO
                      VR( K, IS   ) = ZERO
                   } // 110
@@ -478,7 +478,7 @@
                   // ------------------------------
                   // version 2: back-transform block of vectors with GEMM
                   // zero out below vector
-                  DO K = KI + 1, N
+                  for (K = KI + 1; K <= N; K++) {
                      WORK( K + (IV-1)*N ) = ZERO
                      WORK( K + (IV  )*N ) = ZERO
                   END DO
@@ -585,7 +585,7 @@
 
                // Form right-hand side.
 
-               DO 160 K = KI + 1, N
+               for (K = KI + 1; K <= N; K++) { // 160
                   WORK( K + IV*N ) = -T( KI, K )
                } // 160
 
@@ -596,7 +596,7 @@
                VCRIT = BIGNUM
 
                JNXT = KI + 1
-               DO 170 J = KI + 1, N
+               for (J = KI + 1; J <= N; J++) { // 170
                   IF( J.LT.JNXT ) GO TO 170
                   J1 = J
                   J2 = J
@@ -683,7 +683,7 @@
                   REMAX = ONE / ABS( VL( II, IS ) )
                   sscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
-                  DO 180 K = 1, KI - 1
+                  for (K = 1; K <= KI - 1; K++) { // 180
                      VL( K, IS ) = ZERO
                   } // 180
 
@@ -701,7 +701,7 @@
                   // version 2: back-transform block of vectors with GEMM
                   // zero out above vector
                   // could go from KI-NV+1 to KI-1
-                  DO K = 1, KI - 1
+                  for (K = 1; K <= KI - 1; K++) {
                      WORK( K + IV*N ) = ZERO
                   END DO
                   ISCOMPLEX( IV ) = IP
@@ -728,7 +728,7 @@
 
                // Form right-hand side.
 
-               DO 190 K = KI + 2, N
+               for (K = KI + 2; K <= N; K++) { // 190
                   WORK( K+(IV  )*N ) = -WORK( KI  +(IV  )*N )*T(KI,  K)
                   WORK( K+(IV+1)*N ) = -WORK( KI+1+(IV+1)*N )*T(KI+1,K)
                } // 190
@@ -740,7 +740,7 @@
                VCRIT = BIGNUM
 
                JNXT = KI + 2
-               DO 200 J = KI + 2, N
+               for (J = KI + 2; J <= N; J++) { // 200
                   IF( J.LT.JNXT ) GO TO 200
                   J1 = J
                   J2 = J
@@ -845,7 +845,7 @@
                   sscal(N-KI+1, REMAX, VL( KI, IS   ), 1 );
                   sscal(N-KI+1, REMAX, VL( KI, IS+1 ), 1 );
 
-                  DO 230 K = 1, KI - 1
+                  for (K = 1; K <= KI - 1; K++) { // 230
                      VL( K, IS   ) = ZERO
                      VL( K, IS+1 ) = ZERO
                   } // 230
@@ -873,7 +873,7 @@
                   // version 2: back-transform block of vectors with GEMM
                   // zero out above vector
                   // could go from KI-NV+1 to KI-1
-                  DO K = 1, KI - 1
+                  for (K = 1; K <= KI - 1; K++) {
                      WORK( K + (IV  )*N ) = ZERO
                      WORK( K + (IV+1)*N ) = ZERO
                   END DO

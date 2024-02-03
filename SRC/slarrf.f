@@ -118,7 +118,7 @@
          SAWNAN1 = .TRUE.
       }
       MAX1 = ABS( DPLUS( 1 ) )
-      DO 6 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 6
          LPLUS( I ) = LD( I ) / DPLUS( I )
          S = S*LPLUS( I )*L( I ) - LSIGMA
          DPLUS( I+1 ) = D( I+1 ) + S
@@ -147,7 +147,7 @@
          SAWNAN2 = .TRUE.
       }
       MAX2 = ABS( WORK( 1 ) )
-      DO 7 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 7
          WORK( N+I ) = LD( I ) / WORK( I )
          S = S*WORK( N+I )*L( I ) - RSIGMA
          WORK( I+1 ) = D( I+1 ) + S

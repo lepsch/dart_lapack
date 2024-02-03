@@ -84,7 +84,7 @@
                   if (X(JX).NE.ZERO) {
                       TEMP = ALPHA*X(JX)
                       IX = KX
-                      DO 30 K = KK,KK + J - 1
+                      for (K = KK; K <= KK + J - 1; K++) { // 30
                           AP(K) = AP(K) + X(IX)*TEMP
                           IX = IX + INCX
                       } // 30
@@ -115,7 +115,7 @@
                   if (X(JX).NE.ZERO) {
                       TEMP = ALPHA*X(JX)
                       IX = JX
-                      DO 70 K = KK,KK + N - J
+                      for (K = KK; K <= KK + N - J; K++) { // 70
                           AP(K) = AP(K) + X(IX)*TEMP
                           IX = IX + INCX
                       } // 70

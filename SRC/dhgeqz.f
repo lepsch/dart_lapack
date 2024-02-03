@@ -139,7 +139,7 @@
 
       // Set Eigenvalues IHI+1:N
 
-      DO 30 J = IHI + 1, N
+      for (J = IHI + 1; J <= N; J++) { // 30
          if ( T( J, J ).LT.ZERO ) {
             if ( ILSCHR ) {
                for (JR = 1; JR <= J; JR++) { // 10
@@ -260,7 +260,7 @@
                // this may have to be done repeatedly.
 
                if ( ILAZRO .OR. ILAZR2 ) {
-                  DO 40 JCH = J, ILAST - 1
+                  for (JCH = J; JCH <= ILAST - 1; JCH++) { // 40
                      TEMP = H( JCH, JCH )
                      dlartg(TEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) );
                      H( JCH+1, JCH ) = ZERO
@@ -283,7 +283,7 @@
                   // Only test 2 passed -- chase the zero to T(ILAST,ILAST)
                   // Then process as in the case T(ILAST,ILAST)=0
 
-                  DO 50 JCH = J, ILAST - 1
+                  for (JCH = J; JCH <= ILAST - 1; JCH++) { // 50
                      TEMP = T( JCH, JCH+1 )
                      dlartg(TEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = ZERO
@@ -450,7 +450,7 @@
 
          // Sweep
 
-         DO 190 J = ISTART, ILAST - 1
+         for (J = ISTART; J <= ILAST - 1; J++) { // 190
             if ( J.GT.ISTART ) {
                TEMP = H( J, J-1 )
                dlartg(TEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) );
@@ -703,7 +703,7 @@
 
             // Sweep
 
-            DO 290 J = ISTART, ILAST - 2
+            for (J = ISTART; J <= ILAST - 2; J++) { // 290
 
                // All but last elements: use 3x3 Householder transforms.
 
@@ -830,7 +830,7 @@
                   H( JR, J+1 ) = H( JR, J+1 ) - TEMP*T2
                   H( JR, J+2 ) = H( JR, J+2 ) - TEMP*T3
                } // 260
-               DO 270 JR = IFRSTM, J + 2
+               for (JR = IFRSTM; JR <= J + 2; JR++) { // 270
                   TEMP = T( JR, J )+V( 2 )*T( JR, J+1 )+V( 3 )* T( JR, J+2 )
                   T( JR, J ) = T( JR, J ) - TEMP*TAU
                   T( JR, J+1 ) = T( JR, J+1 ) - TEMP*T2
@@ -884,7 +884,7 @@
                H( JR, J ) = -S*H( JR, J+1 ) + C*H( JR, J )
                H( JR, J+1 ) = TEMP
             } // 320
-            DO 330 JR = IFRSTM, ILAST - 1
+            for (JR = IFRSTM; JR <= ILAST - 1; JR++) { // 330
                TEMP = C*T( JR, J+1 ) + S*T( JR, J )
                T( JR, J ) = -S*T( JR, J+1 ) + C*T( JR, J )
                T( JR, J+1 ) = TEMP
@@ -919,7 +919,7 @@
 
       // Set Eigenvalues 1:ILO-1
 
-      DO 410 J = 1, ILO - 1
+      for (J = 1; J <= ILO - 1; J++) { // 410
          if ( T( J, J ).LT.ZERO ) {
             if ( ILSCHR ) {
                for (JR = 1; JR <= J; JR++) { // 390

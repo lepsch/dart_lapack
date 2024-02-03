@@ -145,7 +145,7 @@
           for (I = 1; I <= N; I++) { // 30
               D( I ) = DBLE( AB( ABDPOS, I ) )
           } // 30
-          DO 40 I = 1, N-1
+          for (I = 1; I <= N-1; I++) { // 40
               E( I ) = RZERO
           } // 40
 
@@ -172,7 +172,7 @@
           // make off-diagonal elements real and copy them to E
 
           if ( UPPER ) {
-              DO 60 I = 1, N - 1
+              for (I = 1; I <= N - 1; I++) { // 60
                   TMP = AB( ABOFDPOS, I+1 )
                   ABSTMP = ABS( TMP )
                   AB( ABOFDPOS, I+1 ) = ABSTMP
@@ -188,7 +188,7 @@
                    // END IF
               } // 60
           } else {
-              DO 70 I = 1, N - 1
+              for (I = 1; I <= N - 1; I++) { // 70
                  TMP = AB( ABOFDPOS, I )
                  ABSTMP = ABS( TMP )
                  AB( ABOFDPOS, I ) = ABSTMP
@@ -241,7 +241,7 @@
       for (THGRID = 1; THGRID <= THGRNB; THGRID++) { // 100
           STT  = (THGRID-1)*THGRSIZ+1
           THED = MIN( (STT + THGRSIZ -1), (N-1))
-          DO 110 I = STT, N-1
+          for (I = STT; I <= N-1; I++) { // 110
               ED = MIN( I, THED )
               IF( STT.GT.ED ) EXIT
               for (M = 1; M <= STEPERCOL; M++) { // 120
@@ -318,11 +318,11 @@
       // the Real part is needed, the imaginary part should be zero.
 
       if ( UPPER ) {
-          DO 160 I = 1, N-1
+          for (I = 1; I <= N-1; I++) { // 160
              E( I ) = DBLE( WORK( OFDPOS+I*LDA ) )
           } // 160
       } else {
-          DO 170 I = 1, N-1
+          for (I = 1; I <= N-1; I++) { // 170
              E( I ) = DBLE( WORK( OFDPOS+(I-1)*LDA ) )
           } // 170
       }

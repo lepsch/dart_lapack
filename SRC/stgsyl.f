@@ -209,7 +209,7 @@
             DSUM = ONE
             PQ = 0
             SCALE = ONE
-            DO 130 J = P + 2, Q
+            for (J = P + 2; J <= Q; J++) { // 130
                JS = IWORK( J )
                JE = IWORK( J+1 ) - 1
                NB = JE - JS + 1
@@ -223,7 +223,7 @@
 
                   PQ = PQ + PPQQ
                   if ( SCALOC.NE.ONE ) {
-                     DO 80 K = 1, JS - 1
+                     for (K = 1; K <= JS - 1; K++) { // 80
                         sscal(M, SCALOC, C( 1, K ), 1 );
                         sscal(M, SCALOC, F( 1, K ), 1 );
                      } // 80
@@ -235,7 +235,7 @@
                         sscal(M-IE, SCALOC, C( IE+1, K ), 1 );
                         sscal(M-IE, SCALOC, F( IE+1, K ), 1 );
                      } // 100
-                     DO 110 K = JE + 1, N
+                     for (K = JE + 1; K <= N; K++) { // 110
                         sscal(M, SCALOC, C( 1, K ), 1 );
                         sscal(M, SCALOC, F( 1, K ), 1 );
                      } // 110
@@ -295,7 +295,7 @@
                stgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, IWORK( Q+2 ), PPQQ, LINFO );
                IF( LINFO.GT.0 ) INFO = LINFO
                if ( SCALOC.NE.ONE ) {
-                  DO 160 K = 1, JS - 1
+                  for (K = 1; K <= JS - 1; K++) { // 160
                      sscal(M, SCALOC, C( 1, K ), 1 );
                      sscal(M, SCALOC, F( 1, K ), 1 );
                   } // 160
@@ -307,7 +307,7 @@
                      sscal(M-IE, SCALOC, C( IE+1, K ), 1 );
                      sscal(M-IE, SCALOC, F( IE+1, K ), 1 );
                   } // 180
-                  DO 190 K = JE + 1, N
+                  for (K = JE + 1; K <= N; K++) { // 190
                      sscal(M, SCALOC, C( 1, K ), 1 );
                      sscal(M, SCALOC, F( 1, K ), 1 );
                   } // 190

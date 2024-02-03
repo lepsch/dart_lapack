@@ -169,7 +169,7 @@
                   A( 2*N-1 ) = ZERO
                } else {
                   IZERO = ( N+1 ) / 2
-                  DO 20 I = IZERO, N - 1
+                  for (I = IZERO; I <= N - 1; I++) { // 20
                      A( 2*N-2+I ) = ZERO
                      A( N-1+I ) = ZERO
                      A( I ) = ZERO

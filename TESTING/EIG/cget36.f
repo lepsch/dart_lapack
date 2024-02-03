@@ -84,7 +84,7 @@
 
       ccopy(N, TMP, LDT+1, DIAG, 1 );
       if ( IFST.LT.ILST ) {
-         DO 70 I = IFST + 1, ILST
+         for (I = IFST + 1; I <= ILST; I++) { // 70
             CTEMP = DIAG( I )
             DIAG( I ) = DIAG( I-1 )
             DIAG( I-1 ) = CTEMP
@@ -107,8 +107,8 @@
 
       // Test for T2 being in Schur form
 
-      DO 110 J = 1, N - 1
-         DO 100 I = J + 1, N
+      for (J = 1; J <= N - 1; J++) { // 110
+         for (I = J + 1; I <= N; I++) { // 100
             IF( T2( I, J ).NE.CZERO ) RES = RES + ONE / EPS
          } // 100
       } // 110

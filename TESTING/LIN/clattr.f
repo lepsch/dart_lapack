@@ -82,7 +82,7 @@
       } else if ( IMAT.EQ.7 ) {
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 20
-               DO 10 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 10
                   A( I, J ) = ZERO
                } // 10
                A( J, J ) = J
@@ -90,7 +90,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 40
                A( J, J ) = J
-               DO 30 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 30
                   A( I, J ) = ZERO
                } // 30
             } // 40
@@ -105,7 +105,7 @@
       } else if ( IMAT.LE.10 ) {
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 60
-               DO 50 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 50
                   A( I, J ) = ZERO
                } // 50
                A( J, J ) = J
@@ -113,7 +113,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 80
                A( J, J ) = J
-               DO 70 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 70
                   A( I, J ) = ZERO
                } // 70
             } // 80
@@ -210,7 +210,7 @@
                ccopy(N-3, WORK, 1, A( 2, 3 ), LDA+1 );
                IF( N.GT.4 ) CALL CCOPY( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 )
             }
-            DO 100 J = 2, N - 1
+            for (J = 2; J <= N - 1; J++) { // 100
                A( 1, J ) = Y
                A( J, N ) = Y
             } // 100
@@ -220,7 +220,7 @@
                ccopy(N-3, WORK, 1, A( 3, 2 ), LDA+1 );
                IF( N.GT.4 ) CALL CCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 )
             }
-            DO 110 J = 2, N - 1
+            for (J = 2; J <= N - 1; J++) { // 110
                A( J, 1 ) = Y
                A( N, J ) = Y
             } // 110
@@ -230,7 +230,7 @@
          // Fill in the zeros using Givens rotations.
 
          if ( UPPER ) {
-            DO 120 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 120
                RA = A( J, J+1 )
                RB = 2.0
                crotg(RA, RB, C, S );
@@ -248,7 +248,7 @@
                A( J, J+1 ) = -A( J, J+1 )
             } // 120
          } else {
-            DO 130 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 130
                RA = A( J+1, J )
                RB = 2.0
                crotg(RA, RB, C, S );
@@ -354,7 +354,7 @@
          if ( UPPER ) {
             JCOUNT = 1
             DO 210 J = N, 1, -1
-               DO 200 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 200
                   A( I, J ) = ZERO
                } // 200
                if ( JCOUNT.LE.2 ) {
@@ -368,7 +368,7 @@
          } else {
             JCOUNT = 1
             for (J = 1; J <= N; J++) { // 230
-               DO 220 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 220
                   A( I, J ) = ZERO
                } // 220
                if ( JCOUNT.LE.2 ) {
@@ -408,7 +408,7 @@
          clarnv(4, ISEED, N, B );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 270
-               DO 260 I = 1, J - 2
+               for (I = 1; I <= J - 2; I++) { // 260
                   A( I, J ) = 0.
                } // 260
                IF( J.GT.1 ) A( J-1, J ) = CMPLX( -ONE, -ONE )
@@ -417,7 +417,7 @@
             B( N ) = CMPLX( ONE, ONE )
          } else {
             for (J = 1; J <= N; J++) { // 290
-               DO 280 I = J + 2, N
+               for (I = J + 2; I <= N; I++) { // 280
                   A( I, J ) = 0.
                } // 280
                IF( J.LT.N ) A( J+1, J ) = CMPLX( -ONE, -ONE )
@@ -552,11 +552,11 @@
 
       if ( .NOT.LSAME( TRANS, 'N' ) ) {
          if ( UPPER ) {
-            DO 420 J = 1, N / 2
+            for (J = 1; J <= N / 2; J++) { // 420
                cswap(N-2*J+1, A( J, J ), LDA, A( J+1, N-J+1 ), -1 );
             } // 420
          } else {
-            DO 430 J = 1, N / 2
+            for (J = 1; J <= N / 2; J++) { // 430
                cswap(N-2*J+1, A( J, J ), 1, A( N-J+1, J+1 ), -LDA );
             } // 430
          }

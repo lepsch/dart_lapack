@@ -88,11 +88,11 @@
                for (J = 1; J <= I; J++) { // 40
                   TMP = TMP + ABS( A( J, I ) )*ABS( X( J, K ) )
                } // 40
-               DO 50 J = I + 1, N
+               for (J = I + 1; J <= N; J++) { // 50
                   TMP = TMP + ABS( A( I, J ) )*ABS( X( J, K ) )
                } // 50
             } else {
-               DO 60 J = 1, I - 1
+               for (J = 1; J <= I - 1; J++) { // 60
                   TMP = TMP + ABS( A( I, J ) )*ABS( X( J, K ) )
                } // 60
                for (J = I; J <= N; J++) { // 70

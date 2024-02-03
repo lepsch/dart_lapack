@@ -41,7 +41,7 @@
       // Find largest entry
 
       MX = ABS( S( 1 ) )
-      DO 10 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 10
          MX = MAX( MX, ABS( S( I+1 ) ), ABS( E( I ) ) )
       } // 10
 
@@ -92,7 +92,7 @@
             U = SUN
          }
       }
-      DO 20 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 20
          TMP = ( E( I )*M1 )*M2
          U = -TMP*( TMP / U ) - SSHIFT
          if ( U.LE.SUN ) {

@@ -177,8 +177,8 @@
             DO 30 J = MAX( 1, I-KA ), I
                AB( J-I+KA1, I ) = AB( J-I+KA1, I ) / BII
             } // 30
-            DO 60 K = I - KBT, I - 1
-               DO 40 J = I - KBT, K
+            for (K = I - KBT; K <= I - 1; K++) { // 60
+               for (J = I - KBT; J <= K; J++) { // 40
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - BB( J-I+KB1, I )*AB( K-I+KA1, I ) - BB( K-I+KB1, I )*AB( J-I+KA1, I ) + AB( KA1, I )*BB( J-I+KB1, I )* BB( K-I+KB1, I )
                } // 40
                DO 50 J = MAX( 1, I-KA ), I - KBT - 1
@@ -208,7 +208,7 @@
          // existing bulges KA positions down toward the bottom of the
          // band
 
-         DO 130 K = 1, KB - 1
+         for (K = 1; K <= KB - 1; K++) { // 130
             if ( UPDATE ) {
 
                // Determine the rotations which would annihilate the bulge
@@ -254,7 +254,7 @@
 
                // apply rotations in 1st set from the right
 
-               DO 100 L = 1, KA - 1
+               for (L = 1; L <= KA - 1; L++) { // 100
                   dlartv(NR, AB( KA1-L, J2 ), INCA, AB( KA-L, J2+1 ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
                } // 100
 
@@ -337,7 +337,7 @@
 
                // apply rotations in 2nd set from the right
 
-               DO 180 L = 1, KA - 1
+               for (L = 1; L <= KA - 1; L++) { // 180
                   dlartv(NR, AB( KA1-L, J2 ), INCA, AB( KA-L, J2+1 ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 );
                } // 180
 
@@ -365,7 +365,7 @@
             }
          } // 210
 
-         DO 230 K = 1, KB - 1
+         for (K = 1; K <= KB - 1; K++) { // 230
             J2 = I - K - 1 + MAX( 1, K-I0+2 )*KA1
 
             // finish applying rotations in 1st set from the left
@@ -398,8 +398,8 @@
             DO 260 J = MAX( 1, I-KA ), I
                AB( I-J+1, J ) = AB( I-J+1, J ) / BII
             } // 260
-            DO 290 K = I - KBT, I - 1
-               DO 270 J = I - KBT, K
+            for (K = I - KBT; K <= I - 1; K++) { // 290
+               for (J = I - KBT; J <= K; J++) { // 270
                   AB( K-J+1, J ) = AB( K-J+1, J ) - BB( I-J+1, J )*AB( I-K+1, K ) - BB( I-K+1, K )*AB( I-J+1, J ) + AB( 1, I )*BB( I-J+1, J )* BB( I-K+1, K )
                } // 270
                DO 280 J = MAX( 1, I-KA ), I - KBT - 1
@@ -429,7 +429,7 @@
          // existing bulges KA positions down toward the bottom of the
          // band
 
-         DO 360 K = 1, KB - 1
+         for (K = 1; K <= KB - 1; K++) { // 360
             if ( UPDATE ) {
 
                // Determine the rotations which would annihilate the bulge
@@ -475,7 +475,7 @@
 
                // apply rotations in 1st set from the left
 
-               DO 330 L = 1, KA - 1
+               for (L = 1; L <= KA - 1; L++) { // 330
                   dlartv(NR, AB( L+1, J2-L ), INCA, AB( L+2, J2-L ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
                } // 330
 
@@ -558,7 +558,7 @@
 
                // apply rotations in 2nd set from the left
 
-               DO 410 L = 1, KA - 1
+               for (L = 1; L <= KA - 1; L++) { // 410
                   dlartv(NR, AB( L+1, J2-L ), INCA, AB( L+2, J2-L ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 );
                } // 410
 
@@ -586,7 +586,7 @@
             }
          } // 440
 
-         DO 460 K = 1, KB - 1
+         for (K = 1; K <= KB - 1; K++) { // 460
             J2 = I - K - 1 + MAX( 1, K-I0+2 )*KA1
 
             // finish applying rotations in 1st set from the right
@@ -668,8 +668,8 @@
             DO 510 J = I, MIN( N, I+KA )
                AB( I-J+KA1, J ) = AB( I-J+KA1, J ) / BII
             } // 510
-            DO 540 K = I + 1, I + KBT
-               DO 520 J = K, I + KBT
+            for (K = I + 1; K <= I + KBT; K++) { // 540
+               for (J = K; J <= I + KBT; J++) { // 520
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - BB( I-J+KB1, J )*AB( I-K+KA1, K ) - BB( I-K+KB1, K )*AB( I-J+KA1, J ) + AB( KA1, I )*BB( I-J+KB1, J )* BB( I-K+KB1, K )
                } // 520
                DO 530 J = I + KBT + 1, MIN( N, I+KA )
@@ -698,7 +698,7 @@
          // Generate and apply vectors of rotations to chase all the
          // existing bulges KA positions up toward the top of the band
 
-         DO 610 K = 1, KB - 1
+         for (K = 1; K <= KB - 1; K++) { // 610
             if ( UPDATE ) {
 
                // Determine the rotations which would annihilate the bulge
@@ -744,7 +744,7 @@
 
                // apply rotations in 1st set from the left
 
-               DO 580 L = 1, KA - 1
+               for (L = 1; L <= KA - 1; L++) { // 580
                   dlartv(NR, AB( KA1-L, J1+L ), INCA, AB( KA-L, J1+L ), INCA, WORK( N+J1 ), WORK( J1 ), KA1 );
                } // 580
 
@@ -829,7 +829,7 @@
 
                // apply rotations in 2nd set from the left
 
-               DO 660 L = 1, KA - 1
+               for (L = 1; L <= KA - 1; L++) { // 660
                   dlartv(NR, AB( KA1-L, J1+L ), INCA, AB( KA-L, J1+L ), INCA, WORK( N+M-KB+J1 ), WORK( M-KB+J1 ), KA1 );
                } // 660
 
@@ -858,7 +858,7 @@
             }
          } // 690
 
-         DO 710 K = 1, KB - 1
+         for (K = 1; K <= KB - 1; K++) { // 710
             J2 = I + K + 1 - MAX( 1, K+I0-M+1 )*KA1
 
             // finish applying rotations in 1st set from the right
@@ -892,8 +892,8 @@
             DO 740 J = I, MIN( N, I+KA )
                AB( J-I+1, I ) = AB( J-I+1, I ) / BII
             } // 740
-            DO 770 K = I + 1, I + KBT
-               DO 750 J = K, I + KBT
+            for (K = I + 1; K <= I + KBT; K++) { // 770
+               for (J = K; J <= I + KBT; J++) { // 750
                   AB( J-K+1, K ) = AB( J-K+1, K ) - BB( J-I+1, I )*AB( K-I+1, I ) - BB( K-I+1, I )*AB( J-I+1, I ) + AB( 1, I )*BB( J-I+1, I )* BB( K-I+1, I )
                } // 750
                DO 760 J = I + KBT + 1, MIN( N, I+KA )
@@ -922,7 +922,7 @@
          // Generate and apply vectors of rotations to chase all the
          // existing bulges KA positions up toward the top of the band
 
-         DO 840 K = 1, KB - 1
+         for (K = 1; K <= KB - 1; K++) { // 840
             if ( UPDATE ) {
 
                // Determine the rotations which would annihilate the bulge
@@ -968,7 +968,7 @@
 
                // apply rotations in 1st set from the right
 
-               DO 810 L = 1, KA - 1
+               for (L = 1; L <= KA - 1; L++) { // 810
                   dlartv(NR, AB( L+1, J1 ), INCA, AB( L+2, J1-1 ), INCA, WORK( N+J1 ), WORK( J1 ), KA1 );
                } // 810
 
@@ -1053,7 +1053,7 @@
 
                // apply rotations in 2nd set from the right
 
-               DO 890 L = 1, KA - 1
+               for (L = 1; L <= KA - 1; L++) { // 890
                   dlartv(NR, AB( L+1, J1 ), INCA, AB( L+2, J1-1 ), INCA, WORK( N+M-KB+J1 ), WORK( M-KB+J1 ), KA1 );
                } // 890
 
@@ -1082,7 +1082,7 @@
             }
          } // 920
 
-         DO 940 K = 1, KB - 1
+         for (K = 1; K <= KB - 1; K++) { // 940
             J2 = I + K + 1 - MAX( 1, K+I0-M+1 )*KA1
 
             // finish applying rotations in 1st set from the left

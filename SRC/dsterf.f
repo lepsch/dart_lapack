@@ -72,7 +72,7 @@
 
       } // 10
       IF( L1.GT.N ) GO TO 170       IF( L1.GT.1 ) E( L1-1 ) = ZERO
-      DO 20 M = L1, N - 1
+      for (M = L1; M <= N - 1; M++) { // 20
          if ( ABS( E( M ) ).LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
             E( M ) = ZERO
             GO TO 30
@@ -101,7 +101,7 @@
          dlascl('G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO )          CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO );
       }
 
-      DO 40 I = L, LEND - 1
+      for (I = L; I <= LEND - 1; I++) { // 40
          E( I ) = E( I )**2
       } // 40
 
@@ -120,7 +120,7 @@
 
          } // 50
          if ( L.NE.LEND ) {
-            DO 60 M = L, LEND - 1
+            for (M = L; M <= LEND - 1; M++) { // 60
                IF( ABS( E( M ) ).LE.EPS2*ABS( D( M )*D( M+1 ) ) ) GO TO 70
             } // 60
          }
@@ -241,7 +241,7 @@
 
          // Inner loop
 
-         DO 130 I = M, L - 1
+         for (I = M; I <= L - 1; I++) { // 130
             BB = E( I )
             R = P + BB
             IF( I.NE.M ) E( I-1 ) = S*R
@@ -283,7 +283,7 @@
       // of N*MAXIT iterations.
 
       IF( JTOT.LT.NMAXIT ) GO TO 10
-      DO 160 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 160
          IF( E( I ).NE.ZERO ) INFO = INFO + 1
       } // 160
       GO TO 180

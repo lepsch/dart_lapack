@@ -61,7 +61,7 @@
          zlarnv(2, ISEED, M-J+1, A( J, J ) );
       END DO
       if ( N.GT.0 ) {
-         DO J=1,N-L
+         for (J = 1; J <= N-L; J++) {
             zlarnv(2, ISEED, M, A( 1, MIN(N+M,M+1) + J - 1 ) );
          END DO
       }

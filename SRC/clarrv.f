@@ -118,7 +118,7 @@
       DONE = 0
       IBEGIN = 1
       WBEGIN = 1
-      DO 170 JBLK = 1, IBLOCK( M )
+      for (JBLK = 1; JBLK <= IBLOCK( M ); JBLK++) { // 170
          IEND = ISPLIT( JBLK )
          SIGMA = L( IEND )
          // Find the eigenvectors of the submatrix indexed IBEGIN
@@ -143,7 +143,7 @@
          // Find local spectral diameter of the block
          GL = GERS( 2*IBEGIN-1 )
          GU = GERS( 2*IBEGIN )
-         DO 20 I = IBEGIN+1 , IEND
+         for (I = IBEGIN+1 ; I <= IEND; I++) { // 20
             GL = MIN( GERS( 2*I-1 ), GL )
             GU = MAX( GERS( 2*I ), GU )
          } // 20
@@ -250,7 +250,7 @@
                         J = WBEGIN + OLDFST - 1
                      }
                   }
-                  DO 45 K = 1, IN - 1
+                  for (K = 1; K <= IN - 1; K++) { // 45
                      D( IBEGIN+K-1 ) = REAL( Z( IBEGIN+K-1, J ) )                      L( IBEGIN+K-1 ) = REAL( Z( IBEGIN+K-1, J+1 ) )
                   } // 45
                   D( IEND ) = REAL( Z( IEND, J ) )
@@ -261,7 +261,7 @@
                }
 
                // Compute DL and DLL of current RRR
-               DO 50 J = IBEGIN, IEND-1
+               for (J = IBEGIN; J <= IEND-1; J++) { // 50
                   TMP = D( J )*L( J )
                   WORK( INDLD-1+J ) = TMP
                   WORK( INDLLD-1+J ) = TMP*L( J )
@@ -398,7 +398,7 @@
                      // In the complex case, SLARRF cannot write
                      // the new RRR directly into Z and needs an intermediate
                      // workspace
-                     DO 56 K = 1, IN-1
+                     for (K = 1; K <= IN-1; K++) { // 56
                         Z( IBEGIN+K-1, NEWFTT ) = CMPLX( WORK( INDIN1+K-1 ), ZERO )                         Z( IBEGIN+K-1, NEWFTT+1 ) = CMPLX( WORK( INDIN2+K-1 ), ZERO )
                      } // 56
                      Z( IEND, NEWFTT ) = CMPLX( WORK( INDIN1+IN-1 ), ZERO )
@@ -629,12 +629,12 @@
                      ISUPMX = ISUPMX + OLDIEN
                      // Ensure vector is ok if support in the RQI has changed
                      if (ISUPMN.LT.ZFROM) {
-                        DO 122 II = ISUPMN,ZFROM-1
+                        for (II = ISUPMN; II <= ZFROM-1; II++) { // 122
                            Z( II, WINDEX ) = ZERO
                         } // 122
                      }
                      if (ISUPMX.GT.ZTO) {
-                        DO 123 II = ZTO+1,ISUPMX
+                        for (II = ZTO+1; II <= ISUPMX; II++) { // 123
                            Z( II, WINDEX ) = ZERO
                         } // 123
                      }

@@ -208,7 +208,7 @@
             // B(N+1:M,1:NRHS) = ZERO
 
             for (J = 1; J <= NRHS; J++) {
-               DO I = N + 1, M
+               for (I = N + 1; I <= M; I++) {
                   B( I, J ) = ZERO
                END DO
             END DO
@@ -252,7 +252,7 @@
             // B(M+1:N,1:NRHS) = ZERO
 
             for (J = 1; J <= NRHS; J++) {
-               DO I = M + 1, N
+               for (I = M + 1; I <= N; I++) {
                   B( I, J ) = ZERO
                END DO
             END DO

@@ -266,7 +266,7 @@
                      R1 = ONE / A( K, K )
                      dscal(K-1, R1, A( 1, K ), 1 );
                   } else if ( A( K, K ).NE.ZERO ) {
-                     DO 14 II = 1, K - 1
+                     for (II = 1; II <= K - 1; II++) { // 14
                         A( II, K ) = A( II, K ) / A( K, K )
                      } // 14
                   }
@@ -295,7 +295,7 @@
                   D11 = W( K, KW ) / D12
                   D22 = W( K-1, KW-1 ) / D12
                   T = ONE / ( D11*D22-ONE )
-                  DO 20 J = 1, K - 2
+                  for (J = 1; J <= K - 2; J++) { // 20
                      A( J, K-1 ) = T*( (D11*W( J, KW-1 )-W( J, KW ) ) / D12 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / D12 )
                   } // 20
                }
@@ -343,7 +343,7 @@
 
             // Update the upper triangle of the diagonal block
 
-            DO 40 JJ = J, J + JB - 1
+            for (JJ = J; JJ <= J + JB - 1; JJ++) { // 40
                dgemv('No transpose', JJ-J+1, N-K, -ONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, ONE, A( J, JJ ), 1 );
             } // 40
 
@@ -560,7 +560,7 @@
                      R1 = ONE / A( K, K )
                      dscal(N-K, R1, A( K+1, K ), 1 );
                   } else if ( A( K, K ).NE.ZERO ) {
-                     DO 74 II = K + 1, N
+                     for (II = K + 1; II <= N; II++) { // 74
                         A( II, K ) = A( II, K ) / A( K, K )
                      } // 74
                   }
@@ -588,7 +588,7 @@
                   D11 = W( K+1, K+1 ) / D21
                   D22 = W( K, K ) / D21
                   T = ONE / ( D11*D22-ONE )
-                  DO 80 J = K + 2, N
+                  for (J = K + 2; J <= N; J++) { // 80
                      A( J, K ) = T*( ( D11*W( J, K )-W( J, K+1 ) ) / D21 )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 )
                   } // 80
                }
@@ -636,7 +636,7 @@
 
             // Update the lower triangle of the diagonal block
 
-            DO 100 JJ = J, J + JB - 1
+            for (JJ = J; JJ <= J + JB - 1; JJ++) { // 100
                dgemv('No transpose', J+JB-JJ, K-1, -ONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, ONE, A( JJ, JJ ), 1 );
             } // 100
 

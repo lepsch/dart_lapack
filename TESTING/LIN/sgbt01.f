@@ -63,7 +63,7 @@
          LENJ = MIN( M, J ) - J + JU + 1
          if ( LENJ.GT.0 ) {
             scopy(LENJ, AFAC( KD-JU, J ), 1, WORK, 1 );
-            DO 20 I = LENJ + 1, JU + JL + 1
+            for (I = LENJ + 1; I <= JU + JL + 1; I++) { // 20
                WORK( I ) = ZERO
             } // 20
 

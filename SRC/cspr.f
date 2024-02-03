@@ -72,7 +72,7 @@
                if ( X( J ).NE.ZERO ) {
                   TEMP = ALPHA*X( J )
                   K = KK
-                  DO 10 I = 1, J - 1
+                  for (I = 1; I <= J - 1; I++) { // 10
                      AP( K ) = AP( K ) + X( I )*TEMP
                      K = K + 1
                   } // 10
@@ -88,7 +88,7 @@
                if ( X( JX ).NE.ZERO ) {
                   TEMP = ALPHA*X( JX )
                   IX = KX
-                  DO 30 K = KK, KK + J - 2
+                  for (K = KK; K <= KK + J - 2; K++) { // 30
                      AP( K ) = AP( K ) + X( IX )*TEMP
                      IX = IX + INCX
                   } // 30
@@ -110,7 +110,7 @@
                   TEMP = ALPHA*X( J )
                   AP( KK ) = AP( KK ) + TEMP*X( J )
                   K = KK + 1
-                  DO 50 I = J + 1, N
+                  for (I = J + 1; I <= N; I++) { // 50
                      AP( K ) = AP( K ) + X( I )*TEMP
                      K = K + 1
                   } // 50
@@ -126,7 +126,7 @@
                   TEMP = ALPHA*X( JX )
                   AP( KK ) = AP( KK ) + TEMP*X( JX )
                   IX = JX
-                  DO 70 K = KK + 1, KK + N - J
+                  for (K = KK + 1; K <= KK + N - J; K++) { // 70
                      IX = IX + INCX
                      AP( K ) = AP( K ) + X( IX )*TEMP
                   } // 70

@@ -989,7 +989,7 @@
                   TEMP1 = ZERO
                   TEMP2 = ZERO
 
-                  DO 240 J = 1, IU - IL + 1
+                  for (J = 1; J <= IU - IL + 1; J++) { // 240
                      TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                      TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
                   } // 240
@@ -1064,7 +1064,7 @@
                   TEMP1 = ZERO
                   TEMP2 = ZERO
 
-                  DO 250 J = 1, IU - IL + 1
+                  for (J = 1; J <= IU - IL + 1; J++) { // 250
                      TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                      TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
                   } // 250

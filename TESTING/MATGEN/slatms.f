@@ -470,7 +470,7 @@
                scopy(MNMIN, D, 1, A( 1-ISKEW+IOFFG, 1 ), ILDA+1 );
 
                for (K = 1; K <= UUB; K++) { // 170
-                  DO 160 JC = 1, N - 1
+                  for (JC = 1; JC <= N - 1; JC++) { // 160
                      IROW = MAX( 1, JC-K )
                      IL = MIN( JC+1, K+2 )
                      EXTRA = ZERO
@@ -507,8 +507,8 @@
                      } // 180
                   } // 190
                   if ( IPACK.EQ.5 ) {
-                     DO 210 JC = N - UUB + 1, N
-                        DO 200 JR = N + 2 - JC, UUB + 1
+                     for (JC = N - UUB + 1; JC <= N; JC++) { // 210
+                        for (JR = N + 2 - JC; JR <= UUB + 1; JR++) { // 200
                            A( JR, JC ) = ZERO
                         } // 200
                      } // 210
@@ -570,7 +570,7 @@
                   } // 260
                   if ( IPACK.EQ.6 ) {
                      for (JC = 1; JC <= UUB; JC++) { // 280
-                        DO 270 JR = 1, UUB + 1 - JC
+                        for (JR = 1; JR <= UUB + 1 - JC; JR++) { // 270
                            A( JR, JC ) = ZERO
                         } // 270
                      } // 280
@@ -619,7 +619,7 @@
             // 'U' -- Upper triangular, not packed
 
             for (J = 1; J <= M; J++) { // 300
-               DO 290 I = J + 1, M
+               for (I = J + 1; I <= M; I++) { // 290
                   A( I, J ) = ZERO
                } // 290
             } // 300
@@ -629,7 +629,7 @@
             // 'L' -- Lower triangular, not packed
 
             for (J = 2; J <= M; J++) { // 320
-               DO 310 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 310
                   A( I, J ) = ZERO
                } // 310
             } // 320
@@ -682,7 +682,7 @@
                } // 370
             } // 380
 
-            DO 400 J = UUB + 2, N
+            for (J = UUB + 2; J <= N; J++) { // 400
                DO 390 I = J - UUB, MIN( J+LLB, M )
                   A( I-J+UUB+1, J ) = A( I, J )
                } // 390
@@ -696,7 +696,7 @@
 
          if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
             for (JC = ICOL; JC <= M; JC++) { // 420
-               DO 410 JR = IROW + 1, LDA
+               for (JR = IROW + 1; JR <= LDA; JR++) { // 410
                   A( JR, JC ) = ZERO
                } // 410
                IROW = 0
@@ -713,7 +713,7 @@
             IR1 = UUB + LLB + 2
             IR2 = UUB + M + 2
             for (JC = 1; JC <= N; JC++) { // 450
-               DO 430 JR = 1, UUB + 1 - JC
+               for (JR = 1; JR <= UUB + 1 - JC; JR++) { // 430
                   A( JR, JC ) = ZERO
                } // 430
                DO 440 JR = MAX( 1, MIN( IR1, IR2-JC ) ), LDA

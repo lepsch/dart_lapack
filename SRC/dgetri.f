@@ -88,7 +88,7 @@
 
             // Copy current column of L to WORK and replace with zeros.
 
-            DO 10 I = J + 1, N
+            for (I = J + 1; I <= N; I++) { // 10
                WORK( I ) = A( I, J )
                A( I, J ) = ZERO
             } // 10
@@ -108,8 +108,8 @@
             // Copy current block column of L to WORK and replace with
             // zeros.
 
-            DO 40 JJ = J, J + JB - 1
-               DO 30 I = JJ + 1, N
+            for (JJ = J; JJ <= J + JB - 1; JJ++) { // 40
+               for (I = JJ + 1; I <= N; I++) { // 30
                   WORK( I+( JJ-J )*LDWORK ) = A( I, JJ )
                   A( I, JJ ) = ZERO
                } // 30

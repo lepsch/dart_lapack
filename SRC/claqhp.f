@@ -62,7 +62,7 @@
             JC = 1
             for (J = 1; J <= N; J++) { // 20
                CJ = S( J )
-               DO 10 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 10
                   AP( JC+I-1 ) = CJ*S( I )*AP( JC+I-1 )
                } // 10
                AP( JC+J-1 ) = CJ*CJ*REAL( AP( JC+J-1 ) )
@@ -76,7 +76,7 @@
             for (J = 1; J <= N; J++) { // 40
                CJ = S( J )
                AP( JC ) = CJ*CJ*REAL( AP( JC ) )
-               DO 30 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 30
                   AP( JC+I-J ) = CJ*S( I )*AP( JC+I-J )
                } // 30
                JC = JC + N - J + 1

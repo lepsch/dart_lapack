@@ -111,7 +111,7 @@
                           IF (NOUNIT) X(J) = X(J)/AP(KK)
                           TEMP = X(J)
                           K = KK + 1
-                          DO 50 I = J + 1,N
+                          for (I = J + 1; I <= N; I++) { // 50
                               X(I) = X(I) - TEMP*AP(K)
                               K = K + 1
                           } // 50
@@ -125,7 +125,7 @@
                           IF (NOUNIT) X(JX) = X(JX)/AP(KK)
                           TEMP = X(JX)
                           IX = JX
-                          DO 70 K = KK + 1,KK + N - J
+                          for (K = KK + 1; K <= KK + N - J; K++) { // 70
                               IX = IX + INCX
                               X(IX) = X(IX) - TEMP*AP(K)
                           } // 70
@@ -145,7 +145,7 @@
                   for (J = 1; J <= N; J++) { // 100
                       TEMP = X(J)
                       K = KK
-                      DO 90 I = 1,J - 1
+                      for (I = 1; I <= J - 1; I++) { // 90
                           TEMP = TEMP - AP(K)*X(I)
                           K = K + 1
                       } // 90
@@ -158,7 +158,7 @@
                   for (J = 1; J <= N; J++) { // 120
                       TEMP = X(JX)
                       IX = KX
-                      DO 110 K = KK,KK + J - 2
+                      for (K = KK; K <= KK + J - 2; K++) { // 110
                           TEMP = TEMP - AP(K)*X(IX)
                           IX = IX + INCX
                       } // 110

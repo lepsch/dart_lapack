@@ -535,9 +535,9 @@
          if ( TRANSP ) {
             // In an optimal implementation, this trivial transpose
             // should be replaced with faster transpose.
-            DO 1115 p = 1, N - 1
+            for (p = 1; p <= N - 1; p++) { // 1115
                A(p,p) = CONJG(A(p,p))
-               DO 1116 q = p + 1, N
+               for (q = p + 1; q <= N; q++) { // 1116
                    CTEMP = CONJG(A(q,p))
                   A(q,p) = CONJG(A(p,q))
                   A(p,q) = CTEMP
@@ -641,7 +641,7 @@
          } else {
               IWOFF = N
          }
-         DO 1952 p = 1, M - 1
+         for (p = 1; p <= M - 1; p++) { // 1952
             q = ISAMAX( M-p+1, RWORK(M+p), 1 ) + p - 1
             IWORK(IWOFF+p) = q
             if ( p .NE. q ) {
@@ -840,7 +840,7 @@
             cgeqrf(N,NR, A,LDA, CWORK, CWORK(N+1),LWORK-N, IERR );
 
             // .. and transpose upper to lower triangular
-            DO 1948 p = 1, NR - 1
+            for (p = 1; p <= NR - 1; p++) { // 1948
                ccopy(NR-p, A(p,p+1), LDA, A(p+1,p), 1 );
                clacgv(NR-p+1, A(p,p), 1 );
             } // 1948
@@ -954,7 +954,7 @@
 
          cgeqrf(N, NR, U, LDU, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR );
 
-         DO 1967 p = 1, NR - 1
+         for (p = 1; p <= NR - 1; p++) { // 1967
             ccopy(NR-p, U(p,p+1), LDU, U(p+1,p), 1 );
             clacgv(N-p+1, U(p,p), 1 );
          } // 1967
@@ -1060,7 +1060,7 @@
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)/EPSLN
                   for (p = 2; p <= NR; p++) { // 3959
-                     DO 3958 q = 1, p - 1
+                     for (q = 1; q <= p - 1; q++) { // 3958
                         CTEMP=CMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO)
                         IF ( ABS(V(q,p)) .LE. TEMP1 )
       // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
@@ -1072,7 +1072,7 @@
                // .. save ...
 
             // .. this transposed copy should be better than naive
-               DO 1969 p = 1, NR - 1
+               for (p = 1; p <= NR - 1; p++) { // 1969
                   ccopy(NR-p, V(p,p+1), LDV, V(p+1,p), 1 );
                   clacgv(NR-p+1, V(p,p), 1 );
                } // 1969
@@ -1099,7 +1099,7 @@
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)
                   for (p = 2; p <= NR; p++) { // 3969
-                     DO 3968 q = 1, p - 1
+                     for (q = 1; q <= p - 1; q++) { // 3968
                         CTEMP=CMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO)
                         IF ( ABS(V(q,p)) .LE. TEMP1 )
       // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
@@ -1112,7 +1112,7 @@
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)
                   for (p = 2; p <= NR; p++) { // 8970
-                     DO 8971 q = 1, p - 1
+                     for (q = 1; q <= p - 1; q++) { // 8971
                         CTEMP=CMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO)
                          // V(p,q) = - TEMP1*( V(q,p) / ABS(V(q,p)) )
                         V(p,q) = - CTEMP
@@ -1149,7 +1149,7 @@
                XSC = SQRT(SMALL)
                for (q = 2; q <= NR; q++) { // 4968
                   CTEMP = XSC * V(q,q)
-                  DO 4969 p = 1, q - 1
+                  for (p = 1; p <= q - 1; p++) { // 4969
                       // V(p,q) = - TEMP1*( V(p,q) / ABS(V(p,q)) )
                      V(p,q) = - CTEMP
                   } // 4969
@@ -1311,7 +1311,7 @@
                XSC = SQRT(SMALL)
                for (p = 2; p <= N; p++) { // 5970
                   CTEMP = XSC * CWORK( N + (p-1)*N + p )
-                  DO 5971 q = 1, p - 1
+                  for (q = 1; q <= p - 1; q++) { // 5971
                       // CWORK(N+(q-1)*N+p)=-TEMP1 * ( CWORK(N+(p-1)*N+q) /
       // $                                        ABS(CWORK(N+(p-1)*N+q)) )
                      CWORK(N+(q-1)*N+p)=-CTEMP
@@ -1404,7 +1404,7 @@
          if ( L2PERT ) {
             XSC = SQRT(SMALL/EPSLN)
             for (q = 2; q <= NR; q++) { // 9970
-               DO 9971 p = 1, q - 1
+               for (p = 1; p <= q - 1; p++) { // 9971
                   CTEMP = CMPLX(XSC * MIN(ABS(U(p,p)),ABS(U(q,q))), ZERO)
                    // U(p,q) = - TEMP1 * ( U(q,p) / ABS(U(q,p)) )
                   U(p,q) = - CTEMP
@@ -1476,7 +1476,7 @@
       }
 
       if ( NR .LT. N ) {
-         DO 3004 p = NR+1, N
+         for (p = NR+1; p <= N; p++) { // 3004
             SVA(p) = ZERO
          } // 3004
       }

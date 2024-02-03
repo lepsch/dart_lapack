@@ -71,12 +71,12 @@
                T = ZDOTU( J, A( ICOL ), 1, AINV( JCOL ), 1 )
                JCOL = JCOL + 2*J - 1
                KCOL = ICOL - 1
-               DO 10 K = J + 1, I
+               for (K = J + 1; K <= I; K++) { // 10
                   T = T + A( KCOL+K )*AINV( JCOL )
                   JCOL = JCOL + K
                } // 10
                KCOL = KCOL + 2*I
-               DO 20 K = I + 1, N
+               for (K = I + 1; K <= N; K++) { // 20
                   T = T + A( KCOL )*AINV( JCOL )
                   KCOL = KCOL + K
                   JCOL = JCOL + K
@@ -86,17 +86,17 @@
 
             // Code when J > I
 
-            DO 60 J = I + 1, N
+            for (J = I + 1; J <= N; J++) { // 60
                JCOL = ( ( J-1 )*J ) / 2 + 1
                T = ZDOTU( I, A( ICOL ), 1, AINV( JCOL ), 1 )
                JCOL = JCOL - 1
                KCOL = ICOL + 2*I - 1
-               DO 40 K = I + 1, J
+               for (K = I + 1; K <= J; K++) { // 40
                   T = T + A( KCOL )*AINV( JCOL+K )
                   KCOL = KCOL + K
                } // 40
                JCOL = JCOL + 2*J
-               DO 50 K = J + 1, N
+               for (K = J + 1; K <= N; K++) { // 50
                   T = T + A( KCOL )*AINV( JCOL )
                   KCOL = KCOL + K
                   JCOL = JCOL + K
@@ -119,13 +119,13 @@
                T = ZDOTU( N-I+1, A( ICOL ), 1, AINV( JCOL ), 1 )
                KCOL = I
                JCOL = J
-               DO 80 K = 1, J - 1
+               for (K = 1; K <= J - 1; K++) { // 80
                   T = T + A( KCOL )*AINV( JCOL )
                   JCOL = JCOL + N - K
                   KCOL = KCOL + N - K
                } // 80
                JCOL = JCOL - J
-               DO 90 K = J, I - 1
+               for (K = J; K <= I - 1; K++) { // 90
                   T = T + A( KCOL )*AINV( JCOL+K )
                   KCOL = KCOL + N - K
                } // 90
@@ -135,18 +135,18 @@
             // Code when J > I
 
             ICOL = NALL - ( ( N-I )*( N-I+1 ) ) / 2
-            DO 130 J = I + 1, N
+            for (J = I + 1; J <= N; J++) { // 130
                JCOL = NALL - ( ( N-J+1 )*( N-J+2 ) ) / 2 + 1
                T = ZDOTU( N-J+1, A( ICOL-N+J ), 1, AINV( JCOL ), 1 )
                KCOL = I
                JCOL = J
-               DO 110 K = 1, I - 1
+               for (K = 1; K <= I - 1; K++) { // 110
                   T = T + A( KCOL )*AINV( JCOL )
                   JCOL = JCOL + N - K
                   KCOL = KCOL + N - K
                } // 110
                KCOL = KCOL - I
-               DO 120 K = I, J - 1
+               for (K = I; K <= J - 1; K++) { // 120
                   T = T + A( KCOL+K )*AINV( JCOL )
                   JCOL = JCOL + N - K
                } // 120

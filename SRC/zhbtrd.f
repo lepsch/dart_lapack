@@ -96,7 +96,7 @@
             J2 = 1
 
             AB( KD1, 1 ) = DBLE( AB( KD1, 1 ) )
-            DO 90 I = 1, N - 2
+            for (I = 1; I <= N - 2; I++) { // 90
 
                // Reduce i-th row of matrix to tridiagonal form
 
@@ -118,7 +118,7 @@
                      // ZLARTV or ZROT is used
 
                      if ( NR.GE.2*KD-1 ) {
-                        DO 10 L = 1, KD - 1
+                        for (L = 1; L <= KD - 1; L++) { // 10
                            zlartv(NR, AB( L+1, J1-1 ), INCA, AB( L, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 10
 
@@ -162,7 +162,7 @@
                      // Dependent on the the number of diagonals either
                      // ZLARTV or ZROT is used
 
-                        DO 30 L = 1, KD - 1
+                        for (L = 1; L <= KD - 1; L++) { // 30
                            if ( J2+L.GT.N ) {
                               NRT = NR - 1
                            } else {
@@ -238,7 +238,7 @@
 
             // make off-diagonal elements real and copy them to E
 
-            DO 100 I = 1, N - 1
+            for (I = 1; I <= N - 1; I++) { // 100
                T = AB( KD, I+1 )
                ABST = ABS( T )
                AB( KD, I+1 ) = ABST
@@ -257,7 +257,7 @@
 
             // set E to zero if original matrix was diagonal
 
-            DO 110 I = 1, N - 1
+            for (I = 1; I <= N - 1; I++) { // 110
                E( I ) = ZERO
             } // 110
          }
@@ -280,7 +280,7 @@
             J2 = 1
 
             AB( 1, 1 ) = DBLE( AB( 1, 1 ) )
-            DO 210 I = 1, N - 2
+            for (I = 1; I <= N - 2; I++) { // 210
 
                // Reduce i-th column of matrix to tridiagonal form
 
@@ -302,7 +302,7 @@
                      // ZLARTV or ZROT is used
 
                      if ( NR.GT.2*KD-1 ) {
-                        DO 130 L = 1, KD - 1
+                        for (L = 1; L <= KD - 1; L++) { // 130
                            zlartv(NR, AB( KD1-L, J1-KD1+L ), INCA, AB( KD1-L+1, J1-KD1+L ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 130
                      } else {
@@ -345,7 +345,7 @@
                   if ( NR.GT.0 ) {
                      zlacgv(NR, WORK( J1 ), KD1 );
                      if ( NR.GT.2*KD-1 ) {
-                        DO 150 L = 1, KD - 1
+                        for (L = 1; L <= KD - 1; L++) { // 150
                            if ( J2+L.GT.N ) {
                               NRT = NR - 1
                            } else {
@@ -422,7 +422,7 @@
 
             // make off-diagonal elements real and copy them to E
 
-            DO 220 I = 1, N - 1
+            for (I = 1; I <= N - 1; I++) { // 220
                T = AB( 2, I )
                ABST = ABS( T )
                AB( 2, I ) = ABST
@@ -441,7 +441,7 @@
 
             // set E to zero if original matrix was diagonal
 
-            DO 230 I = 1, N - 1
+            for (I = 1; I <= N - 1; I++) { // 230
                E( I ) = ZERO
             } // 230
          }

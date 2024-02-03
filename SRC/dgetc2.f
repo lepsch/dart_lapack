@@ -61,7 +61,7 @@
       // Factorize A using complete pivoting.
       // Set pivots less than SMIN to SMIN.
 
-      DO 40 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 40
 
          // Find max element in matrix A
 
@@ -93,7 +93,7 @@
             INFO = I
             A( I, I ) = SMIN
          }
-         DO 30 J = I + 1, N
+         for (J = I + 1; J <= N; J++) { // 30
             A( J, I ) = A( J, I ) / A( I, I )
          } // 30
          dger(N-I, N-I, -ONE, A( I+1, I ), 1, A( I, I+1 ), LDA, A( I+1, I+1 ), LDA );

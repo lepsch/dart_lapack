@@ -260,7 +260,7 @@
       I = 1
       IQ1 = 1
       IQ2 = 1 + ( CTOT( 1 )+CTOT( 2 ) )*N1
-      DO 140 J = 1, CTOT( 1 )
+      for (J = 1; J <= CTOT( 1 ); J++) { // 140
          JS = INDX( I )
          dcopy(N1, Q( 1, JS ), 1, Q2( IQ1 ), 1 );
          Z( I ) = D( JS )
@@ -268,7 +268,7 @@
          IQ1 = IQ1 + N1
       } // 140
 
-      DO 150 J = 1, CTOT( 2 )
+      for (J = 1; J <= CTOT( 2 ); J++) { // 150
          JS = INDX( I )
          dcopy(N1, Q( 1, JS ), 1, Q2( IQ1 ), 1 );
          dcopy(N2, Q( N1+1, JS ), 1, Q2( IQ2 ), 1 );
@@ -278,7 +278,7 @@
          IQ2 = IQ2 + N2
       } // 150
 
-      DO 160 J = 1, CTOT( 3 )
+      for (J = 1; J <= CTOT( 3 ); J++) { // 160
          JS = INDX( I )
          dcopy(N2, Q( N1+1, JS ), 1, Q2( IQ2 ), 1 );
          Z( I ) = D( JS )
@@ -287,7 +287,7 @@
       } // 160
 
       IQ1 = IQ2
-      DO 170 J = 1, CTOT( 4 )
+      for (J = 1; J <= CTOT( 4 ); J++) { // 170
          JS = INDX( I )
          dcopy(N, Q( 1, JS ), 1, Q2( IQ2 ), 1 );
          IQ2 = IQ2 + N

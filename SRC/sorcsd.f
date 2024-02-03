@@ -232,7 +232,7 @@
          for (I = 1; I <= Q; I++) {
             IWORK(I) = M - P - Q + I
          END DO
-         DO I = Q + 1, M - P
+         for (I = Q + 1; I <= M - P; I++) {
             IWORK(I) = I - Q
          END DO
          if ( COLMAJOR ) {
@@ -245,7 +245,7 @@
          for (I = 1; I <= P; I++) {
             IWORK(I) = M - P - Q + I
          END DO
-         DO I = P + 1, M - Q
+         for (I = P + 1; I <= M - Q; I++) {
             IWORK(I) = I - P
          END DO
          if ( .NOT. COLMAJOR ) {

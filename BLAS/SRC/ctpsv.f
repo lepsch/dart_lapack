@@ -115,7 +115,7 @@
                           IF (NOUNIT) X(J) = X(J)/AP(KK)
                           TEMP = X(J)
                           K = KK + 1
-                          DO 50 I = J + 1,N
+                          for (I = J + 1; I <= N; I++) { // 50
                               X(I) = X(I) - TEMP*AP(K)
                               K = K + 1
                           } // 50
@@ -129,7 +129,7 @@
                           IF (NOUNIT) X(JX) = X(JX)/AP(KK)
                           TEMP = X(JX)
                           IX = JX
-                          DO 70 K = KK + 1,KK + N - J
+                          for (K = KK + 1; K <= KK + N - J; K++) { // 70
                               IX = IX + INCX
                               X(IX) = X(IX) - TEMP*AP(K)
                           } // 70
@@ -150,13 +150,13 @@
                       TEMP = X(J)
                       K = KK
                       if (NOCONJ) {
-                          DO 90 I = 1,J - 1
+                          for (I = 1; I <= J - 1; I++) { // 90
                               TEMP = TEMP - AP(K)*X(I)
                               K = K + 1
                           } // 90
                           IF (NOUNIT) TEMP = TEMP/AP(KK+J-1)
                       } else {
-                          DO 100 I = 1,J - 1
+                          for (I = 1; I <= J - 1; I++) { // 100
                               TEMP = TEMP - CONJG(AP(K))*X(I)
                               K = K + 1
                           } // 100
@@ -171,13 +171,13 @@
                       TEMP = X(JX)
                       IX = KX
                       if (NOCONJ) {
-                          DO 120 K = KK,KK + J - 2
+                          for (K = KK; K <= KK + J - 2; K++) { // 120
                               TEMP = TEMP - AP(K)*X(IX)
                               IX = IX + INCX
                           } // 120
                           IF (NOUNIT) TEMP = TEMP/AP(KK+J-1)
                       } else {
-                          DO 130 K = KK,KK + J - 2
+                          for (K = KK; K <= KK + J - 2; K++) { // 130
                               TEMP = TEMP - CONJG(AP(K))*X(IX)
                               IX = IX + INCX
                           } // 130

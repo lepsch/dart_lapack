@@ -67,11 +67,11 @@
          // A(RK:M,K) := A(RK:M,K) - A(RK:M,1:K-1)*F(K,1:K-1)**H.
 
          if ( K.GT.1 ) {
-            DO 20 J = 1, K - 1
+            for (J = 1; J <= K - 1; J++) { // 20
                F( K, J ) = DCONJG( F( K, J ) )
             } // 20
             zgemv('No transpose', M-RK+1, K-1, -CONE, A( RK, 1 ), LDA, F( K, 1 ), LDF, CONE, A( RK, K ), 1 );
-            DO 30 J = 1, K - 1
+            for (J = 1; J <= K - 1; J++) { // 30
                F( K, J ) = DCONJG( F( K, J ) )
             } // 30
          }
@@ -121,7 +121,7 @@
          // Update partial column norms.
 
          if ( RK.LT.LASTRK ) {
-            DO 50 J = K + 1, N
+            for (J = K + 1; J <= N; J++) { // 50
                if ( VN1( J ).NE.ZERO ) {
 
                   // NOTE: The following 4 lines follow from the analysis in

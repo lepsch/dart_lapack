@@ -211,7 +211,7 @@
             SCALE = ONE
             DSCALE = ZERO
             DSUM = ONE
-            DO 130 J = P + 2, Q
+            for (J = P + 2; J <= Q; J++) { // 130
                JS = IWORK( J )
                JE = IWORK( J+1 ) - 1
                NB = JE - JS + 1
@@ -223,7 +223,7 @@
                   IF( LINFO.GT.0 ) INFO = LINFO
                   PQ = PQ + MB*NB
                   if ( SCALOC.NE.ONE ) {
-                     DO 80 K = 1, JS - 1
+                     for (K = 1; K <= JS - 1; K++) { // 80
                         cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                      } // 80
                      for (K = JS; K <= JE; K++) { // 90
@@ -232,7 +232,7 @@
                      for (K = JS; K <= JE; K++) { // 100
                         cscal(M-IE, CMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                         CALL CSCAL( M-IE, CMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
                      } // 100
-                     DO 110 K = JE + 1, N
+                     for (K = JE + 1; K <= N; K++) { // 110
                         cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                      } // 110
                      SCALE = SCALE*SCALOC
@@ -289,7 +289,7 @@
                ctgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO );
                IF( LINFO.GT.0 ) INFO = LINFO
                if ( SCALOC.NE.ONE ) {
-                  DO 160 K = 1, JS - 1
+                  for (K = 1; K <= JS - 1; K++) { // 160
                      cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                   } // 160
                   for (K = JS; K <= JE; K++) { // 170
@@ -298,7 +298,7 @@
                   for (K = JS; K <= JE; K++) { // 180
                      cscal(M-IE, CMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                      CALL CSCAL( M-IE, CMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
                   } // 180
-                  DO 190 K = JE + 1, N
+                  for (K = JE + 1; K <= N; K++) { // 190
                      cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                   } // 190
                   SCALE = SCALE*SCALOC

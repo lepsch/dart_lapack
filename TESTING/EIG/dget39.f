@@ -107,7 +107,7 @@
                            B( I ) = COS( DBLE( I ) )*VM3( IVM3 )
                         } // 30
 
-                        DO 40 I = 1, 2*N
+                        for (I = 1; I <= 2*N; I++) { // 40
                            D( I ) = SIN( DBLE( I ) )*VM4( IVM4 )
                         } // 40
 

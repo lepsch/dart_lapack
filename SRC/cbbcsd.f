@@ -122,7 +122,7 @@
             THETA(I) = PIOVER2
          }
       END DO
-      DO I = 1, Q-1
+      for (I = 1; I <= Q-1; I++) {
          if ( PHI(I) .LT. THRESH ) {
             PHI(I) = ZERO
          } else if ( PHI(I) .GT. PIOVER2-THRESH ) {
@@ -160,7 +160,7 @@
 
          B11D(IMIN) = COS( THETA(IMIN) )
          B21D(IMIN) = -SIN( THETA(IMIN) )
-         DO I = IMIN, IMAX - 1
+         for (I = IMIN; I <= IMAX - 1; I++) {
             B11E(I) = -SIN( THETA(I) ) * SIN( PHI(I) )
             B11D(I+1) = COS( THETA(I+1) ) * COS( PHI(I) )
             B12D(I) = SIN( THETA(I) ) * COS( PHI(I) )
@@ -189,7 +189,7 @@
 
          THETAMAX = THETA(IMIN)
          THETAMIN = THETA(IMIN)
-         DO I = IMIN+1, IMAX
+         for (I = IMIN+1; I <= IMAX; I++) {
             IF( THETA(I) > THETAMAX ) THETAMAX = THETA(I)             IF( THETA(I) < THETAMIN ) THETAMIN = THETA(I)
          END DO
 
@@ -297,7 +297,7 @@
          // B12(IMIN,IMIN+1), B21(IMIN,IMIN+2), and B22(IMIN,IMIN+1) to
          // bottom-right
 
-         DO I = IMIN+1, IMAX-1
+         for (I = IMIN+1; I <= IMAX-1; I++) {
 
             // Compute PHI(I-1)
 
@@ -562,7 +562,7 @@
                THETA(I) = PIOVER2
             }
          END DO
-         DO I = IMIN, IMAX-1
+         for (I = IMIN; I <= IMAX-1; I++) {
             if ( PHI(I) .LT. THRESH ) {
                PHI(I) = ZERO
             } else if ( PHI(I) .GT. PIOVER2-THRESH ) {
@@ -596,7 +596,7 @@
 
          MINI = I
          THETAMIN = THETA(I)
-         DO J = I+1, Q
+         for (J = I+1; J <= Q; J++) {
             if ( THETA(J) .LT. THETAMIN ) {
                MINI = J
                THETAMIN = THETA(J)

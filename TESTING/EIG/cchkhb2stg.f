@@ -344,7 +344,7 @@
                      A( JR+1, JC ) = CONJG( A( K+1-JR, JC+JR ) )
                   } // 110
                } // 120
-               DO 140 JC = N + 1 - K, N
+               for (JC = N + 1 - K; JC <= N; JC++) { // 140
                   DO 130 JR = MIN( K, N-JC ) + 1, K
                      A( JR+1, JC ) = ZERO
                   } // 130

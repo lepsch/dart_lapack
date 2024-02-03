@@ -54,7 +54,7 @@
       }
 
       // ==== clear out the trash ====
-      DO 10 J = ILO, IHI - 3
+      for (J = ILO; J <= IHI - 3; J++) { // 10
          H( J+2, J ) = ZERO
          H( J+3, J ) = ZERO
       } // 10
@@ -239,7 +239,7 @@
 
          // Double-shift QR step
 
-         DO 130 K = M, I - 1
+         for (K = M; K <= I - 1; K++) { // 130
 
             // The first iteration of this loop determines a reflection G
             // from the vector V and applies it from left and right to H,

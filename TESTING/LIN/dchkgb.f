@@ -174,7 +174,7 @@
                         dlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                         KOFF = MAX( 1, KU+2-N )
-                        DO 20 I = 1, KOFF - 1
+                        for (I = 1; I <= KOFF - 1; I++) { // 20
                            A( I ) = ZERO
                         } // 20
                         SRNAMT = 'DLATMS'

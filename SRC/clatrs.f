@@ -98,7 +98,7 @@
 
             // A is lower triangular.
 
-            DO 20 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 20
                CNORM( J ) = SCASUM( N-J, A( J+1, J ), 1 )
             } // 20
             CNORM( N ) = ZERO
@@ -133,7 +133,7 @@
                // A is upper triangular.
 
                for (J = 2; J <= N; J++) {
-                  DO I = 1, J - 1
+                  for (I = 1; I <= J - 1; I++) {
                      TMAX = MAX( TMAX, ABS( REAL( A( I, J ) ) ), ABS( AIMAG(A ( I, J ) ) ) )
                   END DO
                END DO
@@ -141,8 +141,8 @@
 
                // A is lower triangular.
 
-               DO J = 1, N - 1
-                  DO I = J + 1, N
+               for (J = 1; J <= N - 1; J++) {
+                  for (I = J + 1; I <= N; I++) {
                      TMAX = MAX( TMAX, ABS( REAL( A( I, J ) ) ), ABS( AIMAG(A ( I, J ) ) ) )
                   END DO
                END DO
@@ -159,11 +159,11 @@
                      TSCAL = TWO * TSCAL
                      CNORM( J ) = ZERO
                      if ( UPPER ) {
-                        DO I = 1, J - 1
+                        for (I = 1; I <= J - 1; I++) {
                            CNORM( J ) = CNORM( J ) + TSCAL * CABS2( A( I, J ) )
                         END DO
                      } else {
-                        DO I = J + 1, N
+                        for (I = J + 1; I <= N; I++) {
                            CNORM( J ) = CNORM( J ) + TSCAL * CABS2( A( I, J ) )
                         END DO
                      }
@@ -537,11 +537,11 @@
                   // Otherwise, use in-line code for the dot product.
 
                   if ( UPPER ) {
-                     DO 120 I = 1, J - 1
+                     for (I = 1; I <= J - 1; I++) { // 120
                         CSUMJ = CSUMJ + ( A( I, J )*USCAL )*X( I )
                      } // 120
                   } else if ( J.LT.N ) {
-                     DO 130 I = J + 1, N
+                     for (I = J + 1; I <= N; I++) { // 130
                         CSUMJ = CSUMJ + ( A( I, J )*USCAL )*X( I )
                      } // 130
                   }
@@ -670,11 +670,11 @@
                   // Otherwise, use in-line code for the dot product.
 
                   if ( UPPER ) {
-                     DO 160 I = 1, J - 1
+                     for (I = 1; I <= J - 1; I++) { // 160
                         CSUMJ = CSUMJ + ( CONJG( A( I, J ) )*USCAL )* X( I )
                      } // 160
                   } else if ( J.LT.N ) {
-                     DO 170 I = J + 1, N
+                     for (I = J + 1; I <= N; I++) { // 170
                         CSUMJ = CSUMJ + ( CONJG( A( I, J ) )*USCAL )* X( I )
                      } // 170
                   }

@@ -125,7 +125,7 @@
 
       // Set y1 = 0
 
-      DO 10 I = 1, M + P - N
+      for (I = 1; I <= M + P - N; I++) { // 10
          Y( I ) = ZERO
       } // 10
 

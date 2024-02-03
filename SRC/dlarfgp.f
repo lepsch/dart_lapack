@@ -55,7 +55,7 @@
             // However, the application routines rely on explicit
             // zero checks when TAU.ne.ZERO, and we must clear X.
             TAU = TWO
-            DO J = 1, N-1
+            for (J = 1; J <= N-1; J++) {
                X( 1 + (J-1)*INCX ) = 0
             END DO
             ALPHA = -ALPHA
@@ -108,7 +108,7 @@
                TAU = ZERO
             } else {
                TAU = TWO
-               DO J = 1, N-1
+               for (J = 1; J <= N-1; J++) {
                   X( 1 + (J-1)*INCX ) = 0
                END DO
                BETA = -SAVEALPHA

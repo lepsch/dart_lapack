@@ -51,7 +51,7 @@
 
       // Initialise columns 1:n-k to columns of the unit matrix
 
-      DO 20 J = 1, N - K
+      for (J = 1; J <= N - K; J++) { // 20
          for (L = 1; L <= M; L++) { // 10
             A( L, J ) = ZERO
          } // 10
@@ -70,7 +70,7 @@
 
          // Set A(m-k+i+1:m,n-k+i) to zero
 
-         DO 30 L = M - N + II + 1, M
+         for (L = M - N + II + 1; L <= M; L++) { // 30
             A( L, II ) = ZERO
          } // 30
       } // 40

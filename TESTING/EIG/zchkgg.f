@@ -203,7 +203,7 @@
                   // diagonal matrix.  (Note that ZLARFG makes U(j,j) and
                   // V(j,j) real.)
 
-                  DO 50 JC = 1, N - 1
+                  for (JC = 1; JC <= N - 1; JC++) { // 50
                      for (JR = JC; JR <= N; JR++) { // 40
                         U( JR, JC ) = ZLARND( 3, ISEED )
                         V( JR, JC ) = ZLARND( 3, ISEED )
@@ -361,7 +361,7 @@
             for (J = 1; J <= I1; J++) { // 120
                LLWORK( J ) = .TRUE.
             } // 120
-            DO 130 J = I1 + 1, N
+            for (J = I1 + 1; J <= N; J++) { // 130
                LLWORK( J ) = .FALSE.
             } // 130
 
@@ -376,7 +376,7 @@
             for (J = 1; J <= I1; J++) { // 140
                LLWORK( J ) = .FALSE.
             } // 140
-            DO 150 J = I1 + 1, N
+            for (J = I1 + 1; J <= N; J++) { // 150
                LLWORK( J ) = .TRUE.
             } // 150
 
@@ -425,7 +425,7 @@
             for (J = 1; J <= I1; J++) { // 160
                LLWORK( J ) = .TRUE.
             } // 160
-            DO 170 J = I1 + 1, N
+            for (J = I1 + 1; J <= N; J++) { // 170
                LLWORK( J ) = .FALSE.
             } // 170
 
@@ -440,7 +440,7 @@
             for (J = 1; J <= I1; J++) { // 180
                LLWORK( J ) = .FALSE.
             } // 180
-            DO 190 J = I1 + 1, N
+            for (J = I1 + 1; J <= N; J++) { // 190
                LLWORK( J ) = .TRUE.
             } // 190
 

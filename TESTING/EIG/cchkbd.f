@@ -405,7 +405,7 @@
                      // non-increasing order and are non-negative
 
             RESULT( 8 ) = ZERO
-            DO 110 I = 1, MNMIN - 1
+            for (I = 1; I <= MNMIN - 1; I++) { // 110
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 8 ) = ULPINV
             } // 110
             if ( MNMIN.GE.1 ) {

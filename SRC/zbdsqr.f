@@ -107,7 +107,7 @@
       // by applying Givens rotations on the left
 
       if ( LOWER ) {
-         DO 10 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 10
             dlartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )
@@ -134,7 +134,7 @@
       for (I = 1; I <= N; I++) { // 20
          SMAX = MAX( SMAX, ABS( D( I ) ) )
       } // 20
-      DO 30 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 30
          SMAX = MAX( SMAX, ABS( E( I ) ) )
       } // 30
       SMIN = ZERO
@@ -191,7 +191,7 @@
 
       IF( TOL.LT.ZERO .AND. ABS( D( M ) ).LE.THRESH ) D( M ) = ZERO
       SMAX = ABS( D( M ) )
-      DO 70 LLL = 1, M - 1
+      for (LLL = 1; LLL <= M - 1; LLL++) { // 70
          LL = M - LLL
          ABSS = ABS( D( LL ) )
          ABSE = ABS( E( LL ) )
@@ -269,7 +269,7 @@
 
             MU = ABS( D( LL ) )
             SMIN = MU
-            DO 100 LLL = LL, M - 1
+            for (LLL = LL; LLL <= M - 1; LLL++) { // 100
                if ( ABS( E( LLL ) ).LE.TOL*MU ) {
                   E( LLL ) = ZERO
                   GO TO 60
@@ -350,7 +350,7 @@
 
             CS = ONE
             OLDCS = ONE
-            DO 120 I = LL, M - 1
+            for (I = LL; I <= M - 1; I++) { // 120
                dlartg(D( I )*CS, E( I ), CS, SN, R );
                IF( I.GT.LL ) E( I-1 ) = OLDSN*R
                dlartg(OLDCS*R, D( I+1 )*SN, OLDCS, OLDSN, D( I ) );
@@ -410,7 +410,7 @@
 
             F = ( ABS( D( LL ) )-SHIFT )* ( SIGN( ONE, D( LL ) )+SHIFT / D( LL ) )
             G = E( LL )
-            DO 140 I = LL, M - 1
+            for (I = LL; I <= M - 1; I++) { // 140
                dlartg(F, G, COSR, SINR, R );
                IF( I.GT.LL ) E( I-1 ) = R
                F = COSR*D( I ) + SINR*E( I )
@@ -499,13 +499,13 @@
       // Sort the singular values into decreasing order (insertion sort on
       // singular values, but only one transposition per singular vector)
 
-      DO 190 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 190
 
          // Scan for smallest D(I)
 
          ISUB = 1
          SMIN = D( 1 )
-         DO 180 J = 2, N + 1 - I
+         for (J = 2; J <= N + 1 - I; J++) { // 180
             if ( D( J ).LE.SMIN ) {
                ISUB = J
                SMIN = D( J )
@@ -527,7 +527,7 @@
 
       } // 200
       INFO = 0
-      DO 210 I = 1, N - 1
+      for (I = 1; I <= N - 1; I++) { // 210
          IF( E( I ).NE.ZERO ) INFO = INFO + 1
       } // 210
       } // 220

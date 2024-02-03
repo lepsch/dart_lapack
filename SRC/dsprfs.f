@@ -122,7 +122,7 @@
                S = ZERO
                XK = ABS( X( K, J ) )
                IK = KK
-               DO 40 I = 1, K - 1
+               for (I = 1; I <= K - 1; I++) { // 40
                   WORK( I ) = WORK( I ) + ABS( AP( IK ) )*XK
                   S = S + ABS( AP( IK ) )*ABS( X( I, J ) )
                   IK = IK + 1
@@ -136,7 +136,7 @@
                XK = ABS( X( K, J ) )
                WORK( K ) = WORK( K ) + ABS( AP( KK ) )*XK
                IK = KK + 1
-               DO 60 I = K + 1, N
+               for (I = K + 1; I <= N; I++) { // 60
                   WORK( I ) = WORK( I ) + ABS( AP( IK ) )*XK
                   S = S + ABS( AP( IK ) )*ABS( X( I, J ) )
                   IK = IK + 1

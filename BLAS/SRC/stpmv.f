@@ -79,7 +79,7 @@
                       if (X(J).NE.ZERO) {
                           TEMP = X(J)
                           K = KK
-                          DO 10 I = 1,J - 1
+                          for (I = 1; I <= J - 1; I++) { // 10
                               X(I) = X(I) + TEMP*AP(K)
                               K = K + 1
                           } // 10
@@ -93,7 +93,7 @@
                       if (X(JX).NE.ZERO) {
                           TEMP = X(JX)
                           IX = KX
-                          DO 30 K = KK,KK + J - 2
+                          for (K = KK; K <= KK + J - 2; K++) { // 30
                               X(IX) = X(IX) + TEMP*AP(K)
                               IX = IX + INCX
                           } // 30
@@ -176,7 +176,7 @@
                       TEMP = X(J)
                       IF (NOUNIT) TEMP = TEMP*AP(KK)
                       K = KK + 1
-                      DO 130 I = J + 1,N
+                      for (I = J + 1; I <= N; I++) { // 130
                           TEMP = TEMP + AP(K)*X(I)
                           K = K + 1
                       } // 130
@@ -189,7 +189,7 @@
                       TEMP = X(JX)
                       IX = JX
                       IF (NOUNIT) TEMP = TEMP*AP(KK)
-                      DO 150 K = KK + 1,KK + N - J
+                      for (K = KK + 1; K <= KK + N - J; K++) { // 150
                           IX = IX + INCX
                           TEMP = TEMP + AP(K)*X(IX)
                       } // 150

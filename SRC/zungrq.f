@@ -108,8 +108,8 @@
 
          // Set A(1:m-kk,n-kk+1:n) to zero.
 
-         DO 20 J = N - KK + 1, N
-            DO 10 I = 1, M - KK
+         for (J = N - KK + 1; J <= N; J++) { // 20
+            for (I = 1; I <= M - KK; I++) { // 10
                A( I, J ) = ZERO
             } // 10
          } // 20
@@ -146,8 +146,8 @@
 
             // Set columns n-k+i+ib:n of current block to zero
 
-            DO 40 L = N - K + I + IB, N
-               DO 30 J = II, II + IB - 1
+            for (L = N - K + I + IB; L <= N; L++) { // 40
+               for (J = II; J <= II + IB - 1; J++) { // 30
                   A( J, L ) = ZERO
                } // 30
             } // 40

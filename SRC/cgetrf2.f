@@ -91,7 +91,7 @@
             if ( ABS(A( 1, 1 )) .GE. SFMIN ) {
                cscal(M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 );
             } else {
-               DO 10 I = 1, M-1
+               for (I = 1; I <= M-1; I++) { // 10
                   A( 1+I, 1 ) = A( 1+I, 1 ) / A( 1, 1 )
                } // 10
             }

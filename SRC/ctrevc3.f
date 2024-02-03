@@ -165,14 +165,14 @@
 
             // Form right-hand side.
 
-            DO 40 K = 1, KI - 1
+            for (K = 1; K <= KI - 1; K++) { // 40
                WORK( K + IV*N ) = -T( K, KI )
             } // 40
 
             // Solve upper triangular system:
             // [ T(1:KI-1,1:KI-1) - T(KI,KI) ]*X = SCALE*WORK.
 
-            DO 50 K = 1, KI - 1
+            for (K = 1; K <= KI - 1; K++) { // 50
                T( K, K ) = T( K, K ) - T( KI, KI )
                IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
             } // 50
@@ -193,7 +193,7 @@
                REMAX = ONE / CABS1( VR( II, IS ) )
                csscal(KI, REMAX, VR( 1, IS ), 1 );
 
-               DO 60 K = KI + 1, N
+               for (K = KI + 1; K <= N; K++) { // 60
                   VR( K, IS ) = CZERO
                } // 60
 
@@ -210,7 +210,7 @@
                // ------------------------------
                // version 2: back-transform block of vectors with GEMM
                // zero out below vector
-               DO K = KI + 1, N
+               for (K = KI + 1; K <= N; K++) {
                   WORK( K + IV*N ) = CZERO
                END DO
 
@@ -234,7 +234,7 @@
 
             // Restore the original diagonal elements of T.
 
-            DO 70 K = 1, KI - 1
+            for (K = 1; K <= KI - 1; K++) { // 70
                T( K, K ) = WORK( K )
             } // 70
 
@@ -267,14 +267,14 @@
 
             // Form right-hand side.
 
-            DO 90 K = KI + 1, N
+            for (K = KI + 1; K <= N; K++) { // 90
                WORK( K + IV*N ) = -CONJG( T( KI, K ) )
             } // 90
 
             // Solve conjugate-transposed triangular system:
             // [ T(KI+1:N,KI+1:N) - T(KI,KI) ]**H * X = SCALE*WORK.
 
-            DO 100 K = KI + 1, N
+            for (K = KI + 1; K <= N; K++) { // 100
                T( K, K ) = T( K, K ) - T( KI, KI )
                IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
             } // 100
@@ -295,7 +295,7 @@
                REMAX = ONE / CABS1( VL( II, IS ) )
                csscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
-               DO 110 K = 1, KI - 1
+               for (K = 1; K <= KI - 1; K++) { // 110
                   VL( K, IS ) = CZERO
                } // 110
 
@@ -313,7 +313,7 @@
                // version 2: back-transform block of vectors with GEMM
                // zero out above vector
                // could go from KI-NV+1 to KI-1
-               DO K = 1, KI - 1
+               for (K = 1; K <= KI - 1; K++) {
                   WORK( K + IV*N ) = CZERO
                END DO
 
@@ -337,7 +337,7 @@
 
             // Restore the original diagonal elements of T.
 
-            DO 120 K = KI + 1, N
+            for (K = KI + 1; K <= N; K++) { // 120
                T( K, K ) = WORK( K )
             } // 120
 

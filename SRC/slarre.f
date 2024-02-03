@@ -154,7 +154,7 @@
             RETURN
          }
          // Make sure that the entries M+1 to N in W, WERR, IBLOCK, INDEXW are 0
-         DO 14 I = MM+1,N
+         for (I = MM+1; I <= N; I++) { // 14
             W( I ) = ZERO
             WERR( I ) = ZERO
             IBLOCK( I ) = 0
@@ -231,7 +231,7 @@
                // In later stages, when representations for individual
                // eigenvalues are different, we use SIGMA = E( IEND ).
                SIGMA = ZERO
-               DO 30 I = WBEGIN, WEND - 1
+               for (I = WBEGIN; I <= WEND - 1; I++) { // 30
                   WGAP( I ) = MAX( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) )
                } // 30
                WGAP( WEND ) = MAX( ZERO, VU - SIGMA - (W( WEND )+WERR( WEND )))
@@ -369,7 +369,7 @@
             WORK( 1 ) = DPIVOT
             DMAX = ABS( WORK(1) )
             J = IBEGIN
-            DO 70 I = 1, IN - 1
+            for (I = 1; I <= IN - 1; I++) { // 70
                WORK( 2*IN+I ) = ONE / WORK( I )
                TMP = E( J )*WORK( 2*IN+I )
                WORK( IN+I ) = TMP
@@ -438,7 +438,7 @@
             } // 122
 
             slarnv(2, ISEED, 2*IN-1, WORK(1));
-            DO 125 I = 1,IN-1
+            for (I = 1; I <= IN-1; I++) { // 125
                D(IBEGIN+I-1) = D(IBEGIN+I-1)*(ONE+EPS*PERT*WORK(I))
                E(IBEGIN+I-1) = E(IBEGIN+I-1)*(ONE+EPS*PERT*WORK(IN+I))
             } // 125
@@ -464,7 +464,7 @@
             } // 134
             // call SLARRB to reduce eigenvalue error of the approximations
             // from SLARRD
-            DO 135 I = IBEGIN, IEND-1
+            for (I = IBEGIN; I <= IEND-1; I++) { // 135
                WORK( I ) = D( I ) * E( I )**2
             } // 135
             // use bisection to find EV from INDL to INDU
@@ -495,7 +495,7 @@
             // done by bisection when computing the eigenvectors
             RTOL = LOG(REAL(IN)) * FOUR * EPS
             J = IBEGIN
-            DO 140 I = 1, IN - 1
+            for (I = 1; I <= IN - 1; I++) { // 140
                WORK( 2*I-1 ) = ABS( D( J ) )
                WORK( 2*I ) = E( J )*E( J )*WORK( 2*I-1 )
                J = J + 1
@@ -534,11 +534,11 @@
                } // 160
             }
 
-            DO 165 I = M - MB + 1, M
+            for (I = M - MB + 1; I <= M; I++) { // 165
                // the value of RTOL below should be the tolerance in SLASQ2
                WERR( I ) = RTOL * ABS( W(I) )
             } // 165
-            DO 166 I = M - MB + 1, M - 1
+            for (I = M - MB + 1; I <= M - 1; I++) { // 166
                // compute the right gap between the intervals
                WGAP( I ) = MAX( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) )
             } // 166

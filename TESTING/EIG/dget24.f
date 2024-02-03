@@ -125,15 +125,15 @@
          // Do Test (1) or Test (7)
 
          RESULT( 1+RSUB ) = ZERO
-         DO 30 J = 1, N - 2
-            DO 20 I = J + 2, N
+         for (J = 1; J <= N - 2; J++) { // 30
+            for (I = J + 2; I <= N; I++) { // 20
                IF( H( I, J ).NE.ZERO ) RESULT( 1+RSUB ) = ULPINV
             } // 20
          } // 30
-         DO 40 I = 1, N - 2
+         for (I = 1; I <= N - 2; I++) { // 40
             IF( H( I+1, I ).NE.ZERO .AND. H( I+2, I+1 ).NE.ZERO ) RESULT( 1+RSUB ) = ULPINV
          } // 40
-         DO 50 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 50
             if ( H( I+1, I ).NE.ZERO ) {
                IF( H( I, I ).NE.H( I+1, I+1 ) .OR. H( I, I+1 ).EQ. ZERO .OR. SIGN( ONE, H( I+1, I ) ).EQ. SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
             }
@@ -179,7 +179,7 @@
          if ( N.GT.1 ) {
             IF( H( 2, 1 ).EQ.ZERO .AND. WI( 1 ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV             IF( H( N, N-1 ).EQ.ZERO .AND. WI( N ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV
          }
-         DO 70 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 70
             if ( H( I+1, I ).NE.ZERO ) {
                TMP = SQRT( ABS( H( I+1, I ) ) )* SQRT( ABS( H( I, I+1 ) ) )                RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / MAX( ULP*TMP, SMLNUM ) )                RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / MAX( ULP*TMP, SMLNUM ) )
             } else if ( I.GT.1 ) {
@@ -434,11 +434,11 @@
             SELWR( I ) = WRTMP( I )
             SELWI( I ) = WITMP( I )
          } // 260
-         DO 280 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 280
             KMIN = I
             VRMIN = WRTMP( I )
             VIMIN = WITMP( I )
-            DO 270 J = I + 1, N
+            for (J = I + 1; J <= N; J++) { // 270
                if ( WRTMP( J ).LT.VRMIN ) {
                   KMIN = J
                   VRMIN = WRTMP( J )

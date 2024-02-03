@@ -45,7 +45,7 @@
       IF( N.EQ.0 ) RETURN
 
       if ( NRHS.EQ.1 ) {
-         DO 10 I = 1, N - 2
+         for (I = 1; I <= N - 2; I++) { // 10
             if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
 
                // No row interchange required
@@ -102,7 +102,7 @@
             RETURN
          }
       } else {
-         DO 40 I = 1, N - 2
+         for (I = 1; I <= N - 2; I++) { // 40
             if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
 
                // No row interchange required

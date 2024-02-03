@@ -100,7 +100,7 @@
       if ( IUPLO.EQ.2 ) {
          QSTART = 5
          IF( ICOMPQ .EQ. 2 ) WSTART = 2*N - 1
-         DO 10 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 10
             slartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )

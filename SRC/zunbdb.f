@@ -184,7 +184,7 @@
 
          // Reduce columns Q + 1, ..., P of X12, X22
 
-         DO I = Q + 1, P
+         for (I = Q + 1; I <= P; I++) {
 
             zscal(M-Q-I+1, DCMPLX( -Z1*Z4, 0.0D0 ), X12(I,I), LDX12 );
             zlacgv(M-Q-I+1, X12(I,I), LDX12 );
@@ -206,7 +206,7 @@
 
          // Reduce columns P + 1, ..., M - Q of X12, X22
 
-         DO I = 1, M - P - Q
+         for (I = 1; I <= M - P - Q; I++) {
 
             zscal(M-P-Q-I+1, DCMPLX( Z2*Z4, 0.0D0 ), X22(Q+I,P+I), LDX22 );
             zlacgv(M-P-Q-I+1, X22(Q+I,P+I), LDX22 );
@@ -280,7 +280,7 @@
 
          // Reduce columns Q + 1, ..., P of X12, X22
 
-         DO I = Q + 1, P
+         for (I = Q + 1; I <= P; I++) {
 
             zscal(M-Q-I+1, DCMPLX( -Z1*Z4, 0.0D0 ), X12(I,I), 1 );
             zlarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
@@ -295,7 +295,7 @@
 
          // Reduce columns P + 1, ..., M - Q of X12, X22
 
-         DO I = 1, M - P - Q
+         for (I = 1; I <= M - P - Q; I++) {
 
             zscal(M-P-Q-I+1, DCMPLX( Z2*Z4, 0.0D0 ), X22(P+I,Q+I), 1 )             CALL ZLARFGP( M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) );
             X22(P+I,Q+I) = ONE

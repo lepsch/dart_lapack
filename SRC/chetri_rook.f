@@ -143,7 +143,7 @@
 
                IF( KP.GT.1 ) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
 
-               DO 40 J = KP + 1, K - 1
+               for (J = KP + 1; J <= K - 1; J++) { // 40
                   TEMP = CONJG( A( J, K ) )
                   A( J, K ) = CONJG( A( KP, J ) )
                   A( KP, J ) = TEMP
@@ -167,7 +167,7 @@
 
                IF( KP.GT.1 ) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
 
-               DO 50 J = KP + 1, K - 1
+               for (J = KP + 1; J <= K - 1; J++) { // 50
                   TEMP = CONJG( A( J, K ) )
                   A( J, K ) = CONJG( A( KP, J ) )
                   A( KP, J ) = TEMP
@@ -192,7 +192,7 @@
 
                IF( KP.GT.1 ) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
 
-               DO 60 J = KP + 1, K - 1
+               for (J = KP + 1; J <= K - 1; J++) { // 60
                   TEMP = CONJG( A( J, K ) )
                   A( J, K ) = CONJG( A( KP, J ) )
                   A( KP, J ) = TEMP
@@ -275,7 +275,7 @@
 
                IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
 
-               DO 90 J = K + 1, KP - 1
+               for (J = K + 1; J <= KP - 1; J++) { // 90
                   TEMP = CONJG( A( J, K ) )
                   A( J, K ) = CONJG( A( KP, J ) )
                   A( KP, J ) = TEMP
@@ -299,7 +299,7 @@
 
                IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
 
-               DO 100 J = K + 1, KP - 1
+               for (J = K + 1; J <= KP - 1; J++) { // 100
                   TEMP = CONJG( A( J, K ) )
                   A( J, K ) = CONJG( A( KP, J ) )
                   A( KP, J ) = TEMP
@@ -324,7 +324,7 @@
 
                IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
 
-               DO 110 J = K + 1, KP - 1
+               for (J = K + 1; J <= KP - 1; J++) { // 110
                   TEMP = CONJG( A( J, K ) )
                   A( J, K ) = CONJG( A( KP, J ) )
                   A( KP, J ) = TEMP

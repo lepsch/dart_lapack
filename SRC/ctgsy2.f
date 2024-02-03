@@ -180,10 +180,10 @@
 
                // Substitute R(I, J) and L(I, J) into remaining equation.
 
-               DO 50 K = 1, J - 1
+               for (K = 1; K <= J - 1; K++) { // 50
                   F( I, K ) = F( I, K ) + RHS( 1 )*CONJG( B( K, J ) ) + RHS( 2 )*CONJG( E( K, J ) )
                } // 50
-               DO 60 K = I + 1, M
+               for (K = I + 1; K <= M; K++) { // 60
                   C( K, J ) = C( K, J ) - CONJG( A( I, K ) )*RHS( 1 ) - CONJG( D( I, K ) )*RHS( 2 )
                } // 60
 

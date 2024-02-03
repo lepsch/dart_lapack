@@ -75,14 +75,14 @@
                for (J = 1; J <= I; J++) {
                   TMP = TMP + CABS1( A( J, I ) ) / C( J )
                END DO
-               DO J = I+1, N
+               for (J = I+1; J <= N; J++) {
                   TMP = TMP + CABS1( A( I, J ) ) / C( J )
                END DO
             } else {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + CABS1( A( J, I ) )
                END DO
-               DO J = I+1, N
+               for (J = I+1; J <= N; J++) {
                   TMP = TMP + CABS1( A( I, J ) )
                END DO
             }
@@ -96,14 +96,14 @@
                for (J = 1; J <= I; J++) {
                   TMP = TMP + CABS1( A( I, J ) ) / C( J )
                END DO
-               DO J = I+1, N
+               for (J = I+1; J <= N; J++) {
                   TMP = TMP + CABS1( A( J, I ) ) / C( J )
                END DO
             } else {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + CABS1( A( I, J ) )
                END DO
-               DO J = I+1, N
+               for (J = I+1; J <= N; J++) {
                   TMP = TMP + CABS1( A( J, I ) )
                END DO
             }

@@ -46,11 +46,11 @@
       for (I = 1; I <= N; I++) { // 10
          IPIV( I ) = I
       } // 10
-      DO 20 I = 1, N - 2
+      for (I = 1; I <= N - 2; I++) { // 20
          DU2( I ) = ZERO
       } // 20
 
-      DO 30 I = 1, N - 2
+      for (I = 1; I <= N - 2; I++) { // 30
          if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
 
             // No row interchange required, eliminate DL(I)

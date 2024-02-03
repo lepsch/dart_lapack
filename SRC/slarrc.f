@@ -55,7 +55,7 @@
          if ( RPIVOT.LE.ZERO ) {
             RCNT = RCNT + 1
          }
-         DO 10 I = 1, N-1
+         for (I = 1; I <= N-1; I++) { // 10
             TMP = E(I)**2
             LPIVOT = ( D( I+1 )-VL ) - TMP/LPIVOT
             RPIVOT = ( D( I+1 )-VU ) - TMP/RPIVOT
@@ -70,7 +70,7 @@
          // Sturm sequence count on L D L^T
          SL = -VL
          SU = -VU
-         DO 20 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 20
             LPIVOT = D( I ) + SL
             RPIVOT = D( I ) + SU
             if ( LPIVOT.LE.ZERO ) {

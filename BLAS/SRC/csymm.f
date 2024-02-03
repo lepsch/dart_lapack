@@ -103,7 +103,7 @@
                   for (I = 1; I <= M; I++) { // 60
                       TEMP1 = ALPHA*B(I,J)
                       TEMP2 = ZERO
-                      DO 50 K = 1,I - 1
+                      for (K = 1; K <= I - 1; K++) { // 50
                           C(K,J) = C(K,J) + TEMP1*A(K,I)
                           TEMP2 = TEMP2 + B(K,J)*A(K,I)
                       } // 50
@@ -119,7 +119,7 @@
                   DO 90 I = M,1,-1
                       TEMP1 = ALPHA*B(I,J)
                       TEMP2 = ZERO
-                      DO 80 K = I + 1,M
+                      for (K = I + 1; K <= M; K++) { // 80
                           C(K,J) = C(K,J) + TEMP1*A(K,I)
                           TEMP2 = TEMP2 + B(K,J)*A(K,I)
                       } // 80
@@ -146,7 +146,7 @@
                       C(I,J) = BETA*C(I,J) + TEMP1*B(I,J)
                   } // 120
               }
-              DO 140 K = 1,J - 1
+              for (K = 1; K <= J - 1; K++) { // 140
                   if (UPPER) {
                       TEMP1 = ALPHA*A(K,J)
                   } else {
@@ -156,7 +156,7 @@
                       C(I,J) = C(I,J) + TEMP1*B(I,K)
                   } // 130
               } // 140
-              DO 160 K = J + 1,N
+              for (K = J + 1; K <= N; K++) { // 160
                   if (UPPER) {
                       TEMP1 = ALPHA*A(J,K)
                   } else {

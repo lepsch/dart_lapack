@@ -105,7 +105,7 @@
 
             } // 50
             IF( IHI.EQ.N ) GO TO 70
-            DO 60 I = IHI + 1, N
+            for (I = IHI + 1; I <= N; I++) { // 60
                K = INT(RSCALE( I ))
                IF( K.EQ.I ) GO TO 60
                dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
@@ -125,7 +125,7 @@
 
             } // 90
             IF( IHI.EQ.N ) GO TO 110
-            DO 100 I = IHI + 1, N
+            for (I = IHI + 1; I <= N; I++) { // 100
                K = INT(LSCALE( I ))
                IF( K.EQ.I ) GO TO 100
                dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );

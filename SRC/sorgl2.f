@@ -54,7 +54,7 @@
          // Initialise rows k+1:m to rows of the unit matrix
 
          for (J = 1; J <= N; J++) { // 20
-            DO 10 L = K + 1, M
+            for (L = K + 1; L <= M; L++) { // 10
                A( L, J ) = ZERO
             } // 10
             IF( J.GT.K .AND. J.LE.M ) A( J, J ) = ONE
@@ -76,7 +76,7 @@
 
          // Set A(i,1:i-1) to zero
 
-         DO 30 L = 1, I - 1
+         for (L = 1; L <= I - 1; L++) { // 30
             A( I, L ) = ZERO
          } // 30
       } // 40

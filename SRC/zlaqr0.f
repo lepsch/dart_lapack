@@ -347,7 +347,7 @@
                      DO 50 K = KBOT, KS + 1, -1
                         IF( SORTED ) GO TO 60
                         SORTED = .true.
-                        DO 40 I = KS, K - 1
+                        for (I = KS; I <= K - 1; I++) { // 40
                            if ( CABS1( W( I ) ).LT.CABS1( W( I+1 ) ) ) {
                               SORTED = .false.
                               SWAP = W( I )

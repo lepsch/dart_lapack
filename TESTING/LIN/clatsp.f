@@ -41,7 +41,7 @@
 
       // Fill the matrix with zeros.
 
-      DO 10 J = 1, N*( N+1 ) / 2
+      for (J = 1; J <= N*( N+1 ) / 2; J++) { // 10
          X( J ) = 0.0
       } // 10
 

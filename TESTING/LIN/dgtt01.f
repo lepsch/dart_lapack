@@ -85,7 +85,7 @@
          WORK( 1, 2 ) = WORK( 1, 2 ) - DU( 1 )
          WORK( N, N-1 ) = WORK( N, N-1 ) - DL( N-1 )
          WORK( N, N ) = WORK( N, N ) - D( N )
-         DO 50 I = 2, N - 1
+         for (I = 2; I <= N - 1; I++) { // 50
             WORK( I, I-1 ) = WORK( I, I-1 ) - DL( I-1 )
             WORK( I, I ) = WORK( I, I ) - D( I )
             WORK( I, I+1 ) = WORK( I, I+1 ) - DU( I )

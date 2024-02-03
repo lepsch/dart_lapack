@@ -85,7 +85,7 @@
          // work(n+1:m,n+1:n+nrhs)
 
          ERR = ZERO
-         DO 20 J = N + 1, N + NRHS
+         for (J = N + 1; J <= N + NRHS; J++) { // 20
             DO 10 I = N + 1, MIN( M, J )
                ERR = MAX( ERR, ABS( WORK( I+( J-1 )*M ) ) )
             } // 10
@@ -112,7 +112,7 @@
          // work(m+1:m+nrhs,m+1:n)
 
          ERR = ZERO
-         DO 60 J = M + 1, N
+         for (J = M + 1; J <= N; J++) { // 60
             for (I = J; I <= LDWORK; I++) { // 50
                ERR = MAX( ERR, ABS( WORK( I+( J-1 )*LDWORK ) ) )
             } // 50

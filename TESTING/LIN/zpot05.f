@@ -93,19 +93,19 @@
          for (I = 1; I <= N; I++) { // 80
             TMP = CABS1( B( I, K ) )
             if ( UPPER ) {
-               DO 40 J = 1, I - 1
+               for (J = 1; J <= I - 1; J++) { // 40
                   TMP = TMP + CABS1( A( J, I ) )*CABS1( X( J, K ) )
                } // 40
                TMP = TMP + ABS( DBLE( A( I, I ) ) )*CABS1( X( I, K ) )
-               DO 50 J = I + 1, N
+               for (J = I + 1; J <= N; J++) { // 50
                   TMP = TMP + CABS1( A( I, J ) )*CABS1( X( J, K ) )
                } // 50
             } else {
-               DO 60 J = 1, I - 1
+               for (J = 1; J <= I - 1; J++) { // 60
                   TMP = TMP + CABS1( A( I, J ) )*CABS1( X( J, K ) )
                } // 60
                TMP = TMP + ABS( DBLE( A( I, I ) ) )*CABS1( X( I, K ) )
-               DO 70 J = I + 1, N
+               for (J = I + 1; J <= N; J++) { // 70
                   TMP = TMP + CABS1( A( J, I ) )*CABS1( X( J, K ) )
                } // 70
             }

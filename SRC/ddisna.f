@@ -57,7 +57,7 @@
       } else {
          INCR = .TRUE.
          DECR = .TRUE.
-         DO 10 I = 1, K - 1
+         for (I = 1; I <= K - 1; I++) { // 10
             IF( INCR ) INCR = INCR .AND. D( I ).LE.D( I+1 )             IF( DECR ) DECR = DECR .AND. D( I ).GE.D( I+1 )
          } // 10
          if ( SING .AND. K.GT.0 ) {
@@ -81,7 +81,7 @@
       } else {
          OLDGAP = ABS( D( 2 )-D( 1 ) )
          SEP( 1 ) = OLDGAP
-         DO 20 I = 2, K - 1
+         for (I = 2; I <= K - 1; I++) { // 20
             NEWGAP = ABS( D( I+1 )-D( I ) )
             SEP( I ) = MIN( OLDGAP, NEWGAP )
             OLDGAP = NEWGAP

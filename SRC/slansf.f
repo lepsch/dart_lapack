@@ -84,16 +84,16 @@
             // n is odd
             if ( IFM.EQ.1 ) {
             // A is n by k
-               DO J = 0, K - 1
-                  DO I = 0, N - 1
+               for (J = 0; J <= K - 1; J++) {
+                  for (I = 0; I <= N - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END DO
             } else {
                // xpose case; A is k by n
-               DO J = 0, N - 1
-                  DO I = 0, K - 1
+               for (J = 0; J <= N - 1; J++) {
+                  for (I = 0; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -103,7 +103,7 @@
             // n is even
             if ( IFM.EQ.1 ) {
                // A is n+1 by k
-               DO J = 0, K - 1
+               for (J = 0; J <= K - 1; J++) {
                   for (I = 0; I <= N; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
@@ -112,7 +112,7 @@
             } else {
                // xpose case; A is k by n+1
                for (J = 0; J <= N; J++) {
-                  DO I = 0, K - 1
+                  for (I = 0; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -128,12 +128,12 @@
             if ( NOE.EQ.1 ) {
                // n is odd
                if ( ILU.EQ.0 ) {
-                  DO I = 0, K - 1
+                  for (I = 0; I <= K - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
                   for (J = 0; J <= K; J++) {
                      S = ZERO
-                     DO I = 0, K + J - 1
+                     for (I = 0; I <= K + J - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(i,j+k)
                         S = S + AA
@@ -148,7 +148,7 @@
                      // -> A(j,j)
                      WORK( J ) = WORK( J ) + AA
                      S = ZERO
-                     DO L = J + 1, K - 1
+                     for (L = J + 1; L <= K - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(l,j)
@@ -159,7 +159,7 @@
                   END DO
                   } // 10
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -167,12 +167,12 @@
                   // ilu = 1
                   K = K + 1
                   // k=(n+1)/2 for n odd and ilu=1
-                  DO I = K, N - 1
+                  for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
                   DO J = K - 1, 0, -1
                      S = ZERO
-                     DO I = 0, J - 2
+                     for (I = 0; I <= J - 2; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(j+k,i+k)
                         S = S + AA
@@ -190,7 +190,7 @@
                      // -> A(j,j)
                      WORK( J ) = AA
                      S = ZERO
-                     DO L = J + 1, N - 1
+                     for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(l,j)
@@ -200,7 +200,7 @@
                      WORK( J ) = WORK( J ) + S
                   END DO
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -208,12 +208,12 @@
             } else {
                // n is even
                if ( ILU.EQ.0 ) {
-                  DO I = 0, K - 1
+                  for (I = 0; I <= K - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      S = ZERO
-                     DO I = 0, K + J - 1
+                     for (I = 0; I <= K + J - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(i,j+k)
                         S = S + AA
@@ -227,7 +227,7 @@
                      // -> A(j,j)
                      WORK( J ) = WORK( J ) + AA
                      S = ZERO
-                     DO L = J + 1, K - 1
+                     for (L = J + 1; L <= K - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(l,j)
@@ -237,18 +237,18 @@
                      WORK( J ) = WORK( J ) + S
                   END DO
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                } else {
                   // ilu = 1
-                  DO I = K, N - 1
+                  for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
                   DO J = K - 1, 0, -1
                      S = ZERO
-                     DO I = 0, J - 1
+                     for (I = 0; I <= J - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(j+k,i+k)
                         S = S + AA
@@ -264,7 +264,7 @@
                      // -> A(j,j)
                      WORK( J ) = AA
                      S = ZERO
-                     DO L = J + 1, N - 1
+                     for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // -> A(l,j)
@@ -274,7 +274,7 @@
                      WORK( J ) = WORK( J ) + S
                   END DO
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -290,12 +290,12 @@
                   // n/2
                   K = K + 1
                   // k is the row size and lda
-                  DO I = N1, N - 1
+                  for (I = N1; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
-                  DO J = 0, N1 - 1
+                  for (J = 0; J <= N1 - 1; J++) {
                      S = ZERO
-                     DO I = 0, K - 1
+                     for (I = 0; I <= K - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(j,n1+i)
                         WORK( I+N1 ) = WORK( I+N1 ) + AA
@@ -306,16 +306,16 @@
                   // j=n1=k-1 is special
                   S = ABS( A( 0+J*LDA ) )
                   // A(k-1,k-1)
-                  DO I = 1, K - 1
+                  for (I = 1; I <= K - 1; I++) {
                      AA = ABS( A( I+J*LDA ) )
                      // A(k-1,i+n1)
                      WORK( I+N1 ) = WORK( I+N1 ) + AA
                      S = S + AA
                   END DO
                   WORK( J ) = WORK( J ) + S
-                  DO J = K, N - 1
+                  for (J = K; J <= N - 1; J++) {
                      S = ZERO
-                     DO I = 0, J - K - 1
+                     for (I = 0; I <= J - K - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(i,j-k)
                         WORK( I ) = WORK( I ) + AA
@@ -329,7 +329,7 @@
                      I = I + 1
                      S = ABS( A( I+J*LDA ) )
                      // A(j,j)
-                     DO L = J + 1, N - 1
+                     for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // A(j,l)
@@ -339,7 +339,7 @@
                      WORK( J ) = WORK( J ) + S
                   END DO
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -347,13 +347,13 @@
                   // ilu=1
                   K = K + 1
                   // k=(n+1)/2 for n odd and ilu=1
-                  DO I = K, N - 1
+                  for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      // process
                      S = ZERO
-                     DO I = 0, J - 1
+                     for (I = 0; I <= J - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(j,i)
                         WORK( I ) = WORK( I ) + AA
@@ -368,7 +368,7 @@
                      // i=j process A(j+k,j+k)
                      AA = ABS( A( I+J*LDA ) )
                      S = AA
-                     DO L = K + J + 1, N - 1
+                     for (L = K + J + 1; L <= N - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // A(l,k+j)
@@ -379,7 +379,7 @@
                   END DO
                   // j=k-1 is special :process col A(k-1,0:k-1)
                   S = ZERO
-                  DO I = 0, K - 2
+                  for (I = 0; I <= K - 2; I++) {
                      AA = ABS( A( I+J*LDA ) )
                      // A(k,i)
                      WORK( I ) = WORK( I ) + AA
@@ -391,10 +391,10 @@
                   S = S + AA
                   WORK( I ) = S
                   // done with col j=k+1
-                  DO J = K, N - 1
+                  for (J = K; J <= N - 1; J++) {
                      // process col j of A = A(j,0:k-1)
                      S = ZERO
-                     DO I = 0, K - 1
+                     for (I = 0; I <= K - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(j,i)
                         WORK( I ) = WORK( I ) + AA
@@ -403,7 +403,7 @@
                      WORK( J ) = WORK( J ) + S
                   END DO
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -411,12 +411,12 @@
             } else {
                // n is even
                if ( ILU.EQ.0 ) {
-                  DO I = K, N - 1
+                  for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      S = ZERO
-                     DO I = 0, K - 1
+                     for (I = 0; I <= K - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(j,i+k)
                         WORK( I+K ) = WORK( I+K ) + AA
@@ -428,16 +428,16 @@
                   AA = ABS( A( 0+J*LDA ) )
                   // A(k,k)
                   S = AA
-                  DO I = 1, K - 1
+                  for (I = 1; I <= K - 1; I++) {
                      AA = ABS( A( I+J*LDA ) )
                      // A(k,k+i)
                      WORK( I+K ) = WORK( I+K ) + AA
                      S = S + AA
                   END DO
                   WORK( J ) = WORK( J ) + S
-                  DO J = K + 1, N - 1
+                  for (J = K + 1; J <= N - 1; J++) {
                      S = ZERO
-                     DO I = 0, J - 2 - K
+                     for (I = 0; I <= J - 2 - K; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(i,j-k-1)
                         WORK( I ) = WORK( I ) + AA
@@ -452,7 +452,7 @@
                      AA = ABS( A( I+J*LDA ) )
                      // A(j,j)
                      S = AA
-                     DO L = J + 1, N - 1
+                     for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // A(j,l)
@@ -463,7 +463,7 @@
                   END DO
                   // j=n
                   S = ZERO
-                  DO I = 0, K - 2
+                  for (I = 0; I <= K - 2; I++) {
                      AA = ABS( A( I+J*LDA ) )
                      // A(i,k-1)
                      WORK( I ) = WORK( I ) + AA
@@ -475,29 +475,29 @@
                   S = S + AA
                   WORK( I ) = WORK( I ) + S
                   VALUE = WORK ( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                } else {
                   // ilu=1
-                  DO I = K, N - 1
+                  for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   END DO
                   // j=0 is special :process col A(k:n-1,k)
                   S = ABS( A( 0 ) )
                   // A(k,k)
-                  DO I = 1, K - 1
+                  for (I = 1; I <= K - 1; I++) {
                      AA = ABS( A( I ) )
                      // A(k+i,k)
                      WORK( I+K ) = WORK( I+K ) + AA
                      S = S + AA
                   END DO
                   WORK( K ) = WORK( K ) + S
-                  DO J = 1, K - 1
+                  for (J = 1; J <= K - 1; J++) {
                      // process
                      S = ZERO
-                     DO I = 0, J - 2
+                     for (I = 0; I <= J - 2; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(j-1,i)
                         WORK( I ) = WORK( I ) + AA
@@ -512,7 +512,7 @@
                      // i=j process A(j+k,j+k)
                      AA = ABS( A( I+J*LDA ) )
                      S = AA
-                     DO L = K + J + 1, N - 1
+                     for (L = K + J + 1; L <= N - 1; L++) {
                         I = I + 1
                         AA = ABS( A( I+J*LDA ) )
                         // A(l,k+j)
@@ -523,7 +523,7 @@
                   END DO
                   // j=k is special :process col A(k,0:k-1)
                   S = ZERO
-                  DO I = 0, K - 2
+                  for (I = 0; I <= K - 2; I++) {
                      AA = ABS( A( I+J*LDA ) )
                      // A(k,i)
                      WORK( I ) = WORK( I ) + AA
@@ -535,10 +535,10 @@
                   S = S + AA
                   WORK( I ) = S
                   // done with col j=k+1
-                  DO J = K + 1, N
+                  for (J = K + 1; J <= N; J++) {
                      // process col j-1 of A = A(j-1,0:k-1)
                      S = ZERO
-                     DO I = 0, K - 1
+                     for (I = 0; I <= K - 1; I++) {
                         AA = ABS( A( I+J*LDA ) )
                         // A(j-1,i)
                         WORK( I ) = WORK( I ) + AA
@@ -547,7 +547,7 @@
                      WORK( J-1 ) = WORK( J-1 ) + S
                   END DO
                   VALUE = WORK( 0 )
-                  DO I = 1, N-1
+                  for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -567,11 +567,11 @@
                // A is normal
                if ( ILU.EQ.0 ) {
                   // A is upper
-                  DO J = 0, K - 3
+                  for (J = 0; J <= K - 3; J++) {
                      slassq(K-J-2, A( K+J+1+J*LDA ), 1, SCALE, S );
                      // L at A(k,0)
                   END DO
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      slassq(K+J-1, A( 0+J*LDA ), 1, SCALE, S );
                      // trap U at A(0,0)
                   END DO
@@ -583,11 +583,11 @@
                   // tri U at A(k-1,0)
                } else {
                   // ilu=1 & A is lower
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      slassq(N-J-1, A( J+1+J*LDA ), 1, SCALE, S );
                      // trap L at A(0,0)
                   END DO
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      slassq(J, A( 0+( 1+J )*LDA ), 1, SCALE, S );
                      // U at A(0,1)
                   END DO
@@ -602,15 +602,15 @@
                // A is xpose
                if ( ILU.EQ.0 ) {
                   // A**T is upper
-                  DO J = 1, K - 2
+                  for (J = 1; J <= K - 2; J++) {
                      slassq(J, A( 0+( K+J )*LDA ), 1, SCALE, S );
                      // U at A(0,k)
                   END DO
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      slassq(K, A( 0+J*LDA ), 1, SCALE, S );
                      // k by k-1 rect. at A(0,0)
                   END DO
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      slassq(K-J-1, A( J+1+( J+K-1 )*LDA ), 1, SCALE, S );
                      // L at A(0,k-1)
                   END DO
@@ -622,15 +622,15 @@
                   // tri L at A(0,k-1)
                } else {
                   // A**T is lower
-                  DO J = 1, K - 1
+                  for (J = 1; J <= K - 1; J++) {
                      slassq(J, A( 0+J*LDA ), 1, SCALE, S );
                      // U at A(0,0)
                   END DO
-                  DO J = K, N - 1
+                  for (J = K; J <= N - 1; J++) {
                      slassq(K, A( 0+J*LDA ), 1, SCALE, S );
                      // k by k-1 rect. at A(0,k)
                   END DO
-                  DO J = 0, K - 3
+                  for (J = 0; J <= K - 3; J++) {
                      slassq(K-J-2, A( J+2+J*LDA ), 1, SCALE, S );
                      // L at A(1,0)
                   END DO
@@ -648,11 +648,11 @@
                // A is normal
                if ( ILU.EQ.0 ) {
                   // A is upper
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      slassq(K-J-1, A( K+J+2+J*LDA ), 1, SCALE, S );
                      // L at A(k+1,0)
                   END DO
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      slassq(K+J, A( 0+J*LDA ), 1, SCALE, S );
                      // trap U at A(0,0)
                   END DO
@@ -664,11 +664,11 @@
                   // tri U at A(k,0)
                } else {
                   // ilu=1 & A is lower
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      slassq(N-J-1, A( J+2+J*LDA ), 1, SCALE, S );
                      // trap L at A(1,0)
                   END DO
-                  DO J = 1, K - 1
+                  for (J = 1; J <= K - 1; J++) {
                      slassq(J, A( 0+J*LDA ), 1, SCALE, S );
                      // U at A(0,0)
                   END DO
@@ -683,15 +683,15 @@
                // A is xpose
                if ( ILU.EQ.0 ) {
                   // A**T is upper
-                  DO J = 1, K - 1
+                  for (J = 1; J <= K - 1; J++) {
                      slassq(J, A( 0+( K+1+J )*LDA ), 1, SCALE, S );
                      // U at A(0,k+1)
                   END DO
-                  DO J = 0, K - 1
+                  for (J = 0; J <= K - 1; J++) {
                      slassq(K, A( 0+J*LDA ), 1, SCALE, S );
                      // k by k rect. at A(0,0)
                   END DO
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      slassq(K-J-1, A( J+1+( J+K )*LDA ), 1, SCALE, S );
                      // L at A(0,k)
                   END DO
@@ -703,15 +703,15 @@
                   // tri L at A(0,k)
                } else {
                   // A**T is lower
-                  DO J = 1, K - 1
+                  for (J = 1; J <= K - 1; J++) {
                      slassq(J, A( 0+( J+1 )*LDA ), 1, SCALE, S );
                      // U at A(0,1)
                   END DO
-                  DO J = K + 1, N
+                  for (J = K + 1; J <= N; J++) {
                      slassq(K, A( 0+J*LDA ), 1, SCALE, S );
                      // k by k rect. at A(0,k+1)
                   END DO
-                  DO J = 0, K - 2
+                  for (J = 0; J <= K - 2; J++) {
                      slassq(K-J-1, A( J+1+J*LDA ), 1, SCALE, S );
                      // L at A(0,0)
                   END DO

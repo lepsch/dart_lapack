@@ -291,7 +291,7 @@
 
             // Copy off-diagonal elements to E and diagonal elements to D
 
-            DO 120 I = 1, MINMN - 1
+            for (I = 1; I <= MINMN - 1; I++) { // 120
                E( I ) = AB( KU, I+1 )
             } // 120
             for (I = 1; I <= MINMN; I++) { // 130
@@ -303,7 +303,7 @@
          // A is diagonal. Set elements of E to zero and copy diagonal
          // elements to D.
 
-         DO 140 I = 1, MINMN - 1
+         for (I = 1; I <= MINMN - 1; I++) { // 140
             E( I ) = ZERO
          } // 140
          for (I = 1; I <= MINMN; I++) { // 150

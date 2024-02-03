@@ -105,7 +105,7 @@
 
          II = 1
          AP( 1 ) = REAL( AP( 1 ) )
-         DO 20 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 20
             I1I1 = II + N - I + 1
 
             // Generate elementary reflector H(i) = I - tau * v * v**H

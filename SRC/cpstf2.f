@@ -131,7 +131,7 @@
                A( PVT, PVT ) = A( J, J )
                cswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
                IF( PVT.LT.N ) CALL CSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA )
-               DO 140 I = J + 1, PVT - 1
+               for (I = J + 1; I <= PVT - 1; I++) { // 140
                   CTEMP = CONJG( A( J, I ) )
                   A( J, I ) = CONJG( A( I, PVT ) )
                   A( I, PVT ) = CTEMP
@@ -198,7 +198,7 @@
                A( PVT, PVT ) = A( J, J )
                cswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
                IF( PVT.LT.N ) CALL CSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 )
-               DO 170 I = J + 1, PVT - 1
+               for (I = J + 1; I <= PVT - 1; I++) { // 170
                   CTEMP = CONJG( A( I, J ) )
                   A( I, J ) = CONJG( A( PVT, I ) )
                   A( PVT, I ) = CTEMP

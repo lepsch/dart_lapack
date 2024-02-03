@@ -42,7 +42,7 @@
       // the first 2*NCOLS workspace entries.
 
       RPVGRW = 1.0
-      DO I = 1, 2*NCOLS
+      for (I = 1; I <= 2*NCOLS; I++) {
          WORK( I ) = 0.0
       END DO
 

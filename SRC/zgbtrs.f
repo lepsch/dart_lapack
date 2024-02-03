@@ -78,7 +78,7 @@
          // the identity matrix.
 
          if ( LNOTI ) {
-            DO 10 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 10
                LM = MIN( KL, N-J )
                L = IPIV( J )
                IF( L.NE.J ) CALL ZSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )                CALL ZGERU( LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB )

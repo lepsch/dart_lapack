@@ -110,7 +110,7 @@
                TEMP1 = ALPHA*X( J )
                TEMP2 = ZERO
                K = KK
-               DO 50 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 50
                   Y( I ) = Y( I ) + TEMP1*AP( K )
                   TEMP2 = TEMP2 + AP( K )*X( I )
                   K = K + 1
@@ -126,7 +126,7 @@
                TEMP2 = ZERO
                IX = KX
                IY = KY
-               DO 70 K = KK, KK + J - 2
+               for (K = KK; K <= KK + J - 2; K++) { // 70
                   Y( IY ) = Y( IY ) + TEMP1*AP( K )
                   TEMP2 = TEMP2 + AP( K )*X( IX )
                   IX = IX + INCX
@@ -148,7 +148,7 @@
                TEMP2 = ZERO
                Y( J ) = Y( J ) + TEMP1*AP( KK )
                K = KK + 1
-               DO 90 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 90
                   Y( I ) = Y( I ) + TEMP1*AP( K )
                   TEMP2 = TEMP2 + AP( K )*X( I )
                   K = K + 1
@@ -165,7 +165,7 @@
                Y( JY ) = Y( JY ) + TEMP1*AP( KK )
                IX = JX
                IY = JY
-               DO 110 K = KK + 1, KK + N - J
+               for (K = KK + 1; K <= KK + N - J; K++) { // 110
                   IX = IX + INCX
                   IY = IY + INCY
                   Y( IY ) = Y( IY ) + TEMP1*AP( K )

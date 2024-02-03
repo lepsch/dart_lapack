@@ -73,7 +73,7 @@
             for (J = 1; J <= I; J++) {
                TMP = TMP + CABS1( A( J, I ) * X( J ) )
             END DO
-            DO J = I+1, N
+            for (J = I+1; J <= N; J++) {
                TMP = TMP + CABS1( A( I, J ) * X( J ) )
             END DO
             RWORK( I ) = TMP
@@ -85,7 +85,7 @@
             for (J = 1; J <= I; J++) {
                TMP = TMP + CABS1( A( I, J ) * X( J ) )
             END DO
-            DO J = I+1, N
+            for (J = I+1; J <= N; J++) {
                TMP = TMP + CABS1( A( J, I ) * X( J ) )
             END DO
             RWORK( I ) = TMP

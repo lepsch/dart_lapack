@@ -55,7 +55,7 @@
       // initialize lower triangle of A to diagonal matrix
 
       for (J = 1; J <= N; J++) { // 20
-         DO 10 I = J + 1, N
+         for (I = J + 1; I <= N; I++) { // 10
             A( I, J ) = ZERO
          } // 10
       } // 20
@@ -109,7 +109,7 @@
 
       // Reduce number of subdiagonals to K
 
-      DO 100 I = 1, N - 1 - K
+      for (I = 1; I <= N - 1 - K; I++) { // 100
 
          // generate reflection to annihilate A(k+i+1:n,i)
 
@@ -146,14 +146,14 @@
          // CALL CSYR2( 'Lower', N-K-I+1, -ONE, A( K+I, I ), 1, WORK, 1,
          // $               A( K+I, K+I ), LDA )
 
-         DO 80 JJ = K + I, N
+         for (JJ = K + I; JJ <= N; JJ++) { // 80
             for (II = JJ; II <= N; II++) { // 70
                A( II, JJ ) = A( II, JJ ) - A( II, I )*WORK( JJ-K-I+1 ) - WORK( II-K-I+1 )*A( JJ, I )
             } // 70
          } // 80
 
          A( K+I, I ) = -WA
-         DO 90 J = K + I + 1, N
+         for (J = K + I + 1; J <= N; J++) { // 90
             A( J, I ) = ZERO
          } // 90
       } // 100
@@ -161,7 +161,7 @@
       // Store full symmetric matrix
 
       for (J = 1; J <= N; J++) { // 120
-         DO 110 I = J + 1, N
+         for (I = J + 1; I <= N; I++) { // 110
             A( J, I ) = A( I, J )
          } // 110
       } // 120

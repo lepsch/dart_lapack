@@ -82,7 +82,7 @@
          if ( UPPER ) {
             JC = 1
             for (J = 1; J <= N; J++) { // 20
-               DO 10 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 10
                   A( JC+I-1 ) = ZERO
                } // 10
                A( JC+J-1 ) = J
@@ -92,7 +92,7 @@
             JC = 1
             for (J = 1; J <= N; J++) { // 40
                A( JC ) = J
-               DO 30 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 30
                   A( JC+I-J ) = ZERO
                } // 30
                JC = JC + N - J + 1
@@ -109,7 +109,7 @@
          if ( UPPER ) {
             JC = 0
             for (J = 1; J <= N; J++) { // 60
-               DO 50 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 50
                   A( JC+I ) = ZERO
                } // 50
                A( JC+J ) = J
@@ -119,7 +119,7 @@
             JC = 1
             for (J = 1; J <= N; J++) { // 80
                A( JC ) = J
-               DO 70 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 70
                   A( JC+I-J ) = ZERO
                } // 70
                JC = JC + N - J + 1
@@ -226,7 +226,7 @@
             } // 100
             JC = JC - N
             A( JC+1 ) = Z
-            DO 110 J = 2, N - 1
+            for (J = 2; J <= N - 1; J++) { // 110
                A( JC+J ) = Y
             } // 110
          } else {
@@ -234,12 +234,12 @@
             // Set the lower triangle of A with a unit triangular matrix
             // of known condition number.
 
-            DO 120 I = 2, N - 1
+            for (I = 2; I <= N - 1; I++) { // 120
                A( I ) = Y
             } // 120
             A( N ) = Z
             JC = N + 1
-            DO 130 J = 2, N - 1
+            for (J = 2; J <= N - 1; J++) { // 130
                A( JC+1 ) = WORK( J-1 )
                IF( J.LT.N-1 ) A( JC+2 ) = WORK( N+J-1 )
                A( JC+N-J ) = Y
@@ -251,7 +251,7 @@
 
          if ( UPPER ) {
             JC = 1
-            DO 150 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 150
                JCNEXT = JC + J
                RA = A( JCNEXT+J-1 )
                RB = TWO
@@ -261,7 +261,7 @@
 
                if ( N.GT.J+1 ) {
                   JX = JCNEXT + J
-                  DO 140 I = J + 2, N
+                  for (I = J + 2; I <= N; I++) { // 140
                      STEMP = C*A( JX+J ) + S*A( JX+J+1 )
                      A( JX+J+1 ) = -S*A( JX+J ) + C*A( JX+J+1 )
                      A( JX+J ) = STEMP
@@ -280,7 +280,7 @@
             } // 150
          } else {
             JC = 1
-            DO 170 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 170
                JCNEXT = JC + N - J + 1
                RA = A( JC+1 )
                RB = TWO
@@ -294,7 +294,7 @@
 
                if ( J.GT.1 ) {
                   JX = 1
-                  DO 160 I = 1, J - 1
+                  for (I = 1; I <= J - 1; I++) { // 160
                      STEMP = -C*A( JX+J-I ) + S*A( JX+J-I+1 )
                      A( JX+J-I+1 ) = -S*A( JX+J-I ) - C*A( JX+J-I+1 )
                      A( JX+J-I ) = STEMP
@@ -406,7 +406,7 @@
             JCOUNT = 1
             JC = ( N-1 )*N / 2 + 1
             DO 250 J = N, 1, -1
-               DO 240 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 240
                   A( JC+I-1 ) = ZERO
                } // 240
                if ( JCOUNT.LE.2 ) {
@@ -422,7 +422,7 @@
             JCOUNT = 1
             JC = 1
             for (J = 1; J <= N; J++) { // 270
-               DO 260 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 260
                   A( JC+I-J ) = ZERO
                } // 260
                if ( JCOUNT.LE.2 ) {
@@ -464,7 +464,7 @@
          if ( UPPER ) {
             JC = 1
             for (J = 1; J <= N; J++) { // 310
-               DO 300 I = 1, J - 2
+               for (I = 1; I <= J - 2; I++) { // 300
                   A( JC+I-1 ) = ZERO
                } // 300
                IF( J.GT.1 ) A( JC+J-2 ) = -ONE
@@ -475,7 +475,7 @@
          } else {
             JC = 1
             for (J = 1; J <= N; J++) { // 330
-               DO 320 I = J + 2, N
+               for (I = J + 2; I <= N; I++) { // 320
                   A( JC+I-J ) = ZERO
                } // 320
                IF( J.LT.N ) A( JC+1 ) = -ONE
@@ -525,7 +525,7 @@
 
          TSCAL = UNFL / ULP
          TSCAL = ( ONE-ULP ) / TSCAL
-         DO 360 J = 1, N*( N+1 ) / 2
+         for (J = 1; J <= N*( N+1 ) / 2; J++) { // 360
             A( J ) = ZERO
          } // 360
          TEXP = ONE
@@ -627,9 +627,9 @@
          if ( UPPER ) {
             JJ = 1
             JR = N*( N+1 ) / 2
-            DO 460 J = 1, N / 2
+            for (J = 1; J <= N / 2; J++) { // 460
                JL = JJ
-               DO 450 I = J, N - J
+               for (I = J; I <= N - J; I++) { // 450
                   T = A( JR-I+J )
                   A( JR-I+J ) = A( JL )
                   A( JL ) = T
@@ -641,9 +641,9 @@
          } else {
             JL = 1
             JJ = N*( N+1 ) / 2
-            DO 480 J = 1, N / 2
+            for (J = 1; J <= N / 2; J++) { // 480
                JR = JJ
-               DO 470 I = J, N - J
+               for (I = J; I <= N - J; I++) { // 470
                   T = A( JL+I-J )
                   A( JL+I-J ) = A( JR )
                   A( JR ) = T

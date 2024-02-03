@@ -64,7 +64,7 @@
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 60
                SUM = ZERO
-               DO 50 I = 1, J - 1
+               for (I = 1; I <= J - 1; I++) { // 50
                   ABSA = ABS( A( I, J ) )
                   SUM = SUM + ABSA
                   WORK( I ) = WORK( I ) + ABSA
@@ -81,7 +81,7 @@
             } // 80
             for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ABS( A( J, J ) )
-               DO 90 I = J + 1, N
+               for (I = J + 1; I <= N; I++) { // 90
                   ABSA = ABS( A( I, J ) )
                   SUM = SUM + ABSA
                   WORK( I ) = WORK( I ) + ABSA
@@ -100,7 +100,7 @@
                slassq(J-1, A( 1, J ), 1, SCALE, SUM );
             } // 110
          } else {
-            DO 120 J = 1, N - 1
+            for (J = 1; J <= N - 1; J++) { // 120
                slassq(N-J, A( J+1, J ), 1, SCALE, SUM );
             } // 120
          }

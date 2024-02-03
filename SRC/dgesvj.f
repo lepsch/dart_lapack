@@ -192,7 +192,7 @@
                SVA( p ) = AAPP*( AAQQ*SKL)
                if ( GOSCALE ) {
                   GOSCALE = .FALSE.
-                  DO 1873 q = 1, p - 1
+                  for (q = 1; q <= p - 1; q++) { // 1873
                      SVA( q ) = SVA( q )*SKL
                   } // 1873
                }
@@ -217,7 +217,7 @@
                SVA( p ) = AAPP*( AAQQ*SKL)
                if ( GOSCALE ) {
                   GOSCALE = .FALSE.
-                  DO 2873 q = 1, p - 1
+                  for (q = 1; q <= p - 1; q++) { // 2873
                      SVA( q ) = SVA( q )*SKL
                   } // 2873
                }
@@ -242,7 +242,7 @@
                SVA( p ) = AAPP*( AAQQ*SKL)
                if ( GOSCALE ) {
                   GOSCALE = .FALSE.
-                  DO 3873 q = 1, p - 1
+                  for (q = 1; q <= p - 1; q++) { // 3873
                      SVA( q ) = SVA( q )*SKL
                   } // 3873
                }
@@ -681,7 +681,7 @@
 
             igl = ( ibr-1 )*KBL + 1
 
-            DO 2010 jbc = ibr + 1, NBL
+            for (jbc = ibr + 1; jbc <= NBL; jbc++) { // 2010
 
                jgl = ( jbc-1 )*KBL + 1
 
@@ -938,7 +938,7 @@
 
       N2 = 0
       N4 = 0
-      DO 5991 p = 1, N - 1
+      for (p = 1; p <= N - 1; p++) { // 5991
          q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1
          if ( p.NE.q ) {
             TEMP1 = SVA( p )

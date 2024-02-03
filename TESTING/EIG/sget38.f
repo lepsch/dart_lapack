@@ -125,11 +125,11 @@
          } // 40
          scopy(N, WR, 1, WRTMP, 1 );
          scopy(N, WI, 1, WITMP, 1 );
-         DO 60 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 60
             KMIN = I
             VRMIN = WRTMP( I )
             VIMIN = WITMP( I )
-            DO 50 J = I + 1, N
+            for (J = I + 1; J <= N; J++) { // 50
                if ( WRTMP( J ).LT.VRMIN ) {
                   KMIN = J
                   VRMIN = WRTMP( J )

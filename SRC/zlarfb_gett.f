@@ -52,7 +52,7 @@
          // col2_(1) Compute W2: = A2. Therefore, copy A2 = A(1:K, K+1:N)
          // into W2=WORK(1:K, 1:N-K) column-by-column.
 
-         DO J = 1, N-K
+         for (J = 1; J <= N-K; J++) {
             zcopy(K, A( 1, K+J ), 1, WORK( 1, J ), 1 );
          END DO
 
@@ -98,7 +98,7 @@
                               // = A(1:K, K+1:N-K) - WORK(1:K, 1:N-K),
          // column-by-column.
 
-         DO J = 1, N-K
+         for (J = 1; J <= N-K; J++) {
             for (I = 1; I <= K; I++) {
                A( I, K+J ) = A( I, K+J ) - WORK( I, J )
             END DO
@@ -125,8 +125,8 @@
 
       // Set the subdiagonal elements of W1 to zero column-by-column.
 
-      DO J = 1, K - 1
-         DO I = J + 1, K
+      for (J = 1; J <= K - 1; J++) {
+         for (I = J + 1; I <= K; I++) {
             WORK( I, J ) = CZERO
          END DO
       END DO
@@ -172,8 +172,8 @@
 
          // col1_(6)_a Compute elements of A1 below the diagonal.
 
-         DO J = 1, K - 1
-            DO I = J + 1, K
+         for (J = 1; J <= K - 1; J++) {
+            for (I = J + 1; I <= K; I++) {
                A( I, J ) = - WORK( I, J )
             END DO
          END DO

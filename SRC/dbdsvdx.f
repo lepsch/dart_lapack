@@ -141,7 +141,7 @@
 
       // Check for zeros in D and E (splits), i.e. submatrices.
 
-      DO I = 1, N-1
+      for (I = 1; I <= N-1; I++) {
          IF( ABS( D( I ) ).LE.THRESH ) D( I ) = ZERO
          IF( ABS( E( I ) ).LE.THRESH ) E( I ) = ZERO
       END DO
@@ -384,7 +384,7 @@
                            RETURN
                         }
                         CALL DSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU.NE.ONE .AND. ABS( NRMU-ORTOL )*SQRT2.GT.ONE ) THEN
-                           DO J = 0, I-1
+                           for (J = 0; J <= I-1; J++) {
                               ZJTJI = -DDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )                               CALL DAXPY( NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )
                            END DO
                            NRMU = DNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 )
@@ -398,7 +398,7 @@
                            RETURN
                         }
                         CALL DSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV.NE.ONE .AND. ABS( NRMV-ORTOL )*SQRT2.GT.ONE ) THEN
-                           DO J = 0, I-1
+                           for (J = 0; J <= I-1; J++) {
                               ZJTJI = -DDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )                               CALL DAXPY( NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )
                            END DO
                            NRMV = DNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 )
@@ -422,7 +422,7 @@
 
                   // Absolute values of the eigenvalues of TGK.
 
-                  DO I = 0, NSL-1
+                  for (I = 0; I <= NSL-1; I++) {
                      S( ISBEG+I ) = ABS( S( ISBEG+I ) )
                   END DO
 
@@ -461,10 +461,10 @@
       // Sort the singular values into decreasing order (insertion sort on
       // singular values, but only one transposition per singular vector)
 
-      DO I = 1, NS-1
+      for (I = 1; I <= NS-1; I++) {
          K = 1
          SMIN = S( 1 )
-         DO J = 2, NS + 1 - I
+         for (J = 2; J <= NS + 1 - I; J++) {
             if ( S( J ).LE.SMIN ) {
                K = J
                SMIN = S( J )

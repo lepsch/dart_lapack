@@ -63,15 +63,15 @@
          // matrix
 
          IJ = 2
-         DO 20 J = 1, N - 1
-            DO 10 I = 1, J - 1
+         for (J = 1; J <= N - 1; J++) { // 20
+            for (I = 1; I <= J - 1; I++) { // 10
                Q( I, J ) = AP( IJ )
                IJ = IJ + 1
             } // 10
             IJ = IJ + 2
             Q( N, J ) = CZERO
          } // 20
-         DO 30 I = 1, N - 1
+         for (I = 1; I <= N - 1; I++) { // 30
             Q( I, N ) = CZERO
          } // 30
          Q( N, N ) = CONE
@@ -95,7 +95,7 @@
          IJ = 3
          for (J = 2; J <= N; J++) { // 60
             Q( 1, J ) = CZERO
-            DO 50 I = J + 1, N
+            for (I = J + 1; I <= N; I++) { // 50
                Q( I, J ) = AP( IJ )
                IJ = IJ + 1
             } // 50
