@@ -261,7 +261,7 @@
             } // 1950
          } else {
             for (p = 1; p <= M; p++) { // 1904
-               WORK(M+N+p) = SCALEM*DABS( A(p,IDAMAX(N,A(p,1),LDA)) );
+               WORK(M+N+p) = SCALEM*( A(p,IDAMAX(N,A(p,1),LDA)) ).abs();
                AATMAX = max( AATMAX, WORK(M+N+p) );
                AATMIN = min( AATMIN, WORK(M+N+p) );
             } // 1904
@@ -458,7 +458,7 @@
          // backward error of the order of N*EPSLN*||A||.
          TEMP1 = DSQRT(DBLE(N))*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
-            if ( DABS(A(p,p)) >= (TEMP1*DABS(A(1,1))) ) {
+            if ( (A(p,p)).abs() >= (TEMP1*(A(1,1)).abs()) ) {
                NR = NR + 1;
             } else {
                GO TO 3002;
@@ -471,7 +471,7 @@
          // close-to-rank-deficient.
          TEMP1 = DSQRT(SFMIN);
          for (p = 2; p <= N; p++) { // 3401
-            if ( ( DABS(A(p,p)) < (EPSLN*DABS(A(p-1,p-1))) ) || ( DABS(A(p,p)) < SMALL ) || ( L2KILL && (DABS(A(p,p)) < TEMP1) ) ) GO TO 3402;
+            if ( ( (A(p,p)).abs() < (EPSLN*(A(p-1,p-1)).abs()) ) || ( (A(p,p)).abs() < SMALL ) || ( L2KILL && ((A(p,p)).abs() < TEMP1) ) ) GO TO 3402;
             NR = NR + 1;
          } // 3401
          } // 3402
@@ -486,7 +486,7 @@
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = DSQRT(SFMIN);
          for (p = 2; p <= N; p++) { // 3301
-            if ( ( DABS(A(p,p)) < SMALL ) || ( L2KILL && (DABS(A(p,p)) < TEMP1) ) ) GO TO 3302;
+            if ( ( (A(p,p)).abs() < SMALL ) || ( L2KILL && ((A(p,p)).abs() < TEMP1) ) ) GO TO 3302;
             NR = NR + 1;
          } // 3301
          } // 3302
@@ -497,7 +497,7 @@
       if ( NR == N ) {
          MAXPRJ = ONE;
          for (p = 2; p <= N; p++) { // 3051
-            TEMP1  = DABS(A(p,p)) / SVA(IWORK(p));
+            TEMP1  = (A(p,p)).abs() / SVA(IWORK(p));
             MAXPRJ = min( MAXPRJ, TEMP1 );
          } // 3051
          if ( MAXPRJ**2 >= ONE - DBLE(N)*EPSLN ) ALMORT = true;
@@ -543,7 +543,7 @@
          }
       }
 
-      L2PERT = L2PERT && ( DABS( A(1,1)/A(NR,NR) ) > DSQRT(BIG1) );
+      L2PERT = L2PERT && ( ( A(1,1)/A(NR,NR) ).abs() > DSQRT(BIG1) );
       // If there is no violent scaling, artificial perturbation is not needed.
 
       // Phase 3:
@@ -575,9 +575,9 @@
                // XSC = DSQRT(SMALL)
                XSC = EPSLN / DBLE(N);
                for (q = 1; q <= NR; q++) { // 4947
-                  TEMP1 = XSC*DABS(A(q,q));
+                  TEMP1 = XSC*(A(q,q)).abs();
                   for (p = 1; p <= N; p++) { // 4949
-                     if ( ( (p > q) && (DABS(A(p,q)) <= TEMP1) ) || ( p < q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) );
+                     if ( ( (p > q) && ((A(p,q)).abs() <= TEMP1) ) || ( p < q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) );
                   } // 4949
                } // 4947
             } else {
@@ -603,9 +603,9 @@
                // XSC = DSQRT(SMALL)
                XSC = EPSLN / DBLE(N);
                for (q = 1; q <= NR; q++) { // 1947
-                  TEMP1 = XSC*DABS(A(q,q));
+                  TEMP1 = XSC*(A(q,q)).abs();
                   for (p = 1; p <= NR; p++) { // 1949
-                     if ( ( (p > q) && (DABS(A(p,q)) <= TEMP1) ) || ( p < q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) );
+                     if ( ( (p > q) && ((A(p,q)).abs() <= TEMP1) ) || ( p < q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) );
                   } // 1949
                } // 1947
             } else {
@@ -752,9 +752,9 @@
             if ( L2PERT ) {
                XSC = DSQRT(SMALL);
                for (q = 1; q <= NR; q++) { // 2969
-                  TEMP1 = XSC*DABS( V(q,q) );
+                  TEMP1 = XSC*V(q,q).abs();
                   for (p = 1; p <= N; p++) { // 2968
-                     if ( ( p > q ) && ( DABS(V(p,q)) <= TEMP1 ) || ( p < q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) );
+                     if ( ( p > q ) && ( (V(p,q)).abs() <= TEMP1 ) || ( p < q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) );
                      if (p < q) V(p,q) = - V(p,q);
                   } // 2968
                } // 2969
@@ -792,8 +792,8 @@
                   XSC = DSQRT(SMALL)/EPSLN;
                   for (p = 2; p <= NR; p++) { // 3959
                      for (q = 1; q <= p - 1; q++) { // 3958
-                        TEMP1 = XSC * min(DABS(V(p,p)),DABS(V(q,q)));
-                        if ( DABS(V(q,p)) <= TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) );
+                        TEMP1 = XSC * min((V(p,p)).abs(),(V(q,q)).abs());
+                        if ( (V(q,p)).abs() <= TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) );
                      } // 3958
                   } // 3959
                }
@@ -828,8 +828,8 @@
                   XSC = DSQRT(SMALL);
                   for (p = 2; p <= NR; p++) { // 3969
                      for (q = 1; q <= p - 1; q++) { // 3968
-                        TEMP1 = XSC * min(DABS(V(p,p)),DABS(V(q,q)));
-                        if ( DABS(V(q,p)) <= TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) );
+                        TEMP1 = XSC * min((V(p,p)).abs(),(V(q,q)).abs());
+                        if ( (V(q,p)).abs() <= TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) );
                      } // 3968
                   } // 3969
                }
@@ -840,7 +840,7 @@
                   XSC = DSQRT(SMALL);
                   for (p = 2; p <= NR; p++) { // 8970
                      for (q = 1; q <= p - 1; q++) { // 8971
-                        TEMP1 = XSC * min(DABS(V(p,p)),DABS(V(q,q)));
+                        TEMP1 = XSC * min((V(p,p)).abs(),(V(q,q)).abs());
                         V(p,q) = - DSIGN( TEMP1, V(q,p) );
                      } // 8971
                   } // 8970
@@ -1106,9 +1106,9 @@
          if ( L2PERT ) {
             XSC = DSQRT(SMALL/EPSLN);
             for (q = 1; q <= NR; q++) { // 5969
-               TEMP1 = XSC*DABS( V(q,q) );
+               TEMP1 = XSC*V(q,q).abs();
                for (p = 1; p <= N; p++) { // 5968
-                  if ( ( p > q ) && ( DABS(V(p,q)) <= TEMP1 ) || ( p < q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) );
+                  if ( ( p > q ) && ( (V(p,q)).abs() <= TEMP1 ) || ( p < q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) );
                   if (p < q) V(p,q) = - V(p,q);
                } // 5968
             } // 5969
@@ -1126,7 +1126,7 @@
             XSC = DSQRT(SMALL/EPSLN);
             for (q = 2; q <= NR; q++) { // 9970
                for (p = 1; p <= q - 1; p++) { // 9971
-                  TEMP1 = XSC * min(DABS(U(p,p)),DABS(U(q,q)));
+                  TEMP1 = XSC * min((U(p,p)).abs(),(U(q,q)).abs());
                   U(p,q) = - DSIGN( TEMP1, U(q,p) );
                } // 9971
             } // 9970

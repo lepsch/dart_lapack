@@ -49,7 +49,7 @@
          DQ2 = DP2*DY1;
          DQ1 = DP1*DX1;
 
-         if (DABS(DQ1) > DABS(DQ2)) {
+         if ((DQ1).abs() > (DQ2).abs()) {
             DH21 = -DY1/DX1;
             DH12 = DP2/DP1;
 
@@ -126,7 +126,7 @@
          }
 
          if (DD2 != ZERO) {
-            DO WHILE ( (DABS(DD2) <= RGAMSQ) || (DABS(DD2) >= GAMSQ) );
+            DO WHILE ( ((DD2).abs() <= RGAMSQ) || ((DD2).abs() >= GAMSQ) );
                if (DFLAG == ZERO) {
                   DH11 = ONE;
                   DH22 = ONE;
@@ -136,7 +136,7 @@
                   DH12 = ONE;
                   DFLAG = -ONE;
                }
-               if (DABS(DD2) <= RGAMSQ) {
+               if ((DD2).abs() <= RGAMSQ) {
                   DD2 = DD2*GAM**2;
                   DH21 = DH21/GAM;
                   DH22 = DH22/GAM;

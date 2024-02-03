@@ -525,11 +525,11 @@
                               }
                            }
 
-                           MXAAPQ = max( MXAAPQ, DABS( AAPQ ) );
+                           MXAAPQ = max( MXAAPQ, ( AAPQ ).abs() );
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
-                           if ( DABS( AAPQ ) > TOL ) {
+                           if ( ( AAPQ ).abs() > TOL ) {
 
             // .. rotate
 // [RTD]      ROTATED = ROTATED + ONE
@@ -544,16 +544,16 @@
 
                                  AQOAP = AAQQ / AAPP;
                                  APOAQ = AAPP / AAQQ;
-                                 THETA = -HALF*DABS(AQOAP-APOAQ)/AAPQ;
+                                 THETA = -HALF*(AQOAP-APOAQ).abs()/AAPQ;
 
-                                 if ( DABS( THETA ) > BIGTHETA ) {
+                                 if ( ( THETA ).abs() > BIGTHETA ) {
 
                                     T = HALF / THETA;
                                     FASTR( 3 ) = T*WORK( p ) / WORK( q );
                                     FASTR( 4 ) = -T*WORK( q ) / WORK( p );
                                     drotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
                                     SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( max( ZERO, ONE-T*AQOAP*AAPQ ) );
-                                    MXSINJ = max( MXSINJ, DABS( T ) );
+                                    MXSINJ = max( MXSINJ, ( T ).abs() );
 
                                  } else {
 
@@ -564,7 +564,7 @@
                                     CS = DSQRT( ONE / ( ONE+T*T ) );
                                     SN = T*CS;
 
-                                    MXSINJ = max( MXSINJ, DABS( SN ) );
+                                    MXSINJ = max( MXSINJ, ( SN ).abs() );
                                     SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( max( ZERO, ONE-T*AQOAP*AAPQ ) );
 
                                     APOAQ = WORK( p ) / WORK( q );
@@ -750,11 +750,11 @@
                               }
                            }
 
-                           MXAAPQ = max( MXAAPQ, DABS( AAPQ ) );
+                           MXAAPQ = max( MXAAPQ, ( AAPQ ).abs() );
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
-                           if ( DABS( AAPQ ) > TOL ) {
+                           if ( ( AAPQ ).abs() > TOL ) {
                               NOTROT = 0;
 // [RTD]      ROTATED  = ROTATED + 1
                               PSKIPPED = 0;
@@ -764,16 +764,16 @@
 
                                  AQOAP = AAQQ / AAPP;
                                  APOAQ = AAPP / AAQQ;
-                                 THETA = -HALF*DABS(AQOAP-APOAQ)/AAPQ;
+                                 THETA = -HALF*(AQOAP-APOAQ).abs()/AAPQ;
                                  if (AAQQ > AAPP0) THETA = -THETA;
 
-                                 if ( DABS( THETA ) > BIGTHETA ) {
+                                 if ( ( THETA ).abs() > BIGTHETA ) {
                                     T = HALF / THETA;
                                     FASTR( 3 ) = T*WORK( p ) / WORK( q );
                                     FASTR( 4 ) = -T*WORK( q ) / WORK( p );
                                     drotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
                                     SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( max( ZERO, ONE-T*AQOAP*AAPQ ) );
-                                    MXSINJ = max( MXSINJ, DABS( T ) );
+                                    MXSINJ = max( MXSINJ, ( T ).abs() );
                                  } else {
 
                   // .. choose correct signum for THETA and rotate
@@ -783,7 +783,7 @@
                                     T = ONE / ( THETA+THSIGN* DSQRT( ONE+THETA*THETA ) );
                                     CS = DSQRT( ONE / ( ONE+T*T ) );
                                     SN = T*CS;
-                                    MXSINJ = max( MXSINJ, DABS( SN ) );
+                                    MXSINJ = max( MXSINJ, ( SN ).abs() );
                                     SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( max( ZERO, ONE-T*AQOAP*AAPQ ) );
 
                                     APOAQ = WORK( p ) / WORK( q );
@@ -930,7 +930,7 @@
             } // 2011
 // 2011 bailed out of the jbc-loop
             for (p = igl; p <= min( igl+KBL-1, N ); p++) { // 2012
-               SVA( p ) = DABS( SVA( p ) );
+               SVA( p ) = SVA( p ).abs();
             } // 2012
 // **
          } // 2000

@@ -20,7 +20,6 @@
       // .. Intrinsic Functions ..
       // INTRINSIC DABS,MOD
       // ..
-      DASUM = 0.0;
       DTEMP = 0.0;
       if (N <= 0 || INCX <= 0) return;
       if (INCX == 1) {
@@ -32,16 +31,15 @@
          M = (N % 6);
          if (M != 0) {
             for (I = 1; I <= M; I++) {
-               DTEMP = DTEMP + DABS(DX(I));
+               DTEMP = DTEMP + (DX(I)).abs();
             }
             if (N < 6) {
-               DASUM = DTEMP;
-               return;
+               return DTEMP;
             }
          }
          MP1 = M + 1;
          for (I = MP1; I <= N; I += 6) { //
-            DTEMP = DTEMP + DABS(DX(I)) + DABS(DX(I+1)) + DABS(DX(I+2)) + DABS(DX(I+3)) + DABS(DX(I+4)) + DABS(DX(I+5));
+            DTEMP = DTEMP + (DX(I)).abs() + (DX(I+1)).abs() + (DX(I+2)).abs() + (DX(I+3)).abs() + (DX(I+4)).abs() + (DX(I+5)).abs();
          }
       } else {
 
@@ -49,9 +47,8 @@
 
          NINCX = N*INCX;
          for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) { //
-            DTEMP = DTEMP + DABS(DX(I));
+            DTEMP = DTEMP + (DX(I)).abs();
          }
       }
-      DASUM = DTEMP;
-      return;
+      return DTEMP;
       }

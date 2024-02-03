@@ -28,11 +28,11 @@
 
          // code for increment equal to 1
 
-         DMAX = DABS(DX(1));
+         DMAX = (DX(1)).abs();
          for (I = 2; I <= N; I++) {
-            if (DABS(DX(I)) > DMAX) {
+            if ((DX(I)).abs() > DMAX) {
                IDAMAX = I;
-               DMAX = DABS(DX(I));
+               DMAX = (DX(I)).abs();
             }
          }
       } else {
@@ -40,12 +40,12 @@
          // code for increment not equal to 1
 
          IX = 1;
-         DMAX = DABS(DX(1));
+         DMAX = (DX(1)).abs();
          IX = IX + INCX;
          for (I = 2; I <= N; I++) {
-            if (DABS(DX(IX)) > DMAX) {
+            if ((DX(IX)).abs() > DMAX) {
                IDAMAX = I;
-               DMAX = DABS(DX(IX));
+               DMAX = (DX(IX)).abs();
             }
             IX = IX + INCX;
          }
