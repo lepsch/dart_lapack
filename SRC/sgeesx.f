@@ -1,9 +1,9 @@
       SUBROUTINE SGEESX( JOBVS, SORT, SELECT, SENSE, N, A, LDA, SDIM, WR, WI, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBVS, SENSE, SORT;
       int                INFO, LDA, LDVS, LIWORK, LWORK, N, SDIM;
@@ -18,9 +18,9 @@
       bool               SELECT;
       // EXTERNAL SELECT
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -45,9 +45,9 @@
       // INTRINSIC MAX, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       WANTVS = LSAME( JOBVS, 'V' )
       WANTST = LSAME( SORT, 'S' )
@@ -56,7 +56,7 @@
       WANTSV = LSAME( SENSE, 'V' )
       WANTSB = LSAME( SENSE, 'B' )
       LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
-*
+
       IF( ( .NOT.WANTVS ) .AND. ( .NOT.LSAME( JOBVS, 'N' ) ) ) THEN
          INFO = -1
       ELSE IF( ( .NOT.WANTST ) .AND. ( .NOT.LSAME( SORT, 'N' ) ) ) THEN
@@ -70,7 +70,7 @@
       ELSE IF( LDVS.LT.1 .OR. ( WANTVS .AND. LDVS.LT.N ) ) THEN
          INFO = -12
       END IF
-*
+
       // Compute workspace
        // (Note: Comments in the code beginning "RWorkspace:" describe the
         // minimal amount of real workspace needed at that point in the
@@ -84,7 +84,7 @@
         // If SENSE = 'E', 'V' or 'B', then the amount of workspace needed
         // depends on SDIM, which is computed by the routine STRSEN later
         // in the code.)
-*
+
       IF( INFO.EQ.0 ) THEN
          LIWRK = 1
          IF( N.EQ.0 ) THEN
@@ -93,10 +93,10 @@
          ELSE
             MAXWRK = 2*N + N*ILAENV( 1, 'SGEHRD', ' ', N, 1, N, 0 )
             MINWRK = 3*N
-*
+
             CALL SHSEQR( 'S', JOBVS, N, 1, N, A, LDA, WR, WI, VS, LDVS, WORK, -1, IEVAL )
             HSWORK = INT( WORK( 1 ) )
-*
+
             IF( .NOT.WANTVS ) THEN
                MAXWRK = MAX( MAXWRK, N + HSWORK )
             ELSE
@@ -108,38 +108,38 @@
          END IF
          IWORK( 1 ) = LIWRK
          WORK( 1 ) = SROUNDUP_LWORK(LWRK)
-*
+
          IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
             INFO = -16
          ELSE IF( LIWORK.LT.1 .AND. .NOT.LQUERY ) THEN
             INFO = -18
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SGEESX', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) THEN
          SDIM = 0
          RETURN
       END IF
-*
+
       // Get machine constants
-*
+
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' )
       BIGNUM = ONE / SMLNUM
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Scale A if max element outside range [SMLNUM,BIGNUM]
-*
+
       ANRM = SLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = .FALSE.
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
@@ -150,42 +150,42 @@
          CSCALE = BIGNUM
       END IF
       IF( SCALEA ) CALL SLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
-*
+
       // Permute the matrix to make it more nearly triangular
       // (RWorkspace: need N)
-*
+
       IBAL = 1
       CALL SGEBAL( 'P', N, A, LDA, ILO, IHI, WORK( IBAL ), IERR )
-*
+
       // Reduce to upper Hessenberg form
       // (RWorkspace: need 3*N, prefer 2*N+N*NB)
-*
+
       ITAU = N + IBAL
       IWRK = N + ITAU
       CALL SGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
-*
+
       IF( WANTVS ) THEN
-*
+
          // Copy Householder vectors to VS
-*
+
          CALL SLACPY( 'L', N, N, A, LDA, VS, LDVS )
-*
+
          // Generate orthogonal matrix in VS
          // (RWorkspace: need 3*N-1, prefer 2*N+(N-1)*NB)
-*
+
          CALL SORGHR( N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
       END IF
-*
+
       SDIM = 0
-*
+
       // Perform QR iteration, accumulating Schur vectors in VS if desired
       // (RWorkspace: need N+1, prefer N+HSWORK (see comments) )
-*
+
       IWRK = ITAU
       CALL SHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, WR, WI, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL.GT.0 ) INFO = IEVAL
-*
+
       // Sort eigenvalues if desired
-*
+
       IF( WANTST .AND. INFO.EQ.0 ) THEN
          IF( SCALEA ) THEN
             CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, WR, N, IERR )
@@ -194,46 +194,46 @@
          DO 10 I = 1, N
             BWORK( I ) = SELECT( WR( I ), WI( I ) )
    10    CONTINUE
-*
+
          // Reorder eigenvalues, transform Schur vectors, and compute
          // reciprocal condition numbers
          // (RWorkspace: if SENSE is not 'N', need N+2*SDIM*(N-SDIM)
                       // otherwise, need N )
          // (IWorkspace: if SENSE is 'V' or 'B', need SDIM*(N-SDIM)
                       // otherwise, need 0 )
-*
+
          CALL STRSEN( SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, WR, WI, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, ICOND )
          IF( .NOT.WANTSN ) MAXWRK = MAX( MAXWRK, N+2*SDIM*( N-SDIM ) )
          IF( ICOND.EQ.-15 ) THEN
-*
+
             // Not enough real workspace
-*
+
             INFO = -16
          ELSE IF( ICOND.EQ.-17 ) THEN
-*
+
             // Not enough integer workspace
-*
+
             INFO = -18
          ELSE IF( ICOND.GT.0 ) THEN
-*
+
             // STRSEN failed to reorder or to restore standard Schur form
-*
+
             INFO = ICOND + N
          END IF
       END IF
-*
+
       IF( WANTVS ) THEN
-*
+
          // Undo balancing
          // (RWorkspace: need N)
-*
+
          CALL SGEBAK( 'P', 'R', N, ILO, IHI, WORK( IBAL ), N, VS, LDVS, IERR )
       END IF
-*
+
       IF( SCALEA ) THEN
-*
+
          // Undo scaling for the Schur form of A
-*
+
          CALL SLASCL( 'H', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR )
          CALL SCOPY( N, A, LDA+1, WR, 1 )
          IF( ( WANTSV .OR. WANTSB ) .AND. INFO.EQ.0 ) THEN
@@ -242,11 +242,11 @@
             RCONDV = DUM( 1 )
          END IF
          IF( CSCALE.EQ.SMLNUM ) THEN
-*
+
             // If scaling back towards underflow, adjust WI if an
             // offdiagonal element of a 2-by-2 block in the Schur form
             // underflows.
-*
+
             IF( IEVAL.GT.0 ) THEN
                I1 = IEVAL + 1
                I2 = IHI - 1
@@ -283,11 +283,11 @@
          END IF
          CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N-IEVAL, 1, WI( IEVAL+1 ), MAX( N-IEVAL, 1 ), IERR )
       END IF
-*
+
       IF( WANTST .AND. INFO.EQ.0 ) THEN
-*
+
          // Check if reordering successful
-*
+
          LASTSL = .TRUE.
          LST2SL = .TRUE.
          SDIM = 0
@@ -300,18 +300,18 @@
                IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
             ELSE
                IF( IP.EQ.1 ) THEN
-*
+
                   // Last eigenvalue of conjugate pair
-*
+
                   CURSL = CURSL .OR. LASTSL
                   LASTSL = CURSL
                   IF( CURSL ) SDIM = SDIM + 2
                   IP = -1
                   IF( CURSL .AND. .NOT.LST2SL ) INFO = N + 2
                ELSE
-*
+
                   // First eigenvalue of conjugate pair
-*
+
                   IP = 1
                END IF
             END IF
@@ -319,16 +319,16 @@
             LASTSL = CURSL
    30    CONTINUE
       END IF
-*
+
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
       IF( WANTSV .OR. WANTSB ) THEN
          IWORK( 1 ) = SDIM*(N-SDIM)
       ELSE
          IWORK( 1 ) = 1
       END IF
-*
+
       RETURN
-*
+
       // End of SGEESX
-*
+
       END

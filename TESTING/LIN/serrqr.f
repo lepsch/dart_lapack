@@ -1,16 +1,16 @@
       SUBROUTINE SERRQR( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -37,12 +37,12 @@
       // INTRINSIC REAL
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1. / REAL( I+J )
@@ -53,11 +53,11 @@
          X( J ) = 0.
    20 CONTINUE
       OK = .TRUE.
-*
+
       // Error exits for QR factorization
-*
+
       // SGEQRF
-*
+
       SRNAMT = 'SGEQRF'
       INFOT = 1
       CALL SGEQRF( -1, 0, A, 1, B, W, 1, INFO )
@@ -71,9 +71,9 @@
       INFOT = 7
       CALL SGEQRF( 1, 2, A, 1, B, W, 1, INFO )
       CALL CHKXER( 'SGEQRF', INFOT, NOUT, LERR, OK )
-*
+
       // SGEQRFP
-*
+
       SRNAMT = 'SGEQRFP'
       INFOT = 1
       CALL SGEQRFP( -1, 0, A, 1, B, W, 1, INFO )
@@ -87,9 +87,9 @@
       INFOT = 7
       CALL SGEQRFP( 1, 2, A, 1, B, W, 1, INFO )
       CALL CHKXER( 'SGEQRFP', INFOT, NOUT, LERR, OK )
-*
+
       // SGEQR2
-*
+
       SRNAMT = 'SGEQR2'
       INFOT = 1
       CALL SGEQR2( -1, 0, A, 1, B, W, INFO )
@@ -100,9 +100,9 @@
       INFOT = 4
       CALL SGEQR2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'SGEQR2', INFOT, NOUT, LERR, OK )
-*
+
       // SGEQR2P
-*
+
       SRNAMT = 'SGEQR2P'
       INFOT = 1
       CALL SGEQR2P( -1, 0, A, 1, B, W, INFO )
@@ -113,9 +113,9 @@
       INFOT = 4
       CALL SGEQR2P( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'SGEQR2P', INFOT, NOUT, LERR, OK )
-*
+
       // SORGQR
-*
+
       SRNAMT = 'SORGQR'
       INFOT = 1
       CALL SORGQR( -1, 0, 0, A, 1, X, W, 1, INFO )
@@ -138,9 +138,9 @@
       INFOT = 8
       CALL SORGQR( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'SORGQR', INFOT, NOUT, LERR, OK )
-*
+
       // SORG2R
-*
+
       SRNAMT = 'SORG2R'
       INFOT = 1
       CALL SORG2R( -1, 0, 0, A, 1, X, W, INFO )
@@ -160,9 +160,9 @@
       INFOT = 5
       CALL SORG2R( 2, 1, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'SORG2R', INFOT, NOUT, LERR, OK )
-*
+
       // SORMQR
-*
+
       SRNAMT = 'SORMQR'
       INFOT = 1
       CALL SORMQR( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
@@ -200,9 +200,9 @@
       INFOT = 12
       CALL SORMQR( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'SORMQR', INFOT, NOUT, LERR, OK )
-*
+
       // SORM2R
-*
+
       SRNAMT = 'SORM2R'
       INFOT = 1
       CALL SORM2R( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
@@ -234,13 +234,13 @@
       INFOT = 10
       CALL SORM2R( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
       CALL CHKXER( 'SORM2R', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of SERRQR
-*
+
       END

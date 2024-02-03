@@ -1,9 +1,9 @@
       REAL             FUNCTION CLANHP( NORM, UPLO, N, AP, WORK )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             NORM, UPLO;
       int                N;
@@ -12,9 +12,9 @@
       REAL               WORK( * )
       COMPLEX            AP( * )
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
@@ -34,13 +34,13 @@
       // INTRINSIC ABS, REAL, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       IF( N.EQ.0 ) THEN
          VALUE = ZERO
       ELSE IF( LSAME( NORM, 'M' ) ) THEN
-*
+
          // Find max(abs(A(i,j))).
-*
+
          VALUE = ZERO
          IF( LSAME( UPLO, 'U' ) ) THEN
             K = 0
@@ -66,9 +66,9 @@
    40       CONTINUE
          END IF
       ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
-*
+
          // Find normI(A) ( = norm1(A), since A is hermitian).
-*
+
          VALUE = ZERO
          K = 1
          IF( LSAME( UPLO, 'U' ) ) THEN
@@ -104,9 +104,9 @@
   100       CONTINUE
          END IF
       ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
-*
+
          // Find normF(A).
-*
+
          SCALE = ZERO
          SUM = ONE
          K = 2
@@ -141,10 +141,10 @@
   130    CONTINUE
          VALUE = SCALE*SQRT( SUM )
       END IF
-*
+
       CLANHP = VALUE
       RETURN
-*
+
       // End of CLANHP
-*
+
       END

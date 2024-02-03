@@ -1,9 +1,9 @@
       SUBROUTINE DLASQ6( I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN, DNM1, DNM2 )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                I0, N0, PP;
       double             DMIN, DMIN1, DMIN2, DN, DNM1, DNM2;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             Z( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameter ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
@@ -30,15 +30,15 @@
       // INTRINSIC MIN
       // ..
       // .. Executable Statements ..
-*
+
       IF( ( N0-I0-1 ).LE.0 ) RETURN
-*
+
       SAFMIN = DLAMCH( 'Safe minimum' )
       J4 = 4*I0 + PP - 3
       EMIN = Z( J4+4 )
       D = Z( J4 )
       DMIN = D
-*
+
       IF( PP.EQ.0 ) THEN
          DO 10 J4 = 4*I0, 4*( N0-3 ), 4
             Z( J4-2 ) = D + Z( J4-1 )
@@ -78,9 +78,9 @@
             EMIN = MIN( EMIN, Z( J4-1 ) )
    20    CONTINUE
       END IF
-*
+
       // Unroll last two steps.
-*
+
       DNM2 = D
       DMIN2 = DMIN
       J4 = 4*( N0-2 ) - PP
@@ -100,7 +100,7 @@
          DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) )
       END IF
       DMIN = MIN( DMIN, DNM1 )
-*
+
       DMIN1 = DMIN
       J4 = J4 + 4
       J4P2 = J4 + 2*PP - 1
@@ -119,11 +119,11 @@
          DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) )
       END IF
       DMIN = MIN( DMIN, DN )
-*
+
       Z( J4+2 ) = DN
       Z( 4*N0-PP ) = EMIN
       RETURN
-*
+
       // End of DLASQ6
-*
+
       END

@@ -1,15 +1,15 @@
       SUBROUTINE DSYTRD_SB2ST( STAGE1, VECT, UPLO, N, KD, AB, LDAB, D, E, HOUS, LHOUS, WORK, LWORK, INFO )
-*
+
 #if defined(_OPENMP)
       use omp_lib
 #endif
-*
+
       IMPLICIT NONE
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             STAGE1, UPLO, VECT;
       int                N, KD, LDAB, LHOUS, LWORK, INFO;
@@ -18,9 +18,9 @@
       double             D( * ), E( * );
       double             AB( LDAB, * ), HOUS( * ), WORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             RZERO;
       double             ZERO, ONE;
@@ -42,18 +42,18 @@
       // EXTERNAL LSAME, ILAENV2STAGE
       // ..
       // .. Executable Statements ..
-*
+
       // Determine the minimal workspace size required.
       // Test the input parameters
-*
+
       INFO    = 0
       AFTERS1 = LSAME( STAGE1, 'Y' )
       WANTQ   = LSAME( VECT, 'V' )
       UPPER   = LSAME( UPLO, 'U' )
       LQUERY  = ( LWORK.EQ.-1 ) .OR. ( LHOUS.EQ.-1 )
-*
+
       // Determine the block size, the workspace size and the hous size.
-*
+
       IB       = ILAENV2STAGE( 2, 'DSYTRD_SB2ST', VECT, N, KD, -1, -1 )
       IF( N.EQ.0 .OR. KD.LE.1 ) THEN
          LHMIN = 1
@@ -62,7 +62,7 @@
          LHMIN = ILAENV2STAGE( 3, 'DSYTRD_SB2ST', VECT, N, KD, IB, -1 )
          LWMIN = ILAENV2STAGE( 4, 'DSYTRD_SB2ST', VECT, N, KD, IB, -1 )
       END IF
-*
+
       IF( .NOT.AFTERS1 .AND. .NOT.LSAME( STAGE1, 'N' ) ) THEN
          INFO = -1
       ELSE IF( .NOT.LSAME( VECT, 'N' ) ) THEN
@@ -80,29 +80,29 @@
       ELSE IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
          INFO = -13
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          HOUS( 1 ) = LHMIN
          WORK( 1 ) = LWMIN
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DSYTRD_SB2ST', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) THEN
           HOUS( 1 ) = 1
           WORK( 1 ) = 1
           RETURN
       END IF
-*
+
       // Determine pointer position
-*
+
       LDV      = KD + IB
       SIZETAU  = 2 * N
       SIDEV    = 2 * N
@@ -114,7 +114,7 @@
       INDW     = INDA + SIZEA
       NTHREADS = 1
       TID      = 0
-*
+
       IF( UPPER ) THEN
           APOS     = INDA + KD
           AWPOS    = INDA
@@ -131,13 +131,13 @@
           ABOFDPOS = 2
 
       ENDIF
-*
+
       // Case KD=0:
       // The matrix is diagonal. We just copy it (convert to "real" for
       // real because D is double and the imaginary part should be 0)
       // and store it in D. A sequential code here is better or
       // in a parallel environment it might need two cores for D and E
-*
+
       IF( KD.EQ.0 ) THEN
           DO 30 I = 1, N
               D( I ) = ( AB( ABDPOS, I ) )
@@ -145,12 +145,12 @@
           DO 40 I = 1, N-1
               E( I ) = RZERO
    40     CONTINUE
-*
+
           HOUS( 1 ) = 1
           WORK( 1 ) = 1
           RETURN
       END IF
-*
+
       // Case KD=1:
       // The matrix is already Tridiagonal. We have to make diagonal
       // and offdiagonal elements real, and store them in D and E.
@@ -160,12 +160,12 @@
      t // ridiagonal. A simpler conversion formula might be used, but then
       // updating the Q matrix will be required and based if Q is generated
       // or not this might complicate the story.
-*
+
       IF( KD.EQ.1 ) THEN
           DO 50 I = 1, N
               D( I ) = ( AB( ABDPOS, I ) )
    50     CONTINUE
-*
+
           IF( UPPER ) THEN
               DO 60 I = 1, N-1
                  E( I ) = ( AB( ABOFDPOS, I+1 ) )
@@ -175,28 +175,28 @@
                  E( I ) = ( AB( ABOFDPOS, I ) )
    70         CONTINUE
           ENDIF
-*
+
           HOUS( 1 ) = 1
           WORK( 1 ) = 1
           RETURN
       END IF
-*
+
       // Main code start here.
       // Reduce the symmetric band of A to a tridiagonal matrix.
-*
+
       THGRSIZ   = N
       GRSIZ     = 1
       SHIFT     = 3
       NBTILES   = CEILING( REAL(N)/REAL(KD) )
       STEPERCOL = CEILING( REAL(SHIFT)/REAL(GRSIZ) )
       THGRNB    = CEILING( REAL(N-1)/REAL(THGRSIZ) )
-*
+
       CALL DLACPY( "A", KD+1, N, AB, LDAB, WORK( APOS ), LDA )
       CALL DLASET( "A", KD,   N, ZERO, ZERO, WORK( AWPOS ), LDA )
-*
-*
+
+
       // openMP parallelisation start here
-*
+
 #if defined(_OPENMP)
 !$OMP PARALLEL PRIVATE( TID, THGRID, BLKLASTIND )
 !$OMP$         PRIVATE( THED, I, M, K, ST, ED, STT, SWEEPID )
@@ -206,9 +206,9 @@
 !$OMP$         SHARED ( STEPERCOL, THGRNB, THGRSIZ, GRSIZ, SHIFT )
 !$OMP MASTER
 #endif
-*
+
       // main bulge chasing loop
-*
+
       DO 100 THGRID = 1, THGRNB
           STT  = (THGRID-1)*THGRSIZ+1
           THED = MIN( (STT + THGRSIZ -1), (N-1))
@@ -241,9 +241,9 @@
                                   BLKLASTIND = 0
                               ENDIF
                           ENDIF
-*
+
                           // Call the kernel
-*
+
 #if defined(_OPENMP) &&  _OPENMP >= 201307
                           IF( TTYPE.NE.1 ) THEN
 !$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
@@ -271,22 +271,22 @@
   120         CONTINUE
   110     CONTINUE
   100 CONTINUE
-*
+
 #if defined(_OPENMP)
 !$OMP END MASTER
 !$OMP END PARALLEL
 #endif
-*
+
       // Copy the diagonal from A to D. Note that D is REAL thus only
      t // he Real part is needed, the imaginary part should be zero.
-*
+
       DO 150 I = 1, N
           D( I ) = ( WORK( DPOS+(I-1)*LDA ) )
   150 CONTINUE
-*
+
       // Copy the off diagonal from A to E. Note that E is REAL thus only
      t // he Real part is needed, the imaginary part should be zero.
-*
+
       IF( UPPER ) THEN
           DO 160 I = 1, N-1
              E( I ) = ( WORK( OFDPOS+I*LDA ) )
@@ -296,10 +296,10 @@
              E( I ) = ( WORK( OFDPOS+(I-1)*LDA ) )
   170     CONTINUE
       ENDIF
-*
+
       WORK( 1 ) = LWMIN
       RETURN
-*
+
       // End of DSYTRD_SB2ST
-*
+
       END

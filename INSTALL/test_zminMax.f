@@ -1,5 +1,5 @@
       program zmul
-*
+
 *  -- LAPACK test routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
@@ -13,15 +13,15 @@
       // .. Local Variables ..
       int               i, nFailingTests, nTests;
       double            aInf, aNaN, OV, R, X(n), Y(n);
-*
+
       // .. Intrinsic Functions ..
       // intrinsic HUGE, MIN, MAX
 
-*
+
       // .. Initialize error counts ..
       nFailingTests = 0
       nTests = 0
-*
+
       // .. Inf and NaN entries ..
       OV = HUGE(0.0d0)
       aInf = OV * 2
@@ -29,9 +29,9 @@
       X = (/ -aInf, zero, -aInf,  zero, aInf,  aInf, zero, aNaN /)
       Y = (/  zero, aInf,  aInf, -aInf, zero, -aInf, aNaN, zero /)
 
-*
+
       // .. Tests ..
-*
+
       do 10 i = 1, 3
           nTests = nTests + 2
           R = MIN( X(i), Y(i) )
@@ -71,16 +71,16 @@
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R
           endif
   30  continue
-*
+
       if( nFailingTests .gt. 0 ) then
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for intrinsic MIN and MAX,", nFailingTests," fail."
       else
          print *, "# All tests pass for intrinsic MIN and MAX."
       endif
-*
+
       // .. Formats ..
  9998 FORMAT( '[',A1,I1, '] ', A3, '(', F5.0, ',', F5.0, ') = ', F5.0 )
-*
+
       // End of zmul
-*
+
       END

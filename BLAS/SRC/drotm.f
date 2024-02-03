@@ -1,18 +1,18 @@
       SUBROUTINE DROTM(N,DX,INCX,DY,INCY,DPARAM)
-*
+
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
       double           DPARAM(5),DX(*),DY(*);
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       double           DFLAG,DH11,DH12,DH21,DH22,TWO,W,Z,ZERO;
       int     I,KX,KY,NSTEPS;
@@ -20,11 +20,11 @@
       // .. Data statements ..
       DATA ZERO,TWO/0.D0,2.D0/
       // ..
-*
+
       DFLAG = DPARAM(1)
       IF (N.LE.0 .OR. (DFLAG+TWO.EQ.ZERO)) RETURN
       IF (INCX.EQ.INCY.AND.INCX.GT.0) THEN
-*
+
          NSTEPS = N*INCX
          IF (DFLAG.LT.ZERO) THEN
             DH11 = DPARAM(2)
@@ -61,7 +61,7 @@
          KY = 1
          IF (INCX.LT.0) KX = 1 + (1-N)*INCX
          IF (INCY.LT.0) KY = 1 + (1-N)*INCY
-*
+
          IF (DFLAG.LT.ZERO) THEN
             DH11 = DPARAM(2)
             DH12 = DPARAM(4)
@@ -100,7 +100,7 @@
          END IF
       END IF
       RETURN
-*
+
       // End of DROTM
-*
+
       END

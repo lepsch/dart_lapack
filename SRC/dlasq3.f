@@ -1,9 +1,9 @@
       SUBROUTINE DLASQ3( I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL, ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1, DN2, G, TAU )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               IEEE;
       int                I0, ITER, N0, NDIV, NFAIL, PP;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       double             Z( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             CBIAS;
       PARAMETER          ( CBIAS = 1.50D0 )
@@ -37,38 +37,38 @@
       // INTRINSIC ABS, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       N0IN = N0
       EPS = DLAMCH( 'Precision' )
       TOL = EPS*HUNDRD
       TOL2 = TOL**2
-*
+
       // Check for deflation.
-*
+
    10 CONTINUE
-*
+
       IF( N0.LT.I0 ) RETURN       IF( N0.EQ.I0 ) GO TO 20
       NN = 4*N0 + PP
       IF( N0.EQ.( I0+1 ) ) GO TO 40
-*
+
       // Check whether E(N0-1) is negligible, 1 eigenvalue.
-*
+
       IF( Z( NN-5 ).GT.TOL2*( SIGMA+Z( NN-3 ) ) .AND. Z( NN-2*PP-4 ).GT.TOL2*Z( NN-7 ) ) GO TO 30
-*
+
    20 CONTINUE
-*
+
       Z( 4*N0-3 ) = Z( 4*N0+PP-3 ) + SIGMA
       N0 = N0 - 1
       GO TO 10
-*
+
       // Check  whether E(N0-2) is negligible, 2 eigenvalues.
-*
+
    30 CONTINUE
-*
+
       IF( Z( NN-9 ).GT.TOL2*SIGMA .AND. Z( NN-2*PP-8 ).GT.TOL2*Z( NN-11 ) ) GO TO 50
-*
+
    40 CONTINUE
-*
+
       IF( Z( NN-3 ).GT.Z( NN-7 ) ) THEN
          S = Z( NN-3 )
          Z( NN-3 ) = Z( NN-7 )
@@ -90,12 +90,12 @@
       Z( 4*N0-3 ) = Z( NN-3 ) + SIGMA
       N0 = N0 - 2
       GO TO 10
-*
+
    50 CONTINUE
       IF( PP.EQ.2 ) PP = 0
-*
+
       // Reverse the qd-array, if warranted.
-*
+
       IF( DMIN.LE.ZERO .OR. N0.LT.N0IN ) THEN
          IF( CBIAS*Z( 4*I0+PP-3 ).LT.Z( 4*N0+PP-3 ) ) THEN
             IPN4 = 4*( I0+N0 )
@@ -123,63 +123,63 @@
             DMIN = -ZERO
          END IF
       END IF
-*
+
       // Choose a shift.
-*
+
       CALL DLASQ4( I0, N0, Z, PP, N0IN, DMIN, DMIN1, DMIN2, DN, DN1, DN2, TAU, TTYPE, G )
-*
+
       // Call dqds until DMIN > 0.
-*
+
    70 CONTINUE
-*
+
       CALL DLASQ5( I0, N0, Z, PP, TAU, SIGMA, DMIN, DMIN1, DMIN2, DN, DN1, DN2, IEEE, EPS )
-*
+
       NDIV = NDIV + ( N0-I0+2 )
       ITER = ITER + 1
-*
+
       // Check status.
-*
+
       IF( DMIN.GE.ZERO .AND. DMIN1.GE.ZERO ) THEN
-*
+
          // Success.
-*
+
          GO TO 90
-*
+
       ELSE IF( DMIN.LT.ZERO .AND. DMIN1.GT.ZERO .AND. Z( 4*( N0-1 )-PP ).LT.TOL*( SIGMA+DN1 ) .AND. ABS( DN ).LT.TOL*SIGMA ) THEN
-*
+
          // Convergence hidden by negative DN.
-*
+
          Z( 4*( N0-1 )-PP+2 ) = ZERO
          DMIN = ZERO
          GO TO 90
       ELSE IF( DMIN.LT.ZERO ) THEN
-*
+
          // TAU too big. Select new TAU and try again.
-*
+
          NFAIL = NFAIL + 1
          IF( TTYPE.LT.-22 ) THEN
-*
+
             // Failed twice. Play it safe.
-*
+
             TAU = ZERO
          ELSE IF( DMIN1.GT.ZERO ) THEN
-*
+
             // Late failure. Gives excellent shift.
-*
+
             TAU = ( TAU+DMIN )*( ONE-TWO*EPS )
             TTYPE = TTYPE - 11
          ELSE
-*
+
             // Early failure. Divide by 4.
-*
+
             TAU = QURTR*TAU
             TTYPE = TTYPE - 12
          END IF
          GO TO 70
       ELSE IF( DISNAN( DMIN ) ) THEN
-*
+
          // NaN.
-*
+
          IF( TAU.EQ.ZERO ) THEN
             GO TO 80
          ELSE
@@ -187,20 +187,20 @@
             GO TO 70
          END IF
       ELSE
-*
+
          // Possible underflow. Play it safe.
-*
+
          GO TO 80
       END IF
-*
+
       // Risk of underflow.
-*
+
    80 CONTINUE
       CALL DLASQ6( I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN, DN1, DN2 )
       NDIV = NDIV + ( N0-I0+2 )
       ITER = ITER + 1
       TAU = ZERO
-*
+
    90 CONTINUE
       IF( TAU.LT.SIGMA ) THEN
          DESIG = DESIG + TAU
@@ -211,9 +211,9 @@
          DESIG = SIGMA - ( T-TAU ) + DESIG
       END IF
       SIGMA = T
-*
+
       RETURN
-*
+
       // End of DLASQ3
-*
+
       END

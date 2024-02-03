@@ -1,9 +1,9 @@
       SUBROUTINE SLARRJ( N, D, E2, IFIRST, ILAST, RTOL, OFFSET, W, WERR, WORK, IWORK, PIVMIN, SPDIAM, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                IFIRST, ILAST, INFO, N, OFFSET;
       REAL               PIVMIN, RTOL, SPDIAM
@@ -12,9 +12,9 @@
       int                IWORK( * );
       REAL               D( * ), E2( * ), W( * ), WERR( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF
       PARAMETER        ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = 0.5E0 )
@@ -23,30 +23,30 @@
       // .. Local Scalars ..
       int                CNT, I, I1, I2, II, ITER, J, K, NEXT, NINT, OLNINT, P, PREV, SAVI1;
       REAL               DPLUS, FAC, LEFT, MID, RIGHT, S, TMP, WIDTH
-*
+
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) THEN
          RETURN
       END IF
-*
+
       MAXITR = INT( ( LOG( SPDIAM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
-*
+
       // Initialize unconverged intervals in [ WORK(2*I-1), WORK(2*I) ].
       // The Sturm Count, Count( WORK(2*I-1) ) is arranged to be I-1, while
       // Count( WORK(2*I) ) is stored in IWORK( 2*I ). The integer IWORK( 2*I-1 )
       // for an unconverged interval is set to the index of the next unconverged
       // interval, and is -1 or 0 for a converged interval. Thus a linked
       // list of unconverged intervals is set up.
-*
+
 
       I1 = IFIRST
       I2 = ILAST
@@ -77,9 +77,9 @@
             // unconverged interval found
             PREV = I
             // Make sure that [LEFT,RIGHT] contains the desired eigenvalue
-*
+
             // Do while( CNT(LEFT).GT.I-1 )
-*
+
             FAC = ONE
  20         CONTINUE
             CNT = 0
@@ -95,9 +95,9 @@
                FAC = TWO*FAC
                GO TO 20
             END IF
-*
+
             // Do while( CNT(RIGHT).LT.I )
-*
+
             FAC = ONE
  50         CONTINUE
             CNT = 0
@@ -123,10 +123,10 @@
 
 
       SAVI1 = I1
-*
+
       // Do while( NINT.GT.0 ), i.e. there are still unconverged intervals
       // and while (ITER.LT.MAXITR)
-*
+
       ITER = 0
  80   CONTINUE
       PREV = I1 - 1
@@ -159,9 +159,9 @@
             GO TO 100
          END IF
          PREV = I
-*
+
          // Perform one bisection step
-*
+
          CNT = 0
          S = MID
          DPLUS = D( 1 ) - S
@@ -183,8 +183,8 @@
       // However, in the last iteration, all intervals are accepted
       // since this is the best we can do.
       IF( ( NINT.GT.0 ).AND.(ITER.LE.MAXITR) ) GO TO 80
-*
-*
+
+
       // At this point, all the intervals have converged
       DO 110 I = SAVI1, ILAST
          K = 2*I
@@ -195,10 +195,10 @@
             WERR( II ) = WORK( K ) - W( II )
          END IF
  110  CONTINUE
-*
+
 
       RETURN
-*
+
       // End of SLARRJ
-*
+
       END

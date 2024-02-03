@@ -1,9 +1,9 @@
       SUBROUTINE SBDSDC( UPLO, COMPQ, N, D, E, U, LDU, VT, LDVT, Q, IQ, WORK, IWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             COMPQ, UPLO;
       int                INFO, LDU, LDVT, N;
@@ -12,12 +12,12 @@
       int                IQ( * ), IWORK( * );
       REAL               D( * ), E( * ), Q( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
 *  Changed dimension statement in comment describing E from (N) to
 *  (N-1).  Sven, 17 Feb 05.
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
@@ -39,11 +39,11 @@
       // INTRINSIC REAL, ABS, INT, LOG, SIGN
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
-*
+
       IUPLO = 0
       IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2
       IF( LSAME( COMPQ, 'N' ) ) THEN
@@ -70,9 +70,9 @@
          CALL XERBLA( 'SBDSDC', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
       SMLSIZ = ILAENV( 9, 'SBDSDC', ' ', 0, 0, 0, 0 )
       IF( N.EQ.1 ) THEN
@@ -87,10 +87,10 @@
          RETURN
       END IF
       NM1 = N - 1
-*
+
       // If matrix lower bidiagonal, rotate to be upper bidiagonal
       // by applying Givens rotations on the left
-*
+
       WSTART = 1
       QSTART = 3
       IF( ICOMPQ.EQ.1 ) THEN
@@ -114,9 +114,9 @@
             END IF
    10    CONTINUE
       END IF
-*
+
       // If ICOMPQ = 0, use SLASDQ to compute the singular values.
-*
+
       IF( ICOMPQ.EQ.0 ) THEN
          // Ignore WSTART, instead using WORK( 1 ), since the two vectors
          // for CS and -SN above are added only if ICOMPQ == 2,
@@ -124,10 +124,10 @@
          CALL SLASDQ( 'U', 0, N, 0, 0, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK( 1 ), INFO )
          GO TO 40
       END IF
-*
+
       // If N is smaller than the minimum divide size SMLSIZ, then solve
      t // he problem with another solver.
-*
+
       IF( N.LE.SMLSIZ ) THEN
          IF( ICOMPQ.EQ.2 ) THEN
             CALL SLASET( 'A', N, N, ZERO, ONE, U, LDU )
@@ -140,24 +140,24 @@
          END IF
          GO TO 40
       END IF
-*
+
       IF( ICOMPQ.EQ.2 ) THEN
          CALL SLASET( 'A', N, N, ZERO, ONE, U, LDU )
          CALL SLASET( 'A', N, N, ZERO, ONE, VT, LDVT )
       END IF
-*
+
       // Scale.
-*
+
       ORGNRM = SLANST( 'M', N, D, E )
       IF( ORGNRM.EQ.ZERO ) RETURN
       CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, N, 1, D, N, IERR )
       CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, IERR )
-*
+
       EPS = SLAMCH( 'Epsilon' )
-*
+
       MLVL = INT( LOG( REAL( N ) / REAL( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1
       SMLSZP = SMLSIZ + 1
-*
+
       IF( ICOMPQ.EQ.1 ) THEN
          IU = 1
          IVT = 1 + SMLSIZ
@@ -168,44 +168,44 @@
          IS = IC + 1
          POLES = IS + 1
          GIVNUM = POLES + 2*MLVL
-*
+
          K = 1
          GIVPTR = 2
          PERM = 3
          GIVCOL = PERM + MLVL
       END IF
-*
+
       DO 20 I = 1, N
          IF( ABS( D( I ) ).LT.EPS ) THEN
             D( I ) = SIGN( EPS, D( I ) )
          END IF
    20 CONTINUE
-*
+
       START = 1
       SQRE = 0
-*
+
       DO 30 I = 1, NM1
          IF( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) THEN
-*
+
          // Subproblem found. First determine its size and then
          // apply divide and conquer on it.
-*
+
             IF( I.LT.NM1 ) THEN
-*
+
          // A subproblem with E(I) small for I < NM1.
-*
+
                NSIZE = I - START + 1
             ELSE IF( ABS( E( I ) ).GE.EPS ) THEN
-*
+
          // A subproblem with E(NM1) not too small but I = NM1.
-*
+
                NSIZE = N - START + 1
             ELSE
-*
+
          // A subproblem with E(NM1) small. This implies an
          // 1-by-1 subproblem at D(N). Solve this 1-by-1 problem
          // first.
-*
+
                NSIZE = I - START + 1
                IF( ICOMPQ.EQ.2 ) THEN
                   U( N, N ) = SIGN( ONE, D( N ) )
@@ -227,14 +227,14 @@
             START = I + 1
          END IF
    30 CONTINUE
-*
+
       // Unscale
-*
+
       CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, N, 1, D, N, IERR )
    40 CONTINUE
-*
+
       // Use Selection Sort to minimize swaps of singular vectors
-*
+
       DO 60 II = 2, N
          I = II - 1
          KK = I
@@ -258,9 +258,9 @@
             IQ( I ) = I
          END IF
    60 CONTINUE
-*
+
       // If ICOMPQ = 1, use IQ(N,1) as the indicator for UPLO
-*
+
       IF( ICOMPQ.EQ.1 ) THEN
          IF( IUPLO.EQ.1 ) THEN
             IQ( N ) = 1
@@ -268,14 +268,14 @@
             IQ( N ) = 0
          END IF
       END IF
-*
+
       // If B is lower bidiagonal, update U by those Givens rotations
       // which rotated B to be upper bidiagonal
-*
+
       IF( ( IUPLO.EQ.2 ) .AND. ( ICOMPQ.EQ.2 ) ) CALL SLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU )
-*
+
       RETURN
-*
+
       // End of SBDSDC
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE SGEBAK( JOB, SIDE, N, ILO, IHI, SCALE, M, V, LDV, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOB, SIDE;
       int                IHI, ILO, INFO, LDV, M, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               V( LDV, * ), SCALE( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
@@ -34,12 +34,12 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Decode and Test the input parameters
-*
+
       RIGHTV = LSAME( SIDE, 'R' )
       LEFTV = LSAME( SIDE, 'L' )
-*
+
       INFO = 0
       IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
          INFO = -1
@@ -60,38 +60,38 @@
          CALL XERBLA( 'SGEBAK', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN       IF( M.EQ.0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN
-*
+
       IF( ILO.EQ.IHI ) GO TO 30
-*
+
       // Backward balance
-*
+
       IF( LSAME( JOB, 'S' ) .OR. LSAME( JOB, 'B' ) ) THEN
-*
+
          IF( RIGHTV ) THEN
             DO 10 I = ILO, IHI
                S = SCALE( I )
                CALL SSCAL( M, S, V( I, 1 ), LDV )
    10       CONTINUE
          END IF
-*
+
          IF( LEFTV ) THEN
             DO 20 I = ILO, IHI
                S = ONE / SCALE( I )
                CALL SSCAL( M, S, V( I, 1 ), LDV )
    20       CONTINUE
          END IF
-*
+
       END IF
-*
+
       // Backward permutation
-*
+
       // For  I = ILO-1 step -1 until 1,
                // IHI+1 step 1 until N do --
-*
+
    30 CONTINUE
       IF( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) THEN
          IF( RIGHTV ) THEN
@@ -103,7 +103,7 @@
                CALL SSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
    40       CONTINUE
          END IF
-*
+
          IF( LEFTV ) THEN
             DO 50 II = 1, N
                I = II
@@ -114,9 +114,9 @@
    50       CONTINUE
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of SGEBAK
-*
+
       END

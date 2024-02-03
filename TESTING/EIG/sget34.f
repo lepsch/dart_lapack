@@ -1,9 +1,9 @@
       SUBROUTINE SGET34( RMAX, LMAX, NINFO, KNT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                KNT, LMAX;
       REAL               RMAX
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       int                NINFO( 2 );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0 )
@@ -40,15 +40,15 @@
       // INTRINSIC ABS, MAX, REAL, SIGN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Get machine parameters
-*
+
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Set up test case parameters
-*
+
       VAL( 1 ) = ZERO
       VAL( 2 ) = SQRT( SMLNUM )
       VAL( 3 ) = ONE
@@ -61,15 +61,15 @@
       VM( 1 ) = ONE
       VM( 2 ) = ONE + TWO*EPS
       CALL SCOPY( 16, VAL( 4 ), 0, T( 1, 1 ), 1 )
-*
+
       NINFO( 1 ) = 0
       NINFO( 2 ) = 0
       KNT = 0
       LMAX = 0
       RMAX = ZERO
-*
+
       // Begin test loop
-*
+
       DO 40 IA = 1, 9
          DO 30 IAM = 1, 2
             DO 20 IB = 1, 9
@@ -94,7 +94,7 @@
    20       CONTINUE
    30    CONTINUE
    40 CONTINUE
-*
+
       DO 110 IA = 1, 5
          DO 100 IAM = 1, 2
             DO 90 IB = 1, 5
@@ -132,7 +132,7 @@
    90       CONTINUE
   100    CONTINUE
   110 CONTINUE
-*
+
       DO 180 IA11 = 1, 5
          DO 170 IA12 = 2, 5
             DO 160 IA21 = 2, 4
@@ -170,7 +170,7 @@
   160       CONTINUE
   170    CONTINUE
   180 CONTINUE
-*
+
       DO 300 IA11 = 1, 5
          DO 290 IA12 = 2, 5
             DO 280 IA21 = 2, 4
@@ -225,9 +225,9 @@
   280       CONTINUE
   290    CONTINUE
   300 CONTINUE
-*
+
       RETURN
-*
+
       // End of SGET34
-*
+
       END

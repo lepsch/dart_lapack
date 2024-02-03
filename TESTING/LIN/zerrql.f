@@ -1,16 +1,16 @@
       SUBROUTINE ZERRQL( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -37,12 +37,12 @@
       // INTRINSIC DBLE, DCMPLX
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ), -1.D0 / DBLE( I+J ) )             AF( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ), -1.D0 / DBLE( I+J ) )
@@ -52,11 +52,11 @@
          X( J ) = 0.D0
    20 CONTINUE
       OK = .TRUE.
-*
+
       // Error exits for QL factorization
-*
+
       // ZGEQLF
-*
+
       SRNAMT = 'ZGEQLF'
       INFOT = 1
       CALL ZGEQLF( -1, 0, A, 1, B, W, 1, INFO )
@@ -70,9 +70,9 @@
       INFOT = 7
       CALL ZGEQLF( 1, 2, A, 1, B, W, 1, INFO )
       CALL CHKXER( 'ZGEQLF', INFOT, NOUT, LERR, OK )
-*
+
       // ZGEQL2
-*
+
       SRNAMT = 'ZGEQL2'
       INFOT = 1
       CALL ZGEQL2( -1, 0, A, 1, B, W, INFO )
@@ -83,9 +83,9 @@
       INFOT = 4
       CALL ZGEQL2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'ZGEQL2', INFOT, NOUT, LERR, OK )
-*
+
       // ZGEQLS
-*
+
       SRNAMT = 'ZGEQLS'
       INFOT = 1
       CALL ZGEQLS( -1, 0, 0, A, 1, X, B, 1, W, 1, INFO )
@@ -108,9 +108,9 @@
       INFOT = 10
       CALL ZGEQLS( 1, 1, 2, A, 1, X, B, 1, W, 1, INFO )
       CALL CHKXER( 'ZGEQLS', INFOT, NOUT, LERR, OK )
-*
+
       // ZUNGQL
-*
+
       SRNAMT = 'ZUNGQL'
       INFOT = 1
       CALL ZUNGQL( -1, 0, 0, A, 1, X, W, 1, INFO )
@@ -133,9 +133,9 @@
       INFOT = 8
       CALL ZUNGQL( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'ZUNGQL', INFOT, NOUT, LERR, OK )
-*
+
       // ZUNG2L
-*
+
       SRNAMT = 'ZUNG2L'
       INFOT = 1
       CALL ZUNG2L( -1, 0, 0, A, 1, X, W, INFO )
@@ -155,9 +155,9 @@
       INFOT = 5
       CALL ZUNG2L( 2, 1, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'ZUNG2L', INFOT, NOUT, LERR, OK )
-*
+
       // ZUNMQL
-*
+
       SRNAMT = 'ZUNMQL'
       INFOT = 1
       CALL ZUNMQL( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
@@ -195,9 +195,9 @@
       INFOT = 12
       CALL ZUNMQL( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'ZUNMQL', INFOT, NOUT, LERR, OK )
-*
+
       // ZUNM2L
-*
+
       SRNAMT = 'ZUNM2L'
       INFOT = 1
       CALL ZUNM2L( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
@@ -229,13 +229,13 @@
       INFOT = 10
       CALL ZUNM2L( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
       CALL CHKXER( 'ZUNM2L', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of ZERRQL
-*
+
       END

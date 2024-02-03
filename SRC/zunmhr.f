@@ -1,9 +1,9 @@
       SUBROUTINE ZUNMHR( SIDE, TRANS, M, N, ILO, IHI, A, LDA, TAU, C, LDC, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                IHI, ILO, INFO, LDA, LDC, LWORK, M, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               LEFT, LQUERY;
       int                I1, I2, IINFO, LWKOPT, MI, NB, NH, NI, NQ, NW;
@@ -30,16 +30,16 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       NH = IHI - ILO
       LEFT = LSAME( SIDE, 'L' )
       LQUERY = ( LWORK.EQ.-1 )
-*
+
       // NQ is the order of Q and NW is the minimum dimension of WORK
-*
+
       IF( LEFT ) THEN
          NQ = M
          NW = MAX( 1, N )
@@ -66,7 +66,7 @@
       ELSE IF( LWORK.LT.NW .AND. .NOT.LQUERY ) THEN
          INFO = -13
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          IF( LEFT ) THEN
             NB = ILAENV( 1, 'ZUNMQR', SIDE // TRANS, NH, N, NH, -1 )
@@ -76,21 +76,21 @@
          LWKOPT = NW*NB
          WORK( 1 ) = LWKOPT
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZUNMHR', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( M.EQ.0 .OR. N.EQ.0 .OR. NH.EQ.0 ) THEN
          WORK( 1 ) = 1
          RETURN
       END IF
-*
+
       IF( LEFT ) THEN
          MI = NH
          NI = N
@@ -102,12 +102,12 @@
          I1 = 1
          I2 = ILO + 1
       END IF
-*
+
       CALL ZUNMQR( SIDE, TRANS, MI, NI, NH, A( ILO+1, ILO ), LDA, TAU( ILO ), C( I1, I2 ), LDC, WORK, LWORK, IINFO )
-*
+
       WORK( 1 ) = LWKOPT
       RETURN
-*
+
       // End of ZUNMHR
-*
+
       END

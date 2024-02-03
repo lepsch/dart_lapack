@@ -1,17 +1,17 @@
       SUBROUTINE DERRTSQR( PATH, NUNIT )
       IMPLICIT NONE
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -38,12 +38,12 @@
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO J = 1, NMAX
          DO I = 1, NMAX
             A( I, J ) = 1.D0 / DBLE( I+J )
@@ -53,11 +53,11 @@
          W( J ) = 0.D0
       END DO
       OK = .TRUE.
-*
+
       // Error exits for TS factorization
-*
+
       // DGEQR
-*
+
       SRNAMT = 'DGEQR'
       INFOT = 1
       CALL DGEQR( -1, 0, A, 1, TAU, 1, W, 1, INFO )
@@ -74,9 +74,9 @@
       INFOT = 8
       CALL DGEQR( 3, 2, A, 3, TAU, 7, W, 0, INFO )
       CALL CHKXER( 'DGEQR', INFOT, NOUT, LERR, OK )
-*
+
       // DLATSQR
-*
+
       MB = 1
       NB = 1
       SRNAMT = 'DLATSQR'
@@ -103,9 +103,9 @@
       INFOT = 10
       CALL DLATSQR( 2, 1, MB, NB, A, 2, TAU, 2, W, 0, INFO )
       CALL CHKXER( 'DLATSQR', INFOT, NOUT, LERR, OK )
-*
+
       // DGEMQR
-*
+
       TAU(1)=1
       TAU(2)=1
       TAU(3)=1
@@ -145,9 +145,9 @@
       INFOT = 13
       CALL DGEMQR( 'L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO)
       CALL CHKXER( 'DGEMQR', INFOT, NOUT, LERR, OK )
-*
+
       // DGELQ
-*
+
       SRNAMT = 'DGELQ'
       INFOT = 1
       CALL DGELQ( -1, 0, A, 1, TAU, 1, W, 1, INFO )
@@ -164,9 +164,9 @@
       INFOT = 8
       CALL DGELQ( 2, 3, A, 3, TAU, 7, W, 0, INFO )
       CALL CHKXER( 'DGELQ', INFOT, NOUT, LERR, OK )
-*
+
       // DLASWLQ
-*
+
       MB = 1
       NB = 1
       SRNAMT = 'DLASWLQ'
@@ -195,9 +195,9 @@
       INFOT = 10
       CALL DLASWLQ( 1, 2, MB, NB, A, 1, TAU, 1, W, 0, INFO )
       CALL CHKXER( 'DLASWLQ', INFOT, NOUT, LERR, OK )
-*
+
       // DGEMLQ
-*
+
       TAU(1)=1
       TAU(2)=1
       SRNAMT = 'DGEMLQ'
@@ -235,13 +235,13 @@
       INFOT = 13
       CALL DGEMLQ( 'L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO)
       CALL CHKXER( 'DGEMLQ', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of DERRTSQR
-*
+
       END

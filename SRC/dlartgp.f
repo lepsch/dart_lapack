@@ -1,15 +1,15 @@
       SUBROUTINE DLARTGP( F, G, CS, SN, R )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       double             CS, F, G, R, SN;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
@@ -37,7 +37,7 @@
       // DATA               FIRST / .TRUE. /
       // ..
       // .. Executable Statements ..
-*
+
       // IF( FIRST ) THEN
          SAFMIN = DLAMCH( 'S' )
          EPS = DLAMCH( 'E' )
@@ -97,7 +97,7 @@
          END IF
       END IF
       RETURN
-*
+
       // End of DLARTGP
-*
+
       END

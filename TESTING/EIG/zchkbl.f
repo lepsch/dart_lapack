@@ -1,15 +1,15 @@
       SUBROUTINE ZCHKBL( NIN, NOUT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                NIN, NOUT;
       // ..
-*
+
 * ======================================================================
-*
+
       // .. Parameters ..
       int                LDA;
       PARAMETER          ( LDA = 20 )
@@ -43,7 +43,7 @@
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       LMAX( 1 ) = 0
       LMAX( 2 ) = 0
       LMAX( 3 ) = 0
@@ -53,35 +53,35 @@
       VMAX = ZERO
       SFMIN = DLAMCH( 'S' )
       MEPS = DLAMCH( 'E' )
-*
+
    10 CONTINUE
-*
+
       READ( NIN, FMT = * )N
       IF( N.EQ.0 ) GO TO 70
       DO 20 I = 1, N
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
    20 CONTINUE
-*
+
       READ( NIN, FMT = * )ILOIN, IHIIN
       DO 30 I = 1, N
          READ( NIN, FMT = * )( AIN( I, J ), J = 1, N )
    30 CONTINUE
       READ( NIN, FMT = * )( SCALIN( I ), I = 1, N )
-*
+
       ANORM = ZLANGE( 'M', N, N, A, LDA, DUMMY )
       KNT = KNT + 1
       CALL ZGEBAL( 'B', N, A, LDA, ILO, IHI, SCALE, INFO )
-*
+
       IF( INFO.NE.0 ) THEN
          NINFO = NINFO + 1
          LMAX( 1 ) = KNT
       END IF
-*
+
       IF( ILO.NE.ILOIN .OR. IHI.NE.IHIIN ) THEN
          NINFO = NINFO + 1
          LMAX( 2 ) = KNT
       END IF
-*
+
       DO 50 I = 1, N
          DO 40 J = 1, N
             TEMP = MAX( CABS1( A( I, J ) ), CABS1( AIN( I, J ) ) )
@@ -89,25 +89,25 @@
             VMAX = MAX( VMAX, CABS1( A( I, J )-AIN( I, J ) ) / TEMP )
    40    CONTINUE
    50 CONTINUE
-*
+
       DO 60 I = 1, N
          TEMP = MAX( SCALE( I ), SCALIN( I ) )
          TEMP = MAX( TEMP, SFMIN )
          VMAX = MAX( VMAX, ABS( SCALE( I )-SCALIN( I ) ) / TEMP )
    60 CONTINUE
-*
+
       IF( VMAX.GT.RMAX ) THEN
          LMAX( 3 ) = KNT
          RMAX = VMAX
       END IF
-*
+
       GO TO 10
-*
+
    70 CONTINUE
-*
+
       WRITE( NOUT, FMT = 9999 )
  9999 FORMAT( 1X, '.. test output of ZGEBAL .. ' )
-*
+
       WRITE( NOUT, FMT = 9998 )RMAX
  9998 FORMAT( 1X, 'value of largest test error            = ', D12.3 )
       WRITE( NOUT, FMT = 9997 )LMAX( 1 )
@@ -120,9 +120,9 @@
  9994 FORMAT( 1X, 'number of examples where info is not 0 = ', I4 )
       WRITE( NOUT, FMT = 9993 )KNT
  9993 FORMAT( 1X, 'total number of examples tested        = ', I4 )
-*
+
       RETURN
-*
+
       // End of ZCHKBL
-*
+
       END

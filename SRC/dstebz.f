@@ -1,9 +1,9 @@
       SUBROUTINE DSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IBLOCK, ISPLIT, WORK, IWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             ORDER, RANGE;
       int                IL, INFO, IU, M, N, NSPLIT;
@@ -13,9 +13,9 @@
       int                IBLOCK( * ), ISPLIT( * ), IWORK( * );
       double             D( * ), E( * ), W( * ), WORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE, TWO, HALF;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = 1.0D0 / TWO )
@@ -43,11 +43,11 @@
       // INTRINSIC ABS, INT, LOG, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
-*
+
       // Decode RANGE
-*
+
       IF( LSAME( RANGE, 'A' ) ) THEN
          IRANGE = 1
       ELSE IF( LSAME( RANGE, 'V' ) ) THEN
@@ -57,9 +57,9 @@
       ELSE
          IRANGE = 0
       END IF
-*
+
       // Decode ORDER
-*
+
       IF( LSAME( ORDER, 'B' ) ) THEN
          IORDER = 2
       ELSE IF( LSAME( ORDER, 'E' ) ) THEN
@@ -67,9 +67,9 @@
       ELSE
          IORDER = 0
       END IF
-*
+
       // Check for Errors
-*
+
       IF( IRANGE.LE.0 ) THEN
          INFO = -1
       ELSE IF( IORDER.LE.0 ) THEN
@@ -82,39 +82,39 @@
       ELSE IF( IRANGE.EQ.3 .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) THEN
          INFO = -7
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DSTEBZ', -INFO )
          RETURN
       END IF
-*
+
       // Initialize error flags
-*
+
       INFO = 0
       NCNVRG = .FALSE.
       TOOFEW = .FALSE.
-*
+
       // Quick return if possible
-*
+
       M = 0
       IF( N.EQ.0 ) RETURN
-*
+
       // Simplifications:
-*
+
       IF( IRANGE.EQ.3 .AND. IL.EQ.1 .AND. IU.EQ.N ) IRANGE = 1
-*
+
       // Get machine constants
       // NB is the minimum vector length for vector bisection, or 0
       // if only scalar is to be done.
-*
+
       SAFEMN = DLAMCH( 'S' )
       ULP = DLAMCH( 'P' )
       RTOLI = ULP*RELFAC
       NB = ILAENV( 1, 'DSTEBZ', ' ', N, -1, -1, -1 )
       IF( NB.LE.1 ) NB = 0
-*
+
       // Special Case when N=1
-*
+
       IF( N.EQ.1 ) THEN
          NSPLIT = 1
          ISPLIT( 1 ) = 1
@@ -127,13 +127,13 @@
          END IF
          RETURN
       END IF
-*
+
       // Compute Splitting Points
-*
+
       NSPLIT = 1
       WORK( N ) = ZERO
       PIVMIN = ONE
-*
+
       DO 10 J = 2, N
          TMP1 = E( J-1 )**2
          IF( ABS( D( J )*D( J-1 ) )*ULP**2+SAFEMN.GT.TMP1 ) THEN
@@ -147,43 +147,43 @@
    10 CONTINUE
       ISPLIT( NSPLIT ) = N
       PIVMIN = PIVMIN*SAFEMN
-*
+
       // Compute Interval and ATOLI
-*
+
       IF( IRANGE.EQ.3 ) THEN
-*
+
          // RANGE='I': Compute the interval containing eigenvalues
                     // IL through IU.
-*
+
          // Compute Gershgorin interval for entire (split) matrix
          // and use it as the initial interval
-*
+
          GU = D( 1 )
          GL = D( 1 )
          TMP1 = ZERO
-*
+
          DO 20 J = 1, N - 1
             TMP2 = SQRT( WORK( J ) )
             GU = MAX( GU, D( J )+TMP1+TMP2 )
             GL = MIN( GL, D( J )-TMP1-TMP2 )
             TMP1 = TMP2
    20    CONTINUE
-*
+
          GU = MAX( GU, D( N )+TMP1 )
          GL = MIN( GL, D( N )-TMP1 )
          TNORM = MAX( ABS( GL ), ABS( GU ) )
          GL = GL - FUDGE*TNORM*ULP*N - FUDGE*TWO*PIVMIN
          GU = GU + FUDGE*TNORM*ULP*N + FUDGE*PIVMIN
-*
+
          // Compute Iteration parameters
-*
+
          ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
          IF( ABSTOL.LE.ZERO ) THEN
             ATOLI = ULP*TNORM
          ELSE
             ATOLI = ABSTOL
          END IF
-*
+
          WORK( N+1 ) = GL
          WORK( N+2 ) = GL
          WORK( N+3 ) = GU
@@ -196,9 +196,9 @@
          IWORK( 4 ) = N + 1
          IWORK( 5 ) = IL - 1
          IWORK( 6 ) = IU
-*
+
          CALL DLAEBZ( 3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, WORK, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO )
-*
+
          IF( IWORK( 6 ).EQ.IU ) THEN
             WL = WORK( N+1 )
             WLU = WORK( N+3 )
@@ -214,27 +214,27 @@
             WUL = WORK( N+1 )
             NWU = IWORK( 3 )
          END IF
-*
+
          IF( NWL.LT.0 .OR. NWL.GE.N .OR. NWU.LT.1 .OR. NWU.GT.N ) THEN
             INFO = 4
             RETURN
          END IF
       ELSE
-*
+
          // RANGE='A' or 'V' -- Set ATOLI
-*
+
          TNORM = MAX( ABS( D( 1 ) )+ABS( E( 1 ) ), ABS( D( N ) )+ABS( E( N-1 ) ) )
-*
+
          DO 30 J = 2, N - 1
             TNORM = MAX( TNORM, ABS( D( J ) )+ABS( E( J-1 ) )+ ABS( E( J ) ) )
    30    CONTINUE
-*
+
          IF( ABSTOL.LE.ZERO ) THEN
             ATOLI = ULP*TNORM
          ELSE
             ATOLI = ABSTOL
          END IF
-*
+
          IF( IRANGE.EQ.2 ) THEN
             WL = VL
             WU = VU
@@ -243,64 +243,64 @@
             WU = ZERO
          END IF
       END IF
-*
+
       // Find Eigenvalues -- Loop Over Blocks and recompute NWL and NWU.
       // NWL accumulates the number of eigenvalues .le. WL,
       // NWU accumulates the number of eigenvalues .le. WU
-*
+
       M = 0
       IEND = 0
       INFO = 0
       NWL = 0
       NWU = 0
-*
+
       DO 70 JB = 1, NSPLIT
          IOFF = IEND
          IBEGIN = IOFF + 1
          IEND = ISPLIT( JB )
          IN = IEND - IOFF
-*
+
          IF( IN.EQ.1 ) THEN
-*
+
             // Special Case -- IN=1
-*
+
             IF( IRANGE.EQ.1 .OR. WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE.EQ.1 .OR. WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE.EQ.1 .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) THEN
                M = M + 1
                W( M ) = D( IBEGIN )
                IBLOCK( M ) = JB
             END IF
          ELSE
-*
+
             // General Case -- IN > 1
-*
+
             // Compute Gershgorin Interval
             // and use it as the initial interval
-*
+
             GU = D( IBEGIN )
             GL = D( IBEGIN )
             TMP1 = ZERO
-*
+
             DO 40 J = IBEGIN, IEND - 1
                TMP2 = ABS( E( J ) )
                GU = MAX( GU, D( J )+TMP1+TMP2 )
                GL = MIN( GL, D( J )-TMP1-TMP2 )
                TMP1 = TMP2
    40       CONTINUE
-*
+
             GU = MAX( GU, D( IEND )+TMP1 )
             GL = MIN( GL, D( IEND )-TMP1 )
             BNORM = MAX( ABS( GL ), ABS( GU ) )
             GL = GL - FUDGE*BNORM*ULP*IN - FUDGE*PIVMIN
             GU = GU + FUDGE*BNORM*ULP*IN + FUDGE*PIVMIN
-*
+
             // Compute ATOLI for the current submatrix
-*
+
             IF( ABSTOL.LE.ZERO ) THEN
                ATOLI = ULP*MAX( ABS( GL ), ABS( GU ) )
             ELSE
                ATOLI = ABSTOL
             END IF
-*
+
             IF( IRANGE.GT.1 ) THEN
                IF( GU.LT.WL ) THEN
                   NWL = NWL + IN
@@ -311,29 +311,29 @@
                GU = MIN( GU, WU )
                IF( GL.GE.GU ) GO TO 70
             END IF
-*
+
             // Set Up Initial Interval
-*
+
             WORK( N+1 ) = GL
             WORK( N+IN+1 ) = GU
             CALL DLAEBZ( 1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), WORK( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
-*
+
             NWL = NWL + IWORK( 1 )
             NWU = NWU + IWORK( IN+1 )
             IWOFF = M - IWORK( 1 )
-*
+
             // Compute Eigenvalues
-*
+
             ITMAX = INT( ( LOG( GU-GL+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2             CALL DLAEBZ( 2, ITMAX, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), WORK( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IOUT, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
-*
+
             // Copy Eigenvalues Into W and IBLOCK
             // Use -JB for block number for unconverged eigenvalues.
-*
+
             DO 60 J = 1, IOUT
                TMP1 = HALF*( WORK( J+N )+WORK( J+IN+N ) )
-*
+
                // Flag non-convergence.
-*
+
                IF( J.GT.IOUT-IINFO ) THEN
                   NCNVRG = .TRUE.
                   IB = -JB
@@ -345,19 +345,19 @@
                   IBLOCK( JE ) = IB
    50          CONTINUE
    60       CONTINUE
-*
+
             M = M + IM
          END IF
    70 CONTINUE
-*
+
       // If RANGE='I', then (WL,WU) contains eigenvalues NWL+1,...,NWU
       // If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
-*
+
       IF( IRANGE.EQ.3 ) THEN
          IM = 0
          IDISCL = IL - 1 - NWL
          IDISCU = NWU - IU
-*
+
          IF( IDISCL.GT.0 .OR. IDISCU.GT.0 ) THEN
             DO 80 JE = 1, M
                IF( W( JE ).LE.WLU .AND. IDISCL.GT.0 ) THEN
@@ -373,17 +373,17 @@
             M = IM
          END IF
          IF( IDISCL.GT.0 .OR. IDISCU.GT.0 ) THEN
-*
+
             // Code to deal with effects of bad arithmetic:
             // Some low eigenvalues to be discarded are not in (WL,WLU],
             // or high eigenvalues to be discarded are not in (WUL,WU]
             // so just kill off the smallest IDISCL/largest IDISCU
             // eigenvalues, by simply finding the smallest/largest
             // eigenvalue(s).
-*
+
             // (If N(w) is monotone non-decreasing, this should never
                 // happen.)
-*
+
             IF( IDISCL.GT.0 ) THEN
                WKILL = WU
                DO 100 JDISC = 1, IDISCL
@@ -398,7 +398,7 @@
   100          CONTINUE
             END IF
             IF( IDISCU.GT.0 ) THEN
-*
+
                WKILL = WL
                DO 120 JDISC = 1, IDISCU
                   IW = 0
@@ -425,11 +425,11 @@
             TOOFEW = .TRUE.
          END IF
       END IF
-*
+
       // If ORDER='B', do nothing -- the eigenvalues are already sorted
          // by block.
       // If ORDER='E', sort the eigenvalues from smallest to largest
-*
+
       IF( IORDER.EQ.1 .AND. NSPLIT.GT.1 ) THEN
          DO 150 JE = 1, M - 1
             IE = 0
@@ -440,7 +440,7 @@
                   TMP1 = W( J )
                END IF
   140       CONTINUE
-*
+
             IF( IE.NE.0 ) THEN
                ITMP1 = IBLOCK( IE )
                W( IE ) = W( JE )
@@ -450,11 +450,11 @@
             END IF
   150    CONTINUE
       END IF
-*
+
       INFO = 0
       IF( NCNVRG ) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2
       RETURN
-*
+
       // End of DSTEBZ
-*
+
       END

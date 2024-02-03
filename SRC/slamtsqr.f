@@ -1,9 +1,9 @@
       SUBROUTINE SLAMTSQR( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T, LDT, C, LDC, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                INFO, LDA, M, N, K, MB, NB, LDT, LWORK, LDC;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               A( LDA, * ), WORK( * ), C( LDC, * ), T( LDT, * )
       // ..
-*
+
 * =====================================================================
-*
+
       // ..
       // .. Local Scalars ..
       bool               LEFT, RIGHT, TRAN, NOTRAN, LQUERY;
@@ -29,9 +29,9 @@
       // EXTERNAL SGEMQRT, STPMQRT, XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LQUERY  = ( LWORK.EQ.-1 )
       NOTRAN  = LSAME( TRANS, 'N' )
@@ -45,14 +45,14 @@
         LW = MB * NB
         Q = N
       END IF
-*
+
       MINMNK = MIN( M, N, K )
       IF( MINMNK.EQ.0 ) THEN
         LWMIN = 1
       ELSE
         LWMIN = MAX( 1, LW )
       END IF
-*
+
       IF( .NOT.LEFT .AND. .NOT.RIGHT ) THEN
         INFO = -1
       ELSE IF( .NOT.TRAN .AND. .NOT.NOTRAN ) THEN
@@ -74,35 +74,35 @@
       ELSE IF( LWORK.LT.LWMIN. AND. (.NOT.LQUERY) ) THEN
         INFO = -15
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
         WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
         CALL XERBLA( 'SLAMTSQR', -INFO )
         RETURN
       ELSE IF( LQUERY ) THEN
         RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( MINMNK.EQ.0 ) THEN
         RETURN
       END IF
-*
+
       // Determine the block size if it is tall skinny or short and wide
-*
+
       IF((MB.LE.K).OR.(MB.GE.MAX(M,N,K))) THEN
         CALL SGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T, LDT, C, LDC, WORK, INFO )
         RETURN
       END IF
-*
+
       IF(LEFT.AND.NOTRAN) THEN
-*
+
           // Multiply Q to the last block of C
-*
+
          KK = MOD((M-K),(MB-K))
          CTR = (M-K)/(MB-K)
          IF (KK.GT.0) THEN
@@ -111,49 +111,49 @@
          ELSE
            II=M+1
          END IF
-*
+
          DO I=II-(MB-K),MB+1,-(MB-K)
-*
+
           // Multiply Q to the current block of C (I:I+MB,1:N)
-*
+
            CTR = CTR - 1
            CALL STPMQRT('L','N',MB-K , N, K, 0,NB, A(I,1), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO )
-*
+
          END DO
-*
+
           // Multiply Q to the first block of C (1:MB,1:N)
-*
+
          CALL SGEMQRT('L','N',MB , N, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
-*
+
       ELSE IF (LEFT.AND.TRAN) THEN
-*
+
           // Multiply Q to the first block of C
-*
+
          KK = MOD((M-K),(MB-K))
          II=M-KK+1
          CTR = 1
          CALL SGEMQRT('L','T',MB , N, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
-*
+
          DO I=MB+1,II-MB+K,(MB-K)
-*
+
           // Multiply Q to the current block of C (I:I+MB,1:N)
-*
+
           CALL STPMQRT('L','T',MB-K , N, K, 0,NB, A(I,1), LDA, T(1,CTR * K + 1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO )
           CTR = CTR + 1
-*
+
          END DO
          IF(II.LE.M) THEN
-*
+
           // Multiply Q to the last block of C
-*
+
           CALL STPMQRT('L','T',KK , N, K, 0,NB, A(II,1), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO )
-*
+
          END IF
-*
+
       ELSE IF(RIGHT.AND.TRAN) THEN
-*
+
           // Multiply Q to the last block of C
-*
+
           KK = MOD((N-K),(MB-K))
           CTR = (N-K)/(MB-K)
           IF (KK.GT.0) THEN
@@ -162,50 +162,50 @@
           ELSE
             II=N+1
           END IF
-*
+
           DO I=II-(MB-K),MB+1,-(MB-K)
-*
+
           // Multiply Q to the current block of C (1:M,I:I+MB)
-*
+
             CTR = CTR - 1
             CALL STPMQRT('R','T',M , MB-K, K, 0,NB, A(I,1), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO )
-*
+
           END DO
-*
+
           // Multiply Q to the first block of C (1:M,1:MB)
-*
+
           CALL SGEMQRT('R','T',M , MB, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
-*
+
       ELSE IF (RIGHT.AND.NOTRAN) THEN
-*
+
           // Multiply Q to the first block of C
-*
+
          KK = MOD((N-K),(MB-K))
          II=N-KK+1
          CTR = 1
          CALL SGEMQRT('R','N', M, MB , K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
-*
+
          DO I=MB+1,II-MB+K,(MB-K)
-*
+
           // Multiply Q to the current block of C (1:M,I:I+MB)
-*
+
           CALL STPMQRT('R','N', M, MB-K, K, 0,NB, A(I,1), LDA, T(1, CTR * K + 1),LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO )
           CTR = CTR + 1
-*
+
          END DO
          IF(II.LE.N) THEN
-*
+
           // Multiply Q to the last block of C
-*
+
           CALL STPMQRT('R','N', M, KK , K, 0,NB, A(II,1), LDA, T(1, CTR * K + 1),LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO )
-*
+
          END IF
-*
+
       END IF
-*
+
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
       RETURN
-*
+
       // End of SLAMTSQR
-*
+
       END

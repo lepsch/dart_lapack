@@ -1,9 +1,9 @@
       SUBROUTINE ZGBRFSX( TRANS, EQUED, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             TRANS, EQUED;
       int                INFO, LDAB, LDAFB, LDB, LDX, N, KL, KU, NRHS, NPARAMS, N_ERR_BNDS;
@@ -13,9 +13,9 @@
       int                IPIV( * );
       COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       double             R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
       // ..
-*
+
 *  ==================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -52,9 +52,9 @@
       int                ILATRANS, ILAPREC;
       // ..
       // .. Executable Statements ..
-*
+
       // Check the input parameters.
-*
+
       INFO = 0
       TRANS_TYPE = ILATRANS( TRANS )
       REF_TYPE = INT( ITREF_DEFAULT )
@@ -65,15 +65,15 @@
             REF_TYPE = PARAMS( LA_LINRX_ITREF_I )
          END IF
       END IF
-*
+
       // Set default parameters.
-*
+
       ILLRCOND_THRESH = DBLE( N ) * DLAMCH( 'Epsilon' )
       ITHRESH = INT( ITHRESH_DEFAULT )
       RTHRESH = RTHRESH_DEFAULT
       UNSTABLE_THRESH = DZTHRESH_DEFAULT
       IGNORE_CWISE = COMPONENTWISE_DEFAULT .EQ. 0.0D+0
-*
+
       IF ( NPARAMS.GE.LA_LINRX_ITHRESH_I ) THEN
          IF ( PARAMS( LA_LINRX_ITHRESH_I ).LT.0.0D+0 ) THEN
             PARAMS( LA_LINRX_ITHRESH_I ) = ITHRESH
@@ -99,13 +99,13 @@
       ELSE
          N_NORMS = 2
       END IF
-*
+
       NOTRAN = LSAME( TRANS, 'N' )
       ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
       COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
-*
+
       // Test input parameters.
-*
+
       IF( TRANS_TYPE.EQ.-1 ) THEN
         INFO = -1
       ELSE IF( .NOT.ROWEQU .AND. .NOT.COLEQU .AND. .NOT.LSAME( EQUED, 'N' ) ) THEN
@@ -131,9 +131,9 @@
         CALL XERBLA( 'ZGBRFSX', -INFO )
         RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
          RCOND = 1.0D+0
          DO J = 1, NRHS
@@ -153,9 +153,9 @@
          END DO
          RETURN
       END IF
-*
+
       // Default to failure.
-*
+
       RCOND = 0.0D+0
       DO J = 1, NRHS
          BERR( J ) = 1.0D+0
@@ -172,10 +172,10 @@
             ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = 0.0D+0
          END IF
       END DO
-*
+
       // Compute the norm of A and the reciprocal of the condition
       // number of A.
-*
+
       IF( NOTRAN ) THEN
          NORM = 'I'
       ELSE
@@ -183,9 +183,9 @@
       END IF
       ANORM = ZLANGB( NORM, N, KL, KU, AB, LDAB, RWORK )
       CALL ZGBCON( NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND, WORK, RWORK, INFO )
-*
+
       // Perform refinement on each right-hand side
-*
+
       IF ( REF_TYPE .NE. 0 .AND. INFO .EQ. 0 ) THEN
 
          PREC_TYPE = ILAPREC( 'E' )
@@ -199,9 +199,9 @@
 
       ERR_LBND = MAX( 10.0D+0, SQRT( DBLE( N ) ) ) * DLAMCH( 'Epsilon' )
       IF (N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 1) THEN
-*
+
       // Compute scaled normwise condition number cond(A*C).
-*
+
          IF ( COLEQU .AND. NOTRAN ) THEN
             RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, .TRUE., INFO, WORK, RWORK )
          ELSE IF ( ROWEQU .AND. .NOT. NOTRAN ) THEN
@@ -210,13 +210,13 @@
             RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, .FALSE., INFO, WORK, RWORK )
          END IF
          DO J = 1, NRHS
-*
+
       // Cap the error at 1.0.
-*
+
             IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I .AND. ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .GT. 1.0D+0) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
-*
+
       // Threshold the error (see LAWN).
-*
+
             IF ( RCOND_TMP .LT. ILLRCOND_THRESH ) THEN
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 0.0D+0
@@ -225,9 +225,9 @@
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = ERR_LBND
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0D+0
             END IF
-*
+
       // Save the condition number.
-*
+
             IF ( N_ERR_BNDS .GE. LA_LINRX_RCOND_I ) THEN
                ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = RCOND_TMP
             END IF
@@ -236,7 +236,7 @@
       END IF
 
       IF (N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 2) THEN
-*
+
       // Compute componentwise condition number cond(A*diag(Y(:,J))) for
       // each right-hand side using the current solution as an estimate of
      t // he true solution.  If the componentwise error estimate is too
@@ -244,20 +244,20 @@
       // estimated RCOND may be too optimistic.  To avoid misleading users,
      t // he inverse condition number is set to 0.0 when the estimated
       // cwise error is at least CWISE_WRONG.
-*
+
          CWISE_WRONG = SQRT( DLAMCH( 'Epsilon' ) )
          DO J = 1, NRHS
             IF (ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. CWISE_WRONG ) THEN                RCOND_TMP = ZLA_GBRCOND_X( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, X( 1, J ), INFO, WORK, RWORK )
             ELSE
                RCOND_TMP = 0.0D+0
             END IF
-*
+
       // Cap the error at 1.0.
-*
+
             IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I .AND. ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
-*
+
       // Threshold the error (see LAWN).
-*
+
             IF ( RCOND_TMP .LT. ILLRCOND_THRESH ) THEN
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 0.0D+0
@@ -265,18 +265,18 @@
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = ERR_LBND
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0D+0
             END IF
-*
+
       // Save the condition number.
-*
+
             IF ( N_ERR_BNDS .GE. LA_LINRX_RCOND_I ) THEN
                ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = RCOND_TMP
             END IF
 
          END DO
       END IF
-*
+
       RETURN
-*
+
       // End of ZGBRFSX
-*
+
       END

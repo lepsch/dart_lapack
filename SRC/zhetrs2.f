@@ -1,9 +1,9 @@
       SUBROUTINE ZHETRS2( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDB, N, NRHS;
@@ -12,9 +12,9 @@
       int                IPIV( * );
       COMPLEX*16       A( LDA, * ), B( LDB, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX*16         ONE
       PARAMETER          ( ONE = (1.0D+0,0.0D+0) )
@@ -36,7 +36,7 @@
       // INTRINSIC DBLE, DCONJG, MAX
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -54,19 +54,19 @@
          CALL XERBLA( 'ZHETRS2', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
-*
+
       // Convert A
-*
+
       CALL ZSYCONV( UPLO, 'C', N, A, LDA, IPIV, WORK, IINFO )
-*
+
       IF( UPPER ) THEN
-*
+
          // Solve A*X = B, where A = U*D*U**H.
-*
+
         // P**T * B
         K=N
         DO WHILE ( K .GE. 1 )
@@ -84,13 +84,13 @@
             K=K-2
          END IF
         END DO
-*
+
 *  Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
-*
+
         CALL ZTRSM('L','U','N','U',N,NRHS,ONE,A,LDA,B,LDB)
-*
+
 *  Compute D \ B -> B   [ D \ (U \P**T * B) ]
-*
+
          I=N
          DO WHILE ( I .GE. 1 )
             IF( IPIV(I) .GT. 0 ) THEN
@@ -113,13 +113,13 @@
             ENDIF
             I = I - 1
          END DO
-*
+
        // Compute (U**H \ B) -> B   [ U**H \ (D \ (U \P**T * B) ) ]
-*
+
          CALL ZTRSM('L','U','C','U',N,NRHS,ONE,A,LDA,B,LDB)
-*
+
         // P * B  [ P * (U**H \ (D \ (U \P**T * B) )) ]
-*
+
         K=1
         DO WHILE ( K .LE. N )
          IF( IPIV( K ).GT.0 ) THEN
@@ -136,11 +136,11 @@
             K=K+2
          ENDIF
         END DO
-*
+
       ELSE
-*
+
          // Solve A*X = B, where A = L*D*L**H.
-*
+
         // P**T * B
         K=1
         DO WHILE ( K .LE. N )
@@ -158,13 +158,13 @@
             K=K+2
          ENDIF
         END DO
-*
+
 *  Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
-*
+
         CALL ZTRSM('L','L','N','U',N,NRHS,ONE,A,LDA,B,LDB)
-*
+
 *  Compute D \ B -> B   [ D \ (L \P**T * B) ]
-*
+
          I=1
          DO WHILE ( I .LE. N )
             IF( IPIV(I) .GT. 0 ) THEN
@@ -185,13 +185,13 @@
             ENDIF
             I = I + 1
          END DO
-*
+
 *  Compute (L**H \ B) -> B   [ L**H \ (D \ (L \P**T * B) ) ]
-*
+
         CALL ZTRSM('L','L','C','U',N,NRHS,ONE,A,LDA,B,LDB)
-*
+
         // P * B  [ P * (L**H \ (D \ (L \P**T * B) )) ]
-*
+
         K=N
         DO WHILE ( K .GE. 1 )
          IF( IPIV( K ).GT.0 ) THEN
@@ -208,15 +208,15 @@
             K=K-2
          ENDIF
         END DO
-*
+
       END IF
-*
+
       // Revert A
-*
+
       CALL ZSYCONV( UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO )
-*
+
       RETURN
-*
+
       // End of ZHETRS2
-*
+
       END

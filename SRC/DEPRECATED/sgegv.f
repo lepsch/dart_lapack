@@ -1,9 +1,9 @@
       SUBROUTINE SGEGV( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBVL, JOBVR;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -39,9 +39,9 @@
       // INTRINSIC ABS, INT, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Decode the input arguments
-*
+
       IF( LSAME( JOBVL, 'N' ) ) THEN
          IJOBVL = 1
          ILVL = .FALSE.
@@ -52,7 +52,7 @@
          IJOBVL = -1
          ILVL = .FALSE.
       END IF
-*
+
       IF( LSAME( JOBVR, 'N' ) ) THEN
          IJOBVR = 1
          ILVR = .FALSE.
@@ -64,9 +64,9 @@
          ILVR = .FALSE.
       END IF
       ILV = ILVL .OR. ILVR
-*
+
       // Test the input arguments
-*
+
       LWKMIN = MAX( 8*N, 1 )
       LWKOPT = LWKMIN
       WORK( 1 ) = LWKOPT
@@ -89,7 +89,7 @@
       ELSE IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
          INFO = -16
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          NB1 = ILAENV( 1, 'SGEQRF', ' ', N, N, -1, -1 )
          NB2 = ILAENV( 1, 'SORMQR', ' ', N, N, N, -1 )
@@ -98,28 +98,28 @@
          LOPT = 2*N + MAX( 6*N, N*(NB+1) )
          WORK( 1 ) = LOPT
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SGEGV ', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Get machine constants
-*
+
       EPS = SLAMCH( 'E' )*SLAMCH( 'B' )
       SAFMIN = SLAMCH( 'S' )
       SAFMIN = SAFMIN + SAFMIN
       SAFMAX = ONE / SAFMIN
       ONEPLS = ONE + ( 4*EPS )
-*
+
       // Scale A
-*
+
       ANRM = SLANGE( 'M', N, N, A, LDA, WORK )
       ANRM1 = ANRM
       ANRM2 = ONE
@@ -129,7 +129,7 @@
             ANRM2 = SAFMAX*ANRM
          END IF
       END IF
-*
+
       IF( ANRM.GT.ZERO ) THEN
          CALL SLASCL( 'G', -1, -1, ANRM, ONE, N, N, A, LDA, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -137,9 +137,9 @@
             RETURN
          END IF
       END IF
-*
+
       // Scale B
-*
+
       BNRM = SLANGE( 'M', N, N, B, LDB, WORK )
       BNRM1 = BNRM
       BNRM2 = ONE
@@ -149,7 +149,7 @@
             BNRM2 = SAFMAX*BNRM
          END IF
       END IF
-*
+
       IF( BNRM.GT.ZERO ) THEN
          CALL SLASCL( 'G', -1, -1, BNRM, ONE, N, N, B, LDB, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -157,11 +157,11 @@
             RETURN
          END IF
       END IF
-*
+
       // Permute the matrix to make it more nearly triangular
       // Workspace layout:  (8*N words -- "work" requires 6*N words)
          // left_permutation, right_permutation, work...
-*
+
       ILEFT = 1
       IRIGHT = N + 1
       IWORK = IRIGHT + N
@@ -170,11 +170,11 @@
          INFO = N + 1
          GO TO 120
       END IF
-*
+
       // Reduce B to triangular form, and initialize VL and/or VR
       // Workspace layout:  ("work..." must have at least N words)
          // left_permutation, right_permutation, tau, work...
-*
+
       IROWS = IHI + 1 - ILO
       IF( ILV ) THEN
          ICOLS = N + 1 - ILO
@@ -188,14 +188,14 @@
          INFO = N + 2
          GO TO 120
       END IF
-*
+
       CALL SORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO )
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       IF( IINFO.NE.0 ) THEN
          INFO = N + 3
          GO TO 120
       END IF
-*
+
       IF( ILVL ) THEN
          CALL SLASET( 'Full', N, N, ZERO, ONE, VL, LDVL )
          CALL SLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )          CALL SORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )
@@ -205,15 +205,15 @@
             GO TO 120
          END IF
       END IF
-*
+
       IF( ILVR ) CALL SLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
-*
+
       // Reduce to generalized Hessenberg form
-*
+
       IF( ILV ) THEN
-*
+
          // Eigenvectors requested -- work on whole matrix.
-*
+
          CALL SGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IINFO )
       ELSE
          CALL SGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IINFO )
@@ -222,11 +222,11 @@
          INFO = N + 5
          GO TO 120
       END IF
-*
+
       // Perform QZ algorithm
       // Workspace layout:  ("work..." must have at least 1 word)
          // left_permutation, right_permutation, work...
-*
+
       IWORK = ITAU
       IF( ILV ) THEN
          CHTEMP = 'S'
@@ -245,11 +245,11 @@
          END IF
          GO TO 120
       END IF
-*
+
       IF( ILV ) THEN
-*
+
          // Compute Eigenvectors  (STGEVC requires 6*N words of workspace)
-*
+
          IF( ILVL ) THEN
             IF( ILVR ) THEN
                CHTEMP = 'B'
@@ -259,15 +259,15 @@
          ELSE
             CHTEMP = 'R'
          END IF
-*
+
          CALL STGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWORK ), IINFO )
          IF( IINFO.NE.0 ) THEN
             INFO = N + 7
             GO TO 120
          END IF
-*
+
          // Undo balancing on VL and VR, rescale
-*
+
          IF( ILVL ) THEN
             CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -332,19 +332,19 @@
                END IF
   100       CONTINUE
          END IF
-*
+
          // End of eigenvector calculation
-*
+
       END IF
-*
+
       // Undo scaling in alpha, beta
-*
+
       // Note: this does not give the alpha and beta for the unscaled
       // problem.
-*
+
       // Un-scaling is limited to avoid underflow in alpha and beta
       // if they are significant.
-*
+
       DO 110 JC = 1, N
          ABSAR = ABS( ALPHAR( JC ) )
          ABSAI = ABS( ALPHAI( JC ) )
@@ -354,47 +354,47 @@
          SBETA = BNRM*BETA( JC )
          ILIMIT = .FALSE.
          SCALE = ONE
-*
+
          // Check for significant underflow in ALPHAI
-*
+
          IF( ABS( SALFAI ).LT.SAFMIN .AND. ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) THEN
             ILIMIT = .TRUE.
             SCALE = ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAI )
-*
+
          ELSE IF( SALFAI.EQ.ZERO ) THEN
-*
+
             // If insignificant underflow in ALPHAI, then make the
             // conjugate eigenvalue real.
-*
+
             IF( ALPHAI( JC ).LT.ZERO .AND. JC.GT.1 ) THEN
                ALPHAI( JC-1 ) = ZERO
             ELSE IF( ALPHAI( JC ).GT.ZERO .AND. JC.LT.N ) THEN
                ALPHAI( JC+1 ) = ZERO
             END IF
          END IF
-*
+
          // Check for significant underflow in ALPHAR
-*
+
          IF( ABS( SALFAR ).LT.SAFMIN .AND. ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) THEN
             ILIMIT = .TRUE.
             SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAR ) )
          END IF
-*
+
          // Check for significant underflow in BETA
-*
+
          IF( ABS( SBETA ).LT.SAFMIN .AND. ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) THEN
             ILIMIT = .TRUE.
             SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / BNRM1 ) / MAX( ONEPLS*SAFMIN, BNRM2*ABSB ) )
          END IF
-*
+
          // Check for possible overflow when limiting scaling
-*
+
          IF( ILIMIT ) THEN
             TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE.LT.ONE ) ILIMIT = .FALSE.
          END IF
-*
+
          // Recompute un-scaled ALPHAR, ALPHAI, BETA if necessary.
-*
+
          IF( ILIMIT ) THEN
             SALFAR = ( SCALE*ALPHAR( JC ) )*ANRM
             SALFAI = ( SCALE*ALPHAI( JC ) )*ANRM
@@ -404,12 +404,12 @@
          ALPHAI( JC ) = SALFAI
          BETA( JC ) = SBETA
   110 CONTINUE
-*
+
   120 CONTINUE
       WORK( 1 ) = LWKOPT
-*
+
       RETURN
-*
+
       // End of SGEGV
-*
+
       END

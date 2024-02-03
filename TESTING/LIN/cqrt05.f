@@ -1,22 +1,22 @@
       SUBROUTINE CQRT05(M,N,L,NB,RESULT)
       IMPLICIT NONE
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int     LWORK, M, N, L, NB, LDT;
       // .. Return values ..
       REAL RESULT(6)
-*
+
 *  =====================================================================
-*
+
       // ..
       // .. Local allocatable arrays
       COMPLEX, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
       REAL, ALLOCATABLE :: RWORK(:)
-*
+
       // .. Parameters ..
       REAL ZERO
       COMPLEX ONE, CZERO
@@ -37,7 +37,7 @@
       // ..
       // .. Data statements ..
       DATA ISEED / 1988, 1989, 1990, 1991 /
-*
+
       EPS = SLAMCH( 'Epsilon' )
       K = N
       M2 = M+N
@@ -47,13 +47,13 @@
          NP1 = 1
       END IF
       LWORK = M2*M2*NB
-*
+
       // Dynamically allocate all arrays
-*
+
       ALLOCATE(A(M2,N),AF(M2,N),Q(M2,M2),R(M2,M2),RWORK(M2), WORK(LWORK),T(NB,N),C(M2,N),CF(M2,N), D(N,M2),DF(N,M2) )
-*
+
       // Put random stuff into A
-*
+
       LDT=NB
       CALL CLASET( 'Full', M2, N, CZERO, CZERO, A, M2 )
       CALL CLASET( 'Full', NB, N, CZERO, CZERO, T, NB )
@@ -70,27 +70,27 @@
             CALL CLARNV( 2, ISEED, MIN(J,L), A( MIN(N+M,N+M-L+1), J ) )
          END DO
       END IF
-*
+
       // Copy the matrix A to the array AF.
-*
+
       CALL CLACPY( 'Full', M2, N, A, M2, AF, M2 )
-*
+
       // Factor the matrix A in the array AF.
-*
+
       CALL CTPQRT( M,N,L,NB,AF,M2,AF(NP1,1),M2,T,LDT,WORK,INFO)
-*
+
       // Generate the (M+N)-by-(M+N) matrix Q by applying H to I
-*
+
       CALL CLASET( 'Full', M2, M2, CZERO, ONE, Q, M2 )
       CALL CGEMQRT( 'R', 'N', M2, M2, K, NB, AF, M2, T, LDT, Q, M2, WORK, INFO )
-*
+
       // Copy R
-*
+
       CALL CLASET( 'Full', M2, N, CZERO, CZERO, R, M2 )
       CALL CLACPY( 'Upper', M2, N, AF, M2, R, M2 )
-*
+
       // Compute |R - Q'*A| / |A| and store in RESULT(1)
-*
+
       CALL CGEMM( 'C', 'N', M2, N, M2, -ONE, Q, M2, A, M2, ONE, R, M2 )
       ANORM = CLANGE( '1', M2, N, A, M2, RWORK )
       RESID = CLANGE( '1', M2, N, R, M2, RWORK )
@@ -99,28 +99,28 @@
       ELSE
          RESULT( 1 ) = ZERO
       END IF
-*
+
       // Compute |I - Q'*Q| and store in RESULT(2)
-*
+
       CALL CLASET( 'Full', M2, M2, CZERO, ONE, R, M2 )
       CALL CHERK( 'U', 'C', M2, M2, REAL(-ONE), Q, M2, REAL(ONE), R, M2 )
       RESID = CLANSY( '1', 'Upper', M2, R, M2, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,M2))
-*
+
       // Generate random m-by-n matrix C and a copy CF
-*
+
       DO J=1,N
          CALL CLARNV( 2, ISEED, M2, C( 1, J ) )
       END DO
       CNORM = CLANGE( '1', M2, N, C, M2, RWORK)
       CALL CLACPY( 'Full', M2, N, C, M2, CF, M2 )
-*
+
       // Apply Q to C as Q*C
-*
+
       CALL CTPMQRT( 'L','N', M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2, CF(NP1,1),M2,WORK,INFO)
-*
+
       // Compute |Q*C - Q*C| / |C|
-*
+
       CALL CGEMM( 'N', 'N', M2, N, M2, -ONE, Q, M2, C, M2, ONE, CF, M2 )
       RESID = CLANGE( '1', M2, N, CF, M2, RWORK )
       IF( CNORM.GT.ZERO ) THEN
@@ -128,17 +128,17 @@
       ELSE
          RESULT( 3 ) = ZERO
       END IF
-*
+
       // Copy C into CF again
-*
+
       CALL CLACPY( 'Full', M2, N, C, M2, CF, M2 )
-*
+
       // Apply Q to C as QT*C
-*
+
       CALL CTPMQRT( 'L','C',M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2, CF(NP1,1),M2,WORK,INFO)
-*
+
       // Compute |QT*C - QT*C| / |C|
-*
+
       CALL CGEMM('C','N',M2,N,M2,-ONE,Q,M2,C,M2,ONE,CF,M2)
       RESID = CLANGE( '1', M2, N, CF, M2, RWORK )
       IF( CNORM.GT.ZERO ) THEN
@@ -146,21 +146,21 @@
       ELSE
          RESULT( 4 ) = ZERO
       END IF
-*
+
       // Generate random n-by-m matrix D and a copy DF
-*
+
       DO J=1,M2
          CALL CLARNV( 2, ISEED, N, D( 1, J ) )
       END DO
       DNORM = CLANGE( '1', N, M2, D, N, RWORK)
       CALL CLACPY( 'Full', N, M2, D, N, DF, N )
-*
+
       // Apply Q to D as D*Q
-*
+
       CALL CTPMQRT('R','N',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N, DF(1,NP1),N,WORK,INFO)
-*
+
       // Compute |D*Q - D*Q| / |D|
-*
+
       CALL CGEMM('N','N',N,M2,M2,-ONE,D,N,Q,M2,ONE,DF,N)
       RESID = CLANGE('1',N, M2,DF,N,RWORK )
       IF( CNORM.GT.ZERO ) THEN
@@ -168,18 +168,18 @@
       ELSE
          RESULT( 5 ) = ZERO
       END IF
-*
+
       // Copy D into DF again
-*
+
       CALL CLACPY('Full',N,M2,D,N,DF,N )
-*
+
       // Apply Q to D as D*QT
-*
+
       CALL CTPMQRT('R','C',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N, DF(1,NP1),N,WORK,INFO)
 
-*
+
       // Compute |D*QT - D*QT| / |D|
-*
+
       CALL CGEMM( 'N', 'C', N, M2, M2, -ONE, D, N, Q, M2, ONE, DF, N )
       RESID = CLANGE( '1', N, M2, DF, N, RWORK )
       IF( CNORM.GT.ZERO ) THEN
@@ -187,9 +187,9 @@
       ELSE
          RESULT( 6 ) = ZERO
       END IF
-*
+
       // Deallocate all arrays
-*
+
       DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T, C, D, CF, DF)
       RETURN
       END

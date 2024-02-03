@@ -1,9 +1,9 @@
       SUBROUTINE ZTBSV(UPLO,TRANS,DIAG,N,K,A,LDA,X,INCX)
-*
+
 *  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int     INCX,K,LDA,N;
       String    DIAG,TRANS,UPLO;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX*16 A(LDA,*),X(*)
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX*16 ZERO
       PARAMETER (ZERO= (0.0D+0,0.0D+0))
@@ -33,9 +33,9 @@
       // .. Intrinsic Functions ..
       // INTRINSIC DCONJG,MAX,MIN
       // ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
           INFO = 1
@@ -56,30 +56,30 @@
           CALL XERBLA('ZTBSV ',INFO)
           RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF (N.EQ.0) RETURN
-*
+
       NOCONJ = LSAME(TRANS,'T')
       NOUNIT = LSAME(DIAG,'N')
-*
+
       // Set up the start point in X if the increment is not unity. This
       // will be  ( N - 1 )*INCX  too small for descending loops.
-*
+
       IF (INCX.LE.0) THEN
           KX = 1 - (N-1)*INCX
       ELSE IF (INCX.NE.1) THEN
           KX = 1
       END IF
-*
+
       // Start the operations. In this version the elements of A are
       // accessed by sequentially with one pass through A.
-*
+
       IF (LSAME(TRANS,'N')) THEN
-*
+
          // Form  x := inv( A )*x.
-*
+
           IF (LSAME(UPLO,'U')) THEN
               KPLUS1 = K + 1
               IF (INCX.EQ.1) THEN
@@ -142,9 +142,9 @@
               END IF
           END IF
       ELSE
-*
+
          // Form  x := inv( A**T )*x  or  x := inv( A**H )*x.
-*
+
           IF (LSAME(UPLO,'U')) THEN
               KPLUS1 = K + 1
               IF (INCX.EQ.1) THEN
@@ -233,9 +233,9 @@
               END IF
           END IF
       END IF
-*
+
       RETURN
-*
+
       // End of ZTBSV
-*
+
       END

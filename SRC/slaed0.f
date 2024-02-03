@@ -1,9 +1,9 @@
       SUBROUTINE SLAED0( ICOMPQ, QSIZ, N, D, E, Q, LDQ, QSTORE, LDQS, WORK, IWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                ICOMPQ, INFO, LDQ, LDQS, N, QSIZ;
       // ..
@@ -11,9 +11,9 @@
       int                IWORK( * );
       REAL               D( * ), E( * ), Q( LDQ, * ), QSTORE( LDQS, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.E0, ONE = 1.E0, TWO = 2.E0 )
@@ -33,11 +33,11 @@
       // INTRINSIC ABS, INT, LOG, MAX, REAL
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
-*
+
       IF( ICOMPQ.LT.0 .OR. ICOMPQ.GT.2 ) THEN
          INFO = -1
       ELSE IF( ( ICOMPQ.EQ.1 ) .AND. ( QSIZ.LT.MAX( 0, N ) ) ) THEN
@@ -53,16 +53,16 @@
          CALL XERBLA( 'SLAED0', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       SMLSIZ = ILAENV( 9, 'SLAED0', ' ', 0, 0, 0, 0 )
-*
+
       // Determine the size and placement of the submatrices, and save in
      t // he leading elements of IWORK.
-*
+
       IWORK( 1 ) = N
       SUBPBS = 1
       TLVLS = 0
@@ -79,10 +79,10 @@
       DO 30 J = 2, SUBPBS
          IWORK( J ) = IWORK( J ) + IWORK( J-1 )
    30 CONTINUE
-*
+
       // Divide the matrix into SUBPBS submatrices of size at most SMLSIZ+1
       // using rank-1 modifications (cuts).
-*
+
       SPM1 = SUBPBS - 1
       DO 40 I = 1, SPM1
          SUBMAT = IWORK( I ) + 1
@@ -90,13 +90,13 @@
          D( SMM1 ) = D( SMM1 ) - ABS( E( SMM1 ) )
          D( SUBMAT ) = D( SUBMAT ) - ABS( E( SMM1 ) )
    40 CONTINUE
-*
+
       INDXQ = 4*N + 3
       IF( ICOMPQ.NE.2 ) THEN
-*
+
          // Set up workspaces for eigenvalues only/accumulate new vectors
          // routine
-*
+
          TEMP = LOG( REAL( N ) ) / LOG( TWO )
          LGN = INT( TEMP )
          IF( 2**LGN.LT.N ) LGN = LGN + 1          IF( 2**LGN.LT.N ) LGN = LGN + 1
@@ -105,23 +105,23 @@
          IQPTR = IPERM + N*LGN
          IGIVPT = IQPTR + N + 2
          IGIVCL = IGIVPT + N*LGN
-*
+
          IGIVNM = 1
          IQ = IGIVNM + 2*N*LGN
          IWREM = IQ + N**2 + 1
-*
+
          // Initialize pointers
-*
+
          DO 50 I = 0, SUBPBS
             IWORK( IPRMPT+I ) = 1
             IWORK( IGIVPT+I ) = 1
    50    CONTINUE
          IWORK( IQPTR ) = 1
       END IF
-*
+
       // Solve each submatrix eigenproblem at the bottom of the divide and
       // conquer tree.
-*
+
       CURR = 0
       DO 70 I = 0, SPM1
          IF( I.EQ.0 ) THEN
@@ -148,12 +148,12 @@
             K = K + 1
    60    CONTINUE
    70 CONTINUE
-*
+
       // Successively merge eigensystems of adjacent submatrices
       // into eigensystem for the corresponding larger matrix.
-*
+
       // while ( SUBPBS > 1 )
-*
+
       CURLVL = 1
    80 CONTINUE
       IF( SUBPBS.GT.1 ) THEN
@@ -170,7 +170,7 @@
                MSD2 = MATSIZ / 2
                CURPRB = CURPRB + 1
             END IF
-*
+
       // Merge lower order eigensystems (of size MSD2 and MATSIZ - MSD2)
       // into an eigensystem of size MATSIZ.
       // SLAED1 is used only for the full eigensystem of a tridiagonal
@@ -178,7 +178,7 @@
       // SLAED7 handles the cases in which eigenvalues only or eigenvalues
       // and eigenvectors of a full symmetric matrix (which was reduced to
      t // ridiagonal form) are desired.
-*
+
             IF( ICOMPQ.EQ.2 ) THEN
                CALL SLAED1( MATSIZ, D( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK, IWORK( SUBPBS+1 ), INFO )
             ELSE
@@ -191,12 +191,12 @@
          CURLVL = CURLVL + 1
          GO TO 80
       END IF
-*
+
       // end while
-*
+
       // Re-merge the eigenvalues/vectors which were deflated at the final
       // merge step.
-*
+
       IF( ICOMPQ.EQ.1 ) THEN
          DO 100 I = 1, N
             J = IWORK( INDXQ+I )
@@ -220,13 +220,13 @@
          CALL SCOPY( N, WORK, 1, D, 1 )
       END IF
       GO TO 140
-*
+
   130 CONTINUE
       INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1
-*
+
   140 CONTINUE
       RETURN
-*
+
       // End of SLAED0
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE ZLAT2C( UPLO, N, A, LDA, SA, LDSA, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDSA, N;
@@ -12,9 +12,9 @@
       COMPLEX            SA( LDSA, * )
       COMPLEX*16         A( LDA, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, J;
       double             RMAX;
@@ -29,7 +29,7 @@
       // EXTERNAL SLAMCH, LSAME
       // ..
       // .. Executable Statements ..
-*
+
       RMAX = SLAMCH( 'O' )
       UPPER = LSAME( UPLO, 'U' )
       IF( UPPER ) THEN
@@ -54,9 +54,9 @@
    40    CONTINUE
       END IF
    50 CONTINUE
-*
+
       RETURN
-*
+
       // End of ZLAT2C
-*
+
       END

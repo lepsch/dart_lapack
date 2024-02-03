@@ -40,9 +40,9 @@
          RETURN
       END IF
 
-*
+
       // Executable statements
-*
+
 
       // Get machine constants
       SAFMIN = DLAMCH( 'SAFE MINIMUM' )

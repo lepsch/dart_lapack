@@ -1,9 +1,9 @@
       SUBROUTINE CGET37( RMAX, LMAX, NINFO, KNT, NIN )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                KNT, NIN;
       // ..
@@ -11,9 +11,9 @@
       int                LMAX( 3 ), NINFO( 3 );
       REAL               RMAX( 3 )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
@@ -43,13 +43,13 @@
       // INTRINSIC AIMAG, MAX, REAL, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // EPSIN = 2**(-24) = precision to which input data computed
-*
+
       EPS = MAX( EPS, EPSIN )
       RMAX( 1 ) = ZERO
       RMAX( 2 ) = ZERO
@@ -64,11 +64,11 @@
       VAL( 1 ) = SQRT( SMLNUM )
       VAL( 2 ) = ONE
       VAL( 3 ) = SQRT( BIGNUM )
-*
+
       // Read input data until N=0.  Assume input eigenvalues are sorted
       // lexicographically (increasing by real part if ISRT = 0,
       // increasing by imaginary part if ISRT = 1)
-*
+
    10 CONTINUE
       READ( NIN, FMT = * )N, ISRT
       IF( N.EQ.0 ) RETURN
@@ -80,9 +80,9 @@
    30 CONTINUE
       TNRM = CLANGE( 'M', N, N, TMP, LDT, RWORK )
       DO 260 ISCL = 1, 3
-*
+
          // Scale input matrix
-*
+
          KNT = KNT + 1
          CALL CLACPY( 'F', N, N, TMP, LDT, T, LDT )
          VMUL = VAL( ISCL )
@@ -90,9 +90,9 @@
             CALL CSSCAL( N, VMUL, T( 1, I ), 1 )
    40    CONTINUE
          IF( TNRM.EQ.ZERO ) VMUL = ONE
-*
+
          // Compute eigenvalues and eigenvectors
-*
+
          CALL CGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 1 ) = KNT
@@ -104,47 +104,47 @@
                T( I, J ) = ZERO
    50       CONTINUE
    60    CONTINUE
-*
+
          // Compute Schur form
-*
+
          CALL CHSEQR( 'S', 'N', N, 1, N, T, LDT, W, CDUM, 1, WORK, LWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
             GO TO 260
          END IF
-*
+
          // Compute eigenvectors
-*
+
          DO 70 I = 1, N
             SELECT( I ) = .TRUE.
    70    CONTINUE
          CALL CTREVC( 'B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, RWORK, INFO )
-*
+
          // Compute condition numbers
-*
+
          CALL CTRSNA( 'B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, RWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          END IF
-*
+
          // Sort eigenvalues and condition numbers lexicographically
         t // o compare with inputs
-*
+
          CALL CCOPY( N, W, 1, WTMP, 1 )
          IF( ISRT.EQ.0 ) THEN
-*
+
             // Sort by increasing real part
-*
+
             DO 80 I = 1, N
                WSRT( I ) = REAL( W( I ) )
    80       CONTINUE
          ELSE
-*
+
             // Sort by increasing imaginary part
-*
+
             DO 90 I = 1, N
                WSRT( I ) = AIMAG( W( I ) )
    90       CONTINUE
@@ -173,10 +173,10 @@
             SEPTMP( KMIN ) = SEPTMP( I )
             SEPTMP( I ) = VMIN
   110    CONTINUE
-*
+
          // Compare condition numbers for eigenvalues
         t // aking their condition numbers into account
-*
+
          V = MAX( TWO*REAL( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
          DO 120 I = 1, N
@@ -208,10 +208,10 @@
                IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
             END IF
   120    CONTINUE
-*
+
          // Compare condition numbers for eigenvectors
         t // aking their condition numbers into account
-*
+
          DO 130 I = 1, N
             IF( V.GT.SEPTMP( I )*STMP( I ) ) THEN
                TOL = SEPTMP( I )
@@ -241,10 +241,10 @@
                IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
             END IF
   130    CONTINUE
-*
+
          // Compare condition numbers for eigenvalues
          // without taking their condition numbers into account
-*
+
          DO 140 I = 1, N
             IF( SIN( I ).LE.REAL( 2*N )*EPS .AND. STMP( I ).LE. REAL( 2*N )*EPS ) THEN
                VMAX = ONE
@@ -264,10 +264,10 @@
                IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
             END IF
   140    CONTINUE
-*
+
          // Compare condition numbers for eigenvectors
          // without taking their condition numbers into account
-*
+
          DO 150 I = 1, N
             IF( SEPIN( I ).LE.V .AND. SEPTMP( I ).LE.V ) THEN
                VMAX = ONE
@@ -287,9 +287,9 @@
                IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
             END IF
   150    CONTINUE
-*
+
          // Compute eigenvalue condition numbers only and compare
-*
+
          VMAX = ZERO
          DUM( 1 ) = -ONE
          CALL SCOPY( N, DUM, 0, STMP, 1 )
@@ -303,9 +303,9 @@
          DO 160 I = 1, N
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   160    CONTINUE
-*
+
          // Compute eigenvector condition numbers only and compare
-*
+
          CALL SCOPY( N, DUM, 0, STMP, 1 )
          CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL CTRSNA( 'V', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
@@ -317,9 +317,9 @@
          DO 170 I = 1, N
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   170    CONTINUE
-*
+
          // Compute all condition numbers using SELECT and compare
-*
+
          DO 180 I = 1, N
             SELECT( I ) = .TRUE.
   180    CONTINUE
@@ -334,9 +334,9 @@
          DO 190 I = 1, N
             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS
   190    CONTINUE
-*
+
          // Compute eigenvalue condition numbers using SELECT and compare
-*
+
          CALL SCOPY( N, DUM, 0, STMP, 1 )
          CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL CTRSNA( 'E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
@@ -348,9 +348,9 @@
          DO 200 I = 1, N
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   200    CONTINUE
-*
+
          // Compute eigenvector condition numbers using SELECT and compare
-*
+
          CALL SCOPY( N, DUM, 0, STMP, 1 )
          CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
          CALL CTRSNA( 'V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
@@ -366,9 +366,9 @@
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          END IF
-*
+
          // Select second and next to last eigenvalues
-*
+
          DO 220 I = 1, N
             SELECT( I ) = .FALSE.
   220    CONTINUE
@@ -387,9 +387,9 @@
             CALL CCOPY( N, RE( 1, N-1 ), 1, RE( 1, 2 ), 1 )
             CALL CCOPY( N, LE( 1, N-1 ), 1, LE( 1, 2 ), 1 )
          END IF
-*
+
          // Compute all selected condition numbers
-*
+
          CALL SCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL SCOPY( ICMP, DUM, 0, SEPTMP, 1 )
          CALL CTRSNA( 'B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
@@ -402,9 +402,9 @@
             J = LCMP( I )
             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS
   230    CONTINUE
-*
+
          // Compute selected eigenvalue condition numbers
-*
+
          CALL SCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL SCOPY( ICMP, DUM, 0, SEPTMP, 1 )
          CALL CTRSNA( 'E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
@@ -417,9 +417,9 @@
             J = LCMP( I )
             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   240    CONTINUE
-*
+
          // Compute selected eigenvector condition numbers
-*
+
          CALL SCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL SCOPY( ICMP, DUM, 0, SEPTMP, 1 )
          CALL CTRSNA( 'V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
@@ -438,7 +438,7 @@
          END IF
   260 CONTINUE
       GO TO 10
-*
+
       // End of CGET37
-*
+
       END

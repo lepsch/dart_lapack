@@ -1,9 +1,9 @@
       SUBROUTINE DGET52( LEFT, N, A, LDA, B, LDB, E, LDE, ALPHAR, ALPHAI, BETA, WORK, RESULT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               LEFT;
       int                LDA, LDB, LDE, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), E( LDE, * ), RESULT( 2 ), WORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE, TEN;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0 )
@@ -35,15 +35,15 @@
       // INTRINSIC ABS, DBLE, MAX
       // ..
       // .. Executable Statements ..
-*
+
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
       IF( N.LE.0 ) RETURN
-*
+
       SAFMIN = DLAMCH( 'Safe minimum' )
       SAFMAX = ONE / SAFMIN
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
-*
+
       IF( LEFT ) THEN
          TRANS = 'T'
          NORMAB = 'I'
@@ -51,33 +51,33 @@
          TRANS = 'N'
          NORMAB = 'O'
       END IF
-*
+
       // Norm of A, B, and E:
-*
+
       ANORM = MAX( DLANGE( NORMAB, N, N, A, LDA, WORK ), SAFMIN )
       BNORM = MAX( DLANGE( NORMAB, N, N, B, LDB, WORK ), SAFMIN )
       ENORM = MAX( DLANGE( 'O', N, N, E, LDE, WORK ), ULP )
       ALFMAX = SAFMAX / MAX( ONE, BNORM )
       BETMAX = SAFMAX / MAX( ONE, ANORM )
-*
+
       // Compute error matrix.
       // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
-*
+
       ILCPLX = .FALSE.
       DO 10 JVEC = 1, N
          IF( ILCPLX ) THEN
-*
+
             // 2nd Eigenvalue/-vector of pair -- do nothing
-*
+
             ILCPLX = .FALSE.
          ELSE
             SALFR = ALPHAR( JVEC )
             SALFI = ALPHAI( JVEC )
             SBETA = BETA( JVEC )
             IF( SALFI.EQ.ZERO ) THEN
-*
+
                // Real eigenvalue and -vector
-*
+
                ABMAX = MAX( ABS( SALFR ), ABS( SBETA ) )
                IF( ABS( SALFR ).GT.ALFMAX .OR. ABS( SBETA ).GT. BETMAX .OR. ABMAX.LT.ONE ) THEN
                   SCALE = ONE / MAX( ABMAX, SAFMIN )
@@ -89,9 +89,9 @@
                BCOEFR = SCALE*SALFR
                CALL DGEMV( TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC ), 1, ZERO, WORK( N*( JVEC-1 )+1 ), 1 )                CALL DGEMV( TRANS, N, N, -BCOEFR, B, LDA, E( 1, JVEC ), 1, ONE, WORK( N*( JVEC-1 )+1 ), 1 )
             ELSE
-*
+
                // Complex conjugate pair
-*
+
                ILCPLX = .TRUE.
                IF( JVEC.EQ.N ) THEN
                   RESULT( 1 ) = TEN / ULP
@@ -111,22 +111,22 @@
                IF( LEFT ) THEN
                   BCOEFI = -BCOEFI
                END IF
-*
+
                CALL DGEMV( TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC ), 1, ZERO, WORK( N*( JVEC-1 )+1 ), 1 )                CALL DGEMV( TRANS, N, N, -BCOEFR, B, LDA, E( 1, JVEC ), 1, ONE, WORK( N*( JVEC-1 )+1 ), 1 )                CALL DGEMV( TRANS, N, N, BCOEFI, B, LDA, E( 1, JVEC+1 ), 1, ONE, WORK( N*( JVEC-1 )+1 ), 1 )
-*
+
                CALL DGEMV( TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC+1 ), 1, ZERO, WORK( N*JVEC+1 ), 1 )                CALL DGEMV( TRANS, N, N, -BCOEFI, B, LDA, E( 1, JVEC ), 1, ONE, WORK( N*JVEC+1 ), 1 )                CALL DGEMV( TRANS, N, N, -BCOEFR, B, LDA, E( 1, JVEC+1 ), 1, ONE, WORK( N*JVEC+1 ), 1 )
             END IF
          END IF
    10 CONTINUE
-*
+
       ERRNRM = DLANGE( 'One', N, N, WORK, N, WORK( N**2+1 ) ) / ENORM
-*
+
       // Compute RESULT(1)
-*
+
       RESULT( 1 ) = ERRNRM / ULP
-*
+
       // Normalization of E:
-*
+
       ENRMER = ZERO
       ILCPLX = .FALSE.
       DO 40 JVEC = 1, N
@@ -148,13 +148,13 @@
             END IF
          END IF
    40 CONTINUE
-*
+
       // Compute RESULT(2) : the normalization error in E.
-*
+
       RESULT( 2 ) = ENRMER / ( DBLE( N )*ULP )
-*
+
       RETURN
-*
+
       // End of DGET52
-*
+
       END

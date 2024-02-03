@@ -1,9 +1,9 @@
       SUBROUTINE SGET31( RMAX, LMAX, NINFO, KNT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                KNT, LMAX;
       REAL               RMAX
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       int                NINFO( 2 );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0 )
@@ -45,16 +45,16 @@
       DATA               LTRANS / .FALSE., .TRUE. /
       // ..
       // .. Executable Statements ..
-*
+
       // Get machine parameters
-*
+
       EPS = SLAMCH( 'P' )
       UNFL = SLAMCH( 'U' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Set up test case parameters
-*
+
       VSMIN( 1 ) = SMLNUM
       VSMIN( 2 ) = EPS
       VSMIN( 3 ) = ONE / ( TEN*TEN )
@@ -79,15 +79,15 @@
       VCA( 3 ) = EPS
       VCA( 4 ) = HALF
       VCA( 5 ) = ONE
-*
+
       KNT = 0
       NINFO( 1 ) = 0
       NINFO( 2 ) = 0
       LMAX = 0
       RMAX = ZERO
-*
+
       // Begin test loop
-*
+
       DO 190 ID1 = 1, 4
          D1 = VDD( ID1 )
          DO 180 ID2 = 1, 4
@@ -97,7 +97,7 @@
                DO 160 ITRANS = 0, 1
                   DO 150 ISMIN = 1, 4
                      SMIN = VSMIN( ISMIN )
-*
+
                      NA = 1
                      NW = 1
                      DO 30 IA = 1, 3
@@ -129,7 +129,7 @@
    10                      CONTINUE
    20                   CONTINUE
    30                CONTINUE
-*
+
                      NA = 1
                      NW = 2
                      DO 70 IA = 1, 3
@@ -169,7 +169,7 @@
    50                      CONTINUE
    60                   CONTINUE
    70                CONTINUE
-*
+
                      NA = 2
                      NW = 1
                      DO 100 IA = 1, 3
@@ -212,7 +212,7 @@
    80                      CONTINUE
    90                   CONTINUE
   100                CONTINUE
-*
+
                      NA = 2
                      NW = 2
                      DO 140 IA = 1, 3
@@ -269,9 +269,9 @@
   170       CONTINUE
   180    CONTINUE
   190 CONTINUE
-*
+
       RETURN
-*
+
       // End of SGET31
-*
+
       END

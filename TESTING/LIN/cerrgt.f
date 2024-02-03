@@ -1,16 +1,16 @@
       SUBROUTINE CERRGT( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -41,7 +41,7 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
@@ -53,20 +53,20 @@
    10 CONTINUE
       ANORM = 1.0
       OK = .TRUE.
-*
+
       IF( LSAMEN( 2, C2, 'GT' ) ) THEN
-*
+
          // Test error exits for the general tridiagonal routines.
-*
+
          // CGTTRF
-*
+
          SRNAMT = 'CGTTRF'
          INFOT = 1
          CALL CGTTRF( -1, DL, E, DU, DU2, IP, INFO )
          CALL CHKXER( 'CGTTRF', INFOT, NOUT, LERR, OK )
-*
+
          // CGTTRS
-*
+
          SRNAMT = 'CGTTRS'
          INFOT = 1
          CALL CGTTRS( '/', 0, 0, DL, E, DU, DU2, IP, X, 1, INFO )
@@ -80,9 +80,9 @@
          INFOT = 10
          CALL CGTTRS( 'N', 2, 1, DL, E, DU, DU2, IP, X, 1, INFO )
          CALL CHKXER( 'CGTTRS', INFOT, NOUT, LERR, OK )
-*
+
          // CGTRFS
-*
+
          SRNAMT = 'CGTRFS'
          INFOT = 1
          CALL CGTRFS( '/', 0, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO )
@@ -99,9 +99,9 @@
          INFOT = 15
          CALL CGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CGTRFS', INFOT, NOUT, LERR, OK )
-*
+
          // CGTCON
-*
+
          SRNAMT = 'CGTCON'
          INFOT = 1
          CALL CGTCON( '/', 0, DL, E, DU, DU2, IP, ANORM, RCOND, W, INFO )
@@ -112,21 +112,21 @@
          INFOT = 8
          CALL CGTCON( 'I', 0, DL, E, DU, DU2, IP, -ANORM, RCOND, W, INFO )
          CALL CHKXER( 'CGTCON', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
-*
+
          // Test error exits for the positive definite tridiagonal
          // routines.
-*
+
          // CPTTRF
-*
+
          SRNAMT = 'CPTTRF'
          INFOT = 1
          CALL CPTTRF( -1, D, E, INFO )
          CALL CHKXER( 'CPTTRF', INFOT, NOUT, LERR, OK )
-*
+
          // CPTTRS
-*
+
          SRNAMT = 'CPTTRS'
          INFOT = 1
          CALL CPTTRS( '/', 1, 0, D, E, X, 1, INFO )
@@ -140,9 +140,9 @@
          INFOT = 7
          CALL CPTTRS( 'U', 2, 1, D, E, X, 1, INFO )
          CALL CHKXER( 'CPTTRS', INFOT, NOUT, LERR, OK )
-*
+
          // CPTRFS
-*
+
          SRNAMT = 'CPTRFS'
          INFOT = 1
          CALL CPTRFS( '/', 1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO )
@@ -159,9 +159,9 @@
          INFOT = 11
          CALL CPTRFS( 'U', 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CPTRFS', INFOT, NOUT, LERR, OK )
-*
+
          // CPTCON
-*
+
          SRNAMT = 'CPTCON'
          INFOT = 1
          CALL CPTCON( -1, D, E, ANORM, RCOND, RW, INFO )
@@ -170,13 +170,13 @@
          CALL CPTCON( 0, D, E, -ANORM, RCOND, RW, INFO )
          CALL CHKXER( 'CPTCON', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of CERRGT
-*
+
       END

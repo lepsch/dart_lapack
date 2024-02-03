@@ -1,9 +1,9 @@
       SUBROUTINE ZSYTRI2( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LWORK, N;
@@ -12,9 +12,9 @@
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               UPPER, LQUERY;
       int                MINSIZE, NBMAX;
@@ -28,9 +28,9 @@
       // EXTERNAL ZSYTRI, ZSYTRI2X, XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK.EQ.-1 )
@@ -41,7 +41,7 @@
       ELSE
          MINSIZE = (N+NBMAX+1)*(NBMAX+3)
       END IF
-*
+
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
@@ -51,10 +51,10 @@
       ELSE IF (LWORK .LT. MINSIZE .AND. .NOT.LQUERY ) THEN
          INFO = -7
       END IF
-*
+
       // Quick return if possible
-*
-*
+
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZSYTRI2', -INFO )
          RETURN
@@ -70,7 +70,7 @@
          CALL ZSYTRI2X( UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO )
       END IF
       RETURN
-*
+
       // End of ZSYTRI2
-*
+
       END

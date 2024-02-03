@@ -1,9 +1,9 @@
       SUBROUTINE CHER2K(UPLO,TRANS,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC)
-*
+
 *  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       COMPLEX ALPHA
       REAL BETA
@@ -13,9 +13,9 @@
       // .. Array Arguments ..
       COMPLEX A(LDA,*),B(LDB,*),C(LDC,*)
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
@@ -37,16 +37,16 @@
       COMPLEX ZERO
       PARAMETER (ZERO= (0.0E+0,0.0E+0))
       // ..
-*
+
       // Test the input parameters.
-*
+
       IF (LSAME(TRANS,'N')) THEN
           NROWA = N
       ELSE
           NROWA = K
       END IF
       UPPER = LSAME(UPLO,'U')
-*
+
       INFO = 0
       IF ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) THEN
           INFO = 1
@@ -67,13 +67,13 @@
           CALL XERBLA('CHER2K',INFO)
           RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
-*
+
       // And when  alpha.eq.zero.
-*
+
       IF (ALPHA.EQ.ZERO) THEN
           IF (UPPER) THEN
               IF (BETA.EQ.REAL(ZERO)) THEN
@@ -108,14 +108,14 @@
           END IF
           RETURN
       END IF
-*
+
       // Start the operations.
-*
+
       IF (LSAME(TRANS,'N')) THEN
-*
+
          // Form  C := alpha*A*B**H + conjg( alpha )*B*A**H +
                     // C.
-*
+
           IF (UPPER) THEN
               DO 130 J = 1,N
                   IF (BETA.EQ.REAL(ZERO)) THEN
@@ -168,10 +168,10 @@
   180         CONTINUE
           END IF
       ELSE
-*
+
          // Form  C := alpha*A**H*B + conjg( alpha )*B**H*A +
                     // C.
-*
+
           IF (UPPER) THEN
               DO 210 J = 1,N
                   DO 200 I = 1,J
@@ -222,9 +222,9 @@
   240         CONTINUE
           END IF
       END IF
-*
+
       RETURN
-*
+
       // End of CHER2K
-*
+
       END

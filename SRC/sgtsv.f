@@ -1,18 +1,18 @@
       SUBROUTINE SGTSV( N, NRHS, DL, D, DU, B, LDB, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
       REAL               B( LDB, * ), D( * ), DL( * ), DU( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
@@ -28,7 +28,7 @@
       // EXTERNAL XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       IF( N.LT.0 ) THEN
          INFO = -1
@@ -41,15 +41,15 @@
          CALL XERBLA( 'SGTSV ', -INFO )
          RETURN
       END IF
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       IF( NRHS.EQ.1 ) THEN
          DO 10 I = 1, N - 2
             IF( ABS( D( I ) ).GE.ABS( DL( I ) ) ) THEN
-*
+
                // No row interchange required
-*
+
                IF( D( I ).NE.ZERO ) THEN
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
@@ -60,9 +60,9 @@
                END IF
                DL( I ) = ZERO
             ELSE
-*
+
                // Interchange rows I and I+1
-*
+
                FACT = D( I ) / DL( I )
                D( I ) = DL( I )
                TEMP = D( I+1 )
@@ -104,9 +104,9 @@
       ELSE
          DO 40 I = 1, N - 2
             IF( ABS( D( I ) ).GE.ABS( DL( I ) ) ) THEN
-*
+
                // No row interchange required
-*
+
                IF( D( I ).NE.ZERO ) THEN
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
@@ -119,9 +119,9 @@
                END IF
                DL( I ) = ZERO
             ELSE
-*
+
                // Interchange rows I and I+1
-*
+
                FACT = D( I ) / DL( I )
                D( I ) = DL( I )
                TEMP = D( I+1 )
@@ -167,9 +167,9 @@
             RETURN
          END IF
       END IF
-*
+
       // Back solve with the matrix U from the factorization.
-*
+
       IF( NRHS.LE.2 ) THEN
          J = 1
    70    CONTINUE
@@ -191,9 +191,9 @@
    90       CONTINUE
   100    CONTINUE
       END IF
-*
+
       RETURN
-*
+
       // End of SGTSV
-*
+
       END

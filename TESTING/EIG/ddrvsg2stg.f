@@ -1,11 +1,11 @@
       SUBROUTINE DDRVSG2STG( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, B, LDB, D, D2, Z, LDZ, AB, BB, AP, BP, WORK, NWORK, IWORK, LIWORK, RESULT, INFO )
-*
+
       IMPLICIT NONE
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LDZ, LIWORK, NOUNIT, NSIZES, NTYPES, NWORK;
       double             THRESH;
@@ -15,9 +15,9 @@
       int                ISEED( 4 ), IWORK( * ), NN( * );
       double             A( LDA, * ), AB( LDA, * ), AP( * ), B( LDB, * ), BB( LDB, * ), BP( * ), D( * ), D2( * ), RESULT( * ), WORK( * ), Z( LDZ, * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE, TEN;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0 )
@@ -49,21 +49,21 @@
       DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 6*1 /       DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 6*4 /
       // ..
       // .. Executable Statements ..
-*
+
       // 1)      Check for errors
-*
+
       NTESTT = 0
       INFO = 0
-*
+
       BADNN = .FALSE.
       NMAX = 0
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
-*
+
       // Check for errors
-*
+
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
       ELSE IF( BADNN ) THEN
@@ -79,59 +79,59 @@
       ELSE IF( 2*MAX( NMAX, 3 )**2.GT.LIWORK ) THEN
          INFO = -23
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DDRVSG2STG', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
-*
+
       // More Important constants
-*
+
       UNFL = DLAMCH( 'Safe minimum' )
       OVFL = DLAMCH( 'Overflow' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
       ULPINV = ONE / ULP
       RTUNFL = SQRT( UNFL )
       RTOVFL = SQRT( OVFL )
-*
+
       DO 20 I = 1, 4
          ISEED2( I ) = ISEED( I )
    20 CONTINUE
-*
+
       // Loop over sizes, types
-*
+
       NERRS = 0
       NMATS = 0
-*
+
       DO 650 JSIZE = 1, NSIZES
          N = NN( JSIZE )
          ANINV = ONE / DBLE( MAX( 1, N ) )
-*
+
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
          ELSE
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
-*
+
          KA9 = 0
          KB9 = 0
          DO 640 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 640
             NMATS = NMATS + 1
             NTEST = 0
-*
+
             DO 30 J = 1, 4
                IOLDSD( J ) = ISEED( J )
    30       CONTINUE
-*
+
             // 2)      Compute "A"
-*
+
                     // Control parameters:
-*
+
                 // KMAGN  KMODE        KTYPE
             // =1  O(1)   clustered 1  zero
             // =2  large  clustered 2  identity
@@ -142,99 +142,99 @@
             // =7                      random diagonal
             // =8                      random hermitian
             // =9                      banded, w/ eigenvalues
-*
+
             IF( MTYPES.GT.MAXTYP ) GO TO 90
-*
+
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
-*
+
             // Compute norm
-*
+
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
-*
+
    40       CONTINUE
             ANORM = ONE
             GO TO 70
-*
+
    50       CONTINUE
             ANORM = ( RTOVFL*ULP )*ANINV
             GO TO 70
-*
+
    60       CONTINUE
             ANORM = RTUNFL*N*ULPINV
             GO TO 70
-*
+
    70       CONTINUE
-*
+
             IINFO = 0
             COND = ULPINV
-*
+
             // Special Matrices -- Identity & Jordan block
-*
+
             IF( ITYPE.EQ.1 ) THEN
-*
+
                // Zero
-*
+
                KA = 0
                KB = 0
                CALL DLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
-*
+
             ELSE IF( ITYPE.EQ.2 ) THEN
-*
+
                // Identity
-*
+
                KA = 0
                KB = 0
                CALL DLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
-*
+
             ELSE IF( ITYPE.EQ.4 ) THEN
-*
+
                // Diagonal Matrix, [Eigen]values Specified
-*
+
                KA = 0
                KB = 0
                CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
-*
+
             ELSE IF( ITYPE.EQ.5 ) THEN
-*
+
                // symmetric, eigenvalues specified
-*
+
                KA = MAX( 0, N-1 )
                KB = KA
                CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
-*
+
             ELSE IF( ITYPE.EQ.7 ) THEN
-*
+
                // Diagonal, random eigenvalues
-*
+
                KA = 0
                KB = 0
                CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-*
+
             ELSE IF( ITYPE.EQ.8 ) THEN
-*
+
                // symmetric, random eigenvalues
-*
+
                KA = MAX( 0, N-1 )
                KB = KA
                CALL DLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-*
+
             ELSE IF( ITYPE.EQ.9 ) THEN
-*
+
                // symmetric banded, eigenvalues specified
-*
+
                // The following values are used for the half-bandwidths:
-*
+
                  // ka = 1   kb = 1
                  // ka = 2   kb = 1
                  // ka = 2   kb = 2
                  // ka = 3   kb = 1
                  // ka = 3   kb = 2
                  // ka = 3   kb = 3
-*
+
                KB9 = KB9 + 1
                IF( KB9.GT.KA9 ) THEN
                   KA9 = KA9 + 1
@@ -243,20 +243,20 @@
                KA = MAX( 0, MIN( N-1, KA9 ) )
                KB = MAX( 0, MIN( N-1, KB9 ) )
                CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK( N+1 ), IINFO )
-*
+
             ELSE
-*
+
                IINFO = 1
             END IF
-*
+
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
-*
+
    90       CONTINUE
-*
+
             ABSTOL = UNFL + UNFL
             IF( N.LE.1 ) THEN
                IL = 1
@@ -270,34 +270,34 @@
                   IU = ITEMP
                END IF
             END IF
-*
+
             // 3) Call DSYGV, DSPGV, DSBGV, SSYGVD, SSPGVD, SSBGVD,
                // DSYGVX, DSPGVX, and DSBGVX, do tests.
-*
+
             // loop over the three generalized problems
                   // IBTYPE = 1: A*x = (lambda)*B*x
                   // IBTYPE = 2: A*B*x = (lambda)*x
                   // IBTYPE = 3: B*A*x = (lambda)*x
-*
+
             DO 630 IBTYPE = 1, 3
-*
+
                // loop over the setting UPLO
-*
+
                DO 620 IBUPLO = 1, 2
                   IF( IBUPLO.EQ.1 ) UPLO = 'U'                   IF( IBUPLO.EQ.2 ) UPLO = 'L'
-*
+
                   // Generate random well-conditioned positive definite
                   // matrix B, of bandwidth not greater than that of A.
-*
+
                   CALL DLATMS( N, N, 'U', ISEED, 'P', WORK, 5, TEN, ONE, KB, KB, UPLO, B, LDB, WORK( N+1 ), IINFO )
-*
+
                   // Test DSYGV
-*
+
                   NTEST = NTEST + 1
-*
+
                   CALL DLACPY( ' ', N, N, A, LDA, Z, LDZ )
                   CALL DLACPY( UPLO, N, N, B, LDB, BB, LDB )
-*
+
                   CALL DSYGV( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9999 )'DSYGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -309,18 +309,18 @@
                         GO TO 100
                      END IF
                   END IF
-*
+
                   // Do Test
-*
+
                   CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                   // Test DSYGV_2STAGE
-*
+
                   NTEST = NTEST + 1
-*
+
                   CALL DLACPY( ' ', N, N, A, LDA, Z, LDZ )
                   CALL DLACPY( UPLO, N, N, B, LDB, BB, LDB )
-*
+
                   CALL DSYGV_2STAGE( IBTYPE, 'N', UPLO, N, Z, LDZ, BB, LDB, D2, WORK, NWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9999 ) 'DSYGV_2STAGE(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -332,32 +332,32 @@
                         GO TO 100
                      END IF
                   END IF
-*
+
                   // Do Test
-*
+
                    // CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
       // $                         LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                   // Do Tests | D1 - D2 | / ( |D1| ulp )
                   // D1 computed using the standard 1-stage reduction as reference
                   // D2 computed using the 2-stage reduction
-*
+
                   TEMP1 = ZERO
                   TEMP2 = ZERO
                   DO 151 J = 1, N
                      TEMP1 = MAX( TEMP1, ABS( D( J ) ),  ABS( D2( J ) ) )
                      TEMP2 = MAX( TEMP2, ABS( D( J )-D2( J ) ) )
   151             CONTINUE
-*
+
                   RESULT( NTEST ) = TEMP2 /  MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
-*
+
                   // Test DSYGVD
-*
+
                   NTEST = NTEST + 1
-*
+
                   CALL DLACPY( ' ', N, N, A, LDA, Z, LDZ )
                   CALL DLACPY( UPLO, N, N, B, LDB, BB, LDB )
-*
+
                   CALL DSYGVD( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IWORK, LIWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9999 )'DSYGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -369,18 +369,18 @@
                         GO TO 100
                      END IF
                   END IF
-*
+
                   // Do Test
-*
+
                   CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                   // Test DSYGVX
-*
+
                   NTEST = NTEST + 1
-*
+
                   CALL DLACPY( ' ', N, N, A, LDA, AB, LDA )
                   CALL DLACPY( UPLO, N, N, B, LDB, BB, LDB )
-*
+
                   CALL DSYGVX( IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -392,21 +392,21 @@
                         GO TO 100
                      END IF
                   END IF
-*
+
                   // Do Test
-*
+
                   CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                   NTEST = NTEST + 1
-*
+
                   CALL DLACPY( ' ', N, N, A, LDA, AB, LDA )
                   CALL DLACPY( UPLO, N, N, B, LDB, BB, LDB )
-*
+
                   // since we do not know the exact eigenvalues of this
                   // eigenpair, we just set VL and VU as constants.
                   // It is quite possible that there are no eigenvalues
                   // in this interval.
-*
+
                   VL = ZERO
                   VU = ANORM
                   CALL DSYGVX( IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO )
@@ -420,16 +420,16 @@
                         GO TO 100
                      END IF
                   END IF
-*
+
                   // Do Test
-*
+
                   CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                   NTEST = NTEST + 1
-*
+
                   CALL DLACPY( ' ', N, N, A, LDA, AB, LDA )
                   CALL DLACPY( UPLO, N, N, B, LDB, BB, LDB )
-*
+
                   CALL DSYGVX( IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -441,19 +441,19 @@
                         GO TO 100
                      END IF
                   END IF
-*
+
                   // Do Test
-*
+
                   CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
   100             CONTINUE
-*
+
                   // Test DSPGV
-*
+
                   NTEST = NTEST + 1
-*
+
                   // Copy the matrices into packed storage.
-*
+
                   IF( LSAME( UPLO, 'U' ) ) THEN
                      IJ = 1
                      DO 120 J = 1, N
@@ -473,7 +473,7 @@
   130                   CONTINUE
   140                CONTINUE
                   END IF
-*
+
                   CALL DSPGV( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9999 )'DSPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -485,17 +485,17 @@
                         GO TO 310
                      END IF
                   END IF
-*
+
                   // Do Test
-*
+
                   CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                   // Test DSPGVD
-*
+
                   NTEST = NTEST + 1
-*
+
                   // Copy the matrices into packed storage.
-*
+
                   IF( LSAME( UPLO, 'U' ) ) THEN
                      IJ = 1
                      DO 160 J = 1, N
@@ -515,7 +515,7 @@
   170                   CONTINUE
   180                CONTINUE
                   END IF
-*
+
                   CALL DSPGVD( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9999 )'DSPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -527,17 +527,17 @@
                         GO TO 310
                      END IF
                   END IF
-*
+
                   // Do Test
-*
+
                   CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                   // Test DSPGVX
-*
+
                   NTEST = NTEST + 1
-*
+
                   // Copy the matrices into packed storage.
-*
+
                   IF( LSAME( UPLO, 'U' ) ) THEN
                      IJ = 1
                      DO 200 J = 1, N
@@ -557,7 +557,7 @@
   210                   CONTINUE
   220                CONTINUE
                   END IF
-*
+
                   CALL DSPGVX( IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -569,15 +569,15 @@
                         GO TO 310
                      END IF
                   END IF
-*
+
                   // Do Test
-*
+
                   CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                   NTEST = NTEST + 1
-*
+
                   // Copy the matrices into packed storage.
-*
+
                   IF( LSAME( UPLO, 'U' ) ) THEN
                      IJ = 1
                      DO 240 J = 1, N
@@ -597,7 +597,7 @@
   250                   CONTINUE
   260                CONTINUE
                   END IF
-*
+
                   VL = ZERO
                   VU = ANORM
                   CALL DSPGVX( IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO )
@@ -611,15 +611,15 @@
                         GO TO 310
                      END IF
                   END IF
-*
+
                   // Do Test
-*
+
                   CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                   NTEST = NTEST + 1
-*
+
                   // Copy the matrices into packed storage.
-*
+
                   IF( LSAME( UPLO, 'U' ) ) THEN
                      IJ = 1
                      DO 280 J = 1, N
@@ -639,7 +639,7 @@
   290                   CONTINUE
   300                CONTINUE
                   END IF
-*
+
                   CALL DSPGVX( IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -651,21 +651,21 @@
                         GO TO 310
                      END IF
                   END IF
-*
+
                   // Do Test
-*
+
                   CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
   310             CONTINUE
-*
+
                   IF( IBTYPE.EQ.1 ) THEN
-*
+
                      // TEST DSBGV
-*
+
                      NTEST = NTEST + 1
-*
+
                      // Copy the matrices into band storage.
-*
+
                      IF( LSAME( UPLO, 'U' ) ) THEN
                         DO 340 J = 1, N
                            DO 320 I = MAX( 1, J-KA ), J
@@ -685,7 +685,7 @@
   360                      CONTINUE
   370                   CONTINUE
                      END IF
-*
+
                      CALL DSBGV( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
                         WRITE( NOUNIT, FMT = 9999 )'DSBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -697,17 +697,17 @@
                            GO TO 620
                         END IF
                      END IF
-*
+
                      // Do Test
-*
+
                      CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                      // TEST DSBGVD
-*
+
                      NTEST = NTEST + 1
-*
+
                      // Copy the matrices into band storage.
-*
+
                      IF( LSAME( UPLO, 'U' ) ) THEN
                         DO 400 J = 1, N
                            DO 380 I = MAX( 1, J-KA ), J
@@ -727,7 +727,7 @@
   420                      CONTINUE
   430                   CONTINUE
                      END IF
-*
+
                      CALL DSBGVD( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
                         WRITE( NOUNIT, FMT = 9999 )'DSBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -739,17 +739,17 @@
                            GO TO 620
                         END IF
                      END IF
-*
+
                      // Do Test
-*
+
                      CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                      // Test DSBGVX
-*
+
                      NTEST = NTEST + 1
-*
+
                      // Copy the matrices into band storage.
-*
+
                      IF( LSAME( UPLO, 'U' ) ) THEN
                         DO 460 J = 1, N
                            DO 440 I = MAX( 1, J-KA ), J
@@ -769,7 +769,7 @@
   480                      CONTINUE
   490                   CONTINUE
                      END IF
-*
+
                      CALL DSBGVX( 'V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
                         WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -781,16 +781,16 @@
                            GO TO 620
                         END IF
                      END IF
-*
+
                      // Do Test
-*
+
                      CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
-*
+
+
                      NTEST = NTEST + 1
-*
+
                      // Copy the matrices into band storage.
-*
+
                      IF( LSAME( UPLO, 'U' ) ) THEN
                         DO 520 J = 1, N
                            DO 500 I = MAX( 1, J-KA ), J
@@ -810,7 +810,7 @@
   540                      CONTINUE
   550                   CONTINUE
                      END IF
-*
+
                      VL = ZERO
                      VU = ANORM
                      CALL DSBGVX( 'V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO )
@@ -824,15 +824,15 @@
                            GO TO 620
                         END IF
                      END IF
-*
+
                      // Do Test
-*
+
                      CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                      NTEST = NTEST + 1
-*
+
                      // Copy the matrices into band storage.
-*
+
                      IF( LSAME( UPLO, 'U' ) ) THEN
                         DO 580 J = 1, N
                            DO 560 I = MAX( 1, J-KA ), J
@@ -852,7 +852,7 @@
   600                      CONTINUE
   610                   CONTINUE
                      END IF
-*
+
                      CALL DSBGVX( 'V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
                         WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
@@ -864,31 +864,31 @@
                            GO TO 620
                         END IF
                      END IF
-*
+
                      // Do Test
-*
+
                      CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
-*
+
                   END IF
-*
+
   620          CONTINUE
   630       CONTINUE
-*
+
             // End of Loop -- Check for RESULT(j) > THRESH
-*
+
             NTESTT = NTESTT + NTEST
             CALL DLAFTS( 'DSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
   640    CONTINUE
   650 CONTINUE
-*
+
       // Summary
-*
+
       CALL DLASUM( 'DSG', NOUNIT, NERRS, NTESTT )
-*
+
       RETURN
-*
+
       // End of DDRVSG2STG
-*
+
  9999 FORMAT( ' DDRVSG2STG: ', A, ' returned INFO=', I6, '.', / 9X,
      $    'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
       END

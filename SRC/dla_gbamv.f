@@ -1,9 +1,9 @@
       SUBROUTINE DLA_GBAMV( TRANS, M, N, KL, KU, ALPHA, AB, LDAB, X, INCX, BETA, Y, INCY )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       double             ALPHA, BETA;
       int                INCX, INCY, LDAB, M, N, KL, KU, TRANS;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             AB( LDAB, * ), X( * ), Y( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -35,9 +35,9 @@
       // INTRINSIC MAX, ABS, SIGN
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF     ( .NOT.( ( TRANS.EQ.ILATRANS( 'N' ) ) .OR. ( TRANS.EQ.ILATRANS( 'T' ) ) .OR. ( TRANS.EQ.ILATRANS( 'C' ) ) ) ) THEN
          INFO = 1
@@ -60,14 +60,14 @@
          CALL XERBLA( 'DLA_GBAMV ', INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF( ( M.EQ.0 ).OR.( N.EQ.0 ).OR. ( ( ALPHA.EQ.ZERO ).AND.( BETA.EQ.ONE ) ) ) RETURN
-*
+
       // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
       // up the start points in  X  and  Y.
-*
+
       IF( TRANS.EQ.ILATRANS( 'N' ) )THEN
          LENX = N
          LENY = M
@@ -85,19 +85,19 @@
       ELSE
          KY = 1 - ( LENY - 1 )*INCY
       END IF
-*
+
       // Set SAFE1 essentially to be the underflow threshold times the
       // number of additions in each row.
-*
+
       SAFE1 = DLAMCH( 'Safe minimum' )
       SAFE1 = (N+1)*SAFE1
-*
+
       // Form  y := alpha*abs(A)*abs(x) + beta*abs(y).
-*
+
       // The O(M*N) SYMB_ZERO tests could be replaced by O(N) queries to
      t // he inexact flag.  Still doesn't help change the iteration order
      t // o per-column.
-*
+
       KD = KU + 1
       KE = KL + 1
       IY = KY
@@ -201,9 +201,9 @@
          END IF
 
       END IF
-*
+
       RETURN
-*
+
       // End of DLA_GBAMV
-*
+
       END

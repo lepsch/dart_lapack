@@ -1,9 +1,9 @@
       SUBROUTINE CGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB, BETA,C,LDC)
-*
+
 *  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       COMPLEX ALPHA,BETA
       int     K,LDA,LDB,LDC,M,N;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       COMPLEX A(LDA,*),B(LDB,*),C(LDC,*)
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
@@ -36,12 +36,12 @@
       COMPLEX ZERO
       PARAMETER (ZERO= (0.0E+0,0.0E+0))
       // ..
-*
+
       // Set  NOTA  and  NOTB  as  true if  A  and  B  respectively are not
       // conjugated or transposed, set  CONJA and CONJB  as true if  A  and
       // B  respectively are to be  transposed but  not conjugated  and set
       // NROWA and  NROWB  as the number of rows of  A  and  B  respectively.
-*
+
       NOTA = LSAME(TRANSA,'N')
       NOTB = LSAME(TRANSB,'N')
       CONJA = LSAME(TRANSA,'C')
@@ -56,9 +56,9 @@
       ELSE
           NROWB = N
       END IF
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF ((.NOT.NOTA) .AND. (.NOT.CONJA) .AND. (.NOT.LSAME(TRANSA,'T'))) THEN
           INFO = 1
@@ -81,13 +81,13 @@
           CALL XERBLA('CGEMM ',INFO)
           RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF ((M.EQ.0) .OR. (N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
-*
+
       // And when  alpha.eq.zero.
-*
+
       IF (ALPHA.EQ.ZERO) THEN
           IF (BETA.EQ.ZERO) THEN
               DO 20 J = 1,N
@@ -104,14 +104,14 @@
           END IF
           RETURN
       END IF
-*
+
       // Start the operations.
-*
+
       IF (NOTB) THEN
           IF (NOTA) THEN
-*
+
             // Form  C := alpha*A*B + beta*C.
-*
+
               DO 90 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
                       DO 50 I = 1,M
@@ -130,9 +130,9 @@
    80             CONTINUE
    90         CONTINUE
           ELSE IF (CONJA) THEN
-*
+
             // Form  C := alpha*A**H*B + beta*C.
-*
+
               DO 120 J = 1,N
                   DO 110 I = 1,M
                       TEMP = ZERO
@@ -147,9 +147,9 @@
   110             CONTINUE
   120         CONTINUE
           ELSE
-*
+
             // Form  C := alpha*A**T*B + beta*C
-*
+
               DO 150 J = 1,N
                   DO 140 I = 1,M
                       TEMP = ZERO
@@ -166,9 +166,9 @@
           END IF
       ELSE IF (NOTA) THEN
           IF (CONJB) THEN
-*
+
             // Form  C := alpha*A*B**H + beta*C.
-*
+
               DO 200 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
                       DO 160 I = 1,M
@@ -187,9 +187,9 @@
   190             CONTINUE
   200         CONTINUE
           ELSE
-*
+
             // Form  C := alpha*A*B**T + beta*C
-*
+
               DO 250 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
                       DO 210 I = 1,M
@@ -210,9 +210,9 @@
           END IF
       ELSE IF (CONJA) THEN
           IF (CONJB) THEN
-*
+
             // Form  C := alpha*A**H*B**H + beta*C.
-*
+
               DO 280 J = 1,N
                   DO 270 I = 1,M
                       TEMP = ZERO
@@ -227,9 +227,9 @@
   270             CONTINUE
   280         CONTINUE
           ELSE
-*
+
             // Form  C := alpha*A**H*B**T + beta*C
-*
+
               DO 310 J = 1,N
                   DO 300 I = 1,M
                       TEMP = ZERO
@@ -246,9 +246,9 @@
           END IF
       ELSE
           IF (CONJB) THEN
-*
+
             // Form  C := alpha*A**T*B**H + beta*C
-*
+
               DO 340 J = 1,N
                   DO 330 I = 1,M
                       TEMP = ZERO
@@ -263,9 +263,9 @@
   330             CONTINUE
   340         CONTINUE
           ELSE
-*
+
             // Form  C := alpha*A**T*B**T + beta*C
-*
+
               DO 370 J = 1,N
                   DO 360 I = 1,M
                       TEMP = ZERO
@@ -281,9 +281,9 @@
   370         CONTINUE
           END IF
       END IF
-*
+
       RETURN
-*
+
       // End of CGEMM
-*
+
       END

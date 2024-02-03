@@ -1,9 +1,9 @@
       SUBROUTINE CSYCONV( UPLO, WAY, N, A, LDA, IPIV, E, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO, WAY;
       int                INFO, LDA, N;
@@ -12,9 +12,9 @@
       int                IPIV( * );
       COMPLEX            A( LDA, * ), E( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX            ZERO
       PARAMETER          ( ZERO = (0.0E+0,0.0E+0) )
@@ -22,7 +22,7 @@
       // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*
+
       // .. External Subroutines ..
       // EXTERNAL XERBLA
       // .. Local Scalars ..
@@ -31,7 +31,7 @@
       COMPLEX            TEMP
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       CONVERT = LSAME( WAY, 'C' )
@@ -49,19 +49,19 @@
          CALL XERBLA( 'CSYCONV', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       IF( UPPER ) THEN
-*
+
        // A is UPPER
-*
+
        // Convert A (A is upper)
-*
+
          // Convert VALUE
-*
+
          IF ( CONVERT ) THEN
             I=N
             E(1)=ZERO
@@ -76,9 +76,9 @@
                ENDIF
                I=I-1
             END DO
-*
+
          // Convert PERMUTATIONS
-*
+
          I=N
          DO WHILE ( I .GE. 1 )
             IF( IPIV(I) .GT. 0) THEN
@@ -105,12 +105,12 @@
         END DO
 
          ELSE
-*
+
        // Revert A (A is upper)
-*
-*
+
+
          // Revert PERMUTATIONS
-*
+
             I=1
             DO WHILE ( I .LE. N )
                IF( IPIV(I) .GT. 0 ) THEN
@@ -135,9 +135,9 @@
                ENDIF
                I=I+1
             END DO
-*
+
          // Revert VALUE
-*
+
             I=N
             DO WHILE ( I .GT. 1 )
                IF( IPIV(I) .LT. 0 ) THEN
@@ -148,16 +148,16 @@
             END DO
          END IF
       ELSE
-*
+
        // A is LOWER
-*
+
          IF ( CONVERT ) THEN
-*
+
        // Convert A (A is lower)
-*
-*
+
+
          // Convert VALUE
-*
+
             I=1
             E(N)=ZERO
             DO WHILE ( I .LE. N )
@@ -171,9 +171,9 @@
                ENDIF
                I=I+1
             END DO
-*
+
          // Convert PERMUTATIONS
-*
+
          I=1
          DO WHILE ( I .LE. N )
             IF( IPIV(I) .GT. 0 ) THEN
@@ -199,12 +199,12 @@
            I=I+1
         END DO
          ELSE
-*
+
        // Revert A (A is lower)
-*
-*
+
+
          // Revert PERMUTATIONS
-*
+
             I=N
             DO WHILE ( I .GE. 1 )
                IF( IPIV(I) .GT. 0 ) THEN
@@ -229,9 +229,9 @@
                ENDIF
                I=I-1
             END DO
-*
+
          // Revert VALUE
-*
+
             I=1
             DO WHILE ( I .LE. N-1 )
                IF( IPIV(I) .LT. 0 ) THEN
@@ -244,7 +244,7 @@
       END IF
 
       RETURN
-*
+
       // End of CSYCONV
-*
+
       END

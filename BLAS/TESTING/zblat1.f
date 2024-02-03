@@ -1,11 +1,11 @@
       PROGRAM ZBLAT1
-*
+
 *  -- Reference BLAS test routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int              NOUT;
       PARAMETER        (NOUT=6)
@@ -26,12 +26,12 @@
       DO 20 IC = 1, 10
          ICASE = IC
          CALL HEADER
-*
+
          // Initialize PASS, INCX, INCY, and MODE for a new case.
          // The value 9999 for INCX, INCY or MODE will appear in the
          // detailed  output, if any, for cases that do not involve
         t // hese parameters.
-*
+
          PASS = .TRUE.
          INCX = 9999
          INCY = 9999
@@ -45,12 +45,12 @@
          IF (PASS) WRITE (NOUT,99998)
    20 CONTINUE
       STOP
-*
+
 99999 FORMAT (' Complex BLAS Test Program Results',/1X)
 99998 FORMAT ('                                    ----- PASS -----')
-*
+
       // End of ZBLAT1
-*
+
       END
       SUBROUTINE HEADER
       // .. Parameters ..
@@ -77,11 +77,11 @@
       // .. Executable Statements ..
       WRITE (NOUT,99999) ICASE, L(ICASE)
       RETURN
-*
+
 99999 FORMAT (/' Test of subprogram number',I3,12X,A6)
-*
+
       // End of HEADER
-*
+
       END
       SUBROUTINE CHECK1(SFAC)
       // .. Parameters ..
@@ -159,7 +159,7 @@
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
             END IF
-*
+
    40    CONTINUE
          IF (ICASE.EQ.10) THEN
             N = 8
@@ -171,7 +171,7 @@
             CALL ITEST1(IZAMAX(N,CXR,INCX),3)
          END IF
    60 CONTINUE
-*
+
       INCX = 1
       IF (ICASE.EQ.8) THEN
          // ZSCAL
@@ -211,9 +211,9 @@
          CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
       END IF
       RETURN
-*
+
       // End of CHECK1
-*
+
       END
       SUBROUTINE CHECK2(SFAC)
       // .. Parameters ..
@@ -254,7 +254,7 @@
          INCY = INCYS(KI)
          MX = ABS(INCX)
          MY = ABS(INCY)
-*
+
          DO 40 KN = 1, 4
             N = NS(KN)
             KSIZE = MIN(2,KN)
@@ -307,23 +307,23 @@
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
             END IF
-*
+
    40    CONTINUE
    60 CONTINUE
       RETURN
-*
+
       // End of CHECK2
-*
+
       END
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC)
       // ********************************* STEST **************************
-*
+
       // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
       // SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
       // NEGLIGIBLE.
-*
+
       // C. L. LAWSON, JPL, 1974 DEC 10
-*
+
       // .. Parameters ..
       int              NOUT;
       double           ZERO;
@@ -347,13 +347,13 @@
       // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
-*
+
       DO 40 I = 1, LEN
          SD = SCOMP(I) - STRUE(I)
          IF (ABS(SFAC*SD) .LE. ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40
-*
+
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
-*
+
          IF ( .NOT. PASS) GO TO 20
                               // PRINT FAIL MESSAGE AND HEADER.
          PASS = .FALSE.
@@ -363,25 +363,25 @@
      +     STRUE(I), SD, SSIZE(I)
    40 CONTINUE
       RETURN
-*
+
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ',
      +       ' COMP(I)                             TRUE(I)  DIFFERENCE',
      +       '     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,3I5,I3,2D36.8,2D12.4)
-*
+
       // End of STEST
-*
+
       END
       SUBROUTINE STEST1(SCOMP1,STRUE1,SSIZE,SFAC)
       // ************************* STEST1 *****************************
-*
+
       // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
       // REQUIREMENT THAT WHEN A DUMMY ARGUMENT IS AN ARRAY, THE
       // ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
-*
+
       // C.L. LAWSON, JPL, 1978 DEC 6
-*
+
       // .. Scalar Arguments ..
       double            SCOMP1, SFAC, STRUE1;
       // .. Array Arguments ..
@@ -391,34 +391,34 @@
       // .. External Subroutines ..
       // EXTERNAL STEST
       // .. Executable Statements ..
-*
+
       SCOMP(1) = SCOMP1
       STRUE(1) = STRUE1
       CALL STEST(1,SCOMP,STRUE,SSIZE,SFAC)
-*
+
       RETURN
-*
+
       // End of STEST1
-*
+
       END
       double           FUNCTION SDIFF(SA,SB);
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
-*
+
       // .. Scalar Arguments ..
       double                          SA, SB;
       // .. Executable Statements ..
       SDIFF = SA - SB
       RETURN
-*
+
       // End of SDIFF
-*
+
       END
       SUBROUTINE CTEST(LEN,CCOMP,CTRUE,CSIZE,SFAC)
       // **************************** CTEST *****************************
-*
+
       // C.L. LAWSON, JPL, 1978 DEC 6
-*
+
       // .. Scalar Arguments ..
       double           SFAC;
       int              LEN;
@@ -441,20 +441,20 @@
          SSIZE(2*I-1) = DBLE(CSIZE(I))
          SSIZE(2*I) = DIMAG(CSIZE(I))
    20 CONTINUE
-*
+
       CALL STEST(2*LEN,SCOMP,STRUE,SSIZE,SFAC)
       RETURN
-*
+
       // End of CTEST
-*
+
       END
       SUBROUTINE ITEST1(ICOMP,ITRUE)
       // ********************************* ITEST1 *************************
-*
+
       // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
       // EQUALITY.
       // C. L. LAWSON, JPL, 1974 DEC 10
-*
+
       // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
@@ -469,9 +469,9 @@
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
       IF (ICOMP.EQ.ITRUE) GO TO 40
-*
+
                              // HERE ICOMP IS NOT EQUAL TO ITRUE.
-*
+
       IF ( .NOT. PASS) GO TO 20
                               // PRINT FAIL MESSAGE AND HEADER.
       PASS = .FALSE.
@@ -481,36 +481,36 @@
       WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, ICOMP, ITRUE, ID
    40 CONTINUE
       RETURN
-*
+
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY MODE                               ',
      +       ' COMP                                TRUE     DIFFERENCE',
      +       /1X)
 99997 FORMAT (1X,I4,I3,3I5,2I36,I12)
-*
+
       // End of ITEST1
-*
+
       END
       SUBROUTINE ZB1NRM2(N,INCX,THRESH)
       // Compare NRM2 with a reference computation using combinations
       // of the following values:
-*
+
       // 0, very small, small, ulp, 1, 1/ulp, big, very big, infinity, NaN
-*
+
       // one of these values is used to initialize x(1) and x(2:N) is
       // filled with random values from [-1,1] scaled by another of
      t // hese values.
-*
+
       // This routine is adapted from the test suite provided by
       // Anderson E. (2017)
       // Algorithm 978: Safe Scaling in the Level 1 BLAS
       // ACM Trans Math Softw 44:1--28
       // https://doi.org/10.1145/3061665
-*
+
       // .. Scalar Arguments ..
       int               INCX, N;
       double            THRESH;
-*
+
 *  =====================================================================
       // .. Parameters ..
       int               NMAX, NOUT, NV;
@@ -546,39 +546,39 @@
       VALUES(10) = DXVALS(V0,3)
       ROGUE = DCMPLX(1234.5678D+0,-1234.5678D+0)
       FIRST = .TRUE.
-*
+
       // Check that the arrays are large enough
-*
+
       IF (N*ABS(INCX).GT.NMAX) THEN
          WRITE (NOUT,99) "DZNRM2", NMAX, INCX, N, N*ABS(INCX)
          RETURN
       END IF
-*
+
       // Zero-sized inputs are tested in STEST1.
       IF (N.LE.0) THEN
          RETURN
       END IF
-*
+
       // Generate 2*(N-1) values in (-1,1).
-*
+
       KS = 2*(N-1)
       DO I = 1, KS
          CALL RANDOM_NUMBER(WORK(I))
          WORK(I) = ONE - TWO*WORK(I)
       END DO
-*
+
       // Compute the sum of squares of the random values
       // by an unscaled algorithm.
-*
+
       WORKSSQ = ZERO
       DO I = 1, KS
          WORKSSQ = WORKSSQ + WORK(I)*WORK(I)
       END DO
-*
+
       // Construct the test vector with one known value
       // and the rest from the random work array multiplied
       // by a scaling factor.
-*
+
       DO IV = 1, NV
          V0 = VALUES(IV)
          IF (ABS(V0).GT.ONE) THEN
@@ -593,9 +593,9 @@
             DO I = 1, N-1
                Z(I+1) = DCMPLX(V1*WORK(2*I-1),V1*WORK(2*I))
             END DO
-*
+
             // Compute the expected value of the 2-norm
-*
+
             Y1 = ABS(V0) * SQRT(10.0D0)
             IF (N.GT.1) THEN
                Y2 = ABS(V1)*SQRT(WORKSSQ)
@@ -604,11 +604,11 @@
             END IF
             YMIN = MIN(Y1, Y2)
             YMAX = MAX(Y1, Y2)
-*
+
             // Expected value is NaN if either is NaN. The test
             // for YMIN == YMAX avoids further computation if both
             // are infinity.
-*
+
             IF ((Y1.NE.Y1).OR.(Y2.NE.Y2)) THEN
                // add to propagate NaN
                YNRM = Y1 + Y2
@@ -619,9 +619,9 @@
             ELSE
                YNRM = YMAX*SQRT(ONE + (YMIN / YMAX)**2)
             END IF
-*
+
             // Fill the input array to DZNRM2 with steps of incx
-*
+
             DO I = 1, N
                X(I) = ROGUE
             END DO
@@ -631,14 +631,14 @@
                X(IX) = Z(I)
                IX = IX + INCX
             END DO
-*
+
             // Call DZNRM2 to compute the 2-norm
-*
+
             SNRM = DZNRM2(N,X,INCX)
-*
+
             // Compare SNRM and ZNRM.  Roundoff error grows like O(n)
             // in this implementation so we scale the test ratio accordingly.
-*
+
             IF (INCX.EQ.0) THEN
                Y1 = ABS(DBLE(X(1)))
                Y2 = ABS(AIMAG(X(1)))
@@ -658,7 +658,7 @@
             ELSE
                ZNRM = YNRM
             END IF
-*
+
             // The tests for NaN rely on the compiler not being overly
             // aggressive and removing the statements altogether.
             IF ((SNRM.NE.SNRM).OR.(ZNRM.NE.ZNRM)) THEN

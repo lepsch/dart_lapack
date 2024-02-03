@@ -1,9 +1,9 @@
       SUBROUTINE SGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB, BETA,C,LDC)
-*
+
 *  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL ALPHA,BETA
       int     K,LDA,LDB,LDC,M,N;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       REAL A(LDA,*),B(LDB,*),C(LDC,*)
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
@@ -34,11 +34,11 @@
       REAL ONE,ZERO
       PARAMETER (ONE=1.0E+0,ZERO=0.0E+0)
       // ..
-*
+
       // Set  NOTA  and  NOTB  as  true if  A  and  B  respectively are not
      t // ransposed and set  NROWA and NROWB  as the number of rows of  A
       // and  B  respectively.
-*
+
       NOTA = LSAME(TRANSA,'N')
       NOTB = LSAME(TRANSB,'N')
       IF (NOTA) THEN
@@ -51,9 +51,9 @@
       ELSE
           NROWB = N
       END IF
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF ((.NOT.NOTA) .AND. (.NOT.LSAME(TRANSA,'C')) .AND. (.NOT.LSAME(TRANSA,'T'))) THEN
           INFO = 1
@@ -76,13 +76,13 @@
           CALL XERBLA('SGEMM ',INFO)
           RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF ((M.EQ.0) .OR. (N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
-*
+
       // And if  alpha.eq.zero.
-*
+
       IF (ALPHA.EQ.ZERO) THEN
           IF (BETA.EQ.ZERO) THEN
               DO 20 J = 1,N
@@ -99,14 +99,14 @@
           END IF
           RETURN
       END IF
-*
+
       // Start the operations.
-*
+
       IF (NOTB) THEN
           IF (NOTA) THEN
-*
+
             // Form  C := alpha*A*B + beta*C.
-*
+
               DO 90 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
                       DO 50 I = 1,M
@@ -125,9 +125,9 @@
    80             CONTINUE
    90         CONTINUE
           ELSE
-*
+
             // Form  C := alpha*A**T*B + beta*C
-*
+
               DO 120 J = 1,N
                   DO 110 I = 1,M
                       TEMP = ZERO
@@ -144,9 +144,9 @@
           END IF
       ELSE
           IF (NOTA) THEN
-*
+
             // Form  C := alpha*A*B**T + beta*C
-*
+
               DO 170 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
                       DO 130 I = 1,M
@@ -165,9 +165,9 @@
   160             CONTINUE
   170         CONTINUE
           ELSE
-*
+
             // Form  C := alpha*A**T*B**T + beta*C
-*
+
               DO 200 J = 1,N
                   DO 190 I = 1,M
                       TEMP = ZERO
@@ -183,9 +183,9 @@
   200         CONTINUE
           END IF
       END IF
-*
+
       RETURN
-*
+
       // End of SGEMM
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE CSBMV( UPLO, N, K, ALPHA, A, LDA, X, INCX, BETA, Y, INCY )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INCX, INCY, K, LDA, N;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       COMPLEX            A( LDA, * ), X( * ), Y( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
@@ -36,9 +36,9 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = 1
@@ -57,13 +57,13 @@
          CALL XERBLA( 'CSBMV ', INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF( ( N.EQ.0 ) .OR. ( ( ALPHA.EQ.ZERO ) .AND. ( BETA.EQ.ONE ) ) ) RETURN
-*
+
       // Set up the start points in  X  and  Y.
-*
+
       IF( INCX.GT.0 ) THEN
          KX = 1
       ELSE
@@ -74,12 +74,12 @@
       ELSE
          KY = 1 - ( N-1 )*INCY
       END IF
-*
+
       // Start the operations. In this version the elements of the array A
       // are accessed sequentially with one pass through A.
-*
+
       // First form  y := beta*y.
-*
+
       IF( BETA.NE.ONE ) THEN
          IF( INCY.EQ.1 ) THEN
             IF( BETA.EQ.ZERO ) THEN
@@ -108,9 +108,9 @@
       END IF
       IF( ALPHA.EQ.ZERO ) RETURN
       IF( LSAME( UPLO, 'U' ) ) THEN
-*
+
          // Form  y  when upper triangle of A is stored.
-*
+
          KPLUS1 = K + 1
          IF( ( INCX.EQ.1 ) .AND. ( INCY.EQ.1 ) ) THEN
             DO 60 J = 1, N
@@ -148,9 +148,9 @@
    80       CONTINUE
          END IF
       ELSE
-*
+
          // Form  y  when lower triangle of A is stored.
-*
+
          IF( ( INCX.EQ.1 ) .AND. ( INCY.EQ.1 ) ) THEN
             DO 100 J = 1, N
                TEMP1 = ALPHA*X( J )
@@ -185,9 +185,9 @@
   120       CONTINUE
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of CSBMV
-*
+
       END

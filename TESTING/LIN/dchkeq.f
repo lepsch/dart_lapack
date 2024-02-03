@@ -1,16 +1,16 @@
       SUBROUTINE DCHKEQ( THRESH, NOUT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                NOUT;
       double             THRESH;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE, TEN;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D+0, TEN = 1.0D1 )
@@ -39,10 +39,10 @@
       // INTRINSIC ABS, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'EQ'
-*
+
       EPS = DLAMCH( 'P' )
       DO 10 I = 1, 5
          RESLTS( I ) = ZERO
@@ -51,12 +51,12 @@
          POW( I ) = TEN**( I-1 )
          RPOW( I ) = ONE / POW( I )
    20 CONTINUE
-*
+
       // Test DGEEQU
-*
+
       DO 80 N = 0, NSZ
          DO 70 M = 0, NSZ
-*
+
             DO 40 J = 1, NSZ
                DO 30 I = 1, NSZ
                   IF( I.LE.M .AND. J.LE.N ) THEN
@@ -66,9 +66,9 @@
                   END IF
    30          CONTINUE
    40       CONTINUE
-*
+
             CALL DGEEQU( M, N, A, NSZ, R, C, RCOND, CCOND, NORM, INFO )
-*
+
             IF( INFO.NE.0 ) THEN
                RESLTS( 1 ) = ONE
             ELSE
@@ -82,18 +82,18 @@
    60             CONTINUE
                END IF
             END IF
-*
+
    70    CONTINUE
    80 CONTINUE
-*
+
       // Test with zero rows and columns
-*
+
       DO 90 J = 1, NSZ
          A( MAX( NSZ-1, 1 ), J ) = ZERO
    90 CONTINUE
       CALL DGEEQU( NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO )
       IF( INFO.NE.MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE
-*
+
       DO 100 J = 1, NSZ
          A( MAX( NSZ-1, 1 ), J ) = ONE
   100 CONTINUE
@@ -103,14 +103,14 @@
       CALL DGEEQU( NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO )
       IF( INFO.NE.NSZ+MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE
       RESLTS( 1 ) = RESLTS( 1 ) / EPS
-*
+
       // Test DGBEQU
-*
+
       DO 250 N = 0, NSZ
          DO 240 M = 0, NSZ
             DO 230 KL = 0, MAX( M-1, 0 )
                DO 220 KU = 0, MAX( N-1, 0 )
-*
+
                   DO 130 J = 1, NSZ
                      DO 120 I = 1, NSZB
                         AB( I, J ) = ZERO
@@ -122,16 +122,16 @@
                         END IF
   140                CONTINUE
   150             CONTINUE
-*
+
                   CALL DGBEQU( M, N, KL, KU, AB, NSZB, R, C, RCOND, CCOND, NORM, INFO )
-*
+
                   IF( INFO.NE.0 ) THEN
                      IF( .NOT.( ( N+KL.LT.M .AND. INFO.EQ.N+KL+1 ) .OR. ( M+KU.LT.N .AND. INFO.EQ.2*M+KU+1 ) ) ) THEN
                         RESLTS( 2 ) = ONE
                      END IF
                   ELSE
                      IF( N.NE.0 .AND. M.NE.0 ) THEN
-*
+
                         RCMIN = R( 1 )
                         RCMAX = R( 1 )
                         DO 160 I = 1, M
@@ -140,7 +140,7 @@
   160                   CONTINUE
                         RATIO = RCMIN / RCMAX
                         RESLTS( 2 ) = MAX( RESLTS( 2 ), ABS( ( RCOND-RATIO ) / RATIO ) )
-*
+
                         RCMIN = C( 1 )
                         RCMAX = C( 1 )
                         DO 170 J = 1, N
@@ -149,7 +149,7 @@
   170                   CONTINUE
                         RATIO = RCMIN / RCMAX
                         RESLTS( 2 ) = MAX( RESLTS( 2 ), ABS( ( CCOND-RATIO ) / RATIO ) )
-*
+
                         RESLTS( 2 ) = MAX( RESLTS( 2 ), ABS( ( NORM-POW( N+M+1 ) ) / POW( N+M+1 ) ) )
                         DO 190 I = 1, M
                            RCMAX = ZERO
@@ -161,7 +161,7 @@
   180                      CONTINUE
                            RESLTS( 2 ) = MAX( RESLTS( 2 ), ABS( ONE-RCMAX ) )
   190                   CONTINUE
-*
+
                         DO 210 J = 1, N
                            RCMAX = ZERO
                            DO 200 I = 1, M
@@ -174,17 +174,17 @@
   210                   CONTINUE
                      END IF
                   END IF
-*
+
   220          CONTINUE
   230       CONTINUE
   240    CONTINUE
   250 CONTINUE
       RESLTS( 2 ) = RESLTS( 2 ) / EPS
-*
+
       // Test DPOEQU
-*
+
       DO 290 N = 0, NSZ
-*
+
          DO 270 I = 1, NSZ
             DO 260 J = 1, NSZ
                IF( I.LE.N .AND. J.EQ.I ) THEN
@@ -194,9 +194,9 @@
                END IF
   260       CONTINUE
   270    CONTINUE
-*
+
          CALL DPOEQU( N, A, NSZ, R, RCOND, NORM, INFO )
-*
+
          IF( INFO.NE.0 ) THEN
             RESLTS( 3 ) = ONE
          ELSE
@@ -212,22 +212,22 @@
       CALL DPOEQU( NSZ, A, NSZ, R, RCOND, NORM, INFO )
       IF( INFO.NE.MAX( NSZ-1, 1 ) ) RESLTS( 3 ) = ONE
       RESLTS( 3 ) = RESLTS( 3 ) / EPS
-*
+
       // Test DPPEQU
-*
+
       DO 360 N = 0, NSZ
-*
+
          // Upper triangular packed storage
-*
+
          DO 300 I = 1, ( N*( N+1 ) ) / 2
             AP( I ) = ZERO
   300    CONTINUE
          DO 310 I = 1, N
             AP( ( I*( I+1 ) ) / 2 ) = POW( 2*I+1 )
   310    CONTINUE
-*
+
          CALL DPPEQU( 'U', N, AP, R, RCOND, NORM, INFO )
-*
+
          IF( INFO.NE.0 ) THEN
             RESLTS( 4 ) = ONE
          ELSE
@@ -238,9 +238,9 @@
   320          CONTINUE
             END IF
          END IF
-*
+
          // Lower triangular packed storage
-*
+
          DO 330 I = 1, ( N*( N+1 ) ) / 2
             AP( I ) = ZERO
   330    CONTINUE
@@ -249,9 +249,9 @@
             AP( J ) = POW( 2*I+1 )
             J = J + ( N-I+1 )
   340    CONTINUE
-*
+
          CALL DPPEQU( 'L', N, AP, R, RCOND, NORM, INFO )
-*
+
          IF( INFO.NE.0 ) THEN
             RESLTS( 4 ) = ONE
          ELSE
@@ -262,21 +262,21 @@
   350          CONTINUE
             END IF
          END IF
-*
+
   360 CONTINUE
       I = ( NSZ*( NSZ+1 ) ) / 2 - 2
       AP( I ) = -ONE
       CALL DPPEQU( 'L', NSZ, AP, R, RCOND, NORM, INFO )
       IF( INFO.NE.MAX( NSZ-1, 1 ) ) RESLTS( 4 ) = ONE
       RESLTS( 4 ) = RESLTS( 4 ) / EPS
-*
+
       // Test DPBEQU
-*
+
       DO 460 N = 0, NSZ
          DO 450 KL = 0, MAX( N-1, 0 )
-*
+
             // Test upper triangular storage
-*
+
             DO 380 J = 1, NSZ
                DO 370 I = 1, NSZB
                   AB( I, J ) = ZERO
@@ -285,9 +285,9 @@
             DO 390 J = 1, N
                AB( KL+1, J ) = POW( 2*J+1 )
   390       CONTINUE
-*
+
             CALL DPBEQU( 'U', N, KL, AB, NSZB, R, RCOND, NORM, INFO )
-*
+
             IF( INFO.NE.0 ) THEN
                RESLTS( 5 ) = ONE
             ELSE
@@ -303,9 +303,9 @@
                CALL DPBEQU( 'U', N, KL, AB, NSZB, R, RCOND, NORM, INFO )
                IF( INFO.NE.MAX( N-1, 1 ) ) RESLTS( 5 ) = ONE
             END IF
-*
+
             // Test lower triangular storage
-*
+
             DO 420 J = 1, NSZ
                DO 410 I = 1, NSZB
                   AB( I, J ) = ZERO
@@ -314,9 +314,9 @@
             DO 430 J = 1, N
                AB( 1, J ) = POW( 2*J+1 )
   430       CONTINUE
-*
+
             CALL DPBEQU( 'L', N, KL, AB, NSZB, R, RCOND, NORM, INFO )
-*
+
             IF( INFO.NE.0 ) THEN
                RESLTS( 5 ) = ONE
             ELSE
@@ -355,7 +355,7 @@
  9994 FORMAT( ' DPBEQU failed test with value ', D10.3, ' exceeding',
      $      ' threshold ', D10.3 )
       RETURN
-*
+
       // End of DCHKEQ
-*
+
       END

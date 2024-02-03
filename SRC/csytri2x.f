@@ -1,9 +1,9 @@
       SUBROUTINE CSYTRI2X( UPLO, N, A, LDA, IPIV, WORK, NB, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N, NB;
@@ -12,9 +12,9 @@
       int                IPIV( * );
       COMPLEX            A( LDA, * ), WORK( N+NB+1,* )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX              ONE, ZERO
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
@@ -41,9 +41,9 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -53,40 +53,40 @@
       ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
          INFO = -4
       END IF
-*
+
       // Quick return if possible
-*
-*
+
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CSYTRI2X', -INFO )
          RETURN
       END IF
       IF( N.EQ.0 ) RETURN
-*
+
       // Convert A
       // Workspace got Non-diag elements of D
-*
+
       CALL CSYCONV( UPLO, 'C', N, A, LDA, IPIV, WORK, IINFO )
-*
+
       // Check that the diagonal matrix D is nonsingular.
-*
+
       IF( UPPER ) THEN
-*
+
          // Upper triangular storage: examine D from bottom to top
-*
+
          DO INFO = N, 1, -1
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
          END DO
       ELSE
-*
+
          // Lower triangular storage: examine D from top to bottom.
-*
+
          DO INFO = 1, N
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
          END DO
       END IF
       INFO = 0
-*
+
 *  Splitting Workspace
       // U01 is a block (N,NB+1)
       // The first element of U01 is in WORK(1,1)
@@ -98,13 +98,13 @@
       INVD = NB+2
 
       IF( UPPER ) THEN
-*
+
          // invA = P * inv(U**T)*inv(D)*inv(U)*P**T.
-*
+
         CALL CTRTRI( UPLO, 'U', N, A, LDA, INFO )
-*
+
         // inv(D) and inv(D)*inv(U)
-*
+
         K=1
         DO WHILE ( K .LE. N )
          IF( IPIV( K ).GT.0 ) THEN
@@ -126,11 +126,11 @@
             K=K+2
          END IF
         END DO
-*
+
         // inv(U**T) = (inv(U))**T
-*
+
         // inv(U**T)*inv(D)*inv(U)
-*
+
         CUT=N
         DO WHILE (CUT .GT. 0)
            NNB=NB
@@ -147,17 +147,17 @@
            END IF
 
            CUT=CUT-NNB
-*
+
            // U01 Block
-*
+
            DO I=1,CUT
              DO J=1,NNB
               WORK(I,J)=A(I,CUT+J)
              END DO
            END DO
-*
+
            // U11 Block
-*
+
            DO I=1,NNB
              WORK(U11+I,I)=ONE
              DO J=1,I-1
@@ -167,9 +167,9 @@
                 WORK(U11+I,J)=A(CUT+I,CUT+J)
              END DO
            END DO
-*
+
            // invD*U01
-*
+
            I=1
            DO WHILE (I .LE. CUT)
              IF (IPIV(I) > 0) THEN
@@ -186,9 +186,9 @@
                 I=I+2
              END IF
            END DO
-*
+
          // invD1*U11
-*
+
            I=1
            DO WHILE (I .LE. NNB)
              IF (IPIV(CUT+I) > 0) THEN
@@ -205,48 +205,48 @@
                 I=I+2
              END IF
            END DO
-*
+
         // U11**T*invD1*U11->U11
-*
+
         CALL CTRMM('L','U','T','U',NNB, NNB, ONE,A(CUT+1,CUT+1),LDA,WORK(U11+1,1),N+NB+1)
-*
+
          DO I=1,NNB
             DO J=I,NNB
               A(CUT+I,CUT+J)=WORK(U11+I,J)
             END DO
          END DO
-*
+
            // U01**T*invD*U01->A(CUT+I,CUT+J)
-*
+
          CALL CGEMM('T','N',NNB,NNB,CUT,ONE,A(1,CUT+1),LDA, WORK,N+NB+1, ZERO, WORK(U11+1,1), N+NB+1)
-*
+
          // U11 =  U11**T*invD1*U11 + U01**T*invD*U01
-*
+
          DO I=1,NNB
             DO J=I,NNB
               A(CUT+I,CUT+J)=A(CUT+I,CUT+J)+WORK(U11+I,J)
             END DO
          END DO
-*
+
          // U01 =  U00**T*invD0*U01
-*
+
          CALL CTRMM('L',UPLO,'T','U',CUT, NNB, ONE,A,LDA,WORK,N+NB+1)
 
-*
+
          // Update U01
-*
+
          DO I=1,CUT
            DO J=1,NNB
             A(I,CUT+J)=WORK(I,J)
            END DO
          END DO
-*
+
        // Next Block
-*
+
        END DO
-*
+
          // Apply PERMUTATIONS P and P**T: P * inv(U**T)*inv(D)*inv(U) *P**T
-*
+
             I=1
             DO WHILE ( I .LE. N )
                IF( IPIV(I) .GT. 0 ) THEN
@@ -261,15 +261,15 @@
                I=I+1
             END DO
       ELSE
-*
+
          // LOWER...
-*
+
          // invA = P * inv(U**T)*inv(D)*inv(U)*P**T.
-*
+
          CALL CTRTRI( UPLO, 'U', N, A, LDA, INFO )
-*
+
         // inv(D) and inv(D)*inv(U)
-*
+
         K=N
         DO WHILE ( K .GE. 1 )
          IF( IPIV( K ).GT.0 ) THEN
@@ -291,11 +291,11 @@
             K=K-2
          END IF
         END DO
-*
+
         // inv(U**T) = (inv(U))**T
-*
+
         // inv(U**T)*inv(D)*inv(U)
-*
+
         CUT=0
         DO WHILE (CUT .LT. N)
            NNB=NB
@@ -326,9 +326,9 @@
                 WORK(U11+I,J)=A(CUT+I,CUT+J)
              END DO
            END DO
-*
+
            // invD*L21
-*
+
            I=N-CUT-NNB
            DO WHILE (I .GE. 1)
              IF (IPIV(CUT+NNB+I) > 0) THEN
@@ -345,9 +345,9 @@
                 I=I-2
              END IF
            END DO
-*
+
          // invD1*L11
-*
+
            I=NNB
            DO WHILE (I .GE. 1)
              IF (IPIV(CUT+I) > 0) THEN
@@ -364,34 +364,34 @@
                 I=I-2
              END IF
            END DO
-*
+
         // L11**T*invD1*L11->L11
-*
+
         CALL CTRMM('L',UPLO,'T','U',NNB, NNB, ONE,A(CUT+1,CUT+1),LDA,WORK(U11+1,1),N+NB+1)
-*
+
          DO I=1,NNB
             DO J=1,I
               A(CUT+I,CUT+J)=WORK(U11+I,J)
             END DO
          END DO
-*
+
         IF ( (CUT+NNB) .LT. N ) THEN
-*
+
            // L21**T*invD2*L21->A(CUT+I,CUT+J)
-*
+
          CALL CGEMM('T','N',NNB,NNB,N-NNB-CUT,ONE,A(CUT+NNB+1,CUT+1) ,LDA,WORK,N+NB+1, ZERO, WORK(U11+1,1), N+NB+1)
 
-*
+
          // L11 =  L11**T*invD1*L11 + U01**T*invD*U01
-*
+
          DO I=1,NNB
             DO J=1,I
               A(CUT+I,CUT+J)=A(CUT+I,CUT+J)+WORK(U11+I,J)
             END DO
          END DO
-*
+
          // L01 =  L22**T*invD2*L21
-*
+
          CALL CTRMM('L',UPLO,'T','U', N-NNB-CUT, NNB, ONE,A(CUT+NNB+1,CUT+NNB+1),LDA,WORK,N+NB+1)
 
        // Update L21
@@ -401,23 +401,23 @@
            END DO
          END DO
        ELSE
-*
+
          // L11 =  L11**T*invD1*L11
-*
+
          DO I=1,NNB
             DO J=1,I
               A(CUT+I,CUT+J)=WORK(U11+I,J)
             END DO
          END DO
        END IF
-*
+
        // Next Block
-*
+
            CUT=CUT+NNB
        END DO
-*
+
          // Apply PERMUTATIONS P and P**T: P * inv(U**T)*inv(D)*inv(U) *P**T
-*
+
             I=N
             DO WHILE ( I .GE. 1 )
                IF( IPIV(I) .GT. 0 ) THEN
@@ -433,9 +433,9 @@
                I=I-1
             END DO
       END IF
-*
+
       RETURN
-*
+
       // End of CSYTRI2X
-*
+
       END

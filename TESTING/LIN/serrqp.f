@@ -1,16 +1,16 @@
       SUBROUTINE SERRQP( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 3 )
@@ -40,7 +40,7 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
@@ -50,13 +50,13 @@
       A( 2, 2 ) = 3.0E+0
       A( 2, 1 ) = 4.0E+0
       OK = .TRUE.
-*
+
       IF( LSAMEN( 2, C2, 'QP' ) ) THEN
-*
+
          // Test error exits for QR factorization with pivoting
-*
+
          // SGEQP3
-*
+
          SRNAMT = 'SGEQP3'
          INFOT = 1
          CALL SGEQP3( -1, 0, A, 1, IP, TAU, W, LW, INFO )
@@ -71,13 +71,13 @@
          CALL SGEQP3( 2, 2, A, 2, IP, TAU, W, LW-10, INFO )
          CALL CHKXER( 'SGEQP3', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of SERRQP
-*
+
       END

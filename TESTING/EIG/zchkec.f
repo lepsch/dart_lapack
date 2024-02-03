@@ -1,17 +1,17 @@
       SUBROUTINE ZCHKEC( THRESH, TSTERR, NIN, NOUT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NIN, NOUT;
       double             THRESH;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               OK;
       String             PATH;
@@ -30,7 +30,7 @@
       // EXTERNAL DLAMCH
       // ..
       // .. Executable Statements ..
-*
+
       PATH( 1: 1 ) = 'Zomplex precision'
       PATH( 2: 3 ) = 'EC'
       EPS = DLAMCH( 'P' )
@@ -38,18 +38,18 @@
       WRITE( NOUT, FMT = 9994 )
       WRITE( NOUT, FMT = 9993 )EPS, SFMIN
       WRITE( NOUT, FMT = 9992 )THRESH
-*
+
       // Test error exits if TSTERR is .TRUE.
-*
+
       IF( TSTERR ) CALL ZERREC( PATH, NOUT )
-*
+
       OK = .TRUE.
       CALL ZGET35( RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL, NIN )
       IF( RTRSYL( 1 ).GT.THRESH ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9999 )RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL
       END IF
-*
+
       CALL ZSYL01( THRESH, FTRSYL, RTRSYL, ITRSYL, KTRSYL3 )
       IF( FTRSYL( 1 ).GT.0 ) THEN
          OK = .FALSE.
@@ -63,28 +63,28 @@
          OK = .FALSE.
          WRITE( NOUT, FMT = 9972 )FTRSYL( 3 )
       END IF
-*
+
       CALL ZGET36( RTREXC, LTREXC, NTREXC, KTREXC, NIN )
       IF( RTREXC.GT.THRESH .OR. NTREXC.GT.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9998 )RTREXC, LTREXC, NTREXC, KTREXC
       END IF
-*
+
       CALL ZGET37( RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN )
       IF( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ).NE.0 .OR. NTRSNA( 2 ).NE.0 .OR. NTRSNA( 3 ).NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9997 )RTRSNA, LTRSNA, NTRSNA, KTRSNA
       END IF
-*
+
       CALL ZGET38( RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN )
       IF( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ).NE.0 .OR. NTRSEN( 2 ).NE.0 .OR. NTRSEN( 3 ).NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9996 )RTRSEN, LTRSEN, NTRSEN, KTRSEN
       END IF
-*
+
       NTESTS = KTRSYL + KTRSYL3 + KTREXC + KTRSNA + KTRSEN
       IF( OK ) WRITE( NOUT, FMT = 9995 )PATH, NTESTS
-*
+
  9999 FORMAT( ' Error in ZTRSYL: RMAX =', D12.3, / ' LMAX = ', I8,
      $      ' NINFO=', I8, ' KNT=', I8 )
  9998 FORMAT( ' Error in ZTREXC: RMAX =', D12.3, / ' LMAX = ', I8,
@@ -109,7 +109,7 @@
  9972 FORMAT( 'ZTRSYL and ZTRSYL3 compute an inconsistent scale ',
      $      'factor in ', I8, ' tests.')
       RETURN
-*
+
       // End of ZCHKEC
-*
+
       END

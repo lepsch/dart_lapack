@@ -1,9 +1,9 @@
       SUBROUTINE ZTPTTR( UPLO, N, AP, A, LDA, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N, LDA;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), AP( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       // ..
       // .. Local Scalars ..
@@ -28,9 +28,9 @@
       // EXTERNAL XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       LOWER = LSAME( UPLO, 'L' )
       IF( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) THEN
@@ -44,7 +44,7 @@
          CALL XERBLA( 'ZTPTTR', -INFO )
          RETURN
       END IF
-*
+
       IF( LOWER ) THEN
          K = 0
          DO J = 1, N
@@ -62,10 +62,10 @@
             END DO
          END DO
       END IF
-*
-*
+
+
       RETURN
-*
+
       // End of ZTPTTR
-*
+
       END

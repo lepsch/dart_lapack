@@ -1,9 +1,9 @@
       SUBROUTINE ZUNMTR( SIDE, UPLO, TRANS, M, N, A, LDA, TAU, C, LDC, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             SIDE, TRANS, UPLO;
       int                INFO, LDA, LDC, LWORK, M, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               LEFT, LQUERY, UPPER;
       int                I1, I2, IINFO, LWKOPT, MI, NB, NI, NQ, NW;
@@ -30,16 +30,16 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       UPPER = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK.EQ.-1 )
-*
+
       // NQ is the order of Q and NW is the minimum dimension of WORK
-*
+
       IF( LEFT ) THEN
          NQ = M
          NW = MAX( 1, N )
@@ -64,7 +64,7 @@
       ELSE IF( LWORK.LT.NW .AND. .NOT.LQUERY ) THEN
          INFO = -12
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          IF( UPPER ) THEN
             IF( LEFT ) THEN
@@ -82,21 +82,21 @@
          LWKOPT = NW*NB
          WORK( 1 ) = LWKOPT
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZUNMTR', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( M.EQ.0 .OR. N.EQ.0 .OR. NQ.EQ.1 ) THEN
          WORK( 1 ) = 1
          RETURN
       END IF
-*
+
       IF( LEFT ) THEN
          MI = M - 1
          NI = N
@@ -104,16 +104,16 @@
          MI = M
          NI = N - 1
       END IF
-*
+
       IF( UPPER ) THEN
-*
+
          // Q was determined by a call to ZHETRD with UPLO = 'U'
-*
+
          CALL ZUNMQL( SIDE, TRANS, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C, LDC, WORK, LWORK, IINFO )
       ELSE
-*
+
          // Q was determined by a call to ZHETRD with UPLO = 'L'
-*
+
          IF( LEFT ) THEN
             I1 = 2
             I2 = 1
@@ -125,7 +125,7 @@
       END IF
       WORK( 1 ) = LWKOPT
       RETURN
-*
+
       // End of ZUNMTR
-*
+
       END

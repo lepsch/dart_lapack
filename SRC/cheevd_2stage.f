@@ -1,11 +1,11 @@
       SUBROUTINE CHEEVD_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
-*
+
       IMPLICIT NONE
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, LDA, LIWORK, LRWORK, LWORK, N;
@@ -15,9 +15,9 @@
       REAL               RWORK( * ), W( * )
       COMPLEX            A( LDA, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -43,13 +43,13 @@
       // INTRINSIC REAL, MAX, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       WANTZ = LSAME( JOBZ, 'V' )
       LOWER = LSAME( UPLO, 'L' )
       LQUERY = ( LWORK.EQ.-1 .OR. LRWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
-*
+
       INFO = 0
       IF( .NOT.( LSAME( JOBZ, 'N' ) ) ) THEN
          INFO = -1
@@ -60,7 +60,7 @@
       ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
          INFO = -5
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          IF( N.LE.1 ) THEN
             LWMIN = 1
@@ -81,7 +81,7 @@
          WORK( 1 )  = LWMIN
          RWORK( 1 ) = LRWMIN
          IWORK( 1 ) = LIWMIN
-*
+
          IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
             INFO = -8
          ELSE IF( LRWORK.LT.LRWMIN .AND. .NOT.LQUERY ) THEN
@@ -90,35 +90,35 @@
             INFO = -12
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CHEEVD_2STAGE', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       IF( N.EQ.1 ) THEN
          W( 1 ) = REAL( A( 1, 1 ) )
          IF( WANTZ ) A( 1, 1 ) = CONE
          RETURN
       END IF
-*
+
       // Get machine constants.
-*
+
       SAFMIN = SLAMCH( 'Safe minimum' )
       EPS    = SLAMCH( 'Precision' )
       SMLNUM = SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
       RMIN   = SQRT( SMLNUM )
       RMAX   = SQRT( BIGNUM )
-*
+
       // Scale matrix to allowable range, if necessary.
-*
+
       ANRM = CLANHE( 'M', UPLO, N, A, LDA, RWORK )
       ISCALE = 0
       IF( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) THEN
@@ -129,9 +129,9 @@
          SIGMA = RMAX / ANRM
       END IF
       IF( ISCALE.EQ.1 ) CALL CLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
-*
+
       // Call CHETRD_2STAGE to reduce Hermitian matrix to tridiagonal form.
-*
+
       INDE    = 1
       INDRWK  = INDE + N
       LLRWK   = LRWORK - INDRWK + 1
@@ -141,15 +141,15 @@
       LLWORK  = LWORK - INDWRK + 1
       INDWK2  = INDWRK + N*N
       LLWRK2  = LWORK - INDWK2 + 1
-*
+
       CALL CHETRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, RWORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
-*
+
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
       // CSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
      t // ridiagonal matrix, then call CUNMTR to multiply it to the
       // Householder transformations represented as Householder vectors in
       // A.
-*
+
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, RWORK( INDE ), INFO )
       ELSE
@@ -157,9 +157,9 @@
          CALL CUNMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
          CALL CLACPY( 'A', N, N, WORK( INDWRK ), N, A, LDA )
       END IF
-*
+
       // If matrix was scaled, then rescale eigenvalues appropriately.
-*
+
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = N
@@ -168,13 +168,13 @@
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
-*
+
       WORK( 1 )  = LWMIN
       RWORK( 1 ) = LRWMIN
       IWORK( 1 ) = LIWMIN
-*
+
       RETURN
-*
+
       // End of CHEEVD_2STAGE
-*
+
       END

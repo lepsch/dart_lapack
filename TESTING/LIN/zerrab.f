@@ -1,15 +1,15 @@
       SUBROUTINE ZERRAB( NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
@@ -42,12 +42,12 @@
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1.D0 / DBLE( I+J )
@@ -63,7 +63,7 @@
          IP( J ) = J
    20 CONTINUE
       OK = .TRUE.
-*
+
       SRNAMT = 'ZCGESV'
       INFOT = 1
       CALL ZCGESV(-1,0,A,1,IP,B,1,X,1,WORK,SWORK,RWORK,ITER,INFO)
@@ -80,21 +80,21 @@
       INFOT = 9
       CALL ZCGESV(2,1,A,2,IP,B,2,X,1,WORK,SWORK,RWORK,ITER,INFO)
       CALL CHKXER( 'ZCGESV', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )'ZCGESV'
       ELSE
          WRITE( NOUT, FMT = 9998 )'ZCGESV'
       END IF
-*
+
  9999 FORMAT( 1X, A6, ' drivers passed the tests of the error exits' )
  9998 FORMAT( ' *** ', A6, ' drivers failed the tests of the error ',
      $      'exits ***' )
-*
+
       RETURN
-*
+
       // End of ZERRAB
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE DGBSV( N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, KL, KU, LDAB, LDB, N, NRHS;
       // ..
@@ -11,9 +11,9 @@
       int                IPIV( * );
       double             AB( LDAB, * ), B( LDB, * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. External Subroutines ..
       // EXTERNAL DGBTRF, DGBTRS, XERBLA
       // ..
@@ -21,9 +21,9 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF( N.LT.0 ) THEN
          INFO = -1
@@ -42,18 +42,18 @@
          CALL XERBLA( 'DGBSV ', -INFO )
          RETURN
       END IF
-*
+
       // Compute the LU factorization of the band matrix A.
-*
+
       CALL DGBTRF( N, N, KL, KU, AB, LDAB, IPIV, INFO )
       IF( INFO.EQ.0 ) THEN
-*
+
          // Solve the system A*X = B, overwriting B with X.
-*
+
          CALL DGBTRS( 'No transpose', N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO )
       END IF
       RETURN
-*
+
       // End of DGBSV
-*
+
       END

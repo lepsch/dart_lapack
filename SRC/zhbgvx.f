@@ -1,9 +1,9 @@
       SUBROUTINE ZHBGVX( JOBZ, RANGE, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, RWORK, IWORK, IFAIL, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N;
@@ -14,9 +14,9 @@
       double             RWORK( * ), W( * );
       COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
@@ -40,15 +40,15 @@
       // INTRINSIC MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
       ALLEIG = LSAME( RANGE, 'A' )
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
-*
+
       INFO = 0
       IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
          INFO = -1
@@ -84,32 +84,32 @@
             INFO = -21
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZHBGVX', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       M = 0
       IF( N.EQ.0 ) RETURN
-*
+
       // Form a split Cholesky factorization of B.
-*
+
       CALL ZPBSTF( UPLO, N, KB, BB, LDBB, INFO )
       IF( INFO.NE.0 ) THEN
          INFO = N + INFO
          RETURN
       END IF
-*
+
       // Transform problem to standard eigenvalue problem.
-*
+
       CALL ZHBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, WORK, RWORK, IINFO )
-*
+
       // Solve the standard eigenvalue problem.
       // Reduce Hermitian band matrix to tridiagonal form.
-*
+
       INDD = 1
       INDE = INDD + N
       INDRWK = INDE + N
@@ -120,11 +120,11 @@
          VECT = 'N'
       END IF
       CALL ZHBTRD( VECT, UPLO, N, KA, AB, LDAB, RWORK( INDD ), RWORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
-*
+
       // If all eigenvalues are desired and ABSTOL is less than or equal
      t // o zero, then call DSTERF or ZSTEQR.  If this fails for some
       // eigenvalue, then try DSTEBZ.
-*
+
       TEST = .FALSE.
       IF( INDEIG ) THEN
          IF( IL.EQ.1 .AND. IU.EQ.N ) THEN
@@ -152,10 +152,10 @@
          END IF
          INFO = 0
       END IF
-*
+
       // Otherwise, call DSTEBZ and, if eigenvectors are desired,
       // call ZSTEIN.
-*
+
       IF( WANTZ ) THEN
          ORDER = 'B'
       ELSE
@@ -164,24 +164,24 @@
       INDISP = 1 + N
       INDIWK = INDISP + N
       CALL DSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO )
-*
+
       IF( WANTZ ) THEN
          CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
-*
+
          // Apply unitary matrix used in reduction to tridiagonal
          // form to eigenvectors returned by ZSTEIN.
-*
+
          DO 20 J = 1, M
             CALL ZCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
             CALL ZGEMV( 'N', N, N, CONE, Q, LDQ, WORK, 1, CZERO, Z( 1, J ), 1 )
    20    CONTINUE
       END IF
-*
+
    30 CONTINUE
-*
+
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
-*
+
       IF( WANTZ ) THEN
          DO 50 J = 1, M - 1
             I = 0
@@ -192,7 +192,7 @@
                   TMP1 = W( JJ )
                END IF
    40       CONTINUE
-*
+
             IF( I.NE.0 ) THEN
                ITMP1 = IWORK( 1 + I-1 )
                W( I ) = W( J )
@@ -208,9 +208,9 @@
             END IF
    50    CONTINUE
       END IF
-*
+
       RETURN
-*
+
       // End of ZHBGVX
-*
+
       END

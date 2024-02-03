@@ -1,18 +1,18 @@
       double           FUNCTION ZLA_GBRPVGRW( N, KL, KU, NCOLS, AB, LDAB, AFB, LDAFB );
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                N, KL, KU, NCOLS, LDAB, LDAFB;
       // ..
       // .. Array Arguments ..
       COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, J, KD;
       double             AMAX, UMAX, RPVGRW;
@@ -28,7 +28,7 @@
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       RPVGRW = 1.0D+0
 
       KD = KU + 1
@@ -46,7 +46,7 @@
          END IF
       END DO
       ZLA_GBRPVGRW = RPVGRW
-*
+
       // End of ZLA_GBRPVGRW
-*
+
       END

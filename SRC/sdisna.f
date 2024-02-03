@@ -1,9 +1,9 @@
       SUBROUTINE SDISNA( JOB, M, N, D, SEP, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOB;
       int                INFO, M, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               D( * ), SEP( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
@@ -35,9 +35,9 @@
       // EXTERNAL XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       EIGEN = LSAME( JOB, 'E' )
       LEFT = LSAME( JOB, 'L' )
@@ -69,13 +69,13 @@
          CALL XERBLA( 'SDISNA', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( K.EQ.0 ) RETURN
-*
+
       // Compute reciprocal condition numbers
-*
+
       IF( K.EQ.1 ) THEN
          SEP( 1 ) = SLAMCH( 'O' )
       ELSE
@@ -93,10 +93,10 @@
             IF( INCR ) SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) )             IF( DECR ) SEP( K ) = MIN( SEP( K ), D( K ) )
          END IF
       END IF
-*
+
       // Ensure that reciprocal condition numbers are not less than
      t // hreshold, in order to limit the size of the error bound
-*
+
       EPS = SLAMCH( 'E' )
       SAFMIN = SLAMCH( 'S' )
       ANORM = MAX( ABS( D( 1 ) ), ABS( D( K ) ) )
@@ -108,9 +108,9 @@
       DO 30 I = 1, K
          SEP( I ) = MAX( SEP( I ), THRESH )
    30 CONTINUE
-*
+
       RETURN
-*
+
       // End of SDISNA
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE DLALN2( LTRANS, NA, NW, SMIN, CA, A, LDA, D1, D2, B, LDB, WR, WI, X, LDX, SCALE, XNORM, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               LTRANS;
       int                INFO, LDA, LDB, LDX, NA, NW;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), X( LDX, * );
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -49,91 +49,91 @@
       DATA               IPIVOT / 1, 2, 3, 4, 2, 1, 4, 3, 3, 4, 1, 2, 4, 3, 2, 1 /
       // ..
       // .. Executable Statements ..
-*
+
       // Compute BIGNUM
-*
+
       SMLNUM = TWO*DLAMCH( 'Safe minimum' )
       BIGNUM = ONE / SMLNUM
       SMINI = MAX( SMIN, SMLNUM )
-*
+
       // Don't check for input errors
-*
+
       INFO = 0
-*
+
       // Standard Initializations
-*
+
       SCALE = ONE
-*
+
       IF( NA.EQ.1 ) THEN
-*
+
          // 1 x 1  (i.e., scalar) system   C X = B
-*
+
          IF( NW.EQ.1 ) THEN
-*
+
             // Real 1x1 system.
-*
+
             // C = ca A - w D
-*
+
             CSR = CA*A( 1, 1 ) - WR*D1
             CNORM = ABS( CSR )
-*
+
             // If | C | < SMINI, use C = SMINI
-*
+
             IF( CNORM.LT.SMINI ) THEN
                CSR = SMINI
                CNORM = SMINI
                INFO = 1
             END IF
-*
+
             // Check scaling for  X = B / C
-*
+
             BNORM = ABS( B( 1, 1 ) )
             IF( CNORM.LT.ONE .AND. BNORM.GT.ONE ) THEN
                IF( BNORM.GT.BIGNUM*CNORM ) SCALE = ONE / BNORM
             END IF
-*
+
             // Compute X
-*
+
             X( 1, 1 ) = ( B( 1, 1 )*SCALE ) / CSR
             XNORM = ABS( X( 1, 1 ) )
          ELSE
-*
+
             // Complex 1x1 system (w is complex)
-*
+
             // C = ca A - w D
-*
+
             CSR = CA*A( 1, 1 ) - WR*D1
             CSI = -WI*D1
             CNORM = ABS( CSR ) + ABS( CSI )
-*
+
             // If | C | < SMINI, use C = SMINI
-*
+
             IF( CNORM.LT.SMINI ) THEN
                CSR = SMINI
                CSI = ZERO
                CNORM = SMINI
                INFO = 1
             END IF
-*
+
             // Check scaling for  X = B / C
-*
+
             BNORM = ABS( B( 1, 1 ) ) + ABS( B( 1, 2 ) )
             IF( CNORM.LT.ONE .AND. BNORM.GT.ONE ) THEN
                IF( BNORM.GT.BIGNUM*CNORM ) SCALE = ONE / BNORM
             END IF
-*
+
             // Compute X
-*
+
             CALL DLADIV( SCALE*B( 1, 1 ), SCALE*B( 1, 2 ), CSR, CSI, X( 1, 1 ), X( 1, 2 ) )
             XNORM = ABS( X( 1, 1 ) ) + ABS( X( 1, 2 ) )
          END IF
-*
+
       ELSE
-*
+
          // 2x2 System
-*
+
          // Compute the real part of  C = ca A - w D  (or  ca A**T - w D )
-*
+
          CR( 1, 1 ) = CA*A( 1, 1 ) - WR*D1
          CR( 2, 2 ) = CA*A( 2, 2 ) - WR*D2
          IF( LTRANS ) THEN
@@ -143,25 +143,25 @@
             CR( 2, 1 ) = CA*A( 2, 1 )
             CR( 1, 2 ) = CA*A( 1, 2 )
          END IF
-*
+
          IF( NW.EQ.1 ) THEN
-*
+
             // Real 2x2 system  (w is real)
-*
+
             // Find the largest element in C
-*
+
             CMAX = ZERO
             ICMAX = 0
-*
+
             DO 10 J = 1, 4
                IF( ABS( CRV( J ) ).GT.CMAX ) THEN
                   CMAX = ABS( CRV( J ) )
                   ICMAX = J
                END IF
    10       CONTINUE
-*
+
             // If norm(C) < SMINI, use SMINI*identity.
-*
+
             IF( CMAX.LT.SMINI ) THEN
                BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 2, 1 ) ) )
                IF( SMINI.LT.ONE .AND. BNORM.GT.ONE ) THEN
@@ -174,9 +174,9 @@
                INFO = 1
                RETURN
             END IF
-*
+
             // Gaussian elimination with complete pivoting.
-*
+
             UR11 = CRV( ICMAX )
             CR21 = CRV( IPIVOT( 2, ICMAX ) )
             UR12 = CRV( IPIVOT( 3, ICMAX ) )
@@ -184,9 +184,9 @@
             UR11R = ONE / UR11
             LR21 = UR11R*CR21
             UR22 = CR22 - UR12*LR21
-*
+
             // If smaller pivot < SMINI, use SMINI
-*
+
             IF( ABS( UR22 ).LT.SMINI ) THEN
                UR22 = SMINI
                INFO = 1
@@ -203,7 +203,7 @@
             IF( BBND.GT.ONE .AND. ABS( UR22 ).LT.ONE ) THEN
                IF( BBND.GE.BIGNUM*ABS( UR22 ) ) SCALE = ONE / BBND
             END IF
-*
+
             XR2 = ( BR2*SCALE ) / UR22
             XR1 = ( SCALE*BR1 )*UR11R - XR2*( UR11R*UR12 )
             IF( ZSWAP( ICMAX ) ) THEN
@@ -214,9 +214,9 @@
                X( 2, 1 ) = XR2
             END IF
             XNORM = MAX( ABS( XR1 ), ABS( XR2 ) )
-*
+
             // Further scaling if  norm(A) norm(X) > overflow
-*
+
             IF( XNORM.GT.ONE .AND. CMAX.GT.ONE ) THEN
                IF( XNORM.GT.BIGNUM / CMAX ) THEN
                   TEMP = CMAX / BIGNUM
@@ -227,27 +227,27 @@
                END IF
             END IF
          ELSE
-*
+
             // Complex 2x2 system  (w is complex)
-*
+
             // Find the largest element in C
-*
+
             CI( 1, 1 ) = -WI*D1
             CI( 2, 1 ) = ZERO
             CI( 1, 2 ) = ZERO
             CI( 2, 2 ) = -WI*D2
             CMAX = ZERO
             ICMAX = 0
-*
+
             DO 20 J = 1, 4
                IF( ABS( CRV( J ) )+ABS( CIV( J ) ).GT.CMAX ) THEN
                   CMAX = ABS( CRV( J ) ) + ABS( CIV( J ) )
                   ICMAX = J
                END IF
    20       CONTINUE
-*
+
             // If norm(C) < SMINI, use SMINI*identity.
-*
+
             IF( CMAX.LT.SMINI ) THEN
                BNORM = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
                IF( SMINI.LT.ONE .AND. BNORM.GT.ONE ) THEN
@@ -262,9 +262,9 @@
                INFO = 1
                RETURN
             END IF
-*
+
             // Gaussian elimination with complete pivoting.
-*
+
             UR11 = CRV( ICMAX )
             UI11 = CIV( ICMAX )
             CR21 = CRV( IPIVOT( 2, ICMAX ) )
@@ -274,9 +274,9 @@
             CR22 = CRV( IPIVOT( 4, ICMAX ) )
             CI22 = CIV( IPIVOT( 4, ICMAX ) )
             IF( ICMAX.EQ.1 .OR. ICMAX.EQ.4 ) THEN
-*
+
                // Code when off-diagonals of pivoted C are real
-*
+
                IF( ABS( UR11 ).GT.ABS( UI11 ) ) THEN
                   TEMP = UI11 / UR11
                   UR11R = ONE / ( UR11*( ONE+TEMP**2 ) )
@@ -293,9 +293,9 @@
                UR22 = CR22 - UR12*LR21
                UI22 = CI22 - UR12*LI21
             ELSE
-*
+
                // Code when diagonals of pivoted C are real
-*
+
                UR11R = ONE / UR11
                UI11R = ZERO
                LR21 = CR21*UR11R
@@ -306,9 +306,9 @@
                UI22 = -UR12*LI21 - UI12*LR21
             END IF
             U22ABS = ABS( UR22 ) + ABS( UI22 )
-*
+
             // If smaller pivot < SMINI, use SMINI
-*
+
             IF( U22ABS.LT.SMINI ) THEN
                UR22 = SMINI
                UI22 = ZERO
@@ -337,7 +337,7 @@
                   BI2 = SCALE*BI2
                END IF
             END IF
-*
+
             CALL DLADIV( BR2, BI2, UR22, UI22, XR2, XI2 )
             XR1 = UR11R*BR1 - UI11R*BI1 - UR12S*XR2 + UI12S*XI2
             XI1 = UI11R*BR1 + UR11R*BI1 - UI12S*XR2 - UR12S*XI2
@@ -353,9 +353,9 @@
                X( 2, 2 ) = XI2
             END IF
             XNORM = MAX( ABS( XR1 )+ABS( XI1 ), ABS( XR2 )+ABS( XI2 ) )
-*
+
             // Further scaling if  norm(A) norm(X) > overflow
-*
+
             IF( XNORM.GT.ONE .AND. CMAX.GT.ONE ) THEN
                IF( XNORM.GT.BIGNUM / CMAX ) THEN
                   TEMP = CMAX / BIGNUM
@@ -369,9 +369,9 @@
             END IF
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of DLALN2
-*
+
       END

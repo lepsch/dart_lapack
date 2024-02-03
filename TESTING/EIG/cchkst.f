@@ -1,9 +1,9 @@
       SUBROUTINE CCHKST( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, AP, SD, SE, D1, D2, D3, D4, D5, WA1, WA2, WA3, WR, U, LDU, V, VP, TAU, Z, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, RESULT, INFO )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LIWORK, LRWORK, LWORK, NOUNIT, NSIZES, NTYPES;
       REAL               THRESH
@@ -14,9 +14,9 @@
       REAL               D1( * ), D2( * ), D3( * ), D4( * ), D5( * ), RESULT( * ), RWORK( * ), SD( * ), SE( * ), WA1( * ), WA2( * ), WA3( * ), WR( * )
       COMPLEX            A( LDA, * ), AP( * ), TAU( * ), U( LDU, * ), V( LDU, * ), VP( * ), WORK( * ), Z( LDU, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, EIGHT, TEN, HUN
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, EIGHT = 8.0E0, TEN = 10.0E0, HUN = 100.0E0 )
@@ -55,17 +55,17 @@
       DATA               KTYPE / 1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 10 /       DATA               KMAGN / 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 1, 1, 2, 3, 1 /       DATA               KMODE / 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 3, 1, 4, 4, 3 /
       // ..
       // .. Executable Statements ..
-*
+
       // Keep ftnchek happy
       IDUMMA( 1 ) = 1
-*
+
       // Check for errors
-*
+
       NTESTT = 0
       INFO = 0
-*
+
       // Important constants
-*
+
       BADNN = .FALSE.
       TRYRAC = .TRUE.
       NMAX = 1
@@ -73,12 +73,12 @@
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
-*
+
       NBLOCK = ILAENV( 1, 'CHETRD', 'L', NMAX, -1, -1, -1 )
       NBLOCK = MIN( NMAX, MAX( 1, NBLOCK ) )
-*
+
       // Check for errors
-*
+
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
       ELSE IF( BADNN ) THEN
@@ -92,18 +92,18 @@
       ELSE IF( 2*MAX( 2, NMAX )**2.GT.LWORK ) THEN
          INFO = -29
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CCHKST', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
-*
+
       // More Important constants
-*
+
       UNFL = SLAMCH( 'Safe minimum' )
       OVFL = ONE / UNFL
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
@@ -111,15 +111,15 @@
       LOG2UI = INT( LOG( ULPINV ) / LOG( TWO ) )
       RTUNFL = SQRT( UNFL )
       RTOVFL = SQRT( OVFL )
-*
+
       // Loop over sizes, types
-*
+
       DO 20 I = 1, 4
          ISEED2( I ) = ISEED( I )
    20 CONTINUE
       NERRS = 0
       NMATS = 0
-*
+
       DO 310 JSIZE = 1, NSIZES
          N = NN( JSIZE )
          IF( N.GT.0 ) THEN
@@ -135,26 +135,26 @@
          END IF
          NAP = ( N*( N+1 ) ) / 2
          ANINV = ONE / REAL( MAX( 1, N ) )
-*
+
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
          ELSE
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
-*
+
          DO 300 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 300
             NMATS = NMATS + 1
             NTEST = 0
-*
+
             DO 30 J = 1, 4
                IOLDSD( J ) = ISEED( J )
    30       CONTINUE
-*
+
             // Compute "A"
-*
+
             // Control parameters:
-*
+
                 // KMAGN  KMODE        KTYPE
             // =1  O(1)   clustered 1  zero
             // =2  large  clustered 2  identity
@@ -166,30 +166,30 @@
             // =8                      random Hermitian
             // =9                      positive definite
             // =10                     diagonally dominant tridiagonal
-*
+
             IF( MTYPES.GT.MAXTYP ) GO TO 100
-*
+
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
-*
+
             // Compute norm
-*
+
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
-*
+
    40       CONTINUE
             ANORM = ONE
             GO TO 70
-*
+
    50       CONTINUE
             ANORM = ( RTOVFL*ULP )*ANINV
             GO TO 70
-*
+
    60       CONTINUE
             ANORM = RTUNFL*N*ULPINV
             GO TO 70
-*
+
    70       CONTINUE
-*
+
             CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
             IINFO = 0
             IF( JTYPE.LE.15 ) THEN
@@ -197,57 +197,57 @@
             ELSE
                COND = ULPINV*ANINV / TEN
             END IF
-*
+
             // Special Matrices -- Identity & Jordan block
-*
+
                // Zero
-*
+
             IF( ITYPE.EQ.1 ) THEN
                IINFO = 0
-*
+
             ELSE IF( ITYPE.EQ.2 ) THEN
-*
+
                // Identity
-*
+
                DO 80 JC = 1, N
                   A( JC, JC ) = ANORM
    80          CONTINUE
-*
+
             ELSE IF( ITYPE.EQ.4 ) THEN
-*
+
                // Diagonal Matrix, [Eigen]values Specified
-*
+
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
-*
-*
+
+
             ELSE IF( ITYPE.EQ.5 ) THEN
-*
+
                // Hermitian, eigenvalues specified
-*
+
                CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
-*
+
             ELSE IF( ITYPE.EQ.7 ) THEN
-*
+
                // Diagonal, random eigenvalues
-*
+
                CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-*
+
             ELSE IF( ITYPE.EQ.8 ) THEN
-*
+
                // Hermitian, random eigenvalues
-*
+
                CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-*
+
             ELSE IF( ITYPE.EQ.9 ) THEN
-*
+
                // Positive definite, eigenvalues specified.
-*
+
                CALL CLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
-*
+
             ELSE IF( ITYPE.EQ.10 ) THEN
-*
+
                // Positive definite tridiagonal, eigenvalues specified.
-*
+
                CALL CLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK, IINFO )
                DO 90 I = 2, N
                   TEMP1 = ABS( A( I-1, I ) )
@@ -257,28 +257,28 @@
                      A( I, I-1 ) = CONJG( A( I-1, I ) )
                   END IF
    90          CONTINUE
-*
+
             ELSE
-*
+
                IINFO = 1
             END IF
-*
+
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
-*
+
   100       CONTINUE
-*
+
             // Call CHETRD and CUNGTR to compute S and U from
             // upper triangle.
-*
+
             CALL CLACPY( 'U', N, N, A, LDA, V, LDU )
-*
+
             NTEST = 1
             CALL CHETRD( 'U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO )
-*
+
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUNIT, FMT = 9999 )'CHETRD(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -289,9 +289,9 @@
                   GO TO 280
                END IF
             END IF
-*
+
             CALL CLACPY( 'U', N, N, V, LDU, U, LDU )
-*
+
             NTEST = 2
             CALL CUNGTR( 'U', N, U, LDU, TAU, WORK, LWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -304,19 +304,19 @@
                   GO TO 280
                END IF
             END IF
-*
+
             // Do tests 1 and 2
-*
+
             CALL CHET21( 2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 1 ) )             CALL CHET21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 2 ) )
-*
+
             // Call CHETRD and CUNGTR to compute S and U from
             // lower triangle, do tests.
-*
+
             CALL CLACPY( 'L', N, N, A, LDA, V, LDU )
-*
+
             NTEST = 3
             CALL CHETRD( 'L', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO )
-*
+
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUNIT, FMT = 9999 )'CHETRD(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -327,9 +327,9 @@
                   GO TO 280
                END IF
             END IF
-*
+
             CALL CLACPY( 'L', N, N, V, LDU, U, LDU )
-*
+
             NTEST = 4
             CALL CUNGTR( 'L', N, U, LDU, TAU, WORK, LWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -342,11 +342,11 @@
                   GO TO 280
                END IF
             END IF
-*
+
             CALL CHET21( 2, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 3 ) )             CALL CHET21( 3, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 4 ) )
-*
+
             // Store the upper triangle of A in AP
-*
+
             I = 0
             DO 120 JC = 1, N
                DO 110 JR = 1, JC
@@ -354,14 +354,14 @@
                   AP( I ) = A( JR, JC )
   110          CONTINUE
   120       CONTINUE
-*
+
             // Call CHPTRD and CUPGTR to compute S and U from AP
-*
+
             CALL CCOPY( NAP, AP, 1, VP, 1 )
-*
+
             NTEST = 5
             CALL CHPTRD( 'U', N, VP, SD, SE, TAU, IINFO )
-*
+
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUNIT, FMT = 9999 )'CHPTRD(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -372,7 +372,7 @@
                   GO TO 280
                END IF
             END IF
-*
+
             NTEST = 6
             CALL CUPGTR( 'U', N, VP, TAU, U, LDU, WORK, IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -385,13 +385,13 @@
                   GO TO 280
                END IF
             END IF
-*
+
             // Do tests 5 and 6
-*
+
             CALL CHPT21( 2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 5 ) )             CALL CHPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 6 ) )
-*
+
             // Store the lower triangle of A in AP
-*
+
             I = 0
             DO 140 JC = 1, N
                DO 130 JR = JC, N
@@ -399,14 +399,14 @@
                   AP( I ) = A( JR, JC )
   130          CONTINUE
   140       CONTINUE
-*
+
             // Call CHPTRD and CUPGTR to compute S and U from AP
-*
+
             CALL CCOPY( NAP, AP, 1, VP, 1 )
-*
+
             NTEST = 7
             CALL CHPTRD( 'L', N, VP, SD, SE, TAU, IINFO )
-*
+
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUNIT, FMT = 9999 )'CHPTRD(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -417,7 +417,7 @@
                   GO TO 280
                END IF
             END IF
-*
+
             NTEST = 8
             CALL CUPGTR( 'L', N, VP, TAU, U, LDU, WORK, IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -430,17 +430,17 @@
                   GO TO 280
                END IF
             END IF
-*
+
             CALL CHPT21( 2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 7 ) )             CALL CHPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 8 ) )
-*
+
             // Call CSTEQR to compute D1, D2, and Z, do tests.
-*
+
             // Compute D1 and Z
-*
+
             CALL SCOPY( N, SD, 1, D1, 1 )
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
             CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
-*
+
             NTEST = 9
             CALL CSTEQR( 'V', N, D1, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -453,12 +453,12 @@
                   GO TO 280
                END IF
             END IF
-*
+
             // Compute D2
-*
+
             CALL SCOPY( N, SD, 1, D2, 1 )
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
-*
+
             NTEST = 11
             CALL CSTEQR( 'N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -471,12 +471,12 @@
                   GO TO 280
                END IF
             END IF
-*
+
             // Compute D3 (using PWK method)
-*
+
             CALL SCOPY( N, SD, 1, D3, 1 )
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
-*
+
             NTEST = 12
             CALL SSTERF( N, D3, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -489,54 +489,54 @@
                   GO TO 280
                END IF
             END IF
-*
+
             // Do Tests 9 and 10
-*
+
             CALL CSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 9 ) )
-*
+
             // Do Tests 11 and 12
-*
+
             TEMP1 = ZERO
             TEMP2 = ZERO
             TEMP3 = ZERO
             TEMP4 = ZERO
-*
+
             DO 150 J = 1, N
                TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
                TEMP3 = MAX( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) )
                TEMP4 = MAX( TEMP4, ABS( D1( J )-D3( J ) ) )
   150       CONTINUE
-*
+
             RESULT( 11 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
             RESULT( 12 ) = TEMP4 / MAX( UNFL, ULP*MAX( TEMP3, TEMP4 ) )
-*
+
             // Do Test 13 -- Sturm Sequence Test of Eigenvalues
                           // Go up by factors of two until it succeeds
-*
+
             NTEST = 13
             TEMP1 = THRESH*( HALF-ULP )
-*
+
             DO 160 J = 0, LOG2UI
                CALL SSTECH( N, SD, SE, D1, TEMP1, RWORK, IINFO )
                IF( IINFO.EQ.0 ) GO TO 170
                TEMP1 = TEMP1*TWO
   160       CONTINUE
-*
+
   170       CONTINUE
             RESULT( 13 ) = TEMP1
-*
+
             // For positive definite matrices ( JTYPE.GT.15 ) call CPTEQR
             // and do tests 14, 15, and 16 .
-*
+
             IF( JTYPE.GT.15 ) THEN
-*
+
                // Compute D4 and Z4
-*
+
                CALL SCOPY( N, SD, 1, D4, 1 )
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
                CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
-*
+
                NTEST = 14
                CALL CPTEQR( 'V', N, D4, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
                IF( IINFO.NE.0 ) THEN
@@ -549,16 +549,16 @@
                      GO TO 280
                   END IF
                END IF
-*
+
                // Do Tests 14 and 15
-*
+
                CALL CSTT21( N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RWORK, RESULT( 14 ) )
-*
+
                // Compute D5
-*
+
                CALL SCOPY( N, SD, 1, D5, 1 )
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
-*
+
                NTEST = 16
                CALL CPTEQR( 'N', N, D5, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
                IF( IINFO.NE.0 ) THEN
@@ -571,28 +571,28 @@
                      GO TO 280
                   END IF
                END IF
-*
+
                // Do Test 16
-*
+
                TEMP1 = ZERO
                TEMP2 = ZERO
                DO 180 J = 1, N
                   TEMP1 = MAX( TEMP1, ABS( D4( J ) ), ABS( D5( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D4( J )-D5( J ) ) )
   180          CONTINUE
-*
+
                RESULT( 16 ) = TEMP2 / MAX( UNFL, HUN*ULP*MAX( TEMP1, TEMP2 ) )
             ELSE
                RESULT( 14 ) = ZERO
                RESULT( 15 ) = ZERO
                RESULT( 16 ) = ZERO
             END IF
-*
+
             // Call SSTEBZ with different options and do tests 17-18.
-*
+
                // If S is positive definite and diagonally dominant,
                // ask for all eigenvalues with high relative accuracy.
-*
+
             VL = ZERO
             VU = ZERO
             IL = 0
@@ -611,23 +611,23 @@
                      GO TO 280
                   END IF
                END IF
-*
+
                // Do test 17
-*
+
                TEMP2 = TWO*( TWO*N-ONE )*ULP*( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
-*
+
                TEMP1 = ZERO
                DO 190 J = 1, N
                   TEMP1 = MAX( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) )
   190          CONTINUE
-*
+
                RESULT( 17 ) = TEMP1 / TEMP2
             ELSE
                RESULT( 17 ) = ZERO
             END IF
-*
+
             // Now ask for all eigenvalues with high absolute accuracy.
-*
+
             NTEST = 18
             ABSTOL = UNFL + UNFL
             CALL SSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
@@ -641,21 +641,21 @@
                   GO TO 280
                END IF
             END IF
-*
+
             // Do test 18
-*
+
             TEMP1 = ZERO
             TEMP2 = ZERO
             DO 200 J = 1, N
                TEMP1 = MAX( TEMP1, ABS( D3( J ) ), ABS( WA1( J ) ) )
                TEMP2 = MAX( TEMP2, ABS( D3( J )-WA1( J ) ) )
   200       CONTINUE
-*
+
             RESULT( 18 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
-*
+
             // Choose random values for IL and IU, and ask for the
             // IL-th through IU-th eigenvalues.
-*
+
             NTEST = 19
             IF( N.LE.1 ) THEN
                IL = 1
@@ -669,7 +669,7 @@
                   IL = ITEMP
                END IF
             END IF
-*
+
             CALL SSTEBZ( 'I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(I)', IINFO, N, JTYPE, IOLDSD
@@ -681,10 +681,10 @@
                   GO TO 280
                END IF
             END IF
-*
+
             // Determine the values VL and VU of the IL-th and IU-th
             // eigenvalues and ask for all eigenvalues in this range.
-*
+
             IF( N.GT.0 ) THEN
                IF( IL.NE.1 ) THEN
                   VL = WA1( IL ) - MAX( HALF*( WA1( IL )-WA1( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
@@ -700,7 +700,7 @@
                VL = ZERO
                VU = ONE
             END IF
-*
+
             CALL SSTEBZ( 'V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(V)', IINFO, N, JTYPE, IOLDSD
@@ -712,14 +712,14 @@
                   GO TO 280
                END IF
             END IF
-*
+
             IF( M3.EQ.0 .AND. N.NE.0 ) THEN
                RESULT( 19 ) = ULPINV
                GO TO 280
             END IF
-*
+
             // Do test 19
-*
+
             TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
             TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
             IF( N.GT.0 ) THEN
@@ -727,13 +727,13 @@
             ELSE
                TEMP3 = ZERO
             END IF
-*
+
             RESULT( 19 ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
-*
+
             // Call CSTEIN to compute eigenvectors corresponding to
             // eigenvalues in WA1.  (First call SSTEBZ again, to make sure
             // it returns these eigenvalues in the correct order.)
-*
+
             NTEST = 21
             CALL SSTEBZ( 'A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -747,7 +747,7 @@
                   GO TO 280
                END IF
             END IF
-*
+
             CALL CSTEIN( N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, RWORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUNIT, FMT = 9999 )'CSTEIN', IINFO, N, JTYPE, IOLDSD
@@ -760,21 +760,21 @@
                   GO TO 280
                END IF
             END IF
-*
+
             // Do tests 20 and 21
-*
+
             CALL CSTT21( N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 20 ) )
-*
+
             // Call CSTEDC(I) to compute D1 and Z, do tests.
-*
+
             // Compute D1 and Z
-*
+
             INDE = 1
             INDRWK = INDE + N
             CALL SCOPY( N, SD, 1, D1, 1 )
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
             CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
-*
+
             NTEST = 22
             CALL CSTEDC( 'I', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -787,19 +787,19 @@
                   GO TO 280
                END IF
             END IF
-*
+
             // Do Tests 22 and 23
-*
+
             CALL CSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 22 ) )
-*
+
             // Call CSTEDC(V) to compute D1 and Z, do tests.
-*
+
             // Compute D1 and Z
-*
+
             CALL SCOPY( N, SD, 1, D1, 1 )
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
             CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
-*
+
             NTEST = 24
             CALL CSTEDC( 'V', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -812,19 +812,19 @@
                   GO TO 280
                END IF
             END IF
-*
+
             // Do Tests 24 and 25
-*
+
             CALL CSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 24 ) )
-*
+
             // Call CSTEDC(N) to compute D2, do tests.
-*
+
             // Compute D2
-*
+
             CALL SCOPY( N, SD, 1, D2, 1 )
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
             CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
-*
+
             NTEST = 26
             CALL CSTEDC( 'N', N, D2, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -837,28 +837,28 @@
                   GO TO 280
                END IF
             END IF
-*
+
             // Do Test 26
-*
+
             TEMP1 = ZERO
             TEMP2 = ZERO
-*
+
             DO 210 J = 1, N
                TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
   210       CONTINUE
-*
+
             RESULT( 26 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
-*
+
             // Only test CSTEMR if IEEE compliant
-*
+
             IF( ILAENV( 10, 'CSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 .AND. ILAENV( 11, 'CSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 ) THEN
-*
+
             // Call CSTEMR, do test 27 (relative eigenvalue accuracy)
-*
+
                // If S is positive definite and diagonally dominant,
                // ask for all eigenvalues with high relative accuracy.
-*
+
                VL = ZERO
                VU = ZERO
                IL = 0
@@ -877,18 +877,18 @@
                         GO TO 270
                      END IF
                   END IF
-*
+
                // Do test 27
-*
+
                   TEMP2 = TWO*( TWO*N-ONE )*ULP*( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
-*
+
                   TEMP1 = ZERO
                   DO 220 J = 1, N
                      TEMP1 = MAX( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) )
   220             CONTINUE
-*
+
                   RESULT( 27 ) = TEMP1 / TEMP2
-*
+
                   IL = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) )
                   IU = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) )
                   IF( IU.LT.IL ) THEN
@@ -896,12 +896,12 @@
                      IU = IL
                      IL = ITEMP
                   END IF
-*
+
                   IF( CRANGE ) THEN
                      NTEST = 28
                      ABSTOL = UNFL + UNFL
                      CALL CSTEMR( 'V', 'I', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
-*
+
                      IF( IINFO.NE.0 ) THEN
                         WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,I,rel)', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -912,17 +912,17 @@
                            GO TO 270
                         END IF
                      END IF
-*
-*
+
+
                   // Do test 28
-*
+
                      TEMP2 = TWO*( TWO*N-ONE )*ULP* ( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
-*
+
                      TEMP1 = ZERO
                      DO 230 J = IL, IU
                         TEMP1 = MAX( TEMP1, ABS( WR( J-IL+1 )-D4( N-J+ 1 ) ) / ( ABSTOL+ABS( WR( J-IL+1 ) ) ) )
   230                CONTINUE
-*
+
                      RESULT( 28 ) = TEMP1 / TEMP2
                   ELSE
                      RESULT( 28 ) = ZERO
@@ -931,15 +931,15 @@
                   RESULT( 27 ) = ZERO
                   RESULT( 28 ) = ZERO
                END IF
-*
+
             // Call CSTEMR(V,I) to compute D1 and Z, do tests.
-*
+
             // Compute D1 and Z
-*
+
                CALL SCOPY( N, SD, 1, D5, 1 )
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
                CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
-*
+
                IF( CRANGE ) THEN
                   NTEST = 29
                   IL = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) )
@@ -960,17 +960,17 @@
                         GO TO 280
                      END IF
                   END IF
-*
+
             // Do Tests 29 and 30
-*
-*
+
+
             // Call CSTEMR to compute D2, do tests.
-*
+
             // Compute D2
-*
+
                   CALL SCOPY( N, SD, 1, D5, 1 )
                   IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
-*
+
                   NTEST = 31
                   CALL CSTEMR( 'N', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
                   IF( IINFO.NE.0 ) THEN
@@ -983,30 +983,30 @@
                         GO TO 280
                      END IF
                   END IF
-*
+
             // Do Test 31
-*
+
                   TEMP1 = ZERO
                   TEMP2 = ZERO
-*
+
                   DO 240 J = 1, IU - IL + 1
                      TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                      TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
   240             CONTINUE
-*
+
                   RESULT( 31 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
-*
-*
+
+
             // Call CSTEMR(V,V) to compute D1 and Z, do tests.
-*
+
             // Compute D1 and Z
-*
+
                   CALL SCOPY( N, SD, 1, D5, 1 )
                   IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
                   CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
-*
+
                   NTEST = 32
-*
+
                   IF( N.GT.0 ) THEN
                      IF( IL.NE.1 ) THEN
                         VL = D2( IL ) - MAX( HALF* ( D2( IL )-D2( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
@@ -1022,7 +1022,7 @@
                      VL = ZERO
                      VU = ONE
                   END IF
-*
+
                   CALL CSTEMR( 'V', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,V)', IINFO, N, JTYPE, IOLDSD
@@ -1034,18 +1034,18 @@
                         GO TO 280
                      END IF
                   END IF
-*
+
             // Do Tests 32 and 33
-*
+
                   CALL CSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RWORK, RESULT( 32 ) )
-*
+
             // Call CSTEMR to compute D2, do tests.
-*
+
             // Compute D2
-*
+
                   CALL SCOPY( N, SD, 1, D5, 1 )
                   IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
-*
+
                   NTEST = 34
                   CALL CSTEMR( 'N', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
                   IF( IINFO.NE.0 ) THEN
@@ -1058,17 +1058,17 @@
                         GO TO 280
                      END IF
                   END IF
-*
+
             // Do Test 34
-*
+
                   TEMP1 = ZERO
                   TEMP2 = ZERO
-*
+
                   DO 250 J = 1, IU - IL + 1
                      TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                      TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
   250             CONTINUE
-*
+
                   RESULT( 34 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
                ELSE
                   RESULT( 29 ) = ZERO
@@ -1078,17 +1078,17 @@
                   RESULT( 33 ) = ZERO
                   RESULT( 34 ) = ZERO
                END IF
-*
-*
+
+
             // Call CSTEMR(V,A) to compute D1 and Z, do tests.
-*
+
             // Compute D1 and Z
-*
+
                CALL SCOPY( N, SD, 1, D5, 1 )
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
-*
+
                NTEST = 35
-*
+
                CALL CSTEMR( 'V', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
                IF( IINFO.NE.0 ) THEN
                   WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,A)', IINFO, N, JTYPE, IOLDSD
@@ -1100,18 +1100,18 @@
                      GO TO 280
                   END IF
                END IF
-*
+
             // Do Tests 35 and 36
-*
+
                CALL CSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RWORK, RESULT( 35 ) )
-*
+
             // Call CSTEMR to compute D2, do tests.
-*
+
             // Compute D2
-*
+
                CALL SCOPY( N, SD, 1, D5, 1 )
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
-*
+
                NTEST = 37
                CALL CSTEMR( 'N', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
                IF( IINFO.NE.0 ) THEN
@@ -1124,43 +1124,43 @@
                      GO TO 280
                   END IF
                END IF
-*
+
             // Do Test 34
-*
+
                TEMP1 = ZERO
                TEMP2 = ZERO
-*
+
                DO 260 J = 1, N
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
   260          CONTINUE
-*
+
                RESULT( 37 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
             END IF
   270       CONTINUE
   280       CONTINUE
             NTESTT = NTESTT + NTEST
-*
+
             // End of Loop -- Check for RESULT(j) > THRESH
-*
-*
+
+
             // Print out tests which fail.
-*
+
             DO 290 JR = 1, NTEST
                IF( RESULT( JR ).GE.THRESH ) THEN
-*
+
                   // If this is the first test to fail,
                   // print a header to the data file.
-*
+
                   IF( NERRS.EQ.0 ) THEN
                      WRITE( NOUNIT, FMT = 9998 )'CST'
                      WRITE( NOUNIT, FMT = 9997 )
                      WRITE( NOUNIT, FMT = 9996 )
                      WRITE( NOUNIT, FMT = 9995 )'Hermitian'
                      WRITE( NOUNIT, FMT = 9994 )
-*
+
                      // Tests performed
-*
+
                      WRITE( NOUNIT, FMT = 9987 )
                   END IF
                   NERRS = NERRS + 1
@@ -1173,18 +1173,18 @@
   290       CONTINUE
   300    CONTINUE
   310 CONTINUE
-*
+
       // Summary
-*
+
       CALL SLASUM( 'CST', NOUNIT, NERRS, NTESTT )
       RETURN
-*
+
  9999 FORMAT( ' CCHKST: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
      $      I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
-*
+
  9998 FORMAT( / 1X, A3, ' -- Complex Hermitian eigenvalue problem' )
  9997 FORMAT( ' Matrix types (see CCHKST for details): ' )
-*
+
  9996 FORMAT( / ' Special Matrices:',
      $      / '  1=Zero matrix.                        ',
      $      '  5=Diagonal: clustered entries.',
@@ -1209,13 +1209,13 @@
      $      / ' 20=Positive definite, large evenly spaced eigenvalues',
      $      / ' 21=Diagonally dominant tridiagonal, geometrically',
      $      ' spaced eigenvalues' )
-*
+
  9989 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=',
      $      4( I4, ',' ), ' result ', I3, ' is', 0P, F8.2 )
  9988 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=',
      $      4( I4, ',' ), ' result ', I3, ' is', 1P, E10.3 )
-*
+
  9987 FORMAT( / 'Test performed:  see CCHKST for details.', / )
       // End of CCHKST
-*
+
       END

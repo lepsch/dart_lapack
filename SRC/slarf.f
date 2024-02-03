@@ -1,9 +1,9 @@
       SUBROUTINE SLARF( SIDE, M, N, V, INCV, TAU, C, LDC, WORK )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             SIDE;
       int                INCV, LDC, M, N;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       REAL               C( LDC, * ), V( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
@@ -32,7 +32,7 @@
       // EXTERNAL LSAME, ILASLR, ILASLC
       // ..
       // .. Executable Statements ..
-*
+
       APPLYLEFT = LSAME( SIDE, 'L' )
       LASTV = 0
       LASTC = 0
@@ -65,36 +65,36 @@
       // Note that lastc.eq.0 renders the BLAS operations null; no special
       // case is needed at this level.
       IF( APPLYLEFT ) THEN
-*
+
          // Form  H * C
-*
+
          IF( LASTV.GT.0 ) THEN
-*
+
             // w(1:lastc,1) := C(1:lastv,1:lastc)**T * v(1:lastv,1)
-*
+
             CALL SGEMV( 'Transpose', LASTV, LASTC, ONE, C, LDC, V, INCV, ZERO, WORK, 1 )
-*
+
             // C(1:lastv,1:lastc) := C(...) - v(1:lastv,1) * w(1:lastc,1)**T
-*
+
             CALL SGER( LASTV, LASTC, -TAU, V, INCV, WORK, 1, C, LDC )
          END IF
       ELSE
-*
+
          // Form  C * H
-*
+
          IF( LASTV.GT.0 ) THEN
-*
+
             // w(1:lastc,1) := C(1:lastc,1:lastv) * v(1:lastv,1)
-*
+
             CALL SGEMV( 'No transpose', LASTC, LASTV, ONE, C, LDC, V, INCV, ZERO, WORK, 1 )
-*
+
             // C(1:lastc,1:lastv) := C(...) - w(1:lastc,1) * v(1:lastv,1)**T
-*
+
             CALL SGER( LASTC, LASTV, -TAU, WORK, 1, V, INCV, C, LDC )
          END IF
       END IF
       RETURN
-*
+
       // End of SLARF
-*
+
       END

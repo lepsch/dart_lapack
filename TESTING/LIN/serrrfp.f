@@ -1,15 +1,15 @@
       SUBROUTINE SERRRFP( NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // ..
       // .. Local Scalars ..
       int                INFO;
@@ -31,14 +31,14 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       OK = .TRUE.
       A( 1, 1 ) = 1.0E+0
       B( 1, 1 ) = 1.0E+0
       ALPHA     = 1.0E+0
       BETA      = 1.0E+0
-*
+
       SRNAMT = 'SPFTRF'
       INFOT = 1
       CALL SPFTRF( '/', 'U', 0, A, INFO )
@@ -49,7 +49,7 @@
       INFOT = 3
       CALL SPFTRF( 'N', 'U', -1, A, INFO )
       CALL CHKXER( 'SPFTRF', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'SPFTRS'
       INFOT = 1
       CALL SPFTRS( '/', 'U', 0, 0, A, B, 1, INFO )
@@ -66,7 +66,7 @@
       INFOT = 7
       CALL SPFTRS( 'N', 'U', 0, 0, A, B, 0, INFO )
       CALL CHKXER( 'SPFTRS', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'SPFTRI'
       INFOT = 1
       CALL SPFTRI( '/', 'U', 0, A, INFO )
@@ -77,7 +77,7 @@
       INFOT = 3
       CALL SPFTRI( 'N', 'U', -1, A, INFO )
       CALL CHKXER( 'SPFTRI', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'STFSM '
       INFOT = 1
       CALL STFSM( '/', 'L', 'U', 'T', 'U', 0, 0, ALPHA, A, B, 1 )
@@ -103,7 +103,7 @@
       INFOT = 11
       CALL STFSM( 'N', 'L', 'U', 'T', 'U', 0, 0, ALPHA, A, B, 0 )
       CALL CHKXER( 'STFSM ', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'STFTRI'
       INFOT = 1
       CALL STFTRI( '/', 'L', 'N', 0, A, INFO )
@@ -117,7 +117,7 @@
       INFOT = 4
       CALL STFTRI( 'N', 'L', 'N', -1, A, INFO )
       CALL CHKXER( 'STFTRI', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'STFTTR'
       INFOT = 1
       CALL STFTTR( '/', 'U', 0, A, B, 1, INFO )
@@ -131,7 +131,7 @@
       INFOT = 6
       CALL STFTTR( 'N', 'U', 0, A, B, 0, INFO )
       CALL CHKXER( 'STFTTR', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'STRTTF'
       INFOT = 1
       CALL STRTTF( '/', 'U', 0, A, 1, B, INFO )
@@ -145,7 +145,7 @@
       INFOT = 5
       CALL STRTTF( 'N', 'U', 0, A, 0, B, INFO )
       CALL CHKXER( 'STRTTF', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'STFTTP'
       INFOT = 1
       CALL STFTTP( '/', 'U', 0, A, B, INFO )
@@ -156,7 +156,7 @@
       INFOT = 3
       CALL STFTTP( 'N', 'U', -1, A, B, INFO )
       CALL CHKXER( 'STFTTP', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'STPTTF'
       INFOT = 1
       CALL STPTTF( '/', 'U', 0, A, B, INFO )
@@ -167,7 +167,7 @@
       INFOT = 3
       CALL STPTTF( 'N', 'U', -1, A, B, INFO )
       CALL CHKXER( 'STPTTF', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'STRTTP'
       INFOT = 1
       CALL STRTTP( '/', 0, A, 1,  B, INFO )
@@ -178,7 +178,7 @@
       INFOT = 4
       CALL STRTTP( 'U', 0, A, 0,  B, INFO )
       CALL CHKXER( 'STRTTP', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'STPTTR'
       INFOT = 1
       CALL STPTTR( '/', 0, A, B, 1,  INFO )
@@ -189,7 +189,7 @@
       INFOT = 5
       CALL STPTTR( 'U', 0, A, B, 0, INFO )
       CALL CHKXER( 'STPTTR', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'SSFRK '
       INFOT = 1
       CALL SSFRK( '/', 'U', 'N', 0, 0, ALPHA, A, 1, BETA, B )
@@ -209,21 +209,21 @@
       INFOT = 8
       CALL SSFRK( 'N', 'U', 'N', 0, 0, ALPHA, A, 0, BETA, B )
       CALL CHKXER( 'SSFRK ', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )
       ELSE
          WRITE( NOUT, FMT = 9998 )
       END IF
-*
+
  9999 FORMAT( 1X, 'REAL RFP routines passed the tests of ',
      $        'the error exits' )
  9998 FORMAT( ' *** RFP routines failed the tests of the error ',
      $        'exits ***' )
       RETURN
-*
+
       // End of SERRRFP
-*
+
       END

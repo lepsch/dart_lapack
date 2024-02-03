@@ -1,9 +1,9 @@
       SUBROUTINE CHEEVX( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, RWORK, IWORK, IFAIL, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDA, LDZ, LWORK, M, N;
@@ -14,9 +14,9 @@
       REAL               RWORK( * ), W( * )
       COMPLEX            A( LDA, * ), WORK( * ), Z( LDZ, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -42,16 +42,16 @@
       // INTRINSIC REAL, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       LOWER = LSAME( UPLO, 'L' )
       WANTZ = LSAME( JOBZ, 'V' )
       ALLEIG = LSAME( RANGE, 'A' )
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
       LQUERY = ( LWORK.EQ.-1 )
-*
+
       INFO = 0
       IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
          INFO = -1
@@ -79,7 +79,7 @@
             INFO = -15
          END IF
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          IF( N.LE.1 ) THEN
             LWKMIN = 1
@@ -91,24 +91,24 @@
             LWKOPT = ( NB + 1 )*N
          END IF
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-*
+
          IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) INFO = -17
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CHEEVX', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       M = 0
       IF( N.EQ.0 ) THEN
          RETURN
       END IF
-*
+
       IF( N.EQ.1 ) THEN
          IF( ALLEIG .OR. INDEIG ) THEN
             M = 1
@@ -122,18 +122,18 @@
          IF( WANTZ ) Z( 1, 1 ) = CONE
          RETURN
       END IF
-*
+
       // Get machine constants.
-*
+
       SAFMIN = SLAMCH( 'Safe minimum' )
       EPS = SLAMCH( 'Precision' )
       SMLNUM = SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
-*
+
       // Scale matrix to allowable range, if necessary.
-*
+
       ISCALE = 0
       ABSTLL = ABSTOL
       IF( VALEIG ) THEN
@@ -164,9 +164,9 @@
             VUU = VU*SIGMA
          END IF
       END IF
-*
+
       // Call CHETRD to reduce Hermitian matrix to tridiagonal form.
-*
+
       INDD = 1
       INDE = INDD + N
       INDRWK = INDE + N
@@ -174,11 +174,11 @@
       INDWRK = INDTAU + N
       LLWORK = LWORK - INDWRK + 1
       CALL CHETRD( UPLO, N, A, LDA, RWORK( INDD ), RWORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
-*
+
       // If all eigenvalues are desired and ABSTOL is less than or equal to
       // zero, then call SSTERF or CUNGTR and CSTEQR.  If this fails for
       // some eigenvalue, then try SSTEBZ.
-*
+
       TEST = .FALSE.
       IF( INDEIG ) THEN
          IF( IL.EQ.1 .AND. IU.EQ.N ) THEN
@@ -208,9 +208,9 @@
          END IF
          INFO = 0
       END IF
-*
+
       // Otherwise, call SSTEBZ and, if eigenvectors are desired, CSTEIN.
-*
+
       IF( WANTZ ) THEN
          ORDER = 'B'
       ELSE
@@ -220,18 +220,18 @@
       INDISP = INDIBL + N
       INDIWK = INDISP + N
       CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO )
-*
+
       IF( WANTZ ) THEN
          CALL CSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
-*
+
          // Apply unitary matrix used in reduction to tridiagonal
          // form to eigenvectors returned by CSTEIN.
-*
+
          CALL CUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), LLWORK, IINFO )
       END IF
-*
+
       // If matrix was scaled, then rescale eigenvalues appropriately.
-*
+
    40 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
@@ -241,10 +241,10 @@
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
-*
+
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
-*
+
       IF( WANTZ ) THEN
          DO 60 J = 1, M - 1
             I = 0
@@ -255,7 +255,7 @@
                   TMP1 = W( JJ )
                END IF
    50       CONTINUE
-*
+
             IF( I.NE.0 ) THEN
                ITMP1 = IWORK( INDIBL+I-1 )
                W( I ) = W( J )
@@ -271,13 +271,13 @@
             END IF
    60    CONTINUE
       END IF
-*
+
       // Set WORK(1) to optimal complex workspace size.
-*
+
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
-*
+
       RETURN
-*
+
       // End of CHEEVX
-*
+
       END

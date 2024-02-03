@@ -1,9 +1,9 @@
       SUBROUTINE DTPTRS( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDB, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                INFO, LDB, N, NRHS;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             AP( * ), B( LDB, * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
@@ -33,9 +33,9 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       NOUNIT = LSAME( DIAG, 'N' )
@@ -56,13 +56,13 @@
          CALL XERBLA( 'DTPTRS', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Check for singularity.
-*
+
       IF( NOUNIT ) THEN
          IF( UPPER ) THEN
             JC = 1
@@ -79,15 +79,15 @@
          END IF
       END IF
       INFO = 0
-*
+
       // Solve A * x = b  or  A**T * x = b.
-*
+
       DO 30 J = 1, NRHS
          CALL DTPSV( UPLO, TRANS, DIAG, N, AP, B( 1, J ), 1 )
    30 CONTINUE
-*
+
       RETURN
-*
+
       // End of DTPTRS
-*
+
       END

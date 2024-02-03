@@ -8,9 +8,9 @@
       double           A( LDA, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       double           S( * ), RWORK( * );
       int              IWORK( * );
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double           ZERO,         ONE;
       PARAMETER      ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -32,11 +32,11 @@
       // EXTERNAL DLANGE, LSAME, IDAMAX, DNRM2, DLAMCH
       // ..
       // .. Intrinsic Functions ..
-*
+
       // INTRINSIC ABS, MAX, MIN, DBLE, SQRT
-*
+
       // Test the input arguments
-*
+
       WNTUS  = LSAME( JOBU, 'S' ) .OR. LSAME( JOBU, 'U' )
       WNTUR  = LSAME( JOBU, 'R' )
       WNTUA  = LSAME( JOBU, 'A' )
@@ -44,20 +44,20 @@
       LSVC0  = WNTUS .OR. WNTUR .OR. WNTUA
       LSVEC  = LSVC0 .OR. WNTUF
       DNTWU  = LSAME( JOBU, 'N' )
-*
+
       WNTVR  = LSAME( JOBV, 'R' )
       WNTVA  = LSAME( JOBV, 'A' ) .OR. LSAME( JOBV, 'V' )
       RSVEC  = WNTVR .OR. WNTVA
       DNTWV  = LSAME( JOBV, 'N' )
-*
+
       ACCLA  = LSAME( JOBA, 'A' )
       ACCLM  = LSAME( JOBA, 'M' )
       CONDA  = LSAME( JOBA, 'E' )
       ACCLH  = LSAME( JOBA, 'H' ) .OR. CONDA
-*
+
       ROWPRM = LSAME( JOBP, 'P' )
       RTRANS = LSAME( JOBR, 'T' )
-*
+
       IF ( ROWPRM ) THEN
          IF ( CONDA ) THEN
             IMINWRK = MAX( 1, N + M - 1 + N )
@@ -100,15 +100,15 @@
       ELSE IF ( LIWORK .LT. IMINWRK .AND. .NOT. LQUERY ) THEN
          INFO = -17
       END IF
-*
-*
+
+
       IF ( INFO .EQ. 0 ) THEN
          // .. compute the minimal and the optimal workspace lengths
          // [[The expressions for computing the minimal and the optimal
          // values of LWORK are written with a lot of redundancy and
          // can be simplified. However, this detailed form is easier for
          // maintenance and modifications of the code.]]
-*
+
          // .. minimal workspace length for DGEQP3 of an M x N matrix
          LWQP3 = 3 * N + 1
          // .. minimal workspace length for DORMQR to build left singular vectors
@@ -268,13 +268,13 @@
                 END IF
              END IF
          END IF
-*
+
          MINWRK = MAX( 2, MINWRK )
          OPTWRK = MAX( 2, OPTWRK )
          IF ( LWORK .LT. MINWRK .AND. (.NOT.LQUERY) ) INFO = -19
-*
+
       END IF
-*
+
       IF (INFO .EQ. 0 .AND. LRWORK .LT. RMINWRK .AND. .NOT. LQUERY) THEN
          INFO = -21
       END IF
@@ -282,23 +282,23 @@
          CALL XERBLA( 'DGESVDQ', -INFO )
          RETURN
       ELSE IF ( LQUERY ) THEN
-*
+
       // Return optimal workspace
-*
+
           IWORK(1) = IMINWRK
           WORK(1) = OPTWRK
           WORK(2) = MINWRK
           RWORK(1) = RMINWRK
           RETURN
       END IF
-*
+
       // Quick return if the matrix is void.
-*
+
       IF( ( M.EQ.0 ) .OR. ( N.EQ.0 ) ) THEN
       // .. all output is void.
          RETURN
       END IF
-*
+
       BIG = DLAMCH('O')
       ASCALED = .FALSE.
       IWOFF = 1
@@ -327,7 +327,7 @@
                RWORK(q) = RTMP
             END IF
  1952       CONTINUE
-*
+
             IF ( RWORK(1) .EQ. ZERO ) THEN
                // Quick return: A is the M x N zero matrix.
                NUMRANK = 0
@@ -351,7 +351,7 @@
                RWORK(2) = -1
                RETURN
             END IF
-*
+
             IF ( RWORK(1) .GT. BIG / SQRT(DBLE(M)) ) THEN
                 // .. to prevent overflow in the QR factorization, scale the
                 // matrix by 1/sqrt(M) if too large entry detected
@@ -360,12 +360,12 @@
             END IF
             CALL DLASWP( N, A, LDA, 1, M-1, IWORK(N+1), 1 )
       END IF
-*
+
 *    .. At this stage, preemptive scaling is done only to avoid column
 *    norms overflows during the QR factorization. The SVD procedure should
 *    have its own scaling to save the singular values from overflows and
 *    underflows. That depends on the SVD procedure.
-*
+
       IF ( .NOT.ROWPRM ) THEN
           RTMP = DLANGE( 'M', M, N, A, LDA, RDUMMY )
           IF ( ( RTMP .NE. RTMP ) .OR. ( (RTMP*ZERO) .NE. ZERO ) ) THEN
@@ -380,29 +380,29 @@
               ASCALED = .TRUE.
           END IF
       END IF
-*
+
       // .. QR factorization with column pivoting
-*
+
       // A * P = Q * [ R ]
                   // [ 0 ]
-*
+
       DO 1963 p = 1, N
          // .. all columns are free columns
          IWORK(p) = 0
  1963 CONTINUE
       CALL DGEQP3( M, N, A, LDA, IWORK, WORK, WORK(N+1), LWORK-N, IERR )
-*
+
 *    If the user requested accuracy level allows truncation in the
 *    computed upper triangular factor, the matrix R is examined and,
 *    if possible, replaced with its leading upper trapezoidal part.
-*
+
       EPSLN = DLAMCH('E')
       SFMIN = DLAMCH('S')
       // SMALL = SFMIN / EPSLN
       NR = N
-*
+
       IF ( ACCLA ) THEN
-*
+
          // Standard absolute error bound suffices. All sigma_i with
          // sigma_i < N*EPS*||A||_F are flushed to zero. This is an
          // aggressive enforcement of lower numerical rank by introducing a
@@ -414,7 +414,7 @@
                NR = NR + 1
  3001    CONTINUE
  3002    CONTINUE
-*
+
       ELSEIF ( ACCLM ) THEN
          // .. similarly as above, only slightly more gentle (less aggressive).
          // Sudden drop on the diagonal of R is used as the criterion for being
@@ -428,7 +428,7 @@
             NR = NR + 1
  3401    CONTINUE
  3402    CONTINUE
-*
+
       ELSE
          // .. RRQR not authorized to determine numerical rank except in the
          // obvious case of zero pivots.
@@ -440,7 +440,7 @@
             NR = NR + 1
  3501    CONTINUE
  3502    CONTINUE
-*
+
          IF ( CONDA ) THEN
             // Estimate the scaled condition number of A. Use the fact that it is
            t // he same as the scaled condition number of R.
@@ -465,9 +465,9 @@
             // N^(-1/4) * SCONDA <= ||R^(-1)||_2 <= N^(1/4) * SCONDA
             // See the reference [1] for more details.
          END IF
-*
+
       ENDIF
-*
+
       IF ( WNTUR ) THEN
           N1 = NR
       ELSE IF ( WNTUS .OR. WNTUF) THEN
@@ -475,13 +475,13 @@
       ELSE IF ( WNTUA ) THEN
           N1 = M
       END IF
-*
+
       IF ( .NOT. ( RSVEC .OR. LSVEC ) ) THEN
 *.......................................................................
          // .. only the singular values are requested
 *.......................................................................
          IF ( RTRANS ) THEN
-*
+
           // .. compute the singular values of R**T = [A](1:NR,1:N)**T
             // .. set the lower triangle of [A] to [A](1:NR,1:N)**T and
            t // he upper triangle of [A] to zero.
@@ -491,17 +491,17 @@
                   IF ( q .LE. NR ) A(p,q) = ZERO
  1147          CONTINUE
  1146       CONTINUE
-*
+
             CALL DGESVD( 'N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO )
-*
+
          ELSE
-*
+
             // .. compute the singular values of R = [A](1:NR,1:N)
-*
+
             IF ( NR .GT. 1 ) CALL DLASET( 'L', NR-1,NR-1, ZERO,ZERO, A(2,1), LDA )             CALL DGESVD( 'N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO )
-*
+
          END IF
-*
+
       ELSE IF ( LSVEC .AND. ( .NOT. RSVEC) ) THEN
 *.......................................................................
         // .. the singular values and the left singular vectors requested
@@ -520,7 +520,7 @@
             // vectors overwrite [U](1:NR,1:NR) as transposed. These
             // will be pre-multiplied by Q to build the left singular vectors of A.
                CALL DGESVD( 'N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO )
-*
+
                DO 1119 p = 1, NR
                    DO 1120 q = p + 1, NR
                       RTMP   = U(q,p)
@@ -528,7 +528,7 @@
                       U(p,q) = RTMP
  1120              CONTINUE
  1119          CONTINUE
-*
+
          ELSE
              // .. apply DGESVD to R
              // .. copy R into [U] and overwrite [U] with the left singular vectors
@@ -541,7 +541,7 @@
                 // R. These will be pre-multiplied by Q to build the left singular
                 // vectors of A.
          END IF
-*
+
             // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
          IF ( ( NR .LT. M ) .AND. ( .NOT.WNTUF ) ) THEN
@@ -551,13 +551,13 @@
                 CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU )
              END IF
          END IF
-*
+
             // The Q matrix from the first QRF is built into the left singular
             // vectors matrix U.
-*
+
          IF ( .NOT.WNTUF ) CALL DORMQR( 'L', 'N', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR )
          IF ( ROWPRM .AND. .NOT.WNTUF ) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 )
-*
+
       ELSE IF ( RSVEC .AND. ( .NOT. LSVEC ) ) THEN
 *.......................................................................
         // .. the singular values and the right singular vectors requested
@@ -575,7 +575,7 @@
             // vectors not computed
             IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
                CALL DGESVD( 'O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO )
-*
+
                DO 1121 p = 1, NR
                    DO 1122 q = p + 1, NR
                       RTMP   = V(q,p)
@@ -583,7 +583,7 @@
                       V(p,q) = RTMP
  1122              CONTINUE
  1121          CONTINUE
-*
+
                IF ( NR .LT. N ) THEN
                    DO 1103 p = 1, NR
                       DO 1104 q = NR + 1, N
@@ -600,7 +600,7 @@
                 // how to implement this, see the " FULL SVD " branch.
                 CALL DLASET('G', N, N-NR, ZERO, ZERO, V(1,NR+1), LDV)
                 CALL DGESVD( 'O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO )
-*
+
                 DO 1123 p = 1, N
                    DO 1124 q = p + 1, N
                       RTMP   = V(q,p)
@@ -610,7 +610,7 @@
  1123           CONTINUE
                 CALL DLAPMT( .FALSE., N, N, V, LDV, IWORK )
             END IF
-*
+
           ELSE
              // .. aply DGESVD to R
              // .. copy R into V and overwrite V with the right singular vectors
@@ -635,15 +635,15 @@
              // .. now [V] contains the transposed matrix of the right singular
              // vectors of A.
           END IF
-*
+
       ELSE
 *.......................................................................
         // .. FULL SVD requested
 *.......................................................................
          IF ( RTRANS ) THEN
-*
+
              // .. apply DGESVD to R**T [[this option is left for R&D&T]]
-*
+
             IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
              // .. copy R**T into [V] and overwrite [V] with the left singular
              // vectors of R**T
@@ -653,7 +653,7 @@
  1169          CONTINUE
  1168       CONTINUE
             IF ( NR .GT. 1 ) CALL DLASET( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV )
-*
+
             // .. the left singular vectors of R**T overwrite [V], the NR right
             // singular vectors of R**T stored in [U](1:NR,1:NR) as transposed
                CALL DGESVD( 'O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, WORK(N+1), LWORK-N, INFO )
@@ -673,7 +673,7 @@
  1101              CONTINUE
                END IF
                CALL DLAPMT( .FALSE., NR, N, V, LDV, IWORK )
-*
+
                 DO 1117 p = 1, NR
                    DO 1118 q = p + 1, NR
                       RTMP   = U(q,p)
@@ -681,7 +681,7 @@
                       U(p,q) = RTMP
  1118              CONTINUE
  1117           CONTINUE
-*
+
                 IF ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) THEN
                   CALL DLASET('A', M-NR,NR, ZERO,ZERO, U(NR+1,1), LDU)
                   IF ( NR .LT. N1 ) THEN
@@ -689,7 +689,7 @@
                      CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU )
                   END IF
                END IF
-*
+
             ELSE
                 // .. need all N right singular vectors and NR < N
              // .. copy R**T into [V] and overwrite [V] with the left singular
@@ -707,10 +707,10 @@
  1199                 CONTINUE
  1198              CONTINUE
                    IF ( NR .GT. 1 ) CALL DLASET('U',NR-1,NR-1, ZERO,ZERO, V(1,2),LDV)
-*
+
                    CALL DLASET('A',N,N-NR,ZERO,ZERO,V(1,NR+1),LDV)
                    CALL DGESVD( 'O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, WORK(N+1), LWORK-N, INFO )
-*
+
                    DO 1113 p = 1, N
                       DO 1114 q = p + 1, N
                          RTMP   = V(q,p)
@@ -721,7 +721,7 @@
                    CALL DLAPMT( .FALSE., N, N, V, LDV, IWORK )
                // .. assemble the left singular vector matrix U of dimensions
                // (M x N1), i.e. (M x N) or (M x M).
-*
+
                    DO 1111 p = 1, N
                       DO 1112 q = p + 1, N
                          RTMP   = U(q,p)
@@ -729,7 +729,7 @@
                          U(p,q) = RTMP
  1112                 CONTINUE
  1111              CONTINUE
-*
+
                    IF ( ( N .LT. M ) .AND. .NOT.(WNTUF)) THEN
                       CALL DLASET('A',M-N,N,ZERO,ZERO,U(N+1,1),LDU)
                       IF ( N .LT. N1 ) THEN
@@ -769,11 +769,11 @@
                   END IF
                 END IF
             END IF
-*
+
          ELSE
-*
+
              // .. apply DGESVD to R [[this is the recommended option]]
-*
+
              IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
                  // .. copy R into [V] and overwrite V with the right singular vectors
                  CALL DLACPY( 'U', NR, N, A, LDA, V, LDV )
@@ -792,7 +792,7 @@
                      CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU )
                   END IF
                END IF
-*
+
              ELSE
                // .. need all N right singular vectors and NR < N
                // .. the requested number of the left singular vectors
@@ -846,16 +846,16 @@
              END IF
          // .. end of the "R**T or R" branch
          END IF
-*
+
             // The Q matrix from the first QRF is built into the left singular
             // vectors matrix U.
-*
+
          IF ( .NOT. WNTUF ) CALL DORMQR( 'L', 'N', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR )
          IF ( ROWPRM .AND. .NOT.WNTUF ) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 )
-*
+
       // ... end of the "full SVD" branch
       END IF
-*
+
       // Check whether some singular values are returned as zeros, e.g.
       // due to underflow, and update the numerical rank.
       p = NR
@@ -864,7 +864,7 @@
           NR = NR - 1
  4001 CONTINUE
  4002 CONTINUE
-*
+
       // .. if numerical rank deficiency is detected, the truncated
       // singular values are set to zero.
       IF ( NR .LT. N ) CALL DLASET( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N )
@@ -877,9 +877,9 @@
       // exact zeros in DGESVD() applied to the (possibly truncated)
       // full row rank triangular (trapezoidal) factor of A.
       NUMRANK = NR
-*
+
       RETURN
-*
+
       // End of DGESVDQ
-*
+
       END

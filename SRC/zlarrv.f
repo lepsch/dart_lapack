@@ -1,9 +1,9 @@
       SUBROUTINE ZLARRV( N, VL, VU, D, L, PIVMIN, ISPLIT, M, DOL, DOU, MINRGP, RTOL1, RTOL2, W, WERR, WGAP, IBLOCK, INDEXW, GERS, Z, LDZ, ISUPPZ, WORK, IWORK, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                DOL, DOU, INFO, LDZ, M, N;
       double             MINRGP, PIVMIN, RTOL1, RTOL2, VL, VU;
@@ -12,9 +12,9 @@
       int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * )       double             D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );;
       COMPLEX*16        Z( LDZ, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                MAXITR;
       PARAMETER          ( MAXITR = 10 )
@@ -44,13 +44,13 @@
       // ..
 
       INFO = 0
-*
+
       // Quick return if possible
-*
+
       IF( (N.LE.0).OR.(M.LE.0) ) THEN
          RETURN
       END IF
-*
+
       // The first N entries of WORK are reserved for the eigenvalues
       INDLD = N+1
       INDLLD= 2*N+1
@@ -94,7 +94,7 @@
 
       EPS = DLAMCH( 'Precision' )
       RQTOL = TWO * EPS
-*
+
       // Set expert flags for standard code.
       TRYRQC = .TRUE.
 
@@ -211,7 +211,7 @@
             OLDNCL = NCLUS
             // reset NCLUS to count the number of child clusters
             NCLUS = 0
-*
+
             PARITY = 1 - PARITY
             IF( PARITY.EQ.0 ) THEN
                OLDCLS = IINDC1
@@ -341,13 +341,13 @@
                   ENDIF
 
                   IF( NEWSIZ.GT.1) THEN
-*
+
                      // Current child is not a singleton but a cluster.
                      // Compute and store new representation of child.
-*
-*
+
+
                      // Compute left and right cluster gap.
-*
+
                      // LGAP and RGAP are not computed from WORK because
                     t // he eigenvalue approximations may stem from RRRs
                      // different shifts. However, W hold all eigenvalues
@@ -361,12 +361,12 @@
                         LGAP = WGAP( WBEGIN+NEWFST-2 )
                      ENDIF
                      RGAP = WGAP( WBEGIN+NEWLST-1 )
-*
+
                      // Compute left- and rightmost eigenvalue of child
                     t // o high precision in order to shift as close
                      // as possible and obtain as large relative gaps
                      // as possible
-*
+
                      DO 55 K =1,2
                         IF(K.EQ.1) THEN
                            P = INDEXW( WBEGIN-1+NEWFST )
@@ -376,11 +376,11 @@
                         OFFSET = INDEXW( WBEGIN ) - 1
                         CALL DLARRB( IN, D(IBEGIN), WORK( INDLLD+IBEGIN-1 ),P,P, RQTOL, RQTOL, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO )
  55                  CONTINUE
-*
+
                      IF((WBEGIN+NEWLST-1.LT.DOL).OR. (WBEGIN+NEWFST-1.GT.DOU)) THEN
                         // if the cluster contains no desired eigenvalues
                         // skip the computation of that branch of the rep. tree
-*
+
                         // We could skip before the refinement of the extremal
                         // eigenvalues of the child, but then the representation
                        t // ree could be different from the one when nothing is
@@ -388,10 +388,10 @@
                         IDONE = IDONE + NEWLST - NEWFST + 1
                         GOTO 139
                      ENDIF
-*
+
                      // Compute RRR of child cluster.
                      // Note that the new RRR is stored in Z
-*
+
                      // DLARRF needs LWORK = 2*N
                      CALL DLARRF( IN, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), NEWFST, NEWLST, WORK(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), SPDIAM, LGAP, RGAP, PIVMIN, TAU, WORK( INDIN1 ), WORK( INDIN2 ), WORK( INDWRK ), IINFO )
                      // In the complex case, DLARRF cannot write
@@ -430,13 +430,13 @@
                         RETURN
                      ENDIF
                   ELSE
-*
+
                      // Compute eigenvector of singleton
-*
+
                      ITER = 0
-*
+
                      TOL = FOUR * LOG(DBLE(IN)) * EPS
-*
+
                      K = NEWFST
                      WINDEX = WBEGIN + K - 1
                      WINDMN = MAX(WINDEX - 1,1)
@@ -544,10 +544,10 @@
                      // proportional to the matrix, so ||T|| doesn't play
                      // a role in the quotient
 
-*
+
                      // Convergence test for Rayleigh-Quotient iteration
                      // (omitted when Bisection has been used)
-*
+
                      IF( RESID.GT.TOL*GAP .AND. ABS( RQCORR ).GT. RQTOL*ABS( LAMBDA ) .AND. .NOT. USEDBS) THEN
                         // We need to check that the RQCORR update doesn't
                         // move the eigenvalue away from the desired one and
@@ -617,9 +617,9 @@
                         ENDIF
                         WORK( WINDEX ) = LAMBDA
                      END IF
-*
+
                      // Compute FP-vector support w.r.t. whole matrix
-*
+
                      ISUPPZ( 2*WINDEX-1 ) = ISUPPZ( 2*WINDEX-1 )+OLDIEN
                      ISUPPZ( 2*WINDEX ) = ISUPPZ( 2*WINDEX )+OLDIEN
                      ZFROM = ISUPPZ( 2*WINDEX-1 )
@@ -658,7 +658,7 @@
                      IDONE = IDONE + 1
                   ENDIF
                   // here ends the code for the current child
-*
+
  139              CONTINUE
                   // Proceed to any remaining child nodes
                   NEWFST = J + 1
@@ -670,10 +670,10 @@
          IBEGIN = IEND + 1
          WBEGIN = WEND + 1
  170  CONTINUE
-*
+
 
       RETURN
-*
+
       // End of ZLARRV
-*
+
       END

@@ -1,18 +1,18 @@
       SUBROUTINE SLASQ2( N, Z, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, N;
       // ..
       // .. Array Arguments ..
       REAL               Z( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               CBIAS
       PARAMETER          ( CBIAS = 1.50E0 )
@@ -34,16 +34,16 @@
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments.
       // (in case SLASQ2 is not called by SLASQ1)
-*
+
       INFO = 0
       EPS = SLAMCH( 'Precision' )
       SAFMIN = SLAMCH( 'Safe minimum' )
       TOL = EPS*HUNDRD
       TOL2 = TOL**2
-*
+
       IF( N.LT.0 ) THEN
          INFO = -1
          CALL XERBLA( 'SLASQ2', 1 )
@@ -51,18 +51,18 @@
       ELSE IF( N.EQ.0 ) THEN
          RETURN
       ELSE IF( N.EQ.1 ) THEN
-*
+
          // 1-by-1 case.
-*
+
          IF( Z( 1 ).LT.ZERO ) THEN
             INFO = -201
             CALL XERBLA( 'SLASQ2', 2 )
          END IF
          RETURN
       ELSE IF( N.EQ.2 ) THEN
-*
+
          // 2-by-2 case.
-*
+
          IF( Z( 1 ).LT.ZERO ) THEN
             INFO = -201
             CALL XERBLA( 'SLASQ2', 2 )
@@ -97,16 +97,16 @@
          Z( 6 ) = Z( 2 ) + Z( 1 )
          RETURN
       END IF
-*
+
       // Check for negative data and compute sums of q's and e's.
-*
+
       Z( 2*N ) = ZERO
       EMIN = Z( 2 )
       QMAX = ZERO
       ZMAX = ZERO
       D = ZERO
       E = ZERO
-*
+
       DO 10 K = 1, 2*( N-1 ), 2
          IF( Z( K ).LT.ZERO ) THEN
             INFO = -( 200+K )
@@ -131,9 +131,9 @@
       D = D + Z( 2*N-1 )
       QMAX = MAX( QMAX, Z( 2*N-1 ) )
       ZMAX = MAX( QMAX, ZMAX )
-*
+
       // Check for diagonality.
-*
+
       IF( E.EQ.ZERO ) THEN
          DO 20 K = 2, N
             Z( K ) = Z( 2*K-1 )
@@ -142,39 +142,39 @@
          Z( 2*N-1 ) = D
          RETURN
       END IF
-*
+
       TRACE = D + E
-*
+
       // Check for zero data.
-*
+
       IF( TRACE.EQ.ZERO ) THEN
          Z( 2*N-1 ) = ZERO
          RETURN
       END IF
-*
+
       // Check whether the machine is IEEE conformable.
-*
+
       // IEEE = ( ILAENV( 10, 'SLASQ2', 'N', 1, 2, 3, 4 ).EQ.1 )
-*
+
       // [11/15/2008] The case IEEE=.TRUE. has a problem in single precision with
       // some the test matrices of type 16. The double precision code is fine.
-*
+
       IEEE = .FALSE.
-*
+
       // Rearrange data for locality: Z=(q1,qq1,e1,ee1,q2,qq2,e2,ee2,...).
-*
+
       DO 30 K = 2*N, 2, -2
          Z( 2*K ) = ZERO
          Z( 2*K-1 ) = Z( K )
          Z( 2*K-2 ) = ZERO
          Z( 2*K-3 ) = Z( K-1 )
    30 CONTINUE
-*
+
       I0 = 1
       N0 = N
-*
+
       // Reverse the qd-array, if warranted.
-*
+
       IF( CBIAS*Z( 4*I0-3 ).LT.Z( 4*N0-3 ) ) THEN
          IPN4 = 4*( I0+N0 )
          DO 40 I4 = 4*I0, 2*( I0+N0-1 ), 4
@@ -186,13 +186,13 @@
             Z( IPN4-I4-5 ) = TEMP
    40    CONTINUE
       END IF
-*
+
       // Initial split checking via dqd and Li's test.
-*
+
       PP = 0
-*
+
       DO 80 K = 1, 2
-*
+
          D = Z( 4*N0+PP-3 )
          DO 50 I4 = 4*( N0-1 ) + PP, 4*I0 + PP, -4
             IF( Z( I4-1 ).LE.TOL2*D ) THEN
@@ -202,9 +202,9 @@
                D = Z( I4-3 )*( D / ( D+Z( I4-1 ) ) )
             END IF
    50    CONTINUE
-*
+
          // dqd maps Z to ZZ plus Li's test.
-*
+
          EMIN = Z( 4*I0+PP+1 )
          D = Z( 4*I0+PP-3 )
          DO 60 I4 = 4*I0 + PP, 4*( N0-1 ) + PP, 4
@@ -225,21 +225,21 @@
             EMIN = MIN( EMIN, Z( I4-2*PP ) )
    60    CONTINUE
          Z( 4*N0-PP-2 ) = D
-*
+
          // Now find qmax.
-*
+
          QMAX = Z( 4*I0-PP-2 )
          DO 70 I4 = 4*I0 - PP + 2, 4*N0 - PP - 2, 4
             QMAX = MAX( QMAX, Z( I4 ) )
    70    CONTINUE
-*
+
          // Prepare for the next iteration on K.
-*
+
          PP = 1 - PP
    80 CONTINUE
-*
+
       // Initialise variables to pass to SLASQ3.
-*
+
       TTYPE = 0
       DMIN1 = ZERO
       DMIN2 = ZERO
@@ -248,19 +248,19 @@
       DN2   = ZERO
       G     = ZERO
       TAU   = ZERO
-*
+
       ITER = 2
       NFAIL = 0
       NDIV = 2*( N0-I0 )
-*
+
       DO 160 IWHILA = 1, N + 1
          IF( N0.LT.1 ) GO TO 170
-*
+
          // While array unfinished do
-*
+
          // E(N0) holds the value of SIGMA when submatrix in I0:N0
          // splits from the rest of the array, but is negated.
-*
+
          DESIG = ZERO
          IF( N0.EQ.N ) THEN
             SIGMA = ZERO
@@ -271,10 +271,10 @@
             INFO = 1
             RETURN
          END IF
-*
+
          // Find last unreduced submatrix's top index I0, find QMAX and
          // EMIN. Find Gershgorin-type bound if Q's much greater than E's.
-*
+
          EMAX = ZERO
          IF( N0.GT.I0 ) THEN
             EMIN = ABS( Z( 4*N0-5 ) )
@@ -293,11 +293,11 @@
             EMIN = MIN( EMIN, Z( I4-5 ) )
    90    CONTINUE
          I4 = 4
-*
+
   100    CONTINUE
          I0 = I4 / 4
          PP = 0
-*
+
          IF( N0-I0.GT.1 ) THEN
             DEE = Z( 4*I0-3 )
             DEEMIN = DEE
@@ -328,29 +328,29 @@
   120          CONTINUE
             END IF
          END IF
-*
+
          // Put -(initial shift) into DMIN.
-*
+
          DMIN = -MAX( ZERO, QMIN-TWO*SQRT( QMIN )*SQRT( EMAX ) )
-*
+
          // Now I0:N0 is unreduced.
          // PP = 0 for ping, PP = 1 for pong.
          // PP = 2 indicates that flipping was applied to the Z array and
                 // and that the tests for deflation upon entry in SLASQ3
                 // should not be performed.
-*
+
          NBIG = 100*( N0-I0+1 )
          DO 140 IWHILB = 1, NBIG
             IF( I0.GT.N0 ) GO TO 150
-*
+
             // While submatrix unfinished take a good dqds step.
-*
+
             CALL SLASQ3( I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL, ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1, DN2, G, TAU )
-*
+
             PP = 1 - PP
-*
+
             // When EMIN is very small check for splits.
-*
+
             IF( PP.EQ.0 .AND. N0-I0.GE.3 ) THEN
                IF( Z( 4*N0 ).LE.TOL2*QMAX .OR. Z( 4*N0-1 ).LE.TOL2*SIGMA ) THEN
                   SPLT = I0 - 1
@@ -375,15 +375,15 @@
                   I0 = SPLT + 1
                END IF
             END IF
-*
+
   140    CONTINUE
-*
+
          INFO = 2
-*
+
          // Maximum number of iterations exceeded, restore the shift
          // SIGMA and place the new d's and e's in a qd array.
          // This might need to be done for several blocks
-*
+
          I1 = I0
          N1 = N0
  145     CONTINUE
@@ -395,9 +395,9 @@
             TEMPQ = Z( 4*K-3 )
             Z( 4*K-3 ) = Z( 4*K-3 ) + SIGMA + TEMPE - Z( 4*K-5 )
          END DO
-*
+
          // Prepare to do this on the previous block if there is one
-*
+
          IF( I1.GT.1 ) THEN
             N1 = I1-1
             DO WHILE( ( I1.GE.2 ) .AND. ( Z(4*I1-5).GE.ZERO ) )
@@ -411,11 +411,11 @@
 
          DO K = 1, N
             Z( 2*K-1 ) = Z( 4*K-3 )
-*
+
          // Only the block 1..N0 is unfinished.  The rest of the e's
          // must be essentially zero, although sometimes other data
          // has been stored in them.
-*
+
             IF( K.LT.N0 ) THEN
                Z( 2*K ) = Z( 4*K-1 )
             ELSE
@@ -423,44 +423,44 @@
             END IF
          END DO
          RETURN
-*
+
          // end IWHILB
-*
+
   150    CONTINUE
-*
+
   160 CONTINUE
-*
+
       INFO = 3
       RETURN
-*
+
       // end IWHILA
-*
+
   170 CONTINUE
-*
+
       // Move q's to the front.
-*
+
       DO 180 K = 2, N
          Z( K ) = Z( 4*K-3 )
   180 CONTINUE
-*
+
       // Sort and compute sum of eigenvalues.
-*
+
       CALL SLASRT( 'D', N, Z, IINFO )
-*
+
       E = ZERO
       DO 190 K = N, 1, -1
          E = E + Z( K )
   190 CONTINUE
-*
+
       // Store trace, sum(eigenvalues) and information on performance.
-*
+
       Z( 2*N+1 ) = TRACE
       Z( 2*N+2 ) = E
       Z( 2*N+3 ) = REAL( ITER )
       Z( 2*N+4 ) = REAL( NDIV ) / REAL( N**2 )
       Z( 2*N+5 ) = HUNDRD*NFAIL / REAL( ITER )
       RETURN
-*
+
       // End of SLASQ2
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE ZPPT03( UPLO, N, A, AINV, WORK, LDWORK, RWORK, RCOND, RESID )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDWORK, N;
@@ -13,9 +13,9 @@
       double             RWORK( * );
       COMPLEX*16         A( * ), AINV( * ), WORK( LDWORK, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -38,17 +38,17 @@
       // EXTERNAL ZCOPY, ZHPMV
       // ..
       // .. Executable Statements ..
-*
+
       // Quick exit if N = 0.
-*
+
       IF( N.LE.0 ) THEN
          RCOND = ONE
          RESID = ZERO
          RETURN
       END IF
-*
+
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
-*
+
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANHP( '1', UPLO, N, A, RWORK )
       AINVNM = ZLANHP( '1', UPLO, N, AINV, RWORK )
@@ -58,16 +58,16 @@
          RETURN
       END IF
       RCOND = ( ONE / ANORM ) / AINVNM
-*
+
       // UPLO = 'U':
       // Copy the leading N-1 x N-1 submatrix of AINV to WORK(1:N,2:N) and
       // expand it to a full matrix, then multiply by A one column at a
      t // ime, moving the result one column to the left.
-*
+
       IF( LSAME( UPLO, 'U' ) ) THEN
-*
+
          // Copy AINV
-*
+
          JJ = 1
          DO 20 J = 1, N - 1
             CALL ZCOPY( J, AINV( JJ ), 1, WORK( 1, J+1 ), 1 )
@@ -80,22 +80,22 @@
          DO 30 I = 1, N - 1
             WORK( N, I+1 ) = DCONJG( AINV( JJ+I-1 ) )
    30    CONTINUE
-*
+
          // Multiply by A
-*
+
          DO 40 J = 1, N - 1
             CALL ZHPMV( 'Upper', N, -CONE, A, WORK( 1, J+1 ), 1, CZERO, WORK( 1, J ), 1 )
    40    CONTINUE
          CALL ZHPMV( 'Upper', N, -CONE, A, AINV( JJ ), 1, CZERO, WORK( 1, N ), 1 )
-*
+
       // UPLO = 'L':
       // Copy the trailing N-1 x N-1 submatrix of AINV to WORK(1:N,1:N-1)
       // and multiply by A, moving each column to the right.
-*
+
       ELSE
-*
+
          // Copy AINV
-*
+
          DO 50 I = 1, N - 1
             WORK( 1, I ) = DCONJG( AINV( I+1 ) )
    50    CONTINUE
@@ -107,30 +107,30 @@
    60       CONTINUE
             JJ = JJ + N - J + 1
    70    CONTINUE
-*
+
          // Multiply by A
-*
+
          DO 80 J = N, 2, -1
             CALL ZHPMV( 'Lower', N, -CONE, A, WORK( 1, J-1 ), 1, CZERO, WORK( 1, J ), 1 )
    80    CONTINUE
          CALL ZHPMV( 'Lower', N, -CONE, A, AINV( 1 ), 1, CZERO, WORK( 1, 1 ), 1 )
-*
+
       END IF
-*
+
       // Add the identity matrix to WORK .
-*
+
       DO 90 I = 1, N
          WORK( I, I ) = WORK( I, I ) + CONE
    90 CONTINUE
-*
+
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
-*
+
       RESID = ZLANGE( '1', N, N, WORK, LDWORK, RWORK )
-*
+
       RESID = ( ( RESID*RCOND ) / EPS ) / DBLE( N )
-*
+
       RETURN
-*
+
       // End of ZPPT03
-*
+
       END

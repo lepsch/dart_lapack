@@ -1,9 +1,9 @@
       REAL             FUNCTION SSXT1( IJOB, D1, N1, D2, N2, ABSTOL, ULP, UNFL )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                IJOB, N1, N2;
       REAL               ABSTOL, ULP, UNFL
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               D1( * ), D2( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
@@ -26,9 +26,9 @@
       // INTRINSIC ABS, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       TEMP1 = ZERO
-*
+
       J = 1
       DO 20 I = 1, N1
    10    CONTINUE
@@ -44,10 +44,10 @@
          END IF
          TEMP1 = MAX( TEMP1, TEMP2 )
    20 CONTINUE
-*
+
       SSXT1 = TEMP1
       RETURN
-*
+
       // End of SSXT1
-*
+
       END

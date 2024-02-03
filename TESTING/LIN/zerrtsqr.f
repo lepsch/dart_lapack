@@ -1,17 +1,17 @@
       SUBROUTINE ZERRTSQR( PATH, NUNIT )
       IMPLICIT NONE
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -38,12 +38,12 @@
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO J = 1, NMAX
          DO I = 1, NMAX
             A( I, J ) = 1.D0 / DBLE( I+J )
@@ -53,11 +53,11 @@
          W( J ) = 0.D0
       END DO
       OK = .TRUE.
-*
+
       // Error exits for TS factorization
-*
+
       // ZGEQR
-*
+
       SRNAMT = 'ZGEQR'
       INFOT = 1
       CALL ZGEQR( -1, 0, A, 1, TAU, 1, W, 1, INFO )
@@ -74,9 +74,9 @@
       INFOT = 8
       CALL ZGEQR( 3, 2, A, 3, TAU, 8, W, 0, INFO )
       CALL CHKXER( 'ZGEQR', INFOT, NOUT, LERR, OK )
-*
+
       // ZLATSQR
-*
+
       MB = 1
       NB = 1
       SRNAMT = 'ZLATSQR'
@@ -103,9 +103,9 @@
       INFOT = 10
       CALL ZLATSQR( 2, 1, MB, NB, A, 2, TAU, 2, W, 0, INFO )
       CALL CHKXER( 'ZLATSQR', INFOT, NOUT, LERR, OK )
-*
+
       // ZGEMQR
-*
+
       TAU(1)=1
       TAU(2)=1
       SRNAMT = 'ZGEMQR'
@@ -143,9 +143,9 @@
       INFOT = 13
       CALL ZGEMQR( 'L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO)
       CALL CHKXER( 'ZGEMQR', INFOT, NOUT, LERR, OK )
-*
+
       // ZGELQ
-*
+
       SRNAMT = 'ZGELQ'
       INFOT = 1
       CALL ZGELQ( -1, 0, A, 1, TAU, 1, W, 1, INFO )
@@ -162,9 +162,9 @@
       INFOT = 8
       CALL ZGELQ( 2, 3, A, 3, TAU, 8, W, 0, INFO )
       CALL CHKXER( 'ZGELQ', INFOT, NOUT, LERR, OK )
-*
+
       // ZLASWLQ
-*
+
       MB = 1
       NB = 1
       SRNAMT = 'ZLASWLQ'
@@ -193,9 +193,9 @@
       INFOT = 10
       CALL ZLASWLQ( 1, 2, MB, NB, A, 1, TAU, 1, W, 0, INFO )
       CALL CHKXER( 'ZLASWLQ', INFOT, NOUT, LERR, OK )
-*
+
       // ZGEMLQ
-*
+
       TAU(1)=1
       TAU(2)=1
       SRNAMT = 'ZGEMLQ'
@@ -233,13 +233,13 @@
       INFOT = 13
       CALL ZGEMLQ( 'L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO)
       CALL CHKXER( 'ZGEMLQ', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of ZERRTSQR
-*
+
       END

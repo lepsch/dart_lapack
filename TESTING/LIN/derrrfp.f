@@ -1,15 +1,15 @@
       SUBROUTINE DERRRFP( NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // ..
       // .. Local Scalars ..
       int                INFO;
@@ -31,14 +31,14 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       OK = .TRUE.
       A( 1, 1 ) = 1.0D+0
       B( 1, 1 ) = 1.0D+0
       ALPHA     = 1.0D+0
       BETA      = 1.0D+0
-*
+
       SRNAMT = 'DPFTRF'
       INFOT = 1
       CALL DPFTRF( '/', 'U', 0, A, INFO )
@@ -49,7 +49,7 @@
       INFOT = 3
       CALL DPFTRF( 'N', 'U', -1, A, INFO )
       CALL CHKXER( 'DPFTRF', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'DPFTRS'
       INFOT = 1
       CALL DPFTRS( '/', 'U', 0, 0, A, B, 1, INFO )
@@ -66,7 +66,7 @@
       INFOT = 7
       CALL DPFTRS( 'N', 'U', 0, 0, A, B, 0, INFO )
       CALL CHKXER( 'DPFTRS', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'DPFTRI'
       INFOT = 1
       CALL DPFTRI( '/', 'U', 0, A, INFO )
@@ -77,7 +77,7 @@
       INFOT = 3
       CALL DPFTRI( 'N', 'U', -1, A, INFO )
       CALL CHKXER( 'DPFTRI', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'DTFSM '
       INFOT = 1
       CALL DTFSM( '/', 'L', 'U', 'T', 'U', 0, 0, ALPHA, A, B, 1 )
@@ -103,7 +103,7 @@
       INFOT = 11
       CALL DTFSM( 'N', 'L', 'U', 'T', 'U', 0, 0, ALPHA, A, B, 0 )
       CALL CHKXER( 'DTFSM ', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'DTFTRI'
       INFOT = 1
       CALL DTFTRI( '/', 'L', 'N', 0, A, INFO )
@@ -117,7 +117,7 @@
       INFOT = 4
       CALL DTFTRI( 'N', 'L', 'N', -1, A, INFO )
       CALL CHKXER( 'DTFTRI', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'DTFTTR'
       INFOT = 1
       CALL DTFTTR( '/', 'U', 0, A, B, 1, INFO )
@@ -131,7 +131,7 @@
       INFOT = 6
       CALL DTFTTR( 'N', 'U', 0, A, B, 0, INFO )
       CALL CHKXER( 'DTFTTR', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'DTRTTF'
       INFOT = 1
       CALL DTRTTF( '/', 'U', 0, A, 1, B, INFO )
@@ -145,7 +145,7 @@
       INFOT = 5
       CALL DTRTTF( 'N', 'U', 0, A, 0, B, INFO )
       CALL CHKXER( 'DTRTTF', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'DTFTTP'
       INFOT = 1
       CALL DTFTTP( '/', 'U', 0, A, B, INFO )
@@ -156,7 +156,7 @@
       INFOT = 3
       CALL DTFTTP( 'N', 'U', -1, A, B, INFO )
       CALL CHKXER( 'DTFTTP', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'DTPTTF'
       INFOT = 1
       CALL DTPTTF( '/', 'U', 0, A, B, INFO )
@@ -167,7 +167,7 @@
       INFOT = 3
       CALL DTPTTF( 'N', 'U', -1, A, B, INFO )
       CALL CHKXER( 'DTPTTF', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'DTRTTP'
       INFOT = 1
       CALL DTRTTP( '/', 0, A, 1,  B, INFO )
@@ -178,7 +178,7 @@
       INFOT = 4
       CALL DTRTTP( 'U', 0, A, 0,  B, INFO )
       CALL CHKXER( 'DTRTTP', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'DTPTTR'
       INFOT = 1
       CALL DTPTTR( '/', 0, A, B, 1,  INFO )
@@ -189,7 +189,7 @@
       INFOT = 5
       CALL DTPTTR( 'U', 0, A, B, 0, INFO )
       CALL CHKXER( 'DTPTTR', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'DSFRK '
       INFOT = 1
       CALL DSFRK( '/', 'U', 'N', 0, 0, ALPHA, A, 1, BETA, B )
@@ -209,21 +209,21 @@
       INFOT = 8
       CALL DSFRK( 'N', 'U', 'N', 0, 0, ALPHA, A, 0, BETA, B )
       CALL CHKXER( 'DSFRK ', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )
       ELSE
          WRITE( NOUT, FMT = 9998 )
       END IF
-*
+
  9999 FORMAT( 1X, 'double           RFP routines passed the tests of ',;
      $        'the error exits' )
  9998 FORMAT( ' *** RFP routines failed the tests of the error ',
      $        'exits ***' )
       RETURN
-*
+
       // End of DERRRFP
-*
+
       END

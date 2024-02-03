@@ -1,16 +1,16 @@
       SUBROUTINE DGET33( RMAX, LMAX, NINFO, KNT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                KNT, LMAX, NINFO;
       double             RMAX;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -35,15 +35,15 @@
       // INTRINSIC ABS, MAX, SIGN
       // ..
       // .. Executable Statements ..
-*
+
       // Get machine parameters
-*
+
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Set up test case parameters
-*
+
       VAL( 1 ) = ONE
       VAL( 2 ) = ONE + TWO*EPS
       VAL( 3 ) = TWO
@@ -51,14 +51,14 @@
       VM( 1 ) = SMLNUM
       VM( 2 ) = ONE
       VM( 3 ) = BIGNUM
-*
+
       KNT = 0
       NINFO = 0
       LMAX = 0
       RMAX = ZERO
-*
+
       // Begin test loop
-*
+
       DO 150 I1 = 1, 4
          DO 140 I2 = 1, 4
             DO 130 I3 = 1, 4
@@ -80,14 +80,14 @@
                               Q( 1, 2 ) = ZERO
                               Q( 2, 1 ) = ZERO
                               Q( 2, 2 ) = ONE
-*
+
                               CALL DLANV2( T( 1, 1 ), T( 1, 2 ), T( 2, 1 ), T( 2, 2 ), WR1, WI1, WR2, WI2, CS, SN )
                               DO 10 J1 = 1, 2
                                  RES = Q( J1, 1 )*CS + Q( J1, 2 )*SN
                                  Q( J1, 2 ) = -Q( J1, 1 )*SN + Q( J1, 2 )*CS
                                  Q( J1, 1 ) = RES
    10                         CONTINUE
-*
+
                               RES = ZERO
                               RES = RES + ABS( Q( 1, 1 )**2+ Q( 1, 2 )**2-ONE ) / EPS                               RES = RES + ABS( Q( 2, 2 )**2+ Q( 2, 1 )**2-ONE ) / EPS                               RES = RES + ABS( Q( 1, 1 )*Q( 2, 1 )+ Q( 1, 2 )*Q( 2, 2 ) ) / EPS
                               DO 40 J1 = 1, 2
@@ -121,9 +121,9 @@
   130       CONTINUE
   140    CONTINUE
   150 CONTINUE
-*
+
       RETURN
-*
+
       // End of DGET33
-*
+
       END

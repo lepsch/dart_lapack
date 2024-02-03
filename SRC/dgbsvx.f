@@ -1,9 +1,9 @@
       SUBROUTINE DGBSVX( FACT, TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, IWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, KL, KU, LDAB, LDAFB, LDB, LDX, N, NRHS;
@@ -13,9 +13,9 @@
       int                IPIV( * ), IWORK( * );
       double             AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), BERR( * ), C( * ), FERR( * ), R( * ), WORK( * ), X( LDX, * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -38,7 +38,7 @@
       // INTRINSIC ABS, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
       EQUIL = LSAME( FACT, 'E' )
@@ -53,9 +53,9 @@
          SMLNUM = DLAMCH( 'Safe minimum' )
          BIGNUM = ONE / SMLNUM
       END IF
-*
+
       // Test the input parameters.
-*
+
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
       ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
@@ -113,29 +113,29 @@
             END IF
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DGBSVX', -INFO )
          RETURN
       END IF
-*
+
       IF( EQUIL ) THEN
-*
+
          // Compute row and column scalings to equilibrate the matrix A.
-*
+
          CALL DGBEQU( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
-*
+
             // Equilibrate the matrix.
-*
+
             CALL DLAQGB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          END IF
       END IF
-*
+
       // Scale the right hand side.
-*
+
       IF( NOTRAN ) THEN
          IF( ROWEQU ) THEN
             DO 40 J = 1, NRHS
@@ -151,26 +151,26 @@
    50       CONTINUE
    60    CONTINUE
       END IF
-*
+
       IF( NOFACT .OR. EQUIL ) THEN
-*
+
          // Compute the LU factorization of the band matrix A.
-*
+
          DO 70 J = 1, N
             J1 = MAX( J-KU, 1 )
             J2 = MIN( J+KL, N )
             CALL DCOPY( J2-J1+1, AB( KU+1-J+J1, J ), 1, AFB( KL+KU+1-J+J1, J ), 1 )
    70    CONTINUE
-*
+
          CALL DGBTRF( N, N, KL, KU, AFB, LDAFB, IPIV, INFO )
-*
+
          // Return if INFO is non-zero.
-*
+
          IF( INFO.GT.0 ) THEN
-*
+
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
-*
+
             ANORM = ZERO
             DO 90 J = 1, INFO
                DO 80 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )
@@ -188,10 +188,10 @@
             RETURN
          END IF
       END IF
-*
+
       // Compute the norm of the matrix A and the
       // reciprocal pivot growth factor RPVGRW.
-*
+
       IF( NOTRAN ) THEN
          NORM = '1'
       ELSE
@@ -204,24 +204,24 @@
       ELSE
          RPVGRW = DLANGB( 'M', N, KL, KU, AB, LDAB, WORK ) / RPVGRW
       END IF
-*
+
       // Compute the reciprocal of the condition number of A.
-*
+
       CALL DGBCON( NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND, WORK, IWORK, INFO )
-*
+
       // Compute the solution matrix X.
-*
+
       CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL DGBTRS( TRANS, N, KL, KU, NRHS, AFB, LDAFB, IPIV, X, LDX, INFO )
-*
+
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
-*
+
       CALL DGBRFS( TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
-*
+
       // Transform the solution matrix X to a solution of the original
       // system.
-*
+
       IF( NOTRAN ) THEN
          IF( COLEQU ) THEN
             DO 110 J = 1, NRHS
@@ -243,14 +243,14 @@
             FERR( J ) = FERR( J ) / ROWCND
   150    CONTINUE
       END IF
-*
+
       // Set INFO = N+1 if the matrix is singular to working precision.
-*
+
       IF( RCOND.LT.DLAMCH( 'Epsilon' ) ) INFO = N + 1
-*
+
       WORK( 1 ) = RPVGRW
       RETURN
-*
+
       // End of DGBSVX
-*
+
       END

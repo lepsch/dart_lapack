@@ -1,9 +1,9 @@
       SUBROUTINE ZLA_SYRFSX_EXTENDED( PREC_TYPE, UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, COLEQU, C, B, LDB, Y, LDY, BERR_OUT, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, RES, AYB, DY, Y_TAIL, RCOND, ITHRESH, RTHRESH, DZ_UB, IGNORE_CWISE, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, N_NORMS, ITHRESH;
       String             UPLO;
@@ -14,9 +14,9 @@
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       double             C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                UPLO2, CNT, I, J, X_STATE, Z_STATE, Y_PREC_STATE       double             YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;;
       bool               INCR_PREC, UPPER;
@@ -55,7 +55,7 @@
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -114,10 +114,10 @@
          INCR_PREC = .FALSE.
 
          DO CNT = 1, ITHRESH
-*
+
           // Compute residual RES = B_s - op(A_s) * Y,
               // op(A) = A, A**T, or A**H depending on TRANS (and type).
-*
+
             CALL ZCOPY( N, B( 1, J ), 1, RES, 1 )
             IF ( Y_PREC_STATE .EQ. BASE_RESIDUAL ) THEN
                CALL ZSYMV( UPLO, N, DCMPLX(-1.0D+0), A, LDA, Y(1,J), 1, DCMPLX(1.0D+0), RES, 1 )
@@ -130,9 +130,9 @@
           // XXX: RES is no longer needed.
             CALL ZCOPY( N, RES, 1, DY, 1 )
             CALL ZSYTRS( UPLO, N, 1, AF, LDAF, IPIV, DY, N, INFO )
-*
+
           // Calculate relative changes DX_X, DZ_Z and ratios DXRAT, DZRAT.
-*
+
             NORMX = 0.0D+0
             NORMY = 0.0D+0
             NORMDX = 0.0D+0
@@ -172,9 +172,9 @@
 
             DXRAT = NORMDX / PREVNORMDX
             DZRAT = DZ_Z / PREV_DZ_Z
-*
+
           // Check termination criteria.
-*
+
             IF ( YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y ) INCR_PREC = .TRUE.
              IF ( X_STATE .EQ. NOPROG_STATE .AND. DXRAT .LE. RTHRESH ) X_STATE = WORKING_STATE
             IF ( X_STATE .EQ. WORKING_STATE ) THEN
@@ -222,9 +222,9 @@
 
             PREVNORMDX = NORMDX
             PREV_DZ_Z = DZ_Z
-*
+
             // Update solution.
-*
+
             IF ( Y_PREC_STATE .LT. EXTRA_Y ) THEN
                CALL ZAXPY( N, DCMPLX(1.0D+0), DY, 1, Y(1,J), 1 )
             ELSE
@@ -234,48 +234,48 @@
          END DO
          // Target of "IF (Z_STOP .AND. X_STOP)".  Sun's f77 won't EXIT.
  666     CONTINUE
-*
+
       // Set final_* when cnt hits ithresh.
-*
+
          IF ( X_STATE .EQ. WORKING_STATE ) FINAL_DX_X = DX_X
          IF ( Z_STATE .EQ. WORKING_STATE ) FINAL_DZ_Z = DZ_Z
-*
+
       // Compute error bounds.
-*
+
          IF ( N_NORMS .GE. 1 ) THEN
             ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = FINAL_DX_X / (1 - DXRATMAX)
          END IF
          IF ( N_NORMS .GE. 2 ) THEN
             ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = FINAL_DZ_Z / (1 - DZRATMAX)
          END IF
-*
+
       // Compute componentwise relative backward error from formula
           // max(i) ( abs(R(i)) / ( abs(op(A_s))*abs(Y) + abs(B_s) )(i) )
       // where abs(Z) is the componentwise absolute value of the matrix
       // or vector Z.
-*
+
          // Compute residual RES = B_s - op(A_s) * Y,
              // op(A) = A, A**T, or A**H depending on TRANS (and type).
-*
+
          CALL ZCOPY( N, B( 1, J ), 1, RES, 1 )
          CALL ZSYMV( UPLO, N, DCMPLX(-1.0D+0), A, LDA, Y(1,J), 1, DCMPLX(1.0D+0), RES, 1 )
 
          DO I = 1, N
             AYB( I ) = CABS1( B( I, J ) )
          END DO
-*
+
       // Compute abs(op(A_s))*abs(Y) + abs(B_s).
-*
+
          CALL ZLA_SYAMV ( UPLO2, N, 1.0D+0, A, LDA, Y(1, J), 1, 1.0D+0, AYB, 1 )
 
          CALL ZLA_LIN_BERR ( N, N, 1, RES, AYB, BERR_OUT( J ) )
-*
+
       // End of loop for each RHS.
-*
+
       END DO
-*
+
       RETURN
-*
+
       // End of ZLA_SYRFSX_EXTENDED
-*
+
       END

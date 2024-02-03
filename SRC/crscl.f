@@ -1,9 +1,9 @@
       SUBROUTINE CRSCL( N, A, X, INCX )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INCX, N;
       COMPLEX            A
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX            X( * )
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -33,28 +33,28 @@
       // INTRINSIC ABS
       // ..
       // .. Executable Statements ..
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) RETURN
-*
+
       // Get machine parameters
-*
+
       SAFMIN = SLAMCH( 'S' )
       SAFMAX = ONE / SAFMIN
       OV   = SLAMCH( 'O' )
-*
+
       // Initialize constants related to A.
-*
+
       AR = REAL( A )
       AI = AIMAG( A )
       ABSR = ABS( AR )
       ABSI = ABS( AI )
-*
+
       IF( AI.EQ.ZERO ) THEN
          // If alpha is real, then we can use csrscl
          CALL CSRSCL( N, AR, X, INCX )
-*
+
       ELSE IF( AR.EQ.ZERO ) THEN
          // If alpha has a zero real part, then we follow the same rules as if
          // alpha were real.
@@ -67,7 +67,7 @@
          ELSE
             CALL CSCAL( N, CMPLX( ZERO, -ONE / AI ), X, INCX )
          END IF
-*
+
       ELSE
          // The following numbers can be computed.
          // They are the inverse of the real and imaginary parts of 1/alpha.
@@ -78,7 +78,7 @@
         t // o propagate a NaN.
          UR = AR + AI * ( AI / AR )
          UI = AI + AR * ( AR / AI )
-*
+
          IF( (ABS( UR ).LT.SAFMIN).OR.(ABS( UI ).LT.SAFMIN) ) THEN
             // This means that both alphaR and alphaI are very small.
             CALL CSCAL( N, CMPLX( SAFMIN / UR, -SAFMIN / UI ), X, INCX )
@@ -109,9 +109,9 @@
             CALL CSCAL( N, CMPLX( ONE / UR, -ONE / UI ), X, INCX )
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of CRSCL
-*
+
       END

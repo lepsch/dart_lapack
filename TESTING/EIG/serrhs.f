@@ -1,16 +1,16 @@
       SUBROUTINE SERRHS( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 3, LW = ( NMAX+2 )*( NMAX+2 )+NMAX )
@@ -44,13 +44,13 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1. / REAL( I+J )
@@ -60,13 +60,13 @@
    20 CONTINUE
       OK = .TRUE.
       NT = 0
-*
+
       // Test error exits of the nonsymmetric eigenvalue routines.
-*
+
       IF( LSAMEN( 2, C2, 'HS' ) ) THEN
-*
+
          // SGEBAL
-*
+
          SRNAMT = 'SGEBAL'
          INFOT = 1
          CALL SGEBAL( '/', 0, A, 1, ILO, IHI, S, INFO )
@@ -78,9 +78,9 @@
          CALL SGEBAL( 'N', 2, A, 1, ILO, IHI, S, INFO )
          CALL CHKXER( 'SGEBAL', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // SGEBAK
-*
+
          SRNAMT = 'SGEBAK'
          INFOT = 1
          CALL SGEBAK( '/', 'R', 0, 1, 0, S, 0, A, 1, INFO )
@@ -110,9 +110,9 @@
          CALL SGEBAK( 'N', 'R', 2, 1, 2, S, 0, A, 1, INFO )
          CALL CHKXER( 'SGEBAK', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // SGEHRD
-*
+
          SRNAMT = 'SGEHRD'
          INFOT = 1
          CALL SGEHRD( -1, 1, 1, A, 1, TAU, W, 1, INFO )
@@ -136,9 +136,9 @@
          CALL SGEHRD( 2, 1, 2, A, 2, TAU, W, 1, INFO )
          CALL CHKXER( 'SGEHRD', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // SGEHD2
-*
+
          SRNAMT = 'SGEHD2'
          INFOT = 1
          CALL SGEHD2( -1, 1, 1, A, 1, TAU, W, INFO )
@@ -159,9 +159,9 @@
          CALL SGEHD2( 2, 1, 1, A, 1, TAU, W, INFO )
          CALL CHKXER( 'SGEHD2', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // SORGHR
-*
+
          SRNAMT = 'SORGHR'
          INFOT = 1
          CALL SORGHR( -1, 1, 1, A, 1, TAU, W, 1, INFO )
@@ -185,9 +185,9 @@
          CALL SORGHR( 3, 1, 3, A, 3, TAU, W, 1, INFO )
          CALL CHKXER( 'SORGHR', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // SORMHR
-*
+
          SRNAMT = 'SORMHR'
          INFOT = 1
          CALL SORMHR( '/', 'N', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
@@ -238,9 +238,9 @@
          CALL SORMHR( 'R', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1, INFO )
          CALL CHKXER( 'SORMHR', INFOT, NOUT, LERR, OK )
          NT = NT + 16
-*
+
          // SHSEQR
-*
+
          SRNAMT = 'SHSEQR'
          INFOT = 1
          CALL SHSEQR( '/', 'N', 0, 1, 0, A, 1, WR, WI, C, 1, W, 1, INFO )
@@ -273,9 +273,9 @@
          CALL SHSEQR( 'E', 'N', 2, 1, 2, A, 2, WR, WI, C, 1, W, 1, INFO )
          CALL CHKXER( 'SHSEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // SHSEIN
-*
+
          SRNAMT = 'SHSEIN'
          INFOT = 1
          CALL SHSEIN( '/', 'N', 'N', SEL, 0, A, 1, WR, WI, VL, 1, VR, 1, 0, M, W, IFAILL, IFAILR, INFO )
@@ -302,9 +302,9 @@
          CALL SHSEIN( 'R', 'N', 'N', SEL, 2, A, 2, WR, WI, VL, 1, VR, 2, 1, M, W, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'SHSEIN', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
          // STREVC
-*
+
          SRNAMT = 'STREVC'
          INFOT = 1
          CALL STREVC( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, INFO )
@@ -328,9 +328,9 @@
          CALL STREVC( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W, INFO )
          CALL CHKXER( 'STREVC', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // STREVC3
-*
+
          SRNAMT = 'STREVC3'
          INFOT = 1
          CALL STREVC3( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, LW, INFO )
@@ -358,22 +358,22 @@
          CALL CHKXER( 'STREVC3', INFOT, NOUT, LERR, OK )
          NT = NT + 8
       END IF
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
       ELSE
          WRITE( NOUT, FMT = 9998 )PATH
       END IF
-*
+
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits',
      $        ' (', I3, ' tests done)' )
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ',
      $      'exits ***' )
-*
+
       RETURN
-*
+
       // End of SERRHS
-*
+
       END

@@ -1,18 +1,18 @@
       SUBROUTINE DLARGV( N, X, INCX, Y, INCY, C, INCC )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INCC, INCX, INCY, N;
       // ..
       // .. Array Arguments ..
       double             C( * ), X( * ), Y( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -25,7 +25,7 @@
       // INTRINSIC ABS, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       IX = 1
       IY = 1
       IC = 1
@@ -56,7 +56,7 @@
          IX = IX + INCX
    10 CONTINUE
       RETURN
-*
+
       // End of DLARGV
-*
+
       END

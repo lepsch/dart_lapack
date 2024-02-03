@@ -73,6 +73,11 @@
 find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^[^ \t](     [ \t]*)([^ \t].*)$/\1 \/\/ \2/g' %
 ```
 
+### Remove empty comment lines
+```sh
+find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^[^ \t]$//g' %
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

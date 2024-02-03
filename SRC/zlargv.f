@@ -1,9 +1,9 @@
       SUBROUTINE ZLARGV( N, X, INCX, Y, INCY, C, INCC )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INCC, INCX, INCY, N;
       // ..
@@ -11,9 +11,9 @@
       double             C( * );
       COMPLEX*16         X( * ), Y( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             TWO, ONE, ZERO;
       PARAMETER          ( TWO = 2.0D+0, ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -48,7 +48,7 @@
       ABSSQ( FF ) = DBLE( FF )**2 + DIMAG( FF )**2
       // ..
       // .. Executable Statements ..
-*
+
       // IF( FIRST ) THEN
          // FIRST = .FALSE.
          SAFMIN = DLAMCH( 'S' )
@@ -62,9 +62,9 @@
       DO 60 I = 1, N
          F = X( IX )
          G = Y( IY )
-*
+
          // Use identical algorithm as in ZLARTG
-*
+
          SCALE = MAX( ABS1( F ), ABS1( G ) )
          FS = F
          GS = G
@@ -93,9 +93,9 @@
          F2 = ABSSQ( FS )
          G2 = ABSSQ( GS )
          IF( F2.LE.MAX( G2, ONE )*SAFMIN ) THEN
-*
+
             // This is a rare case: F is very small.
-*
+
             IF( F.EQ.CZERO ) THEN
                CS = ZERO
                R = DLAPY2( DBLE( G ), DIMAG( G ) )
@@ -131,11 +131,11 @@
             SN = FF*DCMPLX( DBLE( GS ) / G2S, -DIMAG( GS ) / G2S )
             R = CS*F + SN*G
          ELSE
-*
+
             // This is the most common case.
             // Neither F2 nor F2/G2 are less than SAFMIN
             // F2S cannot overflow, and it is accurate
-*
+
             F2S = SQRT( ONE+G2 / F2 )
             // Do the F2S(real)*FS(complex) multiply with two real
             // multiplies
@@ -166,7 +166,7 @@
          IX = IX + INCX
    60 CONTINUE
       RETURN
-*
+
       // End of ZLARGV
-*
+
       END

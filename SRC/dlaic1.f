@@ -1,9 +1,9 @@
       SUBROUTINE DLAIC1( JOB, J, X, SEST, W, GAMMA, SESTPR, S, C )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                J, JOB;
       double             C, GAMMA, S, SEST, SESTPR;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             W( J ), X( J );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
@@ -31,20 +31,20 @@
       // EXTERNAL DDOT, DLAMCH
       // ..
       // .. Executable Statements ..
-*
+
       EPS = DLAMCH( 'Epsilon' )
       ALPHA = DDOT( J, X, 1, W, 1 )
-*
+
       ABSALP = ABS( ALPHA )
       ABSGAM = ABS( GAMMA )
       ABSEST = ABS( SEST )
-*
+
       IF( JOB.EQ.1 ) THEN
-*
+
          // Estimating largest singular value
-*
+
          // special cases
-*
+
          IF( SEST.EQ.ZERO ) THEN
             S1 = MAX( ABSGAM, ABSALP )
             IF( S1.EQ.ZERO ) THEN
@@ -99,12 +99,12 @@
             END IF
             RETURN
          ELSE
-*
+
             // normal case
-*
+
             ZETA1 = ALPHA / ABSEST
             ZETA2 = GAMMA / ABSEST
-*
+
             B = ( ONE-ZETA1*ZETA1-ZETA2*ZETA2 )*HALF
             C = ZETA1*ZETA1
             IF( B.GT.ZERO ) THEN
@@ -112,7 +112,7 @@
             ELSE
                T = SQRT( B*B+C ) - B
             END IF
-*
+
             SINE = -ZETA1 / T
             COSINE = -ZETA2 / ( ONE+T )
             TMP = SQRT( SINE*SINE+COSINE*COSINE )
@@ -121,13 +121,13 @@
             SESTPR = SQRT( T+ONE )*ABSEST
             RETURN
          END IF
-*
+
       ELSE IF( JOB.EQ.2 ) THEN
-*
+
          // Estimating smallest singular value
-*
+
          // special cases
-*
+
          IF( SEST.EQ.ZERO ) THEN
             SESTPR = ZERO
             IF( MAX( ABSGAM, ABSALP ).EQ.ZERO ) THEN
@@ -180,21 +180,21 @@
             END IF
             RETURN
          ELSE
-*
+
             // normal case
-*
+
             ZETA1 = ALPHA / ABSEST
             ZETA2 = GAMMA / ABSEST
-*
+
             NORMA = MAX( ONE+ZETA1*ZETA1+ABS( ZETA1*ZETA2 ), ABS( ZETA1*ZETA2 )+ZETA2*ZETA2 )
-*
+
             // See if root is closer to zero or to ONE
-*
+
             TEST = ONE + TWO*( ZETA1-ZETA2 )*( ZETA1+ZETA2 )
             IF( TEST.GE.ZERO ) THEN
-*
+
                // root is close to zero, compute directly
-*
+
                B = ( ZETA1*ZETA1+ZETA2*ZETA2+ONE )*HALF
                C = ZETA2*ZETA2
                T = C / ( B+SQRT( ABS( B*B-C ) ) )
@@ -202,9 +202,9 @@
                COSINE = -ZETA2 / T
                SESTPR = SQRT( T+FOUR*EPS*EPS*NORMA )*ABSEST
             ELSE
-*
+
                // root is closer to ONE, shift by that amount
-*
+
                B = ( ZETA2*ZETA2+ZETA1*ZETA1-ONE )*HALF
                C = ZETA1*ZETA1
                IF( B.GE.ZERO ) THEN
@@ -220,11 +220,11 @@
             S = SINE / TMP
             C = COSINE / TMP
             RETURN
-*
+
          END IF
       END IF
       RETURN
-*
+
       // End of DLAIC1
-*
+
       END

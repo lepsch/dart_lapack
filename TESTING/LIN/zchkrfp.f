@@ -1,11 +1,11 @@
       PROGRAM ZCHKRFP
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                MAXIN;
       PARAMETER          ( MAXIN = 12 )
@@ -55,21 +55,21 @@
       // EXTERNAL ILAVER, ZDRVRFP, ZDRVRF1, ZDRVRF2, ZDRVRF3, ZDRVRF4
       // ..
       // .. Executable Statements ..
-*
+
       S1 = DSECND( )
       FATAL = .FALSE.
-*
+
       // Read a dummy line.
-*
+
       READ( NIN, FMT = * )
-*
+
       // Report LAPACK version tag (e.g. LAPACK-3.2.0)
-*
+
       CALL ILAVER( VERS_MAJOR, VERS_MINOR, VERS_PATCH )
       WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
-*
+
       // Read the values of N
-*
+
       READ( NIN, FMT = * )NN
       IF( NN.LT.1 ) THEN
          WRITE( NOUT, FMT = 9996 )' NN ', NN, 1
@@ -91,9 +91,9 @@
          END IF
    10 CONTINUE
       IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
-*
+
       // Read the values of NRHS
-*
+
       READ( NIN, FMT = * )NNS
       IF( NNS.LT.1 ) THEN
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
@@ -115,9 +115,9 @@
          END IF
    30 CONTINUE
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
-*
+
       // Read the matrix types
-*
+
       READ( NIN, FMT = * )NNT
       IF( NNT.LT.1 ) THEN
          WRITE( NOUT, FMT = 9996 )' NMA', NNT, 1
@@ -139,23 +139,23 @@
          END IF
   320 CONTINUE
       IF( NNT.GT.0 ) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
-*
+
       // Read the threshold value for the test ratios.
-*
+
       READ( NIN, FMT = * )THRESH
       WRITE( NOUT, FMT = 9992 )THRESH
-*
+
       // Read the flag that indicates whether to test the error exits.
-*
+
       READ( NIN, FMT = * )TSTERR
-*
+
       IF( FATAL ) THEN
          WRITE( NOUT, FMT = 9999 )
          STOP
       END IF
-*
+
       // Calculate and print the machine dependent constants.
-*
+
       EPS = DLAMCH( 'Underflow threshold' )
       WRITE( NOUT, FMT = 9991 )'underflow', EPS
       EPS = DLAMCH( 'Overflow threshold' )
@@ -163,39 +163,39 @@
       EPS = DLAMCH( 'Epsilon' )
       WRITE( NOUT, FMT = 9991 )'precision', EPS
       WRITE( NOUT, FMT = * )
-*
+
       // Test the error exit of:
-*
+
       IF( TSTERR ) CALL ZERRRFP( NOUT )
-*
+
 *    Test the routines: zpftrf, zpftri, zpftrs (as in ZDRVPO).
 *    This also tests the routines: ztfsm, ztftri, ztfttr, ztrttf.
-*
+
       CALL ZDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB, WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV, Z_WORK_ZLATMS, Z_WORK_ZPOT02, Z_WORK_ZPOT03, D_WORK_ZLATMS, D_WORK_ZLANHE, D_WORK_ZPOT01, D_WORK_ZPOT02, D_WORK_ZPOT03 )
-*
+
 *    Test the routine: zlanhf
-*
+
       CALL ZDRVRF1( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, D_WORK_ZLANHE )
-*
+
 *    Test the conversion routines:
         // zhfttp, ztpthf, ztfttr, ztrttf, ztrttp and ztpttr.
-*
+
       CALL ZDRVRF2( NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV )
-*
+
 *    Test the routine: ztfsm
-*
+
       CALL ZDRVRF3( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC, D_WORK_ZLANHE, Z_WORK_ZPOT03, Z_WORK_ZPOT02 )
 
-*
+
 *    Test the routine: zhfrk
-*
+
       CALL ZDRVRF4( NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV, NMAX,D_WORK_ZLANHE)
-*
+
       CLOSE ( NIN )
       S2 = DSECND( )
       WRITE( NOUT, FMT = 9998 )
       WRITE( NOUT, FMT = 9997 )S2 - S1
-*
+
  9999 FORMAT( / ' Execution not attempted due to input errors' )
  9998 FORMAT( / ' End of tests' )
  9997 FORMAT( ' Total time used = ', F12.2, ' seconds', / )
@@ -210,7 +210,7 @@
  9992 FORMAT( / ' Routines pass computational tests if test ratio is ',
      $      'less than', F8.2, / )
  9991 FORMAT( ' Relative machine ', A, ' is taken to be', D16.6 )
-*
+
       // End of ZCHKRFP
-*
+
       END

@@ -1,11 +1,11 @@
       PROGRAM ZBLAT2
-*
+
 *  -- Reference BLAS test routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NIN;
       PARAMETER          ( NIN = 5 )
@@ -49,16 +49,16 @@
       // .. Data statements ..
       DATA               SNAMES/'ZGEMV ', 'ZGBMV ', 'ZHEMV ', 'ZHBMV ', 'ZHPMV ', 'ZTRMV ', 'ZTBMV ', 'ZTPMV ', 'ZTRSV ', 'ZTBSV ', 'ZTPSV ', 'ZGERC ', 'ZGERU ', 'ZHER  ', 'ZHPR  ', 'ZHER2 ', 'ZHPR2 '/
       // .. Executable Statements ..
-*
+
       // Read name and unit number for summary output file and open file.
-*
+
       READ( NIN, FMT = * )SUMMRY
       READ( NIN, FMT = * )NOUT
       OPEN( NOUT, FILE = SUMMRY, STATUS = 'UNKNOWN' )
       NOUTC = NOUT
-*
+
       // Read name and unit number for snapshot output file and open file.
-*
+
       READ( NIN, FMT = * )SNAPS
       READ( NIN, FMT = * )NTRA
       TRACE = NTRA.GE.0
@@ -74,9 +74,9 @@
       READ( NIN, FMT = * )TSTERR
       // Read the threshold value of the test ratio
       READ( NIN, FMT = * )THRESH
-*
+
       // Read and check the parameter values for the tests.
-*
+
       // Values of N
       READ( NIN, FMT = * )NIDIM
       IF( NIDIM.LT.1.OR.NIDIM.GT.NIDMAX )THEN
@@ -130,9 +130,9 @@
          GO TO 230
       END IF
       READ( NIN, FMT = * )( BET( I ), I = 1, NBET )
-*
+
       // Report values of parameters.
-*
+
       WRITE( NOUT, FMT = 9993 )
       WRITE( NOUT, FMT = 9992 )( IDIM( I ), I = 1, NIDIM )
       WRITE( NOUT, FMT = 9991 )( KB( I ), I = 1, NKB )
@@ -146,10 +146,10 @@
       WRITE( NOUT, FMT = * )
       WRITE( NOUT, FMT = 9999 )THRESH
       WRITE( NOUT, FMT = * )
-*
+
       // Read names of subroutines and flags which indicate
       // whether they are to be tested.
-*
+
       DO 40 I = 1, NSUBS
          LTEST( I ) = .FALSE.
    40 CONTINUE
@@ -161,17 +161,17 @@
       STOP
    70 LTEST( I ) = LTESTT
       GO TO 50
-*
+
    80 CONTINUE
       CLOSE ( NIN )
-*
+
       // Compute EPS (the machine precision).
-*
+
       EPS = EPSILON(RZERO)
       WRITE( NOUT, FMT = 9998 )EPS
-*
+
       // Check the reliability of ZMVCH using exact data.
-*
+
       N = MIN( 32, NMAX )
       DO 120 J = 1, N
          DO 110 I = 1, N
@@ -199,9 +199,9 @@
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
          STOP
       END IF
-*
+
       // Test each subroutine in turn.
-*
+
       DO 210 ISNUM = 1, NSUBS
          WRITE( NOUT, FMT = * )
          IF( .NOT.LTEST( ISNUM ) )THEN
@@ -254,26 +254,26 @@
      $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC,
      $                  NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS,
      $                  YT, G, Z )
-*
+
   200       IF( FATAL.AND.SFATAL )
      $         GO TO 220
          END IF
   210 CONTINUE
       WRITE( NOUT, FMT = 9982 )
       GO TO 240
-*
+
   220 CONTINUE
       WRITE( NOUT, FMT = 9981 )
       GO TO 240
-*
+
   230 CONTINUE
       WRITE( NOUT, FMT = 9987 )
-*
+
   240 CONTINUE
       IF( TRACE ) CLOSE ( NTRA )
       CLOSE ( NOUT )
       STOP
-*
+
  9999 FORMAT( ' ROUTINES PASS COMPUTATIONAL TESTS IF TEST RATIO IS LES',
      $      'S THAN', F8.2 )
  9998 FORMAT( ' RELATIVE MACHINE PRECISION IS TAKEN TO BE', 1P, D9.1 )
@@ -306,20 +306,20 @@
  9982 FORMAT( /' END OF TESTS' )
  9981 FORMAT( /' ******* FATAL ERROR - TESTS ABANDONED *******' )
  9980 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' )
-*
+
       // End of ZBLAT2
-*
+
       END
       SUBROUTINE ZCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
-*
+
 *  Tests ZGEMV and ZGBMV.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ) )
@@ -366,18 +366,18 @@
       ELSE IF( BANDED )THEN
          NARGS = 13
       END IF
-*
+
       NC = 0
       RESET = .TRUE.
       ERRMAX = RZERO
-*
+
       DO 120 IN = 1, NIDIM
          N = IDIM( IN )
          ND = N/2 + 1
-*
+
          DO 110 IM = 1, 2
             IF( IM.EQ.1 ) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX )
-*
+
             IF( BANDED )THEN
                NK = NKB
             ELSE
@@ -402,16 +402,16 @@
                IF( LDA.GT.NMAX ) GO TO 100
                LAA = LDA*N
                NULL = N.LE.0.OR.M.LE.0
-*
+
                // Generate the matrix A.
-*
+
                TRANSL = ZERO
                CALL ZMAKE( SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL )
-*
+
                DO 90 IC = 1, 3
                   TRANS = ICH( IC: IC )
                   TRAN = TRANS.EQ.'T'.OR.TRANS.EQ.'C'
-*
+
                   IF( TRAN )THEN
                      ML = N
                      NL = M
@@ -419,40 +419,40 @@
                      ML = M
                      NL = N
                   END IF
-*
+
                   DO 80 IX = 1, NINC
                      INCX = INC( IX )
                      LX = ABS( INCX )*NL
-*
+
                      // Generate the vector X.
-*
+
                      TRANSL = HALF
                      CALL ZMAKE( 'GE', ' ', ' ', 1, NL, X, 1, XX, ABS( INCX ), 0, NL - 1, RESET, TRANSL )
                      IF( NL.GT.1 )THEN
                         X( NL/2 ) = ZERO
                         XX( 1 + ABS( INCX )*( NL/2 - 1 ) ) = ZERO
                      END IF
-*
+
                      DO 70 IY = 1, NINC
                         INCY = INC( IY )
                         LY = ABS( INCY )*ML
-*
+
                         DO 60 IA = 1, NALF
                            ALPHA = ALF( IA )
-*
+
                            DO 50 IB = 1, NBET
                               BETA = BET( IB )
-*
+
                               // Generate the vector Y.
-*
+
                               TRANSL = ZERO
                               CALL ZMAKE( 'GE', ' ', ' ', 1, ML, Y, 1, YY, ABS( INCY ), 0, ML - 1, RESET, TRANSL )
-*
+
                               NC = NC + 1
-*
+
                               // Save every datum before calling the
                               // subroutine.
-*
+
                               TRANSS = TRANS
                               MS = M
                               NS = N
@@ -472,9 +472,9 @@
                                  YS( I ) = YY( I )
    30                         CONTINUE
                               INCYS = INCY
-*
+
                               // Call the subroutine.
-*
+
                               IF( FULL )THEN
                                  IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY
                                  IF( REWI ) REWIND NTRA                                  CALL ZGEMV( TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
@@ -482,17 +482,17 @@
                                  IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY
                                  IF( REWI ) REWIND NTRA                                  CALL ZGBMV( TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
                               END IF
-*
+
                               // Check if error-exit was taken incorrectly.
-*
+
                               IF( .NOT.OK )THEN
                                  WRITE( NOUT, FMT = 9993 )
                                  FATAL = .TRUE.
                                  GO TO 130
                               END IF
-*
+
                               // See what data changed inside subroutines.
-*
+
                               ISAME( 1 ) = TRANS.EQ.TRANSS
                               ISAME( 2 ) = MS.EQ.M
                               ISAME( 3 ) = NS.EQ.N
@@ -525,10 +525,10 @@
                                  END IF
                                  ISAME( 13 ) = INCYS.EQ.INCY
                               END IF
-*
+
                               // If data was incorrectly changed, report
                               // and return.
-*
+
                               SAME = .TRUE.
                               DO 40 I = 1, NARGS
                                  SAME = SAME.AND.ISAME( I )
@@ -538,11 +538,11 @@
                                  FATAL = .TRUE.
                                  GO TO 130
                               END IF
-*
+
                               IF( .NOT.NULL )THEN
-*
+
                                  // Check the result.
-*
+
                                  CALL ZMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
                                  ERRMAX = MAX( ERRMAX, ERR )
                                  // If got really bad answer, report and
@@ -553,25 +553,25 @@
                                  // N.le.0.
                                  GO TO 110
                               END IF
-*
+
    50                      CONTINUE
-*
+
    60                   CONTINUE
-*
+
    70                CONTINUE
-*
+
    80             CONTINUE
-*
+
    90          CONTINUE
-*
+
   100       CONTINUE
-*
+
   110    CONTINUE
-*
+
   120 CONTINUE
-*
+
       // Regression test to verify preservation of y when m zero, n nonzero.
-*
+
       CALL ZREGR1( TRANS, M, N, LY, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY, YS )
       IF( FULL )THEN
          IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY
@@ -586,16 +586,16 @@
          FATAL = .TRUE.
          GO TO 130
       END IF
-*
+
       // Report result.
-*
+
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       ELSE
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 140
-*
+
   130 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       IF( FULL )THEN
@@ -603,10 +603,10 @@
       ELSE IF( BANDED )THEN
          WRITE( NOUT, FMT = 9995 )NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY
       END IF
-*
+
   140 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
      $      'S)' )
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
@@ -623,20 +623,20 @@
      $      F4.1, '), Y,', I2, ')         .' )
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
-*
+
       // End of ZCHK1
-*
+
       END
       SUBROUTINE ZCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
-*
+
 *  Tests ZHEMV, ZHBMV and ZHPMV.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ) )
@@ -686,14 +686,14 @@
       ELSE IF( PACKED )THEN
          NARGS = 9
       END IF
-*
+
       NC = 0
       RESET = .TRUE.
       ERRMAX = RZERO
-*
+
       DO 110 IN = 1, NIDIM
          N = IDIM( IN )
-*
+
          IF( BANDED )THEN
             NK = NKB
          ELSE
@@ -720,48 +720,48 @@
                LAA = LDA*N
             END IF
             NULL = N.LE.0
-*
+
             DO 90 IC = 1, 2
                UPLO = ICH( IC: IC )
-*
+
                // Generate the matrix A.
-*
+
                TRANSL = ZERO
                CALL ZMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL )
-*
+
                DO 80 IX = 1, NINC
                   INCX = INC( IX )
                   LX = ABS( INCX )*N
-*
+
                   // Generate the vector X.
-*
+
                   TRANSL = HALF
                   CALL ZMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
                   IF( N.GT.1 )THEN
                      X( N/2 ) = ZERO
                      XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
                   END IF
-*
+
                   DO 70 IY = 1, NINC
                      INCY = INC( IY )
                      LY = ABS( INCY )*N
-*
+
                      DO 60 IA = 1, NALF
                         ALPHA = ALF( IA )
-*
+
                         DO 50 IB = 1, NBET
                            BETA = BET( IB )
-*
+
                            // Generate the vector Y.
-*
+
                            TRANSL = ZERO
                            CALL ZMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
-*
+
                            NC = NC + 1
-*
+
                            // Save every datum before calling the
                            // subroutine.
-*
+
                            UPLOS = UPLO
                            NS = N
                            KS = K
@@ -779,9 +779,9 @@
                               YS( I ) = YY( I )
    30                      CONTINUE
                            INCYS = INCY
-*
+
                            // Call the subroutine.
-*
+
                            IF( FULL )THEN
                               IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, LDA, INCX, BETA, INCY
                               IF( REWI ) REWIND NTRA                               CALL ZHEMV( UPLO, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
@@ -792,17 +792,17 @@
                               IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY
                               IF( REWI ) REWIND NTRA                               CALL ZHPMV( UPLO, N, ALPHA, AA, XX, INCX, BETA, YY, INCY )
                            END IF
-*
+
                            // Check if error-exit was taken incorrectly.
-*
+
                            IF( .NOT.OK )THEN
                               WRITE( NOUT, FMT = 9992 )
                               FATAL = .TRUE.
                               GO TO 120
                            END IF
-*
+
                            // See what data changed inside subroutines.
-*
+
                            ISAME( 1 ) = UPLO.EQ.UPLOS
                            ISAME( 2 ) = NS.EQ.N
                            IF( FULL )THEN
@@ -845,10 +845,10 @@
                               END IF
                               ISAME( 9 ) = INCYS.EQ.INCY
                            END IF
-*
+
                            // If data was incorrectly changed, report and
                            // return.
-*
+
                            SAME = .TRUE.
                            DO 40 I = 1, NARGS
                               SAME = SAME.AND.ISAME( I )
@@ -858,11 +858,11 @@
                               FATAL = .TRUE.
                               GO TO 120
                            END IF
-*
+
                            IF( .NOT.NULL )THEN
-*
+
                               // Check the result.
-*
+
                               CALL ZMVCH( 'N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
@@ -872,30 +872,30 @@
                               // Avoid repeating tests with N.le.0
                               GO TO 110
                            END IF
-*
+
    50                   CONTINUE
-*
+
    60                CONTINUE
-*
+
    70             CONTINUE
-*
+
    80          CONTINUE
-*
+
    90       CONTINUE
-*
+
   100    CONTINUE
-*
+
   110 CONTINUE
-*
+
       // Report result.
-*
+
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       ELSE
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 130
-*
+
   120 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       IF( FULL )THEN
@@ -905,10 +905,10 @@
       ELSE IF( PACKED )THEN
          WRITE( NOUT, FMT = 9995 )NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY
       END IF
-*
+
   130 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
      $      'S)' )
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
@@ -928,20 +928,20 @@
      $      'Y,', I2, ')             .' )
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
-*
+
       // End of ZCHK2
-*
+
       END
       SUBROUTINE ZCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z )
-*
+
 *  Tests ZTRMV, ZTBMV, ZTPMV, ZTRSV, ZTBSV and ZTPSV.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
@@ -992,7 +992,7 @@
       ELSE IF( PACKED )THEN
          NARGS = 7
       END IF
-*
+
       NC = 0
       RESET = .TRUE.
       ERRMAX = RZERO
@@ -1000,10 +1000,10 @@
       DO 10 I = 1, NMAX
          Z( I ) = ZERO
    10 CONTINUE
-*
+
       DO 110 IN = 1, NIDIM
          N = IDIM( IN )
-*
+
          IF( BANDED )THEN
             NK = NKB
          ELSE
@@ -1030,38 +1030,38 @@
                LAA = LDA*N
             END IF
             NULL = N.LE.0
-*
+
             DO 90 ICU = 1, 2
                UPLO = ICHU( ICU: ICU )
-*
+
                DO 80 ICT = 1, 3
                   TRANS = ICHT( ICT: ICT )
-*
+
                   DO 70 ICD = 1, 2
                      DIAG = ICHD( ICD: ICD )
-*
+
                      // Generate the matrix A.
-*
+
                      TRANSL = ZERO
                      CALL ZMAKE( SNAME( 2: 3 ), UPLO, DIAG, N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL )
-*
+
                      DO 60 IX = 1, NINC
                         INCX = INC( IX )
                         LX = ABS( INCX )*N
-*
+
                         // Generate the vector X.
-*
+
                         TRANSL = HALF
                         CALL ZMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
                         IF( N.GT.1 )THEN
                            X( N/2 ) = ZERO
                            XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
                         END IF
-*
+
                         NC = NC + 1
-*
+
                         // Save every datum before calling the subroutine.
-*
+
                         UPLOS = UPLO
                         TRANSS = TRANS
                         DIAGS = DIAG
@@ -1075,9 +1075,9 @@
                            XS( I ) = XX( I )
    30                   CONTINUE
                         INCXS = INCX
-*
+
                         // Call the subroutine.
-*
+
                         IF( SNAME( 4: 5 ).EQ.'MV' )THEN
                            IF( FULL )THEN
                               IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX
@@ -1101,17 +1101,17 @@
                               IF( REWI ) REWIND NTRA                               CALL ZTPSV( UPLO, TRANS, DIAG, N, AA, XX, INCX )
                            END IF
                         END IF
-*
+
                         // Check if error-exit was taken incorrectly.
-*
+
                         IF( .NOT.OK )THEN
                            WRITE( NOUT, FMT = 9992 )
                            FATAL = .TRUE.
                            GO TO 120
                         END IF
-*
+
                         // See what data changed inside subroutines.
-*
+
                         ISAME( 1 ) = UPLO.EQ.UPLOS
                         ISAME( 2 ) = TRANS.EQ.TRANSS
                         ISAME( 3 ) = DIAG.EQ.DIAGS
@@ -1144,10 +1144,10 @@
                            END IF
                            ISAME( 7 ) = INCXS.EQ.INCX
                         END IF
-*
+
                         // If data was incorrectly changed, report and
                         // return.
-*
+
                         SAME = .TRUE.
                         DO 40 I = 1, NARGS
                            SAME = SAME.AND.ISAME( I )
@@ -1157,17 +1157,17 @@
                            FATAL = .TRUE.
                            GO TO 120
                         END IF
-*
+
                         IF( .NOT.NULL )THEN
                            IF( SNAME( 4: 5 ).EQ.'MV' )THEN
-*
+
                               // Check the result.
-*
+
                               CALL ZMVCH( TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .TRUE. )
                            ELSE IF( SNAME( 4: 5 ).EQ.'SV' )THEN
-*
+
                               // Compute approximation to original vector.
-*
+
                               DO 50 I = 1, N
                                  Z( I ) = XX( 1 + ( I - 1 )* ABS( INCX ) )                                  XX( 1 + ( I - 1 )*ABS( INCX ) ) = X( I )
    50                         CONTINUE
@@ -1180,28 +1180,28 @@
                            // Avoid repeating tests with N.le.0.
                            GO TO 110
                         END IF
-*
+
    60                CONTINUE
-*
+
    70             CONTINUE
-*
+
    80          CONTINUE
-*
+
    90       CONTINUE
-*
+
   100    CONTINUE
-*
+
   110 CONTINUE
-*
+
       // Report result.
-*
+
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       ELSE
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 130
-*
+
   120 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       IF( FULL )THEN
@@ -1211,10 +1211,10 @@
       ELSE IF( PACKED )THEN
          WRITE( NOUT, FMT = 9995 )NC, SNAME, UPLO, TRANS, DIAG, N, INCX
       END IF
-*
+
   130 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
      $      'S)' )
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
@@ -1231,20 +1231,20 @@
      $      I3, ', X,', I2, ')                                   .' )
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
-*
+
       // End of ZCHK3
-*
+
       END
       SUBROUTINE ZCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
-*
+
 *  Tests ZGERC and ZGERU.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
@@ -1283,18 +1283,18 @@
       CONJ = SNAME( 5: 5 ).EQ.'C'
       // Define the number of arguments.
       NARGS = 9
-*
+
       NC = 0
       RESET = .TRUE.
       ERRMAX = RZERO
-*
+
       DO 120 IN = 1, NIDIM
          N = IDIM( IN )
          ND = N/2 + 1
-*
+
          DO 110 IM = 1, 2
             IF( IM.EQ.1 ) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX )
-*
+
             // Set LDA to 1 more than minimum value if room.
             LDA = M
             IF( LDA.LT.NMAX ) LDA = LDA + 1
@@ -1302,45 +1302,45 @@
             IF( LDA.GT.NMAX ) GO TO 110
             LAA = LDA*N
             NULL = N.LE.0.OR.M.LE.0
-*
+
             DO 100 IX = 1, NINC
                INCX = INC( IX )
                LX = ABS( INCX )*M
-*
+
                // Generate the vector X.
-*
+
                TRANSL = HALF
                CALL ZMAKE( 'GE', ' ', ' ', 1, M, X, 1, XX, ABS( INCX ), 0, M - 1, RESET, TRANSL )
                IF( M.GT.1 )THEN
                   X( M/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( M/2 - 1 ) ) = ZERO
                END IF
-*
+
                DO 90 IY = 1, NINC
                   INCY = INC( IY )
                   LY = ABS( INCY )*N
-*
+
                   // Generate the vector Y.
-*
+
                   TRANSL = ZERO
                   CALL ZMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
                   IF( N.GT.1 )THEN
                      Y( N/2 ) = ZERO
                      YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO
                   END IF
-*
+
                   DO 80 IA = 1, NALF
                      ALPHA = ALF( IA )
-*
+
                      // Generate the matrix A.
-*
+
                      TRANSL = ZERO
                      CALL ZMAKE( SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, M - 1, N - 1, RESET, TRANSL )
-*
+
                      NC = NC + 1
-*
+
                      // Save every datum before calling the subroutine.
-*
+
                      MS = M
                      NS = N
                      ALS = ALPHA
@@ -1356,26 +1356,26 @@
                         YS( I ) = YY( I )
    30                CONTINUE
                      INCYS = INCY
-*
+
                      // Call the subroutine.
-*
+
                      IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, M, N, ALPHA, INCX, INCY, LDA
                      IF( CONJ )THEN
                         IF( REWI ) REWIND NTRA                         CALL ZGERC( M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA )
                      ELSE
                         IF( REWI ) REWIND NTRA                         CALL ZGERU( M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA )
                      END IF
-*
+
                      // Check if error-exit was taken incorrectly.
-*
+
                      IF( .NOT.OK )THEN
                         WRITE( NOUT, FMT = 9993 )
                         FATAL = .TRUE.
                         GO TO 140
                      END IF
-*
+
                      // See what data changed inside subroutine.
-*
+
                      ISAME( 1 ) = MS.EQ.M
                      ISAME( 2 ) = NS.EQ.N
                      ISAME( 3 ) = ALS.EQ.ALPHA
@@ -1389,9 +1389,9 @@
                         ISAME( 8 ) = LZERES( 'GE', ' ', M, N, AS, AA, LDA )
                      END IF
                      ISAME( 9 ) = LDAS.EQ.LDA
-*
+
                      // If data was incorrectly changed, report and return.
-*
+
                      SAME = .TRUE.
                      DO 40 I = 1, NARGS
                         SAME = SAME.AND.ISAME( I )
@@ -1401,11 +1401,11 @@
                         FATAL = .TRUE.
                         GO TO 140
                      END IF
-*
+
                      IF( .NOT.NULL )THEN
-*
+
                         // Check the result column by column.
-*
+
                         IF( INCX.GT.0 )THEN
                            DO 50 I = 1, M
                               Z( I ) = X( I )
@@ -1430,36 +1430,36 @@
                         // Avoid repeating tests with M.le.0 or N.le.0.
                         GO TO 110
                      END IF
-*
+
    80             CONTINUE
-*
+
    90          CONTINUE
-*
+
   100       CONTINUE
-*
+
   110    CONTINUE
-*
+
   120 CONTINUE
-*
+
       // Report result.
-*
+
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       ELSE
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 150
-*
+
   130 CONTINUE
       WRITE( NOUT, FMT = 9995 )J
-*
+
   140 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       WRITE( NOUT, FMT = 9994 )NC, SNAME, M, N, ALPHA, INCX, INCY, LDA
-*
+
   150 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
      $      'S)' )
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
@@ -1474,20 +1474,20 @@
      $      '      .' )
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
-*
+
       // End of ZCHK4
-*
+
       END
       SUBROUTINE ZCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
-*
+
 *  Tests ZHER and ZHPR.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
@@ -1535,11 +1535,11 @@
       ELSE IF( PACKED )THEN
          NARGS = 6
       END IF
-*
+
       NC = 0
       RESET = .TRUE.
       ERRMAX = RZERO
-*
+
       DO 100 IN = 1, NIDIM
          N = IDIM( IN )
          // Set LDA to 1 more than minimum value if room.
@@ -1552,38 +1552,38 @@
          ELSE
             LAA = LDA*N
          END IF
-*
+
          DO 90 IC = 1, 2
             UPLO = ICH( IC: IC )
             UPPER = UPLO.EQ.'U'
-*
+
             DO 80 IX = 1, NINC
                INCX = INC( IX )
                LX = ABS( INCX )*N
-*
+
                // Generate the vector X.
-*
+
                TRANSL = HALF
                CALL ZMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
                IF( N.GT.1 )THEN
                   X( N/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
                END IF
-*
+
                DO 70 IA = 1, NALF
                   RALPHA = DBLE( ALF( IA ) )
                   ALPHA = DCMPLX( RALPHA, RZERO )
                   NULL = N.LE.0.OR.RALPHA.EQ.RZERO
-*
+
                   // Generate the matrix A.
-*
+
                   TRANSL = ZERO
                   CALL ZMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL )
-*
+
                   NC = NC + 1
-*
+
                   // Save every datum before calling the subroutine.
-*
+
                   UPLOS = UPLO
                   NS = N
                   RALS = RALPHA
@@ -1595,9 +1595,9 @@
                      XS( I ) = XX( I )
    20             CONTINUE
                   INCXS = INCX
-*
+
                   // Call the subroutine.
-*
+
                   IF( FULL )THEN
                      IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, RALPHA, INCX, LDA
                      IF( REWI ) REWIND NTRA
@@ -1607,17 +1607,17 @@
                      IF( REWI ) REWIND NTRA
                      CALL ZHPR( UPLO, N, RALPHA, XX, INCX, AA )
                   END IF
-*
+
                   // Check if error-exit was taken incorrectly.
-*
+
                   IF( .NOT.OK )THEN
                      WRITE( NOUT, FMT = 9992 )
                      FATAL = .TRUE.
                      GO TO 120
                   END IF
-*
+
                   // See what data changed inside subroutines.
-*
+
                   ISAME( 1 ) = UPLO.EQ.UPLOS
                   ISAME( 2 ) = NS.EQ.N
                   ISAME( 3 ) = RALS.EQ.RALPHA
@@ -1631,9 +1631,9 @@
                   IF( .NOT.PACKED )THEN
                      ISAME( 7 ) = LDAS.EQ.LDA
                   END IF
-*
+
                   // If data was incorrectly changed, report and return.
-*
+
                   SAME = .TRUE.
                   DO 30 I = 1, NARGS
                      SAME = SAME.AND.ISAME( I )
@@ -1643,11 +1643,11 @@
                      FATAL = .TRUE.
                      GO TO 120
                   END IF
-*
+
                   IF( .NOT.NULL )THEN
-*
+
                      // Check the result column by column.
-*
+
                      IF( INCX.GT.0 )THEN
                         DO 40 I = 1, N
                            Z( I ) = X( I )
@@ -1685,27 +1685,27 @@
                      // Avoid repeating tests if N.le.0.
                      IF( N.LE.0 ) GO TO 100
                   END IF
-*
+
    70          CONTINUE
-*
+
    80       CONTINUE
-*
+
    90    CONTINUE
-*
+
   100 CONTINUE
-*
+
       // Report result.
-*
+
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       ELSE
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 130
-*
+
   110 CONTINUE
       WRITE( NOUT, FMT = 9995 )J
-*
+
   120 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       IF( FULL )THEN
@@ -1713,10 +1713,10 @@
       ELSE IF( PACKED )THEN
          WRITE( NOUT, FMT = 9994 )NC, SNAME, UPLO, N, RALPHA, INCX
       END IF
-*
+
   130 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
      $      'S)' )
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
@@ -1732,20 +1732,20 @@
      $      I2, ', A,', I3, ')                                      .' )
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
-*
+
       // End of ZCHK5
-*
+
       END
       SUBROUTINE ZCHK6( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
-*
+
 *  Tests ZHER2 and ZHPR2.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
@@ -1793,11 +1793,11 @@
       ELSE IF( PACKED )THEN
          NARGS = 8
       END IF
-*
+
       NC = 0
       RESET = .TRUE.
       ERRMAX = RZERO
-*
+
       DO 140 IN = 1, NIDIM
          N = IDIM( IN )
          // Set LDA to 1 more than minimum value if room.
@@ -1810,50 +1810,50 @@
          ELSE
             LAA = LDA*N
          END IF
-*
+
          DO 130 IC = 1, 2
             UPLO = ICH( IC: IC )
             UPPER = UPLO.EQ.'U'
-*
+
             DO 120 IX = 1, NINC
                INCX = INC( IX )
                LX = ABS( INCX )*N
-*
+
                // Generate the vector X.
-*
+
                TRANSL = HALF
                CALL ZMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
                IF( N.GT.1 )THEN
                   X( N/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
                END IF
-*
+
                DO 110 IY = 1, NINC
                   INCY = INC( IY )
                   LY = ABS( INCY )*N
-*
+
                   // Generate the vector Y.
-*
+
                   TRANSL = ZERO
                   CALL ZMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
                   IF( N.GT.1 )THEN
                      Y( N/2 ) = ZERO
                      YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO
                   END IF
-*
+
                   DO 100 IA = 1, NALF
                      ALPHA = ALF( IA )
                      NULL = N.LE.0.OR.ALPHA.EQ.ZERO
-*
+
                      // Generate the matrix A.
-*
+
                      TRANSL = ZERO
                      CALL ZMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL )
-*
+
                      NC = NC + 1
-*
+
                      // Save every datum before calling the subroutine.
-*
+
                      UPLOS = UPLO
                      NS = N
                      ALS = ALPHA
@@ -1869,9 +1869,9 @@
                         YS( I ) = YY( I )
    30                CONTINUE
                      INCYS = INCY
-*
+
                      // Call the subroutine.
-*
+
                      IF( FULL )THEN
                         IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA
                         IF( REWI ) REWIND NTRA                         CALL ZHER2( UPLO, N, ALPHA, XX, INCX, YY, INCY, AA, LDA )
@@ -1879,17 +1879,17 @@
                         IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, N, ALPHA, INCX, INCY
                         IF( REWI ) REWIND NTRA                         CALL ZHPR2( UPLO, N, ALPHA, XX, INCX, YY, INCY, AA )
                      END IF
-*
+
                      // Check if error-exit was taken incorrectly.
-*
+
                      IF( .NOT.OK )THEN
                         WRITE( NOUT, FMT = 9992 )
                         FATAL = .TRUE.
                         GO TO 160
                      END IF
-*
+
                      // See what data changed inside subroutines.
-*
+
                      ISAME( 1 ) = UPLO.EQ.UPLOS
                      ISAME( 2 ) = NS.EQ.N
                      ISAME( 3 ) = ALS.EQ.ALPHA
@@ -1905,9 +1905,9 @@
                      IF( .NOT.PACKED )THEN
                         ISAME( 9 ) = LDAS.EQ.LDA
                      END IF
-*
+
                      // If data was incorrectly changed, report and return.
-*
+
                      SAME = .TRUE.
                      DO 40 I = 1, NARGS
                         SAME = SAME.AND.ISAME( I )
@@ -1917,11 +1917,11 @@
                         FATAL = .TRUE.
                         GO TO 160
                      END IF
-*
+
                      IF( .NOT.NULL )THEN
-*
+
                         // Check the result column by column.
-*
+
                         IF( INCX.GT.0 )THEN
                            DO 50 I = 1, N
                               Z( I, 1 ) = X( I )
@@ -1969,29 +1969,29 @@
                         // Avoid repeating tests with N.le.0.
                         IF( N.LE.0 ) GO TO 140
                      END IF
-*
+
   100             CONTINUE
-*
+
   110          CONTINUE
-*
+
   120       CONTINUE
-*
+
   130    CONTINUE
-*
+
   140 CONTINUE
-*
+
       // Report result.
-*
+
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       ELSE
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 170
-*
+
   150 CONTINUE
       WRITE( NOUT, FMT = 9995 )J
-*
+
   160 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       IF( FULL )THEN
@@ -1999,10 +1999,10 @@
       ELSE IF( PACKED )THEN
          WRITE( NOUT, FMT = 9994 )NC, SNAME, UPLO, N, ALPHA, INCX, INCY
       END IF
-*
+
   170 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
      $      'S)' )
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
@@ -2020,22 +2020,22 @@
      $      '            .' )
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
-*
+
       // End of ZCHK6
-*
+
       END
       SUBROUTINE ZCHKE( ISNUM, SRNAMT, NOUT )
-*
+
 *  Tests the error exits from the Level 2 Blas.
 *  Requires a special version of the error-handling routine XERBLA.
 *  ALPHA, RALPHA, BETA, A, X and Y should not need to be defined.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Scalar Arguments ..
       int                ISNUM, NOUT;
       String             SRNAMT;
@@ -2348,36 +2348,36 @@
       INFOT = 7
       CALL ZHPR2( 'U', 0, ALPHA, X, 1, Y, 0, A )
       CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
-*
+
   180 IF( OK )THEN
          WRITE( NOUT, FMT = 9999 )SRNAMT
       ELSE
          WRITE( NOUT, FMT = 9998 )SRNAMT
       END IF
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE TESTS OF ERROR-EXITS' )
  9998 FORMAT( ' ******* ', A6, ' FAILED THE TESTS OF ERROR-EXITS *****',
      $      '**' )
-*
+
       // End of ZCHKE
-*
+
       END
       SUBROUTINE ZMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL )
-*
+
 *  Generates values for an M by N matrix A within the bandwidth
 *  defined by KL and KU.
 *  Stores the values in the array AA in the data structure required
 *  by the routine, with unwanted elements set to rogue value.
-*
+
 *  TYPE is 'GE', 'GB', 'HE', 'HB', 'HP', 'TR', 'TB' OR 'TP'.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Parameters ..
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
@@ -2410,9 +2410,9 @@
       UPPER = ( SYM.OR.TRI ).AND.UPLO.EQ.'U'
       LOWER = ( SYM.OR.TRI ).AND.UPLO.EQ.'L'
       UNIT = TRI.AND.DIAG.EQ.'U'
-*
+
       // Generate data in array A.
-*
+
       DO 20 J = 1, N
          DO 10 I = 1, M
             IF( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) THEN                IF( ( I.LE.J.AND.J - I.LE.KU ).OR. ( I.GE.J.AND.I - J.LE.KL ) )THEN
@@ -2431,9 +2431,9 @@
    10    CONTINUE
          IF( SYM ) A( J, J ) = DCMPLX( DBLE( A( J, J ) ), RZERO )          IF( TRI ) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE
    20 CONTINUE
-*
+
       // Store elements in array AS in data structure required by routine.
-*
+
       IF( TYPE.EQ.'GE' )THEN
          DO 50 J = 1, N
             DO 30 I = 1, M
@@ -2539,20 +2539,20 @@
   190    CONTINUE
       END IF
       RETURN
-*
+
       // End of ZMAKE
-*
+
       END
       SUBROUTINE ZMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, MV )
-*
+
 *  Checks the results of the computational tests.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Parameters ..
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ) )
@@ -2602,10 +2602,10 @@
          KY = 1
          INCYL = 1
       END IF
-*
+
       // Compute expected result in YT using data in A, X and Y.
       // Compute gauges in G.
-*
+
       IY = KY
       DO 40 I = 1, ML
          YT( IY ) = ZERO
@@ -2634,9 +2634,9 @@
          G( IY ) = ABS1( ALPHA )*G( IY ) + ABS1( BETA )*ABS1( Y( IY ) )
          IY = IY + INCYL
    40 CONTINUE
-*
+
       // Compute the error ratio for this result.
-*
+
       ERR = ZERO
       DO 50 I = 1, ML
          ERRI = ABS( YT( I ) - YY( 1 + ( I - 1 )*ABS( INCY ) ) )/EPS
@@ -2646,9 +2646,9 @@
    50 CONTINUE
       // If the loop completes, all results are at least half accurate.
       GO TO 80
-*
+
       // Report fatal error.
-*
+
    60 FATAL = .TRUE.
       WRITE( NOUT, FMT = 9999 )
       DO 70 I = 1, ML
@@ -2658,28 +2658,28 @@
             WRITE( NOUT, FMT = 9998 )I, YY( 1 + ( I - 1 )*ABS( INCY ) ), YT( I )
          END IF
    70 CONTINUE
-*
+
    80 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL',
      $      'F ACCURATE *******', /'                       EXPECTED RE',
      $      'SULT                    COMPUTED RESULT' )
  9998 FORMAT( 1X, I7, 2( '  (', G15.6, ',', G15.6, ')' ) )
-*
+
       // End of ZMVCH
-*
+
       END
       bool    FUNCTION LZE( RI, RJ, LR );
-*
+
 *  Tests if two arrays are identical.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
@@ -2695,22 +2695,22 @@
    20 CONTINUE
       LZE = .FALSE.
    30 RETURN
-*
+
       // End of LZE
-*
+
       END
       bool    FUNCTION LZERES( TYPE, UPLO, M, N, AA, AS, LDA );
-*
+
 *  Tests if selected elements in two arrays are equal.
-*
+
 *  TYPE is 'GE', 'HE' or 'HP'.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Scalar Arguments ..
       int                LDA, M, N;
       String             UPLO;
@@ -2745,27 +2745,27 @@
    40       CONTINUE
    50    CONTINUE
       END IF
-*
+
       LZERES = .TRUE.
       GO TO 80
    70 CONTINUE
       LZERES = .FALSE.
    80 RETURN
-*
+
       // End of LZERES
-*
+
       END
       COMPLEX*16 FUNCTION ZBEG( RESET )
-*
+
 *  Generates complex numbers as pairs of random numbers uniformly
 *  distributed between -0.5 and 0.5.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Scalar Arguments ..
       bool               RESET;
       // .. Local Scalars ..
@@ -2784,14 +2784,14 @@
          IC = 0
          RESET = .FALSE.
       END IF
-*
+
       // The sequence of values of I or J is bounded between 1 and 999.
       // If initial I or J = 1,2,3,6,7 or 9, the period will be 50.
       // If initial I or J = 4 or 8, the period will be 25.
       // If initial I or J = 5, the period will be 10.
       // IC is used to break up the period by skipping 1 value of I or J
       // in 6.
-*
+
       IC = IC + 1
    10 I = I*MI
       J = J*MJ
@@ -2803,36 +2803,36 @@
       END IF
       ZBEG = DCMPLX( ( I - 500 )/1001.0D0, ( J - 500 )/1001.0D0 )
       RETURN
-*
+
       // End of ZBEG
-*
+
       END
       double           FUNCTION DDIFF( X, Y );
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
-*
+
       // .. Scalar Arguments ..
       double             X, Y;
       // .. Executable Statements ..
       DDIFF = X - Y
       RETURN
-*
+
       // End of DDIFF
-*
+
       END
       SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
-*
+
 *  Tests whether XERBLA has detected an error when it should.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Scalar Arguments ..
       int                INFOT, NOUT;
       bool               LERR, OK;
@@ -2844,17 +2844,17 @@
       END IF
       LERR = .FALSE.
       RETURN
-*
+
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D',
      $      'ETECTED BY ', A6, ' *****' )
-*
+
       // End of CHKXER
-*
+
       END
       SUBROUTINE ZREGR1( TRANS, M, N, LY, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY, YS )
-*
+
 *  Input initialization for regression test.
-*
+
       // .. Scalar Arguments ..
       String             TRANS;
       int                LY, M, N, KL, KU, LDA, INCX, INCY;
@@ -2884,22 +2884,22 @@
       RETURN
       END
       SUBROUTINE XERBLA( SRNAME, INFO )
-*
+
 *  This is a special version of XERBLA to be used only as part of
 *  the test program for testing error exits from the Level 2 BLAS
 *  routines.
-*
+
 *  XERBLA  is an error handler for the Level 2 BLAS routines.
-*
+
 *  It is called by the Level 2 BLAS routines if an input parameter is
 *  invalid.
-*
+
 *  Auxiliary routine for test program for Level 2 Blas.
-*
+
 *  -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-*
+
       // .. Scalar Arguments ..
       int                INFO;
       String             SRNAME;
@@ -2925,14 +2925,14 @@
          OK = .FALSE.
       END IF
       RETURN
-*
+
  9999 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6, ' INSTEAD',
      $      ' OF ', I2, ' *******' )
  9998 FORMAT( ' ******* XERBLA WAS CALLED WITH SRNAME = ', A6, ' INSTE',
      $      'AD OF ', A6, ' *******' )
  9997 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6,
      $      ' *******' )
-*
+
       // End of XERBLA
-*
+
       END

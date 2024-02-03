@@ -1,9 +1,9 @@
       SUBROUTINE CGGBAK( JOB, SIDE, N, ILO, IHI, LSCALE, RSCALE, M, V, LDV, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOB, SIDE;
       int                IHI, ILO, INFO, LDV, M, N;
@@ -12,9 +12,9 @@
       REAL               LSCALE( * ), RSCALE( * )
       COMPLEX            V( LDV, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               LEFTV, RIGHTV;
       int                I, K;
@@ -30,12 +30,12 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters
-*
+
       RIGHTV = LSAME( SIDE, 'R' )
       LEFTV = LSAME( SIDE, 'L' )
-*
+
       INFO = 0
       IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
          INFO = -1
@@ -60,41 +60,41 @@
          CALL XERBLA( 'CGGBAK', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN       IF( M.EQ.0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN
-*
+
       IF( ILO.EQ.IHI ) GO TO 30
-*
+
       // Backward balance
-*
+
       IF( LSAME( JOB, 'S' ) .OR. LSAME( JOB, 'B' ) ) THEN
-*
+
          // Backward transformation on right eigenvectors
-*
+
          IF( RIGHTV ) THEN
             DO 10 I = ILO, IHI
                CALL CSSCAL( M, RSCALE( I ), V( I, 1 ), LDV )
    10       CONTINUE
          END IF
-*
+
          // Backward transformation on left eigenvectors
-*
+
          IF( LEFTV ) THEN
             DO 20 I = ILO, IHI
                CALL CSSCAL( M, LSCALE( I ), V( I, 1 ), LDV )
    20       CONTINUE
          END IF
       END IF
-*
+
       // Backward permutation
-*
+
    30 CONTINUE
       IF( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) THEN
-*
+
          // Backward permutation on right eigenvectors
-*
+
          IF( RIGHTV ) THEN
             IF( ILO.EQ.1 ) GO TO 50
             DO 40 I = ILO - 1, 1, -1
@@ -102,7 +102,7 @@
                IF( K.EQ.I ) GO TO 40
                CALL CSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
    40       CONTINUE
-*
+
    50       CONTINUE
             IF( IHI.EQ.N ) GO TO 70
             DO 60 I = IHI + 1, N
@@ -111,9 +111,9 @@
                CALL CSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
    60       CONTINUE
          END IF
-*
+
          // Backward permutation on left eigenvectors
-*
+
    70    CONTINUE
          IF( LEFTV ) THEN
             IF( ILO.EQ.1 ) GO TO 90
@@ -122,7 +122,7 @@
                IF( K.EQ.I ) GO TO 80
                CALL CSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
    80       CONTINUE
-*
+
    90       CONTINUE
             IF( IHI.EQ.N ) GO TO 110
             DO 100 I = IHI + 1, N
@@ -132,11 +132,11 @@
   100       CONTINUE
          END IF
       END IF
-*
+
   110 CONTINUE
-*
+
       RETURN
-*
+
       // End of CGGBAK
-*
+
       END

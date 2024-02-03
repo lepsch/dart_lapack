@@ -1,15 +1,15 @@
       SUBROUTINE ZERRRFP( NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // ..
       // .. Local Scalars ..
       int                INFO;
@@ -35,7 +35,7 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       OK = .TRUE.
       A( 1, 1 ) = DCMPLX( 1.0D0 , 1.0D0  )
@@ -43,7 +43,7 @@
       ALPHA     = 1.0D0
       CALPHA    = DCMPLX( 1.0D0 , 1.0D0  )
       BETA      = 1.0D0
-*
+
       SRNAMT = 'ZPFTRF'
       INFOT = 1
       CALL ZPFTRF( '/', 'U', 0, A, INFO )
@@ -54,7 +54,7 @@
       INFOT = 3
       CALL ZPFTRF( 'N', 'U', -1, A, INFO )
       CALL CHKXER( 'ZPFTRF', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'ZPFTRS'
       INFOT = 1
       CALL ZPFTRS( '/', 'U', 0, 0, A, B, 1, INFO )
@@ -71,7 +71,7 @@
       INFOT = 7
       CALL ZPFTRS( 'N', 'U', 0, 0, A, B, 0, INFO )
       CALL CHKXER( 'ZPFTRS', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'ZPFTRI'
       INFOT = 1
       CALL ZPFTRI( '/', 'U', 0, A, INFO )
@@ -82,7 +82,7 @@
       INFOT = 3
       CALL ZPFTRI( 'N', 'U', -1, A, INFO )
       CALL CHKXER( 'ZPFTRI', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'ZTFSM '
       INFOT = 1
       CALL ZTFSM( '/', 'L', 'U', 'C', 'U', 0, 0, CALPHA, A, B, 1 )
@@ -108,7 +108,7 @@
       INFOT = 11
       CALL ZTFSM( 'N', 'L', 'U', 'C', 'U', 0, 0, CALPHA, A, B, 0 )
       CALL CHKXER( 'ZTFSM ', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'ZTFTRI'
       INFOT = 1
       CALL ZTFTRI( '/', 'L', 'N', 0, A, INFO )
@@ -122,7 +122,7 @@
       INFOT = 4
       CALL ZTFTRI( 'N', 'L', 'N', -1, A, INFO )
       CALL CHKXER( 'ZTFTRI', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'ZTFTTR'
       INFOT = 1
       CALL ZTFTTR( '/', 'U', 0, A, B, 1, INFO )
@@ -136,7 +136,7 @@
       INFOT = 6
       CALL ZTFTTR( 'N', 'U', 0, A, B, 0, INFO )
       CALL CHKXER( 'ZTFTTR', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'ZTRTTF'
       INFOT = 1
       CALL ZTRTTF( '/', 'U', 0, A, 1, B, INFO )
@@ -150,7 +150,7 @@
       INFOT = 5
       CALL ZTRTTF( 'N', 'U', 0, A, 0, B, INFO )
       CALL CHKXER( 'ZTRTTF', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'ZTFTTP'
       INFOT = 1
       CALL ZTFTTP( '/', 'U', 0, A, B, INFO )
@@ -161,7 +161,7 @@
       INFOT = 3
       CALL ZTFTTP( 'N', 'U', -1, A, B, INFO )
       CALL CHKXER( 'ZTFTTP', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'ZTPTTF'
       INFOT = 1
       CALL ZTPTTF( '/', 'U', 0, A, B, INFO )
@@ -172,7 +172,7 @@
       INFOT = 3
       CALL ZTPTTF( 'N', 'U', -1, A, B, INFO )
       CALL CHKXER( 'ZTPTTF', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'ZTRTTP'
       INFOT = 1
       CALL ZTRTTP( '/', 0, A, 1,  B, INFO )
@@ -183,7 +183,7 @@
       INFOT = 4
       CALL ZTRTTP( 'U', 0, A, 0,  B, INFO )
       CALL CHKXER( 'ZTRTTP', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'ZTPTTR'
       INFOT = 1
       CALL ZTPTTR( '/', 0, A, B, 1,  INFO )
@@ -194,7 +194,7 @@
       INFOT = 5
       CALL ZTPTTR( 'U', 0, A, B, 0, INFO )
       CALL CHKXER( 'ZTPTTR', INFOT, NOUT, LERR, OK )
-*
+
       SRNAMT = 'ZHFRK '
       INFOT = 1
       CALL ZHFRK( '/', 'U', 'N', 0, 0, ALPHA, A, 1, BETA, B )
@@ -214,21 +214,21 @@
       INFOT = 8
       CALL ZHFRK( 'N', 'U', 'N', 0, 0, ALPHA, A, 0, BETA, B )
       CALL CHKXER( 'ZHFRK ', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )
       ELSE
          WRITE( NOUT, FMT = 9998 )
       END IF
-*
+
  9999 FORMAT( 1X, 'COMPLEX*16 RFP routines passed the tests of the ',
      $        'error exits' )
  9998 FORMAT( ' *** RFP routines failed the tests of the error ',
      $        'exits ***' )
       RETURN
-*
+
       // End of ZERRRFP
-*
+
       END

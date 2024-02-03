@@ -1,18 +1,18 @@
       int     FUNCTION ILACLR( M, N, A, LDA );
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                M, N, LDA;
       // ..
       // .. Array Arguments ..
       COMPLEX            A( LDA, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX          ZERO
       PARAMETER ( ZERO = (0.0E+0, 0.0E+0) )
@@ -21,7 +21,7 @@
       int     I, J;
       // ..
       // .. Executable Statements ..
-*
+
       // Quick test for the common case where one corner is non-zero.
       IF( M.EQ.0 ) THEN
          ILACLR = M

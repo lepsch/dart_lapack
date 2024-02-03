@@ -1,17 +1,17 @@
       SUBROUTINE SERRTSQR( PATH, NUNIT )
       IMPLICIT NONE
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -38,12 +38,12 @@
       // INTRINSIC REAL
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO J = 1, NMAX
          DO I = 1, NMAX
             A( I, J ) = 1. / REAL( I+J )
@@ -53,11 +53,11 @@
          W( J ) = 0.
       END DO
       OK = .TRUE.
-*
+
       // Error exits for TS factorization
-*
+
       // SGEQR
-*
+
       SRNAMT = 'SGEQR'
       INFOT = 1
       CALL SGEQR( -1, 0, A, 1, TAU, 1, W, 1, INFO )
@@ -74,9 +74,9 @@
       INFOT = 8
       CALL SGEQR( 3, 2, A, 3, TAU, 7, W, 0, INFO )
       CALL CHKXER( 'SGEQR', INFOT, NOUT, LERR, OK )
-*
+
       // SLATSQR
-*
+
       MB = 1
       NB = 1
       SRNAMT = 'SLATSQR'
@@ -103,9 +103,9 @@
       INFOT = 10
       CALL SLATSQR( 2, 1, MB, NB, A, 2, TAU, 2, W, 0, INFO )
       CALL CHKXER( 'SLATSQR', INFOT, NOUT, LERR, OK )
-*
+
       // SGEMQR
-*
+
       TAU(1)=1
       TAU(2)=1
       TAU(3)=1
@@ -145,9 +145,9 @@
       INFOT = 13
       CALL SGEMQR( 'L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO)
       CALL CHKXER( 'SGEMQR', INFOT, NOUT, LERR, OK )
-*
+
       // SGELQ
-*
+
       SRNAMT = 'SGELQ'
       INFOT = 1
       CALL SGELQ( -1, 0, A, 1, TAU, 1, W, 1, INFO )
@@ -164,9 +164,9 @@
       INFOT = 8
       CALL SGELQ( 2, 3, A, 3, TAU, 7, W, 0, INFO )
       CALL CHKXER( 'SGELQ', INFOT, NOUT, LERR, OK )
-*
+
       // SLASWLQ
-*
+
       MB = 1
       NB = 1
       SRNAMT = 'SLASWLQ'
@@ -195,9 +195,9 @@
       INFOT = 10
       CALL SLASWLQ( 1, 2, MB, NB, A, 1, TAU, 1, W, 0, INFO )
       CALL CHKXER( 'SLASWLQ', INFOT, NOUT, LERR, OK )
-*
+
       // SGEMLQ
-*
+
       TAU(1)=1
       TAU(2)=1
       SRNAMT = 'SGEMLQ'
@@ -235,13 +235,13 @@
       INFOT = 13
       CALL SGEMLQ( 'L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO)
       CALL CHKXER( 'SGEMLQ', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of SERRTSQR
-*
+
       END

@@ -1,16 +1,16 @@
       SUBROUTINE ZERRTR( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -41,7 +41,7 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
@@ -50,13 +50,13 @@
       A( 2, 2 ) = 3.D0
       A( 2, 1 ) = 4.D0
       OK = .TRUE.
-*
+
       // Test error exits for the general triangular routines.
-*
+
       IF( LSAMEN( 2, C2, 'TR' ) ) THEN
-*
+
          // ZTRTRI
-*
+
          SRNAMT = 'ZTRTRI'
          INFOT = 1
          CALL ZTRTRI( '/', 'N', 0, A, 1, INFO )
@@ -70,9 +70,9 @@
          INFOT = 5
          CALL ZTRTRI( 'U', 'N', 2, A, 1, INFO )
          CALL CHKXER( 'ZTRTRI', INFOT, NOUT, LERR, OK )
-*
+
          // ZTRTI2
-*
+
          SRNAMT = 'ZTRTI2'
          INFOT = 1
          CALL ZTRTI2( '/', 'N', 0, A, 1, INFO )
@@ -86,10 +86,10 @@
          INFOT = 5
          CALL ZTRTI2( 'U', 'N', 2, A, 1, INFO )
          CALL CHKXER( 'ZTRTI2', INFOT, NOUT, LERR, OK )
-*
-*
+
+
          // ZTRTRS
-*
+
          SRNAMT = 'ZTRTRS'
          INFOT = 1
          CALL ZTRTRS( '/', 'N', 'N', 0, 0, A, 1, X, 1, INFO )
@@ -107,9 +107,9 @@
          CALL ZTRTRS( 'U', 'N', 'N', 0, -1, A, 1, X, 1, INFO )
          CALL CHKXER( 'ZTRTRS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-*
+
          // ZTRRFS
-*
+
          SRNAMT = 'ZTRRFS'
          INFOT = 1
          CALL ZTRRFS( '/', 'N', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
@@ -135,9 +135,9 @@
          INFOT = 11
          CALL ZTRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTRRFS', INFOT, NOUT, LERR, OK )
-*
+
          // ZTRCON
-*
+
          SRNAMT = 'ZTRCON'
          INFOT = 1
          CALL ZTRCON( '/', 'U', 'N', 0, A, 1, RCOND, W, RW, INFO )
@@ -154,9 +154,9 @@
          INFOT = 6
          CALL ZTRCON( '1', 'U', 'N', 2, A, 1, RCOND, W, RW, INFO )
          CALL CHKXER( 'ZTRCON', INFOT, NOUT, LERR, OK )
-*
+
          // ZLATRS
-*
+
          SRNAMT = 'ZLATRS'
          INFOT = 1
          CALL ZLATRS( '/', 'N', 'N', 'N', 0, A, 1, X, SCALE, RW, INFO )
@@ -176,9 +176,9 @@
          INFOT = 7
          CALL ZLATRS( 'U', 'N', 'N', 'N', 2, A, 1, X, SCALE, RW, INFO )
          CALL CHKXER( 'ZLATRS', INFOT, NOUT, LERR, OK )
-*
+
          // ZLATRS3
-*
+
          SRNAMT = 'ZLATRS3'
          INFOT = 1
          CALL ZLATRS3( '/', 'N', 'N', 'N', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
@@ -207,13 +207,13 @@
          INFOT = 14
          CALL ZLATRS3( 'U', 'N', 'N', 'N', 1, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 0, INFO )
          CALL CHKXER( 'ZLATRS3', INFOT, NOUT, LERR, OK )
-*
+
       // Test error exits for the packed triangular routines.
-*
+
       ELSE IF( LSAMEN( 2, C2, 'TP' ) ) THEN
-*
+
          // ZTPTRI
-*
+
          SRNAMT = 'ZTPTRI'
          INFOT = 1
          CALL ZTPTRI( '/', 'N', 0, A, INFO )
@@ -224,9 +224,9 @@
          INFOT = 3
          CALL ZTPTRI( 'U', 'N', -1, A, INFO )
          CALL CHKXER( 'ZTPTRI', INFOT, NOUT, LERR, OK )
-*
+
          // ZTPTRS
-*
+
          SRNAMT = 'ZTPTRS'
          INFOT = 1
          CALL ZTPTRS( '/', 'N', 'N', 0, 0, A, X, 1, INFO )
@@ -246,9 +246,9 @@
          INFOT = 8
          CALL ZTPTRS( 'U', 'N', 'N', 2, 1, A, X, 1, INFO )
          CALL CHKXER( 'ZTPTRS', INFOT, NOUT, LERR, OK )
-*
+
          // ZTPRFS
-*
+
          SRNAMT = 'ZTPRFS'
          INFOT = 1
          CALL ZTPRFS( '/', 'N', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO )
@@ -271,9 +271,9 @@
          INFOT = 10
          CALL ZTPRFS( 'U', 'N', 'N', 2, 1, A, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTPRFS', INFOT, NOUT, LERR, OK )
-*
+
          // ZTPCON
-*
+
          SRNAMT = 'ZTPCON'
          INFOT = 1
          CALL ZTPCON( '/', 'U', 'N', 0, A, RCOND, W, RW, INFO )
@@ -287,9 +287,9 @@
          INFOT = 4
          CALL ZTPCON( '1', 'U', 'N', -1, A, RCOND, W, RW, INFO )
          CALL CHKXER( 'ZTPCON', INFOT, NOUT, LERR, OK )
-*
+
          // ZLATPS
-*
+
          SRNAMT = 'ZLATPS'
          INFOT = 1
          CALL ZLATPS( '/', 'N', 'N', 'N', 0, A, X, SCALE, RW, INFO )
@@ -306,13 +306,13 @@
          INFOT = 5
          CALL ZLATPS( 'U', 'N', 'N', 'N', -1, A, X, SCALE, RW, INFO )
          CALL CHKXER( 'ZLATPS', INFOT, NOUT, LERR, OK )
-*
+
       // Test error exits for the banded triangular routines.
-*
+
       ELSE IF( LSAMEN( 2, C2, 'TB' ) ) THEN
-*
+
          // ZTBTRS
-*
+
          SRNAMT = 'ZTBTRS'
          INFOT = 1
          CALL ZTBTRS( '/', 'N', 'N', 0, 0, 0, A, 1, X, 1, INFO )
@@ -338,9 +338,9 @@
          INFOT = 10
          CALL ZTBTRS( 'U', 'N', 'N', 2, 0, 1, A, 1, X, 1, INFO )
          CALL CHKXER( 'ZTBTRS', INFOT, NOUT, LERR, OK )
-*
+
          // ZTBRFS
-*
+
          SRNAMT = 'ZTBRFS'
          INFOT = 1
          CALL ZTBRFS( '/', 'N', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
@@ -369,9 +369,9 @@
          INFOT = 12
          CALL ZTBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTBRFS', INFOT, NOUT, LERR, OK )
-*
+
          // ZTBCON
-*
+
          SRNAMT = 'ZTBCON'
          INFOT = 1
          CALL ZTBCON( '/', 'U', 'N', 0, 0, A, 1, RCOND, W, RW, INFO )
@@ -391,9 +391,9 @@
          INFOT = 7
          CALL ZTBCON( '1', 'U', 'N', 2, 1, A, 1, RCOND, W, RW, INFO )
          CALL CHKXER( 'ZTBCON', INFOT, NOUT, LERR, OK )
-*
+
          // ZLATBS
-*
+
          SRNAMT = 'ZLATBS'
          INFOT = 1
          CALL ZLATBS( '/', 'N', 'N', 'N', 0, 0, A, 1, X, SCALE, RW, INFO )
@@ -417,13 +417,13 @@
          CALL ZLATBS( 'U', 'N', 'N', 'N', 2, 1, A, 1, X, SCALE, RW, INFO )
          CALL CHKXER( 'ZLATBS', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of ZERRTR
-*
+
       END

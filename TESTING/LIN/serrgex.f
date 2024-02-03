@@ -1,16 +1,16 @@
       SUBROUTINE SERRGE( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 4, LW = 3*NMAX )
@@ -45,13 +45,13 @@
       // INTRINSIC REAL
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1. / REAL( I+J )
@@ -68,14 +68,14 @@
          IW( J ) = J
    20 CONTINUE
       OK = .TRUE.
-*
+
       IF( LSAMEN( 2, C2, 'GE' ) ) THEN
-*
+
          // Test error exits of the routines that use the LU decomposition
          // of a general matrix.
-*
+
          // SGETRF
-*
+
          SRNAMT = 'SGETRF'
          INFOT = 1
          CALL SGETRF( -1, 0, A, 1, IP, INFO )
@@ -86,9 +86,9 @@
          INFOT = 4
          CALL SGETRF( 2, 1, A, 1, IP, INFO )
          CALL CHKXER( 'SGETRF', INFOT, NOUT, LERR, OK )
-*
+
          // SGETF2
-*
+
          SRNAMT = 'SGETF2'
          INFOT = 1
          CALL SGETF2( -1, 0, A, 1, IP, INFO )
@@ -99,9 +99,9 @@
          INFOT = 4
          CALL SGETF2( 2, 1, A, 1, IP, INFO )
          CALL CHKXER( 'SGETF2', INFOT, NOUT, LERR, OK )
-*
+
          // SGETRI
-*
+
          SRNAMT = 'SGETRI'
          INFOT = 1
          CALL SGETRI( -1, A, 1, IP, W, LW, INFO )
@@ -109,9 +109,9 @@
          INFOT = 3
          CALL SGETRI( 2, A, 1, IP, W, LW, INFO )
          CALL CHKXER( 'SGETRI', INFOT, NOUT, LERR, OK )
-*
+
          // SGETRS
-*
+
          SRNAMT = 'SGETRS'
          INFOT = 1
          CALL SGETRS( '/', 0, 0, A, 1, IP, B, 1, INFO )
@@ -128,9 +128,9 @@
          INFOT = 8
          CALL SGETRS( 'N', 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'SGETRS', INFOT, NOUT, LERR, OK )
-*
+
          // SGERFS
-*
+
          SRNAMT = 'SGERFS'
          INFOT = 1
          CALL SGERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
@@ -153,9 +153,9 @@
          INFOT = 12
          CALL SGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGERFS', INFOT, NOUT, LERR, OK )
-*
+
          // SGERFSX
-*
+
          N_ERR_BNDS = 3
          NPARAMS = 0
          SRNAMT = 'SGERFSX'
@@ -186,9 +186,9 @@
          INFOT = 15
          CALL SGERFSX( 'N', EQ, 2, 1, A, 2, AF, 2, IP, R, C, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGERFSX', INFOT, NOUT, LERR, OK )
-*
+
          // SGECON
-*
+
          SRNAMT = 'SGECON'
          INFOT = 1
          CALL SGECON( '/', 0, A, 1, ANRM, RCOND, W, IW, INFO )
@@ -199,9 +199,9 @@
          INFOT = 4
          CALL SGECON( '1', 2, A, 1, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'SGECON', INFOT, NOUT, LERR, OK )
-*
+
          // SGEEQU
-*
+
          SRNAMT = 'SGEEQU'
          INFOT = 1
          CALL SGEEQU( -1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
@@ -212,9 +212,9 @@
          INFOT = 4
          CALL SGEEQU( 2, 2, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'SGEEQU', INFOT, NOUT, LERR, OK )
-*
+
          // SGEEQUB
-*
+
          SRNAMT = 'SGEEQUB'
          INFOT = 1
          CALL SGEEQUB( -1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
@@ -225,14 +225,14 @@
          INFOT = 4
          CALL SGEEQUB( 2, 2, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'SGEEQUB', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
-*
+
          // Test error exits of the routines that use the LU decomposition
          // of a general band matrix.
-*
+
          // SGBTRF
-*
+
          SRNAMT = 'SGBTRF'
          INFOT = 1
          CALL SGBTRF( -1, 0, 0, 0, A, 1, IP, INFO )
@@ -249,9 +249,9 @@
          INFOT = 6
          CALL SGBTRF( 2, 2, 1, 1, A, 3, IP, INFO )
          CALL CHKXER( 'SGBTRF', INFOT, NOUT, LERR, OK )
-*
+
          // SGBTF2
-*
+
          SRNAMT = 'SGBTF2'
          INFOT = 1
          CALL SGBTF2( -1, 0, 0, 0, A, 1, IP, INFO )
@@ -268,9 +268,9 @@
          INFOT = 6
          CALL SGBTF2( 2, 2, 1, 1, A, 3, IP, INFO )
          CALL CHKXER( 'SGBTF2', INFOT, NOUT, LERR, OK )
-*
+
          // SGBTRS
-*
+
          SRNAMT = 'SGBTRS'
          INFOT = 1
          CALL SGBTRS( '/', 0, 0, 0, 1, A, 1, IP, B, 1, INFO )
@@ -293,9 +293,9 @@
          INFOT = 10
          CALL SGBTRS( 'N', 2, 0, 0, 1, A, 1, IP, B, 1, INFO )
          CALL CHKXER( 'SGBTRS', INFOT, NOUT, LERR, OK )
-*
+
          // SGBRFS
-*
+
          SRNAMT = 'SGBRFS'
          INFOT = 1
          CALL SGBRFS( '/', 0, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
@@ -324,9 +324,9 @@
          INFOT = 14
          CALL SGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBRFS', INFOT, NOUT, LERR, OK )
-*
+
          // SGBRFSX
-*
+
          N_ERR_BNDS = 3
          NPARAMS = 0
          SRNAMT = 'SGBRFSX'
@@ -365,9 +365,9 @@
          INFOT = 15
          CALL SGBRFSX( 'N', EQ, 2, 1, 1, 1, A, 3, AF, 5, IP, R, C, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBRFSX', INFOT, NOUT, LERR, OK )
-*
+
          // SGBCON
-*
+
          SRNAMT = 'SGBCON'
          INFOT = 1
          CALL SGBCON( '/', 0, 0, 0, A, 1, IP, ANRM, RCOND, W, IW, INFO )
@@ -384,9 +384,9 @@
          INFOT = 6
          CALL SGBCON( '1', 2, 1, 1, A, 3, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'SGBCON', INFOT, NOUT, LERR, OK )
-*
+
          // SGBEQU
-*
+
          SRNAMT = 'SGBEQU'
          INFOT = 1
          CALL SGBEQU( -1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
@@ -403,9 +403,9 @@
          INFOT = 6
          CALL SGBEQU( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'SGBEQU', INFOT, NOUT, LERR, OK )
-*
+
          // SGBEQUB
-*
+
          SRNAMT = 'SGBEQUB'
          INFOT = 1
          CALL SGBEQUB( -1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
@@ -423,13 +423,13 @@
          CALL SGBEQUB( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'SGBEQUB', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of SERRGEX
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE ZHEEVR( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDA, LDZ, LIWORK, LRWORK, LWORK, M, N;
@@ -14,9 +14,9 @@
       double             RWORK( * ), W( * );
       COMPLEX*16         A( LDA, * ), WORK( * ), Z( LDZ, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
@@ -40,19 +40,19 @@
       // INTRINSIC DBLE, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       IEEEOK = ILAENV( 10, 'ZHEEVR', 'N', 1, 2, 3, 4 )
-*
+
       LOWER = LSAME( UPLO, 'L' )
       WANTZ = LSAME( JOBZ, 'V' )
       ALLEIG = LSAME( RANGE, 'A' )
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
-*
+
       LQUERY = ( ( LWORK.EQ.-1 ) .OR. ( LRWORK.EQ.-1 ) .OR. ( LIWORK.EQ.-1 ) )
-*
+
       IF( N.LE.1 ) THEN
          LWMIN  = 1
          LRWMIN = 1
@@ -62,7 +62,7 @@
          LRWMIN = 24*N
          LIWMIN = 10*N
       END IF
-*
+
       INFO = 0
       IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
          INFO = -1
@@ -90,7 +90,7 @@
             INFO = -15
          END IF
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          NB = ILAENV( 1, 'ZHETRD', UPLO, N, -1, -1, -1 )
          NB = MAX( NB, ILAENV( 1, 'ZUNMTR', UPLO, N, -1, -1, -1 ) )
@@ -98,7 +98,7 @@
          WORK( 1 )  = LWKOPT
          RWORK( 1 ) = LRWMIN
          IWORK( 1 ) = LIWMIN
-*
+
          IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
             INFO = -18
          ELSE IF( LRWORK.LT.LRWMIN .AND. .NOT.LQUERY ) THEN
@@ -107,22 +107,22 @@
             INFO = -22
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZHEEVR', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       M = 0
       IF( N.EQ.0 ) THEN
          WORK( 1 ) = 1
          RETURN
       END IF
-*
+
       IF( N.EQ.1 ) THEN
          WORK( 1 ) = 1
          IF( ALLEIG .OR. INDEIG ) THEN
@@ -141,18 +141,18 @@
          END IF
          RETURN
       END IF
-*
+
       // Get machine constants.
-*
+
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
       SMLNUM = SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
-*
+
       // Scale matrix to allowable range, if necessary.
-*
+
       ISCALE = 0
       ABSTLL = ABSTOL
       IF (VALEIG) THEN
@@ -226,14 +226,14 @@
       // INDIWO is the offset of the remaining integer workspace.
       INDIWO = INDIFL + N
 
-*
+
       // Call ZHETRD to reduce Hermitian matrix to tridiagonal form.
-*
+
       CALL ZHETRD( UPLO, N, A, LDA, RWORK( INDRD ), RWORK( INDRE ), WORK( INDTAU ), WORK( INDWK ), LLWORK, IINFO )
-*
+
       // If all eigenvalues are desired
      t // hen call DSTERF or ZSTEMR and ZUNMTR.
-*
+
       TEST = .FALSE.
       IF( INDEIG ) THEN
          IF( IL.EQ.1 .AND. IU.EQ.N ) THEN
@@ -248,55 +248,55 @@
          ELSE
             CALL DCOPY( N-1, RWORK( INDRE ), 1, RWORK( INDREE ), 1 )
             CALL DCOPY( N, RWORK( INDRD ), 1, RWORK( INDRDD ), 1 )
-*
+
             IF (ABSTOL .LE. TWO*N*EPS) THEN
                TRYRAC = .TRUE.
             ELSE
                TRYRAC = .FALSE.
             END IF
             CALL ZSTEMR( JOBZ, 'A', N, RWORK( INDRDD ), RWORK( INDREE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, RWORK( INDRWK ), LLRWORK, IWORK, LIWORK, INFO )
-*
+
             // Apply unitary matrix used in reduction to tridiagonal
             // form to eigenvectors returned by ZSTEMR.
-*
+
             IF( WANTZ .AND. INFO.EQ.0 ) THEN
                INDWKN = INDWK
                LLWRKN = LWORK - INDWKN + 1
                CALL ZUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
             END IF
          END IF
-*
-*
+
+
          IF( INFO.EQ.0 ) THEN
             M = N
             GO TO 30
          END IF
          INFO = 0
       END IF
-*
+
       // Otherwise, call DSTEBZ and, if eigenvectors are desired, ZSTEIN.
       // Also call DSTEBZ and ZSTEIN if ZSTEMR fails.
-*
+
       IF( WANTZ ) THEN
          ORDER = 'B'
       ELSE
          ORDER = 'E'
       END IF
        CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDRD ), RWORK( INDRE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWO ), INFO )
-*
+
       IF( WANTZ ) THEN
          CALL ZSTEIN( N, RWORK( INDRD ), RWORK( INDRE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO )
-*
+
          // Apply unitary matrix used in reduction to tridiagonal
          // form to eigenvectors returned by ZSTEIN.
-*
+
          INDWKN = INDWK
          LLWRKN = LWORK - INDWKN + 1
          CALL ZUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
       END IF
-*
+
       // If matrix was scaled, then rescale eigenvalues appropriately.
-*
+
    30 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
@@ -306,10 +306,10 @@
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
-*
+
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
-*
+
       IF( WANTZ ) THEN
          DO 50 J = 1, M - 1
             I = 0
@@ -320,7 +320,7 @@
                   TMP1 = W( JJ )
                END IF
    40       CONTINUE
-*
+
             IF( I.NE.0 ) THEN
                ITMP1 = IWORK( INDIBL+I-1 )
                W( I ) = W( J )
@@ -331,15 +331,15 @@
             END IF
    50    CONTINUE
       END IF
-*
+
       // Set WORK(1) to optimal workspace size.
-*
+
       WORK( 1 )  = LWKOPT
       RWORK( 1 ) = LRWMIN
       IWORK( 1 ) = LIWMIN
-*
+
       RETURN
-*
+
       // End of ZHEEVR
-*
+
       END

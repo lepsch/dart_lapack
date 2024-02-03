@@ -1,9 +1,9 @@
       SUBROUTINE DLAGTF( N, A, LAMBDA, B, C, TOL, D, IN, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, N;
       double             LAMBDA, TOL;
@@ -12,9 +12,9 @@
       int                IN( * );
       double             A( * ), B( * ), C( * ), D( * );
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
@@ -34,25 +34,25 @@
       // EXTERNAL XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       IF( N.LT.0 ) THEN
          INFO = -1
          CALL XERBLA( 'DLAGTF', -INFO )
          RETURN
       END IF
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       A( 1 ) = A( 1 ) - LAMBDA
       IN( N ) = 0
       IF( N.EQ.1 ) THEN
          IF( A( 1 ).EQ.ZERO ) IN( 1 ) = 1
          RETURN
       END IF
-*
+
       EPS = DLAMCH( 'Epsilon' )
-*
+
       TL = MAX( TOL, EPS )
       SCALE1 = ABS( A( 1 ) ) + ABS( B( 1 ) )
       DO 10 K = 1, N - 1
@@ -94,9 +94,9 @@
          IF( ( MAX( PIV1, PIV2 ).LE.TL ) .AND. ( IN( N ).EQ.0 ) ) IN( N ) = K
    10 CONTINUE
       IF( ( ABS( A( N ) ).LE.SCALE1*TL ) .AND. ( IN( N ).EQ.0 ) ) IN( N ) = N
-*
+
       RETURN
-*
+
       // End of DLAGTF
-*
+
       END

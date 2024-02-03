@@ -1,9 +1,9 @@
       SUBROUTINE ZPOEQUB( N, A, LDA, S, SCOND, AMAX, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, N;
       double             AMAX, SCOND;
@@ -12,9 +12,9 @@
       COMPLEX*16         A( LDA, * )
       double             S( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -34,11 +34,11 @@
       // INTRINSIC MAX, MIN, SQRT, LOG, INT, REAL, DIMAG
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       // Positive definite only performs 1 pass of equilibration.
-*
+
       INFO = 0
       IF( N.LT.0 ) THEN
          INFO = -1
@@ -49,9 +49,9 @@
          CALL XERBLA( 'ZPOEQUB', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF( N.EQ.0 ) THEN
          SCOND = ONE
          AMAX = ZERO
@@ -60,9 +60,9 @@
 
       BASE = DLAMCH( 'B' )
       TMP = -0.5D+0 / LOG ( BASE )
-*
+
       // Find the minimum and maximum diagonal elements.
-*
+
       S( 1 ) = DBLE( A( 1, 1 ) )
       SMIN = S( 1 )
       AMAX = S( 1 )
@@ -71,11 +71,11 @@
          SMIN = MIN( SMIN, S( I ) )
          AMAX = MAX( AMAX, S( I ) )
    10 CONTINUE
-*
+
       IF( SMIN.LE.ZERO ) THEN
-*
+
          // Find the first non-positive diagonal element and return.
-*
+
          DO 20 I = 1, N
             IF( S( I ).LE.ZERO ) THEN
                INFO = I
@@ -83,21 +83,21 @@
             END IF
    20    CONTINUE
       ELSE
-*
+
          // Set the scale factors to the reciprocals
          // of the diagonal elements.
-*
+
          DO 30 I = 1, N
             S( I ) = BASE ** INT( TMP * LOG( S( I ) ) )
    30    CONTINUE
-*
+
          // Compute SCOND = min(S(I)) / max(S(I)).
-*
+
          SCOND = SQRT( SMIN ) / SQRT( AMAX )
       END IF
-*
+
       RETURN
-*
+
       // End of ZPOEQUB
-*
+
       END

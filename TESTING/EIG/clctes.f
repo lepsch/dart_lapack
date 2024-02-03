@@ -1,17 +1,17 @@
       bool             FUNCTION CLCTES( Z, D );
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       COMPLEX            D, Z
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
-*
+
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO
@@ -24,7 +24,7 @@
       // INTRINSIC ABS, AIMAG, MAX, REAL, SIGN
       // ..
       // .. Executable Statements ..
-*
+
       IF( D.EQ.CZERO ) THEN
          CLCTES = ( REAL( Z ).LT.ZERO )
       ELSE
@@ -37,9 +37,9 @@
             CLCTES = ( ( REAL( Z ) / ZMAX )*REAL( D )+ ( AIMAG( Z ) / ZMAX )*AIMAG( D ).LT.ZERO )
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of CLCTES
-*
+
       END

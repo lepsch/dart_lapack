@@ -1,16 +1,16 @@
       SUBROUTINE XERBLA( SRNAME, INFO )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       List<String>         SRNAME;
       int                INFO;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
@@ -24,7 +24,7 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       LERR = .TRUE.
       IF( INFO.NE.INFOT ) THEN
          IF( INFOT.NE.0 ) THEN
@@ -39,14 +39,14 @@
          OK = .FALSE.
       END IF
       RETURN
-*
+
  9999 FORMAT( ' *** XERBLA was called from ', A, ' with INFO = ', I6,
      $      ' instead of ', I2, ' ***' )
  9998 FORMAT( ' *** XERBLA was called with SRNAME = ', A,
      $      ' instead of ', A9, ' ***' )
  9997 FORMAT( ' *** On entry to ', A, ' parameter number ', I6,
      $      ' had an illegal value ***' )
-*
+
       // End of XERBLA
-*
+
       END

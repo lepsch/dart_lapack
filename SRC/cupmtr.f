@@ -1,9 +1,9 @@
       SUBROUTINE CUPMTR( SIDE, UPLO, TRANS, M, N, AP, TAU, C, LDC, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             SIDE, TRANS, UPLO;
       int                INFO, LDC, M, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX            AP( * ), C( LDC, * ), TAU( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
@@ -34,16 +34,16 @@
       // INTRINSIC CONJG, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
       UPPER = LSAME( UPLO, 'U' )
-*
+
       // NQ is the order of Q
-*
+
       IF( LEFT ) THEN
          NQ = M
       ELSE
@@ -66,17 +66,17 @@
          CALL XERBLA( 'CUPMTR', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
-*
+
       IF( UPPER ) THEN
-*
+
          // Q was determined by a call to CHPTRD with UPLO = 'U'
-*
+
          FORWRD = ( LEFT .AND. NOTRAN ) .OR. ( .NOT.LEFT .AND. .NOT.NOTRAN )
-*
+
          IF( FORWRD ) THEN
             I1 = 1
             I2 = NQ - 1
@@ -88,28 +88,28 @@
             I3 = -1
             II = NQ*( NQ+1 ) / 2 - 1
          END IF
-*
+
          IF( LEFT ) THEN
             NI = N
          ELSE
             MI = M
          END IF
-*
+
          DO 10 I = I1, I2, I3
             IF( LEFT ) THEN
-*
+
                // H(i) or H(i)**H is applied to C(1:i,1:n)
-*
+
                MI = I
             ELSE
-*
+
                // H(i) or H(i)**H is applied to C(1:m,1:i)
-*
+
                NI = I
             END IF
-*
+
             // Apply H(i) or H(i)**H
-*
+
             IF( NOTRAN ) THEN
                TAUI = TAU( I )
             ELSE
@@ -119,7 +119,7 @@
             AP( II ) = ONE
             CALL CLARF( SIDE, MI, NI, AP( II-I+1 ), 1, TAUI, C, LDC, WORK )
             AP( II ) = AII
-*
+
             IF( FORWRD ) THEN
                II = II + I + 2
             ELSE
@@ -127,11 +127,11 @@
             END IF
    10    CONTINUE
       ELSE
-*
+
          // Q was determined by a call to CHPTRD with UPLO = 'L'.
-*
+
          FORWRD = ( LEFT .AND. .NOT.NOTRAN ) .OR. ( .NOT.LEFT .AND. NOTRAN )
-*
+
          IF( FORWRD ) THEN
             I1 = 1
             I2 = NQ - 1
@@ -143,7 +143,7 @@
             I3 = -1
             II = NQ*( NQ+1 ) / 2 - 1
          END IF
-*
+
          IF( LEFT ) THEN
             NI = N
             JC = 1
@@ -151,26 +151,26 @@
             MI = M
             IC = 1
          END IF
-*
+
          DO 20 I = I1, I2, I3
             AII = AP( II )
             AP( II ) = ONE
             IF( LEFT ) THEN
-*
+
                // H(i) or H(i)**H is applied to C(i+1:m,1:n)
-*
+
                MI = M - I
                IC = I + 1
             ELSE
-*
+
                // H(i) or H(i)**H is applied to C(1:m,i+1:n)
-*
+
                NI = N - I
                JC = I + 1
             END IF
-*
+
             // Apply H(i) or H(i)**H
-*
+
             IF( NOTRAN ) THEN
                TAUI = TAU( I )
             ELSE
@@ -178,7 +178,7 @@
             END IF
             CALL CLARF( SIDE, MI, NI, AP( II ), 1, TAUI, C( IC, JC ), LDC, WORK )
             AP( II ) = AII
-*
+
             IF( FORWRD ) THEN
                II = II + NQ - I + 1
             ELSE
@@ -187,7 +187,7 @@
    20    CONTINUE
       END IF
       RETURN
-*
+
       // End of CUPMTR
-*
+
       END

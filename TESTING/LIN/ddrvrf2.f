@@ -1,9 +1,9 @@
       SUBROUTINE DDRVRF2( NOUT, NN, NVAL, A, LDA, ARF, AP, ASAV  )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                LDA, NN, NOUT;
       // ..
@@ -11,7 +11,7 @@
       int                NVAL( NN );
       double             A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * );
       // ..
-*
+
 *  =====================================================================
       // ..
       // .. Local Scalars ..
@@ -42,51 +42,51 @@
       DATA               FORMS / 'N', 'T' /
       // ..
       // .. Executable Statements ..
-*
+
       // Initialize constants and the random number seed.
-*
+
       NRUN = 0
       NERRS = 0
       INFO = 0
       DO 10 I = 1, 4
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
-*
+
       DO 120 IIN = 1, NN
-*
+
          N = NVAL( IIN )
-*
+
          // Do first for UPLO = 'U', then for UPLO = 'L'
-*
+
          DO 110 IUPLO = 1, 2
-*
+
             UPLO = UPLOS( IUPLO )
             LOWER = .TRUE.
             IF ( IUPLO.EQ.1 ) LOWER = .FALSE.
-*
+
             // Do first for CFORM = 'N', then for CFORM = 'T'
-*
+
             DO 100 IFORM = 1, 2
-*
+
                CFORM = FORMS( IFORM )
-*
+
                NRUN = NRUN + 1
-*
+
                DO J = 1, N
                   DO I = 1, N
                      A( I, J) = DLARND( 2, ISEED )
                   END DO
                END DO
-*
+
                SRNAMT = 'DTRTTF'
                CALL DTRTTF( CFORM, UPLO, N, A, LDA, ARF, INFO )
-*
+
                SRNAMT = 'DTFTTP'
                CALL DTFTTP( CFORM, UPLO, N, ARF, AP, INFO )
-*
+
                SRNAMT = 'DTPTTR'
                CALL DTPTTR( UPLO, N, AP, ASAV, LDA, INFO )
-*
+
                OK1 = .TRUE.
                IF ( LOWER ) THEN
                   DO J = 1, N
@@ -105,18 +105,18 @@
                      END DO
                   END DO
                END IF
-*
+
                NRUN = NRUN + 1
-*
+
                SRNAMT = 'DTRTTP'
                CALL DTRTTP( UPLO, N, A, LDA, AP, INFO )
-*
+
                SRNAMT = 'DTPTTF'
                CALL DTPTTF( CFORM, UPLO, N, AP, ARF, INFO )
-*
+
                SRNAMT = 'DTFTTR'
                CALL DTFTTR( CFORM, UPLO, N, ARF, ASAV, LDA, INFO )
-*
+
                OK2 = .TRUE.
                IF ( LOWER ) THEN
                   DO J = 1, N
@@ -135,7 +135,7 @@
                      END DO
                   END DO
                END IF
-*
+
                IF (( .NOT.OK1 ).OR.( .NOT.OK2 )) THEN
                   IF( NERRS.EQ.0 ) THEN
                      WRITE( NOUT, * )
@@ -144,19 +144,19 @@
                   WRITE( NOUT, FMT = 9998 ) N, UPLO, CFORM
                   NERRS = NERRS + 1
                END IF
-*
+
   100       CONTINUE
   110    CONTINUE
   120 CONTINUE
-*
+
       // Print a summary of the results.
-*
+
       IF ( NERRS.EQ.0 ) THEN
          WRITE( NOUT, FMT = 9997 ) NRUN
       ELSE
          WRITE( NOUT, FMT = 9996 ) NERRS, NRUN
       END IF
-*
+
  9999 FORMAT( 1X, ' *** Error(s) while testing the RFP conversion',
      +         ' routines ***')
  9998 FORMAT( 1X, '     Error in RFP,conversion routines N=',I5,
@@ -165,9 +165,9 @@
      +        I5,' tests run)')
  9996 FORMAT( 1X, 'RFP conversion routines: ',I5,' out of ',I5,
      +        ' error message recorded')
-*
+
       RETURN
-*
+
       // End of DDRVRF2
-*
+
       END

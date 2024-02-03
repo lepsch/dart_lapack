@@ -1,9 +1,9 @@
       double           FUNCTION ZLANHF( NORM, TRANSR, UPLO, N, A, WORK );
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             NORM, TRANSR, UPLO;
       int                N;
@@ -12,9 +12,9 @@
       double             WORK( 0: * );
       COMPLEX*16         A( 0: * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -34,7 +34,7 @@
       // INTRINSIC ABS, DBLE, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       IF( N.EQ.0 ) THEN
          ZLANHF = ZERO
          RETURN
@@ -42,26 +42,26 @@
          ZLANHF = ABS(DBLE(A(0)))
          RETURN
       END IF
-*
+
       // set noe = 1 if n is odd. if n is even set noe=0
-*
+
       NOE = 1
       IF( MOD( N, 2 ).EQ.0 ) NOE = 0
-*
+
       // set ifm = 0 when form='C' or 'c' and 1 otherwise
-*
+
       IFM = 1
       IF( LSAME( TRANSR, 'C' ) ) IFM = 0
-*
+
       // set ilu = 0 when uplo='U or 'u' and 1 otherwise
-*
+
       ILU = 1
       IF( LSAME( UPLO, 'U' ) ) ILU = 0
-*
+
       // set lda = (n+1)/2 when ifm = 0
       // set lda = n when ifm = 1 and noe = 1
       // set lda = n+1 when ifm = 1 and noe = 0
-*
+
       IF( IFM.EQ.1 ) THEN
          IF( NOE.EQ.1 ) THEN
             LDA = N
@@ -73,11 +73,11 @@
          // ifm=0
          LDA = ( N+1 ) / 2
       END IF
-*
+
       IF( LSAME( NORM, 'M' ) ) THEN
-*
+
         // Find max(abs(A(i,j))).
-*
+
          K = ( N+1 ) / 2
          VALUE = ZERO
          IF( NOE.EQ.1 ) THEN
@@ -373,9 +373,9 @@
             END IF
          END IF
       ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
-*
+
         // Find normI(A) ( = norm1(A), since A is Hermitian).
-*
+
          IF( IFM.EQ.1 ) THEN
             // A is 'N'
             K = N / 2
@@ -787,7 +787,7 @@
                      WORK( I ) = WORK( I ) + AA
                      S = S + AA
                   END DO
-*
+
                   // i=k-1
                   AA = ABS( DBLE( A( I+J*LDA ) ) )
                   // A(k-1,k-1)
@@ -795,7 +795,7 @@
                   WORK( I ) = S
                   // done with col j=k+1
                   DO J = K + 1, N
-*
+
                      // process col j-1 of A = A(j-1,0:k-1)
                      S = ZERO
                      DO I = 0, K - 1
@@ -815,9 +815,9 @@
             END IF
          END IF
       ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
-*
+
         // Find normF(A).
-*
+
          K = ( N+1 ) / 2
          SCALE = ZERO
          S = ONE
@@ -1244,10 +1244,10 @@
          END IF
          VALUE = SCALE*SQRT( S )
       END IF
-*
+
       ZLANHF = VALUE
       RETURN
-*
+
       // End of ZLANHF
-*
+
       END

@@ -1,19 +1,19 @@
       RECURSIVE SUBROUTINE SLAORHR_COL_GETRFNP2( M, N, A, LDA, D, INFO )
       IMPLICIT NONE
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
       // ..
       // .. Array Arguments ..
       REAL               A( LDA, * ), D( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
@@ -33,9 +33,9 @@
       // INTRINSIC ABS, SIGN, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters
-*
+
       INFO = 0
       IF( M.LT.0 ) THEN
          INFO = -1
@@ -48,45 +48,45 @@
          CALL XERBLA( 'SLAORHR_COL_GETRFNP2', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( MIN( M, N ).EQ.0 ) RETURN
 
       IF ( M.EQ.1 ) THEN
-*
+
          // One row case, (also recursion termination case),
          // use unblocked code
-*
+
          // Transfer the sign
-*
+
          D( 1 ) = -SIGN( ONE, A( 1, 1 ) )
-*
+
          // Construct the row of U
-*
+
          A( 1, 1 ) = A( 1, 1 ) - D( 1 )
-*
+
       ELSE IF( N.EQ.1 ) THEN
-*
+
          // One column case, (also recursion termination case),
          // use unblocked code
-*
+
          // Transfer the sign
-*
+
          D( 1 ) = -SIGN( ONE, A( 1, 1 ) )
-*
+
          // Construct the row of U
-*
+
          A( 1, 1 ) = A( 1, 1 ) - D( 1 )
-*
+
          // Scale the elements 2:M of the column
-*
+
          // Determine machine safe minimum
-*
+
          SFMIN = SLAMCH('S')
-*
+
          // Construct the subdiagonal elements of L
-*
+
          IF( ABS( A( 1, 1 ) ) .GE. SFMIN ) THEN
             CALL SSCAL( M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 )
          ELSE
@@ -94,39 +94,39 @@
                A( I, 1 ) = A( I, 1 ) / A( 1, 1 )
             END DO
          END IF
-*
+
       ELSE
-*
+
          // Divide the matrix B into four submatrices
-*
+
          N1 = MIN( M, N ) / 2
          N2 = N-N1
 
-*
+
          // Factor B11, recursive call
-*
+
          CALL SLAORHR_COL_GETRFNP2( N1, N1, A, LDA, D, IINFO )
-*
+
          // Solve for B21
-*
+
          CALL STRSM( 'R', 'U', 'N', 'N', M-N1, N1, ONE, A, LDA, A( N1+1, 1 ), LDA )
-*
+
          // Solve for B12
-*
+
          CALL STRSM( 'L', 'L', 'N', 'U', N1, N2, ONE, A, LDA, A( 1, N1+1 ), LDA )
-*
+
          // Update B22, i.e. compute the Schur complement
          // B22 := B22 - B21*B12
-*
+
          CALL SGEMM( 'N', 'N', M-N1, N2, N1, -ONE, A( N1+1, 1 ), LDA, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
-*
+
          // Factor B22, recursive call
-*
+
          CALL SLAORHR_COL_GETRFNP2( M-N1, N2, A( N1+1, N1+1 ), LDA, D( N1+1 ), IINFO )
-*
+
       END IF
       RETURN
-*
+
       // End of SLAORHR_COL_GETRFNP2
-*
+
       END

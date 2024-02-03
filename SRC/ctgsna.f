@@ -1,9 +1,9 @@
       SUBROUTINE CTGSNA( JOB, HOWMNY, SELECT, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, S, DIF, MM, M, WORK, LWORK, IWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             HOWMNY, JOB;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, M, MM, N;
@@ -14,9 +14,9 @@
       REAL               DIF( * ), S( * )
       COMPLEX            A( LDA, * ), B( LDB, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       int                IDIFJB;
@@ -44,18 +44,18 @@
       // INTRINSIC ABS, CMPLX, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Decode and test the input parameters
-*
+
       WANTBH = LSAME( JOB, 'B' )
       WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
       WANTDF = LSAME( JOB, 'V' ) .OR. WANTBH
-*
+
       SOMCON = LSAME( HOWMNY, 'S' )
-*
+
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-*
+
       IF( .NOT.WANTS .AND. .NOT.WANTDF ) THEN
          INFO = -1
       ELSE IF( .NOT.LSAME( HOWMNY, 'A' ) .AND. .NOT.SOMCON ) THEN
@@ -71,10 +71,10 @@
       ELSE IF( WANTS .AND. LDVR.LT.N ) THEN
          INFO = -12
       ELSE
-*
+
          // Set M to the number of eigenpairs for which condition numbers
          // are required, and test MM.
-*
+
          IF( SOMCON ) THEN
             M = 0
             DO 10 K = 1, N
@@ -83,7 +83,7 @@
          ELSE
             M = N
          END IF
-*
+
          IF( N.EQ.0 ) THEN
             LWMIN = 1
          ELSE IF( LSAME( JOB, 'V' ) .OR. LSAME( JOB, 'B' ) ) THEN
@@ -92,47 +92,47 @@
             LWMIN = N
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-*
+
          IF( MM.LT.M ) THEN
             INFO = -15
          ELSE IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
             INFO = -18
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CTGSNA', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Get machine constants
-*
+
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
       KS = 0
       DO 20 K = 1, N
-*
+
          // Determine whether condition numbers are required for the k-th
          // eigenpair.
-*
+
          IF( SOMCON ) THEN
             IF( .NOT.SELECT( K ) ) GO TO 20
          END IF
-*
+
          KS = KS + 1
-*
+
          IF( WANTS ) THEN
-*
+
             // Compute the reciprocal condition number of the k-th
             // eigenvalue.
-*
+
             RNRM = SCNRM2( N, VR( 1, KS ), 1 )
             LNRM = SCNRM2( N, VL( 1, KS ), 1 )
             CALL CGEMV( 'N', N, N, CMPLX( ONE, ZERO ), A, LDA, VR( 1, KS ), 1, CMPLX( ZERO, ZERO ), WORK, 1 )
@@ -146,38 +146,38 @@
                S( KS ) = COND / ( RNRM*LNRM )
             END IF
          END IF
-*
+
          IF( WANTDF ) THEN
             IF( N.EQ.1 ) THEN
                DIF( KS ) = SLAPY2( ABS( A( 1, 1 ) ), ABS( B( 1, 1 ) ) )
             ELSE
-*
+
                // Estimate the reciprocal condition number of the k-th
                // eigenvectors.
-*
+
                // Copy the matrix (A, B) to the array WORK and move the
                // (k,k)th pair to the (1,1) position.
-*
+
                CALL CLACPY( 'Full', N, N, A, LDA, WORK, N )
                CALL CLACPY( 'Full', N, N, B, LDB, WORK( N*N+1 ), N )
                IFST = K
                ILST = 1
-*
+
                CALL CTGEXC( .FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, IERR )
-*
+
                IF( IERR.GT.0 ) THEN
-*
+
                   // Ill-conditioned problem - swap rejected.
-*
+
                   DIF( KS ) = ZERO
                ELSE
-*
+
                   // Reordering successful, solve generalized Sylvester
                   // equation for R and L,
                              // A22 * R - L * A11 = A12
                              // B22 * R - L * B11 = B12,
                   // and compute estimate of Difl[(A11,B11), (A22, B22)].
-*
+
                   N1 = 1
                   N2 = N - N1
                   I = N*N + 1
@@ -185,11 +185,11 @@
                END IF
             END IF
          END IF
-*
+
    20 CONTINUE
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
       RETURN
-*
+
       // End of CTGSNA
-*
+
       END

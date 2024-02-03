@@ -1,9 +1,9 @@
       SUBROUTINE DLASD2( NL, NR, SQRE, K, D, Z, ALPHA, BETA, U, LDU, VT, LDVT, DSIGMA, U2, LDU2, VT2, LDVT2, IDXP, IDX, IDXC, IDXQ, COLTYP, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, K, LDU, LDU2, LDVT, LDVT2, NL, NR, SQRE;
       double             ALPHA, BETA;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       int                COLTYP( * ), IDX( * ), IDXC( * ), IDXP( * ), IDXQ( * )       double             D( * ), DSIGMA( * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE, TWO, EIGHT;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, EIGHT = 8.0D+0 )
@@ -36,11 +36,11 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
-*
+
       IF( NL.LT.1 ) THEN
          INFO = -1
       ELSE IF( NR.LT.1 ) THEN
@@ -48,10 +48,10 @@
       ELSE IF( ( SQRE.NE.1 ) .AND. ( SQRE.NE.0 ) ) THEN
          INFO = -3
       END IF
-*
+
       N = NL + NR + 1
       M = N + SQRE
-*
+
       IF( LDU.LT.N ) THEN
          INFO = -10
       ELSE IF( LDVT.LT.M ) THEN
@@ -65,13 +65,13 @@
          CALL XERBLA( 'DLASD2', -INFO )
          RETURN
       END IF
-*
+
       NLP1 = NL + 1
       NLP2 = NL + 2
-*
+
       // Generate the first part of the vector Z; and move the singular
       // values in the first part of D one position backward.
-*
+
       Z1 = ALPHA*VT( NLP1, NLP1 )
       Z( 1 ) = Z1
       DO 10 I = NL, 1, -1
@@ -79,78 +79,78 @@
          D( I+1 ) = D( I )
          IDXQ( I+1 ) = IDXQ( I ) + 1
    10 CONTINUE
-*
+
       // Generate the second part of the vector Z.
-*
+
       DO 20 I = NLP2, M
          Z( I ) = BETA*VT( I, NLP2 )
    20 CONTINUE
-*
+
       // Initialize some reference arrays.
-*
+
       DO 30 I = 2, NLP1
          COLTYP( I ) = 1
    30 CONTINUE
       DO 40 I = NLP2, N
          COLTYP( I ) = 2
    40 CONTINUE
-*
+
       // Sort the singular values into increasing order
-*
+
       DO 50 I = NLP2, N
          IDXQ( I ) = IDXQ( I ) + NLP1
    50 CONTINUE
-*
+
       // DSIGMA, IDXC, IDXC, and the first column of U2
       // are used as storage space.
-*
+
       DO 60 I = 2, N
          DSIGMA( I ) = D( IDXQ( I ) )
          U2( I, 1 ) = Z( IDXQ( I ) )
          IDXC( I ) = COLTYP( IDXQ( I ) )
    60 CONTINUE
-*
+
       CALL DLAMRG( NL, NR, DSIGMA( 2 ), 1, 1, IDX( 2 ) )
-*
+
       DO 70 I = 2, N
          IDXI = 1 + IDX( I )
          D( I ) = DSIGMA( IDXI )
          Z( I ) = U2( IDXI, 1 )
          COLTYP( I ) = IDXC( IDXI )
    70 CONTINUE
-*
+
       // Calculate the allowable deflation tolerance
-*
+
       EPS = DLAMCH( 'Epsilon' )
       TOL = MAX( ABS( ALPHA ), ABS( BETA ) )
       TOL = EIGHT*EPS*MAX( ABS( D( N ) ), TOL )
-*
+
       // There are 2 kinds of deflation -- first a value in the z-vector
       // is small, second two (or more) singular values are very close
      t // ogether (their difference is small).
-*
+
       // If the value in the z-vector is small, we simply permute the
       // array so that the corresponding singular value is moved to the
       // end.
-*
+
       // If two values in the D-vector are close, we perform a two-sided
       // rotation designed to make one of the corresponding z-vector
       // entries zero, and then permute the array so that the deflated
       // singular value is moved to the end.
-*
+
       // If there are multiple singular values then the problem deflates.
       // Here the number of equal singular values are found.  As each equal
       // singular value is found, an elementary reflector is computed to
       // rotate the corresponding singular subspace so that the
       // corresponding components of Z are zero in this new basis.
-*
+
       K = 1
       K2 = N + 1
       DO 80 J = 2, N
          IF( ABS( Z( J ) ).LE.TOL ) THEN
-*
+
             // Deflate due to small z component.
-*
+
             K2 = K2 - 1
             IDXP( K2 ) = J
             COLTYP( J ) = 4
@@ -166,35 +166,35 @@
       J = J + 1
       IF( J.GT.N ) GO TO 110
       IF( ABS( Z( J ) ).LE.TOL ) THEN
-*
+
          // Deflate due to small z component.
-*
+
          K2 = K2 - 1
          IDXP( K2 ) = J
          COLTYP( J ) = 4
       ELSE
-*
+
          // Check if singular values are close enough to allow deflation.
-*
+
          IF( ABS( D( J )-D( JPREV ) ).LE.TOL ) THEN
-*
+
             // Deflation is possible.
-*
+
             S = Z( JPREV )
             C = Z( J )
-*
+
             // Find sqrt(a**2+b**2) without overflow or
             // destructive underflow.
-*
+
             TAU = DLAPY2( C, S )
             C = C / TAU
             S = -S / TAU
             Z( J ) = TAU
             Z( JPREV ) = ZERO
-*
+
             // Apply back the Givens rotation to the left and right
             // singular vector matrices.
-*
+
             IDXJP = IDXQ( IDX( JPREV )+1 )
             IDXJ = IDXQ( IDX( J )+1 )
             IF( IDXJP.LE.NLP1 ) THEN
@@ -222,21 +222,21 @@
       END IF
       GO TO 100
   110 CONTINUE
-*
+
       // Record the last singular value.
-*
+
       K = K + 1
       U2( K, 1 ) = Z( JPREV )
       DSIGMA( K ) = D( JPREV )
       IDXP( K ) = JPREV
-*
+
   120 CONTINUE
-*
+
       // Count up the total number of the various types of columns, then
       // form a permutation which positions the four column types into
       // four groups of uniform structure (although one or more of these
       // groups may be empty).
-*
+
       DO 130 J = 1, 4
          CTOT( J ) = 0
   130 CONTINUE
@@ -244,33 +244,33 @@
          CT = COLTYP( J )
          CTOT( CT ) = CTOT( CT ) + 1
   140 CONTINUE
-*
+
       // PSM(*) = Position in SubMatrix (of types 1 through 4)
-*
+
       PSM( 1 ) = 2
       PSM( 2 ) = 2 + CTOT( 1 )
       PSM( 3 ) = PSM( 2 ) + CTOT( 2 )
       PSM( 4 ) = PSM( 3 ) + CTOT( 3 )
-*
+
       // Fill out the IDXC array so that the permutation which it induces
       // will place all type-1 columns first, all type-2 columns next,
      t // hen all type-3's, and finally all type-4's, starting from the
       // second column. This applies similarly to the rows of VT.
-*
+
       DO 150 J = 2, N
          JP = IDXP( J )
          CT = COLTYP( JP )
          IDXC( PSM( CT ) ) = J
          PSM( CT ) = PSM( CT ) + 1
   150 CONTINUE
-*
+
       // Sort the singular values and corresponding singular vectors into
       // DSIGMA, U2, and VT2 respectively.  The singular values/vectors
       // which were not deflated go into the first K slots of DSIGMA, U2,
       // and VT2 respectively, while those which were deflated go into the
       // last N - K slots, except that the first column/row will be treated
       // separately.
-*
+
       DO 160 J = 2, N
          JP = IDXP( J )
          DSIGMA( J ) = D( JP )
@@ -281,9 +281,9 @@
          CALL DCOPY( N, U( 1, IDXJ ), 1, U2( 1, J ), 1 )
          CALL DCOPY( M, VT( IDXJ, 1 ), LDVT, VT2( J, 1 ), LDVT2 )
   160 CONTINUE
-*
+
       // Determine DSIGMA(1), DSIGMA(2) and Z(1)
-*
+
       DSIGMA( 1 ) = ZERO
       HLFTOL = TOL / TWO
       IF( ABS( DSIGMA( 2 ) ).LE.HLFTOL ) DSIGMA( 2 ) = HLFTOL
@@ -304,14 +304,14 @@
             Z( 1 ) = Z1
          END IF
       END IF
-*
+
       // Move the rest of the updating row to Z.
-*
+
       CALL DCOPY( K-1, U2( 2, 1 ), 1, Z( 2 ), 1 )
-*
+
       // Determine the first column of U2, the first row of VT2 and the
       // last row of VT.
-*
+
       CALL DLASET( 'A', N, 1, ZERO, ZERO, U2, LDU2 )
       U2( NLP1, 1 ) = ONE
       IF( M.GT.N ) THEN
@@ -329,23 +329,23 @@
       IF( M.GT.N ) THEN
          CALL DCOPY( M, VT( M, 1 ), LDVT, VT2( M, 1 ), LDVT2 )
       END IF
-*
+
       // The deflated singular values and their corresponding vectors go
       // into the back of D, U, and V respectively.
-*
+
       IF( N.GT.K ) THEN
          CALL DCOPY( N-K, DSIGMA( K+1 ), 1, D( K+1 ), 1 )
          CALL DLACPY( 'A', N, N-K, U2( 1, K+1 ), LDU2, U( 1, K+1 ), LDU )          CALL DLACPY( 'A', N-K, M, VT2( K+1, 1 ), LDVT2, VT( K+1, 1 ), LDVT )
       END IF
-*
+
       // Copy CTOT into COLTYP for referencing in DLASD3.
-*
+
       DO 190 J = 1, 4
          COLTYP( J ) = CTOT( J )
   190 CONTINUE
-*
+
       RETURN
-*
+
       // End of DLASD2
-*
+
       END

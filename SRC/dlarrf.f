@@ -1,9 +1,9 @@
       SUBROUTINE DLARRF( N, D, L, LD, CLSTRT, CLEND, W, WGAP, WERR, SPDIAM, CLGAPL, CLGAPR, PIVMIN, SIGMA, DPLUS, LPLUS, WORK, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                CLSTRT, CLEND, INFO, N;
       double             CLGAPL, CLGAPR, PIVMIN, SIGMA, SPDIAM;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             D( * ), DPLUS( * ), L( * ), LD( * ), LPLUS( * ), W( * ), WGAP( * ), WERR( * ), WORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             FOUR, MAXGROWTH1, MAXGROWTH2, ONE, QUART, TWO;
       PARAMETER          ( ONE = 1.0D0, TWO = 2.0D0, FOUR = 4.0D0, QUART = 0.25D0, MAXGROWTH1 = 8.D0, MAXGROWTH2 = 8.D0 )
@@ -36,15 +36,15 @@
       // INTRINSIC ABS
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) THEN
          RETURN
       END IF
-*
+
       FACT = DBLE(2**KTRYMAX)
       EPS = DLAMCH( 'Precision' )
       SHIFT = 0
@@ -65,7 +65,7 @@
       // representations despite large element growth or signal INFO=1
       // Setting NOFAIL to .FALSE. for quick fix for bug 113
       NOFAIL = .FALSE.
-*
+
 
       // Compute the average gap length of the cluster
       CLWDTH = ABS(W(CLEND)-W(CLSTRT)) + WERR(CLEND) + WERR(CLSTRT)
@@ -85,15 +85,15 @@
 
       LDELTA = MAX(AVGAP,WGAP( CLSTRT ))/FACT
       RDELTA = MAX(AVGAP,WGAP( CLEND-1 ))/FACT
-*
+
       // Initialize the record of the best representation found
-*
+
       S = DLAMCH( 'S' )
       SMLGROWTH = ONE / S
       FAIL = DBLE(N-1)*MINGAP/(SPDIAM*EPS)
       FAIL2 = DBLE(N-1)*MINGAP/(SPDIAM*SQRT(EPS))
       BESTSHIFT = LSIGMA
-*
+
       // while (KTRY <= KTRYMAX)
       KTRY = 0
       GROWTHBOUND = MAXGROWTH1*SPDIAM
@@ -278,7 +278,7 @@
       ENDIF
 
       RETURN
-*
+
       // End of DLARRF
-*
+
       END

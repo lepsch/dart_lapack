@@ -1,18 +1,18 @@
       SUBROUTINE ICOPY( N, SX, INCX, SY, INCY )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INCX, INCY, N;
       // ..
       // .. Array Arguments ..
       int                SX( * ), SY( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, IX, IY, M, MP1;
       // ..
@@ -20,11 +20,11 @@
       // INTRINSIC MOD
       // ..
       // .. Executable Statements ..
-*
+
       IF( N.LE.0 ) RETURN       IF( INCX.EQ.1 .AND. INCY.EQ.1 ) GO TO 20
-*
+
       // Code for unequal increments or equal increments not equal to 1
-*
+
       IX = 1
       IY = 1
       IF( INCX.LT.0 ) IX = ( -N+1 )*INCX + 1       IF( INCY.LT.0 ) IY = ( -N+1 )*INCY + 1
@@ -34,11 +34,11 @@
          IY = IY + INCY
    10 CONTINUE
       RETURN
-*
+
       // Code for both increments equal to 1
-*
+
       // Clean-up loop
-*
+
    20 CONTINUE
       M = MOD( N, 7 )
       IF( M.EQ.0 ) GO TO 40
@@ -58,7 +58,7 @@
          SY( I+6 ) = SX( I+6 )
    50 CONTINUE
       RETURN
-*
+
       // End of ICOPY
-*
+
       END

@@ -8,9 +8,9 @@
       COMPLEX*16       A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( * )
       double           S( * ), RWORK( * );
       int              IWORK( * );
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double           ZERO,         ONE;
       PARAMETER      ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -41,9 +41,9 @@
       // INTRINSIC ABS, CONJG, MAX, MIN, DBLE, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       WNTUS  = LSAME( JOBU, 'S' ) .OR. LSAME( JOBU, 'U' )
       WNTUR  = LSAME( JOBU, 'R' )
       WNTUA  = LSAME( JOBU, 'A' )
@@ -51,20 +51,20 @@
       LSVC0  = WNTUS .OR. WNTUR .OR. WNTUA
       LSVEC  = LSVC0 .OR. WNTUF
       DNTWU  = LSAME( JOBU, 'N' )
-*
+
       WNTVR  = LSAME( JOBV, 'R' )
       WNTVA  = LSAME( JOBV, 'A' ) .OR. LSAME( JOBV, 'V' )
       RSVEC  = WNTVR .OR. WNTVA
       DNTWV  = LSAME( JOBV, 'N' )
-*
+
       ACCLA  = LSAME( JOBA, 'A' )
       ACCLM  = LSAME( JOBA, 'M' )
       CONDA  = LSAME( JOBA, 'E' )
       ACCLH  = LSAME( JOBA, 'H' ) .OR. CONDA
-*
+
       ROWPRM = LSAME( JOBP, 'P' )
       RTRANS = LSAME( JOBR, 'T' )
-*
+
       IF ( ROWPRM ) THEN
          IMINWRK = MAX( 1, N + M - 1 )
          RMINWRK = MAX( 2, M, 5*N )
@@ -99,15 +99,15 @@
       ELSE IF ( LIWORK .LT. IMINWRK .AND. .NOT. LQUERY ) THEN
          INFO = -17
       END IF
-*
-*
+
+
       IF ( INFO .EQ. 0 ) THEN
          // .. compute the minimal and the optimal workspace lengths
          // [[The expressions for computing the minimal and the optimal
          // values of LCWORK are written with a lot of redundancy and
          // can be simplified. However, this detailed form is easier for
          // maintenance and modifications of the code.]]
-*
+
          // .. minimal workspace length for ZGEQP3 of an M x N matrix
          LWQP3 = N+1
          // .. minimal workspace length for ZUNMQR to build left singular vectors
@@ -267,13 +267,13 @@
                 END IF
              END IF
          END IF
-*
+
          MINWRK = MAX( 2, MINWRK )
          OPTWRK = MAX( 2, OPTWRK )
          IF ( LCWORK .LT. MINWRK .AND. (.NOT.LQUERY) ) INFO = -19
-*
+
       END IF
-*
+
       IF (INFO .EQ. 0 .AND. LRWORK .LT. RMINWRK .AND. .NOT. LQUERY) THEN
          INFO = -21
       END IF
@@ -281,23 +281,23 @@
          CALL XERBLA( 'ZGESVDQ', -INFO )
          RETURN
       ELSE IF ( LQUERY ) THEN
-*
+
       // Return optimal workspace
-*
+
           IWORK(1) = IMINWRK
           CWORK(1) = OPTWRK
           CWORK(2) = MINWRK
           RWORK(1) = RMINWRK
           RETURN
       END IF
-*
+
       // Quick return if the matrix is void.
-*
+
       IF( ( M.EQ.0 ) .OR. ( N.EQ.0 ) ) THEN
       // .. all output is void.
          RETURN
       END IF
-*
+
       BIG = DLAMCH('O')
       ASCALED = .FALSE.
       IF ( ROWPRM ) THEN
@@ -324,7 +324,7 @@
                RWORK(q) = RTMP
             END IF
  1952       CONTINUE
-*
+
             IF ( RWORK(1) .EQ. ZERO ) THEN
                // Quick return: A is the M x N zero matrix.
                NUMRANK = 0
@@ -348,7 +348,7 @@
                RWORK(2) = -1
                RETURN
             END IF
-*
+
             IF ( RWORK(1) .GT. BIG / SQRT(DBLE(M)) ) THEN
                 // .. to prevent overflow in the QR factorization, scale the
                 // matrix by 1/sqrt(M) if too large entry detected
@@ -357,12 +357,12 @@
             END IF
             CALL ZLASWP( N, A, LDA, 1, M-1, IWORK(N+1), 1 )
       END IF
-*
+
 *    .. At this stage, preemptive scaling is done only to avoid column
 *    norms overflows during the QR factorization. The SVD procedure should
 *    have its own scaling to save the singular values from overflows and
 *    underflows. That depends on the SVD procedure.
-*
+
       IF ( .NOT.ROWPRM ) THEN
           RTMP = ZLANGE( 'M', M, N, A, LDA, RWORK )
           IF ( ( RTMP .NE. RTMP ) .OR. ( (RTMP*ZERO) .NE. ZERO ) ) THEN
@@ -377,29 +377,29 @@
               ASCALED = .TRUE.
           END IF
       END IF
-*
+
       // .. QR factorization with column pivoting
-*
+
       // A * P = Q * [ R ]
                   // [ 0 ]
-*
+
       DO 1963 p = 1, N
          // .. all columns are free columns
          IWORK(p) = 0
  1963 CONTINUE
       CALL ZGEQP3( M, N, A, LDA, IWORK, CWORK, CWORK(N+1), LCWORK-N, RWORK, IERR )
-*
+
 *    If the user requested accuracy level allows truncation in the
 *    computed upper triangular factor, the matrix R is examined and,
 *    if possible, replaced with its leading upper trapezoidal part.
-*
+
       EPSLN = DLAMCH('E')
       SFMIN = DLAMCH('S')
       // SMALL = SFMIN / EPSLN
       NR = N
-*
+
       IF ( ACCLA ) THEN
-*
+
          // Standard absolute error bound suffices. All sigma_i with
          // sigma_i < N*EPS*||A||_F are flushed to zero. This is an
          // aggressive enforcement of lower numerical rank by introducing a
@@ -411,7 +411,7 @@
                NR = NR + 1
  3001    CONTINUE
  3002    CONTINUE
-*
+
       ELSEIF ( ACCLM ) THEN
          // .. similarly as above, only slightly more gentle (less aggressive).
          // Sudden drop on the diagonal of R is used as the criterion for being
@@ -425,7 +425,7 @@
             NR = NR + 1
  3401    CONTINUE
  3402    CONTINUE
-*
+
       ELSE
          // .. RRQR not authorized to determine numerical rank except in the
          // obvious case of zero pivots.
@@ -437,7 +437,7 @@
             NR = NR + 1
  3501    CONTINUE
  3502    CONTINUE
-*
+
          IF ( CONDA ) THEN
             // Estimate the scaled condition number of A. Use the fact that it is
            t // he same as the scaled condition number of R.
@@ -462,9 +462,9 @@
             // N^(-1/4) * SCONDA <= ||R^(-1)||_2 <= N^(1/4) * SCONDA
             // See the reference [1] for more details.
          END IF
-*
+
       ENDIF
-*
+
       IF ( WNTUR ) THEN
           N1 = NR
       ELSE IF ( WNTUS .OR. WNTUF) THEN
@@ -472,13 +472,13 @@
       ELSE IF ( WNTUA ) THEN
           N1 = M
       END IF
-*
+
       IF ( .NOT. ( RSVEC .OR. LSVEC ) ) THEN
 *.......................................................................
          // .. only the singular values are requested
 *.......................................................................
          IF ( RTRANS ) THEN
-*
+
           // .. compute the singular values of R**H = [A](1:NR,1:N)**H
             // .. set the lower triangle of [A] to [A](1:NR,1:N)**H and
            t // he upper triangle of [A] to zero.
@@ -489,17 +489,17 @@
                   IF ( q .LE. NR ) A(p,q) = CZERO
  1147          CONTINUE
  1146       CONTINUE
-*
+
             CALL ZGESVD( 'N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO )
-*
+
          ELSE
-*
+
             // .. compute the singular values of R = [A](1:NR,1:N)
-*
+
             IF ( NR .GT. 1 ) CALL ZLASET( 'L', NR-1,NR-1, CZERO,CZERO, A(2,1), LDA )             CALL ZGESVD( 'N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO )
-*
+
          END IF
-*
+
       ELSE IF ( LSVEC .AND. ( .NOT. RSVEC) ) THEN
 *.......................................................................
         // .. the singular values and the left singular vectors requested
@@ -518,7 +518,7 @@
             // vectors overwrite [U](1:NR,1:NR) as conjugate transposed. These
             // will be pre-multiplied by Q to build the left singular vectors of A.
                CALL ZGESVD( 'N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
-*
+
                DO 1119 p = 1, NR
                    U(p,p) = CONJG(U(p,p))
                    DO 1120 q = p + 1, NR
@@ -527,7 +527,7 @@
                       U(p,q) = CTMP
  1120              CONTINUE
  1119          CONTINUE
-*
+
          ELSE
              // .. apply ZGESVD to R
              // .. copy R into [U] and overwrite [U] with the left singular vectors
@@ -540,7 +540,7 @@
                 // R. These will be pre-multiplied by Q to build the left singular
                 // vectors of A.
          END IF
-*
+
             // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
          IF ( ( NR .LT. M ) .AND. ( .NOT.WNTUF ) ) THEN
@@ -550,13 +550,13 @@
                 CALL ZLASET( 'A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU )
              END IF
          END IF
-*
+
             // The Q matrix from the first QRF is built into the left singular
             // vectors matrix U.
-*
+
          IF ( .NOT.WNTUF ) CALL ZUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR )
          IF ( ROWPRM .AND. .NOT.WNTUF ) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 )
-*
+
       ELSE IF ( RSVEC .AND. ( .NOT. LSVEC ) ) THEN
 *.......................................................................
         // .. the singular values and the right singular vectors requested
@@ -574,7 +574,7 @@
             // vectors not computed
             IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
                CALL ZGESVD( 'O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
-*
+
                DO 1121 p = 1, NR
                    V(p,p) = CONJG(V(p,p))
                    DO 1122 q = p + 1, NR
@@ -583,7 +583,7 @@
                       V(p,q) = CTMP
  1122              CONTINUE
  1121          CONTINUE
-*
+
                IF ( NR .LT. N ) THEN
                    DO 1103 p = 1, NR
                       DO 1104 q = NR + 1, N
@@ -600,7 +600,7 @@
                 // how to implement this, see the " FULL SVD " branch.
                 CALL ZLASET('G', N, N-NR, CZERO, CZERO, V(1,NR+1), LDV)
                 CALL ZGESVD( 'O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
-*
+
                 DO 1123 p = 1, N
                    V(p,p) = CONJG(V(p,p))
                    DO 1124 q = p + 1, N
@@ -611,7 +611,7 @@
  1123           CONTINUE
                 CALL ZLAPMT( .FALSE., N, N, V, LDV, IWORK )
             END IF
-*
+
           ELSE
              // .. aply ZGESVD to R
              // .. copy R into V and overwrite V with the right singular vectors
@@ -636,15 +636,15 @@
              // .. now [V] contains the adjoint of the matrix of the right singular
              // vectors of A.
           END IF
-*
+
       ELSE
 *.......................................................................
         // .. FULL SVD requested
 *.......................................................................
          IF ( RTRANS ) THEN
-*
+
              // .. apply ZGESVD to R**H [[this option is left for R&D&T]]
-*
+
             IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
              // .. copy R**H into [V] and overwrite [V] with the left singular
              // vectors of R**H
@@ -654,7 +654,7 @@
  1169          CONTINUE
  1168       CONTINUE
             IF ( NR .GT. 1 ) CALL ZLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV )
-*
+
             // .. the left singular vectors of R**H overwrite [V], the NR right
             // singular vectors of R**H stored in [U](1:NR,1:NR) as conjugate
            t // ransposed
@@ -676,7 +676,7 @@
  1101              CONTINUE
                END IF
                CALL ZLAPMT( .FALSE., NR, N, V, LDV, IWORK )
-*
+
                 DO 1117 p = 1, NR
                    U(p,p) = CONJG(U(p,p))
                    DO 1118 q = p + 1, NR
@@ -685,7 +685,7 @@
                       U(p,q) = CTMP
  1118              CONTINUE
  1117           CONTINUE
-*
+
                 IF ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) THEN
                   CALL ZLASET('A', M-NR,NR, CZERO,CZERO, U(NR+1,1), LDU)
                   IF ( NR .LT. N1 ) THEN
@@ -693,7 +693,7 @@
                      CALL ZLASET( 'A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU )
                   END IF
                END IF
-*
+
             ELSE
                 // .. need all N right singular vectors and NR < N
              // .. copy R**H into [V] and overwrite [V] with the left singular
@@ -711,10 +711,10 @@
  1199                 CONTINUE
  1198              CONTINUE
                    IF ( NR .GT. 1 ) CALL ZLASET('U',NR-1,NR-1, CZERO,CZERO, V(1,2),LDV)
-*
+
                    CALL ZLASET('A',N,N-NR,CZERO,CZERO,V(1,NR+1),LDV)
                    CALL ZGESVD( 'O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
-*
+
                    DO 1113 p = 1, N
                       V(p,p) = CONJG(V(p,p))
                       DO 1114 q = p + 1, N
@@ -726,7 +726,7 @@
                    CALL ZLAPMT( .FALSE., N, N, V, LDV, IWORK )
                // .. assemble the left singular vector matrix U of dimensions
                // (M x N1), i.e. (M x N) or (M x M).
-*
+
                    DO 1111 p = 1, N
                       U(p,p) = CONJG(U(p,p))
                       DO 1112 q = p + 1, N
@@ -735,7 +735,7 @@
                          U(p,q) = CTMP
  1112                 CONTINUE
  1111              CONTINUE
-*
+
                    IF ( ( N .LT. M ) .AND. .NOT.(WNTUF)) THEN
                       CALL ZLASET('A',M-N,N,CZERO,CZERO,U(N+1,1),LDU)
                       IF ( N .LT. N1 ) THEN
@@ -775,11 +775,11 @@
                   END IF
                 END IF
             END IF
-*
+
          ELSE
-*
+
              // .. apply ZGESVD to R [[this is the recommended option]]
-*
+
              IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
                  // .. copy R into [V] and overwrite V with the right singular vectors
                  CALL ZLACPY( 'U', NR, N, A, LDA, V, LDV )
@@ -798,7 +798,7 @@
                      CALL ZLASET( 'A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU )
                   END IF
                END IF
-*
+
              ELSE
                // .. need all N right singular vectors and NR < N
                // .. the requested number of the left singular vectors
@@ -852,16 +852,16 @@
              END IF
          // .. end of the "R**H or R" branch
          END IF
-*
+
             // The Q matrix from the first QRF is built into the left singular
             // vectors matrix U.
-*
+
          IF ( .NOT. WNTUF ) CALL ZUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR )
          IF ( ROWPRM .AND. .NOT.WNTUF ) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 )
-*
+
       // ... end of the "full SVD" branch
       END IF
-*
+
       // Check whether some singular values are returned as zeros, e.g.
       // due to underflow, and update the numerical rank.
       p = NR
@@ -870,7 +870,7 @@
           NR = NR - 1
  4001 CONTINUE
  4002 CONTINUE
-*
+
       // .. if numerical rank deficiency is detected, the truncated
       // singular values are set to zero.
       IF ( NR .LT. N ) CALL DLASET( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N )
@@ -883,9 +883,9 @@
       // exact zeros in ZGESVD() applied to the (possibly truncated)
       // full row rank triangular (trapezoidal) factor of A.
       NUMRANK = NR
-*
+
       RETURN
-*
+
       // End of ZGESVDQ
-*
+
       END

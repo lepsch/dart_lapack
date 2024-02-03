@@ -1,19 +1,19 @@
       SUBROUTINE DLARRR( N, D, E, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                N, INFO;
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * );
       // ..
-*
-*
+
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, RELCOND;
       PARAMETER          ( ZERO = 0.0D0, RELCOND = 0.999D0 )
@@ -32,14 +32,14 @@
       // INTRINSIC ABS
       // ..
       // .. Executable Statements ..
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) THEN
          INFO = 0
          RETURN
       END IF
-*
+
       // As a default, do NOT go for relative-accuracy preserving computations.
       INFO = 1
 
@@ -49,11 +49,11 @@
       RMIN = SQRT( SMLNUM )
 
       // Tests for relative accuracy
-*
+
       // Test for scaled diagonal dominance
       // Scale the diagonal entries to one and check whether the sum of the
       // off-diagonals is less than one
-*
+
       // The sdd relative error bounds have a 1/(1- 2*x) factor in them,
       // x = max(OFFDIG + OFFDIG2), so when x is close to 1/2, no relative
       // accuracy is promised.  In the notation of the code fragment below,
@@ -64,7 +64,7 @@
       // code. We set  OFFDIG + OFFDIG2 <= .999 =: RELCOND, it corresponds
      t // o losing at most 3 decimal digits: 1 / (1 - (OFFDIG + OFFDIG2)) <= 1000
       // instead of the current OFFDIG + OFFDIG2 < 1
-*
+
       YESREL = .TRUE.
       OFFDIG = ZERO
       TMP = SQRT(ABS(D(1)))
@@ -87,28 +87,28 @@
          RETURN
       ELSE
       ENDIF
-*
 
-*
+
+
       // *** MORE TO BE IMPLEMENTED ***
-*
 
-*
+
+
       // Test if the lower bidiagonal matrix L from T = L D L^T
       // (zero shift facto) is well conditioned
-*
 
-*
+
+
       // Test if the upper bidiagonal matrix U from T = U D U^T
       // (zero shift facto) is well conditioned.
       // In this case, the matrix needs to be flipped and, at the end
       // of the eigenvector computation, the flip needs to be applied
      t // o the computed eigenvectors (and the support)
-*
 
-*
+
+
       RETURN
-*
+
       // End of DLARRR
-*
+
       END

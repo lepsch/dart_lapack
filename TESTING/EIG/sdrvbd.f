@@ -1,11 +1,11 @@
       SUBROUTINE SDRVBD( NSIZES, MM, NN, NTYPES, DOTYPE, ISEED, THRESH, A, LDA, U, LDU, VT, LDVT, ASAV, USAV, VTSAV, S, SSAV, E, WORK, LWORK, IWORK, NOUT, INFO )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       IMPLICIT NONE
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LDVT, LWORK, NOUT, NSIZES, NTYPES;
       REAL               THRESH
@@ -15,9 +15,9 @@
       int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * );
       REAL               A( LDA, * ), ASAV( LDA, * ), E( * ), S( * ), SSAV( * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL              ZERO, ONE, TWO, HALF
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = 0.5E0 )
@@ -67,9 +67,9 @@
       DATA               CJOBV / 'N', 'V' /
       // ..
       // .. Executable Statements ..
-*
+
       // Check for errors
-*
+
       INFO = 0
       BADMM = .FALSE.
       BADNN = .FALSE.
@@ -85,9 +85,9 @@
          MNMAX = MAX( MNMAX, MIN( MM( J ), NN( J ) ) )
          MINWRK = MAX( MINWRK, MAX( 3*MIN( MM( J ), NN( J ) )+MAX( MM( J ), NN( J ) ), 5*MIN( MM( J ), NN( J )-4 ) )+2*MIN( MM( J ), NN( J ) )**2 )
    10 CONTINUE
-*
+
       // Check for errors
-*
+
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
       ELSE IF( BADMM ) THEN
@@ -105,14 +105,14 @@
       ELSE IF( MINWRK.GT.LWORK ) THEN
          INFO = -21
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SDRVBD', -INFO )
          RETURN
       END IF
-*
+
       // Initialize constants
-*
+
       PATH( 1: 1 ) = 'Single precision'
       PATH( 2: 3 ) = 'BD'
       NFAIL = 0
@@ -123,47 +123,47 @@
       RTUNFL = SQRT( UNFL )
       ULPINV = ONE / ULP
       INFOT = 0
-*
+
       // Loop over sizes, types
-*
+
       DO 240 JSIZE = 1, NSIZES
          M = MM( JSIZE )
          N = NN( JSIZE )
          MNMIN = MIN( M, N )
-*
+
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
          ELSE
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
-*
+
          DO 230 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 230
-*
+
             DO 20 J = 1, 4
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
-*
+
             // Compute "A"
-*
+
             IF( MTYPES.GT.MAXTYP ) GO TO 30
-*
+
             IF( JTYPE.EQ.1 ) THEN
-*
+
                // Zero matrix
-*
+
                CALL SLASET( 'Full', M, N, ZERO, ZERO, A, LDA )
-*
+
             ELSE IF( JTYPE.EQ.2 ) THEN
-*
+
                // Identity matrix
-*
+
                CALL SLASET( 'Full', M, N, ZERO, ONE, A, LDA )
-*
+
             ELSE
-*
+
                // (Scaled) random matrix
-*
+
                IF( JTYPE.EQ.3 ) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP                CALL SLATMS( M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO )
                IF( IINFO.NE.0 ) THEN
                   WRITE( NOUT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
@@ -171,26 +171,26 @@
                   RETURN
                END IF
             END IF
-*
+
    30       CONTINUE
             CALL SLACPY( 'F', M, N, A, LDA, ASAV, LDA )
-*
+
             // Do for minimal and adequate (for blocking) workspace
-*
+
             DO 220 IWS = 1, 4
-*
+
                DO 40 J = 1, 32
                   RESULT( J ) = -ONE
    40          CONTINUE
-*
+
                // Test SGESVD: Factorize A
-*
+
                IWTMP = MAX( 3*MIN( M, N )+MAX( M, N ), 5*MIN( M, N ) )
                LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                LSWORK = MIN( LSWORK, LWORK )
                LSWORK = MAX( LSWORK, 1 )
                IF( IWS.EQ.4 ) LSWORK = LWORK
-*
+
                IF( IWS.GT.1 ) CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                SRNAMT = 'SGESVD'
                CALL SGESVD( 'A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IINFO )
@@ -199,9 +199,9 @@
                   INFO = ABS( IINFO )
                   RETURN
                END IF
-*
+
                // Do tests 1--4
-*
+
                CALL SBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 1 ) )
                IF( M.NE.0 .AND. N.NE.0 ) THEN
                   CALL SORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 2 ) )                   CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 3 ) )
@@ -213,9 +213,9 @@
                IF( MNMIN.GE.1 ) THEN
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 4 ) = ULPINV
                END IF
-*
+
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
-*
+
                RESULT( 5 ) = ZERO
                RESULT( 6 ) = ZERO
                RESULT( 7 ) = ZERO
@@ -227,9 +227,9 @@
                      CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                      SRNAMT = 'SGESVD'
                      CALL SGESVD( JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, IINFO )
-*
+
                      // Compare U
-*
+
                      DIF = ZERO
                      IF( M.GT.0 .AND. N.GT.0 ) THEN
                         IF( IJU.EQ.1 ) THEN
@@ -241,9 +241,9 @@
                         END IF
                      END IF
                      RESULT( 5 ) = MAX( RESULT( 5 ), DIF )
-*
+
                      // Compare VT
-*
+
                      DIF = ZERO
                      IF( M.GT.0 .AND. N.GT.0 ) THEN
                         IF( IJVT.EQ.1 ) THEN
@@ -255,9 +255,9 @@
                         END IF
                      END IF
                      RESULT( 6 ) = MAX( RESULT( 6 ), DIF )
-*
+
                      // Compare S
-*
+
                      DIF = ZERO
                      DIV = MAX( MNMIN*ULP*S( 1 ), UNFL )
                      DO 60 I = 1, MNMIN - 1
@@ -267,15 +267,15 @@
                      RESULT( 7 ) = MAX( RESULT( 7 ), DIF )
    70             CONTINUE
    80          CONTINUE
-*
+
                // Test SGESDD: Factorize A
-*
+
                IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N )
                LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                LSWORK = MIN( LSWORK, LWORK )
                LSWORK = MAX( LSWORK, 1 )
                IF( IWS.EQ.4 ) LSWORK = LWORK
-*
+
                CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                SRNAMT = 'SGESDD'
                CALL SGESDD( 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IWORK, IINFO )
@@ -284,9 +284,9 @@
                   INFO = ABS( IINFO )
                   RETURN
                END IF
-*
+
                // Do tests 8--11
-*
+
                CALL SBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 8 ) )
                IF( M.NE.0 .AND. N.NE.0 ) THEN
                   CALL SORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 9 ) )                   CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 10 ) )
@@ -298,9 +298,9 @@
                IF( MNMIN.GE.1 ) THEN
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 11 ) = ULPINV
                END IF
-*
+
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
-*
+
                RESULT( 12 ) = ZERO
                RESULT( 13 ) = ZERO
                RESULT( 14 ) = ZERO
@@ -309,9 +309,9 @@
                   CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                   SRNAMT = 'SGESDD'
                   CALL SGESDD( JOBQ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, IWORK, IINFO )
-*
+
                   // Compare U
-*
+
                   DIF = ZERO
                   IF( M.GT.0 .AND. N.GT.0 ) THEN
                      IF( IJQ.EQ.1 ) THEN
@@ -325,9 +325,9 @@
                      END IF
                   END IF
                   RESULT( 12 ) = MAX( RESULT( 12 ), DIF )
-*
+
                   // Compare VT
-*
+
                   DIF = ZERO
                   IF( M.GT.0 .AND. N.GT.0 ) THEN
                      IF( IJQ.EQ.1 ) THEN
@@ -341,9 +341,9 @@
                      END IF
                   END IF
                   RESULT( 13 ) = MAX( RESULT( 13 ), DIF )
-*
+
                   // Compare S
-*
+
                   DIF = ZERO
                   DIV = MAX( MNMIN*ULP*S( 1 ), UNFL )
                   DO 100 I = 1, MNMIN - 1
@@ -352,37 +352,37 @@
   100             CONTINUE
                   RESULT( 14 ) = MAX( RESULT( 14 ), DIF )
   110          CONTINUE
-*
+
                // Test SGESVDQ
                // Note: SGESVDQ only works for M >= N
-*
+
                RESULT( 36 ) = ZERO
                RESULT( 37 ) = ZERO
                RESULT( 38 ) = ZERO
                RESULT( 39 ) = ZERO
-*
+
                IF( M.GE.N ) THEN
                   IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
                   IF( IWS.EQ.4 ) LSWORK = LWORK
-*
+
                   CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                   SRNAMT = 'SGESVDQ'
-*
+
                   LRWORK = 2
                   LIWORK = MAX( N, 1 )
                   CALL SGESVDQ( 'H', 'N', 'N', 'A', 'A',  M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, IINFO )
-*
+
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUT, FMT = 9995 )'SGESVDQ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
                   END IF
-*
+
                   // Do tests 36--39
-*
+
                   CALL SBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 36 ) )
                   IF( M.NE.0 .AND. N.NE.0 ) THEN
                      CALL SORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 37 ) )                      CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 38 ) )
@@ -395,42 +395,42 @@
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 39 ) = ULPINV
                   END IF
                END IF
-*
+
                // Test SGESVJ
                // Note: SGESVJ only works for M >= N
-*
+
                RESULT( 15 ) = ZERO
                RESULT( 16 ) = ZERO
                RESULT( 17 ) = ZERO
                RESULT( 18 ) = ZERO
-*
+
                IF( M.GE.N ) THEN
                   IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
                   IF( IWS.EQ.4 ) LSWORK = LWORK
-*
+
                   CALL SLACPY( 'F', M, N, ASAV, LDA, USAV, LDA )
                   SRNAMT = 'SGESVJ'
                   CALL SGESVJ( 'G', 'U', 'V', M, N, USAV, LDA, SSAV, 0, A, LDVT, WORK, LWORK, INFO )
-*
+
                   // SGESVJ returns V not VT
-*
+
                   DO J=1,N
                      DO I=1,N
                         VTSAV(J,I) = A(I,J)
                      END DO
                   END DO
-*
+
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUT, FMT = 9995 )'GESVJ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
                   END IF
-*
+
                   // Do tests 15--18
-*
+
                   CALL SBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 15 ) )
                   IF( M.NE.0 .AND. N.NE.0 ) THEN
                      CALL SORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 16 ) )                      CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 17 ) )
@@ -443,10 +443,10 @@
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 18 ) = ULPINV
                   END IF
                END IF
-*
+
                // Test SGEJSV
                // Note: SGEJSV only works for M >= N
-*
+
                RESULT( 19 ) = ZERO
                RESULT( 20 ) = ZERO
                RESULT( 21 ) = ZERO
@@ -457,27 +457,27 @@
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
                   IF( IWS.EQ.4 ) LSWORK = LWORK
-*
+
                   CALL SLACPY( 'F', M, N, ASAV, LDA, VTSAV, LDA )
                   SRNAMT = 'SGEJSV'
                   CALL SGEJSV( 'G', 'U', 'V', 'R', 'N', 'N', M, N, VTSAV, LDA, SSAV, USAV, LDU, A, LDVT, WORK, LWORK, IWORK, INFO )
-*
+
                   // SGEJSV returns V not VT
-*
+
                   DO 140 J=1,N
                      DO 130 I=1,N
                         VTSAV(J,I) = A(I,J)
   130                END DO
   140             END DO
-*
+
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUT, FMT = 9995 )'GEJSV', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
                   END IF
-*
+
                   // Do tests 19--22
-*
+
                   CALL SBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 19 ) )
                   IF( M.NE.0 .AND. N.NE.0 ) THEN
                      CALL SORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 20 ) )                      CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 21 ) )
@@ -490,9 +490,9 @@
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 22 ) = ULPINV
                   END IF
                END IF
-*
+
                // Test SGESVDX
-*
+
                CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                CALL SGESVDX( 'V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LWORK, IWORK, IINFO )
                IF( IINFO.NE.0 ) THEN
@@ -500,9 +500,9 @@
                   INFO = ABS( IINFO )
                   RETURN
                END IF
-*
+
                // Do tests 23--29
-*
+
                RESULT( 23 ) = ZERO
                RESULT( 24 ) = ZERO
                RESULT( 25 ) = ZERO
@@ -517,9 +517,9 @@
                IF( MNMIN.GE.1 ) THEN
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 26 ) = ULPINV
                END IF
-*
+
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
-*
+
                RESULT( 27 ) = ZERO
                RESULT( 28 ) = ZERO
                RESULT( 29 ) = ZERO
@@ -531,9 +531,9 @@
                      RANGE = CJOBR( 1 )
                      CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                      CALL SGESVDX( JOBU, JOBVT, RANGE, M, N, A, LDA, VL, VU, IL, IU, NS, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO )
-*
+
                      // Compare U
-*
+
                      DIF = ZERO
                      IF( M.GT.0 .AND. N.GT.0 ) THEN
                         IF( IJU.EQ.1 ) THEN
@@ -541,9 +541,9 @@
                         END IF
                      END IF
                      RESULT( 27 ) = MAX( RESULT( 27 ), DIF )
-*
+
                      // Compare VT
-*
+
                      DIF = ZERO
                      IF( M.GT.0 .AND. N.GT.0 ) THEN
                         IF( IJVT.EQ.1 ) THEN
@@ -551,9 +551,9 @@
                         END IF
                      END IF
                      RESULT( 28 ) = MAX( RESULT( 28 ), DIF )
-*
+
                      // Compare S
-*
+
                      DIF = ZERO
                      DIV = MAX( MNMIN*ULP*S( 1 ), UNFL )
                      DO 190 I = 1, MNMIN - 1
@@ -563,9 +563,9 @@
                      RESULT( 29 ) = MAX( RESULT( 29 ), DIF )
   170             CONTINUE
   180          CONTINUE
-*
+
                // Do tests 30--32: SGESVDX( 'V', 'V', 'I' )
-*
+
                DO 200 I = 1, 4
                   ISEED2( I ) = ISEED( I )
   200          CONTINUE
@@ -588,14 +588,14 @@
                   INFO = ABS( IINFO )
                   RETURN
                END IF
-*
+
                RESULT( 30 ) = ZERO
                RESULT( 31 ) = ZERO
                RESULT( 32 ) = ZERO
                CALL SBDT05( M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) )                CALL SORT01( 'Columns', M, NSI, U, LDU, WORK, LWORK, RESULT( 31 ) )                CALL SORT01( 'Rows', NSI, N, VT, LDVT, WORK, LWORK, RESULT( 32 ) )
-*
+
                // Do tests 33--35: SGESVDX( 'V', 'V', 'V' )
-*
+
                IF( MNMIN.GT.0 .AND. NSI.GT.1 ) THEN
                   IF( IL.NE.1 ) THEN
                      VU = SSAV( IL ) + MAX( HALF*ABS( SSAV( IL )-SSAV( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
@@ -621,14 +621,14 @@
                   INFO = ABS( IINFO )
                   RETURN
                END IF
-*
+
                RESULT( 33 ) = ZERO
                RESULT( 34 ) = ZERO
                RESULT( 35 ) = ZERO
                CALL SBDT05( M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) )                CALL SORT01( 'Columns', M, NSV, U, LDU, WORK, LWORK, RESULT( 34 ) )                CALL SORT01( 'Rows', NSV, N, VT, LDVT, WORK, LWORK, RESULT( 35 ) )
-*
+
                // End of Loop -- Check for RESULT(j) > THRESH
-*
+
                DO 210 J = 1, 39
                   IF( RESULT( J ).GE.THRESH ) THEN
                      IF( NFAIL.EQ.0 ) THEN
@@ -643,11 +643,11 @@
   220       CONTINUE
   230    CONTINUE
   240 CONTINUE
-*
+
       // Summary
-*
+
       CALL ALASVM( PATH, NOUT, NFAIL, NTEST, 0 )
-*
+
  9999 FORMAT( ' SVD -- Real Singular Value Decomposition Driver ',
      $      / ' Matrix types (see SDRVBD for details):',
      $      / / ' 1 = Zero matrix', / ' 2 = Identity matrix',
@@ -715,9 +715,9 @@
  9995 FORMAT( ' SDRVBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=',
      $      I6, ', N=', I6, ', JTYPE=', I6, ', LSWORK=', I6, / 9X,
      $      'ISEED=(', 3( I5, ',' ), I5, ')' )
-*
+
       RETURN
-*
+
       // End of SDRVBD
-*
+
       END

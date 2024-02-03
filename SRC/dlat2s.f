@@ -1,9 +1,9 @@
       SUBROUTINE DLAT2S( UPLO, N, A, LDA, SA, LDSA, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDSA, N;
@@ -12,9 +12,9 @@
       REAL               SA( LDSA, * )
       double             A( LDA, * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, J;
       double             RMAX;
@@ -29,7 +29,7 @@
       // INTRINSIC REAL
       // ..
       // .. Executable Statements ..
-*
+
       RMAX = SLAMCH( 'O' )
       UPPER = LSAME( UPLO, 'U' )
       IF( UPPER ) THEN
@@ -54,9 +54,9 @@
    40    CONTINUE
       END IF
    50 CONTINUE
-*
+
       RETURN
-*
+
       // End of DLAT2S
-*
+
       END

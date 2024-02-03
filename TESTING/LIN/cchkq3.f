@@ -1,9 +1,9 @@
       SUBROUTINE CCHKQ3( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, THRESH, A, COPYA, S, TAU, WORK, RWORK, IWORK, NOUT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                NM, NN, NNB, NOUT;
       REAL               THRESH
@@ -14,9 +14,9 @@
       REAL               S( * ), RWORK( * )
       COMPLEX            A( * ), COPYA( * ), TAU( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NTYPES;
       PARAMETER          ( NTYPES = 6 )
@@ -58,9 +58,9 @@
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       // ..
       // .. Executable Statements ..
-*
+
       // Initialize constants and the random number seed.
-*
+
       PATH( 1: 1 ) = 'Complex precision'
       PATH( 2: 3 ) = 'Q3'
       NRUN = 0
@@ -71,25 +71,25 @@
    10 CONTINUE
       EPS = SLAMCH( 'Epsilon' )
       INFOT = 0
-*
+
       DO 90 IM = 1, NM
-*
+
          // Do for each value of M in MVAL.
-*
+
          M = MVAL( IM )
          LDA = MAX( 1, M )
-*
+
          DO 80 IN = 1, NN
-*
+
             // Do for each value of N in NVAL.
-*
+
             N = NVAL( IN )
             MNMIN = MIN( M, N )
             LWORK = MAX( 1, M*MAX( M, N )+4*MNMIN+MAX( M, N ) )
-*
+
             DO 70 IMODE = 1, NTYPES
                IF( .NOT.DOTYPE( IMODE ) ) GO TO 70
-*
+
                // Do for each type of matrix
                   // 1:  zero matrix
                   // 2:  one small singular value
@@ -97,13 +97,13 @@
                   // 4:  first n/2 columns fixed
                   // 5:  last n/2 columns fixed
                   // 6:  every second column fixed
-*
+
                MODE = IMODE
                IF( IMODE.GT.3 ) MODE = 1
-*
+
                // Generate test matrix of size m by n using
                // singular value distribution indicated by `mode'.
-*
+
                DO 20 I = 1, N
                   IWORK( I ) = 0
    20          CONTINUE
@@ -134,44 +134,44 @@
                   END IF
                   CALL SLAORD( 'Decreasing', MNMIN, S, 1 )
                END IF
-*
+
                DO 60 INB = 1, NNB
-*
+
                   // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
-*
+
                   NB = NBVAL( INB )
                   CALL XLAENV( 1, NB )
                   NX = NXVAL( INB )
                   CALL XLAENV( 3, NX )
-*
+
                   // Save A and its singular values and a copy of
                   // vector IWORK.
-*
+
                   CALL CLACPY( 'All', M, N, COPYA, LDA, A, LDA )
                   CALL ICOPY( N, IWORK( 1 ), 1, IWORK( N+1 ), 1 )
-*
+
                   // Workspace needed.
-*
+
                   LW = NB*( N+1 )
-*
+
                   SRNAMT = 'CGEQP3'
                   CALL CGEQP3( M, N, A, LDA, IWORK( N+1 ), TAU, WORK, LW, RWORK, INFO )
-*
+
                   // Compute norm(svd(a) - svd(r))
-*
+
                   RESULT( 1 ) = CQRT12( M, N, A, LDA, S, WORK, LWORK, RWORK )
-*
+
                   // Compute norm( A*P - Q*R )
-*
+
                   RESULT( 2 ) = CQPT01( M, N, MNMIN, COPYA, A, LDA, TAU, IWORK( N+1 ), WORK, LWORK )
-*
+
                   // Compute Q'*Q
-*
+
                   RESULT( 3 ) = CQRT11( M, MNMIN, A, LDA, TAU, WORK, LWORK )
-*
+
                   // Print information about the tests that did not pass
                  t // he threshold.
-*
+
                   DO 50 K = 1, NTESTS
                      IF( RESULT( K ).GE.THRESH ) THEN
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'CGEQP3', M, N, NB, IMODE, K, RESULT( K )
@@ -179,19 +179,19 @@
                      END IF
    50             CONTINUE
                   NRUN = NRUN + NTESTS
-*
+
    60          CONTINUE
    70       CONTINUE
    80    CONTINUE
    90 CONTINUE
-*
+
       // Print a summary of the results.
-*
+
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
-*
+
  9999 FORMAT( 1X, A, ' M =', I5, ', N =', I5, ', NB =', I4, ', type ',
      $      I2, ', test ', I2, ', ratio =', G12.5 )
-*
+
       // End of CCHKQ3
-*
+
       END

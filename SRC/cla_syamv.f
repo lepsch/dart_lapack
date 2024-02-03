@@ -1,9 +1,9 @@
       SUBROUTINE CLA_SYAMV( UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL               ALPHA, BETA
       int                INCX, INCY, LDA, N;
@@ -13,9 +13,9 @@
       COMPLEX            A( LDA, * ), X( * )
       REAL               Y( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
@@ -44,9 +44,9 @@
       CABS1( ZDUM ) = ABS( REAL ( ZDUM ) ) + ABS( AIMAG ( ZDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF     ( UPLO.NE.ILAUPLO( 'U' ) .AND. UPLO.NE.ILAUPLO( 'L' ) )THEN
          INFO = 1
@@ -63,13 +63,13 @@
          CALL XERBLA( 'CLA_SYAMV', INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF( ( N.EQ.0 ).OR.( ( ALPHA.EQ.ZERO ).AND.( BETA.EQ.ONE ) ) ) RETURN
-*
+
       // Set up the start points in  X  and  Y.
-*
+
       IF( INCX.GT.0 )THEN
          KX = 1
       ELSE
@@ -80,19 +80,19 @@
       ELSE
          KY = 1 - ( N - 1 )*INCY
       END IF
-*
+
       // Set SAFE1 essentially to be the underflow threshold times the
       // number of additions in each row.
-*
+
       SAFE1 = SLAMCH( 'Safe minimum' )
       SAFE1 = (N+1)*SAFE1
-*
+
       // Form  y := alpha*abs(A)*abs(x) + beta*abs(y).
-*
+
       // The O(N^2) SYMB_ZERO tests could be replaced by O(N) queries to
      t // he inexact flag.  Still doesn't help change the iteration order
      t // o per-column.
-*
+
       IY = KY
       IF ( INCX.EQ.1 ) THEN
          IF ( UPLO .EQ. ILAUPLO( 'U' ) ) THEN
@@ -222,9 +222,9 @@
          END IF
 
       END IF
-*
+
       RETURN
-*
+
       // End of CLA_SYAMV
-*
+
       END

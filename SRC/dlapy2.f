@@ -1,15 +1,15 @@
       double           FUNCTION DLAPY2( X, Y );
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       double             X, Y;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
@@ -31,13 +31,13 @@
       // INTRINSIC ABS, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       X_IS_NAN = DISNAN( X )
       Y_IS_NAN = DISNAN( Y )
       IF ( X_IS_NAN ) DLAPY2 = X
       IF ( Y_IS_NAN ) DLAPY2 = Y
       HUGEVAL = DLAMCH( 'Overflow' )
-*
+
       IF ( .NOT.( X_IS_NAN.OR.Y_IS_NAN ) ) THEN
          XABS = ABS( X )
          YABS = ABS( Y )
@@ -50,7 +50,7 @@
          END IF
       END IF
       RETURN
-*
+
       // End of DLAPY2
-*
+
       END

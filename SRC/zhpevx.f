@@ -1,9 +1,9 @@
       SUBROUTINE ZHPEVX( JOBZ, RANGE, UPLO, N, AP, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, RWORK, IWORK, IFAIL, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDZ, M, N;
@@ -14,9 +14,9 @@
       double             RWORK( * ), W( * );
       COMPLEX*16         AP( * ), WORK( * ), Z( LDZ, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -41,14 +41,14 @@
       // INTRINSIC DBLE, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       WANTZ = LSAME( JOBZ, 'V' )
       ALLEIG = LSAME( RANGE, 'A' )
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
-*
+
       INFO = 0
       IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
          INFO = -1
@@ -72,17 +72,17 @@
       IF( INFO.EQ.0 ) THEN
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -14
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZHPEVX', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       M = 0
       IF( N.EQ.0 ) RETURN
-*
+
       IF( N.EQ.1 ) THEN
          IF( ALLEIG .OR. INDEIG ) THEN
             M = 1
@@ -96,18 +96,18 @@
          IF( WANTZ ) Z( 1, 1 ) = CONE
          RETURN
       END IF
-*
+
       // Get machine constants.
-*
+
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
       SMLNUM = SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
-*
+
       // Scale matrix to allowable range, if necessary.
-*
+
       ISCALE = 0
       ABSTLL = ABSTOL
       IF( VALEIG ) THEN
@@ -133,20 +133,20 @@
             VUU = VU*SIGMA
          END IF
       END IF
-*
+
       // Call ZHPTRD to reduce Hermitian packed matrix to tridiagonal form.
-*
+
       INDD = 1
       INDE = INDD + N
       INDRWK = INDE + N
       INDTAU = 1
       INDWRK = INDTAU + N
       CALL ZHPTRD( UPLO, N, AP, RWORK( INDD ), RWORK( INDE ), WORK( INDTAU ), IINFO )
-*
+
       // If all eigenvalues are desired and ABSTOL is less than or equal
      t // o zero, then call DSTERF or ZUPGTR and ZSTEQR.  If this fails
       // for some eigenvalue, then try DSTEBZ.
-*
+
       TEST = .FALSE.
       IF (INDEIG) THEN
          IF (IL.EQ.1 .AND. IU.EQ.N) THEN
@@ -175,9 +175,9 @@
          END IF
          INFO = 0
       END IF
-*
+
       // Otherwise, call DSTEBZ and, if eigenvectors are desired, ZSTEIN.
-*
+
       IF( WANTZ ) THEN
          ORDER = 'B'
       ELSE
@@ -186,19 +186,19 @@
       INDISP = 1 + N
       INDIWK = INDISP + N
       CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO )
-*
+
       IF( WANTZ ) THEN
          CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
-*
+
          // Apply unitary matrix used in reduction to tridiagonal
          // form to eigenvectors returned by ZSTEIN.
-*
+
          INDWRK = INDTAU + N
          CALL ZUPMTR( 'L', UPLO, 'N', N, M, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
       END IF
-*
+
       // If matrix was scaled, then rescale eigenvalues appropriately.
-*
+
    20 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
@@ -208,10 +208,10 @@
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
-*
+
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
-*
+
       IF( WANTZ ) THEN
          DO 40 J = 1, M - 1
             I = 0
@@ -222,7 +222,7 @@
                   TMP1 = W( JJ )
                END IF
    30       CONTINUE
-*
+
             IF( I.NE.0 ) THEN
                ITMP1 = IWORK( 1 + I-1 )
                W( I ) = W( J )
@@ -238,9 +238,9 @@
             END IF
    40    CONTINUE
       END IF
-*
+
       RETURN
-*
+
       // End of ZHPEVX
-*
+
       END

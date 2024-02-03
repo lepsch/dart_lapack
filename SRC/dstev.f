@@ -1,9 +1,9 @@
       SUBROUTINE DSTEV( JOBZ, N, D, E, Z, LDZ, WORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBZ;
       int                INFO, LDZ, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             D( * ), E( * ), WORK( * ), Z( LDZ, * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -35,11 +35,11 @@
       // INTRINSIC SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       WANTZ = LSAME( JOBZ, 'V' )
-*
+
       INFO = 0
       IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
          INFO = -1
@@ -48,32 +48,32 @@
       ELSE IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) THEN
          INFO = -6
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DSTEV ', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       IF( N.EQ.1 ) THEN
          IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
-*
+
       // Get machine constants.
-*
+
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
       SMLNUM = SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
       RMIN = SQRT( SMLNUM )
       RMAX = SQRT( BIGNUM )
-*
+
       // Scale matrix to allowable range, if necessary.
-*
+
       ISCALE = 0
       TNRM = DLANST( 'M', N, D, E )
       IF( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) THEN
@@ -87,18 +87,18 @@
          CALL DSCAL( N, SIGMA, D, 1 )
          CALL DSCAL( N-1, SIGMA, E( 1 ), 1 )
       END IF
-*
+
       // For eigenvalues only, call DSTERF.  For eigenvalues and
       // eigenvectors, call DSTEQR.
-*
+
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, D, E, INFO )
       ELSE
          CALL DSTEQR( 'I', N, D, E, Z, LDZ, WORK, INFO )
       END IF
-*
+
       // If matrix was scaled, then rescale eigenvalues appropriately.
-*
+
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = N
@@ -107,9 +107,9 @@
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, D, 1 )
       END IF
-*
+
       RETURN
-*
+
       // End of DSTEV
-*
+
       END

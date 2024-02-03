@@ -1,9 +1,9 @@
       SUBROUTINE SLARRE( RANGE, N, VL, VU, IL, IU, D, E, E2, RTOL1, RTOL2, SPLTOL, NSPLIT, ISPLIT, M, W, WERR, WGAP, IBLOCK, INDEXW, GERS, PIVMIN, WORK, IWORK, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             RANGE;
       int                IL, INFO, IU, M, N, NSPLIT;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       int                IBLOCK( * ), ISPLIT( * ), IWORK( * ), INDEXW( * )       REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ),WERR( * ), WGAP( * ), WORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               FAC, FOUR, FOURTH, FUDGE, HALF, HNDRD, MAXGROWTH, ONE, PERT, TWO, ZERO       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, FOUR=4.0E0, HNDRD = 100.0E0, PERT = 4.0E0, HALF = ONE/TWO, FOURTH = ONE/FOUR, FAC= HALF, MAXGROWTH = 64.0E0, FUDGE = 2.0E0 )
       int                MAXTRY, ALLRNG, INDRNG, VALRNG;
@@ -43,20 +43,20 @@
 
       // ..
       // .. Executable Statements ..
-*
+
 
       INFO = 0
       NSPLIT = 0
       M = 0
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) THEN
          RETURN
       END IF
-*
+
       // Decode RANGE
-*
+
       IF( LSAME( RANGE, 'A' ) ) THEN
          IRANGE = ALLRNG
       ELSE IF( LSAME( RANGE, 'V' ) ) THEN
@@ -96,7 +96,7 @@
       END IF
 
       // General case: tridiagonal matrix of order > 1
-*
+
       // Init WERR, WGAP. Compute Gerschgorin intervals and spectral diameter.
       // Compute maximum off-diagonal entry and pivmin.
       GL = D(1)
@@ -187,12 +187,12 @@
             IBEGIN = IEND + 1
             GO TO 170
          END IF
-*
+
          // Blocks of size larger than 1x1
-*
+
          // E( IEND ) will hold the shift for the initial RRR, for now set it =0
          E( IEND ) = ZERO
-*
+
          // Find local outer bounds GL,GU for the block
          GL = D(IBEGIN)
          GU = D(IBEGIN)
@@ -358,7 +358,7 @@
                TAU = WERR(WBEGIN)
             ENDIF
          ENDIF
-*
+
          DO 80 IDUM = 1, MAXTRY
             // Compute L D L^T factorization of tridiagonal matrix T - sigma I.
             // Store D in WORK(1:IN), L in WORK(IN+1:2*IN), and reciprocals of
@@ -426,11 +426,11 @@
 
 
          IF(MB.GT.1 ) THEN
-*
+
             // Perturb each entry of the base representation by a small
             // (but random) relative amount to overcome difficulties with
             // glued matrices.
-*
+
             DO 122 I = 1, 4
                ISEED( I ) = 1
  122        CONTINUE
@@ -441,9 +441,9 @@
                E(IBEGIN+I-1) = E(IBEGIN+I-1)*(ONE+EPS*PERT*WORK(IN+I))
  125        CONTINUE
             D(IEND) = D(IEND)*(ONE+EPS*FOUR*WORK(IN))
-*
+
          ENDIF
-*
+
          // Don't update the Gerschgorin intervals because keeping track
          // of the updates would be too much work in SLARRV.
          // We update W instead and use it to locate the proper Gerschgorin
@@ -546,10 +546,10 @@
          IBEGIN = IEND + 1
          WBEGIN = WEND + 1
  170  CONTINUE
-*
+
 
       RETURN
-*
+
       // End of SLARRE
-*
+
       END

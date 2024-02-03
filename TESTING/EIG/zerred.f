@@ -1,16 +1,16 @@
       SUBROUTINE ZERRED( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 4, LW = 5*NMAX )
@@ -53,13 +53,13 @@
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-*
+
       // Initialize A
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = ZERO
@@ -70,11 +70,11 @@
    30 CONTINUE
       OK = .TRUE.
       NT = 0
-*
+
       IF( LSAMEN( 2, C2, 'EV' ) ) THEN
-*
+
          // Test ZGEEV
-*
+
          SRNAMT = 'ZGEEV '
          INFOT = 1
          CALL ZGEEV( 'X', 'N', 0, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO )
@@ -98,11 +98,11 @@
          CALL ZGEEV( 'V', 'V', 1, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO )
          CALL CHKXER( 'ZGEEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
       ELSE IF( LSAMEN( 2, C2, 'ES' ) ) THEN
-*
+
          // Test ZGEES
-*
+
          SRNAMT = 'ZGEES '
          INFOT = 1
          CALL ZGEES( 'X', 'N', ZSLECT, 0, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO )
@@ -123,11 +123,11 @@
          CALL ZGEES( 'N', 'S', ZSLECT, 1, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO )
          CALL CHKXER( 'ZGEES ', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
       ELSE IF( LSAMEN( 2, C2, 'VX' ) ) THEN
-*
+
          // Test ZGEEVX
-*
+
          SRNAMT = 'ZGEEVX'
          INFOT = 1
          CALL ZGEEVX( 'X', 'N', 'N', 'N', 0, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO )
@@ -160,11 +160,11 @@
          CALL ZGEEVX( 'N', 'N', 'V', 'V', 1, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 2, RW, INFO )
          CALL CHKXER( 'ZGEEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
       ELSE IF( LSAMEN( 2, C2, 'SX' ) ) THEN
-*
+
          // Test ZGEESX
-*
+
          SRNAMT = 'ZGEESX'
          INFOT = 1
          CALL ZGEESX( 'X', 'N', ZSLECT, 'N', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO )
@@ -188,11 +188,11 @@
          CALL ZGEESX( 'N', 'N', ZSLECT, 'N', 1, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO )
          CALL CHKXER( 'ZGEESX', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
       ELSE IF( LSAMEN( 2, C2, 'BD' ) ) THEN
-*
+
          // Test ZGESVD
-*
+
          SRNAMT = 'ZGESVD'
          INFOT = 1
          CALL ZGESVD( 'X', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, INFO )
@@ -224,9 +224,9 @@
          ELSE
             WRITE( NOUT, FMT = 9998 )
          END IF
-*
+
          // Test ZGESDD
-*
+
          SRNAMT = 'ZGESDD'
          INFOT = 1
          CALL ZGESDD( 'X', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
@@ -252,9 +252,9 @@
          ELSE
             WRITE( NOUT, FMT = 9998 )
          END IF
-*
+
          // Test ZGEJSV
-*
+
          SRNAMT = 'ZGEJSV'
          INFOT = 1
          CALL ZGEJSV( 'X', 'U', 'V', 'R', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO)
@@ -295,9 +295,9 @@
          ELSE
             WRITE( NOUT, FMT = 9998 )
          END IF
-*
+
          // Test ZGESVDX
-*
+
          SRNAMT = 'ZGESVDX'
          INFOT = 1
          CALL ZGESVDX( 'X', 'N', 'A', 0, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
@@ -341,9 +341,9 @@
          ELSE
             WRITE( NOUT, FMT = 9998 )
          END IF
-*
+
          // Test ZGESVDQ
-*
+
          SRNAMT = 'ZGESVDQ'
          INFOT = 1
          CALL ZGESVDQ( 'X', 'P', 'T', 'A', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO )
@@ -385,9 +385,9 @@
             WRITE( NOUT, FMT = 9998 )
          END IF
       END IF
-*
+
       // Print a summary line.
-*
+
       IF( .NOT.LSAMEN( 2, C2, 'BD' ) ) THEN
          IF( OK ) THEN
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
@@ -395,12 +395,12 @@
             WRITE( NOUT, FMT = 9998 )
          END IF
       END IF
-*
+
  9999 FORMAT( 1X, A, ' passed the tests of the error exits (', I3,
      $      ' tests done)' )
  9998 FORMAT( ' *** ', A, ' failed the tests of the error exits ***' )
       RETURN
-*
+
       // End of ZERRED
-*
+
       END

@@ -1,16 +1,16 @@
       SUBROUTINE SGET35( RMAX, LMAX, NINFO, KNT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                KNT, LMAX, NINFO;
       REAL               RMAX
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -40,29 +40,29 @@
       DATA               IVAL / 1, 35*0, 1, 2, 4*0, -2, 0, 28*0, 1, 5*0, 5, 1, 2, 3*0, -8, -2, 1, 21*0, 3, 4, 4*0, -5, 3, 4*0, 1, 2, 1, 4, 2*0, -3, -9, -1, 1, 14*0, 1, 5*0, 2, 3, 4*0, 5, 6, 7, 21*0, 1, 5*0, 1, 3, -4, 3*0, 2, 5, 2, 21*0, 1, 2, 4*0, -2, 0, 4*0, 5, 6, 3, 4, 2*0, -1, -9, -5, 2, 2*0, 4*8, 5, 6, 4*9, -7, 5, 1, 5*0, 1, 5, 2, 3*0, 2, -21, 5, 3*0, 1, 2, 3, 4, 14*0 /
       // ..
       // .. Executable Statements ..
-*
+
       // Get machine parameters
-*
+
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' )*FOUR / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Set up test case parameters
-*
+
       VM1( 1 ) = SQRT( SMLNUM )
       VM1( 2 ) = ONE
       VM1( 3 ) = SQRT( BIGNUM )
       VM2( 1 ) = ONE
       VM2( 2 ) = ONE + TWO*EPS
       VM2( 3 ) = TWO
-*
+
       KNT = 0
       NINFO = 0
       LMAX = 0
       RMAX = ZERO
-*
+
       // Begin test loop
-*
+
       DO 150 ITRANA = 1, 2
          DO 140 ITRANB = 1, 2
             DO 130 ISGN = -1, 1, 2
@@ -132,9 +132,9 @@
   130       CONTINUE
   140    CONTINUE
   150 CONTINUE
-*
+
       RETURN
-*
+
       // End of SGET35
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE DHSEIN( SIDE, EIGSRC, INITV, SELECT, N, H, LDH, WR, WI, VL, LDVL, VR, LDVR, MM, M, WORK, IFAILL, IFAILR, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             EIGSRC, INITV, SIDE;
       int                INFO, LDH, LDVL, LDVR, M, MM, N;
@@ -13,9 +13,9 @@
       int                IFAILL( * ), IFAILR( * );
       double             H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -37,20 +37,20 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Decode and test the input parameters.
-*
+
       BOTHV = LSAME( SIDE, 'B' )
       RIGHTV = LSAME( SIDE, 'R' ) .OR. BOTHV
       LEFTV = LSAME( SIDE, 'L' ) .OR. BOTHV
-*
+
       FROMQR = LSAME( EIGSRC, 'Q' )
-*
+
       NOINIT = LSAME( INITV, 'N' )
-*
+
       // Set M to the number of columns required to store the selected
       // eigenvectors, and standardize the array SELECT.
-*
+
       M = 0
       PAIR = .FALSE.
       DO 10 K = 1, N
@@ -69,7 +69,7 @@
             END IF
          END IF
    10 CONTINUE
-*
+
       INFO = 0
       IF( .NOT.RIGHTV .AND. .NOT.LEFTV ) THEN
          INFO = -1
@@ -92,20 +92,20 @@
          CALL XERBLA( 'DHSEIN', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Set machine-dependent constants.
-*
+
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Precision' )
       SMLNUM = UNFL*( N / ULP )
       BIGNUM = ( ONE-ULP ) / SMLNUM
-*
+
       LDWORK = N + 1
-*
+
       KL = 1
       KLN = 0
       IF( FROMQR ) THEN
@@ -114,25 +114,25 @@
          KR = N
       END IF
       KSR = 1
-*
+
       DO 120 K = 1, N
          IF( SELECT( K ) ) THEN
-*
+
             // Compute eigenvector(s) corresponding to W(K).
-*
+
             IF( FROMQR ) THEN
-*
+
                // If affiliation of eigenvalues is known, check whether
               t // he matrix splits.
-*
+
                // Determine KL and KR such that 1 <= KL <= K <= KR <= N
                // and H(KL,KL-1) and H(KR+1,KR) are zero (or KL = 1 or
                // KR = N).
-*
+
                // Then inverse iteration can be performed with the
                // submatrix H(KL:N,KL:N) for a left eigenvector, and with
               t // he submatrix H(1:KR,1:KR) for a right eigenvector.
-*
+
                DO 20 I = K, KL + 1, -1
                   IF( H( I, I-1 ).EQ.ZERO ) GO TO 30
    20          CONTINUE
@@ -146,13 +146,13 @@
                   KR = I
                END IF
             END IF
-*
+
             IF( KL.NE.KLN ) THEN
                KLN = KL
-*
+
                // Compute infinity-norm of submatrix H(KL:KR,KL:KR) if it
                // has not ben computed before.
-*
+
                HNORM = DLANHS( 'I', KR-KL+1, H( KL, KL ), LDH, WORK )
                IF( DISNAN( HNORM ) ) THEN
                   INFO = -6
@@ -163,11 +163,11 @@
                   EPS3 = SMLNUM
                END IF
             END IF
-*
+
             // Perturb eigenvalue if it is close to any previous
             // selected eigenvalues affiliated to the submatrix
             // H(KL:KR,KL:KR). Close roots are modified by EPS3.
-*
+
             WKR = WR( K )
             WKI = WI( K )
    60       CONTINUE
@@ -178,7 +178,7 @@
                END IF
    70       CONTINUE
             WR( K ) = WKR
-*
+
             PAIR = WKI.NE.ZERO
             IF( PAIR ) THEN
                KSI = KSR + 1
@@ -186,9 +186,9 @@
                KSI = KSR
             END IF
             IF( LEFTV ) THEN
-*
+
                // Compute left eigenvector.
-*
+
                CALL DLAEIN( .FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH, WKR, WKI, VL( KL, KSR ), VL( KL, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO )
                IF( IINFO.GT.0 ) THEN
                   IF( PAIR ) THEN
@@ -212,9 +212,9 @@
                END IF
             END IF
             IF( RIGHTV ) THEN
-*
+
                // Compute right eigenvector.
-*
+
                CALL DLAEIN( .TRUE., NOINIT, KR, H, LDH, WKR, WKI, VR( 1, KSR ), VR( 1, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO )
                IF( IINFO.GT.0 ) THEN
                   IF( PAIR ) THEN
@@ -237,7 +237,7 @@
   110             CONTINUE
                END IF
             END IF
-*
+
             IF( PAIR ) THEN
                KSR = KSR + 2
             ELSE
@@ -245,9 +245,9 @@
             END IF
          END IF
   120 CONTINUE
-*
+
       RETURN
-*
+
       // End of DHSEIN
-*
+
       END

@@ -1,17 +1,17 @@
       SUBROUTINE DGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                LDA, LDB, LWORK, M, N, P;
       double             RESULT;
       // ..
       // .. Array Arguments ..
-*
+
 *  ====================================================================
-*
+
       double             A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), RWORK( * ), U( * ), WORK( LWORK ), X( * );
       // ..
       // .. Parameters ..
@@ -27,53 +27,53 @@
       // EXTERNAL DASUM, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..
-*
+
       // EXTERNAL DCOPY, DGEMV, DGGGLM, DLACPY
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       EPS = DLAMCH( 'Epsilon' )
       UNFL = DLAMCH( 'Safe minimum' )
       ANORM = MAX( DLANGE( '1', N, M, A, LDA, RWORK ), UNFL )
       BNORM = MAX( DLANGE( '1', N, P, B, LDB, RWORK ), UNFL )
-*
+
       // Copy the matrices A and B to the arrays AF and BF,
       // and the vector D the array DF.
-*
+
       CALL DLACPY( 'Full', N, M, A, LDA, AF, LDA )
       CALL DLACPY( 'Full', N, P, B, LDB, BF, LDB )
       CALL DCOPY( N, D, 1, DF, 1 )
-*
+
       // Solve GLM problem
-*
+
       CALL DGGGLM( N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO )
-*
+
       // Test the residual for the solution of LSE
-*
+
                         // norm( d - A*x - B*u )
         // RESULT = -----------------------------------------
                  // (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
-*
+
       CALL DCOPY( N, D, 1, DF, 1 )
       CALL DGEMV( 'No transpose', N, M, -ONE, A, LDA, X, 1, ONE, DF, 1 )
-*
+
       CALL DGEMV( 'No transpose', N, P, -ONE, B, LDB, U, 1, ONE, DF, 1 )
-*
+
       DNORM = DASUM( N, DF, 1 )
       XNORM = DASUM( M, X, 1 ) + DASUM( P, U, 1 )
       YNORM = ANORM + BNORM
-*
+
       IF( XNORM.LE.ZERO ) THEN
          RESULT = ZERO
       ELSE
          RESULT = ( ( DNORM / YNORM ) / XNORM ) / EPS
       END IF
-*
+
       RETURN
-*
+
       // End of DGLMTS
-*
+
       END

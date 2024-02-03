@@ -1,9 +1,9 @@
       SUBROUTINE CUNM2L( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                INFO, K, LDA, LDC, M, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX            A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
@@ -34,15 +34,15 @@
       // INTRINSIC CONJG, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
-*
+
       // NQ is the order of Q
-*
+
       IF( LEFT ) THEN
          NQ = M
       ELSE
@@ -67,11 +67,11 @@
          CALL XERBLA( 'CUNM2L', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
-*
+
       IF( ( LEFT .AND. NOTRAN .OR. .NOT.LEFT .AND. .NOT.NOTRAN ) ) THEN
          I1 = 1
          I2 = K
@@ -81,28 +81,28 @@
          I2 = 1
          I3 = -1
       END IF
-*
+
       IF( LEFT ) THEN
          NI = N
       ELSE
          MI = M
       END IF
-*
+
       DO 10 I = I1, I2, I3
          IF( LEFT ) THEN
-*
+
             // H(i) or H(i)**H is applied to C(1:m-k+i,1:n)
-*
+
             MI = M - K + I
          ELSE
-*
+
             // H(i) or H(i)**H is applied to C(1:m,1:n-k+i)
-*
+
             NI = N - K + I
          END IF
-*
+
          // Apply H(i) or H(i)**H
-*
+
          IF( NOTRAN ) THEN
             TAUI = TAU( I )
          ELSE
@@ -114,7 +114,7 @@
          A( NQ-K+I, I ) = AII
    10 CONTINUE
       RETURN
-*
+
       // End of CUNM2L
-*
+
       END

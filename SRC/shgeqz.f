@@ -1,9 +1,9 @@
       SUBROUTINE SHGEQZ( JOB, COMPQ, COMPZ, N, ILO, IHI, H, LDH, T, LDT, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             COMPQ, COMPZ, JOB;
       int                IHI, ILO, INFO, LDH, LDQ, LDT, LDZ, LWORK, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               ALPHAI( * ), ALPHAR( * ), BETA( * ), H( LDH, * ), Q( LDQ, * ), T( LDT, * ), WORK( * ), Z( LDZ, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
 *    $                     SAFETY = 1.0E+0 )
       REAL               HALF, ZERO, ONE, SAFETY
@@ -37,9 +37,9 @@
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Decode JOB, COMPQ, COMPZ
-*
+
       IF( LSAME( JOB, 'E' ) ) THEN
          ILSCHR = .FALSE.
          ISCHUR = 1
@@ -49,7 +49,7 @@
       ELSE
          ISCHUR = 0
       END IF
-*
+
       IF( LSAME( COMPQ, 'N' ) ) THEN
          ILQ = .FALSE.
          ICOMPQ = 1
@@ -62,7 +62,7 @@
       ELSE
          ICOMPQ = 0
       END IF
-*
+
       IF( LSAME( COMPZ, 'N' ) ) THEN
          ILZ = .FALSE.
          ICOMPZ = 1
@@ -75,9 +75,9 @@
       ELSE
          ICOMPZ = 0
       END IF
-*
+
       // Check Argument Values
-*
+
       INFO = 0
       WORK( 1 ) = MAX( 1, N )
       LQUERY = ( LWORK.EQ.-1 )
@@ -110,20 +110,20 @@
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) THEN
          WORK( 1 ) = REAL( 1 )
          RETURN
       END IF
-*
+
       // Initialize Q and Z
-*
+
       IF( ICOMPQ.EQ.3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
-*
+
       // Machine Constants
-*
+
       IN = IHI + 1 - ILO
       SAFMIN = SLAMCH( 'S' )
       SAFMAX = ONE / SAFMIN
@@ -134,9 +134,9 @@
       BTOL = MAX( SAFMIN, ULP*BNORM )
       ASCALE = ONE / MAX( SAFMIN, ANORM )
       BSCALE = ONE / MAX( SAFMIN, BNORM )
-*
+
       // Set Eigenvalues IHI+1:N
-*
+
       DO 30 J = IHI + 1, N
          IF( T( J, J ).LT.ZERO ) THEN
             IF( ILSCHR ) THEN
@@ -158,26 +158,26 @@
          ALPHAI( J ) = ZERO
          BETA( J ) = T( J, J )
    30 CONTINUE
-*
+
       // If IHI < ILO, skip QZ steps
-*
+
       IF( IHI.LT.ILO ) GO TO 380
-*
+
       // MAIN QZ ITERATION LOOP
-*
+
       // Initialize dynamic indices
-*
+
       // Eigenvalues ILAST+1:N have been found.
          // Column operations modify rows IFRSTM:whatever.
          // Row operations modify columns whatever:ILASTM.
-*
+
       // If only eigenvalues are being computed, then
          // IFRSTM is the row of the last splitting row above row ILAST;
         t // his is always at least ILO.
       // IITER counts iterations since the last eigenvalue was found,
         t // o tell when to use an extraordinary shift.
       // MAXIT is the maximum number of QZ sweeps allowed.
-*
+
       ILAST = IHI
       IF( ILSCHR ) THEN
          IFRSTM = 1
@@ -189,19 +189,19 @@
       IITER = 0
       ESHIFT = ZERO
       MAXIT = 30*( IHI-ILO+1 )
-*
+
       DO 360 JITER = 1, MAXIT
-*
+
          // Split the matrix if possible.
-*
+
          // Two tests:
             // 1: H(j,j-1)=0  or  j=ILO
             // 2: T(j,j)=0
-*
+
          IF( ILAST.EQ.ILO ) THEN
-*
+
             // Special case: j=ILAST
-*
+
             GO TO 80
          ELSE
             IF( ABS( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS( H( ILAST, ILAST ) ) + ABS( H( ILAST-1, ILAST-1 ) ) ) ) ) THEN
@@ -209,18 +209,18 @@
                GO TO 80
             END IF
          END IF
-*
+
          IF( ABS( T( ILAST, ILAST ) ).LE.BTOL ) THEN
             T( ILAST, ILAST ) = ZERO
             GO TO 70
          END IF
-*
+
          // General case: j<ILAST
-*
+
          DO 60 J = ILAST - 1, ILO, -1
-*
+
             // Test 1: for H(j,j-1)=0 or j=ILO
-*
+
             IF( J.EQ.ILO ) THEN
                ILAZRO = .TRUE.
             ELSE
@@ -231,14 +231,14 @@
                   ILAZRO = .FALSE.
                END IF
             END IF
-*
+
             // Test 2: for T(j,j)=0
-*
+
             IF( ABS( T( J, J ) ).LT.BTOL ) THEN
                T( J, J ) = ZERO
-*
+
                // Test 1a: Check for 2 consecutive small subdiagonals in A
-*
+
                ILAZR2 = .FALSE.
                IF( .NOT.ILAZRO ) THEN
                   TEMP = ABS( H( J, J-1 ) )
@@ -250,13 +250,13 @@
                   END IF
                   IF( TEMP*( ASCALE*ABS( H( J+1, J ) ) ).LE.TEMP2* ( ASCALE*ATOL ) )ILAZR2 = .TRUE.
                END IF
-*
+
                // If both tests pass (1 & 2), i.e., the leading diagonal
                // element of B in the block is zero, split a 1x1 block off
                // at the top. (I.e., at the J-th row/column) The leading
                // diagonal element of the remainder can also be zero, so
               t // his may have to be done repeatedly.
-*
+
                IF( ILAZRO .OR. ILAZR2 ) THEN
                   DO 40 JCH = J, ILAST - 1
                      TEMP = H( JCH, JCH )
@@ -277,10 +277,10 @@
    40             CONTINUE
                   GO TO 70
                ELSE
-*
+
                   // Only test 2 passed -- chase the zero to T(ILAST,ILAST)
                   // Then process as in the case T(ILAST,ILAST)=0
-*
+
                   DO 50 JCH = J, ILAST - 1
                      TEMP = T( JCH, JCH+1 )
                      CALL SLARTG( TEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) )
@@ -294,34 +294,34 @@
                   GO TO 70
                END IF
             ELSE IF( ILAZRO ) THEN
-*
+
                // Only test 1 passed -- work on J:ILAST
-*
+
                IFIRST = J
                GO TO 110
             END IF
-*
+
             // Neither test passed -- try next J
-*
+
    60    CONTINUE
-*
+
          // (Drop-through is "impossible")
-*
+
          INFO = N + 1
          GO TO 420
-*
+
          // T(ILAST,ILAST)=0 -- clear H(ILAST,ILAST-1) to split off a
          // 1x1 block.
-*
+
    70    CONTINUE
          TEMP = H( ILAST, ILAST )
          CALL SLARTG( TEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) )
          H( ILAST, ILAST-1 ) = ZERO
          CALL SROT( ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S )          CALL SROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL SROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S )
-*
+
          // H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHAR, ALPHAI,
                                // and BETA
-*
+
    80    CONTINUE
          IF( T( ILAST, ILAST ).LT.ZERO ) THEN
             IF( ILSCHR ) THEN
@@ -342,14 +342,14 @@
          ALPHAR( ILAST ) = H( ILAST, ILAST )
          ALPHAI( ILAST ) = ZERO
          BETA( ILAST ) = T( ILAST, ILAST )
-*
+
          // Go to next block -- exit if finished.
-*
+
          ILAST = ILAST - 1
          IF( ILAST.LT.ILO ) GO TO 380
-*
+
          // Reset counters
-*
+
          IITER = 0
          ESHIFT = ZERO
          IF( .NOT.ILSCHR ) THEN
@@ -357,44 +357,44 @@
             IF( IFRSTM.GT.ILAST ) IFRSTM = ILO
          END IF
          GO TO 350
-*
+
          // QZ step
-*
+
          // This iteration only involves rows/columns IFIRST:ILAST. We
          // assume IFIRST < ILAST, and that the diagonal of B is non-zero.
-*
+
   110    CONTINUE
          IITER = IITER + 1
          IF( .NOT.ILSCHR ) THEN
             IFRSTM = IFIRST
          END IF
-*
+
          // Compute single shifts.
-*
+
          // At this point, IFIRST < ILAST, and the diagonal elements of
          // T(IFIRST:ILAST,IFIRST,ILAST) are larger than BTOL (in
          // magnitude)
-*
+
          IF( ( IITER / 10 )*10.EQ.IITER ) THEN
-*
+
             // Exceptional shift.  Chosen for no particularly good reason.
             // (Single shift only.)
-*
+
             IF( ( REAL( MAXIT )*SAFMIN )*ABS( H( ILAST, ILAST-1 ) ).LT. ABS( T( ILAST-1, ILAST-1 ) ) ) THEN                ESHIFT = H( ILAST, ILAST-1 ) / T( ILAST-1, ILAST-1 )
             ELSE
                ESHIFT = ESHIFT + ONE / ( SAFMIN*REAL( MAXIT ) )
             END IF
             S1 = ONE
             WR = ESHIFT
-*
+
          ELSE
-*
+
             // Shifts based on the generalized eigenvalues of the
             // bottom-right 2x2 block of A and B. The first eigenvalue
             // returned by SLAG2 is the Wilkinson shift (AEP p.512),
-*
+
             CALL SLAG2( H( ILAST-1, ILAST-1 ), LDH, T( ILAST-1, ILAST-1 ), LDT, SAFMIN*SAFETY, S1, S2, WR, WR2, WI )
-*
+
             IF ( ABS( (WR/S1)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) .GT. ABS( (WR2/S2)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) ) THEN
                TEMP = WR
                WR = WR2
@@ -406,23 +406,23 @@
             TEMP = MAX( S1, SAFMIN*MAX( ONE, ABS( WR ), ABS( WI ) ) )
             IF( WI.NE.ZERO ) GO TO 200
          END IF
-*
+
          // Fiddle with shift to avoid overflow
-*
+
          TEMP = MIN( ASCALE, ONE )*( HALF*SAFMAX )
          IF( S1.GT.TEMP ) THEN
             SCALE = TEMP / S1
          ELSE
             SCALE = ONE
          END IF
-*
+
          TEMP = MIN( BSCALE, ONE )*( HALF*SAFMAX )
          IF( ABS( WR ).GT.TEMP ) SCALE = MIN( SCALE, TEMP / ABS( WR ) )
          S1 = SCALE*S1
          WR = SCALE*WR
-*
+
          // Now check for two consecutive small subdiagonals.
-*
+
          DO 120 J = ILAST - 1, IFIRST + 1, -1
             ISTART = J
             TEMP = ABS( S1*H( J, J-1 ) )
@@ -434,27 +434,27 @@
             END IF
             IF( ABS( ( ASCALE*H( J+1, J ) )*TEMP ).LE.( ASCALE*ATOL )* TEMP2 )GO TO 130
   120    CONTINUE
-*
+
          ISTART = IFIRST
   130    CONTINUE
-*
+
          // Do an implicit single-shift QZ sweep.
-*
+
          // Initial Q
-*
+
          TEMP = S1*H( ISTART, ISTART ) - WR*T( ISTART, ISTART )
          TEMP2 = S1*H( ISTART+1, ISTART )
          CALL SLARTG( TEMP, TEMP2, C, S, TEMPR )
-*
+
          // Sweep
-*
+
          DO 190 J = ISTART, ILAST - 1
             IF( J.GT.ISTART ) THEN
                TEMP = H( J, J-1 )
                CALL SLARTG( TEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) )
                H( J+1, J-1 ) = ZERO
             END IF
-*
+
             DO 140 JC = J, ILASTM
                TEMP = C*H( J, JC ) + S*H( J+1, JC )
                H( J+1, JC ) = -S*H( J, JC ) + C*H( J+1, JC )
@@ -470,11 +470,11 @@
                   Q( JR, J ) = TEMP
   150          CONTINUE
             END IF
-*
+
             TEMP = T( J+1, J+1 )
             CALL SLARTG( TEMP, T( J+1, J ), C, S, T( J+1, J+1 ) )
             T( J+1, J ) = ZERO
-*
+
             DO 160 JR = IFRSTM, MIN( J+2, ILAST )
                TEMP = C*H( JR, J+1 ) + S*H( JR, J )
                H( JR, J ) = -S*H( JR, J+1 ) + C*H( JR, J )
@@ -493,55 +493,55 @@
   180          CONTINUE
             END IF
   190    CONTINUE
-*
+
          GO TO 350
-*
+
          // Use Francis double-shift
-*
+
          // Note: the Francis double-shift should work with real shifts,
                // but only if the block is at least 3x3.
                // This code may break if this point is reached with
                // a 2x2 block with real eigenvalues.
-*
+
   200    CONTINUE
          IF( IFIRST+1.EQ.ILAST ) THEN
-*
+
             // Special case -- 2x2 block with complex eigenvectors
-*
+
             // Step 1: Standardize, that is, rotate so that
-*
+
                         // ( B11  0  )
                     // B = (         )  with B11 non-negative.
                         // (  0  B22 )
-*
+
             CALL SLASV2( T( ILAST-1, ILAST-1 ), T( ILAST-1, ILAST ), T( ILAST, ILAST ), B22, B11, SR, CR, SL, CL )
-*
+
             IF( B11.LT.ZERO ) THEN
                CR = -CR
                SR = -SR
                B11 = -B11
                B22 = -B22
             END IF
-*
+
             CALL SROT( ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH, H( ILAST, ILAST-1 ), LDH, CL, SL )             CALL SROT( ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1, H( IFRSTM, ILAST ), 1, CR, SR )
-*
+
             IF( ILAST.LT.ILASTM ) CALL SROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL )             IF( IFRSTM.LT.ILAST-1 ) CALL SROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR )
-*
+
             IF( ILQ ) CALL SROT( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL, SL )             IF( ILZ ) CALL SROT( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR, SR )
-*
+
             T( ILAST-1, ILAST-1 ) = B11
             T( ILAST-1, ILAST ) = ZERO
             T( ILAST, ILAST-1 ) = ZERO
             T( ILAST, ILAST ) = B22
-*
+
             // If B22 is negative, negate column ILAST
-*
+
             IF( B22.LT.ZERO ) THEN
                DO 210 J = IFRSTM, ILAST
                   H( J, ILAST ) = -H( J, ILAST )
                   T( J, ILAST ) = -T( J, ILAST )
   210          CONTINUE
-*
+
                IF( ILZ ) THEN
                   DO 220 J = 1, N
                      Z( J, ILAST ) = -Z( J, ILAST )
@@ -549,39 +549,39 @@
                END IF
                B22 = -B22
             END IF
-*
+
             // Step 2: Compute ALPHAR, ALPHAI, and BETA (see refs.)
-*
+
             // Recompute shift
-*
+
             CALL SLAG2( H( ILAST-1, ILAST-1 ), LDH, T( ILAST-1, ILAST-1 ), LDT, SAFMIN*SAFETY, S1, TEMP, WR, TEMP2, WI )
-*
+
             // If standardization has perturbed the shift onto real line,
             // do another (real single-shift) QR step.
-*
+
             IF( WI.EQ.ZERO ) GO TO 350
             S1INV = ONE / S1
-*
+
             // Do EISPACK (QZVAL) computation of alpha and beta
-*
+
             A11 = H( ILAST-1, ILAST-1 )
             A21 = H( ILAST, ILAST-1 )
             A12 = H( ILAST-1, ILAST )
             A22 = H( ILAST, ILAST )
-*
+
             // Compute complex Givens rotation on right
             // (Assume some element of C = (sA - wB) > unfl )
                              // __
             // (sA - wB) ( CZ   -SZ )
                       // ( SZ    CZ )
-*
+
             C11R = S1*A11 - WR*B11
             C11I = -WI*B11
             C12 = S1*A12
             C21 = S1*A21
             C22R = S1*A22 - WR*B22
             C22I = -WI*B22
-*
+
             IF( ABS( C11R )+ABS( C11I )+ABS( C12 ).GT.ABS( C21 )+ ABS( C22R )+ABS( C22I ) ) THEN
                T1 = SLAPY3( C12, C11R, C11I )
                CZ = C12 / T1
@@ -602,13 +602,13 @@
                   SZI = C21*TEMPI / T1
                END IF
             END IF
-*
+
             // Compute Givens rotation on left
-*
+
             // (  CQ   SQ )
             // (  __      )  A or B
             // ( -SQ   CQ )
-*
+
             AN = ABS( A11 ) + ABS( A12 ) + ABS( A21 ) + ABS( A22 )
             BN = ABS( B11 ) + ABS( B22 )
             WABS = ABS( WR ) + ABS( WI )
@@ -637,9 +637,9 @@
             CQ = CQ / T1
             SQR = SQR / T1
             SQI = SQI / T1
-*
+
             // Compute diagonal elements of QBZ
-*
+
             TEMPR = SQR*SZR - SQI*SZI
             TEMPI = SQR*SZI + SQI*SZR
             B1R = CQ*CZ*B11 + TEMPR*B22
@@ -648,23 +648,23 @@
             B2R = CQ*CZ*B22 + TEMPR*B11
             B2I = -TEMPI*B11
             B2A = SLAPY2( B2R, B2I )
-*
+
             // Normalize so beta > 0, and Im( alpha1 ) > 0
-*
+
             BETA( ILAST-1 ) = B1A
             BETA( ILAST ) = B2A
             ALPHAR( ILAST-1 ) = ( WR*B1A )*S1INV
             ALPHAI( ILAST-1 ) = ( WI*B1A )*S1INV
             ALPHAR( ILAST ) = ( WR*B2A )*S1INV
             ALPHAI( ILAST ) = -( WI*B2A )*S1INV
-*
+
             // Step 3: Go to next block -- exit if finished.
-*
+
             ILAST = IFIRST - 1
             IF( ILAST.LT.ILO ) GO TO 380
-*
+
             // Reset counters
-*
+
             IITER = 0
             ESHIFT = ZERO
             IF( .NOT.ILSCHR ) THEN
@@ -673,51 +673,51 @@
             END IF
             GO TO 350
          ELSE
-*
+
             // Usual case: 3x3 or larger block, using Francis implicit
                         // double-shift
-*
+
                                      // 2
             // Eigenvalue equation is  w  - c w + d = 0,
-*
+
                                           // -1 2        -1
             // so compute 1st column of  (A B  )  - c A B   + d
             // using the formula in QZIT (from EISPACK)
-*
+
             // We assume that the block is at least 3x3
-*
+
             AD11 = ( ASCALE*H( ILAST-1, ILAST-1 ) ) / ( BSCALE*T( ILAST-1, ILAST-1 ) )             AD21 = ( ASCALE*H( ILAST, ILAST-1 ) ) / ( BSCALE*T( ILAST-1, ILAST-1 ) )             AD12 = ( ASCALE*H( ILAST-1, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )             AD22 = ( ASCALE*H( ILAST, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )
             U12 = T( ILAST-1, ILAST ) / T( ILAST, ILAST )
             AD11L = ( ASCALE*H( IFIRST, IFIRST ) ) / ( BSCALE*T( IFIRST, IFIRST ) )             AD21L = ( ASCALE*H( IFIRST+1, IFIRST ) ) / ( BSCALE*T( IFIRST, IFIRST ) )             AD12L = ( ASCALE*H( IFIRST, IFIRST+1 ) ) / ( BSCALE*T( IFIRST+1, IFIRST+1 ) )             AD22L = ( ASCALE*H( IFIRST+1, IFIRST+1 ) ) / ( BSCALE*T( IFIRST+1, IFIRST+1 ) )             AD32L = ( ASCALE*H( IFIRST+2, IFIRST+1 ) ) / ( BSCALE*T( IFIRST+1, IFIRST+1 ) )
             U12L = T( IFIRST, IFIRST+1 ) / T( IFIRST+1, IFIRST+1 )
-*
+
             V( 1 ) = ( AD11-AD11L )*( AD22-AD11L ) - AD12*AD21 + AD21*U12*AD11L + ( AD12L-AD11L*U12L )*AD21L             V( 2 ) = ( ( AD22L-AD11L )-AD21L*U12L-( AD11-AD11L )- ( AD22-AD11L )+AD21*U12 )*AD21L
             V( 3 ) = AD32L*AD21L
-*
+
             ISTART = IFIRST
-*
+
             CALL SLARFG( 3, V( 1 ), V( 2 ), 1, TAU )
             V( 1 ) = ONE
-*
+
             // Sweep
-*
+
             DO 290 J = ISTART, ILAST - 2
-*
+
                // All but last elements: use 3x3 Householder transforms.
-*
+
                // Zero (j-1)st column of A
-*
+
                IF( J.GT.ISTART ) THEN
                   V( 1 ) = H( J, J-1 )
                   V( 2 ) = H( J+1, J-1 )
                   V( 3 ) = H( J+2, J-1 )
-*
+
                   CALL SLARFG( 3, H( J, J-1 ), V( 2 ), 1, TAU )
                   V( 1 ) = ONE
                   H( J+1, J-1 ) = ZERO
                   H( J+2, J-1 ) = ZERO
                END IF
-*
+
                T2 = TAU * V( 2 )
                T3 = TAU * V( 3 )
                DO 230 JC = J, ILASTM
@@ -738,11 +738,11 @@
                      Q( JR, J+2 ) = Q( JR, J+2 ) - TEMP*T3
   240             CONTINUE
                END IF
-*
+
                // Zero j-th column of B (see SLAGBC for details)
-*
+
                // Swap rows to pivot
-*
+
                ILPIVT = .FALSE.
                TEMP = MAX( ABS( T( J+1, J+1 ) ), ABS( T( J+1, J+2 ) ) )
                TEMP2 = MAX( ABS( T( J+2, J+1 ) ), ABS( T( J+2, J+2 ) ) )
@@ -766,9 +766,9 @@
                   U2 = T( J+1, J )
                   U1 = T( J+2, J )
                END IF
-*
+
                // Swap columns if nec.
-*
+
                IF( ABS( W12 ).GT.ABS( W11 ) ) THEN
                   ILPIVT = .TRUE.
                   TEMP = W12
@@ -778,16 +778,16 @@
                   W11 = TEMP
                   W21 = TEMP2
                END IF
-*
+
                // LU-factor
-*
+
                TEMP = W21 / W11
                U2 = U2 - TEMP*U1
                W22 = W22 - TEMP*W12
                W21 = ZERO
-*
+
                // Compute SCALE
-*
+
                SCALE = ONE
                IF( ABS( W22 ).LT.SAFMIN ) THEN
                   SCALE = ZERO
@@ -796,30 +796,30 @@
                   GO TO 250
                END IF
                IF( ABS( W22 ).LT.ABS( U2 ) ) SCALE = ABS( W22 / U2 )                IF( ABS( W11 ).LT.ABS( U1 ) ) SCALE = MIN( SCALE, ABS( W11 / U1 ) )
-*
+
                // Solve
-*
+
                U2 = ( SCALE*U2 ) / W22
                U1 = ( SCALE*U1-W12*U2 ) / W11
-*
+
   250          CONTINUE
                IF( ILPIVT ) THEN
                   TEMP = U2
                   U2 = U1
                   U1 = TEMP
                END IF
-*
+
                // Compute Householder Vector
-*
+
                T1 = SQRT( SCALE**2+U1**2+U2**2 )
                TAU = ONE + SCALE / T1
                VS = -ONE / ( SCALE+T1 )
                V( 1 ) = ONE
                V( 2 ) = VS*U1
                V( 3 ) = VS*U2
-*
+
                // Apply transformations from the right.
-*
+
                T2 = TAU*V( 2 )
                T3 = TAU*V( 3 )
                DO 260 JR = IFRSTM, MIN( J+3, ILAST )
@@ -845,16 +845,16 @@
                T( J+1, J ) = ZERO
                T( J+2, J ) = ZERO
   290       CONTINUE
-*
+
             // Last elements: Use Givens rotations
-*
+
             // Rotations from the left
-*
+
             J = ILAST - 1
             TEMP = H( J, J-1 )
             CALL SLARTG( TEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) )
             H( J+1, J-1 ) = ZERO
-*
+
             DO 300 JC = J, ILASTM
                TEMP = C*H( J, JC ) + S*H( J+1, JC )
                H( J+1, JC ) = -S*H( J, JC ) + C*H( J+1, JC )
@@ -870,13 +870,13 @@
                   Q( JR, J ) = TEMP
   310          CONTINUE
             END IF
-*
+
             // Rotations from the right.
-*
+
             TEMP = T( J+1, J+1 )
             CALL SLARTG( TEMP, T( J+1, J ), C, S, T( J+1, J+1 ) )
             T( J+1, J ) = ZERO
-*
+
             DO 320 JR = IFRSTM, ILAST
                TEMP = C*H( JR, J+1 ) + S*H( JR, J )
                H( JR, J ) = -S*H( JR, J+1 ) + C*H( JR, J )
@@ -894,29 +894,29 @@
                   Z( JR, J+1 ) = TEMP
   340          CONTINUE
             END IF
-*
+
             // End of Double-Shift code
-*
+
          END IF
-*
+
          GO TO 350
-*
+
          // End of iteration loop
-*
+
   350    CONTINUE
   360 CONTINUE
-*
+
       // Drop-through = non-convergence
-*
+
       INFO = ILAST
       GO TO 420
-*
+
       // Successful completion of all QZ steps
-*
+
   380 CONTINUE
-*
+
       // Set Eigenvalues 1:ILO-1
-*
+
       DO 410 J = 1, ILO - 1
          IF( T( J, J ).LT.ZERO ) THEN
             IF( ILSCHR ) THEN
@@ -938,17 +938,17 @@
          ALPHAI( J ) = ZERO
          BETA( J ) = T( J, J )
   410 CONTINUE
-*
+
       // Normal Termination
-*
+
       INFO = 0
-*
+
       // Exit (other than argument error) -- return optimal workspace size
-*
+
   420 CONTINUE
       WORK( 1 ) = SROUNDUP_LWORK( N )
       RETURN
-*
+
       // End of SHGEQZ
-*
+
       END

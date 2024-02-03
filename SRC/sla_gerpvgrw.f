@@ -1,18 +1,18 @@
       REAL FUNCTION SLA_GERPVGRW( N, NCOLS, A, LDA, AF, LDAF )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                N, NCOLS, LDA, LDAF;
       // ..
       // .. Array Arguments ..
       REAL               A( LDA, * ), AF( LDAF, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, J;
       REAL               AMAX, UMAX, RPVGRW
@@ -21,7 +21,7 @@
       // INTRINSIC ABS, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       RPVGRW = 1.0
 
       DO J = 1, NCOLS
@@ -38,7 +38,7 @@
          END IF
       END DO
       SLA_GERPVGRW = RPVGRW
-*
+
       // End of SLA_GERPVGRW
-*
+
       END

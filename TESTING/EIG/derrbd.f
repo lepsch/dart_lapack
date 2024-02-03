@@ -1,16 +1,16 @@
       SUBROUTINE DERRBD( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 4, LW = NMAX )
@@ -45,13 +45,13 @@
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1.D0 / DBLE( I+J )
@@ -59,13 +59,13 @@
    20 CONTINUE
       OK = .TRUE.
       NT = 0
-*
+
       // Test error exits of the SVD routines.
-*
+
       IF( LSAMEN( 2, C2, 'BD' ) ) THEN
-*
+
          // DGEBRD
-*
+
          SRNAMT = 'DGEBRD'
          INFOT = 1
          CALL DGEBRD( -1, 0, A, 1, D, E, TQ, TP, W, 1, INFO )
@@ -80,9 +80,9 @@
          CALL DGEBRD( 2, 1, A, 2, D, E, TQ, TP, W, 1, INFO )
          CALL CHKXER( 'DGEBRD', INFOT, NOUT, LERR, OK )
          NT = NT + 4
-*
+
          // DGEBD2
-*
+
          SRNAMT = 'DGEBD2'
          INFOT = 1
          CALL DGEBD2( -1, 0, A, 1, D, E, TQ, TP, W, INFO )
@@ -94,9 +94,9 @@
          CALL DGEBD2( 2, 1, A, 1, D, E, TQ, TP, W, INFO )
          CALL CHKXER( 'DGEBD2', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // DORGBR
-*
+
          SRNAMT = 'DORGBR'
          INFOT = 1
          CALL DORGBR( '/', 0, 0, 0, A, 1, TQ, W, 1, INFO )
@@ -129,9 +129,9 @@
          CALL DORGBR( 'Q', 2, 2, 1, A, 2, TQ, W, 1, INFO )
          CALL CHKXER( 'DORGBR', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // DORMBR
-*
+
          SRNAMT = 'DORMBR'
          INFOT = 1
          CALL DORMBR( '/', 'L', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
@@ -173,9 +173,9 @@
          CALL DORMBR( 'Q', 'R', 'T', 2, 0, 0, A, 1, TQ, U, 2, W, 1, INFO )
          CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
          NT = NT + 13
-*
+
          // DBDSQR
-*
+
          SRNAMT = 'DBDSQR'
          INFOT = 1
          CALL DBDSQR( '/', 0, 0, 0, 0, D, E, V, 1, U, 1, A, 1, W, INFO )
@@ -202,9 +202,9 @@
          CALL DBDSQR( 'U', 2, 0, 0, 1, D, E, V, 1, U, 1, A, 1, W, INFO )
          CALL CHKXER( 'DBDSQR', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
          // DBDSDC
-*
+
          SRNAMT = 'DBDSDC'
          INFOT = 1
          CALL DBDSDC( '/', 'N', 0, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO )
@@ -222,9 +222,9 @@
          CALL DBDSDC( 'U', 'I', 2, D, E, U, 2, V, 1, Q, IQ, W, IW, INFO )
          CALL CHKXER( 'DBDSDC', INFOT, NOUT, LERR, OK )
          NT = NT + 5
-*
+
          // DBDSVDX
-*
+
          SRNAMT = 'DBDSVDX'
          INFOT = 1
          CALL DBDSVDX( 'X', 'N', 'A', 1, D, E, ZERO, ONE, 0, 0, NS, S, Q, 1, W, IW, INFO)
@@ -264,22 +264,22 @@
          CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
          NT = NT + 12
       END IF
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
       ELSE
          WRITE( NOUT, FMT = 9998 )PATH
       END IF
-*
+
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits',
      $      ' (', I3, ' tests done)' )
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ',
      $      'exits ***' )
-*
+
       RETURN
-*
+
       // End of DERRBD
-*
+
       END

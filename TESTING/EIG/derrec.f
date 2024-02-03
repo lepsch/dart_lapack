@@ -1,16 +1,16 @@
       SUBROUTINE DERREC( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       double             ONE, ZERO;
@@ -38,13 +38,13 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       OK = .TRUE.
       NT = 0
-*
+
       // Initialize A, B and SEL
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = ZERO
@@ -55,9 +55,9 @@
          A( I, I ) = ONE
          SEL( I ) = .TRUE.
    30 CONTINUE
-*
+
       // Test DTRSYL
-*
+
       SRNAMT = 'DTRSYL'
       INFOT = 1
       CALL DTRSYL( 'X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, INFO )
@@ -84,9 +84,9 @@
       CALL DTRSYL( 'N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, INFO )
       CALL CHKXER( 'DTRSYL', INFOT, NOUT, LERR, OK )
       NT = NT + 8
-*
+
       // Test DTRSYL3
-*
+
       SRNAMT = 'DTRSYL3'
       INFOT = 1
       CALL DTRSYL3( 'X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX, INFO )
@@ -113,9 +113,9 @@
       CALL DTRSYL3( 'N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX, INFO )
       CALL CHKXER( 'DTRSYL3', INFOT, NOUT, LERR, OK )
       NT = NT + 8
-*
+
       // Test DTREXC
-*
+
       SRNAMT = 'DTREXC'
       IFST = 1
       ILST = 1
@@ -151,9 +151,9 @@
       CALL DTREXC( 'V', 1, A, 1, B, 1, IFST, ILST, WORK, INFO )
       CALL CHKXER( 'DTREXC', INFOT, NOUT, LERR, OK )
       NT = NT + 8
-*
+
       // Test DTRSNA
-*
+
       SRNAMT = 'DTRSNA'
       INFOT = 1
       CALL DTRSNA( 'X', 'A', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, IWORK, INFO )
@@ -183,9 +183,9 @@
       CALL DTRSNA( 'B', 'A', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 2, M, WORK, 1, IWORK, INFO )
       CALL CHKXER( 'DTRSNA', INFOT, NOUT, LERR, OK )
       NT = NT + 9
-*
+
       // Test DTRSEN
-*
+
       SEL( 1 ) = .FALSE.
       SRNAMT = 'DTRSEN'
       INFOT = 1
@@ -219,21 +219,21 @@
       CALL DTRSEN( 'V', 'V', SEL, 3, A, 3, B, 3, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 4, IWORK, 1, INFO )
       CALL CHKXER( 'DTRSEN', INFOT, NOUT, LERR, OK )
       NT = NT + 10
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
       ELSE
          WRITE( NOUT, FMT = 9998 )PATH
       END IF
-*
+
       RETURN
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits (',
      $      I3, ' tests done)' )
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ex',
      $      'its ***' )
-*
+
       // End of DERREC
-*
+
       END

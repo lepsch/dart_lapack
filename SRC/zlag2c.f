@@ -1,9 +1,9 @@
       SUBROUTINE ZLAG2C( M, N, A, LDA, SA, LDSA, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, LDSA, M, N;
       // ..
@@ -11,9 +11,9 @@
       COMPLEX            SA( LDSA, * )
       COMPLEX*16         A( LDA, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, J;
       double             RMAX;
@@ -26,7 +26,7 @@
       // EXTERNAL SLAMCH
       // ..
       // .. Executable Statements ..
-*
+
       RMAX = SLAMCH( 'O' )
       DO 20 J = 1, N
          DO 10 I = 1, M
@@ -40,7 +40,7 @@
       INFO = 0
    30 CONTINUE
       RETURN
-*
+
       // End of ZLAG2C
-*
+
       END

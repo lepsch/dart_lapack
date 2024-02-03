@@ -1,17 +1,17 @@
       SUBROUTINE ZERRQRT( PATH, NUNIT )
       IMPLICIT NONE
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -38,12 +38,12 @@
       // INTRINSIC DBLE, DCMPLX
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO J = 1, NMAX
          DO I = 1, NMAX
             A( I, J ) = 1.D0 / DCMPLX( DBLE( I+J ), 0.D0 )
@@ -53,11 +53,11 @@
          W( J ) = 0.D0
       END DO
       OK = .TRUE.
-*
+
       // Error exits for QRT factorization
-*
+
       // ZGEQRT
-*
+
       SRNAMT = 'ZGEQRT'
       INFOT = 1
       CALL ZGEQRT( -1, 0, 1, A, 1, T, 1, W, INFO )
@@ -74,9 +74,9 @@
       INFOT = 7
       CALL ZGEQRT( 2, 2, 2, A, 2, T, 1, W, INFO )
       CALL CHKXER( 'ZGEQRT', INFOT, NOUT, LERR, OK )
-*
+
       // ZGEQRT2
-*
+
       SRNAMT = 'ZGEQRT2'
       INFOT = 1
       CALL ZGEQRT2( -1, 0, A, 1, T, 1, INFO )
@@ -90,9 +90,9 @@
       INFOT = 6
       CALL ZGEQRT2( 2, 2, A, 2, T, 1, INFO )
       CALL CHKXER( 'ZGEQRT2', INFOT, NOUT, LERR, OK )
-*
+
       // ZGEQRT3
-*
+
       SRNAMT = 'ZGEQRT3'
       INFOT = 1
       CALL ZGEQRT3( -1, 0, A, 1, T, 1, INFO )
@@ -106,9 +106,9 @@
       INFOT = 6
       CALL ZGEQRT3( 2, 2, A, 2, T, 1, INFO )
       CALL CHKXER( 'ZGEQRT3', INFOT, NOUT, LERR, OK )
-*
+
       // ZGEMQRT
-*
+
       SRNAMT = 'ZGEMQRT'
       INFOT = 1
       CALL ZGEMQRT( '/', 'N', 0, 0, 0, 1, A, 1, T, 1, C, 1, W, INFO )
@@ -143,13 +143,13 @@
       INFOT = 12
       CALL ZGEMQRT( 'L', 'N', 1, 1, 1, 1, A, 1, T, 1, C, 0, W, INFO )
       CALL CHKXER( 'ZGEMQRT', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of ZERRQRT
-*
+
       END

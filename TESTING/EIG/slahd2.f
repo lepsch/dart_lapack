@@ -1,16 +1,16 @@
       SUBROUTINE SLAHD2( IOUNIT, PATH )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                IOUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               CORZ, SORD;
       String             C2;
@@ -21,7 +21,7 @@
       // EXTERNAL LSAME, LSAMEN
       // ..
       // .. Executable Statements ..
-*
+
       IF( IOUNIT.LE.0 ) RETURN
       SORD = LSAME( PATH, 'S' ) .OR. LSAME( PATH, 'D' )
       CORZ = LSAME( PATH, 'C' ) .OR. LSAME( PATH, 'Z' )
@@ -29,186 +29,186 @@
          WRITE( IOUNIT, FMT = 9999 )PATH
       END IF
       C2 = PATH( 2: 3 )
-*
+
       IF( LSAMEN( 2, C2, 'HS' ) ) THEN
          IF( SORD ) THEN
-*
+
             // Real Non-symmetric Eigenvalue Problem:
-*
+
             WRITE( IOUNIT, FMT = 9998 )PATH
-*
+
             // Matrix types
-*
+
             WRITE( IOUNIT, FMT = 9988 )
             WRITE( IOUNIT, FMT = 9987 )
             WRITE( IOUNIT, FMT = 9986 )'pairs ', 'pairs ', 'prs.', 'prs.'
             WRITE( IOUNIT, FMT = 9985 )
-*
+
             // Tests performed
-*
+
             WRITE( IOUNIT, FMT = 9984 )'orthogonal', '''=transpose', ( '''', J = 1, 6 )
-*
+
          ELSE
-*
+
             // Complex Non-symmetric Eigenvalue Problem:
-*
+
             WRITE( IOUNIT, FMT = 9997 )PATH
-*
+
             // Matrix types
-*
+
             WRITE( IOUNIT, FMT = 9988 )
             WRITE( IOUNIT, FMT = 9987 )
             WRITE( IOUNIT, FMT = 9986 )'e.vals', 'e.vals', 'e.vs', 'e.vs'
             WRITE( IOUNIT, FMT = 9985 )
-*
+
             // Tests performed
-*
+
             WRITE( IOUNIT, FMT = 9984 )'unitary', '*=conj.transp.', ( '*', J = 1, 6 )
          END IF
-*
+
       ELSE IF( LSAMEN( 2, C2, 'ST' ) ) THEN
-*
+
          IF( SORD ) THEN
-*
+
             // Real Symmetric Eigenvalue Problem:
-*
+
             WRITE( IOUNIT, FMT = 9996 )PATH
-*
+
             // Matrix types
-*
+
             WRITE( IOUNIT, FMT = 9983 )
             WRITE( IOUNIT, FMT = 9982 )
             WRITE( IOUNIT, FMT = 9981 )'Symmetric'
-*
+
             // Tests performed
-*
+
             WRITE( IOUNIT, FMT = 9968 )
-*
+
          ELSE
-*
+
             // Complex Hermitian Eigenvalue Problem:
-*
+
             WRITE( IOUNIT, FMT = 9995 )PATH
-*
+
             // Matrix types
-*
+
             WRITE( IOUNIT, FMT = 9983 )
             WRITE( IOUNIT, FMT = 9982 )
             WRITE( IOUNIT, FMT = 9981 )'Hermitian'
-*
+
             // Tests performed
-*
+
             WRITE( IOUNIT, FMT = 9967 )
          END IF
-*
+
       ELSE IF( LSAMEN( 2, C2, 'SG' ) ) THEN
-*
+
          IF( SORD ) THEN
-*
+
             // Real Symmetric Generalized Eigenvalue Problem:
-*
+
             WRITE( IOUNIT, FMT = 9992 )PATH
-*
+
             // Matrix types
-*
+
             WRITE( IOUNIT, FMT = 9980 )
             WRITE( IOUNIT, FMT = 9979 )
             WRITE( IOUNIT, FMT = 9978 )'Symmetric'
-*
+
             // Tests performed
-*
+
             WRITE( IOUNIT, FMT = 9977 )
             WRITE( IOUNIT, FMT = 9976 )
-*
+
          ELSE
-*
+
             // Complex Hermitian Generalized Eigenvalue Problem:
-*
+
             WRITE( IOUNIT, FMT = 9991 )PATH
-*
+
             // Matrix types
-*
+
             WRITE( IOUNIT, FMT = 9980 )
             WRITE( IOUNIT, FMT = 9979 )
             WRITE( IOUNIT, FMT = 9978 )'Hermitian'
-*
+
             // Tests performed
-*
+
             WRITE( IOUNIT, FMT = 9975 )
             WRITE( IOUNIT, FMT = 9974 )
-*
+
          END IF
-*
+
       ELSE IF( LSAMEN( 2, C2, 'BD' ) ) THEN
-*
+
          IF( SORD ) THEN
-*
+
             // Real Singular Value Decomposition:
-*
+
             WRITE( IOUNIT, FMT = 9994 )PATH
-*
+
             // Matrix types
-*
+
             WRITE( IOUNIT, FMT = 9973 )
-*
+
             // Tests performed
-*
+
             WRITE( IOUNIT, FMT = 9972 )'orthogonal'
             WRITE( IOUNIT, FMT = 9971 )
          ELSE
-*
+
             // Complex Singular Value Decomposition:
-*
+
             WRITE( IOUNIT, FMT = 9993 )PATH
-*
+
             // Matrix types
-*
+
             WRITE( IOUNIT, FMT = 9973 )
-*
+
             // Tests performed
-*
+
             WRITE( IOUNIT, FMT = 9972 )'unitary   '
             WRITE( IOUNIT, FMT = 9971 )
          END IF
-*
+
       ELSE IF( LSAMEN( 2, C2, 'BB' ) ) THEN
-*
+
          IF( SORD ) THEN
-*
+
             // Real General Band reduction to bidiagonal form:
-*
+
             WRITE( IOUNIT, FMT = 9990 )PATH
-*
+
             // Matrix types
-*
+
             WRITE( IOUNIT, FMT = 9970 )
-*
+
             // Tests performed
-*
+
             WRITE( IOUNIT, FMT = 9969 )'orthogonal'
          ELSE
-*
+
             // Complex Band reduction to bidiagonal form:
-*
+
             WRITE( IOUNIT, FMT = 9989 )PATH
-*
+
             // Matrix types
-*
+
             WRITE( IOUNIT, FMT = 9970 )
-*
+
             // Tests performed
-*
+
             WRITE( IOUNIT, FMT = 9969 )'unitary   '
          END IF
-*
+
       ELSE
-*
+
          WRITE( IOUNIT, FMT = 9999 )PATH
          RETURN
       END IF
-*
+
       RETURN
-*
+
  9999 FORMAT( 1X, A3, ':  no header available' )
  9998 FORMAT( / 1X, A3, ' -- Real Non-symmetric eigenvalue problem' )
  9997 FORMAT( / 1X, A3, ' -- Complex Non-symmetric eigenvalue problem' )
@@ -222,9 +222,9 @@
      $      'problem' )
  9990 FORMAT( / 1X, A3, ' -- Real Band reduc. to bidiagonal form' )
  9989 FORMAT( / 1X, A3, ' -- Complex Band reduc. to bidiagonal form' )
-*
+
  9988 FORMAT( ' Matrix types (see xCHKHS for details): ' )
-*
+
  9987 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.             ',
      $      '           ', '  5=Diagonal: geometr. spaced entries.',
      $      / '  2=Identity matrix.                    ', '  6=Diagona',
@@ -258,11 +258,11 @@
      $      'TR - RW | / ( |T| |R| ulp )     ', ' 10 = | LT - WL | / (',
      $      ' |T| |L| ulp )', / ' 11= |HX - XW| / (|H| |X| ulp)  (inv.',
      $      'it)', ' 12= |YH - WY| / (|H| |Y| ulp)  (inv.it)' )
-*
+
       // Symmetric/Hermitian eigenproblem
-*
+
  9983 FORMAT( ' Matrix types (see xDRVST for details): ' )
-*
+
  9982 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.             ',
      $      '           ', '  5=Diagonal: clustered entries.', / '  2=',
      $      'Identity matrix.                    ', '  6=Diagonal: lar',
@@ -276,11 +276,11 @@
      $      '              ', ' 14=Matrix with large random entries.',
      $      / ' 11=Large, evenly spaced eigenvals.     ', ' 15=Matrix ',
      $      'with small random entries.' )
-*
+
       // Symmetric/Hermitian Generalized eigenproblem
-*
+
  9980 FORMAT( ' Matrix types (see xDRVSG for details): ' )
-*
+
  9979 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.             ',
      $      '           ', '  5=Diagonal: clustered entries.', / '  2=',
      $      'Identity matrix.                    ', '  6=Diagonal: lar',
@@ -366,9 +366,9 @@
      $      '  | B A Z - Z D | / ( |A| |Z| n ulp )     ',
      $      / '14 = CHPGV, with ITYPE=3 and UPLO=''L'':',
      $      '  | B A Z - Z D | / ( |A| |Z| n ulp )     ' )
-*
+
       // Singular Value Decomposition
-*
+
  9973 FORMAT( ' Matrix types (see xCHKBD for details):',
      $      / ' Diagonal matrices:', / '   1: Zero', 28X,
      $      ' 5: Clustered entries', / '   2: Identity', 24X,
@@ -383,7 +383,7 @@
      $      11X, '14: Random, scaled near overflow',
      $      / '  11: Large, evenly spaced sing vals  ',
      $      '15: Random, scaled near underflow' )
-*
+
  9972 FORMAT( / ' Test ratios:  ',
      $      '(B: bidiagonal, S: diagonal, Q, P, U, and V: ', A10, / 16X,
      $      'X: m x nrhs, Y = Q'' X, and Z = U'' Y)' )
@@ -442,9 +442,9 @@
      $      / '  34: norm( S - S1 )      / ( norm(S) ulp ),',
      $        ' where S1 is computed', / 44X,
      $        ' without computing U and V''' )
-*
+
       // Band reduction to bidiagonal form
-*
+
  9970 FORMAT( ' Matrix types (see xCHKBB for details):',
      $      / ' Diagonal matrices:', / '   1: Zero', 28X,
      $      ' 5: Clustered entries', / '   2: Identity', 24X,
@@ -459,7 +459,7 @@
      $      11X, '14: Random, scaled near overflow',
      $      / '  11: Large, evenly spaced sing vals  ',
      $      '15: Random, scaled near underflow' )
-*
+
  9969 FORMAT( / ' Test ratios:  ', '(B: upper bidiagonal, Q and P: ',
      $      A10, / 16X, 'C: m x nrhs, PT = P'', Y = Q'' C)',
      $      / ' 1: norm( A - Q B PT ) / ( norm(A) max(m,n) ulp )',
@@ -468,7 +468,7 @@
      $      / ' 4: norm( Y - Q'' C )   / ( norm(Y) max(m,nrhs) ulp )' )
  9968 FORMAT( / ' Tests performed:  See sdrvst.f' )
  9967 FORMAT( / ' Tests performed:  See cdrvst.f' )
-*
+
       // End of SLAHD2
-*
+
       END

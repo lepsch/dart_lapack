@@ -1,9 +1,9 @@
       REAL FUNCTION SDSDOT(N,SB,SX,INCX,SY,INCY)
-*
+
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL SB
       int     INCX,INCY,N;
@@ -23,17 +23,17 @@
          RETURN
       END IF
       IF (INCX.EQ.INCY .AND. INCX.GT.0) THEN
-*
+
       // Code for equal and positive increments.
-*
+
          NS = N*INCX
          DO I = 1,NS,INCX
             DSDOT = DSDOT + DBLE(SX(I))*DBLE(SY(I))
          END DO
       ELSE
-*
+
       // Code for unequal or nonpositive increments.
-*
+
          KX = 1
          KY = 1
          IF (INCX.LT.0) KX = 1 + (1-N)*INCX
@@ -46,7 +46,7 @@
       END IF
       SDSDOT = REAL(DSDOT)
       RETURN
-*
+
       // End of SDSDOT
-*
+
       END

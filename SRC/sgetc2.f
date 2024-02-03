@@ -1,9 +1,9 @@
       SUBROUTINE SGETC2( N, A, LDA, IPIV, JPIV, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, N;
       // ..
@@ -11,9 +11,9 @@
       int                IPIV( * ), JPIV( * );
       REAL               A( LDA, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -33,21 +33,21 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Set constants to control overflow
-*
+
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Handle the case N=1 by itself
-*
+
       IF( N.EQ.1 ) THEN
          IPIV( 1 ) = 1
          JPIV( 1 ) = 1
@@ -57,14 +57,14 @@
          END IF
          RETURN
       END IF
-*
+
       // Factorize A using complete pivoting.
       // Set pivots less than SMIN to SMIN.
-*
+
       DO 40 I = 1, N - 1
-*
+
          // Find max element in matrix A
-*
+
          XMAX = ZERO
          DO 20 IP = I, N
             DO 10 JP = I, N
@@ -76,19 +76,19 @@
    10       CONTINUE
    20    CONTINUE
          IF( I.EQ.1 ) SMIN = MAX( EPS*XMAX, SMLNUM )
-*
+
          // Swap rows
-*
+
          IF( IPV.NE.I ) CALL SSWAP( N, A( IPV, 1 ), LDA, A( I, 1 ), LDA )
          IPIV( I ) = IPV
-*
+
          // Swap columns
-*
+
          IF( JPV.NE.I ) CALL SSWAP( N, A( 1, JPV ), 1, A( 1, I ), 1 )
          JPIV( I ) = JPV
-*
+
          // Check for singularity
-*
+
          IF( ABS( A( I, I ) ).LT.SMIN ) THEN
             INFO = I
             A( I, I ) = SMIN
@@ -98,19 +98,19 @@
    30    CONTINUE
          CALL SGER( N-I, N-I, -ONE, A( I+1, I ), 1, A( I, I+1 ), LDA, A( I+1, I+1 ), LDA )
    40 CONTINUE
-*
+
       IF( ABS( A( N, N ) ).LT.SMIN ) THEN
          INFO = N
          A( N, N ) = SMIN
       END IF
-*
+
       // Set last pivots to N
-*
+
       IPIV( N ) = N
       JPIV( N ) = N
-*
+
       RETURN
-*
+
       // End of SGETC2
-*
+
       END

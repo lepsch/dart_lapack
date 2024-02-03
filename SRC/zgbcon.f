@@ -1,9 +1,9 @@
       SUBROUTINE ZGBCON( NORM, N, KL, KU, AB, LDAB, IPIV, ANORM, RCOND, WORK, RWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             NORM;
       int                INFO, KL, KU, LDAB, N;
@@ -14,9 +14,9 @@
       double             RWORK( * );
       COMPLEX*16         AB( LDAB, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -51,9 +51,9 @@
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       ONENRM = NORM.EQ.'1' .OR. LSAME( NORM, 'O' )
       IF( .NOT.ONENRM .AND. .NOT.LSAME( NORM, 'I' ) ) THEN
@@ -73,9 +73,9 @@
          CALL XERBLA( 'ZGBCON', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
          RCOND = ONE
@@ -83,11 +83,11 @@
       ELSE IF( ANORM.EQ.ZERO ) THEN
          RETURN
       END IF
-*
+
       SMLNUM = DLAMCH( 'Safe minimum' )
-*
+
       // Estimate the norm of inv(A).
-*
+
       AINVNM = ZERO
       NORMIN = 'N'
       IF( ONENRM ) THEN
@@ -102,9 +102,9 @@
       CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.KASE1 ) THEN
-*
+
             // Multiply by inv(L).
-*
+
             IF( LNOTI ) THEN
                DO 20 J = 1, N - 1
                   LM = MIN( KL, N-J )
@@ -117,18 +117,18 @@
                   CALL ZAXPY( LM, -T, AB( KD+1, J ), 1, WORK( J+1 ), 1 )
    20          CONTINUE
             END IF
-*
+
             // Multiply by inv(U).
-*
+
             CALL ZLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, RWORK, INFO )
          ELSE
-*
+
             // Multiply by inv(U**H).
-*
+
             CALL ZLATBS( 'Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, RWORK, INFO )
-*
+
             // Multiply by inv(L**H).
-*
+
             IF( LNOTI ) THEN
                DO 30 J = N - 1, 1, -1
                   LM = MIN( KL, N-J )
@@ -142,9 +142,9 @@
    30          CONTINUE
             END IF
          END IF
-*
+
          // Divide X by 1/SCALE if doing so will not cause overflow.
-*
+
          NORMIN = 'Y'
          IF( SCALE.NE.ONE ) THEN
             IX = IZAMAX( N, WORK, 1 )
@@ -153,14 +153,14 @@
          END IF
          GO TO 10
       END IF
-*
+
       // Compute the estimate of the reciprocal condition number.
-*
+
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
-*
+
    40 CONTINUE
       RETURN
-*
+
       // End of ZGBCON
-*
+
       END

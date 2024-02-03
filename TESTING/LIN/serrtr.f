@@ -1,16 +1,16 @@
       SUBROUTINE SERRTR( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -41,7 +41,7 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
@@ -50,13 +50,13 @@
       A( 2, 2 ) = 3.
       A( 2, 1 ) = 4.
       OK = .TRUE.
-*
+
       IF( LSAMEN( 2, C2, 'TR' ) ) THEN
-*
+
          // Test error exits for the general triangular routines.
-*
+
          // STRTRI
-*
+
          SRNAMT = 'STRTRI'
          INFOT = 1
          CALL STRTRI( '/', 'N', 0, A, 1, INFO )
@@ -70,9 +70,9 @@
          INFOT = 5
          CALL STRTRI( 'U', 'N', 2, A, 1, INFO )
          CALL CHKXER( 'STRTRI', INFOT, NOUT, LERR, OK )
-*
+
          // STRTI2
-*
+
          SRNAMT = 'STRTI2'
          INFOT = 1
          CALL STRTI2( '/', 'N', 0, A, 1, INFO )
@@ -86,9 +86,9 @@
          INFOT = 5
          CALL STRTI2( 'U', 'N', 2, A, 1, INFO )
          CALL CHKXER( 'STRTI2', INFOT, NOUT, LERR, OK )
-*
+
          // STRTRS
-*
+
          SRNAMT = 'STRTRS'
          INFOT = 1
          CALL STRTRS( '/', 'N', 'N', 0, 0, A, 1, X, 1, INFO )
@@ -111,9 +111,9 @@
          INFOT = 9
          CALL STRTRS( 'U', 'N', 'N', 2, 1, A, 2, X, 1, INFO )
          CALL CHKXER( 'STRTRS', INFOT, NOUT, LERR, OK )
-*
+
          // STRRFS
-*
+
          SRNAMT = 'STRRFS'
          INFOT = 1
          CALL STRRFS( '/', 'N', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
@@ -139,9 +139,9 @@
          INFOT = 11
          CALL STRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STRRFS', INFOT, NOUT, LERR, OK )
-*
+
          // STRCON
-*
+
          SRNAMT = 'STRCON'
          INFOT = 1
          CALL STRCON( '/', 'U', 'N', 0, A, 1, RCOND, W, IW, INFO )
@@ -158,9 +158,9 @@
          INFOT = 6
          CALL STRCON( '1', 'U', 'N', 2, A, 1, RCOND, W, IW, INFO )
          CALL CHKXER( 'STRCON', INFOT, NOUT, LERR, OK )
-*
+
          // SLATRS
-*
+
          SRNAMT = 'SLATRS'
          INFOT = 1
          CALL SLATRS( '/', 'N', 'N', 'N', 0, A, 1, X, SCALE, W, INFO )
@@ -180,9 +180,9 @@
          INFOT = 7
          CALL SLATRS( 'U', 'N', 'N', 'N', 2, A, 1, X, SCALE, W, INFO )
          CALL CHKXER( 'SLATRS', INFOT, NOUT, LERR, OK )
-*
+
          // SLATRS3
-*
+
          SRNAMT = 'SLATRS3'
          INFOT = 1
          CALL SLATRS3( '/', 'N', 'N', 'N', 0, 0, A, 1, X, 1, SCALES, W, W( 2 ), 1, INFO )
@@ -211,13 +211,13 @@
          INFOT = 14
          CALL SLATRS3( 'U', 'N', 'N', 'N', 1, 0, A, 1, X, 1, SCALES, W, W( 2 ), 0, INFO )
          CALL CHKXER( 'SLATRS3', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'TP' ) ) THEN
-*
+
          // Test error exits for the packed triangular routines.
-*
+
          // STPTRI
-*
+
          SRNAMT = 'STPTRI'
          INFOT = 1
          CALL STPTRI( '/', 'N', 0, A, INFO )
@@ -228,9 +228,9 @@
          INFOT = 3
          CALL STPTRI( 'U', 'N', -1, A, INFO )
          CALL CHKXER( 'STPTRI', INFOT, NOUT, LERR, OK )
-*
+
          // STPTRS
-*
+
          SRNAMT = 'STPTRS'
          INFOT = 1
          CALL STPTRS( '/', 'N', 'N', 0, 0, A, X, 1, INFO )
@@ -250,9 +250,9 @@
          INFOT = 8
          CALL STPTRS( 'U', 'N', 'N', 2, 1, A, X, 1, INFO )
          CALL CHKXER( 'STPTRS', INFOT, NOUT, LERR, OK )
-*
+
          // STPRFS
-*
+
          SRNAMT = 'STPRFS'
          INFOT = 1
          CALL STPRFS( '/', 'N', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, IW, INFO )
@@ -275,9 +275,9 @@
          INFOT = 10
          CALL STPRFS( 'U', 'N', 'N', 2, 1, A, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STPRFS', INFOT, NOUT, LERR, OK )
-*
+
          // STPCON
-*
+
          SRNAMT = 'STPCON'
          INFOT = 1
          CALL STPCON( '/', 'U', 'N', 0, A, RCOND, W, IW, INFO )
@@ -291,9 +291,9 @@
          INFOT = 4
          CALL STPCON( '1', 'U', 'N', -1, A, RCOND, W, IW, INFO )
          CALL CHKXER( 'STPCON', INFOT, NOUT, LERR, OK )
-*
+
          // SLATPS
-*
+
          SRNAMT = 'SLATPS'
          INFOT = 1
          CALL SLATPS( '/', 'N', 'N', 'N', 0, A, X, SCALE, W, INFO )
@@ -310,13 +310,13 @@
          INFOT = 5
          CALL SLATPS( 'U', 'N', 'N', 'N', -1, A, X, SCALE, W, INFO )
          CALL CHKXER( 'SLATPS', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'TB' ) ) THEN
-*
+
          // Test error exits for the banded triangular routines.
-*
+
          // STBTRS
-*
+
          SRNAMT = 'STBTRS'
          INFOT = 1
          CALL STBTRS( '/', 'N', 'N', 0, 0, 0, A, 1, X, 1, INFO )
@@ -342,9 +342,9 @@
          INFOT = 10
          CALL STBTRS( 'U', 'N', 'N', 2, 0, 1, A, 1, X, 1, INFO )
          CALL CHKXER( 'STBTRS', INFOT, NOUT, LERR, OK )
-*
+
          // STBRFS
-*
+
          SRNAMT = 'STBRFS'
          INFOT = 1
          CALL STBRFS( '/', 'N', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
@@ -373,9 +373,9 @@
          INFOT = 12
          CALL STBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STBRFS', INFOT, NOUT, LERR, OK )
-*
+
          // STBCON
-*
+
          SRNAMT = 'STBCON'
          INFOT = 1
          CALL STBCON( '/', 'U', 'N', 0, 0, A, 1, RCOND, W, IW, INFO )
@@ -395,9 +395,9 @@
          INFOT = 7
          CALL STBCON( '1', 'U', 'N', 2, 1, A, 1, RCOND, W, IW, INFO )
          CALL CHKXER( 'STBCON', INFOT, NOUT, LERR, OK )
-*
+
          // SLATBS
-*
+
          SRNAMT = 'SLATBS'
          INFOT = 1
          CALL SLATBS( '/', 'N', 'N', 'N', 0, 0, A, 1, X, SCALE, W, INFO )
@@ -421,13 +421,13 @@
          CALL SLATBS( 'U', 'N', 'N', 'N', 2, 1, A, 1, X, SCALE, W, INFO )
          CALL CHKXER( 'SLATBS', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of SERRTR
-*
+
       END

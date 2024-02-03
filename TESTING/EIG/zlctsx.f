@@ -1,15 +1,15 @@
       bool             FUNCTION ZLCTSX( ALPHA, BETA );
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       COMPLEX*16         ALPHA, BETA
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       // DOUBLE PRECISION               ZERO
       // PARAMETER          ( ZERO = 0.0E+0 )
@@ -27,7 +27,7 @@
       SAVE
       // ..
       // .. Executable Statements ..
-*
+
       IF( FS ) THEN
          I = I + 1
          IF( I.LE.M ) THEN
@@ -51,15 +51,15 @@
             I = 0
          END IF
       END IF
-*
+
        // IF( BETA.EQ.CZERO ) THEN
           // ZLCTSX = ( DBLE( ALPHA ).GT.ZERO )
        // ELSE
           // ZLCTSX = ( DBLE( ALPHA/BETA ).GT.ZERO )
        // END IF
-*
+
       RETURN
-*
+
       // End of ZLCTSX
-*
+
       END

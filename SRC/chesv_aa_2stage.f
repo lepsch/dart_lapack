@@ -1,11 +1,11 @@
       SUBROUTINE CHESV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       IMPLICIT NONE
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                N, NRHS, LDA, LDB, LTB, LWORK, INFO;
@@ -14,9 +14,9 @@
       int                IPIV( * ), IPIV2( * );
       COMPLEX            A( LDA, * ), B( LDB, * ), TB( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               UPPER, TQUERY, WQUERY;
       int                LWKMIN, LWKOPT;
@@ -33,9 +33,9 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       WQUERY = ( LWORK.EQ.-1 )
@@ -56,35 +56,35 @@
       ELSE IF( LWORK.LT.LWKMIN .AND. .NOT.WQUERY ) THEN
          INFO = -13
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          CALL CHETRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO )
          LWKOPT = MAX( LWKMIN, INT( WORK( 1 ) ) )
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CHESV_AA_2STAGE', -INFO )
          RETURN
       ELSE IF( WQUERY .OR. TQUERY ) THEN
          RETURN
       END IF
-*
+
       // Compute the factorization A = U**H*T*U or A = L*T*L**H.
-*
+
       CALL CHETRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO )
       IF( INFO.EQ.0 ) THEN
-*
+
          // Solve the system A*X = B, overwriting B with X.
-*
+
          CALL CHETRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO )
-*
+
       END IF
-*
+
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-*
+
       RETURN
-*
+
       // End of CHESV_AA_2STAGE
-*
+
       END

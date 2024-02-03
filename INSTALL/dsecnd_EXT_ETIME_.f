@@ -1,9 +1,9 @@
       double           FUNCTION DSECND( );
-*
+
 *  -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 * =====================================================================
-*
+
       // .. Local Scalars ..
       REAL               T1
       // ..
@@ -15,11 +15,11 @@
       // EXTERNAL ETIME_
       // ..
       // .. Executable Statements ..
-*
+
       T1 = ETIME_( TARRAY )
       DSECND = TARRAY( 1 )
       RETURN
-*
+
       // End of DSECND
-*
+
       END

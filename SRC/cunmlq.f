@@ -1,9 +1,9 @@
       SUBROUTINE CUNMLQ( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                INFO, K, LDA, LDC, LWORK, M, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX            A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NBMAX, LDT, TSIZE;
       PARAMETER          ( NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX )
@@ -36,16 +36,16 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
       LQUERY = ( LWORK.EQ.-1 )
-*
+
       // NQ is the order of Q and NW is the minimum dimension of WORK
-*
+
       IF( LEFT ) THEN
          NQ = M
          NW = MAX( 1, N )
@@ -70,11 +70,11 @@
       ELSE IF( LWORK.LT.NW .AND. .NOT.LQUERY ) THEN
          INFO = -12
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
-*
+
          // Compute the workspace requirements
-*
+
          IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) THEN
             LWKOPT = 1
          ELSE
@@ -83,22 +83,22 @@
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CUNMLQ', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) THEN
          RETURN
       END IF
-*
+
       // Determine the block size
-*
+
       NBMIN = 2
       LDWORK = NW
       IF( NB.GT.1 .AND. NB.LT.K ) THEN
@@ -107,16 +107,16 @@
             NBMIN = MAX( 2, ILAENV( 2, 'CUNMLQ', SIDE // TRANS, M, N, K, -1 ) )
          END IF
       END IF
-*
+
       IF( NB.LT.NBMIN .OR. NB.GE.K ) THEN
-*
+
          // Use unblocked code
-*
+
          CALL CUNML2( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, IINFO )
       ELSE
-*
+
          // Use blocked code
-*
+
          IWT = 1 + NW*NB
          IF( ( LEFT .AND. NOTRAN ) .OR. ( .NOT.LEFT .AND. .NOT.NOTRAN ) ) THEN
             I1 = 1
@@ -127,7 +127,7 @@
             I2 = 1
             I3 = -NB
          END IF
-*
+
          IF( LEFT ) THEN
             NI = N
             JC = 1
@@ -135,42 +135,42 @@
             MI = M
             IC = 1
          END IF
-*
+
          IF( NOTRAN ) THEN
             TRANST = 'C'
          ELSE
             TRANST = 'N'
          END IF
-*
+
          DO 10 I = I1, I2, I3
             IB = MIN( NB, K-I+1 )
-*
+
             // Form the triangular factor of the block reflector
             // H = H(i) H(i+1) . . . H(i+ib-1)
-*
+
             CALL CLARFT( 'Forward', 'Rowwise', NQ-I+1, IB, A( I, I ), LDA, TAU( I ), WORK( IWT ), LDT )
             IF( LEFT ) THEN
-*
+
                // H or H**H is applied to C(i:m,1:n)
-*
+
                MI = M - I + 1
                IC = I
             ELSE
-*
+
                // H or H**H is applied to C(1:m,i:n)
-*
+
                NI = N - I + 1
                JC = I
             END IF
-*
+
             // Apply H or H**H
-*
+
             CALL CLARFB( SIDE, TRANST, 'Forward', 'Rowwise', MI, NI, IB, A( I, I ), LDA, WORK( IWT ), LDT, C( IC, JC ), LDC, WORK, LDWORK )
    10    CONTINUE
       END IF
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       RETURN
-*
+
       // End of CUNMLQ
-*
+
       END

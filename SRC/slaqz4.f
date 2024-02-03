@@ -15,7 +15,7 @@
       // Local scalars
       int     :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP, ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS;
       REAL :: TEMP, V( 3 ), C1, S1, C2, S2, SWAP
-*
+
       // External functions
       // EXTERNAL :: XERBLA, SGEMM, SLAQZ1, SLAQZ2, SLASET, SLARTG, SROT, SLACPY
       REAL, EXTERNAL :: SROUNDUP_LWORK
@@ -62,7 +62,7 @@
 
       DO I = 1, NSHIFTS-2, 2
          IF( SI( I ).NE.-SI( I+1 ) ) THEN
-*
+
             SWAP = SR( I )
             SR( I ) = SR( I+1 )
             SR( I+1 ) = SR( I+2 )

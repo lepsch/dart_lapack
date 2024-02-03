@@ -1,9 +1,9 @@
       SUBROUTINE ZHBEVX( JOBZ, RANGE, UPLO, N, KD, AB, LDAB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, RWORK, IWORK, IFAIL, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, KD, LDAB, LDQ, LDZ, M, N;
@@ -14,9 +14,9 @@
       double             RWORK( * ), W( * );
       COMPLEX*16         AB( LDAB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -42,15 +42,15 @@
       // INTRINSIC DBLE, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       WANTZ = LSAME( JOBZ, 'V' )
       ALLEIG = LSAME( RANGE, 'A' )
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
       LOWER = LSAME( UPLO, 'L' )
-*
+
       INFO = 0
       IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
          INFO = -1
@@ -80,17 +80,17 @@
       IF( INFO.EQ.0 ) THEN
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -18
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZHBEVX', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       M = 0
       IF( N.EQ.0 ) RETURN
-*
+
       IF( N.EQ.1 ) THEN
          M = 1
          IF( LOWER ) THEN
@@ -108,18 +108,18 @@
          END IF
          RETURN
       END IF
-*
+
       // Get machine constants.
-*
+
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
       SMLNUM = SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
-*
+
       // Scale matrix to allowable range, if necessary.
-*
+
       ISCALE = 0
       ABSTLL = ABSTOL
       IF( VALEIG ) THEN
@@ -149,19 +149,19 @@
             VUU = VU*SIGMA
          END IF
       END IF
-*
+
       // Call ZHBTRD to reduce Hermitian band matrix to tridiagonal form.
-*
+
       INDD = 1
       INDE = INDD + N
       INDRWK = INDE + N
       INDWRK = 1
       CALL ZHBTRD( JOBZ, UPLO, N, KD, AB, LDAB, RWORK( INDD ), RWORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
-*
+
       // If all eigenvalues are desired and ABSTOL is less than or equal
      t // o zero, then call DSTERF or ZSTEQR.  If this fails for some
       // eigenvalue, then try DSTEBZ.
-*
+
       TEST = .FALSE.
       IF (INDEIG) THEN
          IF (IL.EQ.1 .AND. IU.EQ.N) THEN
@@ -190,9 +190,9 @@
          END IF
          INFO = 0
       END IF
-*
+
       // Otherwise, call DSTEBZ and, if eigenvectors are desired, ZSTEIN.
-*
+
       IF( WANTZ ) THEN
          ORDER = 'B'
       ELSE
@@ -202,21 +202,21 @@
       INDISP = INDIBL + N
       INDIWK = INDISP + N
       CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO )
-*
+
       IF( WANTZ ) THEN
          CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
-*
+
          // Apply unitary matrix used in reduction to tridiagonal
          // form to eigenvectors returned by ZSTEIN.
-*
+
          DO 20 J = 1, M
             CALL ZCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
             CALL ZGEMV( 'N', N, N, CONE, Q, LDQ, WORK, 1, CZERO, Z( 1, J ), 1 )
    20    CONTINUE
       END IF
-*
+
       // If matrix was scaled, then rescale eigenvalues appropriately.
-*
+
    30 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
@@ -226,10 +226,10 @@
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
-*
+
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
-*
+
       IF( WANTZ ) THEN
          DO 50 J = 1, M - 1
             I = 0
@@ -240,7 +240,7 @@
                   TMP1 = W( JJ )
                END IF
    40       CONTINUE
-*
+
             IF( I.NE.0 ) THEN
                ITMP1 = IWORK( INDIBL+I-1 )
                W( I ) = W( J )
@@ -256,9 +256,9 @@
             END IF
    50    CONTINUE
       END IF
-*
+
       RETURN
-*
+
       // End of ZHBEVX
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE DPOSVXX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, EQUED, S, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             EQUED, FACT, UPLO;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
@@ -13,9 +13,9 @@
       int                IWORK( * );
       DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * )       double             S( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
-*
+
 *  ==================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -43,7 +43,7 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
       EQUIL = LSAME( FACT, 'E' )
@@ -55,15 +55,15 @@
       ELSE
          RCEQU = LSAME( EQUED, 'Y' )
       ENDIF
-*
+
       // Default is failure.  If an input parameter is wrong or
       // factorization fails, make everything look horrible.  Only the
       // pivot growth is set here, the rest is initialized in DPORFSX.
-*
+
       RPVGRW = ZERO
-*
+
       // Test the input parameters.  PARAMS is not tested until DPORFSX.
-*
+
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) THEN
          INFO = -1
       ELSE IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -102,73 +102,73 @@
             END IF
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DPOSVXX', -INFO )
          RETURN
       END IF
-*
+
       IF( EQUIL ) THEN
-*
+
       // Compute row and column scalings to equilibrate the matrix A.
-*
+
          CALL DPOEQUB( N, A, LDA, S, SCOND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
-*
+
       // Equilibrate the matrix.
-*
+
             CALL DLAQSY( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
             RCEQU = LSAME( EQUED, 'Y' )
          END IF
       END IF
-*
+
       // Scale the right-hand side.
-*
+
       IF( RCEQU ) CALL DLASCL2( N, NRHS, S, B, LDB )
-*
+
       IF( NOFACT .OR. EQUIL ) THEN
-*
+
          // Compute the Cholesky factorization of A.
-*
+
          CALL DLACPY( UPLO, N, N, A, LDA, AF, LDAF )
          CALL DPOTRF( UPLO, N, AF, LDAF, INFO )
-*
+
          // Return if INFO is non-zero.
-*
+
          IF( INFO.NE.0 ) THEN
-*
+
             // Pivot in column INFO is exactly 0
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
-*
+
             RPVGRW = DLA_PORPVGRW( UPLO, INFO, A, LDA, AF, LDAF, WORK )
             RETURN
          ENDIF
       END IF
-*
+
       // Compute the reciprocal growth factor RPVGRW.
-*
+
       RPVGRW = DLA_PORPVGRW( UPLO, N, A, LDA, AF, LDAF, WORK )
-*
+
       // Compute the solution matrix X.
-*
+
       CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL DPOTRS( UPLO, N, NRHS, AF, LDAF, X, LDX, INFO )
-*
+
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
-*
+
       CALL DPORFSX( UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO )
 
-*
+
       // Scale solutions.
-*
+
       IF ( RCEQU ) THEN
          CALL DLASCL2 ( N, NRHS, S, X, LDX )
       END IF
-*
+
       RETURN
-*
+
       // End of DPOSVXX
-*
+
       END

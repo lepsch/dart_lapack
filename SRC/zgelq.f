@@ -1,18 +1,18 @@
       SUBROUTINE ZGELQ( M, N, A, LDA, T, TSIZE, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, M, N, TSIZE, LWORK;
       // ..
       // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), T( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // ..
       // .. Local Scalars ..
       bool               LQUERY, LMINWS, MINT, MINW;
@@ -33,22 +33,22 @@
       // EXTERNAL ILAENV
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
-*
+
       LQUERY = ( TSIZE.EQ.-1 .OR. TSIZE.EQ.-2 .OR. LWORK.EQ.-1 .OR. LWORK.EQ.-2 )
-*
+
       MINT = .FALSE.
       MINW = .FALSE.
       IF( TSIZE.EQ.-2 .OR. LWORK.EQ.-2 ) THEN
         IF( TSIZE.NE.-1 ) MINT = .TRUE.
         IF( LWORK.NE.-1 ) MINW = .TRUE.
       END IF
-*
+
       // Determine the block size
-*
+
       IF( MIN( M, N ).GT.0 ) THEN
         MB = ILAENV( 1, 'ZGELQ ', ' ', M, N, 1, -1 )
         NB = ILAENV( 1, 'ZGELQ ', ' ', M, N, 2, -1 )
@@ -68,9 +68,9 @@
       ELSE
         NBLCKS = 1
       END IF
-*
+
       // Determine if the workspace size satisfies minimal size
-*
+
       IF( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) THEN
          LWMIN = MAX( 1, N )
          LWOPT = MAX( 1, MB*N )
@@ -95,7 +95,7 @@
       ELSE
          LWREQ = MAX( 1, MB*M )
       END IF
-*
+
       IF( M.LT.0 ) THEN
         INFO = -1
       ELSE IF( N.LT.0 ) THEN
@@ -107,7 +107,7 @@
       ELSE IF( ( LWORK.LT.LWREQ ) .AND .( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) THEN
         INFO = -8
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
         IF( MINT ) THEN
           T( 1 ) = MINTSZ
@@ -128,25 +128,25 @@
       ELSE IF( LQUERY ) THEN
         RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( MIN( M, N ).EQ.0 ) THEN
         RETURN
       END IF
-*
+
       // The LQ Decomposition
-*
+
       IF( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) THEN
         CALL ZGELQT( M, N, MB, A, LDA, T( 6 ), MB, WORK, INFO )
       ELSE
         CALL ZLASWLQ( M, N, MB, NB, A, LDA, T( 6 ), MB, WORK, LWORK, INFO )
       END IF
-*
+
       WORK( 1 ) = LWREQ
-*
+
       RETURN
-*
+
       // End of ZGELQ
-*
+
       END

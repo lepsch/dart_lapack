@@ -1,15 +1,15 @@
       SUBROUTINE SLAS2( F, G, H, SSMIN, SSMAX )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL               F, G, H, SSMAX, SSMIN
       // ..
-*
+
 *  ====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
@@ -25,7 +25,7 @@
       // INTRINSIC ABS, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       FA = ABS( F )
       GA = ABS( G )
       HA = ABS( H )
@@ -49,11 +49,11 @@
          ELSE
             AU = FHMX / GA
             IF( AU.EQ.ZERO ) THEN
-*
+
                // Avoid possible harmful underflow if exponent range
                // asymmetric (true SSMIN may not underflow even if
                // AU underflows)
-*
+
                SSMIN = ( FHMN*FHMX ) / GA
                SSMAX = GA
             ELSE
@@ -67,7 +67,7 @@
          END IF
       END IF
       RETURN
-*
+
       // End of SLAS2
-*
+
       END

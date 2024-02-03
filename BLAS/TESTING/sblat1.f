@@ -1,11 +1,11 @@
       PROGRAM SBLAT1
-*
+
 *  -- Reference BLAS test routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int              NOUT;
       PARAMETER        (NOUT=6)
@@ -26,12 +26,12 @@
       DO 20 IC = 1, 13
          ICASE = IC
          CALL HEADER
-*
+
          // .. Initialize  PASS,  INCX,  and INCY for a new case. ..
          // .. the value 9999 for INCX or INCY will appear in the ..
          // .. detailed  output, if any, for cases  that do not involve ..
          // .. these parameters ..
-*
+
          PASS = .TRUE.
          INCX = 9999
          INCY = 9999
@@ -48,12 +48,12 @@
          IF (PASS) WRITE (NOUT,99998)
    20 CONTINUE
       STOP
-*
+
 99999 FORMAT (' Real BLAS Test Program Results',/1X)
 99998 FORMAT ('                                    ----- PASS -----')
-*
+
       // End of SBLAT1
-*
+
       END
       SUBROUTINE HEADER
       // .. Parameters ..
@@ -83,11 +83,11 @@
       // .. Executable Statements ..
       WRITE (NOUT,99999) ICASE, L(ICASE)
       RETURN
-*
+
 99999 FORMAT (/' Test of subprogram number',I3,12X,A6)
-*
+
       // End of HEADER
-*
+
       END
       SUBROUTINE CHECK0(SFAC)
       // .. Parameters ..
@@ -137,14 +137,14 @@
       DTRUE(1,9) = 32.E0 / 7.E0
       DTRUE(2,9) = -16.E0 / 7.E0
       // .. Executable Statements ..
-*
+
       // Compute true values which cannot be prestored
       // in decimal notation
-*
+
       DBTRUE(1) = 1.0E0/0.6E0
       DBTRUE(3) = -1.0E0/0.6E0
       DBTRUE(5) = 1.0E0/0.6E0
-*
+
       DO 20 K = 1, 8
          // .. Set N=K for identification in output if any ..
          N = K
@@ -173,9 +173,9 @@
          END IF
    20 CONTINUE
    40 RETURN
-*
+
       // End of CHECK0
-*
+
       END
       SUBROUTINE CHECK1(SFAC)
       // .. Parameters ..
@@ -219,7 +219,7 @@
             DO 20 I = 1, LEN
                SX(I) = DV(I,NP1,INCX)
    20       CONTINUE
-*
+
             IF (ICASE.EQ.7) THEN
                // .. SNRM2 ..
                // Test scaling when some entries are tiny or huge
@@ -262,9 +262,9 @@
          END IF
    80 CONTINUE
       RETURN
-*
+
       // End of CHECK1
-*
+
       END
       SUBROUTINE CHECK2(SFAC)
       // .. Parameters ..
@@ -303,35 +303,35 @@
       DATA              SSIZE1/0.0E0, 0.3E0, 1.6E0, 3.2E0/
       DATA              SSIZE2/0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0/
       DATA              SSIZE3/ .1, .4, 1.7, 3.3 /
-*
+
                           // FOR DROTM
-*
+
       DATA DPAR/-2.E0,  0.E0,0.E0,0.E0,0.E0, -1.E0,  2.E0, -3.E0, -4.E0,  5.E0, 0.E0,  0.E0,  2.E0, -3.E0,  0.E0, 1.E0,  5.E0,  2.E0,  0.E0, -4.E0/
                          // TRUE X RESULTS F0R ROTATIONS DROTM
       DATA DT19XA/.6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, -.8E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, -.9E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, 3.5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,   .1E0,             0.E0,0.E0,0.E0,0.E0,0.E0, -.8E0,  3.8E0,             0.E0,0.E0,0.E0,0.E0,0.E0, -.9E0,  2.8E0,             0.E0,0.E0,0.E0,0.E0,0.E0, 3.5E0,  -.4E0,             0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,   .1E0,  -.5E0,   .8E0,          0.E0,0.E0,0.E0, -.8E0,  3.8E0, -2.2E0, -1.2E0,          0.E0,0.E0,0.E0, -.9E0,  2.8E0, -1.4E0, -1.3E0,          0.E0,0.E0,0.E0, 3.5E0,  -.4E0, -2.2E0,  4.7E0,          0.E0,0.E0,0.E0/
-*
+
       DATA DT19XB/.6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, -.8E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, -.9E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, 3.5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,   .1E0,  -.5E0,             0.E0,0.E0,0.E0,0.E0, 0.E0,    .1E0, -3.0E0,             0.E0,0.E0,0.E0,0.E0, -.3E0,   .1E0, -2.0E0,             0.E0,0.E0,0.E0,0.E0, 3.3E0,   .1E0, -2.0E0,             0.E0,0.E0,0.E0,0.E0, .6E0,   .1E0,  -.5E0,   .8E0,   .9E0,  -.3E0,  -.4E0, -2.0E0,   .1E0,  1.4E0,   .8E0,   .6E0,  -.3E0, -2.8E0, -1.8E0,   .1E0,  1.3E0,   .8E0,  0.E0,   -.3E0, -1.9E0, 3.8E0,   .1E0, -3.1E0,   .8E0,  4.8E0,  -.3E0, -1.5E0 /
-*
+
       DATA DT19XC/.6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, -.8E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, -.9E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, 3.5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,   .1E0,  -.5E0,             0.E0,0.E0,0.E0,0.E0, 4.8E0,   .1E0, -3.0E0,             0.E0,0.E0,0.E0,0.E0, 3.3E0,   .1E0, -2.0E0,             0.E0,0.E0,0.E0,0.E0, 2.1E0,   .1E0, -2.0E0,             0.E0,0.E0,0.E0,0.E0, .6E0,   .1E0,  -.5E0,   .8E0,   .9E0,  -.3E0,  -.4E0, -1.6E0,   .1E0, -2.2E0,   .8E0,  5.4E0,  -.3E0, -2.8E0, -1.5E0,   .1E0, -1.4E0,   .8E0,  3.6E0,  -.3E0, -1.9E0, 3.7E0,   .1E0, -2.2E0,   .8E0,  3.6E0,  -.3E0, -1.5E0 /
-*
+
       DATA DT19XD/.6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, -.8E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, -.9E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, 3.5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,   .1E0,             0.E0,0.E0,0.E0,0.E0,0.E0, -.8E0, -1.0E0,             0.E0,0.E0,0.E0,0.E0,0.E0, -.9E0,  -.8E0,             0.E0,0.E0,0.E0,0.E0,0.E0, 3.5E0,   .8E0,             0.E0,0.E0,0.E0,0.E0,0.E0, .6E0,   .1E0,  -.5E0,   .8E0,          0.E0,0.E0,0.E0, -.8E0, -1.0E0,  1.4E0, -1.6E0,          0.E0,0.E0,0.E0, -.9E0,  -.8E0,  1.3E0, -1.6E0,          0.E0,0.E0,0.E0, 3.5E0,   .8E0, -3.1E0,  4.8E0,          0.E0,0.E0,0.E0/
                          // TRUE Y RESULTS FOR ROTATIONS DROTM
       DATA DT19YA/.5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .7E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, 1.7E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, -2.6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,  -.9E0,             0.E0,0.E0,0.E0,0.E0,0.E0, .7E0, -4.8E0,             0.E0,0.E0,0.E0,0.E0,0.E0, 1.7E0,  -.7E0,             0.E0,0.E0,0.E0,0.E0,0.E0, -2.6E0,  3.5E0,             0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,  -.9E0,   .3E0,   .7E0,          0.E0,0.E0,0.E0, .7E0, -4.8E0,  3.0E0,  1.1E0,          0.E0,0.E0,0.E0, 1.7E0,  -.7E0,  -.7E0,  2.3E0,          0.E0,0.E0,0.E0, -2.6E0,  3.5E0,  -.7E0, -3.6E0,          0.E0,0.E0,0.E0/
-*
+
       DATA DT19YB/.5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .7E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, 1.7E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, -2.6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,  -.9E0,   .3E0,             0.E0,0.E0,0.E0,0.E0, 4.0E0,  -.9E0,  -.3E0,             0.E0,0.E0,0.E0,0.E0, -.5E0,  -.9E0,  1.5E0,             0.E0,0.E0,0.E0,0.E0, -1.5E0,  -.9E0, -1.8E0,             0.E0,0.E0,0.E0,0.E0, .5E0,  -.9E0,   .3E0,   .7E0,  -.6E0,   .2E0,   .8E0, 3.7E0,  -.9E0, -1.2E0,   .7E0, -1.5E0,   .2E0,  2.2E0, -.3E0,  -.9E0,  2.1E0,   .7E0, -1.6E0,   .2E0,  2.0E0, -1.6E0,  -.9E0, -2.1E0,   .7E0,  2.9E0,   .2E0, -3.8E0 /
-*
+
       DATA DT19YC/.5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .7E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, 1.7E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, -2.6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,  -.9E0,             0.E0,0.E0,0.E0,0.E0,0.E0, 4.0E0, -6.3E0,             0.E0,0.E0,0.E0,0.E0,0.E0, -.5E0,   .3E0,             0.E0,0.E0,0.E0,0.E0,0.E0, -1.5E0,  3.0E0,             0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,  -.9E0,   .3E0,   .7E0,          0.E0,0.E0,0.E0, 3.7E0, -7.2E0,  3.0E0,  1.7E0,          0.E0,0.E0,0.E0, -.3E0,   .9E0,  -.7E0,  1.9E0,          0.E0,0.E0,0.E0, -1.6E0,  2.7E0,  -.7E0, -3.4E0,          0.E0,0.E0,0.E0/
-*
+
       DATA DT19YD/.5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .7E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, 1.7E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, -2.6E0,                  0.E0,0.E0,0.E0,0.E0,0.E0,0.E0, .5E0,  -.9E0,   .3E0,             0.E0,0.E0,0.E0,0.E0, .7E0,  -.9E0,  1.2E0,             0.E0,0.E0,0.E0,0.E0, 1.7E0,  -.9E0,   .5E0,             0.E0,0.E0,0.E0,0.E0, -2.6E0,  -.9E0, -1.3E0,             0.E0,0.E0,0.E0,0.E0, .5E0,  -.9E0,   .3E0,   .7E0,  -.6E0,   .2E0,   .8E0, .7E0,  -.9E0,  1.2E0,   .7E0, -1.5E0,   .2E0,  1.6E0, 1.7E0,  -.9E0,   .5E0,   .7E0, -1.6E0,   .2E0,  2.4E0, -2.6E0,  -.9E0, -1.3E0,   .7E0,  2.9E0,   .2E0, -4.0E0 /
-*
+
       // .. Executable Statements ..
-*
+
       DO 120 KI = 1, 4
          INCX = INCXS(KI)
          INCY = INCYS(KI)
          MX = ABS(INCX)
          MY = ABS(INCY)
-*
+
          DO 100 KN = 1, 4
             N = NS(KN)
             KSIZE = MIN(2,KN)
@@ -342,7 +342,7 @@
                SX(I) = DX1(I)
                SY(I) = DY1(I)
    20       CONTINUE
-*
+
             IF (ICASE.EQ.1) THEN
                // .. SDOT ..
                CALL STEST1(SDOT(N,SX,INCX,SY,INCY),DT7(KN,KI),SSIZE1(KN) ,SFAC)
@@ -396,18 +396,18 @@
                      STX(I)= DT19X(I,KPAR,KNI)
                      STY(I)= DT19Y(I,KPAR,KNI)
                   END DO
-*
+
                   DO I=1,5
                      DTEMP(I) = DPAR(I,KPAR)
                   END DO
-*
+
                   DO  I=1,LENX
                      SSIZE(I)=STX(I)
                   END DO
                     // SEE REMARK ABOVE ABOUT DT11X(1,2,7)
                         // AND DT11X(5,3,8).
                   IF ((KPAR .EQ. 2) .AND. (KNI .EQ. 7)) SSIZE(1) = 2.4E0                   IF ((KPAR .EQ. 3) .AND. (KNI .EQ. 8)) SSIZE(5) = 1.8E0
-*
+
                   CALL   SROTM(N,SX,INCX,SY,INCY,DTEMP)
                   CALL   STEST(LENX,SX,STX,SSIZE,SFAC)
                   CALL   STEST(LENY,SY,STY,STY,SFAC)
@@ -422,9 +422,9 @@
   100    CONTINUE
   120 CONTINUE
       RETURN
-*
+
       // End of CHECK2
-*
+
       END
       SUBROUTINE CHECK3(SFAC)
       // .. Parameters ..
@@ -457,19 +457,19 @@
       DATA              DT9X/0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, -0.46E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, -0.46E0, -0.22E0, 1.06E0, 0.0E0, 0.0E0, 0.0E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.66E0, 0.1E0, -0.1E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.96E0, 0.1E0, -0.76E0, 0.8E0, 0.90E0, -0.3E0, -0.02E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, -0.06E0, 0.1E0, -0.1E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.90E0, 0.1E0, -0.22E0, 0.8E0, 0.18E0, -0.3E0, -0.02E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, 0.26E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, 0.26E0, -0.76E0, 1.12E0, 0.0E0, 0.0E0, 0.0E0/       DATA              DT9Y/0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, -0.78E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, -0.78E0, 0.54E0, 0.08E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.7E0, -0.9E0, -0.12E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.64E0, -0.9E0, -0.30E0, 0.7E0, -0.18E0, 0.2E0, 0.28E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.7E0, -1.08E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.64E0, -1.26E0, 0.54E0, 0.20E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, -0.9E0, 0.18E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, -0.9E0, 0.18E0, 0.7E0, -0.18E0, 0.2E0, 0.16E0/
       DATA              SSIZE2/0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0/
       // .. Executable Statements ..
-*
+
       DO 60 KI = 1, 4
          INCX = INCXS(KI)
          INCY = INCYS(KI)
          MX = ABS(INCX)
          MY = ABS(INCY)
-*
+
          DO 40 KN = 1, 4
             N = NS(KN)
             KSIZE = MIN(2,KN)
             LENX = LENS(KN,MX)
             LENY = LENS(KN,MY)
-*
+
             IF (ICASE.EQ.4) THEN
                // .. SROT ..
                DO 20 I = 1, 7
@@ -487,7 +487,7 @@
             END IF
    40    CONTINUE
    60 CONTINUE
-*
+
       MWPC(1) = 1
       DO 80 I = 2, 11
          MWPC(I) = 0
@@ -582,19 +582,19 @@
          CALL STEST(5,COPYY,MWPSTY,MWPSTY,SFAC)
   200 CONTINUE
       RETURN
-*
+
       // End of CHECK3
-*
+
       END
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC)
       // ********************************* STEST **************************
-*
+
       // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
       // SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
       // NEGLIGIBLE.
-*
+
       // C. L. LAWSON, JPL, 1974 DEC 10
-*
+
       // .. Parameters ..
       int              NOUT;
       REAL             ZERO
@@ -618,13 +618,13 @@
       // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Executable Statements ..
-*
+
       DO 40 I = 1, LEN
          SD = SCOMP(I) - STRUE(I)
          IF (ABS(SFAC*SD) .LE. ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40
-*
+
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
-*
+
          IF ( .NOT. PASS) GO TO 20
                               // PRINT FAIL MESSAGE AND HEADER.
          PASS = .FALSE.
@@ -634,25 +634,25 @@
      +     STRUE(I), SD, SSIZE(I)
    40 CONTINUE
       RETURN
-*
+
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY  I                            ',
      +       ' COMP(I)                             TRUE(I)  DIFFERENCE',
      +       '     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,2I5,I3,2E36.8,2E12.4)
-*
+
       // End of STEST
-*
+
       END
       SUBROUTINE STEST1(SCOMP1,STRUE1,SSIZE,SFAC)
       // ************************* STEST1 *****************************
-*
+
       // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
       // REQUIREMENT THAT WHEN A DUMMY ARGUMENT IS AN ARRAY, THE
       // ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
-*
+
       // C.L. LAWSON, JPL, 1978 DEC 6
-*
+
       // .. Scalar Arguments ..
       REAL              SCOMP1, SFAC, STRUE1
       // .. Array Arguments ..
@@ -662,36 +662,36 @@
       // .. External Subroutines ..
       // EXTERNAL STEST
       // .. Executable Statements ..
-*
+
       SCOMP(1) = SCOMP1
       STRUE(1) = STRUE1
       CALL STEST(1,SCOMP,STRUE,SSIZE,SFAC)
-*
+
       RETURN
-*
+
       // End of STEST1
-*
+
       END
       REAL             FUNCTION SDIFF(SA,SB)
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
-*
+
       // .. Scalar Arguments ..
       REAL                            SA, SB
       // .. Executable Statements ..
       SDIFF = SA - SB
       RETURN
-*
+
       // End of SDIFF
-*
+
       END
       SUBROUTINE ITEST1(ICOMP,ITRUE)
       // ********************************* ITEST1 *************************
-*
+
       // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
       // EQUALITY.
       // C. L. LAWSON, JPL, 1974 DEC 10
-*
+
       // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
@@ -705,11 +705,11 @@
       // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Executable Statements ..
-*
+
       IF (ICOMP.EQ.ITRUE) GO TO 40
-*
+
                              // HERE ICOMP IS NOT EQUAL TO ITRUE.
-*
+
       IF ( .NOT. PASS) GO TO 20
                               // PRINT FAIL MESSAGE AND HEADER.
       PASS = .FALSE.
@@ -719,37 +719,37 @@
       WRITE (NOUT,99997) ICASE, N, INCX, INCY, ICOMP, ITRUE, ID
    40 CONTINUE
       RETURN
-*
+
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY                               ',
      +       ' COMP                                TRUE     DIFFERENCE',
      +       /1X)
 99997 FORMAT (1X,I4,I3,2I5,2I36,I12)
-*
+
       // End of ITEST1
-*
+
       END
       SUBROUTINE SB1NRM2(N,INCX,THRESH)
       // Compare NRM2 with a reference computation using combinations
       // of the following values:
-*
+
       // 0, very small, small, ulp, 1, 1/ulp, big, very big, infinity, NaN
-*
+
       // one of these values is used to initialize x(1) and x(2:N) is
       // filled with random values from [-1,1] scaled by another of
      t // hese values.
-*
+
       // This routine is adapted from the test suite provided by
       // Anderson E. (2017)
       // Algorithm 978: Safe Scaling in the Level 1 BLAS
       // ACM Trans Math Softw 44:1--28
       // https://doi.org/10.1145/3061665
-*
+
       IMPLICIT NONE
       // .. Scalar Arguments ..
       int               INCX, N;
       REAL              THRESH
-*
+
 *  =====================================================================
       // .. Parameters ..
       int               NMAX, NOUT, NV;
@@ -783,38 +783,38 @@
       VALUES(10) = SXVALS(V0,3)
       ROGUE = -1234.5678E+0
       FIRST = .TRUE.
-*
+
       // Check that the arrays are large enough
-*
+
       IF (N*ABS(INCX).GT.NMAX) THEN
          WRITE (NOUT,99) "SNRM2", NMAX, INCX, N, N*ABS(INCX)
          RETURN
       END IF
-*
+
       // Zero-sized inputs are tested in STEST1.
       IF (N.LE.0) THEN
          RETURN
       END IF
-*
+
       // Generate (N-1) values in (-1,1).
-*
+
       DO I = 2, N
          CALL RANDOM_NUMBER(WORK(I))
          WORK(I) = ONE - TWO*WORK(I)
       END DO
-*
+
       // Compute the sum of squares of the random values
       // by an unscaled algorithm.
-*
+
       WORKSSQ = ZERO
       DO I = 2, N
          WORKSSQ = WORKSSQ + WORK(I)*WORK(I)
       END DO
-*
+
       // Construct the test vector with one known value
       // and the rest from the random work array multiplied
       // by a scaling factor.
-*
+
       DO IV = 1, NV
          V0 = VALUES(IV)
          IF (ABS(V0).GT.ONE) THEN
@@ -829,9 +829,9 @@
             DO I = 2, N
                Z(I) = V1*WORK(I)
             END DO
-*
+
             // Compute the expected value of the 2-norm
-*
+
             Y1 = ABS(V0)
             IF (N.GT.1) THEN
                Y2 = ABS(V1)*SQRT(WORKSSQ)
@@ -840,11 +840,11 @@
             END IF
             YMIN = MIN(Y1, Y2)
             YMAX = MAX(Y1, Y2)
-*
+
             // Expected value is NaN if either is NaN. The test
             // for YMIN == YMAX avoids further computation if both
             // are infinity.
-*
+
             IF ((Y1.NE.Y1).OR.(Y2.NE.Y2)) THEN
                // add to propagate NaN
                YNRM = Y1 + Y2
@@ -855,9 +855,9 @@
             ELSE
                YNRM = YMAX*SQRT(ONE + (YMIN / YMAX)**2)
             END IF
-*
+
             // Fill the input array to SNRM2 with steps of incx
-*
+
             DO I = 1, N
                X(I) = ROGUE
             END DO
@@ -867,20 +867,20 @@
                X(IX) = Z(I)
                IX = IX + INCX
             END DO
-*
+
             // Call SNRM2 to compute the 2-norm
-*
+
             SNRM = SNRM2(N,X,INCX)
-*
+
             // Compare SNRM and ZNRM.  Roundoff error grows like O(n)
             // in this implementation so we scale the test ratio accordingly.
-*
+
             IF (INCX.EQ.0) THEN
                ZNRM = SQRT(REAL(N))*ABS(X(1))
             ELSE
                ZNRM = YNRM
             END IF
-*
+
             // The tests for NaN rely on the compiler not being overly
             // aggressive and removing the statements altogether.
             IF ((SNRM.NE.SNRM).OR.(ZNRM.NE.ZNRM)) THEN

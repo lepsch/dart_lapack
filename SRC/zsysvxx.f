@@ -1,9 +1,9 @@
       SUBROUTINE ZSYSVXX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, EQUED, S, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             EQUED, FACT, UPLO;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
@@ -13,9 +13,9 @@
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * )       double             S( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
       // ..
-*
+
 *  ==================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -43,7 +43,7 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
       EQUIL = LSAME( FACT, 'E' )
@@ -55,15 +55,15 @@
       ELSE
          RCEQU = LSAME( EQUED, 'Y' )
       ENDIF
-*
+
       // Default is failure.  If an input parameter is wrong or
       // factorization fails, make everything look horrible.  Only the
       // pivot growth is set here, the rest is initialized in ZSYRFSX.
-*
+
       RPVGRW = ZERO
-*
+
       // Test the input parameters.  PARAMS is not tested until ZSYRFSX.
-*
+
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) THEN
          INFO = -1
       ELSE IF( .NOT.LSAME(UPLO, 'U') .AND. .NOT.LSAME(UPLO, 'L') ) THEN
@@ -102,73 +102,73 @@
             END IF
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZSYSVXX', -INFO )
          RETURN
       END IF
-*
+
       IF( EQUIL ) THEN
-*
+
       // Compute row and column scalings to equilibrate the matrix A.
-*
+
          CALL ZSYEQUB( UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
-*
+
       // Equilibrate the matrix.
-*
+
             CALL ZLAQSY( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
             RCEQU = LSAME( EQUED, 'Y' )
          END IF
 
       END IF
-*
+
       // Scale the right hand-side.
-*
+
       IF( RCEQU ) CALL ZLASCL2( N, NRHS, S, B, LDB )
-*
+
       IF( NOFACT .OR. EQUIL ) THEN
-*
+
          // Compute the LDL^T or UDU^T factorization of A.
-*
+
          CALL ZLACPY( UPLO, N, N, A, LDA, AF, LDAF )
          CALL ZSYTRF( UPLO, N, AF, LDAF, IPIV, WORK, 5*MAX(1,N), INFO )
-*
+
          // Return if INFO is non-zero.
-*
+
          IF( INFO.GT.0 ) THEN
-*
+
             // Pivot in column INFO is exactly 0
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
-*
+
             IF ( N.GT.0 ) RPVGRW = ZLA_SYRPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK )
             RETURN
          END IF
       END IF
-*
+
       // Compute the reciprocal pivot growth factor RPVGRW.
-*
+
       IF ( N.GT.0 ) RPVGRW = ZLA_SYRPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK )
-*
+
       // Compute the solution matrix X.
-*
+
       CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL ZSYTRS( UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
-*
+
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
-*
+
       CALL ZSYRFSX( UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
-*
+
       // Scale solutions.
-*
+
       IF ( RCEQU ) THEN
          CALL ZLASCL2 (N, NRHS, S, X, LDX )
       END IF
-*
+
       RETURN
-*
+
       // End of ZSYSVXX
-*
+
       END

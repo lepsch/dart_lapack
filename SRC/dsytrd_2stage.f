@@ -1,11 +1,11 @@
       SUBROUTINE DSYTRD_2STAGE( VECT, UPLO, N, A, LDA, D, E, TAU, HOUS2, LHOUS2, WORK, LWORK, INFO )
-*
+
       IMPLICIT NONE
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             VECT, UPLO;
       int                N, LDA, LWORK, LHOUS2, INFO;
@@ -14,7 +14,7 @@
       double             D( * ), E( * );
       double             A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * );
       // ..
-*
+
 *  =====================================================================
       // ..
       // .. Local Scalars ..
@@ -30,16 +30,16 @@
       // EXTERNAL LSAME, ILAENV2STAGE
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters
-*
+
       INFO   = 0
       WANTQ  = LSAME( VECT, 'V' )
       UPPER  = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK.EQ.-1 ) .OR. ( LHOUS2.EQ.-1 )
-*
+
       // Determine the block size, the workspace size and the hous size.
-*
+
       KD     = ILAENV2STAGE( 1, 'DSYTRD_2STAGE', VECT, N, -1, -1, -1 )
       IB     = ILAENV2STAGE( 2, 'DSYTRD_2STAGE', VECT, N, KD, -1, -1 )
       IF( N.EQ.0 ) THEN
@@ -49,7 +49,7 @@
          LHMIN = ILAENV2STAGE( 3, 'DSYTRD_2STAGE', VECT, N, KD, IB, -1 )
          LWMIN = ILAENV2STAGE( 4, 'DSYTRD_2STAGE', VECT, N, KD, IB, -1 )
       END IF
-*
+
       IF( .NOT.LSAME( VECT, 'N' ) ) THEN
          INFO = -1
       ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -63,28 +63,28 @@
       ELSE IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
          INFO = -12
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          HOUS2( 1 ) = LHMIN
          WORK( 1 )  = LWMIN
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DSYTRD_2STAGE', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) THEN
          WORK( 1 ) = 1
          RETURN
       END IF
-*
+
       // Determine pointer position
-*
+
       LDAB  = KD+1
       LWRK  = LWORK-LDAB*N
       ABPOS = 1
@@ -99,11 +99,11 @@
          CALL XERBLA( 'DSYTRD_SB2ST', -INFO )
          RETURN
       END IF
-*
-*
+
+
       WORK( 1 ) = LWMIN
       RETURN
-*
+
       // End of DSYTRD_2STAGE
-*
+
       END

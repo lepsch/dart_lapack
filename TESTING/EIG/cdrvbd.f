@@ -1,11 +1,11 @@
       SUBROUTINE CDRVBD( NSIZES, MM, NN, NTYPES, DOTYPE, ISEED, THRESH, A, LDA, U, LDU, VT, LDVT, ASAV, USAV, VTSAV, S, SSAV, E, WORK, LWORK, RWORK, IWORK, NOUNIT, INFO )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       IMPLICIT NONE
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LDVT, LWORK, NOUNIT, NSIZES, NTYPES;
       REAL               THRESH
@@ -16,9 +16,9 @@
       REAL               E( * ), RWORK( * ), S( * ), SSAV( * )
       COMPLEX            A( LDA, * ), ASAV( LDA, * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = 0.5E0 )
@@ -63,13 +63,13 @@
       DATA               CJOBV / 'N', 'V' /
       // ..
       // .. Executable Statements ..
-*
+
       // Check for errors
-*
+
       INFO = 0
-*
+
       // Important constants
-*
+
       NERRS = 0
       NTESTT = 0
       NTESTF = 0
@@ -87,9 +87,9 @@
          MNMAX = MAX( MNMAX, MIN( MM( J ), NN( J ) ) )
          MINWRK = MAX( MINWRK, MAX( 3*MIN( MM( J ), NN( J ) )+MAX( MM( J ), NN( J ) )**2, 5*MIN( MM( J ), NN( J ) ), 3*MAX( MM( J ), NN( J ) ) ) )
    10 CONTINUE
-*
+
       // Check for errors
-*
+
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
       ELSE IF( BADMM ) THEN
@@ -107,73 +107,73 @@
       ELSE IF( MINWRK.GT.LWORK ) THEN
          INFO = -21
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CDRVBD', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if nothing to do
-*
+
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
-*
+
       // More Important constants
-*
+
       UNFL = SLAMCH( 'S' )
       OVFL = ONE / UNFL
       ULP = SLAMCH( 'E' )
       ULPINV = ONE / ULP
       RTUNFL = SQRT( UNFL )
-*
+
       // Loop over sizes, types
-*
+
       NERRS = 0
-*
+
       DO 310 JSIZE = 1, NSIZES
          M = MM( JSIZE )
          N = NN( JSIZE )
          MNMIN = MIN( M, N )
-*
+
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
          ELSE
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
-*
+
          DO 300 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 300
             NTEST = 0
-*
+
             DO 20 J = 1, 4
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
-*
+
             // Compute "A"
-*
+
             IF( MTYPES.GT.MAXTYP ) GO TO 50
-*
+
             IF( JTYPE.EQ.1 ) THEN
-*
+
                // Zero matrix
-*
+
                CALL CLASET( 'Full', M, N, CZERO, CZERO, A, LDA )
                DO 30 I = 1, MIN( M, N )
                   S( I ) = ZERO
    30          CONTINUE
-*
+
             ELSE IF( JTYPE.EQ.2 ) THEN
-*
+
                // Identity matrix
-*
+
                CALL CLASET( 'Full', M, N, CZERO, CONE, A, LDA )
                DO 40 I = 1, MIN( M, N )
                   S( I ) = ONE
    40          CONTINUE
-*
+
             ELSE
-*
+
                // (Scaled) random matrix
-*
+
                IF( JTYPE.EQ.3 ) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP                CALL CLATMS( M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO )
                IF( IINFO.NE.0 ) THEN
                   WRITE( NOUNIT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
@@ -181,28 +181,28 @@
                   RETURN
                END IF
             END IF
-*
+
    50       CONTINUE
             CALL CLACPY( 'F', M, N, A, LDA, ASAV, LDA )
-*
+
             // Do for minimal and adequate (for blocking) workspace
-*
+
             DO 290 IWSPC = 1, 4
-*
+
                // Test for CGESVD
-*
+
                IWTMP = 2*MIN( M, N )+MAX( M, N )
                LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                LSWORK = MIN( LSWORK, LWORK )
                LSWORK = MAX( LSWORK, 1 )
                IF( IWSPC.EQ.4 ) LSWORK = LWORK
-*
+
                DO 60 J = 1, 35
                   RESULT( J ) = -ONE
    60          CONTINUE
-*
+
                // Factorize A
-*
+
                IF( IWSPC.GT.1 ) CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                SRNAMT = 'CGESVD'
                CALL CGESVD( 'A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IINFO )
@@ -211,9 +211,9 @@
                   INFO = ABS( IINFO )
                   RETURN
                END IF
-*
+
                // Do tests 1--4
-*
+
                CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 1 ) )
                IF( M.NE.0 .AND. N.NE.0 ) THEN
                   CALL CUNT01( 'Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 2 ) )                   CALL CUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 3 ) )
@@ -225,9 +225,9 @@
                IF( MNMIN.GE.1 ) THEN
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 4 ) = ULPINV
                END IF
-*
+
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
-*
+
                RESULT( 5 ) = ZERO
                RESULT( 6 ) = ZERO
                RESULT( 7 ) = ZERO
@@ -239,9 +239,9 @@
                      CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                      SRNAMT = 'CGESVD'
                      CALL CGESVD( JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, RWORK, IINFO )
-*
+
                      // Compare U
-*
+
                      DIF = ZERO
                      IF( M.GT.0 .AND. N.GT.0 ) THEN
                         IF( IJU.EQ.1 ) THEN
@@ -253,9 +253,9 @@
                         END IF
                      END IF
                      RESULT( 5 ) = MAX( RESULT( 5 ), DIF )
-*
+
                      // Compare VT
-*
+
                      DIF = ZERO
                      IF( M.GT.0 .AND. N.GT.0 ) THEN
                         IF( IJVT.EQ.1 ) THEN
@@ -267,9 +267,9 @@
                         END IF
                      END IF
                      RESULT( 6 ) = MAX( RESULT( 6 ), DIF )
-*
+
                      // Compare S
-*
+
                      DIF = ZERO
                      DIV = MAX( REAL( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) )
                      DO 80 I = 1, MNMIN - 1
@@ -279,17 +279,17 @@
                      RESULT( 7 ) = MAX( RESULT( 7 ), DIF )
    90             CONTINUE
   100          CONTINUE
-*
+
                // Test for CGESDD
-*
+
                IWTMP = 2*MNMIN*MNMIN + 2*MNMIN + MAX( M, N )
                LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                LSWORK = MIN( LSWORK, LWORK )
                LSWORK = MAX( LSWORK, 1 )
                IF( IWSPC.EQ.4 ) LSWORK = LWORK
-*
+
                // Factorize A
-*
+
                CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                SRNAMT = 'CGESDD'
                CALL CGESDD( 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO )
@@ -298,9 +298,9 @@
                   INFO = ABS( IINFO )
                   RETURN
                END IF
-*
+
                // Do tests 1--4
-*
+
                CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 8 ) )
                IF( M.NE.0 .AND. N.NE.0 ) THEN
                   CALL CUNT01( 'Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 9 ) )                   CALL CUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 10 ) )
@@ -312,9 +312,9 @@
                IF( MNMIN.GE.1 ) THEN
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 11 ) = ULPINV
                END IF
-*
+
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
-*
+
                RESULT( 12 ) = ZERO
                RESULT( 13 ) = ZERO
                RESULT( 14 ) = ZERO
@@ -323,9 +323,9 @@
                   CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                   SRNAMT = 'CGESDD'
                   CALL CGESDD( JOBQ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO )
-*
+
                   // Compare U
-*
+
                   DIF = ZERO
                   IF( M.GT.0 .AND. N.GT.0 ) THEN
                      IF( IJQ.EQ.1 ) THEN
@@ -339,9 +339,9 @@
                      END IF
                   END IF
                   RESULT( 12 ) = MAX( RESULT( 12 ), DIF )
-*
+
                   // Compare VT
-*
+
                   DIF = ZERO
                   IF( M.GT.0 .AND. N.GT.0 ) THEN
                      IF( IJQ.EQ.1 ) THEN
@@ -355,9 +355,9 @@
                      END IF
                   END IF
                   RESULT( 13 ) = MAX( RESULT( 13 ), DIF )
-*
+
                   // Compare S
-*
+
                   DIF = ZERO
                   DIV = MAX( REAL( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) )
                   DO 120 I = 1, MNMIN - 1
@@ -367,37 +367,37 @@
                   RESULT( 14 ) = MAX( RESULT( 14 ), DIF )
   130          CONTINUE
 
-*
+
                // Test CGESVDQ
                // Note: CGESVDQ only works for M >= N
-*
+
                RESULT( 36 ) = ZERO
                RESULT( 37 ) = ZERO
                RESULT( 38 ) = ZERO
                RESULT( 39 ) = ZERO
-*
+
                IF( M.GE.N ) THEN
                   IWTMP = 2*MNMIN*MNMIN + 2*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
                   IF( IWSPC.EQ.4 ) LSWORK = LWORK
-*
+
                   CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                   SRNAMT = 'CGESVDQ'
-*
+
                   LRWORK = MAX(2, M, 5*N)
                   LIWORK = MAX( N, 1 )
                   CALL CGESVDQ( 'H', 'N', 'N', 'A', 'A',  M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, IINFO )
-*
+
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9995 )'CGESVDQ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
                   END IF
-*
+
                   // Do tests 36--39
-*
+
                   CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 36 ) )
                   IF( M.NE.0 .AND. N.NE.0 ) THEN
                      CALL CUNT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 37 ) )                      CALL CUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 38 ) )
@@ -410,15 +410,15 @@
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 39 ) = ULPINV
                   END IF
                END IF
-*
+
                // Test CGESVJ
                // Note: CGESVJ only works for M >= N
-*
+
                RESULT( 15 ) = ZERO
                RESULT( 16 ) = ZERO
                RESULT( 17 ) = ZERO
                RESULT( 18 ) = ZERO
-*
+
                IF( M.GE.N ) THEN
                   IWTMP = 2*MNMIN*MNMIN + 2*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
@@ -426,27 +426,27 @@
                   LSWORK = MAX( LSWORK, 1 )
                   LRWORK = MAX(6,N)
                   IF( IWSPC.EQ.4 ) LSWORK = LWORK
-*
+
                   CALL CLACPY( 'F', M, N, ASAV, LDA, USAV, LDA )
                   SRNAMT = 'CGESVJ'
                   CALL CGESVJ( 'G', 'U', 'V', M, N, USAV, LDA, SSAV, 0, A, LDVT, WORK, LWORK, RWORK, LRWORK, IINFO )
-*
+
                   // CGESVJ returns V not VH
-*
+
                   DO J=1,N
                      DO I=1,N
                         VTSAV(J,I) = CONJG (A(I,J))
                      END DO
                   END DO
-*
+
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9995 )'GESVJ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
                   END IF
-*
+
                   // Do tests 15--18
-*
+
                   CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 15 ) )
                   IF( M.NE.0 .AND. N.NE.0 ) THEN
                      CALL CUNT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 16 ) )                      CALL CUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 17 ) )
@@ -459,10 +459,10 @@
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 18 ) = ULPINV
                   END IF
                END IF
-*
+
                // Test CGEJSV
                // Note: CGEJSV only works for M >= N
-*
+
                RESULT( 19 ) = ZERO
                RESULT( 20 ) = ZERO
                RESULT( 21 ) = ZERO
@@ -474,27 +474,27 @@
                   LSWORK = MAX( LSWORK, 1 )
                   IF( IWSPC.EQ.4 ) LSWORK = LWORK
                   LRWORK = MAX( 7, N + 2*M)
-*
+
                   CALL CLACPY( 'F', M, N, ASAV, LDA, VTSAV, LDA )
                   SRNAMT = 'CGEJSV'
                   CALL CGEJSV( 'G', 'U', 'V', 'R', 'N', 'N', M, N, VTSAV, LDA, SSAV, USAV, LDU, A, LDVT, WORK, LWORK, RWORK, LRWORK, IWORK, IINFO )
-*
+
                   // CGEJSV returns V not VH
-*
+
                   DO 133 J=1,N
                      DO 132 I=1,N
                         VTSAV(J,I) = CONJG (A(I,J))
   132                END DO
   133             END DO
-*
+
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUNIT, FMT = 9995 )'GEJSV', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
                   END IF
-*
+
                   // Do tests 19--22
-*
+
                   CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 19 ) )
                   IF( M.NE.0 .AND. N.NE.0 ) THEN
                      CALL CUNT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 20 ) )                      CALL CUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 21 ) )
@@ -507,11 +507,11 @@
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 22 ) = ULPINV
                   END IF
                END IF
-*
+
                // Test CGESVDX
-*
+
                // Factorize A
-*
+
                CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                SRNAMT = 'CGESVDX'
                CALL CGESVDX( 'V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LWORK, RWORK, IWORK, IINFO )
@@ -520,9 +520,9 @@
                   INFO = ABS( IINFO )
                   RETURN
                END IF
-*
+
                // Do tests 1--4
-*
+
                RESULT( 23 ) = ZERO
                RESULT( 24 ) = ZERO
                RESULT( 25 ) = ZERO
@@ -537,9 +537,9 @@
                IF( MNMIN.GE.1 ) THEN
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 26 ) = ULPINV
                END IF
-*
+
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
-*
+
                RESULT( 27 ) = ZERO
                RESULT( 28 ) = ZERO
                RESULT( 29 ) = ZERO
@@ -552,9 +552,9 @@
                      CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                      SRNAMT = 'CGESVDX'
                      CALL CGESVDX( JOBU, JOBVT, 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO )
-*
+
                      // Compare U
-*
+
                      DIF = ZERO
                      IF( M.GT.0 .AND. N.GT.0 ) THEN
                         IF( IJU.EQ.1 ) THEN
@@ -562,9 +562,9 @@
                         END IF
                      END IF
                      RESULT( 27 ) = MAX( RESULT( 27 ), DIF )
-*
+
                      // Compare VT
-*
+
                      DIF = ZERO
                      IF( M.GT.0 .AND. N.GT.0 ) THEN
                         IF( IJVT.EQ.1 ) THEN
@@ -572,9 +572,9 @@
                         END IF
                      END IF
                      RESULT( 28 ) = MAX( RESULT( 28 ), DIF )
-*
+
                      // Compare S
-*
+
                      DIF = ZERO
                      DIV = MAX( REAL( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) )
                      DO 150 I = 1, MNMIN - 1
@@ -584,9 +584,9 @@
                      RESULT( 29) = MAX( RESULT( 29 ), DIF )
   160             CONTINUE
   170          CONTINUE
-*
+
                // Do tests 8--10
-*
+
                DO 180 I = 1, 4
                   ISEED2( I ) = ISEED( I )
   180          CONTINUE
@@ -610,7 +610,7 @@
                   INFO = ABS( IINFO )
                   RETURN
                END IF
-*
+
                RESULT( 30 ) = ZERO
                RESULT( 31 ) = ZERO
                RESULT( 32 ) = ZERO
@@ -618,9 +618,9 @@
                IF( M.NE.0 .AND. N.NE.0 ) THEN
                   CALL CUNT01( 'Columns', M, NSI, U, LDU, WORK, LWORK, RWORK, RESULT( 31 ) )                   CALL CUNT01( 'Rows', NSI, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 32 ) )
                END IF
-*
+
                // Do tests 11--13
-*
+
                IF( MNMIN.GT.0 .AND. NSI.GT.1 ) THEN
                   IF( IL.NE.1 ) THEN
                      VU = SSAV( IL ) + MAX( HALF*ABS( SSAV( IL )-SSAV( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
@@ -647,7 +647,7 @@
                   INFO = ABS( IINFO )
                   RETURN
                END IF
-*
+
                RESULT( 33 ) = ZERO
                RESULT( 34 ) = ZERO
                RESULT( 35 ) = ZERO
@@ -655,40 +655,40 @@
                IF( M.NE.0 .AND. N.NE.0 ) THEN
                   CALL CUNT01( 'Columns', M, NSV, U, LDU, WORK, LWORK, RWORK, RESULT( 34 ) )                   CALL CUNT01( 'Rows', NSV, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 35 ) )
                END IF
-*
+
                // End of Loop -- Check for RESULT(j) > THRESH
-*
+
                NTEST = 0
                NFAIL = 0
                DO 190 J = 1, 39
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   190          CONTINUE
-*
+
                IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
                IF( NTESTF.EQ.1 ) THEN
                   WRITE( NOUNIT, FMT = 9999 )
                   WRITE( NOUNIT, FMT = 9998 )THRESH
                   NTESTF = 2
                END IF
-*
+
                DO 200 J = 1, 39
                   IF( RESULT( J ).GE.THRESH ) THEN
                      WRITE( NOUNIT, FMT = 9997 )M, N, JTYPE, IWSPC, IOLDSD, J, RESULT( J )
                   END IF
   200          CONTINUE
-*
+
                NERRS = NERRS + NFAIL
                NTESTT = NTESTT + NTEST
-*
+
   290       CONTINUE
-*
+
   300    CONTINUE
   310 CONTINUE
-*
+
       // Summary
-*
+
       CALL ALASVM( 'CBD', NOUNIT, NERRS, NTESTT, 0 )
-*
+
  9999 FORMAT( ' SVD -- Complex Singular Value Decomposition Driver ',
      $      / ' Matrix types (see CDRVBD for details):',
      $      / / ' 1 = Zero matrix', / ' 2 = Identity matrix',
@@ -761,9 +761,9 @@
  9995 FORMAT( ' CDRVBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=',
      $      I6, ', N=', I6, ', JTYPE=', I6, ', LSWORK=', I6, / 9X,
      $      'ISEED=(', 3( I5, ',' ), I5, ')' )
-*
+
       RETURN
-*
+
       // End of CDRVBD
-*
+
       END

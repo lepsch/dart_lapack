@@ -1,9 +1,9 @@
       SUBROUTINE SLARRF( N, D, L, LD, CLSTRT, CLEND, W, WGAP, WERR, SPDIAM, CLGAPL, CLGAPR, PIVMIN, SIGMA, DPLUS, LPLUS, WORK, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                CLSTRT, CLEND, INFO, N;
       REAL               CLGAPL, CLGAPR, PIVMIN, SIGMA, SPDIAM
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               D( * ), DPLUS( * ), L( * ), LD( * ), LPLUS( * ), W( * ), WGAP( * ), WERR( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               MAXGROWTH1, MAXGROWTH2, ONE, QUART, TWO
       PARAMETER          ( ONE = 1.0E0, TWO = 2.0E0, QUART = 0.25E0, MAXGROWTH1 = 8.E0, MAXGROWTH2 = 8.E0 )
@@ -36,15 +36,15 @@
       // INTRINSIC ABS
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) THEN
          RETURN
       END IF
-*
+
       FACT = REAL(2**KTRYMAX)
       EPS = SLAMCH( 'Precision' )
       SHIFT = 0
@@ -65,7 +65,7 @@
       // representations despite large element growth or signal INFO=1
       // Setting NOFAIL to .FALSE. for quick fix for bug 113
       NOFAIL = .FALSE.
-*
+
 
       // Compute the average gap length of the cluster
       CLWDTH = ABS(W(CLEND)-W(CLSTRT)) + WERR(CLEND) + WERR(CLSTRT)
@@ -85,15 +85,15 @@
 
       LDELTA = MAX(AVGAP,WGAP( CLSTRT ))/FACT
       RDELTA = MAX(AVGAP,WGAP( CLEND-1 ))/FACT
-*
+
       // Initialize the record of the best representation found
-*
+
       S = SLAMCH( 'S' )
       SMLGROWTH = ONE / S
       FAIL = REAL(N-1)*MINGAP/(SPDIAM*EPS)
       FAIL2 = REAL(N-1)*MINGAP/(SPDIAM*SQRT(EPS))
       BESTSHIFT = LSIGMA
-*
+
       // while (KTRY <= KTRYMAX)
       KTRY = 0
       GROWTHBOUND = MAXGROWTH1*SPDIAM
@@ -278,7 +278,7 @@
       ENDIF
 
       RETURN
-*
+
       // End of SLARRF
-*
+
       END

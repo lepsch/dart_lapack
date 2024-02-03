@@ -1,5 +1,5 @@
       program zdiv
-*
+
 *  -- LAPACK test routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
@@ -18,11 +18,11 @@
       int               i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, caseInfFails, caseNaNFails, nFailingTests, nTests;
       double            X( N ), aInf, aNaN, b, eps, blueMin, blueMax, OV, Xj, stepX(N), limX(N);
       double complex    Y, Y2, R, cInf( nInf ), cNaN( nNaN )
-*
+
       // .. Intrinsic Functions ..
       // intrinsic DCONJG, DBLE, RADIX, CEILING, TINY, DIGITS, MAXEXPONENT, MINEXPONENT, FLOOR, HUGE, DCMPLX, EPSILON
 
-*
+
       // .. Initialize error counts ..
       subnormalTreatedAs0 = 0
       caseAFails = 0
@@ -35,7 +35,7 @@
       caseNaNFails = 0
       nFailingTests = 0
       nTests = 0
-*
+
       // .. Initialize machine constants ..
       min = MINEXPONENT(0.0d0)
       Max = MAXEXPONENT(0.0d0)
@@ -45,25 +45,25 @@
       blueMin = b**CEILING( (min - 1) * 0.5d0 )
       blueMax = b**FLOOR( (Max - m + 1) * 0.5d0 )
       OV = HUGE(0.0d0)
-*
+
       // .. Vector X ..
       X(1) = TINY(0.0d0) * b**( DBLE(1-m) )
       X(2) = TINY(0.0d0)
       X(3) = OV
       X(4) = b**( DBLE(Max-1) )
-*
+
       // .. Then modify X using the step ..
       stepX(1) = 2.0
       stepX(2) = 2.0
       stepX(3) = 0.0
       stepX(4) = 0.5
-*
+
       // .. Up to the value ..
       limX(1) = X(2)
       limX(2) = 1.0
       limX(3) = 0.0
       limX(4) = 2.0
-*
+
       // .. Inf entries ..
       aInf = OV * 2
       cInf(1) = DCMPLX( aInf, 0.0d0 )
@@ -71,22 +71,22 @@
       cInf(3) = DCMPLX( 0.0d0, aInf )
       cInf(4) = DCMPLX( 0.0d0,-aInf )
       cInf(5) = DCMPLX( aInf,  aInf )
-*
+
       // .. NaN entries ..
       aNaN = aInf / aInf
       cNaN(1) = DCMPLX( aNaN, 0.0d0 )
       cNaN(2) = DCMPLX( 0.0d0, aNaN )
       cNaN(3) = DCMPLX( aNaN,  aNaN )
 
-*
+
       // .. Tests ..
-*
+
       if( debug ) then
         print *, '# X :=', X
         print *, '# Blue min constant :=', blueMin
         print *, '# Blue max constant :=', blueMax
       endif
-*
+
       Xj = X(1)
       if( Xj .eq. 0.0d0 ) then
         subnormalTreatedAs0 = subnormalTreatedAs0 + 1
@@ -104,7 +104,7 @@
             endif
  100    continue
       endif
-*
+
       // Test (a) y = x + 0 * I, y/y = 1
       do 10 i = 1, N
         Xj = X(i)
@@ -129,7 +129,7 @@
             end do
         endif
   10  continue
-*
+
       // Test (b) y = 0 + x * I, y/y = 1
       do 20 i = 1, N
         Xj = X(i)
@@ -154,7 +154,7 @@
             end do
         endif
   20  continue
-*
+
       // Test (c) y = x + x * I, y/y = 1
       do 30 i = 1, N
         Xj = X(i)
@@ -179,7 +179,7 @@
             end do
         endif
   30  continue
-*
+
       // Test (d) y1 = 0 + x * I, y2 = x + 0 * I, y1/y2 = I
       do 40 i = 1, N
         Xj = X(i)
@@ -205,7 +205,7 @@
             end do
         endif
   40  continue
-*
+
       // Test (e) y1 = 0 + x * I, y2 = x + 0 * I, y2/y1 = -I
       do 50 i = 1, N
         Xj = X(i)
@@ -231,7 +231,7 @@
             end do
         endif
   50  continue
-*
+
       // Test (f) y = x + x * I, y/conj(y) = I
       do 60 i = 1, N
         Xj = X(i)
@@ -256,7 +256,7 @@
             end do
         endif
   60  continue
-*
+
       // Test (g) Infs
       do 70 i = 1, nInf
           nTests = nTests + 3
@@ -277,7 +277,7 @@
               WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, 'NaN'
           endif
   70  continue
-*
+
       // Test (h) NaNs
       do 80 i = 1, nNaN
           nTests = nTests + 3
@@ -298,7 +298,7 @@
               WRITE( *, FMT = 9998 ) 'nc',i, Y, Y, R, 'NaN'
           endif
   80  continue
-*
+
       // If any test fails, displays a message
       nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails + caseEFails + caseFFails + caseInfFails + caseNaNFails
       if( nFailingTests .gt. 0 ) then
@@ -306,19 +306,19 @@
       else
          print *, "# All tests pass for complex division."
       endif
-*
+
       // If anything was written to stderr, print the message
       if( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or. (caseCFails .gt. 0) .or. (caseDFails .gt. 0) .or. (caseEFails .gt. 0) .or. (caseFFails .gt. 0) ) print *, "# Please check the failed divisions in [stderr]"
-*
+
       // .. Formats ..
  9998 FORMAT( '[',A2,I1, '] ', (ES24.16E3,SP,ES24.16E3,"*I"), ' * ',
      $         (ES24.16E3,SP,ES24.16E3,"*I"), ' = ',
      $         (ES24.16E3,SP,ES24.16E3,"*I"), ' differs from ', A10 )
-*
+
  9999 FORMAT( '[',A2,I1, '] X = ', ES24.16E3, ' : ', A15, ' = ',
      $         (ES24.16E3,SP,ES24.16E3,"*I"), ' differs from ',
      $         (ES24.16E3,SP,ES24.16E3,"*I") )
-*
+
       // End of zdiv
-*
+
       END

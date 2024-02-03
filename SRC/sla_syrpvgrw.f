@@ -1,9 +1,9 @@
       REAL FUNCTION SLA_SYRPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                N, INFO, LDA, LDAF;
@@ -12,9 +12,9 @@
       int                IPIV( * );
       REAL               A( LDA, * ), AF( LDAF, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                NCOLS, I, J, K, KP;
       REAL               AMAX, UMAX, RPVGRW, TMP
@@ -28,7 +28,7 @@
       bool               LSAME;
       // ..
       // .. Executable Statements ..
-*
+
       UPPER = LSAME( 'Upper', UPLO )
       IF ( INFO.EQ.0 ) THEN
          IF ( UPPER ) THEN
@@ -44,11 +44,11 @@
       DO I = 1, 2*N
          WORK( I ) = 0.0
       END DO
-*
+
       // Find the max magnitude entry of each column of A.  Compute the max
       // for all N columns so we can apply the pivot permutation while
       // looping below.  Assume a full factorization is the common case.
-*
+
       IF ( UPPER ) THEN
          DO J = 1, N
             DO I = 1, J
@@ -64,14 +64,14 @@
             END DO
          END DO
       END IF
-*
+
       // Now find the max magnitude entry of each column of U or L.  Also
       // permute the magnitudes of A above so they're in the same order as
      t // he factor.
-*
+
       // The iteration orders and permutations were copied from ssytrs.
       // Calls to SSWAP would be severe overkill.
-*
+
       IF ( UPPER ) THEN
          K = N
          DO WHILE ( K .LT. NCOLS .AND. K.GT.0 )
@@ -167,14 +167,14 @@
             ENDIF
          END DO
       END IF
-*
+
       // Compute the *inverse* of the max element growth factor.  Dividing
       // by zero would imply the largest entry of the factor's column is
       // zero.  Than can happen when either the column of A is zero or
       // massive pivots made the factor underflow to zero.  Neither counts
       // as growth in itself, so simply ignore terms with zero
       // denominators.
-*
+
       IF ( UPPER ) THEN
          DO I = NCOLS, N
             UMAX = WORK( I )
@@ -194,7 +194,7 @@
       END IF
 
       SLA_SYRPVGRW = RPVGRW
-*
+
       // End of SLA_SYRPVGRW
-*
+
       END

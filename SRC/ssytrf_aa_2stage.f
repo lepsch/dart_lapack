@@ -1,11 +1,11 @@
       SUBROUTINE SSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       IMPLICIT NONE
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                N, LDA, LTB, LWORK, INFO;
@@ -14,12 +14,12 @@
       int                IPIV( * ), IPIV2( * );
       REAL               A( LDA, * ), TB( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*
+
       // .. Local Scalars ..
       bool               UPPER, TQUERY, WQUERY;
       int                I, J, K, I1, I2, TD;
@@ -39,9 +39,9 @@
       // INTRINSIC MIN, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       WQUERY = ( LWORK.EQ.-1 )
@@ -57,14 +57,14 @@
       ELSE IF( LWORK.LT.MAX( 1, N ) .AND. .NOT.WQUERY ) THEN
          INFO = -10
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SSYTRF_AA_2STAGE', -INFO )
          RETURN
       END IF
-*
+
       // Answer the query
-*
+
       NB = ILAENV( 1, 'SSYTRF_AA_2STAGE', UPLO, N, -1, -1, -1 )
       IF( INFO.EQ.0 ) THEN
          IF( TQUERY ) THEN
@@ -77,15 +77,15 @@
       IF( TQUERY .OR. WQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return
-*
+
       IF( N.EQ.0 ) THEN
          RETURN
       ENDIF
-*
+
       // Determine the number of the block size
-*
+
       LDTB = LTB/N
       IF( LDTB .LT. 3*NB+1 ) THEN
          NB = (LDTB-1)/3
@@ -93,33 +93,33 @@
       IF( LWORK .LT. NB*N ) THEN
          NB = LWORK/N
       END IF
-*
+
       // Determine the number of the block columns
-*
+
       NT = (N+NB-1)/NB
       TD = 2*NB
       KB = MIN(NB, N)
-*
+
       // Initialize vectors/matrices
-*
+
       DO J = 1, KB
          IPIV( J ) = J
       END DO
-*
+
       // Save NB
-*
+
       TB( 1 ) = NB
-*
+
       IF( UPPER ) THEN
-*
+
          // .....................................................
          // Factorize A as U**T*D*U using the upper triangle of A
          // .....................................................
-*
+
          DO J = 0, NT-1
-*
+
             // Generate Jth column of W and H
-*
+
             KB = MIN(NB, N-J*NB)
             DO I = 1, J-1
                IF( I.EQ.1 ) THEN
@@ -140,9 +140,9 @@
                   CALL SGEMM( 'NoTranspose', 'NoTranspose', NB, KB, JB, ONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( (I-2)*NB+1, J*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N )
                END IF
             END DO
-*
+
             // Compute T(J,J)
-*
+
             CALL SLACPY( 'Upper', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
             IF( J.GT.1 ) THEN
                // T(J,J) = U(1:J,J)'*H(1:J)
@@ -153,74 +153,74 @@
             IF( J.GT.0 ) THEN
                CALL SSYGST( 1, 'Upper', KB,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, IINFO )
             END IF
-*
+
             // Expand T(J,J) into full format
-*
+
             DO I = 1, KB
                DO K = I+1, KB
                   TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) = TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB )
                END DO
             END DO
-*
+
             IF( J.LT.NT-1 ) THEN
                IF( J.GT.0 ) THEN
-*
+
                   // Compute H(J,J)
-*
+
                   IF( J.EQ.1 ) THEN
                      CALL SGEMM( 'NoTranspose', 'NoTranspose', KB, KB, KB, ONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, ZERO, WORK( J*NB+1 ), N )
                   ELSE
                      CALL SGEMM( 'NoTranspose', 'NoTranspose', KB, KB, NB+KB, ONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( (J-2)*NB+1, J*NB+1 ), LDA, ZERO, WORK( J*NB+1 ), N )
                   END IF
-*
+
                   // Update with the previous column
-*
+
                   CALL SGEMM( 'Transpose', 'NoTranspose', NB, N-(J+1)*NB, J*NB, -ONE, WORK( NB+1 ), N, A( 1, (J+1)*NB+1 ), LDA, ONE, A( J*NB+1, (J+1)*NB+1 ), LDA )
                END IF
-*
+
                // Copy panel to workspace to call SGETRF
-*
+
                DO K = 1, NB
                    CALL SCOPY( N-(J+1)*NB, A( J*NB+K, (J+1)*NB+1 ), LDA, WORK( 1+(K-1)*N ), 1 )
                END DO
-*
+
                // Factorize panel
-*
+
                CALL SGETRF( N-(J+1)*NB, NB,  WORK, N, IPIV( (J+1)*NB+1 ), IINFO )
                 // IF (IINFO.NE.0 .AND. INFO.EQ.0) THEN
                    // INFO = IINFO+(J+1)*NB
                 // END IF
-*
+
                // Copy panel back
-*
+
                DO K = 1, NB
                    CALL SCOPY( N-(J+1)*NB, WORK( 1+(K-1)*N ), 1, A( J*NB+K, (J+1)*NB+1 ), LDA )
                END DO
-*
+
                // Compute T(J+1, J), zero out for GEMM update
-*
+
                KB = MIN(NB, N-(J+1)*NB)
                CALL SLASET( 'Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 )                CALL SLACPY( 'Upper', KB, NB, WORK, N, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 )
                IF( J.GT.0 ) THEN
                   CALL STRSM( 'R', 'U', 'N', 'U', KB, NB, ONE, A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 )
                END IF
-*
+
                // Copy T(J,J+1) into T(J+1, J), both upper/lower for GEMM
                // updates
-*
+
                DO K = 1, NB
                   DO I = 1, KB
                      TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB )
                   END DO
                END DO
                CALL SLASET( 'Lower', KB, NB, ZERO, ONE,  A( J*NB+1, (J+1)*NB+1), LDA )
-*
+
                // Apply pivots to trailing submatrix of A
-*
+
                DO K = 1, KB
                   // > Adjust ipiv
                   IPIV( (J+1)*NB+K ) = IPIV( (J+1)*NB+K ) + (J+1)*NB
-*
+
                   I1 = (J+1)*NB+K
                   I2 = IPIV( (J+1)*NB+K )
                   IF( I1.NE.I2 ) THEN
@@ -243,15 +243,15 @@
             END IF
          END DO
       ELSE
-*
+
          // .....................................................
          // Factorize A as L*D*L**T using the lower triangle of A
          // .....................................................
-*
+
          DO J = 0, NT-1
-*
+
             // Generate Jth column of W and H
-*
+
             KB = MIN(NB, N-J*NB)
             DO I = 1, J-1
                IF( I.EQ.1 ) THEN
@@ -272,9 +272,9 @@
                   CALL SGEMM( 'NoTranspose', 'Transpose', NB, KB, JB, ONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-2)*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N )
                END IF
             END DO
-*
+
             // Compute T(J,J)
-*
+
             CALL SLACPY( 'Lower', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
             IF( J.GT.1 ) THEN
                // T(J,J) = L(J,1:J)*H(1:J)
@@ -285,62 +285,62 @@
             IF( J.GT.0 ) THEN
                CALL SSYGST( 1, 'Lower', KB,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, IINFO )
             END IF
-*
+
             // Expand T(J,J) into full format
-*
+
             DO I = 1, KB
                DO K = I+1, KB
                   TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) = TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB )
                END DO
             END DO
-*
+
             IF( J.LT.NT-1 ) THEN
                IF( J.GT.0 ) THEN
-*
+
                   // Compute H(J,J)
-*
+
                   IF( J.EQ.1 ) THEN
                      CALL SGEMM( 'NoTranspose', 'Transpose', KB, KB, KB, ONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, ZERO, WORK( J*NB+1 ), N )
                   ELSE
                      CALL SGEMM( 'NoTranspose', 'Transpose', KB, KB, NB+KB, ONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-2)*NB+1 ), LDA, ZERO, WORK( J*NB+1 ), N )
                   END IF
-*
+
                   // Update with the previous column
-*
+
                   CALL SGEMM( 'NoTranspose', 'NoTranspose', N-(J+1)*NB, NB, J*NB, -ONE, A( (J+1)*NB+1, 1 ), LDA, WORK( NB+1 ), N, ONE, A( (J+1)*NB+1, J*NB+1 ), LDA )
                END IF
-*
+
                // Factorize panel
-*
+
                CALL SGETRF( N-(J+1)*NB, NB,  A( (J+1)*NB+1, J*NB+1 ), LDA, IPIV( (J+1)*NB+1 ), IINFO )
                 // IF (IINFO.NE.0 .AND. INFO.EQ.0) THEN
                    // INFO = IINFO+(J+1)*NB
                 // END IF
-*
+
                // Compute T(J+1, J), zero out for GEMM update
-*
+
                KB = MIN(NB, N-(J+1)*NB)
                CALL SLASET( 'Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 )                CALL SLACPY( 'Upper', KB, NB, A( (J+1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 )
                IF( J.GT.0 ) THEN
                   CALL STRSM( 'R', 'L', 'T', 'U', KB, NB, ONE, A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 )
                END IF
-*
+
                // Copy T(J+1,J) into T(J, J+1), both upper/lower for GEMM
                // updates
-*
+
                DO K = 1, NB
                   DO I = 1, KB
                      TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB )
                   END DO
                END DO
                CALL SLASET( 'Upper', KB, NB, ZERO, ONE,  A( (J+1)*NB+1, J*NB+1), LDA )
-*
+
                // Apply pivots to trailing submatrix of A
-*
+
                DO K = 1, KB
                   // > Adjust ipiv
                   IPIV( (J+1)*NB+K ) = IPIV( (J+1)*NB+K ) + (J+1)*NB
-*
+
                   I1 = (J+1)*NB+K
                   I2 = IPIV( (J+1)*NB+K )
                   IF( I1.NE.I2 ) THEN
@@ -360,20 +360,20 @@
                      END IF
                   ENDIF
                END DO
-*
+
                // Apply pivots to previous columns of L
-*
+
                 // CALL SLASWP( J*NB, A( 1, 1 ), LDA,
       // $                     (J+1)*NB+1, (J+1)*NB+KB, IPIV, 1 )
             END IF
          END DO
       END IF
-*
+
       // Factor the band matrix
       CALL SGBTRF( N, N, NB, NB, TB, LDTB, IPIV2, INFO )
-*
+
       RETURN
-*
+
       // End of SSYTRF_AA_2STAGE
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE ZLATMT( M, N, DIST, ISEED, SYM, D, MODE, COND, DMAX, RANK, KL, KU, PACK, A, LDA, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       double             COND, DMAX;
       int                INFO, KL, KU, LDA, M, MODE, N, RANK;
@@ -14,9 +14,9 @@
       double             D( * );
       int                ISEED( 4 );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
@@ -46,18 +46,18 @@
       // INTRINSIC ABS, COS, DBLE, DCMPLX, DCONJG, MAX, MIN, MOD, SIN
       // ..
       // .. Executable Statements ..
-*
+
       // 1)      Decode and Test the input parameters.
               // Initialize flags & seed.
-*
+
       INFO = 0
-*
+
       // Quick return if possible
-*
+
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
-*
+
       // Decode DIST
-*
+
       IF( LSAME( DIST, 'U' ) ) THEN
          IDIST = 1
       ELSE IF( LSAME( DIST, 'S' ) ) THEN
@@ -67,9 +67,9 @@
       ELSE
          IDIST = -1
       END IF
-*
+
       // Decode SYM
-*
+
       IF( LSAME( SYM, 'N' ) ) THEN
          ISYM = 1
          IRSIGN = 0
@@ -89,9 +89,9 @@
       ELSE
          ISYM = -1
       END IF
-*
+
       // Decode PACK
-*
+
       ISYMPK = 0
       IF( LSAME( PACK, 'N' ) ) THEN
          IPACK = 0
@@ -118,15 +118,15 @@
       ELSE
          IPACK = -1
       END IF
-*
+
       // Set certain internal parameters
-*
+
       MNMIN = MIN( M, N )
       LLB = MIN( KL, M-1 )
       UUB = MIN( KU, N-1 )
       MR = MIN( M, N+LLB )
       NC = MIN( N, M+UUB )
-*
+
       IF( IPACK.EQ.5 .OR. IPACK.EQ.6 ) THEN
          MINLDA = UUB + 1
       ELSE IF( IPACK.EQ.7 ) THEN
@@ -134,10 +134,10 @@
       ELSE
          MINLDA = M
       END IF
-*
+
       // Use Givens rotation method if bandwidth small enough,
       // or if LDA is too small to store the matrix unpacked.
-*
+
       GIVENS = .FALSE.
       IF( ISYM.EQ.1 ) THEN
          IF( DBLE( LLB+UUB ).LT.0.3D0*DBLE( MAX( 1, MR+NC ) ) ) GIVENS = .TRUE.
@@ -145,9 +145,9 @@
          IF( 2*LLB.LT.M ) GIVENS = .TRUE.
       END IF
       IF( LDA.LT.M .AND. LDA.GE.MINLDA ) GIVENS = .TRUE.
-*
+
       // Set INFO if an error
-*
+
       IF( M.LT.0 ) THEN
          INFO = -1
       ELSE IF( M.NE.N .AND. ISYM.NE.1 ) THEN
@@ -171,70 +171,70 @@
       ELSE IF( LDA.LT.MAX( 1, MINLDA ) ) THEN
          INFO = -14
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZLATMT', -INFO )
          RETURN
       END IF
-*
+
       // Initialize random number generator
-*
+
       DO 100 I = 1, 4
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
   100 CONTINUE
-*
+
       IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
-*
+
       // 2)      Set up D  if indicated.
-*
+
               // Compute D according to COND and MODE
-*
+
       CALL DLATM7( MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, RANK, IINFO )
       IF( IINFO.NE.0 ) THEN
          INFO = 1
          RETURN
       END IF
-*
+
       // Choose Top-Down if D is (apparently) increasing,
       // Bottom-Up if D is (apparently) decreasing.
-*
+
       IF( ABS( D( 1 ) ).LE.ABS( D( RANK ) ) ) THEN
          TOPDWN = .TRUE.
       ELSE
          TOPDWN = .FALSE.
       END IF
-*
+
       IF( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) THEN
-*
+
          // Scale by DMAX
-*
+
          TEMP = ABS( D( 1 ) )
          DO 110 I = 2, RANK
             TEMP = MAX( TEMP, ABS( D( I ) ) )
   110    CONTINUE
-*
+
          IF( TEMP.GT.ZERO ) THEN
             ALPHA = DMAX / TEMP
          ELSE
             INFO = 2
             RETURN
          END IF
-*
+
          CALL DSCAL( RANK, ALPHA, D, 1 )
-*
+
       END IF
-*
+
       CALL ZLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
-*
+
       // 3)      Generate Banded Matrix using Givens rotations.
               // Also the special case of UUB=LLB=0
-*
+
                 // Compute Addressing constants to cover all
                 // storage formats.  Whether GE, HE, SY, GB, HB, or SB,
                 // upper or lower triangle or both,
                t // he (i,j)-th element is in
                 // A( i - ISKEW*j + IOFFST, j )
-*
+
       IF( IPACK.GT.4 ) THEN
          ILDA = LDA - 1
          ISKEW = 1
@@ -248,51 +248,51 @@
          ISKEW = 0
          IOFFST = 0
       END IF
-*
+
       // IPACKG is the format that the matrix is generated in. If this is
       // different from IPACK, then the matrix must be repacked at the
       // end.  It also signals how to compute the norm, for scaling.
-*
+
       IPACKG = 0
-*
+
       // Diagonal Matrix -- We are done, unless it
       // is to be stored HP/SP/PP/TP (PACK='R' or 'C')
-*
+
       IF( LLB.EQ.0 .AND. UUB.EQ.0 ) THEN
          DO 120 J = 1, MNMIN
             A( ( 1-ISKEW )*J+IOFFST, J ) = DCMPLX( D( J ) )
   120    CONTINUE
-*
+
          IF( IPACK.LE.2 .OR. IPACK.GE.5 ) IPACKG = IPACK
-*
+
       ELSE IF( GIVENS ) THEN
-*
+
          // Check whether to use Givens rotations,
          // Householder transformations, or nothing.
-*
+
          IF( ISYM.EQ.1 ) THEN
-*
+
             // Non-symmetric -- A = U D V
-*
+
             IF( IPACK.GT.4 ) THEN
                IPACKG = IPACK
             ELSE
                IPACKG = 0
             END IF
-*
+
             DO 130 J = 1, MNMIN
                A( ( 1-ISKEW )*J+IOFFST, J ) = DCMPLX( D( J ) )
   130       CONTINUE
-*
+
             IF( TOPDWN ) THEN
                JKL = 0
                DO 160 JKU = 1, UUB
-*
+
                   // Transform from bandwidth JKL, JKU-1 to JKL, JKU
-*
+
                   // Last row actually rotated is M
                   // Last column actually rotated is MIN( M+JKU, N )
-*
+
                   DO 150 JR = 1, MIN( M+JKU, N ) + JKL - 1
                      EXTRA = CZERO
                      ANGLE = TWOPI*DLARND( 1, ISEED )
@@ -303,9 +303,9 @@
                         IL = MIN( N, JR+JKU ) + 1 - ICOL
                         CALL ZLAROT( .TRUE., JR.GT.JKL, .FALSE., IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY )
                      END IF
-*
+
                      // Chase "EXTRA" back up
-*
+
                      IR = JR
                      IC = ICOL
                      DO 140 JCH = JR - JKL, 1, -JKL - JKU
@@ -325,7 +325,7 @@
                            DUMMY = ZLARND( 5, ISEED )
                            C = DCONJG( REALC*DUMMY )
                            S = DCONJG( -S*DUMMY )
-*
+
                            ICOL = MAX( 1, JCH-JKU-JKL )
                            IL = IC + 2 - ICOL
                            EXTRA = CZERO
@@ -336,12 +336,12 @@
   140                CONTINUE
   150             CONTINUE
   160          CONTINUE
-*
+
                JKU = UUB
                DO 190 JKL = 1, LLB
-*
+
                   // Transform from bandwidth JKL-1, JKU to JKL, JKU
-*
+
                   DO 180 JC = 1, MIN( N+JKL, M ) + JKU - 1
                      EXTRA = CZERO
                      ANGLE = TWOPI*DLARND( 1, ISEED )
@@ -352,9 +352,9 @@
                         IL = MIN( M, JC+JKL ) + 1 - IROW
                         CALL ZLAROT( .FALSE., JC.GT.JKU, .FALSE., IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY )
                      END IF
-*
+
                      // Chase "EXTRA" back up
-*
+
                      IC = JC
                      IR = IROW
                      DO 170 JCH = JC - JKU, 1, -JKL - JKU
@@ -384,19 +384,19 @@
   170                CONTINUE
   180             CONTINUE
   190          CONTINUE
-*
+
             ELSE
-*
+
                // Bottom-Up -- Start at the bottom right.
-*
+
                JKL = 0
                DO 220 JKU = 1, UUB
-*
+
                   // Transform from bandwidth JKL, JKU-1 to JKL, JKU
-*
+
                   // First row actually rotated is M
                   // First column actually rotated is MIN( M+JKU, N )
-*
+
                   IENDCH = MIN( M, N+JKL ) - 1
                   DO 210 JC = MIN( M+JKU, N ) - 1, 1 - JKL, -1
                      EXTRA = CZERO
@@ -408,9 +408,9 @@
                         IL = MIN( M, JC+JKL+1 ) + 1 - IROW
                         CALL ZLAROT( .FALSE., .FALSE., JC+JKL.LT.M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA )
                      END IF
-*
+
                      // Chase "EXTRA" back down
-*
+
                      IC = JC
                      DO 200 JCH = JC + JKL, IENDCH, JKL + JKU
                         ILEXTR = IC.GT.0
@@ -438,15 +438,15 @@
   200                CONTINUE
   210             CONTINUE
   220          CONTINUE
-*
+
                JKU = UUB
                DO 250 JKL = 1, LLB
-*
+
                   // Transform from bandwidth JKL-1, JKU to JKL, JKU
-*
+
                   // First row actually rotated is MIN( N+JKL, M )
                   // First column actually rotated is N
-*
+
                   IENDCH = MIN( N, M+JKU ) - 1
                   DO 240 JR = MIN( N+JKL, M ) - 1, 1 - JKU, -1
                      EXTRA = CZERO
@@ -458,9 +458,9 @@
                         IL = MIN( N, JR+JKU+1 ) + 1 - ICOL
                         CALL ZLAROT( .TRUE., .FALSE., JR+JKU.LT.N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA )
                      END IF
-*
+
                      // Chase "EXTRA" back down
-*
+
                      IR = JR
                      DO 230 JCH = JR + JKU, IENDCH, JKL + JKU
                         ILEXTR = IR.GT.0
@@ -488,32 +488,32 @@
   230                CONTINUE
   240             CONTINUE
   250          CONTINUE
-*
+
             END IF
-*
+
          ELSE
-*
+
             // Symmetric -- A = U D U'
             // Hermitian -- A = U D U*
-*
+
             IPACKG = IPACK
             IOFFG = IOFFST
-*
+
             IF( TOPDWN ) THEN
-*
+
                // Top-Down -- Generate Upper triangle only
-*
+
                IF( IPACK.GE.5 ) THEN
                   IPACKG = 6
                   IOFFG = UUB + 1
                ELSE
                   IPACKG = 1
                END IF
-*
+
                DO 260 J = 1, MNMIN
                   A( ( 1-ISKEW )*J+IOFFG, J ) = DCMPLX( D( J ) )
   260          CONTINUE
-*
+
                DO 290 K = 1, UUB
                   DO 280 JC = 1, N - 1
                      IROW = MAX( 1, JC-K )
@@ -532,9 +532,9 @@
                         ST = DCONJG( S )
                      END IF
                      CALL ZLAROT( .FALSE., JC.GT.K, .TRUE., IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, ZTEMP )                      CALL ZLAROT( .TRUE., .TRUE., .FALSE., MIN( K, N-JC )+1, CT, ST, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, ZTEMP, DUMMY )
-*
+
                      // Chase EXTRA back up the matrix
-*
+
                      ICOL = JC
                      DO 270 JCH = JC - K, 1, -K
                         CALL ZLARTG( A( JCH+1-ISKEW*( ICOL+1 )+IOFFG, ICOL+1 ), EXTRA, REALC, S, DUMMY )
@@ -559,10 +559,10 @@
   270                CONTINUE
   280             CONTINUE
   290          CONTINUE
-*
+
                // If we need lower triangle, copy from upper. Note that
               t // he order of copying is chosen to work for 'q' -> 'b'
-*
+
                IF( IPACK.NE.IPACKG .AND. IPACK.NE.3 ) THEN
                   DO 320 JC = 1, N
                      IROW = IOFFST - ISKEW*JC
@@ -590,20 +590,20 @@
                   END IF
                END IF
             ELSE
-*
+
                // Bottom-Up -- Generate Lower triangle only
-*
+
                IF( IPACK.GE.5 ) THEN
                   IPACKG = 5
                   IF( IPACK.EQ.6 ) IOFFG = 1
                ELSE
                   IPACKG = 2
                END IF
-*
+
                DO 350 J = 1, MNMIN
                   A( ( 1-ISKEW )*J+IOFFG, J ) = DCMPLX( D( J ) )
   350          CONTINUE
-*
+
                DO 380 K = 1, UUB
                   DO 370 JC = N - 1, 1, -1
                      IL = MIN( N+1-JC, K+2 )
@@ -623,9 +623,9 @@
                      CALL ZLAROT( .FALSE., .TRUE., N-JC.GT.K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, ZTEMP, EXTRA )
                      ICOL = MAX( 1, JC-K+1 )
                      CALL ZLAROT( .TRUE., .FALSE., .TRUE., JC+2-ICOL, CT, ST, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, ZTEMP )
-*
+
                      // Chase EXTRA back down the matrix
-*
+
                      ICOL = JC
                      DO 360 JCH = JC + K, N - 1, K
                         CALL ZLARTG( A( JCH-ISKEW*ICOL+IOFFG, ICOL ), EXTRA, REALC, S, DUMMY )
@@ -649,10 +649,10 @@
   360                CONTINUE
   370             CONTINUE
   380          CONTINUE
-*
+
                // If we need upper triangle, copy from lower. Note that
               t // he order of copying is chosen to work for 'b' -> 'q'
-*
+
                IF( IPACK.NE.IPACKG .AND. IPACK.NE.4 ) THEN
                   DO 410 JC = N, 1, -1
                      IROW = IOFFST - ISKEW*JC
@@ -680,77 +680,77 @@
                   END IF
                END IF
             END IF
-*
+
             // Ensure that the diagonal is real if Hermitian
-*
+
             IF( .NOT.CSYM ) THEN
                DO 440 JC = 1, N
                   IROW = IOFFST + ( 1-ISKEW )*JC
                   A( IROW, JC ) = DCMPLX( DBLE( A( IROW, JC ) ) )
   440          CONTINUE
             END IF
-*
+
          END IF
-*
+
       ELSE
-*
+
          // 4)      Generate Banded Matrix by first
                  // Rotating by random Unitary matrices,
                 t // hen reducing the bandwidth using Householder
                 t // ransformations.
-*
+
                  // Note: we should get here only if LDA .ge. N
-*
+
          IF( ISYM.EQ.1 ) THEN
-*
+
             // Non-symmetric -- A = U D V
-*
+
             CALL ZLAGGE( MR, NC, LLB, UUB, D, A, LDA, ISEED, WORK, IINFO )
          ELSE
-*
+
             // Symmetric -- A = U D U' or
             // Hermitian -- A = U D U*
-*
+
             IF( CSYM ) THEN
                CALL ZLAGSY( M, LLB, D, A, LDA, ISEED, WORK, IINFO )
             ELSE
                CALL ZLAGHE( M, LLB, D, A, LDA, ISEED, WORK, IINFO )
             END IF
          END IF
-*
+
          IF( IINFO.NE.0 ) THEN
             INFO = 3
             RETURN
          END IF
       END IF
-*
+
       // 5)      Pack the matrix
-*
+
       IF( IPACK.NE.IPACKG ) THEN
          IF( IPACK.EQ.1 ) THEN
-*
+
             // 'U' -- Upper triangular, not packed
-*
+
             DO 460 J = 1, M
                DO 450 I = J + 1, M
                   A( I, J ) = CZERO
   450          CONTINUE
   460       CONTINUE
-*
+
          ELSE IF( IPACK.EQ.2 ) THEN
-*
+
             // 'L' -- Lower triangular, not packed
-*
+
             DO 480 J = 2, M
                DO 470 I = 1, J - 1
                   A( I, J ) = CZERO
   470          CONTINUE
   480       CONTINUE
-*
+
          ELSE IF( IPACK.EQ.3 ) THEN
-*
+
             // 'C' -- Upper triangle packed Columnwise.
-*
+
             ICOL = 1
             IROW = 0
             DO 500 J = 1, M
@@ -763,11 +763,11 @@
                   A( IROW, ICOL ) = A( I, J )
   490          CONTINUE
   500       CONTINUE
-*
+
          ELSE IF( IPACK.EQ.4 ) THEN
-*
+
             // 'R' -- Lower triangle packed Columnwise.
-*
+
             ICOL = 1
             IROW = 0
             DO 520 J = 1, M
@@ -780,33 +780,33 @@
                   A( IROW, ICOL ) = A( I, J )
   510          CONTINUE
   520       CONTINUE
-*
+
          ELSE IF( IPACK.GE.5 ) THEN
-*
+
             // 'B' -- The lower triangle is packed as a band matrix.
             // 'Q' -- The upper triangle is packed as a band matrix.
             // 'Z' -- The whole matrix is packed as a band matrix.
-*
+
             IF( IPACK.EQ.5 ) UUB = 0             IF( IPACK.EQ.6 ) LLB = 0
-*
+
             DO 540 J = 1, UUB
                DO 530 I = MIN( J+LLB, M ), 1, -1
                   A( I-J+UUB+1, J ) = A( I, J )
   530          CONTINUE
   540       CONTINUE
-*
+
             DO 560 J = UUB + 2, N
                DO 550 I = J - UUB, MIN( J+LLB, M )
                   A( I-J+UUB+1, J ) = A( I, J )
   550          CONTINUE
   560       CONTINUE
          END IF
-*
+
          // If packed, zero out extraneous elements.
-*
+
          // Symmetric/Triangular Packed --
          // zero out everything after A(IROW,ICOL)
-*
+
          IF( IPACK.EQ.3 .OR. IPACK.EQ.4 ) THEN
             DO 580 JC = ICOL, M
                DO 570 JR = IROW + 1, LDA
@@ -814,15 +814,15 @@
   570          CONTINUE
                IROW = 0
   580       CONTINUE
-*
+
          ELSE IF( IPACK.GE.5 ) THEN
-*
+
             // Packed Band --
                // 1st row is now in A( UUB+2-j, j), zero above it
                // m-th row is now in A( M+UUB-j,j), zero below it
                // last non-zero diagonal is now in A( UUB+LLB+1,j ),
                   // zero below it, too.
-*
+
             IR1 = UUB + LLB + 2
             IR2 = UUB + M + 2
             DO 610 JC = 1, N
@@ -835,9 +835,9 @@
   610       CONTINUE
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of ZLATMT
-*
+
       END

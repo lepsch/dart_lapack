@@ -1,9 +1,9 @@
       SUBROUTINE CDRVPT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, D, E, B, X, XACT, WORK, RWORK, NOUT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NN, NOUT, NRHS;
@@ -15,9 +15,9 @@
       REAL               D( * ), RWORK( * )
       COMPLEX            A( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
@@ -61,7 +61,7 @@
       DATA               ISEEDY / 0, 0, 0, 1 /
       // ..
       // .. Executable Statements ..
-*
+
       PATH( 1: 1 ) = 'Complex precision'
       PATH( 2: 3 ) = 'PT'
       NRUN = 0
@@ -70,50 +70,50 @@
       DO 10 I = 1, 4
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
-*
+
       // Test the error exits
-*
+
       IF( TSTERR ) CALL CERRVX( PATH, NOUT )
       INFOT = 0
-*
+
       DO 120 IN = 1, NN
-*
+
          // Do for each value of N in NVAL.
-*
+
          N = NVAL( IN )
          LDA = MAX( 1, N )
          NIMAT = NTYPES
          IF( N.LE.0 ) NIMAT = 1
-*
+
          DO 110 IMAT = 1, NIMAT
-*
+
             // Do the tests only if DOTYPE( IMAT ) is true.
-*
+
             IF( N.GT.0 .AND. .NOT.DOTYPE( IMAT ) ) GO TO 110
-*
+
             // Set up parameters with CLATB4.
-*
+
             CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
-*
+
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             IF( IMAT.LE.6 ) THEN
-*
+
                // Type 1-6:  generate a symmetric tridiagonal matrix of
                // known condition number in lower triangular band storage.
-*
+
                SRNAMT = 'CLATMS'
                CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO )
-*
+
                // Check the error code from CLATMS.
-*
+
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 110
                END IF
                IZERO = 0
-*
+
                // Copy the matrix to D and E.
-*
+
                IA = 1
                DO 20 I = 1, N - 1
                   D( I ) = REAL( A( IA ) )
@@ -122,19 +122,19 @@
    20          CONTINUE
                IF( N.GT.0 ) D( N ) = REAL( A( IA ) )
             ELSE
-*
+
                // Type 7-12:  generate a diagonally dominant matrix with
                // unknown condition number in the vectors D and E.
-*
+
                IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) THEN
-*
+
                   // Let D and E have values from [-1,1].
-*
+
                   CALL SLARNV( 2, ISEED, N, D )
                   CALL CLARNV( 2, ISEED, N-1, E )
-*
+
                   // Make the tridiagonal matrix diagonally dominant.
-*
+
                   IF( N.EQ.1 ) THEN
                      D( 1 ) = ABS( D( 1 ) )
                   ELSE
@@ -144,19 +144,19 @@
                         D( I ) = ABS( D( I ) ) + ABS( E( I ) ) + ABS( E( I-1 ) )
    30                CONTINUE
                   END IF
-*
+
                   // Scale D and E so the maximum element is ANORM.
-*
+
                   IX = ISAMAX( N, D, 1 )
                   DMAX = D( IX )
                   CALL SSCAL( N, ANORM / DMAX, D, 1 )
                   IF( N.GT.1 ) CALL CSSCAL( N-1, ANORM / DMAX, E, 1 )
-*
+
                ELSE IF( IZERO.GT.0 ) THEN
-*
+
                   // Reuse the last matrix by copying back the zeroed out
                   // elements.
-*
+
                   IF( IZERO.EQ.1 ) THEN
                      D( 1 ) = Z( 2 )
                      IF( N.GT.1 ) E( 1 ) = Z( 3 )
@@ -169,10 +169,10 @@
                      E( IZERO ) = Z( 3 )
                   END IF
                END IF
-*
+
                // For types 8-10, set one row and column of the matrix to
                // zero.
-*
+
                IZERO = 0
                IF( IMAT.EQ.8 ) THEN
                   IZERO = 1
@@ -202,49 +202,49 @@
                   D( IZERO ) = ZERO
                END IF
             END IF
-*
+
             // Generate NRHS random solution vectors.
-*
+
             IX = 1
             DO 40 J = 1, NRHS
                CALL CLARNV( 2, ISEED, N, XACT( IX ) )
                IX = IX + LDA
    40       CONTINUE
-*
+
             // Set the right hand side.
-*
+
             CALL CLAPTM( 'Lower', N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA )
-*
+
             DO 100 IFACT = 1, 2
                IF( IFACT.EQ.1 ) THEN
                   FACT = 'F'
                ELSE
                   FACT = 'N'
                END IF
-*
+
                // Compute the condition number for comparison with
               t // he value returned by CPTSVX.
-*
+
                IF( ZEROT ) THEN
                   IF( IFACT.EQ.1 ) GO TO 100
                   RCONDC = ZERO
-*
+
                ELSE IF( IFACT.EQ.1 ) THEN
-*
+
                   // Compute the 1-norm of A.
-*
+
                   ANORM = CLANHT( '1', N, D, E )
-*
+
                   CALL SCOPY( N, D, 1, D( N+1 ), 1 )
                   IF( N.GT.1 ) CALL CCOPY( N-1, E, 1, E( N+1 ), 1 )
-*
+
                   // Factor the matrix A.
-*
+
                   CALL CPTTRF( N, D( N+1 ), E( N+1 ), INFO )
-*
+
                   // Use CPTTRS to solve for one column at a time of
                   // inv(A), computing the maximum column sum as we go.
-*
+
                   AINVNM = ZERO
                   DO 60 I = 1, N
                      DO 50 J = 1, N
@@ -254,54 +254,54 @@
                      CALL CPTTRS( 'Lower', N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO )
                      AINVNM = MAX( AINVNM, SCASUM( N, X, 1 ) )
    60             CONTINUE
-*
+
                   // Compute the 1-norm condition number of A.
-*
+
                   IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                      RCONDC = ONE
                   ELSE
                      RCONDC = ( ONE / ANORM ) / AINVNM
                   END IF
                END IF
-*
+
                IF( IFACT.EQ.2 ) THEN
-*
+
                   // --- Test CPTSV --
-*
+
                   CALL SCOPY( N, D, 1, D( N+1 ), 1 )
                   IF( N.GT.1 ) CALL CCOPY( N-1, E, 1, E( N+1 ), 1 )
                   CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
-*
+
                   // Factor A as L*D*L' and solve the system A*X = B.
-*
+
                   SRNAMT = 'CPTSV '
                   CALL CPTSV( N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO )
-*
+
                   // Check error code from CPTSV .
-*
+
                   IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                   NT = 0
                   IF( IZERO.EQ.0 ) THEN
-*
+
                      // Check the factorization by computing the ratio
                         // norm(L*D*L' - A) / (n * norm(A) * EPS )
-*
+
                      CALL CPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
-*
+
                      // Compute the residual in the solution.
-*
+
                      CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
                      CALL CPTT02( 'Lower', N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
-*
+
                      // Check solution from generated exact solution.
-*
+
                      CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                      NT = 3
                   END IF
-*
+
                   // Print information about the tests that did not pass
                  t // he threshold.
-*
+
                   DO 70 K = 1, NT
                      IF( RESULT( K ).GE.THRESH ) THEN
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'CPTSV ', N, IMAT, K, RESULT( K )
@@ -310,66 +310,66 @@
    70             CONTINUE
                   NRUN = NRUN + NT
                END IF
-*
+
                // --- Test CPTSVX ---
-*
+
                IF( IFACT.GT.1 ) THEN
-*
+
                   // Initialize D( N+1:2*N ) and E( N+1:2*N ) to zero.
-*
+
                   DO 80 I = 1, N - 1
                      D( N+I ) = ZERO
                      E( N+I ) = ZERO
    80             CONTINUE
                   IF( N.GT.0 ) D( N+N ) = ZERO
                END IF
-*
+
                CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA )
-*
+
                // Solve the system and compute the condition number and
                // error bounds using CPTSVX.
-*
+
                SRNAMT = 'CPTSVX'
                CALL CPTSVX( FACT, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
-*
+
                // Check the error code from CPTSVX.
-*
+
                IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                IF( IZERO.EQ.0 ) THEN
                   IF( IFACT.EQ.2 ) THEN
-*
+
                      // Check the factorization by computing the ratio
                         // norm(L*D*L' - A) / (n * norm(A) * EPS )
-*
+
                      K1 = 1
                      CALL CPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
                   ELSE
                      K1 = 2
                   END IF
-*
+
                   // Compute the residual in the solution.
-*
+
                   CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
                   CALL CPTT02( 'Lower', N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
-*
+
                   // Check solution from generated exact solution.
-*
+
                   CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
-*
+
                   // Check error bounds from iterative refinement.
-*
+
                   CALL CPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                ELSE
                   K1 = 6
                END IF
-*
+
                // Check the reciprocal of the condition number.
-*
+
                RESULT( 6 ) = SGET06( RCOND, RCONDC )
-*
+
                // Print information about the tests that did not pass
               t // he threshold.
-*
+
                DO 90 K = K1, 6
                   IF( RESULT( K ).GE.THRESH ) THEN
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'CPTSVX', FACT, N, IMAT, K, RESULT( K )
@@ -380,17 +380,17 @@
   100       CONTINUE
   110    CONTINUE
   120 CONTINUE
-*
+
       // Print a summary of the results.
-*
+
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
-*
+
  9999 FORMAT( 1X, A, ', N =', I5, ', type ', I2, ', test ', I2,
      $      ', ratio = ', G12.5 )
  9998 FORMAT( 1X, A, ', FACT=''', A1, ''', N =', I5, ', type ', I2,
      $      ', test ', I2, ', ratio = ', G12.5 )
       RETURN
-*
+
       // End of CDRVPT
-*
+
       END

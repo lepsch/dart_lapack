@@ -1,18 +1,18 @@
       SUBROUTINE DROTMG(DD1,DD2,DX1,DY1,DPARAM)
-*
+
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       double           DD1,DD2,DX1,DY1;
       // ..
       // .. Array Arguments ..
       double           DPARAM(5);
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       double           DFLAG,DH11,DH12,DH21,DH22,DP1,DP2,DQ1,DQ2,DTEMP, DU,GAM,GAMSQ,ONE,RGAMSQ,TWO,ZERO;
       // ..
@@ -20,7 +20,7 @@
       // INTRINSIC DABS
       // ..
       // .. Data statements ..
-*
+
       DATA ZERO,ONE,TWO/0.D0,1.D0,2.D0/
       DATA GAM,GAMSQ,RGAMSQ/4096.D0,16777216.D0,5.9604645D-8/
       // ..
@@ -32,7 +32,7 @@
          DH12 = ZERO
          DH21 = ZERO
          DH22 = ZERO
-*
+
          DD1 = ZERO
          DD2 = ZERO
          DX1 = ZERO
@@ -48,13 +48,13 @@
          DP1 = DD1*DX1
          DQ2 = DP2*DY1
          DQ1 = DP1*DX1
-*
+
          IF (DABS(DQ1).GT.DABS(DQ2)) THEN
             DH21 = -DY1/DX1
             DH12 = DP2/DP1
-*
+
             DU = ONE - DH12*DH21
-*
+
            IF (DU.GT.ZERO) THEN
              DFLAG = ZERO
              DD1 = DD1/DU
@@ -69,7 +69,7 @@
              DH12 = ZERO
              DH21 = ZERO
              DH22 = ZERO
-*
+
              DD1 = ZERO
              DD2 = ZERO
              DX1 = ZERO
@@ -83,7 +83,7 @@
                DH12 = ZERO
                DH21 = ZERO
                DH22 = ZERO
-*
+
                DD1 = ZERO
                DD2 = ZERO
                DX1 = ZERO
@@ -165,7 +165,7 @@
 
       DPARAM(1) = DFLAG
       RETURN
-*
+
       // End of DROTMG
-*
+
       END

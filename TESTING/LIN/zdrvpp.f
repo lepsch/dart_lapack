@@ -1,9 +1,9 @@
       SUBROUTINE ZDRVPP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, WORK, RWORK, NOUT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
@@ -15,9 +15,9 @@
       double             RWORK( * ), S( * );
       COMPLEX*16         A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -63,9 +63,9 @@
       DATA               UPLOS / 'U', 'L' / , FACTS / 'F', 'N', 'E' / , PACKS / 'C', 'R' / , EQUEDS / 'N', 'Y' /
       // ..
       // .. Executable Statements ..
-*
+
       // Initialize constants and the random number seed.
-*
+
       PATH( 1: 1 ) = 'Zomplex precision'
       PATH( 2: 3 ) = 'PP'
       NRUN = 0
@@ -74,14 +74,14 @@
       DO 10 I = 1, 4
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
-*
+
       // Test the error exits
-*
+
       IF( TSTERR ) CALL ZERRVX( PATH, NOUT )
       INFOT = 0
-*
+
       // Do for each value of N in NVAL
-*
+
       DO 140 IN = 1, NN
          N = NVAL( IN )
          LDA = MAX( N, 1 )
@@ -89,43 +89,43 @@
          XTYPE = 'N'
          NIMAT = NTYPES
          IF( N.LE.0 ) NIMAT = 1
-*
+
          DO 130 IMAT = 1, NIMAT
-*
+
             // Do the tests only if DOTYPE( IMAT ) is true.
-*
+
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 130
-*
+
             // Skip types 3, 4, or 5 if the matrix size is too small.
-*
+
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
             IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 130
-*
+
             // Do first for UPLO = 'U', then for UPLO = 'L'
-*
+
             DO 120 IUPLO = 1, 2
                UPLO = UPLOS( IUPLO )
                PACKIT = PACKS( IUPLO )
-*
+
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
-*
+
                CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
                RCONDC = ONE / CNDNUM
-*
+
                SRNAMT = 'ZLATMS'
                CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
-*
+
                // Check error code from ZLATMS.
-*
+
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 120
                END IF
-*
+
                // For types 3-5, zero one row and column of the matrix to
               t // est that INFO is returned correctly.
-*
+
                IF( ZEROT ) THEN
                   IF( IMAT.EQ.3 ) THEN
                      IZERO = 1
@@ -134,9 +134,9 @@
                   ELSE
                      IZERO = N / 2 + 1
                   END IF
-*
+
                   // Set row and column IZERO of A to 0.
-*
+
                   IF( IUPLO.EQ.1 ) THEN
                      IOFF = ( IZERO-1 )*IZERO / 2
                      DO 20 I = 1, IZERO - 1
@@ -161,19 +161,19 @@
                ELSE
                   IZERO = 0
                END IF
-*
+
                // Set the imaginary part of the diagonals.
-*
+
                IF( IUPLO.EQ.1 ) THEN
                   CALL ZLAIPD( N, A, 2, 1 )
                ELSE
                   CALL ZLAIPD( N, A, N, -1 )
                END IF
-*
+
                // Save a copy of the matrix A in ASAV.
-*
+
                CALL ZCOPY( NPP, A, 1, ASAV, 1 )
-*
+
                DO 110 IEQUED = 1, 2
                   EQUED = EQUEDS( IEQUED )
                   IF( IEQUED.EQ.1 ) THEN
@@ -181,60 +181,60 @@
                   ELSE
                      NFACT = 1
                   END IF
-*
+
                   DO 100 IFACT = 1, NFACT
                      FACT = FACTS( IFACT )
                      PREFAC = LSAME( FACT, 'F' )
                      NOFACT = LSAME( FACT, 'N' )
                      EQUIL = LSAME( FACT, 'E' )
-*
+
                      IF( ZEROT ) THEN
                         IF( PREFAC ) GO TO 100
                         RCONDC = ZERO
-*
+
                      ELSE IF( .NOT.LSAME( FACT, 'N' ) ) THEN
-*
+
                         // Compute the condition number for comparison with
                        t // he value returned by ZPPSVX (FACT = 'N' reuses
                        t // he condition number from the previous iteration
                            // with FACT = 'F').
-*
+
                         CALL ZCOPY( NPP, ASAV, 1, AFAC, 1 )
                         IF( EQUIL .OR. IEQUED.GT.1 ) THEN
-*
+
                            // Compute row and column scale factors to
                            // equilibrate the matrix A.
-*
+
                            CALL ZPPEQU( UPLO, N, AFAC, S, SCOND, AMAX, INFO )
                            IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
                               IF( IEQUED.GT.1 ) SCOND = ZERO
-*
+
                               // Equilibrate the matrix.
-*
+
                               CALL ZLAQHP( UPLO, N, AFAC, S, SCOND, AMAX, EQUED )
                            END IF
                         END IF
-*
+
                         // Save the condition number of the
                         // non-equilibrated system for use in ZGET04.
-*
+
                         IF( EQUIL ) ROLDC = RCONDC
-*
+
                         // Compute the 1-norm of A.
-*
+
                         ANORM = ZLANHP( '1', UPLO, N, AFAC, RWORK )
-*
+
                         // Factor the matrix A.
-*
+
                         CALL ZPPTRF( UPLO, N, AFAC, INFO )
-*
+
                         // Form the inverse of A.
-*
+
                         CALL ZCOPY( NPP, AFAC, 1, A, 1 )
                         CALL ZPPTRI( UPLO, N, A, INFO )
-*
+
                         // Compute the 1-norm condition number of A.
-*
+
                         AINVNM = ZLANHP( '1', UPLO, N, A, RWORK )
                         IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                            RCONDC = ONE
@@ -242,57 +242,57 @@
                            RCONDC = ( ONE / ANORM ) / AINVNM
                         END IF
                      END IF
-*
+
                      // Restore the matrix A.
-*
+
                      CALL ZCOPY( NPP, ASAV, 1, A, 1 )
-*
+
                      // Form an exact solution and set the right hand side.
-*
+
                      SRNAMT = 'ZLARHS'
                      CALL ZLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                      XTYPE = 'C'
                      CALL ZLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
-*
+
                      IF( NOFACT ) THEN
-*
+
                         // --- Test ZPPSV  ---
-*
+
                         // Compute the L*L' or U'*U factorization of the
                         // matrix and solve the system.
-*
+
                         CALL ZCOPY( NPP, A, 1, AFAC, 1 )
                         CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
-*
+
                         SRNAMT = 'ZPPSV '
                         CALL ZPPSV( UPLO, N, NRHS, AFAC, X, LDA, INFO )
-*
+
                         // Check error code from ZPPSV .
-*
+
                         IF( INFO.NE.IZERO ) THEN
                            CALL ALAERH( PATH, 'ZPPSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                            GO TO 70
                         ELSE IF( INFO.NE.0 ) THEN
                            GO TO 70
                         END IF
-*
+
                         // Reconstruct matrix from factors and compute
                         // residual.
-*
+
                         CALL ZPPT01( UPLO, N, A, AFAC, RWORK, RESULT( 1 ) )
-*
+
                         // Compute residual of the computed solution.
-*
+
                         CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
-*
+
                         // Check solution from generated exact solution.
-*
+
                         CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         NT = 3
-*
+
                         // Print information about the tests that did not
                         // pass the threshold.
-*
+
                         DO 60 K = 1, NT
                            IF( RESULT( K ).GE.THRESH ) THEN
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'ZPPSV ', UPLO, N, IMAT, K, RESULT( K )
@@ -302,71 +302,71 @@
                         NRUN = NRUN + NT
    70                   CONTINUE
                      END IF
-*
+
                      // --- Test ZPPSVX ---
-*
+
                      IF( .NOT.PREFAC .AND. NPP.GT.0 ) CALL ZLASET( 'Full', NPP, 1, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, NPP )
                      CALL ZLASET( 'Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA )
                      IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
-*
+
                         // Equilibrate the matrix if FACT='F' and
                         // EQUED='Y'.
-*
+
                         CALL ZLAQHP( UPLO, N, A, S, SCOND, AMAX, EQUED )
                      END IF
-*
+
                      // Solve the system and compute the condition number
                      // and error bounds using ZPPSVX.
-*
+
                      SRNAMT = 'ZPPSVX'
                      CALL ZPPSVX( FACT, UPLO, N, NRHS, A, AFAC, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
-*
+
                      // Check the error code from ZPPSVX.
-*
+
                      IF( INFO.NE.IZERO ) THEN
                         CALL ALAERH( PATH, 'ZPPSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 90
                      END IF
-*
+
                      IF( INFO.EQ.0 ) THEN
                         IF( .NOT.PREFAC ) THEN
-*
+
                            // Reconstruct matrix from factors and compute
                            // residual.
-*
+
                            CALL ZPPT01( UPLO, N, A, AFAC, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                            K1 = 1
                         ELSE
                            K1 = 2
                         END IF
-*
+
                         // Compute residual of the computed solution.
-*
+
                         CALL ZLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL ZPPT02( UPLO, N, NRHS, ASAV, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
-*
+
                         // Check solution from generated exact solution.
-*
+
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         ELSE
                            CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
                         END IF
-*
+
                         // Check the error bounds from iterative
                         // refinement.
-*
+
                         CALL ZPPT05( UPLO, N, NRHS, ASAV, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                      ELSE
                         K1 = 6
                      END IF
-*
+
                      // Compare RCOND from ZPPSVX with the computed value
                      // in RCONDC.
-*
+
                      RESULT( 6 ) = DGET06( RCOND, RCONDC )
-*
+
                      // Print information about the tests that did not pass
                     t // he threshold.
-*
+
                      DO 80 K = K1, 6
                         IF( RESULT( K ).GE.THRESH ) THEN
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
@@ -385,11 +385,11 @@
   120       CONTINUE
   130    CONTINUE
   140 CONTINUE
-*
+
       // Print a summary of the results.
-*
+
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
-*
+
  9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I1,
      $      ', test(', I1, ')=', G12.5 )
  9998 FORMAT( 1X, A, ', FACT=''', A1, ''', UPLO=''', A1, ''', N=', I5,
@@ -398,7 +398,7 @@
      $      ', EQUED=''', A1, ''', type ', I1, ', test(', I1, ')=',
      $      G12.5 )
       RETURN
-*
+
       // End of ZDRVPP
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE DTBT03( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, SCALE, CNORM, TSCAL, X, LDX, B, LDB, WORK, RESID )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                KD, LDAB, LDB, LDX, N, NRHS;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       double             AB( LDAB, * ), B( LDB, * ), CNORM( * ), WORK( * ), X( LDX, * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -36,9 +36,9 @@
       // INTRINSIC ABS, DBLE, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Quick exit if N = 0
-*
+
       IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESID = ZERO
          RETURN
@@ -46,10 +46,10 @@
       EPS = DLAMCH( 'Epsilon' )
       SMLNUM = DLAMCH( 'Safe minimum' )
       BIGNUM = ONE / SMLNUM
-*
+
       // Compute the norm of the triangular matrix A using the column
       // norms already computed by DLATBS.
-*
+
       TNORM = ZERO
       IF( LSAME( DIAG, 'N' ) ) THEN
          IF( LSAME( UPLO, 'U' ) ) THEN
@@ -66,10 +66,10 @@
             TNORM = MAX( TNORM, TSCAL+CNORM( J ) )
    30    CONTINUE
       END IF
-*
+
       // Compute the maximum over the number of right hand sides of
          // norm(op(A)*x - s*b) / ( norm(op(A)) * norm(x) * EPS ).
-*
+
       RESID = ZERO
       DO 40 J = 1, NRHS
          CALL DCOPY( N, X( 1, J ), 1, WORK, 1 )
@@ -95,9 +95,9 @@
          END IF
          RESID = MAX( RESID, ERR )
    40 CONTINUE
-*
+
       RETURN
-*
+
       // End of DTBT03
-*
+
       END

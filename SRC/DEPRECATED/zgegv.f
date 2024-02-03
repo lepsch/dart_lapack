@@ -1,9 +1,9 @@
       SUBROUTINE ZGEGV( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, RWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBVL, JOBVR;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
@@ -12,9 +12,9 @@
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -49,9 +49,9 @@
       ABS1( X ) = ABS( DBLE( X ) ) + ABS( DIMAG( X ) )
       // ..
       // .. Executable Statements ..
-*
+
       // Decode the input arguments
-*
+
       IF( LSAME( JOBVL, 'N' ) ) THEN
          IJOBVL = 1
          ILVL = .FALSE.
@@ -62,7 +62,7 @@
          IJOBVL = -1
          ILVL = .FALSE.
       END IF
-*
+
       IF( LSAME( JOBVR, 'N' ) ) THEN
          IJOBVR = 1
          ILVR = .FALSE.
@@ -74,9 +74,9 @@
          ILVR = .FALSE.
       END IF
       ILV = ILVL .OR. ILVR
-*
+
       // Test the input arguments
-*
+
       LWKMIN = MAX( 2*N, 1 )
       LWKOPT = LWKMIN
       WORK( 1 ) = LWKOPT
@@ -99,7 +99,7 @@
       ELSE IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
          INFO = -15
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          NB1 = ILAENV( 1, 'ZGEQRF', ' ', N, N, -1, -1 )
          NB2 = ILAENV( 1, 'ZUNMQR', ' ', N, N, N, -1 )
@@ -108,27 +108,27 @@
          LOPT = MAX( 2*N, N*( NB+1 ) )
          WORK( 1 ) = LOPT
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZGEGV ', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Get machine constants
-*
+
       EPS = DLAMCH( 'E' )*DLAMCH( 'B' )
       SAFMIN = DLAMCH( 'S' )
       SAFMIN = SAFMIN + SAFMIN
       SAFMAX = ONE / SAFMIN
-*
+
       // Scale A
-*
+
       ANRM = ZLANGE( 'M', N, N, A, LDA, RWORK )
       ANRM1 = ANRM
       ANRM2 = ONE
@@ -138,7 +138,7 @@
             ANRM2 = SAFMAX*ANRM
          END IF
       END IF
-*
+
       IF( ANRM.GT.ZERO ) THEN
          CALL ZLASCL( 'G', -1, -1, ANRM, ONE, N, N, A, LDA, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -146,9 +146,9 @@
             RETURN
          END IF
       END IF
-*
+
       // Scale B
-*
+
       BNRM = ZLANGE( 'M', N, N, B, LDB, RWORK )
       BNRM1 = BNRM
       BNRM2 = ONE
@@ -158,7 +158,7 @@
             BNRM2 = SAFMAX*BNRM
          END IF
       END IF
-*
+
       IF( BNRM.GT.ZERO ) THEN
          CALL ZLASCL( 'G', -1, -1, BNRM, ONE, N, N, B, LDB, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -166,10 +166,10 @@
             RETURN
          END IF
       END IF
-*
+
       // Permute the matrix to make it more nearly triangular
       // Also "balance" the matrix.
-*
+
       ILEFT = 1
       IRIGHT = N + 1
       IRWORK = IRIGHT + N
@@ -178,9 +178,9 @@
          INFO = N + 1
          GO TO 80
       END IF
-*
+
       // Reduce B to triangular form, and initialize VL and/or VR
-*
+
       IROWS = IHI + 1 - ILO
       IF( ILV ) THEN
          ICOLS = N + 1 - ILO
@@ -194,14 +194,14 @@
          INFO = N + 2
          GO TO 80
       END IF
-*
+
       CALL ZUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO )
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       IF( IINFO.NE.0 ) THEN
          INFO = N + 3
          GO TO 80
       END IF
-*
+
       IF( ILVL ) THEN
          CALL ZLASET( 'Full', N, N, CZERO, CONE, VL, LDVL )
          CALL ZLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )          CALL ZUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )
@@ -211,15 +211,15 @@
             GO TO 80
          END IF
       END IF
-*
+
       IF( ILVR ) CALL ZLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
-*
+
       // Reduce to generalized Hessenberg form
-*
+
       IF( ILV ) THEN
-*
+
          // Eigenvectors requested -- work on whole matrix.
-*
+
          CALL ZGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IINFO )
       ELSE
          CALL ZGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IINFO )
@@ -228,9 +228,9 @@
          INFO = N + 5
          GO TO 80
       END IF
-*
+
       // Perform QZ algorithm
-*
+
       IWORK = ITAU
       IF( ILV ) THEN
          CHTEMP = 'S'
@@ -249,11 +249,11 @@
          END IF
          GO TO 80
       END IF
-*
+
       IF( ILV ) THEN
-*
+
          // Compute Eigenvectors
-*
+
          IF( ILVL ) THEN
             IF( ILVR ) THEN
                CHTEMP = 'B'
@@ -263,15 +263,15 @@
          ELSE
             CHTEMP = 'R'
          END IF
-*
+
          CALL ZTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWORK ), RWORK( IRWORK ), IINFO )
          IF( IINFO.NE.0 ) THEN
             INFO = N + 7
             GO TO 80
          END IF
-*
+
          // Undo balancing on VL and VR, rescale
-*
+
          IF( ILVL ) THEN
             CALL ZGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VL, LDVL, IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -308,19 +308,19 @@
    50          CONTINUE
    60       CONTINUE
          END IF
-*
+
          // End of eigenvector calculation
-*
+
       END IF
-*
+
       // Undo scaling in alpha, beta
-*
+
       // Note: this does not give the alpha and beta for the unscaled
       // problem.
-*
+
       // Un-scaling is limited to avoid underflow in alpha and beta
       // if they are significant.
-*
+
       DO 70 JC = 1, N
          ABSAR = ABS( DBLE( ALPHA( JC ) ) )
          ABSAI = ABS( DIMAG( ALPHA( JC ) ) )
@@ -330,36 +330,36 @@
          SBETA = BNRM*DBLE( BETA( JC ) )
          ILIMIT = .FALSE.
          SCALE = ONE
-*
+
          // Check for significant underflow in imaginary part of ALPHA
-*
+
          IF( ABS( SALFAI ).LT.SAFMIN .AND. ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) THEN
             ILIMIT = .TRUE.
             SCALE = ( SAFMIN / ANRM1 ) / MAX( SAFMIN, ANRM2*ABSAI )
          END IF
-*
+
          // Check for significant underflow in real part of ALPHA
-*
+
          IF( ABS( SALFAR ).LT.SAFMIN .AND. ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) THEN
             ILIMIT = .TRUE.
             SCALE = MAX( SCALE, ( SAFMIN / ANRM1 ) / MAX( SAFMIN, ANRM2*ABSAR ) )
          END IF
-*
+
          // Check for significant underflow in BETA
-*
+
          IF( ABS( SBETA ).LT.SAFMIN .AND. ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) THEN
             ILIMIT = .TRUE.
             SCALE = MAX( SCALE, ( SAFMIN / BNRM1 ) / MAX( SAFMIN, BNRM2*ABSB ) )
          END IF
-*
+
          // Check for possible overflow when limiting scaling
-*
+
          IF( ILIMIT ) THEN
             TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE.LT.ONE ) ILIMIT = .FALSE.
          END IF
-*
+
          // Recompute un-scaled ALPHA, BETA if necessary.
-*
+
          IF( ILIMIT ) THEN
             SALFAR = ( SCALE*DBLE( ALPHA( JC ) ) )*ANRM
             SALFAI = ( SCALE*DIMAG( ALPHA( JC ) ) )*ANRM
@@ -368,12 +368,12 @@
          ALPHA( JC ) = DCMPLX( SALFAR, SALFAI )
          BETA( JC ) = SBETA
    70 CONTINUE
-*
+
    80 CONTINUE
       WORK( 1 ) = LWKOPT
-*
+
       RETURN
-*
+
       // End of ZGEGV
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE SLARRD( RANGE, ORDER, N, VL, VU, IL, IU, GERS, RELTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT, M, W, WERR, WL, WU, IBLOCK, INDEXW, WORK, IWORK, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             ORDER, RANGE;
       int                IL, INFO, IU, M, N, NSPLIT;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * )       REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF, FUDGE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = ONE/TWO, FUDGE = TWO )
@@ -43,18 +43,18 @@
       // INTRINSIC ABS, INT, LOG, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       M = 0
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) THEN
          RETURN
       END IF
-*
+
       // Decode RANGE
-*
+
       IF( LSAME( RANGE, 'A' ) ) THEN
          IRANGE = ALLRNG
       ELSE IF( LSAME( RANGE, 'V' ) ) THEN
@@ -64,9 +64,9 @@
       ELSE
          IRANGE = 0
       END IF
-*
+
       // Check for Errors
-*
+
       IF( IRANGE.LE.0 ) THEN
          INFO = -1
       ELSE IF( .NOT.(LSAME(ORDER,'B').OR.LSAME(ORDER,'E')) ) THEN
@@ -79,7 +79,7 @@
       ELSE IF( IRANGE.EQ.INDRNG .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) THEN
          INFO = -7
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          RETURN
       END IF
@@ -158,7 +158,7 @@
          IWORK( 4 ) = N + 1
          IWORK( 5 ) = IL - 1
          IWORK( 6 ) = IU
-*
+
          CALL SLAEBZ( 3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, E2, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO )
          IF( IINFO .NE. 0 ) THEN
             INFO = IINFO
@@ -206,13 +206,13 @@
       INFO = 0
       NWL = 0
       NWU = 0
-*
+
       DO 70 JBLK = 1, NSPLIT
          IOFF = IEND
          IBEGIN = IOFF + 1
          IEND = ISPLIT( JBLK )
          IN = IEND - IOFF
-*
+
          IF( IN.EQ.1 ) THEN
             // 1x1 block
             IF( WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE.EQ.ALLRNG .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) THEN
@@ -238,7 +238,7 @@
             // -0.180411241501588E-15
             // -0.175152352710251E-15
            // ];
-*
+
           // ELSE IF( IN.EQ.2 ) THEN
 **           2x2 block
              // DISC = SQRT( (HALF*(D(IBEGIN)-D(IEND)))**2 + E(IBEGIN)**2 )
@@ -291,7 +291,7 @@
             // GU = GU + FUDGE*SPDIAM*EPS*IN + FUDGE*PIVMIN
             GL = GL - FUDGE*TNORM*EPS*IN - FUDGE*PIVMIN
             GU = GU + FUDGE*TNORM*EPS*IN + FUDGE*PIVMIN
-*
+
             IF( IRANGE.GT.1 ) THEN
                IF( GU.LT.WL ) THEN
                  t // he local block contains none of the wanted eigenvalues
@@ -313,7 +313,7 @@
                INFO = IINFO
                RETURN
             END IF
-*
+
             NWL = NWL + IWORK( 1 )
             NWU = NWU + IWORK( IN+1 )
             IWOFF = M - IWORK( 1 )
@@ -324,7 +324,7 @@
                INFO = IINFO
                RETURN
             END IF
-*
+
             // Copy eigenvalues into W and IBLOCK
             // Use -JBLK for block number for unconverged eigenvalues.
             // Loop over the number of output intervals from SLAEBZ
@@ -347,7 +347,7 @@
                   IBLOCK( JE ) = IB
    50          CONTINUE
    60       CONTINUE
-*
+
             M = M + IM
          END IF
    70 CONTINUE
@@ -357,7 +357,7 @@
       IF( IRANGE.EQ.INDRNG ) THEN
          IDISCL = IL - 1 - NWL
          IDISCU = NWU - IU
-*
+
          IF( IDISCL.GT.0 ) THEN
             IM = 0
             DO 80 JE = 1, M
@@ -451,7 +451,7 @@
             TOOFEW = .TRUE.
          END IF
       END IF
-*
+
       IF(( IRANGE.EQ.ALLRNG .AND. M.NE.N ).OR. ( IRANGE.EQ.INDRNG .AND. M.NE.IU-IL+1 ) ) THEN
          TOOFEW = .TRUE.
       END IF
@@ -485,11 +485,11 @@
             END IF
   150    CONTINUE
       END IF
-*
+
       INFO = 0
       IF( NCNVRG ) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2
       RETURN
-*
+
       // End of SLARRD
-*
+
       END

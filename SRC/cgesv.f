@@ -1,9 +1,9 @@
       SUBROUTINE CGESV( N, NRHS, A, LDA, IPIV, B, LDB, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, LDB, N, NRHS;
       // ..
@@ -11,9 +11,9 @@
       int                IPIV( * );
       COMPLEX            A( LDA, * ), B( LDB, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. External Subroutines ..
       // EXTERNAL CGETRF, CGETRS, XERBLA
       // ..
@@ -21,9 +21,9 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF( N.LT.0 ) THEN
          INFO = -1
@@ -38,18 +38,18 @@
          CALL XERBLA( 'CGESV ', -INFO )
          RETURN
       END IF
-*
+
       // Compute the LU factorization of A.
-*
+
       CALL CGETRF( N, N, A, LDA, IPIV, INFO )
       IF( INFO.EQ.0 ) THEN
-*
+
          // Solve the system A*X = B, overwriting B with X.
-*
+
          CALL CGETRS( 'No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO )
       END IF
       RETURN
-*
+
       // End of CGESV
-*
+
       END

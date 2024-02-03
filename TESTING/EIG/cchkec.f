@@ -1,17 +1,17 @@
       SUBROUTINE CCHKEC( THRESH, TSTERR, NIN, NOUT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NIN, NOUT;
       REAL               THRESH
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               OK;
       String             PATH;
@@ -30,7 +30,7 @@
       // EXTERNAL SLAMCH
       // ..
       // .. Executable Statements ..
-*
+
       PATH( 1: 1 ) = 'Complex precision'
       PATH( 2: 3 ) = 'EC'
       EPS = SLAMCH( 'P' )
@@ -38,18 +38,18 @@
       WRITE( NOUT, FMT = 9994 )
       WRITE( NOUT, FMT = 9993 )EPS, SFMIN
       WRITE( NOUT, FMT = 9992 )THRESH
-*
+
       // Test error exits if TSTERR is .TRUE.
-*
+
       IF( TSTERR ) CALL CERREC( PATH, NOUT )
-*
+
       OK = .TRUE.
       CALL CGET35( RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL, NIN )
       IF( RTRSYL( 1 ).GT.THRESH ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9999 )RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL
       END IF
-*
+
       CALL CSYL01( THRESH, FTRSYL, RTRSYL, ITRSYL, KTRSYL3 )
       IF( FTRSYL( 1 ).GT.0 ) THEN
          OK = .FALSE.
@@ -63,28 +63,28 @@
          OK = .FALSE.
          WRITE( NOUT, FMT = 9972 )FTRSYL( 3 )
       END IF
-*
+
       CALL CGET36( RTREXC, LTREXC, NTREXC, KTREXC, NIN )
       IF( RTREXC.GT.THRESH .OR. NTREXC.GT.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9998 )RTREXC, LTREXC, NTREXC, KTREXC
       END IF
-*
+
       CALL CGET37( RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN )
       IF( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ).NE.0 .OR. NTRSNA( 2 ).NE.0 .OR. NTRSNA( 3 ).NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9997 )RTRSNA, LTRSNA, NTRSNA, KTRSNA
       END IF
-*
+
       CALL CGET38( RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN )
       IF( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ).NE.0 .OR. NTRSEN( 2 ).NE.0 .OR. NTRSEN( 3 ).NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9996 )RTRSEN, LTRSEN, NTRSEN, KTRSEN
       END IF
-*
+
       NTESTS = KTRSYL + KTREXC + KTRSNA + KTRSEN
       IF( OK ) WRITE( NOUT, FMT = 9995 )PATH, NTESTS
-*
+
  9999 FORMAT( ' Error in CTRSYL: RMAX =', E12.3, / ' LMAX = ', I8,
      $      ' NINFO=', I8, ' KNT=', I8 )
  9998 FORMAT( ' Error in CTREXC: RMAX =', E12.3, / ' LMAX = ', I8,
@@ -109,7 +109,7 @@
  9970 FORMAT( 'Error in CTRSYL: ', I8, ' tests fail the threshold.', /
      $      'Maximum test ratio =', D12.3, ' threshold =', D12.3 )
       RETURN
-*
+
       // End of CCHKEC
-*
+
       END

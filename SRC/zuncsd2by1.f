@@ -1,9 +1,9 @@
       SUBROUTINE ZUNCSD2BY1( JOBU1, JOBU2, JOBV1T, M, P, Q, X11, LDX11, X21, LDX21, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, WORK, LWORK, RWORK, LRWORK, IWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBU1, JOBU2, JOBV1T;
       int                INFO, LDU1, LDU2, LDV1T, LWORK, LDX11, LDX21, M, P, Q;
@@ -15,9 +15,9 @@
       COMPLEX*16         U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*)
       int                IWORK(*);
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX*16         ONE, ZERO
       PARAMETER          ( ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) )
@@ -41,15 +41,15 @@
       // INTRINSIC INT, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Test input arguments
-*
+
       INFO = 0
       WANTU1 = LSAME( JOBU1, 'Y' )
       WANTU2 = LSAME( JOBU2, 'Y' )
       WANTV1T = LSAME( JOBV1T, 'Y' )
       LQUERY = ( LWORK.EQ.-1 ) .OR. ( LRWORK.EQ.-1 )
-*
+
       IF( M .LT. 0 ) THEN
          INFO = -4
       ELSE IF( P .LT. 0 .OR. P .GT. M ) THEN
@@ -67,11 +67,11 @@
       ELSE IF( WANTV1T .AND. LDV1T .LT. MAX( 1, Q ) ) THEN
          INFO = -17
       END IF
-*
+
       R = MIN( P, M-P, Q, M-Q )
-*
+
       // Compute workspace
-*
+
         // WORK layout:
       // |-----------------------------------------|
       // | LWORKOPT (1)                            |
@@ -102,7 +102,7 @@
       // | B22E (R-1)       |
       // | ZBBCSD RWORK     |
       // |------------------|
-*
+
       IF( INFO .EQ. 0 ) THEN
          IPHI = 2
          IB11D = IPHI + MAX( 1, R-1 )
@@ -225,20 +225,20 @@
       END IF
       LORGQR = LWORK-IORGQR+1
       LORGLQ = LWORK-IORGLQ+1
-*
+
       // Handle four cases separately: R = Q, R = P, R = M-P, and R = M-Q,
       // in which R = MIN(P,M-P,Q,M-Q)
-*
+
       IF( R .EQ. Q ) THEN
-*
+
          // Case 1: R = Q
-*
+
          // Simultaneously bidiagonalize X11 and X21
-*
+
          CALL ZUNBDB1( M, P, Q, X11, LDX11, X21, LDX21, THETA, RWORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), LORBDB, CHILDINFO )
-*
+
          // Accumulate Householder reflectors
-*
+
          IF( WANTU1 .AND. P .GT. 0 ) THEN
             CALL ZLACPY( 'L', P, Q, X11, LDX11, U1, LDU1 )
             CALL ZUNGQR( P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO )
@@ -255,14 +255,14 @@
             END DO
             CALL ZLACPY( 'U', Q-1, Q-1, X21(1,2), LDX21, V1T(2,2), LDV1T )             CALL ZUNGLQ( Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO )
          END IF
-*
+
          // Simultaneously diagonalize X11 and X21.
-*
+
          CALL ZBBCSD( JOBU1, JOBU2, JOBV1T, 'N', 'N', M, P, Q, THETA, RWORK(IPHI), U1, LDU1, U2, LDU2, V1T, LDV1T, CDUM, 1, RWORK(IB11D), RWORK(IB11E), RWORK(IB12D), RWORK(IB12E), RWORK(IB21D), RWORK(IB21E), RWORK(IB22D), RWORK(IB22E), RWORK(IBBCSD), LRWORK-IBBCSD+1, CHILDINFO )
-*
+
          // Permute rows and columns to place zero submatrices in
          // preferred positions
-*
+
          IF( Q .GT. 0 .AND. WANTU2 ) THEN
             DO I = 1, Q
                IWORK(I) = M - P - Q + I
@@ -273,15 +273,15 @@
             CALL ZLAPMT( .FALSE., M-P, M-P, U2, LDU2, IWORK )
          END IF
       ELSE IF( R .EQ. P ) THEN
-*
+
          // Case 2: R = P
-*
+
          // Simultaneously bidiagonalize X11 and X21
-*
+
          CALL ZUNBDB2( M, P, Q, X11, LDX11, X21, LDX21, THETA, RWORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), LORBDB, CHILDINFO )
-*
+
          // Accumulate Householder reflectors
-*
+
          IF( WANTU1 .AND. P .GT. 0 ) THEN
             U1(1,1) = ONE
             DO J = 2, P
@@ -299,14 +299,14 @@
             CALL ZLACPY( 'U', P, Q, X11, LDX11, V1T, LDV1T )
             CALL ZUNGLQ( Q, Q, R, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO )
          END IF
-*
+
          // Simultaneously diagonalize X11 and X21.
-*
+
          CALL ZBBCSD( JOBV1T, 'N', JOBU1, JOBU2, 'T', M, Q, P, THETA, RWORK(IPHI), V1T, LDV1T, CDUM, 1, U1, LDU1, U2, LDU2, RWORK(IB11D), RWORK(IB11E), RWORK(IB12D), RWORK(IB12E), RWORK(IB21D), RWORK(IB21E), RWORK(IB22D), RWORK(IB22E), RWORK(IBBCSD), LBBCSD, CHILDINFO )
-*
+
          // Permute rows and columns to place identity submatrices in
          // preferred positions
-*
+
          IF( Q .GT. 0 .AND. WANTU2 ) THEN
             DO I = 1, Q
                IWORK(I) = M - P - Q + I
@@ -317,15 +317,15 @@
             CALL ZLAPMT( .FALSE., M-P, M-P, U2, LDU2, IWORK )
          END IF
       ELSE IF( R .EQ. M-P ) THEN
-*
+
          // Case 3: R = M-P
-*
+
          // Simultaneously bidiagonalize X11 and X21
-*
+
          CALL ZUNBDB3( M, P, Q, X11, LDX11, X21, LDX21, THETA, RWORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), LORBDB, CHILDINFO )
-*
+
          // Accumulate Householder reflectors
-*
+
          IF( WANTU1 .AND. P .GT. 0 ) THEN
             CALL ZLACPY( 'L', P, Q, X11, LDX11, U1, LDU1 )
             CALL ZUNGQR( P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO )
@@ -342,14 +342,14 @@
             CALL ZLACPY( 'U', M-P, Q, X21, LDX21, V1T, LDV1T )
             CALL ZUNGLQ( Q, Q, R, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO )
          END IF
-*
+
          // Simultaneously diagonalize X11 and X21.
-*
+
          CALL ZBBCSD( 'N', JOBV1T, JOBU2, JOBU1, 'T', M, M-Q, M-P, THETA, RWORK(IPHI), CDUM, 1, V1T, LDV1T, U2, LDU2, U1, LDU1, RWORK(IB11D), RWORK(IB11E), RWORK(IB12D), RWORK(IB12E), RWORK(IB21D), RWORK(IB21E), RWORK(IB22D), RWORK(IB22E), RWORK(IBBCSD), LBBCSD, CHILDINFO )
-*
+
          // Permute rows and columns to place identity submatrices in
          // preferred positions
-*
+
          IF( Q .GT. R ) THEN
             DO I = 1, R
                IWORK(I) = Q - R + I
@@ -365,15 +365,15 @@
             END IF
          END IF
       ELSE
-*
+
          // Case 4: R = M-Q
-*
+
          // Simultaneously bidiagonalize X11 and X21
-*
+
          CALL ZUNBDB4( M, P, Q, X11, LDX11, X21, LDX21, THETA, RWORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), WORK(IORBDB+M), LORBDB-M, CHILDINFO )
-*
+
          // Accumulate Householder reflectors
-*
+
          IF( WANTU2 .AND. M-P .GT. 0 ) THEN
             CALL ZCOPY( M-P, WORK(IORBDB+P), 1, U2, 1 )
          END IF
@@ -394,14 +394,14 @@
             CALL ZLACPY( 'U', M-Q, Q, X21, LDX21, V1T, LDV1T )
             CALL ZLACPY( 'U', P-(M-Q), Q-(M-Q), X11(M-Q+1,M-Q+1), LDX11, V1T(M-Q+1,M-Q+1), LDV1T )             CALL ZLACPY( 'U', -P+Q, Q-P, X21(M-Q+1,P+1), LDX21, V1T(P+1,P+1), LDV1T )             CALL ZUNGLQ( Q, Q, Q, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO )
          END IF
-*
+
          // Simultaneously diagonalize X11 and X21.
-*
+
          CALL ZBBCSD( JOBU2, JOBU1, 'N', JOBV1T, 'N', M, M-P, M-Q, THETA, RWORK(IPHI), U2, LDU2, U1, LDU1, CDUM, 1, V1T, LDV1T, RWORK(IB11D), RWORK(IB11E), RWORK(IB12D), RWORK(IB12E), RWORK(IB21D), RWORK(IB21E), RWORK(IB22D), RWORK(IB22E), RWORK(IBBCSD), LBBCSD, CHILDINFO )
-*
+
          // Permute rows and columns to place identity submatrices in
          // preferred positions
-*
+
          IF( P .GT. R ) THEN
             DO I = 1, R
                IWORK(I) = P - R + I
@@ -417,9 +417,9 @@
             END IF
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of ZUNCSD2BY1
-*
+
       END

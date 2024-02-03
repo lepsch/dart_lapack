@@ -1,18 +1,18 @@
       SUBROUTINE CLAIPD( N, A, INDA, VINDA )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INDA, N, VINDA;
       // ..
       // .. Array Arguments ..
       COMPLEX            A( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, IA, IXA;
       REAL               BIGNUM
@@ -25,7 +25,7 @@
       // INTRINSIC CMPLX, REAL
       // ..
       // .. Executable Statements ..
-*
+
       BIGNUM = SLAMCH( 'Epsilon' ) / SLAMCH( 'Safe minimum' )
       IA = 1
       IXA = INDA

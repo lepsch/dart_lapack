@@ -1,9 +1,9 @@
       SUBROUTINE ZHGEQZ( JOB, COMPQ, COMPZ, N, ILO, IHI, H, LDH, T, LDT, ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             COMPQ, COMPZ, JOB;
       int                IHI, ILO, INFO, LDH, LDQ, LDT, LDZ, LWORK, N;
@@ -12,9 +12,9 @@
       double             RWORK( * );
       COMPLEX*16         ALPHA( * ), BETA( * ), H( LDH, * ), Q( LDQ, * ), T( LDT, * ), WORK( * ), Z( LDZ, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
@@ -46,9 +46,9 @@
       ABS1( X ) = ABS( DBLE( X ) ) + ABS( DIMAG( X ) )
       // ..
       // .. Executable Statements ..
-*
+
       // Decode JOB, COMPQ, COMPZ
-*
+
       IF( LSAME( JOB, 'E' ) ) THEN
          ILSCHR = .FALSE.
          ISCHUR = 1
@@ -59,7 +59,7 @@
          ILSCHR = .TRUE.
          ISCHUR = 0
       END IF
-*
+
       IF( LSAME( COMPQ, 'N' ) ) THEN
          ILQ = .FALSE.
          ICOMPQ = 1
@@ -73,7 +73,7 @@
          ILQ = .TRUE.
          ICOMPQ = 0
       END IF
-*
+
       IF( LSAME( COMPZ, 'N' ) ) THEN
          ILZ = .FALSE.
          ICOMPZ = 1
@@ -87,9 +87,9 @@
          ILZ = .TRUE.
          ICOMPZ = 0
       END IF
-*
+
       // Check Argument Values
-*
+
       INFO = 0
       WORK( 1 ) = MAX( 1, N )
       LQUERY = ( LWORK.EQ.-1 )
@@ -122,21 +122,21 @@
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       // WORK( 1 ) = CMPLX( 1 )
       IF( N.LE.0 ) THEN
          WORK( 1 ) = DCMPLX( 1 )
          RETURN
       END IF
-*
+
       // Initialize Q and Z
-*
+
       IF( ICOMPQ.EQ.3 ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDZ )
-*
+
       // Machine Constants
-*
+
       IN = IHI + 1 - ILO
       SAFMIN = DLAMCH( 'S' )
       ULP = DLAMCH( 'E' )*DLAMCH( 'B' )
@@ -146,10 +146,10 @@
       BTOL = MAX( SAFMIN, ULP*BNORM )
       ASCALE = ONE / MAX( SAFMIN, ANORM )
       BSCALE = ONE / MAX( SAFMIN, BNORM )
-*
-*
+
+
       // Set Eigenvalues IHI+1:N
-*
+
       DO 10 J = IHI + 1, N
          ABSB = ABS( T( J, J ) )
          IF( ABSB.GT.SAFMIN ) THEN
@@ -168,26 +168,26 @@
          ALPHA( J ) = H( J, J )
          BETA( J ) = T( J, J )
    10 CONTINUE
-*
+
       // If IHI < ILO, skip QZ steps
-*
+
       IF( IHI.LT.ILO ) GO TO 190
-*
+
       // MAIN QZ ITERATION LOOP
-*
+
       // Initialize dynamic indices
-*
+
       // Eigenvalues ILAST+1:N have been found.
          // Column operations modify rows IFRSTM:whatever
          // Row operations modify columns whatever:ILASTM
-*
+
       // If only eigenvalues are being computed, then
          // IFRSTM is the row of the last splitting row above row ILAST;
         t // his is always at least ILO.
       // IITER counts iterations since the last eigenvalue was found,
         t // o tell when to use an extraordinary shift.
       // MAXIT is the maximum number of QZ sweeps allowed.
-*
+
       ILAST = IHI
       IF( ILSCHR ) THEN
          IFRSTM = 1
@@ -199,21 +199,21 @@
       IITER = 0
       ESHIFT = CZERO
       MAXIT = 30*( IHI-ILO+1 )
-*
+
       DO 170 JITER = 1, MAXIT
-*
+
          // Check for too many iterations.
-*
+
          IF( JITER.GT.MAXIT ) GO TO 180
-*
+
          // Split the matrix if possible.
-*
+
          // Two tests:
             // 1: H(j,j-1)=0  or  j=ILO
             // 2: T(j,j)=0
-*
+
          // Special case: j=ILAST
-*
+
          IF( ILAST.EQ.ILO ) THEN
             GO TO 60
          ELSE
@@ -222,18 +222,18 @@
                GO TO 60
             END IF
          END IF
-*
+
          IF( ABS( T( ILAST, ILAST ) ).LE.BTOL ) THEN
             T( ILAST, ILAST ) = CZERO
             GO TO 50
          END IF
-*
+
          // General case: j<ILAST
-*
+
          DO 40 J = ILAST - 1, ILO, -1
-*
+
             // Test 1: for H(j,j-1)=0 or j=ILO
-*
+
             IF( J.EQ.ILO ) THEN
                ILAZRO = .TRUE.
             ELSE
@@ -244,25 +244,25 @@
                   ILAZRO = .FALSE.
                END IF
             END IF
-*
+
             // Test 2: for T(j,j)=0
-*
+
             IF( ABS( T( J, J ) ).LT.BTOL ) THEN
                T( J, J ) = CZERO
-*
+
                // Test 1a: Check for 2 consecutive small subdiagonals in A
-*
+
                ILAZR2 = .FALSE.
                IF( .NOT.ILAZRO ) THEN
                   IF( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1, J ) ) ).LE.ABS1( H( J, J ) )*( ASCALE*ATOL ) ) ILAZR2 = .TRUE.
                END IF
-*
+
                // If both tests pass (1 & 2), i.e., the leading diagonal
                // element of B in the block is zero, split a 1x1 block off
                // at the top. (I.e., at the J-th row/column) The leading
                // diagonal element of the remainder can also be zero, so
               t // his may have to be done repeatedly.
-*
+
                IF( ILAZRO .OR. ILAZR2 ) THEN
                   DO 20 JCH = J, ILAST - 1
                      CTEMP = H( JCH, JCH )
@@ -283,10 +283,10 @@
    20             CONTINUE
                   GO TO 50
                ELSE
-*
+
                   // Only test 2 passed -- chase the zero to T(ILAST,ILAST)
                   // Then process as in the case T(ILAST,ILAST)=0
-*
+
                   DO 30 JCH = J, ILAST - 1
                      CTEMP = T( JCH, JCH+1 )
                      CALL ZLARTG( CTEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) )
@@ -300,33 +300,33 @@
                   GO TO 50
                END IF
             ELSE IF( ILAZRO ) THEN
-*
+
                // Only test 1 passed -- work on J:ILAST
-*
+
                IFIRST = J
                GO TO 70
             END IF
-*
+
             // Neither test passed -- try next J
-*
+
    40    CONTINUE
-*
+
          // (Drop-through is "impossible")
-*
+
          INFO = 2*N + 1
          GO TO 210
-*
+
          // T(ILAST,ILAST)=0 -- clear H(ILAST,ILAST-1) to split off a
          // 1x1 block.
-*
+
    50    CONTINUE
          CTEMP = H( ILAST, ILAST )
          CALL ZLARTG( CTEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) )
          H( ILAST, ILAST-1 ) = CZERO
          CALL ZROT( ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S )          CALL ZROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL ZROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S )
-*
+
          // H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHA and BETA
-*
+
    60    CONTINUE
          ABSB = ABS( T( ILAST, ILAST ) )
          IF( ABSB.GT.SAFMIN ) THEN
@@ -344,14 +344,14 @@
          END IF
          ALPHA( ILAST ) = H( ILAST, ILAST )
          BETA( ILAST ) = T( ILAST, ILAST )
-*
+
          // Go to next block -- exit if finished.
-*
+
          ILAST = ILAST - 1
          IF( ILAST.LT.ILO ) GO TO 190
-*
+
          // Reset counters
-*
+
          IITER = 0
          ESHIFT = CZERO
          IF( .NOT.ILSCHR ) THEN
@@ -359,37 +359,37 @@
             IF( IFRSTM.GT.ILAST ) IFRSTM = ILO
          END IF
          GO TO 160
-*
+
          // QZ step
-*
+
          // This iteration only involves rows/columns IFIRST:ILAST.  We
          // assume IFIRST < ILAST, and that the diagonal of B is non-zero.
-*
+
    70    CONTINUE
          IITER = IITER + 1
          IF( .NOT.ILSCHR ) THEN
             IFRSTM = IFIRST
          END IF
-*
+
          // Compute the Shift.
-*
+
          // At this point, IFIRST < ILAST, and the diagonal elements of
          // T(IFIRST:ILAST,IFIRST,ILAST) are larger than BTOL (in
          // magnitude)
-*
+
          IF( ( IITER / 10 )*10.NE.IITER ) THEN
-*
+
             // The Wilkinson shift (AEP p.512), i.e., the eigenvalue of
            t // he bottom-right 2x2 block of A inv(B) which is nearest to
            t // he bottom-right element.
-*
+
             // We factor B as U*D, where U has unit diagonals, and
             // compute (A*inv(D))*inv(U).
-*
+
             U12 = ( BSCALE*T( ILAST-1, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )             AD11 = ( ASCALE*H( ILAST-1, ILAST-1 ) ) / ( BSCALE*T( ILAST-1, ILAST-1 ) )             AD21 = ( ASCALE*H( ILAST, ILAST-1 ) ) / ( BSCALE*T( ILAST-1, ILAST-1 ) )             AD12 = ( ASCALE*H( ILAST-1, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )             AD22 = ( ASCALE*H( ILAST, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )
             ABI22 = AD22 - U12*AD21
             ABI12 = AD12 - U12*AD11
-*
+
             SHIFT = ABI22
             CTEMP = SQRT( ABI12 )*SQRT( AD21 )
             TEMP = ABS1( CTEMP )
@@ -404,18 +404,18 @@
                SHIFT = SHIFT - CTEMP*ZLADIV( CTEMP, ( X+Y ) )
             END IF
          ELSE
-*
+
             // Exceptional shift.  Chosen for no particularly good reason.
-*
+
             IF( ( IITER / 20 )*20.EQ.IITER .AND.  BSCALE*ABS1(T( ILAST, ILAST )).GT.SAFMIN ) THEN                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) )
             ELSE
                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST-1 ) )/( BSCALE*T( ILAST-1, ILAST-1 ) )
             END IF
             SHIFT = ESHIFT
          END IF
-*
+
          // Now check for two consecutive small subdiagonals.
-*
+
          DO 80 J = ILAST - 1, IFIRST + 1, -1
             ISTART = J
             CTEMP = ASCALE*H( J, J ) - SHIFT*( BSCALE*T( J, J ) )
@@ -428,27 +428,27 @@
             END IF
             IF( ABS1( H( J, J-1 ) )*TEMP2.LE.TEMP*ATOL ) GO TO 90
    80    CONTINUE
-*
+
          ISTART = IFIRST
          CTEMP = ASCALE*H( IFIRST, IFIRST ) - SHIFT*( BSCALE*T( IFIRST, IFIRST ) )
    90    CONTINUE
-*
+
          // Do an implicit-shift QZ sweep.
-*
+
          // Initial Q
-*
+
          CTEMP2 = ASCALE*H( ISTART+1, ISTART )
          CALL ZLARTG( CTEMP, CTEMP2, C, S, CTEMP3 )
-*
+
          // Sweep
-*
+
          DO 150 J = ISTART, ILAST - 1
             IF( J.GT.ISTART ) THEN
                CTEMP = H( J, J-1 )
                CALL ZLARTG( CTEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) )
                H( J+1, J-1 ) = CZERO
             END IF
-*
+
             DO 100 JC = J, ILASTM
                CTEMP = C*H( J, JC ) + S*H( J+1, JC )
                H( J+1, JC ) = -DCONJG( S )*H( J, JC ) + C*H( J+1, JC )
@@ -464,11 +464,11 @@
                   Q( JR, J ) = CTEMP
   110          CONTINUE
             END IF
-*
+
             CTEMP = T( J+1, J+1 )
             CALL ZLARTG( CTEMP, T( J+1, J ), C, S, T( J+1, J+1 ) )
             T( J+1, J ) = CZERO
-*
+
             DO 120 JR = IFRSTM, MIN( J+2, ILAST )
                CTEMP = C*H( JR, J+1 ) + S*H( JR, J )
                H( JR, J ) = -DCONJG( S )*H( JR, J+1 ) + C*H( JR, J )
@@ -487,23 +487,23 @@
   140          CONTINUE
             END IF
   150    CONTINUE
-*
+
   160    CONTINUE
-*
+
   170 CONTINUE
-*
+
       // Drop-through = non-convergence
-*
+
   180 CONTINUE
       INFO = ILAST
       GO TO 210
-*
+
       // Successful completion of all QZ steps
-*
+
   190 CONTINUE
-*
+
       // Set Eigenvalues 1:ILO-1
-*
+
       DO 200 J = 1, ILO - 1
          ABSB = ABS( T( J, J ) )
          IF( ABSB.GT.SAFMIN ) THEN
@@ -522,17 +522,17 @@
          ALPHA( J ) = H( J, J )
          BETA( J ) = T( J, J )
   200 CONTINUE
-*
+
       // Normal Termination
-*
+
       INFO = 0
-*
+
       // Exit (other than argument error) -- return optimal workspace size
-*
+
   210 CONTINUE
       WORK( 1 ) = DCMPLX( N )
       RETURN
-*
+
       // End of ZHGEQZ
-*
+
       END

@@ -1,9 +1,9 @@
       REAL FUNCTION CLA_PORPVGRW( UPLO, NCOLS, A, LDA, AF, LDAF, WORK )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                NCOLS, LDA, LDAF;
@@ -12,9 +12,9 @@
       COMPLEX            A( LDA, * ), AF( LDAF, * )
       REAL               WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, J;
       REAL               AMAX, UMAX, RPVGRW
@@ -36,18 +36,18 @@
       // ..
       // .. Executable Statements ..
       UPPER = LSAME( 'Upper', UPLO )
-*
+
       // SPOTRF will have factored only the NCOLSxNCOLS leading submatrix,
       // so we restrict the growth search to that submatrix and use only
      t // he first 2*NCOLS workspace entries.
-*
+
       RPVGRW = 1.0
       DO I = 1, 2*NCOLS
          WORK( I ) = 0.0
       END DO
-*
+
       // Find the max magnitude entry of each column.
-*
+
       IF ( UPPER ) THEN
          DO J = 1, NCOLS
             DO I = 1, J
@@ -61,10 +61,10 @@
             END DO
          END DO
       END IF
-*
+
       // Now find the max magnitude entry of each column of the factor in
       // AF.  No pivoting, so no permutations.
-*
+
       IF ( LSAME( 'Upper', UPLO ) ) THEN
          DO J = 1, NCOLS
             DO I = 1, J
@@ -78,14 +78,14 @@
             END DO
          END DO
       END IF
-*
+
       // Compute the *inverse* of the max element growth factor.  Dividing
       // by zero would imply the largest entry of the factor's column is
       // zero.  Than can happen when either the column of A is zero or
       // massive pivots made the factor underflow to zero.  Neither counts
       // as growth in itself, so simply ignore terms with zero
       // denominators.
-*
+
       IF ( LSAME( 'Upper', UPLO ) ) THEN
          DO I = 1, NCOLS
             UMAX = WORK( I )
@@ -105,7 +105,7 @@
       END IF
 
       CLA_PORPVGRW = RPVGRW
-*
+
       // End of CLA_PORPVGRW
-*
+
       END

@@ -1,9 +1,9 @@
       REAL FUNCTION SLANSF( NORM, TRANSR, UPLO, N, A, WORK )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             NORM, TRANSR, UPLO;
       int                N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               A( 0: * ), WORK( 0: * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // ..
       // .. Parameters ..
       REAL               ONE, ZERO
@@ -34,7 +34,7 @@
       // INTRINSIC ABS, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       IF( N.EQ.0 ) THEN
          SLANSF = ZERO
          RETURN
@@ -42,26 +42,26 @@
          SLANSF = ABS( A(0) )
          RETURN
       END IF
-*
+
       // set noe = 1 if n is odd. if n is even set noe=0
-*
+
       NOE = 1
       IF( MOD( N, 2 ).EQ.0 ) NOE = 0
-*
+
       // set ifm = 0 when form='T or 't' and 1 otherwise
-*
+
       IFM = 1
       IF( LSAME( TRANSR, 'T' ) ) IFM = 0
-*
+
       // set ilu = 0 when uplo='U or 'u' and 1 otherwise
-*
+
       ILU = 1
       IF( LSAME( UPLO, 'U' ) ) ILU = 0
-*
+
       // set lda = (n+1)/2 when ifm = 0
       // set lda = n when ifm = 1 and noe = 1
       // set lda = n+1 when ifm = 1 and noe = 0
-*
+
       IF( IFM.EQ.1 ) THEN
          IF( NOE.EQ.1 ) THEN
             LDA = N
@@ -73,11 +73,11 @@
          // ifm=0
          LDA = ( N+1 ) / 2
       END IF
-*
+
       IF( LSAME( NORM, 'M' ) ) THEN
-*
+
         // Find max(abs(A(i,j))).
-*
+
          K = ( N+1 ) / 2
          VALUE = ZERO
          IF( NOE.EQ.1 ) THEN
@@ -120,9 +120,9 @@
             END IF
          END IF
       ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
-*
+
          // Find normI(A) ( = norm1(A), since A is symmetric).
-*
+
          IF( IFM.EQ.1 ) THEN
             K = N / 2
             IF( NOE.EQ.1 ) THEN
@@ -555,9 +555,9 @@
             END IF
          END IF
       ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
-*
+
         // Find normF(A).
-*
+
          K = ( N+1 ) / 2
          SCALE = ZERO
          S = ONE
@@ -726,10 +726,10 @@
          END IF
          VALUE = SCALE*SQRT( S )
       END IF
-*
+
       SLANSF = VALUE
       RETURN
-*
+
       // End of SLANSF
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE SLASR( SIDE, PIVOT, DIRECT, M, N, C, S, A, LDA )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             DIRECT, PIVOT, SIDE;
       int                LDA, M, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               A( LDA, * ), C( * ), S( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
@@ -33,9 +33,9 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters
-*
+
       INFO = 0
       IF( .NOT.( LSAME( SIDE, 'L' ) .OR. LSAME( SIDE, 'R' ) ) ) THEN
          INFO = 1
@@ -54,14 +54,14 @@
          CALL XERBLA( 'SLASR ', INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( ( M.EQ.0 ) .OR. ( N.EQ.0 ) ) RETURN
       IF( LSAME( SIDE, 'L' ) ) THEN
-*
+
          // Form  P * A
-*
+
          IF( LSAME( PIVOT, 'V' ) ) THEN
             IF( LSAME( DIRECT, 'F' ) ) THEN
                DO 20 J = 1, M - 1
@@ -142,9 +142,9 @@
             END IF
          END IF
       ELSE IF( LSAME( SIDE, 'R' ) ) THEN
-*
+
          // Form A * P**T
-*
+
          IF( LSAME( PIVOT, 'V' ) ) THEN
             IF( LSAME( DIRECT, 'F' ) ) THEN
                DO 140 J = 1, N - 1
@@ -225,9 +225,9 @@
             END IF
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of SLASR
-*
+
       END

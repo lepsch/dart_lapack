@@ -1,12 +1,12 @@
 *> \ingroup lamch
-*
+
 *  =====================================================================
       double           FUNCTION DLAMCH( CMACH );
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             CMACH;
       // ..
@@ -33,7 +33,7 @@
       DATA               FIRST / .TRUE. /
       // ..
       // .. Executable Statements ..
-*
+
       IF( FIRST ) THEN
          CALL DLAMC2( BETA, IT, LRND, EPS, IMIN, RMIN, IMAX, RMAX )
          BASE = BETA
@@ -51,14 +51,14 @@
          SFMIN = RMIN
          SMALL = ONE / RMAX
          IF( SMALL.GE.SFMIN ) THEN
-*
+
             // Use SMALL plus a bit, to avoid the possibility of rounding
             // causing overflow when computing  1/sfmin.
-*
+
             SFMIN = SMALL*( ONE+EPS )
          END IF
       END IF
-*
+
       IF( LSAME( CMACH, 'E' ) ) THEN
          RMACH = EPS
       ELSE IF( LSAME( CMACH, 'S' ) ) THEN
@@ -80,15 +80,15 @@
       ELSE IF( LSAME( CMACH, 'O' ) ) THEN
          RMACH = RMAX
       END IF
-*
+
       DLAMCH = RMACH
       FIRST  = .FALSE.
       RETURN
-*
+
       // End of DLAMCH
-*
+
       END
-*
+
 ************************************************************************
 *> \brief \b DLAMC1
 *> \details
@@ -140,16 +140,16 @@
 *> \endverbatim
 *>
       SUBROUTINE DLAMC1( BETA, T, RND, IEEE1 )
-*
+
 *  -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-*
+
       // .. Scalar Arguments ..
       bool               IEEE1, RND;
       int                BETA, T;
       // ..
 * =====================================================================
-*
+
       // .. Local Scalars ..
       bool               FIRST, LIEEE1, LRND;
       int                LBETA, LT;
@@ -166,25 +166,25 @@
       DATA               FIRST / .TRUE. /
       // ..
       // .. Executable Statements ..
-*
+
       IF( FIRST ) THEN
          ONE = 1
-*
+
          // LBETA,  LIEEE1,  LT and  LRND  are the  local values  of  BETA,
          // IEEE1, T and RND.
-*
+
          // Throughout this routine  we use the function  DLAMC3  to ensure
         t // hat relevant values are  stored and not held in registers,  or
          // are not affected by optimizers.
-*
+
          // Compute  a = 2.0**m  with the  smallest positive integer m such
         t // hat
-*
+
             // fl( a + 1.0 ) = a.
-*
+
          A = 1
          C = 1
-*
+
 *+       WHILE( C.EQ.ONE )LOOP
    10    CONTINUE
          IF( C.EQ.ONE ) THEN
@@ -194,15 +194,15 @@
             GO TO 10
          END IF
 *+       END WHILE
-*
+
          // Now compute  b = 2.0**m  with the smallest positive integer m
          // such that
-*
+
             // fl( a + b ) .gt. a.
-*
+
          B = 1
          C = DLAMC3( A, B )
-*
+
 *+       WHILE( C.EQ.A )LOOP
    20    CONTINUE
          IF( C.EQ.A ) THEN
@@ -211,20 +211,20 @@
             GO TO 20
          END IF
 *+       END WHILE
-*
+
          // Now compute the base.  a and c  are neighbouring floating point
          // numbers  in the  interval  ( beta**t, beta**( t + 1 ) )  and so
         t // heir difference is beta. Adding 0.25 to c is to ensure that it
          // is truncated to beta and not ( beta - 1 ).
-*
+
          QTR = ONE / 4
          SAVEC = C
          C = DLAMC3( C, -A )
          LBETA = C + QTR
-*
+
          // Now determine whether rounding or chopping occurs,  by adding a
          // bit  less  than  beta/2  and a  bit  more  than  beta/2  to  a.
-*
+
          B = LBETA
          F = DLAMC3( B / 2, -B / 100 )
          C = DLAMC3( F, A )
@@ -236,28 +236,28 @@
          F = DLAMC3( B / 2, B / 100 )
          C = DLAMC3( F, A )
          IF( ( LRND ) .AND. ( C.EQ.A ) ) LRND = .FALSE.
-*
+
          // Try and decide whether rounding is done in the  IEEE  'round to
          // nearest' style. B/2 is half a unit in the last place of the two
          // numbers A and SAVEC. Furthermore, A is even, i.e. has last  bit
          // zero, and SAVEC is odd. Thus adding B/2 to A should not  change
          // A, but adding B/2 to SAVEC should change SAVEC.
-*
+
          T1 = DLAMC3( B / 2, A )
          T2 = DLAMC3( B / 2, SAVEC )
          LIEEE1 = ( T1.EQ.A ) .AND. ( T2.GT.SAVEC ) .AND. LRND
-*
+
          // Now find  the  mantissa, t.  It should  be the  integer part of
          // log to the base beta of a,  however it is safer to determine  t
          // by powering.  So we find t as the smallest positive integer for
          // which
-*
+
             // fl( beta**t + 1.0 ) = 1.0.
-*
+
          LT = 0
          A = 1
          C = 1
-*
+
 *+       WHILE( C.EQ.ONE )LOOP
    30    CONTINUE
          IF( C.EQ.ONE ) THEN
@@ -268,20 +268,20 @@
             GO TO 30
          END IF
 *+       END WHILE
-*
+
       END IF
-*
+
       BETA = LBETA
       T = LT
       RND = LRND
       IEEE1 = LIEEE1
       FIRST = .FALSE.
       RETURN
-*
+
       // End of DLAMC1
-*
+
       END
-*
+
 ************************************************************************
 *> \brief \b DLAMC2
 *> \details
@@ -350,17 +350,17 @@
 *>  W. Kahan of the University of California at Berkeley.
 *> \endverbatim
       SUBROUTINE DLAMC2( BETA, T, RND, EPS, EMIN, RMIN, EMAX, RMAX )
-*
+
 *  -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-*
+
       // .. Scalar Arguments ..
       bool               RND;
       int                BETA, EMAX, EMIN, T;
       double             EPS, RMAX, RMIN;
       // ..
 * =====================================================================
-*
+
       // .. Local Scalars ..
       bool               FIRST, IEEE, IWARN, LIEEE1, LRND;
       int                GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN       double             A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO;;
@@ -382,31 +382,31 @@
       DATA               FIRST / .TRUE. / , IWARN / .FALSE. /
       // ..
       // .. Executable Statements ..
-*
+
       IF( FIRST ) THEN
          ZERO = 0
          ONE = 1
          TWO = 2
-*
+
          // LBETA, LT, LRND, LEPS, LEMIN and LRMIN  are the local values of
          // BETA, T, RND, EPS, EMIN and RMIN.
-*
+
          // Throughout this routine  we use the function  DLAMC3  to ensure
         t // hat relevant values are stored  and not held in registers,  or
          // are not affected by optimizers.
-*
+
          // DLAMC1 returns the parameters  LBETA, LT, LRND and LIEEE1.
-*
+
          CALL DLAMC1( LBETA, LT, LRND, LIEEE1 )
-*
+
          // Start to find EPS.
-*
+
          B = LBETA
          A = B**( -LT )
          LEPS = A
-*
+
          // Try some tricks to see whether or not this is the correct  EPS.
-*
+
          B = TWO / 3
          HALF = ONE / 2
          SIXTH = DLAMC3( B, -HALF )
@@ -415,9 +415,9 @@
          B = DLAMC3( B, SIXTH )
          B = ABS( B )
          IF( B.LT.LEPS ) B = LEPS
-*
+
          LEPS = 1
-*
+
 *+       WHILE( ( LEPS.GT.B ).AND.( B.GT.ZERO ) )LOOP
    10    CONTINUE
          IF( ( LEPS.GT.B ) .AND. ( B.GT.ZERO ) ) THEN
@@ -430,15 +430,15 @@
             GO TO 10
          END IF
 *+       END WHILE
-*
+
          IF( A.LT.LEPS ) LEPS = A
-*
+
          // Computation of EPS complete.
-*
+
          // Now find  EMIN.  Let A = + or - 1, and + or - (1 + BASE**(-3)).
          // Keep dividing  A by BETA until (gradual) underflow occurs. This
          // is detected when we cannot recover the previous A.
-*
+
          RBASE = ONE / LBETA
          SMALL = ONE
          DO 20 I = 1, 3
@@ -450,7 +450,7 @@
          CALL DLAMC4( GPMIN, A, LBETA )
          CALL DLAMC4( GNMIN, -A, LBETA )
          IEEE = .FALSE.
-*
+
          IF( ( NGPMIN.EQ.NGNMIN ) .AND. ( GPMIN.EQ.GNMIN ) ) THEN
             IF( NGPMIN.EQ.GPMIN ) THEN
                LEMIN = NGPMIN
@@ -466,7 +466,7 @@
              // ( A guess; no known machine )
                IWARN = .TRUE.
             END IF
-*
+
          ELSE IF( ( NGPMIN.EQ.GPMIN ) .AND. ( NGNMIN.EQ.GNMIN ) ) THEN
             IF( ABS( NGPMIN-NGNMIN ).EQ.1 ) THEN
                LEMIN = MAX( NGPMIN, NGNMIN )
@@ -477,7 +477,7 @@
              // ( A guess; no known machine )
                IWARN = .TRUE.
             END IF
-*
+
          ELSE IF( ( ABS( NGPMIN-NGNMIN ).EQ.1 ) .AND. ( GPMIN.EQ.GNMIN ) ) THEN
             IF( ( GPMIN-MIN( NGPMIN, NGNMIN ) ).EQ.3 ) THEN
                LEMIN = MAX( NGPMIN, NGNMIN ) - 1 + LT
@@ -488,7 +488,7 @@
              // ( A guess; no known machine )
                IWARN = .TRUE.
             END IF
-*
+
          ELSE
             LEMIN = MIN( NGPMIN, NGNMIN, GPMIN, GNMIN )
           // ( A guess; no known machine )
@@ -502,28 +502,28 @@
             WRITE( 6, FMT = 9999 )LEMIN
          END IF
 ***
-*
+
          // Assume IEEE arithmetic if we found denormalised  numbers above,
          // or if arithmetic seems to round in the  IEEE style,  determined
          // in routine DLAMC1. A true IEEE machine should have both  things
         t // rue; however, faulty machines may have one or the other.
-*
+
          IEEE = IEEE .OR. LIEEE1
-*
+
          // Compute  RMIN by successive division by  BETA. We could compute
          // RMIN as BASE**( EMIN - 1 ),  but some machines underflow during
         t // his computation.
-*
+
          LRMIN = 1
          DO 30 I = 1, 1 - LEMIN
             LRMIN = DLAMC3( LRMIN*RBASE, ZERO )
    30    CONTINUE
-*
+
          // Finally, call DLAMC5 to compute EMAX and RMAX.
-*
+
          CALL DLAMC5( LBETA, LT, LEMIN, IEEE, LEMAX, LRMAX )
       END IF
-*
+
       BETA = LBETA
       T = LT
       RND = LRND
@@ -532,20 +532,20 @@
       RMIN = LRMIN
       EMAX = LEMAX
       RMAX = LRMAX
-*
+
       RETURN
-*
+
  9999 FORMAT( / / ' WARNING. The value EMIN may be incorrect:-',
      $      '  EMIN = ', I8, /
      $      ' If, after inspection, the value EMIN looks',
      $      ' acceptable please comment out ',
      $      / ' the IF block as marked within the code of routine',
      $      ' DLAMC2,', / ' otherwise supply EMIN explicitly.', / )
-*
+
       // End of DLAMC2
-*
+
       END
-*
+
 ************************************************************************
 *> \brief \b DLAMC3
 *> \details
@@ -566,25 +566,25 @@
 *> \ingroup lamc3
 *>
       double           FUNCTION DLAMC3( A, B );
-*
+
 *  -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-*
+
       // .. Scalar Arguments ..
       double             A, B;
       // ..
 * =====================================================================
-*
+
       // .. Executable Statements ..
-*
+
       DLAMC3 = A + B
-*
+
       RETURN
-*
+
       // End of DLAMC3
-*
+
       END
-*
+
 ************************************************************************
 *> \brief \b DLAMC4
 *> \details
@@ -613,16 +613,16 @@
 *> \ingroup lamc4
 *>
       SUBROUTINE DLAMC4( EMIN, START, BASE )
-*
+
 *  -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-*
+
       // .. Scalar Arguments ..
       int                BASE, EMIN;
       double             START;
       // ..
 * =====================================================================
-*
+
       // .. Local Scalars ..
       int                I;
       double             A, B1, B2, C1, C2, D1, D2, ONE, RBASE, ZERO;
@@ -632,7 +632,7 @@
       // EXTERNAL DLAMC3
       // ..
       // .. Executable Statements ..
-*
+
       A = START
       ONE = 1
       RBASE = ONE / BASE
@@ -664,13 +664,13 @@
          GO TO 10
       END IF
 *+    END WHILE
-*
+
       RETURN
-*
+
       // End of DLAMC4
-*
+
       END
-*
+
 ************************************************************************
 *> \brief \b DLAMC5
 *> \details
@@ -719,17 +719,17 @@
 *> \ingroup lamc5
 *>
       SUBROUTINE DLAMC5( BETA, P, EMIN, IEEE, EMAX, RMAX )
-*
+
 *  -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-*
+
       // .. Scalar Arguments ..
       bool               IEEE;
       int                BETA, EMAX, EMIN, P;
       double             RMAX;
       // ..
 * =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -746,12 +746,12 @@
       // INTRINSIC MOD
       // ..
       // .. Executable Statements ..
-*
+
       // First compute LEXP and UEXP, two powers of 2 that bound
       // abs(EMIN). We then assume that EMAX + abs(EMIN) will sum
       // approximately to the bound that is closest to abs(EMIN).
       // (EMAX is the exponent of the required number RMAX).
-*
+
       LEXP = 1
       EXBITS = 1
    10 CONTINUE
@@ -767,28 +767,28 @@
          UEXP = TRY
          EXBITS = EXBITS + 1
       END IF
-*
+
       // Now -LEXP is less than or equal to EMIN, and -UEXP is greater
      t // han or equal to EMIN. EXBITS is the number of bits needed to
       // store the exponent.
-*
+
       IF( ( UEXP+EMIN ).GT.( -LEXP-EMIN ) ) THEN
          EXPSUM = 2*LEXP
       ELSE
          EXPSUM = 2*UEXP
       END IF
-*
+
       // EXPSUM is the exponent range, approximately equal to
       // EMAX - EMIN + 1 .
-*
+
       EMAX = EXPSUM + EMIN - 1
       NBITS = 1 + EXBITS + P
-*
+
       // NBITS is the total number of bits needed to store a
       // floating-point number.
-*
+
       IF( ( MOD( NBITS, 2 ).EQ.1 ) .AND. ( BETA.EQ.2 ) ) THEN
-*
+
          // Either there are an odd number of bits used to store a
          // floating-point number, which is unlikely, or some bits are
          // not used in the representation of numbers, which is possible,
@@ -799,24 +799,24 @@
         t // here must be some way of representing zero in an implicit-bit
          // system. On machines like Cray, we are reducing EMAX by one
          // unnecessarily.
-*
+
          EMAX = EMAX - 1
       END IF
-*
+
       IF( IEEE ) THEN
-*
+
          // Assume we are on an IEEE machine which reserves one exponent
          // for infinity and NaN.
-*
+
          EMAX = EMAX - 1
       END IF
-*
+
       // Now create RMAX, the largest machine number, which should
       // be equal to (1.0 - BETA**(-P)) * BETA**EMAX .
-*
+
       // First compute 1.0 - BETA**(-P), being careful that the
       // result is less than 1.0 .
-*
+
       RECBAS = ONE / BETA
       Z = BETA - ONE
       Y = ZERO
@@ -826,16 +826,16 @@
          Y = DLAMC3( Y, Z )
    20 CONTINUE
       IF( Y.GE.ONE ) Y = OLDY
-*
+
       // Now multiply by BETA**EMAX to get RMAX.
-*
+
       DO 30 I = 1, EMAX
          Y = DLAMC3( Y*BETA, ZERO )
    30 CONTINUE
-*
+
       RMAX = Y
       RETURN
-*
+
       // End of DLAMC5
-*
+
       END

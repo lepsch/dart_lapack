@@ -1,56 +1,56 @@
       double           FUNCTION DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
-*
+
       int                I, IDIST, IGRADE, IPVTNG, ISUB, J, JSUB, KL, KU, M, N;
       double             SPARSE;
       // ..
-*
+
       // .. Array Arguments ..
-*
+
       int                ISEED( 4 ), IWORK( * );
       double             D( * ), DL( * ), DR( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
-*
+
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
       // ..
-*
+
       // .. Local Scalars ..
-*
+
       double             TEMP;
       // ..
-*
+
       // .. External Functions ..
-*
+
       double             DLARAN, DLARND;
       // EXTERNAL DLARAN, DLARND
       // ..
-*
+
 *-----------------------------------------------------------------------
-*
+
       // .. Executable Statements ..
-*
-*
+
+
       // Check for I and J in range
-*
+
       IF( I.LT.1 .OR. I.GT.M .OR. J.LT.1 .OR. J.GT.N ) THEN
          ISUB = I
          JSUB = J
          DLATM3 = ZERO
          RETURN
       END IF
-*
+
       // Compute subscripts depending on IPVTNG
-*
+
       IF( IPVTNG.EQ.0 ) THEN
          ISUB = I
          JSUB = J
@@ -64,25 +64,25 @@
          ISUB = IWORK( I )
          JSUB = IWORK( J )
       END IF
-*
+
       // Check for banding
-*
+
       IF( JSUB.GT.ISUB+KU .OR. JSUB.LT.ISUB-KL ) THEN
          DLATM3 = ZERO
          RETURN
       END IF
-*
+
       // Check for sparsity
-*
+
       IF( SPARSE.GT.ZERO ) THEN
          IF( DLARAN( ISEED ).LT.SPARSE ) THEN
             DLATM3 = ZERO
             RETURN
          END IF
       END IF
-*
+
       // Compute entry and grade it according to IGRADE
-*
+
       IF( I.EQ.J ) THEN
          TEMP = D( I )
       ELSE
@@ -101,7 +101,7 @@
       END IF
       DLATM3 = TEMP
       RETURN
-*
+
       // End of DLATM3
-*
+
       END

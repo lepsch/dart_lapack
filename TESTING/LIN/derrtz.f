@@ -1,16 +1,16 @@
       SUBROUTINE DERRTZ( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -39,7 +39,7 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
@@ -50,13 +50,13 @@
       W( 1 ) = 0.0D+0
       W( 2 ) = 0.0D+0
       OK = .TRUE.
-*
+
       IF( LSAMEN( 2, C2, 'TZ' ) ) THEN
-*
+
          // Test error exits for the trapezoidal routines.
-*
+
          // DTZRZF
-*
+
          SRNAMT = 'DTZRZF'
          INFOT = 1
          CALL DTZRZF( -1, 0, A, 1, TAU, W, 1, INFO )
@@ -74,13 +74,13 @@
          CALL DTZRZF( 2, 3, A, 2, TAU, W, 1, INFO )
          CALL CHKXER( 'DTZRZF', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of DERRTZ
-*
+
       END

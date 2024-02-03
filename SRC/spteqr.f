@@ -1,9 +1,9 @@
       SUBROUTINE SPTEQR( COMPZ, N, D, E, Z, LDZ, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             COMPZ;
       int                INFO, LDZ, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               D( * ), E( * ), WORK( * ), Z( LDZ, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -35,11 +35,11 @@
       // INTRINSIC MAX, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
-*
+
       IF( LSAME( COMPZ, 'N' ) ) THEN
          ICOMPZ = 0
       ELSE IF( LSAME( COMPZ, 'V' ) ) THEN
@@ -60,19 +60,19 @@
          CALL XERBLA( 'SPTEQR', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       IF( N.EQ.1 ) THEN
          IF( ICOMPZ.GT.0 ) Z( 1, 1 ) = ONE
          RETURN
       END IF
       IF( ICOMPZ.EQ.2 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
-*
+
       // Call SPTTRF to factor the matrix.
-*
+
       CALL SPTTRF( N, D, E, INFO )
       IF( INFO.NE.0 ) RETURN
       DO 10 I = 1, N
@@ -81,19 +81,19 @@
       DO 20 I = 1, N - 1
          E( I ) = E( I )*D( I )
    20 CONTINUE
-*
+
       // Call SBDSQR to compute the singular values/vectors of the
       // bidiagonal factor.
-*
+
       IF( ICOMPZ.GT.0 ) THEN
          NRU = N
       ELSE
          NRU = 0
       END IF
       CALL SBDSQR( 'Lower', N, 0, NRU, 0, D, E, VT, 1, Z, LDZ, C, 1, WORK, INFO )
-*
+
       // Square the singular values.
-*
+
       IF( INFO.EQ.0 ) THEN
          DO 30 I = 1, N
             D( I ) = D( I )*D( I )
@@ -101,9 +101,9 @@
       ELSE
          INFO = N + INFO
       END IF
-*
+
       RETURN
-*
+
       // End of SPTEQR
-*
+
       END

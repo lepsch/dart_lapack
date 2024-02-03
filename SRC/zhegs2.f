@@ -1,9 +1,9 @@
       SUBROUTINE ZHEGS2( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, ITYPE, LDA, LDB, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, HALF;
       PARAMETER          ( ONE = 1.0D+0, HALF = 0.5D+0 )
@@ -37,9 +37,9 @@
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
@@ -57,16 +57,16 @@
          CALL XERBLA( 'ZHEGS2', -INFO )
          RETURN
       END IF
-*
+
       IF( ITYPE.EQ.1 ) THEN
          IF( UPPER ) THEN
-*
+
             // Compute inv(U**H)*A*inv(U)
-*
+
             DO 10 K = 1, N
-*
+
                // Update the upper triangle of A(k:n,k:n)
-*
+
                AKK = DBLE( A( K, K ) )
                BKK = DBLE( B( K, K ) )
                AKK = AKK / BKK**2
@@ -83,13 +83,13 @@
                END IF
    10       CONTINUE
          ELSE
-*
+
             // Compute inv(L)*A*inv(L**H)
-*
+
             DO 20 K = 1, N
-*
+
                // Update the lower triangle of A(k:n,k:n)
-*
+
                AKK = DBLE( A( K, K ) )
                BKK = DBLE( B( K, K ) )
                AKK = AKK / BKK**2
@@ -106,13 +106,13 @@
          END IF
       ELSE
          IF( UPPER ) THEN
-*
+
             // Compute U*A*U**H
-*
+
             DO 30 K = 1, N
-*
+
                // Update the upper triangle of A(1:k,1:k)
-*
+
                AKK = DBLE( A( K, K ) )
                BKK = DBLE( B( K, K ) )
                CALL ZTRMV( UPLO, 'No transpose', 'Non-unit', K-1, B, LDB, A( 1, K ), 1 )
@@ -124,13 +124,13 @@
                A( K, K ) = AKK*BKK**2
    30       CONTINUE
          ELSE
-*
+
             // Compute L**H *A*L
-*
+
             DO 40 K = 1, N
-*
+
                // Update the lower triangle of A(1:k,1:k)
-*
+
                AKK = DBLE( A( K, K ) )
                BKK = DBLE( B( K, K ) )
                CALL ZLACGV( K-1, A( K, 1 ), LDA )
@@ -148,7 +148,7 @@
          END IF
       END IF
       RETURN
-*
+
       // End of ZHEGS2
-*
+
       END

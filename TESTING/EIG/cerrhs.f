@@ -1,16 +1,16 @@
       SUBROUTINE CERRHS( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 3, LW = NMAX*NMAX )
@@ -45,13 +45,13 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1. / REAL( I+J )
@@ -60,13 +60,13 @@
    20 CONTINUE
       OK = .TRUE.
       NT = 0
-*
+
       // Test error exits of the nonsymmetric eigenvalue routines.
-*
+
       IF( LSAMEN( 2, C2, 'HS' ) ) THEN
-*
+
          // CGEBAL
-*
+
          SRNAMT = 'CGEBAL'
          INFOT = 1
          CALL CGEBAL( '/', 0, A, 1, ILO, IHI, S, INFO )
@@ -78,9 +78,9 @@
          CALL CGEBAL( 'N', 2, A, 1, ILO, IHI, S, INFO )
          CALL CHKXER( 'CGEBAL', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // CGEBAK
-*
+
          SRNAMT = 'CGEBAK'
          INFOT = 1
          CALL CGEBAK( '/', 'R', 0, 1, 0, S, 0, A, 1, INFO )
@@ -110,9 +110,9 @@
          CALL CGEBAK( 'N', 'R', 2, 1, 2, S, 0, A, 1, INFO )
          CALL CHKXER( 'CGEBAK', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // CGEHRD
-*
+
          SRNAMT = 'CGEHRD'
          INFOT = 1
          CALL CGEHRD( -1, 1, 1, A, 1, TAU, W, 1, INFO )
@@ -136,9 +136,9 @@
          CALL CGEHRD( 2, 1, 2, A, 2, TAU, W, 1, INFO )
          CALL CHKXER( 'CGEHRD', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // CGEHD2
-*
+
          SRNAMT = 'CGEHD2'
          INFOT = 1
          CALL CGEHD2( -1, 1, 1, A, 1, TAU, W, INFO )
@@ -159,9 +159,9 @@
          CALL CGEHD2( 2, 1, 1, A, 1, TAU, W, INFO )
          CALL CHKXER( 'CGEHD2', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // CUNGHR
-*
+
          SRNAMT = 'CUNGHR'
          INFOT = 1
          CALL CUNGHR( -1, 1, 1, A, 1, TAU, W, 1, INFO )
@@ -185,9 +185,9 @@
          CALL CUNGHR( 3, 1, 3, A, 3, TAU, W, 1, INFO )
          CALL CHKXER( 'CUNGHR', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // CUNMHR
-*
+
          SRNAMT = 'CUNMHR'
          INFOT = 1
          CALL CUNMHR( '/', 'N', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
@@ -238,9 +238,9 @@
          CALL CUNMHR( 'R', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          NT = NT + 16
-*
+
          // CHSEQR
-*
+
          SRNAMT = 'CHSEQR'
          INFOT = 1
          CALL CHSEQR( '/', 'N', 0, 1, 0, A, 1, X, C, 1, W, 1, INFO )
@@ -270,9 +270,9 @@
          CALL CHSEQR( 'E', 'V', 2, 1, 2, A, 2, X, C, 1, W, 1, INFO )
          CALL CHKXER( 'CHSEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // CHSEIN
-*
+
          SRNAMT = 'CHSEIN'
          INFOT = 1
          CALL CHSEIN( '/', 'N', 'N', SEL, 0, A, 1, X, VL, 1, VR, 1, 0, M, W, RW, IFAILL, IFAILR, INFO )
@@ -299,9 +299,9 @@
          CALL CHSEIN( 'R', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 2, 1, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'CHSEIN', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
          // CTREVC
-*
+
          SRNAMT = 'CTREVC'
          INFOT = 1
          CALL CTREVC( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, RW, INFO )
@@ -325,9 +325,9 @@
          CALL CTREVC( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W, RW, INFO )
          CALL CHKXER( 'CTREVC', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // CTREVC3
-*
+
          SRNAMT = 'CTREVC3'
          INFOT = 1
          CALL CTREVC3( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, LW, RW, 1, INFO )
@@ -358,22 +358,22 @@
          CALL CHKXER( 'CTREVC3', INFOT, NOUT, LERR, OK )
          NT = NT + 9
       END IF
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
       ELSE
          WRITE( NOUT, FMT = 9998 )PATH
       END IF
-*
+
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits',
      $      ' (', I3, ' tests done)' )
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ',
      $      'exits ***' )
-*
+
       RETURN
-*
+
       // End of CERRHS
-*
+
       END

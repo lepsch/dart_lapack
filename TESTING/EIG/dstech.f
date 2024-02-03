@@ -1,9 +1,9 @@
       SUBROUTINE DSTECH( N, A, B, EIG, TOL, WORK, INFO )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, N;
       double             TOL;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             A( * ), B( * ), EIG( * ), WORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
@@ -33,9 +33,9 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Check input parameters
-*
+
       INFO = 0
       IF( N.EQ.0 ) RETURN
       IF( N.LT.0 ) THEN
@@ -46,23 +46,23 @@
          INFO = -5
          RETURN
       END IF
-*
+
       // Get machine constants
-*
+
       EPS = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
       UNFLEP = DLAMCH( 'Safe minimum' ) / EPS
       EPS = TOL*EPS
-*
+
       // Compute maximum absolute eigenvalue, error tolerance
-*
+
       MX = ABS( EIG( 1 ) )
       DO 10 I = 2, N
          MX = MAX( MX, ABS( EIG( I ) ) )
    10 CONTINUE
       EPS = MAX( EPS*MX, UNFLEP )
-*
+
       // Sort eigenvalues from EIG into WORK
-*
+
       DO 20 I = 1, N
          WORK( I ) = EIG( I )
    20 CONTINUE
@@ -80,42 +80,42 @@
             WORK( N+1-I ) = EMIN
          END IF
    40 CONTINUE
-*
+
       // TPNT points to singular value at right endpoint of interval
       // BPNT points to singular value at left  endpoint of interval
-*
+
       TPNT = 1
       BPNT = 1
-*
+
       // Begin loop over all intervals
-*
+
    50 CONTINUE
       UPPER = WORK( TPNT ) + EPS
       LOWER = WORK( BPNT ) - EPS
-*
+
       // Begin loop merging overlapping intervals
-*
+
    60 CONTINUE
       IF( BPNT.EQ.N ) GO TO 70
       TUPPR = WORK( BPNT+1 ) + EPS
       IF( TUPPR.LT.LOWER ) GO TO 70
-*
+
       // Merge
-*
+
       BPNT = BPNT + 1
       LOWER = WORK( BPNT ) - EPS
       GO TO 60
    70 CONTINUE
-*
+
       // Count singular values in interval [ LOWER, UPPER ]
-*
+
       CALL DSTECT( N, A, B, LOWER, NUML )
       CALL DSTECT( N, A, B, UPPER, NUMU )
       COUNT = NUMU - NUML
       IF( COUNT.NE.BPNT-TPNT+1 ) THEN
-*
+
          // Wrong number of singular values in interval
-*
+
          INFO = TPNT
          GO TO 80
       END IF
@@ -124,7 +124,7 @@
       IF( TPNT.LE.N ) GO TO 50
    80 CONTINUE
       RETURN
-*
+
       // End of DSTECH
-*
+
       END

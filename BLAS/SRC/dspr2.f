@@ -1,9 +1,9 @@
       SUBROUTINE DSPR2(UPLO,N,ALPHA,X,INCX,Y,INCY,AP)
-*
+
 *  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       double           ALPHA;
       int     INCX,INCY,N;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       double           AP(*),X(*),Y(*);
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double           ZERO;
       PARAMETER (ZERO=0.0D+0)
@@ -30,9 +30,9 @@
       // .. External Subroutines ..
       // EXTERNAL XERBLA
       // ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
           INFO = 1
@@ -47,14 +47,14 @@
           CALL XERBLA('DSPR2 ',INFO)
           RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF ((N.EQ.0) .OR. (ALPHA.EQ.ZERO)) RETURN
-*
+
       // Set up the start points in X and Y if the increments are not both
       // unity.
-*
+
       IF ((INCX.NE.1) .OR. (INCY.NE.1)) THEN
           IF (INCX.GT.0) THEN
               KX = 1
@@ -69,15 +69,15 @@
           JX = KX
           JY = KY
       END IF
-*
+
       // Start the operations. In this version the elements of the array AP
       // are accessed sequentially with one pass through AP.
-*
+
       KK = 1
       IF (LSAME(UPLO,'U')) THEN
-*
+
          // Form  A  when upper triangle is stored in AP.
-*
+
           IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
               DO 20 J = 1,N
                   IF ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) THEN
@@ -110,9 +110,9 @@
    40         CONTINUE
           END IF
       ELSE
-*
+
          // Form  A  when lower triangle is stored in AP.
-*
+
           IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
               DO 60 J = 1,N
                   IF ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) THEN
@@ -145,9 +145,9 @@
    80         CONTINUE
           END IF
       END IF
-*
+
       RETURN
-*
+
       // End of DSPR2
-*
+
       END

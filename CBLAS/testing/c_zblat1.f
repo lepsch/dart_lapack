@@ -22,12 +22,12 @@
       DO 20 IC = 1, 10
          ICASE = IC
          CALL HEADER
-*
+
          // Initialize PASS, INCX, INCY, and MODE for a new case.
          // The value 9999 for INCX, INCY or MODE will appear in the
          // detailed  output, if any, for cases that do not involve
         t // hese parameters.
-*
+
          PASS = .TRUE.
          INCX = 9999
          INCY = 9999
@@ -41,7 +41,7 @@
          IF (PASS) WRITE (NOUT,99998)
    20 CONTINUE
       STOP
-*
+
 99999 FORMAT (' Complex CBLAS Test Program Results',/1X)
 99998 FORMAT ('                                    ----- PASS -----')
       END
@@ -70,7 +70,7 @@
       // .. Executable Statements ..
       WRITE (NOUT,99999) ICASE, L(ICASE)
       RETURN
-*
+
 99999 FORMAT (/' Test of subprogram number',I3,9X,A15)
       END
       SUBROUTINE CHECK1(SFAC)
@@ -138,10 +138,10 @@
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
             END IF
-*
+
    40    CONTINUE
    60 CONTINUE
-*
+
       INCX = 1
       IF (ICASE.EQ.8) THEN
          // ZSCALTEST
@@ -220,7 +220,7 @@
          INCY = INCYS(KI)
          MX = ABS(INCX)
          MY = ABS(INCY)
-*
+
          DO 40 KN = 1, 4
             N = NS(KN)
             KSIZE = MIN(2,KN)
@@ -258,20 +258,20 @@
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
             END IF
-*
+
    40    CONTINUE
    60 CONTINUE
       RETURN
       END
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC)
       // ********************************* STEST **************************
-*
+
       // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
       // SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
       // NEGLIGIBLE.
-*
+
       // C. L. LAWSON, JPL, 1974 DEC 10
-*
+
       // .. Parameters ..
       int              NOUT;
       PARAMETER        (NOUT=6)
@@ -294,13 +294,13 @@
       // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
-*
+
       DO 40 I = 1, LEN
          SD = SCOMP(I) - STRUE(I)
          IF (SDIFF(ABS(SSIZE(I))+ABS(SFAC*SD),ABS(SSIZE(I))).EQ.0.0D0) GO TO 40
-*
+
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
-*
+
          IF ( .NOT. PASS) GO TO 20
                               // PRINT FAIL MESSAGE AND HEADER.
          PASS = .FALSE.
@@ -310,7 +310,7 @@
      +     STRUE(I), SD, SSIZE(I)
    40 CONTINUE
       RETURN
-*
+
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ',
      +       ' COMP(I)                             TRUE(I)  DIFFERENCE',
@@ -319,13 +319,13 @@
       END
       SUBROUTINE STEST1(SCOMP1,STRUE1,SSIZE,SFAC)
       // ************************* STEST1 *****************************
-*
+
       // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
       // REQUIREMENT THAT WHEN A DUMMY ARGUMENT IS AN ARRAY, THE
       // ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
-*
+
       // C.L. LAWSON, JPL, 1978 DEC 6
-*
+
       // .. Scalar Arguments ..
       double            SCOMP1, SFAC, STRUE1;
       // .. Array Arguments ..
@@ -335,17 +335,17 @@
       // .. External Subroutines ..
       // EXTERNAL STEST
       // .. Executable Statements ..
-*
+
       SCOMP(1) = SCOMP1
       STRUE(1) = STRUE1
       CALL STEST(1,SCOMP,STRUE,SSIZE,SFAC)
-*
+
       RETURN
       END
       double           FUNCTION SDIFF(SA,SB);
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
-*
+
       // .. Scalar Arguments ..
       double                          SA, SB;
       // .. Executable Statements ..
@@ -354,9 +354,9 @@
       END
       SUBROUTINE CTEST(LEN,CCOMP,CTRUE,CSIZE,SFAC)
       // **************************** CTEST *****************************
-*
+
       // C.L. LAWSON, JPL, 1978 DEC 6
-*
+
       // .. Scalar Arguments ..
       double           SFAC;
       int              LEN;
@@ -379,17 +379,17 @@
          SSIZE(2*I-1) = DBLE(CSIZE(I))
          SSIZE(2*I) = DIMAG(CSIZE(I))
    20 CONTINUE
-*
+
       CALL STEST(2*LEN,SCOMP,STRUE,SSIZE,SFAC)
       RETURN
       END
       SUBROUTINE ITEST1(ICOMP,ITRUE)
       // ********************************* ITEST1 *************************
-*
+
       // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
       // EQUALITY.
       // C. L. LAWSON, JPL, 1974 DEC 10
-*
+
       // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
@@ -404,9 +404,9 @@
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
       IF (ICOMP.EQ.ITRUE) GO TO 40
-*
+
                              // HERE ICOMP IS NOT EQUAL TO ITRUE.
-*
+
       IF ( .NOT. PASS) GO TO 20
                               // PRINT FAIL MESSAGE AND HEADER.
       PASS = .FALSE.
@@ -416,7 +416,7 @@
       WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, ICOMP, ITRUE, ID
    40 CONTINUE
       RETURN
-*
+
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY MODE                               ',
      +       ' COMP                                TRUE     DIFFERENCE',

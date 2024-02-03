@@ -1,9 +1,9 @@
       SUBROUTINE CLAIC1( JOB, J, X, SEST, W, GAMMA, SESTPR, S, C )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                J, JOB;
       REAL               SEST, SESTPR
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       COMPLEX            W( J ), X( J )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
@@ -34,20 +34,20 @@
       // EXTERNAL SLAMCH, CDOTC
       // ..
       // .. Executable Statements ..
-*
+
       EPS = SLAMCH( 'Epsilon' )
       ALPHA = CDOTC( J, X, 1, W, 1 )
-*
+
       ABSALP = ABS( ALPHA )
       ABSGAM = ABS( GAMMA )
       ABSEST = ABS( SEST )
-*
+
       IF( JOB.EQ.1 ) THEN
-*
+
          // Estimating largest singular value
-*
+
          // special cases
-*
+
          IF( SEST.EQ.ZERO ) THEN
             S1 = MAX( ABSGAM, ABSALP )
             IF( S1.EQ.ZERO ) THEN
@@ -102,12 +102,12 @@
             END IF
             RETURN
          ELSE
-*
+
             // normal case
-*
+
             ZETA1 = ABSALP / ABSEST
             ZETA2 = ABSGAM / ABSEST
-*
+
             B = ( ONE-ZETA1*ZETA1-ZETA2*ZETA2 )*HALF
             C = ZETA1*ZETA1
             IF( B.GT.ZERO ) THEN
@@ -115,7 +115,7 @@
             ELSE
                T = REAL( SQRT( B*B+C ) - B )
             END IF
-*
+
             SINE = -( ALPHA / ABSEST ) / T
             COSINE = -( GAMMA / ABSEST ) / ( ONE+T )
             TMP = REAL( SQRT( SINE * CONJG( SINE ) + COSINE * CONJG( COSINE ) ) )
@@ -124,13 +124,13 @@
             SESTPR = SQRT( T+ONE )*ABSEST
             RETURN
          END IF
-*
+
       ELSE IF( JOB.EQ.2 ) THEN
-*
+
          // Estimating smallest singular value
-*
+
          // special cases
-*
+
          IF( SEST.EQ.ZERO ) THEN
             SESTPR = ZERO
             IF( MAX( ABSGAM, ABSALP ).EQ.ZERO ) THEN
@@ -183,21 +183,21 @@
             END IF
             RETURN
          ELSE
-*
+
             // normal case
-*
+
             ZETA1 = ABSALP / ABSEST
             ZETA2 = ABSGAM / ABSEST
-*
+
             NORMA = MAX( ONE+ZETA1*ZETA1+ZETA1*ZETA2, ZETA1*ZETA2+ZETA2*ZETA2 )
-*
+
             // See if root is closer to zero or to ONE
-*
+
             TEST = ONE + TWO*( ZETA1-ZETA2 )*( ZETA1+ZETA2 )
             IF( TEST.GE.ZERO ) THEN
-*
+
                // root is close to zero, compute directly
-*
+
                B = ( ZETA1*ZETA1+ZETA2*ZETA2+ONE )*HALF
                C = ZETA2*ZETA2
                T = REAL( C / ( B+SQRT( ABS( B*B-C ) ) ) )
@@ -205,9 +205,9 @@
                COSINE = -( GAMMA / ABSEST ) / T
                SESTPR = SQRT( T+FOUR*EPS*EPS*NORMA )*ABSEST
             ELSE
-*
+
                // root is closer to ONE, shift by that amount
-*
+
                B = ( ZETA2*ZETA2+ZETA1*ZETA1-ONE )*HALF
                C = ZETA1*ZETA1
                IF( B.GE.ZERO ) THEN
@@ -223,11 +223,11 @@
             S = SINE / TMP
             C = COSINE / TMP
             RETURN
-*
+
          END IF
       END IF
       RETURN
-*
+
       // End of CLAIC1
-*
+
       END

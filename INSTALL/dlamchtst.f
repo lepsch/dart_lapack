@@ -5,7 +5,7 @@
       // EXTERNAL DLAMCH
       // ..
       // .. Executable Statements ..
-*
+
       EPS   = DLAMCH( 'Epsilon' )
       SFMIN = DLAMCH( 'Safe minimum' )
       BASE  = DLAMCH( 'Base' )
@@ -16,7 +16,7 @@
       RMIN  = DLAMCH( 'Underflow threshold' )
       EMAX  = DLAMCH( 'Largest exponent' )
       RMAX  = DLAMCH( 'Overflow threshold' )
-*
+
       WRITE( 6, * )' Epsilon                      = ', EPS
       WRITE( 6, * )' Safe minimum                 = ', SFMIN
       WRITE( 6, * )' Base                         = ', BASE
@@ -28,5 +28,5 @@
       WRITE( 6, * )' Largest exponent             = ', EMAX
       WRITE( 6, * )' Overflow threshold           = ', RMAX
       WRITE( 6, * )' Reciprocal of safe minimum   = ', 1 / SFMIN
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE SGSVJ1( JOBV, M, N, N1, A, LDA, D, SVA, MV, V, LDV, EPS, SFMIN, TOL, NSWEEP, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL               EPS, SFMIN, TOL
       int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       REAL               A( LDA, * ), D( N ), SVA( N ), V( LDV, * ), WORK( LWORK )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Parameters ..
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0)
@@ -40,9 +40,9 @@
       // EXTERNAL SAXPY, SCOPY, SLASCL, SLASSQ, SROTM, SSWAP, XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       APPLV = LSAME( JOBV, 'A' )
       RSVEC = LSAME( JOBV, 'V' )
       IF( .NOT.( RSVEC .OR. APPLV .OR. LSAME( JOBV, 'N' ) ) ) THEN
@@ -68,13 +68,13 @@
       ELSE
          INFO = 0
       END IF
-*
+
       // #:(
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SGSVJ1', -INFO )
          RETURN
       END IF
-*
+
       IF( RSVEC ) THEN
          MVL = N
       ELSE IF( APPLV ) THEN
@@ -90,17 +90,17 @@
       LARGE = BIG / SQRT( FLOAT( M*N ) )
       BIGTHETA = ONE / ROOTEPS
       ROOTTOL = SQRT( TOL )
-*
+
       // .. Initialize the right singular vector matrix ..
-*
+
       // RSVEC = LSAME( JOBV, 'Y' )
-*
+
       EMPTSW = N1*( N-N1 )
       NOTROT = 0
       FASTR( 1 ) = ZERO
-*
+
       // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
-*
+
       KBL = MIN( 8, N )
       NBLR = N1 / KBL
       IF( ( NBLR*KBL ).NE.N1 )NBLR = NBLR + 1
@@ -118,31 +118,31 @@
 *[TP] SWBAND is a tuning parameter. It is meaningful and effective
       // if SGESVJ is used as a computational routine in the preconditioned
       // Jacobi SVD algorithm SGESVJ.
-*
-*
+
+
       // | *   *   * [x] [x] [x]|
       // | *   *   * [x] [x] [x]|    Row-cycling in the nblr-by-nblc [x] blocks.
       // | *   *   * [x] [x] [x]|    Row-cyclic pivoting inside each [x] block.
       // |[x] [x] [x] *   *   * |
       // |[x] [x] [x] *   *   * |
       // |[x] [x] [x] *   *   * |
-*
-*
+
+
       DO 1993 i = 1, NSWEEP
       // .. go go go ...
-*
+
          MXAAPQ = ZERO
          MXSINJ = ZERO
          ISWROT = 0
-*
+
          NOTROT = 0
          PSKIPPED = 0
-*
+
          DO 2000 ibr = 1, NBLR
 
             igl = ( ibr-1 )*KBL + 1
-*
-*
+
+
 *........................................................
 * ... go to the off diagonal blocks
 
@@ -164,16 +164,16 @@
                      PSKIPPED = 0
 
                      DO 2200 q = jgl, MIN( jgl+KBL-1, N )
-*
+
                         AAQQ = SVA( q )
 
                         IF( AAQQ.GT.ZERO ) THEN
                            AAPP0 = AAPP
-*
+
       // .. M x 2 Jacobi SVD ..
-*
+
          // .. Safe Gram matrix computation ..
-*
+
                            IF( AAQQ.GE.ONE ) THEN
                               IF( AAPP.GE.AAQQ ) THEN
                                  ROTOK = ( SMALL*AAPP ).LE.AAQQ
@@ -203,15 +203,15 @@
                            MXAAPQ = MAX( MXAAPQ, ABS( AAPQ ) )
 
          // TO rotate or NOT to rotate, THAT is the question ...
-*
+
                            IF( ABS( AAPQ ).GT.TOL ) THEN
                               NOTROT = 0
             // ROTATED  = ROTATED + 1
                               PSKIPPED = 0
                               ISWROT = ISWROT + 1
-*
+
                               IF( ROTOK ) THEN
-*
+
                                  AQOAP = AAQQ / AAPP
                                  APOAQ = AAPP / AAQQ
                                  THETA = -HALF*ABS( AQOAP-APOAQ ) / AAPQ
@@ -225,9 +225,9 @@
                                     SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) )
                                     MXSINJ = MAX( MXSINJ, ABS( T ) )
                                  ELSE
-*
+
                   // .. choose correct signum for THETA and rotate
-*
+
                                     THSIGN = -SIGN( ONE, AAPQ )
                                     IF( AAQQ.GT.AAPP0 )THSIGN = -THSIGN
                                     T = ONE / ( THETA+THSIGN* SQRT( ONE+THETA*THETA ) )
@@ -239,7 +239,7 @@
                                     APOAQ = D( p ) / D( q )
                                     AQOAP = D( q ) / D( p )
                                     IF( D( p ).GE.ONE ) THEN
-*
+
                                        IF( D( q ).GE.ONE ) THEN
                                           FASTR( 3 ) = T*APOAQ
                                           FASTR( 4 ) = -T*AQOAP
@@ -298,7 +298,7 @@
                                  END IF
                               END IF
             // END IF ROTOK THEN ... ELSE
-*
+
             // In the case of cancellation in updating SVA(q)
             // .. recompute SVA(q)
                               IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) THEN                                     SVA( q ) = SNRM2( M, A( 1, q ), 1 )* D( q )
@@ -344,13 +344,13 @@
                            GO TO 2203
                         END IF
 
-*
+
  2200                CONTINUE
          // end of the q-loop
  2203                CONTINUE
 
                      SVA( p ) = AAPP
-*
+
                   ELSE
                      IF( AAPP.EQ.ZERO )NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1
                      IF( AAPP.LT.ZERO )NOTROT = 0
@@ -369,7 +369,7 @@
 ***   IF ( NOTROT .GE. EMPTSW ) GO TO 1994
  2000    CONTINUE
 *2000 :: end of the ibr-loop
-*
+
       // .. update SVA(N)
          IF( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) ) THEN
             SVA( N ) = SNRM2( M, A( 1, N ), 1 )*D( N )
@@ -379,15 +379,15 @@
             CALL SLASSQ( M, A( 1, N ), 1, T, AAPP )
             SVA( N ) = T*SQRT( AAPP )*D( N )
          END IF
-*
+
       // Additional steering devices
-*
+
          IF( ( i.LT.SWBAND ) .AND. ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
           IF( ( i.GT.SWBAND+1 ) .AND. ( MXAAPQ.LT.FLOAT( N )*TOL ) .AND. ( FLOAT( N )*MXAAPQ*MXSINJ.LT.TOL ) ) THEN
             GO TO 1994
          END IF
 
-*
+
          IF( NOTROT.GE.EMPTSW )GO TO 1994
 
  1993 CONTINUE
@@ -403,9 +403,9 @@
       INFO = 0
 * #:) INFO = 0 confirms successful iterations.
  1995 CONTINUE
-*
+
       // Sort the vector D
-*
+
       DO 5991 p = 1, N - 1
          q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1
          IF( p.NE.q ) THEN
@@ -419,7 +419,7 @@
             IF( RSVEC )CALL SSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 )
          END IF
  5991 CONTINUE
-*
+
       RETURN
       // ..
       // .. END OF SGSVJ1

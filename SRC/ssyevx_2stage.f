@@ -1,11 +1,11 @@
       SUBROUTINE SSYEVX_2STAGE( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, IWORK, IFAIL, INFO )
-*
+
       IMPLICIT NONE
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDA, LDZ, LWORK, M, N;
@@ -15,9 +15,9 @@
       int                IFAIL( * ), IWORK( * );
       REAL               A( LDA, * ), W( * ), WORK( * ), Z( LDZ, * )
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -41,16 +41,16 @@
       // INTRINSIC MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       LOWER = LSAME( UPLO, 'L' )
       WANTZ = LSAME( JOBZ, 'V' )
       ALLEIG = LSAME( RANGE, 'A' )
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
       LQUERY = ( LWORK.EQ.-1 )
-*
+
       INFO = 0
       IF( .NOT.( LSAME( JOBZ, 'N' ) ) ) THEN
          INFO = -1
@@ -78,7 +78,7 @@
             INFO = -15
          END IF
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          IF( N.LE.1 ) THEN
             LWMIN = 1
@@ -88,24 +88,24 @@
             LWMIN = MAX( 8*N, 3*N + LHTRD + LWTRD )
             WORK( 1 )  = LWMIN
          END IF
-*
+
          IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -17
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SSYEVX_2STAGE', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       M = 0
       IF( N.EQ.0 ) THEN
          RETURN
       END IF
-*
+
       IF( N.EQ.1 ) THEN
          IF( ALLEIG .OR. INDEIG ) THEN
             M = 1
@@ -119,18 +119,18 @@
          IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
-*
+
       // Get machine constants.
-*
+
       SAFMIN = SLAMCH( 'Safe minimum' )
       EPS    = SLAMCH( 'Precision' )
       SMLNUM = SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
       RMIN   = SQRT( SMLNUM )
       RMAX   = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
-*
+
       // Scale matrix to allowable range, if necessary.
-*
+
       ISCALE = 0
       ABSTLL = ABSTOL
       IF( VALEIG ) THEN
@@ -161,22 +161,22 @@
             VUU = VU*SIGMA
          END IF
       END IF
-*
+
       // Call SSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
-*
+
       INDTAU  = 1
       INDE    = INDTAU + N
       INDD    = INDE + N
       INDHOUS = INDD + N
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
-*
+
       CALL SSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
-*
+
       // If all eigenvalues are desired and ABSTOL is less than or equal to
       // zero, then call SSTERF or SORGTR and SSTEQR.  If this fails for
       // some eigenvalue, then try SSTEBZ.
-*
+
       TEST = .FALSE.
       IF( INDEIG ) THEN
          IF( IL.EQ.1 .AND. IU.EQ.N ) THEN
@@ -206,9 +206,9 @@
          END IF
          INFO = 0
       END IF
-*
+
       // Otherwise, call SSTEBZ and, if eigenvectors are desired, SSTEIN.
-*
+
       IF( WANTZ ) THEN
          ORDER = 'B'
       ELSE
@@ -218,20 +218,20 @@
       INDISP = INDIBL + N
       INDIWO = INDISP + N
       CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
-*
+
       IF( WANTZ ) THEN
          CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
-*
+
          // Apply orthogonal matrix used in reduction to tridiagonal
          // form to eigenvectors returned by SSTEIN.
-*
+
          INDWKN = INDE
          LLWRKN = LWORK - INDWKN + 1
          CALL SORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
       END IF
-*
+
       // If matrix was scaled, then rescale eigenvalues appropriately.
-*
+
    40 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
@@ -241,10 +241,10 @@
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
-*
+
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
-*
+
       IF( WANTZ ) THEN
          DO 60 J = 1, M - 1
             I = 0
@@ -255,7 +255,7 @@
                   TMP1 = W( JJ )
                END IF
    50       CONTINUE
-*
+
             IF( I.NE.0 ) THEN
                ITMP1 = IWORK( INDIBL+I-1 )
                W( I ) = W( J )
@@ -271,13 +271,13 @@
             END IF
    60    CONTINUE
       END IF
-*
+
       // Set WORK(1) to optimal workspace size.
-*
+
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-*
+
       RETURN
-*
+
       // End of SSYEVX_2STAGE
-*
+
       END

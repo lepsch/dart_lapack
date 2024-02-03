@@ -1,9 +1,9 @@
       SUBROUTINE CGET04( N, NRHS, X, LDX, XACT, LDXACT, RCOND, RESID )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                LDX, LDXACT, N, NRHS;
       REAL               RCOND, RESID
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX            X( LDX, * ), XACT( LDXACT, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
@@ -38,26 +38,26 @@
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       // Quick exit if N = 0 or NRHS = 0.
-*
+
       IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
-*
+
       // Exit with RESID = 1/EPS if RCOND is invalid.
-*
+
       EPS = SLAMCH( 'Epsilon' )
       IF( RCOND.LT.ZERO ) THEN
          RESID = 1.0 / EPS
          RETURN
       END IF
-*
+
       // Compute the maximum of
          // norm(X - XACT) / ( norm(XACT) * EPS )
       // over all the vectors X and XACT .
-*
+
       RESID = ZERO
       DO 20 J = 1, NRHS
          IX = ICAMAX( N, XACT( 1, J ), 1 )
@@ -73,9 +73,9 @@
          END IF
    20 CONTINUE
       IF( RESID*EPS.LT.1.0 ) RESID = RESID / EPS
-*
+
       RETURN
-*
+
       // End of CGET04
-*
+
       END

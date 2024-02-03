@@ -1,9 +1,9 @@
       SUBROUTINE SDRVES( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, H, HT, WR, WI, WRT, WIT, VS, LDVS, RESULT, WORK, NWORK, IWORK, BWORK, INFO )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, LDVS, NOUNIT, NSIZES, NTYPES, NWORK;
       REAL               THRESH
@@ -13,9 +13,9 @@
       int                ISEED( 4 ), IWORK( * ), NN( * );
       REAL               A( LDA, * ), H( LDA, * ), HT( LDA, * ), RESULT( 13 ), VS( LDVS, * ), WI( * ), WIT( * ), WORK( * ), WR( * ), WRT( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -61,28 +61,28 @@
       DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /
       // ..
       // .. Executable Statements ..
-*
+
       PATH( 1: 1 ) = 'Single precision'
       PATH( 2: 3 ) = 'ES'
-*
+
       // Check for errors
-*
+
       NTESTT = 0
       NTESTF = 0
       INFO = 0
       SELOPT = 0
-*
+
       // Important constants
-*
+
       BADNN = .FALSE.
       NMAX = 0
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
-*
+
       // Check for errors
-*
+
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
       ELSE IF( BADNN ) THEN
@@ -100,47 +100,47 @@
       ELSE IF( 5*NMAX+2*NMAX**2.GT.NWORK ) THEN
          INFO = -20
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SDRVES', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if nothing to do
-*
+
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
-*
+
       // More Important constants
-*
+
       UNFL = SLAMCH( 'Safe minimum' )
       OVFL = ONE / UNFL
       ULP = SLAMCH( 'Precision' )
       ULPINV = ONE / ULP
       RTULP = SQRT( ULP )
       RTULPI = ONE / RTULP
-*
+
       // Loop over sizes, types
-*
+
       NERRS = 0
-*
+
       DO 270 JSIZE = 1, NSIZES
          N = NN( JSIZE )
          MTYPES = MAXTYP
          IF( NSIZES.EQ.1 .AND. NTYPES.EQ.MAXTYP+1 ) MTYPES = MTYPES + 1
-*
+
          DO 260 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
-*
+
             // Save ISEED in case of an error.
-*
+
             DO 20 J = 1, 4
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
-*
+
             // Compute "A"
-*
+
             // Control parameters:
-*
+
             // KMAGN  KCONDS  KMODE        KTYPE
         // =1  O(1)   1       clustered 1  zero
         // =2  large  large   clustered 2  identity
@@ -152,74 +152,74 @@
         // =8                              random symmetric
         // =9                              random general
         // =10                             random triangular
-*
+
             IF( MTYPES.GT.MAXTYP ) GO TO 90
-*
+
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
-*
+
             // Compute norm
-*
+
             GO TO ( 30, 40, 50 )KMAGN( JTYPE )
-*
+
    30       CONTINUE
             ANORM = ONE
             GO TO 60
-*
+
    40       CONTINUE
             ANORM = OVFL*ULP
             GO TO 60
-*
+
    50       CONTINUE
             ANORM = UNFL*ULPINV
             GO TO 60
-*
+
    60       CONTINUE
-*
+
             CALL SLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
             IINFO = 0
             COND = ULPINV
-*
+
             // Special Matrices -- Identity & Jordan block
-*
+
                // Zero
-*
+
             IF( ITYPE.EQ.1 ) THEN
                IINFO = 0
-*
+
             ELSE IF( ITYPE.EQ.2 ) THEN
-*
+
                // Identity
-*
+
                DO 70 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
    70          CONTINUE
-*
+
             ELSE IF( ITYPE.EQ.3 ) THEN
-*
+
                // Jordan Block
-*
+
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
    80          CONTINUE
-*
+
             ELSE IF( ITYPE.EQ.4 ) THEN
-*
+
                // Diagonal Matrix, [Eigen]values Specified
-*
+
                CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
-*
+
             ELSE IF( ITYPE.EQ.5 ) THEN
-*
+
                // Symmetric, eigenvalues specified
-*
+
                CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
-*
+
             ELSE IF( ITYPE.EQ.6 ) THEN
-*
+
                // General, eigenvalues specified
-*
+
                IF( KCONDS( JTYPE ).EQ.1 ) THEN
                   CONDS = ONE
                ELSE IF( KCONDS( JTYPE ).EQ.2 ) THEN
@@ -227,53 +227,53 @@
                ELSE
                   CONDS = ZERO
                END IF
-*
+
                ADUMMA( 1 ) = ' '
                CALL SLATME( N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
-*
+
             ELSE IF( ITYPE.EQ.7 ) THEN
-*
+
                // Diagonal, random eigenvalues
-*
+
                CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-*
+
             ELSE IF( ITYPE.EQ.8 ) THEN
-*
+
                // Symmetric, random eigenvalues
-*
+
                CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-*
+
             ELSE IF( ITYPE.EQ.9 ) THEN
-*
+
                // General, random eigenvalues
-*
+
                CALL SLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
                IF( N.GE.4 ) THEN
                   CALL SLASET( 'Full', 2, N, ZERO, ZERO, A, LDA )
                   CALL SLASET( 'Full', N-3, 1, ZERO, ZERO, A( 3, 1 ), LDA )                   CALL SLASET( 'Full', N-3, 2, ZERO, ZERO, A( 3, N-1 ), LDA )                   CALL SLASET( 'Full', 1, N, ZERO, ZERO, A( N, 1 ), LDA )
                END IF
-*
+
             ELSE IF( ITYPE.EQ.10 ) THEN
-*
+
                // Triangular, random eigenvalues
-*
+
                CALL SLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-*
+
             ELSE
-*
+
                IINFO = 1
             END IF
-*
+
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
-*
+
    90       CONTINUE
-*
+
             // Test for minimal and generous workspace
-*
+
             DO 250 IWK = 1, 2
                IF( IWK.EQ.1 ) THEN
                   NNWORK = 3*N
@@ -281,15 +281,15 @@
                   NNWORK = 5*N + 2*N**2
                END IF
                NNWORK = MAX( NNWORK, 1 )
-*
+
                // Initialize RESULT
-*
+
                DO 100 J = 1, 13
                   RESULT( J ) = -ONE
   100          CONTINUE
-*
+
                // Test with and without sorting of eigenvalues
-*
+
                DO 210 ISORT = 0, 1
                   IF( ISORT.EQ.0 ) THEN
                      SORT = 'N'
@@ -298,9 +298,9 @@
                      SORT = 'S'
                      RSUB = 6
                   END IF
-*
+
                   // Compute Schur form and Schur vectors, and test them
-*
+
                   CALL SLACPY( 'F', N, N, A, LDA, H, LDA )
                   CALL SGEES( 'V', SORT, SSLECT, N, H, LDA, SDIM, WR, WI, VS, LDVS, WORK, NNWORK, BWORK, IINFO )
                   IF( IINFO.NE.0 .AND. IINFO.NE.N+2 ) THEN
@@ -309,9 +309,9 @@
                      INFO = ABS( IINFO )
                      GO TO 220
                   END IF
-*
+
                   // Do Test (1) or Test (7)
-*
+
                   RESULT( 1+RSUB ) = ZERO
                   DO 120 J = 1, N - 2
                      DO 110 I = J + 2, N
@@ -326,16 +326,16 @@
                         IF( H( I, I ).NE.H( I+1, I+1 ) .OR. H( I, I+1 ).EQ.ZERO .OR. SIGN( ONE, H( I+1, I ) ).EQ. SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
                      END IF
   140             CONTINUE
-*
+
                   // Do Tests (2) and (3) or Tests (8) and (9)
-*
+
                   LWORK = MAX( 1, 2*N*N )
                   CALL SHST01( N, 1, N, A, LDA, H, LDA, VS, LDVS, WORK, LWORK, RES )
                   RESULT( 2+RSUB ) = RES( 1 )
                   RESULT( 3+RSUB ) = RES( 2 )
-*
+
                   // Do Test (4) or Test (10)
-*
+
                   RESULT( 4+RSUB ) = ZERO
                   DO 150 I = 1, N
                      IF( H( I, I ).NE.WR( I ) ) RESULT( 4+RSUB ) = ULPINV
@@ -350,9 +350,9 @@
                         IF( H( I+1, I ).EQ.ZERO .AND. H( I, I-1 ).EQ. ZERO .AND. WI( I ).NE.ZERO )RESULT( 4+RSUB ) = ULPINV
                      END IF
   160             CONTINUE
-*
+
                   // Do Test (5) or Test (11)
-*
+
                   CALL SLACPY( 'F', N, N, A, LDA, HT, LDA )
                   CALL SGEES( 'N', SORT, SSLECT, N, HT, LDA, SDIM, WRT, WIT, VS, LDVS, WORK, NNWORK, BWORK, IINFO )
                   IF( IINFO.NE.0 .AND. IINFO.NE.N+2 ) THEN
@@ -361,23 +361,23 @@
                      INFO = ABS( IINFO )
                      GO TO 220
                   END IF
-*
+
                   RESULT( 5+RSUB ) = ZERO
                   DO 180 J = 1, N
                      DO 170 I = 1, N
                         IF( H( I, J ).NE.HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV
   170                CONTINUE
   180             CONTINUE
-*
+
                   // Do Test (6) or Test (12)
-*
+
                   RESULT( 6+RSUB ) = ZERO
                   DO 190 I = 1, N
                      IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 6+RSUB ) = ULPINV
   190             CONTINUE
-*
+
                   // Do Test (13)
-*
+
                   IF( ISORT.EQ.1 ) THEN
                      RESULT( 13 ) = ZERO
                      KNTEIG = 0
@@ -391,19 +391,19 @@
                         RESULT( 13 ) = ULPINV
                      END IF
                   END IF
-*
+
   210          CONTINUE
-*
+
                // End of Loop -- Check for RESULT(j) > THRESH
-*
+
   220          CONTINUE
-*
+
                NTEST = 0
                NFAIL = 0
                DO 230 J = 1, 13
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   230          CONTINUE
-*
+
                IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
                IF( NTESTF.EQ.1 ) THEN
                   WRITE( NOUNIT, FMT = 9999 )PATH
@@ -414,27 +414,27 @@
                   WRITE( NOUNIT, FMT = 9994 )
                   NTESTF = 2
                END IF
-*
+
                DO 240 J = 1, 13
                   IF( RESULT( J ).GE.THRESH ) THEN
                      WRITE( NOUNIT, FMT = 9993 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                   END IF
   240          CONTINUE
-*
+
                NERRS = NERRS + NFAIL
                NTESTT = NTESTT + NTEST
-*
+
   250       CONTINUE
   260    CONTINUE
   270 CONTINUE
-*
+
       // Summary
-*
+
       CALL SLASUM( PATH, NOUNIT, NERRS, NTESTT )
-*
+
  9999 FORMAT( / 1X, A3, ' -- Real Schur Form Decomposition Driver',
      $      / ' Matrix types (see SDRVES for details): ' )
-*
+
  9998 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.             ',
      $      '           ', '  5=Diagonal: geometr. spaced entries.',
      $      / '  2=Identity matrix.                    ', '  6=Diagona',
@@ -480,9 +480,9 @@
      $      ' type ', I2, ', test(', I2, ')=', G10.3 )
  9992 FORMAT( ' SDRVES: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
      $      I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
-*
+
       RETURN
-*
+
       // End of SDRVES
-*
+
       END

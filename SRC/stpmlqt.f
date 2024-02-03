@@ -1,9 +1,9 @@
       SUBROUTINE STPMLQT( SIDE, TRANS, M, N, K, L, MB, V, LDV, T, LDT, A, LDA, B, LDB, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String    SIDE, TRANS;
       int       INFO, K, LDV, LDA, LDB, M, N, L, MB, LDT;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL   V( LDV, * ), A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // ..
       // .. Local Scalars ..
       bool               LEFT, RIGHT, TRAN, NOTRAN;
@@ -30,15 +30,15 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // .. Test the input arguments ..
-*
+
       INFO   = 0
       LEFT   = LSAME( SIDE,  'L' )
       RIGHT  = LSAME( SIDE,  'R' )
       TRAN   = LSAME( TRANS, 'T' )
       NOTRAN = LSAME( TRANS, 'N' )
-*
+
       IF ( LEFT ) THEN
          LDAQ = MAX( 1, K )
       ELSE IF ( RIGHT ) THEN
@@ -67,18 +67,18 @@
       ELSE IF( LDB.LT.MAX( 1, M ) ) THEN
          INFO = -15
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'STPMLQT', -INFO )
          RETURN
       END IF
-*
+
       // .. Quick return if possible ..
-*
+
       IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
-*
+
       IF( LEFT .AND. NOTRAN ) THEN
-*
+
          DO I = 1, K, MB
             IB = MIN( MB, K-I+1 )
             NB = MIN( M-L+I+IB-1, M )
@@ -89,9 +89,9 @@
             END IF
             CALL STPRFB( 'L', 'T', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
          END DO
-*
+
       ELSE IF( RIGHT .AND. TRAN ) THEN
-*
+
          DO I = 1, K, MB
             IB = MIN( MB, K-I+1 )
             NB = MIN( N-L+I+IB-1, N )
@@ -102,9 +102,9 @@
             END IF
             CALL STPRFB( 'R', 'N', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
          END DO
-*
+
       ELSE IF( LEFT .AND. TRAN ) THEN
-*
+
          KF = ((K-1)/MB)*MB+1
          DO I = KF, 1, -MB
             IB = MIN( MB, K-I+1 )
@@ -116,9 +116,9 @@
             END IF
             CALL STPRFB( 'L', 'N', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
          END DO
-*
+
       ELSE IF( RIGHT .AND. NOTRAN ) THEN
-*
+
          KF = ((K-1)/MB)*MB+1
          DO I = KF, 1, -MB
             IB = MIN( MB, K-I+1 )
@@ -130,11 +130,11 @@
             END IF
             CALL STPRFB( 'R', 'T', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
          END DO
-*
+
       END IF
-*
+
       RETURN
-*
+
       // End of STPMLQT
-*
+
       END

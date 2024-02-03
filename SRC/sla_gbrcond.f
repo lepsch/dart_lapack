@@ -1,9 +1,9 @@
       REAL FUNCTION SLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, CMODE, C, INFO, WORK, IWORK )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             TRANS;
       int                N, LDAB, LDAFB, INFO, KL, KU, CMODE;
@@ -12,9 +12,9 @@
       int                IWORK( * ), IPIV( * );
       REAL               AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), C( * )
 *    ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               NOTRANS;
       int                KASE, I, J, KD, KE;
@@ -34,9 +34,9 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Executable Statements ..
-*
+
       SLA_GBRCOND = 0.0
-*
+
       INFO = 0
       NOTRANS = LSAME( TRANS, 'N' )
       IF ( .NOT. NOTRANS .AND. .NOT. LSAME(TRANS, 'T') .AND. .NOT. LSAME(TRANS, 'C') ) THEN
@@ -60,10 +60,10 @@
          SLA_GBRCOND = 1.0
          RETURN
       END IF
-*
+
       // Compute the equilibration matrix R such that
       // inv(R)*A*C has unit 1-norm.
-*
+
       KD = KU + 1
       KE = KL + 1
       IF ( NOTRANS ) THEN
@@ -103,9 +103,9 @@
             WORK( 2*N+I ) = TMP
          END DO
       END IF
-*
+
       // Estimate the norm of inv(op(A)).
-*
+
       AINVNM = 0.0
 
       KASE = 0
@@ -113,9 +113,9 @@
       CALL SLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.2 ) THEN
-*
+
             // Multiply by R.
-*
+
             DO I = 1, N
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
             END DO
@@ -125,9 +125,9 @@
             ELSE
                CALL SGBTRS( 'Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             END IF
-*
+
             // Multiply by inv(C).
-*
+
             IF ( CMODE .EQ. 1 ) THEN
                DO I = 1, N
                   WORK( I ) = WORK( I ) / C( I )
@@ -138,9 +138,9 @@
                END DO
             END IF
          ELSE
-*
+
             // Multiply by inv(C**T).
-*
+
             IF ( CMODE .EQ. 1 ) THEN
                DO I = 1, N
                   WORK( I ) = WORK( I ) / C( I )
@@ -156,22 +156,22 @@
             ELSE
                CALL SGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             END IF
-*
+
             // Multiply by R.
-*
+
             DO I = 1, N
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
             END DO
          END IF
          GO TO 10
       END IF
-*
+
       // Compute the estimate of the reciprocal condition number.
-*
+
       IF( AINVNM .NE. 0.0 ) SLA_GBRCOND = ( 1.0 / AINVNM )
-*
+
       RETURN
-*
+
       // End of SLA_GBRCOND
-*
+
       END

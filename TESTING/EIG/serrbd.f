@@ -1,16 +1,16 @@
       SUBROUTINE SERRBD( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 4, LW = NMAX )
@@ -45,13 +45,13 @@
       // INTRINSIC REAL
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1. / REAL( I+J )
@@ -59,13 +59,13 @@
    20 CONTINUE
       OK = .TRUE.
       NT = 0
-*
+
       // Test error exits of the SVD routines.
-*
+
       IF( LSAMEN( 2, C2, 'BD' ) ) THEN
-*
+
          // SGEBRD
-*
+
          SRNAMT = 'SGEBRD'
          INFOT = 1
          CALL SGEBRD( -1, 0, A, 1, D, E, TQ, TP, W, 1, INFO )
@@ -80,9 +80,9 @@
          CALL SGEBRD( 2, 1, A, 2, D, E, TQ, TP, W, 1, INFO )
          CALL CHKXER( 'SGEBRD', INFOT, NOUT, LERR, OK )
          NT = NT + 4
-*
+
          // SGEBD2
-*
+
          SRNAMT = 'SGEBD2'
          INFOT = 1
          CALL SGEBD2( -1, 0, A, 1, D, E, TQ, TP, W, INFO )
@@ -94,9 +94,9 @@
          CALL SGEBD2( 2, 1, A, 1, D, E, TQ, TP, W, INFO )
          CALL CHKXER( 'SGEBD2', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // SORGBR
-*
+
          SRNAMT = 'SORGBR'
          INFOT = 1
          CALL SORGBR( '/', 0, 0, 0, A, 1, TQ, W, 1, INFO )
@@ -129,9 +129,9 @@
          CALL SORGBR( 'Q', 2, 2, 1, A, 2, TQ, W, 1, INFO )
          CALL CHKXER( 'SORGBR', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // SORMBR
-*
+
          SRNAMT = 'SORMBR'
          INFOT = 1
          CALL SORMBR( '/', 'L', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
@@ -173,9 +173,9 @@
          CALL SORMBR( 'Q', 'R', 'T', 2, 0, 0, A, 1, TQ, U, 2, W, 1, INFO )
          CALL CHKXER( 'SORMBR', INFOT, NOUT, LERR, OK )
          NT = NT + 13
-*
+
          // SBDSQR
-*
+
          SRNAMT = 'SBDSQR'
          INFOT = 1
          CALL SBDSQR( '/', 0, 0, 0, 0, D, E, V, 1, U, 1, A, 1, W, INFO )
@@ -202,9 +202,9 @@
          CALL SBDSQR( 'U', 2, 0, 0, 1, D, E, V, 1, U, 1, A, 1, W, INFO )
          CALL CHKXER( 'SBDSQR', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
          // SBDSDC
-*
+
          SRNAMT = 'SBDSDC'
          INFOT = 1
          CALL SBDSDC( '/', 'N', 0, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO )
@@ -222,9 +222,9 @@
          CALL SBDSDC( 'U', 'I', 2, D, E, U, 2, V, 1, Q, IQ, W, IW, INFO )
          CALL CHKXER( 'SBDSDC', INFOT, NOUT, LERR, OK )
          NT = NT + 5
-*
+
          // SBDSVDX
-*
+
          SRNAMT = 'SBDSVDX'
          INFOT = 1
          CALL SBDSVDX( 'X', 'N', 'A', 1, D, E, ZERO, ONE, 0, 0, NS, S, Q, 1, W, IW, INFO)
@@ -264,22 +264,22 @@
          CALL CHKXER( 'SBDSVDX', INFOT, NOUT, LERR, OK )
          NT = NT + 12
       END IF
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
       ELSE
          WRITE( NOUT, FMT = 9998 )PATH
       END IF
-*
+
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits',
      $      ' (', I3, ' tests done)' )
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ',
      $      'exits ***' )
-*
+
       RETURN
-*
+
       // End of SERRBD
-*
+
       END

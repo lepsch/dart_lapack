@@ -1,18 +1,18 @@
       SUBROUTINE SROTMG(SD1,SD2,SX1,SY1,SPARAM)
-*
+
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL SD1,SD2,SX1,SY1
       // ..
       // .. Array Arguments ..
       REAL SPARAM(5)
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       REAL GAM,GAMSQ,ONE,RGAMSQ,SFLAG,SH11,SH12,SH21,SH22,SP1,SP2,SQ1, SQ2,STEMP,SU,TWO,ZERO
       // ..
@@ -20,7 +20,7 @@
       // INTRINSIC ABS
       // ..
       // .. Data statements ..
-*
+
       DATA ZERO,ONE,TWO/0.E0,1.E0,2.E0/
       DATA GAM,GAMSQ,RGAMSQ/4096.E0,1.67772E7,5.96046E-8/
       // ..
@@ -32,7 +32,7 @@
          SH12 = ZERO
          SH21 = ZERO
          SH22 = ZERO
-*
+
          SD1 = ZERO
          SD2 = ZERO
          SX1 = ZERO
@@ -48,13 +48,13 @@
          SP1 = SD1*SX1
          SQ2 = SP2*SY1
          SQ1 = SP1*SX1
-*
+
          IF (ABS(SQ1).GT.ABS(SQ2)) THEN
             SH21 = -SY1/SX1
             SH12 = SP2/SP1
-*
+
             SU = ONE - SH12*SH21
-*
+
            IF (SU.GT.ZERO) THEN
              SFLAG = ZERO
              SD1 = SD1/SU
@@ -69,7 +69,7 @@
              SH12 = ZERO
              SH21 = ZERO
              SH22 = ZERO
-*
+
              SD1 = ZERO
              SD2 = ZERO
              SX1 = ZERO
@@ -83,7 +83,7 @@
                SH12 = ZERO
                SH21 = ZERO
                SH22 = ZERO
-*
+
                SD1 = ZERO
                SD2 = ZERO
                SX1 = ZERO
@@ -165,7 +165,7 @@
 
       SPARAM(1) = SFLAG
       RETURN
-*
+
       // End of SROTMG
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE DLAED6( KNITER, ORGATI, RHO, D, Z, FINIT, TAU, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               ORGATI;
       int                INFO, KNITER;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       double             D( 3 ), Z( 3 );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                MAXIT;
       PARAMETER          ( MAXIT = 40 )
@@ -37,9 +37,9 @@
       // INTRINSIC ABS, INT, LOG, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
-*
+
       IF( ORGATI ) THEN
          LBD = D(2)
          UBD = D(3)
@@ -52,7 +52,7 @@
       ELSE
          UBD = ZERO
       END IF
-*
+
       NITER = 1
       TAU = ZERO
       IF( KNITER.EQ.2 ) THEN
@@ -91,23 +91,23 @@
             IF( ABS( FINIT ).LE.ABS( TEMP ) ) TAU = ZERO
          END IF
       END IF
-*
+
       // get machine parameters for possible scaling to avoid overflow
-*
+
       // modified by Sven: parameters SMALL1, SMINV1, SMALL2,
       // SMINV2, EPS are not SAVEd anymore between one call to the
       // others but recomputed at each call
-*
+
       EPS = DLAMCH( 'Epsilon' )
       BASE = DLAMCH( 'Base' )
       SMALL1 = BASE**( INT( LOG( DLAMCH( 'SafMin' ) ) / LOG( BASE ) / THREE ) )
       SMINV1 = ONE / SMALL1
       SMALL2 = SMALL1*SMALL1
       SMINV2 = SMINV1*SMINV1
-*
+
       // Determine if scaling of inputs necessary to avoid overflow
       // when computing 1/TEMP**3
-*
+
       IF( ORGATI ) THEN
          TEMP = MIN( ABS( D( 2 )-TAU ), ABS( D( 3 )-TAU ) )
       ELSE
@@ -117,21 +117,21 @@
       IF( TEMP.LE.SMALL1 ) THEN
          SCALE = .TRUE.
          IF( TEMP.LE.SMALL2 ) THEN
-*
+
          // Scale up by power of radix nearest 1/SAFMIN**(2/3)
-*
+
             SCLFAC = SMINV2
             SCLINV = SMALL2
          ELSE
-*
+
          // Scale up by power of radix nearest 1/SAFMIN**(1/3)
-*
+
             SCLFAC = SMINV1
             SCLINV = SMALL1
          END IF
-*
+
          // Scaling up safe because D, Z, TAU scaled elsewhere to be O(1)
-*
+
          DO 10 I = 1, 3
             DSCALE( I ) = D( I )*SCLFAC
             ZSCALE( I ) = Z( I )*SCLFAC
@@ -140,15 +140,15 @@
          LBD = LBD*SCLFAC
          UBD = UBD*SCLFAC
       ELSE
-*
+
          // Copy D and Z to DSCALE and ZSCALE
-*
+
          DO 20 I = 1, 3
             DSCALE( I ) = D( I )
             ZSCALE( I ) = Z( I )
    20    CONTINUE
       END IF
-*
+
       FC = ZERO
       DF = ZERO
       DDF = ZERO
@@ -162,29 +162,29 @@
          DDF = DDF + TEMP3
    30 CONTINUE
       F = FINIT + TAU*FC
-*
+
       IF( ABS( F ).LE.ZERO ) GO TO 60
       IF( F .LE. ZERO )THEN
          LBD = TAU
       ELSE
          UBD = TAU
       END IF
-*
+
          // Iteration begins -- Use Gragg-Thornton-Warner cubic convergent
                              // scheme
-*
+
       // It is not hard to see that
-*
+
             // 1) Iterations will go up monotonically
                // if FINIT < 0;
-*
+
             // 2) Iterations will go down monotonically
                // if FINIT > 0.
-*
+
       ITER = NITER + 1
-*
+
       DO 50 NITER = ITER, MAXIT
-*
+
          IF( ORGATI ) THEN
             TEMP1 = DSCALE( 2 ) - TAU
             TEMP2 = DSCALE( 3 ) - TAU
@@ -209,10 +209,10 @@
          IF( F*ETA.GE.ZERO ) THEN
             ETA = -F / DF
          END IF
-*
+
          TAU = TAU + ETA
          IF( TAU .LT. LBD .OR. TAU .GT. UBD ) TAU = ( LBD + UBD )/TWO
-*
+
          FC = ZERO
          ERRETM = ZERO
          DF = ZERO
@@ -242,12 +242,12 @@
    50 CONTINUE
       INFO = 1
    60 CONTINUE
-*
+
       // Undo scaling
-*
+
       IF( SCALE ) TAU = TAU*SCLINV
       RETURN
-*
+
       // End of DLAED6
-*
+
       END

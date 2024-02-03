@@ -1,5 +1,5 @@
       program zmul
-*
+
 *  -- LAPACK test routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
@@ -14,15 +14,15 @@
       int               i, nFailingTests, nTests;
       double            aInf, aNaN, OV;
       double complex    Y, R, cInf( nInf ), cNaN( nNaN )
-*
+
       // .. Intrinsic Functions ..
       // intrinsic HUGE, DCMPLX
 
-*
+
       // .. Initialize error counts ..
       nFailingTests = 0
       nTests = 0
-*
+
       // .. Inf entries ..
       OV = HUGE(0.0d0)
       aInf = OV * 2
@@ -31,16 +31,16 @@
       cInf(3) = DCMPLX( 0.0d0, aInf )
       cInf(4) = DCMPLX( 0.0d0,-aInf )
       cInf(5) = DCMPLX( aInf,  aInf )
-*
+
       // .. NaN entries ..
       aNaN = aInf / aInf
       cNaN(1) = DCMPLX( aNaN, 0.0d0 )
       cNaN(2) = DCMPLX( 0.0d0, aNaN )
       cNaN(3) = DCMPLX( aNaN,  aNaN )
 
-*
+
       // .. Tests ..
-*
+
       // Test (a) Infs
       do 10 i = 1, nInf
           nTests = nTests + 3
@@ -73,7 +73,7 @@
               endif
           endif
   10  continue
-*
+
       // Test (b) NaNs
       do 20 i = 1, nNaN
           nTests = nTests + 3
@@ -94,18 +94,18 @@
               WRITE( *, FMT = 9998 ) 'nc',i, Y, Y, R, 'NaN'
           endif
   20  continue
-*
+
       if( nFailingTests .gt. 0 ) then
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for complex multiplication,", nFailingTests," fail."
       else
          print *, "# All tests pass for complex multiplication."
       endif
-*
+
       // .. Formats ..
  9998 FORMAT( '[',A2,I1, '] (', (ES24.16E3,SP,ES24.16E3,"*I"), ') * (',
      $         (ES24.16E3,SP,ES24.16E3,"*I"), ') = (',
      $         (ES24.16E3,SP,ES24.16E3,"*I"), ') differs from ', A17 )
-*
+
       // End of zmul
-*
+
       END

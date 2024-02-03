@@ -1,9 +1,9 @@
       SUBROUTINE SLASY2( LTRANL, LTRANR, ISGN, N1, N2, TL, LDTL, TR, LDTR, B, LDB, SCALE, X, LDX, XNORM, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               LTRANL, LTRANR;
       int                INFO, ISGN, LDB, LDTL, LDTR, LDX, N1, N2;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       REAL               B( LDB, * ), TL( LDTL, * ), TR( LDTR, * ), X( LDX, * )
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -48,26 +48,26 @@
       DATA               BSWPIV / .FALSE., .TRUE., .FALSE., .TRUE. /
       // ..
       // .. Executable Statements ..
-*
+
       // Do not check the input parameters for errors
-*
+
       INFO = 0
-*
+
       // Quick return if possible
-*
+
       IF( N1.EQ.0 .OR. N2.EQ.0 ) RETURN
-*
+
       // Set constants to control overflow
-*
+
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       SGN = ISGN
-*
+
       K = N1 + N1 + N2 - 2
       GO TO ( 10, 20, 30, 50 )K
-*
+
       // 1 by 1: TL11*X + SGN*X*TR11 = B11
-*
+
    10 CONTINUE
       TAU1 = TL( 1, 1 ) + SGN*TR( 1, 1 )
       BET = ABS( TAU1 )
@@ -76,21 +76,21 @@
          BET = SMLNUM
          INFO = 1
       END IF
-*
+
       SCALE = ONE
       GAM = ABS( B( 1, 1 ) )
       IF( SMLNUM*GAM.GT.BET ) SCALE = ONE / GAM
-*
+
       X( 1, 1 ) = ( B( 1, 1 )*SCALE ) / TAU1
       XNORM = ABS( X( 1, 1 ) )
       RETURN
-*
+
       // 1 by 2:
       // TL11*[X11 X12] + ISGN*[X11 X12]*op[TR11 TR12]  = [B11 B12]
                                         // [TR21 TR22]
-*
+
    20 CONTINUE
-*
+
       SMIN = MAX( EPS*MAX( ABS( TL( 1, 1 ) ), ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) ), SMLNUM )
       TMP( 1 ) = TL( 1, 1 ) + SGN*TR( 1, 1 )
       TMP( 4 ) = TL( 1, 1 ) + SGN*TR( 2, 2 )
@@ -104,11 +104,11 @@
       BTMP( 1 ) = B( 1, 1 )
       BTMP( 2 ) = B( 1, 2 )
       GO TO 40
-*
+
       // 2 by 1:
            // op[TL11 TL12]*[X11] + ISGN* [X11]*TR11  = [B11]
              // [TL21 TL22] [X21]         [X21]         [B21]
-*
+
    30 CONTINUE
       SMIN = MAX( EPS*MAX( ABS( TR( 1, 1 ) ), ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) ), SMLNUM )
       TMP( 1 ) = TL( 1, 1 ) + SGN*TR( 1, 1 )
@@ -123,10 +123,10 @@
       BTMP( 1 ) = B( 1, 1 )
       BTMP( 2 ) = B( 2, 1 )
    40 CONTINUE
-*
+
       // Solve 2 by 2 system using complete pivoting.
       // Set pivots less than SMIN to SMIN.
-*
+
       IPIV = ISAMAX( 4, TMP, 1 )
       U11 = TMP( IPIV )
       IF( ABS( U11 ).LE.SMIN ) THEN
@@ -171,14 +171,14 @@
          XNORM = MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) )
       END IF
       RETURN
-*
+
       // 2 by 2:
       // op[TL11 TL12]*[X11 X12] +ISGN* [X11 X12]*op[TR11 TR12] = [B11 B12]
         // [TL21 TL22] [X21 X22]        [X21 X22]   [TR21 TR22]   [B21 B22]
-*
+
       // Solve equivalent 4 by 4 system using complete pivoting.
       // Set pivots less than SMIN to SMIN.
-*
+
    50 CONTINUE
       SMIN = MAX( ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) )       SMIN = MAX( SMIN, ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) )
       SMIN = MAX( EPS*SMIN, SMLNUM )
@@ -214,9 +214,9 @@
       BTMP( 2 ) = B( 2, 1 )
       BTMP( 3 ) = B( 1, 2 )
       BTMP( 4 ) = B( 2, 2 )
-*
+
       // Perform elimination
-*
+
       DO 100 I = 1, 3
          XMAX = ZERO
          DO 70 IP = I, 4
@@ -281,7 +281,7 @@
       X( 2, 2 ) = TMP( 4 )
       XNORM = MAX( ABS( TMP( 1 ) )+ABS( TMP( 3 ) ), ABS( TMP( 2 ) )+ABS( TMP( 4 ) ) )
       RETURN
-*
+
       // End of SLASY2
-*
+
       END

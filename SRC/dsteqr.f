@@ -1,9 +1,9 @@
       SUBROUTINE DSTEQR( COMPZ, N, D, E, Z, LDZ, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             COMPZ;
       int                INFO, LDZ, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             D( * ), E( * ), WORK( * ), Z( LDZ, * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE, TWO, THREE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0 )
@@ -36,11 +36,11 @@
       // INTRINSIC ABS, MAX, SIGN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
-*
+
       IF( LSAME( COMPZ, 'N' ) ) THEN
          ICOMPZ = 0
       ELSE IF( LSAME( COMPZ, 'V' ) ) THEN
@@ -61,40 +61,40 @@
          CALL XERBLA( 'DSTEQR', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       IF( N.EQ.1 ) THEN
          IF( ICOMPZ.EQ.2 ) Z( 1, 1 ) = ONE
          RETURN
       END IF
-*
+
       // Determine the unit roundoff and over/underflow thresholds.
-*
+
       EPS = DLAMCH( 'E' )
       EPS2 = EPS**2
       SAFMIN = DLAMCH( 'S' )
       SAFMAX = ONE / SAFMIN
       SSFMAX = SQRT( SAFMAX ) / THREE
       SSFMIN = SQRT( SAFMIN ) / EPS2
-*
+
       // Compute the eigenvalues and eigenvectors of the tridiagonal
       // matrix.
-*
+
       IF( ICOMPZ.EQ.2 ) CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
-*
+
       NMAXIT = N*MAXIT
       JTOT = 0
-*
+
       // Determine where the matrix splits and choose QL or QR iteration
       // for each block, according to whether top or bottom diagonal
       // element is smaller.
-*
+
       L1 = 1
       NM1 = N - 1
-*
+
    10 CONTINUE
       IF( L1.GT.N ) GO TO 160       IF( L1.GT.1 ) E( L1-1 ) = ZERO
       IF( L1.LE.NM1 ) THEN
@@ -107,7 +107,7 @@
    20    CONTINUE
       END IF
       M = N
-*
+
    30 CONTINUE
       L = L1
       LSV = L
@@ -115,9 +115,9 @@
       LENDSV = LEND
       L1 = M + 1
       IF( LEND.EQ.L ) GO TO 10
-*
+
       // Scale submatrix in rows and columns L to LEND
-*
+
       ANORM = DLANST( 'M', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
       IF( ANORM.EQ.ZERO ) GO TO 10
@@ -128,20 +128,20 @@
          ISCALE = 2
          CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO )          CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO )
       END IF
-*
+
       // Choose between QL and QR iteration
-*
+
       IF( ABS( D( LEND ) ).LT.ABS( D( L ) ) ) THEN
          LEND = LSV
          L = LENDSV
       END IF
-*
+
       IF( LEND.GT.L ) THEN
-*
+
          // QL Iteration
-*
+
          // Look for small subdiagonal element.
-*
+
    40    CONTINUE
          IF( L.NE.LEND ) THEN
             LENDM1 = LEND - 1
@@ -150,17 +150,17 @@
                IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M+1 ) )+ SAFMIN )GO TO 60
    50       CONTINUE
          END IF
-*
+
          M = LEND
-*
+
    60    CONTINUE
          IF( M.LT.LEND ) E( M ) = ZERO
          P = D( L )
          IF( M.EQ.L ) GO TO 80
-*
+
          // If remaining matrix is 2-by-2, use DLAE2 or SLAEV2
         t // o compute its eigensystem.
-*
+
          IF( M.EQ.L+1 ) THEN
             IF( ICOMPZ.GT.0 ) THEN
                CALL DLAEV2( D( L ), E( L ), D( L+1 ), RT1, RT2, C, S )
@@ -177,22 +177,22 @@
             IF( L.LE.LEND ) GO TO 40
             GO TO 140
          END IF
-*
+
          IF( JTOT.EQ.NMAXIT ) GO TO 140
          JTOT = JTOT + 1
-*
+
          // Form shift.
-*
+
          G = ( D( L+1 )-P ) / ( TWO*E( L ) )
          R = DLAPY2( G, ONE )
          G = D( M ) - P + ( E( L ) / ( G+SIGN( R, G ) ) )
-*
+
          S = ONE
          C = ONE
          P = ZERO
-*
+
          // Inner loop
-*
+
          MM1 = M - 1
          DO 70 I = MM1, L, -1
             F = S*E( I )
@@ -204,42 +204,42 @@
             P = S*R
             D( I+1 ) = G + P
             G = C*R - B
-*
+
             // If eigenvectors are desired, then save rotations.
-*
+
             IF( ICOMPZ.GT.0 ) THEN
                WORK( I ) = C
                WORK( N-1+I ) = -S
             END IF
-*
+
    70    CONTINUE
-*
+
          // If eigenvectors are desired, then apply saved rotations.
-*
+
          IF( ICOMPZ.GT.0 ) THEN
             MM = M - L + 1
             CALL DLASR( 'R', 'V', 'B', N, MM, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ )
          END IF
-*
+
          D( L ) = D( L ) - P
          E( L ) = G
          GO TO 40
-*
+
          // Eigenvalue found.
-*
+
    80    CONTINUE
          D( L ) = P
-*
+
          L = L + 1
          IF( L.LE.LEND ) GO TO 40
          GO TO 140
-*
+
       ELSE
-*
+
          // QR Iteration
-*
+
          // Look for small superdiagonal element.
-*
+
    90    CONTINUE
          IF( L.NE.LEND ) THEN
             LENDP1 = LEND + 1
@@ -248,17 +248,17 @@
                IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M-1 ) )+ SAFMIN )GO TO 110
   100       CONTINUE
          END IF
-*
+
          M = LEND
-*
+
   110    CONTINUE
          IF( M.GT.LEND ) E( M-1 ) = ZERO
          P = D( L )
          IF( M.EQ.L ) GO TO 130
-*
+
          // If remaining matrix is 2-by-2, use DLAE2 or SLAEV2
         t // o compute its eigensystem.
-*
+
          IF( M.EQ.L-1 ) THEN
             IF( ICOMPZ.GT.0 ) THEN
                CALL DLAEV2( D( L-1 ), E( L-1 ), D( L ), RT1, RT2, C, S )
@@ -275,22 +275,22 @@
             IF( L.GE.LEND ) GO TO 90
             GO TO 140
          END IF
-*
+
          IF( JTOT.EQ.NMAXIT ) GO TO 140
          JTOT = JTOT + 1
-*
+
          // Form shift.
-*
+
          G = ( D( L-1 )-P ) / ( TWO*E( L-1 ) )
          R = DLAPY2( G, ONE )
          G = D( M ) - P + ( E( L-1 ) / ( G+SIGN( R, G ) ) )
-*
+
          S = ONE
          C = ONE
          P = ZERO
-*
+
          // Inner loop
-*
+
          LM1 = L - 1
          DO 120 I = M, LM1
             F = S*E( I )
@@ -302,69 +302,69 @@
             P = S*R
             D( I ) = G + P
             G = C*R - B
-*
+
             // If eigenvectors are desired, then save rotations.
-*
+
             IF( ICOMPZ.GT.0 ) THEN
                WORK( I ) = C
                WORK( N-1+I ) = S
             END IF
-*
+
   120    CONTINUE
-*
+
          // If eigenvectors are desired, then apply saved rotations.
-*
+
          IF( ICOMPZ.GT.0 ) THEN
             MM = L - M + 1
             CALL DLASR( 'R', 'V', 'F', N, MM, WORK( M ), WORK( N-1+M ), Z( 1, M ), LDZ )
          END IF
-*
+
          D( L ) = D( L ) - P
          E( LM1 ) = G
          GO TO 90
-*
+
          // Eigenvalue found.
-*
+
   130    CONTINUE
          D( L ) = P
-*
+
          L = L - 1
          IF( L.GE.LEND ) GO TO 90
          GO TO 140
-*
+
       END IF
-*
+
       // Undo scaling if necessary
-*
+
   140 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
          CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )          CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO )
       ELSE IF( ISCALE.EQ.2 ) THEN
          CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )          CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO )
       END IF
-*
+
       // Check for no convergence to an eigenvalue after a total
       // of N*MAXIT iterations.
-*
+
       IF( JTOT.LT.NMAXIT ) GO TO 10
       DO 150 I = 1, N - 1
          IF( E( I ).NE.ZERO ) INFO = INFO + 1
   150 CONTINUE
       GO TO 190
-*
+
       // Order eigenvalues and eigenvectors.
-*
+
   160 CONTINUE
       IF( ICOMPZ.EQ.0 ) THEN
-*
+
          // Use Quick Sort
-*
+
          CALL DLASRT( 'I', N, D, INFO )
-*
+
       ELSE
-*
+
          // Use Selection Sort to minimize swaps of eigenvectors
-*
+
          DO 180 II = 2, N
             I = II - 1
             K = I
@@ -382,10 +382,10 @@
             END IF
   180    CONTINUE
       END IF
-*
+
   190 CONTINUE
       RETURN
-*
+
       // End of DSTEQR
-*
+
       END

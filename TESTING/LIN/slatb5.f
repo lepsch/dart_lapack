@@ -1,18 +1,18 @@
       SUBROUTINE SLATB5( PATH, IMAT, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL               ANORM, CNDNUM
       int                IMAT, KL, KU, MODE, N;
       String             DIST, TYPE;
       String             PATH;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               SHRINK, TENTH
       PARAMETER          ( SHRINK = 0.25E0, TENTH = 0.1E+0 )
@@ -40,9 +40,9 @@
       DATA               FIRST / .TRUE. /
       // ..
       // .. Executable Statements ..
-*
+
       // Set some constants for use in the subroutine.
-*
+
       IF( FIRST ) THEN
          FIRST = .FALSE.
          EPS = SLAMCH( 'Precision' )
@@ -53,29 +53,29 @@
          SMALL = SHRINK*( SMALL / EPS )
          LARGE = ONE / SMALL
       END IF
-*
+
       C2 = PATH( 2: 3 )
-*
+
       // Set some parameters
-*
+
       DIST = 'S'
       MODE = 3
-*
+
       // Set TYPE, the type of matrix to be generated.
-*
+
       TYPE = C2( 1: 1 )
-*
+
       // Set the lower and upper bandwidths.
-*
+
       IF( IMAT.EQ.1 ) THEN
          KL = 0
       ELSE
          KL = MAX( N-1, 0 )
       END IF
       KU = KL
-*
+
       // Set the condition number and norm.etc
-*
+
       IF( IMAT.EQ.3 ) THEN
          CNDNUM = 1.0E4
          MODE = 2
@@ -92,7 +92,7 @@
       ELSE
          CNDNUM = TWO
       END IF
-*
+
       IF( IMAT.EQ.8 ) THEN
          ANORM = SMALL
       ELSE IF( IMAT.EQ.9 ) THEN
@@ -100,11 +100,11 @@
       ELSE
          ANORM = ONE
       END IF
-*
+
       IF( N.LE.1 ) CNDNUM = ONE
-*
+
       RETURN
-*
+
       // End of SLATB5
-*
+
       END

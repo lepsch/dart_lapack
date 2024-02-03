@@ -1,9 +1,9 @@
       SUBROUTINE SBDT04( UPLO, N, D, E, S, NS, U, LDU, VT, LDVT, WORK, RESID )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDU, LDVT, N, NS;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       REAL               D( * ), E( * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
       // ..
-*
+
 * ======================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -36,22 +36,22 @@
       // INTRINSIC ABS, REAL, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Quick return if possible.
-*
+
       RESID = ZERO
       IF( N.LE.0 .OR. NS.LE.0 ) RETURN
-*
+
       EPS = SLAMCH( 'Precision' )
-*
+
       // Compute S - U' * B * V.
-*
+
       BNORM = ZERO
-*
+
       IF( LSAME( UPLO, 'U' ) ) THEN
-*
+
          // B is upper bidiagonal.
-*
+
          K = 0
          DO 20 I = 1, NS
             DO 10 J = 1, N-1
@@ -66,9 +66,9 @@
             BNORM = MAX( BNORM, ABS( D( I ) )+ABS( E( I-1 ) ) )
    30    CONTINUE
       ELSE
-*
+
          // B is lower bidiagonal.
-*
+
          K = 0
          DO 50 I = 1, NS
             K = K + 1
@@ -83,18 +83,18 @@
             BNORM = MAX( BNORM, ABS( D( I ) )+ABS( E( I ) ) )
    60    CONTINUE
       END IF
-*
+
       CALL SGEMM( 'T', 'N', NS, NS, N, -ONE, U, LDU, WORK( 1 ), N, ZERO, WORK( 1+N*NS ), NS )
-*
+
       // norm(S - U' * B * V)
-*
+
       K = N*NS
       DO 70 I = 1, NS
          WORK( K+I ) =  WORK( K+I ) + S( I )
          RESID = MAX( RESID, SASUM( NS, WORK( K+1 ), 1 ) )
          K = K + NS
    70 CONTINUE
-*
+
       IF( BNORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
@@ -108,9 +108,9 @@
             END IF
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of SBDT04
-*
+
       END

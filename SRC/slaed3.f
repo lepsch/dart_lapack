@@ -1,9 +1,9 @@
       SUBROUTINE SLAED3( K, N, N1, D, Q, LDQ, RHO, DLAMBDA, Q2, INDX, CTOT, W, S, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, K, LDQ, N, N1;
       REAL               RHO
@@ -12,9 +12,9 @@
       int                CTOT( * ), INDX( * );
       REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), S( * ), W( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0 )
@@ -34,11 +34,11 @@
       // INTRINSIC MAX, SIGN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
-*
+
       IF( K.LT.0 ) THEN
          INFO = -1
       ELSE IF( N.LT.K ) THEN
@@ -50,19 +50,19 @@
          CALL XERBLA( 'SLAED3', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( K.EQ.0 ) RETURN
-*
+
       DO 20 J = 1, K
          CALL SLAED4( K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO )
-*
+
          // If the zero finder fails, the computation is terminated.
-*
+
          IF( INFO.NE.0 ) GO TO 120
    20 CONTINUE
-*
+
       IF( K.EQ.1 ) GO TO 110
       IF( K.EQ.2 ) THEN
          DO 30 J = 1, K
@@ -75,13 +75,13 @@
    30    CONTINUE
          GO TO 110
       END IF
-*
+
       // Compute updated W.
-*
+
       CALL SCOPY( K, W, 1, S, 1 )
-*
+
       // Initialize W(I) = Q(I,I)
-*
+
       CALL SCOPY( K, Q, LDQ+1, W, 1 )
       DO 60 J = 1, K
          DO 40 I = 1, J - 1
@@ -94,9 +94,9 @@
       DO 70 I = 1, K
          W( I ) = SIGN( SQRT( -W( I ) ), S( I ) )
    70 CONTINUE
-*
+
       // Compute eigenvectors of the modified rank-1 modification.
-*
+
       DO 100 J = 1, K
          DO 80 I = 1, K
             S( I ) = W( I ) / Q( I, J )
@@ -107,15 +107,15 @@
             Q( I, J ) = S( II ) / TEMP
    90    CONTINUE
   100 CONTINUE
-*
+
       // Compute the updated eigenvectors.
-*
+
   110 CONTINUE
-*
+
       N2 = N - N1
       N12 = CTOT( 1 ) + CTOT( 2 )
       N23 = CTOT( 2 ) + CTOT( 3 )
-*
+
       CALL SLACPY( 'A', N23, K, Q( CTOT( 1 )+1, 1 ), LDQ, S, N23 )
       IQ2 = N1*N12 + 1
       IF( N23.NE.0 ) THEN
@@ -123,18 +123,18 @@
       ELSE
          CALL SLASET( 'A', N2, K, ZERO, ZERO, Q( N1+1, 1 ), LDQ )
       END IF
-*
+
       CALL SLACPY( 'A', N12, K, Q, LDQ, S, N12 )
       IF( N12.NE.0 ) THEN
          CALL SGEMM( 'N', 'N', N1, K, N12, ONE, Q2, N1, S, N12, ZERO, Q, LDQ )
       ELSE
          CALL SLASET( 'A', N1, K, ZERO, ZERO, Q( 1, 1 ), LDQ )
       END IF
-*
-*
+
+
   120 CONTINUE
       RETURN
-*
+
       // End of SLAED3
-*
+
       END

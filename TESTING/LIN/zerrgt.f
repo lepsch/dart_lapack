@@ -1,16 +1,16 @@
       SUBROUTINE ZERRGT( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -41,7 +41,7 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
@@ -53,20 +53,20 @@
    10 CONTINUE
       ANORM = 1.0D0
       OK = .TRUE.
-*
+
       IF( LSAMEN( 2, C2, 'GT' ) ) THEN
-*
+
          // Test error exits for the general tridiagonal routines.
-*
+
          // ZGTTRF
-*
+
          SRNAMT = 'ZGTTRF'
          INFOT = 1
          CALL ZGTTRF( -1, DL, E, DU, DU2, IP, INFO )
          CALL CHKXER( 'ZGTTRF', INFOT, NOUT, LERR, OK )
-*
+
          // ZGTTRS
-*
+
          SRNAMT = 'ZGTTRS'
          INFOT = 1
          CALL ZGTTRS( '/', 0, 0, DL, E, DU, DU2, IP, X, 1, INFO )
@@ -80,9 +80,9 @@
          INFOT = 10
          CALL ZGTTRS( 'N', 2, 1, DL, E, DU, DU2, IP, X, 1, INFO )
          CALL CHKXER( 'ZGTTRS', INFOT, NOUT, LERR, OK )
-*
+
          // ZGTRFS
-*
+
          SRNAMT = 'ZGTRFS'
          INFOT = 1
          CALL ZGTRFS( '/', 0, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO )
@@ -99,9 +99,9 @@
          INFOT = 15
          CALL ZGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTRFS', INFOT, NOUT, LERR, OK )
-*
+
          // ZGTCON
-*
+
          SRNAMT = 'ZGTCON'
          INFOT = 1
          CALL ZGTCON( '/', 0, DL, E, DU, DU2, IP, ANORM, RCOND, W, INFO )
@@ -112,21 +112,21 @@
          INFOT = 8
          CALL ZGTCON( 'I', 0, DL, E, DU, DU2, IP, -ANORM, RCOND, W, INFO )
          CALL CHKXER( 'ZGTCON', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
-*
+
          // Test error exits for the positive definite tridiagonal
          // routines.
-*
+
          // ZPTTRF
-*
+
          SRNAMT = 'ZPTTRF'
          INFOT = 1
          CALL ZPTTRF( -1, D, E, INFO )
          CALL CHKXER( 'ZPTTRF', INFOT, NOUT, LERR, OK )
-*
+
          // ZPTTRS
-*
+
          SRNAMT = 'ZPTTRS'
          INFOT = 1
          CALL ZPTTRS( '/', 1, 0, D, E, X, 1, INFO )
@@ -140,9 +140,9 @@
          INFOT = 7
          CALL ZPTTRS( 'U', 2, 1, D, E, X, 1, INFO )
          CALL CHKXER( 'ZPTTRS', INFOT, NOUT, LERR, OK )
-*
+
          // ZPTRFS
-*
+
          SRNAMT = 'ZPTRFS'
          INFOT = 1
          CALL ZPTRFS( '/', 1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO )
@@ -159,9 +159,9 @@
          INFOT = 11
          CALL ZPTRFS( 'U', 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTRFS', INFOT, NOUT, LERR, OK )
-*
+
          // ZPTCON
-*
+
          SRNAMT = 'ZPTCON'
          INFOT = 1
          CALL ZPTCON( -1, D, E, ANORM, RCOND, RW, INFO )
@@ -170,13 +170,13 @@
          CALL ZPTCON( 0, D, E, -ANORM, RCOND, RW, INFO )
          CALL CHKXER( 'ZPTCON', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of ZERRGT
-*
+
       END

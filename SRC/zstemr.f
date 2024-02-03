@@ -1,9 +1,9 @@
       SUBROUTINE ZSTEMR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, NZC, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBZ, RANGE;
       bool               TRYRAC;
@@ -15,9 +15,9 @@
       double             D( * ), E( * ), W( * ), WORK( * );
       COMPLEX*16         Z( LDZ, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE, FOUR, MINRGP;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, FOUR = 4.0D0, MINRGP = 1.0D-3 )
@@ -41,14 +41,14 @@
 
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       WANTZ = LSAME( JOBZ, 'V' )
       ALLEIG = LSAME( RANGE, 'A' )
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
-*
+
       LQUERY = ( ( LWORK.EQ.-1 ).OR.( LIWORK.EQ.-1 ) )
       ZQUERY = ( NZC.EQ.-1 )
       LAESWAP = .FALSE.
@@ -82,7 +82,7 @@
          IIL = IL
          IIU = IU
       ENDIF
-*
+
       INFO = 0
       IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
          INFO = -1
@@ -103,20 +103,20 @@
       ELSE IF( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) THEN
          INFO = -19
       END IF
-*
+
       // Get machine constants.
-*
+
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
       SMLNUM = SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
-*
+
       IF( INFO.EQ.0 ) THEN
          WORK( 1 ) = LWMIN
          IWORK( 1 ) = LIWMIN
-*
+
          IF( WANTZ .AND. ALLEIG ) THEN
             NZCMIN = N
          ELSE IF( WANTZ .AND. VALEIG ) THEN
@@ -135,19 +135,19 @@
       END IF
 
       IF( INFO.NE.0 ) THEN
-*
+
          CALL XERBLA( 'ZSTEMR', -INFO )
-*
+
          RETURN
       ELSE IF( LQUERY .OR. ZQUERY ) THEN
          RETURN
       END IF
-*
+
       // Handle N = 0, 1, and 2 cases immediately
-*
+
       M = 0
       IF( N.EQ.0 ) RETURN
-*
+
       IF( N.EQ.1 ) THEN
          IF( ALLEIG .OR. INDEIG ) THEN
             M = 1
@@ -165,7 +165,7 @@
          END IF
          RETURN
       END IF
-*
+
       IF( N.EQ.2 ) THEN
          IF( .NOT.WANTZ ) THEN
             CALL DLAE2( D(1), E(1), D(2), R1, R2 )
@@ -243,18 +243,18 @@
          INDD = 4*N + 1
          INDE2 = 5*N + 1
          INDWRK = 6*N + 1
-*
+
          IINSPL = 1
          IINDBL = N + 1
          IINDW = 2*N + 1
          IINDWK = 3*N + 1
-*
+
          // Scale matrix to allowable range, if necessary.
          // The allowable range is related to the PIVMIN parameter; see the
          // comments in DLARRD.  The preference for scaling small values
          // up is heuristic; we expect users' matrices not to be close to the
          // RMAX threshold.
-*
+
          SCALE = ONE
          TNRM = DLANST( 'M', N, D, E )
          IF( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) THEN
@@ -273,7 +273,7 @@
                WU = WU*SCALE
             ENDIF
          END IF
-*
+
          // Compute the desired eigenvalues of the tridiagonal after splitting
          // into smaller subblocks if the corresponding off-diagonal elements
          // are small
@@ -281,7 +281,7 @@
          // A negative THRESH forces the old splitting criterion based on the
          // size of the off-diagonal. A positive THRESH switches to splitting
          // which preserves relative accuracy.
-*
+
          IF( TRYRAC ) THEN
             // Test whether the matrix warrants the more expensive relative approach.
             CALL DLARRR( N, D, E, IINFO )
@@ -297,7 +297,7 @@
             // relative accuracy is desired but T does not guarantee it
             TRYRAC = .FALSE.
          ENDIF
-*
+
          IF( TRYRAC ) THEN
             // Copy original diagonal, needed to guarantee relative accuracy
             CALL DCOPY(N,D,1,WORK(INDD),1)
@@ -331,10 +331,10 @@
 
 
          IF( WANTZ ) THEN
-*
+
             // Compute the desired eigenvectors corresponding to the computed
             // eigenvalues
-*
+
             CALL ZLARRV( N, WL, WU, D, E, PIVMIN, IWORK( IINSPL ), M, 1, M, MINRGP, RTOL1, RTOL2, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), Z, LDZ, ISUPPZ, WORK( INDWRK ), IWORK( IINDWK ), IINFO )
             IF( IINFO.NE.0 ) THEN
                INFO = 20 + ABS( IINFO )
@@ -351,7 +351,7 @@
                W( J ) = W( J ) + E( IWORK( IINSPL+ITMP-1 ) )
  20      CONTINUE
          END IF
-*
+
 
          IF ( TRYRAC ) THEN
             // Refine computed eigenvalues so that they are relatively accurate
@@ -384,17 +384,17 @@
                WBEGIN = WEND + 1
  39      CONTINUE
          ENDIF
-*
+
          // If matrix was scaled, then rescale eigenvalues appropriately.
-*
+
          IF( SCALE.NE.ONE ) THEN
             CALL DSCAL( M, ONE / SCALE, W, 1 )
          END IF
       END IF
-*
+
       // If eigenvalues are not in increasing order, then sort them,
       // possibly along with eigenvectors.
-*
+
       IF( NSPLIT.GT.1 .OR. N.EQ.2 ) THEN
          IF( .NOT. WANTZ ) THEN
             CALL DLASRT( 'I', M, W, IINFO )
@@ -428,12 +428,12 @@
  60         CONTINUE
          END IF
       ENDIF
-*
-*
+
+
       WORK( 1 ) = LWMIN
       IWORK( 1 ) = LIWMIN
       RETURN
-*
+
       // End of ZSTEMR
-*
+
       END

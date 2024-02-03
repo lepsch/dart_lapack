@@ -1,11 +1,11 @@
       PROGRAM ZCHKAB
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 132 )
@@ -55,27 +55,27 @@
       // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*
+
       // .. Data statements ..
       DATA               INTSTR / '0123456789' /
       // ..
       // .. Executable Statements ..
-*
+
       S1 = DSECND( )
       LDA = NMAX
       FATAL = .FALSE.
-*
+
       // Read a dummy line.
-*
+
       READ( NIN, FMT = * )
-*
+
       // Report values of parameters.
-*
+
       CALL ILAVER( VERS_MAJOR, VERS_MINOR, VERS_PATCH )
       WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
-*
+
       // Read the values of M
-*
+
       READ( NIN, FMT = * )NM
       IF( NM.LT.1 ) THEN
          WRITE( NOUT, FMT = 9996 )' NM ', NM, 1
@@ -97,9 +97,9 @@
          END IF
    10 CONTINUE
       IF( NM.GT.0 ) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM )
-*
+
       // Read the values of NRHS
-*
+
       READ( NIN, FMT = * )NNS
       IF( NNS.LT.1 ) THEN
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
@@ -121,27 +121,27 @@
          END IF
    30 CONTINUE
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
-*
+
       // Read the threshold value for the test ratios.
-*
+
       READ( NIN, FMT = * )THRESH
       WRITE( NOUT, FMT = 9992 )THRESH
-*
+
       // Read the flag that indicates whether to test the driver routine.
-*
+
       READ( NIN, FMT = * )TSTDRV
-*
+
       // Read the flag that indicates whether to test the error exits.
-*
+
       READ( NIN, FMT = * )TSTERR
-*
+
       IF( FATAL ) THEN
          WRITE( NOUT, FMT = 9999 )
          STOP
       END IF
-*
+
       // Calculate and print the machine dependent constants.
-*
+
       SEPS = SLAMCH( 'Underflow threshold' )
       WRITE( NOUT, FMT = 9991 )'(single precision) underflow', SEPS
       SEPS = SLAMCH( 'Overflow threshold' )
@@ -149,7 +149,7 @@
       SEPS = SLAMCH( 'Epsilon' )
       WRITE( NOUT, FMT = 9991 )'(single precision) precision', SEPS
       WRITE( NOUT, FMT = * )
-*
+
       EPS = DLAMCH( 'Underflow threshold' )
       WRITE( NOUT, FMT = 9991 )'(double          ) underflow', EPS;
       EPS = DLAMCH( 'Overflow threshold' )
@@ -157,11 +157,11 @@
       EPS = DLAMCH( 'Epsilon' )
       WRITE( NOUT, FMT = 9991 )'(double          ) precision', EPS;
       WRITE( NOUT, FMT = * )
-*
+
    80 CONTINUE
-*
+
       // Read a test path and the number of matrix types to use.
-*
+
       READ( NIN, FMT = '(A72)', END = 140 )ALINE
       PATH = ALINE( 1: 3 )
       NMATS = MATMAX
@@ -193,68 +193,68 @@
       C2 = PATH( 2: 3 )
       NRHS = NSVAL( 1 )
       NRHS = NSVAL( 1 )
-*
+
       // Check first character for correct precision.
-*
+
       IF( .NOT.LSAME( C1, 'Zomplex precision' ) ) THEN
             WRITE( NOUT, FMT = 9990 )PATH
-*
+
       ELSE IF( NMATS.LE.0 ) THEN
-*
+
          // Check for a positive number of tests requested.
-*
+
          WRITE( NOUT, FMT = 9990 )'ZCGESV'
          GO TO 140
-*
+
       ELSE IF( LSAMEN( 2, C2, 'GE' ) ) THEN
-*
+
          // GE:  general matrices
-*
+
       NTYPES = 11
       CALL ALAREQ( 'ZGE', NMATS, DOTYPE, NTYPES, NIN, NOUT )
-*
+
          // Test the error exits
-*
+
          IF( TSTERR ) CALL ZERRAB( NOUT )
-*
+
          IF( TSTDRV ) THEN
             CALL ZDRVAB( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, IWORK, NOUT )
          ELSE
             WRITE( NOUT, FMT = 9989 )'ZCGESV'
          END IF
-*
+
       ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
-*
+
          // PO:  positive definite matrices
-*
+
          NTYPES = 9
          CALL ALAREQ( 'DPO', NMATS, DOTYPE, NTYPES, NIN, NOUT )
-*
+
          IF( TSTERR ) CALL ZERRAC( NOUT )
-*
-*
+
+
          IF( TSTDRV ) THEN
             CALL ZDRVAC( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, NOUT )
          ELSE
             WRITE( NOUT, FMT = 9989 )'ZCPOSV'
          END IF
-*
+
       ELSE
-*
+
       END IF
-*
+
       // Go back to get another input line.
-*
+
       GO TO 80
-*
+
       // Branch to this line when the last record is read.
-*
+
   140 CONTINUE
       CLOSE ( NIN )
       S2 = DSECND( )
       WRITE( NOUT, FMT = 9998 )
       WRITE( NOUT, FMT = 9997 )S2 - S1
-*
+
  9999 FORMAT( / ' Execution not attempted due to input errors' )
  9998 FORMAT( / ' End of tests' )
  9997 FORMAT( ' Total time used = ', F12.2, ' seconds', / )
@@ -271,7 +271,7 @@
  9991 FORMAT( ' Relative machine ', A, ' is taken to be', D16.6 )
  9990 FORMAT( / 1X, A6, ' routines were not tested' )
  9989 FORMAT( / 1X, A6, ' driver routines were not tested' )
-*
+
       // End of ZCHKAB
-*
+
       END

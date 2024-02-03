@@ -1,15 +1,15 @@
       COMPLEX FUNCTION CLADIV( X, Y )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       COMPLEX            X, Y
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       REAL               ZI, ZR
       // ..
@@ -20,12 +20,12 @@
       // INTRINSIC AIMAG, CMPLX, REAL
       // ..
       // .. Executable Statements ..
-*
+
       CALL SLADIV( REAL( X ), AIMAG( X ), REAL( Y ), AIMAG( Y ), ZR, ZI )
       CLADIV = CMPLX( ZR, ZI )
-*
+
       RETURN
-*
+
       // End of CLADIV
-*
+
       END

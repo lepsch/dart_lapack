@@ -1,9 +1,9 @@
       SUBROUTINE DSYMV(UPLO,N,ALPHA,A,LDA,X,INCX,BETA,Y,INCY)
-*
+
 *  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       double           ALPHA,BETA;
       int     INCX,INCY,LDA,N;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       double           A(LDA,*),X(*),Y(*);
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double           ONE,ZERO;
       PARAMETER (ONE=1.0D+0,ZERO=0.0D+0)
@@ -33,9 +33,9 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
       // ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
           INFO = 1
@@ -52,13 +52,13 @@
           CALL XERBLA('DSYMV ',INFO)
           RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF ((N.EQ.0) .OR. ((ALPHA.EQ.ZERO).AND. (BETA.EQ.ONE))) RETURN
-*
+
       // Set up the start points in  X  and  Y.
-*
+
       IF (INCX.GT.0) THEN
           KX = 1
       ELSE
@@ -69,13 +69,13 @@
       ELSE
           KY = 1 - (N-1)*INCY
       END IF
-*
+
       // Start the operations. In this version the elements of A are
       // accessed sequentially with one pass through the triangular part
       // of A.
-*
+
       // First form  y := beta*y.
-*
+
       IF (BETA.NE.ONE) THEN
           IF (INCY.EQ.1) THEN
               IF (BETA.EQ.ZERO) THEN
@@ -104,9 +104,9 @@
       END IF
       IF (ALPHA.EQ.ZERO) RETURN
       IF (LSAME(UPLO,'U')) THEN
-*
+
          // Form  y  when A is stored in upper triangle.
-*
+
           IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
               DO 60 J = 1,N
                   TEMP1 = ALPHA*X(J)
@@ -137,9 +137,9 @@
    80         CONTINUE
           END IF
       ELSE
-*
+
          // Form  y  when A is stored in lower triangle.
-*
+
           IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
               DO 100 J = 1,N
                   TEMP1 = ALPHA*X(J)
@@ -172,9 +172,9 @@
   120         CONTINUE
           END IF
       END IF
-*
+
       RETURN
-*
+
       // End of DSYMV
-*
+
       END

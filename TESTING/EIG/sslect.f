@@ -1,15 +1,15 @@
       bool             FUNCTION SSLECT( ZR, ZI );
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL               ZI, ZR
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Arrays in Common ..
       bool               SELVAL( 20 );
       REAL               SELWI( 20 ), SELWR( 20 )
@@ -33,7 +33,7 @@
       // EXTERNAL SLAPY2
       // ..
       // .. Executable Statements ..
-*
+
       IF( SELOPT.EQ.0 ) THEN
          SSLECT = ( ZR.LT.ZERO )
       ELSE
@@ -48,7 +48,7 @@
    10    CONTINUE
       END IF
       RETURN
-*
+
       // End of SSLECT
-*
+
       END

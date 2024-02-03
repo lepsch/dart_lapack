@@ -1,9 +1,9 @@
       SUBROUTINE CPPTRI( UPLO, N, AP, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX            AP( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
@@ -35,9 +35,9 @@
       // INTRINSIC REAL
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -49,19 +49,19 @@
          CALL XERBLA( 'CPPTRI', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Invert the triangular Cholesky factor U or L.
-*
+
       CALL CTPTRI( UPLO, 'Non-unit', N, AP, INFO )
       IF( INFO.GT.0 ) RETURN
       IF( UPPER ) THEN
-*
+
          // Compute the product inv(U) * inv(U)**H.
-*
+
          JJ = 0
          DO 10 J = 1, N
             JC = JJ + 1
@@ -70,11 +70,11 @@
             AJJ = REAL( AP( JJ ) )
             CALL CSSCAL( J, AJJ, AP( JC ), 1 )
    10    CONTINUE
-*
+
       ELSE
-*
+
          // Compute the product inv(L)**H * inv(L).
-*
+
          JJ = 1
          DO 20 J = 1, N
             JJN = JJ + N - J + 1
@@ -83,9 +83,9 @@
             JJ = JJN
    20    CONTINUE
       END IF
-*
+
       RETURN
-*
+
       // End of CPPTRI
-*
+
       END

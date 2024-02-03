@@ -1,16 +1,16 @@
       SUBROUTINE SERRGT( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -41,7 +41,7 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
@@ -55,20 +55,20 @@
       EF( 2 ) = 4.
       ANORM = 1.0
       OK = .TRUE.
-*
+
       IF( LSAMEN( 2, C2, 'GT' ) ) THEN
-*
+
          // Test error exits for the general tridiagonal routines.
-*
+
          // SGTTRF
-*
+
          SRNAMT = 'SGTTRF'
          INFOT = 1
          CALL SGTTRF( -1, C, D, E, F, IP, INFO )
          CALL CHKXER( 'SGTTRF', INFOT, NOUT, LERR, OK )
-*
+
          // SGTTRS
-*
+
          SRNAMT = 'SGTTRS'
          INFOT = 1
          CALL SGTTRS( '/', 0, 0, C, D, E, F, IP, X, 1, INFO )
@@ -82,9 +82,9 @@
          INFOT = 10
          CALL SGTTRS( 'N', 2, 1, C, D, E, F, IP, X, 1, INFO )
          CALL CHKXER( 'SGTTRS', INFOT, NOUT, LERR, OK )
-*
+
          // SGTRFS
-*
+
          SRNAMT = 'SGTRFS'
          INFOT = 1
          CALL SGTRFS( '/', 0, 0, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
@@ -101,9 +101,9 @@
          INFOT = 15
          CALL SGTRFS( 'N', 2, 1, C, D, E, CF, DF, EF, F, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGTRFS', INFOT, NOUT, LERR, OK )
-*
+
          // SGTCON
-*
+
          SRNAMT = 'SGTCON'
          INFOT = 1
          CALL SGTCON( '/', 0, C, D, E, F, IP, ANORM, RCOND, W, IW, INFO )
@@ -114,21 +114,21 @@
          INFOT = 8
          CALL SGTCON( 'I', 0, C, D, E, F, IP, -ANORM, RCOND, W, IW, INFO )
          CALL CHKXER( 'SGTCON', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
-*
+
          // Test error exits for the positive definite tridiagonal
          // routines.
-*
+
          // SPTTRF
-*
+
          SRNAMT = 'SPTTRF'
          INFOT = 1
          CALL SPTTRF( -1, D, E, INFO )
          CALL CHKXER( 'SPTTRF', INFOT, NOUT, LERR, OK )
-*
+
          // SPTTRS
-*
+
          SRNAMT = 'SPTTRS'
          INFOT = 1
          CALL SPTTRS( -1, 0, D, E, X, 1, INFO )
@@ -139,9 +139,9 @@
          INFOT = 6
          CALL SPTTRS( 2, 1, D, E, X, 1, INFO )
          CALL CHKXER( 'SPTTRS', INFOT, NOUT, LERR, OK )
-*
+
          // SPTRFS
-*
+
          SRNAMT = 'SPTRFS'
          INFOT = 1
          CALL SPTRFS( -1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, INFO )
@@ -155,9 +155,9 @@
          INFOT = 10
          CALL SPTRFS( 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, INFO )
          CALL CHKXER( 'SPTRFS', INFOT, NOUT, LERR, OK )
-*
+
          // SPTCON
-*
+
          SRNAMT = 'SPTCON'
          INFOT = 1
          CALL SPTCON( -1, D, E, ANORM, RCOND, W, INFO )
@@ -166,13 +166,13 @@
          CALL SPTCON( 0, D, E, -ANORM, RCOND, W, INFO )
          CALL CHKXER( 'SPTCON', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of SERRGT
-*
+
       END

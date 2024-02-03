@@ -1,9 +1,9 @@
       SUBROUTINE SGGSVD3( JOBU, JOBV, JOBQ, M, N, P, K, L, A, LDA, B, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK, IWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P, LWORK;
@@ -12,9 +12,9 @@
       int                IWORK( * );
       REAL               A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               WANTQ, WANTU, WANTV, LQUERY;
       int                I, IBND, ISUB, J, NCYCLE, LWKOPT;
@@ -32,17 +32,17 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Decode and test the input parameters
-*
+
       WANTU = LSAME( JOBU, 'U' )
       WANTV = LSAME( JOBV, 'V' )
       WANTQ = LSAME( JOBQ, 'Q' )
       LQUERY = ( LWORK.EQ.-1 )
       LWKOPT = 1
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       IF( .NOT.( WANTU .OR. LSAME( JOBU, 'N' ) ) ) THEN
          INFO = -1
@@ -69,9 +69,9 @@
       ELSE IF( LWORK.LT.1 .AND. .NOT.LQUERY ) THEN
          INFO = -24
       END IF
-*
+
       // Compute workspace
-*
+
       IF( INFO.EQ.0 ) THEN
          CALL SGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK, -1, INFO )
          LWKOPT = N + INT( WORK( 1 ) )
@@ -79,7 +79,7 @@
          LWKOPT = MAX( 1, LWKOPT )
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SGGSVD3', -INFO )
          RETURN
@@ -87,37 +87,37 @@
       IF( LQUERY ) THEN
          RETURN
       ENDIF
-*
+
       // Compute the Frobenius norm of matrices A and B
-*
+
       ANORM = SLANGE( '1', M, N, A, LDA, WORK )
       BNORM = SLANGE( '1', P, N, B, LDB, WORK )
-*
+
       // Get machine precision and set up threshold for determining
      t // he effective numerical rank of the matrices A and B.
-*
+
       ULP = SLAMCH( 'Precision' )
       UNFL = SLAMCH( 'Safe Minimum' )
       TOLA = MAX( M, N )*MAX( ANORM, UNFL )*ULP
       TOLB = MAX( P, N )*MAX( BNORM, UNFL )*ULP
-*
+
       // Preprocessing
-*
+
       CALL SGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK( N+1 ), LWORK-N, INFO )
-*
+
       // Compute the GSVD of two upper "triangular" matrices
-*
+
       CALL STGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
-*
+
       // Sort the singular values and store the pivot indices in IWORK
       // Copy ALPHA to WORK, then sort ALPHA in WORK
-*
+
       CALL SCOPY( N, ALPHA, 1, WORK, 1 )
       IBND = MIN( L, M-K )
       DO 20 I = 1, IBND
-*
+
          // Scan for largest ALPHA(K+I)
-*
+
          ISUB = I
          SMAX = WORK( K+I )
          DO 10 J = I + 1, IBND
@@ -135,10 +135,10 @@
             IWORK( K+I ) = K + I
          END IF
    20 CONTINUE
-*
+
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       RETURN
-*
+
       // End of SGGSVD3
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE ZLATDF( IJOB, N, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                IJOB, LDZ, N;
       double             RDSCAL, RDSUM;
@@ -12,9 +12,9 @@
       int                IPIV( * ), JPIV( * );
       COMPLEX*16         RHS( * ), Z( LDZ, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                MAXDIM;
       PARAMETER          ( MAXDIM = 2 )
@@ -44,24 +44,24 @@
       // INTRINSIC ABS, DBLE, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       IF( IJOB.NE.2 ) THEN
-*
+
          // Apply permutations IPIV to RHS
-*
+
          CALL ZLASWP( 1, RHS, LDZ, 1, N-1, IPIV, 1 )
-*
+
          // Solve for L-part choosing RHS either to +1 or -1.
-*
+
          PMONE = -CONE
          DO 10 J = 1, N - 1
             BP = RHS( J ) + CONE
             BM = RHS( J ) - CONE
             SPLUS = ONE
-*
+
             // Look-ahead for L- part RHS(1:N-1) = +-1
             // SPLUS and SMIN computed more efficiently than in BSOLVE[1].
-*
+
             SPLUS = SPLUS + DBLE( ZDOTC( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 ) )
             SMINU = DBLE( ZDOTC( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 ) )
             SPLUS = SPLUS*DBLE( RHS( J ) )
@@ -70,28 +70,28 @@
             ELSE IF( SMINU.GT.SPLUS ) THEN
                RHS( J ) = BM
             ELSE
-*
+
                // In this case the updating sums are equal and we can
                // choose RHS(J) +1 or -1. The first time this happens we
                // choose -1, thereafter +1. This is a simple way to get
                // good estimates of matrices like Byers well-known example
                // (see [1]). (Not done in BSOLVE.)
-*
+
                RHS( J ) = RHS( J ) + PMONE
                PMONE = CONE
             END IF
-*
+
             // Compute the remaining r.h.s.
-*
+
             TEMP = -RHS( J )
             CALL ZAXPY( N-J, TEMP, Z( J+1, J ), 1, RHS( J+1 ), 1 )
    10    CONTINUE
-*
+
          // Solve for U- part, lockahead for RHS(N) = +-1. This is not done
          // In BSOLVE and will hopefully give us a better estimate because
          // any ill-conditioning of the original matrix is transferred to U
          // and not to L. U(N, N) is an approximation to sigma_min(LU).
-*
+
          CALL ZCOPY( N-1, RHS, 1, WORK, 1 )
          WORK( N ) = RHS( N ) + CONE
          RHS( N ) = RHS( N ) - CONE
@@ -109,26 +109,26 @@
             SMINU = SMINU + ABS( RHS( I ) )
    30    CONTINUE
          IF( SPLUS.GT.SMINU ) CALL ZCOPY( N, WORK, 1, RHS, 1 )
-*
+
          // Apply the permutations JPIV to the computed solution (RHS)
-*
+
          CALL ZLASWP( 1, RHS, LDZ, 1, N-1, JPIV, -1 )
-*
+
          // Compute the sum of squares
-*
+
          CALL ZLASSQ( N, RHS, 1, RDSCAL, RDSUM )
          RETURN
       END IF
-*
+
       // ENTRY IJOB = 2
-*
+
       // Compute approximate nullvector XM of Z
-*
+
       CALL ZGECON( 'I', N, Z, LDZ, ONE, RTEMP, WORK, RWORK, INFO )
       CALL ZCOPY( N, WORK( N+1 ), 1, XM, 1 )
-*
+
       // Compute RHS
-*
+
       CALL ZLASWP( 1, XM, LDZ, 1, N-1, IPIV, -1 )
       TEMP = CONE / SQRT( ZDOTC( N, XM, 1, XM, 1 ) )
       CALL ZSCAL( N, TEMP, XM, 1 )
@@ -138,12 +138,12 @@
       CALL ZGESC2( N, Z, LDZ, RHS, IPIV, JPIV, SCALE )
       CALL ZGESC2( N, Z, LDZ, XP, IPIV, JPIV, SCALE )
       IF( DZASUM( N, XP, 1 ).GT.DZASUM( N, RHS, 1 ) ) CALL ZCOPY( N, XP, 1, RHS, 1 )
-*
+
       // Compute the sum of squares
-*
+
       CALL ZLASSQ( N, RHS, 1, RDSCAL, RDSUM )
       RETURN
-*
+
       // End of ZLATDF
-*
+
       END

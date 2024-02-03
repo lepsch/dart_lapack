@@ -1,11 +1,11 @@
       PROGRAM CBLAT3
-*
+
 *  -- Reference BLAS test routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NIN;
       PARAMETER          ( NIN = 5 )
@@ -50,16 +50,16 @@
       // .. Data statements ..
       DATA               SNAMES/'CGEMM ', 'CHEMM ', 'CSYMM ', 'CTRMM ', 'CTRSM ', 'CHERK ', 'CSYRK ', 'CHER2K', 'CSYR2K'/
       // .. Executable Statements ..
-*
+
       // Read name and unit number for summary output file and open file.
-*
+
       READ( NIN, FMT = * )SUMMRY
       READ( NIN, FMT = * )NOUT
       OPEN( NOUT, FILE = SUMMRY )
       NOUTC = NOUT
-*
+
       // Read name and unit number for snapshot output file and open file.
-*
+
       READ( NIN, FMT = * )SNAPS
       READ( NIN, FMT = * )NTRA
       TRACE = NTRA.GE.0
@@ -75,9 +75,9 @@
       READ( NIN, FMT = * )TSTERR
       // Read the threshold value of the test ratio
       READ( NIN, FMT = * )THRESH
-*
+
       // Read and check the parameter values for the tests.
-*
+
       // Values of N
       READ( NIN, FMT = * )NIDIM
       IF( NIDIM.LT.1.OR.NIDIM.GT.NIDMAX )THEN
@@ -105,9 +105,9 @@
          GO TO 220
       END IF
       READ( NIN, FMT = * )( BET( I ), I = 1, NBET )
-*
+
       // Report values of parameters.
-*
+
       WRITE( NOUT, FMT = 9995 )
       WRITE( NOUT, FMT = 9994 )( IDIM( I ), I = 1, NIDIM )
       WRITE( NOUT, FMT = 9993 )( ALF( I ), I = 1, NALF )
@@ -119,10 +119,10 @@
       WRITE( NOUT, FMT = * )
       WRITE( NOUT, FMT = 9999 )THRESH
       WRITE( NOUT, FMT = * )
-*
+
       // Read names of subroutines and flags which indicate
       // whether they are to be tested.
-*
+
       DO 20 I = 1, NSUBS
          LTEST( I ) = .FALSE.
    20 CONTINUE
@@ -134,17 +134,17 @@
       STOP
    50 LTEST( I ) = LTESTT
       GO TO 30
-*
+
    60 CONTINUE
       CLOSE ( NIN )
-*
+
       // Compute EPS (the machine precision).
-*
+
       EPS = EPSILON(RZERO)
       WRITE( NOUT, FMT = 9998 )EPS
-*
+
       // Check the reliability of CMMCH using exact data.
-*
+
       N = MIN( 32, NMAX )
       DO 100 J = 1, N
          DO 90 I = 1, N
@@ -196,9 +196,9 @@
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       END IF
-*
+
       // Test each subroutine in turn.
-*
+
       DO 200 ISNUM = 1, NSUBS
          WRITE( NOUT, FMT = * )
          IF( .NOT.LTEST( ISNUM ) )THEN
@@ -244,26 +244,26 @@
      $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET,
      $                  NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W )
             GO TO 190
-*
+
   190       IF( FATAL.AND.SFATAL )
      $         GO TO 210
          END IF
   200 CONTINUE
       WRITE( NOUT, FMT = 9986 )
       GO TO 230
-*
+
   210 CONTINUE
       WRITE( NOUT, FMT = 9985 )
       GO TO 230
-*
+
   220 CONTINUE
       WRITE( NOUT, FMT = 9991 )
-*
+
   230 CONTINUE
       IF( TRACE ) CLOSE ( NTRA )
       CLOSE ( NOUT )
       STOP
-*
+
  9999 FORMAT( ' ROUTINES PASS COMPUTATIONAL TESTS IF TEST RATIO IS LES',
      $      'S THAN', F8.2 )
  9998 FORMAT( ' RELATIVE MACHINE PRECISION IS TAKEN TO BE', 1P, E9.1 )
@@ -292,22 +292,22 @@
  9986 FORMAT( /' END OF TESTS' )
  9985 FORMAT( /' ******* FATAL ERROR - TESTS ABANDONED *******' )
  9984 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' )
-*
+
       // End of CBLAT3
-*
+
       END
       SUBROUTINE CCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G )
-*
+
 *  Tests CGEMM.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Parameters ..
       COMPLEX            ZERO
       PARAMETER          ( ZERO = ( 0.0, 0.0 ) )
@@ -346,15 +346,15 @@
       // .. Data statements ..
       DATA               ICH/'NTC'/
       // .. Executable Statements ..
-*
+
       NARGS = 13
       NC = 0
       RESET = .TRUE.
       ERRMAX = RZERO
-*
+
       DO 110 IM = 1, NIDIM
          M = IDIM( IM )
-*
+
          DO 100 IN = 1, NIDIM
             N = IDIM( IN )
             // Set LDC to 1 more than minimum value if room.
@@ -364,14 +364,14 @@
             IF( LDC.GT.NMAX ) GO TO 100
             LCC = LDC*N
             NULL = N.LE.0.OR.M.LE.0
-*
+
             DO 90 IK = 1, NIDIM
                K = IDIM( IK )
-*
+
                DO 80 ICA = 1, 3
                   TRANSA = ICH( ICA: ICA )
                   TRANA = TRANSA.EQ.'T'.OR.TRANSA.EQ.'C'
-*
+
                   IF( TRANA )THEN
                      MA = K
                      NA = M
@@ -385,15 +385,15 @@
                   // Skip tests if not enough room.
                   IF( LDA.GT.NMAX ) GO TO 80
                   LAA = LDA*NA
-*
+
                   // Generate the matrix A.
-*
+
                   CALL CMAKE( 'GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO )
-*
+
                   DO 70 ICB = 1, 3
                      TRANSB = ICH( ICB: ICB )
                      TRANB = TRANSB.EQ.'T'.OR.TRANSB.EQ.'C'
-*
+
                      IF( TRANB )THEN
                         MB = N
                         NB = K
@@ -407,26 +407,26 @@
                      // Skip tests if not enough room.
                      IF( LDB.GT.NMAX ) GO TO 70
                      LBB = LDB*NB
-*
+
                      // Generate the matrix B.
-*
+
                      CALL CMAKE( 'GE', ' ', ' ', MB, NB, B, NMAX, BB, LDB, RESET, ZERO )
-*
+
                      DO 60 IA = 1, NALF
                         ALPHA = ALF( IA )
-*
+
                         DO 50 IB = 1, NBET
                            BETA = BET( IB )
-*
+
                            // Generate the matrix C.
-*
+
                            CALL CMAKE( 'GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO )
-*
+
                            NC = NC + 1
-*
+
                            // Save every datum before calling the
                            // subroutine.
-*
+
                            TRANAS = TRANSA
                            TRANBS = TRANSB
                            MS = M
@@ -446,22 +446,22 @@
                               CS( I ) = CC( I )
    30                      CONTINUE
                            LDCS = LDC
-*
+
                            // Call the subroutine.
-*
+
                            IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC
                            IF( REWI ) REWIND NTRA                            CALL CGEMM( TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
-*
+
                            // Check if error-exit was taken incorrectly.
-*
+
                            IF( .NOT.OK )THEN
                               WRITE( NOUT, FMT = 9994 )
                               FATAL = .TRUE.
                               GO TO 120
                            END IF
-*
+
                            // See what data changed inside subroutines.
-*
+
                            ISAME( 1 ) = TRANSA.EQ.TRANAS
                            ISAME( 2 ) = TRANSB.EQ.TRANBS
                            ISAME( 3 ) = MS.EQ.M
@@ -479,10 +479,10 @@
                               ISAME( 12 ) = LCERES( 'GE', ' ', M, N, CS, CC, LDC )
                            END IF
                            ISAME( 13 ) = LDCS.EQ.LDC
-*
+
                            // If data was incorrectly changed, report
                            // and return.
-*
+
                            SAME = .TRUE.
                            DO 40 I = 1, NARGS
                               SAME = SAME.AND.ISAME( I )
@@ -492,48 +492,48 @@
                               FATAL = .TRUE.
                               GO TO 120
                            END IF
-*
+
                            IF( .NOT.NULL )THEN
-*
+
                               // Check the result.
-*
+
                               CALL CMMCH( TRANSA, TRANSB, M, N, K, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
                               IF( FATAL ) GO TO 120
                            END IF
-*
+
    50                   CONTINUE
-*
+
    60                CONTINUE
-*
+
    70             CONTINUE
-*
+
    80          CONTINUE
-*
+
    90       CONTINUE
-*
+
   100    CONTINUE
-*
+
   110 CONTINUE
-*
+
       // Report result.
-*
+
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       ELSE
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 130
-*
+
   120 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       WRITE( NOUT, FMT = 9995 )NC, SNAME, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC
-*
+
   130 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
      $      'S)' )
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
@@ -547,22 +547,22 @@
      $      ',(', F4.1, ',', F4.1, '), C,', I3, ').' )
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
-*
+
       // End of CCHK1
-*
+
       END
       SUBROUTINE CCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G )
-*
+
 *  Tests CHEMM and CSYMM.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Parameters ..
       COMPLEX            ZERO
       PARAMETER          ( ZERO = ( 0.0, 0.0 ) )
@@ -602,15 +602,15 @@
       DATA               ICHS/'LR'/, ICHU/'UL'/
       // .. Executable Statements ..
       CONJ = SNAME( 2: 3 ).EQ.'HE'
-*
+
       NARGS = 12
       NC = 0
       RESET = .TRUE.
       ERRMAX = RZERO
-*
+
       DO 100 IM = 1, NIDIM
          M = IDIM( IM )
-*
+
          DO 90 IN = 1, NIDIM
             N = IDIM( IN )
             // Set LDC to 1 more than minimum value if room.
@@ -626,15 +626,15 @@
             // Skip tests if not enough room.
             IF( LDB.GT.NMAX ) GO TO 90
             LBB = LDB*N
-*
+
             // Generate the matrix B.
-*
+
             CALL CMAKE( 'GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO )
-*
+
             DO 80 ICS = 1, 2
                SIDE = ICHS( ICS: ICS )
                LEFT = SIDE.EQ.'L'
-*
+
                IF( LEFT )THEN
                   NA = M
                ELSE
@@ -646,29 +646,29 @@
                // Skip tests if not enough room.
                IF( LDA.GT.NMAX ) GO TO 80
                LAA = LDA*NA
-*
+
                DO 70 ICU = 1, 2
                   UPLO = ICHU( ICU: ICU )
-*
+
                   // Generate the hermitian or symmetric matrix A.
-*
+
                   CALL CMAKE( SNAME( 2: 3 ), UPLO, ' ', NA, NA, A, NMAX, AA, LDA, RESET, ZERO )
-*
+
                   DO 60 IA = 1, NALF
                      ALPHA = ALF( IA )
-*
+
                      DO 50 IB = 1, NBET
                         BETA = BET( IB )
-*
+
                         // Generate the matrix C.
-*
+
                         CALL CMAKE( 'GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO )
-*
+
                         NC = NC + 1
-*
+
                         // Save every datum before calling the
                         // subroutine.
-*
+
                         SIDES = SIDE
                         UPLOS = UPLO
                         MS = M
@@ -687,9 +687,9 @@
                            CS( I ) = CC( I )
    30                   CONTINUE
                         LDCS = LDC
-*
+
                         // Call the subroutine.
-*
+
                         IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC
                         IF( REWI ) REWIND NTRA
                         IF( CONJ )THEN
@@ -697,17 +697,17 @@
                         ELSE
                            CALL CSYMM( SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
                         END IF
-*
+
                         // Check if error-exit was taken incorrectly.
-*
+
                         IF( .NOT.OK )THEN
                            WRITE( NOUT, FMT = 9994 )
                            FATAL = .TRUE.
                            GO TO 110
                         END IF
-*
+
                         // See what data changed inside subroutines.
-*
+
                         ISAME( 1 ) = SIDES.EQ.SIDE
                         ISAME( 2 ) = UPLOS.EQ.UPLO
                         ISAME( 3 ) = MS.EQ.M
@@ -724,10 +724,10 @@
                            ISAME( 11 ) = LCERES( 'GE', ' ', M, N, CS, CC, LDC )
                         END IF
                         ISAME( 12 ) = LDCS.EQ.LDC
-*
+
                         // If data was incorrectly changed, report and
                         // return.
-*
+
                         SAME = .TRUE.
                         DO 40 I = 1, NARGS
                            SAME = SAME.AND.ISAME( I )
@@ -737,11 +737,11 @@
                            FATAL = .TRUE.
                            GO TO 110
                         END IF
-*
+
                         IF( .NOT.NULL )THEN
-*
+
                            // Check the result.
-*
+
                            IF( LEFT )THEN
                               CALL CMMCH( 'N', 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                            ELSE
@@ -752,35 +752,35 @@
                            // return.
                            IF( FATAL ) GO TO 110
                         END IF
-*
+
    50                CONTINUE
-*
+
    60             CONTINUE
-*
+
    70          CONTINUE
-*
+
    80       CONTINUE
-*
+
    90    CONTINUE
-*
+
   100 CONTINUE
-*
+
       // Report result.
-*
+
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       ELSE
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 120
-*
+
   110 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       WRITE( NOUT, FMT = 9995 )NC, SNAME, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC
-*
+
   120 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
      $      'S)' )
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
@@ -794,22 +794,22 @@
      $      ',', F4.1, '), C,', I3, ')    .' )
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
-*
+
       // End of CCHK2
-*
+
       END
       SUBROUTINE CCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C )
-*
+
 *  Tests CTRMM and CTRSM.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Parameters ..
       COMPLEX            ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) )
@@ -849,7 +849,7 @@
       // .. Data statements ..
       DATA               ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/, ICHS/'LR'/
       // .. Executable Statements ..
-*
+
       NARGS = 11
       NC = 0
       RESET = .TRUE.
@@ -860,10 +860,10 @@
             C( I, J ) = ZERO
    10    CONTINUE
    20 CONTINUE
-*
+
       DO 140 IM = 1, NIDIM
          M = IDIM( IM )
-*
+
          DO 130 IN = 1, NIDIM
             N = IDIM( IN )
             // Set LDB to 1 more than minimum value if room.
@@ -873,7 +873,7 @@
             IF( LDB.GT.NMAX ) GO TO 130
             LBB = LDB*N
             NULL = M.LE.0.OR.N.LE.0
-*
+
             DO 120 ICS = 1, 2
                SIDE = ICHS( ICS: ICS )
                LEFT = SIDE.EQ.'L'
@@ -888,32 +888,32 @@
                // Skip tests if not enough room.
                IF( LDA.GT.NMAX ) GO TO 130
                LAA = LDA*NA
-*
+
                DO 110 ICU = 1, 2
                   UPLO = ICHU( ICU: ICU )
-*
+
                   DO 100 ICT = 1, 3
                      TRANSA = ICHT( ICT: ICT )
-*
+
                      DO 90 ICD = 1, 2
                         DIAG = ICHD( ICD: ICD )
-*
+
                         DO 80 IA = 1, NALF
                            ALPHA = ALF( IA )
-*
+
                            // Generate the matrix A.
-*
+
                            CALL CMAKE( 'TR', UPLO, DIAG, NA, NA, A, NMAX, AA, LDA, RESET, ZERO )
-*
+
                            // Generate the matrix B.
-*
+
                            CALL CMAKE( 'GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO )
-*
+
                            NC = NC + 1
-*
+
                            // Save every datum before calling the
                            // subroutine.
-*
+
                            SIDES = SIDE
                            UPLOS = UPLO
                            TRANAS = TRANSA
@@ -929,9 +929,9 @@
                               BS( I ) = BB( I )
    40                      CONTINUE
                            LDBS = LDB
-*
+
                            // Call the subroutine.
-*
+
                            IF( SNAME( 4: 5 ).EQ.'MM' )THEN
                               IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB
                               IF( REWI ) REWIND NTRA                               CALL CTRMM( SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB )
@@ -939,17 +939,17 @@
                               IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB
                               IF( REWI ) REWIND NTRA                               CALL CTRSM( SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB )
                            END IF
-*
+
                            // Check if error-exit was taken incorrectly.
-*
+
                            IF( .NOT.OK )THEN
                               WRITE( NOUT, FMT = 9994 )
                               FATAL = .TRUE.
                               GO TO 150
                            END IF
-*
+
                            // See what data changed inside subroutines.
-*
+
                            ISAME( 1 ) = SIDES.EQ.SIDE
                            ISAME( 2 ) = UPLOS.EQ.UPLO
                            ISAME( 3 ) = TRANAS.EQ.TRANSA
@@ -965,10 +965,10 @@
                               ISAME( 10 ) = LCERES( 'GE', ' ', M, N, BS, BB, LDB )
                            END IF
                            ISAME( 11 ) = LDBS.EQ.LDB
-*
+
                            // If data was incorrectly changed, report and
                            // return.
-*
+
                            SAME = .TRUE.
                            DO 50 I = 1, NARGS
                               SAME = SAME.AND.ISAME( I )
@@ -978,28 +978,28 @@
                               FATAL = .TRUE.
                               GO TO 150
                            END IF
-*
+
                            IF( .NOT.NULL )THEN
                               IF( SNAME( 4: 5 ).EQ.'MM' )THEN
-*
+
                                  // Check the result.
-*
+
                                  IF( LEFT )THEN
                                     CALL CMMCH( TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
                                  ELSE
                                     CALL CMMCH( 'N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
                                  END IF
                               ELSE IF( SNAME( 4: 5 ).EQ.'SM' )THEN
-*
+
                                  // Compute approximation to original
                                  // matrix.
-*
+
                                  DO 70 J = 1, N
                                     DO 60 I = 1, M
                                        C( I, J ) = BB( I + ( J - 1 )* LDB )                                        BB( I + ( J - 1 )*LDB ) = ALPHA* B( I, J )
    60                               CONTINUE
    70                            CONTINUE
-*
+
                                  IF( LEFT )THEN
                                     CALL CMMCH( TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
                                  ELSE
@@ -1011,37 +1011,37 @@
                               // return.
                               IF( FATAL ) GO TO 150
                            END IF
-*
+
    80                   CONTINUE
-*
+
    90                CONTINUE
-*
+
   100             CONTINUE
-*
+
   110          CONTINUE
-*
+
   120       CONTINUE
-*
+
   130    CONTINUE
-*
+
   140 CONTINUE
-*
+
       // Report result.
-*
+
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       ELSE
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 160
-*
+
   150 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       WRITE( NOUT, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB
-*
+
   160 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
      $      'S)' )
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
@@ -1055,22 +1055,22 @@
      $      '      .' )
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
-*
+
       // End of CCHK3
-*
+
       END
       SUBROUTINE CCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G )
-*
+
 *  Tests CHERK and CSYRK.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Parameters ..
       COMPLEX            ZERO
       PARAMETER          ( ZERO = ( 0.0, 0.0 ) )
@@ -1110,12 +1110,12 @@
       DATA               ICHT/'NC'/, ICHU/'UL'/
       // .. Executable Statements ..
       CONJ = SNAME( 2: 3 ).EQ.'HE'
-*
+
       NARGS = 10
       NC = 0
       RESET = .TRUE.
       ERRMAX = RZERO
-*
+
       DO 100 IN = 1, NIDIM
          N = IDIM( IN )
          // Set LDC to 1 more than minimum value if room.
@@ -1124,10 +1124,10 @@
          // Skip tests if not enough room.
          IF( LDC.GT.NMAX ) GO TO 100
          LCC = LDC*N
-*
+
          DO 90 IK = 1, NIDIM
             K = IDIM( IK )
-*
+
             DO 80 ICT = 1, 2
                TRANS = ICHT( ICT: ICT )
                TRAN = TRANS.EQ.'C'
@@ -1145,22 +1145,22 @@
                // Skip tests if not enough room.
                IF( LDA.GT.NMAX ) GO TO 80
                LAA = LDA*NA
-*
+
                // Generate the matrix A.
-*
+
                CALL CMAKE( 'GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO )
-*
+
                DO 70 ICU = 1, 2
                   UPLO = ICHU( ICU: ICU )
                   UPPER = UPLO.EQ.'U'
-*
+
                   DO 60 IA = 1, NALF
                      ALPHA = ALF( IA )
                      IF( CONJ )THEN
                         RALPHA = REAL( ALPHA )
                         ALPHA = CMPLX( RALPHA, RZERO )
                      END IF
-*
+
                      DO 50 IB = 1, NBET
                         BETA = BET( IB )
                         IF( CONJ )THEN
@@ -1169,15 +1169,15 @@
                         END IF
                         NULL = N.LE.0
                         IF( CONJ ) NULL = NULL.OR.( ( K.LE.0.OR.RALPHA.EQ. RZERO ).AND.RBETA.EQ.RONE )
-*
+
                         // Generate the matrix C.
-*
+
                         CALL CMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO )
-*
+
                         NC = NC + 1
-*
+
                         // Save every datum before calling the subroutine.
-*
+
                         UPLOS = UPLO
                         TRANSS = TRANS
                         NS = N
@@ -1200,9 +1200,9 @@
                            CS( I ) = CC( I )
    20                   CONTINUE
                         LDCS = LDC
-*
+
                         // Call the subroutine.
-*
+
                         IF( CONJ )THEN
                            IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, N, K, RALPHA, LDA, RBETA, LDC
                            IF( REWI ) REWIND NTRA                            CALL CHERK( UPLO, TRANS, N, K, RALPHA, AA, LDA, RBETA, CC, LDC )
@@ -1210,17 +1210,17 @@
                            IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC
                            IF( REWI ) REWIND NTRA                            CALL CSYRK( UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC )
                         END IF
-*
+
                         // Check if error-exit was taken incorrectly.
-*
+
                         IF( .NOT.OK )THEN
                            WRITE( NOUT, FMT = 9992 )
                            FATAL = .TRUE.
                            GO TO 120
                         END IF
-*
+
                         // See what data changed inside subroutines.
-*
+
                         ISAME( 1 ) = UPLOS.EQ.UPLO
                         ISAME( 2 ) = TRANSS.EQ.TRANS
                         ISAME( 3 ) = NS.EQ.N
@@ -1243,10 +1243,10 @@
                            ISAME( 9 ) = LCERES( SNAME( 2: 3 ), UPLO, N, N, CS, CC, LDC )
                         END IF
                         ISAME( 10 ) = LDCS.EQ.LDC
-*
+
                         // If data was incorrectly changed, report and
                         // return.
-*
+
                         SAME = .TRUE.
                         DO 30 I = 1, NARGS
                            SAME = SAME.AND.ISAME( I )
@@ -1256,11 +1256,11 @@
                            FATAL = .TRUE.
                            GO TO 120
                         END IF
-*
+
                         IF( .NOT.NULL )THEN
-*
+
                            // Check the result column by column.
-*
+
                            IF( CONJ )THEN
                               TRANST = 'C'
                            ELSE
@@ -1291,31 +1291,31 @@
                               IF( FATAL ) GO TO 110
    40                      CONTINUE
                         END IF
-*
+
    50                CONTINUE
-*
+
    60             CONTINUE
-*
+
    70          CONTINUE
-*
+
    80       CONTINUE
-*
+
    90    CONTINUE
-*
+
   100 CONTINUE
-*
+
       // Report result.
-*
+
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       ELSE
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 130
-*
+
   110 CONTINUE
       IF( N.GT.1 ) WRITE( NOUT, FMT = 9995 )J
-*
+
   120 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       IF( CONJ )THEN
@@ -1323,10 +1323,10 @@
       ELSE
          WRITE( NOUT, FMT = 9993 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC
       END IF
-*
+
   130 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
      $      'S)' )
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
@@ -1344,22 +1344,22 @@
      $      '), C,', I3, ')          .' )
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
-*
+
       // End of CCHK4
-*
+
       END
       SUBROUTINE CCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W )
-*
+
 *  Tests CHER2K and CSYR2K.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Parameters ..
       COMPLEX            ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) )
@@ -1399,12 +1399,12 @@
       DATA               ICHT/'NC'/, ICHU/'UL'/
       // .. Executable Statements ..
       CONJ = SNAME( 2: 3 ).EQ.'HE'
-*
+
       NARGS = 12
       NC = 0
       RESET = .TRUE.
       ERRMAX = RZERO
-*
+
       DO 130 IN = 1, NIDIM
          N = IDIM( IN )
          // Set LDC to 1 more than minimum value if room.
@@ -1413,10 +1413,10 @@
          // Skip tests if not enough room.
          IF( LDC.GT.NMAX ) GO TO 130
          LCC = LDC*N
-*
+
          DO 120 IK = 1, NIDIM
             K = IDIM( IK )
-*
+
             DO 110 ICT = 1, 2
                TRANS = ICHT( ICT: ICT )
                TRAN = TRANS.EQ.'C'
@@ -1434,17 +1434,17 @@
                // Skip tests if not enough room.
                IF( LDA.GT.NMAX ) GO TO 110
                LAA = LDA*NA
-*
+
                // Generate the matrix A.
-*
+
                IF( TRAN )THEN
                   CALL CMAKE( 'GE', ' ', ' ', MA, NA, AB, 2*NMAX, AA, LDA, RESET, ZERO )
                ELSE
                   CALL CMAKE( 'GE', ' ', ' ', MA, NA, AB, NMAX, AA, LDA, RESET, ZERO )
                END IF
-*
+
                // Generate the matrix B.
-*
+
                LDB = LDA
                LBB = LAA
                IF( TRAN )THEN
@@ -1452,14 +1452,14 @@
                ELSE
                   CALL CMAKE( 'GE', ' ', ' ', MA, NA, AB( K*NMAX + 1 ), NMAX, BB, LDB, RESET, ZERO )
                END IF
-*
+
                DO 100 ICU = 1, 2
                   UPLO = ICHU( ICU: ICU )
                   UPPER = UPLO.EQ.'U'
-*
+
                   DO 90 IA = 1, NALF
                      ALPHA = ALF( IA )
-*
+
                      DO 80 IB = 1, NBET
                         BETA = BET( IB )
                         IF( CONJ )THEN
@@ -1468,15 +1468,15 @@
                         END IF
                         NULL = N.LE.0
                         IF( CONJ ) NULL = NULL.OR.( ( K.LE.0.OR.ALPHA.EQ. ZERO ).AND.RBETA.EQ.RONE )
-*
+
                         // Generate the matrix C.
-*
+
                         CALL CMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO )
-*
+
                         NC = NC + 1
-*
+
                         // Save every datum before calling the subroutine.
-*
+
                         UPLOS = UPLO
                         TRANSS = TRANS
                         NS = N
@@ -1499,9 +1499,9 @@
                            CS( I ) = CC( I )
    30                   CONTINUE
                         LDCS = LDC
-*
+
                         // Call the subroutine.
-*
+
                         IF( CONJ )THEN
                            IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, LDB, RBETA, LDC
                            IF( REWI ) REWIND NTRA                            CALL CHER2K( UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, RBETA, CC, LDC )
@@ -1509,17 +1509,17 @@
                            IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC
                            IF( REWI ) REWIND NTRA                            CALL CSYR2K( UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
                         END IF
-*
+
                         // Check if error-exit was taken incorrectly.
-*
+
                         IF( .NOT.OK )THEN
                            WRITE( NOUT, FMT = 9992 )
                            FATAL = .TRUE.
                            GO TO 150
                         END IF
-*
+
                         // See what data changed inside subroutines.
-*
+
                         ISAME( 1 ) = UPLOS.EQ.UPLO
                         ISAME( 2 ) = TRANSS.EQ.TRANS
                         ISAME( 3 ) = NS.EQ.N
@@ -1540,10 +1540,10 @@
                            ISAME( 11 ) = LCERES( 'HE', UPLO, N, N, CS, CC, LDC )
                         END IF
                         ISAME( 12 ) = LDCS.EQ.LDC
-*
+
                         // If data was incorrectly changed, report and
                         // return.
-*
+
                         SAME = .TRUE.
                         DO 40 I = 1, NARGS
                            SAME = SAME.AND.ISAME( I )
@@ -1553,11 +1553,11 @@
                            FATAL = .TRUE.
                            GO TO 150
                         END IF
-*
+
                         IF( .NOT.NULL )THEN
-*
+
                            // Check the result column by column.
-*
+
                            IF( CONJ )THEN
                               TRANST = 'C'
                            ELSE
@@ -1605,31 +1605,31 @@
                               IF( FATAL ) GO TO 140
    70                      CONTINUE
                         END IF
-*
+
    80                CONTINUE
-*
+
    90             CONTINUE
-*
+
   100          CONTINUE
-*
+
   110       CONTINUE
-*
+
   120    CONTINUE
-*
+
   130 CONTINUE
-*
+
       // Report result.
-*
+
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       ELSE
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 160
-*
+
   140 CONTINUE
       IF( N.GT.1 ) WRITE( NOUT, FMT = 9995 )J
-*
+
   150 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       IF( CONJ )THEN
@@ -1637,10 +1637,10 @@
       ELSE
          WRITE( NOUT, FMT = 9993 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC
       END IF
-*
+
   160 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
      $      'S)' )
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
@@ -1658,28 +1658,28 @@
      $      ',', F4.1, '), C,', I3, ')    .' )
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
-*
+
       // End of CCHK5
-*
+
       END
       SUBROUTINE CCHKE( ISNUM, SRNAMT, NOUT )
-*
+
 *  Tests the error exits from the Level 3 Blas.
 *  Requires a special version of the error-handling routine XERBLA.
 *  A, B and C should not need to be defined.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
 *  3-19-92:  Initialize ALPHA, BETA, RALPHA, and RBETA  (eca)
 *  3-19-92:  Fix argument 12 in calls to CSYMM and CHEMM
              // with INFOT = 9  (eca)
-*
+
       // .. Scalar Arguments ..
       int                ISNUM, NOUT;
       String             SRNAMT;
@@ -1705,14 +1705,14 @@
       // LERR is set to .TRUE. by the special version of XERBLA each time
       // it is called, and is then tested and re-set by CHKXER.
       LERR = .FALSE.
-*
+
       // Initialize ALPHA, BETA, RALPHA, and RBETA.
-*
+
       ALPHA = CMPLX( ONE, -ONE )
       BETA = CMPLX( TWO, -TWO )
       RALPHA = ONE
       RBETA = TWO
-*
+
       GO TO ( 10, 20, 30, 40, 50, 60, 70, 80, 90 )ISNUM
    10 INFOT = 1
       CALL CGEMM( '/', 'N', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
@@ -2586,37 +2586,37 @@
       INFOT = 12
       CALL CSYR2K( 'L', 'T', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
       CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
-*
+
   100 IF( OK )THEN
          WRITE( NOUT, FMT = 9999 )SRNAMT
       ELSE
          WRITE( NOUT, FMT = 9998 )SRNAMT
       END IF
       RETURN
-*
+
  9999 FORMAT( ' ', A6, ' PASSED THE TESTS OF ERROR-EXITS' )
  9998 FORMAT( ' ******* ', A6, ' FAILED THE TESTS OF ERROR-EXITS *****',
      $      '**' )
-*
+
       // End of CCHKE
-*
+
       END
       SUBROUTINE CMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL )
-*
+
 *  Generates values for an M by N matrix A.
 *  Stores the values in the array AA in the data structure required
 *  by the routine, with unwanted elements set to rogue value.
-*
+
 *  TYPE is 'GE', 'HE', 'SY' or 'TR'.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Parameters ..
       COMPLEX            ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) )
@@ -2650,9 +2650,9 @@
       UPPER = ( HER.OR.SYM.OR.TRI ).AND.UPLO.EQ.'U'
       LOWER = ( HER.OR.SYM.OR.TRI ).AND.UPLO.EQ.'L'
       UNIT = TRI.AND.DIAG.EQ.'U'
-*
+
       // Generate data in array A.
-*
+
       DO 20 J = 1, N
          DO 10 I = 1, M
             IF( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) THEN
@@ -2672,9 +2672,9 @@
    10    CONTINUE
          IF( HER ) A( J, J ) = CMPLX( REAL( A( J, J ) ), RZERO )          IF( TRI ) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE
    20 CONTINUE
-*
+
       // Store elements in array AS in data structure required by routine.
-*
+
       IF( TYPE.EQ.'GE' )THEN
          DO 50 J = 1, N
             DO 30 I = 1, M
@@ -2717,22 +2717,22 @@
    90    CONTINUE
       END IF
       RETURN
-*
+
       // End of CMAKE
-*
+
       END
       SUBROUTINE CMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV )
-*
+
 *  Checks the results of the computational tests.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Parameters ..
       COMPLEX            ZERO
       PARAMETER          ( ZERO = ( 0.0, 0.0 ) )
@@ -2763,13 +2763,13 @@
       TRANB = TRANSB.EQ.'T'.OR.TRANSB.EQ.'C'
       CTRANA = TRANSA.EQ.'C'
       CTRANB = TRANSB.EQ.'C'
-*
+
       // Compute expected result, one column at a time, in CT using data
       // in A, B and C.
       // Compute gauges in G.
-*
+
       DO 220 J = 1, N
-*
+
          DO 10 I = 1, M
             CT( I ) = ZERO
             G( I ) = RZERO
@@ -2851,9 +2851,9 @@
             CT( I ) = ALPHA*CT( I ) + BETA*C( I, J )
             G( I ) = ABS1( ALPHA )*G( I ) + ABS1( BETA )*ABS1( C( I, J ) )
   200    CONTINUE
-*
+
          // Compute the error ratio for this result.
-*
+
          ERR = ZERO
          DO 210 I = 1, M
             ERRI = ABS1( CT( I ) - CC( I, J ) )/EPS
@@ -2861,14 +2861,14 @@
             ERR = MAX( ERR, ERRI )
             IF( ERR*SQRT( EPS ).GE.RONE ) GO TO 230
   210    CONTINUE
-*
+
   220 CONTINUE
-*
+
       // If the loop completes, all results are at least half accurate.
       GO TO 250
-*
+
       // Report fatal error.
-*
+
   230 FATAL = .TRUE.
       WRITE( NOUT, FMT = 9999 )
       DO 240 I = 1, M
@@ -2879,31 +2879,31 @@
          END IF
   240 CONTINUE
       IF( N.GT.1 ) WRITE( NOUT, FMT = 9997 )J
-*
+
   250 CONTINUE
       RETURN
-*
+
  9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL',
      $      'F ACCURATE *******', /'                       EXPECTED RE',
      $      'SULT                    COMPUTED RESULT' )
  9998 FORMAT( 1X, I7, 2( '  (', G15.6, ',', G15.6, ')' ) )
  9997 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 )
-*
+
       // End of CMMCH
-*
+
       END
       bool    FUNCTION LCE( RI, RJ, LR );
-*
+
 *  Tests if two arrays are identical.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
@@ -2919,24 +2919,24 @@
    20 CONTINUE
       LCE = .FALSE.
    30 RETURN
-*
+
       // End of LCE
-*
+
       END
       bool    FUNCTION LCERES( TYPE, UPLO, M, N, AA, AS, LDA );
-*
+
 *  Tests if selected elements in two arrays are equal.
-*
+
 *  TYPE is 'GE' or 'HE' or 'SY'.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Scalar Arguments ..
       int                LDA, M, N;
       String             UPLO;
@@ -2971,29 +2971,29 @@
    40       CONTINUE
    50    CONTINUE
       END IF
-*
+
       LCERES = .TRUE.
       GO TO 80
    70 CONTINUE
       LCERES = .FALSE.
    80 RETURN
-*
+
       // End of LCERES
-*
+
       END
       COMPLEX FUNCTION CBEG( RESET )
-*
+
 *  Generates complex numbers as pairs of random numbers uniformly
 *  distributed between -0.5 and 0.5.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Scalar Arguments ..
       bool               RESET;
       // .. Local Scalars ..
@@ -3012,14 +3012,14 @@
          IC = 0
          RESET = .FALSE.
       END IF
-*
+
       // The sequence of values of I or J is bounded between 1 and 999.
       // If initial I or J = 1,2,3,6,7 or 9, the period will be 50.
       // If initial I or J = 4 or 8, the period will be 25.
       // If initial I or J = 5, the period will be 10.
       // IC is used to break up the period by skipping 1 value of I or J
       // in 6.
-*
+
       IC = IC + 1
    10 I = I*MI
       J = J*MJ
@@ -3031,41 +3031,41 @@
       END IF
       CBEG = CMPLX( ( I - 500 )/1001.0, ( J - 500 )/1001.0 )
       RETURN
-*
+
       // End of CBEG
-*
+
       END
       REAL FUNCTION SDIFF( X, Y )
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Scalar Arguments ..
       REAL               X, Y
       // .. Executable Statements ..
       SDIFF = X - Y
       RETURN
-*
+
       // End of SDIFF
-*
+
       END
       SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
-*
+
 *  Tests whether XERBLA has detected an error when it should.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Scalar Arguments ..
       int                INFOT, NOUT;
       bool               LERR, OK;
@@ -3077,32 +3077,32 @@
       END IF
       LERR = .FALSE.
       RETURN
-*
+
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D',
      $      'ETECTED BY ', A6, ' *****' )
-*
+
       // End of CHKXER
-*
+
       END
       SUBROUTINE XERBLA( SRNAME, INFO )
-*
+
 *  This is a special version of XERBLA to be used only as part of
 *  the test program for testing error exits from the Level 3 BLAS
 *  routines.
-*
+
 *  XERBLA  is an error handler for the Level 3 BLAS routines.
-*
+
 *  It is called by the Level 3 BLAS routines if an input parameter is
 *  invalid.
-*
+
 *  Auxiliary routine for test program for Level 3 Blas.
-*
+
 *  -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-*
+
       // .. Scalar Arguments ..
       int                INFO;
       String             SRNAME;
@@ -3128,14 +3128,14 @@
          OK = .FALSE.
       END IF
       RETURN
-*
+
  9999 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6, ' INSTEAD',
      $      ' OF ', I2, ' *******' )
  9998 FORMAT( ' ******* XERBLA WAS CALLED WITH SRNAME = ', A6, ' INSTE',
      $      'AD OF ', A6, ' *******' )
  9997 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6,
      $      ' *******' )
-*
+
       // End of XERBLA
-*
+
       END

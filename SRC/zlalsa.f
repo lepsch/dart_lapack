@@ -1,9 +1,9 @@
       SUBROUTINE ZLALSA( ICOMPQ, SMLSIZ, N, NRHS, B, LDB, BX, LDBX, U, LDU, VT, K, DIFL, DIFR, Z, POLES, GIVPTR, GIVCOL, LDGCOL, PERM, GIVNUM, C, S, RWORK, IWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                ICOMPQ, INFO, LDB, LDBX, LDGCOL, LDU, N, NRHS, SMLSIZ;
       // ..
@@ -11,9 +11,9 @@
       int                GIVCOL( LDGCOL, * ), GIVPTR( * ), IWORK( * ), K( * ), PERM( LDGCOL, * )       double             C( * ), DIFL( LDU, * ), DIFR( LDU, * ), GIVNUM( LDU, * ), POLES( LDU, * ), RWORK( * ), S( * ), U( LDU, * ), VT( LDU, * ), Z( LDU, * );;
       COMPLEX*16         B( LDB, * ), BX( LDBX, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -28,11 +28,11 @@
       // INTRINSIC DBLE, DCMPLX, DIMAG
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
-*
+
       IF( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) THEN
          INFO = -1
       ELSE IF( SMLSIZ.LT.3 ) THEN
@@ -54,49 +54,49 @@
          CALL XERBLA( 'ZLALSA', -INFO )
          RETURN
       END IF
-*
+
       // Book-keeping and  setting up the computation tree.
-*
+
       INODE = 1
       NDIML = INODE + N
       NDIMR = NDIML + N
-*
+
       CALL DLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
-*
+
       // The following code applies back the left singular vector factors.
       // For applying back the right singular vector factors, go to 170.
-*
+
       IF( ICOMPQ.EQ.1 ) THEN
          GO TO 170
       END IF
-*
+
       // The nodes on the bottom level of the tree were solved
       // by DLASDQ. The corresponding left and right singular vector
       // matrices are in explicit form. First apply back the left
       // singular vector matrices.
-*
+
       NDB1 = ( ND+1 ) / 2
       DO 130 I = NDB1, ND
-*
+
          // IC : center row of each node
          // NL : number of rows of left  subproblem
          // NR : number of rows of right subproblem
          // NLF: starting row of the left   subproblem
          // NRF: starting row of the right  subproblem
-*
+
          I1 = I - 1
          IC = IWORK( INODE+I1 )
          NL = IWORK( NDIML+I1 )
          NR = IWORK( NDIMR+I1 )
          NLF = IC - NL
          NRF = IC + 1
-*
+
          // Since B and BX are complex, the following call to DGEMM
          // is performed in two steps (real and imaginary parts).
-*
+
          // CALL DGEMM( 'T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU,
       // $               B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )
-*
+
          J = NL*NRHS*2
          DO 20 JCOL = 1, NRHS
             DO 10 JROW = NLF, NLF + NL - 1
@@ -122,13 +122,13 @@
                BX( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
    50       CONTINUE
    60    CONTINUE
-*
+
          // Since B and BX are complex, the following call to DGEMM
          // is performed in two steps (real and imaginary parts).
-*
+
          // CALL DGEMM( 'T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU,
 *    $               B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
-*
+
          J = NR*NRHS*2
          DO 80 JCOL = 1, NRHS
             DO 70 JROW = NRF, NRF + NR - 1
@@ -154,29 +154,29 @@
                BX( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
   110       CONTINUE
   120    CONTINUE
-*
+
   130 CONTINUE
-*
+
       // Next copy the rows of B that correspond to unchanged rows
       // in the bidiagonal matrix to BX.
-*
+
       DO 140 I = 1, ND
          IC = IWORK( INODE+I-1 )
          CALL ZCOPY( NRHS, B( IC, 1 ), LDB, BX( IC, 1 ), LDBX )
   140 CONTINUE
-*
+
       // Finally go through the left singular vector matrices of all
      t // he other subproblems bottom-up on the tree.
-*
+
       J = 2**NLVL
       SQRE = 0
-*
+
       DO 160 LVL = NLVL, 1, -1
          LVL2 = 2*LVL - 1
-*
+
          // find the first node LF and last node LL on
         t // he current level LVL
-*
+
          IF( LVL.EQ.1 ) THEN
             LF = 1
             LL = 1
@@ -196,21 +196,21 @@
   150    CONTINUE
   160 CONTINUE
       GO TO 330
-*
+
       // ICOMPQ = 1: applying back the right singular vector factors.
-*
+
   170 CONTINUE
-*
+
       // First now go through the right singular vector matrices of all
      t // he tree nodes top-down.
-*
+
       J = 0
       DO 190 LVL = 1, NLVL
          LVL2 = 2*LVL - 1
-*
+
          // Find the first node LF and last node LL on
         t // he current level LVL.
-*
+
          IF( LVL.EQ.1 ) THEN
             LF = 1
             LL = 1
@@ -234,11 +234,11 @@
             CALL ZLALS0( ICOMPQ, NL, NR, SQRE, NRHS, B( NLF, 1 ), LDB, BX( NLF, 1 ), LDBX, PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), RWORK, INFO )
   180    CONTINUE
   190 CONTINUE
-*
+
       // The nodes on the bottom level of the tree were solved
       // by DLASDQ. The corresponding right singular vector
       // matrices are in explicit form. Apply them back.
-*
+
       NDB1 = ( ND+1 ) / 2
       DO 320 I = NDB1, ND
          I1 = I - 1
@@ -253,13 +253,13 @@
          END IF
          NLF = IC - NL
          NRF = IC + 1
-*
+
          // Since B and BX are complex, the following call to DGEMM is
          // performed in two steps (real and imaginary parts).
-*
+
          // CALL DGEMM( 'T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU,
 *    $               B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )
-*
+
          J = NLP1*NRHS*2
          DO 210 JCOL = 1, NRHS
             DO 200 JROW = NLF, NLF + NLP1 - 1
@@ -285,13 +285,13 @@
                BX( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
   240       CONTINUE
   250    CONTINUE
-*
+
          // Since B and BX are complex, the following call to DGEMM is
          // performed in two steps (real and imaginary parts).
-*
+
          // CALL DGEMM( 'T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU,
 *    $               B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
-*
+
          J = NRP1*NRHS*2
          DO 270 JCOL = 1, NRHS
             DO 260 JROW = NRF, NRF + NRP1 - 1
@@ -317,13 +317,13 @@
                BX( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
   300       CONTINUE
   310    CONTINUE
-*
+
   320 CONTINUE
-*
+
   330 CONTINUE
-*
+
       RETURN
-*
+
       // End of ZLALSA
-*
+
       END

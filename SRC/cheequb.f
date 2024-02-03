@@ -1,9 +1,9 @@
       SUBROUTINE CHEEQUB( UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, N;
       REAL               AMAX, SCOND
@@ -13,9 +13,9 @@
       COMPLEX            A( LDA, * ), WORK( * )
       REAL               S( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0 )
@@ -46,9 +46,9 @@
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF ( .NOT. ( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) THEN
          INFO = -1
@@ -64,9 +64,9 @@
 
       UP = LSAME( UPLO, 'U' )
       AMAX = ZERO
-*
+
       // Quick return if possible.
-*
+
       IF ( N .EQ. 0 ) THEN
          SCOND = ONE
          RETURN
@@ -205,5 +205,5 @@
          SMAX = MAX( SMAX, S( I ) )
       END DO
       SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )
-*
+
       END

@@ -1,16 +1,16 @@
       SUBROUTINE ALAHD( IOUNIT, PATH )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                IOUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               CORZ, SORD;
       String             C1, C3;
@@ -27,7 +27,7 @@
       // INTRINSIC LEN_TRIM
       // ..
       // .. Executable Statements ..
-*
+
       IF( IOUNIT.LE.0 ) RETURN
       C1 = PATH( 1: 1 )
       C3 = PATH( 3: 3 )
@@ -35,11 +35,11 @@
       SORD = LSAME( C1, 'S' ) .OR. LSAME( C1, 'D' )
       CORZ = LSAME( C1, 'C' ) .OR. LSAME( C1, 'Z' )
       IF( .NOT.( SORD .OR. CORZ ) ) RETURN
-*
+
       IF( LSAMEN( 2, P2, 'GE' ) ) THEN
-*
+
          // GE: General dense
-*
+
          WRITE( IOUNIT, FMT = 9999 )PATH
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9979 )
@@ -53,11 +53,11 @@
          WRITE( IOUNIT, FMT = 9956 )7
          WRITE( IOUNIT, FMT = 9955 )8
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'GB' ) ) THEN
-*
+
          // GB: General band
-*
+
          WRITE( IOUNIT, FMT = 9998 )PATH
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9978 )
@@ -70,11 +70,11 @@
          WRITE( IOUNIT, FMT = 9956 )6
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'GT' ) ) THEN
-*
+
          // GT: General tridiagonal
-*
+
          WRITE( IOUNIT, FMT = 9997 )PATH
          WRITE( IOUNIT, FMT = 9977 )
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
@@ -86,12 +86,12 @@
          WRITE( IOUNIT, FMT = 9956 )6
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'PO' ) .OR. LSAMEN( 2, P2, 'PP' ) ) THEN
-*
+
          // PO: Positive definite full
          // PP: Positive definite packed
-*
+
          IF( SORD ) THEN
             SYM = 'Symmetric'
          ELSE
@@ -114,11 +114,11 @@
          WRITE( IOUNIT, FMT = 9956 )7
          WRITE( IOUNIT, FMT = 9955 )8
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'PS' ) ) THEN
-*
+
          // PS: Positive semi-definite full
-*
+
          IF( SORD ) THEN
             SYM = 'Symmetric'
          ELSE
@@ -138,9 +138,9 @@
          WRITE( IOUNIT, FMT = 8950 )
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
       ELSE IF( LSAMEN( 2, P2, 'PB' ) ) THEN
-*
+
          // PB: Positive definite band
-*
+
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9994 )PATH, 'Symmetric'
          ELSE
@@ -157,11 +157,11 @@
          WRITE( IOUNIT, FMT = 9956 )6
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'PT' ) ) THEN
-*
+
          // PT: Positive definite tridiagonal
-*
+
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9993 )PATH, 'Symmetric'
          ELSE
@@ -177,12 +177,12 @@
          WRITE( IOUNIT, FMT = 9956 )6
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'SY' )  ) THEN
-*
+
          // SY: Symmetric indefinite full,
              // with partial (Bunch-Kaufman) pivoting algorithm
-*
+
          IF( LSAME( C3, 'Y' ) ) THEN
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric'
          ELSE
@@ -205,27 +205,27 @@
          WRITE( IOUNIT, FMT = 9957 )8
          WRITE( IOUNIT, FMT = 9955 )9
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'SR' ) .OR. LSAMEN( 2, P2, 'SK') ) THEN
-*
+
          // SR: Symmetric indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm
-*
+
          // SK: Symmetric indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm,
              // ( new storage format for factors:
                // L and diagonal of D is stored in A,
                // subdiagonal of D is stored in E )
-*
+
          WRITE( IOUNIT, FMT = 9892 )PATH, 'Symmetric'
-*
+
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9972 )
          ELSE
             WRITE( IOUNIT, FMT = 9971 )
          END IF
-*
+
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 9953 )1
          WRITE( IOUNIT, FMT = 9961 )2
@@ -237,12 +237,12 @@
          WRITE( IOUNIT, FMT = 9959 )6
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'SP' ) ) THEN
-*
+
          // SP: Symmetric indefinite packed,
              // with partial (Bunch-Kaufman) pivoting algorithm
-*
+
          IF( LSAME( C3, 'Y' ) ) THEN
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric'
          ELSE
@@ -264,17 +264,17 @@
          WRITE( IOUNIT, FMT = 9957 )7
          WRITE( IOUNIT, FMT = 9955 )8
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'HA' )  ) THEN
-*
+
          // HA: Hermitian,
              // with Assen Algorithm
-*
+
          WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian'
-*
+
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9972 )
-*
+
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 9953 )1
          WRITE( IOUNIT, FMT = 9961 )2
@@ -286,17 +286,17 @@
          WRITE( IOUNIT, FMT = 9957 )8
          WRITE( IOUNIT, FMT = 9955 )9
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'HE' )  ) THEN
-*
+
          // HE: Hermitian indefinite full,
              // with partial (Bunch-Kaufman) pivoting algorithm
-*
+
          WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian'
-*
+
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9972 )
-*
+
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 9953 )1
          WRITE( IOUNIT, FMT = 9961 )2
@@ -308,23 +308,23 @@
          WRITE( IOUNIT, FMT = 9957 )8
          WRITE( IOUNIT, FMT = 9955 )9
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'HR' ) .OR. LSAMEN( 2, P2, 'HR' ) ) THEN
-*
+
          // HR: Hermitian indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm
-*
+
          // HK: Hermitian indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm,
              // ( new storage format for factors:
                // L and diagonal of D is stored in A,
                // subdiagonal of D is stored in E )
-*
+
          WRITE( IOUNIT, FMT = 9892 )PATH, 'Hermitian'
-*
+
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9972 )
-*
+
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 9953 )1
          WRITE( IOUNIT, FMT = 9961 )2
@@ -336,12 +336,12 @@
          WRITE( IOUNIT, FMT = 9959 )6
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'HP' ) ) THEN
-*
+
          // HP: Hermitian indefinite packed,
              // with partial (Bunch-Kaufman) pivoting algorithm
-*
+
          IF( LSAME( C3, 'E' ) ) THEN
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian'
          ELSE
@@ -359,12 +359,12 @@
          WRITE( IOUNIT, FMT = 9957 )7
          WRITE( IOUNIT, FMT = 9955 )8
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'TR' ) .OR. LSAMEN( 2, P2, 'TP' ) ) THEN
-*
+
          // TR: Triangular full
          // TP: Triangular packed
-*
+
          IF( LSAME( C3, 'R' ) ) THEN
             WRITE( IOUNIT, FMT = 9990 )PATH
             SUBNAM = PATH( 1: 1 ) // 'LATRS'
@@ -384,11 +384,11 @@
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = 9951 )SUBNAM(1:LEN_TRIM( SUBNAM )), 8
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'TB' ) ) THEN
-*
+
          // TB: Triangular band
-*
+
          WRITE( IOUNIT, FMT = 9988 )PATH
          SUBNAM = PATH( 1: 1 ) // 'LATBS'
          WRITE( IOUNIT, FMT = 9964 )PATH
@@ -402,11 +402,11 @@
          WRITE( IOUNIT, FMT = 9955 )6
          WRITE( IOUNIT, FMT = 9951 )SUBNAM(1:LEN_TRIM( SUBNAM )), 7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'QR' ) ) THEN
-*
+
          // QR decomposition of rectangular matrices
-*
+
          WRITE( IOUNIT, FMT = 9987 )PATH, 'QR'
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9970 )
@@ -421,11 +421,11 @@
          WRITE( IOUNIT, FMT = 9960 )7
          WRITE( IOUNIT, FMT = 6660 )9
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'LQ' ) ) THEN
-*
+
          // LQ decomposition of rectangular matrices
-*
+
          WRITE( IOUNIT, FMT = 9987 )PATH, 'LQ'
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9970 )
@@ -438,11 +438,11 @@
          WRITE( IOUNIT, FMT = 9941 )6, 'N'
          WRITE( IOUNIT, FMT = 9960 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'QL' ) ) THEN
-*
+
          // QL decomposition of rectangular matrices
-*
+
          WRITE( IOUNIT, FMT = 9987 )PATH, 'QL'
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9970 )
@@ -455,11 +455,11 @@
          WRITE( IOUNIT, FMT = 9941 )6, 'M'
          WRITE( IOUNIT, FMT = 9960 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'RQ' ) ) THEN
-*
+
          // RQ decomposition of rectangular matrices
-*
+
          WRITE( IOUNIT, FMT = 9987 )PATH, 'RQ'
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9970 )
@@ -472,11 +472,11 @@
          WRITE( IOUNIT, FMT = 9941 )6, 'N'
          WRITE( IOUNIT, FMT = 9960 )7
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'QP' ) ) THEN
-*
+
          // QR decomposition with column pivoting
-*
+
          WRITE( IOUNIT, FMT = 8006 )PATH
          WRITE( IOUNIT, FMT = 9969 )
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
@@ -484,11 +484,11 @@
          WRITE( IOUNIT, FMT = 9939 )2
          WRITE( IOUNIT, FMT = 9938 )3
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'QK' ) ) THEN
-*
+
         t // runcated QR decomposition with column pivoting
-*
+
          WRITE( IOUNIT, FMT = 8006 )PATH
          WRITE( IOUNIT, FMT = 9871 )
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
@@ -498,11 +498,11 @@
          WRITE( IOUNIT, FMT = 8063 )4
          WRITE( IOUNIT, FMT = 8064 )5
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'TZ' ) ) THEN
-*
+
          // TZ:  Trapezoidal
-*
+
          WRITE( IOUNIT, FMT = 9985 )PATH
          WRITE( IOUNIT, FMT = 9968 )
          WRITE( IOUNIT, FMT = 9929 )C1
@@ -511,12 +511,12 @@
          WRITE( IOUNIT, FMT = 9937 )2
          WRITE( IOUNIT, FMT = 9938 )3
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'LS' ) ) THEN
-*
+
          // LS:  Least Squares driver routines for
               // LS, LST, TSLS, LSD, LSS, LSX and LSY.
-*
+
          WRITE( IOUNIT, FMT = 9984 )PATH
          WRITE( IOUNIT, FMT = 9967 )
          WRITE( IOUNIT, FMT = 9921 )C1, C1, C1, C1, C1, C1
@@ -529,42 +529,42 @@
          WRITE( IOUNIT, FMT = 9932 )10
          WRITE( IOUNIT, FMT = 9920 )
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'LU' ) ) THEN
-*
+
          // LU factorization variants
-*
+
          WRITE( IOUNIT, FMT = 9983 )PATH
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9979 )
          WRITE( IOUNIT, FMT = '( '' Test ratio:'' )' )
          WRITE( IOUNIT, FMT = 9962 )1
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'CH' ) ) THEN
-*
+
          // Cholesky factorization variants
-*
+
          WRITE( IOUNIT, FMT = 9982 )PATH
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9974 )
          WRITE( IOUNIT, FMT = '( '' Test ratio:'' )' )
          WRITE( IOUNIT, FMT = 9954 )1
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'QS' ) ) THEN
-*
+
          // QR factorization variants
-*
+
          WRITE( IOUNIT, FMT = 9981 )PATH
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          WRITE( IOUNIT, FMT = 9970 )
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
-*
+
       ELSE IF( LSAMEN( 2, P2, 'QT' ) ) THEN
-*
+
          // QRT (general matrices)
-*
+
          WRITE( IOUNIT, FMT = 8000 ) PATH
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 8011 ) 1
@@ -573,11 +573,11 @@
          WRITE( IOUNIT, FMT = 8014 ) 4
          WRITE( IOUNIT, FMT = 8015 ) 5
          WRITE( IOUNIT, FMT = 8016 ) 6
-*
+
       ELSE IF( LSAMEN( 2, P2, 'QX' ) ) THEN
-*
+
          // QRT (triangular-pentagonal)
-*
+
          WRITE( IOUNIT, FMT = 8001 ) PATH
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 8017 ) 1
@@ -586,11 +586,11 @@
          WRITE( IOUNIT, FMT = 8020 ) 4
          WRITE( IOUNIT, FMT = 8021 ) 5
          WRITE( IOUNIT, FMT = 8022 ) 6
-*
+
       ELSE IF( LSAMEN( 2, P2, 'TQ' ) ) THEN
-*
+
          // QRT (triangular-pentagonal)
-*
+
          WRITE( IOUNIT, FMT = 8002 ) PATH
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 8023 ) 1
@@ -599,11 +599,11 @@
          WRITE( IOUNIT, FMT = 8026 ) 4
          WRITE( IOUNIT, FMT = 8027 ) 5
          WRITE( IOUNIT, FMT = 8028 ) 6
-*
+
       ELSE IF( LSAMEN( 2, P2, 'XQ' ) ) THEN
-*
+
          // QRT (triangular-pentagonal)
-*
+
          WRITE( IOUNIT, FMT = 8003 ) PATH
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 8029 ) 1
@@ -612,11 +612,11 @@
          WRITE( IOUNIT, FMT = 8032 ) 4
          WRITE( IOUNIT, FMT = 8033 ) 5
          WRITE( IOUNIT, FMT = 8034 ) 6
-*
+
       ELSE IF( LSAMEN( 2, P2, 'TS' ) ) THEN
-*
+
          // TS:  QR routines for tall-skinny and short-wide matrices
-*
+
          WRITE( IOUNIT, FMT = 8004 ) PATH
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 8035 ) 1
@@ -625,11 +625,11 @@
          WRITE( IOUNIT, FMT = 8038 ) 4
          WRITE( IOUNIT, FMT = 8039 ) 5
          WRITE( IOUNIT, FMT = 8040 ) 6
-*
+
       ELSE IF( LSAMEN( 2, P2, 'HH' ) ) THEN
-*
+
          // HH:  Householder reconstruction for tall-skinny matrices
-*
+
          WRITE( IOUNIT, FMT = 8005 ) PATH
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
          WRITE( IOUNIT, FMT = 8050 ) 1
@@ -638,16 +638,16 @@
          WRITE( IOUNIT, FMT = 8053 ) 4
          WRITE( IOUNIT, FMT = 8054 ) 5
          WRITE( IOUNIT, FMT = 8055 ) 6
-*
+
       ELSE
-*
+
          // Print error message if no header is available.
-*
+
          WRITE( IOUNIT, FMT = 9980 )PATH
       END IF
-*
+
       // First line of header
-*
+
  9999 FORMAT( / 1X, A3, ':  General dense matrices' )
  9998 FORMAT( / 1X, A3, ':  General band matrices' )
  9997 FORMAT( / 1X, A3, ':  General tridiagonal' )
@@ -688,9 +688,9 @@
      $       ' factorization output ', /,' for tall-skinny matrices.' )
  8006 FORMAT( / 1X, A3, ':  truncated QR factorization',
      $        ' with column pivoting' )
-*
+
       // GE matrix types
-*
+
  9979 FORMAT( 4X, '1. Diagonal', 24X, '7. Last n/2 columns zero', / 4X,
      $      '2. Upper triangular', 16X,
      $      '8. Random, CNDNUM = sqrt(0.1/EPS)', / 4X,
@@ -699,18 +699,18 @@
      $      '10. Scaled near underflow', / 4X, '5. First column zero',
      $      14X, '11. Scaled near overflow', / 4X,
      $      '6. Last column zero' )
-*
+
       // GB matrix types
-*
+
  9978 FORMAT( 4X, '1. Random, CNDNUM = 2', 14X,
      $      '5. Random, CNDNUM = sqrt(0.1/EPS)', / 4X,
      $      '2. First column zero', 15X, '6. Random, CNDNUM = .01/EPS',
      $      / 4X, '3. Last column zero', 16X,
      $      '7. Scaled near underflow', / 4X,
      $      '4. Last n/2 columns zero', 11X, '8. Scaled near overflow' )
-*
+
       // GT matrix types
-*
+
  9977 FORMAT( ' Matrix types (1-6 have specified condition numbers):',
      $      / 4X, '1. Diagonal', 24X, '7. Random, unspecified CNDNUM',
      $      / 4X, '2. Random, CNDNUM = 2', 14X, '8. First column zero',
@@ -720,9 +720,9 @@
      $      '5. Scaled near underflow', 10X,
      $      '11. Scaled near underflow', / 4X,
      $      '6. Scaled near overflow', 11X, '12. Scaled near overflow' )
-*
+
       // PT matrix types
-*
+
  9976 FORMAT( ' Matrix types (1-6 have specified condition numbers):',
      $      / 4X, '1. Diagonal', 24X, '7. Random, unspecified CNDNUM',
      $      / 4X, '2. Random, CNDNUM = 2', 14X,
@@ -734,9 +734,9 @@
      $      '5. Scaled near underflow', 10X,
      $      '11. Scaled near underflow', / 4X,
      $      '6. Scaled near overflow', 11X, '12. Scaled near overflow' )
-*
+
       // PO, PP matrix types
-*
+
  9975 FORMAT( 4X, '1. Diagonal', 24X,
      $      '6. Random, CNDNUM = sqrt(0.1/EPS)', / 4X,
      $      '2. Random, CNDNUM = 2', 14X, '7. Random, CNDNUM = 0.1/EPS',
@@ -747,9 +747,9 @@
      $      '*5. Middle row and column zero', / 3X,
      $      '(* - tests error exits from ', A3,
      $      'TRF, no test ratios are computed)' )
-*
+
       // CH matrix types
-*
+
  9974 FORMAT( 4X, '1. Diagonal', 24X,
      $      '6. Random, CNDNUM = sqrt(0.1/EPS)', / 4X,
      $      '2. Random, CNDNUM = 2', 14X, '7. Random, CNDNUM = 0.1/EPS',
@@ -759,9 +759,9 @@
      $      '9. Scaled near overflow', / 3X,
      $      '*5. Middle row and column zero', / 3X,
      $      '(* - tests error exits, no test ratios are computed)' )
-*
+
       // PS matrix types
-*
+
  8973 FORMAT( 4X, '1. Diagonal', / 4X, '2. Random, CNDNUM = 2', 14X,
      $      / 3X, '*3. Nonzero eigenvalues of: D(1:RANK-1)=1 and ',
      $      'D(RANK) = 1.0/', A4, / 3X,
@@ -774,9 +774,9 @@
      $      '8. Scaled near underflow', / 4X, '9. Scaled near overflow',
      $      / 3X, '(* - Semi-definite tests )' )
  8972 FORMAT( 3X, 'RANK minus computed rank, returned by ', A, 'PSTRF' )
-*
+
       // PB matrix types
-*
+
  9973 FORMAT( 4X, '1. Random, CNDNUM = 2', 14X,
      $      '5. Random, CNDNUM = sqrt(0.1/EPS)', / 3X,
      $      '*2. First row and column zero', 7X,
@@ -787,9 +787,9 @@
      $      '8. Scaled near overflow', / 3X,
      $      '(* - tests error exits from ', A3,
      $      'TRF, no test ratios are computed)' )
-*
+
       // SSY, SSR, SSP, CHE, CHR, CHP matrix types
-*
+
  9972 FORMAT( 4X, '1. Diagonal', 24X,
      $      '6. Last n/2 rows and columns zero', / 4X,
      $      '2. Random, CNDNUM = 2', 14X,
@@ -800,9 +800,9 @@
      $      '9. Scaled near underflow', / 4X,
      $      '5. Middle row and column zero', 5X,
      $      '10. Scaled near overflow' )
-*
+
       // CSY, CSR, CSP matrix types
-*
+
  9971 FORMAT( 4X, '1. Diagonal', 24X,
      $      '7. Random, CNDNUM = sqrt(0.1/EPS)', / 4X,
      $      '2. Random, CNDNUM = 2', 14X, '8. Random, CNDNUM = 0.1/EPS',
@@ -813,26 +813,26 @@
      $      '5. Middle row and column zero', 5X,
      $      '11. Block diagonal matrix', / 4X,
      $      '6. Last n/2 rows and columns zero' )
-*
+
       // QR matrix types
-*
+
  9970 FORMAT( 4X, '1. Diagonal', 24X,
      $      '5. Random, CNDNUM = sqrt(0.1/EPS)', / 4X,
      $      '2. Upper triangular', 16X, '6. Random, CNDNUM = 0.1/EPS',
      $      / 4X, '3. Lower triangular', 16X,
      $      '7. Scaled near underflow', / 4X, '4. Random, CNDNUM = 2',
      $      14X, '8. Scaled near overflow' )
-*
+
       // QP matrix types
-*
+
  9969 FORMAT( ' Matrix types (2-6 have condition 1/EPS):', / 4X,
      $      '1. Zero matrix', 21X, '4. First n/2 columns fixed', / 4X,
      $      '2. One small eigenvalue', 12X, '5. Last n/2 columns fixed',
      $      / 4X, '3. Geometric distribution', 10X,
      $      '6. Every second column fixed' )
-*
+
       // QK matrix types
-*
+
  9871 FORMAT( 4X, ' 1. Zero matrix', /
      $        4X, ' 2. Random, Diagonal, CNDNUM = 2', /
      $        4X, ' 3. Random, Upper triangular, CNDNUM = 2', /
@@ -860,22 +860,22 @@
      $                 ' NORM = SMALL = SAFMIN', /
      $        4X, '19. Random, CNDNUM = 2, scaled near overflow,',
      $            ' NORM = LARGE = 1.0/( 0.25 * ( SAFMIN / EPS ) )' )
-*
+
       // TZ matrix types
-*
+
  9968 FORMAT( ' Matrix types (2-3 have condition 1/EPS):', / 4X,
      $      '1. Zero matrix', / 4X, '2. One small eigenvalue', / 4X,
      $      '3. Geometric distribution' )
-*
+
       // LS matrix types
-*
+
  9967 FORMAT( ' Matrix types (1-3: full rank, 4-6: rank deficient):',
      $      / 4X, '1 and 4. Normal scaling', / 4X,
      $      '2 and 5. Scaled near overflow', / 4X,
      $      '3 and 6. Scaled near underflow' )
-*
+
       // TR, TP matrix types
-*
+
  9966 FORMAT( ' Matrix types for ', A3, ' routines:', / 4X,
      $      '1. Diagonal', 24X, '6. Scaled near overflow', / 4X,
      $      '2. Random, CNDNUM = 2', 14X, '7. Identity', / 4X,
@@ -896,9 +896,9 @@
      $      '16. One zero diagonal element', / 3X,
      $      '17. Large offdiagonals cause overflow when adding a column'
      $      , / 3X, '18. Unit triangular with large right hand side' )
-*
+
       // TB matrix types
-*
+
  9964 FORMAT( ' Matrix types for ', A3, ' routines:', / 4X,
      $      '1. Random, CNDNUM = 2', 14X, '6. Identity', / 4X,
      $      '2. Random, CNDNUM = sqrt(0.1/EPS)  ',
@@ -919,9 +919,9 @@
      $      '15. One zero diagonal element', / 3X,
      $      '16. Large offdiagonals cause overflow when adding a column'
      $      , / 3X, '17. Unit triangular with large right hand side' )
-*
+
       // Test ratios
-*
+
  9962 FORMAT( 3X, I2, ': norm( L * U - A )  / ( N * norm(A) * EPS )' )
  9961 FORMAT( 3X, I2, ': norm( I - A*AINV ) / ',
      $      '( N * norm(A) * norm(AINV) * EPS )' )
@@ -1035,7 +1035,7 @@
  8039 FORMAT(3X,I2,': norm( C*Q - C*Q ) / ( (M+N) * norm(C) * EPS )' )
  8040 FORMAT(3X,I2,
      $ ': norm( C*Q'' - C*Q'' ) / ( (M+N) * norm(C) * EPS )')
-*
+
  8050 FORMAT(3X,I2,': norm( R - Q''*A ) / ( M * norm(A) * EPS )' )
  8051 FORMAT(3X,I2,': norm( I - Q''*Q ) / ( M * EPS )' )
  8052 FORMAT(3X,I2,': norm( Q*C - Q*C ) / ( M * norm(C) * EPS )' )
@@ -1052,9 +1052,9 @@
      $                 ' > abs(R(K,K)), where K=1:KFACT-1' )
  8064 FORMAT( 3X, I2, ': 1-norm(Q**T * B - Q**T * B ) / ( M * EPS )')
 
-*
+
       RETURN
-*
+
       // End of ALAHD
-*
+
       END

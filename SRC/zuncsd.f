@@ -1,9 +1,9 @@
       RECURSIVE SUBROUTINE ZUNCSD( JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, WORK, LWORK, RWORK, LRWORK, IWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBU1, JOBU2, JOBV1T, JOBV2T, SIGNS, TRANS;
       int                INFO, LDU1, LDU2, LDV1T, LDV2T, LDX11, LDX12, LDX21, LDX22, LRWORK, LWORK, M, P, Q;
@@ -14,9 +14,9 @@
       double             RWORK( * );
       COMPLEX*16         U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * )
       // ..
-*
+
 *  ===================================================================
-*
+
       // .. Parameters ..
       COMPLEX*16         ONE, ZERO
       PARAMETER          ( ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) )
@@ -39,9 +39,9 @@
       // INTRINSIC INT, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Test input arguments
-*
+
       INFO = 0
       WANTU1 = LSAME( JOBU1, 'Y' )
       WANTU2 = LSAME( JOBU2, 'Y' )
@@ -82,9 +82,9 @@
       ELSE IF( WANTV2T .AND. LDV2T .LT. M-Q ) THEN
          INFO = -26
       END IF
-*
+
       // Work with transpose if convenient
-*
+
       IF( INFO .EQ. 0 .AND. MIN( P, M-P ) .LT. MIN( Q, M-Q ) ) THEN
          IF( COLMAJOR ) THEN
             TRANST = 'T'
@@ -99,10 +99,10 @@
          CALL ZUNCSD( JOBV1T, JOBV2T, JOBU1, JOBU2, TRANST, SIGNST, M, Q, P, X11, LDX11, X21, LDX21, X12, LDX12, X22, LDX22, THETA, V1T, LDV1T, V2T, LDV2T, U1, LDU1, U2, LDU2, WORK, LWORK, RWORK, LRWORK, IWORK, INFO )
          RETURN
       END IF
-*
+
       // Work with permutation [ 0 I; I 0 ] * X * [ 0 I; I 0 ] if
       // convenient
-*
+
       IF( INFO .EQ. 0 .AND. M-Q .LT. Q ) THEN
          IF( DEFAULTSIGNS ) THEN
             SIGNST = 'O'
@@ -112,13 +112,13 @@
          CALL ZUNCSD( JOBU2, JOBU1, JOBV2T, JOBV1T, TRANS, SIGNST, M, M-P, M-Q, X22, LDX22, X21, LDX21, X12, LDX12, X11, LDX11, THETA, U2, LDU2, U1, LDU1, V2T, LDV2T, V1T, LDV1T, WORK, LWORK, RWORK, LRWORK, IWORK, INFO )
          RETURN
       END IF
-*
+
       // Compute workspace
-*
+
       IF( INFO .EQ. 0 ) THEN
-*
+
          // Real workspace
-*
+
          IPHI = 2
          IB11D = IPHI + MAX( 1, Q - 1 )
          IB11E = IB11D + MAX( 1, Q )
@@ -135,9 +135,9 @@
          LRWORKOPT = IBBCSD + LBBCSDWORKOPT - 1
          LRWORKMIN = IBBCSD + LBBCSDWORKMIN - 1
          RWORK(1) = LRWORKOPT
-*
+
          // Complex workspace
-*
+
          ITAUP1 = 2
          ITAUP2 = ITAUP1 + MAX( 1, P )
          ITAUQ1 = ITAUP2 + MAX( 1, M - P )
@@ -156,7 +156,7 @@
          LORBDBWORKMIN = LORBDBWORKOPT
          LWORKOPT = MAX( IORGQR + LORGQRWORKOPT, IORGLQ + LORGLQWORKOPT, IORBDB + LORBDBWORKOPT ) - 1          LWORKMIN = MAX( IORGQR + LORGQRWORKMIN, IORGLQ + LORGLQWORKMIN, IORBDB + LORBDBWORKMIN ) - 1
          WORK(1) = MAX(LWORKOPT,LWORKMIN)
-*
+
          IF( LWORK .LT. LWORKMIN .AND. .NOT. ( LQUERY .OR. LRQUERY ) ) THEN
             INFO = -22
          ELSE IF( LRWORK .LT. LRWORKMIN .AND. .NOT. ( LQUERY .OR. LRQUERY ) ) THEN
@@ -168,22 +168,22 @@
             LBBCSDWORK = LRWORK - IBBCSD + 1
          END IF
       END IF
-*
+
       // Abort if any illegal arguments
-*
+
       IF( INFO .NE. 0 ) THEN
          CALL XERBLA( 'ZUNCSD', -INFO )
          RETURN
       ELSE IF( LQUERY .OR. LRQUERY ) THEN
          RETURN
       END IF
-*
+
       // Transform to bidiagonal block form
-*
+
       CALL ZUNBDB( TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, RWORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(ITAUQ2), WORK(IORBDB), LORBDBWORK, CHILDINFO )
-*
+
       // Accumulate Householder reflectors
-*
+
       IF( COLMAJOR ) THEN
          IF( WANTU1 .AND. P .GT. 0 ) THEN
             CALL ZLACPY( 'L', P, Q, X11, LDX11, U1, LDU1 )
@@ -239,16 +239,16 @@
             CALL ZUNGQR( M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGQR), LORGQRWORK, INFO )
          END IF
       END IF
-*
+
       // Compute the CSD of the matrix in bidiagonal-block form
-*
+
       CALL ZBBCSD( JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, M, P, Q, THETA, RWORK(IPHI), U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, RWORK(IB11D), RWORK(IB11E), RWORK(IB12D), RWORK(IB12E), RWORK(IB21D), RWORK(IB21E), RWORK(IB22D), RWORK(IB22E), RWORK(IBBCSD), LBBCSDWORK, INFO )
-*
+
       // Permute rows and columns to place identity submatrices in top-
       // left corner of (1,1)-block and/or bottom-right corner of (1,2)-
       // block and/or bottom-right corner of (2,1)-block and/or top-left
       // corner of (2,2)-block
-*
+
       IF( Q .GT. 0 .AND. WANTU2 ) THEN
          DO I = 1, Q
             IWORK(I) = M - P - Q + I
@@ -275,9 +275,9 @@
             CALL ZLAPMR( .FALSE., M-Q, M-Q, V2T, LDV2T, IWORK )
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End ZUNCSD
-*
+
       END

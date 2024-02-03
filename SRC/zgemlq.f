@@ -1,9 +1,9 @@
       SUBROUTINE ZGEMLQ( SIDE, TRANS, M, N, K, A, LDA, T, TSIZE, C, LDC, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                INFO, LDA, M, N, K, TSIZE, LWORK, LDC;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), T( * ), C( LDC, * ), WORK( * )
       // ..
-*
+
 * =====================================================================
-*
+
       // ..
       // .. Local Scalars ..
       bool               LEFT, RIGHT, TRAN, NOTRAN, LQUERY;
@@ -30,15 +30,15 @@
       // INTRINSIC INT, MAX, MIN, MOD
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       LQUERY  = ( LWORK.EQ.-1 )
       NOTRAN  = LSAME( TRANS, 'N' )
       TRAN    = LSAME( TRANS, 'C' )
       LEFT    = LSAME( SIDE, 'L' )
       RIGHT   = LSAME( SIDE, 'R' )
-*
+
       MB = INT( T( 2 ) )
       NB = INT( T( 3 ) )
       IF( LEFT ) THEN
@@ -48,14 +48,14 @@
         LW = M * MB
         MN = N
       END IF
-*
+
       MINMNK = MIN( M, N, K )
       IF( MINMNK.EQ.0 ) THEN
         LWMIN = 1
       ELSE
         LWMIN = MAX( 1, LW )
       END IF
-*
+
       IF( ( NB.GT.K ) .AND. ( MN.GT.K ) ) THEN
         IF( MOD( MN - K, NB - K ) .EQ. 0 ) THEN
           NBLCKS = ( MN - K ) / ( NB - K )
@@ -65,7 +65,7 @@
       ELSE
         NBLCKS = 1
       END IF
-*
+
       INFO = 0
       IF( .NOT.LEFT .AND. .NOT.RIGHT ) THEN
         INFO = -1
@@ -86,33 +86,33 @@
       ELSE IF( ( LWORK.LT.LWMIN ) .AND. ( .NOT.LQUERY ) ) THEN
         INFO = -13
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
         WORK( 1 ) = LW
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
         CALL XERBLA( 'ZGEMLQ', -INFO )
         RETURN
       ELSE IF( LQUERY ) THEN
         RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( MINMNK.EQ.0 ) THEN
         RETURN
       END IF
-*
+
       IF( ( LEFT .AND. M.LE.K ) .OR. ( RIGHT .AND. N.LE.K ) .OR. ( NB.LE.K ) .OR. ( NB.GE.MAX( M, N, K ) ) ) THEN         CALL ZGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO )
       ELSE
         CALL ZLAMSWLQ( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), MB, C, LDC, WORK, LWORK, INFO )
       END IF
-*
+
       WORK( 1 ) = LW
-*
+
       RETURN
-*
+
       // End of ZGEMLQ
-*
+
       END

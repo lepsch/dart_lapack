@@ -1,9 +1,9 @@
       SUBROUTINE CUNGTR( UPLO, N, A, LDA, TAU, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LWORK, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX            ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ) )
@@ -35,9 +35,9 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
       UPPER = LSAME( UPLO, 'U' )
@@ -50,7 +50,7 @@
       ELSE IF( LWORK.LT.MAX( 1, N-1 ) .AND. .NOT.LQUERY ) THEN
          INFO = -7
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          IF ( UPPER ) THEN
            NB = ILAENV( 1, 'CUNGQL', ' ', N-1, N-1, N-1, -1 )
@@ -60,29 +60,29 @@
          LWKOPT = MAX( 1, N-1 )*NB
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CUNGTR', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) THEN
          WORK( 1 ) = 1
          RETURN
       END IF
-*
+
       IF( UPPER ) THEN
-*
+
          // Q was determined by a call to CHETRD with UPLO = 'U'
-*
+
          // Shift the vectors which define the elementary reflectors one
          // column to the left, and set the last row and column of Q to
         t // hose of the unit matrix
-*
+
          DO 20 J = 1, N - 1
             DO 10 I = 1, J - 1
                A( I, J ) = A( I, J+1 )
@@ -93,19 +93,19 @@
             A( I, N ) = ZERO
    30    CONTINUE
          A( N, N ) = ONE
-*
+
          // Generate Q(1:n-1,1:n-1)
-*
+
          CALL CUNGQL( N-1, N-1, N-1, A, LDA, TAU, WORK, LWORK, IINFO )
-*
+
       ELSE
-*
+
          // Q was determined by a call to CHETRD with UPLO = 'L'.
-*
+
          // Shift the vectors which define the elementary reflectors one
          // column to the right, and set the first row and column of Q to
         t // hose of the unit matrix
-*
+
          DO 50 J = N, 2, -1
             A( 1, J ) = ZERO
             DO 40 I = J + 1, N
@@ -117,15 +117,15 @@
             A( I, 1 ) = ZERO
    60    CONTINUE
          IF( N.GT.1 ) THEN
-*
+
             // Generate Q(2:n,2:n)
-*
+
             CALL CUNGQR( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
          END IF
       END IF
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       RETURN
-*
+
       // End of CUNGTR
-*
+
       END

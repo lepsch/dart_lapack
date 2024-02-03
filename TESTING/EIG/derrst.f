@@ -1,16 +1,16 @@
       SUBROUTINE DERRST( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // NMAX has to be at least 3 or LIW may be too small
       // .. Parameters ..
       int                NMAX, LIW, LW;
@@ -44,13 +44,13 @@
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1.D0 / DBLE( I+J )
@@ -65,13 +65,13 @@
    30 CONTINUE
       OK = .TRUE.
       NT = 0
-*
+
       // Test error exits for the ST path.
-*
+
       IF( LSAMEN( 2, C2, 'ST' ) ) THEN
-*
+
          // DSYTRD
-*
+
          SRNAMT = 'DSYTRD'
          INFOT = 1
          CALL DSYTRD( '/', 0, A, 1, D, E, TAU, W, 1, INFO )
@@ -86,9 +86,9 @@
          CALL DSYTRD( 'U', 0, A, 1, D, E, TAU, W, 0, INFO )
          CALL CHKXER( 'DSYTRD', INFOT, NOUT, LERR, OK )
          NT = NT + 4
-*
+
          // DSYTD2
-*
+
          SRNAMT = 'DSYTD2'
          INFOT = 1
          CALL DSYTD2( '/', 0, A, 1, D, E, TAU, INFO )
@@ -100,9 +100,9 @@
          CALL DSYTD2( 'U', 2, A, 1, D, E, TAU, INFO )
          CALL CHKXER( 'DSYTD2', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // DSYTRD_2STAGE
-*
+
          SRNAMT = 'DSYTRD_2STAGE'
          INFOT = 1
          CALL DSYTRD_2STAGE( '/', 'U', 0, A, 1, D, E, TAU,  C, 1, W, 1, INFO )
@@ -126,9 +126,9 @@
          CALL DSYTRD_2STAGE( 'N', 'U', 0, A, 1, D, E, TAU,  C, 1, W, 0, INFO )
          CALL CHKXER( 'DSYTRD_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // DSYTRD_SY2SB
-*
+
          SRNAMT = 'DSYTRD_SY2SB'
          INFOT = 1
          CALL DSYTRD_SY2SB( '/', 0, 0, A, 1, C, 1, TAU, W, 1, INFO )
@@ -149,9 +149,9 @@
          CALL DSYTRD_SY2SB( 'U', 0, 0, A, 1, C, 1, TAU, W, 0, INFO )
          CALL CHKXER( 'DSYTRD_SY2SB', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // DSYTRD_SB2ST
-*
+
          SRNAMT = 'DSYTRD_SB2ST'
          INFOT = 1
          CALL DSYTRD_SB2ST( '/', 'N', 'U', 0, 0, A, 1, D, E,  C, 1, W, 1, INFO )
@@ -181,9 +181,9 @@
          CALL DSYTRD_SB2ST( 'Y', 'N', 'U', 0, 0, A, 1, D, E,  C, 1, W, 0, INFO )
          CALL CHKXER( 'DSYTRD_SB2ST', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // DORGTR
-*
+
          SRNAMT = 'DORGTR'
          INFOT = 1
          CALL DORGTR( '/', 0, A, 1, TAU, W, 1, INFO )
@@ -198,9 +198,9 @@
          CALL DORGTR( 'U', 3, A, 3, TAU, W, 1, INFO )
          CALL CHKXER( 'DORGTR', INFOT, NOUT, LERR, OK )
          NT = NT + 4
-*
+
          // DORMTR
-*
+
          SRNAMT = 'DORMTR'
          INFOT = 1
          CALL DORMTR( '/', 'U', 'N', 0, 0, A, 1, TAU, C, 1, W, 1, INFO )
@@ -233,9 +233,9 @@
          CALL DORMTR( 'R', 'U', 'N', 2, 0, A, 1, TAU, C, 2, W, 1, INFO )
          CALL CHKXER( 'DORMTR', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // DSPTRD
-*
+
          SRNAMT = 'DSPTRD'
          INFOT = 1
          CALL DSPTRD( '/', 0, A, D, E, TAU, INFO )
@@ -244,9 +244,9 @@
          CALL DSPTRD( 'U', -1, A, D, E, TAU, INFO )
          CALL CHKXER( 'DSPTRD', INFOT, NOUT, LERR, OK )
          NT = NT + 2
-*
+
          // DOPGTR
-*
+
          SRNAMT = 'DOPGTR'
          INFOT = 1
          CALL DOPGTR( '/', 0, A, TAU, Z, 1, W, INFO )
@@ -258,9 +258,9 @@
          CALL DOPGTR( 'U', 2, A, TAU, Z, 1, W, INFO )
          CALL CHKXER( 'DOPGTR', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // DOPMTR
-*
+
          SRNAMT = 'DOPMTR'
          INFOT = 1
          CALL DOPMTR( '/', 'U', 'N', 0, 0, A, TAU, C, 1, W, INFO )
@@ -281,9 +281,9 @@
          CALL DOPMTR( 'L', 'U', 'N', 2, 0, A, TAU, C, 1, W, INFO )
          CALL CHKXER( 'DOPMTR', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // DPTEQR
-*
+
          SRNAMT = 'DPTEQR'
          INFOT = 1
          CALL DPTEQR( '/', 0, D, E, Z, 1, W, INFO )
@@ -295,9 +295,9 @@
          CALL DPTEQR( 'V', 2, D, E, Z, 1, W, INFO )
          CALL CHKXER( 'DPTEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // DSTEBZ
-*
+
          SRNAMT = 'DSTEBZ'
          INFOT = 1
          CALL DSTEBZ( '/', 'E', 0, 0.0D0, 1.0D0, 1, 0, 0.0D0, D, E, M, NSPLIT, X, I1, I2, W, IW, INFO )
@@ -324,9 +324,9 @@
          CALL DSTEBZ( 'I', 'E', 1, 0.0D0, 0.0D0, 1, 2, 0.0D0, D, E, M, NSPLIT, X, I1, I2, W, IW, INFO )
          CALL CHKXER( 'DSTEBZ', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
          // DSTEIN
-*
+
          SRNAMT = 'DSTEIN'
          INFOT = 1
          CALL DSTEIN( -1, D, E, 0, X, I1, I2, Z, 1, W, IW, I3, INFO )
@@ -341,9 +341,9 @@
          CALL DSTEIN( 2, D, E, 0, X, I1, I2, Z, 1, W, IW, I3, INFO )
          CALL CHKXER( 'DSTEIN', INFOT, NOUT, LERR, OK )
          NT = NT + 4
-*
+
          // DSTEQR
-*
+
          SRNAMT = 'DSTEQR'
          INFOT = 1
          CALL DSTEQR( '/', 0, D, E, Z, 1, W, INFO )
@@ -355,17 +355,17 @@
          CALL DSTEQR( 'V', 2, D, E, Z, 1, W, INFO )
          CALL CHKXER( 'DSTEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // DSTERF
-*
+
          SRNAMT = 'DSTERF'
          INFOT = 1
          CALL DSTERF( -1, D, E, INFO )
          CALL CHKXER( 'DSTERF', INFOT, NOUT, LERR, OK )
          NT = NT + 1
-*
+
          // DSTEDC
-*
+
          SRNAMT = 'DSTEDC'
          INFOT = 1
          CALL DSTEDC( '/', 0, D, E, Z, 1, W, 1, IW, 1, INFO )
@@ -395,9 +395,9 @@
          CALL DSTEDC( 'V', 2, D, E, Z, 2, W, 23, IW, 0, INFO )
          CALL CHKXER( 'DSTEDC', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // DSTEVD
-*
+
          SRNAMT = 'DSTEVD'
          INFOT = 1
          CALL DSTEVD( '/', 0, D, E, Z, 1, W, 1, IW, 1, INFO )
@@ -421,9 +421,9 @@
          CALL DSTEVD( 'V', 2, D, E, Z, 2, W, 19, IW, 11, INFO )
          CALL CHKXER( 'DSTEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // DSTEV
-*
+
          SRNAMT = 'DSTEV '
          INFOT = 1
          CALL DSTEV( '/', 0, D, E, Z, 1, W, INFO )
@@ -435,9 +435,9 @@
          CALL DSTEV( 'V', 2, D, E, Z, 1, W, INFO )
          CALL CHKXER( 'DSTEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // DSTEVX
-*
+
          SRNAMT = 'DSTEVX'
          INFOT = 1
          CALL DSTEVX( '/', 'A', 0, D, E, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, IW, I3, INFO )
@@ -467,9 +467,9 @@
          CALL DSTEVX( 'V', 'A', 2, D, E, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, IW, I3, INFO )
          CALL CHKXER( 'DSTEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // DSTEVR
-*
+
          N = 1
          SRNAMT = 'DSTEVR'
          INFOT = 1
@@ -502,9 +502,9 @@
          CALL DSTEVR( 'V', 'I', 1, D, E, 0.0D0, 0.0D0, 1, 1, 0.0D0, M, W, Z, 1, IW, X, 20*N, IW( 2*N+1 ), 10*N-1, INFO )
          CALL CHKXER( 'DSTEVR', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // DSYEVD
-*
+
          SRNAMT = 'DSYEVD'
          INFOT = 1
          CALL DSYEVD( '/', 'U', 0, A, 1, X, W, 1, IW, 1, INFO )
@@ -537,9 +537,9 @@
          CALL DSYEVD( 'V', 'U', 2, A, 2, X, W, 27, IW, 11, INFO )
          CALL CHKXER( 'DSYEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // DSYEVD_2STAGE
-*
+
          SRNAMT = 'DSYEVD_2STAGE'
          INFOT = 1
          CALL DSYEVD_2STAGE( '/', 'U', 0, A, 1, X, W, 1, IW, 1, INFO )
@@ -575,9 +575,9 @@
           // CALL DSYEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 27, IW, 11, INFO )
           // CALL CHKXER( 'DSYEVD_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // DSYEVR
-*
+
          SRNAMT = 'DSYEVR'
          N = 1
          INFOT = 1
@@ -602,7 +602,7 @@
          CALL DSYEVR( 'V', 'I', 'U', 1, A, 1, 0.0D0, 0.0D0, 0, 1, 0.0D0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO )
          CALL CHKXER( 'DSYEVR', INFOT, NOUT, LERR, OK )
          INFOT = 10
-*
+
          CALL DSYEVR( 'V', 'I', 'U', 2, A, 2, 0.0D0, 0.0D0, 2, 1, 0.0D0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO )
          CALL CHKXER( 'DSYEVR', INFOT, NOUT, LERR, OK )
          INFOT = 15
@@ -615,9 +615,9 @@
          CALL DSYEVR( 'V', 'I', 'U', 1, A, 1, 0.0D0, 0.0D0, 1, 1, 0.0D0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 0, INFO )
          CALL CHKXER( 'DSYEVR', INFOT, NOUT, LERR, OK )
          NT = NT + 11
-*
+
          // DSYEVR_2STAGE
-*
+
          SRNAMT = 'DSYEVR_2STAGE'
          N = 1
          INFOT = 1
@@ -657,9 +657,9 @@
          CALL DSYEVR_2STAGE( 'N', 'I', 'U', 1, A, 1, 0.0D0, 0.0D0, 1, 1, 0.0D0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 0, INFO )
          CALL CHKXER( 'DSYEVR_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 12
-*
+
          // DSYEV
-*
+
          SRNAMT = 'DSYEV '
          INFOT = 1
          CALL DSYEV( '/', 'U', 0, A, 1, X, W, 1, INFO )
@@ -677,9 +677,9 @@
          CALL DSYEV( 'N', 'U', 1, A, 1, X, W, 1, INFO )
          CALL CHKXER( 'DSYEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 5
-*
+
          // DSYEV_2STAGE
-*
+
          SRNAMT = 'DSYEV_2STAGE '
          INFOT = 1
          CALL DSYEV_2STAGE( '/', 'U', 0, A, 1, X, W, 1, INFO )
@@ -700,9 +700,9 @@
          CALL DSYEV_2STAGE( 'N', 'U', 1, A, 1, X, W, 1, INFO )
          CALL CHKXER( 'DSYEV_2STAGE ', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // DSYEVX
-*
+
          SRNAMT = 'DSYEVX'
          INFOT = 1
          CALL DSYEVX( '/', 'A', 'U', 0, A, 1, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, 1, IW, I3, INFO )
@@ -740,9 +740,9 @@
          CALL DSYEVX( 'V', 'A', 'U', 1, A, 1, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, 0, IW, I3, INFO )
          CALL CHKXER( 'DSYEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 12
-*
+
          // DSYEVX_2STAGE
-*
+
          SRNAMT = 'DSYEVX_2STAGE'
          INFOT = 1
          CALL DSYEVX_2STAGE( '/', 'A', 'U', 0, A, 1, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, 1, IW, I3, INFO )
@@ -783,9 +783,9 @@
          CALL DSYEVX_2STAGE( 'N', 'A', 'U', 1, A, 1, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, 0, IW, I3, INFO )
          CALL CHKXER( 'DSYEVX_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 13
-*
+
          // DSPEVD
-*
+
          SRNAMT = 'DSPEVD'
          INFOT = 1
          CALL DSPEVD( '/', 'U', 0, A, X, Z, 1, W, 1, IW, 1, INFO )
@@ -818,9 +818,9 @@
          CALL DSPEVD( 'V', 'U', 2, A, X, Z, 2, W, 23, IW, 11, INFO )
          CALL CHKXER( 'DSPEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // DSPEV
-*
+
          SRNAMT = 'DSPEV '
          INFOT = 1
          CALL DSPEV( '/', 'U', 0, A, W, Z, 1, X, INFO )
@@ -835,9 +835,9 @@
          CALL DSPEV( 'V', 'U', 2, A, W, Z, 1, X, INFO )
          CALL CHKXER( 'DSPEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 4
-*
+
          // DSPEVX
-*
+
          SRNAMT = 'DSPEVX'
          INFOT = 1
          CALL DSPEVX( '/', 'A', 'U', 0, A, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, IW, I3, INFO )
@@ -869,13 +869,13 @@
          CALL DSPEVX( 'V', 'A', 'U', 2, A, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, IW, I3, INFO )
          CALL CHKXER( 'DSPEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
       // Test error exits for the SB path.
-*
+
       ELSE IF( LSAMEN( 2, C2, 'SB' ) ) THEN
-*
+
          // DSBTRD
-*
+
          SRNAMT = 'DSBTRD'
          INFOT = 1
          CALL DSBTRD( '/', 'U', 0, 0, A, 1, D, E, Z, 1, W, INFO )
@@ -896,9 +896,9 @@
          CALL DSBTRD( 'V', 'U', 2, 0, A, 1, D, E, Z, 1, W, INFO )
          CALL CHKXER( 'DSBTRD', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // DSYTRD_SB2ST
-*
+
          SRNAMT = 'DSYTRD_SB2ST'
          INFOT = 1
          CALL DSYTRD_SB2ST( '/', 'N', 'U', 0, 0, A, 1, D, E,  C, 1, W, 1, INFO )
@@ -928,9 +928,9 @@
          CALL DSYTRD_SB2ST( 'N', 'N', 'U', 0, 0, A, 1, D, E,  C, 1, W, 0, INFO )
          CALL CHKXER( 'DSYTRD_SB2ST', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // DSBEVD
-*
+
          SRNAMT = 'DSBEVD'
          INFOT = 1
          CALL DSBEVD( '/', 'U', 0, 0, A, 1, X, Z, 1, W, 1, IW, 1, INFO )
@@ -966,9 +966,9 @@
          CALL DSBEVD( 'V', 'U', 2, 0, A, 1, X, Z, 2, W, 25, IW, 11, INFO )
          CALL CHKXER( 'DSBEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 11
-*
+
          // DSBEVD_2STAGE
-*
+
          SRNAMT = 'DSBEVD_2STAGE'
          INFOT = 1
          CALL DSBEVD_2STAGE( '/', 'U', 0, 0, A, 1, X, Z, 1, W, 1, IW, 1, INFO )
@@ -1011,9 +1011,9 @@
           // CALL CHKXER( 'DSBEVD_2STAGE', INFOT, NOUT, LERR, OK )
           // NT = NT + 12
          NT = NT + 9
-*
+
          // DSBEV
-*
+
          SRNAMT = 'DSBEV '
          INFOT = 1
          CALL DSBEV( '/', 'U', 0, 0, A, 1, X, Z, 1, W, INFO )
@@ -1034,9 +1034,9 @@
          CALL DSBEV( 'V', 'U', 2, 0, A, 1, X, Z, 1, W, INFO )
          CALL CHKXER( 'DSBEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // DSBEV_2STAGE
-*
+
          SRNAMT = 'DSBEV_2STAGE '
          INFOT = 1
          CALL DSBEV_2STAGE( '/', 'U', 0, 0, A, 1, X, Z, 1, W, 0, INFO )
@@ -1063,9 +1063,9 @@
          CALL DSBEV_2STAGE( 'N', 'U', 0, 0, A, 1, X, Z, 1, W, 0, INFO )
          CALL CHKXER( 'DSBEV_2STAGE ', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
          // DSBEVX
-*
+
          SRNAMT = 'DSBEVX'
          INFOT = 1
          CALL DSBEVX( '/', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, IW, I3, INFO )
@@ -1107,9 +1107,9 @@
          CALL DSBEVX( 'V', 'A', 'U', 2, 0, A, 1, Q, 2, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, IW, I3, INFO )
          CALL CHKXER( 'DSBEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 13
-*
+
          // DSBEVX_2STAGE
-*
+
          SRNAMT = 'DSBEVX_2STAGE'
          INFOT = 1
          CALL DSBEVX_2STAGE( '/', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, 0, IW, I3, INFO )
@@ -1161,22 +1161,22 @@
           // NT = NT + 15
          NT = NT + 13
       END IF
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
       ELSE
          WRITE( NOUT, FMT = 9998 )PATH
       END IF
-*
+
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits',
      $      ' (', I3, ' tests done)' )
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ',
      $      'exits ***' )
-*
+
       RETURN
-*
+
       // End of DERRST
-*
+
       END

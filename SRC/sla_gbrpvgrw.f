@@ -1,18 +1,18 @@
       REAL FUNCTION SLA_GBRPVGRW( N, KL, KU, NCOLS, AB, LDAB, AFB, LDAFB )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                N, KL, KU, NCOLS, LDAB, LDAFB;
       // ..
       // .. Array Arguments ..
       REAL               AB( LDAB, * ), AFB( LDAFB, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, J, KD;
       REAL               AMAX, UMAX, RPVGRW
@@ -21,7 +21,7 @@
       // INTRINSIC ABS, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       RPVGRW = 1.0
 
       KD = KU + 1
@@ -39,7 +39,7 @@
          END IF
       END DO
       SLA_GBRPVGRW = RPVGRW
-*
+
       // End of SLA_GBRPVGRW
-*
+
       END

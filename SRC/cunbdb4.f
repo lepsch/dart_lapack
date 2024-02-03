@@ -9,7 +9,7 @@
 *>  See CUNCSD2BY1 for details on generating P1, P2, and Q1 using CUNGQR
 *>  and CUNGLQ.
 *> \endverbatim
-*
+
 *> \par References:
 *  ================
 *>
@@ -18,11 +18,11 @@
 *>
 *  =====================================================================
       SUBROUTINE CUNBDB4( M, P, Q, X11, LDX11, X21, LDX21, THETA, PHI, TAUP1, TAUP2, TAUQ1, PHANTOM, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LWORK, M, P, Q, LDX11, LDX21;
       // ..
@@ -30,9 +30,9 @@
       REAL               PHI(*), THETA(*)
       COMPLEX            PHANTOM(*), TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*)
       // ..
-*
+
 *  ====================================================================
-*
+
       // .. Parameters ..
       COMPLEX            NEGONE, ONE, ZERO
       PARAMETER          ( NEGONE = (-1.0E0,0.0E0), ONE = (1.0E0,0.0E0), ZERO = (0.0E0,0.0E0) )
@@ -53,12 +53,12 @@
       // INTRINSIC ATAN2, COS, MAX, SIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test input arguments
-*
+
       INFO = 0
       LQUERY = LWORK .EQ. -1
-*
+
       IF( M .LT. 0 ) THEN
          INFO = -1
       ELSE IF( P .LT. M-Q .OR. M-P .LT. M-Q ) THEN
@@ -70,9 +70,9 @@
       ELSE IF( LDX21 .LT. MAX( 1, M-P ) ) THEN
          INFO = -7
       END IF
-*
+
       // Compute workspace
-*
+
       IF( INFO .EQ. 0 ) THEN
          ILARF = 2
          LLARF = MAX( Q-1, P-1, M-P-1 )
@@ -92,11 +92,11 @@
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Reduce columns 1, ..., M-Q of X11 and X21
-*
+
       DO I = 1, M-Q
-*
+
          IF( I .EQ. 1 ) THEN
             DO J = 1, M
                PHANTOM(J) = ZERO
@@ -123,7 +123,7 @@
             X21(I,I-1) = ONE
             CALL CLARF( 'L', P-I+1, Q-I+1, X11(I,I-1), 1, CONJG(TAUP1(I)), X11(I,I), LDX11, WORK(ILARF) )             CALL CLARF( 'L', M-P-I+1, Q-I+1, X21(I,I-1), 1, CONJG(TAUP2(I)), X21(I,I), LDX21, WORK(ILARF) )
          END IF
-*
+
          CALL CSROT( Q-I+1, X11(I,I), LDX11, X21(I,I), LDX21, S, -C )
          CALL CLACGV( Q-I+1, X21(I,I), LDX21 )
          CALL CLARFGP( Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) )
@@ -135,11 +135,11 @@
             S = SQRT( SCNRM2( P-I, X11(I+1,I), 1 )**2 + SCNRM2( M-P-I, X21(I+1,I), 1 )**2 )
             PHI(I) = ATAN2( S, C )
          END IF
-*
+
       END DO
-*
+
       // Reduce the bottom-right portion of X11 to [ I 0 ]
-*
+
       DO I = M - Q + 1, P
          CALL CLACGV( Q-I+1, X11(I,I), LDX11 )
          CALL CLARFGP( Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) )
@@ -147,9 +147,9 @@
          CALL CLARF( 'R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL CLARF( 'R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) )
          CALL CLACGV( Q-I+1, X11(I,I), LDX11 )
       END DO
-*
+
       // Reduce the bottom-right portion of X21 to [ 0 I ]
-*
+
       DO I = P + 1, Q
          CALL CLACGV( Q-I+1, X21(M-Q+I-P,I), LDX21 )
          CALL CLARFGP( Q-I+1, X21(M-Q+I-P,I), X21(M-Q+I-P,I+1), LDX21, TAUQ1(I) )
@@ -157,9 +157,9 @@
          CALL CLARF( 'R', Q-I, Q-I+1, X21(M-Q+I-P,I), LDX21, TAUQ1(I), X21(M-Q+I-P+1,I), LDX21, WORK(ILARF) )
          CALL CLACGV( Q-I+1, X21(M-Q+I-P,I), LDX21 )
       END DO
-*
+
       RETURN
-*
+
       // End of CUNBDB4
-*
+
       END

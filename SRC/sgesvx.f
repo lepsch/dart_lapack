@@ -1,9 +1,9 @@
       SUBROUTINE SGESVX( FACT, TRANS, N, NRHS, A, LDA, AF, LDAF, IPIV, EQUED, R, C, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, IWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS;
@@ -13,9 +13,9 @@
       int                IPIV( * ), IWORK( * );
       REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), BERR( * ), C( * ), FERR( * ), R( * ), WORK( * ), X( LDX, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -38,7 +38,7 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
       EQUIL = LSAME( FACT, 'E' )
@@ -53,9 +53,9 @@
          SMLNUM = SLAMCH( 'Safe minimum' )
          BIGNUM = ONE / SMLNUM
       END IF
-*
+
       // Test the input parameters.
-*
+
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
       ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
@@ -109,29 +109,29 @@
             END IF
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SGESVX', -INFO )
          RETURN
       END IF
-*
+
       IF( EQUIL ) THEN
-*
+
          // Compute row and column scalings to equilibrate the matrix A.
-*
+
          CALL SGEEQU( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
-*
+
             // Equilibrate the matrix.
-*
+
             CALL SLAQGE( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          END IF
       END IF
-*
+
       // Scale the right hand side.
-*
+
       IF( NOTRAN ) THEN
          IF( ROWEQU ) THEN
             DO 40 J = 1, NRHS
@@ -147,21 +147,21 @@
    50       CONTINUE
    60    CONTINUE
       END IF
-*
+
       IF( NOFACT .OR. EQUIL ) THEN
-*
+
          // Compute the LU factorization of A.
-*
+
          CALL SLACPY( 'Full', N, N, A, LDA, AF, LDAF )
          CALL SGETRF( N, N, AF, LDAF, IPIV, INFO )
-*
+
          // Return if INFO is non-zero.
-*
+
          IF( INFO.GT.0 ) THEN
-*
+
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
-*
+
             RPVGRW = SLANTR( 'M', 'U', 'N', INFO, INFO, AF, LDAF, WORK )
             IF( RPVGRW.EQ.ZERO ) THEN
                RPVGRW = ONE
@@ -173,10 +173,10 @@
             RETURN
          END IF
       END IF
-*
+
       // Compute the norm of the matrix A and the
       // reciprocal pivot growth factor RPVGRW.
-*
+
       IF( NOTRAN ) THEN
          NORM = '1'
       ELSE
@@ -189,24 +189,24 @@
       ELSE
          RPVGRW = SLANGE( 'M', N, N, A, LDA, WORK ) / RPVGRW
       END IF
-*
+
       // Compute the reciprocal of the condition number of A.
-*
+
       CALL SGECON( NORM, N, AF, LDAF, ANORM, RCOND, WORK, IWORK, INFO )
-*
+
       // Compute the solution matrix X.
-*
+
       CALL SLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL SGETRS( TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
-*
+
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
-*
+
       CALL SGERFS( TRANS, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
-*
+
       // Transform the solution matrix X to a solution of the original
       // system.
-*
+
       IF( NOTRAN ) THEN
          IF( COLEQU ) THEN
             DO 80 J = 1, NRHS
@@ -228,14 +228,14 @@
             FERR( J ) = FERR( J ) / ROWCND
   120    CONTINUE
       END IF
-*
+
       // Set INFO = N+1 if the matrix is singular to working precision.
-*
+
       IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
-*
+
       WORK( 1 ) = RPVGRW
       RETURN
-*
+
       // End of SGESVX
-*
+
       END

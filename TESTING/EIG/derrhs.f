@@ -1,16 +1,16 @@
       SUBROUTINE DERRHS( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 3, LW = ( NMAX+2 )*( NMAX+2 )+NMAX )
@@ -44,13 +44,13 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1.D0 / DBLE( I+J )
@@ -60,13 +60,13 @@
    20 CONTINUE
       OK = .TRUE.
       NT = 0
-*
+
       // Test error exits of the nonsymmetric eigenvalue routines.
-*
+
       IF( LSAMEN( 2, C2, 'HS' ) ) THEN
-*
+
          // DGEBAL
-*
+
          SRNAMT = 'DGEBAL'
          INFOT = 1
          CALL DGEBAL( '/', 0, A, 1, ILO, IHI, S, INFO )
@@ -78,9 +78,9 @@
          CALL DGEBAL( 'N', 2, A, 1, ILO, IHI, S, INFO )
          CALL CHKXER( 'DGEBAL', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // DGEBAK
-*
+
          SRNAMT = 'DGEBAK'
          INFOT = 1
          CALL DGEBAK( '/', 'R', 0, 1, 0, S, 0, A, 1, INFO )
@@ -110,9 +110,9 @@
          CALL DGEBAK( 'N', 'R', 2, 1, 2, S, 0, A, 1, INFO )
          CALL CHKXER( 'DGEBAK', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // DGEHRD
-*
+
          SRNAMT = 'DGEHRD'
          INFOT = 1
          CALL DGEHRD( -1, 1, 1, A, 1, TAU, W, 1, INFO )
@@ -136,9 +136,9 @@
          CALL DGEHRD( 2, 1, 2, A, 2, TAU, W, 1, INFO )
          CALL CHKXER( 'DGEHRD', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // DGEHD2
-*
+
          SRNAMT = 'DGEHD2'
          INFOT = 1
          CALL DGEHD2( -1, 1, 1, A, 1, TAU, W, INFO )
@@ -159,9 +159,9 @@
          CALL DGEHD2( 2, 1, 1, A, 1, TAU, W, INFO )
          CALL CHKXER( 'DGEHD2', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // DORGHR
-*
+
          SRNAMT = 'DORGHR'
          INFOT = 1
          CALL DORGHR( -1, 1, 1, A, 1, TAU, W, 1, INFO )
@@ -185,9 +185,9 @@
          CALL DORGHR( 3, 1, 3, A, 3, TAU, W, 1, INFO )
          CALL CHKXER( 'DORGHR', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // DORMHR
-*
+
          SRNAMT = 'DORMHR'
          INFOT = 1
          CALL DORMHR( '/', 'N', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
@@ -238,9 +238,9 @@
          CALL DORMHR( 'R', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1, INFO )
          CALL CHKXER( 'DORMHR', INFOT, NOUT, LERR, OK )
          NT = NT + 16
-*
+
          // DHSEQR
-*
+
          SRNAMT = 'DHSEQR'
          INFOT = 1
          CALL DHSEQR( '/', 'N', 0, 1, 0, A, 1, WR, WI, C, 1, W, 1, INFO )
@@ -273,9 +273,9 @@
          CALL DHSEQR( 'E', 'N', 2, 1, 2, A, 2, WR, WI, C, 1, W, 1, INFO )
          CALL CHKXER( 'DHSEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // DHSEIN
-*
+
          SRNAMT = 'DHSEIN'
          INFOT = 1
          CALL DHSEIN( '/', 'N', 'N', SEL, 0, A, 1, WR, WI, VL, 1, VR, 1, 0, M, W, IFAILL, IFAILR, INFO )
@@ -302,9 +302,9 @@
          CALL DHSEIN( 'R', 'N', 'N', SEL, 2, A, 2, WR, WI, VL, 1, VR, 2, 1, M, W, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'DHSEIN', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
          // DTREVC
-*
+
          SRNAMT = 'DTREVC'
          INFOT = 1
          CALL DTREVC( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, INFO )
@@ -328,9 +328,9 @@
          CALL DTREVC( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W, INFO )
          CALL CHKXER( 'DTREVC', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // DTREVC3
-*
+
          SRNAMT = 'DTREVC3'
          INFOT = 1
          CALL DTREVC3( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, LW, INFO )
@@ -358,22 +358,22 @@
          CALL CHKXER( 'DTREVC3', INFOT, NOUT, LERR, OK )
          NT = NT + 8
       END IF
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
       ELSE
          WRITE( NOUT, FMT = 9998 )PATH
       END IF
-*
+
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits',
      $      ' (', I3, ' tests done)' )
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ',
      $      'exits ***' )
-*
+
       RETURN
-*
+
       // End of DERRHS
-*
+
       END

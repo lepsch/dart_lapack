@@ -1,9 +1,9 @@
       SUBROUTINE CGGSVD( JOBU, JOBV, JOBQ, M, N, P, K, L, A, LDA, B, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, RWORK, IWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P;
@@ -13,9 +13,9 @@
       REAL               ALPHA( * ), BETA( * ), RWORK( * )
       COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               WANTQ, WANTU, WANTV;
       int                I, IBND, ISUB, J, NCYCLE;
@@ -33,13 +33,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Decode and test the input parameters
-*
+
       WANTU = LSAME( JOBU, 'U' )
       WANTV = LSAME( JOBV, 'V' )
       WANTQ = LSAME( JOBQ, 'Q' )
-*
+
       INFO = 0
       IF( .NOT.( WANTU .OR. LSAME( JOBU, 'N' ) ) ) THEN
          INFO = -1
@@ -68,35 +68,35 @@
          CALL XERBLA( 'CGGSVD', -INFO )
          RETURN
       END IF
-*
+
       // Compute the Frobenius norm of matrices A and B
-*
+
       ANORM = CLANGE( '1', M, N, A, LDA, RWORK )
       BNORM = CLANGE( '1', P, N, B, LDB, RWORK )
-*
+
       // Get machine precision and set up threshold for determining
      t // he effective numerical rank of the matrices A and B.
-*
+
       ULP = SLAMCH( 'Precision' )
       UNFL = SLAMCH( 'Safe Minimum' )
       TOLA = MAX( M, N )*MAX( ANORM, UNFL )*ULP
       TOLB = MAX( P, N )*MAX( BNORM, UNFL )*ULP
-*
+
       CALL CGGSVP( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, WORK, WORK( N+1 ), INFO )
-*
+
       // Compute the GSVD of two upper "triangular" matrices
-*
+
       CALL CTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
-*
+
       // Sort the singular values and store the pivot indices in IWORK
       // Copy ALPHA to RWORK, then sort ALPHA in RWORK
-*
+
       CALL SCOPY( N, ALPHA, 1, RWORK, 1 )
       IBND = MIN( L, M-K )
       DO 20 I = 1, IBND
-*
+
          // Scan for largest ALPHA(K+I)
-*
+
          ISUB = I
          SMAX = RWORK( K+I )
          DO 10 J = I + 1, IBND
@@ -114,9 +114,9 @@
             IWORK( K+I ) = K + I
          END IF
    20 CONTINUE
-*
+
       RETURN
-*
+
       // End of CGGSVD
-*
+
       END

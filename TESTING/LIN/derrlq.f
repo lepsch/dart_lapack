@@ -1,16 +1,16 @@
       SUBROUTINE DERRLQ( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -37,12 +37,12 @@
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1.D0 / DBLE( I+J )
@@ -53,11 +53,11 @@
          X( J ) = 0.D0
    20 CONTINUE
       OK = .TRUE.
-*
+
       // Error exits for LQ factorization
-*
+
       // DGELQF
-*
+
       SRNAMT = 'DGELQF'
       INFOT = 1
       CALL DGELQF( -1, 0, A, 1, B, W, 1, INFO )
@@ -71,9 +71,9 @@
       INFOT = 7
       CALL DGELQF( 2, 1, A, 2, B, W, 1, INFO )
       CALL CHKXER( 'DGELQF', INFOT, NOUT, LERR, OK )
-*
+
       // DGELQ2
-*
+
       SRNAMT = 'DGELQ2'
       INFOT = 1
       CALL DGELQ2( -1, 0, A, 1, B, W, INFO )
@@ -84,9 +84,9 @@
       INFOT = 4
       CALL DGELQ2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'DGELQ2', INFOT, NOUT, LERR, OK )
-*
+
       // DORGLQ
-*
+
       SRNAMT = 'DORGLQ'
       INFOT = 1
       CALL DORGLQ( -1, 0, 0, A, 1, X, W, 1, INFO )
@@ -109,9 +109,9 @@
       INFOT = 8
       CALL DORGLQ( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'DORGLQ', INFOT, NOUT, LERR, OK )
-*
+
       // DORGL2
-*
+
       SRNAMT = 'DORGL2'
       INFOT = 1
       CALL DORGL2( -1, 0, 0, A, 1, X, W, INFO )
@@ -131,9 +131,9 @@
       INFOT = 5
       CALL DORGL2( 2, 2, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'DORGL2', INFOT, NOUT, LERR, OK )
-*
+
       // DORMLQ
-*
+
       SRNAMT = 'DORMLQ'
       INFOT = 1
       CALL DORMLQ( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
@@ -171,9 +171,9 @@
       INFOT = 12
       CALL DORMLQ( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'DORMLQ', INFOT, NOUT, LERR, OK )
-*
+
       // DORML2
-*
+
       SRNAMT = 'DORML2'
       INFOT = 1
       CALL DORML2( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
@@ -205,13 +205,13 @@
       INFOT = 10
       CALL DORML2( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
       CALL CHKXER( 'DORML2', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of DERRLQ
-*
+
       END

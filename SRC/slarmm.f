@@ -14,15 +14,15 @@
       // EXTERNAL SLAMCH
       // ..
       // .. Executable Statements ..
-*
-*
+
+
       // Determine machine dependent parameters to control overflow.
-*
+
       SMLNUM = SLAMCH( 'Safe minimum' ) / SLAMCH( 'Precision' )
       BIGNUM = ( ONE / SMLNUM ) / FOUR
-*
+
       // Compute a scale factor.
-*
+
       SLARMM = ONE
       IF( BNORM .LE. ONE ) THEN
          IF( ANORM * BNORM .GT. BIGNUM - CNORM ) THEN
@@ -34,7 +34,7 @@
          END IF
       END IF
       RETURN
-*
+
       // ==== End of SLARMM ====
-*
+
       END

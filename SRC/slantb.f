@@ -1,9 +1,9 @@
       REAL             FUNCTION SLANTB( NORM, UPLO, DIAG, N, K, AB, LDAB, WORK )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             DIAG, NORM, UPLO;
       int                K, LDAB, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               AB( LDAB, * ), WORK( * )
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
@@ -34,13 +34,13 @@
       // INTRINSIC ABS, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       IF( N.EQ.0 ) THEN
          VALUE = ZERO
       ELSE IF( LSAME( NORM, 'M' ) ) THEN
-*
+
          // Find max(abs(A(i,j))).
-*
+
          IF( LSAME( DIAG, 'U' ) ) THEN
             VALUE = ONE
             IF( LSAME( UPLO, 'U' ) ) THEN
@@ -77,9 +77,9 @@
             END IF
          END IF
       ELSE IF( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
-*
+
          // Find norm1(A).
-*
+
          VALUE = ZERO
          UDIAG = LSAME( DIAG, 'U' )
          IF( LSAME( UPLO, 'U' ) ) THEN
@@ -114,9 +114,9 @@
   140       CONTINUE
          END IF
       ELSE IF( LSAME( NORM, 'I' ) ) THEN
-*
+
          // Find normI(A).
-*
+
          VALUE = ZERO
          IF( LSAME( UPLO, 'U' ) ) THEN
             IF( LSAME( DIAG, 'U' ) ) THEN
@@ -168,9 +168,9 @@
             IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
   270    CONTINUE
       ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
-*
+
          // Find normF(A).
-*
+
          IF( LSAME( UPLO, 'U' ) ) THEN
             IF( LSAME( DIAG, 'U' ) ) THEN
                SCALE = ONE
@@ -206,10 +206,10 @@
          END IF
          VALUE = SCALE*SQRT( SUM )
       END IF
-*
+
       SLANTB = VALUE
       RETURN
-*
+
       // End of SLANTB
-*
+
       END

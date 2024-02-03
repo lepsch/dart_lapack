@@ -1,9 +1,9 @@
       SUBROUTINE SLASRT( ID, N, D, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             ID;
       int                INFO, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               D( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                SELECT;
       PARAMETER          ( SELECT = 20 )
@@ -33,9 +33,9 @@
       // EXTERNAL XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       DIR = -1
       IF( LSAME( ID, 'D' ) ) THEN
@@ -52,11 +52,11 @@
          CALL XERBLA( 'SLASRT', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.1 ) RETURN
-*
+
       STKPNT = 1
       STACK( 1, 1 ) = 1
       STACK( 2, 1 ) = N
@@ -65,13 +65,13 @@
       ENDD = STACK( 2, STKPNT )
       STKPNT = STKPNT - 1
       IF( ENDD-START.LE.SELECT .AND. ENDD-START.GT.0 ) THEN
-*
+
          // Do Insertion sort on D( START:ENDD )
-*
+
          IF( DIR.EQ.0 ) THEN
-*
+
             // Sort into decreasing order
-*
+
             DO 30 I = START + 1, ENDD
                DO 20 J = I, START + 1, -1
                   IF( D( J ).GT.D( J-1 ) ) THEN
@@ -83,11 +83,11 @@
                   END IF
    20          CONTINUE
    30       CONTINUE
-*
+
          ELSE
-*
+
             // Sort into increasing order
-*
+
             DO 50 I = START + 1, ENDD
                DO 40 J = I, START + 1, -1
                   IF( D( J ).LT.D( J-1 ) ) THEN
@@ -99,15 +99,15 @@
                   END IF
    40          CONTINUE
    50       CONTINUE
-*
+
          END IF
-*
+
       ELSE IF( ENDD-START.GT.SELECT ) THEN
-*
+
          // Partition D( START:ENDD ) and stack parts, largest one first
-*
+
          // Choose partition entry as median of 3
-*
+
          D1 = D( START )
          D2 = D( ENDD )
          I = ( START+ENDD ) / 2
@@ -129,11 +129,11 @@
                DMNMX = D1
             END IF
          END IF
-*
+
          IF( DIR.EQ.0 ) THEN
-*
+
             // Sort into decreasing order
-*
+
             I = START - 1
             J = ENDD + 1
    60       CONTINUE
@@ -165,9 +165,9 @@
                STACK( 2, STKPNT ) = J
             END IF
          ELSE
-*
+
             // Sort into increasing order
-*
+
             I = START - 1
             J = ENDD + 1
    90       CONTINUE
@@ -202,7 +202,7 @@
       END IF
       IF( STKPNT.GT.0 ) GO TO 10
       RETURN
-*
+
       // End of SLASRT
-*
+
       END

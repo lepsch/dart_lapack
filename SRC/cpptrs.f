@@ -1,9 +1,9 @@
       SUBROUTINE CPPTRS( UPLO, N, NRHS, AP, B, LDB, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDB, N, NRHS;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX            AP( * ), B( LDB, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               UPPER;
       int                I;
@@ -29,9 +29,9 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -47,43 +47,43 @@
          CALL XERBLA( 'CPPTRS', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
-*
+
       IF( UPPER ) THEN
-*
+
          // Solve A*X = B where A = U**H * U.
-*
+
          DO 10 I = 1, NRHS
-*
+
             // Solve U**H *X = B, overwriting B with X.
-*
+
             CALL CTPSV( 'Upper', 'Conjugate transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
-*
+
             // Solve U*X = B, overwriting B with X.
-*
+
             CALL CTPSV( 'Upper', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
    10    CONTINUE
       ELSE
-*
+
          // Solve A*X = B where A = L * L**H.
-*
+
          DO 20 I = 1, NRHS
-*
+
             // Solve L*Y = B, overwriting B with X.
-*
+
             CALL CTPSV( 'Lower', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
-*
+
             // Solve L**H *X = Y, overwriting B with X.
-*
+
             CALL CTPSV( 'Lower', 'Conjugate transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
    20    CONTINUE
       END IF
-*
+
       RETURN
-*
+
       // End of CPPTRS
-*
+
       END

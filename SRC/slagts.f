@@ -1,9 +1,9 @@
       SUBROUTINE SLAGTS( JOB, N, A, B, C, D, IN, Y, TOL, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, JOB, N;
       REAL               TOL
@@ -12,9 +12,9 @@
       int                IN( * );
       REAL               A( * ), B( * ), C( * ), D( * ), Y( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
@@ -34,7 +34,7 @@
       // EXTERNAL XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       IF( ( ABS( JOB ).GT.2 ) .OR. ( JOB.EQ.0 ) ) THEN
          INFO = -1
@@ -45,13 +45,13 @@
          CALL XERBLA( 'SLAGTS', -INFO )
          RETURN
       END IF
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       EPS = SLAMCH( 'Epsilon' )
       SFMIN = SLAMCH( 'Safe minimum' )
       BIGNUM = ONE / SFMIN
-*
+
       IF( JOB.LT.0 ) THEN
          IF( TOL.LE.ZERO ) THEN
             TOL = ABS( A( 1 ) )
@@ -63,7 +63,7 @@
             IF( TOL.EQ.ZERO ) TOL = EPS
          END IF
       END IF
-*
+
       IF( ABS( JOB ).EQ.1 ) THEN
          DO 20 K = 2, N
             IF( IN( K-1 ).EQ.0 ) THEN
@@ -134,9 +134,9 @@
    50       CONTINUE
          END IF
       ELSE
-*
+
          // Come to here if  JOB = 2 or -2
-*
+
          IF( JOB.EQ.2 ) THEN
             DO 60 K = 1, N
                IF( K.GE.3 ) THEN
@@ -196,7 +196,7 @@
                Y( K ) = TEMP / AK
    80       CONTINUE
          END IF
-*
+
          DO 90 K = N, 2, -1
             IF( IN( K-1 ).EQ.0 ) THEN
                Y( K-1 ) = Y( K-1 ) - C( K-1 )*Y( K )
@@ -207,7 +207,7 @@
             END IF
    90    CONTINUE
       END IF
-*
+
       // End of SLAGTS
-*
+
       END

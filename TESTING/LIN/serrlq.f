@@ -1,16 +1,16 @@
       SUBROUTINE SERRLQ( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -37,12 +37,12 @@
       // INTRINSIC REAL
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1. / REAL( I+J )
@@ -53,11 +53,11 @@
          X( J ) = 0.
    20 CONTINUE
       OK = .TRUE.
-*
+
       // Error exits for LQ factorization
-*
+
       // SGELQF
-*
+
       SRNAMT = 'SGELQF'
       INFOT = 1
       CALL SGELQF( -1, 0, A, 1, B, W, 1, INFO )
@@ -71,9 +71,9 @@
       INFOT = 7
       CALL SGELQF( 2, 1, A, 2, B, W, 1, INFO )
       CALL CHKXER( 'SGELQF', INFOT, NOUT, LERR, OK )
-*
+
       // SGELQ2
-*
+
       SRNAMT = 'SGELQ2'
       INFOT = 1
       CALL SGELQ2( -1, 0, A, 1, B, W, INFO )
@@ -84,9 +84,9 @@
       INFOT = 4
       CALL SGELQ2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'SGELQ2', INFOT, NOUT, LERR, OK )
-*
+
       // SORGLQ
-*
+
       SRNAMT = 'SORGLQ'
       INFOT = 1
       CALL SORGLQ( -1, 0, 0, A, 1, X, W, 1, INFO )
@@ -109,9 +109,9 @@
       INFOT = 8
       CALL SORGLQ( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'SORGLQ', INFOT, NOUT, LERR, OK )
-*
+
       // SORGL2
-*
+
       SRNAMT = 'SORGL2'
       INFOT = 1
       CALL SORGL2( -1, 0, 0, A, 1, X, W, INFO )
@@ -131,9 +131,9 @@
       INFOT = 5
       CALL SORGL2( 2, 2, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'SORGL2', INFOT, NOUT, LERR, OK )
-*
+
       // SORMLQ
-*
+
       SRNAMT = 'SORMLQ'
       INFOT = 1
       CALL SORMLQ( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
@@ -171,9 +171,9 @@
       INFOT = 12
       CALL SORMLQ( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
-*
+
       // SORML2
-*
+
       SRNAMT = 'SORML2'
       INFOT = 1
       CALL SORML2( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
@@ -205,13 +205,13 @@
       INFOT = 10
       CALL SORML2( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
       CALL CHKXER( 'SORML2', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of SERRLQ
-*
+
       END

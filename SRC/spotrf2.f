@@ -1,9 +1,9 @@
       RECURSIVE SUBROUTINE SPOTRF2( UPLO, N, A, LDA, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               A( LDA, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO=0.0E+0 )
@@ -33,9 +33,9 @@
       // INTRINSIC MAX, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -49,67 +49,67 @@
          CALL XERBLA( 'SPOTRF2', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // N=1 case
-*
+
       IF( N.EQ.1 ) THEN
-*
+
          // Test for non-positive-definiteness
-*
+
          IF( A( 1, 1 ).LE.ZERO.OR.SISNAN( A( 1, 1 ) ) ) THEN
             INFO = 1
             RETURN
          END IF
-*
+
          // Factor
-*
+
          A( 1, 1 ) = SQRT( A( 1, 1 ) )
-*
+
       // Use recursive code
-*
+
       ELSE
          N1 = N/2
          N2 = N-N1
-*
+
          // Factor A11
-*
+
          CALL SPOTRF2( UPLO, N1, A( 1, 1 ), LDA, IINFO )
          IF ( IINFO.NE.0 ) THEN
             INFO = IINFO
             RETURN
          END IF
-*
+
          // Compute the Cholesky factorization A = U**T*U
-*
+
          IF( UPPER ) THEN
-*
+
             // Update and scale A12
-*
+
             CALL STRSM( 'L', 'U', 'T', 'N', N1, N2, ONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA )
-*
+
             // Update and factor A22
-*
+
             CALL SSYRK( UPLO, 'T', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
             CALL SPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
             IF ( IINFO.NE.0 ) THEN
                INFO = IINFO + N1
                RETURN
             END IF
-*
+
          // Compute the Cholesky factorization A = L*L**T
-*
+
          ELSE
-*
+
             // Update and scale A21
-*
+
             CALL STRSM( 'R', 'L', 'T', 'N', N2, N1, ONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA )
-*
+
             // Update and factor A22
-*
+
             CALL SSYRK( UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
             CALL SPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
             IF ( IINFO.NE.0 ) THEN
@@ -119,7 +119,7 @@
          END IF
       END IF
       RETURN
-*
+
       // End of SPOTRF2
-*
+
       END

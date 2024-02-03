@@ -1,9 +1,9 @@
       SUBROUTINE DGET38( RMAX, LMAX, NINFO, KNT, NIN )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                KNT, NIN;
       // ..
@@ -11,9 +11,9 @@
       int                LMAX( 3 ), NINFO( 3 );
       double             RMAX( 3 );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
@@ -44,13 +44,13 @@
       // INTRINSIC DBLE, MAX, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // EPSIN = 2**(-24) = precision to which input data computed
-*
+
       EPS = MAX( EPS, EPSIN )
       RMAX( 1 ) = ZERO
       RMAX( 2 ) = ZERO
@@ -62,15 +62,15 @@
       NINFO( 1 ) = 0
       NINFO( 2 ) = 0
       NINFO( 3 ) = 0
-*
+
       VAL( 1 ) = SQRT( SMLNUM )
       VAL( 2 ) = ONE
       VAL( 3 ) = SQRT( SQRT( BIGNUM ) )
-*
+
       // Read input data until N=0.  Assume input eigenvalues are sorted
       // lexicographically (increasing by real part, then decreasing by
       // imaginary part)
-*
+
    10 CONTINUE
       READ( NIN, FMT = * )N, NDIM
       IF( N.EQ.0 ) RETURN
@@ -79,12 +79,12 @@
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
    20 CONTINUE
       READ( NIN, FMT = * )SIN, SEPIN
-*
+
       TNRM = DLANGE( 'M', N, N, TMP, LDT, WORK )
       DO 160 ISCL = 1, 3
-*
+
          // Scale input matrix
-*
+
          KNT = KNT + 1
          CALL DLACPY( 'F', N, N, TMP, LDT, T, LDT )
          VMUL = VAL( ISCL )
@@ -93,32 +93,32 @@
    30    CONTINUE
          IF( TNRM.EQ.ZERO ) VMUL = ONE
          CALL DLACPY( 'F', N, N, T, LDT, TSAV, LDT )
-*
+
          // Compute Schur form
-*
+
          CALL DGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
             GO TO 160
          END IF
-*
+
          // Generate orthogonal matrix
-*
+
          CALL DLACPY( 'L', N, N, T, LDT, Q, LDT )
          CALL DORGHR( N, 1, N, Q, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
-*
+
          // Compute Schur form
-*
+
          CALL DHSEQR( 'S', 'V', N, 1, N, T, LDT, WR, WI, Q, LDT, WORK, LWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
             GO TO 160
          END IF
-*
+
          // Sort, select eigenvalues
-*
+
          DO 40 I = 1, N
             IPNT( I ) = I
             SELECT( I ) = .FALSE.
@@ -147,9 +147,9 @@
          DO 70 I = 1, NDIM
             SELECT( IPNT( ISELEC( I ) ) ) = .TRUE.
    70    CONTINUE
-*
+
          // Compute condition numbers
-*
+
          CALL DLACPY( 'F', N, N, Q, LDT, QSAV, LDT )
          CALL DLACPY( 'F', N, N, T, LDT, TSAV1, LDT )
          CALL DTRSEN( 'B', 'V', SELECT, N, T, LDT, Q, LDT, WRTMP, WITMP, M, S, SEP, WORK, LWORK, IWORK, LIWORK, INFO )
@@ -160,19 +160,19 @@
          END IF
          SEPTMP = SEP / VMUL
          STMP = S
-*
+
          // Compute residuals
-*
+
          CALL DHST01( N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RESULT )
          VMAX = MAX( RESULT( 1 ), RESULT( 2 ) )
          IF( VMAX.GT.RMAX( 1 ) ) THEN
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          END IF
-*
+
          // Compare condition number for eigenvalue cluster
         t // aking its condition number into account
-*
+
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
          IF( V.GT.SEPTMP ) THEN
@@ -202,10 +202,10 @@
             RMAX( 2 ) = VMAX
             IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
          END IF
-*
+
          // Compare condition numbers for invariant subspace
         t // aking its condition number into account
-*
+
          IF( V.GT.SEPTMP*STMP ) THEN
             TOL = SEPTMP
          ELSE
@@ -233,10 +233,10 @@
             RMAX( 2 ) = VMAX
             IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
          END IF
-*
+
          // Compare condition number for eigenvalue cluster
          // without taking its condition number into account
-*
+
          IF( SIN.LE.DBLE( 2*N )*EPS .AND. STMP.LE.DBLE( 2*N )*EPS ) THEN
             VMAX = ONE
          ELSE IF( EPS*SIN.GT.STMP ) THEN
@@ -254,10 +254,10 @@
             RMAX( 3 ) = VMAX
             IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
          END IF
-*
+
          // Compare condition numbers for invariant subspace
          // without taking its condition number into account
-*
+
          IF( SEPIN.LE.V .AND. SEPTMP.LE.V ) THEN
             VMAX = ONE
          ELSE IF( EPS*SEPIN.GT.SEPTMP ) THEN
@@ -275,10 +275,10 @@
             RMAX( 3 ) = VMAX
             IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
          END IF
-*
+
          // Compute eigenvalue condition number only and compare
          // Update Q
-*
+
          VMAX = ZERO
          CALL DLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
          CALL DLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
@@ -296,10 +296,10 @@
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.Q( I, J ) ) VMAX = ONE / EPS
    80       CONTINUE
    90    CONTINUE
-*
+
          // Compute invariant subspace condition number only and compare
          // Update Q
-*
+
          CALL DLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
          CALL DLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
          SEPTMP = -ONE
@@ -316,10 +316,10 @@
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.Q( I, J ) ) VMAX = ONE / EPS
   100       CONTINUE
   110    CONTINUE
-*
+
          // Compute eigenvalue condition number only and compare
          // Do not update Q
-*
+
          CALL DLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
          CALL DLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
          SEPTMP = -ONE
@@ -336,10 +336,10 @@
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.QSAV( I, J ) ) VMAX = ONE / EPS
   120       CONTINUE
   130    CONTINUE
-*
+
          // Compute invariant subspace condition number only and compare
          // Do not update Q
-*
+
          CALL DLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
          CALL DLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
          SEPTMP = -ONE
@@ -362,7 +362,7 @@
          END IF
   160 CONTINUE
       GO TO 10
-*
+
       // End of DGET38
-*
+
       END

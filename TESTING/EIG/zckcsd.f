@@ -1,9 +1,9 @@
       SUBROUTINE ZCKCSD( NM, MVAL, PVAL, QVAL, NMATS, ISEED, THRESH, MMAX, X, XF, U1, U2, V1T, V2T, THETA, IWORK, WORK, RWORK, NIN, NOUT, INFO )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, NIN, NM, NMATS, MMAX, NOUT;
       double             THRESH;
@@ -13,9 +13,9 @@
       double             RWORK( * ), THETA( * );
       COMPLEX*16         U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NTESTS;
       PARAMETER          ( NTESTS = 15 )
@@ -48,9 +48,9 @@
       // EXTERNAL DLARAN, DLARND
       // ..
       // .. Executable Statements ..
-*
+
       // Initialize constants and the random number seed.
-*
+
       PATH( 1: 3 ) = 'CSD'
       INFO = 0
       NRUN = 0
@@ -63,22 +63,22 @@
       LDV1T = MMAX
       LDV2T = MMAX
       LWORK = MMAX*MMAX
-*
+
       // Do for each value of M in MVAL.
-*
+
       DO 30 IM = 1, NM
          M = MVAL( IM )
          P = PVAL( IM )
          Q = QVAL( IM )
-*
+
          DO 20 IMAT = 1, NTYPES
-*
+
             // Do the tests only if DOTYPE( IMAT ) is true.
-*
+
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 20
-*
+
             // Generate X
-*
+
             IF( IMAT.EQ.1 ) THEN
                CALL ZLAROR( 'L', 'I', M, M, X, LDX, ISEED, WORK, IINFO )
                IF( M .NE. 0 .AND. IINFO .NE. 0 ) THEN
@@ -118,14 +118,14 @@
                   END IF
                END DO
             END IF
-*
+
             NT = 15
-*
+
             CALL ZCSDTS( M, P, Q, X, XF, LDX, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, THETA, IWORK, WORK, LWORK, RWORK, RESULT )
-*
+
             // Print information about the tests that did not
             // pass the threshold.
-*
+
             DO 10 I = 1, NT
                IF( RESULT( I ).GE.THRESH ) THEN
                   IF( NFAIL.EQ.0 .AND. FIRSTT ) THEN
@@ -139,39 +139,39 @@
             NRUN = NRUN + NT
    20    CONTINUE
    30 CONTINUE
-*
+
       // Print a summary of the results.
-*
+
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, 0 )
-*
+
  9999 FORMAT( ' ZLAROR in ZCKCSD: M = ', I5, ', INFO = ', I15 )
  9998 FORMAT( ' M=', I4, ' P=', I4, ', Q=', I4, ', type ', I2,
      $      ', test ', I2, ', ratio=', G13.6 )
       RETURN
-*
+
       // End of ZCKCSD
-*
+
       END
-*
-*
-*
+
+
+
       SUBROUTINE ZLACSG( M, P, Q, THETA, ISEED, X, LDX, WORK )
       IMPLICIT NONE
-*
+
       int                LDX, M, P, Q;
       int                ISEED( 4 );
       double             THETA( * );
       COMPLEX*16         WORK( * ), X( LDX, * )
-*
+
       COMPLEX*16         ONE, ZERO
       PARAMETER          ( ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) )
-*
+
       int                I, INFO, R;
-*
+
       R = MIN( P, M-P, Q, M-Q )
-*
+
       CALL ZLASET( 'Full', M, M, ZERO, ZERO, X, LDX )
-*
+
       DO I = 1, MIN(P,Q)-R
          X(I,I) = ONE
       END DO
@@ -198,5 +198,5 @@
       END DO
       CALL ZLAROR( 'Left', 'No init', P, M, X, LDX, ISEED, WORK, INFO )
       CALL ZLAROR( 'Left', 'No init', M-P, M, X(P+1,1), LDX, ISEED, WORK, INFO )       CALL ZLAROR( 'Right', 'No init', M, Q, X, LDX, ISEED, WORK, INFO )       CALL ZLAROR( 'Right', 'No init', M, M-Q, X(1,Q+1), LDX, ISEED, WORK, INFO )
-*
+
       END

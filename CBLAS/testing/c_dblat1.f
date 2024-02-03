@@ -22,12 +22,12 @@
       DO 20 IC = 1, 10
          ICASE = IC
          CALL HEADER
-*
+
          // .. Initialize  PASS,  INCX,  INCY, and MODE for a new case. ..
          // .. the value 9999 for INCX, INCY or MODE will appear in the ..
          // .. detailed  output, if any, for cases  that do not involve ..
          // .. these parameters ..
-*
+
          PASS = .TRUE.
          INCX = 9999
          INCY = 9999
@@ -45,7 +45,7 @@
          IF (PASS) WRITE (NOUT,99998)
    20 CONTINUE
       STOP
-*
+
 99999 FORMAT (' Real CBLAS Test Program Results',/1X)
 99998 FORMAT ('                                    ----- PASS -----')
       END
@@ -74,7 +74,7 @@
       // .. Executable Statements ..
       WRITE (NOUT,99999) ICASE, L(ICASE)
       RETURN
-*
+
 99999 FORMAT (/' Test of subprogram number',I3,9X,A15)
       END
       SUBROUTINE CHECK0(SFAC)
@@ -98,14 +98,14 @@
       // .. Data statements ..
       DATA              DA1/0.3D0, 0.4D0, -0.3D0, -0.4D0, -0.3D0, 0.0D0, 0.0D0, 1.0D0/       DATA              DB1/0.4D0, 0.3D0, 0.4D0, 0.3D0, -0.4D0, 0.0D0, 1.0D0, 0.0D0/       DATA              DC1/0.6D0, 0.8D0, -0.6D0, 0.8D0, 0.6D0, 1.0D0, 0.0D0, 1.0D0/       DATA              DS1/0.8D0, 0.6D0, 0.8D0, -0.6D0, 0.8D0, 0.0D0, 1.0D0, 0.0D0/       DATA              DATRUE/0.5D0, 0.5D0, 0.5D0, -0.5D0, -0.5D0, 0.0D0, 1.0D0, 1.0D0/       DATA              DBTRUE/0.0D0, 0.6D0, 0.0D0, -0.6D0, 0.0D0, 0.0D0, 1.0D0, 0.0D0/
       // .. Executable Statements ..
-*
+
       // Compute true values which cannot be prestored
       // in decimal notation
-*
+
       DBTRUE(1) = 1.0D0/0.6D0
       DBTRUE(3) = -1.0D0/0.6D0
       DBTRUE(5) = 1.0D0/0.6D0
-*
+
       DO 20 K = 1, 8
          // .. Set N=K for identification in output if any ..
          N = K
@@ -165,7 +165,7 @@
             DO 20 I = 1, LEN
                SX(I) = DV(I,NP1,INCX)
    20       CONTINUE
-*
+
             IF (ICASE.EQ.7) THEN
                // .. DNRM2TEST ..
                STEMP(1) = DTRUE1(NP1)
@@ -227,13 +227,13 @@
       DATA              SSIZE1/0.0D0, 0.3D0, 1.6D0, 3.2D0/
       DATA              SSIZE2/0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0/
       // .. Executable Statements ..
-*
+
       DO 120 KI = 1, 4
          INCX = INCXS(KI)
          INCY = INCYS(KI)
          MX = ABS(INCX)
          MY = ABS(INCY)
-*
+
          DO 100 KN = 1, 4
             N = NS(KN)
             KSIZE = MIN(2,KN)
@@ -244,7 +244,7 @@
                SX(I) = DX1(I)
                SY(I) = DY1(I)
    20       CONTINUE
-*
+
             IF (ICASE.EQ.1) THEN
                // .. DDOTTEST ..
                CALL STEST1(DDOTTEST(N,SX,INCX,SY,INCY),DT7(KN,KI), SSIZE1(KN),SFAC)
@@ -310,19 +310,19 @@
       DATA              DT9X/0.6D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, -0.46D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, -0.46D0, -0.22D0, 1.06D0, 0.0D0, 0.0D0, 0.0D0, 0.6D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.66D0, 0.1D0, -0.1D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.96D0, 0.1D0, -0.76D0, 0.8D0, 0.90D0, -0.3D0, -0.02D0, 0.6D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, -0.06D0, 0.1D0, -0.1D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.90D0, 0.1D0, -0.22D0, 0.8D0, 0.18D0, -0.3D0, -0.02D0, 0.6D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, 0.26D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, 0.26D0, -0.76D0, 1.12D0, 0.0D0, 0.0D0, 0.0D0/       DATA              DT9Y/0.5D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, -0.78D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, -0.78D0, 0.54D0, 0.08D0, 0.0D0, 0.0D0, 0.0D0, 0.5D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.7D0, -0.9D0, -0.12D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.64D0, -0.9D0, -0.30D0, 0.7D0, -0.18D0, 0.2D0, 0.28D0, 0.5D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.7D0, -1.08D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.64D0, -1.26D0, 0.54D0, 0.20D0, 0.0D0, 0.0D0, 0.0D0, 0.5D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, -0.9D0, 0.18D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, -0.9D0, 0.18D0, 0.7D0, -0.18D0, 0.2D0, 0.16D0/
       DATA              SSIZE2/0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0/
       // .. Executable Statements ..
-*
+
       DO 60 KI = 1, 4
          INCX = INCXS(KI)
          INCY = INCYS(KI)
          MX = ABS(INCX)
          MY = ABS(INCY)
-*
+
          DO 40 KN = 1, 4
             N = NS(KN)
             KSIZE = MIN(2,KN)
             LENX = LENS(KN,MX)
             LENY = LENS(KN,MY)
-*
+
             IF (ICASE.EQ.4) THEN
                // .. DROTTEST ..
                DO 20 I = 1, 7
@@ -340,7 +340,7 @@
             END IF
    40    CONTINUE
    60 CONTINUE
-*
+
       MWPC(1) = 1
       DO 80 I = 2, 11
          MWPC(I) = 0
@@ -438,13 +438,13 @@
       END
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC)
       // ********************************* STEST **************************
-*
+
       // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
       // SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
       // NEGLIGIBLE.
-*
+
       // C. L. LAWSON, JPL, 1974 DEC 10
-*
+
       // .. Parameters ..
       int              NOUT;
       PARAMETER        (NOUT=6)
@@ -467,13 +467,13 @@
       // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
-*
+
       DO 40 I = 1, LEN
          SD = SCOMP(I) - STRUE(I)
          IF (SDIFF(ABS(SSIZE(I))+ABS(SFAC*SD),ABS(SSIZE(I))).EQ.0.0D0) GO TO 40
-*
+
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
-*
+
          IF ( .NOT. PASS) GO TO 20
                               // PRINT FAIL MESSAGE AND HEADER.
          PASS = .FALSE.
@@ -483,7 +483,7 @@
      +     STRUE(I), SD, SSIZE(I)
    40 CONTINUE
       RETURN
-*
+
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ',
      +       ' COMP(I)                             TRUE(I)  DIFFERENCE',
@@ -492,13 +492,13 @@
       END
       SUBROUTINE STEST1(SCOMP1,STRUE1,SSIZE,SFAC)
       // ************************* STEST1 *****************************
-*
+
       // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
       // REQUIREMENT THAT WHEN A DUMMY ARGUMENT IS AN ARRAY, THE
       // ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
-*
+
       // C.L. LAWSON, JPL, 1978 DEC 6
-*
+
       // .. Scalar Arguments ..
       double            SCOMP1, SFAC, STRUE1;
       // .. Array Arguments ..
@@ -508,17 +508,17 @@
       // .. External Subroutines ..
       // EXTERNAL STEST
       // .. Executable Statements ..
-*
+
       SCOMP(1) = SCOMP1
       STRUE(1) = STRUE1
       CALL STEST(1,SCOMP,STRUE,SSIZE,SFAC)
-*
+
       RETURN
       END
       double           FUNCTION SDIFF(SA,SB);
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
-*
+
       // .. Scalar Arguments ..
       double                          SA, SB;
       // .. Executable Statements ..
@@ -527,11 +527,11 @@
       END
       SUBROUTINE ITEST1(ICOMP,ITRUE)
       // ********************************* ITEST1 *************************
-*
+
       // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
       // EQUALITY.
       // C. L. LAWSON, JPL, 1974 DEC 10
-*
+
       // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
@@ -545,11 +545,11 @@
       // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
-*
+
       IF (ICOMP.EQ.ITRUE) GO TO 40
-*
+
                              // HERE ICOMP IS NOT EQUAL TO ITRUE.
-*
+
       IF ( .NOT. PASS) GO TO 20
                               // PRINT FAIL MESSAGE AND HEADER.
       PASS = .FALSE.
@@ -559,7 +559,7 @@
       WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, ICOMP, ITRUE, ID
    40 CONTINUE
       RETURN
-*
+
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY MODE                               ',
      +       ' COMP                                TRUE     DIFFERENCE',

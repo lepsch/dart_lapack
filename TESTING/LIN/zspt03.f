@@ -1,9 +1,9 @@
       SUBROUTINE ZSPT03( UPLO, N, A, AINV, WORK, LDW, RWORK, RCOND, RESID )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDW, N;
@@ -13,9 +13,9 @@
       double             RWORK( * );
       COMPLEX*16         A( * ), AINV( * ), WORK( LDW, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -35,17 +35,17 @@
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
-*
+
       // Quick exit if N = 0.
-*
+
       IF( N.LE.0 ) THEN
          RCOND = ONE
          RESID = ZERO
          RETURN
       END IF
-*
+
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
-*
+
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANSP( '1', UPLO, N, A, RWORK )
       AINVNM = ZLANSP( '1', UPLO, N, AINV, RWORK )
@@ -55,17 +55,17 @@
          RETURN
       END IF
       RCOND = ( ONE / ANORM ) / AINVNM
-*
+
       // Case where both A and AINV are upper triangular:
       // Each element of - A * AINV is computed by taking the dot product
       // of a row of A with a column of AINV.
-*
+
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 70 I = 1, N
             ICOL = ( ( I-1 )*I ) / 2 + 1
-*
+
             // Code when J <= I
-*
+
             DO 30 J = 1, I
                JCOL = ( ( J-1 )*J ) / 2 + 1
                T = ZDOTU( J, A( ICOL ), 1, AINV( JCOL ), 1 )
@@ -83,9 +83,9 @@
    20          CONTINUE
                WORK( I, J ) = -T
    30       CONTINUE
-*
+
             // Code when J > I
-*
+
             DO 60 J = I + 1, N
                JCOL = ( ( J-1 )*J ) / 2 + 1
                T = ZDOTU( I, A( ICOL ), 1, AINV( JCOL ), 1 )
@@ -105,14 +105,14 @@
    60       CONTINUE
    70    CONTINUE
       ELSE
-*
+
          // Case where both A and AINV are lower triangular
-*
+
          NALL = ( N*( N+1 ) ) / 2
          DO 140 I = 1, N
-*
+
             // Code when J <= I
-*
+
             ICOL = NALL - ( ( N-I+1 )*( N-I+2 ) ) / 2 + 1
             DO 100 J = 1, I
                JCOL = NALL - ( ( N-J )*( N-J+1 ) ) / 2 - ( N-I )
@@ -131,9 +131,9 @@
    90          CONTINUE
                WORK( I, J ) = -T
   100       CONTINUE
-*
+
             // Code when J > I
-*
+
             ICOL = NALL - ( ( N-I )*( N-I+1 ) ) / 2
             DO 130 J = I + 1, N
                JCOL = NALL - ( ( N-J+1 )*( N-J+2 ) ) / 2 + 1
@@ -154,21 +154,21 @@
   130       CONTINUE
   140    CONTINUE
       END IF
-*
+
       // Add the identity matrix to WORK .
-*
+
       DO 150 I = 1, N
          WORK( I, I ) = WORK( I, I ) + ONE
   150 CONTINUE
-*
+
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
-*
+
       RESID = ZLANGE( '1', N, N, WORK, LDW, RWORK )
-*
+
       RESID = ( ( RESID*RCOND ) / EPS ) / DBLE( N )
-*
+
       RETURN
-*
+
       // End of ZSPT03
-*
+
       END

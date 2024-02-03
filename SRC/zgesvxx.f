@@ -1,9 +1,9 @@
       SUBROUTINE ZGESVXX( FACT, TRANS, N, NRHS, A, LDA, AF, LDAF, IPIV, EQUED, R, C, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
@@ -13,9 +13,9 @@
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ),WORK( * )       double             R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
       // ..
-*
+
 *  ==================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -43,7 +43,7 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
       EQUIL = LSAME( FACT, 'E' )
@@ -58,15 +58,15 @@
          ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
          COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
       END IF
-*
+
       // Default is failure.  If an input parameter is wrong or
       // factorization fails, make everything look horrible.  Only the
       // pivot growth is set here, the rest is initialized in ZGERFSX.
-*
+
       RPVGRW = ZERO
-*
+
       // Test the input parameters.  PARAMS is not tested until ZGERFSX.
-*
+
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) THEN
          INFO = -1
       ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
@@ -120,28 +120,28 @@
             END IF
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZGESVXX', -INFO )
          RETURN
       END IF
-*
+
       IF( EQUIL ) THEN
-*
+
       // Compute row and column scalings to equilibrate the matrix A.
-*
+
          CALL ZGEEQUB( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
-*
+
       // Equilibrate the matrix.
-*
+
             CALL ZLAQGE( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          END IF
-*
+
       // If the scaling factors are not applied, set them to 1.0.
-*
+
          IF ( .NOT.ROWEQU ) THEN
             DO J = 1, N
                R( J ) = 1.0D+0
@@ -153,59 +153,59 @@
             END DO
          END IF
       END IF
-*
+
       // Scale the right-hand side.
-*
+
       IF( NOTRAN ) THEN
          IF( ROWEQU ) CALL ZLASCL2( N, NRHS, R, B, LDB )
       ELSE
          IF( COLEQU ) CALL ZLASCL2( N, NRHS, C, B, LDB )
       END IF
-*
+
       IF( NOFACT .OR. EQUIL ) THEN
-*
+
          // Compute the LU factorization of A.
-*
+
          CALL ZLACPY( 'Full', N, N, A, LDA, AF, LDAF )
          CALL ZGETRF( N, N, AF, LDAF, IPIV, INFO )
-*
+
          // Return if INFO is non-zero.
-*
+
          IF( INFO.GT.0 ) THEN
-*
+
             // Pivot in column INFO is exactly 0
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
-*
+
             RPVGRW = ZLA_GERPVGRW( N, INFO, A, LDA, AF, LDAF )
             RETURN
          END IF
       END IF
-*
+
       // Compute the reciprocal pivot growth factor RPVGRW.
-*
+
       RPVGRW = ZLA_GERPVGRW( N, N, A, LDA, AF, LDAF )
-*
+
       // Compute the solution matrix X.
-*
+
       CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL ZGETRS( TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
-*
+
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
-*
+
       CALL ZGERFSX( TRANS, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
-*
+
       // Scale solutions.
-*
+
       IF ( COLEQU .AND. NOTRAN ) THEN
          CALL ZLASCL2 ( N, NRHS, C, X, LDX )
       ELSE IF ( ROWEQU .AND. .NOT.NOTRAN ) THEN
          CALL ZLASCL2 ( N, NRHS, R, X, LDX )
       END IF
-*
+
       RETURN
-*
+
       // End of ZGESVXX
-*
+
       END

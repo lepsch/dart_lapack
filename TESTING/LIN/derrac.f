@@ -1,15 +1,15 @@
       SUBROUTINE DERRAC( NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
@@ -38,12 +38,12 @@
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1.D0 / DBLE( I+J )
@@ -58,7 +58,7 @@
          R( J ) = 0.D0
    20 CONTINUE
       OK = .TRUE.
-*
+
       SRNAMT = 'DSPOSV'
       INFOT = 1
       CALL DSPOSV('/',0,0,A,1,B,1,X,1,WORK,SWORK,ITER,INFO)
@@ -78,21 +78,21 @@
       INFOT = 9
       CALL DSPOSV('U',2,1,A,2,B,2,X,1,WORK,SWORK,ITER,INFO)
       CALL CHKXER( 'DSPOSV', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )'DSPOSV'
       ELSE
          WRITE( NOUT, FMT = 9998 )'DSPOSV'
       END IF
-*
+
  9999 FORMAT( 1X, A6, ' drivers passed the tests of the error exits' )
  9998 FORMAT( ' *** ', A6, ' drivers failed the tests of the error ',
      $      'exits ***' )
-*
+
       RETURN
-*
+
       // End of DERRAC
-*
+
       END

@@ -1,18 +1,18 @@
       SUBROUTINE SGELQS( M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, NRHS;
       // ..
       // .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -24,9 +24,9 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF( M.LT.0 ) THEN
          INFO = -1
@@ -45,25 +45,25 @@
          CALL XERBLA( 'SGELQS', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 ) RETURN
-*
+
       // Solve L*X = B(1:m,:)
-*
+
       CALL STRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', M, NRHS, ONE, A, LDA, B, LDB )
-*
+
       // Set B(m+1:n,:) to zero
-*
+
       IF( M.LT.N ) CALL SLASET( 'Full', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB )
-*
+
       // B := Q' * B
-*
+
       CALL SORMLQ( 'Left', 'Transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
-*
+
       RETURN
-*
+
       // End of SGELQS
-*
+
       END

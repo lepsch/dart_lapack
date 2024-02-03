@@ -1,18 +1,18 @@
       double           FUNCTION DASUM(N,DX,INCX);
-*
+
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int     INCX,N;
       // ..
       // .. Array Arguments ..
       double           DX(*);
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       double           DTEMP;
       int     I,M,MP1,NINCX;
@@ -25,10 +25,10 @@
       IF (N.LE.0 .OR. INCX.LE.0) RETURN
       IF (INCX.EQ.1) THEN
          // code for increment equal to 1
-*
-*
+
+
          // clean-up loop
-*
+
          M = MOD(N,6)
          IF (M.NE.0) THEN
             DO I = 1,M
@@ -44,9 +44,9 @@
             DTEMP = DTEMP + DABS(DX(I)) + DABS(DX(I+1)) + DABS(DX(I+2)) + DABS(DX(I+3)) + DABS(DX(I+4)) + DABS(DX(I+5))
          END DO
       ELSE
-*
+
          // code for increment not equal to 1
-*
+
          NINCX = N*INCX
          DO I = 1,NINCX,INCX
             DTEMP = DTEMP + DABS(DX(I))
@@ -54,7 +54,7 @@
       END IF
       DASUM = DTEMP
       RETURN
-*
+
       // End of DASUM
-*
+
       END

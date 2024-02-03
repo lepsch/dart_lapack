@@ -1,9 +1,9 @@
       SUBROUTINE ZLATSP( UPLO, N, X, ISEED )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                N;
@@ -12,9 +12,9 @@
       int                ISEED( * );
       COMPLEX*16         X( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX*16         EYE
       PARAMETER          ( EYE = ( 0.0D0, 1.0D0 ) )
@@ -32,25 +32,25 @@
       // INTRINSIC ABS, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Initialize constants
-*
+
       ALPHA = ( 1.D0+SQRT( 17.D0 ) ) / 8.D0
       BETA = ALPHA - 1.D0 / 1000.D0
       ALPHA3 = ALPHA*ALPHA*ALPHA
-*
+
       // Fill the matrix with zeros.
-*
+
       DO 10 J = 1, N*( N+1 ) / 2
          X( J ) = 0.0D0
    10 CONTINUE
-*
+
       // UPLO = 'U':  Upper triangular storage
-*
+
       IF( UPLO.EQ.'U' ) THEN
          N5 = N / 5
          N5 = N - 5*N5 + 1
-*
+
          JJ = N*( N+1 ) / 2
          DO 20 J = N, N5, -5
             A = ALPHA3*ZLARND( 5, ISEED )
@@ -75,9 +75,9 @@
             END IF
             JJ = JJ - ( J-4 )
    20    CONTINUE
-*
+
          // Clean-up for N not a multiple of 5.
-*
+
          J = N5 - 1
          IF( J.GT.2 ) THEN
             A = ALPHA3*ZLARND( 5, ISEED )
@@ -108,13 +108,13 @@
             X( JJ ) = ZLARND( 2, ISEED )
             J = J - 1
          END IF
-*
+
       // UPLO = 'L':  Lower triangular storage
-*
+
       ELSE
          N5 = N / 5
          N5 = N5*5
-*
+
          JJ = 1
          DO 30 J = 1, N5, 5
             A = ALPHA3*ZLARND( 5, ISEED )
@@ -139,9 +139,9 @@
             END IF
             JJ = JJ + ( N-J-3 )
    30    CONTINUE
-*
+
          // Clean-up for N not a multiple of 5.
-*
+
          J = N5 + 1
          IF( J.LT.N-1 ) THEN
             A = ALPHA3*ZLARND( 5, ISEED )
@@ -174,9 +174,9 @@
             J = J + 1
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of ZLATSP
-*
+
       END

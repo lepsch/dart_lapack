@@ -1,9 +1,9 @@
       SUBROUTINE ZUNM2R( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                INFO, K, LDA, LDC, M, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX*16         ONE
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ) )
@@ -34,15 +34,15 @@
       // INTRINSIC DCONJG, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
-*
+
       // NQ is the order of Q
-*
+
       IF( LEFT ) THEN
          NQ = M
       ELSE
@@ -67,11 +67,11 @@
          CALL XERBLA( 'ZUNM2R', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
-*
+
       IF( ( LEFT .AND. .NOT.NOTRAN .OR. .NOT.LEFT .AND. NOTRAN ) ) THEN
          I1 = 1
          I2 = K
@@ -81,7 +81,7 @@
          I2 = 1
          I3 = -1
       END IF
-*
+
       IF( LEFT ) THEN
          NI = N
          JC = 1
@@ -89,24 +89,24 @@
          MI = M
          IC = 1
       END IF
-*
+
       DO 10 I = I1, I2, I3
          IF( LEFT ) THEN
-*
+
             // H(i) or H(i)**H is applied to C(i:m,1:n)
-*
+
             MI = M - I + 1
             IC = I
          ELSE
-*
+
             // H(i) or H(i)**H is applied to C(1:m,i:n)
-*
+
             NI = N - I + 1
             JC = I
          END IF
-*
+
          // Apply H(i) or H(i)**H
-*
+
          IF( NOTRAN ) THEN
             TAUI = TAU( I )
          ELSE
@@ -118,7 +118,7 @@
          A( I, I ) = AII
    10 CONTINUE
       RETURN
-*
+
       // End of ZUNM2R
-*
+
       END

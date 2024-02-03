@@ -1,9 +1,9 @@
       SUBROUTINE ZBDT01( M, N, KD, A, LDA, Q, LDQ, D, E, PT, LDPT, WORK, RWORK, RESID )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                KD, LDA, LDPT, LDQ, M, N;
       double             RESID;
@@ -12,9 +12,9 @@
       double             D( * ), E( * ), RWORK( * );
       COMPLEX*16         A( LDA, * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -34,25 +34,25 @@
       // INTRINSIC DBLE, DCMPLX, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Quick return if possible
-*
+
       IF( M.LE.0 .OR. N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
-*
+
       // Compute A - Q * B * P**H one column at a time.
-*
+
       RESID = ZERO
       IF( KD.NE.0 ) THEN
-*
+
          // B is bidiagonal.
-*
+
          IF( KD.NE.0 .AND. M.GE.N ) THEN
-*
+
             // B is upper bidiagonal and M >= N.
-*
+
             DO 20 J = 1, N
                CALL ZCOPY( M, A( 1, J ), 1, WORK, 1 )
                DO 10 I = 1, N - 1
@@ -63,9 +63,9 @@
                RESID = MAX( RESID, DZASUM( M, WORK, 1 ) )
    20       CONTINUE
          ELSE IF( KD.LT.0 ) THEN
-*
+
             // B is upper bidiagonal and M < N.
-*
+
             DO 40 J = 1, N
                CALL ZCOPY( M, A( 1, J ), 1, WORK, 1 )
                DO 30 I = 1, M - 1
@@ -76,9 +76,9 @@
                RESID = MAX( RESID, DZASUM( M, WORK, 1 ) )
    40       CONTINUE
          ELSE
-*
+
             // B is lower bidiagonal.
-*
+
             DO 60 J = 1, N
                CALL ZCOPY( M, A( 1, J ), 1, WORK, 1 )
                WORK( M+1 ) = D( 1 )*PT( 1, J )
@@ -90,9 +90,9 @@
    60       CONTINUE
          END IF
       ELSE
-*
+
          // B is diagonal.
-*
+
          IF( M.GE.N ) THEN
             DO 80 J = 1, N
                CALL ZCOPY( M, A( 1, J ), 1, WORK, 1 )
@@ -113,12 +113,12 @@
   100       CONTINUE
          END IF
       END IF
-*
+
       // Compute norm(A - Q * B * P**H) / ( n * norm(A) * EPS )
-*
+
       ANORM = ZLANGE( '1', M, N, A, LDA, RWORK )
       EPS = DLAMCH( 'Precision' )
-*
+
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
@@ -132,9 +132,9 @@
             END IF
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of ZBDT01
-*
+
       END

@@ -23,9 +23,9 @@
       bool   , EXTERNAL :: LSAME;
       int    , EXTERNAL :: ILAENV;
 
-*
+
       // Decode wantS,wantQ,wantZ
-*
+
       IF( LSAME( WANTS, 'E' ) ) THEN
          ILSCHUR = .FALSE.
          IWANTS = 1
@@ -61,9 +61,9 @@
       ELSE
          IWANTZ = 0
       END IF
-*
+
       // Check Argument Values
-*
+
       INFO = 0
       IF( IWANTS.EQ.0 ) THEN
          INFO = -1
@@ -91,17 +91,17 @@
          RETURN
       END IF
 
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) THEN
          WORK( 1 ) = DBLE( 1 )
          RETURN
       END IF
 
-*
+
       // Get the parameters
-*
+
       JBCMPZ( 1:1 ) = WANTS
       JBCMPZ( 2:2 ) = WANTQ
       JBCMPZ( 3:3 ) = WANTZ
@@ -128,9 +128,9 @@
          RETURN
       END IF
 
-*
+
       // Find out required workspace
-*
+
 
       // Workspace query to dlaqz3
       NW = MAX( NWR, NMIN )
@@ -151,9 +151,9 @@
          CALL XERBLA( 'DLAQZ0', INFO )
          RETURN
       END IF
-*
+
       // Initialize Q and Z
-*
+
       IF( IWANTQ.EQ.3 ) CALL DLASET( 'FULL', N, N, ZERO, ONE, Q, LDQ )
       IF( IWANTZ.EQ.3 ) CALL DLASET( 'FULL', N, N, ZERO, ONE, Z, LDZ )
 
@@ -300,9 +300,9 @@
             END IF
          END IF
 
-*
+
          // Time for AED
-*
+
          CALL DLAQZ3( ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, N_UNDEFLATED, N_DEFLATED, ALPHAR, ALPHAI, BETA, WORK, NW, WORK( NW**2+1 ), NW, WORK( 2*NW**2+1 ), LWORK-2*NW**2, REC, AED_INFO )
 
          IF ( N_DEFLATED > 0 ) THEN
@@ -321,13 +321,13 @@
          NS = MIN( NSHIFTS, ISTOP-ISTART2 )
          NS = MIN( NS, N_UNDEFLATED )
          SHIFTPOS = ISTOP-N_UNDEFLATED+1
-*
+
          // Shuffle shifts to put double shifts in front
          // This ensures that we don't split up a double shift
-*
+
          DO I = SHIFTPOS, SHIFTPOS+N_UNDEFLATED-1, 2
             IF( ALPHAI( I ).NE.-ALPHAI( I+1 ) ) THEN
-*
+
                SWAP = ALPHAR( I )
                ALPHAR( I ) = ALPHAR( I+1 )
                ALPHAR( I+1 ) = ALPHAR( I+2 )
@@ -346,9 +346,9 @@
          END DO
 
          IF ( MOD( LD, 6 ) .EQ. 0 ) THEN
-*
+
             // Exceptional shift.  Chosen for no particularly good reason.
-*
+
             IF( ( DBLE( MAXIT )*SAFMIN )*ABS( A( ISTOP, ISTOP-1 ) ).LT.ABS( A( ISTOP-1, ISTOP-1 ) ) ) THEN
                ESHIFT = A( ISTOP, ISTOP-1 )/B( ISTOP-1, ISTOP-1 )
             ELSE
@@ -363,19 +363,19 @@
             NS = 2
          END IF
 
-*
+
          // Time for a QZ sweep
-*
+
          CALL DLAQZ4( ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NS, NBLOCK, ALPHAR( SHIFTPOS ), ALPHAI( SHIFTPOS ), BETA( SHIFTPOS ), A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, NBLOCK, WORK( NBLOCK**2+1 ), NBLOCK, WORK( 2*NBLOCK**2+1 ), LWORK-2*NBLOCK**2, SWEEP_INFO )
 
       END DO
 
-*
+
       // Call DHGEQZ to normalize the eigenvalue blocks and set the eigenvalues
       // If all the eigenvalues have been found, DHGEQZ will not do any iterations
       // and only normalize the blocks. In case of a rare convergence failure,
      t // he single shift might perform better.
-*
+
    80 CALL DHGEQZ( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB,
      $             ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, WORK, LWORK,
      $             NORM_INFO )

@@ -1,9 +1,9 @@
       double           FUNCTION DLANGB( NORM, N, KL, KU, AB, LDAB, WORK );
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             NORM;
       int                KL, KU, LDAB, N;
@@ -11,10 +11,10 @@
       // .. Array Arguments ..
       double             AB( LDAB, * ), WORK( * );
       // ..
-*
+
 * =====================================================================
-*
-*
+
+
       // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -34,13 +34,13 @@
       // INTRINSIC ABS, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       IF( N.EQ.0 ) THEN
          VALUE = ZERO
       ELSE IF( LSAME( NORM, 'M' ) ) THEN
-*
+
          // Find max(abs(A(i,j))).
-*
+
          VALUE = ZERO
          DO 20 J = 1, N
             DO 10 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )
@@ -49,9 +49,9 @@
    10       CONTINUE
    20    CONTINUE
       ELSE IF( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
-*
+
          // Find norm1(A).
-*
+
          VALUE = ZERO
          DO 40 J = 1, N
             SUM = ZERO
@@ -61,9 +61,9 @@
             IF( VALUE.LT.SUM .OR. DISNAN( SUM ) ) VALUE = SUM
    40    CONTINUE
       ELSE IF( LSAME( NORM, 'I' ) ) THEN
-*
+
          // Find normI(A).
-*
+
          DO 50 I = 1, N
             WORK( I ) = ZERO
    50    CONTINUE
@@ -79,9 +79,9 @@
             IF( VALUE.LT.TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
    80    CONTINUE
       ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
-*
+
          // Find normF(A).
-*
+
          SCALE = ZERO
          SUM = ONE
          DO 90 J = 1, N
@@ -91,10 +91,10 @@
    90    CONTINUE
          VALUE = SCALE*SQRT( SUM )
       END IF
-*
+
       DLANGB = VALUE
       RETURN
-*
+
       // End of DLANGB
-*
+
       END

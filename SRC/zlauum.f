@@ -1,9 +1,9 @@
       SUBROUTINE ZLAUUM( UPLO, N, A, LDA, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX*16         A( LDA, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
@@ -36,9 +36,9 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -52,28 +52,28 @@
          CALL XERBLA( 'ZLAUUM', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Determine the block size for this environment.
-*
+
       NB = ILAENV( 1, 'ZLAUUM', UPLO, N, -1, -1, -1 )
-*
+
       IF( NB.LE.1 .OR. NB.GE.N ) THEN
-*
+
          // Use unblocked code
-*
+
          CALL ZLAUU2( UPLO, N, A, LDA, INFO )
       ELSE
-*
+
          // Use blocked code
-*
+
          IF( UPPER ) THEN
-*
+
             // Compute the product U * U**H.
-*
+
             DO 10 I = 1, N, NB
                IB = MIN( NB, N-I+1 )
                CALL ZTRMM( 'Right', 'Upper', 'Conjugate transpose', 'Non-unit', I-1, IB, CONE, A( I, I ), LDA, A( 1, I ), LDA )
@@ -84,9 +84,9 @@
                END IF
    10       CONTINUE
          ELSE
-*
+
             // Compute the product L**H * L.
-*
+
             DO 20 I = 1, N, NB
                IB = MIN( NB, N-I+1 )
                CALL ZTRMM( 'Left', 'Lower', 'Conjugate transpose', 'Non-unit', IB, I-1, CONE, A( I, I ), LDA, A( I, 1 ), LDA )
@@ -97,9 +97,9 @@
    20       CONTINUE
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of ZLAUUM
-*
+
       END

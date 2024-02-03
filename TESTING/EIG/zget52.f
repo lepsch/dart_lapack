@@ -1,9 +1,9 @@
       SUBROUTINE ZGET52( LEFT, N, A, LDA, B, LDB, E, LDE, ALPHA, BETA, WORK, RWORK, RESULT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               LEFT;
       int                LDA, LDB, LDE, N;
@@ -12,9 +12,9 @@
       double             RESULT( 2 ), RWORK( * );
       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), E( LDE, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -44,15 +44,15 @@
       ABS1( X ) = ABS( DBLE( X ) ) + ABS( DIMAG( X ) )
       // ..
       // .. Executable Statements ..
-*
+
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
       IF( N.LE.0 ) RETURN
-*
+
       SAFMIN = DLAMCH( 'Safe minimum' )
       SAFMAX = ONE / SAFMIN
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
-*
+
       IF( LEFT ) THEN
          TRANS = 'C'
          NORMAB = 'I'
@@ -60,18 +60,18 @@
          TRANS = 'N'
          NORMAB = 'O'
       END IF
-*
+
       // Norm of A, B, and E:
-*
+
       ANORM = MAX( ZLANGE( NORMAB, N, N, A, LDA, RWORK ), SAFMIN )
       BNORM = MAX( ZLANGE( NORMAB, N, N, B, LDB, RWORK ), SAFMIN )
       ENORM = MAX( ZLANGE( 'O', N, N, E, LDE, RWORK ), ULP )
       ALFMAX = SAFMAX / MAX( ONE, BNORM )
       BETMAX = SAFMAX / MAX( ONE, ANORM )
-*
+
       // Compute error matrix.
       // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
-*
+
       DO 10 JVEC = 1, N
          ALPHAI = ALPHA( JVEC )
          BETAI = BETA( JVEC )
@@ -90,15 +90,15 @@
          END IF
          CALL ZGEMV( TRANS, N, N, ACOEFF, A, LDA, E( 1, JVEC ), 1, CZERO, WORK( N*( JVEC-1 )+1 ), 1 )          CALL ZGEMV( TRANS, N, N, -BCOEFF, B, LDA, E( 1, JVEC ), 1, CONE, WORK( N*( JVEC-1 )+1 ), 1 )
    10 CONTINUE
-*
+
       ERRNRM = ZLANGE( 'One', N, N, WORK, N, RWORK ) / ENORM
-*
+
       // Compute RESULT(1)
-*
+
       RESULT( 1 ) = ERRNRM / ULP
-*
+
       // Normalization of E:
-*
+
       ENRMER = ZERO
       DO 30 JVEC = 1, N
          TEMP1 = ZERO
@@ -107,13 +107,13 @@
    20    CONTINUE
          ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )
    30 CONTINUE
-*
+
       // Compute RESULT(2) : the normalization error in E.
-*
+
       RESULT( 2 ) = ENRMER / ( DBLE( N )*ULP )
-*
+
       RETURN
-*
+
       // End of ZGET52
-*
+
       END

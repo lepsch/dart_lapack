@@ -1,9 +1,9 @@
       SUBROUTINE DGBT02( TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             TRANS;
       int                KL, KU, LDA, LDB, LDX, M, N, NRHS;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), X( LDX, * ), RWORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -35,22 +35,22 @@
       // INTRINSIC ABS, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Quick return if N = 0 pr NRHS = 0
-*
+
       IF( M.LE.0 .OR. N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
-*
+
       // Exit with RESID = 1/EPS if ANORM = 0.
-*
+
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZERO
       IF( LSAME( TRANS, 'N' ) ) THEN
-*
+
          // Find norm1(A).
-*
+
          KD = KU + 1
          DO 10 J = 1, N
             I1 = MAX( KD+1-J, 1 )
@@ -61,9 +61,9 @@
             END IF
    10    CONTINUE
       ELSE
-*
+
          // Find normI(A).
-*
+
          DO 12 I1 = 1, M
             RWORK( I1 ) = ZERO
    12    CONTINUE
@@ -82,22 +82,22 @@
          RESID = ONE / EPS
          RETURN
       END IF
-*
+
       IF( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) THEN
          N1 = N
       ELSE
          N1 = M
       END IF
-*
+
       // Compute B - op(A)*X
-*
+
       DO 20 J = 1, NRHS
          CALL DGBMV( TRANS, M, N, KL, KU, -ONE, A, LDA, X( 1, J ), 1, ONE, B( 1, J ), 1 )
    20 CONTINUE
-*
+
       // Compute the maximum over the number of right hand sides of
          // norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).
-*
+
       RESID = ZERO
       DO 30 J = 1, NRHS
          BNORM = DASUM( N1, B( 1, J ), 1 )
@@ -108,9 +108,9 @@
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
          END IF
    30 CONTINUE
-*
+
       RETURN
-*
+
       // End of DGBT02
-*
+
       END

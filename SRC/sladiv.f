@@ -1,15 +1,15 @@
       SUBROUTINE SLADIV( A, B, C, D, P, Q )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL               A, B, C, D, P, Q
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               BS
       PARAMETER          ( BS = 2.0E0 )
@@ -17,7 +17,7 @@
       PARAMETER          ( HALF = 0.5E0 )
       REAL               TWO
       PARAMETER          ( TWO = 2.0E0 )
-*
+
       // .. Local Scalars ..
       REAL               AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS
       // ..
@@ -32,7 +32,7 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Executable Statements ..
-*
+
       AA = A
       BB = B
       CC = C
@@ -74,32 +74,32 @@
       END IF
       P = P * S
       Q = Q * S
-*
+
       RETURN
-*
+
       // End of SLADIV
-*
+
       END
 
 *> \ingroup ladiv
 
 
       SUBROUTINE SLADIV1( A, B, C, D, P, Q )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL               A, B, C, D, P, Q
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E0 )
-*
+
       // .. Local Scalars ..
       REAL               R, T
       // ..
@@ -108,42 +108,42 @@
       // EXTERNAL SLADIV2
       // ..
       // .. Executable Statements ..
-*
+
       R = D / C
       T = ONE / (C + D * R)
       P = SLADIV2(A, B, C, D, R, T)
       A = -A
       Q = SLADIV2(B, A, C, D, R, T)
-*
+
       RETURN
-*
+
       // End of SLADIV1
-*
+
       END
 
 *> \ingroup ladiv
 
       REAL FUNCTION SLADIV2( A, B, C, D, R, T )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL               A, B, C, D, R, T
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
-*
+
       // .. Local Scalars ..
       REAL               BR
       // ..
       // .. Executable Statements ..
-*
+
       IF( R.NE.ZERO ) THEN
          BR = B * R
          if( BR.NE.ZERO ) THEN
@@ -154,9 +154,9 @@
       ELSE
          SLADIV2 = (A + D * (B / C)) * T
       END IF
-*
+
       RETURN
-*
+
       // End of SLADIV2
-*
+
       END

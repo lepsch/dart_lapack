@@ -1,9 +1,9 @@
       SUBROUTINE CLAUU2( UPLO, N, A, LDA, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX            A( LDA, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
@@ -35,9 +35,9 @@
       // INTRINSIC CMPLX, MAX, REAL
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -51,15 +51,15 @@
          CALL XERBLA( 'CLAUU2', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       IF( UPPER ) THEN
-*
+
          // Compute the product U * U**H.
-*
+
          DO 10 I = 1, N
             AII = REAL( A( I, I ) )
             IF( I.LT.N ) THEN
@@ -71,11 +71,11 @@
                CALL CSSCAL( I, AII, A( 1, I ), 1 )
             END IF
    10    CONTINUE
-*
+
       ELSE
-*
+
          // Compute the product L**H * L.
-*
+
          DO 20 I = 1, N
             AII = REAL( A( I, I ) )
             IF( I.LT.N ) THEN
@@ -88,9 +88,9 @@
             END IF
    20    CONTINUE
       END IF
-*
+
       RETURN
-*
+
       // End of CLAUU2
-*
+
       END

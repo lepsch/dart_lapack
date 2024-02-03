@@ -1,9 +1,9 @@
       SUBROUTINE SDRVVX( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NIUNIT, NOUNIT, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, NWORK, IWORK, INFO )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, LDLRE, LDVL, LDVR, NIUNIT, NOUNIT, NSIZES, NTYPES, NWORK;
       REAL               THRESH
@@ -13,9 +13,9 @@
       int                ISEED( 4 ), IWORK( * ), NN( * );
       REAL               A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), SCALE( * ), SCALE1( * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WI1( * ), WORK( * ), WR( * ), WR1( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -50,31 +50,31 @@
       DATA               BAL / 'N', 'P', 'S', 'B' /
       // ..
       // .. Executable Statements ..
-*
+
       PATH( 1: 1 ) = 'Single precision'
       PATH( 2: 3 ) = 'VX'
-*
+
       // Check for errors
-*
+
       NTESTT = 0
       NTESTF = 0
       INFO = 0
-*
+
       // Important constants
-*
+
       BADNN = .FALSE.
-*
+
       // 12 is the largest dimension in the input file of precomputed
       // problems
-*
+
       NMAX = 12
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
-*
+
       // Check for errors
-*
+
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
       ELSE IF( BADNN ) THEN
@@ -94,29 +94,29 @@
       ELSE IF( 6*NMAX+2*NMAX**2.GT.NWORK ) THEN
          INFO = -32
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SDRVVX', -INFO )
          RETURN
       END IF
-*
+
       // If nothing to do check on NIUNIT
-*
+
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) GO TO 160
-*
+
       // More Important constants
-*
+
       UNFL = SLAMCH( 'Safe minimum' )
       OVFL = ONE / UNFL
       ULP = SLAMCH( 'Precision' )
       ULPINV = ONE / ULP
       RTULP = SQRT( ULP )
       RTULPI = ONE / RTULP
-*
+
       // Loop over sizes, types
-*
+
       NERRS = 0
-*
+
       DO 150 JSIZE = 1, NSIZES
          N = NN( JSIZE )
          IF( NSIZES.NE.1 ) THEN
@@ -124,20 +124,20 @@
          ELSE
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
-*
+
          DO 140 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 140
-*
+
             // Save ISEED in case of an error.
-*
+
             DO 20 J = 1, 4
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
-*
+
             // Compute "A"
-*
+
             // Control parameters:
-*
+
             // KMAGN  KCONDS  KMODE        KTYPE
         // =1  O(1)   1       clustered 1  zero
         // =2  large  large   clustered 2  identity
@@ -149,74 +149,74 @@
         // =8                              random symmetric
         // =9                              random general
         // =10                             random triangular
-*
+
             IF( MTYPES.GT.MAXTYP ) GO TO 90
-*
+
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
-*
+
             // Compute norm
-*
+
             GO TO ( 30, 40, 50 )KMAGN( JTYPE )
-*
+
    30       CONTINUE
             ANORM = ONE
             GO TO 60
-*
+
    40       CONTINUE
             ANORM = OVFL*ULP
             GO TO 60
-*
+
    50       CONTINUE
             ANORM = UNFL*ULPINV
             GO TO 60
-*
+
    60       CONTINUE
-*
+
             CALL SLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
             IINFO = 0
             COND = ULPINV
-*
+
             // Special Matrices -- Identity & Jordan block
-*
+
                // Zero
-*
+
             IF( ITYPE.EQ.1 ) THEN
                IINFO = 0
-*
+
             ELSE IF( ITYPE.EQ.2 ) THEN
-*
+
                // Identity
-*
+
                DO 70 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
    70          CONTINUE
-*
+
             ELSE IF( ITYPE.EQ.3 ) THEN
-*
+
                // Jordan Block
-*
+
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
    80          CONTINUE
-*
+
             ELSE IF( ITYPE.EQ.4 ) THEN
-*
+
                // Diagonal Matrix, [Eigen]values Specified
-*
+
                CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
-*
+
             ELSE IF( ITYPE.EQ.5 ) THEN
-*
+
                // Symmetric, eigenvalues specified
-*
+
                CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
-*
+
             ELSE IF( ITYPE.EQ.6 ) THEN
-*
+
                // General, eigenvalues specified
-*
+
                IF( KCONDS( JTYPE ).EQ.1 ) THEN
                   CONDS = ONE
                ELSE IF( KCONDS( JTYPE ).EQ.2 ) THEN
@@ -224,53 +224,53 @@
                ELSE
                   CONDS = ZERO
                END IF
-*
+
                ADUMMA( 1 ) = ' '
                CALL SLATME( N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
-*
+
             ELSE IF( ITYPE.EQ.7 ) THEN
-*
+
                // Diagonal, random eigenvalues
-*
+
                CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-*
+
             ELSE IF( ITYPE.EQ.8 ) THEN
-*
+
                // Symmetric, random eigenvalues
-*
+
                CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-*
+
             ELSE IF( ITYPE.EQ.9 ) THEN
-*
+
                // General, random eigenvalues
-*
+
                CALL SLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
                IF( N.GE.4 ) THEN
                   CALL SLASET( 'Full', 2, N, ZERO, ZERO, A, LDA )
                   CALL SLASET( 'Full', N-3, 1, ZERO, ZERO, A( 3, 1 ), LDA )                   CALL SLASET( 'Full', N-3, 2, ZERO, ZERO, A( 3, N-1 ), LDA )                   CALL SLASET( 'Full', 1, N, ZERO, ZERO, A( N, 1 ), LDA )
                END IF
-*
+
             ELSE IF( ITYPE.EQ.10 ) THEN
-*
+
                // Triangular, random eigenvalues
-*
+
                CALL SLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
-*
+
             ELSE
-*
+
                IINFO = 1
             END IF
-*
+
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
-*
+
    90       CONTINUE
-*
+
             // Test for minimal and generous workspace
-*
+
             DO 130 IWK = 1, 3
                IF( IWK.EQ.1 ) THEN
                   NNWORK = 3*N
@@ -280,24 +280,24 @@
                   NNWORK = 6*N + 2*N**2
                END IF
                NNWORK = MAX( NNWORK, 1 )
-*
+
                // Test for all balancing options
-*
+
                DO 120 IBAL = 1, 4
                   BALANC = BAL( IBAL )
-*
+
                   // Perform tests
-*
+
                   CALL SGET23( .FALSE., BALANC, JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, NNWORK, IWORK, INFO )
-*
+
                   // Check for RESULT(j) > THRESH
-*
+
                   NTEST = 0
                   NFAIL = 0
                   DO 100 J = 1, 9
                      IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                      IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   100             CONTINUE
-*
+
                   IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
                   IF( NTESTF.EQ.1 ) THEN
                      WRITE( NOUNIT, FMT = 9999 )PATH
@@ -307,33 +307,33 @@
                      WRITE( NOUNIT, FMT = 9995 )THRESH
                      NTESTF = 2
                   END IF
-*
+
                   DO 110 J = 1, 9
                      IF( RESULT( J ).GE.THRESH ) THEN
                         WRITE( NOUNIT, FMT = 9994 )BALANC, N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                      END IF
   110             CONTINUE
-*
+
                   NERRS = NERRS + NFAIL
                   NTESTT = NTESTT + NTEST
-*
+
   120          CONTINUE
   130       CONTINUE
   140    CONTINUE
   150 CONTINUE
-*
+
   160 CONTINUE
-*
+
       // Read in data from file to check accuracy of condition estimation.
       // Assume input eigenvalues are sorted lexicographically (increasing
       // by real part, then decreasing by imaginary part)
-*
+
       JTYPE = 0
   170 CONTINUE
       READ( NIUNIT, FMT = *, END = 220 )N
-*
+
       // Read input data until N=0
-*
+
       IF( N.EQ.0 ) GO TO 220
       JTYPE = JTYPE + 1
       ISEED( 1 ) = JTYPE
@@ -344,15 +344,15 @@
          READ( NIUNIT, FMT = * )WR1( I ), WI1( I ), RCDEIN( I ), RCDVIN( I )
   190 CONTINUE
       CALL SGET23( .TRUE., 'N', 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, 6*N+2*N**2, IWORK, INFO )
-*
+
       // Check for RESULT(j) > THRESH
-*
+
       NTEST = 0
       NFAIL = 0
       DO 200 J = 1, 11
          IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1          IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   200 CONTINUE
-*
+
       IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
       IF( NTESTF.EQ.1 ) THEN
          WRITE( NOUNIT, FMT = 9999 )PATH
@@ -362,26 +362,26 @@
          WRITE( NOUNIT, FMT = 9995 )THRESH
          NTESTF = 2
       END IF
-*
+
       DO 210 J = 1, 11
          IF( RESULT( J ).GE.THRESH ) THEN
             WRITE( NOUNIT, FMT = 9993 )N, JTYPE, J, RESULT( J )
          END IF
   210 CONTINUE
-*
+
       NERRS = NERRS + NFAIL
       NTESTT = NTESTT + NTEST
       GO TO 170
   220 CONTINUE
-*
+
       // Summary
-*
+
       CALL SLASUM( PATH, NOUNIT, NERRS, NTESTT )
-*
+
  9999 FORMAT( / 1X, A3, ' -- Real Eigenvalue-Eigenvector Decomposition',
      $      ' Expert Driver', /
      $      ' Matrix types (see SDRVVX for details): ' )
-*
+
  9998 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.             ',
      $      '           ', '  5=Diagonal: geometr. spaced entries.',
      $      / '  2=Identity matrix.                    ', '  6=Diagona',
@@ -424,9 +424,9 @@
      $      G10.3 )
  9992 FORMAT( ' SDRVVX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
      $      I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
-*
+
       RETURN
-*
+
       // End of SDRVVX
-*
+
       END

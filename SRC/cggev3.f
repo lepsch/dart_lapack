@@ -1,9 +1,9 @@
       SUBROUTINE CGGEV3( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, RWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBVL, JOBVR;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
@@ -12,9 +12,9 @@
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -49,9 +49,9 @@
       ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) )
       // ..
       // .. Executable Statements ..
-*
+
       // Decode the input arguments
-*
+
       IF( LSAME( JOBVL, 'N' ) ) THEN
          IJOBVL = 1
          ILVL = .FALSE.
@@ -62,7 +62,7 @@
          IJOBVL = -1
          ILVL = .FALSE.
       END IF
-*
+
       IF( LSAME( JOBVR, 'N' ) ) THEN
          IJOBVR = 1
          ILVR = .FALSE.
@@ -74,9 +74,9 @@
          ILVR = .FALSE.
       END IF
       ILV = ILVL .OR. ILVR
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
       LWKMIN = MAX( 1, 2*N )
@@ -97,9 +97,9 @@
       ELSE IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
          INFO = -15
       END IF
-*
+
       // Compute workspace
-*
+
       IF( INFO.EQ.0 ) THEN
          CALL CGEQRF( N, N, B, LDB, WORK, WORK, -1, IERR )
          LWKOPT = MAX( LWKMIN, N+INT( WORK( 1 ) ) )
@@ -126,28 +126,28 @@
             WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CGGEV3 ', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Get machine constants
-*
+
       EPS = SLAMCH( 'E' )*SLAMCH( 'B' )
       SMLNUM = SLAMCH( 'S' )
       BIGNUM = ONE / SMLNUM
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Scale A if max element outside range [SMLNUM,BIGNUM]
-*
+
       ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = .FALSE.
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
@@ -158,9 +158,9 @@
          ILASCL = .TRUE.
       END IF
       IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
-*
+
       // Scale B if max element outside range [SMLNUM,BIGNUM]
-*
+
       BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = .FALSE.
       IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
@@ -171,16 +171,16 @@
          ILBSCL = .TRUE.
       END IF
       IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
-*
+
       // Permute the matrices A, B to isolate eigenvalues if possible
-*
+
       ILEFT = 1
       IRIGHT = N + 1
       IRWRK = IRIGHT + N
       CALL CGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
-*
+
       // Reduce B to triangular form (QR decomposition of B)
-*
+
       IROWS = IHI + 1 - ILO
       IF( ILV ) THEN
          ICOLS = N + 1 - ILO
@@ -190,13 +190,13 @@
       ITAU = 1
       IWRK = ITAU + IROWS
       CALL CGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
-*
+
       // Apply the orthogonal transformation to matrix A
-*
+
       CALL CUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
-*
+
       // Initialize VL
-*
+
       IF( ILVL ) THEN
          CALL CLASET( 'Full', N, N, CZERO, CONE, VL, LDVL )
          IF( IROWS.GT.1 ) THEN
@@ -204,25 +204,25 @@
          END IF
          CALL CUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
-*
+
       // Initialize VR
-*
+
       IF( ILVR ) CALL CLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
-*
+
       // Reduce to generalized Hessenberg form
-*
+
       IF( ILV ) THEN
-*
+
          // Eigenvectors requested -- work on whole matrix.
-*
+
          CALL CGGHD3( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       ELSE
          CALL CGGHD3( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
-*
+
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
       // Schur form and Schur vectors)
-*
+
       IWRK = ITAU
       IF( ILV ) THEN
          CHTEMP = 'S'
@@ -240,9 +240,9 @@
          END IF
          GO TO 70
       END IF
-*
+
       // Compute Eigenvectors
-*
+
       IF( ILV ) THEN
          IF( ILVL ) THEN
             IF( ILVR ) THEN
@@ -253,15 +253,15 @@
          ELSE
             CHTEMP = 'R'
          END IF
-*
+
          CALL CTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK( IRWRK ), IERR )
          IF( IERR.NE.0 ) THEN
             INFO = N + 2
             GO TO 70
          END IF
-*
+
          // Undo balancing on VL and VR and normalization
-*
+
          IF( ILVL ) THEN
             CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VL, LDVL, IERR )
             DO 30 JC = 1, N
@@ -291,18 +291,18 @@
    60       CONTINUE
          END IF
       END IF
-*
+
       // Undo scaling if necessary
-*
+
    70 CONTINUE
-*
+
       IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )
-*
+
       IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
-*
+
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       RETURN
-*
+
       // End of CGGEV3
-*
+
       END

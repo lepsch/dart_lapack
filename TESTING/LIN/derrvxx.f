@@ -1,16 +1,16 @@
       SUBROUTINE DERRVX( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
@@ -47,13 +47,13 @@
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1.D0 / DBLE( I+J )
@@ -71,11 +71,11 @@
    20 CONTINUE
       EQ = ' '
       OK = .TRUE.
-*
+
       IF( LSAMEN( 2, C2, 'GE' ) ) THEN
-*
+
          // DGESV
-*
+
          SRNAMT = 'DGESV '
          INFOT = 1
          CALL DGESV( -1, 0, A, 1, IP, B, 1, INFO )
@@ -89,9 +89,9 @@
          INFOT = 7
          CALL DGESV( 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'DGESV ', INFOT, NOUT, LERR, OK )
-*
+
          // DGESVX
-*
+
          SRNAMT = 'DGESVX'
          INFOT = 1
          CALL DGESVX( '/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
@@ -129,9 +129,9 @@
          INFOT = 16
          CALL DGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
-*
+
          // DGESVXX
-*
+
          N_ERR_BNDS = 3
          NPARAMS = 1
          SRNAMT = 'DGESVXX'
@@ -171,11 +171,11 @@
          INFOT = 16
          CALL DGESVXX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGESVXX', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
-*
+
          // DGBSV
-*
+
          SRNAMT = 'DGBSV '
          INFOT = 1
          CALL DGBSV( -1, 0, 0, 0, A, 1, IP, B, 1, INFO )
@@ -195,9 +195,9 @@
          INFOT = 9
          CALL DGBSV( 2, 0, 0, 0, A, 1, IP, B, 1, INFO )
          CALL CHKXER( 'DGBSV ', INFOT, NOUT, LERR, OK )
-*
+
          // DGBSVX
-*
+
          SRNAMT = 'DGBSVX'
          INFOT = 1
          CALL DGBSVX( '/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
@@ -241,9 +241,9 @@
          INFOT = 18
          CALL DGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
-*
+
          // DGBSVXX
-*
+
          N_ERR_BNDS = 3
          NPARAMS = 1
          SRNAMT = 'DGBSVXX'
@@ -289,11 +289,11 @@
          INFOT = 16
          CALL DGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
-*
+
          // DGTSV
-*
+
          SRNAMT = 'DGTSV '
          INFOT = 1
          CALL DGTSV( -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
@@ -304,9 +304,9 @@
          INFOT = 7
          CALL DGTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
          CALL CHKXER( 'DGTSV ', INFOT, NOUT, LERR, OK )
-*
+
          // DGTSVX
-*
+
          SRNAMT = 'DGTSVX'
          INFOT = 1
          CALL DGTSVX( '/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
@@ -326,11 +326,11 @@
          INFOT = 16
          CALL DGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGTSVX', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
-*
+
          // DPOSV
-*
+
          SRNAMT = 'DPOSV '
          INFOT = 1
          CALL DPOSV( '/', 0, 0, A, 1, B, 1, INFO )
@@ -347,9 +347,9 @@
          INFOT = 7
          CALL DPOSV( 'U', 2, 0, A, 2, B, 1, INFO )
          CALL CHKXER( 'DPOSV ', INFOT, NOUT, LERR, OK )
-*
+
          // DPOSVX
-*
+
          SRNAMT = 'DPOSVX'
          INFOT = 1
          CALL DPOSVX( '/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
@@ -383,9 +383,9 @@
          INFOT = 14
          CALL DPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
-*
+
          // DPOSVXX
-*
+
          N_ERR_BNDS = 3
          NPARAMS = 1
          SRNAMT = 'DPOSVXX'
@@ -421,11 +421,11 @@
          INFOT = 14
          CALL DPOSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DPOSVXX', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
-*
+
          // DPPSV
-*
+
          SRNAMT = 'DPPSV '
          INFOT = 1
          CALL DPPSV( '/', 0, 0, A, B, 1, INFO )
@@ -439,9 +439,9 @@
          INFOT = 6
          CALL DPPSV( 'U', 2, 0, A, B, 1, INFO )
          CALL CHKXER( 'DPPSV ', INFOT, NOUT, LERR, OK )
-*
+
          // DPPSVX
-*
+
          SRNAMT = 'DPPSVX'
          INFOT = 1
          CALL DPPSVX( '/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
@@ -469,11 +469,11 @@
          INFOT = 12
          CALL DPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DPPSVX', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
-*
+
          // DPBSV
-*
+
          SRNAMT = 'DPBSV '
          INFOT = 1
          CALL DPBSV( '/', 0, 0, 0, A, 1, B, 1, INFO )
@@ -493,9 +493,9 @@
          INFOT = 8
          CALL DPBSV( 'U', 2, 0, 0, A, 1, B, 1, INFO )
          CALL CHKXER( 'DPBSV ', INFOT, NOUT, LERR, OK )
-*
+
          // DPBSVX
-*
+
          SRNAMT = 'DPBSVX'
          INFOT = 1
          CALL DPBSVX( '/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
@@ -532,11 +532,11 @@
          INFOT = 15
          CALL DPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
-*
+
          // DPTSV
-*
+
          SRNAMT = 'DPTSV '
          INFOT = 1
          CALL DPTSV( -1, 0, A( 1, 1 ), A( 1, 2 ), B, 1, INFO )
@@ -547,9 +547,9 @@
          INFOT = 6
          CALL DPTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), B, 1, INFO )
          CALL CHKXER( 'DPTSV ', INFOT, NOUT, LERR, OK )
-*
+
          // DPTSVX
-*
+
          SRNAMT = 'DPTSVX'
          INFOT = 1
          CALL DPTSVX( '/', 0, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO )
@@ -566,11 +566,11 @@
          INFOT = 11
          CALL DPTSVX( 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 2, X, 1, RCOND, R1, R2, W, INFO )
          CALL CHKXER( 'DPTSVX', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
-*
+
          // DSYSV
-*
+
          SRNAMT = 'DSYSV '
          INFOT = 1
          CALL DSYSV( '/', 0, 0, A, 1, IP, B, 1, W, 1, INFO )
@@ -593,9 +593,9 @@
          INFOT = 10
          CALL DSYSV( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'DSYSV ', INFOT, NOUT, LERR, OK )
-*
+
          // DSYSVX
-*
+
          SRNAMT = 'DSYSVX'
          INFOT = 1
          CALL DSYSVX( '/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO )
@@ -624,9 +624,9 @@
          INFOT = 18
          CALL DSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, IW, INFO )
          CALL CHKXER( 'DSYSVX', INFOT, NOUT, LERR, OK )
-*
+
          // DSYSVXX
-*
+
          N_ERR_BNDS = 3
          NPARAMS = 1
          SRNAMT = 'DSYSVXX'
@@ -670,11 +670,11 @@
          INFOT = 15
          CALL DSYSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DSYSVXX', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
-*
+
          // DSYSV_ROOK
-*
+
          SRNAMT = 'DSYSV_ROOK'
          INFOT = 1
          CALL DSYSV_ROOK( '/', 0, 0, A, 1, IP, B, 1, W, 1, INFO )
@@ -697,19 +697,19 @@
          INFOT = 10
          CALL DSYSV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'DSYSV_ROOK', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
-*
+
          // DSYSV_RK
-*
+
          // Test error exits of the driver that uses factorization
          // of a symmetric indefinite matrix with rook
          // (bounded Bunch-Kaufman) pivoting with the new storage
          // format for factors L ( or U) and D.
-*
+
          // L (or U) is stored in A, diagonal of D is stored on the
          // diagonal of A, subdiagonal of D is stored in a separate array E.
-*
+
          SRNAMT = 'DSYSV_RK'
          INFOT = 1
          CALL DSYSV_RK( '/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO )
@@ -732,11 +732,11 @@
          INFOT = 11
          CALL DSYSV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'DSYSV_RK', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
-*
+
          // DSPSV
-*
+
          SRNAMT = 'DSPSV '
          INFOT = 1
          CALL DSPSV( '/', 0, 0, A, IP, B, 1, INFO )
@@ -750,9 +750,9 @@
          INFOT = 7
          CALL DSPSV( 'U', 2, 0, A, IP, B, 1, INFO )
          CALL CHKXER( 'DSPSV ', INFOT, NOUT, LERR, OK )
-*
+
          // DSPSVX
-*
+
          SRNAMT = 'DSPSVX'
          INFOT = 1
          CALL DSPSVX( '/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
@@ -773,21 +773,21 @@
          CALL DSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPSVX', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH
       ELSE
          WRITE( NOUT, FMT = 9998 )PATH
       END IF
-*
+
  9999 FORMAT( 1X, A3, ' drivers passed the tests of the error exits' )
  9998 FORMAT( ' *** ', A3, ' drivers failed the tests of the error ',
      $      'exits ***' )
-*
+
       RETURN
-*
+
       // End of DERRVXX
-*
+
       END

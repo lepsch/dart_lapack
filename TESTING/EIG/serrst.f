@@ -1,16 +1,16 @@
       SUBROUTINE SERRST( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // NMAX has to be at least 3 or LIW may be too small
       // .. Parameters ..
       int                NMAX, LIW, LW;
@@ -44,13 +44,13 @@
       // INTRINSIC REAL
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1. / REAL( I+J )
@@ -65,13 +65,13 @@
    30 CONTINUE
       OK = .TRUE.
       NT = 0
-*
+
       // Test error exits for the ST path.
-*
+
       IF( LSAMEN( 2, C2, 'ST' ) ) THEN
-*
+
          // SSYTRD
-*
+
          SRNAMT = 'SSYTRD'
          INFOT = 1
          CALL SSYTRD( '/', 0, A, 1, D, E, TAU, W, 1, INFO )
@@ -86,9 +86,9 @@
          CALL SSYTRD( 'U', 0, A, 1, D, E, TAU, W, 0, INFO )
          CALL CHKXER( 'SSYTRD', INFOT, NOUT, LERR, OK )
          NT = NT + 4
-*
+
          // SSYTD2
-*
+
          SRNAMT = 'SSYTD2'
          INFOT = 1
          CALL SSYTD2( '/', 0, A, 1, D, E, TAU, INFO )
@@ -100,9 +100,9 @@
          CALL SSYTD2( 'U', 2, A, 1, D, E, TAU, INFO )
          CALL CHKXER( 'SSYTD2', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // SSYTRD_2STAGE
-*
+
          SRNAMT = 'SSYTRD_2STAGE'
          INFOT = 1
          CALL SSYTRD_2STAGE( '/', 'U', 0, A, 1, D, E, TAU,  C, 1, W, 1, INFO )
@@ -126,9 +126,9 @@
          CALL SSYTRD_2STAGE( 'N', 'U', 0, A, 1, D, E, TAU,  C, 1, W, 0, INFO )
          CALL CHKXER( 'SSYTRD_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // SSYTRD_SY2SB
-*
+
          SRNAMT = 'SSYTRD_SY2SB'
          INFOT = 1
          CALL SSYTRD_SY2SB( '/', 0, 0, A, 1, C, 1, TAU, W, 1, INFO )
@@ -149,9 +149,9 @@
          CALL SSYTRD_SY2SB( 'U', 0, 0, A, 1, C, 1, TAU, W, 0, INFO )
          CALL CHKXER( 'SSYTRD_SY2SB', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // SSYTRD_SB2ST
-*
+
          SRNAMT = 'SSYTRD_SB2ST'
          INFOT = 1
          CALL SSYTRD_SB2ST( '/', 'N', 'U', 0, 0, A, 1, D, E,  C, 1, W, 1, INFO )
@@ -181,9 +181,9 @@
          CALL SSYTRD_SB2ST( 'Y', 'N', 'U', 0, 0, A, 1, D, E,  C, 1, W, 0, INFO )
          CALL CHKXER( 'SSYTRD_SB2ST', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // SORGTR
-*
+
          SRNAMT = 'SORGTR'
          INFOT = 1
          CALL SORGTR( '/', 0, A, 1, TAU, W, 1, INFO )
@@ -198,9 +198,9 @@
          CALL SORGTR( 'U', 3, A, 3, TAU, W, 1, INFO )
          CALL CHKXER( 'SORGTR', INFOT, NOUT, LERR, OK )
          NT = NT + 4
-*
+
          // SORMTR
-*
+
          SRNAMT = 'SORMTR'
          INFOT = 1
          CALL SORMTR( '/', 'U', 'N', 0, 0, A, 1, TAU, C, 1, W, 1, INFO )
@@ -233,9 +233,9 @@
          CALL SORMTR( 'R', 'U', 'N', 2, 0, A, 1, TAU, C, 2, W, 1, INFO )
          CALL CHKXER( 'SORMTR', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // SSPTRD
-*
+
          SRNAMT = 'SSPTRD'
          INFOT = 1
          CALL SSPTRD( '/', 0, A, D, E, TAU, INFO )
@@ -244,9 +244,9 @@
          CALL SSPTRD( 'U', -1, A, D, E, TAU, INFO )
          CALL CHKXER( 'SSPTRD', INFOT, NOUT, LERR, OK )
          NT = NT + 2
-*
+
          // SOPGTR
-*
+
          SRNAMT = 'SOPGTR'
          INFOT = 1
          CALL SOPGTR( '/', 0, A, TAU, Z, 1, W, INFO )
@@ -258,9 +258,9 @@
          CALL SOPGTR( 'U', 2, A, TAU, Z, 1, W, INFO )
          CALL CHKXER( 'SOPGTR', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // SOPMTR
-*
+
          SRNAMT = 'SOPMTR'
          INFOT = 1
          CALL SOPMTR( '/', 'U', 'N', 0, 0, A, TAU, C, 1, W, INFO )
@@ -281,9 +281,9 @@
          CALL SOPMTR( 'L', 'U', 'N', 2, 0, A, TAU, C, 1, W, INFO )
          CALL CHKXER( 'SOPMTR', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // SPTEQR
-*
+
          SRNAMT = 'SPTEQR'
          INFOT = 1
          CALL SPTEQR( '/', 0, D, E, Z, 1, W, INFO )
@@ -295,9 +295,9 @@
          CALL SPTEQR( 'V', 2, D, E, Z, 1, W, INFO )
          CALL CHKXER( 'SPTEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // SSTEBZ
-*
+
          SRNAMT = 'SSTEBZ'
          INFOT = 1
          CALL SSTEBZ( '/', 'E', 0, 0.0, 1.0, 1, 0, 0.0, D, E, M, NSPLIT, X, I1, I2, W, IW, INFO )
@@ -324,9 +324,9 @@
          CALL SSTEBZ( 'I', 'E', 1, 0.0, 0.0, 1, 2, 0.0, D, E, M, NSPLIT, X, I1, I2, W, IW, INFO )
          CALL CHKXER( 'SSTEBZ', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
          // SSTEIN
-*
+
          SRNAMT = 'SSTEIN'
          INFOT = 1
          CALL SSTEIN( -1, D, E, 0, X, I1, I2, Z, 1, W, IW, I3, INFO )
@@ -341,9 +341,9 @@
          CALL SSTEIN( 2, D, E, 0, X, I1, I2, Z, 1, W, IW, I3, INFO )
          CALL CHKXER( 'SSTEIN', INFOT, NOUT, LERR, OK )
          NT = NT + 4
-*
+
          // SSTEQR
-*
+
          SRNAMT = 'SSTEQR'
          INFOT = 1
          CALL SSTEQR( '/', 0, D, E, Z, 1, W, INFO )
@@ -355,17 +355,17 @@
          CALL SSTEQR( 'V', 2, D, E, Z, 1, W, INFO )
          CALL CHKXER( 'SSTEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // SSTERF
-*
+
          SRNAMT = 'SSTERF'
          INFOT = 1
          CALL SSTERF( -1, D, E, INFO )
          CALL CHKXER( 'SSTERF', INFOT, NOUT, LERR, OK )
          NT = NT + 1
-*
+
          // SSTEDC
-*
+
          SRNAMT = 'SSTEDC'
          INFOT = 1
          CALL SSTEDC( '/', 0, D, E, Z, 1, W, 1, IW, 1, INFO )
@@ -395,9 +395,9 @@
          CALL SSTEDC( 'V', 2, D, E, Z, 2, W, 23, IW, 0, INFO )
          CALL CHKXER( 'SSTEDC', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // SSTEVD
-*
+
          SRNAMT = 'SSTEVD'
          INFOT = 1
          CALL SSTEVD( '/', 0, D, E, Z, 1, W, 1, IW, 1, INFO )
@@ -421,9 +421,9 @@
          CALL SSTEVD( 'V', 2, D, E, Z, 2, W, 19, IW, 11, INFO )
          CALL CHKXER( 'SSTEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 7
-*
+
          // SSTEV
-*
+
          SRNAMT = 'SSTEV '
          INFOT = 1
          CALL SSTEV( '/', 0, D, E, Z, 1, W, INFO )
@@ -435,9 +435,9 @@
          CALL SSTEV( 'V', 2, D, E, Z, 1, W, INFO )
          CALL CHKXER( 'SSTEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // SSTEVX
-*
+
          SRNAMT = 'SSTEVX'
          INFOT = 1
          CALL SSTEVX( '/', 'A', 0, D, E, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, IW, I3, INFO )
@@ -467,9 +467,9 @@
          CALL SSTEVX( 'V', 'A', 2, D, E, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, IW, I3, INFO )
          CALL CHKXER( 'SSTEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // SSTEVR
-*
+
          N = 1
          SRNAMT = 'SSTEVR'
          INFOT = 1
@@ -502,9 +502,9 @@
          CALL SSTEVR( 'V', 'I', 1, D, E, 0.0, 0.0, 1, 1, 0.0, M, W, Z, 1, IW, X, 20*N, IW( 2*N+1 ), 10*N-1, INFO )
          CALL CHKXER( 'SSTEVR', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // SSYEVD
-*
+
          SRNAMT = 'SSYEVD'
          INFOT = 1
          CALL SSYEVD( '/', 'U', 0, A, 1, X, W, 1, IW, 1, INFO )
@@ -537,9 +537,9 @@
          CALL SSYEVD( 'V', 'U', 2, A, 2, X, W, 27, IW, 11, INFO )
          CALL CHKXER( 'SSYEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // SSYEVD_2STAGE
-*
+
          SRNAMT = 'SSYEVD_2STAGE'
          INFOT = 1
          CALL SSYEVD_2STAGE( '/', 'U', 0, A, 1, X, W, 1, IW, 1, INFO )
@@ -575,9 +575,9 @@
           // CALL SSYEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 27, IW, 11, INFO )
           // CALL CHKXER( 'SSYEVD_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // SSYEVR
-*
+
          SRNAMT = 'SSYEVR'
          N = 1
          INFOT = 1
@@ -602,7 +602,7 @@
          CALL SSYEVR( 'V', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 0, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO )
          CALL CHKXER( 'SSYEVR', INFOT, NOUT, LERR, OK )
          INFOT = 10
-*
+
          CALL SSYEVR( 'V', 'I', 'U', 2, A, 2, 0.0E0, 0.0E0, 2, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO )
          CALL CHKXER( 'SSYEVR', INFOT, NOUT, LERR, OK )
          INFOT = 15
@@ -615,9 +615,9 @@
          CALL SSYEVR( 'V', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 0, INFO )
          CALL CHKXER( 'SSYEVR', INFOT, NOUT, LERR, OK )
          NT = NT + 11
-*
+
          // SSYEVR_2STAGE
-*
+
          SRNAMT = 'SSYEVR_2STAGE'
          N = 1
          INFOT = 1
@@ -657,9 +657,9 @@
          CALL SSYEVR_2STAGE( 'N', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0E0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 0, INFO )
          CALL CHKXER( 'SSYEVR_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 12
-*
+
          // SSYEV
-*
+
          SRNAMT = 'SSYEV '
          INFOT = 1
          CALL SSYEV( '/', 'U', 0, A, 1, X, W, 1, INFO )
@@ -677,9 +677,9 @@
          CALL SSYEV( 'N', 'U', 1, A, 1, X, W, 1, INFO )
          CALL CHKXER( 'SSYEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 5
-*
+
          // SSYEV_2STAGE
-*
+
          SRNAMT = 'SSYEV_2STAGE '
          INFOT = 1
          CALL SSYEV_2STAGE( '/', 'U', 0, A, 1, X, W, 1, INFO )
@@ -700,9 +700,9 @@
          CALL SSYEV_2STAGE( 'N', 'U', 1, A, 1, X, W, 1, INFO )
          CALL CHKXER( 'SSYEV_2STAGE ', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // SSYEVX
-*
+
          SRNAMT = 'SSYEVX'
          INFOT = 1
          CALL SSYEVX( '/', 'A', 'U', 0, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 1, IW, I3, INFO )
@@ -740,9 +740,9 @@
          CALL SSYEVX( 'V', 'A', 'U', 1, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO )
          CALL CHKXER( 'SSYEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 12
-*
+
          // SSYEVX_2STAGE
-*
+
          SRNAMT = 'SSYEVX_2STAGE'
          INFOT = 1
          CALL SSYEVX_2STAGE( '/', 'A', 'U', 0, A, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 1, IW, I3, INFO )
@@ -783,9 +783,9 @@
          CALL SSYEVX_2STAGE( 'N', 'A', 'U', 1, A, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO )
          CALL CHKXER( 'SSYEVX_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 13
-*
+
          // SSPEVD
-*
+
          SRNAMT = 'SSPEVD'
          INFOT = 1
          CALL SSPEVD( '/', 'U', 0, A, X, Z, 1, W, 1, IW, 1, INFO )
@@ -818,9 +818,9 @@
          CALL SSPEVD( 'V', 'U', 2, A, X, Z, 2, W, 23, IW, 11, INFO )
          CALL CHKXER( 'SSPEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // SSPEV
-*
+
          SRNAMT = 'SSPEV '
          INFOT = 1
          CALL SSPEV( '/', 'U', 0, A, W, Z, 1, X, INFO )
@@ -835,9 +835,9 @@
          CALL SSPEV( 'V', 'U', 2, A, W, Z, 1, X, INFO )
          CALL CHKXER( 'SSPEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 4
-*
+
          // SSPEVX
-*
+
          SRNAMT = 'SSPEVX'
          INFOT = 1
          CALL SSPEVX( '/', 'A', 'U', 0, A, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, IW, I3, INFO )
@@ -869,13 +869,13 @@
          CALL SSPEVX( 'V', 'A', 'U', 2, A, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, IW, I3, INFO )
          CALL CHKXER( 'SSPEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
       // Test error exits for the SB path.
-*
+
       ELSE IF( LSAMEN( 2, C2, 'SB' ) ) THEN
-*
+
          // SSBTRD
-*
+
          SRNAMT = 'SSBTRD'
          INFOT = 1
          CALL SSBTRD( '/', 'U', 0, 0, A, 1, D, E, Z, 1, W, INFO )
@@ -896,9 +896,9 @@
          CALL SSBTRD( 'V', 'U', 2, 0, A, 1, D, E, Z, 1, W, INFO )
          CALL CHKXER( 'SSBTRD', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // SSYTRD_SB2ST
-*
+
          SRNAMT = 'SSYTRD_SB2ST'
          INFOT = 1
          CALL SSYTRD_SB2ST( '/', 'N', 'U', 0, 0, A, 1, D, E,  C, 1, W, 1, INFO )
@@ -928,9 +928,9 @@
          CALL SSYTRD_SB2ST( 'N', 'N', 'U', 0, 0, A, 1, D, E,  C, 1, W, 0, INFO )
          CALL CHKXER( 'SSYTRD_SB2ST', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // SSBEVD
-*
+
          SRNAMT = 'SSBEVD'
          INFOT = 1
          CALL SSBEVD( '/', 'U', 0, 0, A, 1, X, Z, 1, W, 1, IW, 1, INFO )
@@ -966,9 +966,9 @@
          CALL SSBEVD( 'V', 'U', 2, 0, A, 1, X, Z, 2, W, 25, IW, 11, INFO )
          CALL CHKXER( 'SSBEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 11
-*
+
          // SSBEVD_2STAGE
-*
+
          SRNAMT = 'SSBEVD_2STAGE'
          INFOT = 1
          CALL SSBEVD_2STAGE( '/', 'U', 0, 0, A, 1, X, Z, 1, W, 1, IW, 1, INFO )
@@ -1011,9 +1011,9 @@
           // CALL CHKXER( 'SSBEVD_2STAGE', INFOT, NOUT, LERR, OK )
           // NT = NT + 12
          NT = NT + 9
-*
+
          // SSBEV
-*
+
          SRNAMT = 'SSBEV '
          INFOT = 1
          CALL SSBEV( '/', 'U', 0, 0, A, 1, X, Z, 1, W, INFO )
@@ -1034,9 +1034,9 @@
          CALL SSBEV( 'V', 'U', 2, 0, A, 1, X, Z, 1, W, INFO )
          CALL CHKXER( 'SSBEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // SSBEV_2STAGE
-*
+
          SRNAMT = 'SSBEV_2STAGE '
          INFOT = 1
          CALL SSBEV_2STAGE( '/', 'U', 0, 0, A, 1, X, Z, 1, W, 0, INFO )
@@ -1063,9 +1063,9 @@
          CALL SSBEV_2STAGE( 'N', 'U', 0, 0, A, 1, X, Z, 1, W, 0, INFO )
          CALL CHKXER( 'SSBEV_2STAGE ', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
          // SSBEVX
-*
+
          SRNAMT = 'SSBEVX'
          INFOT = 1
          CALL SSBEVX( '/', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, IW, I3, INFO )
@@ -1107,9 +1107,9 @@
          CALL SSBEVX( 'V', 'A', 'U', 2, 0, A, 1, Q, 2, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, IW, I3, INFO )
          CALL CHKXER( 'SSBEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 13
-*
+
          // SSBEVX_2STAGE
-*
+
          SRNAMT = 'SSBEVX_2STAGE'
          INFOT = 1
          CALL SSBEVX_2STAGE( '/', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO )
@@ -1161,22 +1161,22 @@
           // NT = NT + 15
          NT = NT + 13
       END IF
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
       ELSE
          WRITE( NOUT, FMT = 9998 )PATH
       END IF
-*
+
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits',
      $      ' (', I3, ' tests done)' )
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ',
      $      'exits ***' )
-*
+
       RETURN
-*
+
       // End of SERRST
-*
+
       END

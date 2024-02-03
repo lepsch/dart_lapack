@@ -1,24 +1,24 @@
       SUBROUTINE DLAR2V( N, X, Y, Z, INCX, C, S, INCC )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INCC, INCX, N;
       // ..
       // .. Array Arguments ..
       double             C( * ), S( * ), X( * ), Y( * ), Z( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, IC, IX;
       double             CI, SI, T1, T2, T3, T4, T5, T6, XI, YI, ZI;
       // ..
       // .. Executable Statements ..
-*
+
       IX = 1
       IC = 1
       DO 10 I = 1, N
@@ -39,8 +39,8 @@
          IX = IX + INCX
          IC = IC + INCC
    10 CONTINUE
-*
+
       // End of DLAR2V
-*
+
       RETURN
       END

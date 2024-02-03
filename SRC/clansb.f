@@ -1,9 +1,9 @@
       REAL             FUNCTION CLANSB( NORM, UPLO, N, K, AB, LDAB, WORK )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             NORM, UPLO;
       int                K, LDAB, N;
@@ -12,9 +12,9 @@
       REAL               WORK( * )
       COMPLEX            AB( LDAB, * )
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
@@ -34,13 +34,13 @@
       // INTRINSIC ABS, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       IF( N.EQ.0 ) THEN
          VALUE = ZERO
       ELSE IF( LSAME( NORM, 'M' ) ) THEN
-*
+
          // Find max(abs(A(i,j))).
-*
+
          VALUE = ZERO
          IF( LSAME( UPLO, 'U' ) ) THEN
             DO 20 J = 1, N
@@ -58,9 +58,9 @@
    40       CONTINUE
          END IF
       ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
-*
+
          // Find normI(A) ( = norm1(A), since A is symmetric).
-*
+
          VALUE = ZERO
          IF( LSAME( UPLO, 'U' ) ) THEN
             DO 60 J = 1, N
@@ -93,9 +93,9 @@
   100       CONTINUE
          END IF
       ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
-*
+
          // Find normF(A).
-*
+
          SCALE = ZERO
          SUM = ONE
          IF( K.GT.0 ) THEN
@@ -117,10 +117,10 @@
          CALL CLASSQ( N, AB( L, 1 ), LDAB, SCALE, SUM )
          VALUE = SCALE*SQRT( SUM )
       END IF
-*
+
       CLANSB = VALUE
       RETURN
-*
+
       // End of CLANSB
-*
+
       END

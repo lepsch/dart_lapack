@@ -1,9 +1,9 @@
       SUBROUTINE CQRT16( TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             TRANS;
       int                LDA, LDB, LDX, M, N, NRHS;
@@ -13,9 +13,9 @@
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), B( LDB, * ), X( LDX, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -38,14 +38,14 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Quick exit if M = 0 or N = 0 or NRHS = 0
-*
+
       IF( M.LE.0 .OR. N.LE.0 .OR. NRHS.EQ.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
-*
+
       IF( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) THEN
          ANORM = CLANGE( 'I', M, N, A, LDA, RWORK )
          N1 = N
@@ -55,16 +55,16 @@
          N1 = M
          N2 = N
       END IF
-*
+
       EPS = SLAMCH( 'Epsilon' )
-*
+
       // Compute  B - A*X  (or  B - A'*X ) and store in B.
-*
+
       CALL CGEMM( TRANS, 'No transpose', N1, NRHS, N2, -CONE, A, LDA, X, LDX, CONE, B, LDB )
-*
+
       // Compute the maximum over the number of right hand sides of
          // norm(B - A*X) / ( max(m,n) * norm(A) * norm(X) * EPS ) .
-*
+
       RESID = ZERO
       DO 10 J = 1, NRHS
          BNORM = SCASUM( N1, B( 1, J ), 1 )
@@ -77,9 +77,9 @@
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / ( MAX( M, N )*EPS ) )
          END IF
    10 CONTINUE
-*
+
       RETURN
-*
+
       // End of CQRT16
-*
+
       END

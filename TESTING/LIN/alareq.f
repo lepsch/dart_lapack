@@ -1,9 +1,9 @@
       SUBROUTINE ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NIN, NMATS, NOUT, NTYPES;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       bool               DOTYPE( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               FIRSTT;
       String             C1;
@@ -31,11 +31,11 @@
       DATA               INTSTR / '0123456789' /
       // ..
       // .. Executable Statements ..
-*
+
       IF( NMATS.GE.NTYPES ) THEN
-*
+
          // Test everything if NMATS >= NTYPES.
-*
+
          DO 10 I = 1, NTYPES
             DOTYPE( I ) = .TRUE.
    10    CONTINUE
@@ -44,9 +44,9 @@
             DOTYPE( I ) = .FALSE.
    20    CONTINUE
          FIRSTT = .TRUE.
-*
+
          // Read a line of matrix types if 0 < NMATS < NTYPES.
-*
+
          IF( NMATS.GT.0 ) THEN
             READ( NIN, FMT = '(A80)', END = 90 )LINE
             LENP = LEN( LINE )
@@ -68,9 +68,9 @@
                IF( LINE( I: I ).NE.' ' .AND. LINE( I: I ).NE.',' ) THEN
                   I1 = I
                   C1 = LINE( I1: I1 )
-*
+
                // Check that a valid integer was read
-*
+
                   DO 40 K = 1, 10
                      IF( C1.EQ.INTSTR( K: K ) ) THEN
                         IC = K - 1
@@ -108,7 +108,7 @@
    80    CONTINUE
       END IF
       RETURN
-*
+
    90 CONTINUE
       WRITE( NOUT, FMT = 9998 )PATH
  9998 FORMAT( /' *** End of file reached when trying to read matrix ',
@@ -123,7 +123,7 @@
      $      'adjust NTYPES on previous line' )
       WRITE( NOUT, FMT = * )
       STOP
-*
+
       // End of ALAREQ
-*
+
       END

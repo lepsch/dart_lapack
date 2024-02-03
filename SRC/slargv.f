@@ -1,18 +1,18 @@
       SUBROUTINE SLARGV( N, X, INCX, Y, INCY, C, INCC )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INCC, INCX, INCY, N;
       // ..
       // .. Array Arguments ..
       REAL               C( * ), X( * ), Y( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -25,7 +25,7 @@
       // INTRINSIC ABS, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       IX = 1
       IY = 1
       IC = 1
@@ -56,7 +56,7 @@
          IX = IX + INCX
    10 CONTINUE
       RETURN
-*
+
       // End of SLARGV
-*
+
       END

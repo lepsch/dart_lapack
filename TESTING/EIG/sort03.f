@@ -1,9 +1,9 @@
       SUBROUTINE SORT03( RC, MU, MV, N, K, U, LDU, V, LDV, WORK, LWORK, RESULT, INFO )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       List<String>       RC;
       int                INFO, K, LDU, LDV, LWORK, MU, MV, N;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       REAL               U( LDU, * ), V( LDV, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -36,9 +36,9 @@
       // EXTERNAL SORT01, XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       // Check inputs
-*
+
       INFO = 0
       IF( LSAME( RC, 'R' ) ) THEN
          IRC = 0
@@ -66,20 +66,20 @@
          CALL XERBLA( 'SORT03', -INFO )
          RETURN
       END IF
-*
+
       // Initialize result
-*
+
       RESULT = ZERO
       IF( MU.EQ.0 .OR. MV.EQ.0 .OR. N.EQ.0 ) RETURN
-*
+
       // Machine constants
-*
+
       ULP = SLAMCH( 'Precision' )
-*
+
       IF( IRC.EQ.0 ) THEN
-*
+
          // Compare rows
-*
+
          RES1 = ZERO
          DO 20 I = 1, K
             LMX = ISAMAX( N, U( I, 1 ), LDU )
@@ -89,15 +89,15 @@
    10       CONTINUE
    20    CONTINUE
          RES1 = RES1 / ( REAL( N )*ULP )
-*
+
          // Compute orthogonality of rows of V.
-*
+
          CALL SORT01( 'Rows', MV, N, V, LDV, WORK, LWORK, RES2 )
-*
+
       ELSE
-*
+
          // Compare columns
-*
+
          RES1 = ZERO
          DO 40 I = 1, K
             LMX = ISAMAX( N, U( 1, I ), 1 )
@@ -107,15 +107,15 @@
    30       CONTINUE
    40    CONTINUE
          RES1 = RES1 / ( REAL( N )*ULP )
-*
+
          // Compute orthogonality of columns of V.
-*
+
          CALL SORT01( 'Columns', N, MV, V, LDV, WORK, LWORK, RES2 )
       END IF
-*
+
       RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP )
       RETURN
-*
+
       // End of SORT03
-*
+
       END

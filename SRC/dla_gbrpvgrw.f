@@ -1,18 +1,18 @@
       double           FUNCTION DLA_GBRPVGRW( N, KL, KU, NCOLS, AB, LDAB, AFB, LDAFB );
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                N, KL, KU, NCOLS, LDAB, LDAFB;
       // ..
       // .. Array Arguments ..
       double             AB( LDAB, * ), AFB( LDAFB, * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, J, KD;
       double             AMAX, UMAX, RPVGRW;
@@ -21,7 +21,7 @@
       // INTRINSIC ABS, MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       RPVGRW = 1.0D+0
 
       KD = KU + 1
@@ -39,7 +39,7 @@
          END IF
       END DO
       DLA_GBRPVGRW = RPVGRW
-*
+
       // End of DLA_GBRPVGRW
-*
+
       END

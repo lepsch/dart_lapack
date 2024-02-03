@@ -1,9 +1,9 @@
       double           FUNCTION ZLANHB( NORM, UPLO, N, K, AB, LDAB, WORK );
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             NORM, UPLO;
       int                K, LDAB, N;
@@ -12,9 +12,9 @@
       double             WORK( * );
       COMPLEX*16         AB( LDAB, * )
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -34,13 +34,13 @@
       // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       IF( N.EQ.0 ) THEN
          VALUE = ZERO
       ELSE IF( LSAME( NORM, 'M' ) ) THEN
-*
+
          // Find max(abs(A(i,j))).
-*
+
          VALUE = ZERO
          IF( LSAME( UPLO, 'U' ) ) THEN
             DO 20 J = 1, N
@@ -62,9 +62,9 @@
    40       CONTINUE
          END IF
       ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
-*
+
          // Find normI(A) ( = norm1(A), since A is hermitian).
-*
+
          VALUE = ZERO
          IF( LSAME( UPLO, 'U' ) ) THEN
             DO 60 J = 1, N
@@ -97,9 +97,9 @@
   100       CONTINUE
          END IF
       ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
-*
+
          // Find normF(A).
-*
+
          SCALE = ZERO
          SUM = ONE
          IF( K.GT.0 ) THEN
@@ -131,10 +131,10 @@
   130    CONTINUE
          VALUE = SCALE*SQRT( SUM )
       END IF
-*
+
       ZLANHB = VALUE
       RETURN
-*
+
       // End of ZLANHB
-*
+
       END

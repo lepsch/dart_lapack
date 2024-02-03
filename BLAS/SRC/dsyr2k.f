@@ -1,9 +1,9 @@
       SUBROUTINE DSYR2K(UPLO,TRANS,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC)
-*
+
 *  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       double           ALPHA,BETA;
       int     K,LDA,LDB,LDC,N;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       double           A(LDA,*),B(LDB,*),C(LDC,*);
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
@@ -34,16 +34,16 @@
       double           ONE,ZERO;
       PARAMETER (ONE=1.0D+0,ZERO=0.0D+0)
       // ..
-*
+
       // Test the input parameters.
-*
+
       IF (LSAME(TRANS,'N')) THEN
           NROWA = N
       ELSE
           NROWA = K
       END IF
       UPPER = LSAME(UPLO,'U')
-*
+
       INFO = 0
       IF ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) THEN
           INFO = 1
@@ -64,13 +64,13 @@
           CALL XERBLA('DSYR2K',INFO)
           RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
-*
+
       // And when  alpha.eq.zero.
-*
+
       IF (ALPHA.EQ.ZERO) THEN
           IF (UPPER) THEN
               IF (BETA.EQ.ZERO) THEN
@@ -103,13 +103,13 @@
           END IF
           RETURN
       END IF
-*
+
       // Start the operations.
-*
+
       IF (LSAME(TRANS,'N')) THEN
-*
+
          // Form  C := alpha*A*B**T + alpha*B*A**T + C.
-*
+
           IF (UPPER) THEN
               DO 130 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
@@ -154,9 +154,9 @@
   180         CONTINUE
           END IF
       ELSE
-*
+
          // Form  C := alpha*A**T*B + alpha*B**T*A + C.
-*
+
           IF (UPPER) THEN
               DO 210 J = 1,N
                   DO 200 I = 1,J
@@ -191,9 +191,9 @@
   240         CONTINUE
           END IF
       END IF
-*
+
       RETURN
-*
+
       // End of DSYR2K
-*
+
       END

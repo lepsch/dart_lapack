@@ -1,9 +1,9 @@
       SUBROUTINE CPOTRF ( UPLO, N, A, LDA, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX            A( LDA, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE
       COMPLEX            CONE
@@ -35,9 +35,9 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -51,59 +51,59 @@
          CALL XERBLA( 'CPOTRF', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Determine the block size for this environment.
-*
+
       NB = ILAENV( 1, 'CPOTRF', UPLO, N, -1, -1, -1 )
       IF( NB.LE.1 .OR. NB.GE.N ) THEN
-*
+
          // Use unblocked code.
-*
+
          CALL CPOTRF2( UPLO, N, A, LDA, INFO )
       ELSE
-*
+
          // Use blocked code.
-*
+
          IF( UPPER ) THEN
-*
+
             // Compute the Cholesky factorization A = U'*U.
-*
+
             DO 10 J = 1, N, NB
 
                JB = MIN( NB, N-J+1 )
-*
+
                // Compute the current block.
-*
+
                CALL CTRSM( 'Left', 'Upper', 'Conjugate Transpose', 'Non-unit', J-1, JB, CONE, A( 1, 1 ), LDA, A( 1, J ), LDA )
                 CALL CHERK( 'Upper', 'Conjugate Transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA )
-*
+
                // Update and factorize the current diagonal block and test
                // for non-positive-definiteness.
-*
+
                CALL CPOTRF2( 'Upper', JB, A( J, J ), LDA, INFO )
                IF( INFO.NE.0 ) GO TO 30
 
    10       CONTINUE
-*
+
          ELSE
-*
+
             // Compute the Cholesky factorization A = L*L'.
-*
+
             DO 20 J = 1, N, NB
 
                JB = MIN( NB, N-J+1 )
-*
+
                // Compute the current block.
-*
+
                CALL CTRSM( 'Right', 'Lower', 'Conjugate Transpose', 'Non-unit', JB, J-1, CONE, A( 1, 1 ), LDA, A( J, 1 ), LDA )                 CALL CHERK( 'Lower', 'No Transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA )
-*
+
                // Update and factorize the current diagonal block and test
                // for non-positive-definiteness.
-*
+
                CALL CPOTRF2( 'Lower', JB, A( J, J ), LDA, INFO )
                IF( INFO.NE.0 ) GO TO 30
 
@@ -111,13 +111,13 @@
          END IF
       END IF
       GO TO 40
-*
+
    30 CONTINUE
       INFO = INFO + J - 1
-*
+
    40 CONTINUE
       RETURN
-*
+
       // End of CPOTRF
-*
+
       END

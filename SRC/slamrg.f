@@ -1,9 +1,9 @@
       SUBROUTINE SLAMRG( N1, N2, A, STRD1, STRD2, INDEX )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                N1, N2, STRD1, STRD2;
       // ..
@@ -11,14 +11,14 @@
       int                INDEX( * );
       REAL               A( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, IND1, IND2, N1SV, N2SV;
       // ..
       // .. Executable Statements ..
-*
+
       N1SV = N1
       N2SV = N2
       IF( STRD1.GT.0 ) THEN
@@ -63,9 +63,9 @@
             IND1 = IND1 + STRD1
    30    CONTINUE
       END IF
-*
+
       RETURN
-*
+
       // End of SLAMRG
-*
+
       END

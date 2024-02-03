@@ -1,9 +1,9 @@
       SUBROUTINE CTRSM(SIDE,UPLO,TRANSA,DIAG,M,N,ALPHA,A,LDA,B,LDB)
-*
+
 *  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       COMPLEX ALPHA
       int     LDA,LDB,M,N;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       COMPLEX A(LDA,*),B(LDB,*)
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
@@ -36,9 +36,9 @@
       COMPLEX ZERO
       PARAMETER (ZERO= (0.0E+0,0.0E+0))
       // ..
-*
+
       // Test the input parameters.
-*
+
       LSIDE = LSAME(SIDE,'L')
       IF (LSIDE) THEN
           NROWA = M
@@ -48,7 +48,7 @@
       NOCONJ = LSAME(TRANSA,'T')
       NOUNIT = LSAME(DIAG,'N')
       UPPER = LSAME(UPLO,'U')
-*
+
       INFO = 0
       IF ((.NOT.LSIDE) .AND. (.NOT.LSAME(SIDE,'R'))) THEN
           INFO = 1
@@ -71,13 +71,13 @@
           CALL XERBLA('CTRSM ',INFO)
           RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF (M.EQ.0 .OR. N.EQ.0) RETURN
-*
+
       // And when  alpha.eq.zero.
-*
+
       IF (ALPHA.EQ.ZERO) THEN
           DO 20 J = 1,N
               DO 10 I = 1,M
@@ -86,14 +86,14 @@
    20     CONTINUE
           RETURN
       END IF
-*
+
       // Start the operations.
-*
+
       IF (LSIDE) THEN
           IF (LSAME(TRANSA,'N')) THEN
-*
+
             // Form  B := alpha*inv( A )*B.
-*
+
               IF (UPPER) THEN
                   DO 60 J = 1,N
                       IF (ALPHA.NE.ONE) THEN
@@ -128,10 +128,10 @@
   100             CONTINUE
               END IF
           ELSE
-*
+
             // Form  B := alpha*inv( A**T )*B
             // or    B := alpha*inv( A**H )*B.
-*
+
               IF (UPPER) THEN
                   DO 140 J = 1,N
                       DO 130 I = 1,M
@@ -172,9 +172,9 @@
           END IF
       ELSE
           IF (LSAME(TRANSA,'N')) THEN
-*
+
             // Form  B := alpha*B*inv( A ).
-*
+
               IF (UPPER) THEN
                   DO 230 J = 1,N
                       IF (ALPHA.NE.ONE) THEN
@@ -219,10 +219,10 @@
   280             CONTINUE
               END IF
           ELSE
-*
+
             // Form  B := alpha*B*inv( A**T )
             // or    B := alpha*B*inv( A**H ).
-*
+
               IF (UPPER) THEN
                   DO 330 K = N,1,-1
                       IF (NOUNIT) THEN
@@ -286,9 +286,9 @@
               END IF
           END IF
       END IF
-*
+
       RETURN
-*
+
       // End of CTRSM
-*
+
       END

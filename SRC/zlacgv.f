@@ -1,18 +1,18 @@
       SUBROUTINE ZLACGV( N, X, INCX )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INCX, N;
       // ..
       // .. Array Arguments ..
       COMPLEX*16         X( * )
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, IOFF;
       // ..
@@ -20,7 +20,7 @@
       // INTRINSIC DCONJG
       // ..
       // .. Executable Statements ..
-*
+
       IF( INCX.EQ.1 ) THEN
          DO 10 I = 1, N
             X( I ) = DCONJG( X( I ) )
@@ -34,7 +34,7 @@
    20    CONTINUE
       END IF
       RETURN
-*
+
       // End of ZLACGV
-*
+
       END

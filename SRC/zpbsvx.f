@@ -1,9 +1,9 @@
       SUBROUTINE ZPBSVX( FACT, UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB, EQUED, S, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, RWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             EQUED, FACT, UPLO;
       int                INFO, KD, LDAB, LDAFB, LDB, LDX, N, NRHS;
@@ -13,9 +13,9 @@
       double             BERR( * ), FERR( * ), RWORK( * ), S( * );
       COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -37,7 +37,7 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
       EQUIL = LSAME( FACT, 'E' )
@@ -50,9 +50,9 @@
          SMLNUM = DLAMCH( 'Safe minimum' )
          BIGNUM = ONE / SMLNUM
       END IF
-*
+
       // Test the input parameters.
-*
+
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
       ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -93,28 +93,28 @@
             END IF
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZPBSVX', -INFO )
          RETURN
       END IF
-*
+
       IF( EQUIL ) THEN
-*
+
          // Compute row and column scalings to equilibrate the matrix A.
-*
+
          CALL ZPBEQU( UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
-*
+
             // Equilibrate the matrix.
-*
+
             CALL ZLAQHB( UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, EQUED )
             RCEQU = LSAME( EQUED, 'Y' )
          END IF
       END IF
-*
+
       // Scale the right-hand side.
-*
+
       IF( RCEQU ) THEN
          DO 30 J = 1, NRHS
             DO 20 I = 1, N
@@ -122,11 +122,11 @@
    20       CONTINUE
    30    CONTINUE
       END IF
-*
+
       IF( NOFACT .OR. EQUIL ) THEN
-*
+
          // Compute the Cholesky factorization A = U**H *U or A = L*L**H.
-*
+
          IF( UPPER ) THEN
             DO 40 J = 1, N
                J1 = MAX( J-KD, 1 )
@@ -138,38 +138,38 @@
                CALL ZCOPY( J2-J+1, AB( 1, J ), 1, AFB( 1, J ), 1 )
    50       CONTINUE
          END IF
-*
+
          CALL ZPBTRF( UPLO, N, KD, AFB, LDAFB, INFO )
-*
+
          // Return if INFO is non-zero.
-*
+
          IF( INFO.GT.0 )THEN
             RCOND = ZERO
             RETURN
          END IF
       END IF
-*
+
       // Compute the norm of the matrix A.
-*
+
       ANORM = ZLANHB( '1', UPLO, N, KD, AB, LDAB, RWORK )
-*
+
       // Compute the reciprocal of the condition number of A.
-*
+
       CALL ZPBCON( UPLO, N, KD, AFB, LDAFB, ANORM, RCOND, WORK, RWORK, INFO )
-*
+
       // Compute the solution matrix X.
-*
+
       CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL ZPBTRS( UPLO, N, KD, NRHS, AFB, LDAFB, X, LDX, INFO )
-*
+
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
-*
+
       CALL ZPBRFS( UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
-*
+
       // Transform the solution matrix X to a solution of the original
       // system.
-*
+
       IF( RCEQU ) THEN
          DO 70 J = 1, NRHS
             DO 60 I = 1, N
@@ -180,13 +180,13 @@
             FERR( J ) = FERR( J ) / SCOND
    80    CONTINUE
       END IF
-*
+
       // Set INFO = N+1 if the matrix is singular to working precision.
-*
+
       IF( RCOND.LT.DLAMCH( 'Epsilon' ) ) INFO = N + 1
-*
+
       RETURN
-*
+
       // End of ZPBSVX
-*
+
       END

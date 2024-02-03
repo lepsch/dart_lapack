@@ -1,9 +1,9 @@
       SUBROUTINE SGGEV( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBVL, JOBVR;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -40,9 +40,9 @@
       // INTRINSIC ABS, MAX, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Decode the input arguments
-*
+
       IF( LSAME( JOBVL, 'N' ) ) THEN
          IJOBVL = 1
          ILVL = .FALSE.
@@ -53,7 +53,7 @@
          IJOBVL = -1
          ILVL = .FALSE.
       END IF
-*
+
       IF( LSAME( JOBVR, 'N' ) ) THEN
          IJOBVR = 1
          ILVR = .FALSE.
@@ -65,9 +65,9 @@
          ILVR = .FALSE.
       END IF
       ILV = ILVL .OR. ILVR
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
       IF( IJOBVL.LE.0 ) THEN
@@ -85,7 +85,7 @@
       ELSE IF( LDVR.LT.1 .OR. ( ILVR .AND. LDVR.LT.N ) ) THEN
          INFO = -14
       END IF
-*
+
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
         // minimal amount of workspace needed at that point in the code,
@@ -93,7 +93,7 @@
         // NB refers to the optimal block size for the immediately
         // following subroutine, as returned by ILAENV. The workspace is
         // computed assuming ILO = 1 and IHI = N, the worst case.)
-*
+
       IF( INFO.EQ.0 ) THEN
          MINWRK = MAX( 1, 8*N )
          MAXWRK = MAX( 1, N*( 7 + ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 ) ) )          MAXWRK = MAX( MAXWRK, N*( 7 + ILAENV( 1, 'SORMQR', ' ', N, 1, N, 0 ) ) )
@@ -101,31 +101,31 @@
             MAXWRK = MAX( MAXWRK, N*( 7 + ILAENV( 1, 'SORGQR', ' ', N, 1, N, -1 ) ) )
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
-*
+
          IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) INFO = -16
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SGGEV ', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Get machine constants
-*
+
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' )
       BIGNUM = ONE / SMLNUM
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Scale A if max element outside range [SMLNUM,BIGNUM]
-*
+
       ANRM = SLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = .FALSE.
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
@@ -136,9 +136,9 @@
          ILASCL = .TRUE.
       END IF
       IF( ILASCL ) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
-*
+
       // Scale B if max element outside range [SMLNUM,BIGNUM]
-*
+
       BNRM = SLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = .FALSE.
       IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
@@ -149,18 +149,18 @@
          ILBSCL = .TRUE.
       END IF
       IF( ILBSCL ) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
-*
+
       // Permute the matrices A, B to isolate eigenvalues if possible
       // (Workspace: need 6*N)
-*
+
       ILEFT = 1
       IRIGHT = N + 1
       IWRK = IRIGHT + N
       CALL SGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR )
-*
+
       // Reduce B to triangular form (QR decomposition of B)
       // (Workspace: need N, prefer N*NB)
-*
+
       IROWS = IHI + 1 - ILO
       IF( ILV ) THEN
          ICOLS = N + 1 - ILO
@@ -170,15 +170,15 @@
       ITAU = IWRK
       IWRK = ITAU + IROWS
       CALL SGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
-*
+
       // Apply the orthogonal transformation to matrix A
       // (Workspace: need N, prefer N*NB)
-*
+
       CALL SORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
-*
+
       // Initialize VL
       // (Workspace: need N, prefer N*NB)
-*
+
       IF( ILVL ) THEN
          CALL SLASET( 'Full', N, N, ZERO, ONE, VL, LDVL )
          IF( IROWS.GT.1 ) THEN
@@ -186,27 +186,27 @@
          END IF
          CALL SORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
-*
+
       // Initialize VR
-*
+
       IF( ILVR ) CALL SLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
-*
+
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
-*
+
       IF( ILV ) THEN
-*
+
          // Eigenvectors requested -- work on whole matrix.
-*
+
          CALL SGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR )
       ELSE
          CALL SGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
       END IF
-*
+
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
       // Schur forms and Schur vectors)
       // (Workspace: need N)
-*
+
       IWRK = ITAU
       IF( ILV ) THEN
          CHTEMP = 'S'
@@ -224,10 +224,10 @@
          END IF
          GO TO 110
       END IF
-*
+
       // Compute Eigenvectors
       // (Workspace: need 6*N)
-*
+
       IF( ILV ) THEN
          IF( ILVL ) THEN
             IF( ILVR ) THEN
@@ -243,10 +243,10 @@
             INFO = N + 2
             GO TO 110
          END IF
-*
+
          // Undo balancing on VL and VR and normalization
          // (Workspace: none needed)
-*
+
          IF( ILVL ) THEN
             CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IERR )
             DO 50 JC = 1, N
@@ -303,27 +303,27 @@
                END IF
   100       CONTINUE
          END IF
-*
+
          // End of eigenvector calculation
-*
+
       END IF
-*
+
       // Undo scaling if necessary
-*
+
   110 CONTINUE
-*
+
       IF( ILASCL ) THEN
          CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )
          CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR )
       END IF
-*
+
       IF( ILBSCL ) THEN
          CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
       END IF
-*
+
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
       RETURN
-*
+
       // End of SGGEV
-*
+
       END

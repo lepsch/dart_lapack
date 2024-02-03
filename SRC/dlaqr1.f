@@ -1,9 +1,9 @@
       SUBROUTINE DLAQR1( N, H, LDH, SR1, SI1, SR2, SI2, V )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       double             SI1, SI2, SR1, SR2;
       int                LDH, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             H( LDH, * ), V( * );
       // ..
-*
+
 *  ================================================================
-*
+
       // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0d0 )
@@ -25,13 +25,13 @@
       // INTRINSIC ABS
       // ..
       // .. Executable Statements ..
-*
+
       // Quick return if possible
-*
+
       IF( N.NE.2 .AND. N.NE.3 ) THEN
          RETURN
       END IF
-*
+
       IF( N.EQ.2 ) THEN
          S = ABS( H( 1, 1 )-SR2 ) + ABS( SI2 ) + ABS( H( 2, 1 ) )
          IF( S.EQ.ZERO ) THEN

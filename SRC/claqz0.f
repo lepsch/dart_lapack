@@ -27,9 +27,9 @@
       bool   , EXTERNAL :: LSAME;
       int    , EXTERNAL :: ILAENV;
 
-*
+
       // Decode wantS,wantQ,wantZ
-*
+
       IF( LSAME( WANTS, 'E' ) ) THEN
          ILSCHUR = .FALSE.
          IWANTS = 1
@@ -65,9 +65,9 @@
       ELSE
          IWANTZ = 0
       END IF
-*
+
       // Check Argument Values
-*
+
       INFO = 0
       IF( IWANTS.EQ.0 ) THEN
          INFO = -1
@@ -95,17 +95,17 @@
          RETURN
       END IF
 
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) THEN
          WORK( 1 ) = REAL( 1 )
          RETURN
       END IF
 
-*
+
       // Get the parameters
-*
+
       JBCMPZ( 1:1 ) = WANTS
       JBCMPZ( 2:2 ) = WANTQ
       JBCMPZ( 3:3 ) = WANTZ
@@ -132,9 +132,9 @@
          RETURN
       END IF
 
-*
+
       // Find out required workspace
-*
+
 
       // Workspace query to CLAQZ2
       NW = MAX( NWR, NMIN )
@@ -155,9 +155,9 @@
          CALL XERBLA( 'CLAQZ0', INFO )
          RETURN
       END IF
-*
+
       // Initialize Q and Z
-*
+
       IF( IWANTQ.EQ.3 ) CALL CLASET( 'FULL', N, N, CZERO, CONE, Q, LDQ )       IF( IWANTZ.EQ.3 ) CALL CLASET( 'FULL', N, N, CZERO, CONE, Z, LDZ )
 
       // Get machine constants
@@ -293,9 +293,9 @@
             END IF
          END IF
 
-*
+
          // Time for AED
-*
+
          CALL CLAQZ2( ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, N_UNDEFLATED, N_DEFLATED, ALPHA, BETA, WORK, NW, WORK( NW**2+1 ), NW, WORK( 2*NW**2+1 ), LWORK-2*NW**2, RWORK, REC, AED_INFO )
 
          IF ( N_DEFLATED > 0 ) THEN
@@ -316,9 +316,9 @@
          SHIFTPOS = ISTOP-N_UNDEFLATED+1
 
          IF ( MOD( LD, 6 ) .EQ. 0 ) THEN
-*
+
             // Exceptional shift.  Chosen for no particularly good reason.
-*
+
             IF( ( REAL( MAXIT )*SAFMIN )*ABS( A( ISTOP, ISTOP-1 ) ).LT.ABS( A( ISTOP-1, ISTOP-1 ) ) ) THEN
                ESHIFT = A( ISTOP, ISTOP-1 )/B( ISTOP-1, ISTOP-1 )
             ELSE
@@ -329,19 +329,19 @@
             NS = 1
          END IF
 
-*
+
          // Time for a QZ sweep
-*
+
          CALL CLAQZ3( ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NS, NBLOCK, ALPHA( SHIFTPOS ), BETA( SHIFTPOS ), A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, NBLOCK, WORK( NBLOCK** 2+1 ), NBLOCK, WORK( 2*NBLOCK**2+1 ), LWORK-2*NBLOCK**2, SWEEP_INFO )
 
       END DO
 
-*
+
       // Call CHGEQZ to normalize the eigenvalue blocks and set the eigenvalues
       // If all the eigenvalues have been found, CHGEQZ will not do any iterations
       // and only normalize the blocks. In case of a rare convergence failure,
      t // he single shift might perform better.
-*
+
    80 CALL CHGEQZ( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB,
      $             ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK,
      $             NORM_INFO )

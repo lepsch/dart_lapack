@@ -1,9 +1,9 @@
       SUBROUTINE SSYEVR( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDA, LDZ, LIWORK, LWORK, M, N;
@@ -13,9 +13,9 @@
       int                ISUPPZ( * ), IWORK( * );
       REAL               A( LDA, * ), W( * ), WORK( * ), Z( LDZ, * )
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
@@ -39,19 +39,19 @@
       // INTRINSIC MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       IEEEOK = ILAENV( 10, 'SSYEVR', 'N', 1, 2, 3, 4 )
-*
+
       LOWER = LSAME( UPLO, 'L' )
       WANTZ = LSAME( JOBZ, 'V' )
       ALLEIG = LSAME( RANGE, 'A' )
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
-*
+
       LQUERY = ( ( LWORK.EQ.-1 ) .OR. ( LIWORK.EQ.-1 ) )
-*
+
       IF( N.LE.1 ) THEN
          LWMIN  = 1
          LIWMIN = 1
@@ -59,7 +59,7 @@
          LWMIN  = 26*N
          LIWMIN = 10*N
       END IF
-*
+
       INFO = 0
       IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
          INFO = -1
@@ -87,36 +87,36 @@
             INFO = -15
          END IF
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          NB = ILAENV( 1, 'SSYTRD', UPLO, N, -1, -1, -1 )
          NB = MAX( NB, ILAENV( 1, 'SORMTR', UPLO, N, -1, -1, -1 ) )
          LWKOPT = MAX( ( NB+1 )*N, LWMIN )
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
          IWORK( 1 ) = LIWMIN
-*
+
          IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) THEN
             INFO = -18
          ELSE IF( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) THEN
             INFO = -20
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SSYEVR', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       M = 0
       IF( N.EQ.0 ) THEN
          WORK( 1 ) = 1
          RETURN
       END IF
-*
+
       IF( N.EQ.1 ) THEN
          WORK( 1 ) = 26
          IF( ALLEIG .OR. INDEIG ) THEN
@@ -135,18 +135,18 @@
          END IF
          RETURN
       END IF
-*
+
       // Get machine constants.
-*
+
       SAFMIN = SLAMCH( 'Safe minimum' )
       EPS = SLAMCH( 'Precision' )
       SMLNUM = SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
-*
+
       // Scale matrix to allowable range, if necessary.
-*
+
       ISCALE = 0
       ABSTLL = ABSTOL
       IF (VALEIG) THEN
@@ -214,14 +214,14 @@
       // INDIWO is the offset of the remaining integer workspace.
       INDIWO = INDIFL + N
 
-*
+
       // Call SSYTRD to reduce symmetric matrix to tridiagonal form.
-*
+
       CALL SSYTRD( UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDWK ), LLWORK, IINFO )
-*
+
       // If all eigenvalues are desired
      t // hen call SSTERF or SSTEMR and SORMTR.
-*
+
       TEST = .FALSE.
       IF( INDEIG ) THEN
          IF( IL.EQ.1 .AND. IU.EQ.N ) THEN
@@ -236,27 +236,27 @@
          ELSE
             CALL SCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
             CALL SCOPY( N, WORK( INDD ), 1, WORK( INDDD ), 1 )
-*
+
             IF (ABSTOL .LE. TWO*N*EPS) THEN
                TRYRAC = .TRUE.
             ELSE
                TRYRAC = .FALSE.
             END IF
             CALL SSTEMR( JOBZ, 'A', N, WORK( INDDD ), WORK( INDEE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( INDWK ), LWORK, IWORK, LIWORK, INFO )
-*
-*
-*
+
+
+
          // Apply orthogonal matrix used in reduction to tridiagonal
          // form to eigenvectors returned by SSTEMR.
-*
+
             IF( WANTZ .AND. INFO.EQ.0 ) THEN
                INDWKN = INDE
                LLWRKN = LWORK - INDWKN + 1
                CALL SORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
             END IF
          END IF
-*
-*
+
+
          IF( INFO.EQ.0 ) THEN
             // Everything worked.  Skip SSTEBZ/SSTEIN.  IWORK(:) are
             // undefined.
@@ -265,30 +265,30 @@
          END IF
          INFO = 0
       END IF
-*
+
       // Otherwise, call SSTEBZ and, if eigenvectors are desired, SSTEIN.
       // Also call SSTEBZ and SSTEIN if SSTEMR fails.
-*
+
       IF( WANTZ ) THEN
          ORDER = 'B'
       ELSE
          ORDER = 'E'
       END IF
        CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWK ), IWORK( INDIWO ), INFO )
-*
+
       IF( WANTZ ) THEN
          CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO )
-*
+
          // Apply orthogonal matrix used in reduction to tridiagonal
          // form to eigenvectors returned by SSTEIN.
-*
+
          INDWKN = INDE
          LLWRKN = LWORK - INDWKN + 1
          CALL SORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
       END IF
-*
+
       // If matrix was scaled, then rescale eigenvalues appropriately.
-*
+
 *  Jump here if SSTEMR/SSTEIN succeeded.
    30 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
@@ -299,12 +299,12 @@
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
-*
+
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.  Note: We do not sort the IFAIL portion of IWORK.
       // It may not be initialized (if SSTEMR/SSTEIN succeeded), and we do
       // not return this detailed information to the user.
-*
+
       IF( WANTZ ) THEN
          DO 50 J = 1, M - 1
             I = 0
@@ -315,7 +315,7 @@
                   TMP1 = W( JJ )
                END IF
    40       CONTINUE
-*
+
             IF( I.NE.0 ) THEN
                W( I ) = W( J )
                W( J ) = TMP1
@@ -323,14 +323,14 @@
             END IF
    50    CONTINUE
       END IF
-*
+
       // Set WORK(1) to optimal workspace size.
-*
+
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       IWORK( 1 ) = LIWMIN
-*
+
       RETURN
-*
+
       // End of SSYEVR
-*
+
       END

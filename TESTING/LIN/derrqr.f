@@ -1,16 +1,16 @@
       SUBROUTINE DERRQR( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -37,12 +37,12 @@
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1.D0 / DBLE( I+J )
@@ -53,11 +53,11 @@
          X( J ) = 0.D0
    20 CONTINUE
       OK = .TRUE.
-*
+
       // Error exits for QR factorization
-*
+
       // DGEQRF
-*
+
       SRNAMT = 'DGEQRF'
       INFOT = 1
       CALL DGEQRF( -1, 0, A, 1, B, W, 1, INFO )
@@ -71,9 +71,9 @@
       INFOT = 7
       CALL DGEQRF( 1, 2, A, 1, B, W, 1, INFO )
       CALL CHKXER( 'DGEQRF', INFOT, NOUT, LERR, OK )
-*
+
       // DGEQRFP
-*
+
       SRNAMT = 'DGEQRFP'
       INFOT = 1
       CALL DGEQRFP( -1, 0, A, 1, B, W, 1, INFO )
@@ -87,9 +87,9 @@
       INFOT = 7
       CALL DGEQRFP( 1, 2, A, 1, B, W, 1, INFO )
       CALL CHKXER( 'DGEQRFP', INFOT, NOUT, LERR, OK )
-*
+
       // DGEQR2
-*
+
       SRNAMT = 'DGEQR2'
       INFOT = 1
       CALL DGEQR2( -1, 0, A, 1, B, W, INFO )
@@ -100,9 +100,9 @@
       INFOT = 4
       CALL DGEQR2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'DGEQR2', INFOT, NOUT, LERR, OK )
-*
+
       // DGEQR2P
-*
+
       SRNAMT = 'DGEQR2P'
       INFOT = 1
       CALL DGEQR2P( -1, 0, A, 1, B, W, INFO )
@@ -113,9 +113,9 @@
       INFOT = 4
       CALL DGEQR2P( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'DGEQR2P', INFOT, NOUT, LERR, OK )
-*
+
       // DORGQR
-*
+
       SRNAMT = 'DORGQR'
       INFOT = 1
       CALL DORGQR( -1, 0, 0, A, 1, X, W, 1, INFO )
@@ -138,9 +138,9 @@
       INFOT = 8
       CALL DORGQR( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'DORGQR', INFOT, NOUT, LERR, OK )
-*
+
       // DORG2R
-*
+
       SRNAMT = 'DORG2R'
       INFOT = 1
       CALL DORG2R( -1, 0, 0, A, 1, X, W, INFO )
@@ -160,9 +160,9 @@
       INFOT = 5
       CALL DORG2R( 2, 1, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'DORG2R', INFOT, NOUT, LERR, OK )
-*
+
       // DORMQR
-*
+
       SRNAMT = 'DORMQR'
       INFOT = 1
       CALL DORMQR( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
@@ -200,9 +200,9 @@
       INFOT = 12
       CALL DORMQR( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
-*
+
       // DORM2R
-*
+
       SRNAMT = 'DORM2R'
       INFOT = 1
       CALL DORM2R( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
@@ -234,13 +234,13 @@
       INFOT = 10
       CALL DORM2R( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
       CALL CHKXER( 'DORM2R', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of DERRQR
-*
+
       END

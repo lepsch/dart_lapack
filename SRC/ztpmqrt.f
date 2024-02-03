@@ -1,9 +1,9 @@
       SUBROUTINE ZTPMQRT( SIDE, TRANS, M, N, K, L, NB, V, LDV, T, LDT, A, LDA, B, LDB, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String    SIDE, TRANS;
       int       INFO, K, LDV, LDA, LDB, M, N, L, NB, LDT;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX*16   V( LDV, * ), A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // ..
       // .. Local Scalars ..
       bool               LEFT, RIGHT, TRAN, NOTRAN;
@@ -30,15 +30,15 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // .. Test the input arguments ..
-*
+
       INFO   = 0
       LEFT   = LSAME( SIDE,  'L' )
       RIGHT  = LSAME( SIDE,  'R' )
       TRAN   = LSAME( TRANS, 'C' )
       NOTRAN = LSAME( TRANS, 'N' )
-*
+
       IF ( LEFT ) THEN
          LDVQ = MAX( 1, M )
          LDAQ = MAX( 1, K )
@@ -69,18 +69,18 @@
       ELSE IF( LDB.LT.MAX( 1, M ) ) THEN
          INFO = -15
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZTPMQRT', -INFO )
          RETURN
       END IF
-*
+
       // .. Quick return if possible ..
-*
+
       IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
-*
+
       IF( LEFT .AND. TRAN ) THEN
-*
+
          DO I = 1, K, NB
             IB = MIN( NB, K-I+1 )
             MB = MIN( M-L+I+IB-1, M )
@@ -91,9 +91,9 @@
             END IF
             CALL ZTPRFB( 'L', 'C', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
          END DO
-*
+
       ELSE IF( RIGHT .AND. NOTRAN ) THEN
-*
+
          DO I = 1, K, NB
             IB = MIN( NB, K-I+1 )
             MB = MIN( N-L+I+IB-1, N )
@@ -104,9 +104,9 @@
             END IF
             CALL ZTPRFB( 'R', 'N', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
          END DO
-*
+
       ELSE IF( LEFT .AND. NOTRAN ) THEN
-*
+
          KF = ((K-1)/NB)*NB+1
          DO I = KF, 1, -NB
             IB = MIN( NB, K-I+1 )
@@ -118,9 +118,9 @@
             END IF
             CALL ZTPRFB( 'L', 'N', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
          END DO
-*
+
       ELSE IF( RIGHT .AND. TRAN ) THEN
-*
+
          KF = ((K-1)/NB)*NB+1
          DO I = KF, 1, -NB
             IB = MIN( NB, K-I+1 )
@@ -132,11 +132,11 @@
             END IF
             CALL ZTPRFB( 'R', 'C', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
          END DO
-*
+
       END IF
-*
+
       RETURN
-*
+
       // End of ZTPMQRT
-*
+
       END

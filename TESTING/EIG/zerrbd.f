@@ -1,16 +1,16 @@
       SUBROUTINE ZERRBD( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 4, LW = NMAX )
@@ -43,13 +43,13 @@
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = 1.D0 / DBLE( I+J )
@@ -57,13 +57,13 @@
    20 CONTINUE
       OK = .TRUE.
       NT = 0
-*
+
       // Test error exits of the SVD routines.
-*
+
       IF( LSAMEN( 2, C2, 'BD' ) ) THEN
-*
+
          // ZGEBRD
-*
+
          SRNAMT = 'ZGEBRD'
          INFOT = 1
          CALL ZGEBRD( -1, 0, A, 1, D, E, TQ, TP, W, 1, INFO )
@@ -78,9 +78,9 @@
          CALL ZGEBRD( 2, 1, A, 2, D, E, TQ, TP, W, 1, INFO )
          CALL CHKXER( 'ZGEBRD', INFOT, NOUT, LERR, OK )
          NT = NT + 4
-*
+
          // ZGEBD2
-*
+
          SRNAMT = 'ZGEBD2'
          INFOT = 1
          CALL ZGEBD2( -1, 0, A, 1, D, E, TQ, TP, W, INFO )
@@ -92,9 +92,9 @@
          CALL ZGEBD2( 2, 1, A, 1, D, E, TQ, TP, W, INFO )
          CALL CHKXER( 'ZGEBD2', INFOT, NOUT, LERR, OK )
          NT = NT + 3
-*
+
          // ZUNGBR
-*
+
          SRNAMT = 'ZUNGBR'
          INFOT = 1
          CALL ZUNGBR( '/', 0, 0, 0, A, 1, TQ, W, 1, INFO )
@@ -127,9 +127,9 @@
          CALL ZUNGBR( 'Q', 2, 2, 1, A, 2, TQ, W, 1, INFO )
          CALL CHKXER( 'ZUNGBR', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // ZUNMBR
-*
+
          SRNAMT = 'ZUNMBR'
          INFOT = 1
          CALL ZUNMBR( '/', 'L', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
@@ -171,9 +171,9 @@
          CALL ZUNMBR( 'Q', 'R', 'C', 2, 0, 0, A, 1, TQ, U, 2, W, 0, INFO )
          CALL CHKXER( 'ZUNMBR', INFOT, NOUT, LERR, OK )
          NT = NT + 13
-*
+
          // ZBDSQR
-*
+
          SRNAMT = 'ZBDSQR'
          INFOT = 1
          CALL ZBDSQR( '/', 0, 0, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
@@ -201,22 +201,22 @@
          CALL CHKXER( 'ZBDSQR', INFOT, NOUT, LERR, OK )
          NT = NT + 8
       END IF
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
       ELSE
          WRITE( NOUT, FMT = 9998 )PATH
       END IF
-*
+
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits (',
      $        I3, ' tests done)' )
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ',
      $        'exits ***' )
-*
+
       RETURN
-*
+
       // End of ZERRBD
-*
+
       END

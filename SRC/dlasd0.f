@@ -1,9 +1,9 @@
       SUBROUTINE DLASD0( N, SQRE, D, E, U, LDU, VT, LDVT, SMLSIZ, IWORK, WORK, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDU, LDVT, N, SMLSIZ, SQRE;
       // ..
@@ -11,9 +11,9 @@
       int                IWORK( * );
       double             D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                I, I1, IC, IDXQ, IDXQC, IM1, INODE, ITEMP, IWK, J, LF, LL, LVL, M, NCC, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, SQREI;
       double             ALPHA, BETA;
@@ -22,19 +22,19 @@
       // EXTERNAL DLASD1, DLASDQ, DLASDT, XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
-*
+
       IF( N.LT.0 ) THEN
          INFO = -1
       ELSE IF( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) THEN
          INFO = -2
       END IF
-*
+
       M = N + SQRE
-*
+
       IF( LDU.LT.N ) THEN
          INFO = -6
       ELSE IF( LDVT.LT.M ) THEN
@@ -46,36 +46,36 @@
          CALL XERBLA( 'DLASD0', -INFO )
          RETURN
       END IF
-*
+
       // If the input matrix is too small, call DLASDQ to find the SVD.
-*
+
       IF( N.LE.SMLSIZ ) THEN
          CALL DLASDQ( 'U', SQRE, N, M, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK, INFO )
          RETURN
       END IF
-*
+
       // Set up the computation tree.
-*
+
       INODE = 1
       NDIML = INODE + N
       NDIMR = NDIML + N
       IDXQ = NDIMR + N
       IWK = IDXQ + N
       CALL DLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
-*
+
       // For the nodes on bottom level of the tree, solve
      t // heir subproblems by DLASDQ.
-*
+
       NDB1 = ( ND+1 ) / 2
       NCC = 0
       DO 30 I = NDB1, ND
-*
+
       // IC : center row of each node
       // NL : number of rows of left  subproblem
       // NR : number of rows of right subproblem
       // NLF: starting row of the left   subproblem
       // NRF: starting row of the right  subproblem
-*
+
          I1 = I - 1
          IC = IWORK( INODE+I1 )
          NL = IWORK( NDIML+I1 )
@@ -108,14 +108,14 @@
             IWORK( ITEMP+J-1 ) = J
    20    CONTINUE
    30 CONTINUE
-*
+
       // Now conquer each subproblem bottom-up.
-*
+
       DO 50 LVL = NLVL, 1, -1
-*
+
          // Find the first node LF and last node LL on the
          // current level LVL.
-*
+
          IF( LVL.EQ.1 ) THEN
             LF = 1
             LL = 1
@@ -138,17 +138,17 @@
             ALPHA = D( IC )
             BETA = E( IC )
             CALL DLASD1( NL, NR, SQREI, D( NLF ), ALPHA, BETA, U( NLF, NLF ), LDU, VT( NLF, NLF ), LDVT, IWORK( IDXQC ), IWORK( IWK ), WORK, INFO )
-*
+
          // Report the possible convergence failure.
-*
+
             IF( INFO.NE.0 ) THEN
                RETURN
             END IF
    40    CONTINUE
    50 CONTINUE
-*
+
       RETURN
-*
+
       // End of DLASD0
-*
+
       END

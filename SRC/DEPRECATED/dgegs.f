@@ -1,9 +1,9 @@
       SUBROUTINE DGEGS( JOBVSL, JOBVSR, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBVSL, JOBVSR;
       int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -36,9 +36,9 @@
       // INTRINSIC INT, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Decode the input arguments
-*
+
       IF( LSAME( JOBVSL, 'N' ) ) THEN
          IJOBVL = 1
          ILVSL = .FALSE.
@@ -49,7 +49,7 @@
          IJOBVL = -1
          ILVSL = .FALSE.
       END IF
-*
+
       IF( LSAME( JOBVSR, 'N' ) ) THEN
          IJOBVR = 1
          ILVSR = .FALSE.
@@ -60,9 +60,9 @@
          IJOBVR = -1
          ILVSR = .FALSE.
       END IF
-*
+
       // Test the input arguments
-*
+
       LWKMIN = MAX( 4*N, 1 )
       LWKOPT = LWKMIN
       WORK( 1 ) = LWKOPT
@@ -85,7 +85,7 @@
       ELSE IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
          INFO = -16
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
          NB1 = ILAENV( 1, 'DGEQRF', ' ', N, N, -1, -1 )
          NB2 = ILAENV( 1, 'DORMQR', ' ', N, N, N, -1 )
@@ -94,27 +94,27 @@
          LOPT = 2*N + N*( NB+1 )
          WORK( 1 ) = LOPT
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DGEGS ', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Get machine constants
-*
+
       EPS = DLAMCH( 'E' )*DLAMCH( 'B' )
       SAFMIN = DLAMCH( 'S' )
       SMLNUM = N*SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Scale A if max element outside range [SMLNUM,BIGNUM]
-*
+
       ANRM = DLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = .FALSE.
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
@@ -124,7 +124,7 @@
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
       END IF
-*
+
       IF( ILASCL ) THEN
          CALL DLASCL( 'G', -1, -1, ANRM, ANRMTO, N, N, A, LDA, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -132,9 +132,9 @@
             RETURN
          END IF
       END IF
-*
+
       // Scale B if max element outside range [SMLNUM,BIGNUM]
-*
+
       BNRM = DLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = .FALSE.
       IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
@@ -144,7 +144,7 @@
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
       END IF
-*
+
       IF( ILBSCL ) THEN
          CALL DLASCL( 'G', -1, -1, BNRM, BNRMTO, N, N, B, LDB, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -152,11 +152,11 @@
             RETURN
          END IF
       END IF
-*
+
       // Permute the matrix to make it more nearly triangular
       // Workspace layout:  (2*N words -- "work..." not actually used)
          // left_permutation, right_permutation, work...
-*
+
       ILEFT = 1
       IRIGHT = N + 1
       IWORK = IRIGHT + N
@@ -165,11 +165,11 @@
          INFO = N + 1
          GO TO 10
       END IF
-*
+
       // Reduce B to triangular form, and initialize VSL and/or VSR
       // Workspace layout:  ("work..." must have at least N words)
          // left_permutation, right_permutation, tau, work...
-*
+
       IROWS = IHI + 1 - ILO
       ICOLS = N + 1 - ILO
       ITAU = IWORK
@@ -179,14 +179,14 @@
          INFO = N + 2
          GO TO 10
       END IF
-*
+
       CALL DORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO )
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       IF( IINFO.NE.0 ) THEN
          INFO = N + 3
          GO TO 10
       END IF
-*
+
       IF( ILVSL ) THEN
          CALL DLASET( 'Full', N, N, ZERO, ONE, VSL, LDVSL )
          CALL DLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )          CALL DORGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )
@@ -196,21 +196,21 @@
             GO TO 10
          END IF
       END IF
-*
+
       IF( ILVSR ) CALL DLASET( 'Full', N, N, ZERO, ONE, VSR, LDVSR )
-*
+
       // Reduce to generalized Hessenberg form
-*
+
       CALL DGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IINFO )
       IF( IINFO.NE.0 ) THEN
          INFO = N + 5
          GO TO 10
       END IF
-*
+
       // Perform QZ algorithm, computing Schur vectors if desired
       // Workspace layout:  ("work..." must have at least 1 word)
          // left_permutation, right_permutation, work...
-*
+
       IWORK = ITAU
       CALL DHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWORK ), LWORK+1-IWORK, IINFO )
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
@@ -224,9 +224,9 @@
          END IF
          GO TO 10
       END IF
-*
+
       // Apply permutation to VSL and VSR
-*
+
       IF( ILVSL ) THEN
          CALL DGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -241,9 +241,9 @@
             GO TO 10
          END IF
       END IF
-*
+
       // Undo scaling
-*
+
       IF( ILASCL ) THEN
          CALL DLASCL( 'H', -1, -1, ANRMTO, ANRM, N, N, A, LDA, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -261,7 +261,7 @@
             RETURN
          END IF
       END IF
-*
+
       IF( ILBSCL ) THEN
          CALL DLASCL( 'U', -1, -1, BNRMTO, BNRM, N, N, B, LDB, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -274,12 +274,12 @@
             RETURN
          END IF
       END IF
-*
+
    10 CONTINUE
       WORK( 1 ) = LWKOPT
-*
+
       RETURN
-*
+
       // End of DGEGS
-*
+
       END

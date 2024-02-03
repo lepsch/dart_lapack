@@ -3,15 +3,15 @@
       use omp_lib
 #endif
       IMPLICIT NONE
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String   *( * )    NAME, OPTS;
       int                ISPEC, NI, NBI, IBI, NXI;
-*
+
 *  ================================================================
       // ..
       // .. Local Scalars ..
@@ -28,16 +28,16 @@
       // EXTERNAL ILAENV, LSAME
       // ..
       // .. Executable Statements ..
-*
+
       // Invalid value for ISPEC
-*
+
       IF( (ISPEC.LT.17).OR.(ISPEC.GT.21) ) THEN
           IPARAM2STAGE = -1
           RETURN
       ENDIF
-*
+
       // Get the number of threads
-*
+
       NTHREADS = 1
 #if defined(_OPENMP)
 !$OMP PARALLEL
@@ -45,19 +45,19 @@
 !$OMP END PARALLEL
 #endif
        // WRITE(*,*) 'IPARAM VOICI NTHREADS ISPEC ',NTHREADS, ISPEC
-*
+
       IF( ISPEC .NE. 19 ) THEN
-*
+
          // Convert NAME to upper case if the first character is lower case.
-*
+
          IPARAM2STAGE = -1
          SUBNAM = NAME
          IC = ICHAR( SUBNAM( 1: 1 ) )
          IZ = ICHAR( 'Z' )
          IF( IZ.EQ.90 .OR. IZ.EQ.122 ) THEN
-*
+
             // ASCII character set
-*
+
             IF( IC.GE.97 .AND. IC.LE.122 ) THEN
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                DO 100 I = 2, 12
@@ -65,11 +65,11 @@
                   IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
   100          CONTINUE
             END IF
-*
+
          ELSE IF( IZ.EQ.233 .OR. IZ.EQ.169 ) THEN
-*
+
             // EBCDIC character set
-*
+
             IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) THEN
                SUBNAM( 1: 1 ) = CHAR( IC+64 )
                DO 110 I = 2, 12
@@ -77,11 +77,11 @@
                   IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
   110          CONTINUE
             END IF
-*
+
          ELSE IF( IZ.EQ.218 .OR. IZ.EQ.250 ) THEN
-*
+
             // Prime machines:  ASCII+128
-*
+
             IF( IC.GE.225 .AND. IC.LE.250 ) THEN
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                DO 120 I = 2, 12
@@ -90,15 +90,15 @@
   120          CONTINUE
             END IF
          END IF
-*
+
          PREC  = SUBNAM( 1: 1 )
          ALGO  = SUBNAM( 4: 6 )
          STAG  = SUBNAM( 8:12 )
          RPREC = PREC.EQ.'S' .OR. PREC.EQ.'D'
          CPREC = PREC.EQ.'C' .OR. PREC.EQ.'Z'
-*
+
          // Invalid value for PRECISION
-*
+
          IF( .NOT.( RPREC .OR. CPREC ) ) THEN
              IPARAM2STAGE = -1
              RETURN
@@ -106,14 +106,14 @@
       ENDIF
        // WRITE(*,*),'RPREC,CPREC ',RPREC,CPREC,
       // $           '   ALGO ',ALGO,'    STAGE ',STAG
-*
-*
+
+
       IF (( ISPEC .EQ. 17 ) .OR. ( ISPEC .EQ. 18 )) THEN
-*
+
       // ISPEC = 17, 18:  block size KD, IB
       // Could be also dependent from N but for now it
       // depend only on sequential or parallel
-*
+
          IF( NTHREADS.GT.4 ) THEN
             IF( CPREC ) THEN
                KD = 128
@@ -141,13 +141,13 @@
          ENDIF
          IF( ISPEC.EQ.17 ) IPARAM2STAGE = KD
          IF( ISPEC.EQ.18 ) IPARAM2STAGE = IB
-*
+
       ELSE IF ( ISPEC .EQ. 19 ) THEN
-*
+
       // ISPEC = 19:
       // LHOUS length of the Houselholder representation
       // matrix (V,T) of the second stage. should be >= 1.
-*
+
       // Will add the VECT OPTION HERE next release
          VECT  = OPTS(1:1)
          IF( LSAME( VECT, 'N' ) ) THEN
@@ -161,9 +161,9 @@
          ELSE
             IPARAM2STAGE = -1
          ENDIF
-*
+
       ELSE IF ( ISPEC .EQ. 20 ) THEN
-*
+
       // ISPEC = 20: (21 for future use)
       // LWORK length of the workspace for
       // either or both stages for TRD and BRD. should be >= 1.
@@ -209,13 +209,13 @@
          ELSE
             IPARAM2STAGE = -1
          ENDIF
-*
+
       ELSE IF ( ISPEC .EQ. 21 ) THEN
-*
+
       // ISPEC = 21 for future use
          IPARAM2STAGE = NXI
       ENDIF
-*
+
       // ==== End of IPARAM2STAGE ====
-*
+
       END

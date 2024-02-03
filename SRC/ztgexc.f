@@ -1,9 +1,9 @@
       SUBROUTINE ZTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IFST, ILST, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               WANTQ, WANTZ;
       int                IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                HERE;
       // ..
@@ -24,7 +24,7 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Decode and test input arguments.
       INFO = 0
       IF( N.LT.0 ) THEN
@@ -46,19 +46,19 @@
          CALL XERBLA( 'ZTGEXC', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.1 ) RETURN       IF( IFST.EQ.ILST ) RETURN
-*
+
       IF( IFST.LT.ILST ) THEN
-*
+
          HERE = IFST
-*
+
    10    CONTINUE
-*
+
          // Swap with next one below
-*
+
          CALL ZTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO )
          IF( INFO.NE.0 ) THEN
             ILST = HERE
@@ -69,11 +69,11 @@
          HERE = HERE - 1
       ELSE
          HERE = IFST - 1
-*
+
    20    CONTINUE
-*
+
          // Swap with next one above
-*
+
          CALL ZTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO )
          IF( INFO.NE.0 ) THEN
             ILST = HERE
@@ -85,7 +85,7 @@
       END IF
       ILST = HERE
       RETURN
-*
+
       // End of ZTGEXC
-*
+
       END

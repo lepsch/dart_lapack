@@ -1,9 +1,9 @@
       SUBROUTINE ZLAPTM( UPLO, N, NRHS, ALPHA, D, E, X, LDX, BETA, B, LDB )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDB, LDX, N, NRHS;
@@ -13,9 +13,9 @@
       double             D( * );
       COMPLEX*16         B( LDB, * ), E( * ), X( LDX, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -31,9 +31,9 @@
       // INTRINSIC DCONJG
       // ..
       // .. Executable Statements ..
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       IF( BETA.EQ.ZERO ) THEN
          DO 20 J = 1, NRHS
             DO 10 I = 1, N
@@ -47,12 +47,12 @@
    30       CONTINUE
    40    CONTINUE
       END IF
-*
+
       IF( ALPHA.EQ.ONE ) THEN
          IF( LSAME( UPLO, 'U' ) ) THEN
-*
+
             // Compute B := B + A*X, where E is the superdiagonal of A.
-*
+
             DO 60 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
@@ -64,9 +64,9 @@
                END IF
    60       CONTINUE
          ELSE
-*
+
             // Compute B := B + A*X, where E is the subdiagonal of A.
-*
+
             DO 80 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
@@ -80,9 +80,9 @@
          END IF
       ELSE IF( ALPHA.EQ.-ONE ) THEN
          IF( LSAME( UPLO, 'U' ) ) THEN
-*
+
             // Compute B := B - A*X, where E is the superdiagonal of A.
-*
+
             DO 100 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
@@ -94,9 +94,9 @@
                END IF
   100       CONTINUE
          ELSE
-*
+
             // Compute B := B - A*X, where E is the subdiagonal of A.
-*
+
             DO 120 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
@@ -110,7 +110,7 @@
          END IF
       END IF
       RETURN
-*
+
       // End of ZLAPTM
-*
+
       END

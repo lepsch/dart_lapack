@@ -1,17 +1,17 @@
       SUBROUTINE SCHKEC( THRESH, TSTERR, NIN, NOUT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NIN, NOUT;
       REAL               THRESH
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               OK;
       String             PATH;
@@ -30,53 +30,53 @@
       // EXTERNAL SLAMCH
       // ..
       // .. Executable Statements ..
-*
+
       PATH( 1: 1 ) = 'Single precision'
       PATH( 2: 3 ) = 'EC'
       EPS = SLAMCH( 'P' )
       SFMIN = SLAMCH( 'S' )
-*
+
       // Print header information
-*
+
       WRITE( NOUT, FMT = 9989 )
       WRITE( NOUT, FMT = 9988 )EPS, SFMIN
       WRITE( NOUT, FMT = 9987 )THRESH
-*
+
       // Test error exits if TSTERR is .TRUE.
-*
+
       IF( TSTERR ) CALL SERREC( PATH, NOUT )
-*
+
       OK = .TRUE.
       CALL SGET31( RLALN2, LLALN2, NLALN2, KLALN2 )
       IF( RLALN2.GT.THRESH .OR. NLALN2( 1 ).NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9999 )RLALN2, LLALN2, NLALN2, KLALN2
       END IF
-*
+
       CALL SGET32( RLASY2, LLASY2, NLASY2, KLASY2 )
       IF( RLASY2.GT.THRESH ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9998 )RLASY2, LLASY2, NLASY2, KLASY2
       END IF
-*
+
       CALL SGET33( RLANV2, LLANV2, NLANV2, KLANV2 )
       IF( RLANV2.GT.THRESH .OR. NLANV2.NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9997 )RLANV2, LLANV2, NLANV2, KLANV2
       END IF
-*
+
       CALL SGET34( RLAEXC, LLAEXC, NLAEXC, KLAEXC )
       IF( RLAEXC.GT.THRESH .OR. NLAEXC( 2 ).NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9996 )RLAEXC, LLAEXC, NLAEXC, KLAEXC
       END IF
-*
+
       CALL SGET35( RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL )
       IF( RTRSYL( 1 ).GT.THRESH ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9995 )RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL
       END IF
-*
+
       CALL SSYL01( THRESH, FTRSYL, RTRSYL, ITRSYL, KTRSYL3 )
       IF( FTRSYL( 1 ).GT.0 ) THEN
          OK = .FALSE.
@@ -90,39 +90,39 @@
          OK = .FALSE.
          WRITE( NOUT, FMT = 9972 )FTRSYL( 3 )
       END IF
-*
+
       CALL SGET36( RTREXC, LTREXC, NTREXC, KTREXC, NIN )
       IF( RTREXC.GT.THRESH .OR. NTREXC( 3 ).GT.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9994 )RTREXC, LTREXC, NTREXC, KTREXC
       END IF
-*
+
       CALL SGET37( RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN )
       IF( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ).NE.0 .OR. NTRSNA( 2 ).NE.0 .OR. NTRSNA( 3 ).NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9993 )RTRSNA, LTRSNA, NTRSNA, KTRSNA
       END IF
-*
+
       CALL SGET38( RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN )
       IF( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ).NE.0 .OR. NTRSEN( 2 ).NE.0 .OR. NTRSEN( 3 ).NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9992 )RTRSEN, LTRSEN, NTRSEN, KTRSEN
       END IF
-*
+
       CALL SGET39( RLAQTR, LLAQTR, NLAQTR, KLAQTR )
       IF( RLAQTR.GT.THRESH ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9991 )RLAQTR, LLAQTR, NLAQTR, KLAQTR
       END IF
-*
+
       CALL SGET40( RTGEXC, LTGEXC, NTGEXC, KTGEXC, NIN )
       IF( RTGEXC.GT.THRESH ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9986 )RTGEXC, LTGEXC, NTGEXC, KTGEXC
       END IF
-*
+
       NTESTS = KLALN2 + KLASY2 + KLANV2 + KLAEXC + KTRSYL + KTREXC + KTRSNA + KTRSEN + KLAQTR       IF( OK ) WRITE( NOUT, FMT = 9990 )PATH, NTESTS
-*
+
       RETURN
  9999 FORMAT( ' Error in SLALN2: RMAX =', E12.3, / ' LMAX = ', I8, ' N',
      $      'INFO=', 2I8, ' KNT=', I8 )
@@ -159,7 +159,7 @@
      $      'Maximum test ratio =', D12.3, ' threshold =', D12.3 )
  9970 FORMAT( 'Error in STRSYL: ', I8, ' tests fail the threshold.', /
      $      'Maximum test ratio =', D12.3, ' threshold =', D12.3 )
-*
+
       // End of SCHKEC
-*
+
       END

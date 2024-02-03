@@ -1,15 +1,15 @@
       bool             FUNCTION ZSLECT( Z );
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       COMPLEX*16         Z
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
@@ -32,7 +32,7 @@
       // INTRINSIC ABS, DBLE, DCMPLX
       // ..
       // .. Executable Statements ..
-*
+
       IF( SELOPT.EQ.0 ) THEN
          ZSLECT = ( DBLE( Z ).LT.ZERO )
       ELSE
@@ -47,7 +47,7 @@
    10    CONTINUE
       END IF
       RETURN
-*
+
       // End of ZSLECT
-*
+
       END

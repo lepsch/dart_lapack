@@ -1,9 +1,9 @@
       SUBROUTINE ZLAQR1( N, H, LDH, S1, S2, V )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       COMPLEX*16         S1, S2
       int                LDH, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX*16         H( LDH, * ), V( * )
       // ..
-*
+
 *  ================================================================
-*
+
       // .. Parameters ..
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ) )
@@ -34,13 +34,13 @@
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       // Quick return if possible
-*
+
       IF( N.NE.2 .AND. N.NE.3 ) THEN
          RETURN
       END IF
-*
+
       IF( N.EQ.2 ) THEN
          S = CABS1( H( 1, 1 )-S2 ) + CABS1( H( 2, 1 ) )
          IF( S.EQ.RZERO ) THEN

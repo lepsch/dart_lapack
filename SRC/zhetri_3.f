@@ -1,9 +1,9 @@
       SUBROUTINE ZHETRI_3( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LWORK, N;
@@ -12,9 +12,9 @@
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), E( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               UPPER, LQUERY;
       int                LWKOPT, NB;
@@ -31,18 +31,18 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK.EQ.-1 )
-*
+
       // Determine the block size
-*
+
       NB = MAX( 1, ILAENV( 1, 'ZHETRI_3', UPLO, N, -1, -1, -1 ) )
       LWKOPT = ( N+NB+1 ) * ( NB+3 )
-*
+
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
@@ -52,7 +52,7 @@
       ELSE IF ( LWORK .LT. LWKOPT .AND. .NOT.LQUERY ) THEN
          INFO = -8
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZHETRI_3', -INFO )
          RETURN
@@ -60,17 +60,17 @@
          WORK( 1 ) = LWKOPT
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       CALL ZHETRI_3X( UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO )
-*
+
       WORK( 1 ) = LWKOPT
-*
+
       RETURN
-*
+
       // End of ZHETRI_3
-*
+
       END

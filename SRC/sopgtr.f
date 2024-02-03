@@ -1,9 +1,9 @@
       SUBROUTINE SOPGTR( UPLO, N, AP, TAU, Q, LDQ, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDQ, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               AP( * ), Q( LDQ, * ), TAU( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -33,9 +33,9 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -49,19 +49,19 @@
          CALL XERBLA( 'SOPGTR', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       IF( UPPER ) THEN
-*
+
          // Q was determined by a call to SSPTRD with UPLO = 'U'
-*
+
          // Unpack the vectors which define the elementary reflectors and
          // set the last row and column of Q equal to those of the unit
          // matrix
-*
+
          IJ = 2
          DO 20 J = 1, N - 1
             DO 10 I = 1, J - 1
@@ -75,19 +75,19 @@
             Q( I, N ) = ZERO
    30    CONTINUE
          Q( N, N ) = ONE
-*
+
          // Generate Q(1:n-1,1:n-1)
-*
+
          CALL SORG2L( N-1, N-1, N-1, Q, LDQ, TAU, WORK, IINFO )
-*
+
       ELSE
-*
+
          // Q was determined by a call to SSPTRD with UPLO = 'L'.
-*
+
          // Unpack the vectors which define the elementary reflectors and
          // set the first row and column of Q equal to those of the unit
          // matrix
-*
+
          Q( 1, 1 ) = ONE
          DO 40 I = 2, N
             Q( I, 1 ) = ZERO
@@ -102,14 +102,14 @@
             IJ = IJ + 2
    60    CONTINUE
          IF( N.GT.1 ) THEN
-*
+
             // Generate Q(2:n,2:n)
-*
+
             CALL SORG2R( N-1, N-1, N-1, Q( 2, 2 ), LDQ, TAU, WORK, IINFO )
          END IF
       END IF
       RETURN
-*
+
       // End of SOPGTR
-*
+
       END

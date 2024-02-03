@@ -1,9 +1,9 @@
       SUBROUTINE SLARRC( JOBT, N, VL, VU, D, E, PIVMIN, EIGCNT, LCNT, RCNT, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBT;
       int                EIGCNT, INFO, LCNT, N, RCNT;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       REAL               D( * ), E( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
@@ -30,18 +30,18 @@
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       LCNT = 0
       RCNT = 0
       EIGCNT = 0
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) THEN
          RETURN
       END IF
-*
+
       MATT = LSAME( JOBT, 'T' )
 
 
@@ -80,14 +80,14 @@
                RCNT = RCNT + 1
             ENDIF
             TMP = E(I) * D(I) * E(I)
-*
+
             TMP2 = TMP / LPIVOT
             IF( TMP2.EQ.ZERO ) THEN
                SL =  TMP - VL
             ELSE
                SL = SL*TMP2 - VL
             END IF
-*
+
             TMP2 = TMP / RPIVOT
             IF( TMP2.EQ.ZERO ) THEN
                SU =  TMP - VU
@@ -107,7 +107,7 @@
       EIGCNT = RCNT - LCNT
 
       RETURN
-*
+
       // End of SLARRC
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE ZLAED0( QSIZ, N, D, E, Q, LDQ, QSTORE, LDQS, RWORK, IWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDQ, LDQS, N, QSIZ;
       // ..
@@ -12,11 +12,11 @@
       double             D( * ), E( * ), RWORK( * );
       COMPLEX*16         Q( LDQ, * ), QSTORE( LDQS, * )
       // ..
-*
+
 *  =====================================================================
-*
+
 *  Warning:      N could be as big as QSIZ!
-*
+
       // .. Parameters ..
       double             TWO;
       PARAMETER          ( TWO = 2.D+0 )
@@ -36,11 +36,11 @@
       // INTRINSIC ABS, DBLE, INT, LOG, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
-*
+
       // IF( ICOMPQ .LT. 0 .OR. ICOMPQ .GT. 2 ) THEN
          // INFO = -1
       // ELSE IF( ( ICOMPQ .EQ. 1 ) .AND. ( QSIZ .LT. MAX( 0, N ) ) )
@@ -58,16 +58,16 @@
          CALL XERBLA( 'ZLAED0', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       SMLSIZ = ILAENV( 9, 'ZLAED0', ' ', 0, 0, 0, 0 )
-*
+
       // Determine the size and placement of the submatrices, and save in
      t // he leading elements of IWORK.
-*
+
       IWORK( 1 ) = N
       SUBPBS = 1
       TLVLS = 0
@@ -84,10 +84,10 @@
       DO 30 J = 2, SUBPBS
          IWORK( J ) = IWORK( J ) + IWORK( J-1 )
    30 CONTINUE
-*
+
       // Divide the matrix into SUBPBS submatrices of size at most SMLSIZ+1
       // using rank-1 modifications (cuts).
-*
+
       SPM1 = SUBPBS - 1
       DO 40 I = 1, SPM1
          SUBMAT = IWORK( I ) + 1
@@ -95,12 +95,12 @@
          D( SMM1 ) = D( SMM1 ) - ABS( E( SMM1 ) )
          D( SUBMAT ) = D( SUBMAT ) - ABS( E( SMM1 ) )
    40 CONTINUE
-*
+
       INDXQ = 4*N + 3
-*
+
       // Set up workspaces for eigenvalues only/accumulate new vectors
       // routine
-*
+
       TEMP = LOG( DBLE( N ) ) / LOG( TWO )
       LGN = INT( TEMP )
       IF( 2**LGN.LT.N ) LGN = LGN + 1       IF( 2**LGN.LT.N ) LGN = LGN + 1
@@ -109,7 +109,7 @@
       IQPTR = IPERM + N*LGN
       IGIVPT = IQPTR + N + 2
       IGIVCL = IGIVPT + N*LGN
-*
+
       IGIVNM = 1
       IQ = IGIVNM + 2*N*LGN
       IWREM = IQ + N**2 + 1
@@ -119,10 +119,10 @@
          IWORK( IGIVPT+I ) = 1
    50 CONTINUE
       IWORK( IQPTR ) = 1
-*
+
       // Solve each submatrix eigenproblem at the bottom of the divide and
       // conquer tree.
-*
+
       CURR = 0
       DO 70 I = 0, SPM1
          IF( I.EQ.0 ) THEN
@@ -146,12 +146,12 @@
             K = K + 1
    60    CONTINUE
    70 CONTINUE
-*
+
       // Successively merge eigensystems of adjacent submatrices
       // into eigensystem for the corresponding larger matrix.
-*
+
       // while ( SUBPBS > 1 )
-*
+
       CURLVL = 1
    80 CONTINUE
       IF( SUBPBS.GT.1 ) THEN
@@ -168,14 +168,14 @@
                MSD2 = MATSIZ / 2
                CURPRB = CURPRB + 1
             END IF
-*
+
       // Merge lower order eigensystems (of size MSD2 and MATSIZ - MSD2)
       // into an eigensystem of size MATSIZ.  ZLAED7 handles the case
       // when the eigenvectors of a full or band Hermitian matrix (which
       // was reduced to tridiagonal form) are desired.
-*
+
       // I am free to use Q as a valuable working space until Loop 150.
-*
+
             CALL ZLAED7( MATSIZ, MSD2, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, E( SUBMAT+MSD2-1 ), IWORK( INDXQ+SUBMAT ), RWORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), RWORK( IGIVNM ), Q( 1, SUBMAT ), RWORK( IWREM ), IWORK( SUBPBS+1 ), INFO )
             IF( INFO.GT.0 ) THEN
                INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1
@@ -187,21 +187,21 @@
          CURLVL = CURLVL + 1
          GO TO 80
       END IF
-*
+
       // end while
-*
+
       // Re-merge the eigenvalues/vectors which were deflated at the final
       // merge step.
-*
+
       DO 100 I = 1, N
          J = IWORK( INDXQ+I )
          RWORK( I ) = D( J )
          CALL ZCOPY( QSIZ, QSTORE( 1, J ), 1, Q( 1, I ), 1 )
   100 CONTINUE
       CALL DCOPY( N, RWORK, 1, D, 1 )
-*
+
       RETURN
-*
+
       // End of ZLAED0
-*
+
       END

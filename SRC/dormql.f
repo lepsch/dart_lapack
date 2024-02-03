@@ -1,9 +1,9 @@
       SUBROUTINE DORMQL( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                INFO, K, LDA, LDC, LWORK, M, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NBMAX, LDT, TSIZE;
       PARAMETER          ( NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX )
@@ -34,16 +34,16 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
       LQUERY = ( LWORK.EQ.-1 )
-*
+
       // NQ is the order of Q and NW is the minimum dimension of WORK
-*
+
       IF( LEFT ) THEN
          NQ = M
          NW = MAX( 1, N )
@@ -68,11 +68,11 @@
       ELSE IF( LWORK.LT.NW .AND. .NOT.LQUERY ) THEN
          INFO = -12
       END IF
-*
+
       IF( INFO.EQ.0 ) THEN
-*
+
          // Compute the workspace requirements
-*
+
          IF( M.EQ.0 .OR. N.EQ.0 ) THEN
             LWKOPT = 1
          ELSE
@@ -81,20 +81,20 @@
          END IF
          WORK( 1 ) = LWKOPT
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DORMQL', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( M.EQ.0 .OR. N.EQ.0 ) THEN
          RETURN
       END IF
-*
+
       NBMIN = 2
       LDWORK = NW
       IF( NB.GT.1 .AND. NB.LT.K ) THEN
@@ -103,16 +103,16 @@
             NBMIN = MAX( 2, ILAENV( 2, 'DORMQL', SIDE // TRANS, M, N, K, -1 ) )
          END IF
       END IF
-*
+
       IF( NB.LT.NBMIN .OR. NB.GE.K ) THEN
-*
+
          // Use unblocked code
-*
+
          CALL DORM2L( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, IINFO )
       ELSE
-*
+
          // Use blocked code
-*
+
          IWT = 1 + NW*NB
          IF( ( LEFT .AND. NOTRAN ) .OR. ( .NOT.LEFT .AND. .NOT.NOTRAN ) ) THEN
             I1 = 1
@@ -123,40 +123,40 @@
             I2 = 1
             I3 = -NB
          END IF
-*
+
          IF( LEFT ) THEN
             NI = N
          ELSE
             MI = M
          END IF
-*
+
          DO 10 I = I1, I2, I3
             IB = MIN( NB, K-I+1 )
-*
+
             // Form the triangular factor of the block reflector
             // H = H(i+ib-1) . . . H(i+1) H(i)
-*
+
             CALL DLARFT( 'Backward', 'Columnwise', NQ-K+I+IB-1, IB, A( 1, I ), LDA, TAU( I ), WORK( IWT ), LDT )
             IF( LEFT ) THEN
-*
+
                // H or H**T is applied to C(1:m-k+i+ib-1,1:n)
-*
+
                MI = M - K + I + IB - 1
             ELSE
-*
+
                // H or H**T is applied to C(1:m,1:n-k+i+ib-1)
-*
+
                NI = N - K + I + IB - 1
             END IF
-*
+
             // Apply H or H**T
-*
+
             CALL DLARFB( SIDE, TRANS, 'Backward', 'Columnwise', MI, NI, IB, A( 1, I ), LDA, WORK( IWT ), LDT, C, LDC, WORK, LDWORK )
    10    CONTINUE
       END IF
       WORK( 1 ) = LWKOPT
       RETURN
-*
+
       // End of DORMQL
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE ZTRSNA( JOB, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR, LDVR, S, SEP, MM, M, WORK, LDWORK, RWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             HOWMNY, JOB;
       int                INFO, LDT, LDVL, LDVR, LDWORK, M, MM, N;
@@ -13,9 +13,9 @@
       double             RWORK( * ), S( * ), SEP( * );
       COMPLEX*16         T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D0+0 )
@@ -51,18 +51,18 @@
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       // Decode and test the input parameters
-*
+
       WANTBH = LSAME( JOB, 'B' )
       WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
       WANTSP = LSAME( JOB, 'V' ) .OR. WANTBH
-*
+
       SOMCON = LSAME( HOWMNY, 'S' )
-*
+
       // Set M to the number of eigenpairs for which condition numbers are
      t // o be computed.
-*
+
       IF( SOMCON ) THEN
          M = 0
          DO 10 J = 1, N
@@ -71,7 +71,7 @@
       ELSE
          M = N
       END IF
-*
+
       INFO = 0
       IF( .NOT.WANTS .AND. .NOT.WANTSP ) THEN
          INFO = -1
@@ -94,11 +94,11 @@
          CALL XERBLA( 'ZTRSNA', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       IF( N.EQ.1 ) THEN
          IF( SOMCON ) THEN
             IF( .NOT.SELECT( 1 ) ) RETURN
@@ -106,77 +106,77 @@
          IF( WANTS ) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) )
          RETURN
       END IF
-*
+
       // Get machine constants
-*
+
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       KS = 1
       DO 50 K = 1, N
-*
+
          IF( SOMCON ) THEN
             IF( .NOT.SELECT( K ) ) GO TO 50
          END IF
-*
+
          IF( WANTS ) THEN
-*
+
             // Compute the reciprocal condition number of the k-th
             // eigenvalue.
-*
+
             PROD = ZDOTC( N, VR( 1, KS ), 1, VL( 1, KS ), 1 )
             RNRM = DZNRM2( N, VR( 1, KS ), 1 )
             LNRM = DZNRM2( N, VL( 1, KS ), 1 )
             S( KS ) = ABS( PROD ) / ( RNRM*LNRM )
-*
+
          END IF
-*
+
          IF( WANTSP ) THEN
-*
+
             // Estimate the reciprocal condition number of the k-th
             // eigenvector.
-*
+
             // Copy the matrix T to the array WORK and swap the k-th
             // diagonal element to the (1,1) position.
-*
+
             CALL ZLACPY( 'Full', N, N, T, LDT, WORK, LDWORK )
             CALL ZTREXC( 'No Q', N, WORK, LDWORK, DUMMY, 1, K, 1, IERR )
-*
+
             // Form  C = T22 - lambda*I in WORK(2:N,2:N).
-*
+
             DO 20 I = 2, N
                WORK( I, I ) = WORK( I, I ) - WORK( 1, 1 )
    20       CONTINUE
-*
+
             // Estimate a lower bound for the 1-norm of inv(C**H). The 1st
             // and (N+1)th columns of WORK are used to store work vectors.
-*
+
             SEP( KS ) = ZERO
             EST = ZERO
             KASE = 0
             NORMIN = 'N'
    30       CONTINUE
             CALL ZLACN2( N-1, WORK( 1, N+1 ), WORK, EST, KASE, ISAVE )
-*
+
             IF( KASE.NE.0 ) THEN
                IF( KASE.EQ.1 ) THEN
-*
+
                   // Solve C**H*x = scale*b
-*
+
                   CALL ZLATRS( 'Upper', 'Conjugate transpose', 'Nonunit', NORMIN, N-1, WORK( 2, 2 ), LDWORK, WORK, SCALE, RWORK, IERR )
                ELSE
-*
+
                   // Solve C*x = scale*b
-*
+
                   CALL ZLATRS( 'Upper', 'No transpose', 'Nonunit', NORMIN, N-1, WORK( 2, 2 ), LDWORK, WORK, SCALE, RWORK, IERR )
                END IF
                NORMIN = 'Y'
                IF( SCALE.NE.ONE ) THEN
-*
+
                   // Multiply by 1/SCALE if doing so will not cause
                   // overflow.
-*
+
                   IX = IZAMAX( N-1, WORK, 1 )
                   XNORM = CABS1( WORK( IX, 1 ) )
                   IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 40
@@ -184,15 +184,15 @@
                END IF
                GO TO 30
             END IF
-*
+
             SEP( KS ) = ONE / MAX( EST, SMLNUM )
          END IF
-*
+
    40    CONTINUE
          KS = KS + 1
    50 CONTINUE
       RETURN
-*
+
       // End of ZTRSNA
-*
+
       END

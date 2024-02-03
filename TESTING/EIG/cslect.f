@@ -1,15 +1,15 @@
       bool             FUNCTION CSLECT( Z );
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       COMPLEX            Z
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
@@ -32,7 +32,7 @@
       // INTRINSIC ABS, CMPLX, REAL
       // ..
       // .. Executable Statements ..
-*
+
       IF( SELOPT.EQ.0 ) THEN
          CSLECT = ( REAL( Z ).LT.ZERO )
       ELSE
@@ -47,7 +47,7 @@
    10    CONTINUE
       END IF
       RETURN
-*
+
       // End of CSLECT
-*
+
       END

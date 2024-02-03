@@ -1,9 +1,9 @@
       SUBROUTINE SLAR1V( N, B1, BN, LAMBDA, D, L, LD, LLD, PIVMIN, GAPTOL, Z, WANTNC, NEGCNT, ZTZ, MINGMA, R, ISUPPZ, NRMINV, RESID, RQCORR, WORK )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       bool               WANTNC;
       int       B1, BN, N, NEGCNT, R;
@@ -14,9 +14,9 @@
       REAL               D( * ), L( * ), LD( * ), LLD( * ), WORK( * )
       REAL             Z( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -36,7 +36,7 @@
       // INTRINSIC ABS
       // ..
       // .. Executable Statements ..
-*
+
       EPS = SLAMCH( 'Precision' )
 
 
@@ -61,10 +61,10 @@
          WORK( INDS+B1-1 ) = LLD( B1-1 )
       END IF
 
-*
+
       // Compute the stationary transform (using the differential form)
       // until the index R2.
-*
+
       SAWNAN1 = .FALSE.
       NEG1 = 0
       S = WORK( INDS+B1-1 ) - LAMBDA
@@ -84,7 +84,7 @@
          S = WORK( INDS+I ) - LAMBDA
  51   CONTINUE
       SAWNAN1 = SISNAN( S )
-*
+
  60   CONTINUE
       IF( SAWNAN1 ) THEN
          // Runs a slower version of the above loop if a NaN is detected
@@ -108,10 +108,10 @@
             S = WORK( INDS+I ) - LAMBDA
  71      CONTINUE
       END IF
-*
+
       // Compute the progressive transform (using the differential form)
       // until the index R1
-*
+
       SAWNAN2 = .FALSE.
       NEG2 = 0
       WORK( INDP+BN-1 ) = D( BN ) - LAMBDA
@@ -138,10 +138,10 @@
             IF( TMP.EQ.ZERO ) WORK( INDP+I-1 ) = D( I ) - LAMBDA
  100     CONTINUE
       END IF
-*
+
       // Find the index (from R1 to R2) of the largest (in magnitude)
       // diagonal element of the inverse
-*
+
       MINGMA = WORK( INDS+R1-1 ) + WORK( INDP+R1-1 )
       IF( MINGMA.LT.ZERO ) NEG1 = NEG1 + 1
       IF( WANTNC ) THEN
@@ -159,16 +159,16 @@
             R = I + 1
          END IF
  110  CONTINUE
-*
+
       // Compute the FP vector: solve N^T v = e_r
-*
+
       ISUPPZ( 1 ) = B1
       ISUPPZ( 2 ) = BN
       Z( R ) = ONE
       ZTZ = ONE
-*
+
       // Compute the FP vector upwards from R
-*
+
       IF( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) THEN
          DO 210 I = R-1, B1, -1
             Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) )
@@ -227,17 +227,17 @@
  270     CONTINUE
  280     CONTINUE
       END IF
-*
+
       // Compute quantities for convergence test
-*
+
       TMP = ONE / ZTZ
       NRMINV = SQRT( TMP )
       RESID = ABS( MINGMA )*NRMINV
       RQCORR = MINGMA*TMP
-*
-*
+
+
       RETURN
-*
+
       // End of SLAR1V
-*
+
       END

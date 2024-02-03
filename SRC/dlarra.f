@@ -1,9 +1,9 @@
       SUBROUTINE DLARRA( N, D, E, E2, SPLTOL, TNRM, NSPLIT, ISPLIT, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, N, NSPLIT;
       double              SPLTOL, TNRM;
@@ -12,9 +12,9 @@
       int                ISPLIT( * );
       double             D( * ), E( * ), E2( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
@@ -28,16 +28,16 @@
       // INTRINSIC ABS
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       NSPLIT = 1
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) THEN
          RETURN
       END IF
-*
+
       // Compute splitting points
       IF(SPLTOL.LT.ZERO) THEN
          // Criterion based on absolute off-diagonal value
@@ -66,7 +66,7 @@
       ISPLIT( NSPLIT ) = N
 
       RETURN
-*
+
       // End of DLARRA
-*
+
       END

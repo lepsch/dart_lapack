@@ -1,18 +1,18 @@
       int     FUNCTION ISAMAX(N,SX,INCX);
-*
+
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int     INCX,N;
       // ..
       // .. Array Arguments ..
       REAL SX(*)
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       REAL SMAX
       int     I,IX;
@@ -25,9 +25,9 @@
       ISAMAX = 1
       IF (N.EQ.1) RETURN
       IF (INCX.EQ.1) THEN
-*
+
          // code for increment equal to 1
-*
+
          SMAX = ABS(SX(1))
          DO I = 2,N
             IF (ABS(SX(I)).GT.SMAX) THEN
@@ -36,9 +36,9 @@
             END IF
          END DO
       ELSE
-*
+
          // code for increment not equal to 1
-*
+
          IX = 1
          SMAX = ABS(SX(1))
          IX = IX + INCX
@@ -51,7 +51,7 @@
          END DO
       END IF
       RETURN
-*
+
       // End of ISAMAX
-*
+
       END

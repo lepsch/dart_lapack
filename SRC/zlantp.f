@@ -1,9 +1,9 @@
       double           FUNCTION ZLANTP( NORM, UPLO, DIAG, N, AP, WORK );
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             DIAG, NORM, UPLO;
       int                N;
@@ -12,9 +12,9 @@
       double             WORK( * );
       COMPLEX*16         AP( * )
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -35,13 +35,13 @@
       // INTRINSIC ABS, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       IF( N.EQ.0 ) THEN
          VALUE = ZERO
       ELSE IF( LSAME( NORM, 'M' ) ) THEN
-*
+
          // Find max(abs(A(i,j))).
-*
+
          K = 1
          IF( LSAME( DIAG, 'U' ) ) THEN
             VALUE = ONE
@@ -83,9 +83,9 @@
             END IF
          END IF
       ELSE IF( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
-*
+
          // Find norm1(A).
-*
+
          VALUE = ZERO
          K = 1
          UDIAG = LSAME( DIAG, 'U' )
@@ -123,9 +123,9 @@
   140       CONTINUE
          END IF
       ELSE IF( LSAME( NORM, 'I' ) ) THEN
-*
+
          // Find normI(A).
-*
+
          K = 1
          IF( LSAME( UPLO, 'U' ) ) THEN
             IF( LSAME( DIAG, 'U' ) ) THEN
@@ -180,9 +180,9 @@
             IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
   270    CONTINUE
       ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
-*
+
          // Find normF(A).
-*
+
          IF( LSAME( UPLO, 'U' ) ) THEN
             IF( LSAME( DIAG, 'U' ) ) THEN
                SCALE = ONE
@@ -222,10 +222,10 @@
          END IF
          VALUE = SCALE*SQRT( SUM )
       END IF
-*
+
       ZLANTP = VALUE
       RETURN
-*
+
       // End of ZLANTP
-*
+
       END

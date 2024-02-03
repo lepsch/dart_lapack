@@ -1,9 +1,9 @@
       SUBROUTINE DGGEV3( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBVL, JOBVR;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -39,9 +39,9 @@
       // INTRINSIC ABS, MAX, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Decode the input arguments
-*
+
       IF( LSAME( JOBVL, 'N' ) ) THEN
          IJOBVL = 1
          ILVL = .FALSE.
@@ -52,7 +52,7 @@
          IJOBVL = -1
          ILVL = .FALSE.
       END IF
-*
+
       IF( LSAME( JOBVR, 'N' ) ) THEN
          IJOBVR = 1
          ILVR = .FALSE.
@@ -64,9 +64,9 @@
          ILVR = .FALSE.
       END IF
       ILV = ILVL .OR. ILVR
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
       LWKMIN = MAX( 1, 8*N )
@@ -87,9 +87,9 @@
       ELSE IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) THEN
          INFO = -16
       END IF
-*
+
       // Compute workspace
-*
+
       IF( INFO.EQ.0 ) THEN
          CALL DGEQRF( N, N, B, LDB, WORK, WORK, -1, IERR )
          LWKOPT = MAX( LWKMIN, 3*N+INT( WORK( 1 ) ) )
@@ -116,28 +116,28 @@
             WORK( 1 ) = LWKOPT
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DGGEV3 ', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Get machine constants
-*
+
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' )
       BIGNUM = ONE / SMLNUM
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Scale A if max element outside range [SMLNUM,BIGNUM]
-*
+
       ANRM = DLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = .FALSE.
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
@@ -148,9 +148,9 @@
          ILASCL = .TRUE.
       END IF
       IF( ILASCL ) CALL DLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
-*
+
       // Scale B if max element outside range [SMLNUM,BIGNUM]
-*
+
       BNRM = DLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = .FALSE.
       IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
@@ -161,16 +161,16 @@
          ILBSCL = .TRUE.
       END IF
       IF( ILBSCL ) CALL DLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
-*
+
       // Permute the matrices A, B to isolate eigenvalues if possible
-*
+
       ILEFT = 1
       IRIGHT = N + 1
       IWRK = IRIGHT + N
       CALL DGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR )
-*
+
       // Reduce B to triangular form (QR decomposition of B)
-*
+
       IROWS = IHI + 1 - ILO
       IF( ILV ) THEN
          ICOLS = N + 1 - ILO
@@ -180,13 +180,13 @@
       ITAU = IWRK
       IWRK = ITAU + IROWS
       CALL DGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
-*
+
       // Apply the orthogonal transformation to matrix A
-*
+
       CALL DORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
-*
+
       // Initialize VL
-*
+
       IF( ILVL ) THEN
          CALL DLASET( 'Full', N, N, ZERO, ONE, VL, LDVL )
          IF( IROWS.GT.1 ) THEN
@@ -194,25 +194,25 @@
          END IF
          CALL DORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
-*
+
       // Initialize VR
-*
+
       IF( ILVR ) CALL DLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
-*
+
       // Reduce to generalized Hessenberg form
-*
+
       IF( ILV ) THEN
-*
+
          // Eigenvectors requested -- work on whole matrix.
-*
+
          CALL DGGHD3( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       ELSE
          CALL DGGHD3( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
-*
+
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
       // Schur forms and Schur vectors)
-*
+
       IWRK = ITAU
       IF( ILV ) THEN
          CHTEMP = 'S'
@@ -230,9 +230,9 @@
          END IF
          GO TO 110
       END IF
-*
+
       // Compute Eigenvectors
-*
+
       IF( ILV ) THEN
          IF( ILVL ) THEN
             IF( ILVR ) THEN
@@ -248,9 +248,9 @@
             INFO = N + 2
             GO TO 110
          END IF
-*
+
          // Undo balancing on VL and VR and normalization
-*
+
          IF( ILVL ) THEN
             CALL DGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IERR )
             DO 50 JC = 1, N
@@ -307,27 +307,27 @@
                END IF
   100       CONTINUE
          END IF
-*
+
          // End of eigenvector calculation
-*
+
       END IF
-*
+
       // Undo scaling if necessary
-*
+
   110 CONTINUE
-*
+
       IF( ILASCL ) THEN
          CALL DLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )
          CALL DLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR )
       END IF
-*
+
       IF( ILBSCL ) THEN
          CALL DLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
       END IF
-*
+
       WORK( 1 ) = LWKOPT
       RETURN
-*
+
       // End of DGGEV3
-*
+
       END

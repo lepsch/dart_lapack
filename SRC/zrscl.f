@@ -1,9 +1,9 @@
       SUBROUTINE ZRSCL( N, A, X, INCX )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INCX, N;
       COMPLEX*16         A
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX*16         X( * )
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -33,28 +33,28 @@
       // INTRINSIC ABS
       // ..
       // .. Executable Statements ..
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.0 ) RETURN
-*
+
       // Get machine parameters
-*
+
       SAFMIN = DLAMCH( 'S' )
       SAFMAX = ONE / SAFMIN
       OV   = DLAMCH( 'O' )
-*
+
       // Initialize constants related to A.
-*
+
       AR = DBLE( A )
       AI = DIMAG( A )
       ABSR = ABS( AR )
       ABSI = ABS( AI )
-*
+
       IF( AI.EQ.ZERO ) THEN
          // If alpha is real, then we can use csrscl
          CALL ZDRSCL( N, AR, X, INCX )
-*
+
       ELSE IF( AR.EQ.ZERO ) THEN
          // If alpha has a zero real part, then we follow the same rules as if
          // alpha were real.
@@ -67,7 +67,7 @@
          ELSE
             CALL ZSCAL( N, DCMPLX( ZERO, -ONE / AI ), X, INCX )
          END IF
-*
+
       ELSE
          // The following numbers can be computed.
          // They are the inverse of the real and imaginary parts of 1/alpha.
@@ -78,7 +78,7 @@
         t // o propagate a NaN.
          UR = AR + AI * ( AI / AR )
          UI = AI + AR * ( AR / AI )
-*
+
          IF( (ABS( UR ).LT.SAFMIN).OR.(ABS( UI ).LT.SAFMIN) ) THEN
             // This means that both alphaR and alphaI are very small.
             CALL ZSCAL( N, DCMPLX( SAFMIN / UR, -SAFMIN / UI ), X, INCX )
@@ -109,9 +109,9 @@
             CALL ZSCAL( N, DCMPLX( ONE / UR, -ONE / UI ), X, INCX )
          END IF
       END IF
-*
+
       RETURN
-*
+
       // End of ZRSCL
-*
+
       END

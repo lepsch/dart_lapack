@@ -1,9 +1,9 @@
       SUBROUTINE CLA_GERFSX_EXTENDED( PREC_TYPE, TRANS_TYPE, N, NRHS, A, LDA, AF, LDAF, IPIV, COLEQU, C, B, LDB, Y, LDY, BERR_OUT, N_NORMS, ERRS_N, ERRS_C, RES, AYB, DY, Y_TAIL, RCOND, ITHRESH, RTHRESH, DZ_UB, IGNORE_CWISE, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, TRANS_TYPE, N_NORMS;
       bool               COLEQU, IGNORE_CWISE;
@@ -14,9 +14,9 @@
       int                IPIV( * );
       COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       REAL               C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERRS_N( NRHS, * ), ERRS_C( NRHS, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       String             TRANS;
       int                CNT, I, J,  X_STATE, Z_STATE, Y_PREC_STATE;
@@ -53,7 +53,7 @@
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       IF ( INFO.NE.0 ) RETURN
       TRANS = CHLA_TRANSTYPE(TRANS_TYPE)
       EPS = SLAMCH( 'Epsilon' )
@@ -62,7 +62,7 @@
       HUGEVAL = HUGEVAL * HUGEVAL
       // Using HUGEVAL may lead to spurious underflows.
       INCR_THRESH = REAL( N ) * EPS
-*
+
       DO J = 1, NRHS
          Y_PREC_STATE = EXTRA_RESIDUAL
          IF ( Y_PREC_STATE .EQ. EXTRA_Y ) THEN
@@ -87,10 +87,10 @@
          INCR_PREC = .FALSE.
 
          DO CNT = 1, ITHRESH
-*
+
           // Compute residual RES = B_s - op(A_s) * Y,
               // op(A) = A, A**T, or A**H depending on TRANS (and type).
-*
+
             CALL CCOPY( N, B( 1, J ), 1, RES, 1 )
             IF ( Y_PREC_STATE .EQ. BASE_RESIDUAL ) THEN
                CALL CGEMV( TRANS, N, N, (-1.0E+0,0.0E+0), A, LDA, Y( 1, J ), 1, (1.0E+0,0.0E+0), RES, 1)
@@ -103,15 +103,15 @@
           // XXX: RES is no longer needed.
             CALL CCOPY( N, RES, 1, DY, 1 )
             CALL CGETRS( TRANS, N, 1, AF, LDAF, IPIV, DY, N, INFO )
-*
+
           // Calculate relative changes DX_X, DZ_Z and ratios DXRAT, DZRAT.
-*
+
             NORMX = 0.0E+0
             NORMY = 0.0E+0
             NORMDX = 0.0E+0
             DZ_Z = 0.0E+0
             YMIN = HUGEVAL
-*
+
             DO I = 1, N
                YK = CABS1( Y( I, J ) )
                DYK = CABS1( DY( I ) )
@@ -145,9 +145,9 @@
 
             DXRAT = NORMDX / PREVNORMDX
             DZRAT = DZ_Z / PREV_DZ_Z
-*
+
           // Check termination criteria
-*
+
             IF (.NOT.IGNORE_CWISE .AND. YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y ) INCR_PREC = .TRUE.
              IF ( X_STATE .EQ. NOPROG_STATE .AND. DXRAT .LE. RTHRESH ) X_STATE = WORKING_STATE
             IF ( X_STATE .EQ. WORKING_STATE ) THEN
@@ -183,11 +183,11 @@
                END IF
                IF ( Z_STATE .GT. WORKING_STATE ) FINAL_DZ_Z = DZ_Z
             END IF
-*
+
             // Exit if both normwise and componentwise stopped working,
             // but if componentwise is unstable, let it go at least two
             // iterations.
-*
+
             IF ( X_STATE.NE.WORKING_STATE ) THEN
                IF ( IGNORE_CWISE ) GOTO 666
                IF ( Z_STATE.EQ.NOPROG_STATE .OR. Z_STATE.EQ.CONV_STATE ) GOTO 666
@@ -204,9 +204,9 @@
 
             PREVNORMDX = NORMDX
             PREV_DZ_Z = DZ_Z
-*
+
             // Update solution.
-*
+
             IF ( Y_PREC_STATE .LT. EXTRA_Y ) THEN
                CALL CAXPY( N, (1.0E+0,0.0E+0), DY, 1, Y(1,J), 1 )
             ELSE
@@ -216,14 +216,14 @@
          END DO
          // Target of "IF (Z_STOP .AND. X_STOP)".  Sun's f77 won't EXIT.
  666     CONTINUE
-*
+
       // Set final_* when cnt hits ithresh
-*
+
          IF ( X_STATE .EQ. WORKING_STATE ) FINAL_DX_X = DX_X
          IF ( Z_STATE .EQ. WORKING_STATE ) FINAL_DZ_Z = DZ_Z
-*
+
       // Compute error bounds
-*
+
          IF (N_NORMS .GE. 1) THEN
             ERRS_N( J, LA_LINRX_ERR_I ) = FINAL_DX_X / (1 - DXRATMAX)
 
@@ -231,34 +231,34 @@
          IF ( N_NORMS .GE. 2 ) THEN
             ERRS_C( J, LA_LINRX_ERR_I ) = FINAL_DZ_Z / (1 - DZRATMAX)
          END IF
-*
+
       // Compute componentwise relative backward error from formula
           // max(i) ( abs(R(i)) / ( abs(op(A_s))*abs(Y) + abs(B_s) )(i) )
       // where abs(Z) is the componentwise absolute value of the matrix
       // or vector Z.
-*
+
          // Compute residual RES = B_s - op(A_s) * Y,
              // op(A) = A, A**T, or A**H depending on TRANS (and type).
-*
+
          CALL CCOPY( N, B( 1, J ), 1, RES, 1 )
          CALL CGEMV( TRANS, N, N, (-1.0E+0,0.0E+0), A, LDA, Y(1,J), 1, (1.0E+0,0.0E+0), RES, 1 )
 
          DO I = 1, N
             AYB( I ) = CABS1( B( I, J ) )
          END DO
-*
+
       // Compute abs(op(A_s))*abs(Y) + abs(B_s).
-*
+
          CALL CLA_GEAMV ( TRANS_TYPE, N, N, 1.0E+0, A, LDA, Y(1, J), 1, 1.0E+0, AYB, 1 )
 
          CALL CLA_LIN_BERR ( N, N, 1, RES, AYB, BERR_OUT( J ) )
-*
+
       // End of loop for each RHS.
-*
+
       END DO
-*
+
       RETURN
-*
+
       // End of CLA_GERFSX_EXTENDED
-*
+
       END

@@ -1,12 +1,12 @@
-*
+
 *  -- LAPACK test routine --
       SUBROUTINE DSYL01( THRESH, NFAIL, RMAX, NINFO, KNT )
       IMPLICIT NONE
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                KNT;
       double             THRESH;
@@ -15,7 +15,7 @@
       int                NFAIL( 3 ), NINFO( 2 );
       double             RMAX( 2 );
       // ..
-*
+
 *  =====================================================================
       // ..
       // .. Parameters ..
@@ -62,18 +62,18 @@
       IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
       // ..
       // .. Executable Statements ..
-*
+
       // Get machine parameters
-*
+
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       VM( 1 ) = ONE
       VM( 2 ) = 0.000001D+0
-*
+
       // Begin test loop
-*
+
       NINFO( 1 ) = 0
       NINFO( 2 ) = 0
       NFAIL( 1 ) = 0
@@ -124,7 +124,7 @@
                            TRANB = 'T'
                         END IF
                         KNT = KNT + 1
-*
+
                         CALL DLACPY( 'All', M, N, C, MAXM, X, MAXM)
                         CALL DLACPY( 'All', M, N, C, MAXM, CC, MAXM)
                         CALL DTRSYL( TRANA, TRANB, ISGN, M, N,  A, MAXM, B, MAXN, X, MAXM, SCALE, IINFO )
@@ -139,7 +139,7 @@
                         CALL DGEMM( TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE*RMUL, CC, MAXM )                         CALL DGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, CC, MAXM )
                         RES1 = DLANGE( 'M', M, N, CC, MAXM, DUM )
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )                         IF( RES.GT.THRESH ) NFAIL( 1 ) = NFAIL( 1 ) + 1                         IF( RES.GT.RMAX( 1 ) ) RMAX( 1 ) = RES
-*
+
                         CALL DLACPY( 'All', M, N, C, MAXM, X, MAXM )
                         CALL DLACPY( 'All', M, N, C, MAXM, CC, MAXM )
                         CALL DTRSYL3( TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE3, IWORK, LIWORK, SWORK, LDSWORK, INFO)
@@ -166,16 +166,16 @@
             END DO
          END DO
       END DO
-*
+
       DEALLOCATE (A, STAT = AllocateStatus)
       DEALLOCATE (B, STAT = AllocateStatus)
       DEALLOCATE (C, STAT = AllocateStatus)
       DEALLOCATE (CC, STAT = AllocateStatus)
       DEALLOCATE (X, STAT = AllocateStatus)
       DEALLOCATE (SWORK, STAT = AllocateStatus)
-*
+
       RETURN
-*
+
       // End of DSYL01
-*
+
       END

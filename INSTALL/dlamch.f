@@ -1,18 +1,18 @@
 *> \ingroup lamch
-*
+
 *  =====================================================================
       double           FUNCTION DLAMCH( CMACH );
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             CMACH;
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -28,28 +28,28 @@
       // INTRINSIC DIGITS, EPSILON, HUGE, MAXEXPONENT, MINEXPONENT, RADIX, TINY
       // ..
       // .. Executable Statements ..
-*
-*
+
+
       // Assume rounding, not chopping. Always.
-*
+
       RND = ONE
-*
+
       IF( ONE.EQ.RND ) THEN
          EPS = EPSILON(ZERO) * 0.5
       ELSE
          EPS = EPSILON(ZERO)
       END IF
-*
+
       IF( LSAME( CMACH, 'E' ) ) THEN
          RMACH = EPS
       ELSE IF( LSAME( CMACH, 'S' ) ) THEN
          SFMIN = TINY(ZERO)
          SMALL = ONE / HUGE(ZERO)
          IF( SMALL.GE.SFMIN ) THEN
-*
+
             // Use SMALL plus a bit, to avoid the possibility of rounding
             // causing overflow when computing  1/sfmin.
-*
+
             SFMIN = SMALL*( ONE+EPS )
          END IF
          RMACH = SFMIN
@@ -72,12 +72,12 @@
       ELSE
          RMACH = ZERO
       END IF
-*
+
       DLAMCH = RMACH
       RETURN
-*
+
       // End of DLAMCH
-*
+
       END
 
 ************************************************************************
@@ -104,23 +104,23 @@
 *> \ingroup lamc3
 *>
       double           FUNCTION DLAMC3( A, B );
-*
+
 *  -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-*
+
       // .. Scalar Arguments ..
       double             A, B;
       // ..
 * =====================================================================
-*
+
       // .. Executable Statements ..
-*
+
       DLAMC3 = A + B
-*
+
       RETURN
-*
+
       // End of DLAMC3
-*
+
       END
-*
+
 ************************************************************************

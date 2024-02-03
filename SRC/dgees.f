@@ -1,9 +1,9 @@
       SUBROUTINE DGEES( JOBVS, SORT, SELECT, N, A, LDA, SDIM, WR, WI, VS, LDVS, WORK, LWORK, BWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBVS, SORT;
       int                INFO, LDA, LDVS, LWORK, N, SDIM;
@@ -16,9 +16,9 @@
       bool               SELECT;
       // EXTERNAL SELECT
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -44,9 +44,9 @@
       // INTRINSIC MAX, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
       WANTVS = LSAME( JOBVS, 'V' )
@@ -62,7 +62,7 @@
       ELSE IF( LDVS.LT.1 .OR. ( WANTVS .AND. LDVS.LT.N ) ) THEN
          INFO = -11
       END IF
-*
+
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
         // minimal amount of workspace needed at that point in the code,
@@ -72,7 +72,7 @@
         // HSWORK refers to the workspace preferred by DHSEQR, as
         // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
        t // he worst case.)
-*
+
       IF( INFO.EQ.0 ) THEN
          IF( N.EQ.0 ) THEN
             MINWRK = 1
@@ -80,10 +80,10 @@
          ELSE
             MAXWRK = 2*N + N*ILAENV( 1, 'DGEHRD', ' ', N, 1, N, 0 )
             MINWRK = 3*N
-*
+
             CALL DHSEQR( 'S', JOBVS, N, 1, N, A, LDA, WR, WI, VS, LDVS, WORK, -1, IEVAL )
             HSWORK = INT( WORK( 1 ) )
-*
+
             IF( .NOT.WANTVS ) THEN
                MAXWRK = MAX( MAXWRK, N + HSWORK )
             ELSE
@@ -92,36 +92,36 @@
             END IF
          END IF
          WORK( 1 ) = MAXWRK
-*
+
          IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
             INFO = -13
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DGEES ', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) THEN
          SDIM = 0
          RETURN
       END IF
-*
+
       // Get machine constants
-*
+
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' )
       BIGNUM = ONE / SMLNUM
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Scale A if max element outside range [SMLNUM,BIGNUM]
-*
+
       ANRM = DLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = .FALSE.
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
@@ -132,42 +132,42 @@
          CSCALE = BIGNUM
       END IF
       IF( SCALEA ) CALL DLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
-*
+
       // Permute the matrix to make it more nearly triangular
       // (Workspace: need N)
-*
+
       IBAL = 1
       CALL DGEBAL( 'P', N, A, LDA, ILO, IHI, WORK( IBAL ), IERR )
-*
+
       // Reduce to upper Hessenberg form
       // (Workspace: need 3*N, prefer 2*N+N*NB)
-*
+
       ITAU = N + IBAL
       IWRK = N + ITAU
       CALL DGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
-*
+
       IF( WANTVS ) THEN
-*
+
          // Copy Householder vectors to VS
-*
+
          CALL DLACPY( 'L', N, N, A, LDA, VS, LDVS )
-*
+
          // Generate orthogonal matrix in VS
          // (Workspace: need 3*N-1, prefer 2*N+(N-1)*NB)
-*
+
          CALL DORGHR( N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
       END IF
-*
+
       SDIM = 0
-*
+
       // Perform QR iteration, accumulating Schur vectors in VS if desired
       // (Workspace: need N+1, prefer N+HSWORK (see comments) )
-*
+
       IWRK = ITAU
       CALL DHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, WR, WI, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL.GT.0 ) INFO = IEVAL
-*
+
       // Sort eigenvalues if desired
-*
+
       IF( WANTST .AND. INFO.EQ.0 ) THEN
          IF( SCALEA ) THEN
             CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, WR, N, IERR )
@@ -176,34 +176,34 @@
          DO 10 I = 1, N
             BWORK( I ) = SELECT( WR( I ), WI( I ) )
    10    CONTINUE
-*
+
          // Reorder eigenvalues and transform Schur vectors
          // (Workspace: none needed)
-*
+
          CALL DTRSEN( 'N', JOBVS, BWORK, N, A, LDA, VS, LDVS, WR, WI, SDIM, S, SEP, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, ICOND )
          IF( ICOND.GT.0 ) INFO = N + ICOND
       END IF
-*
+
       IF( WANTVS ) THEN
-*
+
          // Undo balancing
          // (Workspace: need N)
-*
+
          CALL DGEBAK( 'P', 'R', N, ILO, IHI, WORK( IBAL ), N, VS, LDVS, IERR )
       END IF
-*
+
       IF( SCALEA ) THEN
-*
+
          // Undo scaling for the Schur form of A
-*
+
          CALL DLASCL( 'H', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR )
          CALL DCOPY( N, A, LDA+1, WR, 1 )
          IF( CSCALE.EQ.SMLNUM ) THEN
-*
+
             // If scaling back towards underflow, adjust WI if an
             // offdiagonal element of a 2-by-2 block in the Schur form
             // underflows.
-*
+
             IF( IEVAL.GT.0 ) THEN
                I1 = IEVAL + 1
                I2 = IHI - 1
@@ -238,16 +238,16 @@
                END IF
    20       CONTINUE
          END IF
-*
+
          // Undo scaling for the imaginary part of the eigenvalues
-*
+
          CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-IEVAL, 1, WI( IEVAL+1 ), MAX( N-IEVAL, 1 ), IERR )
       END IF
-*
+
       IF( WANTST .AND. INFO.EQ.0 ) THEN
-*
+
          // Check if reordering successful
-*
+
          LASTSL = .TRUE.
          LST2SL = .TRUE.
          SDIM = 0
@@ -260,18 +260,18 @@
                IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
             ELSE
                IF( IP.EQ.1 ) THEN
-*
+
                   // Last eigenvalue of conjugate pair
-*
+
                   CURSL = CURSL .OR. LASTSL
                   LASTSL = CURSL
                   IF( CURSL ) SDIM = SDIM + 2
                   IP = -1
                   IF( CURSL .AND. .NOT.LST2SL ) INFO = N + 2
                ELSE
-*
+
                   // First eigenvalue of conjugate pair
-*
+
                   IP = 1
                END IF
             END IF
@@ -279,10 +279,10 @@
             LASTSL = CURSL
    30    CONTINUE
       END IF
-*
+
       WORK( 1 ) = MAXWRK
       RETURN
-*
+
       // End of DGEES
-*
+
       END

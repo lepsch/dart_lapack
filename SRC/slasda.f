@@ -1,18 +1,18 @@
       SUBROUTINE SLASDA( ICOMPQ, SMLSIZ, N, SQRE, D, E, U, LDU, VT, K, DIFL, DIFR, Z, POLES, GIVPTR, GIVCOL, LDGCOL, PERM, GIVNUM, C, S, WORK, IWORK, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                ICOMPQ, INFO, LDGCOL, LDU, N, SMLSIZ, SQRE;
       // ..
       // .. Array Arguments ..
       int                GIVCOL( LDGCOL, * ), GIVPTR( * ), IWORK( * ), K( * ), PERM( LDGCOL, * )       REAL               C( * ), D( * ), DIFL( LDU, * ), DIFR( LDU, * ), E( * ), GIVNUM( LDU, * ), POLES( LDU, * ), S( * ), U( LDU, * ), VT( LDU, * ), WORK( * ), Z( LDU, * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -25,11 +25,11 @@
       // EXTERNAL SCOPY, SLASD6, SLASDQ, SLASDT, SLASET, XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
-*
+
       IF( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) THEN
          INFO = -1
       ELSE IF( SMLSIZ.LT.3 ) THEN
@@ -47,11 +47,11 @@
          CALL XERBLA( 'SLASDA', -INFO )
          RETURN
       END IF
-*
+
       M = N + SQRE
-*
+
       // If the input matrix is too small, call SLASDQ to find the SVD.
-*
+
       IF( N.LE.SMLSIZ ) THEN
          IF( ICOMPQ.EQ.0 ) THEN
             CALL SLASDQ( 'U', SQRE, N, 0, 0, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO )
@@ -60,38 +60,38 @@
          END IF
          RETURN
       END IF
-*
+
       // Book-keeping and  set up the computation tree.
-*
+
       INODE = 1
       NDIML = INODE + N
       NDIMR = NDIML + N
       IDXQ = NDIMR + N
       IWK = IDXQ + N
-*
+
       NCC = 0
       NRU = 0
-*
+
       SMLSZP = SMLSIZ + 1
       VF = 1
       VL = VF + M
       NWORK1 = VL + M
       NWORK2 = NWORK1 + SMLSZP*SMLSZP
-*
+
       CALL SLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
-*
+
       // for the nodes on bottom level of the tree, solve
      t // heir subproblems by SLASDQ.
-*
+
       NDB1 = ( ND+1 ) / 2
       DO 30 I = NDB1, ND
-*
+
          // IC : center row of each node
          // NL : number of rows of left  subproblem
          // NR : number of rows of right subproblem
          // NLF: starting row of the left   subproblem
          // NRF: starting row of the right  subproblem
-*
+
          I1 = I - 1
          IC = IWORK( INODE+I1 )
          NL = IWORK( NDIML+I1 )
@@ -149,16 +149,16 @@
             IWORK( IDXQI+J ) = J
    20    CONTINUE
    30 CONTINUE
-*
+
       // Now conquer each subproblem bottom-up.
-*
+
       J = 2**NLVL
       DO 50 LVL = NLVL, 1, -1
          LVL2 = LVL*2 - 1
-*
+
          // Find the first node LF and last node LL on
         t // he current level LVL.
-*
+
          IF( LVL.EQ.1 ) THEN
             LF = 1
             LL = 1
@@ -194,9 +194,9 @@
             END IF
    40    CONTINUE
    50 CONTINUE
-*
+
       RETURN
-*
+
       // End of SLASDA
-*
+
       END

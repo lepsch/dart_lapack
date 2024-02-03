@@ -1,16 +1,16 @@
       SUBROUTINE SERRTZ( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -39,7 +39,7 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
@@ -50,13 +50,13 @@
       W( 1 ) = 0.0E+0
       W( 2 ) = 0.0E+0
       OK = .TRUE.
-*
+
       IF( LSAMEN( 2, C2, 'TZ' ) ) THEN
-*
+
          // Test error exits for the trapezoidal routines.
-*
+
          // STZRZF
-*
+
          SRNAMT = 'STZRZF'
          INFOT = 1
          CALL STZRZF( -1, 0, A, 1, TAU, W, 1, INFO )
@@ -74,13 +74,13 @@
          CALL STZRZF( 2, 3, A, 2, TAU, W, 1, INFO )
          CALL CHKXER( 'STZRZF', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of SERRTZ
-*
+
       END

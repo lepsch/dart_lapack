@@ -1,9 +1,9 @@
       double           FUNCTION DLA_SYRCOND( UPLO, N, A, LDA, AF, LDAF, IPIV, CMODE, C, INFO, WORK, IWORK );
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                N, LDA, LDAF, INFO, CMODE;
@@ -12,9 +12,9 @@
       int                IWORK( * ), IPIV( * );
       double             A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       String             NORMIN;
       int                KASE, I, J;
@@ -36,9 +36,9 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Executable Statements ..
-*
+
       DLA_SYRCOND = 0.0D+0
-*
+
       INFO = 0
       IF( N.LT.0 ) THEN
          INFO = -2
@@ -57,10 +57,10 @@
       END IF
       UP = .FALSE.
       IF ( LSAME( UPLO, 'U' ) ) UP = .TRUE.
-*
+
       // Compute the equilibration matrix R such that
       // inv(R)*A*C has unit 1-norm.
-*
+
       IF ( UP ) THEN
          DO I = 1, N
             TMP = 0.0D+0
@@ -116,9 +116,9 @@
             WORK( 2*N+I ) = TMP
          END DO
       ENDIF
-*
+
       // Estimate the norm of inv(op(A)).
-*
+
       SMLNUM = DLAMCH( 'Safe minimum' )
       AINVNM = 0.0D+0
       NORMIN = 'N'
@@ -128,9 +128,9 @@
       CALL DLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.2 ) THEN
-*
+
             // Multiply by R.
-*
+
             DO I = 1, N
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
             END DO
@@ -140,9 +140,9 @@
             ELSE
                CALL DSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
-*
+
             // Multiply by inv(C).
-*
+
             IF ( CMODE .EQ. 1 ) THEN
                DO I = 1, N
                   WORK( I ) = WORK( I ) / C( I )
@@ -153,9 +153,9 @@
                END DO
             END IF
          ELSE
-*
+
             // Multiply by inv(C**T).
-*
+
             IF ( CMODE .EQ. 1 ) THEN
                DO I = 1, N
                   WORK( I ) = WORK( I ) / C( I )
@@ -171,23 +171,23 @@
             ELSE
                CALL DSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
-*
+
             // Multiply by R.
-*
+
             DO I = 1, N
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
             END DO
          END IF
-*
+
          GO TO 10
       END IF
-*
+
       // Compute the estimate of the reciprocal condition number.
-*
+
       IF( AINVNM .NE. 0.0D+0 ) DLA_SYRCOND = ( 1.0D+0 / AINVNM )
-*
+
       RETURN
-*
+
       // End of DLA_SYRCOND
-*
+
       END

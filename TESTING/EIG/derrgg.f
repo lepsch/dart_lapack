@@ -1,16 +1,16 @@
       SUBROUTINE DERRGG( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 3, LW = 6*NMAX )
@@ -44,13 +44,13 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          SEL( J ) = .TRUE.
          DO 10 I = 1, NMAX
@@ -69,21 +69,21 @@
       ILST = 1
       NT = 0
       LWORK = 1
-*
+
       // Call XLAENV to set the parameters used in CLAQZ0
-*
+
       CALL XLAENV( 12, 10 )
       CALL XLAENV( 13, 12 )
       CALL XLAENV( 14, 13 )
       CALL XLAENV( 15, 2 )
       CALL XLAENV( 17, 10 )
-*
+
       // Test error exits for the GG path.
-*
+
       IF( LSAMEN( 2, C2, 'GG' ) ) THEN
-*
+
          // DGGHRD
-*
+
          SRNAMT = 'DGGHRD'
          INFOT = 1
          CALL DGGHRD( '/', 'N', 0, 1, 0, A, 1, B, 1, Q, 1, Z, 1, INFO )
@@ -113,9 +113,9 @@
          CALL DGGHRD( 'N', 'V', 2, 1, 1, A, 2, B, 2, Q, 1, Z, 1, INFO )
          CALL CHKXER( 'DGGHRD', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // DGGHD3
-*
+
          SRNAMT = 'DGGHD3'
          INFOT = 1
          CALL DGGHD3( '/', 'N', 0, 1, 0, A, 1, B, 1, Q, 1, Z, 1, W, LW, INFO )
@@ -145,9 +145,9 @@
          CALL DGGHD3( 'N', 'V', 2, 1, 1, A, 2, B, 2, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DGGHD3', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // DHGEQZ
-*
+
          SRNAMT = 'DHGEQZ'
          INFOT = 1
          CALL DHGEQZ( '/', 'N', 'N', 0, 1, 0, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO )
@@ -180,9 +180,9 @@
          CALL DHGEQZ( 'E', 'N', 'V', 2, 1, 1, A, 2, B, 2, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DHGEQZ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // DTGEVC
-*
+
          SRNAMT = 'DTGEVC'
          INFOT = 1
          CALL DTGEVC( '/', 'A', SEL, 0, A, 1, B, 1, Q, 1, Z, 1, 0, M, W, INFO )
@@ -209,13 +209,13 @@
          CALL DTGEVC( 'R', 'A', SEL, 2, A, 2, B, 2, Q, 1, Z, 2, 1, M, W, INFO )
          CALL CHKXER( 'DTGEVC', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
       // Test error exits for the GSV path.
-*
+
       ELSE IF( LSAMEN( 3, PATH, 'GSV' ) ) THEN
-*
+
          // DGGSVD3
-*
+
          SRNAMT = 'DGGSVD3'
          INFOT = 1
          CALL DGGSVD3( '/', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
@@ -251,9 +251,9 @@
          CALL DGGSVD3( 'N', 'N', 'Q', 1, 2, 1, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          NT = NT + 11
-*
+
          // DGGSVP3
-*
+
          SRNAMT = 'DGGSVP3'
          INFOT = 1
          CALL DGGSVP3( '/', 'N', 'N', 0, 0, 0, A, 1, B, 1, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
@@ -289,9 +289,9 @@
          CALL DGGSVP3( 'N', 'N', 'Q', 1, 1, 2, A, 1, B, 1, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          NT = NT + 11
-*
+
          // DTGSJA
-*
+
          SRNAMT = 'DTGSJA'
          INFOT = 1
          CALL DTGSJA( '/', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W, NCYCLE, INFO )
@@ -327,13 +327,13 @@
          CALL DTGSJA( 'N', 'N', 'Q', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 0, W, NCYCLE, INFO )
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          NT = NT + 11
-*
+
       // Test error exits for the GLM path.
-*
+
       ELSE IF( LSAMEN( 3, PATH, 'GLM' ) ) THEN
-*
+
          // DGGGLM
-*
+
          SRNAMT = 'DGGGLM'
          INFOT = 1
          CALL DGGGLM( -1, 0, 0, A, 1, B, 1, R1, R2, R3, W, LW, INFO )
@@ -360,13 +360,13 @@
          CALL DGGGLM( 1, 1, 1, A, 1, B, 1, R1, R2, R3, W, 1, INFO )
          CALL CHKXER( 'DGGGLM', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
       // Test error exits for the LSE path.
-*
+
       ELSE IF( LSAMEN( 3, PATH, 'LSE' ) ) THEN
-*
+
          // DGGLSE
-*
+
          SRNAMT = 'DGGLSE'
          INFOT = 1
          CALL DGGLSE( -1, 0, 0, A, 1, B, 1, R1, R2, R3, W, LW, INFO )
@@ -393,13 +393,13 @@
          CALL DGGLSE( 1, 1, 1, A, 1, B, 1, R1, R2, R3, W, 1, INFO )
          CALL CHKXER( 'DGGLSE', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
       // Test error exits for the CSD path.
-*
+
       ELSE IF( LSAMEN( 3, PATH, 'CSD' ) ) THEN
-*
+
          // DORCSD
-*
+
          SRNAMT = 'DORCSD'
          INFOT = 7
          CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N', -1, 0, 0, A, 1, A, 1, A, 1, A, 1, A, A, 1, A, 1, A, 1, A, 1, W, LW, IW, INFO )
@@ -426,13 +426,13 @@
          CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1, A, A, 1, A, 1, A, 1, A, -1, W, LW, IW, INFO )
          CALL CHKXER( 'DORCSD', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
       // Test error exits for the GQR path.
-*
+
       ELSE IF( LSAMEN( 3, PATH, 'GQR' ) ) THEN
-*
+
          // DGGQRF
-*
+
          SRNAMT = 'DGGQRF'
          INFOT = 1
          CALL DGGQRF( -1, 0, 0, A, 1, R1, B, 1, R2, W, LW, INFO )
@@ -453,9 +453,9 @@
          CALL DGGQRF( 1, 1, 2, A, 1, R1, B, 1, R2, W, 1, INFO )
          CALL CHKXER( 'DGGQRF', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
          // DGGRQF
-*
+
          SRNAMT = 'DGGRQF'
          INFOT = 1
          CALL DGGRQF( -1, 0, 0, A, 1, R1, B, 1, R2, W, LW, INFO )
@@ -476,13 +476,13 @@
          CALL DGGRQF( 1, 1, 2, A, 1, R1, B, 1, R2, W, 1, INFO )
          CALL CHKXER( 'DGGRQF', INFOT, NOUT, LERR, OK )
          NT = NT + 6
-*
+
       // Test error exits for the DGS, DGV, DGX, and DXV paths.
-*
+
       ELSE IF( LSAMEN( 3, PATH, 'DGS' ) .OR. LSAMEN( 3, PATH, 'DGV' ) .OR. LSAMEN( 3, PATH, 'DGX' ) .OR. LSAMEN( 3, PATH, 'DXV' ) ) THEN
-*
+
          // DGGES
-*
+
          SRNAMT = 'DGGES '
          INFOT = 1
          CALL DGGES( '/', 'N', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
@@ -518,9 +518,9 @@
          CALL DGGES( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 2, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          NT = NT + 11
-*
+
          // DGGES3
-*
+
          SRNAMT = 'DGGES3 '
          INFOT = 1
          CALL DGGES3( '/', 'N', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
@@ -556,9 +556,9 @@
          CALL DGGES3( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 2, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          NT = NT + 11
-*
+
          // DGGESX
-*
+
          SRNAMT = 'DGGESX'
          INFOT = 1
          CALL DGGESX( '/', 'N', 'S', DLCTSX, 'N', 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW, INFO )
@@ -600,9 +600,9 @@
          CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'V', 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 32, IW, 0, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          NT = NT + 13
-*
+
          // DGGEV
-*
+
          SRNAMT = 'DGGEV '
          INFOT = 1
          CALL DGGEV( '/', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
@@ -635,9 +635,9 @@
          CALL DGGEV( 'V', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // DGGEV3
-*
+
          CALL XLAENV( 12, 20 )
          CALL XLAENV( 13, 4 )
          CALL XLAENV( 14, 13 )
@@ -675,9 +675,9 @@
          CALL DGGEV3( 'V', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV3 ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
-*
+
          // DGGEVX
-*
+
          SRNAMT = 'DGGEVX'
          INFOT = 1
          CALL DGGEVX( '/', 'N', 'N', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
@@ -716,9 +716,9 @@
          CALL DGGEVX( 'N', 'N', 'V', 'N', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 2, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 12
-*
+
          // DTGEXC
-*
+
          SRNAMT = 'DTGEXC'
          INFOT = 3
          CALL DTGEXC( .TRUE., .TRUE., -1, A, 1, B, 1, Q, 1, Z, 1, IFST, ILST, W, 1, INFO )
@@ -745,9 +745,9 @@
          CALL DTGEXC( .TRUE., .TRUE., 1, A, 1, B, 1, Q, 1, Z, 1, IFST, ILST, W, 0, INFO )
          CALL CHKXER( 'DTGEXC', INFOT, NOUT, LERR, OK )
          NT = NT + 8
-*
+
          // DTGSEN
-*
+
          SRNAMT = 'DTGSEN'
          INFOT = 1
          CALL DTGSEN( -1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO )
@@ -786,9 +786,9 @@
          CALL DTGSEN( 2, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 1, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          NT = NT + 12
-*
+
          // DTGSNA
-*
+
          SRNAMT = 'DTGSNA'
          INFOT = 1
          CALL DTGSNA( '/', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2, 1, M, W, 1, IW, INFO )
@@ -818,9 +818,9 @@
          CALL DTGSNA( 'E', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2, 1, M, W, 0, IW, INFO )
          CALL CHKXER( 'DTGSNA', INFOT, NOUT, LERR, OK )
          NT = NT + 9
-*
+
          // DTGSYL
-*
+
          SRNAMT = 'DTGSYL'
          INFOT = 1
          CALL DTGSYL( '/', 0, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO )
@@ -860,22 +860,22 @@
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          NT = NT + 12
       END IF
-*
+
       // Print a summary line.
-*
+
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
       ELSE
          WRITE( NOUT, FMT = 9998 )PATH
       END IF
-*
+
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits (',
      $      I3, ' tests done)' )
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ',
      $      'exits ***' )
-*
+
       RETURN
-*
+
       // End of DERRGG
-*
+
       END

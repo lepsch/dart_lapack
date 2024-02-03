@@ -1,15 +1,15 @@
       REAL FUNCTION SLARAN( ISEED )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Array Arguments ..
       int                ISEED( 4 );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                M1, M2, M3, M4;
       PARAMETER          ( M1 = 494, M2 = 322, M3 = 2508, M4 = 2549 )
@@ -28,9 +28,9 @@
       // ..
       // .. Executable Statements ..
   10  CONTINUE
-*
+
       // multiply the seed by the multiplier modulo 2**48
-*
+
       IT4 = ISEED( 4 )*M4
       IT3 = IT4 / IPW2
       IT4 = IT4 - IPW2*IT3
@@ -42,18 +42,18 @@
       IT2 = IT2 - IPW2*IT1
       IT1 = IT1 + ISEED( 1 )*M4 + ISEED( 2 )*M3 + ISEED( 3 )*M2 + ISEED( 4 )*M1
       IT1 = MOD( IT1, IPW2 )
-*
+
       // return updated seed
-*
+
       ISEED( 1 ) = IT1
       ISEED( 2 ) = IT2
       ISEED( 3 ) = IT3
       ISEED( 4 ) = IT4
-*
+
       // convert 48-bit integer to a real number in the interval (0,1)
-*
+
       RNDOUT = R*( REAL( IT1 )+R*( REAL( IT2 )+R*( REAL( IT3 )+R* ( REAL( IT4 ) ) ) ) )
-*
+
       IF (RNDOUT.EQ.1.0) THEN
          // If a real number has n bits of precision, and the first
          // n bits of the 48-bit integer above happen to be all 1 (which
@@ -65,13 +65,13 @@
         t // he statistically correct thing to do in this situation is
          // simply to iterate again.
          // N.B. the case SLARAN = 0.0 should not be possible.
-*
+
          GOTO 10
       END IF
-*
+
       SLARAN = RNDOUT
       RETURN
-*
+
       // End of SLARAN
-*
+
       END

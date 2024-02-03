@@ -1,9 +1,9 @@
       SUBROUTINE CGGEVX( BALANC, JOBVL, JOBVR, SENSE, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, ILO, IHI, LSCALE, RSCALE, ABNRM, BBNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IWORK, BWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             BALANC, JOBVL, JOBVR, SENSE;
       int                IHI, ILO, INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
@@ -14,9 +14,9 @@
       int                IWORK( * );
       REAL               LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), RWORK( * )       COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -51,9 +51,9 @@
       ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) )
       // ..
       // .. Executable Statements ..
-*
+
       // Decode the input arguments
-*
+
       IF( LSAME( JOBVL, 'N' ) ) THEN
          IJOBVL = 1
          ILVL = .FALSE.
@@ -64,7 +64,7 @@
          IJOBVL = -1
          ILVL = .FALSE.
       END IF
-*
+
       IF( LSAME( JOBVR, 'N' ) ) THEN
          IJOBVR = 1
          ILVR = .FALSE.
@@ -76,15 +76,15 @@
          ILVR = .FALSE.
       END IF
       ILV = ILVL .OR. ILVR
-*
+
       NOSCL  = LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'P' )
       WANTSN = LSAME( SENSE, 'N' )
       WANTSE = LSAME( SENSE, 'E' )
       WANTSV = LSAME( SENSE, 'V' )
       WANTSB = LSAME( SENSE, 'B' )
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
       IF( .NOT.( NOSCL .OR. LSAME( BALANC,'S' ) .OR. LSAME( BALANC, 'B' ) ) ) THEN
@@ -106,7 +106,7 @@
       ELSE IF( LDVR.LT.1 .OR. ( ILVR .AND. LDVR.LT.N ) ) THEN
          INFO = -15
       END IF
-*
+
       // Compute workspace
        // (Note: Comments in the code beginning "Workspace:" describe the
         // minimal amount of workspace needed at that point in the code,
@@ -114,7 +114,7 @@
         // NB refers to the optimal block size for the immediately
         // following subroutine, as returned by ILAENV. The workspace is
         // computed assuming ILO = 1 and IHI = N, the worst case.)
-*
+
       IF( INFO.EQ.0 ) THEN
          IF( N.EQ.0 ) THEN
             MINWRK = 1
@@ -133,33 +133,33 @@
             END IF
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
-*
+
          IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) THEN
             INFO = -25
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CGGEVX', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Get machine constants
-*
+
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' )
       BIGNUM = ONE / SMLNUM
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Scale A if max element outside range [SMLNUM,BIGNUM]
-*
+
       ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = .FALSE.
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
@@ -170,9 +170,9 @@
          ILASCL = .TRUE.
       END IF
       IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
-*
+
       // Scale B if max element outside range [SMLNUM,BIGNUM]
-*
+
       BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = .FALSE.
       IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
@@ -183,31 +183,31 @@
          ILBSCL = .TRUE.
       END IF
       IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
-*
+
       // Permute and/or balance the matrix pair (A,B)
       // (Real Workspace: need 6*N if BALANC = 'S' or 'B', 1 otherwise)
-*
+
       CALL CGGBAL( BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, IERR )
-*
+
       // Compute ABNRM and BBNRM
-*
+
       ABNRM = CLANGE( '1', N, N, A, LDA, RWORK( 1 ) )
       IF( ILASCL ) THEN
          RWORK( 1 ) = ABNRM
          CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, 1, 1, RWORK( 1 ), 1, IERR )
          ABNRM = RWORK( 1 )
       END IF
-*
+
       BBNRM = CLANGE( '1', N, N, B, LDB, RWORK( 1 ) )
       IF( ILBSCL ) THEN
          RWORK( 1 ) = BBNRM
          CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, 1, 1, RWORK( 1 ), 1, IERR )
          BBNRM = RWORK( 1 )
       END IF
-*
+
       // Reduce B to triangular form (QR decomposition of B)
       // (Complex Workspace: need N, prefer N*NB )
-*
+
       IROWS = IHI + 1 - ILO
       IF( ILV .OR. .NOT.WANTSN ) THEN
          ICOLS = N + 1 - ILO
@@ -217,15 +217,15 @@
       ITAU = 1
       IWRK = ITAU + IROWS
       CALL CGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
-*
+
       // Apply the unitary transformation to A
       // (Complex Workspace: need N, prefer N*NB)
-*
+
       CALL CUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
-*
+
       // Initialize VL and/or VR
       // (Workspace: need N, prefer N*NB)
-*
+
       IF( ILVL ) THEN
          CALL CLASET( 'Full', N, N, CZERO, CONE, VL, LDVL )
          IF( IROWS.GT.1 ) THEN
@@ -233,33 +233,33 @@
          END IF
          CALL CUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
-*
+
       IF( ILVR ) CALL CLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
-*
+
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
-*
+
       IF( ILV .OR. .NOT.WANTSN ) THEN
-*
+
          // Eigenvectors requested -- work on whole matrix.
-*
+
          CALL CGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR )
       ELSE
          CALL CGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
       END IF
-*
+
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
       // Schur forms and Schur vectors)
       // (Complex Workspace: need N)
       // (Real Workspace: need N)
-*
+
       IWRK = ITAU
       IF( ILV .OR. .NOT.WANTSN ) THEN
          CHTEMP = 'S'
       ELSE
          CHTEMP = 'E'
       END IF
-*
+
       CALL CHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK, IERR )
       IF( IERR.NE.0 ) THEN
          IF( IERR.GT.0 .AND. IERR.LE.N ) THEN
@@ -271,13 +271,13 @@
          END IF
          GO TO 90
       END IF
-*
+
       // Compute Eigenvectors and estimate condition numbers if desired
       // CTGEVC: (Complex Workspace: need 2*N )
               // (Real Workspace:    need 2*N )
       // CTGSNA: (Complex Workspace: need 2*N*N if SENSE='V' or 'B')
               // (Integer Workspace: need N+2 )
-*
+
       IF( ILV .OR. .NOT.WANTSN ) THEN
          IF( ILV ) THEN
             IF( ILVL ) THEN
@@ -289,16 +289,16 @@
             ELSE
                CHTEMP = 'R'
             END IF
-*
+
             CALL CTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK, IERR )
             IF( IERR.NE.0 ) THEN
                INFO = N + 2
                GO TO 90
             END IF
          END IF
-*
+
          IF( .NOT.WANTSN ) THEN
-*
+
             // compute eigenvectors (CTGEVC) and estimate condition
             // numbers (CTGSNA). Note that the definition of the condition
             // number is not invariant under transformation (u,v) to
@@ -307,17 +307,17 @@
            t // o avoid using extra 2*N*N workspace, we have to
             // re-calculate eigenvectors and estimate the condition numbers
             // one at a time.
-*
+
             DO 20 I = 1, N
-*
+
                DO 10 J = 1, N
                   BWORK( J ) = .FALSE.
    10          CONTINUE
                BWORK( I ) = .TRUE.
-*
+
                IWRK = N + 1
                IWRK1 = IWRK + N
-*
+
                IF( WANTSE .OR. WANTSB ) THEN
                   CALL CTGEVC( 'B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, 1, M, WORK( IWRK1 ), RWORK, IERR )
                   IF( IERR.NE.0 ) THEN
@@ -325,19 +325,19 @@
                      GO TO 90
                   END IF
                END IF
-*
+
                CALL CTGSNA( SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), 1, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR )
-*
+
    20       CONTINUE
          END IF
       END IF
-*
+
       // Undo balancing on VL and VR and normalization
       // (Workspace: none needed)
-*
+
       IF( ILVL ) THEN
          CALL CGGBAK( BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR )
-*
+
          DO 50 JC = 1, N
             TEMP = ZERO
             DO 30 JR = 1, N
@@ -350,7 +350,7 @@
    40       CONTINUE
    50    CONTINUE
       END IF
-*
+
       IF( ILVR ) THEN
          CALL CGGBAK( BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR )
          DO 80 JC = 1, N
@@ -365,18 +365,18 @@
    70       CONTINUE
    80    CONTINUE
       END IF
-*
+
       // Undo scaling if necessary
-*
+
    90 CONTINUE
-*
+
       IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )
-*
+
       IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
-*
+
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
       RETURN
-*
+
       // End of CGGEVX
-*
+
       END

@@ -1,16 +1,16 @@
       SUBROUTINE CERRLQ( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -37,12 +37,12 @@
       // INTRINSIC CMPLX, REAL
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) )
@@ -53,11 +53,11 @@
          X( J ) = 0.
    20 CONTINUE
       OK = .TRUE.
-*
+
       // Error exits for LQ factorization
-*
+
       // CGELQF
-*
+
       SRNAMT = 'CGELQF'
       INFOT = 1
       CALL CGELQF( -1, 0, A, 1, B, W, 1, INFO )
@@ -71,9 +71,9 @@
       INFOT = 7
       CALL CGELQF( 2, 1, A, 2, B, W, 1, INFO )
       CALL CHKXER( 'CGELQF', INFOT, NOUT, LERR, OK )
-*
+
       // CGELQ2
-*
+
       SRNAMT = 'CGELQ2'
       INFOT = 1
       CALL CGELQ2( -1, 0, A, 1, B, W, INFO )
@@ -84,9 +84,9 @@
       INFOT = 4
       CALL CGELQ2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'CGELQ2', INFOT, NOUT, LERR, OK )
-*
+
       // CUNGLQ
-*
+
       SRNAMT = 'CUNGLQ'
       INFOT = 1
       CALL CUNGLQ( -1, 0, 0, A, 1, X, W, 1, INFO )
@@ -109,9 +109,9 @@
       INFOT = 8
       CALL CUNGLQ( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'CUNGLQ', INFOT, NOUT, LERR, OK )
-*
+
       // CUNGL2
-*
+
       SRNAMT = 'CUNGL2'
       INFOT = 1
       CALL CUNGL2( -1, 0, 0, A, 1, X, W, INFO )
@@ -131,9 +131,9 @@
       INFOT = 5
       CALL CUNGL2( 2, 2, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'CUNGL2', INFOT, NOUT, LERR, OK )
-*
+
       // CUNMLQ
-*
+
       SRNAMT = 'CUNMLQ'
       INFOT = 1
       CALL CUNMLQ( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
@@ -171,9 +171,9 @@
       INFOT = 12
       CALL CUNMLQ( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
-*
+
       // CUNML2
-*
+
       SRNAMT = 'CUNML2'
       INFOT = 1
       CALL CUNML2( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
@@ -205,13 +205,13 @@
       INFOT = 10
       CALL CUNML2( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
       CALL CHKXER( 'CUNML2', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of CERRLQ
-*
+
       END

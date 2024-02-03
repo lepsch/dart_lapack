@@ -1,16 +1,16 @@
       SUBROUTINE CGET35( RMAX, LMAX, NINFO, KNT, NIN )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                KNT, LMAX, NIN, NINFO;
       REAL               RMAX
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                LDT;
       PARAMETER          ( LDT = 10 )
@@ -41,29 +41,29 @@
       // INTRINSIC ABS, MAX, REAL, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Get machine parameters
-*
+
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Set up test case parameters
-*
+
       VM1( 1 ) = SQRT( SMLNUM )
       VM1( 2 ) = ONE
       VM1( 3 ) = LARGE
       VM2( 1 ) = ONE
       VM2( 2 ) = ONE + TWO*EPS
       VM2( 3 ) = TWO
-*
+
       KNT = 0
       NINFO = 0
       LMAX = 0
       RMAX = ZERO
-*
+
       // Begin test loop
-*
+
    10 CONTINUE
       READ( NIN, FMT = * )M, N
       IF( N.EQ.0 ) RETURN
@@ -132,7 +132,7 @@
   160    CONTINUE
   170 CONTINUE
       GO TO 10
-*
+
       // End of CGET35
-*
+
       END

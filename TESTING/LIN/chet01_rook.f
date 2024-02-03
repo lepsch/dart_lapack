@@ -1,9 +1,9 @@
       SUBROUTINE CHET01_ROOK( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC, RWORK, RESID )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, LDC, N;
@@ -14,9 +14,9 @@
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -39,43 +39,43 @@
       // INTRINSIC AIMAG, REAL
       // ..
       // .. Executable Statements ..
-*
+
       // Quick exit if N = 0.
-*
+
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
-*
+
       // Determine EPS and the norm of A.
-*
+
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK )
-*
+
       // Check the imaginary parts of the diagonal elements and return with
       // an error code if any are nonzero.
-*
+
       DO 10 J = 1, N
          IF( AIMAG( AFAC( J, J ) ).NE.ZERO ) THEN
             RESID = ONE / EPS
             RETURN
          END IF
    10 CONTINUE
-*
+
       // Initialize C to the identity matrix.
-*
+
       CALL CLASET( 'Full', N, N, CZERO, CONE, C, LDC )
-*
+
       // Call CLAVHE_ROOK to form the product D * U' (or D * L' ).
-*
+
       CALL CLAVHE_ROOK( UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
-*
+
       // Call CLAVHE_ROOK again to multiply by U (or L ).
-*
+
       CALL CLAVHE_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
-*
+
       // Compute the difference  C - A .
-*
+
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 30 J = 1, N
             DO 20 I = 1, J - 1
@@ -91,19 +91,19 @@
    40       CONTINUE
    50    CONTINUE
       END IF
-*
+
       // Compute norm( C - A ) / ( N * norm(A) * EPS )
-*
+
       RESID = CLANHE( '1', UPLO, N, C, LDC, RWORK )
-*
+
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID/REAL( N ) )/ANORM ) / EPS
       END IF
-*
+
       RETURN
-*
+
       // End of CHET01_ROOK
-*
+
       END

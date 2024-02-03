@@ -1,9 +1,9 @@
       SUBROUTINE ZHETRI_3X( UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N, NB;
@@ -12,9 +12,9 @@
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), E( * ), WORK( N+NB+1, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
@@ -38,9 +38,9 @@
       // INTRINSIC ABS, DCONJG, DBLE, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -50,64 +50,64 @@
       ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
          INFO = -4
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZHETRI_3X', -INFO )
          RETURN
       END IF
       IF( N.EQ.0 ) RETURN
-*
+
       // Workspace got Non-diag elements of D
-*
+
       DO K = 1, N
          WORK( K, 1 ) = E( K )
       END DO
-*
+
       // Check that the diagonal matrix D is nonsingular.
-*
+
       IF( UPPER ) THEN
-*
+
          // Upper triangular storage: examine D from bottom to top
-*
+
          DO INFO = N, 1, -1
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
          END DO
       ELSE
-*
+
          // Lower triangular storage: examine D from top to bottom.
-*
+
          DO INFO = 1, N
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
          END DO
       END IF
-*
+
       INFO = 0
-*
+
       // Splitting Workspace
       // U01 is a block ( N, NB+1 )
       // The first element of U01 is in WORK( 1, 1 )
       // U11 is a block ( NB+1, NB+1 )
       // The first element of U11 is in WORK( N+1, 1 )
-*
+
       U11 = N
-*
+
       // INVD is a block ( N, 2 )
       // The first element of INVD is in WORK( 1, INVD )
-*
+
       INVD = NB + 2
 
       IF( UPPER ) THEN
-*
+
          // Begin Upper
-*
+
          // invA = P * inv(U**H) * inv(D) * inv(U) * P**T.
-*
+
          CALL ZTRTRI( UPLO, 'U', N, A, LDA, INFO )
-*
+
          // inv(D) and inv(D) * inv(U)
-*
+
          K = 1
          DO WHILE( K.LE.N )
             IF( IPIV( K ).GT.0 ) THEN
@@ -129,11 +129,11 @@
             END IF
             K = K + 1
          END DO
-*
+
          // inv(U**H) = (inv(U))**H
-*
+
          // inv(U**H) * inv(D) * inv(U)
-*
+
          CUT = N
          DO WHILE( CUT.GT.0 )
             NNB = NB
@@ -150,17 +150,17 @@
             END IF
 
             CUT = CUT - NNB
-*
+
             // U01 Block
-*
+
             DO I = 1, CUT
                DO J = 1, NNB
                   WORK( I, J ) = A( I, CUT+J )
                END DO
             END DO
-*
+
             // U11 Block
-*
+
             DO I = 1, NNB
                WORK( U11+I, I ) = CONE
                DO J = 1, I-1
@@ -170,9 +170,9 @@
                    WORK( U11+I, J ) = A( CUT+I, CUT+J )
                 END DO
             END DO
-*
+
             // invD * U01
-*
+
             I = 1
             DO WHILE( I.LE.CUT )
                IF( IPIV( I ).GT.0 ) THEN
@@ -189,9 +189,9 @@
                END IF
                I = I + 1
             END DO
-*
+
             // invD1 * U11
-*
+
             I = 1
             DO WHILE ( I.LE.NNB )
                IF( IPIV( CUT+I ).GT.0 ) THEN
@@ -208,58 +208,58 @@
                END IF
                I = I + 1
             END DO
-*
+
             // U11**H * invD1 * U11 -> U11
-*
+
             CALL ZTRMM( 'L', 'U', 'C', 'U', NNB, NNB, CONE, A( CUT+1, CUT+1 ), LDA, WORK( U11+1, 1 ), N+NB+1 )
-*
+
             DO I = 1, NNB
                DO J = I, NNB
                   A( CUT+I, CUT+J ) = WORK( U11+I, J )
                END DO
             END DO
-*
+
             // U01**H * invD * U01 -> A( CUT+I, CUT+J )
-*
+
             CALL ZGEMM( 'C', 'N', NNB, NNB, CUT, CONE, A( 1, CUT+1 ), LDA, WORK, N+NB+1, CZERO, WORK(U11+1,1), N+NB+1 )
 
-*
+
             // U11 =  U11**H * invD1 * U11 + U01**H * invD * U01
-*
+
             DO I = 1, NNB
                DO J = I, NNB
                   A( CUT+I, CUT+J ) = A( CUT+I, CUT+J ) + WORK(U11+I,J)
                END DO
             END DO
-*
+
             // U01 =  U00**H * invD0 * U01
-*
+
             CALL ZTRMM( 'L', UPLO, 'C', 'U', CUT, NNB, CONE, A, LDA, WORK, N+NB+1 )
 
-*
+
             // Update U01
-*
+
             DO I = 1, CUT
                DO J = 1, NNB
                   A( I, CUT+J ) = WORK( I, J )
                END DO
             END DO
-*
+
             // Next Block
-*
+
          END DO
-*
+
          // Apply PERMUTATIONS P and P**T:
          // P * inv(U**H) * inv(D) * inv(U) * P**T.
          // Interchange rows and columns I and IPIV(I) in reverse order
          // from the formation order of IPIV vector for Upper case.
-*
+
          // ( We can use a loop over IPIV with increment 1,
          // since the ABS value of IPIV(I) represents the row (column)
          // index of the interchange with row (column) i in both 1x1
          // and 2x2 pivot cases, i.e. we don't need separate code branches
          // for 1x1 and 2x2 pivot cases )
-*
+
          DO I = 1, N
              IP = ABS( IPIV( I ) )
              IF( IP.NE.I ) THEN
@@ -267,17 +267,17 @@
                 IF (I .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I )
              END IF
          END DO
-*
+
       ELSE
-*
+
          // Begin Lower
-*
+
          // inv A = P * inv(L**H) * inv(D) * inv(L) * P**T.
-*
+
          CALL ZTRTRI( UPLO, 'U', N, A, LDA, INFO )
-*
+
          // inv(D) and inv(D) * inv(L)
-*
+
          K = N
          DO WHILE ( K .GE. 1 )
             IF( IPIV( K ).GT.0 ) THEN
@@ -299,11 +299,11 @@
             END IF
             K = K - 1
          END DO
-*
+
          // inv(L**H) = (inv(L))**H
-*
+
          // inv(L**H) * inv(D) * inv(L)
-*
+
          CUT = 0
          DO WHILE( CUT.LT.N )
             NNB = NB
@@ -318,17 +318,17 @@
                // need a even number for a clear cut
                IF( MOD( ICOUNT, 2 ).EQ.1 ) NNB = NNB + 1
             END IF
-*
+
             // L21 Block
-*
+
             DO I = 1, N-CUT-NNB
                DO J = 1, NNB
                  WORK( I, J ) = A( CUT+NNB+I, CUT+J )
                END DO
             END DO
-*
+
             // L11 Block
-*
+
             DO I = 1, NNB
                WORK( U11+I, I) = CONE
                DO J = I+1, NNB
@@ -338,9 +338,9 @@
                   WORK( U11+I, J ) = A( CUT+I, CUT+J )
                END DO
             END DO
-*
+
             // invD*L21
-*
+
             I = N-CUT-NNB
             DO WHILE( I.GE.1 )
                IF( IPIV( CUT+NNB+I ).GT.0 ) THEN
@@ -357,9 +357,9 @@
                END IF
                I = I - 1
             END DO
-*
+
             // invD1*L11
-*
+
             I = NNB
             DO WHILE( I.GE.1 )
                IF( IPIV( CUT+I ).GT.0 ) THEN
@@ -377,73 +377,73 @@
                END IF
                I = I - 1
             END DO
-*
+
             // L11**H * invD1 * L11 -> L11
-*
+
             CALL ZTRMM( 'L', UPLO, 'C', 'U', NNB, NNB, CONE, A( CUT+1, CUT+1 ), LDA, WORK( U11+1, 1 ), N+NB+1 )
 
-*
+
             DO I = 1, NNB
                DO J = 1, I
                   A( CUT+I, CUT+J ) = WORK( U11+I, J )
                END DO
             END DO
-*
+
             IF( (CUT+NNB).LT.N ) THEN
-*
+
                // L21**H * invD2*L21 -> A( CUT+I, CUT+J )
-*
+
                CALL ZGEMM( 'C', 'N', NNB, NNB, N-NNB-CUT, CONE, A( CUT+NNB+1, CUT+1 ), LDA, WORK, N+NB+1, CZERO, WORK( U11+1, 1 ), N+NB+1 )
 
-*
+
                // L11 =  L11**H * invD1 * L11 + U01**H * invD * U01
-*
+
                DO I = 1, NNB
                   DO J = 1, I
                      A( CUT+I, CUT+J ) = A( CUT+I, CUT+J )+WORK(U11+I,J)
                   END DO
                END DO
-*
+
                // L01 =  L22**H * invD2 * L21
-*
+
                CALL ZTRMM( 'L', UPLO, 'C', 'U', N-NNB-CUT, NNB, CONE, A( CUT+NNB+1, CUT+NNB+1 ), LDA, WORK, N+NB+1 )
-*
+
                // Update L21
-*
+
                DO I = 1, N-CUT-NNB
                   DO J = 1, NNB
                      A( CUT+NNB+I, CUT+J ) = WORK( I, J )
                   END DO
                END DO
-*
+
             ELSE
-*
+
                // L11 =  L11**H * invD1 * L11
-*
+
                DO I = 1, NNB
                   DO J = 1, I
                      A( CUT+I, CUT+J ) = WORK( U11+I, J )
                   END DO
                END DO
             END IF
-*
+
             // Next Block
-*
+
             CUT = CUT + NNB
-*
+
          END DO
-*
+
          // Apply PERMUTATIONS P and P**T:
          // P * inv(L**H) * inv(D) * inv(L) * P**T.
          // Interchange rows and columns I and IPIV(I) in reverse order
          // from the formation order of IPIV vector for Lower case.
-*
+
          // ( We can use a loop over IPIV with increment -1,
          // since the ABS value of IPIV(I) represents the row (column)
          // index of the interchange with row (column) i in both 1x1
          // and 2x2 pivot cases, i.e. we don't need separate code branches
          // for 1x1 and 2x2 pivot cases )
-*
+
          DO I = N, 1, -1
              IP = ABS( IPIV( I ) )
              IF( IP.NE.I ) THEN
@@ -451,11 +451,11 @@
                 IF (I .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I )
              END IF
          END DO
-*
+
       END IF
-*
+
       RETURN
-*
+
       // End of ZHETRI_3X
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE ZPPCON( UPLO, N, AP, ANORM, RCOND, WORK, RWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N;
@@ -13,9 +13,9 @@
       double             RWORK( * );
       COMPLEX*16         AP( * ), WORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -49,9 +49,9 @@
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -65,9 +65,9 @@
          CALL XERBLA( 'ZPPCON', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
          RCOND = ONE
@@ -75,40 +75,40 @@
       ELSE IF( ANORM.EQ.ZERO ) THEN
          RETURN
       END IF
-*
+
       SMLNUM = DLAMCH( 'Safe minimum' )
-*
+
       // Estimate the 1-norm of the inverse.
-*
+
       KASE = 0
       NORMIN = 'N'
    10 CONTINUE
       CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
       IF( KASE.NE.0 ) THEN
          IF( UPPER ) THEN
-*
+
             // Multiply by inv(U**H).
-*
+
             CALL ZLATPS( 'Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEL, RWORK, INFO )
             NORMIN = 'Y'
-*
+
             // Multiply by inv(U).
-*
+
             CALL ZLATPS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEU, RWORK, INFO )
          ELSE
-*
+
             // Multiply by inv(L).
-*
+
             CALL ZLATPS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEL, RWORK, INFO )
             NORMIN = 'Y'
-*
+
             // Multiply by inv(L**H).
-*
+
             CALL ZLATPS( 'Lower', 'Conjugate transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEU, RWORK, INFO )
          END IF
-*
+
          // Multiply by 1/SCALE if doing so will not cause overflow.
-*
+
          SCALE = SCALEL*SCALEU
          IF( SCALE.NE.ONE ) THEN
             IX = IZAMAX( N, WORK, 1 )
@@ -117,14 +117,14 @@
          END IF
          GO TO 10
       END IF
-*
+
       // Compute the estimate of the reciprocal condition number.
-*
+
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
-*
+
    20 CONTINUE
       RETURN
-*
+
       // End of ZPPCON
-*
+
       END

@@ -1,16 +1,16 @@
       SUBROUTINE CERRQL( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -37,12 +37,12 @@
       // INTRINSIC CMPLX, REAL
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
-*
+
       // Set the variables to innocuous values.
-*
+
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
             A( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) )
@@ -53,11 +53,11 @@
          X( J ) = 0.
    20 CONTINUE
       OK = .TRUE.
-*
+
       // Error exits for QL factorization
-*
+
       // CGEQLF
-*
+
       SRNAMT = 'CGEQLF'
       INFOT = 1
       CALL CGEQLF( -1, 0, A, 1, B, W, 1, INFO )
@@ -71,9 +71,9 @@
       INFOT = 7
       CALL CGEQLF( 1, 2, A, 1, B, W, 1, INFO )
       CALL CHKXER( 'CGEQLF', INFOT, NOUT, LERR, OK )
-*
+
       // CGEQL2
-*
+
       SRNAMT = 'CGEQL2'
       INFOT = 1
       CALL CGEQL2( -1, 0, A, 1, B, W, INFO )
@@ -84,9 +84,9 @@
       INFOT = 4
       CALL CGEQL2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'CGEQL2', INFOT, NOUT, LERR, OK )
-*
+
       // CGEQLS
-*
+
       SRNAMT = 'CGEQLS'
       INFOT = 1
       CALL CGEQLS( -1, 0, 0, A, 1, X, B, 1, W, 1, INFO )
@@ -109,9 +109,9 @@
       INFOT = 10
       CALL CGEQLS( 1, 1, 2, A, 1, X, B, 1, W, 1, INFO )
       CALL CHKXER( 'CGEQLS', INFOT, NOUT, LERR, OK )
-*
+
       // CUNGQL
-*
+
       SRNAMT = 'CUNGQL'
       INFOT = 1
       CALL CUNGQL( -1, 0, 0, A, 1, X, W, 1, INFO )
@@ -134,9 +134,9 @@
       INFOT = 8
       CALL CUNGQL( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'CUNGQL', INFOT, NOUT, LERR, OK )
-*
+
       // CUNG2L
-*
+
       SRNAMT = 'CUNG2L'
       INFOT = 1
       CALL CUNG2L( -1, 0, 0, A, 1, X, W, INFO )
@@ -156,9 +156,9 @@
       INFOT = 5
       CALL CUNG2L( 2, 1, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'CUNG2L', INFOT, NOUT, LERR, OK )
-*
+
       // CUNMQL
-*
+
       SRNAMT = 'CUNMQL'
       INFOT = 1
       CALL CUNMQL( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
@@ -196,9 +196,9 @@
       INFOT = 12
       CALL CUNMQL( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'CUNMQL', INFOT, NOUT, LERR, OK )
-*
+
       // CUNM2L
-*
+
       SRNAMT = 'CUNM2L'
       INFOT = 1
       CALL CUNM2L( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
@@ -230,13 +230,13 @@
       INFOT = 10
       CALL CUNM2L( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
       CALL CHKXER( 'CUNM2L', INFOT, NOUT, LERR, OK )
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of CERRQL
-*
+
       END

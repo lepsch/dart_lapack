@@ -1,9 +1,9 @@
       REAL             FUNCTION SLANGT( NORM, N, DL, D, DU )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             NORM;
       int                N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               D( * ), DL( * ), DU( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
@@ -33,21 +33,21 @@
       // INTRINSIC ABS, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       IF( N.LE.0 ) THEN
          ANORM = ZERO
       ELSE IF( LSAME( NORM, 'M' ) ) THEN
-*
+
          // Find max(abs(A(i,j))).
-*
+
          ANORM = ABS( D( N ) )
          DO 10 I = 1, N - 1
             IF( ANORM.LT.ABS( DL( I ) ) .OR. SISNAN( ABS( DL( I ) ) ) ) ANORM = ABS(DL(I))             IF( ANORM.LT.ABS( D( I ) ) .OR. SISNAN( ABS( D( I ) ) ) ) ANORM = ABS(D(I))             IF( ANORM.LT.ABS( DU( I ) ) .OR. SISNAN (ABS( DU( I ) ) ) ) ANORM = ABS(DU(I))
    10    CONTINUE
       ELSE IF( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' ) THEN
-*
+
          // Find norm1(A).
-*
+
          IF( N.EQ.1 ) THEN
             ANORM = ABS( D( 1 ) )
          ELSE
@@ -60,9 +60,9 @@
    20       CONTINUE
          END IF
       ELSE IF( LSAME( NORM, 'I' ) ) THEN
-*
+
          // Find normI(A).
-*
+
          IF( N.EQ.1 ) THEN
             ANORM = ABS( D( 1 ) )
          ELSE
@@ -75,9 +75,9 @@
    30       CONTINUE
          END IF
       ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
-*
+
          // Find normF(A).
-*
+
          SCALE = ZERO
          SUM = ONE
          CALL SLASSQ( N, D, 1, SCALE, SUM )
@@ -87,10 +87,10 @@
          END IF
          ANORM = SCALE*SQRT( SUM )
       END IF
-*
+
       SLANGT = ANORM
       RETURN
-*
+
       // End of SLANGT
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE DDRVAC( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, NMAX, A, AFAC, B, X, WORK, RWORK, SWORK, NOUT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                NMAX, NM, NNS, NOUT;
       double             THRESH;
@@ -14,9 +14,9 @@
       REAL               SWORK(*)
       double             A( * ), AFAC( * ), B( * ), RWORK( * ), WORK( * ), X( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
@@ -64,9 +64,9 @@
       DATA               UPLOS / 'U', 'L' /
       // ..
       // .. Executable Statements ..
-*
+
       // Initialize constants and the random number seed.
-*
+
       KASE = 0
       PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'PO'
@@ -76,51 +76,51 @@
       DO 10 I = 1, 4
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
-*
+
       INFOT = 0
-*
+
       // Do for each value of N in MVAL
-*
+
       DO 120 IM = 1, NM
          N = MVAL( IM )
          LDA = MAX( N, 1 )
          NIMAT = NTYPES
          IF( N.LE.0 ) NIMAT = 1
-*
+
          DO 110 IMAT = 1, NIMAT
-*
+
             // Do the tests only if DOTYPE( IMAT ) is true.
-*
+
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 110
-*
+
             // Skip types 3, 4, or 5 if the matrix size is too small.
-*
+
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
             IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 110
-*
+
             // Do first for UPLO = 'U', then for UPLO = 'L'
-*
+
             DO 100 IUPLO = 1, 2
                UPLO = UPLOS( IUPLO )
-*
+
                // Set up parameters with DLATB4 and generate a test matrix
                // with DLATMS.
-*
+
                CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
-*
+
                SRNAMT = 'DLATMS'
                CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
-*
+
                // Check error code from DLATMS.
-*
+
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 100
                END IF
-*
+
                // For types 3-5, zero one row and column of the matrix to
               t // est that INFO is returned correctly.
-*
+
                IF( ZEROT ) THEN
                   IF( IMAT.EQ.3 ) THEN
                      IZERO = 1
@@ -130,9 +130,9 @@
                      IZERO = N / 2 + 1
                   END IF
                   IOFF = ( IZERO-1 )*LDA
-*
+
                   // Set row and column IZERO of A to 0.
-*
+
                   IF( IUPLO.EQ.1 ) THEN
                      DO 20 I = 1, IZERO - 1
                         A( IOFF+I ) = ZERO
@@ -156,68 +156,68 @@
                ELSE
                   IZERO = 0
                END IF
-*
+
                DO 60 IRHS = 1, NNS
                   NRHS = NSVAL( IRHS )
                   XTYPE = 'N'
-*
+
                   // Form an exact solution and set the right hand side.
-*
+
                   SRNAMT = 'DLARHS'
                   CALL DLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO )
-*
+
                   // Compute the L*L' or U'*U factorization of the
                   // matrix and solve the system.
-*
+
                   SRNAMT = 'DSPOSV '
                   KASE = KASE + 1
-*
+
                   CALL DLACPY( 'All', N, N, A, LDA, AFAC, LDA)
-*
+
                   CALL DSPOSV( UPLO, N, NRHS, AFAC, LDA, B, LDA, X, LDA, WORK, SWORK, ITER, INFO )
 
                   IF (ITER.LT.0) THEN
                      CALL DLACPY( 'All', N, N, A, LDA, AFAC, LDA )
                   ENDIF
-*
+
                   // Check error code from DSPOSV .
-*
+
                   IF( INFO.NE.IZERO ) THEN
-*
+
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
                      NERRS = NERRS + 1
-*
+
                      IF( INFO.NE.IZERO .AND. IZERO.NE.0 ) THEN
                         WRITE( NOUT, FMT = 9988 )'DSPOSV',INFO,IZERO,N, IMAT
                      ELSE
                         WRITE( NOUT, FMT = 9975 )'DSPOSV',INFO,N,IMAT
                      END IF
                   END IF
-*
+
                   // Skip the remaining test if the matrix is singular.
-*
+
                   IF( INFO.NE.0 ) GO TO 110
-*
+
                   // Check the quality of the solution
-*
+
                   CALL DLACPY( 'All', N, NRHS, B, LDA, WORK, LDA )
-*
+
                   CALL DPOT06( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) )
-*
+
                   // Check if the test passes the testing.
                   // Print information about the tests that did not
                   // pass the testing.
-*
+
                   // If iterative refinement has been used and claimed to
                   // be successful (ITER>0), we want
                   // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS*SRQT(N)) < 1
-*
+
                   // If double precision has been used (ITER<0), we want
                   // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS) < THRES
                   // (Cf. the linear solver testing routines)
-*
+
                   IF ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) THEN
-*
+
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) THEN
                         WRITE( NOUT, FMT = 8999 )'DPO'
                         WRITE( NOUT, FMT = '( '' Matrix types:'' )' )
@@ -226,22 +226,22 @@
                         WRITE( NOUT, FMT = 8960 )1
                         WRITE( NOUT, FMT = '( '' Messages:'' )' )
                      END IF
-*
+
                      WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, 1, RESULT( 1 )
-*
+
                      NFAIL = NFAIL + 1
-*
+
                   END IF
-*
+
                   NRUN = NRUN + 1
-*
+
    60          CONTINUE
   100       CONTINUE
   110    CONTINUE
   120 CONTINUE
-*
+
       // Print a summary of the results.
-*
+
       IF( NFAIL.GT.0 ) THEN
          WRITE( NOUT, FMT = 9996 )'DSPOSV', NFAIL, NRUN
       ELSE
@@ -250,7 +250,7 @@
       IF( NERRS.GT.0 ) THEN
          WRITE( NOUT, FMT = 9994 )NERRS
       END IF
-*
+
  9998 FORMAT( ' UPLO=''', A1, ''', N =', I5, ', NRHS=', I3, ', type ',
      $      I2, ', test(', I2, ') =', G12.5 )
  9996 FORMAT( 1X, A6, ': ', I6, ' out of ', I6,
@@ -258,15 +258,15 @@
  9995 FORMAT( /1X, 'All tests for ', A6,
      $      ' routines passed the threshold ( ', I6, ' tests run)' )
  9994 FORMAT( 6X, I6, ' error messages recorded' )
-*
+
       // SUBNAM, INFO, INFOE, N, IMAT
-*
+
  9988 FORMAT( ' *** ', A6, ' returned with INFO =', I5, ' instead of ',
      $      I5, / ' ==> N =', I5, ', type ',
      $      I2 )
-*
+
       // SUBNAM, INFO, N, IMAT
-*
+
  9975 FORMAT( ' *** Error code from ', A6, '=', I5, ' for M=', I5,
      $      ', type ', I2 )
  8999 FORMAT( / 1X, A3, ':  positive definite dense matrices' )
@@ -284,7 +284,7 @@
      $      '( norm_1(A) * norm_1(X) * EPS ) > THRES if DPOTRF' )
 
       RETURN
-*
+
       // End of DDRVAC
-*
+
       END

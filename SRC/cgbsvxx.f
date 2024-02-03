@@ -1,9 +1,9 @@
       SUBROUTINE CGBSVXX( FACT, TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, LDAB, LDAFB, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
@@ -13,9 +13,9 @@
       int                IPIV( * );
       COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * )
       // ..
-*
+
 *  ==================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -43,7 +43,7 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
       EQUIL = LSAME( FACT, 'E' )
@@ -58,15 +58,15 @@
          ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
          COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
       END IF
-*
+
       // Default is failure.  If an input parameter is wrong or
       // factorization fails, make everything look horrible.  Only the
       // pivot growth is set here, the rest is initialized in CGBRFSX.
-*
+
       RPVGRW = ZERO
-*
+
       // Test the input parameters.  PARAMS is not tested until CGERFSX.
-*
+
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) THEN
          INFO = -1
       ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
@@ -124,28 +124,28 @@
             END IF
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CGBSVXX', -INFO )
          RETURN
       END IF
-*
+
       IF( EQUIL ) THEN
-*
+
       // Compute row and column scalings to equilibrate the matrix A.
-*
+
          CALL CGBEQUB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
-*
+
       // Equilibrate the matrix.
-*
+
             CALL CLAQGB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          END IF
-*
+
       // If the scaling factors are not applied, set them to 1.0.
-*
+
          IF ( .NOT.ROWEQU ) THEN
             DO J = 1, N
                R( J ) = 1.0
@@ -157,64 +157,64 @@
             END DO
          END IF
       END IF
-*
+
       // Scale the right-hand side.
-*
+
       IF( NOTRAN ) THEN
          IF( ROWEQU ) CALL CLASCL2( N, NRHS, R, B, LDB )
       ELSE
          IF( COLEQU ) CALL CLASCL2( N, NRHS, C, B, LDB )
       END IF
-*
+
       IF( NOFACT .OR. EQUIL ) THEN
-*
+
          // Compute the LU factorization of A.
-*
+
          DO 40, J = 1, N
             DO 30, I = KL+1, 2*KL+KU+1
                AFB( I, J ) = AB( I-KL, J )
  30         CONTINUE
  40      CONTINUE
          CALL CGBTRF( N, N, KL, KU, AFB, LDAFB, IPIV, INFO )
-*
+
          // Return if INFO is non-zero.
-*
+
          IF( INFO.GT.0 ) THEN
-*
+
             // Pivot in column INFO is exactly 0
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
-*
+
             RPVGRW = CLA_GBRPVGRW( N, KL, KU, INFO, AB, LDAB, AFB, LDAFB )
             RETURN
          END IF
       END IF
-*
+
       // Compute the reciprocal pivot growth factor RPVGRW.
-*
+
       RPVGRW = CLA_GBRPVGRW( N, KL, KU, N, AB, LDAB, AFB, LDAFB )
-*
+
       // Compute the solution matrix X.
-*
+
       CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL CGBTRS( TRANS, N, KL, KU, NRHS, AFB, LDAFB, IPIV, X, LDX, INFO )
-*
+
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
-*
+
       CALL CGBRFSX( TRANS, EQUED, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
 
-*
+
       // Scale solutions.
-*
+
       IF ( COLEQU .AND. NOTRAN ) THEN
          CALL CLASCL2( N, NRHS, C, X, LDX )
       ELSE IF ( ROWEQU .AND. .NOT.NOTRAN ) THEN
          CALL CLASCL2( N, NRHS, R, X, LDX )
       END IF
-*
+
       RETURN
-*
+
       // End of CGBSVXX
-*
+
       END

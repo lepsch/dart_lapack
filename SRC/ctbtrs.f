@@ -1,9 +1,9 @@
       SUBROUTINE CTBTRS( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDB, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                INFO, KD, LDAB, LDB, N, NRHS;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX            AB( LDAB, * ), B( LDB, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX            ZERO
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ) )
@@ -33,9 +33,9 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       NOUNIT = LSAME( DIAG, 'N' )
       UPPER = LSAME( UPLO, 'U' )
@@ -60,13 +60,13 @@
          CALL XERBLA( 'CTBTRS', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       // Check for singularity.
-*
+
       IF( NOUNIT ) THEN
          IF( UPPER ) THEN
             DO 10 INFO = 1, N
@@ -79,15 +79,15 @@
          END IF
       END IF
       INFO = 0
-*
+
       // Solve A * X = B,  A**T * X = B,  or  A**H * X = B.
-*
+
       DO 30 J = 1, NRHS
          CALL CTBSV( UPLO, TRANS, DIAG, N, KD, AB, LDAB, B( 1, J ), 1 )
    30 CONTINUE
-*
+
       RETURN
-*
+
       // End of CTBTRS
-*
+
       END

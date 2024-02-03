@@ -1,9 +1,9 @@
       SUBROUTINE DLALS0( ICOMPQ, NL, NR, SQRE, NRHS, B, LDB, BX, LDBX, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, POLES, DIFL, DIFR, Z, K, C, S, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                GIVPTR, ICOMPQ, INFO, K, LDB, LDBX, LDGCOL, LDGNUM, NL, NR, NRHS, SQRE;
       double             C, S;
@@ -12,9 +12,9 @@
       int                GIVCOL( LDGCOL, * ), PERM( * );
       double             B( LDB, * ), BX( LDBX, * ), DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), WORK( * ), Z( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, ZERO, NEGONE;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0, NEGONE = -1.0D0 )
@@ -34,12 +34,12 @@
       // INTRINSIC MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       N = NL + NR + 1
-*
+
       IF( ( ICOMPQ.LT.0 ) .OR. ( ICOMPQ.GT.1 ) ) THEN
          INFO = -1
       ELSE IF( NL.LT.1 ) THEN
@@ -67,30 +67,30 @@
          CALL XERBLA( 'DLALS0', -INFO )
          RETURN
       END IF
-*
+
       M = N + SQRE
       NLP1 = NL + 1
-*
+
       IF( ICOMPQ.EQ.0 ) THEN
-*
+
          // Apply back orthogonal transformations from the left.
-*
+
          // Step (1L): apply back the Givens rotations performed.
-*
+
          DO 10 I = 1, GIVPTR
             CALL DROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) )
    10    CONTINUE
-*
+
          // Step (2L): permute rows of B.
-*
+
          CALL DCOPY( NRHS, B( NLP1, 1 ), LDB, BX( 1, 1 ), LDBX )
          DO 20 I = 2, N
             CALL DCOPY( NRHS, B( PERM( I ), 1 ), LDB, BX( I, 1 ), LDBX )
    20    CONTINUE
-*
+
          // Step (3L): apply the inverse of the left singular vector
          // matrix to BX.
-*
+
          IF( K.EQ.1 ) THEN
             CALL DCOPY( NRHS, BX, LDBX, B, LDB )
             IF( Z( 1 ).LT.ZERO ) THEN
@@ -114,11 +114,11 @@
                   IF( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) THEN
                      WORK( I ) = ZERO
                   ELSE
-*
+
                      // Use calls to the subroutine DLAMC3 to enforce the
                      // parentheses (x+y)+z. The goal is to prevent
                      // optimizing compilers from doing x+(y+z).
-*
+
                      WORK( I ) = POLES( I, 2 )*Z( I ) / ( DLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ )
                   END IF
    30          CONTINUE
@@ -134,17 +134,17 @@
                CALL DGEMV( 'T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB )                CALL DLASCL( 'G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO )
    50       CONTINUE
          END IF
-*
+
          // Move the deflated rows of BX to B also.
-*
+
          IF( K.LT.MAX( M, N ) ) CALL DLACPY( 'A', N-K, NRHS, BX( K+1, 1 ), LDBX, B( K+1, 1 ), LDB )
       ELSE
-*
+
          // Apply back the right orthogonal transformations.
-*
+
          // Step (1R): apply back the new right singular vector matrix
         t // o B.
-*
+
          IF( K.EQ.1 ) THEN
             CALL DCOPY( NRHS, B, LDB, BX, LDBX )
          ELSE
@@ -159,11 +159,11 @@
                   IF( Z( J ).EQ.ZERO ) THEN
                      WORK( I ) = ZERO
                   ELSE
-*
+
                      // Use calls to the subroutine DLAMC3 to enforce the
                      // parentheses (x+y)+z. The goal is to prevent
                      // optimizing compilers from doing x+(y+z).
-*
+
                      WORK( I ) = Z( J ) / ( DLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
                   END IF
    60          CONTINUE
@@ -177,18 +177,18 @@
                CALL DGEMV( 'T', K, NRHS, ONE, B, LDB, WORK, 1, ZERO, BX( J, 1 ), LDBX )
    80       CONTINUE
          END IF
-*
+
          // Step (2R): if SQRE = 1, apply back the rotation that is
          // related to the right null space of the subproblem.
-*
+
          IF( SQRE.EQ.1 ) THEN
             CALL DCOPY( NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX )
             CALL DROT( NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S )
          END IF
          IF( K.LT.MAX( M, N ) ) CALL DLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX )
-*
+
          // Step (3R): permute rows of B.
-*
+
          CALL DCOPY( NRHS, BX( 1, 1 ), LDBX, B( NLP1, 1 ), LDB )
          IF( SQRE.EQ.1 ) THEN
             CALL DCOPY( NRHS, BX( M, 1 ), LDBX, B( M, 1 ), LDB )
@@ -196,16 +196,16 @@
          DO 90 I = 2, N
             CALL DCOPY( NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB )
    90    CONTINUE
-*
+
          // Step (4R): apply back the Givens rotations performed.
-*
+
          DO 100 I = GIVPTR, 1, -1
             CALL DROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) )
   100    CONTINUE
       END IF
-*
+
       RETURN
-*
+
       // End of DLALS0
-*
+
       END

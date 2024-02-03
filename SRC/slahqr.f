@@ -1,10 +1,10 @@
       SUBROUTINE SLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, INFO )
       IMPLICIT NONE
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, N;
       bool               WANTT, WANTZ;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       REAL               H( LDH, * ), WI( * ), WR( * ), Z( LDZ, * )
       // ..
-*
+
 *  =========================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0e0, ONE = 1.0e0, TWO = 2.0e0 )
@@ -41,71 +41,71 @@
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 ) RETURN
       IF( ILO.EQ.IHI ) THEN
          WR( ILO ) = H( ILO, ILO )
          WI( ILO ) = ZERO
          RETURN
       END IF
-*
+
       // ==== clear out the trash ====
       DO 10 J = ILO, IHI - 3
          H( J+2, J ) = ZERO
          H( J+3, J ) = ZERO
    10 CONTINUE
       IF( ILO.LE.IHI-2 ) H( IHI, IHI-2 ) = ZERO
-*
+
       NH = IHI - ILO + 1
       NZ = IHIZ - ILOZ + 1
-*
+
       // Set machine-dependent constants for the stopping criterion.
-*
+
       SAFMIN = SLAMCH( 'SAFE MINIMUM' )
       SAFMAX = ONE / SAFMIN
       ULP = SLAMCH( 'PRECISION' )
       SMLNUM = SAFMIN*( REAL( NH ) / ULP )
-*
+
       // I1 and I2 are the indices of the first row and last column of H
      t // o which transformations must be applied. If eigenvalues only are
       // being computed, I1 and I2 are set inside the main loop.
-*
+
       IF( WANTT ) THEN
          I1 = 1
          I2 = N
       END IF
-*
+
       // ITMAX is the total number of QR iterations allowed.
-*
+
       ITMAX = 30 * MAX( 10, NH )
-*
+
       // KDEFL counts the number of iterations since a deflation
-*
+
       KDEFL = 0
-*
+
       // The main loop begins here. I is the loop index and decreases from
       // IHI to ILO in steps of 1 or 2. Each iteration of the loop works
       // with the active submatrix in rows and columns L to I.
       // Eigenvalues I+1 to IHI have already converged. Either L = ILO or
       // H(L,L-1) is negligible so that the matrix splits.
-*
+
       I = IHI
    20 CONTINUE
       L = ILO
       IF( I.LT.ILO ) GO TO 160
-*
+
       // Perform QR iterations on rows and columns ILO to I until a
       // submatrix of order 1 or 2 splits off at the bottom because a
       // subdiagonal element has become negligible.
-*
+
       DO 140 ITS = 0, ITMAX
-*
+
          // Look for a single small subdiagonal element.
-*
+
          DO 30 K = I, L + 1, -1
             IF( ABS( H( K, K-1 ) ).LE.SMLNUM ) GO TO 40
             TST = ABS( H( K-1, K-1 ) ) + ABS( H( K, K ) )
@@ -127,49 +127,49 @@
    40    CONTINUE
          L = K
          IF( L.GT.ILO ) THEN
-*
+
             // H(L,L-1) is negligible
-*
+
             H( L, L-1 ) = ZERO
          END IF
-*
+
          // Exit from loop if a submatrix of order 1 or 2 has split off.
-*
+
          IF( L.GE.I-1 ) GO TO 150
          KDEFL = KDEFL + 1
-*
+
          // Now the active submatrix is in rows and columns L to I. If
          // eigenvalues only are being computed, only the active submatrix
          // need be transformed.
-*
+
          IF( .NOT.WANTT ) THEN
             I1 = L
             I2 = I
          END IF
-*
+
          IF( MOD(KDEFL,2*KEXSH).EQ.0 ) THEN
-*
+
             // Exceptional shift.
-*
+
             S = ABS( H( I, I-1 ) ) + ABS( H( I-1, I-2 ) )
             H11 = DAT1*S + H( I, I )
             H12 = DAT2*S
             H21 = S
             H22 = H11
          ELSE IF( MOD(KDEFL,KEXSH).EQ.0 ) THEN
-*
+
             // Exceptional shift.
-*
+
             S = ABS( H( L+1, L ) ) + ABS( H( L+2, L+1 ) )
             H11 = DAT1*S + H( L, L )
             H12 = DAT2*S
             H21 = S
             H22 = H11
          ELSE
-*
+
             // Prepare to use Francis' double shift
             // (i.e. 2nd degree generalized Rayleigh quotient)
-*
+
             H11 = H( I-1, I-1 )
             H21 = H( I, I-1 )
             H12 = H( I-1, I )
@@ -190,17 +190,17 @@
             DET = ( H11-TR )*( H22-TR ) - H12*H21
             RTDISC = SQRT( ABS( DET ) )
             IF( DET.GE.ZERO ) THEN
-*
+
                // ==== complex conjugate shifts ====
-*
+
                RT1R = TR*S
                RT2R = RT1R
                RT1I = RTDISC*S
                RT2I = -RT1I
             ELSE
-*
+
                // ==== real shifts (use only one of them)  ====
-*
+
                RT1R = TR + RTDISC
                RT2R = TR - RTDISC
                IF( ABS( RT1R-H22 ).LE.ABS( RT2R-H22 ) ) THEN
@@ -214,15 +214,15 @@
                RT2I = ZERO
             END IF
          END IF
-*
+
          // Look for two consecutive small subdiagonal elements.
-*
+
          DO 50 M = I - 2, L, -1
             // Determine the effect of starting the double-shift QR
             // iteration at row M, and see if this would make H(M,M-1)
             // negligible.  (The following uses scaling to avoid
             // overflows and most underflows.)
-*
+
             H21S = H( M+1, M )
             S = ABS( H( M, M )-RT2R ) + ABS( RT2I ) + ABS( H21S )
             H21S = H( M+1, M ) / S
@@ -236,20 +236,20 @@
             IF( M.EQ.L ) GO TO 60             IF( ABS( H( M, M-1 ) )*( ABS( V( 2 ) )+ABS( V( 3 ) ) ).LE. ULP*ABS( V( 1 ) )*( ABS( H( M-1, M-1 ) )+ABS( H( M, M ) )+ABS( H( M+1, M+1 ) ) ) )GO TO 60
    50    CONTINUE
    60    CONTINUE
-*
+
          // Double-shift QR step
-*
+
          DO 130 K = M, I - 1
-*
+
             // The first iteration of this loop determines a reflection G
             // from the vector V and applies it from left and right to H,
            t // hus creating a nonzero bulge below the subdiagonal.
-*
+
             // Each subsequent iteration determines a reflection G to
             // restore the Hessenberg form in the (K-1)th column, and thus
             // chases the bulge one step toward the bottom of the active
             // submatrix. NR is the order of G.
-*
+
             NR = MIN( 3, I-K+1 )
             IF( K.GT.M ) CALL SCOPY( NR, H( K, K-1 ), 1, V, 1 )
             CALL SLARFG( NR, V( 1 ), V( 2 ), 1, T1 )
@@ -269,31 +269,31 @@
             IF( NR.EQ.3 ) THEN
                V3 = V( 3 )
                T3 = T1*V3
-*
+
                // Apply G from the left to transform the rows of the matrix
                // in columns K to I2.
-*
+
                DO 70 J = K, I2
                   SUM = H( K, J ) + V2*H( K+1, J ) + V3*H( K+2, J )
                   H( K, J ) = H( K, J ) - SUM*T1
                   H( K+1, J ) = H( K+1, J ) - SUM*T2
                   H( K+2, J ) = H( K+2, J ) - SUM*T3
    70          CONTINUE
-*
+
                // Apply G from the right to transform the columns of the
                // matrix in rows I1 to min(K+3,I).
-*
+
                DO 80 J = I1, MIN( K+3, I )
                   SUM = H( J, K ) + V2*H( J, K+1 ) + V3*H( J, K+2 )
                   H( J, K ) = H( J, K ) - SUM*T1
                   H( J, K+1 ) = H( J, K+1 ) - SUM*T2
                   H( J, K+2 ) = H( J, K+2 ) - SUM*T3
    80          CONTINUE
-*
+
                IF( WANTZ ) THEN
-*
+
                   // Accumulate transformations in the matrix Z
-*
+
                   DO 90 J = ILOZ, IHIZ
                      SUM = Z( J, K ) + V2*Z( J, K+1 ) + V3*Z( J, K+2 )
                      Z( J, K ) = Z( J, K ) - SUM*T1
@@ -302,29 +302,29 @@
    90             CONTINUE
                END IF
             ELSE IF( NR.EQ.2 ) THEN
-*
+
                // Apply G from the left to transform the rows of the matrix
                // in columns K to I2.
-*
+
                DO 100 J = K, I2
                   SUM = H( K, J ) + V2*H( K+1, J )
                   H( K, J ) = H( K, J ) - SUM*T1
                   H( K+1, J ) = H( K+1, J ) - SUM*T2
   100          CONTINUE
-*
+
                // Apply G from the right to transform the columns of the
                // matrix in rows I1 to min(K+3,I).
-*
+
                DO 110 J = I1, I
                   SUM = H( J, K ) + V2*H( J, K+1 )
                   H( J, K ) = H( J, K ) - SUM*T1
                   H( J, K+1 ) = H( J, K+1 ) - SUM*T2
   110          CONTINUE
-*
+
                IF( WANTZ ) THEN
-*
+
                   // Accumulate transformations in the matrix Z
-*
+
                   DO 120 J = ILOZ, IHIZ
                      SUM = Z( J, K ) + V2*Z( J, K+1 )
                      Z( J, K ) = Z( J, K ) - SUM*T1
@@ -333,56 +333,56 @@
                END IF
             END IF
   130    CONTINUE
-*
+
   140 CONTINUE
-*
+
       // Failure to converge in remaining number of iterations
-*
+
       INFO = I
       RETURN
-*
+
   150 CONTINUE
-*
+
       IF( L.EQ.I ) THEN
-*
+
          // H(I,I-1) is negligible: one eigenvalue has converged.
-*
+
          WR( I ) = H( I, I )
          WI( I ) = ZERO
       ELSE IF( L.EQ.I-1 ) THEN
-*
+
          // H(I-1,I-2) is negligible: a pair of eigenvalues have converged.
-*
+
          // Transform the 2-by-2 submatrix to standard Schur form,
          // and compute and store the eigenvalues.
-*
+
          CALL SLANV2( H( I-1, I-1 ), H( I-1, I ), H( I, I-1 ), H( I, I ), WR( I-1 ), WI( I-1 ), WR( I ), WI( I ), CS, SN )
-*
+
          IF( WANTT ) THEN
-*
+
             // Apply the transformation to the rest of H.
-*
+
             IF( I2.GT.I ) CALL SROT( I2-I, H( I-1, I+1 ), LDH, H( I, I+1 ), LDH, CS, SN )
             CALL SROT( I-I1-1, H( I1, I-1 ), 1, H( I1, I ), 1, CS, SN )
          END IF
          IF( WANTZ ) THEN
-*
+
             // Apply the transformation to Z.
-*
+
             CALL SROT( NZ, Z( ILOZ, I-1 ), 1, Z( ILOZ, I ), 1, CS, SN )
          END IF
       END IF
       // reset deflation counter
       KDEFL = 0
-*
+
       // return to start of the main loop with new value of I.
-*
+
       I = L - 1
       GO TO 20
-*
+
   160 CONTINUE
       RETURN
-*
+
       // End of SLAHQR
-*
+
       END

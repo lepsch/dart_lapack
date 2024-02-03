@@ -1,9 +1,9 @@
       SUBROUTINE ZHPT01( UPLO, N, A, AFAC, IPIV, C, LDC, RWORK, RESID )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDC, N;
@@ -14,9 +14,9 @@
       double             RWORK( * );
       COMPLEX*16         A( * ), AFAC( * ), C( LDC, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -39,22 +39,22 @@
       // INTRINSIC DBLE, DIMAG
       // ..
       // .. Executable Statements ..
-*
+
       // Quick exit if N = 0.
-*
+
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
-*
+
       // Determine EPS and the norm of A.
-*
+
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANHP( '1', UPLO, N, A, RWORK )
-*
+
       // Check the imaginary parts of the diagonal elements and return with
       // an error code if any are nonzero.
-*
+
       JC = 1
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 10 J = 1, N
@@ -73,21 +73,21 @@
             JC = JC + N - J + 1
    20    CONTINUE
       END IF
-*
+
       // Initialize C to the identity matrix.
-*
+
       CALL ZLASET( 'Full', N, N, CZERO, CONE, C, LDC )
-*
+
       // Call ZLAVHP to form the product D * U' (or D * L' ).
-*
+
       CALL ZLAVHP( UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO )
-*
+
       // Call ZLAVHP again to multiply by U ( or L ).
-*
+
       CALL ZLAVHP( UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO )
-*
+
       // Compute the difference  C - A .
-*
+
       IF( LSAME( UPLO, 'U' ) ) THEN
          JC = 0
          DO 40 J = 1, N
@@ -107,19 +107,19 @@
             JC = JC + N - J + 1
    60    CONTINUE
       END IF
-*
+
       // Compute norm( C - A ) / ( N * norm(A) * EPS )
-*
+
       RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK )
-*
+
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       END IF
-*
+
       RETURN
-*
+
       // End of ZHPT01
-*
+
       END

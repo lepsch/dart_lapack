@@ -1,16 +1,16 @@
       SUBROUTINE DGET32( RMAX, LMAX, NINFO, KNT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                KNT, LMAX, NINFO;
       double             RMAX;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -39,33 +39,33 @@
       DATA               ITVAL / 8, 4, 2, 1, 4, 8, 1, 2, 2, 1, 8, 4, 1, 2, 4, 8, 9, 4, 2, 1, 4, 9, 1, 2, 2, 1, 9, 4, 1, 2, 4, 9 /
       // ..
       // .. Executable Statements ..
-*
+
       // Get machine parameters
-*
+
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
-*
+
       // Set up test case parameters
-*
+
       VAL( 1 ) = SQRT( SMLNUM )
       VAL( 2 ) = ONE
       VAL( 3 ) = SQRT( BIGNUM )
-*
+
       KNT = 0
       NINFO = 0
       LMAX = 0
       RMAX = ZERO
-*
+
       // Begin test loop
-*
+
       DO 230 ITRANL = 0, 1
          DO 220 ITRANR = 0, 1
             DO 210 ISGN = -1, 1, 2
                SGN = ISGN
                LTRANL = ITRANL.EQ.1
                LTRANR = ITRANR.EQ.1
-*
+
                N1 = 1
                N2 = 1
                DO 30 ITL = 1, 3
@@ -91,7 +91,7 @@
    10                CONTINUE
    20             CONTINUE
    30          CONTINUE
-*
+
                N1 = 2
                N2 = 1
                DO 80 ITL = 1, 8
@@ -124,7 +124,7 @@
    60                CONTINUE
    70             CONTINUE
    80          CONTINUE
-*
+
                N1 = 1
                N2 = 2
                DO 130 ITR = 1, 8
@@ -159,7 +159,7 @@
   110                CONTINUE
   120             CONTINUE
   130          CONTINUE
-*
+
                N1 = 2
                N2 = 2
                DO 200 ITR = 1, 8
@@ -206,9 +206,9 @@
   210       CONTINUE
   220    CONTINUE
   230 CONTINUE
-*
+
       RETURN
-*
+
       // End of DGET32
-*
+
       END

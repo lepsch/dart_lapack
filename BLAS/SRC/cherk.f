@@ -1,9 +1,9 @@
       SUBROUTINE CHERK(UPLO,TRANS,N,K,ALPHA,A,LDA,BETA,C,LDC)
-*
+
 *  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL ALPHA,BETA
       int     K,LDA,LDC,N;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       COMPLEX A(LDA,*),C(LDC,*)
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
@@ -35,16 +35,16 @@
       REAL ONE,ZERO
       PARAMETER (ONE=1.0E+0,ZERO=0.0E+0)
       // ..
-*
+
       // Test the input parameters.
-*
+
       IF (LSAME(TRANS,'N')) THEN
           NROWA = N
       ELSE
           NROWA = K
       END IF
       UPPER = LSAME(UPLO,'U')
-*
+
       INFO = 0
       IF ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) THEN
           INFO = 1
@@ -63,13 +63,13 @@
           CALL XERBLA('CHERK ',INFO)
           RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
-*
+
       // And when  alpha.eq.zero.
-*
+
       IF (ALPHA.EQ.ZERO) THEN
           IF (UPPER) THEN
               IF (BETA.EQ.ZERO) THEN
@@ -104,13 +104,13 @@
           END IF
           RETURN
       END IF
-*
+
       // Start the operations.
-*
+
       IF (LSAME(TRANS,'N')) THEN
-*
+
          // Form  C := alpha*A*A**H + beta*C.
-*
+
           IF (UPPER) THEN
               DO 130 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
@@ -161,9 +161,9 @@
   180         CONTINUE
           END IF
       ELSE
-*
+
          // Form  C := alpha*A**H*A + beta*C.
-*
+
           IF (UPPER) THEN
               DO 220 J = 1,N
                   DO 200 I = 1,J - 1
@@ -212,9 +212,9 @@
   260         CONTINUE
           END IF
       END IF
-*
+
       RETURN
-*
+
       // End of CHERK
-*
+
       END

@@ -1,9 +1,9 @@
       SUBROUTINE CGEJSV( JOBA, JOBU, JOBV, JOBR, JOBT, JOBP, M, N, A, LDA, SVA, U, LDU, V, LDV, CWORK, LWORK, RWORK, LRWORK, IWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       IMPLICIT    NONE
       int         INFO, LDA, LDU, LDV, LWORK, LRWORK, M, N;
@@ -14,9 +14,9 @@
       int         IWORK( * );
       String      JOBA, JOBP, JOBR, JOBT, JOBU, JOBV;
       // ..
-*
+
 *  ===========================================================================
-*
+
       // .. Local Parameters ..
       REAL        ZERO,         ONE
       PARAMETER ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -28,14 +28,14 @@
       REAL    AAPP,   AAQQ,   AATMAX, AATMIN, BIG,    BIG1,   COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN,  MAXPRJ, SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1,  USCAL1, USCAL2, XSC
       int     IERR,   N1,     NR,     NUMRANK,        p, q,   WARNING;
       bool    ALMORT, DEFR,   ERREST, GOSCAL,  JRACC,  KILL,   LQUERY, LSVEC,  L2ABER, L2KILL, L2PERT,  L2RANK, L2TRAN, NOSCAL, ROWPIV, RSVEC,  TRANSP;
-*
+
       int     OPTWRK, MINWRK, MINRWRK, MINIWRK;
       int     LWCON,  LWLQF, LWQP3, LWQRF, LWUNMLQ, LWUNMQR, LWUNMQRM, LWSVDJ, LWSVDJV, LRWQP3, LRWCON, LRWSVDJ, IWOFF       int     LWRK_CGELQF, LWRK_CGEQP3,  LWRK_CGEQP3N, LWRK_CGEQRF,   LWRK_CGESVJ, LWRK_CGESVJV, LWRK_CGESVJU, LWRK_CUNMLQ, LWRK_CUNMQR, LWRK_CUNMQRM;
       // ..
       // .. Local Arrays
       COMPLEX CDUMMY(1)
       REAL    RDUMMY(1)
-*
+
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, CONJG, ALOG, MAX, MIN, REAL, NINT, SQRT
       // ..
@@ -47,12 +47,12 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASSQ, CCOPY,  CGELQF, CGEQP3, CGEQRF, CLACPY, CLAPMR, CLASCL, SLASCL, CLASET, CLASSQ, CLASWP, CUNGQR, CUNMLQ, CUNMQR, CPOCON, SSCAL,  CSSCAL, CSWAP,  CTRSM,  CLACGV, XERBLA
-*
+
       // EXTERNAL CGESVJ
       // ..
-*
+
       // Test the input arguments
-*
+
       LSVEC  = LSAME( JOBU, 'U' ) .OR. LSAME( JOBU, 'F' )
       JRACC  = LSAME( JOBV, 'J' )
       RSVEC  = LSAME( JOBV, 'V' ) .OR. JRACC
@@ -64,9 +64,9 @@
       L2KILL = LSAME( JOBR, 'R' )
       DEFR   = LSAME( JOBR, 'N' )
       L2PERT = LSAME( JOBP, 'P' )
-*
+
       LQUERY = ( LWORK .EQ. -1 ) .OR. ( LRWORK .EQ. -1 )
-*
+
       IF ( .NOT.(ROWPIV .OR. L2RANK .OR. L2ABER .OR. ERREST .OR. LSAME( JOBA, 'C' ) )) THEN
          INFO = - 1
       ELSE IF ( .NOT.( LSVEC .OR. LSAME( JOBU, 'N' ) .OR. ( LSAME( JOBU, 'W' ) .AND. RSVEC .AND. L2TRAN ) ) ) THEN
@@ -93,14 +93,14 @@
          // #:)
          INFO = 0
       END IF
-*
+
       IF ( INFO .EQ. 0 ) THEN
           // .. compute the minimal and the optimal workspace lengths
           // [[The expressions for computing the minimal and the optimal
           // values of LCWORK, LRWORK are written with a lot of redundancy and
           // can be simplified. However, this verbose form is useful for
           // maintenance and modifications of the code.]]
-*
+
          // .. minimal workspace length for CGEQP3 of an M x N matrix,
           // CGEQRF of an N x N matrix, CGELQF of an N x N matrix,
           // CUNMLQ for computing N x N matrix, CUNMQR for computing N x N
@@ -294,7 +294,7 @@
           IF ( LWORK  .LT. MINWRK  .AND. (.NOT.LQUERY) ) INFO = - 17
           IF ( LRWORK .LT. MINRWRK .AND. (.NOT.LQUERY) ) INFO = - 19
       END IF
-*
+
       IF ( INFO .NE. 0 ) THEN
         // #:(
          CALL XERBLA( 'CGEJSV', - INFO )
@@ -306,7 +306,7 @@
           IWORK(1) = MAX( 4, MINIWRK )
           RETURN
       END IF
-*
+
       // Quick return for void matrix (Y3K safe)
 * #:)
       IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) ) THEN
@@ -314,30 +314,30 @@
          RWORK(1:7) = 0
          RETURN
       ENDIF
-*
+
       // Determine whether the matrix U should be M x N or M x M
-*
+
       IF ( LSVEC ) THEN
          N1 = N
          IF ( LSAME( JOBU, 'F' ) ) N1 = M
       END IF
-*
+
       // Set numerical parameters
-*
+
 *!    NOTE: Make sure SLAMCH() does not fail on the target architecture.
-*
+
       EPSLN = SLAMCH('Epsilon')
       SFMIN = SLAMCH('SafeMinimum')
       SMALL = SFMIN / EPSLN
       BIG   = SLAMCH('O')
       // BIG   = ONE / SFMIN
-*
+
       // Initialize SVA(1:N) = diag( ||A e_i||_2 )_1^N
-*
+
 *(!)  If necessary, scale SVA() to protect the largest norm from
       // overflow. It is possible that this scaling pushes the smallest
       // column norm left from the underflow threshold (extreme case).
-*
+
       SCALEM  = ONE / SQRT(REAL(M)*REAL(N))
       NOSCAL  = .TRUE.
       GOSCAL  = .TRUE.
@@ -362,16 +362,16 @@
             END IF
          END IF
  1874 CONTINUE
-*
+
       IF ( NOSCAL ) SCALEM = ONE
-*
+
       AAPP = ZERO
       AAQQ = BIG
       DO 4781 p = 1, N
          AAPP = MAX( AAPP, SVA(p) )
          IF ( SVA(p) .NE. ZERO ) AAQQ = MIN( AAQQ, SVA(p) )
  4781 CONTINUE
-*
+
       // Quick return for zero M x N matrix
 * #:)
       IF ( AAPP .EQ. ZERO ) THEN
@@ -394,7 +394,7 @@
          IWORK(4) = -1
          RETURN
       END IF
-*
+
       // Issue warning if denormalized column norms detected. Override the
       // high relative accuracy request. Issue licence to kill nonzero columns
       // (set them to zero) whose norm is less than sigma_max / BIG (roughly).
@@ -405,11 +405,11 @@
          L2KILL = .TRUE.
          WARNING = 1
       END IF
-*
+
       // Quick return for one-column matrix
 * #:)
       IF ( N .EQ. 1 ) THEN
-*
+
          IF ( LSVEC ) THEN
             CALL CLASCL( 'G',0,0,SVA(1),SCALEM, M,1,A(1,1),LDA,IERR )
             CALL CLACPY( 'A', M, 1, A, LDA, U, LDU )
@@ -452,20 +452,20 @@
             RWORK(7) = ZERO
          END IF
          RETURN
-*
+
       END IF
-*
+
       TRANSP = .FALSE.
-*
+
       AATMAX = -ONE
       AATMIN =  BIG
       IF ( ROWPIV .OR. L2TRAN ) THEN
-*
+
       // Compute the row norms, needed to determine row pivoting sequence
       // (in the case of heavily row weighted A, row pivoting is strongly
       // advised) and to collect information needed to compare the
       // structures of A * A^* and A^* * A (in the case L2TRAN.EQ..TRUE.).
-*
+
          IF ( L2TRAN ) THEN
             DO 1950 p = 1, M
                XSC   = ZERO
@@ -485,50 +485,50 @@
                AATMIN = MIN( AATMIN, RWORK(M+p) )
  1904       CONTINUE
          END IF
-*
+
       END IF
-*
+
       // For square matrix A try to determine whether A^*  would be better
       // input for the preconditioned Jacobi SVD, with faster convergence.
       // The decision is based on an O(N) function of the vector of column
       // and row norms of A, based on the Shannon entropy. This should give
      t // he right choice in most cases when the difference actually matters.
       // It may fail and pick the slower converging side.
-*
+
       ENTRA  = ZERO
       ENTRAT = ZERO
       IF ( L2TRAN ) THEN
-*
+
          XSC   = ZERO
          TEMP1 = ONE
          CALL SLASSQ( N, SVA, 1, XSC, TEMP1 )
          TEMP1 = ONE / TEMP1
-*
+
          ENTRA = ZERO
          DO 1113 p = 1, N
             BIG1  = ( ( SVA(p) / XSC )**2 ) * TEMP1
             IF ( BIG1 .NE. ZERO ) ENTRA = ENTRA + BIG1 * ALOG(BIG1)
  1113    CONTINUE
          ENTRA = - ENTRA / ALOG(REAL(N))
-*
+
          // Now, SVA().^2/Trace(A^* * A) is a point in the probability simplex.
          // It is derived from the diagonal of  A^* * A.  Do the same with the
          // diagonal of A * A^*, compute the entropy of the corresponding
          // probability distribution. Note that A * A^* and A^* * A have the
          // same trace.
-*
+
          ENTRAT = ZERO
          DO 1114 p = 1, M
             BIG1 = ( ( RWORK(p) / XSC )**2 ) * TEMP1
             IF ( BIG1 .NE. ZERO ) ENTRAT = ENTRAT + BIG1 * ALOG(BIG1)
  1114    CONTINUE
          ENTRAT = - ENTRAT / ALOG(REAL(M))
-*
+
          // Analyze the entropies and decide A or A^*. Smaller entropy
          // usually means better input for the algorithm.
-*
+
          TRANSP = ( ENTRAT .LT. ENTRA )
-*
+
          // If A^* is better than A, take the adjoint of A. This is allowed
          // only for square matrices, M=N.
          IF ( TRANSP ) THEN
@@ -559,13 +559,13 @@
             LSVEC  = RSVEC
             RSVEC  = KILL
             IF ( LSVEC ) N1 = N
-*
+
             ROWPIV = .TRUE.
          END IF
-*
+
       END IF
       // END IF L2TRAN
-*
+
       // Scale the matrix so that its maximal singular value remains less
      t // han SQRT(BIG) -- the matrix is scaled so that its maximal column
       // has Euclidean norm equal to SQRT(BIG/N). The only reason to keep
@@ -590,13 +590,13 @@
       END IF
       TEMP1 = TEMP1 * SCALEM
       CALL CLASCL( 'G', 0, 0, AAPP, TEMP1, M, N, A, LDA, IERR )
-*
+
       // To undo scaling at the end of this procedure, multiply the
       // computed singular values with USCAL2 / USCAL1.
-*
+
       USCAL1 = TEMP1
       USCAL2 = AAPP
-*
+
       IF ( L2KILL ) THEN
          // L2KILL enforces computation of nonzero singular values in
         t // he restricted range of condition number of the initial A,
@@ -604,7 +604,7 @@
          XSC = SQRT( SFMIN )
       ELSE
          XSC = SMALL
-*
+
          // Now, if the condition number of A is too big,
          // sigma_max(A) / sigma_min(A) .GT. SQRT(BIG/N) * EPSLN / SFMIN,
          // as a precaution measure, the full SVD is computed using CGESVJ
@@ -616,7 +616,7 @@
          IF ( ( AAQQ.LT.SQRT(SFMIN) ) .AND. LSVEC .AND. RSVEC ) THEN
             JRACC = .TRUE.
          END IF
-*
+
       END IF
       IF ( AAQQ .LT. XSC ) THEN
          DO 700 p = 1, N
@@ -626,9 +626,9 @@
             END IF
  700     CONTINUE
       END IF
-*
+
       // Preconditioning using QR factorization with pivoting
-*
+
       IF ( ROWPIV ) THEN
          // Optional row permutation (Bjoerck row pivoting):
          // A result by Cox and Higham shows that the Bjoerck's
@@ -651,12 +651,12 @@
  1952    CONTINUE
          CALL CLASWP( N, A, LDA, 1, M-1, IWORK(IWOFF+1), 1 )
       END IF
-*
+
       // End of the preparation phase (scaling, optional sorting and
      t // ransposing, optional flushing of small columns).
-*
+
       // Preconditioning
-*
+
       // If the full SVD is needed, the right singular vectors are computed
       // from a matrix equation, and for that we need theoretical analysis
       // of the Businger-Golub pivoting. So we use CGEQP3 as the first RR QRF.
@@ -665,14 +665,14 @@
       // as in xGEQPX from TOMS # 782). Good results will be obtained using
       // xGEQPX with properly (!) chosen numerical parameters.
       // Any improvement of CGEQP3 improves overall performance of CGEJSV.
-*
+
       // A * P1 = Q1 * [ R1^* 0]^*:
       DO 1963 p = 1, N
          // .. all columns are free columns
          IWORK(p) = 0
  1963 CONTINUE
       CALL CGEQP3( M, N, A, LDA, IWORK, CWORK, CWORK(N+1), LWORK-N, RWORK, IERR )
-*
+
       // The upper triangular matrix R1 from the first QRF is inspected for
       // rank deficiency and possibilities for deflation, or possible
       // ill-conditioning. Depending on the user specified flag L2RANK,
@@ -680,7 +680,7 @@
       // rank by inspecting the computed upper triangular factor. If
       // L2RANK or L2ABER are up, then CGEJSV will compute the SVD of
       // A + dA, where ||dA|| <= f(M,N)*EPSLN.
-*
+
       NR = 1
       IF ( L2ABER ) THEN
          // Standard absolute error bound suffices. All sigma_i with
@@ -706,7 +706,7 @@
             NR = NR + 1
  3401    CONTINUE
  3402    CONTINUE
-*
+
       ELSE
          // The goal is high relative accuracy. However, if the matrix
          // has high scaled condition number the relative accuracy is in
@@ -721,9 +721,9 @@
             NR = NR + 1
  3301    CONTINUE
  3302    CONTINUE
-*
+
       END IF
-*
+
       ALMORT = .FALSE.
       IF ( NR .EQ. N ) THEN
          MAXPRJ = ONE
@@ -733,12 +733,12 @@
  3051    CONTINUE
          IF ( MAXPRJ**2 .GE. ONE - REAL(N)*EPSLN ) ALMORT = .TRUE.
       END IF
-*
-*
+
+
       SCONDA = - ONE
       CONDR1 = - ONE
       CONDR2 = - ONE
-*
+
       IF ( ERREST ) THEN
          IF ( N .EQ. NR ) THEN
             IF ( RSVEC ) THEN
@@ -753,7 +753,7 @@
                ELSE
                    CALL CPOCON( 'U', N, V, LDV, ONE, TEMP1, CWORK, RWORK, IERR )
                END IF
-*
+
             ELSE IF ( LSVEC ) THEN
                // .. U is available as workspace
                CALL CLACPY( 'U', N, N, A, LDA, U, LDU )
@@ -776,7 +776,7 @@
 *[]               CALL CPOCON( 'U', N, CWORK(N+1), N, ONE, TEMP1,
 *[]     $              CWORK(N+N*N+1), RWORK, IERR )
                CALL CPOCON( 'U', N, CWORK, N, ONE, TEMP1, CWORK(N*N+1), RWORK, IERR )
-*
+
             END IF
             IF ( TEMP1 .NE. ZERO ) THEN
                SCONDA = ONE / SQRT(TEMP1)
@@ -789,23 +789,23 @@
             SCONDA = - ONE
          END IF
       END IF
-*
+
       L2PERT = L2PERT .AND. ( ABS( A(1,1)/A(NR,NR) ) .GT. SQRT(BIG1) )
       // If there is no violent scaling, artificial perturbation is not needed.
-*
+
       // Phase 3:
-*
+
       IF ( .NOT. ( RSVEC .OR. LSVEC ) ) THEN
-*
+
           // Singular Values only
-*
+
           // .. transpose A(1:NR,1:N)
          DO 1946 p = 1, MIN( N-1, NR )
             CALL CCOPY( N-p, A(p,p+1), LDA, A(p+1,p), 1 )
             CALL CLACGV( N-p+1, A(p,p), 1 )
  1946    CONTINUE
          IF ( NR .EQ. N ) A(N,N) = CONJG(A(N,N))
-*
+
          // The following two DO-loops introduce small relative perturbation
          // into the strict upper triangle of the lower triangular matrix.
          // Small entries below the main diagonal are also changed.
@@ -817,9 +817,9 @@
         t // he job done by the preconditioner.
          // The licence for this perturbation is in the variable L2PERT, which
          // should be .FALSE. if FLUSH TO ZERO underflow is active.
-*
+
          IF ( .NOT. ALMORT ) THEN
-*
+
             IF ( L2PERT ) THEN
                // XSC = SQRT(SMALL)
                XSC = EPSLN / REAL(N)
@@ -834,21 +834,21 @@
             ELSE
                CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, A(1,2),LDA )
             END IF
-*
+
              // .. second preconditioning using the QR factorization
-*
+
             CALL CGEQRF( N,NR, A,LDA, CWORK, CWORK(N+1),LWORK-N, IERR )
-*
+
             // .. and transpose upper to lower triangular
             DO 1948 p = 1, NR - 1
                CALL CCOPY( NR-p, A(p,p+1), LDA, A(p+1,p), 1 )
                CALL CLACGV( NR-p+1, A(p,p), 1 )
  1948       CONTINUE
-*
+
          END IF
-*
+
             // Row-cyclic Jacobi SVD algorithm with column pivoting
-*
+
             // .. again some perturbation (a "background noise") is added
            t // o drown denormals
             IF ( L2PERT ) THEN
@@ -865,39 +865,39 @@
             ELSE
                CALL CLASET( 'U', NR-1, NR-1, CZERO, CZERO, A(1,2), LDA )
             END IF
-*
+
             // .. and one-sided Jacobi rotations are started on a lower
            t // riangular matrix (plus perturbation which is ignored in
            t // he part which destroys triangular form (confusing?!))
-*
+
             CALL CGESVJ( 'L', 'N', 'N', NR, NR, A, LDA, SVA, N, V, LDV, CWORK, LWORK, RWORK, LRWORK, INFO )
-*
+
             SCALEM  = RWORK(1)
             NUMRANK = NINT(RWORK(2))
-*
-*
+
+
       ELSE IF ( ( RSVEC .AND. ( .NOT. LSVEC ) .AND. ( .NOT. JRACC ) )  .OR. ( JRACC .AND. ( .NOT. LSVEC ) .AND. ( NR .NE. N ) ) ) THEN
-*
+
          // -> Singular Values and Right Singular Vectors <-
-*
+
          IF ( ALMORT ) THEN
-*
+
             // .. in this case NR equals N
             DO 1998 p = 1, NR
                CALL CCOPY( N-p+1, A(p,p), LDA, V(p,p), 1 )
                CALL CLACGV( N-p+1, V(p,p), 1 )
  1998       CONTINUE
             CALL CLASET( 'U', NR-1,NR-1, CZERO, CZERO, V(1,2), LDV )
-*
+
             CALL CGESVJ( 'L','U','N', N, NR, V, LDV, SVA, NR, A, LDA, CWORK, LWORK, RWORK, LRWORK, INFO )
             SCALEM  = RWORK(1)
             NUMRANK = NINT(RWORK(2))
 
          ELSE
-*
+
          // .. two more QR factorizations ( one QRF is not enough, two require
          // accumulated product of Jacobi rotations, three are perfect )
-*
+
             CALL CLASET( 'L', NR-1,NR-1, CZERO, CZERO, A(2,1), LDA )
             CALL CGELQF( NR,N, A, LDA, CWORK, CWORK(N+1), LWORK-N, IERR)
             CALL CLACPY( 'L', NR, NR, A, LDA, V, LDV )
@@ -908,7 +908,7 @@
                CALL CLACGV( NR-p+1, V(p,p), 1 )
  8998       CONTINUE
             CALL CLASET('U', NR-1, NR-1, CZERO, CZERO, V(1,2), LDV)
-*
+
             CALL CGESVJ( 'L', 'U','N', NR, NR, V,LDV, SVA, NR, U, LDU, CWORK(N+1), LWORK-N, RWORK, LRWORK, INFO )
             SCALEM  = RWORK(1)
             NUMRANK = NINT(RWORK(2))
@@ -917,9 +917,9 @@
                CALL CLASET( 'A',NR, N-NR, CZERO,CZERO, V(1,NR+1),  LDV )
                CALL CLASET( 'A',N-NR,N-NR,CZERO,CONE, V(NR+1,NR+1),LDV )
             END IF
-*
+
          CALL CUNMLQ( 'L', 'C', N, N, NR, A, LDA, CWORK, V, LDV, CWORK(N+1), LWORK-N, IERR )
-*
+
          END IF
           // .. permute the rows of V
           // DO 8991 p = 1, N
@@ -927,24 +927,24 @@
 * 8991    CONTINUE
           // CALL CLACPY( 'All', N, N, A, LDA, V, LDV )
          CALL CLAPMR( .FALSE., N, N, V, LDV, IWORK )
-*
+
           IF ( TRANSP ) THEN
             CALL CLACPY( 'A', N, N, V, LDV, U, LDU )
           END IF
-*
+
       ELSE IF ( JRACC .AND. (.NOT. LSVEC) .AND. ( NR.EQ. N ) ) THEN
-*
+
          CALL CLASET( 'L', N-1,N-1, CZERO, CZERO, A(2,1), LDA )
-*
+
          CALL CGESVJ( 'U','N','V', N, N, A, LDA, SVA, N, V, LDV, CWORK, LWORK, RWORK, LRWORK, INFO )
           SCALEM  = RWORK(1)
           NUMRANK = NINT(RWORK(2))
           CALL CLAPMR( .FALSE., N, N, V, LDV, IWORK )
-*
+
       ELSE IF ( LSVEC .AND. ( .NOT. RSVEC ) ) THEN
-*
+
          // .. Singular Values and Left Singular Vectors                 ..
-*
+
          // .. second preconditioning step to avoid need to accumulate
          // Jacobi rotations in the Jacobi iterations.
          DO 1965 p = 1, NR
@@ -952,19 +952,19 @@
             CALL CLACGV( N-p+1, U(p,p), 1 )
  1965    CONTINUE
          CALL CLASET( 'U', NR-1, NR-1, CZERO, CZERO, U(1,2), LDU )
-*
+
          CALL CGEQRF( N, NR, U, LDU, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR )
-*
+
          DO 1967 p = 1, NR - 1
             CALL CCOPY( NR-p, U(p,p+1), LDU, U(p+1,p), 1 )
             CALL CLACGV( N-p+1, U(p,p), 1 )
  1967    CONTINUE
          CALL CLASET( 'U', NR-1, NR-1, CZERO, CZERO, U(1,2), LDU )
-*
+
          CALL CGESVJ( 'L', 'U', 'N', NR,NR, U, LDU, SVA, NR, A, LDA, CWORK(N+1), LWORK-N, RWORK, LRWORK, INFO )
          SCALEM  = RWORK(1)
          NUMRANK = NINT(RWORK(2))
-*
+
          IF ( NR .LT. M ) THEN
             CALL CLASET( 'A',  M-NR, NR,CZERO, CZERO, U(NR+1,1), LDU )
             IF ( NR .LT. N1 ) THEN
@@ -972,40 +972,40 @@
                CALL CLASET( 'A',M-NR,N1-NR,CZERO,CONE,U(NR+1,NR+1),LDU )
             END IF
          END IF
-*
+
          CALL CUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR )
-*
+
          IF ( ROWPIV ) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 )
-*
+
          DO 1974 p = 1, N1
             XSC = ONE / SCNRM2( M, U(1,p), 1 )
             CALL CSSCAL( M, XSC, U(1,p), 1 )
  1974    CONTINUE
-*
+
          IF ( TRANSP ) THEN
             CALL CLACPY( 'A', N, N, U, LDU, V, LDV )
          END IF
-*
+
       ELSE
-*
+
          // .. Full SVD ..
-*
+
          IF ( .NOT. JRACC ) THEN
-*
+
          IF ( .NOT. ALMORT ) THEN
-*
+
             // Second Preconditioning Step (QRF [with pivoting])
             // Note that the composition of TRANSPOSE, QRF and TRANSPOSE is
             // equivalent to an LQF CALL. Since in many libraries the QRF
             // seems to be better optimized than the LQF, we do explicit
            t // ranspose and use the QRF. This is subject to changes in an
             // optimized implementation of CGEJSV.
-*
+
             DO 1968 p = 1, NR
                CALL CCOPY( N-p+1, A(p,p), LDA, V(p,p), 1 )
                CALL CLACGV( N-p+1, V(p,p), 1 )
  1968       CONTINUE
-*
+
             // .. the following two loops perturb small entries to avoid
             // denormals in the second QR factorization, where they are
             // as good as zeros. This is done to avoid painfully slow
@@ -1017,7 +1017,7 @@
             // code, remove the action under L2PERT=.TRUE., leave the ELSE part.
             // The following two loops should be blocked and fused with the
            t // ransposed copy above.
-*
+
             IF ( L2PERT ) THEN
                XSC = SQRT(SMALL)
                DO 2969 q = 1, NR
@@ -1032,11 +1032,11 @@
             ELSE
                CALL CLASET( 'U', NR-1, NR-1, CZERO, CZERO, V(1,2), LDV )
             END IF
-*
+
             // Estimate the row scaled condition number of R1
             // (If R1 is rectangular, N > NR, then the condition number
             // of the leading NR x NR submatrix is estimated.)
-*
+
             CALL CLACPY( 'L', NR, NR, V, LDV, CWORK(2*N+1), NR )
             DO 3950 p = 1, NR
                TEMP1 = SCNRM2(NR-p+1,CWORK(2*N+(p-1)*NR+p),1)
@@ -1048,17 +1048,17 @@
             // .. then assume worst case scenario
             // R1 is OK for inverse <=> CONDR1 .LT. REAL(N)
             // more conservative    <=> CONDR1 .LT. SQRT(REAL(N))
-*
+
             COND_OK = SQRT(SQRT(REAL(NR)))
 *[TP]       COND_OK is a tuning parameter.
-*
+
             IF ( CONDR1 .LT. COND_OK ) THEN
                // .. the second QRF without pivoting. Note: in an optimized
                // implementation, this QRF should be implemented as the QRF
                // of a lower triangular matrix.
                // R1^* = Q2 * R2
                CALL CGEQRF( N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR )
-*
+
                IF ( L2PERT ) THEN
                   XSC = SQRT(SMALL)/EPSLN
                   DO 3959 p = 2, NR
@@ -1070,28 +1070,28 @@
  3958                CONTINUE
  3959             CONTINUE
                END IF
-*
+
                IF ( NR .NE. N ) CALL CLACPY( 'A', N, NR, V, LDV, CWORK(2*N+1), N )
                // .. save ...
-*
+
             // .. this transposed copy should be better than naive
                DO 1969 p = 1, NR - 1
                   CALL CCOPY( NR-p, V(p,p+1), LDV, V(p+1,p), 1 )
                   CALL CLACGV(NR-p+1, V(p,p), 1 )
  1969          CONTINUE
                V(NR,NR)=CONJG(V(NR,NR))
-*
+
                CONDR2 = CONDR1
-*
+
             ELSE
-*
+
                // .. ill-conditioned case: second QRF with pivoting
                // Note that windowed pivoting would be equally good
                // numerically, and more run-time efficient. So, in
                // an optimal implementation, the next call to CGEQP3
                // should be replaced with eg. CALL CGEQPX (ACM TOMS #782)
                // with properly (carefully) chosen parameters.
-*
+
                // R1^* * P2 = Q2 * R2
                DO 3003 p = 1, NR
                   IWORK(N+p) = 0
@@ -1110,9 +1110,9 @@
  3968                CONTINUE
  3969             CONTINUE
                END IF
-*
+
                CALL CLACPY( 'A', N, NR, V, LDV, CWORK(2*N+1), N )
-*
+
                IF ( L2PERT ) THEN
                   XSC = SQRT(SMALL)
                   DO 8970 p = 2, NR
@@ -1135,8 +1135,8 @@
  4950          CONTINUE
                CALL CPOCON( 'L',NR,CWORK(2*N+N*NR+NR+1),NR,ONE,TEMP1, CWORK(2*N+N*NR+NR+NR*NR+1),RWORK,IERR )
                CONDR2 = ONE / SQRT(TEMP1)
-*
-*
+
+
                IF ( CONDR2 .GE. COND_OK ) THEN
                   // .. save the Householder vectors used for Q3
                   // (this overwrites the copy of R2, as it will not be
@@ -1146,9 +1146,9 @@
                   // .. and the rest of the information on Q3 is in
                   // WORK(2*N+N*NR+1:2*N+N*NR+N)
                END IF
-*
+
             END IF
-*
+
             IF ( L2PERT ) THEN
                XSC = SQRT(SMALL)
                DO 4968 q = 2, NR
@@ -1161,15 +1161,15 @@
             ELSE
                CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV )
             END IF
-*
+
          // Second preconditioning finished; continue with Jacobi SVD
          // The input matrix is lower triangular.
-*
+
          // Recover the right singular vectors as solution of a well
          // conditioned triangular matrix equation.
-*
+
             IF ( CONDR1 .LT. COND_OK ) THEN
-*
+
                CALL CGESVJ( 'L','U','N',NR,NR,V,LDV,SVA,NR,U, LDU, CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,RWORK, LRWORK, INFO )
                SCALEM  = RWORK(1)
                NUMRANK = NINT(RWORK(2))
@@ -1179,7 +1179,7 @@
  3970          CONTINUE
 
          // .. pick the right matrix equation and solve it
-*
+
                IF ( NR .EQ. N ) THEN
 * :))             .. best case, R1 is inverted. The solution of this matrix
                   // equation is Q2*V2 = the product of the Jacobi rotations
@@ -1199,9 +1199,9 @@
                   END IF
                   CALL CUNMQR('L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR)
                END IF
-*
+
             ELSE IF ( CONDR2 .LT. COND_OK ) THEN
-*
+
                // The matrix R2 is inverted. The solution of the matrix equation
                // is Q3^* * V3 = the product of the Jacobi rotations (applied to
               t // he lower triangular L3 from the LQ factorization of
@@ -1250,7 +1250,7 @@
                   CALL CLASET('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV)
                END IF
                CALL CUNMQR( 'L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
-*
+
                CALL CUNMLQ( 'L', 'C', NR, NR, NR, CWORK(2*N+1), N, CWORK(2*N+N*NR+1), U, LDU, CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR )
                DO 773 q = 1, NR
                   DO 772 p = 1, NR
@@ -1260,13 +1260,13 @@
                      U(p,q) = CWORK(2*N+N*NR+NR+p)
  774              CONTINUE
  773           CONTINUE
-*
+
             END IF
-*
+
             // Permute the rows of V using the (column) permutation from the
             // first QRF. Also, scale the columns to make them unit in
             // Euclidean norm. This applies to all cases.
-*
+
             TEMP1 = SQRT(REAL(N)) * EPSLN
             DO 1972 q = 1, N
                DO 972 p = 1, N
@@ -1287,10 +1287,10 @@
                   CALL CLASET('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1),LDU)
                END IF
             END IF
-*
+
             // The Q matrix from the first QRF is built into the left singular
             // matrix U. This applies to all cases.
-*
+
             CALL CUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR )
 
             // The columns of U are normalized. The cost is O(M*N) flops.
@@ -1299,17 +1299,17 @@
                XSC = ONE / SCNRM2( M, U(1,p), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 )
  1973       CONTINUE
-*
+
             // If the initial QRF is computed with row pivoting, the left
             // singular vectors must be adjusted.
-*
+
             IF ( ROWPIV ) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 )
-*
+
          ELSE
-*
+
          // .. the initial matrix A has almost orthogonal columns and
         t // he second QRF is not needed
-*
+
             CALL CLACPY( 'U', N, N, A, LDA, CWORK(N+1), N )
             IF ( L2PERT ) THEN
                XSC = SQRT(SMALL)
@@ -1324,16 +1324,16 @@
             ELSE
                CALL CLASET( 'L',N-1,N-1,CZERO,CZERO,CWORK(N+2),N )
             END IF
-*
+
             CALL CGESVJ( 'U', 'U', 'N', N, N, CWORK(N+1), N, SVA, N, U, LDU, CWORK(N+N*N+1), LWORK-N-N*N, RWORK, LRWORK, INFO )
-*
+
             SCALEM  = RWORK(1)
             NUMRANK = NINT(RWORK(2))
             DO 6970 p = 1, N
                CALL CCOPY( N, CWORK(N+(p-1)*N+1), 1, U(1,p), 1 )
                CALL CSSCAL( N, SVA(p), CWORK(N+(p-1)*N+1), 1 )
  6970       CONTINUE
-*
+
             CALL CTRSM( 'L', 'U', 'N', 'N', N, N, CONE, A, LDA, CWORK(N+1), N )
             DO 6972 p = 1, N
                CALL CCOPY( N, CWORK(N+p), N, V(IWORK(p),1), LDV )
@@ -1343,9 +1343,9 @@
                XSC = ONE / SCNRM2( N, V(1,p), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,p), 1 )
  6971       CONTINUE
-*
+
             // Assemble the left singular vector matrix U (M x N).
-*
+
             IF ( N .LT. M ) THEN
                CALL CLASET( 'A',  M-N, N, CZERO, CZERO, U(N+1,1), LDU )
                IF ( N .LT. N1 ) THEN
@@ -1359,15 +1359,15 @@
                XSC = ONE / SCNRM2( M, U(1,p), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 )
  6973       CONTINUE
-*
+
             IF ( ROWPIV ) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 )
-*
+
          END IF
-*
+
          // end of the  >> almost orthogonal case <<  in the full SVD
-*
+
          ELSE
-*
+
          // This branch deploys a preconditioned Jacobi SVD with explicitly
          // accumulated rotations. It is included as optional, mainly for
          // experimental purposes. It does perform well, and can also be used.
@@ -1378,12 +1378,12 @@
          // implementation of BLAS and some LAPACK procedures, capable of working
          // in presence of extreme values, e.g. when the singular values spread from
         t // he underflow to the overflow threshold.
-*
+
          DO 7968 p = 1, NR
             CALL CCOPY( N-p+1, A(p,p), LDA, V(p,p), 1 )
             CALL CLACGV( N-p+1, V(p,p), 1 )
  7968    CONTINUE
-*
+
          IF ( L2PERT ) THEN
             XSC = SQRT(SMALL/EPSLN)
             DO 5969 q = 1, NR
@@ -1400,7 +1400,7 @@
          END IF
           CALL CGEQRF( N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR )
          CALL CLACPY( 'L', N, NR, V, LDV, CWORK(2*N+1), N )
-*
+
          DO 7969 p = 1, NR
             CALL CCOPY( NR-p+1, V(p,p), LDV, U(p,p), 1 )
             CALL CLACGV( NR-p+1, U(p,p), 1 )
@@ -1428,11 +1428,11 @@
             CALL CLASET( 'A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV )
          END IF
           CALL CUNMQR( 'L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
-*
+
             // Permute the rows of V using the (column) permutation from the
             // first QRF. Also, scale the columns to make them unit in
             // Euclidean norm. This applies to all cases.
-*
+
             TEMP1 = SQRT(REAL(N)) * EPSLN
             DO 7972 q = 1, N
                DO 8972 p = 1, N
@@ -1444,10 +1444,10 @@
                XSC = ONE / SCNRM2( N, V(1,q), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,q), 1 )
  7972       CONTINUE
-*
+
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
-*
+
          IF ( NR .LT. M ) THEN
             CALL CLASET( 'A',  M-NR, NR, CZERO, CZERO, U(NR+1,1), LDU )
             IF ( NR .LT. N1 ) THEN
@@ -1455,12 +1455,12 @@
                CALL CLASET('A',M-NR,N1-NR, CZERO, CONE,U(NR+1,NR+1),LDU)
             END IF
          END IF
-*
+
          CALL CUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR )
-*
+
             IF ( ROWPIV ) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 )
-*
-*
+
+
          END IF
          IF ( TRANSP ) THEN
             // .. swap U and V because the procedure worked on A^*
@@ -1468,24 +1468,24 @@
                CALL CSWAP( N, U(1,p), 1, V(1,p), 1 )
  6974       CONTINUE
          END IF
-*
+
       END IF
       // end of the full SVD
-*
+
       // Undo scaling, if necessary (and possible)
-*
+
       IF ( USCAL2 .LE. (BIG/SVA(1))*USCAL1 ) THEN
          CALL SLASCL( 'G', 0, 0, USCAL1, USCAL2, NR, 1, SVA, N, IERR )
          USCAL1 = ONE
          USCAL2 = ONE
       END IF
-*
+
       IF ( NR .LT. N ) THEN
          DO 3004 p = NR+1, N
             SVA(p) = ZERO
  3004    CONTINUE
       END IF
-*
+
       RWORK(1) = USCAL2 * SCALEM
       RWORK(2) = USCAL1
       IF ( ERREST ) RWORK(3) = SCONDA
@@ -1497,7 +1497,7 @@
          RWORK(6) = ENTRA
          RWORK(7) = ENTRAT
       END IF
-*
+
       IWORK(1) = NR
       IWORK(2) = NUMRANK
       IWORK(3) = WARNING
@@ -1507,10 +1507,10 @@
           IWORK(4) = -1
       END IF
 
-*
+
       RETURN
       // ..
       // .. END OF CGEJSV
       // ..
       END
-*
+

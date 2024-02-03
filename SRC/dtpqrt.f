@@ -1,18 +1,18 @@
       SUBROUTINE DTPQRT( M, N, L, NB, A, LDA, B, LDB, T, LDT, WORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int     INFO, LDA, LDB, LDT, N, M, L, NB;
       // ..
       // .. Array Arguments ..
       double           A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * );
       // ..
-*
+
 * =====================================================================
-*
+
       // ..
       // .. Local Scalars ..
       int        I, IB, LB, MB, IINFO;
@@ -21,9 +21,9 @@
       // EXTERNAL DTPQRT2, DTPRFB, XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       IF( M.LT.0 ) THEN
          INFO = -1
@@ -44,15 +44,15 @@
          CALL XERBLA( 'DTPQRT', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
-*
+
       DO I = 1, N, NB
-*
+
       // Compute the QR factorization of the current block
-*
+
          IB = MIN( N-I+1, NB )
          MB = MIN( M-L+I+IB-1, M )
          IF( I.GE.L ) THEN
@@ -60,17 +60,17 @@
          ELSE
             LB = MB-M+L-I+1
          END IF
-*
+
          CALL DTPQRT2( MB, IB, LB, A(I,I), LDA, B( 1, I ), LDB, T(1, I ), LDT, IINFO )
-*
+
       // Update by applying H**T to B(:,I+IB:N) from the left
-*
+
          IF( I+IB.LE.N ) THEN
             CALL DTPRFB( 'L', 'T', 'F', 'C', MB, N-I-IB+1, IB, LB, B( 1, I ), LDB, T( 1, I ), LDT, A( I, I+IB ), LDA, B( 1, I+IB ), LDB, WORK, IB )
          END IF
       END DO
       RETURN
-*
+
       // End of DTPQRT
-*
+
       END

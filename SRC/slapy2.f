@@ -1,15 +1,15 @@
       REAL             FUNCTION SLAPY2( X, Y )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL               X, Y
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
@@ -31,13 +31,13 @@
       // INTRINSIC ABS, MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       X_IS_NAN = SISNAN( X )
       Y_IS_NAN = SISNAN( Y )
       IF ( X_IS_NAN ) SLAPY2 = X
       IF ( Y_IS_NAN ) SLAPY2 = Y
       HUGEVAL = SLAMCH( 'Overflow' )
-*
+
       IF ( .NOT.( X_IS_NAN.OR.Y_IS_NAN ) ) THEN
          XABS = ABS( X )
          YABS = ABS( Y )
@@ -50,7 +50,7 @@
          END IF
       END IF
       RETURN
-*
+
       // End of SLAPY2
-*
+
       END

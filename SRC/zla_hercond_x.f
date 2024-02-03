@@ -1,9 +1,9 @@
       double           FUNCTION ZLA_HERCOND_X( UPLO, N, A, LDA, AF, LDAF, IPIV, X, INFO, WORK, RWORK );
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             UPLO;
       int                N, LDA, LDAF, INFO;
@@ -13,9 +13,9 @@
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), WORK( * ), X( * )
       double             RWORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       int                KASE, I, J;
       double             AINVNM, ANORM, TMP;
@@ -42,9 +42,9 @@
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       ZLA_HERCOND_X = 0.0D+0
-*
+
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -62,9 +62,9 @@
       END IF
       UP = .FALSE.
       IF ( LSAME( UPLO, 'U' ) ) UP = .TRUE.
-*
+
       // Compute norm of op(A)*op2(C).
-*
+
       ANORM = 0.0D+0
       IF ( UP ) THEN
          DO I = 1, N
@@ -91,72 +91,72 @@
             ANORM = MAX( ANORM, TMP )
          END DO
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF( N.EQ.0 ) THEN
          ZLA_HERCOND_X = 1.0D+0
          RETURN
       ELSE IF( ANORM .EQ. 0.0D+0 ) THEN
          RETURN
       END IF
-*
+
       // Estimate the norm of inv(op(A)).
-*
+
       AINVNM = 0.0D+0
-*
+
       KASE = 0
    10 CONTINUE
       CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.2 ) THEN
-*
+
             // Multiply by R.
-*
+
             DO I = 1, N
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
-*
+
             IF ( UP ) THEN
                CALL ZHETRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
                CALL ZHETRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
-*
+
             // Multiply by inv(X).
-*
+
             DO I = 1, N
                WORK( I ) = WORK( I ) / X( I )
             END DO
          ELSE
-*
+
             // Multiply by inv(X**H).
-*
+
             DO I = 1, N
                WORK( I ) = WORK( I ) / X( I )
             END DO
-*
+
             IF ( UP ) THEN
                CALL ZHETRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
                CALL ZHETRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
-*
+
             // Multiply by R.
-*
+
             DO I = 1, N
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
          END IF
          GO TO 10
       END IF
-*
+
       // Compute the estimate of the reciprocal condition number.
-*
+
       IF( AINVNM .NE. 0.0D+0 ) ZLA_HERCOND_X = 1.0D+0 / AINVNM
-*
+
       RETURN
-*
+
       // End of ZLA_HERCOND_X
-*
+
       END

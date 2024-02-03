@@ -1,9 +1,9 @@
       SUBROUTINE SSYR2(UPLO,N,ALPHA,X,INCX,Y,INCY,A,LDA)
-*
+
 *  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL ALPHA
       int     INCX,INCY,LDA,N;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       REAL A(LDA,*),X(*),Y(*)
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL ZERO
       PARAMETER (ZERO=0.0E+0)
@@ -33,9 +33,9 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
       // ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
           INFO = 1
@@ -52,14 +52,14 @@
           CALL XERBLA('SSYR2 ',INFO)
           RETURN
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF ((N.EQ.0) .OR. (ALPHA.EQ.ZERO)) RETURN
-*
+
       // Set up the start points in X and Y if the increments are not both
       // unity.
-*
+
       IF ((INCX.NE.1) .OR. (INCY.NE.1)) THEN
           IF (INCX.GT.0) THEN
               KX = 1
@@ -74,15 +74,15 @@
           JX = KX
           JY = KY
       END IF
-*
+
       // Start the operations. In this version the elements of A are
       // accessed sequentially with one pass through the triangular part
       // of A.
-*
+
       IF (LSAME(UPLO,'U')) THEN
-*
+
          // Form  A  when A is stored in the upper triangle.
-*
+
           IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
               DO 20 J = 1,N
                   IF ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) THEN
@@ -111,9 +111,9 @@
    40         CONTINUE
           END IF
       ELSE
-*
+
          // Form  A  when A is stored in the lower triangle.
-*
+
           IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
               DO 60 J = 1,N
                   IF ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) THEN
@@ -142,9 +142,9 @@
    80         CONTINUE
           END IF
       END IF
-*
+
       RETURN
-*
+
       // End of SSYR2
-*
+
       END

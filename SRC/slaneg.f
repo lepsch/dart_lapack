@@ -1,9 +1,9 @@
       int     FUNCTION SLANEG( N, D, LLD, SIGMA, PIVMIN, R );
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                N, R;
       REAL               PIVMIN, SIGMA
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       REAL               D( * ), LLD( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER        ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -70,7 +70,7 @@
          END IF
          NEGCNT = NEGCNT + NEG1
  210  CONTINUE
-*
+
       // II) lower part: L D L^T - SIGMA I = U- D- U-^T
       P = D( N ) - SIGMA
       DO 230 BJ = N-1, R, -BLKLEN
@@ -84,7 +84,7 @@
  23      CONTINUE
          SAWNAN = SISNAN( P )
       // As above, run a slower version that substitutes 1 for Inf/Inf.
-*
+
          IF( SAWNAN ) THEN
             NEG2 = 0
             P = BSAV
@@ -98,7 +98,7 @@
          END IF
          NEGCNT = NEGCNT + NEG2
  230  CONTINUE
-*
+
       // III) Twist index
         // T was shifted by SIGMA initially.
       GAMMA = (T + SIGMA) + P

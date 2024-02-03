@@ -1,15 +1,15 @@
       bool             FUNCTION SLCTSX( AR, AI, BETA );
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL               AI, AR, BETA
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Scalars in Common ..
       bool               FS;
       int                I, M, MPLUSN, N;
@@ -21,7 +21,7 @@
       SAVE
       // ..
       // .. Executable Statements ..
-*
+
       IF( FS ) THEN
          I = I + 1
          IF( I.LE.M ) THEN
@@ -45,15 +45,15 @@
             I = 0
          END IF
       END IF
-*
+
         // IF( AR/BETA.GT.0.0 )THEN
            // SLCTSX = .TRUE.
         // ELSE
            // SLCTSX = .FALSE.
         // END IF
-*
+
       RETURN
-*
+
       // End of SLCTSX
-*
+
       END

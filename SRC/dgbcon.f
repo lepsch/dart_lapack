@@ -1,9 +1,9 @@
       SUBROUTINE DGBCON( NORM, N, KL, KU, AB, LDAB, IPIV, ANORM, RCOND, WORK, IWORK, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             NORM;
       int                INFO, KL, KU, LDAB, N;
@@ -13,9 +13,9 @@
       int                IPIV( * ), IWORK( * );
       double             AB( LDAB, * ), WORK( * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -42,9 +42,9 @@
       // INTRINSIC ABS, MIN
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       ONENRM = NORM.EQ.'1' .OR. LSAME( NORM, 'O' )
       IF( .NOT.ONENRM .AND. .NOT.LSAME( NORM, 'I' ) ) THEN
@@ -64,9 +64,9 @@
          CALL XERBLA( 'DGBCON', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
          RCOND = ONE
@@ -74,11 +74,11 @@
       ELSE IF( ANORM.EQ.ZERO ) THEN
          RETURN
       END IF
-*
+
       SMLNUM = DLAMCH( 'Safe minimum' )
-*
+
       // Estimate the norm of inv(A).
-*
+
       AINVNM = ZERO
       NORMIN = 'N'
       IF( ONENRM ) THEN
@@ -93,9 +93,9 @@
       CALL DLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.KASE1 ) THEN
-*
+
             // Multiply by inv(L).
-*
+
             IF( LNOTI ) THEN
                DO 20 J = 1, N - 1
                   LM = MIN( KL, N-J )
@@ -108,18 +108,18 @@
                   CALL DAXPY( LM, -T, AB( KD+1, J ), 1, WORK( J+1 ), 1 )
    20          CONTINUE
             END IF
-*
+
             // Multiply by inv(U).
-*
+
             CALL DLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
          ELSE
-*
+
             // Multiply by inv(U**T).
-*
+
             CALL DLATBS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
-*
+
             // Multiply by inv(L**T).
-*
+
             IF( LNOTI ) THEN
                DO 30 J = N - 1, 1, -1
                   LM = MIN( KL, N-J )
@@ -133,9 +133,9 @@
    30          CONTINUE
             END IF
          END IF
-*
+
          // Divide X by 1/SCALE if doing so will not cause overflow.
-*
+
          NORMIN = 'Y'
          IF( SCALE.NE.ONE ) THEN
             IX = IDAMAX( N, WORK, 1 )
@@ -144,14 +144,14 @@
          END IF
          GO TO 10
       END IF
-*
+
       // Compute the estimate of the reciprocal condition number.
-*
+
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
-*
+
    40 CONTINUE
       RETURN
-*
+
       // End of DGBCON
-*
+
       END

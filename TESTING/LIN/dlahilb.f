@@ -1,15 +1,15 @@
       SUBROUTINE DLAHILB( N, NRHS, A, LDA, X, LDX, B, LDB, WORK, INFO)
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int     N, NRHS, LDA, LDX, LDB, INFO;
       // .. Array Arguments ..
       double           A(LDA, N), X(LDX, NRHS), B(LDB, NRHS), WORK(N);
       // ..
-*
+
 *  =====================================================================
       // .. Local Scalars ..
       int     TM, TI, R;
@@ -30,9 +30,9 @@
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
       IF (N .LT. 0 .OR. N .GT. NMAX_APPROX) THEN
          INFO = -1
@@ -52,7 +52,7 @@
       IF (N .GT. NMAX_EXACT) THEN
          INFO = 1
       END IF
-*
+
       // Compute M = the LCM of the integers [1, 2*N-1].  The largest
       // reasonable N is small enough that integers suffice (up to N = 11).
       M = 1
@@ -67,14 +67,14 @@
          END DO
          M = (M / TI) * I
       END DO
-*
+
       // Generate the scaled Hilbert matrix in A
       DO J = 1, N
          DO I = 1, N
             A(I, J) = DBLE(M) / (I + J - 1)
          END DO
       END DO
-*
+
       // Generate matrix B as simply the first NRHS columns of M * the
       // identity.
       CALL DLASET('Full', N, NRHS, 0.0D+0, DBLE(M), B, LDB)
@@ -86,11 +86,11 @@
       DO J = 2, N
          WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  ) * (N +J -1)
       END DO
-*
+
       DO J = 1, NRHS
          DO I = 1, N
             X(I, J) = (WORK(I)*WORK(J)) / (I + J - 1)
          END DO
       END DO
-*
+
       END

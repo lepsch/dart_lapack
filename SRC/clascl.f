@@ -1,9 +1,9 @@
       SUBROUTINE CLASCL( TYPE, KL, KU, CFROM, CTO, M, N, A, LDA, INFO )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             TYPE;
       int                INFO, KL, KU, LDA, M, N;
@@ -12,9 +12,9 @@
       // .. Array Arguments ..
       COMPLEX            A( LDA, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
@@ -36,11 +36,11 @@
       // EXTERNAL XERBLA
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input arguments
-*
+
       INFO = 0
-*
+
       IF( LSAME( TYPE, 'G' ) ) THEN
          ITYPE = 0
       ELSE IF( LSAME( TYPE, 'L' ) ) THEN
@@ -58,7 +58,7 @@
       ELSE
          ITYPE = -1
       END IF
-*
+
       IF( ITYPE.EQ.-1 ) THEN
          INFO = -1
       ELSE IF( CFROM.EQ.ZERO .OR. SISNAN(CFROM) ) THEN
@@ -80,24 +80,24 @@
             INFO = -9
          END IF
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CLASCL', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
-*
+
       // Get machine parameters
-*
+
       SMLNUM = SLAMCH( 'S' )
       BIGNUM = ONE / SMLNUM
-*
+
       CFROMC = CFROM
       CTOC = CTO
-*
+
    10 CONTINUE
       CFROM1 = CFROMC*SMLNUM
       IF( CFROM1.EQ.CFROMC ) THEN
@@ -128,51 +128,51 @@
             IF (MUL .EQ. ONE) RETURN
          END IF
       END IF
-*
+
       IF( ITYPE.EQ.0 ) THEN
-*
+
          // Full matrix
-*
+
          DO 30 J = 1, N
             DO 20 I = 1, M
                A( I, J ) = A( I, J )*MUL
    20       CONTINUE
    30    CONTINUE
-*
+
       ELSE IF( ITYPE.EQ.1 ) THEN
-*
+
          // Lower triangular matrix
-*
+
          DO 50 J = 1, N
             DO 40 I = J, M
                A( I, J ) = A( I, J )*MUL
    40       CONTINUE
    50    CONTINUE
-*
+
       ELSE IF( ITYPE.EQ.2 ) THEN
-*
+
          // Upper triangular matrix
-*
+
          DO 70 J = 1, N
             DO 60 I = 1, MIN( J, M )
                A( I, J ) = A( I, J )*MUL
    60       CONTINUE
    70    CONTINUE
-*
+
       ELSE IF( ITYPE.EQ.3 ) THEN
-*
+
          // Upper Hessenberg matrix
-*
+
          DO 90 J = 1, N
             DO 80 I = 1, MIN( J+1, M )
                A( I, J ) = A( I, J )*MUL
    80       CONTINUE
    90    CONTINUE
-*
+
       ELSE IF( ITYPE.EQ.4 ) THEN
-*
+
          // Lower half of a symmetric band matrix
-*
+
          K3 = KL + 1
          K4 = N + 1
          DO 110 J = 1, N
@@ -180,11 +180,11 @@
                A( I, J ) = A( I, J )*MUL
   100       CONTINUE
   110    CONTINUE
-*
+
       ELSE IF( ITYPE.EQ.5 ) THEN
-*
+
          // Upper half of a symmetric band matrix
-*
+
          K1 = KU + 2
          K3 = KU + 1
          DO 130 J = 1, N
@@ -192,11 +192,11 @@
                A( I, J ) = A( I, J )*MUL
   120       CONTINUE
   130    CONTINUE
-*
+
       ELSE IF( ITYPE.EQ.6 ) THEN
-*
+
          // Band matrix
-*
+
          K1 = KL + KU + 2
          K2 = KL + 1
          K3 = 2*KL + KU + 1
@@ -206,13 +206,13 @@
                A( I, J ) = A( I, J )*MUL
   140       CONTINUE
   150    CONTINUE
-*
+
       END IF
-*
+
       IF( .NOT.DONE ) GO TO 10
-*
+
       RETURN
-*
+
       // End of CLASCL
-*
+
       END

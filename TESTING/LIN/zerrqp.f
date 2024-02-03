@@ -1,16 +1,16 @@
       SUBROUTINE ZERRQP( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 3 )
@@ -44,7 +44,7 @@
       // INTRINSIC DCMPLX
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       C2 = PATH( 2: 3 )
       LW = NMAX + 1
@@ -54,13 +54,13 @@
       A( 2, 1 ) = DCMPLX( 4.0D+0, -4.0D+0 )
       OK = .TRUE.
       WRITE( NOUT, FMT = * )
-*
+
       // Test error exits for QR factorization with pivoting
-*
+
       IF( LSAMEN( 2, C2, 'QP' ) ) THEN
-*
+
          // ZGEQP3
-*
+
          SRNAMT = 'ZGEQP3'
          INFOT = 1
          CALL ZGEQP3( -1, 0, A, 1, IP, TAU, W, LW, RW, INFO )
@@ -75,13 +75,13 @@
          CALL ZGEQP3( 2, 2, A, 2, IP, TAU, W, LW-10, RW, INFO )
          CALL CHKXER( 'ZGEQP3', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of ZERRQP
-*
+
       END

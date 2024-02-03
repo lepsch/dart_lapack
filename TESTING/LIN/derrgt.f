@@ -1,16 +1,16 @@
       SUBROUTINE DERRGT( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -41,7 +41,7 @@
       COMMON             / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
@@ -55,20 +55,20 @@
       EF( 2 ) = 4.D0
       ANORM = 1.0D0
       OK = .TRUE.
-*
+
       IF( LSAMEN( 2, C2, 'GT' ) ) THEN
-*
+
          // Test error exits for the general tridiagonal routines.
-*
+
          // DGTTRF
-*
+
          SRNAMT = 'DGTTRF'
          INFOT = 1
          CALL DGTTRF( -1, C, D, E, F, IP, INFO )
          CALL CHKXER( 'DGTTRF', INFOT, NOUT, LERR, OK )
-*
+
          // DGTTRS
-*
+
          SRNAMT = 'DGTTRS'
          INFOT = 1
          CALL DGTTRS( '/', 0, 0, C, D, E, F, IP, X, 1, INFO )
@@ -82,9 +82,9 @@
          INFOT = 10
          CALL DGTTRS( 'N', 2, 1, C, D, E, F, IP, X, 1, INFO )
          CALL CHKXER( 'DGTTRS', INFOT, NOUT, LERR, OK )
-*
+
          // DGTRFS
-*
+
          SRNAMT = 'DGTRFS'
          INFOT = 1
          CALL DGTRFS( '/', 0, 0, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
@@ -101,9 +101,9 @@
          INFOT = 15
          CALL DGTRFS( 'N', 2, 1, C, D, E, CF, DF, EF, F, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGTRFS', INFOT, NOUT, LERR, OK )
-*
+
          // DGTCON
-*
+
          SRNAMT = 'DGTCON'
          INFOT = 1
          CALL DGTCON( '/', 0, C, D, E, F, IP, ANORM, RCOND, W, IW, INFO )
@@ -114,21 +114,21 @@
          INFOT = 8
          CALL DGTCON( 'I', 0, C, D, E, F, IP, -ANORM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DGTCON', INFOT, NOUT, LERR, OK )
-*
+
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
-*
+
          // Test error exits for the positive definite tridiagonal
          // routines.
-*
+
          // DPTTRF
-*
+
          SRNAMT = 'DPTTRF'
          INFOT = 1
          CALL DPTTRF( -1, D, E, INFO )
          CALL CHKXER( 'DPTTRF', INFOT, NOUT, LERR, OK )
-*
+
          // DPTTRS
-*
+
          SRNAMT = 'DPTTRS'
          INFOT = 1
          CALL DPTTRS( -1, 0, D, E, X, 1, INFO )
@@ -139,9 +139,9 @@
          INFOT = 6
          CALL DPTTRS( 2, 1, D, E, X, 1, INFO )
          CALL CHKXER( 'DPTTRS', INFOT, NOUT, LERR, OK )
-*
+
          // DPTRFS
-*
+
          SRNAMT = 'DPTRFS'
          INFOT = 1
          CALL DPTRFS( -1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, INFO )
@@ -155,9 +155,9 @@
          INFOT = 10
          CALL DPTRFS( 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, INFO )
          CALL CHKXER( 'DPTRFS', INFOT, NOUT, LERR, OK )
-*
+
          // DPTCON
-*
+
          SRNAMT = 'DPTCON'
          INFOT = 1
          CALL DPTCON( -1, D, E, ANORM, RCOND, W, INFO )
@@ -166,13 +166,13 @@
          CALL DPTCON( 0, D, E, -ANORM, RCOND, W, INFO )
          CALL CHKXER( 'DPTCON', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of DERRGT
-*
+
       END

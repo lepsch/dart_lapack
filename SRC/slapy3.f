@@ -1,15 +1,15 @@
       REAL             FUNCTION SLAPY3( X, Y, Z )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       REAL               X, Y, Z
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
@@ -24,7 +24,7 @@
       // INTRINSIC ABS, MAX, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       HUGEVAL = SLAMCH( 'Overflow' )
       XABS = ABS( X )
       YABS = ABS( Y )
@@ -39,7 +39,7 @@
          SLAPY3 = W*SQRT( ( XABS / W )**2+( YABS / W )**2+ ( ZABS / W )**2 )
       END IF
       RETURN
-*
+
       // End of SLAPY3
-*
+
       END

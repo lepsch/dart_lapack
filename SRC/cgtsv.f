@@ -1,18 +1,18 @@
       SUBROUTINE CGTSV( N, NRHS, DL, D, DU, B, LDB, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
       COMPLEX            B( LDB, * ), D( * ), DL( * ), DU( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX            ZERO
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ) )
@@ -34,7 +34,7 @@
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
       // ..
       // .. Executable Statements ..
-*
+
       INFO = 0
       IF( N.LT.0 ) THEN
          INFO = -1
@@ -47,26 +47,26 @@
          CALL XERBLA( 'CGTSV ', -INFO )
          RETURN
       END IF
-*
+
       IF( N.EQ.0 ) RETURN
-*
+
       DO 30 K = 1, N - 1
          IF( DL( K ).EQ.ZERO ) THEN
-*
+
             // Subdiagonal is zero, no elimination is required.
-*
+
             IF( D( K ).EQ.ZERO ) THEN
-*
+
                // Diagonal is zero: set INFO = K and return; a unique
                // solution can not be found.
-*
+
                INFO = K
                RETURN
             END IF
          ELSE IF( CABS1( D( K ) ).GE.CABS1( DL( K ) ) ) THEN
-*
+
             // No row interchange required
-*
+
             MULT = DL( K ) / D( K )
             D( K+1 ) = D( K+1 ) - MULT*DU( K )
             DO 10 J = 1, NRHS
@@ -74,9 +74,9 @@
    10       CONTINUE
             IF( K.LT.( N-1 ) ) DL( K ) = ZERO
          ELSE
-*
+
             // Interchange rows K and K+1
-*
+
             MULT = D( K ) / DL( K )
             D( K ) = DL( K )
             TEMP = D( K+1 )
@@ -97,9 +97,9 @@
          INFO = N
          RETURN
       END IF
-*
+
       // Back solve with the matrix U from the factorization.
-*
+
       DO 50 J = 1, NRHS
          B( N, J ) = B( N, J ) / D( N )
          IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
@@ -107,9 +107,9 @@
             B( K, J ) = ( B( K, J )-DU( K )*B( K+1, J )-DL( K )* B( K+2, J ) ) / D( K )
    40    CONTINUE
    50 CONTINUE
-*
+
       RETURN
-*
+
       // End of CGTSV
-*
+
       END

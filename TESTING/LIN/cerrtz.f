@@ -1,16 +1,16 @@
       SUBROUTINE CERRTZ( PATH, NUNIT )
-*
+
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
@@ -42,7 +42,7 @@
       // INTRINSIC CMPLX
       // ..
       // .. Executable Statements ..
-*
+
       NOUT = NUNIT
       C2 = PATH( 2: 3 )
       A( 1, 1 ) = CMPLX( 1.E+0, -1.E+0 )
@@ -52,14 +52,14 @@
       W( 1 ) = CMPLX( 0.E+0, 0.E+0 )
       W( 2 ) = CMPLX( 0.E+0, 0.E+0 )
       OK = .TRUE.
-*
+
       // Test error exits for the trapezoidal routines.
-*
+
       WRITE( NOUT, FMT = * )
       IF( LSAMEN( 2, C2, 'TZ' ) ) THEN
-*
+
          // CTZRZF
-*
+
          SRNAMT = 'CTZRZF'
          INFOT = 1
          CALL CTZRZF( -1, 0, A, 1, TAU, W, 1, INFO )
@@ -77,13 +77,13 @@
          CALL CTZRZF( 2, 3, A, 2, TAU, W, 1, INFO )
          CALL CHKXER( 'CTZRZF', INFOT, NOUT, LERR, OK )
       END IF
-*
+
       // Print a summary line.
-*
+
       CALL ALAESM( PATH, OK, NOUT )
-*
+
       RETURN
-*
+
       // End of CERRTZ
-*
+
       END

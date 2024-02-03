@@ -1,9 +1,9 @@
       REAL FUNCTION CLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C, CAPPLY, INFO, WORK, RWORK )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             TRANS;
       bool               CAPPLY;
@@ -14,9 +14,9 @@
       COMPLEX            A( LDA, * ), AF( LDAF, * ), WORK( * )
       REAL               C( * ), RWORK( * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               NOTRANS;
       int                KASE, I, J;
@@ -44,7 +44,7 @@
       // ..
       // .. Executable Statements ..
       CLA_GERCOND_C = 0.0E+0
-*
+
       INFO = 0
       NOTRANS = LSAME( TRANS, 'N' )
       IF ( .NOT. NOTRANS .AND. .NOT. LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
@@ -60,9 +60,9 @@
          CALL XERBLA( 'CLA_GERCOND_C', -INFO )
          RETURN
       END IF
-*
+
       // Compute norm of op(A)*op2(C).
-*
+
       ANORM = 0.0E+0
       IF ( NOTRANS ) THEN
          DO I = 1, N
@@ -95,76 +95,76 @@
             ANORM = MAX( ANORM, TMP )
          END DO
       END IF
-*
+
       // Quick return if possible.
-*
+
       IF( N.EQ.0 ) THEN
          CLA_GERCOND_C = 1.0E+0
          RETURN
       ELSE IF( ANORM .EQ. 0.0E+0 ) THEN
          RETURN
       END IF
-*
+
       // Estimate the norm of inv(op(A)).
-*
+
       AINVNM = 0.0E+0
-*
+
       KASE = 0
    10 CONTINUE
       CALL CLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.2 ) THEN
-*
+
             // Multiply by R.
-*
+
             DO I = 1, N
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
-*
+
             IF (NOTRANS) THEN
                CALL CGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
                CALL CGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
-*
+
             // Multiply by inv(C).
-*
+
             IF ( CAPPLY ) THEN
                DO I = 1, N
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             END IF
          ELSE
-*
+
             // Multiply by inv(C**H).
-*
+
             IF ( CAPPLY ) THEN
                DO I = 1, N
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             END IF
-*
+
             IF ( NOTRANS ) THEN
                CALL CGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
                CALL CGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
-*
+
             // Multiply by R.
-*
+
             DO I = 1, N
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
          END IF
          GO TO 10
       END IF
-*
+
       // Compute the estimate of the reciprocal condition number.
-*
+
       IF( AINVNM .NE. 0.0E+0 ) CLA_GERCOND_C = 1.0E+0 / AINVNM
-*
+
       RETURN
-*
+
       // End of CLA_GERCOND_C
-*
+
       END

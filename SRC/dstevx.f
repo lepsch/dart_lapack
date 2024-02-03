@@ -1,9 +1,9 @@
       SUBROUTINE DSTEVX( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, IWORK, IFAIL, INFO )
-*
+
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             JOBZ, RANGE;
       int                IL, INFO, IU, LDZ, M, N;
@@ -13,9 +13,9 @@
       int                IFAIL( * ), IWORK( * );
       double             D( * ), E( * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
@@ -37,14 +37,14 @@
       // INTRINSIC MAX, MIN, SQRT
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       WANTZ = LSAME( JOBZ, 'V' )
       ALLEIG = LSAME( RANGE, 'A' )
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
-*
+
       INFO = 0
       IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
          INFO = -1
@@ -66,17 +66,17 @@
       IF( INFO.EQ.0 ) THEN
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -14
       END IF
-*
+
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DSTEVX', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       M = 0
       IF( N.EQ.0 ) RETURN
-*
+
       IF( N.EQ.1 ) THEN
          IF( ALLEIG .OR. INDEIG ) THEN
             M = 1
@@ -90,18 +90,18 @@
          IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
-*
+
       // Get machine constants.
-*
+
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
       SMLNUM = SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
-*
+
       // Scale matrix to allowable range, if necessary.
-*
+
       ISCALE = 0
       IF( VALEIG ) THEN
          VLL = VL
@@ -126,11 +126,11 @@
             VUU = VU*SIGMA
          END IF
       END IF
-*
+
       // If all eigenvalues are desired and ABSTOL is less than zero, then
       // call DSTERF or SSTEQR.  If this fails for some eigenvalue, then
      t // ry DSTEBZ.
-*
+
       TEST = .FALSE.
       IF( INDEIG ) THEN
          IF( IL.EQ.1 .AND. IU.EQ.N ) THEN
@@ -157,9 +157,9 @@
          END IF
          INFO = 0
       END IF
-*
+
       // Otherwise, call DSTEBZ and, if eigenvectors are desired, SSTEIN.
-*
+
       IF( WANTZ ) THEN
          ORDER = 'B'
       ELSE
@@ -169,13 +169,13 @@
       INDISP = 1 + N
       INDIWO = INDISP + N
       CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
-*
+
       IF( WANTZ ) THEN
          CALL DSTEIN( N, D, E, M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
       END IF
-*
+
       // If matrix was scaled, then rescale eigenvalues appropriately.
-*
+
    20 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
@@ -185,10 +185,10 @@
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
-*
+
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
-*
+
       IF( WANTZ ) THEN
          DO 40 J = 1, M - 1
             I = 0
@@ -199,7 +199,7 @@
                   TMP1 = W( JJ )
                END IF
    30       CONTINUE
-*
+
             IF( I.NE.0 ) THEN
                ITMP1 = IWORK( 1 + I-1 )
                W( I ) = W( J )
@@ -215,9 +215,9 @@
             END IF
    40    CONTINUE
       END IF
-*
+
       RETURN
-*
+
       // End of DSTEVX
-*
+
       END

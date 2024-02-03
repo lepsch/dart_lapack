@@ -1,9 +1,9 @@
       SUBROUTINE CGETRF( M, N, A, LDA, IPIV, INFO )
-*
+
 *  -- LAPACK computational routine (version 3.X) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
       // ..
@@ -11,9 +11,9 @@
       int                IPIV( * );
       COMPLEX            A( LDA, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Parameters ..
       COMPLEX            ONE, NEGONE
       REAL               ZERO
@@ -40,9 +40,9 @@
       // INTRINSIC MAX, MIN, IAND, ABS
       // ..
       // .. Executable Statements ..
-*
+
       // Test the input parameters.
-*
+
       INFO = 0
       IF( M.LT.0 ) THEN
          INFO = -1
@@ -55,23 +55,23 @@
          CALL XERBLA( 'CGETRF', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
-*
+
       // Compute machine safe minimum
-*
+
       SFMIN = SLAMCH( 'S' )
-*
+
       NSTEP = MIN( M, N )
       DO J = 1, NSTEP
          KAHEAD = IAND( J, -J )
          KSTART = J + 1 - KAHEAD
          KCOLS = MIN( KAHEAD, M-J )
-*
+
          // Find pivot.
-*
+
          JP = J - 1 + ICAMAX( M-J+1, A( J, J ), 1 )
          IPIV( J ) = JP
 
@@ -132,7 +132,7 @@
       END IF
 
       RETURN
-*
+
       // End of CGETRF
-*
+
       END

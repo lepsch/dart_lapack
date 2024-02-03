@@ -1,9 +1,9 @@
       SUBROUTINE CTREXC( COMPQ, N, T, LDT, Q, LDQ, IFST, ILST, INFO )
-*
+
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             COMPQ;
       int                IFST, ILST, INFO, LDQ, LDT, N;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       COMPLEX            Q( LDQ, * ), T( LDT, * )
       // ..
-*
+
 *  =====================================================================
-*
+
       // .. Local Scalars ..
       bool               WANTQ;
       int                K, M1, M2, M3;
@@ -31,9 +31,9 @@
       // INTRINSIC CONJG, MAX
       // ..
       // .. Executable Statements ..
-*
+
       // Decode and test the input parameters.
-*
+
       INFO = 0
       WANTQ = LSAME( COMPQ, 'V' )
       IF( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) THEN
@@ -53,57 +53,57 @@
          CALL XERBLA( 'CTREXC', -INFO )
          RETURN
       END IF
-*
+
       // Quick return if possible
-*
+
       IF( N.LE.1 .OR. IFST.EQ.ILST ) RETURN
-*
+
       IF( IFST.LT.ILST ) THEN
-*
+
          // Move the IFST-th diagonal element forward down the diagonal.
-*
+
          M1 = 0
          M2 = -1
          M3 = 1
       ELSE
-*
+
          // Move the IFST-th diagonal element backward up the diagonal.
-*
+
          M1 = -1
          M2 = 0
          M3 = -1
       END IF
-*
+
       DO 10 K = IFST + M1, ILST + M2, M3
-*
+
          // Interchange the k-th and (k+1)-th diagonal elements.
-*
+
          T11 = T( K, K )
          T22 = T( K+1, K+1 )
-*
+
          // Determine the transformation to perform the interchange.
-*
+
          CALL CLARTG( T( K, K+1 ), T22-T11, CS, SN, TEMP )
-*
+
          // Apply transformation to the matrix T.
-*
+
          IF( K+2.LE.N ) CALL CROT( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS, SN )
          CALL CROT( K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, CONJG( SN ) )
-*
+
          T( K, K ) = T22
          T( K+1, K+1 ) = T11
-*
+
          IF( WANTQ ) THEN
-*
+
             // Accumulate transformation in the matrix Q.
-*
+
             CALL CROT( N, Q( 1, K ), 1, Q( 1, K+1 ), 1, CS, CONJG( SN ) )
          END IF
-*
+
    10 CONTINUE
-*
+
       RETURN
-*
+
       // End of CTREXC
-*
+
       END

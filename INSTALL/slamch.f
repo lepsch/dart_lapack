@@ -1,15 +1,15 @@
       REAL             FUNCTION SLAMCH( CMACH )
-*
+
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
+
       // .. Scalar Arguments ..
       String             CMACH;
       // ..
-*
+
 * =====================================================================
-*
+
       // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
@@ -25,28 +25,28 @@
       // INTRINSIC DIGITS, EPSILON, HUGE, MAXEXPONENT, MINEXPONENT, RADIX, TINY
       // ..
       // .. Executable Statements ..
-*
-*
+
+
       // Assume rounding, not chopping. Always.
-*
+
       RND = ONE
-*
+
       IF( ONE.EQ.RND ) THEN
          EPS = EPSILON(ZERO) * 0.5
       ELSE
          EPS = EPSILON(ZERO)
       END IF
-*
+
       IF( LSAME( CMACH, 'E' ) ) THEN
          RMACH = EPS
       ELSE IF( LSAME( CMACH, 'S' ) ) THEN
          SFMIN = TINY(ZERO)
          SMALL = ONE / HUGE(ZERO)
          IF( SMALL.GE.SFMIN ) THEN
-*
+
             // Use SMALL plus a bit, to avoid the possibility of rounding
             // causing overflow when computing  1/sfmin.
-*
+
             SFMIN = SMALL*( ONE+EPS )
          END IF
          RMACH = SFMIN
@@ -69,12 +69,12 @@
       ELSE
          RMACH = ZERO
       END IF
-*
+
       SLAMCH = RMACH
       RETURN
-*
+
       // End of SLAMCH
-*
+
       END
 
 ************************************************************************
@@ -99,25 +99,25 @@
 *>          The values A and B.
 *> \endverbatim
 *>
-*
+
       REAL             FUNCTION SLAMC3( A, B )
-*
+
 *  -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-*
+
       // .. Scalar Arguments ..
       REAL               A, B
       // ..
 * =====================================================================
-*
+
       // .. Executable Statements ..
-*
+
       SLAMC3 = A + B
-*
+
       RETURN
-*
+
       // End of SLAMC3
-*
+
       END
-*
+
 ************************************************************************
