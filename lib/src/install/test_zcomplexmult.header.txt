@@ -1,0 +1,43 @@
+*> \brief zmul tests the robustness and precision of the double complex multiplication
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Authors:
+*  ========
+*
+*> \author Weslley S. Pereira, University of Colorado Denver, U.S.
+*
+*> \verbatim
+*>
+*> Tests:
+*>
+*> (a) Inf inputs:
+*>    (1) y = ( Inf + 0   * I)
+*>    (2) y = (-Inf + 0   * I)
+*>    (3) y = ( 0   + Inf * I)
+*>    (4) y = ( 0   - Inf * I)
+*>    (5) y = ( Inf + Inf * I)
+*> Tests:
+*>    (a) 0 * y is NaN.
+*>    (b) 1 * y is y is either y or NaN.
+*>    (c) y * y is either  Inf or NaN (cases 1 and 3),
+*>                 either -Inf or NaN (cases 2 and 4),
+*>                 NaN (case 5).
+*>
+*> (b) NaN inputs:
+*>    (1) y = (NaN + 0   * I)
+*>    (2) y = (0   + NaN * I)
+*>    (3) y = (NaN + NaN * I)
+*> Tests:
+*>    (a) 0 * y is NaN.
+*>    (b) 1 * y is NaN.
+*>    (c) y * y is NaN.
+*>
+*> \endverbatim
+*
+*> \ingroup auxOTHERauxiliary
+*
+*  =====================================================================
