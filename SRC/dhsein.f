@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          EIGSRC, INITV, SIDE
-      INTEGER            INFO, LDH, LDVL, LDVR, M, MM, N
+      int                INFO, LDH, LDVL, LDVR, M, MM, N
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
-      INTEGER            IFAILL( * ), IFAILR( * )
+      int                IFAILL( * ), IFAILR( * )
       DOUBLE PRECISION   H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * )
 *     ..
 *
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BOTHV, FROMQR, LEFTV, NOINIT, PAIR, RIGHTV
-      INTEGER            I, IINFO, K, KL, KLN, KR, KSI, KSR, LDWORK
+      int                I, IINFO, K, KL, KLN, KR, KSI, KSR, LDWORK
       DOUBLE PRECISION   BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI, WKR
 *     ..
 *     .. External Functions ..

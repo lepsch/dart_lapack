@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, NORM, UPLO
-      INTEGER            INFO, LDA, N
+      int                INFO, LDA, N
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
@@ -23,16 +23,16 @@
 *     .. Local Scalars ..
       LOGICAL            NOUNIT, ONENRM, UPPER
       CHARACTER          NORMIN
-      INTEGER            IX, KASE, KASE1
+      int                IX, KASE, KASE1
       DOUBLE PRECISION   AINVNM, ANORM, SCALE, SMLNUM, XNORM
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IZAMAX
+      int                IZAMAX
       DOUBLE PRECISION   DLAMCH, ZLANTR
       EXTERNAL           LSAME, IZAMAX, DLAMCH, ZLANTR
 *     ..

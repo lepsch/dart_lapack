@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          SIDE
-      INTEGER            INCV, L, LDC, M, N
+      int                INCV, L, LDC, M, N
       DOUBLE PRECISION   TAU
 *     ..
 *     .. Array Arguments ..

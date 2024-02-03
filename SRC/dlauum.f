@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDA, N
+      int                INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * )
@@ -20,11 +20,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            I, IB, NB
+      int                I, IB, NB
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

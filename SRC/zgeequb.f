@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, M, N
+      int                INFO, LDA, M, N
       DOUBLE PRECISION   AMAX, COLCND, ROWCND
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       DOUBLE PRECISION   BIGNUM, RCMAX, RCMIN, SMLNUM, RADIX, LOGRDX
       COMPLEX*16         ZDUM
 *     ..

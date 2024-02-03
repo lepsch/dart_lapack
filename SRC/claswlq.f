@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, M, N, MB, NB, LWORK, LDT
+      int                INFO, LDA, M, N, MB, NB, LWORK, LDT
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), WORK( * ), T( LDT, * )
@@ -16,11 +16,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, II, KK, CTR, MINMN, LWMIN
+      int                I, II, KK, CTR, MINMN, LWMIN
 *     ..
 *     .. EXTERNAL FUNCTIONS ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SROUNDUP_LWORK
 *     ..

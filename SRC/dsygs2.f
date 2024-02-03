@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, ITYPE, LDA, LDB, N
+      int                INFO, ITYPE, LDA, LDB, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            K
+      int                K
       DOUBLE PRECISION   AKK, BKK, CT
 *     ..
 *     .. External Subroutines ..

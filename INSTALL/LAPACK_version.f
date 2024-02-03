@@ -4,7 +4,7 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-      INTEGER MAJOR, MINOR, PATCH
+      int     MAJOR, MINOR, PATCH
 *     ..
 *     .. External Subroutines ..
       EXTERNAL ILAVER

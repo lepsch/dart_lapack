@@ -6,22 +6,22 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            N, LDA, LDAF, INFO, CMODE
+      int                N, LDA, LDAF, INFO, CMODE
       DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * )
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            KASE, I, J
+      int                KASE, I, J
       DOUBLE PRECISION   AINVNM, TMP
       LOGICAL            UP
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

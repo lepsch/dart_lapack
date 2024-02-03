@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANSA, TRANSE, TRANSW
-      INTEGER            LDA, LDE, N
+      int                LDA, LDE, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RESULT( 2 ), RWORK( * )
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          NORMA, NORME
-      INTEGER            ITRNSE, ITRNSW, J, JCOL, JOFF, JROW, JVEC
+      int                ITRNSE, ITRNSW, J, JCOL, JOFF, JROW, JVEC
       DOUBLE PRECISION   ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL
       COMPLEX*16         WTEMP
 *     ..

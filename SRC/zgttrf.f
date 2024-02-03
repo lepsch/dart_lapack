@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, N
+      int                INFO, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX*16         D( * ), DL( * ), DU( * ), DU2( * )
 *     ..
 *
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       COMPLEX*16         FACT, TEMP, ZDUM
 *     ..
 *     .. External Subroutines ..

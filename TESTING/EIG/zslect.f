@@ -15,11 +15,11 @@
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       DOUBLE PRECISION   RMIN, X
 *     ..
 *     .. Scalars in Common ..
-      INTEGER            SELDIM, SELOPT
+      int                SELDIM, SELOPT
 *     ..
 *     .. Arrays in Common ..
       LOGICAL            SELVAL( 20 )

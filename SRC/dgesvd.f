@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBU, JOBVT
-      INTEGER            INFO, LDA, LDU, LDVT, LWORK, M, N
+      int                INFO, LDA, LDU, LDVT, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
@@ -19,8 +19,8 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS       INTEGER            BDSPAC, BLK, CHUNK, I, IE, IERR, IR, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL
-      INTEGER            LWORK_DGEQRF, LWORK_DORGQR_N, LWORK_DORGQR_M, LWORK_DGEBRD, LWORK_DORGBR_P, LWORK_DORGBR_Q, LWORK_DGELQF, LWORK_DORGLQ_N, LWORK_DORGLQ_M
+      LOGICAL            LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS       int                BDSPAC, BLK, CHUNK, I, IE, IERR, IR, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL
+      int                LWORK_DGEQRF, LWORK_DORGQR_N, LWORK_DORGQR_M, LWORK_DGEBRD, LWORK_DORGBR_P, LWORK_DORGBR_Q, LWORK_DGELQF, LWORK_DORGLQ_N, LWORK_DORGLQ_M
       DOUBLE PRECISION   ANRM, BIGNUM, EPS, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -31,7 +31,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANGE
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANGE
 *     ..

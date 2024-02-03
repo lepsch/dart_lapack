@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            KD, LDA, LDAFAC, N
+      int                KD, LDA, LDAFAC, N
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, K, KC, KLEN, ML, MU
+      int                I, J, K, KC, KLEN, ML, MU
       REAL               ANORM, EPS, T
 *     ..
 *     .. External Functions ..

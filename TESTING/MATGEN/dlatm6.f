@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LDX, LDY, N, TYPE
+      int                LDA, LDX, LDY, N, TYPE
       DOUBLE PRECISION   ALPHA, BETA, WX, WY
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, THREE = 3.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, J
+      int                I, INFO, J
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   WORK( 100 ), Z( 12, 12 )

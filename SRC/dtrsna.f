@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          HOWMNY, JOB
-      INTEGER            INFO, LDT, LDVL, LDVR, LDWORK, M, MM, N
+      int                INFO, LDT, LDVL, LDVR, LDWORK, M, MM, N
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   S( * ), SEP( * ), T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * )
 *     ..
 *
@@ -22,11 +22,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            PAIR, SOMCON, WANTBH, WANTS, WANTSP
-      INTEGER            I, IERR, IFST, ILST, J, K, KASE, KS, N2, NN
+      int                I, IERR, IFST, ILST, J, K, KASE, KS, N2, NN
       DOUBLE PRECISION   BIGNUM, COND, CS, DELTA, DUMM, EPS, EST, LNRM, MU, PROD, PROD1, PROD2, RNRM, SCALE, SMLNUM, SN
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
       DOUBLE PRECISION   DUMMY( 1 )
 *     ..
 *     .. External Functions ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LDB, LWORK, M, N, P
+      int                LDA, LDB, LWORK, M, N, P
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), BWK( LDB, * ), Q( LDA, * ), R( LDA, * ), RESULT( 4 ), RWORK( * ), T( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK ), Z( LDB, * )
@@ -20,7 +20,7 @@
       PARAMETER          ( ROGUE = -1.0D+10 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            INFO
+      int                INFO
       DOUBLE PRECISION   ANORM, BNORM, RESID, ULP, UNFL
 *     ..
 *     .. External Functions ..

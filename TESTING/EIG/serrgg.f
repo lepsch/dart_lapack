@@ -6,25 +6,25 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*3        PATH
-      INTEGER            NUNIT
+      int                NUNIT
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NMAX, LW
+      int                NMAX, LW
       PARAMETER          ( NMAX = 3, LW = 6*NMAX )
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER*2        C2
-      INTEGER            DUMMYK, DUMMYL, I, IFST, ILO, IHI, ILST, INFO, J, M, NCYCLE, NT, SDIM, LWORK
+      int                DUMMYK, DUMMYL, I, IFST, ILO, IHI, ILST, INFO, J, M, NCYCLE, NT, SDIM, LWORK
       REAL               ANRM, BNRM, DIF, SCALE, TOLA, TOLB
 *     ..
 *     .. Local Arrays ..
       LOGICAL            BW( NMAX ), SEL( NMAX )
-      INTEGER            IW( NMAX ), IDUM(NMAX)
+      int                IW( NMAX ), IDUM(NMAX)
       REAL               A( NMAX, NMAX ), B( NMAX, NMAX ), LS( NMAX ), Q( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), R3( NMAX ), RCE( 2 ), RCV( 2 ), RS( NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX )
 *     ..
 *     .. External Functions ..
@@ -37,7 +37,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NOUT
+      int                INFOT, NOUT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR

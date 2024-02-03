@@ -5,18 +5,18 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            DOL, DOU, INFO, LDZ, M, N
+      int                DOL, DOU, INFO, LDZ, M, N
       REAL               MINRGP, PIVMIN, RTOL1, RTOL2, VL, VU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * )       REAL               D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * )
+      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * )       REAL               D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * )
       COMPLEX           Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            MAXITR
+      int                MAXITR
       PARAMETER          ( MAXITR = 10 )
       COMPLEX            CZERO
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ) )
@@ -25,8 +25,8 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ESKIP, NEEDBS, STP2II, TRYRQC, USEDBS, USEDRQ
-      INTEGER            DONE, I, IBEGIN, IDONE, IEND, II, IINDC1, IINDC2, IINDR, IINDWK, IINFO, IM, IN, INDEIG, INDLD, INDLLD, INDWRK, ISUPMN, ISUPMX, ITER, ITMP1, J, JBLK, K, MINIWSIZE, MINWSIZE, NCLUS, NDEPTH, NEGCNT, NEWCLS, NEWFST, NEWFTT, NEWLST, NEWSIZ, OFFSET, OLDCLS, OLDFST, OLDIEN, OLDLST, OLDNCL, P, PARITY, Q, WBEGIN, WEND, WINDEX, WINDMN, WINDPL, ZFROM, ZTO, ZUSEDL, ZUSEDU, ZUSEDW
-      INTEGER            INDIN1, INDIN2
+      int                DONE, I, IBEGIN, IDONE, IEND, II, IINDC1, IINDC2, IINDR, IINDWK, IINFO, IM, IN, INDEIG, INDLD, INDLLD, INDWRK, ISUPMN, ISUPMX, ITER, ITMP1, J, JBLK, K, MINIWSIZE, MINWSIZE, NCLUS, NDEPTH, NEGCNT, NEWCLS, NEWFST, NEWFTT, NEWLST, NEWSIZ, OFFSET, OLDCLS, OLDFST, OLDIEN, OLDLST, OLDNCL, P, PARITY, Q, WBEGIN, WEND, WINDEX, WINDMN, WINDPL, ZFROM, ZTO, ZUSEDL, ZUSEDU, ZUSEDW
+      int                INDIN1, INDIN2
       REAL               BSTRES, BSTW, EPS, FUDGE, GAP, GAPTOL, GL, GU, LAMBDA, LEFT, LGAP, MINGMA, NRMINV, RESID, RGAP, RIGHT, RQCORR, RQTOL, SAVGAP, SGNDEF, SIGMA, SPDIAM, SSIGMA, TAU, TMP, TOL, ZTZ
 *     ..
 *     .. External Functions ..

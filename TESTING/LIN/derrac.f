@@ -5,17 +5,17 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            NUNIT
+      int                NUNIT
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NMAX
+      int                NMAX
       PARAMETER          ( NMAX = 4 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, ITER, J
+      int                I, INFO, ITER, J
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX )
@@ -28,7 +28,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NOUT
+      int                INFOT, NOUT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR

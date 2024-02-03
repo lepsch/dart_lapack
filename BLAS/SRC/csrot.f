@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER           INCX, INCY, N
+      int               INCX, INCY, N
       REAL              C, S
 *     ..
 *     .. Array Arguments ..
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER           I, IX, IY
+      int               I, IX, IY
       COMPLEX           CTEMP
 *     ..
 *     .. Executable Statements ..

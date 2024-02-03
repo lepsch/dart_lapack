@@ -6,17 +6,17 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            FORWRD
-      INTEGER            LDX, M, N
+      int                LDX, M, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            K( * )
+      int                K( * )
       DOUBLE PRECISION   X( LDX, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, II, IN, J
+      int                I, II, IN, J
       DOUBLE PRECISION   TEMP
 *     ..
 *     .. Executable Statements ..

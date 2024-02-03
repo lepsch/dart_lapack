@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBVS, SORT
-      INTEGER            INFO, LDA, LDVS, LWORK, N, SDIM
+      int                INFO, LDA, LDVS, LWORK, N, SDIM
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
@@ -24,11 +24,11 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTST, WANTVS       INTEGER            HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, MAXWRK, MINWRK
+      LOGICAL            CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTST, WANTVS       int                HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, MAXWRK, MINWRK
       DOUBLE PRECISION   ANRM, BIGNUM, CSCALE, EPS, S, SEP, SMLNUM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUM( 1 )
+      int                IDUM( 1 )
       DOUBLE PRECISION   DUM( 1 )
 *     ..
 *     .. External Subroutines ..
@@ -36,7 +36,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANGE
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANGE
 *     ..

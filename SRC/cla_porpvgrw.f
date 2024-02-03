@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*1        UPLO
-      INTEGER            NCOLS, LDA, LDAF
+      int                NCOLS, LDA, LDAF
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), AF( LDAF, * )
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       REAL               AMAX, UMAX, RPVGRW
       LOGICAL            UPPER
       COMPLEX            ZDUM

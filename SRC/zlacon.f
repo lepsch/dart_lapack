@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KASE, N
+      int                KASE, N
       DOUBLE PRECISION   EST
 *     ..
 *     .. Array Arguments ..
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            ITMAX
+      int                ITMAX
       PARAMETER          ( ITMAX = 5 )
       DOUBLE PRECISION   ONE, TWO
       PARAMETER          ( ONE = 1.0D0, TWO = 2.0D0 )
@@ -23,11 +23,11 @@
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ITER, J, JLAST, JUMP
+      int                I, ITER, J, JLAST, JUMP
       DOUBLE PRECISION   ABSXI, ALTSGN, ESTOLD, SAFMIN, TEMP
 *     ..
 *     .. External Functions ..
-      INTEGER            IZMAX1
+      int                IZMAX1
       DOUBLE PRECISION   DLAMCH, DZSUM1
       EXTERNAL           IZMAX1, DLAMCH, DZSUM1
 *     ..

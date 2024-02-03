@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            LREAL, LTRAN
-      INTEGER            INFO, LDT, N
+      int                INFO, LDT, N
       DOUBLE PRECISION   SCALE, W
 *     ..
 *     .. Array Arguments ..
@@ -21,14 +21,14 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRAN
-      INTEGER            I, IERR, J, J1, J2, JNEXT, K, N1, N2
+      int                I, IERR, J, J1, J2, JNEXT, K, N1, N2
       DOUBLE PRECISION   BIGNUM, EPS, REC, SCALOC, SI, SMIN, SMINW, SMLNUM, SR, TJJ, TMP, XJ, XMAX, XNORM, Z
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   D( 2, 2 ), V( 2, 2 )
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DASUM, DDOT, DLAMCH, DLANGE
       EXTERNAL           IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
 *     ..

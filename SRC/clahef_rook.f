@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, KB, LDA, LDW, N, NB
+      int                INFO, KB, LDA, LDW, N, NB
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX            A( LDA, * ), W( LDW, * )
 *     ..
 *
@@ -25,12 +25,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            DONE
-      INTEGER            IMAX, ITEMP, II, J, JB, JJ, JMAX, JP1, JP2, K, KK, KKW, KP, KSTEP, KW, P       REAL               ABSAKK, ALPHA, COLMAX, STEMP, R1, ROWMAX, T, SFMIN
+      int                IMAX, ITEMP, II, J, JB, JJ, JMAX, JP1, JP2, K, KK, KKW, KP, KSTEP, KW, P       REAL               ABSAKK, ALPHA, COLMAX, STEMP, R1, ROWMAX, T, SFMIN
       COMPLEX            D11, D21, D22, Z
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ICAMAX
+      int                ICAMAX
       REAL               SLAMCH
       EXTERNAL           LSAME, ICAMAX, SLAMCH
 *     ..

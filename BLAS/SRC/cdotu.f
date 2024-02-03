@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER INCX,INCY,N
+      int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
       COMPLEX CX(*),CY(*)
@@ -15,7 +15,7 @@
 *
 *     .. Local Scalars ..
       COMPLEX CTEMP
-      INTEGER I,IX,IY
+      int     I,IX,IY
 *     ..
       CTEMP = (0.0,0.0)
       CDOTU = (0.0,0.0)

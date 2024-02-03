@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDX, LDXACT, N, NRHS
+      int                LDX, LDXACT, N, NRHS
       DOUBLE PRECISION   RCOND, RESID
 *     ..
 *     .. Array Arguments ..
@@ -19,12 +19,12 @@
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IX, J
+      int                I, IX, J
       DOUBLE PRECISION   DIFFNM, EPS, XNORM
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
-      INTEGER            IZAMAX
+      int                IZAMAX
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           IZAMAX, DLAMCH
 *     ..

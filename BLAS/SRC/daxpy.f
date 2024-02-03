@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       DOUBLE PRECISION DA
-      INTEGER INCX,INCY,N
+      int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION DX(*),DY(*)
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER I,IX,IY,M,MP1
+      int     I,IX,IY,M,MP1
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC MOD

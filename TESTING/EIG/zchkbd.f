@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDPT, LDQ, LDX, LWORK, NOUT, NRHS, NSIZES, NTYPES
+      int                INFO, LDA, LDPT, LDQ, LDX, LWORK, NOUT, NRHS, NSIZES, NTYPES
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            ISEED( 4 ), MVAL( * ), NVAL( * )
+      int                ISEED( 4 ), MVAL( * ), NVAL( * )
       DOUBLE PRECISION   BD( * ), BE( * ), RWORK( * ), S1( * ), S2( * )
       COMPLEX*16         A( LDA, * ), PT( LDPT, * ), Q( LDQ, * ), U( LDPT, * ), VT( LDPT, * ), WORK( * ), X( LDX, * ), Y( LDX, * ), Z( LDX, * )
 *     ..
@@ -22,18 +22,18 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = 0.5D0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 16 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADMM, BADNN, BIDIAG
       CHARACTER          UPLO
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IMODE, ITYPE, J, JCOL, JSIZE, JTYPE, LOG2UI, M, MINWRK, MMAX, MNMAX, MNMIN, MQ, MTYPES, N, NFAIL, NMAX, NTEST
+      int                I, IINFO, IMODE, ITYPE, J, JCOL, JSIZE, JTYPE, LOG2UI, M, MINWRK, MMAX, MNMAX, MNMIN, MQ, MTYPES, N, NFAIL, NMAX, NTEST
       DOUBLE PRECISION   AMNINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, ULP, ULPINV, UNFL
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IOLDSD( 4 ), IWORK( 1 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
+      int                IOLDSD( 4 ), IWORK( 1 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
       DOUBLE PRECISION   DUMMA( 1 ), RESULT( 14 )
 *     ..
 *     .. External Functions ..
@@ -49,7 +49,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INDA, N, VINDA
+      int                INDA, N, VINDA
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( * )
@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, IA, IXA
+      int                I, IA, IXA
       DOUBLE PRECISION   BIGNUM
 *     ..
 *     .. External Functions ..

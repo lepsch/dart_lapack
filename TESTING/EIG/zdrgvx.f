@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IHI, ILO, INFO, LDA, LIWORK, LWORK, NIN, NOUT, NSIZE
+      int                IHI, ILO, INFO, LDA, LIWORK, LWORK, NIN, NOUT, NSIZE
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   DIF( * ), DIFTRU( * ), DTRU( * ), LSCALE( * ), RESULT( 4 ), RSCALE( * ), RWORK( * ), S( * )       COMPLEX*16         A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), VL( LDA, * ), VR( LDA, * ), WORK( * )
 *     ..
 *
@@ -21,13 +21,13 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1, TNTH = 1.0D-1, HALF = 0.5D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO, MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT       DOUBLE PRECISION   ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV
+      int                I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO, MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT       DOUBLE PRECISION   ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV
 *     ..
 *     .. Local Arrays ..
       COMPLEX*16         WEIGHT( 5 )
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           ILAENV, DLAMCH, ZLANGE
 *     ..

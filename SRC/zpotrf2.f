@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDA, N
+      int                INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * )
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            N1, N2, IINFO
+      int                N1, N2, IINFO
       DOUBLE PRECISION   AJJ
 *     ..
 *     .. External Functions ..

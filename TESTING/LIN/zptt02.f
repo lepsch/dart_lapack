@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            LDB, LDX, N, NRHS
+      int                LDB, LDX, N, NRHS
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J
+      int                J
       DOUBLE PRECISION   ANORM, BNORM, EPS, XNORM
 *     ..
 *     .. External Functions ..

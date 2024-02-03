@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          NORM
-      INTEGER            INFO, KL, KU, LDAB, N
+      int                INFO, KL, KU, LDAB, N
       DOUBLE PRECISION   ANORM, RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       DOUBLE PRECISION   RWORK( * )
       COMPLEX*16         AB( LDAB, * ), WORK( * )
 *     ..
@@ -24,16 +24,16 @@
 *     .. Local Scalars ..
       LOGICAL            LNOTI, ONENRM
       CHARACTER          NORMIN
-      INTEGER            IX, J, JP, KASE, KASE1, KD, LM
+      int                IX, J, JP, KASE, KASE1, KD, LM
       DOUBLE PRECISION   AINVNM, SCALE, SMLNUM
       COMPLEX*16         T, ZDUM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IZAMAX
+      int                IZAMAX
       DOUBLE PRECISION   DLAMCH
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, IZAMAX, DLAMCH, ZDOTC

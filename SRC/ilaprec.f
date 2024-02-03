@@ -1,4 +1,4 @@
-      INTEGER FUNCTION ILAPREC( PREC )
+      int     FUNCTION ILAPREC( PREC )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER BLAS_PREC_SINGLE, BLAS_PREC_DOUBLE, BLAS_PREC_INDIGENOUS, BLAS_PREC_EXTRA       PARAMETER ( BLAS_PREC_SINGLE = 211, BLAS_PREC_DOUBLE = 212, BLAS_PREC_INDIGENOUS = 213, BLAS_PREC_EXTRA = 214 )
+      int     BLAS_PREC_SINGLE, BLAS_PREC_DOUBLE, BLAS_PREC_INDIGENOUS, BLAS_PREC_EXTRA       PARAMETER ( BLAS_PREC_SINGLE = 211, BLAS_PREC_DOUBLE = 212, BLAS_PREC_INDIGENOUS = 213, BLAS_PREC_EXTRA = 214 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIST, GRADE, PACK, PIVTNG, RSIGN, SYM
-      INTEGER            INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N
+      int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N
       DOUBLE PRECISION   ANORM, COND, CONDL, CONDR, DMAX, SPARSE
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIVOT( * ), ISEED( 4 ), IWORK( * )
+      int                IPIVOT( * ), ISEED( 4 ), IWORK( * )
       DOUBLE PRECISION   A( LDA, * ), D( * ), DL( * ), DR( * )
 *     ..
 *
@@ -24,7 +24,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADPVT, DZERO, FULBND
-      INTEGER            I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS
+      int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS
       DOUBLE PRECISION   ALPHA, ONORM, TEMP
 *     ..
 *     .. Local Arrays ..

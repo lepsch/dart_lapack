@@ -5,17 +5,17 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KNT, NIN
+      int                KNT, NIN
 *     ..
 *     .. Array Arguments ..
-      INTEGER            LMAX( 3 ), NINFO( 3 )
+      int                LMAX( 3 ), NINFO( 3 )
       REAL               RMAX( 3 )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            LDT, LWORK
+      int                LDT, LWORK
       PARAMETER          ( LDT = 20, LWORK = 2*LDT*( 10+LDT ) )
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
@@ -25,12 +25,12 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, ISCL, ISRT, ITMP, J, KMIN, M, N, NDIM
+      int                I, INFO, ISCL, ISRT, ITMP, J, KMIN, M, N, NDIM
       REAL               BIGNUM, EPS, S, SEP, SEPIN, SEPTMP, SIN, SMLNUM, STMP, TNRM, TOL, TOLIN, V, VMAX, VMIN, VMUL
 *     ..
 *     .. Local Arrays ..
       LOGICAL            SELECT( LDT )
-      INTEGER            IPNT( LDT ), ISELEC( LDT )
+      int                IPNT( LDT ), ISELEC( LDT )
       REAL               RESULT( 2 ), RWORK( LDT ), VAL( 3 ), WSRT( LDT )       COMPLEX            Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT )
 *     ..
 *     .. External Functions ..

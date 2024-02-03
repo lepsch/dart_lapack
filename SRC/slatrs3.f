@@ -3,7 +3,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, TRANS, NORMIN, UPLO
-      INTEGER            INFO, LDA, LWORK, LDX, N, NRHS
+      int                INFO, LDA, LWORK, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), CNORM( * ), X( LDX, * ), SCALE( * ), WORK( * )
@@ -14,7 +14,7 @@
 *     .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-      INTEGER            NBMAX, NBMIN, NBRHS, NRHSMIN
+      int                NBMAX, NBMIN, NBRHS, NRHSMIN
       PARAMETER          ( NRHSMIN = 2, NBRHS = 32 )
       PARAMETER          ( NBMIN = 8, NBMAX = 64 )
 *     ..
@@ -23,12 +23,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, NOTRAN, NOUNIT, UPPER
-      INTEGER            AWRK, I, IFIRST, IINC, ILAST, II, I1, I2, J, JFIRST, JINC, JLAST, J1, J2, K, KK, K1, K2, LANRM, LDS, LSCALE, NB, NBA, NBX, RHS, LWMIN
+      int                AWRK, I, IFIRST, IINC, ILAST, II, I1, I2, J, JFIRST, JINC, JLAST, J1, J2, K, KK, K1, K2, LANRM, LDS, LSCALE, NB, NBA, NBX, RHS, LWMIN
       REAL               ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SLAMCH, SLANGE, SLARMM
       EXTERNAL           ILAENV, LSAME, SLAMCH, SLANGE, SLARMM
 *     ..

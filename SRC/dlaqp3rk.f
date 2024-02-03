@@ -7,10 +7,10 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            DONE
-      INTEGER            INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       DOUBLE PRECISION   ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
+      int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       DOUBLE PRECISION   ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * ), JPIV( * )
+      int                IWORK( * ), JPIV( * )
       DOUBLE PRECISION   A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ), VN1( * ), VN2( * )
 *     ..
 *
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            ITEMP, J, K, MINMNFACT, MINMNUPDT, LSTICC, KP, I, IF
+      int                ITEMP, J, K, MINMNFACT, MINMNUPDT, LSTICC, KP, I, IF
       DOUBLE PRECISION   AIK, HUGEVAL, TEMP, TEMP2, TOL3Z
 *     ..
 *     .. External Subroutines ..
@@ -32,7 +32,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            DISNAN
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DNRM2
       EXTERNAL           DISNAN, DLAMCH, IDAMAX, DNRM2
 *     ..

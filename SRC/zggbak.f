@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOB, SIDE
-      INTEGER            IHI, ILO, INFO, LDV, M, N
+      int                IHI, ILO, INFO, LDV, M, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   LSCALE( * ), RSCALE( * )
@@ -17,7 +17,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            LEFTV, RIGHTV
-      INTEGER            I, K
+      int                I, K
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

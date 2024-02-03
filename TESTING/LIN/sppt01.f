@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            N
+      int                N
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, K, KC, NPP
+      int                I, K, KC, NPP
       REAL               ANORM, EPS, T
 *     ..
 *     .. External Functions ..

@@ -18,7 +18,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            FS
-      INTEGER            I, M, MPLUSN, N
+      int                I, M, MPLUSN, N
 *     ..
 *     .. Common blocks ..
       COMMON             / MN / M, N, MPLUSN, I, FS

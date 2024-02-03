@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDB, N, NRHS
+      int                INFO, LDA, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * )
 *     ..
 *

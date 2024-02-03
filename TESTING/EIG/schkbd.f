@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDPT, LDQ, LDX, LWORK, NOUT, NRHS, NSIZES, NTYPES
+      int                INFO, LDA, LDPT, LDQ, LDX, LWORK, NOUT, NRHS, NSIZES, NTYPES
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * )
+      int                ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * )
       REAL               A( LDA, * ), BD( * ), BE( * ), PT( LDPT, * ), Q( LDQ, * ), S1( * ), S2( * ), U( LDPT, * ), VT( LDPT, * ), WORK( * ), X( LDX, * ), Y( LDX, * ), Z( LDX, * )
 *     ..
 *
@@ -19,18 +19,18 @@
 *     .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = 0.5E0 )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 16 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADMM, BADNN, BIDIAG
       CHARACTER          UPLO
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IL, IMODE, ITEMP, ITYPE, IU, IWBD, IWBE, IWBS, IWBZ, IWWORK, J, JCOL, JSIZE, JTYPE, LOG2UI, M, MINWRK, MMAX, MNMAX, MNMIN, MNMIN2, MQ, MTYPES, N, NFAIL, NMAX, NS1, NS2, NTEST
+      int                I, IINFO, IL, IMODE, ITEMP, ITYPE, IU, IWBD, IWBE, IWBS, IWBZ, IWWORK, J, JCOL, JSIZE, JTYPE, LOG2UI, M, MINWRK, MMAX, MNMAX, MNMIN, MNMIN2, MQ, MTYPES, N, NFAIL, NMAX, NS1, NS2, NTEST
       REAL               ABSTOL, AMNINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, ULP, ULPINV, UNFL, VL, VU
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUM( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
+      int                IDUM( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
       REAL               DUM( 1 ), DUMMA( 1 ), RESULT( 40 )
 *     ..
 *     .. External Functions ..
@@ -46,7 +46,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

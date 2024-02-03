@@ -64,28 +64,28 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Parameters ..
-      INTEGER            NIN, NOUT
+      int                NIN, NOUT
       PARAMETER          ( NIN = 5, NOUT = 6 )
-      INTEGER            NSUBS
+      int                NSUBS
       PARAMETER          ( NSUBS = 17 )
       COMPLEX            ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) )
       REAL               RZERO, RHALF, RONE
       PARAMETER          ( RZERO = 0.0, RHALF = 0.5, RONE = 1.0 )
-      INTEGER            NMAX, INCMAX
+      int                NMAX, INCMAX
       PARAMETER          ( NMAX = 65, INCMAX = 2 )
-      INTEGER            NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX
+      int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX
       PARAMETER          ( NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 )
 *     .. Local Scalars ..
       REAL               EPS, ERR, THRESH
-      INTEGER            I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NTRA, LAYOUT       LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER
+      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NTRA, LAYOUT       LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER
       CHARACTER*1        TRANS
       CHARACTER*12       SNAMET
       CHARACTER*32       SNAPS
 *     .. Local Arrays ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX )
       REAL               G( NMAX )
-      INTEGER            IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX )
+      int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX )
       LOGICAL            LTEST( NSUBS )
       CHARACTER*12       SNAMES( NSUBS )
 *     .. External Functions ..
@@ -97,7 +97,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            OK
       CHARACTER*12       SRNAMT
 *     .. Common blocks ..
@@ -418,17 +418,17 @@
       PARAMETER          ( RZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      INTEGER            INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
+      int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12       SNAME
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
       REAL               G( NMAX )
-      INTEGER            IDIM( NIDIM ), INC( NINC ), KB( NKB )
+      int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
 *     .. Local Scalars ..
       COMPLEX            ALPHA, ALS, BETA, BLS, TRANSL
       REAL               ERR, ERRMAX
-      INTEGER            I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS
+      int                I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS
       LOGICAL            BANDED, FULL, NULL, RESET, SAME, TRAN
       CHARACTER*1        TRANS, TRANSS
       CHARACTER*14       CTRANS
@@ -443,7 +443,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -728,17 +728,17 @@
       PARAMETER          ( RZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      INTEGER            INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
+      int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12       SNAME
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
       REAL               G( NMAX )
-      INTEGER            IDIM( NIDIM ), INC( NINC ), KB( NKB )
+      int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
 *     .. Local Scalars ..
       COMPLEX            ALPHA, ALS, BETA, BLS, TRANSL
       REAL               ERR, ERRMAX
-      INTEGER            I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS
+      int                I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS
       LOGICAL            BANDED, FULL, NULL, PACKED, RESET, SAME
       CHARACTER*1        UPLO, UPLOS
       CHARACTER*14       CUPLO
@@ -753,7 +753,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL             OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -1038,17 +1038,17 @@
       PARAMETER          ( RZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      INTEGER            INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
+      int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12       SNAME
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX )
       REAL               G( NMAX )
-      INTEGER            IDIM( NIDIM ), INC( NINC ), KB( NKB )
+      int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
 *     .. Local Scalars ..
       COMPLEX            TRANSL
       REAL               ERR, ERRMAX
-      INTEGER            I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS
+      int                I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS
       LOGICAL            BANDED, FULL, NULL, PACKED, RESET, SAME
       CHARACTER*1        DIAG, DIAGS, TRANS, TRANSS, UPLO, UPLOS
       CHARACTER*14       CUPLO,CTRANS,CDIAG
@@ -1064,7 +1064,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL             OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -1359,17 +1359,17 @@
       PARAMETER          ( RZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      INTEGER            INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
+      int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12       SNAME
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
       REAL               G( NMAX )
-      INTEGER            IDIM( NIDIM ), INC( NINC )
+      int                IDIM( NIDIM ), INC( NINC )
 *     .. Local Scalars ..
       COMPLEX            ALPHA, ALS, TRANSL
       REAL               ERR, ERRMAX
-      INTEGER            I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS
+      int                I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS
       LOGICAL            CONJ, NULL, RESET, SAME
 *     .. Local Arrays ..
       COMPLEX            W( 1 )
@@ -1382,7 +1382,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, CONJG, MAX, MIN
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL             OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -1601,17 +1601,17 @@
       PARAMETER          ( RZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      INTEGER            INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
+      int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12       SNAME
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
       REAL               G( NMAX )
-      INTEGER            IDIM( NIDIM ), INC( NINC )
+      int                IDIM( NIDIM ), INC( NINC )
 *     .. Local Scalars ..
       COMPLEX            ALPHA, TRANSL
       REAL               ERR, ERRMAX, RALPHA, RALS
-      INTEGER           I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS
+      int               I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS
       LOGICAL            FULL, NULL, PACKED, RESET, SAME, UPPER
       CHARACTER*1        UPLO, UPLOS
       CHARACTER*14       CUPLO
@@ -1627,7 +1627,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, CMPLX, CONJG, MAX, REAL
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL             OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -1863,17 +1863,17 @@
       PARAMETER          ( RZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      INTEGER            INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
+      int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12       SNAME
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 )
       REAL               G( NMAX )
-      INTEGER            IDIM( NIDIM ), INC( NINC )
+      int                IDIM( NIDIM ), INC( NINC )
 *     .. Local Scalars ..
       COMPLEX            ALPHA, ALS, TRANSL
       REAL               ERR, ERRMAX
-      INTEGER            I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS
+      int                I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS
       LOGICAL            FULL, NULL, PACKED, RESET, SAME, UPPER
       CHARACTER*1        UPLO, UPLOS
       CHARACTER*14       CUPLO
@@ -1889,7 +1889,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, CONJG, MAX
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL             OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -2156,7 +2156,7 @@
 *     .. Scalar Arguments ..
       COMPLEX            ALPHA, BETA
       REAL               EPS, ERR
-      INTEGER            INCX, INCY, M, N, NMAX, NOUT
+      int                INCX, INCY, M, N, NMAX, NOUT
       LOGICAL            FATAL, MV
       CHARACTER*1        TRANS
 *     .. Array Arguments ..
@@ -2165,7 +2165,7 @@
 *     .. Local Scalars ..
       COMPLEX            C
       REAL               ERRI
-      INTEGER            I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL
+      int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL
       LOGICAL            CTRAN, TRAN
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, AIMAG, CONJG, MAX, REAL, SQRT
@@ -2276,11 +2276,11 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Scalar Arguments ..
-      INTEGER            LR
+      int                LR
 *     .. Array Arguments ..
       COMPLEX            RI( * ), RJ( * )
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
 *     .. Executable Statements ..
       DO 10 I = 1, LR
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
@@ -2307,13 +2307,13 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, M, N
+      int                LDA, M, N
       CHARACTER*1        UPLO
       CHARACTER*2        TYPE
 *     .. Array Arguments ..
       COMPLEX            AA( LDA, * ), AS( LDA, * )
 *     .. Local Scalars ..
-      INTEGER            I, IBEG, IEND, J
+      int                I, IBEG, IEND, J
       LOGICAL            UPPER
 *     .. Executable Statements ..
       UPPER = UPLO.EQ.'U'
@@ -2365,7 +2365,7 @@
 *     .. Scalar Arguments ..
       LOGICAL            RESET
 *     .. Local Scalars ..
-      INTEGER            I, IC, J, MI, MJ
+      int                I, IC, J, MI, MJ
 *     .. Save statement ..
       SAVE               I, IC, J, MI, MJ
 *     .. Intrinsic Functions ..
@@ -2445,14 +2445,14 @@
       PARAMETER          ( RROGUE = -1.0E10 )
 *     .. Scalar Arguments ..
       COMPLEX            TRANSL
-      INTEGER            KL, KU, LDA, M, N, NMAX
+      int                KL, KU, LDA, M, N, NMAX
       LOGICAL            RESET
       CHARACTER*1        DIAG, UPLO
       CHARACTER*2        TYPE
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, * ), AA( * )
 *     .. Local Scalars ..
-      INTEGER            I, I1, I2, I3, IBEG, IEND, IOFF, J, JJ, KK
+      int                I, I1, I2, I3, IBEG, IEND, IOFF, J, JJ, KK
       LOGICAL            GEN, LOWER, SYM, TRI, UNIT, UPPER
 *     .. External Functions ..
       COMPLEX            CBEG

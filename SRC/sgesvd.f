@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBU, JOBVT
-      INTEGER            INFO, LDA, LDU, LDVT, LWORK, M, N
+      int                INFO, LDA, LDU, LDVT, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
@@ -19,8 +19,8 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS       INTEGER            BDSPAC, BLK, CHUNK, I, IE, IERR, IR, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL
-      INTEGER            LWORK_SGEQRF, LWORK_SORGQR_N, LWORK_SORGQR_M, LWORK_SGEBRD, LWORK_SORGBR_P, LWORK_SORGBR_Q, LWORK_SGELQF, LWORK_SORGLQ_N, LWORK_SORGLQ_M
+      LOGICAL            LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS       int                BDSPAC, BLK, CHUNK, I, IE, IERR, IR, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL
+      int                LWORK_SGEQRF, LWORK_SORGQR_N, LWORK_SORGQR_M, LWORK_SGEBRD, LWORK_SORGBR_P, LWORK_SORGBR_Q, LWORK_SGELQF, LWORK_SORGLQ_N, LWORK_SORGLQ_M
       REAL               ANRM, BIGNUM, EPS, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -31,7 +31,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..

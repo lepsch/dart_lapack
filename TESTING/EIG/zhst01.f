@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IHI, ILO, LDA, LDH, LDQ, LWORK, N
+      int                IHI, ILO, LDA, LDH, LDQ, LWORK, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RESULT( 2 ), RWORK( * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            LDWORK
+      int                LDWORK
       DOUBLE PRECISION   ANORM, EPS, OVFL, SMLNUM, UNFL, WNORM
 *     ..
 *     .. External Functions ..

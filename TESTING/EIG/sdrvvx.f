@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDLRE, LDVL, LDVR, NIUNIT, NOUNIT, NSIZES, NTYPES, NWORK
+      int                INFO, LDA, LDLRE, LDVL, LDVR, NIUNIT, NOUNIT, NSIZES, NTYPES, NWORK
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            ISEED( 4 ), IWORK( * ), NN( * )
+      int                ISEED( 4 ), IWORK( * ), NN( * )
       REAL               A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), SCALE( * ), SCALE1( * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WI1( * ), WORK( * ), WR( * ), WR1( * )
 *     ..
 *
@@ -19,19 +19,19 @@
 *     .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 21 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN
       CHARACTER          BALANC
       CHARACTER*3        PATH
-      INTEGER            I, IBAL, IINFO, IMODE, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT
+      int                I, IBAL, IINFO, IMODE, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT
       REAL               ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP, ULPINV, UNFL
 *     ..
 *     .. Local Arrays ..
       CHARACTER          ADUMMA( 1 ), BAL( 4 )
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
+      int                IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH

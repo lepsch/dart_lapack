@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, UPLO
-      INTEGER            INFO, LDA, LWORK, N
+      int                INFO, LDA, LWORK, N
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), W( * ), WORK( * )
@@ -20,11 +20,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE, LLWORK, LWKOPT, NB       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
+      int                IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE, LLWORK, LWKOPT, NB       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SLAMCH, SLANSY, SROUNDUP_LWORK
       EXTERNAL           ILAENV, LSAME, SLAMCH, SLANSY, SROUNDUP_LWORK
 *     ..

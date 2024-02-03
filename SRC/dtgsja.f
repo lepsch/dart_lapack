@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBQ, JOBU, JOBV
-      INTEGER            INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, NCYCLE, P
+      int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, NCYCLE, P
       DOUBLE PRECISION   TOLA, TOLB
 *     ..
 *     .. Array Arguments ..
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            MAXIT
+      int                MAXIT
       PARAMETER          ( MAXIT = 40 )
       DOUBLE PRECISION   ZERO, ONE, HUGENUM
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -24,7 +24,7 @@
 *     .. Local Scalars ..
 *
       LOGICAL            INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV
-      INTEGER            I, J, KCYCLE
+      int                I, J, KCYCLE
       DOUBLE PRECISION   A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SNQ, SNU, SNV, SSMIN
 *     ..
 *     .. External Functions ..

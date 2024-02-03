@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          EQUED, FACT, UPLO
-      INTEGER            INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
+      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
       DOUBLE PRECISION   RCOND, RPVGRW
 *     ..
 *     .. Array Arguments ..
@@ -18,16 +18,16 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      INTEGER            FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
-      INTEGER            RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
-      INTEGER            CMP_ERR_I, PIV_GROWTH_I
+      int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
+      int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
+      int                CMP_ERR_I, PIV_GROWTH_I
       PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
       PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
       PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            EQUIL, NOFACT, RCEQU
-      INTEGER            INFEQU, J
+      int                INFEQU, J
       DOUBLE PRECISION   AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM
 *     ..
 *     .. External Functions ..

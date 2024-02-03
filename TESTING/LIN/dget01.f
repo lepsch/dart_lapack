@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LDAFAC, M, N
+      int                LDA, LDAFAC, M, N
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       DOUBLE PRECISION   A( LDA, * ), AFAC( LDAFAC, * ), RWORK( * )
 *     ..
 *
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, K
+      int                I, J, K
       DOUBLE PRECISION   ANORM, EPS, T
 *     ..
 *     .. External Functions ..

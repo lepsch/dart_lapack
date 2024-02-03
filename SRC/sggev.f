@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBVL, JOBVR
-      INTEGER            INFO, LDA, LDB, LDVL, LDVR, LWORK, N
+      int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
@@ -21,7 +21,7 @@
 *     .. Local Scalars ..
       LOGICAL            ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY
       CHARACTER          CHTEMP
-      INTEGER            ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, ITAU, IWRK, JC, JR, MAXWRK, MINWRK
+      int                ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, ITAU, IWRK, JC, JR, MAXWRK, MINWRK
       REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP
 *     ..
 *     .. Local Arrays ..
@@ -32,7 +32,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..

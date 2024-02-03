@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INCV, LDC, N
+      int                INCV, LDC, N
       DOUBLE PRECISION   TAU
 *     ..
 *     .. Array Arguments ..

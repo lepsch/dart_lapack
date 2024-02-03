@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), S( * ), WORK( * )
 *     ..
 *
@@ -21,14 +21,14 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, LDWORK, LIWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR, NLVL, NWORK, SMLSIZ, WLALSD
+      int                IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, LDWORK, LIWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR, NLVL, NWORK, SMLSIZ, WLALSD
       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEBRD, DGELQF, DGEQRF, DLACPY, DLALSD, DLASCL, DLASET, DORMBR, DORMLQ, DORMQR, XERBLA
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANGE
       EXTERNAL           ILAENV, DLAMCH, DLANGE
 *     ..

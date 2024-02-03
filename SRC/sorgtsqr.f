@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER           INFO, LDA, LDT, LWORK, M, N, MB, NB
+      int               INFO, LDA, LDT, LWORK, M, N, MB, NB
 *     ..
 *     .. Array Arguments ..
       REAL              A( LDA, * ), T( LDT, * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            IINFO, LDC, LWORKOPT, LC, LW, NBLOCAL, J
+      int                IINFO, LDC, LWORKOPT, LC, LW, NBLOCAL, J
 *     ..
 *     .. External Functions ..
       REAL               SROUNDUP_LWORK

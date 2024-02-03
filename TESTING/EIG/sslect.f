@@ -15,13 +15,13 @@
       REAL               SELWI( 20 ), SELWR( 20 )
 *     ..
 *     .. Scalars in Common ..
-      INTEGER            SELDIM, SELOPT
+      int                SELDIM, SELOPT
 *     ..
 *     .. Common blocks ..
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       REAL               RMIN, X
 *     ..
 *     .. Parameters ..

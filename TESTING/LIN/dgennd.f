@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER M, N, LDA
+      int     M, N, LDA
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION A( LDA, * )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER I, K
+      int     I, K
 *     ..
 *     .. Intrinsics ..
       INTRINSIC MIN

@@ -7,26 +7,26 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            MAXIN
+      int                MAXIN
       PARAMETER          ( MAXIN = 12 )
-      INTEGER            NMAX
+      int                NMAX
       PARAMETER          ( NMAX =  50 )
-      INTEGER            MAXRHS
+      int                MAXRHS
       PARAMETER          ( MAXRHS = 16 )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 9 )
-      INTEGER            NIN, NOUT
+      int                NIN, NOUT
       PARAMETER          ( NIN = 5, NOUT = 6 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FATAL, TSTERR
-      INTEGER            VERS_MAJOR, VERS_MINOR, VERS_PATCH
-      INTEGER            I, NN, NNS, NNT
+      int                VERS_MAJOR, VERS_MINOR, VERS_PATCH
+      int                I, NN, NNS, NNT
       DOUBLE PRECISION   EPS, S1, S2, THRESH
 
 *     ..
 *     .. Local Arrays ..
-      INTEGER            NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES )
+      int                NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES )
       DOUBLE PRECISION   WORKA( NMAX, NMAX )
       DOUBLE PRECISION   WORKASAV( NMAX, NMAX )
       DOUBLE PRECISION   WORKB( NMAX, MAXRHS )

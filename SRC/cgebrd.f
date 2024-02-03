@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LWORK, M, N
+      int                INFO, LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IINFO, J, LDWRKX, LDWRKY, LWKMIN, LWKOPT, MINMN, NB, NBMIN, NX, WS
+      int                I, IINFO, J, LDWRKX, LDWRKY, LWKMIN, LWKOPT, MINMN, NB, NBMIN, NX, WS
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CGEBD2, CGEMM, CLABRD, XERBLA
@@ -29,7 +29,7 @@
       INTRINSIC          MAX, MIN, REAL
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SROUNDUP_LWORK
       EXTERNAL           ILAENV, SROUNDUP_LWORK
 *     ..

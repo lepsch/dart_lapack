@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, JOB, N
+      int                INFO, JOB, N
       REAL               TOL
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IN( * )
+      int                IN( * )
       REAL               A( * ), B( * ), C( * ), D( * ), Y( * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            K
+      int                K
       REAL               ABSAK, AK, BIGNUM, EPS, PERT, SFMIN, TEMP
 *     ..
 *     .. Intrinsic Functions ..

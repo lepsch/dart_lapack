@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            ITYPE, KBAND, LDA, LDU, LDV, M, N
+      int                ITYPE, KBAND, LDA, LDU, LDV, M, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), D( * ), E( * ), RESULT( 2 ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J, JJ, JJ1, JJ2, NN, NNP1
+      int                J, JJ, JJ1, JJ2, NN, NNP1
       DOUBLE PRECISION   ANORM, ULP, UNFL, WNORM
 *     ..
 *     .. External Functions ..

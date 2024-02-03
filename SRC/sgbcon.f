@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          NORM
-      INTEGER            INFO, KL, KU, LDAB, N
+      int                INFO, KL, KU, LDAB, N
       REAL               ANORM, RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * )
       REAL               AB( LDAB, * ), WORK( * )
 *     ..
 *
@@ -23,15 +23,15 @@
 *     .. Local Scalars ..
       LOGICAL            LNOTI, ONENRM
       CHARACTER          NORMIN
-      INTEGER            IX, J, JP, KASE, KASE1, KD, LM
+      int                IX, J, JP, KASE, KASE1, KD, LM
       REAL               AINVNM, SCALE, SMLNUM, T
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SDOT, SLAMCH
       EXTERNAL           LSAME, ISAMAX, SDOT, SLAMCH
 *     ..

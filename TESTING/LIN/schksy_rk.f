@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            NMAX, NN, NNB, NNS, NOUT
+      int                NMAX, NN, NNB, NNS, NOUT
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
+      int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
       REAL               A( * ), AFAC( * ), AINV( * ), B( * ), E( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
@@ -22,21 +22,21 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       REAL               EIGHT, SEVTEN
       PARAMETER          ( EIGHT = 8.0E+0, SEVTEN = 17.0E+0 )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 10 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 7 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            TRFCON, ZEROT
       CHARACTER          DIST, TYPE, UPLO, XTYPE
       CHARACTER*3        PATH, MATPATH
-      INTEGER            I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
+      int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
       REAL               ALPHA, ANORM, CNDNUM, CONST, STEMP, SING_MAX, SING_MIN, RCOND, RCONDC
 *     ..
 *     .. Local Arrays ..
       CHARACTER          UPLOS( 2 )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       REAL               BLOCK( 2, 2 ), SDUMMY( 1 ), RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
@@ -52,7 +52,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

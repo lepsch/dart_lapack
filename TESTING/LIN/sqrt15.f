@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LDB, LWORK, M, N, NRHS, RANK, RKSEL, SCALE
+      int                LDA, LDB, LWORK, M, N, NRHS, RANK, RKSEL, SCALE
       REAL               NORMA, NORMB
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       REAL               A( LDA, * ), B( LDB, * ), S( * ), WORK( LWORK )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, SVMIN = 0.1E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            INFO, J, MN
+      int                INFO, J, MN
       REAL               BIGNUM, EPS, SMLNUM, TEMP
 *     ..
 *     .. Local Arrays ..

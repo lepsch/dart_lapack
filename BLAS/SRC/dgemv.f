@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       DOUBLE PRECISION ALPHA,BETA
-      INTEGER INCX,INCY,LDA,M,N
+      int     INCX,INCY,LDA,M,N
       CHARACTER TRANS
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION TEMP
-      INTEGER I,INFO,IX,IY,J,JX,JY,KX,KY,LENX,LENY
+      int     I,INFO,IX,IY,J,JX,JY,KX,KY,LENX,LENY
 *     ..
 *     .. External Functions ..
       LOGICAL LSAME

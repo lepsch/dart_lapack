@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, KB, LDA, LDW, N, NB
+      int                INFO, KB, LDA, LDW, N, NB
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX*16         A( LDA, * ), W( LDW, * )
 *     ..
 *
@@ -24,13 +24,13 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            IMAX, J, JB, JJ, JMAX, JP, K, KK, KKW, KP, KSTEP, KW
+      int                IMAX, J, JB, JJ, JMAX, JP, K, KK, KKW, KP, KSTEP, KW
       DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, ROWMAX
       COMPLEX*16         D11, D21, D22, R1, T, Z
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IZAMAX
+      int                IZAMAX
       EXTERNAL           LSAME, IZAMAX
 *     ..
 *     .. External Subroutines ..

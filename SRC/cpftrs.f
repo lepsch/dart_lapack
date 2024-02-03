@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANSR, UPLO
-      INTEGER            INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( 0: * ), B( LDB, * )

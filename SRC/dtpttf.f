@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANSR, UPLO
-      INTEGER            INFO, N
+      int                INFO, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   AP( 0: * ), ARF( 0: * )
@@ -17,9 +17,9 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, NISODD, NORMALTRANSR
-      INTEGER            N1, N2, K, NT
-      INTEGER            I, J, IJ
-      INTEGER            IJP, JP, LDA, JS
+      int                N1, N2, K, NT
+      int                I, J, IJ
+      int                IJP, JP, LDA, JS
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

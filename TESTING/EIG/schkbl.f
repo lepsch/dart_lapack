@@ -5,23 +5,23 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            NIN, NOUT
+      int                NIN, NOUT
 *     ..
 *
 * ======================================================================
 *
 *     .. Parameters ..
-      INTEGER            LDA
+      int                LDA
       PARAMETER          ( LDA = 20 )
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO
+      int                I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO
       REAL               ANORM, MEPS, RMAX, SFMIN, TEMP, VMAX
 *     ..
 *     .. Local Arrays ..
-      INTEGER            LMAX( 3 )
+      int                LMAX( 3 )
       REAL               A( LDA, LDA ), AIN( LDA, LDA ), DUMMY( 1 ), SCALE( LDA ), SCALIN( LDA )
 *     ..
 *     .. External Functions ..

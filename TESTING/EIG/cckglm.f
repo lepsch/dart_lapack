@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, NIN, NMATS, NMAX, NN, NOUT
+      int                INFO, NIN, NMATS, NMAX, NN, NOUT
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * )
+      int                ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * )
       REAL               RWORK( * )
       COMPLEX            A( * ), AF( * ), B( * ), BF( * ), WORK( * ), X( * )
 *     ..
@@ -17,14 +17,14 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 8 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FIRSTT
       CHARACTER          DISTA, DISTB, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IK, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, P
+      int                I, IINFO, IK, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, P
       REAL               ANORM, BNORM, CNDNMA, CNDNMB, RESID
 *     ..
 *     .. Local Arrays ..

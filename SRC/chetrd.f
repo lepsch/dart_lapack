@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDA, LWORK, N
+      int                INFO, LDA, LWORK, N
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * )
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER
-      INTEGER            I, IINFO, IWS, J, KK, LDWORK, LWKOPT, NB, NBMIN, NX
+      int                I, IINFO, IWS, J, KK, LDWORK, LWKOPT, NB, NBMIN, NX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CHER2K, CHETD2, CLATRD, XERBLA
@@ -33,7 +33,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SROUNDUP_LWORK
 *     ..

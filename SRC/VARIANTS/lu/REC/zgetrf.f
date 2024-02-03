@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, M, N
+      int                INFO, LDA, M, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX*16         A( LDA, * )
 *     ..
 *
@@ -24,12 +24,12 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION   SFMIN, PIVMAG
       COMPLEX*16         TMP
-      INTEGER            I, J, JP, NSTEP, NTOPIV, NPIVED, KAHEAD
-      INTEGER            KSTART, IPIVSTART, JPIVSTART, KCOLS
+      int                I, J, JP, NSTEP, NTOPIV, NPIVED, KAHEAD
+      int                KSTART, IPIVSTART, JPIVSTART, KCOLS
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
-      INTEGER            IZAMAX
+      int                IZAMAX
       LOGICAL            DISNAN
       EXTERNAL           DLAMCH, IZAMAX, DISNAN
 *     ..

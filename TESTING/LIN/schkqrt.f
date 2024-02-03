@@ -86,21 +86,21 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            NM, NN, NNB, NOUT
+      int                NM, NN, NNB, NOUT
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            MVAL( * ), NBVAL( * ), NVAL( * )
+      int                MVAL( * ), NBVAL( * ), NVAL( * )
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 6 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER*3        PATH
-      INTEGER            I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, MINMN
+      int                I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, MINMN
 *     ..
 *     .. Local Arrays ..
       REAL               RESULT( NTESTS )
@@ -111,7 +111,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

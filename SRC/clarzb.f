@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIRECT, SIDE, STOREV, TRANS
-      INTEGER            K, L, LDC, LDT, LDV, LDWORK, M, N
+      int                K, L, LDC, LDT, LDV, LDWORK, M, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX            C( LDC, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          TRANST
-      INTEGER            I, INFO, J
+      int                I, INFO, J
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

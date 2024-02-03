@@ -6,20 +6,20 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            NM, NN, NNB, NNS, NOUT
+      int                NM, NN, NNB, NNS, NOUT
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * )       REAL               A( * ), B( * ), C( * ), COPYA( * ), COPYB( * ), COPYS( * ), S( * )
+      int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * )       REAL               A( * ), B( * ), C( * ), COPYA( * ), COPYB( * ), COPYS( * ), S( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 18 )
-      INTEGER            SMLSIZ
+      int                SMLSIZ
       PARAMETER          ( SMLSIZ = 25 )
       REAL               ONE, TWO, ZERO
       PARAMETER          ( ONE = 1.0E0, TWO = 2.0E0, ZERO = 0.0E0 )
@@ -27,16 +27,16 @@
 *     .. Local Scalars ..
       CHARACTER          TRANS
       CHARACTER*3        PATH
-      INTEGER            CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LWORK_SGELS, LWORK_SGELST, LWORK_SGETSLS, LWORK_SGELSS, LWORK_SGELSY, LWORK_SGELSD
+      int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LWORK_SGELS, LWORK_SGELST, LWORK_SGETSLS, LWORK_SGELSS, LWORK_SGELSY, LWORK_SGELSD
       REAL               EPS, NORMA, NORMB, RCOND
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISEED( 4 ), ISEEDY( 4 ), IWQ( 1 )
+      int                ISEED( 4 ), ISEEDY( 4 ), IWQ( 1 )
       REAL               RESULT( NTESTS ), WQ( 1 )
 *     ..
 *     .. Allocatable Arrays ..
       REAL, ALLOCATABLE :: WORK (:)
-      INTEGER, ALLOCATABLE :: IWORK (:)
+      int    , ALLOCATABLE :: IWORK (:)
 *     ..
 *     .. External Functions ..
       REAL               SASUM, SLAMCH, SQRT12, SQRT14, SQRT17
@@ -51,7 +51,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, IOUNIT
+      int                INFOT, IOUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, IOUNIT, OK, LERR

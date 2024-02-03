@@ -3,14 +3,14 @@
 *     Based upon the original CBLAS test routine together with:
 *     F06GAF Example Program Text
 *     .. Parameters ..
-      INTEGER          NOUT
+      int              NOUT
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
-      INTEGER          ICASE, INCX, INCY, MODE, N
+      int              ICASE, INCX, INCY, MODE, N
       LOGICAL          PASS
 *     .. Local Scalars ..
       REAL             SFAC
-      INTEGER          IC
+      int              IC
 *     .. External Subroutines ..
       EXTERNAL         CHECK1, CHECK2, HEADER
 *     .. Common blocks ..
@@ -47,10 +47,10 @@
       END
       SUBROUTINE HEADER
 *     .. Parameters ..
-      INTEGER          NOUT
+      int              NOUT
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
-      INTEGER          ICASE, INCX, INCY, MODE, N
+      int              ICASE, INCX, INCY, MODE, N
       LOGICAL          PASS
 *     .. Local Arrays ..
       CHARACTER*15      L(10)
@@ -75,24 +75,24 @@
       END
       SUBROUTINE CHECK1(SFAC)
 *     .. Parameters ..
-      INTEGER           NOUT
+      int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       REAL              SFAC
 *     .. Scalars in Common ..
-      INTEGER           ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N
       LOGICAL           PASS
 *     .. Local Scalars ..
       COMPLEX           CA
       REAL              SA
-      INTEGER           I, J, LEN, NP1
+      int               I, J, LEN, NP1
 *     .. Local Arrays ..
       COMPLEX           CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CX(8), MWPCS(5), MWPCT(5)
       REAL              STRUE2(5), STRUE4(5)
-      INTEGER           ITRUE3(5)
+      int               ITRUE3(5)
 *     .. External Functions ..
       REAL              SCASUMTEST, SCNRM2TEST
-      INTEGER           ICAMAXTEST
+      int               ICAMAXTEST
       EXTERNAL          SCASUMTEST, SCNRM2TEST, ICAMAXTEST
 *     .. External Subroutines ..
       EXTERNAL          CSCAL, CSSCALTEST, CTEST, ITEST1, STEST1
@@ -184,19 +184,19 @@
       END
       SUBROUTINE CHECK2(SFAC)
 *     .. Parameters ..
-      INTEGER           NOUT
+      int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       REAL              SFAC
 *     .. Scalars in Common ..
-      INTEGER           ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N
       LOGICAL           PASS
 *     .. Local Scalars ..
       COMPLEX           CA,CTEMP
-      INTEGER           I, J, KI, KN, KSIZE, LENX, LENY, MX, MY
+      int               I, J, KI, KN, KSIZE, LENX, LENY, MX, MY
 *     .. Local Arrays ..
       COMPLEX           CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CX(7), CX1(7), CY(7), CY1(7)
-      INTEGER           INCXS(4), INCYS(4), LENS(4,2), NS(4)
+      int               INCXS(4), INCYS(4), LENS(4,2), NS(4)
 *     .. External Functions ..
       EXTERNAL          CDOTCTEST, CDOTUTEST
 *     .. External Subroutines ..
@@ -273,19 +273,19 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      INTEGER          NOUT
+      int              NOUT
       PARAMETER        (NOUT=6)
 *     .. Scalar Arguments ..
       REAL             SFAC
-      INTEGER          LEN
+      int              LEN
 *     .. Array Arguments ..
       REAL             SCOMP(LEN), SSIZE(LEN), STRUE(LEN)
 *     .. Scalars in Common ..
-      INTEGER          ICASE, INCX, INCY, MODE, N
+      int              ICASE, INCX, INCY, MODE, N
       LOGICAL          PASS
 *     .. Local Scalars ..
       REAL             SD
-      INTEGER          I
+      int              I
 *     .. External Functions ..
       REAL             SDIFF
       EXTERNAL         SDIFF
@@ -359,11 +359,11 @@
 *
 *     .. Scalar Arguments ..
       REAL             SFAC
-      INTEGER          LEN
+      int              LEN
 *     .. Array Arguments ..
       COMPLEX          CCOMP(LEN), CSIZE(LEN), CTRUE(LEN)
 *     .. Local Scalars ..
-      INTEGER          I
+      int              I
 *     .. Local Arrays ..
       REAL             SCOMP(20), SSIZE(20), STRUE(20)
 *     .. External Subroutines ..
@@ -391,15 +391,15 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      INTEGER           NOUT
+      int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      INTEGER           ICOMP, ITRUE
+      int               ICOMP, ITRUE
 *     .. Scalars in Common ..
-      INTEGER           ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N
       LOGICAL           PASS
 *     .. Local Scalars ..
-      INTEGER           ID
+      int               ID
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Executable Statements ..

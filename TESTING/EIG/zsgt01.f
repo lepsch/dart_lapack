@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            ITYPE, LDA, LDB, LDZ, M, N
+      int                ITYPE, LDA, LDB, LDZ, M, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * ), RESULT( * ), RWORK( * )
@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       DOUBLE PRECISION   ANORM, ULP
 *     ..
 *     .. External Functions ..

@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, UPLO
-      INTEGER            INFO, KD, LDAB, LDZ, LIWORK, LRWORK, LWORK, N
+      int                INFO, KD, LDAB, LDZ, LIWORK, LRWORK, LWORK, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   RWORK( * ), W( * )
       COMPLEX*16         AB( LDAB, * ), WORK( * ), Z( LDZ, * )
 *     ..
@@ -24,7 +24,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDWK2, INDWRK, ISCALE, LIWMIN, LLRWK, LLWK2, LRWMIN, LWMIN       DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
+      int                IINFO, IMAX, INDE, INDWK2, INDWRK, ISCALE, LIWMIN, LLRWK, LLWK2, LRWMIN, LWMIN       DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

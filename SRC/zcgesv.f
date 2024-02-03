@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, ITER, LDA, LDB, LDX, N, NRHS
+      int                INFO, ITER, LDA, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       DOUBLE PRECISION   RWORK( * )
       COMPLEX            SWORK( * )
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * )
@@ -20,7 +20,7 @@
       LOGICAL            DOITREF
       PARAMETER          ( DOITREF = .TRUE. )
 *
-      INTEGER            ITERMAX
+      int                ITERMAX
       PARAMETER          ( ITERMAX = 30 )
 *
       DOUBLE PRECISION   BWDMAX
@@ -30,7 +30,7 @@
       PARAMETER          ( NEGONE = ( -1.0D+00, 0.0D+00 ), ONE = ( 1.0D+00, 0.0D+00 ) )
 *
 *     .. Local Scalars ..
-      INTEGER            I, IITER, PTSA, PTSX
+      int                I, IITER, PTSA, PTSX
       DOUBLE PRECISION   ANRM, CTE, EPS, RNRM, XNRM
       COMPLEX*16         ZDUM
 *
@@ -38,7 +38,7 @@
       EXTERNAL           CGETRS, CGETRF, CLAG2Z, XERBLA, ZAXPY, ZGEMM, ZLACPY, ZLAG2C, ZGETRF, ZGETRS
 *     ..
 *     .. External Functions ..
-      INTEGER            IZAMAX
+      int                IZAMAX
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           IZAMAX, DLAMCH, ZLANGE
 *     ..

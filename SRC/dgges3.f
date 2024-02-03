@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBVSL, JOBVSR, SORT
-      INTEGER            INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N, SDIM
+      int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N, SDIM
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
@@ -24,11 +24,11 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, LST2SL, WANTST       INTEGER            I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IP, IRIGHT, IROWS, ITAU, IWRK, LWKOPT, LWKMIN
+      LOGICAL            CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, LST2SL, WANTST       int                I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IP, IRIGHT, IROWS, ITAU, IWRK, LWKOPT, LWKMIN
       DOUBLE PRECISION   ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PVSL, PVSR, SAFMAX, SAFMIN, SMLNUM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUM( 1 )
+      int                IDUM( 1 )
       DOUBLE PRECISION   DIF( 2 )
 *     ..
 *     .. External Subroutines ..

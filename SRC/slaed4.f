@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            I, INFO, N
+      int                I, INFO, N
       REAL               DLAM, RHO
 *     ..
 *     .. Array Arguments ..
@@ -15,14 +15,14 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            MAXIT
+      int                MAXIT
       PARAMETER          ( MAXIT = 30 )
       REAL               ZERO, ONE, TWO, THREE, FOUR, EIGHT, TEN
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0, FOUR = 4.0E0, EIGHT = 8.0E0, TEN = 10.0E0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ORGATI, SWTCH, SWTCH3
-      INTEGER            II, IIM1, IIP1, IP1, ITER, J, NITER
+      int                II, IIM1, IIP1, IP1, ITER, J, NITER
       REAL               A, B, C, DEL, DLTLB, DLTUB, DPHI, DPSI, DW, EPS, ERRETM, ETA, MIDPT, PHI, PREW, PSI, RHOINV, TAU, TEMP, TEMP1, W
 *     ..
 *     .. Local Arrays ..

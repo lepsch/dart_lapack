@@ -5,17 +5,17 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            N1, N2, STRD1, STRD2
+      int                N1, N2, STRD1, STRD2
 *     ..
 *     .. Array Arguments ..
-      INTEGER            INDEX( * )
+      int                INDEX( * )
       REAL               A( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, IND1, IND2, N1SV, N2SV
+      int                I, IND1, IND2, N1SV, N2SV
 *     ..
 *     .. Executable Statements ..
 *

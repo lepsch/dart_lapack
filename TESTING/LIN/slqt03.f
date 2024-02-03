@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            K, LDA, LWORK, M, N
+      int                K, LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
       REAL               AF( LDA, * ), C( LDA, * ), CC( LDA, * ), Q( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK )
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          SIDE, TRANS
-      INTEGER            INFO, ISIDE, ITRANS, J, MC, NC
+      int                INFO, ISIDE, ITRANS, J, MC, NC
       REAL               CNORM, EPS, RESID
 *     ..
 *     .. External Functions ..
@@ -33,7 +33,7 @@
       EXTERNAL           SGEMM, SLACPY, SLARNV, SLASET, SORGLQ, SORMLQ
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, REAL

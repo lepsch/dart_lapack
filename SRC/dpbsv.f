@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, KD, LDAB, LDB, N, NRHS
+      int                INFO, KD, LDAB, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   AB( LDAB, * ), B( LDB, * )

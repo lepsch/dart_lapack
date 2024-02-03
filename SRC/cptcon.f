@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, N
+      int                INFO, N
       REAL               ANORM, RCOND
 *     ..
 *     .. Array Arguments ..
@@ -20,11 +20,11 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IX
+      int                I, IX
       REAL               AINVNM
 *     ..
 *     .. External Functions ..
-      INTEGER            ISAMAX
+      int                ISAMAX
       EXTERNAL           ISAMAX
 *     ..
 *     .. External Subroutines ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
       REAL               RCOND
 *     ..
 *     .. Array Arguments ..
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            BL, CHUNK, I, IASCL, IBSCL, IE, IL, IRWORK, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR       INTEGER            LWORK_CGEQRF, LWORK_CUNMQR, LWORK_CGEBRD, LWORK_CUNMBR, LWORK_CUNGBR, LWORK_CUNMLQ, LWORK_CGELQF
+      int                BL, CHUNK, I, IASCL, IBSCL, IE, IL, IRWORK, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR       int                LWORK_CGEQRF, LWORK_CUNMQR, LWORK_CGEBRD, LWORK_CUNMBR, LWORK_CUNGBR, LWORK_CUNMLQ, LWORK_CGELQF
       REAL               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR
 *     ..
 *     .. Local Arrays ..
@@ -33,7 +33,7 @@
       EXTERNAL           CBDSQR, CCOPY, CGEBRD, CGELQF, CGEMM, CGEMV, CGEQRF, CLACPY, CLASCL, CLASET, CSRSCL, CUNGBR, CUNMBR, CUNMLQ, CUNMQR, SLASCL, SLASET, XERBLA
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
       EXTERNAL           ILAENV, CLANGE, SLAMCH, SROUNDUP_LWORK
 *     ..

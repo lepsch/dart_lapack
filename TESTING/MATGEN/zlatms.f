@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIST, PACK, SYM
-      INTEGER            INFO, KL, KU, LDA, M, MODE, N
+      int                INFO, KL, KU, LDA, M, MODE, N
       DOUBLE PRECISION   COND, DMAX
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       DOUBLE PRECISION   D( * )
       COMPLEX*16         A( LDA, * ), WORK( * )
 *     ..
@@ -29,7 +29,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            GIVENS, ILEXTR, ILTEMP, TOPDWN, ZSYM
-      INTEGER            I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB
+      int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB
       DOUBLE PRECISION   ALPHA, ANGLE, REALC, TEMP
       COMPLEX*16         C, CT, CTEMP, DUMMY, EXTRA, S, ST
 *     ..

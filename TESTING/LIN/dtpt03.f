@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, TRANS, UPLO
-      INTEGER            LDB, LDX, N, NRHS
+      int                LDB, LDX, N, NRHS
       DOUBLE PRECISION   RESID, SCALE, TSCAL
 *     ..
 *     .. Array Arguments ..
@@ -20,12 +20,12 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            IX, J, JJ
+      int                IX, J, JJ
       DOUBLE PRECISION   BIGNUM, EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, IDAMAX, DLAMCH
 *     ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LWORK, M, P, Q, LDX11, LDX21
+      int                INFO, LWORK, M, P, Q, LDX11, LDX21
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   PHI(*), THETA(*)
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION   C, S
-      INTEGER            CHILDINFO, I, ILARF, IORBDB5, J, LLARF, LORBDB5, LWORKMIN, LWORKOPT
+      int                CHILDINFO, I, ILARF, IORBDB5, J, LLARF, LORBDB5, LWORKMIN, LWORKOPT
       LOGICAL            LQUERY
 *     ..
 *     .. External Subroutines ..

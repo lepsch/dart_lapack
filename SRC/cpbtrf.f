@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, KD, LDAB, N
+      int                INFO, KD, LDAB, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX            AB( LDAB, * )
@@ -19,18 +19,18 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
       COMPLEX            CONE
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
-      INTEGER            NBMAX, LDWORK
+      int                NBMAX, LDWORK
       PARAMETER          ( NBMAX = 32, LDWORK = NBMAX+1 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, I2, I3, IB, II, J, JJ, NB
+      int                I, I2, I3, IB, II, J, JJ, NB
 *     ..
 *     .. Local Arrays ..
       COMPLEX            WORK( LDWORK, NBMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

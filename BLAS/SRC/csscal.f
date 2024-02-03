@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL SA
-      INTEGER INCX,N
+      int     INCX,N
 *     ..
 *     .. Array Arguments ..
       COMPLEX CX(*)
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER I,NINCX
+      int     I,NINCX
 *     ..
 *     .. Parameters ..
       REAL ONE

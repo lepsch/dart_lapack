@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER INFO, LDA, LDT, M, N, MB
+      int     INFO, LDA, LDT, M, N, MB
 *     ..
 *     .. Array Arguments ..
       REAL     A( LDA, * ), T( LDT, * ), WORK( * )
@@ -15,7 +15,7 @@
 *
 *     ..
 *     .. Local Scalars ..
-      INTEGER    I, IB, IINFO, K
+      int        I, IB, IINFO, K
 *     ..
 *     .. External Subroutines ..
       EXTERNAL   SGEQRT2, SGEQRT3, SGELQT3, SLARFB, XERBLA

@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, RANGE
-      INTEGER            IL, INFO, IU, LDZ, LIWORK, LWORK, M, N
+      int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N
       REAL               ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISUPPZ( * ), IWORK( * )
+      int                ISUPPZ( * ), IWORK( * )
       REAL               D( * ), E( * ), W( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
@@ -23,11 +23,11 @@
 *     .. Local Scalars ..
       LOGICAL            ALLEIG, INDEIG, TEST, LQUERY, VALEIG, WANTZ, TRYRAC
       CHARACTER          ORDER
-      INTEGER            I, IEEEOK, IMAX, INDIBL, INDIFL, INDISP, INDIWO, ISCALE, J, JJ, LIWMIN, LWMIN, NSPLIT       REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, TNRM, VLL, VUU
+      int                I, IEEEOK, IMAX, INDIBL, INDIFL, INDISP, INDIWO, ISCALE, J, JJ, LIWMIN, LWMIN, NSPLIT       REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, TNRM, VLL, VUU
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SLAMCH, SLANST, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANST, SROUNDUP_LWORK
 *     ..

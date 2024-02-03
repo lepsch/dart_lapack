@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, UPLO
-      INTEGER            INFO, N
+      int                INFO, N
 *     ..
 *     .. Array Arguments ..
       REAL               AP( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOUNIT, UPPER
-      INTEGER            J, JC, JCLAST, JJ
+      int                J, JC, JCLAST, JJ
       REAL               AJJ
 *     ..
 *     .. External Functions ..

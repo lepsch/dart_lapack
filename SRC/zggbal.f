@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOB
-      INTEGER            IHI, ILO, INFO, LDA, LDB, N
+      int                IHI, ILO, INFO, LDA, LDB, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   LSCALE( * ), RSCALE( * ), WORK( * )
@@ -24,12 +24,12 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ICAB, IFLOW, IP1, IR, IRAB, IT, J, JC, JP1, K, KOUNT, L, LCAB, LM1, LRAB, LSFMAX, LSFMIN, M, NR, NRP2       DOUBLE PRECISION   ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2, COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX, SFMIN, SUM, T, TA, TB, TC
+      int                I, ICAB, IFLOW, IP1, IR, IRAB, IT, J, JC, JP1, K, KOUNT, L, LCAB, LM1, LRAB, LSFMAX, LSFMIN, M, NR, NRP2       DOUBLE PRECISION   ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2, COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX, SFMIN, SUM, T, TA, TB, TC
       COMPLEX*16         CDUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IZAMAX
+      int                IZAMAX
       DOUBLE PRECISION   DDOT, DLAMCH
       EXTERNAL           LSAME, IZAMAX, DDOT, DLAMCH
 *     ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            K, LDA, LDT, LDY, N, NB
+      int                K, LDA, LDT, LDY, N, NB
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION  A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       DOUBLE PRECISION  EI
 *     ..
 *     .. External Subroutines ..

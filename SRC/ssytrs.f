@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDA, LDB, N, NRHS
+      int                INFO, LDA, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       REAL               A( LDA, * ), B( LDB, * )
 *     ..
 *
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            J, K, KP
+      int                J, K, KP
       REAL               AK, AKM1, AKM1K, BK, BKM1, DENOM
 *     ..
 *     .. External Functions ..

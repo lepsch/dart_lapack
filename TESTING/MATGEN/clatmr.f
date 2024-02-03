@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIST, GRADE, PACK, PIVTNG, RSIGN, SYM
-      INTEGER            INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N
+      int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N
       REAL               ANORM, COND, CONDL, CONDR, SPARSE
       COMPLEX            DMAX
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIVOT( * ), ISEED( 4 ), IWORK( * )
+      int                IPIVOT( * ), ISEED( 4 ), IWORK( * )
       COMPLEX            A( LDA, * ), D( * ), DL( * ), DR( * )
 *     ..
 *
@@ -29,7 +29,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADPVT, DZERO, FULBND
-      INTEGER            I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS
+      int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS
       REAL               ONORM, TEMP
       COMPLEX            CALPHA, CTEMP
 *     ..

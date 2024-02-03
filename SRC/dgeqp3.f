@@ -5,28 +5,28 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LWORK, M, N
+      int                INFO, LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            JPVT( * )
+      int                JPVT( * )
       DOUBLE PRECISION   A( LDA, * ), TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            INB, INBMIN, IXOVER
+      int                INB, INBMIN, IXOVER
       PARAMETER          ( INB = 1, INBMIN = 2, IXOVER = 3 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            FJB, IWS, J, JB, LWKOPT, MINMN, MINWS, NA, NB, NBMIN, NFXD, NX, SM, SMINMN, SN, TOPBMN
+      int                FJB, IWS, J, JB, LWKOPT, MINMN, MINWS, NA, NB, NBMIN, NFXD, NX, SM, SMINMN, SN, TOPBMN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEQRF, DLAQP2, DLAQPS, DORMQR, DSWAP, XERBLA
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DNRM2
       EXTERNAL           ILAENV, DNRM2
 *     ..

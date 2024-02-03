@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, UPLO
-      INTEGER            INFO, ITYPE, LDA, LDB, LWORK, N
+      int                INFO, ITYPE, LDA, LDB, LWORK, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RWORK( * ), W( * )
@@ -22,11 +22,11 @@
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER, WANTZ
       CHARACTER          TRANS
-      INTEGER            LWKOPT, NB, NEIG
+      int                LWKOPT, NB, NEIG
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

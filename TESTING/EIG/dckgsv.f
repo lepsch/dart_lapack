@@ -5,26 +5,26 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, NIN, NM, NMATS, NMAX, NOUT
+      int                INFO, NIN, NM, NMATS, NMAX, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ), PVAL( * )       DOUBLE PRECISION   A( * ), AF( * ), ALPHA( * ), B( * ), BETA( * ), BF( * ), Q( * ), R( * ), RWORK( * ), U( * ), V( * ), WORK( * )
+      int                ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ), PVAL( * )       DOUBLE PRECISION   A( * ), AF( * ), ALPHA( * ), B( * ), BETA( * ), BF( * ), Q( * ), R( * ), RWORK( * ), U( * ), V( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 12 )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 8 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FIRSTT
       CHARACTER          DISTA, DISTB, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IM, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LDQ, LDR, LDU, LDV, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P
+      int                I, IINFO, IM, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LDQ, LDR, LDU, LDV, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P
       DOUBLE PRECISION   ANORM, BNORM, CNDNMA, CNDNMB
 *     ..
 *     .. Local Arrays ..

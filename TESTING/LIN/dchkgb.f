@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            LA, LAFAC, NM, NN, NNB, NNS, NOUT
+      int                LA, LAFAC, NM, NN, NNB, NNS, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * )       DOUBLE PRECISION   A( * ), AFAC( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
+      int                IWORK( * ), MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * )       DOUBLE PRECISION   A( * ), AFAC( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -19,21 +19,21 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ONE, ZERO
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-      INTEGER            NTYPES, NTESTS
+      int                NTYPES, NTESTS
       PARAMETER          ( NTYPES = 8, NTESTS = 7 )
-      INTEGER            NBW, NTRAN
+      int                NBW, NTRAN
       PARAMETER          ( NBW = 4, NTRAN = 3 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            TRFCON, ZEROT
       CHARACTER          DIST, NORM, TRANS, TYPE, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, I1, I2, IKL, IKU, IM, IMAT, IN, INB, INFO, IOFF, IRHS, ITRAN, IZERO, J, K, KL, KOFF, KU, LDA, LDAFAC, LDB, M, MODE, N, NB, NERRS, NFAIL, NIMAT, NKL, NKU, NRHS, NRUN
+      int                I, I1, I2, IKL, IKU, IM, IMAT, IN, INB, INFO, IOFF, IRHS, ITRAN, IZERO, J, K, KL, KOFF, KU, LDA, LDAFAC, LDB, M, MODE, N, NB, NERRS, NFAIL, NIMAT, NKL, NKU, NRHS, NRUN
       DOUBLE PRECISION   AINVNM, ANORM, ANORMI, ANORMO, CNDNUM, RCOND, RCONDC, RCONDI, RCONDO
 *     ..
 *     .. Local Arrays ..
       CHARACTER          TRANSS( NTRAN )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 ), KLVAL( NBW ), KUVAL( NBW )
+      int                ISEED( 4 ), ISEEDY( 4 ), KLVAL( NBW ), KUVAL( NBW )
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
@@ -49,7 +49,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

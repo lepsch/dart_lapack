@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, N
+      int                LDA, N
       DOUBLE PRECISION   SCALE
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), JPIV( * )
+      int                IPIV( * ), JPIV( * )
       DOUBLE PRECISION   A( LDA, * ), RHS( * )
 *     ..
 *
@@ -20,14 +20,14 @@
       PARAMETER          ( ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       DOUBLE PRECISION   BIGNUM, EPS, SMLNUM, TEMP
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLASWP, DSCAL
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           IDAMAX, DLAMCH
 *     ..

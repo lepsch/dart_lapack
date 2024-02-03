@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
       COMPLEX            AP( * ), B( LDB, * )

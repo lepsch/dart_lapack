@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, N_NORMS, ITHRESH
+      int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, N_NORMS, ITHRESH
       CHARACTER          UPLO
       LOGICAL            COLEQU, IGNORE_CWISE
       DOUBLE PRECISION   RTHRESH, DZ_UB
@@ -17,28 +17,28 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            UPLO2, CNT, I, J, X_STATE, Z_STATE, Y_PREC_STATE       DOUBLE PRECISION   YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH
+      int                UPLO2, CNT, I, J, X_STATE, Z_STATE, Y_PREC_STATE       DOUBLE PRECISION   YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH
       LOGICAL            INCR_PREC
       COMPLEX*16         ZDUM
 *     ..
 *     .. Parameters ..
-      INTEGER            UNSTABLE_STATE, WORKING_STATE, CONV_STATE, NOPROG_STATE, BASE_RESIDUAL, EXTRA_RESIDUAL, EXTRA_Y
+      int                UNSTABLE_STATE, WORKING_STATE, CONV_STATE, NOPROG_STATE, BASE_RESIDUAL, EXTRA_RESIDUAL, EXTRA_Y
       PARAMETER          ( UNSTABLE_STATE = 0, WORKING_STATE = 1, CONV_STATE = 2, NOPROG_STATE = 3 )       PARAMETER          ( BASE_RESIDUAL = 0, EXTRA_RESIDUAL = 1, EXTRA_Y = 2 )
-      INTEGER            FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
-      INTEGER            RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
-      INTEGER            CMP_ERR_I, PIV_GROWTH_I
+      int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
+      int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
+      int                CMP_ERR_I, PIV_GROWTH_I
       PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
       PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
-      PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )       INTEGER            LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 )
+      PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )       int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 )
       PARAMETER          ( LA_LINRX_CWISE_I = 3 )
-      INTEGER            LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I
+      int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I
       PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
       EXTERNAL           ILAUPLO
-      INTEGER            ILAUPLO
+      int                ILAUPLO
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZAXPY, ZCOPY, ZPOTRS, ZHEMV, BLAS_ZHEMV_X, BLAS_ZHEMV2_X, ZLA_HEAMV, ZLA_WWADDW, ZLA_LIN_BERR, DLAMCH

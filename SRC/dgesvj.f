@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDV, LWORK, M, MV, N
+      int                INFO, LDA, LDV, LWORK, M, MV, N
       CHARACTER*1        JOBA, JOBU, JOBV
 *     ..
 *     .. Array Arguments ..
@@ -17,12 +17,12 @@
 *     .. Local Parameters ..
       DOUBLE PRECISION   ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0)
-      INTEGER            NSWEEP
+      int                NSWEEP
       PARAMETER          ( NSWEEP = 30 )
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION   AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL
-      INTEGER            BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN
+      int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN
       LOGICAL            APPLV, GOSCALE, LOWER, LQUERY, LSVEC, NOSCALE, ROTOK, RSVEC, UCTOL, UPPER
 *     ..
 *     .. Local Arrays ..
@@ -36,7 +36,7 @@
 *     from BLAS
       DOUBLE PRECISION   DDOT, DNRM2
       EXTERNAL           DDOT, DNRM2
-      INTEGER            IDAMAX
+      int                IDAMAX
       EXTERNAL           IDAMAX
 *     from LAPACK
       DOUBLE PRECISION   DLAMCH

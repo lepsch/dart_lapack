@@ -3,9 +3,9 @@
 
 *     Arguments
       LOGICAL, INTENT( IN ) :: ILSCHUR, ILQ, ILZ
-      INTEGER, INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC
+      int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC
        REAL, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHAR( * ), ALPHAI( * ), BETA( * )
-      INTEGER, INTENT( OUT ) :: NS, ND, INFO
+      int    , INTENT( OUT ) :: NS, ND, INFO
       REAL :: QC( LDQC, * ), ZC( LDZC, * ), WORK( * )
 
 *     Parameters
@@ -14,7 +14,7 @@
 
 *     Local Scalars
       LOGICAL :: BULGE
-      INTEGER :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, STGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO
+      int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, STGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO
       REAL :: S, SMLNUM, ULP, SAFMIN, SAFMAX, C1, S1, TEMP
 
 *     External Functions

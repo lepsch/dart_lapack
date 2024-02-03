@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            LDA, LDAFAC, LDC, N
+      int                LDA, LDAFAC, LDC, N
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX            A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * )
       REAL               RWORK( * )
 *     ..
@@ -24,7 +24,7 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE  = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       REAL               ANORM, EPS
 *     ..
 *     .. External Functions ..

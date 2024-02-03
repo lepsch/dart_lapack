@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDA, LWORK, N
+      int                INFO, LDA, LWORK, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * ), E( * )
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER
-      INTEGER            I, IINFO, IWS, J, KK, LDWORK, LWKOPT, NB, NBMIN, NX
+      int                I, IINFO, IWS, J, KK, LDWORK, LWKOPT, NB, NBMIN, NX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZHER2K, ZHETD2, ZLATRD
@@ -33,7 +33,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. Executable Statements ..

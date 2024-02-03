@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          HOWMNY, JOB
-      INTEGER            INFO, LDT, LDVL, LDVR, LDWORK, M, MM, N
+      int                INFO, LDT, LDVL, LDVR, LDWORK, M, MM, N
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
@@ -23,17 +23,17 @@
 *     .. Local Scalars ..
       LOGICAL            SOMCON, WANTBH, WANTS, WANTSP
       CHARACTER          NORMIN
-      INTEGER            I, IERR, IX, J, K, KASE, KS
+      int                I, IERR, IX, J, K, KASE, KS
       DOUBLE PRECISION   BIGNUM, EPS, EST, LNRM, RNRM, SCALE, SMLNUM, XNORM
       COMPLEX*16         CDUM, PROD
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
       COMPLEX*16         DUMMY( 1 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IZAMAX
+      int                IZAMAX
       DOUBLE PRECISION   DLAMCH, DZNRM2
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, IZAMAX, DLAMCH, DZNRM2, ZDOTC

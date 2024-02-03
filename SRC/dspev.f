@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, UPLO
-      INTEGER            INFO, LDZ, N
+      int                INFO, LDZ, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   AP( * ), W( * ), WORK( * ), Z( LDZ, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE
+      int                IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE
       DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..

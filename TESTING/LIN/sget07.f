@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
       LOGICAL            CHKFERR
-      INTEGER            LDA, LDB, LDX, LDXACT, N, NRHS
+      int                LDA, LDB, LDX, LDXACT, N, NRHS
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), BERR( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * )
@@ -21,12 +21,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRAN
-      INTEGER            I, IMAX, J, K
+      int                I, IMAX, J, K
       REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SLAMCH
       EXTERNAL           LSAME, ISAMAX, SLAMCH
 *     ..

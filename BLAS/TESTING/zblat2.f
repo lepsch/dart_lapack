@@ -7,28 +7,28 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NIN
+      int                NIN
       PARAMETER          ( NIN = 5 )
-      INTEGER            NSUBS
+      int                NSUBS
       PARAMETER          ( NSUBS = 17 )
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
       DOUBLE PRECISION   RZERO
       PARAMETER          ( RZERO = 0.0D0 )
-      INTEGER            NMAX, INCMAX
+      int                NMAX, INCMAX
       PARAMETER          ( NMAX = 65, INCMAX = 2 )
-      INTEGER            NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX
+      int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX
       PARAMETER          ( NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 )
 *     .. Local Scalars ..
       DOUBLE PRECISION   EPS, ERR, THRESH
-      INTEGER            I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NOUT, NTRA       LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR
+      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NOUT, NTRA       LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR
       CHARACTER*1        TRANS
       CHARACTER*6        SNAMET
       CHARACTER*32       SNAPS, SUMMRY
 *     .. Local Arrays ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX )
       DOUBLE PRECISION   G( NMAX )
-      INTEGER            IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX )
+      int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX )
       LOGICAL            LTEST( NSUBS )
       CHARACTER*6        SNAMES( NSUBS )
 *     .. External Functions ..
@@ -40,7 +40,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            LERR, OK
       CHARACTER*6        SRNAMT
 *     .. Common blocks ..
@@ -327,17 +327,17 @@
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, THRESH
-      INTEGER            INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA
+      int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*6        SNAME
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
       DOUBLE PRECISION   G( NMAX )
-      INTEGER            IDIM( NIDIM ), INC( NINC ), KB( NKB )
+      int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS, BETA, BLS, TRANSL
       DOUBLE PRECISION   ERR, ERRMAX
-      INTEGER            I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS
+      int                I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS
       LOGICAL            BANDED, FULL, NULL, RESET, SAME, TRAN
       CHARACTER*1        TRANS, TRANSS
       CHARACTER*3        ICH
@@ -351,7 +351,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            LERR, OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -644,17 +644,17 @@
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, THRESH
-      INTEGER            INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA
+      int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*6        SNAME
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
       DOUBLE PRECISION   G( NMAX )
-      INTEGER            IDIM( NIDIM ), INC( NINC ), KB( NKB )
+      int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS, BETA, BLS, TRANSL
       DOUBLE PRECISION   ERR, ERRMAX
-      INTEGER            I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS
+      int                I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS
       LOGICAL            BANDED, FULL, NULL, PACKED, RESET, SAME
       CHARACTER*1        UPLO, UPLOS
       CHARACTER*2        ICH
@@ -668,7 +668,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            LERR, OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -949,17 +949,17 @@
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, THRESH
-      INTEGER            INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA
+      int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*6        SNAME
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX )
       DOUBLE PRECISION   G( NMAX )
-      INTEGER            IDIM( NIDIM ), INC( NINC ), KB( NKB )
+      int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
 *     .. Local Scalars ..
       COMPLEX*16         TRANSL
       DOUBLE PRECISION   ERR, ERRMAX
-      INTEGER            I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS
+      int                I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS
       LOGICAL            BANDED, FULL, NULL, PACKED, RESET, SAME
       CHARACTER*1        DIAG, DIAGS, TRANS, TRANSS, UPLO, UPLOS
       CHARACTER*2        ICHD, ICHU
@@ -974,7 +974,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            LERR, OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -1252,17 +1252,17 @@
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, THRESH
-      INTEGER            INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA
+      int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*6        SNAME
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
       DOUBLE PRECISION   G( NMAX )
-      INTEGER            IDIM( NIDIM ), INC( NINC )
+      int                IDIM( NIDIM ), INC( NINC )
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS, TRANSL
       DOUBLE PRECISION   ERR, ERRMAX
-      INTEGER            I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS
+      int                I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS
       LOGICAL            CONJ, NULL, RESET, SAME
 *     .. Local Arrays ..
       COMPLEX*16         W( 1 )
@@ -1275,7 +1275,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DCONJG, MAX, MIN
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            LERR, OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -1495,17 +1495,17 @@
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, THRESH
-      INTEGER            INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA
+      int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*6        SNAME
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
       DOUBLE PRECISION   G( NMAX )
-      INTEGER            IDIM( NIDIM ), INC( NINC )
+      int                IDIM( NIDIM ), INC( NINC )
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, TRANSL
       DOUBLE PRECISION   ERR, ERRMAX, RALPHA, RALS
-      INTEGER            I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS
+      int                I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS
       LOGICAL            FULL, NULL, PACKED, RESET, SAME, UPPER
       CHARACTER*1        UPLO, UPLOS
       CHARACTER*2        ICH
@@ -1520,7 +1520,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, MAX
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            LERR, OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -1753,17 +1753,17 @@
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, THRESH
-      INTEGER            INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA
+      int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*6        SNAME
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 )
       DOUBLE PRECISION   G( NMAX )
-      INTEGER            IDIM( NIDIM ), INC( NINC )
+      int                IDIM( NIDIM ), INC( NINC )
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS, TRANSL
       DOUBLE PRECISION   ERR, ERRMAX
-      INTEGER            I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS
+      int                I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS
       LOGICAL            FULL, NULL, PACKED, RESET, SAME, UPPER
       CHARACTER*1        UPLO, UPLOS
       CHARACTER*2        ICH
@@ -1778,7 +1778,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DCONJG, MAX
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            LERR, OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -2037,10 +2037,10 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Scalar Arguments ..
-      INTEGER            ISNUM, NOUT
+      int                ISNUM, NOUT
       CHARACTER*6        SRNAMT
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            LERR, OK
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, BETA
@@ -2389,14 +2389,14 @@
       PARAMETER          ( RROGUE = -1.0D10 )
 *     .. Scalar Arguments ..
       COMPLEX*16         TRANSL
-      INTEGER            KL, KU, LDA, M, N, NMAX
+      int                KL, KU, LDA, M, N, NMAX
       LOGICAL            RESET
       CHARACTER*1        DIAG, UPLO
       CHARACTER*2        TYPE
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, * ), AA( * )
 *     .. Local Scalars ..
-      INTEGER            I, I1, I2, I3, IBEG, IEND, IOFF, J, JJ, KK
+      int                I, I1, I2, I3, IBEG, IEND, IOFF, J, JJ, KK
       LOGICAL            GEN, LOWER, SYM, TRI, UNIT, UPPER
 *     .. External Functions ..
       COMPLEX*16         ZBEG
@@ -2561,7 +2561,7 @@
 *     .. Scalar Arguments ..
       COMPLEX*16         ALPHA, BETA
       DOUBLE PRECISION   EPS, ERR
-      INTEGER            INCX, INCY, M, N, NMAX, NOUT
+      int                INCX, INCY, M, N, NMAX, NOUT
       LOGICAL            FATAL, MV
       CHARACTER*1        TRANS
 *     .. Array Arguments ..
@@ -2570,7 +2570,7 @@
 *     .. Local Scalars ..
       COMPLEX*16         C
       DOUBLE PRECISION   ERRI
-      INTEGER            I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL
+      int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL
       LOGICAL            CTRAN, TRAN
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, DCONJG, DIMAG, MAX, SQRT
@@ -2681,11 +2681,11 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Scalar Arguments ..
-      INTEGER            LR
+      int                LR
 *     .. Array Arguments ..
       COMPLEX*16         RI( * ), RJ( * )
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
 *     .. Executable Statements ..
       DO 10 I = 1, LR
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
@@ -2712,13 +2712,13 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, M, N
+      int                LDA, M, N
       CHARACTER*1        UPLO
       CHARACTER*2        TYPE
 *     .. Array Arguments ..
       COMPLEX*16         AA( LDA, * ), AS( LDA, * )
 *     .. Local Scalars ..
-      INTEGER            I, IBEG, IEND, J
+      int                I, IBEG, IEND, J
       LOGICAL            UPPER
 *     .. Executable Statements ..
       UPPER = UPLO.EQ.'U'
@@ -2769,7 +2769,7 @@
 *     .. Scalar Arguments ..
       LOGICAL            RESET
 *     .. Local Scalars ..
-      INTEGER            I, IC, J, MI, MJ
+      int                I, IC, J, MI, MJ
 *     .. Save statement ..
       SAVE               I, IC, J, MI, MJ
 *     .. Intrinsic Functions ..
@@ -2834,7 +2834,7 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFOT, NOUT
+      int                INFOT, NOUT
       LOGICAL            LERR, OK
       CHARACTER*6        SRNAMT
 *     .. Executable Statements ..
@@ -2857,12 +2857,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*1        TRANS
-      INTEGER            LY, M, N, KL, KU, LDA, INCX, INCY
+      int                LY, M, N, KL, KU, LDA, INCX, INCY
       COMPLEX*16         ALPHA, BETA
 *     .. Array Arguments ..
       COMPLEX*16         A(LDA,*), X(*), Y(*), YS(*)
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, DCMPLX
 *     .. Executable Statements ..
@@ -2901,10 +2901,10 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO
+      int                INFO
       CHARACTER*6        SRNAME
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUT
+      int                INFOT, NOUT
       LOGICAL            LERR, OK
       CHARACTER*6        SRNAMT
 *     .. Common blocks ..

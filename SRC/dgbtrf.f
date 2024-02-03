@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, KL, KU, LDAB, M, N
+      int                INFO, KL, KU, LDAB, M, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       DOUBLE PRECISION   AB( LDAB, * )
 *     ..
 *
@@ -17,18 +17,18 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ONE, ZERO
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-      INTEGER            NBMAX, LDWORK
+      int                NBMAX, LDWORK
       PARAMETER          ( NBMAX = 64, LDWORK = NBMAX+1 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP, JU, K2, KM, KV, NB, NW
+      int                I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP, JU, K2, KM, KV, NB, NW
       DOUBLE PRECISION   TEMP
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX )
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX, ILAENV
+      int                IDAMAX, ILAENV
       EXTERNAL           IDAMAX, ILAENV
 *     ..
 *     .. External Subroutines ..

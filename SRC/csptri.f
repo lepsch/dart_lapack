@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, N
+      int                INFO, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX            AP( * ), WORK( * )
 *     ..
 *
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            J, K, KC, KCNEXT, KP, KPC, KSTEP, KX, NPP
+      int                J, K, KC, KCNEXT, KP, KPC, KSTEP, KX, NPP
       COMPLEX            AK, AKKP1, AKP1, D, T, TEMP
 *     ..
 *     .. External Functions ..

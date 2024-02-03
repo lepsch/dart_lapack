@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*(*)      SRNAME
-      INTEGER            INFO
+      int                INFO
 *     ..
 *
 *  =====================================================================
@@ -14,7 +14,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NOUT
+      int                INFOT, NOUT
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          LEN_TRIM

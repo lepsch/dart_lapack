@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       DOUBLE PRECISION ALPHA,BETA
-      INTEGER K,LDA,LDB,LDC,N
+      int     K,LDA,LDB,LDC,N
       CHARACTER TRANS,UPLO
 *     ..
 *     .. Array Arguments ..
@@ -27,7 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION TEMP1,TEMP2
-      INTEGER I,INFO,J,L,NROWA
+      int     I,INFO,J,L,NROWA
       LOGICAL UPPER
 *     ..
 *     .. Parameters ..

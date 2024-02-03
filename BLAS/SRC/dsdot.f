@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER INCX,INCY,N
+      int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
       REAL SX(*),SY(*)
@@ -19,7 +19,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER I,KX,KY,NS
+      int     I,KX,KY,NS
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC DBLE

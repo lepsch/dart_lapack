@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          ORDER, RANGE
-      INTEGER            IL, INFO, IU, M, N, NSPLIT
+      int                IL, INFO, IU, M, N, NSPLIT
       DOUBLE PRECISION    PIVMIN, RELTOL, VL, VU, WL, WU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * )       DOUBLE PRECISION   D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * )
+      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * )       DOUBLE PRECISION   D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -18,21 +18,21 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TWO, HALF, FUDGE
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = ONE/TWO, FUDGE = TWO )
-      INTEGER   ALLRNG, VALRNG, INDRNG
+      int       ALLRNG, VALRNG, INDRNG
       PARAMETER ( ALLRNG = 1, VALRNG = 2, INDRNG = 3 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NCNVRG, TOOFEW
-      INTEGER            I, IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IOUT, IRANGE, ITMAX, ITMP1, ITMP2, IW, IWOFF, J, JBLK, JDISC, JE, JEE, NB, NWL, NWU
+      int                I, IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IOUT, IRANGE, ITMAX, ITMP1, ITMP2, IW, IWOFF, J, JBLK, JDISC, JE, JEE, NB, NWL, NWU
       DOUBLE PRECISION   ATOLI, EPS, GL, GU, RTOLI, TMP1, TMP2, TNORM, UFLOW, WKILL, WLU, WUL
 
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 )
+      int                IDUMMA( 1 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, ILAENV, DLAMCH
 *     ..

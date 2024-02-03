@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDVS, NOUNIT, NSIZES, NTYPES, NWORK
+      int                INFO, LDA, LDVS, NOUNIT, NSIZES, NTYPES, NWORK
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * ), DOTYPE( * )
-      INTEGER            ISEED( 4 ), IWORK( * ), NN( * )
+      int                ISEED( 4 ), IWORK( * ), NN( * )
       DOUBLE PRECISION   RESULT( 13 ), RWORK( * )
       COMPLEX*16         A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), W( * ), WORK( * ), WT( * )
 *     ..
@@ -24,18 +24,18 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 21 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN
       CHARACTER          SORT
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IMODE, ISORT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, KNTEIG, LWORK, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT, RSUB, SDIM
+      int                I, IINFO, IMODE, ISORT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, KNTEIG, LWORK, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT, RSUB, SDIM
       DOUBLE PRECISION   ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP, ULPINV, UNFL
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
+      int                IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
       DOUBLE PRECISION   RES( 2 )
 *     ..
 *     .. Arrays in Common ..
@@ -43,7 +43,7 @@
       DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
 *     ..
 *     .. Scalars in Common ..
-      INTEGER            SELDIM, SELOPT
+      int                SELDIM, SELOPT
 *     ..
 *     .. Common blocks ..
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI

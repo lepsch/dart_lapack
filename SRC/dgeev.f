@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBVL, JOBVR
-      INTEGER            INFO, LDA, LDVL, LDVR, LWORK, N
+      int                INFO, LDA, LDVL, LDVR, LWORK, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * )
@@ -22,7 +22,7 @@
 *     .. Local Scalars ..
       LOGICAL            LQUERY, SCALEA, WANTVL, WANTVR
       CHARACTER          SIDE
-      INTEGER            HSWORK, I, IBAL, IERR, IHI, ILO, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT       DOUBLE PRECISION   ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM, SN
+      int                HSWORK, I, IBAL, IERR, IHI, ILO, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT       DOUBLE PRECISION   ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM, SN
 *     ..
 *     .. Local Arrays ..
       LOGICAL            SELECT( 1 )
@@ -33,7 +33,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IDAMAX, ILAENV
+      int                IDAMAX, ILAENV
       DOUBLE PRECISION   DLAMCH, DLANGE, DLAPY2, DNRM2
       EXTERNAL           LSAME, IDAMAX, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2
 *     ..

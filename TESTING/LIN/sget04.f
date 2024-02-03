@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDX, LDXACT, N, NRHS
+      int                LDX, LDXACT, N, NRHS
       REAL               RCOND, RESID
 *     ..
 *     .. Array Arguments ..
@@ -19,11 +19,11 @@
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IX, J
+      int                I, IX, J
       REAL               DIFFNM, EPS, XNORM
 *     ..
 *     .. External Functions ..
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SLAMCH
       EXTERNAL           ISAMAX, SLAMCH
 *     ..

@@ -1,11 +1,11 @@
-      INTEGER FUNCTION IZMAX1( N, ZX, INCX )
+      int     FUNCTION IZMAX1( N, ZX, INCX )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INCX, N
+      int                INCX, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         ZX(*)
@@ -15,7 +15,7 @@
 *
 *     .. Local Scalars ..
       DOUBLE PRECISION   DMAX
-      INTEGER            I, IX
+      int                I, IX
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS

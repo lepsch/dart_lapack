@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, UPLO
-      INTEGER            INFO, KA, KB, LDAB, LDBB, LDZ, N
+      int                INFO, KA, KB, LDAB, LDBB, LDZ, N
 *     ..
 *     .. Array Arguments ..
       REAL               RWORK( * ), W( * )
@@ -18,7 +18,7 @@
 *     .. Local Scalars ..
       LOGICAL            UPPER, WANTZ
       CHARACTER          VECT
-      INTEGER            IINFO, INDE, INDWRK
+      int                IINFO, INDE, INDWRK
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

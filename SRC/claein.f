@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            NOINIT, RIGHTV
-      INTEGER            INFO, LDB, LDH, N
+      int                INFO, LDB, LDH, N
       REAL               EPS3, SMLNUM
       COMPLEX            W
 *     ..
@@ -25,12 +25,12 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          NORMIN, TRANS
-      INTEGER            I, IERR, ITS, J
+      int                I, IERR, ITS, J
       REAL               GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM
       COMPLEX            CDUM, EI, EJ, TEMP, X
 *     ..
 *     .. External Functions ..
-      INTEGER            ICAMAX
+      int                ICAMAX
       REAL               SCASUM, SCNRM2
       COMPLEX            CLADIV
       EXTERNAL           ICAMAX, SCASUM, SCNRM2, CLADIV

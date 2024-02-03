@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            ICOMPQ, INFO, LDGCOL, LDU, N, SMLSIZ, SQRE
+      int                ICOMPQ, INFO, LDGCOL, LDU, N, SMLSIZ, SQRE
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( LDGCOL, * ), GIVPTR( * ), IWORK( * ), K( * ), PERM( LDGCOL, * )       REAL               C( * ), D( * ), DIFL( LDU, * ), DIFR( LDU, * ), E( * ), GIVNUM( LDU, * ), POLES( LDU, * ), S( * ), U( LDU, * ), VT( LDU, * ), WORK( * ), Z( LDU, * )
+      int                GIVCOL( LDGCOL, * ), GIVPTR( * ), IWORK( * ), K( * ), PERM( LDGCOL, * )       REAL               C( * ), D( * ), DIFL( LDU, * ), DIFR( LDU, * ), E( * ), GIVNUM( LDU, * ), POLES( LDU, * ), S( * ), U( LDU, * ), VT( LDU, * ), WORK( * ), Z( LDU, * )
 *     ..
 *
 *  =====================================================================
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, I1, IC, IDXQ, IDXQI, IM1, INODE, ITEMP, IWK, J, LF, LL, LVL, LVL2, M, NCC, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, NRU, NWORK1, NWORK2, SMLSZP, SQREI, VF, VFI, VL, VLI
+      int                I, I1, IC, IDXQ, IDXQI, IM1, INODE, ITEMP, IWK, J, LF, LL, LVL, LVL2, M, NCC, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, NRU, NWORK1, NWORK2, SMLSZP, SQREI, VF, VFI, VL, VLI
       REAL               ALPHA, BETA
 *     ..
 *     .. External Subroutines ..

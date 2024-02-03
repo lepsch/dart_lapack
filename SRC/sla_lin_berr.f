@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            N, NZ, NRHS
+      int                N, NZ, NRHS
 *     ..
 *     .. Array Arguments ..
       REAL               AYB( N, NRHS ), BERR( NRHS )
@@ -16,7 +16,7 @@
 *
 *     .. Local Scalars ..
       REAL               TMP
-      INTEGER            I, J
+      int                I, J
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX

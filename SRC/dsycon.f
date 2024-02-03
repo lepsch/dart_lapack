@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDA, N
+      int                INFO, LDA, N
       DOUBLE PRECISION   ANORM, RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * )
       DOUBLE PRECISION   A( LDA, * ), WORK( * )
 *     ..
 *
@@ -22,11 +22,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            I, KASE
+      int                I, KASE
       DOUBLE PRECISION   AINVNM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          COMPQ
-      INTEGER            IFST, ILST, INFO, LDQ, LDT, N
+      int                IFST, ILST, INFO, LDQ, LDT, N
 *     ..
 *     .. Array Arguments ..
       REAL               Q( LDQ, * ), T( LDT, * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            WANTQ
-      INTEGER            HERE, NBF, NBL, NBNEXT
+      int                HERE, NBF, NBL, NBNEXT
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

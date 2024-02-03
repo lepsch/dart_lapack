@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LDB, LWORK, M, N, P
+      int                LDA, LDB, LWORK, M, N, P
       DOUBLE PRECISION   RESULT
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
       PARAMETER          ( CONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            INFO
+      int                INFO
       DOUBLE PRECISION   ANORM, BNORM, DNORM, EPS, UNFL, XNORM, YNORM
 *     ..
 *     .. External Functions ..

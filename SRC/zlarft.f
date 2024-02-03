@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIRECT, STOREV
-      INTEGER            K, LDT, LDV, N
+      int                K, LDT, LDV, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         T( LDT, * ), TAU( * ), V( LDV, * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, PREVLASTV, LASTV
+      int                I, J, PREVLASTV, LASTV
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZGEMV, ZTRMV, ZGEMM

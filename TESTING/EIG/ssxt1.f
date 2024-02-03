@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IJOB, N1, N2
+      int                IJOB, N1, N2
       REAL               ABSTOL, ULP, UNFL
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       REAL               TEMP1, TEMP2
 *     ..
 *     .. Intrinsic Functions ..

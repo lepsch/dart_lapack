@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            NN, NNS, NOUT
+      int                NN, NNS, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            NSVAL( * ), NVAL( * )
+      int                NSVAL( * ), NVAL( * )
       DOUBLE PRECISION   D( * ), RWORK( * )
       COMPLEX*16         A( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -21,26 +21,26 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ONE, ZERO
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 12 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 7 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ZEROT
       CHARACTER          DIST, TYPE, UPLO
       CHARACTER*3        PATH
-      INTEGER            I, IA, IMAT, IN, INFO, IRHS, IUPLO, IX, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
+      int                I, IA, IMAT, IN, INFO, IRHS, IUPLO, IX, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
       DOUBLE PRECISION   AINVNM, ANORM, COND, DMAX, RCOND, RCONDC
 *     ..
 *     .. Local Arrays ..
       CHARACTER          UPLOS( 2 )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS )
       COMPLEX*16         Z( 3 )
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DGET06, DZASUM, ZLANHT
       EXTERNAL           IDAMAX, DGET06, DZASUM, ZLANHT
 *     ..
@@ -53,7 +53,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

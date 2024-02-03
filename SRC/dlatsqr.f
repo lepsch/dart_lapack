@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, M, N, MB, NB, LDT, LWORK
+      int                INFO, LDA, M, N, MB, NB, LDT, LWORK
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), WORK( * ), T( LDT, * )
@@ -16,7 +16,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, II, KK, CTR, MINMN, LWMIN
+      int                I, II, KK, CTR, MINMN, LWMIN
 *     ..
 *     .. EXTERNAL FUNCTIONS ..
       LOGICAL            LSAME

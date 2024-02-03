@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDA, N
+      int                INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), D( * ), E( * ), TAU( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            I
+      int                I
       REAL               ALPHA, TAUI
 *     ..
 *     .. External Subroutines ..

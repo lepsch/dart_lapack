@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       REAL SB
-      INTEGER INCX,INCY,N
+      int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
       REAL SX(*),SY(*)
 *     .. Local Scalars ..
       DOUBLE PRECISION DSDOT
-      INTEGER I,KX,KY,NS
+      int     I,KX,KY,NS
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC DBLE

@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          NORM
-      INTEGER            INFO, N
+      int                INFO, N
       REAL               ANORM, RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX            D( * ), DL( * ), DU( * ), DU2( * ), WORK( * )
 *     ..
 *
@@ -22,11 +22,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ONENRM
-      INTEGER            I, KASE, KASE1
+      int                I, KASE, KASE1
       REAL               AINVNM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

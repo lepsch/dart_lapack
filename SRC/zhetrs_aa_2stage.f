@@ -8,10 +8,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            N, NRHS, LDA, LTB, LDB, INFO
+      int                N, NRHS, LDA, LTB, LDB, INFO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), IPIV2( * )
+      int                IPIV( * ), IPIV2( * )
       COMPLEX*16         A( LDA, * ), TB( * ), B( LDB, * )
 *     ..
 *
@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            LDTB, NB
+      int                LDTB, NB
       LOGICAL            UPPER
 *     ..
 *     .. External Functions ..

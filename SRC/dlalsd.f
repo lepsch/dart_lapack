@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDB, N, NRHS, RANK, SMLSIZ
+      int                INFO, LDB, N, NRHS, RANK, SMLSIZ
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   B( LDB, * ), D( * ), E( * ), WORK( * )
 *     ..
 *
@@ -21,11 +21,11 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, ICMPQ1, ICMPQ2, IWK, J, K, NLVL, NM1, NSIZE, NSUB, NWORK, PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1, U, VT, Z
+      int                BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, ICMPQ1, ICMPQ2, IWK, J, K, NLVL, NM1, NSIZE, NSUB, NWORK, PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1, U, VT, Z
       DOUBLE PRECISION   CS, EPS, ORGNRM, R, RCND, SN, TOL
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DLANST
       EXTERNAL           IDAMAX, DLAMCH, DLANST
 *     ..

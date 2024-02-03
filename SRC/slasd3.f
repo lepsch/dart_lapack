@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, K, LDQ, LDU, LDU2, LDVT, LDVT2, NL, NR, SQRE
+      int                INFO, K, LDQ, LDU, LDU2, LDVT, LDVT2, NL, NR, SQRE
 *     ..
 *     .. Array Arguments ..
-      INTEGER            CTOT( * ), IDXC( * )
+      int                CTOT( * ), IDXC( * )
       REAL               D( * ), DSIGMA( * ), Q( LDQ, * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * )
 *     ..
 *
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0, NEGONE = -1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            CTEMP, I, J, JC, KTEMP, M, N, NLP1, NLP2, NRP1
+      int                CTEMP, I, J, JC, KTEMP, M, N, NLP1, NLP2, NRP1
       REAL               RHO, TEMP
 *     ..
 *     .. External Functions ..

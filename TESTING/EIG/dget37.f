@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KNT, NIN
+      int                KNT, NIN
 *     ..
 *     .. Array Arguments ..
-      INTEGER            LMAX( 3 ), NINFO( 3 )
+      int                LMAX( 3 ), NINFO( 3 )
       DOUBLE PRECISION   RMAX( 3 )
 *     ..
 *
@@ -19,16 +19,16 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
       DOUBLE PRECISION   EPSIN
       PARAMETER          ( EPSIN = 5.9605D-8 )
-      INTEGER            LDT, LWORK
+      int                LDT, LWORK
       PARAMETER          ( LDT = 20, LWORK = 2*LDT*( 10+LDT ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ICMP, IFND, INFO, ISCL, J, KMIN, M, N
+      int                I, ICMP, IFND, INFO, ISCL, J, KMIN, M, N
       DOUBLE PRECISION   BIGNUM, EPS, SMLNUM, TNRM, TOL, TOLIN, V, VIMIN, VMAX, VMUL, VRMIN
 *     ..
 *     .. Local Arrays ..
       LOGICAL            SELECT( LDT )
-      INTEGER            IWORK( 2*LDT ), LCMP( 3 )
+      int                IWORK( 2*LDT ), LCMP( 3 )
       DOUBLE PRECISION   DUM( 1 ), LE( LDT, LDT ), RE( LDT, LDT ), S( LDT ), SEP( LDT ), SEPIN( LDT ), SEPTMP( LDT ), SIN( LDT ), STMP( LDT ), T( LDT, LDT ), TMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WIIN( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRIN( LDT ), WRTMP( LDT )
 *     ..
 *     .. External Functions ..

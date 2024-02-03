@@ -4,11 +4,11 @@
       REAL               THRESH
       CHARACTER*3        PATH
 
-      INTEGER            NMAX, NPARAMS, NERRBND, NTESTS, KL, KU
+      int                NMAX, NPARAMS, NERRBND, NTESTS, KL, KU
       PARAMETER          (NMAX = 6, NPARAMS = 2, NERRBND = 3, NTESTS = 6)
 
 *     .. Local Scalars ..
-      INTEGER            N, NRHS, INFO, I ,J, k, NFAIL, LDA, N_AUX_TESTS, LDAB, LDAFB
+      int                N, NRHS, INFO, I ,J, k, NFAIL, LDA, N_AUX_TESTS, LDAB, LDAFB
       CHARACTER          FACT, TRANS, UPLO, EQUED
       CHARACTER*2        C2
       CHARACTER(3)       NGUAR, CGUAR
@@ -18,7 +18,7 @@
 
 *     .. Local Arrays ..
       REAL               TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS), S(NMAX), R(NMAX),C(NMAX),RWORK(3*NMAX), DIFF(NMAX, NMAX), ERRBND_N(NMAX*3), ERRBND_C(NMAX*3)
-      INTEGER            IPIV(NMAX)
+      int                IPIV(NMAX)
       COMPLEX            A(NMAX,NMAX),INVHILB(NMAX,NMAX),X(NMAX,NMAX), WORK(NMAX*3*5), AF(NMAX, NMAX),B(NMAX, NMAX), ACOPY(NMAX, NMAX), AB( (NMAX-1)+(NMAX-1)+1, NMAX ), ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ), AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX )
 
 *     .. External Functions ..
@@ -38,9 +38,9 @@
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
 
 *     .. Parameters ..
-      INTEGER            NWISE_I, CWISE_I
+      int                NWISE_I, CWISE_I
       PARAMETER          (NWISE_I = 1, CWISE_I = 1)
-      INTEGER            BND_I, COND_I
+      int                BND_I, COND_I
       PARAMETER          (BND_I = 2, COND_I = 3)
 
 *  Create the loop to test out the Hilbert matrices

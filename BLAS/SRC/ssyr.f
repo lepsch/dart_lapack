@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL ALPHA
-      INTEGER INCX,LDA,N
+      int     INCX,LDA,N
       CHARACTER UPLO
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       REAL TEMP
-      INTEGER I,INFO,IX,J,JX,KX
+      int     I,INFO,IX,J,JX,KX
 *     ..
 *     .. External Functions ..
       LOGICAL LSAME

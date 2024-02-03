@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          COMPZ
-      INTEGER            INFO, LDZ, LIWORK, LRWORK, LWORK, N
+      int                INFO, LDZ, LIWORK, LRWORK, LWORK, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   D( * ), E( * ), RWORK( * )
       COMPLEX*16         WORK( * ), Z( LDZ, * )
 *     ..
@@ -22,12 +22,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            FINISH, I, ICOMPZ, II, J, K, LGN, LIWMIN, LL, LRWMIN, LWMIN, M, SMLSIZ, START
+      int                FINISH, I, ICOMPZ, II, J, K, LGN, LIWMIN, LL, LRWMIN, LWMIN, M, SMLSIZ, START
       DOUBLE PRECISION   EPS, ORGNRM, P, TINY
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANST
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANST
 *     ..

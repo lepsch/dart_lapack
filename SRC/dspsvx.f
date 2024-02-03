@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          FACT, UPLO
-      INTEGER            INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * )
       DOUBLE PRECISION   AFP( * ), AP( * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * )
 *     ..
 *

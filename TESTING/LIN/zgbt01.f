@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KL, KU, LDA, LDAFAC, M, N
+      int                KL, KU, LDA, LDAFAC, M, N
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ), WORK( * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, I1, I2, IL, IP, IW, J, JL, JU, JUA, KD, LENJ
+      int                I, I1, I2, IL, IP, IW, J, JL, JU, JUA, KD, LENJ
       DOUBLE PRECISION   ANORM, EPS
       COMPLEX*16         T
 *     ..

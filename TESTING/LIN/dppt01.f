@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            N
+      int                N
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, K, KC, NPP
+      int                I, K, KC, NPP
       DOUBLE PRECISION   ANORM, EPS, T
 *     ..
 *     .. External Functions ..

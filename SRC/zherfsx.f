@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO, EQUED
-      INTEGER            INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
+      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * )       DOUBLE PRECISION   S( * ), PARAMS( * ), BERR( * ), RWORK( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
 *
 *  ==================================================================
@@ -26,21 +26,21 @@
       PARAMETER          ( COMPONENTWISE_DEFAULT = 1.0D+0 )
       PARAMETER          ( RTHRESH_DEFAULT = 0.5D+0 )
       PARAMETER          ( DZTHRESH_DEFAULT = 0.25D+0 )
-      INTEGER            LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 )
+      int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 )
       PARAMETER          ( LA_LINRX_CWISE_I = 3 )
-      INTEGER            LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I
+      int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I
       PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER(1)       NORM
       LOGICAL            RCEQU
-      INTEGER            J, PREC_TYPE, REF_TYPE
-      INTEGER            N_NORMS
+      int                J, PREC_TYPE, REF_TYPE
+      int                N_NORMS
       DOUBLE PRECISION   ANORM, RCOND_TMP
       DOUBLE PRECISION   ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG
       LOGICAL            IGNORE_CWISE
-      INTEGER            ITHRESH
+      int                ITHRESH
       DOUBLE PRECISION   RTHRESH, UNSTABLE_THRESH
 *     ..
 *     .. External Subroutines ..
@@ -54,7 +54,7 @@
       EXTERNAL           DLAMCH, ZLANHE, ZLA_HERCOND_X, ZLA_HERCOND_C
       DOUBLE PRECISION   DLAMCH, ZLANHE, ZLA_HERCOND_X, ZLA_HERCOND_C
       LOGICAL            LSAME
-      INTEGER            ILAPREC
+      int                ILAPREC
 *     ..
 *     .. Executable Statements ..
 *

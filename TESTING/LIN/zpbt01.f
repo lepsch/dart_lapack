@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            KD, LDA, LDAFAC, N
+      int                KD, LDA, LDAFAC, N
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, K, KC, KLEN, ML, MU
+      int                I, J, K, KC, KLEN, ML, MU
       DOUBLE PRECISION   AKK, ANORM, EPS
 *     ..
 *     .. External Functions ..

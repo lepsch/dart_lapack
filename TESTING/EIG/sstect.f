@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            N, NUM
+      int                N, NUM
       REAL               SHIFT
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, THREE = 3.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       REAL               M1, M2, MX, OVFL, SOV, SSHIFT, SSUN, SUN, TMP, TOM, U, UNFL
 *     ..
 *     .. External Functions ..

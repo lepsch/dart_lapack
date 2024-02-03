@@ -7,14 +7,14 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER          NOUT
+      int              NOUT
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
-      INTEGER          ICASE, INCX, INCY, MODE, N
+      int              ICASE, INCX, INCY, MODE, N
       LOGICAL          PASS
 *     .. Local Scalars ..
       REAL             SFAC
-      INTEGER          IC
+      int              IC
 *     .. External Subroutines ..
       EXTERNAL         CHECK1, CHECK2, HEADER
 *     .. Common blocks ..
@@ -54,10 +54,10 @@
       END
       SUBROUTINE HEADER
 *     .. Parameters ..
-      INTEGER          NOUT
+      int              NOUT
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
-      INTEGER          ICASE, INCX, INCY, MODE, N
+      int              ICASE, INCX, INCY, MODE, N
       LOGICAL          PASS
 *     .. Local Arrays ..
       CHARACTER*6      L(10)
@@ -85,25 +85,25 @@
       END
       SUBROUTINE CHECK1(SFAC)
 *     .. Parameters ..
-      INTEGER           NOUT
+      int               NOUT
       REAL              THRESH
       PARAMETER         (NOUT=6, THRESH=10.0E0)
 *     .. Scalar Arguments ..
       REAL              SFAC
 *     .. Scalars in Common ..
-      INTEGER           ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N
       LOGICAL           PASS
 *     .. Local Scalars ..
       COMPLEX           CA
       REAL              SA
-      INTEGER           I, IX, J, LEN, NP1
+      int               I, IX, J, LEN, NP1
 *     .. Local Arrays ..
       COMPLEX           CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CVR(8), CX(8), CXR(15), MWPCS(5), MWPCT(5)
       REAL              STRUE2(5), STRUE4(5)
-      INTEGER           ITRUE3(5), ITRUEC(5)
+      int               ITRUE3(5), ITRUEC(5)
 *     .. External Functions ..
       REAL              SCASUM, SCNRM2
-      INTEGER           ICAMAX
+      int               ICAMAX
       EXTERNAL          SCASUM, SCNRM2, ICAMAX
 *     .. External Subroutines ..
       EXTERNAL          CB1NRM2, CSCAL, CSSCAL, CTEST, ITEST1, STEST1
@@ -220,19 +220,19 @@
       END
       SUBROUTINE CHECK2(SFAC)
 *     .. Parameters ..
-      INTEGER           NOUT
+      int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       REAL              SFAC
 *     .. Scalars in Common ..
-      INTEGER           ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N
       LOGICAL           PASS
 *     .. Local Scalars ..
       COMPLEX           CA
-      INTEGER           I, J, KI, KN, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY
+      int               I, J, KI, KN, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY
 *     .. Local Arrays ..
       COMPLEX           CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CTY0(1), CX(7), CX0(1), CX1(7), CY(7), CY0(1), CY1(7)
-      INTEGER           INCXS(4), INCYS(4), LENS(4,2), NS(4)
+      int               INCXS(4), INCYS(4), LENS(4,2), NS(4)
 *     .. External Functions ..
       COMPLEX           CDOTC, CDOTU
       EXTERNAL          CDOTC, CDOTU
@@ -339,20 +339,20 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      INTEGER          NOUT
+      int              NOUT
       REAL             ZERO
       PARAMETER        (NOUT=6, ZERO=0.0E0)
 *     .. Scalar Arguments ..
       REAL             SFAC
-      INTEGER          LEN
+      int              LEN
 *     .. Array Arguments ..
       REAL             SCOMP(LEN), SSIZE(LEN), STRUE(LEN)
 *     .. Scalars in Common ..
-      INTEGER          ICASE, INCX, INCY, MODE, N
+      int              ICASE, INCX, INCY, MODE, N
       LOGICAL          PASS
 *     .. Local Scalars ..
       REAL             SD
-      INTEGER          I
+      int              I
 *     .. External Functions ..
       REAL             SDIFF
       EXTERNAL         SDIFF
@@ -435,11 +435,11 @@
 *
 *     .. Scalar Arguments ..
       REAL             SFAC
-      INTEGER          LEN
+      int              LEN
 *     .. Array Arguments ..
       COMPLEX          CCOMP(LEN), CSIZE(LEN), CTRUE(LEN)
 *     .. Local Scalars ..
-      INTEGER          I
+      int              I
 *     .. Local Arrays ..
       REAL             SCOMP(20), SSIZE(20), STRUE(20)
 *     .. External Subroutines ..
@@ -470,15 +470,15 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      INTEGER           NOUT
+      int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      INTEGER           ICOMP, ITRUE
+      int               ICOMP, ITRUE
 *     .. Scalars in Common ..
-      INTEGER           ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N
       LOGICAL           PASS
 *     .. Local Scalars ..
-      INTEGER           ID
+      int               ID
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Executable Statements ..
@@ -522,12 +522,12 @@
 *     https://doi.org/10.1145/3061665
 *
 *     .. Scalar Arguments ..
-      INTEGER           INCX, N
+      int               INCX, N
       REAL              THRESH
 *
 *  =====================================================================
 *     .. Parameters ..
-      INTEGER           NMAX, NOUT, NV
+      int               NMAX, NOUT, NV
       PARAMETER         (NMAX=20, NOUT=6, NV=10)
       REAL              HALF, ONE, THREE, TWO, ZERO
       PARAMETER         (HALF=0.5E+0, ONE=1.0E+0, TWO= 2.0E+0, THREE=3.0E+0, ZERO=0.0E+0)
@@ -542,7 +542,7 @@
 *     .. Local Scalars ..
       COMPLEX           ROGUE
       REAL              SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM
-      INTEGER           I, IV, IW, IX, KS
+      int               I, IV, IW, IX, KS
       LOGICAL           FIRST
 *     .. Local Arrays ..
       COMPLEX           X(NMAX), Z(NMAX)
@@ -705,7 +705,7 @@
       REAL FUNCTION SXVALS(XX,K)
 *     .. Scalar Arguments ..
       REAL              XX
-      INTEGER           K
+      int               K
 *     .. Local Scalars ..
       REAL              X, Y, YY, Z
 *     .. Intrinsic Functions ..

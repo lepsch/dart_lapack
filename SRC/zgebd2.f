@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, M, N
+      int                INFO, LDA, M, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * ), E( * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ), ONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       COMPLEX*16         ALPHA
 *     ..
 *     .. External Subroutines ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, N
+      int                INFO, N
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * ), WORK( * )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IINFO
+      int                I, IINFO
       REAL               EPS, SCALE, SAFMIN, SIGMN, SIGMX
 *     ..
 *     .. External Subroutines ..

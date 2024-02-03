@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, N
+      int                INFO, N
       DOUBLE PRECISION   TOL
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            BPNT, COUNT, I, ISUB, J, NUML, NUMU, TPNT
+      int                BPNT, COUNT, I, ISUB, J, NUML, NUMU, TPNT
       DOUBLE PRECISION   EMIN, EPS, LOWER, MX, TUPPR, UNFLEP, UPPER
 *     ..
 *     .. External Functions ..

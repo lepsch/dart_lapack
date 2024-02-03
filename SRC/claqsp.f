@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          EQUED, UPLO
-      INTEGER            N
+      int                N
       REAL               AMAX, SCOND
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0E+0, THRESH = 0.1E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, JC
+      int                I, J, JC
       REAL               CJ, LARGE, SMALL
 *     ..
 *     .. External Functions ..

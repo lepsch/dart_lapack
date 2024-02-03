@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, ITYPE, LDA, LDB, N
+      int                INFO, ITYPE, LDA, LDB, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), B( LDB, * )
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            K
+      int                K
       REAL               AKK, BKK
       COMPLEX            CT
 *     ..

@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            CUTPNT, GIVPTR, INFO, K, LDQ, LDQ2, N, QSIZ
+      int                CUTPNT, GIVPTR, INFO, K, LDQ, LDQ2, N, QSIZ
       DOUBLE PRECISION   RHO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * )       DOUBLE PRECISION   D( * ), DLAMBDA( * ), GIVNUM( 2, * ), W( * ), Z( * )
+      int                GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * )       DOUBLE PRECISION   D( * ), DLAMBDA( * ), GIVNUM( 2, * ), W( * ), Z( * )
       COMPLEX*16         Q( LDQ, * ), Q2( LDQ2, * )
 *     ..
 *
@@ -20,11 +20,11 @@
       PARAMETER          ( MONE = -1.0D0, ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, EIGHT = 8.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IMAX, J, JLAM, JMAX, JP, K2, N1, N1P1, N2
+      int                I, IMAX, J, JLAM, JMAX, JP, K2, N1, N1P1, N2
       DOUBLE PRECISION   C, EPS, S, T, TAU, TOL
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DLAPY2
       EXTERNAL           IDAMAX, DLAMCH, DLAPY2
 *     ..

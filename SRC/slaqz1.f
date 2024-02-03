@@ -2,7 +2,7 @@
       IMPLICIT NONE
 *
 *     Arguments
-      INTEGER, INTENT( IN ) :: LDA, LDB
+      int    , INTENT( IN ) :: LDA, LDB
       REAL, INTENT( IN ) :: A( LDA, * ), B( LDB, * ), SR1, SR2, SI, BETA1, BETA2
       REAL, INTENT( OUT ) :: V( * )
 *

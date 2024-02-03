@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INCX, N
+      int                INCX, N
       REAL               ALPHA, TAU
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J, KNT
+      int                J, KNT
       REAL               BETA, RSAFMN, SAFMIN, XNORM
 *     ..
 *     .. External Functions ..

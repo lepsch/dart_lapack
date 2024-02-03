@@ -1,8 +1,8 @@
       subroutine idamaxsub(n,x,incx,iamax)
 c
       external idamax
-      integer  idamax,iamax
-      integer n,incx
+      int      idamax,iamax
+      int     n,incx
       double precision x(*)
 c
       iamax=idamax(n,x,incx)

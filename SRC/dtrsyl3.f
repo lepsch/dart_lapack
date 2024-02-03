@@ -3,11 +3,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANA, TRANB
-      INTEGER            INFO, ISGN, LDA, LDB, LDC, M, N, LIWORK, LDSWORK
+      int                INFO, ISGN, LDA, LDB, LDC, M, N, LIWORK, LDSWORK
       DOUBLE PRECISION   SCALE
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ), SWORK( LDSWORK, * )
 *     ..
 *     .. Parameters ..
@@ -16,14 +16,14 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRNA, NOTRNB, LQUERY, SKIP
-      INTEGER            AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB, PC       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM
+      int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB, PC       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   WNRM( MAX( M, N ) )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLANGE, DLAMCH, DLARMM
       EXTERNAL           DLANGE, DLAMCH, DLARMM, ILAENV, LSAME
 *     ..

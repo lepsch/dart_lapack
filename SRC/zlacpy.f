@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            LDA, LDB, M, N
+      int                LDA, LDB, M, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * )
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, N
+      int                INFO, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         AP( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            J, JC, JJ, JJN
+      int                J, JC, JJ, JJN
       DOUBLE PRECISION   AJJ
 *     ..
 *     .. External Functions ..

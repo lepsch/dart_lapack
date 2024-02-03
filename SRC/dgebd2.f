@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, M, N
+      int                INFO, LDA, M, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), D( * ), E( * ), TAUP( * ), TAUQ( * ), WORK( * )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLARF, DLARFG, XERBLA

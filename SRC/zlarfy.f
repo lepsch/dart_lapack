@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INCV, LDC, N
+      int                INCV, LDC, N
       COMPLEX*16         TAU
 *     ..
 *     .. Array Arguments ..

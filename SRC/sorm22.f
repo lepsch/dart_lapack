@@ -8,7 +8,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          SIDE, TRANS
-      INTEGER            M, N, N1, N2, LDQ, LDC, LWORK, INFO
+      int                M, N, N1, N2, LDQ, LDC, LWORK, INFO
 *     ..
 *     .. Array Arguments ..
       REAL               Q( LDQ, * ), C( LDC, * ), WORK( * )
@@ -22,7 +22,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            LEFT, LQUERY, NOTRAN
-      INTEGER            I, LDWORK, LEN, LWKOPT, NB, NQ, NW
+      int                I, LDWORK, LEN, LWKOPT, NB, NQ, NW
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

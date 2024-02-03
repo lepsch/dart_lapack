@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDA, LDSA, N
+      int                INFO, LDA, LDSA, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX            SA( LDSA, * )
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       DOUBLE PRECISION   RMAX
       LOGICAL            UPPER
 *     ..

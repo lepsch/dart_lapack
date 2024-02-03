@@ -3,17 +3,17 @@
 
 *     Function arguments
       LOGICAL, INTENT( IN ) :: ILSCHUR, ILQ, ILZ
-      INTEGER, INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, NSHIFTS, NBLOCK_DESIRED, LDQC, LDZC
+      int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, NSHIFTS, NBLOCK_DESIRED, LDQC, LDZC
        REAL, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), QC( LDQC, * ), ZC( LDZC, * ), WORK( * ), SR( * ), SI( * ), SS( * )
 
-      INTEGER, INTENT( OUT ) :: INFO
+      int    , INTENT( OUT ) :: INFO
 
 *     Parameters
       REAL :: ZERO, ONE, HALF
       PARAMETER( ZERO = 0.0, ONE = 1.0, HALF = 0.5 )
 
 *     Local scalars
-      INTEGER :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP, ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS
+      int     :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP, ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS
       REAL :: TEMP, V( 3 ), C1, S1, C2, S2, SWAP
 *
 *     External functions

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            LDA, LDB, LDX, M, N, NRHS
+      int                LDA, LDB, LDX, M, N, NRHS
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
@@ -20,12 +20,12 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J, N1, N2
+      int                J, N1, N2
       DOUBLE PRECISION   ANORM, BNORM, EPS, XNORM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DLANGE
       EXTERNAL           LSAME, IDAMAX, DLAMCH, DLANGE
 *     ..

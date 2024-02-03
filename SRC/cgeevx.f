@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          BALANC, JOBVL, JOBVR, SENSE
-      INTEGER            IHI, ILO, INFO, LDA, LDVL, LDVR, LWORK, N
+      int                IHI, ILO, INFO, LDA, LDVL, LDVR, LWORK, N
       REAL               ABNRM
 *     ..
 *     .. Array Arguments ..
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       LOGICAL            LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE, WNTSNN, WNTSNV
       CHARACTER          JOB, SIDE
-      INTEGER            HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT
+      int                HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT
       REAL               ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM
       COMPLEX            TMP
 *     ..
@@ -36,7 +36,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ISAMAX, ILAENV
+      int                ISAMAX, ILAENV
       REAL               SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, ISAMAX, ILAENV, SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK
 *     ..

@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, K, LDA, N
+      int                INFO, K, LDA, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       REAL               D( * )
       COMPLEX            A( LDA, * ), WORK( * )
 *     ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ), HALF = ( 0.5E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       REAL               WN
       COMPLEX            ALPHA, TAU, WA, WB
 *     ..

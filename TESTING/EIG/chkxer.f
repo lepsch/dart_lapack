@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       LOGICAL            LERR, OK
       CHARACTER*(*)      SRNAMT
-      INTEGER            INFOT, NOUT
+      int                INFOT, NOUT
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          LEN_TRIM

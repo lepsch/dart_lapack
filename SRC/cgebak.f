@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOB, SIDE
-      INTEGER            IHI, ILO, INFO, LDV, M, N
+      int                IHI, ILO, INFO, LDV, M, N
 *     ..
 *     .. Array Arguments ..
       REAL               SCALE( * )
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LEFTV, RIGHTV
-      INTEGER            I, II, K
+      int                I, II, K
       REAL               S
 *     ..
 *     .. External Functions ..

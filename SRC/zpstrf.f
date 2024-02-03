@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   TOL
-      INTEGER            INFO, LDA, N, RANK
+      int                INFO, LDA, N, RANK
       CHARACTER          UPLO
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * )
       DOUBLE PRECISION   WORK( 2*N )
-      INTEGER            PIV( N )
+      int                PIV( N )
 *     ..
 *
 *  =====================================================================
@@ -26,12 +26,12 @@
 *     .. Local Scalars ..
       COMPLEX*16         ZTEMP
       DOUBLE PRECISION   AJJ, DSTOP, DTEMP
-      INTEGER            I, ITEMP, J, JB, K, NB, PVT
+      int                I, ITEMP, J, JB, K, NB, PVT
       LOGICAL            UPPER
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
-      INTEGER            ILAENV
+      int                ILAENV
       LOGICAL            LSAME, DISNAN
       EXTERNAL           DLAMCH, ILAENV, LSAME, DISNAN
 *     ..

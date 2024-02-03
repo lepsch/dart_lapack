@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            N, NZ, NRHS
+      int                N, NZ, NRHS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   AYB( N, NRHS ), BERR( NRHS )
@@ -16,7 +16,7 @@
 *
 *     .. Local Scalars ..
       DOUBLE PRECISION   TMP
-      INTEGER            I, J
+      int                I, J
       COMPLEX*16         CDUM
 *     ..
 *     .. Intrinsic Functions ..

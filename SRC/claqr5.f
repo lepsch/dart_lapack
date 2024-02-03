@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IHIZ, ILOZ, KACC22, KBOT, KTOP, LDH, LDU, LDV, LDWH, LDWV, LDZ, N, NH, NSHFTS, NV
+      int                IHIZ, ILOZ, KACC22, KBOT, KTOP, LDH, LDU, LDV, LDWH, LDWV, LDZ, N, NH, NSHFTS, NV
       LOGICAL            WANTT, WANTZ
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       COMPLEX            ALPHA, BETA, CDUM, REFSUM, T1, T2, T3
-      REAL               H11, H12, H21, H22, SAFMAX, SAFMIN, SCL, SMLNUM, TST1, TST2, ULP       INTEGER            I2, I4, INCOL, J, JBOT, JCOL, JLEN, JROW, JTOP, K, K1, KDU, KMS, KRCOL, M, M22, MBOT, MTOP, NBMPS, NDCOL, NS, NU
+      REAL               H11, H12, H21, H22, SAFMAX, SAFMIN, SCL, SMLNUM, TST1, TST2, ULP       int                I2, I4, INCOL, J, JBOT, JCOL, JLEN, JROW, JTOP, K, K1, KDU, KMS, KRCOL, M, M22, MBOT, MTOP, NBMPS, NDCOL, NS, NU
       LOGICAL            ACCUM, BMP22
 *     ..
 *     .. External Functions ..

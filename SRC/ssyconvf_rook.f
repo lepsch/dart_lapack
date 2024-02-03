@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO, WAY
-      INTEGER            INFO, LDA, N
+      int                INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       REAL               A( LDA, * ), E( * )
 *     ..
 *
@@ -27,7 +27,7 @@
       EXTERNAL           SSWAP, XERBLA
 *     .. Local Scalars ..
       LOGICAL            UPPER, CONVERT
-      INTEGER            I, IP, IP2
+      int                I, IP, IP2
 *     ..
 *     .. Executable Statements ..
 *

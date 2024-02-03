@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER           INFO, LDA, LDT, M, N, NB
+      int               INFO, LDA, LDT, M, N, NB
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16        A( LDA, * ), D( * ), T( LDT, * )
@@ -19,7 +19,7 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IINFO, J, JB, JBTEMP1, JBTEMP2, JNB, NPLUSONE
+      int                I, IINFO, J, JB, JBTEMP1, JBTEMP2, JNB, NPLUSONE
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZCOPY, ZLAUNHR_COL_GETRFNP, ZSCAL, ZTRSM, XERBLA

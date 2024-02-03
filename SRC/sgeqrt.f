@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER INFO, LDA, LDT, M, N, NB
+      int     INFO, LDA, LDT, M, N, NB
 *     ..
 *     .. Array Arguments ..
       REAL A( LDA, * ), T( LDT, * ), WORK( * )
@@ -15,7 +15,7 @@
 *
 *     ..
 *     .. Local Scalars ..
-      INTEGER    I, IB, IINFO, K
+      int        I, IB, IINFO, K
       LOGICAL    USE_RECURSIVE_QR
       PARAMETER( USE_RECURSIVE_QR=.TRUE. )
 *     ..

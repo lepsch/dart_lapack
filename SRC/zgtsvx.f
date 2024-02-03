@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          FACT, TRANS
-      INTEGER            INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       DOUBLE PRECISION   BERR( * ), FERR( * ), RWORK( * )
       COMPLEX*16         B( LDB, * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( * ), X( LDX, * )
 *     ..

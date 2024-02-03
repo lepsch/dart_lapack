@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            LDA, LDX, LWORK, M, N, NRHS
+      int                LDA, LDX, LWORK, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), WORK( LWORK ), X( LDX, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            TPSD
-      INTEGER            I, INFO, J, LDWORK
+      int                I, INFO, J, LDWORK
       DOUBLE PRECISION   ANRM, ERR, XNRM
 *     ..
 *     .. Local Arrays ..

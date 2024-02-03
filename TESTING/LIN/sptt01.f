@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            N
+      int                N
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       REAL               ANORM, DE, EPS
 *     ..
 *     .. External Functions ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIRECT, PIVOT, SIDE
-      INTEGER            LDA, M, N
+      int                LDA, M, N
 *     ..
 *     .. Array Arguments ..
       REAL               C( * ), S( * )
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, J
+      int                I, INFO, J
       REAL               CTEMP, STEMP
       COMPLEX            TEMP
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*( * )    RC
-      INTEGER            INFO, K, LDU, LDV, LWORK, MU, MV, N
+      int                INFO, K, LDU, LDV, LWORK, MU, MV, N
       REAL               RESULT
 *     ..
 *     .. Array Arguments ..
@@ -20,12 +20,12 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IRC, J, LMX
+      int                I, IRC, J, LMX
       REAL               RES1, RES2, S, ULP
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SLAMCH
       EXTERNAL           LSAME, ISAMAX, SLAMCH
 *     ..

@@ -7,10 +7,10 @@
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
       LOGICAL            CAPPLY
-      INTEGER            N, LDA, LDAF, INFO
+      int                N, LDA, LDAF, INFO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), WORK( * )
       DOUBLE PRECISION   C ( * ), RWORK( * )
 *     ..
@@ -18,13 +18,13 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            KASE, I, J
+      int                KASE, I, J
       DOUBLE PRECISION   AINVNM, ANORM, TMP
       LOGICAL            UP, UPPER
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, TRANS, UPLO
-      INTEGER            INFO, LDA, LDB, N, NRHS
+      int                INFO, LDA, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX            A( LDA, * ), B( LDB, * )
 *     ..
 *
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOUNIT
-      INTEGER            J, K, KP
+      int                J, K, KP
       COMPLEX            D11, D12, D21, D22, T1, T2
 *     ..
 *     .. External Functions ..

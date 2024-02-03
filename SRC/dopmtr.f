@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          SIDE, TRANS, UPLO
-      INTEGER            INFO, LDC, M, N
+      int                INFO, LDC, M, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   AP( * ), C( LDC, * ), TAU( * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FORWRD, LEFT, NOTRAN, UPPER
-      INTEGER            I, I1, I2, I3, IC, II, JC, MI, NI, NQ
+      int                I, I1, I2, I3, IC, II, JC, MI, NI, NQ
       DOUBLE PRECISION   AII
 *     ..
 *     .. External Functions ..

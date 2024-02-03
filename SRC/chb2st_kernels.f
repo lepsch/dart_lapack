@@ -9,7 +9,7 @@
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
       LOGICAL            WANTZ
-      INTEGER            TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT
+      int                TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), V( * ), TAU( * ), WORK( * )
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER
+      int                I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER
       COMPLEX            CTMP
 *     ..
 *     .. External Subroutines ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KBAND, LDU, N
+      int                KBAND, LDU, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   AD( * ), AE( * ), RESULT( 2 ), SD( * ), SE( * ), U( LDU, * ), WORK( * )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J
+      int                J
       DOUBLE PRECISION   ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM
 *     ..
 *     .. External Functions ..

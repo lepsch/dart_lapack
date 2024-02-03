@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            NMAX, NM, NNS, NOUT
+      int                NMAX, NM, NNS, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            MVAL( * ), NSVAL( * )
+      int                MVAL( * ), NSVAL( * )
       DOUBLE PRECISION   RWORK( * )
       COMPLEX            SWORK(*)
       COMPLEX*16         A( * ), AFAC( * ), B( * ), WORK( * ), X( * )
@@ -21,25 +21,25 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO
       PARAMETER          ( ZERO = 0.0D+0 )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 9 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 1 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ZEROT
       CHARACTER          DIST, TYPE, UPLO, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, IM, IMAT, INFO, IOFF, IRHS, IUPLO, IZERO, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
+      int                I, IM, IMAT, INFO, IOFF, IRHS, IUPLO, IZERO, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
       DOUBLE PRECISION   ANORM, CNDNUM
 *     ..
 *     .. Local Arrays ..
       CHARACTER          UPLOS( 2 )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. Local Variables ..
-      INTEGER            ITER, KASE
+      int                ITER, KASE
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAERH, ZLACPY, ZLAIPD, ZLARHS, ZLATB4, ZLATMS, ZPOT06, ZCPOSV
@@ -50,7 +50,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

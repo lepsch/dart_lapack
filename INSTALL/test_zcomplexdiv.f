@@ -7,7 +7,7 @@
 *     .. Local parameters ..
       logical           debug
       parameter       ( debug = .false. )
-      integer           N, nNaN, nInf
+      int               N, nNaN, nInf
       parameter       ( N = 4, nNaN = 3, nInf = 5 )
       double precision  threeFourth, fiveFourth
       parameter       ( threeFourth = 3.0d0 / 4, fiveFourth = 5.0d0 / 4 )
@@ -15,7 +15,7 @@
       parameter       ( czero = DCMPLX( 0.0d0, 0.0d0 ), cone  = DCMPLX( 1.0d0, 0.0d0 ) )
 *     ..
 *     .. Local Variables ..
-      integer           i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, caseInfFails, caseNaNFails, nFailingTests, nTests
+      int               i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, caseInfFails, caseNaNFails, nFailingTests, nTests
       double precision  X( N ), aInf, aNaN, b, eps, blueMin, blueMax, OV, Xj, stepX(N), limX(N)
       double complex    Y, Y2, R, cInf( nInf ), cNaN( nNaN )
 *

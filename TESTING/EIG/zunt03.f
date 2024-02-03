@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*( * )    RC
-      INTEGER            INFO, K, LDU, LDV, LWORK, MU, MV, N
+      int                INFO, K, LDU, LDV, LWORK, MU, MV, N
       DOUBLE PRECISION   RESULT
 *     ..
 *     .. Array Arguments ..
@@ -22,13 +22,13 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IRC, J, LMX
+      int                I, IRC, J, LMX
       DOUBLE PRECISION   RES1, RES2, ULP
       COMPLEX*16         S, SU, SV
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IZAMAX
+      int                IZAMAX
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, IZAMAX, DLAMCH
 *     ..

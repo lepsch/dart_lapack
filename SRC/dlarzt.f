@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIRECT, STOREV
-      INTEGER            K, LDT, LDV, N
+      int                K, LDT, LDV, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   T( LDT, * ), TAU( * ), V( LDV, * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, J
+      int                I, INFO, J
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEMV, DTRMV, XERBLA

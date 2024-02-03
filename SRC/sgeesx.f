@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBVS, SENSE, SORT
-      INTEGER            INFO, LDA, LDVS, LIWORK, LWORK, N, SDIM
+      int                INFO, LDA, LDVS, LIWORK, LWORK, N, SDIM
       REAL               RCONDE, RCONDV
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       REAL               A( LDA, * ), VS( LDVS, * ), WI( * ), WORK( * ), WR( * )
 *     ..
 *     .. Function Arguments ..
@@ -26,7 +26,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS       INTEGER            HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, LWRK, LIWRK, MAXWRK, MINWRK
+      LOGICAL            CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS       int                HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, LWRK, LIWRK, MAXWRK, MINWRK
       REAL               ANRM, BIGNUM, CSCALE, EPS, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -37,7 +37,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..

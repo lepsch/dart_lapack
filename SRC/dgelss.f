@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            BDSPAC, BL, CHUNK, I, IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR       INTEGER            LWORK_DGEQRF, LWORK_DORMQR, LWORK_DGEBRD, LWORK_DORMBR, LWORK_DORGBR, LWORK_DORMLQ, LWORK_DGELQF
+      int                BDSPAC, BL, CHUNK, I, IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR       int                LWORK_DGEQRF, LWORK_DORMQR, LWORK_DGEBRD, LWORK_DORMBR, LWORK_DORGBR, LWORK_DORMLQ, LWORK_DGELQF
       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR
 *     ..
 *     .. Local Arrays ..
@@ -30,7 +30,7 @@
       EXTERNAL           DBDSQR, DCOPY, DGEBRD, DGELQF, DGEMM, DGEMV, DGEQRF, DLACPY, DLASCL, DLASET, DORGBR, DORMBR, DORMLQ, DORMQR, DRSCL, XERBLA
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANGE
       EXTERNAL           ILAENV, DLAMCH, DLANGE
 *     ..

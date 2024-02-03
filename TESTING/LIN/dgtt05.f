@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            LDB, LDX, LDXACT, N, NRHS
+      int                LDB, LDX, LDXACT, N, NRHS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   B( LDB, * ), BERR( * ), D( * ), DL( * ), DU( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * )
@@ -20,12 +20,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRAN
-      INTEGER            I, IMAX, J, K, NZ
+      int                I, IMAX, J, K, NZ
       DOUBLE PRECISION   AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, IDAMAX, DLAMCH
 *     ..

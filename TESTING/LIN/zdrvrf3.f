@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, NN, NOUT
+      int                LDA, NN, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            NVAL( NN )
+      int                NVAL( NN )
       DOUBLE PRECISION   D_WORK_ZLANGE( * )
       COMPLEX*16         A( LDA, * ), ARF( * ), B1( LDA, * ), B2( LDA, * )
       COMPLEX*16         Z_WORK_ZGEQRF( * ), TAU( * )
@@ -20,18 +20,18 @@
 *     .. Parameters ..
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) , ONE  = ( 1.0D+0, 0.0D+0 ) )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 1 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER          UPLO, CFORM, DIAG, TRANS, SIDE
-      INTEGER            I, IFORM, IIM, IIN, INFO, IUPLO, J, M, N, NA, NFAIL, NRUN, ISIDE, IDIAG, IALPHA, ITRANS
+      int                I, IFORM, IIM, IIN, INFO, IUPLO, J, M, N, NA, NFAIL, NRUN, ISIDE, IDIAG, IALPHA, ITRANS
       COMPLEX*16         ALPHA
       DOUBLE PRECISION   EPS
 *     ..
 *     .. Local Arrays ..
       CHARACTER          UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 ), DIAGS( 2 ), SIDES( 2 )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. External Functions ..

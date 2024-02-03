@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*1        UPLO
-      INTEGER            NCOLS, LDA, LDAF
+      int                NCOLS, LDA, LDAF
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), WORK( * )
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       DOUBLE PRECISION   AMAX, UMAX, RPVGRW
       LOGICAL            UPPER
 *     ..

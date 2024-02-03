@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, N
+      int                INFO, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   AP( * ), D( * ), E( * ), TAU( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            I, I1, I1I1, II
+      int                I, I1, I1I1, II
       DOUBLE PRECISION   ALPHA, TAUI
 *     ..
 *     .. External Subroutines ..

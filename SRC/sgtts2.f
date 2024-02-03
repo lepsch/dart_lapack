@@ -5,17 +5,17 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            ITRANS, LDB, N, NRHS
+      int                ITRANS, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       REAL               B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, IP, J
+      int                I, IP, J
       REAL               TEMP
 *     ..
 *     .. Executable Statements ..

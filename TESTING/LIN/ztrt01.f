@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, UPLO
-      INTEGER            LDA, LDAINV, N
+      int                LDA, LDAINV, N
       DOUBLE PRECISION   RCOND, RESID
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J
+      int                J
       DOUBLE PRECISION   AINVNM, ANORM, EPS
 *     ..
 *     .. External Functions ..

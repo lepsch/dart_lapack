@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, NORM, UPLO
-      INTEGER            K, LDAB, N
+      int                K, LDAB, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   WORK( * )
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UDIAG
-      INTEGER            I, J, L
+      int                I, J, L
       DOUBLE PRECISION   SCALE, SUM, VALUE
 *     ..
 *     .. External Functions ..

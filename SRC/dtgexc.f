@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            WANTQ, WANTZ
-      INTEGER            IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, LWORK, N
+      int                IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, LWORK, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            HERE, LWMIN, NBF, NBL, NBNEXT
+      int                HERE, LWMIN, NBF, NBL, NBNEXT
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DTGEX2, XERBLA

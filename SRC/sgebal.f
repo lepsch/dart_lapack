@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOB
-      INTEGER            IHI, ILO, INFO, LDA, N
+      int                IHI, ILO, INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), SCALE( * )
@@ -24,12 +24,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOCONV, CANSWAP
-      INTEGER            I, ICA, IRA, J, K, L
+      int                I, ICA, IRA, J, K, L
       REAL               C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2
 *     ..
 *     .. External Functions ..
       LOGICAL            SISNAN, LSAME
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SLAMCH, SNRM2
       EXTERNAL           SISNAN, LSAME, ISAMAX, SLAMCH, SNRM2
 *     ..

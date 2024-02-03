@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDV, LWORK, M, MV, N, NSWEEP
+      int                INFO, LDA, LDV, LWORK, M, MV, N, NSWEEP
       DOUBLE PRECISION   EPS, SFMIN, TOL
       CHARACTER*1        JOBV
 *     ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION   AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN
-      INTEGER            BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND
+      int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND
       LOGICAL            APPLV, ROTOK, RSVEC
 *     ..
 *     .. Local Arrays ..
@@ -32,7 +32,7 @@
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DDOT, DNRM2
-      INTEGER            IDAMAX
+      int                IDAMAX
       LOGICAL            LSAME
       EXTERNAL           IDAMAX, LSAME, DDOT, DNRM2
 *     ..

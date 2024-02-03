@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, N, NSPLIT
+      int                INFO, N, NSPLIT
       DOUBLE PRECISION    SPLTOL, TNRM
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISPLIT( * )
+      int                ISPLIT( * )
       DOUBLE PRECISION   D( * ), E( * ), E2( * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       DOUBLE PRECISION   EABS, TMP1
 
 *     ..

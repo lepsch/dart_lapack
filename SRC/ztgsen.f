@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            WANTQ, WANTZ
-      INTEGER            IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK, M, N
+      int                IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK, M, N
       DOUBLE PRECISION   PL, PR
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   DIF( * )
       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
 *     ..
@@ -19,19 +19,19 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            IDIFJB
+      int                IDIFJB
       PARAMETER          ( IDIFJB = 3 )
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, SWAP, WANTD, WANTD1, WANTD2, WANTP
-      INTEGER            I, IERR, IJB, K, KASE, KS, LIWMIN, LWMIN, MN2, N1, N2
+      int                I, IERR, IJB, K, KASE, KS, LIWMIN, LWMIN, MN2, N1, N2
       DOUBLE PRECISION   DSCALE, DSUM, RDSCAL, SAFMIN
       COMPLEX*16         TEMP1, TEMP2
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZLACN2, ZLACPY, ZLASSQ, ZSCAL, ZTGEXC, ZTGSYL

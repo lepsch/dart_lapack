@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   ALPHA, BETA
-      INTEGER            INCX, INCY, LDA, N, UPLO
+      int                INCX, INCY, LDA, N, UPLO
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), X( * ), Y( * )
@@ -21,7 +21,7 @@
 *     .. Local Scalars ..
       LOGICAL            SYMB_ZERO
       DOUBLE PRECISION   TEMP, SAFE1
-      INTEGER            I, INFO, IY, J, JX, KX, KY
+      int                I, INFO, IY, J, JX, KX, KY
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, DLAMCH
@@ -29,7 +29,7 @@
 *     ..
 *     .. External Functions ..
       EXTERNAL           ILAUPLO
-      INTEGER            ILAUPLO
+      int                ILAUPLO
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, ABS, SIGN

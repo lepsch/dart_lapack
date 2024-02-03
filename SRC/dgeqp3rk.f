@@ -6,25 +6,25 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, K, KF, KMAX, LDA, LWORK, M, N, NRHS
+      int                INFO, K, KF, KMAX, LDA, LWORK, M, N, NRHS
       DOUBLE PRECISION   ABSTOL,  MAXC2NRMK, RELMAXC2NRMK, RELTOL
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * ), JPIV( * )
+      int                IWORK( * ), JPIV( * )
       DOUBLE PRECISION   A( LDA, * ), TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            INB, INBMIN, IXOVER
+      int                INB, INBMIN, IXOVER
       PARAMETER          ( INB = 1, INBMIN = 2, IXOVER = 3 )
       DOUBLE PRECISION   ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, DONE
-      INTEGER            IINFO, IOFFSET, IWS, J, JB, JBF, JMAXB, JMAX, JMAXC2NRM, KP1, LWKOPT, MINMN, N_SUB, NB, NBMIN, NX
+      int                IINFO, IOFFSET, IWS, J, JB, JBF, JMAXB, JMAX, JMAXC2NRM, KP1, LWKOPT, MINMN, N_SUB, NB, NBMIN, NX
       DOUBLE PRECISION   EPS, HUGEVAL, MAXC2NRM, SAFMIN
 *     ..
 *     .. External Subroutines ..
@@ -32,7 +32,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            DISNAN
-      INTEGER            IDAMAX, ILAENV
+      int                IDAMAX, ILAENV
       DOUBLE PRECISION   DLAMCH, DNRM2
       EXTERNAL           DISNAN, DLAMCH, DNRM2, IDAMAX, ILAENV
 *     ..

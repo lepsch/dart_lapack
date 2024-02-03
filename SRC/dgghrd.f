@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          COMPQ, COMPZ
-      INTEGER            IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N
+      int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ILQ, ILZ
-      INTEGER            ICOMPQ, ICOMPZ, JCOL, JROW
+      int                ICOMPQ, ICOMPZ, JCOL, JROW
       DOUBLE PRECISION   C, S, TEMP
 *     ..
 *     .. External Functions ..

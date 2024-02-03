@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*3        PATH
-      INTEGER            IOUNIT
+      int                IOUNIT
 *     ..
 *
 *  =====================================================================
@@ -14,7 +14,7 @@
 *     .. Local Scalars ..
       LOGICAL            CORZ, SORD
       CHARACTER*2        C2
-      INTEGER            J
+      int                J
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME, LSAMEN

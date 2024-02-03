@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IHI, ILO, INFO, LDH, LDZ, LWORK, N
+      int                IHI, ILO, INFO, LDH, LDZ, LWORK, N
       CHARACTER          COMPZ, JOB
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
 *     ==== Matrices of order NTINY or smaller must be processed by
 *     .    ZLAHQR because of insufficient subdiagonal scratch space.
 *     .    (This is a hard limit.) ====
-      INTEGER            NTINY
+      int                NTINY
       PARAMETER          ( NTINY = 15 )
 *
 *     ==== NL allocates some local workspace to help small matrices
@@ -28,7 +28,7 @@
 *     .    mended.  (The default value of NMIN is 75.)  Using NL = 49
 *     .    allows up to six simultaneous shifts and a 16-by-16
 *     .    deflation window.  ====
-      INTEGER            NL
+      int                NL
       PARAMETER          ( NL = 49 )
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) )
@@ -39,11 +39,11 @@
       COMPLEX*16         HL( NL, NL ), WORKL( NL )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            KBOT, NMIN
+      int                KBOT, NMIN
       LOGICAL            INITZ, LQUERY, WANTT, WANTZ
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       LOGICAL            LSAME
       EXTERNAL           ILAENV, LSAME
 *     ..

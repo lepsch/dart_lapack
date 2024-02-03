@@ -5,23 +5,23 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            NIN, NOUT
+      int                NIN, NOUT
 *     ..
 *
 * ======================================================================
 *
 *     .. Parameters ..
-      INTEGER            LDE
+      int                LDE
       PARAMETER          ( LDE = 20 )
       DOUBLE PRECISION   ZERO
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IHI, ILO, INFO, J, KNT, N, NINFO
+      int                I, IHI, ILO, INFO, J, KNT, N, NINFO
       DOUBLE PRECISION   EPS, RMAX, SAFMIN, VMAX, X
 *     ..
 *     .. Local Arrays ..
-      INTEGER            LMAX( 2 )
+      int                LMAX( 2 )
       DOUBLE PRECISION   E( LDE, LDE ), EIN( LDE, LDE ), SCALE( LDE )
 *     ..
 *     .. External Functions ..

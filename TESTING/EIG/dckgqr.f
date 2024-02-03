@@ -5,27 +5,27 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, NIN, NM, NMATS, NMAX, NN, NOUT, NP
+      int                INFO, NIN, NM, NMATS, NMAX, NN, NOUT, NP
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * )
+      int                ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * )
       DOUBLE PRECISION   A( * ), AF( * ), AQ( * ), AR( * ), B( * ), BF( * ), BT( * ), BWK( * ), BZ( * ), RWORK( * ), TAUA( * ), TAUB( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 7 )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 8 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FIRSTT
       CHARACTER          DISTA, DISTB, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IM, IMAT, IN, IP, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P
+      int                I, IINFO, IM, IMAT, IN, IP, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P
       DOUBLE PRECISION   ANORM, BNORM, CNDNMA, CNDNMB
 *     ..
 *     .. Local Arrays ..

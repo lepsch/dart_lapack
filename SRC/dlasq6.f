@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            I0, N0, PP
+      int                I0, N0, PP
       DOUBLE PRECISION   DMIN, DMIN1, DMIN2, DN, DNM1, DNM2
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J4, J4P2
+      int                J4, J4P2
       DOUBLE PRECISION   D, EMIN, SAFMIN, TEMP
 *     ..
 *     .. External Function ..

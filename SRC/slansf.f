@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          NORM, TRANSR, UPLO
-      INTEGER            N
+      int                N
 *     ..
 *     .. Array Arguments ..
       REAL               A( 0: * ), WORK( 0: * )
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, IFM, ILU, NOE, N1, K, L, LDA
+      int                I, J, IFM, ILU, NOE, N1, K, L, LDA
       REAL               SCALE, S, VALUE, AA, TEMP
 *     ..
 *     .. External Functions ..

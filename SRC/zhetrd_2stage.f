@@ -8,7 +8,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          VECT, UPLO
-      INTEGER            N, LDA, LWORK, LHOUS2, INFO
+      int                N, LDA, LWORK, LHOUS2, INFO
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * ), E( * )
@@ -19,14 +19,14 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER, WANTQ
-      INTEGER            KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS
+      int                KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZHETRD_HE2HB, ZHETRD_HB2ST
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV2STAGE
+      int                ILAENV2STAGE
       EXTERNAL           LSAME, ILAENV2STAGE
 *     ..
 *     .. Executable Statements ..

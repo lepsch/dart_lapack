@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
       REAL               D( * )
@@ -17,10 +17,10 @@
 *
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            IUPLO, J, JB, NB
+      int                IUPLO, J, JB, NB
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           ILAENV
 *     ..
 *     .. External Subroutines ..

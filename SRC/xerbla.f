@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*(*)      SRNAME
-      INTEGER            INFO
+      int                INFO
 *     ..
 *
 * =====================================================================

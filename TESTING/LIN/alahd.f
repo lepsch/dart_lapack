@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*3        PATH
-      INTEGER            IOUNIT
+      int                IOUNIT
 *     ..
 *
 *  =====================================================================

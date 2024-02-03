@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            ITYPE, KBAND, LDU, N
+      int                ITYPE, KBAND, LDU, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * ), E( * ), RESULT( 2 ), RWORK( * )
@@ -26,7 +26,7 @@
 *     .. Local Scalars ..
       LOGICAL            LOWER
       CHARACTER          CUPLO
-      INTEGER            IINFO, J, JP, JP1, JR, LAP
+      int                IINFO, J, JP, JP1, JR, LAP
       DOUBLE PRECISION   ANORM, ULP, UNFL, WNORM
       COMPLEX*16         TEMP, VSAVE
 *     ..

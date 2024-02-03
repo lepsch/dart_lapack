@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, TRANS, UPLO
-      INTEGER            LDB, LDX, N, NRHS
+      int                LDB, LDX, N, NRHS
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J
+      int                J
       REAL               ANORM, BNORM, EPS, XNORM
 *     ..
 *     .. External Functions ..

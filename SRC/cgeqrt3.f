@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER   INFO, LDA, M, N, LDT
+      int       INFO, LDA, M, N, LDT
 *     ..
 *     .. Array Arguments ..
       COMPLEX   A( LDA, * ), T( LDT, * )
@@ -18,7 +18,7 @@
       PARAMETER ( ONE = (1.0,0.0) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER   I, I1, J, J1, N1, N2, IINFO
+      int       I, I1, J, J1, N1, N2, IINFO
 *     ..
 *     .. External Subroutines ..
       EXTERNAL  CLARFG, CTRMM, CGEMM, XERBLA

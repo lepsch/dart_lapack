@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            NOUT
+      int                NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *
@@ -14,15 +14,15 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TEN
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D+0, TEN = 1.0D1 )
-      INTEGER            NSZ, NSZB
+      int                NSZ, NSZB
       PARAMETER          ( NSZ = 5, NSZB = 3*NSZ-2 )
-      INTEGER            NSZP, NPOW
+      int                NSZP, NPOW
       PARAMETER          ( NSZP = ( NSZ*( NSZ+1 ) ) / 2, NPOW = 2*NSZ+1 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            OK
       CHARACTER*3        PATH
-      INTEGER            I, INFO, J, KL, KU, M, N
+      int                I, INFO, J, KL, KU, M, N
       DOUBLE PRECISION   CCOND, EPS, NORM, RATIO, RCMAX, RCMIN, RCOND
 *     ..
 *     .. Local Arrays ..

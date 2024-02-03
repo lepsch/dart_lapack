@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL ALPHA
-      INTEGER LDA,LDB,M,N
+      int     LDA,LDB,M,N
       CHARACTER DIAG,SIDE,TRANSA,UPLO
 *     ..
 *     .. Array Arguments ..
@@ -27,7 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       REAL TEMP
-      INTEGER I,INFO,J,K,NROWA
+      int     I,INFO,J,K,NROWA
       LOGICAL LSIDE,NOUNIT,UPPER
 *     ..
 *     .. Parameters ..

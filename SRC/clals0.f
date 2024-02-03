@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            GIVPTR, ICOMPQ, INFO, K, LDB, LDBX, LDGCOL, LDGNUM, NL, NR, NRHS, SQRE
+      int                GIVPTR, ICOMPQ, INFO, K, LDB, LDBX, LDGCOL, LDGNUM, NL, NR, NRHS, SQRE
       REAL               C, S
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( LDGCOL, * ), PERM( * )
+      int                GIVCOL( LDGCOL, * ), PERM( * )
       REAL               DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), RWORK( * ), Z( * )
       COMPLEX            B( LDB, * ), BX( LDBX, * )
 *     ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0, NEGONE = -1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, JCOL, JROW, M, N, NLP1
+      int                I, J, JCOL, JROW, M, N, NLP1
       REAL               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP
 *     ..
 *     .. External Subroutines ..

@@ -6,20 +6,20 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            NM, NN, NNB, NNS, NOUT
+      int                NM, NN, NNB, NNS, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * )       DOUBLE PRECISION   A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * )
+      int                IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * )       DOUBLE PRECISION   A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 19 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 5 )
       DOUBLE PRECISION   ONE, ZERO, BIGNUM
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, BIGNUM = 1.0D+38 )
@@ -27,11 +27,11 @@
 *     .. Local Scalars ..
       CHARACTER          DIST, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO, INB, IND_OFFSET_GEN, IND_IN, IND_OUT, INS, INFO, ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO, KFACT, KL, KMAX, KU, LDA, LW, LWORK, LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N, NB, NB_ZERO, NERRS, NFAIL, NB_GEN, NRHS, NRUN, NX, T
+      int                I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO, INB, IND_OFFSET_GEN, IND_IN, IND_OUT, INS, INFO, ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO, KFACT, KL, KMAX, KU, LDA, LW, LWORK, LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N, NB, NB_ZERO, NERRS, NFAIL, NB_GEN, NRHS, NRUN, NX, T
       DOUBLE PRECISION   ANORM, CNDNUM, EPS, ABSTOL, RELTOL, DTEMP, MAXC2NRMK, RELMAXC2NRMK
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS ), RDUMMY( 1 )
 *     ..
 *     .. External Functions ..
@@ -47,7 +47,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, IOUNIT
+      int                INFOT, IOUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, IOUNIT, OK, LERR

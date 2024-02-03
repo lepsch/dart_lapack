@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LDU, LDVT, M, N, NS
+      int                LDA, LDU, LDVT, M, N, NS
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       REAL               ANORM, EPS
 *     ..
 *     .. Local Arrays ..
@@ -30,7 +30,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SASUM, SCASUM, SLAMCH, CLANGE
       EXTERNAL           LSAME, ISAMAX, SASUM, SCASUM, SLAMCH, CLANGE
 *     ..

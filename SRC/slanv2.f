@@ -18,7 +18,7 @@
 *     ..
 *     .. Local Scalars ..
       REAL               AA, BB, BCMAX, BCMIS, CC, CS1, DD, EPS, P, SAB, SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z, SAFMIN, SAFMN2, SAFMX2
-      INTEGER            COUNT
+      int                COUNT
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLAPY2

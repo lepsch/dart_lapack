@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            LLEFT, LRIGHT, LROWS
-      INTEGER            LDA, NL
+      int                LDA, NL
       DOUBLE PRECISION   C, S, XLEFT, XRIGHT
 *     ..
 *     .. Array Arguments ..
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            IINC, INEXT, IX, IY, IYT, NT
+      int                IINC, INEXT, IX, IY, IYT, NT
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   XT( 2 ), YT( 2 )

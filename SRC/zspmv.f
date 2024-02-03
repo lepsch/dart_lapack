@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INCX, INCY, N
+      int                INCX, INCY, N
       COMPLEX*16         ALPHA, BETA
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, IX, IY, J, JX, JY, K, KK, KX, KY
+      int                I, INFO, IX, IY, J, JX, JY, K, KK, KX, KY
       COMPLEX*16         TEMP1, TEMP2
 *     ..
 *     .. External Functions ..

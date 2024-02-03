@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   COND
-      INTEGER            IDIST, INFO, IRSIGN, MODE, N, RANK
+      int                IDIST, INFO, IRSIGN, MODE, N, RANK
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * )
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
 *     ..
 *
 *  =====================================================================
@@ -25,7 +25,7 @@
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION   ALPHA, TEMP
-      INTEGER            I
+      int                I
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLARAN

@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIST, RSIGN, SIM, UPPER
-      INTEGER            INFO, KL, KU, LDA, MODE, MODES, N
+      int                INFO, KL, KU, LDA, MODE, MODES, N
       REAL               ANORM, COND, CONDS, DMAX
 *     ..
 *     .. Array Arguments ..
       CHARACTER          EI( * )
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       REAL               A( LDA, * ), D( * ), DS( * ), WORK( * )
 *     ..
 *
@@ -27,7 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADEI, BADS, USEEI
-      INTEGER            I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR, JR
+      int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR, JR
       REAL               ALPHA, TAU, TEMP, XNORMS
 *     ..
 *     .. Local Arrays ..

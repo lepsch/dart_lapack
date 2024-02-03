@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            LDW, N
+      int                LDW, N
       DOUBLE PRECISION   RCOND, RESID
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ICOL, J, JCOL, K, KCOL, NALL
+      int                I, ICOL, J, JCOL, K, KCOL, NALL
       DOUBLE PRECISION   AINVNM, ANORM, EPS
       COMPLEX*16         T
 *     ..

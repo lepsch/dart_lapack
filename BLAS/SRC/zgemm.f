@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       COMPLEX*16 ALPHA,BETA
-      INTEGER K,LDA,LDB,LDC,M,N
+      int     K,LDA,LDB,LDC,M,N
       CHARACTER TRANSA,TRANSB
 *     ..
 *     .. Array Arguments ..
@@ -27,7 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16 TEMP
-      INTEGER I,INFO,J,L,NROWA,NROWB
+      int     I,INFO,J,L,NROWA,NROWB
       LOGICAL CONJA,CONJB,NOTA,NOTB
 *     ..
 *     .. Parameters ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LDB
+      int                LDA, LDB
       DOUBLE PRECISION   SAFMIN, SCALE1, SCALE2, WI, WR1, WR2
 *     ..
 *     .. Array Arguments ..

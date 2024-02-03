@@ -3,9 +3,9 @@
 
 *     Arguments
       LOGICAL, INTENT( IN ) :: ILSCHUR, ILQ, ILZ
-      INTEGER, INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC
+      int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC
        COMPLEX*16, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHA( * ), BETA( * )
-      INTEGER, INTENT( OUT ) :: NS, ND, INFO
+      int    , INTENT( OUT ) :: NS, ND, INFO
       COMPLEX*16 :: QC( LDQC, * ), ZC( LDZC, * ), WORK( * )
       DOUBLE PRECISION :: RWORK( * )
 
@@ -16,7 +16,7 @@
       PARAMETER( ZERO = 0.0D0, ONE = 1.0D0, HALF = 0.5D0 )
 
 *     Local Scalars
-      INTEGER :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, ZTGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO
+      int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, ZTGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO
       DOUBLE PRECISION ::SMLNUM, ULP, SAFMIN, SAFMAX, C1, TEMPR
       COMPLEX*16 :: S, S1, TEMP
 

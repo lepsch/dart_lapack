@@ -8,7 +8,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDA, LDAB, LWORK, N, KD
+      int                INFO, LDA, LDAB, LWORK, N, KD
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * )
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER
-      INTEGER            I, J, IINFO, LWMIN, PN, PK, LK, LDT, LDW, LDS2, LDS1, LS2, LS1, LW, LT, TPOS, WPOS, S2POS, S1POS
+      int                I, J, IINFO, LWMIN, PN, PK, LK, LDT, LDW, LDS2, LDS1, LS2, LS1, LW, LT, TPOS, WPOS, S2POS, S1POS
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, SSYR2K, SSYMM, SGEMM, SCOPY, SLARFT, SGELQF, SGEQRF, SLASET
@@ -33,7 +33,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV2STAGE
+      int                ILAENV2STAGE
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..

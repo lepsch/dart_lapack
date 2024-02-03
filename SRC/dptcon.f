@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, N
+      int                INFO, N
       DOUBLE PRECISION   ANORM, RCOND
 *     ..
 *     .. Array Arguments ..
@@ -19,11 +19,11 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IX
+      int                I, IX
       DOUBLE PRECISION   AINVNM
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX
+      int                IDAMAX
       EXTERNAL           IDAMAX
 *     ..
 *     .. External Subroutines ..

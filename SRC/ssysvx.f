@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          FACT, UPLO
-      INTEGER            INFO, LDA, LDAF, LDB, LDX, LWORK, N, NRHS
+      int                INFO, LDA, LDAF, LDB, LDX, LWORK, N, NRHS
       REAL               RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * )
       REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * )
 *     ..
 *
@@ -22,12 +22,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, NOFACT
-      INTEGER            LWKMIN, LWKOPT, NB
+      int                LWKMIN, LWKOPT, NB
       REAL               ANORM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SLAMCH, SLANSY, SROUNDUP_LWORK
       EXTERNAL           ILAENV, LSAME, SLAMCH, SLANSY, SROUNDUP_LWORK
 *     ..

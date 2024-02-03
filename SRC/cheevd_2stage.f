@@ -8,10 +8,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, UPLO
-      INTEGER            INFO, LDA, LIWORK, LRWORK, LWORK, N
+      int                INFO, LDA, LIWORK, LRWORK, LWORK, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       REAL               RWORK( * ), W( * )
       COMPLEX            A( LDA, * ), WORK( * )
 *     ..
@@ -26,13 +26,13 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDRWK, INDTAU, INDWK2, INDWRK, ISCALE, LIWMIN, LLRWK, LLWORK, LLWRK2, LRWMIN, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS
+      int                IINFO, IMAX, INDE, INDRWK, INDTAU, INDWK2, INDWRK, ISCALE, LIWMIN, LLRWK, LLWORK, LLWRK2, LRWMIN, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS
 
        REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV2STAGE
+      int                ILAENV2STAGE
       REAL               SLAMCH, CLANHE
       EXTERNAL           LSAME, SLAMCH, CLANHE, ILAENV2STAGE
 *     ..

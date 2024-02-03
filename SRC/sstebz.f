@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          ORDER, RANGE
-      INTEGER            IL, INFO, IU, M, N, NSPLIT
+      int                IL, INFO, IU, M, N, NSPLIT
       REAL               ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IBLOCK( * ), ISPLIT( * ), IWORK( * )
+      int                IBLOCK( * ), ISPLIT( * ), IWORK( * )
       REAL               D( * ), E( * ), W( * ), WORK( * )
 *     ..
 *
@@ -24,15 +24,15 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NCNVRG, TOOFEW
-      INTEGER            IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IORDER, IOUT, IRANGE, ITMAX, ITMP1, IW, IWOFF, J, JB, JDISC, JE, NB, NWL, NWU
+      int                IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IORDER, IOUT, IRANGE, ITMAX, ITMP1, IW, IWOFF, J, JB, JDISC, JE, NB, NWL, NWU
       REAL               ATOLI, BNORM, GL, GU, PIVMIN, RTOLI, SAFEMN, TMP1, TMP2, TNORM, ULP, WKILL, WL, WLU, WU, WUL
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 )
+      int                IDUMMA( 1 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SLAMCH
       EXTERNAL           LSAME, ILAENV, SLAMCH
 *     ..

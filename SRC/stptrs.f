@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, TRANS, UPLO
-      INTEGER            INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
       REAL               AP( * ), B( LDB, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOUNIT, UPPER
-      INTEGER            J, JC
+      int                J, JC
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

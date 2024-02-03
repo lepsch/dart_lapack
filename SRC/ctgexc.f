@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            WANTQ, WANTZ
-      INTEGER            IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, N
+      int                IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            HERE
+      int                HERE
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CTGEX2, XERBLA

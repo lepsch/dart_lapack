@@ -5,29 +5,29 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            NUNIT
+      int                NUNIT
       CHARACTER*3        PATH
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NMAX
+      int                NMAX
       PARAMETER          ( NMAX = 4 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, J, RANK
+      int                I, INFO, J, RANK
 *     ..
 *     .. Local Arrays ..
       COMPLEX*16         A( NMAX, NMAX )
       DOUBLE PRECISION   RWORK( 2*NMAX )
-      INTEGER            PIV( NMAX )
+      int                PIV( NMAX )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAESM, CHKXER, ZPSTF2, ZPSTRF
 *     ..
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUT
+      int                INFOT, NOUT
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
 *     ..

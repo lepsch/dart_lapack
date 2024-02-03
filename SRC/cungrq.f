@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, K, LDA, LWORK, M, N
+      int                INFO, K, LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
@@ -19,7 +19,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IB, II, IINFO, IWS, J, KK, L, LDWORK, LWKOPT, NB, NBMIN, NX
+      int                I, IB, II, IINFO, IWS, J, KK, L, LDWORK, LWKOPT, NB, NBMIN, NX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CLARFB, CLARFT, CUNGR2, XERBLA
@@ -28,7 +28,7 @@
       INTRINSIC          MAX, MIN
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SROUNDUP_LWORK
       EXTERNAL           ILAENV, SROUNDUP_LWORK
 *     ..

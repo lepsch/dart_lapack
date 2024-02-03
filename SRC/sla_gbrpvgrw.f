@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            N, KL, KU, NCOLS, LDAB, LDAFB
+      int                N, KL, KU, NCOLS, LDAB, LDAFB
 *     ..
 *     .. Array Arguments ..
       REAL               AB( LDAB, * ), AFB( LDAFB, * )
@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, J, KD
+      int                I, J, KD
       REAL               AMAX, UMAX, RPVGRW
 *     ..
 *     .. Intrinsic Functions ..

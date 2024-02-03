@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N
+      int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N
       REAL               RDSCAL, RDSUM, SCALE
 *     ..
 *     .. Array Arguments ..
@@ -17,17 +17,17 @@
 *
 *     .. Parameters ..
       REAL               ZERO, ONE
-      INTEGER            LDZ
+      int                LDZ
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, LDZ = 2 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRAN
-      INTEGER            I, IERR, J, K
+      int                I, IERR, J, K
       REAL               SCALOC
       COMPLEX            ALPHA
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IPIV( LDZ ), JPIV( LDZ )
+      int                IPIV( LDZ ), JPIV( LDZ )
       COMPLEX            RHS( LDZ ), Z( LDZ, LDZ )
 *     ..
 *     .. External Functions ..

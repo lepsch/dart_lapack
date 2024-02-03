@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          EQUED, FACT, UPLO
-      INTEGER            INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   AFP( * ), AP( * ), B( LDB, * ), BERR( * ), FERR( * ), S( * ), WORK( * ), X( LDX, * )
 *     ..
 *
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            EQUIL, NOFACT, RCEQU
-      INTEGER            I, INFEQU, J
+      int                I, INFEQU, J
       DOUBLE PRECISION   AMAX, ANORM, BIGNUM, SCOND, SMAX, SMIN, SMLNUM
 *     ..
 *     .. External Functions ..

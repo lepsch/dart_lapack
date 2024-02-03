@@ -2,7 +2,7 @@
 c
       external cdotc
       complex cdotc,dotc
-      integer n,incx,incy
+      int     n,incx,incy
       complex x(*),y(*)
 c
       dotc=cdotc(n,x,incx,y,incy)

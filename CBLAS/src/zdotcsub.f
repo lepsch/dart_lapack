@@ -2,7 +2,7 @@
 c
       external zdotc
       double complex zdotc,dotc
-      integer n,incx,incy
+      int     n,incx,incy
       double complex x(*),y(*)
 c
       dotc=zdotc(n,x,incx,y,incy)

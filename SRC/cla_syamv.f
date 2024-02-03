@@ -6,8 +6,8 @@
 *
 *     .. Scalar Arguments ..
       REAL               ALPHA, BETA
-      INTEGER            INCX, INCY, LDA, N
-      INTEGER            UPLO
+      int                INCX, INCY, LDA, N
+      int                UPLO
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), X( * )
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       LOGICAL            SYMB_ZERO
       REAL               TEMP, SAFE1
-      INTEGER            I, INFO, IY, J, JX, KX, KY
+      int                I, INFO, IY, J, JX, KX, KY
       COMPLEX            ZDUM
 *     ..
 *     .. External Subroutines ..
@@ -32,7 +32,7 @@
 *     ..
 *     .. External Functions ..
       EXTERNAL           ILAUPLO
-      INTEGER            ILAUPLO
+      int                ILAUPLO
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, ABS, SIGN, REAL, AIMAG

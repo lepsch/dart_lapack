@@ -7,10 +7,10 @@
 *     .. Scalar Arguments ..
       CHARACTER          TRANS, UPLO, XTYPE
       CHARACTER*3        PATH
-      INTEGER            INFO, KL, KU, LDA, LDB, LDX, M, N, NRHS
+      int                INFO, KL, KU, LDA, LDB, LDX, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       COMPLEX            A( LDA, * ), B( LDB, * ), X( LDX, * )
 *     ..
 *
@@ -24,7 +24,7 @@
       LOGICAL            BAND, GEN, NOTRAN, QRS, SYM, TRAN, TRI
       CHARACTER          C1, DIAG
       CHARACTER*2        C2
-      INTEGER            J, MB, NX
+      int                J, MB, NX
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME, LSAMEN

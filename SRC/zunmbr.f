@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          SIDE, TRANS, VECT
-      INTEGER            INFO, K, LDA, LDC, LWORK, M, N
+      int                INFO, K, LDA, LDC, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
@@ -17,11 +17,11 @@
 *     .. Local Scalars ..
       LOGICAL            APPLYQ, LEFT, LQUERY, NOTRAN
       CHARACTER          TRANST
-      INTEGER            I1, I2, IINFO, LWKOPT, MI, NB, NI, NQ, NW
+      int                I1, I2, IINFO, LWKOPT, MI, NB, NI, NQ, NW
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

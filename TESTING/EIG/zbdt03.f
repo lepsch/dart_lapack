@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            KD, LDU, LDVT, N
+      int                KD, LDU, LDVT, N
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
@@ -21,12 +21,12 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       DOUBLE PRECISION   BNORM, EPS
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DZASUM
       EXTERNAL           LSAME, IDAMAX, DLAMCH, DZASUM
 *     ..

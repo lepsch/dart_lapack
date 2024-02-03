@@ -7,10 +7,10 @@
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
       LOGICAL            CAPPLY
-      INTEGER            N, KL, KU, KD, KE, LDAB, LDAFB, INFO
+      int                N, KL, KU, KD, KE, LDAB, LDAFB, INFO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), WORK( * )
       REAL               C( * ), RWORK( * )
 *     ..
@@ -19,12 +19,12 @@
 *
 *     .. Local Scalars ..
       LOGICAL            NOTRANS
-      INTEGER            KASE, I, J
+      int                KASE, I, J
       REAL               AINVNM, ANORM, TMP
       COMPLEX            ZDUM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

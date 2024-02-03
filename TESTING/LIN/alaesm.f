@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       LOGICAL            OK
       CHARACTER*3        PATH
-      INTEGER            NOUT
+      int                NOUT
 *     ..
 *
 *  =====================================================================

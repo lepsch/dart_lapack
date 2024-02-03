@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, N
+      int                INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), JPIV( * )
+      int                IPIV( * ), JPIV( * )
       DOUBLE PRECISION   A( LDA, * )
 *     ..
 *
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IP, IPV, J, JP, JPV
+      int                I, IP, IPV, J, JP, JPV
       DOUBLE PRECISION   BIGNUM, EPS, SMIN, SMLNUM, XMAX
 *     ..
 *     .. External Subroutines ..

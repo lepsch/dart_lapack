@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDC, LIWORK, LWORK, NCMAX, NIN, NOUT, NSIZE
+      int                INFO, LDA, LDC, LIWORK, LWORK, NCMAX, NIN, NOUT, NSIZE
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   RWORK( * ), S( * )
       COMPLEX*16         A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), C( LDC, * ), Q( LDA, * ), WORK( * ), Z( LDA, * )
 *     ..
@@ -26,7 +26,7 @@
 *     .. Local Scalars ..
       LOGICAL            ILABAD
       CHARACTER          SENSE
-      INTEGER            BDSPAC, I, IFUNC, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB
+      int                BDSPAC, I, IFUNC, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB
       DOUBLE PRECISION   ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1, TEMP2, THRSH2, ULP, ULPINV, WEIGHT
       COMPLEX*16         X
 *     ..
@@ -35,7 +35,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            ZLCTSX
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           ZLCTSX, ILAENV, DLAMCH, ZLANGE
 *     ..
@@ -44,7 +44,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            FS
-      INTEGER            K, M, MPLUSN, N
+      int                K, M, MPLUSN, N
 *     ..
 *     .. Common blocks ..
       COMMON             / MN / M, N, MPLUSN, K, FS

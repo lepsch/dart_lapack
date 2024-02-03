@@ -6,11 +6,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, IOFFSET, KP1, K, KMAX, LDA, M, N, NRHS
+      int                INFO, IOFFSET, KP1, K, KMAX, LDA, M, N, NRHS
       DOUBLE PRECISION   ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
 *     ..
 *     .. Array Arguments ..
-      INTEGER            JPIV( * )
+      int                JPIV( * )
       DOUBLE PRECISION   A( LDA, * ), TAU( * ), VN1( * ), VN2( * ), WORK( * )
 *     ..
 *
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT, MINMNUPDT
+      int                I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT, MINMNUPDT
       DOUBLE PRECISION   AIKK, HUGEVAL, TEMP, TEMP2, TOL3Z
 *     ..
 *     .. External Subroutines ..
@@ -32,7 +32,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            DISNAN
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DNRM2
       EXTERNAL           DISNAN, DLAMCH, IDAMAX, DNRM2
 *     ..

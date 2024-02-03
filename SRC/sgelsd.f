@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
       REAL               RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       REAL               A( LDA, * ), B( LDB, * ), S( * ), WORK( * )
 *     ..
 *
@@ -21,14 +21,14 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, LDWORK, LIWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR, NLVL, NWORK, SMLSIZ, WLALSD
+      int                IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, LDWORK, LIWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR, NLVL, NWORK, SMLSIZ, WLALSD
       REAL               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SGEBRD, SGELQF, SGEQRF, SLACPY, SLALSD, SLASCL, SLASET, SORMBR, SORMLQ, SORMQR, XERBLA
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       EXTERNAL           SLAMCH, SLANGE, ILAENV, SROUNDUP_LWORK
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, TRANS, UPLO
-      INTEGER            LDB, LDX, LDXACT, N, NRHS
+      int                LDB, LDX, LDXACT, N, NRHS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   AP( * ), B( LDB, * ), BERR( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * )
@@ -20,12 +20,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRAN, UNIT, UPPER
-      INTEGER            I, IFU, IMAX, J, JC, K
+      int                I, IFU, IMAX, J, JC, K
       DOUBLE PRECISION   AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, IDAMAX, DLAMCH
 *     ..

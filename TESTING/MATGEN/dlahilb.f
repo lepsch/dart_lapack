@@ -5,23 +5,23 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER N, NRHS, LDA, LDX, LDB, INFO
+      int     N, NRHS, LDA, LDX, LDB, INFO
 *     .. Array Arguments ..
       DOUBLE PRECISION A(LDA, N), X(LDX, NRHS), B(LDB, NRHS), WORK(N)
 *     ..
 *
 *  =====================================================================
 *     .. Local Scalars ..
-      INTEGER TM, TI, R
-      INTEGER M
-      INTEGER I, J
+      int     TM, TI, R
+      int     M
+      int     I, J
 *     ..
 *     .. Parameters ..
 *     NMAX_EXACT   the largest dimension where the generated data is
 *                  exact.
 *     NMAX_APPROX  the largest dimension where the generated data has
 *                  a small componentwise relative error.
-      INTEGER NMAX_EXACT, NMAX_APPROX
+      int     NMAX_EXACT, NMAX_APPROX
       PARAMETER (NMAX_EXACT = 6, NMAX_APPROX = 11)
 *     ..
 *     .. External Subroutines ..

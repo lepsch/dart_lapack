@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N
+      int                INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX            Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*)
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = (1.0E0,0.0E0), ZERO = (0.0E0,0.0E0) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            CHILDINFO, I, J
+      int                CHILDINFO, I, J
       REAL               EPS, NORM, SCL, SSQ
 *     ..
 *     .. External Subroutines ..

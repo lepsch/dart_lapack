@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IDIST, N
+      int                IDIST, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       COMPLEX            X( * )
 *     ..
 *
@@ -17,13 +17,13 @@
 *     .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
-      INTEGER            LV
+      int                LV
       PARAMETER          ( LV = 128 )
       REAL               TWOPI
       PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IL, IV
+      int                I, IL, IV
 *     ..
 *     .. Local Arrays ..
       REAL               U( LV )

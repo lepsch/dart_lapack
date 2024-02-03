@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            COMP
-      INTEGER            INFO, ISRT, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT
+      int                INFO, ISRT, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT
       DOUBLE PRECISION   RCDEIN, RCDVIN, THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
-      INTEGER            ISEED( 4 ), ISLCT( * )
+      int                ISEED( 4 ), ISLCT( * )
       DOUBLE PRECISION   RESULT( 17 ), RWORK( * )
       COMPLEX*16         A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * )
 *     ..
@@ -28,11 +28,11 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          SORT
-      INTEGER            I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, RSUB, SDIM, SDIM1       DOUBLE PRECISION   ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM
+      int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, RSUB, SDIM, SDIM1       DOUBLE PRECISION   ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM
       COMPLEX*16         CTMP
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IPNT( 20 )
+      int                IPNT( 20 )
 *     ..
 *     .. External Functions ..
       LOGICAL            ZSLECT
@@ -50,7 +50,7 @@
       DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
 *     ..
 *     .. Scalars in Common ..
-      INTEGER            SELDIM, SELOPT
+      int                SELDIM, SELOPT
 *     ..
 *     .. Common blocks ..
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI

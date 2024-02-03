@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            ITYPE, LDA, LDB, LDZ, M, N
+      int                ITYPE, LDA, LDB, LDZ, M, N
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), D( * ), RESULT( * ), WORK( * ), Z( LDZ, * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       REAL               ANORM, ULP
 *     ..
 *     .. External Functions ..

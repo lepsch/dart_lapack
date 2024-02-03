@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            NM, NMAX, NNS, NOUT
+      int                NM, NMAX, NNS, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            MVAL( * ), NSVAL( * ), IWORK( * )
+      int                MVAL( * ), NSVAL( * ), IWORK( * )
       REAL               SWORK(*)
       DOUBLE PRECISION   A( * ), AFAC( * ), B( * ), RWORK( * ), WORK( * ), X( * )
 *     ..
@@ -20,24 +20,24 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO
       PARAMETER          ( ZERO = 0.0D+0 )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 11 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 1 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ZEROT
       CHARACTER          DIST, TRANS, TYPE, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, IM, IMAT, INFO, IOFF, IRHS, IZERO, KL, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
+      int                I, IM, IMAT, INFO, IOFF, IRHS, IZERO, KL, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
       DOUBLE PRECISION   ANORM, CNDNUM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. Local Variables ..
-      INTEGER            ITER, KASE
+      int                ITER, KASE
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAERH, ALAHD, DGET08, DLACPY, DLARHS, DLASET, DLATB4, DLATMS
@@ -48,7 +48,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

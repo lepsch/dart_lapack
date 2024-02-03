@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INCX, N
+      int                INCX, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         X( * )
@@ -14,7 +14,7 @@
 * =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, IOFF
+      int                I, IOFF
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DCONJG

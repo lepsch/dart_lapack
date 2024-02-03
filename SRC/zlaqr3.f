@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IHIZ, ILOZ, KBOT, KTOP, LDH, LDT, LDV, LDWV, LDZ, LWORK, N, ND, NH, NS, NV, NW
+      int                IHIZ, ILOZ, KBOT, KTOP, LDH, LDT, LDV, LDWV, LDZ, LWORK, N, ND, NH, NS, NV, NW
       LOGICAL            WANTT, WANTZ
 *     ..
 *     .. Array Arguments ..
@@ -23,11 +23,11 @@
 *     .. Local Scalars ..
       COMPLEX*16         BETA, CDUM, S, TAU
       DOUBLE PRECISION   FOO, SAFMAX, SAFMIN, SMLNUM, ULP
-      INTEGER            I, IFST, ILST, INFO, INFQR, J, JW, KCOL, KLN, KNT, KROW, KWTOP, LTOP, LWK1, LWK2, LWK3, LWKOPT, NMIN
+      int                I, IFST, ILST, INFO, INFQR, J, JW, KCOL, KLN, KNT, KROW, KWTOP, LTOP, LWK1, LWK2, LWK3, LWKOPT, NMIN
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           DLAMCH, ILAENV
 *     ..
 *     .. External Subroutines ..

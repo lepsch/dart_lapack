@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS
+      int                IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDB, * ), WORK( LWORK ), X( LDX, * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            INFO, ISCL, NCOLS, NROWS
+      int                INFO, ISCL, NCOLS, NROWS
       DOUBLE PRECISION   ERR, NORMA, NORMB, NORMRS, SMLNUM
 *     ..
 *     .. Local Arrays ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       COMPLEX*16 ALPHA,BETA
-      INTEGER INCX,INCY,KL,KU,LDA,M,N
+      int     INCX,INCY,KL,KU,LDA,M,N
       CHARACTER TRANS
 *     ..
 *     .. Array Arguments ..
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16 TEMP
-      INTEGER I,INFO,IX,IY,J,JX,JY,K,KUP1,KX,KY,LENX,LENY
+      int     I,INFO,IX,IY,J,JX,JY,K,KUP1,KX,KY,LENX,LENY
       LOGICAL NOCONJ
 *     ..
 *     .. External Functions ..

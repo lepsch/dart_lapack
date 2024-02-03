@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          EQUED, FACT, UPLO
-      INTEGER            INFO, KD, LDAB, LDAFB, LDB, LDX, N, NRHS
+      int                INFO, KD, LDAB, LDAFB, LDB, LDX, N, NRHS
       REAL               RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       REAL               AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), BERR( * ), FERR( * ), S( * ), WORK( * ), X( LDX, * )
 *     ..
 *
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            EQUIL, NOFACT, RCEQU, UPPER
-      INTEGER            I, INFEQU, J, J1, J2
+      int                I, INFEQU, J, J1, J2
       REAL               AMAX, ANORM, BIGNUM, SCOND, SMAX, SMIN, SMLNUM
 *     ..
 *     .. External Functions ..

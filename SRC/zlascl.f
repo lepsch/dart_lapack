@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TYPE
-      INTEGER            INFO, KL, KU, LDA, M, N
+      int                INFO, KL, KU, LDA, M, N
       DOUBLE PRECISION   CFROM, CTO
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            DONE
-      INTEGER            I, ITYPE, J, K1, K2, K3, K4
+      int                I, ITYPE, J, K1, K2, K3, K4
       DOUBLE PRECISION   BIGNUM, CFROM1, CFROMC, CTO1, CTOC, MUL, SMLNUM
 *     ..
 *     .. External Functions ..

@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   RESID
-      INTEGER            LDA, LDAFAC, LDPERM, N, RANK
+      int                LDA, LDAFAC, LDPERM, N, RANK
       CHARACTER          UPLO
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * )
       DOUBLE PRECISION   RWORK( * )
-      INTEGER            PIV( * )
+      int                PIV( * )
 *     ..
 *
 *  =====================================================================
@@ -26,7 +26,7 @@
 *     .. Local Scalars ..
       COMPLEX*16         TC
       DOUBLE PRECISION   ANORM, EPS, TR
-      INTEGER            I, J, K
+      int                I, J, K
 *     ..
 *     .. External Functions ..
       COMPLEX*16         ZDOTC

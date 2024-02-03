@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            KA, KS, LDA, LDU, N
+      int                KA, KS, LDA, LDU, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), D( * ), E( * ), RESULT( 2 ), U( LDU, * ), WORK( * )
@@ -21,7 +21,7 @@
 *     .. Local Scalars ..
       LOGICAL            LOWER
       CHARACTER          CUPLO
-      INTEGER            IKA, J, JC, JR, LW
+      int                IKA, J, JC, JR, LW
       DOUBLE PRECISION   ANORM, ULP, UNFL, WNORM
 *     ..
 *     .. External Functions ..

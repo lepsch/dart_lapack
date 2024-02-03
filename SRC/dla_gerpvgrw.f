@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            N, NCOLS, LDA, LDAF
+      int                N, NCOLS, LDA, LDAF
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * )
@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       DOUBLE PRECISION   AMAX, UMAX, RPVGRW
 *     ..
 *     .. Intrinsic Functions ..

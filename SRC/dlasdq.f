@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU, SQRE
+      int                INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU, SQRE
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ROTATE
-      INTEGER            I, ISUB, IUPLO, J, NP1, SQRE1
+      int                I, ISUB, IUPLO, J, NP1, SQRE1
       DOUBLE PRECISION   CS, R, SMIN, SN
 *     ..
 *     .. External Subroutines ..

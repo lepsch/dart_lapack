@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, TRANS, UPLO
-      INTEGER            LDA, LDB, LDX, LDXACT, N, NRHS
+      int                LDA, LDB, LDX, LDXACT, N, NRHS
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), BERR( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * )
@@ -20,12 +20,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRAN, UNIT, UPPER
-      INTEGER            I, IFU, IMAX, J, K
+      int                I, IFU, IMAX, J, K
       REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SLAMCH
       EXTERNAL           LSAME, ISAMAX, SLAMCH
 *     ..

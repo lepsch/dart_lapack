@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LDAFAC, M, N
+      int                LDA, LDAFAC, M, N
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), AFAC( LDAFAC, * )
 *     ..
@@ -23,7 +23,7 @@
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, K
+      int                I, J, K
       REAL               ANORM, EPS
       COMPLEX            T
 *     ..

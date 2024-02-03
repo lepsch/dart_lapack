@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          ID
-      INTEGER            INFO, N
+      int                INFO, N
 *     ..
 *     .. Array Arguments ..
       REAL               D( * )
@@ -15,15 +15,15 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            SELECT
+      int                SELECT
       PARAMETER          ( SELECT = 20 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            DIR, ENDD, I, J, START, STKPNT
+      int                DIR, ENDD, I, J, START, STKPNT
       REAL               D1, D2, D3, DMNMX, TMP
 *     ..
 *     .. Local Arrays ..
-      INTEGER            STACK( 2, 32 )
+      int                STACK( 2, 32 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

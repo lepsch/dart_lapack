@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, UPLO
-      INTEGER            INFO, LDA, N
+      int                INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOUNIT, UPPER
-      INTEGER            J
+      int                J
       COMPLEX            AJJ
 *     ..
 *     .. External Functions ..

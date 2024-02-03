@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IJOB, INFO, MINP, MMAX, MOUT, N, NBMIN, NITMAX
+      int                IJOB, INFO, MINP, MMAX, MOUT, N, NBMIN, NITMAX
       DOUBLE PRECISION   ABSTOL, PIVMIN, RELTOL
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * ), NAB( MMAX, * ), NVAL( * )
+      int                IWORK( * ), NAB( MMAX, * ), NVAL( * )
       DOUBLE PRECISION   AB( MMAX, * ), C( * ), D( * ), E( * ), E2( * ), WORK( * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D0, TWO = 2.0D0, HALF = 1.0D0 / TWO )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL, KLNEW
+      int                ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL, KLNEW
       DOUBLE PRECISION   TMP1, TMP2
 *     ..
 *     .. Intrinsic Functions ..

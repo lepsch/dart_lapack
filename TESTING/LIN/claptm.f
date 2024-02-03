@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            LDB, LDX, N, NRHS
+      int                LDB, LDX, N, NRHS
       REAL               ALPHA, BETA
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

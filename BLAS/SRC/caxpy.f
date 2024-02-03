@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       COMPLEX CA
-      INTEGER INCX,INCY,N
+      int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
       COMPLEX CX(*),CY(*)
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER I,IX,IY
+      int     I,IX,IY
 *     ..
 *     .. External Functions ..
       REAL SCABS1

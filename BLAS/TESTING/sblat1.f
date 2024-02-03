@@ -7,14 +7,14 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER          NOUT
+      int              NOUT
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
-      INTEGER          ICASE, INCX, INCY, N
+      int              ICASE, INCX, INCY, N
       LOGICAL          PASS
 *     .. Local Scalars ..
       REAL             SFAC
-      INTEGER          IC
+      int              IC
 *     .. External Subroutines ..
       EXTERNAL         CHECK0, CHECK1, CHECK2, CHECK3, HEADER
 *     .. Common blocks ..
@@ -57,10 +57,10 @@
       END
       SUBROUTINE HEADER
 *     .. Parameters ..
-      INTEGER          NOUT
+      int              NOUT
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
-      INTEGER          ICASE, INCX, INCY, N
+      int              ICASE, INCX, INCY, N
       LOGICAL          PASS
 *     .. Local Arrays ..
       CHARACTER*6      L(13)
@@ -91,16 +91,16 @@
       END
       SUBROUTINE CHECK0(SFAC)
 *     .. Parameters ..
-      INTEGER           NOUT
+      int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       REAL              SFAC
 *     .. Scalars in Common ..
-      INTEGER           ICASE, INCX, INCY, N
+      int               ICASE, INCX, INCY, N
       LOGICAL           PASS
 *     .. Local Scalars ..
       REAL              D12, SA, SB, SC, SS
-      INTEGER           I, K
+      int               I, K
 *     .. Local Arrays ..
       REAL              DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8), DAB(4,9), DTEMP(9), DTRUE(9,9)
 *     .. External Subroutines ..
@@ -179,22 +179,22 @@
       END
       SUBROUTINE CHECK1(SFAC)
 *     .. Parameters ..
-      INTEGER           NOUT
+      int               NOUT
       REAL              THRESH
       PARAMETER         (NOUT=6, THRESH=10.0E0)
 *     .. Scalar Arguments ..
       REAL              SFAC
 *     .. Scalars in Common ..
-      INTEGER           ICASE, INCX, INCY, N
+      int               ICASE, INCX, INCY, N
       LOGICAL           PASS
 *     .. Local Scalars ..
-      INTEGER           I, IX, LEN, NP1
+      int               I, IX, LEN, NP1
 *     .. Local Arrays ..
       REAL              DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), DVR(8), SA(10), STEMP(1), STRUE(8), SX(8), SXR(15)
-      INTEGER           ITRUE2(5), ITRUEC(5)
+      int               ITRUE2(5), ITRUEC(5)
 *     .. External Functions ..
       REAL              SASUM, SNRM2
-      INTEGER           ISAMAX
+      int               ISAMAX
       EXTERNAL          SASUM, SNRM2, ISAMAX
 *     .. External Subroutines ..
       EXTERNAL          ITEST1, SB1NRM2, SSCAL, STEST, STEST1
@@ -268,19 +268,19 @@
       END
       SUBROUTINE CHECK2(SFAC)
 *     .. Parameters ..
-      INTEGER           NOUT
+      int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       REAL              SFAC
 *     .. Scalars in Common ..
-      INTEGER           ICASE, INCX, INCY, N
+      int               ICASE, INCX, INCY, N
       LOGICAL           PASS
 *     .. Local Scalars ..
       REAL              SA
-      INTEGER           I, J, KI, KN, KNI, KPAR, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY
+      int               I, J, KI, KN, KNI, KPAR, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY
 *     .. Local Arrays ..
       REAL              DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), SSIZE3(4), SSIZE(7), STX(7), STY(7), SX(7), SY(7), DPAR(5,4), DT19X(7,4,16),DT19XA(7,4,4), DT19XB(7,4,4), DT19XC(7,4,4),DT19XD(7,4,4), DT19Y(7,4,16), DT19YA(7,4,4),DT19YB(7,4,4), DT19YC(7,4,4), DT19YD(7,4,4), DTEMP(5), ST7B(4,4), STY0(1), SX0(1), SY0(1)
-      INTEGER           INCXS(4), INCYS(4), LENS(4,2), NS(4)
+      int               INCXS(4), INCYS(4), LENS(4,2), NS(4)
 *     .. External Functions ..
       REAL              SDOT, SDSDOT
       EXTERNAL          SDOT, SDSDOT
@@ -428,19 +428,19 @@
       END
       SUBROUTINE CHECK3(SFAC)
 *     .. Parameters ..
-      INTEGER           NOUT
+      int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       REAL              SFAC
 *     .. Scalars in Common ..
-      INTEGER           ICASE, INCX, INCY, N
+      int               ICASE, INCX, INCY, N
       LOGICAL           PASS
 *     .. Local Scalars ..
       REAL              SC, SS
-      INTEGER           I, K, KI, KN, KSIZE, LENX, LENY, MX, MY
+      int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY
 *     .. Local Arrays ..
       REAL              COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7)
-      INTEGER           INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4)
+      int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4)
 *     .. External Subroutines ..
       EXTERNAL          SROT, STEST
 *     .. Intrinsic Functions ..
@@ -596,20 +596,20 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      INTEGER          NOUT
+      int              NOUT
       REAL             ZERO
       PARAMETER        (NOUT=6, ZERO=0.0E0)
 *     .. Scalar Arguments ..
       REAL             SFAC
-      INTEGER          LEN
+      int              LEN
 *     .. Array Arguments ..
       REAL             SCOMP(LEN), SSIZE(LEN), STRUE(LEN)
 *     .. Scalars in Common ..
-      INTEGER          ICASE, INCX, INCY, N
+      int              ICASE, INCX, INCY, N
       LOGICAL          PASS
 *     .. Local Scalars ..
       REAL             SD
-      INTEGER          I
+      int              I
 *     .. External Functions ..
       REAL             SDIFF
       EXTERNAL         SDIFF
@@ -693,15 +693,15 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      INTEGER           NOUT
+      int               NOUT
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      INTEGER           ICOMP, ITRUE
+      int               ICOMP, ITRUE
 *     .. Scalars in Common ..
-      INTEGER           ICASE, INCX, INCY, N
+      int               ICASE, INCX, INCY, N
       LOGICAL           PASS
 *     .. Local Scalars ..
-      INTEGER           ID
+      int               ID
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Executable Statements ..
@@ -747,12 +747,12 @@
 *
       IMPLICIT NONE
 *     .. Scalar Arguments ..
-      INTEGER           INCX, N
+      int               INCX, N
       REAL              THRESH
 *
 *  =====================================================================
 *     .. Parameters ..
-      INTEGER           NMAX, NOUT, NV
+      int               NMAX, NOUT, NV
       PARAMETER         (NMAX=20, NOUT=6, NV=10)
       REAL              HALF, ONE, TWO, ZERO
       PARAMETER         (HALF=0.5E+0, ONE=1.0E+0, TWO= 2.0E+0, ZERO=0.0E+0)
@@ -766,7 +766,7 @@
       PARAMETER         (BIGNUM=0.1014120480E+32, SAFMAX=0.8507059173E+38, SAFMIN=0.1175494351E-37, SMLNUM=0.9860761315E-31, ULP=0.1192092896E-06)
 *     .. Local Scalars ..
       REAL              ROGUE, SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM
-      INTEGER           I, IV, IW, IX
+      int               I, IV, IW, IX
       LOGICAL           FIRST
 *     .. Local Arrays ..
       REAL              VALUES(NV), WORK(NMAX), X(NMAX), Z(NMAX)
@@ -915,7 +915,7 @@
       REAL FUNCTION SXVALS(XX,K)
 *     .. Scalar Arguments ..
       REAL              XX
-      INTEGER           K
+      int               K
 *     .. Local Scalars ..
       REAL              X, Y, YY, Z
 *     .. Intrinsic Functions ..

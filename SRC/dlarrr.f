@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            N, INFO
+      int                N, INFO
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * ), E( * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D0, RELCOND = 0.999D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       LOGICAL            YESREL
       DOUBLE PRECISION   EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2
 

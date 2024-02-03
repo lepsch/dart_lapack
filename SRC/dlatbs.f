@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, NORMIN, TRANS, UPLO
-      INTEGER            INFO, KD, LDAB, N
+      int                INFO, KD, LDAB, N
       DOUBLE PRECISION   SCALE
 *     ..
 *     .. Array Arguments ..
@@ -21,12 +21,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRAN, NOUNIT, UPPER
-      INTEGER            I, IMAX, J, JFIRST, JINC, JLAST, JLEN, MAIND
+      int                I, IMAX, J, JFIRST, JINC, JLAST, JLEN, MAIND
       DOUBLE PRECISION   BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS, TMAX, TSCAL, USCAL, XBND, XJ, XMAX
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DASUM, DDOT, DLAMCH
       EXTERNAL           LSAME, IDAMAX, DASUM, DDOT, DLAMCH
 *     ..

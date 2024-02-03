@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            NN, NOUT, NRHS
+      int                NN, NOUT, NRHS
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), NVAL( * )
+      int                IWORK( * ), NVAL( * )
       REAL               RWORK( * )
       COMPLEX            A( * ), AF( * ), B( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -21,21 +21,21 @@
 *     .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 12 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 6 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            TRFCON, ZEROT
       CHARACTER          DIST, FACT, TRANS, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IFACT, IMAT, IN, INFO, ITRAN, IX, IZERO, J, K, K1, KL, KOFF, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT
+      int                I, IFACT, IMAT, IN, INFO, ITRAN, IX, IZERO, J, K, K1, KL, KOFF, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT
       REAL               AINVNM, ANORM, ANORMI, ANORMO, COND, RCOND, RCONDC, RCONDI, RCONDO
 *     ..
 *     .. Local Arrays ..
       CHARACTER          TRANSS( 3 )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       REAL               RESULT( NTESTS ), Z( 3 )
 *     ..
 *     .. External Functions ..
@@ -51,7 +51,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

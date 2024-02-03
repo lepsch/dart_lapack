@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, UPLO
-      INTEGER            INFO, LDA, N
+      int                INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * )
@@ -20,11 +20,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOUNIT, UPPER
-      INTEGER            J, JB, NB, NN
+      int                J, JB, NB, NN
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

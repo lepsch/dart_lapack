@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            NN, NNS, NOUT
+      int                NN, NNS, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), NSVAL( * ), NVAL( * )
+      int                IWORK( * ), NSVAL( * ), NVAL( * )
       DOUBLE PRECISION   A( * ), AF( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
@@ -20,21 +20,21 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ONE, ZERO
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 12 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 7 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            TRFCON, ZEROT
       CHARACTER          DIST, NORM, TRANS, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IMAT, IN, INFO, IRHS, ITRAN, IX, IZERO, J, K, KL, KOFF, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
+      int                I, IMAT, IN, INFO, IRHS, ITRAN, IX, IZERO, J, K, KL, KOFF, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
       DOUBLE PRECISION   AINVNM, ANORM, COND, RCOND, RCONDC, RCONDI, RCONDO
 *     ..
 *     .. Local Arrays ..
       CHARACTER          TRANSS( 3 )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS ), Z( 3 )
 *     ..
 *     .. External Functions ..
@@ -50,7 +50,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

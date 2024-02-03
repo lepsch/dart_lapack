@@ -7,13 +7,13 @@
 *     .. Local parameters ..
       logical           debug
       parameter       ( debug = .false. )
-      integer           N, nNaN, nInf
+      int               N, nNaN, nInf
       parameter       ( N = 4, nNaN = 3, nInf = 5 )
       double precision  threeFourth, fiveFourth, oneHalf
       parameter       ( threeFourth = 3.0d0 / 4, fiveFourth = 5.0d0 / 4, oneHalf = 1.0d0 / 2 )
 *     ..
 *     .. Local Variables ..
-      integer           i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, nFailingTests, nTests       double precision  X( N ), R, answerC, answerD, aInf, aNaN, relDiff, b, eps, blueMin, blueMax, Xj, stepX(N), limX(N)
+      int               i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, nFailingTests, nTests       double precision  X( N ), R, answerC, answerD, aInf, aNaN, relDiff, b, eps, blueMin, blueMax, Xj, stepX(N), limX(N)
       double complex    Y, cInf( nInf ), cNaN( nNaN )
 *
 *     .. Intrinsic Functions ..

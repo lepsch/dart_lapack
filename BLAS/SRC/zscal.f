@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       COMPLEX*16 ZA
-      INTEGER INCX,N
+      int     INCX,N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16 ZX(*)
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER I,NINCX
+      int     I,NINCX
 *     ..
 *     .. Parameters ..
       COMPLEX*16 ONE

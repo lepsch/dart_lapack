@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            WANTQ
-      INTEGER            INFO, J1, LDQ, LDT, N, N1, N2
+      int                INFO, J1, LDQ, LDT, N, N1, N2
 *     ..
 *     .. Array Arguments ..
       REAL               Q( LDQ, * ), T( LDT, * ), WORK( * )
@@ -19,11 +19,11 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       REAL               TEN
       PARAMETER          ( TEN = 1.0E+1 )
-      INTEGER            LDD, LDX
+      int                LDD, LDX
       PARAMETER          ( LDD = 4, LDX = 2 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            IERR, J2, J3, J4, K, ND
+      int                IERR, J2, J3, J4, K, ND
       REAL               CS, DNORM, EPS, SCALE, SMLNUM, SN, T11, T22, T33, TAU, TAU1, TAU2, TEMP, THRESH, WI1, WI2, WR1, WR2, XNORM
 *     ..
 *     .. Local Arrays ..

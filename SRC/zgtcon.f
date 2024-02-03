@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          NORM
-      INTEGER            INFO, N
+      int                INFO, N
       DOUBLE PRECISION   ANORM, RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX*16         D( * ), DL( * ), DU( * ), DU2( * ), WORK( * )
 *     ..
 *
@@ -22,11 +22,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ONENRM
-      INTEGER            I, KASE, KASE1
+      int                I, KASE, KASE1
       DOUBLE PRECISION   AINVNM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

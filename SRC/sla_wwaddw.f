@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            N
+      int                N
 *     ..
 *     .. Array Arguments ..
       REAL               X( * ), Y( * ), W( * )
@@ -15,7 +15,7 @@
 *
 *     .. Local Scalars ..
       REAL               S
-      INTEGER            I
+      int                I
 *     ..
 *     .. Executable Statements ..
 *

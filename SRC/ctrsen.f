@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          COMPQ, JOB
-      INTEGER            INFO, LDQ, LDT, LWORK, M, N
+      int                INFO, LDQ, LDT, LWORK, M, N
       REAL               S, SEP
 *     ..
 *     .. Array Arguments ..
@@ -22,11 +22,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, WANTBH, WANTQ, WANTS, WANTSP
-      INTEGER            IERR, K, KASE, KS, LWMIN, N1, N2, NN
+      int                IERR, K, KASE, KS, LWMIN, N1, N2, NN
       REAL               EST, RNORM, SCALE
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
       REAL               RWORK( 1 )
 *     ..
 *     .. External Functions ..

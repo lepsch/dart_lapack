@@ -5,28 +5,28 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KASE, N
+      int                KASE, N
       REAL               EST
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISGN( * )
+      int                ISGN( * )
       REAL               V( * ), X( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            ITMAX
+      int                ITMAX
       PARAMETER          ( ITMAX = 5 )
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ITER, J, JLAST, JUMP
+      int                I, ITER, J, JLAST, JUMP
       REAL               ALTSGN, ESTOLD, TEMP
 *     ..
 *     .. External Functions ..
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SASUM
       EXTERNAL           ISAMAX, SASUM
 *     ..

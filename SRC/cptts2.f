@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IUPLO, LDB, N, NRHS
+      int                IUPLO, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
       REAL               D( * )
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CSSCAL

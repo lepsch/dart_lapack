@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBU1, JOBU2, JOBV1T
-      INTEGER            INFO, LDU1, LDU2, LDV1T, LWORK, LDX11, LDX21, M, P, Q
+      int                INFO, LDU1, LDU2, LDV1T, LWORK, LDX11, LDX21, M, P, Q
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   THETA(*)
       DOUBLE PRECISION   U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*)
-      INTEGER            IWORK(*)
+      int                IWORK(*)
 *     ..
 *
 *  =====================================================================
@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            CHILDINFO, I, IB11D, IB11E, IB12D, IB12E, IB21D, IB21E, IB22D, IB22E, IBBCSD, IORBDB, IORGLQ, IORGQR, IPHI, ITAUP1, ITAUP2, ITAUQ1, J, LBBCSD, LORBDB, LORGLQ, LORGLQMIN, LORGLQOPT, LORGQR, LORGQRMIN, LORGQROPT, LWORKMIN, LWORKOPT, R
+      int                CHILDINFO, I, IB11D, IB11E, IB12D, IB12E, IB21D, IB21E, IB22D, IB22E, IBBCSD, IORBDB, IORGLQ, IORGQR, IPHI, ITAUP1, ITAUP2, ITAUQ1, J, LBBCSD, LORBDB, LORGLQ, LORGLQMIN, LORGLQOPT, LORGQR, LORGQRMIN, LORGQROPT, LWORKMIN, LWORKOPT, R
       LOGICAL            LQUERY, WANTU1, WANTU2, WANTV1T
 *     ..
 *     .. Local Arrays ..

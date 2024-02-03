@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            N, KL, KU, KD, KE, LDAB, LDAFB, INFO
+      int                N, KL, KU, KD, KE, LDAB, LDAFB, INFO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), X( * )
       DOUBLE PRECISION   RWORK( * )
 *
@@ -18,12 +18,12 @@
 *
 *     .. Local Scalars ..
       LOGICAL            NOTRANS
-      INTEGER            KASE, I, J
+      int                KASE, I, J
       DOUBLE PRECISION   AINVNM, ANORM, TMP
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

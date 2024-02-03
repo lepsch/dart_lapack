@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          NORM, UPLO
-      INTEGER            N
+      int                N
 *     ..
 *     .. Array Arguments ..
       REAL               AP( * ), WORK( * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, K
+      int                I, J, K
       REAL               ABSA, SCALE, SUM, VALUE
 *     ..
 *     .. External Subroutines ..

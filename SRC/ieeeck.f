@@ -1,11 +1,11 @@
-      INTEGER          FUNCTION IEEECK( ISPEC, ZERO, ONE )
+      int              FUNCTION IEEECK( ISPEC, ZERO, ONE )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            ISPEC
+      int                ISPEC
       REAL               ONE, ZERO
 *     ..
 *

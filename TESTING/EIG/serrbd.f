@@ -6,23 +6,23 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*3        PATH
-      INTEGER            NUNIT
+      int                NUNIT
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NMAX, LW
+      int                NMAX, LW
       PARAMETER          ( NMAX = 4, LW = NMAX )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER*2        C2
-      INTEGER            I, INFO, J, NS, NT
+      int                I, INFO, J, NS, NT
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IQ( NMAX, NMAX ), IW( NMAX )
+      int                IQ( NMAX, NMAX ), IW( NMAX )
       REAL               A( NMAX, NMAX ), D( NMAX ), E( NMAX ), Q( NMAX, NMAX ), S( NMAX ), TP( NMAX ), TQ( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW )
 *     ..
 *     .. External Functions ..
@@ -35,7 +35,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NOUT
+      int                INFOT, NOUT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR

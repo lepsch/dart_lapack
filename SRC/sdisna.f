@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOB
-      INTEGER            INFO, M, N
+      int                INFO, M, N
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), SEP( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            DECR, EIGEN, INCR, LEFT, RIGHT, SING
-      INTEGER            I, K
+      int                I, K
       REAL               ANORM, EPS, NEWGAP, OLDGAP, SAFMIN, THRESH
 *     ..
 *     .. External Functions ..

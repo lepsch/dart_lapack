@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IDIST, N
+      int                IDIST, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       DOUBLE PRECISION   X( * )
 *     ..
 *
@@ -17,13 +17,13 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ONE, TWO
       PARAMETER          ( ONE = 1.0D+0, TWO = 2.0D+0 )
-      INTEGER            LV
+      int                LV
       PARAMETER          ( LV = 128 )
       DOUBLE PRECISION   TWOPI
       PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IL, IL2, IV
+      int                I, IL, IL2, IV
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   U( LV )

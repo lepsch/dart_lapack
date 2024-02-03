@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            LDA, LDW, N, NB
+      int                LDA, LDW, N, NB
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), E( * ), TAU( * ), W( LDW, * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, HALF = 0.5E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IW
+      int                I, IW
       REAL               ALPHA
 *     ..
 *     .. External Subroutines ..

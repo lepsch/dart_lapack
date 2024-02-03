@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDB, LDZ, LIWORK, NOUNIT, NSIZES, NTYPES, NWORK
+      int                INFO, LDA, LDB, LDZ, LIWORK, NOUNIT, NSIZES, NTYPES, NWORK
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            ISEED( 4 ), IWORK( * ), NN( * )
+      int                ISEED( 4 ), IWORK( * ), NN( * )
       DOUBLE PRECISION   A( LDA, * ), AB( LDA, * ), AP( * ), B( LDB, * ), BB( LDB, * ), BP( * ), D( * ), RESULT( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
@@ -19,17 +19,17 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TEN
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0 )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 21 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN
       CHARACTER          UPLO
-      INTEGER            I, IBTYPE, IBUPLO, IINFO, IJ, IL, IMODE, ITEMP, ITYPE, IU, J, JCOL, JSIZE, JTYPE, KA, KA9, KB, KB9, M, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT
+      int                I, IBTYPE, IBUPLO, IINFO, IJ, IL, IMODE, ITEMP, ITYPE, IU, J, JCOL, JSIZE, JTYPE, KA, KA9, KB, KB9, M, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT
       DOUBLE PRECISION   ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
+      int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

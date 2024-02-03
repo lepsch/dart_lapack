@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS
+      int                IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), B( LDB, * ), C( LDB, * ), WORK( LWORK ), X( LDX, * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            INFO, ISCL, NCOLS, NROWS
+      int                INFO, ISCL, NCOLS, NROWS
       REAL               ERR, NORMA, NORMB, NORMRS, SMLNUM
 *     ..
 *     .. Local Arrays ..

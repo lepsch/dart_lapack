@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            LDA, LDB, LDX, M, N, NRHS
+      int                LDA, LDB, LDX, M, N, NRHS
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
@@ -23,13 +23,13 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J, N1, N2
+      int                J, N1, N2
       DOUBLE PRECISION   ANORM, BNORM, EPS, XNORM
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IZAMAX
+      int                IZAMAX
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           LSAME, IZAMAX, DLAMCH, ZLANGE
 *     ..

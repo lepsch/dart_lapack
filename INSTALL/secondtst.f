@@ -1,8 +1,8 @@
-      INTEGER            NMAX, ITS
+      int                NMAX, ITS
       PARAMETER          ( NMAX = 1000, ITS = 50000 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       REAL               ALPHA, AVG, T1, T2, TNOSEC, TOTAL
 *     ..
 *     .. Local Arrays ..
@@ -83,7 +83,7 @@
       CALL MYSUB(NMAX,X,Y)
       END
       SUBROUTINE MYSUB(N,X,Y)
-      INTEGER N
+      int     N
       REAL X(N), Y(N)
       RETURN
       END

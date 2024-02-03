@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IFIRST, ILAST, INFO, N, OFFSET
+      int                IFIRST, ILAST, INFO, N, OFFSET
       DOUBLE PRECISION   PIVMIN, RTOL, SPDIAM
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   D( * ), E2( * ), W( * ), WERR( * ), WORK( * )
 *     ..
 *
@@ -18,10 +18,10 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TWO, HALF
       PARAMETER        ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = 0.5D0 )
-      INTEGER   MAXITR
+      int       MAXITR
 *     ..
 *     .. Local Scalars ..
-      INTEGER            CNT, I, I1, I2, II, ITER, J, K, NEXT, NINT, OLNINT, P, PREV, SAVI1
+      int                CNT, I, I1, I2, II, ITER, J, K, NEXT, NINT, OLNINT, P, PREV, SAVI1
       DOUBLE PRECISION   DPLUS, FAC, LEFT, MID, RIGHT, S, TMP, WIDTH
 *
 *     ..

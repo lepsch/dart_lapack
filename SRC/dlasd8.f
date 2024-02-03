@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            ICOMPQ, INFO, K, LDDIFR
+      int                ICOMPQ, INFO, K, LDDIFR
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * ), DIFL( * ), DIFR( LDDIFR, * ), DSIGMA( * ), VF( * ), VL( * ), WORK( * ), Z( * )
@@ -18,7 +18,7 @@
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IWK1, IWK2, IWK2I, IWK3, IWK3I, J
+      int                I, IWK1, IWK2, IWK2I, IWK3, IWK3I, J
       DOUBLE PRECISION   DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, RHO, TEMP
 *     ..
 *     .. External Subroutines ..

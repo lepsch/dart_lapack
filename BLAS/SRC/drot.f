@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       DOUBLE PRECISION C,S
-      INTEGER INCX,INCY,N
+      int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION DX(*),DY(*)
@@ -16,7 +16,7 @@
 *
 *     .. Local Scalars ..
       DOUBLE PRECISION DTEMP
-      INTEGER I,IX,IY
+      int     I,IX,IY
 *     ..
       IF (N.LE.0) RETURN
       IF (INCX.EQ.1 .AND. INCY.EQ.1) THEN

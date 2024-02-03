@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            K, LDA, LWORK, M, N
+      int                K, LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            JPVT( * )
+      int                JPVT( * )
       REAL               A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, J
+      int                I, INFO, J
       REAL               NORMA
 *     ..
 *     .. Local Arrays ..

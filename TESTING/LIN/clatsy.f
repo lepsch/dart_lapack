@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            LDX, N
+      int                LDX, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( * )
+      int                ISEED( * )
       COMPLEX            X( LDX, * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( EYE = ( 0.0, 1.0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, N5
+      int                I, J, N5
       REAL               ALPHA, ALPHA3, BETA
       COMPLEX            A, B, C, R
 *     ..

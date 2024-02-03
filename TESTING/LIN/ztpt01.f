@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, UPLO
-      INTEGER            N
+      int                N
       DOUBLE PRECISION   RCOND, RESID
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UNITD
-      INTEGER            J, JC
+      int                J, JC
       DOUBLE PRECISION   AINVNM, ANORM, EPS
 *     ..
 *     .. External Functions ..

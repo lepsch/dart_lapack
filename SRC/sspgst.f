@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, ITYPE, N
+      int                INFO, ITYPE, N
 *     ..
 *     .. Array Arguments ..
       REAL               AP( * ), BP( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            J, J1, J1J1, JJ, K, K1, K1K1, KK
+      int                J, J1, J1J1, JJ, K, K1, K1K1, KK
       REAL               AJJ, AKK, BJJ, BKK, CT
 *     ..
 *     .. External Subroutines ..

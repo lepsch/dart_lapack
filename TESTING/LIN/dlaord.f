@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOB
-      INTEGER            INCX, N
+      int                INCX, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   X( * )
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, INC, IX, IXNEXT
+      int                I, INC, IX, IXNEXT
       DOUBLE PRECISION   TEMP
 *     ..
 *     .. External Functions ..

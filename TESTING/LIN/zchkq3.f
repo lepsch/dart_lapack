@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            NM, NN, NNB, NOUT
+      int                NM, NN, NNB, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )
+      int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )
       DOUBLE PRECISION   S( * ), RWORK( * )
       COMPLEX*16         A( * ), COPYA( * ), TAU( * ), WORK( * )
 *     ..
@@ -18,9 +18,9 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 6 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 3 )
       DOUBLE PRECISION   ONE, ZERO
       COMPLEX*16         CZERO
@@ -28,11 +28,11 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER*3        PATH
-      INTEGER            I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO, ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N, NB, NERRS, NFAIL, NRUN, NX
+      int                I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO, ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N, NB, NERRS, NFAIL, NRUN, NX
       DOUBLE PRECISION   EPS
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
@@ -48,7 +48,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, IOUNIT
+      int                INFOT, IOUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, IOUNIT, OK, LERR

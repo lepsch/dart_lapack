@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            INFO, LDA, LDB, LWORK, M, N, NRHS
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, TPSD
-      INTEGER            BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE
+      int                BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE
       REAL               ANRM, BIGNUM, BNRM, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -28,7 +28,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..

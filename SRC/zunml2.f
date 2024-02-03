@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          SIDE, TRANS
-      INTEGER            INFO, K, LDA, LDC, M, N
+      int                INFO, K, LDA, LDC, M, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LEFT, NOTRAN
-      INTEGER            I, I1, I2, I3, IC, JC, MI, NI, NQ
+      int                I, I1, I2, I3, IC, JC, MI, NI, NQ
       COMPLEX*16         AII, TAUI
 *     ..
 *     .. External Functions ..

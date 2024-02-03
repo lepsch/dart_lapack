@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, KD, LDAB, N
+      int                INFO, KD, LDAB, N
       REAL               ANORM, RCOND
 *     ..
 *     .. Array Arguments ..
@@ -23,16 +23,16 @@
 *     .. Local Scalars ..
       LOGICAL            UPPER
       CHARACTER          NORMIN
-      INTEGER            IX, KASE
+      int                IX, KASE
       REAL               AINVNM, SCALE, SCALEL, SCALEU, SMLNUM
       COMPLEX            ZDUM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ICAMAX
+      int                ICAMAX
       REAL               SLAMCH
       EXTERNAL           LSAME, ICAMAX, SLAMCH
 *     ..

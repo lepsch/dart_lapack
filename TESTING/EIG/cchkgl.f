@@ -5,23 +5,23 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            NIN, NOUT
+      int                NIN, NOUT
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            LDA, LDB, LWORK
+      int                LDA, LDB, LWORK
       PARAMETER          ( LDA = 20, LDB = 20, LWORK = 6*LDA )
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO
+      int                I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO
       REAL               ANORM, BNORM, EPS, RMAX, VMAX
 *     ..
 *     .. Local Arrays ..
-      INTEGER            LMAX( 3 )
+      int                LMAX( 3 )
       REAL               LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK )       COMPLEX            A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB )
 *     ..
 *     .. External Functions ..

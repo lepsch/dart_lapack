@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
       REAL               B( LDB, * ), D( * ), DL( * ), DU( * )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       REAL               FACT, TEMP
 *     ..
 *     .. Intrinsic Functions ..

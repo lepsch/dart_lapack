@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*3        TYPE
-      INTEGER            IE, IOUNIT, NRUN
+      int                IE, IOUNIT, NRUN
 *     ..
 *
 *  =====================================================================

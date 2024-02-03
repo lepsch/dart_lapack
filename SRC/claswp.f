@@ -5,17 +5,17 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INCX, K1, K2, LDA, N
+      int                INCX, K1, K2, LDA, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX            A( LDA, * )
 *     ..
 *
 * =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, I1, I2, INC, IP, IX, IX0, J, K, N32
+      int                I, I1, I2, INC, IP, IX, IX0, J, K, N32
       COMPLEX            TEMP
 *     ..
 *     .. Executable Statements ..

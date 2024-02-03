@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDA, LDAF, LDB, LDX, N, NRHS
+      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   BERR( * ), FERR( * ), RWORK( * )
@@ -16,7 +16,7 @@
 *  ====================================================================
 *
 *     .. Parameters ..
-      INTEGER            ITMAX
+      int                ITMAX
       PARAMETER          ( ITMAX = 5 )
       DOUBLE PRECISION   ZERO
       PARAMETER          ( ZERO = 0.0D+0 )
@@ -29,12 +29,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            COUNT, I, J, K, KASE, NZ
+      int                COUNT, I, J, K, KASE, NZ
       DOUBLE PRECISION   EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZAXPY, ZCOPY, ZHEMV, ZLACN2, ZPOTRS

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          NORM
-      INTEGER            N
+      int                N
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       REAL               ANORM, SCALE, SUM
 *     ..
 *     .. External Functions ..

@@ -5,14 +5,14 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KNT, LMAX, NIN, NINFO
+      int                KNT, LMAX, NIN, NINFO
       REAL               RMAX
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            LDT
+      int                LDT
       PARAMETER          ( LDT = 10 )
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          TRANA, TRANB
-      INTEGER            I, IMLA, IMLAD, IMLB, IMLC, INFO, ISGN, ITRANA, ITRANB, J, M, N       REAL               BIGNUM, EPS, RES, RES1, SCALE, SMLNUM, TNRM, XNRM
+      int                I, IMLA, IMLAD, IMLB, IMLC, INFO, ISGN, ITRANA, ITRANB, J, M, N       REAL               BIGNUM, EPS, RES, RES1, SCALE, SMLNUM, TNRM, XNRM
       COMPLEX            RMUL
 *     ..
 *     .. Local Arrays ..

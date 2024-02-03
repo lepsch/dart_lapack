@@ -2,7 +2,7 @@
 c
       external dasum
       double precision dasum,asum
-      integer n,incx
+      int     n,incx
       double precision x(*)
 c
       asum=dasum(n,x,incx)

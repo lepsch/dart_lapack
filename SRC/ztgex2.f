@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            WANTQ, WANTZ
-      INTEGER            INFO, J1, LDA, LDB, LDQ, LDZ, N
+      int                INFO, J1, LDA, LDB, LDQ, LDZ, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
@@ -19,14 +19,14 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
       DOUBLE PRECISION   TWENTY
       PARAMETER          ( TWENTY = 2.0D+1 )
-      INTEGER            LDST
+      int                LDST
       PARAMETER          ( LDST = 2 )
       LOGICAL            WANDS
       PARAMETER          ( WANDS = .TRUE. )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            STRONG, WEAK
-      INTEGER            I, M
+      int                I, M
       DOUBLE PRECISION   CQ, CZ, EPS, SA, SB, SCALE, SMLNUM, SUM, THRESHA, THRESHB
       COMPLEX*16         CDUM, F, G, SQ, SZ
 *     ..

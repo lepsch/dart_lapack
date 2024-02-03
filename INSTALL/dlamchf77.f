@@ -16,7 +16,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FIRST, LRND
-      INTEGER            BETA, IMAX, IMIN, IT
+      int                BETA, IMAX, IMIN, IT
       DOUBLE PRECISION   BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T
 *     ..
 *     .. External Functions ..
@@ -146,13 +146,13 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            IEEE1, RND
-      INTEGER            BETA, T
+      int                BETA, T
 *     ..
 * =====================================================================
 *
 *     .. Local Scalars ..
       LOGICAL            FIRST, LIEEE1, LRND
-      INTEGER            LBETA, LT
+      int                LBETA, LT
       DOUBLE PRECISION   A, B, C, F, ONE, QTR, SAVEC, T1, T2
 *     ..
 *     .. External Functions ..
@@ -356,14 +356,14 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            RND
-      INTEGER            BETA, EMAX, EMIN, T
+      int                BETA, EMAX, EMIN, T
       DOUBLE PRECISION   EPS, RMAX, RMIN
 *     ..
 * =====================================================================
 *
 *     .. Local Scalars ..
       LOGICAL            FIRST, IEEE, IWARN, LIEEE1, LRND
-      INTEGER            GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN       DOUBLE PRECISION   A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO
+      int                GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN       DOUBLE PRECISION   A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMC3
@@ -618,13 +618,13 @@
 *     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
 *     .. Scalar Arguments ..
-      INTEGER            BASE, EMIN
+      int                BASE, EMIN
       DOUBLE PRECISION   START
 *     ..
 * =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       DOUBLE PRECISION   A, B1, B2, C1, C2, D1, D2, ONE, RBASE, ZERO
 *     ..
 *     .. External Functions ..
@@ -725,7 +725,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            IEEE
-      INTEGER            BETA, EMAX, EMIN, P
+      int                BETA, EMAX, EMIN, P
       DOUBLE PRECISION   RMAX
 *     ..
 * =====================================================================
@@ -735,7 +735,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            EXBITS, EXPSUM, I, LEXP, NBITS, TRY, UEXP
+      int                EXBITS, EXPSUM, I, LEXP, NBITS, TRY, UEXP
       DOUBLE PRECISION   OLDY, RECBAS, Y, Z
 *     ..
 *     .. External Functions ..

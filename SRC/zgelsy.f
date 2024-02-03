@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            JPVT( * )
+      int                JPVT( * )
       DOUBLE PRECISION   RWORK( * )
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
 *     ..
@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            IMAX, IMIN
+      int                IMAX, IMIN
       PARAMETER          ( IMAX = 1, IMIN = 2 )
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -26,14 +26,14 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IASCL, IBSCL, ISMAX, ISMIN, J, LWKOPT, MN, NB, NB1, NB2, NB3, NB4       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, WSIZE
+      int                I, IASCL, IBSCL, ISMAX, ISMIN, J, LWKOPT, MN, NB, NB1, NB2, NB3, NB4       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, WSIZE
       COMPLEX*16         C1, C2, S1, S2
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZCOPY, ZGEQP3, ZLAIC1, ZLASCL, ZLASET, ZTRSM, ZTZRZF, ZUNMQR, ZUNMRZ
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           ILAENV, DLAMCH, ZLANGE
 *     ..

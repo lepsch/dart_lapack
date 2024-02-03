@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            ITYPE, KBAND, LDU, N
+      int                ITYPE, KBAND, LDU, N
 *     ..
 *     .. Array Arguments ..
       REAL               AP( * ), D( * ), E( * ), RESULT( 2 ), TAU( * ), U( LDU, * ), VP( * ), WORK( * )
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       LOGICAL            LOWER
       CHARACTER          CUPLO
-      INTEGER            IINFO, J, JP, JP1, JR, LAP
+      int                IINFO, J, JP, JP1, JR, LAP
       REAL               ANORM, TEMP, ULP, UNFL, VSAVE, WNORM
 *     ..
 *     .. External Functions ..

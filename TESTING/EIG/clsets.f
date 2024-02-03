@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LDB, LWORK, M, P, N
+      int                LDA, LDB, LWORK, M, P, N
 *     ..
 *     .. Array Arguments ..
       REAL               RESULT( 2 ), RWORK( * )
@@ -15,7 +15,7 @@
 *
 *     ..
 *     .. Local Scalars ..
-      INTEGER            INFO
+      int                INFO
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CGGLSE, CLACPY, CGET02

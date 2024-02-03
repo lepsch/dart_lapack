@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*( * )    CA, CB
-      INTEGER            N
+      int                N
 *     ..
 *
 * =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

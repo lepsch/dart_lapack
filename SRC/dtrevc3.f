@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          HOWMNY, SIDE
-      INTEGER            INFO, LDT, LDVL, LDVR, LWORK, M, MM, N
+      int                INFO, LDT, LDVL, LDVR, LWORK, M, MM, N
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
@@ -19,15 +19,15 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      INTEGER            NBMIN, NBMAX
+      int                NBMIN, NBMAX
       PARAMETER          ( NBMIN = 8, NBMAX = 128 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLV, BOTHV, LEFTV, LQUERY, OVER, PAIR, RIGHTV, SOMEV       INTEGER            I, IERR, II, IP, IS, J, J1, J2, JNXT, K, KI, IV, MAXWRK, NB, KI2       DOUBLE PRECISION   BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM
+      LOGICAL            ALLV, BOTHV, LEFTV, LQUERY, OVER, PAIR, RIGHTV, SOMEV       int                I, IERR, II, IP, IS, J, J1, J2, JNXT, K, KI, IV, MAXWRK, NB, KI2       DOUBLE PRECISION   BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IDAMAX, ILAENV
+      int                IDAMAX, ILAENV
       DOUBLE PRECISION   DDOT, DLAMCH
       EXTERNAL           LSAME, IDAMAX, ILAENV, DDOT, DLAMCH
 *     ..
@@ -39,7 +39,7 @@
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   X( 2, 2 )
-      INTEGER            ISCOMPLEX( NBMAX )
+      int                ISCOMPLEX( NBMAX )
 *     ..
 *     .. Executable Statements ..
 *

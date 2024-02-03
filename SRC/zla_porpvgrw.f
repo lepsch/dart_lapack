@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*1        UPLO
-      INTEGER            NCOLS, LDA, LDAF
+      int                NCOLS, LDA, LDAF
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), AF( LDAF, * )
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       DOUBLE PRECISION   AMAX, UMAX, RPVGRW
       LOGICAL            UPPER
       COMPLEX*16         ZDUM

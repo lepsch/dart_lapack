@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          EQUED, UPLO
-      INTEGER            KD, LDAB, N
+      int                KD, LDAB, N
       DOUBLE PRECISION   AMAX, SCOND
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0D+0, THRESH = 0.1D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       DOUBLE PRECISION   CJ, LARGE, SMALL
 *     ..
 *     .. External Functions ..

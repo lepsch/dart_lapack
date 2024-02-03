@@ -43,25 +43,25 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Parameters ..
-      INTEGER            NIN, NOUT
+      int                NIN, NOUT
       PARAMETER          ( NIN = 5, NOUT = 6 )
-      INTEGER            NSUBS
+      int                NSUBS
       PARAMETER          ( NSUBS = 6 )
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0, HALF = 0.5, ONE = 1.0 )
-      INTEGER            NMAX
+      int                NMAX
       PARAMETER          ( NMAX = 65 )
-      INTEGER            NIDMAX, NALMAX, NBEMAX
+      int                NIDMAX, NALMAX, NBEMAX
       PARAMETER          ( NIDMAX = 9, NALMAX = 7, NBEMAX = 7 )
 *     .. Local Scalars ..
       REAL               EPS, ERR, THRESH
-      INTEGER            I, ISNUM, J, N, NALF, NBET, NIDIM, NTRA, LAYOUT       LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER
+      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NTRA, LAYOUT       LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER
       CHARACTER*1        TRANSA, TRANSB
       CHARACTER*12       SNAMET
       CHARACTER*32       SNAPS
 *     .. Local Arrays ..
       REAL               AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX )
-      INTEGER            IDIM( NIDMAX )
+      int                IDIM( NIDMAX )
       LOGICAL            LTEST( NSUBS )
       CHARACTER*12       SNAMES( NSUBS )
 *     .. External Functions ..
@@ -73,7 +73,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            OK
       CHARACTER*12        SRNAMT
 *     .. Common blocks ..
@@ -377,15 +377,15 @@
       PARAMETER          ( ZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      INTEGER            NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
+      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12        SNAME
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
-      INTEGER            IDIM( NIDIM )
+      int                IDIM( NIDIM )
 *     .. Local Scalars ..
       REAL               ALPHA, ALS, BETA, BLS, ERR, ERRMAX
-      INTEGER            I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS
+      int                I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS
       LOGICAL            NULL, RESET, SAME, TRANA, TRANB
       CHARACTER*1        TRANAS, TRANBS, TRANSA, TRANSB
       CHARACTER*3        ICH
@@ -399,7 +399,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -622,7 +622,7 @@
 *
 *
       SUBROUTINE SPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC)
-      INTEGER          NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC
+      int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC
       REAL             ALPHA, BETA
       CHARACTER*1      TRANSA, TRANSB
       CHARACTER*12     SNAME
@@ -672,15 +672,15 @@
       PARAMETER          ( ZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      INTEGER            NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
+      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12        SNAME
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
-      INTEGER            IDIM( NIDIM )
+      int                IDIM( NIDIM )
 *     .. Local Scalars ..
       REAL               ALPHA, ALS, BETA, BLS, ERR, ERRMAX
-      INTEGER            I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS
+      int                I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS
       LOGICAL            LEFT, NULL, RESET, SAME
       CHARACTER*1        SIDE, SIDES, UPLO, UPLOS
       CHARACTER*2        ICHS, ICHU
@@ -694,7 +694,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -902,7 +902,7 @@
       END
 *
       SUBROUTINE SPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC)
-      INTEGER          NOUT, NC, IORDER, M, N, LDA, LDB, LDC
+      int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC
       REAL             ALPHA, BETA
       CHARACTER*1      SIDE, UPLO
       CHARACTER*12     SNAME
@@ -948,15 +948,15 @@
       PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      INTEGER            NALF, NIDIM, NMAX, NOUT, NTRA, IORDER
+      int                NALF, NIDIM, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12        SNAME
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX ), G( NMAX )
-      INTEGER            IDIM( NIDIM )
+      int                IDIM( NIDIM )
 *     .. Local Scalars ..
       REAL               ALPHA, ALS, ERR, ERRMAX
-      INTEGER            I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS
+      int                I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS
       LOGICAL            LEFT, NULL, RESET, SAME
       CHARACTER*1        DIAG, DIAGS, SIDE, SIDES, TRANAS, TRANSA, UPLO, UPLOS
       CHARACTER*2        ICHD, ICHS, ICHU
@@ -971,7 +971,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -1196,7 +1196,7 @@
       END
 *
       SUBROUTINE SPRCN3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
-      INTEGER          NOUT, NC, IORDER, M, N, LDA, LDB
+      int              NOUT, NC, IORDER, M, N, LDA, LDB
       REAL             ALPHA
       CHARACTER*1      SIDE, UPLO, TRANSA, DIAG
       CHARACTER*12     SNAME
@@ -1254,15 +1254,15 @@
       PARAMETER          ( ZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      INTEGER            NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
+      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12        SNAME
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
-      INTEGER            IDIM( NIDIM )
+      int                IDIM( NIDIM )
 *     .. Local Scalars ..
       REAL               ALPHA, ALS, BETA, BETS, ERR, ERRMAX
-      INTEGER            I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
+      int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
       LOGICAL            NULL, RESET, SAME, TRAN, UPPER
       CHARACTER*1        TRANS, TRANSS, UPLO, UPLOS
       CHARACTER*2        ICHU
@@ -1277,7 +1277,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -1487,7 +1487,7 @@
       END
 *
       SUBROUTINE SPRCN4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC)
-      INTEGER          NOUT, NC, IORDER, N, K, LDA, LDC
+      int              NOUT, NC, IORDER, N, K, LDA, LDC
       REAL             ALPHA, BETA
       CHARACTER*1      UPLO, TRANSA
       CHARACTER*12     SNAME
@@ -1535,15 +1535,15 @@
       PARAMETER          ( ZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      INTEGER            NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
+      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12        SNAME
 *     .. Array Arguments ..
       REAL               AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX )
-      INTEGER            IDIM( NIDIM )
+      int                IDIM( NIDIM )
 *     .. Local Scalars ..
       REAL               ALPHA, ALS, BETA, BETS, ERR, ERRMAX
-      INTEGER            I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
+      int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
       LOGICAL            NULL, RESET, SAME, TRAN, UPPER
       CHARACTER*1        TRANS, TRANSS, UPLO, UPLOS
       CHARACTER*2        ICHU
@@ -1558,7 +1558,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
 *     .. Scalars in Common ..
-      INTEGER            INFOT, NOUTC
+      int                INFOT, NOUTC
       LOGICAL            OK
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -1797,7 +1797,7 @@
       END
 *
       SUBROUTINE SPRCN5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC)
-      INTEGER          NOUT, NC, IORDER, N, K, LDA, LDB, LDC
+      int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC
       REAL             ALPHA, BETA
       CHARACTER*1      UPLO, TRANSA
       CHARACTER*12     SNAME
@@ -1851,14 +1851,14 @@
       PARAMETER          ( ROGUE = -1.0E10 )
 *     .. Scalar Arguments ..
       REAL               TRANSL
-      INTEGER            LDA, M, N, NMAX
+      int                LDA, M, N, NMAX
       LOGICAL            RESET
       CHARACTER*1        DIAG, UPLO
       CHARACTER*2        TYPE
 *     .. Array Arguments ..
       REAL               A( NMAX, * ), AA( * )
 *     .. Local Scalars ..
-      INTEGER            I, IBEG, IEND, J
+      int                I, IBEG, IEND, J
       LOGICAL            GEN, LOWER, SYM, TRI, UNIT, UPPER
 *     .. External Functions ..
       REAL               SBEG
@@ -1952,14 +1952,14 @@
       PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
 *     .. Scalar Arguments ..
       REAL               ALPHA, BETA, EPS, ERR
-      INTEGER            KK, LDA, LDB, LDC, LDCC, M, N, NOUT
+      int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT
       LOGICAL            FATAL, MV
       CHARACTER*1        TRANSA, TRANSB
 *     .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * ), G( * )
 *     .. Local Scalars ..
       REAL               ERRI
-      INTEGER            I, J, K
+      int                I, J, K
       LOGICAL            TRANA, TRANB
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, SQRT
@@ -2064,11 +2064,11 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Scalar Arguments ..
-      INTEGER            LR
+      int                LR
 *     .. Array Arguments ..
       REAL               RI( * ), RJ( * )
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
 *     .. Executable Statements ..
       DO 10 I = 1, LR
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
@@ -2097,13 +2097,13 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, M, N
+      int                LDA, M, N
       CHARACTER*1        UPLO
       CHARACTER*2        TYPE
 *     .. Array Arguments ..
       REAL               AA( LDA, * ), AS( LDA, * )
 *     .. Local Scalars ..
-      INTEGER            I, IBEG, IEND, J
+      int                I, IBEG, IEND, J
       LOGICAL            UPPER
 *     .. Executable Statements ..
       UPPER = UPLO.EQ.'U'
@@ -2156,7 +2156,7 @@
 *     .. Scalar Arguments ..
       LOGICAL            RESET
 *     .. Local Scalars ..
-      INTEGER            I, IC, MI
+      int                I, IC, MI
 *     .. Save statement ..
       SAVE               I, IC, MI
 *     .. Executable Statements ..

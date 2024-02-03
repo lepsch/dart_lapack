@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          BALANC, JOBVL, JOBVR, SENSE
-      INTEGER            IHI, ILO, INFO, LDA, LDB, LDVL, LDVR, LWORK, N
+      int                IHI, ILO, INFO, LDA, LDB, LDVL, LDVR, LWORK, N
       DOUBLE PRECISION   ABNRM, BBNRM
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), RWORK( * )       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
@@ -26,7 +26,7 @@
 *     .. Local Scalars ..
       LOGICAL            ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY, NOSCL, WANTSB, WANTSE, WANTSN, WANTSV
       CHARACTER          CHTEMP
-      INTEGER            I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS, ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK, MINWRK       DOUBLE PRECISION   ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP
+      int                I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS, ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK, MINWRK       DOUBLE PRECISION   ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP
       COMPLEX*16         X
 *     ..
 *     .. Local Arrays ..
@@ -37,7 +37,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANGE
 *     ..

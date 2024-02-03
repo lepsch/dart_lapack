@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, NORM, UPLO
-      INTEGER            LDA, M, N
+      int                LDA, M, N
 *     ..
 *     .. Array Arguments ..
       REAL               WORK( * )
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UDIAG
-      INTEGER            I, J
+      int                I, J
       REAL               SCALE, SUM, VALUE
 *     ..
 *     .. External Functions ..

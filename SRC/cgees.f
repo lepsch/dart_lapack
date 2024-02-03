@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBVS, SORT
-      INTEGER            INFO, LDA, LDVS, LWORK, N, SDIM
+      int                INFO, LDA, LDVS, LWORK, N, SDIM
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
@@ -26,7 +26,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, SCALEA, WANTST, WANTVS
-      INTEGER            HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO, ITAU, IWRK, MAXWRK, MINWRK
+      int                HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO, ITAU, IWRK, MAXWRK, MINWRK
       REAL               ANRM, BIGNUM, CSCALE, EPS, S, SEP, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -37,7 +37,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, CLANGE, SLAMCH, SROUNDUP_LWORK
 *     ..

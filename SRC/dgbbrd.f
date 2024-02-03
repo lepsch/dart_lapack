@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          VECT
-      INTEGER            INFO, KL, KU, LDAB, LDC, LDPT, LDQ, M, N, NCC
+      int                INFO, KL, KU, LDAB, LDC, LDPT, LDQ, M, N, NCC
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   AB( LDAB, * ), C( LDC, * ), D( * ), E( * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            WANTB, WANTC, WANTPT, WANTQ
-      INTEGER            I, INCA, J, J1, J2, KB, KB1, KK, KLM, KLU1, KUN, L, MINMN, ML, ML0, MN, MU, MU0, NR, NRT
+      int                I, INCA, J, J1, J2, KB, KB1, KK, KLM, KLU1, KUN, L, MINMN, ML, ML0, MN, MU, MU0, NR, NRT
       DOUBLE PRECISION   RA, RB, RC, RS
 *     ..
 *     .. External Subroutines ..

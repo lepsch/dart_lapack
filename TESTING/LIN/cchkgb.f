@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            LA, LAFAC, NM, NN, NNB, NNS, NOUT
+      int                LA, LAFAC, NM, NN, NNB, NNS, NOUT
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
+      int                IWORK( * ), MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
       REAL               RWORK( * )
       COMPLEX            A( * ), AFAC( * ), B( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -21,21 +21,21 @@
 *     .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-      INTEGER            NTYPES, NTESTS
+      int                NTYPES, NTESTS
       PARAMETER          ( NTYPES = 8, NTESTS = 7 )
-      INTEGER            NBW, NTRAN
+      int                NBW, NTRAN
       PARAMETER          ( NBW = 4, NTRAN = 3 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            TRFCON, ZEROT
       CHARACTER          DIST, NORM, TRANS, TYPE, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, I1, I2, IKL, IKU, IM, IMAT, IN, INB, INFO, IOFF, IRHS, ITRAN, IZERO, J, K, KL, KOFF, KU, LDA, LDAFAC, LDB, M, MODE, N, NB, NERRS, NFAIL, NIMAT, NKL, NKU, NRHS, NRUN
+      int                I, I1, I2, IKL, IKU, IM, IMAT, IN, INB, INFO, IOFF, IRHS, ITRAN, IZERO, J, K, KL, KOFF, KU, LDA, LDAFAC, LDB, M, MODE, N, NB, NERRS, NFAIL, NIMAT, NKL, NKU, NRHS, NRUN
       REAL               AINVNM, ANORM, ANORMI, ANORMO, CNDNUM, RCOND, RCONDC, RCONDI, RCONDO
 *     ..
 *     .. Local Arrays ..
       CHARACTER          TRANSS( NTRAN )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 ), KLVAL( NBW ), KUVAL( NBW )
+      int                ISEED( 4 ), ISEEDY( 4 ), KLVAL( NBW ), KUVAL( NBW )
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
@@ -51,7 +51,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

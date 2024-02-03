@@ -6,11 +6,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, IOFFSET, KP1, K, KMAX, LDA, M, N, NRHS
+      int                INFO, IOFFSET, KP1, K, KMAX, LDA, M, N, NRHS
       REAL               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
 *     ..
 *     .. Array Arguments ..
-      INTEGER            JPIV( * )
+      int                JPIV( * )
       REAL               VN1( * ), VN2( * )
       COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
 *     ..
@@ -24,7 +24,7 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT, MINMNUPDT
+      int                I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT, MINMNUPDT
       REAL               HUGEVAL, TAUNAN, TEMP, TEMP2, TOL3Z
       COMPLEX            AIKK
 *     ..
@@ -36,7 +36,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            SISNAN
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SLAMCH, SCNRM2
       EXTERNAL           SISNAN, SLAMCH, ISAMAX, SCNRM2
 *     ..

@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDQ, LDQE, LWORK, NOUNIT, NSIZES, NTYPES
+      int                INFO, LDA, LDQ, LDQE, LWORK, NOUNIT, NSIZES, NTYPES
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            ISEED( 4 ), NN( * )
+      int                ISEED( 4 ), NN( * )
       REAL               A( LDA, * ), ALPHAI( * ), ALPHI1( * ), ALPHAR( * ), ALPHR1( * ), B( LDA, * ), BETA( * ), BETA1( * ), Q( LDQ, * ), QE( LDQE, * ), RESULT( * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * )
 *     ..
 *
@@ -19,20 +19,20 @@
 *     .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 26 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN
-      INTEGER            I, IADD, IERR, IN, J, JC, JR, JSIZE, JTYPE, MAXWRK, MINWRK, MTYPES, N, N1, NERRS, NMATS, NMAX, NTESTT
+      int                I, IADD, IERR, IN, J, JC, JR, JSIZE, JTYPE, MAXWRK, MINWRK, MTYPES, N, N1, NERRS, NMATS, NMAX, NTESTT
       REAL               SAFMAX, SAFMIN, ULP, ULPINV
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IASIGN( MAXTYP ), IBSIGN( MAXTYP ), IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
+      int                IASIGN( MAXTYP ), IBSIGN( MAXTYP ), IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
       REAL               RMAGN( 0: 3 )
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SLAMCH, SLARND
       EXTERNAL           ILAENV, SLAMCH, SLARND
 *     ..

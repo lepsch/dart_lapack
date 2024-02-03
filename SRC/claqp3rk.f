@@ -7,10 +7,10 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            DONE
-      INTEGER            INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       REAL               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
+      int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       REAL               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * ), JPIV( * )
+      int                IWORK( * ), JPIV( * )
       REAL               VN1( * ), VN2( * )
       COMPLEX            A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * )
 *     ..
@@ -24,7 +24,7 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            ITEMP, J, K, MINMNFACT, MINMNUPDT, LSTICC, KP, I, IF
+      int                ITEMP, J, K, MINMNFACT, MINMNUPDT, LSTICC, KP, I, IF
       REAL               HUGEVAL, TAUNAN, TEMP, TEMP2, TOL3Z
       COMPLEX            AIK
 *     ..
@@ -36,7 +36,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            SISNAN
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SLAMCH, SCNRM2
       EXTERNAL           SISNAN, SLAMCH, ISAMAX, SCNRM2
 *     ..

@@ -6,18 +6,18 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*3        TYPE
-      INTEGER            IE, IMAT, IOUNIT, M, N, NTESTS
+      int                IE, IMAT, IOUNIT, M, N, NTESTS
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       REAL               RESULT( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            K
+      int                K
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SLAHD2

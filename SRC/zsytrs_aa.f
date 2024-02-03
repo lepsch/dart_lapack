@@ -8,10 +8,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            N, NRHS, LDA, LDB, LWORK, INFO
+      int                N, NRHS, LDA, LDB, LWORK, INFO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
 *     ..
 *
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER
-      INTEGER            K, KP, LWKOPT
+      int                K, KP, LWKOPT
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

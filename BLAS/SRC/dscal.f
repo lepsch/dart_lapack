@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       DOUBLE PRECISION DA
-      INTEGER INCX,N
+      int     INCX,N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION DX(*)
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER I,M,MP1,NINCX
+      int     I,M,MP1,NINCX
 *     .. Parameters ..
       DOUBLE PRECISION ONE
       PARAMETER (ONE=1.0D+0)

@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, N
+      int                LDA, N
       REAL               SCALE
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), JPIV( * )
+      int                IPIV( * ), JPIV( * )
       REAL               A( LDA, * ), RHS( * )
 *     ..
 *
@@ -20,14 +20,14 @@
       PARAMETER          ( ONE = 1.0E+0, TWO = 2.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       REAL               BIGNUM, EPS, SMLNUM, TEMP
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SLASWP, SSCAL
 *     ..
 *     .. External Functions ..
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SLAMCH
       EXTERNAL           ISAMAX, SLAMCH
 *     ..

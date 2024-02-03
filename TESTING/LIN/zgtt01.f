@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDWORK, N
+      int                LDWORK, N
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       DOUBLE PRECISION   RWORK( * )
       COMPLEX*16         D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( LDWORK, * )
 *     ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IP, J, LASTJ
+      int                I, IP, J, LASTJ
       DOUBLE PRECISION   ANORM, EPS
       COMPLEX*16         LI
 *     ..

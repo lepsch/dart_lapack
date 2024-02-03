@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANA, TRANB
-      INTEGER            INFO, ISGN, LDA, LDB, LDC, M, N
+      int                INFO, ISGN, LDA, LDB, LDC, M, N
       DOUBLE PRECISION   SCALE
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRNA, NOTRNB
-      INTEGER            IERR, J, K, K1, K2, KNEXT, L, L1, L2, LNEXT
+      int                IERR, J, K, K1, K2, KNEXT, L, L1, L2, LNEXT
       DOUBLE PRECISION   A11, BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM, SUML, SUMR, XNORM
 *     ..
 *     .. Local Arrays ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            INFO, LDA, LDB, LWORK, M, N, NRHS
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, TPSD
-      INTEGER            BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE
+      int                BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE
       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -28,7 +28,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANGE
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANGE
 *     ..

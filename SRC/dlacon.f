@@ -5,28 +5,28 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KASE, N
+      int                KASE, N
       DOUBLE PRECISION   EST
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISGN( * )
+      int                ISGN( * )
       DOUBLE PRECISION   V( * ), X( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            ITMAX
+      int                ITMAX
       PARAMETER          ( ITMAX = 5 )
       DOUBLE PRECISION   ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ITER, J, JLAST, JUMP
+      int                I, ITER, J, JLAST, JUMP
       DOUBLE PRECISION   ALTSGN, ESTOLD, TEMP
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DASUM
       EXTERNAL           IDAMAX, DASUM
 *     ..

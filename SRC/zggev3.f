@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBVL, JOBVR
-      INTEGER            INFO, LDA, LDB, LDVL, LDVR, LWORK, N
+      int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RWORK( * )
@@ -24,7 +24,7 @@
 *     .. Local Scalars ..
       LOGICAL            ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY
       CHARACTER          CHTEMP
-      INTEGER            ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, IRWRK, ITAU, IWRK, JC, JR, LWKMIN, LWKOPT
+      int                ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, IRWRK, ITAU, IWRK, JC, JR, LWKMIN, LWKOPT
       DOUBLE PRECISION   ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP
       COMPLEX*16         X
 *     ..

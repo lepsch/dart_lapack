@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IDIST, INFO, IRSIGN, MODE, N
+      int                IDIST, INFO, IRSIGN, MODE, N
       DOUBLE PRECISION   COND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       DOUBLE PRECISION   D( * )
 *     ..
 *
@@ -22,7 +22,7 @@
       PARAMETER          ( HALF = 0.5D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       DOUBLE PRECISION   ALPHA, TEMP
 *     ..
 *     .. External Functions ..

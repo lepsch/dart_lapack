@@ -6,17 +6,17 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            FORWRD
-      INTEGER            LDX, M, N
+      int                LDX, M, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            K( * )
+      int                K( * )
       REAL               X( LDX, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, II, J, IN
+      int                I, II, J, IN
       REAL               TEMP
 *     ..
 *     .. Executable Statements ..

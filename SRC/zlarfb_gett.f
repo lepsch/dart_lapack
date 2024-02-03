@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          IDENT
-      INTEGER            K, LDA, LDB, LDT, LDWORK, M, N
+      int                K, LDA, LDB, LDT, LDWORK, M, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( LDWORK, * )
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LNOTIDENT
-      INTEGER            I, J
+      int                I, J
 *     ..
 *     .. EXTERNAL FUNCTIONS ..
       LOGICAL            LSAME

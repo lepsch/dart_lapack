@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER DIRECT, SIDE, STOREV, TRANS
-      INTEGER   K, L, LDA, LDB, LDT, LDV, LDWORK, M, N
+      int       K, L, LDA, LDB, LDT, LDV, LDWORK, M, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * )
@@ -19,7 +19,7 @@
       PARAMETER ( ONE = 1.0, ZERO = 0.0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER   I, J, MP, NP, KP
+      int       I, J, MP, NP, KP
       LOGICAL   LEFT, FORWARD, COLUMN, RIGHT, BACKWARD, ROW
 *     ..
 *     .. External Functions ..

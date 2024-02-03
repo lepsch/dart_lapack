@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER         TSSW
-      INTEGER           M, N, MB, NB
+      int               M, N, MB, NB
 *     .. Return values ..
       REAL              RESULT(6)
 *
@@ -23,17 +23,17 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL TESTZEROS, TS
-      INTEGER INFO, J, K, L, LWORK, TSIZE, MNB
+      int     INFO, J, K, L, LWORK, TSIZE, MNB
       REAL   ANORM, EPS, RESID, CNORM, DNORM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       REAL               TQUERY( 5 ), WORKQUERY( 1 )
 *     ..
 *     .. External Functions ..
       REAL     SLAMCH, SLANGE, SLANSY
       LOGICAL  LSAME
-      INTEGER  ILAENV
+      int      ILAENV
       EXTERNAL SLAMCH, SLARNV, SLANGE, SLANSY, LSAME, ILAENV
 *     ..
 *     .. Intrinsic Functions ..

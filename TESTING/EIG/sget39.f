@@ -5,23 +5,23 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KNT, LMAX, NINFO
+      int                KNT, LMAX, NINFO
       REAL               RMAX
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            LDT, LDT2
+      int                LDT, LDT2
       PARAMETER          ( LDT = 10, LDT2 = 2*LDT )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, IVM1, IVM2, IVM3, IVM4, IVM5, J, K, N, NDIM       REAL               BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM
+      int                I, INFO, IVM1, IVM2, IVM3, IVM4, IVM5, J, K, N, NDIM       REAL               BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM
 *     ..
 *     .. External Functions ..
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SASUM, SDOT, SLAMCH, SLANGE
       EXTERNAL           ISAMAX, SASUM, SDOT, SLAMCH, SLANGE
 *     ..
@@ -32,7 +32,7 @@
       INTRINSIC          ABS, COS, MAX, REAL, SIN, SQRT
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDIM( 6 ), IVAL( 5, 5, 6 )
+      int                IDIM( 6 ), IVAL( 5, 5, 6 )
       REAL               B( LDT ), D( LDT2 ), DUM( 1 ), T( LDT, LDT ), VM1( 5 ), VM2( 5 ), VM3( 5 ), VM4( 5 ), VM5( 3 ), WORK( LDT ), X( LDT2 ), Y( LDT2 )
 *     ..
 *     .. Data statements ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANA, TRANB
-      INTEGER            INFO, ISGN, LDA, LDB, LDC, M, N
+      int                INFO, ISGN, LDA, LDB, LDC, M, N
       REAL               SCALE
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRNA, NOTRNB
-      INTEGER            J, K, L
+      int                J, K, L
       REAL               BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM
       COMPLEX            A11, SUML, SUMR, VEC, X11
 *     ..

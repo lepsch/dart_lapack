@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KBAND, LDU, N
+      int                KBAND, LDU, N
 *     ..
 *     .. Array Arguments ..
       REAL               AD( * ), AE( * ), RESULT( 2 ), SD( * ), SE( * ), U( LDU, * ), WORK( * )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J
+      int                J
       REAL               ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM
 *     ..
 *     .. External Functions ..

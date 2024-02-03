@@ -5,18 +5,18 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            CUTPNT, INFO, LDQ, N
+      int                CUTPNT, INFO, LDQ, N
       REAL               RHO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            INDXQ( * ), IWORK( * )
+      int                INDXQ( * ), IWORK( * )
       REAL               D( * ), Q( LDQ, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            COLTYP, CPP1, I, IDLMDA, INDX, INDXC, INDXP, IQ2, IS, IW, IZ, K, N1, N2
+      int                COLTYP, CPP1, I, IDLMDA, INDX, INDXC, INDXP, IQ2, IS, IW, IZ, K, N1, N2
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SCOPY, SLAED2, SLAED3, SLAMRG, XERBLA

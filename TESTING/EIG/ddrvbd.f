@@ -7,12 +7,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDU, LDVT, LWORK, NOUT, NSIZES, NTYPES
+      int                INFO, LDA, LDU, LDVT, LWORK, NOUT, NSIZES, NTYPES
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            ISEED( 4 ), IWORK( * ), MM( * ), NN( * )
+      int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * )
       DOUBLE PRECISION   A( LDA, * ), ASAV( LDA, * ), E( * ), S( * ), SSAV( * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * )
 *     ..
 *
@@ -21,25 +21,25 @@
 *     .. Parameters ..
       DOUBLE PRECISION  ZERO, ONE, TWO, HALF
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = 0.5D0 )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 5 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADMM, BADNN
       CHARACTER          JOBQ, JOBU, JOBVT, RANGE
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IJQ, IJU, IJVT, IL,IU, IWS, IWTMP, ITEMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NFAIL, NMAX, NS, NSI, NSV, NTEST
+      int                I, IINFO, IJQ, IJU, IJVT, IL,IU, IWS, IWTMP, ITEMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NFAIL, NMAX, NS, NSI, NSV, NTEST
       DOUBLE PRECISION   ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU
 *     ..
 *     .. Local Scalars for DGESVDQ ..
-      INTEGER            LIWORK, LRWORK, NUMRANK
+      int                LIWORK, LRWORK, NUMRANK
 *     ..
 *     .. Local Arrays for DGESVDQ ..
       DOUBLE PRECISION   RWORK( 2 )
 *     ..
 *     .. Local Arrays ..
       CHARACTER          CJOB( 4 ), CJOBR( 3 ), CJOBV( 2 )
-      INTEGER            IOLDSD( 4 ), ISEED2( 4 )
+      int                IOLDSD( 4 ), ISEED2( 4 )
       DOUBLE PRECISION   RESULT( 39 )
 *     ..
 *     .. External Functions ..
@@ -55,7 +55,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

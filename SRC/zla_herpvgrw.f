@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*1        UPLO
-      INTEGER            N, INFO, LDA, LDAF
+      int                N, INFO, LDA, LDAF
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX*16         A( LDA, * ), AF( LDAF, * )
       DOUBLE PRECISION   WORK( * )
 *     ..
@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            NCOLS, I, J, K, KP
+      int                NCOLS, I, J, K, KP
       DOUBLE PRECISION   AMAX, UMAX, RPVGRW, TMP
       LOGICAL            UPPER, LSAME
       COMPLEX*16         ZDUM

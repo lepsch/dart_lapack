@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, RANGE, UPLO
-      INTEGER            IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N
+      int                IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N
       REAL               ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IFAIL( * ), IWORK( * )
+      int                IFAIL( * ), IWORK( * )
       REAL               RWORK( * ), W( * )
       COMPLEX            AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
 *     ..
@@ -26,7 +26,7 @@
 *     .. Local Scalars ..
       LOGICAL            ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ
       CHARACTER          ORDER, VECT
-      INTEGER            I, IINFO, INDD, INDE, INDEE, INDISP, INDIWK, INDRWK, INDWRK, ITMP1, J, JJ, NSPLIT
+      int                I, IINFO, INDD, INDE, INDEE, INDISP, INDIWK, INDRWK, INDWRK, ITMP1, J, JJ, NSPLIT
       REAL               TMP1
 *     ..
 *     .. External Functions ..

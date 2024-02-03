@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, UPLO
-      INTEGER            N
+      int                N
       REAL               RCOND, RESID
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UNITD
-      INTEGER            J, JC
+      int                J, JC
       REAL               AINVNM, ANORM, EPS
 *     ..
 *     .. External Functions ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          NORM
-      INTEGER            KL, KU, LDAB, N
+      int                KL, KU, LDAB, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   WORK( * )
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, K, L
+      int                I, J, K, L
       DOUBLE PRECISION   SCALE, SUM, VALUE, TEMP
 *     ..
 *     .. External Functions ..

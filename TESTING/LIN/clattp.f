@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, TRANS, UPLO
-      INTEGER            IMAT, INFO, N
+      int                IMAT, INFO, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       REAL               RWORK( * )
       COMPLEX            AP( * ), B( * ), WORK( * )
 *     ..
@@ -24,12 +24,12 @@
       LOGICAL            UPPER
       CHARACTER          DIST, PACKIT, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX, KL, KU, MODE       REAL               ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, REXP, SFAC, SMLNUM, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z
+      int                I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX, KL, KU, MODE       REAL               ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, REXP, SFAC, SMLNUM, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z
       COMPLEX            CTEMP, PLUS1, PLUS2, RA, RB, S, STAR1
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ICAMAX
+      int                ICAMAX
       REAL               SLAMCH
       COMPLEX            CLARND
       EXTERNAL           LSAME, ICAMAX, SLAMCH, CLARND

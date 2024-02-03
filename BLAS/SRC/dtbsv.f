@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER INCX,K,LDA,N
+      int     INCX,K,LDA,N
       CHARACTER DIAG,TRANS,UPLO
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION TEMP
-      INTEGER I,INFO,IX,J,JX,KPLUS1,KX,L
+      int     I,INFO,IX,J,JX,KPLUS1,KX,L
       LOGICAL NOUNIT
 *     ..
 *     .. External Functions ..

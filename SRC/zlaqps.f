@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KB, LDA, LDF, M, N, NB, OFFSET
+      int                KB, LDA, LDF, M, N, NB, OFFSET
 *     ..
 *     .. Array Arguments ..
-      INTEGER            JPVT( * )
+      int                JPVT( * )
       DOUBLE PRECISION   VN1( * ), VN2( * )
       COMPLEX*16         A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * )
 *     ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            ITEMP, J, K, LASTRK, LSTICC, PVT, RK
+      int                ITEMP, J, K, LASTRK, LSTICC, PVT, RK
       DOUBLE PRECISION   TEMP, TEMP2, TOL3Z
       COMPLEX*16         AKK
 *     ..
@@ -32,7 +32,7 @@
       INTRINSIC          ABS, DBLE, DCONJG, MAX, MIN, NINT, SQRT
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DZNRM2
       EXTERNAL           IDAMAX, DLAMCH, DZNRM2
 *     ..

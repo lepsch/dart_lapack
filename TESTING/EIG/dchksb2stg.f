@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES, NWDTHS
+      int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES, NWDTHS
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            ISEED( 4 ), KK( * ), NN( * )
+      int                ISEED( 4 ), KK( * ), NN( * )
       DOUBLE PRECISION   A( LDA, * ), RESULT( * ), SD( * ), SE( * ), D1( * ), D2( * ), D3( * ), U( LDU, * ), WORK( * )
 *     ..
 *
@@ -21,16 +21,16 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, TEN = 10.0D0 )
       DOUBLE PRECISION   HALF
       PARAMETER          ( HALF = ONE / TWO )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 15 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN, BADNNB
-      INTEGER            I, IINFO, IMODE, ITYPE, J, JC, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KMAX, LH, LW, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT
+      int                I, IINFO, IMODE, ITYPE, J, JC, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KMAX, LH, LW, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT
       DOUBLE PRECISION   ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP, ULPINV, UNFL
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
+      int                IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH

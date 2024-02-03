@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, M, N, TSIZE, LWORK
+      int                INFO, LDA, M, N, TSIZE, LWORK
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), T( * ), WORK( * )
@@ -16,7 +16,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, LMINWS, MINT, MINW
-      INTEGER            MB, NB, MINTSZ, NBLCKS, LWMIN, LWOPT, LWREQ
+      int                MB, NB, MINTSZ, NBLCKS, LWMIN, LWOPT, LWREQ
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -29,7 +29,7 @@
       INTRINSIC          MAX, MIN, MOD
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           ILAENV
 *     ..
 *     .. Executable Statements ..

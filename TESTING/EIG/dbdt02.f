@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDB, LDC, LDU, M, N
+      int                LDB, LDC, LDU, M, N
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J
+      int                J
       DOUBLE PRECISION   BNORM, EPS, REALMN
 *     ..
 *     .. External Functions ..

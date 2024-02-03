@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          SIDE
-      INTEGER            INCV, LDC, M, N
+      int                INCV, LDC, M, N
       REAL               TAU
 *     ..
 *     .. Array Arguments ..
@@ -21,14 +21,14 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            APPLYLEFT
-      INTEGER            I, LASTV, LASTC
+      int                I, LASTV, LASTC
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SGEMV, SGER
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILASLR, ILASLC
+      int                ILASLR, ILASLC
       EXTERNAL           LSAME, ILASLR, ILASLC
 *     ..
 *     .. Executable Statements ..

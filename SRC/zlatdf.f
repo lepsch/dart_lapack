@@ -5,18 +5,18 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IJOB, LDZ, N
+      int                IJOB, LDZ, N
       DOUBLE PRECISION   RDSCAL, RDSUM
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), JPIV( * )
+      int                IPIV( * ), JPIV( * )
       COMPLEX*16         RHS( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            MAXDIM
+      int                MAXDIM
       PARAMETER          ( MAXDIM = 2 )
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
@@ -24,7 +24,7 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, J, K
+      int                I, INFO, J, K
       DOUBLE PRECISION   RTEMP, SCALE, SMINU, SPLUS
       COMPLEX*16         BM, BP, PMONE, TEMP
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            LDA, LDB, LDX, N, NRHS
+      int                LDA, LDB, LDX, N, NRHS
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
@@ -24,13 +24,13 @@
       PARAMETER          ( NEGCONE = ( -1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            IFAIL, J
+      int                IFAIL, J
       DOUBLE PRECISION   ANORM, BNORM, EPS, XNORM
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IZAMAX
+      int                IZAMAX
       DOUBLE PRECISION   DLAMCH, ZLANSY
       EXTERNAL           LSAME, IZAMAX, DLAMCH, ZLANSY
 *     ..

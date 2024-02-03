@@ -7,12 +7,12 @@
       IMPLICIT NONE
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDU, LDVT, LWORK, NOUNIT, NSIZES, NTYPES
+      int                INFO, LDA, LDU, LDVT, LWORK, NOUNIT, NSIZES, NTYPES
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            ISEED( 4 ), IWORK( * ), MM( * ), NN( * )
+      int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * )
       DOUBLE PRECISION   E( * ), RWORK( * ), S( * ), SSAV( * )
       COMPLEX*16         A( LDA, * ), ASAV( LDA, * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * )
 *     ..
@@ -24,21 +24,21 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = 0.5D0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 5 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADMM, BADNN
       CHARACTER          JOBQ, JOBU, JOBVT, RANGE
-      INTEGER            I, IINFO, IJQ, IJU, IJVT, IL, IU, ITEMP, IWSPC, IWTMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NERRS, NFAIL, NMAX, NS, NSI, NSV, NTEST, NTESTF, NTESTT, LRWORK
+      int                I, IINFO, IJQ, IJU, IJVT, IL, IU, ITEMP, IWSPC, IWTMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NERRS, NFAIL, NMAX, NS, NSI, NSV, NTEST, NTESTF, NTESTT, LRWORK
       DOUBLE PRECISION   ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU
 *     ..
 *     .. Local Scalars for ZGESVDQ ..
-      INTEGER            LIWORK, NUMRANK
+      int                LIWORK, NUMRANK
 *     ..
 *     .. Local Arrays ..
       CHARACTER          CJOB( 4 ), CJOBR( 3 ), CJOBV( 2 )
-      INTEGER            IOLDSD( 4 ), ISEED2( 4 )
+      int                IOLDSD( 4 ), ISEED2( 4 )
       DOUBLE PRECISION   RESULT( 39 )
 *     ..
 *     .. External Functions ..

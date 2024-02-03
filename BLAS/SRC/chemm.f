@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       COMPLEX ALPHA,BETA
-      INTEGER LDA,LDB,LDC,M,N
+      int     LDA,LDB,LDC,M,N
       CHARACTER SIDE,UPLO
 *     ..
 *     .. Array Arguments ..
@@ -27,7 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       COMPLEX TEMP1,TEMP2
-      INTEGER I,INFO,J,K,NROWA
+      int     I,INFO,J,K,NROWA
       LOGICAL UPPER
 *     ..
 *     .. Parameters ..

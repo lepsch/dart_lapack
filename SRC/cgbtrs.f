@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            INFO, KL, KU, LDAB, LDB, N, NRHS
+      int                INFO, KL, KU, LDAB, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX            AB( LDAB, * ), B( LDB, * )
 *     ..
 *
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LNOTI, NOTRAN
-      INTEGER            I, J, KD, L, LM
+      int                I, J, KD, L, LM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

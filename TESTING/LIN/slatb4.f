@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       CHARACTER          DIST, TYPE
       CHARACTER*3        PATH
-      INTEGER            IMAT, KL, KU, M, MODE, N
+      int                IMAT, KL, KU, M, MODE, N
       REAL               ANORM, CNDNUM
 *     ..
 *
@@ -24,7 +24,7 @@
 *     .. Local Scalars ..
       LOGICAL            FIRST
       CHARACTER*2        C2
-      INTEGER            MAT
+      int                MAT
       REAL               BADC1, BADC2, EPS, LARGE, SMALL
 *     ..
 *     .. External Functions ..

@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          INIT, SIDE
-      INTEGER            INFO, LDA, M, N
+      int                INFO, LDA, M, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       COMPLEX            A( LDA, * ), X( * )
 *     ..
 *
@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM
+      int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM
       REAL               FACTOR, XABS, XNORM
       COMPLEX            CSIGN, XNORMS
 *     ..

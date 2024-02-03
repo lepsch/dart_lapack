@@ -5,13 +5,13 @@
 
 *     ..
 *     .. Constants ..
-      integer           nNaN, nInf
+      int               nNaN, nInf
       parameter       ( nNaN = 3, nInf = 5 )
       double complex    czero, cone
       parameter       ( czero = DCMPLX( 0.0d0, 0.0d0 ), cone  = DCMPLX( 1.0d0, 0.0d0 ) )
 *     ..
 *     .. Local Variables ..
-      integer           i, nFailingTests, nTests
+      int               i, nFailingTests, nTests
       double precision  aInf, aNaN, OV
       double complex    Y, R, cInf( nInf ), cNaN( nNaN )
 *

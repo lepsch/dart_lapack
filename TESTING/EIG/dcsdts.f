@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDX, LDU1, LDU2, LDV1T, LDV2T, LWORK, M, P, Q
+      int                LDX, LDU1, LDU2, LDV1T, LDV2T, LWORK, M, P, Q
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   RESULT( 15 ), RWORK( * ), THETA( * )
       DOUBLE PRECISION   U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( LWORK ), X( LDX, * ), XF( LDX, * )
 *     ..
@@ -24,7 +24,7 @@
       PARAMETER ( PIOVER2 = 1.57079632679489661923132169163975144210D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, R
+      int                I, INFO, R
       DOUBLE PRECISION   EPS2, RESID, ULP, ULPINV
 *     ..
 *     .. External Functions ..

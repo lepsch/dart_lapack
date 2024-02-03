@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          NORM, UPLO
-      INTEGER            K, LDAB, N
+      int                K, LDAB, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   AB( LDAB, * ), WORK( * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, L
+      int                I, J, L
       DOUBLE PRECISION   ABSA, SCALE, SUM, VALUE
 *     ..
 *     .. External Subroutines ..

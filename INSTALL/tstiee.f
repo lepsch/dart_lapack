@@ -4,11 +4,11 @@
 *     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           ILAENV
 *     ..
 *     .. Local Scalars ..
-      INTEGER            IEEEOK
+      int                IEEEOK
 *     ..
 *     .. Executable Statements ..
 *

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDA, LWORK, N
+      int                INFO, LDA, LWORK, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * )
@@ -20,11 +20,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER
-      INTEGER            I, IINFO, J, LWKOPT, NB
+      int                I, IINFO, J, LWKOPT, NB
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

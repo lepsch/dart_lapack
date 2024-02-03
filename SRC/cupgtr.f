@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDQ, N
+      int                INFO, LDQ, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX            AP( * ), Q( LDQ, * ), TAU( * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            I, IINFO, IJ, J
+      int                I, IINFO, IJ, J
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

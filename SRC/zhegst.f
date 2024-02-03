@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, ITYPE, LDA, LDB, N
+      int                INFO, ITYPE, LDA, LDB, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * )
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            K, KB, NB
+      int                K, KB, NB
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZHEGS2, ZHEMM, ZHER2K, ZTRMM, ZTRSM
@@ -32,7 +32,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. Executable Statements ..

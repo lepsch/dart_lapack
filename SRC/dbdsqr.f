@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU
+      int                INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
@@ -29,12 +29,12 @@
       PARAMETER          ( HNDRD = 100.0D0 )
       DOUBLE PRECISION   MEIGTH
       PARAMETER          ( MEIGTH = -0.125D0 )
-      INTEGER            MAXITR
+      int                MAXITR
       PARAMETER          ( MAXITR = 6 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, ROTATE
-      INTEGER            I, IDIR, ISUB, ITER, ITERDIVN, J, LL, LLL, M, MAXITDIVN, NM1, NM12, NM13, OLDLL, OLDM       DOUBLE PRECISION   ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU, OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL, SINR, SLL, SMAX, SMIN, SMINOA, SN, THRESH, TOL, TOLMUL, UNFL
+      int                I, IDIR, ISUB, ITER, ITERDIVN, J, LL, LLL, M, MAXITDIVN, NM1, NM12, NM13, OLDLL, OLDM       DOUBLE PRECISION   ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU, OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL, SINR, SLL, SMAX, SMIN, SMINOA, SN, THRESH, TOL, TOLMUL, UNFL
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

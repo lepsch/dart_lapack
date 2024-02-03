@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOB, SIDE
-      INTEGER            IHI, ILO, INFO, LDV, M, N
+      int                IHI, ILO, INFO, LDV, M, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   SCALE( * ), V( LDV, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LEFTV, RIGHTV
-      INTEGER            I, II, K
+      int                I, II, K
       DOUBLE PRECISION   S
 *     ..
 *     .. External Functions ..

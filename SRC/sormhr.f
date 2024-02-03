@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          SIDE, TRANS
-      INTEGER            IHI, ILO, INFO, LDA, LDC, LWORK, M, N
+      int                IHI, ILO, INFO, LDA, LDC, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
@@ -16,11 +16,11 @@
 *
 *     .. Local Scalars ..
       LOGICAL            LEFT, LQUERY
-      INTEGER            I1, I2, IINFO, LWKOPT, MI, NB, NH, NI, NQ, NW
+      int                I1, I2, IINFO, LWKOPT, MI, NB, NH, NI, NQ, NW
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SROUNDUP_LWORK
       EXTERNAL           ILAENV, LSAME, SROUNDUP_LWORK
 *     ..

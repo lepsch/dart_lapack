@@ -6,23 +6,23 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            NMAX, NN, NNB, NNS, NOUT
+      int                NMAX, NN, NNB, NNS, NOUT
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
+      int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
       REAL               A( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NTYPE1, NTYPES
+      int                NTYPE1, NTYPES
       PARAMETER          ( NTYPE1 = 10, NTYPES = 18 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 10 )
-      INTEGER            NTRAN
+      int                NTRAN
       PARAMETER          ( NTRAN = 3 )
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0 )
@@ -30,11 +30,11 @@
 *     .. Local Scalars ..
       CHARACTER          DIAG, NORM, TRANS, UPLO, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN, IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN       REAL               AINVNM, ANORM, BIGNUM, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE, SLAMCH
+      int                I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN, IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN       REAL               AINVNM, ANORM, BIGNUM, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE, SLAMCH
 *     ..
 *     .. Local Arrays ..
       CHARACTER          TRANSS( NTRAN ), UPLOS( 2 )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       REAL               RESULT( NTESTS ), SCALE3( 2 )
 *     ..
 *     .. External Functions ..
@@ -48,7 +48,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, IOUNIT
+      int                INFOT, IOUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, IOUNIT, OK, LERR

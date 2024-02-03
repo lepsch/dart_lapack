@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBT
-      INTEGER            EIGCNT, INFO, LCNT, N, RCNT
+      int                EIGCNT, INFO, LCNT, N, RCNT
       DOUBLE PRECISION   PIVMIN, VL, VU
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I
+      int                I
       LOGICAL            MATT
       DOUBLE PRECISION   LPIVOT, RPIVOT, SL, SU, TMP, TMP2
 

@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            NN, NOUT, NRHS
+      int                NN, NOUT, NRHS
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            NVAL( * )
+      int                NVAL( * )
       DOUBLE PRECISION   D( * ), RWORK( * )
       COMPLEX*16         A( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -21,24 +21,24 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ONE, ZERO
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 12 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 6 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ZEROT
       CHARACTER          DIST, FACT, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IA, IFACT, IMAT, IN, INFO, IX, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT
+      int                I, IA, IFACT, IMAT, IN, INFO, IX, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT
       DOUBLE PRECISION   AINVNM, ANORM, COND, DMAX, RCOND, RCONDC
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS ), Z( 3 )
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DGET06, DZASUM, ZLANHT
       EXTERNAL           IDAMAX, DGET06, DZASUM, ZLANHT
 *     ..
@@ -51,7 +51,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

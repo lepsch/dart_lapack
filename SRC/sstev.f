@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ
-      INTEGER            INFO, LDZ, N
+      int                INFO, LDZ, N
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * ), WORK( * ), Z( LDZ, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            WANTZ
-      INTEGER            IMAX, ISCALE
+      int                IMAX, ISCALE
       REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TNRM
 *     ..
 *     .. External Functions ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            LTRANS
-      INTEGER            INFO, LDA, LDB, LDX, NA, NW
+      int                INFO, LDA, LDB, LDX, NA, NW
       DOUBLE PRECISION   CA, D1, D2, SCALE, SMIN, WI, WR, XNORM
 *     ..
 *     .. Array Arguments ..
@@ -22,12 +22,12 @@
       PARAMETER          ( TWO = 2.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            ICMAX, J
+      int                ICMAX, J
       DOUBLE PRECISION   BBND, BI1, BI2, BIGNUM, BNORM, BR1, BR2, CI21, CI22, CMAX, CNORM, CR21, CR22, CSI, CSR, LI21, LR21, SMINI, SMLNUM, TEMP, U22ABS, UI11, UI11R, UI12, UI12S, UI22, UR11, UR11R, UR12, UR12S, UR22, XI1, XI2, XR1, XR2
 *     ..
 *     .. Local Arrays ..
       LOGICAL            RSWAP( 4 ), ZSWAP( 4 )
-      INTEGER            IPIVOT( 4, 4 )
+      int                IPIVOT( 4, 4 )
       DOUBLE PRECISION   CI( 2, 2 ), CIV( 4 ), CR( 2, 2 ), CRV( 4 )
 *     ..
 *     .. External Functions ..

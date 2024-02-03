@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            GIVPTR, ICOMPQ, INFO, K, LDGCOL, LDGNUM, NL, NR, SQRE
+      int                GIVPTR, ICOMPQ, INFO, K, LDGCOL, LDGNUM, NL, NR, SQRE
       DOUBLE PRECISION   ALPHA, BETA, C, S
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( LDGCOL, * ), IDX( * ), IDXP( * ), IDXQ( * ), PERM( * )       DOUBLE PRECISION   D( * ), DSIGMA( * ), GIVNUM( LDGNUM, * ), VF( * ), VFW( * ), VL( * ), VLW( * ), Z( * ), ZW( * )
+      int                GIVCOL( LDGCOL, * ), IDX( * ), IDXP( * ), IDXQ( * ), PERM( * )       DOUBLE PRECISION   D( * ), DSIGMA( * ), GIVNUM( LDGNUM, * ), VF( * ), VFW( * ), VL( * ), VLW( * ), Z( * ), ZW( * )
 *     ..
 *
 *  =====================================================================
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
 *
-      INTEGER            I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M, N, NLP1, NLP2
+      int                I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M, N, NLP1, NLP2
       DOUBLE PRECISION   EPS, HLFTOL, TAU, TOL, Z1
 *     ..
 *     .. External Subroutines ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDB, N, NRHS
+      int                LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   B( LDB, * ), D( * ), E( * )
@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DSCAL

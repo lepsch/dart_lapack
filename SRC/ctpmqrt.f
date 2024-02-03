@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER SIDE, TRANS
-      INTEGER   INFO, K, LDV, LDA, LDB, M, N, L, NB, LDT
+      int       INFO, K, LDV, LDA, LDB, M, N, L, NB, LDT
 *     ..
 *     .. Array Arguments ..
       COMPLEX   V( LDV, * ), A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * )
@@ -17,7 +17,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LEFT, RIGHT, TRAN, NOTRAN
-      INTEGER            I, IB, MB, LB, KF, LDAQ, LDVQ
+      int                I, IB, MB, LB, KF, LDAQ, LDVQ
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

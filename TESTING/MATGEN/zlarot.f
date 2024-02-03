@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            LLEFT, LRIGHT, LROWS
-      INTEGER            LDA, NL
+      int                LDA, NL
       COMPLEX*16         C, S, XLEFT, XRIGHT
 *     ..
 *     .. Array Arguments ..
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            IINC, INEXT, IX, IY, IYT, J, NT
+      int                IINC, INEXT, IX, IY, IYT, J, NT
       COMPLEX*16         TEMPX
 *     ..
 *     .. Local Arrays ..

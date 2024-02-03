@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KNT, LMAX, NIN, NINFO
+      int                KNT, LMAX, NIN, NINFO
       DOUBLE PRECISION   RMAX
 *     ..
 *
@@ -16,11 +16,11 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-      INTEGER            LDT, LWORK
+      int                LDT, LWORK
       PARAMETER          ( LDT = 10, LWORK = 2*LDT*LDT )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IFST, ILST, INFO1, INFO2, J, N
+      int                I, IFST, ILST, INFO1, INFO2, J, N
       DOUBLE PRECISION   EPS, RES
       COMPLEX*16         CTEMP
 *     ..

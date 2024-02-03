@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDU, LDVT, NL, NR, SQRE
+      int                INFO, LDU, LDVT, NL, NR, SQRE
       DOUBLE PRECISION   ALPHA, BETA
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IDXQ( * ), IWORK( * )
+      int                IDXQ( * ), IWORK( * )
       DOUBLE PRECISION   D( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            COLTYP, I, IDX, IDXC, IDXP, IQ, ISIGMA, IU2, IVT2, IZ, K, LDQ, LDU2, LDVT2, M, N, N1, N2
+      int                COLTYP, I, IDX, IDXC, IDXP, IQ, ISIGMA, IU2, IVT2, IZ, K, LDQ, LDU2, LDVT2, M, N, N1, N2
       DOUBLE PRECISION   ORGNRM
 *     ..
 *     .. External Subroutines ..

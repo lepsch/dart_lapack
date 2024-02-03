@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            NOINIT, RIGHTV
-      INTEGER            INFO, LDB, LDH, N
+      int                INFO, LDB, LDH, N
       REAL               BIGNUM, EPS3, SMLNUM, WI, WR
 *     ..
 *     .. Array Arguments ..
@@ -21,11 +21,11 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          NORMIN, TRANS
-      INTEGER            I, I1, I2, I3, IERR, ITS, J
+      int                I, I1, I2, I3, IERR, ITS, J
       REAL               ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y
 *     ..
 *     .. External Functions ..
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SASUM, SLAPY2, SNRM2
       EXTERNAL           ISAMAX, SASUM, SLAPY2, SNRM2
 *     ..

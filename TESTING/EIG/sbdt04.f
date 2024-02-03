@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            LDU, LDVT, N, NS
+      int                LDU, LDVT, N, NS
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
@@ -20,12 +20,12 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, K
+      int                I, J, K
       REAL               BNORM, EPS
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SASUM, SLAMCH
       EXTERNAL           LSAME, ISAMAX, SASUM, SLAMCH
 *     ..

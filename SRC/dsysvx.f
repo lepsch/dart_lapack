@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          FACT, UPLO
-      INTEGER            INFO, LDA, LDAF, LDB, LDX, LWORK, N, NRHS
+      int                INFO, LDA, LDAF, LDB, LDX, LWORK, N, NRHS
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * )
       DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * )
 *     ..
 *
@@ -22,12 +22,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, NOFACT
-      INTEGER            LWKMIN, LWKOPT, NB
+      int                LWKMIN, LWKOPT, NB
       DOUBLE PRECISION   ANORM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANSY
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANSY
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO, VECT
-      INTEGER            INFO, KA, KB, LDAB, LDBB, LDX, N
+      int                INFO, KA, KB, LDAB, LDBB, LDX, N
 *     ..
 *     .. Array Arguments ..
       REAL               AB( LDAB, * ), BB( LDBB, * ), WORK( * ), X( LDX, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPDATE, UPPER, WANTX
-      INTEGER            I, I0, I1, I2, INCA, J, J1, J1T, J2, J2T, K, KA1, KB1, KBT, L, M, NR, NRT, NX
+      int                I, I0, I1, I2, INCA, J, J1, J1T, J2, J2T, K, KA1, KB1, KBT, L, M, NR, NRT, NX
       REAL               BII, RA, RA1, T
 *     ..
 *     .. External Functions ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            K, LDA, LWORK, M
+      int                K, LDA, LWORK, M
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), TAU( * ), WORK( LWORK )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            INFO, J
+      int                INFO, J
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH

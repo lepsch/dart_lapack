@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDU, LIWORK, LRWORK, LWORK, NOUNIT, NSIZES, NTYPES
+      int                INFO, LDA, LDU, LIWORK, LRWORK, LWORK, NOUNIT, NSIZES, NTYPES
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            ISEED( 4 ), IWORK( * ), NN( * )
+      int                ISEED( 4 ), IWORK( * ), NN( * )
       DOUBLE PRECISION   D1( * ), D2( * ), D3( * ), D4( * ), D5( * ), RESULT( * ), RWORK( * ), SD( * ), SE( * ), WA1( * ), WA2( * ), WA3( * ), WR( * )
       COMPLEX*16         A( LDA, * ), AP( * ), TAU( * ), U( LDU, * ), V( LDU, * ), VP( * ), WORK( * ), Z( LDU, * )
 *     ..
@@ -24,7 +24,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
       DOUBLE PRECISION   HALF
       PARAMETER          ( HALF = ONE / TWO )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 21 )
       LOGICAL            CRANGE
       PARAMETER          ( CRANGE = .FALSE. )
@@ -33,15 +33,15 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN, TRYRAC
-      INTEGER            I, IINFO, IL, IMODE, INDE, INDRWK, ITEMP, ITYPE, IU, J, JC, JR, JSIZE, JTYPE, LGN, LIWEDC, LOG2UI, LRWEDC, LWEDC, M, M2, M3, MTYPES, N, NAP, NBLOCK, NERRS, NMATS, NMAX, NSPLIT, NTEST, NTESTT
+      int                I, IINFO, IL, IMODE, INDE, INDRWK, ITEMP, ITYPE, IU, J, JC, JR, JSIZE, JTYPE, LGN, LIWEDC, LOG2UI, LRWEDC, LWEDC, M, M2, M3, MTYPES, N, NAP, NBLOCK, NERRS, NMATS, NMAX, NSPLIT, NTEST, NTESTT
       DOUBLE PRECISION   ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP, ULPINV, UNFL, VL, VU
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
+      int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
       DOUBLE PRECISION   DUMMA( 1 )
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLARND, DSXT1
       EXTERNAL           ILAENV, DLAMCH, DLARND, DSXT1
 *     ..

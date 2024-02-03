@@ -8,10 +8,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            N, LDA, LTB, LWORK, INFO
+      int                N, LDA, LTB, LWORK, INFO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), IPIV2( * )
+      int                IPIV( * ), IPIV2( * )
       COMPLEX            A( LDA, * ), TB( * ), WORK( * )
 *     ..
 *
@@ -22,13 +22,13 @@
 *
 *     .. Local Scalars ..
       LOGICAL            UPPER, TQUERY, WQUERY
-      INTEGER            I, J, K, I1, I2, TD
-      INTEGER            LDTB, NB, KB, JB, NT, IINFO
+      int                I, J, K, I1, I2, TD
+      int                LDTB, NB, KB, JB, NT, IINFO
       COMPLEX            PIV
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SROUNDUP_LWORK
 

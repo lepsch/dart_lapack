@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER        UPLO
-      INTEGER          I1, I2, LDA, N
+      int              I1, I2, LDA, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16       A( LDA, * )

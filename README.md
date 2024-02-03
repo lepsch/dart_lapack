@@ -1,29 +1,29 @@
-# FOTRAN to Dart
+# FORTRAN to Dart
 
 ## Regex Helpers
 
 ### DOUBLE PRECISION -> double
 ```
 ^\s(.*)DOUBLE PRECISION(.*)$
-$1$2double          $3
+ $1double          $2
 ```
 
 ### INTEGER -> int
 ```
 ^\s(.*)\bINTEGER\b(.*)$
-$1$2int    $3
+ $1int    $2
 ```
 
 ### LOGICAL -> bool
 ```
 ^\s(.*)\bLOGICAL\b(.*)$
-$1$2bool   $3
+ $1bool   $2
 ```
 
 ### CHARACTER -> String
 ```
 ^\s(.*)\bCHARACTER\b(.*)$
-$1$2String   $3
+ $1String   $2
 ```
 
 ### Comment out INTRINSIC

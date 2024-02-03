@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, UPLO
-      INTEGER            LDA, N
+      int                LDA, N
       DOUBLE PRECISION   RAT, RCOND, RCONDC
 *     ..
 *     .. Array Arguments ..

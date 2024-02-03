@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDB, LWORK, M, N, P
+      int                INFO, LDA, LDB, LWORK, M, N, P
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( * ), D( * ), WORK( * ), X( * )
@@ -19,13 +19,13 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            LOPT, LWKMIN, LWKOPT, MN, NB, NB1, NB2, NB3, NB4, NR
+      int                LOPT, LWKMIN, LWKOPT, MN, NB, NB1, NB2, NB3, NB4, NR
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DCOPY, DGEMV, DGGRQF, DORMQR, DORMRQ, DTRMV, DTRTRS, XERBLA
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           ILAENV
 *     ..
 *     .. Intrinsic Functions ..

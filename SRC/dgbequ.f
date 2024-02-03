@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, KL, KU, LDAB, M, N
+      int                INFO, KL, KU, LDAB, M, N
       DOUBLE PRECISION   AMAX, COLCND, ROWCND
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, KD
+      int                I, J, KD
       DOUBLE PRECISION   BIGNUM, RCMAX, RCMIN, SMLNUM
 *     ..
 *     .. External Functions ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER INCX,INCY,N
+      int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
       COMPLEX CX(*),CY(*)
@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER I,IX,IY
+      int     I,IX,IY
 *     ..
       IF (N.LE.0) RETURN
       IF (INCX.EQ.1 .AND. INCY.EQ.1) THEN

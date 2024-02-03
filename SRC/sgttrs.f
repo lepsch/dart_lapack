@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       REAL               B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * )
 *     ..
 *
@@ -17,10 +17,10 @@
 *
 *     .. Local Scalars ..
       LOGICAL            NOTRAN
-      INTEGER            ITRANS, J, JB, NB
+      int                ITRANS, J, JB, NB
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           ILAENV
 *     ..
 *     .. External Subroutines ..

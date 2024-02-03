@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, TRANS, UPLO
-      INTEGER            INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RWORK( * )
@@ -24,12 +24,12 @@
 *     .. Local Scalars ..
       LOGICAL            NOTRAN, NOUNIT, UPPER
       CHARACTER          TRANSN, TRANST
-      INTEGER            I, J, K, KASE, KC, NZ
+      int                I, J, K, KASE, KC, NZ
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
       COMPLEX            ZDUM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CAXPY, CCOPY, CLACN2, CTPMV, CTPSV, XERBLA

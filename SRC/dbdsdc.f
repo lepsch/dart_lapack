@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          COMPQ, UPLO
-      INTEGER            INFO, LDU, LDVT, N
+      int                INFO, LDU, LDVT, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IQ( * ), IWORK( * )
+      int                IQ( * ), IWORK( * )
       DOUBLE PRECISION   D( * ), E( * ), Q( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
@@ -23,12 +23,12 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, IC, ICOMPQ, IERR, II, IS, IU, IUPLO, IVT, J, K, KK, MLVL, NM1, NSIZE, PERM, POLES, QSTART, SMLSIZ, SMLSZP, SQRE, START, WSTART, Z
+      int                DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, IC, ICOMPQ, IERR, II, IS, IU, IUPLO, IVT, J, K, KK, MLVL, NM1, NSIZE, PERM, POLES, QSTART, SMLSIZ, SMLSZP, SQRE, START, WSTART, Z
       DOUBLE PRECISION   CS, EPS, ORGNRM, P, R, SN
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANST
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANST
 *     ..

@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDLRE, LDVL, LDVR, NIUNIT, NOUNIT, NSIZES, NTYPES, NWORK
+      int                INFO, LDA, LDLRE, LDVL, LDVR, NIUNIT, NOUNIT, NSIZES, NTYPES, NWORK
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            ISEED( 4 ), NN( * )
+      int                ISEED( 4 ), NN( * )
       DOUBLE PRECISION   RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), RWORK( * ), SCALE( * ), SCALE1( * )
       COMPLEX*16         A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ), WORK( * )
 *     ..
@@ -24,19 +24,19 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 21 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN
       CHARACTER          BALANC
       CHARACTER*3        PATH
-      INTEGER            I, IBAL, IINFO, IMODE, ISRT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT
+      int                I, IBAL, IINFO, IMODE, ISRT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT
       DOUBLE PRECISION   ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP, ULPINV, UNFL, WI, WR
 *     ..
 *     .. Local Arrays ..
       CHARACTER          BAL( 4 )
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
+      int                IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH

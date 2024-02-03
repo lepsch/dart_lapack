@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KNT, LMAX, NIN, NINFO
+      int                KNT, LMAX, NIN, NINFO
       REAL               RMAX
 *     ..
 *
@@ -16,11 +16,11 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-      INTEGER            LDT, LWORK
+      int                LDT, LWORK
       PARAMETER          ( LDT = 10, LWORK = 2*LDT*LDT )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IFST, ILST, INFO1, INFO2, J, N
+      int                I, IFST, ILST, INFO1, INFO2, J, N
       REAL               EPS, RES
       COMPLEX            CTEMP
 *     ..

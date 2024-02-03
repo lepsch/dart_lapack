@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            CURLVL, CURPBM, CUTPNT, INFO, LDQ, N, QSIZ, TLVLS
+      int                CURLVL, CURPBM, CUTPNT, INFO, LDQ, N, QSIZ, TLVLS
       DOUBLE PRECISION   RHO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( 2, * ), GIVPTR( * ), INDXQ( * ), IWORK( * ), PERM( * ), PRMPTR( * ), QPTR( * )
+      int                GIVCOL( 2, * ), GIVPTR( * ), INDXQ( * ), IWORK( * ), PERM( * ), PRMPTR( * ), QPTR( * )
       DOUBLE PRECISION   D( * ), GIVNUM( 2, * ), QSTORE( * ), RWORK( * )
       COMPLEX*16         Q( LDQ, * ), WORK( * )
 *     ..
@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            COLTYP, CURR, I, IDLMDA, INDX, INDXC, INDXP, IQ, IW, IZ, K, N1, N2, PTR
+      int                COLTYP, CURR, I, IDLMDA, INDX, INDXC, INDXP, IQ, IW, IZ, K, N1, N2, PTR
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLAED9, DLAEDA, DLAMRG, XERBLA, ZLACRM, ZLAED8

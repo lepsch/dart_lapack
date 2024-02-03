@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       REAL               TOL
-      INTEGER            INFO, LDA, N, RANK
+      int                INFO, LDA, N, RANK
       CHARACTER          UPLO
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * )
       REAL               WORK( 2*N )
-      INTEGER            PIV( N )
+      int                PIV( N )
 *     ..
 *
 *  =====================================================================
@@ -26,12 +26,12 @@
 *     .. Local Scalars ..
       COMPLEX            CTEMP
       REAL               AJJ, SSTOP, STEMP
-      INTEGER            I, ITEMP, J, JB, K, NB, PVT
+      int                I, ITEMP, J, JB, K, NB, PVT
       LOGICAL            UPPER
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      INTEGER            ILAENV
+      int                ILAENV
       LOGICAL            LSAME, SISNAN
       EXTERNAL           SLAMCH, ILAENV, LSAME, SISNAN
 *     ..

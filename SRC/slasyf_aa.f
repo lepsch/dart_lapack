@@ -8,10 +8,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            M, NB, J1, LDA, LDH
+      int                M, NB, J1, LDA, LDH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       REAL               A( LDA, * ), H( LDH, * ), WORK( * )
 *     ..
 *
@@ -21,12 +21,12 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *
 *     .. Local Scalars ..
-      INTEGER            J, K, K1, I1, I2, MJ
+      int                J, K, K1, I1, I2, MJ
       REAL               PIV, ALPHA
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ISAMAX, ILAENV
+      int                ISAMAX, ILAENV
       EXTERNAL           LSAME, ILAENV, ISAMAX
 *     ..
 *     .. External Subroutines ..

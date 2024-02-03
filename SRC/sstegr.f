@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, RANGE
-      INTEGER            IL, INFO, IU, LDZ, LIWORK, LWORK, M, N
+      int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N
       REAL             ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISUPPZ( * ), IWORK( * )
+      int                ISUPPZ( * ), IWORK( * )
       REAL               D( * ), E( * ), W( * ), WORK( * )
       REAL               Z( LDZ, * )
 *     ..

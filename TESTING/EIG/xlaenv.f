@@ -5,13 +5,13 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            ISPEC, NVALUE
+      int                ISPEC, NVALUE
 *     ..
 *
 *  =====================================================================
 *
 *     .. Arrays in Common ..
-      INTEGER            IPARMS( 100 )
+      int                IPARMS( 100 )
 *     ..
 *     .. Common blocks ..
       COMMON             / CLAENV / IPARMS

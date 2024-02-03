@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*3        TYPE
-      INTEGER            NFAIL, NOUT, NRUN, NERRS
+      int                NFAIL, NOUT, NRUN, NERRS
 *     ..
 *
 * ======================================================================

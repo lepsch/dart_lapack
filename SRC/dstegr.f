@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, RANGE
-      INTEGER            IL, INFO, IU, LDZ, LIWORK, LWORK, M, N
+      int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N
       DOUBLE PRECISION ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISUPPZ( * ), IWORK( * )
+      int                ISUPPZ( * ), IWORK( * )
       DOUBLE PRECISION   D( * ), E( * ), W( * ), WORK( * )
       DOUBLE PRECISION   Z( LDZ, * )
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          HOWMNY, SIDE
-      INTEGER            INFO, LDT, LDVL, LDVR, M, MM, N
+      int                INFO, LDT, LDVL, LDVR, M, MM, N
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
@@ -21,12 +21,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ALLV, BOTHV, LEFTV, OVER, PAIR, RIGHTV, SOMEV
-      INTEGER            I, IERR, II, IP, IS, J, J1, J2, JNXT, K, KI, N2
+      int                I, IERR, II, IP, IS, J, J1, J2, JNXT, K, KI, N2
       REAL               BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SDOT, SLAMCH
       EXTERNAL           LSAME, ISAMAX, SDOT, SLAMCH
 *     ..

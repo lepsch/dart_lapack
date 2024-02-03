@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDSA, M, N
+      int                INFO, LDA, LDSA, M, N
 *     ..
 *     .. Array Arguments ..
       REAL               SA( LDSA, * )
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       DOUBLE PRECISION   RMAX
 *     ..
 *     .. External Functions ..

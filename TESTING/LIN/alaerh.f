@@ -8,7 +8,7 @@
       CHARACTER*3        PATH
       CHARACTER*( * )    SUBNAM
       CHARACTER*( * )    OPTS
-      INTEGER            IMAT, INFO, INFOE, KL, KU, M, N, N5, NERRS, NFAIL, NOUT
+      int                IMAT, INFO, INFOE, KL, KU, M, N, N5, NERRS, NFAIL, NOUT
 *     ..
 *
 *  =====================================================================

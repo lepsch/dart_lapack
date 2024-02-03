@@ -1,4 +1,4 @@
-      INTEGER FUNCTION ILAENV( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
+      int     FUNCTION ILAENV( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*( * )    NAME, OPTS
-      INTEGER            ISPEC, N1, N2, N3, N4
+      int                ISPEC, N1, N2, N3, N4
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, IC, IZ, NB, NBMIN, NX
+      int                I, IC, IZ, NB, NBMIN, NX
       LOGICAL            CNAME, SNAME, TWOSTAGE
       CHARACTER          C1*1, C2*2, C4*2, C3*3, SUBNAM*16
 *     ..
@@ -20,7 +20,7 @@
       INTRINSIC          CHAR, ICHAR, INT, MIN, REAL
 *     ..
 *     .. External Functions ..
-      INTEGER            IEEECK, IPARMQ, IPARAM2STAGE
+      int                IEEECK, IPARMQ, IPARAM2STAGE
       EXTERNAL           IEEECK, IPARMQ, IPARAM2STAGE
 *     ..
 *     .. Executable Statements ..

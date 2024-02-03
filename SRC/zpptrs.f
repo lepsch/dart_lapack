@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         AP( * ), B( LDB, * )
@@ -16,7 +16,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            I
+      int                I
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       COMPLEX*16         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * )
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            ITMAX
+      int                ITMAX
       PARAMETER          ( ITMAX = 5 )
       DOUBLE PRECISION   ZERO
       PARAMETER          ( ZERO = 0.0D+0 )
@@ -28,13 +28,13 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            COUNT, I, IX, J, NZ
+      int                COUNT, I, IX, J, NZ
       DOUBLE PRECISION   EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN
       COMPLEX*16         BI, CX, DX, EX, ZDUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, IDAMAX, DLAMCH
 *     ..

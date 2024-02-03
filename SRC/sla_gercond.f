@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            N, LDA, LDAF, INFO, CMODE
+      int                N, LDA, LDAF, INFO, CMODE
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * )
       REAL               A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * )
 *    ..
 *
@@ -17,11 +17,11 @@
 *
 *     .. Local Scalars ..
       LOGICAL            NOTRANS
-      INTEGER            KASE, I, J
+      int                KASE, I, J
       REAL               AINVNM, TMP
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

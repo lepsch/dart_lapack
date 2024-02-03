@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIRECT, PIVOT, SIDE
-      INTEGER            LDA, M, N
+      int                LDA, M, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), C( * ), S( * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, J
+      int                I, INFO, J
       DOUBLE PRECISION   CTEMP, STEMP, TEMP
 *     ..
 *     .. External Functions ..

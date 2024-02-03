@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, JOB, N
+      int                INFO, JOB, N
       DOUBLE PRECISION   TOL
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IN( * )
+      int                IN( * )
       DOUBLE PRECISION   A( * ), B( * ), C( * ), D( * ), Y( * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            K
+      int                K
       DOUBLE PRECISION   ABSAK, AK, BIGNUM, EPS, PERT, SFMIN, TEMP
 *     ..
 *     .. Intrinsic Functions ..

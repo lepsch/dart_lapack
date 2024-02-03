@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL SA
-      INTEGER INCX,N
+      int     INCX,N
 *     ..
 *     .. Array Arguments ..
       REAL SX(*)
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER I,M,MP1,NINCX
+      int     I,M,MP1,NINCX
 *     ..
 *     .. Parameters ..
       REAL ONE

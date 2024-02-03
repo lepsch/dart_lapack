@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          HOWMNY, SIDE
-      INTEGER            INFO, LDP, LDS, LDVL, LDVR, M, MM, N
+      int                INFO, LDP, LDS, LDVL, LDVR, M, MM, N
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
@@ -24,7 +24,7 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            COMPL, COMPR, ILALL, ILBACK, ILBBAD, ILCOMP, LSA, LSB       INTEGER            I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, ISRC, J, JE, JR       REAL               ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG, BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA, SCALE, SMALL, TEMP, ULP, XMAX
+      LOGICAL            COMPL, COMPR, ILALL, ILBACK, ILBBAD, ILCOMP, LSA, LSB       int                I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, ISRC, J, JE, JR       REAL               ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG, BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA, SCALE, SMALL, TEMP, ULP, XMAX
       COMPLEX            BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X
 *     ..
 *     .. External Functions ..

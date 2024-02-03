@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL               ANORM, CNDNUM
-      INTEGER            IMAT, KL, KU, MODE, N
+      int                IMAT, KL, KU, MODE, N
       CHARACTER          DIST, TYPE
       CHARACTER*3        PATH
 *     ..

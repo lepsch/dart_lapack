@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            LEFT
-      INTEGER            LDA, LDB, LDE, N
+      int                LDA, LDB, LDE, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RESULT( 2 ), RWORK( * )
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          NORMAB, TRANS
-      INTEGER            J, JVEC
+      int                J, JVEC
       DOUBLE PRECISION   ABMAX, ALFMAX, ANORM, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SCALE, TEMP1, ULP
       COMPLEX*16         ACOEFF, ALPHAI, BCOEFF, BETAI, X
 *     ..

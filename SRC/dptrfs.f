@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   B( LDB, * ), BERR( * ), D( * ), DF( * ), E( * ), EF( * ), FERR( * ), WORK( * ), X( LDX, * )
@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            ITMAX
+      int                ITMAX
       PARAMETER          ( ITMAX = 5 )
       DOUBLE PRECISION   ZERO
       PARAMETER          ( ZERO = 0.0D+0 )
@@ -26,7 +26,7 @@
       PARAMETER          ( THREE = 3.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            COUNT, I, IX, J, NZ
+      int                COUNT, I, IX, J, NZ
       DOUBLE PRECISION   BI, CX, DX, EPS, EX, LSTRES, S, SAFE1, SAFE2, SAFMIN
 *     ..
 *     .. External Subroutines ..
@@ -36,7 +36,7 @@
       INTRINSIC          ABS, MAX
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           IDAMAX, DLAMCH
 *     ..

@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS, EQUED
-      INTEGER            INFO, LDAB, LDAFB, LDB, LDX, N, KL, KU, NRHS, NPARAMS, N_ERR_BNDS
+      int                INFO, LDAB, LDAFB, LDB, LDX, N, KL, KU, NRHS, NPARAMS, N_ERR_BNDS
       REAL               RCOND
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * )
       REAL               AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
 *     ..
 *
@@ -26,21 +26,21 @@
       PARAMETER          ( COMPONENTWISE_DEFAULT = 1.0 )
       PARAMETER          ( RTHRESH_DEFAULT = 0.5 )
       PARAMETER          ( DZTHRESH_DEFAULT = 0.25 )
-      INTEGER            LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 )
+      int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 )
       PARAMETER          ( LA_LINRX_CWISE_I = 3 )
-      INTEGER            LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I
+      int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I
       PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER(1)       NORM
       LOGICAL            ROWEQU, COLEQU, NOTRAN
-      INTEGER            J, TRANS_TYPE, PREC_TYPE, REF_TYPE
-      INTEGER            N_NORMS
+      int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE
+      int                N_NORMS
       REAL               ANORM, RCOND_TMP
       REAL               ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG
       LOGICAL            IGNORE_CWISE
-      INTEGER            ITHRESH
+      int                ITHRESH
       REAL               RTHRESH, UNSTABLE_THRESH
 *     ..
 *     .. External Subroutines ..
@@ -55,7 +55,7 @@
       EXTERNAL           SLAMCH, SLANGB, SLA_GBRCOND
       REAL               SLAMCH, SLANGB, SLA_GBRCOND
       LOGICAL            LSAME
-      INTEGER            ILATRANS, ILAPREC
+      int                ILATRANS, ILAPREC
 *     ..
 *     .. Executable Statements ..
 *

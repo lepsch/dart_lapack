@@ -7,11 +7,11 @@
 *     .. Scalar Arguments ..
       LOGICAL            COMP
       CHARACTER          BALANC
-      INTEGER            INFO, JTYPE, LDA, LDLRE, LDVL, LDVR, LWORK, N, NOUNIT
+      int                INFO, JTYPE, LDA, LDLRE, LDVL, LDVR, LWORK, N, NOUNIT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 ), IWORK( * )
+      int                ISEED( 4 ), IWORK( * )
       DOUBLE PRECISION   A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), SCALE( * ), SCALE1( * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WI1( * ), WORK( * ), WR( * ), WR1( * )
 *     ..
 *
@@ -27,7 +27,7 @@
 *     .. Local Scalars ..
       LOGICAL            BALOK, NOBAL
       CHARACTER          SENSE
-      INTEGER            I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN       DOUBLE PRECISION   ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VMAX, VMX, VRMIN, VRMX, VTST
+      int                I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN       DOUBLE PRECISION   ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VMAX, VMX, VRMIN, VRMX, VTST
 *     ..
 *     .. Local Arrays ..
       CHARACTER          SENS( 2 )

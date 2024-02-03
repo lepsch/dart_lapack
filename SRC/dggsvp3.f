@@ -8,11 +8,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBQ, JOBU, JOBV
-      INTEGER            INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P, LWORK
+      int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P, LWORK
       DOUBLE PRECISION   TOLA, TOLB
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
@@ -24,7 +24,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FORWRD, WANTQ, WANTU, WANTV, LQUERY
-      INTEGER            I, J, LWKOPT
+      int                I, J, LWKOPT
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

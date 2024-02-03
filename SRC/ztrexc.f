@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          COMPQ
-      INTEGER            IFST, ILST, INFO, LDQ, LDT, N
+      int                IFST, ILST, INFO, LDQ, LDT, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         Q( LDQ, * ), T( LDT, * )
@@ -16,7 +16,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            WANTQ
-      INTEGER            K, M1, M2, M3
+      int                K, M1, M2, M3
       DOUBLE PRECISION   CS
       COMPLEX*16         SN, T11, T22, TEMP
 *     ..

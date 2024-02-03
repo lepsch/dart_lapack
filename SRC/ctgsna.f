@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          HOWMNY, JOB
-      INTEGER            INFO, LDA, LDB, LDVL, LDVR, LWORK, M, MM, N
+      int                INFO, LDA, LDB, LDVL, LDVR, LWORK, M, MM, N
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       REAL               DIF( * ), S( * )
       COMPLEX            A( LDA, * ), B( LDB, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
@@ -19,12 +19,12 @@
 *
 *     .. Parameters ..
       REAL               ZERO, ONE
-      INTEGER            IDIFJB
+      int                IDIFJB
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, IDIFJB = 3 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, SOMCON, WANTBH, WANTDF, WANTS
-      INTEGER            I, IERR, IFST, ILST, K, KS, LWMIN, N1, N2
+      int                I, IERR, IFST, ILST, K, KS, LWMIN, N1, N2
       REAL               BIGNUM, COND, EPS, LNRM, RNRM, SCALE, SMLNUM
       COMPLEX            YHAX, YHBX
 *     ..

@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, NN, NOUT
+      int                LDA, NN, NOUT
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            NVAL( NN )
+      int                NVAL( NN )
       REAL               A( LDA, * ), ARF( * ), WORK( * )
 *     ..
 *
@@ -18,17 +18,17 @@
 *     .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 1 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER          UPLO, CFORM, NORM
-      INTEGER            I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N, NERRS, NFAIL, NRUN
+      int                I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N, NERRS, NFAIL, NRUN
       REAL               EPS, LARGE, NORMA, NORMARF, SMALL
 *     ..
 *     .. Local Arrays ..
       CHARACTER          UPLOS( 2 ), FORMS( 2 ), NORMS( 4 )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Functions ..

@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, NIN, NM, NMATS, MMAX, NOUT
+      int                INFO, NIN, NM, NMATS, MMAX, NOUT
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ), QVAL( * )
+      int                ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ), QVAL( * )
       REAL               RWORK( * ), THETA( * )
       REAL               U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * )
 *     ..
@@ -17,9 +17,9 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 15 )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 4 )
       REAL               GAPDIGIT, ONE, ORTH, TEN, ZERO
       PARAMETER          ( GAPDIGIT = 10.0E0, ONE = 1.0E0, ORTH = 1.0E-4, TEN = 10.0E0, ZERO = 0.0E0 )
@@ -29,7 +29,7 @@
 *     .. Local Scalars ..
       LOGICAL            FIRSTT
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IM, IMAT, J, LDU1, LDU2, LDV1T, LDV2T, LDX, LWORK, M, NFAIL, NRUN, NT, P, Q, R
+      int                I, IINFO, IM, IMAT, J, LDU1, LDU2, LDV1T, LDV2T, LDX, LWORK, M, NFAIL, NRUN, NT, P, Q, R
 *     ..
 *     .. Local Arrays ..
       LOGICAL            DOTYPE( NTYPES )
@@ -156,15 +156,15 @@
       SUBROUTINE SLACSG( M, P, Q, THETA, ISEED, X, LDX, WORK )
       IMPLICIT NONE
 *
-      INTEGER            LDX, M, P, Q
-      INTEGER            ISEED( 4 )
+      int                LDX, M, P, Q
+      int                ISEED( 4 )
       REAL               THETA( * )
       REAL               WORK( * ), X( LDX, * )
 *
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0 )
 *
-      INTEGER            I, INFO, R
+      int                I, INFO, R
 *
       R = MIN( P, M-P, Q, M-Q )
 *

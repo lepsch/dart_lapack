@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, UPLO
-      INTEGER            INFO, N
+      int                INFO, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         AP( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOUNIT, UPPER
-      INTEGER            J, JC, JCLAST, JJ
+      int                J, JC, JCLAST, JJ
       COMPLEX*16         AJJ
 *     ..
 *     .. External Functions ..

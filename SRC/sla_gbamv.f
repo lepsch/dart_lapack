@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL               ALPHA, BETA
-      INTEGER            INCX, INCY, LDAB, M, N, KL, KU, TRANS
+      int                INCX, INCY, LDAB, M, N, KL, KU, TRANS
 *     ..
 *     .. Array Arguments ..
       REAL               AB( LDAB, * ), X( * ), Y( * )
@@ -20,7 +20,7 @@
 *     .. Local Scalars ..
       LOGICAL            SYMB_ZERO
       REAL               TEMP, SAFE1
-      INTEGER            I, INFO, IY, J, JX, KX, KY, LENX, LENY, KD, KE
+      int                I, INFO, IY, J, JX, KX, KY, LENX, LENY, KD, KE
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, SLAMCH
@@ -28,7 +28,7 @@
 *     ..
 *     .. External Functions ..
       EXTERNAL           ILATRANS
-      INTEGER            ILATRANS
+      int                ILATRANS
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, ABS, SIGN

@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER M, N, NB
+      int     M, N, NB
 *     .. Return values ..
       REAL RESULT(6)
 *
@@ -24,11 +24,11 @@
       PARAMETER( ONE = (1.0,0.0), CZERO=(0.0,0.0) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER INFO, J, K, LL, LWORK, LDT
+      int     INFO, J, K, LL, LWORK, LDT
       REAL    ANORM, EPS, RESID, CNORM, DNORM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
 *     ..
 *     .. External Functions ..
       REAL     SLAMCH

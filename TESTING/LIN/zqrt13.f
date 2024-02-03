@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, M, N, SCALE
+      int                LDA, M, N, SCALE
       DOUBLE PRECISION   NORMA
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       COMPLEX*16         A( LDA, * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            INFO, J
+      int                INFO, J
       DOUBLE PRECISION   BIGNUM, SMLNUM
 *     ..
 *     .. External Functions ..

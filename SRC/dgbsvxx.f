@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          EQUED, FACT, TRANS
-      INTEGER            INFO, LDAB, LDAFB, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS, KL, KU
+      int                INFO, LDAB, LDAFB, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS, KL, KU
       DOUBLE PRECISION   RCOND, RPVGRW
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * )
       DOUBLE PRECISION   AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       DOUBLE PRECISION   R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
 *     ..
 *
@@ -19,16 +19,16 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      INTEGER            FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
-      INTEGER            RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
-      INTEGER            CMP_ERR_I, PIV_GROWTH_I
+      int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
+      int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
+      int                CMP_ERR_I, PIV_GROWTH_I
       PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
       PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
       PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU
-      INTEGER            INFEQU, I, J
+      int                INFEQU, I, J
       DOUBLE PRECISION   AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM
 *     ..
 *     .. External Functions ..

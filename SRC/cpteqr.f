@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          COMPZ
-      INTEGER            INFO, LDZ, N
+      int                INFO, LDZ, N
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * ), WORK( * )
@@ -30,7 +30,7 @@
       COMPLEX            C( 1, 1 ), VT( 1, 1 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ICOMPZ, NRU
+      int                I, ICOMPZ, NRU
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, SQRT

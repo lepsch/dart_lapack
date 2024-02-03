@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          NORM, TRANSR, UPLO
-      INTEGER            N
+      int                N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   WORK( 0: * )
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J, IFM, ILU, NOE, N1, K, L, LDA
+      int                I, J, IFM, ILU, NOE, N1, K, L, LDA
       DOUBLE PRECISION   SCALE, S, VALUE, AA, TEMP
 *     ..
 *     .. External Functions ..

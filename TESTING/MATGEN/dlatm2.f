@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
 *
-      INTEGER            I, IDIST, IGRADE, IPVTNG, J, KL, KU, M, N
+      int                I, IDIST, IGRADE, IPVTNG, J, KL, KU, M, N
       DOUBLE PRECISION   SPARSE
 *     ..
 *
 *     .. Array Arguments ..
 *
-      INTEGER            ISEED( 4 ), IWORK( * )
+      int                ISEED( 4 ), IWORK( * )
       DOUBLE PRECISION   D( * ), DL( * ), DR( * )
 *     ..
 *
@@ -26,7 +26,7 @@
 *
 *     .. Local Scalars ..
 *
-      INTEGER            ISUB, JSUB
+      int                ISUB, JSUB
       DOUBLE PRECISION   TEMP
 *     ..
 *

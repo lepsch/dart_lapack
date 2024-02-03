@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER   INFO, LDA, LDB, LDT, N, M, L
+      int       INFO, LDA, LDB, LDT, N, M, L
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16   A( LDA, * ), B( LDB, * ), T( LDT, * )
@@ -18,7 +18,7 @@
       PARAMETER( ONE = (1.0,0.0), ZERO = (0.0,0.0) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER   I, J, P, MP, NP
+      int       I, J, P, MP, NP
       COMPLEX*16   ALPHA
 *     ..
 *     .. External Subroutines ..

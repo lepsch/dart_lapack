@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       DOUBLE PRECISION ALPHA,BETA
-      INTEGER K,LDA,LDC,N
+      int     K,LDA,LDC,N
       CHARACTER TRANS,UPLO
 *     ..
 *     .. Array Arguments ..
@@ -28,7 +28,7 @@
 *     .. Local Scalars ..
       COMPLEX*16 TEMP
       DOUBLE PRECISION RTEMP
-      INTEGER I,INFO,J,L,NROWA
+      int     I,INFO,J,L,NROWA
       LOGICAL UPPER
 *     ..
 *     .. Parameters ..

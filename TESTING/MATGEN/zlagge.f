@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, KL, KU, LDA, M, N
+      int                INFO, KL, KU, LDA, M, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       DOUBLE PRECISION   D( * )
       COMPLEX*16         A( LDA, * ), WORK( * )
 *     ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ), ONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       DOUBLE PRECISION   WN
       COMPLEX*16         TAU, WA, WB
 *     ..

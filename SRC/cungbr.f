@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          VECT
-      INTEGER            INFO, K, LDA, LWORK, M, N
+      int                INFO, K, LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, WANTQ
-      INTEGER            I, IINFO, J, LWKOPT, MN
+      int                I, IINFO, J, LWKOPT, MN
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

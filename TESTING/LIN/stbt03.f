@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, TRANS, UPLO
-      INTEGER            KD, LDAB, LDB, LDX, N, NRHS
+      int                KD, LDAB, LDB, LDX, N, NRHS
       REAL               RESID, SCALE, TSCAL
 *     ..
 *     .. Array Arguments ..
@@ -20,12 +20,12 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            IX, J
+      int                IX, J
       REAL               BIGNUM, EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SLAMCH
       EXTERNAL           LSAME, ISAMAX, SLAMCH
 *     ..

@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       REAL               RESID
-      INTEGER            LDA, LDAFAC, LDPERM, N, RANK
+      int                LDA, LDAFAC, LDPERM, N, RANK
       CHARACTER          UPLO
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * ), RWORK( * )
-      INTEGER            PIV( * )
+      int                PIV( * )
 *     ..
 *
 *  =====================================================================
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       REAL               ANORM, EPS, T
-      INTEGER            I, J, K
+      int                I, J, K
 *     ..
 *     .. External Functions ..
       REAL               SDOT, SLAMCH, SLANSY

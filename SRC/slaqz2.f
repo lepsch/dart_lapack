@@ -3,7 +3,7 @@
 *
 *     Arguments
       LOGICAL, INTENT( IN ) :: ILQ, ILZ
-      INTEGER, INTENT( IN ) :: K, LDA, LDB, LDQ, LDZ, ISTARTM, ISTOPM, NQ, NZ, QSTART, ZSTART, IHI
+      int    , INTENT( IN ) :: K, LDA, LDB, LDQ, LDZ, ISTARTM, ISTOPM, NQ, NZ, QSTART, ZSTART, IHI
       REAL :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
 *
 *     Parameters

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LWORK, M, N
+      int                LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
       REAL               AF( LDA, * ), TAU( * ), WORK( LWORK )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO
+      int                I, INFO
 *     ..
 *     .. Local Arrays ..
       REAL               RWORK( 1 )

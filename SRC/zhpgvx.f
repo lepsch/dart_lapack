@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, RANGE, UPLO
-      INTEGER            IL, INFO, ITYPE, IU, LDZ, M, N
+      int                IL, INFO, ITYPE, IU, LDZ, M, N
       DOUBLE PRECISION   ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IFAIL( * ), IWORK( * )
+      int                IFAIL( * ), IWORK( * )
       DOUBLE PRECISION   RWORK( * ), W( * )
       COMPLEX*16         AP( * ), BP( * ), WORK( * ), Z( LDZ, * )
 *     ..
@@ -20,7 +20,7 @@
 *     .. Local Scalars ..
       LOGICAL            ALLEIG, INDEIG, UPPER, VALEIG, WANTZ
       CHARACTER          TRANS
-      INTEGER            J
+      int                J
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

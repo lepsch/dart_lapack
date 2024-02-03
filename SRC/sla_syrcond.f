@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            N, LDA, LDAF, INFO, CMODE
+      int                N, LDA, LDAF, INFO, CMODE
 *     ..
 *     .. Array Arguments
-      INTEGER            IWORK( * ), IPIV( * )
+      int                IWORK( * ), IPIV( * )
       REAL               A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * )
 *     ..
 *
@@ -17,12 +17,12 @@
 *
 *     .. Local Scalars ..
       CHARACTER          NORMIN
-      INTEGER            KASE, I, J
+      int                KASE, I, J
       REAL               AINVNM, SMLNUM, TMP
       LOGICAL            UP
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

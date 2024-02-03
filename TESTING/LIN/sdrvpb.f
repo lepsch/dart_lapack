@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            NMAX, NN, NOUT, NRHS
+      int                NMAX, NN, NOUT, NRHS
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), NVAL( * )
+      int                IWORK( * ), NVAL( * )
       REAL               A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), RWORK( * ), S( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
@@ -20,21 +20,21 @@
 *     .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-      INTEGER            NTYPES, NTESTS
+      int                NTYPES, NTESTS
       PARAMETER          ( NTYPES = 8, NTESTS = 6 )
-      INTEGER            NBW
+      int                NBW
       PARAMETER          ( NBW = 4 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            EQUIL, NOFACT, PREFAC, ZEROT
       CHARACTER          DIST, EQUED, FACT, PACKIT, TYPE, UPLO, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, I1, I2, IEQUED, IFACT, IKD, IMAT, IN, INFO, IOFF, IUPLO, IW, IZERO, K, K1, KD, KL, KOFF, KU, LDA, LDAB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKD, NRUN, NT
+      int                I, I1, I2, IEQUED, IFACT, IKD, IMAT, IN, INFO, IOFF, IUPLO, IW, IZERO, K, K1, KD, KL, KOFF, KU, LDA, LDAB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKD, NRUN, NT
       REAL               AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND
 *     ..
 *     .. Local Arrays ..
       CHARACTER          EQUEDS( 2 ), FACTS( 3 )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 ), KDVAL( NBW )
+      int                ISEED( 4 ), ISEEDY( 4 ), KDVAL( NBW )
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
@@ -51,7 +51,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

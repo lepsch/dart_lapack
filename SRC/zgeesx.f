@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBVS, SENSE, SORT
-      INTEGER            INFO, LDA, LDVS, LWORK, N, SDIM
+      int                INFO, LDA, LDVS, LWORK, N, SDIM
       DOUBLE PRECISION   RCONDE, RCONDV
 *     ..
 *     .. Array Arguments ..
@@ -26,7 +26,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS       INTEGER            HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO, ITAU, IWRK, LWRK, MAXWRK, MINWRK
+      LOGICAL            LQUERY, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS       int                HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO, ITAU, IWRK, LWRK, MAXWRK, MINWRK
       DOUBLE PRECISION   ANRM, BIGNUM, CSCALE, EPS, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -37,7 +37,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANGE
 *     ..

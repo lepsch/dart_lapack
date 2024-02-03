@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANSR, DIAG, SIDE, TRANS, UPLO
-      INTEGER            LDB, M, N
+      int                LDB, M, N
       COMPLEX*16         ALPHA
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LSIDE, MISODD, NISODD, NORMALTRANSR, NOTRANS
-      INTEGER            M1, M2, N1, N2, K, INFO, I, J
+      int                M1, M2, N1, N2, K, INFO, I, J
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

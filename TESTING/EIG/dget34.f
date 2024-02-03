@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KNT, LMAX
+      int                KNT, LMAX
       DOUBLE PRECISION   RMAX
 *     ..
 *     .. Array Arguments ..
-      INTEGER            NINFO( 2 )
+      int                NINFO( 2 )
 *     ..
 *
 *  =====================================================================
@@ -19,11 +19,11 @@
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
       DOUBLE PRECISION   TWO, THREE
       PARAMETER          ( TWO = 2.0D0, THREE = 3.0D0 )
-      INTEGER            LWORK
+      int                LWORK
       PARAMETER          ( LWORK = 32 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IA, IA11, IA12, IA21, IA22, IAM, IB, IC, IC11, IC12, IC21, IC22, ICM, INFO, J
+      int                I, IA, IA11, IA12, IA21, IA22, IAM, IB, IC, IC11, IC12, IC21, IC22, ICM, INFO, J
       DOUBLE PRECISION   BIGNUM, EPS, RES, SMLNUM, TNRM
 *     ..
 *     .. Local Arrays ..

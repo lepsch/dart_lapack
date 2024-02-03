@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            GIVPTR, ICOMPQ, INFO, K, LDGCOL, LDGNUM, NL, NR, SQRE
+      int                GIVPTR, ICOMPQ, INFO, K, LDGCOL, LDGNUM, NL, NR, SQRE
       REAL               ALPHA, BETA, C, S
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( LDGCOL, * ), IDXQ( * ), IWORK( * ), PERM( * )       REAL               D( * ), DIFL( * ), DIFR( * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), VF( * ), VL( * ), WORK( * ), Z( * )
+      int                GIVCOL( LDGCOL, * ), IDXQ( * ), IWORK( * ), PERM( * )       REAL               D( * ), DIFL( * ), DIFR( * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), VF( * ), VL( * ), WORK( * ), Z( * )
 *     ..
 *
 *  =====================================================================
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IDX, IDXC, IDXP, ISIGMA, IVFW, IVLW, IW, M, N, N1, N2
+      int                I, IDX, IDXC, IDXP, ISIGMA, IVFW, IVLW, IW, M, N, N1, N2
       REAL               ORGNRM
 *     ..
 *     .. External Subroutines ..

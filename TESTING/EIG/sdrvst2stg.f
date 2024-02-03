@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDU, LIWORK, LWORK, NOUNIT, NSIZES, NTYPES
+      int                INFO, LDA, LDU, LIWORK, LWORK, NOUNIT, NSIZES, NTYPES
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            ISEED( 4 ), IWORK( * ), NN( * )
+      int                ISEED( 4 ), IWORK( * ), NN( * )
       REAL               A( LDA, * ), D1( * ), D2( * ), D3( * ), D4( * ), EVEIGS( * ), RESULT( * ), TAU( * ), U( LDU, * ), V( LDU, * ), WA1( * ), WA2( * ), WA3( * ), WORK( * ), Z( LDU, * )
 *     ..
 *
@@ -21,17 +21,17 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, TEN = 10.0E0 )
       REAL               HALF
       PARAMETER          ( HALF = 0.5E+0 )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 18 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN
       CHARACTER          UPLO
-      INTEGER            I, IDIAG, IHBW, IINFO, IL, IMODE, INDX, IROW, ITEMP, ITYPE, IU, IUPLO, J, J1, J2, JCOL, JSIZE, JTYPE, KD, LGN, LIWEDC, LWEDC, M, M2, M3, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT
+      int                I, IDIAG, IHBW, IINFO, IL, IMODE, INDX, IROW, ITEMP, ITYPE, IU, IUPLO, J, J1, J2, JCOL, JSIZE, JTYPE, KD, LGN, LIWEDC, LWEDC, M, M2, M3, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT
       REAL               ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, ULP, ULPINV, UNFL, VL, VU
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), ISEED3( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
+      int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), ISEED3( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLARND, SSXT1

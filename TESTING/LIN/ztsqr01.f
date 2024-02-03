@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER         TSSW
-      INTEGER           M, N, MB, NB
+      int               M, N, MB, NB
 *     .. Return values ..
       DOUBLE PRECISION  RESULT(6)
 *
@@ -25,17 +25,17 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL TESTZEROS, TS
-      INTEGER INFO, J, K, L, LWORK, TSIZE, MNB
+      int     INFO, J, K, L, LWORK, TSIZE, MNB
       DOUBLE PRECISION   ANORM, EPS, RESID, CNORM, DNORM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       COMPLEX*16         TQUERY( 5 ), WORKQUERY( 1 )
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION DLAMCH, ZLANGE, ZLANSY
       LOGICAL  LSAME
-      INTEGER ILAENV
+      int     ILAENV
       EXTERNAL DLAMCH, ZLANGE, ZLANSY, LSAME, ILAENV
 *     ..
 *     .. Intrinsic Functions ..

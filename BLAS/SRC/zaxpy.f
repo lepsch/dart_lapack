@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       COMPLEX*16 ZA
-      INTEGER INCX,INCY,N
+      int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16 ZX(*),ZY(*)
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER I,IX,IY
+      int     I,IX,IY
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION DCABS1

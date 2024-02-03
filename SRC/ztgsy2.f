@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N
+      int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N
       DOUBLE PRECISION   RDSCAL, RDSUM, SCALE
 *     ..
 *     .. Array Arguments ..
@@ -17,17 +17,17 @@
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE
-      INTEGER            LDZ
+      int                LDZ
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, LDZ = 2 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRAN
-      INTEGER            I, IERR, J, K
+      int                I, IERR, J, K
       DOUBLE PRECISION   SCALOC
       COMPLEX*16         ALPHA
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IPIV( LDZ ), JPIV( LDZ )
+      int                IPIV( LDZ ), JPIV( LDZ )
       COMPLEX*16         RHS( LDZ ), Z( LDZ, LDZ )
 *     ..
 *     .. External Functions ..

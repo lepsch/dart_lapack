@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       REAL               BERR( * ), FERR( * ), RWORK( * )
       COMPLEX            AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            ITMAX
+      int                ITMAX
       PARAMETER          ( ITMAX = 5 )
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
@@ -30,12 +30,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            COUNT, I, IK, J, K, KASE, KK, NZ
+      int                COUNT, I, IK, J, K, KASE, KK, NZ
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
       COMPLEX            ZDUM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CAXPY, CCOPY, CHPMV, CHPTRS, CLACN2, XERBLA

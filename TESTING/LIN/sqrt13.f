@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, M, N, SCALE
+      int                LDA, M, N, SCALE
       REAL               NORMA
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       REAL               A( LDA, * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            INFO, J
+      int                INFO, J
       REAL               BIGNUM, SMLNUM
 *     ..
 *     .. External Functions ..

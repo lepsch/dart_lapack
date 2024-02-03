@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, K, KSTART, KSTOP, LDQ, LDS, N
+      int                INFO, K, KSTART, KSTOP, LDQ, LDS, N
       DOUBLE PRECISION   RHO
 *     ..
 *     .. Array Arguments ..
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       DOUBLE PRECISION   TEMP
 *     ..
 *     .. External Functions ..

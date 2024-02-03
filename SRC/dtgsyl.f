@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, LWORK, M, N
+      int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, LWORK, M, N
       DOUBLE PRECISION   DIF, SCALE
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), WORK( * )
 *     ..
 *
@@ -24,12 +24,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, NOTRAN
-      INTEGER            I, IE, IFUNC, IROUND, IS, ISOLVE, J, JE, JS, K, LINFO, LWMIN, MB, NB, P, PPQQ, PQ, Q
+      int                I, IE, IFUNC, IROUND, IS, ISOLVE, J, JE, JS, K, LINFO, LWMIN, MB, NB, P, PPQQ, PQ, Q
       DOUBLE PRECISION   DSCALE, DSUM, SCALE2, SCALOC
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

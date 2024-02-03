@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LDB, LWORK, M, P, N
+      int                LDA, LDB, LWORK, M, P, N
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), AF( LDA, * ), R( LDA, * ), Q( LDA, * ), B( LDB, * ), BF( LDB, * ), T( LDB, * ), Z( LDB, * ), BWK( LDB, * ), TAUA( * ), TAUB( * ), RESULT( 4 ), RWORK( * ), WORK( LWORK )
@@ -20,7 +20,7 @@
       PARAMETER          ( ROGUE = -1.0E+10 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            INFO
+      int                INFO
       REAL               ANORM, BNORM, ULP, UNFL, RESID
 *     ..
 *     .. External Functions ..

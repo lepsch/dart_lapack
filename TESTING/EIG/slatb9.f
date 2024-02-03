@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       CHARACTER          DISTA, DISTB, TYPE
       CHARACTER*3        PATH
-      INTEGER            IMAT, KLA, KUA, KLB, KUB, M, P, MODEA, MODEB, N
+      int                IMAT, KLA, KUA, KLB, KUB, M, P, MODEA, MODEB, N
       REAL               ANORM, BNORM, CNDNMA, CNDNMB
 *     ..
 *

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, N
+      int                INFO, N
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * )
@@ -16,11 +16,11 @@
 *     .. Parameters ..
       REAL               ZERO, ONE, TWO, THREE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0 )
-      INTEGER            MAXIT
+      int                MAXIT
       PARAMETER          ( MAXIT = 30 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT       REAL               ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC, OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN, SIGMA, SSFMAX, SSFMIN
+      int                I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT       REAL               ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC, OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN, SIGMA, SSFMAX, SSFMIN
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANST, SLAPY2

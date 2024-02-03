@@ -2,12 +2,12 @@
 *     .. Scalar Arguments ..
       IMPLICIT    NONE
       CHARACTER   JOBA, JOBP, JOBR, JOBU, JOBV
-      INTEGER     M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LCWORK, LRWORK, INFO
+      int         M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LCWORK, LRWORK, INFO
 *     ..
 *     .. Array Arguments ..
       COMPLEX     A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( * )
       REAL        S( * ), RWORK( * )
-      INTEGER     IWORK( * )
+      int         IWORK( * )
 *
 *  =====================================================================
 *
@@ -18,8 +18,8 @@
       PARAMETER ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER     IERR, NR, N1, OPTRATIO, p, q
-      INTEGER     LWCON, LWQP3, LWRK_CGELQF, LWRK_CGESVD, LWRK_CGESVD2, LWRK_CGEQP3, LWRK_CGEQRF, LWRK_CUNMLQ, LWRK_CUNMQR, LWRK_CUNMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWUNQ, LWUNQ2, LWUNLQ, MINWRK, MINWRK2, OPTWRK, OPTWRK2, IMINWRK, RMINWRK
+      int         IERR, NR, N1, OPTRATIO, p, q
+      int         LWCON, LWQP3, LWRK_CGELQF, LWRK_CGESVD, LWRK_CGESVD2, LWRK_CGEQP3, LWRK_CGEQRF, LWRK_CUNMLQ, LWRK_CUNMQR, LWRK_CUNMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWUNQ, LWUNQ2, LWUNLQ, MINWRK, MINWRK2, OPTWRK, OPTWRK2, IMINWRK, RMINWRK
       LOGICAL     ACCLA,  ACCLM, ACCLH, ASCALED, CONDA, DNTWU,  DNTWV, LQUERY, LSVC0, LSVEC, ROWPRM,  RSVEC, RTRANS, WNTUA, WNTUF,  WNTUR, WNTUS, WNTVA,   WNTVR
       REAL        BIG, EPSLN, RTMP, SCONDA, SFMIN
       COMPLEX     CTMP
@@ -33,7 +33,7 @@
 *     ..
 *     .. External Functions (BLAS, LAPACK)
       LOGICAL    LSAME
-      INTEGER    ISAMAX
+      int        ISAMAX
       REAL       CLANGE, SCNRM2, SLAMCH
       EXTERNAL   CLANGE, LSAME, ISAMAX, SCNRM2, SLAMCH
 *     ..

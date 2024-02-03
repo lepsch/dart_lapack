@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL               ALPHA, BETA
-      INTEGER            K, LDA, N
+      int                K, LDA, N
       CHARACTER          TRANS, TRANSR, UPLO
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, NORMALTRANSR, NISODD, NOTRANS
-      INTEGER            INFO, NROWA, J, NK, N1, N2
+      int                INFO, NROWA, J, NK, N1, N2
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

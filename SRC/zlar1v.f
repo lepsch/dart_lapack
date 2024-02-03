@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            WANTNC
-      INTEGER   B1, BN, N, NEGCNT, R
+      int       B1, BN, N, NEGCNT, R
       DOUBLE PRECISION   GAPTOL, LAMBDA, MINGMA, NRMINV, PIVMIN, RESID, RQCORR, ZTZ
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISUPPZ( * )
+      int                ISUPPZ( * )
       DOUBLE PRECISION   D( * ), L( * ), LD( * ), LLD( * ), WORK( * )
       COMPLEX*16       Z( * )
 *     ..
@@ -26,7 +26,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            SAWNAN1, SAWNAN2
-      INTEGER            I, INDLPL, INDP, INDS, INDUMN, NEG1, NEG2, R1, R2
+      int                I, INDLPL, INDP, INDS, INDUMN, NEG1, NEG2, R1, R2
       DOUBLE PRECISION   DMINUS, DPLUS, EPS, S, TMP
 *     ..
 *     .. External Functions ..

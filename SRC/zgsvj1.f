@@ -7,7 +7,7 @@
       IMPLICIT NONE
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, SFMIN, TOL
-      INTEGER            INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP
+      int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP
       CHARACTER*1        JOBV
 *     ..
 *     .. Array Arguments ..
@@ -24,7 +24,7 @@
 *     .. Local Scalars ..
       COMPLEX*16         AAPQ, OMPQ
       DOUBLE PRECISION   AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN
-      INTEGER            BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND
+      int                BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND
       LOGICAL            APPLV, ROTOK, RSVEC
 *     ..
 *     ..
@@ -34,7 +34,7 @@
 *     .. External Functions ..
       DOUBLE PRECISION   DZNRM2
       COMPLEX*16         ZDOTC
-      INTEGER            IDAMAX
+      int                IDAMAX
       LOGICAL            LSAME
       EXTERNAL           IDAMAX, LSAME, ZDOTC, DZNRM2
 *     ..

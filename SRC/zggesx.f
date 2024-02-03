@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBVSL, JOBVSR, SENSE, SORT
-      INTEGER            INFO, LDA, LDB, LDVSL, LDVSR, LIWORK, LWORK, N, SDIM
+      int                INFO, LDA, LDB, LDVSL, LDVSR, LIWORK, LWORK, N, SDIM
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   RCONDE( 2 ), RCONDV( 2 ), RWORK( * )
       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * )
 *     ..
@@ -28,7 +28,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTSB, WANTSE, WANTSN, WANTST, WANTSV       INTEGER            I, ICOLS, IERR, IHI, IJOB, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LIWMIN, LWRK, MAXWRK, MINWRK
+      LOGICAL            CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTSB, WANTSE, WANTSN, WANTST, WANTSV       int                I, ICOLS, IERR, IHI, IJOB, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LIWMIN, LWRK, MAXWRK, MINWRK
       DOUBLE PRECISION   ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PL, PR, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -39,7 +39,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANGE
 *     ..

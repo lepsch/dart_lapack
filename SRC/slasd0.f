@@ -5,17 +5,17 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDU, LDVT, N, SMLSIZ, SQRE
+      int                INFO, LDU, LDVT, N, SMLSIZ, SQRE
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       REAL               D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, I1, IC, IDXQ, IDXQC, IM1, INODE, ITEMP, IWK, J, LF, LL, LVL, M, NCC, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, SQREI
+      int                I, I1, IC, IDXQ, IDXQC, IM1, INODE, ITEMP, IWK, J, LF, LL, LVL, M, NCC, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, SQREI
       REAL               ALPHA, BETA
 *     ..
 *     .. External Subroutines ..

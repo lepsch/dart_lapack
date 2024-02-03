@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            J, JOB
+      int                J, JOB
       DOUBLE PRECISION   C, GAMMA, S, SEST, SESTPR
 *     ..
 *     .. Array Arguments ..

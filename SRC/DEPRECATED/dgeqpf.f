@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, M, N
+      int                INFO, LDA, M, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            JPVT( * )
+      int                JPVT( * )
       DOUBLE PRECISION   A( LDA, * ), TAU( * ), WORK( * )
 *     ..
 *
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ITEMP, J, MA, MN, PVT
+      int                I, ITEMP, J, MA, MN, PVT
       DOUBLE PRECISION   AII, TEMP, TEMP2, TOL3Z
 *     ..
 *     .. External Subroutines ..
@@ -29,7 +29,7 @@
       INTRINSIC          ABS, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DNRM2
       EXTERNAL           IDAMAX, DLAMCH, DNRM2
 *     ..

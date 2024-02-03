@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            NMAX, NN, NNS, NOUT
+      int                NMAX, NN, NNS, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            NSVAL( * ), NVAL( * )
+      int                NSVAL( * ), NVAL( * )
       DOUBLE PRECISION   RWORK( * )
       COMPLEX*16         AINVP( * ), AP( * ), B( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -19,11 +19,11 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NTYPE1, NTYPES
+      int                NTYPE1, NTYPES
       PARAMETER          ( NTYPE1 = 10, NTYPES = 18 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 9 )
-      INTEGER            NTRAN
+      int                NTRAN
       PARAMETER          ( NTRAN = 3 )
       DOUBLE PRECISION   ONE, ZERO
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -31,11 +31,11 @@
 *     .. Local Scalars ..
       CHARACTER          DIAG, NORM, TRANS, UPLO, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, IDIAG, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, K, LAP, LDA, N, NERRS, NFAIL, NRHS, NRUN       DOUBLE PRECISION   AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE
+      int                I, IDIAG, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, K, LAP, LDA, N, NERRS, NFAIL, NRHS, NRUN       DOUBLE PRECISION   AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE
 *     ..
 *     .. Local Arrays ..
       CHARACTER          TRANSS( NTRAN ), UPLOS( 2 )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
@@ -49,7 +49,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, IOUNIT
+      int                INFOT, IOUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, IOUNIT, OK, LERR

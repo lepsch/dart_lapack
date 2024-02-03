@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER           M, N, MB1, NB1, NB2
+      int               M, N, MB1, NB1, NB2
 *     .. Return values ..
       DOUBLE PRECISION  RESULT(6)
 *
@@ -25,11 +25,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            TESTZEROS
-      INTEGER            INFO, J, K, L, LWORK, NB2_UB, NRB
+      int                INFO, J, K, L, LWORK, NB2_UB, NRB
       DOUBLE PRECISION   ANORM, EPS, RESID, CNORM, DNORM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       COMPLEX*16         WORKQUERY( 1 )
 *     ..
 *     .. External Functions ..

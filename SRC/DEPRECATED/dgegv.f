@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBVL, JOBVR
-      INTEGER            INFO, LDA, LDB, LDVL, LDVR, LWORK, N
+      int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
@@ -21,7 +21,7 @@
 *     .. Local Scalars ..
       LOGICAL            ILIMIT, ILV, ILVL, ILVR, LQUERY
       CHARACTER          CHTEMP
-      INTEGER            ICOLS, IHI, IINFO, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, ITAU, IWORK, JC, JR, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3       DOUBLE PRECISION   ABSAI, ABSAR, ABSB, ANRM, ANRM1, ANRM2, BNRM, BNRM1, BNRM2, EPS, ONEPLS, SAFMAX, SAFMIN, SALFAI, SALFAR, SBETA, SCALE, TEMP
+      int                ICOLS, IHI, IINFO, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, ITAU, IWORK, JC, JR, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3       DOUBLE PRECISION   ABSAI, ABSAR, ABSB, ANRM, ANRM1, ANRM2, BNRM, BNRM1, BNRM2, EPS, ONEPLS, SAFMAX, SAFMIN, SALFAI, SALFAR, SBETA, SCALE, TEMP
 *     ..
 *     .. Local Arrays ..
       LOGICAL            LDUMMA( 1 )
@@ -31,7 +31,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANGE
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANGE
 *     ..

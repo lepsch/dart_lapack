@@ -8,11 +8,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KNT
+      int                KNT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            NFAIL( 3 ), NINFO( 2 )
+      int                NFAIL( 3 ), NINFO( 2 )
       DOUBLE PRECISION   RMAX( 2 )
 *     ..
 *
@@ -21,19 +21,19 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-      INTEGER            MAXM, MAXN, LDSWORK
+      int                MAXM, MAXN, LDSWORK
       PARAMETER          ( MAXM = 245, MAXN = 192, LDSWORK = 36 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER          TRANA, TRANB
-      INTEGER            I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, LIWORK, M, N       DOUBLE PRECISION   ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL, SCALE, SCALE3, SMLNUM, TNRM, XNRM
+      int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, LIWORK, M, N       DOUBLE PRECISION   ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL, SCALE, SCALE3, SMLNUM, TNRM, XNRM
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   DUML( MAXM ), DUMR( MAXN ), D( MAX( MAXM, MAXN ) ), DUM( MAXN ), VM( 2 )
-      INTEGER            ISEED( 4 ), IWORK( MAXM + MAXN + 2 )
+      int                ISEED( 4 ), IWORK( MAXM + MAXN + 2 )
 *     ..
 *     .. Allocatable Arrays ..
-      INTEGER            AllocateStatus
+      int                AllocateStatus
       DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X, SWORK
 *     ..
 *     .. External Functions ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   SI1, SI2, SR1, SR2
-      INTEGER            LDH, N
+      int                LDH, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   H( LDH, * ), V( * )

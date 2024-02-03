@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            LDA, M, N
+      int                LDA, M, N
       REAL               ALPHA, BETA
 *     ..
 *     .. Array Arguments ..
@@ -16,7 +16,7 @@
 * =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

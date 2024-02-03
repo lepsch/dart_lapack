@@ -8,7 +8,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, UPLO
-      INTEGER            INFO, ITYPE, LDA, LDB, LWORK, N
+      int                INFO, ITYPE, LDA, LDB, LWORK, N
 *     ..
 *     .. Array Arguments ..
       REAL               RWORK( * ), W( * )
@@ -24,11 +24,11 @@
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER, WANTZ
       CHARACTER          TRANS
-      INTEGER            NEIG, LWMIN, LHTRD, LWTRD, KD, IB
+      int                NEIG, LWMIN, LHTRD, LWTRD, KD, IB
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV2STAGE
+      int                ILAENV2STAGE
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..

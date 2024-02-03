@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            NOINIT, RIGHTV
-      INTEGER            INFO, LDB, LDH, N
+      int                INFO, LDB, LDH, N
       DOUBLE PRECISION   BIGNUM, EPS3, SMLNUM, WI, WR
 *     ..
 *     .. Array Arguments ..
@@ -21,11 +21,11 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          NORMIN, TRANS
-      INTEGER            I, I1, I2, I3, IERR, ITS, J
+      int                I, I1, I2, I3, IERR, ITS, J
       DOUBLE PRECISION   ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y
 *     ..
 *     .. External Functions ..
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DASUM, DLAPY2, DNRM2
       EXTERNAL           IDAMAX, DASUM, DLAPY2, DNRM2
 *     ..

@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER LWORK, M, N, L, NB, LDT
+      int     LWORK, M, N, L, NB, LDT
 *     .. Return values ..
       REAL RESULT(6)
 *
@@ -21,11 +21,11 @@
       PARAMETER( ZERO = 0.0, ONE = 1.0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER INFO, J, K, M2, NP1
+      int     INFO, J, K, M2, NP1
       REAL   ANORM, EPS, RESID, CNORM, DNORM
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
 *     ..
 *     .. External Subroutine ..
       EXTERNAL SGEMM, SLARNV, STPMQRT, STPQRT, SGEMQRT, SSYRK, SLACPY, SLASET

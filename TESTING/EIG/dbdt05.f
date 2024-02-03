@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LDU, LDVT, M, N, NS
+      int                LDA, LDU, LDVT, M, N, NS
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
@@ -19,12 +19,12 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, J
+      int                I, J
       DOUBLE PRECISION   ANORM, EPS
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DASUM, DLAMCH, DLANGE
       EXTERNAL           LSAME, IDAMAX, DASUM, DLAMCH, DLANGE
 *     ..

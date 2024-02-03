@@ -7,22 +7,22 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            NM, NN, NNB, NOUT
+      int                NM, NN, NNB, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            MVAL( * ), NBVAL( * ), NVAL( * )
+      int                MVAL( * ), NBVAL( * ), NVAL( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 6 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER(LEN=3)   PATH
-      INTEGER            I, IMB1, INB1, INB2, J, T, M, N, MB1, NB1, NB2, NFAIL, NERRS, NRUN
+      int                I, IMB1, INB1, INB2, J, T, M, N, MB1, NB1, NB2, NFAIL, NERRS, NRUN
 *
 *     .. Local Arrays ..
       DOUBLE PRECISION   RESULT( NTESTS )
@@ -36,7 +36,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER(LEN=32)  SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

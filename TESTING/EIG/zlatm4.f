@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            RSIGN
-      INTEGER            IDIST, ITYPE, LDA, N, NZ1, NZ2
+      int                IDIST, ITYPE, LDA, N, NZ1, NZ2
       DOUBLE PRECISION   AMAGN, RCOND, TRIANG
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       COMPLEX*16         A( LDA, * )
 *     ..
 *
@@ -23,7 +23,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN
+      int                I, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN
       DOUBLE PRECISION   ALPHA
       COMPLEX*16         CTEMP
 *     ..

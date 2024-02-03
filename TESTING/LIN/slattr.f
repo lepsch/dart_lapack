@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, TRANS, UPLO
-      INTEGER            IMAT, INFO, LDA, N
+      int                IMAT, INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       REAL               A( LDA, * ), B( * ), WORK( * )
 *     ..
 *
@@ -23,12 +23,12 @@
       LOGICAL            UPPER
       CHARACTER          DIST, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IY, J, JCOUNT, KL, KU, MODE
+      int                I, IY, J, JCOUNT, KL, KU, MODE
       REAL               ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SLAMCH, SLARND
       EXTERNAL           LSAME, ISAMAX, SLAMCH, SLARND
 *     ..

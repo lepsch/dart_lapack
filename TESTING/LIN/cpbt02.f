@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            KD, LDA, LDB, LDX, N, NRHS
+      int                KD, LDA, LDB, LDX, N, NRHS
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
@@ -23,7 +23,7 @@
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J
+      int                J
       REAL               ANORM, BNORM, EPS, XNORM
 *     ..
 *     .. External Functions ..

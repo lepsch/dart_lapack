@@ -6,23 +6,23 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*3        PATH
-      INTEGER            NUNIT
+      int                NUNIT
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NMAX
+      int                NMAX
       DOUBLE PRECISION   ONE, ZERO
       PARAMETER          ( NMAX = 4, ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IFST, ILST, INFO, J, M, NT
+      int                I, IFST, ILST, INFO, J, M, NT
       DOUBLE PRECISION   SCALE
 *     ..
 *     .. Local Arrays ..
       LOGICAL            SEL( NMAX )
-      INTEGER            IWORK( NMAX )
+      int                IWORK( NMAX )
       DOUBLE PRECISION   A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), S( NMAX ), SEP( NMAX ), WI( NMAX ), WORK( NMAX ), WR( NMAX )
 *     ..
 *     .. External Subroutines ..
@@ -31,7 +31,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NOUT
+      int                INFOT, NOUT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR

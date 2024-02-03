@@ -6,14 +6,14 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*3       PATH
-      INTEGER           IOUNIT
+      int               IOUNIT
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       CHARACTER*3       C2
-      INTEGER           ITYPE
+      int               ITYPE
 *     ..
 *     .. External Functions ..
       LOGICAL           LSAMEN

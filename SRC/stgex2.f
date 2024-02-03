@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            WANTQ, WANTZ
-      INTEGER            INFO, J1, LDA, LDB, LDQ, LDZ, LWORK, N, N1, N2
+      int                INFO, J1, LDA, LDB, LDQ, LDZ, LWORK, N, N1, N2
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
@@ -21,18 +21,18 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       REAL               TWENTY
       PARAMETER          ( TWENTY = 2.0E+01 )
-      INTEGER            LDST
+      int                LDST
       PARAMETER          ( LDST = 4 )
       LOGICAL            WANDS
       PARAMETER          ( WANDS = .TRUE. )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            STRONG, WEAK
-      INTEGER            I, IDUM, LINFO, M
+      int                I, IDUM, LINFO, M
       REAL               BQRA21, BRQA21, DDUM, DNORMA, DNORMB, DSCALE, DSUM, EPS, F, G, SA, SB, SCALE, SMLNUM, THRESHA, THRESHB
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IWORK( LDST + 2 )
+      int                IWORK( LDST + 2 )
       REAL               AI( 2 ), AR( 2 ), BE( 2 ), IR( LDST, LDST ), IRCOP( LDST, LDST ), LI( LDST, LDST ), LICOP( LDST, LDST ), S( LDST, LDST ), SCPY( LDST, LDST ), T( LDST, LDST ), TAUL( LDST ), TAUR( LDST ), TCPY( LDST, LDST )
 *     ..
 *     .. External Functions ..

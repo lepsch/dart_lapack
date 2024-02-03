@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER INCX,N
+      int     INCX,N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION DX(*)
@@ -15,7 +15,7 @@
 *
 *     .. Local Scalars ..
       DOUBLE PRECISION DTEMP
-      INTEGER I,M,MP1,NINCX
+      int     I,M,MP1,NINCX
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC DABS,MOD

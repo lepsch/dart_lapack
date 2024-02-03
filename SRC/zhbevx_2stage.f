@@ -8,11 +8,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, RANGE, UPLO
-      INTEGER            IL, INFO, IU, KD, LDAB, LDQ, LDZ, M, N, LWORK
+      int                IL, INFO, IU, KD, LDAB, LDQ, LDZ, M, N, LWORK
       DOUBLE PRECISION   ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IFAIL( * ), IWORK( * )
+      int                IFAIL( * ), IWORK( * )
       DOUBLE PRECISION   RWORK( * ), W( * )
       COMPLEX*16         AB( LDAB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
 *     ..
@@ -28,13 +28,13 @@
 *     .. Local Scalars ..
       LOGICAL            ALLEIG, INDEIG, LOWER, TEST, VALEIG, WANTZ, LQUERY
       CHARACTER          ORDER
-      INTEGER            I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL, INDISP, INDIWK, INDRWK, INDWRK, ISCALE, ITMP1, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS, J, JJ, NSPLIT
+      int                I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL, INDISP, INDIWK, INDRWK, INDWRK, ISCALE, ITMP1, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS, J, JJ, NSPLIT
       DOUBLE PRECISION   ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
       COMPLEX*16         CTMP1
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV2STAGE
+      int                ILAENV2STAGE
       DOUBLE PRECISION   DLAMCH, ZLANHB
       EXTERNAL           LSAME, DLAMCH, ZLANHB, ILAENV2STAGE
 *     ..

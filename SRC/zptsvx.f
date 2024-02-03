@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          FACT
-      INTEGER            INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..

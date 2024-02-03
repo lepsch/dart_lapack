@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDQ, LWORK, NOUNIT, NSIZES, NTYPES
+      int                INFO, LDA, LDQ, LWORK, NOUNIT, NSIZES, NTYPES
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * ), DOTYPE( * )
-      INTEGER            ISEED( 4 ), NN( * )
+      int                ISEED( 4 ), NN( * )
       DOUBLE PRECISION   A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), Q( LDQ, * ), RESULT( 13 ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * )
 *     ..
 *
@@ -19,22 +19,22 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      INTEGER            MAXTYP
+      int                MAXTYP
       PARAMETER          ( MAXTYP = 26 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN, ILABAD
       CHARACTER          SORT
-      INTEGER            I, I1, IADD, IERR, IINFO, IN, ISORT, J, JC, JR, JSIZE, JTYPE, KNTEIG, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTEST, NTESTT, RSUB, SDIM
+      int                I, I1, IADD, IERR, IINFO, IN, ISORT, J, JC, JR, JSIZE, JTYPE, KNTEIG, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTEST, NTESTT, RSUB, SDIM
       DOUBLE PRECISION   SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IASIGN( MAXTYP ), IBSIGN( MAXTYP ), IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
+      int                IASIGN( MAXTYP ), IBSIGN( MAXTYP ), IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
       DOUBLE PRECISION   RMAGN( 0: 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            DLCTES
-      INTEGER            ILAENV
+      int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLARND
       EXTERNAL           DLCTES, ILAENV, DLAMCH, DLARND
 *     ..

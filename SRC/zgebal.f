@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOB
-      INTEGER            IHI, ILO, INFO, LDA, N
+      int                IHI, ILO, INFO, LDA, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   SCALE( * )
@@ -25,12 +25,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOCONV, CANSWAP
-      INTEGER            I, ICA, IRA, J, K, L
+      int                I, ICA, IRA, J, K, L
       DOUBLE PRECISION   C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2
 *     ..
 *     .. External Functions ..
       LOGICAL            DISNAN, LSAME
-      INTEGER            IZAMAX
+      int                IZAMAX
       DOUBLE PRECISION   DLAMCH, DZNRM2
       EXTERNAL           DISNAN, LSAME, IZAMAX, DLAMCH, DZNRM2
 *     ..

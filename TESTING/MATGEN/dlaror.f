@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          INIT, SIDE
-      INTEGER            INFO, LDA, M, N
+      int                INFO, LDA, M, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       DOUBLE PRECISION   A( LDA, * ), X( * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TOOSML = 1.0D-20 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM
+      int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM
       DOUBLE PRECISION   FACTOR, XNORM, XNORMS
 *     ..
 *     .. External Functions ..

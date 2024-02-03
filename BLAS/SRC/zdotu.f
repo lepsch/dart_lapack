@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER INCX,INCY,N
+      int     INCX,INCY,N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16 ZX(*),ZY(*)
@@ -15,7 +15,7 @@
 *
 *     .. Local Scalars ..
       COMPLEX*16 ZTEMP
-      INTEGER I,IX,IY
+      int     I,IX,IY
 *     ..
       ZTEMP = (0.0d0,0.0d0)
       ZDOTU = (0.0d0,0.0d0)

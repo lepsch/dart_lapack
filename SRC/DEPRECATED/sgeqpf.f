@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, M, N
+      int                INFO, LDA, M, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            JPVT( * )
+      int                JPVT( * )
       REAL               A( LDA, * ), TAU( * ), WORK( * )
 *     ..
 *
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ITEMP, J, MA, MN, PVT
+      int                I, ITEMP, J, MA, MN, PVT
       REAL               AII, TEMP, TEMP2, TOL3Z
 *     ..
 *     .. External Subroutines ..
@@ -29,7 +29,7 @@
       INTRINSIC          ABS, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SLAMCH, SNRM2
       EXTERNAL           ISAMAX, SLAMCH, SNRM2
 *     ..

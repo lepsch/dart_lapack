@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, TRANS, UPLO
-      INTEGER            IMAT, INFO, N
+      int                IMAT, INFO, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       DOUBLE PRECISION   A( * ), B( * ), WORK( * )
 *     ..
 *
@@ -23,11 +23,11 @@
       LOGICAL            UPPER
       CHARACTER          DIST, PACKIT, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX, KL, KU, MODE       DOUBLE PRECISION   ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, STEMP, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z
+      int                I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX, KL, KU, MODE       DOUBLE PRECISION   ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, STEMP, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DLARND
       EXTERNAL           LSAME, IDAMAX, DLAMCH, DLARND
 *     ..

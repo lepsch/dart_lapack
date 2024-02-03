@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, M, N
+      int                INFO, LDA, M, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), D( * )
@@ -19,13 +19,13 @@
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            IINFO, J, JB, NB
+      int                IINFO, J, JB, NB
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CGEMM, CLAUNHR_COL_GETRFNP2, CTRSM, XERBLA
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           ILAENV
 *     ..
 *     .. Intrinsic Functions ..

@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          COMPQ, JOB
-      INTEGER            INFO, LDQ, LDT, LIWORK, LWORK, M, N
+      int                INFO, LDQ, LDT, LIWORK, LWORK, M, N
       DOUBLE PRECISION   S, SEP
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   Q( LDQ, * ), T( LDT, * ), WI( * ), WORK( * ), WR( * )
 *     ..
 *
@@ -22,11 +22,11 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP       INTEGER            IERR, K, KASE, KK, KS, LIWMIN, LWMIN, N1, N2, NN
+      LOGICAL            LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP       int                IERR, K, KASE, KK, KS, LIWMIN, LWMIN, N1, N2, NN
       DOUBLE PRECISION   EST, RNORM, SCALE
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

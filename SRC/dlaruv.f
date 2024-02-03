@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            N
+      int                N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
       DOUBLE PRECISION   X( N )
 *     ..
 *
@@ -17,15 +17,15 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ONE
       PARAMETER          ( ONE = 1.0D0 )
-      INTEGER            LV, IPW2
+      int                LV, IPW2
       DOUBLE PRECISION   R
       PARAMETER          ( LV = 128, IPW2 = 4096, R = ONE / IPW2 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, I1, I2, I3, I4, IT1, IT2, IT3, IT4, J
+      int                I, I1, I2, I3, I4, IT1, IT2, IT3, IT4, J
 *     ..
 *     .. Local Arrays ..
-      INTEGER            MM( LV, 4 )
+      int                MM( LV, 4 )
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, MIN, MOD

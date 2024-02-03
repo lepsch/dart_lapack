@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INCC, INCX, INCY, N
+      int                INCC, INCX, INCY, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   C( * ), X( * ), Y( * )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IC, IX, IY
+      int                I, IC, IX, IY
       DOUBLE PRECISION   F, G, T, TT
 *     ..
 *     .. Intrinsic Functions ..

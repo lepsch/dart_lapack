@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, UPLO
-      INTEGER            INFO, ITYPE, LDZ, N
+      int                INFO, ITYPE, LDZ, N
 *     ..
 *     .. Array Arguments ..
       REAL               AP( * ), BP( * ), W( * ), WORK( * ), Z( LDZ, * )
@@ -17,7 +17,7 @@
 *     .. Local Scalars ..
       LOGICAL            UPPER, WANTZ
       CHARACTER          TRANS
-      INTEGER            J, NEIG
+      int                J, NEIG
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME

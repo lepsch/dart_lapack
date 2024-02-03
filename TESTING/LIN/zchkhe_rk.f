@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            TSTERR
-      INTEGER            NMAX, NN, NNB, NNS, NOUT
+      int                NMAX, NN, NNB, NNS, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
+      int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
       DOUBLE PRECISION   RWORK( * )
       COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -27,21 +27,21 @@
       PARAMETER          ( EIGHT = 8.0D+0, SEVTEN = 17.0D+0 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 10 )
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 7 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            TRFCON, ZEROT
       CHARACTER          DIST, TYPE, UPLO, XTYPE
       CHARACTER*3        PATH, MATPATH
-      INTEGER            I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, ITEMP, ITEMP2, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
+      int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, ITEMP, ITEMP2, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
       DOUBLE PRECISION   ALPHA, ANORM, CNDNUM, CONST, SING_MAX, SING_MIN, RCOND, RCONDC, DTEMP
 *     ..
 *     .. Local Arrays ..
       CHARACTER          UPLOS( 2 )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 ), IDUMMY( 1 )
+      int                ISEED( 4 ), ISEEDY( 4 ), IDUMMY( 1 )
       DOUBLE PRECISION   RESULT( NTESTS )
       COMPLEX*16         BLOCK( 2, 2 ), ZDUMMY( 1 )
 *     ..
@@ -58,7 +58,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, LDA, N, NB
+      int                INFO, LDA, N, NB
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       COMPLEX*16         A( LDA, * ), E( * ), WORK( N+NB+1, * )
 *     ..
 *
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            CUT, I, ICOUNT, INVD, IP, K, NNB, J, U11
+      int                CUT, I, ICOUNT, INVD, IP, K, NNB, J, U11
       DOUBLE PRECISION   AK, AKP1, T
       COMPLEX*16         AKKP1, D, U01_I_J, U01_IP1_J, U11_I_J, U11_IP1_J
 *     ..

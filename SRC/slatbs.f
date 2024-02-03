@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, NORMIN, TRANS, UPLO
-      INTEGER            INFO, KD, LDAB, N
+      int                INFO, KD, LDAB, N
       REAL               SCALE
 *     ..
 *     .. Array Arguments ..
@@ -21,12 +21,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRAN, NOUNIT, UPPER
-      INTEGER            I, IMAX, J, JFIRST, JINC, JLAST, JLEN, MAIND
+      int                I, IMAX, J, JFIRST, JINC, JLAST, JLEN, MAIND
       REAL               BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS, TMAX, TSCAL, USCAL, XBND, XJ, XMAX
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ISAMAX
+      int                ISAMAX
       REAL               SASUM, SDOT, SLAMCH
       EXTERNAL           LSAME, ISAMAX, SASUM, SDOT, SLAMCH
 *     ..

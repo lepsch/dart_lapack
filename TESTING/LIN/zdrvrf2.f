@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, NN, NOUT
+      int                LDA, NN, NOUT
 *     ..
 *     .. Array Arguments ..
-      INTEGER            NVAL( NN )
+      int                NVAL( NN )
       COMPLEX*16         A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * )
 *     ..
 *
@@ -17,11 +17,11 @@
 *     .. Local Scalars ..
       LOGICAL            LOWER, OK1, OK2
       CHARACTER          UPLO, CFORM
-      INTEGER            I, IFORM, IIN, INFO, IUPLO, J, N, NERRS, NRUN
+      int                I, IFORM, IIN, INFO, IUPLO, J, N, NERRS, NRUN
 *     ..
 *     .. Local Arrays ..
       CHARACTER          UPLOS( 2 ), FORMS( 2 )
-      INTEGER            ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 )
 *     ..
 *     .. External Functions ..
       COMPLEX*16         ZLARND

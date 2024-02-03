@@ -7,17 +7,17 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NMAX
+      int                NMAX
       PARAMETER          ( NMAX = 132 )
-      INTEGER            MAXIN
+      int                MAXIN
       PARAMETER          ( MAXIN = 12 )
-      INTEGER            MAXRHS
+      int                MAXRHS
       PARAMETER          ( MAXRHS = 16 )
-      INTEGER            MATMAX
+      int                MATMAX
       PARAMETER          ( MATMAX = 30 )
-      INTEGER            NIN, NOUT
+      int                NIN, NOUT
       PARAMETER          ( NIN = 5, NOUT = 6 )
-      INTEGER            LDAMAX
+      int                LDAMAX
       PARAMETER          ( LDAMAX = NMAX )
 *     ..
 *     .. Local Scalars ..
@@ -27,13 +27,13 @@
       CHARACTER*3        PATH
       CHARACTER*10       INTSTR
       CHARACTER*72       ALINE
-      INTEGER            I, IC, K, LDA, NM, NMATS, NNS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH
+      int                I, IC, K, LDA, NM, NMATS, NNS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH
       DOUBLE PRECISION   EPS, S1, S2, THRESH
       REAL               SEPS
 *     ..
 *     .. Local Arrays ..
       LOGICAL            DOTYPE( MATMAX )
-      INTEGER            IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN )
+      int                IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN )
       DOUBLE PRECISION   A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ), RWORK( NMAX ), WORK( NMAX*MAXRHS*2 )
       REAL               SWORK(NMAX*(NMAX+MAXRHS))
 *     ..
@@ -49,7 +49,7 @@
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
       CHARACTER*32       SRNAMT
-      INTEGER            INFOT, NUNIT
+      int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

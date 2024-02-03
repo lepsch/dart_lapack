@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          SIGNS, TRANS
-      INTEGER            INFO, LDX11, LDX12, LDX21, LDX22, LWORK, M, P, Q
+      int                INFO, LDX11, LDX12, LDX21, LDX22, LWORK, M, P, Q
 *     ..
 *     .. Array Arguments ..
       REAL               PHI( * ), THETA( * )
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            COLMAJOR, LQUERY
-      INTEGER            I, LWORKMIN, LWORKOPT
+      int                I, LWORKMIN, LWORKOPT
       REAL               Z1, Z2, Z3, Z4
 *     ..
 *     .. External Subroutines ..

@@ -1,4 +1,4 @@
-      INTEGER FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
+      int     FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,16 +7,16 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER*( * )    NAME, OPTS
-      INTEGER            ISPEC, N1, N2, N3, N4
+      int                ISPEC, N1, N2, N3, N4
 *     ..
 *
 *  =====================================================================
 *     ..
 *     .. Local Scalars ..
-      INTEGER            IISPEC
+      int                IISPEC
 *     ..
 *     .. External Functions ..
-      INTEGER            IPARAM2STAGE
+      int                IPARAM2STAGE
       EXTERNAL           IPARAM2STAGE
 *     ..
 *     .. Executable Statements ..

@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, RANGE, UPLO
-      INTEGER            IL, INFO, IU, LDZ, N, NS
+      int                IL, INFO, IU, LDZ, N, NS
       DOUBLE PRECISION   VL, VU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   D( * ), E( * ), S( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
@@ -25,12 +25,12 @@
 *     .. Local Scalars ..
       CHARACTER          RNGVX
       LOGICAL            ALLSV, INDSV, LOWER, SPLIT, SVEQ0, VALSV, WANTZ
-      INTEGER            I, ICOLZ, IDBEG, IDEND, IDTGK, IDPTR, IEPTR, IETGK, IIFAIL, IIWORK, ILTGK, IROWU, IROWV, IROWZ, ISBEG, ISPLT, ITEMP, IUTGK, J, K, NTGK, NRU, NRV, NSL
+      int                I, ICOLZ, IDBEG, IDEND, IDTGK, IDPTR, IEPTR, IETGK, IIFAIL, IIWORK, ILTGK, IROWU, IROWV, IROWZ, ISBEG, ISPLT, ITEMP, IUTGK, J, K, NTGK, NRU, NRV, NSL
       DOUBLE PRECISION   ABSTOL, EPS, EMIN, MU, NRMU, NRMV, ORTOL, SMAX, SMIN, SQRT2, THRESH, TOL, ULP, VLTGK, VUTGK, ZJTJI
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            IDAMAX
+      int                IDAMAX
       DOUBLE PRECISION   DDOT, DLAMCH, DNRM2
       EXTERNAL           IDAMAX, LSAME, DAXPY, DDOT, DLAMCH, DNRM2
 *     ..

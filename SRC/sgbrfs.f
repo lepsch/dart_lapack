@@ -6,17 +6,17 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            INFO, KL, KU, LDAB, LDAFB, LDB, LDX, N, NRHS
+      int                INFO, KL, KU, LDAB, LDAFB, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * )
       REAL               AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            ITMAX
+      int                ITMAX
       PARAMETER          ( ITMAX = 5 )
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
@@ -30,11 +30,11 @@
 *     .. Local Scalars ..
       LOGICAL            NOTRAN
       CHARACTER          TRANST
-      INTEGER            COUNT, I, J, K, KASE, KK, NZ
+      int                COUNT, I, J, K, KASE, KK, NZ
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISAVE( 3 )
+      int                ISAVE( 3 )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SAXPY, SCOPY, SGBMV, SGBTRS, SLACN2, XERBLA

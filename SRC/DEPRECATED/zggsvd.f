@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBQ, JOBU, JOBV
-      INTEGER            INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P
+      int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IWORK( * )
+      int                IWORK( * )
       DOUBLE PRECISION   ALPHA( * ), BETA( * ), RWORK( * )
       COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
@@ -18,7 +18,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            WANTQ, WANTU, WANTV
-      INTEGER            I, IBND, ISUB, J, NCYCLE
+      int                I, IBND, ISUB, J, NCYCLE
       DOUBLE PRECISION   ANORM, BNORM, SMAX, TEMP, TOLA, TOLB, ULP, UNFL
 *     ..
 *     .. External Functions ..

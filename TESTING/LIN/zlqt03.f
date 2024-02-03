@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            K, LDA, LWORK, M, N
+      int                K, LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RESULT( * ), RWORK( * )
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          SIDE, TRANS
-      INTEGER            INFO, ISIDE, ITRANS, J, MC, NC
+      int                INFO, ISIDE, ITRANS, J, MC, NC
       DOUBLE PRECISION   CNORM, EPS, RESID
 *     ..
 *     .. External Functions ..
@@ -34,7 +34,7 @@
       EXTERNAL           ZGEMM, ZLACPY, ZLARNV, ZLASET, ZUNGLQ, ZUNMLQ
 *     ..
 *     .. Local Arrays ..
-      INTEGER            ISEED( 4 )
+      int                ISEED( 4 )
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, DCMPLX, MAX

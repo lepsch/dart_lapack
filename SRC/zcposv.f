@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, ITER, LDA, LDB, LDX, N, NRHS
+      int                INFO, ITER, LDA, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RWORK( * )
@@ -20,7 +20,7 @@
       LOGICAL            DOITREF
       PARAMETER          ( DOITREF = .TRUE. )
 *
-      INTEGER            ITERMAX
+      int                ITERMAX
       PARAMETER          ( ITERMAX = 30 )
 *
       DOUBLE PRECISION   BWDMAX
@@ -30,7 +30,7 @@
       PARAMETER          ( NEGONE = ( -1.0D+00, 0.0D+00 ), ONE = ( 1.0D+00, 0.0D+00 ) )
 *
 *     .. Local Scalars ..
-      INTEGER            I, IITER, PTSA, PTSX
+      int                I, IITER, PTSA, PTSX
       DOUBLE PRECISION   ANRM, CTE, EPS, RNRM, XNRM
       COMPLEX*16         ZDUM
 *
@@ -38,7 +38,7 @@
       EXTERNAL           ZAXPY, ZHEMM, ZLACPY, ZLAT2C, ZLAG2C, CLAG2Z, CPOTRF, CPOTRS, XERBLA, ZPOTRF, ZPOTRS
 *     ..
 *     .. External Functions ..
-      INTEGER            IZAMAX
+      int                IZAMAX
       DOUBLE PRECISION   DLAMCH, ZLANHE
       LOGICAL            LSAME
       EXTERNAL           IZAMAX, DLAMCH, ZLANHE, LSAME

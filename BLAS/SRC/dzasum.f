@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER INCX,N
+      int     INCX,N
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16 ZX(*)
@@ -15,7 +15,7 @@
 *
 *     .. Local Scalars ..
       DOUBLE PRECISION STEMP
-      INTEGER I,NINCX
+      int     I,NINCX
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION DCABS1

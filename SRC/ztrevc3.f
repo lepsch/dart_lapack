@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          HOWMNY, SIDE
-      INTEGER            INFO, LDT, LDVL, LDVR, LWORK, LRWORK, M, MM, N
+      int                INFO, LDT, LDVL, LDVR, LWORK, LRWORK, M, MM, N
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
@@ -22,18 +22,18 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE  = ( 1.0D+0, 0.0D+0 ) )
-      INTEGER            NBMIN, NBMAX
+      int                NBMIN, NBMAX
       PARAMETER          ( NBMIN = 8, NBMAX = 128 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ALLV, BOTHV, LEFTV, LQUERY, OVER, RIGHTV, SOMEV
-      INTEGER            I, II, IS, J, K, KI, IV, MAXWRK, NB
+      int                I, II, IS, J, K, KI, IV, MAXWRK, NB
       DOUBLE PRECISION   OVFL, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL
       COMPLEX*16         CDUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV, IZAMAX
+      int                ILAENV, IZAMAX
       DOUBLE PRECISION   DLAMCH, DZASUM
       EXTERNAL           LSAME, ILAENV, IZAMAX, DLAMCH, DZASUM
 *     ..

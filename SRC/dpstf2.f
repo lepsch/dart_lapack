@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   TOL
-      INTEGER            INFO, LDA, N, RANK
+      int                INFO, LDA, N, RANK
       CHARACTER          UPLO
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), WORK( 2*N )
-      INTEGER            PIV( N )
+      int                PIV( N )
 *     ..
 *
 *  =====================================================================
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION   AJJ, DSTOP, DTEMP
-      INTEGER            I, ITEMP, J, PVT
+      int                I, ITEMP, J, PVT
       LOGICAL            UPPER
 *     ..
 *     .. External Functions ..

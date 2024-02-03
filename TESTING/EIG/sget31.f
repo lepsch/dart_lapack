@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KNT, LMAX
+      int                KNT, LMAX
       REAL               RMAX
 *     ..
 *     .. Array Arguments ..
-      INTEGER            NINFO( 2 )
+      int                NINFO( 2 )
 *     ..
 *
 *  =====================================================================
@@ -25,7 +25,7 @@
       PARAMETER          ( TWNONE = 21.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            IA, IB, ICA, ID1, ID2, INFO, ISMIN, ITRANS, IWI, IWR, NA, NW       REAL               BIGNUM, CA, D1, D2, DEN, EPS, RES, SCALE, SMIN, SMLNUM, TMP, UNFL, WI, WR, XNORM
+      int                IA, IB, ICA, ID1, ID2, INFO, ISMIN, ITRANS, IWI, IWR, NA, NW       REAL               BIGNUM, CA, D1, D2, DEN, EPS, RES, SCALE, SMIN, SMLNUM, TMP, UNFL, WI, WR, XNORM
 *     ..
 *     .. Local Arrays ..
       LOGICAL            LTRANS( 0: 1 )

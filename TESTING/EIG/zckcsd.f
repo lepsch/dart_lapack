@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, NIN, NM, NMATS, MMAX, NOUT
+      int                INFO, NIN, NM, NMATS, MMAX, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ), QVAL( * )
+      int                ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ), QVAL( * )
       DOUBLE PRECISION   RWORK( * ), THETA( * )
       COMPLEX*16         U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * )
 *     ..
@@ -17,9 +17,9 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            NTESTS
+      int                NTESTS
       PARAMETER          ( NTESTS = 15 )
-      INTEGER            NTYPES
+      int                NTYPES
       PARAMETER          ( NTYPES = 4 )
       DOUBLE PRECISION   GAPDIGIT, ORTH, REALONE, REALZERO, TEN
       PARAMETER          ( GAPDIGIT = 18.0D0, ORTH = 1.0D-12, REALONE = 1.0D0, REALZERO = 0.0D0, TEN = 10.0D0 )
@@ -31,7 +31,7 @@
 *     .. Local Scalars ..
       LOGICAL            FIRSTT
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IM, IMAT, J, LDU1, LDU2, LDV1T, LDV2T, LDX, LWORK, M, NFAIL, NRUN, NT, P, Q, R
+      int                I, IINFO, IM, IMAT, J, LDU1, LDU2, LDV1T, LDV2T, LDX, LWORK, M, NFAIL, NRUN, NT, P, Q, R
 *     ..
 *     .. Local Arrays ..
       LOGICAL            DOTYPE( NTYPES )
@@ -158,15 +158,15 @@
       SUBROUTINE ZLACSG( M, P, Q, THETA, ISEED, X, LDX, WORK )
       IMPLICIT NONE
 *
-      INTEGER            LDX, M, P, Q
-      INTEGER            ISEED( 4 )
+      int                LDX, M, P, Q
+      int                ISEED( 4 )
       DOUBLE PRECISION   THETA( * )
       COMPLEX*16         WORK( * ), X( LDX, * )
 *
       COMPLEX*16         ONE, ZERO
       PARAMETER          ( ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) )
 *
-      INTEGER            I, INFO, R
+      int                I, INFO, R
 *
       R = MIN( P, M-P, Q, M-Q )
 *

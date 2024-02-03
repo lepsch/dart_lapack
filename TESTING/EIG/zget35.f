@@ -5,14 +5,14 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            KNT, LMAX, NIN, NINFO
+      int                KNT, LMAX, NIN, NINFO
       DOUBLE PRECISION   RMAX
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            LDT
+      int                LDT
       PARAMETER          ( LDT = 10 )
       DOUBLE PRECISION   ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          TRANA, TRANB
-      INTEGER            I, IMLA, IMLAD, IMLB, IMLC, INFO, ISGN, ITRANA, ITRANB, J, M, N       DOUBLE PRECISION   BIGNUM, EPS, RES, RES1, SCALE, SMLNUM, TNRM, XNRM
+      int                I, IMLA, IMLAD, IMLB, IMLC, INFO, ISGN, ITRANA, ITRANB, J, M, N       DOUBLE PRECISION   BIGNUM, EPS, RES, RES1, SCALE, SMLNUM, TNRM, XNRM
       COMPLEX*16         RMUL
 *     ..
 *     .. Local Arrays ..

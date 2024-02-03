@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          ROWCOL
-      INTEGER            LDU, LWORK, M, N
+      int                LDU, LWORK, M, N
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          TRANSU
-      INTEGER            I, J, K, LDWORK, MNMIN
+      int                I, J, K, LDWORK, MNMIN
       REAL               EPS
       COMPLEX            TMP, ZDUM
 *     ..

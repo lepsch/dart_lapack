@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            INFO, KD, LDAB, N
+      int                INFO, KD, LDAB, N
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   AB( LDAB, * )
@@ -17,18 +17,18 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ONE, ZERO
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-      INTEGER            NBMAX, LDWORK
+      int                NBMAX, LDWORK
       PARAMETER          ( NBMAX = 32, LDWORK = NBMAX+1 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, I2, I3, IB, II, J, JJ, NB
+      int                I, I2, I3, IB, II, J, JJ, NB
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   WORK( LDWORK, NBMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

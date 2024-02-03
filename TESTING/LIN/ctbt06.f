@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIAG, UPLO
-      INTEGER            KD, LDAB, N
+      int                KD, LDAB, N
       REAL               RAT, RCOND, RCONDC
 *     ..
 *     .. Array Arguments ..

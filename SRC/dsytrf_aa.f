@@ -8,10 +8,10 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
-      INTEGER            N, LDA, LWORK, INFO
+      int                N, LDA, LWORK, INFO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * )
+      int                IPIV( * )
       DOUBLE PRECISION   A( LDA, * ), WORK( * )
 *     ..
 *
@@ -22,13 +22,13 @@
 *
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER
-      INTEGER            J, LWKMIN, LWKOPT
-      INTEGER            NB, MJ, NJ, K1, K2, J1, J2, J3, JB
+      int                J, LWKMIN, LWKOPT
+      int                NB, MJ, NJ, K1, K2, J1, J2, J3, JB
       DOUBLE PRECISION   ALPHA
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

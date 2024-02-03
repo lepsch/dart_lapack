@@ -2,7 +2,7 @@
 c
       external sdsdot
       real sb,sdsdot,dot
-      integer n,incx,incy
+      int     n,incx,incy
       real x(*),y(*)
 c
       dot=sdsdot(n,sb,x,incx,y,incy)

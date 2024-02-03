@@ -5,28 +5,28 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IJOB, LDZ, N
+      int                IJOB, LDZ, N
       REAL               RDSCAL, RDSUM
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IPIV( * ), JPIV( * )
+      int                IPIV( * ), JPIV( * )
       REAL               RHS( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      INTEGER            MAXDIM
+      int                MAXDIM
       PARAMETER          ( MAXDIM = 8 )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, J, K
+      int                I, INFO, J, K
       REAL               BM, BP, PMONE, SMINU, SPLUS, TEMP
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IWORK( MAXDIM )
+      int                IWORK( MAXDIM )
       REAL               WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM )
 *     ..
 *     .. External Subroutines ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INCX, N
+      int                INCX, N
       COMPLEX*16         ALPHA, TAU
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( TWO = 2.0D+0, ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            J, KNT
+      int                J, KNT
       DOUBLE PRECISION   ALPHI, ALPHR, BETA, BIGNUM, EPS, SMLNUM, XNORM
       COMPLEX*16         SAVEALPHA
 *     ..

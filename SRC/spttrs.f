@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS
 *     ..
 *     .. Array Arguments ..
       REAL               B( LDB, * ), D( * ), E( * )
@@ -14,10 +14,10 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            J, JB, NB
+      int                J, JB, NB
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       EXTERNAL           ILAENV
 *     ..
 *     .. External Subroutines ..

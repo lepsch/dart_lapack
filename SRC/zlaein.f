@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            NOINIT, RIGHTV
-      INTEGER            INFO, LDB, LDH, N
+      int                INFO, LDB, LDH, N
       DOUBLE PRECISION   EPS3, SMLNUM
       COMPLEX*16         W
 *     ..
@@ -25,12 +25,12 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          NORMIN, TRANS
-      INTEGER            I, IERR, ITS, J
+      int                I, IERR, ITS, J
       DOUBLE PRECISION   GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM
       COMPLEX*16         CDUM, EI, EJ, TEMP, X
 *     ..
 *     .. External Functions ..
-      INTEGER            IZAMAX
+      int                IZAMAX
       DOUBLE PRECISION   DZASUM, DZNRM2
       COMPLEX*16         ZLADIV
       EXTERNAL           IZAMAX, DZASUM, DZNRM2, ZLADIV
