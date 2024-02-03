@@ -295,6 +295,12 @@ Single arrays
 $1const $2 = [$3];
 ```
 
+Tuples
+```
+^(\s+)DATA\s+(((\w+)\s*,\s*)+(\w+))\s*/\s*([^/]+)\s*/;?$
+$1final ($2) = ($6);
+```
+
 Multiple declarations (last item)
 ```
 ^(\s+DATA.+)\s+(\w+)\s*\/\s*(.*?)\s*\/;
@@ -310,7 +316,7 @@ $1 $2 = $3,
 Multiple declarations (first item)
 ```
 ^(\s+DATA.+)\s+(\w+)\s*\/\s*(.*?)\s*\/,
-$1 $2 = $3,
+$1const $2 = $3,
 ```
 
 Array

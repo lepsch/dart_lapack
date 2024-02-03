@@ -18,7 +18,7 @@
       int     I,KX,KY,NSTEPS;
       // ..
       // .. Data statements ..
-      DATA ZERO,TWO/0.0,2.0/;
+      final (ZERO,TWO) = (0.0,2.0);
       // ..
 
       DFLAG = DPARAM(1);

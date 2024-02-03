@@ -21,8 +21,8 @@
       // ..
       // .. Data statements ..
 
-      DATA ZERO,ONE,TWO/0.0,1.0,2.0/;
-      DATA GAM,GAMSQ,RGAMSQ/4096.0,1.67772e7,5.96046e-8/;
+      final (ZERO,ONE,TWO) = (0.0,1.0,2.0);
+      final (GAM,GAMSQ,RGAMSQ) = (4096.0,1.67772e7,5.96046e-8);
       // ..
 
       if (SD1 < ZERO) {
