@@ -12,7 +12,7 @@
 *
 *     .. Scalar Arguments ..
       String             STAGE1, UPLO, VECT;
-      INTEGER            N, KD, LDAB, LHOUS, LWORK, INFO
+      int                N, KD, LDAB, LHOUS, LWORK, INFO
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * ), E( * )
@@ -28,7 +28,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, WANTQ, UPPER, AFTERS1
-      INTEGER            I, M, K, IB, SWEEPID, MYID, SHIFT, STT, ST, ED, STIND, EDIND, BLKLASTIND, COLPT, THED, STEPERCOL, GRSIZ, THGRSIZ, THGRNB, THGRID, NBTILES, TTYPE, TID, NTHREADS, ABDPOS, ABOFDPOS, DPOS, OFDPOS, AWPOS, INDA, INDW, APOS, SIZEA, LDA, INDV, INDTAU, SIDEV, SIZETAU, LDV, LHMIN, LWMIN
+      int                I, M, K, IB, SWEEPID, MYID, SHIFT, STT, ST, ED, STIND, EDIND, BLKLASTIND, COLPT, THED, STEPERCOL, GRSIZ, THGRSIZ, THGRNB, THGRID, NBTILES, TTYPE, TID, NTHREADS, ABDPOS, ABOFDPOS, DPOS, OFDPOS, AWPOS, INDA, INDW, APOS, SIZEA, LDA, INDV, INDTAU, SIDEV, SIZETAU, LDV, LHMIN, LWMIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DSB2ST_KERNELS, DLACPY, DLASET, XERBLA
@@ -38,7 +38,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV2STAGE
+      int                ILAENV2STAGE
       EXTERNAL           LSAME, ILAENV2STAGE
 *     ..
 *     .. Executable Statements ..

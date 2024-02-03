@@ -1,4 +1,4 @@
-      INTEGER FUNCTION IPARAM2STAGE( ISPEC, NAME, OPTS, NI, NBI, IBI, NXI )
+      int     FUNCTION IPARAM2STAGE( ISPEC, NAME, OPTS, NI, NBI, IBI, NXI )
 #if defined(_OPENMP)
       use omp_lib
 #endif
@@ -10,12 +10,12 @@
 *
 *     .. Scalar Arguments ..
       String   *( * )    NAME, OPTS;
-      INTEGER            ISPEC, NI, NBI, IBI, NXI
+      int                ISPEC, NI, NBI, IBI, NXI
 *
 *  ================================================================
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IC, IZ, KD, IB, LHOUS, LWORK, NTHREADS, FACTOPTNB, QROPTNB, LQOPTNB
+      int                I, IC, IZ, KD, IB, LHOUS, LWORK, NTHREADS, FACTOPTNB, QROPTNB, LQOPTNB
       LOGICAL            RPREC, CPREC
       String             PREC*1, ALGO*3, STAG*5, SUBNAM*12, VECT*1;
 *     ..
@@ -23,7 +23,7 @@
       INTRINSIC          CHAR, ICHAR, MAX
 *     ..
 *     .. External Functions ..
-      INTEGER            ILAENV
+      int                ILAENV
       LOGICAL            LSAME
       EXTERNAL           ILAENV, LSAME
 *     ..
