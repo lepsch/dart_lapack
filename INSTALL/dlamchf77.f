@@ -12,7 +12,7 @@
       // ..
       // .. Parameters ..
       double             ONE, ZERO;
-      const              ONE = 1.0D+0, ZERO = 0.0D+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               FIRST, LRND;
@@ -728,7 +728,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                EXBITS, EXPSUM, I, LEXP, NBITS, TRY, UEXP;

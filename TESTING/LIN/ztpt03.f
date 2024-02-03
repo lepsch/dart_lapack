@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ONE, ZERO;
-      const              ONE = 1.0D+0, ZERO = 0.0D+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                IX, J, JJ;
@@ -50,7 +50,7 @@
       // Compute the norm of the triangular matrix A using the column
       // norms already computed by ZLATPS.
 
-      TNORM = 0.D0
+      TNORM = 0.0;
       if ( LSAME( DIAG, 'N' ) ) {
          if ( LSAME( UPLO, 'U' ) ) {
             JJ = 1

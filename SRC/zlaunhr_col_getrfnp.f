@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       COMPLEX*16         CONE
-      const              CONE = ( 1.0D+0, 0.0D+0 ) ;
+      const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                IINFO, J, JB, NB;

@@ -14,7 +14,7 @@
       // .. Parameters ..
       int                NMAX;
       double             ONE, ZERO;
-      const              NMAX = 4, ONE = 1.0D0, ZERO = 0.0D0 ;
+      const              NMAX = 4, ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IFST, ILST, INFO, J, M, NT;

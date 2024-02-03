@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             EIGHT, SEVTEN;
-      const              EIGHT = 8.0D+0, SEVTEN = 17.0D+0 ;
+      const              EIGHT = 8.0, SEVTEN = 17.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
@@ -232,7 +232,7 @@
                      } // 40
                      AP( J+( K-1 )*K / 2 ) = WK
                      AP( J+( K-2 )*( K-1 ) / 2 ) = WKM1
-                     AP( J+( J-1 )*J / 2 ) = DCMPLX( DBLE( AP( J+( J- 1 )*J / 2 ) ), 0.0D+0 )
+                     AP( J+( J-1 )*J / 2 ) = DCMPLX( DBLE( AP( J+( J- 1 )*J / 2 ) ), 0.0 )
                   } // 50
 
                }
@@ -428,7 +428,7 @@
                      } // 90
                      AP( J+( K-1 )*( 2*N-K ) / 2 ) = WK
                      AP( J+K*( 2*N-K-1 ) / 2 ) = WKP1
-                     AP( J+( J-1 )*( 2*N-J ) / 2 ) = DCMPLX( DBLE( AP( J+( J-1 )*( 2*N-J ) / 2 ) ), 0.0D+0 )
+                     AP( J+( J-1 )*( 2*N-J ) / 2 ) = DCMPLX( DBLE( AP( J+( J-1 )*( 2*N-J ) / 2 ) ), 0.0 )
                   } // 100
                }
             }

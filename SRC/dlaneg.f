@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const            ZERO = 0.0D0, ONE = 1.0D0 ;
+      const            ZERO = 0.0, ONE = 1.0 ;
       // Some architectures propagate Infinities and NaNs very slowly, so
       // the code computes counts in BLKLEN chunks.  Then a NaN can
       // propagate at most BLKLEN columns before being detected.  This is

@@ -53,20 +53,20 @@
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A( I, J ) = 1.D0 / DBLE( I+J )
-            AF( I, J ) = 1.D0 / DBLE( I+J )
+            A( I, J ) = 1.0 / DBLE( I+J )
+            AF( I, J ) = 1.0 / DBLE( I+J )
          } // 10
-         B( J ) = 0.D0
-         E( J ) = 0.D0
-         R1( J ) = 0.D0
-         R2( J ) = 0.D0
-         W( J ) = 0.D0
-         X( J ) = 0.D0
+         B( J ) = 0.0;
+         E( J ) = 0.0;
+         R1( J ) = 0.0;
+         R2( J ) = 0.0;
+         W( J ) = 0.0;
+         X( J ) = 0.0;
          IP( J ) = J
          IW( J ) = J
       } // 20
-      ANRM = 1.0D0
-      RCOND = 1.0D0
+      ANRM = 1.0;
+      RCOND = 1.0;
       OK = true;
 
       if ( LSAMEN( 2, C2, 'SY' ) ) {
@@ -203,7 +203,7 @@
          dsycon('U', 2, A, 1, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('DSYCON', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         dsycon('U', 1, A, 1, IP, -1.0D0, RCOND, W, IW, INFO );
+         dsycon('U', 1, A, 1, IP, -1.0, RCOND, W, IW, INFO );
          chkxer('DSYCON', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SR' ) ) {
@@ -289,7 +289,7 @@
          dsycon_rook('U', 2, A, 1, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('DSYCON_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         dsycon_rook('U', 1, A, 1, IP, -1.0D0, RCOND, W, IW, INFO);
+         dsycon_rook('U', 1, A, 1, IP, -1.0, RCOND, W, IW, INFO);
          chkxer('DSYCON_ROOK', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SK' ) ) {
@@ -398,7 +398,7 @@
          dsycon_3('U', 2, A, 1, E, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('DSYCON_3', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         dsycon_3('U', 1, A, 1, E, IP, -1.0D0, RCOND, W, IW, INFO);
+         dsycon_3('U', 1, A, 1, E, IP, -1.0, RCOND, W, IW, INFO);
          chkxer('DSYCON_3', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SA' ) ) {
@@ -566,7 +566,7 @@
          dspcon('U', -1, A, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('DSPCON', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         dspcon('U', 1, A, IP, -1.0D0, RCOND, W, IW, INFO );
+         dspcon('U', 1, A, IP, -1.0, RCOND, W, IW, INFO );
          chkxer('DSPCON', INFOT, NOUT, LERR, OK );
       }
 

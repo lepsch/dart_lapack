@@ -20,8 +20,8 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MOD
       // ..
-      DDOT = 0.0d0
-      DTEMP = 0.0d0
+      DDOT = 0.0;
+      DTEMP = 0.0;
       if (N <= 0) RETURN;
       if (INCX == 1 && INCY == 1) {
 

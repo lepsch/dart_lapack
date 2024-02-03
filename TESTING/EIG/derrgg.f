@@ -15,7 +15,7 @@
       int                NMAX, LW;
       const              NMAX = 3, LW = 6*NMAX ;
       double             ONE, ZERO;
-      const              ONE = 1.0D+0, ZERO = 0.0D+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       String             C2;
@@ -63,8 +63,8 @@
          B( I, I ) = ONE
       } // 30
       OK = true;
-      TOLA = 1.0D0
-      TOLB = 1.0D0
+      TOLA = 1.0;
+      TOLB = 1.0;
       IFST = 1
       ILST = 1
       NT = 0

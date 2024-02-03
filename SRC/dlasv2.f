@@ -12,15 +12,15 @@
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
       double             HALF;
-      const              HALF = 0.5D0 ;
+      const              HALF = 0.5 ;
       double             ONE;
-      const              ONE = 1.0D0 ;
+      const              ONE = 1.0 ;
       double             TWO;
-      const              TWO = 2.0D0 ;
+      const              TWO = 2.0 ;
       double             FOUR;
-      const              FOUR = 4.0D0 ;
+      const              FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
       bool               GASMAL, SWAP;

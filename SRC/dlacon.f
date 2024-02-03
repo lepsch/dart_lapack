@@ -19,7 +19,7 @@
       int                ITMAX;
       const              ITMAX = 5 ;
       double             ZERO, ONE, TWO;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       int                I, ITER, J, JLAST, JUMP;

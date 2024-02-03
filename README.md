@@ -184,6 +184,57 @@ Repeat multiple times
  true;
 ```
 
+### Floating point numbers
+```
+(\d)D0([^\d])
+$1$2
+```
+
+```
+(\d)D0$
+$1;
+```
+
+```
+(\d\.)D0([^\d])
+$10$2
+```
+
+```
+(\d\.)D0$
+$10;
+```
+
+```
+(\.\d+)D[+-]0([^\d])
+$1$2
+```
+
+```
+(\.\d+)D[+-]0$
+$1;
+```
+
+```
+(\d\.)D[+-]0$
+$10;
+```
+
+```
+(\d\.)D[+-]0([^\d])
+$10$2
+```
+
+```
+(\d)\.D([+-]?\d+)
+$1e$2
+```
+
+```
+(\d\.\d+)D([+-]?\d+)
+$1e$2
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

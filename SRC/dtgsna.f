@@ -20,7 +20,7 @@
       int                DIFDRI;
       const              DIFDRI = 3 ;
       double             ZERO, ONE, TWO, FOUR;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, FOUR = 4.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, PAIR, SOMCON, WANTBH, WANTDF, WANTS;
@@ -230,7 +230,7 @@
                ALPRQT = ONE
                C1 = TWO*( ALPHAR*ALPHAR+ALPHAI*ALPHAI+BETA*BETA )
                C2 = FOUR*BETA*BETA*ALPHAI*ALPHAI
-               ROOT1 = C1 + SQRT( C1*C1-4.0D0*C2 )
+               ROOT1 = C1 + SQRT( C1*C1-4.0*C2 )
                ROOT1 = ROOT1 / TWO
                ROOT2 = C2 / ROOT1
                COND = MIN( SQRT( ROOT1 ), SQRT( ROOT2 ) )

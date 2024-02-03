@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       double             ZERO, TWO, HALF;
-      const              ZERO = 0.0D0, TWO = 2.0D0, HALF = 1.0D0 / TWO ;
+      const              ZERO = 0.0, TWO = 2.0, HALF = 1.0 / TWO ;
       // ..
       // .. Local Scalars ..
       int                ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL, KLNEW;

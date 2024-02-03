@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TOOSML;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0, TOOSML = 1.0D-20 ;
+      const              ZERO = 0.0, ONE = 1.0, TOOSML = 1.0e-20 ;
       // ..
       // .. Local Scalars ..
       int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;

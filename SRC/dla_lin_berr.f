@@ -36,9 +36,9 @@
       SAFE1 = (NZ+1)*SAFE1
 
       for (J = 1; J <= NRHS; J++) {
-         BERR(J) = 0.0D+0
+         BERR(J) = 0.0;
          for (I = 1; I <= N; I++) {
-            if (AYB(I,J) != 0.0D+0) {
+            if (AYB(I,J) != 0.0) {
                TMP = (SAFE1+ABS(RES(I,J)))/AYB(I,J)
                BERR(J) = MAX( BERR(J), TMP )
             }

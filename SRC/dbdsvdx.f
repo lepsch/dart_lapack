@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TEN, HNDRD, MEIGTH;
-      const              ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0, HNDRD = 100.0D0, MEIGTH = -0.1250D0 ;
+      const              ZERO = 0.0, ONE = 1.0, TEN = 10.0, HNDRD = 100.0, MEIGTH = -0.1250 ;
       double             FUDGE;
-      const              FUDGE = 2.0D0 ;
+      const              FUDGE = 2.0 ;
       // ..
       // .. Local Scalars ..
       String             RNGVX;
@@ -108,7 +108,7 @@
       ABSTOL = 2*DLAMCH( 'Safe Minimum' )
       ULP = DLAMCH( 'Precision' )
       EPS = DLAMCH( 'Epsilon' )
-      SQRT2 = SQRT( 2.0D0 )
+      SQRT2 = SQRT( 2.0 )
       ORTOL = SQRT( ULP )
 
       // Criterion for splitting is taken from DBDSQR when singular

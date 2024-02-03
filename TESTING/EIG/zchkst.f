@@ -19,9 +19,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO, EIGHT, TEN, HUN;
-      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, EIGHT = 8.0D0, TEN = 10.0D0, HUN = 100.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0, TEN = 10.0, HUN = 100.0 ;
       COMPLEX*16         CZERO, CONE
-      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double             HALF;
       const              HALF = ONE / TWO ;
       int                MAXTYP;
@@ -1170,7 +1170,7 @@
                      WRITE( NOUNIT, FMT = 9987 )
                   }
                   NERRS = NERRS + 1
-                  if ( RESULT( JR ) < 10000.0D0 ) {
+                  if ( RESULT( JR ) < 10000.0 ) {
                      WRITE( NOUNIT, FMT = 9989 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   } else {
                      WRITE( NOUNIT, FMT = 9988 )N, JTYPE, IOLDSD, JR, RESULT( JR )

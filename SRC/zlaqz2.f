@@ -11,9 +11,9 @@
 
       // Parameters
       COMPLEX*16         CZERO, CONE
-      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double           :: ZERO, ONE, HALF;
-      const    ZERO = 0.0D0, ONE = 1.0D0, HALF = 0.5D0 ;
+      const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local Scalars
       int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, ZTGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO;

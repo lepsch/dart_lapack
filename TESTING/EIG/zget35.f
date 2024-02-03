@@ -15,11 +15,11 @@
       int                LDT;
       const              LDT = 10 ;
       double             ZERO, ONE, TWO;
-      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       double             LARGE;
-      const              LARGE = 1.0D6 ;
+      const              LARGE = 1.0e6 ;
       COMPLEX*16         CONE
-      const              CONE = 1.0D0 ;
+      const              CONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       String             TRANA, TRANB;

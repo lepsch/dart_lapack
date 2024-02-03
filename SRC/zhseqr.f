@@ -31,9 +31,9 @@
       int                NL;
       const              NL = 49 ;
       COMPLEX*16         ZERO, ONE
-      const              ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO;
-      const              RZERO = 0.0d0 ;
+      const              RZERO = 0.0 ;
       // ..
       // .. Local Arrays ..
       COMPLEX*16         HL( NL, NL ), WORKL( NL )

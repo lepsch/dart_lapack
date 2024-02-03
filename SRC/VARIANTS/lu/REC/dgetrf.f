@@ -16,8 +16,8 @@
 
       // .. Parameters ..
       double             ONE, ZERO, NEGONE;
-      const              ONE = 1.0D+0, ZERO = 0.0D+0 ;
-      const              NEGONE = -1.0D+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
+      const              NEGONE = -1.0 ;
       // ..
       // .. Local Scalars ..
       double             SFMIN, TMP;

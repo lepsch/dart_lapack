@@ -12,9 +12,9 @@
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
       double             ONE;
-      const              ONE = 1.0D0 ;
+      const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       double             W, XABS, YABS, Z, HUGEVAL;

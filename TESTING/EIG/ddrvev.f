@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             TWO;
-      const              TWO = 2.0D0 ;
+      const              TWO = 2.0 ;
       int                MAXTYP;
       const              MAXTYP = 21 ;
       // ..

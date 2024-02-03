@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             EIGHT, SEVTEN;
-      const              EIGHT = 8.0D+0, SEVTEN = 17.0D+0 ;
+      const              EIGHT = 8.0, SEVTEN = 17.0 ;
       // ..
       // .. Local Scalars ..
       bool               DONE, UPPER;

@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       COMPLEX*16         ONE, ZERO
-      const              ONE = 1.0D+0, ZERO = 0.0D+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               SYMB_ZERO;
@@ -107,16 +107,16 @@
       if ( INCX == 1 ) {
          if ( TRANS == ILATRANS( 'N' ) ) {
             for (I = 1; I <= LENY; I++) {
-               if ( BETA == 0.0D+0 ) {
+               if ( BETA == 0.0 ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0D+0
-               } else if ( Y( IY ) == 0.0D+0 ) {
+                  Y( IY ) = 0.0;
+               } else if ( Y( IY ) == 0.0 ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA != 0.0D+0 ) {
+               if ( ALPHA != 0.0 ) {
                   for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( I, J ) )
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
@@ -130,16 +130,16 @@
             }
          } else {
             for (I = 1; I <= LENY; I++) {
-               if ( BETA == 0.0D+0 ) {
+               if ( BETA == 0.0 ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0D+0
-               } else if ( Y( IY ) == 0.0D+0 ) {
+                  Y( IY ) = 0.0;
+               } else if ( Y( IY ) == 0.0 ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA != 0.0D+0 ) {
+               if ( ALPHA != 0.0 ) {
                   for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( J, I ) )
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
@@ -155,16 +155,16 @@
       } else {
          if ( TRANS == ILATRANS( 'N' ) ) {
             for (I = 1; I <= LENY; I++) {
-               if ( BETA == 0.0D+0 ) {
+               if ( BETA == 0.0 ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0D+0
-               } else if ( Y( IY ) == 0.0D+0 ) {
+                  Y( IY ) = 0.0;
+               } else if ( Y( IY ) == 0.0 ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA != 0.0D+0 ) {
+               if ( ALPHA != 0.0 ) {
                   JX = KX
                   for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( I, J ) )
@@ -180,16 +180,16 @@
             }
          } else {
             for (I = 1; I <= LENY; I++) {
-               if ( BETA == 0.0D+0 ) {
+               if ( BETA == 0.0 ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0D+0
-               } else if ( Y( IY ) == 0.0D+0 ) {
+                  Y( IY ) = 0.0;
+               } else if ( Y( IY ) == 0.0 ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA != 0.0D+0 ) {
+               if ( ALPHA != 0.0 ) {
                   JX = KX
                   for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( J, I ) )

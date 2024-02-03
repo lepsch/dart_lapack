@@ -25,7 +25,7 @@
       int                NTRAN;
       const              NTRAN = 3 ;
       double             ONE, ZERO;
-      const              ONE = 1.0D0, ZERO = 0.0D0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       String             DIAG, NORM, TRANS, UPLO, XTYPE;

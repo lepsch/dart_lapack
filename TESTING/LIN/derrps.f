@@ -46,12 +46,12 @@
 
       for (J = 1; J <= NMAX; J++) { // 110
          for (I = 1; I <= NMAX; I++) { // 100
-            A( I, J ) = 1.D0 / DBLE( I+J )
+            A( I, J ) = 1.0 / DBLE( I+J )
 
          } // 100
          PIV( J ) = J
-         WORK( J ) = 0.D0
-         WORK( NMAX+J ) = 0.D0
+         WORK( J ) = 0.0;
+         WORK( NMAX+J ) = 0.0;
 
       } // 110
       OK = true;
@@ -64,26 +64,26 @@
 
       SRNAMT = 'DPSTRF'
       INFOT = 1
-      dpstrf('/', 0, A, 1, PIV, RANK, -1.D0, WORK, INFO );
+      dpstrf('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('DPSTRF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      dpstrf('U', -1, A, 1, PIV, RANK, -1.D0, WORK, INFO );
+      dpstrf('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('DPSTRF', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      dpstrf('U', 2, A, 1, PIV, RANK, -1.D0, WORK, INFO );
+      dpstrf('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('DPSTRF', INFOT, NOUT, LERR, OK );
 
          // DPSTF2
 
       SRNAMT = 'DPSTF2'
       INFOT = 1
-      dpstf2('/', 0, A, 1, PIV, RANK, -1.D0, WORK, INFO );
+      dpstf2('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('DPSTF2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      dpstf2('U', -1, A, 1, PIV, RANK, -1.D0, WORK, INFO );
+      dpstf2('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('DPSTF2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      dpstf2('U', 2, A, 1, PIV, RANK, -1.D0, WORK, INFO );
+      dpstf2('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('DPSTF2', INFOT, NOUT, LERR, OK );
 
 

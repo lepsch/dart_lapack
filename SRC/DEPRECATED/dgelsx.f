@@ -19,7 +19,7 @@
       int                IMAX, IMIN;
       const              IMAX = 1, IMIN = 2 ;
       double             ZERO, ONE, DONE, NTDONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0, DONE = ZERO, NTDONE = ONE ;
+      const              ZERO = 0.0, ONE = 1.0, DONE = ZERO, NTDONE = ONE ;
       // ..
       // .. Local Scalars ..
       int                I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN;

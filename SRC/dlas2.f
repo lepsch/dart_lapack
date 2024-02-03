@@ -12,11 +12,11 @@
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
       double             ONE;
-      const              ONE = 1.0D0 ;
+      const              ONE = 1.0 ;
       double             TWO;
-      const              TWO = 2.0D0 ;
+      const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       double             AS, AT, AU, C, FA, FHMN, FHMX, GA, HA;

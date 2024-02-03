@@ -20,7 +20,7 @@
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D+0 ;
+      const              ZERO = 0.0 ;
       COMPLEX*16         CZERO
       const              CZERO = 0.0E+0 ;
       int                NTYPES, NTESTS;

@@ -19,9 +19,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             EPSIN;
-      const              EPSIN = 5.9605D-8 ;
+      const              EPSIN = 5.9605e-8 ;
       // ..
       // .. Local Scalars ..
       String             SORT;

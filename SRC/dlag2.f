@@ -16,11 +16,11 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       double             HALF;
       const              HALF = ONE / TWO ;
       double             FUZZY1;
-      const              FUZZY1 = ONE+1.0D-5 ;
+      const              FUZZY1 = ONE+1.0e-5 ;
       // ..
       // .. Local Scalars ..
       double             A11, A12, A21, A22, ABI22, ANORM, AS11, AS12, AS22, ASCALE, B11, B12, B22, BINV11, BINV22, BMIN, BNORM, BSCALE, BSIZE, C1, C2, C3, C4, C5, DIFF, DISCR, PP, QQ, R, RTMAX, RTMIN, S1, S2, SAFMAX, SHIFT, SS, SUM, WABS, WBIG, WDET, WSCALE, WSIZE, WSMALL;

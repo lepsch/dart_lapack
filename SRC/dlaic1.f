@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO;
-      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       double             HALF, FOUR;
-      const              HALF = 0.5D0, FOUR = 4.0D0 ;
+      const              HALF = 0.5, FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
       double             ABSALP, ABSEST, ABSGAM, ALPHA, B, COSINE, EPS, NORMA, S1, S2, SINE, T, TEST, TMP, ZETA1, ZETA2;

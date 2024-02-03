@@ -31,7 +31,7 @@
       int                NL;
       const              NL = 49 ;
       double             ZERO, ONE;
-      const              ZERO = 0.0d0, ONE = 1.0d0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Arrays ..
       double             HL( NL, NL ), WORKL( NL );

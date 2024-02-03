@@ -19,7 +19,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TEN, TNTH, HALF;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1, TNTH = 1.0D-1, HALF = 0.5D+0 ;
+      const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, TNTH = 1.0e-1, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       int                I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO, MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT;
@@ -201,7 +201,7 @@
 
                            }
                            NERRS = NERRS + 1
-                           if ( RESULT( J ) < 10000.0D0 ) {
+                           if ( RESULT( J ) < 10000.0 ) {
                               WRITE( NOUT, FMT = 9991 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J )
                            } else {
                               WRITE( NOUT, FMT = 9990 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J )
@@ -326,7 +326,7 @@
 
             }
             NERRS = NERRS + 1
-            if ( RESULT( J ) < 10000.0D0 ) {
+            if ( RESULT( J ) < 10000.0 ) {
                WRITE( NOUT, FMT = 9989 )NPTKNT, N, J, RESULT( J )
             } else {
                WRITE( NOUT, FMT = 9988 )NPTKNT, N, J, RESULT( J )

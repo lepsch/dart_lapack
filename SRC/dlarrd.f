@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO, HALF, FUDGE;
-      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = ONE/TWO, FUDGE = TWO ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = ONE/TWO, FUDGE = TWO ;
       int       ALLRNG, VALRNG, INDRNG;
       const     ALLRNG = 1, VALRNG = 2, INDRNG = 3 ;
       // ..

@@ -8,7 +8,7 @@
 
       // Parameters
       double           :: ZERO, ONE, HALF;
-      const    ZERO = 0.0D0, ONE = 1.0D0, HALF = 0.5D0 ;
+      const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local scalars
       double           :: W( 2 ), SAFMIN, SAFMAX, SCALE1, SCALE2;

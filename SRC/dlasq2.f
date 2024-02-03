@@ -15,9 +15,9 @@
 
       // .. Parameters ..
       double             CBIAS;
-      const              CBIAS = 1.50D0 ;
+      const              CBIAS = 1.50 ;
       double             ZERO, HALF, ONE, TWO, FOUR, HUNDRD;
-      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0, TWO = 2.0D0, FOUR = 4.0D0, HUNDRD = 100.0D0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0, TWO = 2.0, FOUR = 4.0, HUNDRD = 100.0 ;
       // ..
       // .. Local Scalars ..
       bool               IEEE;

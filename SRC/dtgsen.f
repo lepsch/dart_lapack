@@ -21,7 +21,7 @@
       int                IDIFJB;
       const              IDIFJB = 3 ;
       double             ZERO, ONE;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, PAIR, SWAP, WANTD, WANTD1, WANTD2, WANTP;

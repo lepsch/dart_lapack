@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             FOUR, MAXGROWTH1, MAXGROWTH2, ONE, QUART, TWO;
-      const              ONE = 1.0D0, TWO = 2.0D0, FOUR = 4.0D0, QUART = 0.25D0, MAXGROWTH1 = 8.D0, MAXGROWTH2 = 8.D0 ;
+      const              ONE = 1.0, TWO = 2.0, FOUR = 4.0, QUART = 0.25, MAXGROWTH1 = 8.0, MAXGROWTH2 = 8.0 ;
       // ..
       // .. Local Scalars ..
       bool      DORRR1, FORCER, NOFAIL, SAWNAN1, SAWNAN2, TRYRRR1;

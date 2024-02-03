@@ -17,19 +17,19 @@
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
       double             ONE;
-      const              ONE = 1.0D0 ;
+      const              ONE = 1.0 ;
       double             NEGONE;
-      const              NEGONE = -1.0D0 ;
+      const              NEGONE = -1.0 ;
       double             HNDRTH;
-      const              HNDRTH = 0.01D0 ;
+      const              HNDRTH = 0.01 ;
       double             TEN;
-      const              TEN = 10.0D0 ;
+      const              TEN = 10.0 ;
       double             HNDRD;
-      const              HNDRD = 100.0D0 ;
+      const              HNDRD = 100.0 ;
       double             MEIGTH;
-      const              MEIGTH = -0.125D0 ;
+      const              MEIGTH = -0.125 ;
       int                MAXITR;
       const              MAXITR = 6 ;
       // ..

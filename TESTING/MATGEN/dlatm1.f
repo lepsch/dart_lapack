@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       double             ONE;
-      const              ONE = 1.0D0 ;
+      const              ONE = 1.0 ;
       double             HALF;
-      const              HALF = 0.5D0 ;
+      const              HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       int                I;

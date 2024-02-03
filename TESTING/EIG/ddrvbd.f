@@ -20,7 +20,7 @@
 
       // .. Parameters ..
       double            ZERO, ONE, TWO, HALF;
-      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = 0.5D0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5 ;
       int                MAXTYP;
       const              MAXTYP = 5 ;
       // ..

@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             ONE, ZERO;
-      const              ONE = 1.0D+0, ZERO = 0.0D+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       double             SFMIN, TEMP;

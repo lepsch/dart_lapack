@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       double             ONE, TWO, ZERO;
-      const              ONE = 1.0D+0, TWO = 2.0D+0, ZERO = 0.0D+0 ;
+      const              ONE = 1.0, TWO = 2.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
@@ -174,8 +174,8 @@
 
          // where c = w / sqrt(w**2+4) and s = 2 / sqrt(w**2+4).
 
-         STAR1 = 0.25D0
-         SFAC = 0.5D0
+         STAR1 = 0.25;
+         SFAC = 0.5;
          PLUS1 = SFAC
          DO 90 J = 1, N, 2
             PLUS2 = STAR1 / PLUS1
@@ -197,7 +197,7 @@
 
          X = SQRT( CNDNUM ) - 1 / SQRT( CNDNUM )
          if ( N > 2 ) {
-            Y = SQRT( 2.D0 / ( N-2 ) )*X
+            Y = SQRT( 2.0 / ( N-2 ) )*X
          } else {
             Y = ZERO
          }
@@ -230,7 +230,7 @@
          if ( UPPER ) {
             for (J = 1; J <= N - 1; J++) { // 120
                RA = A( J, J+1 )
-               RB = 2.0D0
+               RB = 2.0;
                drotg(RA, RB, C, S );
 
                // Multiply by [ c  s; -s  c] on the left.
@@ -248,7 +248,7 @@
          } else {
             for (J = 1; J <= N - 1; J++) { // 130
                RA = A( J+1, J )
-               RB = 2.0D0
+               RB = 2.0;
                drotg(RA, RB, C, S );
 
                // Multiply by [ c -s;  s  c] on the right.
@@ -404,7 +404,7 @@
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 270
                for (I = 1; I <= J - 2; I++) { // 260
-                  A( I, J ) = 0.D0
+                  A( I, J ) = 0.0;
                } // 260
                if (J > 1) A( J-1, J ) = -ONE;
                A( J, J ) = TSCAL
@@ -413,7 +413,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 290
                for (I = J + 2; I <= N; I++) { // 280
-                  A( I, J ) = 0.D0
+                  A( I, J ) = 0.0;
                } // 280
                if (J < N) A( J+1, J ) = -ONE;
                A( J, J ) = TSCAL
@@ -459,7 +459,7 @@
          TSCAL = ( ONE-ULP ) / TSCAL
          for (J = 1; J <= N; J++) { // 330
             for (I = 1; I <= N; I++) { // 320
-               A( I, J ) = 0.D0
+               A( I, J ) = 0.0;
             } // 320
          } // 330
          TEXP = ONE
@@ -471,7 +471,7 @@
                A( 1, J-1 ) = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 )
                A( J-1, J-1 ) = ONE
                B( J-1 ) = TEXP*DBLE( N*N+N-1 )
-               TEXP = TEXP*2.D0
+               TEXP = TEXP*2.0;
             } // 340
             B( 1 ) = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL
          } else {
@@ -482,7 +482,7 @@
                A( N, J+1 ) = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 )
                A( J+1, J+1 ) = ONE
                B( J+1 ) = TEXP*DBLE( N*N+N-1 )
-               TEXP = TEXP*2.D0
+               TEXP = TEXP*2.0;
             } // 350
             B( N ) = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL
          }

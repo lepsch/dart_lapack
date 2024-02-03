@@ -22,18 +22,18 @@
       // ..
       // .. Executable Statements ..
 
-      RPVGRW = 1.0D+0
+      RPVGRW = 1.0;
 
       for (J = 1; J <= NCOLS; J++) {
-         AMAX = 0.0D+0
-         UMAX = 0.0D+0
+         AMAX = 0.0;
+         UMAX = 0.0;
          for (I = 1; I <= N; I++) {
             AMAX = MAX( ABS( A( I, J ) ), AMAX )
          }
          for (I = 1; I <= J; I++) {
             UMAX = MAX( ABS( AF( I, J ) ), UMAX )
          }
-         if ( UMAX /= 0.0D+0 ) {
+         if ( UMAX /= 0.0 ) {
             RPVGRW = MIN( AMAX / UMAX, RPVGRW )
          }
       }

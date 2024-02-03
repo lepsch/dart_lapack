@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             FAC, FOUR, FOURTH, FUDGE, HALF, HNDRD, MAXGROWTH, ONE, PERT, TWO, ZERO;
-      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, FOUR=4.0D0, HNDRD = 100.0D0, PERT = 8.0D0, HALF = ONE/TWO, FOURTH = ONE/FOUR, FAC= HALF, MAXGROWTH = 64.0D0, FUDGE = 2.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, FOUR=4.0, HNDRD = 100.0, PERT = 8.0, HALF = ONE/TWO, FOURTH = ONE/FOUR, FAC= HALF, MAXGROWTH = 64.0, FUDGE = 2.0 ;
       int                MAXTRY, ALLRNG, INDRNG, VALRNG;
       const              MAXTRY = 6, ALLRNG = 1, INDRNG = 2, VALRNG = 3 ;
       // ..

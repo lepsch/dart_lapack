@@ -18,7 +18,7 @@
 
       // .. Local Parameters ..
       double             ZERO,  ONE;
-      const     ZERO = 0.0D0, ONE = 1.0D0 ;
+      const     ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       double           AAPP, AAQQ, AATMAX, AATMIN, BIG, BIG1, COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN,  MAXPRJ, SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1,  USCAL1, USCAL2, XSC;

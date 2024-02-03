@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO;
-      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       double             EPSIN;
-      const              EPSIN = 5.9605D-8 ;
+      const              EPSIN = 5.9605e-8 ;
       int                LDT, LWORK;
       const              LDT = 20, LWORK = 2*LDT*( 10+LDT ) ;
       // ..

@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO
-      const              ZERO = ( 0.0D+0, 0.0D+0 ) ;
+      const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               NOUNIT, UPPER;

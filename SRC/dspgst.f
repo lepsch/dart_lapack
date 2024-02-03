@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             ONE, HALF;
-      const              ONE = 1.0D0, HALF = 0.5D0 ;
+      const              ONE = 1.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;

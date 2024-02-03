@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       double             REALONE, REALZERO;
-      const              REALONE = 1.0D0, REALZERO = 0.0D0 ;
+      const              REALONE = 1.0, REALZERO = 0.0 ;
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             PIOVER2;
-      const     PIOVER2 = 1.57079632679489661923132169163975144210D0 ;
+      const     PIOVER2 = 1.57079632679489661923132169163975144210 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, R;

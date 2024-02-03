@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       COMPLEX*16         CONE, CZERO
-      const              CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) ;
+      const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, IINFO, J, JB, JBTEMP1, JBTEMP2, JNB, NPLUSONE;

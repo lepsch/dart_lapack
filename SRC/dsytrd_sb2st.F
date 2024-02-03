@@ -24,7 +24,7 @@
       // .. Parameters ..
       double             RZERO;
       double             ZERO, ONE;
-      const              RZERO = 0.0D+0, ZERO = 0.0D+0, ONE  = 1.0D+0 ;
+      const              RZERO = 0.0, ZERO = 0.0, ONE  = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WANTQ, UPPER, AFTERS1;

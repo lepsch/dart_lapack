@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO, EIGHT, TEN, HUN;
-      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, EIGHT = 8.0D0, TEN = 10.0D0, HUN = 100.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0, TEN = 10.0, HUN = 100.0 ;
       double             HALF;
       const              HALF = ONE / TWO ;
       int                MAXTYP;

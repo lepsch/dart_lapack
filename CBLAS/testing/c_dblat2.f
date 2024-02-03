@@ -67,7 +67,7 @@ void main() {
       int                NSUBS;
       const              NSUBS = 16 ;
       double             ZERO, HALF, ONE;
-      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       int                NMAX, INCMAX;
       const              NMAX = 65, INCMAX = 2 ;
       int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX;
@@ -396,7 +396,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO, HALF;
-      const              ZERO = 0.0D0, HALF = 0.5D0 ;
+      const              ZERO = 0.0, HALF = 0.5 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
@@ -698,7 +698,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO, HALF;
-      const              ZERO = 0.0D0, HALF = 0.5D0 ;
+      const              ZERO = 0.0, HALF = 0.5 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
@@ -1002,7 +1002,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
@@ -1322,7 +1322,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
@@ -1555,7 +1555,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
@@ -1812,7 +1812,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
@@ -2105,9 +2105,9 @@ void main() {
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             ROGUE;
-      const              ROGUE = -1.0D10 ;
+      const              ROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
       double             TRANSL;
       int                KL, KU, LDA, M, N, NMAX;
@@ -2268,7 +2268,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // .. Scalar Arguments ..
       double             ALPHA, BETA, EPS, ERR;
       int                INCX, INCY, M, N, NMAX, NOUT;
@@ -2491,7 +2491,7 @@ void main() {
          IC = 0
          GO TO 10
       }
-      DBEG = DBLE( I - 500 )/1001.0D0
+      DBEG = DBLE( I - 500 )/1001.0;
       RETURN
 
       // End of DBEG.

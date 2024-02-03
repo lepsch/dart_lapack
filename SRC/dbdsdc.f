@@ -20,7 +20,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       int                DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, IC, ICOMPQ, IERR, II, IS, IU, IUPLO, IVT, J, K, KK, MLVL, NM1, NSIZE, PERM, POLES, QSTART, SMLSIZ, SMLSZP, SQRE, START, WSTART, Z;
@@ -155,7 +155,7 @@
       dlascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, IERR );
       dlascl('G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, IERR );
 
-      EPS = (0.9D+0)*DLAMCH( 'Epsilon' )
+      EPS = (0.9)*DLAMCH( 'Epsilon' )
 
       MLVL = INT( LOG( DBLE( N ) / DBLE( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1
       SMLSZP = SMLSIZ + 1

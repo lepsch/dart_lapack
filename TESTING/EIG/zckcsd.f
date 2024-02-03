@@ -22,11 +22,11 @@
       int                NTYPES;
       const              NTYPES = 4 ;
       double             GAPDIGIT, ORTH, REALONE, REALZERO, TEN;
-      const              GAPDIGIT = 18.0D0, ORTH = 1.0D-12, REALONE = 1.0D0, REALZERO = 0.0D0, TEN = 10.0D0 ;
+      const              GAPDIGIT = 18.0, ORTH = 1.0e-12, REALONE = 1.0, REALZERO = 0.0, TEN = 10.0 ;
       COMPLEX*16         ONE, ZERO
-      const              ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) ;
+      const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       double             PIOVER2;
-      const     PIOVER2 = 1.57079632679489661923132169163975144210D0 ;
+      const     PIOVER2 = 1.57079632679489661923132169163975144210 ;
       // ..
       // .. Local Scalars ..
       bool               FIRSTT;
@@ -163,7 +163,7 @@
       COMPLEX*16         WORK( * ), X( LDX, * )
 
       COMPLEX*16         ONE, ZERO
-      const              ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) ;
+      const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
 
       int                I, INFO, R;
 
@@ -175,25 +175,25 @@
          X(I,I) = ONE
       }
       for (I = 1; I <= R; I++) {
-         X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = DCMPLX( COS(THETA(I)), 0.0D0 )
+         X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = DCMPLX( COS(THETA(I)), 0.0 )
       }
       DO I = 1, MIN(P,M-Q)-R
          X(P-I+1,M-I+1) = -ONE
       }
       for (I = 1; I <= R; I++) {
-         X(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = DCMPLX( -SIN(THETA(R-I+1)), 0.0D0 )
+         X(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = DCMPLX( -SIN(THETA(R-I+1)), 0.0 )
       }
       DO I = 1, MIN(M-P,Q)-R
          X(M-I+1,Q-I+1) = ONE
       }
       for (I = 1; I <= R; I++) {
-         X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = DCMPLX( SIN(THETA(R-I+1)), 0.0D0 )
+         X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = DCMPLX( SIN(THETA(R-I+1)), 0.0 )
       }
       DO I = 1, MIN(M-P,M-Q)-R
          X(P+I,Q+I) = ONE
       }
       for (I = 1; I <= R; I++) {
-         X(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = DCMPLX( COS(THETA(I)), 0.0D0 )
+         X(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = DCMPLX( COS(THETA(I)), 0.0 )
       }
       zlaror('Left', 'No init', P, M, X, LDX, ISEED, WORK, INFO );
       zlaror('Left', 'No init', M-P, M, X(P+1,1), LDX, ISEED, WORK, INFO )       CALL ZLAROR( 'Right', 'No init', M, Q, X, LDX, ISEED, WORK, INFO )       CALL ZLAROR( 'Right', 'No init', M, M-Q, X(1,Q+1), LDX, ISEED, WORK, INFO );

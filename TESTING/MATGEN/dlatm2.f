@@ -21,7 +21,7 @@
       // .. Parameters ..
 
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
       // ..
 
       // .. Local Scalars ..

@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D+0 ;
+      const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IX, J;
@@ -43,7 +43,7 @@
 
       EPS = DLAMCH( 'Epsilon' )
       if ( RCOND < ZERO ) {
-         RESID = 1.0D0 / EPS
+         RESID = 1.0 / EPS
          RETURN
       }
 
@@ -60,12 +60,12 @@
             DIFFNM = MAX( DIFFNM, ABS( X( I, J )-XACT( I, J ) ) )
          } // 10
          if ( XNORM <= ZERO ) {
-            if (DIFFNM > ZERO) RESID = 1.0D0 / EPS;
+            if (DIFFNM > ZERO) RESID = 1.0 / EPS;
          } else {
             RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND )
          }
       } // 20
-      if (RESID*EPS < 1.0D0) RESID = RESID / EPS;
+      if (RESID*EPS < 1.0) RESID = RESID / EPS;
 
       RETURN
 

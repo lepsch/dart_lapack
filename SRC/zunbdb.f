@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       double             REALONE;
-      const              REALONE = 1.0D0 ;
+      const              REALONE = 1.0 ;
       COMPLEX*16         ONE
-      const              ONE = (1.0D0,0.0D0) ;
+      const              ONE = (1.0,0.0) ;
       // ..
       // .. Local Scalars ..
       bool               COLMAJOR, LQUERY;
@@ -109,16 +109,16 @@
          for (I = 1; I <= Q; I++) {
 
             if ( I == 1 ) {
-               zscal(P-I+1, DCMPLX( Z1, 0.0D0 ), X11(I,I), 1 );
+               zscal(P-I+1, DCMPLX( Z1, 0.0 ), X11(I,I), 1 );
             } else {
-               zscal(P-I+1, DCMPLX( Z1*COS(PHI(I-1)), 0.0D0 ), X11(I,I), 1 );
-               zaxpy(P-I+1, DCMPLX( -Z1*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X12(I,I-1), 1, X11(I,I), 1 );
+               zscal(P-I+1, DCMPLX( Z1*COS(PHI(I-1)), 0.0 ), X11(I,I), 1 );
+               zaxpy(P-I+1, DCMPLX( -Z1*Z3*Z4*SIN(PHI(I-1)), 0.0 ), X12(I,I-1), 1, X11(I,I), 1 );
             }
             if ( I == 1 ) {
-               zscal(M-P-I+1, DCMPLX( Z2, 0.0D0 ), X21(I,I), 1 );
+               zscal(M-P-I+1, DCMPLX( Z2, 0.0 ), X21(I,I), 1 );
             } else {
-               zscal(M-P-I+1, DCMPLX( Z2*COS(PHI(I-1)), 0.0D0 ), X21(I,I), 1 );
-               zaxpy(M-P-I+1, DCMPLX( -Z2*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X22(I,I-1), 1, X21(I,I), 1 );
+               zscal(M-P-I+1, DCMPLX( Z2*COS(PHI(I-1)), 0.0 ), X21(I,I), 1 );
+               zaxpy(M-P-I+1, DCMPLX( -Z2*Z3*Z4*SIN(PHI(I-1)), 0.0 ), X22(I,I-1), 1, X21(I,I), 1 );
             }
 
             THETA(I) = ATAN2( DZNRM2( M-P-I+1, X21(I,I), 1 ), DZNRM2( P-I+1, X11(I,I), 1 ) )
@@ -146,11 +146,11 @@
             }
 
             if ( I < Q ) {
-               zscal(Q-I, DCMPLX( -Z1*Z3*SIN(THETA(I)), 0.0D0 ), X11(I,I+1), LDX11 );
-               zaxpy(Q-I, DCMPLX( Z2*Z3*COS(THETA(I)), 0.0D0 ), X21(I,I+1), LDX21, X11(I,I+1), LDX11 );
+               zscal(Q-I, DCMPLX( -Z1*Z3*SIN(THETA(I)), 0.0 ), X11(I,I+1), LDX11 );
+               zaxpy(Q-I, DCMPLX( Z2*Z3*COS(THETA(I)), 0.0 ), X21(I,I+1), LDX21, X11(I,I+1), LDX11 );
             }
-            zscal(M-Q-I+1, DCMPLX( -Z1*Z4*SIN(THETA(I)), 0.0D0 ), X12(I,I), LDX12 );
-            zaxpy(M-Q-I+1, DCMPLX( Z2*Z4*COS(THETA(I)), 0.0D0 ), X22(I,I), LDX22, X12(I,I), LDX12 );
+            zscal(M-Q-I+1, DCMPLX( -Z1*Z4*SIN(THETA(I)), 0.0 ), X12(I,I), LDX12 );
+            zaxpy(M-Q-I+1, DCMPLX( Z2*Z4*COS(THETA(I)), 0.0 ), X22(I,I), LDX22, X12(I,I), LDX12 );
 
             if (I < Q) PHI(I) = ATAN2( DZNRM2( Q-I, X11(I,I+1), LDX11 ), DZNRM2( M-Q-I+1, X12(I,I), LDX12 ) );
 
@@ -193,7 +193,7 @@
 
          for (I = Q + 1; I <= P; I++) {
 
-            zscal(M-Q-I+1, DCMPLX( -Z1*Z4, 0.0D0 ), X12(I,I), LDX12 );
+            zscal(M-Q-I+1, DCMPLX( -Z1*Z4, 0.0 ), X12(I,I), LDX12 );
             zlacgv(M-Q-I+1, X12(I,I), LDX12 );
             if ( I >= M-Q ) {
                zlarfgp(M-Q-I+1, X12(I,I), X12(I,I), LDX12, TAUQ2(I) );
@@ -215,7 +215,7 @@
 
          for (I = 1; I <= M - P - Q; I++) {
 
-            zscal(M-P-Q-I+1, DCMPLX( Z2*Z4, 0.0D0 ), X22(Q+I,P+I), LDX22 );
+            zscal(M-P-Q-I+1, DCMPLX( Z2*Z4, 0.0 ), X22(Q+I,P+I), LDX22 );
             zlacgv(M-P-Q-I+1, X22(Q+I,P+I), LDX22 );
             zlarfgp(M-P-Q-I+1, X22(Q+I,P+I), X22(Q+I,P+I+1), LDX22, TAUQ2(P+I) );
             X22(Q+I,P+I) = ONE
@@ -232,16 +232,16 @@
          for (I = 1; I <= Q; I++) {
 
             if ( I == 1 ) {
-               zscal(P-I+1, DCMPLX( Z1, 0.0D0 ), X11(I,I), LDX11 );
+               zscal(P-I+1, DCMPLX( Z1, 0.0 ), X11(I,I), LDX11 );
             } else {
-               zscal(P-I+1, DCMPLX( Z1*COS(PHI(I-1)), 0.0D0 ), X11(I,I), LDX11 );
-               zaxpy(P-I+1, DCMPLX( -Z1*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X12(I-1,I), LDX12, X11(I,I), LDX11 );
+               zscal(P-I+1, DCMPLX( Z1*COS(PHI(I-1)), 0.0 ), X11(I,I), LDX11 );
+               zaxpy(P-I+1, DCMPLX( -Z1*Z3*Z4*SIN(PHI(I-1)), 0.0 ), X12(I-1,I), LDX12, X11(I,I), LDX11 );
             }
             if ( I == 1 ) {
-               zscal(M-P-I+1, DCMPLX( Z2, 0.0D0 ), X21(I,I), LDX21 );
+               zscal(M-P-I+1, DCMPLX( Z2, 0.0 ), X21(I,I), LDX21 );
             } else {
-               zscal(M-P-I+1, DCMPLX( Z2*COS(PHI(I-1)), 0.0D0 ), X21(I,I), LDX21 );
-               zaxpy(M-P-I+1, DCMPLX( -Z2*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X22(I-1,I), LDX22, X21(I,I), LDX21 );
+               zscal(M-P-I+1, DCMPLX( Z2*COS(PHI(I-1)), 0.0 ), X21(I,I), LDX21 );
+               zaxpy(M-P-I+1, DCMPLX( -Z2*Z3*Z4*SIN(PHI(I-1)), 0.0 ), X22(I-1,I), LDX22, X21(I,I), LDX21 );
             }
 
             THETA(I) = ATAN2( DZNRM2( M-P-I+1, X21(I,I), LDX21 ), DZNRM2( P-I+1, X11(I,I), LDX11 ) )
@@ -267,11 +267,11 @@
             zlacgv(M-P-I+1, X21(I,I), LDX21 );
 
             if ( I < Q ) {
-               zscal(Q-I, DCMPLX( -Z1*Z3*SIN(THETA(I)), 0.0D0 ), X11(I+1,I), 1 );
-               zaxpy(Q-I, DCMPLX( Z2*Z3*COS(THETA(I)), 0.0D0 ), X21(I+1,I), 1, X11(I+1,I), 1 );
+               zscal(Q-I, DCMPLX( -Z1*Z3*SIN(THETA(I)), 0.0 ), X11(I+1,I), 1 );
+               zaxpy(Q-I, DCMPLX( Z2*Z3*COS(THETA(I)), 0.0 ), X21(I+1,I), 1, X11(I+1,I), 1 );
             }
-            zscal(M-Q-I+1, DCMPLX( -Z1*Z4*SIN(THETA(I)), 0.0D0 ), X12(I,I), 1 );
-            zaxpy(M-Q-I+1, DCMPLX( Z2*Z4*COS(THETA(I)), 0.0D0 ), X22(I,I), 1, X12(I,I), 1 );
+            zscal(M-Q-I+1, DCMPLX( -Z1*Z4*SIN(THETA(I)), 0.0 ), X12(I,I), 1 );
+            zaxpy(M-Q-I+1, DCMPLX( Z2*Z4*COS(THETA(I)), 0.0 ), X22(I,I), 1, X12(I,I), 1 );
 
             if (I < Q) PHI(I) = ATAN2( DZNRM2( Q-I, X11(I+1,I), 1 ), DZNRM2( M-Q-I+1, X12(I,I), 1 ) );
 
@@ -297,7 +297,7 @@
 
          for (I = Q + 1; I <= P; I++) {
 
-            zscal(M-Q-I+1, DCMPLX( -Z1*Z4, 0.0D0 ), X12(I,I), 1 );
+            zscal(M-Q-I+1, DCMPLX( -Z1*Z4, 0.0 ), X12(I,I), 1 );
             zlarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
             X12(I,I) = ONE
 
@@ -312,7 +312,7 @@
 
          for (I = 1; I <= M - P - Q; I++) {
 
-            zscal(M-P-Q-I+1, DCMPLX( Z2*Z4, 0.0D0 ), X22(P+I,Q+I), 1 );
+            zscal(M-P-Q-I+1, DCMPLX( Z2*Z4, 0.0 ), X22(P+I,Q+I), 1 );
             zlarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) );
             X22(P+I,Q+I) = ONE
 

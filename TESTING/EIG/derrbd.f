@@ -15,7 +15,7 @@
       int                NMAX, LW;
       const              NMAX = 4, LW = NMAX ;
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       String             C2;
@@ -54,7 +54,7 @@
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A( I, J ) = 1.D0 / DBLE( I+J )
+            A( I, J ) = 1.0 / DBLE( I+J )
          } // 10
       } // 20
       OK = true;

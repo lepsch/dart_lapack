@@ -15,9 +15,9 @@
 
       // .. Parameters ..
       double             ONE;
-      const              ONE = 1.0D0 ;
+      const              ONE = 1.0 ;
       double             ROGUE;
-      const              ROGUE = -1.0D+10 ;
+      const              ROGUE = -1.0e+10 ;
       // ..
       // .. Local Scalars ..
       String             SIDE, TRANS;
@@ -78,7 +78,7 @@
             dlarnv(2, ISEED, MC, C( 1, J ) );
          } // 10
          CNORM = DLANGE( '1', MC, NC, C, LDA, RWORK )
-         if (CNORM == 0.0D0) CNORM = ONE;
+         if (CNORM == 0.0) CNORM = ONE;
 
          for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 20
             if ( ITRANS == 1 ) {

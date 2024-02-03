@@ -12,7 +12,7 @@
 
       // .. Parameters ..
       double                  NEGONE, ONE, ZERO;
-      const              NEGONE = -1.0D0, ONE = 1.0D0, ZERO = 0.0D0 ;
+      const              NEGONE = -1.0, ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       double                  R, S, THRESH, W, Z;

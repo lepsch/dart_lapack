@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       double             RONE, TWO, THREE;
-      const              RONE = 1.0D+0, TWO = 2.0D+0, THREE = 3.0D+0 ;
+      const              RONE = 1.0, TWO = 2.0, THREE = 3.0 ;
       COMPLEX*16         ZERO, ONE
-      const              ZERO = ( 0.0D+0, 0.0D+0 ), ONE = ( 1.0D+0, 0.0D+0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J;

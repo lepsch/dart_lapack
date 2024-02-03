@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TEN;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1 ;
+      const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1 ;
       // ..
       // .. Local Scalars ..
       bool               ILABAD;
@@ -307,7 +307,7 @@
 
                         }
                         NERRS = NERRS + 1
-                        if ( RESULT( J ) < 10000.0D0 ) {
+                        if ( RESULT( J ) < 10000.0 ) {
                            WRITE( NOUT, FMT = 9991 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
                         } else {
                            WRITE( NOUT, FMT = 9990 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
@@ -490,7 +490,7 @@
 
             }
             NERRS = NERRS + 1
-            if ( RESULT( J ) < 10000.0D0 ) {
+            if ( RESULT( J ) < 10000.0 ) {
                WRITE( NOUT, FMT = 9989 )NPTKNT, MPLUSN, J, RESULT( J )
             } else {
                WRITE( NOUT, FMT = 9988 )NPTKNT, MPLUSN, J, RESULT( J )

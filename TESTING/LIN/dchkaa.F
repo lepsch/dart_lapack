@@ -61,7 +61,7 @@ void main() {
       // COMMON / CLAENV / IPARMS
       // ..
       // .. Data statements ..
-      DATA               THREQ / 2.0D0 / , INTSTR / '0123456789' /
+      DATA               THREQ / 2.0 / , INTSTR / '0123456789' /
       // ..
       // ..
       // .. Allocate memory dynamically ..

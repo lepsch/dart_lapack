@@ -33,9 +33,9 @@
       // ..
       // .. Parameters ..
       double           ONE;
-      const     ONE=1.0D+0;
+      const     ONE=1.0;
       COMPLEX*16 ZERO
-      const     ZERO= (0.0D+0,0.0D+0);
+      const     ZERO= (0.0,0.0);
       // ..
 
       // Test the input parameters.

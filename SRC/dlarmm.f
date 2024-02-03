@@ -4,7 +4,7 @@
       double             ANORM, BNORM, CNORM;
       // .. Parameters ..
       double             ONE, HALF, FOUR;
-      const              ONE = 1.0D0, HALF = 0.5D+0, FOUR = 4.0D0 ;
+      const              ONE = 1.0, HALF = 0.5, FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
        double             BIGNUM, SMLNUM;

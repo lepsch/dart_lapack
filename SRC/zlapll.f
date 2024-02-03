@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D+0 ;
+      const              ZERO = 0.0 ;
       COMPLEX*16         CONE
-      const              CONE = ( 1.0D+0, 0.0D+0 ) ;
+      const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       double             SSMAX;

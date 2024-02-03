@@ -20,9 +20,9 @@
       // ..
       // .. Parameters ..
       COMPLEX*16         CONE
-      const              CONE = ( 1.0D0, 0.0D+0 ) ;
+      const              CONE = ( 1.0, 0.0 ) ;
       double             ONE, ZERO;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       int                MAXM, MAXN, LDSWORK;
       const              MAXM = 185, MAXN = 192, LDSWORK = 36 ;
       // ..
@@ -78,7 +78,7 @@
       // Expect INFO = 0
       VM( 1 ) = ONE
       // Expect INFO = 1
-      VM( 2 ) = 0.05D+0
+      VM( 2 ) = 0.05;
 
       // Begin test loop
 

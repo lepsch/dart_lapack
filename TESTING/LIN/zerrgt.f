@@ -47,12 +47,12 @@
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
       for (I = 1; I <= NMAX; I++) { // 10
-         D( I ) = 1.D0
-         E( I ) = 2.D0
-         DL( I ) = 3.D0
-         DU( I ) = 4.D0
+         D( I ) = 1.0;
+         E( I ) = 2.0;
+         DL( I ) = 3.0;
+         DU( I ) = 4.0;
       } // 10
-      ANORM = 1.0D0
+      ANORM = 1.0;
       OK = true;
 
       if ( LSAMEN( 2, C2, 'GT' ) ) {

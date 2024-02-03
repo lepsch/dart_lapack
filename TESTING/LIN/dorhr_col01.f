@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ONE, ZERO;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               TESTZEROS;

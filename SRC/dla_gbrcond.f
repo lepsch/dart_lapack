@@ -35,7 +35,7 @@
       // ..
       // .. Executable Statements ..
 
-      DLA_GBRCOND = 0.0D+0
+      DLA_GBRCOND = 0.0;
 
       INFO = 0
       NOTRANS = LSAME( TRANS, 'N' )
@@ -57,7 +57,7 @@
          RETURN
       }
       if ( N == 0 ) {
-         DLA_GBRCOND = 1.0D+0
+         DLA_GBRCOND = 1.0;
          RETURN
       }
 
@@ -68,7 +68,7 @@
       KE = KL + 1
       if ( NOTRANS ) {
          for (I = 1; I <= N; I++) {
-            TMP = 0.0D+0
+            TMP = 0.0;
                if ( CMODE == 1 ) {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                      TMP = TMP + ABS( AB( KD+I-J, J ) * C( J ) )
@@ -86,7 +86,7 @@
          }
       } else {
          for (I = 1; I <= N; I++) {
-            TMP = 0.0D+0
+            TMP = 0.0;
             if ( CMODE == 1 ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + ABS( AB( KE-I+J, I ) * C( J ) )
@@ -106,7 +106,7 @@
 
       // Estimate the norm of inv(op(A)).
 
-      AINVNM = 0.0D+0
+      AINVNM = 0.0;
 
       KASE = 0
       } // 10
@@ -168,7 +168,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      if (AINVNM != 0.0D+0) DLA_GBRCOND = ( 1.0D+0 / AINVNM );
+      if (AINVNM != 0.0) DLA_GBRCOND = ( 1.0 / AINVNM );
 
       RETURN
 

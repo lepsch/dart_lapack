@@ -11,7 +11,7 @@ void main() {
       int                NSUBS;
       const              NSUBS = 6 ;
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       int                NMAX;
       const              NMAX = 65 ;
       int                NIDMAX, NALMAX, NBEMAX;
@@ -280,7 +280,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
@@ -525,7 +525,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
@@ -757,7 +757,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NIDIM, NMAX, NOUT, NTRA;
@@ -1009,7 +1009,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
@@ -1245,7 +1245,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
@@ -1520,7 +1520,7 @@ void main() {
       bool               LERR, OK;
       // .. Parameters ..
       double             ONE, TWO;
-      const              ONE = 1.0D0, TWO = 2.0D0 ;
+      const              ONE = 1.0, TWO = 2.0 ;
       // .. Local Scalars ..
       double             ALPHA, BETA;
       // .. Local Arrays ..
@@ -2066,9 +2066,9 @@ void main() {
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             ROGUE;
-      const              ROGUE = -1.0D10 ;
+      const              ROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
       double             TRANSL;
       int                LDA, M, N, NMAX;
@@ -2169,7 +2169,7 @@ void main() {
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // .. Scalar Arguments ..
       double             ALPHA, BETA, EPS, ERR;
       int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT;
@@ -2398,7 +2398,7 @@ void main() {
          IC = 0
          GO TO 10
       }
-      DBEG = ( I - 500 )/1001.0D0
+      DBEG = ( I - 500 )/1001.0;
       RETURN
 
       // End of DBEG

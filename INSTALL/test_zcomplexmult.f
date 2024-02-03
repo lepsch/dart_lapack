@@ -7,7 +7,7 @@ void main() {
       int               nNaN, nInf;
       const           nNaN = 3, nInf = 5 ;
       double complex    czero, cone
-      const           czero = DCMPLX( 0.0d0, 0.0d0 ), cone  = DCMPLX( 1.0d0, 0.0d0 ) ;
+      const           czero = DCMPLX( 0.0, 0.0 ), cone  = DCMPLX( 1.0, 0.0 ) ;
       // ..
       // .. Local Variables ..
       int               i, nFailingTests, nTests;
@@ -23,18 +23,18 @@ void main() {
       nTests = 0
 
       // .. Inf entries ..
-      OV = HUGE(0.0d0)
+      OV = HUGE(0.0)
       aInf = OV * 2
-      cInf(1) = DCMPLX( aInf, 0.0d0 )
-      cInf(2) = DCMPLX(-aInf, 0.0d0 )
-      cInf(3) = DCMPLX( 0.0d0, aInf )
-      cInf(4) = DCMPLX( 0.0d0,-aInf )
+      cInf(1) = DCMPLX( aInf, 0.0 )
+      cInf(2) = DCMPLX(-aInf, 0.0 )
+      cInf(3) = DCMPLX( 0.0, aInf )
+      cInf(4) = DCMPLX( 0.0,-aInf )
       cInf(5) = DCMPLX( aInf,  aInf )
 
       // .. NaN entries ..
       aNaN = aInf / aInf
-      cNaN(1) = DCMPLX( aNaN, 0.0d0 )
-      cNaN(2) = DCMPLX( 0.0d0, aNaN )
+      cNaN(1) = DCMPLX( aNaN, 0.0 )
+      cNaN(2) = DCMPLX( 0.0, aNaN )
       cNaN(3) = DCMPLX( aNaN,  aNaN )
 
 

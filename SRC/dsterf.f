@@ -15,7 +15,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO, THREE;
-      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0 ;
       int                MAXIT;
       const              MAXIT = 30 ;
       // ..

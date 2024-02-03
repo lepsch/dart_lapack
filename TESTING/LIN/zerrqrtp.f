@@ -46,11 +46,11 @@
 
       for (J = 1; J <= NMAX; J++) {
          for (I = 1; I <= NMAX; I++) {
-            A( I, J ) = 1.D0 / DCMPLX(DBLE( I+J ),0.D0)
-            C( I, J ) = 1.D0 / DCMPLX(DBLE( I+J ),0.D0)
-            T( I, J ) = 1.D0 / DCMPLX(DBLE( I+J ),0.D0)
+            A( I, J ) = 1.0 / DCMPLX(DBLE( I+J ),0.0)
+            C( I, J ) = 1.0 / DCMPLX(DBLE( I+J ),0.0)
+            T( I, J ) = 1.0 / DCMPLX(DBLE( I+J ),0.0)
          }
-         W( J ) = DCMPLX(0.D0,0.D0)
+         W( J ) = DCMPLX(0.0,0.0)
       }
       OK = true;
 

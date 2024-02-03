@@ -22,9 +22,9 @@
       int                NTYPES;
       const              NTYPES = 4 ;
       double             GAPDIGIT, ONE, ORTH, TEN, ZERO;
-      const              GAPDIGIT = 18.0D0, ONE = 1.0D0, ORTH = 1.0D-12, TEN = 10.0D0, ZERO = 0.0D0 ;
+      const              GAPDIGIT = 18.0, ONE = 1.0, ORTH = 1.0e-12, TEN = 10.0, ZERO = 0.0 ;
       double             PIOVER2;
-      const     PIOVER2 = 1.57079632679489661923132169163975144210D0 ;
+      const     PIOVER2 = 1.57079632679489661923132169163975144210 ;
       // ..
       // .. Local Scalars ..
       bool               FIRSTT;
@@ -161,7 +161,7 @@
       double             WORK( * ), X( LDX, * );
 
       double             ONE, ZERO;
-      const              ONE = 1.0D0, ZERO = 0.0D0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
 
       int                I, INFO, R;
 

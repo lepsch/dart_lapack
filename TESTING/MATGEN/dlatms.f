@@ -18,11 +18,11 @@
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
       double             ONE;
-      const              ONE = 1.0D0 ;
+      const              ONE = 1.0 ;
       double             TWOPI;
-      const      TWOPI = 6.28318530717958647692528676655900576839D+0 ;
+      const      TWOPI = 6.28318530717958647692528676655900576839 ;
       // ..
       // .. Local Scalars ..
       bool               GIVENS, ILEXTR, ILTEMP, TOPDWN;
@@ -131,7 +131,7 @@
 
       GIVENS = false;
       if ( ISYM == 1 ) {
-         IF( DBLE( LLB+UUB ) < 0.3D0*DBLE( MAX( 1, MR+NC ) ) ) GIVENS = true;
+         IF( DBLE( LLB+UUB ) < 0.3*DBLE( MAX( 1, MR+NC ) ) ) GIVENS = true;
       } else {
          if (2*LLB < M) GIVENS = true ;
       }

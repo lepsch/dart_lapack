@@ -13,7 +13,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       int                NBMAX, NBMIN, NBRHS, NRHSMIN;
       const              NRHSMIN = 2, NBRHS = 32 ;
       const              NBMIN = 8, NBMAX = 64 ;

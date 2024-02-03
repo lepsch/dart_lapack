@@ -10,7 +10,7 @@
 
       // Parameters
       double           :: ZERO, ONE, HALF;
-      const    ZERO = 0.0D0, ONE = 1.0D0, HALF = 0.5D0 ;
+      const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local scalars
       double           :: SMLNUM, ULP, ESHIFT, SAFMIN, SAFMAX, C1, S1, TEMP, SWAP, BNORM, BTOL;

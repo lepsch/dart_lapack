@@ -18,7 +18,7 @@
 *  =====================================================================
 
       double             ONE;
-      const              ONE = 1.0D+0 ;
+      const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, UPPER;

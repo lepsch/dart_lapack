@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      const              ZERO = 0.0D+0, HALF = 0.5D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       double             THREE, SCLFAC;
-      const              THREE = 3.0D+0, SCLFAC = 1.0D+1 ;
+      const              THREE = 3.0, SCLFAC = 1.0e+1 ;
       COMPLEX*16         CZERO
-      const              CZERO = ( 0.0D+0, 0.0D+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, ICAB, IFLOW, IP1, IR, IRAB, IT, J, JC, JP1, K, KOUNT, L, LCAB, LM1, LRAB, LSFMAX, LSFMIN, M, NR, NRP2;

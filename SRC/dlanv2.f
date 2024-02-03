@@ -12,9 +12,9 @@
 
       // .. Parameters ..
       double             ZERO, HALF, ONE, TWO;
-      const              ZERO = 0.0D+0, HALF = 0.5D+0, ONE = 1.0D+0, TWO = 2.0D0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0, TWO = 2.0 ;
       double             MULTPL;
-      const              MULTPL = 4.0D+0 ;
+      const              MULTPL = 4.0 ;
       // ..
       // .. Local Scalars ..
       double             AA, BB, BCMAX, BCMIS, CC, CS1, DD, EPS, P, SAB, SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z, SAFMIN, SAFMN2, SAFMX2;

@@ -16,7 +16,7 @@
 
       // .. Parameter ..
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                J4, J4P2;

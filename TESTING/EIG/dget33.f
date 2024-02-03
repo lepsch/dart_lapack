@@ -13,9 +13,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             TWO, FOUR;
-      const              TWO = 2.0D0, FOUR = 4.0D0 ;
+      const              TWO = 2.0, FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
       int                I1, I2, I3, I4, IM1, IM2, IM3, IM4, J1, J2, J3;

@@ -38,11 +38,11 @@
 
       NOUT = NUNIT
       OK = true;
-      A( 1, 1 ) = DCMPLX( 1.0D0 , 1.0D0  )
-      B( 1, 1 ) = DCMPLX( 1.0D0 , 1.0D0  )
-      ALPHA     = 1.0D0
-      CALPHA    = DCMPLX( 1.0D0 , 1.0D0  )
-      BETA      = 1.0D0
+      A( 1, 1 ) = DCMPLX( 1.0 , 1.0  )
+      B( 1, 1 ) = DCMPLX( 1.0 , 1.0  )
+      ALPHA     = 1.0;
+      CALPHA    = DCMPLX( 1.0 , 1.0  )
+      BETA      = 1.0;
 
       SRNAMT = 'ZPFTRF'
       INFOT = 1

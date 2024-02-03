@@ -7,7 +7,7 @@ void main() {
       int               n;
       const           n = 8 ;
       double            zero;
-      const           zero = 0.0d0 ;
+      const           zero = 0.0 ;
       // ..
       // .. Local Variables ..
       int               i, nFailingTests, nTests;
@@ -22,7 +22,7 @@ void main() {
       nTests = 0
 
       // .. Inf and NaN entries ..
-      OV = HUGE(0.0d0)
+      OV = HUGE(0.0)
       aInf = OV * 2
       aNaN = aInf / aInf
       X = (/ -aInf, zero, -aInf,  zero, aInf,  aInf, zero, aNaN /)

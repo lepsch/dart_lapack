@@ -17,13 +17,13 @@
       int                ITMAX;
       const              ITMAX = 5 ;
       double             ZERO;
-      const              ZERO = 0.0D+0 ;
+      const              ZERO = 0.0 ;
       double             ONE;
-      const              ONE = 1.0D+0 ;
+      const              ONE = 1.0 ;
       double             TWO;
-      const              TWO = 2.0D+0 ;
+      const              TWO = 2.0 ;
       double             THREE;
-      const              THREE = 3.0D+0 ;
+      const              THREE = 3.0 ;
       // ..
       // .. Local Scalars ..
       int                COUNT, I, IX, J, NZ;

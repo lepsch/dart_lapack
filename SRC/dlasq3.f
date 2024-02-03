@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       double             CBIAS;
-      const              CBIAS = 1.50D0 ;
+      const              CBIAS = 1.50 ;
       double             ZERO, QURTR, HALF, ONE, TWO, HUNDRD;
-      const              ZERO = 0.0D0, QURTR = 0.250D0, HALF = 0.5D0, ONE = 1.0D0, TWO = 2.0D0, HUNDRD = 100.0D0 ;
+      const              ZERO = 0.0, QURTR = 0.250, HALF = 0.5, ONE = 1.0, TWO = 2.0, HUNDRD = 100.0 ;
       // ..
       // .. Local Scalars ..
       int                IPN4, J4, N0IN, NN, TTYPE;

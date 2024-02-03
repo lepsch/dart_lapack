@@ -20,7 +20,7 @@
       // ..
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       int                MAXM, MAXN, LDSWORK;
       const              MAXM = 245, MAXN = 192, LDSWORK = 36 ;
       // ..
@@ -71,7 +71,7 @@
       BIGNUM = ONE / SMLNUM
 
       VM( 1 ) = ONE
-      VM( 2 ) = 0.000001D+0
+      VM( 2 ) = 0.000001;
 
       // Begin test loop
 

@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ZERO, HALF, ONE, TWO;
-      const              ZERO = 0.0D+0, HALF = 0.5D+0, ONE = 1.0D+0, TWO = 2.0D+0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;
@@ -44,7 +44,7 @@
       // ..
       // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
-      CABS2( ZDUM ) = ABS( DBLE( ZDUM ) / 2.D0 ) + ABS( DIMAG( ZDUM ) / 2.D0 )
+      CABS2( ZDUM ) = ABS( DBLE( ZDUM ) / 2.0 ) + ABS( DIMAG( ZDUM ) / 2.0 )
       // ..
       // .. Executable Statements ..
 

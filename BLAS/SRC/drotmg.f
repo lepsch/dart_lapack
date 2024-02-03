@@ -21,8 +21,8 @@
       // ..
       // .. Data statements ..
 
-      DATA ZERO,ONE,TWO/0.D0,1.D0,2.D0/
-      DATA GAM,GAMSQ,RGAMSQ/4096.D0,16777216.D0,5.9604645D-8/
+      DATA ZERO,ONE,TWO/0.0,1.0,2.0/
+      DATA GAM,GAMSQ,RGAMSQ/4096.0,16777216.0,5.9604645e-8/
       // ..
 
       if (DD1 < ZERO) {

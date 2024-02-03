@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO, FOUR;
-      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, FOUR = 4.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
       double             B, C, DEL, TAU, TEMP, W;

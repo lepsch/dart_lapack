@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       double             ONE;
-      const              ONE = 1.0D0 ;
+      const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I;

@@ -20,8 +20,8 @@
       // .. Intrinsic Functions ..
       // INTRINSIC DABS,MOD
       // ..
-      DASUM = 0.0d0
-      DTEMP = 0.0d0
+      DASUM = 0.0;
+      DTEMP = 0.0;
       if (N <= 0 || INCX <= 0) RETURN;
       if (INCX == 1) {
          // code for increment equal to 1

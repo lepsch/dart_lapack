@@ -18,7 +18,7 @@
       // .. Parameters ..
       COMPLEX*16         CZERO, CONE
       double             ONE;
-      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ), ONE = 1.0D+0 ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ), ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPDATE, UPPER, WANTX;

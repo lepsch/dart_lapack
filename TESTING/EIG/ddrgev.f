@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       int                MAXTYP;
       const              MAXTYP = 26 ;
       // ..
@@ -382,7 +382,7 @@
 
                   }
                   NERRS = NERRS + 1
-                  if ( RESULT( JR ) < 10000.0D0 ) {
+                  if ( RESULT( JR ) < 10000.0 ) {
                      WRITE( NOUNIT, FMT = 9992 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   } else {
                      WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR, RESULT( JR )

@@ -21,9 +21,9 @@
       // .. Parameters ..
 
       COMPLEX*16         CZERO
-      const              CZERO = ( 0.0D0, 0.0D0 ) ;
+      const              CZERO = ( 0.0, 0.0 ) ;
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
       // ..
 
       // .. Local Scalars ..

@@ -15,11 +15,11 @@
 
       // .. Parameters ..
       double             SHRINK, TENTH;
-      const              SHRINK = 0.25D0, TENTH = 0.1D+0 ;
+      const              SHRINK = 0.25, TENTH = 0.1 ;
       double             ONE;
-      const              ONE = 1.0D+0 ;
+      const              ONE = 1.0 ;
       double             TWO;
-      const              TWO = 2.0D+0 ;
+      const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       double             BADC1, BADC2, EPS, LARGE, SMALL;
@@ -77,13 +77,13 @@
       // Set the condition number and norm.etc
 
       if ( IMAT == 3 ) {
-         CNDNUM = 1.0D12
+         CNDNUM = 1.0e12
          MODE = 2
       } else if ( IMAT == 4 ) {
-         CNDNUM = 1.0D12
+         CNDNUM = 1.0e12
          MODE = 1
       } else if ( IMAT == 5 ) {
-         CNDNUM = 1.0D12
+         CNDNUM = 1.0e12
          MODE = 3
       } else if ( IMAT == 6 ) {
          CNDNUM = BADC1

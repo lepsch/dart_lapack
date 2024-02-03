@@ -460,7 +460,7 @@
 
                   // The test returns the ratio:
 
-                  // Returns 1.0D+100 if abs(R(K+1,K+1)) > abs(R(K,K)),
+                  // Returns 1.0e+100 if abs(R(K+1,K+1)) > abs(R(K,K)),
                   // K=1:KFACT-1
 
                   if ( MIN(KFACT, MINMN) >= 2 ) {

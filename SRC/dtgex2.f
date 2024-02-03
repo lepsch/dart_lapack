@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             TWENTY;
-      const              TWENTY = 2.0D+01 ;
+      const              TWENTY = 2.0e+01 ;
       int                LDST;
       const              LDST = 4 ;
       bool               WANDS;

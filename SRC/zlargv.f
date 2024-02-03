@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             TWO, ONE, ZERO;
-      const              TWO = 2.0D+0, ONE = 1.0D+0, ZERO = 0.0D+0 ;
+      const              TWO = 2.0, ONE = 1.0, ZERO = 0.0 ;
       COMPLEX*16         CZERO
-      const              CZERO = ( 0.0D+0, 0.0D+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       // LOGICAL            FIRST

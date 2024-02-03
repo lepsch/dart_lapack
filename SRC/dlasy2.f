@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             TWO, HALF, EIGHT;
-      const              TWO = 2.0D+0, HALF = 0.5D+0, EIGHT = 8.0D+0 ;
+      const              TWO = 2.0, HALF = 0.5, EIGHT = 8.0 ;
       // ..
       // .. Local Scalars ..
       bool               BSWAP, XSWAP;

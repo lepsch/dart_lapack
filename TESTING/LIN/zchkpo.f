@@ -20,7 +20,7 @@
 
       // .. Parameters ..
       COMPLEX*16         CZERO
-      const              CZERO = ( 0.0D+0, 0.0D+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ) ;
       int                NTYPES;
       const              NTYPES = 9 ;
       int                NTESTS;

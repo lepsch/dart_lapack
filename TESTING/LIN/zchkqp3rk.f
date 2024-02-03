@@ -25,7 +25,7 @@
       const              NTESTS = 5 ;
       double             ONE, ZERO, BIGNUM;
       COMPLEX*16         CONE, CZERO
-      const              ONE = 1.0D+0, ZERO = 0.0D+0, CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ), BIGNUM = 1.0D+38 ;
+      const              ONE = 1.0, ZERO = 0.0, CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ), BIGNUM = 1.0e+38 ;
       // ..
       // .. Local Scalars ..
       String             DIST, TYPE;
@@ -462,7 +462,7 @@
 
                   // The test returns the ratio:
 
-                  // Returns 1.0D+100 if abs(R(K+1,K+1)) > abs(R(K,K)),
+                  // Returns 1.0e+100 if abs(R(K+1,K+1)) > abs(R(K,K)),
                   // K=1:KFACT-1
 
                   if ( MIN(KFACT, MINMN) >= 2 ) {

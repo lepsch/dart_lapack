@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       double             TWO, THREE;
-      const              TWO = 2.0D0, THREE = 3.0D0 ;
+      const              TWO = 2.0, THREE = 3.0 ;
       int                LWORK;
       const              LWORK = 32 ;
       // ..

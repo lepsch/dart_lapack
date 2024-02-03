@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             ONE, ZERO;
-      const              ONE = 1.0D+0, ZERO = 0.0D+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       COMPLEX*16         CONE
-      const              CONE = ( 1.0D+0, 0.0D+0 ) ;
+      const              CONE = ( 1.0, 0.0 ) ;
       int                NBMAX, LDWORK;
       const              NBMAX = 32, LDWORK = NBMAX+1 ;
       // ..

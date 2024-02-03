@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ONE, ZERO;
-      const              ONE = 1.0D0, ZERO = 0.0D0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       int                MAX_ITER;
       const              MAX_ITER = 100 ;
       // ..
@@ -99,14 +99,14 @@
          }
       }
       for (J = 1; J <= N; J++) {
-         S( J ) = 1.0D0 / S( J )
+         S( J ) = 1.0 / S( J )
       }
 
-      TOL = ONE / SQRT( 2.0D0 * N )
+      TOL = ONE / SQRT( 2.0 * N )
 
       for (ITER = 1; ITER <= MAX_ITER; ITER++) {
-         SCALE = 0.0D0
-         SUMSQ = 0.0D0
+         SCALE = 0.0;
+         SUMSQ = 0.0;
          // beta = |A|s
          for (I = 1; I <= N; I++) {
             WORK( I ) = ZERO
@@ -130,13 +130,13 @@
          }
 
          // avg = s^T beta / n
-         AVG = 0.0D0
+         AVG = 0.0;
          for (I = 1; I <= N; I++) {
             AVG = AVG + DBLE( S( I )*WORK( I ) )
          }
          AVG = AVG / N
 
-         STD = 0.0D0
+         STD = 0.0;
          for (I = N+1; I <= 2*N; I++) {
             WORK( I ) = S( I-N ) * WORK( I-N ) - AVG
          }

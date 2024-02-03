@@ -15,7 +15,7 @@
 
       // .. Parameters ..
       double             ONE;
-      const              ONE = 1.0D+0 ;
+      const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IWK1, IWK2, IWK2I, IWK3, IWK3I, J;

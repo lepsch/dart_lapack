@@ -15,7 +15,7 @@
 
       // .. Parameters ..
       COMPLEX*16   ONE
-      const     ONE = (1.0D+00,0.0D+00) ;
+      const     ONE = (1.0e+00,0.0e+00) ;
       // ..
       // .. Local Scalars ..
       int       I, I1, J, J1, N1, N2, IINFO;

@@ -19,7 +19,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
       int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I;
       int                CMP_ERR_I, PIV_GROWTH_I;
@@ -145,12 +145,12 @@
 
          if ( .NOT.ROWEQU ) {
             for (J = 1; J <= N; J++) {
-               R( J ) = 1.0D+0
+               R( J ) = 1.0;
             }
          }
          if ( .NOT.COLEQU ) {
             for (J = 1; J <= N; J++) {
-               C( J ) = 1.0D+0
+               C( J ) = 1.0;
             }
          }
       }

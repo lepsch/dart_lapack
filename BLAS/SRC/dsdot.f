@@ -24,7 +24,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
-      DSDOT = 0.0D0
+      DSDOT = 0.0;
       if (N <= 0) RETURN;
       if (INCX == INCY && INCX > 0) {
 

@@ -27,7 +27,7 @@
       const              BWDMAX = 1.0E+00 ;
 
       COMPLEX*16         NEGONE, ONE
-      const              NEGONE = ( -1.0D+00, 0.0D+00 ), ONE = ( 1.0D+00, 0.0D+00 ) ;
+      const              NEGONE = ( -1.0e+00, 0.0e+00 ), ONE = ( 1.0e+00, 0.0e+00 ) ;
 
       // .. Local Scalars ..
       int                I, IITER, PTSA, PTSX;

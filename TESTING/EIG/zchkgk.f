@@ -16,9 +16,9 @@
       int                LDE, LDF, LDWORK, LRWORK;
       const              LDE = 50, LDF = 50, LDWORK = 50, LRWORK = 6*50 ;
       double             ZERO;
-      const              ZERO = 0.0D+0 ;
+      const              ZERO = 0.0 ;
       COMPLEX*16         CZERO, CONE
-      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, M, N, NINFO;

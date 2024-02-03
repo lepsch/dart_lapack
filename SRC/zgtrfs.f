@@ -20,11 +20,11 @@
       int                ITMAX;
       const              ITMAX = 5 ;
       double             ZERO, ONE;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             TWO;
-      const              TWO = 2.0D+0 ;
+      const              TWO = 2.0 ;
       double             THREE;
-      const              THREE = 3.0D+0 ;
+      const              THREE = 3.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN;

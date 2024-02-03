@@ -12,11 +12,11 @@
 
       // .. Parameters ..
       double             BS;
-      const              BS = 2.0D0 ;
+      const              BS = 2.0 ;
       double             HALF;
-      const              HALF = 0.5D0 ;
+      const              HALF = 0.5 ;
       double             TWO;
-      const              TWO = 2.0D0 ;
+      const              TWO = 2.0 ;
 
       // .. Local Scalars ..
       double             AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS;
@@ -39,7 +39,7 @@
       DD = D
       AB = MAX( ABS(A), ABS(B) )
       CD = MAX( ABS(C), ABS(D) )
-      S = 1.0D0
+      S = 1.0;
 
       OV = DLAMCH( 'Overflow threshold' )
       UN = DLAMCH( 'Safe minimum' )
@@ -98,7 +98,7 @@
 
       // .. Parameters ..
       double             ONE;
-      const              ONE = 1.0D0 ;
+      const              ONE = 1.0 ;
 
       // .. Local Scalars ..
       double             R, T;
@@ -137,7 +137,7 @@
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D0 ;
+      const              ZERO = 0.0 ;
 
       // .. Local Scalars ..
       double             BR;

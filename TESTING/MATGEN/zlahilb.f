@@ -31,10 +31,10 @@
 
       // D's are generated from random permutation of those eight elements.
       COMPLEX*16 D1(8), D2(8), INVD1(8), INVD2(8)
-      DATA D1 /(-1.0D0,0.0D0),(0.0D0,1.0D0),(-1.0D0,-1.0D0), (0.0D0,-1.0D0),(1.0D0,0.0D0),(-1.0D0,1.0D0),(1.0D0,1.0D0), (1.0D0,-1.0D0)/
-      DATA D2 /(-1.0D0,0.0D0),(0.0D0,-1.0D0),(-1.0D0,1.0D0), (0.0D0,1.0D0),(1.0D0,0.0D0),(-1.0D0,-1.0D0),(1.0D0,-1.0D0), (1.0D0,1.0D0)/
-      DATA INVD1 /(-1.0D0,0.0D0),(0.0D0,-1.0D0),(-0.5D0,0.5D0), (0.0D0,1.0D0),(1.0D0,0.0D0),(-0.5D0,-0.5D0),(0.5D0,-0.5D0), (0.5D0,0.5D0)/
-      DATA INVD2 /(-1.0D0,0.0D0),(0.0D0,1.0D0),(-0.5D0,-0.5D0), (0.0D0,-1.0D0),(1.0D0,0.0D0),(-0.5D0,0.5D0),(0.5D0,0.5D0), (0.5D0,-0.5D0)/
+      DATA D1 /(-1.0,0.0),(0.0,1.0),(-1.0,-1.0), (0.0,-1.0),(1.0,0.0),(-1.0,1.0),(1.0,1.0), (1.0,-1.0)/
+      DATA D2 /(-1.0,0.0),(0.0,-1.0),(-1.0,1.0), (0.0,1.0),(1.0,0.0),(-1.0,-1.0),(1.0,-1.0), (1.0,1.0)/
+      DATA INVD1 /(-1.0,0.0),(0.0,-1.0),(-0.5,0.5), (0.0,1.0),(1.0,0.0),(-0.5,-0.5),(0.5,-0.5), (0.5,0.5)/
+      DATA INVD2 /(-1.0,0.0),(0.0,1.0),(-0.5,-0.5), (0.0,-1.0),(1.0,0.0),(-0.5,0.5),(0.5,0.5), (0.5,-0.5)/
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -104,7 +104,7 @@
       // Generate matrix B as simply the first NRHS columns of M * the
       // identity.
       TMP = DBLE(M)
-      zlaset('Full', N, NRHS, (0.0D+0,0.0D+0), TMP, B, LDB);
+      zlaset('Full', N, NRHS, (0.0,0.0), TMP, B, LDB);
 
       // Generate the true solutions in X.  Because B = the first NRHS
       // columns of M*I, the true solutions are just the first NRHS columns

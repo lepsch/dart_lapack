@@ -16,11 +16,11 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       int                LV;
       const              LV = 128 ;
       double             TWOPI;
-      const      TWOPI = 6.28318530717958647692528676655900576839D+0 ;
+      const      TWOPI = 6.28318530717958647692528676655900576839 ;
       // ..
       // .. Local Scalars ..
       int                I, IL, IV;

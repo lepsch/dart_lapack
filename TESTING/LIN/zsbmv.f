@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ONE
-      const              ONE = ( 1.0D+0, 0.0D+0 ) ;
+      const              ONE = ( 1.0, 0.0 ) ;
       COMPLEX*16         ZERO
-      const              ZERO = ( 0.0D+0, 0.0D+0 ) ;
+      const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, IX, IY, J, JX, JY, KPLUS1, KX, KY, L;

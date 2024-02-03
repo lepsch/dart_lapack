@@ -60,7 +60,7 @@
          KL = N-1
          KU = N-1
          NRHS = n
-         M = MAX(SQRT(DBLE(N)), 10.0D+0)
+         M = MAX(SQRT(DBLE(N)), 10.0)
 
          // Generate the Hilbert matrix, its inverse, and the
          // right hand side, all scaled by the LCM(1,..,2N-1).
@@ -72,7 +72,7 @@
          // Store A in band format for GB tests
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= KL+KU+1; I++) {
-               AB( I, J ) = 0.0D+0
+               AB( I, J ) = 0.0;
             }
          }
          for (J = 1; J <= N; J++) {
@@ -84,7 +84,7 @@
          // Copy AB into ABCOPY.
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= KL+KU+1; I++) {
-               ABCOPY( I, J ) = 0.0D+0
+               ABCOPY( I, J ) = 0.0;
             }
          }
          dlacpy('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB);
@@ -125,12 +125,12 @@
          }
 
          // Calculating the RCOND
-         RNORM = 0.0D+0
-         RINORM = 0.0D+0
+         RNORM = 0.0;
+         RINORM = 0.0;
          if ( LSAMEN( 2, C2, 'PO' ) || LSAMEN( 2, C2, 'SY' ) ) {
             for (I = 1; I <= N; I++) {
-               SUMR = 0.0D+0
-               SUMRI = 0.0D+0
+               SUMR = 0.0;
+               SUMRI = 0.0;
                for (J = 1; J <= N; J++) {
                   SUMR = SUMR + S(I) * ABS(A(I,J)) * S(J)
                   SUMRI = SUMRI + ABS(INVHILB(I, J)) / (S(J) * S(I))
@@ -141,8 +141,8 @@
             }
          } else if ( LSAMEN( 2, C2, 'GE' ) || LSAMEN( 2, C2, 'GB' ) ) {
             for (I = 1; I <= N; I++) {
-               SUMR = 0.0D+0
-               SUMRI = 0.0D+0
+               SUMR = 0.0;
+               SUMRI = 0.0;
                for (J = 1; J <= N; J++) {
                   SUMR = SUMR + R(I) * ABS(A(I,J)) * C(J)
                   SUMRI = SUMRI + ABS(INVHILB(I, J)) / (R(J) * C(I))
@@ -153,11 +153,11 @@
          }
 
          RNORM = RNORM / ABS(A(1, 1))
-         RCOND = 1.0D+0/(RNORM * RINORM)
+         RCOND = 1.0/(RNORM * RINORM)
 
          // Calculating the R for normwise rcond.
          for (I = 1; I <= N; I++) {
-            RINV(I) = 0.0D+0
+            RINV(I) = 0.0;
          }
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
@@ -166,9 +166,9 @@
          }
 
          // Calculating the Normwise rcond.
-         RINORM = 0.0D+0
+         RINORM = 0.0;
          for (I = 1; I <= N; I++) {
-            SUMRI = 0.0D+0
+            SUMRI = 0.0;
             for (J = 1; J <= N; J++) {
                SUMRI = SUMRI + ABS(INVHILB(I,J) * RINV(J))
             }
@@ -183,37 +183,37 @@
          ERRTHRESH = M * EPS
 
          for (K = 1; K <= NRHS; K++) {
-            NORMT = 0.0D+0
-            NORMDIF = 0.0D+0
-            CWISE_ERR = 0.0D+0
+            NORMT = 0.0;
+            NORMDIF = 0.0;
+            CWISE_ERR = 0.0;
             for (I = 1; I <= N; I++) {
                NORMT = MAX(ABS(INVHILB(I, K)), NORMT)
                NORMDIF = MAX(ABS(X(I,K) - INVHILB(I,K)), NORMDIF)
-               if (INVHILB(I,K) != 0.0D+0) {
+               if (INVHILB(I,K) != 0.0) {
                   CWISE_ERR = MAX(ABS(X(I,K) - INVHILB(I,K)) /ABS(INVHILB(I,K)), CWISE_ERR)
-               } else if (X(I, K) != 0.0D+0) {
+               } else if (X(I, K) != 0.0) {
                   CWISE_ERR = DLAMCH('OVERFLOW')
                }
             }
-            if (NORMT != 0.0D+0) {
+            if (NORMT != 0.0) {
                NWISE_ERR = NORMDIF / NORMT
-            } else if (NORMDIF != 0.0D+0) {
+            } else if (NORMDIF != 0.0) {
                NWISE_ERR = DLAMCH('OVERFLOW')
             } else {
-               NWISE_ERR = 0.0D+0
+               NWISE_ERR = 0.0;
             }
 
             for (I = 1; I <= N; I++) {
-               RINV(I) = 0.0D+0
+               RINV(I) = 0.0;
             }
             for (J = 1; J <= N; J++) {
                for (I = 1; I <= N; I++) {
                   RINV(I) = RINV(I) + ABS(A(I, J) * INVHILB(J, K))
                }
             }
-            RINORM = 0.0D+0
+            RINORM = 0.0;
             for (I = 1; I <= N; I++) {
-               SUMRI = 0.0D+0
+               SUMRI = 0.0;
                for (J = 1; J <= N; J++) {
                   SUMRI = SUMRI + ABS(INVHILB(I, J) * RINV(J) / INVHILB(I, K))
                }
@@ -234,25 +234,25 @@
             if (NCOND >= CONDTHRESH) {
                NGUAR = 'YES'
                if (NWISE_BND > ERRTHRESH) {
-                  TSTRAT(1) = 1/(2.0D+0*EPS)
+                  TSTRAT(1) = 1/(2.0*EPS)
                } else {
-                  if (NWISE_BND != 0.0D+0) {
+                  if (NWISE_BND != 0.0) {
                      TSTRAT(1) = NWISE_ERR / NWISE_BND
-                  } else if (NWISE_ERR != 0.0D+0) {
+                  } else if (NWISE_ERR != 0.0) {
                      TSTRAT(1) = 1/(16.0*EPS)
                   } else {
-                     TSTRAT(1) = 0.0D+0
+                     TSTRAT(1) = 0.0;
                   }
-                  if (TSTRAT(1) > 1.0D+0) {
-                     TSTRAT(1) = 1/(4.0D+0*EPS)
+                  if (TSTRAT(1) > 1.0) {
+                     TSTRAT(1) = 1/(4.0*EPS)
                   }
                }
             } else {
                NGUAR = 'NO'
-               if (NWISE_BND < 1.0D+0) {
-                  TSTRAT(1) = 1/(8.0D+0*EPS)
+               if (NWISE_BND < 1.0) {
+                  TSTRAT(1) = 1/(8.0*EPS)
                } else {
-                  TSTRAT(1) = 1.0D+0
+                  TSTRAT(1) = 1.0;
                }
             }
              // write (*,*) 'cwise : ', n, k, ccond, cwise_rcond,
@@ -261,23 +261,23 @@
             if (CCOND >= CONDTHRESH) {
                CGUAR = 'YES'
                if (CWISE_BND > ERRTHRESH) {
-                  TSTRAT(2) = 1/(2.0D+0*EPS)
+                  TSTRAT(2) = 1/(2.0*EPS)
                } else {
-                  if (CWISE_BND != 0.0D+0) {
+                  if (CWISE_BND != 0.0) {
                      TSTRAT(2) = CWISE_ERR / CWISE_BND
-                  } else if (CWISE_ERR != 0.0D+0) {
-                     TSTRAT(2) = 1/(16.0D+0*EPS)
+                  } else if (CWISE_ERR != 0.0) {
+                     TSTRAT(2) = 1/(16.0*EPS)
                   } else {
-                     TSTRAT(2) = 0.0D+0
+                     TSTRAT(2) = 0.0;
                   }
-                  IF (TSTRAT(2) > 1.0D+0) TSTRAT(2) = 1/(4.0D+0*EPS)
+                  IF (TSTRAT(2) > 1.0) TSTRAT(2) = 1/(4.0*EPS)
                }
             } else {
                CGUAR = 'NO'
-               if (CWISE_BND < 1.0D+0) {
-                  TSTRAT(2) = 1/(8.0D+0*EPS)
+               if (CWISE_BND < 1.0) {
+                  TSTRAT(2) = 1/(8.0*EPS)
                } else {
-                  TSTRAT(2) = 1.0D+0
+                  TSTRAT(2) = 1.0;
                }
             }
 
@@ -286,13 +286,13 @@
 
       // Condition number tests
             TSTRAT(4) = RCOND / ORCOND
-            IF (RCOND >= CONDTHRESH && TSTRAT(4) < 1.0D+0) TSTRAT(4) = 1.0D+0 / TSTRAT(4)
+            IF (RCOND >= CONDTHRESH && TSTRAT(4) < 1.0) TSTRAT(4) = 1.0 / TSTRAT(4)
 
             TSTRAT(5) = NCOND / NWISE_RCOND
-            IF (NCOND >= CONDTHRESH && TSTRAT(5) < 1.0D+0) TSTRAT(5) = 1.0D+0 / TSTRAT(5)
+            IF (NCOND >= CONDTHRESH && TSTRAT(5) < 1.0) TSTRAT(5) = 1.0 / TSTRAT(5)
 
             TSTRAT(6) = CCOND / NWISE_RCOND
-            IF (CCOND >= CONDTHRESH && TSTRAT(6) < 1.0D+0) TSTRAT(6) = 1.0D+0 / TSTRAT(6)
+            IF (CCOND >= CONDTHRESH && TSTRAT(6) < 1.0) TSTRAT(6) = 1.0 / TSTRAT(6)
 
             for (I = 1; I <= NTESTS; I++) {
                if (TSTRAT(I) > THRESH) {

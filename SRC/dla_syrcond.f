@@ -37,7 +37,7 @@
       // ..
       // .. Executable Statements ..
 
-      DLA_SYRCOND = 0.0D+0
+      DLA_SYRCOND = 0.0;
 
       INFO = 0
       if ( N < 0 ) {
@@ -52,7 +52,7 @@
          RETURN
       }
       if ( N == 0 ) {
-         DLA_SYRCOND = 1.0D+0
+         DLA_SYRCOND = 1.0;
          RETURN
       }
       UP = false;
@@ -63,7 +63,7 @@
 
       if ( UP ) {
          for (I = 1; I <= N; I++) {
-            TMP = 0.0D+0
+            TMP = 0.0;
             if ( CMODE == 1 ) {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + ABS( A( J, I ) * C( J ) )
@@ -90,7 +90,7 @@
          }
       } else {
          for (I = 1; I <= N; I++) {
-            TMP = 0.0D+0
+            TMP = 0.0;
             if ( CMODE == 1 ) {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + ABS( A( I, J ) * C( J ) )
@@ -120,7 +120,7 @@
       // Estimate the norm of inv(op(A)).
 
       SMLNUM = DLAMCH( 'Safe minimum' )
-      AINVNM = 0.0D+0
+      AINVNM = 0.0;
       NORMIN = 'N'
 
       KASE = 0
@@ -184,7 +184,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      if (AINVNM != 0.0D+0) DLA_SYRCOND = ( 1.0D+0 / AINVNM );
+      if (AINVNM != 0.0) DLA_SYRCOND = ( 1.0 / AINVNM );
 
       RETURN
 

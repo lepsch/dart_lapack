@@ -16,9 +16,9 @@
 *  ================================================================
       // .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      const              ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO, RONE;
-      const              RZERO = 0.0d0, RONE = 1.0d0 ;
+      const              RZERO = 0.0, RONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       COMPLEX*16         ALPHA, BETA, CDUM, REFSUM, T1, T2, T3

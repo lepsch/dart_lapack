@@ -71,14 +71,14 @@
          Y_PREC_STATE = EXTRA_RESIDUAL
          if ( Y_PREC_STATE == EXTRA_Y ) {
             for (I = 1; I <= N; I++) {
-               Y_TAIL( I ) = 0.0D+0
+               Y_TAIL( I ) = 0.0;
             }
          }
 
-         DXRAT = 0.0D+0
-         DXRATMAX = 0.0D+0
-         DZRAT = 0.0D+0
-         DZRATMAX = 0.0D+0
+         DXRAT = 0.0;
+         DXRATMAX = 0.0;
+         DZRAT = 0.0;
+         DZRATMAX = 0.0;
          FINAL_DX_X = HUGEVAL
          FINAL_DZ_Z = HUGEVAL
          PREVNORMDX = HUGEVAL
@@ -97,11 +97,11 @@
 
             dcopy(N, B( 1, J ), 1, RES, 1 );
             if ( Y_PREC_STATE == BASE_RESIDUAL ) {
-               dsymv(UPLO, N, -1.0D+0, A, LDA, Y(1,J), 1, 1.0D+0, RES, 1 );
+               dsymv(UPLO, N, -1.0, A, LDA, Y(1,J), 1, 1.0, RES, 1 );
             } else if ( Y_PREC_STATE == EXTRA_RESIDUAL ) {
-               blas_dsymv_x(UPLO2, N, -1.0D+0, A, LDA, Y( 1, J ), 1, 1.0D+0, RES, 1, PREC_TYPE );
+               blas_dsymv_x(UPLO2, N, -1.0, A, LDA, Y( 1, J ), 1, 1.0, RES, 1, PREC_TYPE );
             } else {
-               blas_dsymv2_x(UPLO2, N, -1.0D+0, A, LDA, Y(1, J), Y_TAIL, 1, 1.0D+0, RES, 1, PREC_TYPE);
+               blas_dsymv2_x(UPLO2, N, -1.0, A, LDA, Y(1, J), Y_TAIL, 1, 1.0, RES, 1, PREC_TYPE);
             }
 
           // XXX: RES is no longer needed.
@@ -110,19 +110,19 @@
 
           // Calculate relative changes DX_X, DZ_Z and ratios DXRAT, DZRAT.
 
-            NORMX = 0.0D+0
-            NORMY = 0.0D+0
-            NORMDX = 0.0D+0
-            DZ_Z = 0.0D+0
+            NORMX = 0.0;
+            NORMY = 0.0;
+            NORMDX = 0.0;
+            DZ_Z = 0.0;
             YMIN = HUGEVAL
 
             for (I = 1; I <= N; I++) {
                YK = ABS( Y( I, J ) )
                DYK = ABS( DY( I ) )
 
-               if ( YK != 0.0D+0 ) {
+               if ( YK != 0.0 ) {
                   DZ_Z = MAX( DZ_Z, DYK / YK )
-               } else if ( DYK != 0.0D+0 ) {
+               } else if ( DYK != 0.0 ) {
                   DZ_Z = HUGEVAL
                }
 
@@ -139,10 +139,10 @@
                }
             }
 
-            if ( NORMX != 0.0D+0 ) {
+            if ( NORMX != 0.0 ) {
                DX_X = NORMDX / NORMX
-            } else if ( NORMDX == 0.0D+0 ) {
-               DX_X = 0.0D+0
+            } else if ( NORMDX == 0.0 ) {
+               DX_X = 0.0;
             } else {
                DX_X = HUGEVAL
             }
@@ -174,7 +174,7 @@
                   Z_STATE = CONV_STATE
                } else if ( DZ_Z > DZ_UB ) {
                   Z_STATE = UNSTABLE_STATE
-                  DZRATMAX = 0.0D+0
+                  DZRATMAX = 0.0;
                   FINAL_DZ_Z = HUGEVAL
                } else if ( DZRAT > RTHRESH ) {
                   if ( Y_PREC_STATE != EXTRA_Y ) {
@@ -193,7 +193,7 @@
                INCR_PREC = false;
                Y_PREC_STATE = Y_PREC_STATE + 1
                for (I = 1; I <= N; I++) {
-                  Y_TAIL( I ) = 0.0D+0
+                  Y_TAIL( I ) = 0.0;
                }
             }
 
@@ -203,7 +203,7 @@
             // Update solution.
 
             if (Y_PREC_STATE < EXTRA_Y) {
-               daxpy(N, 1.0D+0, DY, 1, Y(1,J), 1 );
+               daxpy(N, 1.0, DY, 1, Y(1,J), 1 );
             } else {
                dla_wwaddw(N, Y( 1, J ), Y_TAIL, DY );
             }
@@ -235,7 +235,7 @@
              // op(A) = A, A**T, or A**H depending on TRANS (and type).
 
          dcopy(N, B( 1, J ), 1, RES, 1 );
-         dsymv(UPLO, N, -1.0D+0, A, LDA, Y(1,J), 1, 1.0D+0, RES, 1 );
+         dsymv(UPLO, N, -1.0, A, LDA, Y(1,J), 1, 1.0, RES, 1 );
 
          for (I = 1; I <= N; I++) {
             AYB( I ) = ABS( B( I, J ) )
@@ -243,7 +243,7 @@
 
       // Compute abs(op(A_s))*abs(Y) + abs(B_s).
 
-         dla_syamv(UPLO2, N, 1.0D+0, A, LDA, Y(1, J), 1, 1.0D+0, AYB, 1 );
+         dla_syamv(UPLO2, N, 1.0, A, LDA, Y(1, J), 1, 1.0, AYB, 1 );
 
          dla_lin_berr(N, N, 1, RES, AYB, BERR_OUT( J ) );
 

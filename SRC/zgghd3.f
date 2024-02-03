@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       COMPLEX*16         CONE, CZERO
-      const              CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) ;
+      const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               BLK22, INITQ, INITZ, LQUERY, WANTQ, WANTZ;

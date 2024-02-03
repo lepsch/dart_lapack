@@ -36,7 +36,7 @@
 
                if (IE == 0) CALL DLAHD2( IOUNIT, TYPE );
                IE = IE + 1
-               if ( RESULT( K ) < 10000.0D0 ) {
+               if ( RESULT( K ) < 10000.0 ) {
                   WRITE( IOUNIT, FMT = 9999 )N, IMAT, ISEED, K, RESULT( K )
  9999             FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I3, ' is', 0P, F8.2 )
                } else {
@@ -57,7 +57,7 @@
 
                if (IE == 0) CALL DLAHD2( IOUNIT, TYPE );
                IE = IE + 1
-               if ( RESULT( K ) < 10000.0D0 ) {
+               if ( RESULT( K ) < 10000.0 ) {
                   WRITE( IOUNIT, FMT = 9997 )M, N, IMAT, ISEED, K, RESULT( K )
  9997             FORMAT( 1X, I5, ' x', I5, ' matrix, type=', I2, ', s', 'eed=', 3( I4, ',' ), I4, ': result ', I3, ' is', 0P, F8.2 )
                } else {

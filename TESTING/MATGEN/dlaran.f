@@ -14,7 +14,7 @@
       int                M1, M2, M3, M4;
       const              M1 = 494, M2 = 322, M3 = 2508, M4 = 2549 ;
       double             ONE;
-      const              ONE = 1.0D+0 ;
+      const              ONE = 1.0 ;
       int                IPW2;
       double             R;
       const              IPW2 = 4096, R = ONE / IPW2 ;
@@ -54,7 +54,7 @@
 
       RNDOUT = R*( DBLE( IT1 )+R*( DBLE( IT2 )+R*( DBLE( IT3 )+R* ( DBLE( IT4 ) ) ) ) )
 
-      if (RNDOUT == 1.0D+0) {
+      if (RNDOUT == 1.0) {
          // If a real number has n bits of precision, and the first
          // n bits of the 48-bit integer above happen to be all 1 (which
          // will occur about once every 2**n calls), then DLARAN will

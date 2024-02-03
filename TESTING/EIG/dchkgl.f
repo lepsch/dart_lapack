@@ -14,7 +14,7 @@
       int                LDA, LDB, LWORK;
       const              LDA = 20, LDB = 20, LWORK = 6*LDA ;
       double             ZERO;
-      const              ZERO = 0.0D+0 ;
+      const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO;

@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, SAFETY;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0, SAFETY = 1.0D+2 ;
+      const              ZERO = 0.0, ONE = 1.0, SAFETY = 1.0e+2 ;
       // ..
       // .. Local Scalars ..
       bool               COMPL, COMPR, IL2BY2, ILABAD, ILALL, ILBACK, ILBBAD, ILCOMP, ILCPLX, LSA, LSB;

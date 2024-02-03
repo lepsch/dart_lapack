@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       COMPLEX*16         NEGONE, ONE
-      const              NEGONE = (-1.0D0,0.0D0), ONE = (1.0D0,0.0D0) ;
+      const              NEGONE = (-1.0,0.0), ONE = (1.0,0.0) ;
       // ..
       // .. Local Scalars ..
       double             C, S;

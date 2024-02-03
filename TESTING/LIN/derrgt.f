@@ -45,15 +45,15 @@
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-      D( 1 ) = 1.D0
-      D( 2 ) = 2.D0
-      DF( 1 ) = 1.D0
-      DF( 2 ) = 2.D0
-      E( 1 ) = 3.D0
-      E( 2 ) = 4.D0
-      EF( 1 ) = 3.D0
-      EF( 2 ) = 4.D0
-      ANORM = 1.0D0
+      D( 1 ) = 1.0;
+      D( 2 ) = 2.0;
+      DF( 1 ) = 1.0;
+      DF( 2 ) = 2.0;
+      E( 1 ) = 3.0;
+      E( 2 ) = 4.0;
+      EF( 1 ) = 3.0;
+      EF( 2 ) = 4.0;
+      ANORM = 1.0;
       OK = true;
 
       if ( LSAMEN( 2, C2, 'GT' ) ) {

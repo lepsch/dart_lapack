@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      const              ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO, RONE, HALF;
-      const              RZERO = 0.0d0, RONE = 1.0d0, HALF = 0.5d0 ;
+      const              RZERO = 0.0, RONE = 1.0, HALF = 0.5 ;
       double             DAT1;
-      const              DAT1 = 3.0d0 / 4.0d0 ;
+      const              DAT1 = 3.0 / 4.0 ;
       int                KEXSH;
       const              KEXSH = 10 ;
       // ..

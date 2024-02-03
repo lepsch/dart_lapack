@@ -47,9 +47,9 @@
          NCOLS = INFO
       }
 
-      RPVGRW = 1.0D+0
+      RPVGRW = 1.0;
       for (I = 1; I <= 2*N; I++) {
-         WORK( I ) = 0.0D+0
+         WORK( I ) = 0.0;
       }
 
       // Find the max magnitude entry of each column of A.  Compute the max
@@ -186,7 +186,7 @@
          for (I = NCOLS; I <= N; I++) {
             UMAX = WORK( I )
             AMAX = WORK( N+I )
-            if ( UMAX /= 0.0D+0 ) {
+            if ( UMAX /= 0.0 ) {
                RPVGRW = MIN( AMAX / UMAX, RPVGRW )
             }
          }
@@ -194,7 +194,7 @@
          for (I = 1; I <= NCOLS; I++) {
             UMAX = WORK( I )
             AMAX = WORK( N+I )
-            if ( UMAX /= 0.0D+0 ) {
+            if ( UMAX /= 0.0 ) {
                RPVGRW = MIN( AMAX / UMAX, RPVGRW )
             }
          }

@@ -20,7 +20,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, FOUR, MINRGP;
-      const              ZERO = 0.0D0, ONE = 1.0D0, FOUR = 4.0D0, MINRGP = 1.0D-3 ;
+      const              ZERO = 0.0, ONE = 1.0, FOUR = 4.0, MINRGP = 1.0e-3 ;
       // ..
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP;
@@ -319,7 +319,7 @@
             // need less accurate initial bisection in DLARRE.
             // Note: these settings do only affect the subset case and DLARRE
             RTOL1 = SQRT(EPS)
-            RTOL2 = MAX( SQRT(EPS)*5.0D-3, FOUR * EPS )
+            RTOL2 = MAX( SQRT(EPS)*5.0e-3, FOUR * EPS )
          }
          dlarre(RANGE, N, WL, WU, IIL, IIU, D, E, WORK(INDE2), RTOL1, RTOL2, THRESH, NSPLIT, IWORK( IINSPL ), M, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), PIVMIN, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
          if ( IINFO != 0 ) {

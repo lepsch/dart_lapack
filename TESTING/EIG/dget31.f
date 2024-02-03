@@ -16,13 +16,13 @@
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       double             TWO, THREE, FOUR;
-      const              TWO = 2.0D0, THREE = 3.0D0, FOUR = 4.0D0 ;
+      const              TWO = 2.0, THREE = 3.0, FOUR = 4.0 ;
       double             SEVEN, TEN;
-      const              SEVEN = 7.0D0, TEN = 10.0D0 ;
+      const              SEVEN = 7.0, TEN = 10.0 ;
       double             TWNONE;
-      const              TWNONE = 21.0D0 ;
+      const              TWNONE = 21.0 ;
       // ..
       // .. Local Scalars ..
       int                IA, IB, ICA, ID1, ID2, INFO, ISMIN, ITRANS, IWI, IWR, NA, NW;

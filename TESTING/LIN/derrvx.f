@@ -54,17 +54,17 @@
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A( I, J ) = 1.D0 / DBLE( I+J )
-            AF( I, J ) = 1.D0 / DBLE( I+J )
+            A( I, J ) = 1.0 / DBLE( I+J )
+            AF( I, J ) = 1.0 / DBLE( I+J )
          } // 10
-         B( J ) = 0.D+0
-         E( J ) = 0.D+0
-         R1( J ) = 0.D+0
-         R2( J ) = 0.D+0
-         W( J ) = 0.D+0
-         X( J ) = 0.D+0
-         C( J ) = 0.D+0
-         R( J ) = 0.D+0
+         B( J ) = 0.0;
+         E( J ) = 0.0;
+         R1( J ) = 0.0;
+         R2( J ) = 0.0;
+         W( J ) = 0.0;
+         X( J ) = 0.0;
+         C( J ) = 0.0;
+         R( J ) = 0.0;
          IP( J ) = J
       } // 20
       EQ = ' '

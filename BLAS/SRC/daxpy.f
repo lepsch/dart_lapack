@@ -21,7 +21,7 @@
       // INTRINSIC MOD
       // ..
       if (N <= 0) RETURN;
-      if (DA == 0.0d0) RETURN;
+      if (DA == 0.0) RETURN;
       if (INCX == 1 && INCY == 1) {
 
          // code for both increments equal to 1

@@ -47,12 +47,12 @@
 
       for (J = 1; J <= NMAX; J++) { // 110
          for (I = 1; I <= NMAX; I++) { // 100
-            A( I, J ) = 1.D0 / DBLE( I+J )
+            A( I, J ) = 1.0 / DBLE( I+J )
 
          } // 100
          PIV( J ) = J
-         RWORK( J ) = 0.D0
-         RWORK( NMAX+J ) = 0.D0
+         RWORK( J ) = 0.0;
+         RWORK( NMAX+J ) = 0.0;
 
       } // 110
       OK = true;
@@ -65,26 +65,26 @@
 
       SRNAMT = 'ZPSTRF'
       INFOT = 1
-      zpstrf('/', 0, A, 1, PIV, RANK, -1.D0, RWORK, INFO );
+      zpstrf('/', 0, A, 1, PIV, RANK, -1.0, RWORK, INFO );
       chkxer('ZPSTRF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      zpstrf('U', -1, A, 1, PIV, RANK, -1.D0, RWORK, INFO );
+      zpstrf('U', -1, A, 1, PIV, RANK, -1.0, RWORK, INFO );
       chkxer('ZPSTRF', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      zpstrf('U', 2, A, 1, PIV, RANK, -1.D0, RWORK, INFO );
+      zpstrf('U', 2, A, 1, PIV, RANK, -1.0, RWORK, INFO );
       chkxer('ZPSTRF', INFOT, NOUT, LERR, OK );
 
          // ZPSTF2
 
       SRNAMT = 'ZPSTF2'
       INFOT = 1
-      zpstf2('/', 0, A, 1, PIV, RANK, -1.D0, RWORK, INFO );
+      zpstf2('/', 0, A, 1, PIV, RANK, -1.0, RWORK, INFO );
       chkxer('ZPSTF2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      zpstf2('U', -1, A, 1, PIV, RANK, -1.D0, RWORK, INFO );
+      zpstf2('U', -1, A, 1, PIV, RANK, -1.0, RWORK, INFO );
       chkxer('ZPSTF2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      zpstf2('U', 2, A, 1, PIV, RANK, -1.D0, RWORK, INFO );
+      zpstf2('U', 2, A, 1, PIV, RANK, -1.0, RWORK, INFO );
       chkxer('ZPSTF2', INFOT, NOUT, LERR, OK );
 
 

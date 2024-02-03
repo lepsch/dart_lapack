@@ -19,11 +19,11 @@
       int                MAXITR;
       const              MAXITR = 6 ;
       double             HUNDRED, MEIGHTH, ONE, TEN, ZERO;
-      const              HUNDRED = 100.0D0, MEIGHTH = -0.125D0, ONE = 1.0D0, TEN = 10.0D0, ZERO = 0.0D0 ;
+      const              HUNDRED = 100.0, MEIGHTH = -0.125, ONE = 1.0, TEN = 10.0, ZERO = 0.0 ;
       COMPLEX*16         NEGONECOMPLEX
-      const              NEGONECOMPLEX = (-1.0D0,0.0D0) ;
+      const              NEGONECOMPLEX = (-1.0,0.0) ;
       double             PIOVER2;
-      const     PIOVER2 = 1.57079632679489661923132169163975144210D0 ;
+      const     PIOVER2 = 1.57079632679489661923132169163975144210 ;
       // ..
       // .. Local Scalars ..
       bool               COLMAJOR, LQUERY, RESTART11, RESTART12, RESTART21, RESTART22, WANTU1, WANTU2, WANTV1T, WANTV2T;

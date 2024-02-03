@@ -17,7 +17,7 @@
 
       // .. Local Parameters ..
       double             ZERO, HALF, ONE;
-      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0;
       // ..
       // .. Local Scalars ..
       double             AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;

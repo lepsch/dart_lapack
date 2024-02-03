@@ -18,7 +18,7 @@
       int     I,M,MP1,NINCX;
       // .. Parameters ..
       double           ONE;
-      const     ONE=1.0D+0;
+      const     ONE=1.0;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MOD

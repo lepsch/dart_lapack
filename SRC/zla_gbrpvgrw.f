@@ -29,19 +29,19 @@
       // ..
       // .. Executable Statements ..
 
-      RPVGRW = 1.0D+0
+      RPVGRW = 1.0;
 
       KD = KU + 1
       for (J = 1; J <= NCOLS; J++) {
-         AMAX = 0.0D+0
-         UMAX = 0.0D+0
+         AMAX = 0.0;
+         UMAX = 0.0;
          DO I = MAX( J-KU, 1 ), MIN( J+KL, N )
             AMAX = MAX( CABS1( AB( KD+I-J, J ) ), AMAX )
          }
          DO I = MAX( J-KU, 1 ), J
             UMAX = MAX( CABS1( AFB( KD+I-J, J ) ), UMAX )
          }
-         if ( UMAX /= 0.0D+0 ) {
+         if ( UMAX /= 0.0 ) {
             RPVGRW = MIN( AMAX / UMAX, RPVGRW )
          }
       }

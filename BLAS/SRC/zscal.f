@@ -19,7 +19,7 @@
       // ..
       // .. Parameters ..
       COMPLEX*16 ONE
-      const     ONE= (1.0D+0,0.0D+0);
+      const     ONE= (1.0,0.0);
       // ..
       if (N <= 0 || INCX <= 0 || ZA == ONE) RETURN;
       if (INCX == 1) {

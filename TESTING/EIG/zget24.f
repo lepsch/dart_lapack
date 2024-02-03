@@ -20,11 +20,11 @@
 
       // .. Parameters ..
       COMPLEX*16         CZERO, CONE
-      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double             ZERO, ONE;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             EPSIN;
-      const              EPSIN = 5.9605D-8 ;
+      const              EPSIN = 5.9605e-8 ;
       // ..
       // .. Local Scalars ..
       String             SORT;

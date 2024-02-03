@@ -17,8 +17,8 @@
       COMPLEX*16 ZTEMP
       int     I,IX,IY;
       // ..
-      ZTEMP = (0.0d0,0.0d0)
-      ZDOTU = (0.0d0,0.0d0)
+      ZTEMP = (0.0,0.0)
+      ZDOTU = (0.0,0.0)
       if (N <= 0) RETURN;
       if (INCX == 1 && INCY == 1) {
 

@@ -15,11 +15,11 @@
 
       // .. Parameters ..
       double             SHRINK, TENTH;
-      const              SHRINK = 0.25D0, TENTH = 0.1D+0 ;
+      const              SHRINK = 0.25, TENTH = 0.1 ;
       double             ONE;
-      const              ONE = 1.0D+0 ;
+      const              ONE = 1.0 ;
       double             TWO;
-      const              TWO = 2.0D+0 ;
+      const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               FIRST;

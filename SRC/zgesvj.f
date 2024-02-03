@@ -18,9 +18,9 @@
 
       // .. Local Parameters ..
       double             ZERO,         HALF,         ONE;
-      const            ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0;
+      const            ZERO = 0.0, HALF = 0.5, ONE = 1.0;
       COMPLEX*16         CZERO,                  CONE
-      const            CZERO = (0.0D0, 0.0D0), CONE = (1.0D0, 0.0D0) ;
+      const            CZERO = (0.0, 0.0), CONE = (1.0, 0.0) ;
       int                NSWEEP;
       const            NSWEEP = 30 ;
       // ..

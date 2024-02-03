@@ -9,7 +9,7 @@ void main() {
       int               N, nNaN, nInf;
       const           N = 4, nNaN = 3, nInf = 5 ;
       double            threeFourth, fiveFourth, oneHalf;
-      const           threeFourth = 3.0d0 / 4, fiveFourth = 5.0d0 / 4, oneHalf = 1.0d0 / 2 ;
+      const           threeFourth = 3.0 / 4, fiveFourth = 5.0 / 4, oneHalf = 1.0 / 2 ;
       // ..
       // .. Local Variables ..
       int               i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, nFailingTests, nTests;
@@ -32,18 +32,18 @@ void main() {
       nTests = 0
 
       // .. Initialize machine constants ..
-      min = MINEXPONENT(0.0d0)
-      Max = MAXEXPONENT(0.0d0)
-      m = DIGITS(0.0d0)
-      b = DBLE(RADIX(0.0d0))
-      eps = EPSILON(0.0d0)
-      blueMin = b**CEILING( (min - 1) * 0.5d0 )
-      blueMax = b**FLOOR( (Max - m + 1) * 0.5d0 )
+      min = MINEXPONENT(0.0)
+      Max = MAXEXPONENT(0.0)
+      m = DIGITS(0.0)
+      b = DBLE(RADIX(0.0))
+      eps = EPSILON(0.0)
+      blueMin = b**CEILING( (min - 1) * 0.5 )
+      blueMax = b**FLOOR( (Max - m + 1) * 0.5 )
 
       // .. Vector X ..
-      X(1) = TINY(0.0d0) * b**( DBLE(1-m) )
-      X(2) = TINY(0.0d0)
-      X(3) = HUGE(0.0d0)
+      X(1) = TINY(0.0) * b**( DBLE(1-m) )
+      X(2) = TINY(0.0)
+      X(3) = HUGE(0.0)
       X(4) = b**( DBLE(Max-1) )
 
       // .. Then modify X using the step ..
@@ -60,16 +60,16 @@ void main() {
 
       // .. Inf entries ..
       aInf = X(3) * 2
-      cInf(1) = DCMPLX( aInf, 0.0d0 )
-      cInf(2) = DCMPLX(-aInf, 0.0d0 )
-      cInf(3) = DCMPLX( 0.0d0, aInf )
-      cInf(4) = DCMPLX( 0.0d0,-aInf )
+      cInf(1) = DCMPLX( aInf, 0.0 )
+      cInf(2) = DCMPLX(-aInf, 0.0 )
+      cInf(3) = DCMPLX( 0.0, aInf )
+      cInf(4) = DCMPLX( 0.0,-aInf )
       cInf(5) = DCMPLX( aInf,  aInf )
 
       // .. NaN entries ..
       aNaN = aInf / aInf
-      cNaN(1) = DCMPLX( aNaN, 0.0d0 )
-      cNaN(2) = DCMPLX( 0.0d0, aNaN )
+      cNaN(1) = DCMPLX( aNaN, 0.0 )
+      cNaN(2) = DCMPLX( 0.0, aNaN )
       cNaN(3) = DCMPLX( aNaN,  aNaN )
 
 
@@ -82,7 +82,7 @@ void main() {
       }
 
       Xj = X(1)
-      if (Xj == 0.0d0) {
+      if (Xj == 0.0) {
         subnormalTreatedAs0 = subnormalTreatedAs0 + 1
         if (debug || subnormalTreatedAs0 == 1) {
             print *, "!! fl( subnormal ) may be 0"
@@ -90,7 +90,7 @@ void main() {
       } else {
         for (i = 1; i <= N; i++) { // 100
             Xj = X(i)
-            if (Xj == 0.0d0) {
+            if (Xj == 0.0) {
                 subnormalTreatedAs0 = subnormalTreatedAs0 + 1
                 if (debug || subnormalTreatedAs0 == 1) {
                     print *, "!! fl( subnormal ) may be 0"
@@ -102,7 +102,7 @@ void main() {
       // Test (a) y = x + 0 * I, |y| = x
       for (i = 1; i <= N; i++) { // 10
         Xj = X(i)
-        if (Xj == 0.0d0) {
+        if (Xj == 0.0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if (debug || subnormalTreatedAs0 == 1) {
                 print *, "!! [a] fl( subnormal ) may be 0"
@@ -110,7 +110,7 @@ void main() {
         } else {
             do while( Xj != limX(i) )
                 nTests = nTests + 1
-                Y = DCMPLX( Xj, 0.0d0 )
+                Y = DCMPLX( Xj, 0.0 )
                 R = ABS( Y )
                 if (R != Xj) {
                     caseAFails = caseAFails + 1
@@ -127,7 +127,7 @@ void main() {
       // Test (b) y = 0 + x * I, |y| = x
       for (i = 1; i <= N; i++) { // 20
         Xj = X(i)
-        if (Xj == 0.0d0) {
+        if (Xj == 0.0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if (debug || subnormalTreatedAs0 == 1) {
                 print *, "!! [b] fl( subnormal ) may be 0"
@@ -135,7 +135,7 @@ void main() {
         } else {
             do while( Xj != limX(i) )
                 nTests = nTests + 1
-                Y = DCMPLX( 0.0d0, Xj )
+                Y = DCMPLX( 0.0, Xj )
                 R = ABS( Y )
                 if (R != Xj) {
                     caseBFails = caseBFails + 1
@@ -157,7 +157,7 @@ void main() {
         } else {
             Xj = X(i)
         }
-        if (Xj == 0.0d0) {
+        if (Xj == 0.0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if (debug || subnormalTreatedAs0 == 1) {
                 print *, "!! [c] fl( subnormal ) may be 0"
@@ -187,15 +187,15 @@ void main() {
         } else {
             Xj = X(i)
         }
-        if (Xj == 0.0d0) {
+        if (Xj == 0.0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if (debug || subnormalTreatedAs0 == 1) {
                 print *, "!! [d] fl( subnormal ) may be 0"
             }
         } else {
             do while( Xj != limX(i) )
-                answerD = (oneHalf * Xj) * SQRT(2.0d0)
-                if (answerD == 0.0d0) {
+                answerD = (oneHalf * Xj) * SQRT(2.0)
+                if (answerD == 0.0) {
                     subnormalTreatedAs0 = subnormalTreatedAs0 + 1
                     if (debug || subnormalTreatedAs0 == 1) {
                         print *, "!! [d] fl( subnormal ) may be 0"
@@ -223,7 +223,7 @@ void main() {
         nTests = nTests + 1
         Y = cInf(i)
         R = ABS( Y )
-        if ( .not.(R > HUGE(0.0d0)) ) {
+        if ( .not.(R > HUGE(0.0)) ) {
             caseEFails = caseEFails + 1
             WRITE( *, FMT = 9997 ) 'i',i, Y, R
         }

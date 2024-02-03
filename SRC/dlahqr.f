@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO;
-      const              ZERO = 0.0d0, ONE = 1.0d0, TWO = 2.0d0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       double             DAT1, DAT2;
-      const              DAT1 = 3.0d0 / 4.0d0, DAT2 = -0.4375d0 ;
+      const              DAT1 = 3.0 / 4.0, DAT2 = -0.4375 ;
       int                KEXSH;
       const              KEXSH = 10 ;
       // ..

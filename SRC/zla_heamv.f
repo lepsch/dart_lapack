@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       double             ONE, ZERO;
-      const              ONE = 1.0D+0, ZERO = 0.0D+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               SYMB_ZERO;
@@ -98,7 +98,7 @@
             for (I = 1; I <= N; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0D+0
+                  Y( IY ) = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
@@ -127,7 +127,7 @@
             for (I = 1; I <= N; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0D+0
+                  Y( IY ) = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
@@ -158,7 +158,7 @@
             for (I = 1; I <= N; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0D+0
+                  Y( IY ) = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
@@ -190,7 +190,7 @@
             for (I = 1; I <= N; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0D+0
+                  Y( IY ) = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {

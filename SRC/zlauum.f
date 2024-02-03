@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             ONE;
-      const              ONE = 1.0D+0 ;
+      const              ONE = 1.0 ;
       COMPLEX*16         CONE
-      const              CONE = ( 1.0D+0, 0.0D+0 ) ;
+      const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;

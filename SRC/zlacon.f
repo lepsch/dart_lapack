@@ -18,9 +18,9 @@
       int                ITMAX;
       const              ITMAX = 5 ;
       double             ONE, TWO;
-      const              ONE = 1.0D0, TWO = 2.0D0 ;
+      const              ONE = 1.0, TWO = 2.0 ;
       COMPLEX*16         CZERO, CONE
-      const              CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, ITER, J, JLAST, JUMP;

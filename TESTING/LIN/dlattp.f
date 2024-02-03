@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       double             ONE, TWO, ZERO;
-      const              ONE = 1.0D+0, TWO = 2.0D+0, ZERO = 0.0D+0 ;
+      const              ONE = 1.0, TWO = 2.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
@@ -184,8 +184,8 @@
 
          // where c = w / sqrt(w**2+4) and s = 2 / sqrt(w**2+4).
 
-         STAR1 = 0.25D0
-         SFAC = 0.5D0
+         STAR1 = 0.25;
+         SFAC = 0.5;
          PLUS1 = SFAC
          DO 90 J = 1, N, 2
             PLUS2 = STAR1 / PLUS1

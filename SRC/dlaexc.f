@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       double             TEN;
-      const              TEN = 1.0D+1 ;
+      const              TEN = 1.0e+1 ;
       int                LDD, LDX;
       const              LDD = 4, LDX = 2 ;
       // ..

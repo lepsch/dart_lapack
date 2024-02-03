@@ -19,13 +19,13 @@
 
       // .. Parameters ..
       double             ZERO;
-      const              ZERO = 0.0D+0 ;
+      const              ZERO = 0.0 ;
       double             ONE;
-      const              ONE = 1.0D+0 ;
+      const              ONE = 1.0 ;
       COMPLEX*16         CZERO
-      const              CZERO = ( 0.0D+0, 0.0D+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ) ;
       double             TWOPI;
-      const      TWOPI = 6.28318530717958647692528676655900576839D+0 ;
+      const      TWOPI = 6.28318530717958647692528676655900576839 ;
       // ..
       // .. Local Scalars ..
       COMPLEX*16         C, CT, DUMMY, EXTRA, S, ST, ZTEMP
@@ -140,7 +140,7 @@
 
       GIVENS = false;
       if ( ISYM == 1 ) {
-         IF( DBLE( LLB+UUB ) < 0.3D0*DBLE( MAX( 1, MR+NC ) ) ) GIVENS = true;
+         IF( DBLE( LLB+UUB ) < 0.3*DBLE( MAX( 1, MR+NC ) ) ) GIVENS = true;
       } else {
          if (2*LLB < M) GIVENS = true ;
       }

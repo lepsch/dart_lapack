@@ -13,7 +13,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TEN;
-      const              ZERO = 0.0D0, ONE = 1.0D+0, TEN = 1.0D1 ;
+      const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e1 ;
       int                NSZ, NSZB;
       const              NSZ = 5, NSZB = 3*NSZ-2 ;
       int                NSZP, NPOW;

@@ -20,7 +20,7 @@
       int                INB, INBMIN, IXOVER;
       const              INB = 1, INBMIN = 2, IXOVER = 3 ;
       double             ZERO, ONE, TWO;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, DONE;

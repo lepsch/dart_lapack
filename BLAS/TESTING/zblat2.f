@@ -11,9 +11,9 @@ void main() {
       int                NSUBS;
       const              NSUBS = 17 ;
       COMPLEX*16         ZERO, ONE
-      const              ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO;
-      const              RZERO = 0.0D0 ;
+      const              RZERO = 0.0 ;
       int                NMAX, INCMAX;
       const              NMAX = 65, INCMAX = 2 ;
       int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX;
@@ -292,9 +292,9 @@ void main() {
 
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF
-      const              ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       double             RZERO;
-      const              RZERO = 0.0D0 ;
+      const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA;
@@ -604,9 +604,9 @@ void main() {
 
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF
-      const              ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       double             RZERO;
-      const              RZERO = 0.0D0 ;
+      const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA;
@@ -901,9 +901,9 @@ void main() {
 
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
-      const              ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO;
-      const              RZERO = 0.0D0 ;
+      const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA;
@@ -1202,9 +1202,9 @@ void main() {
 
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
-      const              ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO;
-      const              RZERO = 0.0D0 ;
+      const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA;
@@ -1441,9 +1441,9 @@ void main() {
 
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
-      const              ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO;
-      const              RZERO = 0.0D0 ;
+      const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA;
@@ -1692,9 +1692,9 @@ void main() {
 
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
-      const              ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO;
-      const              RZERO = 0.0D0 ;
+      const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA;
@@ -2316,13 +2316,13 @@ void main() {
 
       // .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      const              ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       COMPLEX*16         ROGUE
-      const              ROGUE = ( -1.0D10, 1.0D10 ) ;
+      const              ROGUE = ( -1.0e10, 1.0e10 ) ;
       double             RZERO;
-      const              RZERO = 0.0D0 ;
+      const              RZERO = 0.0 ;
       double             RROGUE;
-      const              RROGUE = -1.0D10 ;
+      const              RROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
       COMPLEX*16         TRANSL
       int                KL, KU, LDA, M, N, NMAX;
@@ -2491,9 +2491,9 @@ void main() {
 
       // .. Parameters ..
       COMPLEX*16         ZERO
-      const              ZERO = ( 0.0D0, 0.0D0 ) ;
+      const              ZERO = ( 0.0, 0.0 ) ;
       double             RZERO, RONE;
-      const              RZERO = 0.0D0, RONE = 1.0D0 ;
+      const              RZERO = 0.0, RONE = 1.0 ;
       // .. Scalar Arguments ..
       COMPLEX*16         ALPHA, BETA
       double             EPS, ERR;
@@ -2735,7 +2735,7 @@ void main() {
          IC = 0
          GO TO 10
       }
-      ZBEG = DCMPLX( ( I - 500 )/1001.0D0, ( J - 500 )/1001.0D0 )
+      ZBEG = DCMPLX( ( I - 500 )/1001.0, ( J - 500 )/1001.0 )
       RETURN
 
       // End of ZBEG
@@ -2804,14 +2804,14 @@ void main() {
       N = 5
       KL = 0
       KU = 0
-      ALPHA = DCMPLX( 1.0D0 )
+      ALPHA = DCMPLX( 1.0 )
       LDA = MAX( 1, M )
       INCX = 1
-      BETA = DCMPLX( -0.7D0, -0.8D0 )
+      BETA = DCMPLX( -0.7, -0.8 )
       INCY = 1
       LY = ABS( INCY )*N
       for (I = 1; I <= LY; I++) { // 10
-         Y( I ) = DCMPLX( 42.0D0, DBLE( I ) )
+         Y( I ) = DCMPLX( 42.0, DBLE( I ) )
          YS( I ) = Y( I )
       } // 10
       RETURN

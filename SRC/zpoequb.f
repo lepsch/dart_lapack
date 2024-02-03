@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
@@ -59,7 +59,7 @@
       }
 
       BASE = DLAMCH( 'B' )
-      TMP = -0.5D+0 / LOG ( BASE )
+      TMP = -0.5 / LOG ( BASE )
 
       // Find the minimum and maximum diagonal elements.
 

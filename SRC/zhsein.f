@@ -19,9 +19,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO
-      const              ZERO = ( 0.0D+0, 0.0D+0 ) ;
+      const              ZERO = ( 0.0, 0.0 ) ;
       double             RZERO;
-      const              RZERO = 0.0D+0 ;
+      const              RZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               BOTHV, FROMQR, LEFTV, NOINIT, RIGHTV;

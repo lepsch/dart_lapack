@@ -19,7 +19,7 @@
       // .. Parameters ..
       double             RONE;
       double             ZERO, ONE, HALF;
-      const              RONE = 1.0D+0, ZERO = 0.0D+0, ONE = 1.0D+0, HALF = 0.5D+0 ;
+      const              RONE = 1.0, ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, UPPER;

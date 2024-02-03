@@ -18,7 +18,7 @@
       int                MAXIT;
       const              MAXIT = 30 ;
       double             ZERO, ONE, TWO, THREE, FOUR, EIGHT, TEN;
-      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0, FOUR = 4.0D0, EIGHT = 8.0D0, TEN = 10.0D0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, EIGHT = 8.0, TEN = 10.0 ;
       // ..
       // .. Local Scalars ..
       bool               ORGATI, SWTCH, SWTCH3;
