@@ -62,7 +62,7 @@
       dorglq(N, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       for (ISIDE = 1; ISIDE <= 2; ISIDE++) { // 30
-         if ( ISIDE.EQ.1 ) {
+         if ( ISIDE == 1 ) {
             SIDE = 'L'
             MC = N
             NC = M
@@ -78,10 +78,10 @@
             dlarnv(2, ISEED, MC, C( 1, J ) );
          } // 10
          CNORM = DLANGE( '1', MC, NC, C, LDA, RWORK )
-         if (CNORM.EQ.0.0D0) CNORM = ONE;
+         if (CNORM == 0.0D0) CNORM = ONE;
 
          for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 20
-            if ( ITRANS.EQ.1 ) {
+            if ( ITRANS == 1 ) {
                TRANS = 'N'
             } else {
                TRANS = 'T'

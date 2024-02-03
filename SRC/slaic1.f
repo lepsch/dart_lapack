@@ -39,15 +39,15 @@
       ABSGAM = ABS( GAMMA )
       ABSEST = ABS( SEST )
 
-      if ( JOB.EQ.1 ) {
+      if ( JOB == 1 ) {
 
          // Estimating largest singular value
 
          // special cases
 
-         if ( SEST.EQ.ZERO ) {
+         if ( SEST == ZERO ) {
             S1 = MAX( ABSGAM, ABSALP )
-            if ( S1.EQ.ZERO ) {
+            if ( S1 == ZERO ) {
                S = ZERO
                C = ONE
                SESTPR = ZERO
@@ -122,15 +122,15 @@
             RETURN
          }
 
-      } else if ( JOB.EQ.2 ) {
+      } else if ( JOB == 2 ) {
 
          // Estimating smallest singular value
 
          // special cases
 
-         if ( SEST.EQ.ZERO ) {
+         if ( SEST == ZERO ) {
             SESTPR = ZERO
-            if ( MAX( ABSGAM, ABSALP ).EQ.ZERO ) {
+            if ( MAX( ABSGAM, ABSALP ) == ZERO ) {
                SINE = ONE
                COSINE = ZERO
             } else {

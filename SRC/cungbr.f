@@ -40,7 +40,7 @@
       INFO = 0
       WANTQ = LSAME( VECT, 'Q' )
       MN = MIN( M, N )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.WANTQ .AND. .NOT.LSAME( VECT, 'P' ) ) {
          INFO = -1
       } else if ( M.LT.0 ) {
@@ -55,7 +55,7 @@
          INFO = -9
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          WORK( 1 ) = 1
          if ( WANTQ ) {
             if ( M.GE.K ) {
@@ -88,7 +88,7 @@
 
       // Quick return if possible
 
-      if ( M.EQ.0 .OR. N.EQ.0 ) {
+      if ( M == 0 .OR. N == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }

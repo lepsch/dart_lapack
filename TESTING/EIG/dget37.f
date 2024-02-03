@@ -71,7 +71,7 @@
 
       } // 10
       READ( NIN, FMT = * )N
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
       } // 20
@@ -92,7 +92,7 @@
          for (I = 1; I <= N; I++) { // 40
             dscal(N, VMUL, T( 1, I ), 1 );
          } // 40
-         if (TNRM.EQ.ZERO) VMUL = ONE;
+         if (TNRM == ZERO) VMUL = ONE;
 
          // Compute eigenvalues and eigenvectors
 
@@ -165,7 +165,7 @@
          // taking their condition numbers into account
 
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
-         if (TNRM.EQ.ZERO) V = ONE;
+         if (TNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 90
             if ( V.GT.SEPTMP( I ) ) {
                TOL = ONE
@@ -192,7 +192,7 @@
             }
             if ( VMAX.GT.RMAX( 2 ) ) {
                RMAX( 2 ) = VMAX
-               IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
+               IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT
             }
          } // 90
 
@@ -225,7 +225,7 @@
             }
             if ( VMAX.GT.RMAX( 2 ) ) {
                RMAX( 2 ) = VMAX
-               IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
+               IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT
             }
          } // 100
 
@@ -248,7 +248,7 @@
             }
             if ( VMAX.GT.RMAX( 3 ) ) {
                RMAX( 3 ) = VMAX
-               IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
+               IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT
             }
          } // 110
 
@@ -271,7 +271,7 @@
             }
             if ( VMAX.GT.RMAX( 3 ) ) {
                RMAX( 3 ) = VMAX
-               IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
+               IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT
             }
          } // 120
 
@@ -351,16 +351,16 @@
          } // 180
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
-            IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
+            IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT
          }
 
          // Select first real and first complex eigenvalue
 
-         if ( WI( 1 ).EQ.ZERO ) {
+         if ( WI( 1 ) == ZERO ) {
             LCMP( 1 ) = 1
             IFND = 0
             for (I = 2; I <= N; I++) { // 190
-               if ( IFND.EQ.1 .OR. WI( I ).EQ.ZERO ) {
+               if ( IFND == 1 .OR. WI( I ) == ZERO ) {
                   SELECT( I ) = false;
                } else {
                   IFND = 1
@@ -372,7 +372,7 @@
                   dcopy(N, LE( 1, I+1 ), 1, LE( 1, 3 ), 1 );
                }
             } // 190
-            if ( IFND.EQ.0 ) {
+            if ( IFND == 0 ) {
                ICMP = 1
             } else {
                ICMP = 3
@@ -382,7 +382,7 @@
             LCMP( 2 ) = 2
             IFND = 0
             for (I = 3; I <= N; I++) { // 200
-               if ( IFND.EQ.1 .OR. WI( I ).NE.ZERO ) {
+               if ( IFND == 1 .OR. WI( I ).NE.ZERO ) {
                   SELECT( I ) = false;
                } else {
                   LCMP( 3 ) = I
@@ -391,7 +391,7 @@
                   dcopy(N, LE( 1, I ), 1, LE( 1, 3 ), 1 );
                }
             } // 200
-            if ( IFND.EQ.0 ) {
+            if ( IFND == 0 ) {
                ICMP = 2
             } else {
                ICMP = 3
@@ -444,7 +444,7 @@
          } // 230
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
-            IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
+            IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT
          }
       } // 240
       GO TO 10

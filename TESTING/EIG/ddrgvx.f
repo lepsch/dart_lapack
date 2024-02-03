@@ -68,7 +68,7 @@
         // following subroutine, as returned by ILAENV.)
 
       MINWRK = 1
-      if ( INFO.EQ.0 .AND. LWORK.GE.1 ) {
+      if ( INFO == 0 .AND. LWORK.GE.1 ) {
          MINWRK = 2*NMAX*NMAX + 12*NMAX + 16
          MAXWRK = 6*NMAX + NMAX*ILAENV( 1, 'DGEQRF', ' ', NMAX, 1, NMAX, 0 )
          MAXWRK = MAX( MAXWRK, 2*NMAX*NMAX+12*NMAX+16 )
@@ -90,7 +90,7 @@
       NPTKNT = 0
       NTESTT = 0
 
-      if (NSIZE.EQ.0) GO TO 90;
+      if (NSIZE == 0) GO TO 90;
 
       // Parameters used for generating test matrices.
 
@@ -148,9 +148,9 @@
 
                      RESULT( 3 ) = ZERO
                      for (I = 1; I <= N; I++) { // 10
-                        if ( S( I ).EQ.ZERO ) {
+                        if ( S( I ) == ZERO ) {
                            IF( DTRU( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
-                        } else if ( DTRU( I ).EQ.ZERO ) {
+                        } else if ( DTRU( I ) == ZERO ) {
                            IF( S( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
                         } else {
                            WORK( I ) = MAX( ABS( DTRU( I ) / S( I ) ), ABS( S( I ) / DTRU( I ) ) )
@@ -161,13 +161,13 @@
                      // Test (4)
 
                      RESULT( 4 ) = ZERO
-                     if ( DIF( 1 ).EQ.ZERO ) {
+                     if ( DIF( 1 ) == ZERO ) {
                         IF( DIFTRU( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-                     } else if ( DIFTRU( 1 ).EQ.ZERO ) {
+                     } else if ( DIFTRU( 1 ) == ZERO ) {
                         IF( DIF( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-                     } else if ( DIF( 5 ).EQ.ZERO ) {
+                     } else if ( DIF( 5 ) == ZERO ) {
                         IF( DIFTRU( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-                     } else if ( DIFTRU( 5 ).EQ.ZERO ) {
+                     } else if ( DIFTRU( 5 ) == ZERO ) {
                         IF( DIF( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
                      } else {
                         RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )                         RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) )
@@ -184,7 +184,7 @@
                         // If this is the first test to fail,
                         // print a header to the data file.
 
-                           if ( NERRS.EQ.0 ) {
+                           if ( NERRS == 0 ) {
                               WRITE( NOUT, FMT = 9997 )'DXV'
 
                            // Print out messages for built-in examples
@@ -225,7 +225,7 @@
       // Read input data until N=0
 
       READ( NIN, FMT = *, END = 150 )N
-      if (N.EQ.0) GO TO 150;
+      if (N == 0) GO TO 150;
       for (I = 1; I <= N; I++) { // 100
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
       } // 100
@@ -276,9 +276,9 @@
 
       RESULT( 3 ) = ZERO
       for (I = 1; I <= N; I++) { // 120
-         if ( S( I ).EQ.ZERO ) {
+         if ( S( I ) == ZERO ) {
             IF( DTRU( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
-         } else if ( DTRU( I ).EQ.ZERO ) {
+         } else if ( DTRU( I ) == ZERO ) {
             IF( S( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
          } else {
             WORK( I ) = MAX( ABS( DTRU( I ) / S( I ) ), ABS( S( I ) / DTRU( I ) ) )
@@ -289,13 +289,13 @@
       // Test (4)
 
       RESULT( 4 ) = ZERO
-      if ( DIF( 1 ).EQ.ZERO ) {
+      if ( DIF( 1 ) == ZERO ) {
          IF( DIFTRU( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-      } else if ( DIFTRU( 1 ).EQ.ZERO ) {
+      } else if ( DIFTRU( 1 ) == ZERO ) {
          IF( DIF( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-      } else if ( DIF( 5 ).EQ.ZERO ) {
+      } else if ( DIF( 5 ) == ZERO ) {
          IF( DIFTRU( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-      } else if ( DIFTRU( 5 ).EQ.ZERO ) {
+      } else if ( DIFTRU( 5 ) == ZERO ) {
          IF( DIF( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
       } else {
          RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )          RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) )
@@ -312,7 +312,7 @@
             // If this is the first test to fail,
             // print a header to the data file.
 
-            if ( NERRS.EQ.0 ) {
+            if ( NERRS == 0 ) {
                WRITE( NOUT, FMT = 9997 )'DXV'
 
                // Print out messages for built-in examples

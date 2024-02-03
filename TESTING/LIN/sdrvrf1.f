@@ -74,10 +74,10 @@
 
          for (IIT = 1; IIT <= 3; IIT++) { // 120
             // Nothing to do for N=0
-            if (N .EQ. 0) EXIT;
+            if (N == 0) EXIT;
 
             // Quick Return if possible
-            if (N .EQ. 0) EXIT;
+            if (N == 0) EXIT;
 
             // IIT = 1 : random matrix
             // IIT = 2 : random matrix scaled near underflow
@@ -89,7 +89,7 @@
                }
             }
 
-            if ( IIT.EQ.2 ) {
+            if ( IIT == 2 ) {
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
                      A( I, J) = A( I, J ) * LARGE
@@ -97,7 +97,7 @@
                }
             }
 
-            if ( IIT.EQ.3 ) {
+            if ( IIT == 3 ) {
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
                      A( I, J) = A( I, J) * SMALL
@@ -123,7 +123,7 @@
                   // Check error code from STRTTF
 
                   if ( INFO.NE.0 ) {
-                     if ( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) {
+                     if ( NFAIL == 0 .AND. NERRS == 0 ) {
                         WRITE( NOUT, * )
                         WRITE( NOUT, FMT = 9999 )
                      }
@@ -144,7 +144,7 @@
                      NRUN = NRUN + 1
 
                      if ( RESULT(1).GE.THRESH ) {
-                        if ( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) {
+                        if ( NFAIL == 0 .AND. NERRS == 0 ) {
                            WRITE( NOUT, * )
                            WRITE( NOUT, FMT = 9999 )
                         }
@@ -159,7 +159,7 @@
 
       // Print a summary of the results.
 
-      if ( NFAIL.EQ.0 ) {
+      if ( NFAIL == 0 ) {
          WRITE( NOUT, FMT = 9996 ) 'SLANSF', NRUN
       } else {
          WRITE( NOUT, FMT = 9995 ) 'SLANSF', NFAIL, NRUN

@@ -42,7 +42,7 @@
       // Compute the LU factorization of A.
 
       zgetrf(N, N, A, LDA, IPIV, INFO );
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 

@@ -89,7 +89,7 @@
 
       // Quick return if nothing to do
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       // More Important constants
 
@@ -186,10 +186,10 @@
 
                     // Zero
 
-            if ( ITYPE.EQ.1 ) {
+            if ( ITYPE == 1 ) {
                IINFO = 0
 
-            } else if ( ITYPE.EQ.2 ) {
+            } else if ( ITYPE == 2 ) {
 
                // Identity
 
@@ -197,31 +197,31 @@
                   A( JCOL, JCOL ) = ANORM
                } // 80
 
-            } else if ( ITYPE.EQ.4 ) {
+            } else if ( ITYPE == 4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO );
 
-            } else if ( ITYPE.EQ.5 ) {
+            } else if ( ITYPE == 5 ) {
 
                // Hermitian, eigenvalues specified
 
                zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
-            } else if ( ITYPE.EQ.7 ) {
+            } else if ( ITYPE == 7 ) {
 
                // Diagonal, random eigenvalues
 
                zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.8 ) {
+            } else if ( ITYPE == 8 ) {
 
                // Hermitian, random eigenvalues
 
                zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.9 ) {
+            } else if ( ITYPE == 9 ) {
 
                // Hermitian banded, eigenvalues specified
 
@@ -270,7 +270,7 @@
             // part of matrix.
 
             for (IUPLO = 0; IUPLO <= 1; IUPLO++) { // 1200
-               if ( IUPLO.EQ.0 ) {
+               if ( IUPLO == 0 ) {
                   UPLO = 'L'
                } else {
                   UPLO = 'U'
@@ -475,7 +475,7 @@
                   }
                }
 
-               if ( M3.EQ.0 .AND. N.GT.0 ) {
+               if ( M3 == 0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 170
                }
@@ -500,7 +500,7 @@
                // Load array WORK with the upper or lower triangular
                // part of the matrix in packed form.
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 190
                      for (I = 1; I <= J; I++) { // 180
@@ -538,7 +538,7 @@
 
                zhet21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 230
                      for (I = 1; I <= J; I++) { // 220
@@ -584,7 +584,7 @@
                // of the matrix in packed form.
 
                } // 270
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 290
                      for (I = 1; I <= J; I++) { // 280
@@ -642,7 +642,7 @@
 
                NTEST = NTEST + 2
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 330
                      for (I = 1; I <= J; I++) { // 320
@@ -684,7 +684,7 @@
 
                } // 370
                NTEST = NTEST + 1
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 390
                      for (I = 1; I <= J; I++) { // 380
@@ -722,7 +722,7 @@
 
                NTEST = NTEST + 2
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 430
                      for (I = 1; I <= J; I++) { // 420
@@ -765,7 +765,7 @@
 
                } // 460
                NTEST = NTEST + 1
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 480
                      for (I = 1; I <= J; I++) { // 470
@@ -803,7 +803,7 @@
 
                NTEST = NTEST + 2
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 520
                      for (I = 1; I <= J; I++) { // 510
@@ -833,7 +833,7 @@
                   }
                }
 
-               if ( M3.EQ.0 .AND. N.GT.0 ) {
+               if ( M3 == 0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 550
                }
@@ -864,7 +864,7 @@
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 570
                      DO 560 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -897,7 +897,7 @@
 
                zhet21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 610
                      DO 600 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -938,7 +938,7 @@
                // of the matrix in band form.
 
                } // 650
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 670
                      DO 660 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -973,7 +973,7 @@
 
                NTEST = NTEST + 2
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 710
                      DO 700 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1014,7 +1014,7 @@
 
                } // 750
                NTEST = NTEST + 1
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 770
                      DO 760 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1048,7 +1048,7 @@
 
                NTEST = NTEST + 2
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 810
                      DO 800 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1089,7 +1089,7 @@
 
                } // 840
                NTEST = NTEST + 1
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 860
                      DO 850 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1122,7 +1122,7 @@
 
                NTEST = NTEST + 2
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 900
                      DO 890 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1147,7 +1147,7 @@
                   }
                }
 
-               if ( M3.EQ.0 .AND. N.GT.0 ) {
+               if ( M3 == 0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 930
                }
@@ -1222,7 +1222,7 @@
                // Load array WORK with the upper or lower triangular
                // part of the matrix in packed form.
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 970
                      for (I = 1; I <= J; I++) { // 960
@@ -1260,7 +1260,7 @@
 
                zhet21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 1010
                      for (I = 1; I <= J; I++) { // 1000
@@ -1317,7 +1317,7 @@
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1070
                      DO 1060 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1350,7 +1350,7 @@
 
                zhet21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1110
                      DO 1100 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1515,7 +1515,7 @@
                   }
                }
 
-               if ( M3.EQ.0 .AND. N.GT.0 ) {
+               if ( M3 == 0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 1190
                }

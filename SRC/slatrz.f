@@ -29,9 +29,9 @@
 
       // Quick return if possible
 
-      if ( M.EQ.0 ) {
+      if ( M == 0 ) {
          RETURN
-      } else if ( M.EQ.N ) {
+      } else if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
             TAU( I ) = ZERO
          } // 10

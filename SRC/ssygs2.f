@@ -55,7 +55,7 @@
          RETURN
       }
 
-      if ( ITYPE.EQ.1 ) {
+      if ( ITYPE == 1 ) {
          if ( UPPER ) {
 
             // Compute inv(U**T)*A*inv(U)

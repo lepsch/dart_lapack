@@ -37,7 +37,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 .OR. M.LT.N ) {
@@ -108,7 +108,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N ).EQ.0 ) {
+      if ( MIN( M, N ) == 0 ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
          RETURN
       }
@@ -153,7 +153,7 @@
       // are accessed only once.
 
       for (I = 1; I <= N; I++) {
-         if ( WORK( LWT+N*N+I ).EQ.-ONE ) {
+         if ( WORK( LWT+N*N+I ) == -ONE ) {
             for (J = I; J <= N; J++) {
                A( I, J ) = -ONE * WORK( LWT+N*(J-1)+I )
             }

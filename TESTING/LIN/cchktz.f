@@ -107,7 +107,7 @@
                   // Generate test matrix of size m by n using
                   // singular value distribution indicated by `mode'.
 
-                  if ( MODE.EQ.0 ) {
+                  if ( MODE == 0 ) {
                      claset('Full', M, N, CMPLX( ZERO ), CMPLX( ZERO ), A, LDA );
                      for (I = 1; I <= MNMIN; I++) { // 30
                         S( I ) = ZERO
@@ -146,7 +146,7 @@
 
                   for (K = 1; K <= NTESTS; K++) { // 40
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 40

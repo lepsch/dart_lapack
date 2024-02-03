@@ -54,7 +54,7 @@
          SUBNAM = NAME
          IC = ICHAR( SUBNAM( 1: 1 ) )
          IZ = ICHAR( 'Z' )
-         if ( IZ.EQ.90 .OR. IZ.EQ.122 ) {
+         if ( IZ == 90 .OR. IZ == 122 ) {
 
             // ASCII character set
 
@@ -66,7 +66,7 @@
                } // 100
             }
 
-         } else if ( IZ.EQ.233 .OR. IZ.EQ.169 ) {
+         } else if ( IZ == 233 .OR. IZ == 169 ) {
 
             // EBCDIC character set
 
@@ -78,7 +78,7 @@
                } // 110
             }
 
-         } else if ( IZ.EQ.218 .OR. IZ.EQ.250 ) {
+         } else if ( IZ == 218 .OR. IZ == 250 ) {
 
             // Prime machines:  ASCII+128
 
@@ -94,8 +94,8 @@
          PREC  = SUBNAM( 1: 1 )
          ALGO  = SUBNAM( 4: 6 )
          STAG  = SUBNAM( 8:12 )
-         RPREC = PREC.EQ.'S' .OR. PREC.EQ.'D'
-         CPREC = PREC.EQ.'C' .OR. PREC.EQ.'Z'
+         RPREC = PREC == 'S' .OR. PREC == 'D'
+         CPREC = PREC == 'C' .OR. PREC == 'Z'
 
          // Invalid value for PRECISION
 
@@ -108,7 +108,7 @@
       // $           '   ALGO ',ALGO,'    STAGE ',STAG
 
 
-      if (( ISPEC .EQ. 17 ) .OR. ( ISPEC .EQ. 18 )) {
+      if (( ISPEC == 17 ) .OR. ( ISPEC == 18 )) {
 
       // ISPEC = 17, 18:  block size KD, IB
       // Could be also dependent from N but for now it
@@ -139,10 +139,10 @@
                IB = 16
             }
          }
-         if (ISPEC.EQ.17) IPARAM2STAGE = KD;
-         if (ISPEC.EQ.18) IPARAM2STAGE = IB;
+         if (ISPEC == 17) IPARAM2STAGE = KD;
+         if (ISPEC == 18) IPARAM2STAGE = IB;
 
-      } else if ( ISPEC .EQ. 19 ) {
+      } else if ( ISPEC == 19 ) {
 
       // ISPEC = 19:
       // LHOUS length of the Houselholder representation
@@ -162,7 +162,7 @@
             IPARAM2STAGE = -1
          }
 
-      } else if ( ISPEC .EQ. 20 ) {
+      } else if ( ISPEC == 20 ) {
 
       // ISPEC = 20: (21 for future use)
       // LWORK length of the workspace for
@@ -185,20 +185,20 @@
          LQOPTNB      = ILAENV( 1, SUBNAM, ' ', NBI, NI, -1, -1 )
          // Could be QR or LQ for TRD and the max for BRD
          FACTOPTNB    = MAX(QROPTNB, LQOPTNB)
-         if ( ALGO.EQ.'TRD' ) {
-            if ( STAG.EQ.'2STAG' ) {
+         if ( ALGO == 'TRD' ) {
+            if ( STAG == '2STAG' ) {
                LWORK = NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI
-            } else if ( (STAG.EQ.'HE2HB').OR.(STAG.EQ.'SY2SB') ) {
+            } else if ( (STAG == 'HE2HB').OR.(STAG == 'SY2SB') ) {
                LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI
-            } else if ( (STAG.EQ.'HB2ST').OR.(STAG.EQ.'SB2ST') ) {
+            } else if ( (STAG == 'HB2ST').OR.(STAG == 'SB2ST') ) {
                LWORK = (2*NBI+1)*NI + NBI*NTHREADS
             }
-         } else if ( ALGO.EQ.'BRD' ) {
-            if ( STAG.EQ.'2STAG' ) {
+         } else if ( ALGO == 'BRD' ) {
+            if ( STAG == '2STAG' ) {
                LWORK = 2*NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI
-            } else if ( STAG.EQ.'GE2GB' ) {
+            } else if ( STAG == 'GE2GB' ) {
                LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI
-            } else if ( STAG.EQ.'GB2BD' ) {
+            } else if ( STAG == 'GB2BD' ) {
                LWORK = (3*NBI+1)*NI + NBI*NTHREADS
             }
          }
@@ -210,7 +210,7 @@
             IPARAM2STAGE = -1
          }
 
-      } else if ( ISPEC .EQ. 21 ) {
+      } else if ( ISPEC == 21 ) {
 
       // ISPEC = 21 for future use
          IPARAM2STAGE = NXI

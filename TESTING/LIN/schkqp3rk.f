@@ -143,7 +143,7 @@
             // 18. Random, CNDNUM = 2, scaled near underflow                           CNDNUM = 2                      SMALL = SAFMIN
             // 19. Random, CNDNUM = 2, scaled near overflow                            CNDNUM = 2                      LARGE = 1.0/( 0.25 * ( SAFMIN / EPS ) )  3 ( geometric distribution of singular values )
 
-               if ( IMAT.EQ.1 ) {
+               if ( IMAT == 1 ) {
 
                   // Matrix 1: Zero matrix
 
@@ -187,7 +187,7 @@
                   // J_FIRS_NZ is the index of the first non-zero
                   // column.
 
-                  if ( IMAT.EQ.5 ) {
+                  if ( IMAT == 5 ) {
 
                      // First column is zero.
 
@@ -195,7 +195,7 @@
                      NB_ZERO = 1
                      NB_GEN = N - NB_ZERO
 
-                  } else if ( IMAT.EQ.6 ) {
+                  } else if ( IMAT == 6 ) {
 
                      // Last column MINMN is zero.
 
@@ -203,7 +203,7 @@
                      NB_ZERO = 1
                      NB_GEN = N - NB_ZERO
 
-                  } else if ( IMAT.EQ.7 ) {
+                  } else if ( IMAT == 7 ) {
 
                      // Last column N is zero.
 
@@ -211,7 +211,7 @@
                      NB_ZERO = 1
                      NB_GEN = N - NB_ZERO
 
-                  } else if ( IMAT.EQ.8 ) {
+                  } else if ( IMAT == 8 ) {
 
                      // Middle column in MINMN is zero.
 
@@ -219,7 +219,7 @@
                      NB_ZERO = 1
                      NB_GEN = N - NB_ZERO
 
-                  } else if ( IMAT.EQ.9 ) {
+                  } else if ( IMAT == 9 ) {
 
                      // First half of MINMN columns is zero.
 
@@ -227,7 +227,7 @@
                      NB_ZERO = MINMN / 2
                      NB_GEN = N - NB_ZERO
 
-                  } else if ( IMAT.EQ.10 ) {
+                  } else if ( IMAT == 10 ) {
 
                      // Last columns are zero columns,
                      // starting from (MINMN / 2 + 1) column.
@@ -236,7 +236,7 @@
                      NB_ZERO = N - JB_ZERO + 1
                      NB_GEN = N - NB_ZERO
 
-                  } else if ( IMAT.EQ.11 ) {
+                  } else if ( IMAT == 11 ) {
 
                      // Half of the columns in the middle of MINMN
                      // columns is zero, starting from
@@ -246,7 +246,7 @@
                      NB_ZERO = MINMN / 2
                      NB_GEN = N - NB_ZERO
 
-                  } else if ( IMAT.EQ.12 ) {
+                  } else if ( IMAT == 12 ) {
 
                      // Odd-numbered columns are zero,
 
@@ -255,7 +255,7 @@
                      J_INC = 2
                      J_FIRST_NZ = 2
 
-                  } else if ( IMAT.EQ.13 ) {
+                  } else if ( IMAT == 13 ) {
 
                      // Even-numbered columns are zero.
 
@@ -295,7 +295,7 @@
                   // NB_GEN-size block in COPYA into correct column
                   // positions.
 
-                  if ( IMAT.EQ.6 .OR. IMAT.EQ.7 .OR. IMAT.EQ.8 .OR. IMAT.EQ.10 .OR. IMAT.EQ.11 ) {
+                  if ( IMAT == 6 .OR. IMAT == 7 .OR. IMAT == 8 .OR. IMAT == 10 .OR. IMAT == 11 ) {
 
                      // Move by swapping the generated columns
                      // from the right NB_GEN-size block from
@@ -306,7 +306,7 @@
                         sswap(M, COPYA( ( NB_ZERO+J-1)*LDA+1), 1, COPYA( (J-1)*LDA + 1 ), 1 );
                      }
 
-                  } else if ( IMAT.EQ.12 .OR. IMAT.EQ.13 ) {
+                  } else if ( IMAT == 12 .OR. IMAT == 13 ) {
 
                      // ( IMAT = 12, Odd-numbered ZERO columns. )
                      // Swap the generated columns from the right
@@ -408,13 +408,13 @@
 
                   // 2-norm(svd(R) - svd(A)) / ( max(M,N) * 2-norm(svd(A)) * EPS )
 
-                  if ( KFACT.EQ.MINMN ) {
+                  if ( KFACT == MINMN ) {
 
                      RESULT( 1 ) = SQRT12( M, N, A, LDA, S, WORK, LWORK )
 
                      for (T = 1; T <= 1; T++) {
                         if ( RESULT( T ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'SGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'SGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                            NFAIL = NFAIL + 1
                         }
                      }
@@ -445,7 +445,7 @@
 
                   for (T = 2; T <= 3; T++) {
                      if ( RESULT( T ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 ) 'SGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 ) 'SGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                         NFAIL = NFAIL + 1
                      }
                   }
@@ -479,7 +479,7 @@
 
                      for (T = 4; T <= 4; T++) {
                         if ( RESULT( T ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'SGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'SGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                            NFAIL = NFAIL + 1
                         }
                      }
@@ -519,7 +519,7 @@
 
                      for (T = 5; T <= 5; T++) {
                         if ( RESULT( T ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'SGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'SGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                            NFAIL = NFAIL + 1
                         }
                      }

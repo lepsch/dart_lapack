@@ -97,9 +97,9 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          if ( SOMCON ) {
             IF( .NOT.SELECT( 1 ) ) RETURN
          }
@@ -160,7 +160,7 @@
             clacn2(N-1, WORK( 1, N+1 ), WORK, EST, KASE, ISAVE );
 
             if ( KASE.NE.0 ) {
-               if ( KASE.EQ.1 ) {
+               if ( KASE == 1 ) {
 
                   // Solve C**H*x = scale*b
 
@@ -179,7 +179,7 @@
 
                   IX = ICAMAX( N-1, WORK, 1 )
                   XNORM = CABS1( WORK( IX, 1 ) )
-                  if (SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO) GO TO 40;
+                  if (SCALE.LT.XNORM*SMLNUM .OR. SCALE == ZERO) GO TO 40;
                   csrscl(N, SCALE, WORK, 1 );
                }
                GO TO 30

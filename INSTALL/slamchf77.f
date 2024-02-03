@@ -182,9 +182,9 @@
          A = 1
          C = 1
 
-*+       WHILE( C.EQ.ONE )LOOP
+*+       WHILE( C == ONE )LOOP
          } // 10
-         if ( C.EQ.ONE ) {
+         if ( C == ONE ) {
             A = 2*A
             C = SLAMC3( A, ONE )
             C = SLAMC3( C, -A )
@@ -200,9 +200,9 @@
          B = 1
          C = SLAMC3( A, B )
 
-*+       WHILE( C.EQ.A )LOOP
+*+       WHILE( C == A )LOOP
          } // 20
-         if ( C.EQ.A ) {
+         if ( C == A ) {
             B = 2*B
             C = SLAMC3( A, B )
             GO TO 20
@@ -225,14 +225,14 @@
          B = LBETA
          F = SLAMC3( B / 2, -B / 100 )
          C = SLAMC3( F, A )
-         if ( C.EQ.A ) {
+         if ( C == A ) {
             LRND = true;
          } else {
             LRND = false;
          }
          F = SLAMC3( B / 2, B / 100 )
          C = SLAMC3( F, A )
-         IF( ( LRND ) .AND. ( C.EQ.A ) ) LRND = false;
+         IF( ( LRND ) .AND. ( C == A ) ) LRND = false;
 
          // Try and decide whether rounding is done in the  IEEE  'round to
          // nearest' style. B/2 is half a unit in the last place of the two
@@ -242,7 +242,7 @@
 
          T1 = SLAMC3( B / 2, A )
          T2 = SLAMC3( B / 2, SAVEC )
-         LIEEE1 = ( T1.EQ.A ) .AND. ( T2.GT.SAVEC ) .AND. LRND
+         LIEEE1 = ( T1 == A ) .AND. ( T2.GT.SAVEC ) .AND. LRND
 
          // Now find  the  mantissa, t.  It should  be the  integer part of
          // log to the base beta of a,  however it is safer to determine  t
@@ -255,9 +255,9 @@
          A = 1
          C = 1
 
-*+       WHILE( C.EQ.ONE )LOOP
+*+       WHILE( C == ONE )LOOP
          } // 30
-         if ( C.EQ.ONE ) {
+         if ( C == ONE ) {
             LT = LT + 1
             A = A*LBETA
             C = SLAMC3( A, ONE )
@@ -450,12 +450,12 @@
          slamc4(GNMIN, -A, LBETA );
          IEEE = false;
 
-         if ( ( NGPMIN.EQ.NGNMIN ) .AND. ( GPMIN.EQ.GNMIN ) ) {
-            if ( NGPMIN.EQ.GPMIN ) {
+         if ( ( NGPMIN == NGNMIN ) .AND. ( GPMIN == GNMIN ) ) {
+            if ( NGPMIN == GPMIN ) {
                LEMIN = NGPMIN
              // ( Non twos-complement machines, no gradual underflow;
                // e.g.,  VAX )
-            } else if ( ( GPMIN-NGPMIN ).EQ.3 ) {
+            } else if ( ( GPMIN-NGPMIN ) == 3 ) {
                LEMIN = NGPMIN - 1 + LT
                IEEE = true;
              // ( Non twos-complement machines, with gradual underflow;
@@ -466,8 +466,8 @@
                IWARN = true;
             }
 
-         } else if ( ( NGPMIN.EQ.GPMIN ) .AND. ( NGNMIN.EQ.GNMIN ) ) {
-            if ( ABS( NGPMIN-NGNMIN ).EQ.1 ) {
+         } else if ( ( NGPMIN == GPMIN ) .AND. ( NGNMIN == GNMIN ) ) {
+            if ( ABS( NGPMIN-NGNMIN ) == 1 ) {
                LEMIN = MAX( NGPMIN, NGNMIN )
              // ( Twos-complement machines, no gradual underflow;
                // e.g., CYBER 205 )
@@ -477,8 +477,8 @@
                IWARN = true;
             }
 
-         } else if ( ( ABS( NGPMIN-NGNMIN ).EQ.1 ) .AND. ( GPMIN.EQ.GNMIN ) ) {
-            if ( ( GPMIN-MIN( NGPMIN, NGNMIN ) ).EQ.3 ) {
+         } else if ( ( ABS( NGPMIN-NGNMIN ) == 1 ) .AND. ( GPMIN == GNMIN ) ) {
+            if ( ( GPMIN-MIN( NGPMIN, NGNMIN ) ) == 3 ) {
                LEMIN = MAX( NGPMIN, NGNMIN ) - 1 + LT
              // ( Twos-complement machines with gradual underflow;
                // no known machine )
@@ -638,10 +638,10 @@
       C2 = A
       D1 = A
       D2 = A
-*+    WHILE( ( C1.EQ.A ).AND.( C2.EQ.A ).AND.
-*    $       ( D1.EQ.A ).AND.( D2.EQ.A )      )LOOP
+*+    WHILE( ( C1 == A ).AND.( C2 == A ).AND.
+*    $       ( D1 == A ).AND.( D2 == A )      )LOOP
       } // 10
-      if ( ( C1.EQ.A ) .AND. ( C2.EQ.A ) .AND. ( D1.EQ.A ) .AND. ( D2.EQ.A ) ) {
+      if ( ( C1 == A ) .AND. ( C2 == A ) .AND. ( D1 == A ) .AND. ( D2 == A ) ) {
          EMIN = EMIN - 1
          A = B1
          B1 = SLAMC3( A / BASE, ZERO )
@@ -756,7 +756,7 @@
          EXBITS = EXBITS + 1
          GO TO 10
       }
-      if ( LEXP.EQ.-EMIN ) {
+      if ( LEXP == -EMIN ) {
          UEXP = LEXP
       } else {
          UEXP = TRY
@@ -782,7 +782,7 @@
       // NBITS is the total number of bits needed to store a
       // floating-point number.
 
-      if ( ( MOD( NBITS, 2 ).EQ.1 ) .AND. ( BETA.EQ.2 ) ) {
+      if ( ( MOD( NBITS, 2 ) == 1 ) .AND. ( BETA == 2 ) ) {
 
          // Either there are an odd number of bits used to store a
          // floating-point number, which is unlikely, or some bits are

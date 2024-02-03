@@ -142,9 +142,9 @@
                // matrix to test that INFO is returned correctly.
 
                if ( ZEROT ) {
-                  if ( IMAT.EQ.3 ) {
+                  if ( IMAT == 3 ) {
                      IZERO = 1
-                  } else if ( IMAT.EQ.4 ) {
+                  } else if ( IMAT == 4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
@@ -154,7 +154,7 @@
 
                      // Set row and column IZERO to zero.
 
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*LDA
                         for (I = 1; I <= IZERO - 1; I++) { // 20
                            A( IOFF+I ) = ZERO
@@ -177,7 +177,7 @@
                      }
                   } else {
                      IOFF = 0
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
 
                         // Set the first IZERO rows and columns to zero.
 
@@ -224,7 +224,7 @@
 
                   // --- Test ZHESV_AA  ---
 
-                  if ( IFACT.EQ.2 ) {
+                  if ( IFACT == 2 ) {
                      zlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
                      zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
@@ -240,9 +240,9 @@
                         J = 1
                         K = IZERO
                         } // 100
-                        if ( J.EQ.K ) {
+                        if ( J == K ) {
                            K = IWORK( J )
-                        } else if ( IWORK( J ).EQ.K ) {
+                        } else if ( IWORK( J ) == K ) {
                            K = J
                         }
                         if ( J.LT.K ) {
@@ -278,7 +278,7 @@
 
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'ZHESV_AA', UPLO, N, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'ZHESV_AA', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 110

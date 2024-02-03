@@ -136,10 +136,10 @@
                   // Reuse the last matrix by copying back the zeroed out
                   // elements.
 
-                  if ( IZERO.EQ.1 ) {
+                  if ( IZERO == 1 ) {
                      A( N ) = Z( 2 )
                      if (N.GT.1) A( 1 ) = Z( 3 );
-                  } else if ( IZERO.EQ.N ) {
+                  } else if ( IZERO == N ) {
                      A( 3*N-2 ) = Z( 1 )
                      A( 2*N-1 ) = Z( 2 )
                   } else {
@@ -153,7 +153,7 @@
 
                if ( .NOT.ZEROT ) {
                   IZERO = 0
-               } else if ( IMAT.EQ.8 ) {
+               } else if ( IMAT == 8 ) {
                   IZERO = 1
                   Z( 2 ) = A( N )
                   A( N ) = ZERO
@@ -161,7 +161,7 @@
                      Z( 3 ) = A( 1 )
                      A( 1 ) = ZERO
                   }
-               } else if ( IMAT.EQ.9 ) {
+               } else if ( IMAT == 9 ) {
                   IZERO = N
                   Z( 1 ) = A( 3*N-2 )
                   Z( 2 ) = A( 2*N-1 )
@@ -197,7 +197,7 @@
             // Print the test ratio if it is .GE. THRESH.
 
             if ( RESULT( 1 ).GE.THRESH ) {
-               if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH );
+               if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 )
                NFAIL = NFAIL + 1
             }
@@ -205,7 +205,7 @@
 
             for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 50
                TRANS = TRANSS( ITRAN )
-               if ( ITRAN.EQ.1 ) {
+               if ( ITRAN == 1 ) {
                   NORM = 'O'
                } else {
                   NORM = 'I'
@@ -234,7 +234,7 @@
                   } else {
                      RCONDC = ( ONE / ANORM ) / AINVNM
                   }
-                  if ( ITRAN.EQ.1 ) {
+                  if ( ITRAN == 1 ) {
                      RCONDO = RCONDC
                   } else {
                      RCONDI = RCONDC
@@ -259,7 +259,7 @@
                // Print the test ratio if it is .GE. THRESH.
 
                if ( RESULT( 7 ).GE.THRESH ) {
-                  if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 7, RESULT( 7 );
+                  if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 7, RESULT( 7 );
                   NFAIL = NFAIL + 1
                }
                NRUN = NRUN + 1
@@ -282,7 +282,7 @@
 
                for (ITRAN = 1; ITRAN <= 3; ITRAN++) { // 80
                   TRANS = TRANSS( ITRAN )
-                  if ( ITRAN.EQ.1 ) {
+                  if ( ITRAN == 1 ) {
                      RCONDC = RCONDO
                   } else {
                      RCONDC = RCONDI
@@ -329,7 +329,7 @@
 
                   for (K = 2; K <= 6; K++) { // 70
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 70

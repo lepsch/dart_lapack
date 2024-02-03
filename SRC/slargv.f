@@ -32,9 +32,9 @@
       for (I = 1; I <= N; I++) { // 10
          F = X( IX )
          G = Y( IY )
-         if ( G.EQ.ZERO ) {
+         if ( G == ZERO ) {
             C( IC ) = ONE
-         } else if ( F.EQ.ZERO ) {
+         } else if ( F == ZERO ) {
             C( IC ) = ZERO
             Y( IY ) = ONE
             X( IX ) = G

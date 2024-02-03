@@ -86,7 +86,7 @@
          RESULT( I ) = -ONE
       } // 10
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Important constants
 
@@ -98,7 +98,7 @@
 
       SELOPT = 0
       for (ISORT = 0; ISORT <= 1; ISORT++) { // 90
-         if ( ISORT.EQ.0 ) {
+         if ( ISORT == 0 ) {
             SORT = 'N'
             RSUB = 0
          } else {
@@ -120,7 +120,7 @@
             INFO = ABS( IINFO )
             RETURN
          }
-         if ( ISORT.EQ.0 ) {
+         if ( ISORT == 0 ) {
             ccopy(N, W, 1, WTMP, 1 );
          }
 
@@ -202,7 +202,7 @@
 
          // Do Test (13)
 
-         if ( ISORT.EQ.1 ) {
+         if ( ISORT == 1 ) {
             RESULT( 13 ) = ZERO
             KNTEIG = 0
             for (I = 1; I <= N; I++) { // 80
@@ -420,13 +420,13 @@
          } // 230
          for (I = 1; I <= N - 1; I++) { // 250
             KMIN = I
-            if ( ISRT.EQ.0 ) {
+            if ( ISRT == 0 ) {
                VRIMIN = REAL( WTMP( I ) )
             } else {
                VRIMIN = AIMAG( WTMP( I ) )
             }
             for (J = I + 1; J <= N; J++) { // 240
-               if ( ISRT.EQ.0 ) {
+               if ( ISRT == 0 ) {
                   VRICMP = REAL( WTMP( J ) )
                } else {
                   VRICMP = AIMAG( WTMP( J ) )
@@ -464,7 +464,7 @@
 
          ANORM = CLANGE( '1', N, N, A, LDA, RWORK )
          V = MAX( REAL( N )*EPS*ANORM, SMLNUM )
-         if (ANORM.EQ.ZERO) V = ONE;
+         if (ANORM == ZERO) V = ONE;
          if ( V.GT.RCONDV ) {
             TOL = ONE
          } else {

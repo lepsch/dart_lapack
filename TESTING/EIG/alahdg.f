@@ -50,7 +50,7 @@
 
       WRITE( IOUNIT, FMT = 9999 )'Matrix types: '
 
-      if ( ITYPE.EQ.1 ) {
+      if ( ITYPE == 1 ) {
          WRITE( IOUNIT, FMT = 9950 )1
          WRITE( IOUNIT, FMT = 9952 )2
          WRITE( IOUNIT, FMT = 9954 )3
@@ -59,7 +59,7 @@
          WRITE( IOUNIT, FMT = 9957 )6
          WRITE( IOUNIT, FMT = 9961 )7
          WRITE( IOUNIT, FMT = 9962 )8
-      } else if ( ITYPE.EQ.2 ) {
+      } else if ( ITYPE == 2 ) {
          WRITE( IOUNIT, FMT = 9951 )1
          WRITE( IOUNIT, FMT = 9953 )2
          WRITE( IOUNIT, FMT = 9954 )3
@@ -68,7 +68,7 @@
          WRITE( IOUNIT, FMT = 9957 )6
          WRITE( IOUNIT, FMT = 9961 )7
          WRITE( IOUNIT, FMT = 9962 )8
-      } else if ( ITYPE.EQ.3 ) {
+      } else if ( ITYPE == 3 ) {
          WRITE( IOUNIT, FMT = 9950 )1
          WRITE( IOUNIT, FMT = 9952 )2
          WRITE( IOUNIT, FMT = 9954 )3
@@ -77,7 +77,7 @@
          WRITE( IOUNIT, FMT = 9955 )6
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = 9955 )8
-      } else if ( ITYPE.EQ.4 ) {
+      } else if ( ITYPE == 4 ) {
          WRITE( IOUNIT, FMT = 9951 )1
          WRITE( IOUNIT, FMT = 9953 )2
          WRITE( IOUNIT, FMT = 9954 )3
@@ -86,7 +86,7 @@
          WRITE( IOUNIT, FMT = 9955 )6
          WRITE( IOUNIT, FMT = 9955 )7
          WRITE( IOUNIT, FMT = 9955 )8
-      } else if ( ITYPE.EQ.5 ) {
+      } else if ( ITYPE == 5 ) {
          WRITE( IOUNIT, FMT = 9950 )1
          WRITE( IOUNIT, FMT = 9952 )2
          WRITE( IOUNIT, FMT = 9954 )3
@@ -95,7 +95,7 @@
          WRITE( IOUNIT, FMT = 9957 )6
          WRITE( IOUNIT, FMT = 9959 )7
          WRITE( IOUNIT, FMT = 9960 )8
-      } else if ( ITYPE.EQ.6 ) {
+      } else if ( ITYPE == 6 ) {
          WRITE( IOUNIT, FMT = 9963 )1
          WRITE( IOUNIT, FMT = 9964 )2
          WRITE( IOUNIT, FMT = 9965 )3
@@ -105,7 +105,7 @@
 
       WRITE( IOUNIT, FMT = 9999 )'Test ratios: '
 
-      if ( ITYPE.EQ.1 ) {
+      if ( ITYPE == 1 ) {
 
          // GQR decomposition of rectangular matrices
 
@@ -113,7 +113,7 @@
          WRITE( IOUNIT, FMT = 9931 )2
          WRITE( IOUNIT, FMT = 9932 )3
          WRITE( IOUNIT, FMT = 9933 )4
-      } else if ( ITYPE.EQ.2 ) {
+      } else if ( ITYPE == 2 ) {
 
          // GRQ decomposition of rectangular matrices
 
@@ -121,18 +121,18 @@
          WRITE( IOUNIT, FMT = 9935 )2
          WRITE( IOUNIT, FMT = 9932 )3
          WRITE( IOUNIT, FMT = 9933 )4
-      } else if ( ITYPE.EQ.3 ) {
+      } else if ( ITYPE == 3 ) {
 
          // LSE Problem
 
          WRITE( IOUNIT, FMT = 9937 )1
          WRITE( IOUNIT, FMT = 9938 )2
-      } else if ( ITYPE.EQ.4 ) {
+      } else if ( ITYPE == 4 ) {
 
          // GLM Problem
 
          WRITE( IOUNIT, FMT = 9939 )1
-      } else if ( ITYPE.EQ.5 ) {
+      } else if ( ITYPE == 5 ) {
 
          // GSVD
 
@@ -141,7 +141,7 @@
          WRITE( IOUNIT, FMT = 9942 )3
          WRITE( IOUNIT, FMT = 9943 )4
          WRITE( IOUNIT, FMT = 9944 )5
-      } else if ( ITYPE.EQ.6 ) {
+      } else if ( ITYPE == 6 ) {
 
          // CSD
 

@@ -66,7 +66,7 @@
 
          // A: M by N, B: P by N
 
-         if ( IMAT.EQ.1 ) {
+         if ( IMAT == 1 ) {
 
             // A: diagonal, B: upper triangular
 
@@ -75,7 +75,7 @@
             KLB = 0
             KUB = MAX( N-1, 0 )
 
-         } else if ( IMAT.EQ.2 ) {
+         } else if ( IMAT == 2 ) {
 
             // A: upper triangular, B: upper triangular
 
@@ -84,7 +84,7 @@
             KLB = 0
             KUB = MAX( N-1, 0 )
 
-         } else if ( IMAT.EQ.3 ) {
+         } else if ( IMAT == 3 ) {
 
             // A: lower triangular, B: upper triangular
 
@@ -108,7 +108,7 @@
 
          // A: N by M, B: N by P
 
-         if ( IMAT.EQ.1 ) {
+         if ( IMAT == 1 ) {
 
             // A: diagonal, B: lower triangular
 
@@ -116,7 +116,7 @@
             KUA = 0
             KLB = MAX( N-1, 0 )
             KUB = 0
-         } else if ( IMAT.EQ.2 ) {
+         } else if ( IMAT == 2 ) {
 
             // A: lower triangular, B: diagonal
 
@@ -125,7 +125,7 @@
             KLB = 0
             KUB = 0
 
-         } else if ( IMAT.EQ.3 ) {
+         } else if ( IMAT == 3 ) {
 
             // A: lower triangular, B: upper triangular
 
@@ -151,16 +151,16 @@
       CNDNMA = TEN*TEN
       CNDNMB = TEN
       if ( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GRQ' ) .OR. LSAMEN( 3, PATH, 'GSV' ) ) {
-         if ( IMAT.EQ.5 ) {
+         if ( IMAT == 5 ) {
             CNDNMA = BADC1
             CNDNMB = BADC1
-         } else if ( IMAT.EQ.6 ) {
+         } else if ( IMAT == 6 ) {
             CNDNMA = BADC2
             CNDNMB = BADC2
-         } else if ( IMAT.EQ.7 ) {
+         } else if ( IMAT == 7 ) {
             CNDNMA = BADC1
             CNDNMB = BADC2
-         } else if ( IMAT.EQ.8 ) {
+         } else if ( IMAT == 8 ) {
             CNDNMA = BADC2
             CNDNMB = BADC1
          }
@@ -169,10 +169,10 @@
       ANORM = TEN
       BNORM = TEN*TEN*TEN
       if ( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GRQ' ) ) {
-         if ( IMAT.EQ.7 ) {
+         if ( IMAT == 7 ) {
             ANORM = SMALL
             BNORM = LARGE
-         } else if ( IMAT.EQ.8 ) {
+         } else if ( IMAT == 8 ) {
             ANORM = LARGE
             BNORM = SMALL
          }

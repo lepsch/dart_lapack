@@ -34,7 +34,7 @@
       // Test the input parameters.
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -49,8 +49,8 @@
          INFO = -11
       }
 
-      if ( INFO.EQ.0 ) {
-         if ( N.EQ.0 ) {
+      if ( INFO == 0 ) {
+         if ( N == 0 ) {
             LWKOPT = 1
          } else {
             zhetrf_rk(UPLO, N, A, LDA, E, IPIV, WORK, -1, INFO );
@@ -71,7 +71,7 @@
 
       zhetrf_rk(UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO );
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Solve the system A*X = B with BLAS3 solver, overwriting B with X.
 

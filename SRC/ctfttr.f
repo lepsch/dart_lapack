@@ -55,7 +55,7 @@
       // Quick return if possible
 
       if ( N.LE.1 ) {
-         if ( N.EQ.1 ) {
+         if ( N == 1 ) {
             if ( NORMALTRANSR ) {
                A( 0, 0 ) = ARF( 0 )
             } else {
@@ -83,7 +83,7 @@
       // If N is even, set K = N/2 and NISODD = false , LDA=N and A is
       // N--by--(N+1)/2.
 
-      if ( MOD( N, 2 ).EQ.0 ) {
+      if ( MOD( N, 2 ) == 0 ) {
          K = N / 2
          NISODD = false;
          if (.NOT.LOWER) NP1X2 = N + N + 2;

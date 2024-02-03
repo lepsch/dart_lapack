@@ -62,7 +62,7 @@
 
             UPLO = UPLOS( IUPLO )
             LOWER = true;
-            if (IUPLO.EQ.1) LOWER = false ;
+            if (IUPLO == 1) LOWER = false ;
 
             // Do first for CFORM = 'N', then for CFORM = 'T'
 
@@ -137,7 +137,7 @@
                }
 
                if (( .NOT.OK1 ).OR.( .NOT.OK2 )) {
-                  if ( NERRS.EQ.0 ) {
+                  if ( NERRS == 0 ) {
                      WRITE( NOUT, * )
                      WRITE( NOUT, FMT = 9999 )
                   }
@@ -151,7 +151,7 @@
 
       // Print a summary of the results.
 
-      if ( NERRS.EQ.0 ) {
+      if ( NERRS == 0 ) {
          WRITE( NOUT, FMT = 9997 ) NRUN
       } else {
          WRITE( NOUT, FMT = 9996 ) NERRS, NRUN

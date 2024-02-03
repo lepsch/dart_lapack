@@ -62,7 +62,7 @@
       LLWORK = MAX (MAX((N-M)*K, (N-M)*NB), MAX(K*NB, NB*NB))
       LLWORK = CEILING(REAL(LLWORK)/REAL(NB))
 
-      if ( K.EQ.0 ) {
+      if ( K == 0 ) {
 
          LBWORK = 0
          LWKOPT = 1
@@ -88,7 +88,7 @@
 
       // Test the input arguments
 
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -107,7 +107,7 @@
 
       // Quick return if possible
 
-      if ( K.EQ.0 ) {
+      if ( K == 0 ) {
          RETURN
       }
 

@@ -127,9 +127,9 @@
                // test that INFO is returned correctly.
 
                if ( ZEROT ) {
-                  if ( IMAT.EQ.3 ) {
+                  if ( IMAT == 3 ) {
                      IZERO = 1
-                  } else if ( IMAT.EQ.4 ) {
+                  } else if ( IMAT == 4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
@@ -137,7 +137,7 @@
 
                   // Set row and column IZERO of A to 0.
 
-                  if ( IUPLO.EQ.1 ) {
+                  if ( IUPLO == 1 ) {
                      IOFF = ( IZERO-1 )*IZERO / 2
                      for (I = 1; I <= IZERO - 1; I++) { // 20
                         A( IOFF+I ) = ZERO
@@ -164,7 +164,7 @@
 
                // Set the imaginary part of the diagonals.
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   claipd(N, A, 2, 1 );
                } else {
                   claipd(N, A, N, -1 );
@@ -176,7 +176,7 @@
 
                for (IEQUED = 1; IEQUED <= 2; IEQUED++) { // 110
                   EQUED = EQUEDS( IEQUED )
-                  if ( IEQUED.EQ.1 ) {
+                  if ( IEQUED == 1 ) {
                      NFACT = 3
                   } else {
                      NFACT = 1
@@ -206,7 +206,7 @@
                            // equilibrate the matrix A.
 
                            cppequ(UPLO, N, AFAC, S, SCOND, AMAX, INFO );
-                           if ( INFO.EQ.0 .AND. N.GT.0 ) {
+                           if ( INFO == 0 .AND. N.GT.0 ) {
                               if (IEQUED.GT.1) SCOND = ZERO;
 
                               // Equilibrate the matrix.
@@ -296,7 +296,7 @@
 
                         for (K = 1; K <= NT; K++) { // 60
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'CPPSV ', UPLO, N, IMAT, K, RESULT( K );
+                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'CPPSV ', UPLO, N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 60
@@ -329,7 +329,7 @@
                         GO TO 90
                      }
 
-                     if ( INFO.EQ.0 ) {
+                     if ( INFO == 0 ) {
                         if ( .NOT.PREFAC ) {
 
                            // Reconstruct matrix from factors and compute
@@ -372,7 +372,7 @@
 
                      for (K = K1; K <= 6; K++) { // 80
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'CPPSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K )
                            } else {

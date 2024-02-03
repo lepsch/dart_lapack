@@ -55,7 +55,7 @@
 
       NITER = 1
       TAU = ZERO
-      if ( KNITER.EQ.2 ) {
+      if ( KNITER == 2 ) {
          if ( ORGATI ) {
             TEMP = ( D( 3 )-D( 2 ) ) / TWO
             C = RHO + Z( 1 ) / ( ( D( 1 )-D( 2 ) )-TEMP )
@@ -71,7 +71,7 @@
          A = A / TEMP
          B = B / TEMP
          C = C / TEMP
-         if ( C.EQ.ZERO ) {
+         if ( C == ZERO ) {
             TAU = B / A
          } else if ( A.LE.ZERO ) {
             TAU = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
@@ -79,7 +79,7 @@
             TAU = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
          }
          if (TAU .LT. LBD .OR. TAU .GT. UBD) TAU = ( LBD+UBD )/TWO;
-         if ( D(1).EQ.TAU .OR. D(2).EQ.TAU .OR. D(3).EQ.TAU ) {
+         if ( D(1) == TAU .OR. D(2) == TAU .OR. D(3) == TAU ) {
             TAU = ZERO
          } else {
             TEMP = FINIT + TAU*Z(1)/( D(1)*( D( 1 )-TAU ) ) + TAU*Z(2)/( D(2)*( D( 2 )-TAU ) ) + TAU*Z(3)/( D(3)*( D( 3 )-TAU ) )
@@ -199,7 +199,7 @@
          A = A / TEMP
          B = B / TEMP
          C = C / TEMP
-         if ( C.EQ.ZERO ) {
+         if ( C == ZERO ) {
             ETA = B / A
          } else if ( A.LE.ZERO ) {
             ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )

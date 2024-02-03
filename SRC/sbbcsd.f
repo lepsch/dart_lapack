@@ -46,7 +46,7 @@
       // Test input arguments
 
       INFO = 0
-      LQUERY = LWORK .EQ. -1
+      LQUERY = LWORK == -1
       WANTU1 = LSAME( JOBU1, 'Y' )
       WANTU2 = LSAME( JOBU2, 'Y' )
       WANTV1T = LSAME( JOBV1T, 'Y' )
@@ -73,7 +73,7 @@
 
       // Quick return if Q = 0
 
-      if ( INFO .EQ. 0 .AND. Q .EQ. 0 ) {
+      if ( INFO == 0 .AND. Q == 0 ) {
          LWORKMIN = 1
          WORK(1) = LWORKMIN
          RETURN
@@ -81,7 +81,7 @@
 
       // Compute workspace
 
-      if ( INFO .EQ. 0 ) {
+      if ( INFO == 0 ) {
          IU1CS = 1
          IU1SN = IU1CS + Q
          IU2CS = IU1SN + Q
@@ -574,7 +574,7 @@
          // Deflate
 
          if (IMAX .GT. 1) {
-            DO WHILE( PHI(IMAX-1) .EQ. ZERO )
+            DO WHILE( PHI(IMAX-1) == ZERO )
                IMAX = IMAX - 1
                if (IMAX .LE. 1) EXIT;
             }

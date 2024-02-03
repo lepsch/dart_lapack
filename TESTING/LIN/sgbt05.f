@@ -94,14 +94,14 @@
                   TMP = TMP + ABS( AB( KU+1+J-I, I ) )*ABS( X( J, K ) )
                } // 50
             }
-            if ( I.EQ.1 ) {
+            if ( I == 1 ) {
                AXBI = TMP
             } else {
                AXBI = MIN( AXBI, TMP )
             }
          } // 60
          TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) )
-         if ( K.EQ.1 ) {
+         if ( K == 1 ) {
             RESLTS( 2 ) = TMP
          } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )

@@ -64,11 +64,11 @@
 
       SCALE = ONE
 
-      if ( NA.EQ.1 ) {
+      if ( NA == 1 ) {
 
          // 1 x 1  (i.e., scalar) system   C X = B
 
-         if ( NW.EQ.1 ) {
+         if ( NW == 1 ) {
 
             // Real 1x1 system.
 
@@ -144,7 +144,7 @@
             CR( 1, 2 ) = CA*A( 1, 2 )
          }
 
-         if ( NW.EQ.1 ) {
+         if ( NW == 1 ) {
 
             // Real 2x2 system  (w is real)
 
@@ -273,7 +273,7 @@
             UI12 = CIV( IPIVOT( 3, ICMAX ) )
             CR22 = CRV( IPIVOT( 4, ICMAX ) )
             CI22 = CIV( IPIVOT( 4, ICMAX ) )
-            if ( ICMAX.EQ.1 .OR. ICMAX.EQ.4 ) {
+            if ( ICMAX == 1 .OR. ICMAX == 4 ) {
 
                // Code when off-diagonals of pivoted C are real
 

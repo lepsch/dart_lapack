@@ -38,7 +38,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
@@ -50,7 +50,7 @@
          INFO = -7
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( UPPER ) {
             NB = ILAENV( 1, 'ZUNGQL', ' ', N-1, N-1, N-1, -1 )
          } else {
@@ -69,7 +69,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }

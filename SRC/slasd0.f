@@ -93,7 +93,7 @@
          for (J = 1; J <= NL; J++) { // 10
             IWORK( ITEMP+J ) = J
          } // 10
-         if ( I.EQ.ND ) {
+         if ( I == ND ) {
             SQREI = SQRE
          } else {
             SQREI = 1
@@ -116,7 +116,7 @@
          // Find the first node LF and last node LL on the
          // current level LVL.
 
-         if ( LVL.EQ.1 ) {
+         if ( LVL == 1 ) {
             LF = 1
             LL = 1
          } else {
@@ -129,7 +129,7 @@
             NL = IWORK( NDIML+IM1 )
             NR = IWORK( NDIMR+IM1 )
             NLF = IC - NL
-            if ( ( SQRE.EQ.0 ) .AND. ( I.EQ.LL ) ) {
+            if ( ( SQRE == 0 ) .AND. ( I == LL ) ) {
                SQREI = SQRE
             } else {
                SQREI = 1

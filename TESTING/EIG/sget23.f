@@ -86,7 +86,7 @@
          RESULT( I ) = -ONE
       } // 10
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // More Important constants
 
@@ -130,7 +130,7 @@
 
       for (J = 1; J <= N; J++) { // 30
          TNRM = ONE
-         if ( WI( J ).EQ.ZERO ) {
+         if ( WI( J ) == ZERO ) {
             TNRM = SNRM2( N, VR( 1, J ), 1 )
          } else if ( WI( J ).GT.ZERO ) {
             TNRM = SLAPY2( SNRM2( N, VR( 1, J ), 1 ), SNRM2( N, VR( 1, J+1 ), 1 ) )
@@ -141,7 +141,7 @@
             VRMX = ZERO
             for (JJ = 1; JJ <= N; JJ++) { // 20
                VTST = SLAPY2( VR( JJ, J ), VR( JJ, J+1 ) )
-               if (VTST.GT.VMX) VMX = VTST                IF( VR( JJ, J+1 ).EQ.ZERO .AND. ABS( VR( JJ, J ) ).GT. VRMX )VRMX = ABS( VR( JJ, J ) );
+               if (VTST.GT.VMX) VMX = VTST                IF( VR( JJ, J+1 ) == ZERO .AND. ABS( VR( JJ, J ) ).GT. VRMX )VRMX = ABS( VR( JJ, J ) );
             } // 20
             if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
          }
@@ -151,7 +151,7 @@
 
       for (J = 1; J <= N; J++) { // 50
          TNRM = ONE
-         if ( WI( J ).EQ.ZERO ) {
+         if ( WI( J ) == ZERO ) {
             TNRM = SNRM2( N, VL( 1, J ), 1 )
          } else if ( WI( J ).GT.ZERO ) {
             TNRM = SLAPY2( SNRM2( N, VL( 1, J ), 1 ), SNRM2( N, VL( 1, J+1 ), 1 ) )
@@ -162,7 +162,7 @@
             VRMX = ZERO
             for (JJ = 1; JJ <= N; JJ++) { // 40
                VTST = SLAPY2( VL( JJ, J ), VL( JJ, J+1 ) )
-               if (VTST.GT.VMX) VMX = VTST                IF( VL( JJ, J+1 ).EQ.ZERO .AND. ABS( VL( JJ, J ) ).GT. VRMX )VRMX = ABS( VL( JJ, J ) );
+               if (VTST.GT.VMX) VMX = VTST                IF( VL( JJ, J+1 ) == ZERO .AND. ABS( VL( JJ, J ) ).GT. VRMX )VRMX = ABS( VL( JJ, J ) );
             } // 40
             if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
          }
@@ -206,7 +206,7 @@
 
          // Do Test (9)
 
-         if ( ISENS.EQ.2 .AND. N.GT.1 ) {
+         if ( ISENS == 2 .AND. N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 80
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 80
@@ -252,7 +252,7 @@
 
          // Do Test (9) again
 
-         if ( ISENS.EQ.2 .AND. N.GT.1 ) {
+         if ( ISENS == 2 .AND. N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 130
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 130
@@ -298,7 +298,7 @@
 
          // Do Test (9) again
 
-         if ( ISENS.EQ.2 .AND. N.GT.1 ) {
+         if ( ISENS == 2 .AND. N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 180
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 180
@@ -352,7 +352,7 @@
          RESULT( 10 ) = ZERO
          EPS = MAX( EPSIN, ULP )
          V = MAX( REAL( N )*EPS*ABNRM, SMLNUM )
-         if (ABNRM.EQ.ZERO) V = ONE;
+         if (ABNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 230
             if ( V.GT.RCONDV( I )*RCONDE( I ) ) {
                TOL = RCONDV( I )

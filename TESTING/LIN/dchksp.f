@@ -129,9 +129,9 @@
                // the matrix to test that INFO is returned correctly.
 
                if ( ZEROT ) {
-                  if ( IMAT.EQ.3 ) {
+                  if ( IMAT == 3 ) {
                      IZERO = 1
-                  } else if ( IMAT.EQ.4 ) {
+                  } else if ( IMAT == 4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
@@ -141,7 +141,7 @@
 
                      // Set row and column IZERO to zero.
 
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*IZERO / 2
                         for (I = 1; I <= IZERO - 1; I++) { // 20
                            A( IOFF+I ) = ZERO
@@ -164,7 +164,7 @@
                      }
                   } else {
                      IOFF = 0
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
 
                         // Set the first IZERO rows and columns to zero.
 
@@ -252,7 +252,7 @@
 
                for (K = 1; K <= NT; K++) { // 110
                   if ( RESULT( K ).GE.THRESH ) {
-                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K );
+                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }
                } // 110
@@ -308,7 +308,7 @@
 
                   for (K = 3; K <= 7; K++) { // 120
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 120
@@ -332,7 +332,7 @@
                // Print the test ratio if it is .GE. THRESH.
 
                if ( RESULT( 8 ).GE.THRESH ) {
-                  if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 );
+                  if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 );
                   NFAIL = NFAIL + 1
                }
                NRUN = NRUN + 1

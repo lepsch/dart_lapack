@@ -78,7 +78,7 @@
       WANTSE = LSAME( SENSE, 'E' )
       WANTSV = LSAME( SENSE, 'V' )
       WANTSB = LSAME( SENSE, 'B' )
-      LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
       if ( WANTSN ) {
          IJOB = 0
       } else if ( WANTSE ) {
@@ -119,7 +119,7 @@
         // NB refers to the optimal block size for the immediately
         // following subroutine, as returned by ILAENV.)
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( N.GT.0) {
             MINWRK = 2*N
             MAXWRK = N*(1 + ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) )
@@ -135,7 +135,7 @@
             LWRK   = 1
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWRK)
-         if ( WANTSN .OR. N.EQ.0 ) {
+         if ( WANTSN .OR. N == 0 ) {
             LIWMIN = 1
          } else {
             LIWMIN = N + 2
@@ -158,7 +158,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          SDIM = 0
          RETURN
       }
@@ -281,21 +281,21 @@
          ctgsen(IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR );
 
          if (IJOB.GE.1) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
-         if ( IERR.EQ.-21 ) {
+         if ( IERR == -21 ) {
 
              // not enough complex workspace
 
             INFO = -21
          } else {
-            if ( IJOB.EQ.1 .OR. IJOB.EQ.4 ) {
+            if ( IJOB == 1 .OR. IJOB == 4 ) {
                RCONDE( 1 ) = PL
                RCONDE( 2 ) = PR
             }
-            if ( IJOB.EQ.2 .OR. IJOB.EQ.4 ) {
+            if ( IJOB == 2 .OR. IJOB == 4 ) {
                RCONDV( 1 ) = DIF( 1 )
                RCONDV( 2 ) = DIF( 2 )
             }
-            if (IERR.EQ.1) INFO = N + 3;
+            if (IERR == 1) INFO = N + 3;
          }
 
       }

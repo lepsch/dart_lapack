@@ -179,7 +179,7 @@
                      D(q) = AAPQ
                   }
 
-                  if ( ir1.EQ.0 ) {
+                  if ( ir1 == 0 ) {
 
          // Column norms are periodically updated by explicit
          // norm computation.
@@ -248,7 +248,7 @@
             // .. rotate
 *[RTD]      ROTATED = ROTATED + ONE
 
-                              if ( ir1.EQ.0 ) {
+                              if ( ir1 == 0 ) {
                                  NOTROT = 0
                                  PSKIPPED = 0
                                  ISWROT = ISWROT + 1
@@ -327,18 +327,18 @@
 
                            } else {
          // A(:,p) and A(:,q) already numerically orthogonal
-                              if (ir1.EQ.0) NOTROT = NOTROT + 1;
+                              if (ir1 == 0) NOTROT = NOTROT + 1;
 *[RTD]      SKIPPED  = SKIPPED  + 1
                               PSKIPPED = PSKIPPED + 1
                            }
                         } else {
          // A(:,q) is zero column
-                           if (ir1.EQ.0) NOTROT = NOTROT + 1;
+                           if (ir1 == 0) NOTROT = NOTROT + 1;
                            PSKIPPED = PSKIPPED + 1
                         }
 
                         if ( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) {
-                           if (ir1.EQ.0) AAPP = -AAPP;
+                           if (ir1 == 0) AAPP = -AAPP;
                            NOTROT = 0
                            GO TO 2103
                         }
@@ -353,7 +353,7 @@
 
                   } else {
                      SVA( p ) = AAPP
-                     IF( ( ir1.EQ.0 ) .AND. ( AAPP.EQ.ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p
+                     IF( ( ir1 == 0 ) .AND. ( AAPP == ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p
                   }
 
                } // 2001
@@ -542,7 +542,7 @@
 
                   } else {
 
-                     if (AAPP.EQ.ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
+                     if (AAPP == ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
                      if (AAPP.LT.ZERO) NOTROT = 0;
 
                   }

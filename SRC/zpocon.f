@@ -71,10 +71,10 @@
       // Quick return if possible
 
       RCOND = ZERO
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          RCOND = ONE
          RETURN
-      } else if ( ANORM.EQ.ZERO ) {
+      } else if ( ANORM == ZERO ) {
          RETURN
       }
 
@@ -114,7 +114,7 @@
          SCALE = SCALEL*SCALEU
          if ( SCALE.NE.ONE ) {
             IX = IZAMAX( N, WORK, 1 )
-            IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
+            IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE == ZERO ) GO TO 20
             zdrscl(N, SCALE, WORK, 1 );
          }
          GO TO 10

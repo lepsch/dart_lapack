@@ -107,7 +107,7 @@
             // Remove it from the list.
             IWORK( K-1 ) = -1
             // Make sure that I1 always points to the first unconverged interval
-            IF((I.EQ.I1).AND.(I.LT.ILAST)) I1 = I + 1
+            IF((I == I1).AND.(I.LT.ILAST)) I1 = I + 1
             IF((PREV.GE.I1).AND.(I.LE.ILAST)) IWORK( 2*PREV-1 ) = I + 1
          } else {
             // unconverged interval found
@@ -146,12 +146,12 @@
          WIDTH = RIGHT - MID
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
          CVRGD = MAX(RTOL1*GAP,RTOL2*TMP)
-         if ( ( WIDTH.LE.CVRGD ) .OR. ( WIDTH.LE.MNWDTH ).OR. ( ITER.EQ.MAXITR ) ) {
+         if ( ( WIDTH.LE.CVRGD ) .OR. ( WIDTH.LE.MNWDTH ).OR. ( ITER == MAXITR ) ) {
             // reduce number of unconverged intervals
             NINT = NINT - 1
             // Mark interval as converged.
             IWORK( K-1 ) = 0
-            if ( I1.EQ.I ) {
+            if ( I1 == I ) {
                I1 = NEXT
             } else {
                // Prev holds the last unconverged interval previously examined
@@ -184,7 +184,7 @@
          K = 2*I
          II = I - OFFSET
          // All intervals marked by '0' have been refined.
-         if ( IWORK( K-1 ).EQ.0 ) {
+         if ( IWORK( K-1 ) == 0 ) {
             W( II ) = HALF*( WORK( K-1 )+WORK( K ) )
             WERR( II ) = WORK( K ) - W( II )
          }

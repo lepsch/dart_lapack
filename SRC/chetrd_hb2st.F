@@ -54,12 +54,12 @@
       AFTERS1 = LSAME( STAGE1, 'Y' )
       WANTQ   = LSAME( VECT, 'V' )
       UPPER   = LSAME( UPLO, 'U' )
-      LQUERY  = ( LWORK.EQ.-1 ) .OR. ( LHOUS.EQ.-1 )
+      LQUERY  = ( LWORK == -1 ) .OR. ( LHOUS == -1 )
 
       // Determine the block size, the workspace size and the hous size.
 
       IB       = ILAENV2STAGE( 2, 'CHETRD_HB2ST', VECT, N, KD, -1, -1 )
-      if ( N.EQ.0 .OR. KD.LE.1 ) {
+      if ( N == 0 .OR. KD.LE.1 ) {
          LHMIN = 1
          LWMIN = 1
       } else {
@@ -85,7 +85,7 @@
          INFO = -13
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          HOUS( 1 ) = SROUNDUP_LWORK( LHMIN )
          WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
       }
@@ -99,7 +99,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
           HOUS( 1 ) = 1
           WORK( 1 ) = 1
           RETURN
@@ -142,7 +142,7 @@
       // and store it in D. A sequential code here is better or
       // in a parallel environment it might need two cores for D and E
 
-      if ( KD.EQ.0 ) {
+      if ( KD == 0 ) {
           for (I = 1; I <= N; I++) { // 30
               D( I ) = REAL( AB( ABDPOS, I ) )
           } // 30
@@ -165,7 +165,7 @@
       // updating the Q matrix will be required and based if Q is generated
       // or not this might complicate the story.
 
-      if ( KD.EQ.1 ) {
+      if ( KD == 1 ) {
           for (I = 1; I <= N; I++) { // 50
               D( I ) = REAL( AB( ABDPOS, I ) )
           } // 50
@@ -250,13 +250,13 @@
                   for (SWEEPID = ST; SWEEPID <= ED; SWEEPID++) { // 130
                       for (K = 1; K <= GRSIZ; K++) { // 140
                           MYID  = (I-SWEEPID)*(STEPERCOL*GRSIZ) + (M-1)*GRSIZ + K
-                          if ( MYID.EQ.1 ) {
+                          if ( MYID == 1 ) {
                               TTYPE = 1
                           } else {
                               TTYPE = MOD( MYID, 2 ) + 2
                           }
 
-                          if ( TTYPE.EQ.2 ) {
+                          if ( TTYPE == 2 ) {
                               COLPT      = (MYID/2)*KD + SWEEPID
                               STIND      = COLPT-KD+1
                               EDIND      = MIN(COLPT,N)
@@ -265,7 +265,7 @@
                               COLPT      = ((MYID+1)/2)*KD + SWEEPID
                               STIND      = COLPT-KD+1
                               EDIND      = MIN(COLPT,N)
-                              if ( ( STIND.GE.EDIND-1 ).AND. ( EDIND.EQ.N ) ) {
+                              if ( ( STIND.GE.EDIND-1 ).AND. ( EDIND == N ) ) {
                                   BLKLASTIND = N
                               } else {
                                   BLKLASTIND = 0

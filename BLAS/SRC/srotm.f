@@ -22,8 +22,8 @@
       // ..
 
       SFLAG = SPARAM(1)
-      IF (N.LE.0 .OR. (SFLAG+TWO.EQ.ZERO)) RETURN
-      if (INCX.EQ.INCY.AND.INCX.GT.0) {
+      IF (N.LE.0 .OR. (SFLAG+TWO == ZERO)) RETURN
+      if (INCX == INCY.AND.INCX.GT.0) {
 
          NSTEPS = N*INCX
          if (SFLAG.LT.ZERO) {
@@ -37,7 +37,7 @@
                SX(I) = W*SH11 + Z*SH12
                SY(I) = W*SH21 + Z*SH22
             }
-         } else if (SFLAG.EQ.ZERO) {
+         } else if (SFLAG == ZERO) {
             SH12 = SPARAM(4)
             SH21 = SPARAM(3)
             DO I = 1,NSTEPS,INCX
@@ -75,7 +75,7 @@
                KX = KX + INCX
                KY = KY + INCY
             }
-         } else if (SFLAG.EQ.ZERO) {
+         } else if (SFLAG == ZERO) {
             SH12 = SPARAM(4)
             SH21 = SPARAM(3)
             for (I = 1; I <= N; I++) {

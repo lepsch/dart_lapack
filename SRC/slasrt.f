@@ -43,7 +43,7 @@
       } else if ( LSAME( ID, 'I' ) ) {
          DIR = 1
       }
-      if ( DIR.EQ.-1 ) {
+      if ( DIR == -1 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -68,7 +68,7 @@
 
          // Do Insertion sort on D( START:ENDD )
 
-         if ( DIR.EQ.0 ) {
+         if ( DIR == 0 ) {
 
             // Sort into decreasing order
 
@@ -130,7 +130,7 @@
             }
          }
 
-         if ( DIR.EQ.0 ) {
+         if ( DIR == 0 ) {
 
             // Sort into decreasing order
 

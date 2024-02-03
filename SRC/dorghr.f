@@ -37,7 +37,7 @@
 
       INFO = 0
       NH = IHI - ILO
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( N.LT.0 ) {
          INFO = -1
       } else if ( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) {
@@ -50,7 +50,7 @@
          INFO = -8
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          NB = ILAENV( 1, 'DORGQR', ' ', NH, NH, NH, -1 )
          LWKOPT = MAX( 1, NH )*NB
          WORK( 1 ) = LWKOPT
@@ -65,7 +65,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }

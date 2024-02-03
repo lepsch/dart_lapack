@@ -54,7 +54,7 @@
          Z3 = REALONE
          Z4 = -REALONE
       }
-      LQUERY = LWORK .EQ. -1
+      LQUERY = LWORK == -1
 
       if ( M .LT. 0 ) {
          INFO = -3
@@ -82,7 +82,7 @@
 
       // Compute workspace
 
-      if ( INFO .EQ. 0 ) {
+      if ( INFO == 0 ) {
          LWORKOPT = M - Q
          LWORKMIN = M - Q
          WORK(1) = LWORKOPT
@@ -105,13 +105,13 @@
 
          for (I = 1; I <= Q; I++) {
 
-            if ( I .EQ. 1 ) {
+            if ( I == 1 ) {
                sscal(P-I+1, Z1, X11(I,I), 1 );
             } else {
                sscal(P-I+1, Z1*COS(PHI(I-1)), X11(I,I), 1 );
                saxpy(P-I+1, -Z1*Z3*Z4*SIN(PHI(I-1)), X12(I,I-1), 1, X11(I,I), 1 );
             }
-            if ( I .EQ. 1 ) {
+            if ( I == 1 ) {
                sscal(M-P-I+1, Z2, X21(I,I), 1 );
             } else {
                sscal(M-P-I+1, Z2*COS(PHI(I-1)), X21(I,I), 1 );
@@ -122,13 +122,13 @@
 
             if ( P .GT. I ) {
                slarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
-            } else if ( P .EQ. I ) {
+            } else if ( P == I ) {
                slarfgp(P-I+1, X11(I,I), X11(I,I), 1, TAUP1(I) );
             }
             X11(I,I) = ONE
             if ( M-P .GT. I ) {
                slarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
-            } else if ( M-P .EQ. I ) {
+            } else if ( M-P == I ) {
                slarfgp(M-P-I+1, X21(I,I), X21(I,I), 1, TAUP2(I) );
             }
             X21(I,I) = ONE
@@ -156,7 +156,7 @@
             if (I .LT. Q) PHI(I) = ATAN2( SNRM2( Q-I, X11(I,I+1), LDX11 ), SNRM2( M-Q-I+1, X12(I,I), LDX12 ) );
 
             if ( I .LT. Q ) {
-               if ( Q-I .EQ. 1 ) {
+               if ( Q-I == 1 ) {
                   slarfgp(Q-I, X11(I,I+1), X11(I,I+1), LDX11, TAUQ1(I) );
                } else {
                   slarfgp(Q-I, X11(I,I+1), X11(I,I+2), LDX11, TAUQ1(I) );
@@ -164,7 +164,7 @@
                X11(I,I+1) = ONE
             }
             if ( Q+I-1 .LT. M ) {
-               if ( M-Q .EQ. I ) {
+               if ( M-Q == I ) {
                   slarfgp(M-Q-I+1, X12(I,I), X12(I,I), LDX12, TAUQ2(I) );
                } else {
                   slarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
@@ -209,7 +209,7 @@
          for (I = 1; I <= M - P - Q; I++) {
 
             sscal(M-P-Q-I+1, Z2*Z4, X22(Q+I,P+I), LDX22 );
-            if ( I .EQ. M-P-Q ) {
+            if ( I == M-P-Q ) {
                slarfgp(M-P-Q-I+1, X22(Q+I,P+I), X22(Q+I,P+I), LDX22, TAUQ2(P+I) );
             } else {
                slarfgp(M-P-Q-I+1, X22(Q+I,P+I), X22(Q+I,P+I+1), LDX22, TAUQ2(P+I) );
@@ -227,13 +227,13 @@
 
          for (I = 1; I <= Q; I++) {
 
-            if ( I .EQ. 1 ) {
+            if ( I == 1 ) {
                sscal(P-I+1, Z1, X11(I,I), LDX11 );
             } else {
                sscal(P-I+1, Z1*COS(PHI(I-1)), X11(I,I), LDX11 );
                saxpy(P-I+1, -Z1*Z3*Z4*SIN(PHI(I-1)), X12(I-1,I), LDX12, X11(I,I), LDX11 );
             }
-            if ( I .EQ. 1 ) {
+            if ( I == 1 ) {
                sscal(M-P-I+1, Z2, X21(I,I), LDX21 );
             } else {
                sscal(M-P-I+1, Z2*COS(PHI(I-1)), X21(I,I), LDX21 );
@@ -244,7 +244,7 @@
 
             slarfgp(P-I+1, X11(I,I), X11(I,I+1), LDX11, TAUP1(I) );
             X11(I,I) = ONE
-            if ( I .EQ. M-P ) {
+            if ( I == M-P ) {
                slarfgp(M-P-I+1, X21(I,I), X21(I,I), LDX21, TAUP2(I) );
             } else {
                slarfgp(M-P-I+1, X21(I,I), X21(I,I+1), LDX21, TAUP2(I) );
@@ -274,7 +274,7 @@
             if (I .LT. Q) PHI(I) = ATAN2( SNRM2( Q-I, X11(I+1,I), 1 ), SNRM2( M-Q-I+1, X12(I,I), 1 ) );
 
             if ( I .LT. Q ) {
-               if ( Q-I .EQ. 1) {
+               if ( Q-I == 1) {
                   slarfgp(Q-I, X11(I+1,I), X11(I+1,I), 1, TAUQ1(I) );
                } else {
                   slarfgp(Q-I, X11(I+1,I), X11(I+2,I), 1, TAUQ1(I) );
@@ -319,7 +319,7 @@
          for (I = 1; I <= M - P - Q; I++) {
 
             sscal(M-P-Q-I+1, Z2*Z4, X22(P+I,Q+I), 1 );
-            if ( M-P-Q .EQ. I ) {
+            if ( M-P-Q == I ) {
                slarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I,Q+I), 1, TAUQ2(P+I) );
                X22(P+I,Q+I) = ONE
             } else {

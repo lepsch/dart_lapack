@@ -134,7 +134,7 @@
 
                   // Make the tridiagonal matrix diagonally dominant.
 
-                  if ( N.EQ.1 ) {
+                  if ( N == 1 ) {
                      D( 1 ) = ABS( D( 1 ) )
                   } else {
                      D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) )
@@ -156,10 +156,10 @@
                   // Reuse the last matrix by copying back the zeroed out
                   // elements.
 
-                  if ( IZERO.EQ.1 ) {
+                  if ( IZERO == 1 ) {
                      D( 1 ) = Z( 2 )
                      if (N.GT.1) E( 1 ) = Z( 3 );
-                  } else if ( IZERO.EQ.N ) {
+                  } else if ( IZERO == N ) {
                      E( N-1 ) = Z( 1 )
                      D( N ) = Z( 2 )
                   } else {
@@ -173,7 +173,7 @@
                // zero.
 
                IZERO = 0
-               if ( IMAT.EQ.8 ) {
+               if ( IMAT == 8 ) {
                   IZERO = 1
                   Z( 2 ) = D( 1 )
                   D( 1 ) = ZERO
@@ -181,7 +181,7 @@
                      Z( 3 ) = E( 1 )
                      E( 1 ) = ZERO
                   }
-               } else if ( IMAT.EQ.9 ) {
+               } else if ( IMAT == 9 ) {
                   IZERO = N
                   if ( N.GT.1 ) {
                      Z( 1 ) = E( N-1 )
@@ -189,7 +189,7 @@
                   }
                   Z( 2 ) = D( N )
                   D( N ) = ZERO
-               } else if ( IMAT.EQ.10 ) {
+               } else if ( IMAT == 10 ) {
                   IZERO = ( N+1 ) / 2
                   if ( IZERO.GT.1 ) {
                      Z( 1 ) = E( IZERO-1 )
@@ -215,7 +215,7 @@
             slaptm(N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA );
 
             for (IFACT = 1; IFACT <= 2; IFACT++) { // 100
-               if ( IFACT.EQ.1 ) {
+               if ( IFACT == 1 ) {
                   FACT = 'F'
                } else {
                   FACT = 'N'
@@ -225,10 +225,10 @@
                // the value returned by SPTSVX.
 
                if ( ZEROT ) {
-                  if (IFACT.EQ.1) GO TO 100;
+                  if (IFACT == 1) GO TO 100;
                   RCONDC = ZERO
 
-               } else if ( IFACT.EQ.1 ) {
+               } else if ( IFACT == 1 ) {
 
                   // Compute the 1-norm of A.
 
@@ -263,7 +263,7 @@
                   }
                }
 
-               if ( IFACT.EQ.2 ) {
+               if ( IFACT == 2 ) {
 
                   // --- Test SPTSV --
 
@@ -280,7 +280,7 @@
 
                   if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                   NT = 0
-                  if ( IZERO.EQ.0 ) {
+                  if ( IZERO == 0 ) {
 
                      // Check the factorization by computing the ratio
                         // norm(L*D*L' - A) / (n * norm(A) * EPS )
@@ -303,7 +303,7 @@
 
                   for (K = 1; K <= NT; K++) { // 70
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'SPTSV ', N, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'SPTSV ', N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 70
@@ -334,8 +334,8 @@
                // Check the error code from SPTSVX.
 
                if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-               if ( IZERO.EQ.0 ) {
-                  if ( IFACT.EQ.2 ) {
+               if ( IZERO == 0 ) {
+                  if ( IFACT == 2 ) {
 
                      // Check the factorization by computing the ratio
                         // norm(L*D*L' - A) / (n * norm(A) * EPS )
@@ -371,7 +371,7 @@
 
                for (K = K1; K <= 6; K++) { // 90
                   if ( RESULT( K ).GE.THRESH ) {
-                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'SPTSVX', FACT, N, IMAT, K, RESULT( K );
+                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'SPTSVX', FACT, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }
                } // 90

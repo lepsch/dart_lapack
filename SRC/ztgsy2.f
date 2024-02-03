@@ -54,7 +54,7 @@
             INFO = -2
          }
       }
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( M.LE.0 ) {
             INFO = -3
          } else if ( N.LE.0 ) {
@@ -106,7 +106,7 @@
 
                zgetc2(LDZ, Z, LDZ, IPIV, JPIV, IERR );
                if (IERR.GT.0) INFO = IERR;
-               if ( IJOB.EQ.0 ) {
+               if ( IJOB == 0 ) {
                   zgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
                      for (K = 1; K <= N; K++) { // 10

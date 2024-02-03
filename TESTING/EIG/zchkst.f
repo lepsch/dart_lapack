@@ -102,7 +102,7 @@
 
       // Quick return if possible
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       // More Important constants
 
@@ -204,10 +204,10 @@
 
                // Zero
 
-            if ( ITYPE.EQ.1 ) {
+            if ( ITYPE == 1 ) {
                IINFO = 0
 
-            } else if ( ITYPE.EQ.2 ) {
+            } else if ( ITYPE == 2 ) {
 
                // Identity
 
@@ -215,38 +215,38 @@
                   A( JC, JC ) = ANORM
                } // 80
 
-            } else if ( ITYPE.EQ.4 ) {
+            } else if ( ITYPE == 4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO );
 
 
-            } else if ( ITYPE.EQ.5 ) {
+            } else if ( ITYPE == 5 ) {
 
                // Hermitian, eigenvalues specified
 
                zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
-            } else if ( ITYPE.EQ.7 ) {
+            } else if ( ITYPE == 7 ) {
 
                // Diagonal, random eigenvalues
 
                zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.8 ) {
+            } else if ( ITYPE == 8 ) {
 
                // Hermitian, random eigenvalues
 
                zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.9 ) {
+            } else if ( ITYPE == 9 ) {
 
                // Positive definite, eigenvalues specified.
 
                zlatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
-            } else if ( ITYPE.EQ.10 ) {
+            } else if ( ITYPE == 10 ) {
 
                // Positive definite tridiagonal, eigenvalues specified.
 
@@ -525,7 +525,7 @@
 
             for (J = 0; J <= LOG2UI; J++) { // 160
                dstech(N, SD, SE, D1, TEMP1, RWORK, IINFO );
-               if (IINFO.EQ.0) GO TO 170;
+               if (IINFO == 0) GO TO 170;
                TEMP1 = TEMP1*TWO
             } // 160
 
@@ -603,7 +603,7 @@
             VU = ZERO
             IL = 0
             IU = 0
-            if ( JTYPE.EQ.21 ) {
+            if ( JTYPE == 21 ) {
                NTEST = 17
                ABSTOL = UNFL + UNFL
                dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
@@ -719,7 +719,7 @@
                }
             }
 
-            if ( M3.EQ.0 .AND. N.NE.0 ) {
+            if ( M3 == 0 .AND. N.NE.0 ) {
                RESULT( 19 ) = ULPINV
                GO TO 280
             }
@@ -858,7 +858,7 @@
 
             // Only test ZSTEMR if IEEE compliant
 
-            if ( ILAENV( 10, 'ZSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 .AND. ILAENV( 11, 'ZSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 ) {
+            if ( ILAENV( 10, 'ZSTEMR', 'VA', 1, 0, 0, 0 ) == 1 .AND. ILAENV( 11, 'ZSTEMR', 'VA', 1, 0, 0, 0 ) == 1 ) {
 
             // Call ZSTEMR, do test 27 (relative eigenvalue accuracy)
 
@@ -869,7 +869,7 @@
                VU = ZERO
                IL = 0
                IU = 0
-               if ( JTYPE.EQ.21 .AND. CREL ) {
+               if ( JTYPE == 21 .AND. CREL ) {
                   NTEST = 27
                   ABSTOL = UNFL + UNFL
                   zstemr('V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
@@ -1158,7 +1158,7 @@
                   // If this is the first test to fail,
                   // print a header to the data file.
 
-                  if ( NERRS.EQ.0 ) {
+                  if ( NERRS == 0 ) {
                      WRITE( NOUNIT, FMT = 9998 )'ZST'
                      WRITE( NOUNIT, FMT = 9997 )
                      WRITE( NOUNIT, FMT = 9996 )

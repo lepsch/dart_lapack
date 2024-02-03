@@ -35,7 +35,7 @@
 
          ILAENV = IPARMS( ISPEC )
 
-      } else if ( ISPEC.EQ.6 ) {
+      } else if ( ISPEC == 6 ) {
 
          // Compute SVD crossover point.
 
@@ -47,23 +47,23 @@
 
          ILAENV = IPARMS( ISPEC )
 
-      } else if ( ISPEC.EQ.10 ) {
+      } else if ( ISPEC == 10 ) {
 
          // IEEE NaN arithmetic can be trusted not to trap
 
          // ILAENV = 0
          ILAENV = 1
-         if ( ILAENV.EQ.1 ) {
+         if ( ILAENV == 1 ) {
             ILAENV = IEEECK( 1, 0.0, 1.0 )
          }
 
-      } else if ( ISPEC.EQ.11 ) {
+      } else if ( ISPEC == 11 ) {
 
          // Infinity arithmetic can be trusted not to trap
 
          // ILAENV = 0
          ILAENV = 1
-         if ( ILAENV.EQ.1 ) {
+         if ( ILAENV == 1 ) {
             ILAENV = IEEECK( 0, 0.0, 1.0 )
          }
 
@@ -79,7 +79,7 @@
 
       // 17 <= ISPEC <= 21: 2stage eigenvalues SVD routines.
 
-         if ( ISPEC.EQ.17 ) {
+         if ( ISPEC == 17 ) {
              ILAENV = IPARMS( 1 )
          } else {
              ILAENV = IPARAM2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
@@ -126,7 +126,7 @@
 
       // 1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 
-         if ( ISPEC.EQ.1 ) {
+         if ( ISPEC == 1 ) {
              ILAENV2STAGE = IPARMS( 1 )
          } else {
              IISPEC = 16 + ISPEC
@@ -165,7 +165,7 @@
       // INTRINSIC LOG, MAX, MOD, NINT, REAL
       // ..
       // .. Executable Statements ..
-      if ( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR. ( ISPEC.EQ.IACC22 ) ) {
+      if ( ( ISPEC == ISHFTS ) .OR. ( ISPEC == INWIN ) .OR. ( ISPEC == IACC22 ) ) {
 
          // ==== Set the number simultaneous shifts ====
 
@@ -175,7 +175,7 @@
          NS = MAX( 2, NS-MOD( NS, 2 ) )
       }
 
-      if ( ISPEC.EQ.INMIN ) {
+      if ( ISPEC == INMIN ) {
 
 
          // ===== Matrices of order smaller than NMIN get sent
@@ -184,7 +184,7 @@
 
          IPARMQ = NMIN
 
-      } else if ( ISPEC.EQ.INIBL ) {
+      } else if ( ISPEC == INIBL ) {
 
          // ==== INIBL: skip a multi-shift qr iteration and
          // .    whenever aggressive early deflation finds
@@ -192,13 +192,13 @@
 
          IPARMQ = NIBBLE
 
-      } else if ( ISPEC.EQ.ISHFTS ) {
+      } else if ( ISPEC == ISHFTS ) {
 
          // ==== NSHFTS: The number of simultaneous shifts =====
 
          IPARMQ = NS
 
-      } else if ( ISPEC.EQ.INWIN ) {
+      } else if ( ISPEC == INWIN ) {
 
          // ==== NW: deflation window size.  ====
 
@@ -208,7 +208,7 @@
             IPARMQ = 3*NS / 2
          }
 
-      } else if ( ISPEC.EQ.IACC22 ) {
+      } else if ( ISPEC == IACC22 ) {
 
          // ==== IACC22: Whether to accumulate reflections
          // .     before updating the far-from-diagonal elements

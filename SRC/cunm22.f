@@ -41,7 +41,7 @@
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       // NQ is the order of Q;
       // NW is the minimum dimension of WORK.
@@ -52,7 +52,7 @@
          NQ = N
       }
       NW = NQ
-      if (N1.EQ.0 .OR. N2.EQ.0) NW = 1;
+      if (N1 == 0 .OR. N2 == 0) NW = 1;
       if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
       } else if ( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.LSAME( TRANS, 'C' ) ) {
@@ -73,7 +73,7 @@
          INFO = -12
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          LWKOPT = M*N
          WORK( 1 ) = CMPLX( LWKOPT )
       }
@@ -87,18 +87,18 @@
 
       // Quick return if possible
 
-      if ( M.EQ.0 .OR. N.EQ.0 ) {
+      if ( M == 0 .OR. N == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }
 
       // Degenerate cases (N1 = 0 or N2 = 0) are handled using CTRMM.
 
-      if ( N1.EQ.0 ) {
+      if ( N1 == 0 ) {
          ctrmm(SIDE, 'Upper', TRANS, 'Non-Unit', M, N, ONE, Q, LDQ, C, LDC );
          WORK( 1 ) = ONE
          RETURN
-      } else if ( N2.EQ.0 ) {
+      } else if ( N2 == 0 ) {
          ctrmm(SIDE, 'Lower', TRANS, 'Non-Unit', M, N, ONE, Q, LDQ, C, LDC );
          WORK( 1 ) = ONE
          RETURN

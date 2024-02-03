@@ -47,7 +47,7 @@
       // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 
       csptrf(UPLO, N, AP, IPIV, INFO );
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 

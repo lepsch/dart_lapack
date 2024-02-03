@@ -23,7 +23,7 @@
       // .. Executable Statements ..
 
       // Quick test for the common case where one corner is non-zero.
-      if ( M.EQ.0 ) {
+      if ( M == 0 ) {
          ILADLR = M
       } else if ( A(M, 1).NE.ZERO .OR. A(M, N).NE.ZERO ) {
          ILADLR = M
@@ -32,7 +32,7 @@
          ILADLR = 0
          for (J = 1; J <= N; J++) {
             I=M
-            DO WHILE((A(MAX(I,1),J).EQ.ZERO).AND.(I.GE.1))
+            DO WHILE((A(MAX(I,1),J) == ZERO).AND.(I.GE.1))
                I=I-1
             }
             ILADLR = MAX( ILADLR, I )

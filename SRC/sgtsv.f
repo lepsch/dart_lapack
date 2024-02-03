@@ -42,9 +42,9 @@
          RETURN
       }
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( NRHS.EQ.1 ) {
+      if ( NRHS == 1 ) {
          for (I = 1; I <= N - 2; I++) { // 10
             if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
 
@@ -97,7 +97,7 @@
                B( I+1, 1 ) = TEMP - FACT*B( I+1, 1 )
             }
          }
-         if ( D( N ).EQ.ZERO ) {
+         if ( D( N ) == ZERO ) {
             INFO = N
             RETURN
          }
@@ -162,7 +162,7 @@
                } // 60
             }
          }
-         if ( D( N ).EQ.ZERO ) {
+         if ( D( N ) == ZERO ) {
             INFO = N
             RETURN
          }

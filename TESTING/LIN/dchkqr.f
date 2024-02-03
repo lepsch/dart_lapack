@@ -118,9 +118,9 @@
                KVAL( 2 ) = 0
                KVAL( 3 ) = 1
                KVAL( 4 ) = MINMN / 2
-               if ( MINMN.EQ.0 ) {
+               if ( MINMN == 0 ) {
                   NK = 1
-               } else if ( MINMN.EQ.1 ) {
+               } else if ( MINMN == 1 ) {
                   NK = 2
                } else if ( MINMN.LE.3 ) {
                   NK = 3
@@ -144,7 +144,7 @@
                         RESULT( I ) = ZERO
                      }
                      NT = 2
-                     if ( IK.EQ.1 ) {
+                     if ( IK == 1 ) {
 
                         // Test DGEQRF
 
@@ -175,7 +175,7 @@
                         // with NRHS right hand sides and compute the
                         // residual.
 
-                        if ( K.EQ.N .AND. INB.EQ.1 ) {
+                        if ( K == N .AND. INB == 1 ) {
 
                            // Generate a solution and set the right
                            // hand side.
@@ -207,7 +207,7 @@
 
                      for (I = 1; I <= NTESTS; I++) { // 20
                         if ( RESULT( I ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
                            NFAIL = NFAIL + 1
                         }
                      } // 20

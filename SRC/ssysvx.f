@@ -43,7 +43,7 @@
 
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       LWKMIN = MAX( 1, 3*N )
       if ( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) {
          INFO = -1
@@ -65,7 +65,7 @@
          INFO = -18
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          LWKOPT = LWKMIN
          if ( NOFACT ) {
             NB = ILAENV( 1, 'SSYTRF', UPLO, N, -1, -1, -1 )

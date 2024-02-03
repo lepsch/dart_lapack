@@ -19,7 +19,7 @@
       // External Functions
       // EXTERNAL :: ZLARTG, ZROT
 
-      if ( K+1 .EQ. IHI ) {
+      if ( K+1 == IHI ) {
 
          // Shift is located on the edge of the matrix, remove it
 

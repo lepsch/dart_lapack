@@ -18,7 +18,7 @@ void main() {
       IEEEOK = ILAENV( 11, 'ILAENV', 'N', 1, 2, 3, 4 )
       WRITE( 6, FMT = * )
 
-      if ( IEEEOK.EQ.0 ) {
+      if ( IEEEOK == 0 ) {
          WRITE( 6, FMT = * ) 'Infinity arithmetic did not perform per the ieee spec'
       } else {
          WRITE( 6, FMT = * ) 'Infinity arithmetic performed as per the ieee spec.'          WRITE( 6, FMT = * ) 'However, this is not an exhaustive test and does not'          WRITE( 6, FMT = * ) 'guarantee that infinity arithmetic meets the', ' ieee spec.'
@@ -33,7 +33,7 @@ void main() {
       IEEEOK = ILAENV( 10, 'ILAENV', 'N', 1, 2, 3, 4 )
 
       WRITE( 6, FMT = * )
-      if ( IEEEOK.EQ.0 ) {
+      if ( IEEEOK == 0 ) {
          WRITE( 6, FMT = * ) 'NaN arithmetic did not perform per the ieee spec'
       } else {
          WRITE( 6, FMT = * )'NaN arithmetic performed as per the ieee', ' spec.'          WRITE( 6, FMT = * ) 'However, this is not an exhaustive test and does not'          WRITE( 6, FMT = * )'guarantee that NaN arithmetic meets the', ' ieee spec.'

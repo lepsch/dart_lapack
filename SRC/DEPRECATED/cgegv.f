@@ -81,7 +81,7 @@
       LWKMIN = MAX( 2*N, 1 )
       LWKOPT = LWKMIN
       WORK( 1 ) = LWKOPT
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       INFO = 0
       if ( IJOBVL.LE.0 ) {
          INFO = -1
@@ -101,7 +101,7 @@
          INFO = -15
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          NB1 = ILAENV( 1, 'CGEQRF', ' ', N, N, -1, -1 )
          NB2 = ILAENV( 1, 'CUNMQR', ' ', N, N, N, -1 )
          NB3 = ILAENV( 1, 'CUNGQR', ' ', N, N, N, -1 )
@@ -119,7 +119,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Get machine constants
 

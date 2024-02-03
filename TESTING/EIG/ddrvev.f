@@ -102,7 +102,7 @@
 
       // Quick return if nothing to do
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       // More Important constants
 
@@ -181,10 +181,10 @@
 
                // Zero
 
-            if ( ITYPE.EQ.1 ) {
+            if ( ITYPE == 1 ) {
                IINFO = 0
 
-            } else if ( ITYPE.EQ.2 ) {
+            } else if ( ITYPE == 2 ) {
 
                // Identity
 
@@ -192,7 +192,7 @@
                   A( JCOL, JCOL ) = ANORM
                } // 70
 
-            } else if ( ITYPE.EQ.3 ) {
+            } else if ( ITYPE == 3 ) {
 
                // Jordan Block
 
@@ -201,25 +201,25 @@
                   if (JCOL.GT.1) A( JCOL, JCOL-1 ) = ONE;
                } // 80
 
-            } else if ( ITYPE.EQ.4 ) {
+            } else if ( ITYPE == 4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.5 ) {
+            } else if ( ITYPE == 5 ) {
 
                // Symmetric, eigenvalues specified
 
                dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.6 ) {
+            } else if ( ITYPE == 6 ) {
 
                // General, eigenvalues specified
 
-               if ( KCONDS( JTYPE ).EQ.1 ) {
+               if ( KCONDS( JTYPE ) == 1 ) {
                   CONDS = ONE
-               } else if ( KCONDS( JTYPE ).EQ.2 ) {
+               } else if ( KCONDS( JTYPE ) == 2 ) {
                   CONDS = RTULPI
                } else {
                   CONDS = ZERO
@@ -228,19 +228,19 @@
                ADUMMA( 1 ) = ' '
                dlatme(N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.7 ) {
+            } else if ( ITYPE == 7 ) {
 
                // Diagonal, random eigenvalues
 
                dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.8 ) {
+            } else if ( ITYPE == 8 ) {
 
                // Symmetric, random eigenvalues
 
                dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.9 ) {
+            } else if ( ITYPE == 9 ) {
 
                // General, random eigenvalues
 
@@ -252,7 +252,7 @@
                   dlaset('Full', 1, N, ZERO, ZERO, A( N, 1 ), LDA );
                }
 
-            } else if ( ITYPE.EQ.10 ) {
+            } else if ( ITYPE == 10 ) {
 
                // Triangular, random eigenvalues
 
@@ -274,7 +274,7 @@
             // Test for minimal and generous workspace
 
             for (IWK = 1; IWK <= 2; IWK++) { // 250
-               if ( IWK.EQ.1 ) {
+               if ( IWK == 1 ) {
                   NNWORK = 4*N
                } else {
                   NNWORK = 5*N + 2*N**2
@@ -312,7 +312,7 @@
 
                for (J = 1; J <= N; J++) { // 120
                   TNRM = ONE
-                  if ( WI( J ).EQ.ZERO ) {
+                  if ( WI( J ) == ZERO ) {
                      TNRM = DNRM2( N, VR( 1, J ), 1 )
                   } else if ( WI( J ).GT.ZERO ) {
                      TNRM = DLAPY2( DNRM2( N, VR( 1, J ), 1 ), DNRM2( N, VR( 1, J+1 ), 1 ) )
@@ -323,7 +323,7 @@
                      VRMX = ZERO
                      for (JJ = 1; JJ <= N; JJ++) { // 110
                         VTST = DLAPY2( VR( JJ, J ), VR( JJ, J+1 ) )
-                        if (VTST.GT.VMX) VMX = VTST                         IF( VR( JJ, J+1 ).EQ.ZERO .AND. ABS( VR( JJ, J ) ).GT.VRMX ) VRMX = ABS( VR( JJ, J ) );
+                        if (VTST.GT.VMX) VMX = VTST                         IF( VR( JJ, J+1 ) == ZERO .AND. ABS( VR( JJ, J ) ).GT.VRMX ) VRMX = ABS( VR( JJ, J ) );
                      } // 110
                      if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
                   }
@@ -333,7 +333,7 @@
 
                for (J = 1; J <= N; J++) { // 140
                   TNRM = ONE
-                  if ( WI( J ).EQ.ZERO ) {
+                  if ( WI( J ) == ZERO ) {
                      TNRM = DNRM2( N, VL( 1, J ), 1 )
                   } else if ( WI( J ).GT.ZERO ) {
                      TNRM = DLAPY2( DNRM2( N, VL( 1, J ), 1 ), DNRM2( N, VL( 1, J+1 ), 1 ) )
@@ -344,7 +344,7 @@
                      VRMX = ZERO
                      for (JJ = 1; JJ <= N; JJ++) { // 130
                         VTST = DLAPY2( VL( JJ, J ), VL( JJ, J+1 ) )
-                        if (VTST.GT.VMX) VMX = VTST                         IF( VL( JJ, J+1 ).EQ.ZERO .AND. ABS( VL( JJ, J ) ).GT.VRMX ) VRMX = ABS( VL( JJ, J ) );
+                        if (VTST.GT.VMX) VMX = VTST                         IF( VL( JJ, J+1 ) == ZERO .AND. ABS( VL( JJ, J ) ).GT.VRMX ) VRMX = ABS( VL( JJ, J ) );
                      } // 130
                      if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
                   }
@@ -428,7 +428,7 @@
                } // 230
 
                if (NFAIL.GT.0) NTESTF = NTESTF + 1;
-               if ( NTESTF.EQ.1 ) {
+               if ( NTESTF == 1 ) {
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )
                   WRITE( NOUNIT, FMT = 9997 )

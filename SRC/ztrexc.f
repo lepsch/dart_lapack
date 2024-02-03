@@ -56,7 +56,7 @@
 
       // Quick return if possible
 
-      if (N.LE.1 .OR. IFST.EQ.ILST) RETURN;
+      if (N.LE.1 .OR. IFST == ILST) RETURN;
 
       if ( IFST.LT.ILST ) {
 

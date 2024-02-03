@@ -95,7 +95,7 @@
                SCOND = ONE
             }
          }
-         if ( INFO.EQ.0 ) {
+         if ( INFO == 0 ) {
             if ( LDB.LT.MAX( 1, N ) ) {
                INFO = -13
             } else if ( LDX.LT.MAX( 1, N ) ) {
@@ -114,7 +114,7 @@
       // Compute row and column scalings to equilibrate the matrix A.
 
          zsyequb(UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFEQU );
-         if ( INFEQU.EQ.0 ) {
+         if ( INFEQU == 0 ) {
 
       // Equilibrate the matrix.
 

@@ -38,7 +38,7 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( ICOMPQ.EQ.1 .AND. QSIZ.LT.N ) {
+      } else if ( ICOMPQ == 1 .AND. QSIZ.LT.N ) {
          INFO = -3
       } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -9
@@ -52,13 +52,13 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // The following values are for bookkeeping purposes only.  They are
       // integer pointers which indicate the portion of the workspace
       // used by a particular array in DLAED8 and DLAED9.
 
-      if ( ICOMPQ.EQ.1 ) {
+      if ( ICOMPQ == 1 ) {
          LDQ2 = QSIZ
       } else {
          LDQ2 = N
@@ -89,7 +89,7 @@
       // so we will overwrite the data from this level onto the previously
       // used storage space.
 
-      if ( CURLVL.EQ.TLVLS ) {
+      if ( CURLVL == TLVLS ) {
          QPTR( CURR ) = 1
          PRMPTR( CURR ) = 1
          GIVPTR( CURR ) = 1
@@ -105,7 +105,7 @@
 
       if ( K.NE.0 ) {
          CALL DLAED9( K, 1, K, N, D, WORK( IS ), K, RHO, WORK( IDLMDA ), WORK( IW ), QSTORE( QPTR( CURR ) ), K, INFO )          IF( INFO.NE.0 ) GO TO 30
-         if ( ICOMPQ.EQ.1 ) {
+         if ( ICOMPQ == 1 ) {
             dgemm('N', 'N', QSIZ, K, K, ONE, WORK( IQ2 ), LDQ2, QSTORE( QPTR( CURR ) ), K, ZERO, Q, LDQ );
          }
          QPTR( CURR+1 ) = QPTR( CURR ) + K**2

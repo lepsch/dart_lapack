@@ -61,12 +61,12 @@
       L2RANK = LSAME( JOBA, 'R' )
       L2ABER = LSAME( JOBA, 'A' )
       ERREST = LSAME( JOBA, 'E' ) .OR. LSAME( JOBA, 'G' )
-      L2TRAN = LSAME( JOBT, 'T' ) .AND. ( M .EQ. N )
+      L2TRAN = LSAME( JOBT, 'T' ) .AND. ( M == N )
       L2KILL = LSAME( JOBR, 'R' )
       DEFR   = LSAME( JOBR, 'N' )
       L2PERT = LSAME( JOBP, 'P' )
 
-      LQUERY = ( LWORK .EQ. -1 ) .OR. ( LRWORK .EQ. -1 )
+      LQUERY = ( LWORK == -1 ) .OR. ( LRWORK == -1 )
 
       if ( .NOT.(ROWPIV .OR. L2RANK .OR. L2ABER .OR. ERREST .OR. LSAME( JOBA, 'C' ) )) {
          INFO = - 1
@@ -95,7 +95,7 @@
          INFO = 0
       }
 
-      if ( INFO .EQ. 0 ) {
+      if ( INFO == 0 ) {
           // .. compute the minimal and the optimal workspace lengths
           // [[The expressions for computing the minimal and the optimal
           // values of LCWORK, LRWORK are written with a lot of redundancy and
@@ -310,7 +310,7 @@
 
       // Quick return for void matrix (Y3K safe)
 * #:)
-      if ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) ) {
+      if ( ( M == 0 ) .OR. ( N == 0 ) ) {
          IWORK(1:4) = 0
          RWORK(1:7) = 0
          RETURN
@@ -375,7 +375,7 @@
 
       // Quick return for zero M x N matrix
 * #:)
-      if ( AAPP .EQ. ZERO ) {
+      if ( AAPP == ZERO ) {
          if (LSVEC) CALL ZLASET( 'G', M, N1, CZERO, CONE, U, LDU );
          if (RSVEC) CALL ZLASET( 'G', N, N,  CZERO, CONE, V, LDV );
          RWORK(1) = ONE
@@ -409,7 +409,7 @@
 
       // Quick return for one-column matrix
 * #:)
-      if ( N .EQ. 1 ) {
+      if ( N == 1 ) {
 
          if ( LSVEC ) {
             zlascl('G',0,0,SVA(1),SCALEM, M,1,A(1,1),LDA,IERR );
@@ -465,7 +465,7 @@
       // Compute the row norms, needed to determine row pivoting sequence
       // (in the case of heavily row weighted A, row pivoting is strongly
       // advised) and to collect information needed to compare the
-      // structures of A * A^* and A^* * A (in the case L2TRAN.EQ. true ).
+      // structures of A * A^* and A^* * A (in the case L2TRAN == true ).
 
          if ( L2TRAN ) {
             for (p = 1; p <= M; p++) { // 1950
@@ -725,7 +725,7 @@
       }
 
       ALMORT = false;
-      if ( NR .EQ. N ) {
+      if ( NR == N ) {
          MAXPRJ = ONE
          for (p = 2; p <= N; p++) { // 3051
             TEMP1  = ABS(A(p,p)) / SVA(IWORK(p))
@@ -740,7 +740,7 @@
       CONDR2 = - ONE
 
       if ( ERREST ) {
-         if ( N .EQ. NR ) {
+         if ( N == NR ) {
             if ( RSVEC ) {
                // .. V is available as workspace
                zlacpy('U', N, N, A, LDA, V, LDV );
@@ -804,7 +804,7 @@
             zcopy(N-p, A(p,p+1), LDA, A(p+1,p), 1 );
             zlacgv(N-p+1, A(p,p), 1 );
          } // 1946
-         if (NR .EQ. N) A(N,N) = CONJG(A(N,N));
+         if (NR == N) A(N,N) = CONJG(A(N,N));
 
          // The following two DO-loops introduce small relative perturbation
          // into the strict upper triangle of the lower triangular matrix.
@@ -930,7 +930,7 @@
             zlacpy('A', N, N, V, LDV, U, LDU );
           }
 
-      } else if ( JRACC .AND. (.NOT. LSVEC) .AND. ( NR.EQ. N ) ) {
+      } else if ( JRACC .AND. (.NOT. LSVEC) .AND. ( NR == N ) ) {
 
          zlaset('L', N-1,N-1, CZERO, CZERO, A(2,1), LDA );
 
@@ -1175,7 +1175,7 @@
 
          // .. pick the right matrix equation and solve it
 
-               if ( NR .EQ. N ) {
+               if ( NR == N ) {
 * :))             .. best case, R1 is inverted. The solution of this matrix
                   // equation is Q2*V2 = the product of the Jacobi rotations
                   // used in ZGESVJ, premultiplied with the orthogonal matrix

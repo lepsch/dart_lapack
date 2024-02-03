@@ -26,7 +26,7 @@
       // ..
       DSDOT = 0.0D0
       if (N.LE.0) RETURN;
-      if (INCX.EQ.INCY .AND. INCX.GT.0) {
+      if (INCX == INCY .AND. INCX.GT.0) {
 
       // Code for equal, positive, non-unit increments.
 

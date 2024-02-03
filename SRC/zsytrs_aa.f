@@ -38,7 +38,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -63,7 +63,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0 .OR. NRHS.EQ.0) RETURN;
+      if (N == 0 .OR. NRHS == 0) RETURN;
 
       if ( UPPER ) {
 

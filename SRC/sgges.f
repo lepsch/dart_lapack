@@ -75,7 +75,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( IJOBVL.LE.0 ) {
          INFO = -1
       } else if ( IJOBVR.LE.0 ) {
@@ -101,7 +101,7 @@
         // NB refers to the optimal block size for the immediately
         // following subroutine, as returned by ILAENV.)
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( N.GT.0 ) {
             MINWRK = MAX( 8*N, 6*N + 16 )
             MAXWRK = MINWRK - N + N*ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 )             MAXWRK = MAX( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORMQR', ' ', N, 1, N, -1 ) )
@@ -126,7 +126,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          SDIM = 0
          RETURN
       }
@@ -244,7 +244,7 @@
          } // 10
 
          stgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
-         if (IERR.EQ.1) INFO = N + 3;
+         if (IERR == 1) INFO = N + 3;
 
       }
 
@@ -313,12 +313,12 @@
          IP = 0
          for (I = 1; I <= N; I++) { // 30
             CURSL = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
-            if ( ALPHAI( I ).EQ.ZERO ) {
+            if ( ALPHAI( I ) == ZERO ) {
                if (CURSL) SDIM = SDIM + 1;
                IP = 0
                if (CURSL .AND. .NOT.LASTSL) INFO = N + 2;
             } else {
-               if ( IP.EQ.1 ) {
+               if ( IP == 1 ) {
 
                   // Last eigenvalue of conjugate pair
 

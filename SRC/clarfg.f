@@ -44,7 +44,7 @@
       ALPHR = REAL( ALPHA )
       ALPHI = AIMAG( ALPHA )
 
-      if ( XNORM.EQ.ZERO .AND. ALPHI.EQ.ZERO ) {
+      if ( XNORM == ZERO .AND. ALPHI == ZERO ) {
 
          // H  =  I
 

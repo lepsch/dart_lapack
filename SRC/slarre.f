@@ -80,8 +80,8 @@
       BSRTOL = SQRT(EPS)*(0.5E-3)
 
       // Treat case of 1x1 matrix for quick return
-      if ( N.EQ.1 ) {
-         if ( (IRANGE.EQ.ALLRNG).OR. ((IRANGE.EQ.VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE.EQ.INDRNG).AND.(IL.EQ.1).AND.(IU.EQ.1)) ) {
+      if ( N == 1 ) {
+         if ( (IRANGE == ALLRNG).OR. ((IRANGE == VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE == INDRNG).AND.(IL == 1).AND.(IU == 1)) ) {
             M = 1
             W(1) = D(1)
             // The computation error of the eigenvalue is zero
@@ -135,9 +135,9 @@
 
       // Initialize USEDQD, DQDS should be used for ALLRNG unless someone
       // explicitly wants bisection.
-      USEDQD = (( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB))
+      USEDQD = (( IRANGE == ALLRNG ) .AND. (.NOT.FORCEB))
 
-      if ( (IRANGE.EQ.ALLRNG) .AND. (.NOT. FORCEB) ) {
+      if ( (IRANGE == ALLRNG) .AND. (.NOT. FORCEB) ) {
          // Set interval [VL,VU] that contains all eigenvalues
          VL = GL
          VU = GU
@@ -172,8 +172,8 @@
          IN = IEND - IBEGIN + 1
 
          // 1 X 1 block
-         if ( IN.EQ.1 ) {
-            if ( (IRANGE.EQ.ALLRNG).OR.( (IRANGE.EQ.VALRNG).AND. ( D( IBEGIN ).GT.VL ).AND.( D( IBEGIN ).LE.VU ) ) .OR. ( (IRANGE.EQ.INDRNG).AND.(IBLOCK(WBEGIN).EQ.JBLK)) ) {
+         if ( IN == 1 ) {
+            if ( (IRANGE == ALLRNG).OR.( (IRANGE == VALRNG).AND. ( D( IBEGIN ).GT.VL ).AND.( D( IBEGIN ).LE.VU ) ) .OR. ( (IRANGE == INDRNG).AND.(IBLOCK(WBEGIN) == JBLK)) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
@@ -204,11 +204,11 @@
          } // 15
          SPDIAM = GU - GL
 
-         if (.NOT. ((IRANGE.EQ.ALLRNG).AND.(.NOT.FORCEB)) ) {
+         if (.NOT. ((IRANGE == ALLRNG).AND.(.NOT.FORCEB)) ) {
             // Count the number of eigenvalues in the current block.
             MB = 0
             for (I = WBEGIN; I <= MM; I++) { // 20
-               if ( IBLOCK(I).EQ.JBLK ) {
+               if ( IBLOCK(I) == JBLK ) {
                   MB = MB+1
                } else {
                   GOTO 21
@@ -216,7 +216,7 @@
             } // 20
             } // 21
 
-            if ( MB.EQ.0) {
+            if ( MB == 0) {
                // No eigenvalue in the current block lies in the desired range
                // E( IEND ) holds the shift for the initial RRR
                E( IEND ) = ZERO
@@ -240,7 +240,7 @@
                INDU = INDEXW( WEND )
             }
          }
-         if (( (IRANGE.EQ.ALLRNG) .AND. (.NOT. FORCEB) ).OR.USEDQD) {
+         if (( (IRANGE == ALLRNG) .AND. (.NOT. FORCEB) ).OR.USEDQD) {
             // Case of DQDS
             // Find approximations to the extremal eigenvalues of the block
             slarrk(IN, 1, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );
@@ -272,7 +272,7 @@
          // the eigenvalue approximations at the end of SLARRE or bisection.
          // dqds is chosen if all eigenvalues are desired or the number of
          // eigenvalues to be computed is large compared to the blocksize.
-         if ( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) {
+         if ( ( IRANGE == ALLRNG ) .AND. (.NOT.FORCEB) ) {
             // If all the eigenvalues have to be computed, we use dqd
             USEDQD = true;
             // INDL is the local index of the first eigenvalue to compute
@@ -303,11 +303,11 @@
             slarrc('T', IN, S1, S2, D(IBEGIN), E(IBEGIN), PIVMIN, CNT, CNT1, CNT2, IINFO);
          }
 
-         if (MB.EQ.1) {
+         if (MB == 1) {
             SIGMA = GL
             SGNDEF = ONE
          } else if ( CNT1 - INDL .GE. INDU - CNT2 ) {
-            if ( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) {
+            if ( ( IRANGE == ALLRNG ) .AND. (.NOT.FORCEB) ) {
                SIGMA = MAX(ISLEFT,GL)
             } else if ( USEDQD ) {
                // use Gerschgorin bound as shift to get pos def matrix
@@ -320,7 +320,7 @@
             }
             SGNDEF = ONE
          } else {
-            if ( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) {
+            if ( ( IRANGE == ALLRNG ) .AND. (.NOT.FORCEB) ) {
                SIGMA = MIN(ISRGHT,GU)
             } else if ( USEDQD ) {
                // use Gerschgorin bound as shift to get neg def matrix
@@ -349,7 +349,7 @@
             if (MB.GT.1) {
                CLWDTH = W(WEND) + WERR(WEND) - W(WBEGIN) - WERR(WBEGIN)
                AVGAP = ABS(CLWDTH / REAL(WEND-WBEGIN))
-               if ( SGNDEF.EQ.ONE ) {
+               if ( SGNDEF == ONE ) {
                   TAU = HALF*MAX(WGAP(WBEGIN),AVGAP)
                   TAU = MAX(TAU,WERR(WBEGIN))
                } else {
@@ -396,8 +396,8 @@
                // Note that in the case of IRANGE=ALLRNG, we use the Gerschgorin
                // shift which makes the matrix definite. So we should end up
                // here really only in the case of IRANGE = VALRNG or INDRNG.
-               if ( IDUM.EQ.MAXTRY-1 ) {
-                  if ( SGNDEF.EQ.ONE ) {
+               if ( IDUM == MAXTRY-1 ) {
+                  if ( SGNDEF == ONE ) {
                      // The fudged Gerschgorin shift should succeed
                      SIGMA = GL - FUDGE*SPDIAM*EPS*N - FUDGE*TWO*PIVMIN
                   } else {

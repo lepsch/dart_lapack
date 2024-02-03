@@ -45,7 +45,7 @@
       INFO = 0
       MINMN = MIN( M, N )
       MAXMN = MAX( M, N )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -65,7 +65,7 @@
         // NB refers to the optimal block size for the immediately
         // following subroutine, as returned by ILAENV.)
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
          if ( MINMN.GT.0 ) {
@@ -185,7 +185,7 @@
 
       // Quick return if possible
 
-      if ( M.EQ.0 .OR. N.EQ.0 ) {
+      if ( M == 0 .OR. N == 0 ) {
          RANK = 0
          RETURN
       }
@@ -213,7 +213,7 @@
 
          dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
-      } else if ( ANRM.EQ.ZERO ) {
+      } else if ( ANRM == ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
@@ -326,7 +326,7 @@
                dgemm('T', 'N', N, BL, N, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N );
                dlacpy('G', N, BL, WORK, N, B( 1, I ), LDB );
             } // 20
-         } else if ( NRHS.EQ.1 ) {
+         } else if ( NRHS == 1 ) {
             dgemv('T', N, N, ONE, A, LDA, B, 1, ZERO, WORK, 1 );
             dcopy(N, WORK, 1, B, 1 );
          }
@@ -407,7 +407,7 @@
                dgemm('T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M );
                dlacpy('G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
             } // 40
-         } else if ( NRHS.EQ.1 ) {
+         } else if ( NRHS == 1 ) {
             dgemv('T', M, M, ONE, WORK( IL ), LDWORK, B( 1, 1 ), 1, ZERO, WORK( IWORK ), 1 );
             dcopy(M, WORK( IWORK ), 1, B( 1, 1 ), 1 );
          }
@@ -481,7 +481,7 @@
                dgemm('T', 'N', N, BL, M, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N );
                dlacpy('F', N, BL, WORK, N, B( 1, I ), LDB );
             } // 60
-         } else if ( NRHS.EQ.1 ) {
+         } else if ( NRHS == 1 ) {
             dgemv('T', M, N, ONE, A, LDA, B, 1, ZERO, WORK, 1 );
             dcopy(N, WORK, 1, B, 1 );
          }
@@ -489,16 +489,16 @@
 
       // Undo scaling
 
-      if ( IASCL.EQ.1 ) {
+      if ( IASCL == 1 ) {
          dlascl('G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO );
          dlascl('G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
-      } else if ( IASCL.EQ.2 ) {
+      } else if ( IASCL == 2 ) {
          dlascl('G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO );
          dlascl('G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       }
-      if ( IBSCL.EQ.1 ) {
+      if ( IBSCL == 1 ) {
          dlascl('G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO );
-      } else if ( IBSCL.EQ.2 ) {
+      } else if ( IBSCL == 2 ) {
          dlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 

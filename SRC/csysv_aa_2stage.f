@@ -38,8 +38,8 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      WQUERY = ( LWORK.EQ.-1 )
-      TQUERY = ( LTB.EQ.-1 )
+      WQUERY = ( LWORK == -1 )
+      TQUERY = ( LTB == -1 )
       if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -56,7 +56,7 @@
          INFO = -13
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          csytrf_aa_2stage(UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO );
          LWKOPT = INT( WORK(1) )
       }
@@ -72,7 +72,7 @@
       // Compute the factorization A = U**T*T*U or A = L*T*L**T.
 
       csytrf_aa_2stage(UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO );
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 

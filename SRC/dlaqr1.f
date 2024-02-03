@@ -32,9 +32,9 @@
          RETURN
       }
 
-      if ( N.EQ.2 ) {
+      if ( N == 2 ) {
          S = ABS( H( 1, 1 )-SR2 ) + ABS( SI2 ) + ABS( H( 2, 1 ) )
-         if ( S.EQ.ZERO ) {
+         if ( S == ZERO ) {
             V( 1 ) = ZERO
             V( 2 ) = ZERO
          } else {
@@ -44,7 +44,7 @@
          }
       } else {
          S = ABS( H( 1, 1 )-SR2 ) + ABS( SI2 ) + ABS( H( 2, 1 ) ) + ABS( H( 3, 1 ) )
-         if ( S.EQ.ZERO ) {
+         if ( S == ZERO ) {
             V( 1 ) = ZERO
             V( 2 ) = ZERO
             V( 3 ) = ZERO

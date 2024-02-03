@@ -38,7 +38,7 @@
           INFO = 1
       } else if (N.LT.0) {
           INFO = 2
-      } else if (INCX.EQ.0) {
+      } else if (INCX == 0) {
           INFO = 5
       }
       if (INFO.NE.0) {
@@ -48,7 +48,7 @@
 
       // Quick return if possible.
 
-      IF ((N.EQ.0) .OR. (ALPHA.EQ.ZERO)) RETURN
+      IF ((N == 0) .OR. (ALPHA == ZERO)) RETURN
 
       // Set the start point in X if the increment is not unity.
 
@@ -66,7 +66,7 @@
 
          // Form  A  when upper triangle is stored in AP.
 
-          if (INCX.EQ.1) {
+          if (INCX == 1) {
               for (J = 1; J <= N; J++) { // 20
                   if (X(J).NE.ZERO) {
                       TEMP = ALPHA*X(J)
@@ -97,7 +97,7 @@
 
          // Form  A  when lower triangle is stored in AP.
 
-          if (INCX.EQ.1) {
+          if (INCX == 1) {
               for (J = 1; J <= N; J++) { // 60
                   if (X(J).NE.ZERO) {
                       TEMP = ALPHA*X(J)

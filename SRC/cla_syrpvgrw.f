@@ -38,7 +38,7 @@
       // .. Executable Statements ..
 
       UPPER = LSAME( 'Upper', UPLO )
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( UPPER ) {
             NCOLS = 1
          } else {

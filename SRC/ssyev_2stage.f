@@ -43,7 +43,7 @@
 
       WANTZ = LSAME( JOBZ, 'V' )
       LOWER = LSAME( UPLO, 'L' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       INFO = 0
       if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
@@ -56,7 +56,7 @@
          INFO = -5
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          KD    = ILAENV2STAGE( 1, 'SSYTRD_2STAGE', JOBZ, N, -1, -1, -1 )
          IB    = ILAENV2STAGE( 2, 'SSYTRD_2STAGE', JOBZ, N, KD, -1, -1 )
          LHTRD = ILAENV2STAGE( 3, 'SSYTRD_2STAGE', JOBZ, N, KD, IB, -1 )
@@ -76,11 +76,11 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          RETURN
       }
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          W( 1 ) = A( 1, 1 )
          WORK( 1 ) = 2
          if (WANTZ) A( 1, 1 ) = ONE;
@@ -107,7 +107,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      if (ISCALE.EQ.1) CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
+      if (ISCALE == 1) CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call SSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 
@@ -134,8 +134,8 @@
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      if ( ISCALE.EQ.1 ) {
-         if ( INFO.EQ.0 ) {
+      if ( ISCALE == 1 ) {
+         if ( INFO == 0 ) {
             IMAX = N
          } else {
             IMAX = INFO - 1

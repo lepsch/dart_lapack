@@ -119,21 +119,21 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
             for (I = 1; I <= LEN; I++) { // 20
                CX(I) = CV(I,NP1,INCX)
             } // 20
-            if (ICASE.EQ.6) {
+            if (ICASE == 6) {
                // .. DZNRM2TEST ..
                stest1(DZNRM2TEST(N,CX,INCX),STRUE2(NP1), STRUE2(NP1),SFAC);
-            } else if (ICASE.EQ.7) {
+            } else if (ICASE == 7) {
                // .. DZASUMTEST ..
                stest1(DZASUMTEST(N,CX,INCX),STRUE4(NP1), STRUE4(NP1),SFAC);
-            } else if (ICASE.EQ.8) {
+            } else if (ICASE == 8) {
                // .. ZSCALTEST ..
                zscaltest(N,CA,CX,INCX);
                ctest(LEN,CX,CTRUE5(1,NP1,INCX),CTRUE5(1,NP1,INCX), SFAC);
-            } else if (ICASE.EQ.9) {
+            } else if (ICASE == 9) {
                // .. ZDSCALTEST ..
                zdscaltest(N,SA,CX,INCX);
                ctest(LEN,CX,CTRUE6(1,NP1,INCX),CTRUE6(1,NP1,INCX), SFAC);
-            } else if (ICASE.EQ.10) {
+            } else if (ICASE == 10) {
                // .. IZAMAXTEST ..
                itest1(IZAMAXTEST(N,CX,INCX),ITRUE3(NP1));
             } else {
@@ -145,7 +145,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
       } // 60
 
       INCX = 1
-      if (ICASE.EQ.8) {
+      if (ICASE == 8) {
          // ZSCALTEST
          // Add a test for alpha equal to zero.
          CA = (0.0D0,0.0D0)
@@ -155,7 +155,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
          } // 80
          zscaltest(5,CA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
-      } else if (ICASE.EQ.9) {
+      } else if (ICASE == 9) {
          // ZDSCALTEST
          // Add a test for alpha equal to zero.
          SA = 0.0D0
@@ -249,25 +249,25 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
                CX(I) = CX1(I)
                CY(I) = CY1(I)
             } // 20
-            if (ICASE.EQ.1) {
+            if (ICASE == 1) {
                // .. ZDOTCTEST ..
                zdotctest(N,CX,INCX,CY,INCY,ZTEMP);
                CDOT(1) = ZTEMP
                ctest(1,CDOT,CT6(KN,KI),CSIZE1(KN),SFAC);
-            } else if (ICASE.EQ.2) {
+            } else if (ICASE == 2) {
                // .. ZDOTUTEST ..
                zdotutest(N,CX,INCX,CY,INCY,ZTEMP);
                CDOT(1) = ZTEMP
                ctest(1,CDOT,CT7(KN,KI),CSIZE1(KN),SFAC);
-            } else if (ICASE.EQ.3) {
+            } else if (ICASE == 3) {
                // .. ZAXPYTEST ..
                zaxpytest(N,CA,CX,INCX,CY,INCY);
                ctest(LENY,CY,CT8(1,KN,KI),CSIZE2(1,KSIZE),SFAC);
-            } else if (ICASE.EQ.4) {
+            } else if (ICASE == 4) {
                // .. ZCOPYTEST ..
                zcopytest(N,CX,INCX,CY,INCY);
                ctest(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0D0);
-            } else if (ICASE.EQ.5) {
+            } else if (ICASE == 5) {
                // .. ZSWAPTEST ..
                zswaptest(N,CX,INCX,CY,INCY);
                ctest(LENX,CX,CT10X(1,KN,KI),CSIZE3,1.0D0);
@@ -315,7 +315,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
 
       for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I)
-         IF (SDIFF(ABS(SSIZE(I))+ABS(SFAC*SD),ABS(SSIZE(I))).EQ.0.0D0) GO TO 40
+         IF (SDIFF(ABS(SSIZE(I))+ABS(SFAC*SD),ABS(SSIZE(I))) == 0.0D0) GO TO 40
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 
@@ -418,7 +418,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
       // .. Common blocks ..
       // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
-      if (ICOMP.EQ.ITRUE) GO TO 40;
+      if (ICOMP == ITRUE) GO TO 40;
 
                              // HERE ICOMP IS NOT EQUAL TO ITRUE.
 

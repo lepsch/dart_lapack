@@ -41,9 +41,9 @@
 
       // Compute product of 1-norms of A and Z.
 
-      ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )* ZLANGE( '1', N, M, Z, LDZ, RWORK )       IF( ANORM.EQ.ZERO ) ANORM = ONE
+      ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )* ZLANGE( '1', N, M, Z, LDZ, RWORK )       IF( ANORM == ZERO ) ANORM = ONE
 
-      if ( ITYPE.EQ.1 ) {
+      if ( ITYPE == 1 ) {
 
          // Norm of AZ - BZD
 
@@ -55,7 +55,7 @@
 
          RESULT( 1 ) = ( ZLANGE( '1', N, M, WORK, N, RWORK ) / ANORM ) / ( N*ULP )
 
-      } else if ( ITYPE.EQ.2 ) {
+      } else if ( ITYPE == 2 ) {
 
          // Norm of ABZ - ZD
 
@@ -67,7 +67,7 @@
 
          RESULT( 1 ) = ( ZLANGE( '1', N, M, Z, LDZ, RWORK ) / ANORM ) / ( N*ULP )
 
-      } else if ( ITYPE.EQ.3 ) {
+      } else if ( ITYPE == 3 ) {
 
          // Norm of BAZ - ZD
 

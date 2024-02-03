@@ -50,8 +50,8 @@
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
 
-      LQUERY = ( ( LWORK.EQ.-1 ).OR.( LIWORK.EQ.-1 ) )
-      ZQUERY = ( NZC.EQ.-1 )
+      LQUERY = ( ( LWORK == -1 ).OR.( LIWORK == -1 ) )
+      ZQUERY = ( NZC == -1 )
       LAESWAP = false;
 
       // SSTEMR needs WORK of size 6*N, IWORK of size 3*N.
@@ -114,7 +114,7 @@
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          IWORK( 1 ) = LIWMIN
 
@@ -125,10 +125,10 @@
          } else if ( WANTZ .AND. INDEIG ) {
             NZCMIN = IIU-IIL+1
          } else {
-            // WANTZ .EQ. FALSE.
+            // WANTZ == FALSE.
             NZCMIN = 0
          }
-         if ( ZQUERY .AND. INFO.EQ.0 ) {
+         if ( ZQUERY .AND. INFO == 0 ) {
             Z( 1,1 ) = NZCMIN
          } else if ( NZC.LT.NZCMIN .AND. .NOT.ZQUERY ) {
             INFO = -14
@@ -147,9 +147,9 @@
       // Handle N = 0, 1, and 2 cases immediately
 
       M = 0
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          if ( ALLEIG .OR. INDEIG ) {
             M = 1
             W( 1 ) = D( 1 )
@@ -167,7 +167,7 @@
          RETURN
       }
 
-      if ( N.EQ.2 ) {
+      if ( N == 2 ) {
          if ( .NOT.WANTZ ) {
             slae2(D(1), E(1), D(2), R1, R2 );
          } else if ( WANTZ.AND.(.NOT.ZQUERY) ) {
@@ -182,7 +182,7 @@
             R2 = E(2)
             LAESWAP = true;
          }
-         if ( ALLEIG.OR. (VALEIG.AND.(R2.GT.WL).AND. (R2.LE.WU)).OR. (INDEIG.AND.(IIL.EQ.1)) ) {
+         if ( ALLEIG.OR. (VALEIG.AND.(R2.GT.WL).AND. (R2.LE.WU)).OR. (INDEIG.AND.(IIL == 1)) ) {
             M = M+1
             W( M ) = R2
             if ( WANTZ.AND.(.NOT.ZQUERY) ) {
@@ -208,7 +208,7 @@
                }
             }
          }
-         if ( ALLEIG.OR. (VALEIG.AND.(R1.GT.WL).AND. (R1.LE.WU)).OR. (INDEIG.AND.(IIU.EQ.2)) ) {
+         if ( ALLEIG.OR. (VALEIG.AND.(R1.GT.WL).AND. (R1.LE.WU)).OR. (INDEIG.AND.(IIU == 2)) ) {
             M = M+1
             W( M ) = R1
             if ( WANTZ.AND.(.NOT.ZQUERY) ) {
@@ -291,7 +291,7 @@
             IINFO = -1
          }
          // Set the splitting criterion
-         if (IINFO.EQ.0) {
+         if (IINFO == 0) {
             THRESH = EPS
          } else {
             THRESH = -EPS
@@ -366,7 +366,7 @@
                // check if any eigenvalues have to be refined in this block
             } // 36
                if ( WEND.LT.M ) {
-                  if ( IWORK( IINDBL+WEND ).EQ.JBLK ) {
+                  if ( IWORK( IINDBL+WEND ) == JBLK ) {
                      WEND = WEND + 1
                      GO TO 36
                   }
@@ -396,7 +396,7 @@
       // If eigenvalues are not in increasing order, then sort them,
       // possibly along with eigenvectors.
 
-      if ( NSPLIT.GT.1 .OR. N.EQ.2 ) {
+      if ( NSPLIT.GT.1 .OR. N == 2 ) {
          if ( .NOT. WANTZ ) {
             slasrt('I', M, W, IINFO );
             if ( IINFO.NE.0 ) {

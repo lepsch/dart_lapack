@@ -67,7 +67,7 @@
 
       } // 10
       READ( NIN, FMT = * )M, N
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
       for (I = 1; I <= M; I++) { // 20
          READ( NIN, FMT = * )( ATMP( I, J ), J = 1, M )
       } // 20
@@ -84,7 +84,7 @@
                   for (ITRANA = 1; ITRANA <= 2; ITRANA++) { // 130
                      for (ITRANB = 1; ITRANB <= 2; ITRANB++) { // 120
                         DO 110 ISGN = -1, 1, 2
-                           if (ITRANA.EQ.1) TRANA = 'N'                            IF( ITRANA.EQ.2 ) TRANA = 'C'                            IF( ITRANB.EQ.1 ) TRANB = 'N'                            IF( ITRANB.EQ.2 ) TRANB = 'C';
+                           if (ITRANA == 1) TRANA = 'N'                            IF( ITRANA == 2 ) TRANA = 'C'                            IF( ITRANB == 1 ) TRANB = 'N'                            IF( ITRANB == 2 ) TRANB = 'C';
                            TNRM = ZERO
                            for (I = 1; I <= M; I++) { // 60
                               for (J = 1; J <= M; J++) { // 50
@@ -100,7 +100,7 @@
                                  TNRM = MAX( TNRM, ABS( B( I, J ) ) )
                               } // 70
                            } // 80
-                           if (TNRM.EQ.ZERO) TNRM = ONE;
+                           if (TNRM == ZERO) TNRM = ONE;
                            for (I = 1; I <= M; I++) { // 100
                               for (J = 1; J <= N; J++) { // 90
                                  C( I, J ) = CTMP( I, J )*VM1( IMLC )

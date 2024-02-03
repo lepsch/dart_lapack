@@ -50,7 +50,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // The following values are for bookkeeping purposes only.  They are
       // integer pointers which indicate the portion of the workspace
@@ -80,7 +80,7 @@
       // so we will overwrite the data from this level onto the previously
       // used storage space.
 
-      if ( CURLVL.EQ.TLVLS ) {
+      if ( CURLVL == TLVLS ) {
          QPTR( CURR ) = 1
          PRMPTR( CURR ) = 1
          GIVPTR( CURR ) = 1

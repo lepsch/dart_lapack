@@ -143,7 +143,7 @@
                // Print the test ratio if it is .GE. THRESH.
 
                if ( RESULT( 1 ).GE.THRESH ) {
-                  if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, IMAT, 1, RESULT( 1 );
+                  if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, IMAT, 1, RESULT( 1 );
                   NFAIL = NFAIL + 1
                }
                NRUN = NRUN + 1
@@ -157,7 +157,7 @@
                   // Do for op(A) = A, A**T, or A**H.
 
                      TRANS = TRANSS( ITRAN )
-                     if ( ITRAN.EQ.1 ) {
+                     if ( ITRAN == 1 ) {
                         NORM = 'O'
                         RCONDC = RCONDO
                      } else {
@@ -206,7 +206,7 @@
 
                      for (K = 2; K <= 6; K++) { // 20
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 20
@@ -218,7 +218,7 @@
                   // Get an estimate of RCOND = 1/CNDNUM.
 
                for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 50
-                  if ( ITRAN.EQ.1 ) {
+                  if ( ITRAN == 1 ) {
                      NORM = 'O'
                      RCONDC = RCONDO
                   } else {
@@ -238,7 +238,7 @@
                   // Print the test ratio if it is .GE. THRESH.
 
                   if ( RESULT( 7 ).GE.THRESH ) {
-                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 ) 'STPCON', NORM, UPLO, DIAG, N, IMAT, 7, RESULT( 7 );
+                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 ) 'STPCON', NORM, UPLO, DIAG, N, IMAT, 7, RESULT( 7 );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + 1
@@ -299,11 +299,11 @@
                   // the threshold.
 
                   if ( RESULT( 8 ).GE.THRESH ) {
-                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATPS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 );
+                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATPS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 );
                      NFAIL = NFAIL + 1
                   }
                   if ( RESULT( 9 ).GE.THRESH ) {
-                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATPS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 );
+                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATPS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + 2

@@ -37,7 +37,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 .OR. N.GT.M ) {
@@ -48,8 +48,8 @@
          INFO = -5
       }
 
-      if ( INFO.EQ.0 ) {
-         if ( N.EQ.0 ) {
+      if ( INFO == 0 ) {
+         if ( N == 0 ) {
             LWKOPT = 1
          } else {
             NB = ILAENV( 1, 'SORGQL', ' ', M, N, K, -1 )

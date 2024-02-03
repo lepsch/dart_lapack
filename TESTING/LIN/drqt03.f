@@ -54,7 +54,7 @@
 
       // Quick return if possible
 
-      if ( MINMN.EQ.0 ) {
+      if ( MINMN == 0 ) {
          RESULT( 1 ) = ZERO
          RESULT( 2 ) = ZERO
          RESULT( 3 ) = ZERO
@@ -73,7 +73,7 @@
       dorgrq(N, N, K, Q, LDA, TAU( MINMN-K+1 ), WORK, LWORK, INFO );
 
       for (ISIDE = 1; ISIDE <= 2; ISIDE++) { // 30
-         if ( ISIDE.EQ.1 ) {
+         if ( ISIDE == 1 ) {
             SIDE = 'L'
             MC = N
             NC = M
@@ -89,10 +89,10 @@
             dlarnv(2, ISEED, MC, C( 1, J ) );
          } // 10
          CNORM = DLANGE( '1', MC, NC, C, LDA, RWORK )
-         if (CNORM.EQ.0.0D0) CNORM = ONE;
+         if (CNORM == 0.0D0) CNORM = ONE;
 
          for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 20
-            if ( ITRANS.EQ.1 ) {
+            if ( ITRANS == 1 ) {
                TRANS = 'N'
             } else {
                TRANS = 'T'

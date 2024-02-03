@@ -26,7 +26,7 @@
       // Set up deflation window
       JW = MIN( NW, IHI-ILO+1 )
       KWTOP = IHI-JW+1
-      if ( KWTOP .EQ. ILO ) {
+      if ( KWTOP == ILO ) {
          S = ZERO
       } else {
          S = A( KWTOP, KWTOP-1 )
@@ -40,7 +40,7 @@
       dlaqz0('S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHAR, ALPHAI, BETA, QC, LDQC, ZC, LDZC, WORK, -1, REC+1, QZ_SMALL_INFO );
       LWORKREQ = MAX( LWORKREQ, INT( WORK( 1 ) )+2*JW**2 )
       LWORKREQ = MAX( LWORKREQ, N*NW, 2*NW**2+N )
-      if ( LWORK .EQ.-1 ) {
+      if ( LWORK == -1 ) {
          // workspace query, quick return
          WORK( 1 ) = LWORKREQ
          RETURN
@@ -59,7 +59,7 @@
       ULP = DLAMCH( 'PRECISION' )
       SMLNUM = SAFMIN*( DBLE( N )/ULP )
 
-      if ( IHI .EQ. KWTOP ) {
+      if ( IHI == KWTOP ) {
          // 1 by 1 deflation window, just try a regular deflation
          ALPHAR( KWTOP ) = A( KWTOP, KWTOP )
          ALPHAI( KWTOP ) = ZERO
@@ -95,7 +95,7 @@
       }
 
       // Deflation detection loop
-      if ( KWTOP .EQ. ILO .OR. S .EQ. ZERO ) {
+      if ( KWTOP == ILO .OR. S == ZERO ) {
          KWBOT = KWTOP-1
       } else {
          KWBOT = IHI
@@ -110,7 +110,7 @@
 
                // Try to deflate complex conjugate eigenvalue pair
                TEMP = ABS( A( KWBOT, KWBOT ) )+SQRT( ABS( A( KWBOT, KWBOT-1 ) ) )*SQRT( ABS( A( KWBOT-1, KWBOT ) ) )
-               if ( TEMP .EQ. ZERO ) {
+               if ( TEMP == ZERO ) {
                   TEMP = ABS( S )
                }
                if ( MAX( ABS( S*QC( 1, KWBOT-KWTOP ) ), ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( SMLNUM, ULP*TEMP ) ) {
@@ -128,7 +128,7 @@
 
                // Try to deflate real eigenvalue
                TEMP = ABS( A( KWBOT, KWBOT ) )
-               if ( TEMP .EQ. ZERO ) {
+               if ( TEMP == ZERO ) {
                   TEMP = ABS( S )
                }
                if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( ULP* TEMP, SMLNUM ) ) {

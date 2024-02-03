@@ -72,11 +72,11 @@
 
       // Quick return if possible
 
-      if (K.EQ.0) RETURN;
+      if (K == 0) RETURN;
 
       // Compute reciprocal condition numbers
 
-      if ( K.EQ.1 ) {
+      if ( K == 1 ) {
          SEP( 1 ) = SLAMCH( 'O' )
       } else {
          OLDGAP = ABS( D( 2 )-D( 1 ) )
@@ -100,7 +100,7 @@
       EPS = SLAMCH( 'E' )
       SAFMIN = SLAMCH( 'S' )
       ANORM = MAX( ABS( D( 1 ) ), ABS( D( K ) ) )
-      if ( ANORM.EQ.ZERO ) {
+      if ( ANORM == ZERO ) {
          THRESH = EPS
       } else {
          THRESH = MAX( EPS*ANORM, SAFMIN )

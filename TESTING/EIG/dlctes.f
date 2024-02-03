@@ -19,7 +19,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( D.EQ.ZERO ) {
+      if ( D == ZERO ) {
          DLCTES = ( ZR.LT.ZERO )
       } else {
          DLCTES = ( SIGN( ONE, ZR ).NE.SIGN( ONE, D ) )

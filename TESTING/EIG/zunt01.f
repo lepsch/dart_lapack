@@ -53,7 +53,7 @@
       if (M.LE.0 .OR. N.LE.0) RETURN;
 
       EPS = DLAMCH( 'Precision' )
-      if ( M.LT.N .OR. ( M.EQ.N .AND. LSAME( ROWCOL, 'R' ) ) ) {
+      if ( M.LT.N .OR. ( M == N .AND. LSAME( ROWCOL, 'R' ) ) ) {
          TRANSU = 'N'
          K = N
       } else {
@@ -78,7 +78,7 @@
 
          RESID = ZLANSY( '1', 'Upper', MNMIN, WORK, LDWORK, RWORK )
          RESID = ( RESID / DBLE( K ) ) / EPS
-      } else if ( TRANSU.EQ.'C' ) {
+      } else if ( TRANSU == 'C' ) {
 
          // Find the maximum element in abs( I - U'*U ) / ( m * EPS )
 

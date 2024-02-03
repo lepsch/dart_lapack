@@ -95,7 +95,7 @@
          SN1 = ONE / SQRT( ONE+CT*CT )
          CS1 = CT*SN1
       } else {
-         if ( AB.EQ.ZERO ) {
+         if ( AB == ZERO ) {
             CS1 = ONE
             SN1 = ZERO
          } else {
@@ -104,7 +104,7 @@
             SN1 = TN*CS1
          }
       }
-      if ( SGN1.EQ.SGN2 ) {
+      if ( SGN1 == SGN2 ) {
          TN = CS1
          CS1 = -SN1
          SN1 = TN

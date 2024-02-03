@@ -98,12 +98,12 @@
             COLMAX = ZERO
          }
 
-         if ( (MAX( ABSAKK, COLMAX ).EQ.ZERO) .OR. SISNAN(ABSAKK) ) {
+         if ( (MAX( ABSAKK, COLMAX ) == ZERO) .OR. SISNAN(ABSAKK) ) {
 
             // Column K is or underflow, or contains a NaN:
             // set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
             A( K, K ) = REAL( A( K, K ) )
          } else {
@@ -161,7 +161,7 @@
                R1 = REAL( A( KK, KK ) )
                A( KK, KK ) = REAL( A( KP, KP ) )
                A( KP, KP ) = R1
-               if ( KSTEP.EQ.2 ) {
+               if ( KSTEP == 2 ) {
                   A( K, K ) = REAL( A( K, K ) )
                   T = A( K-1, K )
                   A( K-1, K ) = A( KP, K )
@@ -169,12 +169,12 @@
                }
             } else {
                A( K, K ) = REAL( A( K, K ) )
-               if (KSTEP.EQ.2) A( K-1, K-1 ) = REAL( A( K-1, K-1 ) );
+               if (KSTEP == 2) A( K-1, K-1 ) = REAL( A( K-1, K-1 ) );
             }
 
             // Update the leading submatrix
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -233,7 +233,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP
@@ -276,12 +276,12 @@
             COLMAX = ZERO
          }
 
-         if ( (MAX( ABSAKK, COLMAX ).EQ.ZERO) .OR. SISNAN(ABSAKK) ) {
+         if ( (MAX( ABSAKK, COLMAX ) == ZERO) .OR. SISNAN(ABSAKK) ) {
 
             // Column K is zero or underflow, contains a NaN:
             // set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
             A( K, K ) = REAL( A( K, K ) )
          } else {
@@ -339,7 +339,7 @@
                R1 = REAL( A( KK, KK ) )
                A( KK, KK ) = REAL( A( KP, KP ) )
                A( KP, KP ) = R1
-               if ( KSTEP.EQ.2 ) {
+               if ( KSTEP == 2 ) {
                   A( K, K ) = REAL( A( K, K ) )
                   T = A( K+1, K )
                   A( K+1, K ) = A( KP, K )
@@ -347,12 +347,12 @@
                }
             } else {
                A( K, K ) = REAL( A( K, K ) )
-               if (KSTEP.EQ.2) A( K+1, K+1 ) = REAL( A( K+1, K+1 ) );
+               if (KSTEP == 2) A( K+1, K+1 ) = REAL( A( K+1, K+1 ) );
             }
 
             // Update the trailing submatrix
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -410,7 +410,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP

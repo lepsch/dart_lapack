@@ -99,7 +99,7 @@
 
          NKD = MAX( 1, MIN( N, 4 ) )
          NIMAT = NTYPES
-         if (N.EQ.0) NIMAT = 1;
+         if (N == 0) NIMAT = 1;
 
          KDVAL( 2 ) = N + ( N+1 ) / 4
          KDVAL( 3 ) = ( 3*N-1 ) / 4
@@ -118,7 +118,7 @@
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 90
                KOFF = 1
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   UPLO = 'U'
                   PACKIT = 'Q'
                   KOFF = MAX( 1, KD+2-N )
@@ -160,7 +160,7 @@
                      // 2 by copying back the zeroed out column,
 
                      IW = 2*LDA + 1
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
                         dcopy(IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 );
                         IW = IW + IZERO - I1
@@ -179,9 +179,9 @@
 
                   IZERO = 0
                   if ( ZEROT ) {
-                     if ( IMAT.EQ.2 ) {
+                     if ( IMAT == 2 ) {
                         IZERO = 1
-                     } else if ( IMAT.EQ.3 ) {
+                     } else if ( IMAT == 3 ) {
                         IZERO = N
                      } else {
                         IZERO = N / 2 + 1
@@ -197,7 +197,7 @@
                      I1 = MAX( IZERO-KD, 1 )
                      I2 = MIN( IZERO+KD, N )
 
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
                         dswap(IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 );
                         IW = IW + IZERO - I1
@@ -217,7 +217,7 @@
 
                   for (IEQUED = 1; IEQUED <= 2; IEQUED++) { // 70
                      EQUED = EQUEDS( IEQUED )
-                     if ( IEQUED.EQ.1 ) {
+                     if ( IEQUED == 1 ) {
                         NFACT = 3
                      } else {
                         NFACT = 1
@@ -247,7 +247,7 @@
                               // equilibrate the matrix A.
 
                               dpbequ(UPLO, N, KD, AFAC, LDAB, S, SCOND, AMAX, INFO );
-                              if ( INFO.EQ.0 .AND. N.GT.0 ) {
+                              if ( INFO == 0 .AND. N.GT.0 ) {
                                  if (IEQUED.GT.1) SCOND = ZERO;
 
                                  // Equilibrate the matrix.
@@ -339,7 +339,7 @@
 
                            for (K = 1; K <= NT; K++) { // 30
                               if ( RESULT( K ).GE.THRESH ) {
-                                 if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                                  WRITE( NOUT, FMT = 9999 )'DPBSV ', UPLO, N, KD, IMAT, K, RESULT( K );
+                                 if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                                  WRITE( NOUT, FMT = 9999 )'DPBSV ', UPLO, N, KD, IMAT, K, RESULT( K );
                                  NFAIL = NFAIL + 1
                               }
                            } // 30
@@ -372,7 +372,7 @@
                            GO TO 60
                         }
 
-                        if ( INFO.EQ.0 ) {
+                        if ( INFO == 0 ) {
                            if ( .NOT.PREFAC ) {
 
                               // Reconstruct matrix from factors and
@@ -415,7 +415,7 @@
 
                         for (K = K1; K <= 6; K++) { // 50
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'DPBSVX', FACT, UPLO, N, KD, EQUED, IMAT, K, RESULT( K )
                               } else {

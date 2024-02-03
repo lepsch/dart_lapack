@@ -111,17 +111,17 @@
                   TNRM = MAX( ANRM, BNRM )
                   slatmr(M, N, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, M, N, ZERO, ONE, 'NO', C, MAXM, IWORK, IINFO );
                   for (ITRANA = 1; ITRANA <= 2; ITRANA++) {
-                     if ( ITRANA.EQ.1 ) {
+                     if ( ITRANA == 1 ) {
                         TRANA = 'N'
                      }
-                     if ( ITRANA.EQ.2 ) {
+                     if ( ITRANA == 2 ) {
                         TRANA = 'T'
                      }
                      for (ITRANB = 1; ITRANB <= 2; ITRANB++) {
-                        if ( ITRANB.EQ.1 ) {
+                        if ( ITRANB == 1 ) {
                            TRANB = 'N'
                         }
-                        if ( ITRANB.EQ.2 ) {
+                        if ( ITRANB == 2 ) {
                            TRANB = 'T'
                         }
                         KNT = KNT + 1
@@ -159,7 +159,7 @@
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )
                         // Verify that TRSYL3 only flushes if TRSYL flushes (but
                         // there may be cases where TRSYL3 avoid flushing).
-                        if ( SCALE3.EQ.ZERO .AND. SCALE.GT.ZERO .OR.  IINFO.NE.INFO ) {
+                        if ( SCALE3 == ZERO .AND. SCALE.GT.ZERO .OR.  IINFO.NE.INFO ) {
                            NFAIL( 3 ) = NFAIL( 3 ) + 1
                         }
                         IF( RES.GT.THRESH .OR. SISNAN( RES ) ) NFAIL( 2 ) = NFAIL( 2 ) + 1                         IF( RES.GT.RMAX( 2 ) ) RMAX( 2 ) = RES

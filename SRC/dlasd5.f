@@ -28,7 +28,7 @@
 
       DEL = D( 2 ) - D( 1 )
       DELSQ = DEL*( D( 2 )+D( 1 ) )
-      if ( I.EQ.1 ) {
+      if ( I == 1 ) {
          W = ONE + FOUR*RHO*( Z( 2 )*Z( 2 ) / ( D( 1 )+THREE*D( 2 ) )- Z( 1 )*Z( 1 ) / ( THREE*D( 1 )+D( 2 ) ) ) / DEL
          if ( W.GT.ZERO ) {
             B = DELSQ + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )

@@ -59,7 +59,7 @@
          JJ = NN + ( J-1 )*N + J
          WORK( JJ ) = WORK( JJ ) - D( J )
       } // 10
-      if ( KBAND.EQ.1 .AND. N.GT.1 ) {
+      if ( KBAND == 1 .AND. N.GT.1 ) {
          for (J = 2; J <= M; J++) { // 20
             JJ1 = NN + ( J-1 )*N + J - 1
             JJ2 = NN + ( J-2 )*N + J
@@ -83,7 +83,7 @@
 
       // Compute  U**T U - I
 
-      if (ITYPE.EQ.1) CALL SORT01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RESULT( 2 ) );
+      if (ITYPE == 1) CALL SORT01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RESULT( 2 ) );
 
       RETURN
 

@@ -29,7 +29,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( ABS( B ).EQ.ZERO ) {
+      if ( ABS( B ) == ZERO ) {
          W = ONE
       } else {
          W = DCONJG( B ) / ABS( B )

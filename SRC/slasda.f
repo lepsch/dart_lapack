@@ -54,7 +54,7 @@
       // If the input matrix is too small, call SLASDQ to find the SVD.
 
       if ( N.LE.SMLSIZ ) {
-         if ( ICOMPQ.EQ.0 ) {
+         if ( ICOMPQ == 0 ) {
             slasdq('U', SQRE, N, 0, 0, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO );
          } else {
             slasdq('U', SQRE, N, M, N, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO );
@@ -104,7 +104,7 @@
          VFI = VF + NLF - 1
          VLI = VL + NLF - 1
          SQREI = 1
-         if ( ICOMPQ.EQ.0 ) {
+         if ( ICOMPQ == 0 ) {
             slaset('A', NLP1, NLP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP );
             slasdq('U', SQREI, NL, NLP1, NRU, NCC, D( NLF ), E( NLF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NL, WORK( NWORK2 ), NL, WORK( NWORK2 ), INFO );
             ITEMP = NWORK1 + NL*SMLSZP
@@ -123,7 +123,7 @@
          for (J = 1; J <= NL; J++) { // 10
             IWORK( IDXQI+J ) = J
          } // 10
-         if ( ( I.EQ.ND ) .AND. ( SQRE.EQ.0 ) ) {
+         if ( ( I == ND ) .AND. ( SQRE == 0 ) ) {
             SQREI = 0
          } else {
             SQREI = 1
@@ -132,7 +132,7 @@
          VFI = VFI + NLP1
          VLI = VLI + NLP1
          NRP1 = NR + SQREI
-         if ( ICOMPQ.EQ.0 ) {
+         if ( ICOMPQ == 0 ) {
             slaset('A', NRP1, NRP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP );
             slasdq('U', SQREI, NR, NRP1, NRU, NCC, D( NRF ), E( NRF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NR, WORK( NWORK2 ), NR, WORK( NWORK2 ), INFO );
             ITEMP = NWORK1 + ( NRP1-1 )*SMLSZP
@@ -162,7 +162,7 @@
          // Find the first node LF and last node LL on
          // the current level LVL.
 
-         if ( LVL.EQ.1 ) {
+         if ( LVL == 1 ) {
             LF = 1
             LL = 1
          } else {
@@ -176,7 +176,7 @@
             NR = IWORK( NDIMR+IM1 )
             NLF = IC - NL
             NRF = IC + 1
-            if ( I.EQ.LL ) {
+            if ( I == LL ) {
                SQREI = SQRE
             } else {
                SQREI = 1
@@ -186,7 +186,7 @@
             IDXQI = IDXQ + NLF - 1
             ALPHA = D( IC )
             BETA = E( IC )
-            if ( ICOMPQ.EQ.0 ) {
+            if ( ICOMPQ == 0 ) {
                slasd6(ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM, GIVPTR( 1 ), GIVCOL, LDGCOL, GIVNUM, LDU, POLES, DIFL, DIFR, Z, K( 1 ), C( 1 ), S( 1 ), WORK( NWORK1 ), IWORK( IWK ), INFO );
             } else {
                J = J - 1

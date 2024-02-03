@@ -79,14 +79,14 @@
 
             // Generate X
 
-            if ( IMAT.EQ.1 ) {
+            if ( IMAT == 1 ) {
                claror('L', 'I', M, M, X, LDX, ISEED, WORK, IINFO );
                if ( M .NE. 0 .AND. IINFO .NE. 0 ) {
                   WRITE( NOUT, FMT = 9999 ) M, IINFO
                   INFO = ABS( IINFO )
                   GO TO 20
                }
-            } else if ( IMAT.EQ.2 ) {
+            } else if ( IMAT == 2 ) {
                R = MIN( P, M-P, Q, M-Q )
                for (I = 1; I <= R; I++) {
                   THETA(I) = PIOVER2 * SLARND( 1, ISEED )
@@ -97,7 +97,7 @@
                      X(I+(J-1)*LDX) = X(I+(J-1)*LDX) + ORTH*SLARND(2,ISEED)
                   }
                }
-            } else if ( IMAT.EQ.3 ) {
+            } else if ( IMAT == 3 ) {
                R = MIN( P, M-P, Q, M-Q )
                for (I = 1; I <= R+1; I++) {
                   THETA(I) = TEN**(-SLARND(1,ISEED)*GAPDIGIT)
@@ -128,7 +128,7 @@
 
             for (I = 1; I <= NT; I++) { // 10
                if ( RESULT( I ).GE.THRESH ) {
-                  if ( NFAIL.EQ.0 .AND. FIRSTT ) {
+                  if ( NFAIL == 0 .AND. FIRSTT ) {
                      FIRSTT = false;
                      alahdg(NOUT, PATH );
                   }

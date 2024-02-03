@@ -42,7 +42,7 @@
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       // NQ is the order of Q and NW is the minimum dimension of WORK
 
@@ -71,11 +71,11 @@
          INFO = -12
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
       // Compute the workspace requirements
 
-         if ( M.EQ.0 .OR. N.EQ.0 ) {
+         if ( M == 0 .OR. N == 0 ) {
             LWKOPT = 1
          } else {
             NB = MIN( NBMAX, ILAENV( 1, 'SORMRQ', SIDE // TRANS, M, N, K, -1 ) )
@@ -93,7 +93,7 @@
 
       // Quick return if possible
 
-      if ( M.EQ.0 .OR. N.EQ.0 ) {
+      if ( M == 0 .OR. N == 0 ) {
          RETURN
       }
 

@@ -53,7 +53,7 @@
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
 
-      LQUERY = ( ( LWORK.EQ.-1 ) .OR. ( LRWORK.EQ.-1 ) .OR. ( LIWORK.EQ.-1 ) )
+      LQUERY = ( ( LWORK == -1 ) .OR. ( LRWORK == -1 ) .OR. ( LIWORK == -1 ) )
 
       KD     = ILAENV2STAGE( 1, 'ZHETRD_2STAGE', JOBZ, N, -1, -1, -1 )
       IB     = ILAENV2STAGE( 2, 'ZHETRD_2STAGE', JOBZ, N, KD, -1, -1 )
@@ -92,13 +92,13 @@
             }
          }
       }
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
             INFO = -15
          }
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          WORK( 1 )  = LWMIN
          RWORK( 1 ) = LRWMIN
          IWORK( 1 ) = LIWMIN
@@ -122,12 +122,12 @@
       // Quick return if possible
 
       M = 0
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          WORK( 1 ) = 1
          if ( ALLEIG .OR. INDEIG ) {
             M = 1
@@ -171,7 +171,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      if ( ISCALE.EQ.1 ) {
+      if ( ISCALE == 1 ) {
          if ( LOWER ) {
             for (J = 1; J <= N; J++) { // 10
                zdscal(N-J+1, SIGMA, A( J, J ), 1 );
@@ -241,11 +241,11 @@
 
       TEST = false;
       if ( INDEIG ) {
-         if ( IL.EQ.1 .AND. IU.EQ.N ) {
+         if ( IL == 1 .AND. IU == N ) {
             TEST = true;
          }
       }
-      if ( ( ALLEIG.OR.TEST ) .AND. ( IEEEOK.EQ.1 ) ) {
+      if ( ( ALLEIG.OR.TEST ) .AND. ( IEEEOK == 1 ) ) {
          if ( .NOT.WANTZ ) {
             dcopy(N, RWORK( INDRD ), 1, W, 1 );
             dcopy(N-1, RWORK( INDRE ), 1, RWORK( INDREE ), 1 );
@@ -264,7 +264,7 @@
             // Apply unitary matrix used in reduction to tridiagonal
             // form to eigenvectors returned by ZSTEMR.
 
-            if ( WANTZ .AND. INFO.EQ.0 ) {
+            if ( WANTZ .AND. INFO == 0 ) {
                INDWKN = INDWK
                LLWRKN = LWORK - INDWKN + 1
                zunmtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );
@@ -272,7 +272,7 @@
          }
 
 
-         if ( INFO.EQ.0 ) {
+         if ( INFO == 0 ) {
             M = N
             GO TO 30
          }
@@ -303,8 +303,8 @@
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
       } // 30
-      if ( ISCALE.EQ.1 ) {
-         if ( INFO.EQ.0 ) {
+      if ( ISCALE == 1 ) {
+         if ( INFO == 0 ) {
             IMAX = M
          } else {
             IMAX = INFO - 1

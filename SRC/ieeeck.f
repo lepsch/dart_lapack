@@ -70,7 +70,7 @@
 
       // Return if we were only asked to check infinity arithmetic
 
-      if (ISPEC.EQ.0) RETURN;
+      if (ISPEC == 0) RETURN;
 
       NAN1 = POSINF + NEGINF
 
@@ -84,32 +84,32 @@
 
       NAN6 = NAN5*ZERO
 
-      if ( NAN1.EQ.NAN1 ) {
+      if ( NAN1 == NAN1 ) {
          IEEECK = 0
          RETURN
       }
 
-      if ( NAN2.EQ.NAN2 ) {
+      if ( NAN2 == NAN2 ) {
          IEEECK = 0
          RETURN
       }
 
-      if ( NAN3.EQ.NAN3 ) {
+      if ( NAN3 == NAN3 ) {
          IEEECK = 0
          RETURN
       }
 
-      if ( NAN4.EQ.NAN4 ) {
+      if ( NAN4 == NAN4 ) {
          IEEECK = 0
          RETURN
       }
 
-      if ( NAN5.EQ.NAN5 ) {
+      if ( NAN5 == NAN5 ) {
          IEEECK = 0
          RETURN
       }
 
-      if ( NAN6.EQ.NAN6 ) {
+      if ( NAN6 == NAN6 ) {
          IEEECK = 0
          RETURN
       }

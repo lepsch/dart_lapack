@@ -65,7 +65,7 @@
 
       // ==== Quick return for N = 0: nothing to do. ====
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          WORK( 1 ) = ONE
          RETURN
       }
@@ -129,7 +129,7 @@
 
          // ==== Quick return in case of workspace query. ====
 
-         if ( LWORK.EQ.-1 ) {
+         if ( LWORK == -1 ) {
             WORK( 1 ) = DBLE( LWKOPT )
             RETURN
          }
@@ -186,7 +186,7 @@
             // ==== Locate active block ====
 
             DO 10 K = KBOT, ILO + 1, -1
-               IF( H( K, K-1 ).EQ.ZERO ) GO TO 20
+               IF( H( K, K-1 ) == ZERO ) GO TO 20
             } // 10
             K = ILO
             } // 20
@@ -266,7 +266,7 @@
             // .    skipped if many eigenvalues have just been deflated
             // .    or if the remaining active block is small.
 
-            if ( ( LD.EQ.0 ) .OR. ( ( 100*LD.LE.NW*NIBBLE ) .AND. ( KBOT- KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) {
+            if ( ( LD == 0 ) .OR. ( ( 100*LD.LE.NW*NIBBLE ) .AND. ( KBOT- KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) {
 
                // ==== NS = nominal number of simultaneous shifts.
                // .    This may be lowered (slightly) if DLAQR3
@@ -282,7 +282,7 @@
                // .    DLAQR3 above or from the eigenvalues
                // .    of a trailing principal submatrix. ====
 
-               if ( MOD( NDFL, KEXSH ).EQ.0 ) {
+               if ( MOD( NDFL, KEXSH ) == 0 ) {
                   KS = KBOT - NS + 1
                   DO 30 I = KBOT, MAX( KS+1, KTOP+2 ), -2
                      SS = ABS( H( I, I-1 ) ) + ABS( H( I-1, I-2 ) )
@@ -292,7 +292,7 @@
                      DD = AA
                      dlanv2(AA, BB, CC, DD, WR( I-1 ), WI( I-1 ), WR( I ), WI( I ), CS, SN );
                   } // 30
-                  if ( KS.EQ.KTOP ) {
+                  if ( KS == KTOP ) {
                      WR( KS+1 ) = H( KS+1, KS+1 )
                      WI( KS+1 ) = ZERO
                      WR( KS ) = WR( KS+1 )
@@ -383,8 +383,8 @@
                // ==== If there are only two shifts and both are
                // .    real, then use only one.  ====
 
-               if ( KBOT-KS+1.EQ.2 ) {
-                  if ( WI( KBOT ).EQ.ZERO ) {
+               if ( KBOT-KS+1 == 2 ) {
+                  if ( WI( KBOT ) == ZERO ) {
                      if ( ABS( WR( KBOT )-H( KBOT, KBOT ) ).LT. ABS( WR( KBOT-1 )-H( KBOT, KBOT ) ) ) {
                         WR( KBOT-1 ) = WR( KBOT )
                      } else {

@@ -76,7 +76,7 @@
             }
          }
       }
-      if ( INFO.EQ.0) {
+      if ( INFO == 0) {
          if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
             INFO = -21
          }
@@ -90,7 +90,7 @@
       // Quick return if possible
 
       M = 0
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Form a split Cholesky factorization of B.
 
@@ -122,7 +122,7 @@
 
       TEST = false;
       if ( INDEIG ) {
-         if ( IL.EQ.1 .AND. IU.EQ.N ) {
+         if ( IL == 1 .AND. IU == N ) {
             TEST = true;
          }
       }
@@ -135,13 +135,13 @@
          } else {
             dlacpy('A', N, N, Q, LDQ, Z, LDZ );
             dsteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
-            if ( INFO.EQ.0 ) {
+            if ( INFO == 0 ) {
                for (I = 1; I <= N; I++) { // 10
                   IFAIL( I ) = 0
                } // 10
             }
          }
-         if ( INFO.EQ.0 ) {
+         if ( INFO == 0 ) {
             M = N
             GO TO 30
          }

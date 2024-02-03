@@ -41,7 +41,7 @@
       // Test the input parameters.
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
 
       if ( LSAME( COMPZ, 'N' ) ) {
          ICOMPZ = 0
@@ -60,12 +60,12 @@
          INFO = -6
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Compute the workspace requirements
 
          SMLSIZ = ILAENV( 9, 'DSTEDC', ' ', 0, 0, 0, 0 )
-         if ( N.LE.1 .OR. ICOMPZ.EQ.0 ) {
+         if ( N.LE.1 .OR. ICOMPZ == 0 ) {
             LIWMIN = 1
             LWMIN = 1
          } else if ( N.LE.SMLSIZ ) {
@@ -74,10 +74,10 @@
          } else {
             LGN = INT( LOG( DBLE( N ) )/LOG( TWO ) )
             if (2**LGN.LT.N) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1;
-            if ( ICOMPZ.EQ.1 ) {
+            if ( ICOMPZ == 1 ) {
                LWMIN = 1 + 3*N + 2*N*LGN + 4*N**2
                LIWMIN = 6 + 6*N + 5*N*LGN
-            } else if ( ICOMPZ.EQ.2 ) {
+            } else if ( ICOMPZ == 2 ) {
                LWMIN = 1 + 4*N + N**2
                LIWMIN = 3 + 5*N
             }
@@ -101,8 +101,8 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
-      if ( N.EQ.1 ) {
+      if (N == 0) RETURN;
+      if ( N == 1 ) {
          if (ICOMPZ.NE.0) Z( 1, 1 ) = ONE;
          RETURN
       }
@@ -118,7 +118,7 @@
 
       // If COMPZ = 'N', use DSTERF to compute the eigenvalues.
 
-      if ( ICOMPZ.EQ.0 ) {
+      if ( ICOMPZ == 0 ) {
          dsterf(N, D, E, INFO );
          GO TO 50
       }
@@ -135,20 +135,20 @@
          // If COMPZ = 'V', the Z matrix must be stored elsewhere for later
          // use.
 
-         if ( ICOMPZ.EQ.1 ) {
+         if ( ICOMPZ == 1 ) {
             STOREZ = 1 + N*N
          } else {
             STOREZ = 1
          }
 
-         if ( ICOMPZ.EQ.2 ) {
+         if ( ICOMPZ == 2 ) {
             dlaset('Full', N, N, ZERO, ONE, Z, LDZ );
          }
 
          // Scale.
 
          ORGNRM = DLANST( 'M', N, D, E )
-         if (ORGNRM.EQ.ZERO) GO TO 50;
+         if (ORGNRM == ZERO) GO TO 50;
 
          EPS = DLAMCH( 'Epsilon' )
 
@@ -178,7 +178,7 @@
             // (Sub) Problem determined.  Compute its size and solve it.
 
             M = FINISH - START + 1
-            if ( M.EQ.1 ) {
+            if ( M == 1 ) {
                START = FINISH + 1
                GO TO 10
             }
@@ -190,7 +190,7 @@
                dlascl('G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO );
                dlascl('G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO );
 
-               if ( ICOMPZ.EQ.1 ) {
+               if ( ICOMPZ == 1 ) {
                   STRTRW = 1
                } else {
                   STRTRW = START
@@ -206,7 +206,7 @@
                dlascl('G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO );
 
             } else {
-               if ( ICOMPZ.EQ.1 ) {
+               if ( ICOMPZ == 1 ) {
 
                   // Since QR won't update a Z matrix which is larger than
                   // the length of D, we must solve the sub-problem in a
@@ -215,7 +215,7 @@
                   dsteqr('I', M, D( START ), E( START ), WORK, M, WORK( M*M+1 ), INFO );
                   dlacpy('A', N, M, Z( 1, START ), LDZ, WORK( STOREZ ), N );
                   dgemm('N', 'N', N, M, M, ONE, WORK( STOREZ ), N, WORK, M, ZERO, Z( 1, START ), LDZ );
-               } else if ( ICOMPZ.EQ.2 ) {
+               } else if ( ICOMPZ == 2 ) {
                   dsteqr('I', M, D( START ), E( START ), Z( START, START ), LDZ, WORK, INFO );
                } else {
                   dsterf(M, D( START ), E( START ), INFO );
@@ -232,7 +232,7 @@
 
          // endwhile
 
-         if ( ICOMPZ.EQ.0 ) {
+         if ( ICOMPZ == 0 ) {
 
            // Use Quick Sort
 

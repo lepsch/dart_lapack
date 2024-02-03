@@ -48,7 +48,7 @@
       UPPER = LSAME( UPLO, 'U' )
       NOTRAN = LSAME( TRANS, 'N' )
       NOUNIT = LSAME( DIAG, 'N' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       // Partition A and X into blocks.
 
@@ -77,7 +77,7 @@
       LANRM = NBA * NBA
       AWRK = LSCALE
 
-      if ( MIN( N, NRHS ).EQ.0 ) {
+      if ( MIN( N, NRHS ) == 0 ) {
          LWMIN = 1
       } else {
          LWMIN = LSCALE + LANRM
@@ -120,7 +120,7 @@
 
       // Quick return if possible
 
-      IF( MIN( N, NRHS ).EQ.0 ) RETURN
+      IF( MIN( N, NRHS ) == 0 ) RETURN
 
       // Determine machine dependent constant to control overflow.
 
@@ -244,7 +244,7 @@
 
             for (KK = 1; KK <= K2-K1; KK++) {
                RHS = K1 + KK - 1
-               if ( KK.EQ.1 ) {
+               if ( KK == 1 ) {
                   clatrs(UPLO, TRANS, DIAG, 'N', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO );
                } else {
                   clatrs(UPLO, TRANS, DIAG, 'Y', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO );
@@ -254,7 +254,7 @@
                // growth in the linear updates.
                XNRM( KK ) = CLANGE( 'I', J2-J1, 1, X( J1, RHS ), LDX, W )
 
-               if ( SCALOC .EQ. ZERO ) {
+               if ( SCALOC == ZERO ) {
                   // LATRS found that A is singular through A(j,j) = 0.
                   // Reset the computation x(1:n) = 0, x(j) = 1, SCALE = 0
                   // and compute op(A)*x = 0. Note that X(J1:J2-1, KK) is
@@ -271,7 +271,7 @@
                      WORK( II+KK*LDS ) = ONE
                   }
                   SCALOC = ONE
-               } else if ( SCALOC*WORK( J+KK*LDS ) .EQ. ZERO ) {
+               } else if ( SCALOC*WORK( J+KK*LDS ) == ZERO ) {
                   // LATRS computed a valid scale factor, but combined with
                   // the current scaling the solution does not have a
                   // scale factor > 0.

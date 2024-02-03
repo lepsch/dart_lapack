@@ -58,12 +58,12 @@
          SMLNUM = SMLNUM / DLAMCH( 'Epsilon' )
          BIGNUM = ONE / SMLNUM
 
-         if ( SCALE.EQ.2 ) {
+         if ( SCALE == 2 ) {
 
             // matrix scaled up
 
             dlascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO );
-         } else if ( SCALE.EQ.3 ) {
+         } else if ( SCALE == 3 ) {
 
             // matrix scaled down
 

@@ -38,7 +38,7 @@
       // .. Executable Statements ..
 
       RESULT( 1 ) = ZERO
-      if (ITYPE.EQ.1) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN;
+      if (ITYPE == 1) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN;
 
       if ( LSAME( UPLO, 'U' ) ) {
          LOWER = false;
@@ -62,7 +62,7 @@
 
       // Norm of A:
 
-      if ( ITYPE.EQ.3 ) {
+      if ( ITYPE == 3 ) {
          ANORM = ONE
       } else {
          ANORM = MAX( SLANSY( '1', CUPLO, N, A, LDA, WORK ), UNFL )
@@ -70,7 +70,7 @@
 
       // Compute error matrix:
 
-      if ( ITYPE.EQ.1 ) {
+      if ( ITYPE == 1 ) {
 
          // ITYPE=1: error = A - U S U**T
 
@@ -81,14 +81,14 @@
             ssyr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK, N );
          } // 10
 
-         if ( N.GT.1 .AND. KBAND.EQ.1 ) {
+         if ( N.GT.1 .AND. KBAND == 1 ) {
             for (J = 1; J <= N - 1; J++) { // 20
                ssyr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
             } // 20
          }
          WNORM = SLANSY( '1', CUPLO, N, WORK, N, WORK( N**2+1 ) )
 
-      } else if ( ITYPE.EQ.2 ) {
+      } else if ( ITYPE == 2 ) {
 
          // ITYPE=2: error = V S V**T - A
 
@@ -97,7 +97,7 @@
          if ( LOWER ) {
             WORK( N**2 ) = D( N )
             DO 40 J = N - 1, 1, -1
-               if ( KBAND.EQ.1 ) {
+               if ( KBAND == 1 ) {
                   WORK( ( N+1 )*( J-1 )+2 ) = ( ONE-TAU( J ) )*E( J )
                   for (JR = J + 2; JR <= N; JR++) { // 30
                      WORK( ( J-1 )*N+JR ) = -TAU( J )*E( J )*V( JR, J )
@@ -113,7 +113,7 @@
          } else {
             WORK( 1 ) = D( 1 )
             for (J = 1; J <= N - 1; J++) { // 60
-               if ( KBAND.EQ.1 ) {
+               if ( KBAND == 1 ) {
                   WORK( ( N+1 )*J ) = ( ONE-TAU( J ) )*E( J )
                   for (JR = 1; JR <= J - 1; JR++) { // 50
                      WORK( J*N+JR ) = -TAU( J )*E( J )*V( JR, J+1 )
@@ -141,7 +141,7 @@
          } // 90
          WNORM = SLANSY( '1', CUPLO, N, WORK, N, WORK( N**2+1 ) )
 
-      } else if ( ITYPE.EQ.3 ) {
+      } else if ( ITYPE == 3 ) {
 
          // ITYPE=3: error = U V**T - I
 
@@ -178,7 +178,7 @@
 
       // Compute  U U**T - I
 
-      if ( ITYPE.EQ.1 ) {
+      if ( ITYPE == 1 ) {
          sgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
          for (J = 1; J <= N; J++) { // 110

@@ -21,8 +21,8 @@
       // INTRINSIC MOD
       // ..
       if (N.LE.0) RETURN;
-      if (SA.EQ.0.0) RETURN;
-      if (INCX.EQ.1 .AND. INCY.EQ.1) {
+      if (SA == 0.0) RETURN;
+      if (INCX == 1 .AND. INCY == 1) {
 
          // code for both increments equal to 1
 

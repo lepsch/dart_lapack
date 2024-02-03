@@ -38,12 +38,12 @@
          INFO = -1
          xerbla('DLASQ1', -INFO );
          RETURN
-      } else if ( N.EQ.0 ) {
+      } else if ( N == 0 ) {
          RETURN
-      } else if ( N.EQ.1 ) {
+      } else if ( N == 1 ) {
          D( 1 ) = ABS( D( 1 ) )
          RETURN
-      } else if ( N.EQ.2 ) {
+      } else if ( N == 2 ) {
          dlas2(D( 1 ), E( 1 ), D( 2 ), SIGMN, SIGMX );
          D( 1 ) = SIGMX
          D( 2 ) = SIGMN
@@ -61,7 +61,7 @@
 
       // Early return if SIGMX is zero (matrix is already diagonal).
 
-      if ( SIGMX.EQ.ZERO ) {
+      if ( SIGMX == ZERO ) {
          dlasrt('D', N, D, IINFO );
          RETURN
       }
@@ -89,12 +89,12 @@
 
       dlasq2(N, WORK, INFO );
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          for (I = 1; I <= N; I++) { // 40
             D( I ) = SQRT( WORK( I ) )
          } // 40
          dlascl('G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO );
-      } else if ( INFO.EQ.2 ) {
+      } else if ( INFO == 2 ) {
 
       // Maximum number of iterations exceeded.  Move data from WORK
       // into D and E so the calling subroutine can try to finish

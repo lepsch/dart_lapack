@@ -111,7 +111,7 @@
 
       // Quick return if possible
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0 .OR. NWDTHS.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0 .OR. NWDTHS == 0) RETURN;
 
       // More Important constants
 
@@ -201,10 +201,10 @@
 
                   // Zero
 
-               if ( ITYPE.EQ.1 ) {
+               if ( ITYPE == 1 ) {
                   IINFO = 0
 
-               } else if ( ITYPE.EQ.2 ) {
+               } else if ( ITYPE == 2 ) {
 
                   // Identity
 
@@ -212,19 +212,19 @@
                      A( JCOL, JCOL ) = ANORM
                   } // 80
 
-               } else if ( ITYPE.EQ.4 ) {
+               } else if ( ITYPE == 4 ) {
 
                   // Diagonal Matrix, singular values specified
 
                   slatms(M, N, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( M+1 ), IINFO );
 
-               } else if ( ITYPE.EQ.6 ) {
+               } else if ( ITYPE == 6 ) {
 
                   // Nonhermitian, singular values specified
 
                   slatms(M, N, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, KL, KU, 'N', A, LDA, WORK( M+1 ), IINFO );
 
-               } else if ( ITYPE.EQ.9 ) {
+               } else if ( ITYPE == 9 ) {
 
                   // Nonhermitian, random entries
 
@@ -294,7 +294,7 @@
 
                for (JR = 1; JR <= NTEST; JR++) { // 130
                   if ( RESULT( JR ).GE.THRESH ) {
-                     if (NERRS.EQ.0) CALL SLAHD2( NOUNIT, 'SBB' );
+                     if (NERRS == 0) CALL SLAHD2( NOUNIT, 'SBB' );
                      NERRS = NERRS + 1
                      WRITE( NOUNIT, FMT = 9998 )M, N, K, IOLDSD, JTYPE, JR, RESULT( JR )
                   }

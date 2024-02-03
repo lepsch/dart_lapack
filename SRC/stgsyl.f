@@ -45,7 +45,7 @@
 
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -1
@@ -54,7 +54,7 @@
             INFO = -2
          }
       }
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( M.LE.0 ) {
             INFO = -3
          } else if ( N.LE.0 ) {
@@ -74,9 +74,9 @@
          }
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( NOTRAN ) {
-            if ( IJOB.EQ.1 .OR. IJOB.EQ.2 ) {
+            if ( IJOB == 1 .OR. IJOB == 2 ) {
                LWMIN = MAX( 1, 2*M*N )
             } else {
                LWMIN = 1
@@ -100,7 +100,7 @@
 
       // Quick return if possible
 
-      if ( M.EQ.0 .OR. N.EQ.0 ) {
+      if ( M == 0 .OR. N == 0 ) {
          SCALE = 1
          if ( NOTRAN ) {
             if ( IJOB.NE.0 ) {
@@ -138,14 +138,14 @@
             PQ = 0
             stgsy2(TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, IWORK, PQ, INFO );
             if ( DSCALE.NE.ZERO ) {
-               if ( IJOB.EQ.1 .OR. IJOB.EQ.3 ) {
+               if ( IJOB == 1 .OR. IJOB == 3 ) {
                   DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
                } else {
                   DIF = SQRT( REAL( PQ ) ) / ( DSCALE*SQRT( DSUM ) )
                }
             }
 
-            if ( ISOLVE.EQ.2 .AND. IROUND.EQ.1 ) {
+            if ( ISOLVE == 2 .AND. IROUND == 1 ) {
                if ( NOTRAN ) {
                   IFUNC = IJOB
                }
@@ -154,7 +154,7 @@
                slacpy('F', M, N, F, LDF, WORK( M*N+1 ), M );
                slaset('F', M, N, ZERO, ZERO, C, LDC );
                slaset('F', M, N, ZERO, ZERO, F, LDF );
-            } else if ( ISOLVE.EQ.2 .AND. IROUND.EQ.2 ) {
+            } else if ( ISOLVE == 2 .AND. IROUND == 2 ) {
                slacpy('F', M, N, WORK, M, C, LDC );
                slacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
@@ -178,7 +178,7 @@
       } // 50
 
       IWORK( P+1 ) = M + 1
-      IF( IWORK( P ).EQ.IWORK( P+1 ) ) P = P - 1
+      IF( IWORK( P ) == IWORK( P+1 ) ) P = P - 1
 
       // Determine block structure of B
 
@@ -194,7 +194,7 @@
       } // 70
 
       IWORK( Q+1 ) = N + 1
-      IF( IWORK( Q ).EQ.IWORK( Q+1 ) ) Q = Q - 1
+      IF( IWORK( Q ) == IWORK( Q+1 ) ) Q = Q - 1
 
       if ( NOTRAN ) {
 
@@ -256,13 +256,13 @@
                } // 120
             } // 130
             if ( DSCALE.NE.ZERO ) {
-               if ( IJOB.EQ.1 .OR. IJOB.EQ.3 ) {
+               if ( IJOB == 1 .OR. IJOB == 3 ) {
                   DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
                } else {
                   DIF = SQRT( REAL( PQ ) ) / ( DSCALE*SQRT( DSUM ) )
                }
             }
-            if ( ISOLVE.EQ.2 .AND. IROUND.EQ.1 ) {
+            if ( ISOLVE == 2 .AND. IROUND == 1 ) {
                if ( NOTRAN ) {
                   IFUNC = IJOB
                }
@@ -271,7 +271,7 @@
                slacpy('F', M, N, F, LDF, WORK( M*N+1 ), M );
                slaset('F', M, N, ZERO, ZERO, C, LDC );
                slaset('F', M, N, ZERO, ZERO, F, LDF );
-            } else if ( ISOLVE.EQ.2 .AND. IROUND.EQ.2 ) {
+            } else if ( ISOLVE == 2 .AND. IROUND == 2 ) {
                slacpy('F', M, N, WORK, M, C, LDC );
                slacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2

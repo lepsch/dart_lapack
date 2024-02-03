@@ -39,7 +39,7 @@
       } else {
          // CASE-DD1-NONNEGATIVE
          DP2 = DD2*DY1
-         if (DP2.EQ.ZERO) {
+         if (DP2 == ZERO) {
             DFLAG = -TWO
             DPARAM(1) = DFLAG
             RETURN
@@ -102,7 +102,7 @@
       // PROCEDURE..SCALE-CHECK
          if (DD1.NE.ZERO) {
             DO WHILE ((DD1.LE.RGAMSQ) .OR. (DD1.GE.GAMSQ))
-               if (DFLAG.EQ.ZERO) {
+               if (DFLAG == ZERO) {
                   DH11 = ONE
                   DH22 = ONE
                   DFLAG = -ONE
@@ -127,7 +127,7 @@
 
          if (DD2.NE.ZERO) {
             DO WHILE ( (DABS(DD2).LE.RGAMSQ) .OR. (DABS(DD2).GE.GAMSQ) )
-               if (DFLAG.EQ.ZERO) {
+               if (DFLAG == ZERO) {
                   DH11 = ONE
                   DH22 = ONE
                   DFLAG = -ONE
@@ -155,7 +155,7 @@
          DPARAM(3) = DH21
          DPARAM(4) = DH12
          DPARAM(5) = DH22
-      } else if (DFLAG.EQ.ZERO) {
+      } else if (DFLAG == ZERO) {
          DPARAM(3) = DH21
          DPARAM(4) = DH12
       } else {

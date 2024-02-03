@@ -50,7 +50,7 @@
 
       } // 10
       READ( NIN, FMT = * )N, IFST, ILST
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
       KNT = KNT + 1
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
@@ -79,7 +79,7 @@
       stgexc( false , false , N, T1, LDT, S1, LDT, Q, LDT, Z, LDT, IFST1, ILST1, WORK, LWORK, NINFO( 1 ) );
       for (I = 1; I <= N; I++) { // 40
          for (J = 1; J <= N; J++) { // 30
-            IF( I.EQ.J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS             IF( I.EQ.J .AND. Z( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Z( I, J ).NE.ZERO ) RES = RES + ONE / EPS
+            IF( I == J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS             IF( I == J .AND. Z( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Z( I, J ).NE.ZERO ) RES = RES + ONE / EPS
          } // 30
       } // 40
 

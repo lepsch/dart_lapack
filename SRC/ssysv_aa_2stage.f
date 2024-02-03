@@ -39,8 +39,8 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      WQUERY = ( LWORK.EQ.-1 )
-      TQUERY = ( LTB.EQ.-1 )
+      WQUERY = ( LWORK == -1 )
+      TQUERY = ( LTB == -1 )
       LWKMIN = MAX( 1, N )
       if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
@@ -58,7 +58,7 @@
          INFO = -13
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          ssytrf_aa_2stage(UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO );
          LWKOPT = MAX( LWKMIN, INT( WORK( 1 ) ) )
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
@@ -74,7 +74,7 @@
       // Compute the factorization A = U**T*T*U or A = L*T*L**T.
 
       ssytrf_aa_2stage(UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO );
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 

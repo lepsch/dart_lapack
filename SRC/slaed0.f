@@ -40,7 +40,7 @@
 
       if ( ICOMPQ.LT.0 .OR. ICOMPQ.GT.2 ) {
          INFO = -1
-      } else if ( ( ICOMPQ.EQ.1 ) .AND. ( QSIZ.LT.MAX( 0, N ) ) ) {
+      } else if ( ( ICOMPQ == 1 ) .AND. ( QSIZ.LT.MAX( 0, N ) ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -56,7 +56,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       SMLSIZ = ILAENV( 9, 'SLAED0', ' ', 0, 0, 0, 0 )
 
@@ -124,19 +124,19 @@
 
       CURR = 0
       for (I = 0; I <= SPM1; I++) { // 70
-         if ( I.EQ.0 ) {
+         if ( I == 0 ) {
             SUBMAT = 1
             MATSIZ = IWORK( 1 )
          } else {
             SUBMAT = IWORK( I ) + 1
             MATSIZ = IWORK( I+1 ) - IWORK( I )
          }
-         if ( ICOMPQ.EQ.2 ) {
+         if ( ICOMPQ == 2 ) {
             CALL SSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, WORK, INFO )             IF( INFO.NE.0 ) GO TO 130
          } else {
             ssteqr('I', MATSIZ, D( SUBMAT ), E( SUBMAT ), WORK( IQ-1+IWORK( IQPTR+CURR ) ), MATSIZ, WORK, INFO );
             if (INFO.NE.0) GO TO 130;
-            if ( ICOMPQ.EQ.1 ) {
+            if ( ICOMPQ == 1 ) {
                sgemm('N', 'N', QSIZ, MATSIZ, MATSIZ, ONE, Q( 1, SUBMAT ), LDQ, WORK( IQ-1+IWORK( IQPTR+ CURR ) ), MATSIZ, ZERO, QSTORE( 1, SUBMAT ), LDQS );
             }
             IWORK( IQPTR+CURR+1 ) = IWORK( IQPTR+CURR ) + MATSIZ**2
@@ -159,7 +159,7 @@
       if ( SUBPBS.GT.1 ) {
          SPM2 = SUBPBS - 2
          DO 90 I = 0, SPM2, 2
-            if ( I.EQ.0 ) {
+            if ( I == 0 ) {
                SUBMAT = 1
                MATSIZ = IWORK( 2 )
                MSD2 = IWORK( 1 )
@@ -179,7 +179,7 @@
       // and eigenvectors of a full symmetric matrix (which was reduced to
       // tridiagonal form) are desired.
 
-            if ( ICOMPQ.EQ.2 ) {
+            if ( ICOMPQ == 2 ) {
                slaed1(MATSIZ, D( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK, IWORK( SUBPBS+1 ), INFO );
             } else {
                slaed7(ICOMPQ, MATSIZ, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), WORK( IGIVNM ), WORK( IWREM ), IWORK( SUBPBS+1 ), INFO );
@@ -197,14 +197,14 @@
       // Re-merge the eigenvalues/vectors which were deflated at the final
       // merge step.
 
-      if ( ICOMPQ.EQ.1 ) {
+      if ( ICOMPQ == 1 ) {
          for (I = 1; I <= N; I++) { // 100
             J = IWORK( INDXQ+I )
             WORK( I ) = D( J )
             scopy(QSIZ, QSTORE( 1, J ), 1, Q( 1, I ), 1 );
          } // 100
          scopy(N, WORK, 1, D, 1 );
-      } else if ( ICOMPQ.EQ.2 ) {
+      } else if ( ICOMPQ == 2 ) {
          for (I = 1; I <= N; I++) { // 110
             J = IWORK( INDXQ+I )
             WORK( I ) = D( J )

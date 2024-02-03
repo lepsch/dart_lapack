@@ -42,7 +42,7 @@
       // Test the input parameters.
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 .OR. LRWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 .OR. LRWORK == -1 .OR. LIWORK == -1 )
 
       if ( LSAME( COMPZ, 'N' ) ) {
          ICOMPZ = 0
@@ -61,12 +61,12 @@
          INFO = -6
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Compute the workspace requirements
 
          SMLSIZ = ILAENV( 9, 'ZSTEDC', ' ', 0, 0, 0, 0 )
-         if ( N.LE.1 .OR. ICOMPZ.EQ.0 ) {
+         if ( N.LE.1 .OR. ICOMPZ == 0 ) {
             LWMIN = 1
             LIWMIN = 1
             LRWMIN = 1
@@ -74,13 +74,13 @@
             LWMIN = 1
             LIWMIN = 1
             LRWMIN = 2*( N - 1 )
-         } else if ( ICOMPZ.EQ.1 ) {
+         } else if ( ICOMPZ == 1 ) {
             LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) )
             if (2**LGN.LT.N) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1;
             LWMIN = N*N
             LRWMIN = 1 + 3*N + 2*N*LGN + 4*N**2
             LIWMIN = 6 + 6*N + 5*N*LGN
-         } else if ( ICOMPZ.EQ.2 ) {
+         } else if ( ICOMPZ == 2 ) {
             LWMIN = 1
             LRWMIN = 1 + 4*N + 2*N**2
             LIWMIN = 3 + 5*N
@@ -107,8 +107,8 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
-      if ( N.EQ.1 ) {
+      if (N == 0) RETURN;
+      if ( N == 1 ) {
          if (ICOMPZ.NE.0) Z( 1, 1 ) = ONE;
          RETURN
       }
@@ -124,7 +124,7 @@
 
       // If COMPZ = 'N', use DSTERF to compute the eigenvalues.
 
-      if ( ICOMPZ.EQ.0 ) {
+      if ( ICOMPZ == 0 ) {
          dsterf(N, D, E, INFO );
          GO TO 70
       }
@@ -140,7 +140,7 @@
 
          // If COMPZ = 'I', we simply call DSTEDC instead.
 
-         if ( ICOMPZ.EQ.2 ) {
+         if ( ICOMPZ == 2 ) {
             dlaset('Full', N, N, ZERO, ONE, RWORK, N );
             LL = N*N + 1
             dstedc('I', N, D, E, RWORK, N, RWORK( LL ), LRWORK-LL+1, IWORK, LIWORK, INFO );
@@ -158,7 +158,7 @@
          // Scale.
 
          ORGNRM = DLANST( 'M', N, D, E )
-         if (ORGNRM.EQ.ZERO) GO TO 70;
+         if (ORGNRM == ZERO) GO TO 70;
 
          EPS = DLAMCH( 'Epsilon' )
 

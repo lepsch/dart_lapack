@@ -79,7 +79,7 @@
 
       // Quick return if possible.
 
-      if (M.EQ.0 .OR. N.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0) RETURN;
 
       MINMN = MIN( M, N )
 
@@ -203,7 +203,7 @@
                   if (NRT.GT.0) CALL ZLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, RWORK( J1+KUN ), WORK( J1+KUN ), KB1 );
                } // 50
 
-               if ( ML.EQ.ML0 .AND. MU.GT.MU0 ) {
+               if ( ML == ML0 .AND. MU.GT.MU0 ) {
                   if ( MU.LE.N-I+1 ) {
 
                      // generate plane rotation to annihilate a(i,i+mu-1)
@@ -252,7 +252,7 @@
          } // 90
       }
 
-      if ( KU.EQ.0 .AND. KL.GT.0 ) {
+      if ( KU == 0 .AND. KL.GT.0 ) {
 
          // A has been reduced to complex lower bidiagonal form
 
@@ -306,11 +306,11 @@
          }
          if (WANTQ) CALL ZSCAL( M, T, Q( 1, I ), 1 )          IF( WANTC ) CALL ZSCAL( NCC, DCONJG( T ), C( I, 1 ), LDC );
          if ( I.LT.MINMN ) {
-            if ( KU.EQ.0 .AND. KL.EQ.0 ) {
+            if ( KU == 0 .AND. KL == 0 ) {
                E( I ) = ZERO
                T = AB( 1, I+1 )
             } else {
-               if ( KU.EQ.0 ) {
+               if ( KU == 0 ) {
                   T = AB( 2, I )*DCONJG( T )
                } else {
                   T = AB( KU, I+1 )*DCONJG( T )

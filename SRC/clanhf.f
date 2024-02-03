@@ -35,10 +35,10 @@
       // ..
       // .. Executable Statements ..
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          CLANHF = ZERO
          RETURN
-      } else if ( N.EQ.1 ) {
+      } else if ( N == 1 ) {
          CLANHF = ABS(REAL(A(0)))
          RETURN
       }
@@ -46,7 +46,7 @@
       // set noe = 1 if n is odd. if n is even set noe=0
 
       NOE = 1
-      IF( MOD( N, 2 ).EQ.0 ) NOE = 0
+      IF( MOD( N, 2 ) == 0 ) NOE = 0
 
       // set ifm = 0 when form='C' or 'c' and 1 otherwise
 
@@ -62,8 +62,8 @@
       // set lda = n when ifm = 1 and noe = 1
       // set lda = n+1 when ifm = 1 and noe = 0
 
-      if ( IFM.EQ.1 ) {
-         if ( NOE.EQ.1 ) {
+      if ( IFM == 1 ) {
+         if ( NOE == 1 ) {
             LDA = N
          } else {
             // noe=0
@@ -80,11 +80,11 @@
 
          K = ( N+1 ) / 2
          VALUE = ZERO
-         if ( NOE.EQ.1 ) {
+         if ( NOE == 1 ) {
             // n is odd & n = k + k - 1
-            if ( IFM.EQ.1 ) {
+            if ( IFM == 1 ) {
                // A is n by k
-               if ( ILU.EQ.1 ) {
+               if ( ILU == 1 ) {
                   // uplo ='L'
                   J = 0
                   // -> L(0,0)
@@ -143,7 +143,7 @@
                }
             } else {
                // xpose case; A is k by n
-               if ( ILU.EQ.1 ) {
+               if ( ILU == 1 ) {
                   // uplo ='L'
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= J - 1; I++) {
@@ -216,9 +216,9 @@
             }
          } else {
             // n is even & k = n/2
-            if ( IFM.EQ.1 ) {
+            if ( IFM == 1 ) {
                // A is n+1 by k
-               if ( ILU.EQ.1 ) {
+               if ( ILU == 1 ) {
                   // uplo ='L'
                   J = 0
                   // -> L(k,k) & j=1 -> L(0,0)
@@ -283,7 +283,7 @@
                }
             } else {
                // xpose case; A is k by n+1
-               if ( ILU.EQ.1 ) {
+               if ( ILU == 1 ) {
                   // uplo ='L'
                   J = 0
                   // -> L(k,k) at A(0,0)
@@ -372,16 +372,16 @@
                }
             }
          }
-      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
+      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM == '1' ) ) {
 
         // Find normI(A) ( = norm1(A), since A is Hermitian).
 
-         if ( IFM.EQ.1 ) {
+         if ( IFM == 1 ) {
             // A is 'N'
             K = N / 2
-            if ( NOE.EQ.1 ) {
+            if ( NOE == 1 ) {
                // n is odd & A is n by (n+1)/2
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   // uplo = 'U'
                   for (I = 0; I <= K - 1; I++) {
                      WORK( I ) = ZERO
@@ -397,7 +397,7 @@
                      AA = ABS( REAL( A( I+J*LDA ) ) )
                      // -> A(j+k,j+k)
                      WORK( J+K ) = S + AA
-                     if (I.EQ.K+K) GO TO 10;
+                     if (I == K+K) GO TO 10;
                      I = I + 1
                      AA = ABS( REAL( A( I+J*LDA ) ) )
                      // -> A(j,j)
@@ -462,7 +462,7 @@
                }
             } else {
                // n is even & A is n+1 by k = n/2
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   // uplo = 'U'
                   for (I = 0; I <= K - 1; I++) {
                      WORK( I ) = ZERO
@@ -539,9 +539,9 @@
          } else {
             // ifm=0
             K = N / 2
-            if ( NOE.EQ.1 ) {
+            if ( NOE == 1 ) {
                // n is odd & A is (n+1)/2 by n
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   // uplo = 'U'
                   N1 = K
                   // n/2
@@ -667,7 +667,7 @@
                }
             } else {
                // n is even & A is k=n/2 by n+1
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   // uplo = 'U'
                   for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO
@@ -821,11 +821,11 @@
          K = ( N+1 ) / 2
          SCALE = ZERO
          S = ONE
-         if ( NOE.EQ.1 ) {
+         if ( NOE == 1 ) {
             // n is odd
-            if ( IFM.EQ.1 ) {
+            if ( IFM == 1 ) {
                // A is normal & A is n by k
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   // A is upper
                   for (J = 0; J <= K - 3; J++) {
                      classq(K-J-2, A( K+J+1+J*LDA ), 1, SCALE, S );
@@ -922,7 +922,7 @@
                }
             } else {
                // A is xpose & A is k by n
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   // A**H is upper
                   for (J = 1; J <= K - 2; J++) {
                      classq(J, A( 0+( K+J )*LDA ), 1, SCALE, S );
@@ -1031,9 +1031,9 @@
             }
          } else {
             // n is even
-            if ( IFM.EQ.1 ) {
+            if ( IFM == 1 ) {
                // A is normal
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   // A is upper
                   for (J = 0; J <= K - 2; J++) {
                      classq(K-J-1, A( K+J+2+J*LDA ), 1, SCALE, S );
@@ -1110,7 +1110,7 @@
                }
             } else {
                // A is xpose
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   // A**H is upper
                   for (J = 1; J <= K - 1; J++) {
                      classq(J, A( 0+( K+1+J )*LDA ), 1, SCALE, S );

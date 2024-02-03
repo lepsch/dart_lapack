@@ -99,7 +99,7 @@
 
       // Quick return if possible
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       // More Important constants
 
@@ -199,10 +199,10 @@
 
                // Zero
 
-            if ( ITYPE.EQ.1 ) {
+            if ( ITYPE == 1 ) {
                IINFO = 0
 
-            } else if ( ITYPE.EQ.2 ) {
+            } else if ( ITYPE == 2 ) {
 
                // Identity
 
@@ -210,38 +210,38 @@
                   A( JC, JC ) = ANORM
                } // 80
 
-            } else if ( ITYPE.EQ.4 ) {
+            } else if ( ITYPE == 4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
 
-            } else if ( ITYPE.EQ.5 ) {
+            } else if ( ITYPE == 5 ) {
 
                // Symmetric, eigenvalues specified
 
                slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.7 ) {
+            } else if ( ITYPE == 7 ) {
 
                // Diagonal, random eigenvalues
 
                slatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.8 ) {
+            } else if ( ITYPE == 8 ) {
 
                // Symmetric, random eigenvalues
 
                slatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.9 ) {
+            } else if ( ITYPE == 9 ) {
 
                // Positive definite, eigenvalues specified.
 
                slatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.10 ) {
+            } else if ( ITYPE == 10 ) {
 
                // Positive definite tridiagonal, eigenvalues specified.
 
@@ -579,7 +579,7 @@
 
             for (J = 0; J <= LOG2UI; J++) { // 160
                sstech(N, SD, SE, D1, TEMP1, WORK, IINFO );
-               if (IINFO.EQ.0) GO TO 170;
+               if (IINFO == 0) GO TO 170;
                TEMP1 = TEMP1*TWO
             } // 160
 
@@ -657,7 +657,7 @@
             VU = ZERO
             IL = 0
             IU = 0
-            if ( JTYPE.EQ.21 ) {
+            if ( JTYPE == 21 ) {
                NTEST = 17
                ABSTOL = UNFL + UNFL
                sstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
@@ -773,7 +773,7 @@
                }
             }
 
-            if ( M3.EQ.0 .AND. N.NE.0 ) {
+            if ( M3 == 0 .AND. N.NE.0 ) {
                RESULT( 19 ) = ULPINV
                GO TO 280
             }
@@ -910,7 +910,7 @@
 
             // Only test SSTEMR if IEEE compliant
 
-            if ( ILAENV( 10, 'SSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 .AND. ILAENV( 11, 'SSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 ) {
+            if ( ILAENV( 10, 'SSTEMR', 'VA', 1, 0, 0, 0 ) == 1 .AND. ILAENV( 11, 'SSTEMR', 'VA', 1, 0, 0, 0 ) == 1 ) {
 
             // Call SSTEMR, do test 27 (relative eigenvalue accuracy)
 
@@ -921,7 +921,7 @@
                VU = ZERO
                IL = 0
                IU = 0
-               if ( JTYPE.EQ.21 .AND. SREL ) {
+               if ( JTYPE == 21 .AND. SREL ) {
                   NTEST = 27
                   ABSTOL = UNFL + UNFL
                   sstemr('V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK, LWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
@@ -1207,7 +1207,7 @@
                   // If this is the first test to fail,
                   // print a header to the data file.
 
-                  if ( NERRS.EQ.0 ) {
+                  if ( NERRS == 0 ) {
                      WRITE( NOUNIT, FMT = 9998 )'SST'
                      WRITE( NOUNIT, FMT = 9997 )
                      WRITE( NOUNIT, FMT = 9996 )

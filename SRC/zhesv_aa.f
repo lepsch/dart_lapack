@@ -35,7 +35,7 @@
       // Test the input parameters.
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       LWKMIN = MAX( 1, 2*N, 3*N-2 )
       if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
@@ -51,7 +51,7 @@
          INFO = -10
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          zhetrf_aa(UPLO, N, A, LDA, IPIV, WORK, -1, INFO );
          LWKOPT_HETRF = INT( WORK( 1 ) )
          zhetrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO );
@@ -70,7 +70,7 @@
       // Compute the factorization A = U**H*T*U or A = L*T*L**H.
 
       zhetrf_aa(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 

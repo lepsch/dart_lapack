@@ -78,7 +78,7 @@
       MAXWRK = MAX( 1, N + 2*N*NB )
       WORK(1) = MAXWRK
       RWORK(1) = MAX( 1, N )
-      LQUERY = ( LWORK.EQ.-1 .OR. LRWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 .OR. LRWORK == -1 )
       if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
          INFO = -1
       } else if ( .NOT.ALLV .AND. .NOT.OVER .AND. .NOT.SOMEV ) {
@@ -107,7 +107,7 @@
 
       // Quick return if possible.
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Use blocked version of back-transformation if sufficient workspace.
       // Zero-out the workspace to avoid potential NaN propagation.
@@ -197,7 +197,7 @@
                   VR( K, IS ) = CZERO
                } // 60
 
-            } else if ( NB.EQ.1 ) {
+            } else if ( NB == 1 ) {
                // ------------------------------
                // version 1: back-transform each vector with GEMV, Q*x.
                if (KI.GT.1) CALL ZGEMV( 'N', N, KI-1, CONE, VR, LDVR, WORK( 1 + IV*N ), 1, DCMPLX( SCALE ), VR( 1, KI ), 1 );
@@ -217,7 +217,7 @@
                // Columns IV:NB of work are valid vectors.
                // When the number of vectors stored reaches NB,
                // or if this was last vector, do the GEMM
-               if ( (IV.EQ.1) .OR. (KI.EQ.1) ) {
+               if ( (IV == 1) .OR. (KI == 1) ) {
                   zgemm('N', 'N', N, NB-IV+1, KI+NB-IV, CONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, CZERO, WORK( 1 + (NB+IV)*N ), N );
                   // normalize vectors
                   for (K = IV; K <= NB; K++) {
@@ -299,7 +299,7 @@
                   VL( K, IS ) = CZERO
                } // 110
 
-            } else if ( NB.EQ.1 ) {
+            } else if ( NB == 1 ) {
                // ------------------------------
                // version 1: back-transform each vector with GEMV, Q*x.
                if (KI.LT.N) CALL ZGEMV( 'N', N, N-KI, CONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, DCMPLX( SCALE ), VL( 1, KI ), 1 );
@@ -320,7 +320,7 @@
                // Columns 1:IV of work are valid vectors.
                // When the number of vectors stored reaches NB,
                // or if this was last vector, do the GEMM
-               if ( (IV.EQ.NB) .OR. (KI.EQ.N) ) {
+               if ( (IV == NB) .OR. (KI == N) ) {
                   zgemm('N', 'N', N, IV, N-KI+IV, CONE, VL( 1, KI-IV+1 ), LDVL, WORK( KI-IV+1 + (1)*N ), N, CZERO, WORK( 1 + (NB+1)*N ), N );
                   // normalize vectors
                   for (K = 1; K <= IV; K++) {

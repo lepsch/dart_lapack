@@ -50,7 +50,7 @@
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
 
-      LQUERY = ( ( LWORK.EQ.-1 ) .OR. ( LIWORK.EQ.-1 ) )
+      LQUERY = ( ( LWORK == -1 ) .OR. ( LIWORK == -1 ) )
       LWMIN = MAX( 1, 20*N )
       LIWMIN = MAX( 1, 10*N )
 
@@ -73,13 +73,13 @@
             }
          }
       }
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
             INFO = -14
          }
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          WORK( 1 ) = LWMIN
          IWORK( 1 ) = LIWMIN
 
@@ -100,9 +100,9 @@
       // Quick return if possible
 
       M = 0
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          if ( ALLEIG .OR. INDEIG ) {
             M = 1
             W( 1 ) = D( 1 )
@@ -142,7 +142,7 @@
          ISCALE = 1
          SIGMA = RMAX / TNRM
       }
-      if ( ISCALE.EQ.1 ) {
+      if ( ISCALE == 1 ) {
          dscal(N, SIGMA, D, 1 );
          dscal(N-1, SIGMA, E( 1 ), 1 );
          if ( VALEIG ) {
@@ -175,11 +175,11 @@
 
       TEST = false;
       if ( INDEIG ) {
-         if ( IL.EQ.1 .AND. IU.EQ.N ) {
+         if ( IL == 1 .AND. IU == N ) {
             TEST = true;
          }
       }
-      if ( ( ALLEIG .OR. TEST ) .AND. IEEEOK.EQ.1 ) {
+      if ( ( ALLEIG .OR. TEST ) .AND. IEEEOK == 1 ) {
          dcopy(N-1, E( 1 ), 1, WORK( 1 ), 1 );
          if ( .NOT.WANTZ ) {
             dcopy(N, D, 1, W, 1 );
@@ -194,7 +194,7 @@
             dstemr(JOBZ, 'A', N, WORK( N+1 ), WORK, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( 2*N+1 ), LWORK-2*N, IWORK, LIWORK, INFO );
 
          }
-         if ( INFO.EQ.0 ) {
+         if ( INFO == 0 ) {
             M = N
             GO TO 10
          }
@@ -217,8 +217,8 @@
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
       } // 10
-      if ( ISCALE.EQ.1 ) {
-         if ( INFO.EQ.0 ) {
+      if ( ISCALE == 1 ) {
+         if ( INFO == 0 ) {
             IMAX = M
          } else {
             IMAX = INFO - 1

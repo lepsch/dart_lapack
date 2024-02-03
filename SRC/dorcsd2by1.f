@@ -45,7 +45,7 @@
       WANTU1 = LSAME( JOBU1, 'Y' )
       WANTU2 = LSAME( JOBU2, 'Y' )
       WANTV1T = LSAME( JOBV1T, 'Y' )
-      LQUERY = LWORK .EQ. -1
+      LQUERY = LWORK == -1
 
       if ( M .LT. 0 ) {
          INFO = -4
@@ -86,7 +86,7 @@
       // |             |             |             | DBBCSD WORK |
       // |-------------------------------------------------------|
 
-      if ( INFO .EQ. 0 ) {
+      if ( INFO == 0 ) {
          IPHI = 2
          IB11D = IPHI + MAX( 1, R-1 )
          IB11E = IB11D + MAX( 1, R )
@@ -107,7 +107,7 @@
          LORGQROPT = 1
          LORGLQMIN = 1
          LORGLQOPT = 1
-         if ( R .EQ. Q ) {
+         if ( R == Q ) {
             dorbdb1(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, WORK, -1, CHILDINFO );
             LORBDB = INT( WORK(1) )
             if ( WANTU1 .AND. P .GT. 0 ) {
@@ -127,7 +127,7 @@
             }
             dbbcsd(JOBU1, JOBU2, JOBV1T, 'N', 'N', M, P, Q, THETA, DUM1, U1, LDU1, U2, LDU2, V1T, LDV1T, DUM2, 1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LBBCSD = INT( WORK(1) )
-         } else if ( R .EQ. P ) {
+         } else if ( R == P ) {
             dorbdb2(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LORBDB = INT( WORK(1) )
             if ( WANTU1 .AND. P .GT. 0 ) {
@@ -147,7 +147,7 @@
             }
             dbbcsd(JOBV1T, 'N', JOBU1, JOBU2, 'T', M, Q, P, THETA, DUM1, V1T, LDV1T, DUM2, 1, U1, LDU1, U2, LDU2, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LBBCSD = INT( WORK(1) )
-         } else if ( R .EQ. M-P ) {
+         } else if ( R == M-P ) {
             dorbdb3(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LORBDB = INT( WORK(1) )
             if ( WANTU1 .AND. P .GT. 0 ) {
@@ -206,7 +206,7 @@
       // Handle four cases separately: R = Q, R = P, R = M-P, and R = M-Q,
       // in which R = MIN(P,M-P,Q,M-Q)
 
-      if ( R .EQ. Q ) {
+      if ( R == Q ) {
 
          // Case 1: R = Q
 
@@ -250,7 +250,7 @@
             }
             dlapmt( false , M-P, M-P, U2, LDU2, IWORK );
          }
-      } else if ( R .EQ. P ) {
+      } else if ( R == P ) {
 
          // Case 2: R = P
 
@@ -294,7 +294,7 @@
             }
             dlapmt( false , M-P, M-P, U2, LDU2, IWORK );
          }
-      } else if ( R .EQ. M-P ) {
+      } else if ( R == M-P ) {
 
          // Case 3: R = M-P
 

@@ -74,10 +74,10 @@
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( IRANGE.EQ.VALRNG ) {
-         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE.EQ.INDRNG .AND. ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) {
+      } else if ( IRANGE == VALRNG ) {
+         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE == INDRNG .AND. ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) {
          INFO = -6
-      } else if ( IRANGE.EQ.INDRNG .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) {
+      } else if ( IRANGE == INDRNG .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) {
          INFO = -7
       }
 
@@ -90,7 +90,7 @@
       TOOFEW = false;
 
       // Simplification:
-      if (IRANGE.EQ.INDRNG .AND. IL.EQ.1 .AND. IU.EQ.N) IRANGE = 1;
+      if (IRANGE == INDRNG .AND. IL == 1 .AND. IU == N) IRANGE = 1;
 
       // Get machine constants
       EPS = DLAMCH( 'P' )
@@ -99,8 +99,8 @@
 
       // Special Case when N=1
       // Treat case of 1x1 matrix for quick return
-      if ( N.EQ.1 ) {
-         if ( (IRANGE.EQ.ALLRNG).OR. ((IRANGE.EQ.VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE.EQ.INDRNG).AND.(IL.EQ.1).AND.(IU.EQ.1)) ) {
+      if ( N == 1 ) {
+         if ( (IRANGE == ALLRNG).OR. ((IRANGE == VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE == INDRNG).AND.(IL == 1).AND.(IU == 1)) ) {
             M = 1
             W(1) = D(1)
             // The computation error of the eigenvalue is zero
@@ -141,7 +141,7 @@
       // eigenvalues.
       ATOLI = FUDGE*TWO*UFLOW + FUDGE*TWO*PIVMIN
 
-      if ( IRANGE.EQ.INDRNG ) {
+      if ( IRANGE == INDRNG ) {
 
          // RANGE='I': Compute an interval containing eigenvalues
          // IL through IU. The initial interval [GL,GU] from the global
@@ -166,7 +166,7 @@
             RETURN
          }
          // On exit, output intervals may not be ordered by ascending negcount
-         if ( IWORK( 6 ).EQ.IU ) {
+         if ( IWORK( 6 ) == IU ) {
             WL = WORK( N+1 )
             WLU = WORK( N+3 )
             NWL = IWORK( 1 )
@@ -188,11 +188,11 @@
             RETURN
          }
 
-      } else if ( IRANGE.EQ.VALRNG ) {
+      } else if ( IRANGE == VALRNG ) {
          WL = VL
          WU = VU
 
-      } else if ( IRANGE.EQ.ALLRNG ) {
+      } else if ( IRANGE == ALLRNG ) {
          WL = GL
          WU = GU
       }
@@ -214,9 +214,9 @@
          IEND = ISPLIT( JBLK )
          IN = IEND - IOFF
 
-         if ( IN.EQ.1 ) {
+         if ( IN == 1 ) {
             // 1x1 block
-            if ( WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE.EQ.ALLRNG .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) {
+            if ( WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == ALLRNG .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
@@ -240,7 +240,7 @@
             // -0.175152352710251E-15
            // ];
 
-          // ELSE IF( IN.EQ.2 ) THEN
+          // ELSE IF( IN == 2 ) THEN
 **           2x2 block
              // DISC = SQRT( (HALF*(D(IBEGIN)-D(IEND)))**2 + E(IBEGIN)**2 )
              // TMP1 = HALF*(D(IBEGIN)+D(IEND))
@@ -249,7 +249,7 @@
       // $         NWL = NWL + 1
              // IF( WU.GE. L1-PIVMIN )
       // $         NWU = NWU + 1
-             // IF( IRANGE.EQ.ALLRNG .OR. ( WL.LT.L1-PIVMIN .AND. WU.GE.
+             // IF( IRANGE == ALLRNG .OR. ( WL.LT.L1-PIVMIN .AND. WU.GE.
       // $          L1-PIVMIN ) ) THEN
                 // M = M + 1
                 // W( M ) = L1
@@ -263,7 +263,7 @@
       // $         NWL = NWL + 1
              // IF( WU.GE. L2-PIVMIN )
       // $         NWU = NWU + 1
-             // IF( IRANGE.EQ.ALLRNG .OR. ( WL.LT.L2-PIVMIN .AND. WU.GE.
+             // IF( IRANGE == ALLRNG .OR. ( WL.LT.L2-PIVMIN .AND. WU.GE.
       // $          L2-PIVMIN ) ) THEN
                 // M = M + 1
                 // W( M ) = L2
@@ -356,7 +356,7 @@
 
       // If RANGE='I', then (WL,WU) contains eigenvalues NWL+1,...,NWU
       // If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
-      if ( IRANGE.EQ.INDRNG ) {
+      if ( IRANGE == INDRNG ) {
          IDISCL = IL - 1 - NWL
          IDISCU = NWU - IU
 
@@ -415,7 +415,7 @@
                for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 90
-                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).LT.WKILL .OR. IW.EQ.0 ) ) {
+                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).LT.WKILL .OR. IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -428,7 +428,7 @@
                for (JDISC = 1; JDISC <= IDISCU; JDISC++) { // 120
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 110
-                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).GE.WKILL .OR. IW.EQ.0 ) ) {
+                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).GE.WKILL .OR. IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -454,7 +454,7 @@
          }
       }
 
-      if (( IRANGE.EQ.ALLRNG .AND. M.NE.N ).OR. ( IRANGE.EQ.INDRNG .AND. M.NE.IU-IL+1 ) ) {
+      if (( IRANGE == ALLRNG .AND. M.NE.N ).OR. ( IRANGE == INDRNG .AND. M.NE.IU-IL+1 ) ) {
          TOOFEW = true;
       }
 

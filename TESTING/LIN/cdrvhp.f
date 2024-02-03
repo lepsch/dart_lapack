@@ -110,7 +110,7 @@
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   UPLO = 'U'
                   PACKIT = 'C'
                } else {
@@ -137,9 +137,9 @@
                // matrix to test that INFO is returned correctly.
 
                if ( ZEROT ) {
-                  if ( IMAT.EQ.3 ) {
+                  if ( IMAT == 3 ) {
                      IZERO = 1
-                  } else if ( IMAT.EQ.4 ) {
+                  } else if ( IMAT == 4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
@@ -149,7 +149,7 @@
 
                      // Set row and column IZERO to zero.
 
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*IZERO / 2
                         for (I = 1; I <= IZERO - 1; I++) { // 20
                            A( IOFF+I ) = ZERO
@@ -172,7 +172,7 @@
                      }
                   } else {
                      IOFF = 0
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
 
                         // Set the first IZERO rows and columns to zero.
 
@@ -202,7 +202,7 @@
 
                // Set the imaginary part of the diagonals.
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   claipd(N, A, 2, 1 );
                } else {
                   claipd(N, A, N, -1 );
@@ -218,10 +218,10 @@
                   // the value returned by CHPSVX.
 
                   if ( ZEROT ) {
-                     if (IFACT.EQ.1) GO TO 150;
+                     if (IFACT == 1) GO TO 150;
                      RCONDC = ZERO
 
-                  } else if ( IFACT.EQ.1 ) {
+                  } else if ( IFACT == 1 ) {
 
                      // Compute the 1-norm of A.
 
@@ -255,7 +255,7 @@
 
                   // --- Test CHPSV  ---
 
-                  if ( IFACT.EQ.2 ) {
+                  if ( IFACT == 2 ) {
                      ccopy(NPP, A, 1, AFAC, 1 );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
@@ -310,7 +310,7 @@
 
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CHPSV ', UPLO, N, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CHPSV ', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 110
@@ -320,7 +320,7 @@
 
                   // --- Test CHPSVX ---
 
-                  if (IFACT.EQ.2 .AND. NPP.GT.0) CALL CLASET( 'Full', NPP, 1, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, NPP );
+                  if (IFACT == 2 .AND. NPP.GT.0) CALL CLASET( 'Full', NPP, 1, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, NPP );
                   claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
 
                   // Solve the system and compute the condition number and
@@ -353,7 +353,7 @@
                      GO TO 150
                   }
 
-                  if ( INFO.EQ.0 ) {
+                  if ( INFO == 0 ) {
                      if ( IFACT.GE.2 ) {
 
                         // Reconstruct matrix from factors and compute
@@ -391,7 +391,7 @@
 
                   for (K = K1; K <= 6; K++) { // 140
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'CHPSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'CHPSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 140

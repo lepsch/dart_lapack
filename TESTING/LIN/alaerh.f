@@ -30,13 +30,13 @@
       // ..
       // .. Executable Statements ..
 
-      if (INFO.EQ.0) RETURN;
+      if (INFO == 0) RETURN;
       P2 = PATH( 2: 3 )
       C3 = SUBNAM( 4: 6 )
 
       // Print the header if this is the first error message.
 
-      if ( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) {
+      if ( NFAIL == 0 .AND. NERRS == 0 ) {
          if ( LSAMEN( 3, C3, 'SV ' ) .OR. LSAMEN( 3, C3, 'SVX' ) ) {
             aladhd(NOUT, PATH );
          } else {

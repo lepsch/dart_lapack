@@ -170,12 +170,12 @@ void main() {
          NMATS = MATMAX
          GO TO 130
       }
-      IF( ALINE( I: I ).EQ.' ' ) GO TO 90
+      IF( ALINE( I: I ) == ' ' ) GO TO 90
       NMATS = 0
       } // 100
       C1 = ALINE( I: I )
       for (K = 1; K <= 10; K++) { // 110
-         if ( C1.EQ.INTSTR( K: K ) ) {
+         if ( C1 == INTSTR( K: K ) ) {
             IC = K - 1
             GO TO 120
          }

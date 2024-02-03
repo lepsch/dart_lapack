@@ -76,7 +76,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
+      if ( N == 0 .OR. NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
@@ -207,7 +207,7 @@
          } // 100
          slacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
-            if ( KASE.EQ.1 ) {
+            if ( KASE == 1 ) {
 
                // Multiply by diag(W)*inv(A**T).
 
@@ -215,7 +215,7 @@
                for (I = 1; I <= N; I++) { // 110
                   WORK( N+I ) = WORK( N+I )*WORK( I )
                } // 110
-            } else if ( KASE.EQ.2 ) {
+            } else if ( KASE == 2 ) {
 
                // Multiply by inv(A)*diag(W).
 

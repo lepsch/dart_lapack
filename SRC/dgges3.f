@@ -74,8 +74,8 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
-      if ( N.EQ.0 ) {
+      LQUERY = ( LWORK == -1 )
+      if ( N == 0 ) {
          LWKMIN = 1
       } else {
          LWKMIN = 6*N+16
@@ -103,7 +103,7 @@
 
       // Compute workspace
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          dgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR );
          LWKOPT = MAX( LWKMIN, 3*N+INT( WORK( 1 ) ) )
          dormqr('L', 'T', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR );
@@ -120,7 +120,7 @@
             dtgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK, -1, IDUM, 1, IERR );
             LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) )
          }
-         if ( N.EQ.0 ) {
+         if ( N == 0 ) {
             WORK( 1 ) = 1
          } else {
             WORK( 1 ) = LWKOPT
@@ -136,7 +136,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          SDIM = 0
          RETURN
       }
@@ -247,7 +247,7 @@
          } // 10
 
          dtgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
-         if (IERR.EQ.1) INFO = N + 3;
+         if (IERR == 1) INFO = N + 3;
 
       }
 
@@ -315,12 +315,12 @@
          IP = 0
          for (I = 1; I <= N; I++) { // 40
             CURSL = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
-            if ( ALPHAI( I ).EQ.ZERO ) {
+            if ( ALPHAI( I ) == ZERO ) {
                if (CURSL) SDIM = SDIM + 1;
                IP = 0
                if (CURSL .AND. .NOT.LASTSL) INFO = N + 2;
             } else {
-               if ( IP.EQ.1 ) {
+               if ( IP == 1 ) {
 
                   // Last eigenvalue of conjugate pair
 

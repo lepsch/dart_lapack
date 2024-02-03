@@ -37,7 +37,7 @@
       // Decode and test input arguments.
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( N.LT.0 ) {
          INFO = -3
       } else if ( LDA.LT.MAX( 1, N ) ) {
@@ -54,7 +54,7 @@
          INFO = -13
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( N.LE.1 ) {
             LWMIN = 1
          } else {
@@ -99,13 +99,13 @@
       if ( ILST.LT.N ) {
          IF( A( ILST+1, ILST ).NE.ZERO ) NBL = 2
       }
-      if (IFST.EQ.ILST) RETURN;
+      if (IFST == ILST) RETURN;
 
       if ( IFST.LT.ILST ) {
 
          // Update ILST.
 
-         if (NBF.EQ.2 .AND. NBL.EQ.1) ILST = ILST - 1          IF( NBF.EQ.1 .AND. NBL.EQ.2 ) ILST = ILST + 1;
+         if (NBF == 2 .AND. NBL == 1) ILST = ILST - 1          IF( NBF == 1 .AND. NBL == 2 ) ILST = ILST + 1;
 
          HERE = IFST
 
@@ -113,7 +113,7 @@
 
          // Swap with next one below.
 
-         if ( NBF.EQ.1 .OR. NBF.EQ.2 ) {
+         if ( NBF == 1 .OR. NBF == 2 ) {
 
             // Current block either 1-by-1 or 2-by-2.
 
@@ -130,8 +130,8 @@
 
             // Test if 2-by-2 block breaks into two 1-by-1 blocks.
 
-            if ( NBF.EQ.2 ) {
-               IF( A( HERE+1, HERE ).EQ.ZERO ) NBF = 3
+            if ( NBF == 2 ) {
+               IF( A( HERE+1, HERE ) == ZERO ) NBF = 3
             }
 
          } else {
@@ -148,7 +148,7 @@
                ILST = HERE
                RETURN
             }
-            if ( NBNEXT.EQ.1 ) {
+            if ( NBNEXT == 1 ) {
 
                // Swap two 1-by-1 blocks.
 
@@ -163,8 +163,8 @@
 
                // Recompute NBNEXT in case of 2-by-2 split.
 
-               IF( A( HERE+2, HERE+1 ).EQ.ZERO ) NBNEXT = 1
-               if ( NBNEXT.EQ.2 ) {
+               IF( A( HERE+2, HERE+1 ) == ZERO ) NBNEXT = 1
+               if ( NBNEXT == 2 ) {
 
                   // 2-by-2 block did not split.
 
@@ -202,7 +202,7 @@
 
          // Swap with next one below.
 
-         if ( NBF.EQ.1 .OR. NBF.EQ.2 ) {
+         if ( NBF == 1 .OR. NBF == 2 ) {
 
             // Current block either 1-by-1 or 2-by-2.
 
@@ -219,8 +219,8 @@
 
             // Test if 2-by-2 block breaks into two 1-by-1 blocks.
 
-            if ( NBF.EQ.2 ) {
-               IF( A( HERE+1, HERE ).EQ.ZERO ) NBF = 3
+            if ( NBF == 2 ) {
+               IF( A( HERE+1, HERE ) == ZERO ) NBF = 3
             }
 
          } else {
@@ -237,7 +237,7 @@
                ILST = HERE
                RETURN
             }
-            if ( NBNEXT.EQ.1 ) {
+            if ( NBNEXT == 1 ) {
 
                // Swap two 1-by-1 blocks.
 
@@ -251,8 +251,8 @@
 
               // Recompute NBNEXT in case of 2-by-2 split.
 
-               IF( A( HERE, HERE-1 ).EQ.ZERO ) NBNEXT = 1
-               if ( NBNEXT.EQ.2 ) {
+               IF( A( HERE, HERE-1 ) == ZERO ) NBNEXT = 1
+               if ( NBNEXT == 2 ) {
 
                   // 2-by-2 block did not split.
 

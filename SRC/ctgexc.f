@@ -49,7 +49,7 @@
 
       // Quick return if possible
 
-      if (N.LE.1) RETURN       IF( IFST.EQ.ILST ) RETURN;
+      if (N.LE.1) RETURN       IF( IFST == ILST ) RETURN;
 
       if ( IFST.LT.ILST ) {
 

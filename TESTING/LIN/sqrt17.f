@@ -83,9 +83,9 @@
       ERR = SLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK )
       if (NORMA.NE.ZERO) ERR = ERR / NORMA;
 
-      if (ISCL.EQ.1) ERR = ERR*NORMRS;
+      if (ISCL == 1) ERR = ERR*NORMRS;
 
-      if ( IRESID.EQ.1 ) {
+      if ( IRESID == 1 ) {
          NORMB = SLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK )
          if (NORMB.NE.ZERO) ERR = ERR / NORMB;
       } else {

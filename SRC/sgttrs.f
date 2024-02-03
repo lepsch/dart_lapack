@@ -32,8 +32,8 @@
       // .. Executable Statements ..
 
       INFO = 0
-      NOTRAN = ( TRANS.EQ.'N' .OR. TRANS.EQ.'n' )
-      if ( .NOT.NOTRAN .AND. .NOT.( TRANS.EQ.'T' .OR. TRANS.EQ. 't' ) .AND. .NOT.( TRANS.EQ.'C' .OR. TRANS.EQ.'c' ) ) {
+      NOTRAN = ( TRANS == 'N' .OR. TRANS == 'n' )
+      if ( .NOT.NOTRAN .AND. .NOT.( TRANS == 'T' .OR. TRANS == 't' ) .AND. .NOT.( TRANS == 'C' .OR. TRANS == 'c' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -49,7 +49,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0 .OR. NRHS.EQ.0) RETURN;
+      if (N == 0 .OR. NRHS == 0) RETURN;
 
       // Decode TRANS
 
@@ -61,7 +61,7 @@
 
       // Determine the number of right-hand sides to solve at a time.
 
-      if ( NRHS.EQ.1 ) {
+      if ( NRHS == 1 ) {
          NB = 1
       } else {
          NB = MAX( 1, ILAENV( 1, 'SGTTRS', TRANS, N, NRHS, -1, -1 ) )

@@ -48,7 +48,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       WANTVL = LSAME( JOBVL, 'V' )
       WANTVR = LSAME( JOBVR, 'V' )
       WNTSNN = LSAME( SENSE, 'N' )
@@ -83,8 +83,8 @@
         // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
         // the worst case.)
 
-      if ( INFO.EQ.0 ) {
-         if ( N.EQ.0 ) {
+      if ( INFO == 0 ) {
+         if ( N == 0 ) {
             MINWRK = 1
             MAXWRK = 1
          } else {
@@ -139,7 +139,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Get machine constants
 
@@ -272,7 +272,7 @@
          // Normalize left eigenvectors and make largest component real
 
          for (I = 1; I <= N; I++) { // 20
-            if ( WI( I ).EQ.ZERO ) {
+            if ( WI( I ) == ZERO ) {
                SCL = ONE / DNRM2( N, VL( 1, I ), 1 )
                dscal(N, SCL, VL( 1, I ), 1 );
             } else if ( WI( I ).GT.ZERO ) {
@@ -299,7 +299,7 @@
          // Normalize right eigenvectors and make largest component real
 
          for (I = 1; I <= N; I++) { // 40
-            if ( WI( I ).EQ.ZERO ) {
+            if ( WI( I ) == ZERO ) {
                SCL = ONE / DNRM2( N, VR( 1, I ), 1 )
                dscal(N, SCL, VR( 1, I ), 1 );
             } else if ( WI( I ).GT.ZERO ) {
@@ -323,8 +323,8 @@
       if ( SCALEA ) {
          dlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          dlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR );
-         if ( INFO.EQ.0 ) {
-            IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND.EQ.0 ) CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
+         if ( INFO == 0 ) {
+            IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND == 0 ) CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
          } else {
             dlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR );
             dlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );

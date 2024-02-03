@@ -70,7 +70,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Initialize Q to the unit matrix, if needed
 
@@ -195,7 +195,7 @@
                         IQEND = MAX( IQEND, J2 )
                         I2 = MAX( 0, K-3 )
                         IQAEND = 1 + I*KD
-                        if (K.EQ.2) IQAEND = IQAEND + KD;
+                        if (K == 2) IQAEND = IQAEND + KD;
                         IQAEND = MIN( IQAEND, IQEND )
                         DO 50 J = J1, J2, KD1
                            IBL = I - I2 / KDM1
@@ -380,7 +380,7 @@
                         IQEND = MAX( IQEND, J2 )
                         I2 = MAX( 0, K-3 )
                         IQAEND = 1 + I*KD
-                        if (K.EQ.2) IQAEND = IQAEND + KD;
+                        if (K == 2) IQAEND = IQAEND + KD;
                         IQAEND = MIN( IQAEND, IQEND )
                         DO 170 J = J1, J2, KD1
                            IBL = I - I2 / KDM1

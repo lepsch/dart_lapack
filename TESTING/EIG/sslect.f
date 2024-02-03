@@ -34,7 +34,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( SELOPT.EQ.0 ) {
+      if ( SELOPT == 0 ) {
          SSLECT = ( ZR.LT.ZERO )
       } else {
          RMIN = SLAPY2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) )

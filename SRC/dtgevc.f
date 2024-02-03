@@ -122,7 +122,7 @@
       ILBBAD = false;
       for (J = 1; J <= N - 1; J++) { // 20
          if ( S( J+1, J ).NE.ZERO ) {
-            IF( P( J, J ).EQ.ZERO .OR. P( J+1, J+1 ).EQ.ZERO .OR. P( J, J+1 ).NE.ZERO )ILBBAD = true;
+            IF( P( J, J ) == ZERO .OR. P( J+1, J+1 ) == ZERO .OR. P( J, J+1 ).NE.ZERO )ILBBAD = true;
             if ( J.LT.N-1 ) {
                IF( S( J+2, J+1 ).NE.ZERO ) ILABAD = true;
             }
@@ -148,7 +148,7 @@
       // Quick return if possible
 
       M = IM
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Machine Constants
 
@@ -173,7 +173,7 @@
       for (J = 2; J <= N; J++) { // 50
          TEMP = ZERO
          TEMP2 = ZERO
-         if ( S( J, J-1 ).EQ.ZERO ) {
+         if ( S( J, J-1 ) == ZERO ) {
             IEND = J - 1
          } else {
             IEND = J - 2
@@ -299,7 +299,7 @@
 
                dlag2(S( JE, JE ), LDS, P( JE, JE ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI );
                BCOEFI = -BCOEFI
-               if ( BCOEFI.EQ.ZERO ) {
+               if ( BCOEFI == ZERO ) {
                   INFO = JE
                   RETURN
                }
@@ -585,7 +585,7 @@
                // Complex eigenvalue
 
                dlag2(S( JE-1, JE-1 ), LDS, P( JE-1, JE-1 ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI );
-               if ( BCOEFI.EQ.ZERO ) {
+               if ( BCOEFI == ZERO ) {
                   INFO = JE - 1
                   RETURN
                }

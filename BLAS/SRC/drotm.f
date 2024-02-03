@@ -22,8 +22,8 @@
       // ..
 
       DFLAG = DPARAM(1)
-      IF (N.LE.0 .OR. (DFLAG+TWO.EQ.ZERO)) RETURN
-      if (INCX.EQ.INCY.AND.INCX.GT.0) {
+      IF (N.LE.0 .OR. (DFLAG+TWO == ZERO)) RETURN
+      if (INCX == INCY.AND.INCX.GT.0) {
 
          NSTEPS = N*INCX
          if (DFLAG.LT.ZERO) {
@@ -37,7 +37,7 @@
                DX(I) = W*DH11 + Z*DH12
                DY(I) = W*DH21 + Z*DH22
             }
-         } else if (DFLAG.EQ.ZERO) {
+         } else if (DFLAG == ZERO) {
             DH12 = DPARAM(4)
             DH21 = DPARAM(3)
             DO I = 1,NSTEPS,INCX
@@ -75,7 +75,7 @@
                KX = KX + INCX
                KY = KY + INCY
             }
-         } else if (DFLAG.EQ.ZERO) {
+         } else if (DFLAG == ZERO) {
             DH12 = DPARAM(4)
             DH21 = DPARAM(3)
             for (I = 1; I <= N; I++) {

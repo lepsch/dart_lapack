@@ -99,7 +99,7 @@
       // Set expert flags for standard code.
       TRYRQC = true;
 
-      if ((DOL.EQ.1).AND.(DOU.EQ.M)) {
+      if ((DOL == 1).AND.(DOU == M)) {
       } else {
          // Only selected eigenpairs are computed. Since the other evalues
          // are not refined by RQ iteration, bisection has to compute to full
@@ -126,7 +126,7 @@
          WEND = WBEGIN - 1
          } // 15
          if ( WEND.LT.M ) {
-            if ( IBLOCK( WEND+1 ).EQ.JBLK ) {
+            if ( IBLOCK( WEND+1 ) == JBLK ) {
                WEND = WEND + 1
                GO TO 15
             }
@@ -157,7 +157,7 @@
          IM = WEND - WBEGIN + 1
 
          // This is for a 1x1 block
-         if ( IBEGIN.EQ.IEND ) {
+         if ( IBEGIN == IEND ) {
             DONE = DONE+1
             Z( IBEGIN, WBEGIN ) = DCMPLX( ONE, ZERO )
             ISUPPZ( 2*WBEGIN-1 ) = IBEGIN
@@ -214,7 +214,7 @@
             NCLUS = 0
 
             PARITY = 1 - PARITY
-            if ( PARITY.EQ.0 ) {
+            if ( PARITY == 0 ) {
                OLDCLS = IINDC1
                NEWCLS = IINDC2
             } else {
@@ -235,7 +235,7 @@
                   // The RRR is stored in Z and overwritten once the eigenvectors
                   // have been computed or when the cluster is refined
 
-                  if ((DOL.EQ.1).AND.(DOU.EQ.M)) {
+                  if ((DOL == 1).AND.(DOU == M)) {
                      // Get representation from location of the leftmost evalue
                      // of the cluster
                      J = WBEGIN + OLDFST - 1
@@ -306,7 +306,7 @@
                // Process the current node.
                NEWFST = OLDFST
                for (J = OLDFST; J <= OLDLST; J++) { // 140
-                  if ( J.EQ.OLDLST ) {
+                  if ( J == OLDLST ) {
                      // we are at the right end of the cluster, this is also the
                      // boundary of the child cluster
                      NEWLST = J
@@ -325,7 +325,7 @@
 
                   // NEWFTT is the place in Z where the new RRR or the computed
                   // eigenvector is to be stored
-                  if ((DOL.EQ.1).AND.(DOU.EQ.M)) {
+                  if ((DOL == 1).AND.(DOU == M)) {
                      // Store representation at location of the leftmost evalue
                      // of the cluster
                      NEWFTT = WBEGIN + NEWFST - 1
@@ -356,7 +356,7 @@
                      // have to be computed from WORK since the entries
                      // in W might be of the same order so that gaps are not
                      // exhibited correctly for very close eigenvalues.
-                     if ( NEWFST.EQ.1 ) {
+                     if ( NEWFST == 1 ) {
                         LGAP = MAX( ZERO, W(WBEGIN)-WERR(WBEGIN) - VL )
                     } else {
                         LGAP = WGAP( WBEGIN+NEWFST-2 )
@@ -369,7 +369,7 @@
                      // as possible
 
                      for (K = 1; K <= 2; K++) { // 55
-                        if (K.EQ.1) {
+                        if (K == 1) {
                            P = INDEXW( WBEGIN-1+NEWFST )
                         } else {
                            P = INDEXW( WBEGIN-1+NEWLST )
@@ -402,7 +402,7 @@
                         Z( IBEGIN+K-1, NEWFTT ) = DCMPLX( WORK( INDIN1+K-1 ), ZERO )                         Z( IBEGIN+K-1, NEWFTT+1 ) = DCMPLX( WORK( INDIN2+K-1 ), ZERO )
                      } // 56
                      Z( IEND, NEWFTT ) = DCMPLX( WORK( INDIN1+IN-1 ), ZERO )
-                     if ( IINFO.EQ.0 ) {
+                     if ( IINFO == 0 ) {
                         // a new RRR for the cluster was found by DLARRF
                         // update shift and store it
                         SSIGMA = SIGMA + TAU
@@ -461,7 +461,7 @@
                      // differences in the eigenvalues, as opposed to the
                      // entries in W which might "look" the same.
 
-                     if ( K .EQ. 1) {
+                     if ( K == 1) {
                         // In the case RANGE='I' and with not much initial
                         // accuracy in LAMBDA and VL, the formula
                         // LGAP = MAX( ZERO, (SIGMA - VL) + LAMBDA )
@@ -472,7 +472,7 @@
                      } else {
                         LGAP = WGAP(WINDMN)
                      }
-                     if ( K .EQ. IM) {
+                     if ( K == IM) {
                         // In the case RANGE='I' and with not much initial
                         // accuracy in LAMBDA and VU, the formula
                         // can lead to an overestimation of the right gap and
@@ -483,7 +483,7 @@
                         RGAP = WGAP(WINDEX)
                      }
                      GAP = MIN( LGAP, RGAP )
-                     if (( K .EQ. 1).OR.(K .EQ. IM)) {
+                     if (( K == 1).OR.(K == IM)) {
                         // The eigenvector support can become wrong
                         // because significant entries could be cut off due to a
                         // large GAPTOL parameter in LAR1V. Prevent this.
@@ -529,7 +529,7 @@
                      }
                      // Given LAMBDA, compute the eigenvector.
                      zlar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
-                     if (ITER .EQ. 0) {
+                     if (ITER == 0) {
                         BSTRES = RESID
                         BSTW = LAMBDA
                      } else if (RESID.LT.BSTRES) {
@@ -565,7 +565,7 @@
                         if ( ( RQCORR*SGNDEF.GE.ZERO ) .AND.( LAMBDA + RQCORR.LE. RIGHT) .AND.( LAMBDA + RQCORR.GE. LEFT) ) {
                            USEDRQ = true;
                            // Store new midpoint of bisection interval in WORK
-                           if (SGNDEF.EQ.ONE) {
+                           if (SGNDEF == ONE) {
                               // The current LAMBDA is on the left of the true
                               // eigenvalue
                               LEFT = LAMBDA
@@ -599,7 +599,7 @@
                            GOTO 120
                         } else if ( ITER.LT.MAXITR ) {
                            GOTO 120
-                        } else if ( ITER.EQ.MAXITR ) {
+                        } else if ( ITER == MAXITR ) {
                            NEEDBS = true;
                            GOTO 120
                         } else {

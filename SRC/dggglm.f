@@ -37,7 +37,7 @@
 
       INFO = 0
       NP = MIN( N, P )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( N.LT.0 ) {
          INFO = -1
       } else if ( M.LT.0 .OR. M.GT.N ) {
@@ -52,8 +52,8 @@
 
       // Calculate workspace
 
-      if ( INFO.EQ.0) {
-         if ( N.EQ.0 ) {
+      if ( INFO == 0) {
+         if ( N == 0 ) {
             LWKMIN = 1
             LWKOPT = 1
          } else {
@@ -81,7 +81,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          for (I = 1; I <= M; I++) {
             X(I) = ZERO
          }

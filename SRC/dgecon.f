@@ -48,7 +48,7 @@
       // Test the input parameters.
 
       INFO = 0
-      ONENRM = NORM.EQ.'1' .OR. LSAME( NORM, 'O' )
+      ONENRM = NORM == '1' .OR. LSAME( NORM, 'O' )
       if ( .NOT.ONENRM .AND. .NOT.LSAME( NORM, 'I' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -66,10 +66,10 @@
       // Quick return if possible
 
       RCOND = ZERO
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          RCOND = ONE
          RETURN
-      } else if ( ANORM.EQ.ZERO ) {
+      } else if ( ANORM == ZERO ) {
          RETURN
       } else if ( DISNAN( ANORM ) ) {
          RCOND = ANORM
@@ -95,7 +95,7 @@
       } // 10
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
-         if ( KASE.EQ.KASE1 ) {
+         if ( KASE == KASE1 ) {
 
             // Multiply by inv(L).
 
@@ -121,7 +121,7 @@
          NORMIN = 'Y'
          if ( SCALE.NE.ONE ) {
             IX = IDAMAX( N, WORK, 1 )
-            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
+            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE == ZERO ) GO TO 20
             drscl(N, SCALE, WORK, 1 );
          }
          GO TO 10

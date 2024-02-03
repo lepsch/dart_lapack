@@ -48,7 +48,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0) RETURN;
+      if (N == 0 .OR. NRHS == 0 .OR. M == 0) RETURN;
 
       // Solve L*X = B(1:m,:)
 

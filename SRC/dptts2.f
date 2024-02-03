@@ -24,7 +24,7 @@
       // Quick return if possible
 
       if ( N.LE.1 ) {
-         if (N.EQ.1) CALL DSCAL( NRHS, 1.D0 / D( 1 ), B, LDB );
+         if (N == 1) CALL DSCAL( NRHS, 1.D0 / D( 1 ), B, LDB );
          RETURN
       }
 

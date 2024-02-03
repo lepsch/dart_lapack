@@ -72,7 +72,7 @@
          zlarnv(3, ISEED, N-I+1, WORK );
          WN = DZNRM2( N-I+1, WORK, 1 )
          WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 )
-         if ( WN.EQ.ZERO ) {
+         if ( WN == ZERO ) {
             TAU = ZERO
          } else {
             WB = WORK( 1 ) + WA
@@ -115,7 +115,7 @@
 
          WN = DZNRM2( N-K-I+1, A( K+I, I ), 1 )
          WA = ( WN / ABS( A( K+I, I ) ) )*A( K+I, I )
-         if ( WN.EQ.ZERO ) {
+         if ( WN == ZERO ) {
             TAU = ZERO
          } else {
             WB = A( K+I, I ) + WA

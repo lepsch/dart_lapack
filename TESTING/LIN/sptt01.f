@@ -51,7 +51,7 @@
 
       // Compute the 1-norms of the tridiagonal matrices A and WORK.
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          ANORM = D( 1 )
          RESID = ABS( WORK( 1 ) )
       } else {

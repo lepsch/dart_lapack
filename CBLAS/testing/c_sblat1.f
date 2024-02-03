@@ -31,13 +31,13 @@ void main() {      // Test program for the REAL             Level 1 CBLAS.
          INCX = 9999
          INCY = 9999
          MODE = 9999
-         if (ICASE.EQ.3) {
+         if (ICASE == 3) {
             check0(SFAC);
-         } else if (ICASE.EQ.7 .OR. ICASE.EQ.8 .OR. ICASE.EQ.9 .OR. ICASE.EQ.10) {
+         } else if (ICASE == 7 .OR. ICASE == 8 .OR. ICASE == 9 .OR. ICASE == 10) {
             check1(SFAC);
-         } else if (ICASE.EQ.1 .OR. ICASE.EQ.2 .OR. ICASE.EQ.5 .OR. ICASE.EQ.6) {
+         } else if (ICASE == 1 .OR. ICASE == 2 .OR. ICASE == 5 .OR. ICASE == 6) {
             check2(SFAC);
-         } else if (ICASE.EQ.4) {
+         } else if (ICASE == 4) {
             check3(SFAC);
          }
          // -- Print
@@ -113,7 +113,7 @@ void main() {      // Test program for the REAL             Level 1 CBLAS.
       for (K = 1; K <= 8; K++) { // 20
          // .. Set N=K for identification in output if any ..
          N = K
-         if (ICASE.EQ.3) {
+         if (ICASE == 3) {
             // .. SROTGTEST ..
             if (K.GT.8) GO TO 40;
             SA = DA1(K)
@@ -171,22 +171,22 @@ void main() {      // Test program for the REAL             Level 1 CBLAS.
                SX(I) = DV(I,NP1,INCX)
             } // 20
 
-            if (ICASE.EQ.7) {
+            if (ICASE == 7) {
                // .. SNRM2TEST ..
                STEMP(1) = DTRUE1(NP1)
                stest1(SNRM2TEST(N,SX,INCX),STEMP(1),STEMP,SFAC);
-            } else if (ICASE.EQ.8) {
+            } else if (ICASE == 8) {
                // .. SASUMTEST ..
                STEMP(1) = DTRUE3(NP1)
                stest1(SASUMTEST(N,SX,INCX),STEMP(1),STEMP,SFAC);
-            } else if (ICASE.EQ.9) {
+            } else if (ICASE == 9) {
                // .. SSCALTEST ..
                sscaltest(N,SA((INCX-1)*5+NP1),SX,INCX);
                for (I = 1; I <= LEN; I++) { // 40
                   STRUE(I) = DTRUE5(I,NP1,INCX)
                } // 40
                stest(LEN,SX,STRUE,STRUE,SFAC);
-            } else if (ICASE.EQ.10) {
+            } else if (ICASE == 10) {
                // .. ISAMAXTEST ..
                itest1(ISAMAXTEST(N,SX,INCX),ITRUE2(NP1));
             } else {
@@ -254,24 +254,24 @@ void main() {      // Test program for the REAL             Level 1 CBLAS.
                SY(I) = DY1(I)
             } // 20
 
-            if (ICASE.EQ.1) {
+            if (ICASE == 1) {
                // .. SDOTTEST ..
                stest1(SDOTTEST(N,SX,INCX,SY,INCY),DT7(KN,KI), SSIZE1(KN),SFAC);
-            } else if (ICASE.EQ.2) {
+            } else if (ICASE == 2) {
                // .. SAXPYTEST ..
                saxpytest(N,SA,SX,INCX,SY,INCY);
                for (J = 1; J <= LENY; J++) { // 40
                   STY(J) = DT8(J,KN,KI)
                } // 40
                stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
-            } else if (ICASE.EQ.5) {
+            } else if (ICASE == 5) {
                // .. SCOPYTEST ..
                for (I = 1; I <= 7; I++) { // 60
                   STY(I) = DT10Y(I,KN,KI)
                } // 60
                scopytest(N,SX,INCX,SY,INCY);
                stest(LENY,SY,STY,SSIZE2(1,1),1.0E0);
-            } else if (ICASE.EQ.6) {
+            } else if (ICASE == 6) {
                // .. SSWAPTEST ..
                sswaptest(N,SX,INCX,SY,INCY);
                for (I = 1; I <= 7; I++) { // 80
@@ -334,7 +334,7 @@ void main() {      // Test program for the REAL             Level 1 CBLAS.
             LENX = LENS(KN,MX)
             LENY = LENS(KN,MY)
 
-            if (ICASE.EQ.4) {
+            if (ICASE == 4) {
                // .. SROTTEST ..
                for (I = 1; I <= 7; I++) { // 20
                   SX(I) = DX1(I)
@@ -481,7 +481,7 @@ void main() {      // Test program for the REAL             Level 1 CBLAS.
 
       for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I)
-         IF (SDIFF(ABS(SSIZE(I))+ABS(SFAC*SD),ABS(SSIZE(I))).EQ.0.0E0) GO TO 40
+         IF (SDIFF(ABS(SSIZE(I))+ABS(SFAC*SD),ABS(SSIZE(I))) == 0.0E0) GO TO 40
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 
@@ -554,7 +554,7 @@ void main() {      // Test program for the REAL             Level 1 CBLAS.
       // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
 
-      if (ICOMP.EQ.ITRUE) GO TO 40;
+      if (ICOMP == ITRUE) GO TO 40;
 
                              // HERE ICOMP IS NOT EQUAL TO ITRUE.
 

@@ -48,7 +48,7 @@
       // ====================
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -75,9 +75,9 @@
       // Here, IWS is the miminum workspace required for unblocked
       // code.
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          MINMN = MIN( M, N )
-         if ( MINMN.EQ.0 ) {
+         if ( MINMN == 0 ) {
             IWS = 1
             LWKOPT = 1
          } else {
@@ -131,7 +131,7 @@
 
       // Quick return if possible for M=0 or N=0.
 
-      if ( MINMN.EQ.0 ) {
+      if ( MINMN == 0 ) {
          K = 0
          MAXC2NRMK = ZERO
          RELMAXC2NRMK = ZERO
@@ -193,7 +193,7 @@
 
       // ===================================================================
 
-      if ( MAXC2NRM.EQ.ZERO ) {
+      if ( MAXC2NRM == ZERO ) {
 
          // Check is the matrix A is a zero matrix, set array TAU and
          // return from the routine.
@@ -230,7 +230,7 @@
       // Quick return if possible for the case when the first
       // stopping criterion is satisfied, i.e. KMAX = 0.
 
-      if ( KMAX.EQ.0 ) {
+      if ( KMAX == 0 ) {
          K = 0
          MAXC2NRMK = MAXC2NRM
          RELMAXC2NRMK = ONE
@@ -363,7 +363,7 @@
 
             // Set INFO on the first occurence of Inf.
 
-            if ( IINFO.GT.N_SUB .AND. INFO.EQ.0 ) {
+            if ( IINFO.GT.N_SUB .AND. INFO == 0 ) {
                INFO = 2*IOFFSET + IINFO
             }
 
@@ -437,7 +437,7 @@
          // Set INFO on the first exception occurence of Inf or NaN,
          // (NaN takes precedence over Inf).
 
-         if ( IINFO.GT.N_SUB .AND. INFO.EQ.0 ) {
+         if ( IINFO.GT.N_SUB .AND. INFO == 0 ) {
             INFO = 2*IOFFSET + IINFO
          } else if ( IINFO.LE.N_SUB .AND. IINFO.GT.0 ) {
             INFO = IOFFSET + IINFO
@@ -460,7 +460,7 @@
          if ( K.LT.MINMN ) {
             JMAXC2NRM = K + ISAMAX( N-K, RWORK( K+1 ), 1 )
             MAXC2NRMK = RWORK( JMAXC2NRM )
-            if ( K.EQ.0 ) {
+            if ( K == 0 ) {
                RELMAXC2NRMK = ONE
             } else {
                RELMAXC2NRMK = MAXC2NRMK / MAXC2NRM

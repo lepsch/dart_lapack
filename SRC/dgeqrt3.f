@@ -40,7 +40,7 @@
          RETURN
       }
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
 
          // Compute Householder transform when N=1
 

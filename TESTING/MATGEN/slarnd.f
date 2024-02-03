@@ -35,17 +35,17 @@
 
       T1 = SLARAN( ISEED )
 
-      if ( IDIST.EQ.1 ) {
+      if ( IDIST == 1 ) {
 
          // uniform (0,1)
 
          SLARND = T1
-      } else if ( IDIST.EQ.2 ) {
+      } else if ( IDIST == 2 ) {
 
          // uniform (-1,1)
 
          SLARND = TWO*T1 - ONE
-      } else if ( IDIST.EQ.3 ) {
+      } else if ( IDIST == 3 ) {
 
          // normal (0,1)
 

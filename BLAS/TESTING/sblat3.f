@@ -124,7 +124,7 @@ void main() {
       } // 20
    30 READ( NIN, FMT = 9988, END = 60 )SNAMET, LTESTT
       for (I = 1; I <= NSUBS; I++) { // 40
-         IF( SNAMET.EQ.SNAMES( I ) ) GO TO 50
+         IF( SNAMET == SNAMES( I ) ) GO TO 50
       } // 40
       WRITE( NOUT, FMT = 9990 )SNAMET
       STOP
@@ -336,7 +336,7 @@ void main() {
 
                for (ICA = 1; ICA <= 3; ICA++) { // 80
                   TRANSA = ICH( ICA: ICA )
-                  TRANA = TRANSA.EQ.'T'.OR.TRANSA.EQ.'C'
+                  TRANA = TRANSA == 'T'.OR.TRANSA == 'C'
 
                   if ( TRANA ) {
                      MA = K
@@ -358,7 +358,7 @@ void main() {
 
                   for (ICB = 1; ICB <= 3; ICB++) { // 70
                      TRANSB = ICH( ICB: ICB )
-                     TRANB = TRANSB.EQ.'T'.OR.TRANSB.EQ.'C'
+                     TRANB = TRANSB == 'T'.OR.TRANSB == 'C'
 
                      if ( TRANB ) {
                         MB = N
@@ -429,23 +429,23 @@ void main() {
 
                            // See what data changed inside subroutines.
 
-                           ISAME( 1 ) = TRANSA.EQ.TRANAS
-                           ISAME( 2 ) = TRANSB.EQ.TRANBS
-                           ISAME( 3 ) = MS.EQ.M
-                           ISAME( 4 ) = NS.EQ.N
-                           ISAME( 5 ) = KS.EQ.K
-                           ISAME( 6 ) = ALS.EQ.ALPHA
+                           ISAME( 1 ) = TRANSA == TRANAS
+                           ISAME( 2 ) = TRANSB == TRANBS
+                           ISAME( 3 ) = MS == M
+                           ISAME( 4 ) = NS == N
+                           ISAME( 5 ) = KS == K
+                           ISAME( 6 ) = ALS == ALPHA
                            ISAME( 7 ) = LSE( AS, AA, LAA )
-                           ISAME( 8 ) = LDAS.EQ.LDA
+                           ISAME( 8 ) = LDAS == LDA
                            ISAME( 9 ) = LSE( BS, BB, LBB )
-                           ISAME( 10 ) = LDBS.EQ.LDB
-                           ISAME( 11 ) = BLS.EQ.BETA
+                           ISAME( 10 ) = LDBS == LDB
+                           ISAME( 11 ) = BLS == BETA
                            if ( NULL ) {
                               ISAME( 12 ) = LSE( CS, CC, LCC )
                            } else {
                               ISAME( 12 ) = LSERES( 'GE', ' ', M, N, CS, CC, LDC )
                            }
-                           ISAME( 13 ) = LDCS.EQ.LDC
+                           ISAME( 13 ) = LDCS == LDC
 
                            // If data was incorrectly changed, report
                            // and return.
@@ -589,7 +589,7 @@ void main() {
 
             for (ICS = 1; ICS <= 2; ICS++) { // 80
                SIDE = ICHS( ICS: ICS )
-               LEFT = SIDE.EQ.'L'
+               LEFT = SIDE == 'L'
 
                if ( LEFT ) {
                   NA = M
@@ -660,22 +660,22 @@ void main() {
 
                         // See what data changed inside subroutines.
 
-                        ISAME( 1 ) = SIDES.EQ.SIDE
-                        ISAME( 2 ) = UPLOS.EQ.UPLO
-                        ISAME( 3 ) = MS.EQ.M
-                        ISAME( 4 ) = NS.EQ.N
-                        ISAME( 5 ) = ALS.EQ.ALPHA
+                        ISAME( 1 ) = SIDES == SIDE
+                        ISAME( 2 ) = UPLOS == UPLO
+                        ISAME( 3 ) = MS == M
+                        ISAME( 4 ) = NS == N
+                        ISAME( 5 ) = ALS == ALPHA
                         ISAME( 6 ) = LSE( AS, AA, LAA )
-                        ISAME( 7 ) = LDAS.EQ.LDA
+                        ISAME( 7 ) = LDAS == LDA
                         ISAME( 8 ) = LSE( BS, BB, LBB )
-                        ISAME( 9 ) = LDBS.EQ.LDB
-                        ISAME( 10 ) = BLS.EQ.BETA
+                        ISAME( 9 ) = LDBS == LDB
+                        ISAME( 10 ) = BLS == BETA
                         if ( NULL ) {
                            ISAME( 11 ) = LSE( CS, CC, LCC )
                         } else {
                            ISAME( 11 ) = LSERES( 'GE', ' ', M, N, CS, CC, LDC )
                         }
-                        ISAME( 12 ) = LDCS.EQ.LDC
+                        ISAME( 12 ) = LDCS == LDC
 
                         // If data was incorrectly changed, report and
                         // return.
@@ -817,7 +817,7 @@ void main() {
 
             for (ICS = 1; ICS <= 2; ICS++) { // 120
                SIDE = ICHS( ICS: ICS )
-               LEFT = SIDE.EQ.'L'
+               LEFT = SIDE == 'L'
                if ( LEFT ) {
                   NA = M
                } else {
@@ -873,11 +873,11 @@ void main() {
 
                            // Call the subroutine.
 
-                           if ( SNAME( 4: 5 ).EQ.'MM' ) {
+                           if ( SNAME( 4: 5 ) == 'MM' ) {
                               if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB;
                               if (REWI) REWIND NTRA;
                               strmm(SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
-                           } else if ( SNAME( 4: 5 ).EQ.'SM' ) {
+                           } else if ( SNAME( 4: 5 ) == 'SM' ) {
                               if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB;
                               if (REWI) REWIND NTRA;
                               strsm(SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
@@ -893,21 +893,21 @@ void main() {
 
                            // See what data changed inside subroutines.
 
-                           ISAME( 1 ) = SIDES.EQ.SIDE
-                           ISAME( 2 ) = UPLOS.EQ.UPLO
-                           ISAME( 3 ) = TRANAS.EQ.TRANSA
-                           ISAME( 4 ) = DIAGS.EQ.DIAG
-                           ISAME( 5 ) = MS.EQ.M
-                           ISAME( 6 ) = NS.EQ.N
-                           ISAME( 7 ) = ALS.EQ.ALPHA
+                           ISAME( 1 ) = SIDES == SIDE
+                           ISAME( 2 ) = UPLOS == UPLO
+                           ISAME( 3 ) = TRANAS == TRANSA
+                           ISAME( 4 ) = DIAGS == DIAG
+                           ISAME( 5 ) = MS == M
+                           ISAME( 6 ) = NS == N
+                           ISAME( 7 ) = ALS == ALPHA
                            ISAME( 8 ) = LSE( AS, AA, LAA )
-                           ISAME( 9 ) = LDAS.EQ.LDA
+                           ISAME( 9 ) = LDAS == LDA
                            if ( NULL ) {
                               ISAME( 10 ) = LSE( BS, BB, LBB )
                            } else {
                               ISAME( 10 ) = LSERES( 'GE', ' ', M, N, BS, BB, LDB )
                            }
-                           ISAME( 11 ) = LDBS.EQ.LDB
+                           ISAME( 11 ) = LDBS == LDB
 
                            // If data was incorrectly changed, report and
                            // return.
@@ -923,7 +923,7 @@ void main() {
                            }
 
                            if ( .NOT.NULL ) {
-                              if ( SNAME( 4: 5 ).EQ.'MM' ) {
+                              if ( SNAME( 4: 5 ) == 'MM' ) {
 
                                  // Check the result.
 
@@ -932,7 +932,7 @@ void main() {
                                  } else {
                                     smmch('N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, true );
                                  }
-                              } else if ( SNAME( 4: 5 ).EQ.'SM' ) {
+                              } else if ( SNAME( 4: 5 ) == 'SM' ) {
 
                                  // Compute approximation to original
                                  // matrix.
@@ -1063,7 +1063,7 @@ void main() {
 
             for (ICT = 1; ICT <= 3; ICT++) { // 80
                TRANS = ICHT( ICT: ICT )
-               TRAN = TRANS.EQ.'T'.OR.TRANS.EQ.'C'
+               TRAN = TRANS == 'T'.OR.TRANS == 'C'
                if ( TRAN ) {
                   MA = K
                   NA = N
@@ -1084,7 +1084,7 @@ void main() {
 
                for (ICU = 1; ICU <= 2; ICU++) { // 70
                   UPLO = ICHU( ICU: ICU )
-                  UPPER = UPLO.EQ.'U'
+                  UPPER = UPLO == 'U'
 
                   for (IA = 1; IA <= NALF; IA++) { // 60
                      ALPHA = ALF( IA )
@@ -1131,20 +1131,20 @@ void main() {
 
                         // See what data changed inside subroutines.
 
-                        ISAME( 1 ) = UPLOS.EQ.UPLO
-                        ISAME( 2 ) = TRANSS.EQ.TRANS
-                        ISAME( 3 ) = NS.EQ.N
-                        ISAME( 4 ) = KS.EQ.K
-                        ISAME( 5 ) = ALS.EQ.ALPHA
+                        ISAME( 1 ) = UPLOS == UPLO
+                        ISAME( 2 ) = TRANSS == TRANS
+                        ISAME( 3 ) = NS == N
+                        ISAME( 4 ) = KS == K
+                        ISAME( 5 ) = ALS == ALPHA
                         ISAME( 6 ) = LSE( AS, AA, LAA )
-                        ISAME( 7 ) = LDAS.EQ.LDA
-                        ISAME( 8 ) = BETS.EQ.BETA
+                        ISAME( 7 ) = LDAS == LDA
+                        ISAME( 8 ) = BETS == BETA
                         if ( NULL ) {
                            ISAME( 9 ) = LSE( CS, CC, LCC )
                         } else {
                            ISAME( 9 ) = LSERES( 'SY', UPLO, N, N, CS, CC, LDC )
                         }
-                        ISAME( 10 ) = LDCS.EQ.LDC
+                        ISAME( 10 ) = LDCS == LDC
 
                         // If data was incorrectly changed, report and
                         // return.
@@ -1299,7 +1299,7 @@ void main() {
 
             for (ICT = 1; ICT <= 3; ICT++) { // 110
                TRANS = ICHT( ICT: ICT )
-               TRAN = TRANS.EQ.'T'.OR.TRANS.EQ.'C'
+               TRAN = TRANS == 'T'.OR.TRANS == 'C'
                if ( TRAN ) {
                   MA = K
                   NA = N
@@ -1334,7 +1334,7 @@ void main() {
 
                for (ICU = 1; ICU <= 2; ICU++) { // 100
                   UPLO = ICHU( ICU: ICU )
-                  UPPER = UPLO.EQ.'U'
+                  UPPER = UPLO == 'U'
 
                   for (IA = 1; IA <= NALF; IA++) { // 90
                      ALPHA = ALF( IA )
@@ -1385,22 +1385,22 @@ void main() {
 
                         // See what data changed inside subroutines.
 
-                        ISAME( 1 ) = UPLOS.EQ.UPLO
-                        ISAME( 2 ) = TRANSS.EQ.TRANS
-                        ISAME( 3 ) = NS.EQ.N
-                        ISAME( 4 ) = KS.EQ.K
-                        ISAME( 5 ) = ALS.EQ.ALPHA
+                        ISAME( 1 ) = UPLOS == UPLO
+                        ISAME( 2 ) = TRANSS == TRANS
+                        ISAME( 3 ) = NS == N
+                        ISAME( 4 ) = KS == K
+                        ISAME( 5 ) = ALS == ALPHA
                         ISAME( 6 ) = LSE( AS, AA, LAA )
-                        ISAME( 7 ) = LDAS.EQ.LDA
+                        ISAME( 7 ) = LDAS == LDA
                         ISAME( 8 ) = LSE( BS, BB, LBB )
-                        ISAME( 9 ) = LDBS.EQ.LDB
-                        ISAME( 10 ) = BETS.EQ.BETA
+                        ISAME( 9 ) = LDBS == LDB
+                        ISAME( 10 ) = BETS == BETA
                         if ( NULL ) {
                            ISAME( 11 ) = LSE( CS, CC, LCC )
                         } else {
                            ISAME( 11 ) = LSERES( 'SY', UPLO, N, N, CS, CC, LDC )
                         }
-                        ISAME( 12 ) = LDCS.EQ.LDC
+                        ISAME( 12 ) = LDCS == LDC
 
                         // If data was incorrectly changed, report and
                         // return.
@@ -2084,12 +2084,12 @@ void main() {
       REAL               SBEG
       // EXTERNAL SBEG
       // .. Executable Statements ..
-      GEN = TYPE.EQ.'GE'
-      SYM = TYPE.EQ.'SY'
-      TRI = TYPE.EQ.'TR'
-      UPPER = ( SYM.OR.TRI ).AND.UPLO.EQ.'U'
-      LOWER = ( SYM.OR.TRI ).AND.UPLO.EQ.'L'
-      UNIT = TRI.AND.DIAG.EQ.'U'
+      GEN = TYPE == 'GE'
+      SYM = TYPE == 'SY'
+      TRI = TYPE == 'TR'
+      UPPER = ( SYM.OR.TRI ).AND.UPLO == 'U'
+      LOWER = ( SYM.OR.TRI ).AND.UPLO == 'L'
+      UNIT = TRI.AND.DIAG == 'U'
 
       // Generate data in array A.
 
@@ -2099,7 +2099,7 @@ void main() {
                A( I, J ) = SBEG( RESET ) + TRANSL
                if ( I.NE.J ) {
                   // Set some elements to zero
-                  if (N.GT.3.AND.J.EQ.N/2) A( I, J ) = ZERO;
+                  if (N.GT.3.AND.J == N/2) A( I, J ) = ZERO;
                   if ( SYM ) {
                      A( J, I ) = A( I, J )
                   } else if ( TRI ) {
@@ -2113,7 +2113,7 @@ void main() {
 
       // Store elements in array AS in data structure required by routine.
 
-      if ( TYPE.EQ.'GE' ) {
+      if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 50
             for (I = 1; I <= M; I++) { // 30
                AA( I + ( J - 1 )*LDA ) = A( I, J )
@@ -2122,7 +2122,7 @@ void main() {
                AA( I + ( J - 1 )*LDA ) = ROGUE
             } // 40
          } // 50
-      } else if ( TYPE.EQ.'SY'.OR.TYPE.EQ.'TR' ) {
+      } else if ( TYPE == 'SY'.OR.TYPE == 'TR' ) {
          for (J = 1; J <= N; J++) { // 90
             if ( UPPER ) {
                IBEG = 1
@@ -2184,8 +2184,8 @@ void main() {
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
       // .. Executable Statements ..
-      TRANA = TRANSA.EQ.'T'.OR.TRANSA.EQ.'C'
-      TRANB = TRANSB.EQ.'T'.OR.TRANSB.EQ.'C'
+      TRANA = TRANSA == 'T'.OR.TRANSA == 'C'
+      TRANB = TRANSB == 'T'.OR.TRANSB == 'C'
 
       // Compute expected result, one column at a time, in CT using data
       // in A, B and C.
@@ -2324,14 +2324,14 @@ void main() {
       int                I, IBEG, IEND, J;
       bool               UPPER;
       // .. Executable Statements ..
-      UPPER = UPLO.EQ.'U'
-      if ( TYPE.EQ.'GE' ) {
+      UPPER = UPLO == 'U'
+      if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = M + 1; I <= LDA; I++) { // 10
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
             } // 10
          } // 20
-      } else if ( TYPE.EQ.'SY' ) {
+      } else if ( TYPE == 'SY' ) {
          for (J = 1; J <= N; J++) { // 50
             if ( UPPER ) {
                IBEG = 1

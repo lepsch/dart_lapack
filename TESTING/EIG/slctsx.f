@@ -29,7 +29,7 @@
          } else {
             SLCTSX = true;
          }
-         if ( I.EQ.MPLUSN ) {
+         if ( I == MPLUSN ) {
             FS = false;
             I = 0
          }
@@ -40,7 +40,7 @@
          } else {
             SLCTSX = false;
          }
-         if ( I.EQ.MPLUSN ) {
+         if ( I == MPLUSN ) {
             FS = true;
             I = 0
          }

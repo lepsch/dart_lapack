@@ -67,7 +67,7 @@
             } // 20
          } // 30
          WORK( I, I ) = WORK( I, I ) - SD( I )
-         if ( KBAND.EQ.1 ) {
+         if ( KBAND == 1 ) {
             if (I.NE.1) WORK( I, I-1 ) = WORK( I, I-1 ) - SE( I-1 )             IF( I.NE.N ) WORK( I, I+1 ) = WORK( I, I+1 ) - SE( I );
          }
       } // 40

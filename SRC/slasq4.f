@@ -39,11 +39,11 @@
       }
 
       NN = 4*N0 + PP
-      if ( N0IN.EQ.N0 ) {
+      if ( N0IN == N0 ) {
 
          // No eigenvalues deflated.
 
-         if ( DMIN.EQ.DN .OR. DMIN.EQ.DN1 ) {
+         if ( DMIN == DN .OR. DMIN == DN1 ) {
 
             B1 = SQRT( Z( NN-3 ) )*SQRT( Z( NN-5 ) )
             B2 = SQRT( Z( NN-7 ) )*SQRT( Z( NN-9 ) )
@@ -51,7 +51,7 @@
 
             // Cases 2 and 3.
 
-            if ( DMIN.EQ.DN .AND. DMIN1.EQ.DN1 ) {
+            if ( DMIN == DN .AND. DMIN1 == DN1 ) {
                GAP2 = DMIN2 - A2 - DMIN2*QURTR
                if ( GAP2.GT.ZERO .AND. GAP2.GT.B2 ) {
                   GAP1 = A2 - DN - ( B2 / GAP2 )*B2
@@ -73,7 +73,7 @@
 
                TTYPE = -4
                S = QURTR*DMIN
-               if ( DMIN.EQ.DN ) {
+               if ( DMIN == DN ) {
                   GAM = DN
                   A2 = ZERO
                   IF( Z( NN-5 ) .GT. Z( NN-7 ) ) RETURN
@@ -93,7 +93,7 @@
 
                A2 = A2 + B2
                DO 10 I4 = NP, 4*I0 - 1 + PP, -4
-                  if (B2.EQ.ZERO) GO TO 20;
+                  if (B2 == ZERO) GO TO 20;
                   B1 = B2
                   IF( Z( I4 ) .GT. Z( I4-2 ) ) RETURN
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) )
@@ -107,7 +107,7 @@
 
                if (A2.LT.CNST1) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 );
             }
-         } else if ( DMIN.EQ.DN2 ) {
+         } else if ( DMIN == DN2 ) {
 
             // Case 5.
 
@@ -129,7 +129,7 @@
                B2 = Z( NN-13 ) / Z( NN-15 )
                A2 = A2 + B2
                DO 30 I4 = NN - 17, 4*I0 - 1 + PP, -4
-                  if (B2.EQ.ZERO) GO TO 40;
+                  if (B2 == ZERO) GO TO 40;
                   B1 = B2
                   IF( Z( I4 ) .GT. Z( I4-2 ) ) RETURN
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) )
@@ -145,9 +145,9 @@
 
             // Case 6, no information to guide us.
 
-            if ( TTYPE.EQ.-6 ) {
+            if ( TTYPE == -6 ) {
                G = G + THIRD*( ONE-G )
-            } else if ( TTYPE.EQ.-18 ) {
+            } else if ( TTYPE == -18 ) {
                G = QURTR*THIRD
             } else {
                G = QURTR
@@ -156,11 +156,11 @@
             TTYPE = -6
          }
 
-      } else if ( N0IN.EQ.( N0+1 ) ) {
+      } else if ( N0IN == ( N0+1 ) ) {
 
          // One eigenvalue just deflated. Use DMIN1, DN1 for DMIN and DN.
 
-         if ( DMIN1.EQ.DN1 .AND. DMIN2.EQ.DN2 ) {
+         if ( DMIN1 == DN1 .AND. DMIN2 == DN2 ) {
 
             // Cases 7 and 8.
 
@@ -169,7 +169,7 @@
             IF( Z( NN-5 ).GT.Z( NN-7 ) ) RETURN
             B1 = Z( NN-5 ) / Z( NN-7 )
             B2 = B1
-            if (B2.EQ.ZERO) GO TO 60;
+            if (B2 == ZERO) GO TO 60;
             DO 50 I4 = 4*N0 - 9 + PP, 4*I0 - 1 + PP, -4
                A2 = B1
                IF( Z( I4 ).GT.Z( I4-2 ) ) RETURN
@@ -192,23 +192,23 @@
             // Case 9.
 
             S = QURTR*DMIN1
-            if (DMIN1.EQ.DN1) S = HALF*DMIN1;
+            if (DMIN1 == DN1) S = HALF*DMIN1;
             TTYPE = -9
          }
 
-      } else if ( N0IN.EQ.( N0+2 ) ) {
+      } else if ( N0IN == ( N0+2 ) ) {
 
          // Two eigenvalues deflated. Use DMIN2, DN2 for DMIN and DN.
 
          // Cases 10 and 11.
 
-         if ( DMIN2.EQ.DN2 .AND. TWO*Z( NN-5 ).LT.Z( NN-7 ) ) {
+         if ( DMIN2 == DN2 .AND. TWO*Z( NN-5 ).LT.Z( NN-7 ) ) {
             TTYPE = -10
             S = THIRD*DMIN2
             IF( Z( NN-5 ).GT.Z( NN-7 ) ) RETURN
             B1 = Z( NN-5 ) / Z( NN-7 )
             B2 = B1
-            if (B2.EQ.ZERO) GO TO 80;
+            if (B2 == ZERO) GO TO 80;
             DO 70 I4 = 4*N0 - 9 + PP, 4*I0 - 1 + PP, -4
                IF( Z( I4 ).GT.Z( I4-2 ) ) RETURN
                B1 = B1*( Z( I4 ) / Z( I4-2 ) )

@@ -34,7 +34,7 @@
       INFO = 0
       K = MIN( M, N )
       NB = ILAENV( 1, 'DGELQF', ' ', M, N, -1, -1 )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -48,7 +48,7 @@
          xerbla('DGELQF', -INFO );
          RETURN
       } else if ( LQUERY ) {
-         if ( K.EQ.0 ) {
+         if ( K == 0 ) {
             LWKOPT = 1
          } else {
             LWKOPT = M*NB
@@ -59,7 +59,7 @@
 
       // Quick return if possible
 
-      if ( K.EQ.0 ) {
+      if ( K == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }

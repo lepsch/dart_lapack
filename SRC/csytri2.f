@@ -33,7 +33,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       // Get blocksize
       NBMAX = ILAENV( 1, 'CSYTRI2', UPLO, N, -1, -1, -1 )
       if ( NBMAX .GE. N ) {
@@ -62,7 +62,7 @@
          WORK(1)=MINSIZE
          RETURN
       }
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       if ( NBMAX .GE. N ) {
          csytri(UPLO, N, A, LDA, IPIV, WORK, INFO );

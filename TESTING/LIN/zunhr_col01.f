@@ -145,7 +145,7 @@
       zlacpy('U', N, N, R, M, AF, M );
 
       for (I = 1; I <= N; I++) {
-         if ( DIAG( I ).EQ.-CONE ) {
+         if ( DIAG( I ) == -CONE ) {
             zscal(N+1-I, -CONE, AF( I, I ), M );
          }
       }

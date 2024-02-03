@@ -69,13 +69,13 @@
 
       // Quick return if possible.
 
-      IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
+      IF ((N == 0) .OR. (((ALPHA == ZERO).OR. (K == 0)).AND. (BETA == ONE))) RETURN
 
-      // And when  alpha.eq.zero.
+      // And when  alpha == zero.
 
-      if (ALPHA.EQ.ZERO) {
+      if (ALPHA == ZERO) {
           if (UPPER) {
-              if (BETA.EQ.ZERO) {
+              if (BETA == ZERO) {
                   for (J = 1; J <= N; J++) { // 20
                       for (I = 1; I <= J; I++) { // 10
                           C(I,J) = ZERO
@@ -89,7 +89,7 @@
                   } // 40
               }
           } else {
-              if (BETA.EQ.ZERO) {
+              if (BETA == ZERO) {
                   for (J = 1; J <= N; J++) { // 60
                       for (I = J; I <= N; I++) { // 50
                           C(I,J) = ZERO
@@ -114,7 +114,7 @@
 
           if (UPPER) {
               for (J = 1; J <= N; J++) { // 130
-                  if (BETA.EQ.ZERO) {
+                  if (BETA == ZERO) {
                       for (I = 1; I <= J; I++) { // 90
                           C(I,J) = ZERO
                       } // 90
@@ -135,7 +135,7 @@
               } // 130
           } else {
               for (J = 1; J <= N; J++) { // 180
-                  if (BETA.EQ.ZERO) {
+                  if (BETA == ZERO) {
                       for (I = J; I <= N; I++) { // 140
                           C(I,J) = ZERO
                       } // 140
@@ -168,7 +168,7 @@
                           TEMP1 = TEMP1 + A(L,I)*B(L,J)
                           TEMP2 = TEMP2 + B(L,I)*A(L,J)
                       } // 190
-                      if (BETA.EQ.ZERO) {
+                      if (BETA == ZERO) {
                           C(I,J) = ALPHA*TEMP1 + ALPHA*TEMP2
                       } else {
                           C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + ALPHA*TEMP2
@@ -184,7 +184,7 @@
                           TEMP1 = TEMP1 + A(L,I)*B(L,J)
                           TEMP2 = TEMP2 + B(L,I)*A(L,J)
                       } // 220
-                      if (BETA.EQ.ZERO) {
+                      if (BETA == ZERO) {
                           C(I,J) = ALPHA*TEMP1 + ALPHA*TEMP2
                       } else {
                           C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + ALPHA*TEMP2

@@ -48,7 +48,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -59,7 +59,7 @@
          INFO = -7
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          LWKOPT = (NB+1)*N
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       }
@@ -73,11 +73,11 @@
 
       // Quick return
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
           RETURN
       }
       IPIV( 1 ) = 1
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          RETURN
       }
 

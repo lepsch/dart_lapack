@@ -46,7 +46,7 @@
       // Quick return for N=1 and 2.
 
       INFO = 0
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
 
           // Presumably, I=1 upon entry
 
@@ -54,7 +54,7 @@
          DELTA( 1 ) = ONE
          RETURN
       }
-      if ( N.EQ.2 ) {
+      if ( N == 2 ) {
          slaed5(I, D, Z, DELTA, RHO, DLAM );
          RETURN
       }
@@ -66,7 +66,7 @@
 
       // The case I = N
 
-      if ( I.EQ.N ) {
+      if ( I == N ) {
 
          // Initialize some basic variables
 
@@ -175,7 +175,7 @@
          A = ( DELTA( N-1 )+DELTA( N ) )*W - DELTA( N-1 )*DELTA( N )*( DPSI+DPHI )
          B = DELTA( N-1 )*DELTA( N )*W
          if (C.LT.ZERO) C = ABS( C );
-         if ( C.EQ.ZERO ) {
+         if ( C == ZERO ) {
             // ETA = B/A
             // ETA = RHO - TAU
             // ETA = DLTUB - TAU
@@ -426,7 +426,7 @@
          } else {
             if (W.GT.ZERO) SWTCH3 = true ;
          }
-         if (II.EQ.1 .OR. II.EQ.N) SWTCH3 = false ;
+         if (II == 1 .OR. II == N) SWTCH3 = false ;
 
          TEMP = Z( II ) / DELTA( II )
          DW = DPSI + DPHI + TEMP*TEMP
@@ -462,8 +462,8 @@
             }
             A = ( DELTA( I )+DELTA( IP1 ) )*W - DELTA( I )*DELTA( IP1 )*DW
             B = DELTA( I )*DELTA( IP1 )*W
-            if ( C.EQ.ZERO ) {
-               if ( A.EQ.ZERO ) {
+            if ( C == ZERO ) {
+               if ( A == ZERO ) {
                   if ( ORGATI ) {
                      A = Z( I )*Z( I ) + DELTA( IP1 )*DELTA( IP1 )* ( DPSI+DPHI )
                   } else {
@@ -601,8 +601,8 @@
                }
                A = ( DELTA( I )+DELTA( IP1 ) )*W - DELTA( I )*DELTA( IP1 )*DW
                B = DELTA( I )*DELTA( IP1 )*W
-               if ( C.EQ.ZERO ) {
-                  if ( A.EQ.ZERO ) {
+               if ( C == ZERO ) {
+                  if ( A == ZERO ) {
                      if ( .NOT.SWTCH ) {
                         if ( ORGATI ) {
                            A = Z( I )*Z( I ) + DELTA( IP1 )* DELTA( IP1 )*( DPSI+DPHI )

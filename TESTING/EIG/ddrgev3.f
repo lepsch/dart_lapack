@@ -94,7 +94,7 @@
         // following subroutine, as returned by ILAENV.
 
       MINWRK = 1
-      if ( INFO.EQ.0 .AND. LWORK.GE.1 ) {
+      if ( INFO == 0 .AND. LWORK.GE.1 ) {
          MINWRK = MAX( 1, 8*NMAX, NMAX*( NMAX+1 ) )
          MAXWRK = 7*NMAX + NMAX*ILAENV( 1, 'DGEQRF', ' ', NMAX, 1, NMAX, 0 )
          MAXWRK = MAX( MAXWRK, NMAX*( NMAX+1 ) )
@@ -110,7 +110,7 @@
 
       // Quick return if possible
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       SAFMIN = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
@@ -181,7 +181,7 @@
 
                // Generate A (w/o rotation)
 
-               if ( ABS( KATYPE( JTYPE ) ).EQ.3 ) {
+               if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   if (IN.NE.N) CALL DLASET( 'Full', N, N, ZERO, ZERO, A, LDA );
                } else {
@@ -193,7 +193,7 @@
 
                // Generate B (w/o rotation)
 
-               if ( ABS( KBTYPE( JTYPE ) ).EQ.3 ) {
+               if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   if (IN.NE.N) CALL DLASET( 'Full', N, N, ZERO, ZERO, B, LDA );
                } else {
@@ -203,7 +203,7 @@
                IADD = KADD( KBZERO( JTYPE ) )
                if (IADD.NE.0 .AND. IADD.LE.N) B( IADD, IADD ) = ONE;
 
-               if ( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) {
+               if ( KCLASS( JTYPE ) == 2 .AND. N.GT.0 ) {
 
                   // Include rotations
 
@@ -241,7 +241,7 @@
                   CALL DORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90;
                   CALL DORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90
                }
-            } else if (KCLASS( JTYPE ).EQ.3) {
+            } else if (KCLASS( JTYPE ) == 3) {
 
                // Random matrices
 
@@ -400,7 +400,7 @@
                   // If this is the first test to fail,
                   // print a header to the data file.
 
-                  if ( NERRS.EQ.0 ) {
+                  if ( NERRS == 0 ) {
                      WRITE( NOUNIT, FMT = 9997 )'DGV'
 
                      // Matrix types

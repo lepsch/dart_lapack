@@ -41,7 +41,7 @@
 
       XNORM = SNRM2( N-1, X, INCX )
 
-      if ( XNORM.EQ.ZERO ) {
+      if ( XNORM == ZERO ) {
 
          // H  =  I
 

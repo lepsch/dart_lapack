@@ -45,11 +45,11 @@
 
       // Quick return if possible
 
-      if (N.EQ.0 .OR. NRHS.EQ.0) RETURN;
+      if (N == 0 .OR. NRHS == 0) RETURN;
 
       // Determine the number of right-hand sides to solve at a time.
 
-      if ( NRHS.EQ.1 ) {
+      if ( NRHS == 1 ) {
          NB = 1
       } else {
          NB = MAX( 1, ILAENV( 1, 'DPTTRS', ' ', N, NRHS, -1, -1 ) )

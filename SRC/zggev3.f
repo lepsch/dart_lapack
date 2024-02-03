@@ -78,7 +78,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       LWKMIN = MAX( 1, 2*N )
       if ( IJOBVL.LE.0 ) {
          INFO = -1
@@ -100,7 +100,7 @@
 
       // Compute workspace
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          zgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR );
          LWKOPT = MAX( LWKMIN, N+INT( WORK( 1 ) ) )
          zunmqr('L', 'C', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR );
@@ -120,7 +120,7 @@
             zlaqz0('E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, -1, RWORK, 0, IERR );
             LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
          }
-         if ( N.EQ.0 ) {
+         if ( N == 0 ) {
             WORK( 1 ) = 1
          } else {
             WORK( 1 ) = DCMPLX( LWKOPT )
@@ -136,7 +136,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Get machine constants
 

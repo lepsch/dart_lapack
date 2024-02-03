@@ -136,7 +136,7 @@ void main() {
 
       // Report values of parameters.
 
-      if ( PATH.EQ.'   ' ) {
+      if ( PATH == '   ' ) {
          GO TO 10
       } else if ( NEP ) {
          WRITE( NOUT, FMT = 9987 )
@@ -648,7 +648,7 @@ void main() {
 
       // If NEWSD = 2, read another line with 4 integers for the seed.
 
-      if (NEWSD.EQ.2) READ( NIN, FMT = * )( IOLDSD( I ), I = 1, 4 );
+      if (NEWSD == 2) READ( NIN, FMT = * )( IOLDSD( I ), I = 1, 4 );
 
       for (I = 1; I <= 4; I++) { // 180
          ISEED( I ) = IOLDSD( I )
@@ -692,7 +692,7 @@ void main() {
          // Check that a valid integer was read
 
             for (K = 1; K <= 10; K++) { // 220
-               if ( C1.EQ.INTSTR( K: K ) ) {
+               if ( C1 == INTSTR( K: K ) ) {
                   IC = K - 1
                   GO TO 230
                }
@@ -723,7 +723,7 @@ void main() {
 
       // Reset the random number seed.
 
-      if ( NEWSD.EQ.0 ) {
+      if ( NEWSD == 0 ) {
          for (K = 1; K <= 4; K++) { // 250
             ISEED( K ) = IOLDSD( K )
          } // 250
@@ -756,7 +756,7 @@ void main() {
             xlaenv(15, ISHFTS( I ) );
             xlaenv(16, IACC22( I ) );
 
-            if ( NEWSD.EQ.0 ) {
+            if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 260
                   ISEED( K ) = IOLDSD( K )
                } // 260
@@ -797,7 +797,7 @@ void main() {
             xlaenv(2, NBMIN( I ) );
             xlaenv(3, NXVAL( I ) );
 
-            if ( NEWSD.EQ.0 ) {
+            if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 280
                   ISEED( K ) = IOLDSD( K )
                } // 280
@@ -840,7 +840,7 @@ void main() {
             xlaenv(2, NBMIN( I ) );
             xlaenv(3, NXVAL( I ) );
 
-            if ( NEWSD.EQ.0 ) {
+            if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 300
                   ISEED( K ) = IOLDSD( K )
                } // 300
@@ -883,7 +883,7 @@ void main() {
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
             xlaenv(3, NXVAL( I ) );
-            if ( NEWSD.EQ.0 ) {
+            if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 320
                   ISEED( K ) = IOLDSD( K )
                } // 320
@@ -1002,7 +1002,7 @@ void main() {
             xlaenv(16, IACC22( I ) );
             xlaenv(5, NBCOL( I ) );
 
-            if ( NEWSD.EQ.0 ) {
+            if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 340
                   ISEED( K ) = IOLDSD( K )
                } // 340
@@ -1137,7 +1137,7 @@ void main() {
          for (I = 1; I <= NPARMS; I++) { // 370
             NRHS = NSVAL( I )
 
-            if ( NEWSD.EQ.0 ) {
+            if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 360
                   ISEED( K ) = IOLDSD( K )
                } // 360

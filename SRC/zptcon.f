@@ -51,10 +51,10 @@
       // Quick return if possible
 
       RCOND = ZERO
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          RCOND = ONE
          RETURN
-      } else if ( ANORM.EQ.ZERO ) {
+      } else if ( ANORM == ZERO ) {
          RETURN
       }
 

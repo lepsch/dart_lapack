@@ -89,7 +89,7 @@
 
          NKD = MAX( 1, MIN( N, 4 ) )
          NIMAT = NTYPES
-         if (N.EQ.0) NIMAT = 1;
+         if (N == 0) NIMAT = 1;
 
          KDVAL( 2 ) = N + ( N+1 ) / 4
          KDVAL( 3 ) = ( 3*N-1 ) / 4
@@ -108,7 +108,7 @@
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 70
                KOFF = 1
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   UPLO = 'U'
                   KOFF = MAX( 1, KD+2-N )
                   PACKIT = 'Q'
@@ -150,7 +150,7 @@
                      // 2 by copying back the zeroed out column,
 
                      IW = 2*LDA + 1
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
                         dcopy(IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 );
                         IW = IW + IZERO - I1
@@ -169,9 +169,9 @@
 
                   IZERO = 0
                   if ( ZEROT ) {
-                     if ( IMAT.EQ.2 ) {
+                     if ( IMAT == 2 ) {
                         IZERO = 1
-                     } else if ( IMAT.EQ.3 ) {
+                     } else if ( IMAT == 3 ) {
                         IZERO = N
                      } else {
                         IZERO = N / 2 + 1
@@ -187,7 +187,7 @@
                      I1 = MAX( IZERO-KD, 1 )
                      I2 = MIN( IZERO+KD, N )
 
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
                         dswap(IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 );
                         IW = IW + IZERO - I1
@@ -235,7 +235,7 @@
                      // Print the test ratio if it is .GE. THRESH.
 
                      if ( RESULT( 1 ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, KD, NB, IMAT, 1, RESULT( 1 );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, KD, NB, IMAT, 1, RESULT( 1 );
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1
@@ -304,7 +304,7 @@
 
                         for (K = 2; K <= 6; K++) { // 30
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K );
+                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 30
@@ -326,7 +326,7 @@
                      // Print the test ratio if it is .GE. THRESH.
 
                      if ( RESULT( 7 ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )UPLO, N, KD, IMAT, 7, RESULT( 7 );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )UPLO, N, KD, IMAT, 7, RESULT( 7 );
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1

@@ -45,7 +45,7 @@
          MX = MAX( MX, ABS( S( I+1 ) ), ABS( E( I ) ) )
       } // 10
 
-      if ( MX.EQ.ZERO ) {
+      if ( MX == ZERO ) {
          if ( SHIFT.LT.ZERO ) {
             NUM = 0
          } else {

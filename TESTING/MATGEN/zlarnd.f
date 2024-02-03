@@ -37,27 +37,27 @@
       T1 = DLARAN( ISEED )
       T2 = DLARAN( ISEED )
 
-      if ( IDIST.EQ.1 ) {
+      if ( IDIST == 1 ) {
 
          // real and imaginary parts each uniform (0,1)
 
          ZLARND = DCMPLX( T1, T2 )
-      } else if ( IDIST.EQ.2 ) {
+      } else if ( IDIST == 2 ) {
 
          // real and imaginary parts each uniform (-1,1)
 
          ZLARND = DCMPLX( TWO*T1-ONE, TWO*T2-ONE )
-      } else if ( IDIST.EQ.3 ) {
+      } else if ( IDIST == 3 ) {
 
          // real and imaginary parts each normal (0,1)
 
          ZLARND = SQRT( -TWO*LOG( T1 ) )*EXP( DCMPLX( ZERO, TWOPI*T2 ) )
-      } else if ( IDIST.EQ.4 ) {
+      } else if ( IDIST == 4 ) {
 
          // uniform distribution on the unit disc abs(z) <= 1
 
          ZLARND = SQRT( T1 )*EXP( DCMPLX( ZERO, TWOPI*T2 ) )
-      } else if ( IDIST.EQ.5 ) {
+      } else if ( IDIST == 5 ) {
 
          // uniform distribution on the unit circle abs(z) = 1
 

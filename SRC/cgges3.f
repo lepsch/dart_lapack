@@ -77,7 +77,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       LWKMIN = MAX( 1, 2*N )
 
       if ( IJOBVL.LE.0 ) {
@@ -102,7 +102,7 @@
 
       // Compute workspace
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          cgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR );
          LWKOPT = MAX( LWKMIN, N + INT( WORK( 1 ) ) )
          cunmqr('L', 'C', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR );
@@ -119,7 +119,7 @@
             ctgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK, -1, IDUM, 1, IERR );
             LWKOPT = MAX( LWKOPT, INT( WORK( 1 ) ) )
          }
-         if ( N.EQ.0 ) {
+         if ( N == 0 ) {
             WORK( 1 ) = 1
          } else {
             WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
@@ -136,7 +136,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          SDIM = 0
          RETURN
       }
@@ -246,7 +246,7 @@
          } // 10
 
          ctgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
-         if (IERR.EQ.1) INFO = N + 3;
+         if (IERR == 1) INFO = N + 3;
 
       }
 

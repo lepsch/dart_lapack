@@ -62,7 +62,7 @@
 
       for (J = 1; J <= NRHS; J++) {
          Y_PREC_STATE = EXTRA_RESIDUAL
-         if ( Y_PREC_STATE .EQ. EXTRA_Y ) {
+         if ( Y_PREC_STATE == EXTRA_Y ) {
             for (I = 1; I <= N; I++) {
                Y_TAIL( I ) = 0.0D+0
             }
@@ -89,9 +89,9 @@
              // op(A) = A, A**T, or A**H depending on TRANS (and type).
 
             dcopy(N, B( 1, J ), 1, RES, 1 );
-            if ( Y_PREC_STATE .EQ. BASE_RESIDUAL ) {
+            if ( Y_PREC_STATE == BASE_RESIDUAL ) {
                dgbmv(TRANS, M, N, KL, KU, -1.0D+0, AB, LDAB, Y( 1, J ), 1, 1.0D+0, RES, 1 );
-            } else if ( Y_PREC_STATE .EQ. EXTRA_RESIDUAL ) {
+            } else if ( Y_PREC_STATE == EXTRA_RESIDUAL ) {
                blas_dgbmv_x(TRANS_TYPE, N, N, KL, KU, -1.0D+0, AB, LDAB, Y( 1, J ), 1, 1.0D+0, RES, 1, PREC_TYPE );
             } else {
                blas_dgbmv2_x(TRANS_TYPE, N, N, KL, KU, -1.0D+0, AB, LDAB, Y( 1, J ), Y_TAIL, 1, 1.0D+0, RES, 1, PREC_TYPE );
@@ -134,7 +134,7 @@
 
             if ( NORMX .NE. 0.0D+0 ) {
                DX_X = NORMDX / NORMX
-            } else if ( NORMDX .EQ. 0.0D+0 ) {
+            } else if ( NORMDX == 0.0D+0 ) {
                DX_X = 0.0D+0
             } else {
                DX_X = HUGEVAL
@@ -146,8 +146,8 @@
           // Check termination criteria.
 
             if (.NOT.IGNORE_CWISE .AND. YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y) INCR_PREC = true ;
-             if (X_STATE .EQ. NOPROG_STATE .AND. DXRAT .LE. RTHRESH) X_STATE = WORKING_STATE;
-            if ( X_STATE .EQ. WORKING_STATE ) {
+             if (X_STATE == NOPROG_STATE .AND. DXRAT .LE. RTHRESH) X_STATE = WORKING_STATE;
+            if ( X_STATE == WORKING_STATE ) {
                if ( DX_X .LE. EPS ) {
                   X_STATE = CONV_STATE
                } else if ( DXRAT .GT. RTHRESH ) {
@@ -161,8 +161,8 @@
                }
                if (X_STATE .GT. WORKING_STATE) FINAL_DX_X = DX_X;
             }
-             if (Z_STATE .EQ. UNSTABLE_STATE .AND. DZ_Z .LE. DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE .EQ. NOPROG_STATE .AND. DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE;
-            if ( Z_STATE .EQ. WORKING_STATE ) {
+             if (Z_STATE == UNSTABLE_STATE .AND. DZ_Z .LE. DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE == NOPROG_STATE .AND. DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE;
+            if ( Z_STATE == WORKING_STATE ) {
                if ( DZ_Z .LE. EPS ) {
                   Z_STATE = CONV_STATE
                } else if ( DZ_Z .GT. DZ_UB ) {
@@ -187,8 +187,8 @@
 
             if ( X_STATE.NE.WORKING_STATE ) {
                if (IGNORE_CWISE) GOTO 666;
-               if (Z_STATE.EQ.NOPROG_STATE .OR. Z_STATE.EQ.CONV_STATE) GOTO 666;
-               if (Z_STATE.EQ.UNSTABLE_STATE .AND. CNT.GT.1) GOTO 666;
+               if (Z_STATE == NOPROG_STATE .OR. Z_STATE == CONV_STATE) GOTO 666;
+               if (Z_STATE == UNSTABLE_STATE .AND. CNT.GT.1) GOTO 666;
             }
 
             if ( INCR_PREC ) {
@@ -216,8 +216,8 @@
 
       // Set final_* when cnt hits ithresh.
 
-         if (X_STATE .EQ. WORKING_STATE) FINAL_DX_X = DX_X;
-         if (Z_STATE .EQ. WORKING_STATE) FINAL_DZ_Z = DZ_Z;
+         if (X_STATE == WORKING_STATE) FINAL_DX_X = DX_X;
+         if (Z_STATE == WORKING_STATE) FINAL_DZ_Z = DZ_Z;
 
       // Compute error bounds.
 

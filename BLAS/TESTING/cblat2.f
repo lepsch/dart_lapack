@@ -111,7 +111,7 @@ void main() {
       }
       READ( NIN, FMT = * )( INC( I ), I = 1, NINC )
       for (I = 1; I <= NINC; I++) { // 30
-         if ( INC( I ).EQ.0.OR.ABS( INC( I ) ).GT.INCMAX ) {
+         if ( INC( I ) == 0.OR.ABS( INC( I ) ).GT.INCMAX ) {
             WRITE( NOUT, FMT = 9994 )INCMAX
             GO TO 230
          }
@@ -155,7 +155,7 @@ void main() {
       } // 40
    50 READ( NIN, FMT = 9984, END = 80 )SNAMET, LTESTT
       for (I = 1; I <= NSUBS; I++) { // 60
-         IF( SNAMET.EQ.SNAMES( I ) ) GO TO 70
+         IF( SNAMET == SNAMES( I ) ) GO TO 70
       } // 60
       WRITE( NOUT, FMT = 9986 )SNAMET
       STOP
@@ -328,8 +328,8 @@ void main() {
       // .. Data statements ..
       DATA               ICH/'NTC'/
       // .. Executable Statements ..
-      FULL = SNAME( 3: 3 ).EQ.'E'
-      BANDED = SNAME( 3: 3 ).EQ.'B'
+      FULL = SNAME( 3: 3 ) == 'E'
+      BANDED = SNAME( 3: 3 ) == 'B'
       // Define the number of arguments.
       if ( FULL ) {
          NARGS = 11
@@ -346,7 +346,7 @@ void main() {
          ND = N/2 + 1
 
          for (IM = 1; IM <= 2; IM++) { // 110
-            if (IM.EQ.1) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX );
+            if (IM == 1) M = MAX( N - ND, 0 )             IF( IM == 2 ) M = MIN( N + ND, NMAX );
 
             if ( BANDED ) {
                NK = NKB
@@ -380,7 +380,7 @@ void main() {
 
                for (IC = 1; IC <= 3; IC++) { // 90
                   TRANS = ICH( IC: IC )
-                  TRAN = TRANS.EQ.'T'.OR.TRANS.EQ.'C'
+                  TRAN = TRANS == 'T'.OR.TRANS == 'C'
 
                   if ( TRAN ) {
                      ML = N
@@ -465,37 +465,37 @@ void main() {
 
                               // See what data changed inside subroutines.
 
-                              ISAME( 1 ) = TRANS.EQ.TRANSS
-                              ISAME( 2 ) = MS.EQ.M
-                              ISAME( 3 ) = NS.EQ.N
+                              ISAME( 1 ) = TRANS == TRANSS
+                              ISAME( 2 ) = MS == M
+                              ISAME( 3 ) = NS == N
                               if ( FULL ) {
-                                 ISAME( 4 ) = ALS.EQ.ALPHA
+                                 ISAME( 4 ) = ALS == ALPHA
                                  ISAME( 5 ) = LCE( AS, AA, LAA )
-                                 ISAME( 6 ) = LDAS.EQ.LDA
+                                 ISAME( 6 ) = LDAS == LDA
                                  ISAME( 7 ) = LCE( XS, XX, LX )
-                                 ISAME( 8 ) = INCXS.EQ.INCX
-                                 ISAME( 9 ) = BLS.EQ.BETA
+                                 ISAME( 8 ) = INCXS == INCX
+                                 ISAME( 9 ) = BLS == BETA
                                  if ( NULL ) {
                                     ISAME( 10 ) = LCE( YS, YY, LY )
                                  } else {
                                     ISAME( 10 ) = LCERES( 'GE', ' ', 1, ML, YS, YY, ABS( INCY ) )
                                  }
-                                 ISAME( 11 ) = INCYS.EQ.INCY
+                                 ISAME( 11 ) = INCYS == INCY
                               } else if ( BANDED ) {
-                                 ISAME( 4 ) = KLS.EQ.KL
-                                 ISAME( 5 ) = KUS.EQ.KU
-                                 ISAME( 6 ) = ALS.EQ.ALPHA
+                                 ISAME( 4 ) = KLS == KL
+                                 ISAME( 5 ) = KUS == KU
+                                 ISAME( 6 ) = ALS == ALPHA
                                  ISAME( 7 ) = LCE( AS, AA, LAA )
-                                 ISAME( 8 ) = LDAS.EQ.LDA
+                                 ISAME( 8 ) = LDAS == LDA
                                  ISAME( 9 ) = LCE( XS, XX, LX )
-                                 ISAME( 10 ) = INCXS.EQ.INCX
-                                 ISAME( 11 ) = BLS.EQ.BETA
+                                 ISAME( 10 ) = INCXS == INCX
+                                 ISAME( 11 ) = BLS == BETA
                                  if ( NULL ) {
                                     ISAME( 12 ) = LCE( YS, YY, LY )
                                  } else {
                                     ISAME( 12 ) = LCERES( 'GE', ' ', 1, ML, YS, YY, ABS( INCY ) )
                                  }
-                                 ISAME( 13 ) = INCYS.EQ.INCY
+                                 ISAME( 13 ) = INCYS == INCY
                               }
 
                               // If data was incorrectly changed, report
@@ -640,9 +640,9 @@ void main() {
       // .. Data statements ..
       DATA               ICH/'UL'/
       // .. Executable Statements ..
-      FULL = SNAME( 3: 3 ).EQ.'E'
-      BANDED = SNAME( 3: 3 ).EQ.'B'
-      PACKED = SNAME( 3: 3 ).EQ.'P'
+      FULL = SNAME( 3: 3 ) == 'E'
+      BANDED = SNAME( 3: 3 ) == 'B'
+      PACKED = SNAME( 3: 3 ) == 'P'
       // Define the number of arguments.
       if ( FULL ) {
          NARGS = 10
@@ -771,47 +771,47 @@ void main() {
 
                            // See what data changed inside subroutines.
 
-                           ISAME( 1 ) = UPLO.EQ.UPLOS
-                           ISAME( 2 ) = NS.EQ.N
+                           ISAME( 1 ) = UPLO == UPLOS
+                           ISAME( 2 ) = NS == N
                            if ( FULL ) {
-                              ISAME( 3 ) = ALS.EQ.ALPHA
+                              ISAME( 3 ) = ALS == ALPHA
                               ISAME( 4 ) = LCE( AS, AA, LAA )
-                              ISAME( 5 ) = LDAS.EQ.LDA
+                              ISAME( 5 ) = LDAS == LDA
                               ISAME( 6 ) = LCE( XS, XX, LX )
-                              ISAME( 7 ) = INCXS.EQ.INCX
-                              ISAME( 8 ) = BLS.EQ.BETA
+                              ISAME( 7 ) = INCXS == INCX
+                              ISAME( 8 ) = BLS == BETA
                               if ( NULL ) {
                                  ISAME( 9 ) = LCE( YS, YY, LY )
                               } else {
                                  ISAME( 9 ) = LCERES( 'GE', ' ', 1, N, YS, YY, ABS( INCY ) )
                               }
-                              ISAME( 10 ) = INCYS.EQ.INCY
+                              ISAME( 10 ) = INCYS == INCY
                            } else if ( BANDED ) {
-                              ISAME( 3 ) = KS.EQ.K
-                              ISAME( 4 ) = ALS.EQ.ALPHA
+                              ISAME( 3 ) = KS == K
+                              ISAME( 4 ) = ALS == ALPHA
                               ISAME( 5 ) = LCE( AS, AA, LAA )
-                              ISAME( 6 ) = LDAS.EQ.LDA
+                              ISAME( 6 ) = LDAS == LDA
                               ISAME( 7 ) = LCE( XS, XX, LX )
-                              ISAME( 8 ) = INCXS.EQ.INCX
-                              ISAME( 9 ) = BLS.EQ.BETA
+                              ISAME( 8 ) = INCXS == INCX
+                              ISAME( 9 ) = BLS == BETA
                               if ( NULL ) {
                                  ISAME( 10 ) = LCE( YS, YY, LY )
                               } else {
                                  ISAME( 10 ) = LCERES( 'GE', ' ', 1, N, YS, YY, ABS( INCY ) )
                               }
-                              ISAME( 11 ) = INCYS.EQ.INCY
+                              ISAME( 11 ) = INCYS == INCY
                            } else if ( PACKED ) {
-                              ISAME( 3 ) = ALS.EQ.ALPHA
+                              ISAME( 3 ) = ALS == ALPHA
                               ISAME( 4 ) = LCE( AS, AA, LAA )
                               ISAME( 5 ) = LCE( XS, XX, LX )
-                              ISAME( 6 ) = INCXS.EQ.INCX
-                              ISAME( 7 ) = BLS.EQ.BETA
+                              ISAME( 6 ) = INCXS == INCX
+                              ISAME( 7 ) = BLS == BETA
                               if ( NULL ) {
                                  ISAME( 8 ) = LCE( YS, YY, LY )
                               } else {
                                  ISAME( 8 ) = LCERES( 'GE', ' ', 1, N, YS, YY, ABS( INCY ) )
                               }
-                              ISAME( 9 ) = INCYS.EQ.INCY
+                              ISAME( 9 ) = INCYS == INCY
                            }
 
                            // If data was incorrectly changed, report and
@@ -938,9 +938,9 @@ void main() {
       // .. Data statements ..
       DATA               ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/
       // .. Executable Statements ..
-      FULL = SNAME( 3: 3 ).EQ.'R'
-      BANDED = SNAME( 3: 3 ).EQ.'B'
-      PACKED = SNAME( 3: 3 ).EQ.'P'
+      FULL = SNAME( 3: 3 ) == 'R'
+      BANDED = SNAME( 3: 3 ) == 'B'
+      PACKED = SNAME( 3: 3 ) == 'P'
       // Define the number of arguments.
       if ( FULL ) {
          NARGS = 8
@@ -1035,7 +1035,7 @@ void main() {
 
                         // Call the subroutine.
 
-                        if ( SNAME( 4: 5 ).EQ.'MV' ) {
+                        if ( SNAME( 4: 5 ) == 'MV' ) {
                            if ( FULL ) {
                               if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX;
                               if (REWI) REWIND NTRA;
@@ -1049,7 +1049,7 @@ void main() {
                               if (REWI) REWIND NTRA;
                               ctpmv(UPLO, TRANS, DIAG, N, AA, XX, INCX );
                            }
-                        } else if ( SNAME( 4: 5 ).EQ.'SV' ) {
+                        } else if ( SNAME( 4: 5 ) == 'SV' ) {
                            if ( FULL ) {
                               if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX;
                               if (REWI) REWIND NTRA;
@@ -1075,29 +1075,29 @@ void main() {
 
                         // See what data changed inside subroutines.
 
-                        ISAME( 1 ) = UPLO.EQ.UPLOS
-                        ISAME( 2 ) = TRANS.EQ.TRANSS
-                        ISAME( 3 ) = DIAG.EQ.DIAGS
-                        ISAME( 4 ) = NS.EQ.N
+                        ISAME( 1 ) = UPLO == UPLOS
+                        ISAME( 2 ) = TRANS == TRANSS
+                        ISAME( 3 ) = DIAG == DIAGS
+                        ISAME( 4 ) = NS == N
                         if ( FULL ) {
                            ISAME( 5 ) = LCE( AS, AA, LAA )
-                           ISAME( 6 ) = LDAS.EQ.LDA
+                           ISAME( 6 ) = LDAS == LDA
                            if ( NULL ) {
                               ISAME( 7 ) = LCE( XS, XX, LX )
                            } else {
                               ISAME( 7 ) = LCERES( 'GE', ' ', 1, N, XS, XX, ABS( INCX ) )
                            }
-                           ISAME( 8 ) = INCXS.EQ.INCX
+                           ISAME( 8 ) = INCXS == INCX
                         } else if ( BANDED ) {
-                           ISAME( 5 ) = KS.EQ.K
+                           ISAME( 5 ) = KS == K
                            ISAME( 6 ) = LCE( AS, AA, LAA )
-                           ISAME( 7 ) = LDAS.EQ.LDA
+                           ISAME( 7 ) = LDAS == LDA
                            if ( NULL ) {
                               ISAME( 8 ) = LCE( XS, XX, LX )
                            } else {
                               ISAME( 8 ) = LCERES( 'GE', ' ', 1, N, XS, XX, ABS( INCX ) )
                            }
-                           ISAME( 9 ) = INCXS.EQ.INCX
+                           ISAME( 9 ) = INCXS == INCX
                         } else if ( PACKED ) {
                            ISAME( 5 ) = LCE( AS, AA, LAA )
                            if ( NULL ) {
@@ -1105,7 +1105,7 @@ void main() {
                            } else {
                               ISAME( 6 ) = LCERES( 'GE', ' ', 1, N, XS, XX, ABS( INCX ) )
                            }
-                           ISAME( 7 ) = INCXS.EQ.INCX
+                           ISAME( 7 ) = INCXS == INCX
                         }
 
                         // If data was incorrectly changed, report and
@@ -1122,12 +1122,12 @@ void main() {
                         }
 
                         if ( .NOT.NULL ) {
-                           if ( SNAME( 4: 5 ).EQ.'MV' ) {
+                           if ( SNAME( 4: 5 ) == 'MV' ) {
 
                               // Check the result.
 
                               cmvch(TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, true );
-                           } else if ( SNAME( 4: 5 ).EQ.'SV' ) {
+                           } else if ( SNAME( 4: 5 ) == 'SV' ) {
 
                               // Compute approximation to original vector.
 
@@ -1235,7 +1235,7 @@ void main() {
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Executable Statements ..
-      CONJ = SNAME( 5: 5 ).EQ.'C'
+      CONJ = SNAME( 5: 5 ) == 'C'
       // Define the number of arguments.
       NARGS = 9
 
@@ -1248,7 +1248,7 @@ void main() {
          ND = N/2 + 1
 
          for (IM = 1; IM <= 2; IM++) { // 110
-            if (IM.EQ.1) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX );
+            if (IM == 1) M = MAX( N - ND, 0 )             IF( IM == 2 ) M = MIN( N + ND, NMAX );
 
             // Set LDA to 1 more than minimum value if room.
             LDA = M
@@ -1333,19 +1333,19 @@ void main() {
 
                      // See what data changed inside subroutine.
 
-                     ISAME( 1 ) = MS.EQ.M
-                     ISAME( 2 ) = NS.EQ.N
-                     ISAME( 3 ) = ALS.EQ.ALPHA
+                     ISAME( 1 ) = MS == M
+                     ISAME( 2 ) = NS == N
+                     ISAME( 3 ) = ALS == ALPHA
                      ISAME( 4 ) = LCE( XS, XX, LX )
-                     ISAME( 5 ) = INCXS.EQ.INCX
+                     ISAME( 5 ) = INCXS == INCX
                      ISAME( 6 ) = LCE( YS, YY, LY )
-                     ISAME( 7 ) = INCYS.EQ.INCY
+                     ISAME( 7 ) = INCYS == INCY
                      if ( NULL ) {
                         ISAME( 8 ) = LCE( AS, AA, LAA )
                      } else {
                         ISAME( 8 ) = LCERES( 'GE', ' ', M, N, AS, AA, LDA )
                      }
-                     ISAME( 9 ) = LDAS.EQ.LDA
+                     ISAME( 9 ) = LDAS == LDA
 
                      // If data was incorrectly changed, report and return.
 
@@ -1478,8 +1478,8 @@ void main() {
       // .. Data statements ..
       DATA               ICH/'UL'/
       // .. Executable Statements ..
-      FULL = SNAME( 3: 3 ).EQ.'E'
-      PACKED = SNAME( 3: 3 ).EQ.'P'
+      FULL = SNAME( 3: 3 ) == 'E'
+      PACKED = SNAME( 3: 3 ) == 'P'
       // Define the number of arguments.
       if ( FULL ) {
          NARGS = 7
@@ -1506,7 +1506,7 @@ void main() {
 
          for (IC = 1; IC <= 2; IC++) { // 90
             UPLO = ICH( IC: IC )
-            UPPER = UPLO.EQ.'U'
+            UPPER = UPLO == 'U'
 
             for (IX = 1; IX <= NINC; IX++) { // 80
                INCX = INC( IX )
@@ -1524,7 +1524,7 @@ void main() {
                for (IA = 1; IA <= NALF; IA++) { // 70
                   RALPHA = REAL( ALF( IA ) )
                   ALPHA = CMPLX( RALPHA, RZERO )
-                  NULL = N.LE.0.OR.RALPHA.EQ.RZERO
+                  NULL = N.LE.0.OR.RALPHA == RZERO
 
                   // Generate the matrix A.
 
@@ -1569,18 +1569,18 @@ void main() {
 
                   // See what data changed inside subroutines.
 
-                  ISAME( 1 ) = UPLO.EQ.UPLOS
-                  ISAME( 2 ) = NS.EQ.N
-                  ISAME( 3 ) = RALS.EQ.RALPHA
+                  ISAME( 1 ) = UPLO == UPLOS
+                  ISAME( 2 ) = NS == N
+                  ISAME( 3 ) = RALS == RALPHA
                   ISAME( 4 ) = LCE( XS, XX, LX )
-                  ISAME( 5 ) = INCXS.EQ.INCX
+                  ISAME( 5 ) = INCXS == INCX
                   if ( NULL ) {
                      ISAME( 6 ) = LCE( AS, AA, LAA )
                   } else {
                      ISAME( 6 ) = LCERES( SNAME( 2: 3 ), UPLO, N, N, AS, AA, LDA )
                   }
                   if ( .NOT.PACKED ) {
-                     ISAME( 7 ) = LDAS.EQ.LDA
+                     ISAME( 7 ) = LDAS == LDA
                   }
 
                   // If data was incorrectly changed, report and return.
@@ -1729,8 +1729,8 @@ void main() {
       // .. Data statements ..
       DATA               ICH/'UL'/
       // .. Executable Statements ..
-      FULL = SNAME( 3: 3 ).EQ.'E'
-      PACKED = SNAME( 3: 3 ).EQ.'P'
+      FULL = SNAME( 3: 3 ) == 'E'
+      PACKED = SNAME( 3: 3 ) == 'P'
       // Define the number of arguments.
       if ( FULL ) {
          NARGS = 9
@@ -1757,7 +1757,7 @@ void main() {
 
          for (IC = 1; IC <= 2; IC++) { // 130
             UPLO = ICH( IC: IC )
-            UPPER = UPLO.EQ.'U'
+            UPPER = UPLO == 'U'
 
             for (IX = 1; IX <= NINC; IX++) { // 120
                INCX = INC( IX )
@@ -1787,7 +1787,7 @@ void main() {
 
                   for (IA = 1; IA <= NALF; IA++) { // 100
                      ALPHA = ALF( IA )
-                     NULL = N.LE.0.OR.ALPHA.EQ.ZERO
+                     NULL = N.LE.0.OR.ALPHA == ZERO
 
                      // Generate the matrix A.
 
@@ -1836,20 +1836,20 @@ void main() {
 
                      // See what data changed inside subroutines.
 
-                     ISAME( 1 ) = UPLO.EQ.UPLOS
-                     ISAME( 2 ) = NS.EQ.N
-                     ISAME( 3 ) = ALS.EQ.ALPHA
+                     ISAME( 1 ) = UPLO == UPLOS
+                     ISAME( 2 ) = NS == N
+                     ISAME( 3 ) = ALS == ALPHA
                      ISAME( 4 ) = LCE( XS, XX, LX )
-                     ISAME( 5 ) = INCXS.EQ.INCX
+                     ISAME( 5 ) = INCXS == INCX
                      ISAME( 6 ) = LCE( YS, YY, LY )
-                     ISAME( 7 ) = INCYS.EQ.INCY
+                     ISAME( 7 ) = INCYS == INCY
                      if ( NULL ) {
                         ISAME( 8 ) = LCE( AS, AA, LAA )
                      } else {
                         ISAME( 8 ) = LCERES( SNAME( 2: 3 ), UPLO, N, N, AS, AA, LDA )
                      }
                      if ( .NOT.PACKED ) {
-                        ISAME( 9 ) = LDAS.EQ.LDA
+                        ISAME( 9 ) = LDAS == LDA
                      }
 
                      // If data was incorrectly changed, report and return.
@@ -2340,12 +2340,12 @@ void main() {
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, CONJG, MAX, MIN, REAL
       // .. Executable Statements ..
-      GEN = TYPE( 1: 1 ).EQ.'G'
-      SYM = TYPE( 1: 1 ).EQ.'H'
-      TRI = TYPE( 1: 1 ).EQ.'T'
-      UPPER = ( SYM.OR.TRI ).AND.UPLO.EQ.'U'
-      LOWER = ( SYM.OR.TRI ).AND.UPLO.EQ.'L'
-      UNIT = TRI.AND.DIAG.EQ.'U'
+      GEN = TYPE( 1: 1 ) == 'G'
+      SYM = TYPE( 1: 1 ) == 'H'
+      TRI = TYPE( 1: 1 ) == 'T'
+      UPPER = ( SYM.OR.TRI ).AND.UPLO == 'U'
+      LOWER = ( SYM.OR.TRI ).AND.UPLO == 'L'
+      UNIT = TRI.AND.DIAG == 'U'
 
       // Generate data in array A.
 
@@ -2370,7 +2370,7 @@ void main() {
 
       // Store elements in array AS in data structure required by routine.
 
-      if ( TYPE.EQ.'GE' ) {
+      if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 50
             for (I = 1; I <= M; I++) { // 30
                AA( I + ( J - 1 )*LDA ) = A( I, J )
@@ -2379,7 +2379,7 @@ void main() {
                AA( I + ( J - 1 )*LDA ) = ROGUE
             } // 40
          } // 50
-      } else if ( TYPE.EQ.'GB' ) {
+      } else if ( TYPE == 'GB' ) {
          for (J = 1; J <= N; J++) { // 90
             for (I1 = 1; I1 <= KU + 1 - J; I1++) { // 60
                AA( I1 + ( J - 1 )*LDA ) = ROGUE
@@ -2391,7 +2391,7 @@ void main() {
                AA( I3 + ( J - 1 )*LDA ) = ROGUE
             } // 80
          } // 90
-      } else if ( TYPE.EQ.'HE'.OR.TYPE.EQ.'TR' ) {
+      } else if ( TYPE == 'HE'.OR.TYPE == 'TR' ) {
          for (J = 1; J <= N; J++) { // 130
             if ( UPPER ) {
                IBEG = 1
@@ -2422,7 +2422,7 @@ void main() {
                AA( JJ ) = CMPLX( REAL( AA( JJ ) ), RROGUE )
             }
          } // 130
-      } else if ( TYPE.EQ.'HB'.OR.TYPE.EQ.'TB' ) {
+      } else if ( TYPE == 'HB'.OR.TYPE == 'TB' ) {
          for (J = 1; J <= N; J++) { // 170
             if ( UPPER ) {
                KK = KL + 1
@@ -2455,7 +2455,7 @@ void main() {
                AA( JJ ) = CMPLX( REAL( AA( JJ ) ), RROGUE )
             }
          } // 170
-      } else if ( TYPE.EQ.'HP'.OR.TYPE.EQ.'TP' ) {
+      } else if ( TYPE == 'HP'.OR.TYPE == 'TP' ) {
          IOFF = 0
          for (J = 1; J <= N; J++) { // 190
             if ( UPPER ) {
@@ -2468,7 +2468,7 @@ void main() {
             for (I = IBEG; I <= IEND; I++) { // 180
                IOFF = IOFF + 1
                AA( IOFF ) = A( I, J )
-               if ( I.EQ.J ) {
+               if ( I == J ) {
                   if (UNIT) AA( IOFF ) = ROGUE                   IF( SYM ) AA( IOFF ) = CMPLX( REAL( AA( IOFF ) ), RROGUE );
                }
             } // 180
@@ -2515,8 +2515,8 @@ void main() {
       // .. Statement Function definitions ..
       ABS1( C ) = ABS( REAL( C ) ) + ABS( AIMAG( C ) )
       // .. Executable Statements ..
-      TRAN = TRANS.EQ.'T'
-      CTRAN = TRANS.EQ.'C'
+      TRAN = TRANS == 'T'
+      CTRAN = TRANS == 'C'
       if ( TRAN.OR.CTRAN ) {
          ML = N
          NL = M
@@ -2655,14 +2655,14 @@ void main() {
       int                I, IBEG, IEND, J;
       bool               UPPER;
       // .. Executable Statements ..
-      UPPER = UPLO.EQ.'U'
-      if ( TYPE.EQ.'GE' ) {
+      UPPER = UPLO == 'U'
+      if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = M + 1; I <= LDA; I++) { // 10
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
             } // 10
          } // 20
-      } else if ( TYPE.EQ.'HE' ) {
+      } else if ( TYPE == 'HE' ) {
          for (J = 1; J <= N; J++) { // 50
             if ( UPPER ) {
                IBEG = 1

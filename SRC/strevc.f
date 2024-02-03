@@ -79,7 +79,7 @@
                   SELECT( J ) = false;
                } else {
                   if ( J.LT.N ) {
-                     if ( T( J+1, J ).EQ.ZERO ) {
+                     if ( T( J+1, J ) == ZERO ) {
                         IF( SELECT( J ) ) M = M + 1
                      } else {
                         PAIR = true;
@@ -108,7 +108,7 @@
 
       // Quick return if possible.
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Set the constants to control overflow.
 
@@ -144,12 +144,12 @@
          IS = M
          DO 140 KI = N, 1, -1
 
-            if (IP.EQ.1) GO TO 130             IF( KI.EQ.1 ) GO TO 40             IF( T( KI, KI-1 ).EQ.ZERO ) GO TO 40;
+            if (IP == 1) GO TO 130             IF( KI == 1 ) GO TO 40             IF( T( KI, KI-1 ) == ZERO ) GO TO 40;
             IP = -1
 
             } // 40
             if ( SOMEV ) {
-               if ( IP.EQ.0 ) {
+               if ( IP == 0 ) {
                   IF( .NOT.SELECT( KI ) ) GO TO 130
                } else {
                   IF( .NOT.SELECT( KI-1 ) ) GO TO 130
@@ -163,7 +163,7 @@
             if (IP.NE.0) WI = SQRT( ABS( T( KI, KI-1 ) ) )* SQRT( ABS( T( KI-1, KI ) ) );
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 
-            if ( IP.EQ.0 ) {
+            if ( IP == 0 ) {
 
                // Real right eigenvector
 
@@ -191,7 +191,7 @@
                      }
                   }
 
-                  if ( J1.EQ.J2 ) {
+                  if ( J1 == J2 ) {
 
                      // 1-by-1 diagonal block
 
@@ -308,7 +308,7 @@
                      }
                   }
 
-                  if ( J1.EQ.J2 ) {
+                  if ( J1 == J2 ) {
 
                      // 1-by-1 diagonal block
 
@@ -423,7 +423,7 @@
             IS = IS - 1
             if (IP.NE.0) IS = IS - 1;
             } // 130
-            if (IP.EQ.1) IP = 0             IF( IP.EQ.-1 ) IP = 1;
+            if (IP == 1) IP = 0             IF( IP == -1 ) IP = 1;
          } // 140
       }
 
@@ -435,7 +435,7 @@
          IS = 1
          for (KI = 1; KI <= N; KI++) { // 260
 
-            if (IP.EQ.-1) GO TO 250             IF( KI.EQ.N ) GO TO 150             IF( T( KI+1, KI ).EQ.ZERO ) GO TO 150;
+            if (IP == -1) GO TO 250             IF( KI == N ) GO TO 150             IF( T( KI+1, KI ) == ZERO ) GO TO 150;
             IP = 1
 
             } // 150
@@ -450,7 +450,7 @@
             if (IP.NE.0) WI = SQRT( ABS( T( KI, KI+1 ) ) )* SQRT( ABS( T( KI+1, KI ) ) );
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 
-            if ( IP.EQ.0 ) {
+            if ( IP == 0 ) {
 
                // Real left eigenvector.
 
@@ -481,7 +481,7 @@
                      }
                   }
 
-                  if ( J1.EQ.J2 ) {
+                  if ( J1 == J2 ) {
 
                      // 1-by-1 diagonal block
 
@@ -612,7 +612,7 @@
                      }
                   }
 
-                  if ( J1.EQ.J2 ) {
+                  if ( J1 == J2 ) {
 
                      // 1-by-1 diagonal block
 
@@ -732,7 +732,7 @@
             IS = IS + 1
             if (IP.NE.0) IS = IS + 1;
             } // 250
-            if (IP.EQ.-1) IP = 0             IF( IP.EQ.1 ) IP = -1;
+            if (IP == -1) IP = 0             IF( IP == 1 ) IP = -1;
 
          } // 260
 

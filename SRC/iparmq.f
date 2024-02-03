@@ -26,7 +26,7 @@
       // INTRINSIC LOG, MAX, MOD, NINT, REAL
       // ..
       // .. Executable Statements ..
-      if ( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR. ( ISPEC.EQ.IACC22 ) ) {
+      if ( ( ISPEC == ISHFTS ) .OR. ( ISPEC == INWIN ) .OR. ( ISPEC == IACC22 ) ) {
 
          // ==== Set the number simultaneous shifts ====
 
@@ -36,7 +36,7 @@
          NS = MAX( 2, NS-MOD( NS, 2 ) )
       }
 
-      if ( ISPEC.EQ.INMIN ) {
+      if ( ISPEC == INMIN ) {
 
 
          // ===== Matrices of order smaller than NMIN get sent
@@ -45,7 +45,7 @@
 
          IPARMQ = NMIN
 
-      } else if ( ISPEC.EQ.INIBL ) {
+      } else if ( ISPEC == INIBL ) {
 
          // ==== INIBL: skip a multi-shift qr iteration and
          // .    whenever aggressive early deflation finds
@@ -53,13 +53,13 @@
 
          IPARMQ = NIBBLE
 
-      } else if ( ISPEC.EQ.ISHFTS ) {
+      } else if ( ISPEC == ISHFTS ) {
 
          // ==== NSHFTS: The number of simultaneous shifts =====
 
          IPARMQ = NS
 
-      } else if ( ISPEC.EQ.INWIN ) {
+      } else if ( ISPEC == INWIN ) {
 
          // ==== NW: deflation window size.  ====
 
@@ -69,7 +69,7 @@
             IPARMQ = 3*NS / 2
          }
 
-      } else if ( ISPEC.EQ.IACC22 ) {
+      } else if ( ISPEC == IACC22 ) {
 
          // ==== IACC22: Whether to accumulate reflections
          // .     before updating the far-from-diagonal elements
@@ -85,7 +85,7 @@
          SUBNAM = NAME
          IC = ICHAR( SUBNAM( 1: 1 ) )
          IZ = ICHAR( 'Z' )
-         if ( IZ.EQ.90 .OR. IZ.EQ.122 ) {
+         if ( IZ == 90 .OR. IZ == 122 ) {
 
             // ASCII character set
 
@@ -97,7 +97,7 @@
                }
             }
 
-         } else if ( IZ.EQ.233 .OR. IZ.EQ.169 ) {
+         } else if ( IZ == 233 .OR. IZ == 169 ) {
 
             // EBCDIC character set
 
@@ -109,7 +109,7 @@
                }
             }
 
-         } else if ( IZ.EQ.218 .OR. IZ.EQ.250 ) {
+         } else if ( IZ == 218 .OR. IZ == 250 ) {
 
             // Prime machines:  ASCII+128
 
@@ -122,14 +122,14 @@
             }
          }
 
-         if ( SUBNAM( 2:6 ).EQ.'GGHRD' .OR. SUBNAM( 2:6 ).EQ.'GGHD3' ) {
+         if ( SUBNAM( 2:6 ) == 'GGHRD' .OR. SUBNAM( 2:6 ) == 'GGHD3' ) {
             IPARMQ = 1
             if (NH.GE.K22MIN) IPARMQ = 2;
-         } else if ( SUBNAM( 4:6 ).EQ.'EXC' ) {
-            if (NH.GE.KACMIN) IPARMQ = 1             IF( NH.GE.K22MIN ) IPARMQ = 2          ELSE IF ( SUBNAM( 2:6 ).EQ.'HSEQR' .OR. SUBNAM( 2:5 ).EQ.'LAQR' ) THEN             IF( NS.GE.KACMIN ) IPARMQ = 1             IF( NS.GE.K22MIN ) IPARMQ = 2;
+         } else if ( SUBNAM( 4:6 ) == 'EXC' ) {
+            if (NH.GE.KACMIN) IPARMQ = 1             IF( NH.GE.K22MIN ) IPARMQ = 2          ELSE IF ( SUBNAM( 2:6 ) == 'HSEQR' .OR. SUBNAM( 2:5 ) == 'LAQR' ) THEN             IF( NS.GE.KACMIN ) IPARMQ = 1             IF( NS.GE.K22MIN ) IPARMQ = 2;
          }
 
-      } else if ( ISPEC.EQ.ICOST ) {
+      } else if ( ISPEC == ICOST ) {
 
          // === Relative cost of near-the-diagonal chase vs
              // BLAS updates ===

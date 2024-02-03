@@ -25,9 +25,9 @@
 
       // Quick return if possible
 
-      if (N.EQ.0 .OR. NRHS.EQ.0) RETURN;
+      if (N == 0 .OR. NRHS == 0) RETURN;
 
-      if ( ITRANS.EQ.0 ) {
+      if ( ITRANS == 0 ) {
 
          // Solve A*X = B using the LU factorization of A,
          // overwriting each right hand side vector with its solution.
@@ -39,7 +39,7 @@
             // Solve L*x = b.
 
             for (I = 1; I <= N - 1; I++) { // 20
-               if ( IPIV( I ).EQ.I ) {
+               if ( IPIV( I ) == I ) {
                   B( I+1, J ) = B( I+1, J ) - DL( I )*B( I, J )
                } else {
                   TEMP = B( I, J )
@@ -65,7 +65,7 @@
             // Solve L*x = b.
 
                for (I = 1; I <= N - 1; I++) { // 40
-                  if ( IPIV( I ).EQ.I ) {
+                  if ( IPIV( I ) == I ) {
                      B( I+1, J ) = B( I+1, J ) - DL( I )*B( I, J )
                   } else {
                      TEMP = B( I, J )
@@ -83,7 +83,7 @@
                } // 50
             } // 60
          }
-      } else if ( ITRANS.EQ.1 ) {
+      } else if ( ITRANS == 1 ) {
 
          // Solve A**T * X = B.
 
@@ -102,7 +102,7 @@
             // Solve L**T * x = b.
 
             DO 90 I = N - 1, 1, -1
-               if ( IPIV( I ).EQ.I ) {
+               if ( IPIV( I ) == I ) {
                   B( I, J ) = B( I, J ) - DL( I )*B( I+1, J )
                } else {
                   TEMP = B( I+1, J )
@@ -128,7 +128,7 @@
             // Solve L**T * x = b.
 
                DO 110 I = N - 1, 1, -1
-                  if ( IPIV( I ).EQ.I ) {
+                  if ( IPIV( I ) == I ) {
                      B( I, J ) = B( I, J ) - DL( I )*B( I+1, J )
                   } else {
                      TEMP = B( I+1, J )
@@ -157,7 +157,7 @@
             // Solve L**H * x = b.
 
             DO 150 I = N - 1, 1, -1
-               if ( IPIV( I ).EQ.I ) {
+               if ( IPIV( I ) == I ) {
                   B( I, J ) = B( I, J ) - CONJG( DL( I ) )*B( I+1, J )
                } else {
                   TEMP = B( I+1, J )
@@ -183,7 +183,7 @@
             // Solve L**H * x = b.
 
                DO 170 I = N - 1, 1, -1
-                  if ( IPIV( I ).EQ.I ) {
+                  if ( IPIV( I ) == I ) {
                      B( I, J ) = B( I, J ) - CONJG( DL( I ) )* B( I+1, J )
                   } else {
                      TEMP = B( I+1, J )

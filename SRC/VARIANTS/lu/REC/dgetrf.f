@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      if (M.EQ.0 .OR. N.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0) RETURN;
 
       // Compute machine safe minimum
 
@@ -102,7 +102,7 @@
                     A( J+I, J ) = A( J+I, J ) / A( J, J )
                  }
                }
-         } else if ( A( J,J ) .EQ. ZERO .AND. INFO .EQ. 0 ) {
+         } else if ( A( J,J ) == ZERO .AND. INFO == 0 ) {
             INFO = J
          }
 

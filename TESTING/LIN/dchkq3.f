@@ -105,7 +105,7 @@
                for (I = 1; I <= N; I++) { // 20
                   IWORK( I ) = 0
                } // 20
-               if ( IMODE.EQ.1 ) {
+               if ( IMODE == 1 ) {
                   dlaset('Full', M, N, ZERO, ZERO, COPYA, LDA );
                   for (I = 1; I <= MNMIN; I++) { // 30
                      S( I ) = ZERO
@@ -113,15 +113,15 @@
                } else {
                   dlatms(M, N, 'Uniform', ISEED, 'Nonsymm', S, MODE, ONE / EPS, ONE, M, N, 'No packing', COPYA, LDA, WORK, INFO );
                   if ( IMODE.GE.4 ) {
-                     if ( IMODE.EQ.4 ) {
+                     if ( IMODE == 4 ) {
                         ILOW = 1
                         ISTEP = 1
                         IHIGH = MAX( 1, N / 2 )
-                     } else if ( IMODE.EQ.5 ) {
+                     } else if ( IMODE == 5 ) {
                         ILOW = MAX( 1, N / 2 )
                         ISTEP = 1
                         IHIGH = N
-                     } else if ( IMODE.EQ.6 ) {
+                     } else if ( IMODE == 6 ) {
                         ILOW = 1
                         ISTEP = 2
                         IHIGH = N
@@ -174,7 +174,7 @@
 
                   for (K = 1; K <= NTESTS; K++) { // 50
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'DGEQP3', M, N, NB, IMODE, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'DGEQP3', M, N, NB, IMODE, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 50

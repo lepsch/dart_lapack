@@ -42,7 +42,7 @@
       // .. Executable Statements ..
 
       RESULT( 1 ) = ZERO
-      if (ITYPE.EQ.1) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN;
+      if (ITYPE == 1) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN;
 
       if ( LSAME( UPLO, 'U' ) ) {
          LOWER = false;
@@ -66,7 +66,7 @@
 
       // Norm of A:
 
-      if ( ITYPE.EQ.3 ) {
+      if ( ITYPE == 3 ) {
          ANORM = ONE
       } else {
          ANORM = MAX( ZLANHE( '1', CUPLO, N, A, LDA, RWORK ), UNFL )
@@ -74,7 +74,7 @@
 
       // Compute error matrix:
 
-      if ( ITYPE.EQ.1 ) {
+      if ( ITYPE == 1 ) {
 
          // ITYPE=1: error = A - U S U**H
 
@@ -85,14 +85,14 @@
             zher(CUPLO, N, -D( J ), U( 1, J ), 1, WORK, N );
          } // 10
 
-         if ( N.GT.1 .AND. KBAND.EQ.1 ) {
+         if ( N.GT.1 .AND. KBAND == 1 ) {
             for (J = 1; J <= N - 1; J++) { // 20
                zher2(CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
             } // 20
          }
          WNORM = ZLANHE( '1', CUPLO, N, WORK, N, RWORK )
 
-      } else if ( ITYPE.EQ.2 ) {
+      } else if ( ITYPE == 2 ) {
 
          // ITYPE=2: error = V S V**H - A
 
@@ -101,7 +101,7 @@
          if ( LOWER ) {
             WORK( N**2 ) = D( N )
             DO 40 J = N - 1, 1, -1
-               if ( KBAND.EQ.1 ) {
+               if ( KBAND == 1 ) {
                   WORK( ( N+1 )*( J-1 )+2 ) = ( CONE-TAU( J ) )*E( J )
                   for (JR = J + 2; JR <= N; JR++) { // 30
                      WORK( ( J-1 )*N+JR ) = -TAU( J )*E( J )*V( JR, J )
@@ -117,7 +117,7 @@
          } else {
             WORK( 1 ) = D( 1 )
             for (J = 1; J <= N - 1; J++) { // 60
-               if ( KBAND.EQ.1 ) {
+               if ( KBAND == 1 ) {
                   WORK( ( N+1 )*J ) = ( CONE-TAU( J ) )*E( J )
                   for (JR = 1; JR <= J - 1; JR++) { // 50
                      WORK( J*N+JR ) = -TAU( J )*E( J )*V( JR, J+1 )
@@ -145,7 +145,7 @@
          } // 90
          WNORM = ZLANHE( '1', CUPLO, N, WORK, N, RWORK )
 
-      } else if ( ITYPE.EQ.3 ) {
+      } else if ( ITYPE == 3 ) {
 
          // ITYPE=3: error = U V**H - I
 
@@ -182,7 +182,7 @@
 
       // Compute  U U**H - I
 
-      if ( ITYPE.EQ.1 ) {
+      if ( ITYPE == 1 ) {
          zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
          for (J = 1; J <= N; J++) { // 110

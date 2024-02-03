@@ -104,14 +104,14 @@
                   TMP = TMP + CABS1( A( J, I ) )*CABS1( X( J, K ) )
                } // 50
             }
-            if ( I.EQ.1 ) {
+            if ( I == 1 ) {
                AXBI = TMP
             } else {
                AXBI = MIN( AXBI, TMP )
             }
          } // 60
          TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL / MAX( AXBI, ( N+1 )*UNFL ) )
-         if ( K.EQ.1 ) {
+         if ( K == 1 ) {
             RESLTS( 2 ) = TMP
          } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )

@@ -47,7 +47,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Set constants to control overflow
 
@@ -105,7 +105,7 @@
                   }
                }
 
-               if ( J1.EQ.J2 ) {
+               if ( J1 == J2 ) {
 
                   // Meet 1 by 1 diagonal block
 
@@ -121,7 +121,7 @@
                      INFO = 1
                   }
 
-                  if (XJ.EQ.ZERO) GO TO 30;
+                  if (XJ == ZERO) GO TO 30;
 
                   if ( TJJ.LT.ONE ) {
                      if ( XJ.GT.BIGNUM*TJJ ) {
@@ -211,7 +211,7 @@
                   }
                }
 
-               if ( J1.EQ.J2 ) {
+               if ( J1 == J2 ) {
 
                   // 1 by 1 diagonal block
 
@@ -304,14 +304,14 @@
                   }
                }
 
-               if ( J1.EQ.J2 ) {
+               if ( J1 == J2 ) {
 
                   // 1 by 1 diagonal block
 
                   // Scale if necessary to avoid overflow in division
 
                   Z = W
-                  if (J1.EQ.1) Z = B( 1 );
+                  if (J1 == 1) Z = B( 1 );
                   XJ = ABS( X( J1 ) ) + ABS( X( N+J1 ) )
                   TJJ = ABS( T( J1, J1 ) ) + ABS( Z )
                   TMP = T( J1, J1 )
@@ -321,7 +321,7 @@
                      INFO = 1
                   }
 
-                  if (XJ.EQ.ZERO) GO TO 70;
+                  if (XJ == ZERO) GO TO 70;
 
                   if ( TJJ.LT.ONE ) {
                      if ( XJ.GT.BIGNUM*TJJ ) {
@@ -429,7 +429,7 @@
                   }
                }
 
-               if ( J1.EQ.J2 ) {
+               if ( J1 == J2 ) {
 
                   // 1 by 1 diagonal block
 
@@ -455,7 +455,7 @@
                   XJ = ABS( X( J1 ) ) + ABS( X( J1+N ) )
 
                   Z = W
-                  if (J1.EQ.1) Z = B( 1 );
+                  if (J1 == 1) Z = B( 1 );
 
                   // Scale if necessary to avoid overflow in
                   // complex division

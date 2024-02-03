@@ -76,7 +76,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
+      if ( N == 0 .OR. NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
@@ -247,7 +247,7 @@
          } // 210
          dlacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
-            if ( KASE.EQ.1 ) {
+            if ( KASE == 1 ) {
 
                // Multiply by diag(W)*inv(op(A)**T).
 

@@ -155,7 +155,7 @@
             K2 = K2 - 1
             IDXP( K2 ) = J
             COLTYP( J ) = 4
-            if (J.EQ.N) GO TO 120;
+            if (J == N) GO TO 120;
          } else {
             JPREV = J
             GO TO 90

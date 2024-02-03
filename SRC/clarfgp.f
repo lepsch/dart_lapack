@@ -46,12 +46,12 @@
       ALPHR = REAL( ALPHA )
       ALPHI = AIMAG( ALPHA )
 
-      if ( XNORM.LE.EPS*ABS(ALPHA) .AND. ALPHI.EQ.ZERO ) {
+      if ( XNORM.LE.EPS*ABS(ALPHA) .AND. ALPHI == ZERO ) {
 
          // H  =  [1-alpha/abs(alpha) 0; 0 I], sign chosen so ALPHA >= 0.
 
          if ( ALPHR.GE.ZERO ) {
-            // When TAU.eq.ZERO, the vector is special-cased to be
+            // When TAU == ZERO, the vector is special-cased to be
             // all zeros in the application routines.  We do not need
             // to clear it.
             TAU = ZERO
@@ -115,7 +115,7 @@
 
             ALPHR = REAL( SAVEALPHA )
             ALPHI = AIMAG( SAVEALPHA )
-            if ( ALPHI.EQ.ZERO ) {
+            if ( ALPHI == ZERO ) {
                if ( ALPHR.GE.ZERO ) {
                   TAU = ZERO
                } else {

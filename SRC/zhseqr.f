@@ -61,7 +61,7 @@
       INITZ = LSAME( COMPZ, 'I' )
       WANTZ = INITZ .OR. LSAME( COMPZ, 'V' )
       WORK( 1 ) = DCMPLX( DBLE( MAX( 1, N ) ), RZERO )
-      LQUERY = LWORK.EQ.-1
+      LQUERY = LWORK == -1
 
       INFO = 0
       if ( .NOT.LSAME( JOB, 'E' ) .AND. .NOT.WANTT ) {
@@ -89,7 +89,7 @@
          xerbla('ZHSEQR', -INFO );
          RETURN
 
-      } else if ( N.EQ.0 ) {
+      } else if ( N == 0 ) {
 
          // ==== Quick return in case N = 0; nothing to do. ====
 
@@ -117,7 +117,7 @@
 
          // ==== Quick return if possible ====
 
-         if ( ILO.EQ.IHI ) {
+         if ( ILO == IHI ) {
             W( ILO ) = H( ILO, ILO )
             RETURN
          }

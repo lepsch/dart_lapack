@@ -32,7 +32,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -41,9 +41,9 @@
          INFO = -4
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          K = MIN( M, N )
-         if ( K.EQ.0 ) {
+         if ( K == 0 ) {
             LWKOPT = 1
          } else {
             NB = ILAENV( 1, 'DGEQLF', ' ', M, N, -1, -1 )
@@ -65,7 +65,7 @@
 
       // Quick return if possible
 
-      if ( K.EQ.0 ) {
+      if ( K == 0 ) {
          RETURN
       }
 

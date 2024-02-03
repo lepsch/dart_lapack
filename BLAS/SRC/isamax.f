@@ -23,8 +23,8 @@
       ISAMAX = 0
       if (N.LT.1 .OR. INCX.LE.0) RETURN;
       ISAMAX = 1
-      if (N.EQ.1) RETURN;
-      if (INCX.EQ.1) {
+      if (N == 1) RETURN;
+      if (INCX == 1) {
 
          // code for increment equal to 1
 

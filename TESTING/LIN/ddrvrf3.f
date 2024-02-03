@@ -98,9 +98,9 @@
 
                            for (IALPHA = 1; IALPHA <= 3; IALPHA++) { // 100
 
-                              if ( IALPHA.EQ.1 ) {
+                              if ( IALPHA == 1 ) {
                                  ALPHA = ZERO
-                              } else if ( IALPHA.EQ.2 ) {
+                              } else if ( IALPHA == 2 ) {
                                  ALPHA = ONE
                               } else {
                                  ALPHA = DLARND( 2, ISEED )
@@ -113,16 +113,16 @@
 
                               NRUN = NRUN + 1
 
-                              if ( ISIDE.EQ.1 ) {
+                              if ( ISIDE == 1 ) {
 
-                                 // The case ISIDE.EQ.1 is when SIDE.EQ.'L'
+                                 // The case ISIDE == 1 is when SIDE == 'L'
                                  // -> A is M-by-M ( B is M-by-N )
 
                                  NA = M
 
                               } else {
 
-                                 // The case ISIDE.EQ.2 is when SIDE.EQ.'R'
+                                 // The case ISIDE == 2 is when SIDE == 'R'
                                  // -> A is N-by-N ( B is M-by-N )
 
                                  NA = N
@@ -143,9 +143,9 @@
                                  }
                               }
 
-                              if ( IUPLO.EQ.1 ) {
+                              if ( IUPLO == 1 ) {
 
-                                 // The case IUPLO.EQ.1 is when SIDE.EQ.'U'
+                                 // The case IUPLO == 1 is when SIDE == 'U'
                                  // -> QR factorization.
 
                                  SRNAMT = 'DGEQRF'
@@ -165,7 +165,7 @@
 
                               } else {
 
-                                 // The case IUPLO.EQ.2 is when SIDE.EQ.'L'
+                                 // The case IUPLO == 2 is when SIDE == 'L'
                                  // -> QL factorization.
 
                                  SRNAMT = 'DGELQF'
@@ -225,7 +225,7 @@
                               RESULT( 1 ) = RESULT( 1 ) / SQRT( EPS ) / MAX ( MAX( M, N ), 1 )
 
                               if ( RESULT( 1 ).GE.THRESH ) {
-                                 if ( NFAIL.EQ.0 ) {
+                                 if ( NFAIL == 0 ) {
                                     WRITE( NOUT, * )
                                     WRITE( NOUT, FMT = 9999 )
                                  }
@@ -244,7 +244,7 @@
 
       // Print a summary of the results.
 
-      if ( NFAIL.EQ.0 ) {
+      if ( NFAIL == 0 ) {
          WRITE( NOUT, FMT = 9996 ) 'DTFSM', NRUN
       } else {
          WRITE( NOUT, FMT = 9995 ) 'DTFSM', NFAIL, NRUN

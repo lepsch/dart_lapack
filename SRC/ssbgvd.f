@@ -38,7 +38,7 @@
 
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
 
       INFO = 0
       if ( N.LE.1 ) {
@@ -70,7 +70,7 @@
          INFO = -12
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          IWORK( 1 ) = LIWMIN
 
@@ -90,7 +90,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Form a split Cholesky factorization of B.
 

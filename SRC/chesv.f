@@ -36,7 +36,7 @@
       // Test the input parameters.
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -51,8 +51,8 @@
          INFO = -10
       }
 
-      if ( INFO.EQ.0 ) {
-         if ( N.EQ.0 ) {
+      if ( INFO == 0 ) {
+         if ( N == 0 ) {
             LWKOPT = 1
          } else {
             NB = ILAENV( 1, 'CHETRF', UPLO, N, -1, -1, -1 )
@@ -71,7 +71,7 @@
       // Compute the factorization A = U*D*U**H or A = L*D*L**H.
 
       chetrf(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 

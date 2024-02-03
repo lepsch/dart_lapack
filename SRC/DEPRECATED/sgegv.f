@@ -71,7 +71,7 @@
       LWKMIN = MAX( 8*N, 1 )
       LWKOPT = LWKMIN
       WORK( 1 ) = LWKOPT
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       INFO = 0
       if ( IJOBVL.LE.0 ) {
          INFO = -1
@@ -91,7 +91,7 @@
          INFO = -16
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          NB1 = ILAENV( 1, 'SGEQRF', ' ', N, N, -1, -1 )
          NB2 = ILAENV( 1, 'SORMQR', ' ', N, N, N, -1 )
          NB3 = ILAENV( 1, 'SORGQR', ' ', N, N, N, -1 )
@@ -109,7 +109,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Get machine constants
 
@@ -279,7 +279,7 @@
             for (JC = 1; JC <= N; JC++) { // 50
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 50
                TEMP = ZERO
-               if ( ALPHAI( JC ).EQ.ZERO ) {
+               if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 10
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
                   } // 10
@@ -290,7 +290,7 @@
                }
                if (TEMP.LT.SAFMIN) GO TO 50;
                TEMP = ONE / TEMP
-               if ( ALPHAI( JC ).EQ.ZERO ) {
+               if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 30
                      VL( JR, JC ) = VL( JR, JC )*TEMP
                   } // 30
@@ -311,7 +311,7 @@
             for (JC = 1; JC <= N; JC++) { // 100
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 100
                TEMP = ZERO
-               if ( ALPHAI( JC ).EQ.ZERO ) {
+               if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 60
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
                   } // 60
@@ -322,7 +322,7 @@
                }
                if (TEMP.LT.SAFMIN) GO TO 100;
                TEMP = ONE / TEMP
-               if ( ALPHAI( JC ).EQ.ZERO ) {
+               if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 80
                      VR( JR, JC ) = VR( JR, JC )*TEMP
                   } // 80
@@ -363,7 +363,7 @@
             ILIMIT = true;
             SCALE = ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAI )
 
-         } else if ( SALFAI.EQ.ZERO ) {
+         } else if ( SALFAI == ZERO ) {
 
             // If insignificant underflow in ALPHAI, then make the
             // conjugate eigenvalue real.

@@ -28,11 +28,11 @@
       // Quick return if possible
 
       if ( N.LE.1 ) {
-         if (N.EQ.1) CALL ZDSCAL( NRHS, 1.D0 / D( 1 ), B, LDB );
+         if (N == 1) CALL ZDSCAL( NRHS, 1.D0 / D( 1 ), B, LDB );
          RETURN
       }
 
-      if ( IUPLO.EQ.1 ) {
+      if ( IUPLO == 1 ) {
 
          // Solve A * X = B using the factorization A = U**H *D*U,
          // overwriting each right hand side vector with its solution.

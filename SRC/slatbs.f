@@ -68,7 +68,7 @@
       // Quick return if possible
 
       SCALE = ONE
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Determine machine dependent parameters to control overflow.
 
@@ -295,7 +295,7 @@
                   TJJS = AB( MAIND, J )*TSCAL
                } else {
                   TJJS = TSCAL
-                  if (TSCAL.EQ.ONE) GO TO 95;
+                  if (TSCAL == ONE) GO TO 95;
                }
                   TJJ = ABS( TJJS )
                   if ( TJJ.GT.SMLNUM ) {
@@ -437,7 +437,7 @@
                }
 
                SUMJ = ZERO
-               if ( USCAL.EQ.ONE ) {
+               if ( USCAL == ONE ) {
 
                   // If the scaling needed for A in the dot product is 1,
                   // call SDOT to perform the dot product.
@@ -466,7 +466,7 @@
                   }
                }
 
-               if ( USCAL.EQ.TSCAL ) {
+               if ( USCAL == TSCAL ) {
 
                   // Compute x(j) := ( x(j) - sumj ) / A(j,j) if 1/A(j,j)
                   // was not used to scale the dotproduct.
@@ -480,7 +480,7 @@
                      TJJS = AB( MAIND, J )*TSCAL
                   } else {
                      TJJS = TSCAL
-                     if (TSCAL.EQ.ONE) GO TO 135;
+                     if (TSCAL == ONE) GO TO 135;
                   }
                      TJJ = ABS( TJJS )
                      if ( TJJ.GT.SMLNUM ) {

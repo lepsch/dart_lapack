@@ -87,17 +87,17 @@ void main() {
       }
 
       Xj = X(1)
-      if (Xj .eq. 0.0d0) {
+      if (Xj == 0.0d0) {
         subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-        if (debug .or. subnormalTreatedAs0 .eq. 1) {
+        if (debug .or. subnormalTreatedAs0 == 1) {
             print *, "!! fl( subnormal ) may be 0"
         }
       } else {
         for (i = 1; i <= N; i++) { // 100
             Xj = X(i)
-            if (Xj .eq. 0.0d0) {
+            if (Xj == 0.0d0) {
                 subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-                if (debug .or. subnormalTreatedAs0 .eq. 1) {
+                if (debug .or. subnormalTreatedAs0 == 1) {
                     print *, "!! fl( subnormal ) may be 0"
                 }
             }
@@ -107,9 +107,9 @@ void main() {
       // Test (a) y = x + 0 * I, y/y = 1
       for (i = 1; i <= N; i++) { // 10
         Xj = X(i)
-        if (Xj .eq. 0.0d0) {
+        if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) {
+            if (debug .or. subnormalTreatedAs0 == 1) {
                 print *, "!! [a] fl( subnormal ) may be 0"
             }
         } else {
@@ -119,7 +119,7 @@ void main() {
                 R = Y / Y
                 if (R .ne. 1.0D0) {
                     caseAFails = caseAFails + 1
-                    if (caseAFails .eq. 1) {
+                    if (caseAFails == 1) {
                         print *, "!! Some (x+0*I)/(x+0*I) differ from 1"
                     }
                     WRITE( 0, FMT = 9999 ) 'a',i, Xj, '(x+0*I)/(x+0*I)', R, 1.0D0
@@ -132,9 +132,9 @@ void main() {
       // Test (b) y = 0 + x * I, y/y = 1
       for (i = 1; i <= N; i++) { // 20
         Xj = X(i)
-        if (Xj .eq. 0.0d0) {
+        if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) {
+            if (debug .or. subnormalTreatedAs0 == 1) {
                 print *, "!! [b] fl( subnormal ) may be 0"
             }
         } else {
@@ -144,7 +144,7 @@ void main() {
                 R = Y / Y
                 if (R .ne. 1.0D0) {
                     caseBFails = caseBFails + 1
-                    if (caseBFails .eq. 1) {
+                    if (caseBFails == 1) {
                         print *, "!! Some (0+x*I)/(0+x*I) differ from 1"
                     }
                     WRITE( 0, FMT = 9999 ) 'b',i, Xj, '(0+x*I)/(0+x*I)', R, 1.0D0
@@ -157,9 +157,9 @@ void main() {
       // Test (c) y = x + x * I, y/y = 1
       for (i = 1; i <= N; i++) { // 30
         Xj = X(i)
-        if (Xj .eq. 0.0d0) {
+        if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) {
+            if (debug .or. subnormalTreatedAs0 == 1) {
                 print *, "!! [c] fl( subnormal ) may be 0"
             }
         } else {
@@ -169,7 +169,7 @@ void main() {
                 R = Y / Y
                 if (R .ne. 1.0D0) {
                     caseCFails = caseCFails + 1
-                    if (caseCFails .eq. 1) {
+                    if (caseCFails == 1) {
                         print *, "!! Some (x+x*I)/(x+x*I) differ from 1"
                     }
                     WRITE( 0, FMT = 9999 ) 'c',i, Xj, '(x+x*I)/(x+x*I)', R, 1.0D0
@@ -182,9 +182,9 @@ void main() {
       // Test (d) y1 = 0 + x * I, y2 = x + 0 * I, y1/y2 = I
       for (i = 1; i <= N; i++) { // 40
         Xj = X(i)
-        if (Xj .eq. 0.0d0) {
+        if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) {
+            if (debug .or. subnormalTreatedAs0 == 1) {
                 print *, "!! [d] fl( subnormal ) may be 0"
             }
         } else {
@@ -195,7 +195,7 @@ void main() {
                 R = Y / Y2
                 if ( R .ne. DCMPLX(0.0D0,1.0D0) ) {
                     caseDFails = caseDFails + 1
-                    if (caseDFails .eq. 1) {
+                    if (caseDFails == 1) {
                         print *, "!! Some (0+x*I)/(x+0*I) differ from I"
                     }
                     WRITE( 0, FMT = 9999 ) 'd',i, Xj, '(0+x*I)/(x+0*I)', R, DCMPLX(0.0D0,1.0D0)
@@ -208,9 +208,9 @@ void main() {
       // Test (e) y1 = 0 + x * I, y2 = x + 0 * I, y2/y1 = -I
       for (i = 1; i <= N; i++) { // 50
         Xj = X(i)
-        if (Xj .eq. 0.0d0) {
+        if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) {
+            if (debug .or. subnormalTreatedAs0 == 1) {
                 print *, "!! [e] fl( subnormal ) may be 0"
             }
         } else {
@@ -221,7 +221,7 @@ void main() {
                 R = Y2 / Y
                 if ( R .ne. DCMPLX(0.0D0,-1.0D0) ) {
                     caseEFails = caseEFails + 1
-                    if (caseEFails .eq. 1) {
+                    if (caseEFails == 1) {
                         print *,"!! Some (x+0*I)/(0+x*I) differ from -I"
                     }
                     WRITE( 0, FMT = 9999 ) 'e',i, Xj, '(x+0*I)/(0+x*I)', R, DCMPLX(0.0D0,-1.0D0)
@@ -234,9 +234,9 @@ void main() {
       // Test (f) y = x + x * I, y/conj(y) = I
       for (i = 1; i <= N; i++) { // 60
         Xj = X(i)
-        if (Xj .eq. 0.0d0) {
+        if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) {
+            if (debug .or. subnormalTreatedAs0 == 1) {
                 print *, "!! [f] fl( subnormal ) may be 0"
             }
         } else {
@@ -246,7 +246,7 @@ void main() {
                 R = Y / DCONJG( Y )
                 if ( R .ne. DCMPLX(0.0D0,1.0D0) ) {
                     caseFFails = caseFFails + 1
-                    if (caseFFails .eq. 1) {
+                    if (caseFFails == 1) {
                         print *, "!! Some (x+x*I)/(x-x*I) differ from I"
                     }
                     WRITE( 0, FMT = 9999 ) 'f',i, Xj, '(x+x*I)/(x-x*I)', R, DCMPLX(0.0D0,1.0D0)
@@ -261,17 +261,17 @@ void main() {
           nTests = nTests + 3
           Y = cInf(i)
           R = czero / Y
-          if ( (R .ne. czero) .and. (R .eq. R) ) {
+          if ( (R .ne. czero) .and. (R == R) ) {
               caseInfFails = caseInfFails + 1
               WRITE( *, FMT = 9998 ) 'ia',i, czero, Y, R, 'NaN and 0'
           }
           R = cone / Y
-          if ( (R .ne. czero) .and. (R .eq. R) ) {
+          if ( (R .ne. czero) .and. (R == R) ) {
               caseInfFails = caseInfFails + 1
               WRITE( *, FMT = 9998 ) 'ib',i, cone, Y, R, 'NaN and 0'
           }
           R = Y / Y
-          if (R .eq. R) {
+          if (R == R) {
               caseInfFails = caseInfFails + 1
               WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, 'NaN'
           }
@@ -282,17 +282,17 @@ void main() {
           nTests = nTests + 3
           Y = cNaN(i)
           R = czero / Y
-          if (R .eq. R) {
+          if (R == R) {
               caseNaNFails = caseNaNFails + 1
               WRITE( *, FMT = 9998 ) 'na',i, czero, Y, R, 'NaN'
           }
           R = cone / Y
-          if (R .eq. R) {
+          if (R == R) {
               caseNaNFails = caseNaNFails + 1
               WRITE( *, FMT = 9998 ) 'nb',i, cone, Y, R, 'NaN'
           }
           R = Y / Y
-          if (R .eq. R) {
+          if (R == R) {
               caseNaNFails = caseNaNFails + 1
               WRITE( *, FMT = 9998 ) 'nc',i, Y, Y, R, 'NaN'
           }

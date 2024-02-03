@@ -65,13 +65,13 @@
       LOWER = LSAME( JOBA, 'L' )
 
       MINMN = MIN( M, N )
-      if ( MINMN.EQ.0 ) {
+      if ( MINMN == 0 ) {
          LWMIN = 1
       } else {
          LWMIN = MAX( 6, M+N )
       }
 
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.( UPPER .OR. LOWER .OR. LSAME( JOBA, 'G' ) ) ) {
          INFO = -1
       } else if ( .NOT.( LSVEC .OR. UCTOL .OR. LSAME( JOBU, 'N' ) ) ) {
@@ -107,7 +107,7 @@
 
 * #:) Quick return for void matrix
 
-      if (MINMN.EQ.0) RETURN;
+      if (MINMN == 0) RETURN;
 
       // Set numerical parameters
       // The stopping criterion for Jacobi rotations is
@@ -265,7 +265,7 @@
 
 * #:) Quick return for zero matrix
 
-      if ( AAPP.EQ.ZERO ) {
+      if ( AAPP == ZERO ) {
          if (LSVEC) CALL SLASET( 'G', M, N, ZERO, ONE, A, LDA );
          WORK( 1 ) = ONE
          WORK( 2 ) = ZERO
@@ -278,7 +278,7 @@
 
 * #:) Quick return for one-column matrix
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          if (LSVEC) CALL SLASCL( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR );
          WORK( 1 ) = ONE / SKL
          if ( SVA( 1 ).GE.SFMIN ) {
@@ -467,7 +467,7 @@
                      WORK( q ) = TEMP1
                   }
 
-                  if ( ir1.EQ.0 ) {
+                  if ( ir1 == 0 ) {
 
          // Column norms are periodically updated by explicit
          // norm computation.
@@ -534,7 +534,7 @@
             // .. rotate
 *[RTD]      ROTATED = ROTATED + ONE
 
-                              if ( ir1.EQ.0 ) {
+                              if ( ir1 == 0 ) {
                                  NOTROT = 0
                                  PSKIPPED = 0
                                  ISWROT = ISWROT + 1
@@ -656,18 +656,18 @@
 
                            } else {
          // A(:,p) and A(:,q) already numerically orthogonal
-                              if (ir1.EQ.0) NOTROT = NOTROT + 1;
+                              if (ir1 == 0) NOTROT = NOTROT + 1;
 *[RTD]      SKIPPED  = SKIPPED  + 1
                               PSKIPPED = PSKIPPED + 1
                            }
                         } else {
          // A(:,q) is zero column
-                           if (ir1.EQ.0) NOTROT = NOTROT + 1;
+                           if (ir1 == 0) NOTROT = NOTROT + 1;
                            PSKIPPED = PSKIPPED + 1
                         }
 
                         if ( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) {
-                           if (ir1.EQ.0) AAPP = -AAPP;
+                           if (ir1 == 0) AAPP = -AAPP;
                            NOTROT = 0
                            GO TO 2103
                         }
@@ -682,7 +682,7 @@
 
                   } else {
                      SVA( p ) = AAPP
-                     IF( ( ir1.EQ.0 ) .AND. ( AAPP.EQ.ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p
+                     IF( ( ir1 == 0 ) .AND. ( AAPP == ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p
                   }
 
                } // 2001
@@ -912,7 +912,7 @@
 
                   } else {
 
-                     if (AAPP.EQ.ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
+                     if (AAPP == ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
                      if (AAPP.LT.ZERO) NOTROT = 0;
 
                   }

@@ -82,17 +82,17 @@ void main() {
       }
 
       Xj = X(1)
-      if (Xj .eq. 0.0d0) {
+      if (Xj == 0.0d0) {
         subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-        if (debug .or. subnormalTreatedAs0 .eq. 1) {
+        if (debug .or. subnormalTreatedAs0 == 1) {
             print *, "!! fl( subnormal ) may be 0"
         }
       } else {
         for (i = 1; i <= N; i++) { // 100
             Xj = X(i)
-            if (Xj .eq. 0.0d0) {
+            if (Xj == 0.0d0) {
                 subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-                if (debug .or. subnormalTreatedAs0 .eq. 1) {
+                if (debug .or. subnormalTreatedAs0 == 1) {
                     print *, "!! fl( subnormal ) may be 0"
                 }
             }
@@ -102,9 +102,9 @@ void main() {
       // Test (a) y = x + 0 * I, |y| = x
       for (i = 1; i <= N; i++) { // 10
         Xj = X(i)
-        if (Xj .eq. 0.0d0) {
+        if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) {
+            if (debug .or. subnormalTreatedAs0 == 1) {
                 print *, "!! [a] fl( subnormal ) may be 0"
             }
         } else {
@@ -114,7 +114,7 @@ void main() {
                 R = ABS( Y )
                 if (R .ne. Xj) {
                     caseAFails = caseAFails + 1
-                    if (caseAFails .eq. 1) {
+                    if (caseAFails == 1) {
                         print *, "!! Some ABS(x+0*I) differ from ABS(x)"
                     }
                     WRITE( 0, FMT = 9999 ) 'a',i, Xj, '(1+0*I)', R, Xj
@@ -127,9 +127,9 @@ void main() {
       // Test (b) y = 0 + x * I, |y| = x
       for (i = 1; i <= N; i++) { // 20
         Xj = X(i)
-        if (Xj .eq. 0.0d0) {
+        if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) {
+            if (debug .or. subnormalTreatedAs0 == 1) {
                 print *, "!! [b] fl( subnormal ) may be 0"
             }
         } else {
@@ -139,7 +139,7 @@ void main() {
                 R = ABS( Y )
                 if (R .ne. Xj) {
                     caseBFails = caseBFails + 1
-                    if (caseBFails .eq. 1) {
+                    if (caseBFails == 1) {
                         print *, "!! Some ABS(0+x*I) differ from ABS(x)"
                     }
                     WRITE( 0, FMT = 9999 ) 'b',i, Xj, '(0+1*I)', R, Xj
@@ -151,15 +151,15 @@ void main() {
 
       // Test (c) y = (3/4)*x + x * I, |y| = (5/4)*x
       for (i = 1; i <= N; i++) { // 30
-        if (i .eq. 3) go to 30;
-        if (i .eq. 1) {
+        if (i == 3) go to 30;
+        if (i == 1) {
             Xj = 4*X(i)
         } else {
             Xj = X(i)
         }
-        if (Xj .eq. 0.0d0) {
+        if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) {
+            if (debug .or. subnormalTreatedAs0 == 1) {
                 print *, "!! [c] fl( subnormal ) may be 0"
             }
         } else {
@@ -170,7 +170,7 @@ void main() {
                 R = ABS( Y )
                 if (R .ne. answerC) {
                     caseCFails = caseCFails + 1
-                    if (caseCFails .eq. 1) {
+                    if (caseCFails == 1) {
                         print *,  "!! Some ABS(x*(3/4+I)) differ from (5/4)*ABS(x)"
                     }
                     WRITE( 0, FMT = 9999 ) 'c',i, Xj, '(3/4+I)', R, answerC
@@ -182,22 +182,22 @@ void main() {
 
       // Test (d) y = (1/2)*x + (1/2)*x * I, |y| = (1/2)*x*sqrt(2)
       for (i = 1; i <= N; i++) { // 40
-        if (i .eq. 1) {
+        if (i == 1) {
             Xj = 2*X(i)
         } else {
             Xj = X(i)
         }
-        if (Xj .eq. 0.0d0) {
+        if (Xj == 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) {
+            if (debug .or. subnormalTreatedAs0 == 1) {
                 print *, "!! [d] fl( subnormal ) may be 0"
             }
         } else {
             do while( Xj .ne. limX(i) )
                 answerD = (oneHalf * Xj) * SQRT(2.0d0)
-                if (answerD .eq. 0.0d0) {
+                if (answerD == 0.0d0) {
                     subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-                    if (debug .or. subnormalTreatedAs0 .eq. 1) {
+                    if (debug .or. subnormalTreatedAs0 == 1) {
                         print *, "!! [d] fl( subnormal ) may be 0"
                     }
                 } else {
@@ -207,7 +207,7 @@ void main() {
                     relDiff = ABS(R-answerD)/answerD
                     if ( relDiff .ge. (0.5*eps) ) {
                         caseDFails = caseDFails + 1
-                        if (caseDFails .eq. 1) {
+                        if (caseDFails == 1) {
                             print *,  "!! Some ABS(x*(1+I)) differ from sqrt(2)*ABS(x)"
                         }
                         WRITE( 0, FMT = 9999 ) 'd',i, (oneHalf*Xj), '(1+1*I)', R, answerD
@@ -234,7 +234,7 @@ void main() {
         nTests = nTests + 1
         Y = cNaN(i)
         R = ABS( Y )
-        if (R .eq. R) {
+        if (R == R) {
             caseFFails = caseFFails + 1
             WRITE( *, FMT = 9998 ) 'n',i, Y, R
         }

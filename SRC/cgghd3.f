@@ -57,7 +57,7 @@
       WANTQ = INITQ .OR. LSAME( COMPQ, 'V' )
       INITZ = LSAME( COMPZ, 'I' )
       WANTZ = INITZ .OR. LSAME( COMPZ, 'V' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       if ( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) {
          INFO = -1
@@ -141,7 +141,7 @@
          // Use blocked code
 
          KACC22 = ILAENV( 16, 'CGGHD3', ' ', N, ILO, IHI, -1 )
-         BLK22 = KACC22.EQ.2
+         BLK22 = KACC22 == 2
          DO JCOL = ILO, IHI-2, NB
             NNB = MIN( NB, IHI-JCOL-1 )
 

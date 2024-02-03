@@ -106,7 +106,7 @@
                         for (IB = 1; IB <= 3; IB++) { // 20
                            B( 1, 1 ) = VAB( IB )
                            for (IWR = 1; IWR <= 4; IWR++) { // 10
-                              if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) {
+                              if ( D1 == ONE .AND. D2 == ONE .AND. CA == ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
@@ -114,7 +114,7 @@
                               WI = ZERO
                               dlaln2(LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO );
                               if (INFO.LT.0) NINFO( 1 ) = NINFO( 1 ) + 1                               IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1                               RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )-SCALE*B( 1, 1 ) );
-                              if ( INFO.EQ.0 ) {
+                              if ( INFO == 0 ) {
                                  DEN = MAX( EPS*( ABS( ( CA*A( 1, 1 )-WR*D1 )*X( 1, 1 ) ) ), SMLNUM )
                               } else {
                                  DEN = MAX( SMIN*ABS( X( 1, 1 ) ), SMLNUM )
@@ -139,20 +139,20 @@
                            B( 1, 1 ) = VAB( IB )
                            B( 1, 2 ) = -HALF*VAB( IB )
                            for (IWR = 1; IWR <= 4; IWR++) { // 50
-                              if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) {
+                              if ( D1 == ONE .AND. D2 == ONE .AND. CA == ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
                               }
                               for (IWI = 1; IWI <= 4; IWI++) { // 40
-                                 if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ.ONE ) {
+                                 if ( D1 == ONE .AND. D2 == ONE .AND. CA == ONE ) {
                                     WI = VWI( IWI )*A( 1, 1 )
                                  } else {
                                     WI = VWI( IWI )
                                  }
                                  dlaln2(LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO );
                                  if (INFO.LT.0) NINFO( 1 ) = NINFO( 1 ) + 1                                  IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1                                  RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( WI*D1 )*X( 1, 2 )- SCALE*B( 1, 1 ) )                                  RES = RES + ABS( ( -WI*D1 )*X( 1, 1 )+ ( CA*A( 1, 1 )-WR*D1 )*X( 1, 2 )- SCALE*B( 1, 2 ) );
-                                 if ( INFO.EQ.0 ) {
+                                 if ( INFO == 0 ) {
                                     DEN = MAX( EPS*( MAX( ABS( CA*A( 1, 1 )-WR*D1 ), ABS( D1*WI ) )* ( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ) ) ), SMLNUM )
                                  } else {
                                     DEN = MAX( SMIN*( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ) ), SMLNUM )
@@ -182,7 +182,7 @@
                            B( 1, 1 ) = VAB( IB )
                            B( 2, 1 ) = -TWO*VAB( IB )
                            for (IWR = 1; IWR <= 4; IWR++) { // 80
-                              if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) {
+                              if ( D1 == ONE .AND. D2 == ONE .AND. CA == ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
@@ -190,13 +190,13 @@
                               WI = ZERO
                               dlaln2(LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO );
                               if (INFO.LT.0) NINFO( 1 ) = NINFO( 1 ) + 1                               IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1;
-                              if ( ITRANS.EQ.1 ) {
+                              if ( ITRANS == 1 ) {
                                  TMP = A( 1, 2 )
                                  A( 1, 2 ) = A( 2, 1 )
                                  A( 2, 1 ) = TMP
                               }
                               RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( CA*A( 1, 2 ) )* X( 2, 1 )-SCALE*B( 1, 1 ) )                               RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 1 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 1 )-SCALE*B( 2, 1 ) )
-                              if ( INFO.EQ.0 ) {
+                              if ( INFO == 0 ) {
                                  DEN = MAX( EPS*( MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) )*MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ), SMLNUM )
                               } else {
                                  DEN = MAX( EPS*( MAX( SMIN / EPS, MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) )*MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ), SMLNUM )
@@ -227,27 +227,27 @@
                            B( 1, 2 ) = FOUR*VAB( IB )
                            B( 2, 2 ) = -SEVEN*VAB( IB )
                            for (IWR = 1; IWR <= 4; IWR++) { // 120
-                              if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) {
+                              if ( D1 == ONE .AND. D2 == ONE .AND. CA == ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
                               }
                               for (IWI = 1; IWI <= 4; IWI++) { // 110
-                                 if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ.ONE ) {
+                                 if ( D1 == ONE .AND. D2 == ONE .AND. CA == ONE ) {
                                     WI = VWI( IWI )*A( 1, 1 )
                                  } else {
                                     WI = VWI( IWI )
                                  }
                                  dlaln2(LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO );
                                  if (INFO.LT.0) NINFO( 1 ) = NINFO( 1 ) + 1                                  IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1;
-                                 if ( ITRANS.EQ.1 ) {
+                                 if ( ITRANS == 1 ) {
                                     TMP = A( 1, 2 )
                                     A( 1, 2 ) = A( 2, 1 )
                                     A( 2, 1 ) = TMP
                                  }
                                  RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( CA*A( 1, 2 ) )* X( 2, 1 )+( WI*D1 )*X( 1, 2 )- SCALE*B( 1, 1 ) )                                  RES = RES + ABS( ( CA*A( 1, 1 )-WR*D1 )*X( 1, 2 )+ ( CA*A( 1, 2 ) )*X( 2, 2 )- ( WI*D1 )*X( 1, 1 )-SCALE* B( 1, 2 ) )
                                  RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 1 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 1 )+( WI*D2 )*X( 2, 2 )- SCALE*B( 2, 1 ) )                                  RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 2 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 2 )-( WI*D2 )*X( 2, 1 )- SCALE*B( 2, 2 ) )
-                                 if ( INFO.EQ.0 ) {
+                                 if ( INFO == 0 ) {
                                     DEN = MAX( EPS*( MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( WI*D1 ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 ) )* MAX( ABS( X( 1, 1 ) )+ABS( X( 2, 1 ) ), ABS( X( 1, 2 ) )+ABS( X( 2, 2 ) ) ) ), SMLNUM )
                                  } else {
                                     DEN = MAX( EPS*( MAX( SMIN / EPS, MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( WI*D1 ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 ) ) )* MAX( ABS( X( 1, 1 ) )+ABS( X( 2, 1 ) ), ABS( X( 1, 2 ) )+ABS( X( 2, 2 ) ) ) ), SMLNUM )

@@ -40,7 +40,7 @@
       // Test the input parameters.
 
       WANTZ = LSAME( JOBZ, 'V' )
-      LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
 
       INFO = 0
       if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
@@ -53,7 +53,7 @@
          INFO = -7
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( N.LE.1 ) {
             LIWMIN = 1
             LWMIN = 1
@@ -85,9 +85,9 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          W( 1 ) = AP( 1 )
          if (WANTZ) Z( 1, 1 ) = ONE;
          RETURN
@@ -113,7 +113,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      if ( ISCALE.EQ.1 ) {
+      if ( ISCALE == 1 ) {
          sscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
       }
 
@@ -139,7 +139,7 @@
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      if (ISCALE.EQ.1) CALL SSCAL( N, ONE / SIGMA, W, 1 );
+      if (ISCALE == 1) CALL SSCAL( N, ONE / SIGMA, W, 1 );
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
       IWORK( 1 ) = LIWMIN

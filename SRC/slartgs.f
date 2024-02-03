@@ -30,10 +30,10 @@
       // Compute the first column of B**T*B - SIGMA^2*I, up to a scale
       // factor.
 
-      if ( (SIGMA .EQ. ZERO .AND. ABS(X) .LT. THRESH) .OR. (ABS(X) .EQ. SIGMA .AND. Y .EQ. ZERO) ) {
+      if ( (SIGMA == ZERO .AND. ABS(X) .LT. THRESH) .OR. (ABS(X) == SIGMA .AND. Y == ZERO) ) {
          Z = ZERO
          W = ZERO
-      } else if ( SIGMA .EQ. ZERO ) {
+      } else if ( SIGMA == ZERO ) {
          if ( X .GE. ZERO ) {
             Z = X
             W = Y

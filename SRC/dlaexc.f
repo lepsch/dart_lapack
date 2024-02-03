@@ -45,13 +45,13 @@
 
       // Quick return if possible
 
-      if (N.EQ.0 .OR. N1.EQ.0 .OR. N2.EQ.0) RETURN       IF( J1+N1.GT.N ) RETURN;
+      if (N == 0 .OR. N1 == 0 .OR. N2 == 0) RETURN       IF( J1+N1.GT.N ) RETURN;
 
       J2 = J1 + 1
       J3 = J1 + 2
       J4 = J1 + 3
 
-      if ( N1.EQ.1 .AND. N2.EQ.1 ) {
+      if ( N1 == 1 .AND. N2 == 1 ) {
 
          // Swap two 1-by-1 blocks.
 
@@ -240,7 +240,7 @@
 
          } // 40
 
-         if ( N2.EQ.2 ) {
+         if ( N2 == 2 ) {
 
             // Standardize new 2-by-2 block T11
 
@@ -250,7 +250,7 @@
             if (WANTQ) CALL DROT( N, Q( 1, J1 ), 1, Q( 1, J2 ), 1, CS, SN );
          }
 
-         if ( N1.EQ.2 ) {
+         if ( N1 == 2 ) {
 
             // Standardize new 2-by-2 block T22
 

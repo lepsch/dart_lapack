@@ -82,12 +82,12 @@
 
       INFO = 0
       WORK( 1 ) = MAX( 1, N )
-      LQUERY = ( LWORK.EQ.-1 )
-      if ( ISCHUR.EQ.0 ) {
+      LQUERY = ( LWORK == -1 )
+      if ( ISCHUR == 0 ) {
          INFO = -1
-      } else if ( ICOMPQ.EQ.0 ) {
+      } else if ( ICOMPQ == 0 ) {
          INFO = -2
-      } else if ( ICOMPZ.EQ.0 ) {
+      } else if ( ICOMPZ == 0 ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
@@ -122,7 +122,7 @@
 
       // Initialize Q and Z
 
-      if (ICOMPQ.EQ.3) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
+      if (ICOMPQ == 3) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ == 3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
       // Machine Constants
 
@@ -200,7 +200,7 @@
             // 1: H(j,j-1)=0  or  j=ILO
             // 2: T(j,j)=0
 
-         if ( ILAST.EQ.ILO ) {
+         if ( ILAST == ILO ) {
 
             // Special case: j=ILAST
 
@@ -223,7 +223,7 @@
 
             // Test 1: for H(j,j-1)=0 or j=ILO
 
-            if ( J.EQ.ILO ) {
+            if ( J == ILO ) {
                ILAZRO = true;
             } else {
                if ( ABS( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS( H( J, J ) ) + ABS( H( J-1, J-1 ) ) ) ) ) {
@@ -381,7 +381,7 @@
          // T(IFIRST:ILAST,IFIRST,ILAST) are larger than BTOL (in
          // magnitude)
 
-         if ( ( IITER / 10 )*10.EQ.IITER ) {
+         if ( ( IITER / 10 )*10 == IITER ) {
 
             // Exceptional shift.  Chosen for no particularly good reason.
             // (Single shift only.)
@@ -510,7 +510,7 @@
                // a 2x2 block with real eigenvalues.
 
          } // 200
-         if ( IFIRST+1.EQ.ILAST ) {
+         if ( IFIRST+1 == ILAST ) {
 
             // Special case -- 2x2 block with complex eigenvectors
 
@@ -566,7 +566,7 @@
             // If standardization has perturbed the shift onto real line,
             // do another (real single-shift) QR step.
 
-            if (WI.EQ.ZERO) GO TO 350;
+            if (WI == ZERO) GO TO 350;
             S1INV = ONE / S1
 
             // Do EISPACK (QZVAL) computation of alpha and beta

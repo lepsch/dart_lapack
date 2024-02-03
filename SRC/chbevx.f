@@ -77,7 +77,7 @@
             }
          }
       }
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -18
       }
 
@@ -89,9 +89,9 @@
       // Quick return if possible
 
       M = 0
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          M = 1
          if ( LOWER ) {
             CTMP1 = AB( 1, 1 )
@@ -102,7 +102,7 @@
          if ( VALEIG ) {
             IF( .NOT.( VL.LT.TMP1 .AND. VU.GE.TMP1 ) ) M = 0
          }
-         if ( M.EQ.1 ) {
+         if ( M == 1 ) {
             W( 1 ) = REAL( CTMP1 )
             if (WANTZ) Z( 1, 1 ) = CONE;
          }
@@ -137,7 +137,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      if ( ISCALE.EQ.1 ) {
+      if ( ISCALE == 1 ) {
          if ( LOWER ) {
             clascl('B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          } else {
@@ -164,7 +164,7 @@
 
       TEST = false;
       if (INDEIG) {
-         if (IL.EQ.1 .AND. IU.EQ.N) {
+         if (IL == 1 .AND. IU == N) {
             TEST = true;
          }
       }
@@ -178,13 +178,13 @@
             clacpy('A', N, N, Q, LDQ, Z, LDZ );
             scopy(N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 );
             csteqr(JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO );
-            if ( INFO.EQ.0 ) {
+            if ( INFO == 0 ) {
                for (I = 1; I <= N; I++) { // 10
                   IFAIL( I ) = 0
                } // 10
             }
          }
-         if ( INFO.EQ.0 ) {
+         if ( INFO == 0 ) {
             M = N
             GO TO 30
          }
@@ -218,8 +218,8 @@
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
       } // 30
-      if ( ISCALE.EQ.1 ) {
-         if ( INFO.EQ.0 ) {
+      if ( ISCALE == 1 ) {
+         if ( INFO == 0 ) {
             IMAX = M
          } else {
             IMAX = INFO - 1

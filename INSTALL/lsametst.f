@@ -14,7 +14,7 @@
 
       I1 = ICHAR( 'A' )
       I2 = ICHAR( 'a' )
-      if ( I2-I1.EQ.32 ) {
+      if ( I2-I1 == 32 ) {
          WRITE( *, * ) ' ASCII String    set';
       } else {
          WRITE( *, * ) ' Non-ASCII String    set, IOFF should be ',I2-I1;

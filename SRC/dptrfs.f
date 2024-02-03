@@ -61,7 +61,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
+      if ( N == 0 .OR. NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
@@ -90,7 +90,7 @@
          // Compute residual R = B - A * X.  Also compute
          // abs(A)*abs(x) + abs(b) for use in the backward error bound.
 
-         if ( N.EQ.1 ) {
+         if ( N == 1 ) {
             BI = B( 1, J )
             DX = D( 1 )*X( 1, J )
             WORK( N+1 ) = BI - DX

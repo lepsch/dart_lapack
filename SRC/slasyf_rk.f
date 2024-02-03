@@ -98,11 +98,11 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
             scopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
 
@@ -180,10 +180,10 @@
 
                      DONE = true;
 
-                  // Equivalent to testing for ROWMAX.EQ.COLMAX,
+                  // Equivalent to testing for ROWMAX == COLMAX,
                   // (used to handle NaN and Inf)
 
-                  } else if ( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
+                  } else if ( ( P == JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
 
                      // interchange rows and columns K-1 and IMAX,
                      // use 2-by-2 pivot block
@@ -219,7 +219,7 @@
 
             KKW = NB + KK - N
 
-            if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
 
                // Copy non-updated column K to column P
 
@@ -250,7 +250,7 @@
                sswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column KW of W now holds
 
@@ -318,7 +318,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -P
@@ -399,11 +399,11 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
             scopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
 
@@ -479,10 +479,10 @@
 
                      DONE = true;
 
-                  // Equivalent to testing for ROWMAX.EQ.COLMAX,
+                  // Equivalent to testing for ROWMAX == COLMAX,
                   // (used to handle NaN and Inf)
 
-                  } else if ( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
+                  } else if ( ( P == JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
 
                      // interchange rows and columns K+1 and IMAX,
                      // use 2-by-2 pivot block
@@ -514,7 +514,7 @@
 
             KK = K + KSTEP - 1
 
-            if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
 
                // Copy non-updated column K to column P
 
@@ -544,7 +544,7 @@
                sswap(KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW );
             }
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k of W now holds
 
@@ -611,7 +611,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -P

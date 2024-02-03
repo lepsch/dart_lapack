@@ -53,7 +53,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Check that the diagonal matrix D is nonsingular.
 
@@ -63,7 +63,7 @@
 
          KP = N*( N+1 ) / 2
          DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO ) RETURN
+            IF( IPIV( INFO ).GT.0 .AND. AP( KP ) == ZERO ) RETURN
             KP = KP - INFO
          } // 10
       } else {
@@ -72,7 +72,7 @@
 
          KP = 1
          for (INFO = 1; INFO <= N; INFO++) { // 20
-            IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO ) RETURN
+            IF( IPIV( INFO ).GT.0 .AND. AP( KP ) == ZERO ) RETURN
             KP = KP + N - INFO + 1
          } // 20
       }
@@ -154,7 +154,7 @@
             TEMP = AP( KC+K-1 )
             AP( KC+K-1 ) = AP( KPC+KP-1 )
             AP( KPC+KP-1 ) = TEMP
-            if ( KSTEP.EQ.2 ) {
+            if ( KSTEP == 2 ) {
                TEMP = AP( KC+K+K-1 )
                AP( KC+K+K-1 ) = AP( KC+K+KP-1 )
                AP( KC+K+KP-1 ) = TEMP
@@ -246,7 +246,7 @@
             TEMP = AP( KC )
             AP( KC ) = AP( KPC )
             AP( KPC ) = TEMP
-            if ( KSTEP.EQ.2 ) {
+            if ( KSTEP == 2 ) {
                TEMP = AP( KC-N+K-1 )
                AP( KC-N+K-1 ) = AP( KC-N+KP-1 )
                AP( KC-N+KP-1 ) = TEMP

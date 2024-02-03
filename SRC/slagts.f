@@ -36,7 +36,7 @@
       // .. Executable Statements ..
 
       INFO = 0
-      if ( ( ABS( JOB ).GT.2 ) .OR. ( JOB.EQ.0 ) ) {
+      if ( ( ABS( JOB ).GT.2 ) .OR. ( JOB == 0 ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -46,7 +46,7 @@
          RETURN
       }
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       EPS = SLAMCH( 'Epsilon' )
       SFMIN = SLAMCH( 'Safe minimum' )
@@ -60,13 +60,13 @@
                TOL = MAX( TOL, ABS( A( K ) ), ABS( B( K-1 ) ), ABS( D( K-2 ) ) )
             } // 10
             TOL = TOL*EPS
-            if (TOL.EQ.ZERO) TOL = EPS;
+            if (TOL == ZERO) TOL = EPS;
          }
       }
 
-      if ( ABS( JOB ).EQ.1 ) {
+      if ( ABS( JOB ) == 1 ) {
          for (K = 2; K <= N; K++) { // 20
-            if ( IN( K-1 ).EQ.0 ) {
+            if ( IN( K-1 ) == 0 ) {
                Y( K ) = Y( K ) - C( K-1 )*Y( K-1 )
             } else {
                TEMP = Y( K-1 )
@@ -74,11 +74,11 @@
                Y( K ) = TEMP - C( K-1 )*Y( K )
             }
          } // 20
-         if ( JOB.EQ.1 ) {
+         if ( JOB == 1 ) {
             DO 30 K = N, 1, -1
                if ( K.LE.N-2 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 ) - D( K )*Y( K+2 )
-               } else if ( K.EQ.N-1 ) {
+               } else if ( K == N-1 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 )
                } else {
                   TEMP = Y( K )
@@ -87,7 +87,7 @@
                ABSAK = ABS( AK )
                if ( ABSAK.LT.ONE ) {
                   if ( ABSAK.LT.SFMIN ) {
-                     if ( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
+                     if ( ABSAK == ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         INFO = K
                         RETURN
                      } else {
@@ -105,7 +105,7 @@
             DO 50 K = N, 1, -1
                if ( K.LE.N-2 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 ) - D( K )*Y( K+2 )
-               } else if ( K.EQ.N-1 ) {
+               } else if ( K == N-1 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 )
                } else {
                   TEMP = Y( K )
@@ -116,7 +116,7 @@
                ABSAK = ABS( AK )
                if ( ABSAK.LT.ONE ) {
                   if ( ABSAK.LT.SFMIN ) {
-                     if ( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
+                     if ( ABSAK == ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         AK = AK + PERT
                         PERT = 2*PERT
                         GO TO 40
@@ -137,11 +137,11 @@
 
          // Come to here if  JOB = 2 or -2
 
-         if ( JOB.EQ.2 ) {
+         if ( JOB == 2 ) {
             for (K = 1; K <= N; K++) { // 60
                if ( K.GE.3 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 ) - D( K-2 )*Y( K-2 )
-               } else if ( K.EQ.2 ) {
+               } else if ( K == 2 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 )
                } else {
                   TEMP = Y( K )
@@ -150,7 +150,7 @@
                ABSAK = ABS( AK )
                if ( ABSAK.LT.ONE ) {
                   if ( ABSAK.LT.SFMIN ) {
-                     if ( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
+                     if ( ABSAK == ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         INFO = K
                         RETURN
                      } else {
@@ -168,7 +168,7 @@
             for (K = 1; K <= N; K++) { // 80
                if ( K.GE.3 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 ) - D( K-2 )*Y( K-2 )
-               } else if ( K.EQ.2 ) {
+               } else if ( K == 2 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 )
                } else {
                   TEMP = Y( K )
@@ -179,7 +179,7 @@
                ABSAK = ABS( AK )
                if ( ABSAK.LT.ONE ) {
                   if ( ABSAK.LT.SFMIN ) {
-                     if ( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
+                     if ( ABSAK == ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         AK = AK + PERT
                         PERT = 2*PERT
                         GO TO 70
@@ -198,7 +198,7 @@
          }
 
          DO 90 K = N, 2, -1
-            if ( IN( K-1 ).EQ.0 ) {
+            if ( IN( K-1 ) == 0 ) {
                Y( K-1 ) = Y( K-1 ) - C( K-1 )*Y( K )
             } else {
                TEMP = Y( K-1 )

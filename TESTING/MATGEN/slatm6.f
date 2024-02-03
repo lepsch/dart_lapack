@@ -38,7 +38,7 @@
       for (I = 1; I <= N; I++) { // 20
          for (J = 1; J <= N; J++) { // 10
 
-            if ( I.EQ.J ) {
+            if ( I == J ) {
                A( I, I ) = REAL( I ) + ALPHA
                B( I, I ) = ONE
             } else {
@@ -75,14 +75,14 @@
       B( 2, 4 ) = WX - WY
       B( 1, 5 ) = -WX + WY
       B( 2, 5 ) = WX + WY
-      if ( TYPE.EQ.1 ) {
+      if ( TYPE == 1 ) {
          A( 1, 3 ) = WX*A( 1, 1 ) + WY*A( 3, 3 )
          A( 2, 3 ) = -WX*A( 2, 2 ) + WY*A( 3, 3 )
          A( 1, 4 ) = WX*A( 1, 1 ) - WY*A( 4, 4 )
          A( 2, 4 ) = WX*A( 2, 2 ) - WY*A( 4, 4 )
          A( 1, 5 ) = -WX*A( 1, 1 ) + WY*A( 5, 5 )
          A( 2, 5 ) = WX*A( 2, 2 ) + WY*A( 5, 5 )
-      } else if ( TYPE.EQ.2 ) {
+      } else if ( TYPE == 2 ) {
          A( 1, 3 ) = TWO*WX + WY
          A( 2, 3 ) = WY
          A( 1, 4 ) = -WY*( TWO+ALPHA+BETA )
@@ -102,7 +102,7 @@
 
       // Compute condition numbers
 
-      if ( TYPE.EQ.1 ) {
+      if ( TYPE == 1 ) {
 
          S( 1 ) = ONE / SQRT( ( ONE+THREE*WY*WY ) / ( ONE+A( 1, 1 )*A( 1, 1 ) ) )          S( 2 ) = ONE / SQRT( ( ONE+THREE*WY*WY ) / ( ONE+A( 2, 2 )*A( 2, 2 ) ) )          S( 3 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) / ( ONE+A( 3, 3 )*A( 3, 3 ) ) )          S( 4 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) / ( ONE+A( 4, 4 )*A( 4, 4 ) ) )          S( 5 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) / ( ONE+A( 5, 5 )*A( 5, 5 ) ) )
 
@@ -114,7 +114,7 @@
          sgesvd('N', 'N', 8, 8, Z, 12, WORK, WORK( 9 ), 1, WORK( 10 ), 1, WORK( 11 ), 40, INFO );
          DIF( 5 ) = WORK( 8 )
 
-      } else if ( TYPE.EQ.2 ) {
+      } else if ( TYPE == 2 ) {
 
          S( 1 ) = ONE / SQRT( ONE / THREE+WY*WY )
          S( 2 ) = S( 1 )

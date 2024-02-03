@@ -59,11 +59,11 @@
       LSTICC = 0
       DONE = false;
 
-      DO WHILE ( K.LT.NB .AND. LSTICC.EQ.0 )
+      DO WHILE ( K.LT.NB .AND. LSTICC == 0 )
          K = K + 1
          I = IOFFSET + K
 
-         if ( I.EQ.1 ) {
+         if ( I == 1 ) {
 
             // We are at the first column of the original whole matrix A_orig,
             // therefore we use the computed KP1 and MAXC2NRM from the
@@ -146,7 +146,7 @@
             // for the whole original matrix A_orig is checked in the main
             // routine.
 
-            if ( MAXC2NRMK.EQ.ZERO ) {
+            if ( MAXC2NRMK == ZERO ) {
 
                DONE = true;
 
@@ -204,7 +204,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            if ( INFO.EQ.0 .AND. MAXC2NRMK.GT.HUGEVAL ) {
+            if ( INFO == 0 .AND. MAXC2NRMK.GT.HUGEVAL ) {
                INFO = N + K - 1 + KP
             }
 
@@ -269,7 +269,7 @@
 
             // ============================================================
 
-            // End ELSE of IF(I.EQ.1)
+            // End ELSE of IF(I == 1)
 
          }
 

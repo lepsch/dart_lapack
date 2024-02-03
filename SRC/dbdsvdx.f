@@ -74,7 +74,7 @@
             }
          }
       }
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N*2 ) ) INFO = -14
       }
 
@@ -86,9 +86,9 @@
       // Quick return if possible (N.LE.1)
 
       NS = 0
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          if ( ALLSV .OR. INDSV ) {
             NS = 1
             S( 1 ) = ABS( D( 1 ) )
@@ -133,7 +133,7 @@
          for (I = 2; I <= N; I++) {
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) )
             SMIN = MIN( SMIN, MU )
-            if (SMIN.EQ.ZERO) EXIT;
+            if (SMIN == ZERO) EXIT;
          }
       }
       SMIN = SMIN / SQRT( DBLE( N ) )
@@ -186,7 +186,7 @@
          dcopy(N, D, 1, WORK( IETGK ), 2 );
          dcopy(N-1, E, 1, WORK( IETGK+1 ), 2 );
          dstevx('N', 'V', N*2, WORK( IDTGK ), WORK( IETGK ), VLTGK, VUTGK, ILTGK, ILTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO );
-         if ( NS.EQ.0 ) {
+         if ( NS == 0 ) {
             RETURN
          } else {
             if (WANTZ) CALL DLASET( 'F', N*2, NS, ZERO, ZERO, Z, LDZ );
@@ -218,7 +218,7 @@
          // If VLTGK=VUTGK, DSTEVX returns an error message,
          // so if needed we change VUTGK slightly.
 
-         if (VLTGK.EQ.VUTGK) VLTGK = VLTGK - TOL;
+         if (VLTGK == VUTGK) VLTGK = VLTGK - TOL;
 
          if (WANTZ) CALL DLASET( 'F', N*2, IU-IL+1, ZERO, ZERO, Z, LDZ);
       }
@@ -255,7 +255,7 @@
       // in E and inner level in D.
 
       DO IEPTR = 2, N*2, 2
-         if ( WORK( IETGK+IEPTR-1 ).EQ.ZERO ) {
+         if ( WORK( IETGK+IEPTR-1 ) == ZERO ) {
 
             // Split in E (this piece of B is square) or bottom
             // of the (input bidiagonal) matrix.
@@ -263,21 +263,21 @@
             ISPLT = IDBEG
             IDEND = IEPTR - 1
             DO IDPTR = IDBEG, IDEND, 2
-               if ( WORK( IETGK+IDPTR-1 ).EQ.ZERO ) {
+               if ( WORK( IETGK+IDPTR-1 ) == ZERO ) {
 
                   // Split in D (rectangular submatrix). Set the number
                   // of rows in U and V (NRU and NRV) accordingly.
 
-                  if ( IDPTR.EQ.IDBEG ) {
+                  if ( IDPTR == IDBEG ) {
 
                      // D=0 at the top.
 
                      SVEQ0 = true;
-                     if ( IDBEG.EQ.IDEND) {
+                     if ( IDBEG == IDEND) {
                         NRU = 1
                         NRV = 1
                      }
-                  } else if ( IDPTR.EQ.IDEND ) {
+                  } else if ( IDPTR == IDEND ) {
 
                      // D=0 at the bottom.
 
@@ -288,7 +288,7 @@
                         NRU = NRU + 1
                      }
                   } else {
-                     if ( ISPLT.EQ.IDBEG ) {
+                     if ( ISPLT == IDBEG ) {
 
                         // Split: top rectangular submatrix.
 
@@ -302,11 +302,11 @@
                         NRV = NRU
                      }
                   }
-               } else if ( IDPTR.EQ.IDEND ) {
+               } else if ( IDPTR == IDEND ) {
 
                   // Last entry of D in the active submatrix.
 
-                  if ( ISPLT.EQ.IDBEG ) {
+                  if ( ISPLT == IDBEG ) {
 
                      // No split (trivial case).
 
@@ -333,7 +333,7 @@
 
                   ILTGK = 1
                   IUTGK = NTGK / 2
-                  if ( ALLSV .OR. VUTGK.EQ.ZERO ) {
+                  if ( ALLSV .OR. VUTGK == ZERO ) {
                      if ( SVEQ0 .OR. SMIN.LT.EPS .OR. MOD(NTGK,2).GT.0 ) {
                          // Special case: eigenvalue equal to zero or very
                          // small, additional eigenvector is needed.
@@ -362,7 +362,7 @@
                      // those norms and, if needed, reorthogonalize the
                      // vectors.
 
-                     if ( NSL.GT.1 .AND. VUTGK.EQ.ZERO .AND. MOD(NTGK,2).EQ.0 .AND. EMIN.EQ.0 .AND. .NOT.SPLIT ) {
+                     if ( NSL.GT.1 .AND. VUTGK == ZERO .AND. MOD(NTGK,2) == 0 .AND. EMIN == 0 .AND. .NOT.SPLIT ) {
 
                         // D=0 at the top or bottom of the active submatrix:
                         // one eigenvalue is equal to zero; concatenate the
@@ -379,7 +379,7 @@
 
                      DO I = 0, MIN( NSL-1, NRU-1 )
                         NRMU = DNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 )
-                        if ( NRMU.EQ.ZERO ) {
+                        if ( NRMU == ZERO ) {
                            INFO = N*2 + 1
                            RETURN
                         }
@@ -394,7 +394,7 @@
                      }
                      DO I = 0, MIN( NSL-1, NRV-1 )
                         NRMV = DNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 )
-                        if ( NRMV.EQ.ZERO ) {
+                        if ( NRMV == ZERO ) {
                            INFO = N*2 + 1
                            RETURN
                         }
@@ -407,7 +407,7 @@
                            dscal(NRV, ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 );
                         }
                      }
-                     if ( VUTGK.EQ.ZERO .AND. IDPTR.LT.IDEND .AND. MOD(NTGK,2).GT.0 ) {
+                     if ( VUTGK == ZERO .AND. IDPTR.LT.IDEND .AND. MOD(NTGK,2).GT.0 ) {
 
                         // D=0 in the middle of the active submatrix (one
                         // eigenvalue is equal to zero): save the corresponding

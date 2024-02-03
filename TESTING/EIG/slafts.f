@@ -24,7 +24,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( M.EQ.N ) {
+      if ( M == N ) {
 
       // Output for square matrices:
 
@@ -34,7 +34,7 @@
             // If this is the first test to fail, call SLAHD2
             // to print a header to the data file.
 
-               if (IE.EQ.0) CALL SLAHD2( IOUNIT, TYPE );
+               if (IE == 0) CALL SLAHD2( IOUNIT, TYPE );
                IE = IE + 1
                if ( RESULT( K ).LT.10000.0 ) {
                   WRITE( IOUNIT, FMT = 9999 )N, IMAT, ISEED, K, RESULT( K )
@@ -55,7 +55,7 @@
                // If this is the first test to fail, call SLAHD2
                // to print a header to the data file.
 
-               if (IE.EQ.0) CALL SLAHD2( IOUNIT, TYPE );
+               if (IE == 0) CALL SLAHD2( IOUNIT, TYPE );
                IE = IE + 1
                if ( RESULT( K ).LT.10000.0 ) {
                   WRITE( IOUNIT, FMT = 9997 )M, N, IMAT, ISEED, K, RESULT( K )

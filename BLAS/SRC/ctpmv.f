@@ -45,7 +45,7 @@
           INFO = 3
       } else if (N.LT.0) {
           INFO = 4
-      } else if (INCX.EQ.0) {
+      } else if (INCX == 0) {
           INFO = 7
       }
       if (INFO.NE.0) {
@@ -55,7 +55,7 @@
 
       // Quick return if possible.
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       NOCONJ = LSAME(TRANS,'T')
       NOUNIT = LSAME(DIAG,'N')
@@ -78,7 +78,7 @@
 
           if (LSAME(UPLO,'U')) {
               KK = 1
-              if (INCX.EQ.1) {
+              if (INCX == 1) {
                   for (J = 1; J <= N; J++) { // 20
                       if (X(J).NE.ZERO) {
                           TEMP = X(J)
@@ -109,7 +109,7 @@
               }
           } else {
               KK = (N* (N+1))/2
-              if (INCX.EQ.1) {
+              if (INCX == 1) {
                   DO 60 J = N,1,-1
                       if (X(J).NE.ZERO) {
                           TEMP = X(J)
@@ -146,7 +146,7 @@
 
           if (LSAME(UPLO,'U')) {
               KK = (N* (N+1))/2
-              if (INCX.EQ.1) {
+              if (INCX == 1) {
                   DO 110 J = N,1,-1
                       TEMP = X(J)
                       K = KK - 1
@@ -191,7 +191,7 @@
               }
           } else {
               KK = 1
-              if (INCX.EQ.1) {
+              if (INCX == 1) {
                   for (J = 1; J <= N; J++) { // 170
                       TEMP = X(J)
                       K = KK + 1

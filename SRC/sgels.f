@@ -44,7 +44,7 @@
 
       INFO = 0
       MN = MIN( M, N )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.( LSAME( TRANS, 'N' ) .OR. LSAME( TRANS, 'T' ) ) ) {
          INFO = -1
       } else if ( M.LT.0 ) {
@@ -63,7 +63,7 @@
 
       // Figure out optimal block size
 
-      if ( INFO.EQ.0 .OR. INFO.EQ.-10 ) {
+      if ( INFO == 0 .OR. INFO == -10 ) {
 
          TPSD = true;
          IF( LSAME( TRANS, 'N' ) ) TPSD = false;
@@ -98,7 +98,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N, NRHS ).EQ.0 ) {
+      if ( MIN( M, N, NRHS ) == 0 ) {
          slaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
          RETURN
       }
@@ -124,7 +124,7 @@
 
          slascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
-      } else if ( ANRM.EQ.ZERO ) {
+      } else if ( ANRM == ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
@@ -270,14 +270,14 @@
 
       // Undo scaling
 
-      if ( IASCL.EQ.1 ) {
+      if ( IASCL == 1 ) {
          slascl('G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO );
-      } else if ( IASCL.EQ.2 ) {
+      } else if ( IASCL == 2 ) {
          slascl('G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO );
       }
-      if ( IBSCL.EQ.1 ) {
+      if ( IBSCL == 1 ) {
          slascl('G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
-      } else if ( IBSCL.EQ.2 ) {
+      } else if ( IBSCL == 2 ) {
          slascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       }
 

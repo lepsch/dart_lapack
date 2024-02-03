@@ -38,7 +38,7 @@
       WANTU = LSAME( JOBU, 'U' )
       WANTV = LSAME( JOBV, 'V' )
       WANTQ = LSAME( JOBQ, 'Q' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       LWKOPT = 1
 
       // Test the input arguments
@@ -72,7 +72,7 @@
 
       // Compute workspace
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          dggsvp3(JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK, -1, INFO );
          LWKOPT = N + INT( WORK( 1 ) )
          LWKOPT = MAX( 2*N, LWKOPT )

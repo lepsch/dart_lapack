@@ -59,7 +59,7 @@
           // > for the rest of the columns, J1 is 2, and J1+J-1 is J+1,
 
          K = J1+J-1
-         if ( J.EQ.M ) {
+         if ( J == M ) {
 
              // Only need to compute T(J, J)
 
@@ -203,7 +203,7 @@
           // > for the rest of the columns, J1 is 2, and J1+J-1 is J+1,
 
          K = J1+J-1
-         if ( J.EQ.M ) {
+         if ( J == M ) {
 
              // Only need to compute T(J, J)
 

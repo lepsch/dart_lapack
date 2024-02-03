@@ -41,7 +41,7 @@
          RETURN
       }
 
-      if ( M.EQ.1 ) {
+      if ( M == 1 ) {
 
          // Compute Householder transform when M=1
 

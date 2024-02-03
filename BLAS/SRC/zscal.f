@@ -21,8 +21,8 @@
       COMPLEX*16 ONE
       const     ONE= (1.0D+0,0.0D+0);
       // ..
-      if (N.LE.0 .OR. INCX.LE.0 .OR. ZA.EQ.ONE) RETURN;
-      if (INCX.EQ.1) {
+      if (N.LE.0 .OR. INCX.LE.0 .OR. ZA == ONE) RETURN;
+      if (INCX == 1) {
 
          // code for increment equal to 1
 

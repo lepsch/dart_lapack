@@ -50,7 +50,7 @@
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
 
-      LQUERY = ( ( LWORK.EQ.-1 ) .OR. ( LIWORK.EQ.-1 ) )
+      LQUERY = ( ( LWORK == -1 ) .OR. ( LIWORK == -1 ) )
 
       if ( N.LE.1 ) {
          LWMIN  = 1
@@ -82,7 +82,7 @@
             }
          }
       }
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
             INFO = -15
          } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
@@ -92,7 +92,7 @@
          }
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 )
          NB = MAX( NB, ILAENV( 1, 'DORMTR', UPLO, N, -1, -1, -1 ) )
          LWKOPT = MAX( ( NB+1 )*N, LWMIN )
@@ -110,12 +110,12 @@
       // Quick return if possible
 
       M = 0
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          WORK( 1 ) = 1
          if ( ALLEIG .OR. INDEIG ) {
             M = 1
@@ -159,7 +159,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      if ( ISCALE.EQ.1 ) {
+      if ( ISCALE == 1 ) {
          if ( LOWER ) {
             for (J = 1; J <= N; J++) { // 10
                dscal(N-J+1, SIGMA, A( J, J ), 1 );
@@ -220,7 +220,7 @@
       // If all eigenvalues are desired
       // then call DSTERF or DSTEMR and DORMTR.
 
-      if ( ( ALLEIG .OR. ( INDEIG .AND. IL.EQ.1 .AND. IU.EQ.N ) ) .AND. IEEEOK.EQ.1 ) {
+      if ( ( ALLEIG .OR. ( INDEIG .AND. IL == 1 .AND. IU == N ) ) .AND. IEEEOK == 1 ) {
          if ( .NOT.WANTZ ) {
             dcopy(N, WORK( INDD ), 1, W, 1 );
             dcopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
@@ -241,7 +241,7 @@
          // Apply orthogonal matrix used in reduction to tridiagonal
          // form to eigenvectors returned by DSTEMR.
 
-            if ( WANTZ .AND. INFO.EQ.0 ) {
+            if ( WANTZ .AND. INFO == 0 ) {
                INDWKN = INDE
                LLWRKN = LWORK - INDWKN + 1
                dormtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );
@@ -249,7 +249,7 @@
          }
 
 
-         if ( INFO.EQ.0 ) {
+         if ( INFO == 0 ) {
             // Everything worked.  Skip DSTEBZ/DSTEIN.  IWORK(:) are
             // undefined.
             M = N
@@ -283,8 +283,8 @@
 
 *  Jump here if DSTEMR/DSTEIN succeeded.
       } // 30
-      if ( ISCALE.EQ.1 ) {
-         if ( INFO.EQ.0 ) {
+      if ( ISCALE == 1 ) {
+         if ( INFO == 0 ) {
             IMAX = M
          } else {
             IMAX = INFO - 1

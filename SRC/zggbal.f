@@ -67,13 +67,13 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          ILO = 1
          IHI = N
          RETURN
       }
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          ILO = 1
          IHI = N
          LSCALE( 1 ) = ONE
@@ -161,7 +161,7 @@
 
       } // 160
       LSCALE( M ) = I
-      if (I.EQ.M) GO TO 170;
+      if (I == M) GO TO 170;
       zswap(N-K+1, A( I, K ), LDA, A( M, K ), LDA );
       zswap(N-K+1, B( I, K ), LDB, B( M, K ), LDB );
 
@@ -169,7 +169,7 @@
 
       } // 170
       RSCALE( M ) = J
-      if (J.EQ.M) GO TO 180;
+      if (J == M) GO TO 180;
       zswap(L, A( 1, J ), 1, A( 1, M ), 1 );
       zswap(L, B( 1, J ), 1, B( 1, M ), 1 );
 
@@ -188,7 +188,7 @@
          RETURN
       }
 
-      if (ILO.EQ.IHI) RETURN;
+      if (ILO == IHI) RETURN;
 
       // Balance the submatrix in rows ILO to IHI.
 
@@ -210,14 +210,14 @@
       BASL = LOG10( SCLFAC )
       for (I = ILO; I <= IHI; I++) { // 240
          for (J = ILO; J <= IHI; J++) { // 230
-            if ( A( I, J ).EQ.CZERO ) {
+            if ( A( I, J ) == CZERO ) {
                TA = ZERO
                GO TO 210
             }
             TA = LOG10( CABS1( A( I, J ) ) ) / BASL
 
             } // 210
-            if ( B( I, J ).EQ.CZERO ) {
+            if ( B( I, J ) == CZERO ) {
                TB = ZERO
                GO TO 220
             }
@@ -250,7 +250,7 @@
       } // 260
 
       GAMMA = COEF*GAMMA - COEF2*( EW**2+EWC**2 ) - COEF5*( EW-EWC )**2
-      if (GAMMA.EQ.ZERO) GO TO 350       IF( IT.NE.1 ) BETA = GAMMA / PGAMMA;
+      if (GAMMA == ZERO) GO TO 350       IF( IT.NE.1 ) BETA = GAMMA / PGAMMA;
       T = COEF5*( EWC-THREE*EW )
       TC = COEF5*( EW-THREE*EWC )
 
@@ -271,11 +271,11 @@
          KOUNT = 0
          SUM = ZERO
          for (J = ILO; J <= IHI; J++) { // 290
-            IF( A( I, J ).EQ.CZERO ) GO TO 280
+            IF( A( I, J ) == CZERO ) GO TO 280
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( J )
             } // 280
-            IF( B( I, J ).EQ.CZERO ) GO TO 290
+            IF( B( I, J ) == CZERO ) GO TO 290
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( J )
          } // 290
@@ -286,11 +286,11 @@
          KOUNT = 0
          SUM = ZERO
          for (I = ILO; I <= IHI; I++) { // 320
-            IF( A( I, J ).EQ.CZERO ) GO TO 310
+            IF( A( I, J ) == CZERO ) GO TO 310
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( I+N )
             } // 310
-            IF( B( I, J ).EQ.CZERO ) GO TO 320
+            IF( B( I, J ) == CZERO ) GO TO 320
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( I+N )
          } // 320

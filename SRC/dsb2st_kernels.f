@@ -62,7 +62,7 @@
               TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
           }
 
-          if ( TTYPE.EQ.1 ) {
+          if ( TTYPE == 1 ) {
               LM = ED - ST + 1
 
               V( VPOS ) = ONE
@@ -78,13 +78,13 @@
               dlarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
           }
 
-          if ( TTYPE.EQ.3 ) {
+          if ( TTYPE == 3 ) {
 
               LM = ED - ST + 1
               dlarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
           }
 
-          if ( TTYPE.EQ.2 ) {
+          if ( TTYPE == 2 ) {
               J1 = ED+1
               J2 = MIN( ED+NB, N )
               LN = ED-ST+1
@@ -125,7 +125,7 @@
               TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
           }
 
-          if ( TTYPE.EQ.1 ) {
+          if ( TTYPE == 1 ) {
               LM = ED - ST + 1
 
               V( VPOS ) = ONE
@@ -141,14 +141,14 @@
 
           }
 
-          if ( TTYPE.EQ.3 ) {
+          if ( TTYPE == 3 ) {
               LM = ED - ST + 1
 
               dlarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
 
           }
 
-          if ( TTYPE.EQ.2 ) {
+          if ( TTYPE == 2 ) {
               J1 = ED+1
               J2 = MIN( ED+NB, N )
               LN = ED-ST+1

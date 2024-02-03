@@ -132,25 +132,25 @@ void main() {
             for (I = 1; I <= LEN; I++) { // 20
                CX(I) = CV(I,NP1,INCX)
             } // 20
-            if (ICASE.EQ.6) {
+            if (ICASE == 6) {
                // .. SCNRM2 ..
                // Test scaling when some entries are tiny or huge
                cb1nrm2(N,(INCX-2)*2,THRESH);
                cb1nrm2(N,INCX,THRESH);
                // Test with hardcoded mid range entries
                stest1(SCNRM2(N,CX,INCX),STRUE2(NP1),STRUE2(NP1), SFAC);
-            } else if (ICASE.EQ.7) {
+            } else if (ICASE == 7) {
                // .. SCASUM ..
                stest1(SCASUM(N,CX,INCX),STRUE4(NP1),STRUE4(NP1), SFAC);
-            } else if (ICASE.EQ.8) {
+            } else if (ICASE == 8) {
                // .. CSCAL ..
                cscal(N,CA,CX,INCX);
                ctest(LEN,CX,CTRUE5(1,NP1,INCX),CTRUE5(1,NP1,INCX), SFAC);
-            } else if (ICASE.EQ.9) {
+            } else if (ICASE == 9) {
                // .. CSSCAL ..
                csscal(N,SA,CX,INCX);
                ctest(LEN,CX,CTRUE6(1,NP1,INCX),CTRUE6(1,NP1,INCX), SFAC);
-            } else if (ICASE.EQ.10) {
+            } else if (ICASE == 10) {
                // .. ICAMAX ..
                itest1(ICAMAX(N,CX,INCX),ITRUE3(NP1));
                for (I = 1; I <= LEN; I++) { // 160
@@ -163,7 +163,7 @@ void main() {
             }
 
          } // 40
-         if (ICASE.EQ.10) {
+         if (ICASE == 10) {
             N = 8
             IX = 1
             for (I = 1; I <= N; I++) { // 180
@@ -175,7 +175,7 @@ void main() {
       } // 60
 
       INCX = 1
-      if (ICASE.EQ.8) {
+      if (ICASE == 8) {
          // CSCAL
          // Add a test for alpha equal to zero.
          CA = (0.0E0,0.0E0)
@@ -185,7 +185,7 @@ void main() {
          } // 80
          cscal(5,CA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
-      } else if (ICASE.EQ.9) {
+      } else if (ICASE == 9) {
          // CSSCAL
          // Add a test for alpha equal to zero.
          SA = 0.0E0
@@ -283,26 +283,26 @@ void main() {
                CX(I) = CX1(I)
                CY(I) = CY1(I)
             } // 20
-            if (ICASE.EQ.1) {
+            if (ICASE == 1) {
                // .. CDOTC ..
                CDOT(1) = CDOTC(N,CX,INCX,CY,INCY)
                ctest(1,CDOT,CT6(KN,KI),CSIZE1(KN),SFAC);
-            } else if (ICASE.EQ.2) {
+            } else if (ICASE == 2) {
                // .. CDOTU ..
                CDOT(1) = CDOTU(N,CX,INCX,CY,INCY)
                ctest(1,CDOT,CT7(KN,KI),CSIZE1(KN),SFAC);
-            } else if (ICASE.EQ.3) {
+            } else if (ICASE == 3) {
                // .. CAXPY ..
                caxpy(N,CA,CX,INCX,CY,INCY);
                ctest(LENY,CY,CT8(1,KN,KI),CSIZE2(1,KSIZE),SFAC);
-            } else if (ICASE.EQ.4) {
+            } else if (ICASE == 4) {
                // .. CCOPY ..
                ccopy(N,CX,INCX,CY,INCY);
                ctest(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0E0);
-               if (KI.EQ.1) {
+               if (KI == 1) {
                   CX0(1) = (42.0E0,43.0E0)
                   CY0(1) = (44.0E0,45.0E0)
-                  if (N.EQ.0) {
+                  if (N == 0) {
                      CTY0(1) = CY0(1)
                   } else {
                      CTY0(1) = CX0(1)
@@ -316,7 +316,7 @@ void main() {
                   INCX = LINCX
                   INCY = LINCY
                }
-            } else if (ICASE.EQ.5) {
+            } else if (ICASE == 5) {
                // .. CSWAP ..
                cswap(N,CX,INCX,CY,INCY);
                ctest(LENX,CX,CT10X(1,KN,KI),CSIZE3,1.0E0);
@@ -483,7 +483,7 @@ void main() {
       // .. Common blocks ..
       // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
-      if (ICOMP.EQ.ITRUE) GO TO 40;
+      if (ICOMP == ITRUE) GO TO 40;
 
                              // HERE ICOMP IS NOT EQUAL TO ITRUE.
 
@@ -652,7 +652,7 @@ void main() {
             // Compare SNRM and ZNRM.  Roundoff error grows like O(n)
             // in this implementation so we scale the test ratio accordingly.
 
-            if (INCX.EQ.0) {
+            if (INCX == 0) {
                Y1 = ABS(REAL(X(1)))
                Y2 = ABS(AIMAG(X(1)))
                YMIN = MIN(Y1, Y2)
@@ -710,11 +710,11 @@ void main() {
       // .. Executable Statements ..
       Y = HUGE(XX)
       Z = YY
-      if (K.EQ.1) {
+      if (K == 1) {
          X = -Z
-      } else if (K.EQ.2) {
+      } else if (K == 2) {
          X = Z
-      } else if (K.EQ.3) {
+      } else if (K == 3) {
          X = Z / Z
       }
       SXVALS = X

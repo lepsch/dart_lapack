@@ -36,11 +36,11 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       // Determine the block size
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          LWKOPT = 1
       } else {
          NB = MAX( 1, ILAENV( 1, 'DSYTRI_3', UPLO, N, -1, -1, -1 ) )
@@ -67,7 +67,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       dsytri_3x(UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO );
 

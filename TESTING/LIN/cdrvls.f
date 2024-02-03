@@ -91,7 +91,7 @@
 
       // Print the header if NM = 0 or NN = 0 and THRESH = 0.
 
-      IF( ( NM.EQ.0 .OR. NN.EQ.0 ) .AND. THRESH.EQ.ZERO ) CALL ALAHD( NOUT, PATH )
+      IF( ( NM == 0 .OR. NN == 0 ) .AND. THRESH == ZERO ) CALL ALAHD( NOUT, PATH )
       INFOT = 0
 
       // Compute maximal workspace needed for all routines
@@ -143,9 +143,9 @@
                   for (ISCALE = 1; ISCALE <= 3; ISCALE++) {
                      ITYPE = ( IRANK-1 )*3 + ISCALE
                      if ( DOTYPE( ITYPE ) ) {
-                        if ( IRANK.EQ.1 ) {
+                        if ( IRANK == 1 ) {
                            for (ITRAN = 1; ITRAN <= 2; ITRAN++) {
-                              if ( ITRAN.EQ.1 ) {
+                              if ( ITRAN == 1 ) {
                                  TRANS = 'N'
                               } else {
                                  TRANS = 'C'
@@ -214,7 +214,7 @@
                   // =====================================================
                         // Begin test CGELS
                   // =====================================================
-                     if ( IRANK.EQ.1 ) {
+                     if ( IRANK == 1 ) {
 
                         // Generate a matrix of scaling type ISCALE
 
@@ -230,7 +230,7 @@
                            // Loop for testing non-transposed and transposed.
 
                            for (ITRAN = 1; ITRAN <= 2; ITRAN++) {
-                              if ( ITRAN.EQ.1 ) {
+                              if ( ITRAN == 1 ) {
                                  TRANS = 'N'
                                  NROWS = M
                                  NCOLS = N
@@ -272,7 +272,7 @@
                               // Test 2: Check correctness of results
                               // for CGELS.
 
-                              if ( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) {
+                              if ( ( ITRAN == 1 .AND. M.GE.N ) .OR. ( ITRAN == 2 .AND. M.LT.N ) ) {
 
                                  // Solving LS system
 
@@ -289,7 +289,7 @@
 
                               for (K = 1; K <= 2; K++) {
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
+                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               }
@@ -303,7 +303,7 @@
                   // =====================================================
                         // Begin test CGELST
                   // =====================================================
-                     if ( IRANK.EQ.1 ) {
+                     if ( IRANK == 1 ) {
 
                         // Generate a matrix of scaling type ISCALE
 
@@ -319,7 +319,7 @@
                            // Loop for testing non-transposed and transposed.
 
                            for (ITRAN = 1; ITRAN <= 2; ITRAN++) {
-                              if ( ITRAN.EQ.1 ) {
+                              if ( ITRAN == 1 ) {
                                  TRANS = 'N'
                                  NROWS = M
                                  NCOLS = N
@@ -361,7 +361,7 @@
                               // Test 4: Check correctness of results
                               // for CGELST.
 
-                              if ( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) {
+                              if ( ( ITRAN == 1 .AND. M.GE.N ) .OR. ( ITRAN == 2 .AND. M.LT.N ) ) {
 
                                  // Solving LS system
 
@@ -378,7 +378,7 @@
 
                               for (K = 3; K <= 4; K++) {
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
+                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               }
@@ -392,7 +392,7 @@
                   // =====================================================
                         // Begin test CGELSTSLS
                   // =====================================================
-                     if ( IRANK.EQ.1 ) {
+                     if ( IRANK == 1 ) {
 
                         // Generate a matrix of scaling type ISCALE
 
@@ -414,7 +414,7 @@
                               // and transposed.
 
                               for (ITRAN = 1; ITRAN <= 2; ITRAN++) {
-                                 if ( ITRAN.EQ.1 ) {
+                                 if ( ITRAN == 1 ) {
                                     TRANS = 'N'
                                     NROWS = M
                                     NCOLS = N
@@ -454,7 +454,7 @@
                               // Test 6: Check correctness of results
                               // for CGETSLS.
 
-                                 if ( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) {
+                                 if ( ( ITRAN == 1 .AND. M.GE.N ) .OR. ( ITRAN == 2 .AND. M.LT.N ) ) {
 
                                     // Solving LS system, compute:
                                     // r = norm((B- A*X)**T * A) /
@@ -473,7 +473,7 @@
 
                                  for (K = 5; K <= 6; K++) {
                                     if ( RESULT( K ).GE.THRESH ) {
-                                       if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
+                                       if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
                                           NFAIL = NFAIL + 1
                                     }
                                  }
@@ -630,7 +630,7 @@
 
                         for (K = 7; K <= 18; K++) { // 80
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
+                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 80

@@ -94,7 +94,7 @@
         // following subroutine, as returned by ILAENV.
 
       MINWRK = 1
-      if ( INFO.EQ.0 .AND. LWORK.GE.1 ) {
+      if ( INFO == 0 .AND. LWORK.GE.1 ) {
          MINWRK = MAX( 1, 8*NMAX, NMAX*( NMAX+1 ) )
          MAXWRK = 7*NMAX + NMAX*ILAENV( 1, 'SGEQRF', ' ', NMAX, 1, NMAX, 0 )
          MAXWRK = MAX( MAXWRK, NMAX*( NMAX+1 ) )
@@ -110,7 +110,7 @@
 
       // Quick return if possible
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       SAFMIN = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
@@ -180,7 +180,7 @@
 
                // Generate A (w/o rotation)
 
-               if ( ABS( KATYPE( JTYPE ) ).EQ.3 ) {
+               if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   if (IN.NE.N) CALL SLASET( 'Full', N, N, ZERO, ZERO, A, LDA );
                } else {
@@ -192,7 +192,7 @@
 
                // Generate B (w/o rotation)
 
-               if ( ABS( KBTYPE( JTYPE ) ).EQ.3 ) {
+               if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   if (IN.NE.N) CALL SLASET( 'Full', N, N, ZERO, ZERO, B, LDA );
                } else {
@@ -202,7 +202,7 @@
                IADD = KADD( KBZERO( JTYPE ) )
                if (IADD.NE.0 .AND. IADD.LE.N) B( IADD, IADD ) = ONE;
 
-               if ( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) {
+               if ( KCLASS( JTYPE ) == 2 .AND. N.GT.0 ) {
 
                   // Include rotations
 
@@ -367,7 +367,7 @@
                   // If this is the first test to fail,
                   // print a header to the data file.
 
-                  if ( NERRS.EQ.0 ) {
+                  if ( NERRS == 0 ) {
                      WRITE( NOUNIT, FMT = 9997 )'SGV'
 
                      // Matrix types

@@ -60,9 +60,9 @@
 
       // Quick return if possible
 
-      IF( MIN( M, N ).EQ.0 ) RETURN
+      IF( MIN( M, N ) == 0 ) RETURN
 
-      if ( M.EQ.1 ) {
+      if ( M == 1 ) {
 
          // One row case, (also recursion termination case),
          // use unblocked code
@@ -75,7 +75,7 @@
 
          A( 1, 1 ) = A( 1, 1 ) - D( 1 )
 
-      } else if ( N.EQ.1 ) {
+      } else if ( N == 1 ) {
 
          // One column case, (also recursion termination case),
          // use unblocked code

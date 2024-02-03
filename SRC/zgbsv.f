@@ -46,7 +46,7 @@
       // Compute the LU factorization of the band matrix A.
 
       zgbtrf(N, N, KL, KU, AB, LDAB, IPIV, INFO );
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 

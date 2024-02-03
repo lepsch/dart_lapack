@@ -59,7 +59,7 @@
 
       // Quick return if possible
 
-      if (M.EQ.0 .OR. N.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0) RETURN;
 
       // Gaussian elimination with partial pivoting
 
@@ -114,7 +114,7 @@
             // If pivot is zero, set INFO to the index of the pivot
             // unless a zero pivot has already been found.
 
-            if (INFO.EQ.0) INFO = J;
+            if (INFO == 0) INFO = J;
          }
       } // 40
       RETURN

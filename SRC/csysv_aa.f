@@ -36,7 +36,7 @@
       // Test the input parameters.
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -51,7 +51,7 @@
          INFO = -10
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          csytrf_aa(UPLO, N, A, LDA, IPIV, WORK, -1, INFO );
          LWKOPT_SYTRF = INT( WORK(1) )
          csytrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO );
@@ -70,7 +70,7 @@
       // Compute the factorization A = U**T*T*U or A = L*T*L**T.
 
       csytrf_aa(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 

@@ -366,7 +366,7 @@
                      SVA( p ) = AAPP
 
                   } else {
-                     if (AAPP.EQ.ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
+                     if (AAPP == ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
                      if (AAPP.LT.ZERO) NOTROT = 0;
 ***      IF ( NOTROT .GE. EMPTSW )  GO TO 2011
                   }

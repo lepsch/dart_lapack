@@ -116,7 +116,7 @@
 
             for (I = 1; I <= NT; I++) { // 20
                if ( RESULT( I ).GE.THRESH ) {
-                  if ( NFAIL.EQ.0 .AND. FIRSTT ) {
+                  if ( NFAIL == 0 .AND. FIRSTT ) {
                      FIRSTT = false;
                      alahdg(NOUT, PATH );
                   }

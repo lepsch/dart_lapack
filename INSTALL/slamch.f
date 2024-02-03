@@ -31,7 +31,7 @@
 
       RND = ONE
 
-      if ( ONE.EQ.RND ) {
+      if ( ONE == RND ) {
          EPS = EPSILON(ZERO) * 0.5
       } else {
          EPS = EPSILON(ZERO)

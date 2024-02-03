@@ -115,7 +115,7 @@
 
       // Quick return if nothing to do
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       // More Important constants
 
@@ -152,7 +152,7 @@
 
             if (MTYPES.GT.MAXTYP) GO TO 50;
 
-            if ( JTYPE.EQ.1 ) {
+            if ( JTYPE == 1 ) {
 
                // Zero matrix
 
@@ -161,7 +161,7 @@
                   S( I ) = ZERO
                } // 30
 
-            } else if ( JTYPE.EQ.2 ) {
+            } else if ( JTYPE == 2 ) {
 
                // Identity matrix
 
@@ -174,7 +174,7 @@
 
                // (Scaled) random matrix
 
-               if (JTYPE.EQ.3) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP;
+               if (JTYPE == 3) ANORM = ONE                IF( JTYPE == 4 ) ANORM = UNFL / ULP                IF( JTYPE == 5 ) ANORM = OVFL*ULP;
                clatms(M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
@@ -196,7 +196,7 @@
                LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                LSWORK = MIN( LSWORK, LWORK )
                LSWORK = MAX( LSWORK, 1 )
-               if (IWSPC.EQ.4) LSWORK = LWORK;
+               if (IWSPC == 4) LSWORK = LWORK;
 
                for (J = 1; J <= 35; J++) { // 60
                   RESULT( J ) = -ONE
@@ -235,7 +235,7 @@
                RESULT( 7 ) = ZERO
                for (IJU = 0; IJU <= 3; IJU++) { // 100
                   for (IJVT = 0; IJVT <= 3; IJVT++) { // 90
-                     IF( ( IJU.EQ.3 .AND. IJVT.EQ.3 ) .OR. ( IJU.EQ.1 .AND. IJVT.EQ.1 ) )GO TO 90
+                     IF( ( IJU == 3 .AND. IJVT == 3 ) .OR. ( IJU == 1 .AND. IJVT == 1 ) )GO TO 90
                      JOBU = CJOB( IJU+1 )
                      JOBVT = CJOB( IJVT+1 )
                      clacpy('F', M, N, ASAV, LDA, A, LDA );
@@ -246,11 +246,11 @@
 
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
-                        if ( IJU.EQ.1 ) {
+                        if ( IJU == 1 ) {
                            cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
-                        } else if ( IJU.EQ.2 ) {
+                        } else if ( IJU == 2 ) {
                            cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
-                        } else if ( IJU.EQ.3 ) {
+                        } else if ( IJU == 3 ) {
                            cunt03('C', M, M, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      }
@@ -260,11 +260,11 @@
 
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
-                        if ( IJVT.EQ.1 ) {
+                        if ( IJVT == 1 ) {
                            cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
-                        } else if ( IJVT.EQ.2 ) {
+                        } else if ( IJVT == 2 ) {
                            cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
-                        } else if ( IJVT.EQ.3 ) {
+                        } else if ( IJVT == 3 ) {
                            cunt03('R', N, N, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      }
@@ -288,7 +288,7 @@
                LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                LSWORK = MIN( LSWORK, LWORK )
                LSWORK = MAX( LSWORK, 1 )
-               if (IWSPC.EQ.4) LSWORK = LWORK;
+               if (IWSPC == 4) LSWORK = LWORK;
 
                // Factorize A
 
@@ -331,13 +331,13 @@
 
                   DIF = ZERO
                   if ( M.GT.0 .AND. N.GT.0 ) {
-                     if ( IJQ.EQ.1 ) {
+                     if ( IJQ == 1 ) {
                         if ( M.GE.N ) {
                            cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
                         } else {
                            cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                         }
-                     } else if ( IJQ.EQ.2 ) {
+                     } else if ( IJQ == 2 ) {
                         cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                      }
                   }
@@ -347,13 +347,13 @@
 
                   DIF = ZERO
                   if ( M.GT.0 .AND. N.GT.0 ) {
-                     if ( IJQ.EQ.1 ) {
+                     if ( IJQ == 1 ) {
                         if ( M.GE.N ) {
                            cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                         } else {
                            cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
                         }
-                     } else if ( IJQ.EQ.2 ) {
+                     } else if ( IJQ == 2 ) {
                         cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                      }
                   }
@@ -384,7 +384,7 @@
                   LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
-                  if (IWSPC.EQ.4) LSWORK = LWORK;
+                  if (IWSPC == 4) LSWORK = LWORK;
 
                   clacpy('F', M, N, ASAV, LDA, A, LDA );
                   SRNAMT = 'CGESVDQ'
@@ -429,7 +429,7 @@
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
                   LRWORK = MAX(6,N)
-                  if (IWSPC.EQ.4) LSWORK = LWORK;
+                  if (IWSPC == 4) LSWORK = LWORK;
 
                   clacpy('F', M, N, ASAV, LDA, USAV, LDA );
                   SRNAMT = 'CGESVJ'
@@ -477,7 +477,7 @@
                   LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
-                  if (IWSPC.EQ.4) LSWORK = LWORK;
+                  if (IWSPC == 4) LSWORK = LWORK;
                   LRWORK = MAX( 7, N + 2*M)
 
                   clacpy('F', M, N, ASAV, LDA, VTSAV, LDA );
@@ -552,7 +552,7 @@
                RESULT( 29 ) = ZERO
                for (IJU = 0; IJU <= 1; IJU++) { // 170
                   for (IJVT = 0; IJVT <= 1; IJVT++) { // 160
-                     IF( ( IJU.EQ.0 .AND. IJVT.EQ.0 ) .OR. ( IJU.EQ.1 .AND. IJVT.EQ.1 ) ) GO TO 160
+                     IF( ( IJU == 0 .AND. IJVT == 0 ) .OR. ( IJU == 1 .AND. IJVT == 1 ) ) GO TO 160
                      JOBU = CJOBV( IJU+1 )
                      JOBVT = CJOBV( IJVT+1 )
                      RANGE = CJOBR( 1 )
@@ -564,7 +564,7 @@
 
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
-                        if ( IJU.EQ.1 ) {
+                        if ( IJU == 1 ) {
                            cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      }
@@ -574,7 +574,7 @@
 
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
-                        if ( IJVT.EQ.1 ) {
+                        if ( IJVT == 1 ) {
                            cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      }
@@ -674,7 +674,7 @@
                } // 190
 
                if (NFAIL.GT.0) NTESTF = NTESTF + 1;
-               if ( NTESTF.EQ.1 ) {
+               if ( NTESTF == 1 ) {
                   WRITE( NOUNIT, FMT = 9999 )
                   WRITE( NOUNIT, FMT = 9998 )THRESH
                   NTESTF = 2

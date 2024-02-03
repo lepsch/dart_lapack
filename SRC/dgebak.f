@@ -63,9 +63,9 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN       IF( M.EQ.0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN;
+      if (N == 0) RETURN       IF( M == 0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN;
 
-      if (ILO.EQ.IHI) GO TO 30;
+      if (ILO == IHI) GO TO 30;
 
       // Backward balance
 
@@ -99,7 +99,7 @@
                I = II
                if (I.GE.ILO .AND. I.LE.IHI) GO TO 40                IF( I.LT.ILO ) I = ILO - II;
                K = INT( SCALE( I ) )
-               if (K.EQ.I) GO TO 40;
+               if (K == I) GO TO 40;
                dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
             } // 40
          }
@@ -109,7 +109,7 @@
                I = II
                if (I.GE.ILO .AND. I.LE.IHI) GO TO 50                IF( I.LT.ILO ) I = ILO - II;
                K = INT( SCALE( I ) )
-               if (K.EQ.I) GO TO 50;
+               if (K == I) GO TO 50;
                dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
             } // 50
          }

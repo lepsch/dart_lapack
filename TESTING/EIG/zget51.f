@@ -58,7 +58,7 @@
 
          ANORM = MAX( ZLANGE( '1', N, N, A, LDA, RWORK ), UNFL )
 
-         if ( ITYPE.EQ.1 ) {
+         if ( ITYPE == 1 ) {
 
             // ITYPE=1: Compute W = A - U B V**H
 

@@ -37,7 +37,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -48,7 +48,7 @@
          INFO = -7
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Determine the block size
 
@@ -108,7 +108,7 @@
 
          // Set INFO on the first occurrence of a zero pivot
 
-         if (INFO.EQ.0 .AND. IINFO.GT.0) INFO = IINFO;
+         if (INFO == 0 .AND. IINFO.GT.0) INFO = IINFO;
 
          // No need to adjust IPIV
 
@@ -148,7 +148,7 @@
 
          // Set INFO on the first occurrence of a zero pivot
 
-         if (INFO.EQ.0 .AND. IINFO.GT.0) INFO = IINFO + K - 1;
+         if (INFO == 0 .AND. IINFO.GT.0) INFO = IINFO + K - 1;
 
          // Adjust IPIV
 

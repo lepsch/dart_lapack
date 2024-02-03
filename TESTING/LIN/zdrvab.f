@@ -114,9 +114,9 @@
             // test that INFO is returned correctly.
 
             if ( ZEROT ) {
-               if ( IMAT.EQ.5 ) {
+               if ( IMAT == 5 ) {
                   IZERO = 1
-               } else if ( IMAT.EQ.6 ) {
+               } else if ( IMAT == 6 ) {
                   IZERO = MIN( M, N )
                } else {
                   IZERO = MIN( M, N ) / 2 + 1
@@ -158,7 +158,7 @@
 
                if ( INFO.NE.IZERO ) {
 
-                  if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH );
+                  if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH );
                   NERRS = NERRS + 1
 
                   if ( INFO.NE.IZERO .AND. IZERO.NE.0 ) {
@@ -192,7 +192,7 @@
 
                if ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) {
 
-                  if ( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) {
+                  if ( NFAIL == 0 .AND. NERRS == 0 ) {
                      WRITE( NOUT, FMT = 8999 )'DGE'
                      WRITE( NOUT, FMT = '( '' Matrix types:'' )' )
                      WRITE( NOUT, FMT = 8979 )

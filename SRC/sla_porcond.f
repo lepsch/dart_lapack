@@ -46,7 +46,7 @@
          RETURN
       }
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          SLA_PORCOND = 1.0
          RETURN
       }
@@ -59,14 +59,14 @@
       if ( UP ) {
          for (I = 1; I <= N; I++) {
             TMP = 0.0
-            if ( CMODE .EQ. 1 ) {
+            if ( CMODE == 1 ) {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + ABS( A( J, I ) * C( J ) )
                }
                for (J = I+1; J <= N; J++) {
                   TMP = TMP + ABS( A( I, J ) * C( J ) )
                }
-            } else if ( CMODE .EQ. 0 ) {
+            } else if ( CMODE == 0 ) {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + ABS( A( J, I ) )
                }
@@ -86,14 +86,14 @@
       } else {
          for (I = 1; I <= N; I++) {
             TMP = 0.0
-            if ( CMODE .EQ. 1 ) {
+            if ( CMODE == 1 ) {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + ABS( A( I, J ) * C( J ) )
                }
                for (J = I+1; J <= N; J++) {
                   TMP = TMP + ABS( A( J, I ) * C( J ) )
                }
-            } else if ( CMODE .EQ. 0 ) {
+            } else if ( CMODE == 0 ) {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + ABS( A( I, J ) )
                }
@@ -120,7 +120,7 @@
       } // 10
       slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
-         if ( KASE.EQ.2 ) {
+         if ( KASE == 2 ) {
 
             // Multiply by R.
 
@@ -136,11 +136,11 @@
 
             // Multiply by inv(C).
 
-            if ( CMODE .EQ. 1 ) {
+            if ( CMODE == 1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) / C( I )
                }
-            } else if ( CMODE .EQ. -1 ) {
+            } else if ( CMODE == -1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                }
@@ -149,11 +149,11 @@
 
             // Multiply by inv(C**T).
 
-            if ( CMODE .EQ. 1 ) {
+            if ( CMODE == 1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) / C( I )
                }
-            } else if ( CMODE .EQ. -1 ) {
+            } else if ( CMODE == -1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                }

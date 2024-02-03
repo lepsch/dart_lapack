@@ -68,7 +68,7 @@
 
       for (J = 1; J <= NRHS; J++) {
          Y_PREC_STATE = EXTRA_RESIDUAL
-         if ( Y_PREC_STATE .EQ. EXTRA_Y ) {
+         if ( Y_PREC_STATE == EXTRA_Y ) {
             for (I = 1; I <= N; I++) {
                Y_TAIL( I ) = 0.0
             }
@@ -95,9 +95,9 @@
               // op(A) = A, A**T, or A**H depending on TRANS (and type).
 
             scopy(N, B( 1, J ), 1, RES, 1 );
-            if ( Y_PREC_STATE .EQ. BASE_RESIDUAL ) {
+            if ( Y_PREC_STATE == BASE_RESIDUAL ) {
                ssymv(UPLO, N, -1.0, A, LDA, Y(1,J), 1, 1.0, RES, 1 );
-            } else if ( Y_PREC_STATE .EQ. EXTRA_RESIDUAL ) {
+            } else if ( Y_PREC_STATE == EXTRA_RESIDUAL ) {
                blas_ssymv_x(UPLO2, N, -1.0, A, LDA, Y( 1, J ), 1, 1.0, RES, 1, PREC_TYPE );
             } else {
                blas_ssymv2_x(UPLO2, N, -1.0, A, LDA, Y(1, J), Y_TAIL, 1, 1.0, RES, 1, PREC_TYPE);
@@ -140,7 +140,7 @@
 
             if ( NORMX .NE. 0.0 ) {
                DX_X = NORMDX / NORMX
-            } else if ( NORMDX .EQ. 0.0 ) {
+            } else if ( NORMDX == 0.0 ) {
                DX_X = 0.0
             } else {
                DX_X = HUGEVAL
@@ -152,8 +152,8 @@
           // Check termination criteria.
 
             if (YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y) INCR_PREC = true ;
-             if (X_STATE .EQ. NOPROG_STATE .AND. DXRAT .LE. RTHRESH) X_STATE = WORKING_STATE;
-            if ( X_STATE .EQ. WORKING_STATE ) {
+             if (X_STATE == NOPROG_STATE .AND. DXRAT .LE. RTHRESH) X_STATE = WORKING_STATE;
+            if ( X_STATE == WORKING_STATE ) {
                if ( DX_X .LE. EPS ) {
                   X_STATE = CONV_STATE
                } else if ( DXRAT .GT. RTHRESH ) {
@@ -167,8 +167,8 @@
                }
                if (X_STATE .GT. WORKING_STATE) FINAL_DX_X = DX_X;
             }
-             if (Z_STATE .EQ. UNSTABLE_STATE .AND. DZ_Z .LE. DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE .EQ. NOPROG_STATE .AND. DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE;
-            if ( Z_STATE .EQ. WORKING_STATE ) {
+             if (Z_STATE == UNSTABLE_STATE .AND. DZ_Z .LE. DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE == NOPROG_STATE .AND. DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE;
+            if ( Z_STATE == WORKING_STATE ) {
                if ( DZ_Z .LE. EPS ) {
                   Z_STATE = CONV_STATE
                } else if ( DZ_Z .GT. DZ_UB ) {
@@ -213,8 +213,8 @@
 
       // Set final_* when cnt hits ithresh.
 
-         if (X_STATE .EQ. WORKING_STATE) FINAL_DX_X = DX_X;
-         if (Z_STATE .EQ. WORKING_STATE) FINAL_DZ_Z = DZ_Z;
+         if (X_STATE == WORKING_STATE) FINAL_DX_X = DX_X;
+         if (Z_STATE == WORKING_STATE) FINAL_DZ_Z = DZ_Z;
 
       // Compute error bounds.
 

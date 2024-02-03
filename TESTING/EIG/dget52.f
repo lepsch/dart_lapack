@@ -74,7 +74,7 @@
             SALFR = ALPHAR( JVEC )
             SALFI = ALPHAI( JVEC )
             SBETA = BETA( JVEC )
-            if ( SALFI.EQ.ZERO ) {
+            if ( SALFI == ZERO ) {
 
                // Real eigenvalue and -vector
 
@@ -94,7 +94,7 @@
                // Complex conjugate pair
 
                ILCPLX = true;
-               if ( JVEC.EQ.N ) {
+               if ( JVEC == N ) {
                   RESULT( 1 ) = TEN / ULP
                   RETURN
                }
@@ -139,7 +139,7 @@
             ILCPLX = false;
          } else {
             TEMP1 = ZERO
-            if ( ALPHAI( JVEC ).EQ.ZERO ) {
+            if ( ALPHAI( JVEC ) == ZERO ) {
                for (J = 1; J <= N; J++) { // 20
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) ) )
                } // 20

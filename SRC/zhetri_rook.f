@@ -57,7 +57,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Check that the diagonal matrix D is nonsingular.
 
@@ -66,14 +66,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ) == CZERO ) RETURN
          } // 10
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) { // 20
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ) == CZERO ) RETURN
          } // 20
       }
       INFO = 0
@@ -134,7 +134,7 @@
             KSTEP = 2
          }
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
 
             // Interchange rows and columns K and IPIV(K) in the leading
             // submatrix A(1:k,1:k)
@@ -266,7 +266,7 @@
             KSTEP = 2
          }
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
 
             // Interchange rows and columns K and IPIV(K) in the trailing
             // submatrix A(k:n,k:n)

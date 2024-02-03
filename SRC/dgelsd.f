@@ -43,7 +43,7 @@
       MINMN = MIN( M, N )
       MAXMN = MAX( M, N )
       MNTHR = ILAENV( 6, 'DGELSD', ' ', M, N, NRHS, -1 )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -70,7 +70,7 @@
       MINMN = MAX( 1, MINMN )
       NLVL = MAX( INT( LOG( DBLE( MINMN ) / DBLE( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1, 0 )
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          MAXWRK = 1
          LIWORK = 3*MINMN*NLVL + 11*MINMN
          MM = M
@@ -136,7 +136,7 @@
 
       // Quick return if possible.
 
-      if ( M.EQ.0 .OR. N.EQ.0 ) {
+      if ( M == 0 .OR. N == 0 ) {
          RANK = 0
          RETURN
       }
@@ -164,7 +164,7 @@
 
          dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
-      } else if ( ANRM.EQ.ZERO ) {
+      } else if ( ANRM == ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
@@ -344,16 +344,16 @@
 
       // Undo scaling.
 
-      if ( IASCL.EQ.1 ) {
+      if ( IASCL == 1 ) {
          dlascl('G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO );
          dlascl('G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
-      } else if ( IASCL.EQ.2 ) {
+      } else if ( IASCL == 2 ) {
          dlascl('G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO );
          dlascl('G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       }
-      if ( IBSCL.EQ.1 ) {
+      if ( IBSCL == 1 ) {
          dlascl('G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO );
-      } else if ( IBSCL.EQ.2 ) {
+      } else if ( IBSCL == 2 ) {
          dlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 

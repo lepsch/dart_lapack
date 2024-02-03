@@ -50,7 +50,7 @@
       } else {
          IRC = -1
       }
-      if ( IRC.EQ.-1 ) {
+      if ( IRC == -1 ) {
          INFO = -1
       } else if ( MU.LT.0 ) {
          INFO = -2
@@ -60,9 +60,9 @@
          INFO = -4
       } else if ( K.LT.0 .OR. K.GT.MAX( MU, MV ) ) {
          INFO = -5
-      } else if ( ( IRC.EQ.0 .AND. LDU.LT.MAX( 1, MU ) ) .OR. ( IRC.EQ.1 .AND. LDU.LT.MAX( 1, N ) ) ) {
+      } else if ( ( IRC == 0 .AND. LDU.LT.MAX( 1, MU ) ) .OR. ( IRC == 1 .AND. LDU.LT.MAX( 1, N ) ) ) {
          INFO = -7
-      } else if ( ( IRC.EQ.0 .AND. LDV.LT.MAX( 1, MV ) ) .OR. ( IRC.EQ.1 .AND. LDV.LT.MAX( 1, N ) ) ) {
+      } else if ( ( IRC == 0 .AND. LDV.LT.MAX( 1, MV ) ) .OR. ( IRC == 1 .AND. LDV.LT.MAX( 1, N ) ) ) {
          INFO = -9
       }
       if ( INFO.NE.0 ) {
@@ -73,25 +73,25 @@
       // Initialize result
 
       RESULT = ZERO
-      if (MU.EQ.0 .OR. MV.EQ.0 .OR. N.EQ.0) RETURN;
+      if (MU == 0 .OR. MV == 0 .OR. N == 0) RETURN;
 
       // Machine constants
 
       ULP = DLAMCH( 'Precision' )
 
-      if ( IRC.EQ.0 ) {
+      if ( IRC == 0 ) {
 
          // Compare rows
 
          RES1 = ZERO
          for (I = 1; I <= K; I++) { // 20
             LMX = IZAMAX( N, U( I, 1 ), LDU )
-            if ( V( I, LMX ).EQ.DCMPLX( ZERO ) ) {
+            if ( V( I, LMX ) == DCMPLX( ZERO ) ) {
                SV = ONE
             } else {
                SV = ABS( V( I, LMX ) ) / V( I, LMX )
             }
-            if ( U( I, LMX ).EQ.DCMPLX( ZERO ) ) {
+            if ( U( I, LMX ) == DCMPLX( ZERO ) ) {
                SU = ONE
             } else {
                SU = ABS( U( I, LMX ) ) / U( I, LMX )
@@ -114,12 +114,12 @@
          RES1 = ZERO
          for (I = 1; I <= K; I++) { // 40
             LMX = IZAMAX( N, U( 1, I ), 1 )
-            if ( V( LMX, I ).EQ.DCMPLX( ZERO ) ) {
+            if ( V( LMX, I ) == DCMPLX( ZERO ) ) {
                SV = ONE
             } else {
                SV = ABS( V( LMX, I ) ) / V( LMX, I )
             }
-            if ( U( LMX, I ).EQ.DCMPLX( ZERO ) ) {
+            if ( U( LMX, I ) == DCMPLX( ZERO ) ) {
                SU = ONE
             } else {
                SU = ABS( U( LMX, I ) ) / U( LMX, I )

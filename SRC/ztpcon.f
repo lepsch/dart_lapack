@@ -54,7 +54,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      ONENRM = NORM.EQ.'1' .OR. LSAME( NORM, 'O' )
+      ONENRM = NORM == '1' .OR. LSAME( NORM, 'O' )
       NOUNIT = LSAME( DIAG, 'N' )
 
       if ( .NOT.ONENRM .AND. .NOT.LSAME( NORM, 'I' ) ) {
@@ -73,7 +73,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          RCOND = ONE
          RETURN
       }
@@ -102,7 +102,7 @@
          } // 10
          zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
          if ( KASE.NE.0 ) {
-            if ( KASE.EQ.KASE1 ) {
+            if ( KASE == KASE1 ) {
 
                // Multiply by inv(A).
 
@@ -120,7 +120,7 @@
             if ( SCALE.NE.ONE ) {
                IX = IZAMAX( N, WORK, 1 )
                XNORM = CABS1( WORK( IX ) )
-               if (SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO) GO TO 20;
+               if (SCALE.LT.XNORM*SMLNUM .OR. SCALE == ZERO) GO TO 20;
                zdrscl(N, SCALE, WORK, 1 );
             }
             GO TO 10

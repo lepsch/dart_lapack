@@ -101,7 +101,7 @@
 
       // Quick return if possible
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0 .OR. NWDTHS.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0 .OR. NWDTHS == 0) RETURN;
 
       // More Important constants
 
@@ -193,10 +193,10 @@
 
                   // Zero
 
-               if ( ITYPE.EQ.1 ) {
+               if ( ITYPE == 1 ) {
                   IINFO = 0
 
-               } else if ( ITYPE.EQ.2 ) {
+               } else if ( ITYPE == 2 ) {
 
                   // Identity
 
@@ -204,37 +204,37 @@
                      A( K+1, JCOL ) = ANORM
                   } // 80
 
-               } else if ( ITYPE.EQ.4 ) {
+               } else if ( ITYPE == 4 ) {
 
                   // Diagonal Matrix, [Eigen]values Specified
 
                   zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'Q', A( K+1, 1 ), LDA, WORK, IINFO );
 
-               } else if ( ITYPE.EQ.5 ) {
+               } else if ( ITYPE == 5 ) {
 
                   // Hermitian, eigenvalues specified
 
                   zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK, IINFO );
 
-               } else if ( ITYPE.EQ.7 ) {
+               } else if ( ITYPE == 7 ) {
 
                   // Diagonal, random eigenvalues
 
                   zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'Q', A( K+1, 1 ), LDA, IDUMMA, IINFO );
 
-               } else if ( ITYPE.EQ.8 ) {
+               } else if ( ITYPE == 8 ) {
 
                   // Hermitian, random eigenvalues
 
                   zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, K, K, ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO );
 
-               } else if ( ITYPE.EQ.9 ) {
+               } else if ( ITYPE == 9 ) {
 
                   // Positive definite, eigenvalues specified.
 
                   zlatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO );
 
-               } else if ( ITYPE.EQ.10 ) {
+               } else if ( ITYPE == 10 ) {
 
                   // Positive definite tridiagonal, eigenvalues specified.
 
@@ -332,7 +332,7 @@
                      // If this is the first test to fail,
                      // print a header to the data file.
 
-                     if ( NERRS.EQ.0 ) {
+                     if ( NERRS == 0 ) {
                         WRITE( NOUNIT, FMT = 9998 )'ZHB'
                         WRITE( NOUNIT, FMT = 9997 )
                         WRITE( NOUNIT, FMT = 9996 )

@@ -34,10 +34,10 @@
       // ..
       // .. Executable Statements ..
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          DLANSF = ZERO
          RETURN
-      } else if ( N.EQ.1 ) {
+      } else if ( N == 1 ) {
          DLANSF = ABS( A(0) )
          RETURN
       }
@@ -45,7 +45,7 @@
       // set noe = 1 if n is odd. if n is even set noe=0
 
       NOE = 1
-      IF( MOD( N, 2 ).EQ.0 ) NOE = 0
+      IF( MOD( N, 2 ) == 0 ) NOE = 0
 
       // set ifm = 0 when form='T or 't' and 1 otherwise
 
@@ -61,8 +61,8 @@
       // set lda = n when ifm = 1 and noe = 1
       // set lda = n+1 when ifm = 1 and noe = 0
 
-      if ( IFM.EQ.1 ) {
-         if ( NOE.EQ.1 ) {
+      if ( IFM == 1 ) {
+         if ( NOE == 1 ) {
             LDA = N
          } else {
             // noe=0
@@ -79,9 +79,9 @@
 
          K = ( N+1 ) / 2
          VALUE = ZERO
-         if ( NOE.EQ.1 ) {
+         if ( NOE == 1 ) {
             // n is odd
-            if ( IFM.EQ.1 ) {
+            if ( IFM == 1 ) {
             // A is n by k
                for (J = 0; J <= K - 1; J++) {
                   for (I = 0; I <= N - 1; I++) {
@@ -100,7 +100,7 @@
             }
          } else {
             // n is even
-            if ( IFM.EQ.1 ) {
+            if ( IFM == 1 ) {
                // A is n+1 by k
                for (J = 0; J <= K - 1; J++) {
                   for (I = 0; I <= N; I++) {
@@ -118,15 +118,15 @@
                }
             }
          }
-      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
+      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM == '1' ) ) {
 
          // Find normI(A) ( = norm1(A), since A is symmetric).
 
-         if ( IFM.EQ.1 ) {
+         if ( IFM == 1 ) {
             K = N / 2
-            if ( NOE.EQ.1 ) {
+            if ( NOE == 1 ) {
                // n is odd
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   for (I = 0; I <= K - 1; I++) {
                      WORK( I ) = ZERO
                   }
@@ -141,7 +141,7 @@
                      AA = ABS( A( I+J*LDA ) )
                      // -> A(j+k,j+k)
                      WORK( J+K ) = S + AA
-                     if (I.EQ.K+K) GO TO 10;
+                     if (I == K+K) GO TO 10;
                      I = I + 1
                      AA = ABS( A( I+J*LDA ) )
                      // -> A(j,j)
@@ -206,7 +206,7 @@
                }
             } else {
                // n is even
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   for (I = 0; I <= K - 1; I++) {
                      WORK( I ) = ZERO
                   }
@@ -282,9 +282,9 @@
          } else {
             // ifm=0
             K = N / 2
-            if ( NOE.EQ.1 ) {
+            if ( NOE == 1 ) {
                // n is odd
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   N1 = K
                   // n/2
                   K = K + 1
@@ -409,7 +409,7 @@
                }
             } else {
                // n is even
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO
                   }
@@ -560,11 +560,11 @@
          K = ( N+1 ) / 2
          SCALE = ZERO
          S = ONE
-         if ( NOE.EQ.1 ) {
+         if ( NOE == 1 ) {
             // n is odd
-            if ( IFM.EQ.1 ) {
+            if ( IFM == 1 ) {
                // A is normal
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   // A is upper
                   for (J = 0; J <= K - 3; J++) {
                      dlassq(K-J-2, A( K+J+1+J*LDA ), 1, SCALE, S );
@@ -599,7 +599,7 @@
                }
             } else {
                // A is xpose
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   // A**T is upper
                   for (J = 1; J <= K - 2; J++) {
                      dlassq(J, A( 0+( K+J )*LDA ), 1, SCALE, S );
@@ -643,9 +643,9 @@
             }
          } else {
             // n is even
-            if ( IFM.EQ.1 ) {
+            if ( IFM == 1 ) {
                // A is normal
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   // A is upper
                   for (J = 0; J <= K - 2; J++) {
                      dlassq(K-J-1, A( K+J+2+J*LDA ), 1, SCALE, S );
@@ -680,7 +680,7 @@
                }
             } else {
                // A is xpose
-               if ( ILU.EQ.0 ) {
+               if ( ILU == 0 ) {
                   // A**T is upper
                   for (J = 1; J <= K - 1; J++) {
                      dlassq(J, A( 0+( K+1+J )*LDA ), 1, SCALE, S );

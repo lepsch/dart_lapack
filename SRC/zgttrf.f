@@ -45,7 +45,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Initialize IPIV(i) = i and DU2(i) = 0
 
@@ -103,7 +103,7 @@
       // Check for a zero on the diagonal of U.
 
       for (I = 1; I <= N; I++) { // 40
-         if ( CABS1( D( I ) ).EQ.ZERO ) {
+         if ( CABS1( D( I ) ) == ZERO ) {
             INFO = I
             GO TO 50
          }

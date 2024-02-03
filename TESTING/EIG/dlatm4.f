@@ -205,7 +205,7 @@
          // If ISIGN = 2, and no subdiagonals already, then apply
          // random rotations to make 2x2 blocks.
 
-         if ( ISIGN.EQ.2 .AND. ITYPE.NE.2 .AND. ITYPE.NE.3 ) {
+         if ( ISIGN == 2 .AND. ITYPE.NE.2 .AND. ITYPE.NE.3 ) {
             SAFMIN = DLAMCH( 'S' )
             DO 290 JD = KBEG, KEND - 1, 2
                if ( DLARAN( ISEED ).GT.HALF ) {
@@ -243,12 +243,12 @@
       // Fill in upper triangle (except for 2x2 blocks)
 
       if ( TRIANG.NE.ZERO ) {
-         if ( ISIGN.NE.2 .OR. ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) {
+         if ( ISIGN.NE.2 .OR. ITYPE == 2 .OR. ITYPE == 3 ) {
             IOFF = 1
          } else {
             IOFF = 2
             for (JR = 1; JR <= N - 1; JR++) { // 300
-               IF( A( JR+1, JR ).EQ.ZERO ) A( JR, JR+1 ) = TRIANG*DLARND( IDIST, ISEED )
+               IF( A( JR+1, JR ) == ZERO ) A( JR, JR+1 ) = TRIANG*DLARND( IDIST, ISEED )
             } // 300
          }
 

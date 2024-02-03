@@ -16,7 +16,7 @@
       // External functions
       // EXTERNAL :: DLARTG, DROT
 
-      if ( K+2 .EQ. IHI ) {
+      if ( K+2 == IHI ) {
          // Shift is located on the edge of the matrix, remove it
          H = B( IHI-1:IHI, IHI-2:IHI )
          // Make H upper triangular

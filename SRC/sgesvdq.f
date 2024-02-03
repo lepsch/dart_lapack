@@ -76,7 +76,7 @@
          }
          RMINWRK = 2
       }
-      LQUERY = (LIWORK .EQ. -1 .OR. LWORK .EQ. -1 .OR. LRWORK .EQ. -1)
+      LQUERY = (LIWORK == -1 .OR. LWORK == -1 .OR. LRWORK == -1)
       INFO  = 0
       if ( .NOT. ( ACCLA .OR. ACCLM .OR. ACCLH ) ) {
          INFO = -1
@@ -105,7 +105,7 @@
       }
 
 
-      if ( INFO .EQ. 0 ) {
+      if ( INFO == 0 ) {
          // .. compute the minimal and the optimal workspace lengths
          // [[The expressions for computing the minimal and the optimal
          // values of LWORK are written with a lot of redundancy and
@@ -278,7 +278,7 @@
 
       }
 
-      if (INFO .EQ. 0 .AND. LRWORK .LT. RMINWRK .AND. .NOT. LQUERY) {
+      if (INFO == 0 .AND. LRWORK .LT. RMINWRK .AND. .NOT. LQUERY) {
          INFO = -21
       }
       if ( INFO.NE.0 ) {
@@ -297,7 +297,7 @@
 
       // Quick return if the matrix is void.
 
-      if ( ( M.EQ.0 ) .OR. ( N.EQ.0 ) ) {
+      if ( ( M == 0 ) .OR. ( N == 0 ) ) {
       // .. all output is void.
          RETURN
       }
@@ -331,7 +331,7 @@
             }
             } // 1952
 
-            if ( RWORK(1) .EQ. ZERO ) {
+            if ( RWORK(1) == ZERO ) {
                // Quick return: A is the M x N zero matrix.
                NUMRANK = 0
                slaset('G', N, 1, ZERO, ZERO, S, N );
@@ -439,7 +439,7 @@
          // R(i,i)=0 => R(i:N,i:N)=0.
          NR = 1
          for (p = 2; p <= N; p++) { // 3501
-            IF ( ABS(A(p,p)) .EQ. ZERO ) GO TO 3502
+            IF ( ABS(A(p,p)) == ZERO ) GO TO 3502
             NR = NR + 1
          } // 3501
          } // 3502
@@ -577,7 +577,7 @@
             if (NR .GT. 1) CALL SLASET( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV );
             // .. the left singular vectors of R**T overwrite V, the right singular
             // vectors not computed
-            if ( WNTVR .OR. ( NR .EQ. N ) ) {
+            if ( WNTVR .OR. ( NR == N ) ) {
                sgesvd('O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO );
 
                for (p = 1; p <= NR; p++) { // 1121
@@ -622,7 +622,7 @@
              if (NR .GT. 1) CALL SLASET( 'L', NR-1, NR-1, ZERO, ZERO, V(2,1), LDV );
              // .. the right singular vectors overwrite V, the NR left singular
              // vectors stored in U(1:NR,1:NR)
-             if ( WNTVR .OR. ( NR .EQ. N ) ) {
+             if ( WNTVR .OR. ( NR == N ) ) {
                 sgesvd('N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
                 slapmt( false , NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**T
@@ -648,7 +648,7 @@
 
              // .. apply SGESVD to R**T [[this option is left for R&D&T]]
 
-            if ( WNTVR .OR. ( NR .EQ. N ) ) {
+            if ( WNTVR .OR. ( NR == N ) ) {
              // .. copy R**T into [V] and overwrite [V] with the left singular
              // vectors of R**T
             for (p = 1; p <= NR; p++) { // 1168
@@ -779,7 +779,7 @@
 
              // .. apply SGESVD to R [[this is the recommended option]]
 
-             if ( WNTVR .OR. ( NR .EQ. N ) ) {
+             if ( WNTVR .OR. ( NR == N ) ) {
                  // .. copy R into [V] and overwrite V with the right singular vectors
                  slacpy('U', NR, N, A, LDA, V, LDV );
                 if (NR .GT. 1) CALL SLASET( 'L', NR-1,NR-1, ZERO,ZERO, V(2,1), LDV );

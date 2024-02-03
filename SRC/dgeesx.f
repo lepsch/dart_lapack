@@ -56,7 +56,7 @@
       WANTSE = LSAME( SENSE, 'E' )
       WANTSV = LSAME( SENSE, 'V' )
       WANTSB = LSAME( SENSE, 'B' )
-      LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
 
       if ( ( .NOT.WANTVS ) .AND. ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
          INFO = -1
@@ -86,9 +86,9 @@
         // depends on SDIM, which is computed by the routine DTRSEN later
         // in the code.)
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          LIWRK = 1
-         if ( N.EQ.0 ) {
+         if ( N == 0 ) {
             MINWRK = 1
             LWRK = 1
          } else {
@@ -126,7 +126,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          SDIM = 0
          RETURN
       }
@@ -187,7 +187,7 @@
 
       // Sort eigenvalues if desired
 
-      if ( WANTST .AND. INFO.EQ.0 ) {
+      if ( WANTST .AND. INFO == 0 ) {
          if ( SCALEA ) {
             dlascl('G', 0, 0, CSCALE, ANRM, N, 1, WR, N, IERR );
             dlascl('G', 0, 0, CSCALE, ANRM, N, 1, WI, N, IERR );
@@ -205,12 +205,12 @@
 
          dtrsen(SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, WR, WI, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, ICOND );
          if (.NOT.WANTSN) MAXWRK = MAX( MAXWRK, N+2*SDIM*( N-SDIM ) );
-         if ( ICOND.EQ.-15 ) {
+         if ( ICOND == -15 ) {
 
             // Not enough real workspace
 
             INFO = -16
-         } else if ( ICOND.EQ.-17 ) {
+         } else if ( ICOND == -17 ) {
 
             // Not enough integer workspace
 
@@ -237,12 +237,12 @@
 
          dlascl('H', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR );
          dcopy(N, A, LDA+1, WR, 1 );
-         if ( ( WANTSV .OR. WANTSB ) .AND. INFO.EQ.0 ) {
+         if ( ( WANTSV .OR. WANTSB ) .AND. INFO == 0 ) {
             DUM( 1 ) = RCONDV
             dlascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
             RCONDV = DUM( 1 )
          }
-         if ( CSCALE.EQ.SMLNUM ) {
+         if ( CSCALE == SMLNUM ) {
 
             // If scaling back towards underflow, adjust WI if an
             // offdiagonal element of a 2-by-2 block in the Schur form
@@ -262,13 +262,13 @@
             INXT = I1 - 1
             for (I = I1; I <= I2; I++) { // 20
                if (I.LT.INXT) GO TO 20;
-               if ( WI( I ).EQ.ZERO ) {
+               if ( WI( I ) == ZERO ) {
                   INXT = I + 1
                } else {
-                  if ( A( I+1, I ).EQ.ZERO ) {
+                  if ( A( I+1, I ) == ZERO ) {
                      WI( I ) = ZERO
                      WI( I+1 ) = ZERO
-                  } else if ( A( I+1, I ).NE.ZERO .AND. A( I, I+1 ).EQ. ZERO ) {
+                  } else if ( A( I+1, I ).NE.ZERO .AND. A( I, I+1 ) == ZERO ) {
                      WI( I ) = ZERO
                      WI( I+1 ) = ZERO
                      if (I.GT.1) CALL DSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )                      IF( N.GT.I+1 ) CALL DSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );
@@ -285,7 +285,7 @@
          dlascl('G', 0, 0, CSCALE, ANRM, N-IEVAL, 1, WI( IEVAL+1 ), MAX( N-IEVAL, 1 ), IERR );
       }
 
-      if ( WANTST .AND. INFO.EQ.0 ) {
+      if ( WANTST .AND. INFO == 0 ) {
 
          // Check if reordering successful
 
@@ -295,12 +295,12 @@
          IP = 0
          for (I = 1; I <= N; I++) { // 30
             CURSL = SELECT( WR( I ), WI( I ) )
-            if ( WI( I ).EQ.ZERO ) {
+            if ( WI( I ) == ZERO ) {
                if (CURSL) SDIM = SDIM + 1;
                IP = 0
                if (CURSL .AND. .NOT.LASTSL) INFO = N + 2;
             } else {
-               if ( IP.EQ.1 ) {
+               if ( IP == 1 ) {
 
                   // Last eigenvalue of conjugate pair
 

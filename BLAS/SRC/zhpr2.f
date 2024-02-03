@@ -41,9 +41,9 @@
           INFO = 1
       } else if (N.LT.0) {
           INFO = 2
-      } else if (INCX.EQ.0) {
+      } else if (INCX == 0) {
           INFO = 5
-      } else if (INCY.EQ.0) {
+      } else if (INCY == 0) {
           INFO = 7
       }
       if (INFO.NE.0) {
@@ -53,7 +53,7 @@
 
       // Quick return if possible.
 
-      IF ((N.EQ.0) .OR. (ALPHA.EQ.ZERO)) RETURN
+      IF ((N == 0) .OR. (ALPHA == ZERO)) RETURN
 
       // Set up the start points in X and Y if the increments are not both
       // unity.
@@ -81,7 +81,7 @@
 
          // Form  A  when upper triangle is stored in AP.
 
-          if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
+          if ((INCX == 1) .AND. (INCY == 1)) {
               for (J = 1; J <= N; J++) { // 20
                   if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*DCONJG(Y(J))
@@ -122,7 +122,7 @@
 
          // Form  A  when lower triangle is stored in AP.
 
-          if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
+          if ((INCX == 1) .AND. (INCY == 1)) {
               for (J = 1; J <= N; J++) { // 60
                   if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*DCONJG(Y(J))

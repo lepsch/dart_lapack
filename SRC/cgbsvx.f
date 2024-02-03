@@ -93,7 +93,7 @@
                ROWCND = ONE
             }
          }
-         if ( COLEQU .AND. INFO.EQ.0 ) {
+         if ( COLEQU .AND. INFO == 0 ) {
             RCMIN = BIGNUM
             RCMAX = ZERO
             for (J = 1; J <= N; J++) { // 20
@@ -108,7 +108,7 @@
                COLCND = ONE
             }
          }
-         if ( INFO.EQ.0 ) {
+         if ( INFO == 0 ) {
             if ( LDB.LT.MAX( 1, N ) ) {
                INFO = -16
             } else if ( LDX.LT.MAX( 1, N ) ) {
@@ -127,7 +127,7 @@
          // Compute row and column scalings to equilibrate the matrix A.
 
          cgbequ(N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU );
-         if ( INFEQU.EQ.0 ) {
+         if ( INFEQU == 0 ) {
 
             // Equilibrate the matrix.
 
@@ -181,7 +181,7 @@
                } // 80
             } // 90
             RPVGRW = CLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ), 1 ), LDAFB, RWORK )
-            if ( RPVGRW.EQ.ZERO ) {
+            if ( RPVGRW == ZERO ) {
                RPVGRW = ONE
             } else {
                RPVGRW = ANORM / RPVGRW
@@ -202,7 +202,7 @@
       }
       ANORM = CLANGB( NORM, N, KL, KU, AB, LDAB, RWORK )
       RPVGRW = CLANTB( 'M', 'U', 'N', N, KL+KU, AFB, LDAFB, RWORK )
-      if ( RPVGRW.EQ.ZERO ) {
+      if ( RPVGRW == ZERO ) {
          RPVGRW = ONE
       } else {
          RPVGRW = CLANGB( 'M', N, KL, KU, AB, LDAB, RWORK ) / RPVGRW

@@ -71,7 +71,7 @@
       // Quick return if possible
 
       SCALE = ONE
-      if (M.EQ.0 .OR. N.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0) RETURN;
 
       // Set constants to control overflow
 
@@ -105,7 +105,7 @@
          LNEXT = 1
          for (L = 1; L <= N; L++) { // 60
             if (L.LT.LNEXT) GO TO 60;
-            if ( L.EQ.N ) {
+            if ( L == N ) {
                L1 = L
                L2 = L
             } else {
@@ -126,7 +126,7 @@
             KNEXT = M
             DO 50 K = M, 1, -1
                if (K.GT.KNEXT) GO TO 50;
-               if ( K.EQ.1 ) {
+               if ( K == 1 ) {
                   K1 = K
                   K2 = K
                } else {
@@ -141,7 +141,7 @@
                   }
                }
 
-               if ( L1.EQ.L2 .AND. K1.EQ.K2 ) {
+               if ( L1 == L2 .AND. K1 == K2 ) {
                   SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
@@ -168,7 +168,7 @@
                   }
                   C( K1, L1 ) = X( 1, 1 )
 
-               } else if ( L1.EQ.L2 .AND. K1.NE.K2 ) {
+               } else if ( L1 == L2 .AND. K1.NE.K2 ) {
 
                   SUML = DDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -190,7 +190,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K2, L1 ) = X( 2, 1 )
 
-               } else if ( L1.NE.L2 .AND. K1.EQ.K2 ) {
+               } else if ( L1.NE.L2 .AND. K1 == K2 ) {
 
                   SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -269,7 +269,7 @@
          LNEXT = 1
          for (L = 1; L <= N; L++) { // 120
             if (L.LT.LNEXT) GO TO 120;
-            if ( L.EQ.N ) {
+            if ( L == N ) {
                L1 = L
                L2 = L
             } else {
@@ -290,7 +290,7 @@
             KNEXT = 1
             for (K = 1; K <= M; K++) { // 110
                if (K.LT.KNEXT) GO TO 110;
-               if ( K.EQ.M ) {
+               if ( K == M ) {
                   K1 = K
                   K2 = K
                } else {
@@ -305,7 +305,7 @@
                   }
                }
 
-               if ( L1.EQ.L2 .AND. K1.EQ.K2 ) {
+               if ( L1 == L2 .AND. K1 == K2 ) {
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
@@ -332,7 +332,7 @@
                   }
                   C( K1, L1 ) = X( 1, 1 )
 
-               } else if ( L1.EQ.L2 .AND. K1.NE.K2 ) {
+               } else if ( L1 == L2 .AND. K1.NE.K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -354,7 +354,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K2, L1 ) = X( 2, 1 )
 
-               } else if ( L1.NE.L2 .AND. K1.EQ.K2 ) {
+               } else if ( L1.NE.L2 .AND. K1 == K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -432,7 +432,7 @@
          LNEXT = N
          DO 180 L = N, 1, -1
             if (L.GT.LNEXT) GO TO 180;
-            if ( L.EQ.1 ) {
+            if ( L == 1 ) {
                L1 = L
                L2 = L
             } else {
@@ -453,7 +453,7 @@
             KNEXT = 1
             for (K = 1; K <= M; K++) { // 170
                if (K.LT.KNEXT) GO TO 170;
-               if ( K.EQ.M ) {
+               if ( K == M ) {
                   K1 = K
                   K2 = K
                } else {
@@ -468,7 +468,7 @@
                   }
                }
 
-               if ( L1.EQ.L2 .AND. K1.EQ.K2 ) {
+               if ( L1 == L2 .AND. K1 == K2 ) {
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( N-L1, C( K1, MIN( L1+1, N ) ), LDC, B( L1, MIN( L1+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
@@ -495,7 +495,7 @@
                   }
                   C( K1, L1 ) = X( 1, 1 )
 
-               } else if ( L1.EQ.L2 .AND. K1.NE.K2 ) {
+               } else if ( L1 == L2 .AND. K1.NE.K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
@@ -517,7 +517,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K2, L1 ) = X( 2, 1 )
 
-               } else if ( L1.NE.L2 .AND. K1.EQ.K2 ) {
+               } else if ( L1.NE.L2 .AND. K1 == K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
@@ -595,7 +595,7 @@
          LNEXT = N
          DO 240 L = N, 1, -1
             if (L.GT.LNEXT) GO TO 240;
-            if ( L.EQ.1 ) {
+            if ( L == 1 ) {
                L1 = L
                L2 = L
             } else {
@@ -616,7 +616,7 @@
             KNEXT = M
             DO 230 K = M, 1, -1
                if (K.GT.KNEXT) GO TO 230;
-               if ( K.EQ.1 ) {
+               if ( K == 1 ) {
                   K1 = K
                   K2 = K
                } else {
@@ -631,7 +631,7 @@
                   }
                }
 
-               if ( L1.EQ.L2 .AND. K1.EQ.K2 ) {
+               if ( L1 == L2 .AND. K1 == K2 ) {
                   SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L1, C( K1, MIN( L1+1, N ) ), LDC, B( L1, MIN( L1+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
                   SCALOC = ONE
@@ -657,7 +657,7 @@
                   }
                   C( K1, L1 ) = X( 1, 1 )
 
-               } else if ( L1.EQ.L2 .AND. K1.NE.K2 ) {
+               } else if ( L1 == L2 .AND. K1.NE.K2 ) {
 
                   SUML = DDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
@@ -677,7 +677,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K2, L1 ) = X( 2, 1 )
 
-               } else if ( L1.NE.L2 .AND. K1.EQ.K2 ) {
+               } else if ( L1.NE.L2 .AND. K1 == K2 ) {
 
                   SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) )

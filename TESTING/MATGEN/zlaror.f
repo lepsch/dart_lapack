@@ -41,7 +41,7 @@
       // .. Executable Statements ..
 
       INFO = 0
-      if (N.EQ.0 .OR. M.EQ.0) RETURN;
+      if (N == 0 .OR. M == 0) RETURN;
 
       ITYPE = 0
       if ( LSAME( SIDE, 'L' ) ) {
@@ -56,11 +56,11 @@
 
       // Check for argument errors.
 
-      if ( ITYPE.EQ.0 ) {
+      if ( ITYPE == 0 ) {
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -3
-      } else if ( N.LT.0 .OR. ( ITYPE.EQ.3 .AND. N.NE.M ) ) {
+      } else if ( N.LT.0 .OR. ( ITYPE == 3 .AND. N.NE.M ) ) {
          INFO = -4
       } else if ( LDA.LT.M ) {
          INFO = -6
@@ -70,7 +70,7 @@
          RETURN
       }
 
-      if ( ITYPE.EQ.1 ) {
+      if ( ITYPE == 1 ) {
          NXFRM = M
       } else {
          NXFRM = N
@@ -123,7 +123,7 @@
 
          // Apply Householder transformation to A
 
-         if ( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) {
+         if ( ITYPE == 1 .OR. ITYPE == 3 .OR. ITYPE == 4 ) {
 
             // Apply H(k) on the left of A
 
@@ -136,7 +136,7 @@
 
             // Apply H(k)* (or H(k)') on the right of A
 
-            if ( ITYPE.EQ.4 ) {
+            if ( ITYPE == 4 ) {
                zlacgv(IXFRM, X( KBEG ), 1 );
             }
 
@@ -157,19 +157,19 @@
 
       // Scale the matrix A by D.
 
-      if ( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) {
+      if ( ITYPE == 1 .OR. ITYPE == 3 .OR. ITYPE == 4 ) {
          for (IROW = 1; IROW <= M; IROW++) { // 40
             zscal(N, DCONJG( X( NXFRM+IROW ) ), A( IROW, 1 ), LDA );
          } // 40
       }
 
-      if ( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) {
+      if ( ITYPE == 2 .OR. ITYPE == 3 ) {
          for (JCOL = 1; JCOL <= N; JCOL++) { // 50
             zscal(M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 );
          } // 50
       }
 
-      if ( ITYPE.EQ.4 ) {
+      if ( ITYPE == 4 ) {
          for (JCOL = 1; JCOL <= N; JCOL++) { // 60
             zscal(M, DCONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 );
          } // 60

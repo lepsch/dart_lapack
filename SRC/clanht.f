@@ -48,11 +48,11 @@
             SUM = ABS( E( I ) )
             IF( ANORM .LT. SUM .OR. SISNAN( SUM ) ) ANORM = SUM
          } // 10
-      } else if ( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' .OR. LSAME( NORM, 'I' ) ) {
+      } else if ( LSAME( NORM, 'O' ) .OR. NORM == '1' .OR. LSAME( NORM, 'I' ) ) {
 
          // Find norm1(A).
 
-         if ( N.EQ.1 ) {
+         if ( N == 1 ) {
             ANORM = ABS( D( 1 ) )
          } else {
             ANORM = ABS( D( 1 ) )+ABS( E( 1 ) )

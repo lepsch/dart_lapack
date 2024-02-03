@@ -100,13 +100,13 @@
             // Do for KD = 0, N, (3N-1)/4, and (N+1)/4. This order makes
             // it easier to skip redundant values for small values of N.
 
-            if ( IK.EQ.1 ) {
+            if ( IK == 1 ) {
                KD = 0
-            } else if ( IK.EQ.2 ) {
+            } else if ( IK == 2 ) {
                KD = MAX( N, 0 )
-            } else if ( IK.EQ.3 ) {
+            } else if ( IK == 3 ) {
                KD = ( 3*N-1 ) / 4
-            } else if ( IK.EQ.4 ) {
+            } else if ( IK == 4 ) {
                KD = ( N+1 ) / 4
             }
             LDAB = KD + 1
@@ -177,7 +177,7 @@
                      // Do for op(A) = A, A**T, or A**H.
 
                         TRANS = TRANSS( ITRAN )
-                        if ( ITRAN.EQ.1 ) {
+                        if ( ITRAN == 1 ) {
                            NORM = 'O'
                            RCONDC = RCONDO
                         } else {
@@ -226,7 +226,7 @@
 
                         for (K = 1; K <= 5; K++) { // 40
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )UPLO, TRANS, DIAG, N, KD, NRHS, IMAT, K, RESULT( K );
+                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )UPLO, TRANS, DIAG, N, KD, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 40
@@ -238,7 +238,7 @@
                      // Get an estimate of RCOND = 1/CNDNUM.
 
                   for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 70
-                     if ( ITRAN.EQ.1 ) {
+                     if ( ITRAN == 1 ) {
                         NORM = 'O'
                         RCONDC = RCONDO
                      } else {
@@ -258,7 +258,7 @@
                      // the threshold.
 
                      if ( RESULT( 6 ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 ) 'DTBCON', NORM, UPLO, DIAG, N, KD, IMAT, 6, RESULT( 6 );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 ) 'DTBCON', NORM, UPLO, DIAG, N, KD, IMAT, 6, RESULT( 6 );
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1
@@ -319,11 +319,11 @@
                      // the threshold.
 
                      if ( RESULT( 7 ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )'DLATBS', UPLO, TRANS, DIAG, 'N', N, KD, IMAT, 7, RESULT( 7 );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )'DLATBS', UPLO, TRANS, DIAG, 'N', N, KD, IMAT, 7, RESULT( 7 );
                         NFAIL = NFAIL + 1
                      }
                      if ( RESULT( 8 ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )'DLATBS', UPLO, TRANS, DIAG, 'Y', N, KD, IMAT, 8, RESULT( 8 );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )'DLATBS', UPLO, TRANS, DIAG, 'Y', N, KD, IMAT, 8, RESULT( 8 );
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 2

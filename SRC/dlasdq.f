@@ -40,7 +40,7 @@
       INFO = 0
       IUPLO = 0
       IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2
-      if ( IUPLO.EQ.0 ) {
+      if ( IUPLO == 0 ) {
          INFO = -1
       } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
          INFO = -2
@@ -52,18 +52,18 @@
          INFO = -5
       } else if ( NCC.LT.0 ) {
          INFO = -6
-      } else if ( ( NCVT.EQ.0 .AND. LDVT.LT.1 ) .OR. ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCVT == 0 .AND. LDVT.LT.1 ) .OR. ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) {
          INFO = -10
       } else if ( LDU.LT.MAX( 1, NRU ) ) {
          INFO = -12
-      } else if ( ( NCC.EQ.0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCC == 0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) {
          INFO = -14
       }
       if ( INFO.NE.0 ) {
          xerbla('DLASDQ', -INFO );
          RETURN
       }
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // ROTATE is true if any singular vectors desired, false otherwise
 
@@ -74,7 +74,7 @@
       // If matrix non-square upper bidiagonal, rotate to be lower
       // bidiagonal.  The rotations are on the right.
 
-      if ( ( IUPLO.EQ.1 ) .AND. ( SQRE1.EQ.1 ) ) {
+      if ( ( IUPLO == 1 ) .AND. ( SQRE1 == 1 ) ) {
          for (I = 1; I <= N - 1; I++) { // 10
             dlartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
@@ -103,7 +103,7 @@
       // If matrix lower bidiagonal, rotate to be upper bidiagonal
       // by applying Givens rotations on the left.
 
-      if ( IUPLO.EQ.2 ) {
+      if ( IUPLO == 2 ) {
          for (I = 1; I <= N - 1; I++) { // 20
             dlartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
@@ -118,7 +118,7 @@
          // If matrix (N+1)-by-N lower bidiagonal, one additional
          // rotation is needed.
 
-         if ( SQRE1.EQ.1 ) {
+         if ( SQRE1 == 1 ) {
             dlartg(D( N ), E( N ), CS, SN, R );
             D( N ) = R
             if ( ROTATE ) {
@@ -130,14 +130,14 @@
          // Update singular vectors if desired.
 
          if ( NRU.GT.0 ) {
-            if ( SQRE1.EQ.0 ) {
+            if ( SQRE1 == 0 ) {
                dlasr('R', 'V', 'F', NRU, N, WORK( 1 ), WORK( NP1 ), U, LDU );
             } else {
                dlasr('R', 'V', 'F', NRU, NP1, WORK( 1 ), WORK( NP1 ), U, LDU );
             }
          }
          if ( NCC.GT.0 ) {
-            if ( SQRE1.EQ.0 ) {
+            if ( SQRE1 == 0 ) {
                dlasr('L', 'V', 'F', N, NCC, WORK( 1 ), WORK( NP1 ), C, LDC );
             } else {
                dlasr('L', 'V', 'F', NP1, NCC, WORK( 1 ), WORK( NP1 ), C, LDC );

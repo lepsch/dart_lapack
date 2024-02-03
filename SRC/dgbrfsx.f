@@ -81,7 +81,7 @@
       ITHRESH = INT( ITHRESH_DEFAULT )
       RTHRESH = RTHRESH_DEFAULT
       UNSTABLE_THRESH = DZTHRESH_DEFAULT
-      IGNORE_CWISE = COMPONENTWISE_DEFAULT .EQ. 0.0D+0
+      IGNORE_CWISE = COMPONENTWISE_DEFAULT == 0.0D+0
 
       if ( NPARAMS.GE.LA_LINRX_ITHRESH_I ) {
          if ( PARAMS( LA_LINRX_ITHRESH_I ).LT.0.0D+0 ) {
@@ -98,10 +98,10 @@
                PARAMS( LA_LINRX_CWISE_I ) = 1.0D+0
             }
          } else {
-            IGNORE_CWISE = PARAMS( LA_LINRX_CWISE_I ) .EQ. 0.0D+0
+            IGNORE_CWISE = PARAMS( LA_LINRX_CWISE_I ) == 0.0D+0
          }
       }
-      if ( REF_TYPE .EQ. 0 .OR. N_ERR_BNDS .EQ. 0 ) {
+      if ( REF_TYPE == 0 .OR. N_ERR_BNDS == 0 ) {
          N_NORMS = 0
       } else if ( IGNORE_CWISE ) {
          N_NORMS = 1
@@ -115,7 +115,7 @@
 
       // Test input parameters.
 
-      if ( TRANS_TYPE.EQ.-1 ) {
+      if ( TRANS_TYPE == -1 ) {
         INFO = -1
       } else if ( .NOT.ROWEQU .AND. .NOT.COLEQU .AND. .NOT.LSAME( EQUED, 'N' ) ) {
         INFO = -2
@@ -143,7 +143,7 @@
 
       // Quick return if possible.
 
-      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
+      if ( N == 0 .OR. NRHS == 0 ) {
          RCOND = 1.0D+0
          for (J = 1; J <= NRHS; J++) {
             BERR( J ) = 0.0D+0
@@ -195,7 +195,7 @@
 
       // Perform refinement on each right-hand side
 
-      if ( REF_TYPE .NE. 0 .AND. INFO .EQ. 0 ) {
+      if ( REF_TYPE .NE. 0 .AND. INFO == 0 ) {
 
          PREC_TYPE = ILAPREC( 'E' )
 
@@ -270,7 +270,7 @@
             if ( RCOND_TMP .LT. ILLRCOND_THRESH ) {
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 0.0D+0
-               if ( PARAMS( LA_LINRX_CWISE_I ) .EQ. 1.0D+0 .AND. INFO.LT.N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. ERR_LBND ) {
+               if ( PARAMS( LA_LINRX_CWISE_I ) == 1.0D+0 .AND. INFO.LT.N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. ERR_LBND ) {
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = ERR_LBND
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0D+0
             }

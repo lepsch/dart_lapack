@@ -95,7 +95,7 @@
 
          dlag2(A, LDA, B, LDB, SAFMIN, SCALE1, SCALE2, WR1, WR2, WI );
 
-         if ( WI.EQ.ZERO ) {
+         if ( WI == ZERO ) {
 
             // two real eigenvalues, compute s*A-w*B
 
@@ -183,7 +183,7 @@
       B( 1, 2 ) = BNORM*B( 1, 2 )
       B( 2, 2 ) = BNORM*B( 2, 2 )
 
-      if ( WI.EQ.ZERO ) {
+      if ( WI == ZERO ) {
          ALPHAR( 1 ) = A( 1, 1 )
          ALPHAR( 2 ) = A( 2, 2 )
          ALPHAI( 1 ) = ZERO

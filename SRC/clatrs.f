@@ -76,7 +76,7 @@
       // Quick return if possible
 
       SCALE = ONE
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Determine machine dependent parameters to control overflow.
 
@@ -382,7 +382,7 @@
                   TJJS = A( J, J )*TSCAL
                } else {
                   TJJS = TSCAL
-                  if (TSCAL.EQ.ONE) GO TO 105;
+                  if (TSCAL == ONE) GO TO 105;
                }
                   TJJ = CABS1( TJJS )
                   if ( TJJ.GT.SMLNUM ) {
@@ -522,7 +522,7 @@
                }
 
                CSUMJ = ZERO
-               if ( USCAL.EQ.CMPLX( ONE ) ) {
+               if ( USCAL == CMPLX( ONE ) ) {
 
                   // If the scaling needed for A in the dot product is 1,
                   // call CDOTU to perform the dot product.
@@ -547,7 +547,7 @@
                   }
                }
 
-               if ( USCAL.EQ.CMPLX( TSCAL ) ) {
+               if ( USCAL == CMPLX( TSCAL ) ) {
 
                   // Compute x(j) := ( x(j) - CSUMJ ) / A(j,j) if 1/A(j,j)
                   // was not used to scale the dotproduct.
@@ -558,7 +558,7 @@
                      TJJS = A( J, J )*TSCAL
                   } else {
                      TJJS = TSCAL
-                     if (TSCAL.EQ.ONE) GO TO 145;
+                     if (TSCAL == ONE) GO TO 145;
                   }
 
                      // Compute x(j) = x(j) / A(j,j), scaling if necessary.
@@ -655,7 +655,7 @@
                }
 
                CSUMJ = ZERO
-               if ( USCAL.EQ.CMPLX( ONE ) ) {
+               if ( USCAL == CMPLX( ONE ) ) {
 
                   // If the scaling needed for A in the dot product is 1,
                   // call CDOTC to perform the dot product.
@@ -680,7 +680,7 @@
                   }
                }
 
-               if ( USCAL.EQ.CMPLX( TSCAL ) ) {
+               if ( USCAL == CMPLX( TSCAL ) ) {
 
                   // Compute x(j) := ( x(j) - CSUMJ ) / A(j,j) if 1/A(j,j)
                   // was not used to scale the dotproduct.
@@ -691,7 +691,7 @@
                      TJJS = CONJG( A( J, J ) )*TSCAL
                   } else {
                      TJJS = TSCAL
-                     if (TSCAL.EQ.ONE) GO TO 185;
+                     if (TSCAL == ONE) GO TO 185;
                   }
 
                      // Compute x(j) = x(j) / A(j,j), scaling if necessary.

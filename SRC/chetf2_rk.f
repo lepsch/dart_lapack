@@ -111,11 +111,11 @@
             COLMAX = ZERO
          }
 
-         if ( ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) ) {
+         if ( ( MAX( ABSAKK, COLMAX ) == ZERO ) ) {
 
             // Column K is zero or underflow: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
             A( K, K ) = REAL( A( K, K ) )
 
@@ -184,10 +184,10 @@
                      DONE = true;
 
                   // Case(3)
-                  // Equivalent to testing for ROWMAX.EQ.COLMAX,
+                  // Equivalent to testing for ROWMAX == COLMAX,
                   // (used to handle NaN and Inf)
 
-                  } else if ( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
+                  } else if ( ( P == JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
 
                      // interchange rows and columns K-1 and IMAX,
                      // use 2-by-2 pivot block
@@ -223,7 +223,7 @@
             // For only a 2x2 pivot, interchange rows and columns K and P
             // in the leading submatrix A(1:k,1:k)
 
-            if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
                // (1) Swap columnar parts
                if (P.GT.1) CALL CSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 );
                // (2) Swap and conjugate middle parts
@@ -265,7 +265,7 @@
                A( KK, KK ) = REAL( A( KP, KP ) )
                A( KP, KP ) = R1
 
-               if ( KSTEP.EQ.2 ) {
+               if ( KSTEP == 2 ) {
                   // (*) Make sure that diagonal element of pivot is real
                   A( K, K ) = REAL( A( K, K ) )
                   // (5) Swap row elements
@@ -282,12 +282,12 @@
             } else {
                // (*) Make sure that diagonal element of pivot is real
                A( K, K ) = REAL( A( K, K ) )
-               if (KSTEP.EQ.2) A( K-1, K-1 ) = REAL( A( K-1, K-1 ) );
+               if (KSTEP == 2) A( K-1, K-1 ) = REAL( A( K-1, K-1 ) );
             }
 
             // Update the leading submatrix
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -398,7 +398,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -P
@@ -448,11 +448,11 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
             A( K, K ) = REAL( A( K, K ) )
 
@@ -521,10 +521,10 @@
                      DONE = true;
 
                   // Case(3)
-                  // Equivalent to testing for ROWMAX.EQ.COLMAX,
+                  // Equivalent to testing for ROWMAX == COLMAX,
                   // (used to handle NaN and Inf)
 
-                  } else if ( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
+                  } else if ( ( P == JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
 
                      // interchange rows and columns K+1 and IMAX,
                      // use 2-by-2 pivot block
@@ -561,7 +561,7 @@
             // For only a 2x2 pivot, interchange rows and columns K and P
             // in the trailing submatrix A(k:n,k:n)
 
-            if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
                // (1) Swap columnar parts
                if (P.LT.N) CALL CSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
                // (2) Swap and conjugate middle parts
@@ -603,7 +603,7 @@
                A( KK, KK ) = REAL( A( KP, KP ) )
                A( KP, KP ) = R1
 
-               if ( KSTEP.EQ.2 ) {
+               if ( KSTEP == 2 ) {
                   // (*) Make sure that diagonal element of pivot is real
                   A( K, K ) = REAL( A( K, K ) )
                   // (5) Swap row elements
@@ -620,12 +620,12 @@
             } else {
                // (*) Make sure that diagonal element of pivot is real
                A( K, K ) = REAL( A( K, K ) )
-               if (KSTEP.EQ.2) A( K+1, K+1 ) = REAL( A( K+1, K+1 ) );
+               if (KSTEP == 2) A( K+1, K+1 ) = REAL( A( K+1, K+1 ) );
             }
 
             // Update the trailing submatrix
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k of A now holds
 
@@ -739,7 +739,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -P

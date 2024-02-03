@@ -21,7 +21,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( INCX.EQ.1 ) {
+      if ( INCX == 1 ) {
          for (I = 1; I <= N; I++) { // 10
             X( I ) = CONJG( X( I ) )
          } // 10

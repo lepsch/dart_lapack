@@ -52,7 +52,7 @@
 
       // Quick return if possible
 
-      if (M.EQ.0 .OR. N.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0) RETURN;
 
       // Compute machine safe minimum
 
@@ -82,7 +82,7 @@
                }
             }
 
-         } else if ( INFO.EQ.0 ) {
+         } else if ( INFO == 0 ) {
 
             INFO = J
          }

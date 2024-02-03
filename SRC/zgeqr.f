@@ -38,11 +38,11 @@
 
       INFO = 0
 
-      LQUERY = ( TSIZE.EQ.-1 .OR. TSIZE.EQ.-2 .OR. LWORK.EQ.-1 .OR. LWORK.EQ.-2 )
+      LQUERY = ( TSIZE == -1 .OR. TSIZE == -2 .OR. LWORK == -1 .OR. LWORK == -2 )
 
       MINT = false;
       MINW = false;
-      if ( TSIZE.EQ.-2 .OR. LWORK.EQ.-2 ) {
+      if ( TSIZE == -2 .OR. LWORK == -2 ) {
         if (TSIZE.NE.-1) MINT = true ;
         if (LWORK.NE.-1) MINW = true ;
       }
@@ -60,7 +60,7 @@
       IF( NB.GT.MIN( M, N ) .OR. NB.LT.1 ) NB = 1
       MINTSZ = N + 5
       if ( MB.GT.N .AND. M.GT.N ) {
-        if ( MOD( M - N, MB - N ).EQ.0 ) {
+        if ( MOD( M - N, MB - N ) == 0 ) {
           NBLCKS = ( M - N ) / ( MB - N )
         } else {
           NBLCKS = ( M - N ) / ( MB - N ) + 1
@@ -98,7 +98,7 @@
         INFO = -8
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
         if ( MINT ) {
           T( 1 ) = MINTSZ
         } else {
@@ -121,7 +121,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N ).EQ.0 ) {
+      if ( MIN( M, N ) == 0 ) {
         RETURN
       }
 

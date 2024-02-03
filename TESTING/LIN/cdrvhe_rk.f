@@ -145,9 +145,9 @@
                   // the matrix to test that INFO is returned correctly.
 
                   if ( ZEROT ) {
-                     if ( IMAT.EQ.3 ) {
+                     if ( IMAT == 3 ) {
                         IZERO = 1
-                     } else if ( IMAT.EQ.4 ) {
+                     } else if ( IMAT == 4 ) {
                         IZERO = N
                      } else {
                         IZERO = N / 2 + 1
@@ -157,7 +157,7 @@
 
                         // Set row and column IZERO to zero.
 
-                        if ( IUPLO.EQ.1 ) {
+                        if ( IUPLO == 1 ) {
                            IOFF = ( IZERO-1 )*LDA
                            for (I = 1; I <= IZERO - 1; I++) { // 20
                               A( IOFF+I ) = ZERO
@@ -179,7 +179,7 @@
                            } // 50
                         }
                      } else {
-                        if ( IUPLO.EQ.1 ) {
+                        if ( IUPLO == 1 ) {
 
                         // Set the first IZERO rows and columns to zero.
 
@@ -221,10 +221,10 @@
                   // Compute the condition number
 
                   if ( ZEROT ) {
-                     if (IFACT.EQ.1) GO TO 150;
+                     if (IFACT == 1) GO TO 150;
                      RCONDC = ZERO
 
-                  } else if ( IFACT.EQ.1 ) {
+                  } else if ( IFACT == 1 ) {
 
                      // Compute the 1-norm of A.
 
@@ -263,7 +263,7 @@
 
                   // --- Test CHESV_RK  ---
 
-                  if ( IFACT.EQ.2 ) {
+                  if ( IFACT == 2 ) {
                      clacpy(UPLO, N, N, A, LDA, AFAC, LDA );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
@@ -320,7 +320,7 @@
 
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CHESV_RK', UPLO, N, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CHESV_RK', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 110

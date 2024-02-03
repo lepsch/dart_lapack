@@ -46,7 +46,7 @@
       // Quick return for N=1 and 2.
 
       INFO = 0
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
 
          // Presumably, I=1 upon entry
 
@@ -55,7 +55,7 @@
          WORK( 1 ) = ONE
          RETURN
       }
-      if ( N.EQ.2 ) {
+      if ( N == 2 ) {
          slasd5(I, D, Z, DELTA, RHO, SIGMA, WORK );
          RETURN
       }
@@ -68,7 +68,7 @@
 
       // The case I = N
 
-      if ( I.EQ.N ) {
+      if ( I == N ) {
 
          // Initialize some basic variables
 
@@ -189,7 +189,7 @@
          A = ( DTNSQ+DTNSQ1 )*W - DTNSQ*DTNSQ1*( DPSI+DPHI )
          B = DTNSQ*DTNSQ1*W
          if (C.LT.ZERO) C = ABS( C );
-         if ( C.EQ.ZERO ) {
+         if ( C == ZERO ) {
             ETA = RHO - SIGMA*SIGMA
          } else if ( A.GE.ZERO ) {
             ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
@@ -443,7 +443,7 @@
          } else {
             if (W.GT.ZERO) SWTCH3 = true ;
          }
-         if (II.EQ.1 .OR. II.EQ.N) SWTCH3 = false ;
+         if (II == 1 .OR. II == N) SWTCH3 = false ;
 
          TEMP = Z( II ) / ( WORK( II )*DELTA( II ) )
          DW = DPSI + DPHI + TEMP*TEMP
@@ -477,8 +477,8 @@
             }
             A = ( DTIPSQ+DTISQ )*W - DTIPSQ*DTISQ*DW
             B = DTIPSQ*DTISQ*W
-            if ( C.EQ.ZERO ) {
-               if ( A.EQ.ZERO ) {
+            if ( C == ZERO ) {
+               if ( A == ZERO ) {
                   if ( ORGATI ) {
                      A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ*( DPSI+DPHI )
                   } else {
@@ -541,8 +541,8 @@
                }
                A = ( DTIPSQ+DTISQ )*W - DTIPSQ*DTISQ*DW
                B = DTIPSQ*DTISQ*W
-               if ( C.EQ.ZERO ) {
-                  if ( A.EQ.ZERO ) {
+               if ( C == ZERO ) {
+                  if ( A == ZERO ) {
                      if ( ORGATI ) {
                         A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ*( DPSI+DPHI )
                      } else {
@@ -677,8 +677,8 @@
                }
                A = ( DTIPSQ+DTISQ )*W - DTIPSQ*DTISQ*DW
                B = DTIPSQ*DTISQ*W
-               if ( C.EQ.ZERO ) {
-                  if ( A.EQ.ZERO ) {
+               if ( C == ZERO ) {
+                  if ( A == ZERO ) {
                      if ( .NOT.SWTCH ) {
                         if ( ORGATI ) {
                            A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ* ( DPSI+DPHI )
@@ -762,8 +762,8 @@
                   }
                   A = ( DTIPSQ+DTISQ )*W - DTIPSQ*DTISQ*DW
                   B = DTIPSQ*DTISQ*W
-                  if ( C.EQ.ZERO ) {
-                     if ( A.EQ.ZERO ) {
+                  if ( C == ZERO ) {
+                     if ( A == ZERO ) {
                         if ( .NOT.SWTCH ) {
                            if ( ORGATI ) {
                               A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ* ( DPSI+DPHI )

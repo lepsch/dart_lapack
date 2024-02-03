@@ -101,7 +101,7 @@
 
                               for (T = 1; T <= NTESTS; T++) {
                                  if ( RESULT( T ).GE.THRESH ) {
-                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) M, N, MB1, NB1, NB2, T, RESULT( T );
+                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) M, N, MB1, NB1, NB2, T, RESULT( T );
                                     NFAIL = NFAIL + 1
                                  }
                               }
@@ -159,7 +159,7 @@
 
                               for (T = 1; T <= NTESTS; T++) {
                                  if ( RESULT( T ).GE.THRESH ) {
-                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9998 ) M, N, MB1, NB1, NB2, T, RESULT( T );
+                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9998 ) M, N, MB1, NB1, NB2, T, RESULT( T );
                                     NFAIL = NFAIL + 1
                                  }
                               }

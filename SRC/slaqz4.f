@@ -24,7 +24,7 @@
       if ( NBLOCK_DESIRED .LT. NSHIFTS+1 ) {
          INFO = -8
       }
-      if ( LWORK .EQ.-1 ) {
+      if ( LWORK == -1 ) {
          // workspace query, quick return
          WORK( 1 ) = SROUNDUP_LWORK(N*NBLOCK_DESIRED)
          RETURN

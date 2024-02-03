@@ -23,7 +23,7 @@
       // .. Executable Statements ..
 
       // Quick test for the common case where one corner is non-zero.
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          ILAZLC = N
       } else if ( A(1, N).NE.ZERO .OR. A(M, N).NE.ZERO ) {
          ILAZLC = N

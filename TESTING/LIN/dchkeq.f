@@ -126,7 +126,7 @@
                   dgbequ(M, N, KL, KU, AB, NSZB, R, C, RCOND, CCOND, NORM, INFO );
 
                   if ( INFO.NE.0 ) {
-                     if ( .NOT.( ( N+KL.LT.M .AND. INFO.EQ.N+KL+1 ) .OR. ( M+KU.LT.N .AND. INFO.EQ.2*M+KU+1 ) ) ) {
+                     if ( .NOT.( ( N+KL.LT.M .AND. INFO == N+KL+1 ) .OR. ( M+KU.LT.N .AND. INFO == 2*M+KU+1 ) ) ) {
                         RESLTS( 2 ) = ONE
                      }
                   } else {
@@ -187,7 +187,7 @@
 
          for (I = 1; I <= NSZ; I++) { // 270
             for (J = 1; J <= NSZ; J++) { // 260
-               if ( I.LE.N .AND. J.EQ.I ) {
+               if ( I.LE.N .AND. J == I ) {
                   A( I, J ) = POW( I+J+1 )*( -1 )**( I+J )
                } else {
                   A( I, J ) = ZERO

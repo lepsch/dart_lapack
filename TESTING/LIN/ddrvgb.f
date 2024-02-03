@@ -100,7 +100,7 @@
          // Set limits on the number of loop iterations.
 
          NKL = MAX( 1, MIN( N, 4 ) )
-         if (N.EQ.0) NKL = 1;
+         if (N == 0) NKL = 1;
          NKU = NKL
          NIMAT = NTYPES
          if (N.LE.0) NIMAT = 1;
@@ -110,13 +110,13 @@
             // Do for KL = 0, N-1, (3N-1)/4, and (N+1)/4. This order makes
             // it easier to skip redundant values for small values of N.
 
-            if ( IKL.EQ.1 ) {
+            if ( IKL == 1 ) {
                KL = 0
-            } else if ( IKL.EQ.2 ) {
+            } else if ( IKL == 2 ) {
                KL = MAX( N-1, 0 )
-            } else if ( IKL.EQ.3 ) {
+            } else if ( IKL == 3 ) {
                KL = ( 3*N-1 ) / 4
-            } else if ( IKL.EQ.4 ) {
+            } else if ( IKL == 4 ) {
                KL = ( N+1 ) / 4
             }
             for (IKU = 1; IKU <= NKU; IKU++) { // 130
@@ -125,13 +125,13 @@
                // makes it easier to skip redundant values for small
                // values of N.
 
-               if ( IKU.EQ.1 ) {
+               if ( IKU == 1 ) {
                   KU = 0
-               } else if ( IKU.EQ.2 ) {
+               } else if ( IKU == 2 ) {
                   KU = MAX( N-1, 0 )
-               } else if ( IKU.EQ.3 ) {
+               } else if ( IKU == 3 ) {
                   KU = ( 3*N-1 ) / 4
-               } else if ( IKU.EQ.4 ) {
+               } else if ( IKU == 4 ) {
                   KU = ( N+1 ) / 4
                }
 
@@ -141,7 +141,7 @@
                LDA = KL + KU + 1
                LDAFB = 2*KL + KU + 1
                if ( LDA*N.GT.LA .OR. LDAFB*N.GT.LAFB ) {
-                  if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
+                  if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
                   if ( LDA*N.GT.LA ) {
                      WRITE( NOUT, FMT = 9999 )LA, N, KL, KU, N*( KL+KU+1 )
                      NERRS = NERRS + 1
@@ -185,9 +185,9 @@
 
                   IZERO = 0
                   if ( ZEROT ) {
-                     if ( IMAT.EQ.2 ) {
+                     if ( IMAT == 2 ) {
                         IZERO = 1
-                     } else if ( IMAT.EQ.3 ) {
+                     } else if ( IMAT == 3 ) {
                         IZERO = N
                      } else {
                         IZERO = N / 2 + 1
@@ -215,7 +215,7 @@
 
                   for (IEQUED = 1; IEQUED <= 4; IEQUED++) { // 110
                      EQUED = EQUEDS( IEQUED )
-                     if ( IEQUED.EQ.1 ) {
+                     if ( IEQUED == 1 ) {
                         NFACT = 3
                      } else {
                         NFACT = 1
@@ -246,7 +246,7 @@
                               // equilibrate the matrix A.
 
                               dgbequ(N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
-                              if ( INFO.EQ.0 .AND. N.GT.0 ) {
+                              if ( INFO == 0 .AND. N.GT.0 ) {
                                  if ( LSAME( EQUED, 'R' ) ) {
                                     ROWCND = ZERO
                                     COLCND = ONE
@@ -311,7 +311,7 @@
                            // Do for each value of TRANS.
 
                            TRANS = TRANSS( ITRAN )
-                           if ( ITRAN.EQ.1 ) {
+                           if ( ITRAN == 1 ) {
                               RCONDC = RCONDO
                            } else {
                               RCONDC = RCONDI
@@ -329,7 +329,7 @@
                            XTYPE = 'C'
                            dlacpy('Full', N, NRHS, B, LDB, BSAV, LDB );
 
-                           if ( NOFACT .AND. ITRAN.EQ.1 ) {
+                           if ( NOFACT .AND. ITRAN == 1 ) {
 
                               // --- Test DGBSV  ---
 
@@ -351,7 +351,7 @@
 
                               dgbt01(N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) );
                               NT = 1
-                              if ( IZERO.EQ.0 ) {
+                              if ( IZERO == 0 ) {
 
                                  // Compute residual of the computed
                                  // solution.
@@ -371,7 +371,7 @@
 
                               for (K = 1; K <= NT; K++) { // 50
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'DGBSV ', N, KL, KU, IMAT, K, RESULT( K );
+                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'DGBSV ', N, KL, KU, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               } // 50
@@ -410,14 +410,14 @@
                                  } // 60
                               } // 70
                               RPVGRW = DLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ) ), LDAFB, WORK )
-                              if ( RPVGRW.EQ.ZERO ) {
+                              if ( RPVGRW == ZERO ) {
                                  RPVGRW = ONE
                               } else {
                                  RPVGRW = ANRMPV / RPVGRW
                               }
                            } else {
                               RPVGRW = DLANTB( 'M', 'U', 'N', N, KL+KU, AFB, LDAFB, WORK )
-                              if ( RPVGRW.EQ.ZERO ) {
+                              if ( RPVGRW == ZERO ) {
                                  RPVGRW = ONE
                               } else {
                                  RPVGRW = DLANGB( 'M', N, KL, KU, A, LDA, WORK ) / RPVGRW
@@ -436,7 +436,7 @@
                               K1 = 2
                            }
 
-                           if ( INFO.EQ.0 ) {
+                           if ( INFO == 0 ) {
                               TRFCON = false;
 
                               // Compute residual of the computed solution.
@@ -450,7 +450,7 @@
                               IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
                                  dget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                               } else {
-                                 if ( ITRAN.EQ.1 ) {
+                                 if ( ITRAN == 1 ) {
                                     ROLDC = ROLDO
                                  } else {
                                     ROLDC = ROLDI
@@ -477,7 +477,7 @@
                            if ( .NOT.TRFCON ) {
                               for (K = K1; K <= NTESTS; K++) { // 80
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
+                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
                                     if ( PREFAC ) {
                                        WRITE( NOUT, FMT = 9995 ) 'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
                                     } else {
@@ -488,7 +488,7 @@
                               } // 80
                               NRUN = NRUN + NTESTS - K1 + 1
                            } else {
-                              IF( RESULT( 1 ).GE.THRESH .AND. .NOT. PREFAC ) THEN                                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                              IF( RESULT( 1 ).GE.THRESH .AND. .NOT. PREFAC ) THEN                                  IF( NFAIL == 0 .AND. NERRS == 0 ) CALL ALADHD( NOUT, PATH )
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 )
                                  } else {
@@ -498,7 +498,7 @@
                                  NRUN = NRUN + 1
                               }
                               if ( RESULT( 6 ).GE.THRESH ) {
-                                 if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
+                                 if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
                                  } else {
@@ -508,7 +508,7 @@
                                  NRUN = NRUN + 1
                               }
                               if ( RESULT( 7 ).GE.THRESH ) {
-                                 if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
+                                 if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )
                                  } else {

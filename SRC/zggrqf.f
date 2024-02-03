@@ -38,7 +38,7 @@
       NB = MAX( NB1, NB2, NB3 )
       LWKOPT = MAX( 1, MAX( N, M, P )*NB )
       WORK( 1 ) = LWKOPT
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( P.LT.0 ) {

@@ -46,7 +46,7 @@
       // Test the input arguments.
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -61,8 +61,8 @@
 
       // Figure out optimal block size
 
-      if ( INFO.EQ.0 ) {
-         if ( MN.EQ.0 .OR. NRHS.EQ.0 ) {
+      if ( INFO == 0 ) {
+         if ( MN == 0 .OR. NRHS == 0 ) {
             LWKMIN = 1
             LWKOPT = 1
          } else {
@@ -90,7 +90,7 @@
 
       // Quick return if possible
 
-      if ( MN.EQ.0 .OR. NRHS.EQ.0 ) {
+      if ( MN == 0 .OR. NRHS == 0 ) {
          RANK = 0
          RETURN
       }
@@ -116,7 +116,7 @@
 
          slascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
-      } else if ( ANRM.EQ.ZERO ) {
+      } else if ( ANRM == ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
@@ -156,7 +156,7 @@
       WORK( ISMAX ) = ONE
       SMAX = ABS( A( 1, 1 ) )
       SMIN = SMAX
-      if ( ABS( A( 1, 1 ) ).EQ.ZERO ) {
+      if ( ABS( A( 1, 1 ) ) == ZERO ) {
          RANK = 0
          slaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
          GO TO 70
@@ -235,16 +235,16 @@
 
       // Undo scaling
 
-      if ( IASCL.EQ.1 ) {
+      if ( IASCL == 1 ) {
          slascl('G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO );
          slascl('U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA, INFO );
-      } else if ( IASCL.EQ.2 ) {
+      } else if ( IASCL == 2 ) {
          slascl('G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO );
          slascl('U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA, INFO );
       }
-      if ( IBSCL.EQ.1 ) {
+      if ( IBSCL == 1 ) {
          slascl('G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO );
-      } else if ( IBSCL.EQ.2 ) {
+      } else if ( IBSCL == 2 ) {
          slascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 

@@ -64,13 +64,13 @@
          RETURN
       }
 
-      // Quick return when ( (N.EQ.0).OR.(M.EQ.0) )
+      // Quick return when ( (N == 0).OR.(M == 0) )
 
-      IF( ( M.EQ.0 ) .OR. ( N.EQ.0 ) ) RETURN
+      IF( ( M == 0 ) .OR. ( N == 0 ) ) RETURN
 
-      // Quick return when ALPHA.EQ.(0D+0,0D+0)
+      // Quick return when ALPHA == (0D+0,0D+0)
 
-      if ( ALPHA.EQ.CZERO ) {
+      if ( ALPHA == CZERO ) {
          for (J = 0; J <= N - 1; J++) { // 20
             for (I = 0; I <= M - 1; I++) { // 10
                B( I, J ) = CZERO
@@ -87,7 +87,7 @@
          // If M is odd, set NISODD = true , and M1 and M2.
          // If M is even, NISODD = false , and M.
 
-         if ( MOD( M, 2 ).EQ.0 ) {
+         if ( MOD( M, 2 ) == 0 ) {
             MISODD = false;
             K = M / 2
          } else {
@@ -118,7 +118,7 @@
                      // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'L', and
                      // TRANS = 'N'
 
-                     if ( M.EQ.1 ) {
+                     if ( M == 1 ) {
                         ztrsm('L', 'L', 'N', DIAG, M1, N, ALPHA, A, M, B, LDB );
                      } else {
                         ztrsm('L', 'L', 'N', DIAG, M1, N, ALPHA, A( 0 ), M, B, LDB );
@@ -131,7 +131,7 @@
                      // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'L', and
                      // TRANS = 'C'
 
-                     if ( M.EQ.1 ) {
+                     if ( M == 1 ) {
                         ztrsm('L', 'L', 'C', DIAG, M1, N, ALPHA, A( 0 ), M, B, LDB );
                      } else {
                         ztrsm('L', 'U', 'N', DIAG, M2, N, ALPHA, A( M ), M, B( M1, 0 ), LDB );
@@ -180,7 +180,7 @@
                      // SIDE  ='L', N is odd, TRANSR = 'C', UPLO = 'L', and
                      // TRANS = 'N'
 
-                     if ( M.EQ.1 ) {
+                     if ( M == 1 ) {
                         ztrsm('L', 'U', 'C', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB );
                      } else {
                         ztrsm('L', 'U', 'C', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB );
@@ -193,7 +193,7 @@
                      // SIDE  ='L', N is odd, TRANSR = 'C', UPLO = 'L', and
                      // TRANS = 'C'
 
-                     if ( M.EQ.1 ) {
+                     if ( M == 1 ) {
                         ztrsm('L', 'U', 'N', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB );
                      } else {
                         ztrsm('L', 'L', 'C', DIAG, M2, N, ALPHA, A( 1 ), M1, B( M1, 0 ), LDB );
@@ -354,7 +354,7 @@
          // If N is odd, set NISODD = true , and N1 and N2.
          // If N is even, NISODD = false , and K.
 
-         if ( MOD( N, 2 ).EQ.0 ) {
+         if ( MOD( N, 2 ) == 0 ) {
             NISODD = false;
             K = N / 2
          } else {

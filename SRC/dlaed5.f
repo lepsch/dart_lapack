@@ -27,7 +27,7 @@
       // .. Executable Statements ..
 
       DEL = D( 2 ) - D( 1 )
-      if ( I.EQ.1 ) {
+      if ( I == 1 ) {
          W = ONE + TWO*RHO*( Z( 2 )*Z( 2 )-Z( 1 )*Z( 1 ) ) / DEL
          if ( W.GT.ZERO ) {
             B = DEL + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )

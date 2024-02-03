@@ -50,7 +50,7 @@
       WANTQ = LSAME( COMPQ, 'V' )
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.WANTS .AND. .NOT.WANTSP ) {
          INFO = -1
       } else if ( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) {
@@ -73,7 +73,7 @@
                PAIR = false;
             } else {
                if ( K.LT.N ) {
-                  if ( T( K+1, K ).EQ.ZERO ) {
+                  if ( T( K+1, K ) == ZERO ) {
                      IF( SELECT( K ) ) M = M + 1
                   } else {
                      PAIR = true;
@@ -107,7 +107,7 @@
          }
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          WORK( 1 ) = LWMIN
          IWORK( 1 ) = LIWMIN
       }
@@ -121,7 +121,7 @@
 
       // Quick return if possible.
 
-      if ( M.EQ.N .OR. M.EQ.0 ) {
+      if ( M == N .OR. M == 0 ) {
          if (WANTS) S = ONE          IF( WANTSP ) SEP = DLANGE( '1', N, N, T, LDT, WORK );
          GO TO 40
       }
@@ -149,7 +149,7 @@
                IERR = 0
                KK = K
                if (K.NE.KS) CALL DTREXC( COMPQ, N, T, LDT, Q, LDQ, KK, KS, WORK, IERR );
-               if ( IERR.EQ.1 .OR. IERR.EQ.2 ) {
+               if ( IERR == 1 .OR. IERR == 2 ) {
 
                   // Blocks too close to swap: exit.
 
@@ -175,7 +175,7 @@
          // of eigenvalues.
 
          RNORM = DLANGE( 'F', N1, N2, WORK, N1, WORK )
-         if ( RNORM.EQ.ZERO ) {
+         if ( RNORM == ZERO ) {
             S = ONE
          } else {
             S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) )
@@ -191,7 +191,7 @@
          } // 30
          dlacn2(NN, WORK( NN+1 ), WORK, IWORK, EST, KASE, ISAVE );
          if ( KASE.NE.0 ) {
-            if ( KASE.EQ.1 ) {
+            if ( KASE == 1 ) {
 
                // Solve  T11*R - R*T22 = scale*X.
 

@@ -119,9 +119,9 @@
                // test that INFO is returned correctly.
 
                if ( ZEROT ) {
-                  if ( IMAT.EQ.3 ) {
+                  if ( IMAT == 3 ) {
                      IZERO = 1
-                  } else if ( IMAT.EQ.4 ) {
+                  } else if ( IMAT == 4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
@@ -130,7 +130,7 @@
 
                   // Set row and column IZERO of A to 0.
 
-                  if ( IUPLO.EQ.1 ) {
+                  if ( IUPLO == 1 ) {
                      for (I = 1; I <= IZERO - 1; I++) { // 20
                         A( IOFF+I ) = ZERO
                      } // 20
@@ -185,7 +185,7 @@
 
                   if ( INFO.NE.IZERO ) {
 
-                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH );
                      NERRS = NERRS + 1
 
                      if ( INFO.NE.IZERO .AND. IZERO.NE.0 ) {
@@ -219,7 +219,7 @@
 
                   if ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) {
 
-                     if ( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) {
+                     if ( NFAIL == 0 .AND. NERRS == 0 ) {
                         WRITE( NOUT, FMT = 8999 )'ZPO'
                         WRITE( NOUT, FMT = '( '' Matrix types:'' )' )
                         WRITE( NOUT, FMT = 8979 )

@@ -47,9 +47,9 @@
 
       } // 10
 
-      if (N0.LT.I0) RETURN       IF( N0.EQ.I0 ) GO TO 20;
+      if (N0.LT.I0) RETURN       IF( N0 == I0 ) GO TO 20;
       NN = 4*N0 + PP
-      IF( N0.EQ.( I0+1 ) ) GO TO 40
+      IF( N0 == ( I0+1 ) ) GO TO 40
 
       // Check whether E(N0-1) is negligible, 1 eigenvalue.
 
@@ -92,7 +92,7 @@
       GO TO 10
 
       } // 50
-      if (PP.EQ.2) PP = 0;
+      if (PP == 2) PP = 0;
 
       // Reverse the qd-array, if warranted.
 
@@ -180,7 +180,7 @@
 
          // NaN.
 
-         if ( TAU.EQ.ZERO ) {
+         if ( TAU == ZERO ) {
             GO TO 80
          } else {
             TAU = ZERO

@@ -95,7 +95,7 @@
       THRESHA = MAX( TWENTY*EPS*DNORMA, SMLNUM )
       THRESHB = MAX( TWENTY*EPS*DNORMB, SMLNUM )
 
-      if ( M.EQ.2 ) {
+      if ( M == 2 ) {
 
          // CASE 1: Swap 1-by-1 and 1-by-1 blocks.
 

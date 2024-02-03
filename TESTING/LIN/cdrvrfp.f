@@ -93,14 +93,14 @@
 
                IMAT = NTVAL( IIT )
 
-               // If N.EQ.0, only consider the first type
+               // If N == 0, only consider the first type
 
-               if (N.EQ.0 .AND. IIT.GE.1) GO TO 120;
+               if (N == 0 .AND. IIT.GE.1) GO TO 120;
 
                // Skip types 3, 4, or 5 if the matrix size is too small.
 
-               if (IMAT.EQ.4 .AND. N.LE.1) GO TO 120;
-               if (IMAT.EQ.5 .AND. N.LE.2) GO TO 120;
+               if (IMAT == 4 .AND. N.LE.1) GO TO 120;
+               if (IMAT == 5 .AND. N.LE.2) GO TO 120;
 
                // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -132,9 +132,9 @@
 
                      ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
                      if ( ZEROT ) {
-                        if ( IIT.EQ.3 ) {
+                        if ( IIT == 3 ) {
                            IZERO = 1
-                        } else if ( IIT.EQ.4 ) {
+                        } else if ( IIT == 4 ) {
                            IZERO = N
                         } else {
                            IZERO = N / 2 + 1
@@ -143,7 +143,7 @@
 
                         // Set row and column IZERO of A to 0.
 
-                        if ( IUPLO.EQ.1 ) {
+                        if ( IUPLO == 1 ) {
                            for (I = 1; I <= IZERO - 1; I++) { // 20
                               A( IOFF+I ) = ZERO
                            } // 20
@@ -257,7 +257,7 @@
 
                      // Form the inverse and compute the residual.
 
-                    if (MOD(N,2).EQ.0) {
+                    if (MOD(N,2) == 0) {
                        clacpy('A', N+1, N/2, ARF, N+1, ARFINV, N+1 );
                     } else {
                        clacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );
@@ -290,7 +290,7 @@
 
                      for (K = 1; K <= NT; K++) { // 60
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, 'CPF' )                            WRITE( NOUT, FMT = 9999 )'CPFSV ', UPLO, N, IIT, K, RESULT( K );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, 'CPF' )                            WRITE( NOUT, FMT = 9999 )'CPFSV ', UPLO, N, IIT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 60

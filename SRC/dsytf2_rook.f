@@ -96,11 +96,11 @@
             COLMAX = ZERO
          }
 
-         if ( (MAX( ABSAKK, COLMAX ).EQ.ZERO) ) {
+         if ( (MAX( ABSAKK, COLMAX ) == ZERO) ) {
 
             // Column K is zero or underflow: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
          } else {
 
@@ -156,10 +156,10 @@
                      KP = IMAX
                      DONE = true;
 
-                  // Equivalent to testing for ROWMAX .EQ. COLMAX,
+                  // Equivalent to testing for ROWMAX == COLMAX,
                   // used to handle NaN and Inf
 
-                  } else if ( ( P.EQ.JMAX ).OR.( ROWMAX.LE.COLMAX ) ) {
+                  } else if ( ( P == JMAX ).OR.( ROWMAX.LE.COLMAX ) ) {
 
                      // interchange rows and columns K+1 and IMAX,
                      // use 2-by-2 pivot block
@@ -186,7 +186,7 @@
 
             // First swap
 
-            if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
 
                // Interchange rows and column K and P in the leading
                // submatrix A(1:k,1:k) if we have a 2-by-2 pivot
@@ -209,7 +209,7 @@
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
-               if ( KSTEP.EQ.2 ) {
+               if ( KSTEP == 2 ) {
                   T = A( K-1, K )
                   A( K-1, K ) = A( KP, K )
                   A( KP, K ) = T
@@ -218,7 +218,7 @@
 
             // Update the leading submatrix
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -307,7 +307,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -P
@@ -351,11 +351,11 @@
             COLMAX = ZERO
          }
 
-         if ( ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) ) {
+         if ( ( MAX( ABSAKK, COLMAX ) == ZERO ) ) {
 
             // Column K is zero or underflow: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
          } else {
 
@@ -410,10 +410,10 @@
                      KP = IMAX
                      DONE = true;
 
-                  // Equivalent to testing for ROWMAX .EQ. COLMAX,
+                  // Equivalent to testing for ROWMAX == COLMAX,
                   // used to handle NaN and Inf
 
-                  } else if ( ( P.EQ.JMAX ).OR.( ROWMAX.LE.COLMAX ) ) {
+                  } else if ( ( P == JMAX ).OR.( ROWMAX.LE.COLMAX ) ) {
 
                      // interchange rows and columns K+1 and IMAX,
                      // use 2-by-2 pivot block
@@ -440,7 +440,7 @@
 
             // First swap
 
-            if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
 
                // Interchange rows and column K and P in the trailing
                // submatrix A(k:n,k:n) if we have a 2-by-2 pivot
@@ -463,7 +463,7 @@
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
-               if ( KSTEP.EQ.2 ) {
+               if ( KSTEP == 2 ) {
                   T = A( K+1, K )
                   A( K+1, K ) = A( KP, K )
                   A( KP, K ) = T
@@ -472,7 +472,7 @@
 
             // Update the trailing submatrix
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -566,7 +566,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -P

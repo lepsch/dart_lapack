@@ -78,7 +78,7 @@
                SCOND = ONE
             }
          }
-         if ( INFO.EQ.0 ) {
+         if ( INFO == 0 ) {
             if ( LDB.LT.MAX( 1, N ) ) {
                INFO = -10
             } else if ( LDX.LT.MAX( 1, N ) ) {
@@ -97,7 +97,7 @@
          // Compute row and column scalings to equilibrate the matrix A.
 
          zppequ(UPLO, N, AP, S, SCOND, AMAX, INFEQU );
-         if ( INFEQU.EQ.0 ) {
+         if ( INFEQU == 0 ) {
 
             // Equilibrate the matrix.
 

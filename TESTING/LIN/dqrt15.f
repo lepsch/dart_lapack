@@ -52,9 +52,9 @@
 
       // Determine rank and (unscaled) singular values
 
-      if ( RKSEL.EQ.1 ) {
+      if ( RKSEL == 1 ) {
          RANK = MN
-      } else if ( RKSEL.EQ.2 ) {
+      } else if ( RKSEL == 2 ) {
          RANK = ( 3*MN ) / 4
          for (J = RANK + 1; J <= MN; J++) { // 10
             S( J ) = ZERO
@@ -122,14 +122,14 @@
       if ( SCALE.NE.1 ) {
          NORMA = DLANGE( 'Max', M, N, A, LDA, DUMMY )
          if ( NORMA.NE.ZERO ) {
-            if ( SCALE.EQ.2 ) {
+            if ( SCALE == 2 ) {
 
                // matrix scaled up
 
                dlascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO );
                dlascl('General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO );
                dlascl('General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO );
-            } else if ( SCALE.EQ.3 ) {
+            } else if ( SCALE == 3 ) {
 
                // matrix scaled down
 

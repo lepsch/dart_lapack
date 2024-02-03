@@ -49,7 +49,7 @@
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
       LOWER = LSAME( UPLO, 'L' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       INFO = 0
       if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
@@ -77,11 +77,11 @@
             }
          }
       }
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -18
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( N.LE.1 ) {
             LWMIN = 1
             WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
@@ -104,9 +104,9 @@
       // Quick return if possible
 
       M = 0
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          M = 1
          if ( LOWER ) {
             TMP1 = AB( 1, 1 )
@@ -116,7 +116,7 @@
          if ( VALEIG ) {
             IF( .NOT.( VL.LT.TMP1 .AND. VU.GE.TMP1 ) ) M = 0
          }
-         if ( M.EQ.1 ) {
+         if ( M == 1 ) {
             W( 1 ) = TMP1
             if (WANTZ) Z( 1, 1 ) = ONE;
          }
@@ -151,7 +151,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      if ( ISCALE.EQ.1 ) {
+      if ( ISCALE == 1 ) {
          if ( LOWER ) {
             slascl('B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          } else {
@@ -180,7 +180,7 @@
 
       TEST = false;
       if (INDEIG) {
-         if (IL.EQ.1 .AND. IU.EQ.N) {
+         if (IL == 1 .AND. IU == N) {
             TEST = true;
          }
       }
@@ -194,13 +194,13 @@
             slacpy('A', N, N, Q, LDQ, Z, LDZ );
             scopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
             ssteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
-            if ( INFO.EQ.0 ) {
+            if ( INFO == 0 ) {
                for (I = 1; I <= N; I++) { // 10
                   IFAIL( I ) = 0
                } // 10
             }
          }
-         if ( INFO.EQ.0 ) {
+         if ( INFO == 0 ) {
             M = N
             GO TO 30
          }
@@ -234,8 +234,8 @@
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
       } // 30
-      if ( ISCALE.EQ.1 ) {
-         if ( INFO.EQ.0 ) {
+      if ( ISCALE == 1 ) {
+         if ( INFO == 0 ) {
             IMAX = M
          } else {
             IMAX = INFO - 1

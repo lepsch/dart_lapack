@@ -49,9 +49,9 @@
           INFO = 5
       } else if (LDA.LT. (KL+KU+1)) {
           INFO = 8
-      } else if (INCX.EQ.0) {
+      } else if (INCX == 0) {
           INFO = 10
-      } else if (INCY.EQ.0) {
+      } else if (INCY == 0) {
           INFO = 13
       }
       if (INFO.NE.0) {
@@ -61,7 +61,7 @@
 
       // Quick return if possible.
 
-      IF ((M.EQ.0) .OR. (N.EQ.0) .OR. ((ALPHA.EQ.ZERO).AND. (BETA.EQ.ONE))) RETURN
+      IF ((M == 0) .OR. (N == 0) .OR. ((ALPHA == ZERO).AND. (BETA == ONE))) RETURN
 
       // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
       // up the start points in  X  and  Y.
@@ -90,8 +90,8 @@
       // First form  y := beta*y.
 
       if (BETA.NE.ONE) {
-          if (INCY.EQ.1) {
-              if (BETA.EQ.ZERO) {
+          if (INCY == 1) {
+              if (BETA == ZERO) {
                   for (I = 1; I <= LENY; I++) { // 10
                       Y(I) = ZERO
                   } // 10
@@ -102,7 +102,7 @@
               }
           } else {
               IY = KY
-              if (BETA.EQ.ZERO) {
+              if (BETA == ZERO) {
                   for (I = 1; I <= LENY; I++) { // 30
                       Y(IY) = ZERO
                       IY = IY + INCY
@@ -115,14 +115,14 @@
               }
           }
       }
-      if (ALPHA.EQ.ZERO) RETURN;
+      if (ALPHA == ZERO) RETURN;
       KUP1 = KU + 1
       if (LSAME(TRANS,'N')) {
 
          // Form  y := alpha*A*x + y.
 
           JX = KX
-          if (INCY.EQ.1) {
+          if (INCY == 1) {
               for (J = 1; J <= N; J++) { // 60
                   TEMP = ALPHA*X(JX)
                   K = KUP1 - J
@@ -149,7 +149,7 @@
          // Form  y := alpha*A**T*x + y.
 
           JY = KY
-          if (INCX.EQ.1) {
+          if (INCX == 1) {
               for (J = 1; J <= N; J++) { // 100
                   TEMP = ZERO
                   K = KUP1 - J

@@ -36,7 +36,7 @@
 *  ====================
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -45,9 +45,9 @@
          INFO = -4
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          MINMN = MIN( M, N )
-         if ( MINMN.EQ.0 ) {
+         if ( MINMN == 0 ) {
             IWS = 1
             LWKOPT = 1
          } else {

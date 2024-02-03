@@ -38,7 +38,7 @@
 
       INFO = 0
       MINMN = MIN( M, N )
-      if ( MINMN.EQ.0 ) {
+      if ( MINMN == 0 ) {
          LWKMIN = 1
          LWKOPT = 1
       } else {
@@ -47,7 +47,7 @@
          LWKOPT = ( M+N )*NB
       }
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -66,7 +66,7 @@
 
       // Quick return if possible
 
-      if ( MINMN.EQ.0 ) {
+      if ( MINMN == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }

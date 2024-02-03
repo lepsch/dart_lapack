@@ -31,7 +31,7 @@
 
       // Quick return if possible.
 
-      IF( ( M.EQ.0 ) .OR. ( N.EQ.0 ) ) RETURN
+      IF( ( M == 0 ) .OR. ( N == 0 ) ) RETURN
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10

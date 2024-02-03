@@ -92,7 +92,7 @@
 
       for (K = 1; K <= NRHS; K++) { // 60
          if ( NOTRAN ) {
-            if ( N.EQ.1 ) {
+            if ( N == 1 ) {
                AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) )
             } else {
                AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) ) + CABS1( DU( 1 ) )*CABS1( X( 2, K ) )
@@ -104,7 +104,7 @@
                AXBI = MIN( AXBI, TMP )
             }
          } else {
-            if ( N.EQ.1 ) {
+            if ( N == 1 ) {
                AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) )
             } else {
                AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) ) + CABS1( DL( 1 ) )*CABS1( X( 2, K ) )
@@ -117,7 +117,7 @@
             }
          }
          TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) )
-         if ( K.EQ.1 ) {
+         if ( K == 1 ) {
             RESLTS( 2 ) = TMP
          } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )

@@ -67,10 +67,10 @@
 
       // Quick return if possible.
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          RETURN
-      } else if ( N.EQ.1 ) {
-         if ( D( 1 ).EQ.ZERO ) {
+      } else if ( N == 1 ) {
+         if ( D( 1 ) == ZERO ) {
             slaset('A', 1, NRHS, ZERO, ZERO, B, LDB );
          } else {
             RANK = 1
@@ -82,13 +82,13 @@
 
       // Rotate the matrix if it is lower bidiagonal.
 
-      if ( UPLO.EQ.'L' ) {
+      if ( UPLO == 'L' ) {
          for (I = 1; I <= N - 1; I++) { // 10
             slartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )
             D( I+1 ) = CS*D( I+1 )
-            if ( NRHS.EQ.1 ) {
+            if ( NRHS == 1 ) {
                srot(1, B( I, 1 ), 1, B( I+1, 1 ), 1, CS, SN );
             } else {
                WORK( I*2-1 ) = CS
@@ -110,7 +110,7 @@
 
       NM1 = N - 1
       ORGNRM = SLANST( 'M', N, D, E )
-      if ( ORGNRM.EQ.ZERO ) {
+      if ( ORGNRM == ZERO ) {
          slaset('A', N, NRHS, ZERO, ZERO, B, LDB );
          RETURN
       }
@@ -187,7 +187,7 @@
       } // 50
 
       for (I = 1; I <= NM1; I++) { // 60
-         if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) {
+         if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I == NM1 ) ) {
             NSUB = NSUB + 1
             IWORK( NSUB ) = ST
 
@@ -220,7 +220,7 @@
                scopy(NRHS, B( N, 1 ), LDB, WORK( BX+NM1 ), N );
             }
             ST1 = ST - 1
-            if ( NSIZE.EQ.1 ) {
+            if ( NSIZE == 1 ) {
 
                // This is a 1-by-1 subproblem and is not solved
                // explicitly.
@@ -280,7 +280,7 @@
          ST1 = ST - 1
          NSIZE = IWORK( SIZEI+I-1 )
          BXST = BX + ST1
-         if ( NSIZE.EQ.1 ) {
+         if ( NSIZE == 1 ) {
             scopy(NRHS, WORK( BXST ), N, B( ST, 1 ), LDB );
          } else if ( NSIZE.LE.SMLSIZ ) {
             sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, WORK( VT+ST1 ), N, WORK( BXST ), N, ZERO, B( ST, 1 ), LDB );

@@ -51,7 +51,7 @@
 
       } // 10
       READ( NIN, FMT = * )N, IFST, ILST
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
       KNT = KNT + 1
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
@@ -72,7 +72,7 @@
       strexc('N', N, T1, LDT, Q, LDT, IFST1, ILST1, WORK, INFO1 );
       for (I = 1; I <= N; I++) { // 40
          for (J = 1; J <= N; J++) { // 30
-            IF( I.EQ.J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS
+            IF( I == J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS
          } // 30
       } // 40
 
@@ -111,7 +111,7 @@
 
          // 2 by 2 block
 
-         IF( T2( LOC, LOC+1 ).EQ.ZERO .OR. T2( LOC, LOC ).NE. T2( LOC+1, LOC+1 ) .OR. SIGN( ONE, T2( LOC, LOC+1 ) ).EQ. SIGN( ONE, T2( LOC+1, LOC ) ) )RES = RES + ONE / EPS
+         IF( T2( LOC, LOC+1 ) == ZERO .OR. T2( LOC, LOC ).NE. T2( LOC+1, LOC+1 ) .OR. SIGN( ONE, T2( LOC, LOC+1 ) ) == SIGN( ONE, T2( LOC+1, LOC ) ) )RES = RES + ONE / EPS
          for (I = LOC + 2; I <= N; I++) { // 80
             IF( T2( I, LOC ).NE.ZERO ) RES = RES + ONE / RES             IF( T2( I, LOC+1 ).NE.ZERO ) RES = RES + ONE / RES
          } // 80

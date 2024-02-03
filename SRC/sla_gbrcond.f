@@ -56,7 +56,7 @@
          xerbla('SLA_GBRCOND', -INFO );
          RETURN
       }
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          SLA_GBRCOND = 1.0
          RETURN
       }
@@ -69,11 +69,11 @@
       if ( NOTRANS ) {
          for (I = 1; I <= N; I++) {
             TMP = 0.0
-               if ( CMODE .EQ. 1 ) {
+               if ( CMODE == 1 ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + ABS( AB( KD+I-J, J ) * C( J ) )
                }
-               } else if ( CMODE .EQ. 0 ) {
+               } else if ( CMODE == 0 ) {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                      TMP = TMP + ABS( AB( KD+I-J, J ) )
                   }
@@ -87,11 +87,11 @@
       } else {
          for (I = 1; I <= N; I++) {
             TMP = 0.0
-            if ( CMODE .EQ. 1 ) {
+            if ( CMODE == 1 ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + ABS( AB( KE-I+J, I ) * C( J ) )
                }
-            } else if ( CMODE .EQ. 0 ) {
+            } else if ( CMODE == 0 ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + ABS( AB( KE-I+J, I ) )
                }
@@ -112,7 +112,7 @@
       } // 10
       slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
-         if ( KASE.EQ.2 ) {
+         if ( KASE == 2 ) {
 
             // Multiply by R.
 
@@ -128,11 +128,11 @@
 
             // Multiply by inv(C).
 
-            if ( CMODE .EQ. 1 ) {
+            if ( CMODE == 1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) / C( I )
                }
-            } else if ( CMODE .EQ. -1 ) {
+            } else if ( CMODE == -1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                }
@@ -141,11 +141,11 @@
 
             // Multiply by inv(C**T).
 
-            if ( CMODE .EQ. 1 ) {
+            if ( CMODE == 1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) / C( I )
                }
-            } else if ( CMODE .EQ. -1 ) {
+            } else if ( CMODE == -1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                }

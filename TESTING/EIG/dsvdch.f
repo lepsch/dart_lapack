@@ -70,7 +70,7 @@
       // Begin loop merging overlapping intervals
 
       } // 20
-      if (BPNT.EQ.N) GO TO 30;
+      if (BPNT == N) GO TO 30;
       TUPPR = ( ONE+EPS )*SVD( BPNT+1 ) + UNFLEP
       if (TUPPR.LT.LOWER) GO TO 30;
 

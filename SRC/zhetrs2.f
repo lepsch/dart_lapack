@@ -57,7 +57,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0 .OR. NRHS.EQ.0) RETURN;
+      if (N == 0 .OR. NRHS == 0) RETURN;
 
       // Convert A
 
@@ -80,7 +80,7 @@
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
-            IF( KP.EQ.-IPIV( K-1 ) ) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP == -IPIV( K-1 ) ) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
          }
         }
@@ -97,7 +97,7 @@
               S = DBLE( ONE ) / DBLE( A( I, I ) )
               zdscal(NRHS, S, B( I, 1 ), LDB );
             } else if ( I .GT. 1) {
-               if ( IPIV(I-1) .EQ. IPIV(I) ) {
+               if ( IPIV(I-1) == IPIV(I) ) {
                   AKM1K = WORK(I)
                   AKM1 = A( I-1, I-1 ) / AKM1K
                   AK = A( I, I ) / DCONJG( AKM1K )
@@ -132,7 +132,7 @@
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
-            IF( K .LT. N .AND. KP.EQ.-IPIV( K+1 ) ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( K .LT. N .AND. KP == -IPIV( K+1 ) ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
          }
         }
@@ -154,7 +154,7 @@
             // 2 x 2 diagonal block
             // Interchange rows K and -IPIV(K+1).
             KP = -IPIV( K+1 )
-            IF( KP.EQ.-IPIV( K ) ) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP == -IPIV( K ) ) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
          }
         }
@@ -204,7 +204,7 @@
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
-            IF( K.GT.1 .AND. KP.EQ.-IPIV( K-1 ) ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( K.GT.1 .AND. KP == -IPIV( K-1 ) ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
          }
         }

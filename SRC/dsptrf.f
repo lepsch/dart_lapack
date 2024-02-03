@@ -89,11 +89,11 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
          } else {
             if ( ABSAKK.GE.ALPHA*COLMAX ) {
@@ -141,7 +141,7 @@
             }
 
             KK = K - KSTEP + 1
-            if (KSTEP.EQ.2) KNC = KNC - K + 1;
+            if (KSTEP == 2) KNC = KNC - K + 1;
             if ( KP.NE.KK ) {
 
                // Interchange rows and columns KK and KP in the leading
@@ -158,7 +158,7 @@
                T = AP( KNC+KK-1 )
                AP( KNC+KK-1 ) = AP( KPC+KP-1 )
                AP( KPC+KP-1 ) = T
-               if ( KSTEP.EQ.2 ) {
+               if ( KSTEP == 2 ) {
                   T = AP( KC+K-2 )
                   AP( KC+K-2 ) = AP( KC+KP-1 )
                   AP( KC+KP-1 ) = T
@@ -167,7 +167,7 @@
 
             // Update the leading submatrix
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -223,7 +223,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP
@@ -269,11 +269,11 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
          } else {
             if ( ABSAKK.GE.ALPHA*COLMAX ) {
@@ -323,7 +323,7 @@
             }
 
             KK = K + KSTEP - 1
-            if (KSTEP.EQ.2) KNC = KNC + N - K + 1;
+            if (KSTEP == 2) KNC = KNC + N - K + 1;
             if ( KP.NE.KK ) {
 
                // Interchange rows and columns KK and KP in the trailing
@@ -340,7 +340,7 @@
                T = AP( KNC )
                AP( KNC ) = AP( KPC )
                AP( KPC ) = T
-               if ( KSTEP.EQ.2 ) {
+               if ( KSTEP == 2 ) {
                   T = AP( KC+1 )
                   AP( KC+1 ) = AP( KC+KP-K )
                   AP( KC+KP-K ) = T
@@ -349,7 +349,7 @@
 
             // Update the trailing submatrix
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -412,7 +412,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP

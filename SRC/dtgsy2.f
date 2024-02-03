@@ -57,7 +57,7 @@
             INFO = -2
          }
       }
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( M.LE.0 ) {
             INFO = -3
          } else if ( N.LE.0 ) {
@@ -90,7 +90,7 @@
       if (I.GT.M) GO TO 20;
       P = P + 1
       IWORK( P ) = I
-      if (I.EQ.M) GO TO 20;
+      if (I == M) GO TO 20;
       if ( A( I+1, I ).NE.ZERO ) {
          I = I + 2
       } else {
@@ -108,7 +108,7 @@
       if (J.GT.N) GO TO 40;
       Q = Q + 1
       IWORK( Q ) = J
-      if (J.EQ.N) GO TO 40;
+      if (J == N) GO TO 40;
       if ( B( J+1, J ).NE.ZERO ) {
          J = J + 2
       } else {
@@ -141,7 +141,7 @@
                MB = IE - IS + 1
                ZDIM = MB*NB*2
 
-               if ( ( MB.EQ.1 ) .AND. ( NB.EQ.1 ) ) {
+               if ( ( MB == 1 ) .AND. ( NB == 1 ) ) {
 
                   // Build a 2-by-2 system Z * x = RHS
 
@@ -160,7 +160,7 @@
                   dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   if (IERR.GT.0) INFO = IERR;
 
-                  if ( IJOB.EQ.0 ) {
+                  if ( IJOB == 0 ) {
                      dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
                         for (K = 1; K <= N; K++) { // 50
@@ -191,7 +191,7 @@
                      daxpy(N-JE, RHS( 2 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
 
-               } else if ( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) {
+               } else if ( ( MB == 1 ) .AND. ( NB == 2 ) ) {
 
                   // Build a 4-by-4 system Z * x = RHS
 
@@ -227,7 +227,7 @@
                   dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   if (IERR.GT.0) INFO = IERR;
 
-                  if ( IJOB.EQ.0 ) {
+                  if ( IJOB == 0 ) {
                      dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
                         for (K = 1; K <= N; K++) { // 60
@@ -261,7 +261,7 @@
                      daxpy(N-JE, RHS( 4 ), E( JSP1, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
 
-               } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) {
+               } else if ( ( MB == 2 ) .AND. ( NB == 1 ) ) {
 
                   // Build a 4-by-4 system Z * x = RHS
 
@@ -296,7 +296,7 @@
 
                   dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   if (IERR.GT.0) INFO = IERR;
-                  if ( IJOB.EQ.0 ) {
+                  if ( IJOB == 0 ) {
                      dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
                         for (K = 1; K <= N; K++) { // 70
@@ -328,7 +328,7 @@
                      dger(MB, N-JE, ONE, RHS( 3 ), 1, E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
 
-               } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) {
+               } else if ( ( MB == 2 ) .AND. ( NB == 2 ) ) {
 
                   // Build an 8-by-8 system Z * x = RHS
 
@@ -385,7 +385,7 @@
 
                   dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   if (IERR.GT.0) INFO = IERR;
-                  if ( IJOB.EQ.0 ) {
+                  if ( IJOB == 0 ) {
                      dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
                         for (K = 1; K <= N; K++) { // 90
@@ -448,7 +448,7 @@
                JE = IWORK( J+1 ) - 1
                NB = JE - JS + 1
                ZDIM = MB*NB*2
-               if ( ( MB.EQ.1 ) .AND. ( NB.EQ.1 ) ) {
+               if ( ( MB == 1 ) .AND. ( NB == 1 ) ) {
 
                   // Build a 2-by-2 system Z**T * x = RHS
 
@@ -497,7 +497,7 @@
                      daxpy(M-IE, ALPHA, D( IS, IE+1 ), LDD, C( IE+1, JS ), 1 );
                   }
 
-               } else if ( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) {
+               } else if ( ( MB == 1 ) .AND. ( NB == 2 ) ) {
 
                   // Build a 4-by-4 system Z**T * x = RHS
 
@@ -562,7 +562,7 @@
                      dger(M-IE, NB, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, C( IE+1, JS ), LDC );
                   }
 
-               } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) {
+               } else if ( ( MB == 2 ) .AND. ( NB == 1 ) ) {
 
                   // Build a 4-by-4 system Z**T * x = RHS
 
@@ -626,7 +626,7 @@
                      dgemv('T', MB, M-IE, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, ONE, C( IE+1, JS ), 1 );
                   }
 
-               } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) {
+               } else if ( ( MB == 2 ) .AND. ( NB == 2 ) ) {
 
                   // Build an 8-by-8 system Z**T * x = RHS
 

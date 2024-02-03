@@ -45,8 +45,8 @@
 
       // Perform the factorization.
 
-      if (M.EQ.0) RETURN;
-      if ( M.EQ.N ) {
+      if (M == 0) RETURN;
+      if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
             TAU( I ) = ZERO
          } // 10

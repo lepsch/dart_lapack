@@ -84,12 +84,12 @@
 
       // Quick return if possible.
 
-      IF ((M.EQ.0) .OR. (N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
+      IF ((M == 0) .OR. (N == 0) .OR. (((ALPHA == ZERO).OR. (K == 0)).AND. (BETA == ONE))) RETURN
 
-      // And when  alpha.eq.zero.
+      // And when  alpha == zero.
 
-      if (ALPHA.EQ.ZERO) {
-          if (BETA.EQ.ZERO) {
+      if (ALPHA == ZERO) {
+          if (BETA == ZERO) {
               for (J = 1; J <= N; J++) { // 20
                   for (I = 1; I <= M; I++) { // 10
                       C(I,J) = ZERO
@@ -113,7 +113,7 @@
             // Form  C := alpha*A*B + beta*C.
 
               for (J = 1; J <= N; J++) { // 90
-                  if (BETA.EQ.ZERO) {
+                  if (BETA == ZERO) {
                       for (I = 1; I <= M; I++) { // 50
                           C(I,J) = ZERO
                       } // 50
@@ -139,7 +139,7 @@
                       for (L = 1; L <= K; L++) { // 100
                           TEMP = TEMP + CONJG(A(L,I))*B(L,J)
                       } // 100
-                      if (BETA.EQ.ZERO) {
+                      if (BETA == ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
@@ -156,7 +156,7 @@
                       for (L = 1; L <= K; L++) { // 130
                           TEMP = TEMP + A(L,I)*B(L,J)
                       } // 130
-                      if (BETA.EQ.ZERO) {
+                      if (BETA == ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
@@ -170,7 +170,7 @@
             // Form  C := alpha*A*B**H + beta*C.
 
               for (J = 1; J <= N; J++) { // 200
-                  if (BETA.EQ.ZERO) {
+                  if (BETA == ZERO) {
                       for (I = 1; I <= M; I++) { // 160
                           C(I,J) = ZERO
                       } // 160
@@ -191,7 +191,7 @@
             // Form  C := alpha*A*B**T + beta*C
 
               for (J = 1; J <= N; J++) { // 250
-                  if (BETA.EQ.ZERO) {
+                  if (BETA == ZERO) {
                       for (I = 1; I <= M; I++) { // 210
                           C(I,J) = ZERO
                       } // 210
@@ -219,7 +219,7 @@
                       for (L = 1; L <= K; L++) { // 260
                           TEMP = TEMP + CONJG(A(L,I))*CONJG(B(J,L))
                       } // 260
-                      if (BETA.EQ.ZERO) {
+                      if (BETA == ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
@@ -236,7 +236,7 @@
                       for (L = 1; L <= K; L++) { // 290
                           TEMP = TEMP + CONJG(A(L,I))*B(J,L)
                       } // 290
-                      if (BETA.EQ.ZERO) {
+                      if (BETA == ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
@@ -255,7 +255,7 @@
                       for (L = 1; L <= K; L++) { // 320
                           TEMP = TEMP + A(L,I)*CONJG(B(J,L))
                       } // 320
-                      if (BETA.EQ.ZERO) {
+                      if (BETA == ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
@@ -272,7 +272,7 @@
                       for (L = 1; L <= K; L++) { // 350
                           TEMP = TEMP + A(L,I)*B(J,L)
                       } // 350
-                      if (BETA.EQ.ZERO) {
+                      if (BETA == ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)

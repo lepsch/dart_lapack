@@ -109,7 +109,7 @@
 
       // Quick return if nothing to do
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       // More Important constants
 
@@ -127,7 +127,7 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 270
          N = NN( JSIZE )
          MTYPES = MAXTYP
-         if (NSIZES.EQ.1 .AND. NTYPES.EQ.MAXTYP+1) MTYPES = MTYPES + 1;
+         if (NSIZES == 1 .AND. NTYPES == MAXTYP+1) MTYPES = MTYPES + 1;
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 260
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
@@ -185,10 +185,10 @@
 
                // Zero
 
-            if ( ITYPE.EQ.1 ) {
+            if ( ITYPE == 1 ) {
                IINFO = 0
 
-            } else if ( ITYPE.EQ.2 ) {
+            } else if ( ITYPE == 2 ) {
 
                // Identity
 
@@ -196,7 +196,7 @@
                   A( JCOL, JCOL ) = ANORM
                } // 70
 
-            } else if ( ITYPE.EQ.3 ) {
+            } else if ( ITYPE == 3 ) {
 
                // Jordan Block
 
@@ -205,25 +205,25 @@
                   if (JCOL.GT.1) A( JCOL, JCOL-1 ) = ONE;
                } // 80
 
-            } else if ( ITYPE.EQ.4 ) {
+            } else if ( ITYPE == 4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.5 ) {
+            } else if ( ITYPE == 5 ) {
 
                // Symmetric, eigenvalues specified
 
                dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.6 ) {
+            } else if ( ITYPE == 6 ) {
 
                // General, eigenvalues specified
 
-               if ( KCONDS( JTYPE ).EQ.1 ) {
+               if ( KCONDS( JTYPE ) == 1 ) {
                   CONDS = ONE
-               } else if ( KCONDS( JTYPE ).EQ.2 ) {
+               } else if ( KCONDS( JTYPE ) == 2 ) {
                   CONDS = RTULPI
                } else {
                   CONDS = ZERO
@@ -232,19 +232,19 @@
                ADUMMA( 1 ) = ' '
                dlatme(N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.7 ) {
+            } else if ( ITYPE == 7 ) {
 
                // Diagonal, random eigenvalues
 
                dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.8 ) {
+            } else if ( ITYPE == 8 ) {
 
                // Symmetric, random eigenvalues
 
                dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.9 ) {
+            } else if ( ITYPE == 9 ) {
 
                // General, random eigenvalues
 
@@ -256,7 +256,7 @@
                   dlaset('Full', 1, N, ZERO, ZERO, A( N, 1 ), LDA );
                }
 
-            } else if ( ITYPE.EQ.10 ) {
+            } else if ( ITYPE == 10 ) {
 
                // Triangular, random eigenvalues
 
@@ -278,7 +278,7 @@
             // Test for minimal and generous workspace
 
             for (IWK = 1; IWK <= 2; IWK++) { // 250
-               if ( IWK.EQ.1 ) {
+               if ( IWK == 1 ) {
                   NNWORK = 3*N
                } else {
                   NNWORK = 5*N + 2*N**2
@@ -294,7 +294,7 @@
                // Test with and without sorting of eigenvalues
 
                for (ISORT = 0; ISORT <= 1; ISORT++) { // 210
-                  if ( ISORT.EQ.0 ) {
+                  if ( ISORT == 0 ) {
                      SORT = 'N'
                      RSUB = 0
                   } else {
@@ -326,7 +326,7 @@
                   } // 130
                   for (I = 1; I <= N - 1; I++) { // 140
                      if ( H( I+1, I ).NE.ZERO ) {
-                        IF( H( I, I ).NE.H( I+1, I+1 ) .OR. H( I, I+1 ).EQ.ZERO .OR. SIGN( ONE, H( I+1, I ) ).EQ. SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
+                        IF( H( I, I ).NE.H( I+1, I+1 ) .OR. H( I, I+1 ) == ZERO .OR. SIGN( ONE, H( I+1, I ) ) == SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
                      }
                   } // 140
 
@@ -344,13 +344,13 @@
                      IF( H( I, I ).NE.WR( I ) ) RESULT( 4+RSUB ) = ULPINV
                   } // 150
                   if ( N.GT.1 ) {
-                     IF( H( 2, 1 ).EQ.ZERO .AND. WI( 1 ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV                      IF( H( N, N-1 ).EQ.ZERO .AND. WI( N ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV
+                     IF( H( 2, 1 ) == ZERO .AND. WI( 1 ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV                      IF( H( N, N-1 ) == ZERO .AND. WI( N ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV
                   }
                   for (I = 1; I <= N - 1; I++) { // 160
                      if ( H( I+1, I ).NE.ZERO ) {
                         TMP = SQRT( ABS( H( I+1, I ) ) )* SQRT( ABS( H( I, I+1 ) ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / MAX( ULP*TMP, UNFL ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / MAX( ULP*TMP, UNFL ) )
                      } else if ( I.GT.1 ) {
-                        IF( H( I+1, I ).EQ.ZERO .AND. H( I, I-1 ).EQ. ZERO .AND. WI( I ).NE.ZERO )RESULT( 4+RSUB ) = ULPINV
+                        IF( H( I+1, I ) == ZERO .AND. H( I, I-1 ) == ZERO .AND. WI( I ).NE.ZERO )RESULT( 4+RSUB ) = ULPINV
                      }
                   } // 160
 
@@ -381,7 +381,7 @@
 
                   // Do Test (13)
 
-                  if ( ISORT.EQ.1 ) {
+                  if ( ISORT == 1 ) {
                      RESULT( 13 ) = ZERO
                      KNTEIG = 0
                      for (I = 1; I <= N; I++) { // 200
@@ -408,7 +408,7 @@
                } // 230
 
                if (NFAIL.GT.0) NTESTF = NTESTF + 1;
-               if ( NTESTF.EQ.1 ) {
+               if ( NTESTF == 1 ) {
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )
                   WRITE( NOUNIT, FMT = 9997 )

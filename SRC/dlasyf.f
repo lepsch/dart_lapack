@@ -85,11 +85,11 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
          } else {
             if ( ABSAKK.GE.ALPHA*COLMAX ) {
@@ -171,7 +171,7 @@
                dswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column kw of W now holds
 
@@ -262,7 +262,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP
@@ -360,11 +360,11 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
          } else {
             if ( ABSAKK.GE.ALPHA*COLMAX ) {
@@ -443,7 +443,7 @@
                dswap(KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW );
             }
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k of W now holds
 
@@ -536,7 +536,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP

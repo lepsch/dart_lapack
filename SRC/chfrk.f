@@ -73,12 +73,12 @@
 
       // Quick return if possible.
 
-      // The quick return case: ((ALPHA.EQ.0).AND.(BETA.NE.ZERO)) is not
+      // The quick return case: ((ALPHA == 0).AND.(BETA.NE.ZERO)) is not
       // done (it is in CHERK for example) and left in the general case.
 
-      IF( ( N.EQ.0 ) .OR. ( ( ( ALPHA.EQ.ZERO ) .OR. ( K.EQ.0 ) ) .AND. ( BETA.EQ.ONE ) ) )RETURN
+      IF( ( N == 0 ) .OR. ( ( ( ALPHA == ZERO ) .OR. ( K == 0 ) ) .AND. ( BETA == ONE ) ) )RETURN
 
-      if ( ( ALPHA.EQ.ZERO ) .AND. ( BETA.EQ.ZERO ) ) {
+      if ( ( ALPHA == ZERO ) .AND. ( BETA == ZERO ) ) {
          for (J = 1; J <= ( ( N*( N+1 ) ) / 2 ); J++) {
             C( J ) = CZERO
          }
@@ -92,7 +92,7 @@
       // If N is odd, set NISODD = true , and N1 and N2.
       // If N is even, NISODD = false , and NK.
 
-      if ( MOD( N, 2 ).EQ.0 ) {
+      if ( MOD( N, 2 ) == 0 ) {
          NISODD = false;
          NK = N / 2
       } else {

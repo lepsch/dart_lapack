@@ -64,10 +64,10 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
-         if (ICOMPZ.EQ.2) Z( 1, 1 ) = ONE;
+      if ( N == 1 ) {
+         if (ICOMPZ == 2) Z( 1, 1 ) = ONE;
          RETURN
       }
 
@@ -83,7 +83,7 @@
       // Compute the eigenvalues and eigenvectors of the tridiagonal
       // matrix.
 
-      if (ICOMPZ.EQ.2) CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
+      if (ICOMPZ == 2) CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
       NMAXIT = N*MAXIT
       JTOT = 0
@@ -100,7 +100,7 @@
       if ( L1.LE.NM1 ) {
          for (M = L1; M <= NM1; M++) { // 20
             TST = ABS( E( M ) )
-            if ( TST.EQ.ZERO ) GO TO 30             IF( TST.LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
+            if ( TST == ZERO ) GO TO 30             IF( TST.LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
                E( M ) = ZERO
                GO TO 30
             }
@@ -114,13 +114,13 @@
       LEND = M
       LENDSV = LEND
       L1 = M + 1
-      if (LEND.EQ.L) GO TO 10;
+      if (LEND == L) GO TO 10;
 
       // Scale submatrix in rows and columns L to LEND
 
       ANORM = DLANST( 'M', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
-      if (ANORM.EQ.ZERO) GO TO 10;
+      if (ANORM == ZERO) GO TO 10;
       if ( ANORM.GT.SSFMAX ) {
          ISCALE = 1
          dlascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO );
@@ -158,12 +158,12 @@
          } // 60
          if (M.LT.LEND) E( M ) = ZERO;
          P = D( L )
-         if (M.EQ.L) GO TO 80;
+         if (M == L) GO TO 80;
 
          // If remaining matrix is 2-by-2, use DLAE2 or SLAEV2
          // to compute its eigensystem.
 
-         if ( M.EQ.L+1 ) {
+         if ( M == L+1 ) {
             if ( ICOMPZ.GT.0 ) {
                dlaev2(D( L ), E( L ), D( L+1 ), RT1, RT2, C, S );
                WORK( L ) = C
@@ -180,7 +180,7 @@
             GO TO 140
          }
 
-         if (JTOT.EQ.NMAXIT) GO TO 140;
+         if (JTOT == NMAXIT) GO TO 140;
          JTOT = JTOT + 1
 
          // Form shift.
@@ -256,12 +256,12 @@
          } // 110
          if (M.GT.LEND) E( M-1 ) = ZERO;
          P = D( L )
-         if (M.EQ.L) GO TO 130;
+         if (M == L) GO TO 130;
 
          // If remaining matrix is 2-by-2, use DLAE2 or SLAEV2
          // to compute its eigensystem.
 
-         if ( M.EQ.L-1 ) {
+         if ( M == L-1 ) {
             if ( ICOMPZ.GT.0 ) {
                dlaev2(D( L-1 ), E( L-1 ), D( L ), RT1, RT2, C, S );
                WORK( M ) = C
@@ -278,7 +278,7 @@
             GO TO 140
          }
 
-         if (JTOT.EQ.NMAXIT) GO TO 140;
+         if (JTOT == NMAXIT) GO TO 140;
          JTOT = JTOT + 1
 
          // Form shift.
@@ -339,10 +339,10 @@
       // Undo scaling if necessary
 
       } // 140
-      if ( ISCALE.EQ.1 ) {
+      if ( ISCALE == 1 ) {
          dlascl('G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
          dlascl('G', 0, 0, SSFMAX, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO );
-      } else if ( ISCALE.EQ.2 ) {
+      } else if ( ISCALE == 2 ) {
          dlascl('G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
          dlascl('G', 0, 0, SSFMIN, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO );
       }
@@ -359,7 +359,7 @@
       // Order eigenvalues and eigenvectors.
 
       } // 160
-      if ( ICOMPZ.EQ.0 ) {
+      if ( ICOMPZ == 0 ) {
 
          // Use Quick Sort
 

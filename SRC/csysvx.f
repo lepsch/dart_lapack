@@ -44,7 +44,7 @@
 
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) {
          INFO = -1
       } else if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
@@ -65,7 +65,7 @@
          INFO = -18
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          LWKOPT = MAX( 1, 2*N )
          if ( NOFACT ) {
             NB = ILAENV( 1, 'CSYTRF', UPLO, N, -1, -1, -1 )

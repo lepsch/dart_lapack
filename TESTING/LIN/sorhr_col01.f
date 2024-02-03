@@ -142,7 +142,7 @@
       slacpy('U', N, N, R, M, AF, M );
 
       for (I = 1; I <= N; I++) {
-         if ( DIAG( I ).EQ.-ONE ) {
+         if ( DIAG( I ) == -ONE ) {
             sscal(N+1-I, -ONE, AF( I, I ), M );
          }
       }

@@ -75,9 +75,9 @@
 
             // zero (1,2) elements of U**H *A and V**H *B
 
-            if ( ( ABS( UA11R )+ABS1( UA12 ) ).EQ.ZERO ) {
+            if ( ( ABS( UA11R )+ABS1( UA12 ) ) == ZERO ) {
                zlartg(-DCMPLX( VB11R ), DCONJG( VB12 ), CSQ, SNQ, R );
-            } else if ( ( ABS( VB11R )+ABS1( VB12 ) ).EQ.ZERO ) {
+            } else if ( ( ABS( VB11R )+ABS1( VB12 ) ) == ZERO ) {
                zlartg(-DCMPLX( UA11R ), DCONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN;
                zlartg(-DCMPLX( UA11R ), DCONJG( UA12 ), CSQ, SNQ, R );
             } else {
@@ -105,9 +105,9 @@
 
             // zero (2,2) elements of U**H *A and V**H *B, and then swap.
 
-            if ( ( ABS1( UA21 )+ABS1( UA22 ) ).EQ.ZERO ) {
+            if ( ( ABS1( UA21 )+ABS1( UA22 ) ) == ZERO ) {
                zlartg(-DCONJG( VB21 ), DCONJG( VB22 ), CSQ, SNQ, R );
-            } else if ( ( ABS1( VB21 )+ABS( VB22 ) ).EQ.ZERO ) {
+            } else if ( ( ABS1( VB21 )+ABS( VB22 ) ) == ZERO ) {
                zlartg(-DCONJG( UA21 ), DCONJG( UA22 ), CSQ, SNQ, R )             ELSE IF( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ).LE.AVB22 / ( ABS1( VB21 )+ABS1( VB22 ) ) ) THEN;
                zlartg(-DCONJG( UA21 ), DCONJG( UA22 ), CSQ, SNQ, R );
             } else {
@@ -162,9 +162,9 @@
 
             // zero (2,1) elements of U**H *A and V**H *B.
 
-            if ( ( ABS1( UA21 )+ABS( UA22R ) ).EQ.ZERO ) {
+            if ( ( ABS1( UA21 )+ABS( UA22R ) ) == ZERO ) {
                zlartg(DCMPLX( VB22R ), VB21, CSQ, SNQ, R );
-            } else if ( ( ABS1( VB21 )+ABS( VB22R ) ).EQ.ZERO ) {
+            } else if ( ( ABS1( VB21 )+ABS( VB22R ) ) == ZERO ) {
                zlartg(DCMPLX( UA22R ), UA21, CSQ, SNQ, R );
             } else if ( AUA21 / ( ABS1( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS1( VB21 )+ABS( VB22R ) ) ) {
                zlartg(DCMPLX( UA22R ), UA21, CSQ, SNQ, R );
@@ -193,9 +193,9 @@
 
             // zero (1,1) elements of U**H *A and V**H *B, and then swap.
 
-            if ( ( ABS1( UA11 )+ABS1( UA12 ) ).EQ.ZERO ) {
+            if ( ( ABS1( UA11 )+ABS1( UA12 ) ) == ZERO ) {
                zlartg(VB12, VB11, CSQ, SNQ, R );
-            } else if ( ( ABS1( VB11 )+ABS1( VB12 ) ).EQ.ZERO ) {
+            } else if ( ( ABS1( VB11 )+ABS1( VB12 ) ) == ZERO ) {
                zlartg(UA12, UA11, CSQ, SNQ, R );
             } else if ( AUA11 / ( ABS1( UA11 )+ABS1( UA12 ) ).LE.AVB11 / ( ABS1( VB11 )+ABS1( VB12 ) ) ) {
                zlartg(UA12, UA11, CSQ, SNQ, R );

@@ -67,7 +67,7 @@
       // The following code applies back the left singular vector factors.
       // For applying back the right singular vector factors, go to 170.
 
-      if ( ICOMPQ.EQ.1 ) {
+      if ( ICOMPQ == 1 ) {
          GO TO 170
       }
 
@@ -178,7 +178,7 @@
          // find the first node LF and last node LL on
          // the current level LVL
 
-         if ( LVL.EQ.1 ) {
+         if ( LVL == 1 ) {
             LF = 1
             LL = 1
          } else {
@@ -212,7 +212,7 @@
          // Find the first node LF and last node LL on
          // the current level LVL.
 
-         if ( LVL.EQ.1 ) {
+         if ( LVL == 1 ) {
             LF = 1
             LL = 1
          } else {
@@ -226,7 +226,7 @@
             NR = IWORK( NDIMR+IM1 )
             NLF = IC - NL
             NRF = IC + 1
-            if ( I.EQ.LL ) {
+            if ( I == LL ) {
                SQRE = 0
             } else {
                SQRE = 1
@@ -247,7 +247,7 @@
          NL = IWORK( NDIML+I1 )
          NR = IWORK( NDIMR+I1 )
          NLP1 = NL + 1
-         if ( I.EQ.ND ) {
+         if ( I == ND ) {
             NRP1 = NR
          } else {
             NRP1 = NR + 1

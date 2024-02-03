@@ -57,7 +57,7 @@
       NB = MAX( NB1, NB2, NB3, NB4 )
       LWKOPT = MAX( 1, MN+2*N+NB*(N+1), 2*MN+NB*NRHS )
       WORK( 1 ) = CMPLX( LWKOPT )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -81,7 +81,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N, NRHS ).EQ.0 ) {
+      if ( MIN( M, N, NRHS ) == 0 ) {
          RANK = 0
          RETURN
       }
@@ -107,7 +107,7 @@
 
          clascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
-      } else if ( ANRM.EQ.ZERO ) {
+      } else if ( ANRM == ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
@@ -147,7 +147,7 @@
       WORK( ISMAX ) = CONE
       SMAX = ABS( A( 1, 1 ) )
       SMIN = SMAX
-      if ( ABS( A( 1, 1 ) ).EQ.ZERO ) {
+      if ( ABS( A( 1, 1 ) ) == ZERO ) {
          RANK = 0
          claset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          GO TO 70
@@ -226,16 +226,16 @@
 
       // Undo scaling
 
-      if ( IASCL.EQ.1 ) {
+      if ( IASCL == 1 ) {
          clascl('G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO );
          clascl('U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA, INFO );
-      } else if ( IASCL.EQ.2 ) {
+      } else if ( IASCL == 2 ) {
          clascl('G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO );
          clascl('U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA, INFO );
       }
-      if ( IBSCL.EQ.1 ) {
+      if ( IBSCL == 1 ) {
          clascl('G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO );
-      } else if ( IBSCL.EQ.2 ) {
+      } else if ( IBSCL == 2 ) {
          clascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 

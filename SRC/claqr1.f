@@ -41,9 +41,9 @@
          RETURN
       }
 
-      if ( N.EQ.2 ) {
+      if ( N == 2 ) {
          S = CABS1( H( 1, 1 )-S2 ) + CABS1( H( 2, 1 ) )
-         if ( S.EQ.RZERO ) {
+         if ( S == RZERO ) {
             V( 1 ) = ZERO
             V( 2 ) = ZERO
          } else {
@@ -53,7 +53,7 @@
          }
       } else {
          S = CABS1( H( 1, 1 )-S2 ) + CABS1( H( 2, 1 ) ) + CABS1( H( 3, 1 ) )
-         if ( S.EQ.ZERO ) {
+         if ( S == ZERO ) {
             V( 1 ) = ZERO
             V( 2 ) = ZERO
             V( 3 ) = ZERO

@@ -54,7 +54,7 @@
 
       // Quick return if possible
 
-      if (K.EQ.0) RETURN;
+      if (K == 0) RETURN;
 
       for (J = KSTART; J <= KSTOP; J++) { // 20
          slaed4(K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO );
@@ -64,7 +64,7 @@
          if (INFO.NE.0) GO TO 120;
       } // 20
 
-      if ( K.EQ.1 .OR. K.EQ.2 ) {
+      if ( K == 1 .OR. K == 2 ) {
          for (I = 1; I <= K; I++) { // 40
             for (J = 1; J <= K; J++) { // 30
                S( J, I ) = Q( J, I )

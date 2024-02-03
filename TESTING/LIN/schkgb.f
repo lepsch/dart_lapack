@@ -115,9 +115,9 @@
             // Set limits on the number of loop iterations.
 
             NKL = MIN( M+1, 4 )
-            if (N.EQ.0) NKL = 2;
+            if (N == 0) NKL = 2;
             NKU = MIN( N+1, 4 )
-            if (M.EQ.0) NKU = 2;
+            if (M == 0) NKU = 2;
             NIMAT = NTYPES
             if (M.LE.0 .OR. N.LE.0) NIMAT = 1;
 
@@ -142,7 +142,7 @@
                   LDA = KL + KU + 1
                   LDAFAC = 2*KL + KU + 1
                   if ( ( LDA*N ).GT.LA .OR. ( LDAFAC*N ).GT.LAFAC ) {
-                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH );
                      if ( N*( KL+KU+1 ).GT.LA ) {
                         WRITE( NOUT, FMT = 9999 )LA, M, N, KL, KU, N*( KL+KU+1 )
                         NERRS = NERRS + 1
@@ -199,9 +199,9 @@
 
                      IZERO = 0
                      if ( ZEROT ) {
-                        if ( IMAT.EQ.2 ) {
+                        if ( IMAT == 2 ) {
                            IZERO = 1
-                        } else if ( IMAT.EQ.3 ) {
+                        } else if ( IMAT == 3 ) {
                            IZERO = MIN( M, N )
                         } else {
                            IZERO = MIN( M, N ) / 2 + 1
@@ -262,7 +262,7 @@
                         // did not pass the threshold.
 
                         if ( RESULT( 1 ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9997 )M, N, KL, KU, NB, IMAT, 1, RESULT( 1 );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9997 )M, N, KL, KU, NB, IMAT, 1, RESULT( 1 );
                            NFAIL = NFAIL + 1
                         }
                         NRUN = NRUN + 1
@@ -275,7 +275,7 @@
                         ANORMO = SLANGB( 'O', N, KL, KU, A, LDA, RWORK )
                         ANORMI = SLANGB( 'I', N, KL, KU, A, LDA, RWORK )
 
-                        if ( INFO.EQ.0 ) {
+                        if ( INFO == 0 ) {
 
                            // Form the inverse of A so we can get a good
                            // estimate of CNDNUM = norm(A) * norm(inv(A)).
@@ -322,7 +322,7 @@
 
                            for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 70
                               TRANS = TRANSS( ITRAN )
-                              if ( ITRAN.EQ.1 ) {
+                              if ( ITRAN == 1 ) {
                                  RCONDC = RCONDO
                                  NORM = 'O'
                               } else {
@@ -369,7 +369,7 @@
                               sgbt05(TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
                               for (K = 2; K <= 6; K++) { // 60
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K );
+                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               } // 60
@@ -382,7 +382,7 @@
 
                         } // 90
                         for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 100
-                           if ( ITRAN.EQ.1 ) {
+                           if ( ITRAN == 1 ) {
                               ANORM = ANORMO
                               RCONDC = RCONDO
                               NORM = 'O'
@@ -404,7 +404,7 @@
                            // not pass the threshold.
 
                            if ( RESULT( 7 ).GE.THRESH ) {
-                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9995 )NORM, N, KL, KU, IMAT, 7, RESULT( 7 );
+                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9995 )NORM, N, KL, KU, IMAT, 7, RESULT( 7 );
                               NFAIL = NFAIL + 1
                            }
                            NRUN = NRUN + 1

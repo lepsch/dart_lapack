@@ -42,7 +42,7 @@
       // 1)      Constants
 
       RESULT( 1 ) = ZERO
-      if (ITYPE.EQ.1) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN;
+      if (ITYPE == 1) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN;
 
       LAP = ( N*( N+1 ) ) / 2
 
@@ -68,7 +68,7 @@
 
       // Norm of A:
 
-      if ( ITYPE.EQ.3 ) {
+      if ( ITYPE == 3 ) {
          ANORM = ONE
       } else {
          ANORM = MAX( DLANSP( '1', CUPLO, N, AP, WORK ), UNFL )
@@ -76,7 +76,7 @@
 
       // Compute error matrix:
 
-      if ( ITYPE.EQ.1 ) {
+      if ( ITYPE == 1 ) {
 
          // ITYPE=1: error = A - U S U**T
 
@@ -87,14 +87,14 @@
             dspr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
          } // 10
 
-         if ( N.GT.1 .AND. KBAND.EQ.1 ) {
+         if ( N.GT.1 .AND. KBAND == 1 ) {
             for (J = 1; J <= N - 1; J++) { // 20
                dspr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK );
             } // 20
          }
          WNORM = DLANSP( '1', CUPLO, N, WORK, WORK( N**2+1 ) )
 
-      } else if ( ITYPE.EQ.2 ) {
+      } else if ( ITYPE == 2 ) {
 
          // ITYPE=2: error = V S V**T - A
 
@@ -105,7 +105,7 @@
             DO 40 J = N - 1, 1, -1
                JP = ( ( 2*N-J )*( J-1 ) ) / 2
                JP1 = JP + N - J
-               if ( KBAND.EQ.1 ) {
+               if ( KBAND == 1 ) {
                   WORK( JP+J+1 ) = ( ONE-TAU( J ) )*E( J )
                   for (JR = J + 2; JR <= N; JR++) { // 30
                      WORK( JP+JR ) = -TAU( J )*E( J )*VP( JP+JR )
@@ -127,7 +127,7 @@
             for (J = 1; J <= N - 1; J++) { // 60
                JP = ( J*( J-1 ) ) / 2
                JP1 = JP + J
-               if ( KBAND.EQ.1 ) {
+               if ( KBAND == 1 ) {
                   WORK( JP1+J ) = ( ONE-TAU( J ) )*E( J )
                   for (JR = 1; JR <= J - 1; JR++) { // 50
                      WORK( JP1+JR ) = -TAU( J )*E( J )*VP( JP1+JR )
@@ -151,7 +151,7 @@
          } // 70
          WNORM = DLANSP( '1', CUPLO, N, WORK, WORK( LAP+1 ) )
 
-      } else if ( ITYPE.EQ.3 ) {
+      } else if ( ITYPE == 3 ) {
 
          // ITYPE=3: error = U V**T - I
 
@@ -184,7 +184,7 @@
 
       // Compute  U U**T - I
 
-      if ( ITYPE.EQ.1 ) {
+      if ( ITYPE == 1 ) {
          dgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
          for (J = 1; J <= N; J++) { // 90

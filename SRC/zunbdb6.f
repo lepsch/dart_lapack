@@ -73,7 +73,7 @@
       // First, project X onto the orthogonal complement of Q's column
       // space
 
-      if ( M1 .EQ. 0 ) {
+      if ( M1 == 0 ) {
          for (I = 1; I <= N; I++) {
             WORK(I) = ZERO
          }
@@ -115,7 +115,7 @@
          WORK(I) = ZERO
       }
 
-      if ( M1 .EQ. 0 ) {
+      if ( M1 == 0 ) {
          for (I = 1; I <= N; I++) {
             WORK(I) = ZERO
          }

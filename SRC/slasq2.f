@@ -49,9 +49,9 @@
          INFO = -1
          xerbla('SLASQ2', 1 );
          RETURN
-      } else if ( N.EQ.0 ) {
+      } else if ( N == 0 ) {
          RETURN
-      } else if ( N.EQ.1 ) {
+      } else if ( N == 1 ) {
 
          // 1-by-1 case.
 
@@ -60,7 +60,7 @@
             xerbla('SLASQ2', 2 );
          }
          RETURN
-      } else if ( N.EQ.2 ) {
+      } else if ( N == 2 ) {
 
          // 2-by-2 case.
 
@@ -135,7 +135,7 @@
 
       // Check for diagonality.
 
-      if ( E.EQ.ZERO ) {
+      if ( E == ZERO ) {
          for (K = 2; K <= N; K++) { // 20
             Z( K ) = Z( 2*K-1 )
          } // 20
@@ -148,14 +148,14 @@
 
       // Check for zero data.
 
-      if ( TRACE.EQ.ZERO ) {
+      if ( TRACE == ZERO ) {
          Z( 2*N-1 ) = ZERO
          RETURN
       }
 
       // Check whether the machine is IEEE conformable.
 
-      // IEEE = ( ILAENV( 10, 'SLASQ2', 'N', 1, 2, 3, 4 ).EQ.1 )
+      // IEEE = ( ILAENV( 10, 'SLASQ2', 'N', 1, 2, 3, 4 ) == 1 )
 
       // [11/15/2008] The case IEEE= true has a problem in single precision with
       // some the test matrices of type 16. The double precision code is fine.
@@ -263,7 +263,7 @@
          // splits from the rest of the array, but is negated.
 
          DESIG = ZERO
-         if ( N0.EQ.N ) {
+         if ( N0 == N ) {
             SIGMA = ZERO
          } else {
             SIGMA = -Z( 4*N0-1 )
@@ -352,7 +352,7 @@
 
             // When EMIN is very small check for splits.
 
-            if ( PP.EQ.0 .AND. N0-I0.GE.3 ) {
+            if ( PP == 0 .AND. N0-I0.GE.3 ) {
                if ( Z( 4*N0 ).LE.TOL2*QMAX .OR. Z( 4*N0-1 ).LE.TOL2*SIGMA ) {
                   SPLT = I0 - 1
                   QMAX = Z( 4*I0-3 )

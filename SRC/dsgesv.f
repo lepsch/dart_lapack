@@ -66,9 +66,9 @@
          RETURN
       }
 
-      // Quick return if (N.EQ.0).
+      // Quick return if (N == 0).
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Skip single precision iterative refinement if a priori slower
       // than double precision factorization.

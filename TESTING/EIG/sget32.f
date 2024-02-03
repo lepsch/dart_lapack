@@ -64,8 +64,8 @@
          for (ITRANR = 0; ITRANR <= 1; ITRANR++) { // 220
             DO 210 ISGN = -1, 1, 2
                SGN = ISGN
-               LTRANL = ITRANL.EQ.1
-               LTRANR = ITRANR.EQ.1
+               LTRANL = ITRANL == 1
+               LTRANR = ITRANR == 1
 
                N1 = 1
                N2 = 1
@@ -78,7 +78,7 @@
                         KNT = KNT + 1
                         slasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
                         if (INFO.NE.0) NINFO = NINFO + 1                         RES = ABS( ( TL( 1, 1 )+SGN*TR( 1, 1 ) )* X( 1, 1 )-SCALE*B( 1, 1 ) );
-                        if ( INFO.EQ.0 ) {
+                        if ( INFO == 0 ) {
                            DEN = MAX( EPS*( ( ABS( TR( 1, 1 ) )+ABS( TL( 1, 1 ) ) )*ABS( X( 1, 1 ) ) ), SMLNUM )
                         } else {
                            DEN = SMLNUM*MAX( ABS( X( 1, 1 ) ), ONE )

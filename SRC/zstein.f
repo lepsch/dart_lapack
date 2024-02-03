@@ -62,7 +62,7 @@
                INFO = -6
                GO TO 30
             }
-            if ( IBLOCK( J ).EQ.IBLOCK( J-1 ) .AND. W( J ).LT.W( J-1 ) ) {
+            if ( IBLOCK( J ) == IBLOCK( J-1 ) .AND. W( J ).LT.W( J-1 ) ) {
                INFO = -5
                GO TO 30
             }
@@ -77,9 +77,9 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 .OR. M.EQ.0 ) {
+      if ( N == 0 .OR. M == 0 ) {
          RETURN
-      } else if ( N.EQ.1 ) {
+      } else if ( N == 1 ) {
          Z( 1, 1 ) = CONE
          RETURN
       }
@@ -109,14 +109,14 @@
 
          // Find starting and ending indices of block nblk.
 
-         if ( NBLK.EQ.1 ) {
+         if ( NBLK == 1 ) {
             B1 = 1
          } else {
             B1 = ISPLIT( NBLK-1 ) + 1
          }
          BN = ISPLIT( NBLK )
          BLKSIZ = BN - B1 + 1
-         if (BLKSIZ.EQ.1) GO TO 60;
+         if (BLKSIZ == 1) GO TO 60;
          GPIND = J1
 
          // Compute reorthogonalization criterion and stopping criterion.
@@ -144,7 +144,7 @@
 
             // Skip all the work if the block size is one.
 
-            if ( BLKSIZ.EQ.1 ) {
+            if ( BLKSIZ == 1 ) {
                WORK( INDRV1+1 ) = ONE
                GO TO 140
             }
@@ -196,7 +196,7 @@
             // Reorthogonalize by modified Gram-Schmidt if eigenvalues are
             // close enough.
 
-            if (JBLK.EQ.1) GO TO 110             IF( ABS( XJ-XJM ).GT.ORTOL ) GPIND = J;
+            if (JBLK == 1) GO TO 110             IF( ABS( XJ-XJM ).GT.ORTOL ) GPIND = J;
             if ( GPIND.NE.J ) {
                for (I = GPIND; I <= J - 1; I++) { // 100
                   ZTR = ZERO

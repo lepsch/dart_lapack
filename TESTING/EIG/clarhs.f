@@ -163,7 +163,7 @@
             // KU = 2 => unit triangular
 
          clacpy('Full', N, NRHS, X, LDX, B, LDB );
-         if ( KU.EQ.2 ) {
+         if ( KU == 2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
@@ -175,7 +175,7 @@
          // Triangular matrix, packed storage
 
          clacpy('Full', N, NRHS, X, LDX, B, LDB );
-         if ( KU.EQ.2 ) {
+         if ( KU == 2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
@@ -189,7 +189,7 @@
          // Triangular matrix, banded storage
 
          clacpy('Full', N, NRHS, X, LDX, B, LDB );
-         if ( KU.EQ.2 ) {
+         if ( KU == 2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'

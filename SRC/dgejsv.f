@@ -91,7 +91,7 @@
 
       // Quick return for void matrix (Y3K safe)
 * #:)
-      if ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) ) {
+      if ( ( M == 0 ) .OR. ( N == 0 ) ) {
          IWORK(1:3) = 0
          WORK(1:7) = 0
          RETURN
@@ -156,7 +156,7 @@
 
       // Quick return for zero M x N matrix
 * #:)
-      if ( AAPP .EQ. ZERO ) {
+      if ( AAPP == ZERO ) {
          if (LSVEC) CALL DLASET( 'G', M, N1, ZERO, ONE, U, LDU );
          if (RSVEC) CALL DLASET( 'G', N, N,  ZERO, ONE, V, LDV );
          WORK(1) = ONE
@@ -189,7 +189,7 @@
 
       // Quick return for one-column matrix
 * #:)
-      if ( N .EQ. 1 ) {
+      if ( N == 1 ) {
 
          if ( LSVEC ) {
             dlascl('G',0,0,SVA(1),SCALEM, M,1,A(1,1),LDA,IERR );
@@ -236,7 +236,7 @@
       }
 
       TRANSP = false;
-      L2TRAN = L2TRAN .AND. ( M .EQ. N )
+      L2TRAN = L2TRAN .AND. ( M == N )
 
       AATMAX = -ONE
       AATMIN =  BIG
@@ -245,7 +245,7 @@
       // Compute the row norms, needed to determine row pivoting sequence
       // (in the case of heavily row weighted A, row pivoting is strongly
       // advised) and to collect information needed to compare the
-      // structures of A * A^t and A^t * A (in the case L2TRAN.EQ. true ).
+      // structures of A * A^t and A^t * A (in the case L2TRAN == true ).
 
          if ( L2TRAN ) {
             for (p = 1; p <= M; p++) { // 1950
@@ -494,7 +494,7 @@
       }
 
       ALMORT = false;
-      if ( NR .EQ. N ) {
+      if ( NR == N ) {
          MAXPRJ = ONE
          for (p = 2; p <= N; p++) { // 3051
             TEMP1  = DABS(A(p,p)) / SVA(IWORK(p))
@@ -509,7 +509,7 @@
       CONDR2 = - ONE
 
       if ( ERREST ) {
-         if ( N .EQ. NR ) {
+         if ( N == NR ) {
             if ( RSVEC ) {
                // .. V is available as workspace
                dlacpy('U', N, N, A, LDA, V, LDV );
@@ -901,7 +901,7 @@
 
          // .. pick the right matrix equation and solve it
 
-               if ( NR .EQ. N ) {
+               if ( NR == N ) {
 * :))             .. best case, R1 is inverted. The solution of this matrix
                   // equation is Q2*V2 = the product of the Jacobi rotations
                   // used in DGESVJ, premultiplied with the orthogonal matrix

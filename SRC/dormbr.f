@@ -38,7 +38,7 @@
       APPLYQ = LSAME( VECT, 'Q' )
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       // NQ is the order of Q or P and NW is the minimum dimension of WORK
 
@@ -69,7 +69,7 @@
          INFO = -13
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( APPLYQ ) {
             if ( LEFT ) {
                NB = ILAENV( 1, 'DORMQR', SIDE // TRANS, M-1, N, M-1, -1 )
@@ -97,7 +97,7 @@
       // Quick return if possible
 
       WORK( 1 ) = 1
-      if (M.EQ.0 .OR. N.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0) RETURN;
 
       if ( APPLYQ ) {
 

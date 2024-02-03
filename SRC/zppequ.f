@@ -53,7 +53,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          SCOND = ONE
          AMAX = ZERO
          RETURN

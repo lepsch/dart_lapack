@@ -51,7 +51,7 @@
       NS = 0
       INFO = 0
       ABSTOL = 2*DLAMCH('S')
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       MINMN = MIN( M, N )
 
       WANTU = LSAME( JOBU, 'V' )
@@ -92,7 +92,7 @@
                INFO = -11
             }
          }
-         if ( INFO.EQ.0 ) {
+         if ( INFO == 0 ) {
             if ( WANTU .AND. LDU.LT.M ) {
                INFO = -15
             } else if ( WANTVT ) {
@@ -114,7 +114,7 @@
       // NB refers to the optimal block size for the immediately
       // following subroutine, as returned by ILAENV.)
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
          if ( MINMN.GT.0 ) {
@@ -182,7 +182,7 @@
 
       // Quick return if possible
 
-      if ( M.EQ.0 .OR. N.EQ.0 ) {
+      if ( M == 0 .OR. N == 0 ) {
          RETURN
       }
 
@@ -507,7 +507,7 @@
 
       // Undo scaling if necessary
 
-      if ( ISCL.EQ.1 ) {
+      if ( ISCL == 1 ) {
          if (ANRM.GT.BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )          IF( ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       }
 

@@ -64,18 +64,18 @@
          INFO = -4
       } else if ( NCC.LT.0 ) {
          INFO = -5
-      } else if ( ( NCVT.EQ.0 .AND. LDVT.LT.1 ) .OR. ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCVT == 0 .AND. LDVT.LT.1 ) .OR. ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) {
          INFO = -9
       } else if ( LDU.LT.MAX( 1, NRU ) ) {
          INFO = -11
-      } else if ( ( NCC.EQ.0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCC == 0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) {
          INFO = -13
       }
       if ( INFO.NE.0 ) {
          xerbla('DBDSQR', -INFO );
          RETURN
       }
-      if (N.EQ.0) RETURN       IF( N.EQ.1 ) GO TO 160;
+      if (N == 0) RETURN       IF( N == 1 ) GO TO 160;
 
       // ROTATE is true if any singular vectors desired, false otherwise
 
@@ -142,12 +142,12 @@
          // Relative accuracy desired
 
          SMINOA = ABS( D( 1 ) )
-         if (SMINOA.EQ.ZERO) GO TO 50;
+         if (SMINOA == ZERO) GO TO 50;
          MU = SMINOA
          for (I = 2; I <= N; I++) { // 40
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) )
             SMINOA = MIN( SMINOA, MU )
-            if (SMINOA.EQ.ZERO) GO TO 50;
+            if (SMINOA == ZERO) GO TO 50;
          } // 40
          } // 50
          SMINOA = SMINOA / SQRT( DBLE( N ) )
@@ -205,7 +205,7 @@
 
       // Matrix splits since E(LL) = 0
 
-      if ( LL.EQ.M-1 ) {
+      if ( LL == M-1 ) {
 
          // Convergence of bottom singular value, return to top of loop
 
@@ -217,7 +217,7 @@
 
       // E(LL) through E(M-1) are nonzero, E(LL-1) is zero
 
-      if ( LL.EQ.M-1 ) {
+      if ( LL == M-1 ) {
 
          // 2 by 2 block, handle separately
 
@@ -252,7 +252,7 @@
 
       // Apply convergence tests
 
-      if ( IDIR.EQ.1 ) {
+      if ( IDIR == 1 ) {
 
          // Run convergence test in forward direction
          // First apply standard test to bottom of matrix
@@ -321,7 +321,7 @@
 
          // Compute the shift from 2-by-2 block at end of matrix
 
-         if ( IDIR.EQ.1 ) {
+         if ( IDIR == 1 ) {
             SLL = ABS( D( LL ) )
             dlas2(D( M-1 ), E( M-1 ), D( M ), SHIFT, R );
          } else {
@@ -342,8 +342,8 @@
 
       // If SHIFT = 0, do simplified QR iteration
 
-      if ( SHIFT.EQ.ZERO ) {
-         if ( IDIR.EQ.1 ) {
+      if ( SHIFT == ZERO ) {
+         if ( IDIR == 1 ) {
 
             // Chase bulge from top to bottom
             // Save cosines and sines for later singular vector updates
@@ -403,7 +403,7 @@
 
          // Use nonzero shift
 
-         if ( IDIR.EQ.1 ) {
+         if ( IDIR == 1 ) {
 
             // Chase bulge from top to bottom
             // Save cosines and sines for later singular vector updates

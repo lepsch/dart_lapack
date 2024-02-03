@@ -69,7 +69,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
+      if ( N == 0 .OR. NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
@@ -113,7 +113,7 @@
          // error bound.
 
          if ( NOTRAN ) {
-            if ( N.EQ.1 ) {
+            if ( N == 1 ) {
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) )
             } else {
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DU( 1 )*X( 2, J ) )
@@ -123,7 +123,7 @@
                WORK( N ) = ABS( B( N, J ) ) + ABS( DL( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) )
             }
          } else {
-            if ( N.EQ.1 ) {
+            if ( N == 1 ) {
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) )
             } else {
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DL( 1 )*X( 2, J ) )
@@ -204,7 +204,7 @@
          } // 70
          dlacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
-            if ( KASE.EQ.1 ) {
+            if ( KASE == 1 ) {
 
                // Multiply by diag(W)*inv(op(A)**T).
 

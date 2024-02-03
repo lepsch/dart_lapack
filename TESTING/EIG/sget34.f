@@ -119,8 +119,8 @@
                            slaexc( true , 3, T, 4, Q, 4, 1, 1, 2, WORK, INFO )                            IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1;
                            shst01(3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT );
                            RES = RESULT( 1 ) + RESULT( 2 )
-                           if ( INFO.EQ.0 ) {
-                              IF( T1( 1, 1 ).NE.T( 3, 3 ) ) RES = RES + ONE / EPS                               IF( T( 3, 1 ).NE.ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 2 ).NE.ZERO ) RES = RES + ONE / EPS                               IF( T( 2, 1 ).NE.0 .AND. ( T( 1, 1 ).NE.T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) ).EQ.SIGN( ONE, T( 2, 1 ) ) ) ) RES = RES + ONE / EPS
+                           if ( INFO == 0 ) {
+                              IF( T1( 1, 1 ).NE.T( 3, 3 ) ) RES = RES + ONE / EPS                               IF( T( 3, 1 ).NE.ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 2 ).NE.ZERO ) RES = RES + ONE / EPS                               IF( T( 2, 1 ).NE.0 .AND. ( T( 1, 1 ).NE.T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) ) == SIGN( ONE, T( 2, 1 ) ) ) ) RES = RES + ONE / EPS
                            }
                            KNT = KNT + 1
                            if ( RES.GT.RMAX ) {
@@ -158,8 +158,8 @@
                            slaexc( true , 3, T, 4, Q, 4, 1, 2, 1, WORK, INFO )                            IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1;
                            shst01(3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT );
                            RES = RESULT( 1 ) + RESULT( 2 )
-                           if ( INFO.EQ.0 ) {
-                              IF( T1( 3, 3 ).NE.T( 1, 1 ) ) RES = RES + ONE / EPS                               IF( T( 2, 1 ).NE.ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 1 ).NE.ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 2 ).NE.0 .AND. ( T( 2, 2 ).NE.T( 3, 3 ) .OR. SIGN( ONE, T( 2, 3 ) ).EQ.SIGN( ONE, T( 3, 2 ) ) ) ) RES = RES + ONE / EPS
+                           if ( INFO == 0 ) {
+                              IF( T1( 3, 3 ).NE.T( 1, 1 ) ) RES = RES + ONE / EPS                               IF( T( 2, 1 ).NE.ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 1 ).NE.ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 2 ).NE.0 .AND. ( T( 2, 2 ).NE.T( 3, 3 ) .OR. SIGN( ONE, T( 2, 3 ) ) == SIGN( ONE, T( 3, 2 ) ) ) ) RES = RES + ONE / EPS
                            }
                            KNT = KNT + 1
                            if ( RES.GT.RMAX ) {
@@ -211,8 +211,8 @@
                                     slaexc( true , 4, T, 4, Q, 4, 1, 2, 2, WORK, INFO )                                     IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1;
                                     shst01(4, 1, 4, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT );
                                     RES = RESULT( 1 ) + RESULT( 2 )
-                                    if ( INFO.EQ.0 ) {
-                                       IF( T( 3, 1 ).NE.ZERO ) RES = RES + ONE / EPS                                        IF( T( 4, 1 ).NE.ZERO ) RES = RES + ONE / EPS                                        IF( T( 3, 2 ).NE.ZERO ) RES = RES + ONE / EPS                                        IF( T( 4, 2 ).NE.ZERO ) RES = RES + ONE / EPS                                        IF( T( 2, 1 ).NE.0 .AND. ( T( 1, 1 ).NE.T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) ).EQ.SIGN( ONE, T( 2, 1 ) ) ) )RES = RES + ONE / EPS                                        IF( T( 4, 3 ).NE.0 .AND. ( T( 3, 3 ).NE.T( 4, 4 ) .OR. SIGN( ONE, T( 3, 4 ) ).EQ.SIGN( ONE, T( 4, 3 ) ) ) )RES = RES + ONE / EPS
+                                    if ( INFO == 0 ) {
+                                       IF( T( 3, 1 ).NE.ZERO ) RES = RES + ONE / EPS                                        IF( T( 4, 1 ).NE.ZERO ) RES = RES + ONE / EPS                                        IF( T( 3, 2 ).NE.ZERO ) RES = RES + ONE / EPS                                        IF( T( 4, 2 ).NE.ZERO ) RES = RES + ONE / EPS                                        IF( T( 2, 1 ).NE.0 .AND. ( T( 1, 1 ).NE.T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) ) == SIGN( ONE, T( 2, 1 ) ) ) )RES = RES + ONE / EPS                                        IF( T( 4, 3 ).NE.0 .AND. ( T( 3, 3 ).NE.T( 4, 4 ) .OR. SIGN( ONE, T( 3, 4 ) ) == SIGN( ONE, T( 4, 3 ) ) ) )RES = RES + ONE / EPS
                                     }
                                     KNT = KNT + 1
                                     if ( RES.GT.RMAX ) {

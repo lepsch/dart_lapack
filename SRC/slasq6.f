@@ -39,10 +39,10 @@
       D = Z( J4 )
       DMIN = D
 
-      if ( PP.EQ.0 ) {
+      if ( PP == 0 ) {
          DO 10 J4 = 4*I0, 4*( N0-3 ), 4
             Z( J4-2 ) = D + Z( J4-1 )
-            if ( Z( J4-2 ).EQ.ZERO ) {
+            if ( Z( J4-2 ) == ZERO ) {
                Z( J4 ) = ZERO
                D = Z( J4+1 )
                DMIN = D
@@ -61,7 +61,7 @@
       } else {
          DO 20 J4 = 4*I0, 4*( N0-3 ), 4
             Z( J4-3 ) = D + Z( J4 )
-            if ( Z( J4-3 ).EQ.ZERO ) {
+            if ( Z( J4-3 ) == ZERO ) {
                Z( J4-1 ) = ZERO
                D = Z( J4+2 )
                DMIN = D
@@ -86,7 +86,7 @@
       J4 = 4*( N0-2 ) - PP
       J4P2 = J4 + 2*PP - 1
       Z( J4-2 ) = DNM2 + Z( J4P2 )
-      if ( Z( J4-2 ).EQ.ZERO ) {
+      if ( Z( J4-2 ) == ZERO ) {
          Z( J4 ) = ZERO
          DNM1 = Z( J4P2+2 )
          DMIN = DNM1
@@ -105,7 +105,7 @@
       J4 = J4 + 4
       J4P2 = J4 + 2*PP - 1
       Z( J4-2 ) = DNM1 + Z( J4P2 )
-      if ( Z( J4-2 ).EQ.ZERO ) {
+      if ( Z( J4-2 ) == ZERO ) {
          Z( J4 ) = ZERO
          DN = Z( J4P2+2 )
          DMIN = DN

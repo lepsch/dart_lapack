@@ -71,7 +71,7 @@
 
       // Quick return if possible
 
-      if ( K.EQ.1 ) {
+      if ( K == 1 ) {
          D( 1 ) = ABS( Z( 1 ) )
          dcopy(M, VT2( 1, 1 ), LDVT2, VT( 1, 1 ), LDVT );
          if ( Z( 1 ).GT.ZERO ) {
@@ -139,7 +139,7 @@
 
       // Update the left singular vector matrix.
 
-      if ( K.EQ.2 ) {
+      if ( K == 2 ) {
          dgemm('N', 'N', N, K, K, ONE, U2, LDU2, Q, LDQ, ZERO, U, LDU );
          GO TO 100
       }
@@ -174,7 +174,7 @@
 
       // Update the right singular vector matrix.
 
-      if ( K.EQ.2 ) {
+      if ( K == 2 ) {
          dgemm('N', 'N', K, M, K, ONE, Q, LDQ, VT2, LDVT2, ZERO, VT, LDVT );
          RETURN
       }

@@ -64,13 +64,13 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          if (ICOMPZ.GT.0) Z( 1, 1 ) = CONE;
          RETURN
       }
-      if (ICOMPZ.EQ.2) CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
+      if (ICOMPZ == 2) CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
 
       // Call SPTTRF to factor the matrix.
 
@@ -95,7 +95,7 @@
 
       // Square the singular values.
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          for (I = 1; I <= N; I++) { // 30
             D( I ) = D( I )*D( I )
          } // 30

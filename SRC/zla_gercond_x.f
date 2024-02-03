@@ -87,10 +87,10 @@
 
       // Quick return if possible.
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          ZLA_GERCOND_X = 1.0D+0
          RETURN
-      } else if ( ANORM .EQ. 0.0D+0 ) {
+      } else if ( ANORM == 0.0D+0 ) {
          RETURN
       }
 
@@ -102,7 +102,7 @@
       } // 10
       zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
-         if ( KASE.EQ.2 ) {
+         if ( KASE == 2 ) {
             // Multiply by R.
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )

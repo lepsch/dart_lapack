@@ -39,8 +39,8 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK.EQ.-1 )
-      if ( MIN( N, NRHS ).EQ.0 ) {
+      LQUERY = ( LWORK == -1 )
+      if ( MIN( N, NRHS ) == 0 ) {
          LWKMIN = 1
       } else {
          LWKMIN = 3*N-2
@@ -69,7 +69,7 @@
 
       // Quick return if possible
 
-      IF( MIN( N, NRHS ).EQ.0 ) RETURN
+      IF( MIN( N, NRHS ) == 0 ) RETURN
 
       if ( UPPER ) {
 

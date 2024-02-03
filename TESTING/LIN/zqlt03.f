@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      if ( MINMN.EQ.0 ) {
+      if ( MINMN == 0 ) {
          RESULT( 1 ) = ZERO
          RESULT( 2 ) = ZERO
          RESULT( 3 ) = ZERO
@@ -74,7 +74,7 @@
       zungql(M, M, K, Q, LDA, TAU( MINMN-K+1 ), WORK, LWORK, INFO );
 
       for (ISIDE = 1; ISIDE <= 2; ISIDE++) { // 30
-         if ( ISIDE.EQ.1 ) {
+         if ( ISIDE == 1 ) {
             SIDE = 'L'
             MC = M
             NC = N
@@ -90,10 +90,10 @@
             zlarnv(2, ISEED, MC, C( 1, J ) );
          } // 10
          CNORM = ZLANGE( '1', MC, NC, C, LDA, RWORK )
-         if (CNORM.EQ.ZERO) CNORM = ONE;
+         if (CNORM == ZERO) CNORM = ONE;
 
          for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 20
-            if ( ITRANS.EQ.1 ) {
+            if ( ITRANS == 1 ) {
                TRANS = 'N'
             } else {
                TRANS = 'C'

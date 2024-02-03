@@ -75,7 +75,7 @@
       WANTSE = LSAME( SENSE, 'E' )
       WANTSV = LSAME( SENSE, 'V' )
       WANTSB = LSAME( SENSE, 'B' )
-      LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
       if ( WANTSN ) {
          IJOB = 0
       } else if ( WANTSE ) {
@@ -116,7 +116,7 @@
         // NB refers to the optimal block size for the immediately
         // following subroutine, as returned by ILAENV.)
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( N.GT.0) {
             MINWRK = MAX( 8*N, 6*N + 16 )
             MAXWRK = MINWRK - N + N*ILAENV( 1, 'DGEQRF', ' ', N, 1, N, 0 )             MAXWRK = MAX( MAXWRK, MINWRK - N + N*ILAENV( 1, 'DORMQR', ' ', N, 1, N, -1 ) )
@@ -131,7 +131,7 @@
             LWRK   = 1
          }
          WORK( 1 ) = LWRK
-         if ( WANTSN .OR. N.EQ.0 ) {
+         if ( WANTSN .OR. N == 0 ) {
             LIWMIN = 1
          } else {
             LIWMIN = N + 6
@@ -154,7 +154,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          SDIM = 0
          RETURN
       }
@@ -280,21 +280,21 @@
          dtgsen(IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR );
 
          if (IJOB.GE.1) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
-         if ( IERR.EQ.-22 ) {
+         if ( IERR == -22 ) {
 
              // not enough real workspace
 
             INFO = -22
          } else {
-            if ( IJOB.EQ.1 .OR. IJOB.EQ.4 ) {
+            if ( IJOB == 1 .OR. IJOB == 4 ) {
                RCONDE( 1 ) = PL
                RCONDE( 2 ) = PR
             }
-            if ( IJOB.EQ.2 .OR. IJOB.EQ.4 ) {
+            if ( IJOB == 2 .OR. IJOB == 4 ) {
                RCONDV( 1 ) = DIF( 1 )
                RCONDV( 2 ) = DIF( 2 )
             }
-            if (IERR.EQ.1) INFO = N + 3;
+            if (IERR == 1) INFO = N + 3;
          }
 
       }
@@ -364,12 +364,12 @@
          IP = 0
          for (I = 1; I <= N; I++) { // 50
             CURSL = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
-            if ( ALPHAI( I ).EQ.ZERO ) {
+            if ( ALPHAI( I ) == ZERO ) {
                if (CURSL) SDIM = SDIM + 1;
                IP = 0
                if (CURSL .AND. .NOT.LASTSL) INFO = N + 2;
             } else {
-               if ( IP.EQ.1 ) {
+               if ( IP == 1 ) {
 
                   // Last eigenvalue of conjugate pair
 

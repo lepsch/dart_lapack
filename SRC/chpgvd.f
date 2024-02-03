@@ -38,7 +38,7 @@
 
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK.EQ.-1 .OR. LRWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 .OR. LRWORK == -1 .OR. LIWORK == -1 )
 
       INFO = 0
       if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
@@ -53,7 +53,7 @@
          INFO = -9
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( N.LE.1 ) {
             LWMIN = 1
             LIWMIN = 1
@@ -91,7 +91,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Form a Cholesky factorization of B.
 
@@ -115,7 +115,7 @@
 
          NEIG = N
          if (INFO.GT.0) NEIG = INFO - 1;
-         if ( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) {
+         if ( ITYPE == 1 .OR. ITYPE == 2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
             // backtransform eigenvectors: x = inv(L)**H *y or inv(U)*y
@@ -130,7 +130,7 @@
                ctpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
             } // 10
 
-         } else if ( ITYPE.EQ.3 ) {
+         } else if ( ITYPE == 3 ) {
 
             // For B*A*x=(lambda)*x;
             // backtransform eigenvectors: x = L*y or U**H *y

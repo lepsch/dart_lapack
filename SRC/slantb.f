@@ -35,7 +35,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          VALUE = ZERO
       } else if ( LSAME( NORM, 'M' ) ) {
 
@@ -76,7 +76,7 @@
                } // 80
             }
          }
-      } else if ( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
+      } else if ( ( LSAME( NORM, 'O' ) ) .OR. ( NORM == '1' ) ) {
 
          // Find norm1(A).
 

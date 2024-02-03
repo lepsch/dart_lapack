@@ -36,7 +36,7 @@
       INFO = 0
       NH = IHI - ILO
       LEFT = LSAME( SIDE, 'L' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       // NQ is the order of Q and NW is the minimum dimension of WORK
 
@@ -67,7 +67,7 @@
          INFO = -13
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( LEFT ) {
             NB = ILAENV( 1, 'DORMQR', SIDE // TRANS, NH, N, NH, -1 )
          } else {
@@ -86,7 +86,7 @@
 
       // Quick return if possible
 
-      if ( M.EQ.0 .OR. N.EQ.0 .OR. NH.EQ.0 ) {
+      if ( M == 0 .OR. N == 0 .OR. NH == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }

@@ -66,7 +66,7 @@
             }
          }
       }
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -14
       }
 
@@ -78,9 +78,9 @@
       // Quick return if possible
 
       M = 0
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          if ( ALLEIG .OR. INDEIG ) {
             M = 1
             W( 1 ) = AP( 1 )
@@ -122,7 +122,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      if ( ISCALE.EQ.1 ) {
+      if ( ISCALE == 1 ) {
          sscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
          if (ABSTOL.GT.0) ABSTLL = ABSTOL*SIGMA;
          if ( VALEIG ) {
@@ -145,7 +145,7 @@
 
       TEST = false;
       if (INDEIG) {
-         if (IL.EQ.1 .AND. IU.EQ.N) {
+         if (IL == 1 .AND. IU == N) {
             TEST = true;
          }
       }
@@ -159,13 +159,13 @@
             sopgtr(UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO );
             scopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
             ssteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
-            if ( INFO.EQ.0 ) {
+            if ( INFO == 0 ) {
                for (I = 1; I <= N; I++) { // 10
                   IFAIL( I ) = 0
                } // 10
             }
          }
-         if ( INFO.EQ.0 ) {
+         if ( INFO == 0 ) {
             M = N
             GO TO 20
          }
@@ -195,8 +195,8 @@
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
       } // 20
-      if ( ISCALE.EQ.1 ) {
-         if ( INFO.EQ.0 ) {
+      if ( ISCALE == 1 ) {
+         if ( INFO == 0 ) {
             IMAX = M
          } else {
             IMAX = INFO - 1

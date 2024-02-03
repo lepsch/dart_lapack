@@ -113,7 +113,7 @@
 
       // Quick return if nothing to do
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       // More Important constants
 
@@ -190,13 +190,13 @@
 
             // Special Matrices -- Identity & Jordan block
 
-            if ( ITYPE.EQ.1 ) {
+            if ( ITYPE == 1 ) {
 
                // Zero
 
                IINFO = 0
 
-            } else if ( ITYPE.EQ.2 ) {
+            } else if ( ITYPE == 2 ) {
 
                // Identity
 
@@ -204,7 +204,7 @@
                   A( JCOL, JCOL ) = CMPLX( ANORM )
                } // 70
 
-            } else if ( ITYPE.EQ.3 ) {
+            } else if ( ITYPE == 3 ) {
 
                // Jordan Block
 
@@ -213,25 +213,25 @@
                   if (JCOL.GT.1) A( JCOL, JCOL-1 ) = CONE;
                } // 80
 
-            } else if ( ITYPE.EQ.4 ) {
+            } else if ( ITYPE == 4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                clatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.5 ) {
+            } else if ( ITYPE == 5 ) {
 
                // Symmetric, eigenvalues specified
 
                clatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.6 ) {
+            } else if ( ITYPE == 6 ) {
 
                // General, eigenvalues specified
 
-               if ( KCONDS( JTYPE ).EQ.1 ) {
+               if ( KCONDS( JTYPE ) == 1 ) {
                   CONDS = ONE
-               } else if ( KCONDS( JTYPE ).EQ.2 ) {
+               } else if ( KCONDS( JTYPE ) == 2 ) {
                   CONDS = RTULPI
                } else {
                   CONDS = ZERO
@@ -239,19 +239,19 @@
 
                clatme(N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.7 ) {
+            } else if ( ITYPE == 7 ) {
 
                // Diagonal, random eigenvalues
 
                clatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.8 ) {
+            } else if ( ITYPE == 8 ) {
 
                // Symmetric, random eigenvalues
 
                clatmr(N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.9 ) {
+            } else if ( ITYPE == 9 ) {
 
                // General, random eigenvalues
 
@@ -263,7 +263,7 @@
                   claset('Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA );
                }
 
-            } else if ( ITYPE.EQ.10 ) {
+            } else if ( ITYPE == 10 ) {
 
                // Triangular, random eigenvalues
 
@@ -285,7 +285,7 @@
             // Test for minimal and generous workspace
 
             for (IWK = 1; IWK <= 2; IWK++) { // 220
-               if ( IWK.EQ.1 ) {
+               if ( IWK == 1 ) {
                   NNWORK = 3*N
                } else {
                   NNWORK = 5*N + 2*N**2
@@ -301,7 +301,7 @@
                // Test with and without sorting of eigenvalues
 
                for (ISORT = 0; ISORT <= 1; ISORT++) { // 180
-                  if ( ISORT.EQ.0 ) {
+                  if ( ISORT == 0 ) {
                      SORT = 'N'
                      RSUB = 0
                   } else {
@@ -370,7 +370,7 @@
 
                   // Do Test (13)
 
-                  if ( ISORT.EQ.1 ) {
+                  if ( ISORT == 1 ) {
                      RESULT( 13 ) = ZERO
                      KNTEIG = 0
                      for (I = 1; I <= N; I++) { // 170
@@ -395,7 +395,7 @@
                } // 200
 
                if (NFAIL.GT.0) NTESTF = NTESTF + 1;
-               if ( NTESTF.EQ.1 ) {
+               if ( NTESTF == 1 ) {
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )
                   WRITE( NOUNIT, FMT = 9997 )

@@ -42,7 +42,7 @@
       for (I = 1; I <= N; I++) { // 20
          for (J = 1; J <= N; J++) { // 10
 
-            if ( I.EQ.J ) {
+            if ( I == J ) {
                A( I, I ) = DCMPLX( I ) + ALPHA
                B( I, I ) = ONE
             } else {
@@ -52,7 +52,7 @@
 
          } // 10
       } // 20
-      if ( TYPE.EQ.2 ) {
+      if ( TYPE == 2 ) {
          A( 1, 1 ) = DCMPLX( RONE, RONE )
          A( 2, 2 ) = DCONJG( A( 1, 1 ) )
          A( 3, 3 ) = ONE

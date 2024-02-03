@@ -103,7 +103,7 @@
             // flush-to-zero threshold and handle numbers above that
             // threshold correctly, it would not be necessary.
 
-      if ( DISCR.GE.ZERO .OR. R.EQ.ZERO ) {
+      if ( DISCR.GE.ZERO .OR. R == ZERO ) {
          SUM = PP + SIGN( R, PP )
          DIFF = PP - SIGN( R, PP )
          WBIG = SHIFT + SUM
@@ -186,7 +186,7 @@
 
       // Scale second eigenvalue (if real)
 
-      if ( WI.EQ.ZERO ) {
+      if ( WI == ZERO ) {
          WSIZE = MAX( SAFMIN, C1, FUZZY1*( ABS( WR2 )*C2+C3 ), MIN( C4, HALF*MAX( ABS( WR2 ), C5 ) ) )
          if ( WSIZE.NE.ONE ) {
             WSCALE = ONE / WSIZE

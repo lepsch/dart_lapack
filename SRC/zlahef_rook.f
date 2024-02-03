@@ -106,11 +106,11 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
             A( K, K ) = DBLE( W( K, KW ) )
             if (K.GT.1) CALL ZCOPY( K-1, W( 1, KW ), 1, A( 1, K ), 1 );
@@ -192,10 +192,10 @@
                      DONE = true;
 
                   // Case(3)
-                  // Equivalent to testing for ROWMAX.EQ.COLMAX,
+                  // Equivalent to testing for ROWMAX == COLMAX,
                   // (used to handle NaN and Inf)
 
-                  } else if ( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
+                  } else if ( ( P == JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
 
                      // interchange rows and columns K-1 and IMAX,
                      // use 2-by-2 pivot block
@@ -241,7 +241,7 @@
             // Interchange rows and columns P and K.
             // Updated column P is already stored in column KW of W.
 
-            if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
 
                // Copy non-updated column K to column P of submatrix A
                // at step K. No need to copy element into columns
@@ -286,7 +286,7 @@
                zswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column kw of W now holds
 
@@ -423,7 +423,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -P
@@ -486,7 +486,7 @@
             J = J + 1
             if (JP2.NE.JJ .AND. J.LE.N) CALL ZSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
             JJ = JJ + 1
-            if (KSTEP.EQ.2 .AND. JP1.NE.JJ .AND. J.LE.N) CALL ZSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LT.N ) GO TO 60;
+            if (KSTEP == 2 .AND. JP1.NE.JJ .AND. J.LE.N) CALL ZSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LT.N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -535,11 +535,11 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
             A( K, K ) = DBLE( W( K, K ) )
             if (K.LT.N) CALL ZCOPY( N-K, W( K+1, K ), 1, A( K+1, K ), 1 );
@@ -622,10 +622,10 @@
                      DONE = true;
 
                   // Case(3)
-                  // Equivalent to testing for ROWMAX.EQ.COLMAX,
+                  // Equivalent to testing for ROWMAX == COLMAX,
                   // (used to handle NaN and Inf)
 
-                  } else if ( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
+                  } else if ( ( P == JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) {
 
                      // interchange rows and columns K+1 and IMAX,
                      // use 2-by-2 pivot block
@@ -667,7 +667,7 @@
             // Interchange rows and columns P and K (only for 2-by-2 pivot).
             // Updated column P is already stored in column K of W.
 
-            if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
 
                // Copy non-updated column KK-1 to column P of submatrix A
                // at step K. No need to copy element into columns
@@ -712,7 +712,7 @@
                zswap(KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW );
             }
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k of W now holds
 
@@ -849,7 +849,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -P
@@ -912,7 +912,7 @@
             J = J - 1
             if (JP2.NE.JJ .AND. J.GE.1) CALL ZSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
             JJ = JJ -1
-            if (KSTEP.EQ.2 .AND. JP1.NE.JJ .AND. J.GE.1) CALL ZSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GT.1 ) GO TO 120;
+            if (KSTEP == 2 .AND. JP1.NE.JJ .AND. J.GE.1) CALL ZSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GT.1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 

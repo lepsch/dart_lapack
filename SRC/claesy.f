@@ -35,7 +35,7 @@
       // Special case:  The matrix is actually diagonal.
       // To avoid divide by zero later, we treat this case separately.
 
-      if ( ABS( B ).EQ.ZERO ) {
+      if ( ABS( B ) == ZERO ) {
          RT1 = A
          RT2 = C
          if ( ABS( RT1 ).LT.ABS( RT2 ) ) {

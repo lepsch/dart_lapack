@@ -114,7 +114,7 @@
             // pass the threshold.
 
             if ( RESID.GE.THRESH ) {
-               if ( NFAIL.EQ.0 .AND. FIRSTT ) {
+               if ( NFAIL == 0 .AND. FIRSTT ) {
                   FIRSTT = false;
                   alahdg(NOUT, PATH );
                }

@@ -54,7 +54,7 @@
 
       // Quick return if possible
 
-      if (M.EQ.0 .OR. N.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0) RETURN;
 
       // Decode DIST
 
@@ -127,9 +127,9 @@
       MR = MIN( M, N+LLB )
       NC = MIN( N, M+UUB )
 
-      if ( IPACK.EQ.5 .OR. IPACK.EQ.6 ) {
+      if ( IPACK == 5 .OR. IPACK == 6 ) {
          MINLDA = UUB + 1
-      } else if ( IPACK.EQ.7 ) {
+      } else if ( IPACK == 7 ) {
          MINLDA = LLB + UUB + 1
       } else {
          MINLDA = M
@@ -139,7 +139,7 @@
       // or if LDA is too small to store the matrix unpacked.
 
       GIVENS = false;
-      if ( ISYM.EQ.1 ) {
+      if ( ISYM == 1 ) {
          IF( DBLE( LLB+UUB ).LT.0.3D0*DBLE( MAX( 1, MR+NC ) ) ) GIVENS = true;
       } else {
          if (2*LLB.LT.M) GIVENS = true ;
@@ -154,9 +154,9 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( IDIST.EQ.-1 ) {
+      } else if ( IDIST == -1 ) {
          INFO = -3
-      } else if ( ISYM.EQ.-1 ) {
+      } else if ( ISYM == -1 ) {
          INFO = -5
       } else if ( ABS( MODE ).GT.6 ) {
          INFO = -7
@@ -166,7 +166,7 @@
          INFO = -10
       } else if ( KU.LT.0 .OR. ( ISYM.NE.1 .AND. KL.NE.KU ) ) {
          INFO = -11
-      } else if ( IPACK.EQ.-1 .OR. ( ISYMPK.EQ.1 .AND. ISYM.EQ.1 ) .OR. ( ISYMPK.EQ.2 .AND. ISYM.EQ.1 .AND. KL.GT.0 ) .OR. ( ISYMPK.EQ.3 .AND. ISYM.EQ.1 .AND. KU.GT.0 ) .OR. ( ISYMPK.NE.0 .AND. M.NE.N ) ) {
+      } else if ( IPACK == -1 .OR. ( ISYMPK == 1 .AND. ISYM == 1 ) .OR. ( ISYMPK == 2 .AND. ISYM == 1 .AND. KL.GT.0 ) .OR. ( ISYMPK == 3 .AND. ISYM == 1 .AND. KU.GT.0 ) .OR. ( ISYMPK.NE.0 .AND. M.NE.N ) ) {
          INFO = -12
       } else if ( LDA.LT.MAX( 1, MINLDA ) ) {
          INFO = -14
@@ -258,7 +258,7 @@
       // Diagonal Matrix -- We are done, unless it
       // is to be stored HP/SP/PP/TP (PACK='R' or 'C')
 
-      if ( LLB.EQ.0 .AND. UUB.EQ.0 ) {
+      if ( LLB == 0 .AND. UUB == 0 ) {
          for (J = 1; J <= MNMIN; J++) { // 30
             A( ( 1-ISKEW )*J+IOFFST, J ) = DCMPLX( D( J ) )
          } // 30
@@ -270,7 +270,7 @@
          // Check whether to use Givens rotations,
          // Householder transformations, or nothing.
 
-         if ( ISYM.EQ.1 ) {
+         if ( ISYM == 1 ) {
 
             // Non-symmetric -- A = U D V
 
@@ -577,14 +577,14 @@
                         } // 220
                      }
                   } // 230
-                  if ( IPACK.EQ.5 ) {
+                  if ( IPACK == 5 ) {
                      for (JC = N - UUB + 1; JC <= N; JC++) { // 250
                         for (JR = N + 2 - JC; JR <= UUB + 1; JR++) { // 240
                            A( JR, JC ) = CZERO
                         } // 240
                      } // 250
                   }
-                  if ( IPACKG.EQ.6 ) {
+                  if ( IPACKG == 6 ) {
                      IPACKG = IPACK
                   } else {
                      IPACKG = 0
@@ -596,7 +596,7 @@
 
                if ( IPACK.GE.5 ) {
                   IPACKG = 5
-                  if (IPACK.EQ.6) IOFFG = 1;
+                  if (IPACK == 6) IOFFG = 1;
                } else {
                   IPACKG = 2
                }
@@ -667,14 +667,14 @@
                         } // 310
                      }
                   } // 320
-                  if ( IPACK.EQ.6 ) {
+                  if ( IPACK == 6 ) {
                      for (JC = 1; JC <= UUB; JC++) { // 340
                         for (JR = 1; JR <= UUB + 1 - JC; JR++) { // 330
                            A( JR, JC ) = CZERO
                         } // 330
                      } // 340
                   }
-                  if ( IPACKG.EQ.5 ) {
+                  if ( IPACKG == 5 ) {
                      IPACKG = IPACK
                   } else {
                      IPACKG = 0
@@ -702,7 +702,7 @@
 
                  // Note: we should get here only if LDA .ge. N
 
-         if ( ISYM.EQ.1 ) {
+         if ( ISYM == 1 ) {
 
             // Non-symmetric -- A = U D V
 
@@ -728,7 +728,7 @@
       // 5)      Pack the matrix
 
       if ( IPACK.NE.IPACKG ) {
-         if ( IPACK.EQ.1 ) {
+         if ( IPACK == 1 ) {
 
             // 'U' -- Upper triangular, not packed
 
@@ -738,7 +738,7 @@
                } // 360
             } // 370
 
-         } else if ( IPACK.EQ.2 ) {
+         } else if ( IPACK == 2 ) {
 
             // 'L' -- Lower triangular, not packed
 
@@ -748,7 +748,7 @@
                } // 380
             } // 390
 
-         } else if ( IPACK.EQ.3 ) {
+         } else if ( IPACK == 3 ) {
 
             // 'C' -- Upper triangle packed Columnwise.
 
@@ -765,7 +765,7 @@
                } // 400
             } // 410
 
-         } else if ( IPACK.EQ.4 ) {
+         } else if ( IPACK == 4 ) {
 
             // 'R' -- Lower triangle packed Columnwise.
 
@@ -788,7 +788,7 @@
             // 'Q' -- The upper triangle is packed as a band matrix.
             // 'Z' -- The whole matrix is packed as a band matrix.
 
-            if (IPACK.EQ.5) UUB = 0             IF( IPACK.EQ.6 ) LLB = 0;
+            if (IPACK == 5) UUB = 0             IF( IPACK == 6 ) LLB = 0;
 
             for (J = 1; J <= UUB; J++) { // 450
                DO 440 I = MIN( J+LLB, M ), 1, -1
@@ -808,7 +808,7 @@
          // Symmetric/Triangular Packed --
          // zero out everything after A(IROW,ICOL)
 
-         if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
+         if ( IPACK == 3 .OR. IPACK == 4 ) {
             for (JC = ICOL; JC <= M; JC++) { // 490
                for (JR = IROW + 1; JR <= LDA; JR++) { // 480
                   A( JR, JC ) = CZERO

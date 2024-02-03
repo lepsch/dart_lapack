@@ -44,8 +44,8 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      WQUERY = ( LWORK.EQ.-1 )
-      TQUERY = ( LTB.EQ.-1 )
+      WQUERY = ( LWORK == -1 )
+      TQUERY = ( LTB == -1 )
       if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -66,7 +66,7 @@
       // Answer the query
 
       NB = ILAENV( 1, 'CSYTRF_AA_2STAGE', UPLO, N, -1, -1, -1 )
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( TQUERY ) {
             TB( 1 ) = (3*NB+1)*N
          }
@@ -80,7 +80,7 @@
 
       // Quick return
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          RETURN
       }
 
@@ -122,9 +122,9 @@
 
             KB = MIN(NB, N-J*NB)
             for (I = 1; I <= J-1; I++) {
-               if ( I.EQ.1 ) {
+               if ( I == 1 ) {
                    // H(I,J) = T(I,I)*U(I,J) + T(I+1,I)*U(I+1,J)
-                  if ( I .EQ. (J-1) ) {
+                  if ( I == (J-1) ) {
                      JB = NB+KB
                   } else {
                      JB = 2*NB
@@ -132,7 +132,7 @@
                   cgemm('NoTranspose', 'NoTranspose', NB, KB, JB, CONE,  TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( (I-1)*NB+1, J*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N );
                } else {
                   // H(I,J) = T(I,I-1)*U(I-1,J) + T(I,I)*U(I,J) + T(I,I+1)*U(I+1,J)
-                  if ( I .EQ. J-1) {
+                  if ( I == J-1) {
                      JB = 2*NB+KB
                   } else {
                      JB = 3*NB
@@ -172,7 +172,7 @@
 
                   // Compute H(J,J)
 
-                  if ( J.EQ.1 ) {
+                  if ( J == 1 ) {
                      cgemm('NoTranspose', 'NoTranspose', KB, KB, KB, CONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N );
                   } else {
                      cgemm('NoTranspose', 'NoTranspose', KB, KB, NB+KB, CONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( (J-2)*NB+1, J*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N );
@@ -192,7 +192,7 @@
                // Factorize panel
 
                cgetrf(N-(J+1)*NB, NB,  WORK, N, IPIV( (J+1)*NB+1 ), IINFO );
-                // IF (IINFO.NE.0 .AND. INFO.EQ.0) THEN
+                // IF (IINFO.NE.0 .AND. INFO == 0) THEN
                    // INFO = IINFO+(J+1)*NB
                 // END IF
 
@@ -260,9 +260,9 @@
 
             KB = MIN(NB, N-J*NB)
             for (I = 1; I <= J-1; I++) {
-               if ( I.EQ.1 ) {
+               if ( I == 1 ) {
                    // H(I,J) = T(I,I)*L(J,I)' + T(I+1,I)'*L(J,I+1)'
-                  if ( I .EQ. (J-1) ) {
+                  if ( I == (J-1) ) {
                      JB = NB+KB
                   } else {
                      JB = 2*NB
@@ -270,7 +270,7 @@
                   cgemm('NoTranspose', 'Transpose', NB, KB, JB, CONE, TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-1)*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N );
                } else {
                   // H(I,J) = T(I,I-1)*L(J,I-1)' + T(I,I)*L(J,I)' + T(I,I+1)*L(J,I+1)'
-                  if ( I .EQ. (J-1) ) {
+                  if ( I == (J-1) ) {
                      JB = 2*NB+KB
                   } else {
                      JB = 3*NB
@@ -318,7 +318,7 @@
 
                   // Compute H(J,J)
 
-                  if ( J.EQ.1 ) {
+                  if ( J == 1 ) {
                      cgemm('NoTranspose', 'Transpose', KB, KB, KB, CONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N );
                   } else {
                      cgemm('NoTranspose', 'Transpose', KB, KB, NB+KB, CONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-2)*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N );
@@ -332,7 +332,7 @@
                // Factorize panel
 
                cgetrf(N-(J+1)*NB, NB,  A( (J+1)*NB+1, J*NB+1 ), LDA, IPIV( (J+1)*NB+1 ), IINFO );
-                // IF (IINFO.NE.0 .AND. INFO.EQ.0) THEN
+                // IF (IINFO.NE.0 .AND. INFO == 0) THEN
                    // INFO = IINFO+(J+1)*NB
                 // END IF
 

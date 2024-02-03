@@ -56,8 +56,8 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
-      if ( ILO.EQ.IHI ) {
+      if (N == 0) RETURN;
+      if ( ILO == IHI ) {
          W( ILO ) = H( ILO, ILO )
          RETURN
       }
@@ -138,7 +138,7 @@
          DO 40 K = I, L + 1, -1
             IF( CABS1( H( K, K-1 ) ).LE.SMLNUM ) GO TO 50
             TST = CABS1( H( K-1, K-1 ) ) + CABS1( H( K, K ) )
-            if ( TST.EQ.ZERO ) {
+            if ( TST == ZERO ) {
                if (K-2.GE.ILO) TST = TST + ABS( DBLE( H( K-1, K-2 ) ) )                IF( K+1.LE.IHI ) TST = TST + ABS( DBLE( H( K+1, K ) ) );
             }
             // ==== The following is a conservative small subdiagonal
@@ -176,13 +176,13 @@
             I2 = I
          }
 
-         if ( MOD(KDEFL,2*KEXSH).EQ.0 ) {
+         if ( MOD(KDEFL,2*KEXSH) == 0 ) {
 
             // Exceptional shift.
 
             S = DAT1*ABS( DBLE( H( I, I-1 ) ) )
             T = S + H( I, I )
-         } else if ( MOD(KDEFL,KEXSH).EQ.0 ) {
+         } else if ( MOD(KDEFL,KEXSH) == 0 ) {
 
             // Exceptional shift.
 
@@ -292,7 +292,7 @@
                } // 100
             }
 
-            if ( K.EQ.M .AND. M.GT.L ) {
+            if ( K == M .AND. M.GT.L ) {
 
                // If the QR step was started at row M > L because two
                // consecutive small subdiagonals were found, then extra

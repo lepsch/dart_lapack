@@ -62,7 +62,7 @@
 
       NLP1 = NL + 1
       NLP2 = NL + 2
-      if ( ICOMPQ.EQ.1 ) {
+      if ( ICOMPQ == 1 ) {
          GIVPTR = 0
       }
 
@@ -147,7 +147,7 @@
 
             K2 = K2 - 1
             IDXP( K2 ) = J
-            if (J.EQ.N) GO TO 100;
+            if (J == N) GO TO 100;
          } else {
             JPREV = J
             GO TO 70
@@ -186,7 +186,7 @@
 
             // Record the appropriate Givens rotation
 
-            if ( ICOMPQ.EQ.1 ) {
+            if ( ICOMPQ == 1 ) {
                GIVPTR = GIVPTR + 1
                IDXJP = IDXQ( IDX( JPREV )+1 )
                IDXJ = IDXQ( IDX( J )+1 )
@@ -236,7 +236,7 @@
          VFW( J ) = VF( JP )
          VLW( J ) = VL( JP )
       } // 110
-      if ( ICOMPQ.EQ.1 ) {
+      if ( ICOMPQ == 1 ) {
          for (J = 2; J <= N; J++) { // 120
             JP = IDXP( J )
             PERM( J ) = IDXQ( IDX( JP )+1 )

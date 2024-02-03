@@ -45,7 +45,7 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( ICOMPQ.EQ.1 .AND. QSIZ.LT.N ) {
+      } else if ( ICOMPQ == 1 .AND. QSIZ.LT.N ) {
          INFO = -4
       } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -7
@@ -68,7 +68,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       N1 = CUTPNT
       N2 = N - N1
@@ -117,7 +117,7 @@
 
       if ( RHO*ABS( Z( IMAX ) ).LE.TOL ) {
          K = 0
-         if ( ICOMPQ.EQ.0 ) {
+         if ( ICOMPQ == 0 ) {
             for (J = 1; J <= N; J++) { // 50
                PERM( J ) = INDXQ( INDX( J ) )
             } // 50
@@ -146,7 +146,7 @@
 
             K2 = K2 - 1
             INDXP( K2 ) = J
-            if (J.EQ.N) GO TO 110;
+            if (J == N) GO TO 110;
          } else {
             JLAM = J
             GO TO 80
@@ -189,7 +189,7 @@
             GIVCOL( 2, GIVPTR ) = INDXQ( INDX( J ) )
             GIVNUM( 1, GIVPTR ) = C
             GIVNUM( 2, GIVPTR ) = S
-            if ( ICOMPQ.EQ.1 ) {
+            if ( ICOMPQ == 1 ) {
                srot(QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1, Q( 1, INDXQ( INDX( J ) ) ), 1, C, S );
             }
             T = D( JLAM )*C*C + D( J )*S*S
@@ -236,7 +236,7 @@
       // deflated go into the first K slots of DLAMBDA and Q2 respectively,
       // while those which were deflated go into the last N - K slots.
 
-      if ( ICOMPQ.EQ.0 ) {
+      if ( ICOMPQ == 0 ) {
          for (J = 1; J <= N; J++) { // 120
             JP = INDXP( J )
             DLAMBDA( J ) = D( JP )
@@ -255,7 +255,7 @@
       // into the last N - K slots of D and Q respectively.
 
       if ( K.LT.N ) {
-         if ( ICOMPQ.EQ.0 ) {
+         if ( ICOMPQ == 0 ) {
             scopy(N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 );
          } else {
             scopy(N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 );

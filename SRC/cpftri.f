@@ -53,7 +53,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Invert the triangular Cholesky factor U or L.
 
@@ -63,7 +63,7 @@
       // If N is odd, set NISODD = true;
       // If N is even, set K = N/2 and NISODD = false;
 
-      if ( MOD( N, 2 ).EQ.0 ) {
+      if ( MOD( N, 2 ) == 0 ) {
          K = N / 2
          NISODD = false;
       } else {

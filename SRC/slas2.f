@@ -31,9 +31,9 @@
       HA = ABS( H )
       FHMN = MIN( FA, HA )
       FHMX = MAX( FA, HA )
-      if ( FHMN.EQ.ZERO ) {
+      if ( FHMN == ZERO ) {
          SSMIN = ZERO
-         if ( FHMX.EQ.ZERO ) {
+         if ( FHMX == ZERO ) {
             SSMAX = GA
          } else {
             SSMAX = MAX( FHMX, GA )*SQRT( ONE+ ( MIN( FHMX, GA ) / MAX( FHMX, GA ) )**2 )
@@ -48,7 +48,7 @@
             SSMAX = FHMX / C
          } else {
             AU = FHMX / GA
-            if ( AU.EQ.ZERO ) {
+            if ( AU == ZERO ) {
 
                // Avoid possible harmful underflow if exponent range
                // asymmetric (true SSMIN may not underflow even if

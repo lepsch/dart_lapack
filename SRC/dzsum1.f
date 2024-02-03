@@ -24,7 +24,7 @@
 
       DZSUM1 = 0.0D0
       STEMP = 0.0D0
-      if (N.LE.0) RETURN       IF( INCX.EQ.1 ) GO TO 20;
+      if (N.LE.0) RETURN       IF( INCX == 1 ) GO TO 20;
 
       // CODE FOR INCREMENT NOT EQUAL TO 1
 

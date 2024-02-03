@@ -85,13 +85,13 @@
       LEND = M
       LENDSV = LEND
       L1 = M + 1
-      if (LEND.EQ.L) GO TO 10;
+      if (LEND == L) GO TO 10;
 
       // Scale submatrix in rows and columns L to LEND
 
       ANORM = SLANST( 'M', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
-      if (ANORM.EQ.ZERO) GO TO 10;
+      if (ANORM == ZERO) GO TO 10;
       if ( ANORM.GT.SSFMAX ) {
          ISCALE = 1
          slascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO );
@@ -130,12 +130,12 @@
          } // 70
          if (M.LT.LEND) E( M ) = ZERO;
          P = D( L )
-         if (M.EQ.L) GO TO 90;
+         if (M == L) GO TO 90;
 
          // If remaining matrix is 2 by 2, use SLAE2 to compute its
          // eigenvalues.
 
-         if ( M.EQ.L+1 ) {
+         if ( M == L+1 ) {
             RTE = SQRT( E( L ) )
             slae2(D( L ), RTE, D( L+1 ), RT1, RT2 );
             D( L ) = RT1
@@ -146,7 +146,7 @@
             GO TO 150
          }
 
-         if (JTOT.EQ.NMAXIT) GO TO 150;
+         if (JTOT == NMAXIT) GO TO 150;
          JTOT = JTOT + 1
 
          // Form shift.
@@ -209,12 +209,12 @@
          } // 120
          if (M.GT.LEND) E( M-1 ) = ZERO;
          P = D( L )
-         if (M.EQ.L) GO TO 140;
+         if (M == L) GO TO 140;
 
          // If remaining matrix is 2 by 2, use SLAE2 to compute its
          // eigenvalues.
 
-         if ( M.EQ.L-1 ) {
+         if ( M == L-1 ) {
             RTE = SQRT( E( L-1 ) )
             slae2(D( L ), RTE, D( L-1 ), RT1, RT2 );
             D( L ) = RT1
@@ -225,7 +225,7 @@
             GO TO 150
          }
 
-         if (JTOT.EQ.NMAXIT) GO TO 150;
+         if (JTOT == NMAXIT) GO TO 150;
          JTOT = JTOT + 1
 
          // Form shift.
@@ -278,7 +278,7 @@
       // Undo scaling if necessary
 
       } // 150
-      if (ISCALE.EQ.1) CALL SLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )       IF( ISCALE.EQ.2 ) CALL SLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
+      if (ISCALE == 1) CALL SLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )       IF( ISCALE == 2 ) CALL SLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
 
       // Check for no convergence to an eigenvalue after a total
       // of N*MAXIT iterations.

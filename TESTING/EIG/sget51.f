@@ -55,7 +55,7 @@
 
          ANORM = MAX( SLANGE( '1', N, N, A, LDA, WORK ), UNFL )
 
-         if ( ITYPE.EQ.1 ) {
+         if ( ITYPE == 1 ) {
 
             // ITYPE=1: Compute W = A - UBV'
 

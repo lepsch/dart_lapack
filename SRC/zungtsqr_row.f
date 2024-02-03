@@ -36,7 +36,7 @@
       // Test the input parameters
 
       INFO = 0
-      LQUERY  = LWORK.EQ.-1
+      LQUERY  = LWORK == -1
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 .OR. M.LT.N ) {
@@ -57,7 +57,7 @@
 
       // Determine the workspace size.
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          LWORKOPT = NBLOCAL * MAX( NBLOCAL, ( N - NBLOCAL ) )
       }
 
@@ -73,7 +73,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N ).EQ.0 ) {
+      if ( MIN( M, N ) == 0 ) {
          WORK( 1 ) = DCMPLX( LWORKOPT )
          RETURN
       }
@@ -163,7 +163,7 @@
 
          KNB = MIN( NBLOCAL, N - KB + 1 )
 
-         if ( MB1-KB-KNB+1.EQ.0 ) {
+         if ( MB1-KB-KNB+1 == 0 ) {
 
             // In SLARFB_GETT parameters, when M=0, then the matrix B
             // does not exist, hence we need to pass a dummy array

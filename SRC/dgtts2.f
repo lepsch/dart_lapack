@@ -22,9 +22,9 @@
 
       // Quick return if possible
 
-      if (N.EQ.0 .OR. NRHS.EQ.0) RETURN;
+      if (N == 0 .OR. NRHS == 0) RETURN;
 
-      if ( ITRANS.EQ.0 ) {
+      if ( ITRANS == 0 ) {
 
          // Solve A*X = B using the LU factorization of A,
          // overwriting each right hand side vector with its solution.
@@ -59,7 +59,7 @@
                // Solve L*x = b.
 
                for (I = 1; I <= N - 1; I++) { // 40
-                  if ( IPIV( I ).EQ.I ) {
+                  if ( IPIV( I ) == I ) {
                      B( I+1, J ) = B( I+1, J ) - DL( I )*B( I, J )
                   } else {
                      TEMP = B( I, J )
@@ -117,7 +117,7 @@
                   B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )- DU2( I-2 )*B( I-2, J ) ) / D( I )
                } // 100
                DO 110 I = N - 1, 1, -1
-                  if ( IPIV( I ).EQ.I ) {
+                  if ( IPIV( I ) == I ) {
                      B( I, J ) = B( I, J ) - DL( I )*B( I+1, J )
                   } else {
                      TEMP = B( I+1, J )

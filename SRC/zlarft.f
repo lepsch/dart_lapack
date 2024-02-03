@@ -32,13 +32,13 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       if ( LSAME( DIRECT, 'F' ) ) {
          PREVLASTV = N
          for (I = 1; I <= K; I++) {
             PREVLASTV = MAX( PREVLASTV, I )
-            if ( TAU( I ).EQ.ZERO ) {
+            if ( TAU( I ) == ZERO ) {
 
                // H(i)  =  I
 
@@ -91,7 +91,7 @@
       } else {
          PREVLASTV = 1
          DO I = K, 1, -1
-            if ( TAU( I ).EQ.ZERO ) {
+            if ( TAU( I ) == ZERO ) {
 
                // H(i)  =  I
 

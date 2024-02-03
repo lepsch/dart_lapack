@@ -40,7 +40,7 @@
       EPS = DLAMCH( 'Precision' )
 
 
-      if ( R.EQ.0 ) {
+      if ( R == 0 ) {
          R1 = B1
          R2 = BN
       } else {
@@ -55,7 +55,7 @@
       INDS = 2*N + 1
       INDP = 3*N + 1
 
-      if ( B1.EQ.1 ) {
+      if ( B1 == 1 ) {
          WORK( INDS ) = ZERO
       } else {
          WORK( INDS+B1-1 ) = LLD( B1-1 )
@@ -96,7 +96,7 @@
             WORK( INDLPL+I ) = LD( I ) / DPLUS
             if (DPLUS.LT.ZERO) NEG1 = NEG1 + 1;
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
-            IF( WORK( INDLPL+I ).EQ.ZERO ) WORK( INDS+I ) = LLD( I )
+            IF( WORK( INDLPL+I ) == ZERO ) WORK( INDS+I ) = LLD( I )
             S = WORK( INDS+I ) - LAMBDA
          } // 70
          for (I = R1; I <= R2 - 1; I++) { // 71
@@ -104,7 +104,7 @@
             IF(ABS(DPLUS).LT.PIVMIN) DPLUS = -PIVMIN
             WORK( INDLPL+I ) = LD( I ) / DPLUS
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
-            IF( WORK( INDLPL+I ).EQ.ZERO ) WORK( INDS+I ) = LLD( I )
+            IF( WORK( INDLPL+I ) == ZERO ) WORK( INDS+I ) = LLD( I )
             S = WORK( INDS+I ) - LAMBDA
          } // 71
       }
@@ -135,7 +135,7 @@
             if (DMINUS.LT.ZERO) NEG2 = NEG2 + 1;
             WORK( INDUMN+I ) = L( I )*TMP
             WORK( INDP+I-1 ) = WORK( INDP+I )*TMP - LAMBDA
-            if (TMP.EQ.ZERO) WORK( INDP+I-1 ) = D( I ) - LAMBDA;
+            if (TMP == ZERO) WORK( INDP+I-1 ) = D( I ) - LAMBDA;
          } // 100
       }
 
@@ -149,11 +149,11 @@
       } else {
          NEGCNT = -1
       }
-      IF( ABS(MINGMA).EQ.ZERO ) MINGMA = EPS*WORK( INDS+R1-1 )
+      IF( ABS(MINGMA) == ZERO ) MINGMA = EPS*WORK( INDS+R1-1 )
       R = R1
       for (I = R1; I <= R2 - 1; I++) { // 110
          TMP = WORK( INDS+I ) + WORK( INDP+I )
-         if (TMP.EQ.ZERO) TMP = EPS*WORK( INDS+I );
+         if (TMP == ZERO) TMP = EPS*WORK( INDS+I );
          if ( ABS( TMP ).LE.ABS( MINGMA ) ) {
             MINGMA = TMP
             R = I + 1
@@ -183,7 +183,7 @@
       } else {
          // Run slower loop if NaN occurred.
          DO 230 I = R - 1, B1, -1
-            if ( Z( I+1 ).EQ.ZERO ) {
+            if ( Z( I+1 ) == ZERO ) {
                Z( I ) = -( LD( I+1 ) / LD( I ) )*Z( I+2 )
             } else {
                Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) )
@@ -213,7 +213,7 @@
       } else {
          // Run slower loop if NaN occurred.
          for (I = R; I <= BN - 1; I++) { // 270
-            if ( Z( I ).EQ.ZERO ) {
+            if ( Z( I ) == ZERO ) {
                Z( I+1 ) = -( LD( I-1 ) / LD( I ) )*Z( I-1 )
             } else {
                Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) )

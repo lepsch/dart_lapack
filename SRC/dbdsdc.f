@@ -55,15 +55,15 @@
       } else {
          ICOMPQ = -1
       }
-      if ( IUPLO.EQ.0 ) {
+      if ( IUPLO == 0 ) {
          INFO = -1
       } else if ( ICOMPQ.LT.0 ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( ( LDU.LT.1 ) .OR. ( ( ICOMPQ.EQ.2 ) .AND. ( LDU.LT. N ) ) ) {
+      } else if ( ( LDU.LT.1 ) .OR. ( ( ICOMPQ == 2 ) .AND. ( LDU.LT. N ) ) ) {
          INFO = -7
-      } else if ( ( LDVT.LT.1 ) .OR. ( ( ICOMPQ.EQ.2 ) .AND. ( LDVT.LT. N ) ) ) {
+      } else if ( ( LDVT.LT.1 ) .OR. ( ( ICOMPQ == 2 ) .AND. ( LDVT.LT. N ) ) ) {
          INFO = -9
       }
       if ( INFO.NE.0 ) {
@@ -73,13 +73,13 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
       SMLSIZ = ILAENV( 9, 'DBDSDC', ' ', 0, 0, 0, 0 )
-      if ( N.EQ.1 ) {
-         if ( ICOMPQ.EQ.1 ) {
+      if ( N == 1 ) {
+         if ( ICOMPQ == 1 ) {
             Q( 1 ) = SIGN( ONE, D( 1 ) )
             Q( 1+SMLSIZ*N ) = ONE
-         } else if ( ICOMPQ.EQ.2 ) {
+         } else if ( ICOMPQ == 2 ) {
             U( 1, 1 ) = SIGN( ONE, D( 1 ) )
             VT( 1, 1 ) = ONE
          }
@@ -93,22 +93,22 @@
 
       WSTART = 1
       QSTART = 3
-      if ( ICOMPQ.EQ.1 ) {
+      if ( ICOMPQ == 1 ) {
          dcopy(N, D, 1, Q( 1 ), 1 );
          dcopy(N-1, E, 1, Q( N+1 ), 1 );
       }
-      if ( IUPLO.EQ.2 ) {
+      if ( IUPLO == 2 ) {
          QSTART = 5
-         if (ICOMPQ .EQ. 2) WSTART = 2*N - 1;
+         if (ICOMPQ == 2) WSTART = 2*N - 1;
          for (I = 1; I <= N - 1; I++) { // 10
             dlartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )
             D( I+1 ) = CS*D( I+1 )
-            if ( ICOMPQ.EQ.1 ) {
+            if ( ICOMPQ == 1 ) {
                Q( I+2*N ) = CS
                Q( I+3*N ) = SN
-            } else if ( ICOMPQ.EQ.2 ) {
+            } else if ( ICOMPQ == 2 ) {
                WORK( I ) = CS
                WORK( NM1+I ) = -SN
             }
@@ -117,7 +117,7 @@
 
       // If ICOMPQ = 0, use DLASDQ to compute the singular values.
 
-      if ( ICOMPQ.EQ.0 ) {
+      if ( ICOMPQ == 0 ) {
          // Ignore WSTART, instead using WORK( 1 ), since the two vectors
          // for CS and -SN above are added only if ICOMPQ == 2,
          // and adding them exceeds documented WORK size of 4*n.
@@ -129,11 +129,11 @@
       // the problem with another solver.
 
       if ( N.LE.SMLSIZ ) {
-         if ( ICOMPQ.EQ.2 ) {
+         if ( ICOMPQ == 2 ) {
             dlaset('A', N, N, ZERO, ONE, U, LDU );
             dlaset('A', N, N, ZERO, ONE, VT, LDVT );
             dlasdq('U', 0, N, N, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK( WSTART ), INFO );
-         } else if ( ICOMPQ.EQ.1 ) {
+         } else if ( ICOMPQ == 1 ) {
             IU = 1
             IVT = IU + N
             dlaset('A', N, N, ZERO, ONE, Q( IU+( QSTART-1 )*N ), N );
@@ -143,7 +143,7 @@
          GO TO 40
       }
 
-      if ( ICOMPQ.EQ.2 ) {
+      if ( ICOMPQ == 2 ) {
          dlaset('A', N, N, ZERO, ONE, U, LDU );
          dlaset('A', N, N, ZERO, ONE, VT, LDVT );
       }
@@ -151,7 +151,7 @@
       // Scale.
 
       ORGNRM = DLANST( 'M', N, D, E )
-      if (ORGNRM.EQ.ZERO) RETURN;
+      if (ORGNRM == ZERO) RETURN;
       dlascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, IERR );
       dlascl('G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, IERR );
 
@@ -160,7 +160,7 @@
       MLVL = INT( LOG( DBLE( N ) / DBLE( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1
       SMLSZP = SMLSIZ + 1
 
-      if ( ICOMPQ.EQ.1 ) {
+      if ( ICOMPQ == 1 ) {
          IU = 1
          IVT = 1 + SMLSIZ
          DIFL = IVT + SMLSZP
@@ -187,7 +187,7 @@
       SQRE = 0
 
       for (I = 1; I <= NM1; I++) { // 30
-         if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) {
+         if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I == NM1 ) ) {
 
             // Subproblem found. First determine its size and then
             // apply divide and conquer on it.
@@ -209,16 +209,16 @@
                // first.
 
                NSIZE = I - START + 1
-               if ( ICOMPQ.EQ.2 ) {
+               if ( ICOMPQ == 2 ) {
                   U( N, N ) = SIGN( ONE, D( N ) )
                   VT( N, N ) = ONE
-               } else if ( ICOMPQ.EQ.1 ) {
+               } else if ( ICOMPQ == 1 ) {
                   Q( N+( QSTART-1 )*N ) = SIGN( ONE, D( N ) )
                   Q( N+( SMLSIZ+QSTART-1 )*N ) = ONE
                }
                D( N ) = ABS( D( N ) )
             }
-            if ( ICOMPQ.EQ.2 ) {
+            if ( ICOMPQ == 2 ) {
                dlasd0(NSIZE, SQRE, D( START ), E( START ), U( START, START ), LDU, VT( START, START ), LDVT, SMLSIZ, IWORK, WORK( WSTART ), INFO );
             } else {
                dlasda(ICOMPQ, SMLSIZ, NSIZE, SQRE, D( START ), E( START ), Q( START+( IU+QSTART-2 )*N ), N, Q( START+( IVT+QSTART-2 )*N ), IQ( START+K*N ), Q( START+( DIFL+QSTART-2 )* N ), Q( START+( DIFR+QSTART-2 )*N ), Q( START+( Z+QSTART-2 )*N ), Q( START+( POLES+QSTART-2 )*N ), IQ( START+GIVPTR*N ), IQ( START+GIVCOL*N ), N, IQ( START+PERM*N ), Q( START+( GIVNUM+QSTART-2 )*N ), Q( START+( IC+QSTART-2 )*N ), Q( START+( IS+QSTART-2 )*N ), WORK( WSTART ), IWORK, INFO );
@@ -250,21 +250,21 @@
          if ( KK.NE.I ) {
             D( KK ) = D( I )
             D( I ) = P
-            if ( ICOMPQ.EQ.1 ) {
+            if ( ICOMPQ == 1 ) {
                IQ( I ) = KK
-            } else if ( ICOMPQ.EQ.2 ) {
+            } else if ( ICOMPQ == 2 ) {
                dswap(N, U( 1, I ), 1, U( 1, KK ), 1 );
                dswap(N, VT( I, 1 ), LDVT, VT( KK, 1 ), LDVT );
             }
-         } else if ( ICOMPQ.EQ.1 ) {
+         } else if ( ICOMPQ == 1 ) {
             IQ( I ) = I
          }
       } // 60
 
       // If ICOMPQ = 1, use IQ(N,1) as the indicator for UPLO
 
-      if ( ICOMPQ.EQ.1 ) {
-         if ( IUPLO.EQ.1 ) {
+      if ( ICOMPQ == 1 ) {
+         if ( IUPLO == 1 ) {
             IQ( N ) = 1
          } else {
             IQ( N ) = 0
@@ -274,7 +274,7 @@
       // If B is lower bidiagonal, update U by those Givens rotations
       // which rotated B to be upper bidiagonal
 
-      IF( ( IUPLO.EQ.2 ) .AND. ( ICOMPQ.EQ.2 ) ) CALL DLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU )
+      IF( ( IUPLO == 2 ) .AND. ( ICOMPQ == 2 ) ) CALL DLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU )
 
       RETURN
 

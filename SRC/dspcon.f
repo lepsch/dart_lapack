@@ -56,7 +56,7 @@
       // Quick return if possible
 
       RCOND = ZERO
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          RCOND = ONE
          RETURN
       } else if ( ANORM.LE.ZERO ) {
@@ -71,7 +71,7 @@
 
          IP = N*( N+1 ) / 2
          DO 10 I = N, 1, -1
-            IF( IPIV( I ).GT.0 .AND. AP( IP ).EQ.ZERO ) RETURN
+            IF( IPIV( I ).GT.0 .AND. AP( IP ) == ZERO ) RETURN
             IP = IP - I
          } // 10
       } else {
@@ -80,7 +80,7 @@
 
          IP = 1
          for (I = 1; I <= N; I++) { // 20
-            IF( IPIV( I ).GT.0 .AND. AP( IP ).EQ.ZERO ) RETURN
+            IF( IPIV( I ).GT.0 .AND. AP( IP ) == ZERO ) RETURN
             IP = IP + N - I + 1
          } // 20
       }

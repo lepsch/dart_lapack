@@ -163,7 +163,7 @@
             // KU = 2 => unit triangular
 
          zlacpy('Full', N, NRHS, X, LDX, B, LDB );
-         if ( KU.EQ.2 ) {
+         if ( KU == 2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
@@ -175,7 +175,7 @@
          // Triangular matrix, packed storage
 
          zlacpy('Full', N, NRHS, X, LDX, B, LDB );
-         if ( KU.EQ.2 ) {
+         if ( KU == 2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
@@ -189,7 +189,7 @@
          // Triangular matrix, banded storage
 
          zlacpy('Full', N, NRHS, X, LDX, B, LDB );
-         if ( KU.EQ.2 ) {
+         if ( KU == 2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'

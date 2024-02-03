@@ -130,9 +130,9 @@
             // test that INFO is returned correctly.
 
             if ( ZEROT ) {
-               if ( IMAT.EQ.5 ) {
+               if ( IMAT == 5 ) {
                   IZERO = 1
-               } else if ( IMAT.EQ.6 ) {
+               } else if ( IMAT == 6 ) {
                   IZERO = N
                } else {
                   IZERO = N / 2 + 1
@@ -155,7 +155,7 @@
 
             for (IEQUED = 1; IEQUED <= 4; IEQUED++) { // 70
                EQUED = EQUEDS( IEQUED )
-               if ( IEQUED.EQ.1 ) {
+               if ( IEQUED == 1 ) {
                   NFACT = 3
                } else {
                   NFACT = 1
@@ -186,7 +186,7 @@
                         // equilibrate the matrix A.
 
                         sgeequ(N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
-                        if ( INFO.EQ.0 .AND. N.GT.0 ) {
+                        if ( INFO == 0 .AND. N.GT.0 ) {
                            if ( LSAME( EQUED, 'R' ) ) {
                               ROWCND = ZERO
                               COLCND = ONE
@@ -253,7 +253,7 @@
                      // Do for each value of TRANS.
 
                      TRANS = TRANSS( ITRAN )
-                     if ( ITRAN.EQ.1 ) {
+                     if ( ITRAN == 1 ) {
                         RCONDC = RCONDO
                      } else {
                         RCONDC = RCONDI
@@ -270,7 +270,7 @@
                      XTYPE = 'C'
                      slacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
-                     if ( NOFACT .AND. ITRAN.EQ.1 ) {
+                     if ( NOFACT .AND. ITRAN == 1 ) {
 
                         // --- Test SGESV  ---
 
@@ -292,7 +292,7 @@
 
                         sget01(N, N, A, LDA, AFAC, LDA, IWORK, RWORK, RESULT( 1 ) );
                         NT = 1
-                        if ( IZERO.EQ.0 ) {
+                        if ( IZERO == 0 ) {
 
                            // Compute residual of the computed solution.
 
@@ -310,7 +310,7 @@
 
                         for (K = 1; K <= NT; K++) { // 30
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'SGESV ', N, IMAT, K, RESULT( K );
+                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'SGESV ', N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 30
@@ -344,14 +344,14 @@
 
                      if ( INFO.NE.0 .AND. INFO.LE.N) {
                         RPVGRW = SLANTR( 'M', 'U', 'N', INFO, INFO, AFAC, LDA, WORK )
-                        if ( RPVGRW.EQ.ZERO ) {
+                        if ( RPVGRW == ZERO ) {
                            RPVGRW = ONE
                         } else {
                            RPVGRW = SLANGE( 'M', N, INFO, A, LDA, WORK ) / RPVGRW
                         }
                      } else {
                         RPVGRW = SLANTR( 'M', 'U', 'N', N, N, AFAC, LDA, WORK )
-                        if ( RPVGRW.EQ.ZERO ) {
+                        if ( RPVGRW == ZERO ) {
                            RPVGRW = ONE
                         } else {
                            RPVGRW = SLANGE( 'M', N, N, A, LDA, WORK ) / RPVGRW
@@ -370,7 +370,7 @@
                         K1 = 2
                      }
 
-                     if ( INFO.EQ.0 ) {
+                     if ( INFO == 0 ) {
                         TRFCON = false;
 
                         // Compute residual of the computed solution.
@@ -383,7 +383,7 @@
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
                            sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
-                           if ( ITRAN.EQ.1 ) {
+                           if ( ITRAN == 1 ) {
                               ROLDC = ROLDO
                            } else {
                               ROLDC = ROLDI
@@ -410,7 +410,7 @@
                      if ( .NOT.TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 40
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'SGESVX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K )
                               } else {
@@ -421,7 +421,7 @@
                         } // 40
                         NRUN = NRUN + NTESTS - K1 + 1
                      } else {
-                        IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                        IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL == 0 .AND. NERRS == 0 ) CALL ALADHD( NOUT, PATH )
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'SGESVX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
                            } else {
@@ -431,7 +431,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 6 ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'SGESVX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
                            } else {
@@ -441,7 +441,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 7 ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'SGESVX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
                            } else {

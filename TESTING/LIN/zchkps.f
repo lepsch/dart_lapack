@@ -137,7 +137,7 @@
 
                   // Check error code from ZPSTRF.
 
-                     IF( (INFO.LT.IZERO) .OR.(INFO.NE.IZERO.AND.RANK.EQ.N) .OR.(INFO.LE.IZERO.AND.RANK.LT.N) ) THEN;
+                     IF( (INFO.LT.IZERO) .OR.(INFO.NE.IZERO.AND.RANK == N) .OR.(INFO.LE.IZERO.AND.RANK.LT.N) ) THEN;
                         alaerh(PATH, 'ZPSTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 110
                      }
@@ -155,10 +155,10 @@
                   // Print information about the tests that did not pass
                   // the threshold or where computed rank was not RANK.
 
-                     if (N.EQ.0) COMPRANK = 0;
+                     if (N == 0) COMPRANK = 0;
                      RANKDIFF = RANK - COMPRANK
                      if ( RESULT.GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT;
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT;
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1

@@ -47,7 +47,7 @@
          // H  =  [+/-1, 0; I], sign chosen so ALPHA >= 0.
 
          if ( ALPHA.GE.ZERO ) {
-            // When TAU.eq.ZERO, the vector is special-cased to be
+            // When TAU == ZERO, the vector is special-cased to be
             // all zeros in the application routines.  We do not need
             // to clear it.
             TAU = ZERO

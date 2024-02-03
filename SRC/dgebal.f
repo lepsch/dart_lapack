@@ -56,7 +56,7 @@
 
       // Quick returns.
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          ILO = 1
          IHI = 0
          RETURN
@@ -103,7 +103,7 @@
                   }
                   NOCONV = true;
 
-                  if ( L.EQ.1 ) {
+                  if ( L == 1 ) {
                      ILO = 1
                      IHI = 1
                      RETURN
@@ -184,7 +184,7 @@
 
             // Guard against zero C or R due to underflow.
 
-            if (C.EQ.ZERO .OR. R.EQ.ZERO) CYCLE;
+            if (C == ZERO .OR. R == ZERO) CYCLE;
 
             // Exit if NaN to avoid infinite loop
 

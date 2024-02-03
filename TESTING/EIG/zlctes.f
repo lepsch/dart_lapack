@@ -25,12 +25,12 @@
       // ..
       // .. Executable Statements ..
 
-      if ( D.EQ.CZERO ) {
+      if ( D == CZERO ) {
          ZLCTES = ( DBLE( Z ).LT.ZERO )
       } else {
-         if ( DBLE( Z ).EQ.ZERO .OR. DBLE( D ).EQ.ZERO ) {
+         if ( DBLE( Z ) == ZERO .OR. DBLE( D ) == ZERO ) {
             ZLCTES = ( SIGN( ONE, DIMAG( Z ) ).NE. SIGN( ONE, DIMAG( D ) ) )
-         } else if ( DIMAG( Z ).EQ.ZERO .OR. DIMAG( D ).EQ.ZERO ) {
+         } else if ( DIMAG( Z ) == ZERO .OR. DIMAG( D ) == ZERO ) {
             ZLCTES = ( SIGN( ONE, DBLE( Z ) ).NE. SIGN( ONE, DBLE( D ) ) )
          } else {
             ZMAX = MAX( ABS( DBLE( Z ) ), ABS( DIMAG( Z ) ) )

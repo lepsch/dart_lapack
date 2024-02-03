@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      if (N1.EQ.0 .OR. N2.EQ.0) RETURN;
+      if (N1 == 0 .OR. N2 == 0) RETURN;
 
       // Set constants to control overflow
 
@@ -163,7 +163,7 @@
          X2( 1 ) = TEMP
       }
       X( 1, 1 ) = X2( 1 )
-      if ( N1.EQ.1 ) {
+      if ( N1 == 1 ) {
          X( 1, 2 ) = X2( 2 )
          XNORM = ABS( X( 1, 1 ) ) + ABS( X( 1, 2 ) )
       } else {

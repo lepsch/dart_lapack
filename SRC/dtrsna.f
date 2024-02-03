@@ -76,7 +76,7 @@
                   PAIR = false;
                } else {
                   if ( K.LT.N ) {
-                     if ( T( K+1, K ).EQ.ZERO ) {
+                     if ( T( K+1, K ) == ZERO ) {
                         IF( SELECT( K ) ) M = M + 1
                      } else {
                         PAIR = true;
@@ -104,9 +104,9 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          if ( SOMCON ) {
             IF( .NOT.SELECT( 1 ) ) RETURN
          }
@@ -186,7 +186,7 @@
             ILST = 1
             dtrexc('No Q', N, WORK, LDWORK, DUMMY, 1, IFST, ILST, WORK( 1, N+1 ), IERR );
 
-            if ( IERR.EQ.1 .OR. IERR.EQ.2 ) {
+            if ( IERR == 1 .OR. IERR == 2 ) {
 
                // Could not swap because blocks not well separated
 
@@ -196,7 +196,7 @@
 
                // Reordering successful
 
-               if ( WORK( 2, 1 ).EQ.ZERO ) {
+               if ( WORK( 2, 1 ) == ZERO ) {
 
                   // Form C = T22 - lambda*I in WORK(2:N,2:N).
 
@@ -252,8 +252,8 @@
                } // 50
                dlacn2(NN, WORK( 1, N+2 ), WORK( 1, N+4 ), IWORK, EST, KASE, ISAVE );
                if ( KASE.NE.0 ) {
-                  if ( KASE.EQ.1 ) {
-                     if ( N2.EQ.1 ) {
+                  if ( KASE == 1 ) {
+                     if ( N2 == 1 ) {
 
                         // Real eigenvalue: solve C**T*x = scale*c.
 
@@ -266,7 +266,7 @@
                         dlaqtr( true , false , N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
                      }
                   } else {
-                     if ( N2.EQ.1 ) {
+                     if ( N2 == 1 ) {
 
                         // Real eigenvalue: solve C*x = scale*c.
 

@@ -45,28 +45,28 @@ void main() {
           nTests = nTests + 3
           Y = cInf(i)
           R = czero * Y
-          if (R .eq. R) {
+          if (R == R) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'ia',i, czero, Y, R, 'NaN'
           }
           R = cone * Y
-          if ( (R .ne. Y) .and. (R .eq. R) ) {
+          if ( (R .ne. Y) .and. (R == R) ) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'ib',i, cone, Y, R, 'the input and NaN'
           }
           R = Y * Y
-          if ( (i.eq.1) .or. (i.eq.2) ) {
-              if ( (R .ne. cInf(1)) .and. (R .eq. R) ) {
+          if ( (i == 1) .or. (i == 2) ) {
+              if ( (R .ne. cInf(1)) .and. (R == R) ) {
                   nFailingTests = nFailingTests + 1
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, 'Inf and NaN'
               }
-          } else if ( (i.eq.3) .or. (i.eq.4) ) {
-              if ( (R .ne. cInf(2)) .and. (R .eq. R) ) {
+          } else if ( (i == 3) .or. (i == 4) ) {
+              if ( (R .ne. cInf(2)) .and. (R == R) ) {
                   nFailingTests = nFailingTests + 1
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, '-Inf and NaN'
               }
           } else {
-              if (R .eq. R) {
+              if (R == R) {
                   nFailingTests = nFailingTests + 1
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, 'NaN'
               }
@@ -78,17 +78,17 @@ void main() {
           nTests = nTests + 3
           Y = cNaN(i)
           R = czero * Y
-          if (R .eq. R) {
+          if (R == R) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'na',i, czero, Y, R, 'NaN'
           }
           R = cone * Y
-          if (R .eq. R) {
+          if (R == R) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'nb',i, cone, Y, R, 'NaN'
           }
           R = Y * Y
-          if (R .eq. R) {
+          if (R == R) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'nc',i, Y, Y, R, 'NaN'
           }

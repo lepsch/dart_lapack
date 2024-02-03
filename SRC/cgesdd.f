@@ -58,7 +58,7 @@
       WNTQAS = WNTQA .OR. WNTQS
       WNTQO  = LSAME( JOBZ, 'O' )
       WNTQN  = LSAME( JOBZ, 'N' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       MINWRK = 1
       MAXWRK = 1
 
@@ -84,7 +84,7 @@
         // real workspace. NB refers to the optimal block size for the
         // immediately following subroutine, as returned by ILAENV.)
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
          if ( M.GE.N .AND. MINMN.GT.0 ) {
@@ -350,7 +350,7 @@
          }
          MAXWRK = MAX( MAXWRK, MINWRK )
       }
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          WORK( 1 ) = SROUNDUP_LWORK( MAXWRK )
          if ( LWORK.LT.MINWRK .AND. .NOT. LQUERY ) {
             INFO = -12
@@ -366,7 +366,7 @@
 
       // Quick return if possible
 
-      if ( M.EQ.0 .OR. N.EQ.0 ) {
+      if ( M == 0 .OR. N == 0 ) {
          RETURN
       }
 
@@ -1741,7 +1741,7 @@
 
       // Undo scaling if necessary
 
-      if ( ISCL.EQ.1 ) {
+      if ( ISCL == 1 ) {
          if (ANRM.GT.BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
       }
 

@@ -56,7 +56,7 @@
          B( J, J ) = H( J, J ) - WR
       } // 20
 
-      if ( WI.EQ.ZERO ) {
+      if ( WI == ZERO ) {
 
          // Real eigenvalue.
 
@@ -97,7 +97,7 @@
 
                   // Eliminate without interchange.
 
-                  IF( B( I, I ).EQ.ZERO ) B( I, I ) = EPS3
+                  IF( B( I, I ) == ZERO ) B( I, I ) = EPS3
                   X = EI / B( I, I )
                   if ( X.NE.ZERO ) {
                      for (J = I + 1; J <= N; J++) { // 50
@@ -106,7 +106,7 @@
                   }
                }
             } // 60
-            IF( B( N, N ).EQ.ZERO ) B( N, N ) = EPS3
+            IF( B( N, N ) == ZERO ) B( N, N ) = EPS3
 
             TRANS = 'N'
 
@@ -132,7 +132,7 @@
 
                   // Eliminate without interchange.
 
-                  IF( B( J, J ).EQ.ZERO ) B( J, J ) = EPS3
+                  IF( B( J, J ) == ZERO ) B( J, J ) = EPS3
                   X = EJ / B( J, J )
                   if ( X.NE.ZERO ) {
                      for (I = 1; I <= J - 1; I++) { // 80
@@ -141,7 +141,7 @@
                   }
                }
             } // 90
-            IF( B( 1, 1 ).EQ.ZERO ) B( 1, 1 ) = EPS3
+            IF( B( 1, 1 ) == ZERO ) B( 1, 1 ) = EPS3
 
             TRANS = 'T'
 
@@ -242,7 +242,7 @@
 
                   // Eliminate without interchanging rows.
 
-                  if ( ABSBII.EQ.ZERO ) {
+                  if ( ABSBII == ZERO ) {
                      B( I, I ) = EPS3
                      B( I+1, I ) = ZERO
                      ABSBII = EPS3
@@ -261,7 +261,7 @@
 
                WORK( I ) = DASUM( N-I, B( I, I+1 ), LDB ) + DASUM( N-I, B( I+2, I ), 1 )
             } // 170
-            IF( B( N, N ).EQ.ZERO .AND. B( N+1, N ).EQ.ZERO ) B( N, N ) = EPS3
+            IF( B( N, N ) == ZERO .AND. B( N+1, N ) == ZERO ) B( N, N ) = EPS3
             WORK( N ) = ZERO
 
             I1 = N
@@ -305,7 +305,7 @@
 
                   // Eliminate without interchange.
 
-                  if ( ABSBJJ.EQ.ZERO ) {
+                  if ( ABSBJJ == ZERO ) {
                      B( J, J ) = EPS3
                      B( J+1, J ) = ZERO
                      ABSBJJ = EPS3
@@ -324,7 +324,7 @@
 
                WORK( J ) = DASUM( J-1, B( 1, J ), 1 ) + DASUM( J-1, B( J+1, 1 ), LDB )
             } // 210
-            IF( B( 1, 1 ).EQ.ZERO .AND. B( 2, 1 ).EQ.ZERO ) B( 1, 1 ) = EPS3
+            IF( B( 1, 1 ) == ZERO .AND. B( 2, 1 ) == ZERO ) B( 1, 1 ) = EPS3
             WORK( 1 ) = ZERO
 
             I1 = 1

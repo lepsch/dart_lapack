@@ -94,7 +94,7 @@
 
       // Initialize Q and Z if desired.
 
-      if (ICOMPQ.EQ.3) CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
+      if (ICOMPQ == 3) CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ == 3 ) CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
       // Quick return if possible
 

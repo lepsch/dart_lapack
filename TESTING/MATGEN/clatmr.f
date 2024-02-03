@@ -57,7 +57,7 @@
 
       // Quick return if possible
 
-      if (M.EQ.0 .OR. N.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0) RETURN;
 
       // Decode DIST
 
@@ -168,9 +168,9 @@
       // If inv(DL) is used, check to see if DL has a zero entry.
 
       DZERO = false;
-      if ( IGRADE.EQ.4 .AND. MODEL.EQ.0 ) {
+      if ( IGRADE == 4 .AND. MODEL == 0 ) {
          for (I = 1; I <= M; I++) { // 10
-            IF( DL( I ).EQ.CZERO ) DZERO = true;
+            IF( DL( I ) == CZERO ) DZERO = true;
          } // 10
       }
 
@@ -187,45 +187,45 @@
 
       if ( M.LT.0 ) {
          INFO = -1
-      } else if ( M.NE.N .AND. ( ISYM.EQ.0 .OR. ISYM.EQ.2 ) ) {
+      } else if ( M.NE.N .AND. ( ISYM == 0 .OR. ISYM == 2 ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( IDIST.EQ.-1 ) {
+      } else if ( IDIST == -1 ) {
          INFO = -3
-      } else if ( ISYM.EQ.-1 ) {
+      } else if ( ISYM == -1 ) {
          INFO = -5
       } else if ( MODE.LT.-6 .OR. MODE.GT.6 ) {
          INFO = -7
       } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. COND.LT.ONE ) {
          INFO = -8
-      } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.-1 ) {
+      } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN == -1 ) {
          INFO = -10
-      } else if ( IGRADE.EQ.-1 .OR. ( IGRADE.EQ.4 .AND. M.NE.N ) .OR. ( ( IGRADE.EQ.1 .OR. IGRADE.EQ.2 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.6 ) .AND. ISYM.EQ.0 ) .OR. ( ( IGRADE.EQ.1 .OR. IGRADE.EQ.2 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.5 ) .AND. ISYM.EQ.2 ) ) {
+      } else if ( IGRADE == -1 .OR. ( IGRADE == 4 .AND. M.NE.N ) .OR. ( ( IGRADE == 1 .OR. IGRADE == 2 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 6 ) .AND. ISYM == 0 ) .OR. ( ( IGRADE == 1 .OR. IGRADE == 2 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) .AND. ISYM == 2 ) ) {
          INFO = -11
-      } else if ( IGRADE.EQ.4 .AND. DZERO ) {
+      } else if ( IGRADE == 4 .AND. DZERO ) {
          INFO = -12
-      } else if ( ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.5 .OR. IGRADE.EQ.6 ) .AND. ( MODEL.LT.-6 .OR. MODEL.GT.6 ) ) {
+      } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 .OR. IGRADE == 6 ) .AND. ( MODEL.LT.-6 .OR. MODEL.GT.6 ) ) {
          INFO = -13
-      } else if ( ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.5 .OR. IGRADE.EQ.6 ) .AND. ( MODEL.NE.-6 .AND. MODEL.NE.0 .AND. MODEL.NE.6 ) .AND. CONDL.LT.ONE ) {
+      } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 .OR. IGRADE == 6 ) .AND. ( MODEL.NE.-6 .AND. MODEL.NE.0 .AND. MODEL.NE.6 ) .AND. CONDL.LT.ONE ) {
          INFO = -14
-      } else if ( ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) .AND. ( MODER.LT.-6 .OR. MODER.GT.6 ) ) {
+      } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) .AND. ( MODER.LT.-6 .OR. MODER.GT.6 ) ) {
          INFO = -16
-      } else if ( ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) .AND. ( MODER.NE.-6 .AND. MODER.NE.0 .AND. MODER.NE.6 ) .AND. CONDR.LT.ONE ) {
+      } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) .AND. ( MODER.NE.-6 .AND. MODER.NE.0 .AND. MODER.NE.6 ) .AND. CONDR.LT.ONE ) {
          INFO = -17
-      } else if ( IPVTNG.EQ.-1 .OR. ( IPVTNG.EQ.3 .AND. M.NE.N ) .OR. ( ( IPVTNG.EQ.1 .OR. IPVTNG.EQ.2 ) .AND. ( ISYM.EQ.0 .OR. ISYM.EQ.2 ) ) ) {
+      } else if ( IPVTNG == -1 .OR. ( IPVTNG == 3 .AND. M.NE.N ) .OR. ( ( IPVTNG == 1 .OR. IPVTNG == 2 ) .AND. ( ISYM == 0 .OR. ISYM == 2 ) ) ) {
          INFO = -18
       } else if ( IPVTNG.NE.0 .AND. BADPVT ) {
          INFO = -19
       } else if ( KL.LT.0 ) {
          INFO = -20
-      } else if ( KU.LT.0 .OR. ( ( ISYM.EQ.0 .OR. ISYM.EQ.2 ) .AND. KL.NE. KU ) ) {
+      } else if ( KU.LT.0 .OR. ( ( ISYM == 0 .OR. ISYM == 2 ) .AND. KL.NE. KU ) ) {
          INFO = -21
       } else if ( SPARSE.LT.ZERO .OR. SPARSE.GT.ONE ) {
          INFO = -22
-      } else if ( IPACK.EQ.-1 .OR. ( ( IPACK.EQ.1 .OR. IPACK.EQ.2 .OR. IPACK.EQ.5 .OR. IPACK.EQ.6 ) .AND. ISYM.EQ.1 ) .OR. ( IPACK.EQ.3 .AND. ISYM.EQ.1 .AND. ( KL.NE.0 .OR. M.NE. N ) ) .OR. ( IPACK.EQ.4 .AND. ISYM.EQ.1 .AND. ( KU.NE. 0 .OR. M.NE.N ) ) ) {
+      } else if ( IPACK == -1 .OR. ( ( IPACK == 1 .OR. IPACK == 2 .OR. IPACK == 5 .OR. IPACK == 6 ) .AND. ISYM == 1 ) .OR. ( IPACK == 3 .AND. ISYM == 1 .AND. ( KL.NE.0 .OR. M.NE. N ) ) .OR. ( IPACK == 4 .AND. ISYM == 1 .AND. ( KU.NE. 0 .OR. M.NE.N ) ) ) {
          INFO = -24
-      } else if ( ( ( IPACK.EQ.0 .OR. IPACK.EQ.1 .OR. IPACK.EQ.2 ) .AND. LDA.LT.MAX( 1, M ) ) .OR. ( ( IPACK.EQ.3 .OR. IPACK.EQ. 4 ) .AND. LDA.LT.1 ) .OR. ( ( IPACK.EQ.5 .OR. IPACK.EQ. 6 ) .AND. LDA.LT.KUU+1 ) .OR. ( IPACK.EQ.7 .AND. LDA.LT.KLL+KUU+1 ) ) {
+      } else if ( ( ( IPACK == 0 .OR. IPACK == 1 .OR. IPACK == 2 ) .AND. LDA.LT.MAX( 1, M ) ) .OR. ( ( IPACK == 3 .OR. IPACK == 4 ) .AND. LDA.LT.1 ) .OR. ( ( IPACK == 5 .OR. IPACK == 6 ) .AND. LDA.LT.KUU+1 ) .OR. ( IPACK == 7 .AND. LDA.LT.KLL+KUU+1 ) ) {
          INFO = -26
       }
 
@@ -237,7 +237,7 @@
       // Decide if we can pivot consistently
 
       FULBND = false;
-      if (KUU.EQ.N-1 .AND. KLL.EQ.M-1) FULBND = true ;
+      if (KUU == N-1 .AND. KLL == M-1) FULBND = true ;
 
       // Initialize random number generator
 
@@ -264,7 +264,7 @@
          for (I = 2; I <= MNMIN; I++) { // 40
             TEMP = MAX( TEMP, ABS( D( I ) ) )
          } // 40
-         if ( TEMP.EQ.ZERO .AND. DMAX.NE.CZERO ) {
+         if ( TEMP == ZERO .AND. DMAX.NE.CZERO ) {
             INFO = 2
             RETURN
          }
@@ -281,7 +281,7 @@
 
       // If matrix Hermitian, make D real
 
-      if ( ISYM.EQ.0 ) {
+      if ( ISYM == 0 ) {
          for (I = 1; I <= MNMIN; I++) { // 60
             D( I ) = REAL( D( I ) )
          } // 60
@@ -289,7 +289,7 @@
 
       // Compute DL if grading set
 
-      if ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ. 5 .OR. IGRADE.EQ.6 ) {
+      if ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 .OR. IGRADE == 6 ) {
          clatm1(MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO );
          if ( INFO.NE.0 ) {
             INFO = 3
@@ -299,7 +299,7 @@
 
       // Compute DR if grading set
 
-      if ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) {
+      if ( IGRADE == 2 .OR. IGRADE == 3 ) {
          clatm1(MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO );
          if ( INFO.NE.0 ) {
             INFO = 4
@@ -340,8 +340,8 @@
          // Use CLATM3 so matrices generated with differing PIVOTing only
          // differ only in the order of their rows and/or columns.
 
-         if ( IPACK.EQ.0 ) {
-            if ( ISYM.EQ.0 ) {
+         if ( IPACK == 0 ) {
+            if ( ISYM == 0 ) {
                for (J = 1; J <= N; J++) { // 110
                   for (I = 1; I <= J; I++) { // 100
                      CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -349,14 +349,14 @@
                      A( JSUB, ISUB ) = CONJG( CTEMP )
                   } // 100
                } // 110
-            } else if ( ISYM.EQ.1 ) {
+            } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 130
                   for (I = 1; I <= M; I++) { // 120
                      CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB, JSUB ) = CTEMP
                   } // 120
                } // 130
-            } else if ( ISYM.EQ.2 ) {
+            } else if ( ISYM == 2 ) {
                for (J = 1; J <= N; J++) { // 150
                   for (I = 1; I <= J; I++) { // 140
                      CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -366,14 +366,14 @@
                } // 150
             }
 
-         } else if ( IPACK.EQ.1 ) {
+         } else if ( IPACK == 1 ) {
 
             for (J = 1; J <= N; J++) { // 170
                for (I = 1; I <= J; I++) { // 160
                   CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
-                  if ( MXSUB.EQ.ISUB .AND. ISYM.EQ.0 ) {
+                  if ( MXSUB == ISUB .AND. ISYM == 0 ) {
                      A( MNSUB, MXSUB ) = CONJG( CTEMP )
                   } else {
                      A( MNSUB, MXSUB ) = CTEMP
@@ -382,14 +382,14 @@
                } // 160
             } // 170
 
-         } else if ( IPACK.EQ.2 ) {
+         } else if ( IPACK == 2 ) {
 
             for (J = 1; J <= N; J++) { // 190
                for (I = 1; I <= J; I++) { // 180
                   CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
-                  if ( MXSUB.EQ.JSUB .AND. ISYM.EQ.0 ) {
+                  if ( MXSUB == JSUB .AND. ISYM == 0 ) {
                      A( MXSUB, MNSUB ) = CONJG( CTEMP )
                   } else {
                      A( MXSUB, MNSUB ) = CTEMP
@@ -398,7 +398,7 @@
                } // 180
             } // 190
 
-         } else if ( IPACK.EQ.3 ) {
+         } else if ( IPACK == 3 ) {
 
             for (J = 1; J <= N; J++) { // 210
                for (I = 1; I <= J; I++) { // 200
@@ -416,7 +416,7 @@
                   JJSUB = ( K-1 ) / LDA + 1
                   IISUB = K - LDA*( JJSUB-1 )
 
-                  if ( MXSUB.EQ.ISUB .AND. ISYM.EQ.0 ) {
+                  if ( MXSUB == ISUB .AND. ISYM == 0 ) {
                      A( IISUB, JJSUB ) = CONJG( CTEMP )
                   } else {
                      A( IISUB, JJSUB ) = CTEMP
@@ -424,7 +424,7 @@
                } // 200
             } // 210
 
-         } else if ( IPACK.EQ.4 ) {
+         } else if ( IPACK == 4 ) {
 
             for (J = 1; J <= N; J++) { // 230
                for (I = 1; I <= J; I++) { // 220
@@ -434,7 +434,7 @@
 
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
-                  if ( MNSUB.EQ.1 ) {
+                  if ( MNSUB == 1 ) {
                      K = MXSUB
                   } else {
                      K = N*( N+1 ) / 2 - ( N-MNSUB+1 )*( N-MNSUB+2 ) / 2 + MXSUB - MNSUB + 1
@@ -445,7 +445,7 @@
                   JJSUB = ( K-1 ) / LDA + 1
                   IISUB = K - LDA*( JJSUB-1 )
 
-                  if ( MXSUB.EQ.JSUB .AND. ISYM.EQ.0 ) {
+                  if ( MXSUB == JSUB .AND. ISYM == 0 ) {
                      A( IISUB, JJSUB ) = CONJG( CTEMP )
                   } else {
                      A( IISUB, JJSUB ) = CTEMP
@@ -453,7 +453,7 @@
                } // 220
             } // 230
 
-         } else if ( IPACK.EQ.5 ) {
+         } else if ( IPACK == 5 ) {
 
             for (J = 1; J <= N; J++) { // 250
                for (I = J - KUU; I <= J; I++) { // 240
@@ -463,7 +463,7 @@
                      CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
-                     if ( MXSUB.EQ.JSUB .AND. ISYM.EQ.0 ) {
+                     if ( MXSUB == JSUB .AND. ISYM == 0 ) {
                         A( MXSUB-MNSUB+1, MNSUB ) = CONJG( CTEMP )
                      } else {
                         A( MXSUB-MNSUB+1, MNSUB ) = CTEMP
@@ -472,14 +472,14 @@
                } // 240
             } // 250
 
-         } else if ( IPACK.EQ.6 ) {
+         } else if ( IPACK == 6 ) {
 
             for (J = 1; J <= N; J++) { // 270
                for (I = J - KUU; I <= J; I++) { // 260
                   CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
-                  if ( MXSUB.EQ.ISUB .AND. ISYM.EQ.0 ) {
+                  if ( MXSUB == ISUB .AND. ISYM == 0 ) {
                      A( MNSUB-MXSUB+KUU+1, MXSUB ) = CONJG( CTEMP )
                   } else {
                      A( MNSUB-MXSUB+KUU+1, MXSUB ) = CTEMP
@@ -487,7 +487,7 @@
                } // 260
             } // 270
 
-         } else if ( IPACK.EQ.7 ) {
+         } else if ( IPACK == 7 ) {
 
             if ( ISYM.NE.1 ) {
                for (J = 1; J <= N; J++) { // 290
@@ -496,13 +496,13 @@
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
                      if (I.LT.1) A( J-I+1+KUU, I+N ) = CZERO;
-                     if ( MXSUB.EQ.ISUB .AND. ISYM.EQ.0 ) {
+                     if ( MXSUB == ISUB .AND. ISYM == 0 ) {
                         A( MNSUB-MXSUB+KUU+1, MXSUB ) = CONJG( CTEMP )
                      } else {
                         A( MNSUB-MXSUB+KUU+1, MXSUB ) = CTEMP
                      }
                      if ( I.GE.1 .AND. MNSUB.NE.MXSUB ) {
-                        if ( MNSUB.EQ.ISUB .AND. ISYM.EQ.0 ) {
+                        if ( MNSUB == ISUB .AND. ISYM == 0 ) {
                            A( MXSUB-MNSUB+1+KUU, MNSUB ) = CONJG( CTEMP )
                         } else {
                            A( MXSUB-MNSUB+1+KUU, MNSUB ) = CTEMP
@@ -510,7 +510,7 @@
                      }
                   } // 280
                } // 290
-            } else if ( ISYM.EQ.1 ) {
+            } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 310
                   for (I = J - KUU; I <= J + KLL; I++) { // 300
                      CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -525,21 +525,21 @@
 
          // Use CLATM2
 
-         if ( IPACK.EQ.0 ) {
-            if ( ISYM.EQ.0 ) {
+         if ( IPACK == 0 ) {
+            if ( ISYM == 0 ) {
                for (J = 1; J <= N; J++) { // 330
                   for (I = 1; I <= J; I++) { // 320
                      A( I, J ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( J, I ) = CONJG( A( I, J ) )
                   } // 320
                } // 330
-            } else if ( ISYM.EQ.1 ) {
+            } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 350
                   for (I = 1; I <= M; I++) { // 340
                      A( I, J ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   } // 340
                } // 350
-            } else if ( ISYM.EQ.2 ) {
+            } else if ( ISYM == 2 ) {
                for (J = 1; J <= N; J++) { // 370
                   for (I = 1; I <= J; I++) { // 360
                      A( I, J ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -548,7 +548,7 @@
                } // 370
             }
 
-         } else if ( IPACK.EQ.1 ) {
+         } else if ( IPACK == 1 ) {
 
             for (J = 1; J <= N; J++) { // 390
                for (I = 1; I <= J; I++) { // 380
@@ -556,11 +556,11 @@
                } // 380
             } // 390
 
-         } else if ( IPACK.EQ.2 ) {
+         } else if ( IPACK == 2 ) {
 
             for (J = 1; J <= N; J++) { // 410
                for (I = 1; I <= J; I++) { // 400
-                  if ( ISYM.EQ.0 ) {
+                  if ( ISYM == 0 ) {
                      A( J, I ) = CONJG( CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) )
                   } else {
                      A( J, I ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -569,7 +569,7 @@
                } // 400
             } // 410
 
-         } else if ( IPACK.EQ.3 ) {
+         } else if ( IPACK == 3 ) {
 
             ISUB = 0
             JSUB = 1
@@ -584,15 +584,15 @@
                } // 420
             } // 430
 
-         } else if ( IPACK.EQ.4 ) {
+         } else if ( IPACK == 4 ) {
 
-            if ( ISYM.EQ.0 .OR. ISYM.EQ.2 ) {
+            if ( ISYM == 0 .OR. ISYM == 2 ) {
                for (J = 1; J <= N; J++) { // 450
                   for (I = 1; I <= J; I++) { // 440
 
                      // Compute K = location of (I,J) entry in packed array
 
-                     if ( I.EQ.1 ) {
+                     if ( I == 1 ) {
                         K = J
                      } else {
                         K = N*( N+1 ) / 2 - ( N-I+1 )*( N-I+2 ) / 2 + J - I + 1
@@ -604,7 +604,7 @@
                      ISUB = K - LDA*( JSUB-1 )
 
                      A( ISUB, JSUB ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-                     if (ISYM.EQ.0) A( ISUB, JSUB ) = CONJG( A( ISUB, JSUB ) );
+                     if (ISYM == 0) A( ISUB, JSUB ) = CONJG( A( ISUB, JSUB ) );
                   } // 440
                } // 450
             } else {
@@ -622,14 +622,14 @@
                } // 470
             }
 
-         } else if ( IPACK.EQ.5 ) {
+         } else if ( IPACK == 5 ) {
 
             for (J = 1; J <= N; J++) { // 490
                for (I = J - KUU; I <= J; I++) { // 480
                   if ( I.LT.1 ) {
                      A( J-I+1, I+N ) = CZERO
                   } else {
-                     if ( ISYM.EQ.0 ) {
+                     if ( ISYM == 0 ) {
                         A( J-I+1, I ) = CONJG( CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) )
                      } else {
                         A( J-I+1, I ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -638,7 +638,7 @@
                } // 480
             } // 490
 
-         } else if ( IPACK.EQ.6 ) {
+         } else if ( IPACK == 6 ) {
 
             for (J = 1; J <= N; J++) { // 510
                for (I = J - KUU; I <= J; I++) { // 500
@@ -646,7 +646,7 @@
                } // 500
             } // 510
 
-         } else if ( IPACK.EQ.7 ) {
+         } else if ( IPACK == 7 ) {
 
             if ( ISYM.NE.1 ) {
                for (J = 1; J <= N; J++) { // 530
@@ -654,7 +654,7 @@
                      A( I-J+KUU+1, J ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      if (I.LT.1) A( J-I+1+KUU, I+N ) = CZERO;
                      if ( I.GE.1 .AND. I.NE.J ) {
-                        if ( ISYM.EQ.0 ) {
+                        if ( ISYM == 0 ) {
                            A( J-I+1+KUU, I ) = CONJG( A( I-J+KUU+1, J ) )
                         } else {
                            A( J-I+1+KUU, I ) = A( I-J+KUU+1, J )
@@ -662,7 +662,7 @@
                      }
                   } // 520
                } // 530
-            } else if ( ISYM.EQ.1 ) {
+            } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 550
                   for (I = J - KUU; I <= J + KLL; I++) { // 540
                      A( I-J+KUU+1, J ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -676,27 +676,27 @@
 
       // 5)      Scaling the norm
 
-      if ( IPACK.EQ.0 ) {
+      if ( IPACK == 0 ) {
          ONORM = CLANGE( 'M', M, N, A, LDA, TEMPA )
-      } else if ( IPACK.EQ.1 ) {
+      } else if ( IPACK == 1 ) {
          ONORM = CLANSY( 'M', 'U', N, A, LDA, TEMPA )
-      } else if ( IPACK.EQ.2 ) {
+      } else if ( IPACK == 2 ) {
          ONORM = CLANSY( 'M', 'L', N, A, LDA, TEMPA )
-      } else if ( IPACK.EQ.3 ) {
+      } else if ( IPACK == 3 ) {
          ONORM = CLANSP( 'M', 'U', N, A, TEMPA )
-      } else if ( IPACK.EQ.4 ) {
+      } else if ( IPACK == 4 ) {
          ONORM = CLANSP( 'M', 'L', N, A, TEMPA )
-      } else if ( IPACK.EQ.5 ) {
+      } else if ( IPACK == 5 ) {
          ONORM = CLANSB( 'M', 'L', N, KLL, A, LDA, TEMPA )
-      } else if ( IPACK.EQ.6 ) {
+      } else if ( IPACK == 6 ) {
          ONORM = CLANSB( 'M', 'U', N, KUU, A, LDA, TEMPA )
-      } else if ( IPACK.EQ.7 ) {
+      } else if ( IPACK == 7 ) {
          ONORM = CLANGB( 'M', N, KLL, KUU, A, LDA, TEMPA )
       }
 
       if ( ANORM.GE.ZERO ) {
 
-         if ( ANORM.GT.ZERO .AND. ONORM.EQ.ZERO ) {
+         if ( ANORM.GT.ZERO .AND. ONORM == ZERO ) {
 
             // Desired scaling impossible
 
@@ -713,7 +713,7 @@
                   csscal(M, ANORM, A( 1, J ), 1 );
                } // 560
 
-            } else if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
+            } else if ( IPACK == 3 .OR. IPACK == 4 ) {
 
                csscal(N*( N+1 ) / 2, ONE / ONORM, A, 1 );
                csscal(N*( N+1 ) / 2, ANORM, A, 1 );
@@ -736,7 +736,7 @@
                   csscal(M, ANORM / ONORM, A( 1, J ), 1 );
                } // 580
 
-            } else if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
+            } else if ( IPACK == 3 .OR. IPACK == 4 ) {
 
                csscal(N*( N+1 ) / 2, ANORM / ONORM, A, 1 );
 

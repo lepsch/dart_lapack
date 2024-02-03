@@ -47,7 +47,7 @@
       } else {
          IRC = -1
       }
-      if ( IRC.EQ.-1 ) {
+      if ( IRC == -1 ) {
          INFO = -1
       } else if ( MU.LT.0 ) {
          INFO = -2
@@ -57,9 +57,9 @@
          INFO = -4
       } else if ( K.LT.0 .OR. K.GT.MAX( MU, MV ) ) {
          INFO = -5
-      } else if ( ( IRC.EQ.0 .AND. LDU.LT.MAX( 1, MU ) ) .OR. ( IRC.EQ.1 .AND. LDU.LT.MAX( 1, N ) ) ) {
+      } else if ( ( IRC == 0 .AND. LDU.LT.MAX( 1, MU ) ) .OR. ( IRC == 1 .AND. LDU.LT.MAX( 1, N ) ) ) {
          INFO = -7
-      } else if ( ( IRC.EQ.0 .AND. LDV.LT.MAX( 1, MV ) ) .OR. ( IRC.EQ.1 .AND. LDV.LT.MAX( 1, N ) ) ) {
+      } else if ( ( IRC == 0 .AND. LDV.LT.MAX( 1, MV ) ) .OR. ( IRC == 1 .AND. LDV.LT.MAX( 1, N ) ) ) {
          INFO = -9
       }
       if ( INFO.NE.0 ) {
@@ -70,13 +70,13 @@
       // Initialize result
 
       RESULT = ZERO
-      if (MU.EQ.0 .OR. MV.EQ.0 .OR. N.EQ.0) RETURN;
+      if (MU == 0 .OR. MV == 0 .OR. N == 0) RETURN;
 
       // Machine constants
 
       ULP = SLAMCH( 'Precision' )
 
-      if ( IRC.EQ.0 ) {
+      if ( IRC == 0 ) {
 
          // Compare rows
 

@@ -87,13 +87,13 @@
 
                      for (IALPHA = 1; IALPHA <= 4; IALPHA++) { // 100
 
-                        if ( IALPHA.EQ. 1) {
+                        if ( IALPHA == 1) {
                            ALPHA = ZERO
                            BETA = ZERO
-                        } else if ( IALPHA.EQ. 2) {
+                        } else if ( IALPHA == 2) {
                            ALPHA = ONE
                            BETA = ZERO
-                        } else if ( IALPHA.EQ. 3) {
+                        } else if ( IALPHA == 3) {
                            ALPHA = ZERO
                            BETA = ONE
                         } else {
@@ -108,7 +108,7 @@
 
                         NRUN = NRUN + 1
 
-                        if ( ITRANS.EQ.1 ) {
+                        if ( ITRANS == 1 ) {
 
                            // In this case we are NOTRANS, so A is N-by-K
 
@@ -186,7 +186,7 @@
                         RESULT(1) = DLANGE( 'I', N, N, C1, LDC, D_WORK_DLANGE )                         RESULT(1) = RESULT(1) / MAX( ABS( ALPHA ) * NORMA + ABS( BETA ) , ONE ) / MAX( N , 1 ) / EPS
 
                         if ( RESULT(1).GE.THRESH ) {
-                           if ( NFAIL.EQ.0 ) {
+                           if ( NFAIL == 0 ) {
                               WRITE( NOUT, * )
                               WRITE( NOUT, FMT = 9999 )
                            }
@@ -203,7 +203,7 @@
 
       // Print a summary of the results.
 
-      if ( NFAIL.EQ.0 ) {
+      if ( NFAIL == 0 ) {
          WRITE( NOUT, FMT = 9996 ) 'DSFRK', NRUN
       } else {
          WRITE( NOUT, FMT = 9995 ) 'DSFRK', NFAIL, NRUN

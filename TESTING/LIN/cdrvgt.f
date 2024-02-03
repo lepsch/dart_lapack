@@ -134,10 +134,10 @@
                   // Reuse the last matrix by copying back the zeroed out
                   // elements.
 
-                  if ( IZERO.EQ.1 ) {
+                  if ( IZERO == 1 ) {
                      A( N ) = Z( 2 )
                      if (N.GT.1) A( 1 ) = Z( 3 );
-                  } else if ( IZERO.EQ.N ) {
+                  } else if ( IZERO == N ) {
                      A( 3*N-2 ) = Z( 1 )
                      A( 2*N-1 ) = Z( 2 )
                   } else {
@@ -151,7 +151,7 @@
 
                if ( .NOT.ZEROT ) {
                   IZERO = 0
-               } else if ( IMAT.EQ.8 ) {
+               } else if ( IMAT == 8 ) {
                   IZERO = 1
                   Z( 2 ) = REAL( A( N ) )
                   A( N ) = ZERO
@@ -159,7 +159,7 @@
                      Z( 3 ) = REAL( A( 1 ) )
                      A( 1 ) = ZERO
                   }
-               } else if ( IMAT.EQ.9 ) {
+               } else if ( IMAT == 9 ) {
                   IZERO = N
                   Z( 1 ) = REAL( A( 3*N-2 ) )
                   Z( 2 ) = REAL( A( 2*N-1 ) )
@@ -178,7 +178,7 @@
             }
 
             for (IFACT = 1; IFACT <= 2; IFACT++) { // 120
-               if ( IFACT.EQ.1 ) {
+               if ( IFACT == 1 ) {
                   FACT = 'F'
                } else {
                   FACT = 'N'
@@ -188,11 +188,11 @@
                // the value returned by CGTSVX.
 
                if ( ZEROT ) {
-                  if (IFACT.EQ.1) GO TO 120;
+                  if (IFACT == 1) GO TO 120;
                   RCONDO = ZERO
                   RCONDI = ZERO
 
-               } else if ( IFACT.EQ.1 ) {
+               } else if ( IFACT == 1 ) {
                   ccopy(N+2*M, A, 1, AF, 1 );
 
                   // Compute the 1-norm and infinity-norm of A.
@@ -249,7 +249,7 @@
 
                for (ITRAN = 1; ITRAN <= 3; ITRAN++) { // 110
                   TRANS = TRANSS( ITRAN )
-                  if ( ITRAN.EQ.1 ) {
+                  if ( ITRAN == 1 ) {
                      RCONDC = RCONDO
                   } else {
                      RCONDC = RCONDI
@@ -267,7 +267,7 @@
 
                   clagtm(TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA );
 
-                  if ( IFACT.EQ.2 .AND. ITRAN.EQ.1 ) {
+                  if ( IFACT == 2 .AND. ITRAN == 1 ) {
 
                      // --- Test CGTSV  ---
 
@@ -284,7 +284,7 @@
 
                      if (INFO.NE.IZERO) CALL ALAERH( PATH, 'CGTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      NT = 1
-                     if ( IZERO.EQ.0 ) {
+                     if ( IZERO == 0 ) {
 
                         // Check residual of computed solution.
 
@@ -302,7 +302,7 @@
 
                      for (K = 2; K <= NT; K++) { // 80
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CGTSV ', N, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CGTSV ', N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 80
@@ -342,7 +342,7 @@
                      K1 = 2
                   }
 
-                  if ( INFO.EQ.0 ) {
+                  if ( INFO == 0 ) {
                      TRFCON = false;
 
                      // Check residual of computed solution.
@@ -365,7 +365,7 @@
 
                   for (K = K1; K <= NT; K++) { // 100
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'CGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'CGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 100
@@ -374,7 +374,7 @@
 
                   RESULT( 6 ) = SGET06( RCOND, RCONDC )
                   if ( RESULT( 6 ).GE.THRESH ) {
-                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'CGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
+                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'CGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + NT - K1 + 2

@@ -88,7 +88,7 @@
 
       // Quick return if possible
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       // More Important constants
 
@@ -172,7 +172,7 @@
 
             // Special Matrices -- Identity & Jordan block
 
-            if ( ITYPE.EQ.1 ) {
+            if ( ITYPE == 1 ) {
 
                // Zero
 
@@ -180,7 +180,7 @@
                KB = 0
                dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
 
-            } else if ( ITYPE.EQ.2 ) {
+            } else if ( ITYPE == 2 ) {
 
                // Identity
 
@@ -191,7 +191,7 @@
                   A( JCOL, JCOL ) = ANORM
                } // 80
 
-            } else if ( ITYPE.EQ.4 ) {
+            } else if ( ITYPE == 4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
@@ -199,7 +199,7 @@
                KB = 0
                dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.5 ) {
+            } else if ( ITYPE == 5 ) {
 
                // symmetric, eigenvalues specified
 
@@ -207,7 +207,7 @@
                KB = KA
                dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.7 ) {
+            } else if ( ITYPE == 7 ) {
 
                // Diagonal, random eigenvalues
 
@@ -215,7 +215,7 @@
                KB = 0
                dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.8 ) {
+            } else if ( ITYPE == 8 ) {
 
                // symmetric, random eigenvalues
 
@@ -223,7 +223,7 @@
                KB = KA
                dlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.9 ) {
+            } else if ( ITYPE == 9 ) {
 
                // symmetric banded, eigenvalues specified
 
@@ -285,7 +285,7 @@
                // loop over the setting UPLO
 
                for (IBUPLO = 1; IBUPLO <= 2; IBUPLO++) { // 620
-                  if (IBUPLO.EQ.1) UPLO = 'U'                   IF( IBUPLO.EQ.2 ) UPLO = 'L';
+                  if (IBUPLO == 1) UPLO = 'U'                   IF( IBUPLO == 2 ) UPLO = 'L';
 
                   // Generate random well-conditioned positive definite
                   // matrix B, of bandwidth not greater than that of A.
@@ -659,7 +659,7 @@
 
                   } // 310
 
-                  if ( IBTYPE.EQ.1 ) {
+                  if ( IBTYPE == 1 ) {
 
                      // TEST DSBGV
 

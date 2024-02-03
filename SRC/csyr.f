@@ -42,7 +42,7 @@
          INFO = 1
       } else if ( N.LT.0 ) {
          INFO = 2
-      } else if ( INCX.EQ.0 ) {
+      } else if ( INCX == 0 ) {
          INFO = 5
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = 7
@@ -54,7 +54,7 @@
 
       // Quick return if possible.
 
-      IF( ( N.EQ.0 ) .OR. ( ALPHA.EQ.ZERO ) ) RETURN
+      IF( ( N == 0 ) .OR. ( ALPHA == ZERO ) ) RETURN
 
       // Set the start point in X if the increment is not unity.
 
@@ -72,7 +72,7 @@
 
          // Form  A  when A is stored in upper triangle.
 
-         if ( INCX.EQ.1 ) {
+         if ( INCX == 1 ) {
             for (J = 1; J <= N; J++) { // 20
                if ( X( J ).NE.ZERO ) {
                   TEMP = ALPHA*X( J )
@@ -99,7 +99,7 @@
 
          // Form  A  when A is stored in lower triangle.
 
-         if ( INCX.EQ.1 ) {
+         if ( INCX == 1 ) {
             for (J = 1; J <= N; J++) { // 60
                if ( X( J ).NE.ZERO ) {
                   TEMP = ALPHA*X( J )

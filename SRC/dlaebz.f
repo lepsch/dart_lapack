@@ -38,7 +38,7 @@
 
       // Initialize NAB
 
-      if ( IJOB.EQ.1 ) {
+      if ( IJOB == 1 ) {
 
          // Compute the number of eigenvalues in the initial intervals.
 
@@ -72,7 +72,7 @@
       // If IJOB=2, initialize C.
       // If IJOB=3, use the user-supplied starting point.
 
-      if ( IJOB.EQ.2 ) {
+      if ( IJOB == 2 ) {
          for (JI = 1; JI <= MINP; JI++) { // 40
             C( JI ) = HALF*( AB( JI, 1 )+AB( JI, 2 ) )
          } // 40
@@ -122,14 +122,14 @@
                   // Update the Queue -- add intervals if both halves
                   // contain eigenvalues.
 
-                  if ( IWORK( JI ).EQ.NAB( JI, 2 ) ) {
+                  if ( IWORK( JI ) == NAB( JI, 2 ) ) {
 
                      // No eigenvalue in the upper interval:
                      // just use the lower interval.
 
                      AB( JI, 2 ) = C( JI )
 
-                  } else if ( IWORK( JI ).EQ.NAB( JI, 1 ) ) {
+                  } else if ( IWORK( JI ) == NAB( JI, 1 ) ) {
 
                      // No eigenvalue in the lower interval:
                      // just use the upper interval.
@@ -210,14 +210,14 @@
                   // Update the Queue -- add intervals if both halves
                   // contain eigenvalues.
 
-                  if ( ITMP1.EQ.NAB( JI, 2 ) ) {
+                  if ( ITMP1 == NAB( JI, 2 ) ) {
 
                      // No eigenvalue in the upper interval:
                      // just use the lower interval.
 
                      AB( JI, 2 ) = TMP1
 
-                  } else if ( ITMP1.EQ.NAB( JI, 1 ) ) {
+                  } else if ( ITMP1 == NAB( JI, 1 ) ) {
 
                      // No eigenvalue in the lower interval:
                      // just use the upper interval.
@@ -281,7 +281,7 @@
                   AB( KFNEW, 2 ) = TMP2
                   NAB( KFNEW, 1 ) = ITMP1
                   NAB( KFNEW, 2 ) = ITMP2
-                  if ( IJOB.EQ.3 ) {
+                  if ( IJOB == 3 ) {
                      ITMP1 = NVAL( JI )
                      NVAL( JI ) = NVAL( KFNEW )
                      NVAL( KFNEW ) = ITMP1

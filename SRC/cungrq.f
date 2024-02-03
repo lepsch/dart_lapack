@@ -37,7 +37,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.M ) {
@@ -48,7 +48,7 @@
          INFO = -5
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          if ( M.LE.0 ) {
             LWKOPT = 1
          } else {

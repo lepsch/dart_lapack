@@ -136,9 +136,9 @@
                // the matrix to test that INFO is returned correctly.
 
                if ( ZEROT ) {
-                  if ( IMAT.EQ.3 ) {
+                  if ( IMAT == 3 ) {
                      IZERO = 1
-                  } else if ( IMAT.EQ.4 ) {
+                  } else if ( IMAT == 4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
@@ -148,7 +148,7 @@
 
                      // Set row and column IZERO to zero.
 
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*LDA
                         for (I = 1; I <= IZERO - 1; I++) { // 20
                            A( IOFF+I ) = CZERO
@@ -170,7 +170,7 @@
                         } // 50
                      }
                   } else {
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
 
                         // Set the first IZERO rows and columns to zero.
 
@@ -270,7 +270,7 @@
 *+    TEST 2
                   // Form the inverse and compute the residual.
 
-                  if ( INB.EQ.1 .AND. .NOT.TRFCON ) {
+                  if ( INB == 1 .AND. .NOT.TRFCON ) {
                      zlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'ZHETRI2'
                      LWORK = (N+NB+1)*(NB+3)
@@ -292,7 +292,7 @@
 
                   for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 110
@@ -384,7 +384,7 @@
 
                      for (K = 3; K <= 8; K++) { // 120
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 120
@@ -412,7 +412,7 @@
                   // the threshold.
 
                   if ( RESULT( 9 ).GE.THRESH ) {
-                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 9, RESULT( 9 );
+                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 9, RESULT( 9 );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + 1

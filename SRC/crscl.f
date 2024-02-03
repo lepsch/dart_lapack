@@ -51,11 +51,11 @@
       ABSR = ABS( AR )
       ABSI = ABS( AI )
 
-      if ( AI.EQ.ZERO ) {
+      if ( AI == ZERO ) {
          // If alpha is real, then we can use csrscl
          csrscl(N, AR, X, INCX );
 
-      } else if ( AR.EQ.ZERO ) {
+      } else if ( AR == ZERO ) {
          // If alpha has a zero real part, then we follow the same rules as if
          // alpha were real.
          if ( ABSI.GT.SAFMAX ) {

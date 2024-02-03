@@ -57,7 +57,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Check that the diagonal matrix D is nonsingular.
 
@@ -66,14 +66,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ) == ZERO ) RETURN
          } // 10
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) { // 20
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ) == ZERO ) RETURN
          } // 20
       }
       INFO = 0
@@ -149,7 +149,7 @@
             TEMP = A( K, K )
             A( K, K ) = A( KP, KP )
             A( KP, KP ) = TEMP
-            if ( KSTEP.EQ.2 ) {
+            if ( KSTEP == 2 ) {
                TEMP = A( K, K+1 )
                A( K, K+1 ) = A( KP, K+1 )
                A( KP, K+1 ) = TEMP
@@ -231,7 +231,7 @@
             TEMP = A( K, K )
             A( K, K ) = A( KP, KP )
             A( KP, KP ) = TEMP
-            if ( KSTEP.EQ.2 ) {
+            if ( KSTEP == 2 ) {
                TEMP = A( K, K-1 )
                A( K, K-1 ) = A( KP, K-1 )
                A( KP, K-1 ) = TEMP

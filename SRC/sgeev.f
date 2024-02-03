@@ -46,7 +46,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       WANTVL = LSAME( JOBVL, 'V' )
       WANTVR = LSAME( JOBVR, 'V' )
       if ( ( .NOT.WANTVL ) .AND. ( .NOT.LSAME( JOBVL, 'N' ) ) ) {
@@ -73,8 +73,8 @@
         // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
         // the worst case.)
 
-      if ( INFO.EQ.0 ) {
-         if ( N.EQ.0 ) {
+      if ( INFO == 0 ) {
+         if ( N == 0 ) {
             MINWRK = 1
             MAXWRK = 1
          } else {
@@ -123,7 +123,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Get machine constants
 
@@ -237,7 +237,7 @@
          // Normalize left eigenvectors and make largest component real
 
          for (I = 1; I <= N; I++) { // 20
-            if ( WI( I ).EQ.ZERO ) {
+            if ( WI( I ) == ZERO ) {
                SCL = ONE / SNRM2( N, VL( 1, I ), 1 )
                sscal(N, SCL, VL( 1, I ), 1 );
             } else if ( WI( I ).GT.ZERO ) {
@@ -265,7 +265,7 @@
          // Normalize right eigenvectors and make largest component real
 
          for (I = 1; I <= N; I++) { // 40
-            if ( WI( I ).EQ.ZERO ) {
+            if ( WI( I ) == ZERO ) {
                SCL = ONE / SNRM2( N, VR( 1, I ), 1 )
                sscal(N, SCL, VR( 1, I ), 1 );
             } else if ( WI( I ).GT.ZERO ) {

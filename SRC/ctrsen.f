@@ -61,7 +61,7 @@
       NN = N1*N2
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       if ( WANTSP ) {
          LWMIN = MAX( 1, 2*NN )
@@ -85,7 +85,7 @@
          INFO = -14
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
       }
 
@@ -98,7 +98,7 @@
 
       // Quick return if possible
 
-      if ( M.EQ.N .OR. M.EQ.0 ) {
+      if ( M == N .OR. M == 0 ) {
          if (WANTS) S = ONE          IF( WANTSP ) SEP = CLANGE( '1', N, N, T, LDT, RWORK );
          GO TO 40
       }
@@ -129,7 +129,7 @@
          // of eigenvalues.
 
          RNORM = CLANGE( 'F', N1, N2, WORK, N1, RWORK )
-         if ( RNORM.EQ.ZERO ) {
+         if ( RNORM == ZERO ) {
             S = ONE
          } else {
             S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) )
@@ -145,7 +145,7 @@
          } // 30
          clacn2(NN, WORK( NN+1 ), WORK, EST, KASE, ISAVE );
          if ( KASE.NE.0 ) {
-            if ( KASE.EQ.1 ) {
+            if ( KASE == 1 ) {
 
                // Solve T11*R - R*T22 = scale*X.
 

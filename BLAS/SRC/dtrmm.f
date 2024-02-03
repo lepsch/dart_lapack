@@ -71,11 +71,11 @@
 
       // Quick return if possible.
 
-      if (M.EQ.0 .OR. N.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0) RETURN;
 
-      // And when  alpha.eq.zero.
+      // And when  alpha == zero.
 
-      if (ALPHA.EQ.ZERO) {
+      if (ALPHA == ZERO) {
           for (J = 1; J <= N; J++) { // 20
               for (I = 1; I <= M; I++) { // 10
                   B(I,J) = ZERO

@@ -86,10 +86,10 @@
 
       INFO = 0
 
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       MINMN = MIN( M, N )
-      if ( MINMN.EQ.0 ) {
+      if ( MINMN == 0 ) {
         LWMIN = 1
       } else {
         LWMIN = M*MB
@@ -110,7 +110,7 @@
       } else if ( LWORK.LT.LWMIN .AND. (.NOT.LQUERY) ) {
         INFO = -10
       }
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
         WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
       }
 
@@ -123,7 +123,7 @@
 
       // Quick return if possible
 
-      if ( MINMN.EQ.0 ) {
+      if ( MINMN == 0 ) {
         RETURN
       }
 

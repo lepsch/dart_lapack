@@ -52,17 +52,17 @@
 
       // Quick return if possible
 
-      if (M.EQ.0 .OR. N.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0) RETURN;
 
-      if ( M.EQ.1 ) {
+      if ( M == 1 ) {
 
          // Use unblocked code for one row case
          // Just need to handle IPIV and INFO
 
          IPIV( 1 ) = 1
-         IF ( A(1,1).EQ.ZERO ) INFO = 1
+         IF ( A(1,1) == ZERO ) INFO = 1
 
-      } else if ( N.EQ.1 ) {
+      } else if ( N == 1 ) {
 
          // Use unblocked code for one column case
 
@@ -111,7 +111,7 @@
                 // [ A21 ]
 
          dgetrf2(M, N1, A, LDA, IPIV, IINFO );
-          if (INFO.EQ.0 .AND. IINFO.GT.0) INFO = IINFO;
+          if (INFO == 0 .AND. IINFO.GT.0) INFO = IINFO;
 
                                // [ A12 ]
          // Apply interchanges to [ --- ]
@@ -133,7 +133,7 @@
 
          // Adjust INFO and the pivot indices
 
-         if (INFO.EQ.0 .AND. IINFO.GT.0) INFO = IINFO + N1;
+         if (INFO == 0 .AND. IINFO.GT.0) INFO = IINFO + N1;
          DO 20 I = N1+1, MIN( M, N )
             IPIV( I ) = IPIV( I ) + N1
          } // 20

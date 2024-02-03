@@ -53,9 +53,9 @@
          INFO = 2
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = 5
-      } else if ( INCX.EQ.0 ) {
+      } else if ( INCX == 0 ) {
          INFO = 7
-      } else if ( INCY.EQ.0 ) {
+      } else if ( INCY == 0 ) {
          INFO = 10
       }
       if ( INFO.NE.0 ) {
@@ -65,7 +65,7 @@
 
       // Quick return if possible.
 
-      IF( ( N.EQ.0 ).OR.( ( ALPHA.EQ.ZERO ).AND.( BETA.EQ.ONE ) ) ) RETURN
+      IF( ( N == 0 ).OR.( ( ALPHA == ZERO ).AND.( BETA == ONE ) ) ) RETURN
 
       // Set up the start points in  X  and  Y.
 
@@ -93,13 +93,13 @@
       // to per-column.
 
       IY = KY
-      if ( INCX.EQ.1 ) {
-         if ( UPLO .EQ. ILAUPLO( 'U' ) ) {
+      if ( INCX == 1 ) {
+         if ( UPLO == ILAUPLO( 'U' ) ) {
             for (I = 1; I <= N; I++) {
-               if ( BETA .EQ. ZERO ) {
+               if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
                   Y( IY ) = 0.0D+0
-               } else if ( Y( IY ) .EQ. ZERO ) {
+               } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
@@ -108,13 +108,13 @@
                if ( ALPHA .NE. ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
@@ -125,10 +125,10 @@
             }
          } else {
             for (I = 1; I <= N; I++) {
-               if ( BETA .EQ. ZERO ) {
+               if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
                   Y( IY ) = 0.0D+0
-               } else if ( Y( IY ) .EQ. ZERO ) {
+               } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
@@ -137,13 +137,13 @@
                if ( ALPHA .NE. ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
@@ -154,12 +154,12 @@
             }
          }
       } else {
-         if ( UPLO .EQ. ILAUPLO( 'U' ) ) {
+         if ( UPLO == ILAUPLO( 'U' ) ) {
             for (I = 1; I <= N; I++) {
-               if ( BETA .EQ. ZERO ) {
+               if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
                   Y( IY ) = 0.0D+0
-               } else if ( Y( IY ) .EQ. ZERO ) {
+               } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
@@ -169,14 +169,14 @@
                if ( ALPHA .NE. ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
@@ -188,10 +188,10 @@
             }
          } else {
             for (I = 1; I <= N; I++) {
-               if ( BETA .EQ. ZERO ) {
+               if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
                   Y( IY ) = 0.0D+0
-               } else if ( Y( IY ) .EQ. ZERO ) {
+               } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
@@ -201,14 +201,14 @@
                if ( ALPHA .NE. ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX

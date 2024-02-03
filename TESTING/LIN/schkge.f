@@ -125,9 +125,9 @@
                // test that INFO is returned correctly.
 
                if ( ZEROT ) {
-                  if ( IMAT.EQ.5 ) {
+                  if ( IMAT == 5 ) {
                      IZERO = 1
-                  } else if ( IMAT.EQ.6 ) {
+                  } else if ( IMAT == 6 ) {
                      IZERO = MIN( M, N )
                   } else {
                      IZERO = MIN( M, N ) / 2 + 1
@@ -178,7 +178,7 @@
                   // Form the inverse if the factorization was successful
                   // and compute the residual.
 
-                  if ( M.EQ.N .AND. INFO.EQ.0 ) {
+                  if ( M == N .AND. INFO == 0 ) {
                      slacpy('Full', N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'SGETRI'
                      NRHS = NSVAL( 1 )
@@ -222,7 +222,7 @@
 
                   for (K = 1; K <= NT; K++) { // 30
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 30
@@ -240,7 +240,7 @@
 
                      for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 50
                         TRANS = TRANSS( ITRAN )
-                        if ( ITRAN.EQ.1 ) {
+                        if ( ITRAN == 1 ) {
                            RCONDC = RCONDO
                         } else {
                            RCONDC = RCONDI
@@ -288,7 +288,7 @@
 
                         for (K = 3; K <= 7; K++) { // 40
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
+                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 40
@@ -301,7 +301,7 @@
 
                   } // 70
                   for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 80
-                     if ( ITRAN.EQ.1 ) {
+                     if ( ITRAN == 1 ) {
                         ANORM = ANORMO
                         RCONDC = RCONDO
                         NORM = 'O'
@@ -327,7 +327,7 @@
                      // the threshold.
 
                      if ( RESULT( 8 ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 8, RESULT( 8 );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 8, RESULT( 8 );
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1

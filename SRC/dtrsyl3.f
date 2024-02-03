@@ -53,7 +53,7 @@
       // Compute workspace
 
       INFO = 0
-      LQUERY = ( LIWORK.EQ.-1 .OR. LDSWORK.EQ.-1 )
+      LQUERY = ( LIWORK == -1 .OR. LDSWORK == -1 )
       IWORK( 1 ) = NBA + NBB + 2
       if ( LQUERY ) {
          LDSWORK = 2
@@ -90,12 +90,12 @@
       // Quick return if possible
 
       SCALE = ONE
-      if (M.EQ.0 .OR. N.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0) RETURN;
 
       // Use unblocked code for small problems or if insufficient
       // workspaces are provided
 
-      IF( MIN( NBA, NBB ).EQ.1 .OR. LDSWORK.LT.MAX( NBA, NBB ) .OR. LIWORK.LT.IWORK(1) ) THEN         CALL DTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
+      IF( MIN( NBA, NBB ) == 1 .OR. LDSWORK.LT.MAX( NBA, NBB ) .OR. LIWORK.LT.IWORK(1) ) THEN         CALL DTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
         RETURN
       }
 
@@ -125,7 +125,7 @@
              }
              if ( A( L, L+1 ).NE.ZERO .AND. A( L+1, L ).NE.ZERO ) {
                 // Check if 2-by-2 block is split
-                if ( L + 1 .EQ. IWORK( K + 1 ) ) {
+                if ( L + 1 == IWORK( K + 1 ) ) {
                    IWORK( K + 1 ) = IWORK( K + 1 ) + 1
                    CYCLE
                 }
@@ -161,7 +161,7 @@
              }
              if ( B( L, L+1 ).NE.ZERO .AND. B( L+1, L ).NE.ZERO ) {
                 // Check if 2-by-2 block is split
-                if ( L + 1 .EQ. IWORK( PC + K + 1 ) ) {
+                if ( L + 1 == IWORK( PC + K + 1 ) ) {
                    IWORK( PC + K + 1 ) = IWORK( PC + K + 1 ) + 1
                    CYCLE
                 }
@@ -257,8 +257,8 @@
                dtrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
                INFO = MAX( INFO, IINFO )
 
-               if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
-                  if ( SCALOC .EQ. ZERO ) {
+               if ( SCALOC * SWORK( K, L ) == ZERO ) {
+                  if ( SCALOC == ZERO ) {
                      // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
                      // is larger than the product of BIGNUM**2 and cannot be
                      // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
@@ -296,7 +296,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   ANRM = SWORK( I, AWRK + K )
                   SCALOC = DLARMM( ANRM, XNRM, CNRM )
-                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
+                  if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
@@ -352,7 +352,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   BNRM = SWORK(L, BWRK + J)
                   SCALOC = DLARMM( BNRM, XNRM, CNRM )
-                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
+                  if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
@@ -428,8 +428,8 @@
                dtrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
                INFO = MAX( INFO, IINFO )
 
-               if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
-                  if ( SCALOC .EQ. ZERO ) {
+               if ( SCALOC * SWORK( K, L ) == ZERO ) {
+                  if ( SCALOC == ZERO ) {
                      // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
                      // is larger than the product of BIGNUM**2 and cannot be
                      // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
@@ -467,7 +467,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   ANRM = SWORK( I, AWRK + K )
                   SCALOC = DLARMM( ANRM, XNRM, CNRM )
-                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
+                  if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
@@ -522,7 +522,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   BNRM = SWORK( L, BWRK + J )
                   SCALOC = DLARMM( BNRM, XNRM, CNRM )
-                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
+                  if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
@@ -599,8 +599,8 @@
                INFO = MAX( INFO, IINFO )
 
                SWORK( K, L ) = SCALOC * SWORK( K, L )
-               if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
-                  if ( SCALOC .EQ. ZERO ) {
+               if ( SCALOC * SWORK( K, L ) == ZERO ) {
+                  if ( SCALOC == ZERO ) {
                      // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
                      // is larger than the product of BIGNUM**2 and cannot be
                      // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
@@ -637,7 +637,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   ANRM = SWORK( I, AWRK + K )
                   SCALOC = DLARMM( ANRM, XNRM, CNRM )
-                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
+                  if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
@@ -692,7 +692,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   BNRM = SWORK( L, BWRK + J )
                   SCALOC = DLARMM( BNRM, XNRM, CNRM )
-                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
+                  if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
@@ -768,8 +768,8 @@
                dtrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
                INFO = MAX( INFO, IINFO )
 
-               if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
-                  if ( SCALOC .EQ. ZERO ) {
+               if ( SCALOC * SWORK( K, L ) == ZERO ) {
+                  if ( SCALOC == ZERO ) {
                      // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
                      // is larger than the product of BIGNUM**2 and cannot be
                      // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
@@ -807,7 +807,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   ANRM = SWORK( I, AWRK + K )
                   SCALOC = DLARMM( ANRM, XNRM, CNRM )
-                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
+                  if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
@@ -863,7 +863,7 @@
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
                   BNRM = SWORK( L, BWRK + J )
                   SCALOC = DLARMM( BNRM, XNRM, CNRM )
-                  if ( SCALOC * SCAMIN .EQ. ZERO ) {
+                  if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
@@ -915,7 +915,7 @@
          }
       }
 
-      if ( SCALE .EQ. ZERO ) {
+      if ( SCALE == ZERO ) {
 
          // The magnitude of the largest entry of the solution is larger
          // than the product of BIGNUM**2 and cannot be represented in the

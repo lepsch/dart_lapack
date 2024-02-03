@@ -58,7 +58,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Decode DIST
 
@@ -107,9 +107,9 @@
       // Check DS, if MODES=0 and ISIM=1
 
       BADS = false;
-      if ( MODES.EQ.0 .AND. ISIM.EQ.1 ) {
+      if ( MODES == 0 .AND. ISIM == 1 ) {
          for (J = 1; J <= N; J++) { // 10
-            IF( DS( J ).EQ.ZERO ) BADS = true;
+            IF( DS( J ) == ZERO ) BADS = true;
          } // 10
       }
 
@@ -117,23 +117,23 @@
 
       if ( N.LT.0 ) {
          INFO = -1
-      } else if ( IDIST.EQ.-1 ) {
+      } else if ( IDIST == -1 ) {
          INFO = -2
       } else if ( ABS( MODE ).GT.6 ) {
          INFO = -5
       } else if ( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE ) {
          INFO = -6
-      } else if ( IRSIGN.EQ.-1 ) {
+      } else if ( IRSIGN == -1 ) {
          INFO = -9
-      } else if ( IUPPER.EQ.-1 ) {
+      } else if ( IUPPER == -1 ) {
          INFO = -10
-      } else if ( ISIM.EQ.-1 ) {
+      } else if ( ISIM == -1 ) {
          INFO = -11
       } else if ( BADS ) {
          INFO = -12
-      } else if ( ISIM.EQ.1 .AND. ABS( MODES ).GT.5 ) {
+      } else if ( ISIM == 1 .AND. ABS( MODES ).GT.5 ) {
          INFO = -13
-      } else if ( ISIM.EQ.1 .AND. MODES.NE.0 .AND. CONDS.LT.ONE ) {
+      } else if ( ISIM == 1 .AND. MODES.NE.0 .AND. CONDS.LT.ONE ) {
          INFO = -14
       } else if ( KL.LT.1 ) {
          INFO = -15

@@ -77,7 +77,7 @@
 
       // .. Quick return if possible ..
 
-      if (M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0 .OR. K == 0) RETURN;
 
       if ( LEFT .AND. TRAN ) {
 

@@ -50,7 +50,7 @@
 
          RAT = RMAX / RMIN - ONE
 
-      } else if ( RMAX.EQ.ZERO ) {
+      } else if ( RMAX == ZERO ) {
 
          // Both estimates zero.
 

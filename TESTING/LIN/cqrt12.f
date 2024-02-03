@@ -92,7 +92,7 @@
          cgebd2(M, N, WORK, M, RWORK( 1 ), RWORK( MN+1 ), WORK( M*N+1 ), WORK( M*N+MN+1 ), WORK( M*N+2*MN+1 ), INFO );
          sbdsqr('Upper', MN, 0, 0, 0, RWORK( 1 ), RWORK( MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, RWORK( 2*MN+1 ), INFO );
 
-         if ( ISCL.EQ.1 ) {
+         if ( ISCL == 1 ) {
             if ( ANRM.GT.BIGNUM ) {
                slascl('G', 0, 0, BIGNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO );
             }

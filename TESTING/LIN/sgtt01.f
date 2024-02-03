@@ -52,10 +52,10 @@
          } // 10
       } // 20
       for (I = 1; I <= N; I++) { // 30
-         if ( I.EQ.1 ) {
+         if ( I == 1 ) {
             WORK( I, I ) = DF( I )
             if (N.GE.2) WORK( I, I+1 ) = DUF( I )             IF( N.GE.3 ) WORK( I, I+2 ) = DU2( I );
-         } else if ( I.EQ.N ) {
+         } else if ( I == N ) {
             WORK( I, I ) = DF( I )
          } else {
             WORK( I, I ) = DF( I )
@@ -71,7 +71,7 @@
          LI = DLF( I )
          saxpy(LASTJ-I+1, LI, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK );
          IP = IPIV( I )
-         if ( IP.EQ.I ) {
+         if ( IP == I ) {
             LASTJ = MIN( I+2, N )
          } else {
             sswap(LASTJ-I+1, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK );

@@ -66,15 +66,15 @@
 
       ENRMIN = ONE / ULP
       ENRMAX = ZERO
-      if ( ITRNSE.EQ.0 ) {
+      if ( ITRNSE == 0 ) {
 
          // Eigenvectors are column vectors.
 
          IPAIR = 0
          for (JVEC = 1; JVEC <= N; JVEC++) { // 30
             TEMP1 = ZERO
-            IF( IPAIR.EQ.0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO ) IPAIR = 1
-            if ( IPAIR.EQ.1 ) {
+            IF( IPAIR == 0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO ) IPAIR = 1
+            if ( IPAIR == 1 ) {
 
                // Complex eigenvector
 
@@ -84,7 +84,7 @@
                ENRMIN = MIN( ENRMIN, TEMP1 )
                ENRMAX = MAX( ENRMAX, TEMP1 )
                IPAIR = 2
-            } else if ( IPAIR.EQ.2 ) {
+            } else if ( IPAIR == 2 ) {
                IPAIR = 0
             } else {
 
@@ -110,11 +110,11 @@
          for (J = 1; J <= N; J++) { // 60
             IPAIR = 0
             for (JVEC = 1; JVEC <= N; JVEC++) { // 50
-               IF( IPAIR.EQ.0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO ) IPAIR = 1
-               if ( IPAIR.EQ.1 ) {
+               IF( IPAIR == 0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO ) IPAIR = 1
+               if ( IPAIR == 1 ) {
                   WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) )+ABS( E( J, JVEC+1 ) ) )
                   WORK( JVEC+1 ) = WORK( JVEC )
-               } else if ( IPAIR.EQ.2 ) {
+               } else if ( IPAIR == 2 ) {
                   IPAIR = 0
                } else {
                   WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) ) )
@@ -148,22 +148,22 @@
       IECOL = 1
 
       for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-         if ( ITRNSE.EQ.1 ) {
+         if ( ITRNSE == 1 ) {
             IEROW = JCOL
          } else {
             IECOL = JCOL
          }
 
-         IF( IPAIR.EQ.0 .AND. WI( JCOL ).NE.ZERO ) IPAIR = 1
+         IF( IPAIR == 0 .AND. WI( JCOL ).NE.ZERO ) IPAIR = 1
 
-         if ( IPAIR.EQ.1 ) {
+         if ( IPAIR == 1 ) {
             WMAT( 1, 1 ) = WR( JCOL )
             WMAT( 2, 1 ) = -WI( JCOL )
             WMAT( 1, 2 ) = WI( JCOL )
             WMAT( 2, 2 ) = WR( JCOL )
             sgemm(TRANSE, TRANSW, N, 2, 2, ONE, E( IEROW, IECOL ), LDE, WMAT, 2, ZERO, WORK( N*( JCOL-1 )+1 ), N );
             IPAIR = 2
-         } else if ( IPAIR.EQ.2 ) {
+         } else if ( IPAIR == 2 ) {
             IPAIR = 0
 
          } else {

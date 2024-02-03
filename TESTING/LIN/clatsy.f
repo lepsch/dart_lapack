@@ -41,7 +41,7 @@
 
       // UPLO = 'U':  Upper triangular storage
 
-      if ( UPLO.EQ.'U' ) {
+      if ( UPLO == 'U' ) {
 
          // Fill the upper triangle of the matrix with zeros.
 
@@ -96,7 +96,7 @@
                X( I-1, I ) = 2.0*X( I-1, I-1 )
             }
             I = I - 2
-         } else if ( I.EQ.1 ) {
+         } else if ( I == 1 ) {
             X( I, I ) = CLARND( 2, ISEED )
             I = I - 1
          }
@@ -158,7 +158,7 @@
                X( I+1, I ) = 2.0*X( I+1, I+1 )
             }
             I = I + 2
-         } else if ( I.EQ.N ) {
+         } else if ( I == N ) {
             X( I, I ) = CLARND( 2, ISEED )
             I = I + 1
          }

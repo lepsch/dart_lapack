@@ -38,7 +38,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Set constants to control overflow
 
@@ -48,7 +48,7 @@
 
       // Handle the case N=1 by itself
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          IPIV( 1 ) = 1
          JPIV( 1 ) = 1
          if ( ABS( A( 1, 1 ) ).LT.SMLNUM ) {
@@ -75,7 +75,7 @@
                }
             } // 10
          } // 20
-         if (I.EQ.1) SMIN = MAX( EPS*XMAX, SMLNUM );
+         if (I == 1) SMIN = MAX( EPS*XMAX, SMLNUM );
 
          // Swap rows
 

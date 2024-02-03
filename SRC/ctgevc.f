@@ -135,7 +135,7 @@
       // Quick return if possible
 
       M = IM
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Machine Constants
 

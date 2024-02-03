@@ -97,11 +97,11 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
             AP( KC+K-1 ) = DBLE( AP( KC+K-1 ) )
          } else {
@@ -153,7 +153,7 @@
             }
 
             KK = K - KSTEP + 1
-            if (KSTEP.EQ.2) KNC = KNC - K + 1;
+            if (KSTEP == 2) KNC = KNC - K + 1;
             if ( KP.NE.KK ) {
 
                // Interchange rows and columns KK and KP in the leading
@@ -171,7 +171,7 @@
                R1 = DBLE( AP( KNC+KK-1 ) )
                AP( KNC+KK-1 ) = DBLE( AP( KPC+KP-1 ) )
                AP( KPC+KP-1 ) = R1
-               if ( KSTEP.EQ.2 ) {
+               if ( KSTEP == 2 ) {
                   AP( KC+K-1 ) = DBLE( AP( KC+K-1 ) )
                   T = AP( KC+K-2 )
                   AP( KC+K-2 ) = AP( KC+KP-1 )
@@ -179,12 +179,12 @@
                }
             } else {
                AP( KC+K-1 ) = DBLE( AP( KC+K-1 ) )
-               if (KSTEP.EQ.2) AP( KC-1 ) = DBLE( AP( KC-1 ) );
+               if (KSTEP == 2) AP( KC-1 ) = DBLE( AP( KC-1 ) );
             }
 
             // Update the leading submatrix
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -242,7 +242,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP
@@ -288,11 +288,11 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero: set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
             AP( KC ) = DBLE( AP( KC ) )
          } else {
@@ -343,7 +343,7 @@
             }
 
             KK = K + KSTEP - 1
-            if (KSTEP.EQ.2) KNC = KNC + N - K + 1;
+            if (KSTEP == 2) KNC = KNC + N - K + 1;
             if ( KP.NE.KK ) {
 
                // Interchange rows and columns KK and KP in the trailing
@@ -361,7 +361,7 @@
                R1 = DBLE( AP( KNC ) )
                AP( KNC ) = DBLE( AP( KPC ) )
                AP( KPC ) = R1
-               if ( KSTEP.EQ.2 ) {
+               if ( KSTEP == 2 ) {
                   AP( KC ) = DBLE( AP( KC ) )
                   T = AP( KC+1 )
                   AP( KC+1 ) = AP( KC+KP-K )
@@ -369,12 +369,12 @@
                }
             } else {
                AP( KC ) = DBLE( AP( KC ) )
-               if (KSTEP.EQ.2) AP( KNC ) = DBLE( AP( KNC ) );
+               if (KSTEP == 2) AP( KNC ) = DBLE( AP( KNC ) );
             }
 
             // Update the trailing submatrix
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -436,7 +436,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP

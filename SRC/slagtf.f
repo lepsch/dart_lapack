@@ -42,12 +42,12 @@
          RETURN
       }
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       A( 1 ) = A( 1 ) - LAMBDA
       IN( N ) = 0
-      if ( N.EQ.1 ) {
-         IF( A( 1 ).EQ.ZERO ) IN( 1 ) = 1
+      if ( N == 1 ) {
+         IF( A( 1 ) == ZERO ) IN( 1 ) = 1
          RETURN
       }
 
@@ -59,12 +59,12 @@
          A( K+1 ) = A( K+1 ) - LAMBDA
          SCALE2 = ABS( C( K ) ) + ABS( A( K+1 ) )
          IF( K.LT.( N-1 ) ) SCALE2 = SCALE2 + ABS( B( K+1 ) )
-         if ( A( K ).EQ.ZERO ) {
+         if ( A( K ) == ZERO ) {
             PIV1 = ZERO
          } else {
             PIV1 = ABS( A( K ) ) / SCALE1
          }
-         if ( C( K ).EQ.ZERO ) {
+         if ( C( K ) == ZERO ) {
             IN( K ) = 0
             PIV2 = ZERO
             SCALE1 = SCALE2
@@ -91,9 +91,9 @@
                C( K ) = MULT
             }
          }
-         IF( ( MAX( PIV1, PIV2 ).LE.TL ) .AND. ( IN( N ).EQ.0 ) ) IN( N ) = K
+         IF( ( MAX( PIV1, PIV2 ).LE.TL ) .AND. ( IN( N ) == 0 ) ) IN( N ) = K
       } // 10
-      IF( ( ABS( A( N ) ).LE.SCALE1*TL ) .AND. ( IN( N ).EQ.0 ) ) IN( N ) = N
+      IF( ( ABS( A( N ) ).LE.SCALE1*TL ) .AND. ( IN( N ) == 0 ) ) IN( N ) = N
 
       RETURN
 

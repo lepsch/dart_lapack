@@ -47,7 +47,7 @@
 
       // UPLO = 'U':  Upper triangular storage
 
-      if ( UPLO.EQ.'U' ) {
+      if ( UPLO == 'U' ) {
          N5 = N / 5
          N5 = N - 5*N5 + 1
 
@@ -104,7 +104,7 @@
             }
             JJ = JJ - J - ( J-1 )
             J = J - 2
-         } else if ( J.EQ.1 ) {
+         } else if ( J == 1 ) {
             X( JJ ) = ZLARND( 2, ISEED )
             J = J - 1
          }
@@ -168,7 +168,7 @@
             }
             JJ = JJ + ( N-J+1 ) + ( N-J )
             J = J + 2
-         } else if ( J.EQ.N ) {
+         } else if ( J == N ) {
             X( JJ ) = ZLARND( 2, ISEED )
             JJ = JJ + ( N-J+1 )
             J = J + 1

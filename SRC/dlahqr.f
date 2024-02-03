@@ -46,8 +46,8 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
-      if ( ILO.EQ.IHI ) {
+      if (N == 0) RETURN;
+      if ( ILO == IHI ) {
          WR( ILO ) = H( ILO, ILO )
          WI( ILO ) = ZERO
          RETURN
@@ -109,7 +109,7 @@
          DO 30 K = I, L + 1, -1
             IF( ABS( H( K, K-1 ) ).LE.SMLNUM ) GO TO 40
             TST = ABS( H( K-1, K-1 ) ) + ABS( H( K, K ) )
-            if ( TST.EQ.ZERO ) {
+            if ( TST == ZERO ) {
                if (K-2.GE.ILO) TST = TST + ABS( H( K-1, K-2 ) )                IF( K+1.LE.IHI ) TST = TST + ABS( H( K+1, K ) );
             }
             // ==== The following is a conservative small subdiagonal
@@ -147,7 +147,7 @@
             I2 = I
          }
 
-         if ( MOD(KDEFL,2*KEXSH).EQ.0 ) {
+         if ( MOD(KDEFL,2*KEXSH) == 0 ) {
 
             // Exceptional shift.
 
@@ -156,7 +156,7 @@
             H12 = DAT2*S
             H21 = S
             H22 = H11
-         } else if ( MOD(KDEFL,KEXSH).EQ.0 ) {
+         } else if ( MOD(KDEFL,KEXSH) == 0 ) {
 
             // Exceptional shift.
 
@@ -176,7 +176,7 @@
             H22 = H( I, I )
          }
          S = ABS( H11 ) + ABS( H12 ) + ABS( H21 ) + ABS( H22 )
-         if ( S.EQ.ZERO ) {
+         if ( S == ZERO ) {
             RT1R = ZERO
             RT1I = ZERO
             RT2R = ZERO
@@ -233,7 +233,7 @@
             V( 1 ) = V( 1 ) / S
             V( 2 ) = V( 2 ) / S
             V( 3 ) = V( 3 ) / S
-            if (M.EQ.L) GO TO 60             IF( ABS( H( M, M-1 ) )*( ABS( V( 2 ) )+ABS( V( 3 ) ) ).LE. ULP*ABS( V( 1 ) )*( ABS( H( M-1, M-1 ) )+ABS( H( M, M ) )+ABS( H( M+1, M+1 ) ) ) )GO TO 60;
+            if (M == L) GO TO 60             IF( ABS( H( M, M-1 ) )*( ABS( V( 2 ) )+ABS( V( 3 ) ) ).LE. ULP*ABS( V( 1 ) )*( ABS( H( M-1, M-1 ) )+ABS( H( M, M ) )+ABS( H( M+1, M+1 ) ) ) )GO TO 60;
          } // 50
          } // 60
 
@@ -266,7 +266,7 @@
             }
             V2 = V( 2 )
             T2 = T1*V2
-            if ( NR.EQ.3 ) {
+            if ( NR == 3 ) {
                V3 = V( 3 )
                T3 = T1*V3
 
@@ -301,7 +301,7 @@
                      Z( J, K+2 ) = Z( J, K+2 ) - SUM*T3
                   } // 90
                }
-            } else if ( NR.EQ.2 ) {
+            } else if ( NR == 2 ) {
 
                // Apply G from the left to transform the rows of the matrix
                // in columns K to I2.
@@ -343,13 +343,13 @@
 
       } // 150
 
-      if ( L.EQ.I ) {
+      if ( L == I ) {
 
          // H(I,I-1) is negligible: one eigenvalue has converged.
 
          WR( I ) = H( I, I )
          WI( I ) = ZERO
-      } else if ( L.EQ.I-1 ) {
+      } else if ( L == I-1 ) {
 
          // H(I-1,I-2) is negligible: a pair of eigenvalues have converged.
 

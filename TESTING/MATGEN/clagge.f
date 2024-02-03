@@ -68,7 +68,7 @@
 
       // Quick exit if the user wants a diagonal matrix
 
-      IF(( KL .EQ. 0 ).AND.( KU .EQ. 0)) RETURN
+      IF(( KL == 0 ).AND.( KU == 0)) RETURN
 
       // pre- and post-multiply A by random unitary matrices
 
@@ -80,7 +80,7 @@
             clarnv(3, ISEED, M-I+1, WORK );
             WN = SCNRM2( M-I+1, WORK, 1 )
             WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 )
-            if ( WN.EQ.ZERO ) {
+            if ( WN == ZERO ) {
                TAU = ZERO
             } else {
                WB = WORK( 1 ) + WA
@@ -101,7 +101,7 @@
             clarnv(3, ISEED, N-I+1, WORK );
             WN = SCNRM2( N-I+1, WORK, 1 )
             WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 )
-            if ( WN.EQ.ZERO ) {
+            if ( WN == ZERO ) {
                TAU = ZERO
             } else {
                WB = WORK( 1 ) + WA
@@ -131,7 +131,7 @@
 
                WN = SCNRM2( M-KL-I+1, A( KL+I, I ), 1 )
                WA = ( WN / ABS( A( KL+I, I ) ) )*A( KL+I, I )
-               if ( WN.EQ.ZERO ) {
+               if ( WN == ZERO ) {
                   TAU = ZERO
                } else {
                   WB = A( KL+I, I ) + WA
@@ -153,7 +153,7 @@
 
                WN = SCNRM2( N-KU-I+1, A( I, KU+I ), LDA )
                WA = ( WN / ABS( A( I, KU+I ) ) )*A( I, KU+I )
-               if ( WN.EQ.ZERO ) {
+               if ( WN == ZERO ) {
                   TAU = ZERO
                } else {
                   WB = A( I, KU+I ) + WA
@@ -180,7 +180,7 @@
 
                WN = SCNRM2( N-KU-I+1, A( I, KU+I ), LDA )
                WA = ( WN / ABS( A( I, KU+I ) ) )*A( I, KU+I )
-               if ( WN.EQ.ZERO ) {
+               if ( WN == ZERO ) {
                   TAU = ZERO
                } else {
                   WB = A( I, KU+I ) + WA
@@ -203,7 +203,7 @@
 
                WN = SCNRM2( M-KL-I+1, A( KL+I, I ), 1 )
                WA = ( WN / ABS( A( KL+I, I ) ) )*A( KL+I, I )
-               if ( WN.EQ.ZERO ) {
+               if ( WN == ZERO ) {
                   TAU = ZERO
                } else {
                   WB = A( KL+I, I ) + WA

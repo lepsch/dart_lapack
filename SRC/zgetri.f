@@ -40,7 +40,7 @@
       NB = ILAENV( 1, 'ZGETRI', ' ', N, -1, -1, -1 )
       LWKOPT = MAX( 1, N*NB )
       WORK( 1 ) = LWKOPT
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( N.LT.0 ) {
          INFO = -1
       } else if ( LDA.LT.MAX( 1, N ) ) {
@@ -57,7 +57,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Form inv(U).  If INFO > 0 from ZTRTRI, then U is singular,
       // and the inverse is not computed.

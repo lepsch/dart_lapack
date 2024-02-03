@@ -68,7 +68,7 @@
             K( I ) = -K( I )
             J = K( I )
             } // 60
-            if (J.EQ.I) GO TO 80;
+            if (J == I) GO TO 80;
 
             for (JJ = 1; JJ <= N; JJ++) { // 70
                TEMP = X( I, JJ )

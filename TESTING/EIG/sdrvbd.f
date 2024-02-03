@@ -148,13 +148,13 @@
 
             if (MTYPES.GT.MAXTYP) GO TO 30;
 
-            if ( JTYPE.EQ.1 ) {
+            if ( JTYPE == 1 ) {
 
                // Zero matrix
 
                slaset('Full', M, N, ZERO, ZERO, A, LDA );
 
-            } else if ( JTYPE.EQ.2 ) {
+            } else if ( JTYPE == 2 ) {
 
                // Identity matrix
 
@@ -164,7 +164,7 @@
 
                // (Scaled) random matrix
 
-               if (JTYPE.EQ.3) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP;
+               if (JTYPE == 3) ANORM = ONE                IF( JTYPE == 4 ) ANORM = UNFL / ULP                IF( JTYPE == 5 ) ANORM = OVFL*ULP;
                slatms(M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
@@ -190,7 +190,7 @@
                LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                LSWORK = MIN( LSWORK, LWORK )
                LSWORK = MAX( LSWORK, 1 )
-               if (IWS.EQ.4) LSWORK = LWORK;
+               if (IWS == 4) LSWORK = LWORK;
 
                if (IWS.GT.1) CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'SGESVD'
@@ -223,7 +223,7 @@
                RESULT( 7 ) = ZERO
                for (IJU = 0; IJU <= 3; IJU++) { // 80
                   for (IJVT = 0; IJVT <= 3; IJVT++) { // 70
-                     IF( ( IJU.EQ.3 .AND. IJVT.EQ.3 ) .OR. ( IJU.EQ.1 .AND. IJVT.EQ.1 ) )GO TO 70
+                     IF( ( IJU == 3 .AND. IJVT == 3 ) .OR. ( IJU == 1 .AND. IJVT == 1 ) )GO TO 70
                      JOBU = CJOB( IJU+1 )
                      JOBVT = CJOB( IJVT+1 )
                      slacpy('F', M, N, ASAV, LDA, A, LDA );
@@ -234,11 +234,11 @@
 
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
-                        if ( IJU.EQ.1 ) {
+                        if ( IJU == 1 ) {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, IINFO );
-                        } else if ( IJU.EQ.2 ) {
+                        } else if ( IJU == 2 ) {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO );
-                        } else if ( IJU.EQ.3 ) {
+                        } else if ( IJU == 3 ) {
                            sort03('C', M, M, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO );
                         }
                      }
@@ -248,11 +248,11 @@
 
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
-                        if ( IJVT.EQ.1 ) {
+                        if ( IJVT == 1 ) {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, DIF, IINFO );
-                        } else if ( IJVT.EQ.2 ) {
+                        } else if ( IJVT == 2 ) {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO );
-                        } else if ( IJVT.EQ.3 ) {
+                        } else if ( IJVT == 3 ) {
                            sort03('R', N, N, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO );
                         }
                      }
@@ -276,7 +276,7 @@
                LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                LSWORK = MIN( LSWORK, LWORK )
                LSWORK = MAX( LSWORK, 1 )
-               if (IWS.EQ.4) LSWORK = LWORK;
+               if (IWS == 4) LSWORK = LWORK;
 
                slacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'SGESDD'
@@ -317,13 +317,13 @@
 
                   DIF = ZERO
                   if ( M.GT.0 .AND. N.GT.0 ) {
-                     if ( IJQ.EQ.1 ) {
+                     if ( IJQ == 1 ) {
                         if ( M.GE.N ) {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, INFO );
                         } else {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, INFO );
                         }
-                     } else if ( IJQ.EQ.2 ) {
+                     } else if ( IJQ == 2 ) {
                         sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, INFO );
                      }
                   }
@@ -333,13 +333,13 @@
 
                   DIF = ZERO
                   if ( M.GT.0 .AND. N.GT.0 ) {
-                     if ( IJQ.EQ.1 ) {
+                     if ( IJQ == 1 ) {
                         if ( M.GE.N ) {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO );
                         } else {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, DIF, INFO );
                         }
-                     } else if ( IJQ.EQ.2 ) {
+                     } else if ( IJQ == 2 ) {
                         sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO );
                      }
                   }
@@ -369,7 +369,7 @@
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
-                  if (IWS.EQ.4) LSWORK = LWORK;
+                  if (IWS == 4) LSWORK = LWORK;
 
                   slacpy('F', M, N, ASAV, LDA, A, LDA );
                   SRNAMT = 'SGESVDQ'
@@ -413,7 +413,7 @@
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
-                  if (IWS.EQ.4) LSWORK = LWORK;
+                  if (IWS == 4) LSWORK = LWORK;
 
                   slacpy('F', M, N, ASAV, LDA, USAV, LDA );
                   SRNAMT = 'SGESVJ'
@@ -461,7 +461,7 @@
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
-                  if (IWS.EQ.4) LSWORK = LWORK;
+                  if (IWS == 4) LSWORK = LWORK;
 
                   slacpy('F', M, N, ASAV, LDA, VTSAV, LDA );
                   SRNAMT = 'SGEJSV'
@@ -532,7 +532,7 @@
                RESULT( 29 ) = ZERO
                for (IJU = 0; IJU <= 1; IJU++) { // 180
                   for (IJVT = 0; IJVT <= 1; IJVT++) { // 170
-                     IF( ( IJU.EQ.0 .AND. IJVT.EQ.0 ) .OR. ( IJU.EQ.1 .AND. IJVT.EQ.1 ) )GO TO 170
+                     IF( ( IJU == 0 .AND. IJVT == 0 ) .OR. ( IJU == 1 .AND. IJVT == 1 ) )GO TO 170
                      JOBU = CJOBV( IJU+1 )
                      JOBVT = CJOBV( IJVT+1 )
                      RANGE = CJOBR( 1 )
@@ -543,7 +543,7 @@
 
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
-                        if ( IJU.EQ.1 ) {
+                        if ( IJU == 1 ) {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO );
                         }
                      }
@@ -553,7 +553,7 @@
 
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
-                        if ( IJVT.EQ.1 ) {
+                        if ( IJVT == 1 ) {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO );
                         }
                      }
@@ -642,7 +642,7 @@
 
                for (J = 1; J <= 39; J++) { // 210
                   if ( RESULT( J ).GE.THRESH ) {
-                     if ( NFAIL.EQ.0 ) {
+                     if ( NFAIL == 0 ) {
                         WRITE( NOUT, FMT = 9999 )
                         WRITE( NOUT, FMT = 9998 )
                      }

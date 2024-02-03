@@ -44,7 +44,7 @@
       WANTV = LSAME( JOBV, 'V' )
       WANTQ = LSAME( JOBQ, 'Q' )
       FORWRD = true;
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       LWKOPT = 1
 
       // Test the input arguments
@@ -78,7 +78,7 @@
 
       // Compute workspace
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          dgeqp3(P, N, B, LDB, IWORK, TAU, WORK, -1, INFO );
          LWKOPT = INT( WORK ( 1 ) )
          if ( WANTV ) {

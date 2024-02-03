@@ -68,7 +68,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       LWKMIN = MAX( 1, 8*N )
       if ( IJOBVL.LE.0 ) {
          INFO = -1
@@ -90,7 +90,7 @@
 
       // Compute workspace
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          sgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR );
          LWKOPT = MAX( LWKMIN, 3*N+INT( WORK( 1 ) ) )
          sormqr('L', 'T', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR );
@@ -106,7 +106,7 @@
             slaqz0('E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR );
             LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) )
          }
-         if ( N.EQ.0 ) {
+         if ( N == 0 ) {
             WORK( 1 ) = 1
          } else {
             WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
@@ -122,7 +122,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Get machine constants
 
@@ -252,7 +252,7 @@
             for (JC = 1; JC <= N; JC++) { // 50
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 50
                TEMP = ZERO
-               if ( ALPHAI( JC ).EQ.ZERO ) {
+               if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 10
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
                   } // 10
@@ -263,7 +263,7 @@
                }
                if (TEMP.LT.SMLNUM) GO TO 50;
                TEMP = ONE / TEMP
-               if ( ALPHAI( JC ).EQ.ZERO ) {
+               if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 30
                      VL( JR, JC ) = VL( JR, JC )*TEMP
                   } // 30
@@ -280,7 +280,7 @@
             for (JC = 1; JC <= N; JC++) { // 100
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 100
                TEMP = ZERO
-               if ( ALPHAI( JC ).EQ.ZERO ) {
+               if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 60
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
                   } // 60
@@ -291,7 +291,7 @@
                }
                if (TEMP.LT.SMLNUM) GO TO 100;
                TEMP = ONE / TEMP
-               if ( ALPHAI( JC ).EQ.ZERO ) {
+               if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 80
                      VR( JR, JC ) = VR( JR, JC )*TEMP
                   } // 80

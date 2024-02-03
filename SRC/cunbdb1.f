@@ -58,7 +58,7 @@
       // Test input arguments
 
       INFO = 0
-      LQUERY = LWORK .EQ. -1
+      LQUERY = LWORK == -1
 
       if ( M .LT. 0 ) {
          INFO = -1
@@ -74,7 +74,7 @@
 
       // Compute workspace
 
-      if ( INFO .EQ. 0 ) {
+      if ( INFO == 0 ) {
          ILARF = 2
          LLARF = MAX( P-1, M-P-1, Q-1 )
          IORBDB5 = 2

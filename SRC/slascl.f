@@ -59,24 +59,24 @@
          ITYPE = -1
       }
 
-      if ( ITYPE.EQ.-1 ) {
+      if ( ITYPE == -1 ) {
          INFO = -1
-      } else if ( CFROM.EQ.ZERO .OR. SISNAN(CFROM) ) {
+      } else if ( CFROM == ZERO .OR. SISNAN(CFROM) ) {
          INFO = -4
       } else if ( SISNAN(CTO) ) {
          INFO = -5
       } else if ( M.LT.0 ) {
          INFO = -6
-      } else if ( N.LT.0 .OR. ( ITYPE.EQ.4 .AND. N.NE.M ) .OR. ( ITYPE.EQ.5 .AND. N.NE.M ) ) {
+      } else if ( N.LT.0 .OR. ( ITYPE == 4 .AND. N.NE.M ) .OR. ( ITYPE == 5 .AND. N.NE.M ) ) {
          INFO = -7
       } else if ( ITYPE.LE.3 .AND. LDA.LT.MAX( 1, M ) ) {
          INFO = -9
       } else if ( ITYPE.GE.4 ) {
          if ( KL.LT.0 .OR. KL.GT.MAX( M-1, 0 ) ) {
             INFO = -2
-         } else if ( KU.LT.0 .OR. KU.GT.MAX( N-1, 0 ) .OR. ( ( ITYPE.EQ.4 .OR. ITYPE.EQ.5 ) .AND. KL.NE.KU ) ) {
+         } else if ( KU.LT.0 .OR. KU.GT.MAX( N-1, 0 ) .OR. ( ( ITYPE == 4 .OR. ITYPE == 5 ) .AND. KL.NE.KU ) ) {
             INFO = -3
-         } else if ( ( ITYPE.EQ.4 .AND. LDA.LT.KL+1 ) .OR. ( ITYPE.EQ.5 .AND. LDA.LT.KU+1 ) .OR. ( ITYPE.EQ.6 .AND. LDA.LT.2*KL+KU+1 ) ) {
+         } else if ( ( ITYPE == 4 .AND. LDA.LT.KL+1 ) .OR. ( ITYPE == 5 .AND. LDA.LT.KU+1 ) .OR. ( ITYPE == 6 .AND. LDA.LT.2*KL+KU+1 ) ) {
             INFO = -9
          }
       }
@@ -88,7 +88,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0 .OR. M.EQ.0) RETURN;
+      if (N == 0 .OR. M == 0) RETURN;
 
       // Get machine parameters
 
@@ -100,7 +100,7 @@
 
       } // 10
       CFROM1 = CFROMC*SMLNUM
-      if ( CFROM1.EQ.CFROMC ) {
+      if ( CFROM1 == CFROMC ) {
          // CFROMC is an inf.  Multiply by a correctly signed zero for
          // finite CTOC, or a NaN if CTOC is infinite.
          MUL = CTOC / CFROMC
@@ -108,7 +108,7 @@
          CTO1 = CTOC
       } else {
          CTO1 = CTOC / BIGNUM
-         if ( CTO1.EQ.CTOC ) {
+         if ( CTO1 == CTOC ) {
             // CTOC is either 0 or an inf.  In both cases, CTOC itself
             // serves as the correct multiplication factor.
             MUL = CTOC
@@ -125,11 +125,11 @@
          } else {
             MUL = CTOC / CFROMC
             DONE = true;
-            if (MUL .EQ. ONE) RETURN;
+            if (MUL == ONE) RETURN;
          }
       }
 
-      if ( ITYPE.EQ.0 ) {
+      if ( ITYPE == 0 ) {
 
          // Full matrix
 
@@ -139,7 +139,7 @@
             } // 20
          } // 30
 
-      } else if ( ITYPE.EQ.1 ) {
+      } else if ( ITYPE == 1 ) {
 
          // Lower triangular matrix
 
@@ -149,7 +149,7 @@
             } // 40
          } // 50
 
-      } else if ( ITYPE.EQ.2 ) {
+      } else if ( ITYPE == 2 ) {
 
          // Upper triangular matrix
 
@@ -159,7 +159,7 @@
             } // 60
          } // 70
 
-      } else if ( ITYPE.EQ.3 ) {
+      } else if ( ITYPE == 3 ) {
 
          // Upper Hessenberg matrix
 
@@ -169,7 +169,7 @@
             } // 80
          } // 90
 
-      } else if ( ITYPE.EQ.4 ) {
+      } else if ( ITYPE == 4 ) {
 
          // Lower half of a symmetric band matrix
 
@@ -181,7 +181,7 @@
             } // 100
          } // 110
 
-      } else if ( ITYPE.EQ.5 ) {
+      } else if ( ITYPE == 5 ) {
 
          // Upper half of a symmetric band matrix
 
@@ -193,7 +193,7 @@
             } // 120
          } // 130
 
-      } else if ( ITYPE.EQ.6 ) {
+      } else if ( ITYPE == 6 ) {
 
          // Band matrix
 

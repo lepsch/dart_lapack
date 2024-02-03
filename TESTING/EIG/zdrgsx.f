@@ -87,7 +87,7 @@
         // following subroutine, as returned by ILAENV.)
 
       MINWRK = 1
-      if ( INFO.EQ.0 .AND. LWORK.GE.1 ) {
+      if ( INFO == 0 .AND. LWORK.GE.1 ) {
          MINWRK = 3*NSIZE*NSIZE / 2
 
          // workspace for cggesx
@@ -125,7 +125,7 @@
       // Go to the tests for read-in matrix pairs
 
       IFUNC = 0
-      if (NSIZE.EQ.0) GO TO 70;
+      if (NSIZE == 0) GO TO 70;
 
       // Test the built-in matrix pairs.
       // Loop over different functions (IFUNC) of ZGGESX, types (PRTYPE)
@@ -159,13 +159,13 @@
                   // Swapping is accomplished via the function ZLCTSX
                   // which is supplied below.
 
-                  if ( IFUNC.EQ.0 ) {
+                  if ( IFUNC == 0 ) {
                      SENSE = 'N'
-                  } else if ( IFUNC.EQ.1 ) {
+                  } else if ( IFUNC == 1 ) {
                      SENSE = 'E'
-                  } else if ( IFUNC.EQ.2 ) {
+                  } else if ( IFUNC == 2 ) {
                      SENSE = 'V'
-                  } else if ( IFUNC.EQ.3 ) {
+                  } else if ( IFUNC == 3 ) {
                      SENSE = 'B'
                   }
 
@@ -228,7 +228,7 @@
                   // Test (7) (if sorting worked)
 
                   RESULT( 7 ) = ZERO
-                  if ( LINFO.EQ.MPLUSN+3 ) {
+                  if ( LINFO == MPLUSN+3 ) {
                      RESULT( 7 ) = ULPINV
                   } else if ( MM.NE.N ) {
                      RESULT( 7 ) = ULPINV
@@ -250,9 +250,9 @@
                      zgesvd('N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK( 2 ), 1, WORK( 3 ), LWORK-2, RWORK, INFO );
                      DIFTRU = S( MN2 )
 
-                     if ( DIFEST( 2 ).EQ.ZERO ) {
+                     if ( DIFEST( 2 ) == ZERO ) {
                         if (DIFTRU.GT.ABNRM*ULP) RESULT( 8 ) = ULPINV;
-                     } else if ( DIFTRU.EQ.ZERO ) {
+                     } else if ( DIFTRU == ZERO ) {
                         IF( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV                      ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR. ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) THEN                         RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
                      }
                      NTEST = NTEST + 1
@@ -261,8 +261,8 @@
                   // Test (9)
 
                   RESULT( 9 ) = ZERO
-                  if ( LINFO.EQ.( MPLUSN+2 ) ) {
-                     if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV;
+                  if ( LINFO == ( MPLUSN+2 ) ) {
+                     if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC == 1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV;
                      NTEST = NTEST + 1
                   }
 
@@ -276,7 +276,7 @@
                         // If this is the first test to fail,
                         // print a header to the data file.
 
-                        if ( NERRS.EQ.0 ) {
+                        if ( NERRS == 0 ) {
                            WRITE( NOUT, FMT = 9996 )'ZGX'
 
                            // Matrix types
@@ -313,7 +313,7 @@
 
       } // 80
       READ( NIN, FMT = *, END = 140 )MPLUSN
-      if (MPLUSN.EQ.0) GO TO 140;
+      if (MPLUSN == 0) GO TO 140;
       READ( NIN, FMT = *, END = 140 )N
       for (I = 1; I <= MPLUSN; I++) { // 90
          READ( NIN, FMT = * )( AI( I, J ), J = 1, MPLUSN )
@@ -387,15 +387,15 @@
 
       NTEST = 7
       RESULT( 7 ) = ZERO
-      if (LINFO.EQ.MPLUSN+3) RESULT( 7 ) = ULPINV;
+      if (LINFO == MPLUSN+3) RESULT( 7 ) = ULPINV;
 
       // Test (8): compare the estimated value of DIF and its true value.
 
       NTEST = 8
       RESULT( 8 ) = ZERO
-      if ( DIFEST( 2 ).EQ.ZERO ) {
+      if ( DIFEST( 2 ) == ZERO ) {
          if (DIFTRU.GT.ABNRM*ULP) RESULT( 8 ) = ULPINV;
-      } else if ( DIFTRU.EQ.ZERO ) {
+      } else if ( DIFTRU == ZERO ) {
          if ( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV       ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR. ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) {
          RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
       }
@@ -404,17 +404,17 @@
 
       NTEST = 9
       RESULT( 9 ) = ZERO
-      if ( LINFO.EQ.( MPLUSN+2 ) ) {
-         if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV;
+      if ( LINFO == ( MPLUSN+2 ) ) {
+         if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC == 1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV;
       }
 
       // Test (10): compare the estimated value of PL and it true value.
 
       NTEST = 10
       RESULT( 10 ) = ZERO
-      if ( PL( 1 ).EQ.ZERO ) {
+      if ( PL( 1 ) == ZERO ) {
          if (PLTRU.GT.ABNRM*ULP) RESULT( 10 ) = ULPINV;
-      } else if ( PLTRU.EQ.ZERO ) {
+      } else if ( PLTRU == ZERO ) {
          if ( PL( 1 ).GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV       ELSE IF( ( PLTRU.GT.THRESH*PL( 1 ) ) .OR. ( PLTRU*THRESH.LT.PL( 1 ) ) ) {
          RESULT( 10 ) = ULPINV
       }
@@ -429,7 +429,7 @@
             // If this is the first test to fail,
             // print a header to the data file.
 
-            if ( NERRS.EQ.0 ) {
+            if ( NERRS == 0 ) {
                WRITE( NOUT, FMT = 9996 )'ZGX'
 
                // Matrix types

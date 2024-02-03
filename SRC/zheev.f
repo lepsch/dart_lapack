@@ -44,7 +44,7 @@
 
       WANTZ = LSAME( JOBZ, 'V' )
       LOWER = LSAME( UPLO, 'L' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       INFO = 0
       if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
@@ -57,7 +57,7 @@
          INFO = -5
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          NB = ILAENV( 1, 'ZHETRD', UPLO, N, -1, -1, -1 )
          LWKOPT = MAX( 1, ( NB+1 )*N )
          WORK( 1 ) = LWKOPT
@@ -74,11 +74,11 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          RETURN
       }
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          W( 1 ) = DBLE( A( 1, 1 ) )
          WORK( 1 ) = 1
          if (WANTZ) A( 1, 1 ) = CONE;
@@ -105,7 +105,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      if (ISCALE.EQ.1) CALL ZLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
+      if (ISCALE == 1) CALL ZLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call ZHETRD to reduce Hermitian matrix to tridiagonal form.
 
@@ -128,8 +128,8 @@
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      if ( ISCALE.EQ.1 ) {
-         if ( INFO.EQ.0 ) {
+      if ( ISCALE == 1 ) {
+         if ( INFO == 0 ) {
             IMAX = N
          } else {
             IMAX = INFO - 1

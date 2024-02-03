@@ -33,11 +33,11 @@
       EPS = DLAMCH( 'P' )
       SAFMN2 = DLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( DLAMCH( 'B' ) ) / TWO )
       SAFMX2 = ONE / SAFMN2
-      if ( C.EQ.ZERO ) {
+      if ( C == ZERO ) {
          CS = ONE
          SN = ZERO
 
-      } else if ( B.EQ.ZERO ) {
+      } else if ( B == ZERO ) {
 
          // Swap rows and columns
 
@@ -49,7 +49,7 @@
          B = -C
          C = ZERO
 
-      } else if ( ( A-D ).EQ.ZERO .AND. SIGN( ONE, B ).NE.SIGN( ONE, C ) ) {
+      } else if ( ( A-D ) == ZERO .AND. SIGN( ONE, B ).NE.SIGN( ONE, C ) ) {
          CS = ONE
          SN = ZERO
 
@@ -128,7 +128,7 @@
 
             if ( C.NE.ZERO ) {
                if ( B.NE.ZERO ) {
-                  if ( SIGN( ONE, B ).EQ.SIGN( ONE, C ) ) {
+                  if ( SIGN( ONE, B ) == SIGN( ONE, C ) ) {
 
                      // Real eigenvalues: reduce to upper triangular form
 
@@ -162,7 +162,7 @@
 
       RT1R = A
       RT2R = D
-      if ( C.EQ.ZERO ) {
+      if ( C == ZERO ) {
          RT1I = ZERO
          RT2I = ZERO
       } else {

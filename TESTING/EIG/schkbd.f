@@ -194,13 +194,13 @@
             COND = ULPINV
 
             BIDIAG = false;
-            if ( ITYPE.EQ.1 ) {
+            if ( ITYPE == 1 ) {
 
                // Zero matrix
 
                IINFO = 0
 
-            } else if ( ITYPE.EQ.2 ) {
+            } else if ( ITYPE == 2 ) {
 
                // Identity
 
@@ -208,43 +208,43 @@
                   A( JCOL, JCOL ) = ANORM
                } // 80
 
-            } else if ( ITYPE.EQ.4 ) {
+            } else if ( ITYPE == 4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                slatms(MNMIN, MNMIN, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( MNMIN+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.5 ) {
+            } else if ( ITYPE == 5 ) {
 
                // Symmetric, eigenvalues specified
 
                slatms(MNMIN, MNMIN, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, M, N, 'N', A, LDA, WORK( MNMIN+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.6 ) {
+            } else if ( ITYPE == 6 ) {
 
                // Nonsymmetric, singular values specified
 
                slatms(M, N, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, M, N, 'N', A, LDA, WORK( MNMIN+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.7 ) {
+            } else if ( ITYPE == 7 ) {
 
                // Diagonal, random entries
 
                slatmr(MNMIN, MNMIN, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( 2*MNMIN+1 ), 1, ONE, 'N', IWORK, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.8 ) {
+            } else if ( ITYPE == 8 ) {
 
                // Symmetric, random entries
 
                slatmr(MNMIN, MNMIN, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( M+MNMIN+1 ), 1, ONE, 'N', IWORK, M, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.9 ) {
+            } else if ( ITYPE == 9 ) {
 
                // Nonsymmetric, random entries
 
                slatmr(M, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( M+MNMIN+1 ), 1, ONE, 'N', IWORK, M, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.10 ) {
+            } else if ( ITYPE == 10 ) {
 
                // Bidiagonal, random entries
 
@@ -265,7 +265,7 @@
                IINFO = 1
             }
 
-            if ( IINFO.EQ.0 ) {
+            if ( IINFO == 0 ) {
 
                // Generate Right-Hand Side
 
@@ -434,7 +434,7 @@
 
             for (J = 0; J <= LOG2UI; J++) { // 130
                 // CALL SSVDCH( MNMIN, BD, BE, S1, TEMP1, IINFO )
-               if (IINFO.EQ.0) GO TO 140;
+               if (IINFO == 0) GO TO 140;
                TEMP1 = TEMP1*TWO
             } // 130
 
@@ -539,7 +539,7 @@
             // Use SBDSVDX to compute the SVD of the bidiagonal matrix B:
             // B := U * S1 * VT
 
-            if ( JTYPE.EQ.10 .OR. JTYPE.EQ.16 ) {
+            if ( JTYPE == 10 .OR. JTYPE == 16 ) {
                // =================================
                // Matrix types temporarily disabled
                // =================================
@@ -583,7 +583,7 @@
             // Use SBDSVDX to compute only the singular values of the
             // bidiagonal matrix B;  U and VT should not be modified.
 
-            if ( JTYPE.EQ.9 ) {
+            if ( JTYPE == 9 ) {
                // =================================
                // Matrix types temporarily disabled
                // =================================
@@ -837,7 +837,7 @@
 
             for (J = 1; J <= 34; J++) { // 280
                if ( RESULT( J ).GE.THRESH ) {
-                  if (NFAIL.EQ.0) CALL SLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
+                  if (NFAIL == 0) CALL SLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
                   NFAIL = NFAIL + 1
                }
             } // 280

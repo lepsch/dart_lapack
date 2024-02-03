@@ -31,17 +31,17 @@
       // ..
       // .. Executable Statements ..
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Multiply B by BETA if BETA.NE.1.
 
-      if ( BETA.EQ.ZERO ) {
+      if ( BETA == ZERO ) {
          for (J = 1; J <= NRHS; J++) { // 20
             for (I = 1; I <= N; I++) { // 10
                B( I, J ) = ZERO
             } // 10
          } // 20
-      } else if ( BETA.EQ.-ONE ) {
+      } else if ( BETA == -ONE ) {
          for (J = 1; J <= NRHS; J++) { // 40
             for (I = 1; I <= N; I++) { // 30
                B( I, J ) = -B( I, J )
@@ -49,13 +49,13 @@
          } // 40
       }
 
-      if ( ALPHA.EQ.ONE ) {
+      if ( ALPHA == ONE ) {
          if ( LSAME( TRANS, 'N' ) ) {
 
             // Compute B := B + A*X
 
             for (J = 1; J <= NRHS; J++) { // 60
-               if ( N.EQ.1 ) {
+               if ( N == 1 ) {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
                } else {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) + DU( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) + DL( N-1 )*X( N-1, J ) + D( N )*X( N, J )
@@ -69,7 +69,7 @@
             // Compute B := B + A**T * X
 
             for (J = 1; J <= NRHS; J++) { // 80
-               if ( N.EQ.1 ) {
+               if ( N == 1 ) {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
                } else {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) + DL( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) + DU( N-1 )*X( N-1, J ) + D( N )*X( N, J )
@@ -83,7 +83,7 @@
             // Compute B := B + A**H * X
 
             for (J = 1; J <= NRHS; J++) { // 100
-               if ( N.EQ.1 ) {
+               if ( N == 1 ) {
                   B( 1, J ) = B( 1, J ) + DCONJG( D( 1 ) )*X( 1, J )
                } else {
                   B( 1, J ) = B( 1, J ) + DCONJG( D( 1 ) )*X( 1, J ) + DCONJG( DL( 1 ) )*X( 2, J )                   B( N, J ) = B( N, J ) + DCONJG( DU( N-1 ) )* X( N-1, J ) + DCONJG( D( N ) )*X( N, J )
@@ -93,13 +93,13 @@
                }
             } // 100
          }
-      } else if ( ALPHA.EQ.-ONE ) {
+      } else if ( ALPHA == -ONE ) {
          if ( LSAME( TRANS, 'N' ) ) {
 
             // Compute B := B - A*X
 
             for (J = 1; J <= NRHS; J++) { // 120
-               if ( N.EQ.1 ) {
+               if ( N == 1 ) {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
                } else {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) - DU( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) - DL( N-1 )*X( N-1, J ) - D( N )*X( N, J )
@@ -113,7 +113,7 @@
             // Compute B := B - A**T *X
 
             for (J = 1; J <= NRHS; J++) { // 140
-               if ( N.EQ.1 ) {
+               if ( N == 1 ) {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
                } else {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) - DL( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) - DU( N-1 )*X( N-1, J ) - D( N )*X( N, J )
@@ -127,7 +127,7 @@
             // Compute B := B - A**H *X
 
             for (J = 1; J <= NRHS; J++) { // 160
-               if ( N.EQ.1 ) {
+               if ( N == 1 ) {
                   B( 1, J ) = B( 1, J ) - DCONJG( D( 1 ) )*X( 1, J )
                } else {
                   B( 1, J ) = B( 1, J ) - DCONJG( D( 1 ) )*X( 1, J ) - DCONJG( DL( 1 ) )*X( 2, J )                   B( N, J ) = B( N, J ) - DCONJG( DU( N-1 ) )* X( N-1, J ) - DCONJG( D( N ) )*X( N, J )

@@ -39,7 +39,7 @@
       NB = ILAENV( 1, 'DORGLQ', ' ', M, N, K, -1 )
       LWKOPT = MAX( 1, M )*NB
       WORK( 1 ) = LWKOPT
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.M ) {

@@ -44,7 +44,7 @@
       }
 
       DO 20 I = K, 1, -1
-         if ( TAU( I ).EQ.ZERO ) {
+         if ( TAU( I ) == ZERO ) {
 
             // H(i)  =  I
 

@@ -49,7 +49,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       WANTVL = LSAME( JOBVL, 'V' )
       WANTVR = LSAME( JOBVR, 'V' )
       WNTSNN = LSAME( SENSE, 'N' )
@@ -85,8 +85,8 @@
         // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
         // the worst case.)
 
-      if ( INFO.EQ.0 ) {
-         if ( N.EQ.0 ) {
+      if ( INFO == 0 ) {
+         if ( N == 0 ) {
             MINWRK = 1
             MAXWRK = 1
          } else {
@@ -141,7 +141,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Get machine constants
 
@@ -320,8 +320,8 @@
       } // 50
       if ( SCALEA ) {
          zlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), MAX( N-INFO, 1 ), IERR );
-         if ( INFO.EQ.0 ) {
-            IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND.EQ.0 ) CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
+         if ( INFO == 0 ) {
+            IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND == 0 ) CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
          } else {
             zlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, W, N, IERR );
          }

@@ -133,9 +133,9 @@
                   // the matrix to test that INFO is returned correctly.
 
                   if ( ZEROT ) {
-                     if ( IMAT.EQ.3 ) {
+                     if ( IMAT == 3 ) {
                         IZERO = 1
-                     } else if ( IMAT.EQ.4 ) {
+                     } else if ( IMAT == 4 ) {
                         IZERO = N
                      } else {
                         IZERO = N / 2 + 1
@@ -145,7 +145,7 @@
 
                         // Set row and column IZERO to zero.
 
-                        if ( IUPLO.EQ.1 ) {
+                        if ( IUPLO == 1 ) {
                            IOFF = ( IZERO-1 )*LDA
                            for (I = 1; I <= IZERO - 1; I++) { // 20
                               A( IOFF+I ) = ZERO
@@ -167,7 +167,7 @@
                            } // 50
                         }
                      } else {
-                        if ( IUPLO.EQ.1 ) {
+                        if ( IUPLO == 1 ) {
 
                            // Set the first IZERO rows to zero.
 
@@ -214,10 +214,10 @@
                   // the value returned by CSYSVX.
 
                   if ( ZEROT ) {
-                     if (IFACT.EQ.1) GO TO 150;
+                     if (IFACT == 1) GO TO 150;
                      RCONDC = ZERO
 
-                  } else if ( IFACT.EQ.1 ) {
+                  } else if ( IFACT == 1 ) {
 
                      // Compute the 1-norm of A.
 
@@ -252,7 +252,7 @@
 
                   // --- Test CSYSV  ---
 
-                  if ( IFACT.EQ.2 ) {
+                  if ( IFACT == 2 ) {
                      clacpy(UPLO, N, N, A, LDA, AFAC, LDA );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
@@ -307,7 +307,7 @@
 
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CSYSV ', UPLO, N, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CSYSV ', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 110
@@ -317,7 +317,7 @@
 
                   // --- Test CSYSVX ---
 
-                  if (IFACT.EQ.2) CALL CLASET( UPLO, N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA );
+                  if (IFACT == 2) CALL CLASET( UPLO, N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA );
                   claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
 
                   // Solve the system and compute the condition number and
@@ -350,7 +350,7 @@
                      GO TO 150
                   }
 
-                  if ( INFO.EQ.0 ) {
+                  if ( INFO == 0 ) {
                      if ( IFACT.GE.2 ) {
 
                         // Reconstruct matrix from factors and compute
@@ -388,7 +388,7 @@
 
                   for (K = K1; K <= 6; K++) { // 140
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'CSYSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'CSYSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 140

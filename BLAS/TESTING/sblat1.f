@@ -34,13 +34,13 @@ void main() {
          PASS = true;
          INCX = 9999
          INCY = 9999
-         if (ICASE.EQ.3 .OR. ICASE.EQ.11) {
+         if (ICASE == 3 .OR. ICASE == 11) {
             check0(SFAC);
-         } else if (ICASE.EQ.7 .OR. ICASE.EQ.8 .OR. ICASE.EQ.9 .OR. ICASE.EQ.10) {
+         } else if (ICASE == 7 .OR. ICASE == 8 .OR. ICASE == 9 .OR. ICASE == 10) {
             check1(SFAC);
-         } else if (ICASE.EQ.1 .OR. ICASE.EQ.2 .OR. ICASE.EQ.5 .OR. ICASE.EQ.6 .OR. ICASE.EQ.12 .OR. ICASE.EQ.13) {
+         } else if (ICASE == 1 .OR. ICASE == 2 .OR. ICASE == 5 .OR. ICASE == 6 .OR. ICASE == 12 .OR. ICASE == 13) {
             check2(SFAC);
-         } else if (ICASE.EQ.4) {
+         } else if (ICASE == 4) {
             check3(SFAC);
          }
          // -- Print
@@ -152,7 +152,7 @@ void main() {
       for (K = 1; K <= 8; K++) { // 20
          // .. Set N=K for identification in output if any ..
          N = K
-         if (ICASE.EQ.3) {
+         if (ICASE == 3) {
             // .. SROTG ..
             if (K.GT.8) GO TO 40;
             SA = DA1(K)
@@ -162,7 +162,7 @@ void main() {
             stest1(SB,DBTRUE(K),DBTRUE(K),SFAC);
             stest1(SC,DC1(K),DC1(K),SFAC);
             stest1(SS,DS1(K),DS1(K),SFAC);
-         } else if (ICASE.EQ.11) {
+         } else if (ICASE == 11) {
             // .. SROTMG ..
             for (I = 1; I <= 4; I++) {
                DTEMP(I)= DAB(I,K)
@@ -225,7 +225,7 @@ void main() {
                SX(I) = DV(I,NP1,INCX)
             } // 20
 
-            if (ICASE.EQ.7) {
+            if (ICASE == 7) {
                // .. SNRM2 ..
                // Test scaling when some entries are tiny or huge
                sb1nrm2(N,(INCX-2)*2,THRESH);
@@ -233,18 +233,18 @@ void main() {
                // Test with hardcoded mid range entries
                STEMP(1) = DTRUE1(NP1)
                stest1(SNRM2(N,SX,INCX),STEMP(1),STEMP,SFAC);
-            } else if (ICASE.EQ.8) {
+            } else if (ICASE == 8) {
                // .. SASUM ..
                STEMP(1) = DTRUE3(NP1)
                stest1(SASUM(N,SX,INCX),STEMP(1),STEMP,SFAC);
-            } else if (ICASE.EQ.9) {
+            } else if (ICASE == 9) {
                // .. SSCAL ..
                sscal(N,SA((INCX-1)*5+NP1),SX,INCX);
                for (I = 1; I <= LEN; I++) { // 40
                   STRUE(I) = DTRUE5(I,NP1,INCX)
                } // 40
                stest(LEN,SX,STRUE,STRUE,SFAC);
-            } else if (ICASE.EQ.10) {
+            } else if (ICASE == 10) {
                // .. ISAMAX ..
                itest1(ISAMAX(N,SX,INCX),ITRUE2(NP1));
                for (I = 1; I <= LEN; I++) { // 100
@@ -256,7 +256,7 @@ void main() {
                STOP
             }
          } // 60
-         if (ICASE.EQ.10) {
+         if (ICASE == 10) {
             N = 8
             IX = 1
             for (I = 1; I <= N; I++) { // 120
@@ -353,27 +353,27 @@ void main() {
                SY(I) = DY1(I)
             } // 20
 
-            if (ICASE.EQ.1) {
+            if (ICASE == 1) {
                // .. SDOT ..
                stest1(SDOT(N,SX,INCX,SY,INCY),DT7(KN,KI),SSIZE1(KN) ,SFAC);
-            } else if (ICASE.EQ.2) {
+            } else if (ICASE == 2) {
                // .. SAXPY ..
                saxpy(N,SA,SX,INCX,SY,INCY);
                for (J = 1; J <= LENY; J++) { // 40
                   STY(J) = DT8(J,KN,KI)
                } // 40
                stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
-            } else if (ICASE.EQ.5) {
+            } else if (ICASE == 5) {
                // .. SCOPY ..
                for (I = 1; I <= 7; I++) { // 60
                   STY(I) = DT10Y(I,KN,KI)
                } // 60
                scopy(N,SX,INCX,SY,INCY);
                stest(LENY,SY,STY,SSIZE2(1,1),1.0E0);
-               if (KI.EQ.1) {
+               if (KI == 1) {
                   SX0(1) = 42.0E0
                   SY0(1) = 43.0E0
-                  if (N.EQ.0) {
+                  if (N == 0) {
                      STY0(1) = SY0(1)
                   } else {
                      STY0(1) = SX0(1)
@@ -387,7 +387,7 @@ void main() {
                   INCX = LINCX
                   INCY = LINCY
                }
-            } else if (ICASE.EQ.6) {
+            } else if (ICASE == 6) {
                // .. SSWAP ..
                sswap(N,SX,INCX,SY,INCY);
                for (I = 1; I <= 7; I++) { // 80
@@ -396,7 +396,7 @@ void main() {
                } // 80
                stest(LENX,SX,STX,SSIZE2(1,1),1.0E0);
                stest(LENY,SY,STY,SSIZE2(1,1),1.0E0);
-            } else if (ICASE.EQ.12) {
+            } else if (ICASE == 12) {
                // .. SROTM ..
                KNI=KN+4*(KI-1)
                for (KPAR = 1; KPAR <= 4; KPAR++) {
@@ -416,13 +416,13 @@ void main() {
                   }
                     // SEE REMARK ABOVE ABOUT DT11X(1,2,7)
                         // AND DT11X(5,3,8).
-                  IF ((KPAR .EQ. 2) .AND. (KNI .EQ. 7)) SSIZE(1) = 2.4E0                   IF ((KPAR .EQ. 3) .AND. (KNI .EQ. 8)) SSIZE(5) = 1.8E0
+                  IF ((KPAR == 2) .AND. (KNI == 7)) SSIZE(1) = 2.4E0                   IF ((KPAR == 3) .AND. (KNI == 8)) SSIZE(5) = 1.8E0
 
                   srotm(N,SX,INCX,SY,INCY,DTEMP);
                   stest(LENX,SX,STX,SSIZE,SFAC);
                   stest(LENY,SY,STY,STY,SFAC);
                }
-            } else if (ICASE.EQ.13) {
+            } else if (ICASE == 13) {
                // .. SDSROT ..
                stest1(SDSDOT(N,.1,SX,INCX,SY,INCY), ST7B(KN,KI),SSIZE3(KN),SFAC);
             } else {
@@ -482,7 +482,7 @@ void main() {
             LENX = LENS(KN,MX)
             LENY = LENS(KN,MY)
 
-            if (ICASE.EQ.4) {
+            if (ICASE == 4) {
                // .. SROT ..
                for (I = 1; I <= 7; I++) { // 20
                   SX(I) = DX1(I)
@@ -715,7 +715,7 @@ void main() {
       // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Executable Statements ..
 
-      if (ICOMP.EQ.ITRUE) GO TO 40;
+      if (ICOMP == ITRUE) GO TO 40;
 
                              // HERE ICOMP IS NOT EQUAL TO ITRUE.
 
@@ -882,7 +882,7 @@ void main() {
             // Compare SNRM and ZNRM.  Roundoff error grows like O(n)
             // in this implementation so we scale the test ratio accordingly.
 
-            if (INCX.EQ.0) {
+            if (INCX == 0) {
                ZNRM = SQRT(REAL(N))*ABS(X(1))
             } else {
                ZNRM = YNRM
@@ -928,11 +928,11 @@ void main() {
       // .. Executable Statements ..
       Y = HUGE(XX)
       Z = YY
-      if (K.EQ.1) {
+      if (K == 1) {
          X = -Z
-      } else if (K.EQ.2) {
+      } else if (K == 2) {
          X = Z
-      } else if (K.EQ.3) {
+      } else if (K == 3) {
          X = Z / Z
       }
       SXVALS = X

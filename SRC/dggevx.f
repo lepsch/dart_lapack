@@ -78,7 +78,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.( LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'B' ) ) ) {
          INFO = -1
       } else if ( IJOBVL.LE.0 ) {
@@ -107,8 +107,8 @@
         // following subroutine, as returned by ILAENV. The workspace is
         // computed assuming ILO = 1 and IHI = N, the worst case.)
 
-      if ( INFO.EQ.0 ) {
-         if ( N.EQ.0 ) {
+      if ( INFO == 0 ) {
+         if ( N == 0 ) {
             MINWRK = 1
             MAXWRK = 1
          } else {
@@ -145,7 +145,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
 
       // Get machine constants
@@ -320,9 +320,9 @@
                for (J = 1; J <= N; J++) { // 10
                   BWORK( J ) = false;
                } // 10
-               if ( MM.EQ.1 ) {
+               if ( MM == 1 ) {
                   BWORK( I ) = true;
-               } else if ( MM.EQ.2 ) {
+               } else if ( MM == 2 ) {
                   BWORK( I ) = true;
                   BWORK( I+1 ) = true;
                }
@@ -356,7 +356,7 @@
          for (JC = 1; JC <= N; JC++) { // 70
             IF( ALPHAI( JC ).LT.ZERO ) GO TO 70
             TEMP = ZERO
-            if ( ALPHAI( JC ).EQ.ZERO ) {
+            if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 30
                   TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
                } // 30
@@ -367,7 +367,7 @@
             }
             if (TEMP.LT.SMLNUM) GO TO 70;
             TEMP = ONE / TEMP
-            if ( ALPHAI( JC ).EQ.ZERO ) {
+            if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 50
                   VL( JR, JC ) = VL( JR, JC )*TEMP
                } // 50
@@ -384,7 +384,7 @@
          for (JC = 1; JC <= N; JC++) { // 120
             IF( ALPHAI( JC ).LT.ZERO ) GO TO 120
             TEMP = ZERO
-            if ( ALPHAI( JC ).EQ.ZERO ) {
+            if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 80
                   TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
                } // 80
@@ -395,7 +395,7 @@
             }
             if (TEMP.LT.SMLNUM) GO TO 120;
             TEMP = ONE / TEMP
-            if ( ALPHAI( JC ).EQ.ZERO ) {
+            if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 100
                   VR( JR, JC ) = VR( JR, JC )*TEMP
                } // 100

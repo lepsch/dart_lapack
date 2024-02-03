@@ -39,7 +39,7 @@
       // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 
       spttrf(N, D, E, INFO );
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 

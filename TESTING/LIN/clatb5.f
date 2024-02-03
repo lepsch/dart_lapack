@@ -67,7 +67,7 @@
 
       // Set the lower and upper bandwidths.
 
-      if ( IMAT.EQ.1 ) {
+      if ( IMAT == 1 ) {
          KL = 0
       } else {
          KL = MAX( N-1, 0 )
@@ -76,26 +76,26 @@
 
       // Set the condition number and norm.etc
 
-      if ( IMAT.EQ.3 ) {
+      if ( IMAT == 3 ) {
          CNDNUM = 1.0E4
          MODE = 2
-      } else if ( IMAT.EQ.4 ) {
+      } else if ( IMAT == 4 ) {
          CNDNUM = 1.0E4
          MODE = 1
-      } else if ( IMAT.EQ.5 ) {
+      } else if ( IMAT == 5 ) {
          CNDNUM = 1.0E4
          MODE = 3
-      } else if ( IMAT.EQ.6 ) {
+      } else if ( IMAT == 6 ) {
          CNDNUM = BADC1
-      } else if ( IMAT.EQ.7 ) {
+      } else if ( IMAT == 7 ) {
          CNDNUM = BADC2
       } else {
          CNDNUM = TWO
       }
 
-      if ( IMAT.EQ.8 ) {
+      if ( IMAT == 8 ) {
          ANORM = SMALL
-      } else if ( IMAT.EQ.9 ) {
+      } else if ( IMAT == 9 ) {
          ANORM = LARGE
       } else {
          ANORM = ONE

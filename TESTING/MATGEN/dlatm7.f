@@ -45,7 +45,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Set INFO if an error
 
@@ -55,7 +55,7 @@
          INFO = -2
       } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. COND.LT.ONE ) {
          INFO = -3
-      } else if ( ( MODE.EQ.6 .OR. MODE.EQ.-6 ) .AND. ( IDIST.LT.1 .OR. IDIST.GT.3 ) ) {
+      } else if ( ( MODE == 6 .OR. MODE == -6 ) .AND. ( IDIST.LT.1 .OR. IDIST.GT.3 ) ) {
          INFO = -4
       } else if ( N.LT.0 ) {
          INFO = -7
@@ -142,7 +142,7 @@
          // If MODE neither -6 nor 0 nor 6, and IRSIGN = 1, assign
          // random signs to D
 
-         if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.1 ) {
+         if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN == 1 ) {
             for (I = 1; I <= N; I++) { // 250
                TEMP = DLARAN( ISEED )
                if (TEMP.GT.HALF) D( I ) = -D( I );

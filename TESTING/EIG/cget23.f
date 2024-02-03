@@ -90,7 +90,7 @@
          RESULT( I ) = -ONE
       } // 10
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // More Important constants
 
@@ -139,7 +139,7 @@
          VRMX = ZERO
          for (JJ = 1; JJ <= N; JJ++) { // 20
             VTST = ABS( VR( JJ, J ) )
-            if (VTST.GT.VMX) VMX = VTST             IF( AIMAG( VR( JJ, J ) ).EQ.ZERO .AND. ABS( REAL( VR( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
+            if (VTST.GT.VMX) VMX = VTST             IF( AIMAG( VR( JJ, J ) ) == ZERO .AND. ABS( REAL( VR( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
          } // 20
          if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
       } // 30
@@ -153,7 +153,7 @@
          VRMX = ZERO
          for (JJ = 1; JJ <= N; JJ++) { // 40
             VTST = ABS( VL( JJ, J ) )
-            if (VTST.GT.VMX) VMX = VTST             IF( AIMAG( VL( JJ, J ) ).EQ.ZERO .AND. ABS( REAL( VL( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
+            if (VTST.GT.VMX) VMX = VTST             IF( AIMAG( VL( JJ, J ) ) == ZERO .AND. ABS( REAL( VL( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
          } // 40
          if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
       } // 50
@@ -196,7 +196,7 @@
 
          // Do Test (9)
 
-         if ( ISENS.EQ.2 .AND. N.GT.1 ) {
+         if ( ISENS == 2 .AND. N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 80
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 80
@@ -242,7 +242,7 @@
 
          // Do Test (9) again
 
-         if ( ISENS.EQ.2 .AND. N.GT.1 ) {
+         if ( ISENS == 2 .AND. N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 130
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 130
@@ -288,7 +288,7 @@
 
          // Do Test (9) again
 
-         if ( ISENS.EQ.2 .AND. N.GT.1 ) {
+         if ( ISENS == 2 .AND. N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 180
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 180
@@ -315,13 +315,13 @@
 
          for (I = 1; I <= N - 1; I++) { // 220
             KMIN = I
-            if ( ISRT.EQ.0 ) {
+            if ( ISRT == 0 ) {
                VRIMIN = REAL( W( I ) )
             } else {
                VRIMIN = AIMAG( W( I ) )
             }
             for (J = I + 1; J <= N; J++) { // 210
-               if ( ISRT.EQ.0 ) {
+               if ( ISRT == 0 ) {
                   VRICMP = REAL( W( J ) )
                } else {
                   VRICMP = AIMAG( W( J ) )
@@ -348,7 +348,7 @@
          RESULT( 10 ) = ZERO
          EPS = MAX( EPSIN, ULP )
          V = MAX( REAL( N )*EPS*ABNRM, SMLNUM )
-         if (ABNRM.EQ.ZERO) V = ONE;
+         if (ABNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 230
             if ( V.GT.RCONDV( I )*RCONDE( I ) ) {
                TOL = RCONDV( I )

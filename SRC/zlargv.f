@@ -77,7 +77,7 @@
             SCALE = SCALE*SAFMN2
             if (SCALE.GE.SAFMX2 .AND. COUNT .LT. 20) GO TO 10;
          } else if ( SCALE.LE.SAFMN2 ) {
-            if ( G.EQ.CZERO ) {
+            if ( G == CZERO ) {
                CS = ONE
                SN = CZERO
                R = F
@@ -96,7 +96,7 @@
 
             // This is a rare case: F is very small.
 
-            if ( F.EQ.CZERO ) {
+            if ( F == CZERO ) {
                CS = ZERO
                R = DLAPY2( DBLE( G ), DIMAG( G ) )
                // Do complex/real division explicitly with two real

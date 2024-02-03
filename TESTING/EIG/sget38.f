@@ -73,7 +73,7 @@
 
       } // 10
       READ( NIN, FMT = * )N, NDIM
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
       READ( NIN, FMT = * )( ISELEC( I ), I = 1, NDIM )
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
@@ -91,7 +91,7 @@
          for (I = 1; I <= N; I++) { // 30
             sscal(N, VMUL, T( 1, I ), 1 );
          } // 30
-         if (TNRM.EQ.ZERO) VMUL = ONE;
+         if (TNRM == ZERO) VMUL = ONE;
          slacpy('F', N, N, T, LDT, TSAV, LDT );
 
          // Compute Schur form
@@ -167,14 +167,14 @@
          VMAX = MAX( RESULT( 1 ), RESULT( 2 ) )
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
-            IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
+            IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT
          }
 
          // Compare condition number for eigenvalue cluster
          // taking its condition number into account
 
          V = MAX( TWO*REAL( N )*EPS*TNRM, SMLNUM )
-         if (TNRM.EQ.ZERO) V = ONE;
+         if (TNRM == ZERO) V = ONE;
          if ( V.GT.SEPTMP ) {
             TOL = ONE
          } else {
@@ -200,7 +200,7 @@
          }
          if ( VMAX.GT.RMAX( 2 ) ) {
             RMAX( 2 ) = VMAX
-            IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
+            IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT
          }
 
          // Compare condition numbers for invariant subspace
@@ -231,7 +231,7 @@
          }
          if ( VMAX.GT.RMAX( 2 ) ) {
             RMAX( 2 ) = VMAX
-            IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
+            IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT
          }
 
          // Compare condition number for eigenvalue cluster
@@ -252,7 +252,7 @@
          }
          if ( VMAX.GT.RMAX( 3 ) ) {
             RMAX( 3 ) = VMAX
-            IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
+            IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT
          }
 
          // Compare condition numbers for invariant subspace
@@ -273,7 +273,7 @@
          }
          if ( VMAX.GT.RMAX( 3 ) ) {
             RMAX( 3 ) = VMAX
-            IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
+            IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT
          }
 
          // Compute eigenvalue condition number only and compare
@@ -358,7 +358,7 @@
          } // 150
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
-            IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
+            IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT
          }
       } // 160
       GO TO 10

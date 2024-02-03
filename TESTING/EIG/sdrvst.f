@@ -96,7 +96,7 @@
 
       // Quick return if nothing to do
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       // More Important constants
 
@@ -195,10 +195,10 @@
 
                     // Zero
 
-            if ( ITYPE.EQ.1 ) {
+            if ( ITYPE == 1 ) {
                IINFO = 0
 
-            } else if ( ITYPE.EQ.2 ) {
+            } else if ( ITYPE == 2 ) {
 
                // Identity
 
@@ -206,33 +206,33 @@
                   A( JCOL, JCOL ) = ANORM
                } // 80
 
-            } else if ( ITYPE.EQ.4 ) {
+            } else if ( ITYPE == 4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
                slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.5 ) {
+            } else if ( ITYPE == 5 ) {
 
                // Symmetric, eigenvalues specified
 
                slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
-            } else if ( ITYPE.EQ.7 ) {
+            } else if ( ITYPE == 7 ) {
 
                // Diagonal, random eigenvalues
 
                IDUMMA( 1 ) = 1
                slatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.8 ) {
+            } else if ( ITYPE == 8 ) {
 
                // Symmetric, random eigenvalues
 
                IDUMMA( 1 ) = 1
                slatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
-            } else if ( ITYPE.EQ.9 ) {
+            } else if ( ITYPE == 9 ) {
 
                // Symmetric banded, eigenvalues specified
 
@@ -570,7 +570,7 @@
                   }
                }
 
-               if ( M2.EQ.0 .AND. N.GT.0 ) {
+               if ( M2 == 0 .AND. N.GT.0 ) {
                   RESULT( 13 ) = ULPINV
                   RESULT( 14 ) = ULPINV
                   RESULT( 15 ) = ULPINV
@@ -769,7 +769,7 @@
                   }
                }
 
-               if ( M2.EQ.0 .AND. N.GT.0 ) {
+               if ( M2 == 0 .AND. N.GT.0 ) {
                   RESULT( 22 ) = ULPINV
                   RESULT( 23 ) = ULPINV
                   RESULT( 24 ) = ULPINV
@@ -825,7 +825,7 @@
             // part of matrix.
 
             for (IUPLO = 0; IUPLO <= 1; IUPLO++) { // 1720
-               if ( IUPLO.EQ.0 ) {
+               if ( IUPLO == 0 ) {
                   UPLO = 'L'
                } else {
                   UPLO = 'U'
@@ -1034,7 +1034,7 @@
                   }
                }
 
-               if ( M3.EQ.0 .AND. N.GT.0 ) {
+               if ( M3 == 0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 700
                }
@@ -1059,7 +1059,7 @@
                // Load array WORK with the upper or lower triangular
                // part of the matrix in packed form.
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 720
                      for (I = 1; I <= J; I++) { // 710
@@ -1097,7 +1097,7 @@
 
                ssyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 760
                      for (I = 1; I <= J; I++) { // 750
@@ -1143,7 +1143,7 @@
                // of the matrix in packed form.
 
                } // 800
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 820
                      for (I = 1; I <= J; I++) { // 810
@@ -1202,7 +1202,7 @@
 
                NTEST = NTEST + 2
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 860
                      for (I = 1; I <= J; I++) { // 850
@@ -1244,7 +1244,7 @@
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
                } // 900
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 920
                      for (I = 1; I <= J; I++) { // 910
@@ -1285,7 +1285,7 @@
 
                NTEST = NTEST + 2
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 960
                      for (I = 1; I <= J; I++) { // 950
@@ -1316,7 +1316,7 @@
                   }
                }
 
-               if ( M3.EQ.0 .AND. N.GT.0 ) {
+               if ( M3 == 0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 990
                }
@@ -1333,7 +1333,7 @@
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
                } // 990
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 1010
                      for (I = 1; I <= J; I++) { // 1000
@@ -1374,7 +1374,7 @@
 
                NTEST = NTEST + 2
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 1050
                      for (I = 1; I <= J; I++) { // 1040
@@ -1405,7 +1405,7 @@
                   }
                }
 
-               if ( M3.EQ.0 .AND. N.GT.0 ) {
+               if ( M3 == 0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 1080
                }
@@ -1436,7 +1436,7 @@
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1100
                      DO 1090 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1470,7 +1470,7 @@
 
                ssyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1140
                      DO 1130 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1512,7 +1512,7 @@
                // of the matrix in band form.
 
                } // 1180
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1200
                      DO 1190 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1548,7 +1548,7 @@
 
                NTEST = NTEST + 2
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1240
                      DO 1230 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1587,7 +1587,7 @@
 
                } // 1280
                NTEST = NTEST + 1
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1300
                      DO 1290 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1622,7 +1622,7 @@
 
                NTEST = NTEST + 2
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1340
                      DO 1330 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1662,7 +1662,7 @@
 
                } // 1370
                NTEST = NTEST + 1
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1390
                      DO 1380 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1697,7 +1697,7 @@
 
                NTEST = NTEST + 2
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1430
                      DO 1420 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1724,7 +1724,7 @@
                   }
                }
 
-               if ( M3.EQ.0 .AND. N.GT.0 ) {
+               if ( M3 == 0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 1460
                }
@@ -1801,7 +1801,7 @@
                // Load array WORK with the upper or lower triangular
                // part of the matrix in packed form.
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 1500
                      for (I = 1; I <= J; I++) { // 1490
@@ -1839,7 +1839,7 @@
 
                ssyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 1540
                      for (I = 1; I <= J; I++) { // 1530
@@ -1896,7 +1896,7 @@
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1600
                      DO 1590 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -1930,7 +1930,7 @@
 
                ssyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1640
                      DO 1630 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
@@ -2103,7 +2103,7 @@
                   }
                }
 
-               if ( M3.EQ.0 .AND. N.GT.0 ) {
+               if ( M3 == 0 .AND. N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 700
                }

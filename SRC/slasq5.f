@@ -43,7 +43,7 @@
 
       // Code for IEEE arithmetic.
 
-            if ( PP.EQ.0 ) {
+            if ( PP == 0 ) {
                DO 10 J4 = 4*I0, 4*( N0-3 ), 4
                   Z( J4-2 ) = D + Z( J4-1 )
                   TEMP = Z( J4+1 ) / Z( J4-2 )
@@ -86,7 +86,7 @@
 
       // Code for non IEEE arithmetic.
 
-            if ( PP.EQ.0 ) {
+            if ( PP == 0 ) {
                DO 30 J4 = 4*I0, 4*( N0-3 ), 4
                   Z( J4-2 ) = D + Z( J4-1 )
                   if ( D.LT.ZERO ) {
@@ -152,7 +152,7 @@
 
       // Code for IEEE arithmetic.
 
-            if ( PP.EQ.0 ) {
+            if ( PP == 0 ) {
                DO 50 J4 = 4*I0, 4*( N0-3 ), 4
                   Z( J4-2 ) = D + Z( J4-1 )
                   TEMP = Z( J4+1 ) / Z( J4-2 )
@@ -197,7 +197,7 @@
 
       // Code for non IEEE arithmetic.
 
-            if ( PP.EQ.0 ) {
+            if ( PP == 0 ) {
                DO 70 J4 = 4*I0, 4*( N0-3 ), 4
                   Z( J4-2 ) = D + Z( J4-1 )
                   if ( D.LT.ZERO ) {

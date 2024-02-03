@@ -40,7 +40,7 @@
       NB = ILAENV( 1, 'CUNGLQ', ' ', M, N, K, -1 )
       LWKOPT = MAX( 1, M )*NB
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.M ) {

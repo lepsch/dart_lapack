@@ -94,12 +94,12 @@
 
       INFO = 0
       WORK( 1 ) = MAX( 1, N )
-      LQUERY = ( LWORK.EQ.-1 )
-      if ( ISCHUR.EQ.0 ) {
+      LQUERY = ( LWORK == -1 )
+      if ( ISCHUR == 0 ) {
          INFO = -1
-      } else if ( ICOMPQ.EQ.0 ) {
+      } else if ( ICOMPQ == 0 ) {
          INFO = -2
-      } else if ( ICOMPZ.EQ.0 ) {
+      } else if ( ICOMPZ == 0 ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
@@ -135,7 +135,7 @@
 
       // Initialize Q and Z
 
-      if (ICOMPQ.EQ.3) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
+      if (ICOMPQ == 3) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )       IF( ICOMPZ == 3 ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
 
       // Machine Constants
 
@@ -216,7 +216,7 @@
 
          // Special case: j=ILAST
 
-         if ( ILAST.EQ.ILO ) {
+         if ( ILAST == ILO ) {
             GO TO 60
          } else {
             if ( ABS1( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( ILAST, ILAST ) ) + ABS1( H( ILAST-1, ILAST-1 ) ) ) ) ) {
@@ -236,7 +236,7 @@
 
             // Test 1: for H(j,j-1)=0 or j=ILO
 
-            if ( J.EQ.ILO ) {
+            if ( J == ILO ) {
                ILAZRO = true;
             } else {
                if ( ABS1( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) ) ) ) {
@@ -413,7 +413,7 @@
 
             // Exceptional shift.  Chosen for no particularly good reason.
 
-            IF( ( IITER / 20 )*20.EQ.IITER .AND.  BSCALE*ABS1(T( ILAST, ILAST )).GT.SAFMIN ) THEN                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) )
+            IF( ( IITER / 20 )*20 == IITER .AND.  BSCALE*ABS1(T( ILAST, ILAST )).GT.SAFMIN ) THEN                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) )
             } else {
                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST-1 ) )/( BSCALE*T( ILAST-1, ILAST-1 ) )
             }

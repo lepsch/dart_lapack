@@ -73,7 +73,7 @@
 
       // ==== Quick return in case of workspace query. ====
 
-      if ( LWORK.EQ.-1 ) {
+      if ( LWORK == -1 ) {
          WORK( 1 ) = DCMPLX( LWKOPT, 0 )
          RETURN
       }
@@ -98,13 +98,13 @@
 
       JW = MIN( NW, KBOT-KTOP+1 )
       KWTOP = KBOT - JW + 1
-      if ( KWTOP.EQ.KTOP ) {
+      if ( KWTOP == KTOP ) {
          S = ZERO
       } else {
          S = H( KWTOP, KWTOP-1 )
       }
 
-      if ( KBOT.EQ.KWTOP ) {
+      if ( KBOT == KWTOP ) {
 
          // ==== 1-by-1 deflation window: not much to do ====
 
@@ -146,7 +146,7 @@
          // ==== Small spike tip deflation test ====
 
          FOO = CABS1( T( NS, NS ) )
-         if ( FOO.EQ.RZERO ) FOO = CABS1( S )          IF( CABS1( S )*CABS1( V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) {
+         if ( FOO == RZERO ) FOO = CABS1( S )          IF( CABS1( S )*CABS1( V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) {
 
             // ==== One more converged eigenvalue ====
 
@@ -164,7 +164,7 @@
 
          // ==== Return to Hessenberg form ====
 
-      if (NS.EQ.0) S = ZERO;
+      if (NS == 0) S = ZERO;
 
       if ( NS.LT.JW ) {
 
@@ -188,7 +188,7 @@
       } // 40
 
 
-      if ( NS.LT.JW .OR. S.EQ.ZERO ) {
+      if ( NS.LT.JW .OR. S == ZERO ) {
          if ( NS.GT.1 .AND. S.NE.ZERO ) {
 
             // ==== Reflect spike back into lower triangle ====

@@ -53,7 +53,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N ).EQ.0 ) {
+      if ( MIN( M, N ) == 0 ) {
          RETURN
       }
 
@@ -116,7 +116,7 @@
          // S(JB), i.e. S(J,J) that is stored in the array element D(J).
 
          for (J = JB; J <= JB+JNB-1; J++) {
-            if ( D( J ).EQ.CONE ) {
+            if ( D( J ) == CONE ) {
                cscal(J-JBTEMP1, -CONE, T( 1, J ), 1 );
             }
          }

@@ -30,13 +30,13 @@
       // ..
       // .. Executable Statements ..
 
-      if ( PRTYPE.EQ.1 ) {
+      if ( PRTYPE == 1 ) {
          for (I = 1; I <= M; I++) { // 20
             for (J = 1; J <= M; J++) { // 10
-               if ( I.EQ.J ) {
+               if ( I == J ) {
                   A( I, J ) = ONE
                   D( I, J ) = ONE
-               } else if ( I.EQ.J-1 ) {
+               } else if ( I == J-1 ) {
                   A( I, J ) = -ONE
                   D( I, J ) = ZERO
                } else {
@@ -48,10 +48,10 @@
 
          for (I = 1; I <= N; I++) { // 40
             for (J = 1; J <= N; J++) { // 30
-               if ( I.EQ.J ) {
+               if ( I == J ) {
                   B( I, J ) = ONE - ALPHA
                   E( I, J ) = ONE
-               } else if ( I.EQ.J-1 ) {
+               } else if ( I == J-1 ) {
                   B( I, J ) = ONE
                   E( I, J ) = ZERO
                } else {
@@ -68,7 +68,7 @@
             } // 50
          } // 60
 
-      } else if ( PRTYPE.EQ.2 .OR. PRTYPE.EQ.3 ) {
+      } else if ( PRTYPE == 2 .OR. PRTYPE == 3 ) {
          for (I = 1; I <= M; I++) { // 80
             for (J = 1; J <= M; J++) { // 70
                if ( I.LE.J ) {
@@ -100,7 +100,7 @@
             } // 110
          } // 120
 
-         if ( PRTYPE.EQ.3 ) {
+         if ( PRTYPE == 3 ) {
             if (QBLCKA.LE.1) QBLCKA = 2;
             DO 130 K = 1, M - 1, QBLCKA
                A( K+1, K+1 ) = A( K, K )
@@ -114,7 +114,7 @@
             } // 140
          }
 
-      } else if ( PRTYPE.EQ.4 ) {
+      } else if ( PRTYPE == 4 ) {
          for (I = 1; I <= M; I++) { // 160
             for (J = 1; J <= M; J++) { // 150
                A( I, J ) = ( HALF-SIN( REAL( I*J ) ) )*TWENTY

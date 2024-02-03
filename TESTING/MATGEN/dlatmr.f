@@ -49,7 +49,7 @@
 
       // Quick return if possible
 
-      if (M.EQ.0 .OR. N.EQ.0) RETURN;
+      if (M == 0 .OR. N == 0) RETURN;
 
       // Decode DIST
 
@@ -156,9 +156,9 @@
       // If inv(DL) is used, check to see if DL has a zero entry.
 
       DZERO = false;
-      if ( IGRADE.EQ.4 .AND. MODEL.EQ.0 ) {
+      if ( IGRADE == 4 .AND. MODEL == 0 ) {
          for (I = 1; I <= M; I++) { // 10
-            IF( DL( I ).EQ.ZERO ) DZERO = true;
+            IF( DL( I ) == ZERO ) DZERO = true;
          } // 10
       }
 
@@ -175,45 +175,45 @@
 
       if ( M.LT.0 ) {
          INFO = -1
-      } else if ( M.NE.N .AND. ISYM.EQ.0 ) {
+      } else if ( M.NE.N .AND. ISYM == 0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( IDIST.EQ.-1 ) {
+      } else if ( IDIST == -1 ) {
          INFO = -3
-      } else if ( ISYM.EQ.-1 ) {
+      } else if ( ISYM == -1 ) {
          INFO = -5
       } else if ( MODE.LT.-6 .OR. MODE.GT.6 ) {
          INFO = -7
       } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. COND.LT.ONE ) {
          INFO = -8
-      } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.-1 ) {
+      } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN == -1 ) {
          INFO = -10
-      } else if ( IGRADE.EQ.-1 .OR. ( IGRADE.EQ.4 .AND. M.NE.N ) .OR. ( ( IGRADE.GE.1 .AND. IGRADE.LE.4 ) .AND. ISYM.EQ.0 ) ) {
+      } else if ( IGRADE == -1 .OR. ( IGRADE == 4 .AND. M.NE.N ) .OR. ( ( IGRADE.GE.1 .AND. IGRADE.LE.4 ) .AND. ISYM == 0 ) ) {
          INFO = -11
-      } else if ( IGRADE.EQ.4 .AND. DZERO ) {
+      } else if ( IGRADE == 4 .AND. DZERO ) {
          INFO = -12
-      } else if ( ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.5 ) .AND. ( MODEL.LT.-6 .OR. MODEL.GT.6 ) ) {
+      } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) .AND. ( MODEL.LT.-6 .OR. MODEL.GT.6 ) ) {
          INFO = -13
-      } else if ( ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.5 ) .AND. ( MODEL.NE.-6 .AND. MODEL.NE.0 .AND. MODEL.NE.6 ) .AND. CONDL.LT.ONE ) {
+      } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) .AND. ( MODEL.NE.-6 .AND. MODEL.NE.0 .AND. MODEL.NE.6 ) .AND. CONDL.LT.ONE ) {
          INFO = -14
-      } else if ( ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) .AND. ( MODER.LT.-6 .OR. MODER.GT.6 ) ) {
+      } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) .AND. ( MODER.LT.-6 .OR. MODER.GT.6 ) ) {
          INFO = -16
-      } else if ( ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) .AND. ( MODER.NE.-6 .AND. MODER.NE.0 .AND. MODER.NE.6 ) .AND. CONDR.LT.ONE ) {
+      } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) .AND. ( MODER.NE.-6 .AND. MODER.NE.0 .AND. MODER.NE.6 ) .AND. CONDR.LT.ONE ) {
          INFO = -17
-      } else if ( IPVTNG.EQ.-1 .OR. ( IPVTNG.EQ.3 .AND. M.NE.N ) .OR. ( ( IPVTNG.EQ.1 .OR. IPVTNG.EQ.2 ) .AND. ISYM.EQ.0 ) ) {
+      } else if ( IPVTNG == -1 .OR. ( IPVTNG == 3 .AND. M.NE.N ) .OR. ( ( IPVTNG == 1 .OR. IPVTNG == 2 ) .AND. ISYM == 0 ) ) {
          INFO = -18
       } else if ( IPVTNG.NE.0 .AND. BADPVT ) {
          INFO = -19
       } else if ( KL.LT.0 ) {
          INFO = -20
-      } else if ( KU.LT.0 .OR. ( ISYM.EQ.0 .AND. KL.NE.KU ) ) {
+      } else if ( KU.LT.0 .OR. ( ISYM == 0 .AND. KL.NE.KU ) ) {
          INFO = -21
       } else if ( SPARSE.LT.ZERO .OR. SPARSE.GT.ONE ) {
          INFO = -22
-      } else if ( IPACK.EQ.-1 .OR. ( ( IPACK.EQ.1 .OR. IPACK.EQ.2 .OR. IPACK.EQ.5 .OR. IPACK.EQ.6 ) .AND. ISYM.EQ.1 ) .OR. ( IPACK.EQ.3 .AND. ISYM.EQ.1 .AND. ( KL.NE.0 .OR. M.NE. N ) ) .OR. ( IPACK.EQ.4 .AND. ISYM.EQ.1 .AND. ( KU.NE. 0 .OR. M.NE.N ) ) ) {
+      } else if ( IPACK == -1 .OR. ( ( IPACK == 1 .OR. IPACK == 2 .OR. IPACK == 5 .OR. IPACK == 6 ) .AND. ISYM == 1 ) .OR. ( IPACK == 3 .AND. ISYM == 1 .AND. ( KL.NE.0 .OR. M.NE. N ) ) .OR. ( IPACK == 4 .AND. ISYM == 1 .AND. ( KU.NE. 0 .OR. M.NE.N ) ) ) {
          INFO = -24
-      } else if ( ( ( IPACK.EQ.0 .OR. IPACK.EQ.1 .OR. IPACK.EQ.2 ) .AND. LDA.LT.MAX( 1, M ) ) .OR. ( ( IPACK.EQ.3 .OR. IPACK.EQ. 4 ) .AND. LDA.LT.1 ) .OR. ( ( IPACK.EQ.5 .OR. IPACK.EQ. 6 ) .AND. LDA.LT.KUU+1 ) .OR. ( IPACK.EQ.7 .AND. LDA.LT.KLL+KUU+1 ) ) {
+      } else if ( ( ( IPACK == 0 .OR. IPACK == 1 .OR. IPACK == 2 ) .AND. LDA.LT.MAX( 1, M ) ) .OR. ( ( IPACK == 3 .OR. IPACK == 4 ) .AND. LDA.LT.1 ) .OR. ( ( IPACK == 5 .OR. IPACK == 6 ) .AND. LDA.LT.KUU+1 ) .OR. ( IPACK == 7 .AND. LDA.LT.KLL+KUU+1 ) ) {
          INFO = -26
       }
 
@@ -225,7 +225,7 @@
       // Decide if we can pivot consistently
 
       FULBND = false;
-      if (KUU.EQ.N-1 .AND. KLL.EQ.M-1) FULBND = true ;
+      if (KUU == N-1 .AND. KLL == M-1) FULBND = true ;
 
       // Initialize random number generator
 
@@ -252,7 +252,7 @@
          for (I = 2; I <= MNMIN; I++) { // 40
             TEMP = MAX( TEMP, ABS( D( I ) ) )
          } // 40
-         if ( TEMP.EQ.ZERO .AND. DMAX.NE.ZERO ) {
+         if ( TEMP == ZERO .AND. DMAX.NE.ZERO ) {
             INFO = 2
             RETURN
          }
@@ -269,7 +269,7 @@
 
       // Compute DL if grading set
 
-      if ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ. 5 ) {
+      if ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) {
          dlatm1(MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO );
          if ( INFO.NE.0 ) {
             INFO = 3
@@ -279,7 +279,7 @@
 
       // Compute DR if grading set
 
-      if ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) {
+      if ( IGRADE == 2 .OR. IGRADE == 3 ) {
          dlatm1(MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO );
          if ( INFO.NE.0 ) {
             INFO = 4
@@ -320,8 +320,8 @@
          // Use DLATM3 so matrices generated with differing PIVOTing only
          // differ only in the order of their rows and/or columns.
 
-         if ( IPACK.EQ.0 ) {
-            if ( ISYM.EQ.0 ) {
+         if ( IPACK == 0 ) {
+            if ( ISYM == 0 ) {
                for (J = 1; J <= N; J++) { // 100
                   for (I = 1; I <= J; I++) { // 90
                      TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -329,7 +329,7 @@
                      A( JSUB, ISUB ) = TEMP
                   } // 90
                } // 100
-            } else if ( ISYM.EQ.1 ) {
+            } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 120
                   for (I = 1; I <= M; I++) { // 110
                      TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -338,7 +338,7 @@
                } // 120
             }
 
-         } else if ( IPACK.EQ.1 ) {
+         } else if ( IPACK == 1 ) {
 
             for (J = 1; J <= N; J++) { // 140
                for (I = 1; I <= J; I++) { // 130
@@ -350,7 +350,7 @@
                } // 130
             } // 140
 
-         } else if ( IPACK.EQ.2 ) {
+         } else if ( IPACK == 2 ) {
 
             for (J = 1; J <= N; J++) { // 160
                for (I = 1; I <= J; I++) { // 150
@@ -362,7 +362,7 @@
                } // 150
             } // 160
 
-         } else if ( IPACK.EQ.3 ) {
+         } else if ( IPACK == 3 ) {
 
             for (J = 1; J <= N; J++) { // 180
                for (I = 1; I <= J; I++) { // 170
@@ -384,7 +384,7 @@
                } // 170
             } // 180
 
-         } else if ( IPACK.EQ.4 ) {
+         } else if ( IPACK == 4 ) {
 
             for (J = 1; J <= N; J++) { // 200
                for (I = 1; I <= J; I++) { // 190
@@ -394,7 +394,7 @@
 
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
-                  if ( MNSUB.EQ.1 ) {
+                  if ( MNSUB == 1 ) {
                      K = MXSUB
                   } else {
                      K = N*( N+1 ) / 2 - ( N-MNSUB+1 )*( N-MNSUB+2 ) / 2 + MXSUB - MNSUB + 1
@@ -409,7 +409,7 @@
                } // 190
             } // 200
 
-         } else if ( IPACK.EQ.5 ) {
+         } else if ( IPACK == 5 ) {
 
             for (J = 1; J <= N; J++) { // 220
                for (I = J - KUU; I <= J; I++) { // 210
@@ -424,7 +424,7 @@
                } // 210
             } // 220
 
-         } else if ( IPACK.EQ.6 ) {
+         } else if ( IPACK == 6 ) {
 
             for (J = 1; J <= N; J++) { // 240
                for (I = J - KUU; I <= J; I++) { // 230
@@ -435,9 +435,9 @@
                } // 230
             } // 240
 
-         } else if ( IPACK.EQ.7 ) {
+         } else if ( IPACK == 7 ) {
 
-            if ( ISYM.EQ.0 ) {
+            if ( ISYM == 0 ) {
                for (J = 1; J <= N; J++) { // 260
                   for (I = J - KUU; I <= J; I++) { // 250
                      TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -447,7 +447,7 @@
                      if (I.LT.1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. MNSUB.NE.MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP;
                   } // 250
                } // 260
-            } else if ( ISYM.EQ.1 ) {
+            } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 280
                   for (I = J - KUU; I <= J + KLL; I++) { // 270
                      TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -462,15 +462,15 @@
 
          // Use DLATM2
 
-         if ( IPACK.EQ.0 ) {
-            if ( ISYM.EQ.0 ) {
+         if ( IPACK == 0 ) {
+            if ( ISYM == 0 ) {
                for (J = 1; J <= N; J++) { // 300
                   for (I = 1; I <= J; I++) { // 290
                      A( I, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( J, I ) = A( I, J )
                   } // 290
                } // 300
-            } else if ( ISYM.EQ.1 ) {
+            } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 320
                   for (I = 1; I <= M; I++) { // 310
                      A( I, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -478,7 +478,7 @@
                } // 320
             }
 
-         } else if ( IPACK.EQ.1 ) {
+         } else if ( IPACK == 1 ) {
 
             for (J = 1; J <= N; J++) { // 340
                for (I = 1; I <= J; I++) { // 330
@@ -486,7 +486,7 @@
                } // 330
             } // 340
 
-         } else if ( IPACK.EQ.2 ) {
+         } else if ( IPACK == 2 ) {
 
             for (J = 1; J <= N; J++) { // 360
                for (I = 1; I <= J; I++) { // 350
@@ -494,7 +494,7 @@
                } // 350
             } // 360
 
-         } else if ( IPACK.EQ.3 ) {
+         } else if ( IPACK == 3 ) {
 
             ISUB = 0
             JSUB = 1
@@ -509,15 +509,15 @@
                } // 370
             } // 380
 
-         } else if ( IPACK.EQ.4 ) {
+         } else if ( IPACK == 4 ) {
 
-            if ( ISYM.EQ.0 ) {
+            if ( ISYM == 0 ) {
                for (J = 1; J <= N; J++) { // 400
                   for (I = 1; I <= J; I++) { // 390
 
                      // Compute K = location of (I,J) entry in packed array
 
-                     if ( I.EQ.1 ) {
+                     if ( I == 1 ) {
                         K = J
                      } else {
                         K = N*( N+1 ) / 2 - ( N-I+1 )*( N-I+2 ) / 2 + J - I + 1
@@ -546,7 +546,7 @@
                } // 420
             }
 
-         } else if ( IPACK.EQ.5 ) {
+         } else if ( IPACK == 5 ) {
 
             for (J = 1; J <= N; J++) { // 440
                for (I = J - KUU; I <= J; I++) { // 430
@@ -558,7 +558,7 @@
                } // 430
             } // 440
 
-         } else if ( IPACK.EQ.6 ) {
+         } else if ( IPACK == 6 ) {
 
             for (J = 1; J <= N; J++) { // 460
                for (I = J - KUU; I <= J; I++) { // 450
@@ -566,16 +566,16 @@
                } // 450
             } // 460
 
-         } else if ( IPACK.EQ.7 ) {
+         } else if ( IPACK == 7 ) {
 
-            if ( ISYM.EQ.0 ) {
+            if ( ISYM == 0 ) {
                for (J = 1; J <= N; J++) { // 480
                   for (I = J - KUU; I <= J; I++) { // 470
                      A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      if (I.LT.1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. I.NE.J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J );
                   } // 470
                } // 480
-            } else if ( ISYM.EQ.1 ) {
+            } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 500
                   for (I = J - KUU; I <= J + KLL; I++) { // 490
                      A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -589,27 +589,27 @@
 
       // 5)      Scaling the norm
 
-      if ( IPACK.EQ.0 ) {
+      if ( IPACK == 0 ) {
          ONORM = DLANGE( 'M', M, N, A, LDA, TEMPA )
-      } else if ( IPACK.EQ.1 ) {
+      } else if ( IPACK == 1 ) {
          ONORM = DLANSY( 'M', 'U', N, A, LDA, TEMPA )
-      } else if ( IPACK.EQ.2 ) {
+      } else if ( IPACK == 2 ) {
          ONORM = DLANSY( 'M', 'L', N, A, LDA, TEMPA )
-      } else if ( IPACK.EQ.3 ) {
+      } else if ( IPACK == 3 ) {
          ONORM = DLANSP( 'M', 'U', N, A, TEMPA )
-      } else if ( IPACK.EQ.4 ) {
+      } else if ( IPACK == 4 ) {
          ONORM = DLANSP( 'M', 'L', N, A, TEMPA )
-      } else if ( IPACK.EQ.5 ) {
+      } else if ( IPACK == 5 ) {
          ONORM = DLANSB( 'M', 'L', N, KLL, A, LDA, TEMPA )
-      } else if ( IPACK.EQ.6 ) {
+      } else if ( IPACK == 6 ) {
          ONORM = DLANSB( 'M', 'U', N, KUU, A, LDA, TEMPA )
-      } else if ( IPACK.EQ.7 ) {
+      } else if ( IPACK == 7 ) {
          ONORM = DLANGB( 'M', N, KLL, KUU, A, LDA, TEMPA )
       }
 
       if ( ANORM.GE.ZERO ) {
 
-         if ( ANORM.GT.ZERO .AND. ONORM.EQ.ZERO ) {
+         if ( ANORM.GT.ZERO .AND. ONORM == ZERO ) {
 
             // Desired scaling impossible
 
@@ -626,7 +626,7 @@
                   dscal(M, ANORM, A( 1, J ), 1 );
                } // 510
 
-            } else if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
+            } else if ( IPACK == 3 .OR. IPACK == 4 ) {
 
                dscal(N*( N+1 ) / 2, ONE / ONORM, A, 1 );
                dscal(N*( N+1 ) / 2, ANORM, A, 1 );
@@ -649,7 +649,7 @@
                   dscal(M, ANORM / ONORM, A( 1, J ), 1 );
                } // 530
 
-            } else if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
+            } else if ( IPACK == 3 .OR. IPACK == 4 ) {
 
                dscal(N*( N+1 ) / 2, ANORM / ONORM, A, 1 );
 

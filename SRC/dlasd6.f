@@ -97,7 +97,7 @@
 
       // Save the poles if ICOMPQ = 1.
 
-      if ( ICOMPQ.EQ.1 ) {
+      if ( ICOMPQ == 1 ) {
          dcopy(K, D, 1, POLES( 1, 1 ), 1 );
          dcopy(K, WORK( ISIGMA ), 1, POLES( 1, 2 ), 1 );
       }

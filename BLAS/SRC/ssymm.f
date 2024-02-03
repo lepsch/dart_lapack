@@ -69,12 +69,12 @@
 
       // Quick return if possible.
 
-      IF ((M.EQ.0) .OR. (N.EQ.0) .OR. ((ALPHA.EQ.ZERO).AND. (BETA.EQ.ONE))) RETURN
+      IF ((M == 0) .OR. (N == 0) .OR. ((ALPHA == ZERO).AND. (BETA == ONE))) RETURN
 
-      // And when  alpha.eq.zero.
+      // And when  alpha == zero.
 
-      if (ALPHA.EQ.ZERO) {
-          if (BETA.EQ.ZERO) {
+      if (ALPHA == ZERO) {
+          if (BETA == ZERO) {
               for (J = 1; J <= N; J++) { // 20
                   for (I = 1; I <= M; I++) { // 10
                       C(I,J) = ZERO
@@ -105,7 +105,7 @@
                           C(K,J) = C(K,J) + TEMP1*A(K,I)
                           TEMP2 = TEMP2 + B(K,J)*A(K,I)
                       } // 50
-                      if (BETA.EQ.ZERO) {
+                      if (BETA == ZERO) {
                           C(I,J) = TEMP1*A(I,I) + ALPHA*TEMP2
                       } else {
                           C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) + ALPHA*TEMP2
@@ -121,7 +121,7 @@
                           C(K,J) = C(K,J) + TEMP1*A(K,I)
                           TEMP2 = TEMP2 + B(K,J)*A(K,I)
                       } // 80
-                      if (BETA.EQ.ZERO) {
+                      if (BETA == ZERO) {
                           C(I,J) = TEMP1*A(I,I) + ALPHA*TEMP2
                       } else {
                           C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) + ALPHA*TEMP2
@@ -135,7 +135,7 @@
 
           for (J = 1; J <= N; J++) { // 170
               TEMP1 = ALPHA*A(J,J)
-              if (BETA.EQ.ZERO) {
+              if (BETA == ZERO) {
                   for (I = 1; I <= M; I++) { // 110
                       C(I,J) = TEMP1*B(I,J)
                   } // 110

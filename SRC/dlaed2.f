@@ -57,7 +57,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       N2 = N - N1
       N1P1 = N1 + 1
@@ -142,7 +142,7 @@
             K2 = K2 - 1
             COLTYP( NJ ) = 4
             INDXP( K2 ) = NJ
-            if (J.EQ.N) GO TO 100;
+            if (J == N) GO TO 100;
          } else {
             PJ = NJ
             GO TO 80

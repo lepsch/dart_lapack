@@ -62,7 +62,7 @@
          xerbla('CHETRI2X', -INFO );
          RETURN
       }
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Convert A
       // Workspace got Non-diag elements of D
@@ -76,14 +76,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ) == ZERO ) RETURN
          }
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) {
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ) == ZERO ) RETURN
          }
       }
       INFO = 0
@@ -144,7 +144,7 @@
                   IF (IPIV(I) .LT. 0) COUNT=COUNT+1
               }
               // need a even number for a clear cut
-              IF (MOD(COUNT,2) .EQ. 1) NNB=NNB+1
+              IF (MOD(COUNT,2) == 1) NNB=NNB+1
            }
 
            CUT=CUT-NNB
@@ -309,7 +309,7 @@
                   IF (IPIV(I) .LT. 0) COUNT=COUNT+1
               }
               // need a even number for a clear cut
-              IF (MOD(COUNT,2) .EQ. 1) NNB=NNB+1
+              IF (MOD(COUNT,2) == 1) NNB=NNB+1
            }
        // L21 Block
            for (I = 1; I <= N-CUT-NNB; I++) {

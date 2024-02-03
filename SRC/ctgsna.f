@@ -54,7 +54,7 @@
       SOMCON = LSAME( HOWMNY, 'S' )
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       if ( .NOT.WANTS .AND. .NOT.WANTDF ) {
          INFO = -1
@@ -84,7 +84,7 @@
             M = N
          }
 
-         if ( N.EQ.0 ) {
+         if ( N == 0 ) {
             LWMIN = 1
          } else if ( LSAME( JOB, 'V' ) .OR. LSAME( JOB, 'B' ) ) {
             LWMIN = 2*N*N
@@ -109,7 +109,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Get machine constants
 
@@ -140,7 +140,7 @@
             cgemv('N', N, N, CMPLX( ONE, ZERO ), B, LDB, VR( 1, KS ), 1, CMPLX( ZERO, ZERO ), WORK, 1 );
             YHBX = CDOTC( N, WORK, 1, VL( 1, KS ), 1 )
             COND = SLAPY2( ABS( YHAX ), ABS( YHBX ) )
-            if ( COND.EQ.ZERO ) {
+            if ( COND == ZERO ) {
                S( KS ) = -ONE
             } else {
                S( KS ) = COND / ( RNRM*LNRM )
@@ -148,7 +148,7 @@
          }
 
          if ( WANTDF ) {
-            if ( N.EQ.1 ) {
+            if ( N == 1 ) {
                DIF( KS ) = SLAPY2( ABS( A( 1, 1 ) ), ABS( B( 1, 1 ) ) )
             } else {
 

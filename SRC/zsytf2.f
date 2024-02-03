@@ -99,12 +99,12 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO .OR. DISNAN(ABSAKK) ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO .OR. DISNAN(ABSAKK) ) {
 
             // Column K is zero or underflow, or contains a NaN:
             // set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
          } else {
             if ( ABSAKK.GE.ALPHA*COLMAX ) {
@@ -156,7 +156,7 @@
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
-               if ( KSTEP.EQ.2 ) {
+               if ( KSTEP == 2 ) {
                   T = A( K-1, K )
                   A( K-1, K ) = A( KP, K )
                   A( KP, K ) = T
@@ -165,7 +165,7 @@
 
             // Update the leading submatrix
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -222,7 +222,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP
@@ -265,12 +265,12 @@
             COLMAX = ZERO
          }
 
-         if ( MAX( ABSAKK, COLMAX ).EQ.ZERO .OR. DISNAN(ABSAKK) ) {
+         if ( MAX( ABSAKK, COLMAX ) == ZERO .OR. DISNAN(ABSAKK) ) {
 
             // Column K is zero or underflow, or contains a NaN:
             // set INFO and continue
 
-            if (INFO.EQ.0) INFO = K;
+            if (INFO == 0) INFO = K;
             KP = K
          } else {
             if ( ABSAKK.GE.ALPHA*COLMAX ) {
@@ -322,7 +322,7 @@
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
-               if ( KSTEP.EQ.2 ) {
+               if ( KSTEP == 2 ) {
                   T = A( K+1, K )
                   A( K+1, K ) = A( KP, K )
                   A( KP, K ) = T
@@ -331,7 +331,7 @@
 
             // Update the trailing submatrix
 
-            if ( KSTEP.EQ.1 ) {
+            if ( KSTEP == 1 ) {
 
                // 1-by-1 pivot block D(k): column k now holds
 
@@ -387,7 +387,7 @@
 
          // Store details of the interchanges in IPIV
 
-         if ( KSTEP.EQ.1 ) {
+         if ( KSTEP == 1 ) {
             IPIV( K ) = KP
          } else {
             IPIV( K ) = -KP

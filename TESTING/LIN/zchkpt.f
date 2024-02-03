@@ -137,7 +137,7 @@
 
                   // Make the tridiagonal matrix diagonally dominant.
 
-                  if ( N.EQ.1 ) {
+                  if ( N == 1 ) {
                      D( 1 ) = ABS( D( 1 ) )
                   } else {
                      D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) )
@@ -159,10 +159,10 @@
                   // Reuse the last matrix by copying back the zeroed out
                   // elements.
 
-                  if ( IZERO.EQ.1 ) {
+                  if ( IZERO == 1 ) {
                      D( 1 ) = DBLE( Z( 2 ) )
                      if (N.GT.1) E( 1 ) = Z( 3 );
-                  } else if ( IZERO.EQ.N ) {
+                  } else if ( IZERO == N ) {
                      E( N-1 ) = Z( 1 )
                      D( N ) = DBLE( Z( 2 ) )
                   } else {
@@ -176,7 +176,7 @@
                // zero.
 
                IZERO = 0
-               if ( IMAT.EQ.8 ) {
+               if ( IMAT == 8 ) {
                   IZERO = 1
                   Z( 2 ) = D( 1 )
                   D( 1 ) = ZERO
@@ -184,7 +184,7 @@
                      Z( 3 ) = E( 1 )
                      E( 1 ) = ZERO
                   }
-               } else if ( IMAT.EQ.9 ) {
+               } else if ( IMAT == 9 ) {
                   IZERO = N
                   if ( N.GT.1 ) {
                      Z( 1 ) = E( N-1 )
@@ -192,7 +192,7 @@
                   }
                   Z( 2 ) = D( N )
                   D( N ) = ZERO
-               } else if ( IMAT.EQ.10 ) {
+               } else if ( IMAT == 10 ) {
                   IZERO = ( N+1 ) / 2
                   if ( IZERO.GT.1 ) {
                      Z( 1 ) = E( IZERO-1 )
@@ -231,7 +231,7 @@
             // Print the test ratio if greater than or equal to THRESH.
 
             if ( RESULT( 1 ).GE.THRESH ) {
-               if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH );
+               if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 )
                NFAIL = NFAIL + 1
             }
@@ -314,7 +314,7 @@
 
                   for (K = 2; K <= 6; K++) { // 70
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 70
@@ -340,7 +340,7 @@
             // Print the test ratio if greater than or equal to THRESH.
 
             if ( RESULT( 7 ).GE.THRESH ) {
-               if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH );
+               if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 7, RESULT( 7 )
                NFAIL = NFAIL + 1
             }

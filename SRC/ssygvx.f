@@ -46,7 +46,7 @@
       ALLEIG = LSAME( RANGE, 'A' )
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       INFO = 0
       if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
@@ -74,13 +74,13 @@
             }
          }
       }
-      if (INFO.EQ.0) {
+      if (INFO == 0) {
          if (LDZ.LT.1 .OR. (WANTZ .AND. LDZ.LT.N)) {
             INFO = -18
          }
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          LWKMIN = MAX( 1, 8*N )
          NB = ILAENV( 1, 'SSYTRD', UPLO, N, -1, -1, -1 )
          LWKOPT = MAX( LWKMIN, ( NB + 3 )*N )
@@ -101,7 +101,7 @@
       // Quick return if possible
 
       M = 0
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          RETURN
       }
 
@@ -123,7 +123,7 @@
          // Backtransform eigenvectors to the original problem.
 
          if (INFO.GT.0) M = INFO - 1;
-         if ( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) {
+         if ( ITYPE == 1 .OR. ITYPE == 2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
             // backtransform eigenvectors: x = inv(L)**T*y or inv(U)*y
@@ -136,7 +136,7 @@
 
             strsm('Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B, LDB, Z, LDZ );
 
-         } else if ( ITYPE.EQ.3 ) {
+         } else if ( ITYPE == 3 ) {
 
             // For B*A*x=(lambda)*x;
             // backtransform eigenvectors: x = L*y or U**T*y

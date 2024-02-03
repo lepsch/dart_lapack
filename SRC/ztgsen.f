@@ -48,7 +48,7 @@
       // Decode and test the input parameters
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
 
       if ( IJOB.LT.0 .OR. IJOB.GT.5 ) {
          INFO = -1
@@ -71,9 +71,9 @@
 
       IERR = 0
 
-      WANTP = IJOB.EQ.1 .OR. IJOB.GE.4
-      WANTD1 = IJOB.EQ.2 .OR. IJOB.EQ.4
-      WANTD2 = IJOB.EQ.3 .OR. IJOB.EQ.5
+      WANTP = IJOB == 1 .OR. IJOB.GE.4
+      WANTD1 = IJOB == 2 .OR. IJOB == 4
+      WANTD2 = IJOB == 3 .OR. IJOB == 5
       WANTD = WANTD1 .OR. WANTD2
 
       // Set M to the dimension of the specified pair of deflating
@@ -92,10 +92,10 @@
       } // 10
       }
 
-      if ( IJOB.EQ.1 .OR. IJOB.EQ.2 .OR. IJOB.EQ.4 ) {
+      if ( IJOB == 1 .OR. IJOB == 2 .OR. IJOB == 4 ) {
          LWMIN = MAX( 1, 2*M*( N-M ) )
          LIWMIN = MAX( 1, N+2 )
-      } else if ( IJOB.EQ.3 .OR. IJOB.EQ.5 ) {
+      } else if ( IJOB == 3 .OR. IJOB == 5 ) {
          LWMIN = MAX( 1, 4*M*( N-M ) )
          LIWMIN = MAX( 1, 2*M*( N-M ), N+2 )
       } else {
@@ -121,7 +121,7 @@
 
       // Quick return if possible.
 
-      if ( M.EQ.N .OR. M.EQ.0 ) {
+      if ( M == N .OR. M == 0 ) {
          if ( WANTP ) {
             PL = ONE
             PR = ONE
@@ -194,7 +194,7 @@
          DSUM = ONE
          zlassq(N1*N2, WORK, 1, RDSCAL, DSUM );
          PL = RDSCAL*SQRT( DSUM )
-         if ( PL.EQ.ZERO ) {
+         if ( PL == ZERO ) {
             PL = ONE
          } else {
             PL = DSCALE / ( SQRT( DSCALE*DSCALE / PL+PL )*SQRT( PL ) )
@@ -203,7 +203,7 @@
          DSUM = ONE
          zlassq(N1*N2, WORK( N1*N2+1 ), 1, RDSCAL, DSUM );
          PR = RDSCAL*SQRT( DSUM )
-         if ( PR.EQ.ZERO ) {
+         if ( PR == ZERO ) {
             PR = ONE
          } else {
             PR = DSCALE / ( SQRT( DSCALE*DSCALE / PR+PR )*SQRT( PR ) )
@@ -245,7 +245,7 @@
             } // 40
             zlacn2(MN2, WORK( MN2+1 ), WORK, DIF( 1 ), KASE, ISAVE );
             if ( KASE.NE.0 ) {
-               if ( KASE.EQ.1 ) {
+               if ( KASE == 1 ) {
 
                   // Solve generalized Sylvester equation
 
@@ -265,7 +265,7 @@
             } // 50
             zlacn2(MN2, WORK( MN2+1 ), WORK, DIF( 2 ), KASE, ISAVE );
             if ( KASE.NE.0 ) {
-               if ( KASE.EQ.1 ) {
+               if ( KASE == 1 ) {
 
                   // Solve generalized Sylvester equation
 

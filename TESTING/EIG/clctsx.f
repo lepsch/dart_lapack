@@ -35,7 +35,7 @@
          } else {
             CLCTSX = true;
          }
-         if ( I.EQ.MPLUSN ) {
+         if ( I == MPLUSN ) {
             FS = false;
             I = 0
          }
@@ -46,13 +46,13 @@
          } else {
             CLCTSX = false;
          }
-         if ( I.EQ.MPLUSN ) {
+         if ( I == MPLUSN ) {
             FS = true;
             I = 0
          }
       }
 
-       // IF( BETA.EQ.CZERO ) THEN
+       // IF( BETA == CZERO ) THEN
           // CLCTSX = ( REAL( ALPHA ).GT.ZERO )
        // ELSE
           // CLCTSX = ( REAL( ALPHA/BETA ).GT.ZERO )

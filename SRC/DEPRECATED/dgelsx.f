@@ -63,7 +63,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N, NRHS ).EQ.0 ) {
+      if ( MIN( M, N, NRHS ) == 0 ) {
          RANK = 0
          RETURN
       }
@@ -89,7 +89,7 @@
 
          dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
-      } else if ( ANRM.EQ.ZERO ) {
+      } else if ( ANRM == ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
@@ -128,7 +128,7 @@
       WORK( ISMAX ) = ONE
       SMAX = ABS( A( 1, 1 ) )
       SMIN = SMAX
-      if ( ABS( A( 1, 1 ) ).EQ.ZERO ) {
+      if ( ABS( A( 1, 1 ) ) == ZERO ) {
          RANK = 0
          dlaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
          GO TO 100
@@ -199,7 +199,7 @@
             WORK( 2*MN+I ) = NTDONE
          } // 60
          for (I = 1; I <= N; I++) { // 80
-            if ( WORK( 2*MN+I ).EQ.NTDONE ) {
+            if ( WORK( 2*MN+I ) == NTDONE ) {
                if ( JPVT( I ).NE.I ) {
                   K = I
                   T1 = B( K, J )
@@ -220,16 +220,16 @@
 
       // Undo scaling
 
-      if ( IASCL.EQ.1 ) {
+      if ( IASCL == 1 ) {
          dlascl('G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO );
          dlascl('U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA, INFO );
-      } else if ( IASCL.EQ.2 ) {
+      } else if ( IASCL == 2 ) {
          dlascl('G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO );
          dlascl('U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA, INFO );
       }
-      if ( IBSCL.EQ.1 ) {
+      if ( IBSCL == 1 ) {
          dlascl('G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO );
-      } else if ( IBSCL.EQ.2 ) {
+      } else if ( IBSCL == 2 ) {
          dlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 

@@ -51,10 +51,10 @@
 
       // Quick return if possible
 
-      if ( K.EQ.1 ) {
+      if ( K == 1 ) {
          D( 1 ) = ABS( Z( 1 ) )
          DIFL( 1 ) = D( 1 )
-         if ( ICOMPQ.EQ.1 ) {
+         if ( ICOMPQ == 1 ) {
             DIFL( 2 ) = ONE
             DIFR( 1, 2 ) = ONE
          }
@@ -132,7 +132,7 @@
          TEMP = DNRM2( K, WORK, 1 )
          WORK( IWK2I+J ) = DDOT( K, WORK, 1, VF, 1 ) / TEMP
          WORK( IWK3I+J ) = DDOT( K, WORK, 1, VL, 1 ) / TEMP
-         if ( ICOMPQ.EQ.1 ) {
+         if ( ICOMPQ == 1 ) {
             DIFR( J, 2 ) = TEMP
          }
       } // 80

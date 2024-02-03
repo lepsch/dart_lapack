@@ -64,9 +64,9 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          if ( LOWER ) {
             W( 1 ) = DBLE( AB( 1, 1 ) )
          } else {
@@ -96,7 +96,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      if ( ISCALE.EQ.1 ) {
+      if ( ISCALE == 1 ) {
          if ( LOWER ) {
             zlascl('B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          } else {
@@ -120,8 +120,8 @@
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      if ( ISCALE.EQ.1 ) {
-         if ( INFO.EQ.0 ) {
+      if ( ISCALE == 1 ) {
+         if ( INFO == 0 ) {
             IMAX = N
          } else {
             IMAX = INFO - 1

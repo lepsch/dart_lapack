@@ -94,7 +94,7 @@
         // following subroutine, as returned by ILAENV.
 
       MINWRK = 1
-      if ( INFO.EQ.0 .AND. LWORK.GE.1 ) {
+      if ( INFO == 0 .AND. LWORK.GE.1 ) {
          MINWRK = MAX( 10*( NMAX+1 ), 3*NMAX*NMAX )
          NB = MAX( 1, ILAENV( 1, 'DGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'DORMQR', 'LT', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'DORGQR', ' ', NMAX, NMAX, NMAX, -1 ) )
          MAXWRK = MAX( 10*( NMAX+1 ), 2*NMAX+NMAX*NB, 3*NMAX*NMAX )
@@ -110,7 +110,7 @@
 
       // Quick return if possible
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       SAFMIN = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
@@ -189,7 +189,7 @@
 
                // Generate A (w/o rotation)
 
-               if ( ABS( KATYPE( JTYPE ) ).EQ.3 ) {
+               if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   if (IN.NE.N) CALL DLASET( 'Full', N, N, ZERO, ZERO, A, LDA );
                } else {
@@ -201,7 +201,7 @@
 
                // Generate B (w/o rotation)
 
-               if ( ABS( KBTYPE( JTYPE ) ).EQ.3 ) {
+               if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   if (IN.NE.N) CALL DLASET( 'Full', N, N, ZERO, ZERO, B, LDA );
                } else {
@@ -211,7 +211,7 @@
                IADD = KADD( KBZERO( JTYPE ) )
                if (IADD.NE.0 .AND. IADD.LE.N) B( IADD, IADD ) = ONE;
 
-               if ( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) {
+               if ( KCLASS( JTYPE ) == 2 .AND. N.GT.0 ) {
 
                   // Include rotations
 
@@ -277,7 +277,7 @@
             // Test with and without sorting of eigenvalues
 
             for (ISORT = 0; ISORT <= 1; ISORT++) { // 150
-               if ( ISORT.EQ.0 ) {
+               if ( ISORT == 0 ) {
                   SORT = 'N'
                   RSUB = 0
                } else {
@@ -311,7 +311,7 @@
 
                // Do tests 1--4 (or tests 7--9 when reordering )
 
-               if ( ISORT.EQ.0 ) {
+               if ( ISORT == 0 ) {
                   dget51(1, N, A, LDA, S, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 1 ) );
                   dget51(1, N, B, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 2 ) );
                } else {
@@ -329,7 +329,7 @@
 
                for (J = 1; J <= N; J++) { // 130
                   ILABAD = false;
-                  if ( ALPHAI( J ).EQ.ZERO ) {
+                  if ( ALPHAI( J ) == ZERO ) {
                      TEMP2 = ( ABS( ALPHAR( J )-S( J, J ) ) / MAX( SAFMIN, ABS( ALPHAR( J ) ), ABS( S( J, J ) ) )+ABS( BETA( J )-T( J, J ) ) / MAX( SAFMIN, ABS( BETA( J ) ), ABS( T( J, J ) ) ) ) / ULP
 
                      if ( J.LT.N ) {
@@ -420,7 +420,7 @@
                   // If this is the first test to fail,
                   // print a header to the data file.
 
-                  if ( NERRS.EQ.0 ) {
+                  if ( NERRS == 0 ) {
                      WRITE( NOUNIT, FMT = 9996 )'DGS'
 
                      // Matrix types

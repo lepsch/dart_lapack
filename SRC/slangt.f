@@ -44,11 +44,11 @@
          for (I = 1; I <= N - 1; I++) { // 10
             IF( ANORM.LT.ABS( DL( I ) ) .OR. SISNAN( ABS( DL( I ) ) ) ) ANORM = ABS(DL(I))             IF( ANORM.LT.ABS( D( I ) ) .OR. SISNAN( ABS( D( I ) ) ) ) ANORM = ABS(D(I))             IF( ANORM.LT.ABS( DU( I ) ) .OR. SISNAN (ABS( DU( I ) ) ) ) ANORM = ABS(DU(I))
          } // 10
-      } else if ( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' ) {
+      } else if ( LSAME( NORM, 'O' ) .OR. NORM == '1' ) {
 
          // Find norm1(A).
 
-         if ( N.EQ.1 ) {
+         if ( N == 1 ) {
             ANORM = ABS( D( 1 ) )
          } else {
             ANORM = ABS( D( 1 ) )+ABS( DL( 1 ) )
@@ -63,7 +63,7 @@
 
          // Find normI(A).
 
-         if ( N.EQ.1 ) {
+         if ( N == 1 ) {
             ANORM = ABS( D( 1 ) )
          } else {
             ANORM = ABS( D( 1 ) )+ABS( DU( 1 ) )

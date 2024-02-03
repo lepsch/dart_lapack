@@ -43,7 +43,7 @@
 
       // IF( ICOMPQ .LT. 0 .OR. ICOMPQ .GT. 2 ) THEN
          // INFO = -1
-      // ELSE IF( ( ICOMPQ .EQ. 1 ) .AND. ( QSIZ .LT. MAX( 0, N ) ) )
+      // ELSE IF( ( ICOMPQ == 1 ) .AND. ( QSIZ .LT. MAX( 0, N ) ) )
 *    $        THEN
       if ( QSIZ.LT.MAX( 0, N ) ) {
          INFO = -1
@@ -61,7 +61,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       SMLSIZ = ILAENV( 9, 'CLAED0', ' ', 0, 0, 0, 0 )
 
@@ -125,7 +125,7 @@
 
       CURR = 0
       for (I = 0; I <= SPM1; I++) { // 70
-         if ( I.EQ.0 ) {
+         if ( I == 0 ) {
             SUBMAT = 1
             MATSIZ = IWORK( 1 )
          } else {
@@ -158,7 +158,7 @@
       if ( SUBPBS.GT.1 ) {
          SPM2 = SUBPBS - 2
          DO 90 I = 0, SPM2, 2
-            if ( I.EQ.0 ) {
+            if ( I == 0 ) {
                SUBMAT = 1
                MATSIZ = IWORK( 2 )
                MSD2 = IWORK( 1 )

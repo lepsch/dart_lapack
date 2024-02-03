@@ -73,7 +73,7 @@
 
       // ==== Quick return for N = 0: nothing to do. ====
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          WORK( 1 ) = ONE
          RETURN
       }
@@ -137,7 +137,7 @@
 
          // ==== Quick return in case of workspace query. ====
 
-         if ( LWORK.EQ.-1 ) {
+         if ( LWORK == -1 ) {
             WORK( 1 ) = CMPLX( LWKOPT, 0 )
             RETURN
          }
@@ -194,7 +194,7 @@
             // ==== Locate active block ====
 
             DO 10 K = KBOT, ILO + 1, -1
-               IF( H( K, K-1 ).EQ.ZERO ) GO TO 20
+               IF( H( K, K-1 ) == ZERO ) GO TO 20
             } // 10
             K = ILO
             } // 20
@@ -274,7 +274,7 @@
             // .    skipped if many eigenvalues have just been deflated
             // .    or if the remaining active block is small.
 
-            if ( ( LD.EQ.0 ) .OR. ( ( 100*LD.LE.NW*NIBBLE ) .AND. ( KBOT- KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) {
+            if ( ( LD == 0 ) .OR. ( ( 100*LD.LE.NW*NIBBLE ) .AND. ( KBOT- KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) {
 
                // ==== NS = nominal number of simultaneous shifts.
                // .    This may be lowered (slightly) if CLAQR3
@@ -290,7 +290,7 @@
                // .    CLAQR3 above or from the eigenvalues
                // .    of a trailing principal submatrix. ====
 
-               if ( MOD( NDFL, KEXSH ).EQ.0 ) {
+               if ( MOD( NDFL, KEXSH ) == 0 ) {
                   KS = KBOT - NS + 1
                   DO 30 I = KBOT, KS + 1, -2
                      W( I ) = H( I, I ) + WILK1*CABS1( H( I, I-1 ) )
@@ -362,7 +362,7 @@
                // ==== If there are only two shifts, then use
                // .    only one.  ====
 
-               if ( KBOT-KS+1.EQ.2 ) {
+               if ( KBOT-KS+1 == 2 ) {
                   if ( CABS1( W( KBOT )-H( KBOT, KBOT ) ).LT. CABS1( W( KBOT-1 )-H( KBOT, KBOT ) ) ) {
                      W( KBOT-1 ) = W( KBOT )
                   } else {

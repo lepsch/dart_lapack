@@ -69,7 +69,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( IJOBVL.LE.0 ) {
          INFO = -1
       } else if ( IJOBVR.LE.0 ) {
@@ -94,7 +94,7 @@
         // following subroutine, as returned by ILAENV. The workspace is
         // computed assuming ILO = 1 and IHI = N, the worst case.)
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          MINWRK = MAX( 1, 8*N )
          MAXWRK = MAX( 1, N*( 7 + ILAENV( 1, 'DGEQRF', ' ', N, 1, N, 0 ) ) )          MAXWRK = MAX( MAXWRK, N*( 7 + ILAENV( 1, 'DORMQR', ' ', N, 1, N, 0 ) ) )
          if ( ILVL ) {
@@ -114,7 +114,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Get machine constants
 
@@ -252,7 +252,7 @@
             for (JC = 1; JC <= N; JC++) { // 50
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 50
                TEMP = ZERO
-               if ( ALPHAI( JC ).EQ.ZERO ) {
+               if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 10
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
                   } // 10
@@ -263,7 +263,7 @@
                }
                if (TEMP.LT.SMLNUM) GO TO 50;
                TEMP = ONE / TEMP
-               if ( ALPHAI( JC ).EQ.ZERO ) {
+               if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 30
                      VL( JR, JC ) = VL( JR, JC )*TEMP
                   } // 30
@@ -280,7 +280,7 @@
             for (JC = 1; JC <= N; JC++) { // 100
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 100
                TEMP = ZERO
-               if ( ALPHAI( JC ).EQ.ZERO ) {
+               if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 60
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
                   } // 60
@@ -291,7 +291,7 @@
                }
                if (TEMP.LT.SMLNUM) GO TO 100;
                TEMP = ONE / TEMP
-               if ( ALPHAI( JC ).EQ.ZERO ) {
+               if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 80
                      VR( JR, JC ) = VR( JR, JC )*TEMP
                   } // 80

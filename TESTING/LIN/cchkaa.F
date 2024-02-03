@@ -192,7 +192,7 @@ void main() {
       for (I = 1; I <= NNB; I++) { // 60
          NB = NBVAL( I )
          for (J = 1; J <= NNB2; J++) { // 50
-            IF( NB.EQ.NBVAL2( J ) ) GO TO 60
+            IF( NB == NBVAL2( J ) ) GO TO 60
          } // 50
          NNB2 = NNB2 + 1
          NBVAL2( NNB2 ) = NB
@@ -276,12 +276,12 @@ void main() {
       I = 3
       } // 90
       I = I + 1
-      if (I.GT.72) GO TO 130       IF( ALINE( I: I ).EQ.' ' ) GO TO 90;
+      if (I.GT.72) GO TO 130       IF( ALINE( I: I ) == ' ' ) GO TO 90;
       NMATS = 0
       } // 100
       C1 = ALINE( I: I )
       for (K = 1; K <= 10; K++) { // 110
-         if ( C1.EQ.INTSTR( K: K ) ) {
+         if ( C1 == INTSTR( K: K ) ) {
             IC = K - 1
             GO TO 120
          }

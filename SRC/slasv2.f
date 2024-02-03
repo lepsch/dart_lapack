@@ -62,7 +62,7 @@
       }
       GT = G
       GA = ABS( GT )
-      if ( GA.EQ.ZERO ) {
+      if ( GA == ZERO ) {
 
          // Diagonal matrix
 
@@ -98,7 +98,7 @@
             // Normal case
 
             D = FA - HA
-            if ( D.EQ.FA ) {
+            if ( D == FA ) {
 
                // Copes with infinite F or H
 
@@ -123,7 +123,7 @@
 
             // Note that 1 .le. S .le. 1 + 1/macheps
 
-            if ( L.EQ.ZERO ) {
+            if ( L == ZERO ) {
                R = ABS( M )
             } else {
                R = SQRT( L*L+MM )
@@ -137,11 +137,11 @@
 
             SSMIN = HA / A
             SSMAX = FA*A
-            if ( MM.EQ.ZERO ) {
+            if ( MM == ZERO ) {
 
                // Note that M is very tiny
 
-               if ( L.EQ.ZERO ) {
+               if ( L == ZERO ) {
                   T = SIGN( TWO, FT )*SIGN( ONE, GT )
                } else {
                   T = GT / SIGN( D, FT ) + M / T
@@ -170,7 +170,7 @@
 
       // Correct signs of SSMAX and SSMIN
 
-      if (PMAX.EQ.1) TSIGN = SIGN( ONE, CSR )*SIGN( ONE, CSL )*SIGN( ONE, F )       IF( PMAX.EQ.2 ) TSIGN = SIGN( ONE, SNR )*SIGN( ONE, CSL )*SIGN( ONE, G )       IF( PMAX.EQ.3 ) TSIGN = SIGN( ONE, SNR )*SIGN( ONE, SNL )*SIGN( ONE, H );
+      if (PMAX == 1) TSIGN = SIGN( ONE, CSR )*SIGN( ONE, CSL )*SIGN( ONE, F )       IF( PMAX == 2 ) TSIGN = SIGN( ONE, SNR )*SIGN( ONE, CSL )*SIGN( ONE, G )       IF( PMAX == 3 ) TSIGN = SIGN( ONE, SNR )*SIGN( ONE, SNL )*SIGN( ONE, H );
       SSMAX = SIGN( SSMAX, TSIGN )
       SSMIN = SIGN( SSMIN, TSIGN*SIGN( ONE, F )*SIGN( ONE, H ) )
       RETURN

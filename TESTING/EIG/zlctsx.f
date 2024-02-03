@@ -35,7 +35,7 @@
          } else {
             ZLCTSX = true;
          }
-         if ( I.EQ.MPLUSN ) {
+         if ( I == MPLUSN ) {
             FS = false;
             I = 0
          }
@@ -46,13 +46,13 @@
          } else {
             ZLCTSX = false;
          }
-         if ( I.EQ.MPLUSN ) {
+         if ( I == MPLUSN ) {
             FS = true;
             I = 0
          }
       }
 
-       // IF( BETA.EQ.CZERO ) THEN
+       // IF( BETA == CZERO ) THEN
           // ZLCTSX = ( DBLE( ALPHA ).GT.ZERO )
        // ELSE
           // ZLCTSX = ( DBLE( ALPHA/BETA ).GT.ZERO )

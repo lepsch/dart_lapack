@@ -76,10 +76,10 @@
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( IRANGE.EQ.2 ) {
-         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE.EQ.3 .AND. ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) {
+      } else if ( IRANGE == 2 ) {
+         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE == 3 .AND. ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) {
          INFO = -6
-      } else if ( IRANGE.EQ.3 .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) {
+      } else if ( IRANGE == 3 .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) {
          INFO = -7
       }
 
@@ -97,11 +97,11 @@
       // Quick return if possible
 
       M = 0
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Simplifications:
 
-      if (IRANGE.EQ.3 .AND. IL.EQ.1 .AND. IU.EQ.N) IRANGE = 1;
+      if (IRANGE == 3 .AND. IL == 1 .AND. IU == N) IRANGE = 1;
 
       // Get machine constants
       // NB is the minimum vector length for vector bisection, or 0
@@ -115,10 +115,10 @@
 
       // Special Case when N=1
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          NSPLIT = 1
          ISPLIT( 1 ) = 1
-         if ( IRANGE.EQ.2 .AND. ( VL.GE.D( 1 ) .OR. VU.LT.D( 1 ) ) ) {
+         if ( IRANGE == 2 .AND. ( VL.GE.D( 1 ) .OR. VU.LT.D( 1 ) ) ) {
             M = 0
          } else {
             W( 1 ) = D( 1 )
@@ -150,7 +150,7 @@
 
       // Compute Interval and ATOLI
 
-      if ( IRANGE.EQ.3 ) {
+      if ( IRANGE == 3 ) {
 
          // RANGE='I': Compute the interval containing eigenvalues
                     // IL through IU.
@@ -199,7 +199,7 @@
 
          dlaebz(3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, WORK, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO );
 
-         if ( IWORK( 6 ).EQ.IU ) {
+         if ( IWORK( 6 ) == IU ) {
             WL = WORK( N+1 )
             WLU = WORK( N+3 )
             NWL = IWORK( 1 )
@@ -235,7 +235,7 @@
             ATOLI = ABSTOL
          }
 
-         if ( IRANGE.EQ.2 ) {
+         if ( IRANGE == 2 ) {
             WL = VL
             WU = VU
          } else {
@@ -260,11 +260,11 @@
          IEND = ISPLIT( JB )
          IN = IEND - IOFF
 
-         if ( IN.EQ.1 ) {
+         if ( IN == 1 ) {
 
             // Special Case -- IN=1
 
-            if ( IRANGE.EQ.1 .OR. WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE.EQ.1 .OR. WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE.EQ.1 .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) {
+            if ( IRANGE == 1 .OR. WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE == 1 .OR. WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == 1 .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                IBLOCK( M ) = JB
@@ -354,7 +354,7 @@
       // If RANGE='I', then (WL,WU) contains eigenvalues NWL+1,...,NWU
       // If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
 
-      if ( IRANGE.EQ.3 ) {
+      if ( IRANGE == 3 ) {
          IM = 0
          IDISCL = IL - 1 - NWL
          IDISCU = NWU - IU
@@ -390,7 +390,7 @@
                for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 90
-                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).LT.WKILL .OR. IW.EQ.0 ) ) {
+                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).LT.WKILL .OR. IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -404,7 +404,7 @@
                for (JDISC = 1; JDISC <= IDISCU; JDISC++) { // 120
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 110
-                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).GT.WKILL .OR. IW.EQ.0 ) ) {
+                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).GT.WKILL .OR. IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -431,7 +431,7 @@
          // by block.
       // If ORDER='E', sort the eigenvalues from smallest to largest
 
-      if ( IORDER.EQ.1 .AND. NSPLIT.GT.1 ) {
+      if ( IORDER == 1 .AND. NSPLIT.GT.1 ) {
          for (JE = 1; JE <= M - 1; JE++) { // 150
             IE = 0
             TMP1 = W( JE )

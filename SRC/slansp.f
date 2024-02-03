@@ -34,7 +34,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          VALUE = ZERO
       } else if ( LSAME( NORM, 'M' ) ) {
 
@@ -60,7 +60,7 @@
                K = K + N - J + 1
             } // 40
          }
-      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
+      } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM == '1' ) ) {
 
          // Find normI(A) ( = norm1(A), since A is symmetric).
 

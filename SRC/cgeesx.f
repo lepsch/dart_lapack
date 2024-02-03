@@ -56,7 +56,7 @@
       WANTSE = LSAME( SENSE, 'E' )
       WANTSV = LSAME( SENSE, 'V' )
       WANTSB = LSAME( SENSE, 'B' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       if ( ( .NOT.WANTVS ) .AND. ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
          INFO = -1
@@ -86,8 +86,8 @@
         // depends on SDIM, which is computed by the routine CTRSEN later
         // in the code.)
 
-      if ( INFO.EQ.0 ) {
-         if ( N.EQ.0 ) {
+      if ( INFO == 0 ) {
+         if ( N == 0 ) {
             MINWRK = 1
             LWRK = 1
          } else {
@@ -122,7 +122,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 ) {
+      if ( N == 0 ) {
          SDIM = 0
          RETURN
       }
@@ -188,7 +188,7 @@
 
       // Sort eigenvalues if desired
 
-      if ( WANTST .AND. INFO.EQ.0 ) {
+      if ( WANTST .AND. INFO == 0 ) {
          if (SCALEA) CALL CLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR );
          for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELECT( W( I ) )
@@ -202,7 +202,7 @@
 
          ctrsen(SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, ICOND );
          if (.NOT.WANTSN) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
-         if ( ICOND.EQ.-14 ) {
+         if ( ICOND == -14 ) {
 
             // Not enough complex workspace
 
@@ -225,7 +225,7 @@
 
          clascl('U', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR );
          ccopy(N, A, LDA+1, W, 1 );
-         if ( ( WANTSV .OR. WANTSB ) .AND. INFO.EQ.0 ) {
+         if ( ( WANTSV .OR. WANTSB ) .AND. INFO == 0 ) {
             DUM( 1 ) = RCONDV
             slascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
             RCONDV = DUM( 1 )

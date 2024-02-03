@@ -57,7 +57,7 @@
                } // 30
                I = I + 1
                if ( I.GT.LENP ) {
-                  if ( J.EQ.NMATS .AND. I1.GT.0 ) {
+                  if ( J == NMATS .AND. I1.GT.0 ) {
                      GO TO 60
                   } else {
                      WRITE( NOUT, FMT = 9995 )LINE
@@ -72,7 +72,7 @@
                // Check that a valid integer was read
 
                   for (K = 1; K <= 10; K++) { // 40
-                     if ( C1.EQ.INTSTR( K: K ) ) {
+                     if ( C1 == INTSTR( K: K ) ) {
                         IC = K - 1
                         GO TO 50
                      }

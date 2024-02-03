@@ -46,7 +46,7 @@
       // Quick return if possible
 
       K = MIN( M, N )
-      if (K.EQ.0) RETURN;
+      if (K == 0) RETURN;
 
       // Blocked loop of length K
 

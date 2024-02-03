@@ -23,7 +23,7 @@
       SASUM = 0.0e0
       STEMP = 0.0e0
       if (N.LE.0 .OR. INCX.LE.0) RETURN;
-      if (INCX.EQ.1) {
+      if (INCX == 1) {
          // code for increment equal to 1
 
 

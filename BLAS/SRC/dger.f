@@ -36,9 +36,9 @@
           INFO = 1
       } else if (N.LT.0) {
           INFO = 2
-      } else if (INCX.EQ.0) {
+      } else if (INCX == 0) {
           INFO = 5
-      } else if (INCY.EQ.0) {
+      } else if (INCY == 0) {
           INFO = 7
       } else if (LDA.LT.MAX(1,M)) {
           INFO = 9
@@ -50,7 +50,7 @@
 
       // Quick return if possible.
 
-      IF ((M.EQ.0) .OR. (N.EQ.0) .OR. (ALPHA.EQ.ZERO)) RETURN
+      IF ((M == 0) .OR. (N == 0) .OR. (ALPHA == ZERO)) RETURN
 
       // Start the operations. In this version the elements of A are
       // accessed sequentially with one pass through A.
@@ -60,7 +60,7 @@
       } else {
           JY = 1 - (N-1)*INCY
       }
-      if (INCX.EQ.1) {
+      if (INCX == 1) {
           for (J = 1; J <= N; J++) { // 20
               if (Y(JY).NE.ZERO) {
                   TEMP = ALPHA*Y(JY)

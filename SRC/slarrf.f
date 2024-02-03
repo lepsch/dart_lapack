@@ -200,7 +200,7 @@
       }
       TRYRRR1 = true;
       if ( TRYRRR1 .AND. DORRR1 ) {
-      if (INDX.EQ.1) {
+      if (INDX == 1) {
          TMP = ABS( DPLUS( N ) )
          ZNM2 = ONE
          PROD = ONE
@@ -221,7 +221,7 @@
             SHIFT = SLEFT
             GOTO 100
          }
-      } else if (INDX.EQ.2) {
+      } else if (INDX == 2) {
          TMP = ABS( WORK( N ) )
          ZNM2 = ONE
          PROD = ONE
@@ -270,8 +270,8 @@
       }
 
       } // 100
-      if (SHIFT.EQ.SLEFT) {
-      } else if (SHIFT.EQ.SRIGHT) {
+      if (SHIFT == SLEFT) {
+      } else if (SHIFT == SRIGHT) {
          // store new L and D back into DPLUS, LPLUS
          scopy(N, WORK, 1, DPLUS, 1 );
          scopy(N-1, WORK(N+1), 1, LPLUS, 1 );

@@ -79,12 +79,12 @@
 
       // Quick return if possible.
 
-      IF ((M.EQ.0) .OR. (N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
+      IF ((M == 0) .OR. (N == 0) .OR. (((ALPHA == ZERO).OR. (K == 0)).AND. (BETA == ONE))) RETURN
 
-      // And if  alpha.eq.zero.
+      // And if  alpha == zero.
 
-      if (ALPHA.EQ.ZERO) {
-          if (BETA.EQ.ZERO) {
+      if (ALPHA == ZERO) {
+          if (BETA == ZERO) {
               for (J = 1; J <= N; J++) { // 20
                   for (I = 1; I <= M; I++) { // 10
                       C(I,J) = ZERO
@@ -108,7 +108,7 @@
             // Form  C := alpha*A*B + beta*C.
 
               for (J = 1; J <= N; J++) { // 90
-                  if (BETA.EQ.ZERO) {
+                  if (BETA == ZERO) {
                       for (I = 1; I <= M; I++) { // 50
                           C(I,J) = ZERO
                       } // 50
@@ -134,7 +134,7 @@
                       for (L = 1; L <= K; L++) { // 100
                           TEMP = TEMP + A(L,I)*B(L,J)
                       } // 100
-                      if (BETA.EQ.ZERO) {
+                      if (BETA == ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
@@ -148,7 +148,7 @@
             // Form  C := alpha*A*B**T + beta*C
 
               for (J = 1; J <= N; J++) { // 170
-                  if (BETA.EQ.ZERO) {
+                  if (BETA == ZERO) {
                       for (I = 1; I <= M; I++) { // 130
                           C(I,J) = ZERO
                       } // 130
@@ -174,7 +174,7 @@
                       for (L = 1; L <= K; L++) { // 180
                           TEMP = TEMP + A(L,I)*B(J,L)
                       } // 180
-                      if (BETA.EQ.ZERO) {
+                      if (BETA == ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)

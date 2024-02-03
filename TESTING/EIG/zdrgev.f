@@ -100,7 +100,7 @@
         // following subroutine, as returned by ILAENV.
 
       MINWRK = 1
-      if ( INFO.EQ.0 .AND. LWORK.GE.1 ) {
+      if ( INFO == 0 .AND. LWORK.GE.1 ) {
          MINWRK = NMAX*( NMAX+1 )
          NB = MAX( 1, ILAENV( 1, 'ZGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'ZUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'ZUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) )
          MAXWRK = MAX( 2*NMAX, NMAX*( NB+1 ), NMAX*( NMAX+1 ) )
@@ -116,7 +116,7 @@
 
       // Quick return if possible
 
-      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
+      if (NSIZES == 0 .OR. NTYPES == 0) RETURN;
 
       ULP = DLAMCH( 'Precision' )
       SAFMIN = DLAMCH( 'Safe minimum' )
@@ -184,7 +184,7 @@
 
                // Generate A (w/o rotation)
 
-               if ( ABS( KATYPE( JTYPE ) ).EQ.3 ) {
+               if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   if (IN.NE.N) CALL ZLASET( 'Full', N, N, CZERO, CZERO, A, LDA );
                } else {
@@ -196,7 +196,7 @@
 
                // Generate B (w/o rotation)
 
-               if ( ABS( KBTYPE( JTYPE ) ).EQ.3 ) {
+               if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   if (IN.NE.N) CALL ZLASET( 'Full', N, N, CZERO, CZERO, B, LDA );
                } else {
@@ -206,7 +206,7 @@
                IADD = KADD( KBZERO( JTYPE ) )
                if (IADD.NE.0 .AND. IADD.LE.N) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) );
 
-               if ( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) {
+               if ( KCLASS( JTYPE ) == 2 .AND. N.GT.0 ) {
 
                   // Include rotations
 
@@ -373,7 +373,7 @@
                   // If this is the first test to fail,
                   // print a header to the data file.
 
-                  if ( NERRS.EQ.0 ) {
+                  if ( NERRS == 0 ) {
                      WRITE( NOUNIT, FMT = 9997 )'ZGV'
 
                      // Matrix types

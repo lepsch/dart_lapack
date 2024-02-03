@@ -59,7 +59,7 @@
       NB = ILAENV( 1, 'DTREVC', SIDE // HOWMNY, N, -1, -1, -1 )
       MAXWRK = MAX( 1, N + 2*N*NB )
       WORK(1) = MAXWRK
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
          INFO = -1
       } else if ( .NOT.ALLV .AND. .NOT.OVER .AND. .NOT.SOMEV ) {
@@ -89,7 +89,7 @@
                   SELECT( J ) = false;
                } else {
                   if ( J.LT.N ) {
-                     if ( T( J+1, J ).EQ.ZERO ) {
+                     if ( T( J+1, J ) == ZERO ) {
                         IF( SELECT( J ) ) M = M + 1
                      } else {
                         PAIR = true;
@@ -120,7 +120,7 @@
 
       // Quick return if possible.
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Use blocked version of back-transformation if sufficient workspace.
       // Zero-out the workspace to avoid potential NaN propagation.
@@ -176,15 +176,15 @@
          IP = 0
          IS = M
          DO 140 KI = N, 1, -1
-            if ( IP.EQ.-1 ) {
+            if ( IP == -1 ) {
                // previous iteration (ki+1) was second of conjugate pair,
                // so this ki is first of conjugate pair; skip to end of loop
                IP = 1
                GO TO 140
-            } else if ( KI.EQ.1 ) {
+            } else if ( KI == 1 ) {
                // last column, so this ki must be real eigenvalue
                IP = 0
-            } else if ( T( KI, KI-1 ).EQ.ZERO ) {
+            } else if ( T( KI, KI-1 ) == ZERO ) {
                // zero on sub-diagonal, so this ki is real eigenvalue
                IP = 0
             } else {
@@ -193,7 +193,7 @@
             }
 
             if ( SOMEV ) {
-               if ( IP.EQ.0 ) {
+               if ( IP == 0 ) {
                   IF( .NOT.SELECT( KI ) ) GO TO 140
                } else {
                   IF( .NOT.SELECT( KI-1 ) ) GO TO 140
@@ -207,7 +207,7 @@
             if (IP.NE.0) WI = SQRT( ABS( T( KI, KI-1 ) ) )* SQRT( ABS( T( KI-1, KI ) ) );
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 
-            if ( IP.EQ.0 ) {
+            if ( IP == 0 ) {
 
                // --------------------------------------------------------
                // Real right eigenvector
@@ -236,7 +236,7 @@
                      }
                   }
 
-                  if ( J1.EQ.J2 ) {
+                  if ( J1 == J2 ) {
 
                      // 1-by-1 diagonal block
 
@@ -307,7 +307,7 @@
                      VR( K, IS ) = ZERO
                   } // 70
 
-               } else if ( NB.EQ.1 ) {
+               } else if ( NB == 1 ) {
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
                   if (KI.GT.1) CALL DGEMV( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1 + IV*N ), 1, WORK( KI + IV*N ), VR( 1, KI ), 1 );
@@ -368,7 +368,7 @@
                      }
                   }
 
-                  if ( J1.EQ.J2 ) {
+                  if ( J1 == J2 ) {
 
                      // 1-by-1 diagonal block
 
@@ -461,7 +461,7 @@
                      VR( K, IS   ) = ZERO
                   } // 110
 
-               } else if ( NB.EQ.1 ) {
+               } else if ( NB == 1 ) {
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
                   if ( KI.GT.2 ) {
@@ -499,7 +499,7 @@
                // --------------------------------------------------------
                // Blocked version of back-transform
                // For complex case, KI2 includes both vectors (KI-1 and KI)
-               if ( IP.EQ.0 ) {
+               if ( IP == 0 ) {
                   KI2 = KI
                } else {
                   KI2 = KI - 1
@@ -508,22 +508,22 @@
                // Columns IV:NB of work are valid vectors.
                // When the number of vectors stored reaches NB-1 or NB,
                // or if this was last vector, do the GEMM
-               if ( (IV.LE.2) .OR. (KI2.EQ.1) ) {
+               if ( (IV.LE.2) .OR. (KI2 == 1) ) {
                   dgemm('N', 'N', N, NB-IV+1, KI2+NB-IV, ONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, ZERO, WORK( 1 + (NB+IV)*N ), N );
                   // normalize vectors
                   for (K = IV; K <= NB; K++) {
-                     if ( ISCOMPLEX(K).EQ.0 ) {
+                     if ( ISCOMPLEX(K) == 0 ) {
                         // real eigenvector
                         II = IDAMAX( N, WORK( 1 + (NB+K)*N ), 1 )
                         REMAX = ONE / ABS( WORK( II + (NB+K)*N ) )
-                     } else if ( ISCOMPLEX(K).EQ.1 ) {
+                     } else if ( ISCOMPLEX(K) == 1 ) {
                         // first eigenvector of conjugate pair
                         EMAX = ZERO
                         for (II = 1; II <= N; II++) {
                            EMAX = MAX( EMAX, ABS( WORK( II + (NB+K  )*N ) )+ ABS( WORK( II + (NB+K+1)*N ) ) )
                         }
                         REMAX = ONE / EMAX
-                     // else if ISCOMPLEX(K).EQ.-1
+                     // else if ISCOMPLEX(K) == -1
                         // second eigenvector of conjugate pair
                         // reuse same REMAX as previous K
                      }
@@ -555,15 +555,15 @@
          IP = 0
          IS = 1
          for (KI = 1; KI <= N; KI++) { // 260
-            if ( IP.EQ.1 ) {
+            if ( IP == 1 ) {
                // previous iteration (ki-1) was first of conjugate pair,
                // so this ki is second of conjugate pair; skip to end of loop
                IP = -1
                GO TO 260
-            } else if ( KI.EQ.N ) {
+            } else if ( KI == N ) {
                // last column, so this ki must be real eigenvalue
                IP = 0
-            } else if ( T( KI+1, KI ).EQ.ZERO ) {
+            } else if ( T( KI+1, KI ) == ZERO ) {
                // zero on sub-diagonal, so this ki is real eigenvalue
                IP = 0
             } else {
@@ -582,7 +582,7 @@
             if (IP.NE.0) WI = SQRT( ABS( T( KI, KI+1 ) ) )* SQRT( ABS( T( KI+1, KI ) ) );
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 
-            if ( IP.EQ.0 ) {
+            if ( IP == 0 ) {
 
                // --------------------------------------------------------
                // Real left eigenvector
@@ -614,7 +614,7 @@
                      }
                   }
 
-                  if ( J1.EQ.J2 ) {
+                  if ( J1 == J2 ) {
 
                      // 1-by-1 diagonal block
 
@@ -693,7 +693,7 @@
                      VL( K, IS ) = ZERO
                   } // 180
 
-               } else if ( NB.EQ.1 ) {
+               } else if ( NB == 1 ) {
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
                   if (KI.LT.N) CALL DGEMV( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, WORK( KI   + IV*N ), VL( 1, KI ), 1 );
@@ -758,7 +758,7 @@
                      }
                   }
 
-                  if ( J1.EQ.J2 ) {
+                  if ( J1 == J2 ) {
 
                      // 1-by-1 diagonal block
 
@@ -857,7 +857,7 @@
                      VL( K, IS+1 ) = ZERO
                   } // 230
 
-               } else if ( NB.EQ.1 ) {
+               } else if ( NB == 1 ) {
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
                   if ( KI.LT.N-1 ) {
@@ -896,7 +896,7 @@
                // --------------------------------------------------------
                // Blocked version of back-transform
                // For complex case, KI2 includes both vectors (KI and KI+1)
-               if ( IP.EQ.0 ) {
+               if ( IP == 0 ) {
                   KI2 = KI
                } else {
                   KI2 = KI + 1
@@ -905,22 +905,22 @@
                // Columns 1:IV of work are valid vectors.
                // When the number of vectors stored reaches NB-1 or NB,
                // or if this was last vector, do the GEMM
-               if ( (IV.GE.NB-1) .OR. (KI2.EQ.N) ) {
+               if ( (IV.GE.NB-1) .OR. (KI2 == N) ) {
                   dgemm('N', 'N', N, IV, N-KI2+IV, ONE, VL( 1, KI2-IV+1 ), LDVL, WORK( KI2-IV+1 + (1)*N ), N, ZERO, WORK( 1 + (NB+1)*N ), N );
                   // normalize vectors
                   for (K = 1; K <= IV; K++) {
-                     if ( ISCOMPLEX(K).EQ.0) {
+                     if ( ISCOMPLEX(K) == 0) {
                         // real eigenvector
                         II = IDAMAX( N, WORK( 1 + (NB+K)*N ), 1 )
                         REMAX = ONE / ABS( WORK( II + (NB+K)*N ) )
-                     } else if ( ISCOMPLEX(K).EQ.1) {
+                     } else if ( ISCOMPLEX(K) == 1) {
                         // first eigenvector of conjugate pair
                         EMAX = ZERO
                         for (II = 1; II <= N; II++) {
                            EMAX = MAX( EMAX, ABS( WORK( II + (NB+K  )*N ) )+ ABS( WORK( II + (NB+K+1)*N ) ) )
                         }
                         REMAX = ONE / EMAX
-                     // else if ISCOMPLEX(K).EQ.-1
+                     // else if ISCOMPLEX(K) == -1
                         // second eigenvector of conjugate pair
                         // reuse same REMAX as previous K
                      }

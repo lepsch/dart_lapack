@@ -43,9 +43,9 @@
           INFO = 1
       } else if (N.LT.0) {
           INFO = 2
-      } else if (INCX.EQ.0) {
+      } else if (INCX == 0) {
           INFO = 6
-      } else if (INCY.EQ.0) {
+      } else if (INCY == 0) {
           INFO = 9
       }
       if (INFO.NE.0) {
@@ -55,7 +55,7 @@
 
       // Quick return if possible.
 
-      IF ((N.EQ.0) .OR. ((ALPHA.EQ.ZERO).AND. (BETA.EQ.ONE))) RETURN
+      IF ((N == 0) .OR. ((ALPHA == ZERO).AND. (BETA == ONE))) RETURN
 
       // Set up the start points in  X  and  Y.
 
@@ -76,8 +76,8 @@
       // First form  y := beta*y.
 
       if (BETA.NE.ONE) {
-          if (INCY.EQ.1) {
-              if (BETA.EQ.ZERO) {
+          if (INCY == 1) {
+              if (BETA == ZERO) {
                   for (I = 1; I <= N; I++) { // 10
                       Y(I) = ZERO
                   } // 10
@@ -88,7 +88,7 @@
               }
           } else {
               IY = KY
-              if (BETA.EQ.ZERO) {
+              if (BETA == ZERO) {
                   for (I = 1; I <= N; I++) { // 30
                       Y(IY) = ZERO
                       IY = IY + INCY
@@ -101,13 +101,13 @@
               }
           }
       }
-      if (ALPHA.EQ.ZERO) RETURN;
+      if (ALPHA == ZERO) RETURN;
       KK = 1
       if (LSAME(UPLO,'U')) {
 
          // Form  y  when AP contains the upper triangle.
 
-          if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
+          if ((INCX == 1) .AND. (INCY == 1)) {
               for (J = 1; J <= N; J++) { // 60
                   TEMP1 = ALPHA*X(J)
                   TEMP2 = ZERO
@@ -144,7 +144,7 @@
 
          // Form  y  when AP contains the lower triangle.
 
-          if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
+          if ((INCX == 1) .AND. (INCY == 1)) {
               for (J = 1; J <= N; J++) { // 100
                   TEMP1 = ALPHA*X(J)
                   TEMP2 = ZERO

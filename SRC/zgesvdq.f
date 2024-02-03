@@ -72,7 +72,7 @@
          IMINWRK = MAX( 1, N )
          RMINWRK = MAX( 2, 5*N )
       }
-      LQUERY = (LIWORK .EQ. -1 .OR. LCWORK .EQ. -1 .OR. LRWORK .EQ. -1)
+      LQUERY = (LIWORK == -1 .OR. LCWORK == -1 .OR. LRWORK == -1)
       INFO  = 0
       if ( .NOT. ( ACCLA .OR. ACCLM .OR. ACCLH ) ) {
          INFO = -1
@@ -101,7 +101,7 @@
       }
 
 
-      if ( INFO .EQ. 0 ) {
+      if ( INFO == 0 ) {
          // .. compute the minimal and the optimal workspace lengths
          // [[The expressions for computing the minimal and the optimal
          // values of LCWORK are written with a lot of redundancy and
@@ -274,7 +274,7 @@
 
       }
 
-      if (INFO .EQ. 0 .AND. LRWORK .LT. RMINWRK .AND. .NOT. LQUERY) {
+      if (INFO == 0 .AND. LRWORK .LT. RMINWRK .AND. .NOT. LQUERY) {
          INFO = -21
       }
       if ( INFO.NE.0 ) {
@@ -293,7 +293,7 @@
 
       // Quick return if the matrix is void.
 
-      if ( ( M.EQ.0 ) .OR. ( N.EQ.0 ) ) {
+      if ( ( M == 0 ) .OR. ( N == 0 ) ) {
       // .. all output is void.
          RETURN
       }
@@ -325,7 +325,7 @@
             }
             } // 1952
 
-            if ( RWORK(1) .EQ. ZERO ) {
+            if ( RWORK(1) == ZERO ) {
                // Quick return: A is the M x N zero matrix.
                NUMRANK = 0
                dlaset('G', N, 1, ZERO, ZERO, S, N );
@@ -433,7 +433,7 @@
          // R(i,i)=0 => R(i:N,i:N)=0.
          NR = 1
          for (p = 2; p <= N; p++) { // 3501
-            IF ( ABS(A(p,p)) .EQ. ZERO ) GO TO 3502
+            IF ( ABS(A(p,p)) == ZERO ) GO TO 3502
             NR = NR + 1
          } // 3501
          } // 3502
@@ -573,7 +573,7 @@
             if (NR .GT. 1) CALL ZLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV );
             // .. the left singular vectors of R**H overwrite V, the right singular
             // vectors not computed
-            if ( WNTVR .OR. ( NR .EQ. N ) ) {
+            if ( WNTVR .OR. ( NR == N ) ) {
                zgesvd('O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                for (p = 1; p <= NR; p++) { // 1121
@@ -620,7 +620,7 @@
              if (NR .GT. 1) CALL ZLASET( 'L', NR-1, NR-1, CZERO, CZERO, V(2,1), LDV );
              // .. the right singular vectors overwrite V, the NR left singular
              // vectors stored in U(1:NR,1:NR)
-             if ( WNTVR .OR. ( NR .EQ. N ) ) {
+             if ( WNTVR .OR. ( NR == N ) ) {
                 zgesvd('N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
                 zlapmt( false , NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**H
@@ -646,7 +646,7 @@
 
              // .. apply ZGESVD to R**H [[this option is left for R&D&T]]
 
-            if ( WNTVR .OR. ( NR .EQ. N ) ) {
+            if ( WNTVR .OR. ( NR == N ) ) {
              // .. copy R**H into [V] and overwrite [V] with the left singular
              // vectors of R**H
             for (p = 1; p <= NR; p++) { // 1168
@@ -782,7 +782,7 @@
 
              // .. apply ZGESVD to R [[this is the recommended option]]
 
-             if ( WNTVR .OR. ( NR .EQ. N ) ) {
+             if ( WNTVR .OR. ( NR == N ) ) {
                  // .. copy R into [V] and overwrite V with the right singular vectors
                  zlacpy('U', NR, N, A, LDA, V, LDV );
                 if (NR .GT. 1) CALL ZLASET( 'L', NR-1,NR-1, CZERO,CZERO, V(2,1), LDV );

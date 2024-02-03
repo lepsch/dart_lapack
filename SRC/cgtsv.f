@@ -48,14 +48,14 @@
          RETURN
       }
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       for (K = 1; K <= N - 1; K++) { // 30
-         if ( DL( K ).EQ.ZERO ) {
+         if ( DL( K ) == ZERO ) {
 
             // Subdiagonal is zero, no elimination is required.
 
-            if ( D( K ).EQ.ZERO ) {
+            if ( D( K ) == ZERO ) {
 
                // Diagonal is zero: set INFO = K and return; a unique
                // solution can not be found.
@@ -93,7 +93,7 @@
             } // 20
          }
       } // 30
-      if ( D( N ).EQ.ZERO ) {
+      if ( D( N ) == ZERO ) {
          INFO = N
          RETURN
       }

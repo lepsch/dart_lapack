@@ -33,14 +33,14 @@
 
          // Return a value from the common block.
 
-         if ( NAME(2:6).EQ.'GEQR ' ) {
-            if (N3.EQ.2) {
+         if ( NAME(2:6) == 'GEQR ' ) {
+            if (N3 == 2) {
                ILAENV = IPARMS ( 2 )
             } else {
                ILAENV = IPARMS ( 1 )
             }
-         } else if ( NAME(2:6).EQ.'GELQ ' ) {
-            if (N3.EQ.2) {
+         } else if ( NAME(2:6) == 'GELQ ' ) {
+            if (N3 == 2) {
                ILAENV = IPARMS ( 2 )
             } else {
                ILAENV = IPARMS ( 1 )
@@ -49,7 +49,7 @@
             ILAENV = IPARMS( ISPEC )
          }
 
-      } else if ( ISPEC.EQ.6 ) {
+      } else if ( ISPEC == 6 ) {
 
          // Compute SVD crossover point.
 
@@ -61,23 +61,23 @@
 
          ILAENV = IPARMS( ISPEC )
 
-      } else if ( ISPEC.EQ.10 ) {
+      } else if ( ISPEC == 10 ) {
 
          // IEEE NaN arithmetic can be trusted not to trap
 
          // ILAENV = 0
          ILAENV = 1
-         if ( ILAENV.EQ.1 ) {
+         if ( ILAENV == 1 ) {
             ILAENV = IEEECK( 1, 0.0, 1.0 )
          }
 
-      } else if ( ISPEC.EQ.11 ) {
+      } else if ( ISPEC == 11 ) {
 
          // Infinity arithmetic can be trusted not to trap
 
          // ILAENV = 0
          ILAENV = 1
-         if ( ILAENV.EQ.1 ) {
+         if ( ILAENV == 1 ) {
             ILAENV = IEEECK( 0, 0.0, 1.0 )
          }
 
@@ -122,7 +122,7 @@
 
       // 1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 
-         if ( ISPEC.EQ.1 ) {
+         if ( ISPEC == 1 ) {
              ILAENV2STAGE = IPARMS( 1 )
          } else {
              IISPEC = 16 + ISPEC

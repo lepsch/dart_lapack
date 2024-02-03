@@ -37,7 +37,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.M ) {
@@ -46,8 +46,8 @@
          INFO = -4
       }
 
-      if ( INFO.EQ.0 ) {
-         if ( M.EQ.0 .OR. M.EQ.N ) {
+      if ( INFO == 0 ) {
+         if ( M == 0 .OR. M == N ) {
             LWKOPT = 1
             LWKMIN = 1
          } else {
@@ -74,9 +74,9 @@
 
       // Quick return if possible
 
-      if ( M.EQ.0 ) {
+      if ( M == 0 ) {
          RETURN
-      } else if ( M.EQ.N ) {
+      } else if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
             TAU( I ) = ZERO
          } // 10

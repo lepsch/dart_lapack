@@ -62,7 +62,7 @@
 
          I = IOFFSET + KK
 
-         if ( I.EQ.1 ) {
+         if ( I == 1 ) {
 
             // ============================================================
 
@@ -129,7 +129,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            if ( MAXC2NRMK.EQ.ZERO ) {
+            if ( MAXC2NRMK == ZERO ) {
 
                // Set K, the number of factorized columns.
                // that are not zero.
@@ -161,7 +161,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            if ( INFO.EQ.0 .AND. MAXC2NRMK.GT.HUGEVAL ) {
+            if ( INFO == 0 .AND. MAXC2NRMK.GT.HUGEVAL ) {
                INFO = N + KK - 1 + KP
             }
 
@@ -200,7 +200,7 @@
 
             // ============================================================
 
-            // End ELSE of IF(I.EQ.1)
+            // End ELSE of IF(I == 1)
 
          }
 
@@ -340,7 +340,7 @@
          JMAXC2NRM = K + IDAMAX( N-K, VN1( K+1 ), 1 )
          MAXC2NRMK = VN1( JMAXC2NRM )
 
-         if ( K.EQ.0 ) {
+         if ( K == 0 ) {
             RELMAXC2NRMK = ONE
          } else {
             RELMAXC2NRMK = MAXC2NRMK / MAXC2NRM

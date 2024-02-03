@@ -59,13 +59,13 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Check for singularity.
 
       if ( NOUNIT ) {
          for (INFO = 1; INFO <= N; INFO++) { // 10
-            IF( A( INFO, INFO ).EQ.ZERO ) RETURN
+            IF( A( INFO, INFO ) == ZERO ) RETURN
          } // 10
       }
       INFO = 0

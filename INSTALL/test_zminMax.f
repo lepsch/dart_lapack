@@ -60,12 +60,12 @@ void main() {
       for (i = 7; i <= 8; i++) { // 30
           nTests = nTests + 2
           R = MIN( X(i), Y(i) )
-          if (R .eq. R) {
+          if (R == R) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'i',i, 'MIN', X(i), Y(i), R
           }
           R = MAX( X(i), Y(i) )
-          if (R .eq. R) {
+          if (R == R) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R
           }

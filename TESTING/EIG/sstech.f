@@ -37,7 +37,7 @@
       // Check input parameters
 
       INFO = 0
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
       if ( N.LT.0 ) {
          INFO = -1
          RETURN
@@ -96,7 +96,7 @@
       // Begin loop merging overlapping intervals
 
       } // 60
-      if (BPNT.EQ.N) GO TO 70;
+      if (BPNT == N) GO TO 70;
       TUPPR = WORK( BPNT+1 ) + EPS
       if (TUPPR.LT.LOWER) GO TO 70;
 

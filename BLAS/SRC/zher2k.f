@@ -70,13 +70,13 @@
 
       // Quick return if possible.
 
-      IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
+      IF ((N == 0) .OR. (((ALPHA == ZERO).OR. (K == 0)).AND. (BETA == ONE))) RETURN
 
-      // And when  alpha.eq.zero.
+      // And when  alpha == zero.
 
-      if (ALPHA.EQ.ZERO) {
+      if (ALPHA == ZERO) {
           if (UPPER) {
-              if (BETA.EQ.DBLE(ZERO)) {
+              if (BETA == DBLE(ZERO)) {
                   for (J = 1; J <= N; J++) { // 20
                       for (I = 1; I <= J; I++) { // 10
                           C(I,J) = ZERO
@@ -91,7 +91,7 @@
                   } // 40
               }
           } else {
-              if (BETA.EQ.DBLE(ZERO)) {
+              if (BETA == DBLE(ZERO)) {
                   for (J = 1; J <= N; J++) { // 60
                       for (I = J; I <= N; I++) { // 50
                           C(I,J) = ZERO
@@ -118,7 +118,7 @@
 
           if (UPPER) {
               for (J = 1; J <= N; J++) { // 130
-                  if (BETA.EQ.DBLE(ZERO)) {
+                  if (BETA == DBLE(ZERO)) {
                       for (I = 1; I <= J; I++) { // 90
                           C(I,J) = ZERO
                       } // 90
@@ -143,7 +143,7 @@
               } // 130
           } else {
               for (J = 1; J <= N; J++) { // 180
-                  if (BETA.EQ.DBLE(ZERO)) {
+                  if (BETA == DBLE(ZERO)) {
                       for (I = J; I <= N; I++) { // 140
                           C(I,J) = ZERO
                       } // 140
@@ -181,14 +181,14 @@
                           TEMP1 = TEMP1 + DCONJG(A(L,I))*B(L,J)
                           TEMP2 = TEMP2 + DCONJG(B(L,I))*A(L,J)
                       } // 190
-                      if (I.EQ.J) {
-                          if (BETA.EQ.DBLE(ZERO)) {
+                      if (I == J) {
+                          if (BETA == DBLE(ZERO)) {
                               C(J,J) = DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2)
                           } else {
                               C(J,J) = BETA*DBLE(C(J,J)) + DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2)
                           }
                       } else {
-                          if (BETA.EQ.DBLE(ZERO)) {
+                          if (BETA == DBLE(ZERO)) {
                               C(I,J) = ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2
                           } else {
                               C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2
@@ -205,14 +205,14 @@
                           TEMP1 = TEMP1 + DCONJG(A(L,I))*B(L,J)
                           TEMP2 = TEMP2 + DCONJG(B(L,I))*A(L,J)
                       } // 220
-                      if (I.EQ.J) {
-                          if (BETA.EQ.DBLE(ZERO)) {
+                      if (I == J) {
+                          if (BETA == DBLE(ZERO)) {
                               C(J,J) = DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2)
                           } else {
                               C(J,J) = BETA*DBLE(C(J,J)) + DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2)
                           }
                       } else {
-                          if (BETA.EQ.DBLE(ZERO)) {
+                          if (BETA == DBLE(ZERO)) {
                               C(I,J) = ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2
                           } else {
                               C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2

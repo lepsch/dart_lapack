@@ -85,7 +85,7 @@
       // ==== Use accumulated reflections to update far-from-diagonal
       // .    entries ? ====
 
-      ACCUM = ( KACC22.EQ.1 ) .OR. ( KACC22.EQ.2 )
+      ACCUM = ( KACC22 == 1 ) .OR. ( KACC22 == 2 )
 
       // ==== clear trash ====
 
@@ -140,7 +140,7 @@
             MTOP = MAX( 1, ( KTOP-KRCOL ) / 2+1 )
             MBOT = MIN( NBMPS, ( KBOT-KRCOL-1 ) / 2 )
             M22 = MBOT + 1
-            BMP22 = ( MBOT.LT.NBMPS ) .AND. ( KRCOL+2*( M22-1 ) ).EQ. ( KBOT-2 )
+            BMP22 = ( MBOT.LT.NBMPS ) .AND. ( KRCOL+2*( M22-1 ) ) == ( KBOT-2 )
 
             // ==== Generate reflections to chase the chain right
             // .    one column.  (The minimum value of K is KTOP-1.) ====
@@ -151,7 +151,7 @@
                // .    separately ====
 
                K = KRCOL + 2*( M22-1 )
-               if ( K.EQ.KTOP-1 ) {
+               if ( K == KTOP-1 ) {
                   dlaqr1(2, H( K+1, K+1 ), LDH, SR( 2*M22-1 ), SI( 2*M22-1 ), SR( 2*M22 ), SI( 2*M22 ), V( 1, M22 ) );
                   BETA = V( 1, M22 )
                   dlarfg(2, BETA, V( 2, M22 ), 1, V( 1, M22 ) );
@@ -205,14 +205,14 @@
                if ( K.GE.KTOP ) {
                   if ( H( K+1, K ).NE.ZERO ) {
                      TST1 = ABS( H( K, K ) ) + ABS( H( K+1, K+1 ) )
-                     if ( TST1.EQ.ZERO ) {
+                     if ( TST1 == ZERO ) {
                         if (K.GE.KTOP+1) TST1 = TST1 + ABS( H( K, K-1 ) )                         IF( K.GE.KTOP+2 ) TST1 = TST1 + ABS( H( K, K-2 ) )                         IF( K.GE.KTOP+3 ) TST1 = TST1 + ABS( H( K, K-3 ) )                         IF( K.LE.KBOT-2 ) TST1 = TST1 + ABS( H( K+2, K+1 ) )                         IF( K.LE.KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) )                         IF( K.LE.KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
                      }
                      IF( ABS( H( K+1, K ) ) .LE.MAX( SMLNUM, ULP*TST1 ) ) THEN                         H12 = MAX( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H21 = MIN( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H11 = MAX( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )                         H22 = MIN( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )
                         SCL = H11 + H12
                         TST2 = H22*( H11 / SCL )
 
-                        if ( TST2.EQ.ZERO .OR. H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) ) {
+                        if ( TST2 == ZERO .OR. H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) ) {
                            H( K+1, K ) = ZERO
                         }
                      }
@@ -245,7 +245,7 @@
 
             DO 80 M = MBOT, MTOP, -1
                K = KRCOL + 2*( M-1 )
-               if ( K.EQ.KTOP-1 ) {
+               if ( K == KTOP-1 ) {
                   dlaqr1(3, H( KTOP, KTOP ), LDH, SR( 2*M-1 ), SI( 2*M-1 ), SR( 2*M ), SI( 2*M ), V( 1, M ) );
                   ALPHA = V( 1, M )
                   dlarfg(3, ALPHA, V( 2, M ), 1, V( 1, M ) );
@@ -276,7 +276,7 @@
                   // .    underflow case, try the two-small-subdiagonals
                   // .    trick to try to reinflate the bulge.  ====
 
-                  if ( H( K+3, K ).NE.ZERO .OR. H( K+3, K+1 ).NE. ZERO .OR. H( K+3, K+2 ).EQ.ZERO ) {
+                  if ( H( K+3, K ).NE.ZERO .OR. H( K+3, K+1 ).NE. ZERO .OR. H( K+3, K+2 ) == ZERO ) {
 
                      // ==== Typical case: not collapsed (yet). ====
 
@@ -361,7 +361,7 @@
                if (K.LT.KTOP) CYCLE;
                if ( H( K+1, K ).NE.ZERO ) {
                   TST1 = ABS( H( K, K ) ) + ABS( H( K+1, K+1 ) )
-                  if ( TST1.EQ.ZERO ) {
+                  if ( TST1 == ZERO ) {
                      if (K.GE.KTOP+1) TST1 = TST1 + ABS( H( K, K-1 ) )                      IF( K.GE.KTOP+2 ) TST1 = TST1 + ABS( H( K, K-2 ) )                      IF( K.GE.KTOP+3 ) TST1 = TST1 + ABS( H( K, K-3 ) )                      IF( K.LE.KBOT-2 ) TST1 = TST1 + ABS( H( K+2, K+1 ) )                      IF( K.LE.KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) )                      IF( K.LE.KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
                   }
                   if ( ABS( H( K+1, K ) ).LE.MAX( SMLNUM, ULP*TST1 ) ) {
@@ -371,7 +371,7 @@
                      SCL = H11 + H12
                      TST2 = H22*( H11 / SCL )
 
-                     if ( TST2.EQ.ZERO .OR. H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) ) {
+                     if ( TST2 == ZERO .OR. H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) ) {
                         H( K+1, K ) = ZERO
                      }
                   }

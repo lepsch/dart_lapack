@@ -91,7 +91,7 @@
 
       // Quick return if possible.
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Set machine-dependent constants.
 
@@ -129,13 +129,13 @@
                // the submatrix H(1:KR,1:KR) for a right eigenvector.
 
                DO 20 I = K, KL + 1, -1
-                  IF( H( I, I-1 ).EQ.ZERO ) GO TO 30
+                  IF( H( I, I-1 ) == ZERO ) GO TO 30
                } // 20
                } // 30
                KL = I
                if ( K.GT.KR ) {
                   for (I = K; I <= N - 1; I++) { // 40
-                     IF( H( I+1, I ).EQ.ZERO ) GO TO 50
+                     IF( H( I+1, I ) == ZERO ) GO TO 50
                   } // 40
                   } // 50
                   KR = I

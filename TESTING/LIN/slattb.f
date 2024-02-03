@@ -46,7 +46,7 @@
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
       SMLNUM = UNFL
       BIGNUM = ( ONE-ULP ) / SMLNUM
-      if ( ( IMAT.GE.6 .AND. IMAT.LE.9 ) .OR. IMAT.EQ.17 ) {
+      if ( ( IMAT.GE.6 .AND. IMAT.LE.9 ) .OR. IMAT == 17 ) {
          DIAG = 'U'
       } else {
          DIAG = 'N'
@@ -84,7 +84,7 @@
 
       // IMAT = 6:  Matrix is the identity
 
-      } else if ( IMAT.EQ.6 ) {
+      } else if ( IMAT == 6 ) {
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 20
                DO 10 I = MAX( 1, KD+2-J ), KD
@@ -130,7 +130,7 @@
          // Special case:  T is tridiagonal.  Set every other offdiagonal
          // so that the matrix has norm TNORM+1.
 
-         if ( KD.EQ.1 ) {
+         if ( KD == 1 ) {
             if ( UPPER ) {
                AB( 1, 2 ) = SIGN( TNORM, SLARND( 2, ISEED ) )
                LENJ = ( N-3 ) / 2
@@ -203,7 +203,7 @@
       // are badly scaled or badly conditioned, so when used in solving a
       // triangular system they may cause overflow in the solution vector.
 
-      } else if ( IMAT.EQ.10 ) {
+      } else if ( IMAT == 10 ) {
 
          // Type 10:  Generate a triangular matrix with elements between
          // -1 and 1. Give the diagonal norm 2 to make it well-conditioned.
@@ -231,7 +231,7 @@
          BSCAL = BIGNUM / MAX( ONE, BNORM )
          sscal(N, BSCAL, B, 1 );
 
-      } else if ( IMAT.EQ.11 ) {
+      } else if ( IMAT == 11 ) {
 
          // Type 11:  Make the first diagonal element in the solve small to
          // cause immediate overflow when dividing by T(j,j).
@@ -257,7 +257,7 @@
             AB( 1, 1 ) = SMLNUM*AB( 1, 1 )
          }
 
-      } else if ( IMAT.EQ.12 ) {
+      } else if ( IMAT == 12 ) {
 
          // Type 12:  Make the first diagonal element in the solve small to
          // cause immediate overflow when dividing by T(j,j).
@@ -280,7 +280,7 @@
             AB( 1, 1 ) = SMLNUM*AB( 1, 1 )
          }
 
-      } else if ( IMAT.EQ.13 ) {
+      } else if ( IMAT == 13 ) {
 
          // Type 13:  T is diagonal with small numbers on the diagonal to
          // make the growth factor underflow, but a small right hand side
@@ -332,7 +332,7 @@
             } // 230
          }
 
-      } else if ( IMAT.EQ.14 ) {
+      } else if ( IMAT == 14 ) {
 
          // Type 14:  Make the diagonal elements small to cause gradual
          // overflow when dividing by T(j,j).  To control the amount of
@@ -361,7 +361,7 @@
             B( 1 ) = ONE
          }
 
-      } else if ( IMAT.EQ.15 ) {
+      } else if ( IMAT == 15 ) {
 
          // Type 15:  One zero diagonal element.
 
@@ -390,7 +390,7 @@
          slarnv(2, ISEED, N, B );
          sscal(N, TWO, B, 1 );
 
-      } else if ( IMAT.EQ.16 ) {
+      } else if ( IMAT == 16 ) {
 
          // Type 16:  Make the offdiagonal elements large to cause overflow
          // when adding a column of T.  In the non-transposed case, the
@@ -446,7 +446,7 @@
             } // 360
          }
 
-      } else if ( IMAT.EQ.17 ) {
+      } else if ( IMAT == 17 ) {
 
          // Type 17:  Generate a unit triangular matrix with elements
          // between -1 and 1, and make the right hand side large so that it
@@ -474,7 +474,7 @@
          BSCAL = BIGNUM / MAX( ONE, BNORM )
          sscal(N, BSCAL, B, 1 );
 
-      } else if ( IMAT.EQ.18 ) {
+      } else if ( IMAT == 18 ) {
 
          // Type 18:  Generate a triangular matrix with elements between
          // BIGNUM/KD and BIGNUM so that at least one of the column

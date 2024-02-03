@@ -102,7 +102,7 @@
                ROWCND = ONE
             }
          }
-         if ( COLEQU .AND. INFO.EQ.0 ) {
+         if ( COLEQU .AND. INFO == 0 ) {
             RCMIN = BIGNUM
             RCMAX = ZERO
             for (J = 1; J <= N; J++) { // 20
@@ -117,7 +117,7 @@
                COLCND = ONE
             }
          }
-         if ( INFO.EQ.0 ) {
+         if ( INFO == 0 ) {
             if ( LDB.LT.MAX( 1, N ) ) {
                INFO = -15
             } else if ( LDX.LT.MAX( 1, N ) ) {
@@ -136,7 +136,7 @@
       // Compute row and column scalings to equilibrate the matrix A.
 
          dgbequb(N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU );
-         if ( INFEQU.EQ.0 ) {
+         if ( INFEQU == 0 ) {
 
       // Equilibrate the matrix.
 

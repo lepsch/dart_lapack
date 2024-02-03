@@ -63,18 +63,18 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Check for singularity.
 
       if ( NOUNIT ) {
          if ( UPPER ) {
             for (INFO = 1; INFO <= N; INFO++) { // 10
-               IF( AB( KD+1, INFO ).EQ.ZERO ) RETURN
+               IF( AB( KD+1, INFO ) == ZERO ) RETURN
             } // 10
          } else {
             for (INFO = 1; INFO <= N; INFO++) { // 20
-               IF( AB( 1, INFO ).EQ.ZERO ) RETURN
+               IF( AB( 1, INFO ) == ZERO ) RETURN
             } // 20
          }
       }

@@ -63,7 +63,7 @@
 
       // Quick return if possible
 
-      if ( M.EQ.0 .OR. N.EQ.0 ) {
+      if ( M == 0 .OR. N == 0 ) {
          ROWCND = ONE
          COLCND = ONE
          AMAX = ZERO
@@ -100,12 +100,12 @@
       } // 40
       AMAX = RCMAX
 
-      if ( RCMIN.EQ.ZERO ) {
+      if ( RCMIN == ZERO ) {
 
          // Find the first zero scale factor and return an error code.
 
          for (I = 1; I <= M; I++) { // 50
-            if ( R( I ).EQ.ZERO ) {
+            if ( R( I ) == ZERO ) {
                INFO = I
                RETURN
             }
@@ -148,12 +148,12 @@
          RCMAX = MAX( RCMAX, C( J ) )
       } // 100
 
-      if ( RCMIN.EQ.ZERO ) {
+      if ( RCMIN == ZERO ) {
 
          // Find the first zero scale factor and return an error code.
 
          for (J = 1; J <= N; J++) { // 110
-            if ( C( J ).EQ.ZERO ) {
+            if ( C( J ) == ZERO ) {
                INFO = M + J
                RETURN
             }

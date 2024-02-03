@@ -39,7 +39,7 @@
       // Test the input parameters
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( N.LT.0 ) {
          INFO = -1
       } else if ( ILO.LT.1 .OR. ILO.GT.MAX( 1, N ) ) {
@@ -53,7 +53,7 @@
       }
 
       NH = IHI - ILO + 1
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Compute the workspace requirements
 

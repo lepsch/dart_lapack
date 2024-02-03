@@ -49,8 +49,8 @@
       WANTV2T = LSAME( JOBV2T, 'Y' )
       COLMAJOR = .NOT. LSAME( TRANS, 'T' )
       DEFAULTSIGNS = .NOT. LSAME( SIGNS, 'O' )
-      LQUERY = LWORK .EQ. -1
-      LRQUERY = LRWORK .EQ. -1
+      LQUERY = LWORK == -1
+      LRQUERY = LRWORK == -1
       if ( M .LT. 0 ) {
          INFO = -7
       } else if ( P .LT. 0 .OR. P .GT. M ) {
@@ -85,7 +85,7 @@
 
       // Work with transpose if convenient
 
-      if ( INFO .EQ. 0 .AND. MIN( P, M-P ) .LT. MIN( Q, M-Q ) ) {
+      if ( INFO == 0 .AND. MIN( P, M-P ) .LT. MIN( Q, M-Q ) ) {
          if ( COLMAJOR ) {
             TRANST = 'T'
          } else {
@@ -103,7 +103,7 @@
       // Work with permutation [ 0 I; I 0 ] * X * [ 0 I; I 0 ] if
       // convenient
 
-      if ( INFO .EQ. 0 .AND. M-Q .LT. Q ) {
+      if ( INFO == 0 .AND. M-Q .LT. Q ) {
          if ( DEFAULTSIGNS ) {
             SIGNST = 'O'
          } else {
@@ -115,7 +115,7 @@
 
       // Compute workspace
 
-      if ( INFO .EQ. 0 ) {
+      if ( INFO == 0 ) {
 
          // Real workspace
 

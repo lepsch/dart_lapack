@@ -59,7 +59,7 @@
 
       // Quick return if possible
 
-      IF( ( M.EQ.0 ) .OR. ( N.EQ.0 ) ) RETURN
+      IF( ( M == 0 ) .OR. ( N == 0 ) ) RETURN
       if ( LSAME( SIDE, 'L' ) ) {
 
          // Form  P * A

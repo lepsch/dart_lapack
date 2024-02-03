@@ -151,9 +151,9 @@
                // correctly.
 
                if ( ZEROT ) {
-                  if ( IMAT.EQ.3 ) {
+                  if ( IMAT == 3 ) {
                      IZERO = 1
-                  } else if ( IMAT.EQ.4 ) {
+                  } else if ( IMAT == 4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
@@ -163,7 +163,7 @@
 
                      // Set row and column IZERO to zero.
 
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*LDA
                         for (I = 1; I <= IZERO - 1; I++) { // 20
                            A( IOFF+I ) = ZERO
@@ -185,7 +185,7 @@
                         } // 50
                      }
                   } else {
-                     if ( IUPLO.EQ.1 ) {
+                     if ( IUPLO == 1 ) {
 
                         // Set the first IZERO rows and columns to zero.
 
@@ -284,7 +284,7 @@
                   // (i.e. there is no zero rows and columns).
                   // Do it only for the first block size.
 
-                  if ( INB.EQ.1 .AND. .NOT.TRFCON ) {
+                  if ( INB == 1 .AND. .NOT.TRFCON ) {
                      slacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'SSYTRI_3'
 
@@ -311,7 +311,7 @@
 
                   for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 110
@@ -325,7 +325,7 @@
 
                   CONST = ONE / ( ONE-ALPHA )
 
-                  if ( IUPLO.EQ.1 ) {
+                  if ( IUPLO == 1 ) {
 
                   // Compute largest element in U
 
@@ -404,7 +404,7 @@
                   CONST = ( ONE+ALPHA ) / ( ONE-ALPHA )
                   slacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
 
-                  if ( IUPLO.EQ.1 ) {
+                  if ( IUPLO == 1 ) {
 
                      // Loop backward for UPLO = 'U'
 
@@ -489,7 +489,7 @@
 
                   for (K = 3; K <= 4; K++) { // 200
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 200
@@ -545,7 +545,7 @@
 
                      for (K = 5; K <= 6; K++) { // 210
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 210
@@ -575,7 +575,7 @@
                   // the threshold.
 
                   if ( RESULT( 7 ).GE.THRESH ) {
-                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 ) UPLO, N, IMAT, 7, RESULT( 7 );
+                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 ) UPLO, N, IMAT, 7, RESULT( 7 );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + 1

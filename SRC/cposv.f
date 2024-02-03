@@ -48,7 +48,7 @@
       // Compute the Cholesky factorization A = U**H*U or A = L*L**H.
 
       cpotrf(UPLO, N, A, LDA, INFO );
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 

@@ -52,7 +52,7 @@
       WNTQAS = WNTQA .OR. WNTQS
       WNTQO  = LSAME( JOBZ, 'O' )
       WNTQN  = LSAME( JOBZ, 'N' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
 
       if ( .NOT.( WNTQA .OR. WNTQS .OR. WNTQO .OR. WNTQN ) ) {
          INFO = -1
@@ -75,7 +75,7 @@
         // NB refers to the optimal block size for the immediately
         // following subroutine, as returned by ILAENV.
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
          BDSPAC = 0
@@ -337,7 +337,7 @@
 
       // Quick return if possible
 
-      if ( M.EQ.0 .OR. N.EQ.0 ) {
+      if ( M == 0 .OR. N == 0 ) {
          RETURN
       }
 
@@ -1148,7 +1148,7 @@
 
       // Undo scaling if necessary
 
-      if ( ISCL.EQ.1 ) {
+      if ( ISCL == 1 ) {
          if (ANRM.GT.BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR );
       }
 

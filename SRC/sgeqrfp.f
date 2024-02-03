@@ -36,7 +36,7 @@
       INFO = 0
       NB = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 )
       K = MIN( M, N )
-      if ( K.EQ.0 ) {
+      if ( K == 0 ) {
          LWKMIN = 1
          LWKOPT = 1
       } else {
@@ -45,7 +45,7 @@
       }
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
 
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( M.LT.0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
@@ -65,7 +65,7 @@
       // Quick return if possible
 
       K = MIN( M, N )
-      if ( K.EQ.0 ) {
+      if ( K == 0 ) {
          WORK( 1 ) = 1
          RETURN
       }

@@ -59,9 +59,9 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          W( 1 ) = REAL( AP( 1 ) )
          RWORK( 1 ) = 1
          if (WANTZ) Z( 1, 1 ) = ONE;
@@ -88,7 +88,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      if ( ISCALE.EQ.1 ) {
+      if ( ISCALE == 1 ) {
          csscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
       }
 
@@ -112,8 +112,8 @@
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      if ( ISCALE.EQ.1 ) {
-         if ( INFO.EQ.0 ) {
+      if ( ISCALE == 1 ) {
+         if ( INFO == 0 ) {
             IMAX = N
          } else {
             IMAX = INFO - 1

@@ -38,9 +38,9 @@
 
       // Compute product of 1-norms of A and Z.
 
-      ANORM = DLANSY( '1', UPLO, N, A, LDA, WORK )* DLANGE( '1', N, M, Z, LDZ, WORK )       IF( ANORM.EQ.ZERO ) ANORM = ONE
+      ANORM = DLANSY( '1', UPLO, N, A, LDA, WORK )* DLANGE( '1', N, M, Z, LDZ, WORK )       IF( ANORM == ZERO ) ANORM = ONE
 
-      if ( ITYPE.EQ.1 ) {
+      if ( ITYPE == 1 ) {
 
          // Norm of AZ - BZD
 
@@ -52,7 +52,7 @@
 
          RESULT( 1 ) = ( DLANGE( '1', N, M, WORK, N, WORK ) / ANORM ) / ( N*ULP )
 
-      } else if ( ITYPE.EQ.2 ) {
+      } else if ( ITYPE == 2 ) {
 
          // Norm of ABZ - ZD
 
@@ -64,7 +64,7 @@
 
          RESULT( 1 ) = ( DLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP )
 
-      } else if ( ITYPE.EQ.3 ) {
+      } else if ( ITYPE == 3 ) {
 
          // Norm of BAZ - ZD
 

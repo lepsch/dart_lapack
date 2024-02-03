@@ -72,7 +72,7 @@
       M = N + SQRE
       NLP1 = NL + 1
 
-      if ( ICOMPQ.EQ.0 ) {
+      if ( ICOMPQ == 0 ) {
 
          // Apply back orthogonal transformations from the left.
 
@@ -92,7 +92,7 @@
          // Step (3L): apply the inverse of the left singular vector
          // matrix to BX.
 
-         if ( K.EQ.1 ) {
+         if ( K == 1 ) {
             zcopy(NRHS, BX, LDBX, B, LDB );
             if ( Z( 1 ).LT.ZERO ) {
                zdscal(NRHS, NEGONE, B, LDB );
@@ -106,13 +106,13 @@
                   DIFRJ = -DIFR( J, 1 )
                   DSIGJP = -POLES( J+1, 2 )
                }
-               if ( ( Z( J ).EQ.ZERO ) .OR. ( POLES( J, 2 ).EQ.ZERO ) ) {
+               if ( ( Z( J ) == ZERO ) .OR. ( POLES( J, 2 ) == ZERO ) ) {
                   RWORK( J ) = ZERO
                } else {
                   RWORK( J ) = -POLES( J, 2 )*Z( J ) / DIFLJ / ( POLES( J, 2 )+DJ )
                }
                for (I = 1; I <= J - 1; I++) { // 30
-                  if ( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) {
+                  if ( ( Z( I ) == ZERO ) .OR. ( POLES( I, 2 ) == ZERO ) ) {
                      RWORK( I ) = ZERO
                   } else {
 
@@ -124,7 +124,7 @@
                   }
                } // 30
                for (I = J + 1; I <= K; I++) { // 40
-                  if ( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) {
+                  if ( ( Z( I ) == ZERO ) .OR. ( POLES( I, 2 ) == ZERO ) ) {
                      RWORK( I ) = ZERO
                   } else {
                      RWORK( I ) = POLES( I, 2 )*Z( I ) / ( DLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ )
@@ -172,18 +172,18 @@
          // Step (1R): apply back the new right singular vector matrix
          // to B.
 
-         if ( K.EQ.1 ) {
+         if ( K == 1 ) {
             zcopy(NRHS, B, LDB, BX, LDBX );
          } else {
             for (J = 1; J <= K; J++) { // 180
                DSIGJ = POLES( J, 2 )
-               if ( Z( J ).EQ.ZERO ) {
+               if ( Z( J ) == ZERO ) {
                   RWORK( J ) = ZERO
                } else {
                   RWORK( J ) = -Z( J ) / DIFL( J ) / ( DSIGJ+POLES( J, 1 ) ) / DIFR( J, 2 )
                }
                for (I = 1; I <= J - 1; I++) { // 110
-                  if ( Z( J ).EQ.ZERO ) {
+                  if ( Z( J ) == ZERO ) {
                      RWORK( I ) = ZERO
                   } else {
 
@@ -195,7 +195,7 @@
                   }
                } // 110
                for (I = J + 1; I <= K; I++) { // 120
-                  if ( Z( J ).EQ.ZERO ) {
+                  if ( Z( J ) == ZERO ) {
                      RWORK( I ) = ZERO
                   } else {
                      RWORK( I ) = Z( J ) / ( DLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
@@ -233,7 +233,7 @@
          // Step (2R): if SQRE = 1, apply back the rotation that is
          // related to the right null space of the subproblem.
 
-         if ( SQRE.EQ.1 ) {
+         if ( SQRE == 1 ) {
             zcopy(NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX );
             zdrot(NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S );
          }
@@ -242,7 +242,7 @@
          // Step (3R): permute rows of B.
 
          zcopy(NRHS, BX( 1, 1 ), LDBX, B( NLP1, 1 ), LDB );
-         if ( SQRE.EQ.1 ) {
+         if ( SQRE == 1 ) {
             zcopy(NRHS, BX( M, 1 ), LDBX, B( M, 1 ), LDB );
          }
          for (I = 2; I <= N; I++) { // 190

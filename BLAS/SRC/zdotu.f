@@ -20,7 +20,7 @@
       ZTEMP = (0.0d0,0.0d0)
       ZDOTU = (0.0d0,0.0d0)
       if (N.LE.0) RETURN;
-      if (INCX.EQ.1 .AND. INCY.EQ.1) {
+      if (INCX == 1 .AND. INCY == 1) {
 
          // code for both increments equal to 1
 

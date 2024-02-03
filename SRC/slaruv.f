@@ -194,7 +194,7 @@
 
          X( I ) = R*( REAL( IT1 )+R*( REAL( IT2 )+R*( REAL( IT3 )+R* REAL( IT4 ) ) ) )
 
-         if (X( I ).EQ.1.0) {
+         if (X( I ) == 1.0) {
             // If a real number has n bits of precision, and the first
             // n bits of the 48-bit integer above happen to be all 1 (which
             // will occur about once every 2**n calls), then X( I ) will

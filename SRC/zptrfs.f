@@ -75,7 +75,7 @@
 
       // Quick return if possible
 
-      if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
+      if ( N == 0 .OR. NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
@@ -105,7 +105,7 @@
          // abs(A)*abs(x) + abs(b) for use in the backward error bound.
 
          if ( UPPER ) {
-            if ( N.EQ.1 ) {
+            if ( N == 1 ) {
                BI = B( 1, J )
                DX = D( 1 )*X( 1, J )
                WORK( 1 ) = BI - DX
@@ -131,7 +131,7 @@
                RWORK( N ) = CABS1( BI ) + CABS1( E( N-1 ) )* CABS1( X( N-1, J ) ) + CABS1( DX )
             }
          } else {
-            if ( N.EQ.1 ) {
+            if ( N == 1 ) {
                BI = B( 1, J )
                DX = D( 1 )*X( 1, J )
                WORK( 1 ) = BI - DX

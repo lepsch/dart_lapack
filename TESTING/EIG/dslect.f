@@ -34,7 +34,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( SELOPT.EQ.0 ) {
+      if ( SELOPT == 0 ) {
          DSLECT = ( ZR.LT.ZERO )
       } else {
          RMIN = DLAPY2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) )

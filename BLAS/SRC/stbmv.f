@@ -49,7 +49,7 @@
           INFO = 5
       } else if (LDA.LT. (K+1)) {
           INFO = 7
-      } else if (INCX.EQ.0) {
+      } else if (INCX == 0) {
           INFO = 9
       }
       if (INFO.NE.0) {
@@ -59,7 +59,7 @@
 
       // Quick return if possible.
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       NOUNIT = LSAME(DIAG,'N')
 
@@ -81,7 +81,7 @@
 
           if (LSAME(UPLO,'U')) {
               KPLUS1 = K + 1
-              if (INCX.EQ.1) {
+              if (INCX == 1) {
                   for (J = 1; J <= N; J++) { // 20
                       if (X(J).NE.ZERO) {
                           TEMP = X(J)
@@ -110,7 +110,7 @@
                   } // 40
               }
           } else {
-              if (INCX.EQ.1) {
+              if (INCX == 1) {
                   DO 60 J = N,1,-1
                       if (X(J).NE.ZERO) {
                           TEMP = X(J)
@@ -146,7 +146,7 @@
 
           if (LSAME(UPLO,'U')) {
               KPLUS1 = K + 1
-              if (INCX.EQ.1) {
+              if (INCX == 1) {
                   DO 100 J = N,1,-1
                       TEMP = X(J)
                       L = KPLUS1 - J
@@ -174,7 +174,7 @@
                   } // 120
               }
           } else {
-              if (INCX.EQ.1) {
+              if (INCX == 1) {
                   for (J = 1; J <= N; J++) { // 140
                       TEMP = X(J)
                       L = 1 - J

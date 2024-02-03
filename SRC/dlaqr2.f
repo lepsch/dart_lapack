@@ -58,7 +58,7 @@
 
       // ==== Quick return in case of workspace query. ====
 
-      if ( LWORK.EQ.-1 ) {
+      if ( LWORK == -1 ) {
          WORK( 1 ) = DBLE( LWKOPT )
          RETURN
       }
@@ -83,13 +83,13 @@
 
       JW = MIN( NW, KBOT-KTOP+1 )
       KWTOP = KBOT - JW + 1
-      if ( KWTOP.EQ.KTOP ) {
+      if ( KWTOP == KTOP ) {
          S = ZERO
       } else {
          S = H( KWTOP, KWTOP-1 )
       }
 
-      if ( KBOT.EQ.KWTOP ) {
+      if ( KBOT == KWTOP ) {
 
          // ==== 1-by-1 deflation window: not much to do ====
 
@@ -132,7 +132,7 @@
       ILST = INFQR + 1
       } // 20
       if ( ILST.LE.NS ) {
-         if ( NS.EQ.1 ) {
+         if ( NS == 1 ) {
             BULGE = false;
          } else {
             BULGE = T( NS, NS-1 ).NE.ZERO
@@ -145,7 +145,7 @@
             // ==== Real eigenvalue ====
 
             FOO = ABS( T( NS, NS ) )
-            if (FOO.EQ.ZERO) FOO = ABS( S );
+            if (FOO == ZERO) FOO = ABS( S );
             if ( ABS( S*V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) {
 
                // ==== Deflatable ====
@@ -164,7 +164,7 @@
 
             // ==== Complex conjugate pair ====
 
-            FOO = ABS( T( NS, NS ) ) + SQRT( ABS( T( NS, NS-1 ) ) )* SQRT( ABS( T( NS-1, NS ) ) )             IF( FOO.EQ.ZERO ) FOO = ABS( S )             IF( MAX( ABS( S*V( 1, NS ) ), ABS( S*V( 1, NS-1 ) ) ).LE. MAX( SMLNUM, ULP*FOO ) ) THEN
+            FOO = ABS( T( NS, NS ) ) + SQRT( ABS( T( NS, NS-1 ) ) )* SQRT( ABS( T( NS-1, NS ) ) )             IF( FOO == ZERO ) FOO = ABS( S )             IF( MAX( ABS( S*V( 1, NS ) ), ABS( S*V( 1, NS-1 ) ) ).LE. MAX( SMLNUM, ULP*FOO ) ) THEN
 
                // ==== Deflatable ====
 
@@ -188,7 +188,7 @@
 
          // ==== Return to Hessenberg form ====
 
-      if (NS.EQ.0) S = ZERO;
+      if (NS == 0) S = ZERO;
 
       if ( NS.LT.JW ) {
 
@@ -204,24 +204,24 @@
 
          KEND = I - 1
          I = INFQR + 1
-         if ( I.EQ.NS ) {
+         if ( I == NS ) {
             K = I + 1
-         } else if ( T( I+1, I ).EQ.ZERO ) {
+         } else if ( T( I+1, I ) == ZERO ) {
             K = I + 1
          } else {
             K = I + 2
          }
          } // 40
          if ( K.LE.KEND ) {
-            if ( K.EQ.I+1 ) {
+            if ( K == I+1 ) {
                EVI = ABS( T( I, I ) )
             } else {
                EVI = ABS( T( I, I ) ) + SQRT( ABS( T( I+1, I ) ) )* SQRT( ABS( T( I, I+1 ) ) )
             }
 
-            if ( K.EQ.KEND ) {
+            if ( K == KEND ) {
                EVK = ABS( T( K, K ) )
-            } else if ( T( K+1, K ).EQ.ZERO ) {
+            } else if ( T( K+1, K ) == ZERO ) {
                EVK = ABS( T( K, K ) )
             } else {
                EVK = ABS( T( K, K ) ) + SQRT( ABS( T( K+1, K ) ) )* SQRT( ABS( T( K, K+1 ) ) )
@@ -234,15 +234,15 @@
                IFST = I
                ILST = K
                dtrexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO );
-               if ( INFO.EQ.0 ) {
+               if ( INFO == 0 ) {
                   I = ILST
                } else {
                   I = K
                }
             }
-            if ( I.EQ.KEND ) {
+            if ( I == KEND ) {
                K = I + 1
-            } else if ( T( I+1, I ).EQ.ZERO ) {
+            } else if ( T( I+1, I ) == ZERO ) {
                K = I + 1
             } else {
                K = I + 2
@@ -258,11 +258,11 @@
       I = JW
       } // 60
       if ( I.GE.INFQR+1 ) {
-         if ( I.EQ.INFQR+1 ) {
+         if ( I == INFQR+1 ) {
             SR( KWTOP+I-1 ) = T( I, I )
             SI( KWTOP+I-1 ) = ZERO
             I = I - 1
-         } else if ( T( I, I-1 ).EQ.ZERO ) {
+         } else if ( T( I, I-1 ) == ZERO ) {
             SR( KWTOP+I-1 ) = T( I, I )
             SI( KWTOP+I-1 ) = ZERO
             I = I - 1
@@ -277,7 +277,7 @@
          GO TO 60
       }
 
-      if ( NS.LT.JW .OR. S.EQ.ZERO ) {
+      if ( NS.LT.JW .OR. S == ZERO ) {
          if ( NS.GT.1 .AND. S.NE.ZERO ) {
 
             // ==== Reflect spike back into lower triangle ====

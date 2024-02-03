@@ -43,7 +43,7 @@
       // .. Executable Statements ..
 
       SAFMIN = SLAMCH( 'Safe minimum' )
-      if ( KASE.EQ.0 ) {
+      if ( KASE == 0 ) {
          for (I = 1; I <= N; I++) { // 10
             X( I ) = CMPLX( ONE / REAL( N ) )
          } // 10
@@ -58,7 +58,7 @@
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
 
       } // 20
-      if ( N.EQ.1 ) {
+      if ( N == 1 ) {
          V( 1 ) = X( 1 )
          EST = ABS( V( 1 ) )
          // ... QUIT

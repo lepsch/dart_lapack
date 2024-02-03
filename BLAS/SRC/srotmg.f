@@ -39,7 +39,7 @@
       } else {
          // CASE-SD1-NONNEGATIVE
          SP2 = SD2*SY1
-         if (SP2.EQ.ZERO) {
+         if (SP2 == ZERO) {
             SFLAG = -TWO
             SPARAM(1) = SFLAG
             RETURN
@@ -102,7 +102,7 @@
       // PROCEDURE..SCALE-CHECK
          if (SD1.NE.ZERO) {
             DO WHILE ((SD1.LE.RGAMSQ) .OR. (SD1.GE.GAMSQ))
-               if (SFLAG.EQ.ZERO) {
+               if (SFLAG == ZERO) {
                   SH11 = ONE
                   SH22 = ONE
                   SFLAG = -ONE
@@ -127,7 +127,7 @@
 
          if (SD2.NE.ZERO) {
             DO WHILE ( (ABS(SD2).LE.RGAMSQ) .OR. (ABS(SD2).GE.GAMSQ) )
-               if (SFLAG.EQ.ZERO) {
+               if (SFLAG == ZERO) {
                   SH11 = ONE
                   SH22 = ONE
                   SFLAG = -ONE
@@ -155,7 +155,7 @@
          SPARAM(3) = SH21
          SPARAM(4) = SH12
          SPARAM(5) = SH22
-      } else if (SFLAG.EQ.ZERO) {
+      } else if (SFLAG == ZERO) {
          SPARAM(3) = SH21
          SPARAM(4) = SH12
       } else {

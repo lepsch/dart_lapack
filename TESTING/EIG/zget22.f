@@ -74,7 +74,7 @@
 
       ENRMIN = ONE / ULP
       ENRMAX = ZERO
-      if ( ITRNSE.EQ.0 ) {
+      if ( ITRNSE == 0 ) {
          for (JVEC = 1; JVEC <= N; JVEC++) { // 20
             TEMP1 = ZERO
             for (J = 1; J <= N; J++) { // 10
@@ -116,17 +116,17 @@
 
       JOFF = 0
       for (JCOL = 1; JCOL <= N; JCOL++) { // 100
-         if ( ITRNSW.EQ.0 ) {
+         if ( ITRNSW == 0 ) {
             WTEMP = W( JCOL )
          } else {
             WTEMP = DCONJG( W( JCOL ) )
          }
 
-         if ( ITRNSE.EQ.0 ) {
+         if ( ITRNSE == 0 ) {
             for (JROW = 1; JROW <= N; JROW++) { // 70
                WORK( JOFF+JROW ) = E( JROW, JCOL )*WTEMP
             } // 70
-         } else if ( ITRNSE.EQ.1 ) {
+         } else if ( ITRNSE == 1 ) {
             for (JROW = 1; JROW <= N; JROW++) { // 80
                WORK( JOFF+JROW ) = E( JCOL, JROW )*WTEMP
             } // 80

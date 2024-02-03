@@ -29,7 +29,7 @@
       // Set up deflation window
       JW = MIN( NW, IHI-ILO+1 )
       KWTOP = IHI-JW+1
-      if ( KWTOP .EQ. ILO ) {
+      if ( KWTOP == ILO ) {
          S = CZERO
       } else {
          S = A( KWTOP, KWTOP-1 )
@@ -41,7 +41,7 @@
       zlaqz0('S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHA, BETA, QC, LDQC, ZC, LDZC, WORK, -1, RWORK, REC+1, QZ_SMALL_INFO );
       LWORKREQ = INT( WORK( 1 ) )+2*JW**2
       LWORKREQ = MAX( LWORKREQ, N*NW, 2*NW**2+N )
-      if ( LWORK .EQ.-1 ) {
+      if ( LWORK == -1 ) {
          // workspace query, quick return
          WORK( 1 ) = LWORKREQ
          RETURN
@@ -60,7 +60,7 @@
       ULP = DLAMCH( 'PRECISION' )
       SMLNUM = SAFMIN*( DBLE( N )/ULP )
 
-      if ( IHI .EQ. KWTOP ) {
+      if ( IHI == KWTOP ) {
          // 1 by 1 deflation window, just try a regular deflation
          ALPHA( KWTOP ) = A( KWTOP, KWTOP )
          BETA( KWTOP ) = B( KWTOP, KWTOP )
@@ -95,7 +95,7 @@
       }
 
       // Deflation detection loop
-      if ( KWTOP .EQ. ILO .OR. S .EQ. CZERO ) {
+      if ( KWTOP == ILO .OR. S == CZERO ) {
          KWBOT = KWTOP-1
       } else {
          KWBOT = IHI
@@ -104,7 +104,7 @@
          DO WHILE ( K .LE. JW )
                // Try to deflate eigenvalue
                TEMPR = ABS( A( KWBOT, KWBOT ) )
-               if ( TEMPR .EQ. ZERO ) {
+               if ( TEMPR == ZERO ) {
                   TEMPR = ABS( S )
                }
                if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( ULP* TEMPR, SMLNUM ) ) {

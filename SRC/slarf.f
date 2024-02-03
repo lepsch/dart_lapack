@@ -50,7 +50,7 @@
             I = 1
          }
       // Look for the last non-zero row in V.
-         DO WHILE( LASTV.GT.0 .AND. V( I ).EQ.ZERO )
+         DO WHILE( LASTV.GT.0 .AND. V( I ) == ZERO )
             LASTV = LASTV - 1
             I = I - INCV
          }
@@ -62,7 +62,7 @@
             LASTC = ILASLR(M, LASTV, C, LDC)
          }
       }
-      // Note that lastc.eq.0 renders the BLAS operations null; no special
+      // Note that lastc == 0 renders the BLAS operations null; no special
       // case is needed at this level.
       if ( APPLYLEFT ) {
 

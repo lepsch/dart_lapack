@@ -36,7 +36,7 @@
 
       // Test the input parameters
 
-      LQUERY  = LWORK.EQ.-1
+      LQUERY  = LWORK == -1
       INFO = 0
       if ( M.LT.0 ) {
          INFO = -1
@@ -93,7 +93,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N ).EQ.0 ) {
+      if ( MIN( M, N ) == 0 ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
          RETURN
       }

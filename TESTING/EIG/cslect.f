@@ -33,7 +33,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( SELOPT.EQ.0 ) {
+      if ( SELOPT == 0 ) {
          CSLECT = ( REAL( Z ).LT.ZERO )
       } else {
          RMIN = ABS( Z-CMPLX( SELWR( 1 ), SELWI( 1 ) ) )

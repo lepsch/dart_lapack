@@ -82,7 +82,7 @@
          RESULT( I ) = -ONE
       } // 10
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Important constants
 
@@ -95,7 +95,7 @@
       SELOPT = 0
       LIWORK = N*N
       for (ISORT = 0; ISORT <= 1; ISORT++) { // 120
-         if ( ISORT.EQ.0 ) {
+         if ( ISORT == 0 ) {
             SORT = 'N'
             RSUB = 0
          } else {
@@ -117,7 +117,7 @@
             INFO = ABS( IINFO )
             RETURN
          }
-         if ( ISORT.EQ.0 ) {
+         if ( ISORT == 0 ) {
             dcopy(N, WR, 1, WRTMP, 1 );
             dcopy(N, WI, 1, WITMP, 1 );
          }
@@ -135,7 +135,7 @@
          } // 40
          for (I = 1; I <= N - 1; I++) { // 50
             if ( H( I+1, I ).NE.ZERO ) {
-               IF( H( I, I ).NE.H( I+1, I+1 ) .OR. H( I, I+1 ).EQ. ZERO .OR. SIGN( ONE, H( I+1, I ) ).EQ. SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
+               IF( H( I, I ).NE.H( I+1, I+1 ) .OR. H( I, I+1 ) == ZERO .OR. SIGN( ONE, H( I+1, I ) ) == SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
             }
          } // 50
 
@@ -177,13 +177,13 @@
             IF( H( I, I ).NE.WR( I ) ) RESULT( 4+RSUB ) = ULPINV
          } // 60
          if ( N.GT.1 ) {
-            IF( H( 2, 1 ).EQ.ZERO .AND. WI( 1 ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV             IF( H( N, N-1 ).EQ.ZERO .AND. WI( N ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV
+            IF( H( 2, 1 ) == ZERO .AND. WI( 1 ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV             IF( H( N, N-1 ) == ZERO .AND. WI( N ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV
          }
          for (I = 1; I <= N - 1; I++) { // 70
             if ( H( I+1, I ).NE.ZERO ) {
                TMP = SQRT( ABS( H( I+1, I ) ) )* SQRT( ABS( H( I, I+1 ) ) )                RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / MAX( ULP*TMP, SMLNUM ) )                RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / MAX( ULP*TMP, SMLNUM ) )
             } else if ( I.GT.1 ) {
-               IF( H( I+1, I ).EQ.ZERO .AND. H( I, I-1 ).EQ.ZERO .AND. WI( I ).NE.ZERO )RESULT( 4+RSUB ) = ULPINV
+               IF( H( I+1, I ) == ZERO .AND. H( I, I-1 ) == ZERO .AND. WI( I ).NE.ZERO )RESULT( 4+RSUB ) = ULPINV
             }
          } // 70
 
@@ -218,7 +218,7 @@
 
          // Do Test (13)
 
-         if ( ISORT.EQ.1 ) {
+         if ( ISORT == 1 ) {
             RESULT( 13 ) = ZERO
             KNTEIG = 0
             for (I = 1; I <= N; I++) { // 110
@@ -474,7 +474,7 @@
 
          ANORM = DLANGE( '1', N, N, A, LDA, WORK )
          V = MAX( DBLE( N )*EPS*ANORM, SMLNUM )
-         if (ANORM.EQ.ZERO) V = ONE;
+         if (ANORM == ZERO) V = ONE;
          if ( V.GT.RCONDV ) {
             TOL = ONE
          } else {

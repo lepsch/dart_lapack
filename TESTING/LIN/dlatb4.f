@@ -74,13 +74,13 @@
 
          // Set the lower and upper bandwidths.
 
-         if ( IMAT.EQ.1 ) {
+         if ( IMAT == 1 ) {
             KL = 0
             KU = 0
-         } else if ( IMAT.EQ.2 ) {
+         } else if ( IMAT == 2 ) {
             KL = 0
             KU = MAX( N-1, 0 )
-         } else if ( IMAT.EQ.3 ) {
+         } else if ( IMAT == 3 ) {
             KL = MAX( M-1, 0 )
             KU = 0
          } else {
@@ -90,17 +90,17 @@
 
          // Set the condition number and norm.
 
-         if ( IMAT.EQ.5 ) {
+         if ( IMAT == 5 ) {
             CNDNUM = BADC1
-         } else if ( IMAT.EQ.6 ) {
+         } else if ( IMAT == 6 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
          }
 
-         if ( IMAT.EQ.7 ) {
+         if ( IMAT == 7 ) {
             ANORM = SMALL
-         } else if ( IMAT.EQ.8 ) {
+         } else if ( IMAT == 8 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
@@ -123,7 +123,7 @@
 
          // Set the lower and upper bandwidths.
 
-         if ( IMAT.EQ.2 ) {
+         if ( IMAT == 2 ) {
 
             // 2. Random, Diagonal, CNDNUM = 2
 
@@ -132,7 +132,7 @@
             CNDNUM = TWO
             ANORM = ONE
             MODE = 3
-         } else if ( IMAT.EQ.3 ) {
+         } else if ( IMAT == 3 ) {
 
             // 3. Random, Upper triangular,  CNDNUM = 2
 
@@ -141,7 +141,7 @@
             CNDNUM = TWO
             ANORM = ONE
             MODE = 3
-         } else if ( IMAT.EQ.4 ) {
+         } else if ( IMAT == 4 ) {
 
            // 4. Random, Lower triangular,  CNDNUM = 2
 
@@ -165,7 +165,7 @@
                ANORM = ONE
                MODE = 3
 
-            } else if ( IMAT.EQ.15 ) {
+            } else if ( IMAT == 15 ) {
 
                // 15. Random, CNDNUM = sqrt(0.1/EPS)
 
@@ -173,7 +173,7 @@
                ANORM = ONE
                MODE = 3
 
-            } else if ( IMAT.EQ.16 ) {
+            } else if ( IMAT == 16 ) {
 
                // 16. Random, CNDNUM = 0.1/EPS
 
@@ -181,7 +181,7 @@
                ANORM = ONE
                MODE = 3
 
-            } else if ( IMAT.EQ.17 ) {
+            } else if ( IMAT == 17 ) {
 
                // 17. Random, CNDNUM = 0.1/EPS,
                    // one small singular value S(N)=1/CNDNUM
@@ -190,7 +190,7 @@
                ANORM = ONE
                MODE = 2
 
-            } else if ( IMAT.EQ.18 ) {
+            } else if ( IMAT == 18 ) {
 
                // 18. Random, scaled near underflow
 
@@ -198,7 +198,7 @@
                ANORM = SMALL
                MODE = 3
 
-            } else if ( IMAT.EQ.19 ) {
+            } else if ( IMAT == 19 ) {
 
                // 19. Random, scaled near overflow
 
@@ -220,13 +220,13 @@
 
          // Set the lower and upper bandwidths.
 
-         if ( IMAT.EQ.1 ) {
+         if ( IMAT == 1 ) {
             KL = 0
             KU = 0
-         } else if ( IMAT.EQ.2 ) {
+         } else if ( IMAT == 2 ) {
             KL = 0
             KU = MAX( N-1, 0 )
-         } else if ( IMAT.EQ.3 ) {
+         } else if ( IMAT == 3 ) {
             KL = MAX( M-1, 0 )
             KU = 0
          } else {
@@ -236,17 +236,17 @@
 
          // Set the condition number and norm.
 
-         if ( IMAT.EQ.8 ) {
+         if ( IMAT == 8 ) {
             CNDNUM = BADC1
-         } else if ( IMAT.EQ.9 ) {
+         } else if ( IMAT == 9 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
          }
 
-         if ( IMAT.EQ.10 ) {
+         if ( IMAT == 10 ) {
             ANORM = SMALL
-         } else if ( IMAT.EQ.11 ) {
+         } else if ( IMAT == 11 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
@@ -262,17 +262,17 @@
 
          // Set the condition number and norm.
 
-         if ( IMAT.EQ.5 ) {
+         if ( IMAT == 5 ) {
             CNDNUM = BADC1
-         } else if ( IMAT.EQ.6 ) {
+         } else if ( IMAT == 6 ) {
             CNDNUM = TENTH*BADC2
          } else {
             CNDNUM = TWO
          }
 
-         if ( IMAT.EQ.7 ) {
+         if ( IMAT == 7 ) {
             ANORM = SMALL
-         } else if ( IMAT.EQ.8 ) {
+         } else if ( IMAT == 8 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
@@ -288,7 +288,7 @@
 
          // Set the lower and upper bandwidths.
 
-         if ( IMAT.EQ.1 ) {
+         if ( IMAT == 1 ) {
             KL = 0
          } else {
             KL = 1
@@ -297,17 +297,17 @@
 
          // Set the condition number and norm.
 
-         if ( IMAT.EQ.3 ) {
+         if ( IMAT == 3 ) {
             CNDNUM = BADC1
-         } else if ( IMAT.EQ.4 ) {
+         } else if ( IMAT == 4 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
          }
 
-         if ( IMAT.EQ.5 .OR. IMAT.EQ.11 ) {
+         if ( IMAT == 5 .OR. IMAT == 11 ) {
             ANORM = SMALL
-         } else if ( IMAT.EQ.6 .OR. IMAT.EQ.12 ) {
+         } else if ( IMAT == 6 .OR. IMAT == 12 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
@@ -324,7 +324,7 @@
 
          // Set the lower and upper bandwidths.
 
-         if ( IMAT.EQ.1 ) {
+         if ( IMAT == 1 ) {
             KL = 0
          } else {
             KL = MAX( N-1, 0 )
@@ -333,17 +333,17 @@
 
          // Set the condition number and norm.
 
-         if ( IMAT.EQ.6 ) {
+         if ( IMAT == 6 ) {
             CNDNUM = BADC1
-         } else if ( IMAT.EQ.7 ) {
+         } else if ( IMAT == 7 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
          }
 
-         if ( IMAT.EQ.8 ) {
+         if ( IMAT == 8 ) {
             ANORM = SMALL
-         } else if ( IMAT.EQ.9 ) {
+         } else if ( IMAT == 9 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
@@ -361,7 +361,7 @@
 
          // Set the lower and upper bandwidths.
 
-         if ( IMAT.EQ.1 ) {
+         if ( IMAT == 1 ) {
             KL = 0
          } else {
             KL = MAX( N-1, 0 )
@@ -370,17 +370,17 @@
 
          // Set the condition number and norm.
 
-         if ( IMAT.EQ.7 ) {
+         if ( IMAT == 7 ) {
             CNDNUM = BADC1
-         } else if ( IMAT.EQ.8 ) {
+         } else if ( IMAT == 8 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
          }
 
-         if ( IMAT.EQ.9 ) {
+         if ( IMAT == 9 ) {
             ANORM = SMALL
-         } else if ( IMAT.EQ.10 ) {
+         } else if ( IMAT == 10 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
@@ -396,17 +396,17 @@
 
          // Set the norm and condition number.
 
-         if ( IMAT.EQ.5 ) {
+         if ( IMAT == 5 ) {
             CNDNUM = BADC1
-         } else if ( IMAT.EQ.6 ) {
+         } else if ( IMAT == 6 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
          }
 
-         if ( IMAT.EQ.7 ) {
+         if ( IMAT == 7 ) {
             ANORM = SMALL
-         } else if ( IMAT.EQ.8 ) {
+         } else if ( IMAT == 8 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
@@ -418,7 +418,7 @@
          // tridiagonal matrix.
 
          TYPE = 'P'
-         if ( IMAT.EQ.1 ) {
+         if ( IMAT == 1 ) {
             KL = 0
          } else {
             KL = 1
@@ -427,17 +427,17 @@
 
          // Set the condition number and norm.
 
-         if ( IMAT.EQ.3 ) {
+         if ( IMAT == 3 ) {
             CNDNUM = BADC1
-         } else if ( IMAT.EQ.4 ) {
+         } else if ( IMAT == 4 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
          }
 
-         if ( IMAT.EQ.5 .OR. IMAT.EQ.11 ) {
+         if ( IMAT == 5 .OR. IMAT == 11 ) {
             ANORM = SMALL
-         } else if ( IMAT.EQ.6 .OR. IMAT.EQ.12 ) {
+         } else if ( IMAT == 6 .OR. IMAT == 12 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
@@ -454,7 +454,7 @@
          // Set the lower and upper bandwidths.
 
          MAT = ABS( IMAT )
-         if ( MAT.EQ.1 .OR. MAT.EQ.7 ) {
+         if ( MAT == 1 .OR. MAT == 7 ) {
             KL = 0
             KU = 0
          } else if ( IMAT.LT.0 ) {
@@ -467,19 +467,19 @@
 
          // Set the condition number and norm.
 
-         if ( MAT.EQ.3 .OR. MAT.EQ.9 ) {
+         if ( MAT == 3 .OR. MAT == 9 ) {
             CNDNUM = BADC1
-         } else if ( MAT.EQ.4 ) {
+         } else if ( MAT == 4 ) {
             CNDNUM = BADC2
-         } else if ( MAT.EQ.10 ) {
+         } else if ( MAT == 10 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
          }
 
-         if ( MAT.EQ.5 ) {
+         if ( MAT == 5 ) {
             ANORM = SMALL
-         } else if ( MAT.EQ.6 ) {
+         } else if ( MAT == 6 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE
@@ -496,17 +496,17 @@
          // Set the norm and condition number.
 
          MAT = ABS( IMAT )
-         if ( MAT.EQ.2 .OR. MAT.EQ.8 ) {
+         if ( MAT == 2 .OR. MAT == 8 ) {
             CNDNUM = BADC1
-         } else if ( MAT.EQ.3 .OR. MAT.EQ.9 ) {
+         } else if ( MAT == 3 .OR. MAT == 9 ) {
             CNDNUM = BADC2
          } else {
             CNDNUM = TWO
          }
 
-         if ( MAT.EQ.4 ) {
+         if ( MAT == 4 ) {
             ANORM = SMALL
-         } else if ( MAT.EQ.5 ) {
+         } else if ( MAT == 5 ) {
             ANORM = LARGE
          } else {
             ANORM = ONE

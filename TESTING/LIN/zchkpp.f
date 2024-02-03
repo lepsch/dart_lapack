@@ -124,9 +124,9 @@
                // test that INFO is returned correctly.
 
                if ( ZEROT ) {
-                  if ( IMAT.EQ.3 ) {
+                  if ( IMAT == 3 ) {
                      IZERO = 1
-                  } else if ( IMAT.EQ.4 ) {
+                  } else if ( IMAT == 4 ) {
                      IZERO = N
                   } else {
                      IZERO = N / 2 + 1
@@ -134,7 +134,7 @@
 
                   // Set row and column IZERO of A to 0.
 
-                  if ( IUPLO.EQ.1 ) {
+                  if ( IUPLO == 1 ) {
                      IOFF = ( IZERO-1 )*IZERO / 2
                      for (I = 1; I <= IZERO - 1; I++) { // 20
                         A( IOFF+I ) = ZERO
@@ -161,7 +161,7 @@
 
                // Set the imaginary part of the diagonals.
 
-               if ( IUPLO.EQ.1 ) {
+               if ( IUPLO == 1 ) {
                   zlaipd(N, A, 2, 1 );
                } else {
                   zlaipd(N, A, N, -1 );
@@ -209,7 +209,7 @@
 
                for (K = 1; K <= 2; K++) { // 60
                   if ( RESULT( K ).GE.THRESH ) {
-                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K );
+                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }
                } // 60
@@ -258,7 +258,7 @@
 
                   for (K = 3; K <= 7; K++) { // 70
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 70
@@ -281,7 +281,7 @@
                // Print the test ratio if greater than or equal to THRESH.
 
                if ( RESULT( 8 ).GE.THRESH ) {
-                  if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 );
+                  if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 );
                   NFAIL = NFAIL + 1
                }
                NRUN = NRUN + 1

@@ -44,7 +44,7 @@
 
       INFO   = 0
       UPPER  = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( N.LE.KD+1 ) {
          LWMIN = 1
       } else {

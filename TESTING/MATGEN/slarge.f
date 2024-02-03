@@ -56,7 +56,7 @@
          slarnv(3, ISEED, N-I+1, WORK );
          WN = SNRM2( N-I+1, WORK, 1 )
          WA = SIGN( WN, WORK( 1 ) )
-         if ( WN.EQ.ZERO ) {
+         if ( WN == ZERO ) {
             TAU = ZERO
          } else {
             WB = WORK( 1 ) + WA

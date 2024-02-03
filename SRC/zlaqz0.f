@@ -69,11 +69,11 @@
       // Check Argument Values
 
       INFO = 0
-      if ( IWANTS.EQ.0 ) {
+      if ( IWANTS == 0 ) {
          INFO = -1
-      } else if ( IWANTQ.EQ.0 ) {
+      } else if ( IWANTQ == 0 ) {
          INFO = -2
-      } else if ( IWANTZ.EQ.0 ) {
+      } else if ( IWANTZ == 0 ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
@@ -145,7 +145,7 @@
       ITEMP2 = INT( WORK( 1 ) )
 
       LWORKREQ = MAX( ITEMP1+2*NW**2, ITEMP2+2*NBR**2 )
-      if ( LWORK .EQ.-1 ) {
+      if ( LWORK == -1 ) {
          WORK( 1 ) = DBLE( LWORKREQ )
          RETURN
       } else if ( LWORK .LT. LWORKREQ ) {
@@ -158,7 +158,7 @@
 
       // Initialize Q and Z
 
-      if (IWANTQ.EQ.3) CALL ZLASET( 'FULL', N, N, CZERO, CONE, Q, LDQ )       IF( IWANTZ.EQ.3 ) CALL ZLASET( 'FULL', N, N, CZERO, CONE, Z, LDZ );
+      if (IWANTQ == 3) CALL ZLASET( 'FULL', N, N, CZERO, CONE, Q, LDQ )       IF( IWANTZ == 3 ) CALL ZLASET( 'FULL', N, N, CZERO, CONE, Z, LDZ );
 
       // Get machine constants
       SAFMIN = DLAMCH( 'SAFE MINIMUM' )
@@ -318,7 +318,7 @@
          NS = MIN( NS, N_UNDEFLATED )
          SHIFTPOS = ISTOP-N_UNDEFLATED+1
 
-         if ( MOD( LD, 6 ) .EQ. 0 ) {
+         if ( MOD( LD, 6 ) == 0 ) {
 
             // Exceptional shift.  Chosen for no particularly good reason.
 

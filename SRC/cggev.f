@@ -79,7 +79,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY = ( LWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 )
       if ( IJOBVL.LE.0 ) {
          INFO = -1
       } else if ( IJOBVR.LE.0 ) {
@@ -104,7 +104,7 @@
         // following subroutine, as returned by ILAENV. The workspace is
         // computed assuming ILO = 1 and IHI = N, the worst case.)
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          LWKMIN = MAX( 1, 2*N )
          LWKOPT = MAX( 1, N + N*ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) )
          LWKOPT = MAX( LWKOPT, N + N*ILAENV( 1, 'CUNMQR', ' ', N, 1, N, 0 ) )
@@ -125,7 +125,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Get machine constants
 

@@ -66,7 +66,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       INCA = LDAB*KA1
 
@@ -154,7 +154,7 @@
             UPDATE = false;
             I = I + 1
             I0 = M
-            if (KA.EQ.0) GO TO 480;
+            if (KA == 0) GO TO 480;
             GO TO 10
          }
       } else {
@@ -639,7 +639,7 @@
             UPDATE = false;
             I = I - 1
             I0 = M + 1
-            if (KA.EQ.0) RETURN;
+            if (KA == 0) RETURN;
             GO TO 490
          }
       } else {

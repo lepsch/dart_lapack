@@ -38,7 +38,7 @@
 
       DO 40 IV = 1, N, LV / 2
          IL = MIN( LV / 2, N-IV+1 )
-         if ( IDIST.EQ.3 ) {
+         if ( IDIST == 3 ) {
             IL2 = 2*IL
          } else {
             IL2 = IL
@@ -49,21 +49,21 @@
 
          slaruv(ISEED, IL2, U );
 
-         if ( IDIST.EQ.1 ) {
+         if ( IDIST == 1 ) {
 
             // Copy generated numbers
 
             for (I = 1; I <= IL; I++) { // 10
                X( IV+I-1 ) = U( I )
             } // 10
-         } else if ( IDIST.EQ.2 ) {
+         } else if ( IDIST == 2 ) {
 
             // Convert generated numbers to uniform (-1,1) distribution
 
             for (I = 1; I <= IL; I++) { // 20
                X( IV+I-1 ) = TWO*U( I ) - ONE
             } // 20
-         } else if ( IDIST.EQ.3 ) {
+         } else if ( IDIST == 3 ) {
 
             // Convert generated numbers to normal (0,1) distribution
 

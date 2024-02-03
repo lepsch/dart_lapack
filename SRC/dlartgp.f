@@ -45,11 +45,11 @@
          SAFMX2 = ONE / SAFMN2
          // FIRST = false;
       // END IF
-      if ( G.EQ.ZERO ) {
+      if ( G == ZERO ) {
          CS = SIGN( ONE, F )
          SN = ZERO
          R = ABS( F )
-      } else if ( F.EQ.ZERO ) {
+      } else if ( F == ZERO ) {
          CS = ZERO
          SN = SIGN( ONE, G )
          R = ABS( G )

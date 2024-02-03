@@ -45,11 +45,11 @@
          INFO = -3
       } else if ( ILO.LT.1 ) {
          INFO = -4
-      } else if ( N.EQ.0 .AND. IHI.EQ.0 .AND. ILO.NE.1 ) {
+      } else if ( N == 0 .AND. IHI == 0 .AND. ILO.NE.1 ) {
          INFO = -4
       } else if ( N.GT.0 .AND. ( IHI.LT.ILO .OR. IHI.GT.MAX( 1, N ) ) ) {
          INFO = -5
-      } else if ( N.EQ.0 .AND. ILO.EQ.1 .AND. IHI.NE.0 ) {
+      } else if ( N == 0 .AND. ILO == 1 .AND. IHI.NE.0 ) {
          INFO = -5
       } else if ( M.LT.0 ) {
          INFO = -8
@@ -63,9 +63,9 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN       IF( M.EQ.0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN;
+      if (N == 0) RETURN       IF( M == 0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN;
 
-      if (ILO.EQ.IHI) GO TO 30;
+      if (ILO == IHI) GO TO 30;
 
       // Backward balance
 
@@ -96,18 +96,18 @@
          // Backward permutation on right eigenvectors
 
          if ( RIGHTV ) {
-            if (ILO.EQ.1) GO TO 50;
+            if (ILO == 1) GO TO 50;
             DO 40 I = ILO - 1, 1, -1
                K = INT( RSCALE( I ) )
-               if (K.EQ.I) GO TO 40;
+               if (K == I) GO TO 40;
                cswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
             } // 40
 
             } // 50
-            if (IHI.EQ.N) GO TO 70;
+            if (IHI == N) GO TO 70;
             for (I = IHI + 1; I <= N; I++) { // 60
                K = INT( RSCALE( I ) )
-               if (K.EQ.I) GO TO 60;
+               if (K == I) GO TO 60;
                cswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
             } // 60
          }
@@ -116,18 +116,18 @@
 
          } // 70
          if ( LEFTV ) {
-            if (ILO.EQ.1) GO TO 90;
+            if (ILO == 1) GO TO 90;
             DO 80 I = ILO - 1, 1, -1
                K = INT( LSCALE( I ) )
-               if (K.EQ.I) GO TO 80;
+               if (K == I) GO TO 80;
                cswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
             } // 80
 
             } // 90
-            if (IHI.EQ.N) GO TO 110;
+            if (IHI == N) GO TO 110;
             for (I = IHI + 1; I <= N; I++) { // 100
                K = INT( LSCALE( I ) )
-               if (K.EQ.I) GO TO 100;
+               if (K == I) GO TO 100;
                cswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
             } // 100
          }

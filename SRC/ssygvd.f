@@ -41,7 +41,7 @@
 
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
+      LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
 
       INFO = 0
       if ( N.LE.1 ) {
@@ -70,7 +70,7 @@
          INFO = -8
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
          WORK( 1 ) = SROUNDUP_LWORK(LOPT)
          IWORK( 1 ) = LIOPT
 
@@ -90,7 +90,7 @@
 
       // Quick return if possible
 
-      if (N.EQ.0) RETURN;
+      if (N == 0) RETURN;
 
       // Form a Cholesky factorization of B.
 
@@ -107,11 +107,11 @@
       LOPT = INT( MAX( REAL( LOPT ), REAL( WORK( 1 ) ) ) )
       LIOPT = INT( MAX( REAL( LIOPT ), REAL( IWORK( 1 ) ) ) )
 
-      if ( WANTZ .AND. INFO.EQ.0 ) {
+      if ( WANTZ .AND. INFO == 0 ) {
 
          // Backtransform eigenvectors to the original problem.
 
-         if ( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) {
+         if ( ITYPE == 1 .OR. ITYPE == 2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
             // backtransform eigenvectors: x = inv(L)**T*y or inv(U)*y
@@ -124,7 +124,7 @@
 
             strsm('Left', UPLO, TRANS, 'Non-unit', N, N, ONE, B, LDB, A, LDA );
 
-         } else if ( ITYPE.EQ.3 ) {
+         } else if ( ITYPE == 3 ) {
 
             // For B*A*x=(lambda)*x;
             // backtransform eigenvectors: x = L*y or U**T*y

@@ -32,7 +32,7 @@
       // Test the input arguments
 
       INFO = 0
-      LQUERY  = ( LWORK.EQ.-1 )
+      LQUERY  = ( LWORK == -1 )
       NOTRAN  = LSAME( TRANS, 'N' )
       TRAN    = LSAME( TRANS, 'C' )
       LEFT    = LSAME( SIDE, 'L' )
@@ -46,7 +46,7 @@
       }
 
       MINMNK = MIN( M, N, K )
-      if ( MINMNK.EQ.0 ) {
+      if ( MINMNK == 0 ) {
         LWMIN = 1
       } else {
         LWMIN = MAX( 1, LW )
@@ -74,7 +74,7 @@
         INFO = -15
       }
 
-      if ( INFO.EQ.0 ) {
+      if ( INFO == 0 ) {
         WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
       }
 
@@ -87,7 +87,7 @@
 
       // Quick return if possible
 
-      if ( MINMNK.EQ.0 ) {
+      if ( MINMNK == 0 ) {
         RETURN
       }
 

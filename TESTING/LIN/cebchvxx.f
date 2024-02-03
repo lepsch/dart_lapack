@@ -114,7 +114,7 @@
          if (ORCOND .LT. EPS) {
          // Either factorization failed or the matrix is flagged, and 1 <=
          // INFO <= N+1. We don't decide based on rcond anymore.
-             // IF (INFO .EQ. 0 .OR. INFO .GT. N+1) THEN
+             // IF (INFO == 0 .OR. INFO .GT. N+1) THEN
                 // NFAIL = NFAIL + 1
                 // WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND
              // END IF
