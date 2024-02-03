@@ -82,22 +82,22 @@
       // if it is 1-by-1 or 2-by-2.
 
       if ( IFST > 1 ) {
-         IF( A( IFST, IFST-1 ) != ZERO ) IFST = IFST - 1;
+         if( A( IFST, IFST-1 ) != ZERO ) IFST = IFST - 1;
       }
       NBF = 1;
       if ( IFST < N ) {
-         IF( A( IFST+1, IFST ) != ZERO ) NBF = 2;
+         if( A( IFST+1, IFST ) != ZERO ) NBF = 2;
       }
 
       // Determine the first row of the final block
       // and find out if it is 1-by-1 or 2-by-2.
 
       if ( ILST > 1 ) {
-         IF( A( ILST, ILST-1 ) != ZERO ) ILST = ILST - 1;
+         if( A( ILST, ILST-1 ) != ZERO ) ILST = ILST - 1;
       }
       NBL = 1;
       if ( ILST < N ) {
-         IF( A( ILST+1, ILST ) != ZERO ) NBL = 2;
+         if( A( ILST+1, ILST ) != ZERO ) NBL = 2;
       }
       if (IFST == ILST) RETURN;
 
@@ -105,7 +105,8 @@
 
          // Update ILST.
 
-         if (NBF == 2 && NBL == 1) ILST = ILST - 1          IF( NBF == 1 && NBL == 2 ) ILST = ILST + 1;
+         if (NBF == 2 && NBL == 1) ILST = ILST - 1;
+         IF( NBF == 1 && NBL == 2 ) ILST = ILST + 1;
 
          HERE = IFST;
 
@@ -119,7 +120,7 @@
 
             NBNEXT = 1;
             if ( HERE+NBF+1 <= N ) {
-               IF( A( HERE+NBF+1, HERE+NBF ) != ZERO ) NBNEXT = 2;
+               if( A( HERE+NBF+1, HERE+NBF ) != ZERO ) NBNEXT = 2;
             }
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBF, NBNEXT, WORK, LWORK, INFO );
             if ( INFO != 0 ) {
@@ -131,7 +132,7 @@
             // Test if 2-by-2 block breaks into two 1-by-1 blocks.
 
             if ( NBF == 2 ) {
-               IF( A( HERE+1, HERE ) == ZERO ) NBF = 3;
+               if( A( HERE+1, HERE ) == ZERO ) NBF = 3;
             }
 
          } else {
@@ -141,7 +142,7 @@
 
             NBNEXT = 1;
             if ( HERE+3 <= N ) {
-               IF( A( HERE+3, HERE+2 ) != ZERO ) NBNEXT = 2;
+               if( A( HERE+3, HERE+2 ) != ZERO ) NBNEXT = 2;
             }
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE+1, 1, NBNEXT, WORK, LWORK, INFO );
             if ( INFO != 0 ) {
@@ -163,7 +164,7 @@
 
                // Recompute NBNEXT in case of 2-by-2 split.
 
-               IF( A( HERE+2, HERE+1 ) == ZERO ) NBNEXT = 1;
+               if( A( HERE+2, HERE+1 ) == ZERO ) NBNEXT = 1;
                if ( NBNEXT == 2 ) {
 
                   // 2-by-2 block did not split.
@@ -208,7 +209,7 @@
 
             NBNEXT = 1;
             if ( HERE >= 3 ) {
-               IF( A( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2;
+               if( A( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2;
             }
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, NBF, WORK, LWORK, INFO );
             if ( INFO != 0 ) {
@@ -220,7 +221,7 @@
             // Test if 2-by-2 block breaks into two 1-by-1 blocks.
 
             if ( NBF == 2 ) {
-               IF( A( HERE+1, HERE ) == ZERO ) NBF = 3;
+               if( A( HERE+1, HERE ) == ZERO ) NBF = 3;
             }
 
          } else {
@@ -230,7 +231,7 @@
 
             NBNEXT = 1;
             if ( HERE >= 3 ) {
-               IF( A( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2;
+               if( A( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2;
             }
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, 1, WORK, LWORK, INFO );
             if ( INFO != 0 ) {
@@ -251,7 +252,7 @@
 
               // Recompute NBNEXT in case of 2-by-2 split.
 
-               IF( A( HERE, HERE-1 ) == ZERO ) NBNEXT = 1;
+               if( A( HERE, HERE-1 ) == ZERO ) NBNEXT = 1;
                if ( NBNEXT == 2 ) {
 
                   // 2-by-2 block did not split.

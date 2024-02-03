@@ -172,12 +172,13 @@
       P = P + 1;
       IWORK( P ) = I;
       I = I + MB;
-      if (I >= M) GO TO 50       IF( A( I, I-1 ) != ZERO ) I = I + 1;
+      if (I >= M) GO TO 50;
+      IF( A( I, I-1 ) != ZERO ) I = I + 1;
       GO TO 40;
       } // 50
 
       IWORK( P+1 ) = M + 1;
-      IF( IWORK( P ) == IWORK( P+1 ) ) P = P - 1;
+      if( IWORK( P ) == IWORK( P+1 ) ) P = P - 1;
 
       // Determine block structure of B
 
@@ -188,12 +189,13 @@
       Q = Q + 1;
       IWORK( Q ) = J;
       J = J + NB;
-      if (J >= N) GO TO 70       IF( B( J, J-1 ) != ZERO ) J = J + 1;
+      if (J >= N) GO TO 70;
+      IF( B( J, J-1 ) != ZERO ) J = J + 1;
       GO TO 60;
       } // 70
 
       IWORK( Q+1 ) = N + 1;
-      IF( IWORK( Q ) == IWORK( Q+1 ) ) Q = Q - 1;
+      if( IWORK( Q ) == IWORK( Q+1 ) ) Q = Q - 1;
 
       if ( NOTRAN ) {
 

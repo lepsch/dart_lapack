@@ -73,7 +73,7 @@
       NMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
@@ -131,7 +131,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 260
-            IF( !DOTYPE( JTYPE ) ) GO TO 260;
+            if( !DOTYPE( JTYPE ) ) GO TO 260;
 
             // Save ISEED in case of an error.
 
@@ -321,7 +321,8 @@
                   VRMX = ZERO;
                   for (JJ = 1; JJ <= N; JJ++) { // 110
                      VTST = ABS( VR( JJ, J ) );
-                     if (VTST > VMX) VMX = VTST                      IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
+                     if (VTST > VMX) VMX = VTST;
+                     IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
                   } // 110
                   if (VRMX / VMX < ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
                } // 120
@@ -335,7 +336,8 @@
                   VRMX = ZERO;
                   for (JJ = 1; JJ <= N; JJ++) { // 130
                      VTST = ABS( VL( JJ, J ) );
-                     if (VTST > VMX) VMX = VTST                      IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
+                     if (VTST > VMX) VMX = VTST;
+                     IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
                   } // 130
                   if (VRMX / VMX < ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
                } // 140
@@ -354,7 +356,7 @@
                // Do Test (5)
 
                for (J = 1; J <= N; J++) { // 150
-                  IF( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV;
+                  if( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV;
                } // 150
 
                // Compute eigenvalues and right eigenvectors, and test them
@@ -371,14 +373,14 @@
                // Do Test (5) again
 
                for (J = 1; J <= N; J++) { // 160
-                  IF( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV;
+                  if( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV;
                } // 160
 
                // Do Test (6)
 
                for (J = 1; J <= N; J++) { // 180
                   for (JJ = 1; JJ <= N; JJ++) { // 170
-                     IF( VR( J, JJ ) != LRE( J, JJ ) ) RESULT( 6 ) = ULPINV;
+                     if( VR( J, JJ ) != LRE( J, JJ ) ) RESULT( 6 ) = ULPINV;
                   } // 170
                } // 180
 
@@ -396,14 +398,14 @@
                // Do Test (5) again
 
                for (J = 1; J <= N; J++) { // 190
-                  IF( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV;
+                  if( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV;
                } // 190
 
                // Do Test (7)
 
                for (J = 1; J <= N; J++) { // 210
                   for (JJ = 1; JJ <= N; JJ++) { // 200
-                     IF( VL( J, JJ ) != LRE( J, JJ ) ) RESULT( 7 ) = ULPINV;
+                     if( VL( J, JJ ) != LRE( J, JJ ) ) RESULT( 7 ) = ULPINV;
                   } // 200
                } // 210
 
@@ -414,7 +416,8 @@
                NTEST = 0;
                NFAIL = 0;
                for (J = 1; J <= 7; J++) { // 230
-                  IF( RESULT( J ) >= ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
+                  if( RESULT( J ) >= ZERO ) NTEST = NTEST + 1;
+                  IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
                } // 230
 
                if (NFAIL > 0) NTESTF = NTESTF + 1;

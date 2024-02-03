@@ -107,10 +107,11 @@
          // Look for a single small subdiagonal element.
 
          DO 30 K = I, L + 1, -1;
-            IF( ABS( H( K, K-1 ) ) <= SMLNUM ) GO TO 40;
+            if( ABS( H( K, K-1 ) ) <= SMLNUM ) GO TO 40;
             TST = ABS( H( K-1, K-1 ) ) + ABS( H( K, K ) );
             if ( TST == ZERO ) {
-               if (K-2 >= ILO) TST = TST + ABS( H( K-1, K-2 ) )                IF( K+1 <= IHI ) TST = TST + ABS( H( K+1, K ) );
+               if (K-2 >= ILO) TST = TST + ABS( H( K-1, K-2 ) );
+               IF( K+1 <= IHI ) TST = TST + ABS( H( K+1, K ) );
             }
             // ==== The following is a conservative small subdiagonal
             // .    deflation  criterion due to Ahues & Tisseur (LAWN 122,
@@ -121,7 +122,7 @@
                BA = MIN( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) );
                AA = MAX( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) )                BB = MIN( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) );
                S = AA + AB;
-               IF( BA*( AB / S ) <= MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 40;
+               if( BA*( AB / S ) <= MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 40;
             }
          } // 30
          } // 40
@@ -233,7 +234,8 @@
             V( 1 ) = V( 1 ) / S;
             V( 2 ) = V( 2 ) / S;
             V( 3 ) = V( 3 ) / S;
-            if (M == L) GO TO 60             IF( ABS( H( M, M-1 ) )*( ABS( V( 2 ) )+ABS( V( 3 ) ) ) <= ULP*ABS( V( 1 ) )*( ABS( H( M-1, M-1 ) )+ABS( H( M, M ) )+ABS( H( M+1, M+1 ) ) ) )GO TO 60;
+            if (M == L) GO TO 60;
+            IF( ABS( H( M, M-1 ) )*( ABS( V( 2 ) )+ABS( V( 3 ) ) ) <= ULP*ABS( V( 1 ) )*( ABS( H( M-1, M-1 ) )+ABS( H( M, M ) )+ABS( H( M+1, M+1 ) ) ) )GO TO 60;
          } // 50
          } // 60
 

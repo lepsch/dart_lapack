@@ -292,8 +292,8 @@
           }
           MINWRK = MAX( 2, MINWRK );
           OPTWRK = MAX( MINWRK, OPTWRK );
-          IF ( LWORK < MINWRK && ( !LQUERY) ) INFO = - 17;
-          IF ( LRWORK < MINRWRK && ( !LQUERY) ) INFO = - 19;
+          if ( LWORK < MINWRK && ( !LQUERY) ) INFO = - 17;
+          if ( LRWORK < MINRWRK && ( !LQUERY) ) INFO = - 19;
       }
 
       if ( INFO != 0 ) {
@@ -320,7 +320,7 @@
 
       if ( LSVEC ) {
          N1 = N;
-         IF ( LSAME( JOBU, 'F' ) ) N1 = M;
+         if ( LSAME( JOBU, 'F' ) ) N1 = M;
       }
 
       // Set numerical parameters
@@ -370,7 +370,7 @@
       AAQQ = BIG;
       for (p = 1; p <= N; p++) { // 4781
          AAPP = MAX( AAPP, SVA(p) );
-         IF ( SVA(p) != ZERO ) AAQQ = MIN( AAQQ, SVA(p) );
+         if ( SVA(p) != ZERO ) AAQQ = MIN( AAQQ, SVA(p) );
       } // 4781
 
       // Quick return for zero M x N matrix
@@ -477,7 +477,7 @@
                RWORK(M+p)  = XSC * SCALEM;
                RWORK(p)    = XSC * (SCALEM*SQRT(TEMP1));
                AATMAX = MAX( AATMAX, RWORK(p) );
-               IF (RWORK(p) != ZERO)  AATMIN = MIN(AATMIN,RWORK(p));
+               if (RWORK(p) != ZERO)  AATMIN = MIN(AATMIN,RWORK(p));
             } // 1950
          } else {
             for (p = 1; p <= M; p++) { // 1904
@@ -702,7 +702,7 @@
          // close-to-rank-deficient.
          TEMP1 = SQRT(SFMIN);
          for (p = 2; p <= N; p++) { // 3401
-            IF ( ( ABS(A(p,p)) < (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3402;
+            if ( ( ABS(A(p,p)) < (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3402;
             NR = NR + 1;
          } // 3401
          } // 3402
@@ -717,7 +717,7 @@
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = SQRT(SFMIN);
          for (p = 2; p <= N; p++) { // 3301
-            IF ( ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3302;
+            if ( ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3302;
             NR = NR + 1;
          } // 3301
          } // 3302
@@ -731,7 +731,7 @@
             TEMP1  = ABS(A(p,p)) / SVA(IWORK(p));
             MAXPRJ = MIN( MAXPRJ, TEMP1 );
          } // 3051
-         IF ( MAXPRJ**2 >= ONE - DBLE(N)*EPSLN ) ALMORT = true;
+         if ( MAXPRJ**2 >= ONE - DBLE(N)*EPSLN ) ALMORT = true;
       }
 
 
@@ -826,7 +826,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   CTEMP = DCMPLX(XSC*ABS(A(q,q)),ZERO);
                   for (p = 1; p <= N; p++) { // 4949
-                     IF ( ( (p > q) && (ABS(A(p,q)) <= TEMP1) ) || ( p < q ) );
+                     if ( ( (p > q) && (ABS(A(p,q)) <= TEMP1) ) || ( p < q ) );
       // $                     A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 4949
                } // 4947
@@ -856,7 +856,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   CTEMP = DCMPLX(XSC*ABS(A(q,q)),ZERO);
                   for (p = 1; p <= NR; p++) { // 1949
-                     IF ( ( (p > q) && (ABS(A(p,q)) <= TEMP1) ) || ( p < q ) );
+                     if ( ( (p > q) && (ABS(A(p,q)) <= TEMP1) ) || ( p < q ) );
       // $                   A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 1949
                } // 1947
@@ -1021,7 +1021,7 @@
                for (q = 1; q <= NR; q++) { // 2969
                   CTEMP = DCMPLX(XSC*ABS( V(q,q) ),ZERO);
                   for (p = 1; p <= N; p++) { // 2968
-                     IF ( ( p > q ) && ( ABS(V(p,q)) <= TEMP1 ) || ( p < q ) );
+                     if ( ( p > q ) && ( ABS(V(p,q)) <= TEMP1 ) || ( p < q ) );
       // $                   V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                      if (p < q) V(p,q) = - V(p,q);
                   } // 2968
@@ -1061,7 +1061,7 @@
                   for (p = 2; p <= NR; p++) { // 3959
                      for (q = 1; q <= p - 1; q++) { // 3958
                         CTEMP=DCMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO);
-                        IF ( ABS(V(q,p)) <= TEMP1 );
+                        if ( ABS(V(q,p)) <= TEMP1 );
       // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
                      } // 3958
                   } // 3959
@@ -1100,7 +1100,7 @@
                   for (p = 2; p <= NR; p++) { // 3969
                      for (q = 1; q <= p - 1; q++) { // 3968
                         CTEMP=DCMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO);
-                        IF ( ABS(V(q,p)) <= TEMP1 );
+                        if ( ABS(V(q,p)) <= TEMP1 );
       // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
                      } // 3968
                   } // 3969
@@ -1271,7 +1271,7 @@
                   V(p,q) = CWORK(2*N+N*NR+NR+p);
                } // 973
                XSC = ONE / DZNRM2( N, V(1,q), 1 );
-               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL ZDSCAL( N, XSC, V(1,q), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL ZDSCAL( N, XSC, V(1,q), 1 );
             } // 1972
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
@@ -1292,7 +1292,7 @@
             TEMP1 = SQRT(DBLE(M)) * EPSLN;
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / DZNRM2( M, U(1,p), 1 );
-               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL ZDSCAL( M, XSC, U(1,p), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL ZDSCAL( M, XSC, U(1,p), 1 );
             } // 1973
 
             // If the initial QRF is computed with row pivoting, the left
@@ -1336,7 +1336,7 @@
             TEMP1 = SQRT(DBLE(N))*EPSLN;
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / DZNRM2( N, V(1,p), 1 );
-               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL ZDSCAL( N, XSC, V(1,p), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL ZDSCAL( N, XSC, V(1,p), 1 );
             } // 6971
 
             // Assemble the left singular vector matrix U (M x N).
@@ -1352,7 +1352,7 @@
             TEMP1 = SQRT(DBLE(M))*EPSLN;
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / DZNRM2( M, U(1,p), 1 );
-               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL ZDSCAL( M, XSC, U(1,p), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL ZDSCAL( M, XSC, U(1,p), 1 );
             } // 6973
 
             if (ROWPIV) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
@@ -1384,7 +1384,7 @@
             for (q = 1; q <= NR; q++) { // 5969
                CTEMP = DCMPLX(XSC*ABS( V(q,q) ),ZERO);
                for (p = 1; p <= N; p++) { // 5968
-                  IF ( ( p > q ) && ( ABS(V(p,q)) <= TEMP1 ) || ( p < q ) );
+                  if ( ( p > q ) && ( ABS(V(p,q)) <= TEMP1 ) || ( p < q ) );
       // $                V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                   if (p < q) V(p,q) = - V(p,q);
                } // 5968
@@ -1436,7 +1436,7 @@
                   V(p,q) = CWORK(2*N+N*NR+NR+p);
                } // 8973
                XSC = ONE / DZNRM2( N, V(1,q), 1 );
-               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL ZDSCAL( N, XSC, V(1,q), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL ZDSCAL( N, XSC, V(1,q), 1 );
             } // 7972
 
             // At this moment, V contains the right singular vectors of A.

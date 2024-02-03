@@ -71,11 +71,13 @@
       MID = HALF * (LEFT + RIGHT);
       NEGCNT = 0;
       TMP1 = D( 1 ) - MID;
-      IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN       IF( TMP1 <= ZERO ) NEGCNT = NEGCNT + 1;
+      if( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN;
+      IF( TMP1 <= ZERO ) NEGCNT = NEGCNT + 1;
 
       for (I = 2; I <= N; I++) { // 20
          TMP1 = D( I ) - E2( I-1 ) / TMP1 - MID;
-         IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN          IF( TMP1 <= ZERO ) NEGCNT = NEGCNT + 1;
+         if( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN;
+         IF( TMP1 <= ZERO ) NEGCNT = NEGCNT + 1;
       } // 20
 
       if (NEGCNT >= IW) {

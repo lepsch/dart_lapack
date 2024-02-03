@@ -51,7 +51,7 @@
          // .....................................................
 
          } // 10
-         IF ( J > MIN(M, NB) ) GO TO 20;
+         if ( J > MIN(M, NB) ) GO TO 20;
 
          // K is the column to be factorized
           // when being called from DSYTRF_AA,
@@ -191,7 +191,7 @@
          // .....................................................
 
          } // 30
-         IF( J > MIN( M, NB ) ) GO TO 40;
+         if( J > MIN( M, NB ) ) GO TO 40;
 
          // K is the column to be factorized
           // when being called from DSYTRF_AA,

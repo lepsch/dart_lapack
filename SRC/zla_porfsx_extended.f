@@ -175,7 +175,8 @@
                }
                if (X_STATE > WORKING_STATE) FINAL_DX_X = DX_X;
             }
-             if (Z_STATE == UNSTABLE_STATE && DZ_Z <= DZ_UB) Z_STATE = WORKING_STATE             IF (Z_STATE == NOPROG_STATE && DZRAT <= RTHRESH) Z_STATE = WORKING_STATE;
+             if (Z_STATE == UNSTABLE_STATE && DZ_Z <= DZ_UB) Z_STATE = WORKING_STATE;
+            IF (Z_STATE == NOPROG_STATE && DZRAT <= RTHRESH) Z_STATE = WORKING_STATE;
             if (Z_STATE == WORKING_STATE) {
                if (DZ_Z <= EPS) {
                   Z_STATE = CONV_STATE;
@@ -194,7 +195,7 @@
                }
                if (Z_STATE > WORKING_STATE) FINAL_DZ_Z = DZ_Z;
             }
-             IF ( X_STATE != WORKING_STATE && (IGNORE_CWISE || Z_STATE != WORKING_STATE) ) GOTO 666;
+             if ( X_STATE != WORKING_STATE && (IGNORE_CWISE || Z_STATE != WORKING_STATE) ) GOTO 666;
 
             if (INCR_PREC) {
                INCR_PREC = false;

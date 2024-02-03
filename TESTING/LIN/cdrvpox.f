@@ -102,7 +102,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 120;
+            if( !DOTYPE( IMAT ) ) GO TO 120;
 
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
@@ -298,7 +298,8 @@
 
                         for (K = 1; K <= NT; K++) { // 60
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'CPOSV ', UPLO, N, IMAT, K, RESULT( K );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              WRITE( NOUT, FMT = 9999 )'CPOSV ', UPLO, N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
                         } // 60
@@ -350,7 +351,7 @@
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                            cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            cget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
@@ -435,7 +436,7 @@
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                            cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            cget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );

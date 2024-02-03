@@ -50,7 +50,8 @@
       SYM = LSAME( PATH( 2: 2 ), 'P' ) || LSAME( PATH( 2: 2 ), 'S' );
       TRI = LSAME( PATH( 2: 2 ), 'T' );
       BAND = LSAME( PATH( 3: 3 ), 'B' );
-      if ( !LSAME( C1, 'double          ' ) ) {
+      if ( !LSAME( C1, 'double;
+         ' ) ) {
          INFO = -1;
       } else if ( !( LSAME( XTYPE, 'N' ) || LSAME( XTYPE, 'C' ) ) ) {
          INFO = -2;

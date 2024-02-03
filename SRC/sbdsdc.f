@@ -45,7 +45,8 @@
       INFO = 0;
 
       IUPLO = 0;
-      IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2;
+      if( LSAME( UPLO, 'U' ) ) IUPLO = 1;
+      IF( LSAME( UPLO, 'L' ) ) IUPLO = 2;
       if ( LSAME( COMPQ, 'N' ) ) {
          ICOMPQ = 0;
       } else if ( LSAME( COMPQ, 'P' ) ) {
@@ -274,7 +275,7 @@
       // If B is lower bidiagonal, update U by those Givens rotations
       // which rotated B to be upper bidiagonal
 
-      IF( ( IUPLO == 2 ) && ( ICOMPQ == 2 ) ) CALL SLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU );
+      if( ( IUPLO == 2 ) && ( ICOMPQ == 2 ) ) CALL SLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU );
 
       return;
 

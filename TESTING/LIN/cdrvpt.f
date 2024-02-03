@@ -89,7 +89,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( N > 0 && !DOTYPE( IMAT ) ) GO TO 110;
+            if( N > 0 && !DOTYPE( IMAT ) ) GO TO 110;
 
             // Set up parameters with CLATB4.
 
@@ -304,7 +304,8 @@
 
                   for (K = 1; K <= NT; K++) { // 70
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'CPTSV ', N, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                        WRITE( NOUT, FMT = 9999 )'CPTSV ', N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
                   } // 70
@@ -372,7 +373,8 @@
 
                for (K = K1; K <= 6; K++) { // 90
                   if ( RESULT( K ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'CPTSVX', FACT, N, IMAT, K, RESULT( K );
+                     if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                     WRITE( NOUT, FMT = 9998 )'CPTSVX', FACT, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1;
                   }
                } // 90

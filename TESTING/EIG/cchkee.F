@@ -719,7 +719,8 @@
          }
 
       } else {
-         if (CGX) C3 = 'CGX'          IF( CXV ) C3 = 'CXV';
+         if (CGX) C3 = 'CGX';
+         IF( CXV ) C3 = 'CXV';
       }
 
       // Reset the random number seed.
@@ -878,7 +879,8 @@
          // Test the error exits
 
          xlaenv(1, 1 );
-         if (TSTERR && TSTCHK) CALL CERRBD( 'CBD', NOUT )          IF( TSTERR && TSTDRV ) CALL CERRED( 'CBD', NOUT );
+         if (TSTERR && TSTCHK) CALL CERRBD( 'CBD', NOUT );
+         IF( TSTERR && TSTDRV ) CALL CERRED( 'CBD', NOUT );
 
          for (I = 1; I <= NPARMS; I++) { // 330
             NRHS = NSVAL( I );
@@ -1223,7 +1225,7 @@
          WRITE( NOUT, FMT = * );
          WRITE( NOUT, FMT = 9992 )C3;
       }
-      IF( !( CGX || CXV ) ) GO TO 190;
+      if( !( CGX || CXV ) ) GO TO 190;
       } // 380
       WRITE( NOUT, FMT = 9994 );
       S2 = SECOND( );

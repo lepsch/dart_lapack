@@ -88,7 +88,7 @@
             } else {
                UBD = TAU;
             }
-            IF( ABS( FINIT ) <= ABS( TEMP ) ) TAU = ZERO;
+            if( ABS( FINIT ) <= ABS( TEMP ) ) TAU = ZERO;
          }
       }
 
@@ -163,7 +163,7 @@
       } // 30
       F = FINIT + TAU*FC;
 
-      IF( ABS( F ) <= ZERO ) GO TO 60;
+      if( ABS( F ) <= ZERO ) GO TO 60;
       if ( F <= ZERO ) {
          LBD = TAU;
       } else {

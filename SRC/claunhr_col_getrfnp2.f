@@ -60,7 +60,7 @@
 
       // Quick return if possible
 
-      IF( MIN( M, N ) == 0 ) RETURN;
+      if( MIN( M, N ) == 0 ) RETURN;
 
       if ( M == 1 ) {
 

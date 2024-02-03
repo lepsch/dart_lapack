@@ -155,7 +155,8 @@
 
       // Accumulate transformations into Q and Z if requested.
 
-      if (WANTZ) CALL ZROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, CZ, DCONJG( SZ ) )       IF( WANTQ ) CALL ZROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, CQ, DCONJG( SQ ) );
+      if (WANTZ) CALL ZROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, CZ, DCONJG( SZ ) );
+      IF( WANTQ ) CALL ZROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, CQ, DCONJG( SQ ) );
 
       // Exit with INFO = 0 if swap was successfully performed.
 

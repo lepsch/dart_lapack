@@ -105,7 +105,7 @@
       if ( !ILALL ) {
          IM = 0;
          for (J = 1; J <= N; J++) { // 10
-            IF( SELECT( J ) ) IM = IM + 1;
+            if( SELECT( J ) ) IM = IM + 1;
          } // 10
       } else {
          IM = N;
@@ -115,7 +115,7 @@
 
       ILBBAD = false;
       for (J = 1; J <= N; J++) { // 20
-         IF( AIMAG( P( J, J ) ) != ZERO ) ILBBAD = true;
+         if( AIMAG( P( J, J ) ) != ZERO ) ILBBAD = true;
       } // 20
 
       if ( ILBBAD ) {
@@ -212,7 +212,8 @@
                LSB = ABS1( SALPHA ) >= SAFMIN && ABS1( BCOEFF ) < SMALL;
 
                SCALE = ONE;
-               if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
+               if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG );
+               IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
                if ( LSA || LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) );
                   if ( LSA ) {
@@ -271,7 +272,7 @@
                   // with scaling and perturbation of the denominator
 
                   D = CONJG( ACOEFF*S( J, J )-BCOEFF*P( J, J ) );
-                  IF( ABS1( D ) <= DMIN ) D = CMPLX( DMIN );
+                  if( ABS1( D ) <= DMIN ) D = CMPLX( DMIN );
 
                   if ( ABS1( D ) < ONE ) {
                      if ( ABS1( SUM ) >= BIGNUM*ABS1( D ) ) {
@@ -366,7 +367,8 @@
                LSB = ABS1( SALPHA ) >= SAFMIN && ABS1( BCOEFF ) < SMALL;
 
                SCALE = ONE;
-               if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
+               if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG );
+               IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
                if ( LSA || LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) );
                   if ( LSA ) {
@@ -406,7 +408,7 @@
                   // with scaling and perturbation of the denominator
 
                   D = ACOEFF*S( J, J ) - BCOEFF*P( J, J );
-                  IF( ABS1( D ) <= DMIN ) D = CMPLX( DMIN );
+                  if( ABS1( D ) <= DMIN ) D = CMPLX( DMIN );
 
                   if ( ABS1( D ) < ONE ) {
                      if ( ABS1( WORK( J ) ) >= BIGNUM*ABS1( D ) ) {

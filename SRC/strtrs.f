@@ -65,7 +65,7 @@
 
       if ( NOUNIT ) {
          for (INFO = 1; INFO <= N; INFO++) { // 10
-            IF( A( INFO, INFO ) == ZERO ) RETURN;
+            if( A( INFO, INFO ) == ZERO ) RETURN;
          } // 10
       }
       INFO = 0;

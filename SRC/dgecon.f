@@ -121,7 +121,7 @@
          NORMIN = 'Y';
          if ( SCALE != ONE ) {
             IX = IDAMAX( N, WORK, 1 );
-            IF( SCALE < ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20;
+            if( SCALE < ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20;
             drscl(N, SCALE, WORK, 1 );
          }
          GO TO 10;
@@ -138,7 +138,7 @@
 
       // Check for NaNs and Infs
 
-      IF( DISNAN( RCOND ) || RCOND > HUGEVAL ) INFO = 1;
+      if( DISNAN( RCOND ) || RCOND > HUGEVAL ) INFO = 1;
 
       } // 20
       return;

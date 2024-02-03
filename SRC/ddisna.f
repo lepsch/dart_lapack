@@ -58,12 +58,14 @@
          INCR = true;
          DECR = true;
          for (I = 1; I <= K - 1; I++) { // 10
-            if (INCR) INCR = INCR && D( I ) <= D( I+1 )             IF( DECR ) DECR = DECR && D( I ) >= D( I+1 );
+            if (INCR) INCR = INCR && D( I ) <= D( I+1 );
+            IF( DECR ) DECR = DECR && D( I ) >= D( I+1 );
          } // 10
          if ( SING && K > 0 ) {
-            if (INCR) INCR = INCR && ZERO <= D( 1 )             IF( DECR ) DECR = DECR && D( K ) >= ZERO;
+            if (INCR) INCR = INCR && ZERO <= D( 1 );
+            IF( DECR ) DECR = DECR && D( K ) >= ZERO;
          }
-         IF( !( INCR || DECR ) ) INFO = -4;
+         if( !( INCR || DECR ) ) INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('DDISNA', -INFO );
@@ -90,7 +92,8 @@
       }
       if ( SING ) {
          if ( ( LEFT && M > N ) || ( RIGHT && M < N ) ) {
-            if (INCR) SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) )             IF( DECR ) SEP( K ) = MIN( SEP( K ), D( K ) );
+            if (INCR) SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) );
+            IF( DECR ) SEP( K ) = MIN( SEP( K ), D( K ) );
          }
       }
 

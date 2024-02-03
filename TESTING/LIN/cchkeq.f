@@ -97,7 +97,7 @@
          A( MAX( NSZ-1, 1 ), J ) = CZERO;
       } // 90
       cgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
-      IF( INFO != MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE;
+      if( INFO != MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE;
 
       for (J = 1; J <= NSZ; J++) { // 100
          A( MAX( NSZ-1, 1 ), J ) = CONE;
@@ -106,7 +106,7 @@
          A( I, MAX( NSZ-1, 1 ) ) = CZERO;
       } // 110
       cgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
-      IF( INFO != NSZ+MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE;
+      if( INFO != NSZ+MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE;
       RESLTS( 1 ) = RESLTS( 1 ) / EPS;
 
       // Test CGBEQU
@@ -123,7 +123,8 @@
                   } // 130
                   for (J = 1; J <= N; J++) { // 150
                      for (I = 1; I <= M; I++) { // 140
-                        IF( I <= MIN( M, J+KL ) && I >= MAX( 1, J-KU ) && J <= N ) THEN                            AB( KU+1+I-J, J ) = POW( I+J+1 )* ( -1 )**( I+J );
+                        if( I <= MIN( M, J+KL ) && I >= MAX( 1, J-KU ) && J <= N ) {
+                           AB( KU+1+I-J, J ) = POW( I+J+1 )* ( -1 )**( I+J );
                         }
                      } // 140
                   } // 150
@@ -215,7 +216,7 @@
       } // 290
       A( MAX( NSZ-1, 1 ), MAX( NSZ-1, 1 ) ) = -CONE;
       cpoequ(NSZ, A, NSZ, R, RCOND, NORM, INFO );
-      IF( INFO != MAX( NSZ-1, 1 ) ) RESLTS( 3 ) = ONE;
+      if( INFO != MAX( NSZ-1, 1 ) ) RESLTS( 3 ) = ONE;
       RESLTS( 3 ) = RESLTS( 3 ) / EPS;
 
       // Test CPPEQU
@@ -272,7 +273,7 @@
       I = ( NSZ*( NSZ+1 ) ) / 2 - 2;
       AP( I ) = -CONE;
       cppequ('L', NSZ, AP, R, RCOND, NORM, INFO );
-      IF( INFO != MAX( NSZ-1, 1 ) ) RESLTS( 4 ) = ONE;
+      if( INFO != MAX( NSZ-1, 1 ) ) RESLTS( 4 ) = ONE;
       RESLTS( 4 ) = RESLTS( 4 ) / EPS;
 
       // Test CPBEQU
@@ -306,7 +307,7 @@
             if ( N != 0 ) {
                AB( KL+1, MAX( N-1, 1 ) ) = -CONE;
                cpbequ('U', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
-               IF( INFO != MAX( N-1, 1 ) ) RESLTS( 5 ) = ONE;
+               if( INFO != MAX( N-1, 1 ) ) RESLTS( 5 ) = ONE;
             }
 
             // Test lower triangular storage
@@ -335,7 +336,7 @@
             if ( N != 0 ) {
                AB( 1, MAX( N-1, 1 ) ) = -CONE;
                cpbequ('L', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
-               IF( INFO != MAX( N-1, 1 ) ) RESLTS( 5 ) = ONE;
+               if( INFO != MAX( N-1, 1 ) ) RESLTS( 5 ) = ONE;
             }
          } // 450
       } // 460
@@ -345,7 +346,11 @@
       if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH;
       } else {
-         IF( RESLTS( 1 ) > THRESH ) WRITE( NOUT, FMT = 9998 )RESLTS( 1 ), THRESH          IF( RESLTS( 2 ) > THRESH ) WRITE( NOUT, FMT = 9997 )RESLTS( 2 ), THRESH          IF( RESLTS( 3 ) > THRESH ) WRITE( NOUT, FMT = 9996 )RESLTS( 3 ), THRESH          IF( RESLTS( 4 ) > THRESH ) WRITE( NOUT, FMT = 9995 )RESLTS( 4 ), THRESH          IF( RESLTS( 5 ) > THRESH ) WRITE( NOUT, FMT = 9994 )RESLTS( 5 ), THRESH;
+         if( RESLTS( 1 ) > THRESH ) WRITE( NOUT, FMT = 9998 )RESLTS( 1 ), THRESH;
+         if( RESLTS( 2 ) > THRESH ) WRITE( NOUT, FMT = 9997 )RESLTS( 2 ), THRESH;
+         if( RESLTS( 3 ) > THRESH ) WRITE( NOUT, FMT = 9996 )RESLTS( 3 ), THRESH;
+         if( RESLTS( 4 ) > THRESH ) WRITE( NOUT, FMT = 9995 )RESLTS( 4 ), THRESH;
+         IF( RESLTS( 5 ) > THRESH ) WRITE( NOUT, FMT = 9994 )RESLTS( 5 ), THRESH;
       }
  9999 FORMAT( 1X, 'All tests for ', A3, ' routines passed the threshold' );
  9998 FORMAT( ' CGEEQU failed test with value ', E10.3, ' exceeding', ' threshold ', E10.3 );

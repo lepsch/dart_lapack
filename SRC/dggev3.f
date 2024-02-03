@@ -254,7 +254,7 @@
          if ( ILVL ) {
             dggbak('P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IERR );
             for (JC = 1; JC <= N; JC++) { // 50
-               IF( ALPHAI( JC ) < ZERO ) GO TO 50;
+               if( ALPHAI( JC ) < ZERO ) GO TO 50;
                TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 10
@@ -282,7 +282,7 @@
          if ( ILVR ) {
             dggbak('P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IERR );
             for (JC = 1; JC <= N; JC++) { // 100
-               IF( ALPHAI( JC ) < ZERO ) GO TO 100;
+               if( ALPHAI( JC ) < ZERO ) GO TO 100;
                TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 60

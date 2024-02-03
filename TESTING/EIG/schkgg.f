@@ -67,7 +67,7 @@
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Maximum blocksize and shift -- we assume that blocksize and number
@@ -132,7 +132,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 230
-            IF( !DOTYPE( JTYPE ) ) GO TO 230;
+            if( !DOTYPE( JTYPE ) ) GO TO 230;
             NMATS = NMATS + 1;
             NTEST = 0;
 

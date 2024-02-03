@@ -139,7 +139,7 @@
          NORMIN = 'Y';
          if ( SCALE != ONE ) {
             IX = IDAMAX( N, WORK, 1 );
-            IF( SCALE < ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 40;
+            if( SCALE < ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 40;
             drscl(N, SCALE, WORK, 1 );
          }
          GO TO 10;

@@ -265,7 +265,8 @@
 
          // Undo scaling on eigenvalues before SELCTGing
 
-         if (ILASCL) CALL ZLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )          IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
+         if (ILASCL) CALL ZLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR );
+         IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
          // Select eigenvalues
 
@@ -327,7 +328,8 @@
          SDIM = 0;
          for (I = 1; I <= N; I++) { // 30
             CURSL = SELCTG( ALPHA( I ), BETA( I ) );
-            if (CURSL) SDIM = SDIM + 1             IF( CURSL && !LASTSL ) INFO = N + 2;
+            if (CURSL) SDIM = SDIM + 1;
+            IF( CURSL && !LASTSL ) INFO = N + 2;
             LASTSL = CURSL;
          } // 30
 

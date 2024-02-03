@@ -29,7 +29,7 @@
       P2 = PATH( 2: 3 );
       SORD = LSAME( C1, 'S' ) || LSAME( C1, 'D' );
       CORZ = LSAME( C1, 'C' ) || LSAME( C1, 'Z' );
-      IF( !( SORD || CORZ ) ) RETURN;
+      if( !( SORD || CORZ ) ) RETURN;
 
       if ( LSAMEN( 2, P2, 'GE' ) ) {
 

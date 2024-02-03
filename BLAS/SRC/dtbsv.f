@@ -197,7 +197,7 @@
                       if (NOUNIT) TEMP = TEMP/A(1,J);
                       X(JX) = TEMP;
                       JX = JX - INCX;
-                      IF ((N-J) >= K) KX = KX - INCX;
+                      if ((N-J) >= K) KX = KX - INCX;
                   } // 160
               }
           }

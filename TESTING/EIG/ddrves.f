@@ -79,7 +79,7 @@
       NMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
@@ -130,7 +130,7 @@
          if (NSIZES == 1 && NTYPES == MAXTYP+1) MTYPES = MTYPES + 1;
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 260
-            IF( !DOTYPE( JTYPE ) ) GO TO 260;
+            if( !DOTYPE( JTYPE ) ) GO TO 260;
 
             // Save ISEED in case of an error.
 
@@ -318,15 +318,15 @@
                   RESULT( 1+RSUB ) = ZERO;
                   for (J = 1; J <= N - 2; J++) { // 120
                      for (I = J + 2; I <= N; I++) { // 110
-                        IF( H( I, J ) != ZERO ) RESULT( 1+RSUB ) = ULPINV;
+                        if( H( I, J ) != ZERO ) RESULT( 1+RSUB ) = ULPINV;
                      } // 110
                   } // 120
                   for (I = 1; I <= N - 2; I++) { // 130
-                     IF( H( I+1, I ) != ZERO && H( I+2, I+1 ) != ZERO )RESULT( 1+RSUB ) = ULPINV;
+                     if( H( I+1, I ) != ZERO && H( I+2, I+1 ) != ZERO )RESULT( 1+RSUB ) = ULPINV;
                   } // 130
                   for (I = 1; I <= N - 1; I++) { // 140
                      if ( H( I+1, I ) != ZERO ) {
-                        IF( H( I, I ) != H( I+1, I+1 ) || H( I, I+1 ) == ZERO || SIGN( ONE, H( I+1, I ) ) == SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV;
+                        if( H( I, I ) != H( I+1, I+1 ) || H( I, I+1 ) == ZERO || SIGN( ONE, H( I+1, I ) ) == SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV;
                      }
                   } // 140
 
@@ -341,16 +341,17 @@
 
                   RESULT( 4+RSUB ) = ZERO;
                   for (I = 1; I <= N; I++) { // 150
-                     IF( H( I, I ) != WR( I ) ) RESULT( 4+RSUB ) = ULPINV;
+                     if( H( I, I ) != WR( I ) ) RESULT( 4+RSUB ) = ULPINV;
                   } // 150
                   if ( N > 1 ) {
-                     IF( H( 2, 1 ) == ZERO && WI( 1 ) != ZERO ) RESULT( 4+RSUB ) = ULPINV                      IF( H( N, N-1 ) == ZERO && WI( N ) != ZERO ) RESULT( 4+RSUB ) = ULPINV;
+                     if( H( 2, 1 ) == ZERO && WI( 1 ) != ZERO ) RESULT( 4+RSUB ) = ULPINV;
+                     IF( H( N, N-1 ) == ZERO && WI( N ) != ZERO ) RESULT( 4+RSUB ) = ULPINV;
                   }
                   for (I = 1; I <= N - 1; I++) { // 160
                      if ( H( I+1, I ) != ZERO ) {
                         TMP = SQRT( ABS( H( I+1, I ) ) )* SQRT( ABS( H( I, I+1 ) ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / MAX( ULP*TMP, UNFL ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / MAX( ULP*TMP, UNFL ) );
                      } else if ( I > 1 ) {
-                        IF( H( I+1, I ) == ZERO && H( I, I-1 ) == ZERO && WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV;
+                        if( H( I+1, I ) == ZERO && H( I, I-1 ) == ZERO && WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV;
                      }
                   } // 160
 
@@ -368,7 +369,7 @@
                   RESULT( 5+RSUB ) = ZERO;
                   for (J = 1; J <= N; J++) { // 180
                      for (I = 1; I <= N; I++) { // 170
-                        IF( H( I, J ) != HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV;
+                        if( H( I, J ) != HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV;
                      } // 170
                   } // 180
 
@@ -376,7 +377,7 @@
 
                   RESULT( 6+RSUB ) = ZERO;
                   for (I = 1; I <= N; I++) { // 190
-                     IF( WR( I ) != WRT( I ) || WI( I ) != WIT( I ) ) RESULT( 6+RSUB ) = ULPINV;
+                     if( WR( I ) != WRT( I ) || WI( I ) != WIT( I ) ) RESULT( 6+RSUB ) = ULPINV;
                   } // 190
 
                   // Do Test (13)
@@ -385,9 +386,9 @@
                      RESULT( 13 ) = ZERO;
                      KNTEIG = 0;
                      for (I = 1; I <= N; I++) { // 200
-                        IF( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) ) KNTEIG = KNTEIG + 1;
+                        if( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) ) KNTEIG = KNTEIG + 1;
                         if ( I < N ) {
-                           IF( ( DSLECT( WR( I+1 ), WI( I+1 ) ) || DSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( !( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 ) RESULT( 13 ) = ULPINV;
+                           if( ( DSLECT( WR( I+1 ), WI( I+1 ) ) || DSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( !( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 ) RESULT( 13 ) = ULPINV;
                         }
                      } // 200
                      if ( SDIM != KNTEIG ) {
@@ -404,7 +405,8 @@
                NTEST = 0;
                NFAIL = 0;
                for (J = 1; J <= 13; J++) { // 230
-                  IF( RESULT( J ) >= ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
+                  if( RESULT( J ) >= ZERO ) NTEST = NTEST + 1;
+                  IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
                } // 230
 
                if (NFAIL > 0) NTESTF = NTESTF + 1;

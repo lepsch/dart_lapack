@@ -22,7 +22,7 @@
       // EXTERNAL SCABS1
       // ..
       if (N <= 0) RETURN;
-      IF (SCABS1(CA) == 0.0) RETURN;
+      if (SCABS1(CA) == 0.0) RETURN;
       if (INCX == 1 && INCY == 1) {
 
          // code for both increments equal to 1

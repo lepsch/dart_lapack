@@ -103,7 +103,8 @@
 
       TEMP = LOG( DBLE( N ) ) / LOG( TWO );
       LGN = INT( TEMP );
-      if (2**LGN < N) LGN = LGN + 1       IF( 2**LGN < N ) LGN = LGN + 1;
+      if (2**LGN < N) LGN = LGN + 1;
+      IF( 2**LGN < N ) LGN = LGN + 1;
       IPRMPT = INDXQ + N + 1;
       IPERM = IPRMPT + N*LGN;
       IQPTR = IPERM + N*LGN;

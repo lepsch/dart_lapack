@@ -95,7 +95,8 @@
       // Use unblocked code for small problems or if insufficient
       // workspaces are provided
 
-      IF( MIN( NBA, NBB ) == 1 || LDSWORK < MAX( NBA, NBB ) || LIWORK < IWORK(1) ) THEN         CALL DTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO );
+      if( MIN( NBA, NBB ) == 1 || LDSWORK < MAX( NBA, NBB ) || LIWORK < IWORK(1) ) {
+        CALL DTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO );
         return;
       }
 

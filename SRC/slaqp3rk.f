@@ -106,7 +106,7 @@
                        // the original whole matrix A_orig.
 
                KB = K - 1;
-               IF = I - 1;
+               if = I - 1;
                INFO = KB + KP;
 
                // Set RELMAXC2NRMK to NaN.
@@ -158,7 +158,7 @@
                        // the original whole matrix A_orig.
 
                KB = K - 1;
-               IF = I - 1;
+               if = I - 1;
                RELMAXC2NRMK = ZERO;
 
                // There is no need to apply the block reflector to the
@@ -234,7 +234,7 @@
                        // the original whole matrix A_orig;
 
                   KB = K - 1;
-                  IF = I - 1;
+                  if = I - 1;
 
                // Apply the block reflector to the residual of the
                // matrix A and the residual of the right hand sides B, if
@@ -334,7 +334,7 @@
                     // the original whole matrix A_orig.
 
             KB = K - 1;
-            IF = I - 1;
+            if = I - 1;
             INFO = K;
 
             // Set MAXC2NRMK and  RELMAXC2NRMK to NaN.
@@ -461,7 +461,7 @@
                  // the original whole matrix A_orig, IF = IOFFSET + KB.
 
       KB = K;
-      IF = I;
+      if = I;
 
       // Apply the block reflector to the residual of the matrix A
       // and the residual of the right hand sides B, if the residual

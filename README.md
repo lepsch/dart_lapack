@@ -325,6 +325,18 @@ Array
 $1const $2 = [$3];
 ```
 
+### IF CALL
+```
+^(\s+if\s*\(.*\))\s*CALL\s+((\w+)\s*(\(.*\)));?$
+$1 \L$3$4;
+```
+
+### Overlaped lines
+```
+^(\s+)if(.*?)      (\s+.*)$
+$1if$2;\n     $3
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

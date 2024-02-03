@@ -121,7 +121,7 @@
 
                   // Do the tests only if DOTYPE( IMAT ) is true.
 
-                  IF( !DOTYPE( IMAT ) ) GO TO 60;
+                  if( !DOTYPE( IMAT ) ) GO TO 60;
 
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
@@ -243,7 +243,8 @@
                      // Print the test ratio if it is >= THRESH.
 
                      if ( RESULT( 1 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, KD, NB, IMAT, 1, RESULT( 1 );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        WRITE( NOUT, FMT = 9999 )UPLO, N, KD, NB, IMAT, 1, RESULT( 1 );
                         NFAIL = NFAIL + 1;
                      }
                      NRUN = NRUN + 1;
@@ -312,7 +313,8 @@
 
                         for (K = 2; K <= 6; K++) { // 30
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                              WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
                         } // 30
@@ -334,7 +336,8 @@
                      // Print the test ratio if it is >= THRESH.
 
                      if ( RESULT( 7 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )UPLO, N, KD, IMAT, 7, RESULT( 7 );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        WRITE( NOUT, FMT = 9997 )UPLO, N, KD, IMAT, 7, RESULT( 7 );
                         NFAIL = NFAIL + 1;
                      }
                      NRUN = NRUN + 1;

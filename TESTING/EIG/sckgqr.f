@@ -71,7 +71,7 @@
 
                   // Do the tests only if DOTYPE( IMAT ) is true.
 
-                  IF( !DOTYPE( IMAT ) ) GO TO 30;
+                  if( !DOTYPE( IMAT ) ) GO TO 30;
 
                   // Test SGGRQF
 

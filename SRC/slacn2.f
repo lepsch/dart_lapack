@@ -104,7 +104,7 @@
          } else {
             XS = -ONE;
          }
-         IF( NINT( XS ) != ISGN( I ) ) GO TO 90;
+         if( NINT( XS ) != ISGN( I ) ) GO TO 90;
       } // 80
       // REPEATED SIGN VECTOR DETECTED, HENCE ALGORITHM HAS CONVERGED.
       GO TO 120;

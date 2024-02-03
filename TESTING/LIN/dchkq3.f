@@ -86,7 +86,7 @@
             LWORK = MAX( 1, M*MAX( M, N )+4*MNMIN+MAX( M, N ), M*N + 2*MNMIN + 4*N );
 
             for (IMODE = 1; IMODE <= NTYPES; IMODE++) { // 70
-               IF( !DOTYPE( IMODE ) ) GO TO 70;
+               if( !DOTYPE( IMODE ) ) GO TO 70;
 
                // Do for each type of matrix
                   // 1:  zero matrix
@@ -174,7 +174,8 @@
 
                   for (K = 1; K <= NTESTS; K++) { // 50
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'DGEQP3', M, N, NB, IMODE, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        WRITE( NOUT, FMT = 9999 )'DGEQP3', M, N, NB, IMODE, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
                   } // 50

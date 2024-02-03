@@ -22,7 +22,7 @@
       // EXTERNAL DCABS1
       // ..
       if (N <= 0) RETURN;
-      IF (DCABS1(ZA) == 0.0) RETURN;
+      if (DCABS1(ZA) == 0.0) RETURN;
       if (INCX == 1 && INCY == 1) {
 
          // code for both increments equal to 1

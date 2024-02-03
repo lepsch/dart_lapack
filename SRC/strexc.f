@@ -64,22 +64,22 @@
       // and find out it is 1 by 1 or 2 by 2.
 
       if ( IFST > 1 ) {
-         IF( T( IFST, IFST-1 ) != ZERO ) IFST = IFST - 1;
+         if( T( IFST, IFST-1 ) != ZERO ) IFST = IFST - 1;
       }
       NBF = 1;
       if ( IFST < N ) {
-         IF( T( IFST+1, IFST ) != ZERO ) NBF = 2;
+         if( T( IFST+1, IFST ) != ZERO ) NBF = 2;
       }
 
       // Determine the first row of the final block
       // and find out it is 1 by 1 or 2 by 2.
 
       if ( ILST > 1 ) {
-         IF( T( ILST, ILST-1 ) != ZERO ) ILST = ILST - 1;
+         if( T( ILST, ILST-1 ) != ZERO ) ILST = ILST - 1;
       }
       NBL = 1;
       if ( ILST < N ) {
-         IF( T( ILST+1, ILST ) != ZERO ) NBL = 2;
+         if( T( ILST+1, ILST ) != ZERO ) NBL = 2;
       }
 
       if (IFST == ILST) RETURN;
@@ -88,7 +88,8 @@
 
          // Update ILST
 
-         if (NBF == 2 && NBL == 1) ILST = ILST - 1          IF( NBF == 1 && NBL == 2 ) ILST = ILST + 1;
+         if (NBF == 2 && NBL == 1) ILST = ILST - 1;
+         IF( NBF == 1 && NBL == 2 ) ILST = ILST + 1;
 
          HERE = IFST;
 
@@ -102,7 +103,7 @@
 
             NBNEXT = 1;
             if ( HERE+NBF+1 <= N ) {
-               IF( T( HERE+NBF+1, HERE+NBF ) != ZERO ) NBNEXT = 2;
+               if( T( HERE+NBF+1, HERE+NBF ) != ZERO ) NBNEXT = 2;
             }
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, NBF, NBNEXT, WORK, INFO );
             if ( INFO != 0 ) {
@@ -114,7 +115,7 @@
             // Test if 2 by 2 block breaks into two 1 by 1 blocks
 
             if ( NBF == 2 ) {
-               IF( T( HERE+1, HERE ) == ZERO ) NBF = 3;
+               if( T( HERE+1, HERE ) == ZERO ) NBF = 3;
             }
 
          } else {
@@ -124,7 +125,7 @@
 
             NBNEXT = 1;
             if ( HERE+3 <= N ) {
-               IF( T( HERE+3, HERE+2 ) != ZERO ) NBNEXT = 2;
+               if( T( HERE+3, HERE+2 ) != ZERO ) NBNEXT = 2;
             }
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, NBNEXT, WORK, INFO );
             if ( INFO != 0 ) {
@@ -141,7 +142,7 @@
 
                // Recompute NBNEXT in case 2 by 2 split
 
-               IF( T( HERE+2, HERE+1 ) == ZERO ) NBNEXT = 1;
+               if( T( HERE+2, HERE+1 ) == ZERO ) NBNEXT = 1;
                if ( NBNEXT == 2 ) {
 
                   // 2 by 2 Block did not split
@@ -177,7 +178,7 @@
 
             NBNEXT = 1;
             if ( HERE >= 3 ) {
-               IF( T( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2;
+               if( T( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2;
             }
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, NBF, WORK, INFO );
             if ( INFO != 0 ) {
@@ -189,7 +190,7 @@
             // Test if 2 by 2 block breaks into two 1 by 1 blocks
 
             if ( NBF == 2 ) {
-               IF( T( HERE+1, HERE ) == ZERO ) NBF = 3;
+               if( T( HERE+1, HERE ) == ZERO ) NBF = 3;
             }
 
          } else {
@@ -199,7 +200,7 @@
 
             NBNEXT = 1;
             if ( HERE >= 3 ) {
-               IF( T( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2;
+               if( T( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2;
             }
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, 1, WORK, INFO );
             if ( INFO != 0 ) {
@@ -216,7 +217,7 @@
 
                // Recompute NBNEXT in case 2 by 2 split
 
-               IF( T( HERE, HERE-1 ) == ZERO ) NBNEXT = 1;
+               if( T( HERE, HERE-1 ) == ZERO ) NBNEXT = 1;
                if ( NBNEXT == 2 ) {
 
                   // 2 by 2 Block did not split

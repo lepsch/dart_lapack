@@ -78,7 +78,7 @@
 
       // Initialize A to the identity matrix if desired
 
-      IF( LSAME( INIT, 'I' ) ) CALL CLASET( 'Full', M, N, CZERO, CONE, A, LDA );
+      if( LSAME( INIT, 'I' ) ) CALL CLASET( 'Full', M, N, CZERO, CONE, A, LDA );
 
       // If no rotation possible, still multiply by
       // a random complex number from the circle |x| = 1

@@ -70,7 +70,7 @@
          }
       }
       if ( INFO == 0 ) {
-         IF( LDZ < 1 || ( WANTZ && LDZ < N ) ) INFO = -14;
+         if( LDZ < 1 || ( WANTZ && LDZ < N ) ) INFO = -14;
       }
 
       if ( INFO != 0 ) {

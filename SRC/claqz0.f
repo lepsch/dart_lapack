@@ -158,7 +158,8 @@
 
       // Initialize Q and Z
 
-      if (IWANTQ == 3) CALL CLASET( 'FULL', N, N, CZERO, CONE, Q, LDQ )       IF( IWANTZ == 3 ) CALL CLASET( 'FULL', N, N, CZERO, CONE, Z, LDZ );
+      if (IWANTQ == 3) CALL CLASET( 'FULL', N, N, CZERO, CONE, Q, LDQ );
+      IF( IWANTZ == 3 ) CALL CLASET( 'FULL', N, N, CZERO, CONE, Z, LDZ );
 
       // Get machine constants
       SAFMIN = SLAMCH( 'SAFE MINIMUM' );

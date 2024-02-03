@@ -338,7 +338,7 @@
          // and sufficient workspace for an efficient algorithm
 
          LDWORK = M;
-         IF( LWORK >= 3*M+M*LDA+MAX( M, NRHS, N-2*M ) ) LDWORK = LDA;
+         if( LWORK >= 3*M+M*LDA+MAX( M, NRHS, N-2*M ) ) LDWORK = LDA;
          ITAU = 1;
          IWORK = M + 1;
 

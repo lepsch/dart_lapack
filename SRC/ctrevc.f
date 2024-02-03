@@ -64,7 +64,7 @@
       if ( SOMEV ) {
          M = 0;
          for (J = 1; J <= N; J++) { // 10
-            IF( SELECT( J ) ) M = M + 1;
+            if( SELECT( J ) ) M = M + 1;
          } // 10
       } else {
          M = N;
@@ -124,7 +124,7 @@
          DO 80 KI = N, 1, -1;
 
             if ( SOMEV ) {
-               IF( !SELECT( KI ) ) GO TO 80;
+               if( !SELECT( KI ) ) GO TO 80;
             }
             SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM );
 
@@ -141,7 +141,7 @@
 
             for (K = 1; K <= KI - 1; K++) { // 50
                T( K, K ) = T( K, K ) - T( KI, KI );
-               IF( CABS1( T( K, K ) ) < SMIN ) T( K, K ) = SMIN;
+               if( CABS1( T( K, K ) ) < SMIN ) T( K, K ) = SMIN;
             } // 50
 
             if ( KI > 1 ) {
@@ -187,7 +187,7 @@
          for (KI = 1; KI <= N; KI++) { // 130
 
             if ( SOMEV ) {
-               IF( !SELECT( KI ) ) GO TO 130;
+               if( !SELECT( KI ) ) GO TO 130;
             }
             SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM );
 
@@ -204,7 +204,7 @@
 
             for (K = KI + 1; K <= N; K++) { // 100
                T( K, K ) = T( K, K ) - T( KI, KI );
-               IF( CABS1( T( K, K ) ) < SMIN ) T( K, K ) = SMIN;
+               if( CABS1( T( K, K ) ) < SMIN ) T( K, K ) = SMIN;
             } // 100
 
             if ( KI < N ) {

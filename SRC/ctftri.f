@@ -98,7 +98,8 @@
                if (INFO > 0) RETURN;
                ctrmm('R', 'L', 'N', DIAG, N2, N1, -CONE, A( 0 ), N, A( N1 ), N );
                ctrtri('U', DIAG, N2, A( N ), N, INFO );
-               if (INFO > 0) INFO = INFO + N1                IF( INFO > 0 ) RETURN;
+               if (INFO > 0) INFO = INFO + N1;
+               IF( INFO > 0 ) RETURN;
                ctrmm('L', 'U', 'C', DIAG, N2, N1, CONE, A( N ), N, A( N1 ), N );
 
             } else {
@@ -111,7 +112,8 @@
                if (INFO > 0) RETURN;
                ctrmm('L', 'L', 'C', DIAG, N1, N2, -CONE, A( N2 ), N, A( 0 ), N );
                ctrtri('U', DIAG, N2, A( N1 ), N, INFO );
-               if (INFO > 0) INFO = INFO + N1                IF( INFO > 0 ) RETURN;
+               if (INFO > 0) INFO = INFO + N1;
+               IF( INFO > 0 ) RETURN;
                ctrmm('R', 'U', 'N', DIAG, N1, N2, CONE, A( N1 ), N, A( 0 ), N );
 
             }
@@ -129,7 +131,8 @@
                if (INFO > 0) RETURN;
                ctrmm('L', 'U', 'N', DIAG, N1, N2, -CONE, A( 0 ), N1, A( N1*N1 ), N1 );
                ctrtri('L', DIAG, N2, A( 1 ), N1, INFO );
-               if (INFO > 0) INFO = INFO + N1                IF( INFO > 0 ) RETURN;
+               if (INFO > 0) INFO = INFO + N1;
+               IF( INFO > 0 ) RETURN;
                ctrmm('R', 'L', 'C', DIAG, N1, N2, CONE, A( 1 ), N1, A( N1*N1 ), N1 );
 
             } else {
@@ -141,7 +144,8 @@
                if (INFO > 0) RETURN;
                ctrmm('R', 'U', 'C', DIAG, N2, N1, -CONE, A( N2*N2 ), N2, A( 0 ), N2 );
                ctrtri('L', DIAG, N2, A( N1*N2 ), N2, INFO );
-               if (INFO > 0) INFO = INFO + N1                IF( INFO > 0 ) RETURN;
+               if (INFO > 0) INFO = INFO + N1;
+               IF( INFO > 0 ) RETURN;
                ctrmm('L', 'L', 'N', DIAG, N2, N1, CONE, A( N1*N2 ), N2, A( 0 ), N2 );
             }
 
@@ -165,7 +169,8 @@
                if (INFO > 0) RETURN;
                ctrmm('R', 'L', 'N', DIAG, K, K, -CONE, A( 1 ), N+1, A( K+1 ), N+1 );
                ctrtri('U', DIAG, K, A( 0 ), N+1, INFO );
-               if (INFO > 0) INFO = INFO + K                IF( INFO > 0 ) RETURN;
+               if (INFO > 0) INFO = INFO + K;
+               IF( INFO > 0 ) RETURN;
                ctrmm('L', 'U', 'C', DIAG, K, K, CONE, A( 0 ), N+1, A( K+1 ), N+1 );
 
             } else {
@@ -178,7 +183,8 @@
                if (INFO > 0) RETURN;
                ctrmm('L', 'L', 'C', DIAG, K, K, -CONE, A( K+1 ), N+1, A( 0 ), N+1 );
                ctrtri('U', DIAG, K, A( K ), N+1, INFO );
-               if (INFO > 0) INFO = INFO + K                IF( INFO > 0 ) RETURN;
+               if (INFO > 0) INFO = INFO + K;
+               IF( INFO > 0 ) RETURN;
                ctrmm('R', 'U', 'N', DIAG, K, K, CONE, A( K ), N+1, A( 0 ), N+1 );
             }
          } else {
@@ -195,7 +201,8 @@
                if (INFO > 0) RETURN;
                ctrmm('L', 'U', 'N', DIAG, K, K, -CONE, A( K ), K, A( K*( K+1 ) ), K );
                ctrtri('L', DIAG, K, A( 0 ), K, INFO );
-               if (INFO > 0) INFO = INFO + K                IF( INFO > 0 ) RETURN;
+               if (INFO > 0) INFO = INFO + K;
+               IF( INFO > 0 ) RETURN;
                ctrmm('R', 'L', 'C', DIAG, K, K, CONE, A( 0 ), K, A( K*( K+1 ) ), K );
             } else {
 
@@ -207,7 +214,8 @@
                if (INFO > 0) RETURN;
                ctrmm('R', 'U', 'C', DIAG, K, K, -CONE, A( K*( K+1 ) ), K, A( 0 ), K );
                ctrtri('L', DIAG, K, A( K*K ), K, INFO );
-               if (INFO > 0) INFO = INFO + K                IF( INFO > 0 ) RETURN;
+               if (INFO > 0) INFO = INFO + K;
+               IF( INFO > 0 ) RETURN;
                ctrmm('L', 'L', 'N', DIAG, K, K, CONE, A( K*K ), K, A( 0 ), K );
             }
          }

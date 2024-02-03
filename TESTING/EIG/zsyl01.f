@@ -122,9 +122,11 @@
                   TNRM = MAX( ANRM, BNRM );
                   zlatmr(M, N, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, M, N, ZERO, ONE, 'NO', C, MAXM, IWORK, IINFO );
                   for (ITRANA = 1; ITRANA <= 2; ITRANA++) {
-                     if (ITRANA == 1) TRANA = 'N'                      IF( ITRANA == 2 ) TRANA = 'C';
+                     if (ITRANA == 1) TRANA = 'N';
+                     IF( ITRANA == 2 ) TRANA = 'C';
                      for (ITRANB = 1; ITRANB <= 2; ITRANB++) {
-                        if (ITRANB == 1) TRANB = 'N'                         IF( ITRANB == 2 ) TRANB = 'C';
+                        if (ITRANB == 1) TRANB = 'N';
+                        IF( ITRANB == 2 ) TRANB = 'C';
                         KNT = KNT + 1;
 
                         zlacpy('All', M, N, C, MAXM, X, MAXM);
@@ -163,7 +165,8 @@
                         if ( SCALE3 == ZERO && SCALE > ZERO || IINFO != INFO ) {
                            NFAIL( 3 ) = NFAIL( 3 ) + 1;
                         }
-                        IF( RES > THRESH || DISNAN( RES ) ) NFAIL( 2 ) = NFAIL( 2 ) + 1                         IF( RES > RMAX( 2 ) ) RMAX( 2 ) = RES;
+                        if( RES > THRESH || DISNAN( RES ) ) NFAIL( 2 ) = NFAIL( 2 ) + 1;
+                        IF( RES > RMAX( 2 ) ) RMAX( 2 ) = RES;
                      }
                   }
                }

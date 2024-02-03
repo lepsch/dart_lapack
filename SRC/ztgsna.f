@@ -78,7 +78,7 @@
          if ( SOMCON ) {
             M = 0;
             for (K = 1; K <= N; K++) { // 10
-               IF( SELECT( K ) ) M = M + 1;
+               if( SELECT( K ) ) M = M + 1;
             } // 10
          } else {
             M = N;
@@ -123,7 +123,7 @@
          // eigenpair.
 
          if ( SOMCON ) {
-            IF( !SELECT( K ) ) GO TO 20;
+            if( !SELECT( K ) ) GO TO 20;
          }
 
          KS = KS + 1;

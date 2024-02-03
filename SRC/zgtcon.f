@@ -69,7 +69,7 @@
       // Check that D(1:N) is non-zero.
 
       for (I = 1; I <= N; I++) { // 10
-         IF( D( I ) == DCMPLX( ZERO ) ) RETURN;
+         if( D( I ) == DCMPLX( ZERO ) ) RETURN;
       } // 10
 
       AINVNM = ZERO;

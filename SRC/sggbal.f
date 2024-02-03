@@ -83,7 +83,7 @@
 
       K = 1;
       L = N;
-      IF( LSAME( JOB, 'S' ) ) GO TO 190;
+      if( LSAME( JOB, 'S' ) ) GO TO 190;
 
       GO TO 30;
 
@@ -104,14 +104,14 @@
       DO 80 I = L, 1, -1;
          for (J = 1; J <= LM1; J++) { // 40
             JP1 = J + 1;
-            IF( A( I, J ) != ZERO || B( I, J ) != ZERO ) GO TO 50;
+            if( A( I, J ) != ZERO || B( I, J ) != ZERO ) GO TO 50;
          } // 40
          J = L;
          GO TO 70;
 
          } // 50
          for (J = JP1; J <= L; J++) { // 60
-            IF( A( I, J ) != ZERO || B( I, J ) != ZERO ) GO TO 80;
+            if( A( I, J ) != ZERO || B( I, J ) != ZERO ) GO TO 80;
          } // 60
          J = JP1 - 1;
 
@@ -131,13 +131,13 @@
       for (J = K; J <= L; J++) { // 150
          for (I = K; I <= LM1; I++) { // 110
             IP1 = I + 1;
-            IF( A( I, J ) != ZERO || B( I, J ) != ZERO ) GO TO 120;
+            if( A( I, J ) != ZERO || B( I, J ) != ZERO ) GO TO 120;
          } // 110
          I = L;
          GO TO 140;
          } // 120
          for (I = IP1; I <= L; I++) { // 130
-            IF( A( I, J ) != ZERO || B( I, J ) != ZERO ) GO TO 150;
+            if( A( I, J ) != ZERO || B( I, J ) != ZERO ) GO TO 150;
          } // 130
          I = IP1 - 1;
          } // 140
@@ -234,7 +234,8 @@
       } // 260
 
       GAMMA = COEF*GAMMA - COEF2*( EW**2+EWC**2 ) - COEF5*( EW-EWC )**2;
-      if (GAMMA == ZERO) GO TO 350       IF( IT != 1 ) BETA = GAMMA / PGAMMA;
+      if (GAMMA == ZERO) GO TO 350;
+      IF( IT != 1 ) BETA = GAMMA / PGAMMA;
       T = COEF5*( EWC-THREE*EW );
       TC = COEF5*( EW-THREE*EWC );
 
@@ -255,11 +256,11 @@
          KOUNT = 0;
          SUM = ZERO;
          for (J = ILO; J <= IHI; J++) { // 290
-            IF( A( I, J ) == ZERO ) GO TO 280;
+            if( A( I, J ) == ZERO ) GO TO 280;
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( J );
             } // 280
-            IF( B( I, J ) == ZERO ) GO TO 290;
+            if( B( I, J ) == ZERO ) GO TO 290;
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( J );
          } // 290
@@ -270,11 +271,11 @@
          KOUNT = 0;
          SUM = ZERO;
          for (I = ILO; I <= IHI; I++) { // 320
-            IF( A( I, J ) == ZERO ) GO TO 310;
+            if( A( I, J ) == ZERO ) GO TO 310;
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( I+N );
             } // 310
-            IF( B( I, J ) == ZERO ) GO TO 320;
+            if( B( I, J ) == ZERO ) GO TO 320;
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( I+N );
          } // 320
@@ -289,10 +290,10 @@
       CMAX = ZERO;
       for (I = ILO; I <= IHI; I++) { // 340
          COR = ALPHA*WORK( I+N );
-         IF( ABS( COR ) > CMAX ) CMAX = ABS( COR );
+         if( ABS( COR ) > CMAX ) CMAX = ABS( COR );
          LSCALE( I ) = LSCALE( I ) + COR;
          COR = ALPHA*WORK( I );
-         IF( ABS( COR ) > CMAX ) CMAX = ABS( COR );
+         if( ABS( COR ) > CMAX ) CMAX = ABS( COR );
          RSCALE( I ) = RSCALE( I ) + COR;
       } // 340
       if (CMAX < HALF) GO TO 350;

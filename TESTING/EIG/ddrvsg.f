@@ -58,7 +58,7 @@
       NMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
@@ -119,7 +119,7 @@
          KA9 = 0;
          KB9 = 0;
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 640
-            IF( !DOTYPE( JTYPE ) ) GO TO 640;
+            if( !DOTYPE( JTYPE ) ) GO TO 640;
             NMATS = NMATS + 1;
             NTEST = 0;
 
@@ -283,7 +283,8 @@
                // loop over the setting UPLO
 
                for (IBUPLO = 1; IBUPLO <= 2; IBUPLO++) { // 620
-                  if (IBUPLO == 1) UPLO = 'U'                   IF( IBUPLO == 2 ) UPLO = 'L';
+                  if (IBUPLO == 1) UPLO = 'U';
+                  IF( IBUPLO == 2 ) UPLO = 'L';
 
                   // Generate random well-conditioned positive definite
                   // matrix B, of bandwidth not greater than that of A.

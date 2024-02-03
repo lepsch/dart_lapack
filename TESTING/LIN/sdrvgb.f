@@ -157,7 +157,7 @@
 
                   // Do the tests only if DOTYPE( IMAT ) is true.
 
-                  IF( !DOTYPE( IMAT ) ) GO TO 120;
+                  if( !DOTYPE( IMAT ) ) GO TO 120;
 
                   // Skip types 2, 3, or 4 if the matrix is too small.
 
@@ -371,7 +371,8 @@
 
                               for (K = 1; K <= NT; K++) { // 50
                                  if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'SGBSV ', N, KL, KU, IMAT, K, RESULT( K );
+                                    if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                                    WRITE( NOUT, FMT = 9997 )'SGBSV ', N, KL, KU, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1;
                                  }
                               } // 50
@@ -447,7 +448,7 @@
                               // Check solution from generated exact
                               // solution.
 
-                              IF( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                              if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                                  sget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                               } else {
                                  if ( ITRAN == 1 ) {
@@ -488,7 +489,8 @@
                               } // 80
                               NRUN = NRUN + NTESTS - K1 + 1;
                            } else {
-                              IF( RESULT( 1 ) >= THRESH && !PREFAC ) THEN                                  IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH );
+                              if( RESULT( 1 ) >= THRESH && !PREFAC ) {
+                                 if( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'SGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 );
                                  } else {

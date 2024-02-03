@@ -72,7 +72,7 @@
             for (J = 1; J <= NRHS; J++) { // 10
                B( K+1, J ) = B( K+1, J ) - MULT*B( K, J );
             } // 10
-            IF( K < ( N-1 ) ) DL( K ) = ZERO;
+            if( K < ( N-1 ) ) DL( K ) = ZERO;
          } else {
 
             // Interchange rows K and K+1

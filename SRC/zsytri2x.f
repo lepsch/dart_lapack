@@ -75,14 +75,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO INFO = N, 1, -1;
-            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN;
+            if( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN;
          }
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) {
-            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN;
+            if( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN;
          }
       }
       INFO = 0;
@@ -140,10 +140,10 @@
               COUNT = 0;
               // count negative elements,
               for (I = CUT+1-NNB; I <= CUT; I++) {
-                  IF (IPIV(I) < 0) COUNT=COUNT+1;
+                  if (IPIV(I) < 0) COUNT=COUNT+1;
               }
               // need a even number for a clear cut
-              IF (MOD(COUNT,2) == 1) NNB=NNB+1;
+              if (MOD(COUNT,2) == 1) NNB=NNB+1;
            }
 
            CUT=CUT-NNB;
@@ -256,7 +256,8 @@
                } else {
                  IP=-IPIV(I);
                  I=I+1;
-                 IF ( (I-1) < IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I-1 ,IP )                  IF ( (I-1) > IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I-1 );
+                 if ( (I-1) < IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I-1 ,IP );
+                 IF ( (I-1) > IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I-1 );
               }
                I=I+1;
             }
@@ -305,10 +306,10 @@
               COUNT = 0;
               // count negative elements,
               for (I = CUT+1; I <= CUT+NNB; I++) {
-                  IF (IPIV(I) < 0) COUNT=COUNT+1;
+                  if (IPIV(I) < 0) COUNT=COUNT+1;
               }
               // need a even number for a clear cut
-              IF (MOD(COUNT,2) == 1) NNB=NNB+1;
+              if (MOD(COUNT,2) == 1) NNB=NNB+1;
            }
        // L21 Block
            for (I = 1; I <= N-CUT-NNB; I++) {

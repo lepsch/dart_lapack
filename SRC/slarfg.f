@@ -63,7 +63,7 @@
             sscal(N-1, RSAFMN, X, INCX );
             BETA = BETA*RSAFMN;
             ALPHA = ALPHA*RSAFMN;
-            IF( (ABS( BETA ) < SAFMIN) && (KNT < 20) ) GO TO 10;
+            if( (ABS( BETA ) < SAFMIN) && (KNT < 20) ) GO TO 10;
 
             // New BETA is at most 1, at least SAFMIN
 

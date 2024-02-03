@@ -90,7 +90,7 @@
                } else {
                   if ( J < N ) {
                      if ( T( J+1, J ) == ZERO ) {
-                        IF( SELECT( J ) ) M = M + 1;
+                        if( SELECT( J ) ) M = M + 1;
                      } else {
                         PAIR = true;
                         if ( SELECT( J ) || SELECT( J+1 ) ) {
@@ -99,7 +99,7 @@
                         }
                      }
                   } else {
-                     IF( SELECT( N ) ) M = M + 1;
+                     if( SELECT( N ) ) M = M + 1;
                   }
                }
             } // 10
@@ -194,9 +194,9 @@
 
             if ( SOMEV ) {
                if ( IP == 0 ) {
-                  IF( !SELECT( KI ) ) GO TO 140;
+                  if( !SELECT( KI ) ) GO TO 140;
                } else {
-                  IF( !SELECT( KI-1 ) ) GO TO 140;
+                  if( !SELECT( KI-1 ) ) GO TO 140;
                }
             }
 
@@ -572,7 +572,7 @@
             }
 
             if ( SOMEV ) {
-               IF( !SELECT( KI ) ) GO TO 260;
+               if( !SELECT( KI ) ) GO TO 260;
             }
 
             // Compute the KI-th eigenvalue (WR,WI).

@@ -256,7 +256,7 @@
 
       DSIGMA( 1 ) = ZERO;
       HLFTOL = TOL / TWO;
-      IF( ABS( DSIGMA( 2 ) ) <= HLFTOL ) DSIGMA( 2 ) = HLFTOL;
+      if( ABS( DSIGMA( 2 ) ) <= HLFTOL ) DSIGMA( 2 ) = HLFTOL;
       if ( M > N ) {
          Z( 1 ) = DLAPY2( Z1, Z( M ) );
          if ( Z( 1 ) <= TOL ) {

@@ -101,7 +101,7 @@
 
       if ( LSVEC ) {
          N1 = N;
-         IF ( LSAME( JOBU, 'F' ) ) N1 = M;
+         if ( LSAME( JOBU, 'F' ) ) N1 = M;
       }
 
       // Set numerical parameters
@@ -151,7 +151,7 @@
       AAQQ = BIG;
       for (p = 1; p <= N; p++) { // 4781
          AAPP = MAX( AAPP, SVA(p) );
-         IF ( SVA(p) != ZERO ) AAQQ = MIN( AAQQ, SVA(p) );
+         if ( SVA(p) != ZERO ) AAQQ = MIN( AAQQ, SVA(p) );
       } // 4781
 
       // Quick return for zero M x N matrix
@@ -257,7 +257,7 @@
                WORK(M+N+p)  = XSC * SCALEM;
                WORK(N+p)    = XSC * (SCALEM*SQRT(TEMP1));
                AATMAX = MAX( AATMAX, WORK(N+p) );
-               IF (WORK(N+p) != ZERO) AATMIN = MIN(AATMIN,WORK(N+p));
+               if (WORK(N+p) != ZERO) AATMIN = MIN(AATMIN,WORK(N+p));
             } // 1950
          } else {
             for (p = 1; p <= M; p++) { // 1904
@@ -471,7 +471,7 @@
          // close-to-rank-deficient.
          TEMP1 = SQRT(SFMIN);
          for (p = 2; p <= N; p++) { // 3401
-            IF ( ( ABS(A(p,p)) < (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3402;
+            if ( ( ABS(A(p,p)) < (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3402;
             NR = NR + 1;
          } // 3401
          } // 3402
@@ -486,7 +486,7 @@
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = SQRT(SFMIN);
          for (p = 2; p <= N; p++) { // 3301
-            IF ( ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3302;
+            if ( ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3302;
             NR = NR + 1;
          } // 3301
          } // 3302
@@ -500,7 +500,7 @@
             TEMP1  = ABS(A(p,p)) / SVA(IWORK(p));
             MAXPRJ = MIN( MAXPRJ, TEMP1 );
          } // 3051
-         IF ( MAXPRJ**2 >= ONE - FLOAT(N)*EPSLN ) ALMORT = true;
+         if ( MAXPRJ**2 >= ONE - FLOAT(N)*EPSLN ) ALMORT = true;
       }
 
 
@@ -577,7 +577,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   TEMP1 = XSC*ABS(A(q,q));
                   for (p = 1; p <= N; p++) { // 4949
-                     IF ( ( (p > q) && (ABS(A(p,q)) <= TEMP1) ) || ( p < q ) ) A(p,q) = SIGN( TEMP1, A(p,q) );
+                     if ( ( (p > q) && (ABS(A(p,q)) <= TEMP1) ) || ( p < q ) ) A(p,q) = SIGN( TEMP1, A(p,q) );
                   } // 4949
                } // 4947
             } else {
@@ -605,7 +605,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   TEMP1 = XSC*ABS(A(q,q));
                   for (p = 1; p <= NR; p++) { // 1949
-                     IF ( ( (p > q) && (ABS(A(p,q)) <= TEMP1) ) || ( p < q ) ) A(p,q) = SIGN( TEMP1, A(p,q) );
+                     if ( ( (p > q) && (ABS(A(p,q)) <= TEMP1) ) || ( p < q ) ) A(p,q) = SIGN( TEMP1, A(p,q) );
                   } // 1949
                } // 1947
             } else {
@@ -754,7 +754,7 @@
                for (q = 1; q <= NR; q++) { // 2969
                   TEMP1 = XSC*ABS( V(q,q) );
                   for (p = 1; p <= N; p++) { // 2968
-                     IF ( ( p > q ) && ( ABS(V(p,q)) <= TEMP1 ) || ( p < q ) ) V(p,q) = SIGN( TEMP1, V(p,q) );
+                     if ( ( p > q ) && ( ABS(V(p,q)) <= TEMP1 ) || ( p < q ) ) V(p,q) = SIGN( TEMP1, V(p,q) );
                      if (p < q) V(p,q) = - V(p,q);
                   } // 2968
                } // 2969
@@ -793,7 +793,7 @@
                   for (p = 2; p <= NR; p++) { // 3959
                      for (q = 1; q <= p - 1; q++) { // 3958
                         TEMP1 = XSC * MIN(ABS(V(p,p)),ABS(V(q,q)));
-                        IF ( ABS(V(q,p)) <= TEMP1 ) V(q,p) = SIGN( TEMP1, V(q,p) );
+                        if ( ABS(V(q,p)) <= TEMP1 ) V(q,p) = SIGN( TEMP1, V(q,p) );
                      } // 3958
                   } // 3959
                }
@@ -829,7 +829,7 @@
                   for (p = 2; p <= NR; p++) { // 3969
                      for (q = 1; q <= p - 1; q++) { // 3968
                         TEMP1 = XSC * MIN(ABS(V(p,p)),ABS(V(q,q)));
-                        IF ( ABS(V(q,p)) <= TEMP1 ) V(q,p) = SIGN( TEMP1, V(q,p) );
+                        if ( ABS(V(q,p)) <= TEMP1 ) V(q,p) = SIGN( TEMP1, V(q,p) );
                      } // 3968
                   } // 3969
                }
@@ -999,7 +999,7 @@
                   V(p,q) = WORK(2*N+N*NR+NR+p);
                } // 973
                XSC = ONE / SNRM2( N, V(1,q), 1 );
-               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,q), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,q), 1 );
             } // 1972
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
@@ -1020,7 +1020,7 @@
             TEMP1 = SQRT(FLOAT(M)) * EPSLN;
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / SNRM2( M, U(1,p), 1 );
-               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( M, XSC, U(1,p), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( M, XSC, U(1,p), 1 );
             } // 1973
 
             // If the initial QRF is computed with row pivoting, the left
@@ -1062,7 +1062,7 @@
             TEMP1 = SQRT(FLOAT(N))*EPSLN;
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / SNRM2( N, V(1,p), 1 );
-               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,p), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,p), 1 );
             } // 6971
 
             // Assemble the left singular vector matrix U (M x N).
@@ -1078,7 +1078,7 @@
             TEMP1 = SQRT(FLOAT(M))*EPSLN;
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / SNRM2( M, U(1,p), 1 );
-               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( M, XSC, U(1,p), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( M, XSC, U(1,p), 1 );
             } // 6973
 
             if (ROWPIV) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
@@ -1108,7 +1108,7 @@
             for (q = 1; q <= NR; q++) { // 5969
                TEMP1 = XSC*ABS( V(q,q) );
                for (p = 1; p <= N; p++) { // 5968
-                  IF ( ( p > q ) && ( ABS(V(p,q)) <= TEMP1 ) || ( p < q ) ) V(p,q) = SIGN( TEMP1, V(p,q) );
+                  if ( ( p > q ) && ( ABS(V(p,q)) <= TEMP1 ) || ( p < q ) ) V(p,q) = SIGN( TEMP1, V(p,q) );
                   if (p < q) V(p,q) = - V(p,q);
                } // 5968
             } // 5969
@@ -1157,7 +1157,7 @@
                   V(p,q) = WORK(2*N+N*NR+NR+p);
                } // 8973
                XSC = ONE / SNRM2( N, V(1,q), 1 );
-               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,q), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,q), 1 );
             } // 7972
 
             // At this moment, V contains the right singular vectors of A.

@@ -84,7 +84,10 @@
                   for (ITRANA = 1; ITRANA <= 2; ITRANA++) { // 130
                      for (ITRANB = 1; ITRANB <= 2; ITRANB++) { // 120
                         DO 110 ISGN = -1, 1, 2;
-                           if (ITRANA == 1) TRANA = 'N'                            IF( ITRANA == 2 ) TRANA = 'C'                            IF( ITRANB == 1 ) TRANB = 'N'                            IF( ITRANB == 2 ) TRANB = 'C';
+                           if (ITRANA == 1) TRANA = 'N';
+                           if( ITRANA == 2 ) TRANA = 'C';
+                           if( ITRANB == 1 ) TRANB = 'N';
+                           IF( ITRANB == 2 ) TRANB = 'C';
                            TNRM = ZERO;
                            for (I = 1; I <= M; I++) { // 60
                               for (J = 1; J <= M; J++) { // 50

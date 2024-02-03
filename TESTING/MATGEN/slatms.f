@@ -131,7 +131,7 @@
 
       GIVENS = false;
       if ( ISYM == 1 ) {
-         IF( REAL( LLB+UUB ) < 0.3*REAL( MAX( 1, MR+NC ) ) ) GIVENS = true;
+         if( REAL( LLB+UUB ) < 0.3*REAL( MAX( 1, MR+NC ) ) ) GIVENS = true;
       } else {
          if (2*LLB < M) GIVENS = true ;
       }
@@ -174,7 +174,7 @@
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 );
       } // 10
 
-      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
+      if( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
 
       // 2)      Set up D  if indicated.
 
@@ -675,7 +675,8 @@
             // 'Q' -- The upper triangle is packed as a band matrix.
             // 'Z' -- The whole matrix is packed as a band matrix.
 
-            if (IPACK == 5) UUB = 0             IF( IPACK == 6 ) LLB = 0;
+            if (IPACK == 5) UUB = 0;
+            IF( IPACK == 6 ) LLB = 0;
 
             for (J = 1; J <= UUB; J++) { // 380
                DO 370 I = MIN( J+LLB, M ), 1, -1;

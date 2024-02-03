@@ -76,7 +76,8 @@
             LRWMIN = 2*( N - 1 );
          } else if ( ICOMPZ == 1 ) {
             LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) );
-            if (2**LGN < N) LGN = LGN + 1             IF( 2**LGN < N ) LGN = LGN + 1;
+            if (2**LGN < N) LGN = LGN + 1;
+            IF( 2**LGN < N ) LGN = LGN + 1;
             LWMIN = N*N;
             LRWMIN = 1 + 3*N + 2*N*LGN + 4*N**2;
             LIWMIN = 6 + 6*N + 5*N*LGN;

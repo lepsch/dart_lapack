@@ -105,7 +105,7 @@
 
                // Eliminate without interchange.
 
-               IF( B( I, I ) == ZERO ) B( I, I ) = EPS3;
+               if( B( I, I ) == ZERO ) B( I, I ) = EPS3;
                X = ZLADIV( EI, B( I, I ) );
                if ( X != ZERO ) {
                   for (J = I + 1; J <= N; J++) { // 50
@@ -114,7 +114,7 @@
                }
             }
          } // 60
-         IF( B( N, N ) == ZERO ) B( N, N ) = EPS3;
+         if( B( N, N ) == ZERO ) B( N, N ) = EPS3;
 
          TRANS = 'N';
 
@@ -140,7 +140,7 @@
 
                // Eliminate without interchange.
 
-               IF( B( J, J ) == ZERO ) B( J, J ) = EPS3;
+               if( B( J, J ) == ZERO ) B( J, J ) = EPS3;
                X = ZLADIV( EJ, B( J, J ) );
                if ( X != ZERO ) {
                   for (I = 1; I <= J - 1; I++) { // 80
@@ -149,7 +149,7 @@
                }
             }
          } // 90
-         IF( B( 1, 1 ) == ZERO ) B( 1, 1 ) = EPS3;
+         if( B( 1, 1 ) == ZERO ) B( 1, 1 ) = EPS3;
 
          TRANS = 'C';
 

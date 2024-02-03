@@ -77,9 +77,9 @@
          if ( LSAME( EI( 1 ), 'R' ) ) {
             for (J = 2; J <= N; J++) { // 10
                if ( LSAME( EI( J ), 'I' ) ) {
-                  IF( LSAME( EI( J-1 ), 'I' ) ) BADEI = true;
+                  if( LSAME( EI( J-1 ), 'I' ) ) BADEI = true;
                } else {
-                  IF( !LSAME( EI( J ), 'R' ) ) BADEI = true;
+                  if( !LSAME( EI( J ), 'R' ) ) BADEI = true;
                }
             } // 10
          } else {
@@ -122,7 +122,7 @@
       BADS = false;
       if ( MODES == 0 && ISIM == 1 ) {
          for (J = 1; J <= N; J++) { // 20
-            IF( DS( J ) == ZERO ) BADS = true;
+            if( DS( J ) == ZERO ) BADS = true;
          } // 20
       }
 
@@ -169,7 +169,7 @@
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 );
       } // 30
 
-      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
+      if( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
 
       // 2)      Set up diagonal of A
 

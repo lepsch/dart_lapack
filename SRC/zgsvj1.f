@@ -107,12 +107,12 @@
 
       KBL = MIN( 8, N );
       NBLR = N1 / KBL;
-      IF( ( NBLR*KBL ) != N1 )NBLR = NBLR + 1;
+      if( ( NBLR*KBL ) != N1 )NBLR = NBLR + 1;
 
       // .. the tiling is nblr-by-nblc [tiles]
 
       NBLC = ( N-N1 ) / KBL;
-      IF( ( NBLC*KBL ) != ( N-N1 ) )NBLC = NBLC + 1;
+      if( ( NBLC*KBL ) != ( N-N1 ) )NBLC = NBLC + 1;
       BLSKIP = ( KBL**2 ) + 1;
 // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
 
@@ -283,7 +283,8 @@
 
             // In the case of cancellation in updating SVA(q), SVA(p)
             // .. recompute SVA(q), SVA(p)
-                              if ( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
+                              if ( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) {
+                                 if( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
                                     SVA( q ) = DZNRM2( M, A( 1, q ), 1);
                                   } else {
                                     T = ZERO;
@@ -365,7 +366,7 @@
 
       // Additional steering devices
 
-         IF( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
+         if( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
 
          if ( ( i > SWBAND+1 ) && ( MXAAPQ < SQRT( DBLE( N ) )* TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994;

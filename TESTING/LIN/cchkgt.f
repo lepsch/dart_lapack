@@ -91,7 +91,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 100;
+            if( !DOTYPE( IMAT ) ) GO TO 100;
 
             // Set up parameters with CLATB4.
 
@@ -259,7 +259,8 @@
                // Print the test ratio if it is >= THRESH.
 
                if ( RESULT( 7 ) >= THRESH ) {
-                  if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 7, RESULT( 7 );
+                  if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                  WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 7, RESULT( 7 );
                   NFAIL = NFAIL + 1;
                }
                NRUN = NRUN + 1;
@@ -329,7 +330,8 @@
 
                   for (K = 2; K <= 6; K++) { // 70
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
                   } // 70

@@ -93,7 +93,7 @@
 
             if ( M <= N ) {
                for (IMODE = 1; IMODE <= NTYPES; IMODE++) { // 50
-                  IF( !DOTYPE( IMODE ) ) GO TO 50;
+                  if( !DOTYPE( IMODE ) ) GO TO 50;
 
                   // Do for each type of singular value distribution.
                      // 0:  zero matrix
@@ -146,7 +146,8 @@
 
                   for (K = 1; K <= NTESTS; K++) { // 40
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
                   } // 40

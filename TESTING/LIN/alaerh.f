@@ -422,7 +422,8 @@
 
          } else if ( LSAMEN( 3, C3, 'CON' ) ) {
 
-            IF( LSAME( SUBNAM( 1: 1 ), 'S' ) || LSAME( SUBNAM( 1: 1 ), 'D' ) ) THEN                WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, IMAT;
+            if( LSAME( SUBNAM( 1: 1 ), 'S' ) || LSAME( SUBNAM( 1: 1 ), 'D' ) ) {
+               WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, IMAT;
             } else {
                WRITE( NOUT, FMT = 9969 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, IMAT;
             }

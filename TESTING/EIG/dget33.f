@@ -107,7 +107,7 @@
                                     RES = RES + ABS( SUM ) / EPS / TNRM;
                                  } // 60
                               } // 70
-                              IF( T( 2, 1 ) != ZERO && ( T( 1, 1 ) != T( 2, 2 ) || SIGN( ONE, T( 1, 2 ) )*SIGN( ONE, T( 2, 1 ) ) > ZERO ) )RES = RES + ONE / EPS;
+                              if( T( 2, 1 ) != ZERO && ( T( 1, 1 ) != T( 2, 2 ) || SIGN( ONE, T( 1, 2 ) )*SIGN( ONE, T( 2, 1 ) ) > ZERO ) )RES = RES + ONE / EPS;
                               KNT = KNT + 1;
                               if ( RES > RMAX ) {
                                  LMAX = KNT;

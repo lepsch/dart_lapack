@@ -137,7 +137,7 @@
       zaxpy(N, -CONE, XM, 1, RHS, 1 );
       zgesc2(N, Z, LDZ, RHS, IPIV, JPIV, SCALE );
       zgesc2(N, Z, LDZ, XP, IPIV, JPIV, SCALE );
-      IF( DZASUM( N, XP, 1 ) > DZASUM( N, RHS, 1 ) ) CALL ZCOPY( N, XP, 1, RHS, 1 );
+      if( DZASUM( N, XP, 1 ) > DZASUM( N, RHS, 1 ) ) CALL ZCOPY( N, XP, 1, RHS, 1 );
 
       // Compute the sum of squares
 

@@ -61,9 +61,9 @@
       MNMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MVAL( J ) );
-         IF( MVAL( J ) < 0 ) BADMM = true;
+         if( MVAL( J ) < 0 ) BADMM = true;
          NMAX = MAX( NMAX, NVAL( J ) );
-         IF( NVAL( J ) < 0 ) BADNN = true;
+         if( NVAL( J ) < 0 ) BADNN = true;
          MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) );
       } // 10
 
@@ -71,7 +71,7 @@
       KMAX = 0;
       for (J = 1; J <= NWDTHS; J++) { // 20
          KMAX = MAX( KMAX, KK( J ) );
-         IF( KK( J ) < 0 ) BADNNB = true;
+         if( KK( J ) < 0 ) BADNNB = true;
       } // 20
 
       // Check for errors
@@ -146,7 +146,7 @@
             }
 
             for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 140
-               IF( !DOTYPE( JTYPE ) ) GO TO 140;
+               if( !DOTYPE( JTYPE ) ) GO TO 140;
                NMATS = NMATS + 1;
                NTEST = 0;
 

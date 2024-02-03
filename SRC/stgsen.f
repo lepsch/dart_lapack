@@ -90,13 +90,13 @@
          } else {
             if ( K < N ) {
                if ( A( K+1, K ) == ZERO ) {
-                  IF( SELECT( K ) ) M = M + 1;
+                  if( SELECT( K ) ) M = M + 1;
                } else {
                   PAIR = true;
-                  IF( SELECT( K ) || SELECT( K+1 ) ) M = M + 2;
+                  if( SELECT( K ) || SELECT( K+1 ) ) M = M + 2;
                }
             } else {
-               IF( SELECT( N ) ) M = M + 1;
+               if( SELECT( N ) ) M = M + 1;
             }
          }
       } // 10

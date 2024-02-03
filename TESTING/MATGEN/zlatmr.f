@@ -170,7 +170,7 @@
       DZERO = false;
       if ( IGRADE == 4 && MODEL == 0 ) {
          for (I = 1; I <= M; I++) { // 10
-            IF( DL( I ) == CZERO ) DZERO = true;
+            if( DL( I ) == CZERO ) DZERO = true;
          } // 10
       }
 
@@ -179,7 +179,7 @@
       BADPVT = false;
       if ( IPVTNG > 0 ) {
          for (J = 1; J <= NPVTS; J++) { // 20
-            IF( IPIVOT( J ) <= 0 || IPIVOT( J ) > NPVTS ) BADPVT = true;
+            if( IPIVOT( J ) <= 0 || IPIVOT( J ) > NPVTS ) BADPVT = true;
          } // 20
       }
 

@@ -91,7 +91,7 @@
 
       // Print the header if NM = 0 or NN = 0 and THRESH = 0.
 
-      IF( ( NM == 0 || NN == 0 ) && THRESH == ZERO ) CALL ALAHD( NOUT, PATH );
+      if( ( NM == 0 || NN == 0 ) && THRESH == ZERO ) CALL ALAHD( NOUT, PATH );
       INFOT = 0;
 
       // Compute maximal workspace needed for all routines
@@ -210,7 +210,7 @@
                for (IRANK = 1; IRANK <= 2; IRANK++) { // 110
                   for (ISCALE = 1; ISCALE <= 3; ISCALE++) { // 100
                      ITYPE = ( IRANK-1 )*3 + ISCALE;
-                     IF( !DOTYPE( ITYPE ) ) GO TO 100;
+                     if( !DOTYPE( ITYPE ) ) GO TO 100;
                   // =====================================================
                         // Begin test ZGELS
                   // =====================================================
@@ -289,7 +289,8 @@
 
                               for (K = 1; K <= 2; K++) {
                                  if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
+                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                                    WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1;
                                  }
                               }
@@ -378,7 +379,8 @@
 
                               for (K = 3; K <= 4; K++) {
                                  if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
+                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                                    WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1;
                                  }
                               }
@@ -473,7 +475,8 @@
 
                                  for (K = 5; K <= 6; K++) {
                                     if ( RESULT( K ) >= THRESH ) {
-                                       if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
+                                       if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                                       WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
                                           NFAIL = NFAIL + 1;
                                     }
                                  }
@@ -630,7 +633,8 @@
 
                         for (K = 7; K <= 18; K++) { // 80
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                              WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
                         } // 80

@@ -179,7 +179,7 @@
 
             Z( NJ ) = TAU;
             Z( PJ ) = ZERO;
-            IF( COLTYP( NJ ) != COLTYP( PJ ) ) COLTYP( NJ ) = 2;
+            if( COLTYP( NJ ) != COLTYP( PJ ) ) COLTYP( NJ ) = 2;
             COLTYP( PJ ) = 4;
             drot(N, Q( 1, PJ ), 1, Q( 1, NJ ), 1, C, S );
             T = D( PJ )*C**2 + D( NJ )*S**2;

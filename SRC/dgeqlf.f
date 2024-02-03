@@ -52,7 +52,7 @@
          WORK( 1 ) = LWKOPT;
 
          if ( !LQUERY ) {
-            IF( LWORK <= 0 || ( M > 0 && LWORK < MAX( 1, N ) ) ) INFO = -7;
+            if( LWORK <= 0 || ( M > 0 && LWORK < MAX( 1, N ) ) ) INFO = -7;
          }
       }
 

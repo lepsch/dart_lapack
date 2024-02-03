@@ -86,7 +86,8 @@
 
       // Initialize Q and Z if desired.
 
-      if (INITQ) CALL DLASET( 'All', N, N, ZERO, ONE, Q, LDQ )       IF( INITZ ) CALL DLASET( 'All', N, N, ZERO, ONE, Z, LDZ );
+      if (INITQ) CALL DLASET( 'All', N, N, ZERO, ONE, Q, LDQ );
+      IF( INITZ ) CALL DLASET( 'All', N, N, ZERO, ONE, Z, LDZ );
 
       // Zero out lower triangle of B.
 
@@ -567,7 +568,8 @@
       COMPQ2 = COMPQ;
       COMPZ2 = COMPZ;
       if ( JCOL != ILO ) {
-         if (WANTQ) COMPQ2 = 'V'          IF ( WANTZ ) COMPZ2 = 'V';
+         if (WANTQ) COMPQ2 = 'V';
+         IF ( WANTZ ) COMPZ2 = 'V';
       }
 
       if (JCOL < IHI) CALL DGGHRD( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );

@@ -133,7 +133,7 @@
          daxpy(N, -ONE, XM, 1, RHS, 1 );
          dgesc2(N, Z, LDZ, RHS, IPIV, JPIV, TEMP );
          dgesc2(N, Z, LDZ, XP, IPIV, JPIV, TEMP );
-         IF( DASUM( N, XP, 1 ) > DASUM( N, RHS, 1 ) ) CALL DCOPY( N, XP, 1, RHS, 1 );
+         if( DASUM( N, XP, 1 ) > DASUM( N, RHS, 1 ) ) CALL DCOPY( N, XP, 1, RHS, 1 );
 
          // Compute the sum of squares
 

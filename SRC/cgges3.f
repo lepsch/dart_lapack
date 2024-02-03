@@ -237,7 +237,8 @@
 
          // Undo scaling on eigenvalues before selecting
 
-         if (ILASCL) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA, N, IERR )          IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, 1, BETA, N, IERR );
+         if (ILASCL) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA, N, IERR );
+         IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, 1, BETA, N, IERR );
 
          // Select eigenvalues
 
@@ -252,7 +253,8 @@
 
       // Apply back-permutation to VSL and VSR
 
-      if (ILVSL) CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR )       IF( ILVSR ) CALL CGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR );
+      if (ILVSL) CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR );
+      IF( ILVSR ) CALL CGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR );
 
       // Undo scaling
 
@@ -274,7 +276,8 @@
          SDIM = 0;
          for (I = 1; I <= N; I++) { // 20
             CURSL = SELCTG( ALPHA( I ), BETA( I ) );
-            if (CURSL) SDIM = SDIM + 1             IF( CURSL && !LASTSL ) INFO = N + 2;
+            if (CURSL) SDIM = SDIM + 1;
+            IF( CURSL && !LASTSL ) INFO = N + 2;
             LASTSL = CURSL;
          } // 20
 

@@ -81,9 +81,9 @@
       MINWRK = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MM( J ) );
-         IF( MM( J ) < 0 ) BADMM = true;
+         if( MM( J ) < 0 ) BADMM = true;
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
          MNMAX = MAX( MNMAX, MIN( MM( J ), NN( J ) ) );
          MINWRK = MAX( MINWRK, MAX( 3*MIN( MM( J ), NN( J ) )+MAX( MM( J ), NN( J ) )**2, 5*MIN( MM( J ), NN( J ) ), 3*MAX( MM( J ), NN( J ) ) ) );
       } // 10
@@ -141,7 +141,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 300
-            IF( !DOTYPE( JTYPE ) ) GO TO 300;
+            if( !DOTYPE( JTYPE ) ) GO TO 300;
             NTEST = 0;
 
             for (J = 1; J <= 4; J++) { // 20
@@ -174,7 +174,9 @@
 
                // (Scaled) random matrix
 
-               if (JTYPE == 3) ANORM = ONE                IF( JTYPE == 4 ) ANORM = UNFL / ULP                IF( JTYPE == 5 ) ANORM = OVFL*ULP;
+               if (JTYPE == 3) ANORM = ONE;
+               if( JTYPE == 4 ) ANORM = UNFL / ULP;
+               IF( JTYPE == 5 ) ANORM = OVFL*ULP;
                clatms(M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD;
@@ -222,10 +224,11 @@
                }
                RESULT( 4 ) = 0;
                for (I = 1; I <= MNMIN - 1; I++) { // 70
-                  IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 4 ) = ULPINV                   IF( SSAV( I ) < ZERO ) RESULT( 4 ) = ULPINV;
+                  if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 4 ) = ULPINV;
+                  IF( SSAV( I ) < ZERO ) RESULT( 4 ) = ULPINV;
                } // 70
                if ( MNMIN >= 1 ) {
-                  IF( SSAV( MNMIN ) < ZERO ) RESULT( 4 ) = ULPINV;
+                  if( SSAV( MNMIN ) < ZERO ) RESULT( 4 ) = ULPINV;
                }
 
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
@@ -235,7 +238,7 @@
                RESULT( 7 ) = ZERO;
                for (IJU = 0; IJU <= 3; IJU++) { // 100
                   for (IJVT = 0; IJVT <= 3; IJVT++) { // 90
-                     IF( ( IJU == 3 && IJVT == 3 ) || ( IJU == 1 && IJVT == 1 ) )GO TO 90;
+                     if( ( IJU == 3 && IJVT == 3 ) || ( IJU == 1 && IJVT == 1 ) )GO TO 90;
                      JOBU = CJOB( IJU+1 );
                      JOBVT = CJOB( IJVT+1 );
                      clacpy('F', M, N, ASAV, LDA, A, LDA );
@@ -275,7 +278,8 @@
                      DIF = ZERO;
                      DIV = MAX( REAL( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) );
                      for (I = 1; I <= MNMIN - 1; I++) { // 80
-                        IF( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;
+                        if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
+                        IF( SSAV( I ) < ZERO ) DIF = ULPINV;
                         DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
                      } // 80
                      RESULT( 7 ) = MAX( RESULT( 7 ), DIF );
@@ -310,10 +314,11 @@
                }
                RESULT( 11 ) = 0;
                for (I = 1; I <= MNMIN - 1; I++) { // 110
-                  IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 11 ) = ULPINV                   IF( SSAV( I ) < ZERO ) RESULT( 11 ) = ULPINV;
+                  if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 11 ) = ULPINV;
+                  IF( SSAV( I ) < ZERO ) RESULT( 11 ) = ULPINV;
                } // 110
                if ( MNMIN >= 1 ) {
-                  IF( SSAV( MNMIN ) < ZERO ) RESULT( 11 ) = ULPINV;
+                  if( SSAV( MNMIN ) < ZERO ) RESULT( 11 ) = ULPINV;
                }
 
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
@@ -364,7 +369,8 @@
                   DIF = ZERO;
                   DIV = MAX( REAL( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) );
                   for (I = 1; I <= MNMIN - 1; I++) { // 120
-                     IF( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV                      IF( SSAV( I ) < ZERO ) DIF = ULPINV;
+                     if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
+                     IF( SSAV( I ) < ZERO ) DIF = ULPINV;
                      DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
                   } // 120
                   RESULT( 14 ) = MAX( RESULT( 14 ), DIF );
@@ -408,10 +414,11 @@
                   }
                   RESULT( 39 ) = ZERO;
                   for (I = 1; I <= MNMIN - 1; I++) { // 199
-                     IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 39 ) = ULPINV                      IF( SSAV( I ) < ZERO ) RESULT( 39 ) = ULPINV;
+                     if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 39 ) = ULPINV;
+                     IF( SSAV( I ) < ZERO ) RESULT( 39 ) = ULPINV;
                   } // 199
                   if ( MNMIN >= 1 ) {
-                     IF( SSAV( MNMIN ) < ZERO ) RESULT( 39 ) = ULPINV;
+                     if( SSAV( MNMIN ) < ZERO ) RESULT( 39 ) = ULPINV;
                   }
                }
 
@@ -458,10 +465,11 @@
                   }
                   RESULT( 18 ) = ZERO;
                   for (I = 1; I <= MNMIN - 1; I++) { // 131
-                     IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 18 ) = ULPINV                      IF( SSAV( I ) < ZERO ) RESULT( 18 ) = ULPINV;
+                     if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 18 ) = ULPINV;
+                     IF( SSAV( I ) < ZERO ) RESULT( 18 ) = ULPINV;
                   } // 131
                   if ( MNMIN >= 1 ) {
-                     IF( SSAV( MNMIN ) < ZERO ) RESULT( 18 ) = ULPINV;
+                     if( SSAV( MNMIN ) < ZERO ) RESULT( 18 ) = ULPINV;
                   }
                }
 
@@ -507,10 +515,11 @@
                   }
                   RESULT( 22 ) = ZERO;
                   for (I = 1; I <= MNMIN - 1; I++) { // 134
-                     IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 22 ) = ULPINV                      IF( SSAV( I ) < ZERO ) RESULT( 22 ) = ULPINV;
+                     if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 22 ) = ULPINV;
+                     IF( SSAV( I ) < ZERO ) RESULT( 22 ) = ULPINV;
                   } // 134
                   if ( MNMIN >= 1 ) {
-                     IF( SSAV( MNMIN ) < ZERO ) RESULT( 22 ) = ULPINV;
+                     if( SSAV( MNMIN ) < ZERO ) RESULT( 22 ) = ULPINV;
                   }
                }
 
@@ -539,10 +548,11 @@
                }
                RESULT( 26 ) = ZERO;
                for (I = 1; I <= MNMIN - 1; I++) { // 140
-                  IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 26 ) = ULPINV                   IF( SSAV( I ) < ZERO ) RESULT( 26 ) = ULPINV;
+                  if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 26 ) = ULPINV;
+                  IF( SSAV( I ) < ZERO ) RESULT( 26 ) = ULPINV;
                } // 140
                if ( MNMIN >= 1 ) {
-                  IF( SSAV( MNMIN ) < ZERO ) RESULT( 26 ) = ULPINV;
+                  if( SSAV( MNMIN ) < ZERO ) RESULT( 26 ) = ULPINV;
                }
 
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
@@ -552,7 +562,7 @@
                RESULT( 29 ) = ZERO;
                for (IJU = 0; IJU <= 1; IJU++) { // 170
                   for (IJVT = 0; IJVT <= 1; IJVT++) { // 160
-                     IF( ( IJU == 0 && IJVT == 0 ) || ( IJU == 1 && IJVT == 1 ) ) GO TO 160;
+                     if( ( IJU == 0 && IJVT == 0 ) || ( IJU == 1 && IJVT == 1 ) ) GO TO 160;
                      JOBU = CJOBV( IJU+1 );
                      JOBVT = CJOBV( IJVT+1 );
                      RANGE = CJOBR( 1 );
@@ -585,7 +595,8 @@
                      DIF = ZERO;
                      DIV = MAX( REAL( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) );
                      for (I = 1; I <= MNMIN - 1; I++) { // 150
-                        IF( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;
+                        if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
+                        IF( SSAV( I ) < ZERO ) DIF = ULPINV;
                         DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
                      } // 150
                      RESULT( 29) = MAX( RESULT( 29 ), DIF );
@@ -670,7 +681,8 @@
                NTEST = 0;
                NFAIL = 0;
                for (J = 1; J <= 39; J++) { // 190
-                  IF( RESULT( J ) >= ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
+                  if( RESULT( J ) >= ZERO ) NTEST = NTEST + 1;
+                  IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
                } // 190
 
                if (NFAIL > 0) NTESTF = NTESTF + 1;

@@ -64,7 +64,7 @@
                DPLUS = D( J ) + T;
                if (DPLUS < ZERO) NEG1 = NEG1 + 1;
                TMP = T / DPLUS;
-               IF (DISNAN(TMP)) TMP = ONE;
+               if (DISNAN(TMP)) TMP = ONE;
                T = TMP * LLD(J) - SIGMA;
             } // 22
          }
@@ -92,7 +92,7 @@
                DMINUS = LLD( J ) + P;
                if (DMINUS < ZERO) NEG2 = NEG2 + 1;
                TMP = P / DMINUS;
-               IF (DISNAN(TMP)) TMP = ONE;
+               if (DISNAN(TMP)) TMP = ONE;
                P = TMP * D(J) - SIGMA;
             } // 24
          }

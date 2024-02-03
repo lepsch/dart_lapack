@@ -631,9 +631,9 @@
 
          SWTCH = false;
          if ( ORGATI ) {
-            IF( -W > ABS( PREW ) / TEN ) SWTCH = true;
+            if( -W > ABS( PREW ) / TEN ) SWTCH = true;
          } else {
-            IF( W > ABS( PREW ) / TEN ) SWTCH = true;
+            if( W > ABS( PREW ) / TEN ) SWTCH = true;
          }
 
          // Main loop to update the values of the array   DELTA and WORK
@@ -854,7 +854,7 @@
             ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP );
 // $             + ABS( TAU2 )*DW
 
-            IF( W*PREW > ZERO && ABS( W ) > ABS( PREW ) / TEN ) SWTCH = !SWTCH;
+            if( W*PREW > ZERO && ABS( W ) > ABS( PREW ) / TEN ) SWTCH = !SWTCH;
 
          } // 230
 

@@ -45,7 +45,7 @@
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= M; I++) { // 10
                TEMP = ABS( A( I, J ) );
-               IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+               if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
             } // 10
          } // 20
       } else if ( ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
@@ -58,7 +58,7 @@
             for (I = 1; I <= M; I++) { // 30
                SUM = SUM + ABS( A( I, J ) );
             } // 30
-            IF( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
+            if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
          } // 40
       } else if ( LSAME( NORM, 'I' ) ) {
 
@@ -75,7 +75,7 @@
          VALUE = ZERO;
          for (I = 1; I <= M; I++) { // 80
             TEMP = WORK( I );
-            IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+            if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
          } // 80
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 

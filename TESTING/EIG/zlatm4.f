@@ -45,7 +45,7 @@
 
       // Insure a correct ISEED
 
-      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
+      if( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
 
       // Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
       // and RCOND

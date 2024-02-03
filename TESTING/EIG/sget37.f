@@ -192,7 +192,7 @@
             }
             if ( VMAX > RMAX( 2 ) ) {
                RMAX( 2 ) = VMAX;
-               IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
+               if( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
             }
          } // 90
 
@@ -225,7 +225,7 @@
             }
             if ( VMAX > RMAX( 2 ) ) {
                RMAX( 2 ) = VMAX;
-               IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
+               if( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
             }
          } // 100
 
@@ -248,7 +248,7 @@
             }
             if ( VMAX > RMAX( 3 ) ) {
                RMAX( 3 ) = VMAX;
-               IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
+               if( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
             }
          } // 110
 
@@ -271,7 +271,7 @@
             }
             if ( VMAX > RMAX( 3 ) ) {
                RMAX( 3 ) = VMAX;
-               IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
+               if( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
             }
          } // 120
 
@@ -288,7 +288,8 @@
             GO TO 240;
          }
          for (I = 1; I <= N; I++) { // 130
-            IF( STMP( I ) != S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS;
+            if( STMP( I ) != S( I ) ) VMAX = ONE / EPS;
+            IF( SEPTMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS;
          } // 130
 
          // Compute eigenvector condition numbers only and compare
@@ -302,7 +303,8 @@
             GO TO 240;
          }
          for (I = 1; I <= N; I++) { // 140
-            IF( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS;
+            if( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS;
+            IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS;
          } // 140
 
          // Compute all condition numbers using SELECT and compare
@@ -319,7 +321,8 @@
             GO TO 240;
          }
          for (I = 1; I <= N; I++) { // 160
-            IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ) != S( I ) ) VMAX = ONE / EPS;
+            if( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS;
+            IF( STMP( I ) != S( I ) ) VMAX = ONE / EPS;
          } // 160
 
          // Compute eigenvalue condition numbers using SELECT and compare
@@ -333,7 +336,8 @@
             GO TO 240;
          }
          for (I = 1; I <= N; I++) { // 170
-            IF( STMP( I ) != S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS;
+            if( STMP( I ) != S( I ) ) VMAX = ONE / EPS;
+            IF( SEPTMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS;
          } // 170
 
          // Compute eigenvector condition numbers using SELECT and compare
@@ -347,11 +351,12 @@
             GO TO 240;
          }
          for (I = 1; I <= N; I++) { // 180
-            IF( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS;
+            if( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS;
+            IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS;
          } // 180
          if ( VMAX > RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX;
-            IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
+            if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
 
          // Select first real and first complex eigenvalue
@@ -410,7 +415,8 @@
          }
          for (I = 1; I <= ICMP; I++) { // 210
             J = LCMP( I );
-            IF( SEPTMP( I ) != SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ) != S( J ) ) VMAX = ONE / EPS;
+            if( SEPTMP( I ) != SEP( J ) ) VMAX = ONE / EPS;
+            IF( STMP( I ) != S( J ) ) VMAX = ONE / EPS;
          } // 210
 
          // Compute selected eigenvalue condition numbers
@@ -425,7 +431,8 @@
          }
          for (I = 1; I <= ICMP; I++) { // 220
             J = LCMP( I );
-            IF( STMP( I ) != S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS;
+            if( STMP( I ) != S( J ) ) VMAX = ONE / EPS;
+            IF( SEPTMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS;
          } // 220
 
          // Compute selected eigenvector condition numbers
@@ -440,11 +447,12 @@
          }
          for (I = 1; I <= ICMP; I++) { // 230
             J = LCMP( I );
-            IF( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != SEP( J ) ) VMAX = ONE / EPS;
+            if( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS;
+            IF( SEPTMP( I ) != SEP( J ) ) VMAX = ONE / EPS;
          } // 230
          if ( VMAX > RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX;
-            IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
+            if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
       } // 240
       GO TO 10;

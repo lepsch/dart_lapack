@@ -129,7 +129,7 @@
          RESULT( 1+RSUB ) = ZERO;
          for (J = 1; J <= N - 1; J++) { // 30
             for (I = J + 1; I <= N; I++) { // 20
-               IF( H( I, J ) != CZERO ) RESULT( 1+RSUB ) = ULPINV;
+               if( H( I, J ) != CZERO ) RESULT( 1+RSUB ) = ULPINV;
             } // 20
          } // 30
 
@@ -168,7 +168,7 @@
 
          RESULT( 4+RSUB ) = ZERO;
          for (I = 1; I <= N; I++) { // 40
-            IF( H( I, I ) != W( I ) ) RESULT( 4+RSUB ) = ULPINV;
+            if( H( I, I ) != W( I ) ) RESULT( 4+RSUB ) = ULPINV;
          } // 40
 
          // Do Test (5) or Test (11)
@@ -189,7 +189,7 @@
          RESULT( 5+RSUB ) = ZERO;
          for (J = 1; J <= N; J++) { // 60
             for (I = 1; I <= N; I++) { // 50
-               IF( H( I, J ) != HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV;
+               if( H( I, J ) != HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV;
             } // 50
          } // 60
 
@@ -197,7 +197,7 @@
 
          RESULT( 6+RSUB ) = ZERO;
          for (I = 1; I <= N; I++) { // 70
-            IF( W( I ) != WT( I ) ) RESULT( 6+RSUB ) = ULPINV;
+            if( W( I ) != WT( I ) ) RESULT( 6+RSUB ) = ULPINV;
          } // 70
 
          // Do Test (13)
@@ -206,9 +206,9 @@
             RESULT( 13 ) = ZERO;
             KNTEIG = 0;
             for (I = 1; I <= N; I++) { // 80
-               IF( CSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1;
+               if( CSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1;
                if ( I < N ) {
-                  IF( CSLECT( W( I+1 ) ) && ( !CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV;
+                  if( CSLECT( W( I+1 ) ) && ( !CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV;
                }
             } // 80
             if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;
@@ -243,9 +243,10 @@
          // Perform tests (10), (11), (12), and (13)
 
          for (I = 1; I <= N; I++) { // 110
-            IF( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
+            if( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
             for (J = 1; J <= N; J++) { // 100
-               IF( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
+               if( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV;
+               IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
             } // 100
          } // 110
          if (SDIM != SDIM1) RESULT( 13 ) = ULPINV;
@@ -268,14 +269,16 @@
 
          // Perform tests (14) and (15)
 
-         if (RCNDE1 != RCONDE) RESULT( 14 ) = ULPINV          IF( RCNDV1 != RCONDV ) RESULT( 15 ) = ULPINV;
+         if (RCNDE1 != RCONDE) RESULT( 14 ) = ULPINV;
+         IF( RCNDV1 != RCONDV ) RESULT( 15 ) = ULPINV;
 
          // Perform tests (10), (11), (12), and (13)
 
          for (I = 1; I <= N; I++) { // 130
-            IF( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
+            if( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
             for (J = 1; J <= N; J++) { // 120
-               IF( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
+               if( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV;
+               IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
             } // 120
          } // 130
          if (SDIM != SDIM1) RESULT( 13 ) = ULPINV;
@@ -302,9 +305,10 @@
          // Perform tests (10), (11), (12), and (13)
 
          for (I = 1; I <= N; I++) { // 150
-            IF( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
+            if( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
             for (J = 1; J <= N; J++) { // 140
-               IF( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
+               if( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV;
+               IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
             } // 140
          } // 150
          if (SDIM != SDIM1) RESULT( 13 ) = ULPINV;
@@ -331,9 +335,10 @@
          // Perform tests (10), (11), (12), and (13)
 
          for (I = 1; I <= N; I++) { // 170
-            IF( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
+            if( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
             for (J = 1; J <= N; J++) { // 160
-               IF( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
+               if( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV;
+               IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
             } // 160
          } // 170
          if (SDIM != SDIM1) RESULT( 13 ) = ULPINV;
@@ -360,9 +365,10 @@
          // Perform tests (10), (11), (12), and (13)
 
          for (I = 1; I <= N; I++) { // 190
-            IF( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
+            if( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
             for (J = 1; J <= N; J++) { // 180
-               IF( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
+               if( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV;
+               IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
             } // 180
          } // 190
          if (SDIM != SDIM1) RESULT( 13 ) = ULPINV;
@@ -389,9 +395,10 @@
          // Perform tests (10), (11), (12), and (13)
 
          for (I = 1; I <= N; I++) { // 210
-            IF( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
+            if( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
             for (J = 1; J <= N; J++) { // 200
-               IF( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
+               if( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV;
+               IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
             } // 200
          } // 210
          if (SDIM != SDIM1) RESULT( 13 ) = ULPINV;

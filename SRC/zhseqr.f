@@ -109,7 +109,8 @@
 
          // ==== copy eigenvalues isolated by ZGEBAL ====
 
-         if (ILO > 1) CALL ZCOPY( ILO-1, H, LDH+1, W, 1 )          IF( IHI < N ) CALL ZCOPY( N-IHI, H( IHI+1, IHI+1 ), LDH+1, W( IHI+1 ), 1 );
+         if (ILO > 1) CALL ZCOPY( ILO-1, H, LDH+1, W, 1 );
+         IF( IHI < N ) CALL ZCOPY( N-IHI, H( IHI+1, IHI+1 ), LDH+1, W( IHI+1 ), 1 );
 
          // ==== Initialize Z, if requested ====
 
@@ -168,7 +169,7 @@
 
          // ==== Clear out the trash, if necessary. ====
 
-         IF( ( WANTT || INFO != 0 ) && N > 2 ) CALL ZLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH );
+         if( ( WANTT || INFO != 0 ) && N > 2 ) CALL ZLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH );
 
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====

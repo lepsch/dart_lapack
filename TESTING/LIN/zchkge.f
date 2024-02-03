@@ -100,7 +100,7 @@
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               IF( !DOTYPE( IMAT ) ) GO TO 100;
+               if( !DOTYPE( IMAT ) ) GO TO 100;
 
                // Skip types 5, 6, or 7 if the matrix size is too small.
 
@@ -223,7 +223,8 @@
 
                   for (K = 1; K <= NT; K++) { // 30
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
                   } // 30
@@ -233,7 +234,8 @@
                   // block size or if M != N.  Skip the solve tests if
                   // the matrix is singular.
 
-                  if (INB > 1 || M != N) GO TO 90                   IF( TRFCON ) GO TO 70;
+                  if (INB > 1 || M != N) GO TO 90;
+                  IF( TRFCON ) GO TO 70;
 
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
                      NRHS = NSVAL( IRHS );
@@ -289,7 +291,8 @@
 
                         for (K = 3; K <= 7; K++) { // 40
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                              WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
                         } // 40
@@ -328,7 +331,8 @@
                      // the threshold.
 
                      if ( RESULT( 8 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 8, RESULT( 8 );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 8, RESULT( 8 );
                         NFAIL = NFAIL + 1;
                      }
                      NRUN = NRUN + 1;

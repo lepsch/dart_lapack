@@ -719,7 +719,8 @@
          }
 
       } else {
-         if (ZGX) C3 = 'ZGX'          IF( ZXV ) C3 = 'ZXV';
+         if (ZGX) C3 = 'ZGX';
+         IF( ZXV ) C3 = 'ZXV';
       }
 
       // Reset the random number seed.
@@ -878,7 +879,8 @@
          // Test the error exits
 
          xlaenv(1, 1 );
-         if (TSTERR && TSTCHK) CALL ZERRBD( 'ZBD', NOUT )          IF( TSTERR && TSTDRV ) CALL ZERRED( 'ZBD', NOUT );
+         if (TSTERR && TSTCHK) CALL ZERRBD( 'ZBD', NOUT );
+         IF( TSTERR && TSTDRV ) CALL ZERRED( 'ZBD', NOUT );
 
          for (I = 1; I <= NPARMS; I++) { // 330
             NRHS = NSVAL( I );
@@ -1221,7 +1223,7 @@
          WRITE( NOUT, FMT = * );
          WRITE( NOUT, FMT = 9992 )C3;
       }
-      IF( !( ZGX || ZXV ) ) GO TO 190;
+      if( !( ZGX || ZXV ) ) GO TO 190;
       } // 380
       WRITE( NOUT, FMT = 9994 );
       S2 = DSECND( );

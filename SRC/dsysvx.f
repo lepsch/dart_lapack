@@ -116,7 +116,7 @@
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      IF( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1;
+      if( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
       WORK( 1 ) = LWKOPT;
 

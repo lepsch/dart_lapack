@@ -88,7 +88,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( N > 0 && !DOTYPE( IMAT ) ) GO TO 100;
+            if( N > 0 && !DOTYPE( IMAT ) ) GO TO 100;
 
             // Set up parameters with SLATB4.
 
@@ -305,7 +305,8 @@
 
                for (K = 2; K <= 6; K++) { // 70
                   if ( RESULT( K ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )N, NRHS, IMAT, K, RESULT( K );
+                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     WRITE( NOUT, FMT = 9998 )N, NRHS, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1;
                   }
                } // 70

@@ -186,7 +186,7 @@
             // ==== Locate active block ====
 
             DO 10 K = KBOT, ILO + 1, -1;
-               IF( H( K, K-1 ) == ZERO ) GO TO 20;
+               if( H( K, K-1 ) == ZERO ) GO TO 20;
             } // 10
             K = ILO;
             } // 20
@@ -220,7 +220,7 @@
                   NW = NH;
                } else {
                   KWTOP = KBOT - NW + 1;
-                  IF( ABS( H( KWTOP, KWTOP-1 ) ) > ABS( H( KWTOP-1, KWTOP-2 ) ) )NW = NW + 1;
+                  if( ABS( H( KWTOP, KWTOP-1 ) ) > ABS( H( KWTOP-1, KWTOP-2 ) ) )NW = NW + 1;
                }
             }
             if ( NDFL < KEXNW ) {

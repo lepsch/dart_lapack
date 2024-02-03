@@ -60,7 +60,7 @@
             SUBNAM( 1: 1 ) = CHAR( IC+64 );
             for (I = 2; I <= 6; I++) { // 30
                IC = ICHAR( SUBNAM( I: I ) );
-               IF( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) )SUBNAM( I: I ) = CHAR( IC+64 );
+               if( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) )SUBNAM( I: I ) = CHAR( IC+64 );
             } // 30
          }
 
@@ -80,7 +80,7 @@
       C1 = SUBNAM( 1: 1 );
       SNAME = C1 == 'S' || C1 == 'D';
       CNAME = C1 == 'C' || C1 == 'Z';
-      IF( !( CNAME || SNAME ) ) RETURN;
+      if( !( CNAME || SNAME ) ) RETURN;
       C2 = SUBNAM( 2: 3 );
       C3 = SUBNAM( 4: 6 );
       C4 = C3( 2: 3 );

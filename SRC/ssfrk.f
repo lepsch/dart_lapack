@@ -71,7 +71,7 @@
       // The quick return case: ((ALPHA == 0) && (BETA != ZERO)) is not
       // done (it is in SSYRK for example) and left in the general case.
 
-      IF( ( N == 0 ) || ( ( ( ALPHA == ZERO ) || ( K == 0 ) ) && ( BETA == ONE ) ) )RETURN;
+      if( ( N == 0 ) || ( ( ( ALPHA == ZERO ) || ( K == 0 ) ) && ( BETA == ONE ) ) )RETURN;
 
       if ( ( ALPHA == ZERO ) && ( BETA == ZERO ) ) {
          for (J = 1; J <= ( ( N*( N+1 ) ) / 2 ); J++) {

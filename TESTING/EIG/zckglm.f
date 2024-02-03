@@ -82,7 +82,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 30;
+            if( !DOTYPE( IMAT ) ) GO TO 30;
 
             // Set up parameters with DLATB9 and generate test
             // matrices A and B with ZLATMS.

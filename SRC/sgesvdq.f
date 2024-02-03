@@ -274,7 +274,7 @@
 
          MINWRK = MAX( 2, MINWRK );
          OPTWRK = MAX( 2, OPTWRK );
-         IF ( LWORK < MINWRK && ( !LQUERY) ) INFO = -19;
+         if ( LWORK < MINWRK && ( !LQUERY) ) INFO = -19;
 
       }
 
@@ -413,7 +413,7 @@
          NR = 1;
          RTMP = SQRT(REAL(N))*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
-            IF ( ABS(A(p,p)) < (RTMP*ABS(A(1,1))) ) GO TO 3002;
+            if ( ABS(A(p,p)) < (RTMP*ABS(A(1,1))) ) GO TO 3002;
                NR = NR + 1;
          } // 3001
          } // 3002
@@ -427,7 +427,7 @@
          // will be truncated.
          NR = 1;
          for (p = 2; p <= N; p++) { // 3401
-            IF ( ( ABS(A(p,p)) < (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) < SFMIN ) ) GO TO 3402;
+            if ( ( ABS(A(p,p)) < (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) < SFMIN ) ) GO TO 3402;
             NR = NR + 1;
          } // 3401
          } // 3402
@@ -439,7 +439,7 @@
          // R(i,i)=0 => R(i:N,i:N)=0.
          NR = 1;
          for (p = 2; p <= N; p++) { // 3501
-            IF ( ABS(A(p,p)) == ZERO ) GO TO 3502;
+            if ( ABS(A(p,p)) == ZERO ) GO TO 3502;
             NR = NR + 1;
          } // 3501
          } // 3502
@@ -867,7 +867,7 @@
       // due to underflow, and update the numerical rank.
       p = NR;
       DO 4001 q = p, 1, -1;
-          IF ( S(q) > ZERO ) GO TO 4002;
+          if ( S(q) > ZERO ) GO TO 4002;
           NR = NR - 1;
       } // 4001
       } // 4002

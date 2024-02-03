@@ -62,7 +62,7 @@
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
@@ -113,7 +113,8 @@
          N = NN( JSIZE );
          if ( N > 0 ) {
             LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) );
-            if (2**LGN < N) LGN = LGN + 1             IF( 2**LGN < N ) LGN = LGN + 1;
+            if (2**LGN < N) LGN = LGN + 1;
+            IF( 2**LGN < N ) LGN = LGN + 1;
             LWEDC = MAX( 2*N+N*N, 2*N*N );
             LRWEDC = 1 + 4*N + 2*N*LGN + 3*N**2;
             LIWEDC = 3 + 5*N;
@@ -131,7 +132,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 1210
-            IF( !DOTYPE( JTYPE ) ) GO TO 1210;
+            if( !DOTYPE( JTYPE ) ) GO TO 1210;
             NMATS = NMATS + 1;
             NTEST = 0;
 

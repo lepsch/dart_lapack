@@ -259,7 +259,7 @@
       AAPP = ZERO;
       AAQQ = BIG;
       for (p = 1; p <= N; p++) { // 4781
-         IF( SVA( p ) != ZERO )AAQQ = MIN( AAQQ, SVA( p ) );
+         if( SVA( p ) != ZERO )AAQQ = MIN( AAQQ, SVA( p ) );
          AAPP = MAX( AAPP, SVA( p ) );
       } // 4781
 
@@ -359,7 +359,7 @@
       // parameters of the computer's memory.
 
       NBL = N / KBL;
-      IF( ( NBL*KBL ) != N )NBL = NBL + 1;
+      if( ( NBL*KBL ) != N )NBL = NBL + 1;
 
       BLSKIP = KBL**2;
 // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
@@ -597,7 +597,7 @@
                                              daxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
                                           }
                                        } else {
-                                          IF( WORK( p ) >= WORK( q ) ) THEN;
+                                          if( WORK( p ) >= WORK( q ) ) THEN;
                                              daxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                              daxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                              WORK( p ) = WORK( p )*CS;
@@ -635,7 +635,9 @@
             // In the case of cancellation in updating SVA(q), SVA(p)
             // recompute SVA(q), SVA(p).
 
-                              IF( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) THEN                                     SVA( q ) = DNRM2( M, A( 1, q ), 1 )* WORK( q );
+                              if( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) {
+                                 if( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
+                                    SVA( q ) = DNRM2( M, A( 1, q ), 1 )* WORK( q );
                                  } else {
                                     T = ZERO;
                                     AAQQ = ONE;
@@ -644,7 +646,8 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 ) <= ROOTEPS ) {
-                                 IF( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) THEN                                     AAPP = DNRM2( M, A( 1, p ), 1 )* WORK( p );
+                                 if( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
+                                    AAPP = DNRM2( M, A( 1, p ), 1 )* WORK( p );
                                  } else {
                                     T = ZERO;
                                     AAPP = ONE;
@@ -682,7 +685,7 @@
 
                   } else {
                      SVA( p ) = AAPP;
-                     IF( ( ir1 == 0 ) && ( AAPP == ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p;
+                     if( ( ir1 == 0 ) && ( AAPP == ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p;
                   }
 
                } // 2001
@@ -814,7 +817,7 @@
                                           WORK( p ) = WORK( p ) / CS;
                                           WORK( q ) = WORK( q )*CS;
                                        } else {
-                                          IF( WORK( p ) >= WORK( q ) ) THEN;
+                                          if( WORK( p ) >= WORK( q ) ) THEN;
                                              daxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                              daxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                              WORK( p ) = WORK( p )*CS;
@@ -862,7 +865,9 @@
 
             // In the case of cancellation in updating SVA(q)
             // .. recompute SVA(q)
-                              IF( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) THEN                                     SVA( q ) = DNRM2( M, A( 1, q ), 1 )* WORK( q );
+                              if( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) {
+                                 if( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
+                                    SVA( q ) = DNRM2( M, A( 1, q ), 1 )* WORK( q );
                                  } else {
                                     T = ZERO;
                                     AAQQ = ONE;
@@ -871,7 +876,8 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 )**2 <= ROOTEPS ) {
-                                 IF( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) THEN                                     AAPP = DNRM2( M, A( 1, p ), 1 )* WORK( p );
+                                 if( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
+                                    AAPP = DNRM2( M, A( 1, p ), 1 )* WORK( p );
                                  } else {
                                     T = ZERO;
                                     AAPP = ONE;
@@ -942,7 +948,7 @@
 
       // Additional steering devices
 
-         IF( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
+         if( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
 
          if ( ( i > SWBAND+1 ) && ( MXAAPQ < DSQRT( DBLE( N ) )* TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994;
@@ -984,12 +990,12 @@
          }
          if ( SVA( p ) != ZERO ) {
             N4 = N4 + 1;
-            IF( SVA( p )*SKL > SFMIN )N2 = N2 + 1;
+            if( SVA( p )*SKL > SFMIN )N2 = N2 + 1;
          }
       } // 5991
       if ( SVA( N ) != ZERO ) {
          N4 = N4 + 1;
-         IF( SVA( N )*SKL > SFMIN )N2 = N2 + 1;
+         if( SVA( N )*SKL > SFMIN )N2 = N2 + 1;
       }
 
       // Normalize the left singular vectors.

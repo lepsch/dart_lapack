@@ -482,7 +482,7 @@
 
       for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I);
-         IF (SDIFF(ABS(SSIZE(I))+ABS(SFAC*SD),ABS(SSIZE(I))) == 0.0) GO TO 40;
+         if (SDIFF(ABS(SSIZE(I))+ABS(SFAC*SD),ABS(SSIZE(I))) == 0.0) GO TO 40;
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 

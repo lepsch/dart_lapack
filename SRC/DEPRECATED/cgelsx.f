@@ -214,7 +214,7 @@
                   T1 = T2;
                   K = JPVT( K );
                   T2 = B( JPVT( K ), J );
-                  IF( JPVT( K ) != I ) GO TO 70;
+                  if( JPVT( K ) != I ) GO TO 70;
                   B( I, J ) = T1;
                   WORK( 2*MN+K ) = DONE;
                }

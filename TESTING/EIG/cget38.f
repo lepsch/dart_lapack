@@ -174,7 +174,7 @@
          VMAX = MAX( RESULT( 1 ), RESULT( 2 ) );
          if ( VMAX > RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX;
-            IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
+            if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
 
          // Compare condition number for eigenvalue cluster
@@ -207,7 +207,7 @@
          }
          if ( VMAX > RMAX( 2 ) ) {
             RMAX( 2 ) = VMAX;
-            IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
+            if( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
          }
 
          // Compare condition numbers for invariant subspace
@@ -238,7 +238,7 @@
          }
          if ( VMAX > RMAX( 2 ) ) {
             RMAX( 2 ) = VMAX;
-            IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
+            if( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
          }
 
          // Compare condition number for eigenvalue cluster
@@ -259,7 +259,7 @@
          }
          if ( VMAX > RMAX( 3 ) ) {
             RMAX( 3 ) = VMAX;
-            IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
+            if( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
          }
 
          // Compare condition numbers for invariant subspace
@@ -280,7 +280,7 @@
          }
          if ( VMAX > RMAX( 3 ) ) {
             RMAX( 3 ) = VMAX;
-            IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
+            if( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
          }
 
          // Compute eigenvalue condition number only and compare
@@ -297,10 +297,12 @@
             NINFO( 3 ) = NINFO( 3 ) + 1;
             GO TO 200;
          }
-         if (S != STMP) VMAX = ONE / EPS          IF( -ONE != SEPTMP ) VMAX = ONE / EPS;
+         if (S != STMP) VMAX = ONE / EPS;
+         IF( -ONE != SEPTMP ) VMAX = ONE / EPS;
          for (I = 1; I <= N; I++) { // 130
             for (J = 1; J <= N; J++) { // 120
-               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != Q( I, J ) ) VMAX = ONE / EPS;
+               if( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS;
+               IF( QTMP( I, J ) != Q( I, J ) ) VMAX = ONE / EPS;
             } // 120
          } // 130
 
@@ -317,10 +319,12 @@
             NINFO( 3 ) = NINFO( 3 ) + 1;
             GO TO 200;
          }
-         if (-ONE != STMP) VMAX = ONE / EPS          IF( SEP != SEPTMP ) VMAX = ONE / EPS;
+         if (-ONE != STMP) VMAX = ONE / EPS;
+         IF( SEP != SEPTMP ) VMAX = ONE / EPS;
          for (I = 1; I <= N; I++) { // 150
             for (J = 1; J <= N; J++) { // 140
-               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != Q( I, J ) ) VMAX = ONE / EPS;
+               if( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS;
+               IF( QTMP( I, J ) != Q( I, J ) ) VMAX = ONE / EPS;
             } // 140
          } // 150
 
@@ -337,10 +341,12 @@
             NINFO( 3 ) = NINFO( 3 ) + 1;
             GO TO 200;
          }
-         if (S != STMP) VMAX = ONE / EPS          IF( -ONE != SEPTMP ) VMAX = ONE / EPS;
+         if (S != STMP) VMAX = ONE / EPS;
+         IF( -ONE != SEPTMP ) VMAX = ONE / EPS;
          for (I = 1; I <= N; I++) { // 170
             for (J = 1; J <= N; J++) { // 160
-               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != QSAV( I, J ) ) VMAX = ONE / EPS;
+               if( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS;
+               IF( QTMP( I, J ) != QSAV( I, J ) ) VMAX = ONE / EPS;
             } // 160
          } // 170
 
@@ -357,15 +363,17 @@
             NINFO( 3 ) = NINFO( 3 ) + 1;
             GO TO 200;
          }
-         if (-ONE != STMP) VMAX = ONE / EPS          IF( SEP != SEPTMP ) VMAX = ONE / EPS;
+         if (-ONE != STMP) VMAX = ONE / EPS;
+         IF( SEP != SEPTMP ) VMAX = ONE / EPS;
          for (I = 1; I <= N; I++) { // 190
             for (J = 1; J <= N; J++) { // 180
-               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != QSAV( I, J ) ) VMAX = ONE / EPS;
+               if( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS;
+               IF( QTMP( I, J ) != QSAV( I, J ) ) VMAX = ONE / EPS;
             } // 180
          } // 190
          if ( VMAX > RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX;
-            IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
+            if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
       } // 200
       GO TO 10;

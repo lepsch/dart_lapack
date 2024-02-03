@@ -258,7 +258,7 @@
          // and sufficient workspace for an efficient algorithm.
 
          LDWORK = M;
-         IF( LWORK >= MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS, 4*M+M*LDA+WLALSD ) )LDWORK = LDA;
+         if( LWORK >= MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS, 4*M+M*LDA+WLALSD ) )LDWORK = LDA;
          ITAU = 1;
          NWORK = M + 1;
 

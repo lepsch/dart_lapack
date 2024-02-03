@@ -77,13 +77,13 @@
                } else {
                   if ( K < N ) {
                      if ( T( K+1, K ) == ZERO ) {
-                        IF( SELECT( K ) ) M = M + 1;
+                        if( SELECT( K ) ) M = M + 1;
                      } else {
                         PAIR = true;
-                        IF( SELECT( K ) || SELECT( K+1 ) ) M = M + 2;
+                        if( SELECT( K ) || SELECT( K+1 ) ) M = M + 2;
                      }
                   } else {
-                     IF( SELECT( N ) ) M = M + 1;
+                     if( SELECT( N ) ) M = M + 1;
                   }
                }
             } // 10
@@ -108,9 +108,10 @@
 
       if ( N == 1 ) {
          if ( SOMCON ) {
-            IF( !SELECT( 1 ) ) RETURN;
+            if( !SELECT( 1 ) ) RETURN;
          }
-         if (WANTS) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );
+         if (WANTS) S( 1 ) = ONE;
+         IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );
          return;
       }
 
@@ -138,9 +139,9 @@
 
          if ( SOMCON ) {
             if ( PAIR ) {
-               IF( !SELECT( K ) && !SELECT( K+1 ) ) GO TO 60;
+               if( !SELECT( K ) && !SELECT( K+1 ) ) GO TO 60;
             } else {
-               IF( !SELECT( K ) ) GO TO 60;
+               if( !SELECT( K ) ) GO TO 60;
             }
          }
 

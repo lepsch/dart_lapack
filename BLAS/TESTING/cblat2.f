@@ -155,7 +155,7 @@
       } // 40
    50 READ( NIN, FMT = 9984, END = 80 )SNAMET, LTESTT;
       for (I = 1; I <= NSUBS; I++) { // 60
-         IF( SNAMET == SNAMES( I ) ) GO TO 70;
+         if( SNAMET == SNAMES( I ) ) GO TO 70;
       } // 60
       WRITE( NOUT, FMT = 9986 )SNAMET;
       STOP;
@@ -346,7 +346,8 @@
          ND = N/2 + 1;
 
          for (IM = 1; IM <= 2; IM++) { // 110
-            if (IM == 1) M = MAX( N - ND, 0 )             IF( IM == 2 ) M = MIN( N + ND, NMAX );
+            if (IM == 1) M = MAX( N - ND, 0 );
+            IF( IM == 2 ) M = MIN( N + ND, NMAX );
 
             if ( BANDED ) {
                NK = NKB;
@@ -504,7 +505,7 @@
                               SAME = true;
                               for (I = 1; I <= NARGS; I++) { // 40
                                  SAME = SAME && ISAME( I );
-                                 IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
+                                 if( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
                               } // 40
                               if ( !SAME ) {
                                  FATAL = true;
@@ -820,7 +821,7 @@
                            SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 40
                               SAME = SAME && ISAME( I );
-                              IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
+                              if( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
                            } // 40
                            if ( !SAME ) {
                               FATAL = true;
@@ -1114,7 +1115,7 @@
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME && ISAME( I );
-                           IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
+                           if( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
                         } // 40
                         if ( !SAME ) {
                            FATAL = true;
@@ -1248,7 +1249,8 @@
          ND = N/2 + 1;
 
          for (IM = 1; IM <= 2; IM++) { // 110
-            if (IM == 1) M = MAX( N - ND, 0 )             IF( IM == 2 ) M = MIN( N + ND, NMAX );
+            if (IM == 1) M = MAX( N - ND, 0 );
+            IF( IM == 2 ) M = MIN( N + ND, NMAX );
 
             // Set LDA to 1 more than minimum value if room.
             LDA = M;
@@ -1352,7 +1354,7 @@
                      SAME = true;
                      for (I = 1; I <= NARGS; I++) { // 40
                         SAME = SAME && ISAME( I );
-                        IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
+                        if( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
                      } // 40
                      if ( !SAME ) {
                         FATAL = true;
@@ -1588,7 +1590,7 @@
                   SAME = true;
                   for (I = 1; I <= NARGS; I++) { // 30
                      SAME = SAME && ISAME( I );
-                     IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
+                     if( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
                   } // 30
                   if ( !SAME ) {
                      FATAL = true;
@@ -1857,7 +1859,7 @@
                      SAME = true;
                      for (I = 1; I <= NARGS; I++) { // 40
                         SAME = SAME && ISAME( I );
-                        IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
+                        if( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
                      } // 40
                      if ( !SAME ) {
                         FATAL = true;
@@ -2351,7 +2353,8 @@
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            if ( GEN || ( UPPER && I <= J ) || ( LOWER && I >= J ) ) THEN                IF( ( I <= J && J - I <= KU ) || ( I >= J && I - J <= KL ) ) {
+            if ( GEN || ( UPPER && I <= J ) || ( LOWER && I >= J ) ) {
+               if( ( I <= J && J - I <= KU ) || ( I >= J && I - J <= KL ) ) {
                   A( I, J ) = CBEG( RESET ) + TRANSL;
                } else {
                   A( I, J ) = ZERO;
@@ -2365,7 +2368,9 @@
                }
             }
          } // 10
-         if (SYM) A( J, J ) = CMPLX( REAL( A( J, J ) ), RZERO )          IF( TRI ) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE;
+         if (SYM) A( J, J ) = CMPLX( REAL( A( J, J ) ), RZERO );
+         if( TRI ) A( J, J ) = A( J, J ) + ONE;
+         IF( UNIT ) A( J, J ) = ONE;
       } // 20
 
       // Store elements in array AS in data structure required by routine.
@@ -2469,7 +2474,8 @@
                IOFF = IOFF + 1;
                AA( IOFF ) = A( I, J );
                if ( I == J ) {
-                  if (UNIT) AA( IOFF ) = ROGUE                   IF( SYM ) AA( IOFF ) = CMPLX( REAL( AA( IOFF ) ), RROGUE );
+                  if (UNIT) AA( IOFF ) = ROGUE;
+                  IF( SYM ) AA( IOFF ) = CMPLX( REAL( AA( IOFF ) ), RROGUE );
                }
             } // 180
          } // 190
@@ -2576,9 +2582,9 @@
       ERR = ZERO;
       for (I = 1; I <= ML; I++) { // 50
          ERRI = ABS( YT( I ) - YY( 1 + ( I - 1 )*ABS( INCY ) ) )/EPS;
-         IF( G( I ) != RZERO ) ERRI = ERRI/G( I );
+         if( G( I ) != RZERO ) ERRI = ERRI/G( I );
          ERR = MAX( ERR, ERRI );
-         IF( ERR*SQRT( EPS ) >= RONE ) GO TO 60;
+         if( ERR*SQRT( EPS ) >= RONE ) GO TO 60;
       } // 50
       // If the loop completes, all results are at least half accurate.
       GO TO 80;
@@ -2622,7 +2628,7 @@
       int                I;
       // .. Executable Statements ..
       for (I = 1; I <= LR; I++) { // 10
-         IF( RI( I ) != RJ( I ) ) GO TO 20;
+         if( RI( I ) != RJ( I ) ) GO TO 20;
       } // 10
       LCE = true;
       GO TO 30;
@@ -2659,7 +2665,7 @@
       if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = M + 1; I <= LDA; I++) { // 10
-               IF( AA( I, J ) != AS( I, J ) ) GO TO 70;
+               if( AA( I, J ) != AS( I, J ) ) GO TO 70;
             } // 10
          } // 20
       } else if ( TYPE == 'HE' ) {
@@ -2672,10 +2678,10 @@
                IEND = N;
             }
             for (I = 1; I <= IBEG - 1; I++) { // 30
-               IF( AA( I, J ) != AS( I, J ) ) GO TO 70;
+               if( AA( I, J ) != AS( I, J ) ) GO TO 70;
             } // 30
             for (I = IEND + 1; I <= LDA; I++) { // 40
-               IF( AA( I, J ) != AS( I, J ) ) GO TO 70;
+               if( AA( I, J ) != AS( I, J ) ) GO TO 70;
             } // 40
          } // 50
       }

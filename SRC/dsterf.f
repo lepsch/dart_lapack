@@ -71,7 +71,8 @@
       L1 = 1;
 
       } // 10
-      if (L1 > N) GO TO 170       IF( L1 > 1 ) E( L1-1 ) = ZERO;
+      if (L1 > N) GO TO 170;
+      IF( L1 > 1 ) E( L1-1 ) = ZERO;
       for (M = L1; M <= N - 1; M++) { // 20
          if ( ABS( E( M ) ) <= ( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
             E( M ) = ZERO;
@@ -123,7 +124,7 @@
          } // 50
          if ( L != LEND ) {
             for (M = L; M <= LEND - 1; M++) { // 60
-               IF( ABS( E( M ) ) <= EPS2*ABS( D( M )*D( M+1 ) ) ) GO TO 70;
+               if( ABS( E( M ) ) <= EPS2*ABS( D( M )*D( M+1 ) ) ) GO TO 70;
             } // 60
          }
          M = LEND;
@@ -203,7 +204,7 @@
 
          } // 100
          DO 110 M = L, LEND + 1, -1;
-            IF( ABS( E( M-1 ) ) <= EPS2*ABS( D( M )*D( M-1 ) ) ) GO TO 120;
+            if( ABS( E( M-1 ) ) <= EPS2*ABS( D( M )*D( M-1 ) ) ) GO TO 120;
          } // 110
          M = LEND;
 
@@ -279,14 +280,15 @@
       // Undo scaling if necessary
 
       } // 150
-      if (ISCALE == 1) CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )       IF( ISCALE == 2 ) CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
+      if (ISCALE == 1) CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
+      IF( ISCALE == 2 ) CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
 
       // Check for no convergence to an eigenvalue after a total
       // of N*MAXIT iterations.
 
       if (JTOT < NMAXIT) GO TO 10;
       for (I = 1; I <= N - 1; I++) { // 160
-         IF( E( I ) != ZERO ) INFO = INFO + 1;
+         if( E( I ) != ZERO ) INFO = INFO + 1;
       } // 160
       GO TO 180;
 

@@ -368,7 +368,7 @@
 
       for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I);
-         IF (ABS(SFAC*SD) <= ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40;
+         if (ABS(SFAC*SD) <= ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40;
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 

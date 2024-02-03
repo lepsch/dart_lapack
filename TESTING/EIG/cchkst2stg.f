@@ -73,7 +73,7 @@
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       NBLOCK = ILAENV( 1, 'CHETRD', 'L', NMAX, -1, -1, -1 );
@@ -126,7 +126,8 @@
          N = NN( JSIZE );
          if ( N > 0 ) {
             LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) );
-            if (2**LGN < N) LGN = LGN + 1             IF( 2**LGN < N ) LGN = LGN + 1;
+            if (2**LGN < N) LGN = LGN + 1;
+            IF( 2**LGN < N ) LGN = LGN + 1;
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2;
             LRWEDC = 1 + 3*N + 2*N*LGN + 4*N**2;
             LIWEDC = 6 + 6*N + 5*N*LGN;
@@ -145,7 +146,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 300
-            IF( !DOTYPE( JTYPE ) ) GO TO 300;
+            if( !DOTYPE( JTYPE ) ) GO TO 300;
             NMATS = NMATS + 1;
             NTEST = 0;
 

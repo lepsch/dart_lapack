@@ -78,7 +78,7 @@
          }
       }
       if ( INFO == 0 ) {
-         IF( LDZ < 1 || ( WANTZ && LDZ < N ) ) INFO = -18;
+         if( LDZ < 1 || ( WANTZ && LDZ < N ) ) INFO = -18;
       }
 
       if ( INFO == 0 ) {
@@ -114,7 +114,7 @@
             TMP1 = AB( KD+1, 1 );
          }
          if ( VALEIG ) {
-            IF( !( VL < TMP1 && VU >= TMP1 ) ) M = 0;
+            if( !( VL < TMP1 && VU >= TMP1 ) ) M = 0;
          }
          if ( M == 1 ) {
             W( 1 ) = TMP1;

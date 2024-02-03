@@ -75,7 +75,7 @@
          }
       }
       if ( INFO == 0 ) {
-         IF( LDZ < 1 || ( WANTZ && LDZ < N*2 ) ) INFO = -14;
+         if( LDZ < 1 || ( WANTZ && LDZ < N*2 ) ) INFO = -14;
       }
 
       if ( INFO != 0 ) {
@@ -142,10 +142,10 @@
       // Check for zeros in D and E (splits), i.e. submatrices.
 
       for (I = 1; I <= N-1; I++) {
-         IF( ABS( D( I ) ) <= THRESH ) D( I ) = ZERO;
-         IF( ABS( E( I ) ) <= THRESH ) E( I ) = ZERO;
+         if( ABS( D( I ) ) <= THRESH ) D( I ) = ZERO;
+         if( ABS( E( I ) ) <= THRESH ) E( I ) = ZERO;
       }
-      IF( ABS( D( N ) ) <= THRESH ) D( N ) = ZERO;
+      if( ABS( D( N ) ) <= THRESH ) D( N ) = ZERO;
 
       // Pointers for arrays used by SSTEVX.
 

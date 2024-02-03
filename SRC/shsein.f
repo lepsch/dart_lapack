@@ -59,7 +59,7 @@
             SELECT( K ) = false;
          } else {
             if ( WI( K ) == ZERO ) {
-               IF( SELECT( K ) ) M = M + 1;
+               if( SELECT( K ) ) M = M + 1;
             } else {
                PAIR = true;
                if ( SELECT( K ) || SELECT( K+1 ) ) {
@@ -134,13 +134,13 @@
                // the submatrix H(1:KR,1:KR) for a right eigenvector.
 
                DO 20 I = K, KL + 1, -1;
-                  IF( H( I, I-1 ) == ZERO ) GO TO 30;
+                  if( H( I, I-1 ) == ZERO ) GO TO 30;
                } // 20
                } // 30
                KL = I;
                if ( K > KR ) {
                   for (I = K; I <= N - 1; I++) { // 40
-                     IF( H( I+1, I ) == ZERO ) GO TO 50;
+                     if( H( I+1, I ) == ZERO ) GO TO 50;
                   } // 40
                   } // 50
                   KR = I;

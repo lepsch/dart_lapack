@@ -63,14 +63,14 @@
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       BADNNB = false;
       KMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 20
          KMAX = MAX( KMAX, KK( J ) );
-         IF( KK( J ) < 0 ) BADNNB = true;
+         if( KK( J ) < 0 ) BADNNB = true;
       } // 20
       KMAX = MIN( NMAX-1, KMAX );
 
@@ -133,7 +133,7 @@
             }
 
             for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 170
-               IF( !DOTYPE( JTYPE ) ) GO TO 170;
+               if( !DOTYPE( JTYPE ) ) GO TO 170;
                NMATS = NMATS + 1;
                NTEST = 0;
 

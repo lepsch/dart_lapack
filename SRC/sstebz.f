@@ -265,7 +265,9 @@
 
             // Special Case -- IN=1
 
-            if ( IRANGE == 1 || WL >= D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE == 1 || WU >= D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == 1 || ( WL < D( IBEGIN )-PIVMIN && WU >= D( IBEGIN )-PIVMIN ) ) {
+            if ( IRANGE == 1 || WL >= D( IBEGIN )-PIVMIN ) NWL = NWL + 1;
+            if( IRANGE == 1 || WU >= D( IBEGIN )-PIVMIN ) NWU = NWU + 1;
+            IF( IRANGE == 1 || ( WL < D( IBEGIN )-PIVMIN && WU >= D( IBEGIN )-PIVMIN ) ) {
                M = M + 1;
                W( M ) = D( IBEGIN );
                IBLOCK( M ) = JB;
@@ -454,7 +456,8 @@
       }
 
       INFO = 0;
-      if (NCNVRG) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2;
+      if (NCNVRG) INFO = INFO + 1;
+      IF( TOOFEW ) INFO = INFO + 2;
       return;
 
       // End of SSTEBZ

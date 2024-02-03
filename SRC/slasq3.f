@@ -47,13 +47,14 @@
 
       } // 10
 
-      if (N0 < I0) RETURN       IF( N0 == I0 ) GO TO 20;
+      if (N0 < I0) RETURN;
+      IF( N0 == I0 ) GO TO 20;
       NN = 4*N0 + PP;
-      IF( N0 == ( I0+1 ) ) GO TO 40;
+      if( N0 == ( I0+1 ) ) GO TO 40;
 
       // Check whether E(N0-1) is negligible, 1 eigenvalue.
 
-      IF( Z( NN-5 ) > TOL2*( SIGMA+Z( NN-3 ) ) && Z( NN-2*PP-4 ) > TOL2*Z( NN-7 ) ) GO TO 30;
+      if( Z( NN-5 ) > TOL2*( SIGMA+Z( NN-3 ) ) && Z( NN-2*PP-4 ) > TOL2*Z( NN-7 ) ) GO TO 30;
 
       } // 20
 
@@ -65,7 +66,7 @@
 
       } // 30
 
-      IF( Z( NN-9 ) > TOL2*SIGMA && Z( NN-2*PP-8 ) > TOL2*Z( NN-11 ) ) GO TO 50;
+      if( Z( NN-9 ) > TOL2*SIGMA && Z( NN-2*PP-8 ) > TOL2*Z( NN-11 ) ) GO TO 50;
 
       } // 40
 

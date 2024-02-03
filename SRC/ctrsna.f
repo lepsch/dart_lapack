@@ -66,7 +66,7 @@
       if ( SOMCON ) {
          M = 0;
          for (J = 1; J <= N; J++) { // 10
-            IF( SELECT( J ) ) M = M + 1;
+            if( SELECT( J ) ) M = M + 1;
          } // 10
       } else {
          M = N;
@@ -101,9 +101,10 @@
 
       if ( N == 1 ) {
          if ( SOMCON ) {
-            IF( !SELECT( 1 ) ) RETURN;
+            if( !SELECT( 1 ) ) RETURN;
          }
-         if (WANTS) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );
+         if (WANTS) S( 1 ) = ONE;
+         IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );
          return;
       }
 
@@ -117,7 +118,7 @@
       for (K = 1; K <= N; K++) { // 50
 
          if ( SOMCON ) {
-            IF( !SELECT( K ) ) GO TO 50;
+            if( !SELECT( K ) ) GO TO 50;
          }
 
          if ( WANTS ) {

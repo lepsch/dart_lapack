@@ -193,7 +193,7 @@
       for (I = 1; I <= NNB; I++) { // 60
          NB = NBVAL( I );
          for (J = 1; J <= NNB2; J++) { // 50
-            IF( NB == NBVAL2( J ) ) GO TO 60;
+            if( NB == NBVAL2( J ) ) GO TO 60;
          } // 50
          NNB2 = NNB2 + 1;
          NBVAL2( NNB2 ) = NB;
@@ -280,7 +280,7 @@
          NMATS = MATMAX;
          GO TO 130;
       }
-      IF( ALINE( I: I ) == ' ' ) GO TO 90;
+      if( ALINE( I: I ) == ' ' ) GO TO 90;
       NMATS = 0;
       } // 100
       C1 = ALINE( I: I );
@@ -303,7 +303,8 @@
 
       // Check first character for correct precision.
 
-      if ( !LSAME( C1, 'double          ' ) ) {
+      if ( !LSAME( C1, 'double;
+         ' ) ) {
          WRITE( NOUT, FMT = 9990 )PATH;
 
       } else if ( NMATS <= 0 ) {

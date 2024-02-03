@@ -79,7 +79,7 @@
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K );
-            IF( KP == -IPIV( K-1 ) ) CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+            if( KP == -IPIV( K-1 ) ) CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
             K=K-2;
          }
         }
@@ -130,7 +130,7 @@
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K );
-            IF( K < N && KP == -IPIV( K+1 ) ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if( K < N && KP == -IPIV( K+1 ) ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K=K+2;
          }
         }
@@ -152,7 +152,7 @@
             // 2 x 2 diagonal block
             // Interchange rows K and -IPIV(K+1).
             KP = -IPIV( K+1 );
-            IF( KP == -IPIV( K ) ) CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+            if( KP == -IPIV( K ) ) CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
             K=K+2;
          }
         }
@@ -201,7 +201,7 @@
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K );
-            IF( K > 1 && KP == -IPIV( K-1 ) ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if( K > 1 && KP == -IPIV( K-1 ) ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K=K-2;
          }
         }

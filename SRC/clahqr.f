@@ -136,10 +136,11 @@
          // Look for a single small subdiagonal element.
 
          DO 40 K = I, L + 1, -1;
-            IF( CABS1( H( K, K-1 ) ) <= SMLNUM ) GO TO 50;
+            if( CABS1( H( K, K-1 ) ) <= SMLNUM ) GO TO 50;
             TST = CABS1( H( K-1, K-1 ) ) + CABS1( H( K, K ) );
             if ( TST == ZERO ) {
-               if (K-2 >= ILO) TST = TST + ABS( REAL( H( K-1, K-2 ) ) )                IF( K+1 <= IHI ) TST = TST + ABS( REAL( H( K+1, K ) ) );
+               if (K-2 >= ILO) TST = TST + ABS( REAL( H( K-1, K-2 ) ) );
+               IF( K+1 <= IHI ) TST = TST + ABS( REAL( H( K+1, K ) ) );
             }
             // ==== The following is a conservative small subdiagonal
             // .    deflation criterion due to Ahues & Tisseur (LAWN 122,
@@ -150,7 +151,7 @@
                BA = MIN( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) );
                AA = MAX( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )                BB = MIN( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) );
                S = AA + AB;
-               IF( BA*( AB / S ) <= MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 50;
+               if( BA*( AB / S ) <= MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 50;
             }
          } // 40
          } // 50
@@ -201,7 +202,7 @@
                S = MAX( S, CABS1( X ) );
                Y = S*SQRT( ( X / S )**2+( U / S )**2 );
                if ( SX > RZERO ) {
-                  IF( REAL( X / SX )*REAL( Y )+AIMAG( X / SX )* AIMAG( Y ) < RZERO )Y = -Y;
+                  if( REAL( X / SX )*REAL( Y )+AIMAG( X / SX )* AIMAG( Y ) < RZERO )Y = -Y;
                }
                T = T - U*CLADIV( U, ( X+Y ) );
             }
@@ -225,7 +226,7 @@
             V( 1 ) = H11S;
             V( 2 ) = H21;
             H10 = REAL( H( M, M-1 ) );
-            IF( ABS( H10 )*ABS( H21 ) <= ULP* ( CABS1( H11S )*( CABS1( H11 )+CABS1( H22 ) ) ) ) GO TO 70;
+            if( ABS( H10 )*ABS( H21 ) <= ULP* ( CABS1( H11S )*( CABS1( H11 )+CABS1( H22 ) ) ) ) GO TO 70;
          } // 60
          H11 = H( L, L );
          H22 = H( L+1, L+1 );

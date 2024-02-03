@@ -33,14 +33,14 @@
 
          for (I = 1; I <= M; I++) { // 50
 
-            IF( K( I ) > 0 ) GO TO 40;
+            if( K( I ) > 0 ) GO TO 40;
 
             J = I;
             K( J ) = -K( J );
             IN = K( J );
 
             } // 20
-            IF( K( IN ) > 0 ) GO TO 40;
+            if( K( IN ) > 0 ) GO TO 40;
 
             for (JJ = 1; JJ <= N; JJ++) { // 30
                TEMP = X( J, JJ );
@@ -63,7 +63,7 @@
 
          for (I = 1; I <= M; I++) { // 90
 
-            IF( K( I ) > 0 ) GO TO 80;
+            if( K( I ) > 0 ) GO TO 80;
 
             K( I ) = -K( I );
             J = K( I );

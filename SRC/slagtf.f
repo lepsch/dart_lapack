@@ -47,7 +47,7 @@
       A( 1 ) = A( 1 ) - LAMBDA;
       IN( N ) = 0;
       if ( N == 1 ) {
-         IF( A( 1 ) == ZERO ) IN( 1 ) = 1;
+         if( A( 1 ) == ZERO ) IN( 1 ) = 1;
          return;
       }
 
@@ -58,7 +58,7 @@
       for (K = 1; K <= N - 1; K++) { // 10
          A( K+1 ) = A( K+1 ) - LAMBDA;
          SCALE2 = ABS( C( K ) ) + ABS( A( K+1 ) );
-         IF( K < ( N-1 ) ) SCALE2 = SCALE2 + ABS( B( K+1 ) );
+         if( K < ( N-1 ) ) SCALE2 = SCALE2 + ABS( B( K+1 ) );
          if ( A( K ) == ZERO ) {
             PIV1 = ZERO;
          } else {
@@ -68,7 +68,7 @@
             IN( K ) = 0;
             PIV2 = ZERO;
             SCALE1 = SCALE2;
-            IF( K < ( N-1 ) ) D( K ) = ZERO;
+            if( K < ( N-1 ) ) D( K ) = ZERO;
          } else {
             PIV2 = ABS( C( K ) ) / SCALE2;
             if ( PIV2 <= PIV1 ) {
@@ -76,7 +76,7 @@
                SCALE1 = SCALE2;
                C( K ) = C( K ) / A( K );
                A( K+1 ) = A( K+1 ) - C( K )*B( K );
-               IF( K < ( N-1 ) ) D( K ) = ZERO;
+               if( K < ( N-1 ) ) D( K ) = ZERO;
             } else {
                IN( K ) = 1;
                MULT = A( K ) / C( K );
@@ -91,9 +91,9 @@
                C( K ) = MULT;
             }
          }
-         IF( ( MAX( PIV1, PIV2 ) <= TL ) && ( IN( N ) == 0 ) ) IN( N ) = K;
+         if( ( MAX( PIV1, PIV2 ) <= TL ) && ( IN( N ) == 0 ) ) IN( N ) = K;
       } // 10
-      IF( ( ABS( A( N ) ) <= SCALE1*TL ) && ( IN( N ) == 0 ) ) IN( N ) = N;
+      if( ( ABS( A( N ) ) <= SCALE1*TL ) && ( IN( N ) == 0 ) ) IN( N ) = N;
 
       return;
 

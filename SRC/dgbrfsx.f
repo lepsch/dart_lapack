@@ -222,7 +222,7 @@
 
       // Cap the error at 1.0.
 
-            IF ( N_ERR_BNDS >= LA_LINRX_ERR_I && ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) > 1.0 ) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0;
+            if ( N_ERR_BNDS >= LA_LINRX_ERR_I && ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) > 1.0 ) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0;
 
       // Threshold the error (see LAWN).
 
@@ -256,21 +256,23 @@
 
          CWISE_WRONG = SQRT( DLAMCH( 'Epsilon' ) );
          for (J = 1; J <= NRHS; J++) {
-            IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < CWISE_WRONG ) THEN                RCOND_TMP = DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, 1, X( 1, J ), INFO, WORK, IWORK );
+            if ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < CWISE_WRONG ) {
+               RCOND_TMP = DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, 1, X( 1, J ), INFO, WORK, IWORK );
             } else {
                RCOND_TMP = 0.0;
             }
 
       // Cap the error at 1.0.
 
-            IF ( N_ERR_BNDS >= LA_LINRX_ERR_I && ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) > 1.0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0;
+            if ( N_ERR_BNDS >= LA_LINRX_ERR_I && ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) > 1.0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0;
 
       // Threshold the error (see LAWN).
 
             if ( RCOND_TMP < ILLRCOND_THRESH ) {
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0;
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 0.0;
-               if ( PARAMS( LA_LINRX_CWISE_I ) == 1.0 && INFO < N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
+               if ( PARAMS( LA_LINRX_CWISE_I ) == 1.0 && INFO < N + J ) INFO = N + J;
+            ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = ERR_LBND;
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0;
             }

@@ -65,7 +65,7 @@
 
          KP = N*( N+1 ) / 2;
          DO 10 INFO = N, 1, -1;
-            IF( IPIV( INFO ) > 0 && AP( KP ) == ZERO ) RETURN;
+            if( IPIV( INFO ) > 0 && AP( KP ) == ZERO ) RETURN;
             KP = KP - INFO;
          } // 10
       } else {
@@ -74,7 +74,7 @@
 
          KP = 1;
          for (INFO = 1; INFO <= N; INFO++) { // 20
-            IF( IPIV( INFO ) > 0 && AP( KP ) == ZERO ) RETURN;
+            if( IPIV( INFO ) > 0 && AP( KP ) == ZERO ) RETURN;
             KP = KP + N - INFO + 1;
          } // 20
       }

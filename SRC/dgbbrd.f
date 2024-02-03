@@ -71,7 +71,8 @@
 
       // Initialize Q and P**T to the unit matrix, if needed
 
-      if (WANTQ) CALL DLASET( 'Full', M, M, ZERO, ONE, Q, LDQ )       IF( WANTPT ) CALL DLASET( 'Full', N, N, ZERO, ONE, PT, LDPT );
+      if (WANTQ) CALL DLASET( 'Full', M, M, ZERO, ONE, Q, LDQ );
+      IF( WANTPT ) CALL DLASET( 'Full', N, N, ZERO, ONE, PT, LDPT );
 
       // Quick return if possible.
 
@@ -264,7 +265,8 @@
                E( I ) = RS*AB( 1, I+1 );
                AB( 1, I+1 ) = RC*AB( 1, I+1 );
             }
-            if (WANTQ) CALL DROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, RS )             IF( WANTC ) CALL DROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );
+            if (WANTQ) CALL DROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, RS );
+            IF( WANTC ) CALL DROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );
          } // 100
          if (M <= N) D( M ) = AB( 1, M );
       } else if ( KU > 0 ) {

@@ -414,7 +414,8 @@
                   }
                     // SEE REMARK ABOVE ABOUT DT11X(1,2,7)
                         // AND DT11X(5,3,8).
-                  IF ((KPAR == 2) && (KNI == 7)) SSIZE(1) = 2.4                   IF ((KPAR == 3) && (KNI == 8)) SSIZE(5) = 1.8;
+                  if ((KPAR == 2) && (KNI == 7)) SSIZE(1) = 2.4;
+                  IF ((KPAR == 3) && (KNI == 8)) SSIZE(5) = 1.8;
 
                   drotm(N,SX,INCX,SY,INCY,DTEMP);
                   stest(LENX,SX,STX,SSIZE,SFAC);
@@ -631,7 +632,7 @@
 
       for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I);
-         IF (ABS(SFAC*SD) <= ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40;
+         if (ABS(SFAC*SD) <= ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40;
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 
@@ -678,7 +679,7 @@
       // .. Executable Statements ..
 
          SD = SCOMP - STRUE;
-         IF (ABS(SFAC*SD) <= ABS(SSIZE) * EPSILON(ZERO)) GO TO 40;
+         if (ABS(SFAC*SD) <= ABS(SSIZE) * EPSILON(ZERO)) GO TO 40;
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 

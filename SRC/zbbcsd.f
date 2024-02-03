@@ -177,7 +177,7 @@
          if ( ITER > MAXIT ) {
             INFO = 0;
             for (I = 1; I <= Q; I++) {
-               IF( PHI(I) != ZERO ) INFO = INFO + 1;
+               if( PHI(I) != ZERO ) INFO = INFO + 1;
             }
             return;
          }
@@ -189,7 +189,8 @@
          THETAMAX = THETA(IMIN);
          THETAMIN = THETA(IMIN);
          for (I = IMIN+1; I <= IMAX; I++) {
-            IF( THETA(I) > THETAMAX ) THETAMAX = THETA(I)             IF( THETA(I) < THETAMIN ) THETAMIN = THETA(I);
+            if( THETA(I) > THETAMAX ) THETAMAX = THETA(I);
+            IF( THETA(I) < THETAMIN ) THETAMIN = THETA(I);
          }
 
          if ( THETAMAX > PIOVER2 - THRESH ) {
@@ -607,9 +608,15 @@
             THETA(MINI) = THETA(I);
             THETA(I) = THETAMIN;
             if ( COLMAJOR ) {
-               if (WANTU1) CALL ZSWAP( P, U1(1,I), 1, U1(1,MINI), 1 )                IF( WANTU2 ) CALL ZSWAP( M-P, U2(1,I), 1, U2(1,MINI), 1 )                IF( WANTV1T ) CALL ZSWAP( Q, V1T(I,1), LDV1T, V1T(MINI,1), LDV1T )                IF( WANTV2T ) CALL ZSWAP( M-Q, V2T(I,1), LDV2T, V2T(MINI,1), LDV2T );
+               if (WANTU1) CALL ZSWAP( P, U1(1,I), 1, U1(1,MINI), 1 );
+               if( WANTU2 ) CALL ZSWAP( M-P, U2(1,I), 1, U2(1,MINI), 1 );
+               if( WANTV1T ) CALL ZSWAP( Q, V1T(I,1), LDV1T, V1T(MINI,1), LDV1T );
+               IF( WANTV2T ) CALL ZSWAP( M-Q, V2T(I,1), LDV2T, V2T(MINI,1), LDV2T );
             } else {
-               if (WANTU1) CALL ZSWAP( P, U1(I,1), LDU1, U1(MINI,1), LDU1 )                IF( WANTU2 ) CALL ZSWAP( M-P, U2(I,1), LDU2, U2(MINI,1), LDU2 )                IF( WANTV1T ) CALL ZSWAP( Q, V1T(1,I), 1, V1T(1,MINI), 1 )                IF( WANTV2T ) CALL ZSWAP( M-Q, V2T(1,I), 1, V2T(1,MINI), 1 );
+               if (WANTU1) CALL ZSWAP( P, U1(I,1), LDU1, U1(MINI,1), LDU1 );
+               if( WANTU2 ) CALL ZSWAP( M-P, U2(I,1), LDU2, U2(MINI,1), LDU2 );
+               if( WANTV1T ) CALL ZSWAP( Q, V1T(1,I), 1, V1T(1,MINI), 1 );
+               IF( WANTV2T ) CALL ZSWAP( M-Q, V2T(1,I), 1, V2T(1,MINI), 1 );
             }
          }
 

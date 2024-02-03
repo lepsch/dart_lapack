@@ -59,7 +59,7 @@
         NB = 1;
       }
       if (MB > M || MB <= N) MB = M;
-      IF( NB > MIN( M, N ) || NB < 1 ) NB = 1;
+      if( NB > MIN( M, N ) || NB < 1 ) NB = 1;
       MINTSZ = N + 5;
       if ( MB > N && M > N ) {
         if ( MOD( M - N, MB - N ) == 0 ) {

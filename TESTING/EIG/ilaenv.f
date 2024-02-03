@@ -171,7 +171,12 @@
 
          NH = IHI - ILO + 1;
          NS = 2;
-         if (NH >= 30) NS = 4          IF( NH >= 60 ) NS = 10          IF( NH >= 150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )          IF( NH >= 590 ) NS = 64          IF( NH >= 3000 ) NS = 128          IF( NH >= 6000 ) NS = 256;
+         if (NH >= 30) NS = 4;
+         if( NH >= 60 ) NS = 10;
+         if( NH >= 150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) );
+         if( NH >= 590 ) NS = 64;
+         if( NH >= 3000 ) NS = 128;
+         IF( NH >= 6000 ) NS = 256;
          NS = MAX( 2, NS-MOD( NS, 2 ) );
       }
 
@@ -218,7 +223,8 @@
          // .     NH=IHI-ILO+1.
 
          IPARMQ = 0;
-         if (NS >= KACMIN) IPARMQ = 1          IF( NS >= K22MIN ) IPARMQ = 2;
+         if (NS >= KACMIN) IPARMQ = 1;
+         IF( NS >= K22MIN ) IPARMQ = 2;
 
       } else {
          // ===== invalid value of ispec =====

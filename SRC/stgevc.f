@@ -104,12 +104,12 @@
                GO TO 10;
             }
             if ( J < N ) {
-               IF( S( J+1, J ) != ZERO ) ILCPLX = true;
+               if( S( J+1, J ) != ZERO ) ILCPLX = true;
             }
             if ( ILCPLX ) {
-               IF( SELECT( J ) || SELECT( J+1 ) ) IM = IM + 2;
+               if( SELECT( J ) || SELECT( J+1 ) ) IM = IM + 2;
             } else {
-               IF( SELECT( J ) ) IM = IM + 1;
+               if( SELECT( J ) ) IM = IM + 1;
             }
          } // 10
       } else {
@@ -122,9 +122,9 @@
       ILBBAD = false;
       for (J = 1; J <= N - 1; J++) { // 20
          if ( S( J+1, J ) != ZERO ) {
-            IF( P( J, J ) == ZERO || P( J+1, J+1 ) == ZERO || P( J, J+1 ) != ZERO )ILBBAD = true;
+            if( P( J, J ) == ZERO || P( J+1, J+1 ) == ZERO || P( J, J+1 ) != ZERO )ILBBAD = true;
             if ( J < N-1 ) {
-               IF( S( J+2, J+1 ) != ZERO ) ILABAD = true;
+               if( S( J+2, J+1 ) != ZERO ) ILABAD = true;
             }
          }
       } // 20
@@ -309,7 +309,10 @@
                ACOEFA = ABS( ACOEF );
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI );
                SCALE = ONE;
-               if (ACOEFA*ULP < SAFMIN && ACOEFA >= SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP < SAFMIN && BCOEFA >= SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA > ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA > BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
+               if (ACOEFA*ULP < SAFMIN && ACOEFA >= SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA;
+               if( BCOEFA*ULP < SAFMIN && BCOEFA >= SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA );
+               if( SAFMIN*ACOEFA > ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA );
+               IF( SAFMIN*BCOEFA > BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF;
                   ACOEFA = ABS( ACOEF );
@@ -595,7 +598,10 @@
                ACOEFA = ABS( ACOEF );
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI );
                SCALE = ONE;
-               if (ACOEFA*ULP < SAFMIN && ACOEFA >= SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP < SAFMIN && BCOEFA >= SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA > ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA > BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
+               if (ACOEFA*ULP < SAFMIN && ACOEFA >= SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA;
+               if( BCOEFA*ULP < SAFMIN && BCOEFA >= SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA );
+               if( SAFMIN*ACOEFA > ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA );
+               IF( SAFMIN*BCOEFA > BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF;
                   ACOEFA = ABS( ACOEF );

@@ -196,7 +196,8 @@
             // Reorthogonalize by modified Gram-Schmidt if eigenvalues are
             // close enough.
 
-            if (JBLK == 1) GO TO 110             IF( ABS( XJ-XJM ) > ORTOL ) GPIND = J;
+            if (JBLK == 1) GO TO 110;
+            IF( ABS( XJ-XJM ) > ORTOL ) GPIND = J;
             if ( GPIND != J ) {
                for (I = GPIND; I <= J - 1; I++) { // 100
                   ZTR = ZERO;
@@ -236,7 +237,7 @@
             } // 130
             SCL = ONE / DNRM2( BLKSIZ, WORK( INDRV1+1 ), 1 );
             JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 );
-            IF( WORK( INDRV1+JMAX ) < ZERO ) SCL = -SCL;
+            if( WORK( INDRV1+JMAX ) < ZERO ) SCL = -SCL;
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
             } // 140
             for (I = 1; I <= N; I++) { // 150

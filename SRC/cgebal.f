@@ -221,12 +221,12 @@
 
             // Now balance.
 
-            IF( ( C+R ) >= FACTOR*S ) CYCLE;
+            if( ( C+R ) >= FACTOR*S ) CYCLE;
             if ( F < ONE && SCALE( I ) < ONE ) {
-               IF( F*SCALE( I ) <= SFMIN1 ) CYCLE;
+               if( F*SCALE( I ) <= SFMIN1 ) CYCLE;
             }
             if ( F > ONE && SCALE( I ) > ONE ) {
-               IF( SCALE( I ) >= SFMAX1 / F ) CYCLE;
+               if( SCALE( I ) >= SFMAX1 / F ) CYCLE;
             }
             G = ONE / F;
             SCALE( I ) = SCALE( I )*F;

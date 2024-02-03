@@ -42,7 +42,7 @@
 
       // Insure a correct ISEED
 
-      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
+      if( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
 
       // Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
       // and RCOND
@@ -177,12 +177,12 @@
          if ( ISIGN > 0 ) {
             for (JD = KBEG; JD <= KEND; JD++) { // 250
                if ( DBLE( A( JD, JD ) ) != ZERO ) {
-                  IF( DLARAN( ISEED ) > HALF ) A( JD, JD ) = -A( JD, JD );
+                  if( DLARAN( ISEED ) > HALF ) A( JD, JD ) = -A( JD, JD );
                }
             } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
                if ( DBLE( A( JD+1, JD ) ) != ZERO ) {
-                  IF( DLARAN( ISEED ) > HALF ) A( JD+1, JD ) = -A( JD+1, JD );
+                  if( DLARAN( ISEED ) > HALF ) A( JD+1, JD ) = -A( JD+1, JD );
                }
             } // 260
          }
@@ -248,7 +248,7 @@
          } else {
             IOFF = 2;
             for (JR = 1; JR <= N - 1; JR++) { // 300
-               IF( A( JR+1, JR ) == ZERO ) A( JR, JR+1 ) = TRIANG*DLARND( IDIST, ISEED );
+               if( A( JR+1, JR ) == ZERO ) A( JR, JR+1 ) = TRIANG*DLARND( IDIST, ISEED );
             } // 300
          }
 

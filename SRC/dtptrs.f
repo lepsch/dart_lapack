@@ -67,13 +67,13 @@
          if ( UPPER ) {
             JC = 1;
             for (INFO = 1; INFO <= N; INFO++) { // 10
-               IF( AP( JC+INFO-1 ) == ZERO ) RETURN;
+               if( AP( JC+INFO-1 ) == ZERO ) RETURN;
                JC = JC + INFO;
             } // 10
          } else {
             JC = 1;
             for (INFO = 1; INFO <= N; INFO++) { // 20
-               IF( AP( JC ) == ZERO ) RETURN;
+               if( AP( JC ) == ZERO ) RETURN;
                JC = JC + N - INFO + 1;
             } // 20
          }

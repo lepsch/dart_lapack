@@ -158,7 +158,7 @@
 
                      // Do the tests only if DOTYPE( IMAT ) is true.
 
-                     IF( !DOTYPE( IMAT ) ) GO TO 120;
+                     if( !DOTYPE( IMAT ) ) GO TO 120;
 
                      // Skip types 2, 3, or 4 if the matrix size is too
                      // small.
@@ -262,7 +262,8 @@
                         // did not pass the threshold.
 
                         if ( RESULT( 1 ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9997 )M, N, KL, KU, NB, IMAT, 1, RESULT( 1 );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           WRITE( NOUT, FMT = 9997 )M, N, KL, KU, NB, IMAT, 1, RESULT( 1 );
                            NFAIL = NFAIL + 1;
                         }
                         NRUN = NRUN + 1;
@@ -369,7 +370,8 @@
                               dgbt05(TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
                               for (K = 2; K <= 6; K++) { // 60
                                  if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K );
+                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                                    WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1;
                                  }
                               } // 60
@@ -404,7 +406,8 @@
                            // not pass the threshold.
 
                            if ( RESULT( 7 ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9995 )NORM, N, KL, KU, IMAT, 7, RESULT( 7 );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                              WRITE( NOUT, FMT = 9995 )NORM, N, KL, KU, IMAT, 7, RESULT( 7 );
                               NFAIL = NFAIL + 1;
                            }
                            NRUN = NRUN + 1;

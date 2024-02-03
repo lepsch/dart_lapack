@@ -68,7 +68,7 @@
             BETA = BETA*RSAFMN;
             ALPHI = ALPHI*RSAFMN;
             ALPHR = ALPHR*RSAFMN;
-            IF( (ABS( BETA ) < SAFMIN) && (KNT < 20) ) GO TO 10;
+            if( (ABS( BETA ) < SAFMIN) && (KNT < 20) ) GO TO 10;
 
             // New BETA is at most 1, at least SAFMIN
 

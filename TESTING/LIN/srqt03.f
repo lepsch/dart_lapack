@@ -65,7 +65,8 @@
       // Copy the last k rows of the factorization to the array Q
 
       slaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
-      if (K > 0 && N > K) CALL SLACPY( 'Full', K, N-K, AF( M-K+1, 1 ), LDA, Q( N-K+1, 1 ), LDA )       IF( K > 1 ) CALL SLACPY( 'Lower', K-1, K-1, AF( M-K+2, N-K+1 ), LDA, Q( N-K+2, N-K+1 ), LDA );
+      if (K > 0 && N > K) CALL SLACPY( 'Full', K, N-K, AF( M-K+1, 1 ), LDA, Q( N-K+1, 1 ), LDA );
+      IF( K > 1 ) CALL SLACPY( 'Lower', K-1, K-1, AF( M-K+2, N-K+1 ), LDA, Q( N-K+2, N-K+1 ), LDA );
 
       // Generate the n-by-n matrix Q
 

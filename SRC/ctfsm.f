@@ -66,7 +66,7 @@
 
       // Quick return when ( (N == 0) || (M == 0) )
 
-      IF( ( M == 0 ) || ( N == 0 ) ) RETURN;
+      if( ( M == 0 ) || ( N == 0 ) ) RETURN;
 
       // Quick return when ALPHA == (0E+0,0E+0)
 

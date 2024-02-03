@@ -94,19 +94,19 @@
          S = WORK( INDS+B1-1 ) - LAMBDA;
          for (I = B1; I <= R1 - 1; I++) { // 70
             DPLUS = D( I ) + S;
-            IF(ABS(DPLUS) < PIVMIN) DPLUS = -PIVMIN;
+            if(ABS(DPLUS) < PIVMIN) DPLUS = -PIVMIN;
             WORK( INDLPL+I ) = LD( I ) / DPLUS;
             if (DPLUS < ZERO) NEG1 = NEG1 + 1;
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I );
-            IF( WORK( INDLPL+I ) == ZERO ) WORK( INDS+I ) = LLD( I );
+            if( WORK( INDLPL+I ) == ZERO ) WORK( INDS+I ) = LLD( I );
             S = WORK( INDS+I ) - LAMBDA;
          } // 70
          for (I = R1; I <= R2 - 1; I++) { // 71
             DPLUS = D( I ) + S;
-            IF(ABS(DPLUS) < PIVMIN) DPLUS = -PIVMIN;
+            if(ABS(DPLUS) < PIVMIN) DPLUS = -PIVMIN;
             WORK( INDLPL+I ) = LD( I ) / DPLUS;
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I );
-            IF( WORK( INDLPL+I ) == ZERO ) WORK( INDS+I ) = LLD( I );
+            if( WORK( INDLPL+I ) == ZERO ) WORK( INDS+I ) = LLD( I );
             S = WORK( INDS+I ) - LAMBDA;
          } // 71
       }
@@ -132,7 +132,7 @@
          NEG2 = 0;
          DO 100 I = BN-1, R1, -1;
             DMINUS = LLD( I ) + WORK( INDP+I );
-            IF(ABS(DMINUS) < PIVMIN) DMINUS = -PIVMIN;
+            if(ABS(DMINUS) < PIVMIN) DMINUS = -PIVMIN;
             TMP = D( I ) / DMINUS;
             if (DMINUS < ZERO) NEG2 = NEG2 + 1;
             WORK( INDUMN+I ) = L( I )*TMP;
@@ -151,7 +151,7 @@
       } else {
          NEGCNT = -1;
       }
-      IF( ABS(MINGMA) == ZERO ) MINGMA = EPS*WORK( INDS+R1-1 );
+      if( ABS(MINGMA) == ZERO ) MINGMA = EPS*WORK( INDS+R1-1 );
       R = R1;
       for (I = R1; I <= R2 - 1; I++) { // 110
          TMP = WORK( INDS+I ) + WORK( INDP+I );

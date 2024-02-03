@@ -122,7 +122,8 @@
 
       // Initialize Q and Z
 
-      if (ICOMPQ == 3) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ == 3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
+      if (ICOMPQ == 3) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ );
+      IF( ICOMPZ == 3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
       // Machine Constants
 
@@ -250,7 +251,7 @@
                      TEMP = TEMP / TEMPR;
                      TEMP2 = TEMP2 / TEMPR;
                   }
-                  IF( TEMP*( ASCALE*ABS( H( J+1, J ) ) ) <= TEMP2* ( ASCALE*ATOL ) )ILAZR2 = true;
+                  if( TEMP*( ASCALE*ABS( H( J+1, J ) ) ) <= TEMP2* ( ASCALE*ATOL ) )ILAZR2 = true;
                }
 
                // If both tests pass (1 & 2), i.e., the leading diagonal
@@ -386,7 +387,8 @@
             // Exceptional shift.  Chosen for no particularly good reason.
             // (Single shift only.)
 
-            IF( ( REAL( MAXIT )*SAFMIN )*ABS( H( ILAST, ILAST-1 ) ) < ABS( T( ILAST-1, ILAST-1 ) ) ) THEN                ESHIFT = H( ILAST, ILAST-1 ) / T( ILAST-1, ILAST-1 );
+            if( ( REAL( MAXIT )*SAFMIN )*ABS( H( ILAST, ILAST-1 ) ) < ABS( T( ILAST-1, ILAST-1 ) ) ) {
+               ESHIFT = H( ILAST, ILAST-1 ) / T( ILAST-1, ILAST-1 );
             } else {
                ESHIFT = ESHIFT + ONE / ( SAFMIN*REAL( MAXIT ) );
             }
@@ -423,7 +425,7 @@
          }
 
          TEMP = MIN( BSCALE, ONE )*( HALF*SAFMAX );
-         IF( ABS( WR ) > TEMP ) SCALE = MIN( SCALE, TEMP / ABS( WR ) );
+         if( ABS( WR ) > TEMP ) SCALE = MIN( SCALE, TEMP / ABS( WR ) );
          S1 = SCALE*S1;
          WR = SCALE*WR;
 
@@ -438,7 +440,7 @@
                TEMP = TEMP / TEMPR;
                TEMP2 = TEMP2 / TEMPR;
             }
-            IF( ABS( ( ASCALE*H( J+1, J ) )*TEMP ) <= ( ASCALE*ATOL )* TEMP2 )GO TO 130;
+            if( ABS( ( ASCALE*H( J+1, J ) )*TEMP ) <= ( ASCALE*ATOL )* TEMP2 )GO TO 130;
          } // 120
 
          ISTART = IFIRST;
@@ -532,9 +534,11 @@
             srot(ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH, H( ILAST, ILAST-1 ), LDH, CL, SL );
             srot(ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1, H( IFRSTM, ILAST ), 1, CR, SR );
 
-            if (ILAST < ILASTM) CALL SROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL )             IF( IFRSTM < ILAST-1 ) CALL SROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR );
+            if (ILAST < ILASTM) CALL SROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL );
+            IF( IFRSTM < ILAST-1 ) CALL SROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR );
 
-            if (ILQ) CALL SROT( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL, SL )             IF( ILZ ) CALL SROT( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR, SR );
+            if (ILQ) CALL SROT( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL, SL );
+            IF( ILZ ) CALL SROT( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR, SR );
 
             T( ILAST-1, ILAST-1 ) = B11;
             T( ILAST-1, ILAST ) = ZERO;
@@ -802,7 +806,8 @@
                   U1 = -W12 / W11;
                   GO TO 250;
                }
-               IF( ABS( W22 ) < ABS( U2 ) ) SCALE = ABS( W22 / U2 )                IF( ABS( W11 ) < ABS( U1 ) ) SCALE = MIN( SCALE, ABS( W11 / U1 ) );
+               if( ABS( W22 ) < ABS( U2 ) ) SCALE = ABS( W22 / U2 );
+               IF( ABS( W11 ) < ABS( U1 ) ) SCALE = MIN( SCALE, ABS( W11 / U1 ) );
 
                // Solve
 

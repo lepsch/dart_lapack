@@ -72,14 +72,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO INFO = N, 1, -1;
-            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == CZERO ) RETURN;
+            if( IPIV( INFO ) > 0 && A( INFO, INFO ) == CZERO ) RETURN;
          }
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) {
-            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == CZERO ) RETURN;
+            if( IPIV( INFO ) > 0 && A( INFO, INFO ) == CZERO ) RETURN;
          }
       }
 
@@ -143,10 +143,10 @@
                ICOUNT = 0;
                // count negative elements,
                for (I = CUT+1-NNB; I <= CUT; I++) {
-                  IF( IPIV( I ) < 0 ) ICOUNT = ICOUNT + 1;
+                  if( IPIV( I ) < 0 ) ICOUNT = ICOUNT + 1;
                }
                // need a even number for a clear cut
-               IF( MOD( ICOUNT, 2 ) == 1 ) NNB = NNB + 1;
+               if( MOD( ICOUNT, 2 ) == 1 ) NNB = NNB + 1;
             }
 
             CUT = CUT - NNB;
@@ -313,10 +313,10 @@
                ICOUNT = 0;
                // count negative elements,
                for (I = CUT + 1; I <= CUT+NNB; I++) {
-                  IF ( IPIV( I ) < 0 ) ICOUNT = ICOUNT + 1;
+                  if ( IPIV( I ) < 0 ) ICOUNT = ICOUNT + 1;
                }
                // need a even number for a clear cut
-               IF( MOD( ICOUNT, 2 ) == 1 ) NNB = NNB + 1;
+               if( MOD( ICOUNT, 2 ) == 1 ) NNB = NNB + 1;
             }
 
             // L21 Block

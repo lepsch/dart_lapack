@@ -70,11 +70,11 @@
       if ( NOUNIT ) {
          if ( UPPER ) {
             for (INFO = 1; INFO <= N; INFO++) { // 10
-               IF( AB( KD+1, INFO ) == ZERO ) RETURN;
+               if( AB( KD+1, INFO ) == ZERO ) RETURN;
             } // 10
          } else {
             for (INFO = 1; INFO <= N; INFO++) { // 20
-               IF( AB( 1, INFO ) == ZERO ) RETURN;
+               if( AB( 1, INFO ) == ZERO ) RETURN;
             } // 20
          }
       }

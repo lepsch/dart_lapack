@@ -66,7 +66,7 @@
       // Check that D(1:N) is non-zero.
 
       for (I = 1; I <= N; I++) { // 10
-         IF( D( I ) == ZERO ) RETURN;
+         if( D( I ) == ZERO ) RETURN;
       } // 10
 
       AINVNM = ZERO;

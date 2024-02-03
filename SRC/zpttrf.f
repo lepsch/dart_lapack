@@ -123,7 +123,7 @@
 
       // Check d(n) for positive definiteness.
 
-      IF( D( N ) <= ZERO ) INFO = N;
+      if( D( N ) <= ZERO ) INFO = N;
 
       } // 30
       return;

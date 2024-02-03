@@ -74,7 +74,7 @@
                SUBNAM( 1: 1 ) = CHAR( IC+64 );
                for (I = 2; I <= 12; I++) { // 110
                   IC = ICHAR( SUBNAM( I: I ) );
-                  IF( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) )SUBNAM( I: I ) = CHAR( IC+64 );
+                  if( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) )SUBNAM( I: I ) = CHAR( IC+64 );
                } // 110
             }
 

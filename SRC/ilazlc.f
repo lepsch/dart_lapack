@@ -31,7 +31,7 @@
       // Now scan each column from the end, returning with the first non-zero.
          DO ILAZLC = N, 1, -1;
             for (I = 1; I <= M; I++) {
-               IF( A(I, ILAZLC) != ZERO ) RETURN;
+               if( A(I, ILAZLC) != ZERO ) RETURN;
             }
          }
       }

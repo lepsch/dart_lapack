@@ -221,7 +221,8 @@
             JC = 1;
             for (J = 2; J <= N; J++) { // 100
                A( JC+1 ) = Y;
-               if (J > 2) A( JC+J-1 ) = WORK( J-2 )                IF( J > 3 ) A( JC+J-2 ) = WORK( N+J-3 );
+               if (J > 2) A( JC+J-1 ) = WORK( J-2 );
+               IF( J > 3 ) A( JC+J-2 ) = WORK( N+J-3 );
                JC = JC + J;
             } // 100
             JC = JC - N;

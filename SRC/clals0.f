@@ -164,7 +164,7 @@
 
          // Move the deflated rows of BX to B also.
 
-         IF( K < MAX( M, N ) ) CALL CLACPY( 'A', N-K, NRHS, BX( K+1, 1 ), LDBX, B( K+1, 1 ), LDB );
+         if( K < MAX( M, N ) ) CALL CLACPY( 'A', N-K, NRHS, BX( K+1, 1 ), LDBX, B( K+1, 1 ), LDB );
       } else {
 
          // Apply back the right orthogonal transformations.
@@ -237,7 +237,7 @@
             ccopy(NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX );
             csrot(NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S );
          }
-         IF( K < MAX( M, N ) ) CALL CLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX );
+         if( K < MAX( M, N ) ) CALL CLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX );
 
          // Step (3R): permute rows of B.
 

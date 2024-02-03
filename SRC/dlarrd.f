@@ -75,7 +75,8 @@
       } else if ( N < 0 ) {
          INFO = -3;
       } else if ( IRANGE == VALRNG ) {
-         if ( VL >= VU ) INFO = -5       ELSE IF( IRANGE == INDRNG && ( IL < 1 || IL > MAX( 1, N ) ) ) {
+         if ( VL >= VU ) INFO = -5;
+      ELSE IF( IRANGE == INDRNG && ( IL < 1 || IL > MAX( 1, N ) ) ) {
          INFO = -6;
       } else if ( IRANGE == INDRNG && ( IU < MIN( N, IL ) || IU > N ) ) {
          INFO = -7;
@@ -216,7 +217,9 @@
 
          if ( IN == 1 ) {
             // 1x1 block
-            if ( WL >= D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU >= D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == ALLRNG || ( WL < D( IBEGIN )-PIVMIN && WU >= D( IBEGIN )-PIVMIN ) ) {
+            if ( WL >= D( IBEGIN )-PIVMIN ) NWL = NWL + 1;
+            if( WU >= D( IBEGIN )-PIVMIN ) NWU = NWU + 1;
+            IF( IRANGE == ALLRNG || ( WL < D( IBEGIN )-PIVMIN && WU >= D( IBEGIN )-PIVMIN ) ) {
                M = M + 1;
                W( M ) = D( IBEGIN );
                WERR(M) = ZERO;
@@ -489,7 +492,8 @@
       }
 
       INFO = 0;
-      if (NCNVRG) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2;
+      if (NCNVRG) INFO = INFO + 1;
+      IF( TOOFEW ) INFO = INFO + 2;
       return;
 
       // End of DLARRD

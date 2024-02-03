@@ -105,7 +105,8 @@
                MAXWRK = MAX( MAXWRK, N + HSWORK );
             }
             LWRK = MAXWRK;
-            if ( !WANTSN) LWRK = MAX( LWRK, N + ( N*N )/2 )             IF( WANTSV || WANTSB ) LIWRK = ( N*N )/4;
+            if ( !WANTSN) LWRK = MAX( LWRK, N + ( N*N )/2 );
+            IF( WANTSV || WANTSB ) LIWRK = ( N*N )/4;
          }
          IWORK( 1 ) = LIWRK;
          WORK( 1 ) = LWRK;
@@ -271,7 +272,8 @@
                   } else if ( A( I+1, I ) != ZERO && A( I, I+1 ) == ZERO ) {
                      WI( I ) = ZERO;
                      WI( I+1 ) = ZERO;
-                     if (I > 1) CALL DSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )                      IF( N > I+1 ) CALL DSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );
+                     if (I > 1) CALL DSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 );
+                     IF( N > I+1 ) CALL DSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );
                      if ( WANTVS ) {
                        dswap(N, VS( 1, I ), 1, VS( 1, I+1 ), 1 );
                      }

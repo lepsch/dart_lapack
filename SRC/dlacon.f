@@ -98,7 +98,7 @@
       ESTOLD = EST;
       EST = DASUM( N, V, 1 );
       for (I = 1; I <= N; I++) { // 80
-         IF( NINT( SIGN( ONE, X( I ) ) ) != ISGN( I ) ) GO TO 90;
+         if( NINT( SIGN( ONE, X( I ) ) ) != ISGN( I ) ) GO TO 90;
       } // 80
       // REPEATED SIGN VECTOR DETECTED, HENCE ALGORITHM HAS CONVERGED.
       GO TO 120;

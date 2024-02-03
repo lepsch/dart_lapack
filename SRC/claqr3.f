@@ -146,7 +146,8 @@
          // ==== Small spike tip deflation test ====
 
          FOO = CABS1( T( NS, NS ) );
-         if ( FOO == RZERO ) FOO = CABS1( S )          IF( CABS1( S )*CABS1( V( 1, NS ) ) <= MAX( SMLNUM, ULP*FOO ) ) {
+         if ( FOO == RZERO ) FOO = CABS1( S );
+         IF( CABS1( S )*CABS1( V( 1, NS ) ) <= MAX( SMLNUM, ULP*FOO ) ) {
 
             // ==== One more converged eigenvalue ====
 
@@ -174,7 +175,7 @@
          for (I = INFQR + 1; I <= NS; I++) { // 30
             IFST = I;
             for (J = I + 1; J <= NS; J++) { // 20
-               IF( CABS1( T( J, J ) ) > CABS1( T( IFST, IFST ) ) ) IFST = J;
+               if( CABS1( T( J, J ) ) > CABS1( T( IFST, IFST ) ) ) IFST = J;
             } // 20
             ILST = I;
             if (IFST != ILST) CALL CTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO );

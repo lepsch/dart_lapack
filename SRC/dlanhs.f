@@ -44,7 +44,7 @@
          for (J = 1; J <= N; J++) { // 20
             DO 10 I = 1, MIN( N, J+1 );
                SUM = ABS( A( I, J ) );
-               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+               if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 10
          } // 20
       } else if ( ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
@@ -57,7 +57,7 @@
             DO 30 I = 1, MIN( N, J+1 );
                SUM = SUM + ABS( A( I, J ) );
             } // 30
-            IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+            if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
          } // 40
       } else if ( LSAME( NORM, 'I' ) ) {
 
@@ -74,7 +74,7 @@
          VALUE = ZERO;
          for (I = 1; I <= N; I++) { // 80
             SUM = WORK( I );
-            IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+            if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
          } // 80
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 

@@ -76,7 +76,7 @@
       NMAX = 7;
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
@@ -132,7 +132,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 140
-            IF( !DOTYPE( JTYPE ) ) GO TO 140;
+            if( !DOTYPE( JTYPE ) ) GO TO 140;
 
             // Save ISEED in case of an error.
 
@@ -302,7 +302,8 @@
                   NTEST = 0;
                   NFAIL = 0;
                   for (J = 1; J <= 9; J++) { // 100
-                     IF( RESULT( J ) >= ZERO ) NTEST = NTEST + 1                      IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
+                     if( RESULT( J ) >= ZERO ) NTEST = NTEST + 1;
+                     IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
                   } // 100
 
                   if (NFAIL > 0) NTESTF = NTESTF + 1;
@@ -358,7 +359,8 @@
       NTEST = 0;
       NFAIL = 0;
       for (J = 1; J <= 11; J++) { // 200
-         IF( RESULT( J ) >= ZERO ) NTEST = NTEST + 1          IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
+         if( RESULT( J ) >= ZERO ) NTEST = NTEST + 1;
+         IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
       } // 200
 
       if (NFAIL > 0) NTESTF = NTESTF + 1;

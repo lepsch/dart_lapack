@@ -76,7 +76,7 @@
 
          // Exit from loop
 
-         IF( ( K <= N-NB+1 && NB < N ) || K < 1 ) GO TO 30;
+         if( ( K <= N-NB+1 && NB < N ) || K < 1 ) GO TO 30;
 
          KSTEP = 1;
          P = K;
@@ -358,7 +358,8 @@
             J = J + 1;
             if (JP2 != JJ && J <= N) CALL CSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
             JJ = J - 1;
-            if (JP1 != JJ && KSTEP == 2) CALL CSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J <= N ) GO TO 60;
+            if (JP1 != JJ && KSTEP == 2) CALL CSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA );
+         IF( J <= N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -377,7 +378,7 @@
 
          // Exit from loop
 
-         IF( ( K >= NB && NB < N ) || K > N ) GO TO 90;
+         if( ( K >= NB && NB < N ) || K > N ) GO TO 90;
 
          KSTEP = 1;
          P = K;
@@ -651,7 +652,8 @@
             J = J - 1;
             if (JP2 != JJ && J >= 1) CALL CSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
             JJ = J + 1;
-            if (JP1 != JJ && KSTEP == 2) CALL CSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J >= 1 ) GO TO 120;
+            if (JP1 != JJ && KSTEP == 2) CALL CSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA );
+         IF( J >= 1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 

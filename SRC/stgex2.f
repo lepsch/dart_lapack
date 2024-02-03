@@ -51,7 +51,8 @@
 
       // Quick return if possible
 
-      if (N <= 1 || N1 <= 0 || N2 <= 0) RETURN       IF( N1 > N || ( J1+N1 ) > N ) RETURN;
+      if (N <= 1 || N1 <= 0 || N2 <= 0) RETURN;
+      IF( N1 > N || ( J1+N1 ) > N ) RETURN;
       M = N1 + N2;
       if ( LWORK < MAX( N*M, M*M*2 ) ) {
          INFO = -16;
@@ -167,7 +168,8 @@
 
          // Accumulate transformations into Q and Z if requested.
 
-         if (WANTZ) CALL SROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) )          IF( WANTQ ) CALL SROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, LI( 1, 1 ), LI( 2, 1 ) );
+         if (WANTZ) CALL SROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
+         IF( WANTQ ) CALL SROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, LI( 1, 1 ), LI( 2, 1 ) );
 
          // Exit with INFO = 0 if swap was successfully performed.
 

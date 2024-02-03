@@ -179,7 +179,7 @@
       GO TO 40;
       } // 50
       IWORK( P+1 ) = M + 1;
-      IF( IWORK( P ) == IWORK( P+1 ) ) P = P - 1;
+      if( IWORK( P ) == IWORK( P+1 ) ) P = P - 1;
 
       // Determine block structure of B
 
@@ -196,7 +196,7 @@
 
       } // 70
       IWORK( Q+1 ) = N + 1;
-      IF( IWORK( Q ) == IWORK( Q+1 ) ) Q = Q - 1;
+      if( IWORK( Q ) == IWORK( Q+1 ) ) Q = Q - 1;
 
       if ( NOTRAN ) {
          for (IROUND = 1; IROUND <= ISOLVE; IROUND++) { // 150

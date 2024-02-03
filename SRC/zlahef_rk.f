@@ -82,7 +82,7 @@
 
          // Exit from loop
 
-         IF( ( K <= N-NB+1 && NB < N ) || K < 1 ) GO TO 30;
+         if( ( K <= N-NB+1 && NB < N ) || K < 1 ) GO TO 30;
 
          KSTEP = 1;
          P = K;
@@ -503,7 +503,7 @@
 
          // Exit from loop
 
-         IF( ( K >= NB && NB < N ) || K > N ) GO TO 90;
+         if( ( K >= NB && NB < N ) || K > N ) GO TO 90;
 
          KSTEP = 1;
          P = K;

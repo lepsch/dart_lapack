@@ -103,12 +103,12 @@
 
       KBL = MIN( 8, N );
       NBLR = N1 / KBL;
-      IF( ( NBLR*KBL ) != N1 )NBLR = NBLR + 1;
+      if( ( NBLR*KBL ) != N1 )NBLR = NBLR + 1;
 
       // .. the tiling is nblr-by-nblc [tiles]
 
       NBLC = ( N-N1 ) / KBL;
-      IF( ( NBLC*KBL ) != ( N-N1 ) )NBLC = NBLC + 1;
+      if( ( NBLC*KBL ) != ( N-N1 ) )NBLC = NBLC + 1;
       BLSKIP = ( KBL**2 ) + 1;
 // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
 
@@ -315,7 +315,9 @@
 
             // In the case of cancellation in updating SVA(q)
             // .. recompute SVA(q)
-                              IF( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) THEN                                     SVA( q ) = DNRM2( M, A( 1, q ), 1 )* D( q );
+                              if( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) {
+                                 if( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
+                                    SVA( q ) = DNRM2( M, A( 1, q ), 1 )* D( q );
                                  } else {
                                     T = ZERO;
                                     AAQQ = ONE;
@@ -324,7 +326,8 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 )**2 <= ROOTEPS ) {
-                                 IF( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) THEN                                     AAPP = DNRM2( M, A( 1, p ), 1 )* D( p );
+                                 if( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
+                                    AAPP = DNRM2( M, A( 1, p ), 1 )* D( p );
                                  } else {
                                     T = ZERO;
                                     AAPP = ONE;
@@ -396,7 +399,7 @@
 
       // Additional steering devices
 
-         IF( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
+         if( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
           if ( ( i > SWBAND+1 ) && ( MXAAPQ < DBLE( N )*TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994;
          }

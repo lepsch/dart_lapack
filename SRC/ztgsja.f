@@ -86,7 +86,9 @@
 
       // Initialize U, V and Q, if necessary
 
-      if (INITU) CALL ZLASET( 'Full', M, M, CZERO, CONE, U, LDU )       IF( INITV ) CALL ZLASET( 'Full', P, P, CZERO, CONE, V, LDV )       IF( INITQ ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ );
+      if (INITU) CALL ZLASET( 'Full', M, M, CZERO, CONE, U, LDU );
+      if( INITV ) CALL ZLASET( 'Full', P, P, CZERO, CONE, V, LDV );
+      IF( INITQ ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ );
 
       // Loop until convergence
 
@@ -101,7 +103,8 @@
                A1 = ZERO;
                A2 = CZERO;
                A3 = ZERO;
-               if (K+I <= M) A1 = DBLE( A( K+I, N-L+I ) )                IF( K+J <= M ) A3 = DBLE( A( K+J, N-L+J ) );
+               if (K+I <= M) A1 = DBLE( A( K+I, N-L+I ) );
+               IF( K+J <= M ) A3 = DBLE( A( K+J, N-L+J ) );
 
                B1 = DBLE( B( I, N-L+I ) );
                B3 = DBLE( B( J, N-L+J ) );
@@ -141,7 +144,8 @@
 
                // Ensure that the diagonal elements of A and B are real.
 
-               if (K+I <= M) A( K+I, N-L+I ) = DBLE( A( K+I, N-L+I ) )                IF( K+J <= M ) A( K+J, N-L+J ) = DBLE( A( K+J, N-L+J ) );
+               if (K+I <= M) A( K+I, N-L+I ) = DBLE( A( K+I, N-L+I ) );
+               IF( K+J <= M ) A( K+J, N-L+J ) = DBLE( A( K+J, N-L+J ) );
                B( I, N-L+I ) = DBLE( B( I, N-L+I ) );
                B( J, N-L+J ) = DBLE( B( J, N-L+J ) );
 
@@ -172,7 +176,7 @@
                ERROR = MAX( ERROR, SSMIN );
             } // 30
 
-            IF( ABS( ERROR ) <= MIN( TOLA, TOLB ) ) GO TO 50;
+            if( ABS( ERROR ) <= MIN( TOLA, TOLB ) ) GO TO 50;
          }
 
          // End of cycle loop

@@ -71,9 +71,9 @@
       MINWRK = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MVAL( J ) );
-         IF( MVAL( J ) < 0 ) BADMM = true;
+         if( MVAL( J ) < 0 ) BADMM = true;
          NMAX = MAX( NMAX, NVAL( J ) );
-         IF( NVAL( J ) < 0 ) BADNN = true;
+         if( NVAL( J ) < 0 ) BADNN = true;
          MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) );
          MINWRK = MAX( MINWRK, 3*( MVAL( J )+NVAL( J ) ), MVAL( J )*( MVAL( J )+MAX( MVAL( J ), NVAL( J ), NRHS )+1 )+NVAL( J )*MIN( NVAL( J ), MVAL( J ) ) );
       } // 10
@@ -138,7 +138,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 290
-            IF( !DOTYPE( JTYPE ) ) GO TO 290;
+            if( !DOTYPE( JTYPE ) ) GO TO 290;
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J );
@@ -410,10 +410,11 @@
 
             RESULT( 8 ) = ZERO;
             for (I = 1; I <= MNMIN - 1; I++) { // 110
-               IF( S1( I ) < S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 8 ) = ULPINV;
+               if( S1( I ) < S1( I+1 ) ) RESULT( 8 ) = ULPINV;
+               IF( S1( I ) < ZERO ) RESULT( 8 ) = ULPINV;
             } // 110
             if ( MNMIN >= 1 ) {
-               IF( S1( MNMIN ) < ZERO ) RESULT( 8 ) = ULPINV;
+               if( S1( MNMIN ) < ZERO ) RESULT( 8 ) = ULPINV;
             }
 
             // Test 9:  Compare DBDSQR with and without singular vectors
@@ -518,10 +519,11 @@
 
             RESULT( 18 ) = ZERO;
             for (I = 1; I <= MNMIN - 1; I++) { // 150
-               IF( S1( I ) < S1( I+1 ) ) RESULT( 18 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 18 ) = ULPINV;
+               if( S1( I ) < S1( I+1 ) ) RESULT( 18 ) = ULPINV;
+               IF( S1( I ) < ZERO ) RESULT( 18 ) = ULPINV;
             } // 150
             if ( MNMIN >= 1 ) {
-               IF( S1( MNMIN ) < ZERO ) RESULT( 18 ) = ULPINV;
+               if( S1( MNMIN ) < ZERO ) RESULT( 18 ) = ULPINV;
             }
 
             // Test 19:  Compare DBDSQR with and without singular vectors
@@ -626,10 +628,11 @@
 
             RESULT( 23 ) = ZERO;
             for (I = 1; I <= MNMIN - 1; I++) { // 180
-               IF( S1( I ) < S1( I+1 ) ) RESULT( 23 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 23 ) = ULPINV;
+               if( S1( I ) < S1( I+1 ) ) RESULT( 23 ) = ULPINV;
+               IF( S1( I ) < ZERO ) RESULT( 23 ) = ULPINV;
             } // 180
             if ( MNMIN >= 1 ) {
-               IF( S1( MNMIN ) < ZERO ) RESULT( 23 ) = ULPINV;
+               if( S1( MNMIN ) < ZERO ) RESULT( 23 ) = ULPINV;
             }
 
             TEMP2 = ZERO;
@@ -720,10 +723,11 @@
 
             RESULT( 28 ) = ZERO;
             for (I = 1; I <= NS1 - 1; I++) { // 220
-               IF( S1( I ) < S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 28 ) = ULPINV;
+               if( S1( I ) < S1( I+1 ) ) RESULT( 28 ) = ULPINV;
+               IF( S1( I ) < ZERO ) RESULT( 28 ) = ULPINV;
             } // 220
             if ( NS1 >= 1 ) {
-               IF( S1( NS1 ) < ZERO ) RESULT( 28 ) = ULPINV;
+               if( S1( NS1 ) < ZERO ) RESULT( 28 ) = ULPINV;
             }
 
             TEMP2 = ZERO;
@@ -818,10 +822,11 @@
 
             RESULT( 33 ) = ZERO;
             for (I = 1; I <= NS1 - 1; I++) { // 250
-               IF( S1( I ) < S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 28 ) = ULPINV;
+               if( S1( I ) < S1( I+1 ) ) RESULT( 28 ) = ULPINV;
+               IF( S1( I ) < ZERO ) RESULT( 28 ) = ULPINV;
             } // 250
             if ( NS1 >= 1 ) {
-               IF( S1( NS1 ) < ZERO ) RESULT( 28 ) = ULPINV;
+               if( S1( NS1 ) < ZERO ) RESULT( 28 ) = ULPINV;
             }
 
             TEMP2 = ZERO;
@@ -837,7 +842,8 @@
 
             for (J = 1; J <= 34; J++) { // 280
                if ( RESULT( J ) >= THRESH ) {
-                  if (NFAIL == 0) CALL DLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
+                  if (NFAIL == 0) CALL DLAHD2( NOUT, PATH );
+                  WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
                   NFAIL = NFAIL + 1;
                }
             } // 280

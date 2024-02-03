@@ -192,7 +192,7 @@
       for (I = 1; I <= NNB; I++) { // 60
          NB = NBVAL( I );
          for (J = 1; J <= NNB2; J++) { // 50
-            IF( NB == NBVAL2( J ) ) GO TO 60;
+            if( NB == NBVAL2( J ) ) GO TO 60;
          } // 50
          NNB2 = NNB2 + 1;
          NBVAL2( NNB2 ) = NB;
@@ -276,7 +276,8 @@
       I = 3;
       } // 90
       I = I + 1;
-      if (I > 72) GO TO 130       IF( ALINE( I: I ) == ' ' ) GO TO 90;
+      if (I > 72) GO TO 130;
+      IF( ALINE( I: I ) == ' ' ) GO TO 90;
       NMATS = 0;
       } // 100
       C1 = ALINE( I: I );

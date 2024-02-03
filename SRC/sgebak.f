@@ -63,7 +63,9 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN       IF( M == 0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN;
+      if (N == 0) RETURN;
+      if( M == 0 ) RETURN;
+      IF( LSAME( JOB, 'N' ) ) RETURN;
 
       if (ILO == IHI) GO TO 30;
 
@@ -97,7 +99,8 @@
          if ( RIGHTV ) {
             for (II = 1; II <= N; II++) { // 40
                I = II;
-               if (I >= ILO && I <= IHI) GO TO 40                IF( I < ILO ) I = ILO - II;
+               if (I >= ILO && I <= IHI) GO TO 40;
+               IF( I < ILO ) I = ILO - II;
                K = INT( SCALE( I ) );
                if (K == I) GO TO 40;
                sswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
@@ -107,7 +110,8 @@
          if ( LEFTV ) {
             for (II = 1; II <= N; II++) { // 50
                I = II;
-               if (I >= ILO && I <= IHI) GO TO 50                IF( I < ILO ) I = ILO - II;
+               if (I >= ILO && I <= IHI) GO TO 50;
+               IF( I < ILO ) I = ILO - II;
                K = INT( SCALE( I ) );
                if (K == I) GO TO 50;
                sswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );

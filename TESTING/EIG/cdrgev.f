@@ -73,7 +73,7 @@
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       if ( NSIZES < 0 ) {
@@ -148,7 +148,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 210
-            IF( !DOTYPE( JTYPE ) ) GO TO 210;
+            if( !DOTYPE( JTYPE ) ) GO TO 210;
             NMATS = NMATS + 1;
 
             // Save ISEED in case of an error.
@@ -310,7 +310,7 @@
             }
 
             for (J = 1; J <= N; J++) { // 120
-               IF( ALPHA( J ) != ALPHA1( J ) || BETA( J ) != BETA1( J ) )RESULT( 5 ) = ULPINV;
+               if( ALPHA( J ) != ALPHA1( J ) || BETA( J ) != BETA1( J ) )RESULT( 5 ) = ULPINV;
             } // 120
 
             // Do test (6): Compute eigenvalues and left eigenvectors,
@@ -327,12 +327,12 @@
             }
 
             for (J = 1; J <= N; J++) { // 130
-               IF( ALPHA( J ) != ALPHA1( J ) || BETA( J ) != BETA1( J ) )RESULT( 6 ) = ULPINV;
+               if( ALPHA( J ) != ALPHA1( J ) || BETA( J ) != BETA1( J ) )RESULT( 6 ) = ULPINV;
             } // 130
 
             for (J = 1; J <= N; J++) { // 150
                for (JC = 1; JC <= N; JC++) { // 140
-                  IF( Q( J, JC ) != QE( J, JC ) ) RESULT( 6 ) = ULPINV;
+                  if( Q( J, JC ) != QE( J, JC ) ) RESULT( 6 ) = ULPINV;
                } // 140
             } // 150
 
@@ -350,12 +350,12 @@
             }
 
             for (J = 1; J <= N; J++) { // 160
-               IF( ALPHA( J ) != ALPHA1( J ) || BETA( J ) != BETA1( J ) )RESULT( 7 ) = ULPINV;
+               if( ALPHA( J ) != ALPHA1( J ) || BETA( J ) != BETA1( J ) )RESULT( 7 ) = ULPINV;
             } // 160
 
             for (J = 1; J <= N; J++) { // 180
                for (JC = 1; JC <= N; JC++) { // 170
-                  IF( Z( J, JC ) != QE( J, JC ) ) RESULT( 7 ) = ULPINV;
+                  if( Z( J, JC ) != QE( J, JC ) ) RESULT( 7 ) = ULPINV;
                } // 170
             } // 180
 

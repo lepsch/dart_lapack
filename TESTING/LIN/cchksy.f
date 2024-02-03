@@ -103,7 +103,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 170;
+            if( !DOTYPE( IMAT ) ) GO TO 170;
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
@@ -309,7 +309,8 @@
 
                   for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
                   } // 110
@@ -401,7 +402,8 @@
 
                      for (K = 3; K <= 8; K++) { // 120
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }
                      } // 120
@@ -431,7 +433,8 @@
                   // the threshold.
 
                   if ( RESULT( 9 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 9, RESULT( 9 );
+                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 9, RESULT( 9 );
                      NFAIL = NFAIL + 1;
                   }
                   NRUN = NRUN + 1;

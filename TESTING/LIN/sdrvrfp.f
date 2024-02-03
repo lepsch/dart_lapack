@@ -284,7 +284,8 @@
 
                      for (K = 1; K <= NT; K++) { // 60
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, 'SPF' )                            WRITE( NOUT, FMT = 9999 )'SPFSV ', UPLO, N, IIT, K, RESULT( K );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, 'SPF' );
+                           WRITE( NOUT, FMT = 9999 )'SPFSV ', UPLO, N, IIT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }
                      } // 60

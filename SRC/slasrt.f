@@ -139,10 +139,10 @@
             } // 60
             } // 70
             J = J - 1;
-            IF( D( J ) < DMNMX ) GO TO 70;
+            if( D( J ) < DMNMX ) GO TO 70;
             } // 80
             I = I + 1;
-            IF( D( I ) > DMNMX ) GO TO 80;
+            if( D( I ) > DMNMX ) GO TO 80;
             if ( I < J ) {
                TMP = D( I );
                D( I ) = D( J );
@@ -173,10 +173,10 @@
             } // 90
             } // 100
             J = J - 1;
-            IF( D( J ) > DMNMX ) GO TO 100;
+            if( D( J ) > DMNMX ) GO TO 100;
             } // 110
             I = I + 1;
-            IF( D( I ) < DMNMX ) GO TO 110;
+            if( D( I ) < DMNMX ) GO TO 110;
             if ( I < J ) {
                TMP = D( I );
                D( I ) = D( J );

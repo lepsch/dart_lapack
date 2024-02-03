@@ -75,7 +75,8 @@
 
       // Initialize Q and P**H to the unit matrix, if needed
 
-      if (WANTQ) CALL ZLASET( 'Full', M, M, CZERO, CONE, Q, LDQ )       IF( WANTPT ) CALL ZLASET( 'Full', N, N, CZERO, CONE, PT, LDPT );
+      if (WANTQ) CALL ZLASET( 'Full', M, M, CZERO, CONE, Q, LDQ );
+      IF( WANTPT ) CALL ZLASET( 'Full', N, N, CZERO, CONE, PT, LDPT );
 
       // Quick return if possible.
 
@@ -267,7 +268,8 @@
                AB( 2, I ) = RS*AB( 1, I+1 );
                AB( 1, I+1 ) = RC*AB( 1, I+1 );
             }
-            if (WANTQ) CALL ZROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, DCONJG( RS ) )             IF( WANTC ) CALL ZROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );
+            if (WANTQ) CALL ZROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, DCONJG( RS ) );
+            IF( WANTC ) CALL ZROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );
          } // 100
       } else {
 
@@ -304,7 +306,8 @@
          } else {
             T = CONE;
          }
-         if (WANTQ) CALL ZSCAL( M, T, Q( 1, I ), 1 )          IF( WANTC ) CALL ZSCAL( NCC, DCONJG( T ), C( I, 1 ), LDC );
+         if (WANTQ) CALL ZSCAL( M, T, Q( 1, I ), 1 );
+         IF( WANTC ) CALL ZSCAL( NCC, DCONJG( T ), C( I, 1 ), LDC );
          if ( I < MINMN ) {
             if ( KU == 0 && KL == 0 ) {
                E( I ) = ZERO;

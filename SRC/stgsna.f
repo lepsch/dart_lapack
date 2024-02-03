@@ -82,13 +82,13 @@
                } else {
                   if ( K < N ) {
                      if ( A( K+1, K ) == ZERO ) {
-                        IF( SELECT( K ) ) M = M + 1;
+                        if( SELECT( K ) ) M = M + 1;
                      } else {
                         PAIR = true;
-                        IF( SELECT( K ) || SELECT( K+1 ) ) M = M + 2;
+                        if( SELECT( K ) || SELECT( K+1 ) ) M = M + 2;
                      }
                   } else {
-                     IF( SELECT( N ) ) M = M + 1;
+                     if( SELECT( N ) ) M = M + 1;
                   }
                }
             } // 10
@@ -146,9 +146,9 @@
 
          if ( SOMCON ) {
             if ( PAIR ) {
-               IF( !SELECT( K ) && !SELECT( K+1 ) ) GO TO 20;
+               if( !SELECT( K ) && !SELECT( K+1 ) ) GO TO 20;
             } else {
-               IF( !SELECT( K ) ) GO TO 20;
+               if( !SELECT( K ) ) GO TO 20;
             }
          }
 
@@ -260,7 +260,7 @@
                // and compute estimate of Difl((A11,B11), (A22, B22)).
 
                N1 = 1;
-               IF( WORK( 2 ) != ZERO ) N1 = 2;
+               if( WORK( 2 ) != ZERO ) N1 = 2;
                N2 = N - N1;
                if ( N2 == 0 ) {
                   DIF( KS ) = COND;

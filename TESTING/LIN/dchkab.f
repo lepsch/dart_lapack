@@ -170,7 +170,7 @@
          NMATS = MATMAX;
          GO TO 130;
       }
-      IF( ALINE( I: I ) == ' ' ) GO TO 90;
+      if( ALINE( I: I ) == ' ' ) GO TO 90;
       NMATS = 0;
       } // 100
       C1 = ALINE( I: I );
@@ -193,7 +193,8 @@
 
       // Check first character for correct precision.
 
-      if ( !LSAME( C1, 'double          ' ) ) {
+      if ( !LSAME( C1, 'double;
+         ' ) ) {
          WRITE( NOUT, FMT = 9990 )PATH;
 
 

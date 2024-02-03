@@ -89,7 +89,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 130;
+            if( !DOTYPE( IMAT ) ) GO TO 130;
 
             // Set up parameters with SLATB4.
 
@@ -301,7 +301,8 @@
 
                      for (K = 2; K <= NT; K++) { // 80
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'SGTSV ', N, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           WRITE( NOUT, FMT = 9999 )'SGTSV ', N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }
                      } // 80
@@ -364,7 +365,8 @@
 
                   for (K = K1; K <= NT; K++) { // 100
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'SGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                        WRITE( NOUT, FMT = 9998 )'SGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
                   } // 100
@@ -373,7 +375,8 @@
 
                   RESULT( 6 ) = SGET06( RCOND, RCONDC );
                   if ( RESULT( 6 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'SGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
+                     if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                     WRITE( NOUT, FMT = 9998 )'SGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1;
                   }
                   NRUN = NRUN + NT - K1 + 2;

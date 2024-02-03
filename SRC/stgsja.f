@@ -82,7 +82,9 @@
 
       // Initialize U, V and Q, if necessary
 
-      if (INITU) CALL SLASET( 'Full', M, M, ZERO, ONE, U, LDU )       IF( INITV ) CALL SLASET( 'Full', P, P, ZERO, ONE, V, LDV )       IF( INITQ ) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ );
+      if (INITU) CALL SLASET( 'Full', M, M, ZERO, ONE, U, LDU );
+      if( INITV ) CALL SLASET( 'Full', P, P, ZERO, ONE, V, LDV );
+      IF( INITQ ) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ );
 
       // Loop until convergence
 
@@ -97,7 +99,8 @@
                A1 = ZERO;
                A2 = ZERO;
                A3 = ZERO;
-               if (K+I <= M) A1 = A( K+I, N-L+I )                IF( K+J <= M ) A3 = A( K+J, N-L+J );
+               if (K+I <= M) A1 = A( K+I, N-L+I );
+               IF( K+J <= M ) A3 = A( K+J, N-L+J );
 
                B1 = B( I, N-L+I );
                B3 = B( J, N-L+J );
@@ -162,7 +165,7 @@
                ERROR = MAX( ERROR, SSMIN );
             } // 30
 
-            IF( ABS( ERROR ) <= MIN( TOLA, TOLB ) ) GO TO 50;
+            if( ABS( ERROR ) <= MIN( TOLA, TOLB ) ) GO TO 50;
          }
 
          // End of cycle loop

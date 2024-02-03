@@ -112,7 +112,7 @@
          SCALE = SCALEL*SCALEU;
          if ( SCALE != ONE ) {
             IX = IZAMAX( N, WORK, 1 );
-            IF( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20;
+            if( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20;
             zdrscl(N, SCALE, WORK, 1 );
          }
          GO TO 10;

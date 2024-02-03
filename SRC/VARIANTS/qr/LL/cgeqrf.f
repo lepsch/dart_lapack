@@ -96,7 +96,7 @@
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4;
       } else if ( !LQUERY ) {
-         IF( LWORK <= 0 || ( M > 0 && LWORK < MAX( 1, N ) ) ) INFO = -7;
+         if( LWORK <= 0 || ( M > 0 && LWORK < MAX( 1, N ) ) ) INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('CGEQRF', -INFO );

@@ -139,7 +139,8 @@
          VRMX = ZERO;
          for (JJ = 1; JJ <= N; JJ++) { // 20
             VTST = ABS( VR( JJ, J ) );
-            if (VTST > VMX) VMX = VTST             IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
+            if (VTST > VMX) VMX = VTST;
+            IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
          } // 20
          if (VRMX / VMX < ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
       } // 30
@@ -153,7 +154,8 @@
          VRMX = ZERO;
          for (JJ = 1; JJ <= N; JJ++) { // 40
             VTST = ABS( VL( JJ, J ) );
-            if (VTST > VMX) VMX = VTST             IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
+            if (VTST > VMX) VMX = VTST;
+            IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
          } // 40
          if (VRMX / VMX < ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
       } // 50
@@ -182,23 +184,25 @@
          // Do Test (5)
 
          for (J = 1; J <= N; J++) { // 60
-            IF( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV;
+            if( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV;
          } // 60
 
          // Do Test (8)
 
          if ( !NOBAL ) {
             for (J = 1; J <= N; J++) { // 70
-               IF( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV;
+               if( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV;
             } // 70
-            if (ILO != ILO1) RESULT( 8 ) = ULPINV             IF( IHI != IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM != ABNRM1 ) RESULT( 8 ) = ULPINV;
+            if (ILO != ILO1) RESULT( 8 ) = ULPINV;
+            if( IHI != IHI1 ) RESULT( 8 ) = ULPINV;
+            IF( ABNRM != ABNRM1 ) RESULT( 8 ) = ULPINV;
          }
 
          // Do Test (9)
 
          if ( ISENS == 2 && N > 1 ) {
             for (J = 1; J <= N; J++) { // 80
-               IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV;
+               if( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV;
             } // 80
          }
 
@@ -220,14 +224,14 @@
          // Do Test (5) again
 
          for (J = 1; J <= N; J++) { // 90
-            IF( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV;
+            if( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV;
          } // 90
 
          // Do Test (6)
 
          for (J = 1; J <= N; J++) { // 110
             for (JJ = 1; JJ <= N; JJ++) { // 100
-               IF( VR( J, JJ ) != LRE( J, JJ ) ) RESULT( 6 ) = ULPINV;
+               if( VR( J, JJ ) != LRE( J, JJ ) ) RESULT( 6 ) = ULPINV;
             } // 100
          } // 110
 
@@ -235,16 +239,18 @@
 
          if ( !NOBAL ) {
             for (J = 1; J <= N; J++) { // 120
-               IF( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV;
+               if( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV;
             } // 120
-            if (ILO != ILO1) RESULT( 8 ) = ULPINV             IF( IHI != IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM != ABNRM1 ) RESULT( 8 ) = ULPINV;
+            if (ILO != ILO1) RESULT( 8 ) = ULPINV;
+            if( IHI != IHI1 ) RESULT( 8 ) = ULPINV;
+            IF( ABNRM != ABNRM1 ) RESULT( 8 ) = ULPINV;
          }
 
          // Do Test (9) again
 
          if ( ISENS == 2 && N > 1 ) {
             for (J = 1; J <= N; J++) { // 130
-               IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV;
+               if( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV;
             } // 130
          }
 
@@ -266,14 +272,14 @@
          // Do Test (5) again
 
          for (J = 1; J <= N; J++) { // 140
-            IF( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV;
+            if( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV;
          } // 140
 
          // Do Test (7)
 
          for (J = 1; J <= N; J++) { // 160
             for (JJ = 1; JJ <= N; JJ++) { // 150
-               IF( VL( J, JJ ) != LRE( J, JJ ) ) RESULT( 7 ) = ULPINV;
+               if( VL( J, JJ ) != LRE( J, JJ ) ) RESULT( 7 ) = ULPINV;
             } // 150
          } // 160
 
@@ -281,16 +287,18 @@
 
          if ( !NOBAL ) {
             for (J = 1; J <= N; J++) { // 170
-               IF( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV;
+               if( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV;
             } // 170
-            if (ILO != ILO1) RESULT( 8 ) = ULPINV             IF( IHI != IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM != ABNRM1 ) RESULT( 8 ) = ULPINV;
+            if (ILO != ILO1) RESULT( 8 ) = ULPINV;
+            if( IHI != IHI1 ) RESULT( 8 ) = ULPINV;
+            IF( ABNRM != ABNRM1 ) RESULT( 8 ) = ULPINV;
          }
 
          // Do Test (9) again
 
          if ( ISENS == 2 && N > 1 ) {
             for (J = 1; J <= N; J++) { // 180
-               IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV;
+               if( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV;
             } // 180
          }
 

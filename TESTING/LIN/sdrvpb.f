@@ -131,7 +131,7 @@
 
                   // Do the tests only if DOTYPE( IMAT ) is true.
 
-                  IF( !DOTYPE( IMAT ) ) GO TO 80;
+                  if( !DOTYPE( IMAT ) ) GO TO 80;
 
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
@@ -339,7 +339,8 @@
 
                            for (K = 1; K <= NT; K++) { // 30
                               if ( RESULT( K ) >= THRESH ) {
-                                 if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                                  WRITE( NOUT, FMT = 9999 )'SPBSV ', UPLO, N, KD, IMAT, K, RESULT( K );
+                                 if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                                 WRITE( NOUT, FMT = 9999 )'SPBSV ', UPLO, N, KD, IMAT, K, RESULT( K );
                                  NFAIL = NFAIL + 1;
                               }
                            } // 30
@@ -391,7 +392,7 @@
 
                            // Check solution from generated exact solution.
 
-                           IF( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                           if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                               sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                            } else {
                               sget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );

@@ -114,7 +114,7 @@
          SCALE = SCALEL*SCALEU;
          if ( SCALE != ONE ) {
             IX = ICAMAX( N, WORK, 1 );
-            IF( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20;
+            if( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20;
             csrscl(N, SCALE, WORK, 1 );
          }
          GO TO 10;

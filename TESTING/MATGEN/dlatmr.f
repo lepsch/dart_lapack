@@ -158,7 +158,7 @@
       DZERO = false;
       if ( IGRADE == 4 && MODEL == 0 ) {
          for (I = 1; I <= M; I++) { // 10
-            IF( DL( I ) == ZERO ) DZERO = true;
+            if( DL( I ) == ZERO ) DZERO = true;
          } // 10
       }
 
@@ -167,7 +167,7 @@
       BADPVT = false;
       if ( IPVTNG > 0 ) {
          for (J = 1; J <= NPVTS; J++) { // 20
-            IF( IPIVOT( J ) <= 0 || IPIVOT( J ) > NPVTS ) BADPVT = true;
+            if( IPIVOT( J ) <= 0 || IPIVOT( J ) > NPVTS ) BADPVT = true;
          } // 20
       }
 
@@ -444,7 +444,8 @@
                      MNSUB = MIN( ISUB, JSUB );
                      MXSUB = MAX( ISUB, JSUB );
                      A( MNSUB-MXSUB+KUU+1, MXSUB ) = TEMP;
-                     if (I < 1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I >= 1 && MNSUB != MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP;
+                     if (I < 1) A( J-I+1+KUU, I+N ) = ZERO;
+                     IF( I >= 1 && MNSUB != MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP;
                   } // 250
                } // 260
             } else if ( ISYM == 1 ) {
@@ -572,7 +573,8 @@
                for (J = 1; J <= N; J++) { // 480
                   for (I = J - KUU; I <= J; I++) { // 470
                      A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     if (I < 1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I >= 1 && I != J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J );
+                     if (I < 1) A( J-I+1+KUU, I+N ) = ZERO;
+                     IF( I >= 1 && I != J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J );
                   } // 470
                } // 480
             } else if ( ISYM == 1 ) {

@@ -68,7 +68,7 @@
       if ( INFO == 0 || INFO == -10 ) {
 
          TPSD = true;
-         IF( LSAME( TRANS, 'N' ) ) TPSD = false;
+         if( LSAME( TRANS, 'N' ) ) TPSD = false;
 
          if ( M >= N ) {
             NB = ILAENV( 1, 'CGEQRF', ' ', M, N, -1, -1 );

@@ -56,7 +56,7 @@
          return;
       }
       UP = false;
-      IF ( LSAME( UPLO, 'U' ) ) UP = true;
+      if ( LSAME( UPLO, 'U' ) ) UP = true;
 
       // Compute the equilibration matrix R such that
       // inv(R)*A*C has unit 1-norm.

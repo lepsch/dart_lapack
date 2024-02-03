@@ -137,7 +137,7 @@
       caxpy(N, -CONE, XM, 1, RHS, 1 );
       cgesc2(N, Z, LDZ, RHS, IPIV, JPIV, SCALE );
       cgesc2(N, Z, LDZ, XP, IPIV, JPIV, SCALE );
-      IF( SCASUM( N, XP, 1 ) > SCASUM( N, RHS, 1 ) ) CALL CCOPY( N, XP, 1, RHS, 1 );
+      if( SCASUM( N, XP, 1 ) > SCASUM( N, RHS, 1 ) ) CALL CCOPY( N, XP, 1, RHS, 1 );
 
       // Compute the sum of squares
 

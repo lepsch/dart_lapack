@@ -45,7 +45,7 @@
          for (J = 1; J <= N; J++) { // 20
             DO 10 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 );
                TEMP = ABS( AB( I, J ) );
-               IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+               if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
             } // 10
          } // 20
       } else if ( ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
@@ -58,7 +58,7 @@
             DO 30 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 );
                SUM = SUM + ABS( AB( I, J ) );
             } // 30
-            IF( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
+            if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
          } // 40
       } else if ( LSAME( NORM, 'I' ) ) {
 
@@ -76,7 +76,7 @@
          VALUE = ZERO;
          for (I = 1; I <= N; I++) { // 80
             TEMP = WORK( I );
-            IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+            if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
          } // 80
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 

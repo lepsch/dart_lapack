@@ -148,7 +148,7 @@
          NORMIN = 'Y';
          if ( SCALE != ONE ) {
             IX = IZAMAX( N, WORK, 1 );
-            IF( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 40;
+            if( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 40;
             zdrscl(N, SCALE, WORK, 1 );
          }
          GO TO 10;

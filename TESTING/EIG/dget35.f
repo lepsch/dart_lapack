@@ -73,7 +73,10 @@
                         for (IMLOFF = 1; IMLOFF <= 2; IMLOFF++) { // 90
                            for (IMB = 1; IMB <= 8; IMB++) { // 80
                               for (IMLDB1 = 1; IMLDB1 <= 3; IMLDB1++) { // 70
-                                 if (ITRANA == 1) TRANA = 'N'                                  IF( ITRANA == 2 ) TRANA = 'T'                                  IF( ITRANB == 1 ) TRANB = 'N'                                  IF( ITRANB == 2 ) TRANB = 'T';
+                                 if (ITRANA == 1) TRANA = 'N';
+                                 if( ITRANA == 2 ) TRANA = 'T';
+                                 if( ITRANB == 1 ) TRANB = 'N';
+                                 IF( ITRANB == 2 ) TRANB = 'T';
                                  M = IDIM( IMA );
                                  N = IDIM( IMB );
                                  TNRM = ZERO;

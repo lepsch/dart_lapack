@@ -281,7 +281,7 @@
          QMIN = Z( 4*N0-3 );
          QMAX = QMIN;
          DO 90 I4 = 4*N0, 8, -4;
-            IF( Z( I4-5 ) <= ZERO ) GO TO 100;
+            if( Z( I4-5 ) <= ZERO ) GO TO 100;
             if ( QMIN >= FOUR*EMAX ) {
                QMIN = MIN( QMIN, Z( I4-3 ) );
                EMAX = MAX( EMAX, Z( I4-5 ) );

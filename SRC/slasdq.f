@@ -39,7 +39,8 @@
 
       INFO = 0;
       IUPLO = 0;
-      IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2;
+      if( LSAME( UPLO, 'U' ) ) IUPLO = 1;
+      IF( LSAME( UPLO, 'L' ) ) IUPLO = 2;
       if ( IUPLO == 0 ) {
          INFO = -1;
       } else if ( ( SQRE < 0 ) || ( SQRE > 1 ) ) {
@@ -171,7 +172,9 @@
 
             D( ISUB ) = D( I );
             D( I ) = SMIN;
-            if (NCVT > 0) CALL SSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT )             IF( NRU > 0 ) CALL SSWAP( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 )             IF( NCC > 0 ) CALL SSWAP( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC );
+            if (NCVT > 0) CALL SSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT );
+            if( NRU > 0 ) CALL SSWAP( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 );
+            IF( NCC > 0 ) CALL SSWAP( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC );
          }
       } // 40
 

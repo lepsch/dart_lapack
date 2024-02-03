@@ -718,7 +718,8 @@
          }
 
       } else {
-         if (DXV) C3 = 'DXV'          IF( DGX ) C3 = 'DGX';
+         if (DXV) C3 = 'DXV';
+         IF( DGX ) C3 = 'DGX';
       }
 
       // Reset the random number seed.
@@ -876,7 +877,8 @@
 
          // Test the error exits
 
-         if (TSTERR && TSTCHK) CALL DERRBD( 'DBD', NOUT )          IF( TSTERR && TSTDRV ) CALL DERRED( 'DBD', NOUT );
+         if (TSTERR && TSTCHK) CALL DERRBD( 'DBD', NOUT );
+         IF( TSTERR && TSTDRV ) CALL DERRED( 'DBD', NOUT );
 
          for (I = 1; I <= NPARMS; I++) { // 330
             NRHS = NSVAL( I );
@@ -1207,7 +1209,7 @@
          WRITE( NOUT, FMT = * );
          WRITE( NOUT, FMT = 9992 )C3;
       }
-      IF( !( DGX || DXV ) ) GO TO 190;
+      if( !( DGX || DXV ) ) GO TO 190;
       } // 380
       WRITE( NOUT, FMT = 9994 );
       S2 = DSECND( );

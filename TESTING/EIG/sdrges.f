@@ -69,7 +69,7 @@
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       if ( NSIZES < 0 ) {
@@ -144,7 +144,7 @@
          // Loop over matrix types
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 180
-            IF( !DOTYPE( JTYPE ) ) GO TO 180;
+            if( !DOTYPE( JTYPE ) ) GO TO 180;
             NMATS = NMATS + 1;
             NTEST = 0;
 

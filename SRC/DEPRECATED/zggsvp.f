@@ -96,7 +96,7 @@
 
       L = 0;
       DO 20 I = 1, MIN( P, N );
-         IF( CABS1( B( I, I ) ) > TOLB ) L = L + 1;
+         if( CABS1( B( I, I ) ) > TOLB ) L = L + 1;
       } // 20
 
       if ( WANTV ) {
@@ -169,7 +169,7 @@
 
       K = 0;
       DO 80 I = 1, MIN( M, N-L );
-         IF( CABS1( A( I, I ) ) > TOLA ) K = K + 1;
+         if( CABS1( A( I, I ) ) > TOLA ) K = K + 1;
       } // 80
 
       // Update A12 := U**H*A12, where A12 = A( 1:M, N-L+1:N )

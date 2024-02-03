@@ -48,7 +48,8 @@
          // EBCDIC is assumed - ZCODE is the EBCDIC code of either lower or
          // upper case 'Z'.
 
-         if (INTA >= 129 && INTA <= 137 || INTA >= 145 && INTA <= 153 || INTA >= 162 && INTA <= 169) INTA = INTA + 64          IF( INTB >= 129 && INTB <= 137 || INTB >= 145 && INTB <= 153 || INTB >= 162 && INTB <= 169 ) INTB = INTB + 64;
+         if (INTA >= 129 && INTA <= 137 || INTA >= 145 && INTA <= 153 || INTA >= 162 && INTA <= 169) INTA = INTA + 64;
+         IF( INTB >= 129 && INTB <= 137 || INTB >= 145 && INTB <= 153 || INTB >= 162 && INTB <= 169 ) INTB = INTB + 64;
 
       } else if ( ZCODE == 218 || ZCODE == 250 ) {
 

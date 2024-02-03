@@ -354,7 +354,7 @@
          dggbak(BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR );
 
          for (JC = 1; JC <= N; JC++) { // 70
-            IF( ALPHAI( JC ) < ZERO ) GO TO 70;
+            if( ALPHAI( JC ) < ZERO ) GO TO 70;
             TEMP = ZERO;
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 30
@@ -382,7 +382,7 @@
       if ( ILVR ) {
          dggbak(BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR );
          for (JC = 1; JC <= N; JC++) { // 120
-            IF( ALPHAI( JC ) < ZERO ) GO TO 120;
+            if( ALPHAI( JC ) < ZERO ) GO TO 120;
             TEMP = ZERO;
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 80

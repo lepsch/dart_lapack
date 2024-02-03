@@ -62,7 +62,8 @@
       ctrexc('N', N, T1, LDT, Q, LDT, IFST, ILST, INFO1 );
       for (I = 1; I <= N; I++) { // 40
          for (J = 1; J <= N; J++) { // 30
-            IF( I == J && Q( I, J ) != CONE ) RES = RES + ONE / EPS             IF( I != J && Q( I, J ) != CZERO ) RES = RES + ONE / EPS;
+            if( I == J && Q( I, J ) != CONE ) RES = RES + ONE / EPS;
+            IF( I != J && Q( I, J ) != CZERO ) RES = RES + ONE / EPS;
          } // 30
       } // 40
 
@@ -75,10 +76,11 @@
 
       for (I = 1; I <= N; I++) { // 60
          for (J = 1; J <= N; J++) { // 50
-            IF( T1( I, J ) != T2( I, J ) ) RES = RES + ONE / EPS;
+            if( T1( I, J ) != T2( I, J ) ) RES = RES + ONE / EPS;
          } // 50
       } // 60
-      if (INFO1 != 0 || INFO2 != 0) NINFO = NINFO + 1       IF( INFO1 != INFO2 ) RES = RES + ONE / EPS;
+      if (INFO1 != 0 || INFO2 != 0) NINFO = NINFO + 1;
+      IF( INFO1 != INFO2 ) RES = RES + ONE / EPS;
 
       // Test for successful reordering of T2
 
@@ -97,7 +99,7 @@
          } // 80
       }
       for (I = 1; I <= N; I++) { // 90
-         IF( T2( I, I ) != DIAG( I ) ) RES = RES + ONE / EPS;
+         if( T2( I, I ) != DIAG( I ) ) RES = RES + ONE / EPS;
       } // 90
 
       // Test for small residual, and orthogonality of Q
@@ -109,7 +111,7 @@
 
       for (J = 1; J <= N - 1; J++) { // 110
          for (I = J + 1; I <= N; I++) { // 100
-            IF( T2( I, J ) != CZERO ) RES = RES + ONE / EPS;
+            if( T2( I, J ) != CZERO ) RES = RES + ONE / EPS;
          } // 100
       } // 110
       if ( RES > RMAX ) {

@@ -60,7 +60,7 @@
          // Just need to handle IPIV and INFO
 
          IPIV( 1 ) = 1;
-         IF ( A(1,1) == ZERO ) INFO = 1;
+         if ( A(1,1) == ZERO ) INFO = 1;
 
       } else if ( N == 1 ) {
 

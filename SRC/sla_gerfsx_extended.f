@@ -159,7 +159,8 @@
                }
                if (X_STATE > WORKING_STATE) FINAL_DX_X = DX_X;
             }
-             if (Z_STATE == UNSTABLE_STATE && DZ_Z <= DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE == NOPROG_STATE && DZRAT <= RTHRESH ) Z_STATE = WORKING_STATE;
+             if (Z_STATE == UNSTABLE_STATE && DZ_Z <= DZ_UB) Z_STATE = WORKING_STATE;
+            IF ( Z_STATE == NOPROG_STATE && DZRAT <= RTHRESH ) Z_STATE = WORKING_STATE;
             if ( Z_STATE == WORKING_STATE ) {
                if ( DZ_Z <= EPS ) {
                   Z_STATE = CONV_STATE;

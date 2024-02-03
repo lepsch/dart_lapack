@@ -113,12 +113,12 @@
 
             if ( ( !WANTVL ) && ( !WANTVR ) ) {
                MINWRK = 2*N;
-               IF( !( WNTSNN || WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N );
+               if( !( WNTSNN || WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N );
                MAXWRK = MAX( MAXWRK, HSWORK );
-               IF( !( WNTSNN || WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 2*N );
+               if( !( WNTSNN || WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 2*N );
             } else {
                MINWRK = 2*N;
-               IF( !( WNTSNN || WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N );
+               if( !( WNTSNN || WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N );
                MAXWRK = MAX( MAXWRK, HSWORK );
                MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) )                IF( !( WNTSNN || WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 2*N );
                MAXWRK = MAX( MAXWRK, 2*N );
@@ -321,7 +321,7 @@
       if ( SCALEA ) {
          zlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          if ( INFO == 0 ) {
-            IF( ( WNTSNV || WNTSNB ) && ICOND == 0 ) CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR );
+            if( ( WNTSNV || WNTSNB ) && ICOND == 0 ) CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR );
          } else {
             zlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, W, N, IERR );
          }

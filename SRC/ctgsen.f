@@ -86,9 +86,9 @@
          ALPHA( K ) = A( K, K );
          BETA( K ) = B( K, K );
          if ( K < N ) {
-            IF( SELECT( K ) ) M = M + 1;
+            if( SELECT( K ) ) M = M + 1;
          } else {
-            IF( SELECT( N ) ) M = M + 1;
+            if( SELECT( N ) ) M = M + 1;
          }
       } // 10
       }

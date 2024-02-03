@@ -109,7 +109,7 @@
       BADS = false;
       if ( MODES == 0 && ISIM == 1 ) {
          for (J = 1; J <= N; J++) { // 10
-            IF( DS( J ) == ZERO ) BADS = true;
+            if( DS( J ) == ZERO ) BADS = true;
          } // 10
       }
 
@@ -154,7 +154,7 @@
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 );
       } // 20
 
-      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
+      if( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
 
       // 2)      Set up diagonal of A
 

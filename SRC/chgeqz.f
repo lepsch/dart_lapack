@@ -135,7 +135,8 @@
 
       // Initialize Q and Z
 
-      if (ICOMPQ == 3) CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )       IF( ICOMPZ == 3 ) CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
+      if (ICOMPQ == 3) CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ );
+      IF( ICOMPZ == 3 ) CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
 
       // Machine Constants
 
@@ -256,7 +257,7 @@
 
                ILAZR2 = false;
                if ( !ILAZRO ) {
-                  IF( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1, J ) ) ) <= ABS1( H( J, J ) )*( ASCALE*ATOL ) ) ILAZR2 = true;
+                  if( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1, J ) ) ) <= ABS1( H( J, J ) )*( ASCALE*ATOL ) ) ILAZR2 = true;
                }
 
                // If both tests pass (1 & 2), i.e., the leading diagonal
@@ -405,7 +406,7 @@
                TEMP = MAX( TEMP, ABS1( X ) );
                Y = TEMP*SQRT( ( X / TEMP )**2+( CTEMP / TEMP )**2 );
                if ( TEMP2 > ZERO ) {
-                  IF( REAL( X / TEMP2 )*REAL( Y )+ AIMAG( X / TEMP2 )*AIMAG( Y ) < ZERO )Y = -Y;
+                  if( REAL( X / TEMP2 )*REAL( Y )+ AIMAG( X / TEMP2 )*AIMAG( Y ) < ZERO )Y = -Y;
                }
                SHIFT = SHIFT - CTEMP*CLADIV( CTEMP, ( X+Y ) );
             }
@@ -413,7 +414,8 @@
 
             // Exceptional shift.  Chosen for no particularly good reason.
 
-            IF( ( IITER / 20 )*20 == IITER && BSCALE*ABS1(T( ILAST, ILAST )) > SAFMIN ) THEN                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) );
+            if( ( IITER / 20 )*20 == IITER && BSCALE*ABS1(T( ILAST, ILAST )) > SAFMIN ) {
+               ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) );
             } else {
                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST-1 ) )/( BSCALE*T( ILAST-1, ILAST-1 ) );
             }
@@ -432,7 +434,7 @@
                TEMP = TEMP / TEMPR;
                TEMP2 = TEMP2 / TEMPR;
             }
-            IF( ABS1( H( J, J-1 ) )*TEMP2 <= TEMP*ATOL ) GO TO 90;
+            if( ABS1( H( J, J-1 ) )*TEMP2 <= TEMP*ATOL ) GO TO 90;
          } // 80
 
          ISTART = IFIRST;

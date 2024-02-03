@@ -62,7 +62,7 @@
       NMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
@@ -121,7 +121,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 250
-            IF( !DOTYPE( JTYPE ) ) GO TO 250;
+            if( !DOTYPE( JTYPE ) ) GO TO 250;
             NMATS = NMATS + 1;
             NTEST = 0;
 

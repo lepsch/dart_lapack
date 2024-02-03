@@ -84,7 +84,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 140;
+            if( !DOTYPE( IMAT ) ) GO TO 140;
 
                // Do for each value of RANK in RANKVAL
 
@@ -93,7 +93,7 @@
                // Only repeat test 3 to 5 for different ranks
                // Other tests use full rank
 
-               IF( ( IMAT < 3 || IMAT > 5 ) && IRANK > 1 ) GO TO 130;
+               if( ( IMAT < 3 || IMAT > 5 ) && IRANK > 1 ) GO TO 130;
 
                RANK = CEILING( ( N * REAL( RANKVAL( IRANK ) ) ) / 100.0 );
 
@@ -137,7 +137,7 @@
 
                   // Check error code from SPSTRF.
 
-                     IF( (INFO < IZERO) || (INFO != IZERO && RANK == N) || (INFO <= IZERO && RANK < N) ) THEN;
+                     if( (INFO < IZERO) || (INFO != IZERO && RANK == N) || (INFO <= IZERO && RANK < N) ) THEN;
                         alaerh(PATH, 'SPSTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 110;
                      }
@@ -158,7 +158,8 @@
                      if (N == 0) COMPRANK = 0;
                      RANKDIFF = RANK - COMPRANK;
                      if ( RESULT >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT;
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT;
                         NFAIL = NFAIL + 1;
                      }
                      NRUN = NRUN + 1;

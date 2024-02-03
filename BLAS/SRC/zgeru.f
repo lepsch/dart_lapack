@@ -50,7 +50,7 @@
 
       // Quick return if possible.
 
-      IF ((M == 0) || (N == 0) || (ALPHA == ZERO)) RETURN;
+      if ((M == 0) || (N == 0) || (ALPHA == ZERO)) RETURN;
 
       // Start the operations. In this version the elements of A are
       // accessed sequentially with one pass through A.

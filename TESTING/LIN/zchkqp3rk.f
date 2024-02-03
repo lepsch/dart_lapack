@@ -114,7 +114,7 @@
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               IF( !DOTYPE( IMAT ) ) CYCLE;
+               if( !DOTYPE( IMAT ) ) CYCLE;
 
                // The type of distribution used to generate the random
                // eigen-/singular values:
@@ -416,7 +416,8 @@
 
                      for (T = 1; T <= 1; T++) {
                         if ( RESULT( T ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                            NFAIL = NFAIL + 1;
                         }
                      }
@@ -447,7 +448,8 @@
 
                   for (T = 2; T <= 3; T++) {
                      if ( RESULT( T ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                         NFAIL = NFAIL + 1;
                      }
                   }
@@ -482,7 +484,8 @@
 
                      for (T = 4; T <= 4; T++) {
                         if ( RESULT( T ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                            NFAIL = NFAIL + 1;
                         }
                      }
@@ -522,7 +525,8 @@
 
                      for (T = 5; T <= 5; T++) {
                         if ( RESULT( T ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                            NFAIL = NFAIL + 1;
                         }
                      }

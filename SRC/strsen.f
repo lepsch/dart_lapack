@@ -74,13 +74,13 @@
             } else {
                if ( K < N ) {
                   if ( T( K+1, K ) == ZERO ) {
-                     IF( SELECT( K ) ) M = M + 1;
+                     if( SELECT( K ) ) M = M + 1;
                   } else {
                      PAIR = true;
-                     IF( SELECT( K ) || SELECT( K+1 ) ) M = M + 2;
+                     if( SELECT( K ) || SELECT( K+1 ) ) M = M + 2;
                   }
                } else {
-                  IF( SELECT( N ) ) M = M + 1;
+                  if( SELECT( N ) ) M = M + 1;
                }
             }
          } // 10
@@ -122,7 +122,8 @@
       // Quick return if possible.
 
       if ( M == N || M == 0 ) {
-         if (WANTS) S = ONE          IF( WANTSP ) SEP = SLANGE( '1', N, N, T, LDT, WORK );
+         if (WANTS) S = ONE;
+         IF( WANTSP ) SEP = SLANGE( '1', N, N, T, LDT, WORK );
          GO TO 40;
       }
 
@@ -154,7 +155,8 @@
                   // Blocks too close to swap: exit.
 
                   INFO = 1;
-                  if (WANTS) S = ZERO                   IF( WANTSP ) SEP = ZERO;
+                  if (WANTS) S = ZERO;
+                  IF( WANTSP ) SEP = ZERO;
                   GO TO 40;
                }
                if (PAIR) KS = KS + 1;

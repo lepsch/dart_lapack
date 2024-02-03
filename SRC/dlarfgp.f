@@ -77,7 +77,7 @@
             dscal(N-1, BIGNUM, X, INCX );
             BETA = BETA*BIGNUM;
             ALPHA = ALPHA*BIGNUM;
-            IF( (ABS( BETA ) < SMLNUM) && (KNT < 20) ) GO TO 10;
+            if( (ABS( BETA ) < SMLNUM) && (KNT < 20) ) GO TO 10;
 
             // New BETA is at most 1, at least SMLNUM
 

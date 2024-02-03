@@ -171,7 +171,7 @@
          NMATS = MATMAX;
          GO TO 130;
       }
-      IF( ALINE( I: I ) == ' ' ) GO TO 90;
+      if( ALINE( I: I ) == ' ' ) GO TO 90;
       NMATS = 0;
       } // 100
       C1 = ALINE( I: I );

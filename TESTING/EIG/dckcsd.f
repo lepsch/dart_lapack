@@ -73,7 +73,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 20;
+            if( !DOTYPE( IMAT ) ) GO TO 20;
 
             // Generate X
 

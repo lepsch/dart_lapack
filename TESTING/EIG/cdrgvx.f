@@ -148,9 +148,9 @@
                      RESULT( 3 ) = ZERO;
                      for (I = 1; I <= N; I++) { // 10
                         if ( S( I ) == ZERO ) {
-                           IF( STRU( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
+                           if( STRU( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
                         } else if ( STRU( I ) == ZERO ) {
-                           IF( S( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
+                           if( S( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
                         } else {
                            RWORK( I ) = MAX( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
                            RESULT( 3 ) = MAX( RESULT( 3 ), RWORK( I ) );
@@ -161,13 +161,13 @@
 
                      RESULT( 4 ) = ZERO;
                      if ( DIF( 1 ) == ZERO ) {
-                        IF( DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+                        if( DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
                      } else if ( DIFTRU( 1 ) == ZERO ) {
-                        IF( DIF( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+                        if( DIF( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
                      } else if ( DIF( 5 ) == ZERO ) {
-                        IF( DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+                        if( DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
                      } else if ( DIFTRU( 5 ) == ZERO ) {
-                        IF( DIF( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+                        if( DIF( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
                      } else {
                         RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )                         RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) );
                         RESULT( 4 ) = MAX( RATIO1, RATIO2 );
@@ -275,9 +275,9 @@
       RESULT( 3 ) = ZERO;
       for (I = 1; I <= N; I++) { // 120
          if ( S( I ) == ZERO ) {
-            IF( STRU( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
+            if( STRU( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
          } else if ( STRU( I ) == ZERO ) {
-            IF( S( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
+            if( S( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
          } else {
             RWORK( I ) = MAX( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
             RESULT( 3 ) = MAX( RESULT( 3 ), RWORK( I ) );
@@ -288,13 +288,13 @@
 
       RESULT( 4 ) = ZERO;
       if ( DIF( 1 ) == ZERO ) {
-         IF( DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+         if( DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
       } else if ( DIFTRU( 1 ) == ZERO ) {
-         IF( DIF( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+         if( DIF( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
       } else if ( DIF( 5 ) == ZERO ) {
-         IF( DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+         if( DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
       } else if ( DIFTRU( 5 ) == ZERO ) {
-         IF( DIF( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+         if( DIF( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
       } else {
          RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )          RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) );
          RESULT( 4 ) = MAX( RATIO1, RATIO2 );

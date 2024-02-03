@@ -201,7 +201,7 @@
             BR2 = BR2 - LR21*BR1;
             BBND = MAX( ABS( BR1*( UR22*UR11R ) ), ABS( BR2 ) );
             if ( BBND > ONE && ABS( UR22 ) < ONE ) {
-               IF( BBND >= BIGNUM*ABS( UR22 ) ) SCALE = ONE / BBND;
+               if( BBND >= BIGNUM*ABS( UR22 ) ) SCALE = ONE / BBND;
             }
 
             XR2 = ( BR2*SCALE ) / UR22;

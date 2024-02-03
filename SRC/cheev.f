@@ -62,7 +62,7 @@
          LWKOPT = MAX( 1, ( NB+1 )*N );
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-         IF( LWORK < MAX( 1, 2*N-1 ) && !LQUERY ) INFO = -8;
+         if( LWORK < MAX( 1, 2*N-1 ) && !LQUERY ) INFO = -8;
       }
 
       if ( INFO != 0 ) {

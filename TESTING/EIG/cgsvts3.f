@@ -161,7 +161,7 @@
 
       RESULT( 6 ) = ZERO;
       DO 120 I = K + 1, MIN( K+L, M ) - 1;
-         IF( RWORK( I ) < RWORK( I+1 ) ) RESULT( 6 ) = ULPINV;
+         if( RWORK( I ) < RWORK( I+1 ) ) RESULT( 6 ) = ULPINV;
       } // 120
 
       return;

@@ -55,7 +55,7 @@
 
       // Quick return if possible.
 
-      IF ((N == 0) || (ALPHA == ZERO)) RETURN;
+      if ((N == 0) || (ALPHA == ZERO)) RETURN;
 
       // Set up the start points in X and Y if the increments are not both
       // unity.

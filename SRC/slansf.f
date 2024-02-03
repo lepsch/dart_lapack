@@ -46,17 +46,17 @@
       // set noe = 1 if n is odd. if n is even set noe=0
 
       NOE = 1;
-      IF( MOD( N, 2 ) == 0 ) NOE = 0;
+      if( MOD( N, 2 ) == 0 ) NOE = 0;
 
       // set ifm = 0 when form='T or 't' and 1 otherwise
 
       IFM = 1;
-      IF( LSAME( TRANSR, 'T' ) ) IFM = 0;
+      if( LSAME( TRANSR, 'T' ) ) IFM = 0;
 
       // set ilu = 0 when uplo='U or 'u' and 1 otherwise
 
       ILU = 1;
-      IF( LSAME( UPLO, 'U' ) ) ILU = 0;
+      if( LSAME( UPLO, 'U' ) ) ILU = 0;
 
       // set lda = (n+1)/2 when ifm = 0
       // set lda = n when ifm = 1 and noe = 1
@@ -87,7 +87,7 @@
                for (J = 0; J <= K - 1; J++) {
                   for (I = 0; I <= N - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) );
-                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   }
                }
             } else {
@@ -95,7 +95,7 @@
                for (J = 0; J <= N - 1; J++) {
                   for (I = 0; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) );
-                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   }
                }
             }
@@ -106,7 +106,7 @@
                for (J = 0; J <= K - 1; J++) {
                   for (I = 0; I <= N; I++) {
                      TEMP = ABS( A( I+J*LDA ) );
-                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   }
                }
             } else {
@@ -114,7 +114,7 @@
                for (J = 0; J <= N; J++) {
                   for (I = 0; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) );
-                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   }
                }
             }
@@ -161,7 +161,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   }
                } else {
                   // ilu = 1
@@ -202,7 +202,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   }
                }
             } else {
@@ -239,7 +239,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   }
                } else {
                   // ilu = 1
@@ -276,7 +276,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   }
                }
             }
@@ -341,7 +341,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   }
                } else {
                   // ilu=1
@@ -405,7 +405,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   }
                }
             } else {
@@ -477,7 +477,7 @@
                   VALUE = WORK ( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   }
                } else {
                   // ilu=1
@@ -549,7 +549,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   }
                }
             }

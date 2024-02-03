@@ -1645,7 +1645,8 @@
                // (RWorkspace: 0)
 
                zlacpy('L', M, N, A, LDA, U, LDU );
-               if (WNTUS) NCU = N                IF( WNTUA ) NCU = M;
+               if (WNTUS) NCU = N;
+               IF( WNTUA ) NCU = M;
                zungbr('Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTVAS ) {
@@ -1677,7 +1678,10 @@
                zungbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             IRWORK = IE + N;
-            if (WNTUAS || WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS || WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
+            if (WNTUAS || WNTUO) NRU = M;
+            if( WNTUN ) NRU = 0;
+            if( WNTVAS || WNTVO ) NCVT = N;
+            IF( WNTVN ) NCVT = 0;
             if ( ( !WNTUO ) && ( !WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -2951,7 +2955,8 @@
                // (RWorkspace: 0)
 
                zlacpy('U', M, N, A, LDA, VT, LDVT );
-               if (WNTVA) NRVT = N                IF( WNTVS ) NRVT = M;
+               if (WNTVA) NRVT = N;
+               IF( WNTVS ) NRVT = M;
                zungbr('P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTUO ) {
@@ -2973,7 +2978,10 @@
                zungbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             IRWORK = IE + M;
-            if (WNTUAS || WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS || WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
+            if (WNTUAS || WNTUO) NRU = M;
+            if( WNTUN ) NRU = 0;
+            if( WNTVAS || WNTVO ) NCVT = N;
+            IF( WNTVN ) NCVT = 0;
             if ( ( !WNTUO ) && ( !WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -3010,7 +3018,10 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM > BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM > BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )          IF( ANRM < SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM < SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
+         if (ANRM > BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR );
+         if( INFO != 0 && ANRM > BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
+         if( ANRM < SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR );
+         IF( INFO != 0 && ANRM < SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

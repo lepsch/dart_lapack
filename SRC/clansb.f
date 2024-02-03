@@ -46,14 +46,14 @@
             for (J = 1; J <= N; J++) { // 20
                DO 10 I = MAX( K+2-J, 1 ), K + 1;
                   SUM = ABS( AB( I, J ) );
-                  IF( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
+                  if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                } // 10
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
                DO 30 I = 1, MIN( N+1-J, K+1 );
                   SUM = ABS( AB( I, J ) );
-                  IF( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
+                  if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                } // 30
             } // 40
          }
@@ -75,7 +75,7 @@
             } // 60
             for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I );
-               IF( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
+               if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
@@ -89,7 +89,7 @@
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
                } // 90
-               IF( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
+               if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
             } // 100
          }
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {

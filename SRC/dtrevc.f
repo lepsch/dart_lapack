@@ -80,7 +80,7 @@
                } else {
                   if ( J < N ) {
                      if ( T( J+1, J ) == ZERO ) {
-                        IF( SELECT( J ) ) M = M + 1;
+                        if( SELECT( J ) ) M = M + 1;
                      } else {
                         PAIR = true;
                         if ( SELECT( J ) || SELECT( J+1 ) ) {
@@ -89,7 +89,7 @@
                         }
                      }
                   } else {
-                     IF( SELECT( N ) ) M = M + 1;
+                     if( SELECT( N ) ) M = M + 1;
                   }
                }
             } // 10
@@ -144,15 +144,17 @@
          IS = M;
          DO 140 KI = N, 1, -1;
 
-            if (IP == 1) GO TO 130             IF( KI == 1 ) GO TO 40             IF( T( KI, KI-1 ) == ZERO ) GO TO 40;
+            if (IP == 1) GO TO 130;
+            if( KI == 1 ) GO TO 40;
+            IF( T( KI, KI-1 ) == ZERO ) GO TO 40;
             IP = -1;
 
             } // 40
             if ( SOMEV ) {
                if ( IP == 0 ) {
-                  IF( !SELECT( KI ) ) GO TO 130;
+                  if( !SELECT( KI ) ) GO TO 130;
                } else {
-                  IF( !SELECT( KI-1 ) ) GO TO 130;
+                  if( !SELECT( KI-1 ) ) GO TO 130;
                }
             }
 
@@ -423,7 +425,8 @@
             IS = IS - 1;
             if (IP != 0) IS = IS - 1;
             } // 130
-            if (IP == 1) IP = 0             IF( IP == -1 ) IP = 1;
+            if (IP == 1) IP = 0;
+            IF( IP == -1 ) IP = 1;
          } // 140
       }
 
@@ -435,12 +438,14 @@
          IS = 1;
          for (KI = 1; KI <= N; KI++) { // 260
 
-            if (IP == -1) GO TO 250             IF( KI == N ) GO TO 150             IF( T( KI+1, KI ) == ZERO ) GO TO 150;
+            if (IP == -1) GO TO 250;
+            if( KI == N ) GO TO 150;
+            IF( T( KI+1, KI ) == ZERO ) GO TO 150;
             IP = 1;
 
             } // 150
             if ( SOMEV ) {
-               IF( !SELECT( KI ) ) GO TO 250;
+               if( !SELECT( KI ) ) GO TO 250;
             }
 
             // Compute the KI-th eigenvalue (WR,WI).
@@ -732,7 +737,8 @@
             IS = IS + 1;
             if (IP != 0) IS = IS + 1;
             } // 250
-            if (IP == -1) IP = 0             IF( IP == 1 ) IP = -1;
+            if (IP == -1) IP = 0;
+            IF( IP == 1 ) IP = -1;
 
          } // 260
 

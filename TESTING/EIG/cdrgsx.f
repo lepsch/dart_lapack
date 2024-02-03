@@ -252,7 +252,9 @@
                      if ( DIFEST( 2 ) == ZERO ) {
                         if (DIFTRU > ABNRM*ULP) RESULT( 8 ) = ULPINV;
                      } else if ( DIFTRU == ZERO ) {
-                        IF( DIFEST( 2 ) > ABNRM*ULP ) RESULT( 8 ) = ULPINV                      ELSE IF( ( DIFTRU > THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) THEN                         RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU );
+                        if( DIFEST( 2 ) > ABNRM*ULP ) RESULT( 8 ) = ULPINV;
+                     ELSE IF( ( DIFTRU > THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) {
+                        RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU );
                      }
                      NTEST = NTEST + 1;
                   }
@@ -261,7 +263,9 @@
 
                   RESULT( 9 ) = ZERO;
                   if ( LINFO == ( MPLUSN+2 ) ) {
-                     if (DIFTRU > ABNRM*ULP) RESULT( 9 ) = ULPINV                      IF( ( IFUNC > 1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
+                     if (DIFTRU > ABNRM*ULP) RESULT( 9 ) = ULPINV;
+                     if( ( IFUNC > 1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
+                     IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
                      NTEST = NTEST + 1;
                   }
 
@@ -395,7 +399,8 @@
       if ( DIFEST( 2 ) == ZERO ) {
          if (DIFTRU > ABNRM*ULP) RESULT( 8 ) = ULPINV;
       } else if ( DIFTRU == ZERO ) {
-         if ( DIFEST( 2 ) > ABNRM*ULP ) RESULT( 8 ) = ULPINV       ELSE IF( ( DIFTRU > THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) {
+         if ( DIFEST( 2 ) > ABNRM*ULP ) RESULT( 8 ) = ULPINV;
+      ELSE IF( ( DIFTRU > THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) {
          RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU );
       }
 
@@ -404,7 +409,9 @@
       NTEST = 9;
       RESULT( 9 ) = ZERO;
       if ( LINFO == ( MPLUSN+2 ) ) {
-         if (DIFTRU > ABNRM*ULP) RESULT( 9 ) = ULPINV          IF( ( IFUNC > 1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
+         if (DIFTRU > ABNRM*ULP) RESULT( 9 ) = ULPINV;
+         if( ( IFUNC > 1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
+         IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
       }
 
       // Test (10): compare the estimated value of PL and it true value.
@@ -414,7 +421,8 @@
       if ( PL( 1 ) == ZERO ) {
          if (PLTRU > ABNRM*ULP) RESULT( 10 ) = ULPINV;
       } else if ( PLTRU == ZERO ) {
-         if ( PL( 1 ) > ABNRM*ULP ) RESULT( 10 ) = ULPINV       ELSE IF( ( PLTRU > THRESH*PL( 1 ) ) || ( PLTRU*THRESH < PL( 1 ) ) ) {
+         if ( PL( 1 ) > ABNRM*ULP ) RESULT( 10 ) = ULPINV;
+      ELSE IF( ( PLTRU > THRESH*PL( 1 ) ) || ( PLTRU*THRESH < PL( 1 ) ) ) {
          RESULT( 10 ) = ULPINV;
       }
 

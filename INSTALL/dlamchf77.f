@@ -235,7 +235,7 @@
          }
          F = DLAMC3( B / 2, B / 100 );
          C = DLAMC3( F, A );
-         IF( ( LRND ) && ( C == A ) ) LRND = false;
+         if( ( LRND ) && ( C == A ) ) LRND = false;
 
          // Try and decide whether rounding is done in the  IEEE  'round to
          // nearest' style. B/2 is half a unit in the last place of the two

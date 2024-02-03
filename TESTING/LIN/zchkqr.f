@@ -94,7 +94,7 @@
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               IF( !DOTYPE( IMAT ) ) GO TO 50;
+               if( !DOTYPE( IMAT ) ) GO TO 50;
 
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
@@ -154,7 +154,7 @@
                         // Test ZGEQRFP
 
                         zqrt01p(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) );
-                          IF( !ZGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH;
+                          if( !ZGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH;
                         NT = NT + 1;
                      } else if ( M >= N ) {
 
@@ -207,7 +207,8 @@
 
                      for (I = 1; I <= NTESTS; I++) { // 20
                         if ( RESULT( I ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
                            NFAIL = NFAIL + 1;
                         }
                      } // 20

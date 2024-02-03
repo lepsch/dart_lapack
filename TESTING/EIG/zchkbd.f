@@ -74,9 +74,9 @@
       MINWRK = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MVAL( J ) );
-         IF( MVAL( J ) < 0 ) BADMM = true;
+         if( MVAL( J ) < 0 ) BADMM = true;
          NMAX = MAX( NMAX, NVAL( J ) );
-         IF( NVAL( J ) < 0 ) BADNN = true;
+         if( NVAL( J ) < 0 ) BADNN = true;
          MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) );
          MINWRK = MAX( MINWRK, 3*( MVAL( J )+NVAL( J ) ), MVAL( J )*( MVAL( J )+MAX( MVAL( J ), NVAL( J ), NRHS )+1 )+NVAL( J )*MIN( NVAL( J ), MVAL( J ) ) );
       } // 10
@@ -140,7 +140,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 170
-            IF( !DOTYPE( JTYPE ) ) GO TO 170;
+            if( !DOTYPE( JTYPE ) ) GO TO 170;
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J );
@@ -412,10 +412,11 @@
 
             RESULT( 8 ) = ZERO;
             for (I = 1; I <= MNMIN - 1; I++) { // 110
-               IF( S1( I ) < S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 8 ) = ULPINV;
+               if( S1( I ) < S1( I+1 ) ) RESULT( 8 ) = ULPINV;
+               IF( S1( I ) < ZERO ) RESULT( 8 ) = ULPINV;
             } // 110
             if ( MNMIN >= 1 ) {
-               IF( S1( MNMIN ) < ZERO ) RESULT( 8 ) = ULPINV;
+               if( S1( MNMIN ) < ZERO ) RESULT( 8 ) = ULPINV;
             }
 
             // Test 9:  Compare ZBDSQR with and without singular vectors
@@ -468,7 +469,8 @@
             } // 150
             for (J = 1; J <= 14; J++) { // 160
                if ( RESULT( J ) >= THRESH ) {
-                  if (NFAIL == 0) CALL DLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
+                  if (NFAIL == 0) CALL DLAHD2( NOUT, PATH );
+                  WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
                   NFAIL = NFAIL + 1;
                }
             } // 160

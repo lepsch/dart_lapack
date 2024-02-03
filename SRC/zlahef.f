@@ -69,7 +69,7 @@
 
          // Exit from loop
 
-         IF( ( K <= N-NB+1 && NB < N ) || K < 1 ) GO TO 30;
+         if( ( K <= N-NB+1 && NB < N ) || K < 1 ) GO TO 30;
 
          KSTEP = 1;
 
@@ -398,7 +398,8 @@
             // (NOTE: Here, J is used to determine row length. Length N-J+1
             // of the rows to swap back doesn't include diagonal element)
             J = J + 1;
-            if (JP != JJ && J <= N) CALL ZSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )          IF( J < N ) GO TO 60;
+            if (JP != JJ && J <= N) CALL ZSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA );
+         IF( J < N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -417,7 +418,7 @@
 
          // Exit from loop
 
-         IF( ( K >= NB && NB < N ) || K > N ) GO TO 90;
+         if( ( K >= NB && NB < N ) || K > N ) GO TO 90;
 
          KSTEP = 1;
 
@@ -738,7 +739,8 @@
             // (NOTE: Here, J is used to determine row length. Length J
             // of the rows to swap back doesn't include diagonal element)
             J = J - 1;
-            if (JP != JJ && J >= 1) CALL ZSWAP( J, A( JP, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J > 1 ) GO TO 120;
+            if (JP != JJ && J >= 1) CALL ZSWAP( J, A( JP, 1 ), LDA, A( JJ, 1 ), LDA );
+         IF( J > 1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 

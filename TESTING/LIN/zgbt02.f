@@ -67,7 +67,7 @@
             I2 = MIN( KD+M-J, KL+KD );
             if ( I2 >= I1 ) {
                TEMP = DZASUM( I2-I1+1, A( I1, J ), 1 );
-               IF( ANORM < TEMP || DISNAN( TEMP ) ) ANORM = TEMP;
+               if( ANORM < TEMP || DISNAN( TEMP ) ) ANORM = TEMP;
             }
          } // 10
       } else {
@@ -85,7 +85,7 @@
          } // 16
          for (I1 = 1; I1 <= M; I1++) { // 18
             TEMP = RWORK( I1 );
-            IF( ANORM < TEMP || DISNAN( TEMP ) ) ANORM = TEMP;
+            if( ANORM < TEMP || DISNAN( TEMP ) ) ANORM = TEMP;
          } // 18
       }
       if ( ANORM <= ZERO ) {

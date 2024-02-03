@@ -53,7 +53,7 @@
 
       M = 0;
       for (K = 1; K <= N; K++) { // 10
-         IF( SELECT( K ) ) M = M + 1;
+         if( SELECT( K ) ) M = M + 1;
       } // 10
 
       N1 = M;
@@ -99,7 +99,8 @@
       // Quick return if possible
 
       if ( M == N || M == 0 ) {
-         if (WANTS) S = ONE          IF( WANTSP ) SEP = ZLANGE( '1', N, N, T, LDT, RWORK );
+         if (WANTS) S = ONE;
+         IF( WANTSP ) SEP = ZLANGE( '1', N, N, T, LDT, RWORK );
          GO TO 40;
       }
 

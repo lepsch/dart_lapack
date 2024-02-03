@@ -551,9 +551,9 @@
 
          SWTCH = false;
          if ( ORGATI ) {
-            IF( -W > ABS( PREW ) / TEN ) SWTCH = true;
+            if( -W > ABS( PREW ) / TEN ) SWTCH = true;
          } else {
-            IF( W > ABS( PREW ) / TEN ) SWTCH = true;
+            if( W > ABS( PREW ) / TEN ) SWTCH = true;
          }
 
          TAU = TAU + ETA;

@@ -270,7 +270,7 @@
                   } else {
                      TSTRAT(2) = 0.0;
                   }
-                  IF (TSTRAT(2) > 1.0) TSTRAT(2) = 1/(4.0*EPS);
+                  if (TSTRAT(2) > 1.0) TSTRAT(2) = 1/(4.0*EPS);
                }
             } else {
                CGUAR = 'NO';
@@ -286,13 +286,13 @@
 
       // Condition number tests
             TSTRAT(4) = RCOND / ORCOND;
-            IF (RCOND >= CONDTHRESH && TSTRAT(4) < 1.0) TSTRAT(4) = 1.0 / TSTRAT(4);
+            if (RCOND >= CONDTHRESH && TSTRAT(4) < 1.0) TSTRAT(4) = 1.0 / TSTRAT(4);
 
             TSTRAT(5) = NCOND / NWISE_RCOND;
-            IF (NCOND >= CONDTHRESH && TSTRAT(5) < 1.0) TSTRAT(5) = 1.0 / TSTRAT(5);
+            if (NCOND >= CONDTHRESH && TSTRAT(5) < 1.0) TSTRAT(5) = 1.0 / TSTRAT(5);
 
             TSTRAT(6) = CCOND / NWISE_RCOND;
-            IF (CCOND >= CONDTHRESH && TSTRAT(6) < 1.0) TSTRAT(6) = 1.0 / TSTRAT(6);
+            if (CCOND >= CONDTHRESH && TSTRAT(6) < 1.0) TSTRAT(6) = 1.0 / TSTRAT(6);
 
             for (I = 1; I <= NTESTS; I++) {
                if (TSTRAT(I) > THRESH) {

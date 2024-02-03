@@ -1561,7 +1561,8 @@
                // (Workspace: need 3*N+NCU, prefer 3*N+NCU*NB)
 
                slacpy('L', M, N, A, LDA, U, LDU );
-               if (WNTUS) NCU = N                IF( WNTUA ) NCU = M;
+               if (WNTUS) NCU = N;
+               IF( WNTUA ) NCU = M;
                sorgbr('Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTVAS ) {
@@ -1590,7 +1591,10 @@
                sorgbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             IWORK = IE + N;
-            if (WNTUAS || WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS || WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
+            if (WNTUAS || WNTUO) NRU = M;
+            if( WNTUN ) NRU = 0;
+            if( WNTVAS || WNTVO ) NCVT = N;
+            IF( WNTVN ) NCVT = 0;
             if ( ( !WNTUO ) && ( !WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -2757,7 +2761,8 @@
                // (Workspace: need 3*M+NRVT, prefer 3*M+NRVT*NB)
 
                slacpy('U', M, N, A, LDA, VT, LDVT );
-               if (WNTVA) NRVT = N                IF( WNTVS ) NRVT = M;
+               if (WNTVA) NRVT = N;
+               IF( WNTVS ) NRVT = M;
                sorgbr('P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTUO ) {
@@ -2777,7 +2782,10 @@
                sorgbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             IWORK = IE + M;
-            if (WNTUAS || WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS || WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
+            if (WNTUAS || WNTUO) NRU = M;
+            if( WNTUN ) NRU = 0;
+            if( WNTVAS || WNTVO ) NCVT = N;
+            IF( WNTVN ) NCVT = 0;
             if ( ( !WNTUO ) && ( !WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -2827,7 +2835,10 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM > BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM > BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )          IF( ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
+         if (ANRM > BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR );
+         if( INFO != 0 && ANRM > BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
+         if( ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR );
+         IF( INFO != 0 && ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

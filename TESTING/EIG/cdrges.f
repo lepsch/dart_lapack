@@ -81,7 +81,7 @@
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) );
-         IF( NN( J ) < 0 ) BADNN = true;
+         if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       if ( NSIZES < 0 ) {
@@ -156,7 +156,7 @@
          // Loop over matrix types
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 180
-            IF( !DOTYPE( JTYPE ) ) GO TO 180;
+            if( !DOTYPE( JTYPE ) ) GO TO 180;
             NMATS = NMATS + 1;
             NTEST = 0;
 
@@ -363,7 +363,7 @@
                   RESULT( 12 ) = ZERO;
                   KNTEIG = 0;
                   for (I = 1; I <= N; I++) { // 140
-                     IF( CLCTES( ALPHA( I ), BETA( I ) ) ) KNTEIG = KNTEIG + 1;
+                     if( CLCTES( ALPHA( I ), BETA( I ) ) ) KNTEIG = KNTEIG + 1;
                   } // 140
                   if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;
                }

@@ -137,7 +137,7 @@
                           if (NOUNIT) X(JX) = X(JX)*A(1,J);
                       }
                       JX = JX - INCX;
-                      IF ((N-J) >= K) KX = KX - INCX;
+                      if ((N-J) >= K) KX = KX - INCX;
                   } // 80
               }
           }

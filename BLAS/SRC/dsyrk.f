@@ -65,7 +65,7 @@
 
       // Quick return if possible.
 
-      IF ((N == 0) || (((ALPHA == ZERO) || (K == 0)) && (BETA == ONE))) RETURN;
+      if ((N == 0) || (((ALPHA == ZERO) || (K == 0)) && (BETA == ONE))) RETURN;
 
       // And when  alpha == zero.
 

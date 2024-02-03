@@ -61,7 +61,7 @@
          return;
       }
       UP = false;
-      IF ( LSAME( UPLO, 'U' ) ) UP = true;
+      if ( LSAME( UPLO, 'U' ) ) UP = true;
 
       // Compute norm of op(A)*op2(C).
 
