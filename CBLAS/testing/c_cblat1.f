@@ -14,7 +14,7 @@
       // .. External Subroutines ..
       // EXTERNAL CHECK1, CHECK2, HEADER
       // .. Common blocks ..
-      COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Data statements ..
       DATA             SFAC/9.765625E-4/
       // .. Executable Statements ..
@@ -55,7 +55,7 @@
       // .. Local Arrays ..
       String            L(10);
       // .. Common blocks ..
-      COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Data statements ..
       DATA             L(1)/'CBLAS_CDOTC'/
       DATA             L(2)/'CBLAS_CDOTU'/
@@ -99,7 +99,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
       // .. Common blocks ..
-      COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Data statements ..
       DATA              SA, CA/0.3E0, (0.4E0,-0.7E0)/
       DATA              ((CV(I,J,1),I=1,8),J=1,5)/(0.1E0,0.1E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (0.3E0,-0.4E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (0.1E0,-0.3E0), (0.5E0,-0.1E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (0.1E0,0.1E0), (-0.6E0,0.1E0), (0.1E0,-0.3E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (0.3E0,0.1E0), (0.1E0,0.4E0), (0.4E0,0.1E0), (0.1E0,0.2E0), (2.0E0,3.0E0), (2.0E0,3.0E0), (2.0E0,3.0E0), (2.0E0,3.0E0)/       DATA              ((CV(I,J,2),I=1,8),J=1,5)/(0.1E0,0.1E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (0.3E0,-0.4E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (0.1E0,-0.3E0), (8.0E0,9.0E0), (0.5E0,-0.1E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (0.1E0,0.1E0), (3.0E0,6.0E0), (-0.6E0,0.1E0), (4.0E0,7.0E0), (0.1E0,-0.3E0), (7.0E0,2.0E0), (7.0E0,2.0E0), (7.0E0,2.0E0), (0.3E0,0.1E0), (5.0E0,8.0E0), (0.1E0,0.4E0), (6.0E0,9.0E0), (0.4E0,0.1E0), (8.0E0,3.0E0), (0.1E0,0.2E0), (9.0E0,4.0E0)/
@@ -204,7 +204,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
       // .. Common blocks ..
-      COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Data statements ..
       DATA              CA/(0.4E0,-0.7E0)/
       DATA              INCXS/1, 2, -2, -1/
@@ -292,7 +292,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
       // .. Common blocks ..
-      COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
 
       for (I = 1; I <= LEN; I++) { // 40
@@ -398,7 +398,7 @@
       // .. Local Scalars ..
       int               ID;
       // .. Common blocks ..
-      COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
       IF (ICOMP.EQ.ITRUE) GO TO 40
 

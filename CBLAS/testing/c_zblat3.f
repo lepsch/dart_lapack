@@ -84,8 +84,8 @@
       bool               LERR, OK;
       String             SRNAMT;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
-      COMMON             /SRNAMC/SRNAMT
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /SRNAMC/SRNAMT
       // .. Data statements ..
       DATA               SNAMES/'cblas_zgemm ', 'cblas_zhemm ', 'cblas_zsymm ', 'cblas_ztrmm ', 'cblas_ztrsm ', 'cblas_zherk ', 'cblas_zsyrk ', 'cblas_zher2k', 'cblas_zsyr2k'/
       // .. Executable Statements ..
@@ -402,7 +402,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICH/'NTC'/
       // .. Executable Statements ..
@@ -688,7 +688,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICHS/'LR'/, ICHU/'UL'/
       // .. Executable Statements ..
@@ -963,7 +963,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA              ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/, ICHS/'LR'/
       // .. Executable Statements ..
@@ -1262,7 +1262,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICHT/'NC'/, ICHU/'UL'/
       // .. Executable Statements ..
@@ -1610,7 +1610,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICHT/'NC'/, ICHU/'UL'/
       // .. Executable Statements ..

@@ -22,7 +22,7 @@
       int                IPARMS( 100 );
       // ..
       // .. Common blocks ..
-      COMMON             / CLAENV / IPARMS
+      // COMMON / CLAENV / IPARMS
       // ..
       // .. Save statement ..
       SAVE               / CLAENV /
@@ -111,7 +111,7 @@
       int                IPARMS( 100 );
       // ..
       // .. Common blocks ..
-      COMMON             / CLAENV / IPARMS
+      // COMMON / CLAENV / IPARMS
       // ..
       // .. Save statement ..
       SAVE               / CLAENV /

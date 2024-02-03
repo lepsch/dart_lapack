@@ -78,8 +78,8 @@
       bool                OK;
       String             SRNAMT;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
-      COMMON             /SRNAMC/SRNAMT
+      // COMMON /INFOC/INFOT, NOUTC, OK
+      // COMMON /SRNAMC/SRNAMT
       // .. Data statements ..
       DATA               SNAMES/'cblas_dgemm ', 'cblas_dsymm ', 'cblas_dtrmm ', 'cblas_dtrsm ','cblas_dsyrk ', 'cblas_dsyr2k'/
       // .. Executable Statements ..
@@ -393,7 +393,7 @@
       int                INFOT, NOUTC;
       bool                OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
+      // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
       DATA               ICH/'NTC'/
       // .. Executable Statements ..
@@ -674,7 +674,7 @@
       int                INFOT, NOUTC;
       bool                OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
+      // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
       DATA               ICHS/'LR'/, ICHU/'UL'/
       // .. Executable Statements ..
@@ -940,7 +940,7 @@
       int                INFOT, NOUTC;
       bool                OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
+      // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
       DATA               ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/, ICHS/'LR'/
       // .. Executable Statements ..
@@ -1236,7 +1236,7 @@
       int                INFOT, NOUTC;
       bool                OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
+      // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
       DATA               ICHT/'NTC'/, ICHU/'UL'/
       // .. Executable Statements ..
@@ -1507,7 +1507,7 @@
       int                INFOT, NOUTC;
       bool                OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
+      // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
       DATA               ICHT/'NTC'/, ICHU/'UL'/
       // .. Executable Statements ..

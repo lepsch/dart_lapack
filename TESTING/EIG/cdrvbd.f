@@ -55,7 +55,7 @@
       String             SRNAMT;
       // ..
       // .. Common blocks ..
-      COMMON             / SRNAMC / SRNAMT
+      // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
       DATA               CJOB / 'N', 'O', 'S', 'A' /

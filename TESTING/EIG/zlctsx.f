@@ -21,7 +21,7 @@
       int                I, M, MPLUSN, N;
       // ..
       // .. Common blocks ..
-      COMMON             / MN / M, N, MPLUSN, I, FS
+      // COMMON / MN / M, N, MPLUSN, I, FS
       // ..
       // .. Save statement ..
       SAVE

@@ -18,7 +18,7 @@
       // .. External Subroutines ..
       // EXTERNAL CHECK0, CHECK1, CHECK2, CHECK3, HEADER
       // .. Common blocks ..
-      COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Data statements ..
       DATA             SFAC/9.765625D-4/
       // .. Executable Statements ..
@@ -65,7 +65,7 @@
       // .. Local Arrays ..
       String           L(13);
       // .. Common blocks ..
-      COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Data statements ..
       DATA             L(1)/' DDOT '/
       DATA             L(2)/'DAXPY '/
@@ -106,7 +106,7 @@
       // .. External Subroutines ..
       // EXTERNAL DROTG, DROTMG, STEST, STEST1
       // .. Common blocks ..
-      COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Data statements ..
       DATA              DA1/0.3D0, 0.4D0, -0.3D0, -0.4D0, -0.3D0, 0.0D0, 0.0D0, 1.0D0/       DATA              DB1/0.4D0, 0.3D0, 0.4D0, 0.3D0, -0.4D0, 0.0D0, 1.0D0, 0.0D0/       DATA              DC1/0.6D0, 0.8D0, -0.6D0, 0.8D0, 0.6D0, 1.0D0, 0.0D0, 1.0D0/       DATA              DS1/0.8D0, 0.6D0, 0.8D0, -0.6D0, 0.8D0, 0.0D0, 1.0D0, 0.0D0/       DATA              DATRUE/0.5D0, 0.5D0, 0.5D0, -0.5D0, -0.5D0, 0.0D0, 1.0D0, 1.0D0/       DATA              DBTRUE/0.0D0, 0.6D0, 0.0D0, -0.6D0, 0.0D0, 0.0D0, 1.0D0, 0.0D0/
       // INPUT FOR MODIFIED GIVENS
@@ -201,7 +201,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
       // .. Common blocks ..
-      COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Data statements ..
       DATA              SA/0.3D0, -1.0D0, 0.0D0, 1.0D0, 0.3D0, 0.3D0, 0.3D0, 0.3D0, 0.3D0, 0.3D0/       DATA              DV/0.1D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 0.3D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 0.3D0, -0.4D0, 4.0D0, 4.0D0, 4.0D0, 4.0D0, 4.0D0, 4.0D0, 0.2D0, -0.6D0, 0.3D0, 5.0D0, 5.0D0, 5.0D0, 5.0D0, 5.0D0, 0.1D0, -0.3D0, 0.5D0, -0.1D0, 6.0D0, 6.0D0, 6.0D0, 6.0D0, 0.1D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 0.3D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 0.3D0, 2.0D0, -0.4D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 0.2D0, 3.0D0, -0.6D0, 5.0D0, 0.3D0, 2.0D0, 2.0D0, 2.0D0, 0.1D0, 4.0D0, -0.3D0, 6.0D0, -0.5D0, 7.0D0, -0.1D0, 3.0D0/
       DATA              DVR/8.0D0, -7.0D0, 9.0D0, 5.0D0, 9.0D0, 8.0D0, 7.0D0, 7.0D0/
@@ -289,7 +289,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
       // .. Common blocks ..
-      COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Data statements ..
       EQUIVALENCE (DT19X(1,1,1),DT19XA(1,1,1)),(DT19X(1,1,5), DT19XB(1,1,1)),(DT19X(1,1,9),DT19XC(1,1,1)), (DT19X(1,1,13),DT19XD(1,1,1))       EQUIVALENCE (DT19Y(1,1,1),DT19YA(1,1,1)),(DT19Y(1,1,5), DT19YB(1,1,1)),(DT19Y(1,1,9),DT19YC(1,1,1)), (DT19Y(1,1,13),DT19YD(1,1,1))
 
@@ -445,7 +445,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
       // .. Common blocks ..
-      COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Data statements ..
       DATA              INCXS/1, 2, -2, -1/
       DATA              INCYS/1, -2, 1, -2/
@@ -615,7 +615,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
       // .. Common blocks ..
-      COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Executable Statements ..
 
       for (I = 1; I <= LEN; I++) { // 40
@@ -663,7 +663,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
       // .. Common blocks ..
-      COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Executable Statements ..
 
          SD = SCOMP - STRUE
@@ -746,7 +746,7 @@
       // .. Local Scalars ..
       int               ID;
       // .. Common blocks ..
-      COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
+      // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Executable Statements ..
 
       IF (ICOMP.EQ.ITRUE) GO TO 40

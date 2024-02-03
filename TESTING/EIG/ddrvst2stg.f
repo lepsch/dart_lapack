@@ -44,7 +44,7 @@
       String             SRNAMT;
       // ..
       // .. Common blocks ..
-      COMMON             / SRNAMC / SRNAMT
+      // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, INT, LOG, MAX, MIN, SQRT

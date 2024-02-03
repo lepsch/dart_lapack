@@ -42,8 +42,8 @@
       bool               LERR, OK;
       String             SRNAMT;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
-      COMMON             /SRNAMC/SRNAMT
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /SRNAMC/SRNAMT
       // .. Data statements ..
       DATA               SNAMES/'DGEMV ', 'DGBMV ', 'DSYMV ', 'DSBMV ', 'DSPMV ', 'DTRMV ', 'DTBMV ', 'DTPMV ', 'DTRSV ', 'DTBSV ', 'DTPSV ', 'DGER  ', 'DSYR  ', 'DSPR  ', 'DSYR2 ', 'DSPR2 '/
       // .. Executable Statements ..
@@ -318,7 +318,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICH/'NTC'/
       // .. Executable Statements ..
@@ -622,7 +622,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICH/'UL'/
       // .. Executable Statements ..
@@ -913,7 +913,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/
       // .. Executable Statements ..
@@ -1202,7 +1202,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Executable Statements ..
       // Define the number of arguments.
       NARGS = 9
@@ -1431,7 +1431,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICH/'UL'/
       // .. Executable Statements ..
@@ -1677,7 +1677,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICH/'UL'/
       // .. Executable Statements ..
@@ -1936,7 +1936,7 @@
       // .. External Subroutines ..
       // EXTERNAL CHKXER, DGBMV, DGEMV, DGER, DSBMV, DSPMV, DSPR, DSPR2, DSYMV, DSYR, DSYR2, DTBMV, DTBSV, DTPMV, DTPSV, DTRMV, DTRSV
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Executable Statements ..
       // OK is set to .FALSE. by the special version of XERBLA or by CHKXER
       // if anything is wrong.
@@ -2740,8 +2740,8 @@
       bool               LERR, OK;
       String             SRNAMT;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUT, OK, LERR
-      COMMON             /SRNAMC/SRNAMT
+      // COMMON /INFOC/INFOT, NOUT, OK, LERR
+      // COMMON /SRNAMC/SRNAMT
       // .. Executable Statements ..
       LERR = .TRUE.
       if ( INFO.NE.INFOT ) {

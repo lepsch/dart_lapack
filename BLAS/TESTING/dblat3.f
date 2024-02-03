@@ -42,8 +42,8 @@
       bool               LERR, OK;
       String             SRNAMT;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
-      COMMON             /SRNAMC/SRNAMT
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /SRNAMC/SRNAMT
       // .. Data statements ..
       DATA               SNAMES/'DGEMM ', 'DSYMM ', 'DTRMM ', 'DTRSM ', 'DSYRK ', 'DSYR2K'/
       // .. Executable Statements ..
@@ -309,7 +309,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICH/'NTC'/
       // .. Executable Statements ..
@@ -553,7 +553,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICHS/'LR'/, ICHU/'UL'/
       // .. Executable Statements ..
@@ -785,7 +785,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/, ICHS/'LR'/
       // .. Executable Statements ..
@@ -1035,7 +1035,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICHT/'NTC'/, ICHU/'UL'/
       // .. Executable Statements ..
@@ -1270,7 +1270,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       DATA               ICHT/'NTC'/, ICHU/'UL'/
       // .. Executable Statements ..
@@ -1523,7 +1523,7 @@
       // .. External Subroutines ..
       // EXTERNAL CHKXER, DGEMM, DSYMM, DSYR2K, DSYRK, DTRMM, DTRSM
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Executable Statements ..
       // OK is set to .FALSE. by the special version of XERBLA or by CHKXER
       // if anything is wrong.
@@ -2474,8 +2474,8 @@
       bool               LERR, OK;
       String             SRNAMT;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUT, OK, LERR
-      COMMON             /SRNAMC/SRNAMT
+      // COMMON /INFOC/INFOT, NOUT, OK, LERR
+      // COMMON /SRNAMC/SRNAMT
       // .. Executable Statements ..
       LERR = .TRUE.
       if ( INFO.NE.INFOT ) {

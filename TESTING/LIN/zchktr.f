@@ -53,8 +53,8 @@
       int                INFOT, IOUNIT;
       // ..
       // .. Common blocks ..
-      COMMON             / INFOC / INFOT, IOUNIT, OK, LERR
-      COMMON             / SRNAMC / SRNAMT
+      // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
+      // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX

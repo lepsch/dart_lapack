@@ -18,7 +18,7 @@
       int                SELDIM, SELOPT;
       // ..
       // .. Common blocks ..
-      COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
+      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
       // ..
       // .. Local Scalars ..
       int                I;

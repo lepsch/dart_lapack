@@ -53,8 +53,8 @@
       int                INFOT, IOUNIT, CUNMQR_LWORK;
       // ..
       // .. Common blocks ..
-      COMMON             / INFOC / INFOT, IOUNIT, OK, LERR
-      COMMON             / SRNAMC / SRNAMT
+      // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
+      // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /

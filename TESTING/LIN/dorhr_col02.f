@@ -43,7 +43,7 @@
       String   (LEN=32)  SRNAMT;
       // ..
       // .. Common blocks ..
-      COMMON             / SRMNAMC / SRNAMT
+      // COMMON / SRMNAMC / SRNAMT
       // ..
       // .. Data statements ..
       DATA ISEED / 1988, 1989, 1990, 1991 /

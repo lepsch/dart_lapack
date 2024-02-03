@@ -50,7 +50,7 @@ $1 $3
  $1String   $2;
 ```
 
-### Comment out INTRINSIC
+### Comment out INTRINSIC / COMMON
 ```
 ^\s     (\bINTRINSIC\b)\s*(.*)$
       // $1 $2
@@ -152,6 +152,12 @@ $1for ($3 = $4; $3 <= $5; $3++) { // $2
 ```
 ^(\s+)(\d)(\s+)CONTINUE$
 $1 $3} // $2
+```
+
+### END DO
+```
+^(\s+)END\s?DO$
+$1}
 ```
 
 # LAPACK

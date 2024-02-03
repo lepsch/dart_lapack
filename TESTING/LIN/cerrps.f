@@ -32,8 +32,8 @@
       String             SRNAMT;
       // ..
       // .. Common blocks ..
-      COMMON             / INFOC / INFOT, NOUT, OK, LERR
-      COMMON             / SRNAMC / SRNAMT
+      // COMMON / INFOC / INFOT, NOUT, OK, LERR
+      // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL

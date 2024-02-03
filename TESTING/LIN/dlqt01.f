@@ -37,7 +37,7 @@
       String             SRNAMT;
       // ..
       // .. Common blocks ..
-      COMMON             / SRNAMC / SRNAMT
+      // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
 

@@ -44,7 +44,7 @@
       int                SELDIM, SELOPT;
       // ..
       // .. Common blocks ..
-      COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
+      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
       // ..
       // .. External Functions ..
       REAL               SLAMCH

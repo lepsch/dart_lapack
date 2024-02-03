@@ -102,8 +102,8 @@
       bool               OK;
       String             SRNAMT;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
-      COMMON             /SRNAMC/SRNAMT
+      // COMMON /INFOC/INFOT, NOUTC, OK
+      // COMMON /SRNAMC/SRNAMT
       // .. Data statements ..
       DATA               SNAMES/'cblas_zgemv ', 'cblas_zgbmv ', 'cblas_zhemv ','cblas_zhbmv ','cblas_zhpmv ', 'cblas_ztrmv ','cblas_ztbmv ','cblas_ztpmv ', 'cblas_ztrsv ','cblas_ztbsv ','cblas_ztpsv ', 'cblas_zgerc ','cblas_zgeru ','cblas_zher  ', 'cblas_zhpr  ','cblas_zher2 ','cblas_zhpr2 '/
       // .. Executable Statements ..
@@ -433,7 +433,7 @@
       int                INFOT, NOUTC;
       bool                OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
+      // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
       DATA               ICH/'NTC'/
       // .. Executable Statements ..
@@ -734,7 +734,7 @@
       int                INFOT, NOUTC;
       bool                OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
+      // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
       DATA               ICH/'UL'/
       // .. Executable Statements ..
@@ -1034,7 +1034,7 @@
       int                INFOT, NOUTC;
       bool                OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
+      // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
       DATA               ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/
       // .. Executable Statements ..
@@ -1344,7 +1344,7 @@
       int                INFOT, NOUTC;
       bool                OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
+      // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Executable Statements ..
       CONJ = SNAME( 11: 11 ).EQ.'c'
       // Define the number of arguments.
@@ -1583,7 +1583,7 @@
       int                INFOT, NOUTC;
       bool                OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
+      // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
       DATA               ICH/'UL'/
       // .. Executable Statements ..
@@ -1838,7 +1838,7 @@
       int                INFOT, NOUTC;
       bool                OK;
       // .. Common blocks ..
-      COMMON             /INFOC/INFOT, NOUTC, OK
+      // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
       DATA               ICH/'UL'/
       // .. Executable Statements ..

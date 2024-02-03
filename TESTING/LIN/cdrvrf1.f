@@ -44,7 +44,7 @@
       String             SRNAMT;
       // ..
       // .. Common blocks ..
-      COMMON             / SRNAMC / SRNAMT
+      // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /

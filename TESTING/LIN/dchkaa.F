@@ -57,9 +57,9 @@
       int                IPARMS( 100 );
       // ..
       // .. Common blocks ..
-      COMMON             / INFOC / INFOT, NUNIT, OK, LERR
-      COMMON             / SRNAMC / SRNAMT
-      COMMON             / CLAENV / IPARMS
+      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
+      // COMMON / SRNAMC / SRNAMT
+      // COMMON / CLAENV / IPARMS
       // ..
       // .. Data statements ..
       DATA               THREQ / 2.0D0 / , INTSTR / '0123456789' /

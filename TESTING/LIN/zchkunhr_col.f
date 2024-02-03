@@ -39,8 +39,8 @@
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
-      COMMON             / INFOC / INFOT, NUNIT, OK, LERR
-      COMMON             / SRNAMC / SRNAMT
+      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
+      // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Executable Statements ..
 

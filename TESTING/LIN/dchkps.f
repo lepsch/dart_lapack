@@ -42,8 +42,8 @@
       String             SRNAMT;
       // ..
       // .. Common blocks ..
-      COMMON             / INFOC / INFOT, NUNIT, OK, LERR
-      COMMON             / SRNAMC / SRNAMT
+      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
+      // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, CEILING

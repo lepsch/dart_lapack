@@ -26,7 +26,7 @@
       double             SELWI( 20 ), SELWR( 20 );
       // ..
       // .. Common blocks ..
-      COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
+      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX

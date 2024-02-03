@@ -74,11 +74,11 @@
       double             SELWI( 20 ), SELWR( 20 );
       // ..
       // .. Common blocks ..
-      COMMON             / CENVIR / NPROC, NSHIFT, MAXB
-      COMMON             / INFOC / INFOT, NUNIT, OK, LERR
-      COMMON             / SRNAMC / SRNAMT
-      COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-      COMMON             / CLAENV / IPARMS
+      // COMMON / CENVIR / NPROC, NSHIFT, MAXB
+      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
+      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
+      // COMMON / CLAENV / IPARMS
       // ..
       // .. Data statements ..
       DATA               INTSTR / '0123456789' /

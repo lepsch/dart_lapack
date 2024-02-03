@@ -46,9 +46,9 @@
       int                INFOT, NOUT, SELDIM, SELOPT;
       // ..
       // .. Common blocks ..
-      COMMON             / INFOC / INFOT, NOUT, OK, LERR
-      COMMON             / SRNAMC / SRNAMT
-      COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
+      // COMMON / INFOC / INFOT, NOUT, OK, LERR
+      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
       // ..
       // .. Executable Statements ..
 

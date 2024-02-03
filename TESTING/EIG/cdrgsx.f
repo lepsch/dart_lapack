@@ -47,7 +47,7 @@
       int                K, M, MPLUSN, N;
       // ..
       // .. Common blocks ..
-      COMMON             / MN / M, N, MPLUSN, K, FS
+      // COMMON / MN / M, N, MPLUSN, K, FS
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
